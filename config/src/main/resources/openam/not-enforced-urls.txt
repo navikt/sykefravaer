@@ -1,0 +1,6 @@
+https://${DomainName}/syfofront/internal/isAlive*
+https://${DomainName}/syfofront/internal/selftest*
+https://${DomainName}/syfofront/css/*
+https://${DomainName}/syfofront/img/*
+https://${DomainName}/syfofront/js/*
+https://${DomainName}/syfofront/font/*

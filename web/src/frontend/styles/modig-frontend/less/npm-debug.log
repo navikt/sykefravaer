@@ -1,0 +1,39 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'c:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'version',
+1 verbose cli   'patch' ]
+2 info using npm@2.7.4
+3 info using node@v0.12.2
+4 info git [ 'status', '--porcelain' ]
+5 verbose version.write data { name: 'modig-frontend',
+5 verbose version.write   version: '3.0.39',
+5 verbose version.write   description: 'Felles resursser for alle appene',
+5 verbose version.write   main: 'index.js',
+5 verbose version.write   scripts: { test: 'run test' },
+5 verbose version.write   repository:
+5 verbose version.write    { type: 'git',
+5 verbose version.write      url: 'git+http://stash.devillo.no/scm/felles/modig-frontend.git' },
+5 verbose version.write   keywords: [ 'npm' ],
+5 verbose version.write   author: '',
+5 verbose version.write   private: true } to package.json
+6 info git [ 'add', 'package.json' ]
+7 error git -c core.longpaths=true add package.json
+8 verbose stack Error: Command failed: git -c core.longpaths=true add package.json
+8 verbose stack fatal: pathspec 'package.json' did not match any files
+8 verbose stack
+8 verbose stack     at ChildProcess.exithandler (child_process.js:751:12)
+8 verbose stack     at ChildProcess.emit (events.js:110:17)
+8 verbose stack     at maybeClose (child_process.js:1015:16)
+8 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:1087:5)
+9 verbose cwd c:\git\modig-frontend\modig-frontend-ressurser\src\main\resources\less
+10 error Windows_NT 6.1.7601
+11 error argv "c:\\Program Files\\nodejs\\node.exe" "c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "version" "patch"
+12 error node v0.12.2
+13 error npm  v2.7.4
+14 error code 128
+15 error Command failed: git -c core.longpaths=true add package.json
+15 error fatal: pathspec 'package.json' did not match any files
+16 error If you need help, you may report this error at:
+16 error     <https://github.com/npm/npm/issues>
+17 verbose exit [ 1, true ]

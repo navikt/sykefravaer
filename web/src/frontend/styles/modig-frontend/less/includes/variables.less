@@ -1,0 +1,184 @@
+// GLOBAL VALUES
+// --------------------------------------------------
+
+@responsive: true;
+// tar med mediaqueries
+
+@modig-frontend-images-root-url: "../img";
+
+.define-basepath-if-not-defined() {
+	@baseImagePath: '../';
+}
+
+.define-basepath-if-not-defined();
+
+// NAV COLORS
+// --------------------------------------------------
+
+@white: #fff;
+@black: #000;
+
+@gray-darker: #333;
+
+@gray-background: #efefef;
+@gray-icon: #b7b1a9;
+@gray-inactive: #7f756c;
+@gray-text: #3e3832;
+
+@blue-link: #0067c5;
+@blue-active: #005b82;
+@blue-interaction: @blue-link;
+@blue-interaction-light: #0ca9e1;
+
+@purple-visited: #634689;
+@orange-info: #ff9100;
+@orange-warning: @orange-info;
+@green-success: #119b49;
+
+@orange-focus: #ffbd66;
+
+@red-nav: #c30000;
+@red-error: #ba3a26;
+@red-error-active: #860d0d;
+@pink-error-bg: #f3e3e3;
+@pink-input-error-bg: #fbf5f4;
+
+@yellow: #ffc40d;
+
+@color-green-additional:      		#5fb484;
+@color-orange-additional:     		#e49333;
+@color-purple-additional:     		#806b98;
+@color-blue-additional:     		#66cbec;
+@color-blue-dark-additional:     	#337c92;
+@color-gray-additional:       		#aba19c;
+@color-gray-light-additional: 		#ccc;
+@color-gray-lighter-additional:		#bdbab7;
+
+@blue-light: @color-blue-additional;
+
+// Verdi-agnostiske farger. Bruk fortrinnsvis disse i koden!
+
+@color-focus: 			@orange-focus; 
+
+@color-link: 			@blue-link;
+@color-link-lighter: 	@blue-light;
+@color-link-active: 	@blue-active;
+@color-link-visited:	@purple-visited;
+@color-link-underline: 	@gray-icon;
+
+@color-text: 			@gray-text;
+
+@color-placeholder: 	@gray-inactive;
+
+@color-error:			@red-error;
+@color-success: 		@green-success;
+@color-warning: 		@orange-info;
+
+@color-background:		@gray-background;
+@color-inactive: 		@gray-inactive; 
+@color-border: 			@gray-icon; 
+@color-background-highcontrast: @black;
+
+// FONT-FAMILY
+// --------------------------------------------------
+
+@font-family-sans-serif: Arial, sans-serif;
+@font-family-modus: Modus, Arial, sans-serif;
+
+// Verdi-agnostiske fonter. Bruk fortrinnsvis disse i koden!
+
+@font-family-regular: @font-family-sans-serif;
+@font-family-profile: @font-family-modus;
+
+
+
+
+//family base fonts (1rem = 16px)
+// --------------------------------------------------
+
+@rem-as-38px: 2.375rem;
+@rem-as-30px: 1.875rem;
+@rem-as-24px: 1.5rem;
+@rem-as-20px: 1.25rem;
+@rem-as-17px: 1.0625rem;
+@rem-as-16px: 1rem;
+@rem-as-15px: 0.9375rem;
+@rem-as-14px: 0.875rem;
+@rem-as-13px: 0.8125rem;
+@rem-as-12px: 0.75rem;
+
+@line-height-base: 1.428571429;
+// 20/14
+@line-height-computed: floor(@rem-as-14px * @line-height-base);
+// ~20px
+
+// Z-INDEX MASTER LIST
+// --------------------------------------------------
+// Used for a bird's eye view of components dependent on the z-axis
+// Try to avoid customizing these :)
+
+@zindex-navbar: 1000;
+@zindex-dropdown: 1000;
+@zindex-popover: 1010;
+@zindex-tooltip: 1030;
+@zindex-navbar-fixed: 1030;
+@zindex-modal-background: 1040;
+@zindex-modal: 1050;
+@zindex-modal-alert-background: 1060;
+@zindex-modal-alert: 1070;
+
+// MEDIA QUERIES BREAKPOINTS
+// --------------------------------------------------
+
+@screen-xxs: 15rem;
+//240px;  Fra mobil
+@screen-xs: 30rem;
+//480px;  Mobil
+@screen-small: 38.75rem;
+//620px;  // Custom
+@screen-medium: 48rem;
+//768px;  // Tablet
+@screen-medium-plus-rem-as-one-px: 48.0625rem;
+//769px;  // > Tablet
+@screen-large: 62rem;
+//992px;  // Fra desktop
+@screen-xl: 75rem;
+//1200px; // ikke i bruk
+
+// GRID SYSTEM
+// --------------------------------------------------
+
+@grid-columns: 12;
+@grid-gutter-width: 1.875rem;
+//30px;
+@grid-float-breakpoint: @screen-xs;
+// Point at which the navbar stops collapsing
+
+// CONTAINER SIZES
+// --------------------------------------------------
+
+@container-tablet: ((720px + @grid-gutter-width));
+@container-sm: @container-tablet;
+
+@container-desktop: ((61.125rem + @grid-gutter-width));
+// blir 978px + 30px til sammen (1008)
+@container-md: @container-desktop;
+
+@container-large-desktop: ((1140px + @grid-gutter-width));
+@container-lg: @container-large-desktop;
+
+// Tooltip/hjelpetekst
+// --------------------------------------------------
+
+@tooltip-arrow-width: 5px;
+@tooltip-arrow-color: @black;
+@tooltip-background-color: @gray-text; 
+
+
+// Skjema
+// --------------------------------------------------
+
+@nav-checkbox-hover-color: @blue-link;
+@nav-checkbox-checked-color: @blue-link;
+@nav-checkbox-outline-color: @color-border;
+@nav-input-disabled-color: @gray-icon;

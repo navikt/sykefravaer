@@ -1,0 +1,60 @@
+.utvidbar {
+	border: 1px solid @color-border; 
+}
+
+.input-sok {
+	margin-right: .5rem; 
+} 
+
+.utvidbar-tittel {
+	.mixin-typo-undertittel(); 
+	text-align: center; 
+	margin: 0; 
+
+	a {
+		color: @color-text; 
+		display: block;
+		padding: 1rem 2rem; 
+	}
+
+	a:focus {
+		background-color: transparent;
+		box-shadow: none; 
+	}
+
+	span:after {
+		content: " ";
+	    width: 0;
+	    height: 0;
+	    margin-left: .5rem;
+	    display: inline-block;
+	    border-left: .75rem solid white;
+	    border-bottom: 0 solid @color-link; 
+	    border-top: .75rem solid @color-link;
+	    border-right: .75rem solid white;
+	}
+
+	a:focus span {
+		box-shadow: 0 0 0 3px @color-focus;
+	}
+}
+
+.utvidbar-tittel--apen a:after {
+	border-top-width: 0; 
+	border-bottom-width: .75rem; 
+}
+
+.utvidbar-innhold-beholder {
+	max-height: 1500px; 
+	transition: max-height ease-in-out .6s; 
+	overflow: hidden; 
+}
+
+.utvidbar-innhold-beholder--lukket {
+	max-height: 0; 
+}
+
+.utvidbar-innhold {
+	padding: 2rem;
+	padding-bottom: 2.5rem; 
+}

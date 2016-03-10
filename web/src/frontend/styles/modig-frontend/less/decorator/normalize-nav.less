@@ -1,0 +1,38 @@
+
+
+/**
+ * Custom html + body setup (NAV)
+ */
+
+html {
+  font-size: 100%;
+}
+
+html, body {
+  height: 100%;
+}
+
+
+body {
+  margin: 0;
+  font-family: @font-family-sans-serif;
+  line-height: @line-height-base;
+  color: @gray-text;
+  background-color: @gray-background;
+}
+
+img {
+  vertical-align: middle; // custom (lagt til)
+}
+
+
+a:focus {
+  outline: none;
+  background-color: @color-focus;
+}
+
+.knapp:focus,
+main:target:focus,
+nav:target:focus {
+  .mixin-focus-outline();
+}

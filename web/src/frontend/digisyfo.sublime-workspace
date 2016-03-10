@@ -1,0 +1,2248 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"box",
+				"box-sizing"
+			],
+			[
+				"public",
+				"publicRoot"
+			],
+			[
+				"pu",
+				"publicRoot"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"get",
+				"getPathByFullPath"
+			],
+			[
+				"valgt",
+				"valgtVerdi"
+			],
+			[
+				"Raio",
+				"Radioknapp"
+			],
+			[
+				"Radio",
+				"Radiogruppe"
+			],
+			[
+				"focus",
+				"focusEl"
+			],
+			[
+				"foc",
+				"focusEl"
+			],
+			[
+				"arbeid",
+				"arbeidsgiver"
+			],
+			[
+				"egen",
+				"egenvalgtArbeidsgiver"
+			],
+			[
+				"MARGIN",
+				"margin-right"
+			],
+			[
+				"Syk",
+				"SykmeldingOpplysning"
+			],
+			[
+				"Sy",
+				"SykmeldingOpplysning"
+			],
+			[
+				"S",
+				"SykmeldingOpplysning"
+			],
+			[
+				"syk",
+				"sykmeldingId"
+			],
+			[
+				"ADD",
+				"ADD_EGENVALGT_ARBEIDSGIVER"
+			],
+			[
+				"DEEP",
+				"deepFreeze"
+			],
+			[
+				"max-",
+				"max-height"
+			],
+			[
+				"margin-",
+				"margin-bottom"
+			],
+			[
+				"padding",
+				"padding-bottom"
+			],
+			[
+				"backg",
+				"background-position"
+			],
+			[
+				"sic",
+				"sickLeave"
+			],
+			[
+				"sick",
+				"sickLeaveReducer"
+			],
+			[
+				"coni",
+				"configureStore"
+			],
+			[
+				"pro",
+				"PropTypes"
+			],
+			[
+				"render",
+				"renderComponent"
+			],
+			[
+				"blokk",
+				"blokk-l"
+			],
+			[
+				"Acco",
+				"AccordionGroup"
+			],
+			[
+				"Acc",
+				"AccordionGroup"
+			],
+			[
+				"A",
+				"AccordionElement"
+			],
+			[
+				"your-si",
+				"your-sickleave"
+			],
+			[
+				"your-sic",
+				"your-sickleave"
+			],
+			[
+				"cls",
+				"className"
+			],
+			[
+				"Das",
+				"DashboardLink"
+			],
+			[
+				"YourSick",
+				"YourSickLeave"
+			],
+			[
+				"Hell",
+				"HelloWorld"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"class",
+				"className"
+			],
+			[
+				"Talk",
+				"TalkDetails"
+			],
+			[
+				"key",
+				"keyupHandler"
+			],
+			[
+				"Inter",
+				"Interaksjonsdesigner"
+			],
+			[
+				"Frontend",
+				"Frontend-utikler"
+			],
+			[
+				"talk-",
+				"talk-img"
+			],
+			[
+				"de",
+				"decoratedHosts"
+			],
+			[
+				"host",
+				"hostDetails"
+			],
+			[
+				"filt",
+				"filteredTalks"
+			],
+			[
+				"talk",
+				"talkTags"
+			],
+			[
+				"a",
+				"activeTags"
+			],
+			[
+				"filter",
+				"filterTags"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"padding-",
+				"padding-right"
+			],
+			[
+				"margn",
+				"margin-right"
+			],
+			[
+				"ARTICLE",
+				"article	Tag"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"emp",
+				"employee-image--small"
+			],
+			[
+				"section",
+				"section-subtitle"
+			],
+			[
+				"sectio",
+				"section-title"
+			],
+			[
+				"well-",
+				"well-rsvp"
+			],
+			[
+				"lineW",
+				"lineWidth"
+			],
+			[
+				"backgro",
+				"background"
+			],
+			[
+				"list-st",
+				"list-style-type"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"text-",
+				"text-transform"
+			],
+			[
+				"talk-te",
+				"talk-teaser"
+			],
+			[
+				"list-",
+				"list-style-type"
+			],
+			[
+				"paddin",
+				"padding-left"
+			],
+			[
+				"inline",
+				"inline-block"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"ma",
+				"margin"
+			],
+			[
+				"sen",
+				"sendEventData"
+			],
+			[
+				"set",
+				"setButtonText"
+			],
+			[
+				"emil",
+				"emailField"
+			],
+			[
+				"inner",
+				"innerHTML"
+			],
+			[
+				"email",
+				"emailAddress"
+			],
+			[
+				"emal",
+				"email_address"
+			],
+			[
+				"mail",
+				"mailchimpRoot"
+			],
+			[
+				"lis",
+				"listId"
+			],
+			[
+				"frontpage",
+				"frontpageTests"
+			],
+			[
+				"author",
+				"authorKeys"
+			],
+			[
+				"autho",
+				"authorsString"
+			],
+			[
+				"authr",
+				"authorsString"
+			],
+			[
+				"auth",
+				"authorKeys"
+			],
+			[
+				"aut",
+				"authorString"
+			],
+			[
+				"at",
+				"authorString"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"conte",
+				"contentRows"
+			],
+			[
+				"front",
+				"frontpageTests"
+			],
+			[
+				"ut",
+				"utils"
+			],
+			[
+				"featu",
+				"featuredTestsIds"
+			],
+			[
+				"frnt",
+				"frontpageTests"
+			],
+			[
+				"feature",
+				"featuredTestsDecorator"
+			],
+			[
+				"fetu",
+				"featuredTestsDecorator"
+			],
+			[
+				"bad",
+				"badgeHtml"
+			],
+			[
+				"ar",
+				"article"
+			],
+			[
+				"badge",
+				"badgeView"
+			],
+			[
+				"test",
+				"testGroup"
+			],
+			[
+				"displ",
+				"displayMessage"
+			],
+			[
+				"message",
+				"messageArea"
+			],
+			[
+				"em",
+				"emailErrorMessage"
+			],
+			[
+				"messag",
+				"messageArea"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"m",
+				"messageArea"
+			],
+			[
+				"IN",
+				"innerHTML"
+			],
+			[
+				"isCo",
+				"isContentDeleted"
+			],
+			[
+				"is",
+				"isMailSent"
+			],
+			[
+				"getSu",
+				"getSubscribersPath"
+			],
+			[
+				"content",
+				"contentOfInterestId"
+			],
+			[
+				"js",
+				"json"
+			],
+			[
+				"time",
+				"timestamp"
+			],
+			[
+				"JSON",
+				"JSESSIONID"
+			],
+			[
+				"conten",
+				"contentModel"
+			],
+			[
+				"cont",
+				"contentOfInterest"
+			],
+			[
+				"sub",
+				"subscribers"
+			],
+			[
+				"sb",
+				"subscribersPath"
+			],
+			[
+				"border-co",
+				"border-color"
+			],
+			[
+				"s",
+				"subscriber"
+			],
+			[
+				"getSub",
+				"getSubscriber"
+			],
+			[
+				"subs",
+				"subscriber"
+			],
+			[
+				"conf",
+				"confirmationMailView"
+			],
+			[
+				"contento",
+				"contentOfInterestField"
+			],
+			[
+				"newsl",
+				"newsletterForms"
+			],
+			[
+				"contentOf",
+				"contentOfInterestField"
+			],
+			[
+				"su",
+				"subscriber"
+			],
+			[
+				"retur",
+				"returnObject"
+			],
+			[
+				"news",
+				"newsLetterForm"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "js/sider/Side.js",
+			"settings":
+			{
+				"buffer_size": 366,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/components/Brodsmuler.js",
+			"settings":
+			{
+				"buffer_size": 938,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "tests/components/BrodsmulerTest.js",
+			"settings":
+			{
+				"buffer_size": 1398,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/routers/paths.js",
+			"settings":
+			{
+				"buffer_size": 992,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/sider/DineSykmeldingerSide.js",
+			"settings":
+			{
+				"buffer_size": 578,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/routers/AppRouter.js",
+			"settings":
+			{
+				"buffer_size": 1133,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/components/SykmeldingTeaser.js",
+			"settings":
+			{
+				"buffer_size": 1000,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/components/Utvidbar.js",
+			"settings":
+			{
+				"buffer_size": 1222,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "var expect = require(\"chai\").expect;\nimport DinSykmelding from \"../../js/components/DinSykmelding.js\";\nimport TestUtils from 'react-addons-test-utils'\nimport React from 'react'\n\nfunction renderComponent (Component, props) {\n	return TestUtils.renderIntoDocument(<Component {...props} />)\n}\n\nfunction getContentOfNode (component, className) {\n	const node = TestUtils.findRenderedDOMComponentWithClass(component, className);\n	return node.textContent;\n}\n\nlet component; \nconst sykmelding = {\n	id: 0,\n	fnr: \"12\",\n	fornavn: \"Per\",\n	etternavn: \"Person\",\n	arbeidsgiver: \"Selskapet AS\",\n	fom: \"2015-12-31T00:00:00Z\",\n	tom: \"2016-01-06T00:00:00Z\",\n	diagnose: \"Influensa\",\n	grad: 67,\n	friskmeldt: 75\n};\n\ndescribe(\"DinSykmelding\", () => {	\n\n	beforeEach(() => {\n		component = renderComponent(DinSykmelding, sykmelding)\n	});\n\n	it(\"Should display the period based on the props\", () => {\n		expect(getContentOfNode(component, \"js-periode\")).to.equal(\"Fra og med 31.12.2015 til og med 06.01.2016\");\n	});\n\n	it(\"Should display the name of the employer\", () => {\n		expect(getContentOfNode(component, \"js-arbeidsgiver\")).to.equal(\"Selskapet AS\");\n	});\n\n	it(\"Should display the current diagnosis\", () => {\n		expect(getContentOfNode(component, \"js-diagnose\")).to.equal(\"Influensa\")\n	});\n\n	it(\"Should display the current sick leave degree\", () => {\n		expect(getContentOfNode(component, \"js-grad\")).to.equal(\"67 % sykmeldt\")\n	});\n\n	it(\"Should display the expected employable grad\", () => {\n		expect(getContentOfNode(component, \"js-friskmeldt\")).to.equal(\"75 % arbeidsfør etter perioden\")\n	});	\n\n\n});\n",
+			"file": "tests/components/DinSykmeldingTest.js",
+			"file_size": 1574,
+			"file_write_time": 1456392749000000,
+			"settings":
+			{
+				"buffer_size": 1574,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "styles/_brodsmuler.less",
+			"settings":
+			{
+				"buffer_size": 332,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "webpack.production.config.js",
+			"settings":
+			{
+				"buffer_size": 608,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 2603,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "deploy.js",
+			"settings":
+			{
+				"buffer_size": 566,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app.js",
+			"settings":
+			{
+				"buffer_size": 3029,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "html/partials/header.html",
+			"settings":
+			{
+				"buffer_size": 319,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "html/root.html",
+			"settings":
+			{
+				"buffer_size": 114,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "styles/_utvidbar.less",
+			"settings":
+			{
+				"buffer_size": 1016,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "styles/_din-sykmelding.less",
+			"settings":
+			{
+				"buffer_size": 188,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "styles/styles.less",
+			"settings":
+			{
+				"buffer_size": 1438,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "js/components/DinSykmelding.js",
+			"settings":
+			{
+				"buffer_size": 8141,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 167.0,
+		"selected_items":
+		[
+			[
+				"prefere",
+				"Preferences: Settings - User"
+			],
+			[
+				"syn h",
+				"Set Syntax: HTML"
+			],
+			[
+				"syn js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"lnog",
+				"Code Folding: Fold Tag Attributes"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"syn less",
+				"Set Syntax: LESS"
+			],
+			[
+				"synta less",
+				"Set Syntax: LESS"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"packa ",
+				"Package Control: Remove Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"synta ",
+				"Set Syntax: CSS"
+			],
+			[
+				"synt",
+				"Set Syntax: CSS"
+			],
+			[
+				"css ",
+				"Set Syntax: CSS"
+			],
+			[
+				"synta cs",
+				"Set Syntax: CSS"
+			],
+			[
+				"synta css",
+				"Set Syntax: CSS"
+			],
+			[
+				"syta css",
+				"Set Syntax: CSS"
+			],
+			[
+				"syntax js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"sidebar",
+				"View: Toggle Open Files in Side Bar"
+			]
+		],
+		"width": 530.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/helgefredheim/Documents/NAV/digisyfo/tests.webpack.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/karma.conf.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/package.json",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/components/SickLeaveTeaser.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/containers/YourSickLeaves.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/gulpfile.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/components/AccordionElement.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/routers/paths.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/index.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/store/configureStore.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/reducers/index.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/reducers/sickLeave.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/routers/AppRouter.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/containers/YourSickLeave.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/styles/_sykmelding-teaser.less",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/components/SykmeldingTeaser.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/sider/DinSykmeldingSide.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/components/Brodsmuler.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/components/DinSykmelding.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/components/SykmeldingOpplysning.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/components/SendTilArbeidsgiver.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/components/Utvidbar.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/styles/_din-sykmelding.less",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/ledetekster/index.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/sider/SendTilArbeidsgiverSide.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/tests/reducers/reducerTest.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/actions/action_creators.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/components/skjema.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/app2.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/sider/DineSykmeldingerSide.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/tests/components/SickLeaveTeaserTest.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/.babelrc",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/containers/Dashboard.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/containers/App.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/components/fragments/PageTitle.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/containers/Dashboard.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/components/DashboardLink.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/js/components/DashboardLink.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/components/fragments.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/containers/PageContainer.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/routers/AppRouter.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/components/NoMatch.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/containers/YourSickLeaves.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/components/AccordionElement.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/components/Accordion.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/routers/paths.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/components/SickLeaveTeaser.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/index.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/app.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/components/NotFound.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/digisyfo.sublime-project",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/tests/components/SickLeaveTeaser.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/lib/jsdom/index.js",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/js/components/TagCheckbox.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/containers/YourSickLeave.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/html/root.html",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/tests/testDom.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/html/starte-sykmelding.html",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/components/HelloWorld.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/html/partials/header.html",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js/components/HelloWorld.jsx",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/js",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/gulpfile.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/package_.json",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/setup/config.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/html/react-root.html",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/index.html",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src.old/html/react-root.html",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/server.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/webpack/common.config.js",
+		"/Users/helgefredheim/Documents/NAV/digisyfo/src/html/react.html",
+		"/Users/helgefredheim/Documents/PRIVAT/MagiskeCirkelNorge/backup - 7. feb 2016/index.php",
+		"/Users/helgefredheim/Documents/PRIVAT/magiskecirkel.no/views/month.php",
+		"/Users/helgefredheim/Documents/PRIVAT/MagiskeCirkelNorge/app/styles/main.css",
+		"/Users/helgefredheim/Documents/PRIVAT/magiskecirkel.no/views/list/content.php",
+		"/Users/helgefredheim/Documents/PRIVAT/magiskecirkel.no/views/widgets/list-widget.php",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_talks.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/lib/list.json",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/package.json",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/app.js",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/styles.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_podcast.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_typography.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_program.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_normalize.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_schedule.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_header.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_buttons.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_rsvp.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_mixins.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/public/fonts.css",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/public/index.html",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_questions.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_students.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_intro.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_scaffolding.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_comics.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles/_variables.less",
+		"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/public/svg/Grid.svg",
+		"/Users/helgefredheim/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/assets/main.js",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts/test-archive/test-archive.js",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts/comments/comments-show.html",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/pages/page-html/page-html.html",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/pages/page-html/page-html.js",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/static/styles/_variables-navlabs.less",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/package.json",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/package.json",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/content-types/person/person.xml",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts/article-show/article-show.js",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/lib/utilities.js",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/relationship-types/related-person/related-person.xml",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/content-types/article/article.xml",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts/article-show/article-show.html",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/lib/ContentModel.js",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts/test-show/test-show.html",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts/test-show/test-show.js",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/lib/TestModel.js",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/content-types/test/test.xml",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/.gitignore",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts/test-archive/test-archive.html",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/static/styles/parts/_global-navigation.less",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/navlabs.sublime-project",
+		"/Users/helgefredheim/Documents/NAV/navlabs.sublime-project",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/static/styles/styles.less",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/services/newsletter-service/newsletter-service.js",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/static/styles/_layout.less",
+		"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts/frontpage-tests/frontpage-tests.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/helgefredheim/Documents/NAV/digisyfo",
+			"/Users/helgefredheim/Documents/NAV/digisyfo/js",
+			"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag",
+			"/Users/helgefredheim/Documents/PRIVAT/magiskecirkel.no/views",
+			"/Users/helgefredheim/Documents/PRIVAT/magiskecirkel.no/views/month",
+			"/Users/helgefredheim/Documents/PRIVAT/magiskecirkel.no/views",
+			"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles",
+			"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag",
+			"/Users/helgefredheim/Documents/GIT/bekk-open-fagdag/assets/styles",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/static/styles",
+			"/Users/helgefredheim/Documents/Fagdag/bekk-fagdag-feedback/src",
+			"/Users/helgefredheim/Documents/Fagdag/bekk-fagdag-feedback",
+			"/Users/helgefredheim/Documents/Fagdag/bekk-fagdag-feedback/src",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/static/styles",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/static",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/static",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/static/styles",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/lib",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site/parts",
+			"/Users/helgefredheim/Documents/NAV/nav-labs-test/src/main/resources/site",
+			"/Users/helgefredheim/Documents/NAV/nav-labs/nav-labs/src/main/resources/cms",
+			"/Users/helgefredheim/Documents/NAV/nav-labs/nav-labs",
+			"/Users/helgefredheim/Documents/NAV/nav-labs/nav-labs/src",
+			"/Users/helgefredheim/Documents/NAV/demo",
+			"/Users/helgefredheim/Documents/NAV/Bitbucket/nav-design/demo/content/nav-design",
+			"/Users/helgefredheim/Documents/NAV/Bitbucket/nav-design/demo/content",
+			"/Users/helgefredheim/Documents/NAV/Bitbucket/nav-design/demo/content/nav-design/less",
+			"/Users/helgefredheim/Documents/NAV/Bitbucket/nav-design/demo/content/nav-design",
+			"/Users/helgefredheim/Documents/NAV/Bitbucket/nav-design/demo/content/nav-design/less/modules",
+			"/Users/helgefredheim/Documents/NAV/Bitbucket/nav-design/demo/content/nav-design",
+			"/Users/helgefredheim/Documents/NAV/Bitbucket/nav-design/demo/content/nav-design/less",
+			"/Users/helgefredheim/Documents/NAV/Bitbucket/nav-design/demo/content/nav-design",
+			"/Users/helgefredheim/Documents/NAV/Bitbucket/nav-design/demo/content/nav-design/less",
+			"/Users/helgefredheim/Documents/Heroku/Femten/bekk-15-app/content/assets/templates",
+			"/Users/helgefredheim/Documents/Femten/content/assets/less",
+			"/Users/helgefredheim/Documents/Femten",
+			"/Users/helgefredheim/Documents/enonic-xp-5.0.0",
+			"/Users/helgefredheim/Documents/Femten/femten_modules",
+			"/Users/helgefredheim/Documents/Femten/content/assets",
+			"/Users/helgefredheim/Documents/Femten",
+			"/Users/helgefredheim/Documents/Femten/content/assets/less",
+			"/Users/helgefredheim/Documents/Femten/content",
+			"/Users/helgefredheim/Documents/Femten"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"din-",
+			"in-sykmelding",
+			"path",
+			"input",
+			"Radioknapp",
+			"avbrytHandler",
+			"addArbeidsgiver",
+			"setEgenvalgtArbeidsgiver",
+			"ADD_EGENVALGT_ARBEIDSGIVER",
+			"6s",
+			"oppsum",
+			"</h2>",
+			"<div className=\"blokk sykmelding-oppsummering\">\n                            <h2>",
+			"dbar-innhold",
+			"isOpen",
+			"helge",
+			"containers/DinSykmelding",
+			"<SickLeaveTeaser",
+			"sickLeaveReducer",
+			"ITEM",
+			"title",
+			"Link",
+			"fromDate",
+			"tag",
+			"Ostebolle",
+			"Component",
+			"component",
+			"    expect(getContentOfNode(component, \"h2\")).to.equal(\"Ostebolle\");\n",
+			"var",
+			"selector",
+			"loader",
+			"plugins",
+			"SickLeaveTeaser",
+			"Banan",
+			".jsx",
+			"src/",
+			"source",
+			"browserify",
+			"sourcemaps",
+			"concat",
+			"Run",
+			"run",
+			"connect",
+			"var",
+			"path",
+			"transition",
+			"AccordionGroup",
+			"AccordionElement",
+			"div",
+			"h2",
+			"NotFound",
+			"class NotFound extends Component {\n",
+			"isRequired",
+			".id",
+			"class=",
+			"]}",
+			"\" co",
+			"path=\"",
+			"div",
+			"NotFound",
+			"App",
+			"NotFound",
+			"assets",
+			"styles",
+			"YourSickLeaves",
+			"FantIkkeSiden",
+			"DinSykmelding",
+			"DineSykmeldinger",
+			"DineSykmelding",
+			"DinSykmelding",
+			"DineSykmeldinger",
+			"DineSykmeldinge",
+			"DineSykmeldinger",
+			"MineSykmeldinger",
+			"useRouterHistory",
+			"app",
+			"App",
+			"HelloWorld",
+			"8080",
+			" {",
+			"let",
+			"/src",
+			"ocalS",
+			">>",
+			"<<",
+			" - ",
+			"\n",
+			"\nOK ",
+			"neo",
+			"kreat",
+			"\n- ",
+			"\n/ ",
+			"/ ",
+			"\n- ",
+			"/ ",
+			"	",
+			"		",
+			"		\n",
+			"	",
+			"employees",
+			"Talks",
+			"list",
+			"0",
+			"5em",
+			"2em",
+			"currentT",
+			"currentTalk",
+			"100",
+			"teaserClickHandler",
+			"talk",
+			"activeTalk",
+			"TalkTeaser",
+			"Hei",
+			"TalkTeaser",
+			"TalkDetails",
+			"talk-teaser",
+			"renderTalks",
+			"tagClickHandler",
+			"talk.",
+			"talk-teaser",
+			"\"Department\": \"Trondheim\",",
+			"span",
+			"ntend-utikler",
+			"\"Department\": \"Management Consulting\",",
+			"\"Department\": \"Interactive\",",
+			"\"Department\": \"Operations\",",
+			"\"Department\": \"Technology\",",
+			"tribe-events-page-title"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			".js",
+			">;"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 14,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "js/sider/Side.js",
+					"settings":
+					{
+						"buffer_size": 366,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								366,
+								366
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "js/components/Brodsmuler.js",
+					"settings":
+					{
+						"buffer_size": 938,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								572,
+								572
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "tests/components/BrodsmulerTest.js",
+					"settings":
+					{
+						"buffer_size": 1398,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1330,
+								1330
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 266.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "js/routers/paths.js",
+					"settings":
+					{
+						"buffer_size": 992,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								261,
+								271
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "js/sider/DineSykmeldingerSide.js",
+					"settings":
+					{
+						"buffer_size": 578,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								405,
+								405
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "js/routers/AppRouter.js",
+					"settings":
+					{
+						"buffer_size": 1133,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1073,
+								1073
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "js/components/SykmeldingTeaser.js",
+					"settings":
+					{
+						"buffer_size": 1000,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								436,
+								436
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "js/components/Utvidbar.js",
+					"settings":
+					{
+						"buffer_size": 1222,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								848,
+								848
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 88.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "tests/components/DinSykmeldingTest.js",
+					"settings":
+					{
+						"buffer_size": 1574,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								727,
+								727
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "styles/_brodsmuler.less",
+					"settings":
+					{
+						"buffer_size": 332,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								167,
+								167
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "webpack.production.config.js",
+					"settings":
+					{
+						"buffer_size": 608,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								259,
+								259
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "package.json",
+					"settings":
+					{
+						"buffer_size": 2603,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								351,
+								351
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "deploy.js",
+					"settings":
+					{
+						"buffer_size": 566,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								566,
+								566
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "app.js",
+					"settings":
+					{
+						"buffer_size": 3029,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								3029
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "html/partials/header.html",
+					"settings":
+					{
+						"buffer_size": 319,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								287,
+								287
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "html/root.html",
+					"settings":
+					{
+						"buffer_size": 114,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								72,
+								72
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/AngularJS/AngularJS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "styles/_utvidbar.less",
+					"settings":
+					{
+						"buffer_size": 1016,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1016,
+								1016
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 338.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "styles/_din-sykmelding.less",
+					"settings":
+					{
+						"buffer_size": 188,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								188,
+								188
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "styles/styles.less",
+					"settings":
+					{
+						"buffer_size": 1438,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								947,
+								947
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/LESS/LESS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 230.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "js/components/DinSykmelding.js",
+					"settings":
+					{
+						"buffer_size": 8141,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7607,
+								7607
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 3.0,
+						"translation.y": 2102.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 30.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"app.js"
+			],
+			[
+				"dinsy",
+				"js/components/DinSykmelding.js"
+			],
+			[
+				"app",
+				"app.js"
+			],
+			[
+				"br",
+				"js/components/Brodsmuler.js"
+			],
+			[
+				"utv",
+				"js/components/Utvidbar.js"
+			],
+			[
+				"sy",
+				"js/components/SykmeldingTeaser.js"
+			],
+			[
+				"paths",
+				"js/routers/paths.js"
+			],
+			[
+				"brodsmuler",
+				"tests/components/BrodsmulerTest.js"
+			],
+			[
+				"brod",
+				"js/components/Brodsmuler.js"
+			],
+			[
+				"send",
+				"js/sider/SendTilArbeidsgiverSide.js"
+			],
+			[
+				"app2",
+				"app2.js"
+			],
+			[
+				"skjema",
+				"js/components/skjema.js"
+			],
+			[
+				"u",
+				"js/components/Utvidbar.js"
+			],
+			[
+				"lede",
+				"js/ledetekster/index.js"
+			],
+			[
+				"router",
+				"js/routers/AppRouter.js"
+			],
+			[
+				"ledetek",
+				"js/ledetekster/index.js"
+			],
+			[
+				"sick",
+				"digisyfo/js/components/SickLeaveTeaser.js"
+			],
+			[
+				"sickleav",
+				"digisyfo/js/containers/YourSickLeaves.js"
+			],
+			[
+				"accordio",
+				"digisyfo/js/components/AccordionElement.js"
+			],
+			[
+				"gulp",
+				"digisyfo/gulpfile.js"
+			],
+			[
+				"yours",
+				"digisyfo/src/js/containers/YourSickLeave.jsx"
+			],
+			[
+				"yoursic",
+				"digisyfo/src/js/containers/YourSickLeaves.jsx"
+			],
+			[
+				"index",
+				"public/index.html"
+			],
+			[
+				"inde",
+				"public/index.html"
+			],
+			[
+				"rs",
+				"assets/styles/_rsvp.less"
+			],
+			[
+				"sche",
+				"assets/styles/_schedule.less"
+			],
+			[
+				"index2",
+				"public/index2.html"
+			],
+			[
+				"prog",
+				"assets/styles/_program.less"
+			],
+			[
+				"student",
+				"assets/styles/_students.less"
+			],
+			[
+				"in",
+				"public/index2.html"
+			],
+			[
+				"inde2",
+				"public/index2.html"
+			],
+			[
+				"sc",
+				"assets/styles/_schedule.less"
+			],
+			[
+				"program.",
+				"assets/styles/_program.less"
+			],
+			[
+				"page-ht",
+				"nav-labs-test/src/main/resources/site/pages/page-html/page-html.html"
+			],
+			[
+				"main.js",
+				"nav-labs-test/static/scripts/main.js"
+			],
+			[
+				"test",
+				"site/parts/test-show/test-show.js"
+			],
+			[
+				"article-show",
+				"site/parts/article-show/article-show.js"
+			],
+			[
+				"test-",
+				"site/parts/test-show/test-show.js"
+			],
+			[
+				"uti",
+				"site/lib/utilities.js"
+			],
+			[
+				"contentm",
+				"site/lib/ContentModel.js"
+			],
+			[
+				"testmo",
+				"site/lib/TestModel.js"
+			],
+			[
+				"page-",
+				"site/pages/page-html/page-html.html"
+			],
+			[
+				"social",
+				"site/parts/social-media-share/social-media-share.html"
+			],
+			[
+				"varia",
+				"static/styles/vendor/kube/variables.less"
+			],
+			[
+				"content-ar",
+				"site/parts/content-archive/content-archive.html"
+			],
+			[
+				"featuredtests",
+				"nav-labs-test/src/main/resources/site/lib/featuredTestsDecorator.js"
+			],
+			[
+				"frontpage-tests",
+				"nav-labs-test/src/main/resources/site/parts/frontpage-tests/frontpage-tests.js"
+			],
+			[
+				"frontpage-te",
+				"nav-labs-test/src/main/resources/site/parts/frontpage-tests/frontpage-tests.html"
+			],
+			[
+				"frontpage-test",
+				"nav-labs-test/src/main/resources/site/parts/frontpage-tests/frontpage-tests.html"
+			],
+			[
+				"utils.les",
+				"static/styles/_utils.less"
+			],
+			[
+				"layout",
+				"static/styles/_layout.less"
+			],
+			[
+				"test-ar",
+				"site/parts/test-archive/test-archive.js"
+			],
+			[
+				"frontpage",
+				"nav-labs-test/src/main/resources/site/parts/frontpage-tests/frontpage-tests.html"
+			],
+			[
+				"testar",
+				"nav-labs-test/static/styles/parts/_test-archive.less"
+			],
+			[
+				"frontpage-tests.ht",
+				"nav-labs-test/src/main/resources/site/parts/frontpage-tests/frontpage-tests.html"
+			],
+			[
+				"test-arc",
+				"nav-labs-test/src/main/resources/site/parts/test-archive/test-archive.html"
+			],
+			[
+				"newsletter-sub",
+				"site/parts/newsletter-subscribe/newsletter-subscribe.js"
+			],
+			[
+				"new",
+				"site/parts/newsletter-subscribe/newsletter-subscribe.html"
+			],
+			[
+				"page-html.ht",
+				"nav-labs-test/src/main/resources/site/pages/page-html/page-html.html"
+			],
+			[
+				"page.h",
+				"site/node_modules/less/test/data/page.html"
+			],
+			[
+				"socia",
+				"site/parts/social-media-share/social-media-share.html"
+			],
+			[
+				"test-s",
+				"site/parts/test-show/test-show.html"
+			],
+			[
+				"frontpage-ar",
+				"site/parts/frontpage-articles/frontpage-articles.html"
+			],
+			[
+				"frontpa",
+				"site/parts/frontpage-articles/frontpage-articles.html"
+			],
+			[
+				"news",
+				"site/services/newsletter-service/newsletter-service.js"
+			],
+			[
+				"main",
+				"static/scripts/main.js"
+			],
+			[
+				"newsletter",
+				"site/parts/newsletter-subscribe/newsletter-subscribe.html"
+			],
+			[
+				"main.",
+				"static/scripts/main.js"
+			],
+			[
+				"varianl",
+				"static/styles/_variables-navlabs.less"
+			],
+			[
+				"variables",
+				"static/styles/_variables-navlabs.less"
+			],
+			[
+				"global",
+				"static/styles/parts/_global-navigation.less"
+			],
+			[
+				"ser",
+				"site/node_modules/browserify/test/entry_relative.js"
+			],
+			[
+				"newsletter-su",
+				"site/parts/newsletter-subscribe/newsletter-subscribe.html"
+			],
+			[
+				"page",
+				"site/pages/page-html/page-html.html"
+			],
+			[
+				"newslette",
+				"site/parts/newsletter-admin/newsletter-admin.js"
+			],
+			[
+				"newsl",
+				"site/parts/newsletter-admin/newsletter-admin.html"
+			],
+			[
+				"newsleter",
+				"site/services/newsletter-service/newsletter-service.js"
+			],
+			[
+				"newsletter-s",
+				"site/services/newsletter-service/newsletter-service.js"
+			],
+			[
+				"main.j",
+				"site/assets/main.js"
+			],
+			[
+				"sub",
+				"site/content-types/subscriber/subscriber.xml"
+			],
+			[
+				"subs",
+				"site/content-types/subscriber/subscriber.xml"
+			],
+			[
+				"typ",
+				"static/styles/_typography.less"
+			],
+			[
+				"variables-na",
+				"static/styles/_variables-navlabs.less"
+			],
+			[
+				"globalna",
+				"static/styles/parts/_global-navigation.less"
+			],
+			[
+				"front",
+				"site/parts/frontpage-articles/frontpage-articles.html"
+			],
+			[
+				"lay",
+				"static/styles/_layout.less"
+			],
+			[
+				"var",
+				"static/styles/_variables-navlabs.less"
+			],
+			[
+				"header",
+				"static/styles/parts/_header-banner.less"
+			],
+			[
+				"variables-n",
+				"static/styles/_variables-navlabs.less"
+			],
+			[
+				"links",
+				"static/styles/_links.less"
+			],
+			[
+				"font",
+				"styles/_fonts.less"
+			],
+			[
+				"libut",
+				"lib/utilities.js"
+			],
+			[
+				"libutils",
+				"node_modules/less/lib/less-browser/utils.js"
+			],
+			[
+				"utils",
+				"node_modules/less/lib/less/utils.js"
+			],
+			[
+				"page-h",
+				"pages/page-html/page-html.html"
+			],
+			[
+				"gl",
+				"parts/global-navigation/global-navigation.js"
+			],
+			[
+				"colo",
+				"styles/parts/_colophon.less"
+			],
+			[
+				"coloph",
+				"styles/parts/_colophon.less"
+			],
+			[
+				"global-",
+				"styles/parts/_global-navigation.less"
+			],
+			[
+				"typo",
+				"styles/_typography.less"
+			],
+			[
+				"layout.",
+				"styles/_layout.less"
+			],
+			[
+				"frontpge",
+				"parts/frontpage-tests/frontpage-tests.html"
+			],
+			[
+				"frontp",
+				"parts/frontpage-articles/frontpage-articles.js"
+			],
+			[
+				"test-show",
+				"parts/test-show/test-show.html"
+			],
+			[
+				"article-s",
+				"parts/article-show/article-show.html"
+			],
+			[
+				"artice",
+				"parts/article-show/article-show.html"
+			],
+			[
+				"variables.",
+				"styles/_variables-navlabs.less"
+			],
+			[
+				"artic",
+				"parts/article-show/article-show.html"
+			],
+			[
+				"nav",
+				"build/resources/main/cms/assets/css/nav-labs.css"
+			],
+			[
+				"sty",
+				"/Users/helgefredheim/Documents/NAV/nav-labs/nav-labs/src/main/resources/cms/assets/css/styles.css"
+			],
+			[
+				"pac",
+				"package.json"
+			],
+			[
+				"_che",
+				"nav-demo/nav-styles/less/modules/_checkbox-radiobutton.less"
+			],
+			[
+				"pa",
+				"package.json"
+			],
+			[
+				"panels.ht",
+				"content/nav-design/snippets/panels.html"
+			],
+			[
+				"panels",
+				"content/nav-design/less/modules/_panels.less"
+			],
+			[
+				"form.",
+				"demo/content/nav-design/less/modules/_form.less"
+			],
+			[
+				"che",
+				"content/nav-design/less/modules/_checkbox-radiobutton.less"
+			],
+			[
+				"input",
+				"content/nav-design/less/modules/_inputs.less"
+			],
+			[
+				"buton-r",
+				"content/nav-design/snippets/button-rows.html"
+			],
+			[
+				"form",
+				"content/nav-design/less/modules/_form.less"
+			],
+			[
+				"comb",
+				"content/nav-design/snippets/combined.html"
+			],
+			[
+				"radio",
+				"content/nav-design/snippets/radiobutton.html"
+			],
+			[
+				"com",
+				"content/nav-design/snippets/combined.html"
+			],
+			[
+				"panel",
+				"content/nav-design/less/modules/_panels.less"
+			],
+			[
+				"buttons",
+				"content/nav-design/less/modules/_buttons.less"
+			],
+			[
+				"nav-de",
+				"content/assets/js/nav-design.js"
+			],
+			[
+				"field",
+				"content/nav-design/snippets/fieldset.html"
+			],
+			[
+				"nav-design.js",
+				"content/assets/js/nav-design.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 217.0,
+	"status_bar_visible": true
+}

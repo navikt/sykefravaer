@@ -1,0 +1,25 @@
+.brodsmuler {
+	margin: 2rem 0; 
+	padding: 0; 
+
+	.mixin-typo-normal(); 
+
+
+	a, span {
+		display: inline-block;
+		margin-left: .5rem;
+	}
+
+	a:first-child, span:first-child {
+		margin-left: 0; 
+		padding-left: 0; 
+	}
+
+	a:not(:last-child):after {
+		content: "/";
+		display: inline-block;
+		padding-left: .5rem; 
+		color: @gray-icon;
+	}
+
+}

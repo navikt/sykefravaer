@@ -1,0 +1,30 @@
+.sykmelding-teaser {
+
+	margin-bottom: 1px; 
+	padding-right: 3rem; 
+	background-image: data-uri("../gfx/svg/pil-videre-graa.svg");
+	background-repeat: no-repeat;
+	background-position: 97% center; 
+	background-size: 2rem 2rem; 
+	transition: background-position ease-in-out .1s; 	
+
+	&:hover {
+		background-image: data-uri("../gfx/svg/pil-videre-blaa.svg");
+		background-position: 97.5% center; 
+	}
+
+	h2, p {
+		margin: 0; 
+		padding: 0; 
+	}
+
+	p {
+		.mixin-typo-infotekst(); 
+	}
+
+	h2 {
+		.mixin-typo-undertittel(); 
+		margin: 0; 
+	}
+	
+}

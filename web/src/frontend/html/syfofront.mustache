@@ -1,0 +1,20 @@
+{{=<% %>=}}
+<!DOCTYPE html>
+<html>
+<head>
+	<title><% title %></title>
+	<meta charset="UTF-8">
+	{{fragment.styles}}
+	<script src="vendor/jquery.min.js"></script>
+	{{fragment.scripts}}
+	<link href="styles/styles.css" rel="stylesheet" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+    <body>
+    	{{fragment.header}}
+		<div id="root"></div>
+		{{fragment.footer}}
+		<%={{ }}=%>
+		<script src="{{{buildRoot}}}/bundle.js"></script>
+    </body>
+</html>

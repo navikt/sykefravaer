@@ -1,0 +1,145 @@
+.panel {
+
+	// Standard-panel
+	// <div class="panel"></div>
+
+	background: @white;
+	padding: 1rem 1rem 1.25rem 1rem;
+	margin-bottom: 1rem;
+	display: block; 
+
+	&:focus {
+		outline: 3px @color-focus solid;
+	}
+}
+
+.panel-stablet {
+	margin-bottom: 0; 
+}
+
+.panel-fremhevet {
+	background-color: @color-background;
+}
+
+.panel-ekstra, .panel-relatert  { 
+	
+	// Boks med pil opp, tidligere kjent som .ekstra-spm-boks, omtales tidvis som "skjemapanel". 
+
+	// * .panel-ekstra gir en grå boks, og brukes dersom boksen inneholder en dialog/noe som brukeren må fylle ut som følge av at et annet alternativ er valgt. 
+	// * .panel-relatert gir en hvit boks, og brukes dersom boksen inneholder informasjon relatert til et valg
+	
+	// Begge klassene må kombineres med .panel slik: 
+	// <div class="panel panel-ekstra"></div>
+	// <div class="panel panel-relatert"></div>
+
+	@arrow-size: 1rem;
+
+	position: relative;
+	border: 1px solid @color-border;
+	margin-top: 1rem;
+	margin-left: -1rem;
+	margin-right: -1rem;
+	border-left-width: 0; 
+	border-right-width: 0; 
+
+	&:before {
+		content: "";
+		position: absolute;
+		border: 1px solid @color-border; 
+		border-bottom-width: 0;
+		border-right-width: 0; 
+		width: @arrow-size; 
+		height: @arrow-size; 
+		.mixin-transform(rotate(45deg) translateY(-100%) translateZ(0)); // TranslateZ for å forhindre rendringsbug i bl.a. Chrome. 
+		-ms-transform: rotate(45deg) translateY(-100%); // IE9 støtter ikke translateZ; derfor egen regel for å overskrive for IE9. 
+		.mixin-transform-origin(0, 0);
+		top: -1px;
+		left: 50%;
+		background-color: inherit;
+	}
+	
+}
+
+.panel-relatert {
+	// Hvit boks med pil over
+	background-color: @white; 
+}
+
+.panel-ekstra {
+	// Grå boks med pil over.
+	background-color: @color-background;
+}
+
+a.panel {
+
+	// Lenkepanel
+	// <a href="http://www.nav.no" class="panel">Gå til Nav.no</a>
+
+	display: block;
+	color: @gray-text;
+	border: 0; 
+
+	&:hover {
+		border: 0; 
+	}
+
+	&:focus {
+		outline: 3px @color-focus solid;
+		background-color: @white;
+	}
+}
+
+.panel-ramme, a.panel-ramme {
+
+	// Rammepanel; panel med kantlinje rundt
+	// <div class="panel panel-ramme"></div>
+
+	border: 1px solid @color-border;
+}
+
+a.panel-ramme:hover {
+	border: 1px solid @color-link;
+}
+
+.panel-negativ, .side-innhold .panel-negativ {
+	background-color: @gray-text;
+	color: @white; 	
+
+	a {
+		.mixin-lenke-negativ(); 
+	}
+}
+
+.panel-ekstra .panel-ekstra{
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+// -----------------------------------------
+// MEDIA QUERIES
+// -----------------------------------------
+
+@media(min-width: @screen-xs) {
+	
+	.panel {
+		padding: 2rem 2rem 2.25rem 2rem; 
+	}
+
+	.panel-komprimert {
+	  padding: 1.25rem;
+	}
+
+	.panel-ekstra, .panel-relatert {
+		border-left-width: 1px; 
+		border-right-width: 1px; 	
+		margin-left: 0;
+		margin-right: 0;	
+		padding-top: 20px; 	
+
+		&:before {
+			left: 2rem; 
+		}
+	}
+	
+}

@@ -1,0 +1,38 @@
+body {
+	.mixin-typo-normal();
+}
+
+.redaksjonelt-innhold {
+
+	// Brukes på redaktørstyrt HTML.
+
+	line-height: 1.6; 
+
+	h2, h3 {
+		.mixin-typo-element(); 
+		margin-top: 20px;
+		margin-bottom: 0; 
+	}
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 0; 
+	margin-bottom: 0; 
+} 
+
+/* ------------------------
+ Typografi-utilities 
+------------------------ */
+
+.typo-uppercase {
+	text-transform: uppercase;
+}
+
+.typo-lowercase {
+	text-transform: lowercase;
+}
+
+.typo-egennavn {
+	text-transform: capitalize;
+}

@@ -1,0 +1,37 @@
+.mixin-lukk-knapp-mork() {
+  background-image: data-uri('image/svg+xml;charset=UTF-8', '@{modig-frontend-images-root-url}/ikoner-svg/ikon-kryss-blaa.svg');
+  border-color: @color-blue-additional; 
+
+  &:hover, &:focus, &:active {
+  	background-color: @color-blue-additional;
+  	border-color: @color-blue-additional; 
+    background-image: data-uri('image/svg+xml;charset=UTF-8', '@{modig-frontend-images-root-url}/ikoner-svg/ikon-kryss-sort.svg');
+  }
+}
+
+.mixin-lukk-knapp-lys() {
+  .mixin-lukk-knapp();
+  background-image: data-uri('image/svg+xml;charset=UTF-8', '@{modig-frontend-images-root-url}/ikoner-svg/ikon-kryss-sort.svg');
+  
+  &:hover, &:focus, &:active {
+    background-image: data-uri('image/svg+xml;charset=UTF-8', '@{modig-frontend-images-root-url}/ikoner-svg/ikon-kryss-hvit.svg');
+  }
+}
+
+.mixin-lukk-knapp() {
+  width: 2rem;
+  height: 2rem;
+  background: transparent no-repeat center center;
+  background-size: 40% 40%;
+  border: 1px solid @color-border; 
+
+  &:hover, &:focus, &:active {
+	background-color: @color-link;
+	border-color: @color-link; 
+  }
+
+  &:focus {
+    outline: none;
+    .mixin-focus-outline(3px);
+  }
+}

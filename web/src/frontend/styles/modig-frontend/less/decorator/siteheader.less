@@ -1,0 +1,320 @@
+//--------------------------------------------------------------------
+//
+//  Hode + Fot (felles for beta.nav.no og dekoratør / applikasjoner )
+//
+//--------------------------------------------------------------------
+@import "/globalmenuDittNav.less";
+
+.sitelogo-small {
+	img {
+		max-width: 70%;
+	}
+}
+
+.nav {
+	margin: 0;
+	list-style: none;
+	a {
+		display: block;
+		&:hover,
+		&:focus {
+			text-decoration: none;
+		}
+	}
+}
+
+// Hode (sort topplinje)
+//--------------------------------------------------------------------
+
+.siteheader {
+
+	.dropdown {
+		> a {
+			outline-offset: -1px;
+		}
+	}
+	.navbar {
+		position: relative;
+		li {
+			display: inline-block;
+		}
+
+		.nav {
+			padding: 0;
+		}
+
+		.dropdown-menu {
+			> li {
+				display: block;
+				position: relative;
+			}
+		}
+	}
+	// navbar
+}
+
+// siteheader end
+
+.global-siteheader-toolbar();
+
+.global-siteheader-toolbar() when (@responsive = true) {
+	.site-coltrols-toolbar {
+		display: none;
+		.settings .nav {
+			margin-left: -1.5625em; // trekk "language" mer mot venstre når venstrestilt
+		}
+	}
+
+	.sitelogo-large {
+		display: none;
+	}
+
+	@media (min-width: (@screen-medium-plus-rem-as-one-px)) {
+
+		.siteheader-toolbar-and-login-defaults();
+
+		.sitelogo-large {
+			display: block;
+		}
+
+		.sitelogo-small {
+			display: none;
+		}
+
+	}
+
+	@media (min-width: 60em) {
+
+		// 960px --> samme media query på sentrering av hovedmenylinje
+		.site-coltrols-toolbar {
+			text-align: center;
+			.settings .nav {
+				margin-left: 0; // oversyr negativ margin på "language" (fra mindre flater)
+			}
+		}
+
+		// Todo textsize tooltip
+		.text-size-tooltip {
+			right: -11rem;
+			span.arrow {
+				right: 48%;
+			}
+		}
+
+	}
+	// media 60em end
+
+}
+
+// mixin responsive true end
+
+.global-siteheader-toolbar() when (@responsive = false) {
+	// FOR IE8 og dekoratør!
+
+	.siteheader-toolbar-and-login-defaults();
+
+	.sitelogo-small {
+		display: none;
+	}
+
+	.site-coltrols-toolbar {
+		text-align: center;
+	}
+	#text-size-accessibility {
+		display: inline-block;
+	}
+
+}
+
+// mixin responsive false
+
+.siteheader-toolbar-and-login-defaults() {
+
+  // spesialknapp for høykontrast, språk, toggling av mobilmeny o.l (flat knapp, minner om en lenke)
+  .link-btn {
+    border: none;
+    text-decoration: none;
+    background: none;
+    color: @blue-interaction;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.0); // transparent border
+    &:focus {
+      .mixin-focus-outline();
+    }
+  }
+
+
+  .settings a,
+  .settings .link-btn {
+      font-size: @rem-as-12px;
+      color: @white;
+      padding: @rem-as-12px 22px;
+      text-decoration: none;
+      line-height: normal;
+    }
+
+	.site-controls-toolbar {
+		display: block;
+		background: @gray-text;
+	
+		.settings {
+			display: inline-block;
+			width: 50%;
+		}
+
+
+	}
+
+	.text-size-tooltip, .login-tooltip, .logout-tooltip {
+		padding: 16px 24px;
+		position: absolute;
+		background-color: @black;
+		color: @white;
+		z-index: 9;
+		text-align: left;
+		span.arrow {
+			.up-arrow(9px, 6px, 6px, #000000); // mixin
+			position: absolute;
+			top: -8px;
+		}
+	}
+
+	.text-size-tooltip {
+		width: 30rem;
+		top: 2.5rem;
+		//right:-11em;
+		span.arrow {
+			right: 85%; // mobile first. Endres på min-width.
+		}
+		p {
+			font-size: @rem-as-30px;
+			font-weight: bold;
+			margin: 0;
+		}
+	}
+
+	#text-size-accessibility {
+		position: relative;
+	}
+
+
+
+}
+
+// mixin siteheader-toolbar-and-login-defaults end
+
+.sitelogo {
+	text-align: center;
+	padding: 15px 0 18px;
+	background-color: @white;
+	border-bottom: 1px solid @gray-icon;
+	a {
+		text-decoration: none;
+		display: inline-block;
+	}
+}
+
+
+// Dropdown - fra collapse-bootstrap-dropdown.less
+//-------------------
+
+.dropup,
+.dropdown {
+	position: relative;
+}
+
+.dropdown-toggle:active,
+.open .dropdown-toggle {
+	outline: 0;
+}
+
+.caret {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	vertical-align: top;
+	border-top: 4px solid @white;
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+	content: "";
+}
+
+.dropdown .caret {
+	margin-top: 0.375rem;
+	margin-left: 0.25rem;
+}
+
+.dropdown-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: block;
+	float: left;
+	text-align: left;
+	width: 100%;
+	padding: 5px 0;
+	margin: 0;
+	list-style: none;
+	background-color: @gray-inactive;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
+}
+
+.dropdown-menu.pull-right {
+	right: 0;
+	left: auto;
+}
+
+.dropdown-menu .divider {
+	height: 1px;
+	margin: 9px 1px;
+	overflow: hidden;
+	background-color: @gray-inactive;
+	border-bottom: 1px solid @black;
+}
+
+.dropdown-menu > li > a {
+	display: block;
+	padding: 0.25em 0 0.25em 27px;
+	clear: both;
+	font-weight: normal;
+	line-height: 20px;
+	color: @white;
+	white-space: nowrap;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-submenu:focus > a {
+	text-decoration: none;
+	color: @blue-interaction;
+}
+
+.dropdown-menu > li.active {
+	> a {
+		color: @blue-interaction;
+		&:after {
+			.bullet-point(2px, @blue-interaction, 13%, 40%); // mixin
+			text-decoration: none;
+			outline: 0;
+		}
+	}
+}
+
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+	color: @gray-inactive;
+}
+
+.open > .dropdown-menu {
+	display: block;
+}
+
+.dropdown-submenu {
+	position: relative;
+}

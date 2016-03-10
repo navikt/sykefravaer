@@ -1,0 +1,58 @@
+@base-url: "modig-frontend/less";
+
+@import "@{base-url}/includes/variables";
+@import "@{base-url}/includes/mixins/mixins-grid";
+@import "@{base-url}/includes/mixins/mixins-knapper";
+@import "@{base-url}/includes/mixins/mixins-typografi";
+@import "@{base-url}/includes/mixins/mixins-utils";
+
+@import "@{base-url}/includes/mixins/mixins-utils";
+
+@import "@{base-url}/nav_extra/hjelpetekst";
+@import "@{base-url}/nav_extra/hoder";
+@import "@{base-url}/nav_extra/knapperader";
+@import "@{base-url}/nav_extra/lenkebokser";
+@import "@{base-url}/nav_extra/lenkelister";
+@import "@{base-url}/nav_extra/lister";
+@import "@{base-url}/nav_extra/modaler";
+@import "@{base-url}/nav_extra/paneler";
+@import "@{base-url}/nav_extra/skjema";
+@import "@{base-url}/nav_extra/datovelger";
+@import "@{base-url}/nav_extra/stegindikator";
+@import "@{base-url}/nav_extra/typografi";
+@import "@{base-url}/nav_extra/utilities";
+@import "@{base-url}/nav_extra/validering";
+
+
+@import "_dine-sykmeldinger.less";
+@import "_accordion.less";
+@import "_din-sykmelding.less";
+@import "_sykmelding-teaser.less";
+@import "_layout.less";
+@import "_brodsmuler.less";
+@import "_utvidbar.less";
+
+.begrensning {
+	max-width: 40rem; 
+	margin-left: auto;
+	margin-right: auto; 
+	padding-left: .5rem; 
+	padding-right: .5rem; 
+} 
+
+.start-container {
+	margin-bottom: 1rem; 
+
+	@media(min-width: 29rem) {
+		display: inline-block;
+		margin-right: 1rem; 	
+	}
+}
+
+.app {
+	background: #fff; 
+}
+
+.my-sel {
+	transform: translateX(50%);
+}

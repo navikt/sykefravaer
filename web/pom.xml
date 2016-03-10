@@ -33,6 +33,14 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>no.nav.sbl.dialogarena</groupId>
+            <artifactId>common-types</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>no.nav.modig</groupId>
+            <artifactId>modig-lang</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -46,6 +54,10 @@
             <groupId>no.nav.modig</groupId>
             <artifactId>modig-security-core</artifactId>
             <type>test-jar</type>
+        </dependency>
+        <dependency>
+            <groupId>no.nav.sbl.dialogarena</groupId>
+            <artifactId>common-test</artifactId>
         </dependency>
     </dependencies>
 </project>

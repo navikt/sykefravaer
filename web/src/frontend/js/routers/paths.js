@@ -1,20 +1,20 @@
 const paths = [{
-	"fullPath": "/dine-sykmeldinger",
+	"fullPath": "/syfofront/app/dine-sykmeldinger",
 	"tittel": "Dine sykmeldinger",
 	"key": "dine-sykmeldinger",
 	"path": "dine-sykmeldinger"
 }, {
-	"fullPath": "/dine-sykmeldinger/:sykmeldingId",
+	"fullPath": "/syfofront/app/dine-sykmeldinger/:sykmeldingId",
 	"path": "/dine-sykmeldinger",
 	"tittel": "Sykmelding",
 	"key": "sykmelding"
 }, {
-	"fullPath": "/dine-sykmeldinger/:sykmeldingId/send-til-arbeidsgiver",
+	"fullPath": "/syfofront/app/dine-sykmeldinger/:sykmeldingId/send-til-arbeidsgiver",
 	"path": "",
 	"tittel": "Send til arbeidsgiver",
 	"key": "send-til-arbeidsgiver"
 }, {
-	"fullPath": "/dine-sykmeldinger/:sykmeldingId/sendt",
+	"fullPath": "/syfofront/app/dine-sykmeldinger/:sykmeldingId/sendt",
 	"path": "",
 	"tittel": "Sendt til arbeidsgiver",
 	"key": "sendt"
@@ -37,6 +37,10 @@ export function getPathByFullPath(fullPath) {
 	return paths.filter((path) => {
 		return path.fullPath === fullPath
 	})[0]	
+}
+
+export function getContextRoot() {
+	return "/syfofront/app";
 }
 
 export default paths; 

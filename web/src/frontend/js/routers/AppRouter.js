@@ -7,11 +7,18 @@ import SideIkkeFunnet from "../components/SideIkkeFunnet.js";
 import { SendTilArbeidsgiverSide } from "../sider/SendTilArbeidsgiverSide.js";
 import paths, {getPathByKey} from "./paths.js";
 
+class Feil extends Component {
+	render() {
+		return <p>Gå til /app</p>
+	}
+}
+
 class AppRouter extends Component {
 	render() {
 		return <Router history={this.props.history}>
-			<Route path="/syfofront" component={Dashboard} />
-			<Route path="/syfofront/dine-sykmeldinger" component={DineSykmeldingerSide} />
+			<Route path="/syfofront" component={Feil} />
+			<Route path="/syfofront/app" component={Dashboard} />
+			<Route path="/syfofront/app/dine-sykmeldinger" component={DineSykmeldingerSide} />
 			<Route path={getPathByKey("sykmelding").fullPath} component={DinSykmeldingSide} />
 			<Route path={getPathByKey("sykmelding").fullPath + "/send-til-arbeidsgiver"} component={SendTilArbeidsgiverSide} />
 			<Route path={getPathByKey("sykmelding").fullPath + "/sendt"} component={DinSykmeldingSide} />

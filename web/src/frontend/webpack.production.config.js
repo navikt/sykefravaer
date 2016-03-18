@@ -1,14 +1,16 @@
 var Webpack = require('webpack');
 var path = require('path');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var buildPath = path.resolve(__dirname, 'public');
+var buildPath = '../main/webapp/js';
 var mainPath = path.resolve(__dirname, 'js', 'index.js');
 
 var config = {
 
   // We change to normal source mapping
   devtool: 'source-map',
-  entry: mainPath,
+  entry: {
+    app: "./js/index.js"
+  },
   output: {
     path: buildPath,
     filename: 'bundle.js'
@@ -21,9 +23,6 @@ var config = {
         presets: ["react", "es2015"]
       },      
       exclude: [nodeModulesPath]
-    },{
-      test: /\.css$/,
-      loader: 'style!css'
     }]
   }
 };

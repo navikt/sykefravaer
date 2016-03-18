@@ -62,9 +62,16 @@
     </dependencies>
 
     <build>
-
+        <resources>
+            <resource>
+                <directory>src/frontend/</directory>
+                <excludes>
+                    <exclude>**/node_modules/**</exclude>
+                </excludes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
         <plugins>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -86,7 +93,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
-    </build>    
+    </build>
 </project>

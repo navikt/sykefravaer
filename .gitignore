@@ -3,3 +3,7 @@
 target
 node_modules
 *.log
+**/webapp/css/**/*
+**/webapp/img/**/*
+**/webapp/js/**/*
+**/webapp/*.html

@@ -24,7 +24,7 @@
     </loadBalancer>
 
     <serverOptions>
-        <memoryParameters resourceAlias="soknadsdialoger-memparams"/>
+        <memoryParameters resourceAlias="syfo-memparams"/>
     </serverOptions>
 
     <security>

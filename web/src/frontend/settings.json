@@ -1,3 +1,4 @@
 {
-	"buildRoot": "/syfofront/js"	
+	"buildRoot": "/syfofront/js",
+	"bundleFileName": "bundle-prod.js"
 }

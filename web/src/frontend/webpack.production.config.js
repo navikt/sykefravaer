@@ -13,7 +13,7 @@ var config = {
   },
   output: {
     path: buildPath,
-    filename: 'bundle.js'
+    filename: 'bundle-prod.js'
   },
   module: {
     loaders: [{
@@ -24,7 +24,12 @@ var config = {
       },      
       exclude: [nodeModulesPath]
     }]
-  }
+  },
+  plugins: [
+    new Webpack.DefinePlugin({
+      "process.env.NODE_ENV": "'production'"
+    })
+  ]
 };
 
 module.exports = config;

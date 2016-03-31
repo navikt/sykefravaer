@@ -20,8 +20,8 @@ const store = createStore(combineReducers({
 
 store.dispatch(setSykmeldinger([]));
 
-// $.get("/data", function(response) {
-// 	store.dispatch(setSykmeldinger(response));
-// }); 
+$.get("http://localhost:8182/syforest/sykmeldinger", function(response) {
+	store.dispatch(setSykmeldinger(response));
+}); 
 
 render(<Provider store={store}><AppRouter history={history} /></Provider>, document.getElementById('root'));

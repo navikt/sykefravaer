@@ -1,3 +1,4 @@
 {
-	"buildRoot": "http://localhost:8080/assets"	
+	"buildRoot": "http://localhost:8080/assets",
+	"bundleFileName": "bundle.js"
 }

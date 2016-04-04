@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "parallelshell \"npm run static:build:local\" \"npm run scripts:watch\" \"npm run styles:watch\"",
+    "dev": "parallelshell \"npm run static:build:local\" \"npm run images:copy\" \"npm run scripts:watch\" \"npm run styles:watch\"",
     "build": "parallelshell \"npm run static:build\" \"npm run scripts:build\" \"npm run vendor:build\" \"npm run styles:build\"",
     "postinstall": "npm run build",
     "test": "mocha --compilers js:babel-core/register --require ./tests/test_helper.js \"tests/**/*.@(js|jsx)\"",
@@ -14,6 +14,7 @@
     "styles:build": "lessc styles/styles.less > ../main/webapp/styles/styles.css --autoprefix=\"last 3 versions\"",
     "static:build:local": "mustache settingsLocal.json html/syfofront.mustache > ../main/webapp/syfofront.html",
     "static:build": "parallelshell \"mustache settings.json html/syfofront.mustache > ../main/webapp/syfofront.html\" \"mustache settings.json html/syfofeil.mustache > ../main/webapp/syfofeil.html\"",
+    "images:copy": "cp -R node_modules/modig-frontend/modig-frontend-ressurser/src/main/resources/META-INF/resources/img/ikoner-svg public/img",
     "vendor:build": "cp -R vendor ../main/webapp",
     "scripts:build": "set NODE_ENV=production&&node deploy.js",
     "scripts:watch": "webpack-dev-server --inline",

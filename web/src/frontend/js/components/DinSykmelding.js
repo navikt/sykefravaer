@@ -39,41 +39,41 @@ const DinSykmelding = ({ sykmelding }) => {
 			</SykmeldingOpplysning>
 		</div>
 		<Utvidbar tittel="Flere opplysninger">
-			<SykmeldingOpplysning tittel="Når startet det legemeldte fraværet?">
+			<SykmeldingOpplysning Overskrift="H4" tittel="Når startet det legemeldte fraværet?">
 				<p>1. desember 2015</p>
 			</SykmeldingOpplysning>
-			<SykmeldingOpplysning tittel="Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig">
+			<SykmeldingOpplysning Overskrift="H4" tittel="Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig">
 				<p>Det er medisinske årsaker som hindrer arbeidsrelatert aktivitet</p>
 			</SykmeldingOpplysning>
-			<SykmeldingOpplysning tittel="Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig">
+			<SykmeldingOpplysning Overskrift="H4" tittel="Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig">
 				<p>Smerter i høyre bein etter operasjon</p>
 			</SykmeldingOpplysning>
-			<SykmeldingOpplysning tittel="Pasient er 100 prosent arbeidsfør etter denne perioden">
+			<SykmeldingOpplysning Overskrift="H4" tittel="Pasient er 100 prosent arbeidsfør etter denne perioden">
 				<p>Nei</p>
 			</SykmeldingOpplysning>
-			<SykmeldingOpplysning
+			<SykmeldingOpplysning Overskrift="H4"
 				tittel="Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet - arbeid hos samme arbeidsgiver.">
 				<p>Ja</p>
 			</SykmeldingOpplysning>
-			<SykmeldingOpplysning tittel="Når antar du at dette kan skje?">
+			<SykmeldingOpplysning Overskrift="H4" tittel="Når antar du at dette kan skje?">
 				<p>1. april 2016</p>
 			</SykmeldingOpplysning>
-			<SykmeldingOpplysning tittel="Beskriv kort sykehistorie, symptomer og funn i dagens situasjon">
+			<SykmeldingOpplysning Overskrift="H4" tittel="Beskriv kort sykehistorie, symptomer og funn i dagens situasjon">
 				<p>Operert for prolaps i rygg 15.12.15. Er i bedring men det går sakte.</p>
 			</SykmeldingOpplysning>
-			<SykmeldingOpplysning tittel="Hvordan påvirker sykdommen arbeidsevnen">
+			<SykmeldingOpplysning Overskrift="H4" tittel="Hvordan påvirker sykdommen arbeidsevnen">
 				<p>I svært stor grad</p>
 			</SykmeldingOpplysning>
-			<SykmeldingOpplysning tittel="Har behandlingen frem til nå bedret arbeidsevnen?">
+			<SykmeldingOpplysning Overskrift="H4" tittel="Har behandlingen frem til nå bedret arbeidsevnen?">
 				<p>Ja, operasjonen var vellykket, men opptrening etterpå går sakte.</p>
 			</SykmeldingOpplysning>
-			<SykmeldingOpplysning tittel="Beskriv pågående og planlagt henvisning, utredning og eller behandling">
+			<SykmeldingOpplysning Overskrift="H4" tittel="Beskriv pågående og planlagt henvisning, utredning og eller behandling">
 				<p>Langsom opptrening, kontroll på sykehus etter operasjon. </p>
 			</SykmeldingOpplysning>
-			<SykmeldingOpplysning tittel="NAV bør ta tak i saken nå">
+			<SykmeldingOpplysning Overskrift="H4" tittel="NAV bør ta tak i saken nå">
 				<p>Nei</p>
 			</SykmeldingOpplysning>
-			<SykmeldingOpplysning tittel="Sykmelders navn">
+			<SykmeldingOpplysning Overskrift="H4" tittel="Sykmelders navn">
 				<p>Ole Olsen</p>
 			</SykmeldingOpplysning>
 		</Utvidbar>

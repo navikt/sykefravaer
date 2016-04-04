@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 
-const SykmeldingOpplysning = ({ tittel, children }) => {
+const SykmeldingOpplysning = ({ tittel, children, Overskrift = 'H3' }) => {
 	return (<div className="sykmelding-opplysning">
-		<h3>{tittel}</h3>
+		<Overskrift>{tittel}</Overskrift>
 		<div>
 			{children}
 		</div>
@@ -11,7 +11,7 @@ const SykmeldingOpplysning = ({ tittel, children }) => {
 
 SykmeldingOpplysning.propTypes = {
 	tittel: PropTypes.string.isRequired,
-	children: PropTypes.object,
+	children: PropTypes.object
 };
 
 export default SykmeldingOpplysning;

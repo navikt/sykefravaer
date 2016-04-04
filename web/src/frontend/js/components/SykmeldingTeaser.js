@@ -10,10 +10,10 @@ const SykmeldingTeaser = ({ sykmelding }) => {
 	return (<Link className="panel sykmelding-teaser"
 		key={sykmelding.id}
 		to={getContextRoot() + '/sykmelding/' + sykmelding.id}>
-		<h2 className="js-title">{getLedetekst('sykmelding.teaser.tittel', {
+		<h3 className="js-title">{getLedetekst('sykmelding.teaser.tittel', {
 			'%FOM%': formatDate(sykmelding.fom),
 			'%TOM%': formatDate(sykmelding.tom),
-		})}</h2>
+		})}</h3>
 		<p className="js-meta typo-infotekst">
 			{getLedetekst('sykmelding.teaser.tekst', {
 				'%GRAD%': sykmelding.grad,

@@ -26,7 +26,7 @@
   </filter-mapping>
 
   <welcome-file-list>
-    <welcome-file>syfofront.html</welcome-file>
+    <welcome-file>syfofeil.html</welcome-file>
   </welcome-file-list>
 
   <servlet>

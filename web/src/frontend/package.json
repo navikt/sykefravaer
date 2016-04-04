@@ -16,7 +16,8 @@
     "static:build": "mustache settings.json html/syfofront.mustache > ../main/webapp/syfofront.html",
     "vendor:build": "cp -R vendor ../main/webapp",
     "scripts:build": "set NODE_ENV=production&&node deploy.js",
-    "scripts:watch": "webpack-dev-server --inline"
+    "scripts:watch": "webpack-dev-server --inline",
+    "lint": "eslint js/. --ext .js"
   },
   "babel": {
     "presets": [
@@ -38,6 +39,7 @@
     "browserify": "^13.0.0",
     "cheerio": "^0.20.0",
     "deep-freeze": "0.0.1",
+    "eslint": "^2.5.3",
     "express": "^4.13.4",
     "fetch": "^1.0.1",
     "http-proxy": "^1.13.2",
@@ -60,9 +62,13 @@
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
+    "babel-eslint": "^6.0.0",
     "chai": "^3.5.0",
     "chai-immutable": "^1.5.3",
     "css-loader": "^0.23.1",
+    "eslint": "^2.5.3",
+    "eslint-config-airbnb": "^6.2.0",
+    "eslint-plugin-react": "^4.2.3",
     "express-livereload": "0.0.24",
     "fs": "0.0.2",
     "jsdom": "^8.0.4",

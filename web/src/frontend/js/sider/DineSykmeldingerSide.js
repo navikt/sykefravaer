@@ -1,20 +1,23 @@
-import React, { PropTypes, Component } from 'react';
-import DineSykmeldingerContainer from "../components/DineSykmeldinger.js";
-import {connect} from 'react-redux';
-import Side from "./Side.js";
+import React, { PropTypes } from 'react';
+import DineSykmeldingerContainer from '../components/DineSykmeldinger.js';
+import { connect } from 'react-redux';
+import Side from './Side.js';
 
-class DineSykmldSide extends Component {
-	render() {
-    	return <Side router={this.props.router}>
-    		<DineSykmeldingerContainer {...this.props} />
-    	</Side> 
-	}
-}
+const DineSykmldSide = (state) => {
+	return (<Side router={state.router}>
+		<DineSykmeldingerContainer sykmeldinger={state.sykmeldinger} />
+	</Side>);
+};
+
+DineSykmldSide.propTypes = {
+	router: PropTypes.object,
+	props: PropTypes.object,
+};
 
 function mapStateToProps(state, ownProps) {
 	return Object.assign({}, state, {
-    	router: ownProps
-    });
+		router: ownProps,
+	});
 }
 
 const DineSykmeldingerSide = connect(mapStateToProps)(DineSykmldSide);

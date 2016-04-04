@@ -1,40 +1,38 @@
-import React, { PropTypes, Component } from 'react';
-import {connect} from 'react-redux';
-import { getPathByKey } from "../routers/paths.js";
+import React from 'react';
+import { getPathByKey } from '../routers/paths.js';
 import { Link } from 'react-router';
 
 function replaceParam(path, params) {
-	var p = "";
-	for(var key in params) {
-		p = path.replace(":" + key, params[key]);
+	let p = '';
+	for (const key in params) {
+		if (params.hasOwnProperty(key)) {
+			p = path.replace(`:${key}`, params[key]);
+		}
 	}
 	return p;
 }
 
 export function getSti(path, params) {
-	var paths = path.split("/");
-	paths = paths.map((path, idx) => {
-
-		var p = getPathByKey(path);
+	let paths = path.split('/');
+	paths = paths.map((pth, idx) => {
+		const smulePath = getPathByKey(pth);
 
 		return {
-			tittel: p.tittel,
+			tittel: smulePath.tittel,
 			erKlikkbar: (idx + 1 < paths.length),
-			sti: replaceParam(p.fullPath, params)
-		}
-
-	})
-
+			sti: replaceParam(smulePath.fullPath, params),
+		};
+	});
 	return paths;
 }
 
-class Brodsmuler extends Component {
-
-	render() { 
-		return <nav role="navigation" className="brodsmuler">{getSti(this.props.routePath, this.props.routeParams).map((lnk, idx) => { 
-			return (lnk.erKlikkbar ? <Link key={idx} to={lnk.sti}>{lnk.tittel}</Link> : <span key={idx}>{lnk.tittel}</span>)
-		})}</nav>
-	}
-}
+const Brodsmuler = (routePath, routeParams) => {
+	return (<nav role="navigation" className="brodsmuler">
+	{getSti(routePath, routeParams).map((lnk, idx) => {
+		return (lnk.erKlikkbar ?
+			<Link key={idx} to={lnk.sti}>{lnk.tittel}</Link> :
+			<span key={idx}>{lnk.tittel}</span>);
+	})}</nav>);
+};
 
 export default Brodsmuler;

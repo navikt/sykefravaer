@@ -1,16 +1,17 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 
-class SykmeldingOpplysning extends Component {
+const SykmeldingOpplysning = ({ tittel, children }) => {
+	return (<div className="sykmelding-opplysning">
+		<h3>{tittel}</h3>
+		<div>
+			{children}
+		</div>
+	</div>);
+};
 
-    render() {
-        return <div className="sykmelding-opplysning">
-            <h3>{this.props.tittel}</h3>
-            <div>
-                {this.props.children}
-            </div>
-        </div>        
-    }
+SykmeldingOpplysning.propTypes = {
+	tittel: PropTypes.string.isRequired,
+	children: PropTypes.object,
+};
 
-}
-
-export default SykmeldingOpplysning; 
+export default SykmeldingOpplysning;

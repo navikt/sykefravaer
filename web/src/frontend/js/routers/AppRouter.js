@@ -1,30 +1,25 @@
-import React, { PropTypes, Component } from 'react';
-import { IndexRoute, Router, Route, browserHistory } from 'react-router';
-import Dashboard from "../containers/Dashboard.js";
-import DineSykmeldingerSide from "../sider/DineSykmeldingerSide.js";
-import { DinSykmeldingSide } from "../sider/DinSykmeldingSide.js";
-import SideIkkeFunnet from "../components/SideIkkeFunnet.js";
-import { SendTilArbeidsgiverSide } from "../sider/SendTilArbeidsgiverSide.js";
-import paths, {getPathByKey} from "./paths.js";
+import React, { PropTypes } from 'react';
+import { Router, Route } from 'react-router';
+import DineSykmeldingerSide from '../sider/DineSykmeldingerSide.js';
+import { DinSykmeldingSide } from '../sider/DinSykmeldingSide.js';
+import SideIkkeFunnet from '../components/SideIkkeFunnet.js';
 
-class Feil extends Component {
-	render() {
-		return <p>Gå til /app</p>
-	}
-}
+const Feil = () => {
+	return <p>Gå til /app</p>;
+};
 
-class AppRouter extends Component {
-	render() {
-		return <Router history={this.props.history}>
-			<Route path="/syfofront" component={Feil} />
-			<Route path="/syfofront/app" component={Dashboard} />
-			<Route path="/syfofront/app/dine-sykmeldinger" component={DineSykmeldingerSide} />
-			<Route path={getPathByKey("sykmelding").fullPath} component={DinSykmeldingSide} />
-			<Route path={getPathByKey("sykmelding").fullPath + "/send-til-arbeidsgiver"} component={SendTilArbeidsgiverSide} />
-			<Route path={getPathByKey("sykmelding").fullPath + "/sendt"} component={DinSykmeldingSide} />
-			<Route path="*" component={SideIkkeFunnet}/>
-		</Router>
-	}
-}
+const AppRouter = ({ history }) => {
+	return (<Router history={history}>
+		<Route path="/syfofront" component={Feil} />
+		<Route path="/syfofront/app" component={DineSykmeldingerSide} />
+		<Route path="/syfofront/app/dine-sykmeldinger" component={DineSykmeldingerSide} />
+		<Route path="/syfofront/app/sykmelding/:sykmeldingId" component={DinSykmeldingSide} />
+		<Route path="*" component={SideIkkeFunnet} />
+	</Router>);
+};
+
+AppRouter.propTypes = {
+	history: PropTypes.object.isRequired,
+};
 
 export default AppRouter;

@@ -1,13 +1,13 @@
-import React, { PropTypes, Component } from 'react';
-import Brodsmuler from "../components/Brodsmuler.js"
+import React, { PropTypes } from 'react';
 
-class Side extends Component {
-	render() {
-		console.log(this.props)
-		return <div className="begrensning blokk-xl">
-				{this.props.children}
-			</div>
-	}
-}
+const Side = ({ children }) => {
+	return (<div className="begrensning blokk-xl">
+			{children}
+		</div>);
+};
 
-export default Side; 
+Side.propTypes = {
+	children: PropTypes.object,
+};
+
+export default Side;

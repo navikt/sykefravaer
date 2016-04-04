@@ -1,9 +1,11 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 
-class PageTitle extends Component {
-	render() {
-		return <h1 className="typo-sidetittel tittel-dekorert blokk-l">{this.props.children}</h1>
-	}
-}
+const PageTitle = ({ children }) => {
+	return <h1 className="typo-sidetittel tittel-dekorert blokk-l">{children}</h1>;
+};
+
+PageTitle.propTypes = {
+	children: PropTypes.object,
+};
 
 export default PageTitle;

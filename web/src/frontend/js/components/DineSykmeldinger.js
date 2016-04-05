@@ -8,19 +8,9 @@ const DineSykmeldinger = ({ sykmeldinger = [] }) => {
 					{getLedetekst('dine-sykmeldinger.tittel')}
 				</h1>
 				<SykmeldingTeasere
-					sykmeldinger={sykmeldinger.filter((sykmld) => {
-						return sykmld.status === 'UBEKREFTET';
-					})}
-					tittel="Nye sykmeldinger"
+					sykmeldinger={sykmeldinger} 
 					ingenSykmeldingerMelding="Du har ingen nye sykmeldinger."
 					className="js-nye-sykmeldinger" />
-				<SykmeldingTeasere
-					sykmeldinger={sykmeldinger.filter((sykmld) => {
-						return sykmld.status !== 'UBEKREFTET';
-					})}
-					tittel="Behandlede sykmeldinger"
-					ingenSykmeldingerMelding="Du har ingen behandlede sykmeldinger."
-					className="js-behandlede" />
 			</div>);
 };
 

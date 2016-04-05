@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 import SykmeldingTeaser from './SykmeldingTeaser.js';
 
-const SykmeldingTeasere = ({ sykmeldinger, className, tittel, ingenSykmeldingerMelding }) => {
+const SykmeldingTeasere = ({ sykmeldinger, className, tittel = "", ingenSykmeldingerMelding }) => {
 	return (<div className="blokk-l">
-			<div className="panel panel-modul-header">
+			{
+				tittel !== "" ? (<div className="panel panel-modul-header">
 				<h2 className="typo-undertittel">{tittel}</h2>
-			</div>
+			</div>) : ""
+			}
 			<div className={className || 'js-content'}>
 				{
 					(sykmeldinger.length ? sykmeldinger.map((sykmelding, idx) => {

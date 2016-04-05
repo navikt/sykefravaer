@@ -1,4 +1,5 @@
 {
 	"buildRoot": "/sykefravaer/js",
+	"restRoot": "/syforest",
 	"bundleFileName": "bundle-prod.js"
 }

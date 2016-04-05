@@ -15,6 +15,11 @@
 		<div id="root"></div>
 		{{fragment.footer}}
 		<%={{ }}=%>
+		<script>
+			window.SYFO_SETTINGS = {
+				"REST_ROOT": "{{{restRoot}}}"
+			};
+		</script>
 		<script src="{{{buildRoot}}}/{{{bundleFileName}}}"></script>
     </body>
 </html>

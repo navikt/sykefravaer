@@ -1,4 +1,5 @@
 {
 	"buildRoot": "http://localhost:8080/assets",
+	"restRoot": "http://localhost:8182/syforest",
 	"bundleFileName": "bundle.js"
 }

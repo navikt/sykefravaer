@@ -18,7 +18,7 @@ const store = createStore(combineReducers({
 
 store.dispatch(setSykmeldinger([]));
 
-$.get('http://localhost:8182/syforest/sykmeldinger', (response) => {
+$.get(window.SYFO_SETTINGS.REST_ROOT + '/sykmeldinger', (response) => {
 	store.dispatch(setSykmeldinger(response));
 });
 

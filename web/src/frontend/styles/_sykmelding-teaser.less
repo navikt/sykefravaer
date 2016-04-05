@@ -13,7 +13,7 @@
 		background-position: 97.5% center; 
 	}
 
-	h2, p {
+	p {
 		margin: 0; 
 		padding: 0; 
 	}
@@ -22,9 +22,15 @@
 		.mixin-typo-infotekst(); 
 	}
 
-	h2 {
-		.mixin-typo-undertittel(); 
-		margin: 0; 
+}
+
+.sykmelding-teaser-tittel {
+	.mixin-typo-element(); 
+	margin: 0; 		
+	padding: 0; 
+
+	small, span {
+		display: block; 
+		margin-bottom: 8px; 
 	}
-	
 }

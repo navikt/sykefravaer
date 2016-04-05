@@ -10,17 +10,22 @@ const SykmeldingTeaser = ({ sykmelding }) => {
 	return (<Link className="panel sykmelding-teaser"
 		key={sykmelding.id}
 		to={getContextRoot() + '/sykmelding/' + sykmelding.id}>
-		<h3 className="js-title">{getLedetekst('sykmelding.teaser.tittel', {
+		<h3 className="js-title sykmelding-teaser-tittel" aria-label={getLedetekst('sykmelding.teaser.tittel', {
 			'%FOM%': formatDate(sykmelding.fom),
 			'%TOM%': formatDate(sykmelding.tom),
-		})}</h3>
+		})}>
+			<small className="typo-normal">{getLedetekst('sykmelding.teaser.dato', {
+				'%FOM%': formatDate(sykmelding.fom),
+				'%TOM%': formatDate(sykmelding.tom),
+			})}</small>
+			<span>{getLedetekst('sykmelding.teaser.tittel')}</span>
+		</h3>
 		<p className="js-meta typo-infotekst">
 			{getLedetekst('sykmelding.teaser.tekst', {
 				'%GRAD%': sykmelding.grad,
 				'%ARBEIDSGIVER%': sykmelding.arbeidsgiver,
 				'%DAGER%': days,
 			})}
-			<small> – {sykmelding.status}</small>
 		</p>
 	</Link>);
 };

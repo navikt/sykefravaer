@@ -2,11 +2,12 @@ import React, { PropTypes } from 'react';
 import { formatDate, getDuration } from '../utils/index.js';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
 import Utvidbar from '../components/Utvidbar.js';
+import AppSpinner from './AppSpinner.js';
 import SykmeldingOpplysning from './SykmeldingOpplysning.js';
 
 const DinSykmelding = ({ sykmelding }) => {
 	if (!sykmelding || !sykmelding.id) {
-		return <p>Henter data...</p>;
+		return <AppSpinner />;
 	}
 
 	return (<div className="panel">
@@ -81,7 +82,7 @@ const DinSykmelding = ({ sykmelding }) => {
 };
 
 DinSykmelding.propTypes = {
-	sykmelding: PropTypes.object.isRequired,
+	sykmelding: PropTypes.object,
 };
 
 export default DinSykmelding;

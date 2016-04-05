@@ -1,9 +1,9 @@
 import { createStore } from 'redux';
-import rootReducer from '../reducers';
+import { sykmeldinger } from '../reducers/sykmeldinger.js';
 
 export default function configureStore(initialState) {
 	const store = createStore(
-		rootReducer,
+		sykmeldinger,
 		initialState
 		);
 	return store;

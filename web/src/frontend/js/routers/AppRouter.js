@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Router, Route } from 'react-router';
-import DineSykmeldingerSide from '../sider/DineSykmeldingerSide.js';
-import { DinSykmeldingSide } from '../sider/DinSykmeldingSide.js';
+import DineSykmeldingerContainer from '../containers/DineSykmeldingerContainer.js';
+import { DinSykmeldingContainer } from '../containers/DinSykmeldingContainer.js';
 import SideIkkeFunnet from '../components/SideIkkeFunnet.js';
 
 const Feil = () => {
@@ -11,9 +11,9 @@ const Feil = () => {
 const AppRouter = ({ history }) => {
 	return (<Router history={history}>
 		<Route path="/sykefravaer" component={Feil} />
-		<Route path="/sykefravaer/app" component={DineSykmeldingerSide} />
-		<Route path="/sykefravaer/app/dine-sykmeldinger" component={DineSykmeldingerSide} />
-		<Route path="/sykefravaer/app/sykmelding/:sykmeldingId" component={DinSykmeldingSide} />
+		<Route path="/sykefravaer/app" component={DineSykmeldingerContainer} />
+		<Route path="/sykefravaer/app/dine-sykmeldinger" component={DineSykmeldingerContainer} />
+		<Route path="/sykefravaer/app/sykmelding/:sykmeldingId" component={DinSykmeldingContainer} />
 		<Route path="*" component={SideIkkeFunnet} />
 	</Router>);
 };

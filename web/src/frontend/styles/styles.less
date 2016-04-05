@@ -1,4 +1,4 @@
-@base-url: "modig-frontend/less";
+@base-url: "../node_modules/modig-frontend/modig-frontend-ressurser/src/main/resources/less";
 
 @import "@{base-url}/includes/variables";
 
@@ -27,7 +27,6 @@
 @import "@{base-url}/nav_extra/validering";
 
 @import "_dine-sykmeldinger.less";
-@import "_accordion.less";
 @import "_din-sykmelding.less";
 @import "_sykmelding-teaser.less";
 @import "_layout.less";
@@ -51,10 +50,13 @@
 	}
 }
 
-.app {
-	background: #fff; 
-}
-
-.my-sel {
-	transform: translateX(50%);
+.app-spinner {
+	.mixin-nav-spinner(4rem, 5px); 
+	border-bottom-color: @gray-icon;
+	border-left-color: @gray-icon;  
+	border-top-color: @gray-inactive;
+	border-right-color: @gray-inactive;
+	margin-left: auto; 
+	margin-right: auto;
+	margin-top: 8rem;
 }

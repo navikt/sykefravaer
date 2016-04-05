@@ -1,3 +1,10 @@
+export function setLaster(laster = false) {
+	return {
+		type: 'SET_LASTER',
+		laster,
+	};
+}
+
 export function setSykmeldinger(sykmeldinger = []) {
 	return {
 		type: 'SET_SYKMELDINGER',

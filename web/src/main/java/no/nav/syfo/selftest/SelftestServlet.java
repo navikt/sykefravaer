@@ -24,7 +24,7 @@ public class SelftestServlet extends SelfTestBaseServlet {
     @Override
     protected Collection<? extends Pingable> getPingables() {
         return asList(
-                /*pingUrl("REST_API", getProperty("soknadsapi.url") + "/internal/isAlive"),*/
+                pingUrl("SYKEFRAVÆR_API", getProperty("sykefravaerapi.url") + "/internal/isAlive"),
                 pingUrl("ENONIC_APPRES", getProperty("dialogarena.cms.url"))
         );
     }

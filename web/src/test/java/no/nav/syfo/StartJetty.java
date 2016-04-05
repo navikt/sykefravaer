@@ -11,7 +11,7 @@ import static no.nav.sbl.dialogarena.common.jetty.Jetty.usingWar;
 import static no.nav.sbl.dialogarena.test.path.FilesAndDirs.WEBAPP_SOURCE;
 
 public class StartJetty {
-    public static final int PORT = 8181;
+    private static final int PORT = 8181;
     private static final Logger logger = LoggerFactory.getLogger(StartJetty.class);
 
     public static void main(String[] args) throws Exception {
@@ -26,6 +26,6 @@ public class StartJetty {
 
     private static void configureLocalConfig() {
         System.setProperty("dialogarena.cms.url", "https://appres-t10.nav.no");
-        //System.setProperty("soknadsapi.url", "http://localhost:8181/sendsoknad");
+        System.setProperty("sykefravaerapi.url", "http://localhost:8182/syforest");
     }
 }

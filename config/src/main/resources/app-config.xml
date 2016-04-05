@@ -14,7 +14,7 @@
 
     <resources>
         <baseUrl mapToProperty="dialogarena.cms" alias="appres.cms"/>
-        <!--baseUrl mapToProperty="soknadsapi" alias="soknadsapi"/-->
+        <baseUrl mapToProperty="sykefravaerapi" alias="sykefravaerapi"/>
     </resources>
 
     <loadBalancer>

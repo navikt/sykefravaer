@@ -17,10 +17,10 @@ public class StartJetty {
     public static void main(String[] args) throws Exception {
         configureLocalConfig();
         Jetty jetty = usingWar(WEBAPP_SOURCE)
-                .at("/syfofront")
+                .at("/sykefravaer")
                 .port(PORT)
                 .buildJetty();
-        logger.info("http://127.0.0.1:" + PORT + "/syfofront");
+        logger.info("http://127.0.0.1:" + PORT + "/sykefravaer");
         jetty.startAnd(first(waitFor(gotKeypress())).then(jetty.stop));
     }
 

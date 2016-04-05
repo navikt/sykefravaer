@@ -10,10 +10,10 @@ const Feil = () => {
 
 const AppRouter = ({ history }) => {
 	return (<Router history={history}>
-		<Route path="/syfofront" component={Feil} />
-		<Route path="/syfofront/app" component={DineSykmeldingerSide} />
-		<Route path="/syfofront/app/dine-sykmeldinger" component={DineSykmeldingerSide} />
-		<Route path="/syfofront/app/sykmelding/:sykmeldingId" component={DinSykmeldingSide} />
+		<Route path="/sykefravaer" component={Feil} />
+		<Route path="/sykefravaer/app" component={DineSykmeldingerSide} />
+		<Route path="/sykefravaer/app/dine-sykmeldinger" component={DineSykmeldingerSide} />
+		<Route path="/sykefravaer/app/sykmelding/:sykmeldingId" component={DinSykmeldingSide} />
 		<Route path="*" component={SideIkkeFunnet} />
 	</Router>);
 };

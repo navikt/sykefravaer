@@ -18,7 +18,7 @@ public class SelftestServlet extends SelfTestBaseServlet {
 
     @Override
     protected String getApplicationName() {
-        return "Tiltakspenger";
+        return "syfofront";
     }
 
     @Override

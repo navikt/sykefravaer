@@ -6,7 +6,7 @@
 
     <name>syfofront</name>
 
-    <selftestPagePath>syfofront/internal/selftest</selftestPagePath>
+    <selftestPagePath>sykefravaer/internal/selftest</selftestPagePath>
 
     <artifacts>
         <ear groupId="no.nav.syfo" artifactId="syfofront-ear"/>
@@ -18,7 +18,7 @@
     </resources>
 
     <loadBalancer>
-        <contextRoot>syfofront</contextRoot>
+        <contextRoot>sykefravaer</contextRoot>
         <lbHealthMonitor type="HTTPS" isAliveUrl="internal/isAlive" interval="5" timeout="16"/>
         <lbPool slowRampTime="30" loadBalancingMethod="LEAST_CONNECTIONS" connectionLimit="500"/>
     </loadBalancer>
@@ -30,7 +30,7 @@
     <security>
         <logins>
             <openAm>
-                <contextRoot>syfofront</contextRoot>
+                <contextRoot>sykefravaer</contextRoot>
             </openAm>
         </logins>
     </security>

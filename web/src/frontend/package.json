@@ -12,7 +12,7 @@
     "test:watch": "npm run test -- --watch",
     "styles:watch": "nodemon -q -w styles --ext \"less\" --exec \"npm run styles:build\"",
     "styles:build": "lessc styles/styles.less > ../main/webapp/styles/styles.css --autoprefix=\"last 3 versions\"",
-    "static:build:local": "mustache settingsLocal.json html/syfofront.mustache > ../main/webapp/syfofront.html",
+    "static:build:local": "parallelshell \"mustache settingsLocal.json html/syfofront.mustache > ../main/webapp/syfofront.html\" \"mustache settingsLocal.json html/syfofeil.mustache > ../main/webapp/syfofeil.html\"",
     "static:build": "parallelshell \"mustache settings.json html/syfofront.mustache > ../main/webapp/syfofront.html\" \"mustache settings.json html/syfofeil.mustache > ../main/webapp/syfofeil.html\"",
     "images:copy": "cp -R node_modules/modig-frontend/modig-frontend-ressurser/src/main/resources/META-INF/resources/img gfx/modig-frontend",
     "vendor:build": "cp -R vendor ../main/webapp",

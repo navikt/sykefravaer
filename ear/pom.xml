@@ -33,7 +33,7 @@
                         <webModule>
                             <groupId>${project.groupId}</groupId>
                             <artifactId>syfofront-web</artifactId>
-                            <contextRoot>/syfofront</contextRoot>
+                            <contextRoot>/sykefravaer</contextRoot>
                             <bundleFileName>syfofront-web.war</bundleFileName>
                         </webModule>
                     </modules>

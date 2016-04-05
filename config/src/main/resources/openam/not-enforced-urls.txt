@@ -1,6 +1,6 @@
-https://${DomainName}/syfofront/internal/isAlive*
-https://${DomainName}/syfofront/internal/selftest*
-https://${DomainName}/syfofront/css/*
-https://${DomainName}/syfofront/img/*
-https://${DomainName}/syfofront/js/*
-https://${DomainName}/syfofront/font/*
+https://${DomainName}/sykefravaer/internal/isAlive*
+https://${DomainName}/sykefravaer/internal/selftest*
+https://${DomainName}/sykefravaer/css/*
+https://${DomainName}/sykefravaer/img/*
+https://${DomainName}/sykefravaer/js/*
+https://${DomainName}/sykefravaer/font/*

@@ -5,11 +5,11 @@
 
 <!-- extracted from realm, / -->
 <Policies>
-    <Policy name="syfofront_001" referralPolicy="false" active="true" >
+    <Policy name="sykefravaer_001" referralPolicy="false" active="true" >
 
-        <Rule name="rule_syfofront__001_02">
+        <Rule name="rule_sykefravaer__001_02">
             <ServiceName name="iPlanetAMWebAgentService" />
-            <ResourceName name="https://${DomainName}/syfofront/*?*" />
+            <ResourceName name="https://${DomainName}/sykefravaer/*?*" />
             <AttributeValuePair>
                 <Attribute name="POST" />
                 <Value>allow</Value>
@@ -28,9 +28,9 @@
             </AttributeValuePair>
         </Rule>
 
-        <Rule name="rule_syfofront_001_01">
+        <Rule name="rule_sykefravaer_001_01">
             <ServiceName name="iPlanetAMWebAgentService" />
-            <ResourceName name="https://${DomainName}/syfofront/*" />
+            <ResourceName name="https://${DomainName}/sykefravaer/*" />
             <AttributeValuePair>
                 <Attribute name="POST" />
                 <Value>allow</Value>
@@ -49,9 +49,9 @@
             </AttributeValuePair>
         </Rule>
 
-        <Rule name="rule_syfofront_001_04">
+        <Rule name="rule_sykefravaer_001_04">
             <ServiceName name="iPlanetAMWebAgentService" />
-            <ResourceName name="https://${DomainName}/syfofront/" />
+            <ResourceName name="https://${DomainName}/sykefravaer/" />
             <AttributeValuePair>
                 <Attribute name="POST" />
                 <Value>allow</Value>
@@ -70,9 +70,9 @@
             </AttributeValuePair>
         </Rule>
 
-        <Rule name="rule_syfofront_001_03">
+        <Rule name="rule_sykefravaer_001_03">
             <ServiceName name="iPlanetAMWebAgentService" />
-            <ResourceName name="https://${DomainName}/syfofront" />
+            <ResourceName name="https://${DomainName}/sykefravaer" />
             <AttributeValuePair>
                 <Attribute name="POST" />
                 <Value>allow</Value>
@@ -92,12 +92,12 @@
         </Rule>
 
         <Subjects>
-            <Subject name="subject_syfofront_001_01" type="AuthenticatedUsers" includeType="inclusive">
+            <Subject name="subject_sykefravaer_001_01" type="AuthenticatedUsers" includeType="inclusive">
             </Subject>
         </Subjects>
 
         <Conditions>
-            <Condition name="condition_syfofront_001_AuthenticationLevel" type="AuthLevelCondition">
+            <Condition name="condition_sykefravaer_001_AuthenticationLevel" type="AuthLevelCondition">
                 <AttributeValuePair>
                     <Attribute name="AuthLevel"/>
                     <Value>4</Value>

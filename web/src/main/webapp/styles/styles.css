@@ -156,7 +156,7 @@ De er også responsive slik at:
   padding-bottom: 2rem;
   position: relative;
   text-align: center;
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: 600;
   font-size: 1rem;
   margin-top: 0;
@@ -188,14 +188,28 @@ De er også responsive slik at:
   margin-bottom: 0;
 }
 .hjelpetekst-lukk {
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
+  width: 2rem;
+  height: 2rem;
+  background: transparent no-repeat center center;
+  background-size: 50% 50%;
+  border: 1px solid #66cbec;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0A%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Capa_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20width%3D%22357px%22%20height%3D%22357px%22%20viewBox%3D%220%200%20357%20357%22%20style%3D%22enable-background%3Anew%200%200%20357%20357%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cg%3E%0A%09%3Cg%20id%3D%22close%22%3E%0A%09%09%3Cpolygon%20points%3D%22357%2C35.7%20321.3%2C0%20178.5%2C142.8%2035.7%2C0%200%2C35.7%20142.8%2C178.5%200%2C321.3%2035.7%2C357%20178.5%2C214.2%20321.3%2C357%20357%2C321.3%20%0A%09%09%09214.2%2C178.5%22%20fill%3D%22%2366CBEC%22%20%2F%3E%0A%09%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A");
-  border-color: #66cbec;
 }
 .hjelpetekst-lukk:hover,
 .hjelpetekst-lukk:focus,
 .hjelpetekst-lukk:active {
   background-color: #66cbec;
-  border-color: #66cbec;
+}
+.hjelpetekst-lukk:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px #ffbd66;
+}
+.hjelpetekst-lukk:hover,
+.hjelpetekst-lukk:focus,
+.hjelpetekst-lukk:active {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0A%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Capa_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20width%3D%22357px%22%20height%3D%22357px%22%20viewBox%3D%220%200%20357%20357%22%20style%3D%22enable-background%3Anew%200%200%20357%20357%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cg%3E%0A%09%3Cg%20id%3D%22close%22%3E%0A%09%09%3Cpolygon%20points%3D%22357%2C35.7%20321.3%2C0%20178.5%2C142.8%2035.7%2C0%200%2C35.7%20142.8%2C178.5%200%2C321.3%2035.7%2C357%20178.5%2C214.2%20321.3%2C357%20357%2C321.3%20%0A%09%09%09214.2%2C178.5%22%20fill%3D%22%23000000%22%20%2F%3E%0A%09%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A");
 }
 @media (min-width: 62rem) {
@@ -292,7 +306,7 @@ De er også responsive slik at:
   transform: translateX(-50%);
 }
 .hode-innholdstittel {
-  font-family: Modus, Arial, sans-serif;
+  font-family: Modus, Helvetica, Arial, sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 4rem;
@@ -303,7 +317,7 @@ De er også responsive slik at:
   }
 }
 .hode-undertittel {
-  font-family: Modus, Arial, sans-serif;
+  font-family: Modus, Helvetica, Arial, sans-serif;
   font-size: 1.25rem;
   font-weight: 800;
   margin-bottom: 20px;
@@ -314,7 +328,7 @@ De er også responsive slik at:
   font-size: 0.8125rem;
   text-transform: uppercase;
   font-weight: 400;
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   margin-bottom: 20px;
   padding-top: 60px;
   padding-bottom: 20px;
@@ -431,7 +445,7 @@ De er også responsive slik at:
   width: 100%;
   color: #3e3832;
   border-radius: 1px;
-  padding: 30px;
+  padding: 100px 30px 30px;
   text-align: center;
   border-bottom: none;
 }
@@ -667,15 +681,14 @@ Fungerer også på alle andre elementer, som da får display: list-item i tilleg
   width: 2rem;
   height: 2rem;
   background: transparent no-repeat center center;
-  background-size: 40% 40%;
-  border: 1px solid #b7b1a9;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0A%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Capa_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20width%3D%22357px%22%20height%3D%22357px%22%20viewBox%3D%220%200%20357%20357%22%20style%3D%22enable-background%3Anew%200%200%20357%20357%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cg%3E%0A%09%3Cg%20id%3D%22close%22%3E%0A%09%09%3Cpolygon%20points%3D%22357%2C35.7%20321.3%2C0%20178.5%2C142.8%2035.7%2C0%200%2C35.7%20142.8%2C178.5%200%2C321.3%2035.7%2C357%20178.5%2C214.2%20321.3%2C357%20357%2C321.3%20%0A%09%09%09214.2%2C178.5%22%20fill%3D%22%23000000%22%20%2F%3E%0A%09%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A");
+  background-size: 50% 50%;
+  border: 1px solid #66cbec;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0A%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Capa_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20width%3D%22357px%22%20height%3D%22357px%22%20viewBox%3D%220%200%20357%20357%22%20style%3D%22enable-background%3Anew%200%200%20357%20357%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cg%3E%0A%09%3Cg%20id%3D%22close%22%3E%0A%09%09%3Cpolygon%20points%3D%22357%2C35.7%20321.3%2C0%20178.5%2C142.8%2035.7%2C0%200%2C35.7%20142.8%2C178.5%200%2C321.3%2035.7%2C357%20178.5%2C214.2%20321.3%2C357%20357%2C321.3%20%0A%09%09%09214.2%2C178.5%22%20fill%3D%22%2366CBEC%22%20%2F%3E%0A%09%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A");
 }
 .modal-lukk:hover,
 .modal-lukk:focus,
 .modal-lukk:active {
-  background-color: #0067c5;
-  border-color: #0067c5;
+  background-color: #66cbec;
 }
 .modal-lukk:focus {
   outline: none;
@@ -685,17 +698,6 @@ Fungerer også på alle andre elementer, som da får display: list-item i tilleg
 .modal-lukk:focus,
 .modal-lukk:active {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0A%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Capa_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20width%3D%22357px%22%20height%3D%22357px%22%20viewBox%3D%220%200%20357%20357%22%20style%3D%22enable-background%3Anew%200%200%20357%20357%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cg%3E%0A%09%3Cg%20id%3D%22close%22%3E%0A%09%09%3Cpolygon%20points%3D%22357%2C35.7%20321.3%2C0%20178.5%2C142.8%2035.7%2C0%200%2C35.7%20142.8%2C178.5%200%2C321.3%2035.7%2C357%20178.5%2C214.2%20321.3%2C357%20357%2C321.3%20%0A%09%09%09214.2%2C178.5%22%20%2F%3E%0A%09%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A");
-}
-.modal-lukk-negativ {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0A%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Capa_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20width%3D%22357px%22%20height%3D%22357px%22%20viewBox%3D%220%200%20357%20357%22%20style%3D%22enable-background%3Anew%200%200%20357%20357%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cg%3E%0A%09%3Cg%20id%3D%22close%22%3E%0A%09%09%3Cpolygon%20points%3D%22357%2C35.7%20321.3%2C0%20178.5%2C142.8%2035.7%2C0%200%2C35.7%20142.8%2C178.5%200%2C321.3%2035.7%2C357%20178.5%2C214.2%20321.3%2C357%20357%2C321.3%20%0A%09%09%09214.2%2C178.5%22%20fill%3D%22%2366CBEC%22%20%2F%3E%0A%09%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A");
-  border-color: #66cbec;
-}
-.modal-lukk-negativ:hover,
-.modal-lukk-negativ:focus,
-.modal-lukk-negativ:active {
-  background-color: #66cbec;
-  border-color: #66cbec;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%0A%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%0A%3Csvg%20version%3D%221.1%22%20id%3D%22Capa_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20width%3D%22357px%22%20height%3D%22357px%22%20viewBox%3D%220%200%20357%20357%22%20style%3D%22enable-background%3Anew%200%200%20357%20357%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cg%3E%0A%09%3Cg%20id%3D%22close%22%3E%0A%09%09%3Cpolygon%20points%3D%22357%2C35.7%20321.3%2C0%20178.5%2C142.8%2035.7%2C0%200%2C35.7%20142.8%2C178.5%200%2C321.3%2035.7%2C357%20178.5%2C214.2%20321.3%2C357%20357%2C321.3%20%0A%09%09%09214.2%2C178.5%22%20fill%3D%22%23000000%22%20%2F%3E%0A%09%3C%2Fg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3Cg%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A");
 }
 @media (min-height: 38.75rem) {
   .modal-vindu {
@@ -852,7 +854,7 @@ a.panel-ramme:hover {
   border: 0;
 }
 .skjema-fieldset legend {
-  font-family: Modus, Arial, sans-serif;
+  font-family: Modus, Helvetica, Arial, sans-serif;
   font-size: 1.25rem;
   font-weight: 800;
   margin-bottom: 1rem;
@@ -866,7 +868,7 @@ a.panel-ramme:hover {
 }
 .skjema-sporsmal {
   font-size: 0.9375rem;
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: 600;
   margin-bottom: 0.5rem;
   margin-top: 0;
@@ -878,7 +880,7 @@ a.panel-ramme:hover {
 }
 .skjema-infotekst {
   font-size: 1.0625rem;
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: 400;
   line-height: 1.6;
   margin-bottom: 20px;
@@ -890,7 +892,7 @@ a.panel-ramme:hover {
 }
 .skjema-infotekst h2,
 .skjema-infotekst h3 {
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: 600;
   font-size: 1rem;
   margin-top: 20px;
@@ -901,7 +903,7 @@ label,
   display: block;
   margin-bottom: .25rem;
   line-height: 1.4;
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 0.9375rem;
   font-weight: 400;
 }
@@ -1086,7 +1088,7 @@ textarea.vis-meta {
   font-size: 0.8125rem;
   text-transform: uppercase;
   font-weight: 400;
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   background-color: transparent !important;
   position: absolute;
   bottom: 0;
@@ -1366,26 +1368,17 @@ textarea {
     padding-top: 2px;
   }
 }
-input.datovelger {
-  font-size: 0.875rem;
-  width: 100px;
-}
-.nav-datovelger {
-  display: inline-block;
-}
 .nav-datovelger .bn_date {
-  position: absolute;
-  top: 16px;
-  left: 95px;
   border: none;
-  background: url(kalender.svg) no-repeat center;
-  background-size: 45px 45px;
-  width: 45px;
-  height: 45px;
+  background: url(@{modig-frontend-images-root-url}/kalender.svg) no-repeat -6px;
+  background-size: 53px;
+  width: 41px;
+  height: 41px;
+  vertical-align: -7px;
 }
 .nav-datovelger .bn_date:hover,
 .nav-datovelger .bn_date:focus {
-  background-image: url(kalender_hover.svg);
+  background-image: url(@{modig-frontend-images-root-url}/kalender_hover.svg);
 }
 .nav-datovelger .bn_date:focus {
   outline: none;
@@ -1426,10 +1419,6 @@ input.datovelger {
   border-top: 10px solid transparent;
   position: absolute;
 }
-.nav-datovelger .bn_prev[aria-disabled=true]:before {
-  border-right: 9px solid #7f756c;
-  cursor: default;
-}
 .nav-datovelger .bn_next {
   right: 0;
 }
@@ -1440,10 +1429,6 @@ input.datovelger {
   border-top: 10px solid transparent;
   position: absolute;
 }
-.nav-datovelger .bn_next[aria-disabled=true]:after {
-  border-left: 9px solid #7f756c;
-  cursor: default;
-}
 .nav-datovelger .month {
   position: absolute;
   width: 100%;
@@ -1451,9 +1436,6 @@ input.datovelger {
 }
 .nav-datovelger .cal-wrap {
   position: absolute;
-  left: 0;
-  top: 56px;
-  z-index: 100;
   background-color: #fff;
   border: 1px solid #b7b1a9;
   padding: 20px;
@@ -1461,6 +1443,7 @@ input.datovelger {
 }
 .nav-datovelger .cal {
   margin-top: 35px;
+  font-size: 1.0625rem;
   font-weight: 600;
   text-align: center;
   border-top: 1px solid #b7b1a9;
@@ -1479,8 +1462,8 @@ input.datovelger {
 }
 .nav-datovelger .cal th,
 .nav-datovelger .cal td {
-  width: 44px;
-  height: 34px;
+  width: 50px;
+  height: 40px;
 }
 .nav-datovelger .cal td[role=gridcell] {
   cursor: pointer;
@@ -1507,13 +1490,6 @@ input.datovelger {
 .nav-datovelger .cal td:last-child {
   color: #c30000;
 }
-.nav-datovelger .cal td.inactive {
-  color: #b7b1a9;
-}
-.nav-datovelger .cal td.inactive:hover {
-  background-color: #fff;
-  cursor: default;
-}
 .nav-datovelger .offscreen {
   position: absolute;
   left: -200em;
@@ -1530,26 +1506,23 @@ input.datovelger {
   opacity: 1;
   transition: opacity 0.5s ease-out;
 }
-.nav-datovelger .info-wrap {
-  text-align: right;
-}
 .nav-datovelger .bn_info {
-  display: inline;
   position: relative;
-  padding: 0 7px;
+  float: right;
+  bottom: 0;
+  border: none;
+  background: none;
+  width: 24px;
+  height: 24px;
+  padding: 0;
   color: #b7b1a9;
   font-weight: 600;
   font-size: 1.5rem;
   font-family: serif;
   font-style: italic;
-  cursor: pointer;
 }
 .nav-datovelger .bn_info:hover {
   color: #0067c5;
-}
-.nav-datovelger .bn_info:focus {
-  outline: 0;
-  box-shadow: 0 0 0 3px #ffbd66;
 }
 .nav-datovelger .bn_info.opp:before {
   border-top: none;
@@ -1559,19 +1532,22 @@ input.datovelger {
   height: 0;
   overflow: hidden;
   background: #fff;
+  margin-top: 16px;
 }
-.nav-datovelger .shortcut_info table {
+.nav-datovelger .shortcut_info dl {
   margin-top: 8px;
+  line-height: 1.5;
 }
-.nav-datovelger .shortcut_info th,
-.nav-datovelger .shortcut_info td {
-  vertical-align: top;
-  padding: 2px 5px 2px 0;
+.nav-datovelger .shortcut_info dt,
+.nav-datovelger .shortcut_info dd {
+  float: left;
+  margin: 0;
 }
-.nav-datovelger .shortcut_info th {
-  text-align: left;
-  font-weight: normal;
-  width: 160px;
+.nav-datovelger .shortcut_info dt {
+  width: 190px;
+}
+.nav-datovelger .shortcut_info dd + dt {
+  clear: left;
 }
 .stegindikator {
   display: table;
@@ -1650,7 +1626,7 @@ input.datovelger {
   }
 }
 body {
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 0.9375rem;
   font-weight: 400;
 }
@@ -1664,7 +1640,7 @@ body {
 }
 .redaksjonelt-innhold h2,
 .redaksjonelt-innhold h3 {
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: 600;
   font-size: 1rem;
   margin-top: 20px;
@@ -1785,18 +1761,12 @@ h6 {
   border: 1px solid #ba3a26;
   background: #fbf5f4;
 }
-.har-valideringsfeil .skjema-enkeltfeil:not(.har-valideringsfeil) .skjema-feilmelding,
-.feil .skjema-enkeltfeil:not(.har-valideringsfeil) .skjema-feilmelding,
 .har-valideringsfeil .skjema-feilomrade:not(.har-valideringsfeil) .skjema-feilmelding,
 .feil .skjema-feilomrade:not(.har-valideringsfeil) .skjema-feilmelding {
   display: none;
 }
-.har-valideringsfeil .skjema-enkeltfeil:not(.har-valideringsfeil) input:not([type="submit"]),
-.feil .skjema-enkeltfeil:not(.har-valideringsfeil) input:not([type="submit"]),
 .har-valideringsfeil .skjema-feilomrade:not(.har-valideringsfeil) input:not([type="submit"]),
 .feil .skjema-feilomrade:not(.har-valideringsfeil) input:not([type="submit"]),
-.har-valideringsfeil .skjema-enkeltfeil:not(.har-valideringsfeil) textarea,
-.feil .skjema-enkeltfeil:not(.har-valideringsfeil) textarea,
 .har-valideringsfeil .skjema-feilomrade:not(.har-valideringsfeil) textarea,
 .feil .skjema-feilomrade:not(.har-valideringsfeil) textarea {
   border: 1px solid #b7b1a9;
@@ -1846,7 +1816,7 @@ h6 {
 }
 .panel-modul-header h2 {
   margin: 0;
-  font-family: Modus, Arial, sans-serif;
+  font-family: Modus, Helvetica, Arial, sans-serif;
   font-size: 1.25rem;
   font-weight: 800;
 }
@@ -1854,139 +1824,6 @@ h6 {
   margin: 0 0 1rem 0;
   padding: 0;
   list-style-type: none;
-}
-body {
-  font-family: Arial, sans-serif;
-  font-size: 0.9375rem;
-  font-weight: 400;
-}
-@media (min-width: 30em) {
-  body {
-    font-size: 0.875rem;
-  }
-}
-.digisyfo-header {
-  text-align: center;
-}
-.accordion {
-  overflow: hidden;
-  border-bottom: 1px solid #bdbab7;
-  position: relative;
-  padding-top: 4px;
-  margin-top: -5px;
-}
-.accordion-group {
-  position: relative;
-  border-top: 1px solid #b7b1a9;
-  background-color: #efefef;
-  transition: all 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
-}
-.accordion-group:hover {
-  background-color: #e6e6e6;
-}
-.accordion-group.open {
-  background-color: white;
-}
-.accordion-group:not(.open) .accordion-toggle:after {
-  width: 0;
-}
-.accordion-group .collapse {
-  position: relative;
-  height: 0;
-  transition: height 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
-}
-.accordion-group .collapse.in {
-  height: auto;
-}
-.accordion-group .collapse.er-usynlig {
-  visibility: hidden;
-}
-.accordion-header {
-  text-align: center;
-  margin: 0;
-}
-.accordion-toggle {
-  font-family: Modus, Arial, sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-align: center;
-  margin: 0;
-  cursor: pointer;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  display: block;
-  color: #3e3832;
-}
-@media (min-width: 30em) {
-  .accordion-toggle {
-    font-size: 1.875rem;
-  }
-}
-.accordion-toggle:active {
-  color: #3e3832;
-}
-.accordion-toggle:focus {
-  outline: 0;
-  background-color: transparent;
-}
-.accordion-toggle:focus .accordion-label {
-  box-shadow: 0 0 0 3px #ffbd66;
-}
-.accordion-toggle:after {
-  transition: all 300ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
-}
-.accordion-flipp {
-  position: absolute;
-  width: 64px;
-  height: 0;
-  top: 0;
-  left: 50%;
-  border-style: solid;
-  border-color: transparent transparent #3e3832 transparent;
-  border-width: 0 2px 3px 2px;
-  z-index: 10;
-  -webkit-transform: translate(-50%, -3px);
-  -ms-transform: translate(-50%, -3px);
-  transform: translate(-50%, -3px);
-}
-.accordion-flipp:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  border-top: 30px solid #b7b1a9;
-  border-left: 30px solid transparent;
-  border-right: 30px solid transparent;
-}
-a:hover .accordion-flipp:before {
-  border-top-color: #BEB9B1;
-}
-.open a:hover .accordion-flipp:before {
-  border-top-color: #1976CB;
-}
-.open .accordion-flipp,
-.accordion-toggle:active .accordion-flipp {
-  cursor: pointer;
-  border-color: transparent transparent #3e3832 transparent;
-}
-.open .accordion-flipp:before,
-.accordion-toggle:active .accordion-flipp:before {
-  border-top: 30px solid #0067c5;
-}
-.accordion-header:hover .accordion-flipp {
-  border-bottom-width: 5px;
-  -webkit-transform: translate(-50%, -5px);
-  -ms-transform: translate(-50%, -5px);
-  transform: translate(-50%, -5px);
-}
-.accordion-checked {
-  display: inline-block;
-  text-indent: -9999px;
-  background: url('//img/hake.svg') no-repeat center 10px;
-  width: 1.8375rem;
-  height: 1.8375rem;
-  background-size: 1.225rem;
 }
 .sykmelding-opplysning {
   margin-bottom: 1.5rem;
@@ -1996,14 +1833,14 @@ a:hover .accordion-flipp:before {
 }
 .sykmelding-opplysning h3,
 .sykmelding-opplysning h4 {
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: 600;
   font-size: 1rem;
   margin-bottom: 0;
 }
 .sykmelding-opplysning p {
   font-size: 1.0625rem;
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
 @media (min-width: 30em) {
@@ -2031,7 +1868,7 @@ a:hover .accordion-flipp:before {
 }
 .sykmelding-teaser p {
   font-size: 1.0625rem;
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
 @media (min-width: 30em) {
@@ -2040,7 +1877,7 @@ a:hover .accordion-flipp:before {
   }
 }
 .sykmelding-teaser h2 {
-  font-family: Modus, Arial, sans-serif;
+  font-family: Modus, Helvetica, Arial, sans-serif;
   font-size: 1.25rem;
   font-weight: 800;
   margin: 0;
@@ -2055,7 +1892,7 @@ a:hover .accordion-flipp:before {
 .brodsmuler {
   margin: 2rem 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 0.9375rem;
   font-weight: 400;
 }
@@ -2087,7 +1924,7 @@ a:hover .accordion-flipp:before {
   margin-right: .5rem;
 }
 .utvidbar-tittel {
-  font-family: Modus, Arial, sans-serif;
+  font-family: Modus, Helvetica, Arial, sans-serif;
   font-size: 1.25rem;
   font-weight: 800;
   text-align: center;
@@ -2148,11 +1985,24 @@ a:hover .accordion-flipp:before {
     margin-right: 1rem;
   }
 }
-.app {
-  background: #fff;
-}
-.my-sel {
-  -webkit-transform: translateX(50%);
-      -ms-transform: translateX(50%);
-          transform: translateX(50%);
+.app-spinner {
+  width: 4rem;
+  height: 4rem;
+  border-top: 5px solid #fff;
+  border-left: 5px solid #fff;
+  border-bottom: 5px solid rgba(255, 255, 255, 0.25);
+  border-right: 5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: rotering 800ms infinite linear;
+  animation: rotering 800ms infinite linear;
+  border-bottom-color: #b7b1a9;
+  border-left-color: #b7b1a9;
+  border-top-color: #7f756c;
+  border-right-color: #7f756c;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8rem;
 }

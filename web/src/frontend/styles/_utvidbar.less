@@ -1,5 +1,6 @@
 .utvidbar {
 	border: 1px solid @color-border; 
+	border-radius: 2px; 
 }
 
 .input-sok {
@@ -7,36 +8,35 @@
 } 
 
 .utvidbar-tittel {
-	.mixin-typo-undertittel(); 
-	text-align: center; 
+	.mixin-typo-normal();
 	margin: 0; 
 
 	a {
 		color: @color-text; 
-		display: block;
-		padding: 1rem 2rem; 
+		display: table;
+		padding: 10px;
+		width: 100%; 
 	}
 
 	a:focus {
-		background-color: transparent;
-		box-shadow: none; 
+		background-color: transparent; 
+		box-shadow: 0 0 0 3px @color-focus; 
 	}
 
-	span:after {
-		content: " ";
-	    width: 0;
-	    height: 0;
-	    margin-left: .5rem;
-	    display: inline-block;
-	    border-left: .75rem solid white;
-	    border-bottom: 0 solid @color-link; 
-	    border-top: .75rem solid @color-link;
-	    border-right: .75rem solid white;
+	span {
+		display: table-cell; 
+		vertical-align: middle; 
 	}
 
-	a:focus span {
-		box-shadow: 0 0 0 3px @color-focus;
+	img {
+		height: auto;
+		width: 24px;
 	}
+
+}
+
+.utvidbar-ikon {
+	width: 34px; 
 }
 
 .utvidbar-tittel--apen a:after {

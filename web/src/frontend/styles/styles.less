@@ -2,7 +2,7 @@
 
 @import "@{base-url}/includes/variables";
 
-@modig-frontend-images-root-url: "../gfx/modig-frontend/";
+@modig-frontend-images-root-url: "../img/modig-frontend/";
 
 @import "@{base-url}/includes/mixins/mixins-grid";
 @import "@{base-url}/includes/mixins/mixins-knapper";
@@ -11,20 +11,10 @@
 
 @import "@{base-url}/includes/mixins/mixins-utils";
 
-@import "@{base-url}/nav_extra/hjelpetekst";
 @import "@{base-url}/nav_extra/hoder";
-@import "@{base-url}/nav_extra/knapperader";
-@import "@{base-url}/nav_extra/lenkebokser";
-@import "@{base-url}/nav_extra/lenkelister";
-@import "@{base-url}/nav_extra/lister";
-@import "@{base-url}/nav_extra/modaler";
 @import "@{base-url}/nav_extra/paneler";
-@import "@{base-url}/nav_extra/skjema";
-@import "@{base-url}/nav_extra/datovelger";
-@import "@{base-url}/nav_extra/stegindikator";
-@import "@{base-url}/nav_extra/typografi";
 @import "@{base-url}/nav_extra/utilities";
-@import "@{base-url}/nav_extra/validering";
+@import "@{base-url}/nav_extra/knapperader";
 
 @import "_dine-sykmeldinger.less";
 @import "_din-sykmelding.less";
@@ -63,4 +53,22 @@
 
 .panel-transparent {
 	background-color: transparent; 
+}
+
+.side-syfofront {
+	padding-top: 4rem;
+}
+
+.redaksjonelt-innhold {
+
+	// Brukes på redaktørstyrt HTML.
+
+	line-height: 1.6; 
+
+	h2, h3 {
+		.mixin-typo-element(); 
+		margin-top: 20px;
+		margin-bottom: 0; 
+	}
+
 }

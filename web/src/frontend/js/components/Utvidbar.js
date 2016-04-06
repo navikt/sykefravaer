@@ -32,6 +32,9 @@ export class Utvidbar extends Component {
 						<a href="javscript:void(0)"
 							aria-pressed={this.state.erApen}
 							onClick={(event) => {this.toggle(event);}}>
+							<span className="utvidbar-ikon">
+								<img src={"/sykefravaer/img/" + this.props.ikon} alt="" />
+							</span>
 							<span>{this.props.tittel}</span>
 						</a>
 					</h3>
@@ -56,6 +59,7 @@ Utvidbar.propTypes = {
 	erApen: PropTypes.bool.isRequired,
 	tittel: PropTypes.string.isRequired,
 	children: PropTypes.array,
+	ikon: PropTypes.string,
 };
 
 Utvidbar.defaultProps = {

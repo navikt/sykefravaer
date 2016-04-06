@@ -12,7 +12,7 @@ public class SyfofrontDekorator extends DecoratorFilter {
     private static final String FRAGMENTS_URL = "common-html/v3/navno";
     private static final String APPLICATION_NAME = "syfofront";
     private static final List<String> NO_DECORATOR_PATTERNS = new ArrayList<>(asList(".*/img/.*", ".*/css/.*", ".*/js/.*", ".*/font/.*", ".*selftest.*"));
-    private static final List<String> FRAGMENT_NAMES= new ArrayList<>(asList("webstats-ga-notrack", "header", "footer", "styles", "scripts"));
+    private static final List<String> FRAGMENT_NAMES= new ArrayList<>(asList("webstats-ga-notrack", "header-withmenu", "footer-withmenu", "styles", "scripts", "skiplinks"));
 
     public SyfofrontDekorator() {
         super();

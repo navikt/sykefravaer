@@ -10,22 +10,27 @@ const SykmeldingTeaser = ({ sykmelding }) => {
 	return (<Link className="panel sykmelding-teaser"
 		key={sykmelding.id}
 		to={getContextRoot() + '/sykmelding/' + sykmelding.id}>
-		<h3 className="js-title sykmelding-teaser-tittel" aria-labelledby={'sykmld-teaser-tittel-' + sykmelding.id + ' ' + 'sykmld-teaser-dato-' + sykmelding.id}>
-			<small className="typo-normal" id={'sykmld-teaser-dato-' + sykmelding.id}>{getLedetekst('sykmelding.teaser.dato', {
-				'%FOM%': formatDate(sykmelding.fom),
-				'%TOM%': formatDate(sykmelding.tom),
-			})}</small>
-			<span id={'sykmld-teaser-tittel-' + sykmelding.id}>
-				{getLedetekst('sykmelding.teaser.tittel')}
-			</span>
-		</h3>
-		<p className="js-meta typo-infotekst">
-			{getLedetekst('sykmelding.teaser.tekst', {
-				'%GRAD%': sykmelding.grad,
-				'%ARBEIDSGIVER%': sykmelding.arbeidsgiver,
-				'%DAGER%': days,
-			})}
-		</p>
+		<span className="teaser-ikon">
+			<img src="/sykefravaer/img/svg/stetoskop.svg" alt="" />
+		</span>
+		<div className="teaser-innhold">
+			<h3 className="js-title teaser-tittel" aria-labelledby={'sykmld-teaser-tittel-' + sykmelding.id + ' ' + 'sykmld-teaser-dato-' + sykmelding.id}>
+				<small className="teaser-meta" id={'sykmld-teaser-dato-' + sykmelding.id}>{getLedetekst('sykmelding.teaser.dato', {
+					'%FOM%': formatDate(sykmelding.fom),
+					'%TOM%': formatDate(sykmelding.tom),
+				})}</small>
+				<span id={'sykmld-teaser-tittel-' + sykmelding.id}>
+					{getLedetekst('sykmelding.teaser.tittel')}
+				</span>
+			</h3>
+			<p className="js-meta typo-infotekst">
+				{getLedetekst('sykmelding.teaser.tekst', {
+					'%GRAD%': sykmelding.grad,
+					'%ARBEIDSGIVER%': sykmelding.arbeidsgiver,
+					'%DAGER%': days,
+				})}
+			</p>
+		</div>
 	</Link>);
 };
 

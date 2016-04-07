@@ -4,8 +4,8 @@ import SykmeldingTeaser from './SykmeldingTeaser.js';
 const SykmeldingTeasere = ({ sykmeldinger, className, tittel = "", ingenSykmeldingerMelding }) => {
 	return (<div className="blokk-l">
 			{
-				tittel !== "" ? (<div className="panel panel-modul-header">
-				<h2 className="typo-undertittel">{tittel}</h2>
+				tittel !== "" ? (<div className="panel panel-modulheader">
+				<h2>{tittel}</h2>
 			</div>) : ""
 			}
 			<div className={className || 'js-content'}>

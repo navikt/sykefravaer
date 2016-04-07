@@ -20,18 +20,32 @@ function setEgenvalgtArbeidsgiver(state, id, arbeidsgiver) {
 	});
 }
 
-export default function sykmeldinger(state = [], action) {
+const initiellState = { 
+	henter: false,
+	hentingFeilet: false,
+	data: [] 
+};
+
+export default function sykmeldinger(state = initiellState, action) {
 	switch (action.type) {
 	case 'SET_SYKMELDINGER':
-		return action.sykmeldinger;
-	case 'BEKREFT_SYKMELDING':
-		return setSykmeldingStatus(state, action.sykmeldingId, 'BEKREFTET');
-	case 'SET_EGENVALGT_ARBEIDSGIVER':
-		return setEgenvalgtArbeidsgiver(state, action.sykmeldingId, action.egenvalgtArbeidsgiver);
-	case 'SEND_SYKMELDING':
-		return setSykmeldingStatus(state, action.sykmeldingId, 'SENDT');
-	case 'ADD_SYKMELDING':
-		return [...state, action.sykmelding];
+		return {
+			data: action.sykmeldinger,
+			henter: false,
+			hentingFeilet: false,
+		};
+	case 'HENT_SYKMELDINGER':
+		return {
+			data: [],
+			henter: true,
+			hentingFeilet: false,
+		};
+	case 'HENT_SYKMELDINGER_FEILET':
+		return {
+			data: [],
+			hentingFeilet: true,
+			henter: false,
+		};
 	default:
 		return state;
 	}

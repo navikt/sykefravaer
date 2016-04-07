@@ -16,34 +16,29 @@ const DinSykmelding = ({ sykmelding }) => {
 				{getLedetekst('sykmelding.vis.hovedtittel')}
 			</h1>
 		</header>
+
+		<div className="panel panel-modulheader sykmelding-header">
+			<h2>{sykmelding.fornavn} {sykmelding.etternavn}</h2>
+		</div>
 		<div className="panel">
-			<h2>{getLedetekst('sykmelding.vis.tittel')}</h2>
-			<h3 className="typo-undertittel">{sykmelding.fornavn} {sykmelding.etternavn}</h3>
 			<div className="blokk-l side-innhold">
-				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.periode.tittel')}>
-					<p className="js-periode"
-						dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding.vis.periode.tekst', {
-							'%FOM%': formatDate(sykmelding.fom),
-							'%TOM%': formatDate(sykmelding.tom),
-							'%DAGER%': getDuration(sykmelding.fom, sykmelding.tom),
-						})}></p>
+				<SykmeldingOpplysning tittel="Periode">
+					<p>
+						<strong>{formatDate(sykmelding.fom)} &ndash; {formatDate(sykmelding.tom)}</strong> ({getDuration(sykmelding.fom, sykmelding.tom)} dager) <br />
+						{sykmelding.grad} % sykmeldt
+					</p>
+				</SykmeldingOpplysning>
+				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel')}>
+					<p className="js-diagnose">{sykmelding.diagnose}</p>
+				</SykmeldingOpplysning>
+				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.friskmelding.tittel')}>
+					<p className="js-friskmeldt"><strong>{sykmelding.friskmeldt} %</strong> {getLedetekst('sykmelding.vis.friskmelding.tekst')}</p>
 				</SykmeldingOpplysning>
 				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.arbeidsgiver.tittel')}>
 					<p>{sykmelding.arbeidsgiver}</p>
 				</SykmeldingOpplysning>
 				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.avsender.tittel')}>
 					<p>{sykmelding.sykmelder}</p>
-				</SykmeldingOpplysning>
-				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel')}>
-					<p className="js-diagnose">{sykmelding.diagnose}</p>
-				</SykmeldingOpplysning>
-				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.grad.tittel')}>
-					<p className="js-grad">{getLedetekst('sykmelding.vis.grad.tekst', {
-						"%GRAD%": sykmelding.grad
-					})}</p>
-				</SykmeldingOpplysning>
-				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.friskmelding.tittel')}>
-					<p className="js-friskmeldt"><strong>{sykmelding.friskmeldt} %</strong> {getLedetekst('sykmelding.vis.friskmelding.tekst')}</p>
 				</SykmeldingOpplysning>
 			</div>
 			<Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel')} ikon="svg/lege.svg">

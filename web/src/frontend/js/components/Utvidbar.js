@@ -30,6 +30,7 @@ export class Utvidbar extends Component {
 						'utvidbar-tittel' :
 						'utvidbar-tittel utvidbar-tittel--apen'}>
 						<a href="javscript:void(0)"
+							role="button"
 							aria-pressed={this.state.erApen}
 							onClick={(event) => {this.toggle(event);}}>
 							<span className="utvidbar-ikon">

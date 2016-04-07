@@ -28,4 +28,4 @@ $.get(window.SYFO_SETTINGS.REST_ROOT + '/sykmeldinger', (response) => {
 
 render(<Provider store={store}>
 	<AppRouter history={history} /></Provider>,
-	document.getElementById('root'));
+	document.getElementById('maincontent'));

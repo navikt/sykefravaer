@@ -6,7 +6,6 @@ import DinSykmelding from '../components/DinSykmelding.js';
 import AppSpinner from '../components/AppSpinner.js';
 
 const Controller = (state) => {
-	console.log(state); 
 	return (<Side>
 		{
 			(() => {

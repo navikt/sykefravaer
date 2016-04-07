@@ -6,7 +6,7 @@ const labels = {
 	'dine-sykmeldinger.introduksjonstekst': 'NAV mottar alle sykmeldinger fra leger og andre som kan sykmelde. På denne siden kan du se sykmeldingene dine. Når det gjelder sykepenger, må du fortsatt <a href="http://www.nav.no">søke</a> om dette på vanlig måte. ',
 	'dine-sykmeldinger.aktive-sykmeldinger.tittel': 'Aktive sykmeldinger',
 	'dine-sykmeldinger.tidligere-sykmeldinger.tittel': 'Tidligere sykmeldinger',
-	'dine-sykmeldinger.informasjon.tittel': 'Informasjon om sykmeldingen',
+	'dine-sykmeldinger.informasjon.tittel': 'Hvem gjør hva når du er sykmeldt',
 	'dine-sykmeldinger.informasjon.tekst': '<p>Du kan bli sykmeldt når det er medisinske grunner som hindrer deg i å være i arbeid. Ofte er det likevel mulig å være helt eller delvis i arbeid hvis arbeidsgiveren kan gjøre tilpasninger for deg på arbeidsplassen.</p><h3>Sykmeldt</h3><p>Som sykmeldt skal du være med og finne løsninger slik at sykefraværet ditt ikke varer lenger enn nødvendig. </p><h3>Lege/sykmelder</h3><p>Den som sykmelder deg skal vurdere om det er nødvendig med hel eller delvis sykmelding og anbefale aktivitet hvis det er medisinsk forsvarlig.</p><h3>Arbeidsgiver</h3><p>Arbeidsgiveren skal følge deg opp og legge til rette for at du kan være i aktivitet på arbeidsplassen. </p><h3>NAV</h3><p>Hvis du ikke har tilknytning til en arbeidsgiver, er det NAV-kontoret som skal gi deg veiledning og oppfølging. NAV har også ansvaret for å utbetale sykepenger til deg.</p>',
 	'sykmelding.teaser.fulltittel': 'Sykmelding fra %FOM% til %TOM%',
 	'sykmelding.teaser.tittel': 'Sykmelding',

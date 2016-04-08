@@ -31,14 +31,14 @@ const DineSykmeldinger = ({ sykmeldinger = [] }) => {
 					tittel="Tidligere sykmeldinger"
 					ingenSykmeldingerMelding="Du har ingen tidligere sykmeldinger."
 					className="js-tidligere-sykmeldinger" />
-				<div className="panel">
+				<article className="panel">
 					<h2 className="typo-innholdstittel blokk-s">
 						{getLedetekst('dine-sykmeldinger.informasjon.tittel')}
 					</h2>
 					<div className="redaksjonelt-innhold typo-infotekst side-innhold"
 						dangerouslySetInnerHTML={getHtmlLedetekst('dine-sykmeldinger.informasjon.tekst')}>
 					</div>
-				</div>
+				</article>
 			</div>);
 };
 

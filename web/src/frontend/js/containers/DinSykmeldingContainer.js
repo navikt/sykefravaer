@@ -2,11 +2,12 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/action_creators.js';
 import Side from '../sider/Side.js';
+import { getLedetekst } from '../ledetekster';
 import DinSykmelding from '../components/DinSykmelding.js';
 import AppSpinner from '../components/AppSpinner.js';
 
 const Controller = (state) => {
-	return (<Side>
+	return (<Side tittel={getLedetekst('sykmelding.vis.sidetittel')}>
 		{
 			(() => {
 				if(state.sykmelding.henter) {

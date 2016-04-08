@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import DineSykmeldinger from '../components/DineSykmeldinger.js';
+import { getLedetekst } from '../ledetekster';
 import { connect } from 'react-redux';
 import Side from '../sider/Side.js';
 import AppSpinner from '../components/AppSpinner.js';
 
 const DineSykmldSide = (sykmeldinger) => {
-	return (<Side>
+	return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')}>
 		{
 			(() => {
 				if(sykmeldinger.henter) {

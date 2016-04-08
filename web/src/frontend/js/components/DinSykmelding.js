@@ -23,7 +23,7 @@ const DinSykmelding = ({ sykmelding }) => {
 		<div className="panel">
 			<div className="blokk-l side-innhold">
 				<SykmeldingOpplysning tittel="Periode">
-					<p>
+					<p className="js-periode">
 						<strong>{formatDate(sykmelding.fom)} &ndash; {formatDate(sykmelding.tom)}</strong> ({getDuration(sykmelding.fom, sykmelding.tom)} dager) <br />
 						{sykmelding.grad} % sykmeldt
 					</p>
@@ -35,10 +35,10 @@ const DinSykmelding = ({ sykmelding }) => {
 					<p className="js-friskmeldt"><strong>{sykmelding.friskmeldt} %</strong> {getLedetekst('sykmelding.vis.friskmelding.tekst')}</p>
 				</SykmeldingOpplysning>
 				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.arbeidsgiver.tittel')}>
-					<p>{sykmelding.arbeidsgiver}</p>
+					<p className="js-arbeidsgiver">{sykmelding.arbeidsgiver}</p>
 				</SykmeldingOpplysning>
 				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.avsender.tittel')}>
-					<p>{sykmelding.sykmelder}</p>
+					<p className="js-avsender">{sykmelding.sykmelder}</p>
 				</SykmeldingOpplysning>
 			</div>
 			<Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel')} ikon="svg/lege.svg">

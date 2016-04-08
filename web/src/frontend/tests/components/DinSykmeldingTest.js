@@ -1,14 +1,15 @@
-var expect = require("chai").expect;
-import DinSykmelding from "../../js/components/DinSykmelding.js";
-import TestUtils from 'react-addons-test-utils'
+import chai from 'chai';
 import React from 'react'
+import { mount, shallow } from 'enzyme';
+import chaiEnzyme from 'chai-enzyme';
 
-function getContentOfNode (component, className) {
-	const node = TestUtils.findRenderedDOMComponentWithClass(component, className);
-	return node.textContent;
-}
+chai.use(chaiEnzyme());
+const expect = chai.expect; 
+
+import DinSykmelding from "../../js/components/DinSykmelding.js";
 
 let component; 
+
 const sykmelding = {
 	id: 3456789,
 	fnr: "12",
@@ -26,28 +27,28 @@ const sykmelding = {
 describe("DinSykmelding", () => {
 
 	beforeEach(() => {
-		component = TestUtils.renderIntoDocument(<DinSykmelding {...sykmelding} />); 
-	});
+		component = shallow(<DinSykmelding sykmelding={sykmelding} />);
+	})
 
 	it("Should display the period based on the props", () => {
-		expect(getContentOfNode(component, "js-periode")).to.contain("Fra og med 31.12.2015 til og med 06.01.2016");
+		expect(component.find(".js-periode")).to.contain("31.12.2015");
+		expect(component.find(".js-periode")).to.contain("06.01.2016");
 	});
 
 	it("Should display the GP based on on the props", () => {
-		expect(getContentOfNode(component, "js-avsender")).to.contain("Ove Olsen");
+		expect(component.find(".js-avsender")).to.contain("Ove Olsen");
 	});
 
 	it("Should display the name of the employer", () => {
-		expect(getContentOfNode(component, "js-arbeidsgiver")).to.contain("Selskapet AS");
+		expect(component.find(".js-arbeidsgiver")).to.contain("Selskapet AS");
 	});
 
 	it("Should display the current diagnosis", () => {
-		expect(getContentOfNode(component, "js-diagnose")).to.equal("Influensa")
+		expect(component.find(".js-diagnose")).to.contain("Influensa")
 	});
 
 	it("Should display the expected employable grad", () => {
-		expect(getContentOfNode(component, "js-friskmeldt")).to.equal("75 % arbeidsfør etter perioden")
+		expect(component.find(".js-friskmeldt").text()).to.contain("75 % arbeidsfør etter perioden")
 	});	
-
 
 });

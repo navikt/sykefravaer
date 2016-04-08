@@ -23,7 +23,7 @@ store.dispatch(hentSykmeldinger());
 $.get(window.SYFO_SETTINGS.REST_ROOT + '/sykmeldinger', (response) => {
 	store.dispatch(setSykmeldinger(response));
 }).fail(() => {
-	store.dispatch(hentSykmeldingerFeilet())
+	store.dispatch(hentSykmeldingerFeilet());
 });
 
 render(<Provider store={store}>

@@ -14,6 +14,7 @@ const sykmelding = {
 	fnr: "12",
 	fornavn: "Per",
 	etternavn: "Person",
+	sykmelder: "Ove Olsen",
 	arbeidsgiver: "Selskapet AS",
 	fom: "2015-12-31T00:00:00Z",
 	tom: "2016-01-06T00:00:00Z",
@@ -30,6 +31,10 @@ describe("DinSykmelding", () => {
 
 	it("Should display the period based on the props", () => {
 		expect(getContentOfNode(component, "js-periode")).to.contain("Fra og med 31.12.2015 til og med 06.01.2016");
+	});
+
+	it("Should display the GP based on on the props", () => {
+		expect(getContentOfNode(component, "js-avsender")).to.contain("Ove Olsen");
 	});
 
 	it("Should display the name of the employer", () => {

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { formatDate, getDuration } from '../utils/index.js';
-import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
+import { getLedetekst } from '../ledetekster';
 import Utvidbar from '../components/Utvidbar.js';
 import AppSpinner from './AppSpinner.js';
 import SykmeldingOpplysning from './SykmeldingOpplysning.js';

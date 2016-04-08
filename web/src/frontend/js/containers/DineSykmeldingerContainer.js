@@ -9,9 +9,9 @@ const DineSykmldSide = (sykmeldinger) => {
 	return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')}>
 		{
 			(() => {
-				if(sykmeldinger.henter) {
-					return <AppSpinner />
-				} else if(sykmeldinger.hentingFeilet) {
+				if (sykmeldinger.henter) {
+					return <AppSpinner />;
+				} else if (sykmeldinger.hentingFeilet) {
 					return (<div className="panel typo-infotekst panel-melding">
 							<h1 className="hode hode-feil hode-innholdstittel hode-dekorert blokk">Det oppstod en feil</h1>
 							<p>Vennligst prøv igjen litt senere.</p>

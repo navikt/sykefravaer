@@ -34,7 +34,7 @@ export class Utvidbar extends Component {
 							aria-pressed={this.state.erApen}
 							onClick={(event) => {this.toggle(event);}}>
 							<span className="utvidbar-ikon">
-								<img src={"/sykefravaer/img/" + this.props.ikon} alt="" />
+								<img src={'/sykefravaer/img/' + this.props.ikon} alt="" />
 							</span>
 							<span>{this.props.tittel}</span>
 						</a>

@@ -10,8 +10,8 @@ const Controller = (state) => {
 	return (<Side tittel={getLedetekst('sykmelding.vis.sidetittel')}>
 		{
 			(() => {
-				if(state.sykmelding.henter) {
-					return <AppSpinner />
+				if (state.sykmelding.henter) {
+					return <AppSpinner />;
 				} else if(state.sykmelding.hentingFeilet) {
 					return (<div className="panel typo-infotekst panel-melding">
 							<h1 className="hode hode-feil hode-innholdstittel hode-dekorert blokk">Det oppstod en feil</h1>
@@ -38,7 +38,7 @@ function mapStateToProps(state, ownProps) {
 		sykmelding: {
 			data: sykmelding,
 			hentingFeilet: state.sykmeldinger.hentingFeilet,
-			henter: state.sykmeldinger.henter
+			henter: state.sykmeldinger.henter,
 		},
 	};
 }

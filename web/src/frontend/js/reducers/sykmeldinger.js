@@ -1,29 +1,7 @@
-function setSykmeldingStatus(state, id, sykmeldingStatus) {
-	return state.map((sykmld) => {
-		if (sykmld.id === id) {
-			return Object.assign({}, sykmld, {
-				status: sykmeldingStatus,
-			});
-		}
-		return Object.assign({}, sykmld);
-	});
-}
-
-function setEgenvalgtArbeidsgiver(state, id, arbeidsgiver) {
-	return state.map((sykmld) => {
-		if (sykmld.id === id) {
-			return Object.assign({}, sykmld, {
-				egenvalgtArbeidsgiver: arbeidsgiver,
-			});
-		}
-		return Object.assign({}, sykmld);
-	});
-}
-
-const initiellState = { 
+const initiellState = {
 	henter: false,
 	hentingFeilet: false,
-	data: [] 
+	data: [],
 };
 
 export default function sykmeldinger(state = initiellState, action) {

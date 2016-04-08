@@ -11,7 +11,8 @@ const SykmeldingOpplysning = ({ tittel, children, Overskrift = 'H3' }) => {
 
 SykmeldingOpplysning.propTypes = {
 	tittel: PropTypes.string.isRequired,
-	children: PropTypes.object
+	children: PropTypes.object,
+	Overskrift: PropTypes.string,
 };
 
 export default SykmeldingOpplysning;

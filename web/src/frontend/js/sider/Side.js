@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-var DocumentTitle = require("react-document-title");
+const DocumentTitle = require('react-document-title');
 
 const Side = ({ children, tittel }) => {
-	return (<DocumentTitle title={tittel + " - www.nav.no"}>
+	return (<DocumentTitle title={tittel + ' - www.nav.no'}>
 				<div className="begrensning blokk-xl side-syfofront">
 					{children}
 				</div>
@@ -11,7 +11,7 @@ const Side = ({ children, tittel }) => {
 
 Side.propTypes = {
 	children: PropTypes.object,
-	tittel: PropTypes.string.isRequired
+	tittel: PropTypes.string.isRequired,
 };
 
 export default Side;

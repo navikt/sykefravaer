@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import SideIkkeFunnet from '../components/SideIkkeFunnet.js';
 import { connect } from 'react-redux';
 

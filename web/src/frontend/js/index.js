@@ -11,29 +11,31 @@ import { setSykmeldinger, hentSykmeldinger, hentSykmeldingerFeilet } from './act
 import { setLedetekster, hentLedetekster, hentLedeteksterFeilet } from './actions/ledetekster_actions.js';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
 
-const history = useScroll(() => { return browserHistory; })();
+const history = useScroll(() => {
+    return browserHistory;
+})();
 
 const store = createStore(combineReducers({
-	sykmeldinger,
+    sykmeldinger,
     ledetekster,
-	history,
+    history,
 }));
 
 store.dispatch(hentSykmeldinger());
 store.dispatch(hentLedetekster());
 
 $.get(window.SYFO_SETTINGS.REST_ROOT + '/sykmeldinger', (response) => {
-	store.dispatch(setSykmeldinger(response));
+    store.dispatch(setSykmeldinger(response));
 }).fail(() => {
-	store.dispatch(hentSykmeldingerFeilet());
+    store.dispatch(hentSykmeldingerFeilet());
 });
 
 $.get(window.SYFO_SETTINGS.REST_ROOT + '/informasjon/tekster', (response) => {
-	store.dispatch(setLedetekster(response));
+    store.dispatch(setLedetekster(response));
 }).fail(() => {
-	store.dispatch(hentLedeteksterFeilet());
+    store.dispatch(hentLedeteksterFeilet());
 });
 
 render(<Provider store={store}>
-	<AppRouter history={history} /></Provider>,
-	document.getElementById('maincontent'));
+        <AppRouter history={history} /></Provider>,
+    document.getElementById('maincontent'));

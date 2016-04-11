@@ -2,25 +2,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<meta charset="UTF-8">
-	{{fragment.styles}}
-	<script src="/sykefravaer/vendor/jquery.min.js"></script>
-	{{fragment.scripts}}
-	<link href="/sykefravaer/styles/styles.css" rel="stylesheet" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <meta charset="UTF-8">
+    {{fragment.styles}}
+    <script src="/sykefravaer/vendor/jquery.min.js"></script>
+    {{fragment.scripts}}
+    <link href="/sykefravaer/styles/styles.css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 </head>
-    <body>
-    	{{fragment.skiplinks}}
-    	{{fragment.header-withmenu}}
-		<div id="maincontent" class="app-syfofront"></div>
-		{{fragment.footer-withmenu}}
-		<%={{ }}=%>
-		<script>
-			window.SYFO_SETTINGS = {
-				"REST_ROOT": "{{{restRoot}}}"
-			};
-		</script>
-		<script src="{{{buildRoot}}}/{{{bundleFileName}}}"></script>
-    </body>
+<body>
+    {{fragment.skiplinks}}
+    {{fragment.header-withmenu}}
+    <div id="maincontent" class="app-syfofront"></div>
+    {{fragment.footer-withmenu}}
+    <%={{ }}=%>
+    <script>
+        window.SYFO_SETTINGS = {
+            "REST_ROOT": "{{{restRoot}}}"
+        };
+    </script>
+    <script src="{{{buildRoot}}}/{{{bundleFileName}}}"></script>
+</body>
 </html>

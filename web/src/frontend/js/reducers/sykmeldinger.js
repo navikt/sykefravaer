@@ -21,8 +21,8 @@ export default function sykmeldinger(state = initiellState, action) {
 	case 'HENT_SYKMELDINGER_FEILET':
 		return {
 			data: [],
-			hentingFeilet: true,
 			henter: false,
+			hentingFeilet: true,
 		};
 	default:
 		return state;

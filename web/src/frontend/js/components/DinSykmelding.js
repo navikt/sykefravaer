@@ -5,15 +5,15 @@ import Utvidbar from '../components/Utvidbar.js';
 import AppSpinner from './AppSpinner.js';
 import SykmeldingOpplysning from './SykmeldingOpplysning.js';
 
-const DinSykmelding = ({ sykmelding }) => {
+const DinSykmelding = ({ sykmelding, ledetekster }) => {
 	if (!sykmelding || !sykmelding.id) {
-		return <AppSpinner />;
+		return <AppSpinner ledetekster={ledetekster} />;
 	}
 
 	return (<div>
 		<header className="side-header blokk">
 			<h1 className="typo-sidetittel blokk">
-				{getLedetekst('sykmelding.vis.hovedtittel')}
+				{getLedetekst('sykmelding.vis.hovedtittel', ledetekster)}
 			</h1>
 		</header>
 
@@ -28,20 +28,20 @@ const DinSykmelding = ({ sykmelding }) => {
 						{sykmelding.grad} % sykmeldt
 					</p>
 				</SykmeldingOpplysning>
-				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel')}>
+				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
 					<p className="js-diagnose">{sykmelding.diagnose}</p>
 				</SykmeldingOpplysning>
-				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.friskmelding.tittel')}>
-					<p className="js-friskmeldt"><strong>{sykmelding.friskmeldt} %</strong> {getLedetekst('sykmelding.vis.friskmelding.tekst')}</p>
+				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.friskmelding.tittel', ledetekster)}>
+					<p className="js-friskmeldt"><strong>{sykmelding.friskmeldt} %</strong> {getLedetekst('sykmelding.vis.friskmelding.tekst', ledetekster)}</p>
 				</SykmeldingOpplysning>
-				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.arbeidsgiver.tittel')}>
+				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.arbeidsgiver.tittel', ledetekster)}>
 					<p className="js-arbeidsgiver">{sykmelding.arbeidsgiver}</p>
 				</SykmeldingOpplysning>
-				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.avsender.tittel')}>
+				<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.avsender.tittel', ledetekster)}>
 					<p className="js-avsender">{sykmelding.sykmelder}</p>
 				</SykmeldingOpplysning>
 			</div>
-			<Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel')} ikon="svg/lege.svg">
+			<Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/lege.svg">
 				<SykmeldingOpplysning Overskrift="H4" tittel="Når startet det legemeldte fraværet?">
 					<p>1. desember 2015</p>
 				</SykmeldingOpplysning>

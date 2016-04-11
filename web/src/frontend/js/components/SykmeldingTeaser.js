@@ -4,7 +4,7 @@ import { getContextRoot } from '../routers/paths.js';
 import { formatDate, getDuration } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
 
-const SykmeldingTeaser = ({ sykmelding }) => {
+const SykmeldingTeaser = ({ sykmelding, ledetekster }) => {
 	const days = getDuration(sykmelding.fom, sykmelding.tom);
 
 	return (<Link className="panel sykmelding-teaser"
@@ -15,16 +15,16 @@ const SykmeldingTeaser = ({ sykmelding }) => {
 		</span>
 		<div className="teaser-innhold">
 			<h3 className="js-title teaser-tittel" aria-labelledby={'sykmld-teaser-tittel-' + sykmelding.id + ' ' + 'sykmld-teaser-dato-' + sykmelding.id}>
-				<small className="teaser-meta" id={'sykmld-teaser-dato-' + sykmelding.id}>{getLedetekst('sykmelding.teaser.dato', {
+				<small className="teaser-meta" id={'sykmld-teaser-dato-' + sykmelding.id}>{getLedetekst('sykmelding.teaser.dato', ledetekster, {
 					'%FOM%': formatDate(sykmelding.fom),
 					'%TOM%': formatDate(sykmelding.tom),
 				})}</small>
 				<span id={'sykmld-teaser-tittel-' + sykmelding.id}>
-					{getLedetekst('sykmelding.teaser.tittel')}
+					{getLedetekst('sykmelding.teaser.tittel', ledetekster)}
 				</span>
 			</h3>
 			<p className="js-meta typo-infotekst">
-				{getLedetekst('sykmelding.teaser.tekst', {
+				{getLedetekst('sykmelding.teaser.tekst', ledetekster, {
 					'%GRAD%': sykmelding.grad,
 					'%ARBEIDSGIVER%': sykmelding.arbeidsgiver,
 					'%DAGER%': days,

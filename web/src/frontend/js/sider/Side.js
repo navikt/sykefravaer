@@ -11,7 +11,7 @@ const Side = ({ children, tittel }) => {
 
 Side.propTypes = {
 	children: PropTypes.object,
-	tittel: PropTypes.string.isRequired,
+	tittel: PropTypes.string,
 };
 
 export default Side;

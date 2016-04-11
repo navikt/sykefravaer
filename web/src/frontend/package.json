@@ -42,7 +42,6 @@
     "browserify": "^13.0.0",
     "cheerio": "^0.20.0",
     "deep-freeze": "0.0.1",
-    "eslint": "^2.5.3",
     "express": "^4.13.4",
     "fetch": "^1.0.1",
     "http-proxy": "^1.13.2",

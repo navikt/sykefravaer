@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Router, Route } from 'react-router';
 import DineSykmeldingerContainer from '../containers/DineSykmeldingerContainer.js';
 import { DinSykmeldingContainer } from '../containers/DinSykmeldingContainer.js';
-import SideIkkeFunnet from '../components/SideIkkeFunnet.js';
+import FeilContainer from '../containers/FeilContainer.js';
 
 const Feil = () => {
 	return <p>Gå til /app</p>;
@@ -14,7 +14,7 @@ const AppRouter = ({ history }) => {
 		<Route path="/sykefravaer/app" component={DineSykmeldingerContainer} />
 		<Route path="/sykefravaer/app/dine-sykmeldinger" component={DineSykmeldingerContainer} />
 		<Route path="/sykefravaer/app/sykmelding/:sykmeldingId" component={DinSykmeldingContainer} />
-		<Route path="*" component={SideIkkeFunnet} />
+		<Route path="*" component={FeilContainer} />
 	</Router>);
 };
 

@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-
+import ledetekster from "../ledetekster_mock.js";
 import SykmeldingTeaser from "../../js/components/SykmeldingTeaser.js";
 
 describe("SykmeldingTeaser", () => {
@@ -16,7 +16,7 @@ describe("SykmeldingTeaser", () => {
             grad: "100",
             id: 123
         };
-        const teaser = shallow(<SykmeldingTeaser sykmelding={sykmelding}/>);
+        const teaser = shallow(<SykmeldingTeaser sykmelding={sykmelding} ledetekster={ledetekster}/>);
         expect(teaser.find(".js-title").text()).to.contain("fra 02.02.2016 til 16.02.2016");
         expect(teaser.find(".js-title").text()).to.contain("Sykmelding");
     });
@@ -27,7 +27,7 @@ describe("SykmeldingTeaser", () => {
 			tom: "2016-02-16T00:00:00Z",
 			grad: "100",
 			arbeidsgiver: "Bekk Consulting AS",
-		}}/>);
+		}} ledetekster={ledetekster}/>);
 
         expect(teaser.find("p").text()).to.contain("Bekk Consulting AS")
     });

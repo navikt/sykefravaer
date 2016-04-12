@@ -6,6 +6,7 @@ import AppSpinner from './AppSpinner.js';
 import SykmeldingOpplysning from './SykmeldingOpplysning.js';
 
 const DinSykmelding = ({ sykmelding, ledetekster }) => {
+	
     if (!sykmelding || !sykmelding.id) {
         return <AppSpinner ledetekster={ledetekster} />;
     }

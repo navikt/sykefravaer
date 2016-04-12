@@ -16,7 +16,7 @@ export function getHtmlLedetekst(key, labels, replacements) {
 }
 
 export function getLedetekst(key, labels, replacements) {
-    const label = labels[key];
+    const label = labels ? labels[key] : undefined;
     if (!label) {
         return key + ' [MANGLER LEDETEKST]';
     }

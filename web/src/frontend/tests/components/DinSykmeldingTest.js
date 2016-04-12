@@ -2,6 +2,7 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
+import ledetekster from "../ledetekster_mock.js";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -27,7 +28,7 @@ const sykmelding = {
 describe("DinSykmelding", () => {
 
     beforeEach(() => {
-        component = shallow(<DinSykmelding sykmelding={sykmelding}/>);
+        component = shallow(<DinSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);
     })
 
     it("Should display the period based on the props", () => {

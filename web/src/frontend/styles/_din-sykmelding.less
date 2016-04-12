@@ -1,34 +1,26 @@
 .sykmelding-opplysning {
 
-	margin-bottom: 1.5rem; 
+	margin-bottom: 2rem; 
 
 	&:last-child {
 		margin-bottom: 0; 
 	}
 
 	h3, h4 {
-		color: @gray-inactive; 
-		margin-bottom: 0; 
+		margin-bottom: .5rem; 
 	}
 
 	h3 {
 		.mixin-typo-etikett-liten(); 
+		color: @gray-inactive; 
 	}
 
-	h4, p {
-		.mixin-typo-normal(); 
+	h4 {
+		.mixin-typo-element(); 
 	}
 
-}
+	p {
+		.mixin-typo-infotekst();
+	}
 
-.sykmelding-header {
-	background: #d1eff9 data-uri("../img/svg/lege.svg") no-repeat left center;
-	background-origin: content-box; 
-	background-size: 24px 24px; 
-}
-
-@media only screen {
-	.sykmelding-header h2 {
-		padding-left: 2rem; 
-	}	
 }

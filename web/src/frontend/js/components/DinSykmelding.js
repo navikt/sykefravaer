@@ -16,15 +16,17 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 {getLedetekst('sykmelding.vis.hovedtittel', ledetekster)}
             </h1>
         </header>
-
-        <div className="panel panel-modulheader sykmelding-header">
-            <h2>{sykmelding.fornavn} {sykmelding.etternavn}</h2>
-        </div>
+        <div className="header-bolk header-sykmelding">
+			<img className="header-ikon" src="/sykefravaer/img/svg/account-circle.svg" alt="Du" />
+			<h2 className="header-tittel">{sykmelding.fornavn} {sykmelding.etternavn}</h2>
+		</div>
         <div className="panel">
             <div className="blokk-l side-innhold">
                 <SykmeldingOpplysning tittel="Periode">
-                    <p className="js-periode">
-                        <strong>{formatDate(sykmelding.fom)} &ndash; {formatDate(sykmelding.tom)}</strong> ({getDuration(sykmelding.fom, sykmelding.tom)} dager) <br />
+                    <p className="js-periode blokk-xxs">
+                        <strong>{formatDate(sykmelding.fom)} &ndash; {formatDate(sykmelding.tom)}</strong> ({getDuration(sykmelding.fom, sykmelding.tom)} dager)
+                    </p>
+                    <p className="js-grad">
                         {sykmelding.grad} % sykmeldt
                     </p>
                 </SykmeldingOpplysning>
@@ -41,7 +43,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     <p className="js-avsender">{sykmelding.sykmelder}</p>
                 </SykmeldingOpplysning>
             </div>
-            <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/lege.svg">
+            <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg">
                 <SykmeldingOpplysning Overskrift="H4" tittel="Når startet det legemeldte fraværet?">
                     <p>1. desember 2015</p>
                 </SykmeldingOpplysning>

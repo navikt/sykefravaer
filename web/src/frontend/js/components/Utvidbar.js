@@ -26,22 +26,18 @@ export class Utvidbar extends Component {
 
     render() {
         return (<div ref="utvidbar" className="utvidbar blokk-l" aria-expanded={this.state.erApen}>
-            <h3 className={!this.state.erApen ?
-						'utvidbar-tittel' :
-						'utvidbar-tittel utvidbar-tittel--apen'}>
+            <h3 className={!this.state.erApen ? 'header-utvidbar' : 'header-utvidbar header-utvidbar-apen'}>
                 <a href="javscript:void(0)"
                     role="button"
                     aria-pressed={this.state.erApen}
                     onClick={(event) => {this.toggle(event);}}>
-                            <span className="utvidbar-ikon">
-                                <img src={'/sykefravaer/img/' + this.props.ikon} alt="" />
-                            </span>
-                    <span>{this.props.tittel}</span>
+                        <img src={'/sykefravaer/img/' + this.props.ikon} alt="" className="header-ikon" />
+                        <span className="header-tittel">{this.props.tittel}</span>
                 </a>
             </h3>
             <div className={!this.state.erApen ?
-						'utvidbar-innhold-beholder utvidbar-innhold-beholder--lukket' :
-						'utvidbar-innhold-beholder'}>
+                        'utvidbar-innhold-beholder utvidbar-innhold-beholder--lukket' :
+                        'utvidbar-innhold-beholder'}>
                 <div className="utvidbar-innhold">
                     {this.props.children}
                     <div className="knapperad">

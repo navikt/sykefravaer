@@ -16,12 +16,23 @@
 @import "@{base-url}/nav_extra/utilities";
 @import "@{base-url}/nav_extra/knapperader";
 
+@import "_headers.less";
 @import "_dine-sykmeldinger.less";
 @import "_din-sykmelding.less";
 @import "_sykmelding-teaser.less";
 @import "_layout.less";
-@import "_brodsmuler.less";
 @import "_utvidbar.less";
+
+.mixin-panel-padding() {
+	padding-left: 1rem; 
+	padding-right: 1rem; 
+
+	@media(min-width: @screen-xs) {
+		padding-left: 2rem; 
+		padding-right: 2rem; 
+	}
+}
+
 
 .begrensning {
 	max-width: 40rem; 
@@ -55,6 +66,7 @@
 	background-color: transparent; 
 }
 
+
 .side-syfofront {
 	padding-top: 4rem;
 }
@@ -71,4 +83,8 @@
 		margin-bottom: 0; 
 	}
 
+}
+
+.header-sykmelding {
+	background: #d1eff9;
 }

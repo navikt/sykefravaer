@@ -81,7 +81,7 @@
     "karma-coverage": "^0.5.3",
     "karma-firefox-launcher": "^0.1.7",
     "karma-mocha": "^0.2.2",
-    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-phantomjs-launcher": "git+http://stash.devillo.no/scm/npmm/karma-phantomjs-launcher.git#d77c5b83f657b19796520b196db66be7d07ae168",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
     "less": "^2.6.0",

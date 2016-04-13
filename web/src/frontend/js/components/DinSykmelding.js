@@ -4,9 +4,10 @@ import { getLedetekst } from '../ledetekster';
 import Utvidbar from '../components/Utvidbar.js';
 import AppSpinner from './AppSpinner.js';
 import SykmeldingOpplysning from './SykmeldingOpplysning.js';
+import { Link } from 'react-router';
 
 const DinSykmelding = ({ sykmelding, ledetekster }) => {
-	
+
     if (!sykmelding || !sykmelding.id) {
         return <AppSpinner ledetekster={ledetekster} />;
     }
@@ -21,7 +22,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
 			<img className="header-ikon" src="/sykefravaer/img/svg/account-circle.svg" alt="Du" />
 			<h2 className="header-tittel">{sykmelding.fornavn} {sykmelding.etternavn}</h2>
 		</div>
-        <div className="panel">
+        <div className="panel blokk">
             <div className="blokk-l side-innhold">
                 <SykmeldingOpplysning tittel="Periode">
                     <p className="js-periode blokk-xxs">
@@ -80,6 +81,11 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 </SykmeldingOpplysning>
             </Utvidbar>
         </div>
+        <p className="side-innhold">
+        	<Link to="/sykefravaer/app">
+        		{getLedetekst("sykmelding.vis.tilbake", ledetekster)}
+        	</Link>
+		</p>
     </div>);
 };
 

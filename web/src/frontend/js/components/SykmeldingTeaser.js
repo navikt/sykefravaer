@@ -9,7 +9,7 @@ const SykmeldingTeaser = ({ sykmelding, ledetekster }) => {
 
     return (<Link className="panel sykmelding-teaser" key={sykmelding.id} to={getContextRoot() + '/sykmelding/' + sykmelding.id}>
         <span className="teaser-ikon">
-            <img src="/sykefravaer/img/svg/stethoscope.svg" alt="" />
+            <img src="/sykefravaer/img/svg/stethoscope.svg" alt="Stetoskop" />
         </span>
         <div className="teaser-innhold">
             <h3 className="js-title teaser-tittel" aria-labelledby={'sykmld-teaser-tittel-' + sykmelding.id + ' ' + 'sykmld-teaser-dato-' + sykmelding.id}>

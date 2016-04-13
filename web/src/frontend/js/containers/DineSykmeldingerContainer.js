@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Side from '../sider/Side.js';
 import AppSpinner from '../components/AppSpinner.js';
 import { getLedetekst } from '../ledetekster';
+import Feilmelding from '../components/Feilmelding.js';
 
 const DineSykmldSide = (state) => {
     return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data)}>
@@ -12,12 +13,8 @@ const DineSykmldSide = (state) => {
                 if (state.sykmeldinger.henter) {
                     return <AppSpinner ledetekster={state.ledetekster.data} />;
                 } else if (state.sykmeldinger.hentingFeilet) {
-                    return (<div className="panel typo-infotekst panel-melding">
-                        <h1 className="hode hode-feil hode-innholdstittel hode-dekorert blokk">Det oppstod en feil</h1>
-                        <p>Vennligst prøv igjen litt senere.</p>
-                    </div>);
+                    return (<Feilmelding tittel="Det oppstod en feil" melding="Vennligst prøv igjen litt senere" />);
                 }
-
                 return <DineSykmeldinger sykmeldinger={state.sykmeldinger.data} ledetekster={state.ledetekster.data} />;
             })()
         }
@@ -30,9 +27,12 @@ DineSykmldSide.propTypes = {
 };
 
 function mapStateToProps(state) {
+
+	console.log(state)
+
     return {
         sykmeldinger: state.sykmeldinger,
-        ledetekster: state.ledetekster,
+        ledetekster: state.ledetekster, 
     };
 }
 

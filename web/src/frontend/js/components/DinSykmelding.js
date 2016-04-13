@@ -83,7 +83,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
         </div>
         <p className="side-innhold">
         	<Link to="/sykefravaer/app">
-        		{getLedetekst("sykmelding.vis.tilbake", ledetekster)}
+        		&lsaquo; {getLedetekst("sykmelding.vis.tilbake", ledetekster)}
         	</Link>
 		</p>
     </div>);

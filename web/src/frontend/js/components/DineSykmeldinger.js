@@ -12,27 +12,10 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {} }) => {
             <p dangerouslySetInnerHTML={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst', ledetekster)} />
         </div>
         <SykmeldingTeasere
-            sykmeldinger={sykmeldinger.filter((sykmld) => {
-                const fomDato = moment(sykmld.fom);
-                const tomDato = moment(sykmld.tom);
-                const dagensDato = moment();
-                return dagensDato.isBetween(fomDato, tomDato);
-            })}
-            tittel="Aktive sykmeldinger"
-            ingenSykmeldingerMelding="Du har ingen aktive sykmeldinger."
+            sykmeldinger={sykmeldinger}
+            tittel="Dine sykmeldinger"
+            ingenSykmeldingerMelding="Du har ingen sykmeldinger."
             className="js-nye-sykmeldinger"
-            ledetekster={ledetekster}
-        />
-        <SykmeldingTeasere
-            sykmeldinger={sykmeldinger.filter((sykmld) => {
-                const fomDato = moment(sykmld.fom);
-                const tomDato = moment(sykmld.tom);
-                const dagensDato = moment();
-                return !dagensDato.isBetween(fomDato, tomDato);
-            })}
-            tittel="Tidligere sykmeldinger"
-            ingenSykmeldingerMelding="Du har ingen tidligere sykmeldinger."
-            className="js-tidligere-sykmeldinger"
             ledetekster={ledetekster}
         />
         <article className="panel">

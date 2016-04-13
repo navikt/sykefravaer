@@ -1,4 +1,4 @@
-.sykmelding-teaser:extend(.panel) {
+.panel.sykmelding-teaser:extend(.panel) {
 
 	margin-bottom: 1px; 
 	padding-right: 3rem; 
@@ -7,7 +7,7 @@
 	background-position: 97% center; 
 	background-size: .5rem .5rem; 
 	transition: background-position ease-in-out .1s; 	
-	display: table; 
+	display: flex; 
 	width: 100%;
 
 	&:hover {
@@ -29,16 +29,16 @@
 
 @media(min-width: 500px) {
 
-	.teaser-ikon, .teaser-innhold {
-		display: table-cell;
+	.teaser-ikon {
+		display: block;
+		align-self: flex-start;
+		padding-top: 2rem; 
 	}
 
 	.teaser-ikon {
 		width: 2rem;
 		box-sizing: content-box;
 		padding-right: 1rem;
-		vertical-align: top; 
-		padding-top: 2rem; git statu
 
 		img {
 			width: 100%;

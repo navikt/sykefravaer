@@ -8,7 +8,9 @@ const SykmeldingTeasere = ({ sykmeldinger, ledetekster, className, tittel = '', 
         }
         <div className={className || 'js-content'}>
             {
-                (sykmeldinger.length ? sykmeldinger.map((sykmelding, idx) => {
+                (sykmeldinger.length ? sykmeldinger.sort((sykmldA, sykmldB) => {
+                	return sykmldA.fom < sykmldB.fom;
+                }).map((sykmelding, idx) => {
                     return <SykmeldingTeaser key={idx} sykmelding={sykmelding} ledetekster={ledetekster} />;
                 }) : <p className="panel typo-infotekst">{ingenSykmeldingerMelding}</p>)
             }

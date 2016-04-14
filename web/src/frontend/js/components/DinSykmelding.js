@@ -26,7 +26,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
             <div className="blokk-l side-innhold">
                 <SykmeldingOpplysning tittel="Periode">
                     <p className="js-periode blokk-xxs">
-                        <strong>{formatDate(sykmelding.fom)} &ndash; {formatDate(sykmelding.tom)}</strong> ({getDuration(sykmelding.fom, sykmelding.tom)} dager)
+                        <strong>{formatDate(sykmelding.fom)} &ndash; {formatDate(sykmelding.tom)}</strong> &bull; {getDuration(sykmelding.fom, sykmelding.tom)} dager
                     </p>
                     <p className="js-grad">
                         {sykmelding.grad} % sykmeldt
@@ -36,7 +36,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     <p className="js-diagnose">{sykmelding.diagnose}</p>
                 </SykmeldingOpplysning>
                 <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.friskmelding.tittel', ledetekster)}>
-                    <p className="js-friskmeldt"><strong>{sykmelding.friskmeldt} %</strong> {getLedetekst('sykmelding.vis.friskmelding.tekst', ledetekster)}</p>
+                    <p className="js-friskmeldt">{sykmelding.friskmeldt} % {getLedetekst('sykmelding.vis.friskmelding.tekst', ledetekster)}</p>
                 </SykmeldingOpplysning>
                 <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.arbeidsgiver.tittel', ledetekster)}>
                     <p className="js-arbeidsgiver">{sykmelding.arbeidsgiver}</p>

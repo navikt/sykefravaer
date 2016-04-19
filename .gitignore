@@ -3,8 +3,9 @@
 target
 node_modules
 *.log
-**/webapp/css/**/*
+**/webapp/styles/**/*
 **/webapp/img/**/*
 **/webapp/js/**/*
+**/webapp/vendor/**/*
 **/webapp/*.html
 web/src/frontend/img/modig-frontend/**/*

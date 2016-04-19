@@ -1,11 +1,14 @@
 .header-bolk {
 	.mixin-panel-padding(); 
+	.mixin-typo-element(); 
 	display: flex; 
 	width: 100%;
 	padding-top: 1.25rem;
 	padding-bottom: 1.25rem; 
-	margin-bottom: 0; 
+	margin-bottom: 1px; 
 	display: flex; 	
+	background: @white;  
+	margin-bottom: 1px; 
 }
 
 .header-ikon {
@@ -18,14 +21,5 @@
 .header-tittel {
 	flex: 1;		
 	margin: 0;
-	.mixin-typo-element(); 
-}
-
-.header-bolk {
-	.mixin-panel-padding();
-	background: @white;  
-	margin-bottom: 1px; 
-	padding-top: 1.25em;
-	padding-bottom: 1.25em; 
 	.mixin-typo-element(); 
 }

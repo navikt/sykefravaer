@@ -10,10 +10,13 @@
 	display: flex; 
 	width: 100%;
 
+	&:hover, &:focus {
+		position: relative; 
+		z-index: 1; 	
+	}
+
 	&:hover {
 		background-image: data-uri("../img/svg/pil-videre-blaa.svg");
-		position: relative; 
-		z-index: 1;
 	}
 
 	p {
@@ -52,15 +55,17 @@
 .teaser-meta {
 	display: block; 
 	.mixin-typo-normal(); 
+	margin-bottom: 8px; 
+}
+
+.teaser-header {
+	margin: 0; 
 }
 
 .teaser-tittel {
 	.mixin-typo-element(); 
-	margin: 0; 		
+	display: block; 
+	margin: 0; 
+	margin-bottom: 8px; 
 	padding: 0; 
-
-	small, span {
-		display: block; 
-		margin-bottom: 8px; 
-	}
 }

@@ -32,13 +32,13 @@ describe("SykmeldingTeaser", () => {
         expect(teaser.find("p").text()).to.contain("Bekk Consulting AS")
     });
 
-    it("Contains a link (an <a> element", function () {
+    it("Should be an article element", function () {
         const teaser = shallow(<SykmeldingTeaser sykmelding={{
 			fom: "2016-02-02T00:00:00Z",
 			tom: "2016-02-16T00:00:00Z",
 			grad: "100",
 			arbeidsgiver: "Bekk Consulting AS"
 		}}/>);
-        expect(teaser).to.have.tagName("a")
+        expect(teaser).to.have.tagName("article")
     });
 });

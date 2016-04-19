@@ -47,7 +47,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
             </div>
             <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg">
                 <SykmeldingOpplysning Overskrift="H4" tittel="Når startet det legemeldte fraværet?">
-                    <p>1. desember 2015</p>
+                    <p>01.12.2015</p>
                 </SykmeldingOpplysning>
                 <SykmeldingOpplysning Overskrift="H4" tittel="Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig">
                     <p>Det er medisinske årsaker som hindrer arbeidsrelatert aktivitet</p>

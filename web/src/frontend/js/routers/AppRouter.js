@@ -12,8 +12,8 @@ const AppRouter = ({ history }) => {
     return (<Router history={history}>
         <Route path="/sykefravaer" component={Feil} />
         <Route path="/sykefravaer/app" component={DineSykmeldingerContainer} />
-        <Route path="/sykefravaer/app/dine-sykmeldinger" component={DineSykmeldingerContainer} />
-        <Route path="/sykefravaer/app/sykmelding/:sykmeldingId" component={DinSykmeldingContainer} />
+        <Route path="/sykefravaer/app/sykmeldinger" component={DineSykmeldingerContainer} />
+        <Route path="/sykefravaer/app/sykmeldinger/:sykmeldingId" component={DinSykmeldingContainer} />
         <Route path="*" component={FeilContainer} />
     </Router>);
 };

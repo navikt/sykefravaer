@@ -7,7 +7,7 @@ import { getLedetekst } from '../ledetekster';
 import Feilmelding from '../components/Feilmelding.js';
 
 const DineSykmldSide = (state) => {
-    return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data)}>
+    return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data)} brodsmuler={state.brodsmuler}>
         {
             (() => {
                 if (state.sykmeldinger.henter) {
@@ -26,13 +26,14 @@ DineSykmldSide.propTypes = {
     props: PropTypes.object,
 };
 
-function mapStateToProps(state) {
-
-	console.log(state)
-
+function mapStateToProps(state, ownProps) {
     return {
         sykmeldinger: state.sykmeldinger,
         ledetekster: state.ledetekster, 
+        brodsmuler: [{
+            tittel: "Dine sykmeldinger",
+            sti: "/sykmeldinger"
+        }],
     };
 }
 

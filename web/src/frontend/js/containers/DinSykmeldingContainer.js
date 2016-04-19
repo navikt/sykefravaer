@@ -8,17 +8,17 @@ import Feilmelding from '../components/Feilmelding.js';
 import { getLedetekst } from '../ledetekster';
 
 const Controller = (state) => {
-    return (<Side tittel={getLedetekst('sykmelding.vis.sidetittel', state.ledetekster.data)}>
-        {
-            (() => {
-                if (state.sykmelding.henter) {
-                    return <AppSpinner ledetekster={state.ledetekster.data} />;
-                } else if (state.sykmelding.hentingFeilet) {
-                    return (<Feilmelding tittel="Det oppstod en feil" melding="Vennligst prøv igjen litt senere" />);
-                }
-                return <DinSykmelding sykmelding={state.sykmelding.data} ledetekster={state.ledetekster.data} />;
-            })()
-        }
+    return (<Side tittel={getLedetekst('sykmelding.vis.sidetittel', state.ledetekster.data)} brodsmuler={state.brodsmuler}>
+            {
+                (() => {
+                    if (state.sykmelding.henter) {
+                        return <AppSpinner ledetekster={state.ledetekster.data} />;
+                    } else if (state.sykmelding.hentingFeilet) {
+                        return (<Feilmelding tittel="Det oppstod en feil" melding="Vennligst prøv igjen litt senere" />);
+                    }
+                    return <DinSykmelding sykmelding={state.sykmelding.data} ledetekster={state.ledetekster.data} />;
+                })()
+            }
     </Side>);
 };
 
@@ -38,6 +38,13 @@ function mapStateToProps(state, ownProps) {
             henter: state.sykmeldinger.henter,
         },
         ledetekster: state.ledetekster,
+        brodsmuler: [{
+            tittel: "Dine sykmeldinger",
+            sti: "/sykmeldinger",
+            erKlikkbar: true
+        }, {
+            tittel: "Sykmelding"
+        }],
     };
 }
 

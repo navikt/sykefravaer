@@ -7,7 +7,7 @@ import { getLedetekst } from '../ledetekster';
 const SykmeldingTeaser = ({ sykmelding, ledetekster }) => {
     const days = getDuration(sykmelding.fom, sykmelding.tom);
 
-    return (<Link className="panel sykmelding-teaser" key={sykmelding.id} to={getContextRoot() + '/sykmelding/' + sykmelding.id}>
+    return (<Link className="panel sykmelding-teaser" key={sykmelding.id} to={getContextRoot() + '/sykmeldinger/' + sykmelding.id}>
         <span className="teaser-ikon">
             <img src="/sykefravaer/img/svg/lege.svg" alt="Lege" />
         </span>

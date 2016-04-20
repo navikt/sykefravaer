@@ -39,11 +39,11 @@ function mapStateToProps(state, ownProps) {
         },
         ledetekster: state.ledetekster,
         brodsmuler: [{
-            tittel: "Dine sykmeldinger",
-            sti: "/sykmeldinger",
-            erKlikkbar: true
+            tittel: 'Dine sykmeldinger',
+            sti: '/sykmeldinger',
+            erKlikkbar: true,
         }, {
-            tittel: "Sykmelding"
+            tittel: 'Sykmelding',
         }],
     };
 }

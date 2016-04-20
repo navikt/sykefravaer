@@ -26,13 +26,13 @@ DineSykmldSide.propTypes = {
     props: PropTypes.object,
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
         sykmeldinger: state.sykmeldinger,
-        ledetekster: state.ledetekster, 
+        ledetekster: state.ledetekster,
         brodsmuler: [{
-            tittel: "Dine sykmeldinger",
-            sti: "/sykmeldinger"
+            tittel: 'Dine sykmeldinger',
+            sti: '/sykmeldinger',
         }],
     };
 }

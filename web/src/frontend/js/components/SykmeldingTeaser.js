@@ -10,7 +10,7 @@ class SykmeldingTeaser extends Component {
         super(props);
         this.state = {
             ikon: 'doctor-2.svg',
-        };        
+        };
     }
 
     onMouseEnter() {
@@ -26,11 +26,10 @@ class SykmeldingTeaser extends Component {
     }
 
     render() {
-
         const days = getDuration(this.props.sykmelding.fom, this.props.sykmelding.tom);
 
         return (<article>
-            <Link className="panel sykmelding-teaser" to={getContextRoot() + '/sykmeldinger/' + this.props.sykmelding.id} 
+            <Link className="panel sykmelding-teaser" to={getContextRoot() + '/sykmeldinger/' + this.props.sykmelding.id}
                 onMouseEnter={() => {this.onMouseEnter();}}
                 onMouseLeave={() => {this.onMouseLeave();}}
             >
@@ -57,7 +56,7 @@ class SykmeldingTeaser extends Component {
             </div>
         </Link></article>);
     }
-};
+}
 
 SykmeldingTeaser.propTypes = {
     sykmelding: PropTypes.object.isRequired,

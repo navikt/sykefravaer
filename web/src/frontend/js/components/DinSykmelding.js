@@ -7,16 +7,15 @@ import SykmeldingOpplysning from './SykmeldingOpplysning.js';
 import { Link } from 'react-router';
 
 const DinSykmelding = ({ sykmelding, ledetekster }) => {
-
     if (!sykmelding || !sykmelding.id) {
         return <AppSpinner ledetekster={ledetekster} />;
     }
 
-    return (<div>    
+    return (<div>
         <div className="header-bolk header-sykmelding">
-			<img className="header-ikon" src="/sykefravaer/img/svg/account-circle.svg" alt="Du" />
-			<h1 className="header-tittel">{sykmelding.fornavn} {sykmelding.etternavn}</h1>
-		</div>
+            <img className="header-ikon" src="/sykefravaer/img/svg/account-circle.svg" alt="Du" />
+            <h1 className="header-tittel">{sykmelding.fornavn} {sykmelding.etternavn}</h1>
+        </div>
         <div className="panel blokk">
             <h2 className="typo-innholdstittel blokk-l">
                 {getLedetekst('sykmelding.vis.hovedtittel', ledetekster)}
@@ -82,10 +81,10 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
             </Utvidbar>
         </div>
         <p className="side-innhold ikke-print">
-        	<Link to="/sykefravaer/app">
-        		&lsaquo; {getLedetekst("sykmelding.vis.tilbake", ledetekster)}
-        	</Link>
-		</p>
+            <Link to="/sykefravaer/app">
+                &lsaquo; {getLedetekst('sykmelding.vis.tilbake', ledetekster)}
+            </Link>
+        </p>
     </div>);
 };
 

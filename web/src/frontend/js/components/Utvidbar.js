@@ -11,6 +11,18 @@ export class Utvidbar extends Component {
         };
     }
 
+    onMouseEnter() {
+        this.setState({
+            ikon: this.props.ikonHover,
+        });
+    }
+
+    onMouseLeave() {
+        this.setState({
+            ikon: this.props.ikon,
+        });
+    }
+
     toggle(e) {
         e.preventDefault();
         const el = this.refs.utvidbar;
@@ -23,18 +35,6 @@ export class Utvidbar extends Component {
                 }, 150);
             }
         });
-    }
-
-    onMouseEnter() {
-        this.setState({
-            ikon: this.props.ikonHover
-        })
-    }
-
-    onMouseLeave() {
-        this.setState({
-            ikon: this.props.ikon
-        })
     }
 
     render() {

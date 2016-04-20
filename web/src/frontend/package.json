@@ -7,7 +7,6 @@
     "prebuild": "node createProdFolders.js",
     "dev": "parallelshell \"npm run prebuild\" \"npm run images\" \"npm run vendor:build\" \"npm run static:build:local\" \"npm run scripts:watch\" \"npm run styles:watch\"",
     "build": "parallelshell \"npm run prebuild\" \"npm run static:build\" \"npm run scripts:build\" \"npm run images\" \"npm run vendor:build\" \"npm run styles:build\"",
-    "postinstall": "npm run build",
     "test": "mocha --compilers js:babel-core/register --require ./tests/test_helper.js \"tests/**/*.@(js|jsx)\"",
     "test:watch": "npm run test -- --watch",
     "styles:watch": "nodemon -q -w styles --ext \"less\" --exec \"npm run styles:build\"",

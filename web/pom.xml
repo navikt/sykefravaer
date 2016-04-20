@@ -92,6 +92,21 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>build</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <executable>npm</executable>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>build</argument>
+                            </arguments>
+                            <workingDirectory>src/frontend</workingDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>JS test</id>
                         <goals>
                             <goal>exec</goal>

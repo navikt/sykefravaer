@@ -23,12 +23,14 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
             </h2>
             <div className="blokk-l side-innhold">
                 <SykmeldingOpplysning tittel="Periode">
-                    <p className="js-periode blokk-xxs">
-                        <strong>{formatDate(sykmelding.fom)} &ndash; {formatDate(sykmelding.tom)}</strong> &bull; {getDuration(sykmelding.fom, sykmelding.tom)} dager
-                    </p>
-                    <p className="js-grad">
-                        {sykmelding.grad} % sykmeldt
-                    </p>
+                    <div>
+                        <p className="js-periode blokk-xxs">
+                            <strong>{formatDate(sykmelding.fom)} &ndash; {formatDate(sykmelding.tom)}</strong> &bull; {getDuration(sykmelding.fom, sykmelding.tom)} dager
+                        </p>
+                        <p className="js-grad">
+                            {sykmelding.grad} % sykmeldt
+                        </p>
+                    </div>
                 </SykmeldingOpplysning>
                 <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
                     <p className="js-diagnose">{sykmelding.diagnose}</p>

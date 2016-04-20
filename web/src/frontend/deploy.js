@@ -6,11 +6,26 @@ if (process.env.NODE_ENV === 'production') {
 	// the production bundle command
 	var child_process = require('child_process');
 
-	child_process.exec("webpack -p --config webpack.production.config.js", function (error, stdout, stderr) {
-		console.log('stdout: ' + stdout);
-		console.log('stderr: ' + stderr);
-		if (error !== null) {
-			console.log('exec error: ' + error);
+	var fs = require("fs");
+
+	fs.exists("../main/webapp/js", function(exists) {
+
+		if(!exists) {
+			// Lager JS-mappe hvis den ikke finnes
+			fs.mkdir("../main/webapp/js", function() {
+
+				// Når det er gjort, utfører vi bundling
+
+				child_process.exec("webpack -p --config webpack.production.config.js", function (error, stdout, stderr) {
+					console.log('stdout: ' + stdout);
+					console.log('stderr: ' + stderr);
+					if (error !== null) {
+						console.log('exec error: ' + error);
+					}
+				});
+			})
 		}
-	});
+	})
+
+
 }

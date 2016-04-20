@@ -97,7 +97,7 @@
                         <goals>
                             <goal>exec</goal>
                         </goals>
-                        <phase>generate-resources</phase>
+                        <phase>initialize</phase>
                         <configuration>
                             <executable>npm</executable>
                             <arguments>

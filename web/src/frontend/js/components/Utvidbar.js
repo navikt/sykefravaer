@@ -7,6 +7,7 @@ export class Utvidbar extends Component {
         super(props);
         this.state = {
             erApen: this.props.erApen,
+            ikon: this.props.ikon,
         };
     }
 
@@ -24,14 +25,28 @@ export class Utvidbar extends Component {
         });
     }
 
+    onMouseEnter() {
+        this.setState({
+            ikon: this.props.ikonHover
+        })
+    }
+
+    onMouseLeave() {
+        this.setState({
+            ikon: this.props.ikon
+        })
+    }
+
     render() {
         return (<div ref="utvidbar" className="utvidbar blokk-l" aria-expanded={this.state.erApen}>
             <h3 className={!this.state.erApen ? 'header-utvidbar' : 'header-utvidbar header-utvidbar-apen'}>
                 <a href="javscript:void(0)"
                     role="button"
                     aria-pressed={this.state.erApen}
+                    onMouseEnter={() => {this.onMouseEnter();}}
+                    onMouseLeave={() => {this.onMouseLeave();}}
                     onClick={(event) => {this.toggle(event);}}>
-                        <img src={'/sykefravaer/img/' + this.props.ikon} alt="" className="header-ikon" />
+                        <img src={'/sykefravaer/img/' + this.state.ikon} alt={this.props.ikonAltTekst} className="header-ikon" />
                         <span className="header-tittel">{this.props.tittel}</span>
                 </a>
             </h3>
@@ -57,6 +72,8 @@ Utvidbar.propTypes = {
     tittel: PropTypes.string.isRequired,
     children: PropTypes.array,
     ikon: PropTypes.string,
+    ikonHover: PropTypes.string,
+    ikonAltTekst: PropTypes.string,
 };
 
 Utvidbar.defaultProps = {

@@ -12,17 +12,15 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
         return <AppSpinner ledetekster={ledetekster} />;
     }
 
-    return (<div>
-        <header className="side-header blokk">
-            <h1 className="typo-sidetittel blokk">
-                {getLedetekst('sykmelding.vis.hovedtittel', ledetekster)}
-            </h1>
-        </header>
+    return (<div>    
         <div className="header-bolk header-sykmelding">
 			<img className="header-ikon" src="/sykefravaer/img/svg/account-circle.svg" alt="Du" />
-			<h2 className="header-tittel">{sykmelding.fornavn} {sykmelding.etternavn}</h2>
+			<h1 className="header-tittel">{sykmelding.fornavn} {sykmelding.etternavn}</h1>
 		</div>
         <div className="panel blokk">
+            <h2 className="typo-innholdstittel blokk-l">
+                {getLedetekst('sykmelding.vis.hovedtittel', ledetekster)}
+            </h2>
             <div className="blokk-l side-innhold">
                 <SykmeldingOpplysning tittel="Periode">
                     <p className="js-periode blokk-xxs">
@@ -45,7 +43,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     <p className="js-avsender">{sykmelding.sykmelder}</p>
                 </SykmeldingOpplysning>
             </div>
-            <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg">
+            <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">
                 <SykmeldingOpplysning Overskrift="H4" tittel="Når startet det legemeldte fraværet?">
                     <p>01.12.2015</p>
                 </SykmeldingOpplysning>

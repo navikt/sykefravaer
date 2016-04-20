@@ -1,5 +1,21 @@
+.dine-sykmeldinger-intro {
+	.mixin-panel-padding(); 
+	margin-bottom: 3rem; 
+}
+
 .dine-sykmeldinger {
 	margin: 0 0 1rem 0; 
 	padding: 0; 
 	list-style-type: none; 
-}  
+}
+
+.dine-sykmeldinger-forklaringstittel {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	text-align: center; 
+	.mixin-typo-innholdstittel(); 
+
+	@media(min-width: 500px) {
+		margin-bottom: 2rem; 
+	}
+}

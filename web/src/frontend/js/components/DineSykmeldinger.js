@@ -8,7 +8,7 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {} }) => {
         <h1 className="side-header typo-sidetittel">
             {getLedetekst('dine-sykmeldinger.tittel', ledetekster)}
         </h1>
-        <div className="panel panel-transparent panel-stablet redaksjonelt-innhold side-innhold">
+        <div className="dine-sykmeldinger-intro redaksjonelt-innhold side-innhold">
             <p dangerouslySetInnerHTML={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst', ledetekster)} />
         </div>
         <SykmeldingTeasere
@@ -19,7 +19,7 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {} }) => {
             ledetekster={ledetekster}
         />
         <article className="panel">
-            <h2 className="typo-innholdstittel blokk-s">
+            <h2 className="dine-sykmeldinger-forklaringstittel">
                 {getLedetekst('dine-sykmeldinger.informasjon.tittel', ledetekster)}
             </h2>
             <div className="redaksjonelt-innhold typo-infotekst side-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('dine-sykmeldinger.informasjon.tekst', ledetekster)}></div>

@@ -4,8 +4,8 @@
 	padding-right: 3rem; 
 	background-image: data-uri("../img/svg/pil-videre-graa.svg");
 	background-repeat: no-repeat;
-	background-position: 97% center; 
-	background-size: .5rem .5rem; 
+	background-position: 97% 1rem; 
+	background-size: 1rem 1rem; 
 	transition: background-position ease-in-out .1s; 	
 	display: flex; 
 	width: 100%;
@@ -25,6 +25,10 @@
 		.mixin-typo-infotekst(); 
 	}
 
+	@media(min-width: 500px) {
+		background-position: 97% 2rem; 
+	}
+
 }
 
 .teaser-ikon {
@@ -36,7 +40,6 @@
 	.teaser-ikon {
 		display: block;
 		align-self: flex-start;
-		padding-top: 2rem; 
 	}
 
 	.teaser-ikon {

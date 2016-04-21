@@ -31,6 +31,8 @@ function mapStateToProps(state, ownProps) {
         return sykmld.id === Number(ownProps.params.sykmeldingId);
     })[0];
 
+    console.log(state);
+
     return {
         sykmelding: {
             data: sykmelding,

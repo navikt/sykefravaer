@@ -21,16 +21,21 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 {getLedetekst('sykmelding.vis.hovedtittel', ledetekster)}
             </h2>
             <div className="blokk-l side-innhold">
-                <SykmeldingOpplysning tittel="Periode">
-                    <div>
-                        <p className="js-periode blokk-xxs">
-                            <strong>{formatDate(sykmelding.fom)} &ndash; {formatDate(sykmelding.tom)}</strong> &bull; {getDuration(sykmelding.fom, sykmelding.tom)} dager
-                        </p>
-                        <p className="js-grad">
-                            {sykmelding.grad} % sykmeldt
-                        </p>
-                    </div>
-                </SykmeldingOpplysning>
+                {
+                    sykmelding.perioder.map((periode, index) => {
+                        console.log("hello", sykmelding)
+                        return (<SykmeldingOpplysning key={index} tittel="Periode">
+                            <div>
+                                <p className="js-periode blokk-xxs">
+                                    <strong>{formatDate(periode.fom)} &ndash; {formatDate(periode.tom)}</strong> &bull; {getDuration(periode.fom, periode.tom)} dager
+                                </p>
+                                <p className="js-grad">
+                                    {periode.grad} % sykmeldt
+                                </p>
+                            </div>
+                        </SykmeldingOpplysning>);
+                    })
+                }
                 <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
                     <p className="js-diagnose">{sykmelding.diagnose}</p>
                 </SykmeldingOpplysning>

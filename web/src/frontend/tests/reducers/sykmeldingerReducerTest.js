@@ -27,4 +27,17 @@ describe('sykmeldinger', () => {
         });
     });
 
+    it("handles SET_SORTERING ", () => {
+        const initialState = {};
+        const action = {
+            type: 'SET_SORTERING',
+            sortering: 'arbeidsgiver'
+        };
+        const nextState = sykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            sortering: 'arbeidsgiver'
+        });
+    })
+
 }); 

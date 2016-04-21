@@ -24,6 +24,10 @@ export default function sykmeldinger(state = initiellState, action) {
                 henter: false,
                 hentingFeilet: true,
             };
+        case 'SET_SORTERING':
+            return Object.assign({}, state, {
+                sortering: action.sortering,
+            });
         default:
             return state;
     }

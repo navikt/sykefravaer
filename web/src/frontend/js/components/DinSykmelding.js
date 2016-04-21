@@ -23,7 +23,6 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
             <div className="blokk-l side-innhold">
                 {
                     sykmelding.perioder.map((periode, index) => {
-                        console.log("hello", sykmelding)
                         return (<SykmeldingOpplysning key={index} tittel="Periode">
                             <div>
                                 <p className="js-periode blokk-xxs">

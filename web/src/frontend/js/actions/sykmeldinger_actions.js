@@ -21,5 +21,5 @@ export function sorterSykmeldinger(sortering) {
     return {
         type: 'SET_SORTERING',
         sortering,
-    }
+    };
 }

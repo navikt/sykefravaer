@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import DineSykmeldinger from '../components/DineSykmeldinger.js';
-import * as actionCreators from '../actions/sykmeldinger_actions.js';
 import { connect } from 'react-redux';
 import Side from '../sider/Side.js';
 import AppSpinner from '../components/AppSpinner.js';
@@ -16,21 +15,24 @@ const DineSykmldSide = (props) => {
                 } else if (props.sykmeldinger.hentingFeilet) {
                     return (<Feilmelding tittel="Det oppstod en feil" melding="Vennligst prøv igjen litt senere" />);
                 }
-                const sykmld = props.sykmeldinger.data.sort(function(a, b) {
-                    if(props.sykmeldinger.sortering === "arbeidsgiver") {
-                        return a.arbeidsgiver > b.arbeidsgiver;
+                const sykmldngr = props.sykmeldinger.data.sort((a, b) => {
+                    if (props.sykmeldinger.sortering === 'arbeidsgiver') {
+                        return a.arbeidsgiver > b.arbeidsgiver ? 1 : -1;
                     }
-                    return a.fom === b.fom ? (a.tom < b.tom) : a.fom < b.fom;
-                })
-                return <DineSykmeldinger sykmeldinger={props.sykmeldinger.data} ledetekster={props.ledetekster.data} onSorteringChange={props.sorterSykmeldinger} />;
+                    const sorteringskriterum = a.fom !== b.fom ? 'fom' : 'tom';
+                    return a[sorteringskriterum] > b[sorteringskriterum] ? 1 : -1;
+                });
+                return <DineSykmeldinger sykmeldinger={sykmldngr} ledetekster={props.ledetekster.data} />;
             })()
         }
     </Side>);
 };
 
 DineSykmldSide.propTypes = {
-    router: PropTypes.object,
     props: PropTypes.object,
+    ledetekster: PropTypes.object,
+    brodsmuler: PropTypes.array,
+    sykmeldinger: PropTypes.object,
 };
 
 function mapStateToProps(state) {
@@ -44,6 +46,6 @@ function mapStateToProps(state) {
     };
 }
 
-const DineSykmeldingerContainer = connect(mapStateToProps, actionCreators)(DineSykmldSide);
+const DineSykmeldingerContainer = connect(mapStateToProps)(DineSykmldSide);
 
 export default DineSykmeldingerContainer;

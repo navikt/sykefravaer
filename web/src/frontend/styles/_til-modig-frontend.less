@@ -1,0 +1,41 @@
+.select-container--liten {
+    &:after {
+        top: 8px;
+    }
+
+    select {
+	    padding: 0.3rem 1.7rem 0.3rem 0.3rem;
+	}
+}
+
+@media (min-width: @screen-small) {
+    // 620px;
+    .select-container--liten {
+    	option, select {
+            font-size: @rem-as-14px;
+        }
+    }
+}
+
+@media (min-width: @screen-small) {
+
+	.header-verktoy {
+		display: flex; 
+		align-self: center; 
+
+		.select-container {
+			align-self: center; 		
+		}
+	}
+
+	.header-verktoy-label {
+		margin: 0 .5rem 0 0; 
+	}
+	
+}
+
+.header-verktoy-label {
+	.mixin-typo-normal(); 
+	color: @gray-icon;
+	align-self: center; 
+}

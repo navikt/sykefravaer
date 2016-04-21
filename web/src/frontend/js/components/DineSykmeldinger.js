@@ -1,18 +1,8 @@
 import React, { PropTypes } from 'react';
 import SykmeldingTeasere from '../components/SykmeldingTeasere.js';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
-import Dropdown from './Dropdown.js';
 
-const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, onSorteringChange } ) => {
-
-    let sorteringsalternativer = [{
-        tekst: 'Startdato',
-        verdi: 'fom',
-    }, {
-        tekst: 'Arbeidsgiver',
-        verdi: 'arbeidsgiver',
-    }];
-
+const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {} }) => {
     return (<div>
         <h1 className="side-header typo-sidetittel">
             {getLedetekst('dine-sykmeldinger.tittel', ledetekster)}
@@ -20,17 +10,13 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, onSorteringChan
         <div className="dine-sykmeldinger-intro redaksjonelt-innhold side-innhold">
             <p dangerouslySetInnerHTML={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst', ledetekster)} />
         </div>
-        <div className="blokk-s">
-            <label htmlFor="sortering-dropdown">Velg sortering</label>
-            <Dropdown alternativer={sorteringsalternativer} onChange={onSorteringChange} valgtAlternativ='fom' ariaControls="sykmelding-teasere" id="sortering-dropdown" />
-        </div>
         <SykmeldingTeasere
             sykmeldinger={sykmeldinger}
             tittel="Dine sykmeldinger"
             ingenSykmeldingerMelding="Du har ingen sykmeldinger."
             className="js-nye-sykmeldinger"
             ledetekster={ledetekster}
-            id="sykmelding-teasere"
+            id="sykmelding-liste"
         />
         <article className="panel">
             <h2 className="dine-sykmeldinger-forklaringstittel">

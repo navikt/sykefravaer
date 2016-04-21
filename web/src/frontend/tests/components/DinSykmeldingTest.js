@@ -18,10 +18,12 @@ const sykmelding = {
     etternavn: "Person",
     sykmelder: "Ove Olsen",
     arbeidsgiver: "Selskapet AS",
-    fom: "2015-12-31T00:00:00Z",
-    tom: "2016-01-06T00:00:00Z",
+    perioder: [{
+        fom: "2015-12-31T00:00:00Z",
+        tom: "2016-01-06T00:00:00Z",
+        grad: 67
+    }],
     diagnose: "Influensa",
-    grad: 67,
     friskmeldt: 75
 };
 

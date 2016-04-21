@@ -11,9 +11,11 @@ import SykmeldingTeaser from "../../js/components/SykmeldingTeaser.js";
 describe("SykmeldingTeaser", () => {
     it("Renders the dates", function () {
         const sykmelding = {
-            fom: "2016-02-02T00:00:00Z",
-            tom: "2016-02-16T00:00:00Z",
-            grad: "100",
+            perioder: [{
+                fom: "2016-02-02T00:00:00Z",
+                tom: "2016-02-16T00:00:00Z",
+                grad: "100"
+            }],
             id: 123
         };
         const teaser = shallow(<SykmeldingTeaser sykmelding={sykmelding} ledetekster={ledetekster}/>);
@@ -23,9 +25,11 @@ describe("SykmeldingTeaser", () => {
 
     it("Render correct meta information", function () {
         const teaser = shallow(<SykmeldingTeaser sykmelding={{
-			fom: "2016-02-02T00:00:00Z",
-			tom: "2016-02-16T00:00:00Z",
-			grad: "100",
+			perioder: [{
+                fom: "2016-02-02T00:00:00Z",
+                tom: "2016-02-16T00:00:00Z",
+                grad: "100",
+            }],
 			arbeidsgiver: "Bekk Consulting AS",
 		}} ledetekster={ledetekster}/>);
 
@@ -34,10 +38,12 @@ describe("SykmeldingTeaser", () => {
 
     it("Should be an article element", function () {
         const teaser = shallow(<SykmeldingTeaser sykmelding={{
-			fom: "2016-02-02T00:00:00Z",
-			tom: "2016-02-16T00:00:00Z",
-			grad: "100",
-			arbeidsgiver: "Bekk Consulting AS"
+			arbeidsgiver: "Bekk Consulting AS",
+            perioder: [{
+                fom: "2016-02-02T00:00:00Z",
+                tom: "2016-02-16T00:00:00Z",
+                grad: "100"
+            }]
 		}}/>);
         expect(teaser).to.have.tagName("article")
     });

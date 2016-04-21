@@ -4,14 +4,25 @@ import { getContextRoot } from '../routers/paths.js';
 import { formatDate, getDuration } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
 
+const PeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekster }) => {
+    return (<Element className="js-periode">{getLedetekst('sykmelding.teaser.tekst', ledetekster, {
+        '%GRAD%': periode.grad,
+        '%ARBEIDSGIVER%': arbeidsgiver,
+        '%DAGER%': getDuration(periode.fom, periode.tom),
+    })}</Element>);
+};
+
+PeriodeInfo.propTypes = {
+    periode: PropTypes.object,
+    arbeidsgiver: PropTypes.string,
+    Element: PropTypes.string,
+    ledetekster: PropTypes.object,
+};
+
 const PeriodeListe = ({ perioder, arbeidsgiver, ledetekster }) => {
-    return (<ul className="teaser-punktliste">
+    return (<ul className="teaser-punktliste js-perioder">
         {perioder.map((periode, index) => {
-            return (<li key={index}>{getLedetekst('sykmelding.teaser.tekst', ledetekster, {
-                '%GRAD%': periode.grad,
-                '%ARBEIDSGIVER%': arbeidsgiver,
-                '%DAGER%': getDuration(periode.fom, periode.tom),
-            })}</li>);
+            return (<PeriodeInfo key={index} periode={periode} arbeidsgiver={arbeidsgiver} Element="li" ledetekster={ledetekster} />);
         })}
     </ul>);
 };
@@ -46,7 +57,6 @@ class SykmeldingTeaser extends Component {
     render() {
         const antallPerioder = this.props.sykmelding.perioder.length;
         const sistePeriodeIndex = antallPerioder - 1;
-        const days = getDuration(this.props.sykmelding.perioder[0].fom, this.props.sykmelding.perioder[sistePeriodeIndex].tom);
 
         return (<article>
             <Link className="panel sykmelding-teaser" to={getContextRoot() + '/sykmeldinger/' + this.props.sykmelding.id}
@@ -66,13 +76,7 @@ class SykmeldingTeaser extends Component {
                         {getLedetekst('sykmelding.teaser.tittel', this.props.ledetekster)}
                     </span>
                 </h3>
-                {antallPerioder === 1 ? (<p className="js-meta typo-infotekst">
-                                {getLedetekst('sykmelding.teaser.tekst', this.props.ledetekster, {
-                                    '%GRAD%': this.props.sykmelding.perioder[0].grad,
-                                    '%ARBEIDSGIVER%': this.props.sykmelding.arbeidsgiver,
-                                    '%DAGER%': days,
-                                })}
-                            </p>) : (<PeriodeListe perioder={this.props.sykmelding.perioder} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />)
+                {antallPerioder === 1 ? (<PeriodeInfo periode={this.props.sykmelding.perioder[0]} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />) : (<PeriodeListe perioder={this.props.sykmelding.perioder} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />)
                         }
             </div>
         </Link></article>);

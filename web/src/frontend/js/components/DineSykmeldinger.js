@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import SykmeldingTeasere from '../components/SykmeldingTeasere.js';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
-import Dropdown from './DropDown.js';
+import Dropdown from './Dropdown.js';
 
 const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, onSorteringChange } ) => {
 

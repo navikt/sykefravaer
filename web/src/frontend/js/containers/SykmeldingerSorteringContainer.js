@@ -3,11 +3,16 @@ import Dropdown from '../components/Dropdown.js';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/sykmeldinger_actions.js';
 
-const DropdownContainer = (props) => {
+const DropdownContainer = ({ alternativer, sorterSykmeldinger }) => {
     return (<div className="header-verktoy">
         <label htmlFor="sykmeldinger-sortering" className="header-verktoy-label">Sorter etter</label>
-        <Dropdown {...props} onChange={props.sorterSykmeldinger} />
+        <Dropdown alternativer={alternativer} id="sykmeldinger-sortering" ariaControls="sykmelding-liste" onChange={sorterSykmeldinger} />
     </div>);
+};
+
+DropdownContainer.propTypes = {
+    alternativer: PropTypes.array,
+    sorterSykmeldinger: PropTypes.function,
 };
 
 function mapStateToProps() {
@@ -19,14 +24,8 @@ function mapStateToProps() {
             tekst: 'Arbeidsgiver',
             verdi: 'arbeidsgiver',
         }],
-        ariaControls: 'sykmelding-liste',
-        id: 'sykmeldinger-sortering',
     };
 }
-
-DropdownContainer.propTypes = {
-    sorterSykmeldinger: PropTypes.function,
-};
 
 const SykmeldingerSorteringContainer = connect(mapStateToProps, actionCreators)(DropdownContainer);
 

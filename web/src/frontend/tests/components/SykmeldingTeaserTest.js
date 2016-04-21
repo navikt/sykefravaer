@@ -24,7 +24,7 @@ describe("SykmeldingTeaser", () => {
     });
 
     it("Render correct meta information", function () {
-        const teaser = shallow(<SykmeldingTeaser sykmelding={{
+        const teaser = mount(<SykmeldingTeaser sykmelding={{
 			perioder: [{
                 fom: "2016-02-02T00:00:00Z",
                 tom: "2016-02-16T00:00:00Z",
@@ -33,7 +33,7 @@ describe("SykmeldingTeaser", () => {
 			arbeidsgiver: "Bekk Consulting AS",
 		}} ledetekster={ledetekster}/>);
 
-        expect(teaser.find("p").text()).to.contain("Bekk Consulting AS")
+        expect(teaser.find(".js-periode").text()).to.contain("Bekk Consulting AS")
     });
 
     it("Should be an article element", function () {

@@ -21,20 +21,22 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 {getLedetekst('sykmelding.vis.hovedtittel', ledetekster)}
             </h2>
             <div className="blokk-l side-innhold">
-                {
-                    sykmelding.perioder.map((periode, index) => {
-                        return (<SykmeldingOpplysning key={index} tittel="Periode">
-                            <div>
-                                <p className="js-periode blokk-xxs">
-                                    <strong>{formatDate(periode.fom)} &ndash; {formatDate(periode.tom)}</strong> &bull; {getDuration(periode.fom, periode.tom)} dager
-                                </p>
-                                <p className="js-grad">
-                                    {periode.grad} % sykmeldt
-                                </p>
-                            </div>
-                        </SykmeldingOpplysning>);
-                    })
-                }
+                <div className="sykmelding-opplysninger">
+                    {
+                        sykmelding.perioder.map((periode, index) => {
+                            return (<SykmeldingOpplysning key={index} tittel="Periode">
+                                <div>
+                                    <p className="js-periode blokk-xxs">
+                                        <strong>{formatDate(periode.fom)} &ndash; {formatDate(periode.tom)}</strong> &bull; {getDuration(periode.fom, periode.tom)} dager
+                                    </p>
+                                    <p className="js-grad">
+                                        {periode.grad} % sykmeldt
+                                    </p>
+                                </div>
+                            </SykmeldingOpplysning>);
+                        })
+                    }
+                </div>
                 <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
                     <p className="js-diagnose">{sykmelding.diagnose}</p>
                 </SykmeldingOpplysning>

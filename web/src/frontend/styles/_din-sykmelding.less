@@ -2,10 +2,6 @@
 
 	margin-bottom: 2rem; 
 
-	&:last-child {
-		margin-bottom: 0; 
-	}
-
 	h3, h4 {
 		margin-bottom: .5rem; 
 	}
@@ -13,6 +9,7 @@
 	h3 {
 		.mixin-typo-etikett-liten(); 
 		color: @gray-inactive; 
+		margin-top: 0; 
 	}
 
 	h4 {
@@ -23,4 +20,21 @@
 		.mixin-typo-infotekst();
 	}
 
+	p:last-child {
+		margin-bottom: 2rem; 
+	}
+
+}
+
+.sykmelding-opplysninger .sykmelding-opplysning {
+	border-bottom: 1px solid @color-border;
+	margin-bottom: 1.5rem; 
+
+	p:last-child {
+		margin-bottom: 1.5rem; 
+	}
+
+	&:only-child {
+		border-bottom: 0; 
+	}
 }

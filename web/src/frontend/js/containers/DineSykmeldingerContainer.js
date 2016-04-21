@@ -20,7 +20,7 @@ const DineSykmldSide = (props) => {
                         return a.arbeidsgiver > b.arbeidsgiver ? 1 : -1;
                     }
                     const sorteringskriterum = a.perioder[0].fom !== b.perioder[0].fom ? 'fom' : 'tom';
-                    return a.perioder[0][sorteringskriterum] > b.perioder[0][sorteringskriterum] ? 1 : -1;
+                    return a.perioder[0][sorteringskriterum] > b.perioder[0][sorteringskriterum] ? -1 : 1;
                 });
                 return <DineSykmeldinger sykmeldinger={sykmldngr} ledetekster={props.ledetekster.data} />;
             })()

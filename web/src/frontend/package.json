@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Digitalisering av sykefraværsoppfølging",
   "main": "index.js",
+  "test": "npm run test",
   "scripts": {
     "prebuild": "node createProdFolders.js",
     "dev": "parallelshell \"npm run prebuild\" \"npm run images\" \"npm run vendor:build\" \"npm run static:build:local\" \"npm run scripts:watch\" \"npm run styles:watch\"",

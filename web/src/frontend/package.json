@@ -20,7 +20,8 @@
     "vendor:build": "cp -R vendor ../main/webapp",
     "scripts:build": "set NODE_ENV=production&&node deploy.js",
     "scripts:watch": "webpack-dev-server --inline",
-    "lint": "eslint js/. --ext .js"
+    "lint": "eslint js/. --ext .js",
+    "fmt": "jsfmt js/. -w"
   },
   "babel": {
     "presets": [
@@ -50,6 +51,7 @@
     "http-proxy": "1.13.2",
     "immutable": "3.7.6",
     "jquery": "2.2.1",
+    "jsfmt": "^0.5.3",
     "moment": "2.11.2",
     "path": "0.12.7",
     "react": "0.14.7",
@@ -73,12 +75,17 @@
     "chai": "3.5.0",
     "chai-immutable": "1.5.3",
     "css-loader": "0.23.1",
+    "esformatter-add-trailing-commas": "^1.1.0",
+    "esformatter-eol-last": "^1.0.0",
+    "esformatter-quotes": "^1.0.3",
+    "esformatter-semicolons": "^1.1.2",
     "eslint": "2.5.3",
     "eslint-config-airbnb": "6.2.0",
     "eslint-plugin-react": "4.2.3",
     "express-livereload": "0.0.24",
     "fs": "0.0.2",
     "jsdom": "8.0.4",
+    "jsfmt": "^0.5.3",
     "karma": "0.13.21",
     "karma-chrome-launcher": "0.2.2",
     "karma-cli": "0.1.2",

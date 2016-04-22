@@ -1,0 +1,14 @@
+{
+    "plugins": [
+        "esformatter-quotes",
+        "esformatter-add-trailing-commas",
+        "esformatter-eol-last",
+        "esformatter-semicolons"
+    ], 
+    "quotes": {
+        "type": "single"
+    },
+    "indent": {
+        "value": "    "
+    }
+}

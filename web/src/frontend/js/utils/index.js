@@ -35,3 +35,25 @@ export function scrollTo(element, duration) {
 
     window.requestAnimationFrame(tick);
 }
+
+
+export function sorterPerioder(sykmelding) {
+    return Object.assign(sykmelding, {
+        perioder: sykmelding.perioder.sort((a, b) => {
+            const kriterium = a.fom !== b.fom ? 'fom' : 'tom';
+            return a[kriterium] < b[kriterium] ? -1 : 1;
+        }),
+    });
+}
+
+export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
+    let skmldr = sykmeldinger.map(sorterPerioder);
+    skmldr = sykmeldinger.sort((a, b) => {
+        if (kriterium === 'fom' || a.arbeidsgiver.trim().toUpperCase() === b.arbeidsgiver.trim().toUpperCase()) {
+            return a.perioder[0].fom > b.perioder[0].fom ? -1 : 1;
+        }
+        return a[kriterium] < b[kriterium] ? -1 : 1;
+    });
+
+    return skmldr;
+}

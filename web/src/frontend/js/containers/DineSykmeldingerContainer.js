@@ -5,6 +5,7 @@ import Side from '../sider/Side.js';
 import AppSpinner from '../components/AppSpinner.js';
 import { getLedetekst } from '../ledetekster';
 import Feilmelding from '../components/Feilmelding.js';
+import { sorterSykmeldinger } from '../utils';
 
 const DineSykmldSide = (props) => {
     return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel', props.ledetekster.data)} brodsmuler={props.brodsmuler}>
@@ -15,15 +16,7 @@ const DineSykmldSide = (props) => {
                 } else if (props.sykmeldinger.hentingFeilet) {
                     return (<Feilmelding tittel="Det oppstod en feil" melding="Vennligst prøv igjen litt senere" />);
                 }
-                const sykmldngr = props.sykmeldinger.data.sort((a, b) => {
-                    if (props.sykmeldinger.sortering === 'arbeidsgiver' && a.arbeidsgiver !== b.arbeidsgiver) {
-                        // Hvis arbeidsgiverne er den samme, sorterer vi heller på dato
-                        return a.arbeidsgiver > b.arbeidsgiver ? 1 : -1;
-                    }
-                    const sorteringskriterum = a.perioder[0].fom !== b.perioder[0].fom ? 'fom' : 'tom';
-                    return a.perioder[0][sorteringskriterum] > b.perioder[0][sorteringskriterum] ? -1 : 1;
-                });
-                return <DineSykmeldinger sykmeldinger={sykmldngr} ledetekster={props.ledetekster.data} />;
+                return <DineSykmeldinger sykmeldinger={sorterSykmeldinger(props.sykmeldinger.data, props.sykmeldinger.sortering)} ledetekster={props.ledetekster.data} />;
             })()
         }
     </Side>);
@@ -50,3 +43,4 @@ function mapStateToProps(state) {
 const DineSykmeldingerContainer = connect(mapStateToProps)(DineSykmldSide);
 
 export default DineSykmeldingerContainer;
+

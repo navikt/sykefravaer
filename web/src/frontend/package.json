@@ -20,8 +20,7 @@
     "vendor:build": "cp -R vendor ../main/webapp",
     "scripts:build": "set NODE_ENV=production&&node deploy.js",
     "scripts:watch": "webpack-dev-server --inline",
-    "lint": "eslint js/. --ext .js",
-    "fmt": "jsfmt js/. -w"
+    "lint": "eslint js/. --ext .js"
   },
   "babel": {
     "presets": [

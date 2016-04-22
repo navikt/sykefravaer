@@ -18,7 +18,7 @@ DropdownContainer.propTypes = {
 function mapStateToProps() {
     return {
         alternativer: [{
-            tekst: 'Startdato',
+            tekst: 'Dato',
             verdi: 'fom',
         }, {
             tekst: 'Arbeidsgiver',

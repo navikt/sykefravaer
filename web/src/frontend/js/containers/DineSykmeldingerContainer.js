@@ -16,7 +16,8 @@ const DineSykmldSide = (props) => {
                     return (<Feilmelding tittel="Det oppstod en feil" melding="Vennligst prøv igjen litt senere" />);
                 }
                 const sykmldngr = props.sykmeldinger.data.sort((a, b) => {
-                    if (props.sykmeldinger.sortering === 'arbeidsgiver') {
+                    if (props.sykmeldinger.sortering === 'arbeidsgiver' && a.arbeidsgiver !== b.arbeidsgiver) {
+                        // Hvis arbeidsgiverne er den samme, sorterer vi heller på dato
                         return a.arbeidsgiver > b.arbeidsgiver ? 1 : -1;
                     }
                     const sorteringskriterum = a.perioder[0].fom !== b.perioder[0].fom ? 'fom' : 'tom';

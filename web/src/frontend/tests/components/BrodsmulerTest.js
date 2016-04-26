@@ -1,34 +1,42 @@
-var expect = require("chai").expect;
-import Brodsmuler, {getSti} from "../../js/components/Brodsmuler.js";
+import chai from 'chai';
+import React from 'react'
+import {mount, shallow} from 'enzyme';
+import chaiEnzyme from 'chai-enzyme';
 
-xdescribe("getSti", () => { 
+chai.use(chaiEnzyme());
+const expect = chai.expect;
 
-    it("Should return the proper path for Dine sykmeldinger", function () {
-        expect(getSti("/app", {sykmeldingId: "3"})).to.deep.equal([{
-            tittel: "Ditt NAV",
-            erKlikkbar: true,
-            sti: "/dittnav"
-        }, {
-            tittel: "Dine sykmeldinger",
-            sti: "/app",
-            erKlikkbar: false
-        }])
+import Brodsmuler from "../../js/components/Brodsmuler.js";
+
+describe("Brodsmuler", () => { 
+
+    it("Skal vise Ditt NAV dersom ingen brødsmuler sendes inn", function () {
+        const brodsmuler =  []
+        const component = shallow(<Brodsmuler brodsmuler={brodsmuler} />)
+        expect(component).to.contain("Ditt NAV");
     });
 
-    it("Should return the proper path for Din sykmelding", function () {
-        expect(getSti("/app/sykmeldinger/:sykmeldingId", {sykmeldingId: "3"})).to.deep.equal([{
-            tittel: "Ditt NAV",
-            erKlikkbar: true,
-            sti: "/dittnav"
-        }, {
-            tittel: "Dine sykmeldinger",
-            sti: "/app/sykmeldinger",
+    it("Skal vise Ditt NAV og én brødsmule dersom én brødsmuler sendes inn", function () {
+        const brodsmuler =  [{
+            tittel: "Sykmelding", 
             erKlikkbar: true
+        }]
+        const component = shallow(<Brodsmuler brodsmuler={brodsmuler} />)
+        expect(component).to.contain("Ditt NAV");
+        expect(component.find(".js-smule").length).to.equal(2);
+    });
+
+    it("Skal ta hensyn til erKlikkbar-flagget", function () {
+        const brodsmuler =  [{
+            tittel: "Dine sykmeldinger", 
+            erKlikkbar: true,
+            sti: "/dine-sykmeldinger"
         }, {
-            tittel: "Sykmelding",
-            sti: "/app/sykmeldinger/3",
+            tittel: "Din sykmelding",
             erKlikkbar: false
-        }])
+        }]
+        const component = mount(<Brodsmuler brodsmuler={brodsmuler} />)
+        expect(component.find("a").length).to.equal(2);
     });
 
 }); 

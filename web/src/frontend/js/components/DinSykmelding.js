@@ -84,6 +84,9 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 <SykmeldingOpplysning Overskrift="H4" tittel="NAV bør ta tak i saken nå">
                     <p>Nei</p>
                 </SykmeldingOpplysning>
+                <SykmeldingOpplysning Overskrift="H4" tittel="Telefonnummer til lege/sykmelder">
+                    <p>22 23 24 25</p>
+                </SykmeldingOpplysning>
             </Utvidbar>
         </div>
         <p className="side-innhold ikke-print">

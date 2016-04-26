@@ -43,4 +43,3 @@ function mapStateToProps(state) {
 const DineSykmeldingerContainer = connect(mapStateToProps)(DineSykmldSide);
 
 export default DineSykmeldingerContainer;
-

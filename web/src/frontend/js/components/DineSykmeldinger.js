@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import SykmeldingTeasere from '../components/SykmeldingTeasere.js';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
+import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer.js';
 
 const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {} }) => {
     return (<div>
@@ -10,6 +11,7 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {} }) => {
         <div className="dine-sykmeldinger-intro redaksjonelt-innhold side-innhold">
             <p dangerouslySetInnerHTML={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst', ledetekster)} />
         </div>
+        <UnderUtviklingVarselContainer />
         <SykmeldingTeasere
             sykmeldinger={sykmeldinger}
             tittel="Dine sykmeldinger"

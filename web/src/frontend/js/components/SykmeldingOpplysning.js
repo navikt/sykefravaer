@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
-const SykmeldingOpplysning = ({ tittel, children, Overskrift = 'H3' }) => {
-    return (<div className="sykmelding-opplysning">
+const SykmeldingOpplysning = ({ tittel, children, Overskrift = 'H3', className }) => {
+    return (<div className={'sykmelding-opplysning' + (className ? ' ' + className : '')}>
         <Overskrift>{tittel}</Overskrift>
         {children}
     </div>);

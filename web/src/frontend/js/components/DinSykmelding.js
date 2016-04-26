@@ -21,7 +21,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 {getLedetekst('sykmelding.vis.hovedtittel', ledetekster)}
             </h2>
             <div className="blokk-l side-innhold">
-                <div className="sykmelding-opplysninger">
+                <div className="sykmelding-perioder">
                     {
                         sykmelding.perioder.map((periode, index) => {
                             return (<SykmeldingOpplysning key={index} tittel="Periode">
@@ -37,9 +37,14 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                         })
                     }
                 </div>
-                <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
-                    <p className="js-diagnose">{sykmelding.diagnose}</p>
-                </SykmeldingOpplysning>
+                <div className="diagnose-container">
+                    <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
+                        <p className="js-diagnose">{sykmelding.diagnose}</p>
+                    </SykmeldingOpplysning>
+                    <SykmeldingOpplysning tittel="Diagnosekode">
+                        <p className="js-diagnosekode">L96 (ICPC-2)</p>
+                    </SykmeldingOpplysning>
+                </div>
                 <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.friskmelding.tittel', ledetekster)}>
                     <p className="js-friskmeldt">{sykmelding.friskmeldt} % {getLedetekst('sykmelding.vis.friskmelding.tekst', ledetekster)}</p>
                 </SykmeldingOpplysning>

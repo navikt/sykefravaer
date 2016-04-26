@@ -18,23 +18,30 @@
 
 	p {
 		.mixin-typo-infotekst();
-	}
-
-	p:last-child {
-		margin-bottom: 2rem; 
+		margin: 0; 
 	}
 
 }
 
-.sykmelding-opplysninger .sykmelding-opplysning {
-	border-bottom: 1px solid @color-border;
-	margin-bottom: 1.5rem; 
+.sykmelding-perioder {
 
-	p:last-child {
-		margin-bottom: 1.5rem; 
+	margin-bottom: 2rem; 
+
+	.sykmelding-opplysning:not(:only-child) {
+		padding-bottom: 1rem;
+		margin-bottom: 1rem;
+		border-bottom: 1px solid @color-border;
 	}
 
-	&:only-child {
-		border-bottom: 0; 
+}
+
+@media(min-width: @screen-xs) {
+	.diagnose-container {
+		display: flex; 
+
+		.sykmelding-opplysning {
+			margin-right: 2rem; 
+			max-width: 70%;
+		}
 	}
 }

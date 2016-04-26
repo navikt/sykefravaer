@@ -16,7 +16,7 @@ const DineSykmldSide = (props) => {
                 } else if (props.sykmeldinger.hentingFeilet) {
                     return (<Feilmelding tittel="Det oppstod en feil" melding="Vennligst prøv igjen litt senere" />);
                 }
-                return <DineSykmeldinger sykmeldinger={sorterSykmeldinger(props.sykmeldinger.data, props.sykmeldinger.sortering)} ledetekster={props.ledetekster.data} />;
+                return <DineSykmeldinger skjulVarsel={props.skjulVarsel} sykmeldinger={sorterSykmeldinger(props.sykmeldinger.data, props.sykmeldinger.sortering)} ledetekster={props.ledetekster.data} />;
             })()
         }
     </Side>);
@@ -27,12 +27,14 @@ DineSykmldSide.propTypes = {
     ledetekster: PropTypes.object,
     brodsmuler: PropTypes.array,
     sykmeldinger: PropTypes.object,
+    skjulVarsel: PropTypes.boolean,
 };
 
 function mapStateToProps(state) {
     return {
         sykmeldinger: state.sykmeldinger,
         ledetekster: state.ledetekster,
+        skjulVarsel: state.localStorage.skjulUnderUtviklingVarsel,
         brodsmuler: [{
             tittel: 'Dine sykmeldinger',
             sti: '/sykmeldinger',

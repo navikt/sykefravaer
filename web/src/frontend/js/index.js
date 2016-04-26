@@ -6,6 +6,7 @@ import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import sykmeldinger from './reducers/sykmeldinger.js';
 import ledetekster from './reducers/ledetekster.js';
+import localStorage from './reducers/localStorage.js';
 import { browserHistory } from 'react-router';
 import { setSykmeldinger, hentSykmeldinger, hentSykmeldingerFeilet } from './actions/sykmeldinger_actions.js';
 import { setLedetekster, hentLedetekster, hentLedeteksterFeilet } from './actions/ledetekster_actions.js';
@@ -19,6 +20,7 @@ const store = createStore(combineReducers({
     sykmeldinger,
     ledetekster,
     history,
+    localStorage,
 }));
 
 store.dispatch(hentSykmeldinger());

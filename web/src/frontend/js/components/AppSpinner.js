@@ -1,12 +1,7 @@
-import React, { PropTypes } from 'react';
-import { getLedetekst } from '../ledetekster';
+import React from 'react';
 
-const AppSpinner = ({ ledetekster }) => {
-    return <div className="app-spinner" aria-label={getLedetekst('applikasjon.siden-laster', ledetekster)}></div>;
-};
-
-AppSpinner.propTypes = {
-    ledetekster: PropTypes.object,
+const AppSpinner = () => {
+    return <div className="app-spinner" aria-label="Vent litt mens siden laster"></div>;
 };
 
 export default AppSpinner;

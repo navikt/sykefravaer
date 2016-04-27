@@ -28,7 +28,7 @@ export function hentLedetekster() {
                 return dispatch(setLedetekster(json));
             })
             .catch((err) => {
-                return mdispatch(hentLedeteksterFeilet(err));
+                return dispatch(hentLedeteksterFeilet(err));
             });
     };
 }

@@ -16,7 +16,9 @@ const Controller = (state) => {
                     } else if (state.sykmelding.hentingFeilet) {
                         return (<Feilmelding />);
                     } else if (!state.sykmelding.data) {
-                        return <Feilmelding tittel="Fant ikke sykmelding" melding="Blablabla" />;
+                        return (<Feilmelding
+                            tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', state.ledetekster.data)}
+                            melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', state.ledetekster.data)} />);
                     }
                     return <DinSykmelding sykmelding={state.sykmelding.data} ledetekster={state.ledetekster.data} />;
                 })()

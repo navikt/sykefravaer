@@ -12,7 +12,7 @@ const DineSykmldSide = (props) => {
         {
             (() => {
                 if (props.sykmeldinger.henter) {
-                    return <AppSpinner ledetekster={props.ledetekster.data} />;
+                    return <AppSpinner />;
                 } else if (props.sykmeldinger.hentingFeilet) {
                     return (<Feilmelding />);
                 }

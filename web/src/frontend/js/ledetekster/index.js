@@ -7,7 +7,7 @@ function replace(str, replacements) {
 export function getHtmlLedetekst(key, labels, replacements) {
     let label = labels[key];
     if (Object.keys(labels).length === 0) {
-        return '';
+        label = '';
     }
     if (!label) {
         label = key + ' [MANGLER LEDETEKST]';

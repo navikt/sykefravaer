@@ -16,8 +16,8 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, skjulVarsel = f
         </div>
         <SykmeldingTeasere
             sykmeldinger={sykmeldinger}
-            tittel="Dine sykmeldinger"
-            ingenSykmeldingerMelding="Du har ingen sykmeldinger."
+            tittel={getLedetekst('dine-sykmeldinger.tittel', ledetekster)}
+            ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.ingen-sykmeldinger.melding', ledetekster)}
             className="js-nye-sykmeldinger"
             ledetekster={ledetekster}
             id="sykmelding-liste"

@@ -12,7 +12,7 @@ export default function ledetekster(state = initiellState, action) {
                 henter: false,
                 hentingFeilet: false,
             };
-        case 'HENT_LEDETEKSTER':
+        case 'HENTER_LEDETEKSTER':
             return {
                 data: {},
                 henter: true,

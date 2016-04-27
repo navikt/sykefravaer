@@ -1,7 +1,17 @@
-export function hentLedetekster() {
+export function henterLedetekster() {
     return {
-        type: 'HENT_LEDETEKSTER',
+        type: 'HENTER_LEDETEKSTER',
     };
+}
+
+export function hentLedetekster() {
+    return function (dispatch) {
+        dispatch(henterLedetekster()); 
+        return fetch(window.SYFO_SETTINGS.REST_ROOT + '/informasjon/tekster')
+            .then(response => response.json())
+            .then(json => dispatch(setLedetekster(json)))
+            .catch(err => dispatch(hentLedeteksterFeilet()))
+    }
 }
 
 export function hentLedeteksterFeilet() {

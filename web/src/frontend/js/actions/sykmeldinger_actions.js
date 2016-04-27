@@ -1,7 +1,19 @@
-export function hentSykmeldinger() {
+import fetch from 'isomorphic-fetch';
+
+export function henterSykmeldinger() {
     return {
-        type: 'HENT_SYKMELDINGER',
+        type: 'HENTER_SYKMELDINGER',
     };
+}
+
+export function hentSykmeldinger() {
+    return function (dispatch) {
+        dispatch(henterSykmeldinger()); 
+        return fetch(window.SYFO_SETTINGS.REST_ROOT + '/sykmeldinger')
+            .then(response => response.json())
+            .then(json => dispatch(setSykmeldinger(json)))
+            .catch(err => dispatch(hentSykmeldingerFeilet()))
+    }
 }
 
 export function hentSykmeldingerFeilet() {

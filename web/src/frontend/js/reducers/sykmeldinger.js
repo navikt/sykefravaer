@@ -12,7 +12,7 @@ export default function sykmeldinger(state = initiellState, action) {
                 henter: false,
                 hentingFeilet: false,
             };
-        case 'HENT_SYKMELDINGER':
+        case 'HENTER_SYKMELDINGER':
             return {
                 data: [],
                 henter: true,

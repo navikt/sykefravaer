@@ -6,8 +6,8 @@ function replace(str, replacements) {
 
 export function getHtmlLedetekst(key, labels, replacements) {
     let label = labels[key];
-    if(Object.keys(labels).length === 0) {
-        return "";
+    if (Object.keys(labels).length === 0) {
+        return '';
     }
     if (!label) {
         label = key + ' [MANGLER LEDETEKST]';
@@ -20,8 +20,8 @@ export function getHtmlLedetekst(key, labels, replacements) {
 
 export function getLedetekst(key, labels = {}, replacements) {
     const label = labels[key];
-    if(Object.keys(labels).length === 0) {
-        return "";
+    if (Object.keys(labels).length === 0) {
+        return '';
     }
     if (!label) {
         return key + ' [MANGLER LEDETEKST]';

@@ -11,6 +11,7 @@ SykmeldingOpplysning.propTypes = {
     tittel: PropTypes.string.isRequired,
     children: PropTypes.object,
     Overskrift: PropTypes.string,
+    className: PropTypes.string,
 };
 
 export default SykmeldingOpplysning;

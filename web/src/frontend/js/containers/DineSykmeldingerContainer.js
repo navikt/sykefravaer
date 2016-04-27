@@ -16,7 +16,10 @@ const DineSykmldSide = (props) => {
                 } else if (props.sykmeldinger.hentingFeilet) {
                     return (<Feilmelding />);
                 }
-                return <DineSykmeldinger skjulVarsel={props.skjulVarsel} sykmeldinger={sorterSykmeldinger(props.sykmeldinger.data, props.sykmeldinger.sortering)} ledetekster={props.ledetekster.data} />;
+                return (<DineSykmeldinger
+                    skjulVarsel={props.skjulVarsel}
+                    sykmeldinger={sorterSykmeldinger(props.sykmeldinger.data, props.sykmeldinger.sortering)}
+                    ledetekster={props.ledetekster.data} />);
             })()
         }
     </Side>);

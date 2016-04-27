@@ -22,9 +22,9 @@ const rootReducer = combineReducers({
     ledetekster,
     history,
     localStorage,
-}); 
+});
 
-const store = createStore(rootReducer, 
+const store = createStore(rootReducer,
     applyMiddleware(thunkMiddleware)
 );
 

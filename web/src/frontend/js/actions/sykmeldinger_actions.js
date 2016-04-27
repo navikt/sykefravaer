@@ -6,16 +6,6 @@ export function henterSykmeldinger() {
     };
 }
 
-export function hentSykmeldinger() {
-    return function (dispatch) {
-        dispatch(henterSykmeldinger()); 
-        return fetch(window.SYFO_SETTINGS.REST_ROOT + '/sykmeldinger')
-            .then(response => response.json())
-            .then(json => dispatch(setSykmeldinger(json)))
-            .catch(err => dispatch(hentSykmeldingerFeilet()))
-    }
-}
-
 export function hentSykmeldingerFeilet() {
     return {
         type: 'HENT_SYKMELDINGER_FEILET',
@@ -33,5 +23,21 @@ export function sorterSykmeldinger(sortering) {
     return {
         type: 'SET_SORTERING',
         sortering,
+    };
+}
+
+export function hentSykmeldinger() {
+    return function (dispatch) {
+        dispatch(henterSykmeldinger());
+        return fetch(window.SYFO_SETTINGS.REST_ROOT + '/sykmeldinger')
+            .then((response) => {
+                response.json();
+            })
+            .then((json) => {
+                dispatch(setSykmeldinger(json));
+            })
+            .catch(() => {
+                dispatch(hentSykmeldingerFeilet());
+            });
     };
 }

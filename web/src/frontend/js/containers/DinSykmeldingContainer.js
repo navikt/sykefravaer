@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../actions/sykmeldinger_actions.js';
 import Side from '../sider/Side.js';
 import DinSykmelding from '../components/DinSykmelding.js';
-import SideIkkeFunnet from '../components/SideIkkeFunnet.js';
 import AppSpinner from '../components/AppSpinner.js';
 import Feilmelding from '../components/Feilmelding.js';
 import { getLedetekst } from '../ledetekster';
@@ -16,8 +15,8 @@ const Controller = (state) => {
                         return <AppSpinner ledetekster={state.ledetekster.data} />;
                     } else if (state.sykmelding.hentingFeilet) {
                         return (<Feilmelding />);
-                    } else if(!state.sykmelding.data) {
-                        return <Feilmelding tittel="Fant ikke sykmelding" melding="Blablabla" />
+                    } else if (!state.sykmelding.data) {
+                        return <Feilmelding tittel="Fant ikke sykmelding" melding="Blablabla" />;
                     }
                     return <DinSykmelding sykmelding={state.sykmelding.data} ledetekster={state.ledetekster.data} />;
                 })()

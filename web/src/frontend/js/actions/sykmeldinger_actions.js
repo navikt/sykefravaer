@@ -31,13 +31,13 @@ export function hentSykmeldinger() {
         dispatch(henterSykmeldinger());
         return fetch(window.SYFO_SETTINGS.REST_ROOT + '/sykmeldinger')
             .then((response) => {
-                response.json();
+                return response.json();
             })
             .then((json) => {
-                dispatch(setSykmeldinger(json));
+                return dispatch(setSykmeldinger(json));
             })
-            .catch(() => {
-                dispatch(hentSykmeldingerFeilet());
+            .catch((err) => {
+                return dispatch(hentSykmeldingerFeilet(err));
             });
     };
 }

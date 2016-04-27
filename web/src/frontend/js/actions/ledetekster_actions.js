@@ -4,7 +4,7 @@ export function henterLedetekster() {
     };
 }
 
-export function setLedetekster(ledetekster = []) {
+export function setLedetekster(ledetekster = {}) {
     return {
         type: 'SET_LEDETEKSTER',
         ledetekster,
@@ -22,13 +22,13 @@ export function hentLedetekster() {
         dispatch(henterLedetekster());
         return fetch(window.SYFO_SETTINGS.REST_ROOT + '/informasjon/tekster')
             .then((response) => {
-                response.json();
+                return response.json();
             })
             .then((json) => {
-                dispatch(setLedetekster(json));
+                return dispatch(setLedetekster(json));
             })
-            .catch(() => {
-                dispatch(hentLedeteksterFeilet());
+            .catch((err) => {
+                return mdispatch(hentLedeteksterFeilet(err));
             });
     };
 }

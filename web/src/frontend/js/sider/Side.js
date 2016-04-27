@@ -3,7 +3,7 @@ import Brodsmuler from '../components/Brodsmuler.js';
 const DocumentTitle = require('react-document-title');
 
 const Side = ({ children, tittel, brodsmuler = [] }) => {
-    return (<DocumentTitle title={tittel + ' - www.nav.no'}>
+    return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
         <div className="begrensning blokk-xl side-syfofront">
             <Brodsmuler brodsmuler={brodsmuler} />
             {children}

@@ -27,14 +27,14 @@ DineSykmldSide.propTypes = {
     ledetekster: PropTypes.object,
     brodsmuler: PropTypes.array,
     sykmeldinger: PropTypes.object,
-    skjulVarsel: PropTypes.boolean,
+    skjulVarsel: PropTypes.bool,
 };
 
 function mapStateToProps(state) {
     return {
         sykmeldinger: state.sykmeldinger,
         ledetekster: state.ledetekster,
-        skjulVarsel: state.localStorage.skjulUnderUtviklingVarsel,
+        skjulVarsel: state.localStorage.skjulUnderUtviklingVarsel === true,
         brodsmuler: [{
             tittel: 'Dine sykmeldinger',
             sti: '/sykmeldinger',

@@ -15,7 +15,7 @@ Dropdown.propTypes = {
     valgtAlternativ: PropTypes.string,
     ariaControls: PropTypes.string,
     id: PropTypes.string,
-    onChange: PropTypes.function,
+    onChange: PropTypes.func,
 };
 
 Dropdown.defaultProps = {

@@ -3,7 +3,7 @@ import SykmeldingTeasere from '../components/SykmeldingTeasere.js';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
 import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer.js';
 
-const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, skjulVarsel }) => {
+const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, skjulVarsel = false }) => {
     return (<div>
         {
             (!skjulVarsel ? <UnderUtviklingVarselContainer /> : '')

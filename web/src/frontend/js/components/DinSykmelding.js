@@ -39,15 +39,17 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 </div>
                 <div className="diagnose-container">
                     <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
-                        <p className="js-diagnose">{sykmelding.diagnose}</p>
+                        <p className="js-diagnose">{sykmelding.hoveddiagnose.diagnose}</p>
                     </SykmeldingOpplysning>
                     <SykmeldingOpplysning tittel="Diagnosekode">
-                        <p className="js-diagnosekode">L96 (ICPC-2)</p>
+                        <p className="js-diagnosekode">{sykmelding.hoveddiagnose.diagnosekode} ({sykmelding.hoveddiagnose.diagnosesystem})</p>
                     </SykmeldingOpplysning>
                 </div>
-                <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.friskmelding.tittel', ledetekster)}>
-                    <p className="js-friskmeldt">{sykmelding.friskmeldt} % {getLedetekst('sykmelding.vis.friskmelding.tekst', ledetekster)}</p>
-                </SykmeldingOpplysning>
+                {
+                    sykmelding.arbeidfoerEtterPerioden ? (<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.friskmelding.tittel', ledetekster)}>
+                    <p className="js-friskmeldt">{getLedetekst('sykmelding.vis.friskmelding.tekst', ledetekster)}</p>
+                </SykmeldingOpplysning>) : ''
+                }
                 <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.arbeidsgiver.tittel', ledetekster)}>
                     <p className="js-arbeidsgiver">{sykmelding.arbeidsgiver}</p>
                 </SykmeldingOpplysning>
@@ -57,40 +59,28 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
             </div>
             <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">
                 <SykmeldingOpplysning Overskrift="H4" tittel="Når startet det legemeldte fraværet?">
-                    <p>01.12.2015</p>
-                </SykmeldingOpplysning>
-                <SykmeldingOpplysning Overskrift="H4" tittel="Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig">
-                    <p>Det er medisinske årsaker som hindrer arbeidsrelatert aktivitet</p>
-                </SykmeldingOpplysning>
-                <SykmeldingOpplysning Overskrift="H4" tittel="Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig">
-                    <p>Smerter i høyre bein etter operasjon</p>
+                    <p>{formatDate(sykmelding.startLegemeldtFravaer)}</p>
                 </SykmeldingOpplysning>
                 <SykmeldingOpplysning Overskrift="H4" tittel="Pasient er 100 prosent arbeidsfør etter denne perioden">
-                    <p>Nei</p>
+                    <p>{sykmelding.antarReturTilArbeid ? 'Ja' : 'Nei'}</p>
                 </SykmeldingOpplysning>
                 <SykmeldingOpplysning Overskrift="H4" tittel="Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet - arbeid hos samme arbeidsgiver.">
-                    <p>Ja</p>
+                    <p>{sykmelding.arbeidfoerEtterPerioden ? 'Ja' : 'Nei'}</p>
                 </SykmeldingOpplysning>
                 <SykmeldingOpplysning Overskrift="H4" tittel="Når antar du at dette kan skje?">
-                    <p>1. april 2016</p>
+                    <p>{formatDate(sykmelding.antattDatoReturTilArbeid)}</p>
                 </SykmeldingOpplysning>
                 <SykmeldingOpplysning Overskrift="H4" tittel="Beskriv kort sykehistorie, symptomer og funn i dagens situasjon">
-                    <p>Operert for prolaps i rygg 15.12.15. Er i bedring men det går sakte.</p>
+                    <p>{sykmelding.sykehistorie}</p>
                 </SykmeldingOpplysning>
-                <SykmeldingOpplysning Overskrift="H4" tittel="Hvordan påvirker sykdommen arbeidsevnen">
-                    <p>I svært stor grad</p>
-                </SykmeldingOpplysning>
-                <SykmeldingOpplysning Overskrift="H4" tittel="Har behandlingen frem til nå bedret arbeidsevnen?">
-                    <p>Ja, operasjonen var vellykket, men opptrening etterpå går sakte.</p>
-                </SykmeldingOpplysning>
-                <SykmeldingOpplysning Overskrift="H4" tittel="Beskriv pågående og planlagt henvisning, utredning og eller behandling">
-                    <p>Langsom opptrening, kontroll på sykehus etter operasjon. </p>
-                </SykmeldingOpplysning>
-                <SykmeldingOpplysning Overskrift="H4" tittel="NAV bør ta tak i saken nå">
-                    <p>Nei</p>
-                </SykmeldingOpplysning>
+                {
+                    sykmelding.navboerTaTakISaken ? 
+                    (<SykmeldingOpplysning Overskrift="H4" tittel="NAV bør ta tak i saken nå">
+                        <p>Ja</p>
+                    </SykmeldingOpplysning>) : ''
+                }
                 <SykmeldingOpplysning Overskrift="H4" tittel="Telefonnummer til lege/sykmelder">
-                    <p>22 23 24 25</p>
+                    <p>{sykmelding.sykmelderTlf}</p>
                 </SykmeldingOpplysning>
             </Utvidbar>
         </div>

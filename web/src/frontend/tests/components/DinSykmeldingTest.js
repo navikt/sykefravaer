@@ -23,8 +23,12 @@ const sykmelding = {
         tom: "2016-01-06T00:00:00Z",
         grad: 67
     }],
-    diagnose: "Influensa",
-    friskmeldt: 75
+    hoveddiagnose: {
+        diagnose: "Influensa",
+        diagnosesystem: "ICPC",
+        diagnosekode: "LP2"
+    },
+    arbeidsfoerEtterPerioden: true
 };
 
 describe("DinSykmelding", () => {
@@ -48,10 +52,6 @@ describe("DinSykmelding", () => {
 
     it("Should display the current diagnosis", () => {
         expect(component.find(".js-diagnose")).to.contain("Influensa")
-    });
-
-    it("Should display the expected employable grad", () => {
-        expect(component.find(".js-friskmeldt").text()).to.contain("75 % arbeidsfør etter perioden")
     });
 
 });

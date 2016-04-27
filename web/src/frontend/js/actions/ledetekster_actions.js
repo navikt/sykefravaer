@@ -22,6 +22,9 @@ export function hentLedetekster() {
         dispatch(henterLedetekster());
         return fetch(window.SYFO_SETTINGS.REST_ROOT + '/informasjon/tekster')
             .then((response) => {
+                if (response.status !== 200) {
+                    dispatch(hentLedeteksterFeilet());
+                }
                 return response.json();
             })
             .then((json) => {

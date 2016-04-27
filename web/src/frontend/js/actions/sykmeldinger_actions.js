@@ -31,6 +31,9 @@ export function hentSykmeldinger() {
         dispatch(henterSykmeldinger());
         return fetch(window.SYFO_SETTINGS.REST_ROOT + '/sykmeldinger')
             .then((response) => {
+                if (response.status !== 200) {
+                    dispatch(hentSykmeldingerFeilet());
+                }
                 return response.json();
             })
             .then((json) => {

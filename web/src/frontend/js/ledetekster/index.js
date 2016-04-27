@@ -1,6 +1,6 @@
 function replace(str, replacements) {
     return str.replace(/%\w+%/g, (all) => {
-        return replacements[all] || all;
+        return replacements[all] + '' || all;
     });
 }
 

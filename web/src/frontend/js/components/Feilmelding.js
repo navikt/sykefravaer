@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 
-const Feilmelding = ({ tittel, melding }) => {
+const Feilmelding = ({ tittel = 'Beklager, det oppstod en feil', melding = 'Vennligst prøv igjen litt senere.' }) => {
     return (<div className="panel typo-infotekst panel-melding">
-                <h1 className="hode hode-feil hode-innholdstittel hode-dekorert blokk">{tittel}</h1>
+                <h1 className="hode hode-feil hode-undertittel hode-dekorert blokk">{tittel}</h1>
                 <p>{melding}</p>
             </div>);
 };

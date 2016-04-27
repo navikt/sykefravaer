@@ -14,7 +14,7 @@ const DineSykmldSide = (props) => {
                 if (props.sykmeldinger.henter) {
                     return <AppSpinner ledetekster={props.ledetekster.data} />;
                 } else if (props.sykmeldinger.hentingFeilet) {
-                    return (<Feilmelding tittel="Det oppstod en feil" melding="Vennligst prøv igjen litt senere" />);
+                    return (<Feilmelding />);
                 }
                 return <DineSykmeldinger skjulVarsel={props.skjulVarsel} sykmeldinger={sorterSykmeldinger(props.sykmeldinger.data, props.sykmeldinger.sortering)} ledetekster={props.ledetekster.data} />;
             })()

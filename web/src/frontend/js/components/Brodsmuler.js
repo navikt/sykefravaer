@@ -5,7 +5,8 @@ import { getContextRoot } from '../routers/paths.js';
 const Brodsmuler = ({ brodsmuler }) => {
     return (<nav role="navigation" className="brodsmuler blokk side-innhold" aria-label="Du er her: ">
         <img src="/sykefravaer/img/svg/account-circle.svg" alt="Du" className="brodsmuler-ikon" />
-        <a href="/dittnav" className="js-smule">Ditt NAV</a><span className="brodsmule-skille"> / </span>
+        <a href="/dittnav" className="js-smule">Ditt NAV</a>
+        {brodsmuler.length ? <span className="brodsmule-skille"> / </span> : ''}
         {brodsmuler.map((smule, idx) => {
             return (smule.erKlikkbar ? <span key={idx}>
                 <Link className="js-smule" to={getContextRoot() + smule.sti}>{smule.tittel}</Link>

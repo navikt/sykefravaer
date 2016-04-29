@@ -17,11 +17,7 @@
         <baseUrl mapToProperty="sykefravaerapi" alias="sykefravaerapi"/>
     </resources>
 
-    <loadBalancer>
-        <contextRoot>sykefravaer</contextRoot>
-        <lbHealthMonitor type="HTTPS" isAliveUrl="sykefravaer/internal/isAlive" interval="5" timeout="16"/>
-        <lbPool slowRampTime="30" loadBalancingMethod="LEAST_CONNECTIONS" connectionLimit="500"/>
-    </loadBalancer>
+    <loadBalancer isAlive="sykefravaer/internal/isAlive" />
 
     <serverOptions>
         <memoryParameters resourceAlias="syfo-memparams"/>

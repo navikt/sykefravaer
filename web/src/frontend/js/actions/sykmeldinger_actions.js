@@ -29,9 +29,11 @@ export function sorterSykmeldinger(sortering) {
 export function hentSykmeldinger() {
     return function (dispatch) {
         dispatch(henterSykmeldinger());
-        return fetch(window.SYFO_SETTINGS.REST_ROOT + '/sykmeldinger')
+        return fetch(window.SYFO_SETTINGS.REST_ROOT + '/sykmeldinger', {
+            credentials: 'include',
+        })
             .then((response) => {
-                if (response.status !== 200) {
+                if (response.status > 400) {
                     dispatch(hentSykmeldingerFeilet());
                 }
                 return response.json();

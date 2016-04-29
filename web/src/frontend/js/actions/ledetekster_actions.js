@@ -20,9 +20,11 @@ export function hentLedeteksterFeilet() {
 export function hentLedetekster() {
     return function (dispatch) {
         dispatch(henterLedetekster());
-        return fetch(window.SYFO_SETTINGS.REST_ROOT + '/informasjon/tekster')
+        return fetch(window.SYFO_SETTINGS.REST_ROOT + '/informasjon/tekster', {
+            credentials: 'include',
+        })
             .then((response) => {
-                if (response.status !== 200) {
+                if (response.status > 400) {
                     dispatch(hentLedeteksterFeilet());
                 }
                 return response.json();

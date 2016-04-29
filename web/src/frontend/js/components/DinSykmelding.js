@@ -74,7 +74,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     <p>{sykmelding.sykehistorie}</p>
                 </SykmeldingOpplysning>
                 {
-                    sykmelding.navboerTaTakISaken ? 
+                    sykmelding.navboerTaTakISaken ?
                     (<SykmeldingOpplysning Overskrift="H4" tittel="NAV bør ta tak i saken nå">
                         <p>Ja</p>
                     </SykmeldingOpplysning>) : ''

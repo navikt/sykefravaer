@@ -7,14 +7,13 @@ import SykmeldingOpplysning from './SykmeldingOpplysning.js';
 import { Link } from 'react-router';
 
 const getSykmeldingOpplysning = (sykmelding, felt, tittel, opplysning) => {
-    if(sykmelding[felt]) {
+    if (sykmelding[felt]) {
         return (<SykmeldingOpplysning tittel={tittel} Overskrift="H4">
             <p className={'js-' + felt}>{opplysning}</p>
         </SykmeldingOpplysning>);
-    } else {
-        return '';
     }
-}
+    return '';
+};
 
 const DinSykmelding = ({ sykmelding, ledetekster }) => {
     if (!sykmelding || !sykmelding.id) {
@@ -79,7 +78,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
             </div>
             <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">
                 {
-                    getSykmeldingOpplysning(sykmelding, 'startLegemeldtFravaer', "Når startet det legemeldte fraværet?", formatDate(sykmelding.startLegemeldtFravaer))
+                    getSykmeldingOpplysning(sykmelding, 'startLegemeldtFravaer', 'Når startet det legemeldte fraværet?', formatDate(sykmelding.startLegemeldtFravaer))
                 }
                 <SykmeldingOpplysning Overskrift="H4" tittel="Pasient er 100 prosent arbeidsfør etter denne perioden">
                     <p className="js-antarReturTilArbeid">{sykmelding.antarReturTilArbeid ? 'Ja' : 'Nei'}</p>
@@ -88,16 +87,16 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     <p className="js-arbeidfoerEtterPerioden">{sykmelding.arbeidfoerEtterPerioden ? 'Ja' : 'Nei'}</p>
                 </SykmeldingOpplysning>
                 {
-                    getSykmeldingOpplysning(sykmelding, 'antattDatoReturTilArbeid', "Når antar du dette kan skje?", formatDate(sykmelding.antattDatoReturTilArbeid))
-                }                    
-                {
-                    getSykmeldingOpplysning(sykmelding, 'sykehistorie', "Beskriv kort sykehistorie, symptomer og funn i dagens situasjon", sykmelding.sykehistorie)
+                    getSykmeldingOpplysning(sykmelding, 'antattDatoReturTilArbeid', 'Når antar du dette kan skje?', formatDate(sykmelding.antattDatoReturTilArbeid))
                 }
                 {
-                    getSykmeldingOpplysning(sykmelding, 'navboerTaTakISaken', "NAV bør ta tak i saken nå", 'Ja')
+                    getSykmeldingOpplysning(sykmelding, 'sykehistorie', 'Beskriv kort sykehistorie, symptomer og funn i dagens situasjon', sykmelding.sykehistorie)
                 }
                 {
-                    getSykmeldingOpplysning(sykmelding, 'sykmelderTlf', "Telefonnummer til lege/sykmelder", sykmelding.sykmelderTlf)
+                    getSykmeldingOpplysning(sykmelding, 'navboerTaTakISaken', 'NAV bør ta tak i saken nå', 'Ja')
+                }
+                {
+                    getSykmeldingOpplysning(sykmelding, 'sykmelderTlf', 'Telefonnummer til lege/sykmelder', sykmelding.sykmelderTlf)
                 }
             </Utvidbar>
         </div>

@@ -7,7 +7,7 @@ export function formatDate(date) {
 export function getDuration(from, to) {
     const fromMoment = moment(from);
     const toMoment = moment(to);
-    return toMoment.diff(fromMoment, 'days');
+    return toMoment.diff(fromMoment, 'days') + 1;
 }
 
 export function scrollTo(element, duration) {

@@ -13,7 +13,7 @@
 
     <groupId>no.nav.syfo</groupId>
     <artifactId>syfofront</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-LOCAL</version>
 
     <modules>
         <module>config</module>

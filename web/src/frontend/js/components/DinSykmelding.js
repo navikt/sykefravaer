@@ -6,6 +6,16 @@ import AppSpinner from './AppSpinner.js';
 import SykmeldingOpplysning from './SykmeldingOpplysning.js';
 import { Link } from 'react-router';
 
+const getSykmeldingOpplysning = (sykmelding, felt, tittel, opplysning) => {
+    if(sykmelding[felt]) {
+        return (<SykmeldingOpplysning tittel={tittel} Overskrift="H4">
+            <p className={'js-' + felt}>{opplysning}</p>
+        </SykmeldingOpplysning>);
+    } else {
+        return '';
+    }
+}
+
 const DinSykmelding = ({ sykmelding, ledetekster }) => {
     if (!sykmelding || !sykmelding.id) {
         return <AppSpinner ledetekster={ledetekster} />;
@@ -39,12 +49,22 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 </div>
                 <div className="diagnose-container">
                     <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
-                        <p className="js-diagnose">{sykmelding.hoveddiagnose.diagnose}</p>
+                        <p className="js-hoveddiagnose">{sykmelding.hoveddiagnose.diagnose}</p>
                     </SykmeldingOpplysning>
                     <SykmeldingOpplysning tittel="Diagnosekode">
-                        <p className="js-diagnosekode">{sykmelding.hoveddiagnose.diagnosekode} ({sykmelding.hoveddiagnose.diagnosesystem})</p>
+                        <p className="js-hoveddiagnose-kode">{sykmelding.hoveddiagnose.diagnosekode} (<span className="js-hoveddiagnose-system">{sykmelding.hoveddiagnose.diagnosesystem}</span>)</p>
                     </SykmeldingOpplysning>
                 </div>
+                {
+                    sykmelding.bidiagnose ? (<div className="diagnose-container">
+                    <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
+                        <p className="js-bidiagnose">{sykmelding.bidiagnose.diagnose}</p>
+                    </SykmeldingOpplysning>
+                    <SykmeldingOpplysning tittel="Diagnosekode">
+                        <p className="js-bidiagnose-kode">{sykmelding.bidiagnose.diagnosekode} (<span className="js-bidiagnose-system">{sykmelding.bidiagnose.diagnosesystem}</span>)</p>
+                    </SykmeldingOpplysning>
+                </div>) : ''
+                }
                 {
                     sykmelding.arbeidfoerEtterPerioden ? (<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.friskmelding.tittel', ledetekster)}>
                     <p className="js-friskmeldt">{getLedetekst('sykmelding.vis.friskmelding.tekst', ledetekster)}</p>
@@ -58,30 +78,27 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 </SykmeldingOpplysning>
             </div>
             <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">
-                <SykmeldingOpplysning Overskrift="H4" tittel="Når startet det legemeldte fraværet?">
-                    <p>{formatDate(sykmelding.startLegemeldtFravaer)}</p>
-                </SykmeldingOpplysning>
+                {
+                    getSykmeldingOpplysning(sykmelding, 'startLegemeldtFravaer', "Når startet det legemeldte fraværet?", formatDate(sykmelding.startLegemeldtFravaer))
+                }
                 <SykmeldingOpplysning Overskrift="H4" tittel="Pasient er 100 prosent arbeidsfør etter denne perioden">
-                    <p>{sykmelding.antarReturTilArbeid ? 'Ja' : 'Nei'}</p>
+                    <p className="js-antarReturTilArbeid">{sykmelding.antarReturTilArbeid ? 'Ja' : 'Nei'}</p>
                 </SykmeldingOpplysning>
                 <SykmeldingOpplysning Overskrift="H4" tittel="Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet - arbeid hos samme arbeidsgiver.">
-                    <p>{sykmelding.arbeidfoerEtterPerioden ? 'Ja' : 'Nei'}</p>
-                </SykmeldingOpplysning>
-                <SykmeldingOpplysning Overskrift="H4" tittel="Når antar du at dette kan skje?">
-                    <p>{formatDate(sykmelding.antattDatoReturTilArbeid)}</p>
-                </SykmeldingOpplysning>
-                <SykmeldingOpplysning Overskrift="H4" tittel="Beskriv kort sykehistorie, symptomer og funn i dagens situasjon">
-                    <p>{sykmelding.sykehistorie}</p>
+                    <p className="js-arbeidfoerEtterPerioden">{sykmelding.arbeidfoerEtterPerioden ? 'Ja' : 'Nei'}</p>
                 </SykmeldingOpplysning>
                 {
-                    sykmelding.navboerTaTakISaken ?
-                    (<SykmeldingOpplysning Overskrift="H4" tittel="NAV bør ta tak i saken nå">
-                        <p>Ja</p>
-                    </SykmeldingOpplysning>) : ''
+                    getSykmeldingOpplysning(sykmelding, 'antattDatoReturTilArbeid', "Når antar du dette kan skje?", formatDate(sykmelding.antattDatoReturTilArbeid))
+                }                    
+                {
+                    getSykmeldingOpplysning(sykmelding, 'sykehistorie', "Beskriv kort sykehistorie, symptomer og funn i dagens situasjon", sykmelding.sykehistorie)
                 }
-                <SykmeldingOpplysning Overskrift="H4" tittel="Telefonnummer til lege/sykmelder">
-                    <p>{sykmelding.sykmelderTlf}</p>
-                </SykmeldingOpplysning>
+                {
+                    getSykmeldingOpplysning(sykmelding, 'navboerTaTakISaken', "NAV bør ta tak i saken nå", 'Ja')
+                }
+                {
+                    getSykmeldingOpplysning(sykmelding, 'sykmelderTlf', "Telefonnummer til lege/sykmelder", sykmelding.sykmelderTlf)
+                }
             </Utvidbar>
         </div>
         <p className="side-innhold ikke-print">

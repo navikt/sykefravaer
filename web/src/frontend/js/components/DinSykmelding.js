@@ -9,7 +9,7 @@ import { Link } from 'react-router';
 const getSykmeldingOpplysning = (sykmelding, felt, tittel, opplysning) => {
     if (sykmelding[felt]) {
         return (<SykmeldingOpplysning tittel={tittel} Overskrift="H4">
-            <p className={'js-' + felt}>{opplysning}</p>
+            <p className={'js-' + felt}>{opplysning || sykmelding[felt]}</p>
         </SykmeldingOpplysning>);
     }
     return '';
@@ -51,7 +51,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                         <p className="js-hoveddiagnose">{sykmelding.hoveddiagnose.diagnose}</p>
                     </SykmeldingOpplysning>
                     <SykmeldingOpplysning tittel="Diagnosekode">
-                        <p className="js-hoveddiagnose-kode">{sykmelding.hoveddiagnose.diagnosekode} (<span className="js-hoveddiagnose-system">{sykmelding.hoveddiagnose.diagnosesystem}</span>)</p>
+                        <p><span className="js-hoveddiagnose-kode">{sykmelding.hoveddiagnose.diagnosekode}</span> (<span className="js-hoveddiagnose-system">{sykmelding.hoveddiagnose.diagnosesystem}</span>)</p>
                     </SykmeldingOpplysning>
                 </div>
                 {
@@ -60,7 +60,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                         <p className="js-bidiagnose">{sykmelding.bidiagnose.diagnose}</p>
                     </SykmeldingOpplysning>
                     <SykmeldingOpplysning tittel="Diagnosekode">
-                        <p className="js-bidiagnose-kode">{sykmelding.bidiagnose.diagnosekode} (<span className="js-bidiagnose-system">{sykmelding.bidiagnose.diagnosesystem}</span>)</p>
+                        <p><span className="js-bidiagnose-kode">{sykmelding.bidiagnose.diagnosekode}</span> (<span className="js-bidiagnose-system">{sykmelding.bidiagnose.diagnosesystem}</span>)</p>
                     </SykmeldingOpplysning>
                 </div>) : ''
                 }
@@ -90,13 +90,19 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     getSykmeldingOpplysning(sykmelding, 'antattDatoReturTilArbeid', 'Når antar du dette kan skje?', formatDate(sykmelding.antattDatoReturTilArbeid))
                 }
                 {
-                    getSykmeldingOpplysning(sykmelding, 'sykehistorie', 'Beskriv kort sykehistorie, symptomer og funn i dagens situasjon', sykmelding.sykehistorie)
+                    getSykmeldingOpplysning(sykmelding, 'sykehistorie', 'Beskriv kort sykehistorie, symptomer og funn i dagens situasjon')
+                }
+                {
+                    getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig433', 'Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig')
+                }
+                {
+                    getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig434', 'Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig')
                 }
                 {
                     getSykmeldingOpplysning(sykmelding, 'navboerTaTakISaken', 'NAV bør ta tak i saken nå', 'Ja')
                 }
                 {
-                    getSykmeldingOpplysning(sykmelding, 'sykmelderTlf', 'Telefonnummer til lege/sykmelder', sykmelding.sykmelderTlf)
+                    getSykmeldingOpplysning(sykmelding, 'sykmelderTlf', 'Telefonnummer til lege/sykmelder')
                 }
             </Utvidbar>
         </div>

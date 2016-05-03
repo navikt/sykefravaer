@@ -38,12 +38,12 @@ const getSykmelding = (skmld = {}) => {
 describe("DinSykmelding", () => {
 
     beforeEach(() => {
-        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}/>)
+        component = mount(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}/>)
     })
 
     it("Skal vise periode", () => {
-        expect(component.find(".js-periode")).to.contain("31.12.2015");
-        expect(component.find(".js-periode")).to.contain("06.01.2016");
+        expect(component.find(".js-periode").text()).to.contain("31.12.2015");
+        expect(component.find(".js-periode").text()).to.contain("06.01.2016");
     });
 
     it("Skal vise antall dager", () => {
@@ -51,17 +51,17 @@ describe("DinSykmelding", () => {
     });    
 
     it("Skal vise avsender", () => {
-        expect(component.find(".js-avsender")).to.contain("Ove Olsen");
+        expect(component.find(".js-avsender").text()).to.contain("Ove Olsen");
     });
 
     it("Skal vise arbeidsgiver", () => {
-        expect(component.find(".js-arbeidsgiver")).to.contain("Selskapet AS");
+        expect(component.find(".js-arbeidsgiver").text()).to.equal("Selskapet AS");
     });
 
     it("Skal vise hoveddiagnose", () => {
-        expect(component.find(".js-hoveddiagnose")).to.contain("Influensa")
-        expect(component.find(".js-hoveddiagnose-kode")).to.contain("LP2")
-        expect(component.find(".js-hoveddiagnose-system")).to.contain("ICPC")
+        expect(component.find(".js-hoveddiagnose").text()).to.equal("Influensa")
+        expect(component.find(".js-hoveddiagnose-kode").text()).to.equal("LP2")
+        expect(component.find(".js-hoveddiagnose-system").text()).to.equal("ICPC")
     });
 
     describe("Bidiagnose", () => {
@@ -72,19 +72,19 @@ describe("DinSykmelding", () => {
 
 
         it("Skal vise hoveddiagnose dersom det finnes", () => {
-            component = shallow(<DinSykmelding sykmelding={getSykmelding({
+            component = mount(<DinSykmelding sykmelding={getSykmelding({
                 bidiagnose: {
                     diagnose: "Mageknipe",
                     diagnosesystem: "IZPZ",
                     diagnosekode: "LP3"
                 }
             })} ledetekster={ledetekster}/>)
-            expect(component.find(".js-bidiagnose")).to.contain("Mageknipe")
-            expect(component.find(".js-bidiagnose-kode")).to.contain("LP3")
-            expect(component.find(".js-bidiagnose-system")).to.contain("IZPZ")
+            expect(component.find(".js-bidiagnose").text()).to.equal("Mageknipe")
+            expect(component.find(".js-bidiagnose-kode").text()).to.equal("LP3")
+            expect(component.find(".js-bidiagnose-system").text()).to.equal("IZPZ")
         });        
 
-    })
+    });
 
     describe("Flere opplysninger", () => {
 
@@ -98,7 +98,7 @@ describe("DinSykmelding", () => {
             });
 
             it("Skal vise dersom sykmelding.startLegemeldtFravaer er en dato", () => {
-                component = shallow(<DinSykmelding sykmelding={getSykmelding({
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
                     startLegemeldtFravaer: "2016-04-27T22:00:00.000Z"
                 })} ledetekster={ledetekster}/>)
                 expect(component.find(".js-startLegemeldtFravaer").length).to.equal(1); 
@@ -117,7 +117,7 @@ describe("DinSykmelding", () => {
             });
 
             it("Skal vise 'Nei' dersom sykmelding.antarReturTilArbeid === false", () => {
-                component = shallow(<DinSykmelding sykmelding={getSykmelding({
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
                     antarReturTilArbeid: false
                 })} ledetekster={ledetekster}/>)
                 expect(component.find(".js-antarReturTilArbeid").text()).to.equal("Nei")
@@ -135,7 +135,7 @@ describe("DinSykmelding", () => {
             });
 
             it("Skal vise 'Nei' dersom sykmelding.arbeidfoerEtterPerioden === false", () => {
-                component = shallow(<DinSykmelding sykmelding={getSykmelding({
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
                     arbeidfoerEtterPerioden: false
                 })} ledetekster={ledetekster}/>)
                 expect(component.find(".js-arbeidfoerEtterPerioden").text()).to.equal("Nei")
@@ -152,7 +152,7 @@ describe("DinSykmelding", () => {
             });
 
             it("Skal vise dersom sykmelding.antattDatoReturTilArbeid er en dato", () => {
-                component = shallow(<DinSykmelding sykmelding={getSykmelding({
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
                     antattDatoReturTilArbeid: "2016-03-15T22:00:00.000Z"
                 })} ledetekster={ledetekster}/>)
                 expect(component.find(".js-antattDatoReturTilArbeid").length).to.equal(1); 
@@ -169,7 +169,7 @@ describe("DinSykmelding", () => {
             });
 
             it("Skal vise dersom sykmelding.sykehistorie er en tekst", () => {
-                component = shallow(<DinSykmelding sykmelding={getSykmelding({
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
                     sykehistorie: "Min sykehistorie er ikke så lang"
                 })} ledetekster={ledetekster}/>)
                 expect(component.find(".js-sykehistorie").length).to.equal(1); 
@@ -193,7 +193,7 @@ describe("DinSykmelding", () => {
             });            
 
             it("Skal vise 'Ja' dersom sykmelding.navboerTaTakISaken === true", () => {
-                component = shallow(<DinSykmelding sykmelding={getSykmelding({
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
                     navboerTaTakISaken: true
                 })} ledetekster={ledetekster}/>)
                 expect(component.find(".js-navboerTaTakISaken").length).to.equal(1); 
@@ -211,13 +211,45 @@ describe("DinSykmelding", () => {
             });
 
             it("Skal vise dersom sykmelding.sykehistorie er en tekst", () => {
-                component = shallow(<DinSykmelding sykmelding={getSykmelding({
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
                     sykmelderTlf: "22332244"
                 })} ledetekster={ledetekster}/>)
                 expect(component.find(".js-sykmelderTlf").length).to.equal(1); 
                 expect(component.find(".js-sykmelderTlf").text()).to.equal("22332244");
             });            
         });
+
+        describe("aarsakAktivitetIkkeMulig433", () => {
+            it("Skal ikke vise dersom sykmelder.aarsakAktivitetIkkeMulig433 === null", () => {
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
+                    aarsakAktivitetIkkeMulig433: null
+                })} ledetekster={ledetekster} />);
+                expect(component.find(".js-aarsakAktivitetIkkeMulig433").length).to.equal(0);
+            });
+
+            it("Skal vise dersom sykmelder.aarsakAktivitetIkkeMulig433 === 'Har vondt i foten'", () => {
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
+                    aarsakAktivitetIkkeMulig433: "Har vondt i foten"
+                })} ledetekster={ledetekster} />);
+                expect(component.find(".js-aarsakAktivitetIkkeMulig433").text()).to.contain("Har vondt i foten")
+            });
+        });
+
+        describe("aarsakAktivitetIkkeMulig434", () => {
+            it("Skal ikke vise dersom sykmelder.aarsakAktivitetIkkeMulig434 === null", () => {
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
+                    aarsakAktivitetIkkeMulig434: null
+                })} ledetekster={ledetekster} />);
+                expect(component.find(".js-aarsakAktivitetIkkeMulig434").length).to.equal(0);
+            });
+
+            it("Skal vise dersom sykmelder.aarsakAktivitetIkkeMulig434 === 'Har vondt i foten'", () => {
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
+                    aarsakAktivitetIkkeMulig434: "Har vondt i foten"
+                })} ledetekster={ledetekster} />);
+                expect(component.find(".js-aarsakAktivitetIkkeMulig434").text()).to.contain("Har vondt i foten")
+            });
+        });        
 
 
 

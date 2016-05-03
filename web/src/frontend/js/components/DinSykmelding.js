@@ -46,14 +46,16 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                         })
                     }
                 </div>
-                <div className="diagnose-container">
+                {
+                    sykmelding.hoveddiagnose ? (<div className="diagnose-container">
                     <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
                         <p className="js-hoveddiagnose">{sykmelding.hoveddiagnose.diagnose}</p>
                     </SykmeldingOpplysning>
                     <SykmeldingOpplysning tittel="Diagnosekode">
                         <p><span className="js-hoveddiagnose-kode">{sykmelding.hoveddiagnose.diagnosekode}</span> (<span className="js-hoveddiagnose-system">{sykmelding.hoveddiagnose.diagnosesystem}</span>)</p>
                     </SykmeldingOpplysning>
-                </div>
+                </div>) : ''
+                }
                 {
                     sykmelding.bidiagnose ? (<div className="diagnose-container">
                     <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>

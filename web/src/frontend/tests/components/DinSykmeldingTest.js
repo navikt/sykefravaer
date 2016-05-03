@@ -58,18 +58,30 @@ describe("DinSykmelding", () => {
         expect(component.find(".js-arbeidsgiver").text()).to.equal("Selskapet AS");
     });
 
-    it("Skal vise hoveddiagnose", () => {
-        expect(component.find(".js-hoveddiagnose").text()).to.equal("Influensa")
-        expect(component.find(".js-hoveddiagnose-kode").text()).to.equal("LP2")
-        expect(component.find(".js-hoveddiagnose-system").text()).to.equal("ICPC")
+    describe("hoveddiagnose", () => {
+
+        it("Skal vise hoveddiagnose dersom den finnes", () => {
+            expect(component.find(".js-hoveddiagnose").text()).to.equal("Influensa")
+            expect(component.find(".js-hoveddiagnose-kode").text()).to.equal("LP2")
+            expect(component.find(".js-hoveddiagnose-system").text()).to.equal("ICPC")
+        });
+
+        it("Skal ikke vise hoveddiagnose dersom den ikke finnes (sykmelding.hoveddiagnose === null)", () => {
+            component = mount(<DinSykmelding sykmelding={getSykmelding({
+                hoveddiagnose: null
+            })} ledetekster={ledetekster}/>)
+            expect(component.find(".js-hoveddiagnose").length).to.equal(0)
+            expect(component.find(".js-hoveddiagnose-kode").length).to.equal(0)
+            expect(component.find(".js-hoveddiagnose-system").length).to.equal(0)
+        });
     });
+
 
     describe("Bidiagnose", () => {
 
         it("Skal ikke vise bidiagnose dersom det ikke finnes", () => {
             expect(component.find(".js-bidiagnose").length).to.equal(0);
         });
-
 
         it("Skal vise hoveddiagnose dersom det finnes", () => {
             component = mount(<DinSykmelding sykmelding={getSykmelding({

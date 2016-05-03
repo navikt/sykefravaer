@@ -9,7 +9,7 @@ import ledetekster from "../ledetekster_mock.js";
 import SykmeldingTeaser from "../../js/components/SykmeldingTeaser.js";
 
 describe("SykmeldingTeaser", () => {
-    it("Renders the dates", function () {
+    it("Viser datoer", function () {
         const sykmelding = {
             perioder: [{
                 fom: "2016-02-02T00:00:00Z",
@@ -23,7 +23,7 @@ describe("SykmeldingTeaser", () => {
         expect(teaser.find(".js-title").text()).to.contain("Sykmelding");
     });
 
-    it("Render correct meta information", function () {
+    it("Viser arbeidsgiver", function () {
         const teaser = mount(<SykmeldingTeaser sykmelding={{
 			perioder: [{
                 fom: "2016-02-02T00:00:00Z",
@@ -36,7 +36,7 @@ describe("SykmeldingTeaser", () => {
         expect(teaser.find(".js-periode").text()).to.contain("Bekk Consulting AS")
     });
 
-    it("Should be an article element", function () {
+    it("Skal være et <article />-element", function () {
         const teaser = shallow(<SykmeldingTeaser sykmelding={{
 			arbeidsgiver: "Bekk Consulting AS",
             perioder: [{

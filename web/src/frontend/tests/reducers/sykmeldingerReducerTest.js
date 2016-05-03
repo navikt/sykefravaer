@@ -6,7 +6,7 @@ import sykmeldinger from '../../js/reducers/sykmeldinger.js';
 
 describe('sykmeldinger', () => {
 
-    it('handles SET_SYKMELDINGER ', () => {
+    it('håndterer SET_SYKMELDINGER ', () => {
         const initialState = {};
         const action = {
             type: 'SET_SYKMELDINGER',
@@ -27,7 +27,7 @@ describe('sykmeldinger', () => {
         });
     });
 
-    it("handles SET_SORTERING ", () => {
+    it("håndterer SET_SORTERING ", () => {
         const initialState = {};
         const action = {
             type: 'SET_SORTERING',

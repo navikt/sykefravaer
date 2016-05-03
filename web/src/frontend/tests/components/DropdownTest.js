@@ -14,7 +14,7 @@ import Dropdown from "../../js/components/Dropdown.js";
 
 describe("Dropdown", () => { 
 
-    it("Should render correct number of options", function () {
+    it("Skal rendre riktig antall options", function () {
         let alternativer = [{
             tekst: "Velg",
         }, {
@@ -46,7 +46,7 @@ describe("Dropdown", () => {
         expect(componentTwo.find("option").length).to.equal(5);        
     });
 
-    it("Should display the correct value and label of the options", function () {
+    it("Skal vise korrekt verdi og innhold i options", function () {
         let alternativer = [{
             tekst: "Velg",
         }, {
@@ -62,7 +62,7 @@ describe("Dropdown", () => {
         expect(component.find("option").at(2).text()).to.equal("Appelsiner"); 
     });
 
-    it("Should select the chosen value", function() {
+    it("Valg verdi skal være valgt i dropdown-viewet", function() {
         let alternativer = [{
             tekst: "Velg",
         }, {
@@ -78,7 +78,7 @@ describe("Dropdown", () => {
         expect(component.find("option").at(2)).not.to.be.selected();
     });
 
-    it("Should call passed-in function with chosen option when option is selected", function() {
+    it("Skal kalle på innsendt funksjon med valgt alternativ når alternativ velges", function() {
         let alternativer = [{
             tekst: "Velg",
         }, {

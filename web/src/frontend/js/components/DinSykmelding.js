@@ -101,10 +101,19 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig434', 'Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig')
                 }
                 {
-                    getSykmeldingOpplysning(sykmelding, 'navboerTaTakISaken', 'NAV bør ta tak i saken nå', 'Ja')
+                    getSykmeldingOpplysning(sykmelding, 'resultatAvBehandling', 'Har behandlingen frem til nå bedret arbeidsevnen?')
+                }
+                {
+                    getSykmeldingOpplysning(sykmelding, 'navBoerTaTakISaken', 'NAV bør ta tak i saken nå', 'Ja')
                 }
                 {
                     getSykmeldingOpplysning(sykmelding, 'sykmelderTlf', 'Telefonnummer til lege/sykmelder')
+                }
+                {
+                    getSykmeldingOpplysning(sykmelding, 'henvisningUtredningBehandling', 'Beskriv pågående og planlagt henvisning, utredning og eller behandling')
+                }
+                {
+                    getSykmeldingOpplysning(sykmelding, 'paavirkningArbeidsevne', 'Hvordan påvirker sykdommen arbeidsevnen')
                 }
             </Utvidbar>
         </div>

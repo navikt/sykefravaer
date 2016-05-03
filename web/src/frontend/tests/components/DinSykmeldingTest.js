@@ -190,26 +190,26 @@ describe("DinSykmelding", () => {
         });
 
         describe("NAV bør ta tak i saken nå", () => {
-            it("Skal ikke vise dersom sykmelding.navboerTaTakISaken === null", () => {
+            it("Skal ikke vise dersom sykmelding.navBoerTaTakISaken === null", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    navboerTaTakISaken: null
+                    navBoerTaTakISaken: null
                 })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-navboerTaTakISaken").length).to.equal(0); 
+                expect(component.find(".js-navBoerTaTakISaken").length).to.equal(0); 
             });
 
-            it("Skal ikke vise dersom sykmelding.navboerTaTakISaken === false", () => {
+            it("Skal ikke vise dersom sykmelding.navBoerTaTakISaken === false", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    navboerTaTakISaken: false
+                    navBoerTaTakISaken: false
                 })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-navboerTaTakISaken").length).to.equal(0); 
+                expect(component.find(".js-navBoerTaTakISaken").length).to.equal(0); 
             });            
 
-            it("Skal vise 'Ja' dersom sykmelding.navboerTaTakISaken === true", () => {
+            it("Skal vise 'Ja' dersom sykmelding.navBoerTaTakISaken === true", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    navboerTaTakISaken: true
+                    navBoerTaTakISaken: true
                 })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-navboerTaTakISaken").length).to.equal(1); 
-                expect(component.find(".js-navboerTaTakISaken").text()).to.equal("Ja");
+                expect(component.find(".js-navBoerTaTakISaken").length).to.equal(1); 
+                expect(component.find(".js-navBoerTaTakISaken").text()).to.equal("Ja");
             }); 
 
         }); 
@@ -261,7 +261,55 @@ describe("DinSykmelding", () => {
                 })} ledetekster={ledetekster} />);
                 expect(component.find(".js-aarsakAktivitetIkkeMulig434").text()).to.contain("Har vondt i foten")
             });
-        });        
+        });
+
+        describe("resultatAvBehandling", () => {
+            it("Skal ikke vise dersom sykmelder.resultatAvBehandling === null", () => {
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
+                    resultatAvBehandling: null
+                })} ledetekster={ledetekster} />);
+                expect(component.find(".js-resultatAvBehandling").length).to.equal(0);
+            });
+
+            it("Skal vise dersom sykmelder.resultatAvBehandling === 'Dette ga gode resultater'", () => {
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
+                    resultatAvBehandling: "Dette ga gode resultater"
+                })} ledetekster={ledetekster} />);
+                expect(component.find(".js-resultatAvBehandling").text()).to.contain("Dette ga gode resultater")
+            });
+        });
+
+        describe("henvisningUtredningBehandling", () => {
+            it("Skal ikke vise dersom sykmelder.henvisningUtredningBehandling === null", () => {
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
+                    henvisningUtredningBehandling: null
+                })} ledetekster={ledetekster} />);
+                expect(component.find(".js-henvisningUtredningBehandling").length).to.equal(0);
+            });
+
+            it("Skal vise dersom sykmelder.henvisningUtredningBehandling === 'Henvist til fysio, forventer bedring når han får hjelp til opptrening.'", () => {
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
+                    henvisningUtredningBehandling: "Henvist til fysio, forventer bedring når han får hjelp til opptrening."
+                })} ledetekster={ledetekster} />);
+                expect(component.find(".js-henvisningUtredningBehandling").text()).to.contain("Henvist til fysio, forventer bedring når han får hjelp til opptrening.")
+            });
+        });
+
+        describe("paavirkningArbeidsevne", () => {
+            it("Skal ikke vise dersom sykmelder.paavirkningArbeidsevne === null", () => {
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
+                    paavirkningArbeidsevne: null
+                })} ledetekster={ledetekster} />);
+                expect(component.find(".js-paavirkningArbeidsevne").length).to.equal(0);
+            });
+
+            it("Skal vise dersom sykmelder.paavirkningArbeidsevne === 'God påvirkning på arbeidsevne'", () => {
+                component = mount(<DinSykmelding sykmelding={getSykmelding({
+                    paavirkningArbeidsevne: "God påvirkning på arbeidsevne"
+                })} ledetekster={ledetekster} />);
+                expect(component.find(".js-paavirkningArbeidsevne").text()).to.contain("God påvirkning på arbeidsevne")
+            });            
+        })    
 
 
 

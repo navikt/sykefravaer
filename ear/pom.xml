@@ -15,9 +15,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>no.nav.syfo</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>syfofront-web</artifactId>
-            <version>1.0-LOCAL</version>
+            <version>${project.version}</version>
             <type>war</type>
             <scope>runtime</scope>
         </dependency>

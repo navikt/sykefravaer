@@ -7,9 +7,9 @@ import { SykmeldingOpplysning, SykmeldingNokkelOpplysning } from './SykmeldingOp
 import SykmeldingPeriode from './SykmeldingPeriode.js';
 import { Link } from 'react-router';
 
-const getSykmeldingCheckbox = (sykmelding, felt, tekst) => {
-    if(sykmelding[felt]) { // TODO; fjern !
-        return (<p className={'sykmelding-checkbox js-' + felt}>
+const getSykmeldingCheckbox = (sykmelding, felt, tekst, className) => {
+    if(sykmelding[felt]) { 
+        return (<p className={'sykmelding-checkbox js-' + (className || felt)}>
                 <img src="/sykefravaer/img/svg/check-box-1.svg" alt="Avkrysset" />
                 {tekst}
             </p>);
@@ -87,6 +87,17 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     </SykmeldingNokkelOpplysning> : ''
                 }
                 {
+                    getSykmeldingCheckbox(sykmelding, "svangerskap", "Sykdommen er svangerskapsrelatert")
+                }
+                {
+                    sykmelding.yrkesskadeDato ? <div>
+                    {getSykmeldingCheckbox(sykmelding, 'yrkesskadeDato', 'Sykdommen kan skyldes en skade/yrkessykdom', 'yrkesskade')}
+                    <SykmeldingNokkelOpplysning tittel="Skadedato" className="sykmelding-subopplysning">
+                        <p className="js-yrkesskadeDato">{formatDate(sykmelding.yrkesskadeDato)}</p>
+                    </SykmeldingNokkelOpplysning>
+                    </div> : ''
+                }
+                {
                     getSykmeldingCheckbox(sykmelding, 'arbeidfoerEtterPerioden', getLedetekst('sykmelding.vis.arbeidsfoer.tekst', ledetekster))
                 }
                 {
@@ -155,10 +166,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 {
                     getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig434', 'Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig')
                 }
-                
-                {
-                    getSykmeldingOpplysning(sykmelding, 'navBoerTaTakISaken', 'NAV bør ta tak i saken nå', 'Ja')
-                }
+
                 {
                     getSykmeldingOpplysning(sykmelding, 'sykmelderTlf', 'Telefonnummer til lege/sykmelder')
                 }

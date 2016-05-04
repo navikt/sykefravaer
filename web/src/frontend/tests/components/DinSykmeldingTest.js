@@ -112,6 +112,42 @@ describe("DinSykmelding", () => {
 
     });
 
+    describe("Svangerskapsrelatert", () => {
+        it("Skal ikke vise svangerskap dersom sykmelding.svangerskap !== true", () => {
+            component = mount(<DinSykmelding sykmelding={getSykmelding({
+                svangerskap: null
+            })} ledetekster={ledetekster} />)
+            expect(component.find(".js-svangerskap").length).to.equal(0);
+        });
+
+        it("Skal vise svangerskap dersom sykmelding.svangerskap === true", () => {
+            component = mount(<DinSykmelding sykmelding={getSykmelding({
+                svangerskap: true
+            })} ledetekster={ledetekster} />)
+            expect(component.find(".js-svangerskap").length).to.equal(1);
+            expect(component.find(".js-svangerskap").text()).to.equal("Sykdommen er svangerskapsrelatert")
+        });
+
+    });
+
+    describe("Yrkesskade", () => {
+        it("Skal ikke vise yrkesskadeDato dersom sykmelding.yrkesskadeDato !== true", () => {
+            component = mount(<DinSykmelding sykmelding={getSykmelding({
+                yrkesskadeDato: null
+            })} ledetekster={ledetekster} />)
+            expect(component.find(".js-yrkesskadeDato").length).to.equal(0);
+        });
+
+        it("Skal vise yrkesskade dersom sykmelding.yrkesskadeDato === (dato)", () => {
+            component = mount(<DinSykmelding sykmelding={getSykmelding({
+                yrkesskadeDato: "2015-12-31T00:00:00Z"
+            })} ledetekster={ledetekster} />)
+            expect(component.find(".js-yrkesskade").length).to.equal(1);
+            expect(component.find(".js-yrkesskade").text()).to.equal("Sykdommen kan skyldes en skade/yrkessykdom")
+            expect(component.find(".js-yrkesskadeDato").text()).to.contain("31.12.2015")
+        });
+    })
+
     describe("Lovfestet fraværsgrunn", () => {
 
         it("Skal ikke vise Lovfestet fraværsgrunn dersom det ikke finnes", () => {
@@ -171,14 +207,14 @@ describe("DinSykmelding", () => {
 
         describe("Pasient er 100 prosent arbeidsfør etter denne perioden", () => {
 
-            it("Skal vise 'ja' dersom sykmelding.antarReturSammeArbeidsgiver === true", () => {
+            it("Skal vise checkbox dersom sykmelding.antarReturSammeArbeidsgiver === true", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     antarReturSammeArbeidsgiver: true
                 })} ledetekster={ledetekster}/>)
                 expect(component.find(".js-antarReturSammeArbeidsgiver").text()).to.equal("Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet arbeid hos samme arbeidsgiver")
             });
 
-            it("Skal vise 'Nei' dersom sykmelding.antarReturSammeArbeidsgiver === false", () => {
+            it("Skal ikke vise noe dersom sykmelding.antarReturSammeArbeidsgiver === false", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     antarReturSammeArbeidsgiver: false
                 })} ledetekster={ledetekster}/>)
@@ -187,42 +223,43 @@ describe("DinSykmelding", () => {
 
         });
 
-        xdescribe("Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet arbeid hos samme arbeidsgiver", () => {
+        describe("Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet arbeid hos samme arbeidsgiver", () => {
 
-            it("Skal vises 'ja' dersom sykmelding.arbeidfoerEtterPerioden === true", () => {
+            it("Skal vise checkbox dersom sykmelding.arbeidfoerEtterPerioden === true", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     arbeidfoerEtterPerioden: true
                 })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-arbeidfoerEtterPerioden").text()).to.equal("Ja")
+                expect(component.find(".js-arbeidfoerEtterPerioden").text()).to.equal("Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet arbeid hos samme arbeidsgiver")
             });
 
-            it("Skal vise 'Nei' dersom sykmelding.arbeidfoerEtterPerioden === false", () => {
+            it("Skal ikke vise noe dersom sykmelding.arbeidfoerEtterPerioden === false", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     arbeidfoerEtterPerioden: false
                 })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-arbeidfoerEtterPerioden").text()).to.equal("Nei")
+                expect(component.find(".js-arbeidfoerEtterPerioden").length).to.equal(0)
             });
 
         });
 
-        xdescribe("Når antar du at dette kan skje?", () => {
+        describe("Når antar du at dette kan skje?", () => {
             it("Skal ikke vise dersom sykmelding.antattDatoReturTilArbeid === null", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    antattDatoReturTilArbeid: null
+                    antattDatoReturSammeArbeidsgiver: null
                 })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-antattDatoReturTilArbeid").length).to.equal(0); 
+                expect(component.find(".js-antattDatoReturSammeArbeidsgiver").length).to.equal(0); 
             });
 
-            it("Skal vise dersom sykmelding.antattDatoReturTilArbeid er en dato", () => {
+            it("Skal vise dersom sykmelding.antattDatoReturSammeArbeidsgiver er en dato og antarReturSammeArbeidsgiver === true", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    antattDatoReturTilArbeid: "2016-03-15T22:00:00.000Z"
+                    antarReturSammeArbeidsgiver: true,
+                    antattDatoReturSammeArbeidsgiver: "2016-03-15T22:00:00.000Z"
                 })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-antattDatoReturTilArbeid").length).to.equal(1); 
-                expect(component.find(".js-antattDatoReturTilArbeid").text()).to.equal("15.03.2016");
+                expect(component.find(".js-antattDatoReturSammeArbeidsgiver").length).to.equal(1); 
+                expect(component.find(".js-antattDatoReturSammeArbeidsgiver").text()).to.equal("15.03.2016");
             });
         });
 
-        xdescribe("Beskriv kort sykehistorie, symptomer og funn i dagens situasjon", () => {
+        describe("Beskriv kort sykehistorie, symptomer og funn i dagens situasjon", () => {
             it("Skal ikke vise dersom sykmelding.sykehistorie === null", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     sykehistorie: null
@@ -239,7 +276,7 @@ describe("DinSykmelding", () => {
             });            
         });
 
-        xdescribe("NAV bør ta tak i saken nå", () => {
+        describe("NAV bør ta tak i saken nå", () => {
             it("Skal ikke vise dersom sykmelding.navBoerTaTakISaken === null", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     navBoerTaTakISaken: null
@@ -254,17 +291,17 @@ describe("DinSykmelding", () => {
                 expect(component.find(".js-navBoerTaTakISaken").length).to.equal(0); 
             });            
 
-            it("Skal vise 'Ja' dersom sykmelding.navBoerTaTakISaken === true", () => {
+            it("Skal vise checkbox dersom sykmelding.navBoerTaTakISaken === true", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     navBoerTaTakISaken: true
                 })} ledetekster={ledetekster}/>)
                 expect(component.find(".js-navBoerTaTakISaken").length).to.equal(1); 
-                expect(component.find(".js-navBoerTaTakISaken").text()).to.equal("Ja");
+                expect(component.find(".js-navBoerTaTakISaken").text()).to.equal("NAV bør ta tak i saken nå");
             }); 
 
         }); 
 
-        xdescribe("Telefonnummer til lege/sykmelder", () => {
+        describe("Telefonnummer til lege/sykmelder", () => {
             it("Skal ikke vise dersom sykmelding.sykmelderTlf === null", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     sykmelderTlf: null
@@ -281,7 +318,7 @@ describe("DinSykmelding", () => {
             });            
         });
 
-        xdescribe("aarsakAktivitetIkkeMulig433", () => {
+        describe("aarsakAktivitetIkkeMulig433", () => {
             it("Skal ikke vise dersom sykmelder.aarsakAktivitetIkkeMulig433 === null", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     aarsakAktivitetIkkeMulig433: null
@@ -297,7 +334,7 @@ describe("DinSykmelding", () => {
             });
         });
 
-        xdescribe("aarsakAktivitetIkkeMulig434", () => {
+        describe("aarsakAktivitetIkkeMulig434", () => {
             it("Skal ikke vise dersom sykmelder.aarsakAktivitetIkkeMulig434 === null", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     aarsakAktivitetIkkeMulig434: null
@@ -313,7 +350,7 @@ describe("DinSykmelding", () => {
             });
         });
 
-        xdescribe("resultatAvBehandling", () => {
+        describe("resultatAvBehandling", () => {
             it("Skal ikke vise dersom sykmelder.resultatAvBehandling === null", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     resultatAvBehandling: null
@@ -329,7 +366,7 @@ describe("DinSykmelding", () => {
             });
         });
 
-        xdescribe("henvisningUtredningBehandling", () => {
+        describe("henvisningUtredningBehandling", () => {
             it("Skal ikke vise dersom sykmelder.henvisningUtredningBehandling === null", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     henvisningUtredningBehandling: null
@@ -345,7 +382,7 @@ describe("DinSykmelding", () => {
             });
         });
 
-        xdescribe("paavirkningArbeidsevne", () => {
+        describe("paavirkningArbeidsevne", () => {
             it("Skal ikke vise dersom sykmelder.paavirkningArbeidsevne === null", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
                     paavirkningArbeidsevne: null

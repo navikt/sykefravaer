@@ -278,5 +278,17 @@ describe("SykmeldingPeriodeInfo", () => {
         expect(periode.find(".js-periode").text()).to.equal("Du er avventende sykmeldt i 1 dag")
     });
 
+    it("Min test", () => {
+        const info = shallow(<SykmeldingPeriodeInfo periode={{
+            "fom": "2014-02-26T23:00:00.000Z",
+            "tom": "2014-02-26T23:00:00.000Z",
+            "grad": 100,
+            "behandlingsdager": null,
+            "reisetilskudd": null,
+            "avventende": null
+          }} ledetekster={ledetekster} arbeidsgiver={null} />)
+        expect(info.find(".js-periode").text()).to.equal("Du er 100 % sykmeldt i 1 dag")
+    });
+
 
 });

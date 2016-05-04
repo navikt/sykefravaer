@@ -151,7 +151,7 @@ describe("Friskmelding", () => {
 
     }); 
 
-    describe.only("Jeg er usikker på om pasienten kan komme tilbake i arbeid", () => {
+    describe("Jeg er usikker på om pasienten kan komme tilbake i arbeid", () => {
 
         it("Skal vise checkbox dersom sykmelding.utenArbeidsgiverTilbakemelding === (dato)", () => {
             component = mount(<Friskmelding sykmelding={getSykmelding({

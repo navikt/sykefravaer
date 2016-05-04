@@ -205,23 +205,6 @@ describe("DinSykmelding", () => {
         });
 
 
-        describe("Beskriv kort sykehistorie, symptomer og funn i dagens situasjon", () => {
-            it("Skal ikke vise dersom sykmelding.sykehistorie === null", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    sykehistorie: null
-                })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-sykehistorie").length).to.equal(0); 
-            });
-
-            it("Skal vise dersom sykmelding.sykehistorie er en tekst", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    sykehistorie: "Min sykehistorie er ikke så lang"
-                })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-sykehistorie").length).to.equal(1); 
-                expect(component.find(".js-sykehistorie").text()).to.equal("Min sykehistorie er ikke så lang");
-            });            
-        });
-
         describe("NAV bør ta tak i saken nå", () => {
             it("Skal ikke vise dersom sykmelding.navBoerTaTakISaken === null", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
@@ -277,22 +260,6 @@ describe("DinSykmelding", () => {
                     resultatAvBehandling: "Dette ga gode resultater"
                 })} ledetekster={ledetekster} />);
                 expect(component.find(".js-resultatAvBehandling").text()).to.contain("Dette ga gode resultater")
-            });
-        });
-
-        describe("henvisningUtredningBehandling", () => {
-            it("Skal ikke vise dersom sykmelder.henvisningUtredningBehandling === null", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    henvisningUtredningBehandling: null
-                })} ledetekster={ledetekster} />);
-                expect(component.find(".js-henvisningUtredningBehandling").length).to.equal(0);
-            });
-
-            it("Skal vise dersom sykmelder.henvisningUtredningBehandling === 'Henvist til fysio, forventer bedring når han får hjelp til opptrening.'", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    henvisningUtredningBehandling: "Henvist til fysio, forventer bedring når han får hjelp til opptrening."
-                })} ledetekster={ledetekster} />);
-                expect(component.find(".js-henvisningUtredningBehandling").text()).to.contain("Henvist til fysio, forventer bedring når han får hjelp til opptrening.")
             });
         });
 

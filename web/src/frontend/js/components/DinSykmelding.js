@@ -8,6 +8,7 @@ import SykmeldingPeriode from './SykmeldingPeriode.js';
 import { Link } from 'react-router';
 import MulighetForArbeid from './MulighetForArbeid.js';
 import Friskmelding from './Friskmelding.js';
+import UtdypendeOpplysninger from './UtdypendeOpplysninger.js';
 import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const DinSykmelding = ({ sykmelding, ledetekster }) => {
@@ -98,19 +99,8 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
             <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">
                 <MulighetForArbeid sykmelding={sykmelding} ledetekster={ledetekster} />
                 <Friskmelding sykmelding={sykmelding} ledetekster={ledetekster} />
-
-                <h4 className="sykmelding-seksjonstittel">Utdypende opplysninger</h4>
-                {
-                    getSykmeldingOpplysning(sykmelding, 'sykehistorie', 'Beskriv kort sykehistorie, symptomer og funn i dagens situasjon')
-                }
-                {
-                    getSykmeldingOpplysning(sykmelding, 'paavirkningArbeidsevne', 'Hvordan påvirker sykdommen arbeidsevnen')
-                }
-                {
-                    getSykmeldingOpplysning(sykmelding, 'resultatAvBehandling', 'Har behandlingen frem til nå bedret arbeidsevnen?')
-                }
-                //Todo: Beskriv pågående og planlagt henvisning og/eller behandling
-
+                <UtdypendeOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />)
+    
                 <h4 className="sykmelding-seksjonstittel">Hva skal til for å bedre arbeidsevnen?</h4>
                 //Todo: Alt her
 
@@ -125,16 +115,8 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 //Todo: Hvis denne sykmeldingen er tilbakedatert, oppgi dato for dokumenterbar kontakt med pasienten
                 //Todo: Eller begrunn hvorfor du har tilbakedatert
                 {
-                    getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig434', 'Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig')
-                }
-
-                {
                     getSykmeldingOpplysning(sykmelding, 'sykmelderTlf', 'Telefonnummer til lege/sykmelder')
                 }
-                {
-                    getSykmeldingOpplysning(sykmelding, 'henvisningUtredningBehandling', 'Beskriv pågående og planlagt henvisning, utredning og eller behandling')
-                }
-                
             </Utvidbar>
         </div>
         <p className="side-innhold ikke-print">

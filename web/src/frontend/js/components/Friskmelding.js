@@ -4,8 +4,7 @@ import { getLedetekst } from '../ledetekster';
 import { SykmeldingOpplysning } from './SykmeldingOpplysning.js';
 import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
-
-const Friskmelding = ({sykmelding, ledetekster}) => {
+const Friskmelding = ({ sykmelding, ledetekster }) => {
 	return (<div>
                 <h4 className="sykmelding-seksjonstittel">Friskmelding</h4>
                 {
@@ -18,7 +17,7 @@ const Friskmelding = ({sykmelding, ledetekster}) => {
                     getSykmeldingCheckbox(sykmelding, 'antarReturAnnenArbeidsgiver', 'Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet arbeid hos annen arbeidsgiver')
                 }
                 {
-                    !sykmelding.tilbakemeldingReturArbeid ? '' : 
+                    !sykmelding.tilbakemeldingReturArbeid ? '' :
                     <div>
                         {
                             getSykmeldingCheckbox(sykmelding, 'tilbakemeldingReturArbeid', "Jeg er usikker på om pasienten kan komme tilbake i arbeid hos egen eller annen arbeidsgiver")
@@ -29,13 +28,13 @@ const Friskmelding = ({sykmelding, ledetekster}) => {
                     </div>
                 }
                 {
-                    !sykmelding.utenArbeidsgiverAntarTilbakeIArbeid ? '' : 
+                    !sykmelding.utenArbeidsgiverAntarTilbakeIArbeid ? '' :
                     <div>
                         {
                             getSykmeldingCheckbox(sykmelding, 'utenArbeidsgiverAntarTilbakeIArbeid', "Jeg antar at pasienten på sikt kan komme tilbake i arbeid")
                         }
                         {
-                            !sykmelding.utenArbeidsgiverAntarTilbakeIArbeidDato ? '' : 
+                            !sykmelding.utenArbeidsgiverAntarTilbakeIArbeidDato ? '' :
                             <SykmeldingOpplysning className="sykmelding-subopplysning" tittel="Når antar du at dette kan skje?">
                                 <p className="js-utenArbeidsgiverAntarTilbakeIArbeidDato">{formatDate(sykmelding.utenArbeidsgiverAntarTilbakeIArbeidDato)}</p>
                             </SykmeldingOpplysning>

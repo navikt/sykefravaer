@@ -1,26 +1,39 @@
-.sykmelding-opplysning {
-
+.sykmelding-nokkelopplysning {
 	margin-bottom: 2rem; 
 
-	h3, h4 {
-		margin-bottom: .5rem; 
-	}
-
 	h3 {
+		margin-bottom: .5rem; 
 		.mixin-typo-etikett-liten(); 
 		color: @gray-inactive; 
 		margin-top: 0; 
-	}
-
-	h4 {
-		.mixin-typo-element(); 
-	}
+	}	
 
 	p {
 		.mixin-typo-infotekst();
 		margin: 0; 
 	}
+}
 
+.sykmelding-opplysning {
+
+	h5 {
+		.mixin-typo-element(); 
+		margin-bottom: .25rem; 
+	}
+
+	p:before {
+		content: "\2013 ";
+	}
+
+}
+
+.sykmelding-subopplysning {
+	margin-left: 1.5rem;
+}
+
+.sykmelding-seksjonstittel {
+	.mixin-typo-undertittel();
+	margin-bottom: 1rem; 
 }
 
 .sykmelding-perioder {
@@ -39,9 +52,26 @@
 	.diagnose-container {
 		display: flex; 
 
-		.sykmelding-opplysning {
+		.sykmelding-nokkelopplysning {
 			margin-right: 2rem; 
 			max-width: 70%;
+		}
+	}
+}
+
+.sykmelding-checkbox {
+	display: flex; 
+	margin-bottom: 2rem; 
+
+	img {
+		align-self: flex-start; 
+		width: 1rem;
+		height: auto;
+		margin-right: .5rem; 
+		margin-top: 2px; 
+
+		@media(min-width: @screen-xs) {
+			margin-top: 1px; 
 		}
 	}
 }

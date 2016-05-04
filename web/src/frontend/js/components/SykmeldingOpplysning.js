@@ -1,8 +1,15 @@
 import React, { PropTypes } from 'react';
 
-const SykmeldingOpplysning = ({ tittel, children, Overskrift = 'H3', className }) => {
+export const SykmeldingOpplysning = ({ tittel, children, Overskrift = 'H3', className }) => {
     return (<div className={'sykmelding-opplysning' + (className ? ' ' + className : '')}>
-        <Overskrift>{tittel}</Overskrift>
+        {tittel ? <Overskrift>{tittel}</Overskrift> : ''}
+        {children}
+    </div>);
+};
+
+export const SykmeldingNokkelOpplysning = ({ tittel, children, Overskrift = 'H3', className }) => {
+    return (<div className={'sykmelding-nokkelopplysning' + (className ? ' ' + className : '')}>
+        {tittel ? <Overskrift>{tittel}</Overskrift> : ''}
         {children}
     </div>);
 };
@@ -13,5 +20,3 @@ SykmeldingOpplysning.propTypes = {
     Overskrift: PropTypes.string,
     className: PropTypes.string,
 };
-
-export default SykmeldingOpplysning;

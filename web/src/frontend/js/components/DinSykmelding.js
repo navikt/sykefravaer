@@ -3,12 +3,23 @@ import { formatDate, getDuration } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
 import Utvidbar from '../components/Utvidbar.js';
 import AppSpinner from './AppSpinner.js';
-import SykmeldingOpplysning from './SykmeldingOpplysning.js';
+import { SykmeldingOpplysning, SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
+import SykmeldingPeriode from './SykmeldingPeriode.js';
 import { Link } from 'react-router';
+
+const getSykmeldingCheckbox = (sykmelding, felt, tekst) => {
+    if(sykmelding[felt]) { // TODO; fjern !
+        return (<p className={'sykmelding-checkbox js-' + felt}>
+                <img src="/sykefravaer/img/svg/check-box-1.svg" alt="Avkrysset" />
+                {tekst}
+            </p>);
+    }
+    return '';
+}
 
 const getSykmeldingOpplysning = (sykmelding, felt, tittel, opplysning) => {
     if (sykmelding[felt]) {
-        return (<SykmeldingOpplysning tittel={tittel} Overskrift="H4">
+        return (<SykmeldingOpplysning tittel={tittel} Overskrift="H5">
             <p className={'js-' + felt}>{opplysning || sykmelding[felt]}</p>
         </SykmeldingOpplysning>);
     }
@@ -33,76 +44,118 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 <div className="sykmelding-perioder">
                     {
                         sykmelding.perioder.map((periode, index) => {
-                            return (<SykmeldingOpplysning key={index} tittel="Periode">
-                                <div>
-                                    <p className="js-periode blokk-xxs">
-                                        <strong>{formatDate(periode.fom)} &ndash; {formatDate(periode.tom)}</strong> &bull; {getDuration(periode.fom, periode.tom)} dager
-                                    </p>
-                                    <p className="js-grad">
-                                        {periode.grad} % sykmeldt
-                                    </p>
-                                </div>
-                            </SykmeldingOpplysning>);
+                            return (<SykmeldingPeriode periode={periode} antallDager={getDuration(periode.fom, periode.tom)} />);
                         })
                     }
                 </div>
                 {
                     sykmelding.hoveddiagnose ? (<div className="diagnose-container">
-                    <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
+                    <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
                         <p className="js-hoveddiagnose">{sykmelding.hoveddiagnose.diagnose}</p>
-                    </SykmeldingOpplysning>
-                    <SykmeldingOpplysning tittel="Diagnosekode">
-                        <p><span className="js-hoveddiagnose-kode">{sykmelding.hoveddiagnose.diagnosekode}</span> (<span className="js-hoveddiagnose-system">{sykmelding.hoveddiagnose.diagnosesystem}</span>)</p>
-                    </SykmeldingOpplysning>
+                    </SykmeldingNokkelOpplysning>
+                    <SykmeldingNokkelOpplysning tittel="Diagnosekode">
+                        <p>
+                            <span className="js-hoveddiagnose-kode">{sykmelding.hoveddiagnose.diagnosekode}</span> 
+                            (<span className="js-hoveddiagnose-system">{sykmelding.hoveddiagnose.diagnosesystem}</span>)
+                        </p>
+                    </SykmeldingNokkelOpplysning>
                 </div>) : ''
                 }
                 {
                     sykmelding.bidiagnose ? (<div className="diagnose-container">
-                    <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
+                    <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
                         <p className="js-bidiagnose">{sykmelding.bidiagnose.diagnose}</p>
-                    </SykmeldingOpplysning>
-                    <SykmeldingOpplysning tittel="Diagnosekode">
-                        <p><span className="js-bidiagnose-kode">{sykmelding.bidiagnose.diagnosekode}</span> (<span className="js-bidiagnose-system">{sykmelding.bidiagnose.diagnosesystem}</span>)</p>
-                    </SykmeldingOpplysning>
+                    </SykmeldingNokkelOpplysning>
+                    <SykmeldingNokkelOpplysning tittel="Diagnosekode">
+                        <p>
+                            <span className="js-bidiagnose-kode">{sykmelding.bidiagnose.diagnosekode}</span>
+                            (<span className="js-bidiagnose-system">{sykmelding.bidiagnose.diagnosesystem}</span>)
+                        </p>
+                    </SykmeldingNokkelOpplysning>
                 </div>) : ''
                 }
                 {
-                    sykmelding.arbeidfoerEtterPerioden ? (<SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.friskmelding.tittel', ledetekster)}>
-                    <p className="js-friskmeldt">{getLedetekst('sykmelding.vis.friskmelding.tekst', ledetekster)}</p>
-                </SykmeldingOpplysning>) : ''
+                    sykmelding.fravaersgrunnLovfestet ? 
+                    <SykmeldingNokkelOpplysning tittel="Lovfestet fraværsgrunn">
+                        <p className="js-fravaersgrunnLovfestet">{sykmelding.fravaersgrunnLovfestet}</p>
+                    </SykmeldingNokkelOpplysning> : ''
                 }
-                <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.arbeidsgiver.tittel', ledetekster)}>
+                {
+                    sykmelding.fravaerBeskrivelse ? 
+                    <SykmeldingNokkelOpplysning tittel="Beskriv fraværet">
+                        <p className="js-fravaerBeskrivelse">{sykmelding.fravaerBeskrivelse}</p>
+                    </SykmeldingNokkelOpplysning> : ''
+                }
+                {
+                    getSykmeldingCheckbox(sykmelding, 'arbeidfoerEtterPerioden', getLedetekst('sykmelding.vis.arbeidsfoer.tekst', ledetekster))
+                }
+                {
+                    sykmelding.arbeidsgiver ? <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.arbeidsgiver.tittel', ledetekster)}>
                     <p className="js-arbeidsgiver">{sykmelding.arbeidsgiver}</p>
-                </SykmeldingOpplysning>
-                <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.avsender.tittel', ledetekster)}>
+                </SykmeldingNokkelOpplysning> : ''    
+                }
+                {
+                    sykmelding.sykmelder ? <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.avsender.tittel', ledetekster)}>
                     <p className="js-avsender">{sykmelding.sykmelder}</p>
-                </SykmeldingOpplysning>
+                </SykmeldingNokkelOpplysning> : ''
+                }
             </div>
             <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">
                 {
                     getSykmeldingOpplysning(sykmelding, 'startLegemeldtFravaer', 'Når startet det legemeldte fraværet?', formatDate(sykmelding.startLegemeldtFravaer))
                 }
-                <SykmeldingOpplysning Overskrift="H4" tittel="Pasient er 100 prosent arbeidsfør etter denne perioden">
-                    <p className="js-antarReturTilArbeid">{sykmelding.antarReturTilArbeid ? 'Ja' : 'Nei'}</p>
-                </SykmeldingOpplysning>
-                <SykmeldingOpplysning Overskrift="H4" tittel="Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet - arbeid hos samme arbeidsgiver.">
-                    <p className="js-arbeidfoerEtterPerioden">{sykmelding.arbeidfoerEtterPerioden ? 'Ja' : 'Nei'}</p>
-                </SykmeldingOpplysning>
+
+                <h4 className="sykmelding-seksjonstittel">Mulighet for arbeid</h4>
+
+                <h4 className="sykmelding-seksjonstittel">Friskmelding</h4>
+                // Todo: Sjekk om et av feltene under 'friskmelding' finnes
                 {
-                    getSykmeldingOpplysning(sykmelding, 'antattDatoReturTilArbeid', 'Når antar du dette kan skje?', formatDate(sykmelding.antattDatoReturTilArbeid))
+                    getSykmeldingCheckbox(sykmelding, 'antarReturSammeArbeidsgiver', 'Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet arbeid hos samme arbeidsgiver')
                 }
+                {
+                    sykmelding.antarReturSammeArbeidsgiver ? <SykmeldingOpplysning className="sykmelding-subopplysning" tittel="Når antar du at dette kan skje?" Overskrift="h5">
+                        <p className="js-antattDatoReturSammeArbeidsgiver">{formatDate(sykmelding.antattDatoReturSammeArbeidsgiver)}</p>
+                    </SykmeldingOpplysning> : ''
+                }
+                //TODO: antarReturAnnenArbeidsgiver
+                //TODO: hvis usikker: når antar du å kunne gi tilbakemelding på dette?
+                //TODO: Pasient uten arbeidsgiver
+
+                <h4 className="sykmelding-seksjonstittel">Utdypende opplysninger</h4>
                 {
                     getSykmeldingOpplysning(sykmelding, 'sykehistorie', 'Beskriv kort sykehistorie, symptomer og funn i dagens situasjon')
                 }
+                {
+                    getSykmeldingOpplysning(sykmelding, 'paavirkningArbeidsevne', 'Hvordan påvirker sykdommen arbeidsevnen')
+                }
+                {
+                    getSykmeldingOpplysning(sykmelding, 'resultatAvBehandling', 'Har behandlingen frem til nå bedret arbeidsevnen?')
+                }
+                //Todo: Beskriv pågående og planlagt henvisning og/eller behandling
+
+                <h4 className="sykmelding-seksjonstittel">Hva skal til for å bedre arbeidsevnen?</h4>
+                //Todo: Alt her
+
+                <h4 className="sykmelding-seksjonstittel">Melding til NAV</h4>
+                {
+                    getSykmeldingCheckbox(sykmelding, 'navBoerTaTakISaken', 'NAV bør ta tak i saken nå')
+                }
+                //TODO: Begrunn hvorfor
+                <h4 className="sykmelding-seksjonstittel">Melding til arbeidsgiver</h4>
+                //Todo: Innspill til arbeidsgiver
+                <h4 className="sykmelding-seksjonstittel">Tilbakedatering</h4>
+                //Todo: Hvis denne sykmeldingen er tilbakedatert, oppgi dato for dokumenterbar kontakt med pasienten
+                //Todo: Eller begrunn hvorfor du har tilbakedatert
+
+                
+                
                 {
                     getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig433', 'Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig')
                 }
                 {
                     getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig434', 'Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig')
                 }
-                {
-                    getSykmeldingOpplysning(sykmelding, 'resultatAvBehandling', 'Har behandlingen frem til nå bedret arbeidsevnen?')
-                }
+                
                 {
                     getSykmeldingOpplysning(sykmelding, 'navBoerTaTakISaken', 'NAV bør ta tak i saken nå', 'Ja')
                 }
@@ -112,9 +165,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 {
                     getSykmeldingOpplysning(sykmelding, 'henvisningUtredningBehandling', 'Beskriv pågående og planlagt henvisning, utredning og eller behandling')
                 }
-                {
-                    getSykmeldingOpplysning(sykmelding, 'paavirkningArbeidsevne', 'Hvordan påvirker sykdommen arbeidsevnen')
-                }
+                
             </Utvidbar>
         </div>
         <p className="side-innhold ikke-print">

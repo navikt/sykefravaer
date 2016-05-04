@@ -9,6 +9,7 @@ import { Link } from 'react-router';
 import MulighetForArbeid from './MulighetForArbeid.js';
 import Friskmelding from './Friskmelding.js';
 import UtdypendeOpplysninger from './UtdypendeOpplysninger.js';
+import BedreArbeidsevne from './BedreArbeidsevne.js';
 import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const DinSykmelding = ({ sykmelding, ledetekster }) => {
@@ -100,8 +101,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 <MulighetForArbeid sykmelding={sykmelding} ledetekster={ledetekster} />
                 <Friskmelding sykmelding={sykmelding} ledetekster={ledetekster} />
                 <UtdypendeOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />)
-    
-                <h4 className="sykmelding-seksjonstittel">Hva skal til for å bedre arbeidsevnen?</h4>
+                <BedreArbeidsevne sykmelding={sykmelding} ledetekster={ledetekster} />
                 //Todo: Alt her
 
                 <h4 className="sykmelding-seksjonstittel">Melding til NAV</h4>

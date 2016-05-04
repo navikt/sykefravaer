@@ -204,7 +204,6 @@ describe("DinSykmelding", () => {
 
         });
 
-
         describe("NAV bør ta tak i saken nå", () => {
             it("Skal ikke vise dersom sykmelding.navBoerTaTakISaken === null", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({
@@ -246,39 +245,6 @@ describe("DinSykmelding", () => {
                 expect(component.find(".js-sykmelderTlf").text()).to.equal("22332244");
             });            
         });
-
-        describe("resultatAvBehandling", () => {
-            it("Skal ikke vise dersom sykmelder.resultatAvBehandling === null", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    resultatAvBehandling: null
-                })} ledetekster={ledetekster} />);
-                expect(component.find(".js-resultatAvBehandling").length).to.equal(0);
-            });
-
-            it("Skal vise dersom sykmelder.resultatAvBehandling === 'Dette ga gode resultater'", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    resultatAvBehandling: "Dette ga gode resultater"
-                })} ledetekster={ledetekster} />);
-                expect(component.find(".js-resultatAvBehandling").text()).to.contain("Dette ga gode resultater")
-            });
-        });
-
-        describe("paavirkningArbeidsevne", () => {
-            it("Skal ikke vise dersom sykmelder.paavirkningArbeidsevne === null", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    paavirkningArbeidsevne: null
-                })} ledetekster={ledetekster} />);
-                expect(component.find(".js-paavirkningArbeidsevne").length).to.equal(0);
-            });
-
-            it("Skal vise dersom sykmelder.paavirkningArbeidsevne === 'God påvirkning på arbeidsevne'", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    paavirkningArbeidsevne: "God påvirkning på arbeidsevne"
-                })} ledetekster={ledetekster} />);
-                expect(component.find(".js-paavirkningArbeidsevne").text()).to.contain("God påvirkning på arbeidsevne")
-            });            
-        })    
-
 
 
     });

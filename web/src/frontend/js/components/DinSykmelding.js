@@ -10,6 +10,7 @@ import MulighetForArbeid from './MulighetForArbeid.js';
 import Friskmelding from './Friskmelding.js';
 import UtdypendeOpplysninger from './UtdypendeOpplysninger.js';
 import BedreArbeidsevne from './BedreArbeidsevne.js';
+import MeldingTilNAV from './MeldingTilNAV.js';
 import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const DinSykmelding = ({ sykmelding, ledetekster }) => {
@@ -102,13 +103,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 <Friskmelding sykmelding={sykmelding} ledetekster={ledetekster} />
                 <UtdypendeOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />)
                 <BedreArbeidsevne sykmelding={sykmelding} ledetekster={ledetekster} />
-                //Todo: Alt her
-
-                <h4 className="sykmelding-seksjonstittel">Melding til NAV</h4>
-                {
-                    getSykmeldingCheckbox(sykmelding, 'navBoerTaTakISaken', 'NAV bør ta tak i saken nå')
-                }
-                //TODO: Begrunn hvorfor
+                <MeldingTilNAV sykmelding={sykmelding} ledetekster={ledetekster} />
                 <h4 className="sykmelding-seksjonstittel">Melding til arbeidsgiver</h4>
                 //Todo: Innspill til arbeidsgiver
                 <h4 className="sykmelding-seksjonstittel">Tilbakedatering</h4>

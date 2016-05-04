@@ -6,25 +6,9 @@ import AppSpinner from './AppSpinner.js';
 import { SykmeldingOpplysning, SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
 import SykmeldingPeriode from './SykmeldingPeriode.js';
 import { Link } from 'react-router';
-
-const getSykmeldingCheckbox = (sykmelding, felt, tekst, className) => {
-    if(sykmelding[felt]) { 
-        return (<p className={'sykmelding-checkbox js-' + (className || felt)}>
-                <img src="/sykefravaer/img/svg/check-box-1.svg" alt="Avkrysset" />
-                {tekst}
-            </p>);
-    }
-    return '';
-}
-
-const getSykmeldingOpplysning = (sykmelding, felt, tittel, opplysning) => {
-    if (sykmelding[felt]) {
-        return (<SykmeldingOpplysning tittel={tittel} Overskrift="H5">
-            <p className={'js-' + felt}>{opplysning || sykmelding[felt]}</p>
-        </SykmeldingOpplysning>);
-    }
-    return '';
-};
+import MulighetForArbeid from './MulighetForArbeid.js';
+import Friskmelding from './Friskmelding.js';
+import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const DinSykmelding = ({ sykmelding, ledetekster }) => {
     if (!sykmelding || !sykmelding.id) {
@@ -112,25 +96,8 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 }
             </div>
             <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">
-                {
-                    getSykmeldingOpplysning(sykmelding, 'startLegemeldtFravaer', 'Når startet det legemeldte fraværet?', formatDate(sykmelding.startLegemeldtFravaer))
-                }
-
-                <h4 className="sykmelding-seksjonstittel">Mulighet for arbeid</h4>
-
-                <h4 className="sykmelding-seksjonstittel">Friskmelding</h4>
-                // Todo: Sjekk om et av feltene under 'friskmelding' finnes
-                {
-                    getSykmeldingCheckbox(sykmelding, 'antarReturSammeArbeidsgiver', 'Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet arbeid hos samme arbeidsgiver')
-                }
-                {
-                    sykmelding.antarReturSammeArbeidsgiver ? <SykmeldingOpplysning className="sykmelding-subopplysning" tittel="Når antar du at dette kan skje?" Overskrift="h5">
-                        <p className="js-antattDatoReturSammeArbeidsgiver">{formatDate(sykmelding.antattDatoReturSammeArbeidsgiver)}</p>
-                    </SykmeldingOpplysning> : ''
-                }
-                //TODO: antarReturAnnenArbeidsgiver
-                //TODO: hvis usikker: når antar du å kunne gi tilbakemelding på dette?
-                //TODO: Pasient uten arbeidsgiver
+                <MulighetForArbeid sykmelding={sykmelding} ledetekster={ledetekster} />
+                <Friskmelding sykmelding={sykmelding} ledetekster={ledetekster} />
 
                 <h4 className="sykmelding-seksjonstittel">Utdypende opplysninger</h4>
                 {
@@ -157,12 +124,6 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 <h4 className="sykmelding-seksjonstittel">Tilbakedatering</h4>
                 //Todo: Hvis denne sykmeldingen er tilbakedatert, oppgi dato for dokumenterbar kontakt med pasienten
                 //Todo: Eller begrunn hvorfor du har tilbakedatert
-
-                
-                
-                {
-                    getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig433', 'Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig')
-                }
                 {
                     getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig434', 'Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig')
                 }

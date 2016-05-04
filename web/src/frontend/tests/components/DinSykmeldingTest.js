@@ -186,25 +186,6 @@ describe("DinSykmelding", () => {
 
     describe("Flere opplysninger", () => {
 
-        describe("Når startet det legemeldte fraværet?", () => {
-
-            it("Skal ikke vise dersom sykmelding.startLegemeldtFravaer === null", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    startLegemeldtFravaer: null
-                })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-startLegemeldtFravaer").length).to.equal(0); 
-            });
-
-            it("Skal vise dersom sykmelding.startLegemeldtFravaer er en dato", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    startLegemeldtFravaer: "2016-04-27T22:00:00.000Z"
-                })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-startLegemeldtFravaer").length).to.equal(1); 
-                expect(component.find(".js-startLegemeldtFravaer").text()).to.equal("28.04.2016");
-            });
-
-        });
-
         describe("Pasient er 100 prosent arbeidsfør etter denne perioden", () => {
 
             it("Skal vise checkbox dersom sykmelding.antarReturSammeArbeidsgiver === true", () => {
@@ -223,41 +204,6 @@ describe("DinSykmelding", () => {
 
         });
 
-        describe("Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet arbeid hos samme arbeidsgiver", () => {
-
-            it("Skal vise checkbox dersom sykmelding.arbeidfoerEtterPerioden === true", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    arbeidfoerEtterPerioden: true
-                })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-arbeidfoerEtterPerioden").text()).to.equal("Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet arbeid hos samme arbeidsgiver")
-            });
-
-            it("Skal ikke vise noe dersom sykmelding.arbeidfoerEtterPerioden === false", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    arbeidfoerEtterPerioden: false
-                })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-arbeidfoerEtterPerioden").length).to.equal(0)
-            });
-
-        });
-
-        describe("Når antar du at dette kan skje?", () => {
-            it("Skal ikke vise dersom sykmelding.antattDatoReturTilArbeid === null", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    antattDatoReturSammeArbeidsgiver: null
-                })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-antattDatoReturSammeArbeidsgiver").length).to.equal(0); 
-            });
-
-            it("Skal vise dersom sykmelding.antattDatoReturSammeArbeidsgiver er en dato og antarReturSammeArbeidsgiver === true", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    antarReturSammeArbeidsgiver: true,
-                    antattDatoReturSammeArbeidsgiver: "2016-03-15T22:00:00.000Z"
-                })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-antattDatoReturSammeArbeidsgiver").length).to.equal(1); 
-                expect(component.find(".js-antattDatoReturSammeArbeidsgiver").text()).to.equal("15.03.2016");
-            });
-        });
 
         describe("Beskriv kort sykehistorie, symptomer og funn i dagens situasjon", () => {
             it("Skal ikke vise dersom sykmelding.sykehistorie === null", () => {
@@ -316,38 +262,6 @@ describe("DinSykmelding", () => {
                 expect(component.find(".js-sykmelderTlf").length).to.equal(1); 
                 expect(component.find(".js-sykmelderTlf").text()).to.equal("22332244");
             });            
-        });
-
-        describe("aarsakAktivitetIkkeMulig433", () => {
-            it("Skal ikke vise dersom sykmelder.aarsakAktivitetIkkeMulig433 === null", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    aarsakAktivitetIkkeMulig433: null
-                })} ledetekster={ledetekster} />);
-                expect(component.find(".js-aarsakAktivitetIkkeMulig433").length).to.equal(0);
-            });
-
-            it("Skal vise dersom sykmelder.aarsakAktivitetIkkeMulig433 === 'Har vondt i foten'", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    aarsakAktivitetIkkeMulig433: "Har vondt i foten"
-                })} ledetekster={ledetekster} />);
-                expect(component.find(".js-aarsakAktivitetIkkeMulig433").text()).to.contain("Har vondt i foten")
-            });
-        });
-
-        describe("aarsakAktivitetIkkeMulig434", () => {
-            it("Skal ikke vise dersom sykmelder.aarsakAktivitetIkkeMulig434 === null", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    aarsakAktivitetIkkeMulig434: null
-                })} ledetekster={ledetekster} />);
-                expect(component.find(".js-aarsakAktivitetIkkeMulig434").length).to.equal(0);
-            });
-
-            it("Skal vise dersom sykmelder.aarsakAktivitetIkkeMulig434 === 'Har vondt i foten'", () => {
-                component = mount(<DinSykmelding sykmelding={getSykmelding({
-                    aarsakAktivitetIkkeMulig434: "Har vondt i foten"
-                })} ledetekster={ledetekster} />);
-                expect(component.find(".js-aarsakAktivitetIkkeMulig434").text()).to.contain("Har vondt i foten")
-            });
         });
 
         describe("resultatAvBehandling", () => {

@@ -3,26 +3,12 @@ import { Link } from 'react-router';
 import { getContextRoot } from '../routers/paths.js';
 import { formatDate, getDuration } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
-
-const PeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekster }) => {
-    return (<Element className="js-periode">{getLedetekst('sykmelding.teaser.tekst', ledetekster, {
-        '%GRAD%': periode.grad,
-        '%ARBEIDSGIVER%': arbeidsgiver,
-        '%DAGER%': getDuration(periode.fom, periode.tom),
-    })}</Element>);
-};
-
-PeriodeInfo.propTypes = {
-    periode: PropTypes.object,
-    arbeidsgiver: PropTypes.string,
-    Element: PropTypes.string,
-    ledetekster: PropTypes.object,
-};
+import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo.js';
 
 const PeriodeListe = ({ perioder, arbeidsgiver, ledetekster }) => {
     return (<ul className="teaser-punktliste js-perioder">
         {perioder.map((periode, index) => {
-            return (<PeriodeInfo key={index} periode={periode} arbeidsgiver={arbeidsgiver} Element="li" ledetekster={ledetekster} />);
+            return (<SykmeldingPeriodeInfo key={index} periode={periode} arbeidsgiver={arbeidsgiver} Element="li" ledetekster={ledetekster} />);
         })}
     </ul>);
 };
@@ -76,10 +62,10 @@ class SykmeldingTeaser extends Component {
                         {getLedetekst('sykmelding.teaser.tittel', this.props.ledetekster)}
                     </span>
                 </h3>
-                {antallPerioder === 1 ? (<PeriodeInfo periode={this.props.sykmelding.perioder[0]} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />) : (<PeriodeListe perioder={this.props.sykmelding.perioder} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />)
+                {antallPerioder === 1 ? (<SykmeldingPeriodeInfo periode={this.props.sykmelding.perioder[0]} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />) : (<PeriodeListe perioder={this.props.sykmelding.perioder} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />)
                         }
             </div>
-        </Link></article>);
+        </Link></article>); 
     }
 }
 

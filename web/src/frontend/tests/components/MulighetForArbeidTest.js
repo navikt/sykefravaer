@@ -56,37 +56,94 @@ describe("Mulighet for arbeid", () => {
 
     });
 
+    describe("aktivitetIkkeMulig433", () => {
+
+        it("Skal vise dersom sykmelding.aktivitetIkkeMulig433 === ['Helsetilstanden hindrer pasienten i å være i aktivitet']", () => {
+            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
+                aktivitetIkkeMulig433: ["Helsetilstanden hindrer pasienten i å være i aktivitet"]
+            })} ledetekster={ledetekster} />);
+            expect(component.find(".js-aktivitetIkkeMulig433").text()).to.contain("Det er medisinske årsaker som hindrer arbeidsrelatert aktivitet");
+            expect(component.find(".js-aktivitetIkkeMulig433hvisJa").text()).to.contain("Helsetilstanden hindrer pasienten i å være i aktivitet");
+        });
+
+        it("Skal vise dersom sykmelding.aktivitetIkkeMulig433 === ['A', 'B', 'C']", () => {
+            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
+                aktivitetIkkeMulig433: ['A', 'B', 'C']
+            })} ledetekster={ledetekster} />);
+            expect(component.find(".js-aktivitetIkkeMulig433").text()).to.contain("Det er medisinske årsaker som hindrer arbeidsrelatert aktivitet");
+            expect(component.find(".js-aktivitetIkkeMulig433hvisJa").text()).to.contain("A");
+            expect(component.find(".js-aktivitetIkkeMulig433hvisJa").text()).to.contain("B");
+            expect(component.find(".js-aktivitetIkkeMulig433hvisJa").text()).to.contain("C");
+        });  
+
+        it("Skal ikke vise dersom sykmelding.aktivitetIkkeMulig433 === null", () => {
+            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
+                aktivitetIkkeMulig433: null
+            })} ledetekster={ledetekster} />);
+            expect(component.find(".js-aktivitetIkkeMulig433").length).to.equal(0);
+        });
+    })
+
     describe("aarsakAktivitetIkkeMulig433", () => {
-        it("Skal ikke vise dersom sykmelder.aarsakAktivitetIkkeMulig433 === null", () => {
+        it("Skal ikke vise dersom sykmelding.aarsakAktivitetIkkeMulig433 === null", () => {
             component = mount(<MulighetForArbeid sykmelding={getSykmelding({
                 aarsakAktivitetIkkeMulig433: null
             })} ledetekster={ledetekster} />);
             expect(component.find(".js-aarsakAktivitetIkkeMulig433").length).to.equal(0);
         });
 
-        it("Skal vise dersom sykmelder.aarsakAktivitetIkkeMulig433 === 'Helsetilstanden hindrer pasienten i å være i aktivitet'", () => {
+        it("Skal vise dersom sykmelding.aarsakAktivitetIkkeMulig433 === 'Derfor'", () => {
             component = mount(<MulighetForArbeid sykmelding={getSykmelding({
-                aarsakAktivitetIkkeMulig433: "Helsetilstanden hindrer pasienten i å være i aktivitet"
+                aarsakAktivitetIkkeMulig433: 'Derfor'
             })} ledetekster={ledetekster} />);
-            expect(component.find(".js-aarsakAktivitetIkkeMulig433").text()).to.contain("Det er medisinske årsaker som hindrer arbeidsrelatert aktivitet");
-            expect(component.find(".js-aarsakAktivitetIkkeMulig433hvisJa").text()).to.contain("Helsetilstanden hindrer pasienten i å være i aktivitet");
+            expect(component.find(".js-aarsakAktivitetIkkeMulig433").length).to.equal(1);
+            expect(component.find(".js-aarsakAktivitetIkkeMulig433").text()).to.equal("Derfor");
         });
-    });
+    }); 
 
-    // describe.skip("aarsakAktivitetIkkeMulig434", () => {
-    //     it("Skal ikke vise dersom sykmelder.aarsakAktivitetIkkeMulig434 === null", () => {
-    //         component = mount(<MulighetForArbeid sykmelding={getSykmelding({
-    //             aarsakAktivitetIkkeMulig434: null
-    //         })} ledetekster={ledetekster} />);
-    //         expect(component.find(".js-aarsakAktivitetIkkeMulig434").length).to.equal(0);
-    //     });
+    describe("aktivitetIkkeMulig434", () => {
 
-    //     it("Skal vise dersom sykmelder.aarsakAktivitetIkkeMulig434 === 'Har vondt i foten'", () => {
-    //         component = mount(<MulighetForArbeid sykmelding={getSykmelding({
-    //             aarsakAktivitetIkkeMulig434: "Har vondt i foten"
-    //         })} ledetekster={ledetekster} />);
-    //         expect(component.find(".js-aarsakAktivitetIkkeMulig434").text()).to.contain("Har vondt i foten")
-    //     });
-    // });
+        it("Skal vise dersom sykmelding.aktivitetIkkeMulig434 === ['Helsetilstanden hindrer pasienten i å være i aktivitet']", () => {
+            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
+                aktivitetIkkeMulig434: ["Helsetilstanden hindrer pasienten i å være i aktivitet"]
+            })} ledetekster={ledetekster} />);
+            expect(component.find(".js-aktivitetIkkeMulig434").text()).to.contain("Det er forhold på arbeidsplassen som hindrer arbeidsrelatert aktivitet");
+            expect(component.find(".js-aktivitetIkkeMulig434hvisJa").text()).to.contain("Helsetilstanden hindrer pasienten i å være i aktivitet");
+        });
+
+        it("Skal vise dersom sykmelding.aktivitetIkkeMulig434 === ['A', 'B', 'C']", () => {
+            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
+                aktivitetIkkeMulig434: ['A', 'B', 'C']
+            })} ledetekster={ledetekster} />);
+            expect(component.find(".js-aktivitetIkkeMulig434").text()).to.contain("Det er forhold på arbeidsplassen som hindrer arbeidsrelatert aktivitet");
+            expect(component.find(".js-aktivitetIkkeMulig434hvisJa").text()).to.contain("A");
+            expect(component.find(".js-aktivitetIkkeMulig434hvisJa").text()).to.contain("B");
+            expect(component.find(".js-aktivitetIkkeMulig434hvisJa").text()).to.contain("C");
+        });  
+
+        it("Skal ikke vise dersom sykmelding.aktivitetIkkeMulig434 === null", () => {
+            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
+                aktivitetIkkeMulig434: null
+            })} ledetekster={ledetekster} />);
+            expect(component.find(".js-aktivitetIkkeMulig434").length).to.equal(0);
+        });
+    })
+
+    describe("aarsakAktivitetIkkeMulig434", () => {
+        it("Skal ikke vise dersom sykmelding.aarsakAktivitetIkkeMulig434 === null", () => {
+            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
+                aarsakAktivitetIkkeMulig434: null
+            })} ledetekster={ledetekster} />);
+            expect(component.find(".js-aarsakAktivitetIkkeMulig434").length).to.equal(0);
+        });
+
+        it("Skal vise dersom sykmelding.aarsakAktivitetIkkeMulig434 === 'Derfor'", () => {
+            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
+                aarsakAktivitetIkkeMulig434: 'Derfor'
+            })} ledetekster={ledetekster} />);
+            expect(component.find(".js-aarsakAktivitetIkkeMulig434").length).to.equal(1);
+            expect(component.find(".js-aarsakAktivitetIkkeMulig434").text()).to.equal("Derfor");
+        });
+    }); 
 
 });

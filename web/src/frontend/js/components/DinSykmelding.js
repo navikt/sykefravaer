@@ -12,6 +12,8 @@ import UtdypendeOpplysninger from './UtdypendeOpplysninger.js';
 import BedreArbeidsevne from './BedreArbeidsevne.js';
 import MeldingTilNAV from './MeldingTilNAV.js';
 import Tilbakedatering from './Tilbakedatering.js';
+import MeldingTilArbeidsgiver from './MeldingTilArbeidsgiver.js';
+import AndreSykmeldingOpplysninger from './AndreSykmeldingOpplysninger.js';
 import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const DinSykmelding = ({ sykmelding, ledetekster }) => {
@@ -102,18 +104,11 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
             <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">
                 <MulighetForArbeid sykmelding={sykmelding} ledetekster={ledetekster} />
                 <Friskmelding sykmelding={sykmelding} ledetekster={ledetekster} />
-                <UtdypendeOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />)
+                <UtdypendeOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
                 <BedreArbeidsevne sykmelding={sykmelding} ledetekster={ledetekster} />
                 <MeldingTilNAV sykmelding={sykmelding} ledetekster={ledetekster} />
-                <Tilbakedatering sykmelding={sykmelding} ledetekster={ledetekster} />
-                <h4 className="sykmelding-seksjonstittel">Melding til arbeidsgiver</h4>
-                //Todo: Innspill til arbeidsgiver
-                <h4 className="sykmelding-seksjonstittel">Tilbakedatering</h4>
-                //Todo: Hvis denne sykmeldingen er tilbakedatert, oppgi dato for dokumenterbar kontakt med pasienten
-                //Todo: Eller begrunn hvorfor du har tilbakedatert
-                {
-                    getSykmeldingOpplysning(sykmelding, 'sykmelderTlf', 'Telefonnummer til lege/sykmelder')
-                }
+                <MeldingTilArbeidsgiver sykmelding={sykmelding} ledetekster={ledetekster} />
+                <AndreSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
             </Utvidbar>
         </div>
         <p className="side-innhold ikke-print">

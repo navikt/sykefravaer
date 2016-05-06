@@ -5,17 +5,19 @@ import { SykmeldingOpplysning } from './SykmeldingOpplysning.js';
 import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const AndreSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
-	return (<div>
-                {
-                    sykmelding.sykmelderTlf || sykmelding.sykmeldingDato ? <h4 className="sykmelding-seksjonstittel">Annet</h4> : ''
-                }
-                {
-                    getSykmeldingOpplysning(sykmelding, "sykmelderTlf", "Telefon til lege/sykmelder")
-                }
-                {
-                    getSykmeldingOpplysning(sykmelding, "sykmeldingDato", "Dato sykmeldingen ble skrevet", formatDate(sykmelding.sykmeldingDato))
-                }
-		</div>);
+    const visSeksjon = sykmelding.sykmelderTlf || sykmelding.utstedelsesdato;
+    if (!visSeksjon) {
+        return <span />
+    }
+	return (<div className="sykmelding-seksjon">
+            <h4 className="sykmelding-seksjonstittel">Annet</h4>
+            {
+                getSykmeldingOpplysning(sykmelding, "sykmelderTlf", "Telefon til lege/sykmelder")
+            }
+            {
+                getSykmeldingOpplysning(sykmelding, "utstedelsesdato", "Dato sykmeldingen ble skrevet", formatDate(sykmelding.utstedelsesdato))
+            }
+	</div>);
 };
 
 AndreSykmeldingOpplysninger.propTypes = {

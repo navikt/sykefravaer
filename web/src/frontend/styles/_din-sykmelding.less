@@ -33,6 +33,31 @@
 	margin-left: 1.5rem;
 }
 
+.sykmelding-perioder {
+
+	margin-bottom: 2rem; 
+
+	.sykmelding-nokkelopplysning:not(:only-child) {
+		padding-bottom: 1rem;
+		margin-bottom: 1rem;
+		border-bottom: 1px solid @color-border;
+	}
+
+}
+
+@media(min-width: @screen-xs) {
+	.diagnose-container {
+		display: flex; 
+
+		.sykmelding-nokkelopplysning {
+			margin-right: 2rem; 
+			width: 60%;
+		}
+	}
+}
+
+/* Flere opplysninger fra den som har sykmeldt deg */
+
 .sykmelding-seksjoner {
 	padding-top: 1rem; 
 }
@@ -54,27 +79,10 @@
 	margin-top: 0;
 }
 
-.sykmelding-perioder {
-
-	margin-bottom: 2rem; 
-
-	.sykmelding-nokkelopplysning:not(:only-child) {
-		padding-bottom: 1rem;
-		margin-bottom: 1rem;
-		border-bottom: 1px solid @color-border;
-	}
-
-}
-
-@media(min-width: @screen-xs) {
-	.diagnose-container {
-		display: flex; 
-
-		.sykmelding-nokkelopplysning {
-			margin-right: 2rem; 
-			max-width: 70%;
-		}
-	}
+.sykmelding-opplysning-verdi:before {
+	content: "\2013 ";
+	display: inline-block;
+	margin-right: .25rem;
 }
 
 .sykmelding-checkbox {
@@ -114,10 +122,4 @@
 	&:last-child {
 		margin-bottom: 1rem; 
 	}
-}
-
-.sykmelding-opplysning-verdi:before {
-	content: "\2013 ";
-	display: inline-block;
-	margin-right: .25rem;
 }

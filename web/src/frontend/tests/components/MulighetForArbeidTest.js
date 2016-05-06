@@ -35,7 +35,7 @@ const getSykmelding = (skmld = {}) => {
     return Object.assign({}, sykmelding, skmld);
 }
 
-describe("Mulighet for arbeid", () => {
+describe.only("Mulighet for arbeid", () => {
 
     describe("Når startet det legemeldte fraværet?", () => {
 
@@ -66,6 +66,22 @@ describe("Mulighet for arbeid", () => {
             expect(component.find(".js-aktivitetIkkeMulig433hvisJa").text()).to.contain("Helsetilstanden hindrer pasienten i å være i aktivitet");
         });
 
+        it("Skal vise 'Annet' dersom sykmelding.aktivitetIkkeMulig433 === ['Helsetilstanden hindrer pasienten i å være i aktivitet', 'Annet']", () => {
+            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
+                aktivitetIkkeMulig433: ["Helsetilstanden hindrer pasienten i å være i aktivitet", "Annet"]
+            })} ledetekster={ledetekster} />);
+            expect(component.find(".js-aktivitetIkkeMulig433hvisJa").text()).to.contain("Annet");
+            expect(component.find(".js-aktivitetIkkeMulig433hvisJa").text()).to.contain("Helsetilstanden hindrer pasienten i å være i aktivitet");
+        });
+
+        it("Skal ikke vise 'Annet' dersom sykmelding.aktivitetIkkeMulig433 === ['Annet']", () => {
+            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
+                aktivitetIkkeMulig433: ["Annet"]
+            })} ledetekster={ledetekster} />);
+            expect(component.find(".js-aktivitetIkkeMulig433hvisJa").text()).to.not.contain("Annet");
+        });
+
+
         it("Skal vise dersom sykmelding.aktivitetIkkeMulig433 === ['A', 'B', 'C']", () => {
             component = mount(<MulighetForArbeid sykmelding={getSykmelding({
                 aktivitetIkkeMulig433: ['A', 'B', 'C']
@@ -82,9 +98,7 @@ describe("Mulighet for arbeid", () => {
             })} ledetekster={ledetekster} />);
             expect(component.find(".js-aktivitetIkkeMulig433").length).to.equal(0);
         });
-    })
 
-    describe("aarsakAktivitetIkkeMulig433", () => {
         it("Skal ikke vise dersom sykmelding.aarsakAktivitetIkkeMulig433 === null", () => {
             component = mount(<MulighetForArbeid sykmelding={getSykmelding({
                 aarsakAktivitetIkkeMulig433: null
@@ -92,14 +106,7 @@ describe("Mulighet for arbeid", () => {
             expect(component.find(".js-aarsakAktivitetIkkeMulig433").length).to.equal(0);
         });
 
-        it("Skal vise dersom sykmelding.aarsakAktivitetIkkeMulig433 === 'Derfor'", () => {
-            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
-                aarsakAktivitetIkkeMulig433: 'Derfor'
-            })} ledetekster={ledetekster} />);
-            expect(component.find(".js-aarsakAktivitetIkkeMulig433").length).to.equal(1);
-            expect(component.find(".js-aarsakAktivitetIkkeMulig433").text()).to.equal("Derfor");
-        });
-    }); 
+    })
 
     describe("aktivitetIkkeMulig434", () => {
 
@@ -127,15 +134,6 @@ describe("Mulighet for arbeid", () => {
             })} ledetekster={ledetekster} />);
             expect(component.find(".js-aktivitetIkkeMulig434").length).to.equal(0);
         });
-    })
-
-    describe("aarsakAktivitetIkkeMulig434", () => {
-        it("Skal ikke vise dersom sykmelding.aarsakAktivitetIkkeMulig434 === null", () => {
-            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
-                aarsakAktivitetIkkeMulig434: null
-            })} ledetekster={ledetekster} />);
-            expect(component.find(".js-aarsakAktivitetIkkeMulig434").length).to.equal(0);
-        });
 
         it("Skal vise dersom sykmelding.aarsakAktivitetIkkeMulig434 === 'Derfor'", () => {
             component = mount(<MulighetForArbeid sykmelding={getSykmelding({
@@ -144,6 +142,22 @@ describe("Mulighet for arbeid", () => {
             expect(component.find(".js-aarsakAktivitetIkkeMulig434").length).to.equal(1);
             expect(component.find(".js-aarsakAktivitetIkkeMulig434").text()).to.equal("Derfor");
         });
+
+        it("Skal vise 'Annet' dersom sykmelding.aktivitetIkkeMulig434 === ['Helsetilstanden hindrer pasienten i å være i aktivitet', 'Annet']", () => {
+            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
+                aktivitetIkkeMulig434: ["Helsetilstanden hindrer pasienten i å være i aktivitet", "Annet"]
+            })} ledetekster={ledetekster} />);
+            expect(component.find(".js-aktivitetIkkeMulig434hvisJa").text()).to.contain("Annet");
+            expect(component.find(".js-aktivitetIkkeMulig434hvisJa").text()).to.contain("Helsetilstanden hindrer pasienten i å være i aktivitet");
+        });
+
+        it("Skal ikke vise 'Annet' dersom sykmelding.aktivitetIkkeMulig434 === ['Annet']", () => {
+            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
+                aktivitetIkkeMulig434: ["Annet"]
+            })} ledetekster={ledetekster} />);
+            expect(component.find(".js-aktivitetIkkeMulig434hvisJa").text()).to.not.contain("Annet");
+        });
+
     }); 
 
 });

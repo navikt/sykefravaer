@@ -5,10 +5,12 @@ import { SykmeldingOpplysning } from './SykmeldingOpplysning.js';
 import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const Tilbakedatering = ({ sykmelding, ledetekster }) => {
-	return (<div>
-                {
-                    (sykmelding.dokumenterbarPasientkontakt || sykmelding.tilbakedatertBegrunnelse) ? <h4 className="sykmelding-seksjonstittel">Tilbakedatering</h4> : ''
-                }
+    const visSeksjon = sykmelding.dokumenterbarPasientkontakt || sykmelding.tilbakedatertBegrunnelse;
+    if(!visSeksjon) {
+        return <span />
+    }
+	return (<div className="sykmelding-seksjon">
+               <h4 className="sykmelding-seksjonstittel">Tilbakedatering</h4>
                 {
                     getSykmeldingOpplysning(sykmelding, "dokumenterbarPasientkontakt", "Oppgi dato for dokumenterbar kontakt med pasienten", formatDate(sykmelding.dokumenterbarPasientkontakt))
                 }

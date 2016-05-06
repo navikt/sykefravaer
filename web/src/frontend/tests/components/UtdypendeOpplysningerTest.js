@@ -35,7 +35,7 @@ const getSykmelding = (skmld = {}) => {
     return Object.assign({}, sykmelding, skmld);
 }
 
-describe.only("Utdypende opplysninger", () => {
+describe("Utdypende opplysninger", () => {
 
     describe("Sykehistorie", () => {
         it("Skal vise sykehistorie dersom den finnes", () => {

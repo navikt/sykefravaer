@@ -1,19 +1,25 @@
 import React, { PropTypes } from 'react';
 import { formatDate, getDuration } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
-import { SykmeldingOpplysning, SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
+import { SykmeldingOpplysning } from './SykmeldingOpplysning.js';
 import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const MulighetForArbeid = ({sykmelding, ledetekster}) => {
-	return (<div>
-                {
-                    sykmelding.startLegemeldtFravaer || sykmelding.aktivitetIkkeMulig433 || sykmelding.aarsakAktivitetIkkeMulig433 || sykmelding.aktivitetIkkeMulig434 || sykmelding.aarsakAktivitetIkkeMulig434 ? <h4 className="sykmelding-seksjonstittel">Mulighet for arbeid</h4> : ''
-                }
+    const visSeksjon = (sykmelding.startLegemeldtFravaer || 
+    (sykmelding.aktivitetIkkeMulig433 && sykmelding.aktivitetIkkeMulig433.length) || 
+    sykmelding.aarsakAktivitetIkkeMulig433 || 
+    (sykmelding.aktivitetIkkeMulig434 && sykmelding.aktivitetIkkeMulig434.length) || 
+    sykmelding.aarsakAktivitetIkkeMulig434);
+    if(!visSeksjon) {
+        return <span />; 
+    }
+	return (<div className="sykmelding-seksjon">
+                <h4 className="sykmelding-seksjonstittel">Mulighet for arbeid</h4>
                 {
                     getSykmeldingOpplysning(sykmelding, 'startLegemeldtFravaer', 'Når startet det legemeldte fraværet?', formatDate(sykmelding.startLegemeldtFravaer))
                 }
                 {
-                    sykmelding.aktivitetIkkeMulig433 ? <SykmeldingOpplysning tittel="Pasienten kan ikke være i arbeid (100 % sykmeldt)">
+                    (sykmelding.aktivitetIkkeMulig433 && sykmelding.aktivitetIkkeMulig433.length) > 0 ? <SykmeldingOpplysning tittel="Pasienten kan ikke være i arbeid (100 % sykmeldt)">
                         {
                             getSykmeldingCheckbox(sykmelding, "aktivitetIkkeMulig433", "Det er medisinske årsaker som hindrer arbeidsrelatert aktivitet")
                         }
@@ -33,7 +39,7 @@ const MulighetForArbeid = ({sykmelding, ledetekster}) => {
                     getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig433', 'Beskriv årsaken til at arbeidsrelatert aktivitet ikke er mulig')
                 }
                 {
-                    sykmelding.aktivitetIkkeMulig434 ? <SykmeldingOpplysning tittel="Pasienten kan ikke være i arbeid (100 % sykmeldt)">
+                    (sykmelding.aktivitetIkkeMulig434 && sykmelding.aktivitetIkkeMulig434.length > 0) ? <SykmeldingOpplysning tittel="Pasienten kan ikke være i arbeid (100 % sykmeldt)">
                         {
                             getSykmeldingCheckbox(sykmelding, "aktivitetIkkeMulig434", "Det er forhold på arbeidsplassen som hindrer arbeidsrelatert aktivitet")
                         }

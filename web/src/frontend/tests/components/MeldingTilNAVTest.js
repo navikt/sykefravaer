@@ -39,14 +39,14 @@ describe("Melding til NAV", () => {
 
     describe("navBoerTaTakISaken", () => {
         it("Skal vise checkbox dersom sykmelding.navBoerTaTakISaken === true", () => {
-            let component = shallow(<MeldingTilNAV sykmelding={getSykmelding({
+            let component = mount(<MeldingTilNAV sykmelding={getSykmelding({
                 navBoerTaTakISaken: true
             })} ledetekster={ledetekster} />);
             expect(component.find(".js-navBoerTaTakISaken").text()).to.equal("NAV bør ta tak i saken nå")
         });
 
         it("Skal ikke vise navBoerTaTakISaken dersom den ikke finnes", () => {
-            let component = shallow(<MeldingTilNAV sykmelding={getSykmelding({
+            let component = mount(<MeldingTilNAV sykmelding={getSykmelding({
                 navBoerTaTakISaken: null
             })} ledetekster={ledetekster} />);
             expect(component.find(".js-navBoerTaTakISaken").length).to.equal(0)
@@ -55,7 +55,7 @@ describe("Melding til NAV", () => {
 
     describe("navBoerTaTakISaken med begrunnelse", () => {
         it("Skal vise checkbox og begrunnelse dersom sykmelding.navBoerTaTakISaken === true og navBoerTaTakISakenBegrunnelse = (noe)", () => {
-            let component = shallow(<MeldingTilNAV sykmelding={getSykmelding({
+            let component = mount(<MeldingTilNAV sykmelding={getSykmelding({
                 navBoerTaTakISaken: true,
                 navBoerTaTakISakenBegrunnelse: "Den sykmeldte trenger bistand fra NAV"
             })} ledetekster={ledetekster} />);
@@ -64,7 +64,7 @@ describe("Melding til NAV", () => {
         });
 
         it("Skal ikke vise begrunnelse dersom den ikke finnes", () => {
-            let component = shallow(<MeldingTilNAV sykmelding={getSykmelding({
+            let component = mount(<MeldingTilNAV sykmelding={getSykmelding({
                 navBoerTaTakISaken: true
             })} ledetekster={ledetekster} />);
             expect(component.find(".js-navBoerTaTakISakenBegrunnelse").length).to.equal(0)

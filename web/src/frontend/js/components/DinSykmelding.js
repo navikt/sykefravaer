@@ -15,6 +15,7 @@ import Tilbakedatering from './Tilbakedatering.js';
 import MeldingTilArbeidsgiver from './MeldingTilArbeidsgiver.js';
 import AndreSykmeldingOpplysninger from './AndreSykmeldingOpplysninger.js';
 import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
+import { SykmeldingCheckbox, SykmeldingCheckboxSelvstendig } from '../components/SykmeldingCheckbox.js';
 
 const DinSykmelding = ({ sykmelding, ledetekster }) => {
     if (!sykmelding || !sykmelding.id) {
@@ -43,7 +44,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
                         <p className="js-hoveddiagnose">{sykmelding.hoveddiagnose.diagnose}</p>
                     </SykmeldingNokkelOpplysning>
-                    <SykmeldingNokkelOpplysning tittel="Diagnosekode">
+                    <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.diagnosekode.tittel', ledetekster)}>
                         <p>
                             <span className="js-hoveddiagnose-kode">{sykmelding.hoveddiagnose.diagnosekode}</span>
                             &nbsp;(<span className="js-hoveddiagnose-system">{sykmelding.hoveddiagnose.diagnosesystem}</span>)
@@ -56,7 +57,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.bidiagnose.tittel', ledetekster)}>
                         <p className="js-bidiagnose">{sykmelding.bidiagnose.diagnose}</p>
                     </SykmeldingNokkelOpplysning>
-                    <SykmeldingNokkelOpplysning tittel="Diagnosekode">
+                    <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.diagnosekode.tittel', ledetekster)}>
                         <p>
                             <span className="js-bidiagnose-kode">{sykmelding.bidiagnose.diagnosekode}</span>
                             &nbsp;(<span className="js-bidiagnose-system">{sykmelding.bidiagnose.diagnosesystem}</span>)
@@ -80,12 +81,14 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     getSykmeldingCheckbox(sykmelding, "svangerskap", "Sykdommen er svangerskapsrelatert")
                 }
                 {
-                    sykmelding.yrkesskadeDato ? <div>
-                    {getSykmeldingCheckbox(sykmelding, 'yrkesskadeDato', 'Sykdommen kan skyldes en skade/yrkessykdom', 'yrkesskade')}
+                    !sykmelding.yrkesskadeDato ? null : 
+                    <SykmeldingCheckbox tekst="Sykdommen kan skyldes en skade/yrkessykdom" jsClassName="yrkesskade" />
+                }
+                {
+                    !sykmelding.yrkesskadeDato ? null : 
                     <SykmeldingNokkelOpplysning tittel="Skadedato" className="sykmelding-subopplysning">
                         <p className="js-yrkesskadeDato">{formatDate(sykmelding.yrkesskadeDato)}</p>
                     </SykmeldingNokkelOpplysning>
-                    </div> : ''
                 }
                 {
                     getSykmeldingCheckbox(sykmelding, 'arbeidfoerEtterPerioden', getLedetekst('sykmelding.vis.arbeidsfoer.tekst', ledetekster))

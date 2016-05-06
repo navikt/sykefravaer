@@ -16,15 +16,15 @@
 
 .sykmelding-opplysning {
 
+	margin-bottom: 2rem; 
+
 	h5 {
 		.mixin-typo-element(); 
-		margin-bottom: .25rem; 
+		margin-bottom: .5rem; 
 	}
 
-	p:before {
-		content: "\2013 ";
-		display: inline-block;
-		margin-right: .25rem;
+	p {
+		margin-bottom: 1rem; 
 	}
 
 }
@@ -33,9 +33,15 @@
 	margin-left: 1.5rem;
 }
 
+.sykmelding-seksjon {
+	margin-bottom: 2rem; 
+	border-bottom: 1px solid @color-border; 
+}
+
 .sykmelding-seksjonstittel {
 	.mixin-typo-undertittel();
-	margin-bottom: 1rem; 
+	margin-bottom: 2rem; 
+	margin-top: 0;
 }
 
 .sykmelding-perioder {
@@ -63,7 +69,6 @@
 
 .sykmelding-checkbox {
 	display: flex; 
-	margin-bottom: 2rem; 
 
 	img {
 		align-self: flex-start; 
@@ -76,4 +81,19 @@
 			margin-top: 1px; 
 		}
 	}
+
+}
+
+.sykmelding-opplysning .sykmelding-checkbox {
+	margin-bottom: .5rem; 
+
+	&:last-child {
+		margin-bottom: 1rem; 
+	}
+}
+
+.sykmelding-opplysning-verdi:before {
+	content: "\2013 ";
+	display: inline-block;
+	margin-right: .25rem;
 }

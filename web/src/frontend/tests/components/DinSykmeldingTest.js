@@ -76,8 +76,8 @@ describe("DinSykmelding", () => {
 
         it("Skal vise hoveddiagnose dersom den finnes", () => {
             expect(component.find(".js-hoveddiagnose").text()).to.equal("Influensa")
-            expect(component.find(".js-hoveddiagnose-kode").text()).to.equal("LP2")
-            expect(component.find(".js-hoveddiagnose-system").text()).to.equal("ICPC")
+            expect(component.find(".js-hoveddiagnose-kode").text()).to.contain("LP2")
+            expect(component.find(".js-hoveddiagnose-system").text()).to.contain("ICPC")
         });
 
         it("Skal ikke vise hoveddiagnose dersom den ikke finnes (sykmelding.hoveddiagnose === null)", () => {
@@ -106,8 +106,8 @@ describe("DinSykmelding", () => {
                 }
             })} ledetekster={ledetekster}/>)
             expect(component.find(".js-bidiagnose").text()).to.equal("Mageknipe")
-            expect(component.find(".js-bidiagnose-kode").text()).to.equal("LP3")
-            expect(component.find(".js-bidiagnose-system").text()).to.equal("IZPZ")
+            expect(component.find(".js-bidiagnose-kode").text()).to.contain("LP3")
+            expect(component.find(".js-bidiagnose-system").text()).to.contain("IZPZ")
         });        
 
     });

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export const SykmeldingOpplysning = ({ tittel, children, Overskrift = 'H3', className }) => {
+export const SykmeldingOpplysning = ({ tittel, children, Overskrift = 'H5', className }) => {
     return (<div className={'sykmelding-opplysning' + (className ? ' ' + className : '')}>
         {tittel ? <Overskrift>{tittel}</Overskrift> : ''}
         {children}

@@ -18,9 +18,9 @@ export function hentLedeteksterFeilet() {
 }
 
 export function hentLedetekster() {
-    return function (dispatch) {
+    return function ledetekster(dispatch) {
         dispatch(henterLedetekster());
-        return fetch(window.SYFO_SETTINGS.REST_ROOT + '/informasjon/tekster', {
+        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/informasjon/tekster`, {
             credentials: 'include',
         })
             .then((response) => {
@@ -32,8 +32,8 @@ export function hentLedetekster() {
             .then((json) => {
                 return dispatch(setLedetekster(json));
             })
-            .catch((err) => {
-                return dispatch(hentLedeteksterFeilet(err));
+            .catch(() => {
+                return dispatch(hentLedeteksterFeilet());
             });
     };
 }

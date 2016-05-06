@@ -18,4 +18,9 @@ const AndreSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
 		</div>);
 };
 
+AndreSykmeldingOpplysninger.propTypes = {
+    sykmelding: PropTypes.object,
+    ledetekster: PropTypes.object,
+};
+
 export default AndreSykmeldingOpplysninger;

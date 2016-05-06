@@ -10,7 +10,7 @@ const BedreArbeidsevne = ({ sykmelding, ledetekster }) => {
         return <span />;
     }
 	return (<div className="sykmelding-seksjon">
-            <h4 className="sykmelding-seksjonstittel">Hva skal til for å bedre arbeidsevnen?</h4> : ''
+            <h4 className="sykmelding-seksjonstittel">Hva skal til for å bedre arbeidsevnen?</h4>
             {
                 getSykmeldingOpplysning(sykmelding, "tilretteleggingArbeidsplass", "Tilrettelegging/hensyn som bør tas på arbeidsplassen")
             }

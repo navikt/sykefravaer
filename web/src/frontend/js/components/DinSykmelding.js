@@ -45,21 +45,21 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     </SykmeldingNokkelOpplysning>
                     <SykmeldingNokkelOpplysning tittel="Diagnosekode">
                         <p>
-                            <span className="js-hoveddiagnose-kode">{sykmelding.hoveddiagnose.diagnosekode}</span> 
-                            (<span className="js-hoveddiagnose-system">{sykmelding.hoveddiagnose.diagnosesystem}</span>)
+                            <span className="js-hoveddiagnose-kode">{sykmelding.hoveddiagnose.diagnosekode}</span>
+                            &nbsp;(<span className="js-hoveddiagnose-system">{sykmelding.hoveddiagnose.diagnosesystem}</span>)
                         </p>
                     </SykmeldingNokkelOpplysning>
                 </div>) : ''
                 }
                 {
                     sykmelding.bidiagnose ? (<div className="diagnose-container">
-                    <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
+                    <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.bidiagnose.tittel', ledetekster)}>
                         <p className="js-bidiagnose">{sykmelding.bidiagnose.diagnose}</p>
                     </SykmeldingNokkelOpplysning>
                     <SykmeldingNokkelOpplysning tittel="Diagnosekode">
                         <p>
                             <span className="js-bidiagnose-kode">{sykmelding.bidiagnose.diagnosekode}</span>
-                            (<span className="js-bidiagnose-system">{sykmelding.bidiagnose.diagnosesystem}</span>)
+                            &nbsp;(<span className="js-bidiagnose-system">{sykmelding.bidiagnose.diagnosesystem}</span>)
                         </p>
                     </SykmeldingNokkelOpplysning>
                 </div>) : ''

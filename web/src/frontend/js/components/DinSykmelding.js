@@ -105,13 +105,15 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 }
             </div>
             <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">
-                <MulighetForArbeid sykmelding={sykmelding} ledetekster={ledetekster} />
-                <Friskmelding sykmelding={sykmelding} ledetekster={ledetekster} />
-                <UtdypendeOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
-                <BedreArbeidsevne sykmelding={sykmelding} ledetekster={ledetekster} />
-                <MeldingTilNAV sykmelding={sykmelding} ledetekster={ledetekster} />
-                <MeldingTilArbeidsgiver sykmelding={sykmelding} ledetekster={ledetekster} />
-                <AndreSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
+                <div className="sykmelding-seksjoner">
+                    <MulighetForArbeid sykmelding={sykmelding} ledetekster={ledetekster} />
+                    <Friskmelding sykmelding={sykmelding} ledetekster={ledetekster} />
+                    <UtdypendeOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
+                    <BedreArbeidsevne sykmelding={sykmelding} ledetekster={ledetekster} />
+                    <MeldingTilNAV sykmelding={sykmelding} ledetekster={ledetekster} />
+                    <MeldingTilArbeidsgiver sykmelding={sykmelding} ledetekster={ledetekster} />
+                    <AndreSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
+                </div>
             </Utvidbar>
         </div>
         <p className="side-innhold ikke-print">

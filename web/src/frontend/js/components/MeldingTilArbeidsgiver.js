@@ -5,14 +5,16 @@ import { SykmeldingOpplysning } from './SykmeldingOpplysning.js';
 import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const MeldingTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
-	return (<div>
-                {
-                    sykmelding.innspillTilArbeidsgiver ? <h4 className="sykmelding-seksjonstittel">Melding til arbeidsgiver</h4> : ''
-                }
-                {
-                    getSykmeldingOpplysning(sykmelding, "innspillTilArbeidsgiver", "Innspill til arbeidsgiver")
-                }
-		</div>);
+	const visSeksjon = sykmelding.innspillTilArbeidsgiver;
+	if (!visSeksjon) {
+		return <span />
+	}
+	return (<div className="sykmelding-seksjon">
+            <h4 className="sykmelding-seksjonstittel">Melding til arbeidsgiver</h4>
+            {
+                getSykmeldingOpplysning(sykmelding, "innspillTilArbeidsgiver", "Innspill til arbeidsgiver")
+            }
+	</div>);
 };
 
 export default MeldingTilArbeidsgiver;

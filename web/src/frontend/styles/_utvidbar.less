@@ -28,7 +28,7 @@
 
 	@media(min-width: @screen-xs) {
 		padding-left: 1rem;
-		padding-right: 1rem; 
+		padding-right: 1rem;
 	}
 
 	.header-tittel {
@@ -56,6 +56,26 @@
 	max-height: 1500px; 
 	transition: max-height ease-in-out .6s; 
 	overflow: hidden; 
+}
+
+.contrast {
+
+	.header-utvidbar .header-tittel {
+		background-image: data-uri("../img/svg/arrow-down-highcontrast.svg")
+	}
+
+	.header-utvidbar a:hover .header-tittel {
+		background-image: data-uri("../img/svg/arrow-down_hover-highcontrast.svg");	
+	}
+
+	.header-utvidbar-apen .header-tittel {
+		background-image: data-uri("../img/svg/arrow-up-highcontrast.svg");
+	}
+
+	.header-utvidbar-apen a:hover .header-tittel {
+		background-image: data-uri("../img/svg/arrow-up_hover-highcontrast.svg");
+	}
+
 }
 
 @media only screen {

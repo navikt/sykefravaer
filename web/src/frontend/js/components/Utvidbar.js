@@ -8,18 +8,21 @@ export class Utvidbar extends Component {
         this.state = {
             erApen: this.props.erApen,
             ikon: this.props.ikon,
+            ikonHoykontrast: this.props.ikon.replace(".svg", "-highcontrast.svg"),
         };
     }
 
     onMouseEnter() {
         this.setState({
             ikon: this.props.ikonHover,
+            ikonHoykontrast: this.props.ikonHover.replace(".svg", "-highcontrast.svg"),
         });
     }
 
     onMouseLeave() {
         this.setState({
             ikon: this.props.ikon,
+            ikonHoykontrast: this.props.ikon.replace(".svg", "-highcontrast.svg"),
         });
     }
 
@@ -47,6 +50,7 @@ export class Utvidbar extends Component {
                     onMouseLeave={() => {this.onMouseLeave();}}
                     onClick={(event) => {this.toggle(event);}}>
                         <img src={'/sykefravaer/img/' + this.state.ikon} alt={this.props.ikonAltTekst} className="header-ikon" />
+                        <img src={'/sykefravaer/img/' + this.state.ikonHoykontrast} alt={this.props.ikonAltTekst} className="header-ikon header-ikon-hoykontrast" />
                         <span className="header-tittel">{this.props.tittel}</span>
                 </a>
             </h3>

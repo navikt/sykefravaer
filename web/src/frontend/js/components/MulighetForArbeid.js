@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { formatDate, getDuration } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
 import { SykmeldingOpplysning } from './SykmeldingOpplysning.js';
+import { SykmeldingCheckbox } from './SykmeldingCheckbox.js';
 import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const fjernAnnet = (array) => {
@@ -16,10 +17,7 @@ const Aarsaker = ({ aarsaker, containerClassName }) => {
     return (<div className={containerClassName}>
         {
             fjernAnnet(aarsaker).map((aarsak, key) => {
-                return (<p key={key} className="sykmelding-checkbox sykmelding-subopplysning">
-                    <img src="/sykefravaer/img/svg/check-box-1.svg" alt="Avkrysset" />
-                    {aarsak}
-                </p>)
+                return (<SykmeldingCheckbox tekst={aarsak} key={key} className="sykmelding-subopplysning" />)
             })
         }
     </div>);

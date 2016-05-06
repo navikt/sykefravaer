@@ -8,5 +8,5 @@ export const SykmeldingCheckbox = ({ tekst, jsClassName, className }) => {
 }
 
 export const SykmeldingCheckboxSelvstendig = ({ tekst, jsClassName }) => {
-	return (<SykmeldingCheckbox tekst={tekst} jsClassName={jsClassName} selvstendig={true} />);
+	return (<SykmeldingCheckbox tekst={tekst} jsClassName={jsClassName} className="typo-element" />);
 };

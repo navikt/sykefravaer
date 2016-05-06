@@ -5,10 +5,12 @@ import { SykmeldingOpplysning } from './SykmeldingOpplysning.js';
 import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const UtdypendeOpplysninger = ({ sykmelding, ledetekster }) => {
-	return (<div>
-                {
-                    sykmelding.sykehistorie || sykmelding.paavirkningArbeidsevne || sykmelding.resultatAvBehandling || sykmelding.henvisningUtredningBehandling ? <h4 className="sykmelding-seksjonstittel">Utdypende opplysninger</h4> : ''
-                }
+    const visSeksjon = sykmelding.sykehistorie || sykmelding.paavirkningArbeidsevne || sykmelding.resultatAvBehandling || sykmelding.henvisningUtredningBehandling;
+    if(!visSeksjon) {
+        return <span />
+    }
+	return (<div className="sykmelding-seksjon">
+                <h4 className="sykmelding-seksjonstittel">Utdypende opplysninger</h4>
                 {
                     getSykmeldingOpplysning(sykmelding, "sykehistorie", "Beskriv kort sykehistorie, symptomer og funn i dagens situasjon")
                 }

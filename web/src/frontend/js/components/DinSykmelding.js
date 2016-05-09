@@ -41,7 +41,9 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     }
                 </div>
                 {
-                    getSykmeldingOpplysning(sykmelding, "tilretteleggingArbeidsplass", "Melding til arbeidsgiver om tilrettelegging")
+                    !sykmelding.tilretteleggingArbeidsplass ? null : <SykmeldingNokkelOpplysning tittel="Melding til arbeidsgiver om tilrettelegging">
+                        <p className="js-tilretteleggingArbeidsplass sykmelding-opplysning-verdi">{sykmelding.tilretteleggingArbeidsplass}</p>
+                    </SykmeldingNokkelOpplysning>
                 }
                 {
                     sykmelding.hoveddiagnose ? (<div className="diagnose-container">

@@ -41,6 +41,9 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     }
                 </div>
                 {
+                    getSykmeldingOpplysning(sykmelding, "tilretteleggingArbeidsplass", "Melding til arbeidsgiver om tilrettelegging")
+                }
+                {
                     sykmelding.hoveddiagnose ? (<div className="diagnose-container">
                     <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
                         <p className="js-hoveddiagnose">{sykmelding.hoveddiagnose.diagnose}</p>
@@ -79,7 +82,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     </SykmeldingNokkelOpplysning> : ''
                 }
                 {
-                    getSykmeldingCheckbox(sykmelding, "svangerskap", "Sykdommen er svangerskapsrelatert")
+                    getSykmeldingCheckbox(sykmelding, "svangerskap", "Sykdommen er svangerskapsrelatert", "blokk")
                 }
                 {
                     !sykmelding.yrkesskadeDato ? null : 
@@ -88,11 +91,11 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 {
                     !sykmelding.yrkesskadeDato ? null : 
                     <SykmeldingNokkelOpplysning tittel="Skadedato" className="sykmelding-subopplysning">
-                        <p className="js-yrkesskadeDato">{formatDate(sykmelding.yrkesskadeDato)}</p>
+                        <p className="sykmelding-opplysning-verdi js-yrkesskadeDato">{formatDate(sykmelding.yrkesskadeDato)}</p>
                     </SykmeldingNokkelOpplysning>
                 }
                 {
-                    getSykmeldingCheckbox(sykmelding, 'arbeidfoerEtterPerioden', getLedetekst('sykmelding.vis.arbeidsfoer.tekst', ledetekster))
+                    getSykmeldingCheckbox(sykmelding, 'arbeidsfoerEtterPerioden', "Pasienten er 100 % arbeidsfør etter perioden", "blokk")
                 }
                 {
                     sykmelding.arbeidsgiver ? <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.arbeidsgiver.tittel', ledetekster)}>
@@ -113,6 +116,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     <BedreArbeidsevne sykmelding={sykmelding} ledetekster={ledetekster} />
                     <MeldingTilNAV sykmelding={sykmelding} ledetekster={ledetekster} />
                     <MeldingTilArbeidsgiver sykmelding={sykmelding} ledetekster={ledetekster} />
+                    <Tilbakedatering sykmelding={sykmelding} ledetekster={ledetekster} />
                     <AndreSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
                 </div>
             </Utvidbar>

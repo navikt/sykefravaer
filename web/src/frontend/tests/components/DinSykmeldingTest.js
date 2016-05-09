@@ -72,140 +72,6 @@ describe("DinSykmelding", () => {
         expect(component.find(".js-arbeidsgiver").length).to.equal(0);
     });
 
-   describe("Innspill til arbeidsgiver", () => {
-
-        it("Skal vise innspill til arbeidsgiver dersom det finnes", () => {
-            let component = shallow(<DinSykmelding sykmelding={{
-                "id": 25,
-                "fnr": "***REMOVED***",
-                "fornavn": "FRIDA",
-                "etternavn": "FROSK",
-                "sykmelder": "Victor Frankenstein",
-                "sykmelderTlf": "Tel:67151410",
-                "arbeidsgiver": "PROMMEN BARNEHAVE",
-                "hoveddiagnose": {
-                    "diagnose": "TENDINITT INA",
-                    "diagnosekode": "L87",
-                    "diagnosesystem": "ICPC-2"
-                },
-                "bidiagnose": {
-                    "diagnose": "GANGLION SENE",
-                    "diagnosekode": "L87",
-                    "diagnosesystem": "ICPC-2"
-                },
-                "fravaersgrunnLovfestet": "CS",
-                "fravaerBeskrivelse": "Vedkommende er under behandling og legen erklærer at behandlingen gjør det nødvendig at vedkommende ikke arbeider",
-                "arbeidsfoerEtterPerioden": true,
-                "svangerskap": true,
-                "yrkesskade": true,
-                "yrkesskadeDato": "2016-04-26T22:00:00.000Z",
-                "avventendeSykemeldingInnspillArbeidsgiver": null,
-                "hensynPaaArbeidsplassen": "Må ta det pent",
-                "antarReturSammeArbeidsgiver": false,
-                "antattDatoReturSammeArbeidsgiver": null,
-                "antarReturAnnenArbeidsgiver": false,
-                "tilbakemeldingReturArbeid": null,
-                "utenArbeidsgiverAntarTilbakeIArbeid": true,
-                "utenArbeidsgiverAntarTilbakeIArbeidDato": "2016-05-20T22:00:00.000Z",
-                "utenArbeidsgiverTilbakemelding": "2016-04-30T22:00:00.000Z",
-                "perioder": [{
-                    "fom": "2016-05-03T22:00:00.000Z",
-                    "tom": "2016-05-14T22:00:00.000Z",
-                    "grad": 100,
-                    "behandlingsdager": null,
-                    "reisetilskudd": null,
-                    "avventende": null
-                }],
-                "startLegemeldtFravaer": "2016-05-03T22:00:00.000Z",
-                "aktivitetIkkeMulig433": [],
-                "aktivitetIkkeMulig434": [],
-                "aarsakAktivitetIkkeMulig433": null,
-                "aarsakAktivitetIkkeMulig434": null,
-                "sykehistorie": null,
-                "paavirkningArbeidsevne": null,
-                "resultatAvBehandling": null,
-                "henvisningUtredningBehandling": null,
-                "tilretteleggingArbeidsplass": "Fortsett som sist.",
-                "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. DEt er nylig tatt MR bildet som vier forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. Avhenger av funksjon og vurdering hos spesialist i ortopedi.",
-                "tiltakAndre": "Drikk tran og gå lange turer",
-                "navBoerTaTakISaken": true,
-                "navBoerTaTakISakenBegrunnelse": "Hjelp fra NAV mottas med takk!",
-                "innspillTilArbeidsgiver": "Arbeidsgiver bør skjerpe seg!",
-                "dokumenterbarPasientkontakt": null,
-                "tilbakedatertBegrunnelse": "Det har ikke vært mulig å kontakte pasient.",
-                "utstedelsesdato": "2016-05-02T22:00:00.000Z"
-            }} ledetekster={ledetekster} />);
-            expect(component.find(".js-tilretteleggingArbeidsplass").length).to.equal(1);
-            expect(component.find(".js-tilretteleggingArbeidsplass").text()).to.equal("Fortsett som sist.");
-        });
-
-        it("Skal ikke vise innspill til arbeidsgiver dersom det ikke finnes", () => {
-            let component = shallow(<DinSykmelding sykmelding={{
-                "id": 25,
-                "fnr": "***REMOVED***",
-                "fornavn": "FRIDA",
-                "etternavn": "FROSK",
-                "sykmelder": "Victor Frankenstein",
-                "sykmelderTlf": "Tel:67151410",
-                "arbeidsgiver": "PROMMEN BARNEHAVE",
-                "hoveddiagnose": {
-                    "diagnose": "TENDINITT INA",
-                    "diagnosekode": "L87",
-                    "diagnosesystem": "ICPC-2"
-                },
-                "bidiagnose": {
-                    "diagnose": "GANGLION SENE",
-                    "diagnosekode": "L87",
-                    "diagnosesystem": "ICPC-2"
-                },
-                "fravaersgrunnLovfestet": "CS",
-                "fravaerBeskrivelse": "Vedkommende er under behandling og legen erklærer at behandlingen gjør det nødvendig at vedkommende ikke arbeider",
-                "arbeidsfoerEtterPerioden": true,
-                "svangerskap": true,
-                "yrkesskade": true,
-                "yrkesskadeDato": "2016-04-26T22:00:00.000Z",
-                "avventendeSykemeldingInnspillArbeidsgiver": null,
-                "hensynPaaArbeidsplassen": "Må ta det pent",
-                "antarReturSammeArbeidsgiver": false,
-                "antattDatoReturSammeArbeidsgiver": null,
-                "antarReturAnnenArbeidsgiver": false,
-                "tilbakemeldingReturArbeid": null,
-                "utenArbeidsgiverAntarTilbakeIArbeid": true,
-                "utenArbeidsgiverAntarTilbakeIArbeidDato": "2016-05-20T22:00:00.000Z",
-                "utenArbeidsgiverTilbakemelding": "2016-04-30T22:00:00.000Z",
-                "perioder": [{
-                    "fom": "2016-05-03T22:00:00.000Z",
-                    "tom": "2016-05-14T22:00:00.000Z",
-                    "grad": 100,
-                    "behandlingsdager": null,
-                    "reisetilskudd": null,
-                    "avventende": null
-                }],
-                "startLegemeldtFravaer": "2016-05-03T22:00:00.000Z",
-                "aktivitetIkkeMulig433": [],
-                "aktivitetIkkeMulig434": [],
-                "aarsakAktivitetIkkeMulig433": null,
-                "aarsakAktivitetIkkeMulig434": null,
-                "sykehistorie": null,
-                "paavirkningArbeidsevne": null,
-                "resultatAvBehandling": null,
-                "henvisningUtredningBehandling": null,
-                "tilretteleggingArbeidsplass": "Fortsett som sist.",
-                "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. DEt er nylig tatt MR bildet som vier forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. Avhenger av funksjon og vurdering hos spesialist i ortopedi.",
-                "tiltakAndre": "Drikk tran og gå lange turer",
-                "navBoerTaTakISaken": true,
-                "navBoerTaTakISakenBegrunnelse": "Hjelp fra NAV mottas med takk!",
-                "innspillTilArbeidsgiver": "Arbeidsgiver bør skjerpe seg!",
-                "dokumenterbarPasientkontakt": null,
-                "tilbakedatertBegrunnelse": "Det har ikke vært mulig å kontakte pasient.",
-                "utstedelsesdato": "2016-05-02T22:00:00.000Z"
-            }} ledetekster={ledetekster} />);
-            expect(component.find(".js-tilretteleggingArbeidsplass").length).to.equal(1);
-            expect(component.find(".js-tilretteleggingArbeidsplass").text()).to.equal("Fortsett som sist.");
-        });        
-
-    }); 
-
    xdescribe("Arbeidsfør etter perioden", () => {
 
         it("Skal vise arbeidsfør etter perioden dersom sykmelding.arbeidsfoerEtterPerioden === true", () => {
@@ -340,7 +206,7 @@ describe("DinSykmelding", () => {
     });    
 
     describe("hensynPaaArbeidsplassen", () => {
-        
+
         it("Skal vise hensyn dersom feltet er utfylt", () => {
             let component = mount(<DinSykmelding sykmelding={getSykmelding({
                 "hensynPaaArbeidsplassen": "Tekst"

@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/sykmeldinger_actions.js';
-import Side from '../sider/Side.js';
+import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne.js';
 import DinSykmelding from '../components/DinSykmelding.js';
 import AppSpinner from '../components/AppSpinner.js';
 import Feilmelding from '../components/Feilmelding.js';
 import { getLedetekst } from '../ledetekster';
 
 const Controller = (state) => {
-    return (<Side tittel={getLedetekst('sykmelding.vis.sidetittel', state.ledetekster.data)} brodsmuler={state.brodsmuler}>
+    return (<SideMedHoyrekolonne tittel={getLedetekst('sykmelding.vis.sidetittel', state.ledetekster.data)} brodsmuler={state.brodsmuler}>
             {
                 (() => {
                     if (state.sykmelding.henter) {
@@ -23,7 +23,7 @@ const Controller = (state) => {
                     return <DinSykmelding sykmelding={state.sykmelding.data} ledetekster={state.ledetekster.data} />;
                 })()
             }
-    </Side>);
+    </SideMedHoyrekolonne>);
 };
 
 Controller.propTypes = {

@@ -71,6 +71,7 @@ describe("Tilbakedatering", () => {
             expect(component.find(".js-tilbakedatertBegrunnelse").length).to.equal(0);
         });        
 
-    });     
+    });
+
      
 }); 

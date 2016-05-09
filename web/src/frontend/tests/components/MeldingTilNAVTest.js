@@ -8,6 +8,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import MeldingTilNAV from "../../js/components/MeldingTilNAV.js";
+import DinSykmelding from "../../js/components/DinSykmelding.js";
 
 let component;
 
@@ -55,7 +56,7 @@ describe("Melding til NAV", () => {
 
     describe("navBoerTaTakISaken med begrunnelse", () => {
         it("Skal vise checkbox og begrunnelse dersom sykmelding.navBoerTaTakISaken === true og navBoerTaTakISakenBegrunnelse = (noe)", () => {
-            let component = mount(<MeldingTilNAV sykmelding={getSykmelding({
+            let component = mount(<DinSykmelding sykmelding={getSykmelding({
                 navBoerTaTakISaken: true,
                 navBoerTaTakISakenBegrunnelse: "Den sykmeldte trenger bistand fra NAV"
             })} ledetekster={ledetekster} />);
@@ -64,12 +65,12 @@ describe("Melding til NAV", () => {
         });
 
         it("Skal ikke vise begrunnelse dersom den ikke finnes", () => {
-            let component = mount(<MeldingTilNAV sykmelding={getSykmelding({
+            let component = mount(<DinSykmelding sykmelding={getSykmelding({
                 navBoerTaTakISaken: true
             })} ledetekster={ledetekster} />);
             expect(component.find(".js-navBoerTaTakISakenBegrunnelse").length).to.equal(0)
         });
-    });         
+    });
 
 
 }); 

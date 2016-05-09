@@ -98,6 +98,9 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     getSykmeldingCheckbox(sykmelding, 'arbeidsfoerEtterPerioden', "Pasienten er 100 % arbeidsfør etter perioden", "blokk")
                 }
                 {
+                    getSykmeldingOpplysning(sykmelding, "hensynPaaArbeidsplassen", "Beskriv eventuelle hensyn som må tas på arbeidsplassen")
+                }
+                {
                     sykmelding.arbeidsgiver ? <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.arbeidsgiver.tittel', ledetekster)}>
                     <p className="js-arbeidsgiver">{sykmelding.arbeidsgiver}</p>
                 </SykmeldingNokkelOpplysning> : ''    

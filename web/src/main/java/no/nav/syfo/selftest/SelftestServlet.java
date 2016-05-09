@@ -24,12 +24,12 @@ public class SelftestServlet extends SelfTestBaseServlet {
     @Override
     protected Collection<? extends Pingable> getPingables() {
         return asList(
-                pingUrl("SYKEFRAVÆR_API", getProperty("sykefravaerapi.url") + "/internal/isAlive"),
-                pingUrl("ENONIC_APPRES", getProperty("dialogarena.cms.url"))
+                pingUrl("SYKEFRAVÆR_API", getProperty("sykefravaerapi.url") + "/internal/isAlive", "application/json"),
+                pingUrl("ENONIC_APPRES", getProperty("dialogarena.cms.url"), null)
         );
     }
 
-    private Pingable pingUrl(final String name, final String url) {
+    private Pingable pingUrl(final String name, final String url, final String expectedResponseType) {
         return new Pingable() {
             @Override
             public Ping ping() {
@@ -37,7 +37,7 @@ public class SelftestServlet extends SelfTestBaseServlet {
                 try {
                     connection = (HttpURLConnection) new URL(url).openConnection();
                     connection.setConnectTimeout(10000);
-                    if (connection.getResponseCode() == HTTP_OK) {
+                    if (!(connection.getResponseCode() == HTTP_OK && expectedResponseType != null) || connection.getContentType().startsWith(expectedResponseType)) {
                         return Ping.lyktes(name);
                     } else {
                         return Ping.feilet(name, new RuntimeException(connection.getResponseCode() + " " + connection.getResponseMessage()));

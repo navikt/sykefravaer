@@ -24,7 +24,7 @@ const SykmeldingPeriode = ({periode, antallDager = 1}) => {
                 periode.avventende ? <div className="blokk"><p className="js-avventende">Avventende sykmelding</p></div> : ''
             }
             {
-                periode.avventende ? <h3>Innspill til arbeidsgiver om tilrettelegging</h3> : ''
+                periode.avventende ? <h4>Innspill til arbeidsgiver om tilrettelegging</h4> : ''
             }
             {
                 periode.avventende ? <p>{periode.avventende}</p> : ''

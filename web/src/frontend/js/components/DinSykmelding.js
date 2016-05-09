@@ -41,11 +41,6 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     }
                 </div>
                 {
-                    !sykmelding.tilretteleggingArbeidsplass ? null : <SykmeldingNokkelOpplysning tittel="Melding til arbeidsgiver om tilrettelegging">
-                        <p className="js-tilretteleggingArbeidsplass sykmelding-opplysning-verdi">{sykmelding.tilretteleggingArbeidsplass}</p>
-                    </SykmeldingNokkelOpplysning>
-                }
-                {
                     sykmelding.hoveddiagnose ? (<div className="diagnose-container">
                     <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
                         <p className="js-hoveddiagnose">{sykmelding.hoveddiagnose.diagnose}</p>
@@ -93,14 +88,17 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 {
                     !sykmelding.yrkesskadeDato ? null : 
                     <SykmeldingNokkelOpplysning tittel="Skadedato" className="sykmelding-subopplysning">
-                        <p className="sykmelding-opplysning-verdi js-yrkesskadeDato">{formatDate(sykmelding.yrkesskadeDato)}</p>
+                        <p className=" js-yrkesskadeDato">{formatDate(sykmelding.yrkesskadeDato)}</p>
                     </SykmeldingNokkelOpplysning>
                 }
                 {
                     getSykmeldingCheckbox(sykmelding, 'arbeidsfoerEtterPerioden', "Pasienten er 100 % arbeidsfør etter perioden", "blokk")
                 }
                 {
-                    getSykmeldingOpplysning(sykmelding, "hensynPaaArbeidsplassen", "Beskriv eventuelle hensyn som må tas på arbeidsplassen")
+                    !sykmelding.hensynPaaArbeidsplassen ? null :
+                    <SykmeldingNokkelOpplysning tittel="Beskriv eventuelle hensyn som må tas på arbeidsplassen">
+                        <p className="js-hensynPaaArbeidsplassen">{sykmelding.hensynPaaArbeidsplassen}</p>
+                    </SykmeldingNokkelOpplysning>
                 }
                 {
                     sykmelding.arbeidsgiver ? <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.arbeidsgiver.tittel', ledetekster)}>

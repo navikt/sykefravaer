@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getContextRoot } from '../routers/paths.js';
-import { formatDate, getDuration } from '../utils/index.js';
+import { formatDate } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo.js';
 
@@ -71,7 +71,7 @@ class SykmeldingTeaser extends Component {
                 {antallPerioder === 1 ? (<SykmeldingPeriodeInfo periode={this.props.sykmelding.perioder[0]} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />) : (<PeriodeListe perioder={this.props.sykmelding.perioder} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />)
                         }
             </div>
-        </Link></article>); 
+        </Link></article>);
     }
 }
 

@@ -1,30 +1,31 @@
 import React, { PropTypes } from 'react';
-import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
 import { formatDate } from '../utils/index.js';
+import { getLedetekst } from '../ledetekster';
 
-const SykmeldingPeriode = ({periode, antallDager = 1}) => {
+const SykmeldingPeriode = ({ periode, antallDager = 1, ledetekster }) => {
+    const dagNokkel = antallDager === 1 ? 'sykmelding.vis.periode.dag' : 'sykmelding.vis.periode.dager';
     return (<div className="sykmelding-nokkelopplysning">
-            <h3>Periode</h3>
+            <h3>{getLedetekst('sykmelding.vis.periode.tittel', ledetekster)}</h3>
             <p className="js-periode blokk-xxs">
-                <strong>{formatDate(periode.fom)} &ndash; {formatDate(periode.tom)}</strong> &bull; {antallDager + (antallDager === 1 ? ' dag' : ' dager')}
+                <strong>{formatDate(periode.fom)} &ndash; {formatDate(periode.tom)}</strong> &bull; {antallDager + ' ' + getLedetekst(dagNokkel, ledetekster)}
             </p>
             {
                 periode.grad ? <p className="js-grad">
                     {periode.grad} % sykmeldt
-                    {periode.reisetilskudd && (periode.grad > 0 && periode.grad < 100) ? ' med reisetilskudd' : ''}
+                    {periode.reisetilskudd && (periode.grad > 0 && periode.grad < 100) ? (' ' + getLedetekst('sykmelding.vis.periode.med.reisetilskudd', ledetekster)) : null}
                 </p> : ''
             }
             {
-                periode.behandlingsdager ? <p className="js-behandlingsdager">{periode.behandlingsdager} behandlingsdager</p> : ''
+                periode.behandlingsdager ? <p className="js-behandlingsdager">{periode.behandlingsdager + ' ' + getLedetekst('sykmelding.vis.periode.behandlingsdager', ledetekster)}</p> : null
             }
             {
-                periode.reisetilskudd && (periode.grad === null) ? <p className="js-reisetilskudd">Reisetilskudd</p> : ''
+                periode.reisetilskudd && (periode.grad === null) ? <p className="js-reisetilskudd">{getLedetekst('sykmelding.vis.periode.reisetilskudd.tittel', ledetekster)}</p> : null
             }
             {
-                periode.avventende ? <div className="blokk"><p className="js-avventende">Avventende sykmelding</p></div> : ''
+                periode.avventende ? <div className="blokk"><p className="js-avventende">{getLedetekst('sykmelding.vis.periode.avventende', ledetekster)}</p></div> : null
             }
             {
-                periode.avventende ? <h4>Innspill til arbeidsgiver om tilrettelegging</h4> : ''
+                periode.avventende ? <h4>{getLedetekst('sykmelding.vis.periode.avventende.innspill', ledetekster)}</h4> : null
             }
             {
                 periode.avventende ? <p>{periode.avventende}</p> : ''
@@ -34,7 +35,8 @@ const SykmeldingPeriode = ({periode, antallDager = 1}) => {
 
 SykmeldingPeriode.propTypes = {
     periode: PropTypes.object.isRequired,
-    dager: PropTypes.number,
+    antallDager: PropTypes.number,
+    ledetekster: PropTypes.object,
 };
 
 export default SykmeldingPeriode;

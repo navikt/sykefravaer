@@ -7,6 +7,13 @@ export const SykmeldingOpplysning = ({ tittel, children, Overskrift = 'H5', clas
     </div>);
 };
 
+SykmeldingOpplysning.propTypes = {
+    tittel: PropTypes.string.isRequired,
+    children: PropTypes.object,
+    Overskrift: PropTypes.string,
+    className: PropTypes.string,
+};
+
 export const SykmeldingNokkelOpplysning = ({ tittel, children, Overskrift = 'H3', className }) => {
     return (<div className={'sykmelding-nokkelopplysning' + (className ? ' ' + className : '')}>
         {tittel ? <Overskrift>{tittel}</Overskrift> : ''}
@@ -14,7 +21,7 @@ export const SykmeldingNokkelOpplysning = ({ tittel, children, Overskrift = 'H3'
     </div>);
 };
 
-SykmeldingOpplysning.propTypes = {
+SykmeldingNokkelOpplysning.propTypes = {
     tittel: PropTypes.string.isRequired,
     children: PropTypes.object,
     Overskrift: PropTypes.string,

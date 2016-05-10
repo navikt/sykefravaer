@@ -2,65 +2,68 @@ import React, { PropTypes } from 'react';
 import { formatDate } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
 import { SykmeldingOpplysning } from './SykmeldingOpplysning.js';
-import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
-import { SykmeldingCheckbox, SykmeldingCheckboxSelvstendig } from '../components/SykmeldingCheckbox.js';
+import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils.js';
 
 const Friskmelding = ({ sykmelding, ledetekster }) => {
-
-    const visSeksjon = (sykmelding.antarReturSammeArbeidsgiver || 
-        sykmelding.antattDatoReturSammeArbeidsgiver || 
-        sykmelding.antarReturAnnenArbeidsgiver || 
-        sykmelding.tilbakemeldingReturArbeid || 
-        sykmelding.utenArbeidsgiverTilbakemelding || 
-        sykmelding.utenArbeidsgiverAntarTilbakeIArbeid || 
-        sykmelding.utenArbeidsgiverAntarTilbakeIArbeidDato || 
+    const visSeksjon = (sykmelding.antarReturSammeArbeidsgiver ||
+        sykmelding.antattDatoReturSammeArbeidsgiver ||
+        sykmelding.antarReturAnnenArbeidsgiver ||
+        sykmelding.tilbakemeldingReturArbeid ||
+        sykmelding.utenArbeidsgiverTilbakemelding ||
+        sykmelding.utenArbeidsgiverAntarTilbakeIArbeid ||
+        sykmelding.utenArbeidsgiverAntarTilbakeIArbeidDato ||
         sykmelding.utenArbeidsgiverTilbakemelding);
 
-    if(!visSeksjon) {
-        return <div></div>; 
+    if (!visSeksjon) {
+        return <div></div>;
     }
     return (<div className="sykmelding-seksjon">
-        <h4 className="sykmelding-seksjonstittel">Friskmelding</h4>
+        <h4 className="sykmelding-seksjonstittel">{getLedetekst('sykmelding.vis.friskmelding.tittel', ledetekster)}</h4>
         {
-            getSykmeldingCheckbox(sykmelding, 'antarReturSammeArbeidsgiver', 'Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet arbeid hos samme arbeidsgiver', 'typo-element')
+            getSykmeldingCheckbox(sykmelding, 'antarReturSammeArbeidsgiver', getLedetekst('sykmelding.vis.friskmelding.retur.samme.arbeidsgiver.tittel', ledetekster), 'typo-element')
         }
         {
-            !sykmelding.antattDatoReturSammeArbeidsgiver ? null : 
-            <SykmeldingOpplysning Overskrift="h5" tittel="Når antar du at det kan skje?" className="sykmelding-subopplysning">
+            !sykmelding.antattDatoReturSammeArbeidsgiver ? null :
+            <SykmeldingOpplysning Overskrift="h5" tittel={getLedetekst('sykmelding.vis.friskmelding.retur.samme.arbeidsgiver.dato', ledetekster)} className="sykmelding-subopplysning">
                 <p className="sykmelding-opplysning-verdi js-antattDatoReturSammeArbeidsgiver">{formatDate(sykmelding.antattDatoReturSammeArbeidsgiver)}</p>
-            </SykmeldingOpplysning>   
+            </SykmeldingOpplysning>
         }
         {
-            getSykmeldingCheckbox(sykmelding, 'antarReturAnnenArbeidsgiver', 'Jeg antar at pasienten på sikt kan komme tilbake til eget eller annet arbeid hos annen arbeidsgiver', 'typo-element')
+            getSykmeldingCheckbox(sykmelding, 'antarReturAnnenArbeidsgiver', getLedetekst('sykmelding.vis.friskmelding.retur.annen.arbeidsgiver.tittel', ledetekster), 'typo-element')
         }
         {
-            getSykmeldingCheckbox(sykmelding, 'tilbakemeldingReturArbeid', 'Jeg er usikker på om pasienten kan komme tilbake i arbeid hos egen eller annen arbeidsgiver', 'typo-element')
+            getSykmeldingCheckbox(sykmelding, 'tilbakemeldingReturArbeid', getLedetekst('sykmelding.vis.friskmelding.retur.usikker.tittel', ledetekster), 'typo-element')
         }
         {
         !sykmelding.tilbakemeldingReturArbeid ? null :
-            <SykmeldingOpplysning className="sykmelding-subopplysning" tittel="Når antar du å kunne gi tilbakemelding på dette?">
+            <SykmeldingOpplysning className="sykmelding-subopplysning" tittel={getLedetekst('sykmelding.vis.friskmelding.retur.usikker.dato', ledetekster)}>
                 <p className="sykmelding-opplysning-verdi js-tilbakemeldingReturArbeidDato">{formatDate(sykmelding.tilbakemeldingReturArbeid)}</p>
             </SykmeldingOpplysning>
         }
         {
-            getSykmeldingCheckbox(sykmelding, 'utenArbeidsgiverAntarTilbakeIArbeid', 'Jeg antar at pasienten på sikt kan komme tilbake i arbeid', 'typo-element')
+            getSykmeldingCheckbox(sykmelding, 'utenArbeidsgiverAntarTilbakeIArbeid', getLedetekst('sykmelding.vis.friskmelding.uten.arbeidsgiver.retur.tittel', ledetekster), 'typo-element')
         }
         {
             !(sykmelding.utenArbeidsgiverAntarTilbakeIArbeid && sykmelding.utenArbeidsgiverAntarTilbakeIArbeidDato) ? null :
-            <SykmeldingOpplysning className="sykmelding-subopplysning" tittel="Når antar du at dette kan skje?">
+            <SykmeldingOpplysning className="sykmelding-subopplysning" tittel={getLedetekst('sykmelding.vis.friskmelding.uten.arbeidsgiver.retur.dato', ledetekster)}>
                 <p className="sykmelding-opplysning-verdi js-utenArbeidsgiverAntarTilbakeIArbeidDato">{formatDate(sykmelding.utenArbeidsgiverAntarTilbakeIArbeidDato)}</p>
             </SykmeldingOpplysning>
         }
         {
-            getSykmeldingCheckbox(sykmelding, 'utenArbeidsgiverTilbakemelding', 'Jeg er usikker på om pasienten kan komme tilbake i arbeid', 'typo-element')
+            getSykmeldingCheckbox(sykmelding, 'utenArbeidsgiverTilbakemelding', getLedetekst('sykmelding.vis.friskmelding.uten.arbeidsgiver.usikker.tittel', ledetekster), 'typo-element')
         }
         {
             !sykmelding.utenArbeidsgiverTilbakemelding ? null :
-            <SykmeldingOpplysning className="sykmelding-subopplysning" tittel="Når antar du å kunne gi tilbakemelding på dette?">
+            <SykmeldingOpplysning className="sykmelding-subopplysning" tittel={getLedetekst('sykmelding.vis.friskmelding.uten.arbeidsgiver.usikker.dato', ledetekster)}>
                 <p className="js-utenArbeidsgiverTilbakemeldingDato">{formatDate(sykmelding.utenArbeidsgiverTilbakemelding)}</p>
             </SykmeldingOpplysning>
         }
     </div>);
+};
+
+Friskmelding.propTypes = {
+    sykmelding: PropTypes.object,
+    ledetekster: PropTypes.object,
 };
 
 export default Friskmelding;

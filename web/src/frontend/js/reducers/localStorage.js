@@ -1,16 +1,16 @@
-let initiellState; 
+let initState;
 
 try {
-    initiellState = {
+    initState = {
         skjulUnderUtviklingVarsel: window.localStorage.getItem('skjulUnderUtviklingVarsel') === 'true',
     };
 } catch (e) {
-    initiellState = {
+    initState = {
         skjulUnderUtviklingVarsel: false,
     };
 }
 
-export default function localStorage(state = initiellState, action) {
+export default function localStorage(state = initState, action) {
     if (action.type === 'SKJUL_UNDER_UTVIKLING_VARSEL') {
         return {
             skjulUnderUtviklingVarsel: true,

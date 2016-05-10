@@ -27,6 +27,32 @@ describe('sykmeldinger', () => {
         });
     });
 
+    it("Håndterer HENTER_SYKMELDINGER", () => {
+        const initialState = {};
+        const action = {
+            type: "HENTER_SYKMELDINGER"
+        }
+        const nextState = sykmeldinger(initialState, action);
+        expect(nextState).to.deep.equal({
+            data: [],
+            henter: true,
+            hentingFeilet: false,
+        });
+    });
+
+    it("Håndterer HENT_SYKMELDINGER_FEILET", () => {
+        const initialState = {};
+        const action = {
+            type: "HENT_SYKMELDINGER_FEILET"
+        }
+        const nextState = sykmeldinger(initialState, action);
+        expect(nextState).to.deep.equal({
+            data: [],
+            henter: false,
+            hentingFeilet: true,
+        });
+    });
+
     it("håndterer SET_SORTERING ", () => {
         const initialState = {};
         const action = {
@@ -38,6 +64,8 @@ describe('sykmeldinger', () => {
         expect(nextState).to.deep.equal({
             sortering: 'arbeidsgiver'
         });
-    })
+    });
+
+
 
 }); 

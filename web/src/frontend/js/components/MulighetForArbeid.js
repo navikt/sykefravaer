@@ -72,7 +72,7 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
                     getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig434',
                         getLedetekst('sykmelding.vis.mulighet.for.arbeid.forhold.arbeidsplassen.beskriv.tittel', ledetekster))
                 }
-		</div>);
+        </div>);
 };
 
 MulighetForArbeid.propTypes = {

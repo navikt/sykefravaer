@@ -11,7 +11,8 @@ const Tilbakedatering = ({ sykmelding, ledetekster }) => {
     return (<div className="sykmelding-seksjon">
                <h4 className="sykmelding-seksjonstittel">{getLedetekst('sykmelding.vis.tilbakedatering.tittel', ledetekster)}</h4>
                 {
-                    getSykmeldingOpplysning(sykmelding, 'dokumenterbarPasientkontakt', getLedetekst('sykmelding.vis.tilbakedatering.kontakt.dato', ledetekster), formatDate(sykmelding.dokumenterbarPasientkontakt))
+                    getSykmeldingOpplysning(sykmelding, 'dokumenterbarPasientkontakt',
+                        getLedetekst('sykmelding.vis.tilbakedatering.kontakt.dato', ledetekster), formatDate(sykmelding.dokumenterbarPasientkontakt))
                 }
                 {
                     getSykmeldingOpplysning(sykmelding, 'tilbakedatertBegrunnelse', getLedetekst('sykmelding.vis.tilbakedatering.begrunnelse', ledetekster))

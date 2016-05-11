@@ -50,8 +50,8 @@ export class Utvidbar extends Component {
                     onClick={(event) => {this.toggle(event);}}
                     className="utvidbar-toggle">
                     <h3 className={!this.state.erApen ? 'utvidbar-header' : 'utvidbar-header utvidbar-header-apen'}>
-                        <img src={'/sykefravaer/img/' + this.state.ikon} alt={this.props.ikonAltTekst} className="header-ikon" />
-                        <img src={'/sykefravaer/img/' + this.state.ikonHoykontrast} alt={this.props.ikonAltTekst} className="header-ikon header-ikon-hoykontrast" />
+                        <img src={`/sykefravaer/img/${this.state.ikon}`} alt={this.props.ikonAltTekst} className="header-ikon" />
+                        <img src={`/sykefravaer/img/${this.state.ikonHoykontrast}`} alt={this.props.ikonAltTekst} className="header-ikon header-ikon-hoykontrast" />
                         <span className="header-tittel">{this.props.tittel}</span>
                     </h3>
                 </a>

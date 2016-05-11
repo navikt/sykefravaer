@@ -20,16 +20,19 @@ const Friskmelding = ({ sykmelding, ledetekster }) => {
     return (<div className="sykmelding-seksjon">
         <h4 className="sykmelding-seksjonstittel">{getLedetekst('sykmelding.vis.friskmelding.tittel', ledetekster)}</h4>
         {
-            getSykmeldingCheckbox(sykmelding, 'antarReturSammeArbeidsgiver', getLedetekst('sykmelding.vis.friskmelding.retur.samme.arbeidsgiver.tittel', ledetekster), 'typo-element')
+            getSykmeldingCheckbox(sykmelding, 'antarReturSammeArbeidsgiver',
+                getLedetekst('sykmelding.vis.friskmelding.retur.samme.arbeidsgiver.tittel', ledetekster), 'typo-element')
         }
         {
             !sykmelding.antattDatoReturSammeArbeidsgiver ? null :
-            <SykmeldingOpplysning Overskrift="h5" tittel={getLedetekst('sykmelding.vis.friskmelding.retur.samme.arbeidsgiver.dato', ledetekster)} className="sykmelding-subopplysning">
+            <SykmeldingOpplysning Overskrift="h5" className="sykmelding-subopplysning"
+                tittel={getLedetekst('sykmelding.vis.friskmelding.retur.samme.arbeidsgiver.dato', ledetekster)}>
                 <p className="sykmelding-opplysning-verdi js-antattDatoReturSammeArbeidsgiver">{formatDate(sykmelding.antattDatoReturSammeArbeidsgiver)}</p>
             </SykmeldingOpplysning>
         }
         {
-            getSykmeldingCheckbox(sykmelding, 'antarReturAnnenArbeidsgiver', getLedetekst('sykmelding.vis.friskmelding.retur.annen.arbeidsgiver.tittel', ledetekster), 'typo-element')
+            getSykmeldingCheckbox(sykmelding, 'antarReturAnnenArbeidsgiver',
+                getLedetekst('sykmelding.vis.friskmelding.retur.annen.arbeidsgiver.tittel', ledetekster), 'typo-element')
         }
         {
             getSykmeldingCheckbox(sykmelding, 'tilbakemeldingReturArbeid', getLedetekst('sykmelding.vis.friskmelding.retur.usikker.tittel', ledetekster), 'typo-element')
@@ -41,7 +44,8 @@ const Friskmelding = ({ sykmelding, ledetekster }) => {
             </SykmeldingOpplysning>
         }
         {
-            getSykmeldingCheckbox(sykmelding, 'utenArbeidsgiverAntarTilbakeIArbeid', getLedetekst('sykmelding.vis.friskmelding.uten.arbeidsgiver.retur.tittel', ledetekster), 'typo-element')
+            getSykmeldingCheckbox(sykmelding, 'utenArbeidsgiverAntarTilbakeIArbeid',
+                getLedetekst('sykmelding.vis.friskmelding.uten.arbeidsgiver.retur.tittel', ledetekster), 'typo-element')
         }
         {
             !(sykmelding.utenArbeidsgiverAntarTilbakeIArbeid && sykmelding.utenArbeidsgiverAntarTilbakeIArbeidDato) ? null :
@@ -50,7 +54,8 @@ const Friskmelding = ({ sykmelding, ledetekster }) => {
             </SykmeldingOpplysning>
         }
         {
-            getSykmeldingCheckbox(sykmelding, 'utenArbeidsgiverTilbakemelding', getLedetekst('sykmelding.vis.friskmelding.uten.arbeidsgiver.usikker.tittel', ledetekster), 'typo-element')
+            getSykmeldingCheckbox(sykmelding, 'utenArbeidsgiverTilbakemelding',
+                getLedetekst('sykmelding.vis.friskmelding.uten.arbeidsgiver.usikker.tittel', ledetekster), 'typo-element')
         }
         {
             !sykmelding.utenArbeidsgiverTilbakemelding ? null :

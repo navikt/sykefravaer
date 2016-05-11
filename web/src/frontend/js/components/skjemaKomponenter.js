@@ -7,8 +7,8 @@ const Radioknapp = ({ name, value, onChange, id, label, children }) => {
                 value={value}
                 onChange={onChange}
                 className="nav-radioknapp"
-                id={'radio-' + id} />
-            <label htmlFor={'radio-' + id}>
+                id={`radio-${id}`} />
+            <label htmlFor={`radio-${id}`}>
                 {label}
             </label>
         </div>
@@ -50,7 +50,7 @@ export class Radiogruppe extends Component {
                     onChange={() => { this.onChange(knapp.props.value); }}
                     name={this.props.name}
                     key={index}
-                    id={'radio-' + knapp.props.name + '-' + index}
+                    id={`radio-${knapp.props.name}-${index}`}
                     {...knapp.props} />);
             })}
             <span className="skjema-feilmelding" role="alert" aria-live="polite">{this.props.feilmelding}</span>
@@ -80,9 +80,9 @@ export const Checkbox = ({ name, value, onChange, id, isChecked, children, valgt
                 value={value}
                 onChange={onChange}
                 className="nav-checkbox"
-                id={'radio-' + id}
+                id={`radio-${id}`}
                 checked={isChecked} />
-            <label htmlFor={'radio-' + id}>
+            <label htmlFor={`radio-${id}`}>
                 {label}
             </label>
         </div>

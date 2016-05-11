@@ -39,7 +39,8 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
     return (<div className="sykmelding-seksjon">
                 <h4 className="sykmelding-seksjonstittel">{getLedetekst('sykmelding.vis.mulighet.for.arbeid.tittel', ledetekster)}</h4>
                 {
-                    getSykmeldingOpplysning(sykmelding, 'startLegemeldtFravaer', getLedetekst('sykmelding.vis.mulighet.for.arbeid.start.legemeldt.fravaer.tittel', ledetekster), formatDate(sykmelding.startLegemeldtFravaer))
+                    getSykmeldingOpplysning(sykmelding, 'startLegemeldtFravaer',
+                        getLedetekst('sykmelding.vis.mulighet.for.arbeid.start.legemeldt.fravaer.tittel', ledetekster), formatDate(sykmelding.startLegemeldtFravaer))
                 }
                 {
                     (sykmelding.aktivitetIkkeMulig433 && sykmelding.aktivitetIkkeMulig433.length) > 0 ?
@@ -60,14 +61,16 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
                     <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.mulighet.for.arbeid.tittel', ledetekster)}>
                         <div>
                             {
-                                getSykmeldingCheckbox(sykmelding, 'aktivitetIkkeMulig434', getLedetekst('sykmelding.vis.mulighet.for.arbeid.forhold.arbeidsplassen.tittel', ledetekster))
+                                getSykmeldingCheckbox(sykmelding, 'aktivitetIkkeMulig434',
+                                    getLedetekst('sykmelding.vis.mulighet.for.arbeid.forhold.arbeidsplassen.tittel', ledetekster))
                             }
                             <Aarsaker aarsaker={sykmelding.aktivitetIkkeMulig434} containerClassName="js-aktivitetIkkeMulig434hvisJa" />
                         </div>
                     </SykmeldingOpplysning> : null
                 }
                 {
-                    getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig434', getLedetekst('sykmelding.vis.mulighet.for.arbeid.forhold.arbeidsplassen.beskriv.tittel', ledetekster))
+                    getSykmeldingOpplysning(sykmelding, 'aarsakAktivitetIkkeMulig434',
+                        getLedetekst('sykmelding.vis.mulighet.for.arbeid.forhold.arbeidsplassen.beskriv.tittel', ledetekster))
                 }
 		</div>);
 };

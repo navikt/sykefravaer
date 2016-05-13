@@ -70,7 +70,8 @@
     "scroll-behavior": "0.3.2",
     "sinon": "1.17.3",
     "webpack": "1.12.13",
-    "whatwg-fetch": "0.11.0"
+    "whatwg-fetch": "0.11.0",
+    "chokidar": "git+https://github.com/paulmillr/chokidar.git#1.4.2"
   },
   "devDependencies": {
     "autoprefixer-loader": "3.2.0",

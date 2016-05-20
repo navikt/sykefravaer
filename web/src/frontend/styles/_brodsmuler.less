@@ -7,30 +7,37 @@
 	}
 }
 
+.brodsmuler-ikon, .brodsmuler-ikon-hoykontrast {
+	display: none; 
+}
+
 .brodsmule-skille {
 	padding-left: .5rem; 
 	padding-right: .5rem; 
 }
 
-.brodsmuler-ikon {
-	margin-right: 1rem; 
-	width: 2rem; 
-	height: 2rem; 
-	display: inline-block; 
-}
-
-.brodsmuler-ikon-hoykontrast {
-	display: none; 
-}
-
-.contrast {
+@media(min-width: @screen-medium) {
 
 	.brodsmuler-ikon {
-		display: none;
-	}
-
-	.brodsmuler-ikon-hoykontrast {
+		margin-right: 1rem; 
+		width: 2rem; 
+		height: 2rem; 
 		display: inline-block; 
 	}
+	
+	.brodsmuler-ikon-hoykontrast {
+		display: none; 
+	}
 
+	.contrast {
+
+		.brodsmuler-ikon {
+			display: none;
+		}
+
+		.brodsmuler-ikon-hoykontrast {
+			display: inline-block; 
+		}
+
+	}
 }

@@ -10,7 +10,7 @@ const SideMedHoyrekolonne = ({ children, tittel, brodsmuler = [] }) => {
                 <div className="col-md-8">
                     {children}
                 </div>
-                <aside className="col-md-4">
+                <aside className="col-md-4 js-aside">
                     <article className="panel typo-infotekst">
                         <h2 className="typo-undertittel">Hjelp oss å bli bedre</h2>
                         <p className="typo-infotekst">Dette er en tjeneste som fortsatt er under utvikling. Gi oss tilbakemelding slik at vi kan bli bedre!</p>

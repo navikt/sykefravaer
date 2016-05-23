@@ -8,7 +8,7 @@ const DocumentTitle = require('react-document-title');
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import SideMedHoyreKolonne from "../../js/sider/SideMedHoyreKolonne.js";
+import SideMedHoyreKolonne from "../../js/sider/SideMedHoyrekolonne.js";
 import Brodsmuler from '../../js/components/Brodsmuler.js';
 
 let component;

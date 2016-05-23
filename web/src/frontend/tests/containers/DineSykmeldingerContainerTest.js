@@ -70,7 +70,7 @@ const sykmeldinger = [{
     arbeidsfoerEtterPerioden: true
 }];
 
-describe.only("DineSykmeldingerContainer", () => {
+describe("DineSykmeldingerContainer", () => {
 
     let component; 
 

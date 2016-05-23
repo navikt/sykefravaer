@@ -7,30 +7,30 @@ import AppSpinner from '../components/AppSpinner.js';
 import Feilmelding from '../components/Feilmelding.js';
 import { getLedetekst } from '../ledetekster';
 
-const Controller = (state) => {
-    return (<SideMedHoyrekolonne tittel={getLedetekst('sykmelding.vis.sidetittel', state.ledetekster.data)} brodsmuler={state.brodsmuler}>
+export const DinSykmldSide = (props) => {
+    return (<SideMedHoyrekolonne tittel={getLedetekst('sykmelding.vis.sidetittel', props.ledetekster.data)} brodsmuler={props.brodsmuler}>
             {
                 (() => {
-                    if (state.sykmelding.henter) {
-                        return <AppSpinner ledetekster={state.ledetekster.data} />;
-                    } else if (state.sykmelding.hentingFeilet) {
+                    if (props.sykmelding.henter) {
+                        return <AppSpinner ledetekster={props.ledetekster.data} />;
+                    } else if (props.sykmelding.hentingFeilet) {
                         return (<Feilmelding />);
-                    } else if (!state.sykmelding.data) {
+                    } else if (!props.sykmelding.data) {
                         return (<Feilmelding
-                            tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', state.ledetekster.data)}
-                            melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', state.ledetekster.data)} />);
+                            tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', props.ledetekster.data)}
+                            melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', props.ledetekster.data)} />);
                     }
-                    return <DinSykmelding sykmelding={state.sykmelding.data} ledetekster={state.ledetekster.data} />;
+                    return <DinSykmelding sykmelding={props.sykmelding.data} ledetekster={props.ledetekster.data} />;
                 })()
             }
     </SideMedHoyrekolonne>);
 };
 
-Controller.propTypes = {
+DinSykmldSide.propTypes = {
     sykmelding: PropTypes.object,
 };
 
-function mapStateToProps(state, ownProps) {
+export function mapStateToProps(state, ownProps) {
     const sykmelding = state.sykmeldinger.data.filter((sykmld) => {
         return sykmld.id === Number(ownProps.params.sykmeldingId);
     })[0];
@@ -52,4 +52,4 @@ function mapStateToProps(state, ownProps) {
     };
 }
 
-export const DinSykmeldingContainer = connect(mapStateToProps, actionCreators)(Controller);
+export const DinSykmeldingContainer = connect(mapStateToProps, actionCreators)(DinSykmldSide);

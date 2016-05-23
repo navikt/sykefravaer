@@ -31,7 +31,7 @@ export class Utvidbar extends Component {
         const el = this.refs.utvidbar;
         this.setState({
             erApen: !this.state.erApen,
-        }, () => {    
+        }, () => {
             setTimeout(() => {
                 scrollTo(el, 600);
             }, 150);

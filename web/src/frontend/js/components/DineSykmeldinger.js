@@ -11,7 +11,7 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, skjulVarsel = f
         <h1 className="side-header typo-sidetittel">
             {getLedetekst('dine-sykmeldinger.tittel', ledetekster)}
         </h1>
-        <div className="dine-sykmeldinger-intro redaksjonelt-innhold side-innhold">
+        <div className="dine-sykmeldinger-intro redaksjonelt-innhold side-innhold js-intro">
             <p dangerouslySetInnerHTML={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst', ledetekster)} />
         </div>
         <SykmeldingTeasere
@@ -22,7 +22,7 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, skjulVarsel = f
             ledetekster={ledetekster}
             id="sykmelding-liste"
         />
-        <article className="panel">
+        <article className="panel js-forklaring">
             <h2 className="dine-sykmeldinger-forklaringstittel">
                 {getLedetekst('dine-sykmeldinger.informasjon.tittel', ledetekster)}
             </h2>

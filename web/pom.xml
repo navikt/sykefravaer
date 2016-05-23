@@ -116,7 +116,7 @@
                             <executable>npm</executable>
                             <arguments>
                                 <argument>run</argument>
-                                <argument>test</argument>
+                                <argument>coverage</argument>
                             </arguments>
                             <workingDirectory>src/frontend</workingDirectory>
                         </configuration>

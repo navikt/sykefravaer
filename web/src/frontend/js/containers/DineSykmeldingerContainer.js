@@ -7,7 +7,7 @@ import { getLedetekst } from '../ledetekster';
 import Feilmelding from '../components/Feilmelding.js';
 import { sorterSykmeldinger } from '../utils';
 
-const DineSykmldSide = (props) => {
+export const DineSykmldSide = (props) => {
     return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel', props.ledetekster.data)} brodsmuler={props.brodsmuler}>
         {
             (() => {
@@ -33,7 +33,7 @@ DineSykmldSide.propTypes = {
     skjulVarsel: PropTypes.bool,
 };
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
     return {
         sykmeldinger: state.sykmeldinger,
         ledetekster: state.ledetekster,

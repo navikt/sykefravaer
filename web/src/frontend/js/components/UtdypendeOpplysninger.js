@@ -1,29 +1,32 @@
 import React, { PropTypes } from 'react';
-import { formatDate } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
-import { SykmeldingOpplysning } from './SykmeldingOpplysning.js';
-import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
+import { getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const UtdypendeOpplysninger = ({ sykmelding, ledetekster }) => {
     const visSeksjon = sykmelding.sykehistorie || sykmelding.paavirkningArbeidsevne || sykmelding.resultatAvBehandling || sykmelding.henvisningUtredningBehandling;
-    if(!visSeksjon) {
-        return <span />
+    if (!visSeksjon) {
+        return <span />;
     }
-	return (<div className="sykmelding-seksjon">
-                <h4 className="sykmelding-seksjonstittel">Utdypende opplysninger</h4>
+    return (<div className="sykmelding-seksjon">
+                <h4 className="sykmelding-seksjonstittel">{getLedetekst('sykmelding.vis.utdypende.tittel', ledetekster)}</h4>
                 {
-                    getSykmeldingOpplysning(sykmelding, "sykehistorie", "Beskriv kort sykehistorie, symptomer og funn i dagens situasjon")
+                    getSykmeldingOpplysning(sykmelding, 'sykehistorie', getLedetekst('sykmelding.vis.utdypende.sykehistorie.tittel', ledetekster))
                 }
                 {
-                    getSykmeldingOpplysning(sykmelding, "paavirkningArbeidsevne", "Hvordan påvirker sykdommen arbeidsevnen?")
+                    getSykmeldingOpplysning(sykmelding, 'paavirkningArbeidsevne', getLedetekst('sykmelding.vis.utdypende.paavirkning.arbeidsevne.tittel', ledetekster))
                 }
                 {
-                    getSykmeldingOpplysning(sykmelding, "resultatAvBehandling", "Har behandlingen frem til nå bedret arbeidsevnen?")
+                    getSykmeldingOpplysning(sykmelding, 'resultatAvBehandling', getLedetekst('sykmelding.vis.utdypende.behandlingsresultat.tittel', ledetekster))
                 }
                 {
-                    getSykmeldingOpplysning(sykmelding, "henvisningUtredningBehandling", "Beskriv pågående og planlagt henvisning, utredning og/eller behandling")
+                    getSykmeldingOpplysning(sykmelding, 'henvisningUtredningBehandling', getLedetekst('sykmelding.vis.utdypende.henvisning.tittel', ledetekster))
                 }
-		</div>);
+        </div>);
+};
+
+UtdypendeOpplysninger.propTypes = {
+    sykmelding: PropTypes.object,
+    ledetekster: PropTypes.object,
 };
 
 export default UtdypendeOpplysninger;

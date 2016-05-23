@@ -8,21 +8,21 @@ export class Utvidbar extends Component {
         this.state = {
             erApen: this.props.erApen,
             ikon: this.props.ikon,
-            ikonHoykontrast: this.props.ikon.replace(".svg", "-highcontrast.svg"),
+            ikonHoykontrast: this.props.ikon.replace('.svg', '-highcontrast.svg'),
         };
     }
 
     onMouseEnter() {
         this.setState({
             ikon: this.props.ikonHover,
-            ikonHoykontrast: this.props.ikonHover.replace(".svg", "-highcontrast.svg"),
+            ikonHoykontrast: this.props.ikonHover.replace('.svg', '-highcontrast.svg'),
         });
     }
 
     onMouseLeave() {
         this.setState({
             ikon: this.props.ikon,
-            ikonHoykontrast: this.props.ikon.replace(".svg", "-highcontrast.svg"),
+            ikonHoykontrast: this.props.ikon.replace('.svg', '-highcontrast.svg'),
         });
     }
 
@@ -48,8 +48,8 @@ export class Utvidbar extends Component {
                     onClick={(event) => {this.toggle(event);}}
                     className="utvidbar-toggle">
                     <h3 className={!this.state.erApen ? 'utvidbar-header' : 'utvidbar-header utvidbar-header-apen'}>
-                        <img src={'/sykefravaer/img/' + this.state.ikon} alt={this.props.ikonAltTekst} className="header-ikon" />
-                        <img src={'/sykefravaer/img/' + this.state.ikonHoykontrast} alt={this.props.ikonAltTekst} className="header-ikon header-ikon-hoykontrast" />
+                        <img src={`/sykefravaer/img/${this.state.ikon}`} alt={this.props.ikonAltTekst} className="header-ikon" />
+                        <img src={`/sykefravaer/img/${this.state.ikonHoykontrast}`} alt={this.props.ikonAltTekst} className="header-ikon header-ikon-hoykontrast" />
                         <span className="header-tittel">{this.props.tittel}</span>
                     </h3>
                 </a>
@@ -73,7 +73,7 @@ export class Utvidbar extends Component {
 Utvidbar.propTypes = {
     erApen: PropTypes.bool.isRequired,
     tittel: PropTypes.string.isRequired,
-    children: PropTypes.array,
+    children: PropTypes.object,
     ikon: PropTypes.string,
     ikonHover: PropTypes.string,
     ikonAltTekst: PropTypes.string,

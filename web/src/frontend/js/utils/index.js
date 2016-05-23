@@ -47,13 +47,11 @@ export function sorterPerioder(sykmelding) {
 }
 
 export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
-    let skmldr = sykmeldinger.map(sorterPerioder);
-    skmldr = sykmeldinger.sort((a, b) => {
+    sykmeldinger.map(sorterPerioder);
+    return sykmeldinger.sort((a, b) => {
         if (kriterium === 'fom' || a.arbeidsgiver.trim().toUpperCase() === b.arbeidsgiver.trim().toUpperCase()) {
             return a.perioder[0].fom > b.perioder[0].fom ? -1 : 1;
         }
         return a[kriterium] < b[kriterium] ? -1 : 1;
     });
-
-    return skmldr;
 }

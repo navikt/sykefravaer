@@ -1,26 +1,29 @@
 import React, { PropTypes } from 'react';
-import { formatDate } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
-import { SykmeldingOpplysning } from './SykmeldingOpplysning.js';
-import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
+import { getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const BedreArbeidsevne = ({ sykmelding, ledetekster }) => {
     const visSeksjon = sykmelding.tilretteleggingArbeidsplass || sykmelding.tiltakNAV || sykmelding.tiltakAndre;
-    if(!visSeksjon) {
+    if (!visSeksjon) {
         return <span />;
     }
-	return (<div className="sykmelding-seksjon">
-            <h4 className="sykmelding-seksjonstittel">Hva skal til for å bedre arbeidsevnen?</h4>
+    return (<div className="sykmelding-seksjon">
+            <h4 className="sykmelding-seksjonstittel">{getLedetekst('sykmelding.vis.arbeidsevne.tittel', ledetekster)}</h4>
             {
-                getSykmeldingOpplysning(sykmelding, "tilretteleggingArbeidsplass", "Tilrettelegging/hensyn som bør tas på arbeidsplassen")
+                getSykmeldingOpplysning(sykmelding, 'tilretteleggingArbeidsplass', getLedetekst('sykmelding.vis.arbeidsevne.tilrettelegging', ledetekster))
             }
             {
-                getSykmeldingOpplysning(sykmelding, "tiltakNAV", "Tiltak i regi av/innspill til NAV")
+                getSykmeldingOpplysning(sykmelding, 'tiltakNAV', getLedetekst('sykmelding.vis.arbeidsevne.tiltaknav', ledetekster))
             }
             {
-                getSykmeldingOpplysning(sykmelding, "tiltakAndre", "Eventuelle andre tiltak/innspill")
+                getSykmeldingOpplysning(sykmelding, 'tiltakAndre', getLedetekst('sykmelding.vis.arbeidsevne.tiltakandre', ledetekster))
             }
-	</div>);
+    </div>);
+};
+
+BedreArbeidsevne.propTypes = {
+    sykmelding: PropTypes.object,
+    ledetekster: PropTypes.object,
 };
 
 export default BedreArbeidsevne;

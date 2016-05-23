@@ -3,7 +3,7 @@ import { formatDate, getDuration } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
 import Utvidbar from '../components/Utvidbar.js';
 import AppSpinner from './AppSpinner.js';
-import { SykmeldingOpplysning, SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
+import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
 import SykmeldingPeriode from './SykmeldingPeriode.js';
 import { Link } from 'react-router';
 import MulighetForArbeid from './MulighetForArbeid.js';
@@ -14,8 +14,8 @@ import MeldingTilNAV from './MeldingTilNAV.js';
 import Tilbakedatering from './Tilbakedatering.js';
 import MeldingTilArbeidsgiver from './MeldingTilArbeidsgiver.js';
 import AndreSykmeldingOpplysninger from './AndreSykmeldingOpplysninger.js';
-import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
-import { SykmeldingCheckbox, SykmeldingCheckboxSelvstendig } from '../components/SykmeldingCheckbox.js';
+import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils.js';
+import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox.js';
 
 const DinSykmelding = ({ sykmelding, ledetekster }) => {
     if (!sykmelding || !sykmelding.id) {
@@ -35,8 +35,8 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
             <div className="blokk-l side-innhold">
                 <div className="sykmelding-perioder">
                     {
-                        sykmelding.perioder.map((periode, index) => {
-                            return (<SykmeldingPeriode periode={periode} antallDager={getDuration(periode.fom, periode.tom)} />);
+                        sykmelding.perioder.map((periode) => {
+                            return (<SykmeldingPeriode periode={periode} antallDager={getDuration(periode.fom, periode.tom)} ledetekster={ledetekster} />);
                         })
                     }
                 </div>
@@ -51,7 +51,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                             &nbsp;(<span className="js-hoveddiagnose-system">{sykmelding.hoveddiagnose.diagnosesystem}</span>)
                         </p>
                     </SykmeldingNokkelOpplysning>
-                </div>) : ''
+                </div>) : null
                 }
                 {
                     sykmelding.bidiagnose ? (<div className="diagnose-container">
@@ -67,48 +67,48 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 </div>) : ''
                 }
                 {
-                    sykmelding.fravaersgrunnLovfestet ? 
+                    sykmelding.fravaersgrunnLovfestet ?
                     <SykmeldingNokkelOpplysning tittel="Lovfestet fraværsgrunn">
                         <p className="js-fravaersgrunnLovfestet">{sykmelding.fravaersgrunnLovfestet}</p>
-                    </SykmeldingNokkelOpplysning> : ''
+                    </SykmeldingNokkelOpplysning> : null
                 }
                 {
-                    sykmelding.fravaerBeskrivelse ? 
+                    sykmelding.fravaerBeskrivelse ?
                     <SykmeldingNokkelOpplysning tittel="Beskriv fraværet">
                         <p className="js-fravaerBeskrivelse">{sykmelding.fravaerBeskrivelse}</p>
-                    </SykmeldingNokkelOpplysning> : ''
+                    </SykmeldingNokkelOpplysning> : null
                 }
                 {
-                    getSykmeldingCheckbox(sykmelding, "svangerskap", "Sykdommen er svangerskapsrelatert", "blokk")
+                    getSykmeldingCheckbox(sykmelding, 'svangerskap', getLedetekst('sykmelding.vis.svangerskap.tittel', ledetekster), 'blokk')
                 }
                 {
-                    !sykmelding.yrkesskadeDato ? null : 
-                    <SykmeldingCheckbox tekst="Sykdommen kan skyldes en skade/yrkessykdom" jsClassName="yrkesskade" />
+                    !sykmelding.yrkesskadeDato ? null :
+                    <SykmeldingCheckbox tekst={getLedetekst('sykmelding.vis.yrkesskade.tittel', ledetekster)} jsClassName="yrkesskade" />
                 }
                 {
-                    !sykmelding.yrkesskadeDato ? null : 
+                    !sykmelding.yrkesskadeDato ? null :
                     <SykmeldingNokkelOpplysning tittel="Skadedato" className="sykmelding-subopplysning">
                         <p className=" js-yrkesskadeDato">{formatDate(sykmelding.yrkesskadeDato)}</p>
                     </SykmeldingNokkelOpplysning>
                 }
                 {
-                    getSykmeldingCheckbox(sykmelding, 'arbeidsfoerEtterPerioden', "Pasienten er 100 % arbeidsfør etter perioden", "blokk")
+                    getSykmeldingCheckbox(sykmelding, 'arbeidsfoerEtterPerioden', getLedetekst('sykmelding.vis.arbeidsfoer.tittel', ledetekster), 'blokk')
                 }
                 {
                     !sykmelding.hensynPaaArbeidsplassen ? null :
-                    <SykmeldingNokkelOpplysning tittel="Beskriv eventuelle hensyn som må tas på arbeidsplassen">
+                    <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.hensyn.tittel', ledetekster)}>
                         <p className="js-hensynPaaArbeidsplassen">{sykmelding.hensynPaaArbeidsplassen}</p>
                     </SykmeldingNokkelOpplysning>
                 }
                 {
                     sykmelding.arbeidsgiver ? <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.arbeidsgiver.tittel', ledetekster)}>
                     <p className="js-arbeidsgiver">{sykmelding.arbeidsgiver}</p>
-                </SykmeldingNokkelOpplysning> : ''    
+                </SykmeldingNokkelOpplysning> : null
                 }
                 {
                     sykmelding.sykmelder ? <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.avsender.tittel', ledetekster)}>
                     <p className="js-avsender">{sykmelding.sykmelder}</p>
-                </SykmeldingNokkelOpplysning> : ''
+                </SykmeldingNokkelOpplysning> : null
                 }
             </div>
             <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">

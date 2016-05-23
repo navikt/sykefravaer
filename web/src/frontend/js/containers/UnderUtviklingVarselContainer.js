@@ -17,9 +17,10 @@ export class Varsel extends Component {
     }
 
     render() {
-        return (<div className={'panel typo-infotekst blokk-l under-utvikling-varsel' + (this.state.synlig ? ' er-synlig' : '')}>
+        return (<div className={`panel typo-infotekst blokk-l under-utvikling-varsel ${(this.state.synlig ? 'er-synlig' : '')}`}>
             <h2 className="hode hode-informasjon hode-dekorert typo-innholdstittel">Første versjon av ny tjeneste</h2>
-            <p>Dette er en digital visning av sykmeldingen &ndash; det første steget i en ny tjeneste vi utvikler. Om du kan se sykmeldingen avhenger av hvilket datasystem din lege/sykmelder bruker.</p>
+            <p>Dette er en digital visning av sykmeldingen &ndash; det første steget i en ny tjeneste vi utvikler.
+                Om du kan se sykmeldingen avhenger av hvilket datasystem din lege/sykmelder bruker.</p>
             <button className="modal-lukk" onClick={() => { this.props.skjulUnderUtviklingVarsel();}}>Lukk og ikke vis igjen</button>
         </div>);
     }

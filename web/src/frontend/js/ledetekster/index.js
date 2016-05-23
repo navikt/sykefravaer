@@ -1,6 +1,6 @@
 function replace(str, replacements) {
     return str.replace(/%\w+%/g, (all) => {
-        return replacements[all] + '' || all;
+        return `${replacements[all]}` || all;
     });
 }
 
@@ -10,7 +10,7 @@ export function getHtmlLedetekst(key, labels, replacements) {
         label = '';
     }
     if (!label) {
-        label = key + ' [MANGLER LEDETEKST]';
+        label = `${key} [MANGLER LEDETEKST]`;
     }
     if (replacements) {
         label = replace(label, replacements);
@@ -24,7 +24,7 @@ export function getLedetekst(key, labels = {}, replacements) {
         return '';
     }
     if (!label) {
-        return key + ' [MANGLER LEDETEKST]';
+        return `${key} [MANGLER LEDETEKST]`;
     }
     if (!replacements) {
         return label;

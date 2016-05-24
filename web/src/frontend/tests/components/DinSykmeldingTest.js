@@ -8,6 +8,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import DinSykmelding from "../../js/components/DinSykmelding.js";
+import SykmeldingPerioder from "../../js/components/SykmeldingPerioder.js";
 
 let component;
 
@@ -41,9 +42,9 @@ describe("DinSykmelding", () => {
         component = mount(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}/>)
     })
 
-    it("Skal vise periode", () => {
-        expect(component.find(".js-periode").text()).to.contain("31.12.2015");
-        expect(component.find(".js-periode").text()).to.contain("06.01.2016");
+    it("Skal vise perioder", () => {
+        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}/>)
+        expect(component.find(SykmeldingPerioder)).to.have.length(1)
     });
 
     it("Skal vise antall dager", () => {

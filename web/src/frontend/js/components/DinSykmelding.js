@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import { formatDate, getDuration } from '../utils/index.js';
+import { formatDate } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
 import Utvidbar from '../components/Utvidbar.js';
 import AppSpinner from './AppSpinner.js';
 import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
-import SykmeldingPeriode from './SykmeldingPeriode.js';
+import SykmeldingPerioder from './SykmeldingPerioder.js';
 import { Link } from 'react-router';
 import MulighetForArbeid from './MulighetForArbeid.js';
 import Friskmelding from './Friskmelding.js';
@@ -33,13 +33,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                 {getLedetekst('sykmelding.vis.hovedtittel', ledetekster)}
             </h2>
             <div className="blokk-l side-innhold">
-                <div className="sykmelding-perioder">
-                    {
-                        sykmelding.perioder.map((periode) => {
-                            return (<SykmeldingPeriode periode={periode} antallDager={getDuration(periode.fom, periode.tom)} ledetekster={ledetekster} />);
-                        })
-                    }
-                </div>
+                <SykmeldingPerioder perioder={sykmelding.perioder} ledetekster={ledetekster} />
                 {
                     sykmelding.hoveddiagnose ? (<div className="diagnose-container">
                     <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>

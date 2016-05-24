@@ -7,7 +7,7 @@ const SykmeldingPeriode = ({ periode, antallDager = 1, ledetekster }) => {
     return (<div className="sykmelding-nokkelopplysning">
             <h3>{getLedetekst('sykmelding.vis.periode.tittel', ledetekster)}</h3>
             <p className="js-periode blokk-xxs">
-                <strong>{formatDate(periode.fom)} &ndash; {formatDate(periode.tom)}</strong> &bull; {antallDager} {getLedetekst(dagNokkel, ledetekster)}
+                <strong>{formatDate(periode.fom)} &ndash; {formatDate(periode.tom)}</strong> &bull; {antallDager}&nbsp;{getLedetekst(dagNokkel, ledetekster)}
             </p>
             {
                 periode.grad ? <p className="js-grad">

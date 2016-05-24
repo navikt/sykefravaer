@@ -23,6 +23,16 @@ describe("SykmeldingPeriode", () => {
         expect(periode.find(".js-grad").text()).to.equal("60 % sykmeldt");
     });
 
+    it("Skal vise antall dager", () => {
+        const periode = shallow(<SykmeldingPeriode periode={{
+            "fom": "2016-05-01T22:00:00.000Z",
+            "tom": "2016-05-16T22:00:00.000Z",
+            "grad": 100
+          }} ledetekster={ledetekster} antallDager="16" />);
+        expect(periode.text()).to.contain("16");
+        expect(periode.text()).to.contain("dager");
+    });        
+
     it("Viser grad dersom sykmeldingen er ugradert (100 % sykmeldt)", function () {
         const periode = shallow(<SykmeldingPeriode periode={{
             "fom": "2016-05-01T22:00:00.000Z",

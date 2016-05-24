@@ -47,10 +47,6 @@ describe("DinSykmelding", () => {
         expect(component.find(SykmeldingPerioder)).to.have.length(1)
     });
 
-    it("Skal vise antall dager", () => {
-       expect(component.find(".js-periode").text()).to.contain("7 dager");
-    });    
-
     it("Skal vise avsender", () => {
         expect(component.find(".js-avsender").text()).to.contain("Ove Olsen");
     });

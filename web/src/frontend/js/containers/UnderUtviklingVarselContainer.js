@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import * as actionCreators from '../actions/localStorage_actions.js';
+import * as actionCreators from '../actions/brukerinfo_actions.js';
 
 export class Varsel extends Component {
     constructor(props) {

@@ -30,7 +30,7 @@ export function hentSykmeldinger(type) {
     return function sykmeldinger(dispatch) {
         dispatch(henterSykmeldinger());
         let url = `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger`;
-        if(type) {
+        if (type) {
             url = `${url}?type=${type}`;
         }
         return fetch(url, {

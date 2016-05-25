@@ -9,13 +9,13 @@ import { hentSykmeldinger } from '../actions/sykmeldinger_actions.js';
 
 export class SendTilArbeidsgiverSide extends Component {
 
-    componentWillMount () {
-        let { dispatch } = this.props;
-        let action = hentSykmeldinger('arbeidsgiver');
+    componentWillMount() {
+        const { dispatch } = this.props;
+        const action = hentSykmeldinger('arbeidsgiver');
         dispatch(action);
     }
 
-	render () {
+    render() {
         return (<Side tittel="Send sykmelding til arbeidsgiver" brodsmuler={this.props.brodsmuler}>
         {
             (() => {
@@ -34,20 +34,26 @@ export class SendTilArbeidsgiverSide extends Component {
     </Side>);
     }
 
+}
+
+SendTilArbeidsgiverSide.propTypes = {
+    sykmelding: PropTypes.object,
+    brodsmuler: PropTypes.array,
+    ledetekster: PropTypes.object,
+    dispatch: PropTypes.function,
 };
 
 export function mapStateToProps(state, ownProps) {
-
     const sykmeldingId = ownProps.params.sykmeldingId;
     const sykmelding = state.sykmeldinger.data.filter((sykmld) => {
-        return (sykmld.id + '') === (sykmeldingId + '');
+        return `${sykmld.id}''` === `${sykmeldingId}''`;
     })[0];
 
     return {
         sykmelding: {
-        	data: sykmelding, 
-        	henter: state.sykmeldinger.henter,
-        	hentingFeilet: state.sykmeldinger.hentingFeilet
+            data: sykmelding,
+            henter: state.sykmeldinger.henter,
+            hentingFeilet: state.sykmeldinger.hentingFeilet,
         },
         ledetekster: state.ledetekster,
         brodsmuler: [{
@@ -59,10 +65,9 @@ export function mapStateToProps(state, ownProps) {
             sti: '/sykmeldinger/' + sykmeldingId,
             erKlikkbar: true,
         }, {
-        	tittel: 'Send til arbeidsgiver'
-        }]
+            tittel: 'Send til arbeidsgiver',
+        }],
     };
-    
 }
 
 export const SendTilArbeidsgiverContainer = connect(mapStateToProps)(SendTilArbeidsgiverSide);

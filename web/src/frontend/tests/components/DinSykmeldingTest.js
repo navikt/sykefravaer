@@ -69,7 +69,17 @@ describe("DinSykmelding", () => {
         expect(component.find(".js-arbeidsgiver").length).to.equal(0);
     });
 
-   xdescribe("Arbeidsfør etter perioden", () => {
+    it("Skal vise en knapp dersom strengtFortroligAdresse === false", () => {
+        component = mount(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} strengtFortroligAdresse={false} />)
+        expect(component.find(".js-videre")).to.have.length(1);
+    });
+
+    it("Skal ikke vise en knapp dersom strengtFortroligAdresse === false", () => {
+        component = mount(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} strengtFortroligAdresse={true} />)
+        expect(component.find(".js-videre")).to.have.length(0);
+    });    
+
+    xdescribe("Arbeidsfør etter perioden", () => {
 
         it("Skal vise arbeidsfør etter perioden dersom sykmelding.arbeidsfoerEtterPerioden === true", () => {
             let component = shallow(<DinSykmelding sykmelding={{

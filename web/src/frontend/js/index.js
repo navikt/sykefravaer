@@ -7,10 +7,11 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import sykmeldinger from './reducers/sykmeldinger.js';
 import ledetekster from './reducers/ledetekster.js';
-import localStorage from './reducers/localStorage.js';
+import brukerinfo from './reducers/brukerinfo.js';
 import { browserHistory } from 'react-router';
 import { hentSykmeldinger } from './actions/sykmeldinger_actions.js';
 import { hentLedetekster } from './actions/ledetekster_actions.js';
+import { hentBrukerinfo } from './actions/brukerinfo_actions.js';
 import useScroll from 'scroll-behavior/lib/useStandardScroll';
 
 const history = useScroll(() => {
@@ -20,8 +21,8 @@ const history = useScroll(() => {
 const rootReducer = combineReducers({
     sykmeldinger,
     ledetekster,
+    brukerinfo,
     history,
-    localStorage,
 });
 
 const store = createStore(rootReducer,
@@ -30,11 +31,12 @@ const store = createStore(rootReducer,
 
 store.dispatch(hentLedetekster());
 store.dispatch(hentSykmeldinger());
+store.dispatch(hentBrukerinfo());
 
 render(<Provider store={store}>
         <AppRouter history={history} /></Provider>,
     document.getElementById('maincontent'));
 
 export {
-	store
+	store,
 };

@@ -39,7 +39,7 @@ export class Utvidbar extends Component {
     }
 
     render() {
-        return (<div ref="utvidbar" className={"utvidbar blokk-l " + this.props.className} aria-expanded={this.state.erApen}>
+        return (<div ref="utvidbar" className={`utvidbar blokk-l ${this.props.className}`} aria-expanded={this.state.erApen}>
                 <a href="javscript:void(0)"
                     role="button"
                     aria-pressed={this.state.erApen}
@@ -77,6 +77,7 @@ Utvidbar.propTypes = {
     ikon: PropTypes.string,
     ikonHover: PropTypes.string,
     ikonAltTekst: PropTypes.string,
+    className: PropTypes.string,
 };
 
 Utvidbar.defaultProps = {

@@ -10,7 +10,7 @@ window.localStorage = {
 import * as actions from '../../js/actions/brukerInfo_actions.js';
 import brukerinfo from '../../js/reducers/brukerinfo.js';
 
-describe.only('brukerinfo', () => {
+describe('brukerinfo', () => {
 
     let initiellState;
 

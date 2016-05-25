@@ -10,7 +10,7 @@ const MeldingTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
     return (<div className="sykmelding-seksjon">
             <h4 className="sykmelding-seksjonstittel">{getLedetekst('sykmelding.vis.meldingarbeidsgiver.tittel', ledetekster)}</h4>
             {
-                getSykmeldingOpplysning(sykmelding, 'innspillTilArbeidsgiver', getLedetekst('sykmeldnig.vis.meldingarbeidsgiver.innspill.tittel', ledetekster))
+                getSykmeldingOpplysning(sykmelding, 'innspillTilArbeidsgiver', getLedetekst('sykmelding.vis.meldingarbeidsgiver.innspill.tittel', ledetekster))
             }
     </div>);
 };

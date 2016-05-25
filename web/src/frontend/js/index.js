@@ -34,3 +34,7 @@ store.dispatch(hentSykmeldinger());
 render(<Provider store={store}>
         <AppRouter history={history} /></Provider>,
     document.getElementById('maincontent'));
+
+export {
+	store
+};

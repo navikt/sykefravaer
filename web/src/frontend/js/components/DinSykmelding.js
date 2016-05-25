@@ -58,7 +58,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                             &nbsp;(<span className="js-bidiagnose-system">{sykmelding.bidiagnose.diagnosesystem}</span>)
                         </p>
                     </SykmeldingNokkelOpplysning>
-                </div>) : ''
+                </div>) : null
                 }
                 {
                     sykmelding.fravaersgrunnLovfestet ?
@@ -117,6 +117,10 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     <AndreSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
                 </div>
             </Utvidbar>
+
+            <div className="knapperad knapperad-adskilt">
+                <Link to={"/sykefravaer/app/sykmeldinger/" + sykmelding.id + "/send" } className="knapp knapp-hoved">Gå videre</Link>
+            </div>
         </div>
         <p className="side-innhold ikke-print">
             <Link to="/sykefravaer/app">

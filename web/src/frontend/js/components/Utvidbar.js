@@ -39,7 +39,7 @@ export class Utvidbar extends Component {
     }
 
     render() {
-        return (<div ref="utvidbar" className="utvidbar blokk-l" aria-expanded={this.state.erApen}>
+        return (<div ref="utvidbar" className={"utvidbar blokk-l " + this.props.className} aria-expanded={this.state.erApen}>
                 <a href="javscript:void(0)"
                     role="button"
                     aria-pressed={this.state.erApen}
@@ -58,8 +58,8 @@ export class Utvidbar extends Component {
                         'utvidbar-innhold-beholder'}>
                 <div className="utvidbar-innhold">
                     {this.props.children}
-                    <div className="knapperad">
-                        <a className="lenke-fremhevet" role="button" href="#"
+                    <div className="knapperad side-innhold">
+                        <a role="button" href="#"
                             aria-pressed={!this.state.erApen}
                             tabIndex={this.state.erApen ? '' : '-1'}
                             onClick={(event) => {this.toggle(event);}}>Lukk</a>

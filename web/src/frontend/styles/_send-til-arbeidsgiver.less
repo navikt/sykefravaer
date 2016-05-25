@@ -1,0 +1,30 @@
+.skravert {
+	width: 100%; 
+	max-width: 12rem; 
+	height: 2rem; 
+	background: data-uri("../img/png/skravert.png"); 
+	background-size: 5px 5px; 
+	display: block; 
+	text-indent: -9999px; 
+}
+
+.arbeidsgivers-header {
+
+	h2 {
+		.mixin-typo-innholdstittel(); 
+		margin: 0; 	
+	}
+
+	margin-bottom: 2rem; 
+	
+}
+
+.arbeidsgivers-fodselsnummer {
+	.mixin-typo-infotekst(); 
+	.mixin-typo-mute();
+}
+
+.arbeidsgivers-nokkelopplysninger {
+	margin-bottom: 2rem;
+	border-bottom: 1px solid @color-border; 
+}

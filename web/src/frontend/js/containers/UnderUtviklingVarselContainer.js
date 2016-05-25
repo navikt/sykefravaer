@@ -28,7 +28,7 @@ export class Varsel extends Component {
 }
 
 Varsel.propTypes = {
-    skjulUnderUtviklingVarsel: PropTypes.function,
+    skjulUnderUtviklingVarsel: PropTypes.func,
 };
 
 function mapStateToProps() {

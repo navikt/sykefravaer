@@ -42,7 +42,7 @@ const getSykmelding = (skmld = {}) => {
     return Object.assign({}, sykmelding, skmld);
 }
 
-describe.only("SendTilArbeidsgiver", () => {
+describe("SendTilArbeidsgiver", () => {
 
     beforeEach(() => {
         component = mount(<SendTilArbeidsgiver sykmelding={getSykmelding()} ledetekster={ledetekster}/>)
@@ -75,6 +75,7 @@ describe.only("SendTilArbeidsgiver", () => {
                 hensynPaaArbeidsplassen: "Ta godt vare på denne personen"
             })} ledetekster={ledetekster}/>);
             expect(component.find(".js-hensynPaaArbeidsplassen")).to.have.length(1);
+            expect(component.find(".js-hensynPaaArbeidsplassen").text()).to.equal("Ta godt vare på denne personen");
         }); 
 
         it("Skal ikke vise dersom det ikke finnes", () => {

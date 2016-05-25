@@ -11,7 +11,7 @@ const AndreSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
     return (<div className="sykmelding-seksjon">
             <h4 className="sykmelding-seksjonstittel">Annet</h4>
             {
-                getSykmeldingOpplysning(sykmelding, 'sykmelderTlf', getLedetekst('sykmelding.vis.annet.tittel', ledetekster))
+                getSykmeldingOpplysning(sykmelding, 'sykmelderTlf', getLedetekst('sykmelding.vis.annet.telefon', ledetekster))
             }
             {
                 getSykmeldingOpplysning(sykmelding, 'utstedelsesdato', getLedetekst('sykmelding.vis.annet.utstedelsesdato', ledetekster), formatDate(sykmelding.utstedelsesdato))

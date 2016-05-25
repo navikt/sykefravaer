@@ -9,3 +9,4 @@ node_modules
 **/webapp/vendor/**/*
 **/webapp/*.html
 web/src/frontend/img/modig-frontend/**/*
+web/src/frontend/coverage

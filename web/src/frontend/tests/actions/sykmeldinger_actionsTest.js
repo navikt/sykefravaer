@@ -8,13 +8,13 @@ const expect = chai.expect;
 
 describe("sykmeldinger_actions", () => {
 
-	it("Should have a henterSykmeldinger function that returns a proper action", () => {
+	it("Skal ha en henterSykmeldinger()-funksjon som returnerer riktig action", () => {
 		expect(actions.henterSykmeldinger()).to.deep.equal({
 			type: 'HENTER_SYKMELDINGER'
 		})
 	});
 
-	it("Should have a setSykmeldinger function that returns a proper action", () => {
+	it("Skal ha en setSykmeldinger()-funksjon som returnerer riktig action", () => {
 		expect(actions.setSykmeldinger([{tekst: "Min ledetekst"}])).to.deep.equal({
 			type: 'SET_SYKMELDINGER',
 			sykmeldinger: [{
@@ -23,13 +23,13 @@ describe("sykmeldinger_actions", () => {
 		});
 	});
 
-	it("Should have a hentSykmeldingerFeilet function that returns a proper action", () => {
+	it("Skal ha en hentSykmeldingerFeilet()-funksjon som returnerer riktig action", () => {
 		expect(actions.hentSykmeldingerFeilet()).to.deep.equal({
 			type: 'HENT_SYKMELDINGER_FEILET'
 		})
 	});	
 
-	it("Should have a hentSykmeldinger function that returns a function", () => {
+	it("Skal ha en hentSykmeldinger()-funksjon som returnerer en funksjon", () => {
 		expect(typeof actions.hentSykmeldinger()).to.equal("function")
 	});	
 	

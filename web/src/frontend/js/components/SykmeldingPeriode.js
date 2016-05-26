@@ -2,10 +2,10 @@ import React, { PropTypes } from 'react';
 import { formatDate } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
 
-const SykmeldingPeriode = ({ periode, antallDager = 1, ledetekster }) => {
+const SykmeldingPeriode = ({ periode, antallDager = 1, ledetekster, Overskrift = 'H3' }) => {
     const dagNokkel = antallDager === 1 ? 'sykmelding.vis.periode.dag' : 'sykmelding.vis.periode.dager';
     return (<div className="sykmelding-nokkelopplysning">
-            <h3>{getLedetekst('sykmelding.vis.periode.tittel', ledetekster)}</h3>
+            <Overskrift>{getLedetekst('sykmelding.vis.periode.tittel', ledetekster)}</Overskrift>
             <p className="js-periode blokk-xxs">
                 <strong>{formatDate(periode.fom)} &ndash; {formatDate(periode.tom)}</strong> &bull; {antallDager}&nbsp;{getLedetekst(dagNokkel, ledetekster)}
             </p>
@@ -39,6 +39,7 @@ SykmeldingPeriode.propTypes = {
     periode: PropTypes.object.isRequired,
     antallDager: PropTypes.number,
     ledetekster: PropTypes.object,
+    Overskrift: PropTypes.string,
 };
 
 export default SykmeldingPeriode;

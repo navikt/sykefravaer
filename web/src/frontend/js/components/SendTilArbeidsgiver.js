@@ -25,28 +25,28 @@ const SendTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
             className="utvidbar-lilla">
             <div className="side-innhold">
                 <header className="arbeidsgivers-header">
-                    <h2 className="arbeidsgivers-tittel">{sykmelding.fornavn} {sykmelding.etternavn}</h2>
+                    <h3 className="arbeidsgivers-tittel">{sykmelding.fornavn} {sykmelding.etternavn}</h3>
                     <p className="js-fnr arbeidsgivers-fodselsnummer">{sykmelding.fnr}</p>
                 </header>
-                <SykmeldingPerioder perioder={sykmelding.perioder} ledetekster={ledetekster} />
-                <SykmeldingNokkelOpplysning tittel="Diagnose">
+                <SykmeldingPerioder perioder={sykmelding.perioder} ledetekster={ledetekster} Overskrift="H4" />
+                <SykmeldingNokkelOpplysning tittel="Diagnose" Overskrift="H4">
                     <p className="skravert js-diagnose">Diagnosen er skjult for arbeidsgiver</p>
                 </SykmeldingNokkelOpplysning>
                 {
                     !sykmelding.hensynPaaArbeidsplassen ? null :
-                    <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.hensyn.tittel', ledetekster)}>
+                    <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.hensyn.tittel', ledetekster)} Overskrift="H4">
                         <p className="js-hensynPaaArbeidsplassen">{sykmelding.hensynPaaArbeidsplassen}</p>
                     </SykmeldingNokkelOpplysning>
                 }
                 {
                     !sykmelding.arbeidsgiver ? null :
-                    <SykmeldingNokkelOpplysning tittel="Arbeidsgiver for denne sykmeldingen">
+                    <SykmeldingNokkelOpplysning tittel="Arbeidsgiver for denne sykmeldingen" Overskrift="H4">
                         <p className="js-arbeidsgiver">{sykmelding.arbeidsgiver}</p>
                     </SykmeldingNokkelOpplysning>
                 }
                 {
                     !sykmelding.sykmelder ? null :
-                    <SykmeldingNokkelOpplysning tittel="Lege / sykmelder">
+                    <SykmeldingNokkelOpplysning tittel="Lege / sykmelder" Overskrift="H4">
                         <p className="js-sykmelder">{sykmelding.sykmelder}</p>
                     </SykmeldingNokkelOpplysning>
                 }

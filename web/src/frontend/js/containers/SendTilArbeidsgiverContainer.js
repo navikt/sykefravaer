@@ -40,7 +40,7 @@ SendTilArbeidsgiverSide.propTypes = {
     sykmelding: PropTypes.object,
     brodsmuler: PropTypes.array,
     ledetekster: PropTypes.object,
-    dispatch: PropTypes.function,
+    dispatch: PropTypes.func,
 };
 
 export function mapStateToProps(state, ownProps) {

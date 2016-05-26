@@ -38,5 +38,5 @@ render(<Provider store={store}>
     document.getElementById('maincontent'));
 
 export {
-	store,
+    store,
 };

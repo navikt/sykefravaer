@@ -21,7 +21,7 @@ describe("brukerinfo_actions", () => {
 
 	describe("skjulUnderUtviklingVarsel", () => {
 
-		it("Skjal ha en skjulUnderUtviklingVarsel() funksjon som returnerer riktig action", () => {
+		it("SKal ha en skjulUnderUtviklingVarsel()-funksjon som returnerer riktig action", () => {
 			expect(actions.skjulUnderUtviklingVarsel()).to.deep.equal({
 				type: "SKJUL_UNDER_UTVIKLING_VARSEL"
 			});

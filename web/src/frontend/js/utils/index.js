@@ -55,3 +55,11 @@ export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
         return a[kriterium] < b[kriterium] ? -1 : 1;
     });
 }
+
+export function harLocalStorageStotte() {
+    try {
+        return 'localStorage' in window && window.localStorage !== null;
+    } catch (e) {
+        return false;
+    }
+}

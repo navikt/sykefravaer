@@ -26,10 +26,14 @@ export function sorterSykmeldinger(sortering) {
     };
 }
 
-export function hentSykmeldinger() {
+export function hentSykmeldinger(type) {
     return function sykmeldinger(dispatch) {
         dispatch(henterSykmeldinger());
-        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger`, {
+        let url = `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger`;
+        if (type) {
+            url = `${url}?type=${type}`;
+        }
+        return fetch(url, {
             credentials: 'include',
         })
             .then((response) => {

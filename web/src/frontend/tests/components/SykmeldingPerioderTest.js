@@ -10,7 +10,7 @@ const expect = chai.expect;
 import SykmeldingPeriode from "../../js/components/SykmeldingPeriode.js";
 import SykmeldingPerioder from "../../js/components/SykmeldingPerioder.js";
 
-describe.only("SykmeldingPerioder", () => {
+describe("SykmeldingPerioder", () => {
 
     it("Viser ingen perioder dersom man ikke har noen perioder", function () {
         const component = shallow(<SykmeldingPerioder perioder={[]} ledetekster={ledetekster} />);

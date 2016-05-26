@@ -20,19 +20,23 @@ export const DinSykmldSide = (props) => {
                             tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', props.ledetekster.data)}
                             melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', props.ledetekster.data)} />);
                     }
-                    return <DinSykmelding sykmelding={props.sykmelding.data} ledetekster={props.ledetekster.data} />;
+                    return <DinSykmelding sykmelding={props.sykmelding.data} ledetekster={props.ledetekster.data} strengtFortroligAdresse={props.strengtFortroligAdresse} />;
                 })()
             }
     </SideMedHoyrekolonne>);
 };
 
 DinSykmldSide.propTypes = {
+    ledetekster: PropTypes.object,
     sykmelding: PropTypes.object,
+    brodsmuler: PropTypes.array,
+    strengtFortroligAdresse: PropTypes.bool,
 };
 
 export function mapStateToProps(state, ownProps) {
+    const sykmeldingId = ownProps.params.sykmeldingId;
     const sykmelding = state.sykmeldinger.data.filter((sykmld) => {
-        return sykmld.id === Number(ownProps.params.sykmeldingId);
+        return (sykmld.id + '') === (sykmeldingId + '');
     })[0];
 
     return {
@@ -41,6 +45,7 @@ export function mapStateToProps(state, ownProps) {
             hentingFeilet: state.sykmeldinger.hentingFeilet,
             henter: state.sykmeldinger.henter,
         },
+        strengtFortroligAdresse: state.brukerinfo.data.strengtFortroligAdresse,
         ledetekster: state.ledetekster,
         brodsmuler: [{
             tittel: 'Dine sykmeldinger',

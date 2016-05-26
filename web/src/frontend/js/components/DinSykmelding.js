@@ -17,7 +17,7 @@ import AndreSykmeldingOpplysninger from './AndreSykmeldingOpplysninger.js';
 import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils.js';
 import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox.js';
 
-const DinSykmelding = ({ sykmelding, ledetekster }) => {
+const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = false }) => {
     if (!sykmelding || !sykmelding.id) {
         return <AppSpinner ledetekster={ledetekster} />;
     }
@@ -58,7 +58,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                             &nbsp;(<span className="js-bidiagnose-system">{sykmelding.bidiagnose.diagnosesystem}</span>)
                         </p>
                     </SykmeldingNokkelOpplysning>
-                </div>) : ''
+                </div>) : null
                 }
                 {
                     sykmelding.fravaersgrunnLovfestet ?
@@ -117,6 +117,11 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
                     <AndreSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
                 </div>
             </Utvidbar>
+            {
+                strengtFortroligAdresse ? null : <div className="knapperad knapperad-adskilt js-videre">
+                    <Link to={`/sykefravaer/app/sykmeldinger/${sykmelding.id}/send`} className="knapp knapp-hoved">Gå videre</Link>
+                </div>
+            }
         </div>
         <p className="side-innhold ikke-print">
             <Link to="/sykefravaer/app">
@@ -129,6 +134,7 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
 DinSykmelding.propTypes = {
     sykmelding: PropTypes.object,
     ledetekster: PropTypes.object,
+    strengtFortroligAdresse: PropTypes.bool,
 };
 
 export default DinSykmelding;

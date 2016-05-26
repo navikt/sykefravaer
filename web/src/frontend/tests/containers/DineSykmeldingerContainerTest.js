@@ -79,8 +79,8 @@ describe("DineSykmeldingerContainer", () => {
         it("Skal returnere sykmeldinger", function() {
             const res = mapStateToProps({
                 sykmeldinger: sykmeldinger,
-                localStorage: {
-                    skjulUnderUtviklingVarsel: true
+                brukerinfo: {
+                    data: {}
                 }
             });
             expect(res.sykmeldinger).to.deep.equal(sykmeldinger)
@@ -89,9 +89,11 @@ describe("DineSykmeldingerContainer", () => {
         it("Skal returnere skjulUnderUtviklingVarsel", function() {
             const res = mapStateToProps({
                 sykmeldinger: sykmeldinger,
-                localStorage: {
-                    skjulUnderUtviklingVarsel: true
-                }                
+                brukerinfo: {
+                    data: {
+                        skjulUnderUtviklingVarsel: true
+                    }
+                }
             });
             expect(res.skjulVarsel).to.equal(true)
         });
@@ -101,9 +103,9 @@ describe("DineSykmeldingerContainer", () => {
                 ledetekster: {
                     "min.tekst": "Dette er en test"
                 },
-                localStorage: {
-                    skjulUnderUtviklingVarsel: true
-                }                
+                brukerinfo: {
+                    data: {}
+                }     
             });
             expect(res.ledetekster).to.deep.equal({
                 "min.tekst": "Dette er en test"

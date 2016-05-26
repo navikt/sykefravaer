@@ -3,14 +3,16 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
+import sinon from 'sinon';
+import { hentSykmeldinger } from '../../js/actions/sykmeldinger_actions.js';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { DinSykmldSide, mapStateToProps } from "../../js/containers/DinSykmeldingContainer.js";
+import { SendTilArbeidsgiverSide, mapStateToProps } from "../../js/containers/SendTilArbeidsgiverContainer.js";
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
-import DinSykmelding from '../../js/components/DinSykmelding.js';
+import SendTilArbeidsgiver from '../../js/components/SendTilArbeidsgiver.js';
 
 let component;
 
@@ -71,11 +73,12 @@ const sykmeldinger = [{
 }];
 
 
-describe("DinSykmeldingContainer", () => {
+describe("SendTilArbeidsgiverContainer", () => {
 
     let component; 
     let ownProps = {};
     let state; 
+    let dispatch;
 
     beforeEach(() => {
         state = {
@@ -83,13 +86,11 @@ describe("DinSykmeldingContainer", () => {
                 data: sykmeldinger,
                 hentingFeilet: false,
                 henter: false
-            },
-            brukerinfo: {
-                data: {}
             }
         };
         ownProps.params = {};
-        ownProps.params.sykmeldingId = 3
+        ownProps.params.sykmeldingId = 3;
+        dispatch = sinon.spy(); 
     })
 
     describe("mapStateToProps", () => {
@@ -121,13 +122,13 @@ describe("DinSykmeldingContainer", () => {
 
     });
 
-    describe("DinSykmldSide", () => {
+    describe("SendTilArbeidsgiverSide", () => {
 
         it("Skal vise AppSpinner når siden laster", () => {
             let sykmelding = {
                 henter: true
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster}/>)
+            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.find(AppSpinner)).to.have.length(1);
         }); 
 
@@ -135,26 +136,32 @@ describe("DinSykmeldingContainer", () => {
             let sykmelding = {
                 hentingFeilet: true
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster}/>)
+            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
 
         it("Skal vise feilmelding dersom sykmeldingen ikke finnes", () => {
             let sykmelding = {
-                hentingFeilet: false,
                 data: undefined
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster}/>)
+            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
-        it("Skal vise sykmelding dersom den finnes", () => {
+        it("Skal vise arbeidsgivers versjon dersom sykmeldingen finnes", () => {
             let sykmelding = {
                 hentingFeilet: false,
                 data: sykmeldinger[1]
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster}/>)
-            expect(component.find(DinSykmelding)).to.have.length(1);
+            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            expect(component.find(SendTilArbeidsgiver)).to.have.length(1);
+        }); 
+
+        it("Skal kalle dispatch når den mountes", () => {
+            let sykmelding = {}
+            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            expect(typeof dispatch.getCall(0).args[0]).to.equal("function");
+            expect(dispatch.calledOnce).to.equal(true);
         });
 
     });

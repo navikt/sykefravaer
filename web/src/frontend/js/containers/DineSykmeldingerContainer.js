@@ -37,7 +37,7 @@ export function mapStateToProps(state) {
     return {
         sykmeldinger: state.sykmeldinger,
         ledetekster: state.ledetekster,
-        skjulVarsel: state.localStorage.skjulUnderUtviklingVarsel === true,
+        skjulVarsel: state.brukerinfo.data.skjulUnderUtviklingVarsel === true,
         brodsmuler: [{
             tittel: 'Dine sykmeldinger',
             sti: '/sykmeldinger',

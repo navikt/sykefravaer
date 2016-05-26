@@ -8,14 +8,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import Utvidbar from "../../js/components/Utvidbar.js";
-import MulighetForArbeid from "../../js/components/MulighetForArbeid.js";
-import Friskmelding from "../../js/components/Friskmelding.js";
-import UtdypendeOpplysninger from "../../js/components/UtdypendeOpplysninger.js";
-import BedreArbeidsevne from "../../js/components/BedreArbeidsevne.js";
-import MeldingTilNAV from "../../js/components/MeldingTilNAV.js";
-import MeldingTilArbeidsgiver from "../../js/components/MeldingTilArbeidsgiver.js";
-import Tilbakedatering from "../../js/components/Tilbakedatering.js";
-import AndreSykmeldingOpplysninger from '../../js/components/AndreSykmeldingOpplysninger.js'
+import FlereOpplysninger from "../../js/components/FlereOpplysninger.js";
 
 import SendTilArbeidsgiver from "../../js/components/SendTilArbeidsgiver.js";
 import SykmeldingPerioder from "../../js/components/SykmeldingPerioder.js";
@@ -67,6 +60,11 @@ describe("SendTilArbeidsgiver", () => {
         component = shallow(<SendTilArbeidsgiver sykmelding={getSykmelding()} ledetekster={ledetekster}/>);
         expect(component.find(Utvidbar)).to.have.length(1);
     });
+
+    it("Viser FlereOpplysninger", () => {
+        expect(component.find(FlereOpplysninger)).to.have.length(1);
+    });
+
 
     describe("Hensyn på arbeidsplassen", () => {
 
@@ -121,43 +119,5 @@ describe("SendTilArbeidsgiver", () => {
 
     });
 
-    describe("Flere opplysninger", () => {
-        beforeEach(() => {
-            component = shallow(<SendTilArbeidsgiver sykmelding={getSykmelding()} ledetekster={ledetekster} />)
-        });
-
-        it("Viser MulighetForArbeid", () => {
-            expect(component.find(MulighetForArbeid)).to.have.length(1);
-        });
-
-        it("Viser Friskmelding", () => {
-            expect(component.find(Friskmelding)).to.have.length(1);
-        });
-
-        it("Viser UtdypendeOpplysninger", () => {
-            expect(component.find(UtdypendeOpplysninger)).to.have.length(1);
-        });
-
-        it("Viser BedreArbeidsevne", () => {
-            expect(component.find(BedreArbeidsevne)).to.have.length(1);
-        });
-
-        it("Viser MeldingTilNAV", () => {
-            expect(component.find(MeldingTilNAV)).to.have.length(1);
-        });
-
-        it("Viser MeldingTilArbeidsgiver", () => {
-            expect(component.find(MeldingTilArbeidsgiver)).to.have.length(1);
-        });                        
-
-        it("Viser Tilbakedatering", () => {
-            expect(component.find(Tilbakedatering)).to.have.length(1);
-        });
-
-        it("Viser AndreSykmeldingOpplysninger", () => {
-            expect(component.find(AndreSykmeldingOpplysninger)).to.have.length(1);
-        });
-
-    }); 
 
 });

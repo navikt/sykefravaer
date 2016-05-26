@@ -6,16 +6,9 @@ import AppSpinner from './AppSpinner.js';
 import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
 import SykmeldingPerioder from './SykmeldingPerioder.js';
 import { Link } from 'react-router';
-import MulighetForArbeid from './MulighetForArbeid.js';
-import Friskmelding from './Friskmelding.js';
-import UtdypendeOpplysninger from './UtdypendeOpplysninger.js';
-import BedreArbeidsevne from './BedreArbeidsevne.js';
-import MeldingTilNAV from './MeldingTilNAV.js';
-import Tilbakedatering from './Tilbakedatering.js';
-import MeldingTilArbeidsgiver from './MeldingTilArbeidsgiver.js';
-import AndreSykmeldingOpplysninger from './AndreSykmeldingOpplysninger.js';
 import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils.js';
 import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox.js';
+import FlereOpplysninger from './FlereOpplysninger.js';
 
 const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = false }) => {
     if (!sykmelding || !sykmelding.id) {
@@ -107,14 +100,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
             </div>
             <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">
                 <div className="sykmelding-seksjoner">
-                    <MulighetForArbeid sykmelding={sykmelding} ledetekster={ledetekster} />
-                    <Friskmelding sykmelding={sykmelding} ledetekster={ledetekster} />
-                    <UtdypendeOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
-                    <BedreArbeidsevne sykmelding={sykmelding} ledetekster={ledetekster} />
-                    <MeldingTilNAV sykmelding={sykmelding} ledetekster={ledetekster} />
-                    <MeldingTilArbeidsgiver sykmelding={sykmelding} ledetekster={ledetekster} />
-                    <Tilbakedatering sykmelding={sykmelding} ledetekster={ledetekster} />
-                    <AndreSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
+                    <FlereOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
                 </div>
             </Utvidbar>
             {

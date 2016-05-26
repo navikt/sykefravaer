@@ -3,14 +3,7 @@ import Utvidbar from './Utvidbar.js';
 import SykmeldingPerioder from './SykmeldingPerioder.js';
 import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
 import { getLedetekst } from '../ledetekster';
-import MulighetForArbeid from './MulighetForArbeid.js';
-import Friskmelding from './Friskmelding.js';
-import UtdypendeOpplysninger from './UtdypendeOpplysninger.js';
-import BedreArbeidsevne from './BedreArbeidsevne.js';
-import MeldingTilNAV from './MeldingTilNAV.js';
-import MeldingTilArbeidsgiver from './MeldingTilArbeidsgiver.js';
-import Tilbakedatering from './Tilbakedatering.js';
-import AndreSykmeldingOpplysninger from './AndreSykmeldingOpplysninger.js';
+import FlereOpplysninger from './FlereOpplysninger.js';
 
 const SendTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
     return (<div className="panel">
@@ -50,14 +43,7 @@ const SendTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
                         <p className="js-sykmelder">{sykmelding.sykmelder}</p>
                     </SykmeldingNokkelOpplysning>
                 }
-                <MulighetForArbeid sykmelding={sykmelding} ledetekster={ledetekster} />
-                <Friskmelding sykmelding={sykmelding} ledetekster={ledetekster} />
-                <UtdypendeOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
-                <BedreArbeidsevne sykmelding={sykmelding} ledetekster={ledetekster} />
-                <MeldingTilNAV sykmelding={sykmelding} ledetekster={ledetekster} />
-                <MeldingTilArbeidsgiver sykmelding={sykmelding} ledetekster={ledetekster} />
-                <Tilbakedatering sykmelding={sykmelding} ledetekster={ledetekster} />
-                <AndreSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
+                <FlereOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
             </div>
         </Utvidbar>
         <p>Når du sender sykmeldingen til din arbeidsgiver, vil de motta sykmeldingen elektronisk.</p>

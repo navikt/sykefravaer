@@ -9,6 +9,7 @@ const expect = chai.expect;
 
 import DinSykmelding from "../../js/components/DinSykmelding.js";
 import SykmeldingPerioder from "../../js/components/SykmeldingPerioder.js";
+import FlereOpplysninger from "../../js/components/FlereOpplysninger.js";
 
 let component;
 
@@ -343,6 +344,13 @@ describe("DinSykmelding", () => {
     });    
 
     describe("Flere opplysninger", () => {
+
+        it("Viser flere opplysninger", () => {
+            component = mount(<DinSykmelding sykmelding={getSykmelding({
+                antarReturSammeArbeidsgiver: true
+            })} ledetekster={ledetekster}/>)
+            expect(component.find(FlereOpplysninger)).to.have.length(1);
+        })
 
         describe("Pasient er 100 prosent arbeidsfør etter denne perioden", () => {
 

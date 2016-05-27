@@ -22,12 +22,6 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, skjulVarsel = f
             ledetekster={ledetekster}
             id="sykmelding-liste"
         />
-        <article className="panel js-forklaring">
-            <h2 className="dine-sykmeldinger-forklaringstittel">
-                {getLedetekst('dine-sykmeldinger.informasjon.tittel', ledetekster)}
-            </h2>
-            <div className="redaksjonelt-innhold typo-infotekst side-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('dine-sykmeldinger.informasjon.tekst', ledetekster)}></div>
-        </article>
     </div>);
 };
 

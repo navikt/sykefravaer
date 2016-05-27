@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
+import { getLedetekst } from '../ledetekster';
 import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer.js';
 
 const SykmeldingOgOppfolging = ({ ledetekster = {}, skjulVarsel = false }) => {
     return (<div>
         {
-            (!skjulVarsel ? <UnderUtviklingVarselContainer/> : '')
+            (!skjulVarsel ? <UnderUtviklingVarselContainer /> : '')
         }
         <h1 className="side-header typo-sidetittel">
             {getLedetekst('sykmeldingOgOppfolging.sidetittel', ledetekster)}
@@ -20,7 +20,7 @@ const SykmeldingOgOppfolging = ({ ledetekster = {}, skjulVarsel = false }) => {
 
 SykmeldingOgOppfolging.propTypes = {
     ledetekster: PropTypes.object.isRequired,
-    skjulVarsel: PropTypes.bool.isRequired
+    skjulVarsel: PropTypes.bool.isRequired,
 };
 
 export default SykmeldingOgOppfolging;

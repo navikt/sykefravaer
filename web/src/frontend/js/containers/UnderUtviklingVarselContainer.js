@@ -1,18 +1,17 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
 import * as actionCreators from '../actions/brukerinfo_actions.js';
 
 export class Varsel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            synlig: false
+            synlig: false,
         };
         const that = this;
         window.setTimeout(() => {
             that.setState({
-                synlig: true
+                synlig: true,
             });
         }, 200);
     }

@@ -8,29 +8,29 @@ import Feilmelding from '../components/Feilmelding.js';
 import { sorterSykmeldinger } from '../utils';
 
 export const DineSykmldSide = (props) => {
-    return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel', props.ledetekster.data)} brodsmuler={props.brodsmuler}>
+    const { ledetekster, brodsmuler, sykmeldinger, skjulVarsel } = props;
+    return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
         {
             (() => {
-                if (props.sykmeldinger.henter) {
+                if (sykmeldinger.henter) {
                     return <AppSpinner />;
-                } else if (props.sykmeldinger.hentingFeilet) {
+                } else if (sykmeldinger.hentingFeilet) {
                     return (<Feilmelding />);
                 }
                 return (<DineSykmeldinger
-                    skjulVarsel={props.skjulVarsel}
-                    sykmeldinger={sorterSykmeldinger(props.sykmeldinger.data, props.sykmeldinger.sortering)}
-                    ledetekster={props.ledetekster.data} />);
+                    skjulVarsel={skjulVarsel}
+                    sykmeldinger={sorterSykmeldinger(sykmeldinger.data, sykmeldinger.sortering)}
+                    ledetekster={ledetekster.data} />);
             })()
         }
     </Side>);
 };
 
 DineSykmldSide.propTypes = {
-    props: PropTypes.object,
     ledetekster: PropTypes.object,
     brodsmuler: PropTypes.array,
     sykmeldinger: PropTypes.object,
-    skjulVarsel: PropTypes.bool
+    skjulVarsel: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {
@@ -40,8 +40,8 @@ export function mapStateToProps(state) {
         skjulVarsel: state.brukerinfo.data.skjulUnderUtviklingVarsel === true,
         brodsmuler: [{
             tittel: 'Dine sykmeldinger',
-            sti: '/sykmeldinger'
-        }]
+            sti: '/sykmeldinger',
+        }],
     };
 }
 

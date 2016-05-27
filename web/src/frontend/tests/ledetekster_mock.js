@@ -2,6 +2,7 @@ const ledetekster = {
 	"404.tittel":"Ooops!",
 	"404.tekst":"Fant ikke siden du lette etter. Er du sikker på at du er på riktig sted?",
 	"dine-sykmeldinger.sidetittel":"Dine sykmeldinger",
+	"sykmeldingOgOppfolging.sidetittel":"Sykmeldinger og oppfølging",
 	"dine-sykmeldinger.tittel":"Dine sykmeldinger",
 	"dine-sykmeldinger.introduksjonstekst":"NAV mottar sykmeldinger fra leger og andre som kan sykmelde. På denne siden kan du se sykmeldingene dine. Du kan foreløpig ikke søke om sykepenger digitalt. <a href='https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger>Les mer om sykepenger her.</a>",
 	"dine-sykmeldinger.aktive-sykmeldinger.tittel":"Aktive sykmeldinger",

@@ -1,0 +1,33 @@
+.dashboard-lenke {
+  .mixin-panel-padding();
+  .mixin-typo-undertittel();
+  background-color: @white;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  display: block;
+  color: @color-text;
+  background-image: data-uri("../img/svg/pil-videre-graa.svg");
+  background-repeat: no-repeat;
+  background-position: 97% 50%;
+  background-size: 1rem 1rem;
+  transition: background-position ease-in-out .1s;
+  display: flex;
+  width: 100%;
+
+  &:hover {
+    background-image: data-uri("../img/svg/pil-videre-blaa.svg");
+  }
+
+  &:focus {
+    background-color: @white;
+    box-shadow: 0 0 0 3px @color-focus;
+  }
+
+  img {
+    width: 2rem;
+    height: auto;
+    margin-right: .5rem;
+  }
+}

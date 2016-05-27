@@ -36,7 +36,7 @@ DinSykmldSide.propTypes = {
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
     const sykmelding = state.sykmeldinger.data.filter((sykmld) => {
-        return (sykmld.id + '') === (sykmeldingId + '');
+        return `${sykmld.id}` === `${sykmeldingId}`;
     })[0];
 
     return {

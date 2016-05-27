@@ -7,7 +7,7 @@ import { getLedetekst } from '../ledetekster';
 export const SykmeldingOgOppfolgingSide = (props) => {
     const { ledetekster, brodsmuler, skjulVarsel } = props;
     return (
-        <Side tittel={getLedetekst('sykmeldingOgOppfolging.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
+        <Side tittel={getLedetekst('sykmelding-og-oppfolging.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
             <SykmeldingOgOppfolging skjulVarsel={skjulVarsel} ledetekster={ledetekster.data} />
         </Side>
     );

@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { formatDate } from '../utils/index.js';
 import { getLedetekst } from '../ledetekster';
 import { SykmeldingOpplysning } from './SykmeldingOpplysning.js';
 import { SykmeldingCheckbox } from './SykmeldingCheckbox.js';

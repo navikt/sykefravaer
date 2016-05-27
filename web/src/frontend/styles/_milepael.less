@@ -1,0 +1,186 @@
+.milepael {
+    display: flex;
+}
+
+.milepael-meta {
+    display: flex;
+    min-height: 26px;
+    line-height: 26px; 
+
+    @media(min-width: @screen-xs) {
+        min-height: 40px; 
+        line-height: 40px; 
+    }
+
+    h2 {
+        .mixin-typo-element();
+        margin: 0; 
+    }
+}
+
+.milepael-boble {
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.milepael-innhold {
+    flex: 1; 
+    margin-bottom: 2rem;
+}
+
+.header-milepael:extend(.header-bolk) {
+    padding-top: 20px; 
+    padding-bottom: 20px; 
+    margin: 0; 
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border: 0; 
+    text-align: left;
+
+    img {
+        width: 1rem; 
+        height: auto; 
+    }
+
+    &:focus {
+        background: @white; 
+        border: 0; 
+        outline: 0; 
+    }
+
+    &:focus .milepael-tittel {
+        background-color: @white; 
+        outline: 3px solid @color-focus; 
+    }
+}
+
+.header-milepael, .header-milepael:active {
+    color: @color-link; 
+}
+
+.header-milepael.er-apen {
+    border-bottom-left-radius: 0; 
+    border-bottom-right-radius: 0; 
+}
+
+.milepael-tittel {
+    .mixin-typo-infotekst();
+    display: flex;
+    width: 100%; 
+    margin: 0; 
+    padding: 0; 
+
+    span {
+        flex: 1;
+    }
+}
+
+.milepael-tittel-collapse {
+    background: data-uri("../img/svg/arrow-down.svg") no-repeat right center;
+    background-size: 1rem 1rem; 
+    padding-right: 2rem;
+
+    &:hover {
+        background-image: data-uri("../img/svg/arrow-down_hover.svg");
+    }
+
+    &.er-apen {
+        background-image: data-uri("../img/svg/arrow-up.svg");
+
+        &:hover {
+            background-image: data-uri("../img/svg/arrow-up_hover.svg")
+        }
+    }
+}
+
+.milepael-status {
+    position: relative; 
+    width: 26px; 
+    margin-right: 13px; 
+
+    @media(min-width: @screen-xs) {
+        width: 40px;
+        margin-right: 20px; 
+    }
+
+    &:before {
+        content: "";
+        width: 3px; 
+        height: 100%; 
+        position: absolute; 
+        left: 50%; 
+        top: 0; 
+        transform: translateX(-50%);
+        z-index: 0;
+        background-image: url("../img/png/border-dot.png");
+        background-size: 9px 9px; 
+        background-position: top center; 
+    }
+}
+
+.tidslinje .milepael:last-child .milepael-status:before {
+    display: none; 
+}
+
+.milepael-ikon {
+    display: block;
+    width: 26px; 
+    height: 26px; 
+    border-radius: 50%; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    z-index: 10;
+    position: relative;
+    background: @color-background; 
+
+    img {
+        width: 13px; 
+        height: 13px; 
+    }
+
+    @media(min-width: @screen-xs) {
+        width: 40px;
+        height: 40px; 
+
+        img {
+            width: 20px;
+            height: 20px; 
+        }
+    }
+
+}
+
+.milepael-budskap-container {
+    height: 0; 
+    overflow: hidden; 
+    transition: all ease-in-out 300ms;
+}
+
+.milepael-budskap-container.er-apen {
+    height: auto; 
+}
+
+.milepael-budskap {
+    .redaksjonelt-innhold(); 
+
+    img {
+        width: 100%; 
+        max-width: 370px;
+        height: auto; 
+        margin-bottom: 1rem; 
+    }
+
+    h4 {
+        .mixin-typo-undertittel(); 
+        margin: 0 0 1rem 0; 
+    }
+}
+
+.panel-budskap {
+    border-top: 1px solid @color-border; 
+
+    &.er-usynlig {
+        visibility: hidden; 
+    }
+}

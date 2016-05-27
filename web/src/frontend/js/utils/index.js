@@ -59,7 +59,26 @@ export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
 export function harLocalStorageStotte() {
     try {
         return 'localStorage' in window && window.localStorage !== null;
-    } catch (e) {
+    } catch ( e ) {
         return false;
     }
+}
+
+export function onResizeThrottle(callback) {
+    var resizeTimeout;
+    const resizeThrottler = () => {
+        // ignore resize events as long as an actualResizeHandler execution is in the queue
+        if (!resizeTimeout) {
+            resizeTimeout = setTimeout(function() {
+                resizeTimeout = null;
+                if (typeof callback === "function") {
+                    callback();
+                }
+
+            // The actualResizeHandler will execute at a rate of 15fps
+            }, 66);
+        }
+    }
+    window.addEventListener("resize", resizeThrottler, false);
+
 }

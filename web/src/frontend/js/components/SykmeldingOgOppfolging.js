@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { getLedetekst } from '../ledetekster';
+import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
 import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer.js';
 
 const SykmeldingOgOppfolging = ({ ledetekster = {}, skjulVarsel = false }) => {
@@ -13,8 +13,12 @@ const SykmeldingOgOppfolging = ({ ledetekster = {}, skjulVarsel = false }) => {
         </h1>
         <Link className="dashboard-lenke" to="/sykefravaer/app/sykmeldinger">
             <img src="/sykefravaer/img/svg/doctor-2.svg" alt="Lege" />
-            <span>Dine sykmeldinger</span>
+            <span>{getLedetekst('sykmeldingOgOppfolging.lenkeTilSykmelding.tekst', ledetekster)}</span>
         </Link>
+        <div className="panel blokk side-innhold">
+            <h2 className="typo-undertittel">Sykmeldt &mdash; hva nå?</h2>
+            <p dangerouslySetInnerHTML={getHtmlLedetekst('sykmeldingOgOppfolging.generell.informasjon.tekst', ledetekster)} />
+        </div>
     </div>);
 };
 

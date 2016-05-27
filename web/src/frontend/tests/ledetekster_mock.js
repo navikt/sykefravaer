@@ -115,6 +115,8 @@ const ledetekster = {
 	"sykmelding.send-til-arbeidsgiver.send":"Send til arbeidsgiver",
 	"sykmelding.send-til-arbeidsgiver.avbryt":"Avbryt",
 	"sykmelding.send-til-arbeidsgiver.kvittering.tittel":"Sykmeldingen er sendt til arbeidsgiver",
+	"sykmeldingOgOppfolging.lenkeTilSykmelding.tekst":"Dine sykmeldinger",
+	"sykmeldingOgOppfolging.generell.informasjon.tekst":"Hvis du blir sykmeldt, trenger du å kjenne til hvilke regler som gjelder for oppfølging og for å få utbetalt sykepenger. <a target=\"blank\" href=\"https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykmeldt\">Les mer om sykpenger og sykefraværsoppfølging</a>.</p>",
 };
 
 export default ledetekster; 

@@ -51,10 +51,6 @@ class Milepael extends Component {
             });
         }, 0);
 
-        setTimeout(() => {
-
-        }, 300)
-
         if (!blirApen) {
             setTimeout(() => {
                 this.setState({

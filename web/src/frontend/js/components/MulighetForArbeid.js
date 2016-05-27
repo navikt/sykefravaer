@@ -28,8 +28,7 @@ Aarsaker.propTypes = {
 };
 
 const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
-    const visSeksjon = (sykmelding.startLegemeldtFravaer ||
-    (sykmelding.aktivitetIkkeMulig433 && sykmelding.aktivitetIkkeMulig433.length) ||
+    const visSeksjon = ((sykmelding.aktivitetIkkeMulig433 && sykmelding.aktivitetIkkeMulig433.length) ||
     sykmelding.aarsakAktivitetIkkeMulig433 ||
     (sykmelding.aktivitetIkkeMulig434 && sykmelding.aktivitetIkkeMulig434.length) ||
     sykmelding.aarsakAktivitetIkkeMulig434);
@@ -38,10 +37,6 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
     }
     return (<div className="sykmelding-seksjon">
                 <h4 className="sykmelding-seksjonstittel">{getLedetekst('sykmelding.vis.mulighet.for.arbeid.tittel', ledetekster)}</h4>
-                {
-                    getSykmeldingOpplysning(sykmelding, 'startLegemeldtFravaer',
-                        getLedetekst('sykmelding.vis.mulighet.for.arbeid.start.legemeldt.fravaer.tittel', ledetekster), formatDate(sykmelding.startLegemeldtFravaer))
-                }
                 {
                     (sykmelding.aktivitetIkkeMulig433 && sykmelding.aktivitetIkkeMulig433.length) > 0 ?
                         <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.mulighet.for.arbeid.pasient.ikke.i.arbeid.tittel', ledetekster)}>

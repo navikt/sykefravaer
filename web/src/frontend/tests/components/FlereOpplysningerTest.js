@@ -45,6 +45,25 @@ describe("FlereOpplysninger", () => {
         component = mount(<FlereOpplysninger sykmelding={getSykmelding()} ledetekster={ledetekster}/>)
     });
 
+    describe("Når startet det legemeldte fraværet?", () => {
+
+        it("Skal ikke vise dersom sykmelding.startLegemeldtFravaer === null", () => {
+            component = mount(<FlereOpplysninger sykmelding={getSykmelding({
+                startLegemeldtFravaer: null
+            })} ledetekster={ledetekster}/>)
+            expect(component.find(".js-startLegemeldtFravaer").length).to.equal(0); 
+        });
+
+        it("Skal vise dersom sykmelding.startLegemeldtFravaer er en dato", () => {
+            component = mount(<FlereOpplysninger sykmelding={getSykmelding({
+                startLegemeldtFravaer: "2016-04-27T22:00:00.000Z"
+            })} ledetekster={ledetekster}/>)
+            expect(component.find(".js-startLegemeldtFravaer").length).to.equal(1); 
+            expect(component.find(".js-startLegemeldtFravaer").text()).to.equal("28.04.2016");
+        });
+
+    });
+
     it("Viser dato sykmelding ble skrevet", () => {
         expect(component.find(".js-utstedelsesdato")).to.have.length(1);
     });

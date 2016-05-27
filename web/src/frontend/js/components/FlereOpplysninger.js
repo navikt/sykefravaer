@@ -17,6 +17,10 @@ const FlereOpplysninger = ({ sykmelding, ledetekster }) => {
         {
             getSykmeldingOpplysning(sykmelding, 'utstedelsesdato', getLedetekst('sykmelding.vis.annet.utstedelsesdato', ledetekster), formatDate(sykmelding.utstedelsesdato))
         }
+        {
+            getSykmeldingOpplysning(sykmelding, 'startLegemeldtFravaer',
+                getLedetekst('sykmelding.vis.mulighet.for.arbeid.start.legemeldt.fravaer.tittel', ledetekster), formatDate(sykmelding.startLegemeldtFravaer))
+        }
         </div>
         <MulighetForArbeid sykmelding={sykmelding} ledetekster={ledetekster} />
         <Friskmelding sykmelding={sykmelding} ledetekster={ledetekster} />

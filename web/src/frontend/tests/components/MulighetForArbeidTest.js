@@ -37,25 +37,6 @@ const getSykmelding = (skmld = {}) => {
 
 describe("Mulighet for arbeid", () => {
 
-    describe("Når startet det legemeldte fraværet?", () => {
-
-        it("Skal ikke vise dersom sykmelding.startLegemeldtFravaer === null", () => {
-            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
-                startLegemeldtFravaer: null
-            })} ledetekster={ledetekster}/>)
-            expect(component.find(".js-startLegemeldtFravaer").length).to.equal(0); 
-        });
-
-        it("Skal vise dersom sykmelding.startLegemeldtFravaer er en dato", () => {
-            component = mount(<MulighetForArbeid sykmelding={getSykmelding({
-                startLegemeldtFravaer: "2016-04-27T22:00:00.000Z"
-            })} ledetekster={ledetekster}/>)
-            expect(component.find(".js-startLegemeldtFravaer").length).to.equal(1); 
-            expect(component.find(".js-startLegemeldtFravaer").text()).to.equal("28.04.2016");
-        });
-
-    });
-
     describe("aktivitetIkkeMulig433", () => {
 
         it("Skal vise dersom sykmelding.aktivitetIkkeMulig433 === ['Helsetilstanden hindrer pasienten i å være i aktivitet']", () => {

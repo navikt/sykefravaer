@@ -21,7 +21,7 @@ export function hentLedetekster() {
     return function ledetekster(dispatch) {
         dispatch(henterLedetekster());
         return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/informasjon/tekster`, {
-            credentials: 'include',
+            credentials: 'include'
         })
             .then((response) => {
                 if (response.status > 400) {

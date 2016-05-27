@@ -30,7 +30,7 @@ DineSykmldSide.propTypes = {
     ledetekster: PropTypes.object,
     brodsmuler: PropTypes.array,
     sykmeldinger: PropTypes.object,
-    skjulVarsel: PropTypes.bool,
+    skjulVarsel: PropTypes.bool
 };
 
 export function mapStateToProps(state) {
@@ -40,8 +40,8 @@ export function mapStateToProps(state) {
         skjulVarsel: state.brukerinfo.data.skjulUnderUtviklingVarsel === true,
         brodsmuler: [{
             tittel: 'Dine sykmeldinger',
-            sti: '/sykmeldinger',
-        }],
+            sti: '/sykmeldinger'
+        }]
     };
 }
 

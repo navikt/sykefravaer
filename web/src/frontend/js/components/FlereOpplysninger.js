@@ -7,9 +7,17 @@ import MeldingTilNAV from './MeldingTilNAV.js';
 import Tilbakedatering from './Tilbakedatering.js';
 import MeldingTilArbeidsgiver from './MeldingTilArbeidsgiver.js';
 import AndreSykmeldingOpplysninger from './AndreSykmeldingOpplysninger.js';
+import { getLedetekst } from '../ledetekster';
+import { formatDate } from '../utils';
+import { getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const FlereOpplysninger = ({ sykmelding, ledetekster }) => {
     return (<div>
+        <div className="sykmelding-seksjon">
+        {
+            getSykmeldingOpplysning(sykmelding, 'utstedelsesdato', getLedetekst('sykmelding.vis.annet.utstedelsesdato', ledetekster), formatDate(sykmelding.utstedelsesdato))
+        }
+        </div>
         <MulighetForArbeid sykmelding={sykmelding} ledetekster={ledetekster} />
         <Friskmelding sykmelding={sykmelding} ledetekster={ledetekster} />
         <UtdypendeOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />

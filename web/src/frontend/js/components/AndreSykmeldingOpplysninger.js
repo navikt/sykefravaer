@@ -13,9 +13,6 @@ const AndreSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
             {
                 getSykmeldingOpplysning(sykmelding, 'sykmelderTlf', getLedetekst('sykmelding.vis.annet.telefon', ledetekster))
             }
-            {
-                getSykmeldingOpplysning(sykmelding, 'utstedelsesdato', getLedetekst('sykmelding.vis.annet.utstedelsesdato', ledetekster), formatDate(sykmelding.utstedelsesdato))
-            }
     </div>);
 };
 

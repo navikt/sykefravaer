@@ -31,7 +31,8 @@ const sykmelding = {
         tom: "2016-01-06T00:00:00Z",
         grad: 67
     }],
-    arbeidsfoerEtterPerioden: true
+    arbeidsfoerEtterPerioden: true,
+    utstedelsesdato: "2016-05-02T22:00:00.000Z"
 };
 
 const getSykmelding = (skmld = {}) => {
@@ -42,7 +43,11 @@ describe("FlereOpplysninger", () => {
 
     beforeEach(() => {
         component = mount(<FlereOpplysninger sykmelding={getSykmelding()} ledetekster={ledetekster}/>)
-    })
+    });
+
+    it("Viser dato sykmelding ble skrevet", () => {
+        expect(component.find(".js-utstedelsesdato")).to.have.length(1);
+    });
 
     it("Viser MulighetForArbeid", () => {
         expect(component.find(MulighetForArbeid)).to.have.length(1);

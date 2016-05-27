@@ -14,7 +14,7 @@ export const TidslinjeSide = (props) => {
                     return <AppSpinner />;
                 } else if (ledetekster.hentingFeilet || !ledetekster.data) {
                     return (<Feilmelding />);
-                } 
+                }
                 return <Tidslinje milepaeler={milepaeler.data} ledetekster={ledetekster.data} />;
             })()
         }

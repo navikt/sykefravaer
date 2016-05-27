@@ -1,5 +1,3 @@
-// TODO: Flytte dette til syforest
-
 const milepaelerData = [{
     ledetekst: 'tidslinje.utarbeide.plan',
     bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',

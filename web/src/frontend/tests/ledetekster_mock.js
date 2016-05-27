@@ -2,13 +2,10 @@ const ledetekster = {
 	"404.tittel":"Ooops!",
 	"404.tekst":"Fant ikke siden du lette etter. Er du sikker på at du er på riktig sted?",
 	"dine-sykmeldinger.sidetittel":"Dine sykmeldinger",
-	"sykmeldingOgOppfolging.sidetittel":"Sykmeldinger og oppfølging",
 	"dine-sykmeldinger.tittel":"Dine sykmeldinger",
 	"dine-sykmeldinger.introduksjonstekst":"NAV mottar sykmeldinger fra leger og andre som kan sykmelde. På denne siden kan du se sykmeldingene dine. Du kan foreløpig ikke søke om sykepenger digitalt. <a href='https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger>Les mer om sykepenger her.</a>",
 	"dine-sykmeldinger.aktive-sykmeldinger.tittel":"Aktive sykmeldinger",
 	"dine-sykmeldinger.tidligere-sykmeldinger.tittel":"Tidligere sykmeldinger",
-	"dine-sykmeldinger.informasjon.tittel":"Hvem gjør hva når du er sykmeldt",
-	"dine-sykmeldinger.informasjon.tekst":"<p>Du kan bli sykmeldt når det er medisinske grunner som hindrer deg i å være i arbeid. Ofte er det likevel mulig å være helt eller delvis i arbeid hvis arbeidsgiveren kan gjøre tilpasninger for deg på arbeidsplassen.</p><h3>Sykmeldt</h3><p>Som sykmeldt skal du være med og finne løsninger slik at sykefraværet ditt ikke varer lenger enn nødvendig. </p><h3>Lege/sykmelder</h3><p>Den som sykmelder deg skal vurdere om det er nødvendig med hel eller delvis sykmelding og anbefale aktivitet hvis det er medisinsk forsvarlig.</p><h3>Arbeidsgiver</h3><p>Arbeidsgiveren skal følge deg opp og legge til rette for at du kan være i aktivitet på arbeidsplassen. </p><h3>NAV</h3><p>Hvis du ikke har tilknytning til en arbeidsgiver, er det NAV-kontoret som skal gi deg veiledning og oppfølging.</p>",
 	"dine-sykmeldinger.ingen-sykmeldinger.melding":"Du har ingen sykmeldinger",
 	"sykmelding.teaser.fulltittel":"Sykmelding fra %FOM% til %TOM%",
 	"sykmelding.teaser.tittel":"Sykmelding",
@@ -115,6 +112,11 @@ const ledetekster = {
 	"sykmelding.send-til-arbeidsgiver.send":"Send til arbeidsgiver",
 	"sykmelding.send-til-arbeidsgiver.avbryt":"Avbryt",
 	"sykmelding.send-til-arbeidsgiver.kvittering.tittel":"Sykmeldingen er sendt til arbeidsgiver",
+	"sykmelding-og-oppfolging.tilsykmeldinger.lenketekst":"Dine sykmeldinger",
+	"sykmelding-og-oppfolging.generell.informasjon.tekst":"Hvis du blir sykmeldt, trenger du å kjenne til hvilke regler som gjelder for oppfølging og for å få utbetalt sykepenger. <a target=\"blank\" href=\"https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykmeldt\">Les mer om sykpenger og sykefraværsoppfølging</a>.</p>",
+	"sykmelding-og-oppfolging.sidetittel":"Sykmeldinger og oppfølging",
+	"sykmelding-og-oppfolging.informasjon.tittel":"Hvem gjør hva når du er sykmeldt",
+	"sykmelding-og-oppfolging.informasjon.tekst":"<p>Du kan bli sykmeldt når det er medisinske grunner som hindrer deg i å være i arbeid. Ofte er det likevel mulig å være helt eller delvis i arbeid hvis arbeidsgiveren kan gjøre tilpasninger for deg på arbeidsplassen.</p><h3>Sykmeldt</h3><p>Som sykmeldt skal du være med og finne løsninger slik at sykefraværet ditt ikke varer lenger enn nødvendig. </p><h3>Lege/sykmelder</h3><p>Den som sykmelder deg skal vurdere om det er nødvendig med hel eller delvis sykmelding og anbefale aktivitet hvis det er medisinsk forsvarlig.</p><h3>Arbeidsgiver</h3><p>Arbeidsgiveren skal følge deg opp og legge til rette for at du kan være i aktivitet på arbeidsplassen. </p><h3>NAV</h3><p>Hvis du ikke har tilknytning til en arbeidsgiver, er det NAV-kontoret som skal gi deg veiledning og oppfølging.</p>",
 };
 
 export default ledetekster; 

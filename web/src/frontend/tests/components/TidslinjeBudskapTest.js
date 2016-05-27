@@ -8,7 +8,7 @@ const expect = chai.expect;
 import ledetekster from "../ledetekster_mock.js";
 import { lagHtml } from "../../js/components/TidslinjeBudskap.js";
 
-describe.only("TidslinjeBudskap", () => {
+describe("TidslinjeBudskap", () => {
 
     it("Skal vise bilde dersom det finnes bilde", () => {
         let html = lagHtml("Olsen", "Olsen.jpg");

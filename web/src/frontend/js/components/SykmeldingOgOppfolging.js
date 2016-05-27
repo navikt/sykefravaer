@@ -14,7 +14,7 @@ const SykmeldingOgOppfolging = ({ ledetekster = {}, skjulVarsel = false }) => {
         <Link className="dashboard-lenke" to="/sykefravaer/app/sykmeldinger">
             <img src="/sykefravaer/img/svg/doctor-2.svg" alt="Lege" />
             <span>{getLedetekst('sykmelding-og-oppfolging.tilsykmeldinger.lenketekst', ledetekster)}</span>
-        </Link> 
+        </Link>
         <div className="panel blokk side-innhold js-generell-informasjon">
             <h2 className="typo-undertittel">Sykmeldt &mdash; hva nå?</h2>
             <p dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding-og-oppfolging.generell.informasjon.tekst', ledetekster)} />

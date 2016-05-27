@@ -2,10 +2,10 @@ import React, { PropTypes } from 'react';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
 import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer.js';
 
-const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, skjulVarsel = false }) => {
+const DineSykmeldinger = ({ ledetekster = {}, skjulVarsel = false }) => {
     return (<div>
         {
-            (!skjulVarsel ? <UnderUtviklingVarselContainer /> : '')
+            (!skjulVarsel ? <UnderUtviklingVarselContainer/> : '')
         }
         <h1 className="side-header typo-sidetittel">
             {getLedetekst('sykmeldingOgOppfolging.sidetittel', ledetekster)}
@@ -14,7 +14,6 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, skjulVarsel = f
 };
 
 DineSykmeldinger.propTypes = {
-    sykmeldinger: PropTypes.array.isRequired,
     ledetekster: PropTypes.object.isRequired,
     skjulVarsel: PropTypes.bool.isRequired
 };

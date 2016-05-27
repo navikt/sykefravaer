@@ -29,4 +29,9 @@ describe("Sykmelding og oppfolging", () => {
         expect(component.find(UnderUtviklingVarselContainer)).to.have.length(0);
     });
 
+    it("Skal vise generell informasjon", () => {
+        component = shallow(<SykmeldingOgOppfolging ledetekster={ledetekster} skjulVarsel={true} />);
+        expect(component.find(".js-generell-informasjon")).to.have.length(1);
+    });
+
 }); 

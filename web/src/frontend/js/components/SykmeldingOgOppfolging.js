@@ -15,7 +15,7 @@ const SykmeldingOgOppfolging = ({ ledetekster = {}, skjulVarsel = false }) => {
             <img src="/sykefravaer/img/svg/doctor-2.svg" alt="Lege" />
             <span>{getLedetekst('sykmeldingOgOppfolging.lenkeTilSykmelding.tekst', ledetekster)}</span>
         </Link>
-        <div className="panel blokk side-innhold">
+        <div className="panel blokk side-innhold js-generell-informasjon">
             <h2 className="typo-undertittel">Sykmeldt &mdash; hva nå?</h2>
             <p dangerouslySetInnerHTML={getHtmlLedetekst('sykmeldingOgOppfolging.generell.informasjon.tekst', ledetekster)} />
         </div>

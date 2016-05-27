@@ -75,7 +75,7 @@ describe("Dine sykmeldinger", () => {
 
     beforeEach(() => {
         component = shallow(<DineSykmeldinger sykmeldinger={sykmeldinger} ledetekster={ledetekster} />);
-    })
+    });
 
     it("Skal vise overskrift for 'Dine sykmeldinger'", () => {
         expect(component.find("h1").text()).to.equal("Dine sykmeldinger");
@@ -88,9 +88,5 @@ describe("Dine sykmeldinger", () => {
     it("Skal rendre SykmeldingTeasere", () => {
         expect(component.find(SykmeldingTeasere)).to.have.length(1);
     });
-
-    it("Skal rendre en forklaring", () => {
-        expect(component.find(".js-forklaring")).to.have.length(1);
-    })    
 
 }); 

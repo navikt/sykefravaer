@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export const lagHtml = (innhold, bilde, alt) => {
+export const lagHtml = (innhold, bilde, alt = '') => {
     let innholdMedBilde = innhold;
     if (bilde) {
         innholdMedBilde = `<img class="js-img" alt="${alt}" src="${bilde}" /> ${innhold}`;

@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/brukerinfo_actions.js';
+import { getLedetekst } from '../ledetekster';
 
 export class Varsel extends Component {
     constructor(props) {
@@ -18,10 +19,8 @@ export class Varsel extends Component {
 
     render() {
         return (<div className={`panel typo-infotekst blokk-l under-utvikling-varsel ${(this.state.synlig ? 'er-synlig' : '')}`}>
-            <h2 className="hode hode-informasjon hode-dekorert typo-innholdstittel">Første versjon av ny tjeneste</h2>
-            <p>Sidene er under kontinuerlig utvikling og vil på sikt inneholde mer tilpasset informasjon og flere verktøy.
-            Løsningen inneholder en digital visning av sykmeldingen. Om du kan se sykmeldingen
-            avhenger av hvilket system din lege/sykmelder bruker.</p>
+            <h2 className="hode hode-informasjon hode-dekorert typo-innholdstittel">{getLedetekst('under-utvikling.varsel.tittel', this.props.ledetekster)}</h2>
+            <p>{getLedetekst('under-utvikling.varsel.tekst', this.props.ledetekster)}</p>
             <button className="modal-lukk" onClick={() => { this.props.skjulUnderUtviklingVarsel();}}>Lukk og ikke vis igjen</button>
         </div>);
     }
@@ -30,6 +29,7 @@ export class Varsel extends Component {
 
 Varsel.propTypes = {
     skjulUnderUtviklingVarsel: PropTypes.func,
+    ledetekster: PropTypes.object,
 };
 
 function mapStateToProps() {

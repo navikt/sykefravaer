@@ -117,6 +117,8 @@ const ledetekster = {
 	"sykmelding-og-oppfolging.sidetittel":"Sykmeldinger og oppfølging",
 	"sykmelding-og-oppfolging.informasjon.tittel":"Hvem gjør hva når du er sykmeldt",
 	"sykmelding-og-oppfolging.informasjon.tekst":"<p>Du kan bli sykmeldt når det er medisinske grunner som hindrer deg i å være i arbeid. Ofte er det likevel mulig å være helt eller delvis i arbeid hvis arbeidsgiveren kan gjøre tilpasninger for deg på arbeidsplassen.</p><h3>Sykmeldt</h3><p>Som sykmeldt skal du være med og finne løsninger slik at sykefraværet ditt ikke varer lenger enn nødvendig. </p><h3>Lege/sykmelder</h3><p>Den som sykmelder deg skal vurdere om det er nødvendig med hel eller delvis sykmelding og anbefale aktivitet hvis det er medisinsk forsvarlig.</p><h3>Arbeidsgiver</h3><p>Arbeidsgiveren skal følge deg opp og legge til rette for at du kan være i aktivitet på arbeidsplassen. </p><h3>NAV</h3><p>Hvis du ikke har tilknytning til en arbeidsgiver, er det NAV-kontoret som skal gi deg veiledning og oppfølging.</p>",
+	"under-utvikling.varsel.tekst":"Sidene er under kontinuerlig utvikling og vil på sikt inneholde mer tilpasset informasjon og flere verktøy. Løsningen inneholder en digital visning av sykmeldingen. Om du kan se sykmeldingen avhenger av hvilket system din lege/sykmelder bruker.",
+	"under-utvikling.varsel.tittel":"Første versjon av ny tjeneste",
 };
 
 export default ledetekster; 

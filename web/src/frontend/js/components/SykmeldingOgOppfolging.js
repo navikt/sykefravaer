@@ -6,7 +6,7 @@ import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselCon
 const SykmeldingOgOppfolging = ({ ledetekster = {}, skjulVarsel = false }) => {
     return (<div>
         {
-            (!skjulVarsel ? <UnderUtviklingVarselContainer /> : '')
+            (!skjulVarsel ? <UnderUtviklingVarselContainer ledetekster={ledetekster} /> : '')
         }
         <h1 className="side-header typo-sidetittel">
             {getLedetekst('sykmelding-og-oppfolging.sidetittel', ledetekster)}

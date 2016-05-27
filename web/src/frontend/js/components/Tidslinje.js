@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react';
 import Milepael from './Milepael.js';
 
-const Tidslinje = ({ tidspunkter = [], ledetekster }) => {
+const Tidslinje = ({ milepaeler = [], ledetekster }) => {
     return (<div>
         <header className="tidslinje-header">
             <h1 className="tittel-dekorert">Tidslinjen</h1>
         </header>
         <div className="tidslinje">
             {
-                tidspunkter.map((tidspunkt, index) => {
-                    return (<Milepael {...tidspunkt} key={index} ledetekster={ledetekster} />);
+                milepaeler.map((milepael, index) => {
+                    return (<Milepael {...milepael} key={index} ledetekster={ledetekster} />);
                 })
             }
         </div>
@@ -17,7 +17,7 @@ const Tidslinje = ({ tidspunkter = [], ledetekster }) => {
 };
 
 Tidslinje.propTypes = {
-    tidspunkter: PropTypes.array,
+    milepaeler: PropTypes.array,
     ledetekster: PropTypes.object,
 };
 

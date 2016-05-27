@@ -1,6 +1,6 @@
-export default function informasjon(state = {}, action) {
+export default function milepaeler(state = {}, action) {
     switch (action.type) {
-        case 'SET_INFORMASJON':
+        case 'SET_MILEPAELER':
             return {
                 data: action.data,
             };

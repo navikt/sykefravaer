@@ -1,6 +1,6 @@
 // TODO: Flytte dette til syforest
 
-const informasjonsdata = [{
+const milepaelerData = [{
     ledetekst: 'tidslinje.utarbeide.plan',
     bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
     alt: '',
@@ -16,4 +16,4 @@ const informasjonsdata = [{
     ledetekst: 'tidslinje.sluttfasen',
 }];
 
-export default informasjonsdata;
+export default milepaelerData;

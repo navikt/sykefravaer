@@ -3,7 +3,7 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
-import informasjonsdata from "../../js/informasjonsdata";
+import milepaelerData from "../../js/milepaelerData";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -24,17 +24,17 @@ describe("TidslinjeContainer", () => {
                 henter: false, 
                 hentingFeilet: false
             },
-            informasjon: {
-                data: informasjonsdata
+            milepaeler: {
+                data: milepaelerData
             }
         }
     }); 
 
     describe("mapStateToProps", () => {
 
-        it("Skal returnere tidspunkter", () => {
+        it("Skal returnere milepaeler", () => {
             const props = mapStateToProps(initState);
-            expect(props.tidspunkter).to.deep.equal(initState.informasjon);
+            expect(props.milepaeler).to.deep.equal(initState.milepaeler);
         });
 
         it("Skal returnere ledetekster", () => {
@@ -61,9 +61,9 @@ describe("TidslinjeContainer", () => {
             const ledetekster = {
                 henter: true
             };
-            const tidspunkter = {};
-            const props = { ledetekster, tidspunkter };
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} tidspunkter={tidspunkter} />);
+            const milepaeler = {};
+            const props = { ledetekster, milepaeler };
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} />);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
@@ -71,9 +71,9 @@ describe("TidslinjeContainer", () => {
             const ledetekster = {
                 hentingFeilet: true
             };
-            const tidspunkter = {};
-            const props = { ledetekster, tidspunkter };
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} tidspunkter={tidspunkter} />);
+            const milepaeler = {};
+            const props = { ledetekster, milepaeler };
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} />);
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
@@ -83,9 +83,9 @@ describe("TidslinjeContainer", () => {
                     "nokkel": "Min fine ledetekst"
                 }
             };
-            const tidspunkter = {};
-            const props = { ledetekster, tidspunkter };
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} tidspunkter={tidspunkter} />);
+            const milepaeler = {};
+            const props = { ledetekster, milepaeler };
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} />);
             expect(component.find(AppSpinner)).to.have.length(0);
             expect(component.find(Feilmelding)).to.have.length(0);
             expect(component.find(Tidslinje)).to.have.length(1);

@@ -6,7 +6,7 @@ import Feilmelding from '../components/Feilmelding.js';
 import { connect } from 'react-redux';
 
 export const TidslinjeSide = (props) => {
-    const { brodsmuler, ledetekster, tidspunkter } = props;
+    const { brodsmuler, ledetekster, milepaeler } = props;
     return (<Side tittel="Tidslinjen" brodsmuler={brodsmuler}>
         {
             (() => {
@@ -15,7 +15,7 @@ export const TidslinjeSide = (props) => {
                 } else if (ledetekster.hentingFeilet || !ledetekster.data) {
                     return (<Feilmelding />);
                 } 
-                return <Tidslinje tidspunkter={tidspunkter.data} ledetekster={ledetekster.data} />;
+                return <Tidslinje milepaeler={milepaeler.data} ledetekster={ledetekster.data} />;
             })()
         }
         </Side>);
@@ -24,13 +24,13 @@ export const TidslinjeSide = (props) => {
 TidslinjeSide.propTypes = {
     brodsmuler: PropTypes.array,
     ledetekster: PropTypes.object,
-    tidspunkter: PropTypes.object,
+    milepaeler: PropTypes.object,
 };
 
 export function mapStateToProps(state) {
     return {
         ledetekster: state.ledetekster,
-        tidspunkter: state.informasjon,
+        milepaeler: state.milepaeler,
         brodsmuler: [{
             tittel: 'Sykefravær og oppfølging',
             sti: '/',

@@ -5,17 +5,17 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import informasjon from '../../js/reducers/informasjon.js';
+import milepaeler from '../../js/reducers/milepaeler.js';
 
-describe('informasjon', () => {
+describe('milepaeler', () => {
 
-    it('håndterer SET_INFORMASJON ', () => {
+    it('håndterer SET_MILEPAELER ', () => {
         const initiellState = {};
         const action = {
-            type: 'SET_INFORMASJON',
+            type: 'SET_MILEPAELER',
             data: []
         };
-        const nextState = informasjon(initiellState, action);
+        const nextState = milepaeler(initiellState, action);
 
         expect(nextState).to.deep.equal({
             data: [],

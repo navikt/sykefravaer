@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
 import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer.js';
+import TidslinjeUtsnittContainer from '../containers/TidslinjeUtsnittContainer.js'
 
 const SykmeldingOgOppfolging = ({ ledetekster = {}, skjulVarsel = false }) => {
     return (<div>
@@ -11,6 +12,7 @@ const SykmeldingOgOppfolging = ({ ledetekster = {}, skjulVarsel = false }) => {
         <h1 className="side-header typo-sidetittel">
             {getLedetekst('sykmelding-og-oppfolging.sidetittel', ledetekster)}
         </h1>
+        <TidslinjeUtsnittContainer />
         <Link className="dashboard-lenke" to="/sykefravaer/app/sykmeldinger">
             <img src="/sykefravaer/img/svg/doctor-2.svg" alt="Lege" />
             <span>{getLedetekst('sykmelding-og-oppfolging.tilsykmeldinger.lenketekst', ledetekster)}</span>

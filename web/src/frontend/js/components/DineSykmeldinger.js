@@ -3,11 +3,8 @@ import SykmeldingTeasere from '../components/SykmeldingTeasere.js';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
 import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer.js';
 
-const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, skjulVarsel = false }) => {
+const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {} }) => {
     return (<div>
-        {
-            (!skjulVarsel ? <UnderUtviklingVarselContainer /> : '')
-        }
         <h1 className="side-header typo-sidetittel">
             {getLedetekst('dine-sykmeldinger.tittel', ledetekster)}
         </h1>
@@ -28,7 +25,6 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, skjulVarsel = f
 DineSykmeldinger.propTypes = {
     sykmeldinger: PropTypes.array.isRequired,
     ledetekster: PropTypes.object.isRequired,
-    skjulVarsel: PropTypes.bool.isRequired,
 };
 
 export default DineSykmeldinger;

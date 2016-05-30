@@ -95,18 +95,6 @@ describe("DineSykmeldingerContainer", () => {
             expect(res.sykmeldinger).to.deep.equal(sykmeldinger)
         });
 
-        it("Skal returnere skjulUnderUtviklingVarsel", function() {
-            const res = mapStateToProps({
-                dineSykmeldinger: sykmeldinger,
-                brukerinfo: {
-                    data: {
-                        skjulUnderUtviklingVarsel: true
-                    }
-                }
-            });
-            expect(res.skjulVarsel).to.equal(true)
-        });
-
         it("Skal returnere ledtekster", function() {
             const res = mapStateToProps({
                 ledetekster: {

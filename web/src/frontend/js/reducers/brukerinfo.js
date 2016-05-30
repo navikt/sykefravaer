@@ -14,7 +14,7 @@ try {
     };
 }
 
-const hentVarsel = (state) => {
+const hentVarselState = (state) => {
     return (state.data && state.data.skjulUnderUtviklingVarsel) === true;
 };
 
@@ -31,7 +31,7 @@ export default function brukerinfo(state = initState, action) {
         case 'HENT_BRUKERINFO_FEILET': {
             return Object.assign({}, state, {
                 data: {
-                    skjulUnderUtviklingVarsel: hentVarsel(state),
+                    skjulUnderUtviklingVarsel: hentVarselState(state),
                 },
                 henter: false,
                 hentingFeilet: true,
@@ -40,7 +40,7 @@ export default function brukerinfo(state = initState, action) {
         case 'HENTER_BRUKERINFO': {
             return {
                 data: {
-                    skjulUnderUtviklingVarsel: hentVarsel(state),
+                    skjulUnderUtviklingVarsel: hentVarselState(state),
                 },
                 henter: true,
                 hentingFeilet: false,
@@ -48,12 +48,20 @@ export default function brukerinfo(state = initState, action) {
         }
         case 'SET_BRUKERINFO': {
             const data = Object.assign({}, action.data, {
-                skjulUnderUtviklingVarsel: hentVarsel(state),
+                skjulUnderUtviklingVarsel: hentVarselState(state),
             });
             return Object.assign(state, {
                 henter: false,
                 hentingFeilet: false,
             }, {
+                data,
+            });
+        }
+        case 'SET_ARBEIDSSITUASJON': {
+            const data = Object.assign({}, state.data || {}, {
+                arbeidssituasjon: action.arbeidssituasjon,
+            });
+            return Object.assign({}, state, {
                 data,
             });
         }

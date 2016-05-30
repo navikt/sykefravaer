@@ -6,6 +6,7 @@ import ledetekster from "../ledetekster_mock.js";
 import milepaelerData from "../../js/milepaelerData";
 import Tidslinje from "../../js/components/Tidslinje.js";
 import Milepael from "../../js/components/Milepael.js";
+import TidslinjeVelgArbeidssituasjonContainer from '../../js/containers/TidslinjeVelgArbeidssituasjonContainer.js';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -22,6 +23,11 @@ describe("Tidslinje", () => {
         for(let i = 0; i < milepaelerData.length; i++) {
             expect(component.contains(<Milepael {...milepaelerData[i]} ledetekster={ledetekster} />)).to.equal(true)    
         }
+    }); 
+
+    it("Skal vise en TidslinjeVelgArbeidssituasjonContainer", () => {
+        let component = shallow(<Tidslinje ledetekster={ledetekster} milepaeler={milepaelerData} />)
+        expect(component.find(TidslinjeVelgArbeidssituasjonContainer)).to.have.length(1);
     }); 
 
 }) 

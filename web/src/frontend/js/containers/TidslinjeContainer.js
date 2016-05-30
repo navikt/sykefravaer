@@ -15,7 +15,7 @@ export const TidslinjeSide = (props) => {
                 } else if (ledetekster.hentingFeilet || !ledetekster.data) {
                     return (<Feilmelding />);
                 }
-                return <Tidslinje milepaeler={milepaeler.data} ledetekster={ledetekster.data} />;
+                return <Tidslinje milepaeler={milepaeler} ledetekster={ledetekster.data} />;
             })()
         }
         </Side>);
@@ -24,13 +24,18 @@ export const TidslinjeSide = (props) => {
 TidslinjeSide.propTypes = {
     brodsmuler: PropTypes.array,
     ledetekster: PropTypes.object,
-    milepaeler: PropTypes.object,
+    milepaeler: PropTypes.array,
 };
 
 export function mapStateToProps(state) {
+    const arbeidssituasjon = state.brukerinfo.data.arbeidssituasjon || 'arbeidstaker';
+    const milepaeler = state.milepaeler.data.filter((milepael) => {
+        return milepael.visning.indexOf(arbeidssituasjon) > -1;
+    });
+
     return {
         ledetekster: state.ledetekster,
-        milepaeler: state.milepaeler,
+        milepaeler,
         brodsmuler: [{
             tittel: 'Sykefravær og oppfølging',
             sti: '/',

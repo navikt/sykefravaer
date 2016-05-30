@@ -29,6 +29,13 @@ export function setBrukerinfo(brukerinfo = {}) {
     });
 }
 
+export function setArbeidssituasjon(arbeidssituasjon) {
+    return {
+        type: 'SET_ARBEIDSSITUASJON',
+        arbeidssituasjon,
+    };
+}
+
 export function hentBrukerinfo() {
     return function brukerinfo(dispatch) {
         dispatch(henterBrukerinfo());

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 export const TidzlinjeUtsnitt = (props) => {
     const { ledetekster, milepaeler } = props;
-    return (<TidslinjeUtsnitt milepaeler={milepaeler.data} ledetekster={ledetekster.data} />);
+    return (<TidslinjeUtsnitt milepaeler={milepaeler} ledetekster={ledetekster} />);
 };
 
 TidzlinjeUtsnitt.propTypes = {
@@ -13,9 +13,14 @@ TidzlinjeUtsnitt.propTypes = {
 };
 
 export function mapStateToProps(state) {
+    const arbeidssituasjon = state.brukerinfo.data.arbeidssituasjon || 'arbeidstaker';
+    const milepaeler = state.milepaeler.data.filter((milepael) => {
+        return milepael.visning.indexOf(arbeidssituasjon) > -1;
+    });
+
     return {
-        ledetekster: state.ledetekster,
-        milepaeler: state.milepaeler,
+        ledetekster: state.ledetekster.data,
+        milepaeler,
     };
 }
 

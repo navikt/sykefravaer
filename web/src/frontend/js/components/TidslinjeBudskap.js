@@ -9,8 +9,8 @@ export const lagHtml = (innhold, bilde, alt = '') => {
 };
 
 const TidslinjeBudskap = ({ innhold, bilde, alt, vis }) => {
-    return (<div className={'panel panel-stablet panel-budskap' + (!vis ? ' er-usynlig' : '')}
-        dangerouslySetInnerHTML={lagHtml(innhold, bilde, alt)}></div>);
+    return (<div className={`panel panel-stablet panel-budskap${(!vis ? ' er-usynlig' : '')}`}
+                 dangerouslySetInnerHTML={lagHtml(innhold, bilde, alt)}></div>);
 };
 
 TidslinjeBudskap.propTypes = {

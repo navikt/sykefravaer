@@ -18,7 +18,6 @@ export const DineSykmldSide = (props) => {
                     return (<Feilmelding />);
                 }
                 return (<DineSykmeldinger
-                    skjulVarsel={skjulVarsel}
                     sykmeldinger={sorterSykmeldinger(sykmeldinger.data, sykmeldinger.sortering)}
                     ledetekster={ledetekster.data} />);
             })()
@@ -30,15 +29,18 @@ DineSykmldSide.propTypes = {
     ledetekster: PropTypes.object,
     brodsmuler: PropTypes.array,
     sykmeldinger: PropTypes.object,
-    skjulVarsel: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {
     return {
         sykmeldinger: state.dineSykmeldinger,
         ledetekster: state.ledetekster,
-        skjulVarsel: state.brukerinfo.data.skjulUnderUtviklingVarsel === true,
         brodsmuler: [{
+            tittel: 'Sykefravær og oppfølging',
+            sti: '/',
+            erKlikkbar: true,
+        },
+            {
             tittel: 'Dine sykmeldinger',
             sti: '/sykmeldinger',
         }],

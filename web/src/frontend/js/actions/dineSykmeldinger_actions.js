@@ -29,7 +29,7 @@ export function sorterSykmeldinger(sortering) {
 export function hentDineSykmeldinger() {
     return function sykmeldinger(dispatch) {
         dispatch(henterDineSykmeldinger());
-        let url = `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger`;
+        const url = `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger`;
         return fetch(url, {
             credentials: 'include',
         })
@@ -42,7 +42,7 @@ export function hentDineSykmeldinger() {
             .then((json) => {
                 return dispatch(setDineSykmeldinger(json));
             })
-            .catch((err) => {
+            .catch(() => {
                 return dispatch(hentDineSykmeldingerFeilet());
             });
     };

@@ -22,7 +22,7 @@ export function setArbeidsgiversSykmeldinger(sykmeldinger = []) {
 export function hentArbeidsgiversSykmeldinger() {
     return function sykmeldinger(dispatch) {
         dispatch(henterArbeidsgiversSykmeldinger());
-        let url = `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger?type=arbeidsgiver`;
+        const url = `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger?type=arbeidsgiver`;
         return fetch(url, {
             credentials: 'include',
         })
@@ -35,7 +35,7 @@ export function hentArbeidsgiversSykmeldinger() {
             .then((json) => {
                 return dispatch(setArbeidsgiversSykmeldinger(json));
             })
-            .catch((err) => {
+            .catch(() => {
                 return dispatch(hentArbeidsgiversSykmeldingerFeilet());
             });
     };

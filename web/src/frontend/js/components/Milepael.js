@@ -69,7 +69,7 @@ class Milepael extends Component {
                     </div>
                     <div className="milepael-innhold">
                         <div className="milepael-meta">
-                            <h2>{getLedetekst(this.props.ledetekst + '.meta', this.props.ledetekster)}</h2>
+                            <h2>{getLedetekst(`${this.props.ledetekst}.meta`, this.props.ledetekster)}</h2>
                         </div>
                         <div className="milepael-boble">
                             <button

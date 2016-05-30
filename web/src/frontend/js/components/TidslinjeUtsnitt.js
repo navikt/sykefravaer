@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import { getLedetekst } from '../ledetekster/';
 
 const TidslinjeUtsnitt = ({ milepaeler = [], ledetekster }) => {
-    const preview = milepaeler.slice(0,2);
+    const preview = milepaeler.slice(0, 2);
     return (<div className="blokk">
         <div className="tidslinje-utsnitt">
             {

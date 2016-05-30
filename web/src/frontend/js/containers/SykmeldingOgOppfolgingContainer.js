@@ -10,7 +10,7 @@ export const SykmeldingOgOppfolgingSide = (props) => {
         <Side tittel={getLedetekst('sykmelding-og-oppfolging.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
             {
                 (() => {
-                    return <SykmeldingOgOppfolging skjulVarsel={skjulVarsel} ledetekster={ledetekster.data}/>
+                    return <SykmeldingOgOppfolging skjulVarsel={skjulVarsel} ledetekster={ledetekster.data}/>;
                 })()
             }
         </Side>

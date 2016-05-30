@@ -3,6 +3,6 @@ export default function milepaeler(state = {}, action) {
         return {
             data: action.data,
         };
-    } 
+    }
     return state;
 }

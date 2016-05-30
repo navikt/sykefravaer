@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
 import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer.js';
-import TidslinjeUtsnittContainer from '../containers/TidslinjeUtsnittContainer.js'
+import TidslinjeUtsnittContainer from '../containers/TidslinjeUtsnittContainer.js';
 
 const SykmeldingOgOppfolging = ({ ledetekster = {}, skjulVarsel = false }) => {
     return (<div>
@@ -26,7 +26,7 @@ const SykmeldingOgOppfolging = ({ ledetekster = {}, skjulVarsel = false }) => {
                 {getLedetekst('sykmelding-og-oppfolging.informasjon.tittel', ledetekster)}
             </h2>
             <div className="redaksjonelt-innhold typo-infotekst side-innhold js-roller"
-                 dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding-og-oppfolging.informasjon.tekst', ledetekster)} />
+                 dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding-og-oppfolging.informasjon.tekst', ledetekster)}/>
         </article>
     </div>);
 };

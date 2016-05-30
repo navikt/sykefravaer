@@ -8,7 +8,7 @@ import Feilmelding from '../components/Feilmelding.js';
 import { sorterSykmeldinger } from '../utils';
 
 export const DineSykmldSide = (props) => {
-    const { ledetekster, brodsmuler, sykmeldinger, skjulVarsel } = props;
+    const { ledetekster, brodsmuler, sykmeldinger } = props;
     return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
         {
             (() => {
@@ -39,8 +39,7 @@ export function mapStateToProps(state) {
             tittel: 'Sykefravær og oppfølging',
             sti: '/',
             erKlikkbar: true,
-        },
-            {
+        }, {
             tittel: 'Dine sykmeldinger',
             sti: '/sykmeldinger',
         }],

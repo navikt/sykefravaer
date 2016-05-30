@@ -26,7 +26,7 @@ const SykmeldingOgOppfolging = ({ ledetekster = {}, skjulVarsel = false }) => {
                 {getLedetekst('sykmelding-og-oppfolging.informasjon.tittel', ledetekster)}
             </h2>
             <div className="redaksjonelt-innhold typo-infotekst side-innhold js-roller"
-                 dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding-og-oppfolging.informasjon.tekst', ledetekster)}/>
+                dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding-og-oppfolging.informasjon.tekst', ledetekster)} />
         </article>
     </div>);
 };

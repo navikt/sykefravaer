@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 export const TidzlinjeUtsnitt = (props) => {
     const { ledetekster, milepaeler } = props;
-    return (<TidslinjeUtsnitt milepaeler={milepaeler.data} ledetekster={ledetekster.data}/>);
+    return (<TidslinjeUtsnitt milepaeler={milepaeler.data} ledetekster={ledetekster.data} />);
 };
 
 TidzlinjeUtsnitt.propTypes = {

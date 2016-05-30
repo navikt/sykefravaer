@@ -5,13 +5,13 @@ import AppSpinner from '../components/AppSpinner.js';
 import Feilmelding from '../components/Feilmelding.js';
 import SendTilArbeidsgiver from '../components/SendTilArbeidsgiver.js';
 import { getLedetekst } from '../ledetekster';
-import { hentSykmeldinger } from '../actions/sykmeldinger_actions.js';
+import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions.js';
 
 export class SendTilArbeidsgiverSide extends Component {
 
     componentWillMount() {
         const { dispatch } = this.props;
-        const action = hentSykmeldinger('arbeidsgiver');
+        const action = hentArbeidsgiversSykmeldinger();
         dispatch(action);
     }
 
@@ -45,15 +45,15 @@ SendTilArbeidsgiverSide.propTypes = {
 
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
-    const sykmelding = state.sykmeldinger.data.filter((sykmld) => {
+    const sykmelding = state.arbeidsgiversSykmeldinger.data.filter((sykmld) => {
         return `${sykmld.id}` === `${sykmeldingId}`;
     })[0];
 
     return {
         sykmelding: {
             data: sykmelding,
-            henter: state.sykmeldinger.henter,
-            hentingFeilet: state.sykmeldinger.hentingFeilet,
+            henter: state.arbeidsgiversSykmeldinger.henter,
+            hentingFeilet: state.arbeidsgiversSykmeldinger.hentingFeilet,
         },
         ledetekster: state.ledetekster,
         brodsmuler: [{

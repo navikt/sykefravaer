@@ -4,30 +4,26 @@ const initiellState = {
     data: [],
 };
 
-export default function sykmeldinger(state = initiellState, action) {
+export default function arbeidsgiversSykmeldinger(state = initiellState, action) {
     switch (action.type) {
-        case 'SET_SYKMELDINGER':
+        case 'SET_ARBEIDSGIVERS_SYKMELDINGER':
             return {
                 data: action.sykmeldinger,
                 henter: false,
                 hentingFeilet: false,
             };
-        case 'HENTER_SYKMELDINGER':
+        case 'HENTER_ARBEIDSGIVERS_SYKMELDINGER':
             return {
                 data: [],
                 henter: true,
                 hentingFeilet: false,
             };
-        case 'HENT_SYKMELDINGER_FEILET':
+        case 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET':
             return {
                 data: [],
                 henter: false,
                 hentingFeilet: true,
             };
-        case 'SET_SORTERING':
-            return Object.assign({}, state, {
-                sortering: action.sortering,
-            });
         default:
             return state;
     }

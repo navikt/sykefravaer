@@ -5,12 +5,13 @@ import AppRouter from './routers/AppRouter.js';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
-import sykmeldinger from './reducers/sykmeldinger.js';
+import dineSykmeldinger from './reducers/dineSykmeldinger.js';
+import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger.js';
 import ledetekster from './reducers/ledetekster.js';
 import brukerinfo from './reducers/brukerinfo.js';
 import milepaeler from './reducers/milepaeler.js';
 import { browserHistory } from 'react-router';
-import { hentSykmeldinger } from './actions/sykmeldinger_actions.js';
+import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions.js';
 import { hentLedetekster } from './actions/ledetekster_actions.js';
 import { hentBrukerinfo } from './actions/brukerinfo_actions.js';
 import { setMilepaeler } from './actions/milepaeler_actions.js';
@@ -22,7 +23,8 @@ const history = useScroll(() => {
 })();
 
 const rootReducer = combineReducers({
-    sykmeldinger,
+    dineSykmeldinger,
+    arbeidsgiversSykmeldinger,
     ledetekster,
     brukerinfo,
     milepaeler,
@@ -34,7 +36,7 @@ const store = createStore(rootReducer,
 );
 
 store.dispatch(hentLedetekster());
-store.dispatch(hentSykmeldinger());
+store.dispatch(hentDineSykmeldinger());
 store.dispatch(hentBrukerinfo());
 store.dispatch(setMilepaeler(milepaelerData));
 

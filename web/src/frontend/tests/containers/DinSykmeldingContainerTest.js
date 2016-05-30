@@ -79,7 +79,7 @@ describe("DinSykmeldingContainer", () => {
 
     beforeEach(() => {
         state = {
-            sykmeldinger: {
+            dineSykmeldinger: {
                 data: sykmeldinger,
                 hentingFeilet: false,
                 henter: false
@@ -100,13 +100,13 @@ describe("DinSykmeldingContainer", () => {
         });
 
         it("Skal returnere henter-flagget fra sykmeldinger", () => {
-            state.sykmeldinger.henter = true; 
+            state.dineSykmeldinger.henter = true; 
             const res = mapStateToProps(state, ownProps);
             expect(res.sykmelding.henter).to.equal(true);
         });
 
         it("Skal returnere hentingFeilet-flagget fra sykmeldinger", () => {
-            state.sykmeldinger.hentingFeilet = true; 
+            state.dineSykmeldinger.hentingFeilet = true; 
             const res = mapStateToProps(state, ownProps);
             expect(res.sykmelding.hentingFeilet).to.equal(true);
         });

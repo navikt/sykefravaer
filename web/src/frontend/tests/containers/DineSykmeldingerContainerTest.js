@@ -3,6 +3,7 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
+import sinon from 'sinon';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -13,72 +14,80 @@ import Feilmelding from '../../js/components/Feilmelding.js';
 import DineSykmeldinger from '../../js/components/DineSykmeldinger.js';
 
 let component;
-
-const sykmeldinger = [{
-    id: 2,
-    fnr: "12",
-    fornavn: "Per",
-    etternavn: "Person",
-    sykmelder: "Ove Olsen",
-    arbeidsgiver: "Selskapet AS",
-    perioder: [{
-        fom: "2015-12-31T00:00:00Z",
-        tom: "2016-01-06T00:00:00Z",
-        grad: 67
-    }],
-    hoveddiagnose: {
-        diagnose: "Influensa",
-        diagnosesystem: "ICPC",
-        diagnosekode: "LP2"
-    },
-    arbeidsfoerEtterPerioden: true
-}, {
-    id: 1,
-    fnr: "12",
-    fornavn: "Per",
-    etternavn: "Person",
-    sykmelder: "Ove Olsen",
-    arbeidsgiver: "Selskapet AS",
-    perioder: [{
-        fom: "2015-12-31T00:00:00Z",
-        tom: "2016-01-06T00:00:00Z",
-        grad: 67
-    }],
-    hoveddiagnose: {
-        diagnose: "Influensa",
-        diagnosesystem: "ICPC",
-        diagnosekode: "LP2"
-    },
-    arbeidsfoerEtterPerioden: true
-}, {
-    id: 3,
-    fnr: "12",
-    fornavn: "Per",
-    etternavn: "Person",
-    sykmelder: "Ove Olsen",
-    arbeidsgiver: "Selskapet AS",
-    perioder: [{
-        fom: "2015-12-31T00:00:00Z",
-        tom: "2016-01-06T00:00:00Z",
-        grad: 67
-    }],
-    hoveddiagnose: {
-        diagnose: "Influensa",
-        diagnosesystem: "ICPC",
-        diagnosekode: "LP2"
-    },
-    arbeidsfoerEtterPerioden: true
-}];
+let sykmeldinger;
 
 describe("DineSykmeldingerContainer", () => {
 
     let component; 
+    let dispatch;
+
+    beforeEach(() => {
+        const sykmeldingerArray = [{
+            id: 2,
+            fnr: "12",
+            fornavn: "Per",
+            etternavn: "Person",
+            sykmelder: "Ove Olsen",
+            arbeidsgiver: "Selskapet AS",
+            perioder: [{
+                fom: "2015-12-31T00:00:00Z",
+                tom: "2016-01-06T00:00:00Z",
+                grad: 67
+            }],
+            hoveddiagnose: {
+                diagnose: "Influensa",
+                diagnosesystem: "ICPC",
+                diagnosekode: "LP2"
+            },
+            arbeidsfoerEtterPerioden: true
+        }, {
+            id: 1,
+            fnr: "12",
+            fornavn: "Per",
+            etternavn: "Person",
+            sykmelder: "Ove Olsen",
+            arbeidsgiver: "Selskapet AS",
+            perioder: [{
+                fom: "2015-12-31T00:00:00Z",
+                tom: "2016-01-06T00:00:00Z",
+                grad: 67
+            }],
+            hoveddiagnose: {
+                diagnose: "Influensa",
+                diagnosesystem: "ICPC",
+                diagnosekode: "LP2"
+            },
+            arbeidsfoerEtterPerioden: true
+        }, {
+            id: 3,
+            fnr: "12",
+            fornavn: "Per",
+            etternavn: "Person",
+            sykmelder: "Ove Olsen",
+            arbeidsgiver: "Selskapet AS",
+            perioder: [{
+                fom: "2015-12-31T00:00:00Z",
+                tom: "2016-01-06T00:00:00Z",
+                grad: 67
+            }],
+            hoveddiagnose: {
+                diagnose: "Influensa",
+                diagnosesystem: "ICPC",
+                diagnosekode: "LP2"
+            },
+            arbeidsfoerEtterPerioden: true
+        }];
+
+        sykmeldinger = {
+            data: sykmeldingerArray
+        }
+    })
 
     describe("mapStateToProps", () => {
 
-        it("Skal returnere sykmeldinger", function() {
+        it("Skal returnere dineSykmeldinger", function() {
             const res = mapStateToProps({
-                sykmeldinger: sykmeldinger,
+                dineSykmeldinger: sykmeldinger,
                 brukerinfo: {
                     data: {}
                 }
@@ -88,7 +97,7 @@ describe("DineSykmeldingerContainer", () => {
 
         it("Skal returnere skjulUnderUtviklingVarsel", function() {
             const res = mapStateToProps({
-                sykmeldinger: sykmeldinger,
+                dineSykmeldinger: sykmeldinger,
                 brukerinfo: {
                     data: {
                         skjulUnderUtviklingVarsel: true
@@ -110,17 +119,22 @@ describe("DineSykmeldingerContainer", () => {
             expect(res.ledetekster).to.deep.equal({
                 "min.tekst": "Dette er en test"
             })
-        });        
+        });
+
 
     });
 
     describe("DineSykmldSide", () => {
 
+        beforeEach(() => {
+            dispatch = sinon.spy(); 
+        });
+
         it("Skal vise spinner dersom sykmeldinger hentes", () => {
             let sykmeldinger = {
                 henter: true
             }
-            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={sykmeldinger} />);
+            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={sykmeldinger} dispatch={dispatch} />);
             expect(component.contains(<AppSpinner />)).to.equal(true);
         });
 
@@ -128,7 +142,7 @@ describe("DineSykmeldingerContainer", () => {
             let sykmeldinger = {
                 henter: false
             }
-            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={sykmeldinger} />);
+            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={sykmeldinger} dispatch={dispatch} />);
             expect(component.contains(<AppSpinner />)).to.equal(false);
         });
 
@@ -136,7 +150,7 @@ describe("DineSykmeldingerContainer", () => {
             let sykmeldinger = {
                 hentingFeilet: true
             }
-            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={sykmeldinger} />);
+            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={sykmeldinger} dispatch={dispatch} />);
             expect(component.contains(<Feilmelding />)).to.equal(true);
         }); 
 
@@ -146,9 +160,10 @@ describe("DineSykmeldingerContainer", () => {
                 henter: false,
                 data: []
             }
-            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={sykmeldinger} />);
+            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={sykmeldinger} dispatch={dispatch} />);
             expect(component.find(DineSykmeldinger)).to.have.length(1);
-        });
+        });     
+
     })
 
 }); 

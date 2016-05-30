@@ -1,20 +1,20 @@
 import fetch from 'isomorphic-fetch';
 
-export function henterSykmeldinger() {
+export function henterDineSykmeldinger() {
     return {
-        type: 'HENTER_SYKMELDINGER',
+        type: 'HENTER_DINE_SYKMELDINGER',
     };
 }
 
-export function hentSykmeldingerFeilet() {
+export function hentDineSykmeldingerFeilet() {
     return {
-        type: 'HENT_SYKMELDINGER_FEILET',
+        type: 'HENT_DINE_SYKMELDINGER_FEILET',
     };
 }
 
-export function setSykmeldinger(sykmeldinger = []) {
+export function setDineSykmeldinger(sykmeldinger = []) {
     return {
-        type: 'SET_SYKMELDINGER',
+        type: 'SET_DINE_SYKMELDINGER',
         sykmeldinger,
     };
 }
@@ -26,27 +26,24 @@ export function sorterSykmeldinger(sortering) {
     };
 }
 
-export function hentSykmeldinger(type) {
+export function hentDineSykmeldinger() {
     return function sykmeldinger(dispatch) {
-        dispatch(henterSykmeldinger());
+        dispatch(henterDineSykmeldinger());
         let url = `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger`;
-        if (type) {
-            url = `${url}?type=${type}`;
-        }
         return fetch(url, {
             credentials: 'include',
         })
             .then((response) => {
                 if (response.status > 400) {
-                    dispatch(hentSykmeldingerFeilet());
+                    dispatch(hentDineSykmeldingerFeilet());
                 }
                 return response.json();
             })
             .then((json) => {
-                return dispatch(setSykmeldinger(json));
+                return dispatch(setDineSykmeldinger(json));
             })
-            .catch(() => {
-                return dispatch(hentSykmeldingerFeilet());
+            .catch((err) => {
+                return dispatch(hentDineSykmeldingerFeilet());
             });
     };
 }

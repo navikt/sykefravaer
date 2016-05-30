@@ -2,20 +2,20 @@ import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
 import deepFreeze from 'deep-freeze';
 
-import sykmeldinger from '../../js/reducers/sykmeldinger.js';
+import arbeidsgiversSykmeldinger from '../../js/reducers/arbeidsgiversSykmeldinger.js';
 
-describe('sykmeldinger', () => {
+describe('arbeidsgiversSykmeldinger', () => {
 
-    it('håndterer SET_SYKMELDINGER ', () => {
+    it('håndterer SET_ARBEIDSGIVERS_SYKMELDINGER', () => {
         const initialState = {};
         const action = {
-            type: 'SET_SYKMELDINGER',
+            type: 'SET_ARBEIDSGIVERS_SYKMELDINGER',
             sykmeldinger: [{
                 pair: ['Trainspotting', '28 Days Later'],
                 tally: {Trainspotting: 1}
-            }]
+            }],
         };
-        const nextState = sykmeldinger(initialState, action);
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
             data: [{
@@ -23,16 +23,16 @@ describe('sykmeldinger', () => {
                 tally: {Trainspotting: 1}
             }],
             henter: false,
-            hentingFeilet: false,
+            hentingFeilet: false
         });
     });
 
-    it("Håndterer HENTER_SYKMELDINGER", () => {
+    it("Håndterer HENTER_ARBEIDSGIVERS_SYKMELDINGER", () => {
         const initialState = {};
         const action = {
-            type: "HENTER_SYKMELDINGER"
+            type: "HENTER_ARBEIDSGIVERS_SYKMELDINGER"
         }
-        const nextState = sykmeldinger(initialState, action);
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [],
             henter: true,
@@ -40,32 +40,17 @@ describe('sykmeldinger', () => {
         });
     });
 
-    it("Håndterer HENT_SYKMELDINGER_FEILET", () => {
+    it("Håndterer HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET", () => {
         const initialState = {};
         const action = {
-            type: "HENT_SYKMELDINGER_FEILET"
+            type: "HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET"
         }
-        const nextState = sykmeldinger(initialState, action);
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [],
             henter: false,
             hentingFeilet: true,
         });
     });
-
-    it("håndterer SET_SORTERING ", () => {
-        const initialState = {};
-        const action = {
-            type: 'SET_SORTERING',
-            sortering: 'arbeidsgiver'
-        };
-        const nextState = sykmeldinger(initialState, action);
-
-        expect(nextState).to.deep.equal({
-            sortering: 'arbeidsgiver'
-        });
-    });
-
-
 
 }); 

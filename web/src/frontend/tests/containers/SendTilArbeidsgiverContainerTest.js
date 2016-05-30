@@ -4,7 +4,7 @@ import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
 import sinon from 'sinon';
-import { hentSykmeldinger } from '../../js/actions/sykmeldinger_actions.js';
+import { hentSykmeldinger } from '../../js/actions/dineSykmeldinger_actions.js';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -72,7 +72,6 @@ const sykmeldinger = [{
     arbeidsfoerEtterPerioden: true
 }];
 
-
 describe("SendTilArbeidsgiverContainer", () => {
 
     let component; 
@@ -82,7 +81,7 @@ describe("SendTilArbeidsgiverContainer", () => {
 
     beforeEach(() => {
         state = {
-            sykmeldinger: {
+            arbeidsgiversSykmeldinger: {
                 data: sykmeldinger,
                 hentingFeilet: false,
                 henter: false
@@ -101,13 +100,13 @@ describe("SendTilArbeidsgiverContainer", () => {
         });
 
         it("Skal returnere henter-flagget fra sykmeldinger", () => {
-            state.sykmeldinger.henter = true; 
+            state.arbeidsgiversSykmeldinger.henter = true; 
             const res = mapStateToProps(state, ownProps);
             expect(res.sykmelding.henter).to.equal(true);
         });
 
         it("Skal returnere hentingFeilet-flagget fra sykmeldinger", () => {
-            state.sykmeldinger.hentingFeilet = true; 
+            state.arbeidsgiversSykmeldinger.hentingFeilet = true; 
             const res = mapStateToProps(state, ownProps);
             expect(res.sykmelding.hentingFeilet).to.equal(true);
         });
@@ -132,7 +131,7 @@ describe("SendTilArbeidsgiverContainer", () => {
             expect(component.find(AppSpinner)).to.have.length(1);
         }); 
 
-        it("Skal vise Feilmelding når siden laster", () => {
+        it("Skal vise Feilmelding dersom noe feiler", () => {
             let sykmelding = {
                 hentingFeilet: true
             };

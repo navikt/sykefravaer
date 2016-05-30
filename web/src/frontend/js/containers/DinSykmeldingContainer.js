@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as actionCreators from '../actions/sykmeldinger_actions.js';
+import * as actionCreators from '../actions/dineSykmeldinger_actions.js';
 import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne.js';
 import DinSykmelding from '../components/DinSykmelding.js';
 import AppSpinner from '../components/AppSpinner.js';
@@ -35,15 +35,15 @@ DinSykmldSide.propTypes = {
 
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
-    const sykmelding = state.sykmeldinger.data.filter((sykmld) => {
+    const sykmelding = state.dineSykmeldinger.data.filter((sykmld) => {
         return `${sykmld.id}` === `${sykmeldingId}`;
     })[0];
 
     return {
         sykmelding: {
             data: sykmelding,
-            hentingFeilet: state.sykmeldinger.hentingFeilet,
-            henter: state.sykmeldinger.henter,
+            hentingFeilet: state.dineSykmeldinger.hentingFeilet,
+            henter: state.dineSykmeldinger.henter,
         },
         strengtFortroligAdresse: state.brukerinfo.data.strengtFortroligAdresse,
         ledetekster: state.ledetekster,

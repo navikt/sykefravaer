@@ -35,7 +35,7 @@ DineSykmldSide.propTypes = {
 
 export function mapStateToProps(state) {
     return {
-        sykmeldinger: state.sykmeldinger,
+        sykmeldinger: state.dineSykmeldinger,
         ledetekster: state.ledetekster,
         skjulVarsel: state.brukerinfo.data.skjulUnderUtviklingVarsel === true,
         brodsmuler: [{

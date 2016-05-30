@@ -8,11 +8,7 @@ export const SykmeldingOgOppfolgingSide = (props) => {
     const { ledetekster, brodsmuler, skjulVarsel } = props;
     return (
         <Side tittel={getLedetekst('sykmelding-og-oppfolging.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
-            {
-                (() => {
-                    return <SykmeldingOgOppfolging skjulVarsel={skjulVarsel} ledetekster={ledetekster.data}/>;
-                })()
-            }
+            <SykmeldingOgOppfolging skjulVarsel={skjulVarsel} ledetekster={ledetekster.data}/>
         </Side>
     );
 };

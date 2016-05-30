@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import SykmeldingTeasere from '../components/SykmeldingTeasere.js';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
-import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer.js';
 
 const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {} }) => {
     return (<div>

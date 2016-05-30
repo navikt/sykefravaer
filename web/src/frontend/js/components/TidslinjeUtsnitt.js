@@ -9,10 +9,14 @@ const TidslinjeUtsnitt = ({ milepaeler = [], ledetekster }) => {
         <div className="tidslinje-utsnitt">
             {
                 preview.map((milepael, index) => {
-                    return (<Milepael {...milepael} key={index} ledetekster={ledetekster} />);
+                    return (<Milepael {...milepael} key={index} ledetekster={ledetekster}/>);
                 })
             }
-            <Link className="tidslinje-pille" to="/sykefravaer/app/tidslinjen">{getLedetekst('tidslinje-utsnitt.lenketekst', ledetekster)}</Link>
+            {
+                milepaeler.length === 0 ? null :
+                    <Link className="tidslinje-pille"
+                          to="/sykefravaer/app/tidslinjen">{getLedetekst('tidslinje-utsnitt.lenketekst', ledetekster)}</Link>
+            }
         </div>
     </div>);
 };

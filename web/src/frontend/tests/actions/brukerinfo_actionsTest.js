@@ -69,4 +69,11 @@ describe("brukerinfo_actions", () => {
 		});
 	});
 
+	it("Skal ha en setArbeidssituasjon()-funksjon som returnerer riktig action()", () => {
+		expect(actions.setArbeidssituasjon("arbeidstaker")).to.deep.equal({
+			type: "SET_ARBEIDSSITUASJON",
+			arbeidssituasjon: "arbeidstaker"
+		})
+	});
+
 });

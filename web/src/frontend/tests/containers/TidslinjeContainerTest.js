@@ -3,7 +3,6 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
-import milepaelerData from "../../js/milepaelerData";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -12,6 +11,38 @@ import { TidslinjeSide, mapStateToProps } from "../../js/containers/TidslinjeCon
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
 import Tidslinje from '../../js/components/Tidslinje.js';
+
+const milepaelerData = [{
+    ledetekst: 'tidslinje.utarbeide.plan',
+    bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
+    alt: '',
+    visning: ['arbeidstaker'],
+    key: 0
+}, {
+    ledetekst: 'tidslinje.ikke-arbeidstaker.nav',
+    visning: ['ikke-arbeidstaker'],
+    key: 1
+}, {
+    ledetekst: 'tidslinje.delta.arbeid',
+    bilde: '/sykefravaer/img/tidslinje/innen6uker.svg',
+    alt: '',
+    visning: ['arbeidstaker'],
+    key: 2
+}, {
+    ledetekst: 'tidslinje.dialogmote',
+    img: '/sykefravaer/img/tidslinje/innen24uker.svg',
+    alt: '',
+    visning: ['arbeidstaker'],
+    key: 3
+}, {
+    ledetekst: 'tidslinje.sluttfasen',
+    visning: ['arbeidstaker'],
+    key: 4
+}, {
+    ledetekst: 'tidslinje.ikke-arbeidstaker.sluttfasen',
+    visning: ['ikke-arbeidstaker'],
+    key: 5
+}];
  
 describe("TidslinjeContainer", () => {
 
@@ -24,6 +55,11 @@ describe("TidslinjeContainer", () => {
                 henter: false, 
                 hentingFeilet: false
             },
+            brukerinfo: {
+                data: {
+
+                }
+            },
             milepaeler: {
                 data: milepaelerData
             }
@@ -32,10 +68,46 @@ describe("TidslinjeContainer", () => {
 
     describe("mapStateToProps", () => {
 
-        it("Skal returnere milepaeler", () => {
+        it("Skal returnere milepaeler når arbeidssituasjon === undefined", () => {
             const props = mapStateToProps(initState);
-            expect(props.milepaeler).to.deep.equal(initState.milepaeler);
+            expect(props.milepaeler).to.deep.equal([{
+                ledetekst: 'tidslinje.utarbeide.plan',
+                bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
+                alt: '',
+                visning: ['arbeidstaker'],
+                key: 0
+            }, {
+                ledetekst: 'tidslinje.delta.arbeid',
+                bilde: '/sykefravaer/img/tidslinje/innen6uker.svg',
+                alt: '',
+                visning: ['arbeidstaker'],
+                key: 2
+            }, {
+                ledetekst: 'tidslinje.dialogmote',
+                img: '/sykefravaer/img/tidslinje/innen24uker.svg',
+                alt: '',
+                visning: ['arbeidstaker'],
+                key: 3
+            }, {
+                ledetekst: 'tidslinje.sluttfasen',
+                visning: ['arbeidstaker'],
+                key: 4
+            }]);
         });
+
+        it("Skal returnere milepaeler når arbeidssituasjon === 'ikke-arbeidstaker'", () => {
+            initState.brukerinfo.data.arbeidssituasjon = 'ikke-arbeidstaker'
+            const props = mapStateToProps(initState);
+            expect(props.milepaeler).to.deep.equal([{
+                ledetekst: 'tidslinje.ikke-arbeidstaker.nav',
+                visning: ['ikke-arbeidstaker'],
+                key: 1
+            }, {
+                ledetekst: 'tidslinje.ikke-arbeidstaker.sluttfasen',
+                visning: ['ikke-arbeidstaker'],
+                key: 5
+            }]);
+        });        
 
         it("Skal returnere ledetekster", () => {
             const props = mapStateToProps(initState);
@@ -76,20 +148,6 @@ describe("TidslinjeContainer", () => {
             const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} />);
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
-
-        it("Skal vise en Tidslinje dersom alt er OK", () => {
-            const ledetekster = {
-                data: {
-                    "nokkel": "Min fine ledetekst"
-                }
-            };
-            const milepaeler = {};
-            const props = { ledetekster, milepaeler };
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} />);
-            expect(component.find(AppSpinner)).to.have.length(0);
-            expect(component.find(Feilmelding)).to.have.length(0);
-            expect(component.find(Tidslinje)).to.have.length(1);
-        });              
 
     })
 

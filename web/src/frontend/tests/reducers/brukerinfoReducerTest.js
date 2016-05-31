@@ -178,4 +178,16 @@ describe('brukerinfo', () => {
         })  
     });
 
+    it("Håndterer setArbeidssituasjon", () => {
+        initiellState = {
+            data: {}
+        };
+        const nyState = brukerinfo(initiellState, actions.setArbeidssituasjon("arbeidstaker")); 
+        expect(nyState).to.deep.equal({
+            data: {
+                arbeidssituasjon: "arbeidstaker"
+            }
+        })  
+    });
+
 }); 

@@ -1,13 +1,14 @@
 import React, { PropTypes } from 'react';
 import Milepael from './Milepael.js';
 import TidslinjeVelgArbeidssituasjonContainer from '../containers/TidslinjeVelgArbeidssituasjonContainer.js';
+import { getLedetekst } from '../ledetekster';
 
 const Tidslinje = ({ milepaeler = [], ledetekster }) => {
     return (<div>
         <header className="tidslinje-header">
             <h1 className="tittel-dekorert">Tidslinjen</h1>
         </header>
-        <p className="typo-infotekst tidslinje-intro">Mens du er sykmeldt har arbeidsgiveren din ansvar for å følge deg opp og tilrettelegge arbeidet. Derfor er det viktig at dere har tett kontakt. Du har plikt til å samarbeide om å finne løsninger og delta i aktivitet hvis du ikke er for syk.</p>
+        <p className="typo-infotekst tidslinje-intro">{getLedetekst('tidslinje.introtekst', ledetekster)}</p>
         <TidslinjeVelgArbeidssituasjonContainer />
         <div className="tidslinje">
             {

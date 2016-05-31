@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { getLedetekst } from '../ledetekster';
 import TidslinjeBudskap from './TidslinjeBudskap.js';
-import { onResizeThrottle } from '../utils';
+import { onResizeThrottle, scrollTo } from '../utils';
 
 class Milepael extends Component {
 
@@ -51,13 +51,16 @@ class Milepael extends Component {
             });
         }, 0);
 
-        if (!blirApen) {
-            setTimeout(() => {
+        setTimeout(() => {
+            if(!blirApen) {
                 this.setState({
                     visBudskap: false,
-                });
-            }, 300);
-        }
+                });    
+            } else {
+                scrollTo(this.refs.milepael, 1000);
+            }
+            
+        }, 300);
     }
 
     render() {

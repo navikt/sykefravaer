@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../actions/brukerinfo_actions.js';
 
 export const VelgArbeidssituasjon = (props) => {
-
     const clickHandler = (e, verdi) => {
         e.preventDefault();
         props.setArbeidssituasjon(verdi);

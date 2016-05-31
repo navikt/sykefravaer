@@ -6,14 +6,13 @@ import { connect } from 'react-redux';
 
 export const TidzlinjeUtsnitt = (props) => {
     const { ledetekster, milepaeler } = props;
-    if(ledetekster.henter) {
+    if (ledetekster.henter) {
         return <AppSpinner />;
     } else if (ledetekster.hentingFeilet) {
         return <Feilmelding />;
-    } else {
-        return <TidslinjeUtsnitt milepaeler={milepaeler} ledetekster={ledetekster.data} />;
     }
-}
+    return <TidslinjeUtsnitt milepaeler={milepaeler} ledetekster={ledetekster.data} />;
+};
 
 TidzlinjeUtsnitt.propTypes = {
     ledetekster: PropTypes.object,

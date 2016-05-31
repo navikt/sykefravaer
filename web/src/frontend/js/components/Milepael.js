@@ -52,7 +52,7 @@ class Milepael extends Component {
         }, 0);
 
         setTimeout(() => {
-            if(!blirApen) {
+            if (!blirApen) {
                 this.setState({
                     visBudskap: false,
                 });

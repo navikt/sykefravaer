@@ -35,7 +35,7 @@ const getSykmelding = (skmld = {}) => {
     return Object.assign({}, sykmelding, skmld);
 }
 
-describe.only("SendTilArbeidsgiver", () => {
+describe("SendTilArbeidsgiver", () => {
 
     beforeEach(() => {
         component = mount(<SendTilArbeidsgiver sykmelding={getSykmelding()} ledetekster={ledetekster}/>)
@@ -74,7 +74,6 @@ describe.only("SendTilArbeidsgiver", () => {
     it("Viser FlereOpplysninger", () => {
         expect(component.find(FlereOpplysninger)).to.have.length(1);
     });
-
 
     describe("Hensyn på arbeidsplassen", () => {
 

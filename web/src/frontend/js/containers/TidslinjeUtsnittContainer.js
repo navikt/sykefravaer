@@ -9,11 +9,11 @@ export const TidzlinjeUtsnitt = (props) => {
 
 TidzlinjeUtsnitt.propTypes = {
     ledetekster: PropTypes.object,
-    milepaeler: PropTypes.object,
+    milepaeler: PropTypes.array,
 };
 
 export function mapStateToProps(state) {
-    const arbeidssituasjon = state.brukerinfo.data.arbeidssituasjon || 'arbeidstaker';
+    const arbeidssituasjon = (state.brukerinfo && state.brukerinfo.innstillinger && state.brukerinfo.innstillinger.arbeidssituasjon) ? state.brukerinfo.innstillinger.arbeidssituasjon : 'arbeidstaker';
     const milepaeler = state.milepaeler.data.filter((milepael) => {
         return milepael.visning.indexOf(arbeidssituasjon) > -1;
     });

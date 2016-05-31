@@ -56,9 +56,8 @@ describe("TidslinjeContainer", () => {
                 hentingFeilet: false
             },
             brukerinfo: {
-                data: {
-
-                }
+                innstillinger: {},
+                bruker: {}
             },
             milepaeler: {
                 data: milepaelerData
@@ -96,7 +95,7 @@ describe("TidslinjeContainer", () => {
         });
 
         it("Skal returnere milepaeler når arbeidssituasjon === 'ikke-arbeidstaker'", () => {
-            initState.brukerinfo.data.arbeidssituasjon = 'ikke-arbeidstaker'
+            initState.brukerinfo.innstillinger.arbeidssituasjon = 'ikke-arbeidstaker'
             const props = mapStateToProps(initState);
             expect(props.milepaeler).to.deep.equal([{
                 ledetekst: 'tidslinje.ikke-arbeidstaker.nav',

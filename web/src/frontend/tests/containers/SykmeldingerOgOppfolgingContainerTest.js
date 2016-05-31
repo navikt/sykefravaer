@@ -12,7 +12,7 @@ import SykmeldingOgOppfolging from '../../js/components/SykmeldingOgOppfolging.j
 
 
 
-describe("DineSykmeldingerContainer", () => {
+describe("SykmeldingOgOppfolgingContainer", () => {
 
 
     describe("mapStateToProps", () => {
@@ -20,7 +20,7 @@ describe("DineSykmeldingerContainer", () => {
         it("Skal returnere skjulUnderUtviklingVarsel", function() {
             const res = mapStateToProps({
                 brukerinfo: {
-                    data: {
+                    innstillinger: {
                         skjulUnderUtviklingVarsel: true
                     }
                 }
@@ -28,7 +28,7 @@ describe("DineSykmeldingerContainer", () => {
             expect(res.skjulVarsel).to.equal(true)
         });
 
-        it("Skal returnere ledtekster", function() {
+        it("Skal returnere ledetekster", function() {
             const res = mapStateToProps({
                 ledetekster: {
                     "min.tekst": "Dette er en test"

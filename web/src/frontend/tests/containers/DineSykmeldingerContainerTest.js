@@ -89,19 +89,21 @@ describe("DineSykmeldingerContainer", () => {
             const res = mapStateToProps({
                 dineSykmeldinger: sykmeldinger,
                 brukerinfo: {
-                    data: {}
+                    bruker: {},
+                    innstillinger: {}
                 }
             });
             expect(res.sykmeldinger).to.deep.equal(sykmeldinger)
         });
 
-        it("Skal returnere ledtekster", function() {
+        it("Skal returnere ledetekster", function() {
             const res = mapStateToProps({
                 ledetekster: {
                     "min.tekst": "Dette er en test"
                 },
                 brukerinfo: {
-                    data: {}
+                    bruker: {},
+                    innstillinger: {}
                 }     
             });
             expect(res.ledetekster).to.deep.equal({

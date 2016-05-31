@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../actions/brukerinfo_actions.js';
 
 export const VelgArbeidssituasjon = (props) => {
-
     const clickHandler = (e, verdi) => {
         e.preventDefault();
         props.setArbeidssituasjon(verdi);
@@ -30,7 +29,7 @@ VelgArbeidssituasjon.propTypes = {
 
 export function mapStateToProps(state) {
     return {
-        valgtArbeidssituasjon: state.brukerinfo.data.arbeidssituasjon || 'arbeidstaker',
+        valgtArbeidssituasjon: state.brukerinfo.innstillinger.arbeidssituasjon || 'arbeidstaker',
         arbeidssituasjoner: [{
             tittel: 'Arbeidstaker',
             verdi: 'arbeidstaker',

@@ -22,7 +22,7 @@ SykmeldingOgOppfolgingSide.propTypes = {
 export function mapStateToProps(state) {
     return {
         ledetekster: state.ledetekster,
-        skjulVarsel: state.brukerinfo.data.skjulUnderUtviklingVarsel === true,
+        skjulVarsel: (state.brukerinfo && state.brukerinfo.innstillinger) ? (state.brukerinfo.innstillinger.skjulUnderUtviklingVarsel === true) : false,
         brodsmuler: [{
             tittel: 'Sykmeldinger og oppfølging',
             sti: '/',

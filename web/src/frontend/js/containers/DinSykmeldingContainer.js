@@ -48,6 +48,10 @@ export function mapStateToProps(state, ownProps) {
         strengtFortroligAdresse: state.brukerinfo.data.strengtFortroligAdresse,
         ledetekster: state.ledetekster,
         brodsmuler: [{
+            tittel: 'Sykefravær og oppfølging',
+            sti: '/',
+            erKlikkbar: true,
+        }, {
             tittel: 'Dine sykmeldinger',
             sti: '/sykmeldinger',
             erKlikkbar: true,

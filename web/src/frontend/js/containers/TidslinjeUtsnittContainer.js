@@ -9,7 +9,7 @@ export const TidzlinjeUtsnitt = (props) => {
 
 TidzlinjeUtsnitt.propTypes = {
     ledetekster: PropTypes.object,
-    milepaeler: PropTypes.array,
+    milepaeler: PropTypes.object,
 };
 
 export function mapStateToProps(state) {

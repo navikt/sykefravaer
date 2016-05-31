@@ -35,7 +35,7 @@ const getSykmelding = (skmld = {}) => {
     return Object.assign({}, sykmelding, skmld);
 }
 
-describe("SendTilArbeidsgiver", () => {
+describe.only("SendTilArbeidsgiver", () => {
 
     beforeEach(() => {
         component = mount(<SendTilArbeidsgiver sykmelding={getSykmelding()} ledetekster={ledetekster}/>)
@@ -46,10 +46,20 @@ describe("SendTilArbeidsgiver", () => {
         expect(component.find(SykmeldingPerioder)).to.have.length(1)
     });
 
-    it("Skal vise diagnose som et skravert felt", () => {
-        component = shallow(<SendTilArbeidsgiver sykmelding={getSykmelding()} ledetekster={ledetekster}/>);
+    it("Skal vise diagnose som et skravert felt dersom sykmelding.skalViseSkravertFelt === true", () => {
+        component = shallow(<SendTilArbeidsgiver sykmelding={getSykmelding({
+            skalViseSkravertFelt: true
+        })} ledetekster={ledetekster}/>);
+        expect(component.find(".js-diagnose")).to.have.length(1);
         expect(component.find(".js-diagnose").text()).to.equal("Diagnosen er skjult for arbeidsgiver")
     });
+
+    it("Skal ikke vise diagnose som et skravert felt dersom sykmelding.skalViseSkravertFelt === false", () => {
+        component = shallow(<SendTilArbeidsgiver sykmelding={getSykmelding({
+            skalViseSkravertFelt: false
+        })} ledetekster={ledetekster}/>);
+        expect(component.find(".js-diagnose")).to.have.length(0);
+    });    
 
     it("Skal vise fødselsnummer", () => {
         component = shallow(<SendTilArbeidsgiver sykmelding={getSykmelding()} ledetekster={ledetekster}/>);

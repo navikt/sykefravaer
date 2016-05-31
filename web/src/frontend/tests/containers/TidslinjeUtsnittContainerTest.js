@@ -16,31 +16,31 @@ const milepaelerData = [{
     ledetekst: 'tidslinje.utarbeide.plan',
     bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
     alt: '',
-    visning: ['arbeidstaker'],
+    visning: ['MED_ARBEIDSGIVER'],
     key: 0
 }, {
-    ledetekst: 'tidslinje.ikke-arbeidstaker.nav',
-    visning: ['ikke-arbeidstaker'],
+    ledetekst: 'tidslinje.UTEN_ARBEIDSGIVER.nav',
+    visning: ['UTEN_ARBEIDSGIVER'],
     key: 1
 }, {
     ledetekst: 'tidslinje.delta.arbeid',
     bilde: '/sykefravaer/img/tidslinje/innen6uker.svg',
     alt: '',
-    visning: ['arbeidstaker'],
+    visning: ['MED_ARBEIDSGIVER'],
     key: 2
 }, {
     ledetekst: 'tidslinje.dialogmote',
     img: '/sykefravaer/img/tidslinje/innen24uker.svg',
     alt: '',
-    visning: ['arbeidstaker'],
+    visning: ['MED_ARBEIDSGIVER'],
     key: 3
 }, {
     ledetekst: 'tidslinje.sluttfasen',
-    visning: ['arbeidstaker'],
+    visning: ['MED_ARBEIDSGIVER'],
     key: 4
 }, {
-    ledetekst: 'tidslinje.ikke-arbeidstaker.sluttfasen',
-    visning: ['ikke-arbeidstaker'],
+    ledetekst: 'tidslinje.UTEN_ARBEIDSGIVER.sluttfasen',
+    visning: ['UTEN_ARBEIDSGIVER'],
     key: 5
 }];
  
@@ -83,23 +83,23 @@ describe("TidslinjeUtsnittContainer", () => {
                 ledetekst: 'tidslinje.utarbeide.plan',
                 bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
                 alt: '',
-                visning: ['arbeidstaker'],
+                visning: ['MED_ARBEIDSGIVER'],
                 key: 0
             }, {
                 ledetekst: 'tidslinje.delta.arbeid',
                 bilde: '/sykefravaer/img/tidslinje/innen6uker.svg',
                 alt: '',
-                visning: ['arbeidstaker'],
+                visning: ['MED_ARBEIDSGIVER'],
                 key: 2
             }, {
                 ledetekst: 'tidslinje.dialogmote',
                 img: '/sykefravaer/img/tidslinje/innen24uker.svg',
                 alt: '',
-                visning: ['arbeidstaker'],
+                visning: ['MED_ARBEIDSGIVER'],
                 key: 3
             }, {
                 ledetekst: 'tidslinje.sluttfasen',
-                visning: ['arbeidstaker'],
+                visning: ['MED_ARBEIDSGIVER'],
                 key: 4
             }]);
 

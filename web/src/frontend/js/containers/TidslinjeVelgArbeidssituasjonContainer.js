@@ -29,13 +29,13 @@ VelgArbeidssituasjon.propTypes = {
 
 export function mapStateToProps(state) {
     return {
-        valgtArbeidssituasjon: state.brukerinfo.data.arbeidssituasjon || 'arbeidstaker',
+        valgtArbeidssituasjon: state.brukerinfo.data.arbeidssituasjon || 'MED_ARBEIDSGIVER',
         arbeidssituasjoner: [{
-            tittel: 'Arbeidstaker',
-            verdi: 'arbeidstaker',
+            tittel: 'Jeg har arbeidsgiver',
+            verdi: 'MED_ARBEIDSGIVER',
         }, {
-            tittel: 'Ikke arbeidstaker',
-            verdi: 'ikke-arbeidstaker',
+            tittel: 'Jeg har ikke arbeidsgiver',
+            verdi: 'UTEN_ARBEIDSGIVER',
         }],
     };
 }

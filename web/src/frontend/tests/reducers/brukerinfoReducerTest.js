@@ -182,10 +182,10 @@ describe('brukerinfo', () => {
         initiellState = {
             data: {}
         };
-        const nyState = brukerinfo(initiellState, actions.setArbeidssituasjon("arbeidstaker")); 
+        const nyState = brukerinfo(initiellState, actions.setArbeidssituasjon("MED_ARBEIDSGIVER")); 
         expect(nyState).to.deep.equal({
             data: {
-                arbeidssituasjon: "arbeidstaker"
+                arbeidssituasjon: "MED_ARBEIDSGIVER"
             }
         })  
     });

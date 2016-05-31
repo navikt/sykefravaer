@@ -11,6 +11,7 @@ export const TidzlinjeUtsnitt = (props) => {
     } else if (ledetekster.hentingFeilet) {
         return <Feilmelding />;
     }
+  
     return <TidslinjeUtsnitt milepaeler={milepaeler} ledetekster={ledetekster.data} />;
 };
 
@@ -22,7 +23,7 @@ TidzlinjeUtsnitt.propTypes = {
 export function mapStateToProps(state) {
     const arbeidssituasjon = (state.brukerinfo &&
         state.brukerinfo.innstillinger &&
-        state.brukerinfo.innstillinger.arbeidssituasjon) ? state.brukerinfo.innstillinger.arbeidssituasjon : 'arbeidstaker';
+        state.brukerinfo.innstillinger.arbeidssituasjon) ? state.brukerinfo.innstillinger.arbeidssituasjon : 'MED_ARBEIDSGIVER';
 
     const milepaeler = state.milepaeler.data.filter((milepael) => {
         return milepael.visning.indexOf(arbeidssituasjon) > -1;

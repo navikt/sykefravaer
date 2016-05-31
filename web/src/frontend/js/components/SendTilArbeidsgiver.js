@@ -24,7 +24,7 @@ const SendTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
                 <div className="arbeidsgivers-nokkelopplysninger">
                     <SykmeldingPerioder perioder={sykmelding.perioder} ledetekster={ledetekster} Overskrift="H4" />
                     {
-                        !sykmelding.skalViseSkravertFelt ? null : 
+                        !sykmelding.skalViseSkravertFelt ? null :
                         <SykmeldingNokkelOpplysning tittel="Diagnose" Overskrift="H4">
                             <p className="skravert js-diagnose">Diagnosen er skjult for arbeidsgiver</p>
                         </SykmeldingNokkelOpplysning>

@@ -55,11 +55,10 @@ class Milepael extends Component {
             if(!blirApen) {
                 this.setState({
                     visBudskap: false,
-                });    
+                });
             } else {
                 scrollTo(this.refs.milepael, 1000);
             }
-            
         }, 300);
     }
 

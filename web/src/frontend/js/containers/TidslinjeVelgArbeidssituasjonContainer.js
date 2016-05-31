@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setArbeidssituasjon } from '../actions/brukerinfo_actions.js';
+import * as actionCreators from '../actions/brukerinfo_actions.js';
 
 export const VelgArbeidssituasjon = (props) => {
+
     const clickHandler = (e, verdi) => {
         e.preventDefault();
         props.setArbeidssituasjon(verdi);
@@ -40,6 +41,6 @@ export function mapStateToProps(state) {
     };
 }
 
-const TidslinjeVelgArbeidssituasjonContainer = connect(mapStateToProps, { setArbeidssituasjon })(VelgArbeidssituasjon);
+const TidslinjeVelgArbeidssituasjonContainer = connect(mapStateToProps, actionCreators)(VelgArbeidssituasjon);
 
 export default TidslinjeVelgArbeidssituasjonContainer;

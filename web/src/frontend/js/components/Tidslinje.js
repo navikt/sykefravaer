@@ -7,6 +7,7 @@ const Tidslinje = ({ milepaeler = [], ledetekster }) => {
         <header className="tidslinje-header">
             <h1 className="tittel-dekorert">Tidslinjen</h1>
         </header>
+        <p className="typo-infotekst tidslinje-intro">Mens du er sykmeldt har arbeidsgiveren din ansvar for å følge deg opp og tilrettelegge arbeidet. Derfor er det viktig at dere har tett kontakt. Du har plikt til å samarbeide om å finne løsninger og delta i aktivitet hvis du ikke er for syk.</p>
         <TidslinjeVelgArbeidssituasjonContainer />
         <div className="tidslinje">
             {

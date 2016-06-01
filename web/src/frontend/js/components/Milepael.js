@@ -3,6 +3,25 @@ import { getLedetekst } from '../ledetekster';
 import TidslinjeBudskap from './TidslinjeBudskap.js';
 import { onResizeThrottle, scrollTo } from '../utils';
 
+const StatusIkon = ({ type }) => {
+    let status = {
+        statusClassName: 'milepael-status-klokke',
+        ikonClassName: 'milepael-ikon-klokke',
+        ikon: 'klokke-svart.svg',
+        alt: '',
+    }
+    if(type === 'START') {
+        status.statusClassName = 'milepael-status-start';
+        status.ikonClassName = 'milepael-ikon-start';
+        status.ikon = 'hake-hvit.svg';
+    }
+    return (<div className={`milepael-status ${status.statusClassName}`}>
+        <div className={`milepael-ikon ${status.ikonClassName}`}>
+            <img src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt} />
+        </div>
+    </div>);
+}
+
 class Milepael extends Component {
 
     constructor(props) {
@@ -64,11 +83,7 @@ class Milepael extends Component {
 
     render() {
         return (<article className="milepael" ref="milepael">
-                    <div className="milepael-status">
-                        <div className="milepael-ikon">
-                            <img src="/sykefravaer/img/svg/tidslinje-sirkel-graa.svg" alt="" />
-                        </div>
-                    </div>
+                    <StatusIkon type={this.props.type} />
                     <div className="milepael-innhold">
                         <div className="milepael-meta">
                             <h2>{getLedetekst(`${this.props.ledetekst}.meta`, this.props.ledetekster)}</h2>

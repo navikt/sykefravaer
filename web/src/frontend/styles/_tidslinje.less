@@ -1,7 +1,7 @@
 .tidslinje-header {
     .mixin-typo-infotekst(); 
     padding: 0;
-    margin-bottom: 2rem; 
+    margin-bottom: 3rem; 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
@@ -24,10 +24,11 @@
 
 .tidslinje-intro {
     text-align: center; 
-    max-width: 35rem; 
-    margin-bottom: 2rem; 
+    margin-bottom: 3rem; 
     margin-left: auto; 
     margin-right: auto; 
+    line-height: 1.4;
+    .mixin-typo-infotekst(); 
 }
 
 .tidslinje-pille {
@@ -48,4 +49,43 @@
         box-shadow: 0 0 0 3px @color-focus; 
     }
 
+}
+
+.tidslinje-velg-arbeidssituasjon {
+
+    display: flex; 
+    padding: 0; 
+    margin: 0 0 3rem 0; 
+    align-items: center; 
+    justify-content: center; 
+
+    a {
+        text-align: center;
+        display: inline-block;
+        padding: .25em 0;
+        border-bottom: 2px solid transparent; 
+        color: @color-text; 
+    }
+
+    a:hover {
+        border-bottom: 2px solid @color-border; 
+    }
+
+    .er-valgt {
+        border-bottom: 2px solid @color-text; 
+        font-weight: 700; 
+    }
+
+    .er-valgt:hover {
+        border-bottom-color: @color-text; 
+    }
+
+    li {
+        list-style-type: none; 
+        margin: 0 2rem 0 0; 
+    }
+
+    li:last-child {
+        margin: 0; 
+    }
 }

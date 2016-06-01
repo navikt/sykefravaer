@@ -8,14 +8,11 @@ export const VelgArbeidssituasjon = (props) => {
         props.setArbeidssituasjon(verdi);
     };
 
-    return (<ul className="side-innhold">
+    return (<ul className="tidslinje-velg-arbeidssituasjon">
             {
                 props.arbeidssituasjoner.map((a, index) => {
                     return (<li key={index}>
-                    {
-                        a.verdi !== props.valgtArbeidssituasjon ?
-                        <a href="#" onClick={(e) => { clickHandler(e, a.verdi); }}>{a.tittel}</a> : <span>{a.tittel}</span>
-                    }
+                    <a role="button" aria-pressed={a.verdi === props.valgtArbeidssituasjon} className={(a.verdi === props.valgtArbeidssituasjon) ? 'er-valgt' : ''} href="#" onClick={(e) => { clickHandler(e, a.verdi); }}>{a.tittel}</a>
                     </li>);
                 })
             }

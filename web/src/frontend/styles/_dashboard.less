@@ -1,4 +1,26 @@
+.dashboard-intro img {
+  width: 100%; 
+  max-width: 18rem;
+}
+
+@media(min-width: @screen-small) {
+
+    .dashboard-intro {
+        display: flex; 
+    }
+
+    .dashboard-intro img {
+        width: 40%; 
+        margin-right: 2rem; 
+    }
+
+    .dashboard-intro-innhold {
+        flex: 1       
+    }    
+}
+
 .dashboard-lenke {
+
   .mixin-panel-padding();
   .mixin-typo-undertittel();
   background-color: @white;
@@ -30,4 +52,5 @@
     height: auto;
     margin-right: .5rem;
   }
+
 }

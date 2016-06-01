@@ -24,7 +24,7 @@ export function mapStateToProps(state) {
         ledetekster: state.ledetekster,
         skjulVarsel: state.brukerinfo.data.skjulUnderUtviklingVarsel === true,
         brodsmuler: [{
-            tittel: 'Sykmeldinger og oppfølging',
+            tittel: 'Ditt sykefravær',
             sti: '/',
         }],
     };

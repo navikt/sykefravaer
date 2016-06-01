@@ -39,7 +39,7 @@ export function mapStateToProps(state) {
         arbeidssituasjon,
         milepaeler,
         brodsmuler: [{
-            tittel: 'Sykefravær og oppfølging',
+            tittel: 'Ditt sykefravær',
             sti: '/',
             erKlikkbar: true,
         }, {

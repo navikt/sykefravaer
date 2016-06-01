@@ -31,6 +31,10 @@
     .mixin-typo-infotekst(); 
 }
 
+.tidslinje-faner {
+    margin-bottom: 3rem; 
+}
+
 .tidslinje-pille {
     background-color: @blueLight;
     padding: .5rem 2rem;
@@ -51,41 +55,3 @@
 
 }
 
-.tidslinje-velg-arbeidssituasjon {
-
-    display: flex; 
-    padding: 0; 
-    margin: 0 0 3rem 0; 
-    align-items: center; 
-    justify-content: center; 
-
-    a {
-        text-align: center;
-        display: inline-block;
-        padding: .25em 0;
-        border-bottom: 2px solid transparent; 
-        color: @color-text; 
-    }
-
-    a:hover {
-        border-bottom: 2px solid @color-border; 
-    }
-
-    .er-valgt {
-        border-bottom: 2px solid @color-text; 
-        font-weight: 700; 
-    }
-
-    .er-valgt:hover {
-        border-bottom-color: @color-text; 
-    }
-
-    li {
-        list-style-type: none; 
-        margin: 0 2rem 0 0; 
-    }
-
-    li:last-child {
-        margin: 0; 
-    }
-}

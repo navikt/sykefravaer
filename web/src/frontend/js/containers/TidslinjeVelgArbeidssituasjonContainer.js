@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/brukerinfo_actions.js';
+import Faner from '../components/Faner.js';
 
 export const VelgArbeidssituasjon = (props) => {
     const clickHandler = (e, verdi) => {
@@ -8,26 +9,13 @@ export const VelgArbeidssituasjon = (props) => {
         props.setArbeidssituasjon(verdi);
     };
 
-    return (<ul className="tidslinje-velg-arbeidssituasjon">
-            {
-                props.arbeidssituasjoner.map((a, index) => {
-                    const erValgt = a.verdi === props.valgtArbeidssituasjon;
-                    return (<li key={index}>
-                    <a
-                        role="button"
-                        aria-pressed={erValgt}
-                        className={erValgt ? 'er-valgt' : null}
-                        href="#"
-                        onClick={(e) => { clickHandler(e, a.verdi); }}>{a.tittel}</a>
-                    </li>);
-                })
-            }
-        </ul>);
+    return (<Faner alternativer={props.arbeidssituasjoner} valgtAlternativ={props.valgtArbeidssituasjon} clickHandler={clickHandler} className="tidslinje-faner" />);
 };
 
 VelgArbeidssituasjon.propTypes = {
     arbeidssituasjoner: PropTypes.array,
     valgtArbeidssituasjon: PropTypes.string,
+    setArbeidssituasjon: PropTypes.func,
 };
 
 export function mapStateToProps(state) {

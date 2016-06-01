@@ -11,11 +11,12 @@ export const VelgArbeidssituasjon = (props) => {
     return (<ul className="tidslinje-velg-arbeidssituasjon">
             {
                 props.arbeidssituasjoner.map((a, index) => {
+                    const erValgt = a.verdi === props.valgtArbeidssituasjon;
                     return (<li key={index}>
                     <a
                         role="button"
-                        aria-pressed={a.verdi === props.valgtArbeidssituasjon}
-                        className={(a.verdi === props.valgtArbeidssituasjon) ? 'er-valgt' : ''}
+                        aria-pressed={erValgt}
+                        className={erValgt ? 'er-valgt' : null}
                         href="#"
                         onClick={(e) => { clickHandler(e, a.verdi); }}>{a.tittel}</a>
                     </li>);
@@ -31,7 +32,7 @@ VelgArbeidssituasjon.propTypes = {
 
 export function mapStateToProps(state) {
     return {
-        valgtArbeidssituasjon: state.brukerinfo.data.arbeidssituasjon || 'MED_ARBEIDSGIVER',
+        valgtArbeidssituasjon: state.brukerinfo.innstillinger.arbeidssituasjon || 'MED_ARBEIDSGIVER',
         arbeidssituasjoner: [{
             tittel: 'Jeg har arbeidsgiver',
             verdi: 'MED_ARBEIDSGIVER',

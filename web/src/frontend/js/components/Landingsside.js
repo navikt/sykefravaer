@@ -13,7 +13,9 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
                 <img src="/sykefravaer/img/svg/illustrasjon-landingsside.svg" alt="Samtale mellom deg, lege, arbeidsgiver og NAV" />
                 <div className="landingsside-intro-innhold">
                     <h2 className="typo-undertittel">Sykefraværet har startet</h2>
-                    <p>Det er noen milepæler i et sykefravær, men det er ingenting i veien for at du kommer i gang med aktiviteter tidligere. <a href="/sykefravaer/app/tidslinjen">Se alle milepælene</a></p>
+                    <p>Det er noen milepæler i et sykefravær, men det er
+                    ingenting i veien for at du kommer i gang med aktiviteter
+                    tidligere. <a href="/sykefravaer/app/tidslinjen">Se alle milepælene</a></p>
                 </div>
             </div>
         </article>

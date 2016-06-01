@@ -25,10 +25,11 @@ TidslinjeSide.propTypes = {
     brodsmuler: PropTypes.array,
     ledetekster: PropTypes.object,
     milepaeler: PropTypes.array,
+    arbeidssituasjon: PropTypes.string,
 };
 
 export function mapStateToProps(state) {
-    const arbeidssituasjon = state.brukerinfo.data.arbeidssituasjon || 'MED_ARBEIDSGIVER';
+    const arbeidssituasjon = state.brukerinfo.innstillinger.arbeidssituasjon || 'MED_ARBEIDSGIVER';
     const milepaeler = state.milepaeler.data.filter((milepael) => {
         return milepael.visning.indexOf(arbeidssituasjon) > -1;
     });

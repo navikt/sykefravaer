@@ -95,7 +95,7 @@ describe("TidslinjeContainer", () => {
         });
 
         it("Skal returnere milepaeler når arbeidssituasjon === 'UTEN_ARBEIDSGIVER'", () => {
-            initState.brukerinfo.data.arbeidssituasjon = 'UTEN_ARBEIDSGIVER'
+            initState.brukerinfo.innstillinger.arbeidssituasjon = 'UTEN_ARBEIDSGIVER'
             const props = mapStateToProps(initState);
             expect(props.milepaeler).to.deep.equal([{
                 ledetekst: 'tidslinje.UTEN_ARBEIDSGIVER.nav',
@@ -109,7 +109,7 @@ describe("TidslinjeContainer", () => {
         });        
 
         it("Skal returnere arbeidssituasjon", () => {
-            initState.brukerinfo.data.arbeidssituasjon = 'UTEN_ARBEIDSGIVER'
+            initState.brukerinfo.innstillinger.arbeidssituasjon = 'UTEN_ARBEIDSGIVER'
             const props = mapStateToProps(initState);
             expect(props.arbeidssituasjon).to.equal("UTEN_ARBEIDSGIVER");
         });               

@@ -12,7 +12,12 @@ export const VelgArbeidssituasjon = (props) => {
             {
                 props.arbeidssituasjoner.map((a, index) => {
                     return (<li key={index}>
-                    <a role="button" aria-pressed={a.verdi === props.valgtArbeidssituasjon} className={(a.verdi === props.valgtArbeidssituasjon) ? 'er-valgt' : ''} href="#" onClick={(e) => { clickHandler(e, a.verdi); }}>{a.tittel}</a>
+                    <a
+                        role="button"
+                        aria-pressed={a.verdi === props.valgtArbeidssituasjon}
+                        className={(a.verdi === props.valgtArbeidssituasjon) ? 'er-valgt' : ''}
+                        href="#"
+                        onClick={(e) => { clickHandler(e, a.verdi); }}>{a.tittel}</a>
                     </li>);
                 })
             }

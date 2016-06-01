@@ -5,7 +5,7 @@ import { getLedetekst } from '../ledetekster';
 
 const Tidslinje = ({ milepaeler = [], ledetekster, arbeidssituasjon }) => {
     let arbeidssituasjonNokkel = 'med-arbeidsgiver';
-    if(arbeidssituasjon === 'UTEN_ARBEIDSGIVER') {
+    if (arbeidssituasjon === 'UTEN_ARBEIDSGIVER') {
         arbeidssituasjonNokkel = 'uten-arbeidsgiver';
     }
     return (<div>
@@ -27,6 +27,7 @@ const Tidslinje = ({ milepaeler = [], ledetekster, arbeidssituasjon }) => {
 Tidslinje.propTypes = {
     milepaeler: PropTypes.array,
     ledetekster: PropTypes.object,
+    arbeidssituasjon: PropTypes.string,
 };
 
 export default Tidslinje;

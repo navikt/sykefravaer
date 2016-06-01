@@ -4,13 +4,13 @@ import TidslinjeBudskap from './TidslinjeBudskap.js';
 import { onResizeThrottle, scrollTo } from '../utils';
 
 const StatusIkon = ({ type }) => {
-    let status = {
+    const status = {
         statusClassName: 'milepael-status-klokke',
         ikonClassName: 'milepael-ikon-klokke',
         ikon: 'klokke-svart.svg',
         alt: '',
-    }
-    if(type === 'START') {
+    };
+    if (type === 'START') {
         status.statusClassName = 'milepael-status-start';
         status.ikonClassName = 'milepael-ikon-start';
         status.ikon = 'hake-hvit.svg';
@@ -20,7 +20,11 @@ const StatusIkon = ({ type }) => {
             <img src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt} />
         </div>
     </div>);
-}
+};
+
+StatusIkon.propTypes = {
+    type: PropTypes.string,
+};
 
 class Milepael extends Component {
 
@@ -121,6 +125,7 @@ Milepael.propTypes = {
     ledetekster: PropTypes.object,
     bilde: PropTypes.string,
     alt: PropTypes.string,
+    type: PropTypes.string,
 };
 
 export default Milepael;

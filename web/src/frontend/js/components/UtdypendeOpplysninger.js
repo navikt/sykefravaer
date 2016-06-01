@@ -11,7 +11,6 @@ const UtdypendeOpplysninger = ({ sykmelding, ledetekster }) => {
     if (!visSeksjon) {
         return <span />;
     }
-    
     return (<div className="sykmelding-seksjon">
                 <h4 className="sykmelding-seksjonstittel">{getLedetekst('sykmelding.vis.utdypende.tittel', ledetekster)}</h4>
                 {

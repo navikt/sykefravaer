@@ -44,7 +44,7 @@ export function sorterPerioder(sykmelding) {
                 const kriterium = a.fom !== b.fom ? 'fom' : 'tom';
                 return a[kriterium] < b[kriterium] ? -1 : 1;
             }),
-        }
+        },
     });
 }
 
@@ -59,19 +59,21 @@ export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
 }
 
 // Fra Stack Overflow <3
-Object.byString = function(o, s) {
-    s = s.replace(/\[(\w+)]/g, '.$1');
-    s = s.replace(/^\./, '');
-    var a = s.split('.');
-    for (var i = 0, n = a.length; i < n; ++i) {
-        var k = a[i];
-        if (k in o) {
-            o = o[k];
+Object.byString = function (o, s) {
+    let s_ = s;
+    let o_ = o;
+    s_ = s_.replace(/\[(\w+)]/g, '.$1');
+    s_ = s_.replace(/^\./, '');
+    const a = s_.split('.');
+    for (let i = 0, n = a.length; i < n; ++i) {
+        const k = a[i];
+        if (k in o_) {
+            o_ = o_[k];
         } else {
-            return;
+            return undefined;
         }
     }
-    return o;
+    return o_;
 };
 
 export function harLocalStorageStotte() {

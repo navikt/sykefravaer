@@ -3,6 +3,7 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
+import getSykmelding from "../mockSykmeldinger.js";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -18,26 +19,6 @@ import AndreSykmeldingOpplysninger from '../../js/components/AndreSykmeldingOppl
 import MulighetForArbeid from '../../js/components/MulighetForArbeid.js';
 
 let component;
-
-const sykmelding = {
-    id: 3456789,
-    fnr: "***REMOVED***",
-    fornavn: "Per",
-    etternavn: "Person",
-    sykmelder: "Ove Olsen",
-    arbeidsgiver: "Selskapet AS",
-    perioder: [{
-        fom: "2015-12-31T00:00:00Z",
-        tom: "2016-01-06T00:00:00Z",
-        grad: 67
-    }],
-    arbeidsfoerEtterPerioden: true,
-    utstedelsesdato: "2016-05-02T22:00:00.000Z"
-};
-
-const getSykmelding = (skmld = {}) => {
-    return Object.assign({}, sykmelding, skmld);
-}
 
 describe("FlereOpplysninger", () => {
 

@@ -19,72 +19,72 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
         <div className="header-bolk header-sykmelding">
             <img className="header-ikon" src="/sykefravaer/img/svg/account-circle.svg" alt="Du" />
             <img className="header-ikon header-ikon-hoykontrast" src="/sykefravaer/img/svg/account-circle-highcontrast.svg" alt="Du" />
-            <h1 className="header-tittel">{sykmelding.fornavn} {sykmelding.etternavn}</h1>
+            <h1 className="header-tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h1>
         </div>
         <div className="panel blokk">
             <h2 className="typo-innholdstittel blokk-l">
                 {getLedetekst('sykmelding.vis.hovedtittel', ledetekster)}
             </h2>
             <div className="blokk-l side-innhold">
-                <SykmeldingPerioder perioder={sykmelding.perioder} ledetekster={ledetekster} />
+                <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} ledetekster={ledetekster} />
                 {
-                    sykmelding.hoveddiagnose ? (<div className="diagnose-container">
+                    sykmelding.diagnose.hoveddiagnose ? (<div className="diagnose-container">
                     <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.diagnose.tittel', ledetekster)}>
-                        <p className="js-hoveddiagnose">{sykmelding.hoveddiagnose.diagnose}</p>
+                        <p className="js-hoveddiagnose">{sykmelding.diagnose.hoveddiagnose.diagnose}</p>
                     </SykmeldingNokkelOpplysning>
                     <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.diagnosekode.tittel', ledetekster)}>
                         <p>
-                            <span className="js-hoveddiagnose-kode">{sykmelding.hoveddiagnose.diagnosekode}</span>
-                            &nbsp;(<span className="js-hoveddiagnose-system">{sykmelding.hoveddiagnose.diagnosesystem}</span>)
+                            <span className="js-hoveddiagnose-kode">{sykmelding.diagnose.hoveddiagnose.diagnosekode}</span>
+                            &nbsp;(<span className="js-hoveddiagnose-system">{sykmelding.diagnose.hoveddiagnose.diagnosesystem}</span>)
                         </p>
                     </SykmeldingNokkelOpplysning>
                 </div>) : null
                 }
                 {
-                    sykmelding.bidiagnose ? (<div className="diagnose-container">
+                    sykmelding.diagnose.bidiagnose ? (<div className="diagnose-container">
                     <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.bidiagnose.tittel', ledetekster)}>
-                        <p className="js-bidiagnose">{sykmelding.bidiagnose.diagnose}</p>
+                        <p className="js-bidiagnose">{sykmelding.diagnose.bidiagnose.diagnose}</p>
                     </SykmeldingNokkelOpplysning>
                     <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.diagnosekode.tittel', ledetekster)}>
                         <p>
-                            <span className="js-bidiagnose-kode">{sykmelding.bidiagnose.diagnosekode}</span>
-                            &nbsp;(<span className="js-bidiagnose-system">{sykmelding.bidiagnose.diagnosesystem}</span>)
+                            <span className="js-bidiagnose-kode">{sykmelding.diagnose.bidiagnose.diagnosekode}</span>
+                            &nbsp;(<span className="js-bidiagnose-system">{sykmelding.diagnose.bidiagnose.diagnosesystem}</span>)
                         </p>
                     </SykmeldingNokkelOpplysning>
                 </div>) : null
                 }
                 {
-                    sykmelding.fravaersgrunnLovfestet ?
+                    sykmelding.diagnose.fravaersgrunnLovfestet ?
                     <SykmeldingNokkelOpplysning tittel="Lovfestet fraværsgrunn">
-                        <p className="js-fravaersgrunnLovfestet">{sykmelding.fravaersgrunnLovfestet}</p>
+                        <p className="js-fravaersgrunnLovfestet">{sykmelding.diagnose.fravaersgrunnLovfestet}</p>
                     </SykmeldingNokkelOpplysning> : null
                 }
                 {
-                    sykmelding.fravaerBeskrivelse ?
+                    sykmelding.diagnose.fravaerBeskrivelse ?
                     <SykmeldingNokkelOpplysning tittel="Beskriv fraværet">
-                        <p className="js-fravaerBeskrivelse">{sykmelding.fravaerBeskrivelse}</p>
+                        <p className="js-fravaerBeskrivelse">{sykmelding.diagnose.fravaerBeskrivelse}</p>
                     </SykmeldingNokkelOpplysning> : null
                 }
                 {
-                    getSykmeldingCheckbox(sykmelding, 'svangerskap', getLedetekst('sykmelding.vis.svangerskap.tittel', ledetekster), 'blokk')
+                    getSykmeldingCheckbox(sykmelding.diagnose, 'svangerskap', getLedetekst('sykmelding.vis.svangerskap.tittel', ledetekster), 'blokk')
                 }
                 {
-                    !sykmelding.yrkesskadeDato ? null :
+                    !sykmelding.diagnose.yrkesskadeDato ? null :
                     <SykmeldingCheckbox tekst={getLedetekst('sykmelding.vis.yrkesskade.tittel', ledetekster)} jsClassName="yrkesskade" />
                 }
                 {
-                    !sykmelding.yrkesskadeDato ? null :
+                    !sykmelding.diagnose.yrkesskadeDato ? null :
                     <SykmeldingNokkelOpplysning tittel="Skadedato" className="sykmelding-subopplysning">
-                        <p className=" js-yrkesskadeDato">{formatDate(sykmelding.yrkesskadeDato)}</p>
+                        <p className=" js-yrkesskadeDato">{formatDate(sykmelding.diagnose.yrkesskadeDato)}</p>
                     </SykmeldingNokkelOpplysning>
                 }
                 {
-                    getSykmeldingCheckbox(sykmelding, 'arbeidsfoerEtterPerioden', getLedetekst('sykmelding.vis.arbeidsfoer.tittel', ledetekster), 'blokk')
+                    getSykmeldingCheckbox(sykmelding.friskmelding, 'arbeidsfoerEtterPerioden', getLedetekst('sykmelding.vis.arbeidsfoer.tittel', ledetekster), 'blokk')
                 }
                 {
-                    !sykmelding.hensynPaaArbeidsplassen ? null :
+                    !sykmelding.friskmelding.hensynPaaArbeidsplassen ? null :
                     <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.hensyn.tittel', ledetekster)}>
-                        <p className="js-hensynPaaArbeidsplassen">{sykmelding.hensynPaaArbeidsplassen}</p>
+                        <p className="js-hensynPaaArbeidsplassen">{sykmelding.friskmelding.hensynPaaArbeidsplassen}</p>
                     </SykmeldingNokkelOpplysning>
                 }
                 {
@@ -93,8 +93,8 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                 </SykmeldingNokkelOpplysning> : null
                 }
                 {
-                    sykmelding.sykmelder ? <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.avsender.tittel', ledetekster)}>
-                    <p className="js-avsender">{sykmelding.sykmelder}</p>
+                    sykmelding.bekreftelse.sykmelder ? <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.avsender.tittel', ledetekster)}>
+                    <p className="js-avsender">{sykmelding.bekreftelse.sykmelder}</p>
                 </SykmeldingNokkelOpplysning> : null
                 }
             </div>

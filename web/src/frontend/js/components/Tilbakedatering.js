@@ -4,18 +4,18 @@ import { getLedetekst } from '../ledetekster';
 import { getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const Tilbakedatering = ({ sykmelding, ledetekster }) => {
-    const visSeksjon = sykmelding.dokumenterbarPasientkontakt || sykmelding.tilbakedatertBegrunnelse;
+    const visSeksjon = sykmelding.tilbakedatering.dokumenterbarPasientkontakt || sykmelding.tilbakedatering.tilbakedatertBegrunnelse;
     if (!visSeksjon) {
         return <span />;
     }
     return (<div className="sykmelding-seksjon">
                <h4 className="sykmelding-seksjonstittel">{getLedetekst('sykmelding.vis.tilbakedatering.tittel', ledetekster)}</h4>
                 {
-                    getSykmeldingOpplysning(sykmelding, 'dokumenterbarPasientkontakt',
-                        getLedetekst('sykmelding.vis.tilbakedatering.kontakt.dato', ledetekster), formatDate(sykmelding.dokumenterbarPasientkontakt))
+                    getSykmeldingOpplysning(sykmelding.tilbakedatering, 'dokumenterbarPasientkontakt',
+                        getLedetekst('sykmelding.vis.tilbakedatering.kontakt.dato', ledetekster), formatDate(sykmelding.tilbakedatering.dokumenterbarPasientkontakt))
                 }
                 {
-                    getSykmeldingOpplysning(sykmelding, 'tilbakedatertBegrunnelse', getLedetekst('sykmelding.vis.tilbakedatering.begrunnelse', ledetekster))
+                    getSykmeldingOpplysning(sykmelding.tilbakedatering, 'tilbakedatertBegrunnelse', getLedetekst('sykmelding.vis.tilbakedatering.begrunnelse', ledetekster))
                 }
         </div>);
 };

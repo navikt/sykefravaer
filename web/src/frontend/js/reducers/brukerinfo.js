@@ -1,67 +1,57 @@
-let initState;
+import { combineReducers } from 'redux';
+
+let innstillingerInitState;
 
 try {
-    initState = {
-        data: {
-            skjulUnderUtviklingVarsel: window.localStorage.getItem('skjulUnderUtviklingVarsel') === 'true',
-        },
+    innstillingerInitState = {
+        skjulUnderUtviklingVarsel: window.localStorage.getItem('skjulUnderUtviklingVarsel') === 'true',
     };
 } catch (e) {
-    initState = {
-        data: {
-            skjulUnderUtviklingVarsel: false,
-        },
+    innstillingerInitState = {
+        skjulUnderUtviklingVarsel: false,
     };
 }
 
-const hentVarselState = (state) => {
-    return (state.data && state.data.skjulUnderUtviklingVarsel) === true;
-};
-
-export default function brukerinfo(state = initState, action) {
+function innstillinger(state = innstillingerInitState, action) {
     switch (action.type) {
         case 'SKJUL_UNDER_UTVIKLING_VARSEL': {
-            const nyData = Object.assign({}, state.data, {
+            return {
                 skjulUnderUtviklingVarsel: true,
-            });
+            };
+        }
+        case 'SET_ARBEIDSSITUASJON': {
             return Object.assign({}, state, {
-                data: nyData,
+                arbeidssituasjon: action.arbeidssituasjon,
             });
         }
+        default: {
+            return state;
+        }
+    }
+}
+
+function bruker(state = {}, action) {
+    switch (action.type) {
         case 'HENT_BRUKERINFO_FEILET': {
             return Object.assign({}, state, {
-                data: {
-                    skjulUnderUtviklingVarsel: hentVarselState(state),
-                },
+                data: {},
                 henter: false,
                 hentingFeilet: true,
             });
         }
         case 'HENTER_BRUKERINFO': {
             return {
-                data: {
-                    skjulUnderUtviklingVarsel: hentVarselState(state),
-                },
+                data: {},
                 henter: true,
                 hentingFeilet: false,
             };
         }
         case 'SET_BRUKERINFO': {
-            const data = Object.assign({}, action.data, {
-                skjulUnderUtviklingVarsel: hentVarselState(state),
-            });
+            const data = Object.assign({}, action.data);
             return Object.assign(state, {
                 henter: false,
                 hentingFeilet: false,
             }, {
-                data,
-            });
-        }
-        case 'SET_ARBEIDSSITUASJON': {
-            const data = Object.assign({}, state.data || {}, {
-                arbeidssituasjon: action.arbeidssituasjon,
-            });
-            return Object.assign({}, state, {
                 data,
             });
         }
@@ -70,3 +60,10 @@ export default function brukerinfo(state = initState, action) {
         }
     }
 }
+
+const brukerinfo = combineReducers({
+    bruker,
+    innstillinger,
+});
+
+export default brukerinfo;

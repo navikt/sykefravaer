@@ -20,7 +20,7 @@ describe("LandingssideContainer", () => {
         it("Skal returnere skjulUnderUtviklingVarsel", function() {
             const res = mapStateToProps({
                 brukerinfo: {
-                    data: {
+                    innstillinger: {
                         skjulUnderUtviklingVarsel: true
                     }
                 }

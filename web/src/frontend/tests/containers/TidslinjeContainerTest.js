@@ -56,9 +56,8 @@ describe("TidslinjeContainer", () => {
                 hentingFeilet: false
             },
             brukerinfo: {
-                data: {
-
-                }
+                innstillinger: {},
+                bruker: {}
             },
             milepaeler: {
                 data: milepaelerData

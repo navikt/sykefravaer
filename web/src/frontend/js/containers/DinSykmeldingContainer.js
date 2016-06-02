@@ -45,7 +45,7 @@ export function mapStateToProps(state, ownProps) {
             hentingFeilet: state.dineSykmeldinger.hentingFeilet,
             henter: state.dineSykmeldinger.henter,
         },
-        strengtFortroligAdresse: state.brukerinfo.data.strengtFortroligAdresse,
+        strengtFortroligAdresse: state.brukerinfo.bruker.data.strengtFortroligAdresse,
         ledetekster: state.ledetekster,
         brodsmuler: [{
             tittel: 'Ditt sykefravær',

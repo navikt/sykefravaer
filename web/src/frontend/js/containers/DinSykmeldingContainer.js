@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/dineSykmeldinger_actions.js';
+import * as actionCreator from '../actions/dinSykmelding_actions.js';
 import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne.js';
 import DinSykmelding from '../components/DinSykmelding.js';
 import AppSpinner from '../components/AppSpinner.js';
@@ -20,7 +21,12 @@ export const DinSykmldSide = (props) => {
                             tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', props.ledetekster.data)}
                             melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', props.ledetekster.data)} />);
                     }
-                    return <DinSykmelding sykmelding={props.sykmelding.data} ledetekster={props.ledetekster.data} strengtFortroligAdresse={props.strengtFortroligAdresse} />;
+                    return <DinSykmelding
+                        sykmelding={props.sykmelding.data}
+                        ledetekster={props.ledetekster.data}
+                        strengtFortroligAdresse={props.strengtFortroligAdresse}
+                        settArbeidsstatus={props.settArbeidsgiverstatus}
+                        sendSykmeldingGaaVidere={props.sendSykmeldingGaaVidere} />;
                 })()
             }
     </SideMedHoyrekolonne>);
@@ -58,7 +64,8 @@ export function mapStateToProps(state, ownProps) {
         }, {
             tittel: 'Sykmelding',
         }],
+        valgtArbeidssituasjon: state.valgtArbeidssituasjon,
     };
 }
 
-export const DinSykmeldingContainer = connect(mapStateToProps, actionCreators)(DinSykmldSide);
+export const DinSykmeldingContainer = connect(mapStateToProps, Object.assign({}, actionCreators, actionCreator))(DinSykmldSide);

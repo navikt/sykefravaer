@@ -2,9 +2,11 @@ const initiellState = {
     henter: false,
     hentingFeilet: false,
     data: [],
+    erFeil: false,
 };
 
 export default function sykmeldinger(state = initiellState, action) {
+    console.log(action.type);
     switch (action.type) {
         case 'SET_DINE_SYKMELDINGER':
             return {
@@ -24,6 +26,21 @@ export default function sykmeldinger(state = initiellState, action) {
                 henter: false,
                 hentingFeilet: true,
             };
+        case 'SETT_ARBEIDSGIVER_STATUS':
+            const data = state.data.map((sykmelding) => {
+                if (sykmelding.id === action.sykmeldingsId) {
+                    sykmelding.arbeidsgiverstatus = action.arbeidsgiverstatus;
+                }
+                return sykmelding
+            });
+            return Object.assign({}, state, { data: data });
+        case 'GAA_VIDERE':
+            if(action.arbeidsgiverstatus === undefined){
+                console.log("setter state");
+                return Object.assign({}, state, { erFeil:true });
+            } else {
+                //redirect
+            }
         case 'SET_SORTERING':
             return Object.assign({}, state, {
                 sortering: action.sortering,

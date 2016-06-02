@@ -122,7 +122,7 @@ describe("TidslinjeContainer", () => {
         it("Skal returnere brødsmuler", () => {
             const props = mapStateToProps(initState); 
             expect(props.brodsmuler).to.deep.equal([{
-                tittel: 'Sykefravær og oppfølging',
+                tittel: 'Ditt sykefravær',
                 sti: '/',
                 erKlikkbar: true,
             }, {

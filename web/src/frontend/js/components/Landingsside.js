@@ -15,7 +15,7 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
                     <h2 className="typo-undertittel">Sykefraværet har startet</h2>
                     <p>Det er noen milepæler i et sykefravær, men det er
                     ingenting i veien for at du kommer i gang med aktiviteter
-                    tidligere. <a href="/sykefravaer/app/tidslinjen">Se alle milepælene</a></p>
+                    tidligere. <Link to ="/sykefravaer/app/tidslinjen">Se alle milepælene</Link></p>
                 </div>
             </div>
         </article>

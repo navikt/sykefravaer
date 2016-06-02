@@ -3,6 +3,7 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
+import getSykmelding from "../mockSykmeldinger.js";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -13,27 +14,8 @@ import FlereOpplysninger from "../../js/components/FlereOpplysninger.js";
 import SendTilArbeidsgiver from "../../js/components/SendTilArbeidsgiver.js";
 import SykmeldingPerioder from "../../js/components/SykmeldingPerioder.js";
 
-
 let component;
 
-const sykmelding = {
-    id: 3456789,
-    fnr: "***REMOVED***",
-    fornavn: "Per",
-    etternavn: "Person",
-    sykmelder: "Ove Olsen",
-    arbeidsgiver: "Selskapet AS",
-    perioder: [{
-        fom: "2015-12-31T00:00:00Z",
-        tom: "2016-01-06T00:00:00Z",
-        grad: 67
-    }],
-    arbeidsfoerEtterPerioden: true
-};
-
-const getSykmelding = (skmld = {}) => {
-    return Object.assign({}, sykmelding, skmld);
-}
 
 describe("SendTilArbeidsgiver", () => {
 
@@ -79,7 +61,9 @@ describe("SendTilArbeidsgiver", () => {
 
         it("Skal vise dersom det finnes", () => {
             component = shallow(<SendTilArbeidsgiver sykmelding={getSykmelding({
-                hensynPaaArbeidsplassen: "Ta godt vare på denne personen"
+                friskmelding: {
+                    hensynPaaArbeidsplassen: "Ta godt vare på denne personen"
+                }
             })} ledetekster={ledetekster}/>);
             expect(component.find(".js-hensynPaaArbeidsplassen")).to.have.length(1);
             expect(component.find(".js-hensynPaaArbeidsplassen").text()).to.equal("Ta godt vare på denne personen");
@@ -121,12 +105,11 @@ describe("SendTilArbeidsgiver", () => {
 
         it("Skal ikke vise dersom det ikke finnes", () => {
             component = shallow(<SendTilArbeidsgiver sykmelding={getSykmelding({
-                sykmelder: null
+                bekreftelse: {
+                    sykmelder: null
+                }
             })} ledetekster={ledetekster}/>);
             expect(component.find(".js-sykmelder").length).to.equal(0);
-        }); 
-
+        });
     });
-
-
 });

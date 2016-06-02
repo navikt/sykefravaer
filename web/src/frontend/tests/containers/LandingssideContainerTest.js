@@ -7,12 +7,12 @@ import ledetekster from "../ledetekster_mock.js";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { SykmeldingOgOppfolgingSide, mapStateToProps } from "../../js/containers/SykmeldingOgOppfolgingContainer";
-import SykmeldingOgOppfolging from '../../js/components/SykmeldingOgOppfolging.js';
+import { LandingssideSide, mapStateToProps } from "../../js/containers/LandingssideContainer.js";
+import Landingsside from '../../js/components/Landingsside.js';
 
 
 
-describe("DineSykmeldingerContainer", () => {
+describe("LandingssideContainer", () => {
 
 
     describe("mapStateToProps", () => {
@@ -20,7 +20,7 @@ describe("DineSykmeldingerContainer", () => {
         it("Skal returnere skjulUnderUtviklingVarsel", function() {
             const res = mapStateToProps({
                 brukerinfo: {
-                    data: {
+                    innstillinger: {
                         skjulUnderUtviklingVarsel: true
                     }
                 }
@@ -28,7 +28,7 @@ describe("DineSykmeldingerContainer", () => {
             expect(res.skjulVarsel).to.equal(true)
         });
 
-        it("Skal returnere ledtekster", function() {
+        it("Skal returnere ledetekster", function() {
             const res = mapStateToProps({
                 ledetekster: {
                     "min.tekst": "Dette er en test"
@@ -44,11 +44,11 @@ describe("DineSykmeldingerContainer", () => {
 
     });
 
-    describe("Sykemeldinger og oppfolging", () => {
+    describe("LandingssideSide", () => {
 
-        it("Skal vise Sykmeldinger og oppfolging", () => {
-            let component = shallow(<SykmeldingOgOppfolgingSide ledetekster={ledetekster} skjulVarsel={false} />);
-            expect(component.find(SykmeldingOgOppfolging)).to.have.length(1);
+        it("Skal vise Landingsside", () => {
+            let component = shallow(<LandingssideSide ledetekster={ledetekster} skjulVarsel={false} />);
+            expect(component.find(Landingsside)).to.have.length(1);
         });
     })
 

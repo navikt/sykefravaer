@@ -103,52 +103,91 @@
         margin-right: 20px; 
     }
 
-    &:before {
+    &:before, &:after {
         content: "";
-        width: 3px; 
-        height: 100%; 
         position: absolute; 
         left: 50%; 
-        top: 0; 
-        transform: translateX(-50%);
-        z-index: 0;
-        background-image: url("../img/png/border-dot.png");
-        background-size: 9px 9px; 
-        background-position: top center; 
     }
+
+    &:before {
+        width: 1px; 
+        height: 100%; 
+        top: 0; 
+        z-index: 0;
+        background-color: @color-border;
+    }
+
+    &:after {
+        background-color: @color-background;
+        background-image: data-uri('../img/svg/tidslinje-sirkel-graa.svg');
+        top: 3rem;
+        width: 1rem;
+        height: 1rem; 
+        transform: translateX(-50%);
+
+        @media(min-width: @screen-xs) {
+            top: 3.8125rem; // 61px / 1rem aka 16px
+        }
+    }
+
+}
+
+.milepael-status-start:after {
+    background-image: data-uri('../img/svg/tidslinje-sirkel-groenn.svg');
 }
 
 .tidslinje .milepael:last-child .milepael-status:before {
-    display: none; 
+    height: 4rem; 
 }
 
 .milepael-ikon {
     display: block;
-    width: 26px; 
-    height: 26px; 
+    width: 24px; 
+    height: 24px; 
     border-radius: 50%; 
     display: flex;
     align-items: center; 
     justify-content: center; 
     z-index: 10;
     position: relative;
-    background: @color-background; 
-
-    img {
-        width: 13px; 
-        height: 13px; 
-    }
 
     @media(min-width: @screen-xs) {
         width: 40px;
         height: 40px; 
-
-        img {
-            width: 20px;
-            height: 20px; 
-        }
     }
+}
 
+.milepael-ikon-klokke {
+    img {
+        width: 24px; 
+        height: 24px; 
+    }
+}
+
+.milepael-ikon-start {
+    background-color: #06893a; 
+
+    img {
+        width: 16px;
+        height: auto; 
+    }
+}
+
+.milepael-ikon-start:after {
+    content: "";
+    background: #06893a;
+    position: absolute;
+    width: 3px;
+    height: 24px; 
+    top: 24px;
+    left: 50%; 
+    transform: translateX(-50%);
+    z-index: 0; 
+
+    @media(min-width: @screen-xs) {
+        top: 2rem; 
+        height: 30px; 
+    }
 }
 
 .milepael-budskap-container {

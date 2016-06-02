@@ -1,4 +1,26 @@
-.dashboard-lenke {
+.landingsside-intro img {
+  width: 100%; 
+  max-width: 18rem;
+}
+
+@media(min-width: @screen-small) {
+
+    .landingsside-intro {
+        display: flex; 
+    }
+
+    .landingsside-intro img {
+        width: 40%; 
+        margin-right: 2rem; 
+    }
+
+    .landingsside-intro-innhold {
+        flex: 1       
+    }    
+}
+
+.landingsside-lenke {
+
   .mixin-panel-padding();
   .mixin-typo-undertittel();
   background-color: @white;
@@ -30,4 +52,5 @@
     height: auto;
     margin-right: .5rem;
   }
+
 }

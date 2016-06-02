@@ -20,28 +20,35 @@ describe('brukerinfo', () => {
 
     it("Håndterer skjulUnderUtviklingVarsel dersom state ikke er tom", () => {
         initiellState = {
-            data: {
-                navn: "Helge"
+            bruker: {
+                data: {
+                    navn: "Helge"
+                }
             }
         }
         const nextState = brukerinfo(initiellState, actions.skjulUnderUtviklingVarsel());
         expect(nextState).to.deep.equal({
-            data: {
+            bruker: {
+                data: {
+                    navn: "Helge"
+                }
+            },
+            innstillinger: {
                 skjulUnderUtviklingVarsel: true,
-                navn: "Helge"
             }
         })
 
         initiellState = {
-            data: {
+            innstillinger: {
                 skjulUnderUtviklingVarsel: true
             }
         }
         const nextState2 = brukerinfo(initiellState, actions.skjulUnderUtviklingVarsel());
         expect(nextState2).to.deep.equal({
-            data: {
+            innstillinger: {
                 skjulUnderUtviklingVarsel: true
-            }
+            },
+            bruker: {}
         })
     });
 
@@ -49,54 +56,64 @@ describe('brukerinfo', () => {
         initiellState = {}
         const nextState = brukerinfo(initiellState, actions.skjulUnderUtviklingVarsel());
         expect(nextState).to.deep.equal({
-            data: {
+            innstillinger: {
                 skjulUnderUtviklingVarsel: true
-            }
+            },
+            bruker: {}
         })
     });    
 
     it("Håndterer hentBrukerinfoFeilet når skjulUnderUtviklingVarsel === false", () => {
         initiellState = {
-            data: {
+            innstillinger: {
                 skjulUnderUtviklingVarsel: false
             }
         }
         const nextState = brukerinfo(initiellState, actions.hentBrukerinfoFeilet());
         expect(nextState).to.deep.equal({
-            hentingFeilet: true,
-            data: {
+            bruker: {
+                data: {},
+                hentingFeilet: true,    
+                henter: false
+            },
+            innstillinger: {
                 skjulUnderUtviklingVarsel: false
             },
-            henter: false
         });      
     });
 
     it("Håndterer hentBrukerinfoFeilet når skjulUnderUtviklingVarsel === true", () => {
         initiellState = {
-            data: {
+            innstillinger: {
                 skjulUnderUtviklingVarsel: true
             }
         }
         const nextState2 = brukerinfo(initiellState, actions.hentBrukerinfoFeilet());
         expect(nextState2).to.deep.equal({
-            hentingFeilet: true,
-            data: {
+            innstillinger: {
                 skjulUnderUtviklingVarsel: true
-            },
-            henter: false
+            }, 
+            bruker: {
+                data: {},
+                hentingFeilet: true, 
+                henter: false, 
+            }
         });  
     })
 
     it("Håndterer henterBrukerinfo når skjulUnderUtviklingVarsel === true", () => {
         const nextState = brukerinfo({
-            data: {
+            innstillinger: {
                 skjulUnderUtviklingVarsel : true
             }
         }, actions.henterBrukerinfo());
         expect(nextState).to.deep.equal({
-            henter: true,
-            hentingFeilet: false,
-            data: {
+            bruker: {
+                henter: true, 
+                hentingFeilet: false, 
+                data: {}
+            },
+            innstillinger: {
                 skjulUnderUtviklingVarsel: true
             }
         });
@@ -104,14 +121,17 @@ describe('brukerinfo', () => {
 
     it("Håndterer henterBrukerinfo når skjulUnderUtviklingVarsel === false", () => {
         const nextState = brukerinfo({
-            data: {
+            innstillinger: {
                 skjulUnderUtviklingVarsel : false
             }
         }, actions.henterBrukerinfo());
         expect(nextState).to.deep.equal({
-            henter: true,
-            hentingFeilet: false,
-            data: {
+            bruker: {
+                data: {},
+                henter: true,
+                hentingFeilet: false,    
+            }, 
+            innstillinger: {
                 skjulUnderUtviklingVarsel: false
             }
         });
@@ -123,11 +143,15 @@ describe('brukerinfo', () => {
             alder: 32
         }));
         expect(nextState).to.deep.equal({
-            henter: false, 
-            hentingFeilet: false,
-            data: {
-                navn: "Helge",
-                alder: 32,
+            bruker: {
+                henter: false, 
+                hentingFeilet: false,
+                data: {
+                    navn: "Helge",
+                    alder: 32,
+                }
+            },
+            innstillinger: {
                 skjulUnderUtviklingVarsel: false
             }
         })
@@ -135,9 +159,13 @@ describe('brukerinfo', () => {
 
     it("Håndterer setBrukerinfo når brukerinfo finnes fra før (1)", () => {
         initiellState = {
-            data: {
-                navn: "Christian",
-                alder: 35,
+            bruker: {
+                data: {
+                    navn: "Christian",
+                    alder: 35,
+                }
+            },
+            innstillinger: {
                 skjulUnderUtviklingVarsel: true
             }
         };
@@ -146,11 +174,15 @@ describe('brukerinfo', () => {
             alder: 32
         }));
         expect(nextState1).to.deep.equal({
-            henter: false, 
-            hentingFeilet: false,
-            data: {
-                navn: "Helge",
-                alder: 32,
+            bruker: {
+                henter: false, 
+                hentingFeilet: false,
+                data: {
+                    navn: "Helge",
+                    alder: 32
+                }
+            },
+            innstillinger: {
                 skjulUnderUtviklingVarsel: true
             }
         });
@@ -159,20 +191,26 @@ describe('brukerinfo', () => {
 
     it("Håndterer setBrukerinfo når brukerinfo finnes fra før (2)", () => {
         initiellState = {
-            data: {},
-            hentingFeilet: true,
-            henter: false
+            bruker: {
+                data: {},
+                hentingFeilet: true,
+                henter: false
+            }
         };
         const nextState2 = brukerinfo(initiellState, actions.setBrukerinfo({
             navn: "Helge",
             alder: 32
         })); 
         expect(nextState2).to.deep.equal({
-            henter: false, 
-            hentingFeilet: false,
-            data: {
-                navn: "Helge",
-                alder: 32,
+            bruker: {
+                henter: false, 
+                hentingFeilet: false,
+                data: {
+                    navn: "Helge",
+                    alder: 32,
+                }
+            },
+            innstillinger: {
                 skjulUnderUtviklingVarsel: false
             }
         })  
@@ -180,11 +218,13 @@ describe('brukerinfo', () => {
 
     it("Håndterer setArbeidssituasjon", () => {
         initiellState = {
-            data: {}
+            innstillinger: {},
+            bruker: {}
         };
         const nyState = brukerinfo(initiellState, actions.setArbeidssituasjon("MED_ARBEIDSGIVER")); 
         expect(nyState).to.deep.equal({
-            data: {
+            bruker: {},
+            innstillinger: {
                 arbeidssituasjon: "MED_ARBEIDSGIVER"
             }
         })  

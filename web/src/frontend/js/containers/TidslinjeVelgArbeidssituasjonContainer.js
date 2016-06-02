@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/brukerinfo_actions.js';
+import Faner from '../components/Faner.js';
 
 export const VelgArbeidssituasjon = (props) => {
     const clickHandler = (e, verdi) => {
@@ -8,28 +9,18 @@ export const VelgArbeidssituasjon = (props) => {
         props.setArbeidssituasjon(verdi);
     };
 
-    return (<ul className="side-innhold">
-            {
-                props.arbeidssituasjoner.map((a, index) => {
-                    return (<li key={index}>
-                    {
-                        a.verdi !== props.valgtArbeidssituasjon ?
-                        <a href="#" onClick={(e) => { clickHandler(e, a.verdi); }}>{a.tittel}</a> : <span>{a.tittel}</span>
-                    }
-                    </li>);
-                })
-            }
-        </ul>);
+    return (<Faner alternativer={props.arbeidssituasjoner} valgtAlternativ={props.valgtArbeidssituasjon} clickHandler={clickHandler} className="tidslinje-faner" />);
 };
 
 VelgArbeidssituasjon.propTypes = {
     arbeidssituasjoner: PropTypes.array,
     valgtArbeidssituasjon: PropTypes.string,
+    setArbeidssituasjon: PropTypes.func,
 };
 
 export function mapStateToProps(state) {
     return {
-        valgtArbeidssituasjon: state.brukerinfo.data.arbeidssituasjon || 'MED_ARBEIDSGIVER',
+        valgtArbeidssituasjon: state.brukerinfo.innstillinger.arbeidssituasjon || 'MED_ARBEIDSGIVER',
         arbeidssituasjoner: [{
             tittel: 'Jeg har arbeidsgiver',
             verdi: 'MED_ARBEIDSGIVER',

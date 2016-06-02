@@ -1,5 +1,23 @@
 const moment = require('moment');
 
+// Fra Stack Overflow <3
+Object.byString = function byString(o, s) {
+    let s_ = s;
+    let o_ = o;
+    s_ = s_.replace(/\[(\w+)]/g, '.$1');
+    s_ = s_.replace(/^\./, '');
+    const a = s_.split('.');
+    for (let i = 0, n = a.length; i < n; ++i) {
+        const k = a[i];
+        if (k in o_) {
+            o_ = o_[k];
+        } else {
+            return undefined;
+        }
+    }
+    return o_;
+};
+
 export function formatDate(date) {
     return moment(date).format('DD.MM.YYYY');
 }
@@ -39,10 +57,12 @@ export function scrollTo(element, duration) {
 
 export function sorterPerioder(sykmelding) {
     return Object.assign(sykmelding, {
-        perioder: sykmelding.perioder.sort((a, b) => {
-            const kriterium = a.fom !== b.fom ? 'fom' : 'tom';
-            return a[kriterium] < b[kriterium] ? -1 : 1;
-        }),
+        mulighetForArbeid: {
+            perioder: sykmelding.mulighetForArbeid.perioder.sort((a, b) => {
+                const kriterium = a.fom !== b.fom ? 'fom' : 'tom';
+                return a[kriterium] < b[kriterium] ? -1 : 1;
+            }),
+        },
     });
 }
 
@@ -50,9 +70,9 @@ export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
     sykmeldinger.map(sorterPerioder);
     return sykmeldinger.sort((a, b) => {
         if (kriterium === 'fom' || a.arbeidsgiver.trim().toUpperCase() === b.arbeidsgiver.trim().toUpperCase()) {
-            return a.perioder[0].fom > b.perioder[0].fom ? -1 : 1;
+            return a.mulighetForArbeid.perioder[0].fom > b.mulighetForArbeid.perioder[0].fom ? -1 : 1;
         }
-        return a[kriterium] < b[kriterium] ? -1 : 1;
+        return Object.byString(a, kriterium) < Object.byString(b, kriterium) ? -1 : 1;
     });
 }
 

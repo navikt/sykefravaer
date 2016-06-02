@@ -15,7 +15,10 @@ const FlereOpplysninger = ({ sykmelding, ledetekster }) => {
     return (<div>
         <div className="sykmelding-seksjon">
         {
-            getSykmeldingOpplysning(sykmelding, 'utstedelsesdato', getLedetekst('sykmelding.vis.annet.utstedelsesdato', ledetekster), formatDate(sykmelding.utstedelsesdato))
+            getSykmeldingOpplysning(sykmelding.bekreftelse,
+                'utstedelsesdato',
+                getLedetekst('sykmelding.vis.annet.utstedelsesdato', ledetekster),
+                formatDate(sykmelding.bekreftelse.utstedelsesdato))
         }
         {
             getSykmeldingOpplysning(sykmelding, 'startLegemeldtFravaer',

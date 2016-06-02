@@ -56,9 +56,8 @@ describe("TidslinjeContainer", () => {
                 hentingFeilet: false
             },
             brukerinfo: {
-                data: {
-
-                }
+                innstillinger: {},
+                bruker: {}
             },
             milepaeler: {
                 data: milepaelerData
@@ -96,7 +95,7 @@ describe("TidslinjeContainer", () => {
         });
 
         it("Skal returnere milepaeler når arbeidssituasjon === 'UTEN_ARBEIDSGIVER'", () => {
-            initState.brukerinfo.data.arbeidssituasjon = 'UTEN_ARBEIDSGIVER'
+            initState.brukerinfo.innstillinger.arbeidssituasjon = 'UTEN_ARBEIDSGIVER'
             const props = mapStateToProps(initState);
             expect(props.milepaeler).to.deep.equal([{
                 ledetekst: 'tidslinje.UTEN_ARBEIDSGIVER.nav',
@@ -110,7 +109,7 @@ describe("TidslinjeContainer", () => {
         });        
 
         it("Skal returnere arbeidssituasjon", () => {
-            initState.brukerinfo.data.arbeidssituasjon = 'UTEN_ARBEIDSGIVER'
+            initState.brukerinfo.innstillinger.arbeidssituasjon = 'UTEN_ARBEIDSGIVER'
             const props = mapStateToProps(initState);
             expect(props.arbeidssituasjon).to.equal("UTEN_ARBEIDSGIVER");
         });               
@@ -123,7 +122,7 @@ describe("TidslinjeContainer", () => {
         it("Skal returnere brødsmuler", () => {
             const props = mapStateToProps(initState); 
             expect(props.brodsmuler).to.deep.equal([{
-                tittel: 'Sykefravær og oppfølging',
+                tittel: 'Ditt sykefravær',
                 sti: '/',
                 erKlikkbar: true,
             }, {

@@ -44,7 +44,7 @@ class SykmeldingTeaser extends Component {
     }
 
     render() {
-        const antallPerioder = this.props.sykmelding.perioder.length;
+        const antallPerioder = this.props.sykmelding.mulighetForArbeid.perioder.length;
         const sistePeriodeIndex = antallPerioder - 1;
 
         return (<article>
@@ -61,16 +61,22 @@ class SykmeldingTeaser extends Component {
             <div className="teaser-innhold">
                 <h3 className="js-title teaser-header">
                     <small className="teaser-meta">{getLedetekst('sykmelding.teaser.dato', this.props.ledetekster, {
-                        '%FOM%': formatDate(this.props.sykmelding.perioder[0].fom),
-                        '%TOM%': formatDate(this.props.sykmelding.perioder[sistePeriodeIndex].tom),
+                        '%FOM%': formatDate(this.props.sykmelding.mulighetForArbeid.perioder[0].fom),
+                        '%TOM%': formatDate(this.props.sykmelding.mulighetForArbeid.perioder[sistePeriodeIndex].tom),
                     })} </small>
                     <span className="teaser-tittel">
                         {getLedetekst('sykmelding.teaser.tittel', this.props.ledetekster)}
                     </span>
                 </h3>
                 {antallPerioder === 1 ?
-                    (<SykmeldingPeriodeInfo periode={this.props.sykmelding.perioder[0]} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />)
-                    : (<PeriodeListe perioder={this.props.sykmelding.perioder} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />)
+                    (<SykmeldingPeriodeInfo
+                        periode={this.props.sykmelding.mulighetForArbeid.perioder[0]}
+                        arbeidsgiver={this.props.sykmelding.arbeidsgiver}
+                        ledetekster={this.props.ledetekster} />)
+                    : (<PeriodeListe
+                        perioder={this.props.sykmelding.mulighetForArbeid.perioder}
+                        arbeidsgiver={this.props.sykmelding.arbeidsgiver}
+                        ledetekster={this.props.ledetekster} />)
                 }
             </div>
         </Link></article>);

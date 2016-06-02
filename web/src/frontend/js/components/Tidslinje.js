@@ -1,18 +1,12 @@
 import React, { PropTypes } from 'react';
 import Milepael from './Milepael.js';
 import TidslinjeVelgArbeidssituasjonContainer from '../containers/TidslinjeVelgArbeidssituasjonContainer.js';
-import { getLedetekst } from '../ledetekster';
 
-const Tidslinje = ({ milepaeler = [], ledetekster, arbeidssituasjon }) => {
-    let arbeidssituasjonNokkel = 'med-arbeidsgiver';
-    if (arbeidssituasjon === 'UTEN_ARBEIDSGIVER') {
-        arbeidssituasjonNokkel = 'uten-arbeidsgiver';
-    }
+const Tidslinje = ({ milepaeler = [], ledetekster }) => {
     return (<div>
         <header className="tidslinje-header">
             <h1 className="tittel-dekorert">Tidslinjen</h1>
         </header>
-        <p className="typo-infotekst tidslinje-intro">{getLedetekst(`tidslinje.${arbeidssituasjonNokkel}.introtekst`, ledetekster)}</p>
         <TidslinjeVelgArbeidssituasjonContainer />
         <div className="tidslinje">
             {
@@ -27,7 +21,6 @@ const Tidslinje = ({ milepaeler = [], ledetekster, arbeidssituasjon }) => {
 Tidslinje.propTypes = {
     milepaeler: PropTypes.array,
     ledetekster: PropTypes.object,
-    arbeidssituasjon: PropTypes.string,
 };
 
 export default Tidslinje;

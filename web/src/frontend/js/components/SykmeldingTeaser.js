@@ -69,8 +69,14 @@ class SykmeldingTeaser extends Component {
                     </span>
                 </h3>
                 {antallPerioder === 1 ?
-                    (<SykmeldingPeriodeInfo periode={this.props.sykmelding.mulighetForArbeid.perioder[0]} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />)
-                    : (<PeriodeListe perioder={this.props.sykmelding.mulighetForArbeid.perioder} arbeidsgiver={this.props.sykmelding.arbeidsgiver} ledetekster={this.props.ledetekster} />)
+                    (<SykmeldingPeriodeInfo
+                        periode={this.props.sykmelding.mulighetForArbeid.perioder[0]}
+                        arbeidsgiver={this.props.sykmelding.arbeidsgiver}
+                        ledetekster={this.props.ledetekster} />)
+                    : (<PeriodeListe
+                        perioder={this.props.sykmelding.mulighetForArbeid.perioder}
+                        arbeidsgiver={this.props.sykmelding.arbeidsgiver}
+                        ledetekster={this.props.ledetekster} />)
                 }
             </div>
         </Link></article>);

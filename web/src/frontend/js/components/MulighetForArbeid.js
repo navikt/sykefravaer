@@ -41,14 +41,17 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
                         <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.mulighet.for.arbeid.pasient.ikke.i.arbeid.tittel', ledetekster)}>
                             <div>
                                 {
-                                    getSykmeldingCheckbox(sykmelding.mulighetForArbeid, 'aktivitetIkkeMulig433', getLedetekst('sykmelding.vis.mulighet.for.arbeid.medisinsk.tittel', ledetekster))
+                                    getSykmeldingCheckbox(sykmelding.mulighetForArbeid,
+                                        'aktivitetIkkeMulig433', getLedetekst('sykmelding.vis.mulighet.for.arbeid.medisinsk.tittel', ledetekster))
                                 }
                                 <Aarsaker aarsaker={sykmelding.mulighetForArbeid.aktivitetIkkeMulig433} containerClassName="js-aktivitetIkkeMulig433hvisJa" />
                             </div>
                         </SykmeldingOpplysning> : null
                 }
                 {
-                    getSykmeldingOpplysning(sykmelding.mulighetForArbeid, 'aarsakAktivitetIkkeMulig433', getLedetekst('sykmelding.vis.mulighet.for.arbeid.medisinsk.beskriv.tittel', ledetekster))
+                    getSykmeldingOpplysning(sykmelding.mulighetForArbeid,
+                        'aarsakAktivitetIkkeMulig433',
+                        getLedetekst('sykmelding.vis.mulighet.for.arbeid.medisinsk.beskriv.tittel', ledetekster))
                 }
                 {
                     (sykmelding.mulighetForArbeid.aktivitetIkkeMulig434 && sykmelding.mulighetForArbeid.aktivitetIkkeMulig434.length > 0) ?

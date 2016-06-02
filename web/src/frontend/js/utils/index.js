@@ -1,5 +1,23 @@
 const moment = require('moment');
 
+// Fra Stack Overflow <3
+Object.byString = function byString(o, s) {
+    let s_ = s;
+    let o_ = o;
+    s_ = s_.replace(/\[(\w+)]/g, '.$1');
+    s_ = s_.replace(/^\./, '');
+    const a = s_.split('.');
+    for (let i = 0, n = a.length; i < n; ++i) {
+        const k = a[i];
+        if (k in o_) {
+            o_ = o_[k];
+        } else {
+            return undefined;
+        }
+    }
+    return o_;
+};
+
 export function formatDate(date) {
     return moment(date).format('DD.MM.YYYY');
 }
@@ -57,24 +75,6 @@ export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
         return Object.byString(a, kriterium) < Object.byString(b, kriterium) ? -1 : 1;
     });
 }
-
-// Fra Stack Overflow <3
-Object.byString = function (o, s) {
-    let s_ = s;
-    let o_ = o;
-    s_ = s_.replace(/\[(\w+)]/g, '.$1');
-    s_ = s_.replace(/^\./, '');
-    const a = s_.split('.');
-    for (let i = 0, n = a.length; i < n; ++i) {
-        const k = a[i];
-        if (k in o_) {
-            o_ = o_[k];
-        } else {
-            return undefined;
-        }
-    }
-    return o_;
-};
 
 export function harLocalStorageStotte() {
     try {

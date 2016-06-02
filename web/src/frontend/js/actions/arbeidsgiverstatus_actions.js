@@ -7,11 +7,3 @@ export function settArbeidsgiverstatus(arbeidsgiverstatus, sykmeldingsId) {
         sykmeldingsId,
     };
 }
-
-export function sendSykmeldingGaaVidere(arbeidsgiverstatus){
-    console.log("videre");
-    return {
-        type: 'GAA_VIDERE',
-        arbeidsgiverstatus,
-    };
-}

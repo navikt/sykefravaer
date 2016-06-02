@@ -27,6 +27,7 @@ export default function sykmeldinger(state = initiellState, action) {
                 hentingFeilet: true,
             };
         case 'SETT_ARBEIDSGIVER_STATUS':
+            console.log(action)
             const data = state.data.map((sykmelding) => {
                 if (sykmelding.id === action.sykmeldingsId) {
                     sykmelding.arbeidsgiverstatus = action.arbeidsgiverstatus;
@@ -34,13 +35,6 @@ export default function sykmeldinger(state = initiellState, action) {
                 return sykmelding
             });
             return Object.assign({}, state, { data: data });
-        case 'GAA_VIDERE':
-            if(action.arbeidsgiverstatus === undefined){
-                console.log("setter state");
-                return Object.assign({}, state, { erFeil:true });
-            } else {
-                //redirect
-            }
         case 'SET_SORTERING':
             return Object.assign({}, state, {
                 sortering: action.sortering,

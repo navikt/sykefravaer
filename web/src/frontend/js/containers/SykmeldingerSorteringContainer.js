@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Dropdown from '../components/Dropdown.js';
 import { connect } from 'react-redux';
-import * as actionCreators from '../actions/dineSykmeldinger_actions.js';
+import * as actionCreators from '../actions/arbeidsgiverstatus_actions.js';
 
 const DropdownContainer = ({ alternativer, sorterSykmeldinger }) => {
     return (<div className="header-verktoy">

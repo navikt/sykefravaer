@@ -395,8 +395,8 @@ describe("DinSykmelding", () => {
                         navBoerTaTakISaken: false
                     }
                 })} ledetekster={ledetekster}/>)
-                expect(component.find(".js-navBoerTaTakISaken").length).to.equal(0); 
-            });            
+                expect(component.find(".js-navBoerTaTakISaken").length).to.equal(0);
+            });
 
             it("Skal vise checkbox dersom navBoerTaTakISaken === true", () => {
                 component = mount(<DinSykmelding sykmelding={getSykmelding({

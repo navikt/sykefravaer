@@ -23,16 +23,9 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
             <img src="/sykefravaer/img/svg/doctor-2.svg" alt="Lege" />
             <span>{getLedetekst('landingsside.tilsykmeldinger.lenketekst', ledetekster)}</span>
         </Link>
-        <div className="panel blokk side-innhold js-generell-informasjon">
-            <h2 className="typo-undertittel">Sykmeldt &mdash; hva nå?</h2>
+        <article className="panel blokk side-innhold js-generell-informasjon">
+            <h2 className="typo-undertittel" dangerouslySetInnerHTML={getHtmlLedetekst('landingsside.generell.informasjon.tittel', ledetekster)} />
             <p dangerouslySetInnerHTML={getHtmlLedetekst('landingsside.generell.informasjon.tekst', ledetekster)} />
-        </div>
-        <article className="panel js-forklaring">
-            <h2 className="landingsside-forklaringstittel">
-                {getLedetekst('landingsside.informasjon.tittel', ledetekster)}
-            </h2>
-            <div className="redaksjonelt-innhold typo-infotekst side-innhold js-roller"
-                dangerouslySetInnerHTML={getHtmlLedetekst('landingsside.informasjon.tekst', ledetekster)} />
         </article>
         {
             (!skjulVarsel ? <UnderUtviklingVarselContainer ledetekster={ledetekster} /> : null)

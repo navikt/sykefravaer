@@ -85,7 +85,9 @@ describe("DinSykmeldingContainer", () => {
                 henter: false
             },
             brukerinfo: {
-                data: {}
+                bruker: {
+                    data: {},
+                },
             }
         };
         ownProps.params = {};

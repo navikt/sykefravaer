@@ -7,6 +7,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 
+
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 const middlewares = [ thunk ];

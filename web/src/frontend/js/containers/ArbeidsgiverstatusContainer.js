@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/arbeidsgiverstatus_actions.js';
 import DropdownWrapper from '../components/DropdownWrapper.js';
@@ -17,7 +17,6 @@ class Arbeidsgiverstatus extends Component {
             browserHistory.push(`/sykefravaer/app/sykmeldinger/${sykmelding.id}/send`)
         } else {
             this.setState({ forsoktSendt: true })
-
         }
     }
 
@@ -69,6 +68,10 @@ class Arbeidsgiverstatus extends Component {
         )
     };
 }
+
+Arbeidsgiverstatus.propTypes = {
+    sykmelding: PropTypes.object,
+};
 
 function mapStateToProps() {
     return {};

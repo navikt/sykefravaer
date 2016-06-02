@@ -124,9 +124,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
             </div>
             {
                 strengtFortroligAdresse ? null :
-                    <ArbeidsgiverstatusContainer feilmelding={'test'} sykmelding={sykmelding}/>
-                
-                
+                    <ArbeidsgiverstatusContainer sykmelding={sykmelding}/>
             }
         </div>
         <p className="side-innhold ikke-print">

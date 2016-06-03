@@ -20,7 +20,7 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/app/sykmeldinger" component={DineSykmeldingerContainer} />
         <Route path="/sykefravaer/app/sykmeldinger/:sykmeldingId" component={DinSykmeldingContainer} />
         <Route path="/sykefravaer/app/sykmeldinger/:sykmeldingId/send" component={SendTilArbeidsgiverContainer} />
-        <Route path="/sykefravaer/app/roller-og-ansvarsomrader" component={RollerContainer} />
+        <Route path="/sykefravaer/app/roller-og-ansvarsomrader" component={RollerContainer}/>
         <Route path="*" component={FeilContainer} />
     </Router>);
 };

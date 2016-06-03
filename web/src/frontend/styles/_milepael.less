@@ -4,17 +4,20 @@
 
 .milepael-meta {
     display: flex;
-    min-height: 26px;
-    line-height: 26px; 
-
-    @media(min-width: @screen-xs) {
-        min-height: 40px; 
-        line-height: 40px; 
-    }
+    margin-bottom: 1rem;
+    min-height: 24px;
+    line-height: 24px; 
 
     h2 {
         .mixin-typo-element();
         margin: 0; 
+    }
+}
+
+@media(min-width: @screen-xs) {
+
+    .milepael-meta-start {
+        padding-top: .5rem; 
     }
 }
 
@@ -25,7 +28,7 @@
 
 .milepael-innhold {
     flex: 1; 
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .header-milepael:extend(.header-bolk) {
@@ -158,6 +161,9 @@
 }
 
 .milepael-ikon-klokke {
+
+    height: 24px; 
+
     img {
         width: 24px;
         height: 24px; 

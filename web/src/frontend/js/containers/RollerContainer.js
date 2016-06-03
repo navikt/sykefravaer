@@ -23,7 +23,7 @@ export const RollerSide = ({ ledetekster, brodsmuler }) => {
 
 RollerSide.propTypes = {
     ledetekster: PropTypes.object,
-    brodsmuler: PropTypes.object,
+    brodsmuler: PropTypes.array,
 };
 
 export function mapStateToProps(state) {

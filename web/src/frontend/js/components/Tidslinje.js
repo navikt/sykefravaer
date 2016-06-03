@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Milepael from './Milepael.js';
 import TidslinjeVelgArbeidssituasjonContainer from '../containers/TidslinjeVelgArbeidssituasjonContainer.js';
+import { getLedetekst } from '../ledetekster';
 
 const Tidslinje = ({ milepaeler = [], ledetekster, arbeidssituasjon }) => {
     return (<div>
@@ -8,6 +9,9 @@ const Tidslinje = ({ milepaeler = [], ledetekster, arbeidssituasjon }) => {
             <h1 className="tittel-dekorert">Tidslinjen</h1>
         </header>
         <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
+        <p className="tidslinje-intro">
+            {getLedetekst('tidslinje.introtekst', ledetekster)}
+        </p>
         <div className="tidslinje">
             {
                 milepaeler.map((milepael) => {

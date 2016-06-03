@@ -4,7 +4,7 @@ import Side from '../sider/Side.js';
 import Feilmelding from './Feilmelding.js';
 
 const SideIkkeFunnet = ({ ledetekster }) => {
-    return (<Side>
+    return (<Side tittel={getLedetekst('404.tittel', ledetekster)}>
         <Feilmelding tittel={getLedetekst('404.tittel', ledetekster)} melding={getLedetekst('404.tekst', ledetekster)} />
     </Side>);
 };

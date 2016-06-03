@@ -2,23 +2,19 @@ import React, { PropTypes, Component } from 'react';
 import { getLedetekst } from '../ledetekster';
 
 class Hjelpetekst extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            erApen: false,
+            erApen: props.erApen === true,
         };
     }
 
     componentDidUpdate() {
-        if (this.state.erApen) {
-            this.refs['js-lukk'].focus();
-        } else {
-            this.refs['js-aapne'].focus();
-        }
+        const focusRef = this.state.erApen ? 'js-lukk' : 'js-apne';
+        this.refs[focusRef].focus(); 
     }
 
-    aapne() {
+    apne() {
         this.setState({ erApen: true });
     }
 
@@ -30,7 +26,7 @@ class Hjelpetekst extends Component {
         if (this.state.erApen) {
             this.lukk();
         } else {
-            this.aapne();
+            this.apne();
         }
     }
 
@@ -38,32 +34,28 @@ class Hjelpetekst extends Component {
         const ariaId = `tooltip-${this.props.id}`;
         return (
             <div className="hjelpetekst">
-                <button type="button" className="hjelpetekst-ikon" aria-describedby={ariaId}
-                        onClick={(event) => { this.toggle(event); }} ref="js-aapne">
-             <span aria-hidden="true">
-                ?
-            </span>
-             <span className="vekk">
-                ? Hjelpetekst
-            </span>
+                <button type="button" className="hjelpetekst-ikon js-apne" aria-describedby={ariaId}
+                        onClick={(event) => { this.toggle(event); }} ref="js-apne">
+                        <span aria-hidden="true">?</span>
+                         <span className="vekk">
+                            ? Hjelpetekst
+                        </span>
                 </button>
                 <div role="tooltip" id={ariaId}
-                     className={`hjelpetekst-tooltip ${this.state.erApen ? 'er-synlig' : ''}`}>
-                    <h3 className="decorated hjelpetekst-tittel">
-                        {getLedetekst('dinsykmelding.arbeidssituasjon.hjeleptekst.tittel', this.props.ledetekster)}
-                    </h3>
+                     className={`hjelpetekst-tooltip js-tooltip ${this.state.erApen ? 'er-synlig' : ''}`}>
+                    <h3 className="decorated hjelpetekst-tittel js-tittel">{this.props.tittel}</h3>
                     <div className="hjelpetekst-tekst js-tekst">
                         <p>
-                            {getLedetekst('dinsykmelding.arbeidssituasjon.hjeleptekst.tekst', this.props.ledetekster)}
+                            {this.props.tekst}
                         </p>
                     </div>
-                    <button type="button" className="hjelpetekst-lukk"
+                    <button type="button" className="hjelpetekst-lukk js-lukk"
                             aria-controls={ariaId}
                             onClick={() => { this.lukk(); }}
                             ref="js-lukk">
-                 <span className="vekk">
-                    Lukk
-                </span>
+                             <span className="vekk">
+                                Lukk
+                            </span>
                     </button>
                 </div>
             </div>

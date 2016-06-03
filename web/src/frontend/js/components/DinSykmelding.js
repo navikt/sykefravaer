@@ -15,14 +15,14 @@ import arbeidssituasjoner from '../arbeidssituasjonData';
 
 const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = false }) => {
     if (!sykmelding || !sykmelding.id) {
-        return <AppSpinner ledetekster={ledetekster}/>;
+        return <AppSpinner ledetekster={ledetekster} />;
     }
 
     return (<div>
         <div className="header-bolk header-sykmelding">
-            <img className="header-ikon" src="/sykefravaer/img/svg/account-circle.svg" alt="Du"/>
+            <img className="header-ikon" src="/sykefravaer/img/svg/account-circle.svg" alt="Du" />
             <img className="header-ikon header-ikon-hoykontrast"
-                 src="/sykefravaer/img/svg/account-circle-highcontrast.svg" alt="Du"/>
+                src="/sykefravaer/img/svg/account-circle-highcontrast.svg" alt="Du" />
             <h1 className="header-tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h1>
         </div>
         <div className="panel blokk">
@@ -30,7 +30,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                 {getLedetekst('sykmelding.vis.hovedtittel', ledetekster)}
             </h2>
             <div className="blokk-l side-innhold">
-                <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} ledetekster={ledetekster}/>
+                <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} ledetekster={ledetekster} />
                 {
                     sykmelding.diagnose.hoveddiagnose ? (<div className="diagnose-container">
                         <SykmeldingNokkelOpplysning
@@ -91,7 +91,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                 {
                     !sykmelding.diagnose.yrkesskadeDato ? null :
                         <SykmeldingCheckbox tekst={getLedetekst('sykmelding.vis.yrkesskade.tittel', ledetekster)}
-                                            jsClassName="yrkesskade"/>
+                            jsClassName="yrkesskade" />
                 }
                 {
                     !sykmelding.diagnose.yrkesskadeDato ? null :
@@ -122,19 +122,21 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                 }
             </div>
             <Utvidbar tittel={getLedetekst('sykmelding.vis.flere-opplysninger.tittel', ledetekster)}
-                      ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">
+                ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege">
                 <div className="sykmelding-seksjoner">
-                    <FlereOpplysninger sykmelding={sykmelding} ledetekster={ledetekster}/>
+                    <FlereOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
                 </div>
             </Utvidbar>
                 <div className="hjelpetekst-parent hjelpetekst-parent-inline">
                     <h3 className="med-hjelpetekst">{getLedetekst('dinsykmelding.arbeidssituasjon.tittel', ledetekster)}</h3>
-                    <Hjelpetekst ledetekster={ledetekster}/>
+                    <Hjelpetekst
+                        tittel={getLedetekst('dinsykmelding.arbeidssituasjon.hjeleptekst.tittel', ledetekster)}
+                        tekst={getLedetekst('dinsykmelding.arbeidssituasjon.hjeleptekst.tekst', ledetekster)} />
                 </div>
                 {
                     strengtFortroligAdresse ? null :
                         <DinSykmeldingBrukerInputContainer sykmelding={sykmelding}
-                                                           arbeidssituasjoner={arbeidssituasjoner}/>
+                                                           arbeidssituasjoner={arbeidssituasjoner} />
                 }
         </div>
         <p className="side-innhold ikke-print">

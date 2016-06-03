@@ -66,7 +66,7 @@ const sykmeldinger = [{
     arbeidsfoerEtterPerioden: true
 }];
 
-describe("SykmeldingTeasere", () => {
+describe.only("SykmeldingTeasere", () => {
 
     it("Viser en header", () => {
         const component = shallow(<SykmeldingTeasere tittel="Mine sykmeldinger" sykmeldinger={sykmeldinger} ledetekster={ledetekster}/>);

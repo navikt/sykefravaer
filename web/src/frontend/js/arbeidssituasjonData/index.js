@@ -10,7 +10,7 @@ const arbeidssituasjoner = [
     },
     {
         tekst: 'Selvstendig næringsdrivende',
-        verdi: 'selvstendig_næringsdrivende',
+        verdi: 'selvstendig_naeringsdrivende',
     },
     {
         tekst: 'Frilanser',

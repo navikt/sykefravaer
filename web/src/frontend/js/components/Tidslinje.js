@@ -10,7 +10,7 @@ const Tidslinje = ({ milepaeler = [], ledetekster }) => {
         </header>
         <TidslinjeVelgArbeidssituasjonContainer />
         <p className="tidslinje-intro">
-            {getLedetekst("tidslinje.introtekst", ledetekster)}
+            {getLedetekst('tidslinje.introtekst', ledetekster)}
         </p>
         <div className="tidslinje">
             {

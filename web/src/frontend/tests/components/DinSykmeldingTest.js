@@ -33,7 +33,7 @@ describe("DinSykmelding", () => {
     })
 
     it("Skal vise perioder", () => {
-        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}/>)
+        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}/>);
         expect(component.find(SykmeldingPerioder)).to.have.length(1)
     });
 

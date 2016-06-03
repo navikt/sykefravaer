@@ -64,6 +64,33 @@ describe('dineSykmeldinger', () => {
         expect(nextState).to.deep.equal({
             sortering: 'arbeidsgiver'
         });
+
+
+    });
+
+    it('håndterer SET_ARBEIDSSITUASJON', () => {
+        const initialState = {
+            data: [{
+                id: 23,
+            }, {
+                id: 24,
+            }]
+        };
+        const action = {
+            type: 'SET_ARBEIDSSITUASJON',
+            arbeidssituasjon: 'test',
+            sykmeldingsId: 23,
+        };
+        const nextState = dineSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+                arbeidssituasjon: 'test'
+            }, {
+                id: 24,
+            }]
+        });
     });
 
 

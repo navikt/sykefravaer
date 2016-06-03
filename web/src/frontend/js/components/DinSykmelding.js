@@ -10,7 +10,8 @@ import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils.js';
 import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox.js';
 import FlereOpplysninger from './FlereOpplysninger.js';
 import Hjelpetekst from '../components/Hjelpetekst.js';
-import ArbeidsgiverstatusContainer from '../containers/ArbeidsgiverstatusContainer.js'
+import DinSykmeldingBrukerInputContainer from '../containers/DinSykmeldingBrukerInputContainer.js'
+import arbeidssituasjoner from '../arbeidssituasjonData';
 
 const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = false }) => {
     if (!sykmelding || !sykmelding.id) {
@@ -118,14 +119,17 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                     <FlereOpplysninger sykmelding={sykmelding} ledetekster={ledetekster}/>
                 </div>
             </Utvidbar>
-            <div className="hjelpetekst-parent hjelpetekst-parent-inline">
-                <h3 className="med-hjelpetekst">Din arbeidssituasjon (for denne sykmeldinger)</h3>
-                <Hjelpetekst />
+            <div>
+                <div className="hjelpetekst-parent hjelpetekst-parent-inline">
+                    <h3 className="med-hjelpetekst">{getLedetekst('dinsykmelding.arbeidssituasjon.tittel', ledetekster)}</h3>
+                    <Hjelpetekst ledetekster={ledetekster}/>
+                </div>
+                {
+                    strengtFortroligAdresse ? null :
+                        <DinSykmeldingBrukerInputContainer sykmelding={sykmelding}
+                                                           arbeidssituasjoner={arbeidssituasjoner}/>
+                }
             </div>
-            {
-                strengtFortroligAdresse ? null :
-                    <ArbeidsgiverstatusContainer sykmelding={sykmelding}/>
-            }
         </div>
         <p className="side-innhold ikke-print">
             <Link to="/sykefravaer/app">

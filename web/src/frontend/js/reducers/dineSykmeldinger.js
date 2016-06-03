@@ -26,11 +26,10 @@ export default function sykmeldinger(state = initiellState, action) {
                 henter: false,
                 hentingFeilet: true,
             };
-        case 'SETT_ARBEIDSGIVER_STATUS':
-            console.log(action)
+        case 'SET_ARBEIDSSITUASJON':
             const data = state.data.map((sykmelding) => {
                 if (sykmelding.id === action.sykmeldingsId) {
-                    sykmelding.arbeidsgiverstatus = action.arbeidsgiverstatus;
+                    sykmelding.arbeidssituasjon = action.arbeidssituasjon;
                 }
                 return sykmelding
             });

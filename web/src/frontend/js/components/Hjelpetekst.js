@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { getLedetekst } from '../ledetekster';
 
 class Hjelpetekst extends Component {
 
@@ -39,11 +40,11 @@ class Hjelpetekst extends Component {
                 </button>
                 <div role="tooltip" id={ariaId} className={`hjelpetekst-tooltip ${this.state.erApen ? "er-synlig" : ""}`}>
                     <h3 className="decorated hjelpetekst-tittel">
-                        Hjelpetekst tittel
+                        {getLedetekst('dinsykmelding.arbeidssituasjon.hjeleptekst.tittel', this.props.ledetekster)}
                     </h3>
                     <div className="hjelpetekst-tekst js-tekst">
                         <p>
-                            Her er litt hjelpetekst.
+                            {getLedetekst('dinsykmelding.arbeidssituasjon.hjeleptekst.tekst', this.props.ledetekster)}
                         </p>
                     </div>
                     <button type="button" className="hjelpetekst-lukk"
@@ -59,6 +60,7 @@ class Hjelpetekst extends Component {
         );
     }
 
+
     componentDidUpdate(){
         if (this.state.erApen) {
             this.refs['js-lukk'].focus()
@@ -66,6 +68,10 @@ class Hjelpetekst extends Component {
             this.refs['js-aapne'].focus()
         }
     }
+}
+
+Hjelpetekst.propTypes = {
+    ledetekster: PropTypes.object,
 };
 
 export default Hjelpetekst;

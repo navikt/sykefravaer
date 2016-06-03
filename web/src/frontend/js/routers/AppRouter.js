@@ -17,6 +17,7 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer" component={Feil} />
         <Route path="/sykefravaer/app" component={LandingssideContainer} />
         <Route path="/sykefravaer/app/tidslinjen" component={TidslinjeContainer} />
+        <Route path="/sykefravaer/app/tidslinjen/:arbeidssituasjon" component={TidslinjeContainer} />
         <Route path="/sykefravaer/app/sykmeldinger" component={DineSykmeldingerContainer} />
         <Route path="/sykefravaer/app/sykmeldinger/:sykmeldingId" component={DinSykmeldingContainer} />
         <Route path="/sykefravaer/app/sykmeldinger/:sykmeldingId/send" component={SendTilArbeidsgiverContainer} />

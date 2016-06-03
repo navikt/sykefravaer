@@ -102,7 +102,7 @@ describe("Dropdown", () => {
             }
         });
         expect(onChange.calledOnce).to.equal(true);
-        expect(onChange.getCall(0).args[0]).to.equal("druer");        
-    });    
+        expect(onChange.getCall(0).args[0]).to.equal("druer");
+    });
 
 }); 

@@ -28,8 +28,27 @@ TidslinjeSide.propTypes = {
     arbeidssituasjon: PropTypes.string,
 };
 
-export function mapStateToProps(state) {
-    const arbeidssituasjon = state.brukerinfo.innstillinger.arbeidssituasjon || 'MED_ARBEIDSGIVER';
+export const mapArbeidssituasjonParam = (param) => {
+    switch (param) {
+        case 'uten-arbeidsgiver': {
+            return 'UTEN_ARBEIDSGIVER';
+        }
+        case 'med-arbeidsgiver': {
+            return 'MED_ARBEIDSGIVER';
+        }
+        case undefined: {
+            return undefined;
+        }
+        default: {
+            return 'MED_ARBEIDSGIVER';
+        }
+    }
+};
+
+export function mapStateToProps(state, ownProps) {
+    let arbeidssituasjonParam = ownProps ? ownProps.params.arbeidssituasjon : undefined;
+    arbeidssituasjonParam = mapArbeidssituasjonParam(arbeidssituasjonParam);
+    const arbeidssituasjon = arbeidssituasjonParam || state.brukerinfo.innstillinger.arbeidssituasjon || 'MED_ARBEIDSGIVER';
     const milepaeler = state.milepaeler.data.filter((milepael) => {
         return milepael.visning.indexOf(arbeidssituasjon) > -1;
     });

@@ -11,7 +11,7 @@ import TidslinjeVelgArbeidssituasjonContainer from '../../js/containers/Tidslinj
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("Tidslinje", () => {
+describe("Tidslinje", () => { 
 
     it("Skal rendre en Milepael per tidspunkt", () => {
         let component = shallow(<Tidslinje ledetekster={ledetekster} milepaeler={milepaelerData} />)
@@ -26,8 +26,9 @@ describe("Tidslinje", () => {
     }); 
 
     it("Skal vise en TidslinjeVelgArbeidssituasjonContainer", () => {
-        let component = shallow(<Tidslinje ledetekster={ledetekster} milepaeler={milepaelerData} />)
+        let component = shallow(<Tidslinje ledetekster={ledetekster} milepaeler={milepaelerData} arbeidssituasjon="MED_ARBEIDSGIVER" />)
         expect(component.find(TidslinjeVelgArbeidssituasjonContainer)).to.have.length(1);
+        expect(component.find(TidslinjeVelgArbeidssituasjonContainer).prop("arbeidssituasjon")).to.equal("MED_ARBEIDSGIVER");
     }); 
 
 }) 

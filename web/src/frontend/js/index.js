@@ -10,17 +10,12 @@ import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger.js';
 import ledetekster from './reducers/ledetekster.js';
 import brukerinfo from './reducers/brukerinfo.js';
 import milepaeler from './reducers/milepaeler.js';
-import { browserHistory } from 'react-router';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions.js';
 import { hentLedetekster } from './actions/ledetekster_actions.js';
 import { hentBrukerinfo } from './actions/brukerinfo_actions.js';
 import { setMilepaeler } from './actions/milepaeler_actions.js';
-import useScroll from 'scroll-behavior/lib/useStandardScroll';
 import milepaelerData from './milepaelerData';
-
-const history = useScroll(() => {
-    return browserHistory;
-})();
+import history from './history.js';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
@@ -46,4 +41,5 @@ render(<Provider store={store}>
 
 export {
     store,
+    history,
 };

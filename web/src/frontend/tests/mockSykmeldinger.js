@@ -23,14 +23,10 @@ const sykmelding = {
     friskmelding: {
         arbeidsfoerEtterPerioden: true,
     },
-    utdypendeOpplysninger: {
-    },
-    arbeidsevne: {
-    },
-    meldingTilNav: {
-    },
-    tilbakedatering: {
-    },
+    utdypendeOpplysninger: {},
+    arbeidsevne: {},
+    meldingTilNav: {},
+    tilbakedatering: {},
     bekreftelse: {
         sykmelder: "Ove Olsen",
         utstedelsesdato: "2016-05-02T22:00:00.000Z"

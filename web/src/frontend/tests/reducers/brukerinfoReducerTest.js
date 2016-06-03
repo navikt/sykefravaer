@@ -73,7 +73,7 @@ describe('brukerinfo', () => {
         expect(nextState).to.deep.equal({
             bruker: {
                 data: {},
-                hentingFeilet: true,    
+                hentingFeilet: true,
                 henter: false
             },
             innstillinger: {
@@ -92,11 +92,11 @@ describe('brukerinfo', () => {
         expect(nextState2).to.deep.equal({
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
-            }, 
+            },
             bruker: {
                 data: {},
-                hentingFeilet: true, 
-                henter: false, 
+                hentingFeilet: true,
+                henter: false,
             }
         });  
     })
@@ -109,8 +109,8 @@ describe('brukerinfo', () => {
         }, actions.henterBrukerinfo());
         expect(nextState).to.deep.equal({
             bruker: {
-                henter: true, 
-                hentingFeilet: false, 
+                henter: true,
+                hentingFeilet: false,
                 data: {}
             },
             innstillinger: {
@@ -129,8 +129,8 @@ describe('brukerinfo', () => {
             bruker: {
                 data: {},
                 henter: true,
-                hentingFeilet: false,    
-            }, 
+                hentingFeilet: false,
+            },
             innstillinger: {
                 skjulUnderUtviklingVarsel: false
             }
@@ -144,7 +144,7 @@ describe('brukerinfo', () => {
         }));
         expect(nextState).to.deep.equal({
             bruker: {
-                henter: false, 
+                henter: false,
                 hentingFeilet: false,
                 data: {
                     navn: "Helge",
@@ -175,7 +175,7 @@ describe('brukerinfo', () => {
         }));
         expect(nextState1).to.deep.equal({
             bruker: {
-                henter: false, 
+                henter: false,
                 hentingFeilet: false,
                 data: {
                     navn: "Helge",
@@ -203,7 +203,7 @@ describe('brukerinfo', () => {
         })); 
         expect(nextState2).to.deep.equal({
             bruker: {
-                henter: false, 
+                henter: false,
                 hentingFeilet: false,
                 data: {
                     navn: "Helge",

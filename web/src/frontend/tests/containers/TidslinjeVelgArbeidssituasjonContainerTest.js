@@ -1,6 +1,6 @@
 import chai from 'chai';
 import React from 'react'
-import {mount, shallow} from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
 
@@ -12,7 +12,7 @@ import Faner from "../../js/components/Faner.js";
 
 describe("TidslinjeVelgArbeidssituasjonContainer", () => {
 
-    let initState; 
+    let initState;
 
     beforeEach(() => {
         initState = {
@@ -27,7 +27,7 @@ describe("TidslinjeVelgArbeidssituasjonContainer", () => {
                 verdi: 'UTEN_ARBEIDSGIVER',
             }],
         }
-    }); 
+    });
 
     describe("mapStateToProps", () => {
 
@@ -37,8 +37,8 @@ describe("TidslinjeVelgArbeidssituasjonContainer", () => {
 
             initState.brukerinfo.innstillinger.arbeidssituasjon = "Olsen"
             let props2 = mapStateToProps(initState);
-            expect(props2.valgtArbeidssituasjon).to.equal("Olsen");            
-        }); 
+            expect(props2.valgtArbeidssituasjon).to.equal("Olsen");
+        });
 
 
         it("Skal returnere arbeidssituasjoner", () => {
@@ -50,14 +50,14 @@ describe("TidslinjeVelgArbeidssituasjonContainer", () => {
                 tittel: 'Jeg har ikke arbeidsgiver',
                 verdi: 'UTEN_ARBEIDSGIVER',
             }]);
-        });         
+        });
 
     });
 
     describe("VelgArbeidssituasjon", () => {
 
         it("Skal vise faner", () => {
-            let component = shallow(<VelgArbeidssituasjon arbeidssituasjoner={initState.arbeidssituasjoner} />)
+            let component = shallow(<VelgArbeidssituasjon arbeidssituasjoner={initState.arbeidssituasjoner}/>)
             expect(component.find(Faner)).to.have.length(1);
         })
 

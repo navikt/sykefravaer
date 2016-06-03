@@ -14,6 +14,8 @@ import MeldingTilNAV from "../../js/components/MeldingTilNAV.js";
 import DinSykmelding from "../../js/components/DinSykmelding.js";
 
 let component;
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 describe("Melding til NAV", () => {
 
@@ -39,10 +41,13 @@ describe("Melding til NAV", () => {
 
     describe("navBoerTaTakISaken med begrunnelse", () => {
         it("Skal vise checkbox og begrunnelse dersom sykmelding.navBoerTaTakISaken === true og navBoerTaTakISakenBegrunnelse = (noe)", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 meldingTilNav: {
                     navBoerTaTakISaken: true,
                     navBoerTaTakISakenBegrunnelse: "Den sykmeldte trenger bistand fra NAV"
@@ -53,10 +58,13 @@ describe("Melding til NAV", () => {
         });
 
         it("Skal ikke vise begrunnelse dersom den ikke finnes", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 meldingTilNav: {
                     navBoerTaTakISaken: true
                 }

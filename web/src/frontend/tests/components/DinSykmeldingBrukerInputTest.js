@@ -4,6 +4,7 @@ import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import Dropdown from '../../js/components/Dropdown.js';
+import ledetekster from "../ledetekster_mock.js";
 
 chai.use(chaiEnzyme());
 
@@ -33,7 +34,9 @@ describe("DinSykmeldingBrukerInput", () => {
         const sykmelding = { arbeidssituasjon: 'test' };
 
         const component = shallow(<DinSykmeldingBrukerInput sykmelding={sykmelding}
-                                                            arbeidssituasjoner={arbeidssituasjoner}/>)
+                                                            arbeidssituasjoner={arbeidssituasjoner}
+                                                            ledetekster={ledetekster}
+        />);
         const dropdown = component.find(Dropdown);
         expect(component.find(Dropdown)).to.have.length(1);
         expect(dropdown.prop('alternativer')).to.deep.equal(arbeidssituasjoner);
@@ -44,7 +47,8 @@ describe("DinSykmeldingBrukerInput", () => {
         const sykmelding = {};
 
         const component = shallow(<DinSykmeldingBrukerInput sykmelding={sykmelding}
-                                                            arbeidssituasjoner={arbeidssituasjoner}/>)
+                                                            arbeidssituasjoner={arbeidssituasjoner}
+                                                            ledetekster={ledetekster}/>);
         const dropdown = component.find(Dropdown);
         expect(component.find(Dropdown)).to.have.length(1);
         expect(dropdown.prop('valgtAlternativ')).to.equal(undefined);
@@ -53,7 +57,9 @@ describe("DinSykmeldingBrukerInput", () => {
     it("Validering slår ut om dropdown ikke er valgt", function () {
         const sykmelding = {};
         const component = mount(<DinSykmeldingBrukerInput sykmelding={sykmelding}
-                                                          arbeidssituasjoner={arbeidssituasjoner}/>)
+                                                          arbeidssituasjoner={arbeidssituasjoner}
+                                                          ledetekster={ledetekster}
+        />);
         component.find('.js-videre').simulate('click');
         expect(component.state('forsoktSendt')).to.be.true;
     });
@@ -62,7 +68,8 @@ describe("DinSykmeldingBrukerInput", () => {
         const sykmelding = { arbeidssituasjon: 'test' };
         var stub = sinon.stub(DinSykmeldingBrukerInput.prototype, "redirect");
         const component = mount(<DinSykmeldingBrukerInput sykmelding={sykmelding}
-                                                          arbeidssituasjoner={arbeidssituasjoner}/>)
+                                                          arbeidssituasjoner={arbeidssituasjoner}
+                                                          ledetekster={ledetekster}/>);
         component.find('.js-videre').simulate('click');
         expect(component.state('forsoktSendt')).to.be.false;
         expect(stub.calledOnce).to.be.true;
@@ -73,7 +80,9 @@ describe("DinSykmeldingBrukerInput", () => {
         const spy = sinon.spy();
         const component = mount(<DinSykmeldingBrukerInput sykmelding={sykmelding}
                                                           arbeidssituasjoner={arbeidssituasjoner}
-                                                          setArbeidssituasjon={spy}/>)
+                                                          setArbeidssituasjon={spy}
+                                                          ledetekster={ledetekster}
+        />);
         component.find('select').simulate('change', {
             target: {
                 value: "test"

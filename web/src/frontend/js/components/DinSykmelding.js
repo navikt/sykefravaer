@@ -127,7 +127,6 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                     <FlereOpplysninger sykmelding={sykmelding} ledetekster={ledetekster}/>
                 </div>
             </Utvidbar>
-            <div>
                 <div className="hjelpetekst-parent hjelpetekst-parent-inline">
                     <h3 className="med-hjelpetekst">{getLedetekst('dinsykmelding.arbeidssituasjon.tittel', ledetekster)}</h3>
                     <Hjelpetekst ledetekster={ledetekster}/>
@@ -137,7 +136,6 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                         <DinSykmeldingBrukerInputContainer sykmelding={sykmelding}
                                                            arbeidssituasjoner={arbeidssituasjoner}/>
                 }
-            </div>
         </div>
         <p className="side-innhold ikke-print">
             <Link to="/sykefravaer/app">

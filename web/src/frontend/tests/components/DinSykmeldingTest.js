@@ -19,14 +19,20 @@ import { Provider } from 'react-redux';
 
 let component;
 
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+
 describe("DinSykmelding", () => {
 
     beforeEach(() => {
-        const middlewares = [thunk];
-        const mockStore = configureMockStore(middlewares);
+
+        const getState = {
+            ledetekster: { ledetekster },
+        };
+        const store = mockStore(getState);
 
         component = mount(
-            <Provider store={mockStore()}>
+            <Provider store={store}>
                 <DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}/>
             </Provider>
         )
@@ -42,16 +48,20 @@ describe("DinSykmelding", () => {
     });
 
     it("Skal ikke vise avsender dersom det ikke finnes", () => {
-        const middlewares = [thunk];
-        const mockStore = configureMockStore(middlewares);
+
+        const getState = {
+            ledetekster: { ledetekster },
+        };
+        const store = mockStore(getState);
+
         component = mount(
-            <Provider store={mockStore()}>
+            <Provider store={store}>
                 <DinSykmelding sykmelding={getSykmelding({
             bekreftelse: {
                 sykmelder: null
             }
         })} ledetekster={ledetekster}/>
-            </Provider>)
+            </Provider>);
         expect(component.find(".js-avsender").length).to.equal(0);
     });
 
@@ -60,11 +70,13 @@ describe("DinSykmelding", () => {
     });
 
     it("Skal ikke vise arbeidsgiver dersom det ikke finnes", () => {
-        const middlewares = [thunk];
-        const mockStore = configureMockStore(middlewares);
+        const getState = {
+            ledetekster: { ledetekster },
+        };
+        const store = mockStore(getState);
 
         component = mount(
-            <Provider store={mockStore()}>
+            <Provider store={store}>
                 <DinSykmelding sykmelding={getSykmelding({
             arbeidsgiver: null
         })} ledetekster={ledetekster}/></Provider>)
@@ -72,21 +84,26 @@ describe("DinSykmelding", () => {
     });
 
     it("Skal vise en knapp dersom strengtFortroligAdresse === false", () => {
-        const middlewares = [thunk];
-        const mockStore = configureMockStore(middlewares);
+        const getState = {
+            ledetekster: { ledetekster },
+        };
+        const store = mockStore(getState);
 
         component = mount(
-            <Provider store={mockStore()}>
+            <Provider store={store}>
                 <DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}
                                strengtFortroligAdresse={false}/></Provider>)
         expect(component.find(".js-videre")).to.have.length(1);
     });
 
     it("Skal ikke vise en knapp dersom strengtFortroligAdresse === false", () => {
-        const middlewares = [thunk];
-        const mockStore = configureMockStore(middlewares);
+        const getState = {
+            ledetekster: { ledetekster },
+        };
+        const store = mockStore(getState);
+
         component = mount(
-            <Provider store={mockStore()}>
+            <Provider store={store}>
                 <DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}
                                strengtFortroligAdresse={true}/></Provider>)
         expect(component.find(".js-videre")).to.have.length(0);
@@ -228,11 +245,13 @@ describe("DinSykmelding", () => {
     describe("hensynPaaArbeidsplassen", () => {
 
         it("Skal vise hensyn dersom feltet er utfylt", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
 
-            let component = mount(
-                <Provider store={mockStore()}>
+            component = mount(
+                <Provider store={store}>
                     <DinSykmelding sykmelding={getSykmelding({
                 friskmelding: {
                     hensynPaaArbeidsplassen: "Tekst"
@@ -242,11 +261,13 @@ describe("DinSykmelding", () => {
         })
 
         it("Skal ikke vise hensyn dersom feltet ikke er utfylt", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
 
-            let component = mount(
-                <Provider store={mockStore()}>
+            component = mount(
+                <Provider store={store}>
                     <DinSykmelding sykmelding={getSykmelding({
                 friskmelding: {
                     hensynPaaArbeidsplassen: null
@@ -266,10 +287,13 @@ describe("DinSykmelding", () => {
         });
 
         it("Skal ikke vise hoveddiagnose dersom den ikke finnes", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}>
+                <Provider store={store}>
                     <DinSykmelding sykmelding={getSykmelding({
                 diagnose: {
                     hoveddiagnose: null
@@ -289,10 +313,13 @@ describe("DinSykmelding", () => {
         });
 
         it("Skal vise hoveddiagnose dersom det finnes", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 diagnose: {
                     bidiagnose: {
                         diagnose: "Mageknipe",
@@ -310,10 +337,13 @@ describe("DinSykmelding", () => {
 
     describe("Svangerskapsrelatert", () => {
         it("Skal ikke vise svangerskap dersom svangerskap !== true", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 diagnose: {
                     svangerskap: null
                 }
@@ -322,10 +352,13 @@ describe("DinSykmelding", () => {
         });
 
         it("Skal vise svangerskap dersom svangerskap === true", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 diagnose: {
                     svangerskap: true
                 }
@@ -338,10 +371,13 @@ describe("DinSykmelding", () => {
 
     describe("Yrkesskade", () => {
         it("Skal ikke vise yrkesskadeDato dersom yrkesskadeDato !== true", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 diagnose: {
                     yrkesskadeDato: null
                 }
@@ -350,10 +386,13 @@ describe("DinSykmelding", () => {
         });
 
         it("Skal vise yrkesskade dersom yrkesskadeDato === (dato)", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 diagnose: {
                     yrkesskadeDato: "2015-12-31T00:00:00Z"
                 }
@@ -367,10 +406,13 @@ describe("DinSykmelding", () => {
     describe("Lovfestet fraværsgrunn", () => {
 
         it("Skal ikke vise Lovfestet fraværsgrunn dersom det ikke finnes", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 diagnose: {
                     fravaersgrunnLovfestet: null
                 }
@@ -379,10 +421,13 @@ describe("DinSykmelding", () => {
         });
 
         it("Skal vise Lovfestet fraværsgrunn dersom det finnes", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 diagnose: {
                     fravaersgrunnLovfestet: "Min gode grunn"
                 }
@@ -395,10 +440,13 @@ describe("DinSykmelding", () => {
     describe("Beskriv fravær", () => {
 
         it("Skal ikke vise Beskriv fravær dersom det ikke finnes", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 diagnose: {
                     fravaerBeskrivelse: null
                 }
@@ -407,10 +455,13 @@ describe("DinSykmelding", () => {
         });
 
         it("Skal vise Beskriv fravær dersom det finnes", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 diagnose: {
                     fravaerBeskrivelse: "Beskrivelse av fraværet"
                 }
@@ -423,10 +474,13 @@ describe("DinSykmelding", () => {
     describe("Flere opplysninger", () => {
 
         it("Viser flere opplysninger", () => {
-            const middlewares = [thunk];
-            const mockStore = configureMockStore(middlewares);
+            const getState = {
+                ledetekster: { ledetekster },
+            };
+            const store = mockStore(getState);
+
             component = mount(
-                <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 friskmelding: {
                     antarReturSammeArbeidsgiver: true
                 }
@@ -437,10 +491,13 @@ describe("DinSykmelding", () => {
         describe("Pasient er 100 prosent arbeidsfør etter denne perioden", () => {
 
             it("Skal vise checkbox dersom antarReturSammeArbeidsgiver === true", () => {
-                const middlewares = [thunk];
-                const mockStore = configureMockStore(middlewares);
+                const getState = {
+                    ledetekster: { ledetekster },
+                };
+                const store = mockStore(getState);
+
                 component = mount(
-                    <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                    <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                     friskmelding: {
                         antarReturSammeArbeidsgiver: true
                     }
@@ -449,10 +506,13 @@ describe("DinSykmelding", () => {
             });
 
             it("Skal ikke vise noe dersom antarReturSammeArbeidsgiver === false", () => {
-                const middlewares = [thunk];
-                const mockStore = configureMockStore(middlewares);
+                const getState = {
+                    ledetekster: { ledetekster },
+                };
+                const store = mockStore(getState);
+
                 component = mount(
-                    <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                    <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                     friskmelding: {
                         antarReturSammeArbeidsgiver: false
                     }
@@ -464,10 +524,13 @@ describe("DinSykmelding", () => {
 
         describe("NAV bør ta tak i saken nå", () => {
             it("Skal ikke vise dersom navBoerTaTakISaken === null", () => {
-                const middlewares = [thunk];
-                const mockStore = configureMockStore(middlewares);
+                const getState = {
+                    ledetekster: { ledetekster },
+                };
+                const store = mockStore(getState);
+
                 component = mount(
-                    <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                    <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                     meldingTilNav: {
                         navBoerTaTakISaken: null
                     }
@@ -476,10 +539,13 @@ describe("DinSykmelding", () => {
             });
 
             it("Skal ikke vise dersom navBoerTaTakISaken === false", () => {
-                const middlewares = [thunk];
-                const mockStore = configureMockStore(middlewares);
+                const getState = {
+                    ledetekster: { ledetekster },
+                };
+                const store = mockStore(getState);
+
                 component = mount(
-                    <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                    <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                     meldingTilNav: {
                         navBoerTaTakISaken: false
                     }
@@ -488,10 +554,13 @@ describe("DinSykmelding", () => {
             });
 
             it("Skal vise checkbox dersom navBoerTaTakISaken === true", () => {
-                const middlewares = [thunk];
-                const mockStore = configureMockStore(middlewares);
+                const getState = {
+                    ledetekster: { ledetekster },
+                };
+                const store = mockStore(getState);
+
                 component = mount(
-                    <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                    <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                     meldingTilNav: {
                         navBoerTaTakISaken: true
                     }
@@ -504,10 +573,13 @@ describe("DinSykmelding", () => {
 
         describe("Telefonnummer til lege/sykmelder", () => {
             it("Skal ikke vise dersom sykmelderTlf === null", () => {
-                const middlewares = [thunk];
-                const mockStore = configureMockStore(middlewares);
+                const getState = {
+                    ledetekster: { ledetekster },
+                };
+                const store = mockStore(getState);
+
                 component = mount(
-                    <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                    <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                     bekreftelse: {
                         sykmelderTlf: null
                     }
@@ -516,10 +588,13 @@ describe("DinSykmelding", () => {
             });
 
             it("Skal vise dersom sykmelding.sykehistorie er en tekst", () => {
-                const middlewares = [thunk];
-                const mockStore = configureMockStore(middlewares);
+                const getState = {
+                    ledetekster: { ledetekster },
+                };
+                const store = mockStore(getState);
+
                 component = mount(
-                    <Provider store={mockStore()}><DinSykmelding sykmelding={getSykmelding({
+                    <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                     bekreftelse: {
                         sykmelderTlf: "22332244"
                     }

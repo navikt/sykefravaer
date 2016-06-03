@@ -54,7 +54,7 @@ DinSykmeldingBrukerInput.propTypes = {
     sykmelding: PropTypes.object,
     setArbeidssituasjon: PropTypes.func,
     ledetekster: PropTypes.object,
-    arbeidssituasjoner: PropTypes.string,
+    arbeidssituasjoner: PropTypes.array,
 };
 
 export default DinSykmeldingBrukerInput;

@@ -10,19 +10,27 @@ class Hjelpetekst extends Component {
         };
     }
 
-    aapne(){
-        this.setState({erApen: true})
-    }
-
-    lukk(){
-        this.setState({erApen: false})
-    }
-
-    toggle(event){
+    componentDidUpdate() {
         if (this.state.erApen) {
-            this.lukk()
+            this.refs['js-lukk'].focus();
         } else {
-            this.aapne()
+            this.refs['js-aapne'].focus();
+        }
+    }
+
+    aapne() {
+        this.setState({ erApen: true });
+    }
+
+    lukk() {
+        this.setState({ erApen: false });
+    }
+
+    toggle() {
+        if (this.state.erApen) {
+            this.lukk();
+        } else {
+            this.aapne();
         }
     }
 
@@ -30,7 +38,8 @@ class Hjelpetekst extends Component {
         const ariaId = `tooltip-${this.props.id}`;
         return (
             <div className="hjelpetekst">
-                <button type="button" className="hjelpetekst-ikon" aria-describedby={ariaId} onClick={(event)=>{this.toggle(event)}} ref="js-aapne">
+                <button type="button" className="hjelpetekst-ikon" aria-describedby={ariaId}
+                        onClick={(event) => { this.toggle(event); }} ref="js-aapne">
              <span aria-hidden="true">
                 ?
             </span>
@@ -38,7 +47,8 @@ class Hjelpetekst extends Component {
                 ? Hjelpetekst
             </span>
                 </button>
-                <div role="tooltip" id={ariaId} className={`hjelpetekst-tooltip ${this.state.erApen ? "er-synlig" : ""}`}>
+                <div role="tooltip" id={ariaId}
+                     className={`hjelpetekst-tooltip ${this.state.erApen ? 'er-synlig' : ''}`}>
                     <h3 className="decorated hjelpetekst-tittel">
                         {getLedetekst('dinsykmelding.arbeidssituasjon.hjeleptekst.tittel', this.props.ledetekster)}
                     </h3>
@@ -49,7 +59,7 @@ class Hjelpetekst extends Component {
                     </div>
                     <button type="button" className="hjelpetekst-lukk"
                             aria-controls={ariaId}
-                            onClick={()=>{this.lukk()}}
+                            onClick={() => { this.lukk(); }}
                             ref="js-lukk">
                  <span className="vekk">
                     Lukk
@@ -59,19 +69,11 @@ class Hjelpetekst extends Component {
             </div>
         );
     }
-
-
-    componentDidUpdate(){
-        if (this.state.erApen) {
-            this.refs['js-lukk'].focus()
-        } else {
-            this.refs['js-aapne'].focus()
-        }
-    }
 }
 
 Hjelpetekst.propTypes = {
     ledetekster: PropTypes.object,
+    id: PropTypes.number,
 };
 
 export default Hjelpetekst;

@@ -8,7 +8,6 @@ import Feilmelding from '../components/Feilmelding.js';
 import { getLedetekst } from '../ledetekster';
 
 export const DinSykmldSide = (props) => {
-
     return (<SideMedHoyrekolonne tittel={getLedetekst('sykmelding.vis.sidetittel', props.ledetekster.data)} brodsmuler={props.brodsmuler}>
             {
 
@@ -22,10 +21,10 @@ export const DinSykmldSide = (props) => {
                             tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', props.ledetekster.data)}
                             melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', props.ledetekster.data)} />);
                     }
-                    return <DinSykmelding
+                    return (<DinSykmelding
                         sykmelding={props.sykmelding.data}
                         ledetekster={props.ledetekster.data}
-                        strengtFortroligAdresse={props.strengtFortroligAdresse}/>;
+                        strengtFortroligAdresse={props.strengtFortroligAdresse}/>);
                 })()
             }
     </SideMedHoyrekolonne>);

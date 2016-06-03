@@ -8,30 +8,28 @@ class DinSykmeldingBrukerInput extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
-    }
-
-    valider(sykmelding) {
-        if (sykmelding.arbeidssituasjon != undefined) {
-            this.setState({ forsoktSendt: false });
-            this.redirect()
-        } else {
-            this.setState({ forsoktSendt: true })
-        }
-    }
-
-    redirect() {
-        browserHistory.push(`/sykefravaer/app/sykmeldinger/${this.props.sykmelding.id}/send`)
+        this.state = {};
     }
 
     onDropdownChange(status) {
         this.setState({ forsoktSendt: false });
-        this.props.setArbeidssituasjon(status, this.props.sykmelding.id)
+        this.props.setArbeidssituasjon(status, this.props.sykmelding.id);
     }
 
+    valider(sykmelding) {
+        if (sykmelding.arbeidssituasjon !== undefined) {
+            this.setState({ forsoktSendt: false });
+            this.redirect();
+        } else {
+            this.setState({ forsoktSendt: true });
+        }
+    }
+
+    redirect() {
+        browserHistory.push(`/sykefravaer/app/sykmeldinger/${this.props.sykmelding.id}/send`);
+    }
 
     render() {
-        console.log(this.props.ledetekster);
         return (
             <div>
                 <div className="blokk-l">
@@ -39,22 +37,24 @@ class DinSykmeldingBrukerInput extends Component {
                                      feilmelding={getLedetekst('dinsykmelding.arbeidssituasjon.feilmelding', this.props.ledetekster.data)}>
                         <Dropdown alternativer={this.props.arbeidssituasjoner}
                                   valgtAlternativ={this.props.sykmelding.arbeidssituasjon}
-                                  onChange={(status) => {this.onDropdownChange(status)}}/>
+                                  onChange={(status) => {this.onDropdownChange(status);}}/>
                     </DropdownWrapper>
                 </div>
                 <div className="knapperad knapperad-adskilt">
                     <button className="knapp knapp-hoved js-videre"
-                            onClick={() => this.valider(this.props.sykmelding)}>Gå videre
+                            onClick={() => {this.valider(this.props.sykmelding);}}>Gå videre
                     </button>
                 </div>
             </div>
-        )
-    };
+        );
+    }
 }
 
 DinSykmeldingBrukerInput.propTypes = {
     sykmelding: PropTypes.object,
     setArbeidssituasjon: PropTypes.func,
+    ledetekster: PropTypes.object,
+    arbeidssituasjoner: PropTypes.string,
 };
 
 export default DinSykmeldingBrukerInput;

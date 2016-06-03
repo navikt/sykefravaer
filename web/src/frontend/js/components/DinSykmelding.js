@@ -10,7 +10,7 @@ import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils.js';
 import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox.js';
 import FlereOpplysninger from './FlereOpplysninger.js';
 import Hjelpetekst from '../components/Hjelpetekst.js';
-import DinSykmeldingBrukerInputContainer from '../containers/DinSykmeldingBrukerInputContainer.js'
+import DinSykmeldingBrukerInputContainer from '../containers/DinSykmeldingBrukerInputContainer.js';
 import arbeidssituasjoner from '../arbeidssituasjonData';
 
 const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = false }) => {
@@ -41,9 +41,13 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                             tittel={getLedetekst('sykmelding.vis.diagnosekode.tittel', ledetekster)}>
                             <p>
                                 <span
-                                    className="js-hoveddiagnose-kode">{sykmelding.diagnose.hoveddiagnose.diagnosekode}</span>
-                                &nbsp;(<span
-                                className="js-hoveddiagnose-system">{sykmelding.diagnose.hoveddiagnose.diagnosesystem}</span>)
+                                    className="js-hoveddiagnose-kode">{sykmelding.diagnose.hoveddiagnose.diagnosekode}
+                                </span>
+                                &nbsp;(
+                                    <span
+                                        className="js-hoveddiagnose-system">{sykmelding.diagnose.hoveddiagnose.diagnosesystem}
+                                    </span>
+                                )
                             </p>
                         </SykmeldingNokkelOpplysning>
                     </div>) : null
@@ -58,9 +62,13 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                             tittel={getLedetekst('sykmelding.vis.diagnosekode.tittel', ledetekster)}>
                             <p>
                                 <span
-                                    className="js-bidiagnose-kode">{sykmelding.diagnose.bidiagnose.diagnosekode}</span>
-                                &nbsp;(<span
-                                className="js-bidiagnose-system">{sykmelding.diagnose.bidiagnose.diagnosesystem}</span>)
+                                    className="js-bidiagnose-kode">{sykmelding.diagnose.bidiagnose.diagnosekode}
+                                </span>
+                                &nbsp;(
+                                    <span
+                                        className="js-bidiagnose-system">{sykmelding.diagnose.bidiagnose.diagnosesystem}
+                                    </span>
+                                )
                             </p>
                         </SykmeldingNokkelOpplysning>
                     </div>) : null

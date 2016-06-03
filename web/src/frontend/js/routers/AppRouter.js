@@ -15,12 +15,12 @@ const Feil = () => {
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
         <Route path="/sykefravaer" component={Feil} />
-        <Route path="/sykefravaer/app" component={LandingssideContainer}/>
+        <Route path="/sykefravaer/app" component={LandingssideContainer} />
         <Route path="/sykefravaer/app/tidslinjen" component={TidslinjeContainer} />
         <Route path="/sykefravaer/app/sykmeldinger" component={DineSykmeldingerContainer} />
         <Route path="/sykefravaer/app/sykmeldinger/:sykmeldingId" component={DinSykmeldingContainer} />
         <Route path="/sykefravaer/app/sykmeldinger/:sykmeldingId/send" component={SendTilArbeidsgiverContainer} />
-        <Route path="/sykefravaer/app/roller-og-ansvarsomrader" component={RollerContainer}/>
+        <Route path="/sykefravaer/app/roller-og-ansvarsomrader" component={RollerContainer} />
         <Route path="*" component={FeilContainer} />
     </Router>);
 };

@@ -34,15 +34,15 @@ class DinSykmeldingBrukerInput extends Component {
             <div>
                 <div className="blokk-l">
                     <DropdownWrapper erFeil={this.state.forsoktSendt}
-                                     feilmelding={getLedetekst('dinsykmelding.arbeidssituasjon.feilmelding', this.props.ledetekster.data)}>
+                        feilmelding={getLedetekst('dinsykmelding.arbeidssituasjon.feilmelding', this.props.ledetekster.data)}>
                         <Dropdown alternativer={this.props.arbeidssituasjoner}
-                                  valgtAlternativ={this.props.sykmelding.arbeidssituasjon}
-                                  onChange={(status) => {this.onDropdownChange(status);}}/>
+                            valgtAlternativ={this.props.sykmelding.arbeidssituasjon}
+                            onChange={(status) => {this.onDropdownChange(status);}} />
                     </DropdownWrapper>
                 </div>
                 <div className="knapperad knapperad-adskilt">
                     <button className="knapp knapp-hoved js-videre"
-                            onClick={() => {this.valider(this.props.sykmelding);}}>Gå videre
+                        onClick={() => {this.valider(this.props.sykmelding);}}>Gå videre
                     </button>
                 </div>
             </div>

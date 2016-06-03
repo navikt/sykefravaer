@@ -10,9 +10,9 @@ export const VelgArbeidssituasjon = (props) => {
     };
 
     return (<Faner alternativer={props.arbeidssituasjoner}
-                   valgtAlternativ={props.valgtArbeidssituasjon}
-                   clickHandler={clickHandler}
-                   className="tidslinje-faner"/>);
+        valgtAlternativ={props.valgtArbeidssituasjon}
+        clickHandler={clickHandler}
+        className="tidslinje-faner" />);
 };
 
 VelgArbeidssituasjon.propTypes = {

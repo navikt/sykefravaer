@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { getLedetekst } from '../ledetekster';
 
 class Hjelpetekst extends Component {
     constructor(props) {
@@ -11,7 +10,7 @@ class Hjelpetekst extends Component {
 
     componentDidUpdate() {
         const focusRef = this.state.erApen ? 'js-lukk' : 'js-apne';
-        this.refs[focusRef].focus(); 
+        this.refs[focusRef].focus();
     }
 
     apne() {
@@ -35,14 +34,12 @@ class Hjelpetekst extends Component {
         return (
             <div className="hjelpetekst">
                 <button type="button" className="hjelpetekst-ikon js-apne" aria-describedby={ariaId}
-                        onClick={(event) => { this.toggle(event); }} ref="js-apne">
-                        <span aria-hidden="true">?</span>
-                         <span className="vekk">
-                            ? Hjelpetekst
-                        </span>
+                    onClick={(event) => { this.toggle(event); }} ref="js-apne">
+                    <span aria-hidden="true">?</span>
+                    <span className="vekk">? Hjelpetekst</span>
                 </button>
                 <div role="tooltip" id={ariaId}
-                     className={`hjelpetekst-tooltip js-tooltip ${this.state.erApen ? 'er-synlig' : ''}`}>
+                    className={`hjelpetekst-tooltip js-tooltip ${this.state.erApen ? 'er-synlig' : ''}`}>
                     <h3 className="decorated hjelpetekst-tittel js-tittel">{this.props.tittel}</h3>
                     <div className="hjelpetekst-tekst js-tekst">
                         <p>
@@ -50,12 +47,10 @@ class Hjelpetekst extends Component {
                         </p>
                     </div>
                     <button type="button" className="hjelpetekst-lukk js-lukk"
-                            aria-controls={ariaId}
-                            onClick={() => { this.lukk(); }}
-                            ref="js-lukk">
-                             <span className="vekk">
-                                Lukk
-                            </span>
+                        aria-controls={ariaId}
+                        onClick={() => { this.lukk(); }}
+                        ref="js-lukk">
+                            <span className="vekk">Lukk</span>
                     </button>
                 </div>
             </div>
@@ -64,8 +59,10 @@ class Hjelpetekst extends Component {
 }
 
 Hjelpetekst.propTypes = {
-    ledetekster: PropTypes.object,
+    tittel: PropTypes.string,
+    tekst: PropTypes.string,
     id: PropTypes.number,
+    erApen: PropTypes.bool,
 };
 
 export default Hjelpetekst;

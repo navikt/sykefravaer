@@ -45,7 +45,7 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
                                         'aktivitetIkkeMulig433', getLedetekst('sykmelding.vis.mulighet.for.arbeid.medisinsk.tittel', ledetekster))
                                 }
                                 <Aarsaker aarsaker={sykmelding.mulighetForArbeid.aktivitetIkkeMulig433}
-                                          containerClassName="js-aktivitetIkkeMulig433hvisJa"/>
+                                    containerClassName="js-aktivitetIkkeMulig433hvisJa" />
                             </div>
                         </SykmeldingOpplysning> : null
                 }
@@ -63,7 +63,7 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
                                     getLedetekst('sykmelding.vis.mulighet.for.arbeid.forhold.arbeidsplassen.tittel', ledetekster))
                             }
                             <Aarsaker aarsaker={sykmelding.mulighetForArbeid.aktivitetIkkeMulig434}
-                                      containerClassName="js-aktivitetIkkeMulig434hvisJa"/>
+                                containerClassName="js-aktivitetIkkeMulig434hvisJa" />
                         </div>
                     </SykmeldingOpplysning> : null
                 }

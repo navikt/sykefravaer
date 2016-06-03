@@ -17,7 +17,7 @@ const StatusIkon = ({ type }) => {
     }
     return (<div className={`milepael-status ${status.statusClassName}`}>
         <div className={`milepael-ikon ${status.ikonClassName}`}>
-            <img src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt}/>
+            <img src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt} />
         </div>
     </div>);
 };
@@ -87,7 +87,7 @@ class Milepael extends Component {
 
     render() {
         return (<article className="milepael" ref="milepael">
-            <StatusIkon type={this.props.type}/>
+            <StatusIkon type={this.props.type} />
                     <div className="milepael-innhold">
                         <div className={`milepael-meta${this.props.type === 'START' ? ' milepael-meta-start' : ''}`}>
                             <h2>{getLedetekst(`${this.props.ledetekst}.meta`, this.props.ledetekster)}</h2>

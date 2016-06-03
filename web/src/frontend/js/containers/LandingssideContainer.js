@@ -8,7 +8,7 @@ export const LandingssideSide = (props) => {
     const { ledetekster, brodsmuler, skjulVarsel } = props;
     return (
         <Side tittel={getLedetekst('landingsside.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
-            <Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster.data}/>
+            <Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster.data} />
         </Side>
     );
 };

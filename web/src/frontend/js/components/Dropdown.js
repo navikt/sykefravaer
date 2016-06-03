@@ -5,7 +5,7 @@ const Dropdown = ({ alternativer = [], valgtAlternativ = '', onChange, ariaContr
             <select onChange={(event) => {onChange(event.target.value);}} defaultValue={valgtAlternativ} aria-controls={ariaControls} id={id}>
                 {alternativer.map((alt, idx) => {
                     return (<option className={`${alt.skjult === true ? 'er-skjult' : ''}`} key={idx}
-                                    value={alt.verdi}>{alt.tekst}</option>);
+                        value={alt.verdi}>{alt.tekst}</option>);
                 })}
             </select>
         </div>);

@@ -7,7 +7,7 @@ import ledetekster from "../ledetekster_mock.js";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Landingsside from "../../js/components/Landingsside.js";
+import Landingsside, { GenerellInfo } from "../../js/components/Landingsside.js";
 import UnderUtviklingVarselContainer from "../../js/containers/UnderUtviklingVarselContainer.js"
 
 describe("Sykmelding og oppfolging", () => {
@@ -31,7 +31,7 @@ describe("Sykmelding og oppfolging", () => {
 
     it("Skal vise generell informasjon", () => {
         component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={true}/>);
-        expect(component.find(".js-generell-informasjon")).to.have.length(1);
+        expect(component.find(GenerellInfo)).to.have.length(1);
     });
 
     it("Skal vise varsel dersom skjulVarsel === false", () => {

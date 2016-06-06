@@ -1,7 +1,36 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
 import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer.js';
+
+export class GenerellInfo extends Component {
+    componentDidMount() {
+        console.log('focus');
+        document.body.focus();
+    }
+
+    render() {
+        return (<article className="panel blokk side-innhold js-generell-informasjon">
+            <h2 className="typo-undertittel">Sykmeldt &mdash; hva nå?</h2>
+            <div dangerouslySetInnerHTML={getHtmlLedetekst('landingsside.generell.informasjon.tekst', this.props.ledetekster)} />
+            <p>
+                <a href={getLedetekst('landingsside.generell.informasjon.lenke1.url', this.props.ledetekster)}>
+                    {getLedetekst('landingsside.generell.informasjon.lenke1.tittel', this.props.ledetekster)}
+                </a>
+            </p>
+            <p>
+                <Link to={getLedetekst('landingsside.generell.informasjon.lenke2.url', this.props.ledetekster)}>
+                    {getLedetekst('landingsside.generell.informasjon.lenke2.tittel', this.props.ledetekster)}
+                </Link>
+            </p>
+        </article>);
+    }
+
+}
+
+GenerellInfo.propTypes = {
+    ledetekster: PropTypes.object,
+};
 
 const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
     return (<div>
@@ -25,20 +54,7 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
             <img src="/sykefravaer/img/svg/doctor-2.svg" alt="Lege" />
             <span>{getLedetekst('landingsside.tilsykmeldinger.lenketekst', ledetekster)}</span>
         </Link>
-        <article className="panel blokk side-innhold js-generell-informasjon">
-            <h2 className="typo-undertittel">Sykmeldt &mdash; hva nå?</h2>
-            <div dangerouslySetInnerHTML={getHtmlLedetekst('landingsside.generell.informasjon.tekst', ledetekster)} />
-            <p>
-                <a href={getLedetekst('landingsside.generell.informasjon.lenke1.url', ledetekster)}>
-                    {getLedetekst('landingsside.generell.informasjon.lenke1.tittel', ledetekster)}
-                </a>
-            </p>
-            <p>
-                <Link to={getLedetekst('landingsside.generell.informasjon.lenke2.url', ledetekster)}>
-                    {getLedetekst('landingsside.generell.informasjon.lenke2.tittel', ledetekster)}
-                </Link>
-            </p>
-        </article>
+        <GenerellInfo ledetekster={ledetekster} />
         {
             (!skjulVarsel ? <UnderUtviklingVarselContainer ledetekster={ledetekster} /> : null)
         }

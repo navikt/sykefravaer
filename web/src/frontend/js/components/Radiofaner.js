@@ -13,7 +13,7 @@ const Radiofaner = ({ alternativer = [], valgtAlternativ, changeHandler, classNa
                         value={a.verdi}
                         id={`radio-${a.verdi}`}
                         checked={erValgt}
-                        onChange={() => {changeHandler(a.verdi)}} />
+                        onChange={() => {changeHandler(a.verdi);}} />
                     <label htmlFor={`radio-${a.verdi}`}>{a.tittel}</label>
                 </li>);
             })
@@ -23,9 +23,10 @@ const Radiofaner = ({ alternativer = [], valgtAlternativ, changeHandler, classNa
 
 Radiofaner.propTypes = {
     alternativer: PropTypes.array,
-    clickHandler: PropTypes.func,
+    changeHandler: PropTypes.func,
     valgtAlternativ: PropTypes.string,
     className: PropTypes.string,
+    radioName: PropTypes.string,
 };
 
 export default Radiofaner;

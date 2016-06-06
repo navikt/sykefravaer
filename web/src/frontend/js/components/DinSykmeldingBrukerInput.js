@@ -31,7 +31,10 @@ class DinSykmeldingBrukerInput extends Component {
 
     render() {
         return (
-            <form onSubmit={() => {this.valider(this.props.sykmelding);}}>
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                this.valider(this.props.sykmelding);
+            }}>
                 <div className="blokk-l">
                     <DropdownWrapper erFeil={this.state.forsoktSendt}
                         feilmelding={getLedetekst('dinsykmelding.arbeidssituasjon.feilmelding', this.props.ledetekster.data)}>

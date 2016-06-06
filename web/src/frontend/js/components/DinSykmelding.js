@@ -141,7 +141,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                 }
         </div>
         <p className="side-innhold ikke-print">
-            <Link to="/sykefravaer/app">
+            <Link to="/sykefravaer/app/sykmeldinger">
                 &lsaquo; {getLedetekst('sykmelding.vis.tilbake', ledetekster)}
             </Link>
         </p>

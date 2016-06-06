@@ -44,7 +44,8 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
                                     getSykmeldingCheckbox(sykmelding.mulighetForArbeid,
                                         'aktivitetIkkeMulig433', getLedetekst('sykmelding.vis.mulighet.for.arbeid.medisinsk.tittel', ledetekster))
                                 }
-                                <Aarsaker aarsaker={sykmelding.mulighetForArbeid.aktivitetIkkeMulig433} containerClassName="js-aktivitetIkkeMulig433hvisJa" />
+                                <Aarsaker aarsaker={sykmelding.mulighetForArbeid.aktivitetIkkeMulig433}
+                                    containerClassName="js-aktivitetIkkeMulig433hvisJa" />
                             </div>
                         </SykmeldingOpplysning> : null
                 }
@@ -61,7 +62,8 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
                                 getSykmeldingCheckbox(sykmelding.mulighetForArbeid, 'aktivitetIkkeMulig434',
                                     getLedetekst('sykmelding.vis.mulighet.for.arbeid.forhold.arbeidsplassen.tittel', ledetekster))
                             }
-                            <Aarsaker aarsaker={sykmelding.mulighetForArbeid.aktivitetIkkeMulig434} containerClassName="js-aktivitetIkkeMulig434hvisJa" />
+                            <Aarsaker aarsaker={sykmelding.mulighetForArbeid.aktivitetIkkeMulig434}
+                                containerClassName="js-aktivitetIkkeMulig434hvisJa" />
                         </div>
                     </SykmeldingOpplysning> : null
                 }

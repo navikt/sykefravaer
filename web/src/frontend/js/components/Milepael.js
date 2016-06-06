@@ -87,7 +87,7 @@ class Milepael extends Component {
 
     render() {
         return (<article className="milepael" ref="milepael">
-                    <StatusIkon type={this.props.type} />
+            <StatusIkon type={this.props.type} />
                     <div className="milepael-innhold">
                         <div className={`milepael-meta${this.props.type === 'START' ? ' milepael-meta-start' : ''}`}>
                             <h2>{getLedetekst(`${this.props.ledetekst}.meta`, this.props.ledetekster)}</h2>

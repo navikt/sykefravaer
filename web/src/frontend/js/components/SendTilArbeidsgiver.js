@@ -22,7 +22,10 @@ const SendTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
                     <p className="js-fnr arbeidsgivers-fodselsnummer">{sykmelding.pasient.fnr}</p>
                 </header>
                 <div className="arbeidsgivers-nokkelopplysninger">
-                    <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} ledetekster={ledetekster} Overskrift="H4" />
+                    <SykmeldingPerioder
+                        perioder={sykmelding.mulighetForArbeid.perioder}
+                        ledetekster={ledetekster}
+                        Overskrift="H4" />
                     {
                         !sykmelding.skalViseSkravertFelt ? null :
                         <SykmeldingNokkelOpplysning tittel="Diagnose" Overskrift="H4">

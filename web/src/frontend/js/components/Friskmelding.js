@@ -6,13 +6,13 @@ import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils.js';
 
 const Friskmelding = ({ sykmelding, ledetekster }) => {
     const visSeksjon = (sykmelding.friskmelding.antarReturSammeArbeidsgiver ||
-        sykmelding.friskmelding.antattDatoReturSammeArbeidsgiver ||
-        sykmelding.friskmelding.antarReturAnnenArbeidsgiver ||
-        sykmelding.friskmelding.tilbakemeldingReturArbeid ||
-        sykmelding.friskmelding.utenArbeidsgiverTilbakemelding ||
-        sykmelding.friskmelding.utenArbeidsgiverAntarTilbakeIArbeid ||
-        sykmelding.friskmelding.utenArbeidsgiverAntarTilbakeIArbeidDato ||
-        sykmelding.friskmelding.utenArbeidsgiverTilbakemelding);
+    sykmelding.friskmelding.antattDatoReturSammeArbeidsgiver ||
+    sykmelding.friskmelding.antarReturAnnenArbeidsgiver ||
+    sykmelding.friskmelding.tilbakemeldingReturArbeid ||
+    sykmelding.friskmelding.utenArbeidsgiverTilbakemelding ||
+    sykmelding.friskmelding.utenArbeidsgiverAntarTilbakeIArbeid ||
+    sykmelding.friskmelding.utenArbeidsgiverAntarTilbakeIArbeidDato ||
+    sykmelding.friskmelding.utenArbeidsgiverTilbakemelding);
 
     if (!visSeksjon) {
         return <div></div>;
@@ -41,7 +41,7 @@ const Friskmelding = ({ sykmelding, ledetekster }) => {
                 'typo-element')
         }
         {
-        !sykmelding.friskmelding.tilbakemeldingReturArbeid ? null :
+            !sykmelding.friskmelding.tilbakemeldingReturArbeid ? null :
             <SykmeldingOpplysning className="sykmelding-subopplysning" tittel={getLedetekst('sykmelding.vis.friskmelding.retur.usikker.dato', ledetekster)}>
                 <p className="sykmelding-opplysning-verdi js-tilbakemeldingReturArbeidDato">{formatDate(sykmelding.friskmelding.tilbakemeldingReturArbeid)}</p>
             </SykmeldingOpplysning>

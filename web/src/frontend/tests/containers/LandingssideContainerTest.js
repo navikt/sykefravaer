@@ -11,7 +11,6 @@ import { LandingssideSide, mapStateToProps } from "../../js/containers/Landingss
 import Landingsside from '../../js/components/Landingsside.js';
 
 
-
 describe("LandingssideContainer", () => {
 
 
@@ -28,7 +27,7 @@ describe("LandingssideContainer", () => {
             expect(res.skjulVarsel).to.equal(true)
         });
 
-        it("Skal returnere ledetekster", function() {
+        it("Skal returnere ledetekster", function () {
             const res = mapStateToProps({
                 ledetekster: {
                     "min.tekst": "Dette er en test"
@@ -47,7 +46,7 @@ describe("LandingssideContainer", () => {
     describe("LandingssideSide", () => {
 
         it("Skal vise Landingsside", () => {
-            let component = shallow(<LandingssideSide ledetekster={ledetekster} skjulVarsel={false} />);
+            let component = shallow(<LandingssideSide ledetekster={ledetekster} skjulVarsel={false}/>);
             expect(component.find(Landingsside)).to.have.length(1);
         });
     })

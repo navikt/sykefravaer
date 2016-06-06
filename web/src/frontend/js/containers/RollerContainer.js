@@ -15,7 +15,8 @@ export const RollerSide = ({ ledetekster, brodsmuler }) => {
                 } else if (ledetekster.hentingFeilet) {
                     return <Feilmelding />;
                 }
-                return <Artikkel tittel={getLedetekst('roller.tittel', ledetekster.data)} innhold={getLedetekst('roller.innhold', ledetekster.data)} />;
+                return (<Artikkel tittel={getLedetekst('roller.tittel', ledetekster.data)}
+                    innhold={getLedetekst('roller.innhold', ledetekster.data)} />);
             })()
         }
     </Side>);

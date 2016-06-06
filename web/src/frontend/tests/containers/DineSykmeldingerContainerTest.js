@@ -96,7 +96,7 @@ describe("DineSykmeldingerContainer", () => {
             expect(res.sykmeldinger).to.deep.equal(sykmeldinger)
         });
 
-        it("Skal returnere ledetekster", function() {
+        it("Skal returnere ledetekster", function () {
             const res = mapStateToProps({
                 ledetekster: {
                     "min.tekst": "Dette er en test"

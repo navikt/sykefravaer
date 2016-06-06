@@ -10,6 +10,7 @@ import { getLedetekst } from '../ledetekster';
 export const DinSykmldSide = (props) => {
     return (<SideMedHoyrekolonne tittel={getLedetekst('sykmelding.vis.sidetittel', props.ledetekster.data)} brodsmuler={props.brodsmuler}>
             {
+
                 (() => {
                     if (props.sykmelding.henter) {
                         return <AppSpinner ledetekster={props.ledetekster.data} />;
@@ -20,11 +21,15 @@ export const DinSykmldSide = (props) => {
                             tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', props.ledetekster.data)}
                             melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', props.ledetekster.data)} />);
                     }
-                    return <DinSykmelding sykmelding={props.sykmelding.data} ledetekster={props.ledetekster.data} strengtFortroligAdresse={props.strengtFortroligAdresse} />;
+                    return (<DinSykmelding
+                        sykmelding={props.sykmelding.data}
+                        ledetekster={props.ledetekster.data}
+                        strengtFortroligAdresse={props.strengtFortroligAdresse} />);
                 })()
             }
     </SideMedHoyrekolonne>);
 };
+
 
 DinSykmldSide.propTypes = {
     ledetekster: PropTypes.object,
@@ -58,7 +63,8 @@ export function mapStateToProps(state, ownProps) {
         }, {
             tittel: 'Sykmelding',
         }],
+        valgtArbeidssituasjon: state.valgtArbeidssituasjon,
     };
 }
 
-export const DinSykmeldingContainer = connect(mapStateToProps, actionCreators)(DinSykmldSide);
+export const DinSykmeldingContainer = connect(mapStateToProps, Object.assign({}, actionCreators))(DinSykmldSide);

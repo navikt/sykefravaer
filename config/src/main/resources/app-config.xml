@@ -6,7 +6,10 @@
 
     <name>syfofront</name>
 
-    <selftestPagePath>sykefravaer/internal/selftest</selftestPagePath>
+    <selftest>
+        <path>sykefravaer/internal/selftest</path> <!-- TODO: Dette skal være JSON-versjonen -->
+        <humanReadablePath>sykefravaer/internal/selftest</humanReadablePath>
+    </selftest>
 
     <artifacts>
         <ear groupId="no.nav.syfo" artifactId="syfofront-ear"/>

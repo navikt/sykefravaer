@@ -1,0 +1,25 @@
+.radiofaner-container {
+  display: flex; 
+  justify-content: center;
+}
+
+.radiofaner {
+  list-style-type: none;
+  padding: 0;
+}
+
+@media(min-width: @screen-xs) {
+  .radiofaner {
+
+    display: flex;
+
+    li {
+      list-style-type: none;
+      margin-right: 2rem;
+    }
+
+    li:last-child {
+      margin-right: 0;
+    }
+  }
+}

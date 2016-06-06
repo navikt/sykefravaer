@@ -35,14 +35,14 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
         return <span />;
     }
     return (<div className="sykmelding-seksjon">
-                <h4 className="sykmelding-seksjonstittel">{getLedetekst('sykmelding.vis.mulighet.for.arbeid.tittel', ledetekster)}</h4>
+                <h4 className="sykmelding-seksjonstittel">{getLedetekst('din-sykmelding.mulighet.for.arbeid.tittel', ledetekster)}</h4>
                 {
                     (sykmelding.mulighetForArbeid.aktivitetIkkeMulig433 && sykmelding.mulighetForArbeid.aktivitetIkkeMulig433.length) > 0 ?
-                        <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.mulighet.for.arbeid.pasient.ikke.i.arbeid.tittel', ledetekster)}>
+                        <SykmeldingOpplysning tittel={getLedetekst('din-sykmelding.mulighet.for.arbeid.pasient.ikke.i.arbeid.tittel', ledetekster)}>
                             <div>
                                 {
                                     getSykmeldingCheckbox(sykmelding.mulighetForArbeid,
-                                        'aktivitetIkkeMulig433', getLedetekst('sykmelding.vis.mulighet.for.arbeid.medisinsk.tittel', ledetekster))
+                                        'aktivitetIkkeMulig433', getLedetekst('din-sykmelding.mulighet.for.arbeid.medisinsk.tittel', ledetekster))
                                 }
                                 <Aarsaker aarsaker={sykmelding.mulighetForArbeid.aktivitetIkkeMulig433}
                                     containerClassName="js-aktivitetIkkeMulig433hvisJa" />
@@ -52,15 +52,15 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
                 {
                     getSykmeldingOpplysning(sykmelding.mulighetForArbeid,
                         'aarsakAktivitetIkkeMulig433',
-                        getLedetekst('sykmelding.vis.mulighet.for.arbeid.medisinsk.beskriv.tittel', ledetekster))
+                        getLedetekst('din-sykmelding.mulighet.for.arbeid.medisinsk.beskriv.tittel', ledetekster))
                 }
                 {
                     (sykmelding.mulighetForArbeid.aktivitetIkkeMulig434 && sykmelding.mulighetForArbeid.aktivitetIkkeMulig434.length > 0) ?
-                    <SykmeldingOpplysning tittel={getLedetekst('sykmelding.vis.mulighet.for.arbeid.tittel', ledetekster)}>
+                    <SykmeldingOpplysning tittel={getLedetekst('din-sykmelding.mulighet.for.arbeid.tittel', ledetekster)}>
                         <div>
                             {
                                 getSykmeldingCheckbox(sykmelding.mulighetForArbeid, 'aktivitetIkkeMulig434',
-                                    getLedetekst('sykmelding.vis.mulighet.for.arbeid.forhold.arbeidsplassen.tittel', ledetekster))
+                                    getLedetekst('din-sykmelding.mulighet.for.arbeid.forhold.arbeidsplassen.tittel', ledetekster))
                             }
                             <Aarsaker aarsaker={sykmelding.mulighetForArbeid.aktivitetIkkeMulig434}
                                 containerClassName="js-aktivitetIkkeMulig434hvisJa" />
@@ -69,7 +69,7 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
                 }
                 {
                     getSykmeldingOpplysning(sykmelding.mulighetForArbeid, 'aarsakAktivitetIkkeMulig434',
-                        getLedetekst('sykmelding.vis.mulighet.for.arbeid.forhold.arbeidsplassen.beskriv.tittel', ledetekster))
+                        getLedetekst('din-sykmelding.mulighet.for.arbeid.forhold.arbeidsplassen.beskriv.tittel', ledetekster))
                 }
         </div>);
 };

@@ -7,8 +7,7 @@ import FlereOpplysninger from './FlereOpplysninger.js';
 
 const SendTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
     return (<div className="panel">
-        <h1 className="typo-innholdstittel tittel-dekorert blokk-l">Send til arbeidsgiveren din</h1>
-
+        <h1 className="typo-innholdstittel tittel-dekorert blokk-l">{getLedetekst('send-til-arbeidsgiver.hovedtittel', ledetekster)}</h1>
         <Utvidbar
             tittel="Opplysninger til arbeidsgiveren din"
             ikon="svg/doctor-2.svg"
@@ -28,25 +27,25 @@ const SendTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
                         Overskrift="H4" />
                     {
                         !sykmelding.skalViseSkravertFelt ? null :
-                        <SykmeldingNokkelOpplysning tittel="Diagnose" Overskrift="H4">
-                            <p className="skravert js-diagnose">Diagnosen er skjult for arbeidsgiver</p>
+                        <SykmeldingNokkelOpplysning tittel={getLedetekst('send-til-arbeidsgiver.diagnose.tittel', ledetekster)} Overskrift="H4">
+                            <p className="skravert js-diagnose">{getLedetekst('send-til-arbeidsgiver.diagnose.skjult', ledetekster)}</p>
                         </SykmeldingNokkelOpplysning>
                     }
                     {
                         !sykmelding.friskmelding.hensynPaaArbeidsplassen ? null :
-                        <SykmeldingNokkelOpplysning tittel={getLedetekst('sykmelding.vis.hensyn.tittel', ledetekster)} Overskrift="H4">
+                        <SykmeldingNokkelOpplysning tittel={getLedetekst('din-sykmelding.hensyn.tittel', ledetekster)} Overskrift="H4">
                             <p className="js-hensynPaaArbeidsplassen">{sykmelding.friskmelding.hensynPaaArbeidsplassen}</p>
                         </SykmeldingNokkelOpplysning>
                     }
                     {
                         !sykmelding.arbeidsgiver ? null :
-                        <SykmeldingNokkelOpplysning tittel="Arbeidsgiver for denne sykmeldingen" Overskrift="H4">
+                        <SykmeldingNokkelOpplysning tittel={getLedetekst('send-til-arbeidsgiver.arbeidsgiver.tittel', ledetekster)} Overskrift="H4">
                             <p className="js-arbeidsgiver">{sykmelding.arbeidsgiver}</p>
                         </SykmeldingNokkelOpplysning>
                     }
                     {
                         !sykmelding.bekreftelse.sykmelder ? null :
-                        <SykmeldingNokkelOpplysning tittel="Lege / sykmelder" Overskrift="H4">
+                        <SykmeldingNokkelOpplysning tittel={getLedetekst('send-til-arbeidsgiver.sykmelder.tittel', ledetekster)} Overskrift="H4">
                             <p className="js-sykmelder">{sykmelding.bekreftelse.sykmelder}</p>
                         </SykmeldingNokkelOpplysning>
                     }
@@ -54,9 +53,9 @@ const SendTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
                 <FlereOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
             </div>
         </Utvidbar>
-        <p>Når du sender sykmeldingen til din arbeidsgiver, vil de motta sykmeldingen elektronisk.</p>
+        <p>{getLedetekst('send-til-arbeidsgiver.infotekst', ledetekster)}</p>
         <div className="knapperad">
-            <span tabIndex="0" className="knapp knapp-hoved">Send sykmeldingen</span>
+            <span tabIndex="0" className="knapp knapp-hoved">{getLedetekst('send-til-arbeidsgiver.send.knappetekst', ledetekster)}</span>
         </div>
     </div>);
 };

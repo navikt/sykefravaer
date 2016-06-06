@@ -48,9 +48,11 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
                         alt="Samtale mellom deg, lege, arbeidsgiver og NAV" />
                 </div>
                 <div className="landingsside-intro-innhold">
-                    <h2 className="typo-undertittel">Dine oppgaver som sykmeldt</h2>
-                    <p>Her får du en oversikt over aktiviteter du har ansvar for i løpet av sykefraværet. </p>
-                    <p className="ustilet"><Link to="/sykefravaer/app/tidslinjen">Se oppgavene på tidslinjen</Link></p>
+                    <h2 className="typo-undertittel">{getLedetekst('landingsside.intro.tittel', ledetekster)}</h2>
+                    <p>{getLedetekst('landingsside.intro.tekst', ledetekster)} </p>
+                    <p className="ustilet">
+                        <Link to="/sykefravaer/app/tidslinjen">{getLedetekst('landingsside.intro.lenketekst', ledetekster)}</Link>
+                    </p>
                 </div>
             </div>
         </article>

@@ -57,7 +57,11 @@ export function mapStateToProps(state, ownProps) {
         },
         ledetekster: state.ledetekster,
         brodsmuler: [{
-            tittel: 'Dine sykmeldinger',
+            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
+            sti: '/',
+            erKlikkbar: true,
+        }, {
+            tittel: getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data),
             sti: '/sykmeldinger',
             erKlikkbar: true,
         }, {
@@ -65,7 +69,7 @@ export function mapStateToProps(state, ownProps) {
             sti: `/sykmeldinger/${sykmeldingId}`,
             erKlikkbar: true,
         }, {
-            tittel: 'Send til arbeidsgiver',
+            tittel: getLedetekst('send-til-arbeidsgiver.sidetittel', state.ledetekster.data),
         }],
     };
 }

@@ -24,7 +24,7 @@ export function mapStateToProps(state) {
         ledetekster: state.ledetekster,
         skjulVarsel: (state.brukerinfo && state.brukerinfo.innstillinger) ? (state.brukerinfo.innstillinger.skjulUnderUtviklingVarsel === true) : false,
         brodsmuler: [{
-            tittel: 'Ditt sykefravær',
+            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',
         }],
     };

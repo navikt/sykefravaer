@@ -4,10 +4,11 @@ import Tidslinje from '../components/Tidslinje.js';
 import AppSpinner from '../components/AppSpinner.js';
 import Feilmelding from '../components/Feilmelding.js';
 import { connect } from 'react-redux';
+import { getLedetekst } from '../ledetekster';
 
 export const TidslinjeSide = (props) => {
     const { brodsmuler, ledetekster, milepaeler, arbeidssituasjon } = props;
-    return (<SideMedHoyrekolonne tittel="Tidslinjen" brodsmuler={brodsmuler}>
+    return (<SideMedHoyrekolonne tittel={getLedetekst('tidslinje.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
         {
             (() => {
                 if (ledetekster.henter) {
@@ -58,11 +59,11 @@ export function mapStateToProps(state, ownProps) {
         arbeidssituasjon,
         milepaeler,
         brodsmuler: [{
-            tittel: 'Ditt sykefravær',
+            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: 'Tidslinjen',
+            tittel: getLedetekst('tidslinje.sidetittel', state.ledetekster.data),
         }],
     };
 }

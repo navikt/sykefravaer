@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../actions/brukerinfo_actions.js';
 import Radiofaner from '../components/Radiofaner.js';
 import history from '../history.js';
+import { getLedetekst } from '../ledetekster';
 
 const verdier = {
     MED_ARBEIDSGIVER: 'med-arbeidsgiver',
@@ -39,10 +40,10 @@ export function mapStateToProps(state, ownProps) {
     return {
         valgtArbeidssituasjon: state.brukerinfo.innstillinger.arbeidssituasjon || ownProps.arbeidssituasjon || 'MED_ARBEIDSGIVER',
         arbeidssituasjoner: [{
-            tittel: 'Jeg har arbeidsgiver',
+            tittel: getLedetekst('tidslinje.filter.med-arbeidsgiver', state.ledetekster.data),
             verdi: 'MED_ARBEIDSGIVER',
         }, {
-            tittel: 'Jeg har ikke arbeidsgiver',
+            tittel: getLedetekst('tidslinje.filter.uten-arbeidsgiver', state.ledetekster.data),
             verdi: 'UTEN_ARBEIDSGIVER',
         }],
     };

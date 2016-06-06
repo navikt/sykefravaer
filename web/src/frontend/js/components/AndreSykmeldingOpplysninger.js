@@ -10,7 +10,7 @@ const AndreSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
     return (<div className="sykmelding-seksjon">
             <h4 className="sykmelding-seksjonstittel">Annet</h4>
             {
-                getSykmeldingOpplysning(sykmelding.bekreftelse, 'sykmelderTlf', getLedetekst('sykmelding.vis.annet.telefon', ledetekster))
+                getSykmeldingOpplysning(sykmelding.bekreftelse, 'sykmelderTlf', getLedetekst('din-sykmelding.annet.telefon', ledetekster))
             }
     </div>);
 };

@@ -8,15 +8,15 @@ const BedreArbeidsevne = ({ sykmelding, ledetekster }) => {
         return <span />;
     }
     return (<div className="sykmelding-seksjon">
-            <h4 className="sykmelding-seksjonstittel">{getLedetekst('sykmelding.vis.arbeidsevne.tittel', ledetekster)}</h4>
+            <h4 className="sykmelding-seksjonstittel">{getLedetekst('din-sykmelding.arbeidsevne.tittel', ledetekster)}</h4>
             {
-                getSykmeldingOpplysning(sykmelding.arbeidsevne, 'tilretteleggingArbeidsplass', getLedetekst('sykmelding.vis.arbeidsevne.tilrettelegging', ledetekster))
+                getSykmeldingOpplysning(sykmelding.arbeidsevne, 'tilretteleggingArbeidsplass', getLedetekst('din-sykmelding.arbeidsevne.tilrettelegging', ledetekster))
             }
             {
-                getSykmeldingOpplysning(sykmelding.arbeidsevne, 'tiltakNAV', getLedetekst('sykmelding.vis.arbeidsevne.tiltaknav', ledetekster))
+                getSykmeldingOpplysning(sykmelding.arbeidsevne, 'tiltakNAV', getLedetekst('din-sykmelding.arbeidsevne.tiltaknav', ledetekster))
             }
             {
-                getSykmeldingOpplysning(sykmelding.arbeidsevne, 'tiltakAndre', getLedetekst('sykmelding.vis.arbeidsevne.tiltakandre', ledetekster))
+                getSykmeldingOpplysning(sykmelding.arbeidsevne, 'tiltakAndre', getLedetekst('din-sykmelding.arbeidsevne.tiltakandre', ledetekster))
             }
     </div>);
 };

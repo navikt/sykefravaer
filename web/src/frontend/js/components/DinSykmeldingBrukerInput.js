@@ -37,7 +37,7 @@ class DinSykmeldingBrukerInput extends Component {
             }}>
                 <div className="blokk-l">
                     <DropdownWrapper erFeil={this.state.forsoktSendt}
-                        feilmelding={getLedetekst('dinsykmelding.arbeidssituasjon.feilmelding', this.props.ledetekster.data)}>
+                        feilmelding={getLedetekst('din-sykmelding.arbeidssituasjon.feilmelding', this.props.ledetekster.data)}>
                         <div className="select-container">
                             <Dropdown alternativer={this.props.arbeidssituasjoner}
                                 valgtAlternativ={this.props.sykmelding.arbeidssituasjon}

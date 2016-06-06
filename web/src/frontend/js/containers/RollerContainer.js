@@ -7,7 +7,7 @@ import { Feilmelding } from '../components/Feilmelding.js';
 import { getLedetekst } from '../ledetekster';
 
 export const RollerSide = ({ ledetekster, brodsmuler }) => {
-    return (<Side brodsmuler={brodsmuler} tittel="Hvem gjør hva når du er sykmeldt">
+    return (<Side brodsmuler={brodsmuler} tittel={getLedetekst('roller.sidetittel', ledetekster)}>
         {
             (() => {
                 if (ledetekster.henter) {
@@ -31,11 +31,11 @@ export function mapStateToProps(state) {
     return {
         ledetekster: state.ledetekster,
         brodsmuler: [{
-            tittel: 'Ditt sykefravær',
+            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: 'Hvem gjør hva når du er sykmeldt',
+            tittel: getLedetekst('roller.sidetittel', state.ledetekster.data),
         }],
     };
 }

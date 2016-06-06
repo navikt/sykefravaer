@@ -36,7 +36,7 @@ export function mapStateToProps(state) {
         sykmeldinger: state.dineSykmeldinger,
         ledetekster: state.ledetekster,
         brodsmuler: [{
-            tittel: 'Ditt sykefravær',
+            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',
             erKlikkbar: true,
         }, {

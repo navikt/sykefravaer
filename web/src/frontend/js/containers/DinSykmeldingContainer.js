@@ -8,7 +8,7 @@ import Feilmelding from '../components/Feilmelding.js';
 import { getLedetekst } from '../ledetekster';
 
 export const DinSykmldSide = (props) => {
-    return (<SideMedHoyrekolonne tittel={getLedetekst('sykmelding.vis.sidetittel', props.ledetekster.data)} brodsmuler={props.brodsmuler}>
+    return (<SideMedHoyrekolonne tittel={getLedetekst('din-sykmelding.sidetittel', props.ledetekster.data)} brodsmuler={props.brodsmuler}>
             {
 
                 (() => {
@@ -53,15 +53,15 @@ export function mapStateToProps(state, ownProps) {
         strengtFortroligAdresse: state.brukerinfo.bruker.data.strengtFortroligAdresse,
         ledetekster: state.ledetekster,
         brodsmuler: [{
-            tittel: 'Ditt sykefravær',
+            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: 'Dine sykmeldinger',
+            tittel: getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data),
             sti: '/sykmeldinger',
             erKlikkbar: true,
         }, {
-            tittel: 'Sykmelding',
+            tittel: getLedetekst('din-sykmelding.sidetittel', state.ledetekster.data),
         }],
         valgtArbeidssituasjon: state.valgtArbeidssituasjon,
     };

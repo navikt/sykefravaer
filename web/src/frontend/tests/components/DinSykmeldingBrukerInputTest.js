@@ -60,7 +60,7 @@ describe("DinSykmeldingBrukerInput", () => {
                                                           arbeidssituasjoner={arbeidssituasjoner}
                                                           ledetekster={ledetekster}
         />);
-        component.find('.js-videre').simulate('click');
+        component.simulate('submit');
         expect(component.state('forsoktSendt')).to.be.true;
     });
 
@@ -70,7 +70,7 @@ describe("DinSykmeldingBrukerInput", () => {
         const component = mount(<DinSykmeldingBrukerInput sykmelding={sykmelding}
                                                           arbeidssituasjoner={arbeidssituasjoner}
                                                           ledetekster={ledetekster}/>);
-        component.find('.js-videre').simulate('click');
+        component.simulate('submit');
         expect(component.state('forsoktSendt')).to.be.false;
         expect(stub.calledOnce).to.be.true;
     });

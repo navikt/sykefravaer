@@ -11,18 +11,18 @@ const expect = chai.expect;
 
 import Hjelpetekst from "../../js/components/Hjelpetekst.js";
 
-describe("Hjelpetekst", () => {
+describe.only("Hjelpetekst", () => {
 
     let tittel = "Min fine artikkel";
     let innhold = "Dette er noe innhold";
 
     it("Skal vise tittel", () => {
-        let component = shallow(<Hjelpetekst tittel={tittel} tekst={innhold}/>);
+        let component = shallow(<Hjelpetekst tittel={tittel} tekst={innhold} erApen={true} />);
         expect(component.find(".js-tittel").text()).to.equal("Min fine artikkel");
     });
 
     it("Skal vise innhold som HTML", () => {
-        let component = shallow(<Hjelpetekst tittel={tittel} tekst={innhold}/>);
+        let component = shallow(<Hjelpetekst tittel={tittel} tekst={innhold}  erApen={true}/>);
         expect(component.find(".js-tekst")).to.contain("Dette er noe innhold");
     });
 

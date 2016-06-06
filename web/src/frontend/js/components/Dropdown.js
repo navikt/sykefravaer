@@ -1,14 +1,12 @@
 import React, { PropTypes } from 'react';
 
 const Dropdown = ({ alternativer = [], valgtAlternativ = '', onChange, ariaControls, id }) => {
-    return (<div className={'select-container select-container--liten'}>
-            <select onChange={(event) => {onChange(event.target.value);}} defaultValue={valgtAlternativ} aria-controls={ariaControls} id={id}>
+    return (<select onChange={(event) => {onChange(event.target.value);}} defaultValue={valgtAlternativ} aria-controls={ariaControls} id={id}>
                 {alternativer.map((alt, idx) => {
                     return (<option className={`${alt.skjult === true ? 'er-skjult' : ''}`} key={idx}
                         value={alt.verdi}>{alt.tekst}</option>);
                 })}
-            </select>
-        </div>);
+            </select>);
 };
 
 Dropdown.propTypes = {

@@ -31,21 +31,21 @@ class DinSykmeldingBrukerInput extends Component {
 
     render() {
         return (
-            <div>
+            <form onSubmit={() => {this.valider(this.props.sykmelding);}}>
                 <div className="blokk-l">
                     <DropdownWrapper erFeil={this.state.forsoktSendt}
                         feilmelding={getLedetekst('dinsykmelding.arbeidssituasjon.feilmelding', this.props.ledetekster.data)}>
-                        <Dropdown alternativer={this.props.arbeidssituasjoner}
-                            valgtAlternativ={this.props.sykmelding.arbeidssituasjon}
-                            onChange={(status) => {this.onDropdownChange(status);}} />
+                        <div className="select-container">
+                            <Dropdown alternativer={this.props.arbeidssituasjoner}
+                                valgtAlternativ={this.props.sykmelding.arbeidssituasjon}
+                                onChange={(status) => {this.onDropdownChange(status);}} />
+                        </div>
                     </DropdownWrapper>
                 </div>
                 <div className="knapperad knapperad-adskilt">
-                    <button className="knapp knapp-hoved js-videre"
-                        onClick={() => {this.valider(this.props.sykmelding);}}>Gå videre
-                    </button>
+                    <input value="Gå videre" type="submit" className="knapp knapp-hoved js-videre" />
                 </div>
-            </div>
+            </form>
         );
     }
 }

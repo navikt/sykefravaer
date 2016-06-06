@@ -38,21 +38,24 @@ class Hjelpetekst extends Component {
                     <span aria-hidden="true">?</span>
                     <span className="vekk">? Hjelpetekst</span>
                 </button>
-                <div role="tooltip" id={ariaId}
-                    className={`hjelpetekst-tooltip js-tooltip ${this.state.erApen ? 'er-synlig' : ''}`}>
-                    <h3 className="decorated hjelpetekst-tittel js-tittel">{this.props.tittel}</h3>
-                    <div className="hjelpetekst-tekst js-tekst">
-                        <p>
-                            {this.props.tekst}
-                        </p>
-                    </div>
-                    <button type="button" className="hjelpetekst-lukk js-lukk"
-                        aria-controls={ariaId}
-                        onClick={() => { this.lukk(); }}
-                        ref="js-lukk">
-                            <span className="vekk">Lukk</span>
-                    </button>
-                </div>
+                {
+                    !this.state.erApen ? null : 
+                    (<div role="tooltip" id={ariaId}
+                        className={`hjelpetekst-tooltip js-tooltip ${this.state.erApen ? 'er-synlig' : ''}`}>
+                        <h3 className="decorated hjelpetekst-tittel js-tittel">{this.props.tittel}</h3>
+                        <div className="hjelpetekst-tekst js-tekst">
+                            <p>
+                                {this.props.tekst}
+                            </p>
+                        </div>
+                        <button type="button" className="hjelpetekst-lukk js-lukk"
+                            aria-controls={ariaId}
+                            onClick={() => { this.lukk(); }}
+                            ref="js-lukk">
+                                <span className="vekk">Lukk</span>
+                        </button>
+                    </div>)
+                }
             </div>
         );
     }

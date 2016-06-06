@@ -128,8 +128,9 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                 </div>
             </Utvidbar>
                 <div className="hjelpetekst-parent hjelpetekst-parent-inline">
-                    <h3 className="med-hjelpetekst">{getLedetekst('dinsykmelding.arbeidssituasjon.tittel', ledetekster)}</h3>
+                    <h3 className="skjema-sporsmal med-hjelpetekst">{getLedetekst('dinsykmelding.arbeidssituasjon.tittel', ledetekster)}</h3>
                     <Hjelpetekst
+                        id="velg-arbeidssituasjon-hjelpetekst"
                         tittel={getLedetekst('dinsykmelding.arbeidssituasjon.hjeleptekst.tittel', ledetekster)}
                         tekst={getLedetekst('dinsykmelding.arbeidssituasjon.hjeleptekst.tekst', ledetekster)} />
                 </div>

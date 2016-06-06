@@ -41,27 +41,27 @@ const milepaelerData = [{
     visning: ['UTEN_ARBEIDSGIVER'],
     type: 'START',
     key: 6,
+    bilde: '/sykefravaer/img/tidslinje/uten-arbeidsgiver/innen8uker.svg',
+    alt: '',
 }, {
     ledetekst: 'tidslinje.uten-arbeidsgiver.dialog',
     visning: ['UTEN_ARBEIDSGIVER'],
     type: 'MILEPAEL',
     key: 7,
-    bilde: '/sykefravaer/img/tidslinje/uten-arbeidsgiver/innen8uker.svg',
+    bilde: '/sykefravaer/img/tidslinje/uten-arbeidsgiver/innen12uker.svg',
     alt: '',
 }, {
     ledetekst: 'tidslinje.uten-arbeidsgiver.aktivitetsplan',
     visning: ['UTEN_ARBEIDSGIVER'],
     type: 'MILEPAEL',
     key: 8,
-    bilde: '/sykefravaer/img/tidslinje/uten-arbeidsgiver/innen12uker.svg',
+    bilde: '/sykefravaer/img/tidslinje/uten-arbeidsgiver/innen39uker.svg',
     alt: '',
 }, {
     ledetekst: 'tidslinje.uten-arbeidsgiver.sluttfasen',
     visning: ['UTEN_ARBEIDSGIVER'],
     type: 'MILEPAEL',
     key: 9,
-    bilde: '/sykefravaer/img/tidslinje/uten-arbeidsgiver/innen39uker.svg',
-    alt: '',
 }];
 
 export default milepaelerData;

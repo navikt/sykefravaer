@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Side from '../sider/Side.js';
+import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne.js';
 import Tidslinje from '../components/Tidslinje.js';
 import AppSpinner from '../components/AppSpinner.js';
 import Feilmelding from '../components/Feilmelding.js';
@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 export const TidslinjeSide = (props) => {
     const { brodsmuler, ledetekster, milepaeler, arbeidssituasjon } = props;
-    return (<Side tittel="Tidslinjen" brodsmuler={brodsmuler}>
+    return (<SideMedHoyrekolonne tittel="Tidslinjen" brodsmuler={brodsmuler}>
         {
             (() => {
                 if (ledetekster.henter) {
@@ -18,7 +18,7 @@ export const TidslinjeSide = (props) => {
                 return <Tidslinje arbeidssituasjon={arbeidssituasjon} milepaeler={milepaeler} ledetekster={ledetekster.data} />;
             })()
         }
-        </Side>);
+        </SideMedHoyrekolonne>);
 };
 
 TidslinjeSide.propTypes = {

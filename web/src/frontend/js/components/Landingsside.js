@@ -15,7 +15,7 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
                 <div className="landingsside-intro-innhold">
                     <h2 className="typo-undertittel">Dine oppgaver som sykmeldt</h2>
                     <p>Her får du en oversikt over aktiviteter du har ansvar for i løpet av sykefraværet. </p>
-                    <p className="ustilet"><Link to="/sykefravaer/app/tidslinjen">Se oppgavene dine</Link></p>
+                    <p className="ustilet"><Link to="/sykefravaer/app/tidslinjen">Se oppgavene på tidslinjen</Link></p>
                 </div>
             </div>
         </article>

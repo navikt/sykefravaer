@@ -35,6 +35,9 @@ GenerellInfo.propTypes = {
 
 const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
     return (<div>
+        {
+            (!skjulVarsel ? <UnderUtviklingVarselContainer ledetekster={ledetekster} /> : null)
+        }
         <h1 className="side-header typo-sidetittel js-sidetittel">
             {getLedetekst('landingsside.sidetittel', ledetekster)}
         </h1>
@@ -56,9 +59,6 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
             <span>{getLedetekst('landingsside.tilsykmeldinger.lenketekst', ledetekster)}</span>
         </Link>
         <GenerellInfo ledetekster={ledetekster} />
-        {
-            (!skjulVarsel ? <UnderUtviklingVarselContainer ledetekster={ledetekster} /> : null)
-        }
     </div>);
 };
 

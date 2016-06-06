@@ -19,7 +19,7 @@ export class Varsel extends Component {
 
     render() {
         return (<div className={`panel typo-infotekst blokk-l under-utvikling-varsel ${(this.state.synlig ? 'er-synlig' : '')}`}>
-            <h2 className="hode hode-informasjon hode-dekorert typo-innholdstittel">{getLedetekst('under-utvikling.varsel.tittel', this.props.ledetekster)}</h2>
+            <h2 className="hode hode-informasjon hode-dekorert typo-undertittel">{getLedetekst('under-utvikling.varsel.tittel', this.props.ledetekster)}</h2>
             <p>{getLedetekst('under-utvikling.varsel.tekst', this.props.ledetekster)}</p>
             <button className="modal-lukk" onClick={() => { this.props.skjulUnderUtviklingVarsel();}}>Lukk og ikke vis igjen</button>
         </div>);

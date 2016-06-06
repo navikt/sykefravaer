@@ -9,10 +9,19 @@ const Brodsmuler = ({ brodsmuler }) => {
         <a href="/dittnav" className="js-smule">Ditt NAV</a>
         {brodsmuler.length ? <span className="brodsmule-skille"> / </span> : ''}
         {brodsmuler.map((smule, idx) => {
-            return (smule.erKlikkbar ? <span key={idx}>
-                <Link className="js-smule" to={getContextRoot() + smule.sti}>{smule.tittel}</Link>
-                <span className="brodsmule-skille"> / </span>
-                </span> : <span key={idx} className="js-smule">{smule.tittel}</span>);
+            if(brodsmuler.length === idx + 1) {
+                return <span key={idx} className="js-smule"><span className="vekk">Du er her:</span> {smule.tittel}</span>
+            } else if (smule.erKlikkbar) {
+                return (<span key={idx}>
+                    <Link className="js-smule" to={getContextRoot() + smule.sti}>{smule.tittel}</Link>
+                    <span className="brodsmule-skille"> / </span>
+                </span>);
+            } else {
+                return (<span key={idx}>
+                    {smule.tittel}
+                    <span className="brodsmule-skille"> / </span>
+                </span>)
+            }
         })}
         </nav>
     );

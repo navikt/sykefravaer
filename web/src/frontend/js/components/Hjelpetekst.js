@@ -34,7 +34,7 @@ class Hjelpetekst extends Component {
         return (
             <div className="hjelpetekst">
                 <button type="button" className="hjelpetekst-ikon js-apne" aria-describedby={ariaId}
-                    onClick={(event) => { this.toggle(); }} ref="js-apne">
+                    onClick={() => { this.toggle(); }} ref="js-apne">
                     <span aria-hidden="true">?</span>
                     <span className="vekk">? Hjelpetekst</span>
                 </button>

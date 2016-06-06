@@ -5,8 +5,9 @@ import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselCon
 
 export class GenerellInfo extends Component {
     componentDidMount() {
-        console.log('focus');
-        document.body.focus();
+        window.setTimeout(() => {
+            document.body.focus();
+        }, 200);
     }
 
     render() {

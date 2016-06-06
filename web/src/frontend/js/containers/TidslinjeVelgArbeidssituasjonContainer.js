@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/brukerinfo_actions.js';
-import Faner from '../components/Faner.js';
+import Radiofaner from '../components/Radiofaner.js';
 import history from '../history.js';
 
 const verdier = {
@@ -14,17 +14,17 @@ export class VelgArbeidssituasjon extends Component {
         history.replace(`/sykefravaer/app/tidslinjen/${verdi}`);
     }
 
-    clickHandler(e, verdi) {
-        e.preventDefault();
+    changeHandler(verdi) {
         this.redirect(verdier[verdi]);
         this.props.setArbeidssituasjon(verdi);
     }
 
     render() {
-        return (<Faner
+        return (<Radiofaner
             alternativer={this.props.arbeidssituasjoner}
             valgtAlternativ={this.props.valgtArbeidssituasjon}
-            clickHandler={(e, v) => { this.clickHandler(e, v); }}
+            changeHandler={(v) => { this.changeHandler(v); }}
+            radioName="tidslinje-arbeidssituasjon"
             className="tidslinje-faner" />);
     }
 }

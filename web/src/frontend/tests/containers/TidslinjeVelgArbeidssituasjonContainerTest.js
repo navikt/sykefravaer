@@ -10,7 +10,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import { VelgArbeidssituasjon, mapStateToProps, erstattUrl } from "../../js/containers/TidslinjeVelgArbeidssituasjonContainer.js";
-import Faner from "../../js/components/Faner.js";
+import Radiofaner from "../../js/components/Radiofaner.js";
 
 describe("TidslinjeVelgArbeidssituasjonContainer", () => {
 
@@ -61,13 +61,13 @@ describe("TidslinjeVelgArbeidssituasjonContainer", () => {
 
         it("Skal vise faner", () => {
             let component = shallow(<VelgArbeidssituasjon arbeidssituasjoner={initState.arbeidssituasjoner}/>)
-            expect(component.find(Faner)).to.have.length(1);
+            expect(component.find(Radiofaner)).to.have.length(1);
         });
 
         it("Skal vise faner med riktige props", () => {
             let setArbeidssituasjonSpy = sinon.spy(); 
             let component = shallow(<VelgArbeidssituasjon arbeidssituasjoner={initState.arbeidssituasjoner} setArbeidssituasjon={setArbeidssituasjonSpy} valgtArbeidssituasjon="UTEN_ARBEIDSGIVER" />)
-            let faner = component.find(Faner);
+            let faner = component.find(Radiofaner);
             expect(faner.prop("alternativer")).to.equal(initState.arbeidssituasjoner);
             expect(faner.prop("valgtAlternativ")).to.equal("UTEN_ARBEIDSGIVER");
         });
@@ -76,8 +76,8 @@ describe("TidslinjeVelgArbeidssituasjonContainer", () => {
             let setArbeidssituasjonSpy = sinon.spy(); 
             let redirStub = sinon.stub(VelgArbeidssituasjon.prototype, "redirect");
             let component = mount(<VelgArbeidssituasjon arbeidssituasjoner={initState.arbeidssituasjoner} setArbeidssituasjon={setArbeidssituasjonSpy} valgtArbeidssituasjon="UTEN_ARBEIDSGIVER" />)
-            let faner = component.find(Faner);
-            faner.find(".js-MED_ARBEIDSGIVER").simulate("click");
+            let faner = component.find(Radiofaner);
+            faner.find(".js-MED_ARBEIDSGIVER").simulate("change");
             expect(redirStub.calledOnce).to.be.true;
             expect(redirStub.getCall(0).args[0]).to.equal("med-arbeidsgiver");
             expect(setArbeidssituasjonSpy.calledOnce).to.be.true;

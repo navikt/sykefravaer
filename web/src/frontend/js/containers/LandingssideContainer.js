@@ -7,6 +7,7 @@ import { getLedetekst } from '../ledetekster';
 export class LandingssideSide extends Component {
     componentDidMount() {
         // Retter IE-feil som gjør at fokus settes på feil lenke når man klikker tilbake
+        console.log("123");
         document.body.focus();
     }
 

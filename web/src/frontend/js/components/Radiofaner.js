@@ -8,7 +8,7 @@ const Radiofaner = ({ alternativer = [], valgtAlternativ, changeHandler, classNa
                 return (<li className="nav-input" key={index}>
                     <input
                         type="radio"
-                        className={`nav-radioknapp js-${a.verdi}`}
+                        className={`nav-radioknapp nav-radioknapp--mork js-${a.verdi}`}
                         name={radioName}
                         value={a.verdi}
                         id={`radio-${a.verdi}`}

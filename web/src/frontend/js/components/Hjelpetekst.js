@@ -39,7 +39,7 @@ class Hjelpetekst extends Component {
                     <span className="vekk">? Hjelpetekst</span>
                 </button>
                 {
-                    !this.state.erApen ? null : 
+                    !this.state.erApen ? null :
                     (<div role="tooltip" id={ariaId}
                         className={`hjelpetekst-tooltip js-tooltip ${this.state.erApen ? 'er-synlig' : ''}`}>
                         <h3 className="decorated hjelpetekst-tittel js-tittel">{this.props.tittel}</h3>

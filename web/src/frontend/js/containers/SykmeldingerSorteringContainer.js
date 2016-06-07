@@ -16,6 +16,7 @@ const DropdownContainer = ({ alternativer, sorterSykmeldinger, ledetekster }) =>
 DropdownContainer.propTypes = {
     alternativer: PropTypes.array,
     sorterSykmeldinger: PropTypes.func,
+    ledetekster: PropTypes.object,
 };
 
 function mapStateToProps(state) {

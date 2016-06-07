@@ -84,6 +84,9 @@ describe("DinSykmeldingContainer", () => {
                 hentingFeilet: false,
                 henter: false
             },
+            ledetekster: {
+                data: [],
+            },
             brukerinfo: {
                 bruker: {
                     data: {},

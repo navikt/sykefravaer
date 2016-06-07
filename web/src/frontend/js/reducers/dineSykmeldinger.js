@@ -31,7 +31,7 @@ export default function sykmeldinger(state = initiellState, action) {
         case 'SET_ARBEIDSSITUASJON': {
             const data = state.data.map((sykmelding) => {
                 const _sykmelding = sykmelding;
-                if (_sykmelding.id === action.sykmeldingsId) {
+                if (_sykmelding.id === action.sykmeldingId) {
                     _sykmelding.arbeidssituasjon = action.arbeidssituasjon;
                 }
                 return _sykmelding;

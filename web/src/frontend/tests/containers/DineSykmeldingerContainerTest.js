@@ -88,6 +88,9 @@ describe("DineSykmeldingerContainer", () => {
         it("Skal returnere dineSykmeldinger", function() {
             const res = mapStateToProps({
                 dineSykmeldinger: sykmeldinger,
+                ledetekster: {
+                    data: []
+                },
                 brukerinfo: {
                     bruker: {},
                     innstillinger: {}

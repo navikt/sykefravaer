@@ -11,7 +11,7 @@ const expect = chai.expect;
 
 import Hjelpetekst from "../../js/components/Hjelpetekst.js";
 
-describe.only("Hjelpetekst", () => {
+describe("Hjelpetekst", () => {
 
     let tittel = "Min fine artikkel";
     let innhold = "Dette er noe innhold";

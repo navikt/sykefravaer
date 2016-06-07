@@ -79,7 +79,7 @@ describe('dineSykmeldinger', () => {
         const action = {
             type: 'SET_ARBEIDSSITUASJON',
             arbeidssituasjon: 'test',
-            sykmeldingsId: 23,
+            sykmeldingId: 23,
         };
         const nextState = dineSykmeldinger(initialState, action);
 

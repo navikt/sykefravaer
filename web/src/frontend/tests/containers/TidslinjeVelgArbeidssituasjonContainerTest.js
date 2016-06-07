@@ -29,6 +29,9 @@ describe("TidslinjeVelgArbeidssituasjonContainer", () => {
                 tittel: 'Jeg har ikke arbeidsgiver',
                 verdi: 'UTEN_ARBEIDSGIVER',
             }],
+            ledetekster: {
+                data: ledetekster
+            }
         }
     });
 

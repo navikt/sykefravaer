@@ -85,6 +85,9 @@ describe("SendTilArbeidsgiverContainer", () => {
                 data: sykmeldinger,
                 hentingFeilet: false,
                 henter: false
+            },
+            ledetekster: {
+                data: []
             }
         };
         ownProps.params = {};

@@ -11,13 +11,13 @@ describe("dinSykmelding_actions", () => {
     it("skal returnere riktig aciton", () => {
 
         const arbeidssituasjon = 'test';
-        const sykmeldingsId = 23;
+        const sykmeldingId = 23;
 
-        var action = actions.setArbeidssituasjon(arbeidssituasjon, sykmeldingsId);
+        var action = actions.setArbeidssituasjon(arbeidssituasjon, sykmeldingId);
 
         expect(action.type).to.equal("SET_ARBEIDSSITUASJON");
         expect(action.arbeidssituasjon).to.equal('test');
-        expect(action.sykmeldingsId).to.equal(23);
+        expect(action.sykmeldingId).to.equal(23);
     });
 
 });

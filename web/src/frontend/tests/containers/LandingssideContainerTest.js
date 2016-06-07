@@ -22,6 +22,9 @@ describe("LandingssideContainer", () => {
                     innstillinger: {
                         skjulUnderUtviklingVarsel: true
                     }
+                },
+                ledetekster: {
+                    data: []
                 }
             });
             expect(res.skjulVarsel).to.equal(true)

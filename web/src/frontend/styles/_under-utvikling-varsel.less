@@ -1,0 +1,19 @@
+.under-utvikling-varsel {
+    transform: translateZ(0);
+    position: relative;
+    transition: opacity 700ms cubic-bezier(.55, 0, .1, 1);
+    opacity: 0; 
+
+    &.er-synlig {
+        opacity: 1; 
+    }
+
+    .modal-lukk {
+        top: 1rem;
+        right: 1rem; 
+    }
+}
+
+.varselstripe--under-utvikling {
+    padding-right: 3rem;
+}

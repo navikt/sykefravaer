@@ -12,7 +12,7 @@ import FlereOpplysninger from './FlereOpplysninger.js';
 import DinSykmeldingBrukerInputContainer from '../containers/DinSykmeldingBrukerInputContainer.js';
 import arbeidssituasjoner from '../arbeidssituasjonData';
 
-const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = false }) => {
+const DinSykmelding = ({ sykmelding, ledetekster, brukerinfo = { toggleSendTilArbeidsgiver: false } }) => {
     if (!sykmelding || !sykmelding.id) {
         return <AppSpinner ledetekster={ledetekster} />;
     }
@@ -127,7 +127,9 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                 </div>
             </Utvidbar>
                 {
-                    strengtFortroligAdresse ? null : <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} />
+                    (brukerinfo.toggleSendTilArbeidsgiver && !brukerinfo.strengtFortroligAdresse) ?
+                        <DinSykmeldingBrukerInputContainer sykmelding={sykmelding}
+                                                           arbeidssituasjoner={arbeidssituasjoner}/> : null
                 }
         </div>
         <p className="side-innhold ikke-print">
@@ -141,7 +143,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
 DinSykmelding.propTypes = {
     sykmelding: PropTypes.object,
     ledetekster: PropTypes.object,
-    strengtFortroligAdresse: PropTypes.bool,
+    brukerinfo: PropTypes.object,
 };
 
 export default DinSykmelding;

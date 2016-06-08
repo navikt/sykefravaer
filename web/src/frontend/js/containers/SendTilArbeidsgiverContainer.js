@@ -16,7 +16,8 @@ export class SendTilArbeidsgiverSide extends Component {
     }
 
     render() {
-        return (<Side tittel="Send sykmelding til arbeidsgiver" brodsmuler={this.props.brodsmuler}>
+        return this.props.brukerinfo.toggleSendTilArbeidsgiver ? (
+            <Side tittel="Send sykmelding til arbeidsgiver" brodsmuler={this.props.brodsmuler}>
         {
             (() => {
                 if (this.props.sykmelding.henter) {
@@ -28,10 +29,11 @@ export class SendTilArbeidsgiverSide extends Component {
                         tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', this.props.ledetekster.data)}
                         melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', this.props.ledetekster.data)} />);
                 }
-                return <SendTilArbeidsgiver sykmelding={this.props.sykmelding.data} ledetekster={this.props.ledetekster.data} />;
+                return (<SendTilArbeidsgiver sykmelding={this.props.sykmelding.data}
+                                             ledetekster={this.props.ledetekster.data}/>);
             })()
         }
-    </Side>);
+            </Side>) : null;
     }
 
 }
@@ -41,6 +43,7 @@ SendTilArbeidsgiverSide.propTypes = {
     brodsmuler: PropTypes.array,
     ledetekster: PropTypes.object,
     dispatch: PropTypes.func,
+    brukerinfo: PropTypes.object,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -55,6 +58,7 @@ export function mapStateToProps(state, ownProps) {
             henter: state.arbeidsgiversSykmeldinger.henter,
             hentingFeilet: state.arbeidsgiversSykmeldinger.hentingFeilet,
         },
+        brukerinfo: state.brukerinfo.bruker.data,
         ledetekster: state.ledetekster,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),

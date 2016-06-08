@@ -88,7 +88,14 @@ describe("SendTilArbeidsgiverContainer", () => {
             },
             ledetekster: {
                 data: []
-            }
+            },
+            brukerinfo: {
+                bruker: {
+                    data: {
+                        toggleSendTilArbeidsgiver: true,
+                    },
+                },
+            },
         };
         ownProps.params = {};
         ownProps.params.sykmeldingId = 3;
@@ -130,7 +137,12 @@ describe("SendTilArbeidsgiverContainer", () => {
             let sykmelding = {
                 henter: true
             };
-            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            const brukerinfo = {
+                toggleSendTilArbeidsgiver: true,
+            };
+
+            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster}
+                                                             dispatch={dispatch} brukerinfo={brukerinfo}/>);
             expect(component.find(AppSpinner)).to.have.length(1);
         }); 
 
@@ -138,7 +150,11 @@ describe("SendTilArbeidsgiverContainer", () => {
             let sykmelding = {
                 hentingFeilet: true
             };
-            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            const brukerinfo = {
+                toggleSendTilArbeidsgiver: true,
+            };
+            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster}
+                                                             dispatch={dispatch} brukerinfo={brukerinfo}/>);
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
 
@@ -146,7 +162,11 @@ describe("SendTilArbeidsgiverContainer", () => {
             let sykmelding = {
                 data: undefined
             };
-            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            const brukerinfo = {
+                toggleSendTilArbeidsgiver: true,
+            };
+            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster}
+                                                             dispatch={dispatch} brukerinfo={brukerinfo}/>);
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
@@ -155,13 +175,21 @@ describe("SendTilArbeidsgiverContainer", () => {
                 hentingFeilet: false,
                 data: sykmeldinger[1]
             };
-            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            const brukerinfo = {
+                toggleSendTilArbeidsgiver: true,
+            };
+            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster}
+                                                             dispatch={dispatch} brukerinfo={brukerinfo}/>);
             expect(component.find(SendTilArbeidsgiver)).to.have.length(1);
         }); 
 
         it("Skal kalle dispatch når den mountes", () => {
+            const brukerinfo = {
+                toggleSendTilArbeidsgiver: true,
+            };
             let sykmelding = {}
-            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster}
+                                                             dispatch={dispatch} brukerinfo={brukerinfo}/>);
             expect(typeof dispatch.getCall(0).args[0]).to.equal("function");
             expect(dispatch.calledOnce).to.equal(true);
         });

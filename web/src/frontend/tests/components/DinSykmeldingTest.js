@@ -28,6 +28,11 @@ describe("DinSykmelding", () => {
 
         const getState = {
             ledetekster: { ledetekster },
+            brukerinfo: {
+                bruker: {
+                    data: {},
+                },
+            },
         };
         const store = mockStore(getState);
 
@@ -86,26 +91,47 @@ describe("DinSykmelding", () => {
     it("Skal vise en knapp dersom strengtFortroligAdresse === false", () => {
         const getState = {
             ledetekster: { ledetekster },
+            brukerinfo: {
+                bruker: {
+                    data: {},
+                },
+            },
         };
         const store = mockStore(getState);
+
+        const brukerinfo = {
+            toggleSendTilArbeidsgiver: true,
+            strengtFortroligAdresse: false,
+        };
 
         component = mount(
             <Provider store={store}>
                 <DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}
-                               strengtFortroligAdresse={false}/></Provider>)
+                               brukerinfo={brukerinfo}/></Provider>);
         expect(component.find(".js-videre")).to.have.length(1);
     });
 
-    it("Skal ikke vise en knapp dersom strengtFortroligAdresse === false", () => {
+    it("Skal ikke vise en knapp dersom strengtFortroligAdresse === true", () => {
         const getState = {
             ledetekster: { ledetekster },
+            brukerinfo: {
+                bruker: {
+                    data: {},
+                },
+            },
         };
+
+        const brukerinfo = {
+            toggleSendTilArbeidsgiver: true,
+            strengtFortroligAdresse: true,
+        };
+
         const store = mockStore(getState);
 
         component = mount(
             <Provider store={store}>
                 <DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}
-                               strengtFortroligAdresse={true}/></Provider>)
+                               brukerinfo={brukerinfo}/></Provider>);
         expect(component.find(".js-videre")).to.have.length(0);
     });
 

@@ -24,7 +24,7 @@ export const DinSykmldSide = (props) => {
                     return (<DinSykmelding
                         sykmelding={props.sykmelding.data}
                         ledetekster={props.ledetekster.data}
-                        strengtFortroligAdresse={props.strengtFortroligAdresse} />);
+                        brukerinfo={props.brukerinfo}/>);
                 })()
             }
     </SideMedHoyrekolonne>);
@@ -35,7 +35,7 @@ DinSykmldSide.propTypes = {
     ledetekster: PropTypes.object,
     sykmelding: PropTypes.object,
     brodsmuler: PropTypes.array,
-    strengtFortroligAdresse: PropTypes.bool,
+    brukerinfo: PropTypes.object,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -50,7 +50,7 @@ export function mapStateToProps(state, ownProps) {
             hentingFeilet: state.dineSykmeldinger.hentingFeilet,
             henter: state.dineSykmeldinger.henter,
         },
-        strengtFortroligAdresse: state.brukerinfo.bruker.data.strengtFortroligAdresse,
+        brukerinfo: state.brukerinfo.bruker.data,
         ledetekster: state.ledetekster,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),

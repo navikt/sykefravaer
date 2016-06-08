@@ -93,6 +93,4 @@ describe('dineSykmeldinger', () => {
         });
     });
 
-
-
 }); 

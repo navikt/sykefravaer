@@ -53,4 +53,42 @@ describe('arbeidsgiversSykmeldinger', () => {
         });
     });
 
-}); 
+    it("Håndterer SET_ARBEIDSGIVER", () => {
+        const initialState = {
+            data: [{
+                id: 1
+            }, {
+                id: 2
+            }, {
+                id: 69
+            }],
+            hentingFeilet: false,
+            henter: false
+        };
+        const action = {
+            type: 'SET_ARBEIDSGIVER',
+            arbeidsgiver: {
+                orgnummer: 12345678,
+                navn: "Mosveens Verktøyutleie D/A"
+            },
+            sykmeldingId: 69
+        }
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
+        expect(nextState).to.deep.equal({
+            hentingFeilet: false,
+            henter: false,
+            data: [{
+                id: 1
+            }, {
+                id: 2
+            }, {
+                id: 69,
+                valgtArbeidsgiver: {
+                    orgnummer: 12345678,
+                    navn: "Mosveens Verktøyutleie D/A"
+                }
+            }]
+        })
+    })
+
+});

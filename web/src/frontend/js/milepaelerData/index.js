@@ -1,7 +1,7 @@
 const milepaelerData = [{
     ledetekst: 'tidslinje.med-arbeidsgiver.snakk.med.arbeidsgiver',
     visning: ['MED_ARBEIDSGIVER'],
-    type: 'START',
+    type: 'MILEPAEL',
     key: 0,
     bilde: '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen4uker.svg',
     alt: '',
@@ -31,11 +31,15 @@ const milepaelerData = [{
     visning: ['MED_ARBEIDSGIVER'],
     type: 'MILEPAEL',
     key: 4,
+    bilde: '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen39uker.svg',
+    alt: '',
 }, {
     ledetekst: 'tidslinje.med-arbeidsgiver.sluttfasen',
     visning: ['MED_ARBEIDSGIVER'],
     type: 'MILEPAEL',
     key: 5,
+    bilde: '/sykefravaer/img/tidslinje/sluttfasen.svg',
+    alt: '',
 }, {
     ledetekst: 'tidslinje.uten-arbeidsgiver.start',
     visning: ['UTEN_ARBEIDSGIVER'],
@@ -62,6 +66,8 @@ const milepaelerData = [{
     visning: ['UTEN_ARBEIDSGIVER'],
     type: 'MILEPAEL',
     key: 9,
+    bilde: '/sykefravaer/img/tidslinje/sluttfasen.svg',
+    alt: '',
 }];
 
 export default milepaelerData;

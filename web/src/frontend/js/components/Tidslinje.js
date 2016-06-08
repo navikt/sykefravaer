@@ -8,10 +8,10 @@ const Tidslinje = ({ milepaeler = [], ledetekster, arbeidssituasjon }) => {
         <header className="tidslinje-header">
             <h1 className="tittel-dekorert">Tidslinjen</h1>
         </header>
-        <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
         <p className="tidslinje-intro">
             {getLedetekst('tidslinje.introtekst', ledetekster)}
         </p>
+        <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
         <div className="tidslinje">
             {
                 milepaeler.map((milepael) => {

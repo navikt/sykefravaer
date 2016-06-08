@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import DropdownWrapper from '../components/DropdownWrapper.js';
 import Dropdown from '../components/Dropdown.js';
 import { getLedetekst } from '../ledetekster';
+import Hjelpetekst from '../components/Hjelpetekst.js';
 
 class DinSykmeldingBrukerInput extends Component {
 
@@ -35,6 +36,13 @@ class DinSykmeldingBrukerInput extends Component {
                 e.preventDefault();
                 this.valider(this.props.sykmelding);
             }}>
+                <div className="hjelpetekst-parent hjelpetekst-parent-inline">
+                    <h3 className="skjema-sporsmal med-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.tittel', this.props.ledetekster.data)}</h3>
+                    <Hjelpetekst
+                        id="velg-arbeidssituasjon-hjelpetekst"
+                        tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tittel', this.props.ledetekster.data)}
+                        tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tekst', this.props.ledetekster.data)} />
+                </div>
                 <div className="blokk-l">
                     <DropdownWrapper erFeil={this.state.forsoktSendt}
                         feilmelding={getLedetekst('din-sykmelding.arbeidssituasjon.feilmelding', this.props.ledetekster.data)}>

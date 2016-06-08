@@ -9,7 +9,6 @@ import { Link } from 'react-router';
 import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils.js';
 import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox.js';
 import FlereOpplysninger from './FlereOpplysninger.js';
-import Hjelpetekst from '../components/Hjelpetekst.js';
 import DinSykmeldingBrukerInputContainer from '../containers/DinSykmeldingBrukerInputContainer.js';
 import arbeidssituasjoner from '../arbeidssituasjonData';
 
@@ -127,17 +126,8 @@ const DinSykmelding = ({ sykmelding, ledetekster, strengtFortroligAdresse = fals
                     <FlereOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
                 </div>
             </Utvidbar>
-                <div className="hjelpetekst-parent hjelpetekst-parent-inline">
-                    <h3 className="skjema-sporsmal med-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster)}</h3>
-                    <Hjelpetekst
-                        id="velg-arbeidssituasjon-hjelpetekst"
-                        tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tittel', ledetekster)}
-                        tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tekst', ledetekster)} />
-                </div>
                 {
-                    strengtFortroligAdresse ? null :
-                        <DinSykmeldingBrukerInputContainer sykmelding={sykmelding}
-                            arbeidssituasjoner={arbeidssituasjoner} />
+                    strengtFortroligAdresse ? null : <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} />
                 }
         </div>
         <p className="side-innhold ikke-print">

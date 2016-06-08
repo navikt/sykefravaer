@@ -43,7 +43,7 @@ const milepaelerData = [{
 }, {
     ledetekst: 'tidslinje.uten-arbeidsgiver.start',
     visning: ['UTEN_ARBEIDSGIVER'],
-    type: 'START',
+    type: 'MILEPAEL',
     key: 6,
     bilde: '/sykefravaer/img/tidslinje/uten-arbeidsgiver/innen8uker.svg',
     alt: '',

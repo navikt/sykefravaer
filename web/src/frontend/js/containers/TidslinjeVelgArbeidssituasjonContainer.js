@@ -13,7 +13,6 @@ const verdier = {
 export class VelgArbeidssituasjon extends Component {
     redirect(verdi) {
         history.replace(`/sykefravaer/app/tidslinjen/${verdi}`);
-        window.location.hash = "";
     }
 
     changeHandler(verdi) {

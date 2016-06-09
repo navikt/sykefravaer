@@ -15,7 +15,7 @@ export function apneMilepaeler(milepaelIder) {
 export function setMilepaeldata(milepaelId, data) {
     return {
         type: 'SET_MILEPÆLDATA',
-        milepaelId, 
+        milepaelId,
         data,
     };
 }

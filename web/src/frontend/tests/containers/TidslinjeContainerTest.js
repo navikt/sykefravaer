@@ -46,7 +46,7 @@ const milepaelerData = [{
     key: 5
 }];
  
-describe.only("TidslinjeContainer", () => {
+describe("TidslinjeContainer", () => {
 
     let initState; 
 
@@ -279,23 +279,23 @@ describe.only("TidslinjeContainer", () => {
 
     describe("Set hash", () => {
 
-        let pushState;
+        let replaceState;
 
         beforeEach(() => {
-            pushState = sinon.spy(); 
+            replaceState = sinon.spy(); 
             window.history = window.history || {};
-            window.history.pushState = pushState;
+            window.history.replaceState = replaceState;
         });
 
-        it("Skal kalle på window.history.pushState med null, null, # når det ikke finnes noen åpne milepæler", () => {
+        it("Skal kalle på window.history.replaceState med null, null, # når det ikke finnes noen åpne milepæler", () => {
             setHash([]);
-            expect(pushState.calledOnce).to.be.true;
-            expect(pushState.getCall(0).args[0]).to.equal(null);
-            expect(pushState.getCall(0).args[1]).to.equal(null);
-            expect(pushState.getCall(0).args[2]).to.equal("#");
+            expect(replaceState.calledOnce).to.be.true;
+            expect(replaceState.getCall(0).args[0]).to.equal(null);
+            expect(replaceState.getCall(0).args[1]).to.equal(null);
+            expect(replaceState.getCall(0).args[2]).to.equal("#");
         });
 
-        it("Skal kalle på window.history.pushState med null, null, #1/2/3 når det finnes noen åpne milepæler", () => {
+        it("Skal kalle på window.history.replaceState med null, null, #1/2/3 når det finnes noen åpne milepæler", () => {
             setHash([{
                 id: 0,
                 erApen: false
@@ -315,10 +315,10 @@ describe.only("TidslinjeContainer", () => {
                 id: 5,
                 erApen: false
             }]);
-            expect(pushState.calledOnce).to.be.true;
-            expect(pushState.getCall(0).args[0]).to.equal(null);
-            expect(pushState.getCall(0).args[1]).to.equal(null);
-            expect(pushState.getCall(0).args[2]).to.equal("#1/2/3");
+            expect(replaceState.calledOnce).to.be.true;
+            expect(replaceState.getCall(0).args[0]).to.equal(null);
+            expect(replaceState.getCall(0).args[1]).to.equal(null);
+            expect(replaceState.getCall(0).args[2]).to.equal("#1/2/3");
         });
 
     })

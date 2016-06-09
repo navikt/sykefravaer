@@ -1,23 +1,23 @@
 const settErApen = (milepael, id, erApen) => {
     return Object.assign({}, milepael, {
-        erApen: milepael.id + '' === id + '' ? erApen : milepael.erApen === true,
+        erApen: `${milepael.id}''` === `${id}''` ? erApen : milepael.erApen === true,
     });
-}
+};
 
 export default function milepaeler(state = {}, action) {
-    switch(action.type) {
+    switch (action.type) {
         case 'SET_MILEPÆLER': {
             return {
                 data: action.data,
-            };    
+            };
         }
         case 'ÅPNE_MILEPÆLER': {
-            let data = state.data; 
+            let data = state.data;
             action.milepaelIder.forEach((id) => {
                 data = data.map((milepael) => {
-                    let obj = settErApen(milepael, id, true);
+                    const obj = settErApen(milepael, id, true);
                     if (obj.erApen) {
-                        obj.visBudskap = true; 
+                        obj.visBudskap = true;
                         obj.hoyde = 'auto';
                     }
                     return obj;
@@ -34,10 +34,10 @@ export default function milepaeler(state = {}, action) {
                 }
                 return ret;
             });
-            return Object.assign({}, state, { data }); 
+            return Object.assign({}, state, { data });
         }
         default: {
-            return state; 
+            return state;
         }
     }
 }

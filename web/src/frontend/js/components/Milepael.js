@@ -61,7 +61,7 @@ class Milepael extends Component {
         this.setNaavaerendeHoyde();
         setTimeout(() => {
             this.props.setMilepaelState({
-                hoyde: 0,
+                hoyde: '0',
                 erApen: false,
             });
         }, 0);
@@ -74,7 +74,7 @@ class Milepael extends Component {
 
     toggle(e) {
         e.preventDefault();
-        if(this.props.erApen) {
+        if (this.props.erApen) {
             this.lukk();
         } else {
             this.apne();
@@ -87,7 +87,7 @@ class Milepael extends Component {
                 <div className="milepael-innhold">
                     <div className="milepael-meta">
                         <h2>{getLedetekst(`${this.props.ledetekst}.meta`, this.props.ledetekster)}</h2>
-                    </div>    
+                    </div>
                     <div className="milepael-boble" ref="boble">
                         <button
                             onClick={(e) => { this.toggle(e); }}
@@ -123,6 +123,8 @@ Milepael.propTypes = {
     alt: PropTypes.string,
     type: PropTypes.string,
     setMilepaelState: PropTypes.func,
+    hoyde: PropTypes.string,
+    visBudskap: PropTypes.bool,
 };
 
 export default Milepael;

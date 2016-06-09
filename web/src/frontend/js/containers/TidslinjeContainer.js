@@ -8,9 +8,8 @@ import { getLedetekst } from '../ledetekster';
 import * as actionCreators from '../actions/milepaeler_actions.js';
 
 export class TidslinjeSide extends Component {
-
     componentWillMount() {
-        this.props.apneMilepaeler(this.props.hashMilepaeler)
+        this.props.apneMilepaeler(this.props.hashMilepaeler);
     }
 
     render() {
@@ -28,7 +27,7 @@ export class TidslinjeSide extends Component {
             }
         </SideMedHoyrekolonne>);
     }
-};
+}
 
 
 TidslinjeSide.propTypes = {
@@ -36,6 +35,8 @@ TidslinjeSide.propTypes = {
     ledetekster: PropTypes.object,
     milepaeler: PropTypes.array,
     arbeidssituasjon: PropTypes.string,
+    hashMilepaeler: PropTypes.array,
+    apneMilepaeler: PropTypes.func,
 };
 
 export const mapArbeidssituasjonParam = (param) => {
@@ -63,9 +64,9 @@ export function setHash(milepaeler) {
         .map((m) => {
             return m.id;
         })
-        .join("/");
+        .join('/');
 
-    window.history.pushState(null, null, `#${apneMilepaeler}`);
+    window.history.replaceState(null, null, `#${apneMilepaeler}`);
 }
 
 export function mapStateToProps(state, ownProps) {
@@ -77,13 +78,13 @@ export function mapStateToProps(state, ownProps) {
     });
 
     setHash(milepaeler);
-    const hashMilepaeler = (ownProps && ownProps.location) ? ownProps.location.hash.replace("#", "").split("/") : [];
+    const hashMilepaeler = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
 
     return {
         ledetekster: state.ledetekster,
         arbeidssituasjon,
         milepaeler,
-        hashMilepaeler: hashMilepaeler,
+        hashMilepaeler,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',

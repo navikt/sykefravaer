@@ -16,7 +16,7 @@ const Tidslinje = ({ milepaeler = [], ledetekster, arbeidssituasjon, setMilepael
             {
                 milepaeler.map((milepael) => {
                     return (<Milepael {...milepael} key={milepael.id} ledetekster={ledetekster} setMilepaelState={(data) => {
-                        setMilepaeldata(milepael.id, data)
+                        setMilepaeldata(milepael.id, data);
                     }} />);
                 })
             }
@@ -28,6 +28,7 @@ Tidslinje.propTypes = {
     milepaeler: PropTypes.array,
     ledetekster: PropTypes.object,
     arbeidssituasjon: PropTypes.string,
+    setMilepaeldata: PropTypes.func,
 };
 
 export default Tidslinje;

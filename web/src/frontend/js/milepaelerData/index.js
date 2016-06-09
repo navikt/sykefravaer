@@ -38,14 +38,14 @@ const milepaelerData = [{
     visning: ['MED_ARBEIDSGIVER'],
     type: 'MILEPAEL',
     id: 5,
-    bilde: '/sykefravaer/img/tidslinje/sluttfasen.svg',
+    bilde: '/sykefravaer/img/tidslinje/sluttfasen-2.svg',
     alt: '',
 }, {
     ledetekst: 'tidslinje.uten-arbeidsgiver.start',
     visning: ['UTEN_ARBEIDSGIVER'],
     type: 'MILEPAEL',
     id: 6,
-    bilde: '/sykefravaer/img/tidslinje/uten-arbeidsgiver/innen8uker-2.svg',
+    bilde: '/sykefravaer/img/tidslinje/uten-arbeidsgiver/innen8uker-4.svg',
     alt: '',
 }, {
     ledetekst: 'tidslinje.uten-arbeidsgiver.dialog',
@@ -66,7 +66,7 @@ const milepaelerData = [{
     visning: ['UTEN_ARBEIDSGIVER'],
     type: 'MILEPAEL',
     id: 9,
-    bilde: '/sykefravaer/img/tidslinje/sluttfasen.svg',
+    bilde: '/sykefravaer/img/tidslinje/sluttfasen-2.svg',
     alt: '',
 }];
 

@@ -28,94 +28,87 @@ StatusIkon.propTypes = {
 
 class Milepael extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            erApen: this.props.erApen,
-            visBudskap: this.props.erApen === true,
-            hoyde: this.props.erApen ? 'auto' : '0',
-            pilIkon: (this.props.erApen ? 'arrow-up.svg' : 'arrow-down.svg'),
-        };
-
-        const that = this;
-        onResizeThrottle(() => {
-            that.setState({
-                hoyde: null,
-            });
-        });
-    }
-
     setNaavaerendeHoyde() {
         const budskapHoyde = this.refs['js-budskap'].offsetHeight;
-        const naaHoyde = !this.state.erApen ? null : budskapHoyde;
+        const naaHoyde = !this.props.erApen ? null : budskapHoyde;
 
-        this.setState({
+        this.props.setMilepaelState({
             hoyde: naaHoyde,
         });
     }
 
-    toggle(e) {
-        e.preventDefault();
-        const blirApen = !this.state.erApen;
+    apne() {
         this.setNaavaerendeHoyde();
-
-        if (!this.state.erApen) {
-            this.setState({
-                visBudskap: true,
-            });
-        }
-
+        this.props.setMilepaelState({
+            visBudskap: true,
+        });
         setTimeout(() => {
-            const nyHoyde = blirApen ? this.refs['js-budskap'].offsetHeight : 0;
-            this.setState({
+            const nyHoyde = this.refs['js-budskap'].offsetHeight;
+            this.props.setMilepaelState({
                 hoyde: nyHoyde,
-                erApen: blirApen,
-                pilIkon: blirApen ? 'arrow-up.svg' : 'arrow-down.svg',
+                erApen: true,
             });
         }, 0);
-
         setTimeout(() => {
-            if (!blirApen) {
-                this.setState({
-                    visBudskap: false,
-                });
-            } else {
-                scrollTo(this.refs.milepael, 1000);
-            }
+            scrollTo(this.refs.boble, 1000);
         }, 300);
+    }
+
+    lukk() {
+        this.setNaavaerendeHoyde();
+        setTimeout(() => {
+            this.props.setMilepaelState({
+                hoyde: 0,
+                erApen: false,
+            });
+        }, 0);
+        setTimeout(() => {
+            this.props.setMilepaelState({
+                visBudskap: false,
+            });
+        }, 300);
+    }
+
+    toggle(e) {
+        e.preventDefault();
+        if(this.props.erApen) {
+            this.lukk();
+        } else {
+            this.apne();
+        }
     }
 
     render() {
         return (<article className="milepael" ref="milepael">
-            <StatusIkon type={this.props.type} />
-                    <div className="milepael-innhold">
-                        <div className={`milepael-meta${this.props.type === 'START' ? ' milepael-meta-start' : ''}`}>
-                            <h2>{getLedetekst(`${this.props.ledetekst}.meta`, this.props.ledetekster)}</h2>
-                        </div>
-                        <div className="milepael-boble">
-                            <button
-                                onClick={(e) => { this.toggle(e); }}
-                                aria-pressed={this.state.erApen}
-                                className={!this.state.erApen ? 'header-milepael' : 'header-milepael er-apen'}>
-                                <h3 className={!this.state.erApen ? 'milepael-tittel milepael-tittel-collapse' : 'milepael-tittel milepael-tittel-collapse er-apen'}>
-                                    {getLedetekst(`${this.props.ledetekst}.tittel`, this.props.ledetekster)}
-                                </h3>
-                            </button>
-                            <div
-                                aria-hidden={!this.state.erApen}
-                                style={this.state.hoyde ? { height: this.state.hoyde } : {}}
-                                className={this.state.erApen ? 'milepael-budskap-container er-apen' : 'milepael-budskap-container'}>
-                                <div ref="js-budskap">
-                                    <TidslinjeBudskap
-                                        vis={this.state.visBudskap}
-                                        bilde={this.props.bilde}
-                                        alt={this.props.alt}
-                                        innhold={getLedetekst(`${this.props.ledetekst}.budskap`, this.props.ledetekster)} />
-                                </div>
+                <StatusIkon type={this.props.type} />
+                <div className="milepael-innhold">
+                    <div className="milepael-meta">
+                        <h2>{getLedetekst(`${this.props.ledetekst}.meta`, this.props.ledetekster)}</h2>
+                    </div>    
+                    <div className="milepael-boble" ref="boble">
+                        <button
+                            onClick={(e) => { this.toggle(e); }}
+                            aria-pressed={this.props.erApen}
+                            className={!this.props.erApen ? 'header-milepael' : 'header-milepael er-apen'}>
+                            <h3 className={!this.props.erApen ? 'milepael-tittel milepael-tittel-collapse' : 'milepael-tittel milepael-tittel-collapse er-apen'}>
+                                {getLedetekst(`${this.props.ledetekst}.tittel`, this.props.ledetekster)}
+                            </h3>
+                        </button>
+                        <div
+                            aria-hidden={!this.props.erApen}
+                            style={this.props.hoyde ? { height: this.props.hoyde } : {}}
+                            className={this.props.erApen ? 'milepael-budskap-container er-apen' : 'milepael-budskap-container'}>
+                            <div ref="js-budskap">
+                                <TidslinjeBudskap
+                                    vis={this.props.visBudskap}
+                                    bilde={this.props.bilde}
+                                    alt={this.props.alt}
+                                    innhold={getLedetekst(`${this.props.ledetekst}.budskap`, this.props.ledetekster)} />
                             </div>
                         </div>
                     </div>
-            </article>);
+                </div>
+        </article>);
     }
 }
 
@@ -126,6 +119,7 @@ Milepael.propTypes = {
     bilde: PropTypes.string,
     alt: PropTypes.string,
     type: PropTypes.string,
+    setMilepaelState: PropTypes.func,
 };
 
 export default Milepael;

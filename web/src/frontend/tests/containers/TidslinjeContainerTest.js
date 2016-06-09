@@ -7,11 +7,12 @@ import ledetekster from "../ledetekster_mock.js";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { TidslinjeSide, mapStateToProps, mapArbeidssituasjonParam } from "../../js/containers/TidslinjeContainer.js";
+import { TidslinjeSide, mapStateToProps, mapArbeidssituasjonParam, setHash } from "../../js/containers/TidslinjeContainer.js";
 import TidslinjeVelgArbeidssituasjonContainer from "../../js/containers/TidslinjeVelgArbeidssituasjonContainer.js";
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
 import Tidslinje from '../../js/components/Tidslinje.js';
+import sinon from 'sinon';
 
 const milepaelerData = [{
     ledetekst: 'tidslinje.utarbeide.plan',
@@ -45,7 +46,7 @@ const milepaelerData = [{
     key: 5
 }];
  
-describe("TidslinjeContainer", () => {
+describe.only("TidslinjeContainer", () => {
 
     let initState; 
 
@@ -183,18 +184,34 @@ describe("TidslinjeContainer", () => {
             }, {
                 tittel: 'Tidslinjen',
             }])
-        })
+        });
+
+        it("Skal returnere hashMilepaeler", () => {
+            const props = mapStateToProps(initState, {
+                location: {
+                    hash: "#1/2"
+                }
+            });
+            expect(props.hashMilepaeler).to.deep.equal(["1", "2"])
+        });
 
     });
 
     describe("TidslinjeSide", () => {
+
+        let apneMilepaelerSpy; 
+
+        beforeEach(() => {
+            apneMilepaelerSpy = sinon.spy(); 
+        })
 
         it("Skal vise en AppSpinner dersom ledetekster ikke er lastet", () => {
             const ledetekster = {
                 henter: true
             };
             const milepaeler = {};
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} />);
+            const spy = sinon.spy(); 
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} apneMilepaeler={apneMilepaelerSpy} />);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
@@ -203,7 +220,7 @@ describe("TidslinjeContainer", () => {
                 hentingFeilet: true
             };
             const milepaeler = {};
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} />);
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} apneMilepaeler={apneMilepaelerSpy} />);
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
@@ -235,10 +252,74 @@ describe("TidslinjeContainer", () => {
                 visning: ['MED_ARBEIDSGIVER'],
                 key: 4
             }];
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} arbeidssituasjon={arbeidssituasjon} />);
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} arbeidssituasjon={arbeidssituasjon} apneMilepaeler={apneMilepaelerSpy} />);
             const tidslinjeComp = component.find(Tidslinje);
             expect(tidslinjeComp.prop("arbeidssituasjon")).to.equal("MED_ARBEIDSGIVER");
         })
+
+        it("Skal kalle på apneMilepaeler", () => {
+            const ledetekster = {
+                data: {}
+            };
+            const arbeidssituasjon = "MED_ARBEIDSGIVER";
+            const milepaeler = [{
+                ledetekst: 'tidslinje.utarbeide.plan',
+                bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
+                alt: '',
+                visning: ['MED_ARBEIDSGIVER'],
+                key: 0
+            }];
+            const hashMilepaeler = ["0", "2"]
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} arbeidssituasjon={arbeidssituasjon} apneMilepaeler={apneMilepaelerSpy} hashMilepaeler={hashMilepaeler} />);
+            expect(apneMilepaelerSpy.calledOnce).to.be.true;
+            expect(apneMilepaelerSpy.getCall(0).args[0]).to.deep.equal(["0", "2"]);
+        })        
+
+    })
+
+    describe("Set hash", () => {
+
+        let pushState;
+
+        beforeEach(() => {
+            pushState = sinon.spy(); 
+            window.history = window.history || {};
+            window.history.pushState = pushState;
+        });
+
+        it("Skal kalle på window.history.pushState med null, null, # når det ikke finnes noen åpne milepæler", () => {
+            setHash([]);
+            expect(pushState.calledOnce).to.be.true;
+            expect(pushState.getCall(0).args[0]).to.equal(null);
+            expect(pushState.getCall(0).args[1]).to.equal(null);
+            expect(pushState.getCall(0).args[2]).to.equal("#");
+        });
+
+        it("Skal kalle på window.history.pushState med null, null, #1/2/3 når det finnes noen åpne milepæler", () => {
+            setHash([{
+                id: 0,
+                erApen: false
+            }, {
+                id: 1,
+                erApen: true
+            }, {
+                id: 2,
+                erApen: true
+            }, {
+                id: 3, 
+                erApen: true
+            }, {
+                id: 4,
+                erApen: false
+            }, {
+                id: 5,
+                erApen: false
+            }]);
+            expect(pushState.calledOnce).to.be.true;
+            expect(pushState.getCall(0).args[0]).to.equal(null);
+            expect(pushState.getCall(0).args[1]).to.equal(null);
+            expect(pushState.getCall(0).args[2]).to.equal("#1/2/3");
+        });
 
     })
 

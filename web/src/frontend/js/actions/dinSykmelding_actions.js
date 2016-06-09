@@ -5,3 +5,11 @@ export function setArbeidssituasjon(arbeidssituasjon, sykmeldingId) {
         sykmeldingId,
     };
 }
+
+export function setArbeidsgiver(sykmeldingId, arbeidsgiver) {
+    return {
+        type: 'SET_ARBEIDSGIVER',
+        sykmeldingId,
+        arbeidsgiver,
+    };
+}

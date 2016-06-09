@@ -26,7 +26,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, brukerinfo = { toggleSendTilAr
         </div>
         <div className="panel blokk">
             <h2 className="typo-innholdstittel blokk-l">
-                {getLedetekst('din-sykmelding.hovedtittel', ledetekster)}
+                {getLedetekst('din-sykmelding.sidetittel', ledetekster)}
             </h2>
             <div className="blokk-l side-innhold">
                 <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} ledetekster={ledetekster} />

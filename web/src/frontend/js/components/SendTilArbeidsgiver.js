@@ -4,10 +4,12 @@ import SykmeldingPerioder from './SykmeldingPerioder.js';
 import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
 import { getLedetekst } from '../ledetekster';
 import FlereOpplysninger from './FlereOpplysninger.js';
+import VelgArbeidsgiverContainer from '../containers/VelgArbeidsgiverContainer.js';
 
 const SendTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
     return (<div className="panel">
         <h1 className="typo-innholdstittel tittel-dekorert blokk-l">{getLedetekst('send-til-arbeidsgiver.hovedtittel', ledetekster)}</h1>
+        <VelgArbeidsgiverContainer sykmelding={sykmelding} />
         <Utvidbar
             tittel="Opplysninger til arbeidsgiveren din"
             ikon="svg/doctor-2.svg"

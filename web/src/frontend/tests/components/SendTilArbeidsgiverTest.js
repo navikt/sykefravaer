@@ -20,7 +20,7 @@ let component;
 describe("SendTilArbeidsgiver", () => {
 
     beforeEach(() => {
-        component = mount(<SendTilArbeidsgiver sykmelding={getSykmelding()} ledetekster={ledetekster}/>)
+        component = shallow(<SendTilArbeidsgiver sykmelding={getSykmelding()} ledetekster={ledetekster}/>)
     })
 
     it("Skal vise perioder", () => {

@@ -51,12 +51,12 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
                     <h2 className="typo-undertittel">{getLedetekst('landingsside.intro.tittel', ledetekster)}</h2>
                     <p>{getLedetekst('landingsside.intro.tekst', ledetekster)} </p>
                     <p className="ustilet">
-                        <Link to="/sykefravaer/app/tidslinjen">{getLedetekst('landingsside.intro.lenketekst', ledetekster)}</Link>
+                        <Link to="/sykefravaer/tidslinjen">{getLedetekst('landingsside.intro.lenketekst', ledetekster)}</Link>
                     </p>
                 </div>
             </div>
         </article>
-        <Link className="landingsside-lenke js-dine-sykmeldinger-lenke" to="/sykefravaer/app/sykmeldinger">
+        <Link className="landingsside-lenke js-dine-sykmeldinger-lenke" to="/sykefravaer/sykmeldinger">
             <img src="/sykefravaer/img/svg/doctor-2.svg" alt="Lege" />
             <span>{getLedetekst('landingsside.tilsykmeldinger.lenketekst', ledetekster)}</span>
         </Link>

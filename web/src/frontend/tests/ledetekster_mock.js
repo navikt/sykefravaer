@@ -115,7 +115,7 @@ const ledetekster = {
   "sykmelding.teaser.tekst.avventende.uten-arbeidsgiver": "Du er avventende sykmeldt i %DAGER% dager",
   "tidslinje.med-arbeidsgiver.snakk.med.arbeidsgiver.tittel": "Snakk med arbeidsgiveren din",
   "din-sykmelding.arbeidssituasjon.feilmelding": "Du må oppgi arbeidssituasjon",
-  "landingsside.generell.informasjon.lenke2.url": "/sykefravaer/app/roller-og-ansvarsomrader",
+  "landingsside.generell.informasjon.lenke2.url": "/sykefravaer/roller-og-ansvarsomrader",
   "din-sykmelding.friskmelding.retur.usikker.tittel": "Jeg er usikker på om pasienten kan komme tilbake i arbeid hos egen eller annen arbeidsgiver",
   "din-sykmelding.periode.behandlingsdager": "behandlingsdager",
   "din-sykmelding.fant-ikke-sykmelding.tittel": "Vi finner ikke denne sykmeldingen!",

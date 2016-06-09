@@ -133,7 +133,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, brukerinfo = { toggleSendTilAr
                 }
         </div>
         <p className="side-innhold ikke-print">
-            <Link to="/sykefravaer/app/sykmeldinger">
+            <Link to="/sykefravaer/sykmeldinger">
                 &lsaquo; {getLedetekst('din-sykmelding.tilbake', ledetekster)}
             </Link>
         </p>

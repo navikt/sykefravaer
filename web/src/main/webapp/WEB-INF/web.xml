@@ -22,7 +22,7 @@
     </filter>
     <filter-mapping>
         <filter-name>disableCacheHeadersFilter</filter-name>
-        <url-pattern>/app/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -31,26 +31,14 @@
     </filter>
     <filter-mapping>
         <filter-name>decoratorFilter</filter-name>
-        <url-pattern>/app/*</url-pattern>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
     </filter-mapping>
 
     <welcome-file-list>
-        <welcome-file>syfofeil.html</welcome-file>
+        <welcome-file>syfofront.html</welcome-file>
     </welcome-file-list>
-
-    <servlet>
-        <servlet-name>routingSyfofront</servlet-name>
-        <servlet-class>no.nav.syfo.Routing</servlet-class>
-        <init-param>
-            <param-name>applicationFile</param-name>
-            <param-value>syfofront.html</param-value>
-        </init-param>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>routingSyfofront</servlet-name>
-        <url-pattern>/app/*</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>selftest</servlet-name>
@@ -81,5 +69,10 @@
         <servlet-name>isAlive</servlet-name>
         <url-pattern>/internal/isAlive</url-pattern>
     </servlet-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/syfofront.html</location>
+    </error-page>
 
 </web-app>

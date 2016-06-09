@@ -64,7 +64,7 @@ class Hjelpetekst extends Component {
 Hjelpetekst.propTypes = {
     tittel: PropTypes.string,
     tekst: PropTypes.string,
-    id: PropTypes.number,
+    id: PropTypes.string,
     erApen: PropTypes.bool,
 };
 

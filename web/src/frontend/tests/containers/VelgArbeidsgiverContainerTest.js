@@ -106,7 +106,7 @@ describe("VelgArbeidsgiverContainer", () => {
             props = {
                 sykmelding,
                 arbeidsgivere: {
-                    data: [],
+                    data: []
                 },
                 dispatch
             }

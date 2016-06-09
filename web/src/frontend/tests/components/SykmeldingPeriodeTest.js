@@ -28,7 +28,7 @@ describe("SykmeldingPeriode", () => {
             "fom": "2016-05-01T22:00:00.000Z",
             "tom": "2016-05-16T22:00:00.000Z",
             "grad": 100
-          }} ledetekster={ledetekster} antallDager="16" />);
+          }} ledetekster={ledetekster} antallDager={16} />);
         expect(periode.text()).to.contain("16");
         expect(periode.text()).to.contain("dager");
     });        

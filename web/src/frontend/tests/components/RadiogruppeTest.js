@@ -44,7 +44,7 @@ describe("Radiogruppe", () => {
                <input value="appelsin" label="Appelsin" />
                <input value="eple" label="Eple" />
            </Radiogruppe>);
-       expect(component.contains(<Radioknapp value="appelsin" label="Appelsin" name="frukt" erValgt={false} onChange={undefined} />)).to.be.true;
+       expect(component.contains(<Radioknapp value="appelsin" label="Appelsin" name="frukt" erValgt={false} onChange={undefined} id="appelsin" />)).to.be.true;
     });
 
     it("Skal sende videre valgtVerdi-attributtet til radioknappene som en bool", () => {
@@ -52,20 +52,20 @@ describe("Radiogruppe", () => {
                 <input value="appelsin" label="Appelsin" />
                 <input value="eple" label="Eple" />
             </Radiogruppe>);
-        expect(component.contains(<Radioknapp value="appelsin" label="Appelsin" name="frukt" erValgt={true} onChange={undefined} />)).to.be.true
-        expect(component.contains(<Radioknapp value="eple" label="Eple" name="frukt" erValgt={false} onChange={undefined} />)).to.be.true
+        expect(component.contains(<Radioknapp id="appelsin" value="appelsin" label="Appelsin" name="frukt" erValgt={true} onChange={undefined} />)).to.be.true
+        expect(component.contains(<Radioknapp id="eple" value="eple" label="Eple" name="frukt" erValgt={false} onChange={undefined} />)).to.be.true
     });
 
     it("Skal vise feilmelding dersom erFeil === true", () => {
-        let component = mount(<Radiogruppe name="frukt" valgtVerdi="eple" feilmelding="Vennligst velg en frukt" erFeil={true}>
+        let component = shallow(<Radiogruppe name="frukt" valgtVerdi="eple" feilmelding="Vennligst velg en frukt" erFeil={true} onChange={undefined}>
                 <input value="appelsin" label="Appelsin" />
                 <input value="eple" label="Eple" />
-            </Radiogruppe>);
+            </Radiogruppe>); 
         expect(component.text()).to.contain("Vennligst velg en frukt");
     }); 
 
     it("Skal ikke vise feilmelding dersom erFeil === false", () => {
-        let component = mount(<Radiogruppe name="frukt" valgtVerdi="eple" feilmelding="Vennligst velg en frukt" erFeil={false}>
+        let component = shallow(<Radiogruppe name="frukt" valgtVerdi="eple" feilmelding="Vennligst velg en frukt" erFeil={false}>
                 <input value="appelsin" label="Appelsin" />
                 <input value="eple" label="Eple" />
             </Radiogruppe>);

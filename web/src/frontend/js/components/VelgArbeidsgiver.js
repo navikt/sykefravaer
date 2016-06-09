@@ -9,7 +9,7 @@ const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere 
                 valgtVerdi={valgtArbeidsgiverOrgnummer}
                 onChange={onChange}>
                 {
-                    arbeidsgivere.data.map((arbeidsgiver) => {
+                    arbeidsgivere.map((arbeidsgiver) => {
                         return <input key={arbeidsgiver.orgnummer} id={arbeidsgiver.orgnummer} value={arbeidsgiver.orgnummer} label={arbeidsgiver.navn} />;
                     })
                 }

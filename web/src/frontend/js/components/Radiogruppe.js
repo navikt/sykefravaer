@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import Radioknapp from './Radioknapp.js';
 
-const Radiogruppe = ({ name, valgtVerdi, erFeil, feilmelding, onChange, spoersmaal, Overskrift }) => {
-    return (<div className={this.props.erFeil ? 'skjema-feilomrade feil' : 'skjema-feilomrade'}>
+const Radiogruppe = ({ name, valgtVerdi, erFeil, feilmelding, onChange, spoersmaal, Overskrift, children }) => {
+    return (<div className={erFeil ? 'skjema-feilomrade feil' : 'skjema-feilomrade'}>
         <Overskrift className="skjema-sporsmal">{spoersmaal}</Overskrift>
         {
-            this.props.children.map((knapp, index) => {
-                return <Radioknapp {...knapp.props} name={name} key={index} erValgt={valgtVerdi === knapp.props.value} onChange={onChange} />;
+            children.map((knapp, index) => {
+                return <Radioknapp {...knapp.props} name={name} key={index} erValgt={valgtVerdi === knapp.props.value} onChange={onChange} id={knapp.props.value} />;
             })
         }
         <span className="skjema-feilmelding" role="alert" aria-live="polite">
@@ -23,6 +23,7 @@ Radiogruppe.propTypes = {
     onChange: PropTypes.func,
     spoersmaal: PropTypes.string,
     Overskrift: PropTypes.string,
+    children: PropTypes.array,
 };
 
 Radiogruppe.defaultProps = {

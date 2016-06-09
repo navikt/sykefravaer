@@ -49,6 +49,7 @@ describe("LandingssideContainer", () => {
     describe("LandingssideSide", () => {
 
         it("Skal vise Landingsside", () => {
+            let ledetekster = {"nokkel": "verdi"}
             let component = shallow(<LandingssideSide ledetekster={ledetekster} skjulVarsel={false}/>);
             expect(component.find(Landingsside)).to.have.length(1);
         });

@@ -22,9 +22,12 @@ export class Velg extends Component {
     }
 
     render() {
-        return (<VelgArbeidsgiver {...this.props} onChange={(orgnummer) => {
-            this.onChange(orgnummer);
-        }} />);
+        return (<VelgArbeidsgiver
+            arbeidsgivere={this.props.arbeidsgivere.data}
+            valgtArbeidsgiverOrgnummer={this.props.valgtArbeidsgiverOrgnummer}
+            onChange={(orgnummer) => {
+                this.onChange(orgnummer);
+            }} />);
     }
 }
 
@@ -33,6 +36,7 @@ Velg.propTypes = {
     dispatch: PropTypes.func,
     ledetekster: PropTypes.object,
     arbeidsgivere: PropTypes.object,
+    valgtArbeidsgiverOrgnummer: PropTypes.number,
 };
 
 export function mapStateToProps(state, ownProps) {

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { getLedetekst } from '../ledetekster';
 import TidslinjeBudskap from './TidslinjeBudskap.js';
-import { onResizeThrottle, scrollTo } from '../utils';
+import { scrollTo } from '../utils';
 
 const StatusIkon = ({ type }) => {
     const status = {
@@ -51,6 +51,9 @@ class Milepael extends Component {
         }, 0);
         setTimeout(() => {
             scrollTo(this.refs.boble, 1000);
+            this.props.setMilepaelState({
+                hoyde: 'auto',
+            });
         }, 300);
     }
 

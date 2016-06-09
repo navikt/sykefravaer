@@ -8,7 +8,8 @@ export class Velg extends Component {
     componentWillMount() {
         const { sykmelding, dispatch, arbeidsgivere } = this.props;
         if (arbeidsgivere.sykmeldingId !== sykmelding.id) {
-            const action = hentAktuelleArbeidsgivere(sykmelding.id, sykmelding.id); // Husk å endre dette til en dato
+            const action = hentAktuelleArbeidsgivere(sykmelding.id, sykmelding.id); 
+            // Husk å endre andre parameter i hentAktuelleArbeidsgivere til en dato
             dispatch(action);
         }
     }

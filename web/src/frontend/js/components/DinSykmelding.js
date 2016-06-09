@@ -128,8 +128,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, brukerinfo = { toggleSendTilAr
             </Utvidbar>
                 {
                     (brukerinfo.toggleSendTilArbeidsgiver && !brukerinfo.strengtFortroligAdresse) ?
-                        <DinSykmeldingBrukerInputContainer sykmelding={sykmelding}
-                                                           arbeidssituasjoner={arbeidssituasjoner}/> : null
+                        <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} /> : null
                 }
         </div>
         <p className="side-innhold ikke-print">

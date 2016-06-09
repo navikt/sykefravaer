@@ -24,7 +24,7 @@ export const DinSykmldSide = (props) => {
                     return (<DinSykmelding
                         sykmelding={props.sykmelding.data}
                         ledetekster={props.ledetekster.data}
-                        brukerinfo={props.brukerinfo}/>);
+                        brukerinfo={props.brukerinfo} />);
                 })()
             }
     </SideMedHoyrekolonne>);

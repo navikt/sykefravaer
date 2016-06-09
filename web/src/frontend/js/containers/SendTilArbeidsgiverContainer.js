@@ -19,21 +19,21 @@ export class SendTilArbeidsgiverSide extends Component {
     render() {
         return this.props.brukerinfo.toggleSendTilArbeidsgiver ? (
             <Side tittel="Send sykmelding til arbeidsgiver" brodsmuler={this.props.brodsmuler}>
-        {
-            (() => {
-                if (this.props.sykmelding.henter) {
-                    return <AppSpinner />;
-                } else if (this.props.sykmelding.hentingFeilet) {
-                    return (<Feilmelding />);
-                } else if (!this.props.sykmelding.data) {
-                    return (<Feilmelding
-                        tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', this.props.ledetekster.data)}
-                        melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', this.props.ledetekster.data)} />);
+                {
+                    (() => {
+                        if (this.props.sykmelding.henter) {
+                            return <AppSpinner />;
+                        } else if (this.props.sykmelding.hentingFeilet) {
+                            return (<Feilmelding />);
+                        } else if (!this.props.sykmelding.data) {
+                            return (<Feilmelding
+                                tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', this.props.ledetekster.data)}
+                                melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', this.props.ledetekster.data)} />);
+                        }
+                        return (<SendTilArbeidsgiver sykmelding={this.props.sykmelding.data}
+                            ledetekster={this.props.ledetekster.data} />);
+                    })()
                 }
-                return (<SendTilArbeidsgiver sykmelding={this.props.sykmelding.data}
-                                             ledetekster={this.props.ledetekster.data}/>);
-            })()
-        }
             </Side>) : null;
     }
 

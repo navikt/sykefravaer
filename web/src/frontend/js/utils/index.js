@@ -56,13 +56,11 @@ export function scrollTo(element, duration) {
 
 
 export function sorterPerioder(sykmelding) {
-    return Object.assign(sykmelding, {
-        mulighetForArbeid: {
-            perioder: sykmelding.mulighetForArbeid.perioder.sort((a, b) => {
-                const kriterium = a.fom !== b.fom ? 'fom' : 'tom';
-                return a[kriterium] < b[kriterium] ? -1 : 1;
-            }),
-        },
+    return Object.assign(sykmelding.mulighetForArbeid, {
+        perioder: sykmelding.mulighetForArbeid.perioder.sort((a, b) => {
+            const kriterium = a.fom !== b.fom ? 'fom' : 'tom';
+            return a[kriterium] < b[kriterium] ? -1 : 1;
+        }),
     });
 }
 

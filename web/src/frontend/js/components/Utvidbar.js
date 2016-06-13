@@ -11,6 +11,7 @@ export class Utvidbar extends Component {
             ikonHoykontrast: this.props.ikon.replace('.svg', '-highcontrast.svg'),
             containerClassName: this.props.erApen ? '' : 'utvidbar-innhold-container--lukket',
             hindreToggle: false,
+            visInnhold: true,
         };
     }
 
@@ -45,10 +46,9 @@ export class Utvidbar extends Component {
         setTimeout(() => {
             scrollTo(this.refs.utvidbar, 600);
             this.setState({
-                hoyde: 'auto',
-                containerClassName: '',
                 hindreToggle: false,
-            });
+            })
+            this.setAutoHoyde(); 
         }, 300);
     }
 
@@ -69,6 +69,23 @@ export class Utvidbar extends Component {
                 hindreToggle: false,
             });
         }, 500);
+    }
+
+    setAutoHoyde() {
+        this.setState({
+            visInnhold: false,
+        });
+        setTimeout(() => {
+            this.setState({
+                hoyde: 'auto',
+                containerClassName: '',
+            });
+            setTimeout(() => {
+                this.setState({
+                    visInnhold: true
+                });
+            }, 0);
+        }, 0); 
     }
 
     toggle(e) {
@@ -95,20 +112,23 @@ export class Utvidbar extends Component {
                     <this.props.Overskrift className={!this.state.erApen ? 'utvidbar-header' : 'utvidbar-header utvidbar-header-apen'}>
                         <img src={`/sykefravaer/img/${this.state.ikon}`} alt={this.props.ikonAltTekst} className="header-ikon" />
                         <img src={`/sykefravaer/img/${this.state.ikonHoykontrast}`} alt={this.props.ikonAltTekst} className="header-ikon header-ikon-hoykontrast" />
-                        <span className="header-tittel">{this.props.tittel}</span>
+                        <span className="header-tittel">TEST 1</span>
                     </this.props.Overskrift>
                 </a>
-                <div ref="container" style={{ height: this.state.hoyde }} className={`utvidbar-innhold-container ${this.state.containerClassName}`}>
-                    <div className="utvidbar-innhold" ref="innhold">
-                        {this.props.children}
-                        <div className="knapperad side-innhold">
-                            <a role="button" href="#"
-                                aria-pressed={!this.state.erApen}
-                                tabIndex={this.state.erApen ? '' : '-1'}
-                                onClick={(event) => {this.toggle(event);}}>Lukk</a>
+                {
+                    !this.state.visInnhold ? null :
+                    <div ref="container" style={{ height: this.state.hoyde }} className={`utvidbar-innhold-container ${this.state.containerClassName}`}>
+                        <div className="utvidbar-innhold" ref="innhold">
+                            {this.props.children}
+                            <div className="knapperad side-innhold">
+                                <a role="button" href="#"
+                                    aria-pressed={!this.state.erApen}
+                                    tabIndex={this.state.erApen ? '' : '-1'}
+                                    onClick={(event) => {this.toggle(event);}}>Lukk</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
         </div>);
     }
 }

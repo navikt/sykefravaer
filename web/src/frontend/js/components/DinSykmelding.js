@@ -1,22 +1,22 @@
 import React, { PropTypes } from 'react';
-import { formatDate } from '../utils/index.js';
+import { formatDate } from '../utils/index';
 import { getLedetekst } from '../ledetekster';
-import Utvidbar from '../components/Utvidbar.js';
-import AppSpinner from './AppSpinner.js';
-import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
-import SykmeldingPerioder from './SykmeldingPerioder.js';
+import Utvidbar from '../components/Utvidbar';
+import AppSpinner from './AppSpinner';
+import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning';
+import SykmeldingPerioder from './SykmeldingPerioder';
 import { Link } from 'react-router';
-import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils.js';
-import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox.js';
-import FlereOpplysninger from './FlereOpplysninger.js';
-import DinSykmeldingBrukerInputContainer from '../containers/DinSykmeldingBrukerInputContainer.js';
+import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils';
+import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox';
+import FlereOpplysninger from './FlereOpplysninger';
+import { pilotArbeidsgiver } from '../arbeidssituasjonData/pilotArbeidsgiver';
+import DinSykmeldingBrukerInputContainer from '../containers/DinSykmeldingBrukerInputContainer';
 import arbeidssituasjoner from '../arbeidssituasjonData';
 
-const DinSykmelding = ({ sykmelding, ledetekster, brukerinfo = { toggleSendTilArbeidsgiver: false } }) => {
+const DinSykmelding = ({ sykmelding, ledetekster, arbeidsforhold, brukerinfo = { toggleSendTilArbeidsgiver: false } }) => {
     if (!sykmelding || !sykmelding.id) {
         return <AppSpinner ledetekster={ledetekster} />;
     }
-
     return (<div>
         <div className="header-bolk header-sykmelding">
             <img className="header-ikon" src="/sykefravaer/img/svg/account-circle.svg" alt="Du" />
@@ -49,7 +49,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, brukerinfo = { toggleSendTilAr
                                 )
                             </p>
                         </SykmeldingNokkelOpplysning>
-                    </div>) : null
+                    </div>) : <noscript/>
                 }
                 {
                     sykmelding.diagnose.bidiagnose ? (<div className="diagnose-container">
@@ -70,30 +70,30 @@ const DinSykmelding = ({ sykmelding, ledetekster, brukerinfo = { toggleSendTilAr
                                 )
                             </p>
                         </SykmeldingNokkelOpplysning>
-                    </div>) : null
+                    </div>) : <noscript/>
                 }
                 {
                     sykmelding.diagnose.fravaersgrunnLovfestet ?
                         <SykmeldingNokkelOpplysning tittel="Lovfestet fraværsgrunn">
                             <p className="js-fravaersgrunnLovfestet">{sykmelding.diagnose.fravaersgrunnLovfestet}</p>
-                        </SykmeldingNokkelOpplysning> : null
+                        </SykmeldingNokkelOpplysning> : <noscript/>
                 }
                 {
                     sykmelding.diagnose.fravaerBeskrivelse ?
                         <SykmeldingNokkelOpplysning tittel="Beskriv fraværet">
                             <p className="js-fravaerBeskrivelse">{sykmelding.diagnose.fravaerBeskrivelse}</p>
-                        </SykmeldingNokkelOpplysning> : null
+                        </SykmeldingNokkelOpplysning> : <noscript/>
                 }
                 {
                     getSykmeldingCheckbox(sykmelding.diagnose, 'svangerskap', getLedetekst('din-sykmelding.svangerskap.tittel', ledetekster), 'blokk')
                 }
                 {
-                    !sykmelding.diagnose.yrkesskadeDato ? null :
+                    !sykmelding.diagnose.yrkesskadeDato ? <noscript/> :
                         <SykmeldingCheckbox tekst={getLedetekst('din-sykmelding.yrkesskade.tittel', ledetekster)}
                             jsClassName="yrkesskade" />
                 }
                 {
-                    !sykmelding.diagnose.yrkesskadeDato ? null :
+                    !sykmelding.diagnose.yrkesskadeDato ? <noscript/> :
                         <SykmeldingNokkelOpplysning tittel="Skadedato" className="sykmelding-subopplysning">
                             <p className=" js-yrkesskadeDato">{formatDate(sykmelding.diagnose.yrkesskadeDato)}</p>
                         </SykmeldingNokkelOpplysning>
@@ -102,7 +102,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, brukerinfo = { toggleSendTilAr
                     getSykmeldingCheckbox(sykmelding.friskmelding, 'arbeidsfoerEtterPerioden', getLedetekst('din-sykmelding.arbeidsfoer.tittel', ledetekster), 'blokk')
                 }
                 {
-                    !sykmelding.friskmelding.hensynPaaArbeidsplassen ? null :
+                    !sykmelding.friskmelding.hensynPaaArbeidsplassen ? <noscript/> :
                         <SykmeldingNokkelOpplysning tittel={getLedetekst('din-sykmelding.hensyn.tittel', ledetekster)}>
                             <p className="js-hensynPaaArbeidsplassen">{sykmelding.friskmelding.hensynPaaArbeidsplassen}</p>
                         </SykmeldingNokkelOpplysning>
@@ -111,13 +111,13 @@ const DinSykmelding = ({ sykmelding, ledetekster, brukerinfo = { toggleSendTilAr
                     sykmelding.arbeidsgiver ? <SykmeldingNokkelOpplysning
                         tittel={getLedetekst('din-sykmelding.arbeidsgiver.tittel', ledetekster)}>
                         <p className="js-arbeidsgiver">{sykmelding.arbeidsgiver}</p>
-                    </SykmeldingNokkelOpplysning> : null
+                    </SykmeldingNokkelOpplysning> : <noscript/>
                 }
                 {
                     sykmelding.bekreftelse.sykmelder ? <SykmeldingNokkelOpplysning
                         tittel={getLedetekst('din-sykmelding.avsender.tittel', ledetekster)}>
                         <p className="js-avsender">{sykmelding.bekreftelse.sykmelder}</p>
-                    </SykmeldingNokkelOpplysning> : null
+                    </SykmeldingNokkelOpplysning> : <noscript/>
                 }
             </div>
             <Utvidbar tittel={getLedetekst('din-sykmelding.flere-opplysninger.tittel', ledetekster)}
@@ -127,8 +127,8 @@ const DinSykmelding = ({ sykmelding, ledetekster, brukerinfo = { toggleSendTilAr
                 </div>
             </Utvidbar>
                 {
-                    (brukerinfo.toggleSendTilArbeidsgiver && !brukerinfo.strengtFortroligAdresse) ?
-                        <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} /> : null
+                    (brukerinfo.toggleSendTilArbeidsgiver && !brukerinfo.strengtFortroligAdresse && pilotArbeidsgiver(arbeidsforhold)) ?
+                        <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} /> : <noscript/>
                 }
         </div>
         <p className="side-innhold ikke-print">
@@ -143,6 +143,7 @@ DinSykmelding.propTypes = {
     sykmelding: PropTypes.object,
     ledetekster: PropTypes.object,
     brukerinfo: PropTypes.object,
+    arbeidsforhold: PropTypes.array
 };
 
 export default DinSykmelding;

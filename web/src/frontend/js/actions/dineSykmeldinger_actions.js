@@ -15,14 +15,14 @@ export function hentDineSykmeldingerFeilet() {
 export function setDineSykmeldinger(sykmeldinger = []) {
     return {
         type: 'SET_DINE_SYKMELDINGER',
-        sykmeldinger,
+        sykmeldinger
     };
 }
 
 export function sorterSykmeldinger(sortering) {
     return {
         type: 'SET_SORTERING',
-        sortering,
+        sortering
     };
 }
 
@@ -31,7 +31,7 @@ export function hentDineSykmeldinger() {
         dispatch(henterDineSykmeldinger());
         const url = `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger`;
         return fetch(url, {
-            credentials: 'include',
+            credentials: 'include'
         })
             .then((response) => {
                 if (response.status > 400) {
@@ -47,3 +47,4 @@ export function hentDineSykmeldinger() {
             });
     };
 }
+

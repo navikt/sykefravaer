@@ -10,6 +10,7 @@ import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger.js';
 import ledetekster from './reducers/ledetekster.js';
 import brukerinfo from './reducers/brukerinfo.js';
 import arbeidsgivere from './reducers/arbeidsgivere.js';
+import arbeidsforhold from './reducers/arbeidsforhold';
 import milepaeler from './reducers/milepaeler.js';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions.js';
 import { hentLedetekster } from './actions/ledetekster_actions.js';
@@ -20,12 +21,13 @@ import history from './history.js';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
+    arbeidsforhold,
     arbeidsgivere,
     arbeidsgiversSykmeldinger,
     ledetekster,
     brukerinfo,
     milepaeler,
-    history,
+    history
 });
 
 const store = createStore(rootReducer,

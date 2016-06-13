@@ -56,7 +56,8 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
                 }
                 {
                     (sykmelding.mulighetForArbeid.aktivitetIkkeMulig434 && sykmelding.mulighetForArbeid.aktivitetIkkeMulig434.length > 0) ?
-                    <SykmeldingOpplysning tittel={getLedetekst('din-sykmelding.mulighet.for.arbeid.tittel', ledetekster)}>
+                        <SykmeldingOpplysning
+                            tittel={getLedetekst('din-sykmelding.mulighet.for.arbeid.pasient.ikke.i.arbeid.tittel', ledetekster)}>
                         <div>
                             {
                                 getSykmeldingCheckbox(sykmelding.mulighetForArbeid, 'aktivitetIkkeMulig434',

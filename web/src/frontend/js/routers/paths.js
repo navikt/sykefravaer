@@ -1,3 +1,3 @@
 export function getContextRoot() {
-    return '/sykefravaer/app';
+    return '/sykefravaer';
 }

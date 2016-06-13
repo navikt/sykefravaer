@@ -27,7 +27,7 @@ class DinSykmeldingBrukerInput extends Component {
     }
 
     redirect() {
-        browserHistory.push(`/sykefravaer/app/sykmeldinger/${this.props.sykmelding.id}/send`);
+        browserHistory.push(`/sykefravaer/sykmeldinger/${this.props.sykmelding.id}/send`);
     }
 
     render() {

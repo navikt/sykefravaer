@@ -8,26 +8,22 @@ import FeilContainer from '../containers/FeilContainer.js';
 import { SendTilArbeidsgiverContainer } from '../containers/SendTilArbeidsgiverContainer.js';
 import RollerContainer from '../containers/RollerContainer.js';
 
-const Feil = () => {
-    return <p>Gå til /app</p>;
-};
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
-        <Route path="/sykefravaer" component={Feil} />
-        <Route path="/sykefravaer/app" component={LandingssideContainer} />
-        <Route path="/sykefravaer/app/tidslinjen" component={TidslinjeContainer} />
-        <Route path="/sykefravaer/app/tidslinjen/:arbeidssituasjon" component={TidslinjeContainer} />
-        <Route path="/sykefravaer/app/sykmeldinger" component={DineSykmeldingerContainer} />
-        <Route path="/sykefravaer/app/sykmeldinger/:sykmeldingId" component={DinSykmeldingContainer} />
-        <Route path="/sykefravaer/app/sykmeldinger/:sykmeldingId/send" component={SendTilArbeidsgiverContainer} />
-        <Route path="/sykefravaer/app/roller-og-ansvarsomrader" component={RollerContainer} />
-        <Route path="*" component={FeilContainer} />
+        <Route path="/sykefravaer" component={LandingssideContainer} />
+        <Route path="/sykefravaer/tidslinjen" component={TidslinjeContainer} />
+        <Route path="/sykefravaer/tidslinjen/:arbeidssituasjon" component={TidslinjeContainer} />
+        <Route path="/sykefravaer/sykmeldinger" component={DineSykmeldingerContainer} />
+        <Route path="/sykefravaer/sykmeldinger/:sykmeldingId" component={DinSykmeldingContainer} />
+        <Route path="/sykefravaer/sykmeldinger/:sykmeldingId/send" component={SendTilArbeidsgiverContainer} />
+        <Route path="/sykefravaer/roller-og-ansvarsomrader" component={RollerContainer} />
+        <Route path="*" component={LandingssideContainer} />
     </Router>);
 };
 
 AppRouter.propTypes = {
-    history: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
 };
 
 export default AppRouter;

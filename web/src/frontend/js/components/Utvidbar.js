@@ -77,7 +77,7 @@ export class Utvidbar extends Component {
         });
         setTimeout(() => {
             this.setState({
-                hoyde: 'auto',
+                hoyde: false,
                 containerClassName: '',
             });
             setTimeout(() => {
@@ -100,6 +100,15 @@ export class Utvidbar extends Component {
         }
     }
 
+    getStyle() {
+        if (this.state.hoyde) {
+            return { 
+                height: this.state.hoyde,
+            }
+        } 
+        return {};
+    }
+
     render() {
         return (<div ref="utvidbar" className={`utvidbar blokk-l ${this.props.className ? this.props.className : ''}`} aria-expanded={this.state.erApen}>
                 <a href="javscript:void(0)"
@@ -117,7 +126,7 @@ export class Utvidbar extends Component {
                 </a>
                 {
                     !this.state.visInnhold ? null :
-                    <div ref="container" style={{ height: this.state.hoyde }} className={`utvidbar-innhold-container ${this.state.containerClassName}`}>
+                    <div ref="container" style={this.getStyle()} className={`utvidbar-innhold-container ${this.state.containerClassName}`}>
                         <div className="utvidbar-innhold" ref="innhold">
                             {this.props.children}
                             <div className="knapperad side-innhold">

@@ -9,6 +9,8 @@ export class Utvidbar extends Component {
             erApen: this.props.erApen,
             ikon: this.props.ikon,
             ikonHoykontrast: this.props.ikon.replace('.svg', '-highcontrast.svg'),
+            containerClassName: this.props.erApen ? '' : 'utvidbar-innhold-container--lukket',
+            hindreToggle: false,
         };
     }
 
@@ -26,20 +28,63 @@ export class Utvidbar extends Component {
         });
     }
 
+    apne() {
+        this.setState({
+            hoyde: '0',
+            hindreToggle: true,
+        });
+
+        setTimeout(() => {
+            const hoyde = this.refs.innhold.offsetHeight;
+            this.setState({
+                erApen: true,
+                hoyde,
+            });
+        }, 0);
+
+        setTimeout(() => {
+            scrollTo(this.refs.utvidbar, 600);
+            this.setState({
+                hoyde: 'auto',
+                containerClassName: '',
+                hindreToggle: false,
+            });
+        }, 300);
+    }
+
+    lukk() {
+        const hoyde = this.refs.innhold.offsetHeight;
+        this.setState({
+            hoyde,
+            hindreToggle: true,
+        });
+        setTimeout(() => {
+            this.setState({
+                hoyde: '0',
+                erApen: false,
+            });
+        }, 0);
+        setTimeout(() => {
+            this.setState({
+                hindreToggle: false,
+            });
+        }, 500);
+    }
+
     toggle(e) {
         e.preventDefault();
-        const el = this.refs.utvidbar;
-        this.setState({
-            erApen: !this.state.erApen,
-        }, () => {
-            setTimeout(() => {
-                scrollTo(el, 600);
-            }, 150);
-        });
+        if (!this.state.hindreToggle) {
+            // hindreToggle for å hindre dobbelklikk, eller at noen klikker mens animasjonen pågår. Dobbelklikk vil skape kluss med logikken.
+            if (this.state.erApen) {
+                this.lukk();
+            } else {
+                this.apne();
+            }
+        }
     }
 
     render() {
-        return (<div ref="utvidbar" className={`utvidbar blokk-l ${this.props.className}`} aria-expanded={this.state.erApen}>
+        return (<div ref="utvidbar" className={`utvidbar blokk-l ${this.props.className ? this.props.className : ''}`} aria-expanded={this.state.erApen}>
                 <a href="javscript:void(0)"
                     role="button"
                     aria-pressed={this.state.erApen}
@@ -53,19 +98,17 @@ export class Utvidbar extends Component {
                         <span className="header-tittel">{this.props.tittel}</span>
                     </this.props.Overskrift>
                 </a>
-            <div className={!this.state.erApen ?
-                        'utvidbar-innhold-beholder utvidbar-innhold-beholder--lukket' :
-                        'utvidbar-innhold-beholder'}>
-                <div className="utvidbar-innhold">
-                    {this.props.children}
-                    <div className="knapperad side-innhold">
-                        <a role="button" href="#"
-                            aria-pressed={!this.state.erApen}
-                            tabIndex={this.state.erApen ? '' : '-1'}
-                            onClick={(event) => {this.toggle(event);}}>Lukk</a>
+                <div ref="container" style={{ height: this.state.hoyde }} className={`utvidbar-innhold-container ${this.state.containerClassName}`}>
+                    <div className="utvidbar-innhold" ref="innhold">
+                        {this.props.children}
+                        <div className="knapperad side-innhold">
+                            <a role="button" href="#"
+                                aria-pressed={!this.state.erApen}
+                                tabIndex={this.state.erApen ? '' : '-1'}
+                                onClick={(event) => {this.toggle(event);}}>Lukk</a>
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>);
     }
 }

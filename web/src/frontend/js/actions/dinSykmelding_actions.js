@@ -30,7 +30,7 @@ export function setArbeidsforhold(arbeidsforhold) {
 
 export function hentArbeidsforhold(sykmeldingId) {
     return function arbeidsforhold(dispatch) {
-        const url = `${window.SYFO_SETTINGS.REST_ROOT}/arbeidsforhold/${sykmeldingId}`;
+        const url = `${window.SYFO_SETTINGS.REST_ROOT}/arbeidsforhold?sykmeldingId=${sykmeldingId}`;
         return fetch(url, { credentials: 'same-origin' })
             .then((response) => { return response.json() })
             .then((json) => { return dispatch(setArbeidsforhold(json)) });

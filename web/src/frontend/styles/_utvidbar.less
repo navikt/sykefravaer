@@ -63,8 +63,12 @@
 }
 
 .utvidbar-innhold-container {
-	transition: height ease-in-out .3s;
 	overflow: hidden;
+}
+
+.utvidbar-innhold-container.med-animasjon {
+	transition: height ease-in-out .3s;
+	transform: translate3d(0, 0, 0);
 }
 
 .utvidbar-innhold-container--lukket {

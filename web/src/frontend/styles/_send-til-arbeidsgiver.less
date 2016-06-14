@@ -1,11 +1,19 @@
 .skravert {
-	width: 100%; 
-	max-width: 12rem; 
-	height: 2rem; 
-	background: data-uri("../img/png/skravert.png"); 
-	background-size: 5px 5px; 
-	display: block; 
-	text-indent: -9999px; 
+	border: 1rem solid #000; 
+	max-width: 10rem; 
+	height: 0; 
+	overflow: hidden; 
+
+	@media screen {
+		width: 100%; 
+		max-width: 12rem; 
+		height: 2rem; 
+		background: data-uri("../img/png/skravert.png"); 
+		background-size: 5px 5px; 
+		display: block; 
+		text-indent: -9999px;
+		border: 0;
+	}
 }
 
 .arbeidsgivers-header {
@@ -28,3 +36,4 @@
 	margin-bottom: 2rem;
 	border-bottom: 1px solid @color-border; 
 }
+

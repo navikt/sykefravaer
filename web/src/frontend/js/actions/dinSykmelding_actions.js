@@ -14,7 +14,6 @@ export function setArbeidsgiver(sykmeldingId, arbeidsgiver) {
     };
 }
 
-
 export function hentArbeidsforhold() {
     return {
         type: 'HENTER_ARBEIDSFORHOLD'
@@ -30,12 +29,9 @@ export function setArbeidsforhold(arbeidsforhold) {
 
 export function hentArbeidsforhold(sykmeldingId) {
     return function arbeidsforhold(dispatch) {
-        const url = `${window.SYFO_SETTINGS.REST_ROOT}/arbeidsforhold?sykmeldingId=${sykmeldingId}`;
+        const url = `${window.SYFO_SETTINGS.REST_ROOT}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`;
         return fetch(url, { credentials: 'same-origin' })
             .then((response) => { return response.json() })
             .then((json) => { return dispatch(setArbeidsforhold(json)) });
     };
 }
-
-
-

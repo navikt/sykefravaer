@@ -1,55 +1,50 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import * as actionCreators from '../actions/dineSykmeldinger_actions';
 import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
 import DinSykmelding from '../components/DinSykmelding';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { getLedetekst } from '../ledetekster/index';
-import { hentArbeidsforhold } from '../actions/dinSykmelding_actions';
+import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
+import { erPilotarbeidsgiver } from '../utils/arbeidsgiverUtils.js';
 
-
-export class DinSykmeldingPage extends Component {
+export class DinSykmldSide extends Component {
 
     componentWillMount() {
-        const { dispatch, params } = this.props;
-        dispatch(hentArbeidsforhold(params.sykmeldingId));
+        const { dispatch, sykmeldingId } = this.props;
+        dispatch(hentAktuelleArbeidsgivere(sykmeldingId));
     }
 
     render() {
-        const { brodsmuler, ledetekster, sykmelding, brukerinfo, arbeidsforhold } = this.props;
-        return (
-
-            <SideMedHoyrekolonne tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster.data)}
-                                 brodsmuler={brodsmuler}>
+        const { brodsmuler, ledetekster, sykmelding, visSendTilArbeidsgiver } = this.props;
+        return (<SideMedHoyrekolonne tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
                 { (() => {
                     if (sykmelding.henter) {
-                        return <AppSpinner ledetekster={ledetekster.data}/>;
+                        return <AppSpinner ledetekster={ledetekster.data} />;
                     } else if (sykmelding.hentingFeilet) {
                         return (<Feilmelding />);
                     } else if (!sykmelding.data) {
                         return (<Feilmelding
                             tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', ledetekster.data)}
-                            melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', ledetekster.data)}/>);
+                            melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', ledetekster.data)} />);
                     }
                     return (<DinSykmelding
                         sykmelding={sykmelding.data}
                         ledetekster={ledetekster.data}
-                        arbeidsforhold={arbeidsforhold}
-                        brukerinfo={brukerinfo}/>);
+                        visSendTilArbeidsgiver={visSendTilArbeidsgiver} />);
                 })()
                 }
             </SideMedHoyrekolonne>);
     }
 }
 
-DinSykmeldingPage.propTypes = {
+DinSykmldSide.propTypes = {
     dispatch: PropTypes.func,
     ledetekster: PropTypes.object,
     sykmelding: PropTypes.object,
     brodsmuler: PropTypes.array,
-    arbeidsforhold: PropTypes.array,
-    brukerinfo: PropTypes.object
+    visSendTilArbeidsgiver: PropTypes.bool,
+    sykmeldingId: PropTypes.string,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -59,27 +54,28 @@ export function mapStateToProps(state, ownProps) {
     })[0];
 
     return {
+        sykmeldingId,
         sykmelding: {
             data: sykmelding,
             hentingFeilet: state.dineSykmeldinger.hentingFeilet,
-            henter: state.dineSykmeldinger.henter
+            henter: state.dineSykmeldinger.henter,
         },
-        brukerinfo: state.brukerinfo.bruker.data,
+        visSendTilArbeidsgiver: erPilotarbeidsgiver(state.arbeidsgivere.data) &&
+            !state.brukerinfo.bruker.data.strengtFortroligAdresse &&
+            state.brukerinfo.bruker.data.toggleSendTilArbeidsgiver,
         ledetekster: state.ledetekster,
-        arbeidsforhold: state.arbeidsforhold.data,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',
-            erKlikkbar: true
+            erKlikkbar: true,
         }, {
             tittel: getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data),
             sti: '/sykmeldinger',
-            erKlikkbar: true
+            erKlikkbar: true,
         }, {
-            tittel: getLedetekst('din-sykmelding.sidetittel', state.ledetekster.data)
+            tittel: getLedetekst('din-sykmelding.sidetittel', state.ledetekster.data),
         }],
-        valgtArbeidssituasjon: state.valgtArbeidssituasjon
     };
 }
 
-export const DinSykmeldingContainer = connect(mapStateToProps)(DinSykmeldingPage);
+export const DinSykmeldingContainer = connect(mapStateToProps)(DinSykmldSide);

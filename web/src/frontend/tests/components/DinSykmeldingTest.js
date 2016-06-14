@@ -88,7 +88,7 @@ describe("DinSykmelding", () => {
         expect(component.find(".js-arbeidsgiver").length).to.equal(0);
     });
 
-    it("Skal vise en knapp dersom strengtFortroligAdresse === false", () => {
+    it("Skal vise en knapp dersom visSendTilArbeidsgiver === true", () => {
         const getState = {
             ledetekster: { ledetekster },
             brukerinfo: {
@@ -107,11 +107,11 @@ describe("DinSykmelding", () => {
         component = mount(
             <Provider store={store}>
                 <DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}
-                               brukerinfo={brukerinfo}/></Provider>);
+                               visSendTilArbeidsgiver={true}/></Provider>);
         expect(component.find(".js-videre")).to.have.length(1);
     });
 
-    it("Skal ikke vise en knapp dersom strengtFortroligAdresse === true", () => {
+    it("Skal ikke vise en knapp dersom visSendTilArbeidsgiver === false", () => {
         const getState = {
             ledetekster: { ledetekster },
             brukerinfo: {
@@ -131,7 +131,7 @@ describe("DinSykmelding", () => {
         component = mount(
             <Provider store={store}>
                 <DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}
-                               brukerinfo={brukerinfo}/></Provider>);
+                               visSendTilArbeidsgiver={false}/></Provider>);
         expect(component.find(".js-videre")).to.have.length(0);
     });
 

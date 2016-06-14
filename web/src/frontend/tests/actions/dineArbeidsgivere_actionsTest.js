@@ -82,7 +82,7 @@ describe("dineArbeidsgivere_actions", () => {
 
     it("Kaller på setAktuelleArbeidsgivere() når hentAktuelleArbeidsgivere() er fullført", () => {
         nock('http://tjenester.nav.no/syforest/')
-        .get("/informasjon/arbeidsgivere?dato=2015-12-31T00:00:00Z")
+        .get("/informasjon/arbeidsgivere?sykmeldingId=55")
         .reply(200, [{
             orgnr: 12345678,
             navn: "Hansens Frisørsalong"
@@ -94,12 +94,12 @@ describe("dineArbeidsgivere_actions", () => {
             navn: "Bergen Malingsfabrikk"
         }])
 
-        const id = "hansen";
+        const id = "55";
         const dato = "2015-12-31T00:00:00Z";
 
         const expectedActions = [
-            { type: "HENTER_AKTUELLE_ARBEIDSGIVERE", sykmeldingId: "hansen"}, 
-            { type: "SET_AKTUELLE_ARBEIDSGIVERE", sykmeldingId: "hansen", arbeidsgivere: [{
+            { type: "HENTER_AKTUELLE_ARBEIDSGIVERE", sykmeldingId: "55"}, 
+            { type: "SET_AKTUELLE_ARBEIDSGIVERE", sykmeldingId: "55", arbeidsgivere: [{
             orgnr: 12345678,
             navn: "Hansens Frisørsalong"
         }, {

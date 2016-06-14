@@ -12,21 +12,21 @@ export default function sykmeldinger(state = initiellState, action) {
             return {
                 data: action.sykmeldinger,
                 henter: false,
-                hentingFeilet: false
+                hentingFeilet: false,
             };
         }
         case 'HENTER_DINE_SYKMELDINGER': {
             return {
                 data: [],
                 henter: true,
-                hentingFeilet: false
+                hentingFeilet: false,
             };
         }
         case 'HENT_DINE_SYKMELDINGER_FEILET': {
             return {
                 data: [],
                 henter: false,
-                hentingFeilet: true
+                hentingFeilet: true,
             };
         }
         case 'SET_ARBEIDSSITUASJON': {
@@ -41,7 +41,7 @@ export default function sykmeldinger(state = initiellState, action) {
         }
         case 'SET_SORTERING': {
             return Object.assign({}, state, {
-                sortering: action.sortering
+                sortering: action.sortering,
             });
         }
         default: {

@@ -43,7 +43,7 @@ SendTilArbeidsgiverSide.propTypes = {
     brodsmuler: PropTypes.array,
     ledetekster: PropTypes.object,
     dispatch: PropTypes.func,
-    brukerinfo: PropTypes.object
+    brukerinfo: PropTypes.object,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -54,25 +54,25 @@ export function mapStateToProps(state, ownProps) {
         sykmelding: {
             data: sykmelding,
             henter: state.arbeidsgiversSykmeldinger.henter,
-            hentingFeilet: state.arbeidsgiversSykmeldinger.hentingFeilet
+            hentingFeilet: state.arbeidsgiversSykmeldinger.hentingFeilet,
         },
         brukerinfo: state.brukerinfo.bruker.data,
         ledetekster: state.ledetekster,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',
-            erKlikkbar: true
+            erKlikkbar: true,
         }, {
             tittel: getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data),
             sti: '/sykmeldinger',
-            erKlikkbar: true
+            erKlikkbar: true,
         }, {
             tittel: 'Sykmelding',
             sti: `/sykmeldinger/${sykmeldingId}`,
-            erKlikkbar: true
+            erKlikkbar: true,
         }, {
             tittel: getLedetekst('send-til-arbeidsgiver.sidetittel', state.ledetekster.data),
-        }]
+        }],
     };
 }
 

@@ -9,11 +9,10 @@ import { Link } from 'react-router';
 import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils';
 import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox';
 import FlereOpplysninger from './FlereOpplysninger';
-import { pilotArbeidsgiver } from '../arbeidssituasjonData/pilotArbeidsgiver';
 import DinSykmeldingBrukerInputContainer from '../containers/DinSykmeldingBrukerInputContainer';
 import arbeidssituasjoner from '../arbeidssituasjonData';
 
-const DinSykmelding = ({ sykmelding, ledetekster, arbeidsforhold, brukerinfo = { toggleSendTilArbeidsgiver: false } }) => {
+const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false }) => {
     if (!sykmelding || !sykmelding.id) {
         return <AppSpinner ledetekster={ledetekster} />;
     }
@@ -49,7 +48,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, arbeidsforhold, brukerinfo = {
                                 )
                             </p>
                         </SykmeldingNokkelOpplysning>
-                    </div>) : <noscript/>
+                    </div>) : <noscript />
                 }
                 {
                     sykmelding.diagnose.bidiagnose ? (<div className="diagnose-container">
@@ -70,30 +69,30 @@ const DinSykmelding = ({ sykmelding, ledetekster, arbeidsforhold, brukerinfo = {
                                 )
                             </p>
                         </SykmeldingNokkelOpplysning>
-                    </div>) : <noscript/>
+                    </div>) : <noscript />
                 }
                 {
                     sykmelding.diagnose.fravaersgrunnLovfestet ?
                         <SykmeldingNokkelOpplysning tittel="Lovfestet fraværsgrunn">
                             <p className="js-fravaersgrunnLovfestet">{sykmelding.diagnose.fravaersgrunnLovfestet}</p>
-                        </SykmeldingNokkelOpplysning> : <noscript/>
+                        </SykmeldingNokkelOpplysning> : <noscript />
                 }
                 {
                     sykmelding.diagnose.fravaerBeskrivelse ?
                         <SykmeldingNokkelOpplysning tittel="Beskriv fraværet">
                             <p className="js-fravaerBeskrivelse">{sykmelding.diagnose.fravaerBeskrivelse}</p>
-                        </SykmeldingNokkelOpplysning> : <noscript/>
+                        </SykmeldingNokkelOpplysning> : <noscript />
                 }
                 {
                     getSykmeldingCheckbox(sykmelding.diagnose, 'svangerskap', getLedetekst('din-sykmelding.svangerskap.tittel', ledetekster), 'blokk')
                 }
                 {
-                    !sykmelding.diagnose.yrkesskadeDato ? <noscript/> :
+                    !sykmelding.diagnose.yrkesskadeDato ? <noscript /> :
                         <SykmeldingCheckbox tekst={getLedetekst('din-sykmelding.yrkesskade.tittel', ledetekster)}
                             jsClassName="yrkesskade" />
                 }
                 {
-                    !sykmelding.diagnose.yrkesskadeDato ? <noscript/> :
+                    !sykmelding.diagnose.yrkesskadeDato ? <noscript /> :
                         <SykmeldingNokkelOpplysning tittel="Skadedato" className="sykmelding-subopplysning">
                             <p className=" js-yrkesskadeDato">{formatDate(sykmelding.diagnose.yrkesskadeDato)}</p>
                         </SykmeldingNokkelOpplysning>
@@ -102,7 +101,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, arbeidsforhold, brukerinfo = {
                     getSykmeldingCheckbox(sykmelding.friskmelding, 'arbeidsfoerEtterPerioden', getLedetekst('din-sykmelding.arbeidsfoer.tittel', ledetekster), 'blokk')
                 }
                 {
-                    !sykmelding.friskmelding.hensynPaaArbeidsplassen ? <noscript/> :
+                    !sykmelding.friskmelding.hensynPaaArbeidsplassen ? <noscript /> :
                         <SykmeldingNokkelOpplysning tittel={getLedetekst('din-sykmelding.hensyn.tittel', ledetekster)}>
                             <p className="js-hensynPaaArbeidsplassen">{sykmelding.friskmelding.hensynPaaArbeidsplassen}</p>
                         </SykmeldingNokkelOpplysning>
@@ -111,13 +110,13 @@ const DinSykmelding = ({ sykmelding, ledetekster, arbeidsforhold, brukerinfo = {
                     sykmelding.arbeidsgiver ? <SykmeldingNokkelOpplysning
                         tittel={getLedetekst('din-sykmelding.arbeidsgiver.tittel', ledetekster)}>
                         <p className="js-arbeidsgiver">{sykmelding.arbeidsgiver}</p>
-                    </SykmeldingNokkelOpplysning> : <noscript/>
+                    </SykmeldingNokkelOpplysning> : <noscript />
                 }
                 {
                     sykmelding.bekreftelse.sykmelder ? <SykmeldingNokkelOpplysning
                         tittel={getLedetekst('din-sykmelding.avsender.tittel', ledetekster)}>
                         <p className="js-avsender">{sykmelding.bekreftelse.sykmelder}</p>
-                    </SykmeldingNokkelOpplysning> : <noscript/>
+                    </SykmeldingNokkelOpplysning> : <noscript />
                 }
             </div>
             <Utvidbar tittel={getLedetekst('din-sykmelding.flere-opplysninger.tittel', ledetekster)}
@@ -127,8 +126,8 @@ const DinSykmelding = ({ sykmelding, ledetekster, arbeidsforhold, brukerinfo = {
                 </div>
             </Utvidbar>
                 {
-                    (brukerinfo.toggleSendTilArbeidsgiver && !brukerinfo.strengtFortroligAdresse && pilotArbeidsgiver(arbeidsforhold)) ?
-                        <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} /> : <noscript/>
+                    (visSendTilArbeidsgiver) ?
+                        <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} /> : <noscript />
                 }
         </div>
         <p className="side-innhold ikke-print">
@@ -142,8 +141,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, arbeidsforhold, brukerinfo = {
 DinSykmelding.propTypes = {
     sykmelding: PropTypes.object,
     ledetekster: PropTypes.object,
-    brukerinfo: PropTypes.object,
-    arbeidsforhold: PropTypes.array
+    visSendTilArbeidsgiver: PropTypes.bool,
 };
 
 export default DinSykmelding;

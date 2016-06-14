@@ -11,6 +11,7 @@ import { DinSykmldSide, mapStateToProps } from "../../js/containers/DinSykmeldin
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
 import DinSykmelding from '../../js/components/DinSykmelding.js';
+import sinon from 'sinon';
 
 let component;
 
@@ -89,8 +90,17 @@ describe("DinSykmeldingContainer", () => {
             },
             brukerinfo: {
                 bruker: {
-                    data: {},
-                },
+                    data: {
+                        strengtFortroligAdresse: false,
+                        toggleSendTilArbeidsgiver: true,
+                    },
+                }
+            },
+            arbeidsgivere: {
+                data: [{
+                    orgnummer: 12345678,
+                    erpilotarbeidsgiver: true,
+                }]
             }
         };
         ownProps.params = {};
@@ -103,6 +113,11 @@ describe("DinSykmeldingContainer", () => {
             const res = mapStateToProps(state, ownProps);
             expect(res.sykmelding.data).to.equal(sykmeldinger[2])
         });
+
+        it("Skal returnere sykmeldingId basert på ownProps.params.sykmeldingId", () => {
+            const res = mapStateToProps(state, ownProps);
+            expect(res.sykmeldingId).to.equal(3);
+        });        
 
         it("Skal returnere henter-flagget fra sykmeldinger", () => {
             state.dineSykmeldinger.henter = true; 
@@ -124,15 +139,78 @@ describe("DinSykmeldingContainer", () => {
             expect(res.ledetekster.data).to.deep.equal(ledetekster);
         });
 
+        it("Skal returnere visSendTilArbeidsgiver === true hvis man har én pilotarbeidsgiver", () => {
+            const res = mapStateToProps(state, ownProps);
+            expect(res.visSendTilArbeidsgiver).to.be.true;
+        });
+
+        it("Skal returnere visSendTilArbeidsgiver === false hvis man har ingen pilotarbeidsgivere", () => {
+            state.arbeidsgivere.data = [{
+                orgnummer: 1234,
+                erpilotarbeidsgiver: false
+            }]
+            const res = mapStateToProps(state, ownProps);
+            expect(res.visSendTilArbeidsgiver).to.be.false;
+        }); 
+
+        it("Skal returnere visSendTilArbeidsgiver === false hvis man har flere arbeidsgivere", () => {
+            state.arbeidsgivere.data = [{
+                orgnummer: 1234,
+                erpilotarbeidsgiver: true
+            }, {
+                orgnummer: 12345678,
+                erpilotarbeidsgiver: false
+            }]
+            const res = mapStateToProps(state, ownProps);
+            expect(res.visSendTilArbeidsgiver).to.be.false;
+        }); 
+
+        it("Skal returnere visSendTilArbeidsgiver === false hvis man strengt fortrolig adresse", () => {
+            state.brukerinfo.bruker = {
+                data: {
+                    strengtFortroligAdresse: true,
+                }
+            };
+            const res = mapStateToProps(state, ownProps);
+            expect(res.visSendTilArbeidsgiver).to.be.false;
+        }); 
+
+        it("Skal returnere visSendTilArbeidsgiver === false hvis man strengt fortrolig adresse og én arbeidsgiver som ikke er pilotarbeidsgiver", () => {
+            state.brukerinfo.bruker = {
+                data: {
+                    strengtFortroligAdresse: true,
+                }
+            };
+            state.arbeidsgivere = {};
+            state.arbeidsgivere.data = [{
+                orgnummer: 1234,
+                erpilotarbeidsgiver: false
+            }]
+            const res = mapStateToProps(state, ownProps);
+            expect(res.visSendTilArbeidsgiver).to.be.false;
+        });
+
+        it("Skal returnere visSendTilArbeidsgiver === false hvis toggleSendTilArbeidsgiver === false", () => {
+            state.brukerinfo.bruker.data.toggleSendTilArbeidsgiver = false;
+            const res = mapStateToProps(state, ownProps);
+            expect(res.visSendTilArbeidsgiver).to.be.false; 
+        })
+
     });
 
     describe("DinSykmldSide", () => {
+
+        let dispatch;
+
+        beforeEach(() => {
+            dispatch = sinon.spy(); 
+        });
 
         it("Skal vise AppSpinner når siden laster", () => {
             let sykmelding = {
                 henter: true
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster}/>)
+            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.find(AppSpinner)).to.have.length(1);
         }); 
 
@@ -140,7 +218,7 @@ describe("DinSykmeldingContainer", () => {
             let sykmelding = {
                 hentingFeilet: true
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster}/>)
+            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
 
@@ -149,7 +227,7 @@ describe("DinSykmeldingContainer", () => {
                 hentingFeilet: false,
                 data: undefined
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster}/>)
+            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
@@ -158,9 +236,18 @@ describe("DinSykmeldingContainer", () => {
                 hentingFeilet: false,
                 data: sykmeldinger[1]
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster}/>)
+            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.find(DinSykmelding)).to.have.length(1);
         });
+
+        it("Skal kalle dispatch", () => {
+            let sykmelding = {
+                hentingFeilet: false,
+                data: sykmeldinger[1]
+            };
+            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            expect(dispatch.calledOnce).to.be.true;
+        })
 
     });
 

@@ -4,7 +4,6 @@ import DineSykmeldingerContainer from '../containers/DineSykmeldingerContainer.j
 import LandingssideContainer from '../containers/LandingssideContainer.js';
 import { DinSykmeldingContainer } from '../containers/DinSykmeldingContainer.js';
 import TidslinjeContainer from '../containers/TidslinjeContainer.js';
-import FeilContainer from '../containers/FeilContainer.js';
 import { SendTilArbeidsgiverContainer } from '../containers/SendTilArbeidsgiverContainer.js';
 import RollerContainer from '../containers/RollerContainer.js';
 
@@ -23,7 +22,7 @@ const AppRouter = ({ history }) => {
 };
 
 AppRouter.propTypes = {
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
 };
 
 export default AppRouter;

@@ -22,10 +22,10 @@ export function setAktuelleArbeidsgivere(sykmeldingId, arbeidsgivere) {
     };
 }
 
-export function hentAktuelleArbeidsgivere(sykmeldingId, dato) {
+export function hentAktuelleArbeidsgivere(sykmeldingId) {
     return function arbeidsgivere(dispatch) {
         dispatch(henterAktuelleArbeidsgivere(sykmeldingId));
-        const url = `${window.SYFO_SETTINGS.REST_ROOT}/informasjon/arbeidsgivere?dato=${dato}`;
+        const url = `${window.SYFO_SETTINGS.REST_ROOT}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`;
         return fetch(url, {
             credentials: 'include',
         })

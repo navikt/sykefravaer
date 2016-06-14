@@ -2,8 +2,7 @@ var fs = require("fs");
 var Mustache = require("mustache");
 
 front = process.argv[2];
-feil = process.argv[3];
-env = process.argv[4];
+env = process.argv[3];
 
 var timestamp = Date.now().toString();
 
@@ -25,14 +24,6 @@ fs.readFile(front, function (err, data) {
     if (err) throw err;
     const html = Mustache.render(data.toString(), env === 'prod' ? prod : dev);
     fs.writeFile('../main/webapp/syfofront.html', html, 'utf-8', (err) => {
-        if (err) throw err;
-    });
-});
-
-fs.readFile(feil, function (err, data) {
-    if (err) throw err;
-    const html = Mustache.render(data.toString(), env === 'prod' ? prod : dev);
-    fs.writeFile('../main/webapp/syfofeil.html', html, 'utf-8', (err) => {
         if (err) throw err;
     });
 });

@@ -10,7 +10,13 @@ const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere 
                 onChange={onChange}>
                 {
                     arbeidsgivere.map((arbeidsgiver) => {
-                        return <input key={arbeidsgiver.orgnummer} id={arbeidsgiver.orgnummer} value={arbeidsgiver.orgnummer} label={arbeidsgiver.navn} />;
+                        let labelSekundaer = arbeidsgiver.orgnummer ? `(${arbeidsgiver.orgnummer})` : null;
+                        return (<input
+                            key={arbeidsgiver.orgnummer}
+                            id={arbeidsgiver.orgnummer}
+                            value={arbeidsgiver.orgnummer}
+                            label={arbeidsgiver.navn}
+                            labelSekundaer={labelSekundaer} />);
                     })
                 }
             </Radiogruppe>

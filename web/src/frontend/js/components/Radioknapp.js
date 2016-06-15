@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const Radioknapp = ({ value, label, erValgt, name, onChange, id }) => {
+const Radioknapp = ({ value, label, erValgt, name, onChange, id, labelSekundaer }) => {
     return (<div>
                 <div className="nav-input">
                     <input name={name} type="radio"
@@ -13,6 +13,7 @@ const Radioknapp = ({ value, label, erValgt, name, onChange, id }) => {
                         id={`radio-${id}`} />
                     <label htmlFor={`radio-${id}`}>
                         {label}
+                        {labelSekundaer ? <span className="label-sekundaer">{labelSekundaer}</span> : null}
                     </label>
                 </div>
             </div>);
@@ -25,6 +26,7 @@ Radioknapp.propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     id: PropTypes.string.isRequired,
+    labelSekundaer: PropTypes.string,
 };
 
 export default Radioknapp;

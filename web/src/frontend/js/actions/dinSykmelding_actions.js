@@ -26,7 +26,6 @@ export function sendSykmeldingTilArbeidsgiver(sykmelding) {
         return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmelding.id}/actions/send`,
             {
                 method: 'POST'
-                body: new Raw
             })
 
     }

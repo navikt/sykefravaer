@@ -29,8 +29,12 @@ export class SendTilArbeidsgiverSide extends Component {
                                 tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', this.props.ledetekster.data)}
                                 melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', this.props.ledetekster.data)} />);
                         }
-                        return (<SendTilArbeidsgiver sykmelding={this.props.sykmelding.data}
-                            ledetekster={this.props.ledetekster.data} />);
+                        return (<SendTilArbeidsgiver
+                            sykmelding={this.props.sykmelding.data}
+                            ledetekster={this.props.ledetekster.data}
+                            submitHandler={() => {
+                                console.log("Submit!");
+                            }} />);
                     })()
                 }
             </Side>) : null;

@@ -11,7 +11,9 @@ const Radiogruppe = ({ name, valgtVerdi, erFeil, feilmelding, onChange, spoersma
                     key={index}
                     erValgt={valgtVerdi === knapp.props.value}
                     onChange={onChange}
-                    id={knapp.props.value} />);
+                    id={knapp.props.value}>
+                    {knapp.props.children}
+                    </Radioknapp>);
             })
         }
         <span className="skjema-feilmelding" role="alert" aria-live="polite">

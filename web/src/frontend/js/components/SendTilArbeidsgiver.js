@@ -4,13 +4,19 @@ import VelgArbeidsgiverContainer from '../containers/VelgArbeidsgiverContainer.j
 import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding.js';
 
 const SendTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
+
+    const test = () => {
+
+        console.log('test');
+    };
+
     return (<div className="panel">
         <h1 className="typo-innholdstittel tittel-dekorert blokk-l">{getLedetekst('send-til-arbeidsgiver.hovedtittel', ledetekster)}</h1>
         <VelgArbeidsgiverContainer sykmelding={sykmelding} />
         <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} />
         <p>{getLedetekst('send-til-arbeidsgiver.infotekst', ledetekster)}</p>
         <div className="knapperad">
-            <span tabIndex="0" className="knapp knapp-hoved">{getLedetekst('send-til-arbeidsgiver.send.knappetekst', ledetekster)}</span>
+            <input type="submit" className="knapp knapp-hoved" onClick={test}/>
         </div>
     </div>);
 };

@@ -29,6 +29,21 @@ export class Utvidbar extends Component {
         });
     }
 
+    setAutoHoyde() {
+        this.setState({
+            containerClassName: '',
+        });
+        /* Fjerner animasjonsklassen slik at Safari ikke
+        tegner komponenten på nytt når høyde settes til 'auto' */
+        setTimeout(() => {
+            this.setState({
+                hoyde: 'auto',
+                containerClassName: '',
+            });
+        }, 0);
+        // Setter høyde til auto
+    }
+
     apne() {
         this.setState({
             hoyde: '0',
@@ -47,8 +62,8 @@ export class Utvidbar extends Component {
             scrollTo(this.refs.utvidbar, 600);
             this.setState({
                 hindreToggle: false,
-            })
-            this.setAutoHoyde(); 
+            });
+            this.setAutoHoyde();
         }, 300);
     }
 
@@ -70,21 +85,6 @@ export class Utvidbar extends Component {
                 hindreToggle: false,
             });
         }, 500);
-    }
-
-    setAutoHoyde() {
-        this.setState({
-            containerClassName: '',
-        });
-        /* Fjerner animasjonsklassen slik at Safari ikke 
-        tegner komponenten på nytt når høyde settes til 'auto' */
-        setTimeout(() => {
-            this.setState({
-                hoyde: 'auto',
-                containerClassName: '',
-            });
-        }, 0); 
-        // Setter høyde til auto
     }
 
     toggle(e) {
@@ -113,7 +113,7 @@ export class Utvidbar extends Component {
                         <img src={`/sykefravaer/img/${this.state.ikonHoykontrast}`} alt={this.props.ikonAltTekst} className="header-ikon header-ikon-hoykontrast" />
                         <span className="header-tittel">{this.props.tittel}</span>
                     </this.props.Overskrift>
-                </a>    
+                </a>
                 <div ref="container" style={{ height: this.state.hoyde }} className={`utvidbar-innhold-container${this.state.containerClassName}`}>
                     <div className="utvidbar-innhold" ref="innhold">
                         {this.props.children}

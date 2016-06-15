@@ -51,7 +51,7 @@ const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster }) => {
             <FlereOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
         </div>
     </Utvidbar>);
-}
+};
 
 ArbeidsgiversSykmelding.propTypes = {
     sykmelding: PropTypes.object,

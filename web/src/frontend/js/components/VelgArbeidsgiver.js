@@ -10,7 +10,7 @@ const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere 
                 onChange={onChange}>
                 {
                     arbeidsgivere.map((arbeidsgiver) => {
-                        let labelSekundaer = (arbeidsgiver.orgnummer && arbeidsgiver.orgnummer.length) !== 1 ? `(${arbeidsgiver.orgnummer})` : null;
+                        let labelSekundaer = (arbeidsgiver.orgnummer && arbeidsgiver.orgnummer.length) !== 1 ? `(Orgnr: ${arbeidsgiver.orgnummer.replace(/(...)(...)(...)/g, '$1 $2 $3')})` : null;
                         return (<input
                             key={arbeidsgiver.orgnummer}
                             id={arbeidsgiver.orgnummer}

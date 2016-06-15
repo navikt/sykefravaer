@@ -23,11 +23,7 @@ export function senderSykmelding() {
 export function sendSykmeldingTilArbeidsgiver(sykmelding) {
     return function (dispatch) {
         dispatch(senderSykmelding());
-        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmelding.id}/actions/send`,
-            {
-                method: 'POST'
-                body: new Raw
-            })
+        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmelding.id}/actions/send`)
 
     }
 

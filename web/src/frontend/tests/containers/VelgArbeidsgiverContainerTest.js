@@ -63,7 +63,7 @@ describe("VelgArbeidsgiverContainer", () => {
             }, { sykmelding });
             expect(res.arbeidsgivere).to.deep.equal({
                 data: [{
-                    orgnummer: null, 
+                    orgnummer: '0', 
                     navn: "Arbeidsgiveren min er ikke her"
                 }],
                 henter: true

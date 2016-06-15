@@ -6,7 +6,12 @@ const Radiogruppe = ({ name, valgtVerdi, erFeil, feilmelding, onChange, spoersma
         <Overskrift className="skjema-sporsmal">{spoersmaal}</Overskrift>
         {
             children.map((knapp, index) => {
-                return <Radioknapp {...knapp.props} name={name} key={index} erValgt={valgtVerdi === knapp.props.value} onChange={onChange} id={knapp.props.value} />;
+                return (<Radioknapp {...knapp.props}
+                    name={name}
+                    key={index}
+                    erValgt={valgtVerdi === knapp.props.value}
+                    onChange={onChange}
+                    id={knapp.props.value} />);
             })
         }
         <span className="skjema-feilmelding" role="alert" aria-live="polite">

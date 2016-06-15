@@ -10,7 +10,7 @@ const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere 
                 onChange={onChange}>
                 {
                     arbeidsgivere.map((arbeidsgiver) => {
-                        let labelSekundaer = arbeidsgiver.orgnummer ? `(${arbeidsgiver.orgnummer})` : null;
+                        let labelSekundaer = (arbeidsgiver.orgnummer && arbeidsgiver.orgnummer.length) !== 1 ? `(${arbeidsgiver.orgnummer})` : null;
                         return (<input
                             key={arbeidsgiver.orgnummer}
                             id={arbeidsgiver.orgnummer}
@@ -24,7 +24,7 @@ const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere 
 };
 
 VelgArbeidsgiver.propTypes = {
-    valgtArbeidsgiverOrgnummer: PropTypes.number,
+    valgtArbeidsgiverOrgnummer: PropTypes.string,
     onChange: PropTypes.func,
     arbeidsgivere: PropTypes.array,
 };

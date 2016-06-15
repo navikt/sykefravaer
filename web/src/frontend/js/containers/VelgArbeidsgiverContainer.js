@@ -8,8 +8,7 @@ export class Velg extends Component {
     componentWillMount() {
         const { sykmelding, dispatch, arbeidsgivere } = this.props;
         if (arbeidsgivere.sykmeldingId !== sykmelding.id) {
-            const action = hentAktuelleArbeidsgivere(sykmelding.id, sykmelding.id);
-            // Husk å endre andre parameter i hentAktuelleArbeidsgivere til en dato
+            const action = hentAktuelleArbeidsgivere(sykmelding.id);
             dispatch(action);
         }
     }
@@ -37,13 +36,13 @@ Velg.propTypes = {
     dispatch: PropTypes.func,
     ledetekster: PropTypes.object,
     arbeidsgivere: PropTypes.object,
-    valgtArbeidsgiverOrgnummer: PropTypes.number,
+    valgtArbeidsgiverOrgnummer: PropTypes.string,
 };
 
 export function mapStateToProps(state, ownProps) {
     const valgtArbeidsgiverOrgnummer = ownProps.sykmelding.valgtArbeidsgiver ? ownProps.sykmelding.valgtArbeidsgiver.orgnummer : undefined;
     const arbeidsgivereData = state.arbeidsgivere.data.concat([{
-        orgnummer: null,
+        orgnummer: '0',
         navn: 'Arbeidsgiveren min er ikke her',
     }]);
     const arbeidsgivere = Object.assign({}, state.arbeidsgivere, {

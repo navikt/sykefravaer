@@ -3,22 +3,17 @@ import { getLedetekst } from '../ledetekster';
 import VelgArbeidsgiverContainer from '../containers/VelgArbeidsgiverContainer.js';
 import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding.js';
 
-const SendTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
+const SendTilArbeidsgiver = ({ sykmelding, ledetekster, sendSykmeldingTilArbeidsgiver }) => {
 
-    const test = () => {
-
-        console.log('test');
-    };
-
-    return (<div className="panel">
+    return (<form className="panel" onSubmit={(e) => {sendSykmeldingTilArbeidsgiver(e, sykmelding)}}>
         <h1 className="typo-innholdstittel tittel-dekorert blokk-l">{getLedetekst('send-til-arbeidsgiver.hovedtittel', ledetekster)}</h1>
         <VelgArbeidsgiverContainer sykmelding={sykmelding} />
         <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} />
         <p>{getLedetekst('send-til-arbeidsgiver.infotekst', ledetekster)}</p>
         <div className="knapperad">
-            <input type="submit" className="knapp knapp-hoved" onClick={test}/>
+            <input type="submit" className="knapp knapp-hoved"/>
         </div>
-    </div>);
+    </form>);
 };
 
 SendTilArbeidsgiver.propTypes = {

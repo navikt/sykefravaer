@@ -59,7 +59,11 @@ export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
     sykmeldinger.map(sorterPerioder);
     return sykmeldinger.sort((a, b) => {
         if (kriterium === 'fom' || a.arbeidsgiver.trim().toUpperCase() === b.arbeidsgiver.trim().toUpperCase()) {
-            return toDate(b.mulighetForArbeid.perioder[0].fom) - toDate(a.mulighetForArbeid.perioder[0].fom);
+            if (toDate(b.mulighetForArbeid.perioder[0].fom).getTime() !== toDate(b.mulighetForArbeid.perioder[0].fom).getTime()) {
+                return toDate(b.mulighetForArbeid.perioder[0].fom) - toDate(a.mulighetForArbeid.perioder[0].fom);
+            } else {
+                return toDate(b.mulighetForArbeid.perioder[b.mulighetForArbeid.perioder.length-1].tom) - toDate(a.mulighetForArbeid.perioder[b.mulighetForArbeid.perioder.length-1].tom);
+            }
         }
         return Object.byString(a, kriterium) < Object.byString(b, kriterium) ? -1 : 1;
     });

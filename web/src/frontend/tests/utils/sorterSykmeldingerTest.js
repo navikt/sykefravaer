@@ -569,7 +569,7 @@ describe("sorterSykmeldinger", function() {
     });
 
 
-    it("Skal sorterer perioder ok", () => {
+    it("Skal sorterer perioder så eldste perioder fom kommer først og hvis lik fom så kommer eldste tom nederst", () => {
             let sykmelding = {
                 "id": 3,
                 "arbeidsgiver": "Alnabru Frisør",
@@ -582,10 +582,6 @@ describe("sorterSykmeldinger", function() {
                         "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
                         "tom": { year: 2015, monthValue: 4, dayOfMonth: 16 },
                         "grad": "100"
-                    }, {
-                        "fom": { year: 2015, monthValue: 8, dayOfMonth: 8 },
-                        "tom": { year: 2015, monthValue: 8, dayOfMonth: 15 },
-                        "grad": "100"
                     }]
                 }
             };
@@ -593,25 +589,14 @@ describe("sorterSykmeldinger", function() {
             expect(s).to.deep.equal({
                 "perioder": [{
                     "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
-                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 16 },
-                    "grad": "100"
-                }, {
-                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
                     "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
                     "grad": "100"
                 }, {
-                    "fom": { year: 2015, monthValue: 8, dayOfMonth: 8 },
-                    "tom": { year: 2015, monthValue: 8, dayOfMonth: 15 },
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 16 },
                     "grad": "100"
                 }]
             });
         }
-
-
     );
-
-
-
-
-
 });

@@ -1,5 +1,3 @@
-import { getDuration, toDate } from './datoUtils';
-
 // Fra Stack Overflow <3
 Object.byString = function byString(o, s) {
     let s_ = s;

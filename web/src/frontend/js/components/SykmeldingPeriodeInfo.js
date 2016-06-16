@@ -16,7 +16,7 @@ const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekst
     if (periode.avventende) {
         ledetekstNokkel = 'sykmelding.teaser.tekst.avventende';
     }
-    if (periode.fom.year === periode.fom.year && periode.fom.monthValue === periode.fom.monthValue  && periode.fom.dayOfMonth === periode.tom.dayOfMonth) {
+    if (periode.fom.year === periode.fom.year && periode.fom.monthValue === periode.fom.monthValue && periode.fom.dayOfMonth === periode.tom.dayOfMonth) {
         ledetekstNokkel += '.en-dag';
     }
     if (!arbeidsgiver) {

@@ -14,8 +14,8 @@ describe("SykmeldingTeaser", () => {
         const sykmelding = {
             mulighetForArbeid: {
                 perioder: [{
-                    fom: "2016-02-02T00:00:00Z",
-                    tom: "2016-02-16T00:00:00Z",
+                    fom: { year: 2016, monthValue: 2, dayOfMonth: 2 },
+                    tom: { year: 2016, monthValue: 2, dayOfMonth: 16 },
                     grad: "100"
                 }],
             }
@@ -29,8 +29,8 @@ describe("SykmeldingTeaser", () => {
         const teaser = mount(<SykmeldingTeaser sykmelding={getSykmelding({
             mulighetForArbeid: {
                 perioder: [{
-                    fom: "2016-02-02T00:00:00Z",
-                    tom: "2016-02-16T00:00:00Z",
+                    fom: { year: 2016, monthValue: 2, dayOfMonth: 2 },
+                    tom: { year: 2016, monthValue: 2, dayOfMonth: 16 },
                     grad: "100",
                 }],
             },
@@ -51,8 +51,8 @@ describe("SykmeldingTeaser", () => {
         const teaser = mount(<SykmeldingTeaser sykmelding={getSykmelding({
             mulighetForArbeid: {
                 perioder: [{
-                    fom: "2016-02-02T00:00:00Z",
-                    tom: "2016-02-16T00:00:00Z",
+                    fom: { year: 2016, monthValue: 2, dayOfMonth: 2 },
+                    tom: { year: 2016, monthValue: 2, dayOfMonth: 16 },
                     grad: null
                 }]
             }
@@ -65,8 +65,8 @@ describe("SykmeldingTeaser", () => {
 			arbeidsgiver: "Bekk Consulting AS",
 			mulighetForArbeid: {
 			    perioder: [{
-                    fom: "2016-02-02T00:00:00Z",
-                    tom: "2016-02-16T00:00:00Z",
+                    fom: { year: 2016, monthValue: 2, dayOfMonth: 2 },
+                    tom: { year: 2016, monthValue: 2, dayOfMonth: 16 },
                     grad: "100"
                 }]
 			}

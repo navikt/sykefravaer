@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
-import { formatDate } from '../utils/index.js';
-import { getLedetekst } from '../ledetekster';
+import { toDatePrettyPrint } from '../utils/datoUtils';
+import { getLedetekst } from '../ledetekster/index';
 
 const SykmeldingPeriode = ({ periode, antallDager = 1, ledetekster, Overskrift = 'H3' }) => {
     const dagNokkel = antallDager === 1 ? 'din-sykmelding.periode.dag' : 'din-sykmelding.periode.dager';
     return (<div className="sykmelding-nokkelopplysning">
             <Overskrift>{getLedetekst('din-sykmelding.periode.tittel', ledetekster)}</Overskrift>
             <p className="js-periode blokk-xxs">
-                <strong>{formatDate(periode.fom)} &ndash; {formatDate(periode.tom)}</strong> &bull; {antallDager}&nbsp;{getLedetekst(dagNokkel, ledetekster)}
+                <strong>{toDatePrettyPrint(periode.fom)} &ndash; {toDatePrettyPrint(periode.tom)}</strong> &bull; {antallDager}&nbsp;{getLedetekst(dagNokkel, ledetekster)}
             </p>
             {
                 periode.grad ? <p className="js-grad">

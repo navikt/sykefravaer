@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import { getDuration } from '../utils/index.js';
-import { getLedetekst } from '../ledetekster';
+import { getDuration } from '../utils/datoUtils';
+import { getLedetekst } from '../ledetekster/index';
 
 const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekster }) => {
     let ledetekstNokkel = 'sykmelding.teaser.tekst';
@@ -16,7 +16,7 @@ const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekst
     if (periode.avventende) {
         ledetekstNokkel = 'sykmelding.teaser.tekst.avventende';
     }
-    if (periode.fom === periode.tom) {
+    if (periode.fom.year === periode.fom.year && periode.fom.monthValue === periode.fom.monthValue  && periode.fom.dayOfMonth === periode.tom.dayOfMonth) {
         ledetekstNokkel += '.en-dag';
     }
     if (!arbeidsgiver) {

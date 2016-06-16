@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { getContextRoot } from '../routers/paths.js';
-import { formatDate } from '../utils/index.js';
-import { getLedetekst } from '../ledetekster';
-import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo.js';
+import { getContextRoot } from '../routers/paths';
+import { toDatePrettyPrint } from '../utils/datoUtils';
+import { getLedetekst } from '../ledetekster/index';
+import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
 
 const PeriodeListe = ({ perioder, arbeidsgiver, ledetekster }) => {
     return (<ul className="teaser-punktliste js-perioder">
@@ -61,8 +61,8 @@ class SykmeldingTeaser extends Component {
             <div className="teaser-innhold">
                 <h3 className="js-title teaser-header">
                     <small className="teaser-meta">{getLedetekst('sykmelding.teaser.dato', this.props.ledetekster, {
-                        '%FOM%': formatDate(this.props.sykmelding.mulighetForArbeid.perioder[0].fom),
-                        '%TOM%': formatDate(this.props.sykmelding.mulighetForArbeid.perioder[sistePeriodeIndex].tom),
+                        '%FOM%': toDatePrettyPrint(this.props.sykmelding.mulighetForArbeid.perioder[0].fom),
+                        '%TOM%': toDatePrettyPrint(this.props.sykmelding.mulighetForArbeid.perioder[sistePeriodeIndex].tom),
                     })} </small>
                     <span className="teaser-tittel">
                         {getLedetekst('sykmelding.teaser.tittel', this.props.ledetekster)}

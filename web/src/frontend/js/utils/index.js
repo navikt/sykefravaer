@@ -1,4 +1,4 @@
-const moment = require('moment');
+import { getDuration, toDate } from './datoUtils';
 
 // Fra Stack Overflow <3
 Object.byString = function byString(o, s) {
@@ -17,16 +17,6 @@ Object.byString = function byString(o, s) {
     }
     return o_;
 };
-
-export function formatDate(date) {
-    return moment(date).format('DD.MM.YYYY');
-}
-
-export function getDuration(from, to) {
-    const fromMoment = moment(from);
-    const toMoment = moment(to);
-    return toMoment.diff(fromMoment, 'days') + 1;
-}
 
 export function scrollTo(element, duration) {
     const started = Date.now();
@@ -54,26 +44,6 @@ export function scrollTo(element, duration) {
     window.requestAnimationFrame(tick);
 }
 
-
-export function sorterPerioder(sykmelding) {
-    return Object.assign(sykmelding.mulighetForArbeid, {
-        perioder: sykmelding.mulighetForArbeid.perioder.sort((a, b) => {
-            const kriterium = a.fom !== b.fom ? 'fom' : 'tom';
-            return a[kriterium] < b[kriterium] ? -1 : 1;
-        }),
-    });
-}
-
-export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
-    sykmeldinger.map(sorterPerioder);
-    return sykmeldinger.sort((a, b) => {
-        if (kriterium === 'fom' || a.arbeidsgiver.trim().toUpperCase() === b.arbeidsgiver.trim().toUpperCase()) {
-            return a.mulighetForArbeid.perioder[0].fom > b.mulighetForArbeid.perioder[0].fom ? -1 : 1;
-        }
-        return Object.byString(a, kriterium) < Object.byString(b, kriterium) ? -1 : 1;
-    });
-}
-
 export function harLocalStorageStotte() {
     try {
         return 'localStorage' in window && window.localStorage !== null;
@@ -93,7 +63,7 @@ export function onResizeThrottle(callback) {
                     callback();
                 }
 
-            // The actualResizeHandler will execute at a rate of 15fps
+                // The actualResizeHandler will execute at a rate of 15fps
             }, 66);
         }
     };

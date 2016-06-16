@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { formatDate } from '../utils/index';
+import { toDatePrettyPrint } from '../utils/datoUtils';
 import { getLedetekst } from '../ledetekster';
 import Utvidbar from '../components/Utvidbar';
 import AppSpinner from './AppSpinner';
@@ -94,7 +94,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false
                 {
                     !sykmelding.diagnose.yrkesskadeDato ? <noscript /> :
                         <SykmeldingNokkelOpplysning tittel="Skadedato" className="sykmelding-subopplysning">
-                            <p className=" js-yrkesskadeDato">{formatDate(sykmelding.diagnose.yrkesskadeDato)}</p>
+                            <p className=" js-yrkesskadeDato">{toDatePrettyPrint(sykmelding.diagnose.yrkesskadeDato)}</p>
                         </SykmeldingNokkelOpplysning>
                 }
                 {

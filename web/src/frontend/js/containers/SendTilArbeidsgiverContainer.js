@@ -16,17 +16,11 @@ export class SendTilArbeidsgiverSide extends Component {
         dispatch(hentArbeidsgiversSykmeldinger());
     }
 
-    sendSykmelding(e, sykmelding) {
-        e.preventDefault();
-        this.props.dispatch(sendSykmeldingTilArbeidsgiver(sykmelding))
-    }
-
     render() {
         return this.props.brukerinfo.toggleSendTilArbeidsgiver ? (
             <Side tittel="Send sykmelding til arbeidsgiver" brodsmuler={this.props.brodsmuler}>
                 {
                     (() => {
-                        console.log(this.props.sykmelding)
                         if (this.props.sykmelding.henter) {
                             return <AppSpinner />;
                         } else if (this.props.sykmelding.hentingFeilet || this.props.sykmelding.innsendingFeilet) {

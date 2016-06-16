@@ -23,6 +23,7 @@ export class Velg extends Component {
 
     render() {
         return (<VelgArbeidsgiver
+            {...this.props}
             arbeidsgivere={this.props.arbeidsgivere.data}
             valgtArbeidsgiverOrgnummer={this.props.valgtArbeidsgiverOrgnummer}
             onChange={(orgnummer) => {
@@ -54,6 +55,8 @@ export function mapStateToProps(state, ownProps) {
         ledetekster: state.ledetekster,
         arbeidsgivere,
         valgtArbeidsgiverOrgnummer,
+        erFeil: ownProps.erFeil,
+        feilmelding: ownProps.feilmelding,
     };
 }
 

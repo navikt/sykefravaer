@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
 import Radiogruppe from './Radiogruppe.js';
 import { getHtmlLedetekst, getLedetekst } from '../ledetekster';
-import { Link } from 'react-router';
 
-const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere, feilmelding, erFeil, ledetekster, sykmeldingId }) => {
+const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere, feilmelding, erFeil, ledetekster }) => {
     return (<div className="blokk">
         <Radiogruppe
             name="valgt-arbeidsgiver"
@@ -30,13 +29,18 @@ const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere,
                                 <div className="hode hode-advarsel hode-brodtekst redaksjonelt-innhold side-innhold"
                                     dangerouslySetInnerHTML={getHtmlLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.infotekst', ledetekster)} />
                                 <div className="knapperad side-innhold">
-                                    <p><button type="button" className="knapp knapp-hoved" onClick={() => {
-                                        window.print();
-                                    }}>{getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.skriv-ut', ledetekster)}</button></p>
                                     <p>
-                                        <Link to={`/sykefravaer/sykmeldinger/${sykmeldingId}`}>
+                                    <button type="button" className="knapp knapp-hoved" onClick={() => {
+                                        window.print();
+                                    }}>{getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.skriv-ut', ledetekster)}</button>
+                                    </p>
+                                    <p>
+                                        <a href="#" onClick={(e) => {
+                                            e.preventDefault();
+                                            window.history.back();
+                                        }}>
                                         {getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.tilbake', ledetekster)}
-                                        </Link>
+                                        </a>
                                     </p>
                                 </div>
                             </div>}
@@ -54,7 +58,6 @@ VelgArbeidsgiver.propTypes = {
     feilmelding: PropTypes.string,
     erFeil: PropTypes.bool,
     ledetekster: PropTypes.object,
-    sykmeldingId: PropTypes.string,
 };
 
 export default VelgArbeidsgiver;

@@ -23,7 +23,6 @@ export class Velg extends Component {
     render() {
         return (<VelgArbeidsgiver
             {...this.props}
-            sykmeldingId={this.props.sykmelding.id}
             onChange={(orgnummer) => {
                 this.props.resetState();
                 this.onChange(orgnummer);

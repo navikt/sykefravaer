@@ -23,19 +23,6 @@ describe("VelgArbeidsgiverContainer", () => {
 
     describe("mapStateToProps", () => {
 
-        it("Skal returnere sykmelding", () => {
-            const res = mapStateToProps({
-                arbeidsgivere: {
-                    data: []
-                }
-            }, {
-                sykmelding 
-            });
-            expect(res.sykmelding).to.deep.equal({
-                id: 88
-            });
-        });
-
         it("Skal returnere ledetekster", () => {
             const res = mapStateToProps({
                 arbeidsgivere: {
@@ -48,9 +35,7 @@ describe("VelgArbeidsgiverContainer", () => {
                 }
             }, { sykmelding });
             expect(res.ledetekster).to.deep.equal({
-                data: {
-                    "nokkel": "Verdi"
-                }
+                "nokkel": "Verdi"
             });
         });
 
@@ -59,15 +44,17 @@ describe("VelgArbeidsgiverContainer", () => {
                 arbeidsgivere: {
                     data: [],
                     henter: true,
+                },
+                ledetekster: {
+                    data: {
+                        "nokkel": "Verdi"
+                    }
                 }
             }, { sykmelding });
-            expect(res.arbeidsgivere).to.deep.equal({
-                data: [{
+            expect(res.arbeidsgivere).to.deep.equal([{
                     orgnummer: '0', 
-                    navn: "Arbeidsgiveren min er ikke her"
-                }],
-                henter: true
-            });
+                    navn: "Annen arbeidsgiver"
+                }]);
         });
 
         it("Skal returnere valgtArbeidsgiverOrgnummer hvis det finnes", () => {
@@ -79,6 +66,11 @@ describe("VelgArbeidsgiverContainer", () => {
                 arbeidsgivere: {
                     data: [],
                     henter: true,
+                }, 
+                ledetekster: {
+                    data: {
+                        "nokkel": "Verdi"
+                    }
                 }
             }, { sykmelding });
             expect(res.valgtArbeidsgiverOrgnummer).to.equal(***REMOVED***);
@@ -89,6 +81,11 @@ describe("VelgArbeidsgiverContainer", () => {
                 arbeidsgivere: {
                     data: [],
                     henter: true,
+                }, 
+                ledetekster: {
+                    data: {
+                        "nokkel": "Verdi"
+                    }
                 }
             }, { sykmelding });
             expect(res.valgtArbeidsgiverOrgnummer).to.equal(undefined);
@@ -105,9 +102,7 @@ describe("VelgArbeidsgiverContainer", () => {
             dispatch = sinon.spy();
             props = {
                 sykmelding,
-                arbeidsgivere: {
-                    data: []
-                },
+                arbeidsgivere: [],
                 dispatch
             }
         }); 
@@ -117,21 +112,10 @@ describe("VelgArbeidsgiverContainer", () => {
             expect(component.find(VelgArbeidsgiver)).to.have.length(1);
         });
 
-        it("Skal hente arbeidsgivere dersom aktuell arbeidsgiver ikke tilhører den aktuelle sykmeldingen", () => {
+        it("Skal hente arbeidsgivere", () => {
             let component = mount(<Velg {...props} />);
             expect(dispatch.callCount).to.equal(1);
         });
-
-        it("Skal ikke hente arbeidsgivere dersom aktuell arbeidsgiver tilhører den aktuelle sykmeldingen", () => {
-            props.arbeidsgivere.sykmeldingId = 88,
-            props.arbeidsgivere.data = [{
-                orgnummer: 123456789,
-                navn: "Mosveens Pizzagrilleri"
-            }]
-            let component = mount(<Velg {...props} />);
-            expect(dispatch.callCount).to.equal(0);
-        });
-
 
     });
 

@@ -19,7 +19,7 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/sykmeldinger/:sykmeldingId/send" component={SendTilArbeidsgiverContainer} />
         <Route path="/sykefravaer/roller-og-ansvarsomrader" component={RollerContainer} />
         <Route path="/sykefravaer/sykmeldinger/:sykmeldingId/send/kvittering"
-               component={SendSykmeldingKvitteringContainer}/>
+            component={SendSykmeldingKvitteringContainer} />
         <Route path="*" component={LandingssideContainer} />
     </Router>);
 };

@@ -28,6 +28,7 @@ Radioknapp.propTypes = {
     onChange: PropTypes.func,
     id: PropTypes.string.isRequired,
     labelSekundaer: PropTypes.string,
+    children: PropTypes.object,
 };
 
 export default Radioknapp;

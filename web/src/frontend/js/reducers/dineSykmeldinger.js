@@ -1,5 +1,3 @@
-import { browserHistory } from 'react-router';
-
 const initiellState = {
     henter: false,
     arbeidsforhold: [],
@@ -45,15 +43,6 @@ export default function sykmeldinger(state = initiellState, action) {
             return Object.assign({}, state, {
                 sortering: action.sortering,
             });
-        }
-        case 'SEND_SYKMELDING_FEILET':
-        {
-            return state
-        }
-
-        case 'SYKMELDING_SENDT':
-        {
-            browserHistory.push(`/sykefravaer/sykmeldinger/${action.sykmelding.id}/send/kvittering`);
         }
         default: {
             return state;

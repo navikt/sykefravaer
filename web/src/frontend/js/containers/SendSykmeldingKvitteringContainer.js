@@ -17,12 +17,12 @@ export const SendSykmeldingKvitteringSide = (props) => {
                     } else if (sykmelding.hentingFeilet) {
                         return (<Feilmelding />);
                     }
-                    return <SendSykmeldingKvittering ledetekster={ledetekster} sykmelding={sykmelding}/>
+                    return <SendSykmeldingKvittering ledetekster={ledetekster} sykmelding={sykmelding} />;
                 })()
             }
 
         </Side>
-    )
+    );
 };
 
 SendSykmeldingKvitteringSide.propTypes = {
@@ -47,15 +47,15 @@ export function mapStateToProps(state, ownProps) {
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',
-            erKlikkbar: true
+            erKlikkbar: true,
         }, {
             tittel: getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data),
             sti: '/sykmeldinger',
-            erKlikkbar: true
+            erKlikkbar: true,
         }, {
-            tittel: 'kvittering'
+            tittel: 'kvittering',
         }],
-    }
+    };
 }
 
 const SendSykmeldingKvitteringContainer = connect(mapStateToProps)(SendSykmeldingKvitteringSide);

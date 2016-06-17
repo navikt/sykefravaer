@@ -6,17 +6,15 @@ import VelgArbeidsgiver from '../components/VelgArbeidsgiver.js';
 
 export class Velg extends Component {
     componentWillMount() {
-        const { sykmelding, dispatch, arbeidsgivere } = this.props;
-        if (arbeidsgivere.sykmeldingId !== sykmelding.id) {
-            const action = hentAktuelleArbeidsgivere(sykmelding.id);
-            dispatch(action);
-        }
+        const { sykmelding, dispatch } = this.props;
+        const action = hentAktuelleArbeidsgivere(sykmelding.id);
+        dispatch(action);
     }
 
     onChange(orgnummer) {
         const { arbeidsgivere, dispatch, sykmelding } = this.props;
-        const arbeidsgiver = arbeidsgivere.data.filter((arbgiv) => {
-            return arbgiv.orgnummer === orgnummer;
+        const arbeidsgiver = arbeidsgivere.filter((arbgiver) => {
+            return arbgiver.orgnummer === orgnummer;
         })[0];
         dispatch(setArbeidsgiver(sykmelding.id, arbeidsgiver));
     }
@@ -24,9 +22,8 @@ export class Velg extends Component {
     render() {
         return (<VelgArbeidsgiver
             {...this.props}
-            arbeidsgivere={this.props.arbeidsgivere.data}
-            valgtArbeidsgiverOrgnummer={this.props.valgtArbeidsgiverOrgnummer}
             onChange={(orgnummer) => {
+                this.props.resetState();
                 this.onChange(orgnummer);
             }} />);
     }
@@ -36,27 +33,25 @@ Velg.propTypes = {
     sykmelding: PropTypes.object.isRequired,
     dispatch: PropTypes.func,
     ledetekster: PropTypes.object,
-    arbeidsgivere: PropTypes.object,
+    arbeidsgivere: PropTypes.array,
     valgtArbeidsgiverOrgnummer: PropTypes.string,
+    resetState: PropTypes.func,
 };
 
 export function mapStateToProps(state, ownProps) {
     const valgtArbeidsgiverOrgnummer = ownProps.sykmelding.valgtArbeidsgiver ? ownProps.sykmelding.valgtArbeidsgiver.orgnummer : undefined;
     const arbeidsgivereData = state.arbeidsgivere.data.concat([{
         orgnummer: '0',
-        navn: 'Arbeidsgiveren min er ikke her',
+        navn: 'Annen arbeidsgiver',
     }]);
     const arbeidsgivere = Object.assign({}, state.arbeidsgivere, {
         data: arbeidsgivereData,
     });
 
     return {
-        sykmelding: ownProps.sykmelding,
-        ledetekster: state.ledetekster,
-        arbeidsgivere,
+        ledetekster: state.ledetekster.data,
+        arbeidsgivere: arbeidsgivere.data,
         valgtArbeidsgiverOrgnummer,
-        erFeil: ownProps.erFeil,
-        feilmelding: ownProps.feilmelding,
     };
 }
 

@@ -14,45 +14,51 @@ export function setArbeidsgiver(sykmeldingId, arbeidsgiver) {
     };
 }
 
-export function senderSykmelding() {
+export function senderSykmelding(sykmeldingId) {
     return {
-        type: 'SENDER_SYKMELDING'
-    }
+        type: 'SENDER_SYKMELDING',
+        sykmeldingId,
+    };
 }
 
-export function sendSykmeldingFeilet(sykmelding) {
+export function sendSykmeldingFeilet(sykmeldingId) {
     return {
         type: 'SEND_SYKMELDING_FEILET',
-        sykmelding: sykmelding,
-    }
+        sykmeldingId,
+    };
 }
 
 export function sykmeldingSendt(sykmelding) {
     return {
         type: 'SYKMELDING_SENDT',
-        sykmelding: sykmelding,
-    }
+        sykmelding,
+    };
 }
 
-export function sendSykmeldingTilArbeidsgiver(sykmelding) {
-    return function (dispatch) {
-        dispatch(senderSykmelding());
-        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmelding.id}/actions/send`,
+export function sendSykmeldingTilArbeidsgiver(sykmeldingId) {
+    return function send(dispatch) {
+        dispatch(senderSykmelding(sykmeldingId));
+        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/send`,
             {
+                credentials: 'include',
                 method: 'POST',
-                body: '***REMOVED***',
-                headers: new Headers({ 'Content-Type': 'application/json' })
-            }
-        ).then((response) => {
-
+                body: JSON.stringify({
+                    orgnummer: '***REMOVED***',
+                }),
+                // ***REMOVED*** = orgnummer, og må endres til sykmelding.valgtArbeidsgiver.orgnummer,
+                headers: new Headers({ 'Content-Type': 'application/json' }),
+            })
+        .then((response) => {
             if (response.status > 400) {
-                dispatch(sendSykmeldingFeilet(sykmelding));
-            } else {
-                dispatch(sykmeldingSendt(sykmelding));
+                dispatch(sendSykmeldingFeilet(sykmeldingId));
             }
+            return response.json();
         })
-            .catch(() => {
-                return dispatch(sendSykmeldingFeilet());
-            });
-    }
+        .then((json) => {
+            dispatch(sykmeldingSendt(json));
+        })
+        .catch(() => {
+            return dispatch(sendSykmeldingFeilet(sykmeldingId));
+        });
+    };
 }

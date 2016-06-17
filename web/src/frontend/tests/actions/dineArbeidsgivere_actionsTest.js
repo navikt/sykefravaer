@@ -26,14 +26,14 @@ describe("dineArbeidsgivere_actions", () => {
 
     it("Skal ha en hentAktuelleArbeidsgivere(sykmeldingId, dato)-funksjon som returnerer en funksjon", () => {
         const sykmeldingId = "olsen";
-        const dato = "2015-12-31T00:00:00Z";
+        const dato = { year: 2015, monthValue: 12, dayOfMonth: 31 };
         const resultat = actions.hentAktuelleArbeidsgivere(sykmeldingId, dato);
         expect(typeof resultat).to.equal("function");
     });
 
     it("Skal ha en henterAktuelleArbeidsgivere(sykmeldingId)-funksjon som returnerer riktig action", () => {
         const sykmeldingId = "olsen";
-        const dato = "2015-12-31T00:00:00Z";
+        const dato = { year: 2015, monthValue: 12, dayOfMonth: 31 };
         const resultat = actions.henterAktuelleArbeidsgivere(sykmeldingId);
         expect(resultat).to.deep.equal({
             type: "HENTER_AKTUELLE_ARBEIDSGIVERE",
@@ -43,7 +43,7 @@ describe("dineArbeidsgivere_actions", () => {
 
     it("Skal ha en hentAktuelleArbeidsgivereFeilet(sykmeldingId)-funksjon som returnerer riktig action", () => {
         const sykmeldingId = "olsen";
-        const dato = "2015-12-31T00:00:00Z";
+        const dato = { year: 2015, monthValue: 12, dayOfMonth: 31 };
         const resultat = actions.hentAktuelleArbeidsgivereFeilet(sykmeldingId);
         expect(resultat).to.deep.equal({
             type: "HENT_AKTUELLE_ARBEIDSGIVERE_FEILET",
@@ -95,7 +95,7 @@ describe("dineArbeidsgivere_actions", () => {
         }])
 
         const id = "55";
-        const dato = "2015-12-31T00:00:00Z";
+        const dato = { year: 2015, monthValue: 12, dayOfMonth: 31 };
 
         const expectedActions = [
             { type: "HENTER_AKTUELLE_ARBEIDSGIVERE", sykmeldingId: "55"}, 

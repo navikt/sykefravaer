@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import { formatDate } from '../utils/index.js';
-import { getLedetekst } from '../ledetekster';
+import { toDatePrettyPrint } from '../utils/datoUtils';
+import { getLedetekst } from '../ledetekster/index';
 import { getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
 
 const Tilbakedatering = ({ sykmelding, ledetekster }) => {
@@ -12,7 +12,7 @@ const Tilbakedatering = ({ sykmelding, ledetekster }) => {
                <h4 className="sykmelding-seksjonstittel">{getLedetekst('din-sykmelding.tilbakedatering.tittel', ledetekster)}</h4>
                 {
                     getSykmeldingOpplysning(sykmelding.tilbakedatering, 'dokumenterbarPasientkontakt',
-                        getLedetekst('din-sykmelding.tilbakedatering.kontakt.dato', ledetekster), formatDate(sykmelding.tilbakedatering.dokumenterbarPasientkontakt))
+                        getLedetekst('din-sykmelding.tilbakedatering.kontakt.dato', ledetekster), toDatePrettyPrint(sykmelding.tilbakedatering.dokumenterbarPasientkontakt))
                 }
                 {
                     getSykmeldingOpplysning(sykmelding.tilbakedatering, 'tilbakedatertBegrunnelse', getLedetekst('din-sykmelding.tilbakedatering.begrunnelse', ledetekster))

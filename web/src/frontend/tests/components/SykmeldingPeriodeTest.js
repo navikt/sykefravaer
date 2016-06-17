@@ -13,8 +13,8 @@ describe("SykmeldingPeriode", () => {
 
     it("Viser grad dersom sykmeldingen er gradert", function () {
         const periode = shallow(<SykmeldingPeriode periode={{
-            "fom": "2016-05-01T22:00:00.000Z",
-            "tom": "2016-05-16T22:00:00.000Z",
+            "fom": { year: 2016, monthValue: 5, dayOfMonth: 1 },
+            "tom": { year: 2016, monthValue: 5, dayOfMonth: 16 },
             "grad": 60,
             "behandlingsdager": null,
             "reisetilskudd": false,
@@ -25,8 +25,8 @@ describe("SykmeldingPeriode", () => {
 
     it("Skal vise antall dager", () => {
         const periode = shallow(<SykmeldingPeriode periode={{
-            "fom": "2016-05-01T22:00:00.000Z",
-            "tom": "2016-05-16T22:00:00.000Z",
+            "fom": { year: 2016, monthValue: 5, dayOfMonth: 1 },
+            "tom": { year: 2016, monthValue: 5, dayOfMonth: 16 },
             "grad": 100
           }} ledetekster={ledetekster} antallDager={16} />);
         expect(periode.text()).to.contain("16");
@@ -35,8 +35,8 @@ describe("SykmeldingPeriode", () => {
 
     it("Viser grad dersom sykmeldingen er ugradert (100 % sykmeldt)", function () {
         const periode = shallow(<SykmeldingPeriode periode={{
-            "fom": "2016-05-01T22:00:00.000Z",
-            "tom": "2016-05-16T22:00:00.000Z",
+            "fom": { year: 2016, monthValue: 5, dayOfMonth: 1 },
+            "tom": { year: 2016, monthValue: 5, dayOfMonth: 16 },
             "grad": 100,
             "behandlingsdager": null,
             "reisetilskudd": false,
@@ -47,8 +47,8 @@ describe("SykmeldingPeriode", () => {
 
     it("Viser ikke grad, men behandlingsdager, dersom sykmeldingen har behandlingsdager", function () {
         const periode = shallow(<SykmeldingPeriode periode={{
-            "fom": "2016-05-01T22:00:00.000Z",
-            "tom": "2016-05-16T22:00:00.000Z",
+            "fom": { year: 2016, monthValue: 5, dayOfMonth: 1 },
+            "tom": { year: 2016, monthValue: 5, dayOfMonth: 16 },
             "grad": null,
             "behandlingsdager": 5,
             "reisetilskudd": false,
@@ -61,8 +61,8 @@ describe("SykmeldingPeriode", () => {
 
     it("Viser ikke behandlingsdager, dersom sykmeldingen ikke har behandlingsdager", function () {
         const periode = shallow(<SykmeldingPeriode periode={{
-            "fom": "2016-05-01T22:00:00.000Z",
-            "tom": "2016-05-16T22:00:00.000Z",
+            "fom": { year: 2016, monthValue: 5, dayOfMonth: 1 },
+            "tom": { year: 2016, monthValue: 5, dayOfMonth: 16 },
             "grad": null,
             "behandlingsdager": null,
             "reisetilskudd": false,
@@ -74,8 +74,8 @@ describe("SykmeldingPeriode", () => {
 
     it("Viser reisetilskudd dersom sykmeldingen er gradert med reisetilskudd", function() {
         const periode = shallow(<SykmeldingPeriode periode={{
-            "fom": "2016-05-01T22:00:00.000Z",
-            "tom": "2016-05-16T22:00:00.000Z",
+            "fom": { year: 2016, monthValue: 5, dayOfMonth: 1 },
+            "tom": { year: 2016, monthValue: 5, dayOfMonth: 16 },
             "grad": 45,
             "behandlingsdager": 5,
             "reisetilskudd": true,
@@ -86,8 +86,8 @@ describe("SykmeldingPeriode", () => {
 
     it("Viser reisetilskudd dersom sykmeldingen er ugradert med reisetilskudd", function() {
         const periode1 = shallow(<SykmeldingPeriode periode={{
-            "fom": "2016-05-01T22:00:00.000Z",
-            "tom": "2016-05-16T22:00:00.000Z",
+            "fom": { year: 2016, monthValue: 5, dayOfMonth: 1 },
+            "tom": { year: 2016, monthValue: 5, dayOfMonth: 16 },
             "grad": null,
             "behandlingsdager": null,
             "reisetilskudd": true,
@@ -99,8 +99,8 @@ describe("SykmeldingPeriode", () => {
 
     it("Viser ikke reisetilskudd dersom sykmeldingen ikke har reisetilskudd", function() {
         const periode = shallow(<SykmeldingPeriode periode={{
-            "fom": "2016-05-01T22:00:00.000Z",
-            "tom": "2016-05-16T22:00:00.000Z",
+            "fom": { year: 2016, monthValue: 5, dayOfMonth: 1 },
+            "tom": { year: 2016, monthValue: 5, dayOfMonth: 16 },
             "grad": 45,
             "behandlingsdager": 5,
             "reisetilskudd": null,
@@ -112,8 +112,8 @@ describe("SykmeldingPeriode", () => {
 
     it("Viser avventende + innspill til arbeidsgiver dersom sykmeldingen er avventende", function() {
         const periode = shallow(<SykmeldingPeriode periode={{
-            "fom": "2016-05-01T22:00:00.000Z",
-            "tom": "2016-05-16T22:00:00.000Z",
+            "fom": { year: 2016, monthValue: 5, dayOfMonth: 1 },
+            "tom": { year: 2016, monthValue: 5, dayOfMonth: 16 },
             "grad": null,
             "behandlingsdager": 5,
             "reisetilskudd": true,
@@ -127,8 +127,8 @@ describe("SykmeldingPeriode", () => {
 
     it("Viser ikke avventende dersom sykmeldingen ikke er avventende", function() {
         const periode = shallow(<SykmeldingPeriode periode={{
-            "fom": "2016-05-01T22:00:00.000Z",
-            "tom": "2016-05-16T22:00:00.000Z",
+            "fom": { year: 2016, monthValue: 5, dayOfMonth: 1 },
+            "tom": { year: 2016, monthValue: 5, dayOfMonth: 16 },
             "grad": 45,
             "behandlingsdager": 5,
             "reisetilskudd": true,

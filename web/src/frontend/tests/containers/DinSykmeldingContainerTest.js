@@ -23,8 +23,8 @@ const sykmeldinger = [{
     sykmelder: "Ove Olsen",
     arbeidsgiver: "Selskapet AS",
     perioder: [{
-        fom: "2015-12-31T00:00:00Z",
-        tom: "2016-01-06T00:00:00Z",
+        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
+        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
         grad: 67
     }],
     hoveddiagnose: {
@@ -41,8 +41,8 @@ const sykmeldinger = [{
     sykmelder: "Ove Olsen",
     arbeidsgiver: "Selskapet AS",
     perioder: [{
-        fom: "2015-12-31T00:00:00Z",
-        tom: "2016-01-06T00:00:00Z",
+        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
+        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
         grad: 67
     }],
     hoveddiagnose: {
@@ -59,8 +59,8 @@ const sykmeldinger = [{
     sykmelder: "Ove Olsen",
     arbeidsgiver: "Selskapet AS",
     perioder: [{
-        fom: "2015-12-31T00:00:00Z",
-        tom: "2016-01-06T00:00:00Z",
+        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
+        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
         grad: 67
     }],
     hoveddiagnose: {

@@ -31,24 +31,32 @@ class DinSykmeldingBrukerInput extends Component {
     }
 
     render() {
+        const { arbeidssituasjoner, ledetekster, sykmelding } = this.props;
+
+
+        if (sykmelding.status === 'SENDT') {
+            return <noscript />;
+        }
+
+
         return (
             <form onSubmit={(e) => {
                 e.preventDefault();
-                this.valider(this.props.sykmelding);
+                this.valider(sykmelding);
             }}>
                 <div className="hjelpetekst-parent hjelpetekst-parent-inline">
-                    <h3 className="skjema-sporsmal med-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.tittel', this.props.ledetekster.data)}</h3>
+                    <h3 className="skjema-sporsmal med-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster.data)}</h3>
                     <Hjelpetekst
                         id="velg-arbeidssituasjon-hjelpetekst"
-                        tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tittel', this.props.ledetekster.data)}
-                        tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tekst', this.props.ledetekster.data)} />
+                        tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tittel', ledetekster.data)}
+                        tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tekst', ledetekster.data)} />
                 </div>
                 <div className="blokk-l">
                     <DropdownWrapper erFeil={this.state.forsoktSendt}
-                        feilmelding={getLedetekst('din-sykmelding.arbeidssituasjon.feilmelding', this.props.ledetekster.data)}>
+                        feilmelding={getLedetekst('din-sykmelding.arbeidssituasjon.feilmelding', ledetekster.data)}>
                         <div className="select-container">
-                            <Dropdown alternativer={this.props.arbeidssituasjoner}
-                                valgtAlternativ={this.props.sykmelding.arbeidssituasjon}
+                            <Dropdown alternativer={arbeidssituasjoner}
+                                valgtAlternativ={sykmelding.arbeidssituasjon}
                                 onChange={(status) => {this.onDropdownChange(status);}} />
                         </div>
                     </DropdownWrapper>

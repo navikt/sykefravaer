@@ -1,14 +1,16 @@
 import React, { PropTypes } from 'react';
 import { formatDate } from '../utils/index';
-import { getLedetekst } from '../ledetekster';
+import { getLedetekst } from '../ledetekster/index';
 import Utvidbar from '../components/Utvidbar';
 import AppSpinner from './AppSpinner';
 import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning';
 import SykmeldingPerioder from './SykmeldingPerioder';
+import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
 import { Link } from 'react-router';
 import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils';
 import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox';
 import FlereOpplysninger from './FlereOpplysninger';
+import KvitteringPanel from './KvitteringPanel';
 import DinSykmeldingBrukerInputContainer from '../containers/DinSykmeldingBrukerInputContainer';
 import arbeidssituasjoner from '../arbeidssituasjonData';
 
@@ -17,6 +19,9 @@ const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false
         return <AppSpinner ledetekster={ledetekster} />;
     }
     return (<div>
+
+        <KvitteringPanel ledetekster={ledetekster} sykmelding={sykmelding} />
+
         <div className="header-bolk header-sykmelding">
             <img className="header-ikon" src="/sykefravaer/img/svg/account-circle.svg" alt="Du" />
             <img className="header-ikon header-ikon-hoykontrast"
@@ -30,7 +35,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false
             <div className="blokk-l side-innhold">
                 <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} ledetekster={ledetekster} />
                 {
-                    sykmelding.diagnose.hoveddiagnose ? (<div className="diagnose-container">
+                    sykmelding.diagnose.hoveddiagnose ? (<div className="rad-container">
                         <SykmeldingNokkelOpplysning
                             tittel={getLedetekst('din-sykmelding.diagnose.tittel', ledetekster)}>
                             <p className="js-hoveddiagnose">{sykmelding.diagnose.hoveddiagnose.diagnose}</p>
@@ -51,7 +56,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false
                     </div>) : <noscript />
                 }
                 {
-                    sykmelding.diagnose.bidiagnose ? (<div className="diagnose-container">
+                    sykmelding.diagnose.bidiagnose ? (<div className="rad-container">
                         <SykmeldingNokkelOpplysning
                             tittel={getLedetekst('din-sykmelding.bidiagnose.tittel', ledetekster)}>
                             <p className="js-bidiagnose">{sykmelding.diagnose.bidiagnose.diagnose}</p>
@@ -130,6 +135,9 @@ const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false
                         <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} /> : <noscript />
                 }
         </div>
+
+        <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} />
+
         <p className="side-innhold ikke-print">
             <Link to="/sykefravaer/sykmeldinger">
                 &lsaquo; {getLedetekst('din-sykmelding.tilbake', ledetekster)}

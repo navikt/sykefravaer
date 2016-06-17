@@ -1,6 +1,6 @@
 .varselstripe {
     position: relative;
-    padding-left: 3rem; 
+    padding-left: 3rem;
     margin: 0; 
 }
 
@@ -21,3 +21,9 @@
     background-color: transparent;
     border: 1px solid @white; 
 }
+
+.varselstripe--success:before {
+  background-color: @color-success;
+  background-image: data-uri('image/svg+xml;charset=UTF-8', '@{modig-frontend-images-root-url}/ikoner-svg/ikon-suksess.svg');
+}
+

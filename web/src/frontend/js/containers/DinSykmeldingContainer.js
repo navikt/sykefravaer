@@ -49,9 +49,16 @@ DinSykmldSide.propTypes = {
 
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
-    const sykmelding = state.dineSykmeldinger.data.filter((sykmld) => {
+    let sykmelding = state.dineSykmeldinger.data.filter((sykmld) => {
         return `${sykmld.id}` === `${sykmeldingId}`;
     })[0];
+
+    //  Når vi får disse dataene korrekt. Endre sykmelding til const og fjern disse
+    sykmelding.status = 'SENDT';
+    sykmelding.innsendtdato = { year: 2016, monthValue: 5, dayOfMonth: 17 };
+    sykmelding.organisasjonsnummer = '123456789';
+    //  =====================
+
 
     return {
         sykmeldingId,

@@ -6,6 +6,10 @@ import { getLedetekst } from '../ledetekster';
 import FlereOpplysninger from './FlereOpplysninger.js';
 
 const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster }) => {
+    if (sykmelding.status !== 'SENDT') {
+        return <noscript />;
+    }
+
     return (<Utvidbar
         tittel="Opplysninger til arbeidsgiveren din"
         ikon="svg/doctor-2.svg"

@@ -58,16 +58,9 @@ describe("dinSykmelding_actions", () => {
     });
 
     it("Skal ha en sykmeldingSendt()-funksjon som returnerer riktig action", () => {
-        const sykmelding = {
-            id: 14,
-            status: 'SENDT'
-        };
-        const action = actions.sykmeldingSendt(sykmelding);
+        const action = actions.sykmeldingSendt(14);
         expect(action).to.deep.equal({
-            sykmelding: {
-                id: 14,
-                status: 'SENDT'
-            }, 
+            sykmeldingId: 14, 
             type: "SYKMELDING_SENDT",
         });
     });

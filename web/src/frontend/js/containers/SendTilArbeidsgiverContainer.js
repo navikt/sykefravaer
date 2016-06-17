@@ -4,6 +4,7 @@ import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import SendTilArbeidsgiver from '../components/SendTilArbeidsgiver';
+import SendSykmeldingKvittering from '../components/SendSykmeldingKvittering';
 import { getLedetekst } from '../ledetekster';
 import { getSykmelding } from '../utils';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
@@ -23,7 +24,7 @@ export class SendTilArbeidsgiverSide extends Component {
 
     render() {
         return this.props.brukerinfo.toggleSendTilArbeidsgiver ? (
-            <Side tittel="Send sykmelding til arbeidsgiver" brodsmuler={this.props.brodsmuler}>
+            <Side ref="js-side" tittel={this.props.sidetittel} brodsmuler={this.props.brodsmuler}>
                 {
                     (() => {
                         if (this.props.henter) {
@@ -34,6 +35,8 @@ export class SendTilArbeidsgiverSide extends Component {
                             return (<Feilmelding
                                 tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', this.props.ledetekster.data)}
                                 melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', this.props.ledetekster.data)} />);
+                        } else if (this.props.sykmelding.status === 'SENDT') {
+                            return <SendSykmeldingKvittering sykmelding={this.props.sykmelding} ledetekster={this.props.ledetekster.data} />;
                         }
                         return (<SendTilArbeidsgiver
                             sykmelding={this.props.sykmelding}
@@ -61,11 +64,13 @@ SendTilArbeidsgiverSide.propTypes = {
     hentingFeilet: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
     dispatch: PropTypes.func,
+    sidetittel: PropTypes.string,
 };
 
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
     const sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId);
+    const sidetittelNokkel = sykmelding && sykmelding.status === 'SENDT' ? 'send-til-arbeidsgiver.sidetittel' : 'send-til-arbeidsgiver.kvittering.sidetittel';
 
     return {
         sykmelding,
@@ -75,6 +80,7 @@ export function mapStateToProps(state, ownProps) {
         sendingFeilet: state.arbeidsgiversSykmeldinger.sendingFeilet,
         brukerinfo: state.brukerinfo.bruker.data,
         ledetekster: state.ledetekster,
+        sidetittel: getLedetekst(sidetittelNokkel, state.ledetekster.data),
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',

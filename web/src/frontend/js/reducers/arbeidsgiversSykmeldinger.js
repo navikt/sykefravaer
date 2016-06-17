@@ -54,8 +54,10 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
         case 'SYKMELDING_SENDT': {
             const data = state.data.map((sykmld) => {
                 let ret = sykmld;
-                if (sykmld.id === action.sykmelding.id) {
-                    ret = Object.assign({}, sykmld, action.sykmelding);
+                if (sykmld.id === action.sykmeldingId) {
+                    ret = Object.assign({}, sykmld, {
+                        status: 'SENDT',
+                    });
                 }
                 return ret;
             });

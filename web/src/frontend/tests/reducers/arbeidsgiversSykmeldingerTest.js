@@ -162,18 +162,13 @@ describe('arbeidsgiversSykmeldinger', () => {
         it("Håndterer SYKMELDING_SENDT", () => {
             action = {
                 type: 'SYKMELDING_SENDT',
-                sykmelding: {
-                    id: 56,
-                    status: 'SENDT',
-                    sykmelder: 'Hans Hansen'
-                }
+                sykmeldingId: 56
             }
             const nextState = arbeidsgiversSykmeldinger(initialState, action);
             expect(nextState).to.deep.equal({
                 data: [{
                     id: 56,
                     status: 'SENDT',
-                    sykmelder: 'Hans Hansen',
                     valgtArbeidsgiver: {
                         orgnummer: 123456789,
                         navn: 'Olsens Sykkelbud'
@@ -205,11 +200,7 @@ describe('arbeidsgiversSykmeldinger', () => {
 
                 const expectedActions = [
                     { type: "SENDER_SYKMELDING", sykmeldingId: 56}, 
-                    { type: "SYKMELDING_SENDT", sykmelding: {
-                        id: 56,
-                        status: "SENDT",
-                        sykmelder: "Hans Hansen"
-                    }}
+                    { type: "SYKMELDING_SENDT", sykmeldingId: 56}
                 ]
 
                 return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(56))
@@ -232,7 +223,6 @@ describe('arbeidsgiversSykmeldinger', () => {
 
                 const expectedActions = [
                     { type: "SENDER_SYKMELDING", sykmeldingId: 56}, 
-                    { type: "SEND_SYKMELDING_FEILET", sykmeldingId: 56 },
                     { type: "SEND_SYKMELDING_FEILET", sykmeldingId: 56 }
                 ]
 

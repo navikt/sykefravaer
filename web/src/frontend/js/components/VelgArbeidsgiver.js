@@ -33,7 +33,11 @@ const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere,
                                     <p><button type="button" className="knapp knapp-hoved" onClick={() => {
                                         window.print();
                                     }}>{getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.skriv-ut', ledetekster)}</button></p>
-                                    <p><Link to={`/sykefravaer/sykmeldinger/${sykmeldingId}`}>{getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.tilbake', ledetekster)}</Link></p>
+                                    <p>
+                                        <Link to={`/sykefravaer/sykmeldinger/${sykmeldingId}`}>
+                                        {getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.tilbake', ledetekster)}
+                                        </Link>
+                                    </p>
                                 </div>
                             </div>}
                         </input>);

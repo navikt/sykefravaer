@@ -46,9 +46,7 @@ describe("VelgArbeidsgiverContainer", () => {
                     henter: true,
                 },
                 ledetekster: {
-                    data: {
-                        "nokkel": "Verdi"
-                    }
+                    data: ledetekster
                 }
             }, { sykmelding });
             expect(res.arbeidsgivere).to.deep.equal([{

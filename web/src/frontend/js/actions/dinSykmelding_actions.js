@@ -28,10 +28,10 @@ export function sendSykmeldingFeilet(sykmeldingId) {
     };
 }
 
-export function sykmeldingSendt(sykmelding) {
+export function sykmeldingSendt(sykmeldingId) {
     return {
         type: 'SYKMELDING_SENDT',
-        sykmelding,
+        sykmeldingId,
     };
 }
 
@@ -51,11 +51,9 @@ export function sendSykmeldingTilArbeidsgiver(sykmeldingId) {
         .then((response) => {
             if (response.status > 400) {
                 dispatch(sendSykmeldingFeilet(sykmeldingId));
+            } else {
+                dispatch(sykmeldingSendt(sykmeldingId));
             }
-            return response.json();
-        })
-        .then((json) => {
-            dispatch(sykmeldingSendt(json));
         })
         .catch(() => {
             return dispatch(sendSykmeldingFeilet(sykmeldingId));

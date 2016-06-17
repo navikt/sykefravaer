@@ -6,8 +6,6 @@ import { DinSykmeldingContainer } from '../containers/DinSykmeldingContainer.js'
 import TidslinjeContainer from '../containers/TidslinjeContainer.js';
 import { SendTilArbeidsgiverContainer } from '../containers/SendTilArbeidsgiverContainer.js';
 import RollerContainer from '../containers/RollerContainer.js';
-import SendSykmeldingKvitteringContainer from '../containers/SendSykmeldingKvitteringContainer.js';
-
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
@@ -18,8 +16,6 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/sykmeldinger/:sykmeldingId" component={DinSykmeldingContainer} />
         <Route path="/sykefravaer/sykmeldinger/:sykmeldingId/send" component={SendTilArbeidsgiverContainer} />
         <Route path="/sykefravaer/roller-og-ansvarsomrader" component={RollerContainer} />
-        <Route path="/sykefravaer/sykmeldinger/:sykmeldingId/send/kvittering"
-            component={SendSykmeldingKvitteringContainer} />
         <Route path="*" component={LandingssideContainer} />
     </Router>);
 };

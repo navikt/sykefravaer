@@ -80,7 +80,7 @@ class SendTilArbeidsgiver extends Component {
                 <button type="button" className={`js-send knapp knapp-hoved ${(sender) ? 'er-inaktiv knapp-spinner' : ''}`} onClick={(e) => {
                     this.submitHandler(e);
                 }}>
-                    Send
+                    {getLedetekst('send-til-arbeidsgiver.send.knappetekst', ledetekster)}
                     <span className="spinner-knapp" />
                 </button>
             </div>

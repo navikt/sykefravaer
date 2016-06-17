@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions.js';
 import { setArbeidsgiver } from '../actions/dinSykmelding_actions.js';
 import VelgArbeidsgiver from '../components/VelgArbeidsgiver.js';
+import { getLedetekst } from '../ledetekster';
 
 export class Velg extends Component {
     componentWillMount() {
@@ -22,6 +23,7 @@ export class Velg extends Component {
     render() {
         return (<VelgArbeidsgiver
             {...this.props}
+            sykmeldingId={this.props.sykmelding.id}
             onChange={(orgnummer) => {
                 this.props.resetState();
                 this.onChange(orgnummer);
@@ -42,7 +44,7 @@ export function mapStateToProps(state, ownProps) {
     const valgtArbeidsgiverOrgnummer = ownProps.sykmelding.valgtArbeidsgiver ? ownProps.sykmelding.valgtArbeidsgiver.orgnummer : undefined;
     const arbeidsgivereData = state.arbeidsgivere.data.concat([{
         orgnummer: '0',
-        navn: 'Annen arbeidsgiver',
+        navn: getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.label', state.ledetekster.data),
     }]);
     const arbeidsgivere = Object.assign({}, state.arbeidsgivere, {
         data: arbeidsgivereData,

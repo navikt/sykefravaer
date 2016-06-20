@@ -19,7 +19,7 @@ describe("Tilbakedatering", () => {
         it("Skal vise dersom sykmelding.dokumenterbarPasientkontakt === (dato)", () => {
             let component = shallow(<Tilbakedatering sykmelding={getSykmelding({
                 tilbakedatering: {
-                    dokumenterbarPasientkontakt: "2015-12-31T00:00:00Z"
+                    dokumenterbarPasientkontakt: { year: 2015, monthValue: 12, dayOfMonth: 31 }
                 }
             })} ledetekster={ledetekster} />);
             expect(component.find(".js-dokumenterbarPasientkontakt").text()).to.equal("31.12.2015")

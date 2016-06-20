@@ -161,7 +161,7 @@ describe("DinSykmelding", () => {
                 "arbeidsfoerEtterPerioden": true,
                 "svangerskap": true,
                 "yrkesskade": true,
-                "yrkesskadeDato": "2016-04-26T22:00:00.000Z",
+                "yrkesskadeDato": { year: 2016, monthValue: 4, dayOfMonth: 26 },
                 "avventendeSykemeldingInnspillArbeidsgiver": null,
                 "hensynPaaArbeidsplassen": "Må ta det pent",
                 "antarReturSammeArbeidsgiver": false,
@@ -169,17 +169,17 @@ describe("DinSykmelding", () => {
                 "antarReturAnnenArbeidsgiver": false,
                 "tilbakemeldingReturArbeid": null,
                 "utenArbeidsgiverAntarTilbakeIArbeid": true,
-                "utenArbeidsgiverAntarTilbakeIArbeidDato": "2016-05-20T22:00:00.000Z",
-                "utenArbeidsgiverTilbakemelding": "2016-04-30T22:00:00.000Z",
+                "utenArbeidsgiverAntarTilbakeIArbeidDato": { year: 2016, monthValue: 5, dayOfMonth: 20 },
+                "utenArbeidsgiverTilbakemelding": { year: 2016, monthValue: 4, dayOfMonth: 30 },
                 "perioder": [{
-                    "fom": "2016-05-03T22:00:00.000Z",
-                    "tom": "2016-05-14T22:00:00.000Z",
+                    "fom": { year: 2016, monthValue: 5, dayOfMonth: 3 },
+                    "tom": { year: 2016, monthValue: 5, dayOfMonth: 14 },
                     "grad": 100,
                     "behandlingsdager": null,
                     "reisetilskudd": null,
                     "avventende": null
                 }],
-                "startLegemeldtFravaer": "2016-05-03T22:00:00.000Z",
+                "startLegemeldtFravaer": { year: 2016, monthValue: 5, dayOfMonth: 3 },
                 "aktivitetIkkeMulig433": [],
                 "aktivitetIkkeMulig434": [],
                 "aarsakAktivitetIkkeMulig433": null,
@@ -196,7 +196,7 @@ describe("DinSykmelding", () => {
                 "innspillTilArbeidsgiver": "Arbeidsgiver bør skjerpe seg!",
                 "dokumenterbarPasientkontakt": null,
                 "tilbakedatertBegrunnelse": "Det har ikke vært mulig å kontakte pasient.",
-                "utstedelsesdato": "2016-05-02T22:00:00.000Z"
+                "utstedelsesdato": { year: 2016, monthValue: 5, dayOfMonth: 2 }
             }} ledetekster={ledetekster}/>);
             expect(component.find(".js-arbeidsfoerEtterPerioden").length).to.equal(1);
             expect(component.find(".js-arbeidsfoerEtterPerioden").text()).to.equal("Pasienten er 100 % arbeidsfør etter perioden");
@@ -226,7 +226,7 @@ describe("DinSykmelding", () => {
                 "arbeidsfoerEtterPerioden": false,
                 "svangerskap": true,
                 "yrkesskade": true,
-                "yrkesskadeDato": "2016-04-26T22:00:00.000Z",
+                "yrkesskadeDato": { year: 2016, monthValue: 4, dayOfMonth: 26 },
                 "avventendeSykemeldingInnspillArbeidsgiver": null,
                 "hensynPaaArbeidsplassen": "Må ta det pent",
                 "antarReturSammeArbeidsgiver": false,
@@ -234,17 +234,17 @@ describe("DinSykmelding", () => {
                 "antarReturAnnenArbeidsgiver": false,
                 "tilbakemeldingReturArbeid": null,
                 "utenArbeidsgiverAntarTilbakeIArbeid": true,
-                "utenArbeidsgiverAntarTilbakeIArbeidDato": "2016-05-20T22:00:00.000Z",
-                "utenArbeidsgiverTilbakemelding": "2016-04-30T22:00:00.000Z",
+                "utenArbeidsgiverAntarTilbakeIArbeidDato": { year: 2016, monthValue: 5, dayOfMonth: 20 },
+                "utenArbeidsgiverTilbakemelding": { year: 2016, monthValue: 4, dayOfMonth: 30 },
                 "perioder": [{
-                    "fom": "2016-05-03T22:00:00.000Z",
-                    "tom": "2016-05-14T22:00:00.000Z",
+                    "fom": { year: 2016, monthValue: 5, dayOfMonth: 3 },
+                    "tom": { year: 2016, monthValue: 5, dayOfMonth: 14 },
                     "grad": 100,
                     "behandlingsdager": null,
                     "reisetilskudd": null,
                     "avventende": null
                 }],
-                "startLegemeldtFravaer": "2016-05-03T22:00:00.000Z",
+                "startLegemeldtFravaer": { year: 2016, monthValue: 5, dayOfMonth: 3 },
                 "aktivitetIkkeMulig433": [],
                 "aktivitetIkkeMulig434": [],
                 "aarsakAktivitetIkkeMulig433": null,
@@ -261,7 +261,7 @@ describe("DinSykmelding", () => {
                 "innspillTilArbeidsgiver": "Arbeidsgiver bør skjerpe seg!",
                 "dokumenterbarPasientkontakt": null,
                 "tilbakedatertBegrunnelse": "Det har ikke vært mulig å kontakte pasient.",
-                "utstedelsesdato": "2016-05-02T22:00:00.000Z"
+                "utstedelsesdato": { year: 2016, monthValue: 5, dayOfMonth: 2 }
             }} ledetekster={ledetekster}/>);
             expect(component.find(".js-arbeidsfoerEtterPerioden").length).to.equal(0);
         });
@@ -420,7 +420,7 @@ describe("DinSykmelding", () => {
             component = mount(
                 <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
                 diagnose: {
-                    yrkesskadeDato: "2015-12-31T00:00:00Z"
+                    yrkesskadeDato: { year: 2015, monthValue: 12, dayOfMonth: 31 }
                 }
             })} ledetekster={ledetekster}/></Provider>)
             expect(component.find(".js-yrkesskade").length).to.equal(1);

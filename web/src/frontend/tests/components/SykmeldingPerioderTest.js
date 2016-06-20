@@ -2,13 +2,13 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock.js";
+import ledetekster from "../ledetekster_mock";
 
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import SykmeldingPeriode from "../../js/components/SykmeldingPeriode.js";
-import SykmeldingPerioder from "../../js/components/SykmeldingPerioder.js";
+import SykmeldingPeriode from "../../js/components/SykmeldingPeriode";
+import SykmeldingPerioder from "../../js/components/SykmeldingPerioder";
 
 describe("SykmeldingPerioder", () => {
 

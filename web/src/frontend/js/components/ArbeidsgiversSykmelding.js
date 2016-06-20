@@ -4,6 +4,7 @@ import SykmeldingPerioder from './SykmeldingPerioder.js';
 import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
 import { getLedetekst } from '../ledetekster';
 import FlereOpplysninger from './FlereOpplysninger.js';
+import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils';
 
 const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster }) => {
     return (<Utvidbar
@@ -28,6 +29,9 @@ const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster }) => {
                     <SykmeldingNokkelOpplysning tittel={getLedetekst('send-til-arbeidsgiver.diagnose.tittel', ledetekster)} Overskrift="H4">
                         <p className="skravert js-diagnose">{getLedetekst('send-til-arbeidsgiver.diagnose.skjult', ledetekster)}</p>
                     </SykmeldingNokkelOpplysning>
+                }
+                {
+                    getSykmeldingCheckbox(sykmelding.friskmelding, 'arbeidsfoerEtterPerioden', getLedetekst('din-sykmelding.arbeidsfoer.tittel', ledetekster), 'blokk')
                 }
                 {
                     !sykmelding.friskmelding.hensynPaaArbeidsplassen ? null :

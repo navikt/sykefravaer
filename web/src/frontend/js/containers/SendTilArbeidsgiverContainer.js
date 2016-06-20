@@ -24,7 +24,7 @@ export class SendTilArbeidsgiverSide extends Component {
 
     render() {
         return this.props.brukerinfo.toggleSendTilArbeidsgiver ? (
-            <Side ref="js-side" tittel={this.props.sidetittel} brodsmuler={this.props.brodsmuler}>
+            <Side tittel={this.props.sidetittel} brodsmuler={this.props.brodsmuler}>
                 {
                     (() => {
                         if (this.props.henter) {

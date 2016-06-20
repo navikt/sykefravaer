@@ -15,16 +15,26 @@ class SendSykmeldingKvittering extends Component {
         return (
             <div ref="js-kvittering">
                 <div className="panel blokk typo-infotekst panel-melding side-innhold">
-                    <h1 className="hode hode-suksess hode-undertittel hode-dekorert blokk">Sykmeldingen er sendt</h1>
+                    <h1 className="hode hode-suksess hode-undertittel hode-dekorert blokk">{getLedetekst('kvittering.tittel', ledetekster)}</h1>
+                    <p className="redaksjonelt-innhold">
+                        {
+                            ((arbeidsgiver) => {
+                                const ledetekstNokkel = arbeidsgiver && arbeidsgiver.navn ? 'kvittering.undertekst.tekst.med-arbeidsgiver' : 'kvittering.undertekst.tekst.uten-arbeidsgiver';
+                                const params = {};
+                                if(arbeidsgiver) {
+                                    params['%ARBEIDSGIVER%'] = arbeidsgiver.navn;
+                                }
+                                return `${getLedetekst(ledetekstNokkel, ledetekster, params)} `;
+                            })(sykmelding.valgtArbeidsgiver)
+                        }
+                    </p>
                     <p>
-                        <span>{getLedetekst('kvittering.undertekst.tekst', ledetekster, { '%ARBEIDSGIVER%': sykmelding.valgtArbeidsgiver.navn })} </span>
-                        <Link to={`${getContextRoot()}/sykmeldinger`}>{getLedetekst('kvittering.undertekst.lenke', ledetekster)}</Link>
+                        <Link to={`${getContextRoot()}/sykmeldinger/${sykmelding.id}`}>{getLedetekst('kvittering.undertekst.lenke', ledetekster)}</Link>
                     </p>
                 </div>
-
                 <article className="panel blokk side-innhold">
-                    <h2 className="typo-undertittel">Skal du søke om sykepenger?</h2>
-                    <div dangerouslySetInnerHTML={getHtmlLedetekst('kvittering.sok-om-sykpenger.tekst', ledetekster)} />
+                    <h2 className="typo-undertittel">{getLedetekst('kvittering.sok-om-sykepenger.tittel', ledetekster)}</h2>
+                    <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('kvittering.sok-om-sykepenger.tekst', ledetekster)} />
                 </article>
             </div>
         );

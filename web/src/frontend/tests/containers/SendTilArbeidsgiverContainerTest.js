@@ -13,6 +13,7 @@ import { SendTilArbeidsgiverSide, mapStateToProps } from "../../js/containers/Se
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
 import SendTilArbeidsgiver from '../../js/components/SendTilArbeidsgiver.js';
+import SendSykmeldingKvittering from '../../js/components/SendSykmeldingKvittering.js';
 
 let component;
 
@@ -104,21 +105,16 @@ describe("SendTilArbeidsgiverContainer", () => {
 
     describe("mapStateToProps", () => {
 
-        it("Skal returnere sykmelding basert på ownProps.params.sykmeldingId", () => {
-            const res = mapStateToProps(state, ownProps);
-            expect(res.sykmelding.data).to.equal(sykmeldinger[2])
-        });
-
         it("Skal returnere henter-flagget fra sykmeldinger", () => {
             state.arbeidsgiversSykmeldinger.henter = true; 
             const res = mapStateToProps(state, ownProps);
-            expect(res.sykmelding.henter).to.equal(true);
+            expect(res.henter).to.equal(true);
         });
 
         it("Skal returnere hentingFeilet-flagget fra sykmeldinger", () => {
             state.arbeidsgiversSykmeldinger.hentingFeilet = true; 
             const res = mapStateToProps(state, ownProps);
-            expect(res.sykmelding.hentingFeilet).to.equal(true);
+            expect(res.hentingFeilet).to.equal(true);
         });
 
         it("Skal returnere ledetekster", () => {
@@ -134,34 +130,41 @@ describe("SendTilArbeidsgiverContainer", () => {
     describe("SendTilArbeidsgiverSide", () => {
 
         it("Skal vise AppSpinner når siden laster", () => {
-            let sykmelding = {
-                henter: true
-            };
+            let sykmelding = {};
             const brukerinfo = {
                 toggleSendTilArbeidsgiver: true,
             };
 
             let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster}
-                                                             dispatch={dispatch} brukerinfo={brukerinfo}/>);
+                                                             dispatch={dispatch} brukerinfo={brukerinfo} henter={true}/>);
             expect(component.find(AppSpinner)).to.have.length(1);
         }); 
 
-        it("Skal vise Feilmelding dersom noe feiler", () => {
+        it("Skal vise SendSykmeldingKvittering dersom sykmeldingen er sendt", () => {
             let sykmelding = {
-                hentingFeilet: true
+                status: "SENDT",
             };
             const brukerinfo = {
                 toggleSendTilArbeidsgiver: true,
             };
+
             let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster}
-                                                             dispatch={dispatch} brukerinfo={brukerinfo}/>);
+                                                             dispatch={dispatch} brukerinfo={brukerinfo} henter={false}/>);
+            expect(component.find(SendSykmeldingKvittering)).to.have.length(1);
+        }); 
+
+        it("Skal vise Feilmelding dersom noe feiler", () => {
+            let sykmelding = {};
+            const brukerinfo = {
+                toggleSendTilArbeidsgiver: true,
+            };
+            let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster}
+                                                             dispatch={dispatch} brukerinfo={brukerinfo} hentingFeilet={true} />);
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
 
         it("Skal vise feilmelding dersom sykmeldingen ikke finnes", () => {
-            let sykmelding = {
-                data: undefined
-            };
+            let sykmelding = undefined;
             const brukerinfo = {
                 toggleSendTilArbeidsgiver: true,
             };

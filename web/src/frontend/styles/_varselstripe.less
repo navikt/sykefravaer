@@ -1,29 +1,38 @@
-.varselstripe {
+@media(min-width: @screen-xs) {
+  .varselstripe {
     position: relative;
     padding-left: 3rem;
-    margin: 0; 
-}
+    margin: 0;
+  }
 
-.varselstripe:before {
-    content: "";
-    width: 2rem; 
-    height: 2rem; 
-    display: block; 
-    border-radius: 50%; 
-    background: @color-border no-repeat center center data-uri('image/svg+xml;charset=UTF-8', '@{modig-frontend-images-root-url}/ikoner-svg/ikon-informasjon.svg');
+  .varselstripe:before {
     position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
+  }
 }
 
+
 .contrast .varselstripe:before {
-    background-color: transparent;
-    border: 1px solid @white; 
+  background-color: transparent;
+  border: 1px solid @white;
 }
+
+.varselstripe:before {
+  content: "";
+  width: 2rem;
+  height: 2rem;
+  display: block;
+  border-radius: 50%;
+  background: @color-border no-repeat center center data-uri('image/svg+xml;charset=UTF-8', '@{modig-frontend-images-root-url}/ikoner-svg/ikon-informasjon.svg');
+}
+
 
 .varselstripe--success:before {
   background-color: @color-success;
   background-image: data-uri('image/svg+xml;charset=UTF-8', '@{modig-frontend-images-root-url}/ikoner-svg/ikon-suksess.svg');
+  margin: auto auto 2rem;
 }
+
 

@@ -44,9 +44,9 @@ export function sendSykmeldingTilArbeidsgiver(sykmeldingId) {
             {
                 credentials: 'include',
                 method: 'POST',
-                body: JSON.stringify({
+                body: {
                     orgnummer: '***REMOVED***',
-                }),
+                },
                 // ***REMOVED*** = orgnummer, og må endres til sykmelding.valgtArbeidsgiver.orgnummer,
                 headers: new Headers({
                     'Content-Type': 'application/json',

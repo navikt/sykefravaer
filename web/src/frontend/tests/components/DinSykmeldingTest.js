@@ -52,7 +52,7 @@ describe("DinSykmelding", () => {
         expect(component.find(KvitteringPanel)).to.have.length(1)
     });
 
-    it("Skal vise ikke kvittering dersom status ikke er sendt", () => {
+    it("Skal ikke vise kvittering dersom status ikke er sendt", () => {
         let sykmelding = getSykmelding();
         sykmelding.status = 'NY';
         component = shallow(<DinSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);

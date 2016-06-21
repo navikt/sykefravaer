@@ -28,6 +28,12 @@ export function getDuration(from, to) {
     return toMoment.diff(fromMoment, 'days') + 1;
 }
 
+const getCookie = (name) => {
+    var re = new RegExp(name + '=([^;]+)');
+    var match = re.exec(document.cookie);
+    return match !== null ? match[1] : '';
+};
+
 export function scrollTo(element, duration) {
     const started = Date.now();
     const ends = started + duration;

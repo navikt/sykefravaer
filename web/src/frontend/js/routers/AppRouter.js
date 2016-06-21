@@ -7,7 +7,6 @@ import TidslinjeContainer from '../containers/TidslinjeContainer.js';
 import { SendTilArbeidsgiverContainer } from '../containers/SendTilArbeidsgiverContainer.js';
 import RollerContainer from '../containers/RollerContainer.js';
 
-
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
         <Route path="/sykefravaer" component={LandingssideContainer} />

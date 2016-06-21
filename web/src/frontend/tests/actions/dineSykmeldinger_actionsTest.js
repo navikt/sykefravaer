@@ -3,6 +3,7 @@ import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from '../../js/actions/dineSykmeldinger_actions.js';
 import sinon from 'sinon';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
@@ -21,7 +22,7 @@ describe("dineSykmeldinger_actions", () => {
 		window = window || {};
 		window.SYFO_SETTINGS = {
 			REST_ROOT: 'http://tjenester.nav.no/syforest'
-		}
+		};
 	});
 
 	afterEach(() => {

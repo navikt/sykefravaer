@@ -167,7 +167,9 @@ const ledetekster = {
   "tidslinje.uten-arbeidsgiver.start.budskap": "<p>Som sykmeldt er det viktig at du vurderer om det er mulig for deg å delta i arbeid selv om du er syk.</p><ul><li>Er du selvstendig næringsdrivende eller frilanser, er det kanskje noen av arbeidsoppgavene dine du fortsatt kan utføre?</li><li>Er du arbeidsledig samtidig som du er sykmeldt, er det viktig å planlegge hvilke aktiviteter eller tiltak du har behov for slik at du kan komme i jobb igjen.</li></ul><p>Når du har vært sykmeldt i åtte uker, har NAV som oppgave å vurdere om du fyller kravene til aktivitet og om du fortsatt har rett til sykepenger. Den som har sykmeldt deg skal gi NAV informasjon hvis medisinske forhold gjør at du ikke kan være i aktivitet.  Ved alvorlig sykdom er det unntak fra aktivitetsplikten. Du vil motta et brev fra NAV hvis vi er usikre på om du fyller <a href=\"https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger/Sykepenger+til+arbeidstakere#chapter-2\">aktivitetskravet</a>.</p>",
   "din-sykmelding.meldingnav.navboertatakisaken.tittel": "NAV bør ta tak i saken nå",
   "tidslinje.med-arbeidsgiver.aktivitetskrav.meta": "7 uker",
-  "send-til-arbeidsgiver.diagnose.tittel": "Diagnose"
+  "send-til-arbeidsgiver.diagnose.tittel": "Diagnose",
+  "send-til-arbeidsgiver.orgnr": "Orgnr",
+  "send-til-arbeidsgiver.annen-arbeidsgiver.label": "Annen arbeidsgiver"
 };
 
 export default ledetekster;

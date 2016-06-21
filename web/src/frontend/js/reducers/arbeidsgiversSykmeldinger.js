@@ -39,6 +39,33 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
             });
             return Object.assign({}, state, { data });
         }
+        case 'SENDER_SYKMELDING': {
+            return Object.assign({}, state, {
+                sender: true,
+                sendingFeilet: false,
+            });
+        }
+        case 'SEND_SYKMELDING_FEILET': {
+            return Object.assign({}, state, {
+                sender: false,
+                sendingFeilet: true,
+            });
+        }
+        case 'SYKMELDING_SENDT': {
+            const data = state.data.map((sykmld) => {
+                let ret = sykmld;
+                if (sykmld.id === action.sykmeldingId) {
+                    ret = Object.assign({}, sykmld, {
+                        status: 'SENDT',
+                    });
+                }
+                return ret;
+            });
+            return Object.assign({}, state, { data }, {
+                sender: false,
+                sendingFeilet: false,
+            });
+        }
         default:
             return state;
     }

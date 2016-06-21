@@ -93,4 +93,56 @@ describe('dineSykmeldinger', () => {
         });
     });
 
+    it("Håndterer SYKMELDING_BEKREFTET", () => {
+        const initialState = {
+            data: [{
+                id: 23,
+            }, {
+                id: 24,
+            }]
+        };
+        const action = {
+            type: 'SYKMELDING_BEKREFTET',
+            sykmeldingId: 23,
+        };
+        const nextState = dineSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+                status: 'BEKREFTET',
+                nettoppBekreftet: true,
+            }, {
+                id: 24,
+            }]
+        });        
+    });
+
+    it("Håndterer NAVIGER_FRA_BEKREFTETKVITTERING", () => {
+       const initialState = {
+           data: [{
+               id: 23,
+               status: "BEKREFTET",
+               nettoppBekreftet: true
+           }, {
+               id: 24,
+           }]
+       };
+       const action = {
+           type: 'NAVIGER_FRA_BEKREFTETKVITTERING',
+           sykmeldingId: 23,
+       };
+       const nextState = dineSykmeldinger(initialState, action);
+
+       expect(nextState).to.deep.equal({
+           data: [{
+               id: 23,
+               status: 'BEKREFTET',
+               nettoppBekreftet: false,
+           }, {
+               id: 24,
+           }]
+       });  
+    })
+
 }); 

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../actions/dinSykmelding_actions.js';
 import DinSykmeldingBrukerInput from '../components/DinSykmeldingBrukerInput.js';
 
-function mapStateToProps(state, ownProps) {
+export function mapStateToProps(state, ownProps) {
     return {
         sykmelding: ownProps.sykmelding,
         arbeidssituasjoner: ownProps.arbeidssituasjoner,
@@ -13,4 +13,3 @@ function mapStateToProps(state, ownProps) {
 const DinSykmeldingBrukerInputContainer = connect(mapStateToProps, actionCreators)(DinSykmeldingBrukerInput);
 
 export default DinSykmeldingBrukerInputContainer;
-

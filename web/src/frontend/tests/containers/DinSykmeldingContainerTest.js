@@ -11,6 +11,7 @@ import { DinSykmldSide, mapStateToProps } from "../../js/containers/DinSykmeldin
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
 import DinSykmelding from '../../js/components/DinSykmelding.js';
+import SykmeldingKvittering from '../../js/components/SykmeldingKvittering.js';
 import sinon from 'sinon';
 
 let component;
@@ -238,6 +239,18 @@ describe("DinSykmeldingContainer", () => {
             };
             let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.find(DinSykmelding)).to.have.length(1);
+        });
+
+        it("Skal vise kvittering dersom sykmeldingen har status === 'BEKREFTET' og nettoppBekreftet === true", () => {
+            let sykmelding = {
+                hentingFeilet: false,
+                data: {
+                    status: "BEKREFTET",
+                    nettoppBekreftet: true
+                }
+            };
+            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            expect(component.find(SykmeldingKvittering)).to.have.length(1);
         });
 
         it("Skal kalle dispatch", () => {

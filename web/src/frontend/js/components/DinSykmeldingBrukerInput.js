@@ -17,27 +17,36 @@ class DinSykmeldingBrukerInput extends Component {
         this.props.setArbeidssituasjon(status, this.props.sykmelding.id);
     }
 
-    valider(sykmelding) {
-        if (sykmelding.arbeidssituasjon !== undefined) {
-            this.setState({ forsoktSendt: false });
-            this.redirect();
-        } else {
-            this.setState({ forsoktSendt: true });
-        }
+    gaTilSend() {
+        browserHistory.push(`/sykefravaer/sykmeldinger/${this.props.sykmelding.id}/send`);
     }
 
-    redirect() {
-        browserHistory.push(`/sykefravaer/sykmeldinger/${this.props.sykmelding.id}/send`);
+    valider(sykmelding) {
+        switch (sykmelding.arbeidssituasjon) {
+            case undefined: {
+                this.setState({ forsoktSendt: true });
+                return;
+            }
+            case 'arbeidstaker': {
+                this.setState({ forsoktSendt: false });
+                this.gaTilSend();
+                return;
+            }
+            default: {
+                this.setState({ forsoktSendt: false });
+                this.props.bekreftSykmelding(sykmelding.id, sykmelding.arbeidssituasjon);
+                return;
+            }
+        }
     }
 
     render() {
         const { arbeidssituasjoner, ledetekster, sykmelding } = this.props;
-
+        const knappetekst = !sykmelding.arbeidssituasjon || sykmelding.arbeidssituasjon === 'default' || sykmelding.arbeidssituasjon === 'arbeidstaker' ? 'Gå videre' : 'Bekreft';
 
         if (sykmelding.status === 'SENDT') {
             return <noscript />;
         }
-
 
         return (
             <form onSubmit={(e) => {
@@ -62,7 +71,7 @@ class DinSykmeldingBrukerInput extends Component {
                     </DropdownWrapper>
                 </div>
                 <div className="knapperad knapperad-adskilt">
-                    <input value="Gå videre" type="submit" className="knapp knapp-hoved js-videre" />
+                    <input value={knappetekst} type="submit" className="knapp knapp-hoved js-videre" />
                 </div>
             </form>
         );
@@ -74,6 +83,7 @@ DinSykmeldingBrukerInput.propTypes = {
     setArbeidssituasjon: PropTypes.func,
     ledetekster: PropTypes.object,
     arbeidssituasjoner: PropTypes.array,
+    bekreftSykmelding: PropTypes.func,
 };
 
 export default DinSykmeldingBrukerInput;

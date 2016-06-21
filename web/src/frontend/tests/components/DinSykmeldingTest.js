@@ -10,9 +10,11 @@ const expect = chai.expect;
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import DinSykmelding from "../../js/components/DinSykmelding.js";
-import SykmeldingPerioder from "../../js/components/SykmeldingPerioder.js";
-import FlereOpplysninger from "../../js/components/FlereOpplysninger.js";
+import DinSykmelding from "../../js/components/DinSykmelding";
+import SykmeldingPerioder from "../../js/components/SykmeldingPerioder";
+import KvitteringPanel from "../../js/components/KvitteringPanel";
+import ArbeidsgiversSykmelding from "../../js/components/ArbeidsgiversSykmelding";
+import FlereOpplysninger from "../../js/components/FlereOpplysninger";
 
 import { Provider } from 'react-redux';
 
@@ -42,6 +44,34 @@ describe("DinSykmelding", () => {
             </Provider>
         )
     })
+
+    it("Skal vise kvittering dersom status er sendt", () => {
+        let sykmelding = getSykmelding();
+        sykmelding.status = 'SENDT';
+        component = shallow(<DinSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);
+        expect(component.find(KvitteringPanel)).to.have.length(1)
+    });
+
+    it("Skal vise ikke kvittering dersom status ikke er sendt", () => {
+        let sykmelding = getSykmelding();
+        sykmelding.status = 'NY';
+        component = shallow(<DinSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);
+        expect(component.find(KvitteringPanel)).to.have.length(0)
+    });
+
+    it("Skal vise arbedsgiveropplysninger dersom status er sendt", () => {
+        let sykmelding = getSykmelding();
+        sykmelding.status = 'SENDT';
+        component = shallow(<DinSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);
+        expect(component.find(ArbeidsgiversSykmelding)).to.have.length(1)
+    });
+
+    it("Skal ikke vise arbedsgiveropplysninger dersom status ikke er sendt", () => {
+        let sykmelding = getSykmelding();
+        sykmelding.status = 'NY';
+        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}/>);
+        expect(component.find(ArbeidsgiversSykmelding)).to.have.length(0)
+    });
 
     it("Skal vise perioder", () => {
         component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}/>);
@@ -87,6 +117,8 @@ describe("DinSykmelding", () => {
         })} ledetekster={ledetekster}/></Provider>)
         expect(component.find(".js-arbeidsgiver").length).to.equal(0);
     });
+
+
 
     it("Skal vise en knapp dersom visSendTilArbeidsgiver === true", () => {
         const getState = {

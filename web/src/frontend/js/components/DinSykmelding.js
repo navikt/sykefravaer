@@ -18,10 +18,15 @@ const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false
     if (!sykmelding || !sykmelding.id) {
         return <AppSpinner ledetekster={ledetekster} />;
     }
+    let kvitteringpanel = <noscript />;
+    let arbeidsgiverssykmelding = <noscript />;
+    if (sykmelding.status === 'SENDT') {
+        arbeidsgiverssykmelding = <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} />;
+        kvitteringpanel = <KvitteringPanel ledetekster={ledetekster} sykmelding={sykmelding} />;
+    }
+
     return (<div>
-
-        <KvitteringPanel ledetekster={ledetekster} sykmelding={sykmelding} />
-
+        { kvitteringpanel }
         <div className="header-bolk header-sykmelding">
             <img className="header-ikon" src="/sykefravaer/img/svg/account-circle.svg" alt="Du" />
             <img className="header-ikon header-ikon-hoykontrast"
@@ -136,8 +141,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false
                 }
         </div>
 
-        <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} />
-
+        { arbeidsgiverssykmelding }
         <p className="side-innhold ikke-print">
             <Link to="/sykefravaer/sykmeldinger">
                 &lsaquo; {getLedetekst('din-sykmelding.tilbake', ledetekster)}

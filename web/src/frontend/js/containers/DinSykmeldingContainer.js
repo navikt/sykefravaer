@@ -42,6 +42,7 @@ DinSykmldSide.propTypes = {
     dispatch: PropTypes.func,
     ledetekster: PropTypes.object,
     sykmelding: PropTypes.object,
+    arbeidsgivere: PropTypes.object,
     brodsmuler: PropTypes.array,
     visSendTilArbeidsgiver: PropTypes.bool,
     sykmeldingId: PropTypes.string,
@@ -49,16 +50,9 @@ DinSykmldSide.propTypes = {
 
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
-    let sykmelding = state.dineSykmeldinger.data.filter((sykmld) => {
+    const sykmelding = state.dineSykmeldinger.data.filter((sykmld) => {
         return `${sykmld.id}` === `${sykmeldingId}`;
     })[0];
-
-    //  Når vi får disse dataene korrekt. Endre sykmelding til const og fjern disse
-    sykmelding.status = 'SENDT';
-    sykmelding.innsendtdato = { year: 2016, monthValue: 5, dayOfMonth: 17 };
-    sykmelding.organisasjonsnummer = '123456789';
-    //  =====================
-
 
     return {
         sykmeldingId,

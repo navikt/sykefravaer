@@ -6,6 +6,9 @@ const sykmelding = {
         etternavn: "Person",
     },
     arbeidsgiver: "Selskapet AS",
+    orgnummer: "123456789",
+    status: 'NY',
+    identdato: { year: 2015, monthValue: 12, dayOfMonth: 31 },
     diagnose: {
         hoveddiagnose: {
             diagnose: "Influensa",

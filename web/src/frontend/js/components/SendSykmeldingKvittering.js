@@ -19,9 +19,11 @@ class SendSykmeldingKvittering extends Component {
                     <p className="redaksjonelt-innhold">
                         {
                             ((arbeidsgiver) => {
-                                const ledetekstNokkel = arbeidsgiver && arbeidsgiver.navn ? 'kvittering.undertekst.tekst.med-arbeidsgiver' : 'kvittering.undertekst.tekst.uten-arbeidsgiver';
+                                const ledetekstNokkel = arbeidsgiver && arbeidsgiver.navn ?
+                                    'kvittering.undertekst.tekst.med-arbeidsgiver' :
+                                    'kvittering.undertekst.tekst.uten-arbeidsgiver';
                                 const params = {};
-                                if(arbeidsgiver) {
+                                if (arbeidsgiver) {
                                     params['%ARBEIDSGIVER%'] = arbeidsgiver.navn;
                                 }
                                 return `${getLedetekst(ledetekstNokkel, ledetekster, params)} `;

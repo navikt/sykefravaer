@@ -17,8 +17,8 @@ Object.byString = function byString(o, s) {
 };
 
 export const getCookie = (name) => {
-    var re = new RegExp(name + '=([^;]+)');
-    var match = re.exec(document.cookie);
+    const re = new RegExp(`${name}=([^;]+)`);
+    const match = re.exec(document.cookie);
     return match !== null ? match[1] : '';
 };
 

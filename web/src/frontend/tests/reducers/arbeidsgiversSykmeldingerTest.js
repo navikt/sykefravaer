@@ -189,9 +189,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                         'Content-Type': 'application/json'
                     }
                 })
-                .post("/sykmeldinger/56/actions/send", {
-                    orgnummer: '***REMOVED***'
-                })
+                .post("/sykmeldinger/56/actions/send")
                 .reply(200, {
                     "id": 56,
                     "status": "SENDT",

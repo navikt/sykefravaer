@@ -1,3 +1,5 @@
+import { getCookie } from '../utils/index';
+
 export function setArbeidssituasjon(arbeidssituasjon, sykmeldingId) {
     return {
         type: 'SET_ARBEIDSSITUASJON',
@@ -46,17 +48,20 @@ export function sendSykmeldingTilArbeidsgiver(sykmeldingId) {
                     orgnummer: '***REMOVED***',
                 }),
                 // ***REMOVED*** = orgnummer, og må endres til sykmelding.valgtArbeidsgiver.orgnummer,
-                headers: new Headers({ 'Content-Type': 'application/json' }),
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST')
+                }),
             })
-        .then((response) => {
-            if (response.status > 400) {
-                dispatch(sendSykmeldingFeilet(sykmeldingId));
-            } else {
-                dispatch(sykmeldingSendt(sykmeldingId));
-            }
-        })
-        .catch(() => {
-            return dispatch(sendSykmeldingFeilet(sykmeldingId));
-        });
+            .then((response) => {
+                if (response.status > 400) {
+                    dispatch(sendSykmeldingFeilet(sykmeldingId));
+                } else {
+                    dispatch(sykmeldingSendt(sykmeldingId));
+                }
+            })
+            .catch(() => {
+                return dispatch(sendSykmeldingFeilet(sykmeldingId));
+            });
     };
 }

@@ -12,6 +12,7 @@ export class Utvidbar extends Component {
             containerClassName: '',
             hindreToggle: false,
             hoyde: !this.props.erApen ? '0' : 'auto',
+            visInnhold: this.props.erApen,
         };
     }
 
@@ -27,6 +28,14 @@ export class Utvidbar extends Component {
             ikon: this.props.ikon,
             ikonHoykontrast: this.props.ikon.replace('.svg', '-highcontrast.svg'),
         });
+    }
+
+    getHeaderClassName() {
+        let c = !this.state.erApen ? 'utvidbar-header' : 'utvidbar-header utvidbar-header-apen'
+        if(this.props.variant) {
+            c = `${c} utvidbar-header-${this.props.variant}`
+        }
+        return c;
     }
 
     setAutoHoyde() {
@@ -49,6 +58,7 @@ export class Utvidbar extends Component {
             hoyde: '0',
             hindreToggle: true,
             containerClassName: ' med-animasjon',
+            visInnhold: true,
         });
         setTimeout(() => {
             const hoyde = this.refs.innhold.offsetHeight;
@@ -83,6 +93,7 @@ export class Utvidbar extends Component {
         setTimeout(() => {
             this.setState({
                 hindreToggle: false,
+                visInnhold: false,
             });
         }, 500);
     }
@@ -100,7 +111,7 @@ export class Utvidbar extends Component {
     }
 
     render() {
-        return (<div ref="utvidbar" className={`utvidbar blokk-l ${this.props.className ? this.props.className : ''}`} aria-expanded={this.state.erApen}>
+        return (<div ref="utvidbar" className={`utvidbar ${this.props.className ? this.props.className : ''}`} aria-expanded={this.state.erApen}>
                 <a href="javscript:void(0)"
                     role="button"
                     aria-pressed={this.state.erApen}
@@ -108,7 +119,7 @@ export class Utvidbar extends Component {
                     onMouseLeave={() => {this.onMouseLeave();}}
                     onClick={(event) => {this.toggle(event);}}
                     className="utvidbar-toggle">
-                    <this.props.Overskrift className={!this.state.erApen ? 'utvidbar-header' : 'utvidbar-header utvidbar-header-apen'}>
+                    <this.props.Overskrift className={this.getHeaderClassName()}>
                         <img src={`/sykefravaer/img/${this.state.ikon}`} alt={this.props.ikonAltTekst} className="header-ikon" />
                         <img src={`/sykefravaer/img/${this.state.ikonHoykontrast}`} alt={this.props.ikonAltTekst} className="header-ikon header-ikon-hoykontrast" />
                         <span className="header-tittel">{this.props.tittel}</span>
@@ -116,13 +127,17 @@ export class Utvidbar extends Component {
                 </a>
                 <div ref="container" style={{ height: this.state.hoyde }} className={`utvidbar-innhold-container${this.state.containerClassName}`}>
                     <div className="utvidbar-innhold" ref="innhold">
-                        {this.props.children}
-                        <div className="knapperad side-innhold">
-                            <a role="button" href="#"
-                                aria-pressed={!this.state.erApen}
-                                tabIndex={this.state.erApen ? '' : '-1'}
-                                onClick={(event) => {this.toggle(event);}}>Lukk</a>
-                        </div>
+                        {
+                            this.state.visInnhold && <div>
+                                {this.props.children}
+                                <div className="knapperad side-innhold">
+                                    <a role="button" href="#"
+                                        aria-pressed={!this.state.erApen}
+                                        tabIndex={this.state.erApen ? '' : '-1'}
+                                        onClick={(event) => {this.toggle(event);}}>Lukk</a>
+                                </div> 
+                            </div>
+                        }
                     </div>
                 </div>
         </div>);

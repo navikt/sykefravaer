@@ -21,7 +21,9 @@
 
 .utvidbar-toggle:focus {
 	background-color: transparent; 
-	box-shadow: 0 0 0 3px @color-focus; 
+	box-shadow: 0 0 0 3px @color-focus;
+	z-index: 1;
+	position: relative; 
 }
 
 .utvidbar-toggle:hover {
@@ -50,8 +52,12 @@
 
 }
 
-.utvidbar-lilla .utvidbar-header {
+.utvidbar-header-lilla {
 	background: @purple-light;
+}
+
+.utvidbar-header-lysebla {
+	background-color: @blueLight;
 }
 
 .utvidbar-header-apen .header-tittel {
@@ -97,4 +103,5 @@
 
 .utvidbar-innhold {
 	padding: 1.5rem 1rem 2.5rem 1rem;
+	background-color: @white;
 }

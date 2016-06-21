@@ -201,7 +201,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                     { type: "SYKMELDING_SENDT", sykmeldingId: 56}
                 ]
 
-                return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(56))
+                return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(56, ***REMOVED***))
                     .then(() => { 
                         expect(store.getActions()).to.deep.equal(expectedActions)
                     });
@@ -224,7 +224,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                     { type: "SEND_SYKMELDING_FEILET", sykmeldingId: 56 }
                 ]
 
-                return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(56))
+                return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(56, ***REMOVED***))
                     .then(() => { 
                         expect(store.getActions()).to.deep.equal(expectedActions)
                     });

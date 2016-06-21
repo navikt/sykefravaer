@@ -5,8 +5,8 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import SendTilArbeidsgiver from '../components/SendTilArbeidsgiver';
 import SendSykmeldingKvittering from '../components/SendSykmeldingKvittering';
-import { getLedetekst } from '../ledetekster';
-import { getSykmelding } from '../utils';
+import { getLedetekst } from '../ledetekster/index';
+import { getSykmelding } from '../utils/index';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
 import * as dinSykmeldingActions from '../actions/dinSykmelding_actions';
 
@@ -18,8 +18,8 @@ export class SendTilArbeidsgiverSide extends Component {
     }
 
     sendSykmelding(sykmeldingId) {
-        const { dispatch } = this.props;
-        dispatch(dinSykmeldingActions.sendSykmeldingTilArbeidsgiver(sykmeldingId));
+        const { dispatch, sykmelding } = this.props;
+        dispatch(dinSykmeldingActions.sendSykmeldingTilArbeidsgiver(sykmeldingId, sykmelding.valgtArbeidsgiver.orgnummer));
     }
 
     render() {

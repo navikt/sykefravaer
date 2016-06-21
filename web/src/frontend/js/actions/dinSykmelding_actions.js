@@ -37,7 +37,7 @@ export function sykmeldingSendt(sykmeldingId) {
     };
 }
 
-export function sendSykmeldingTilArbeidsgiver(sykmeldingId) {
+export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer) {
     return function send(dispatch) {
         dispatch(senderSykmelding(sykmeldingId));
         return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/send`,
@@ -45,7 +45,7 @@ export function sendSykmeldingTilArbeidsgiver(sykmeldingId) {
                 credentials: 'include',
                 method: 'POST',
                 body: {
-                    orgnummer: '***REMOVED***',
+                    orgnummer,
                 },
                 // ***REMOVED*** = orgnummer, og må endres til sykmelding.valgtArbeidsgiver.orgnummer,
                 headers: new Headers({

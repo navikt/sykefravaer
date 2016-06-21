@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { sorterSykmeldinger } from '../../js/utils';
+import { sorterSykmeldinger, sorterPerioder } from '../../js/utils/datoUtils';
 
 describe("sorterSykmeldinger", function() {
 
@@ -8,8 +8,8 @@ describe("sorterSykmeldinger", function() {
         "arbeidsgiver": "Drammen Frisør",
         "mulighetForArbeid": {
             "perioder": [{
-                "fom": "2014-01-24T23:00:00.000Z",
-                "tom": "2014-02-09T23:00:00.000Z",
+                "fom": { year: 2014, monthValue: 1, dayOfMonth: 24 },
+                "tom": { year: 2014, monthValue: 2, dayOfMonth: 9 },
                 "grad": "80"
             }]
         }
@@ -18,8 +18,8 @@ describe("sorterSykmeldinger", function() {
         "arbeidsgiver": "Ålesund Frisør",
         "mulighetForArbeid": {
             "perioder": [{
-                "fom": "2014-12-31T23:00:00.000Z",
-                "tom": "2015-01-30T23:00:00.000Z",
+                "fom": { year: 2014, monthValue: 12, dayOfMonth: 31 },
+                "tom": { year: 2015, monthValue: 1, dayOfMonth: 30 },
                 "grad": "25"
             }]
         }
@@ -28,8 +28,8 @@ describe("sorterSykmeldinger", function() {
         "arbeidsgiver": "Alnabru Frisør",
         "mulighetForArbeid": {
             "perioder": [{
-                "fom": "2015-04-08T22:00:00.000Z",
-                "tom": "2015-04-15T22:00:00.000Z",
+                "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
                 "grad": "100"
             }]
         }
@@ -38,8 +38,8 @@ describe("sorterSykmeldinger", function() {
         "arbeidsgiver": "Alnabru Frisør",
         "mulighetForArbeid": {
             "perioder": [{
-                "fom": "2015-05-17T22:00:00.000Z",
-                "tom": "2015-05-31T22:00:00.000Z",
+                "fom": { year: 2015, monthValue: 5, dayOfMonth: 17 },
+                "tom": { year: 2015, monthValue: 5, dayOfMonth: 31 },
                 "grad": "100"
             }]
         }
@@ -48,8 +48,8 @@ describe("sorterSykmeldinger", function() {
         "arbeidsgiver": "Alnabru Frisør",
         "mulighetForArbeid": {
             "perioder": [{
-                "fom": "2015-08-31T22:00:00.000Z",
-                "tom": "2015-09-13T22:00:00.000Z",
+                "fom": { year: 2015, monthValue: 8, dayOfMonth: 31 },
+                "tom": { year: 2015, monthValue: 9, dayOfMonth: 13 },
                 "grad": "100"
             }]
         }
@@ -58,8 +58,8 @@ describe("sorterSykmeldinger", function() {
         "arbeidsgiver": "Bærum Idrettslag",
         "mulighetForArbeid": {
             "perioder": [{
-                "fom": "2016-03-31T22:00:00.000Z",
-                "tom": "2016-08-13T22:00:00.000Z",
+                "fom": { year: 2016, monthValue: 3, dayOfMonth: 31 },
+                "tom": { year: 2016, monthValue: 8, dayOfMonth: 13 },
                 "grad": "29"
             }]
         }
@@ -73,8 +73,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Bærum Idrettslag",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2016-03-31T22:00:00.000Z",
-                    "tom": "2016-08-13T22:00:00.000Z",
+                    "fom": { year: 2016, monthValue: 3, dayOfMonth: 31 },
+                    "tom": { year: 2016, monthValue: 8, dayOfMonth: 13 },
                     "grad": "29"
                 }]
             }
@@ -83,8 +83,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-08-31T22:00:00.000Z",
-                    "tom": "2015-09-13T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 8, dayOfMonth: 31 },
+                    "tom": { year: 2015, monthValue: 9, dayOfMonth: 13 },
                     "grad": "100"
                 }]
             }
@@ -93,8 +93,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-05-17T22:00:00.000Z",
-                    "tom": "2015-05-31T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 5, dayOfMonth: 17 },
+                    "tom": { year: 2015, monthValue: 5, dayOfMonth: 31 },
                     "grad": "100"
                 }]
             }
@@ -103,8 +103,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
                     "grad": "100"
                 }]
             }
@@ -113,8 +113,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Ålesund Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-12-31T23:00:00.000Z",
-                    "tom": "2015-01-30T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 12, dayOfMonth: 31 },
+                    "tom": { year: 2015, monthValue: 1, dayOfMonth: 30 },
                     "grad": "25"
                 }]
             }
@@ -123,8 +123,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Drammen Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-01-24T23:00:00.000Z",
-                    "tom": "2014-02-09T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 1, dayOfMonth: 24 },
+                    "tom": { year: 2014, monthValue: 2, dayOfMonth: 9 },
                     "grad": "80"
                 }]
             }
@@ -139,16 +139,16 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Bærum Idrettslag",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2016-08-31T22:00:00.000Z",
-                    "tom": "2016-22-13T22:00:00.000Z",
+                    "fom": { year: 2016, monthValue: 8, dayOfMonth: 31 },
+                    "tom": { year: 2016, monthValue: 12, dayOfMonth: 22 },
                     "grad": "100"
                 }, {
-                    "fom": "2016-03-31T22:00:00.000Z",
-                    "tom": "2016-08-13T22:00:00.000Z",
+                    "fom": { year: 2016, monthValue: 3, dayOfMonth: 31 },
+                    "tom": { year: 2016, monthValue: 8, dayOfMonth: 13 },
                     "grad": "29"
                 }, {
-                    "fom": "2015-07-09T22:00:00.000Z",
-                    "tom": "2015-07-13T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 7, dayOfMonth: 9 },
+                    "tom": { year: 2015, monthValue: 7, dayOfMonth: 13 },
                     "grad": "60"
                 }]
             }
@@ -158,16 +158,16 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Bærum Idrettslag",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-07-09T22:00:00.000Z",
-                    "tom": "2015-07-13T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 7, dayOfMonth: 9 },
+                    "tom": { year: 2015, monthValue: 7, dayOfMonth: 13 },
                     "grad": "60"
                 }, {
-                    "fom": "2016-03-31T22:00:00.000Z",
-                    "tom": "2016-08-13T22:00:00.000Z",
+                    "fom": { year: 2016, monthValue: 3, dayOfMonth: 31 },
+                    "tom": { year: 2016, monthValue: 8, dayOfMonth: 13 },
                     "grad": "29"
                 }, {
-                    "fom": "2016-08-31T22:00:00.000Z",
-                    "tom": "2016-22-13T22:00:00.000Z",
+                    "fom": { year: 2016, monthValue: 8, dayOfMonth: 31 },
+                    "tom": { year: 2016, monthValue: 12, dayOfMonth: 22 },
                     "grad": "100"
                 }]
             }
@@ -182,16 +182,16 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Bærum Idrettslag",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2016-08-31T22:00:00.000Z",
-                    "tom": "2016-09-13T22:00:00.000Z",
+                    "fom": { year: 2016, monthValue: 8, dayOfMonth: 31 },
+                    "tom": { year: 2016, monthValue: 9, dayOfMonth: 13 },
                     "grad": "100"
                 }, {
-                    "fom": "2016-08-31T22:00:00.000Z",
-                    "tom": "2016-14-13T22:00:00.000Z",
+                    "fom": { year: 2016, monthValue: 8, dayOfMonth: 31 },
+                    "tom": { year: 2016, monthValue: 12, dayOfMonth: 13 },
                     "grad": "29"
                 }, {
-                    "fom": "2015-07-09T22:00:00.000Z",
-                    "tom": "2015-07-13T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 7, dayOfMonth: 9 },
+                    "tom": { year: 2015, monthValue: 7, dayOfMonth: 13 },
                     "grad": "60"
                 }]
             }
@@ -201,16 +201,16 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Bærum Idrettslag",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-07-09T22:00:00.000Z",
-                    "tom": "2015-07-13T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 7, dayOfMonth: 9 },
+                    "tom": { year: 2015, monthValue: 7, dayOfMonth: 13 },
                     "grad": "60"
                 }, {
-                    "fom": "2016-08-31T22:00:00.000Z",
-                    "tom": "2016-09-13T22:00:00.000Z",
+                    "fom": { year: 2016, monthValue: 8, dayOfMonth: 31 },
+                    "tom": { year: 2016, monthValue: 9, dayOfMonth: 13 },
                     "grad": "100"
                 }, {
-                    "fom": "2016-08-31T22:00:00.000Z",
-                    "tom": "2016-14-13T22:00:00.000Z",
+                    "fom": { year: 2016, monthValue: 8, dayOfMonth: 31 },
+                    "tom": { year: 2016, monthValue: 12, dayOfMonth: 13 },
                     "grad": "29"
                 }]
             }
@@ -223,8 +223,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
                     "grad": "100"
                 }]
             }
@@ -233,8 +233,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Ålesund Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-12-31T23:00:00.000Z",
-                    "tom": "2015-01-30T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 12, dayOfMonth: 31 },
+                    "tom": { year: 2015, monthValue: 1, dayOfMonth: 30 },
                     "grad": "25"
                 }]
             }
@@ -243,8 +243,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Drammen Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-01-24T23:00:00.000Z",
-                    "tom": "2014-02-09T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 1, dayOfMonth: 24 },
+                    "tom": { year: 2014, monthValue: 2, dayOfMonth: 9 },
                     "grad": "80"
                 }]
             }
@@ -255,8 +255,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
                     "grad": "100"
                 }]
             }
@@ -265,8 +265,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Drammen Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-01-24T23:00:00.000Z",
-                    "tom": "2014-02-09T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 1, dayOfMonth: 24 },
+                    "tom": { year: 2014, monthValue: 2, dayOfMonth: 9 },
                     "grad": "80"
                 }]
             }
@@ -275,8 +275,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Ålesund Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-12-31T23:00:00.000Z",
-                    "tom": "2015-01-30T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 12, dayOfMonth: 31 },
+                    "tom": { year: 2015, monthValue: 1, dayOfMonth: 30 },
                     "grad": "25"
                 }]
             }
@@ -289,8 +289,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
                     "grad": "100"
                 }]
             },
@@ -302,8 +302,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Ålesund Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-12-31T23:00:00.000Z",
-                    "tom": "2015-01-30T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 12, dayOfMonth: 31 },
+                    "tom": { year: 2015, monthValue: 1, dayOfMonth: 30 },
                     "grad": "25"
                 }]
             },
@@ -315,8 +315,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Drammen Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-01-24T23:00:00.000Z",
-                    "tom": "2014-02-09T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 1, dayOfMonth: 24 },
+                    "tom": { year: 2014, monthValue: 2, dayOfMonth: 9 },
                     "grad": "80"
                 }]
             },
@@ -330,8 +330,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
                     "grad": "100"
                 }]
             },
@@ -343,8 +343,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Drammen Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-01-24T23:00:00.000Z",
-                    "tom": "2014-02-09T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 1, dayOfMonth: 24 },
+                    "tom": { year: 2014, monthValue: 2, dayOfMonth: 9 },
                     "grad": "80"
                 }]
             },
@@ -356,8 +356,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Ålesund Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-12-31T23:00:00.000Z",
-                    "tom": "2015-01-30T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 12, dayOfMonth: 31 },
+                    "tom": { year: 2015, monthValue: 1, dayOfMonth: 30 },
                     "grad": "25"
                 }]
             },
@@ -374,8 +374,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
                     "grad": "100"
                 }]
             }
@@ -384,8 +384,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-11-20T23:00:00.000Z",
-                    "tom": "2015-11-30T23:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 11, dayOfMonth: 20 },
+                    "tom": { year: 2015, monthValue: 11, dayOfMonth: 30 },
                     "grad": "25"
                 }]
             }
@@ -394,8 +394,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Drammen Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-01-24T23:00:00.000Z",
-                    "tom": "2014-02-09T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 1, dayOfMonth: 24 },
+                    "tom": { year: 2014, monthValue: 2, dayOfMonth: 9 },
                     "grad": "80"
                 }]
             }
@@ -406,8 +406,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-11-20T23:00:00.000Z",
-                    "tom": "2015-11-30T23:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 11, dayOfMonth: 20 },
+                    "tom": { year: 2015, monthValue: 11, dayOfMonth: 30 },
                     "grad": "25"
                 }]
             }
@@ -416,8 +416,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
                     "grad": "100"
                 }]
             }
@@ -426,8 +426,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Drammen Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-01-24T23:00:00.000Z",
-                    "tom": "2014-02-09T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 1, dayOfMonth: 24 },
+                    "tom": { year: 2014, monthValue: 2, dayOfMonth: 9 },
                     "grad": "80"
                 }]
             }
@@ -440,16 +440,16 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
                     "grad": "100"
                 }, {
-                    "fom": "2015-05-08T22:00:00.000Z",
-                    "tom": "2015-05-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 5, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 5, dayOfMonth: 15 },
                     "grad": "100"
                 }, {
-                    "fom": "2015-08-08T22:00:00.000Z",
-                    "tom": "2015-08-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 8, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 8, dayOfMonth: 15 },
                     "grad": "100"
                 }]
             }
@@ -458,16 +458,16 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-22T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 22 },
                     "grad": "100"
                 }, {
-                    "fom": "2015-06-08T22:00:00.000Z",
-                    "tom": "2015-06-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 6, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 6, dayOfMonth: 15 },
                     "grad": "100"
                 }, {
-                    "fom": "2015-11-08T22:00:00.000Z",
-                    "tom": "2015-11-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 11, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 11, dayOfMonth: 15 },
                     "grad": "100"
                 }]
             }
@@ -476,16 +476,16 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-22T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 22 },
                     "grad": "100"
                 }, {
-                    "fom": "2015-03-08T22:00:00.000Z",
-                    "tom": "2015-03-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 3, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 3, dayOfMonth: 15 },
                     "grad": "100"
                 }, {
-                    "fom": "2015-01-08T22:00:00.000Z",
-                    "tom": "2015-01-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 1, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 1, dayOfMonth: 15 },
                     "grad": "100"
                 }]
             }
@@ -494,8 +494,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Drammen Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-01-24T23:00:00.000Z",
-                    "tom": "2014-02-09T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 1, dayOfMonth: 24 },
+                    "tom": { year: 2014, monthValue: 2, dayOfMonth: 9 },
                     "grad": "80"
                 }]
             }
@@ -506,16 +506,16 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-22T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 22 },
                     "grad": "100"
                 }, {
-                    "fom": "2015-06-08T22:00:00.000Z",
-                    "tom": "2015-06-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 6, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 6, dayOfMonth: 15 },
                     "grad": "100"
                 }, {
-                    "fom": "2015-11-08T22:00:00.000Z",
-                    "tom": "2015-11-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 11, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 11, dayOfMonth: 15 },
                     "grad": "100"
                 }]
             }
@@ -524,16 +524,16 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
                     "grad": "100"
                 }, {
-                    "fom": "2015-05-08T22:00:00.000Z",
-                    "tom": "2015-05-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 5, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 5, dayOfMonth: 15 },
                     "grad": "100"
                 }, {
-                    "fom": "2015-08-08T22:00:00.000Z",
-                    "tom": "2015-08-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 8, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 8, dayOfMonth: 15 },
                     "grad": "100"
                 }]
             }
@@ -542,16 +542,16 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2015-01-08T22:00:00.000Z",
-                    "tom": "2015-01-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 1, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 1, dayOfMonth: 15 },
                     "grad": "100"
                 }, {
-                    "fom": "2015-03-08T22:00:00.000Z",
-                    "tom": "2015-03-15T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 3, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 3, dayOfMonth: 15 },
                     "grad": "100"
                 }, {
-                    "fom": "2015-04-08T22:00:00.000Z",
-                    "tom": "2015-04-22T22:00:00.000Z",
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 22 },
                     "grad": "100"
                 }]
             }
@@ -560,8 +560,8 @@ describe("sorterSykmeldinger", function() {
             "arbeidsgiver": "Drammen Frisør",
             "mulighetForArbeid": {
                 "perioder": [{
-                    "fom": "2014-01-24T23:00:00.000Z",
-                    "tom": "2014-02-09T23:00:00.000Z",
+                    "fom": { year: 2014, monthValue: 1, dayOfMonth: 24 },
+                    "tom": { year: 2014, monthValue: 2, dayOfMonth: 9 },
                     "grad": "80"
                 }]
             }
@@ -569,4 +569,34 @@ describe("sorterSykmeldinger", function() {
     });
 
 
+    it("Skal sorterer perioder så eldste perioder fom kommer først og hvis lik fom så kommer eldste tom nederst", () => {
+            let sykmelding = {
+                "id": 3,
+                "arbeidsgiver": "Alnabru Frisør",
+                "mulighetForArbeid": {
+                    "perioder": [{
+                        "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                        "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
+                        "grad": "100"
+                    }, {
+                        "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                        "tom": { year: 2015, monthValue: 4, dayOfMonth: 16 },
+                        "grad": "100"
+                    }]
+                }
+            };
+            let s = sorterPerioder(sykmelding);
+            expect(s).to.deep.equal({
+                "perioder": [{
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
+                    "grad": "100"
+                }, {
+                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 16 },
+                    "grad": "100"
+                }]
+            });
+        }
+    );
 });

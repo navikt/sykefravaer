@@ -44,7 +44,7 @@ describe("Radiogruppe", () => {
                <input value="appelsin" label="Appelsin" />
                <input value="eple" label="Eple" />
            </Radiogruppe>);
-       expect(component.contains(<Radioknapp value="appelsin" label="Appelsin" name="frukt" erValgt={false} onChange={undefined} id="appelsin" />)).to.be.true;
+       expect(component.contains(<Radioknapp value="appelsin" label="Appelsin" name="frukt" erValgt={false} onChange={undefined} id="appelsin">{undefined}</Radioknapp>)).to.be.true;
     });
 
     it("Skal sende videre valgtVerdi-attributtet til radioknappene som en bool", () => {
@@ -52,8 +52,16 @@ describe("Radiogruppe", () => {
                 <input value="appelsin" label="Appelsin" />
                 <input value="eple" label="Eple" />
             </Radiogruppe>);
-        expect(component.contains(<Radioknapp id="appelsin" value="appelsin" label="Appelsin" name="frukt" erValgt={true} onChange={undefined} />)).to.be.true
-        expect(component.contains(<Radioknapp id="eple" value="eple" label="Eple" name="frukt" erValgt={false} onChange={undefined} />)).to.be.true
+        expect(component.contains(<Radioknapp id="appelsin" value="appelsin" label="Appelsin" name="frukt" erValgt={true} onChange={undefined}>{undefined}</Radioknapp>)).to.be.true
+        expect(component.contains(<Radioknapp id="eple" value="eple" label="Eple" name="frukt" erValgt={false} onChange={undefined}>{undefined}</Radioknapp>)).to.be.true
+    });
+
+    it("Skal sende videre children", () => {
+        let component = mount(<Radiogruppe name="frukt" valgtVerdi="appelsin">
+                <input value="appelsin" label="Appelsin"><div>Appelsin er en frukt</div></input>
+                <input value="eple" label="Eple" />
+            </Radiogruppe>);
+        expect(component.contains(<Radioknapp id="appelsin" value="appelsin" label="Appelsin" name="frukt" erValgt={true} onChange={undefined}><div>Appelsin er en frukt</div></Radioknapp>)).to.be.true
     });
 
     it("Skal vise feilmelding dersom erFeil === true", () => {

@@ -37,7 +37,7 @@ describe("FlereOpplysninger", () => {
 
         it("Skal vise dersom sykmelding.startLegemeldtFravaer er en dato", () => {
             component = mount(<FlereOpplysninger sykmelding={getSykmelding({
-                startLegemeldtFravaer: "2016-04-27T22:00:00.000Z"
+                startLegemeldtFravaer: { year: 2016, monthValue: 4, dayOfMonth: 28 }
             })} ledetekster={ledetekster}/>)
             expect(component.find(".js-startLegemeldtFravaer").length).to.equal(1); 
             expect(component.find(".js-startLegemeldtFravaer").text()).to.equal("28.04.2016");

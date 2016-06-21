@@ -42,6 +42,7 @@ DinSykmldSide.propTypes = {
     dispatch: PropTypes.func,
     ledetekster: PropTypes.object,
     sykmelding: PropTypes.object,
+    arbeidsgivere: PropTypes.object,
     brodsmuler: PropTypes.array,
     visSendTilArbeidsgiver: PropTypes.bool,
     sykmeldingId: PropTypes.string,

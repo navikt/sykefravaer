@@ -6,7 +6,7 @@ import * as actions from '../../js/actions/dinSykmelding_actions.js';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("dinSykmelding_actions", () => {
+describe("dinSykmelding_actions", () => { 
 
     it("Skal ha en setArbeidssituasjon()-funksjon som returnerer riktig action", () => {
 
@@ -37,6 +37,32 @@ describe("dinSykmelding_actions", () => {
         });
         expect(action.sykmeldingId).to.equal(23);        
 
+    });
+
+    it("Skal ha en senderSykmelding()-funksjon som returnerer riktig action", () => {
+        const sykmeldingId = 12;
+        const action = actions.senderSykmelding(sykmeldingId);
+        expect(action).to.deep.equal({
+            sykmeldingId: 12, 
+            type: "SENDER_SYKMELDING",
+        });
+    });
+
+    it("Skal ha en sendSykmeldingFeilet()-funksjon som returnerer riktig action", () => {
+        const sykmeldingId = 12;
+        const action = actions.sendSykmeldingFeilet(sykmeldingId);
+        expect(action).to.deep.equal({
+            sykmeldingId: 12, 
+            type: "SEND_SYKMELDING_FEILET",
+        });
+    });
+
+    it("Skal ha en sykmeldingSendt()-funksjon som returnerer riktig action", () => {
+        const action = actions.sykmeldingSendt(14);
+        expect(action).to.deep.equal({
+            sykmeldingId: 14, 
+            type: "SYKMELDING_SENDT",
+        });
     });
 
 });

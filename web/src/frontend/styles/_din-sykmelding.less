@@ -1,8 +1,8 @@
 .sykmelding-nokkelopplysning {
-	margin-bottom: 2rem; 
+	margin-bottom: 2rem;
 
 	h3, h4 {
-		margin-bottom: .5rem; 
+		margin-bottom: .25rem; 
 		.mixin-typo-etikett-liten(); 
 		color: @gray-inactive; 
 		margin-top: 0; 
@@ -14,13 +14,18 @@
 	}
 }
 
+.sidestilt {
+  display: inline-block;
+  margin-right: 2rem;
+}
+
 .sykmelding-opplysning {
 
 	margin-bottom: 2rem; 
 
 	h5, h6 {
 		.mixin-typo-element(); 
-		margin-bottom: .5rem; 
+		margin-bottom: .25rem; 
 	}
 
 	p {
@@ -46,7 +51,7 @@
 }
 
 @media(min-width: @screen-xs) {
-	.diagnose-container {
+	.rad-container {
 		display: flex; 
 
 		.sykmelding-nokkelopplysning {

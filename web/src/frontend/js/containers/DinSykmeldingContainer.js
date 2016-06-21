@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
 import DinSykmelding from '../components/DinSykmelding';
+import DinSendteSykmelding from '../components/DinSendteSykmelding';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { getLedetekst } from '../ledetekster/index';
@@ -9,6 +10,7 @@ import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions'
 import { navigerFraBekreftetkvittering } from '../actions/dinSykmelding_actions';
 import { erPilotarbeidsgiver } from '../utils/arbeidsgiverUtils.js';
 import SykmeldingKvittering from '../components/SykmeldingKvittering.js';
+import LenkeTilDineSykmeldinger from '../components/LenkeTilDineSykmeldinger.js';
 
 export class DinSykmldSide extends Component {
 
@@ -39,16 +41,26 @@ export class DinSykmldSide extends Component {
                         return (<Feilmelding
                             tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', ledetekster.data)}
                             melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', ledetekster.data)} />);
+                    } else if (sykmelding.data.status === 'SENDT') {
+                        return (<div>
+                            <DinSendteSykmelding
+                                sykmelding={sykmelding.data}
+                                ledetekster={ledetekster.data} />
+                            <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
+                        </div>);
                     } else if (sykmelding.data.status === 'BEKREFTET' && sykmelding.data.nettoppBekreftet) {
                         return (<SykmeldingKvittering
                             tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel', ledetekster.data)}
                             sykmelding={sykmelding.data}
                             ledetekster={ledetekster.data} />);
                     }
-                    return (<DinSykmelding
-                        sykmelding={sykmelding.data}
-                        ledetekster={ledetekster.data}
-                        visSendTilArbeidsgiver={visSendTilArbeidsgiver} />);
+                    return (<div>
+                        <DinSykmelding
+                            sykmelding={sykmelding.data}
+                            ledetekster={ledetekster.data}
+                            visSendTilArbeidsgiver={visSendTilArbeidsgiver} />
+                            <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
+                        </div>);
                 })()
                 }
             </SideMedHoyrekolonne>);

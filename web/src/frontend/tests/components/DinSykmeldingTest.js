@@ -45,27 +45,6 @@ describe("DinSykmelding", () => {
         )
     })
 
-    it("Skal vise kvittering dersom status er sendt", () => {
-        let sykmelding = getSykmelding();
-        sykmelding.status = 'SENDT';
-        component = shallow(<DinSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);
-        expect(component.find(KvitteringPanel)).to.have.length(1)
-    });
-
-    it("Skal ikke vise kvittering dersom status ikke er sendt", () => {
-        let sykmelding = getSykmelding();
-        sykmelding.status = 'NY';
-        component = shallow(<DinSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);
-        expect(component.find(KvitteringPanel)).to.have.length(0)
-    });
-
-    it("Skal vise arbedsgiveropplysninger dersom status er sendt", () => {
-        let sykmelding = getSykmelding();
-        sykmelding.status = 'SENDT';
-        component = shallow(<DinSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);
-        expect(component.find(ArbeidsgiversSykmelding)).to.have.length(1)
-    });
-
     it("Skal ikke vise arbedsgiveropplysninger dersom status ikke er sendt", () => {
         let sykmelding = getSykmelding();
         sykmelding.status = 'NY';

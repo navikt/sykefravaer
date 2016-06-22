@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
+let SET_FOCUS;
+
 class Hjelpetekst extends Component {
     constructor(props) {
         super(props);
@@ -9,16 +11,25 @@ class Hjelpetekst extends Component {
     }
 
     componentDidUpdate() {
-        const focusRef = this.state.erApen ? 'js-lukk' : 'js-apne';
-        this.refs[focusRef].focus();
+        if (SET_FOCUS) {
+            const focusRef = this.state.erApen ? 'js-lukk' : 'js-apne';
+            this.refs[focusRef].focus();
+            SET_FOCUS = false;
+        }
     }
 
     apne() {
-        this.setState({ erApen: true });
+        this.setState({
+            erApen: true,
+        });
+        SET_FOCUS = true;
     }
 
     lukk() {
-        this.setState({ erApen: false });
+        this.setState({
+            erApen: false,
+        });
+        SET_FOCUS = true;
     }
 
     toggle() {

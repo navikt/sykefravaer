@@ -50,7 +50,7 @@ class SendTilArbeidsgiver extends Component {
         if (this.validerSykmelding()) {
             this.scrollTilFeilmelding();
         } else {
-            this.props.sendSykmelding(this.props.sykmelding.id);
+            this.props.sendSykmelding(this.props.sykmelding.id, this.props.sykmelding.valgtArbeidsgiver.orgnummer);
         }
     }
 

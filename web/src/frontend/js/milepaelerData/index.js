@@ -38,7 +38,7 @@ const milepaelerData = [{
     visning: ['MED_ARBEIDSGIVER'],
     type: 'MILEPAEL',
     id: 5,
-    bilde: '/sykefravaer/img/tidslinje/sluttfasen-2.svg',
+    bilde: '/sykefravaer/img/tidslinje/sluttfasen-3.svg',
     alt: '',
 }, {
     ledetekst: 'tidslinje.uten-arbeidsgiver.start',
@@ -66,7 +66,7 @@ const milepaelerData = [{
     visning: ['UTEN_ARBEIDSGIVER'],
     type: 'MILEPAEL',
     id: 9,
-    bilde: '/sykefravaer/img/tidslinje/sluttfasen-2.svg',
+    bilde: '/sykefravaer/img/tidslinje/sluttfasen-3.svg',
     alt: '',
 }];
 

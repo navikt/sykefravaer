@@ -39,8 +39,8 @@ export class DinSykmldSide extends Component {
                         return (<Feilmelding />);
                     } else if (!sykmelding.data) {
                         return (<Feilmelding
-                            tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', ledetekster.data)}
-                            melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', ledetekster.data)} />);
+                            tittel={getLedetekst('din-sykmelding.fant-ikke-sykmelding.tittel', ledetekster.data)}
+                            melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding', ledetekster.data)} />);
                     } else if (sykmelding.data.status === 'SENDT') {
                         return (<div>
                             <DinSendteSykmelding

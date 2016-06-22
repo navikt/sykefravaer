@@ -45,6 +45,10 @@ export function mapStateToProps(state, ownProps) {
         }, {
             tittel: getLedetekst('tidslinje.filter.uten-arbeidsgiver', state.ledetekster.data),
             verdi: 'UTEN_ARBEIDSGIVER',
+            hjelpetekst: {
+                tittel: getLedetekst('tidslinje.filter.med-arbeidsgiver.hjelpetekst.tittel', state.ledetekster.data),
+                tekst: getLedetekst('tidslinje.filter.med-arbeidsgiver.hjelpetekst.tekst', state.ledetekster.data),
+            },
         }],
     };
 }

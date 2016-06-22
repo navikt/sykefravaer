@@ -1,40 +1,72 @@
-@media(min-width: @screen-xs) {
-  .varselstripe {
-    position: relative;
-    padding-left: 3rem;
-    margin: 0;
-  }
+.varselstripe {
+  position: relative;
+  padding-top: 3rem;
+}
 
-  .varselstripe:before {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
+.varselstripe:before, .varselstripe__ikon {
+  position: absolute;
+  left: 50%; 
+  top: 0;
 }
 
 .varselstripe:before {
   content: "";
-  width: 2rem;
-  height: 2rem;
-  margin: auto auto 2rem;
+  width: 0;
+  height: 0;
   display: block;
   border-radius: 50%;
-  background: @color-border no-repeat center center data-uri('image/svg+xml;charset=UTF-8', '@{modig-frontend-images-root-url}/ikoner-svg/ikon-informasjon.svg');
+  border: 1rem solid @color-border;
+  transform: translateX(-50%);
+}
+
+.varselstripe__ikon {
+  width: 2rem; 
+  height: 2rem;
+  top: 0; 
+  left: 50%; 
+  transform: translateX(-50%);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+
+  img {
+    align-self: center;
+  }
 }
 
 .varselstripe--feil:before {
-  background-color: @color-error;
-  background-image: data-uri('image/svg+xml;charset=UTF-8', '@{modig-frontend-images-root-url}/ikoner-svg/ikon-utropstegn.svg');
+  border-color: @color-error;
 }
 
-.varselstripe--success:before {
-  background-color: @color-success;
-  background-image: data-uri('image/svg+xml;charset=UTF-8', '@{modig-frontend-images-root-url}/ikoner-svg/ikon-suksess.svg');
+.varselstripe--suksess:before {
+  border-color: @color-success;
+}
+
+@media(min-width: @screen-xs) {
+
+  .varselstripe {
+    position: relative;
+    padding-left: 3rem;
+    padding-top: 0;
+  }
+
+  .varselstripe:before, .varselstripe__ikon {
+    left: 0;
+    top: 50%;
+  }
+
+  .varselstripe:before, .varselstripe__ikon {
+    transform: translateY(-50%);
+  }
+
 }
 
 .contrast .varselstripe:before {
   background-color: transparent;
   border: 1px solid @white;
+  padding: 1rem;
 }
 
+.contrast .varselstripe__ikon {
+  background-color: transparent!important; // Dette for å overskrive dekoratør
+}

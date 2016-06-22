@@ -6,7 +6,7 @@ import { getLedetekst } from '../ledetekster';
 const Tidslinje = ({ milepaeler = [], ledetekster, arbeidssituasjon, setMilepaeldata }) => {
     return (<div>
         <header className="tidslinje-header">
-            <h1 className="tittel-dekorert">Tidslinjen</h1>
+            <h1>Tidslinjen</h1>
         </header>
         <p className="tidslinje-intro">
             {getLedetekst('tidslinje.introtekst', ledetekster)}

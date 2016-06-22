@@ -55,6 +55,10 @@ describe("TidslinjeVelgArbeidssituasjonContainer", () => {
             }, {
                 tittel: 'Jeg har ikke arbeidsgiver',
                 verdi: 'UTEN_ARBEIDSGIVER',
+                hjelpetekst: {
+                    tittel: "Jeg har ikke arbeidsgiver",
+                    tekst:"Velg «Jeg har ikke arbeidsgiver» dersom du er for eks. selvstendig næringsdrivende, frilanser eller arbeidsledig."
+                }
             }]);
         });
 

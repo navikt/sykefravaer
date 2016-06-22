@@ -50,7 +50,7 @@ class SendTilArbeidsgiver extends Component {
         if (this.validerSykmelding()) {
             this.scrollTilFeilmelding();
         } else {
-            this.props.sendSykmelding(this.props.sykmelding.id);
+            this.props.sendSykmelding(this.props.sykmelding.id, this.props.sykmelding.valgtArbeidsgiver.orgnummer);
         }
     }
 
@@ -67,7 +67,9 @@ class SendTilArbeidsgiver extends Component {
                     this.resetState();
                 }} />
             </div>
-            <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} />
+            <div className="blokk">
+                <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} />
+            </div>
             <p className="blokk">{getLedetekst('send-til-arbeidsgiver.infotekst', ledetekster)}</p>
             <div aria-live="polite" role="alert">
                 { sendingFeilet &&

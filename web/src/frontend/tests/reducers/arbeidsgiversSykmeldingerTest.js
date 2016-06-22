@@ -189,7 +189,9 @@ describe('arbeidsgiversSykmeldinger', () => {
                         'Content-Type': 'application/json'
                     }
                 })
-                .post("/sykmeldinger/56/actions/send")
+                    .post("/sykmeldinger/56/actions/send",
+                    '***REMOVED***'
+                    )
                 .reply(200, {
                     "id": 56,
                     "status": "SENDT",
@@ -197,11 +199,11 @@ describe('arbeidsgiversSykmeldinger', () => {
                 }) 
 
                 const expectedActions = [
-                    { type: "SENDER_SYKMELDING", sykmeldingId: 56}, 
-                    { type: "SYKMELDING_SENDT", sykmeldingId: 56}
+                    { type: "SENDER_SYKMELDING", sykmeldingId: 56 },
+                    { type: "SYKMELDING_SENDT", sykmeldingId: 56, orgnummer: '***REMOVED***' },
                 ]
 
-                return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(56, ***REMOVED***))
+                return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(56, '***REMOVED***'))
                     .then(() => { 
                         expect(store.getActions()).to.deep.equal(expectedActions)
                     });

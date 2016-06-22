@@ -9,9 +9,10 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import DinSendteSykmelding from "../../js/components/DinSendteSykmelding";
-import DinSykmelding from "../../js/components/DinSykmelding";
+import DineSykmeldingOpplysninger from "../../js/components/DineSykmeldingOpplysninger";
 import KvitteringPanel from "../../js/components/KvitteringPanel";
 import ArbeidsgiversSykmelding from "../../js/components/ArbeidsgiversSykmelding";
+import FlereOpplysninger from "../../js/components/FlereOpplysninger";
 
 describe("DinSendteSykmelding", () => {
 
@@ -24,11 +25,11 @@ describe("DinSendteSykmelding", () => {
         expect(component.find(KvitteringPanel)).to.have.length(1)
     });
 
-    it("Skal vise DinSykmelding ", () => {
+    it("Skal vise DineSykmeldingOpplysninger ", () => {
         let sykmelding = getSykmelding();
         sykmelding.status = 'SENDT';
         component = shallow(<DinSendteSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);
-        expect(component.find(DinSykmelding)).to.have.length(1)
+        expect(component.find(DineSykmeldingOpplysninger)).to.have.length(1)
     });
 
     it("Skal vise arbedsgiveropplysninger dersom status er sendt", () => {

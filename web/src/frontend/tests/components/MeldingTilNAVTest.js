@@ -44,15 +44,14 @@ describe("Melding til NAV", () => {
             const getState = {
                 ledetekster: { ledetekster },
             };
-            const store = mockStore(getState);
 
             component = mount(
-                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
+                <MeldingTilNAV sykmelding={getSykmelding({
                 meldingTilNav: {
                     navBoerTaTakISaken: true,
                     navBoerTaTakISakenBegrunnelse: "Den sykmeldte trenger bistand fra NAV"
                 }
-            })} ledetekster={ledetekster}/></Provider>);
+            })} ledetekster={ledetekster}/>);
             expect(component.find(".js-navBoerTaTakISaken").text()).to.equal("NAV bør ta tak i saken nå")
             expect(component.find(".js-navBoerTaTakISakenBegrunnelse").text()).to.equal("Den sykmeldte trenger bistand fra NAV")
         });
@@ -61,14 +60,13 @@ describe("Melding til NAV", () => {
             const getState = {
                 ledetekster: { ledetekster },
             };
-            const store = mockStore(getState);
 
             component = mount(
-                <Provider store={store}><DinSykmelding sykmelding={getSykmelding({
+                <MeldingTilNAV sykmelding={getSykmelding({
                 meldingTilNav: {
                     navBoerTaTakISaken: true
                 }
-            })} ledetekster={ledetekster}/></Provider>);
+            })} ledetekster={ledetekster}/>);
             expect(component.find(".js-navBoerTaTakISakenBegrunnelse").length).to.equal(0)
         });
     });

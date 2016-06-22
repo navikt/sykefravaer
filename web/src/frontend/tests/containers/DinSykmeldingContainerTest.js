@@ -12,6 +12,7 @@ import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
 import DinSykmelding from '../../js/components/DinSykmelding.js';
 import SykmeldingKvittering from '../../js/components/SykmeldingKvittering.js';
+import DinSendteSykmelding from '../../js/components/DinSendteSykmelding.js';
 import sinon from 'sinon';
 
 let component;
@@ -251,6 +252,18 @@ describe("DinSykmeldingContainer", () => {
             };
             let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.find(SykmeldingKvittering)).to.have.length(1);
+        });
+
+        it("Skal vise DinSendteSykmelding dersom sykmeldingen har status === 'SENDT'", () => {
+            let sykmelding = {
+                hentingFeilet: false,
+                data: {
+                    status: "SENDT",
+                    nettoppBekreftet: true
+                }
+            };
+            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            expect(component.find(DinSendteSykmelding)).to.have.length(1);
         });
 
         it("Skal kalle dispatch", () => {

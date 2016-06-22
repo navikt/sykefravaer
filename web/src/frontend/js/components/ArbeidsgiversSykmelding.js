@@ -13,7 +13,7 @@ const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster }) => {
         ikonHover="svg/doctor-2_hover.svg"
         ikonAltTekst="Lege"
         erApen={false}
-        className="utvidbar-lilla">
+        variant="lilla">
         <div className="side-innhold">
             <header className="arbeidsgivers-header">
                 <h3 className="arbeidsgivers-tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h3>

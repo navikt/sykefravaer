@@ -13,7 +13,7 @@ class DinSykmeldingBrukerInput extends Component {
     }
 
     onDropdownChange(status) {
-        this.setState({ forsoktSendt: false });
+        this.setState({ forsoktSendt: false, forsoktBekreftet: false });
         this.props.setArbeidssituasjon(status, this.props.sykmelding.id);
     }
 
@@ -34,7 +34,11 @@ class DinSykmeldingBrukerInput extends Component {
             }
             default: {
                 this.setState({ forsoktSendt: false });
-                this.props.bekreftSykmelding(sykmelding.id, sykmelding.arbeidssituasjon);
+                this.props.bekreftSykmelding(sykmelding.id, sykmelding.arbeidssituasjon).then((response) => {
+                    if (response.status > 400) {
+                        this.setState({ forsoktBekreftet: true });
+                    }
+                });
                 return;
             }
         }
@@ -70,6 +74,11 @@ class DinSykmeldingBrukerInput extends Component {
                         </div>
                     </DropdownWrapper>
                 </div>
+                {
+                    this.state.forsoktBekreftet && <div className="panel panel-ramme">
+                        <p className="varselstripe varselstripe--feil">Beklager, det oppstod en feil da sykmeldingen skulle bekreftes.</p>
+                    </div>
+                }
                 <div className="knapperad knapperad-adskilt">
                     <input value={knappetekst} type="submit" className="knapp knapp-hoved js-videre" />
                 </div>

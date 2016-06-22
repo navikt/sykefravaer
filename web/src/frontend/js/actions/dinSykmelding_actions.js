@@ -81,6 +81,7 @@ export function bekreftSykmelding(sykmeldingId, arbeidssituasjon) {
             } else {
                 dispatch(sykmeldingBekreftet(sykmeldingId));
             }
+            return response;
         })
         .catch(() => {
             return dispatch(bekreftSykmeldingFeilet(sykmeldingId));

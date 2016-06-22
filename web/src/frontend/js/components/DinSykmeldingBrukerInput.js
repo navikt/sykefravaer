@@ -34,8 +34,8 @@ class DinSykmeldingBrukerInput extends Component {
             }
             default: {
                 this.setState({ forsoktSendt: false });
-                this.props.bekreftSykmelding(sykmelding.id, sykmelding.arbeidssituasjon).then((response) => {
-                    if (response.status > 400) {
+                this.props.bekreftSykmelding(sykmelding.id, sykmelding.arbeidssituasjon).then((respons) => {
+                    if (respons.status > 400) {
                         this.setState({ forsoktBekreftet: true });
                     }
                 });

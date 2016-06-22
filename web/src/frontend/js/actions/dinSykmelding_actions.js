@@ -73,7 +73,10 @@ export function bekreftSykmelding(sykmeldingId, arbeidssituasjon) {
                 credentials: 'include',
                 method: 'POST',
                 body: arbeidssituasjon,
-                headers: new Headers({ 'Content-Type': 'application/json' }),
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
+                }),
             })
         .then((response) => {
             if (response.status > 400) {

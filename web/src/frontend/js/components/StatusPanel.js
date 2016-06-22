@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import StatusOpplysning from '../nokkelopplysninger/NokkelOpplysningerMapper';
+import Varselstripe from './Varselstripe';
 
 const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger }) => {
     const html = nokkelopplysninger.map((rad) => {
@@ -13,9 +14,9 @@ const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger }) => {
     });
     return (
         <div className="panel blokk">
-           <div className="varselstripe varselstripe--success">
+            <Varselstripe type="suksess">
                {html}
-           </div>
+            </Varselstripe>
         </div>);
 };
 

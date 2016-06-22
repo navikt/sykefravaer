@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/brukerinfo_actions.js';
 import { getLedetekst } from '../ledetekster';
+import Varselstripe from '../components/Varselstripe';
 
 export class Varsel extends Component {
     constructor(props) {
@@ -19,7 +20,9 @@ export class Varsel extends Component {
 
     render() {
         return (<div className={`panel typo-infotekst blokk-l under-utvikling-varsel ${(this.state.synlig ? 'er-synlig' : '')}`}>
-            <p className="varselstripe varselstripe--under-utvikling">{getLedetekst('under-utvikling.varsel.tekst', this.props.ledetekster)}</p>
+            <Varselstripe>
+                <p className="sist">{getLedetekst('under-utvikling.varsel.tekst', this.props.ledetekster)}</p>
+            </Varselstripe>
             <button className="modal-lukk" onClick={() => { this.props.skjulUnderUtviklingVarsel();}}>{getLedetekst('under-utvikling.varsel.lukk', this.props.ledetekster)}</button>
         </div>);
     }

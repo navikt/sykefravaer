@@ -169,7 +169,9 @@ const ledetekster = {
   "tidslinje.med-arbeidsgiver.aktivitetskrav.meta": "7 uker",
   "send-til-arbeidsgiver.diagnose.tittel": "Diagnose",
   "send-til-arbeidsgiver.orgnr": "Orgnr",
-  "send-til-arbeidsgiver.annen-arbeidsgiver.label": "Annen arbeidsgiver"
+  "send-til-arbeidsgiver.annen-arbeidsgiver.label": "Annen arbeidsgiver",
+  "tidslinje.filter.med-arbeidsgiver.hjelpetekst.tittel":"Jeg har ikke arbeidsgiver",
+  "tidslinje.filter.med-arbeidsgiver.hjelpetekst.tekst":"Velg «Jeg har ikke arbeidsgiver» dersom du er for eks. selvstendig næringsdrivende, frilanser eller arbeidsledig."
 };
 
 export default ledetekster;

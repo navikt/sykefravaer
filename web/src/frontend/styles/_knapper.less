@@ -1,0 +1,74 @@
+@btn-background-color: transparent;
+@btn-background-hover-color: @color-link;
+@btn-text-color: @color-link;
+@btn-border-color: @color-link;
+@btn-disabled-background-color: #ccc;
+
+.rammeknapp,
+.contrast .rammeknapp {
+    padding: 8px 38px 10px 38px;
+    border: 2px solid @btn-border-color;
+    box-shadow: none;
+    &:hover {
+        box-shadow: none;
+    }
+    &:focus, &:focus:hover {
+        .mixin-focus-outline(3px);
+    }
+}
+
+.contrast .rammeknapp {
+    &:hover, &:active, &:visited {
+        transform: none;
+    }
+}
+
+.rammeknapp, .side-innhold .rammeknapp {
+    font-family: @font-family-profile;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-block;
+    text-transform: uppercase;
+    text-decoration: none;
+    outline: none;
+    letter-spacing: 1px;
+    border-radius: 2px;
+    font-size: @rem-as-16px;
+    line-height: 1;
+    color: @btn-text-color;
+    background-color: @btn-background-color;
+    &:hover {
+        border-color: @btn-background-hover-color;
+    }
+    &:active {
+        border-color: @blue-active;
+    }
+    &:focus {
+        outline: none;
+        .mixin-focus-outline(3px);
+    }
+    &:hover {
+        background-color: @btn-background-hover-color;
+        color: @white;
+    }
+    &:focus:hover {
+        color: @white;
+    }
+    &:focus:hover:active {
+        color: @white;
+        .mixin-focus-outline(3px);
+    }
+    &:active,
+    &:active:hover {
+        color: @white;
+        background-color: @blue-active;
+        border-color: @blue-active;
+        .mixin-transform(translateY(2px));
+    }
+}
+
+.knapp-liten,
+.knapp-liten:hover {
+    font-size: @rem-as-14px;
+    padding: 8px 18px 10px 18px;
+}

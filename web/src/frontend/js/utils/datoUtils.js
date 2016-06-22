@@ -27,7 +27,7 @@ const parseDate = (dato) => {
 };
 
 export function getDuration(from, to) {
-    return Math.floor(parseDate(to) - parseDate(from)) / (1000 * 60 * 60 * 24) + 1;
+    return Math.round(Math.floor(parseDate(to) - parseDate(from)) / (1000 * 60 * 60 * 24)) + 1;
 }
 
 export function sorterPerioder(sykmelding) {

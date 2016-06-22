@@ -44,7 +44,7 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
         <article className="panel js-intro-banner blokk side-innhold">
             <div className="landingsside-intro">
                 <div className="landingsside-intro-bilde">
-                    <img src="/sykefravaer/img/svg/illustrasjon-landingsside.svg"
+                    <img src="/sykefravaer/img/svg/illustrasjon-landingsside-2.svg"
                         alt="Samtale mellom deg, lege, arbeidsgiver og NAV" />
                 </div>
                 <div className="landingsside-intro-innhold">

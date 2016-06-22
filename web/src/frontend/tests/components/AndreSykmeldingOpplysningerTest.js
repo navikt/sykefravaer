@@ -14,7 +14,7 @@ describe("AndreSykmeldingOpplysninger", () => {
 
     let component;
 
-    it("Skal ikke sykmelderTlf dersom sykmelderTlf === null", () => {
+    it("Skal ikke vise sykmelderTlf dersom sykmelderTlf === null", () => {
         const getState = {
             ledetekster: { ledetekster },
         };

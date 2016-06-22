@@ -30,10 +30,11 @@ export function sendSykmeldingFeilet(sykmeldingId) {
     };
 }
 
-export function sykmeldingSendt(sykmeldingId) {
+export function sykmeldingSendt(sykmeldingId, orgnummer) {
     return {
         type: 'SYKMELDING_SENDT',
         sykmeldingId,
+        orgnummer,
     };
 }
 
@@ -99,24 +100,21 @@ export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer) {
             {
                 credentials: 'include',
                 method: 'POST',
-                body: {
-                    orgnummer,
-                },
-                // ***REMOVED*** = orgnummer, og må endres til sykmelding.valgtArbeidsgiver.orgnummer,
+                body: orgnummer,
                 headers: new Headers({
                     'Content-Type': 'application/json',
                     'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
                 }),
             })
-            .then((response) => {
-                if (response.status > 400) {
-                    dispatch(sendSykmeldingFeilet(sykmeldingId));
-                } else {
-                    dispatch(sykmeldingSendt(sykmeldingId));
-                }
-            })
-            .catch(() => {
-                return dispatch(sendSykmeldingFeilet(sykmeldingId));
-            });
+        .then((response) => {
+            if (response.status > 400) {
+                dispatch(sendSykmeldingFeilet(sykmeldingId));
+            } else {
+                dispatch(sykmeldingSendt(sykmeldingId, orgnummer));
+            }
+        })
+        .catch(() => {
+            return dispatch(sendSykmeldingFeilet(sykmeldingId));
+        });
     };
 }

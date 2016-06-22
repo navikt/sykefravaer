@@ -60,13 +60,14 @@ describe("dinSykmelding_actions", () => {
             });
         });
 
-        it("Skal ha en sykmeldingSendt()-funksjon som returnerer riktig action", () => {
-            const action = actions.sykmeldingSendt(14);
-            expect(action).to.deep.equal({
-                sykmeldingId: 14, 
-                type: "SYKMELDING_SENDT",
-            });
+    it("Skal ha en sykmeldingSendt()-funksjon som returnerer riktig action", () => {
+        const action = actions.sykmeldingSendt(14, '123');
+        expect(action).to.deep.equal({
+            sykmeldingId: 14, 
+            type: "SYKMELDING_SENDT",
+            orgnummer: '123',
         });
+    });
 
         it("Skal ha en sendSykmeldingTilArbeidsgiver()-funksjon som returnerer en funksjon", () => {
             const action = actions.sendSykmeldingTilArbeidsgiver(14);

@@ -55,8 +55,8 @@ export class SendTilArbeidsgiverSide extends Component {
                             sender={this.props.sender}
                             sendingFeilet={this.props.sendingFeilet}
                             ledetekster={this.props.ledetekster.data}
-                            sendSykmelding={(sykmeldingId) => {
-                                this.sendSykmelding(sykmeldingId);
+                            sendSykmelding={(sykmeldingId, orgnummer) => {
+                                this.sendSykmelding(sykmeldingId, orgnummer);
                             }} />);
                     })()
                 }

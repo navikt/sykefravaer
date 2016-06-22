@@ -25,8 +25,10 @@ export class DinSykmldSide extends Component {
     }
 
     componentWillUnmount() {
-        const { dispatch } = this.props;
-        dispatch(navigerFraBekreftetkvittering(this.props.sykmelding.data.id));
+        if(this.props.sykmelding.data && this.props.sykmelding.data.status === 'BEKREFTET') {
+            const { dispatch } = this.props;
+            dispatch(navigerFraBekreftetkvittering(this.props.sykmelding.data.id));
+        }
     }
 
     render() {

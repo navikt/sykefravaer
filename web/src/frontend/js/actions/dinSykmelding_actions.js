@@ -102,7 +102,6 @@ export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer) {
                 body: {
                     orgnummer,
                 },
-                // ***REMOVED*** = orgnummer, og må endres til sykmelding.valgtArbeidsgiver.orgnummer,
                 headers: new Headers({
                     'Content-Type': 'application/json',
                     'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),

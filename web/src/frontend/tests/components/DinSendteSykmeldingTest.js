@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 import DinSendteSykmelding from "../../js/components/DinSendteSykmelding";
 import DineSykmeldingOpplysninger from "../../js/components/DineSykmeldingOpplysninger";
-import KvitteringPanel from "../../js/components/KvitteringPanel";
+import StatusPanel from "../../js/components/StatusPanel";
 import ArbeidsgiversSykmelding from "../../js/components/ArbeidsgiversSykmelding";
 import FlereOpplysninger from "../../js/components/FlereOpplysninger";
 
@@ -22,7 +22,7 @@ describe("DinSendteSykmelding", () => {
         let sykmelding = getSykmelding();
         sykmelding.status = 'SENDT';
         component = shallow(<DinSendteSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);
-        expect(component.find(KvitteringPanel)).to.have.length(1)
+        expect(component.find(StatusPanel)).to.have.length(1)
     });
 
     it("Skal vise DineSykmeldingOpplysninger ", () => {

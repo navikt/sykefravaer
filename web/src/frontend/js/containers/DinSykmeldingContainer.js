@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
 import DinSykmelding from '../components/DinSykmelding';
 import DinSendteSykmelding from '../components/DinSendteSykmelding';
+import DinBekrefteteSykmelding from '../components/DinBekrefteteSykmelding';
+import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../nokkelopplysninger/NokkelOpplysningerEnum';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { getLedetekst } from '../ledetekster/index';
@@ -47,7 +49,11 @@ export class DinSykmldSide extends Component {
                         return (<div>
                             <DinSendteSykmelding
                                 sykmelding={sykmelding.data}
-                                ledetekster={ledetekster.data} />
+                                ledetekster={ledetekster.data}
+                                nokkelopplysninger={[
+                                [STATUS, INNSENDT_DATO],
+                                [ARBEIDSGIVER, ORGNUMMER],
+                                ]} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
                         </div>);
                     } else if (sykmelding.data.status === 'BEKREFTET' && sykmelding.data.nettoppBekreftet) {
@@ -55,6 +61,16 @@ export class DinSykmldSide extends Component {
                             tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel', ledetekster.data)}
                             sykmelding={sykmelding.data}
                             ledetekster={ledetekster.data} />);
+                    } else if (sykmelding.data.status === 'BEKREFTET' && !sykmelding.data.nettoppBekreftet) {
+                        return (<div>
+                            <DinBekrefteteSykmelding
+                                sykmelding={sykmelding.data}
+                                ledetekster={ledetekster.data}
+                                nokkelopplysninger={[
+                                [STATUS, INNSENDT_DATO],
+                                ]} />
+                            <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
+                        </div>);
                     }
                     return (<div>
                         <DinSykmelding

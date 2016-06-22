@@ -1,4 +1,6 @@
-export const toDate = (dato) => { return new Date(dato.year, dato.monthValue - 1, dato.dayOfMonth); };
+export const toDate = (dato) => {
+    return new Date(dato.year, dato.monthValue - 1, dato.dayOfMonth);
+};
 
 //  midlertidig fiks til vi får på plass react-intl. Da kan vi bruke <FormattedDate value={toDate(dato)} format="norskLang"/> istedenfor
 export const toDatePrettyPrint = (dato) => {
@@ -43,7 +45,7 @@ export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
     sykmeldinger.map(sorterPerioder);
     return sykmeldinger.sort((a, b) => {
         if (kriterium === 'fom' || a.arbeidsgiver.trim().toUpperCase() === b.arbeidsgiver.trim().toUpperCase()) {
-            if (toDate(b.mulighetForArbeid.perioder[0].fom).getTime() !== toDate(b.mulighetForArbeid.perioder[0].fom).getTime()) {
+            if (toDate(a.mulighetForArbeid.perioder[0].fom).getTime() !== toDate(b.mulighetForArbeid.perioder[0].fom).getTime()) {
                 return toDate(b.mulighetForArbeid.perioder[0].fom) - toDate(a.mulighetForArbeid.perioder[0].fom);
             }
             return toDate(b.mulighetForArbeid.perioder[b.mulighetForArbeid.perioder.length - 1].tom) -

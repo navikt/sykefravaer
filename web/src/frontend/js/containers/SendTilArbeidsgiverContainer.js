@@ -25,8 +25,8 @@ export class SendTilArbeidsgiverSide extends Component {
     }
 
     sendSykmelding(sykmeldingId) {
-        const { dispatch } = this.props;
-        dispatch(dinSykmeldingActions.sendSykmeldingTilArbeidsgiver(sykmeldingId));
+        const { dispatch, sykmelding } = this.props;
+        dispatch(dinSykmeldingActions.sendSykmeldingTilArbeidsgiver(sykmeldingId, sykmelding.valgtArbeidsgiver.orgnummer));
     }
 
     render() {

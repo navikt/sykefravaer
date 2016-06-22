@@ -16,6 +16,12 @@ Object.byString = function byString(o, s) {
     return o_;
 };
 
+export const getCookie = (name) => {
+    const re = new RegExp(`${name}=([^;]+)`);
+    const match = re.exec(document.cookie);
+    return match !== null ? match[1] : '';
+};
+
 export function scrollTo(element, duration) {
     const started = Date.now();
     const ends = started + duration;

@@ -4,6 +4,7 @@ import DropdownWrapper from '../components/DropdownWrapper.js';
 import Dropdown from '../components/Dropdown.js';
 import { getLedetekst } from '../ledetekster';
 import Hjelpetekst from '../components/Hjelpetekst.js';
+import Varselstripe from '../components/Varselstripe';
 
 class DinSykmeldingBrukerInput extends Component {
 
@@ -76,7 +77,9 @@ class DinSykmeldingBrukerInput extends Component {
                 </div>
                 {
                     this.state.forsoktBekreftet && <div className="panel panel-ramme">
-                        <p className="varselstripe varselstripe--feil">Beklager, det oppstod en feil da sykmeldingen skulle bekreftes.</p>
+                        <Varselstripe type="feil">
+                            <p>Beklager, det oppstod en feil da sykmeldingen skulle bekreftes.</p>
+                        </Varselstripe>
                     </div>
                 }
                 <div className="knapperad knapperad-adskilt">

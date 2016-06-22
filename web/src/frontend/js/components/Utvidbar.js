@@ -31,9 +31,9 @@ export class Utvidbar extends Component {
     }
 
     getHeaderClassName() {
-        let c = !this.state.erApen ? 'utvidbar-header' : 'utvidbar-header utvidbar-header-apen'
-        if(this.props.variant) {
-            c = `${c} utvidbar-header-${this.props.variant}`
+        let c = !this.state.erApen ? 'utvidbar-header' : 'utvidbar-header utvidbar-header-apen';
+        if (this.props.variant) {
+            c = `${c} utvidbar-header-${this.props.variant}`;
         }
         return c;
     }
@@ -135,7 +135,7 @@ export class Utvidbar extends Component {
                                         aria-pressed={!this.state.erApen}
                                         tabIndex={this.state.erApen ? '' : '-1'}
                                         onClick={(event) => {this.toggle(event);}}>Lukk</a>
-                                </div> 
+                                </div>
                             </div>
                         }
                     </div>
@@ -152,6 +152,7 @@ Utvidbar.propTypes = {
     ikonHover: PropTypes.string,
     ikonAltTekst: PropTypes.string,
     className: PropTypes.string,
+    variant: PropTypes.string,
 };
 
 Utvidbar.defaultProps = {

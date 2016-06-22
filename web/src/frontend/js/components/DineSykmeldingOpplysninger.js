@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { toDatePrettyPrint } from '../utils/datoUtils';
 import { getLedetekst } from '../ledetekster/index';
 import Utvidbar from '../components/Utvidbar';
@@ -107,7 +107,12 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
                 <FlereOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
             </div>
         </Utvidbar>
-    </div>)
-}
+    </div>);
+};
+
+DineSykmeldingOpplysninger.propTypes = {
+    sykmelding: PropTypes.object,
+    ledetekster: PropTypes.object,
+};
 
 export default DineSykmeldingOpplysninger;

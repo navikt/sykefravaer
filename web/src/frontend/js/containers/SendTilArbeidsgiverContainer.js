@@ -45,7 +45,7 @@ export class SendTilArbeidsgiverSide extends Component {
                         } else if (this.props.sykmelding.status === 'SENDT') {
                             return (<SykmeldingKvittering
                                 tittel={getLedetekst('send-til-arbeidsgiver.kvittering.tittel', this.props.ledetekster.data)}
-                                brodtekst={this.getKvitteringBrodtekst(this.props.sykmelding.valgtArbeidsgiver)}
+                                brodtekst={this.getKvitteringBrodtekst()}
                                 ledetekster={this.props.ledetekster.data}
                                 sykmelding={this.props.sykmelding}
                                 />);

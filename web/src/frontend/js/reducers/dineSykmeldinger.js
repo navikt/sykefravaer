@@ -39,6 +39,27 @@ export default function sykmeldinger(state = initiellState, action) {
             });
             return Object.assign({}, state, { data });
         }
+        case 'SYKMELDING_BEKREFTET': {
+            const data = state.data.map((sykmelding) => {
+                const _sykmelding = sykmelding;
+                if (_sykmelding.id === action.sykmeldingId) {
+                    _sykmelding.status = 'BEKREFTET';
+                    _sykmelding.nettoppBekreftet = true;
+                }
+                return _sykmelding;
+            });
+            return Object.assign({}, state, { data });
+        }
+        case 'NAVIGER_FRA_BEKREFTETKVITTERING': {
+            const data = state.data.map((sykmelding) => {
+                const _sykmelding = sykmelding;
+                if (_sykmelding.id === action.sykmeldingId) {
+                    _sykmelding.nettoppBekreftet = false;
+                }
+                return _sykmelding;
+            });
+            return Object.assign({}, state, { data });
+        }
         case 'SET_SORTERING': {
             return Object.assign({}, state, {
                 sortering: action.sortering,

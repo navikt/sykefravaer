@@ -13,7 +13,7 @@ import { SendTilArbeidsgiverSide, mapStateToProps } from "../../js/containers/Se
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
 import SendTilArbeidsgiver from '../../js/components/SendTilArbeidsgiver.js';
-import SendSykmeldingKvittering from '../../js/components/SendSykmeldingKvittering.js';
+import SykmeldingKvittering from '../../js/components/SykmeldingKvittering.js';
 
 let component;
 
@@ -140,9 +140,12 @@ describe("SendTilArbeidsgiverContainer", () => {
             expect(component.find(AppSpinner)).to.have.length(1);
         }); 
 
-        it("Skal vise SendSykmeldingKvittering dersom sykmeldingen er sendt", () => {
+        it("Skal vise SykmeldingKvittering dersom sykmeldingen er sendt", () => {
             let sykmelding = {
                 status: "SENDT",
+                valgtArbeidsgiver: {
+                    navn: "BEKK"
+                }
             };
             const brukerinfo = {
                 toggleSendTilArbeidsgiver: true,
@@ -150,7 +153,7 @@ describe("SendTilArbeidsgiverContainer", () => {
 
             let component = shallow(<SendTilArbeidsgiverSide sykmelding={sykmelding} ledetekster={ledetekster}
                                                              dispatch={dispatch} brukerinfo={brukerinfo} henter={false}/>);
-            expect(component.find(SendSykmeldingKvittering)).to.have.length(1);
+            expect(component.find(SykmeldingKvittering)).to.have.length(1);
         }); 
 
         it("Skal vise Feilmelding dersom noe feiler", () => {

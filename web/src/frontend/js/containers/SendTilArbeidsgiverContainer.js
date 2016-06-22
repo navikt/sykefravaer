@@ -4,9 +4,9 @@ import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import SendTilArbeidsgiver from '../components/SendTilArbeidsgiver';
-import SendSykmeldingKvittering from '../components/SendSykmeldingKvittering';
-import { getLedetekst } from '../ledetekster/index';
-import { getSykmelding } from '../utils/index';
+import SykmeldingKvittering from '../components/SykmeldingKvittering';
+import { getLedetekst } from '../ledetekster';
+import { getSykmelding } from '../utils';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
 import * as dinSykmeldingActions from '../actions/dinSykmelding_actions';
 
@@ -15,6 +15,13 @@ export class SendTilArbeidsgiverSide extends Component {
     componentWillMount() {
         const { dispatch } = this.props;
         dispatch(hentArbeidsgiversSykmeldinger());
+    }
+
+    getKvitteringBrodtekst() {
+        const params = {
+            '%ARBEIDSGIVER%': this.props.sykmelding.valgtArbeidsgiver.navn,
+        };
+        return `${getLedetekst('send-til-arbeidsgiver.kvittering.undertekst', this.props.ledetekster.data, params)} `;
     }
 
     sendSykmelding(sykmeldingId) {
@@ -36,7 +43,12 @@ export class SendTilArbeidsgiverSide extends Component {
                                 tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', this.props.ledetekster.data)}
                                 melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', this.props.ledetekster.data)} />);
                         } else if (this.props.sykmelding.status === 'SENDT') {
-                            return <SendSykmeldingKvittering sykmelding={this.props.sykmelding} ledetekster={this.props.ledetekster.data} />;
+                            return (<SykmeldingKvittering
+                                tittel={getLedetekst('send-til-arbeidsgiver.kvittering.tittel', this.props.ledetekster.data)}
+                                brodtekst={this.getKvitteringBrodtekst(this.props.sykmelding.valgtArbeidsgiver)}
+                                ledetekster={this.props.ledetekster.data}
+                                sykmelding={this.props.sykmelding}
+                                />);
                         }
                         return (<SendTilArbeidsgiver
                             sykmelding={this.props.sykmelding}

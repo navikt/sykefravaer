@@ -37,6 +37,57 @@ export function sykmeldingSendt(sykmeldingId) {
     };
 }
 
+export function bekrefterSykmelding(sykmeldingId) {
+    return {
+        type: 'BEKREFTER_SYKMELDING',
+        sykmeldingId,
+    };
+}
+
+export function bekreftSykmeldingFeilet(sykmeldingId) {
+    return {
+        type: 'BEKREFT_SYKMELDING_FEILET',
+        sykmeldingId,
+    };
+}
+
+export function sykmeldingBekreftet(sykmeldingId) {
+    return {
+        type: 'SYKMELDING_BEKREFTET',
+        sykmeldingId,
+    };
+}
+
+export function navigerFraBekreftetkvittering(sykmeldingId) {
+    return {
+        type: 'NAVIGER_FRA_BEKREFTETKVITTERING',
+        sykmeldingId,
+    };
+}
+
+export function bekreftSykmelding(sykmeldingId, arbeidssituasjon) {
+    return function bekreft(dispatch) {
+        dispatch(bekrefterSykmelding(sykmeldingId));
+        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`,
+            {
+                credentials: 'include',
+                method: 'POST',
+                body: arbeidssituasjon,
+                headers: new Headers({ 'Content-Type': 'application/json' }),
+            })
+        .then((response) => {
+            if (response.status > 400) {
+                dispatch(bekreftSykmeldingFeilet(sykmeldingId));
+            } else {
+                dispatch(sykmeldingBekreftet(sykmeldingId));
+            }
+        })
+        .catch(() => {
+            return dispatch(bekreftSykmeldingFeilet(sykmeldingId));
+        });
+    };
+}
+
 export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer) {
     return function send(dispatch) {
         dispatch(senderSykmelding(sykmeldingId));

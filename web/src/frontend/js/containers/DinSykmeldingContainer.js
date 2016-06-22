@@ -6,13 +6,25 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { getLedetekst } from '../ledetekster/index';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
+import { navigerFraBekreftetkvittering } from '../actions/dinSykmelding_actions';
 import { erPilotarbeidsgiver } from '../utils/arbeidsgiverUtils.js';
+import SykmeldingKvittering from '../components/SykmeldingKvittering.js';
 
 export class DinSykmldSide extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
 
     componentWillMount() {
         const { dispatch, sykmeldingId } = this.props;
         dispatch(hentAktuelleArbeidsgivere(sykmeldingId));
+    }
+
+    componentWillUnmount() {
+        const { dispatch } = this.props;
+        dispatch(navigerFraBekreftetkvittering(this.props.sykmelding.data.id));
     }
 
     render() {
@@ -27,6 +39,11 @@ export class DinSykmldSide extends Component {
                         return (<Feilmelding
                             tittel={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.tittel', ledetekster.data)}
                             melding={getLedetekst('sykmelding.vis.fant-ikke-sykmelding.melding', ledetekster.data)} />);
+                    } else if (sykmelding.data.status === 'BEKREFTET' && sykmelding.data.nettoppBekreftet) {
+                        return (<SykmeldingKvittering
+                            tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel', ledetekster.data)}
+                            sykmelding={sykmelding.data}
+                            ledetekster={ledetekster.data} />);
                     }
                     return (<DinSykmelding
                         sykmelding={sykmelding.data}

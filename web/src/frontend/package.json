@@ -30,9 +30,6 @@
     ]
   },
   "author": "Helge Fredheim <helge.fredheim@nav.no>",
-  "pre-commit": [
-    "test", "lint"
-  ],
   "license": "ISC",
   "dependencies": {
     "babel": "6.3.26",

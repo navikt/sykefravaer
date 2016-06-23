@@ -3,6 +3,7 @@ import { getLedetekst } from '../ledetekster';
 import VelgArbeidsgiverContainer from '../containers/VelgArbeidsgiverContainer.js';
 import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding.js';
 import { scrollTo } from '../utils';
+import Varselstripe from './Varselstripe';
 
 class SendTilArbeidsgiver extends Component {
 
@@ -74,7 +75,9 @@ class SendTilArbeidsgiver extends Component {
             <div aria-live="polite" role="alert">
                 { sendingFeilet &&
                     <div className="panel panel-ramme">
-                        <p className="varselstripe varselstripe--feil">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
+                        <Varselstripe type="feil">
+                            <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
+                        </Varselstripe>
                     </div>
                 }
             </div>

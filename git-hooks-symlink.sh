@@ -1,5 +1,5 @@
 #!/bin/bash
-HOOK_NAMES="applypatch-msg pre-applypatch post-applypatch pre-commit prepare-commit-msg commit-msg post-commit pre-rebase post-checkout post-merge pre-receive update post-receive post-update pre-auto-gc"
+HOOK_NAMES="pre-commit"
 # assuming the script is in a bin directory, one level into the repo
 HOOK_DIR=.git/hooks
 

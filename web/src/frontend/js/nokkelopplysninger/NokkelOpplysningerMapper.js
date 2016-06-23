@@ -29,16 +29,22 @@ const getOrgnummer = (ledetekster, sykmelding) => {
 };
 
 const StatusOpplysning = ({ sykmelding, ledetekster, nokkelopplysning }) => {
-    if (nokkelopplysning === STATUS) {
-        return getStatus(ledetekster, sykmelding);
-    } else if (nokkelopplysning === INNSENDT_DATO) {
-        return getInnsendtDato(ledetekster, sykmelding);
-    } else if (nokkelopplysning === ARBEIDSGIVER) {
-        return getArbeidsgiver(ledetekster, sykmelding);
-    } else if (nokkelopplysning === ORGNUMMER) {
-        return getOrgnummer(ledetekster, sykmelding);
+    switch (nokkelopplysning) {
+        case STATUS: {
+            return getStatus(ledetekster, sykmelding);
+        }
+        case INNSENDT_DATO: {
+            return getInnsendtDato(ledetekster, sykmelding);
+        }
+        case ARBEIDSGIVER: {
+            return getArbeidsgiver(ledetekster, sykmelding);
+        }
+        case ORGNUMMER: {
+            return getOrgnummer(ledetekster, sykmelding);
+        }
+        default:
+            return <noscript />;
     }
-    return <noscript />;
 };
 
 StatusOpplysning.propTypes = {

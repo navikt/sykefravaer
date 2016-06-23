@@ -35,7 +35,7 @@ describe("VelgArbeidsgiverContainer", () => {
                 }
             }, { sykmelding });
             expect(res.ledetekster).to.deep.equal({
-                "nokkel": "Verdi"
+                "nokkel": "Verdiiii"
             });
         });
 

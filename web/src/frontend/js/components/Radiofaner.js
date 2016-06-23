@@ -4,10 +4,10 @@ import Hjelpetekst from './Hjelpetekst.js';
 const Radiofaner = ({ alternativer = [], valgtAlternativ, changeHandler, className, radioName }) => {
     return (<div className="radiofaner-container"><ul className={`radiofaner ${className}`}>
         {
-            alternativer.map((a, index) => {
+            alternativer.map((a, idx) => {
                 const erValgt = a.verdi === valgtAlternativ;
                 const liClassName = a.hjelpetekst ? ' med-hjelpetekst' : '';
-                return (<li className={`nav-input${liClassName}`} key={index}>
+                return (<li className={`nav-input${liClassName}`} key={idx}>
                     <input
                         type="radio"
                         className={`nav-radioknapp nav-radioknapp--mork js-${a.verdi}`}

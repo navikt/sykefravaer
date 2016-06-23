@@ -1,8 +1,0 @@
-#!/bin/sh
-
-LIST=`git diff-index --name-only HEAD | grep .*\.js | grep -v json`;
-if [[ $LIST ]]; then
-    cd web/src/frontend
-    npm test
-    npm lint
-fi

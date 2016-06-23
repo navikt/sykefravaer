@@ -1,3 +1,4 @@
 #!/bin/sh
 cd web/src/frontend
 npm test
+npm run lint

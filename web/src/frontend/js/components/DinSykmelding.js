@@ -7,9 +7,9 @@ import DineSykmeldingOpplysninger from './DineSykmeldingOpplysninger';
 const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false }) => {
     return (<div>
         <div className="header-bolk header-sykmelding">
-            <img className="header-ikon" src="/sykefravaer/img/svg/account-circle.svg" alt="Du" />
+            <img className="header-ikon" src="/sykefravaer/img/svg/person.svg" alt="Du" />
             <img className="header-ikon header-ikon-hoykontrast"
-                src="/sykefravaer/img/svg/account-circle-highcontrast.svg" alt="Du" />
+                src="/sykefravaer/img/svg/person-highcontrast.svg" alt="Du" />
             <h1 className="header-tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h1>
         </div>
         <div className="panel blokk">

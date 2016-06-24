@@ -30,7 +30,7 @@ describe("VelgArbeidsgiverContainer", () => {
                 },
                 ledetekster: {
                     data: {
-                        "nokkel": "Verdi"
+                        "nokkel": "Verdiiii"
                     }
                 }
             }, { sykmelding });

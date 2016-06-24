@@ -11,11 +11,12 @@ class Dropdown extends Component {
         return (<select
             onChange={(event) => {this.props.onChange(event.target.value);}}
             defaultValue={this.props.valgtAlternativ}
+            value={this.props.valgtAlternativ}
             aria-controls={this.props.ariaControls}
             ref="select"
             id={this.props.id}>
             {this.props.alternativer.map((alt, idx) => {
-                return (<option key={idx}
+                return (<option className={`js-${alt.verdi}`} key={idx}
                     value={alt.verdi}>{alt.tekst}</option>);
             })}
         </select>);

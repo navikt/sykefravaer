@@ -107,6 +107,28 @@ describe("DinSykmeldingBrukerInput", () => {
             expect(component.find("option")).to.have.length(5);
         });
 
+        it("Setter valgt alternativ til valgt når man veler arbeidssituasjon", () => {
+            let sykmelding = {};
+            let setArbeidssituasjon = (arbeidssituasjon) => {
+                sykmelding.arbeidssituasjon = arbeidssituasjon;
+            }
+
+            const component = mount(<DinSykmeldingBrukerInput sykmelding={sykmelding}
+                                                                arbeidssituasjoner={arbeidssituasjoner}
+                                                                ledetekster={ledetekster}
+                                                                setArbeidssituasjon={(arbeidssituasjon) => {
+                                                                    setArbeidssituasjon(arbeidssituasjon);
+                                                                }}
+            />);
+            component.find('select').simulate('change', {
+                target: {
+                    value: "arbeidstaker"
+                }
+            });
+            expect(component.find(Dropdown).prop('valgtAlternativ')).to.equal("arbeidstaker");
+            expect(component.find(".js-arbeidstaker")).to.be.selected();
+        });
+
         it("Validering slår ut om dropdown ikke er valgt", function () {
             const sykmelding = {};
             const component = mount(<DinSykmeldingBrukerInput sykmelding={sykmelding}

@@ -18,6 +18,15 @@ class DinSykmeldingBrukerInput extends Component {
         this.props.setArbeidssituasjon(status, this.props.sykmelding.id);
     }
 
+    getArbeidssituasjoner() {
+        if (!this.props.sykmelding.arbeidssituasjon) {
+            return this.props.arbeidssituasjoner;
+        }
+        return this.props.arbeidssituasjoner.filter((situasjon) => {
+            return situasjon.verdi !== 'default';
+        });
+    }
+
     gaTilSend() {
         browserHistory.push(`/sykefravaer/sykmeldinger/${this.props.sykmelding.id}/send`);
     }
@@ -46,7 +55,7 @@ class DinSykmeldingBrukerInput extends Component {
     }
 
     render() {
-        const { arbeidssituasjoner, ledetekster, sykmelding } = this.props;
+        const { ledetekster, sykmelding } = this.props;
         const knappetekst = !sykmelding.arbeidssituasjon || sykmelding.arbeidssituasjon === 'default' || sykmelding.arbeidssituasjon === 'arbeidstaker' ? 'Gå videre' : 'Bekreft';
 
         if (sykmelding.status === 'SENDT') {
@@ -69,7 +78,7 @@ class DinSykmeldingBrukerInput extends Component {
                     <DropdownWrapper erFeil={this.state.forsoktSendt}
                         feilmelding={getLedetekst('din-sykmelding.arbeidssituasjon.feilmelding', ledetekster.data)}>
                         <div className="select-container">
-                            <Dropdown alternativer={arbeidssituasjoner}
+                            <Dropdown alternativer={this.getArbeidssituasjoner()}
                                 valgtAlternativ={sykmelding.arbeidssituasjon}
                                 onChange={(status) => {this.onDropdownChange(status);}} />
                         </div>

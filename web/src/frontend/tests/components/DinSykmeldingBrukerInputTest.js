@@ -1,6 +1,6 @@
 import chai from 'chai';
 import React from 'react'
-import { mount, shallow } from 'enzyme';
+import { mount, shallow, render } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import Dropdown from '../../js/components/Dropdown.js';
@@ -17,7 +17,6 @@ describe("DinSykmeldingBrukerInput", () => {
     const arbeidssituasjoner = [{
             tekst: 'Velg arbeidssituasjon',
             verdi: 'default',
-            skjult: true,
         },
         {
             tekst: 'Arbeidstaker',
@@ -41,7 +40,7 @@ describe("DinSykmeldingBrukerInput", () => {
         },
     ];
 
-    describe("Velg arbeidssituasjon", () => {
+    describe("Velg arbeidssituasjon", () => { 
         it("Prepopulerer dropdown om status er satt", function () {
             const sykmelding = { arbeidssituasjon: 'arbeidstaker' };
 
@@ -51,7 +50,28 @@ describe("DinSykmeldingBrukerInput", () => {
             />);
             const dropdown = component.find(Dropdown);
             expect(component.find(Dropdown)).to.have.length(1);
-            expect(dropdown.prop('alternativer')).to.deep.equal(arbeidssituasjoner);
+            expect(dropdown.prop('alternativer')).to.deep.equal([
+            {
+                tekst: 'Arbeidstaker',
+                verdi: 'arbeidstaker',
+            },
+            {
+                tekst: 'Selvstendig næringsdrivende',
+                verdi: 'selvstendig_naeringsdrivende',
+            },
+            {
+                tekst: 'Frilanser',
+                verdi: 'frilanser',
+            },
+            {
+                tekst: 'Arbeidsledig',
+                verdi: 'arbeidsledig',
+            },
+            {
+                tekst: 'Annet',
+                verdi: 'annet',
+            },
+        ]);
             expect(dropdown.prop('valgtAlternativ')).to.equal('arbeidstaker');
         });
 
@@ -64,6 +84,27 @@ describe("DinSykmeldingBrukerInput", () => {
             const dropdown = component.find(Dropdown);
             expect(component.find(Dropdown)).to.have.length(1);
             expect(dropdown.prop('valgtAlternativ')).to.equal(undefined);
+        });
+
+        it("Setter dropdown til velg om status ikke er satt", function () {
+            const sykmelding = {};
+
+            const component = shallow(<DinSykmeldingBrukerInput sykmelding={sykmelding}
+                                                                arbeidssituasjoner={arbeidssituasjoner}
+                                                                ledetekster={ledetekster}/>);
+            const dropdown = component.find(Dropdown);
+            expect(component.find(Dropdown)).to.have.length(1);
+            expect(dropdown.prop('valgtAlternativ')).to.equal(undefined);
+        });
+
+        it("Fjerner default når man velger arbeidssituasjon", () => {
+            const sykmelding = { arbeidssituasjon: 'arbeidstaker' };
+
+            const component = render(<DinSykmeldingBrukerInput sykmelding={sykmelding}
+                                                                arbeidssituasjoner={arbeidssituasjoner}
+                                                                ledetekster={ledetekster}
+            />);
+            expect(component.find("option")).to.have.length(5);
         });
 
         it("Validering slår ut om dropdown ikke er valgt", function () {

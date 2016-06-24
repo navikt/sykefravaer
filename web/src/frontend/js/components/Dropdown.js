@@ -15,7 +15,7 @@ class Dropdown extends Component {
             ref="select"
             id={this.props.id}>
             {this.props.alternativer.map((alt, idx) => {
-                return (<option className={`${alt.skjult === true ? 'er-skjult' : ''}`} key={idx}
+                return (<option key={idx}
                     value={alt.verdi}>{alt.tekst}</option>);
             })}
         </select>);

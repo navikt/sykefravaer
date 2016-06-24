@@ -1,11 +1,11 @@
 import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import nock from 'nock';
 import * as actions from '../../js/actions/dinSykmelding_actions.js';
 import * as dactions from '../../js/actions/dineSykmeldinger_actions.js';
 
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import nock from 'nock';
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
 
@@ -180,60 +180,6 @@ describe('arbeidsgiversSykmeldinger', () => {
                 sendingFeilet: false
             });            
         });
-
-        describe("sendSykmeldingTilArbeidsgiver()", () => {
-
-            it("Dispatcher SET_DINE_SYKMELDINGER når hentDineSykmeldinger() er fullført", () => {
-                nock('http://tjenester.nav.no/syforest/', {
-                    reqheaders: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                    .post("/sykmeldinger/56/actions/send",
-                    '***REMOVED***'
-                    )
-                .reply(200, {
-                    "id": 56,
-                    "status": "SENDT",
-                    "sykmelder": "Hans Hansen"
-                }) 
-
-                const expectedActions = [
-                    { type: "SENDER_SYKMELDING", sykmeldingId: 56 },
-                    { type: "SYKMELDING_SENDT", sykmeldingId: 56, orgnummer: '***REMOVED***' },
-                ]
-
-                return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(56, '***REMOVED***'))
-                    .then(() => { 
-                        expect(store.getActions()).to.deep.equal(expectedActions)
-                    });
-
-            });
-
-            it("Dispatcher SEND_SYKMELDING_FEILET når hentDineSykmeldinger() feiler", () => {
-                nock('http://tjenester.nav.no/syforest/', {
-                    reqheaders: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .post("/sykmeldinger/56/actions/send", {
-                    orgnummer: '***REMOVED***'
-                })
-                .reply(500) 
-
-                const expectedActions = [
-                    { type: "SENDER_SYKMELDING", sykmeldingId: 56}, 
-                    { type: "SEND_SYKMELDING_FEILET", sykmeldingId: 56 }
-                ]
-
-                return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(56, ***REMOVED***))
-                    .then(() => { 
-                        expect(store.getActions()).to.deep.equal(expectedActions)
-                    });
-
-            });            
-
-        }); 
 
     });
 

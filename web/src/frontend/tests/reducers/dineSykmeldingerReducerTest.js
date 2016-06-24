@@ -6,7 +6,7 @@ import dineSykmeldinger from '../../js/reducers/dineSykmeldinger.js';
 
 describe('dineSykmeldinger', () => {
 
-    it('håndterer SET_DINE_SYKMELDINGER', () => {
+    it('håndterer SET_DINE_SYKMELDINGER når man ikke har sykmeldinger fra før', () => {
         const initialState = {};
         const action = {
             type: 'SET_DINE_SYKMELDINGER',
@@ -21,6 +21,51 @@ describe('dineSykmeldinger', () => {
             data: [{
                 pair: ['Trainspotting', '28 Days Later'],
                 tally: {Trainspotting: 1}
+            }],
+            henter: false,
+            hentingFeilet: false
+        });
+    });
+
+    it('håndterer SET_DINE_SYKMELDINGER når man har sykmeldinger fra før, ved å kun overskrive properties som finnes', () => {
+        const initialState = {
+            data: [{
+                id: 44, 
+                fornavn: "Harald",
+                etternavn: "R.",
+                nettoppBekreftet: true
+            }, {
+                id: 55,
+                fornavn: "Sonja",
+                etternavn: "Haraldsen"
+            }]
+        };
+        const action = {
+            type: 'SET_DINE_SYKMELDINGER',
+            sykmeldinger: [{
+                id: 44,
+                fornavn: "Harald",
+                etternavn: "R",
+                diagnose: "Forkjølet"
+            }, {
+                id: 55,
+                fornavn: "Sonja",
+                etternavn: "Haraldsen"
+            }],
+        };
+        const nextState = dineSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 44,
+                fornavn: "Harald",
+                etternavn: "R",
+                diagnose: "Forkjølet",
+                nettoppBekreftet: true
+            }, {
+                id: 55, 
+                fornavn: "Sonja",
+                etternavn: "Haraldsen"
             }],
             henter: false,
             hentingFeilet: false

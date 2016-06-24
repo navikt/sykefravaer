@@ -7,7 +7,7 @@ import DinBekrefteteSykmelding from '../components/DinBekrefteteSykmelding';
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../nokkelopplysninger/NokkelOpplysningerEnum';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { getLedetekst } from '../ledetekster/index';
+import { getLedetekst, getHtmlLedetekst } from '../ledetekster/index';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { navigerFraBekreftetkvittering } from '../actions/dinSykmelding_actions';
 import { erPilotarbeidsgiver } from '../utils/arbeidsgiverUtils.js';
@@ -60,7 +60,9 @@ export class DinSykmldSide extends Component {
                         return (<SykmeldingKvittering
                             tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel', ledetekster.data)}
                             sykmelding={sykmelding.data}
-                            ledetekster={ledetekster.data} />);
+                            ledetekster={ledetekster.data}
+                            sykepengerTittel={getLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tittel', ledetekster)}
+                            sykepengerTekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tekst', ledetekster)} />);
                     } else if (sykmelding.data.status === 'BEKREFTET' && !sykmelding.data.nettoppBekreftet) {
                         return (<div>
                             <DinBekrefteteSykmelding

@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
+import { getLedetekst } from '../ledetekster';
 import { Link } from 'react-router';
 import { getContextRoot } from '../routers/paths.js';
 import { scrollTo } from '../utils';
@@ -11,7 +11,7 @@ class SykmeldingKvittering extends Component {
     }
 
     render() {
-        const { tittel, brodtekst, ledetekster } = this.props;
+        const { tittel, brodtekst, ledetekster, sykepengerTittel, sykepengerTekst } = this.props;
         return (
             <div ref="js-kvittering">
                 <div className="panel blokk typo-infotekst panel-melding side-innhold">
@@ -22,8 +22,8 @@ class SykmeldingKvittering extends Component {
                     </p>
                 </div>
                 <article className="panel blokk side-innhold">
-                    <h2 className="typo-undertittel">{getLedetekst('kvittering.sok-om-sykepenger.tittel', ledetekster)}</h2>
-                    <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('kvittering.sok-om-sykepenger.tekst', ledetekster)} />
+                    <h2 className="typo-undertittel">{sykepengerTittel}</h2>
+                    <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={sykepengerTekst} />
                 </article>
             </div>
         );
@@ -34,6 +34,8 @@ SykmeldingKvittering.propTypes = {
     ledetekster: PropTypes.object,
     tittel: PropTypes.string,
     brodtekst: PropTypes.string,
+    sykepengerTekst: PropTypes.string,
+    sykepengerTittel: PropTypes.string,
 };
 
 export default SykmeldingKvittering;

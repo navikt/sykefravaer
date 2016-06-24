@@ -4,6 +4,7 @@ import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
 import DinSykmelding from '../components/DinSykmelding';
 import DinSendteSykmelding from '../components/DinSendteSykmelding';
 import DinBekrefteteSykmelding from '../components/DinBekrefteteSykmelding';
+import DinUtgaatteSykmelding from '../components/DinUtgaatteSykmelding';
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../nokkelopplysninger/NokkelOpplysningerEnum';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
@@ -50,6 +51,7 @@ export class DinSykmldSide extends Component {
                             <DinSendteSykmelding
                                 sykmelding={sykmelding.data}
                                 ledetekster={ledetekster.data}
+                                type="suksess"
                                 nokkelopplysninger={[
                                 [STATUS, INNSENDT_DATO],
                                 [ARBEIDSGIVER, ORGNUMMER],
@@ -66,8 +68,20 @@ export class DinSykmldSide extends Component {
                             <DinBekrefteteSykmelding
                                 sykmelding={sykmelding.data}
                                 ledetekster={ledetekster.data}
+                                type="suksess"
                                 nokkelopplysninger={[
                                 [STATUS, INNSENDT_DATO],
+                                ]} />
+                            <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
+                        </div>);
+                    } else if (sykmelding.data.status === 'UTGAATT') {
+                        return (<div>
+                            <DinUtgaatteSykmelding
+                                sykmelding={sykmelding.data}
+                                ledetekster={ledetekster.data}
+                                type="info"
+                                nokkelopplysninger={[
+                                [STATUS],
                                 ]} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
                         </div>);

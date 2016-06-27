@@ -14,73 +14,76 @@ import DinSykmelding from '../../js/components/DinSykmelding.js';
 import SykmeldingKvittering from '../../js/components/SykmeldingKvittering.js';
 import DinSendteSykmelding from '../../js/components/DinSendteSykmelding.js';
 import sinon from 'sinon';
+import * as dineArbeidsgivereActions from '../../js/actions/dineArbeidsgivere_actions';
+import * as arbeidsgiversSykmeldingerActions from '../../js/actions/arbeidsgiversSykmeldinger_actions';
 
 let component;
-
-const sykmeldinger = [{
-    id: 2,
-    fnr: "12",
-    fornavn: "Per",
-    etternavn: "Person",
-    sykmelder: "Ove Olsen",
-    arbeidsgiver: "Selskapet AS",
-    perioder: [{
-        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
-        grad: 67
-    }],
-    hoveddiagnose: {
-        diagnose: "Influensa",
-        diagnosesystem: "ICPC",
-        diagnosekode: "LP2"
-    },
-    arbeidsfoerEtterPerioden: true
-}, {
-    id: 1,
-    fnr: "12",
-    fornavn: "Per",
-    etternavn: "Person",
-    sykmelder: "Ove Olsen",
-    arbeidsgiver: "Selskapet AS",
-    perioder: [{
-        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
-        grad: 67
-    }],
-    hoveddiagnose: {
-        diagnose: "Influensa",
-        diagnosesystem: "ICPC",
-        diagnosekode: "LP2"
-    },
-    arbeidsfoerEtterPerioden: true
-}, {
-    id: 3,
-    fnr: "12",
-    fornavn: "Per",
-    etternavn: "Person",
-    sykmelder: "Ove Olsen",
-    arbeidsgiver: "Selskapet AS",
-    perioder: [{
-        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
-        grad: 67
-    }],
-    hoveddiagnose: {
-        diagnose: "Influensa",
-        diagnosesystem: "ICPC",
-        diagnosekode: "LP2"
-    },
-    arbeidsfoerEtterPerioden: true
-}];
-
 
 describe("DinSykmeldingContainer", () => {
 
     let component; 
     let ownProps = {};
     let state; 
+    let sykmeldinger;
 
     beforeEach(() => {
+
+        sykmeldinger = [{
+            id: 2,
+            fnr: "12",
+            fornavn: "Per",
+            etternavn: "Person",
+            sykmelder: "Ove Olsen",
+            arbeidsgiver: "Selskapet AS",
+            perioder: [{
+                fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
+                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                grad: 67
+            }],
+            hoveddiagnose: {
+                diagnose: "Influensa",
+                diagnosesystem: "ICPC",
+                diagnosekode: "LP2"
+            },
+            arbeidsfoerEtterPerioden: true
+        }, {
+            id: 1,
+            fnr: "12",
+            fornavn: "Per",
+            etternavn: "Person",
+            sykmelder: "Ove Olsen",
+            arbeidsgiver: "Selskapet AS",
+            perioder: [{
+                fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
+                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                grad: 67
+            }],
+            hoveddiagnose: {
+                diagnose: "Influensa",
+                diagnosesystem: "ICPC",
+                diagnosekode: "LP2"
+            },
+            arbeidsfoerEtterPerioden: true
+        }, {
+            id: 3,
+            fnr: "12",
+            fornavn: "Per",
+            etternavn: "Person",
+            sykmelder: "Ove Olsen",
+            arbeidsgiver: "Selskapet AS",
+            perioder: [{
+                fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
+                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                grad: 67
+            }],
+            hoveddiagnose: {
+                diagnose: "Influensa",
+                diagnosesystem: "ICPC",
+                diagnosekode: "LP2"
+            },
+            arbeidsfoerEtterPerioden: true
+        }];
+
         state = {
             dineSykmeldinger: {
                 data: sykmeldinger,
@@ -113,7 +116,7 @@ describe("DinSykmeldingContainer", () => {
 
         it("Skal returnere sykmelding basert på ownProps.params.sykmeldingId", () => {
             const res = mapStateToProps(state, ownProps);
-            expect(res.sykmelding.data).to.equal(sykmeldinger[2])
+            expect(res.dinSykmelding.data).to.equal(sykmeldinger[2])
         });
 
         it("Skal returnere sykmeldingId basert på ownProps.params.sykmeldingId", () => {
@@ -124,13 +127,13 @@ describe("DinSykmeldingContainer", () => {
         it("Skal returnere henter-flagget fra sykmeldinger", () => {
             state.dineSykmeldinger.henter = true; 
             const res = mapStateToProps(state, ownProps);
-            expect(res.sykmelding.henter).to.equal(true);
+            expect(res.dinSykmelding.henter).to.equal(true);
         });
 
         it("Skal returnere hentingFeilet-flagget fra sykmeldinger", () => {
             state.dineSykmeldinger.hentingFeilet = true; 
             const res = mapStateToProps(state, ownProps);
-            expect(res.sykmelding.hentingFeilet).to.equal(true);
+            expect(res.dinSykmelding.hentingFeilet).to.equal(true);
         });
 
         it("Skal returnere ledetekster", () => {
@@ -196,6 +199,58 @@ describe("DinSykmeldingContainer", () => {
             state.brukerinfo.bruker.data.toggleSendTilArbeidsgiver = false;
             const res = mapStateToProps(state, ownProps);
             expect(res.visSendTilArbeidsgiver).to.be.false; 
+        });
+
+        describe("Dersom dinSykmelding.status === 'SENDT'", () => {
+
+            beforeEach(() => {
+                state.dineSykmeldinger.data.push({
+                    id: 44,
+                    status: "SENDT"
+                });
+                ownProps = {
+                    params: {
+                        sykmeldingId: 44
+                    }
+                };
+            });
+
+            it("Skal returnere arbeidsgiversSykmelding når arbeidsgiversSykmeldinger = []'", () => {
+                state.arbeidsgiversSykmeldinger = {
+                    data: [],
+                    hentingFeilet: false,
+                    henter: false,
+                }
+                const res = mapStateToProps(state, ownProps);
+                expect(res.arbeidsgiversSykmelding).to.deep.equal({
+                    data: undefined,
+                    hentingFeilet: false,
+                    henter: false
+                });
+            });
+
+            it("Skal returnere arbeidsgiversSykmelding når arbeidsgiversSykmeldinger = [{...}]'", () => {
+                state.arbeidsgiversSykmeldinger = {
+                    data: [{
+                        id: 44, 
+                        fornavn: "Hans",
+                        etternavn: "Olsen"
+                    }],
+                    hentingFeilet: false,
+                    henter: false,
+                }
+                const res = mapStateToProps(state, ownProps);
+                expect(res.arbeidsgiversSykmelding).to.deep.equal({
+                    data: {
+                        id: 44, 
+                        fornavn: "Hans",
+                        etternavn: "Olsen"
+                    },
+                    hentingFeilet: false,
+                    henter: false
+                });
+            });            
+
         })
 
     });
@@ -212,7 +267,7 @@ describe("DinSykmeldingContainer", () => {
             let sykmelding = {
                 henter: true
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.find(AppSpinner)).to.have.length(1);
         }); 
 
@@ -220,7 +275,7 @@ describe("DinSykmeldingContainer", () => {
             let sykmelding = {
                 hentingFeilet: true
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
 
@@ -229,7 +284,7 @@ describe("DinSykmeldingContainer", () => {
                 hentingFeilet: false,
                 data: undefined
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
@@ -238,7 +293,7 @@ describe("DinSykmeldingContainer", () => {
                 hentingFeilet: false,
                 data: sykmeldinger[1]
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.find(DinSykmelding)).to.have.length(1);
         });
 
@@ -250,7 +305,7 @@ describe("DinSykmeldingContainer", () => {
                     nettoppBekreftet: true
                 }
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.find(SykmeldingKvittering)).to.have.length(1);
         });
 
@@ -259,21 +314,56 @@ describe("DinSykmeldingContainer", () => {
                 hentingFeilet: false,
                 data: {
                     status: "SENDT",
-                    nettoppBekreftet: true
                 }
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let arbeidsgiversSykmelding = {
+                data: {}
+            }
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(component.find(DinSendteSykmelding)).to.have.length(1);
         });
 
-        it("Skal kalle dispatch", () => {
+        it("Skal hente aktuelle arbeidsgivere dersom status !== 'SENDT'", () => {
             let sykmelding = {
                 hentingFeilet: false,
-                data: sykmeldinger[1]
+                data: Object.assign({}, sykmeldinger[1], {
+                    status: "NY"
+                }),
             };
-            let component = shallow(<DinSykmldSide sykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let spy = sinon.spy(dineArbeidsgivereActions, "hentAktuelleArbeidsgivere");
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
             expect(dispatch.calledOnce).to.be.true;
-        })
+            expect(spy.calledOnce).to.be.true;
+            spy.restore();
+        });
+
+        it("Skal ikke hente aktuelle arbeidsgivere dersom status === 'BEKREFTET'", () => {
+            let sykmelding = {
+                hentingFeilet: false,
+                data: Object.assign({}, sykmeldinger[1], {
+                    status: "BEKREFTET"
+                })
+            };
+            let spy = sinon.spy(dineArbeidsgivereActions, "hentAktuelleArbeidsgivere");
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            expect(spy.calledOnce).to.be.false;
+            spy.restore();
+        });
+
+        it("Skal hente arbeidsgiversSykmeldinger dersom status === 'SENDT'", () => {
+            let sykmelding = {
+                hentingFeilet: false,
+                data: Object.assign({}, sykmeldinger[1], {
+                    status: "SENDT"
+                }),
+            };
+            let spy = sinon.spy(arbeidsgiversSykmeldingerActions, "hentArbeidsgiversSykmeldinger");
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            expect(spy.calledOnce).to.be.true;
+            spy.restore();
+        });
+
+
 
     });
 

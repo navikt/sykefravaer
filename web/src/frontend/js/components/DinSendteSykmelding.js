@@ -10,16 +10,18 @@ const DinSendteSykmelding = (props) => {
         <StatusPanel {...props} />
         <Utvidbar erApen tittel={getLedetekst('din-sykmelding.tittel', props.ledetekster)}
             ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege" className="blokk" variant="lysebla">
-            <DineSykmeldingOpplysninger {...props} />
+            <DineSykmeldingOpplysninger sykmelding={props.dinSykmelding} ledetekster={props.ledetekster} />
         </Utvidbar>
         <div className="blokk-l">
-            <ArbeidsgiversSykmelding {...props} />
+            <ArbeidsgiversSykmelding sykmelding={props.arbeidsgiversSykmelding} ledetekster={props.ledetekster} />
         </div>
     </div>);
 };
 
 DinSendteSykmelding.propTypes = {
     ledetekster: PropTypes.object,
+    dinSykmelding: PropTypes.object,
+    arbeidsgiversSykmelding: PropTypes.object,
 };
 
 export default DinSendteSykmelding;

@@ -58,4 +58,3 @@ StatusOpplysning.propTypes = {
 };
 
 export default StatusOpplysning;
-

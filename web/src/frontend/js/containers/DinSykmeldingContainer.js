@@ -5,7 +5,6 @@ import DinSykmelding from '../components/DinSykmelding';
 import DinSendteSykmelding from '../components/DinSendteSykmelding';
 import DinBekreftedeSykmelding from '../components/DinBekreftedeSykmelding';
 import DinUtgaatteSykmelding from '../components/DinUtgaatteSykmelding';
-import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../nokkelopplysninger/NokkelOpplysningerEnum';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster/index';
@@ -76,7 +75,14 @@ export class DinSykmldSide extends Component {
                             sykepengerTekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tekst', ledetekster)} />);
                     } else if (dinSykmelding.data.status === 'BEKREFTET' && !dinSykmelding.data.nettoppBekreftet) {
                         return (<div>
-                            <DinBekrefteteSykmelding
+                            <DinBekreftedeSykmelding
+                                sykmelding={dinSykmelding.data}
+                                ledetekster={ledetekster.data} />
+                            <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
+                        </div>);
+                    } else if (dinSykmelding.data.status === 'UTGAATT') {
+                        return (<div>
+                            <DinUtgaatteSykmelding
                                 sykmelding={dinSykmelding.data}
                                 ledetekster={ledetekster.data} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />

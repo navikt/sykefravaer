@@ -31,7 +31,7 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
                             )
                         </p>
                     </SykmeldingNokkelOpplysning>
-                </div>) : <noscript />
+                </div>) : null
             }
             {
                 sykmelding.diagnose.bidiagnose ? (<div className="rad-container">
@@ -52,30 +52,30 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
                             )
                         </p>
                     </SykmeldingNokkelOpplysning>
-                </div>) : <noscript />
+                </div>) : null
             }
             {
                 sykmelding.diagnose.fravaersgrunnLovfestet ?
                     <SykmeldingNokkelOpplysning tittel="Lovfestet fraværsgrunn">
                         <p className="js-fravaersgrunnLovfestet">{sykmelding.diagnose.fravaersgrunnLovfestet}</p>
-                    </SykmeldingNokkelOpplysning> : <noscript />
+                    </SykmeldingNokkelOpplysning> : null
             }
             {
                 sykmelding.diagnose.fravaerBeskrivelse ?
                     <SykmeldingNokkelOpplysning tittel="Beskriv fraværet">
                         <p className="js-fravaerBeskrivelse">{sykmelding.diagnose.fravaerBeskrivelse}</p>
-                    </SykmeldingNokkelOpplysning> : <noscript />
+                    </SykmeldingNokkelOpplysning> : null
             }
             {
                 getSykmeldingCheckbox(sykmelding.diagnose, 'svangerskap', getLedetekst('din-sykmelding.svangerskap.tittel', ledetekster), 'blokk')
             }
             {
-                !sykmelding.diagnose.yrkesskadeDato ? <noscript /> :
+                !sykmelding.diagnose.yrkesskadeDato ? null :
                     <SykmeldingCheckbox tekst={getLedetekst('din-sykmelding.yrkesskade.tittel', ledetekster)}
                         jsClassName="yrkesskade" />
             }
             {
-                !sykmelding.diagnose.yrkesskadeDato ? <noscript /> :
+                !sykmelding.diagnose.yrkesskadeDato ? null :
                     <SykmeldingNokkelOpplysning tittel="Skadedato" className="sykmelding-subopplysning">
                         <p className=" js-yrkesskadeDato">{toDatePrettyPrint(sykmelding.diagnose.yrkesskadeDato)}</p>
                     </SykmeldingNokkelOpplysning>
@@ -84,7 +84,7 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
                 getSykmeldingCheckbox(sykmelding.friskmelding, 'arbeidsfoerEtterPerioden', getLedetekst('din-sykmelding.arbeidsfoer.tittel', ledetekster), 'blokk')
             }
             {
-                !sykmelding.friskmelding.hensynPaaArbeidsplassen ? <noscript /> :
+                !sykmelding.friskmelding.hensynPaaArbeidsplassen ? null :
                     <SykmeldingNokkelOpplysning tittel={getLedetekst('din-sykmelding.hensyn.tittel', ledetekster)}>
                         <p className="js-hensynPaaArbeidsplassen">{sykmelding.friskmelding.hensynPaaArbeidsplassen}</p>
                     </SykmeldingNokkelOpplysning>
@@ -93,13 +93,13 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
                 sykmelding.arbeidsgiver ? <SykmeldingNokkelOpplysning
                     tittel={getLedetekst('din-sykmelding.arbeidsgiver.tittel', ledetekster)}>
                     <p className="js-arbeidsgiver">{sykmelding.arbeidsgiver}</p>
-                </SykmeldingNokkelOpplysning> : <noscript />
+                </SykmeldingNokkelOpplysning> : null
             }
             {
                 sykmelding.bekreftelse.sykmelder ? <SykmeldingNokkelOpplysning
                     tittel={getLedetekst('din-sykmelding.avsender.tittel', ledetekster)}>
                     <p className="js-avsender">{sykmelding.bekreftelse.sykmelder}</p>
-                </SykmeldingNokkelOpplysning> : <noscript />
+                </SykmeldingNokkelOpplysning> : null
             }
         </div>
         <Utvidbar tittel={getLedetekst('din-sykmelding.flere-opplysninger.tittel', ledetekster)}

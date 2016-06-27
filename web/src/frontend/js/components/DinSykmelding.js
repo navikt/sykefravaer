@@ -19,7 +19,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false
             <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
                 {
                     (visSendTilArbeidsgiver) ?
-                        <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} /> : <noscript />
+                        <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} /> : null
                 }
         </div>
     </div>);

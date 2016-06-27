@@ -59,7 +59,7 @@ class DinSykmeldingBrukerInput extends Component {
         const knappetekst = !sykmelding.arbeidssituasjon || sykmelding.arbeidssituasjon === 'default' || sykmelding.arbeidssituasjon === 'arbeidstaker' ? 'Gå videre' : 'Bekreft';
 
         if (sykmelding.status === 'SENDT') {
-            return <noscript />;
+            return null;
         }
 
         return (

@@ -27,8 +27,12 @@ const getArbeidsgiver = (ledetekster, sykmelding) => {
 };
 
 const getOrgnummer = (ledetekster, sykmelding) => {
+    let orgnummer = sykmelding.orgnummer;
+    if (orgnummer) {
+        orgnummer = orgnummer.replace(/(...)(...)(...)/g, '$1 $2 $3');
+    }
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.organisasjonsnummer', ledetekster)}>
-        <p className="js-organisasjonsnummer">{sykmelding.orgnummer}</p>
+        <p className="js-organisasjonsnummer">{orgnummer}</p>
     </SykmeldingNokkelOpplysning>);
 };
 

@@ -1,4 +1,5 @@
 import { getCookie } from '../utils/index';
+import * as dineSykmeldingerActions from './dineSykmeldinger_actions.js';
 
 export function setArbeidssituasjon(arbeidssituasjon, sykmeldingId) {
     return {
@@ -38,10 +39,11 @@ export function sykmeldingSendt(sykmeldingId, orgnummer) {
     };
 }
 
-export function bekrefterSykmelding(sykmeldingId) {
+export function bekrefterSykmelding(sykmeldingId, arbeidssituasjon) {
     return {
         type: 'BEKREFTER_SYKMELDING',
         sykmeldingId,
+        arbeidssituasjon,
     };
 }
 
@@ -68,7 +70,7 @@ export function navigerFraBekreftetkvittering(sykmeldingId) {
 
 export function bekreftSykmelding(sykmeldingId, arbeidssituasjon) {
     return function bekreft(dispatch) {
-        dispatch(bekrefterSykmelding(sykmeldingId));
+        dispatch(bekrefterSykmelding(sykmeldingId, arbeidssituasjon));
         return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`,
             {
                 credentials: 'include',
@@ -84,6 +86,7 @@ export function bekreftSykmelding(sykmeldingId, arbeidssituasjon) {
                 dispatch(bekreftSykmeldingFeilet(sykmeldingId));
             } else {
                 dispatch(sykmeldingBekreftet(sykmeldingId));
+                dispatch(dineSykmeldingerActions.hentDineSykmeldinger());
             }
             return response;
         })
@@ -111,6 +114,7 @@ export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer) {
                 dispatch(sendSykmeldingFeilet(sykmeldingId));
             } else {
                 dispatch(sykmeldingSendt(sykmeldingId, orgnummer));
+                dispatch(dineSykmeldingerActions.hentDineSykmeldinger());
             }
         })
         .catch(() => {

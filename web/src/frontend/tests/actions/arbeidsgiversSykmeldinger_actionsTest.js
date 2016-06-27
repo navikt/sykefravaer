@@ -77,6 +77,6 @@ describe("arbeidsgiversSykmeldinger_actions", () => {
 
         });
 
-    });
+    });  
     
 }); 

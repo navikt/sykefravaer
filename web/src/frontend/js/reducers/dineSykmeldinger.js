@@ -9,8 +9,20 @@ const initiellState = {
 export default function sykmeldinger(state = initiellState, action) {
     switch (action.type) {
         case 'SET_DINE_SYKMELDINGER': {
+            if (!state.data) {
+                return {
+                    data: action.sykmeldinger,
+                    henter: false,
+                    hentingFeilet: false,
+                };
+            }
             return {
-                data: action.sykmeldinger,
+                data: state.data.map((gammelSykmelding) => {
+                    const nySykmelding = action.sykmeldinger.filter((sykmld) => {
+                        return sykmld.id === gammelSykmelding.id;
+                    })[0];
+                    return Object.assign({}, gammelSykmelding, nySykmelding);
+                }),
                 henter: false,
                 hentingFeilet: false,
             };

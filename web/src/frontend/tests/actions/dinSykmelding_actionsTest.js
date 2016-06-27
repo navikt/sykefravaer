@@ -6,8 +6,20 @@ import { browserHistory } from 'react-router';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import nock from 'nock';
+const middlewares = [ thunk ];
+const mockStore = configureMockStore(middlewares);
 
 describe("dinSykmelding_actions", () => { 
+
+    beforeEach(() => {
+        window = window || {};
+        window.SYFO_SETTINGS = {
+            REST_ROOT: 'http://tjenester.nav.no/syforest'
+        }
+    });
 
     it("Skal ha en setArbeidssituasjon()-funksjon som returnerer riktig action", () => {
 
@@ -60,14 +72,14 @@ describe("dinSykmelding_actions", () => {
             });
         });
 
-    it("Skal ha en sykmeldingSendt()-funksjon som returnerer riktig action", () => {
-        const action = actions.sykmeldingSendt(14, '123');
-        expect(action).to.deep.equal({
-            sykmeldingId: 14, 
-            type: "SYKMELDING_SENDT",
-            orgnummer: '123',
+        it("Skal ha en sykmeldingSendt()-funksjon som returnerer riktig action", () => {
+            const action = actions.sykmeldingSendt(14, '123');
+            expect(action).to.deep.equal({
+                sykmeldingId: 14, 
+                type: "SYKMELDING_SENDT",
+                orgnummer: '123',
+            });
         });
-    });
 
         it("Skal ha en sendSykmeldingTilArbeidsgiver()-funksjon som returnerer en funksjon", () => {
             const action = actions.sendSykmeldingTilArbeidsgiver(14);
@@ -80,9 +92,10 @@ describe("dinSykmelding_actions", () => {
 
         it("Skal ha en bekrefterSykmelding()-funksjon som returnerer rikig action", () => {
             const sykmeldingId = 12;
-            const action = actions.bekrefterSykmelding(sykmeldingId);
+            const action = actions.bekrefterSykmelding(sykmeldingId, "arbeidstaker");
             expect(action).to.deep.equal({
                 sykmeldingId: 12, 
+                arbeidssituasjon: "arbeidstaker",
                 type: "BEKREFTER_SYKMELDING",
             });        
         });
@@ -116,6 +129,114 @@ describe("dinSykmelding_actions", () => {
         });           
           
     }); 
+
+    describe("sendSykmeldingTilArbeidsgiver()", () => {
+
+        it("Dispatcher SYKMELDING_SENDT, HENTER_DINE_SYKMELDINGER når sendSykmeldingTilArbeidsgiver() er fullført", () => {
+            const store = mockStore();
+            nock('http://tjenester.nav.no/syforest/', {
+                reqheaders: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .post("/sykmeldinger/87654/actions/send", '***REMOVED***')
+            .reply(200, {
+                "id": 87654,
+                "status": "SENDT",
+                "sykmelder": "Hans Hansen"
+            });
+
+            const expectedActions = [
+                { type: "SENDER_SYKMELDING", sykmeldingId: 87654 },
+                { type: "SYKMELDING_SENDT", sykmeldingId: 87654, orgnummer: '***REMOVED***' },
+                { type: "HENTER_DINE_SYKMELDINGER" }
+            ]
+
+            return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(87654, '***REMOVED***'))
+                .then(() => { 
+                    expect(store.getActions()).to.deep.equal(expectedActions)
+                });
+
+        });
+
+        it("Dispatcher SEND_SYKMELDING_FEILET når sendSykmeldingTilArbeidsgiver() feiler", () => {
+            const store = mockStore();
+            nock('http://tjenester.nav.no/syforest/', {
+                reqheaders: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .post("/sykmeldinger/56/actions/send", '***REMOVED***')
+            .reply(500) 
+
+            const expectedActions = [
+                { type: "SENDER_SYKMELDING", sykmeldingId: 57}, 
+                { type: "SEND_SYKMELDING_FEILET", sykmeldingId: 57 }
+            ]
+
+            return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(57, ***REMOVED***))
+                .then(() => { 
+                    expect(store.getActions()).to.deep.equal(expectedActions)
+                });
+
+        });            
+
+    });     
+
+    describe("bekreftSykmelding()", () => {
+
+        it("Dispatcher SYKMELDING_BEKREFTET og HENTER_DINE_SYKMELDINGER når bekreftSykmelding() er fullført", () => {
+            const store = mockStore();
+            nock('http://tjenester.nav.no/syforest/', {
+                reqheaders: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .post("/sykmeldinger/56/actions/bekreft", "arbeidstaker")
+            .reply(200, {});
+
+            nock('http://tjenester.nav.no/syforest/')
+            .get("/sykmeldinger")
+            .reply(200, [{
+                "id": 1
+            }]);
+
+            const expectedActions = [
+                { type: "BEKREFTER_SYKMELDING", sykmeldingId: 56, arbeidssituasjon: "arbeidstaker" },
+                { type: "SYKMELDING_BEKREFTET", sykmeldingId: 56 },
+                { type: "HENTER_DINE_SYKMELDINGER" } 
+            ]
+
+            return store.dispatch(actions.bekreftSykmelding(56, 'arbeidstaker'))
+                .then(() => { 
+                    expect(store.getActions()).to.deep.equal(expectedActions)
+                });
+
+        });
+
+        it("Dispatcher BEKREFT_SYKMELDING_FEILET når bekreftSykmelding() feiler", () => {
+            const store = mockStore();
+            nock('http://tjenester.nav.no/syforest/', {
+                reqheaders: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .post("/sykmeldinger/88/actions/bekreft", 'arbeidstaker')
+            .reply(500)
+
+            const expectedActions = [
+                { type: "BEKREFTER_SYKMELDING", sykmeldingId: 88, arbeidssituasjon: "arbeidstaker"}, 
+                { type: "BEKREFT_SYKMELDING_FEILET", sykmeldingId: 88 }
+            ]
+
+            return store.dispatch(actions.bekreftSykmelding(88, 'arbeidstaker'))
+                .then(() => { 
+                    expect(store.getActions()).to.deep.equal(expectedActions)
+                });
+
+        });
+
+    });         
 
 
 

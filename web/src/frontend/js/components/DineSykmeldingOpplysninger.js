@@ -9,7 +9,8 @@ import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox';
 import FlereOpplysninger from './FlereOpplysninger';
 
 const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
-    return (<div><div className="blokk-l side-innhold">
+    return (<div>
+        <div className="blokk-l side-innhold">
             <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} ledetekster={ledetekster} />
             {
                 sykmelding.diagnose.hoveddiagnose ? (<div className="rad-container">

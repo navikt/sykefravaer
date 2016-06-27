@@ -6,14 +6,15 @@ import { getLedetekst } from '../ledetekster';
 import FlereOpplysninger from './FlereOpplysninger.js';
 import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils';
 
-const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster }) => {
+const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster, Overskrift = 'H2' }) => {
     return (<Utvidbar
         tittel="Opplysninger til arbeidsgiveren din"
         ikon="svg/doctor-2.svg"
         ikonHover="svg/doctor-2_hover.svg"
         ikonAltTekst="Lege"
         erApen={false}
-        variant="lilla">
+        variant="lilla"
+        Overskrift={Overskrift}>
         <div className="side-innhold">
             <header className="arbeidsgivers-header">
                 <h3 className="arbeidsgivers-tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h3>
@@ -60,6 +61,7 @@ const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster }) => {
 ArbeidsgiversSykmelding.propTypes = {
     sykmelding: PropTypes.object,
     ledetekster: PropTypes.object,
+    Overskrift: PropTypes.string,
 };
 
 export default ArbeidsgiversSykmelding;

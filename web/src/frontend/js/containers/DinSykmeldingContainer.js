@@ -23,20 +23,9 @@ export class DinSykmldSide extends Component {
     }
 
     componentWillMount() {
-        const { dispatch, sykmeldingId, dinSykmelding } = this.props;
-        if (dinSykmelding.data && dinSykmelding.data.status) {
-            switch (dinSykmelding.data.status) {
-                case 'SENDT': {
-                    dispatch(hentArbeidsgiversSykmeldinger());
-                    break;
-                }
-                case 'BEKREFTET':
-                    break;
-                default: {
-                    dispatch(hentAktuelleArbeidsgivere(sykmeldingId));
-                }
-            }
-        }
+        const { dispatch, sykmeldingId } = this.props;
+        dispatch(hentArbeidsgiversSykmeldinger());
+        dispatch(hentAktuelleArbeidsgivere(sykmeldingId));
     }
 
     componentWillUnmount() {

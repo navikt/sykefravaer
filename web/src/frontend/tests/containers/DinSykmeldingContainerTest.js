@@ -323,7 +323,7 @@ describe("DinSykmeldingContainer", () => {
             expect(component.find(DinSendteSykmelding)).to.have.length(1);
         });
 
-        it("Skal hente aktuelle arbeidsgivere dersom status !== 'SENDT'", () => {
+        it("Skal hente aktuelle arbeidsgivere'", () => {
             let sykmelding = {
                 hentingFeilet: false,
                 data: Object.assign({}, sykmeldinger[1], {
@@ -332,25 +332,12 @@ describe("DinSykmeldingContainer", () => {
             };
             let spy = sinon.spy(dineArbeidsgivereActions, "hentAktuelleArbeidsgivere");
             let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
-            expect(dispatch.calledOnce).to.be.true;
+            expect(dispatch.calledTwice).to.be.true;
             expect(spy.calledOnce).to.be.true;
             spy.restore();
         });
 
-        it("Skal ikke hente aktuelle arbeidsgivere dersom status === 'BEKREFTET'", () => {
-            let sykmelding = {
-                hentingFeilet: false,
-                data: Object.assign({}, sykmeldinger[1], {
-                    status: "BEKREFTET"
-                })
-            };
-            let spy = sinon.spy(dineArbeidsgivereActions, "hentAktuelleArbeidsgivere");
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
-            expect(spy.calledOnce).to.be.false;
-            spy.restore();
-        });
-
-        it("Skal hente arbeidsgiversSykmeldinger dersom status === 'SENDT'", () => {
+        it("Skal hente arbeidsgiversSykmeldinger", () => {
             let sykmelding = {
                 hentingFeilet: false,
                 data: Object.assign({}, sykmeldinger[1], {
@@ -359,6 +346,7 @@ describe("DinSykmeldingContainer", () => {
             };
             let spy = sinon.spy(arbeidsgiversSykmeldingerActions, "hentArbeidsgiversSykmeldinger");
             let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
+            expect(dispatch.calledTwice).to.be.true;
             expect(spy.calledOnce).to.be.true;
             spy.restore();
         });

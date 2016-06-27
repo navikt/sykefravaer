@@ -87,7 +87,7 @@ class DinSykmeldingBrukerInput extends Component {
                 {
                     this.state.forsoktBekreftet && <div className="panel panel-ramme">
                         <Varselstripe type="feil">
-                            <p>Beklager, det oppstod en feil da sykmeldingen skulle bekreftes.</p>
+                            <p className="sist">Beklager, det oppstod en feil da sykmeldingen skulle bekreftes.</p>
                         </Varselstripe>
                     </div>
                 }

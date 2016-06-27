@@ -7,6 +7,7 @@ import { STATUS, INNSENDT_DATO } from '../nokkelopplysninger/NokkelOpplysningerE
 
 const DinBekreftedeSykmelding = ({ sykmelding, ledetekster }) => {
     return (<div>
+        <h1 className="side-header typo-sidetittel">Sykmelding</h1>
         <StatusPanel
             sykmelding={sykmelding}
             ledetekster={ledetekster}

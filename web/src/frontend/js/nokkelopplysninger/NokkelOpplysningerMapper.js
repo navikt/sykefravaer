@@ -11,7 +11,11 @@ const getStatus = (ledetekster, sykmelding) => {
 };
 
 const getInnsendtDato = (ledetekster, sykmelding) => {
-    return (<SykmeldingNokkelOpplysning tittel={getLedetekst('statuspanel.dato', ledetekster)}>
+    let nokkel = 'statuspanel.dato.innsendt';
+    if (sykmelding.status === 'BEKREFTET') {
+        nokkel = 'statuspanel.dato.bekreftet';
+    }
+    return (<SykmeldingNokkelOpplysning tittel={getLedetekst(nokkel, ledetekster)}>
         <p className="js-dato">{toDatePrettyPrint(sykmelding.sendtdato)}</p>
     </SykmeldingNokkelOpplysning>);
 };
@@ -54,4 +58,3 @@ StatusOpplysning.propTypes = {
 };
 
 export default StatusOpplysning;
-

@@ -19,24 +19,30 @@ describe("DinSendteSykmelding", () => {
     let component;
 
     it("Skal vise kvittering ", () => {
-        let sykmelding = getSykmelding();
-        sykmelding.status = 'SENDT';
-        component = shallow(<DinSendteSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);
+        let dinSykmelding = getSykmelding();
+        dinSykmelding.status = 'SENDT';
+        component = shallow(<DinSendteSykmelding sykmelding={dinSykmelding} ledetekster={ledetekster}/>);
         expect(component.find(StatusPanel)).to.have.length(1)
     });
 
     it("Skal vise DineSykmeldingOpplysninger ", () => {
-        let sykmelding = getSykmelding();
-        sykmelding.status = 'SENDT';
-        component = shallow(<DinSendteSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);
-        expect(component.find(DineSykmeldingOpplysninger)).to.have.length(1)
+        let dinSykmelding = getSykmelding();
+        dinSykmelding.status = 'SENDT';
+        let arbeidsgiversSykmelding = {
+            test: "olsen"
+        };
+        component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={ledetekster}/>);
+        expect(component.contains(<DineSykmeldingOpplysninger sykmelding={dinSykmelding} ledetekster={ledetekster} />)).to.be.true;
     });
 
     it("Skal vise arbedsgiveropplysninger dersom status er sendt", () => {
-        let sykmelding = getSykmelding();
-        sykmelding.status = 'SENDT';
-        component = shallow(<DinSendteSykmelding sykmelding={sykmelding} ledetekster={ledetekster}/>);
-        expect(component.find(ArbeidsgiversSykmelding)).to.have.length(1)
-    });
+        let dinSykmelding = getSykmelding();
+        dinSykmelding.status = 'SENDT';
+        let arbeidsgiversSykmelding = {
+            test: "olsen"
+        };
+        component = shallow(<DinSendteSykmelding sykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={ledetekster}/>);
+        expect(component.contains(<ArbeidsgiversSykmelding sykmelding={arbeidsgiversSykmelding} ledetekster={ledetekster} />)).to.be.true;
+    }); 
 
 }); 

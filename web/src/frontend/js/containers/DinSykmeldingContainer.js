@@ -8,9 +8,10 @@ import DinUtgaatteSykmelding from '../components/DinUtgaatteSykmelding';
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../nokkelopplysninger/NokkelOpplysningerEnum';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { getLedetekst } from '../ledetekster/index';
+import { getLedetekst, getHtmlLedetekst } from '../ledetekster/index';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { navigerFraBekreftetkvittering } from '../actions/dinSykmelding_actions';
+import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
 import { erPilotarbeidsgiver } from '../utils/arbeidsgiverUtils.js';
 import SykmeldingKvittering from '../components/SykmeldingKvittering.js';
 import LenkeTilDineSykmeldinger from '../components/LenkeTilDineSykmeldinger.js';
@@ -23,72 +24,67 @@ export class DinSykmldSide extends Component {
     }
 
     componentWillMount() {
-        const { dispatch, sykmeldingId } = this.props;
-        dispatch(hentAktuelleArbeidsgivere(sykmeldingId));
+        const { dispatch, sykmeldingId, dinSykmelding } = this.props;
+        if (dinSykmelding.data && dinSykmelding.data.status) {
+            switch (dinSykmelding.data.status) {
+                case 'SENDT': {
+                    dispatch(hentArbeidsgiversSykmeldinger());
+                    break;
+                }
+                case 'BEKREFTET':
+                    break;
+                default: {
+                    dispatch(hentAktuelleArbeidsgivere(sykmeldingId));
+                }
+            }
+        }
     }
 
     componentWillUnmount() {
-        if (this.props.sykmelding.data && this.props.sykmelding.data.nettoppBekreftet) {
+        if (this.props.dinSykmelding.data && this.props.dinSykmelding.data.nettoppBekreftet) {
             const { dispatch } = this.props;
-            dispatch(navigerFraBekreftetkvittering(this.props.sykmelding.data.id));
+            dispatch(navigerFraBekreftetkvittering(this.props.sykmeldingId));
         }
     }
 
     render() {
-        const { brodsmuler, ledetekster, sykmelding, visSendTilArbeidsgiver } = this.props;
+        const { brodsmuler, ledetekster, dinSykmelding, visSendTilArbeidsgiver, arbeidsgiversSykmelding } = this.props;
         return (<SideMedHoyrekolonne tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
                 { (() => {
-                    if (sykmelding.henter) {
+                    if (dinSykmelding.henter || (arbeidsgiversSykmelding && arbeidsgiversSykmelding.henter)) {
                         return <AppSpinner ledetekster={ledetekster.data} />;
-                    } else if (sykmelding.hentingFeilet) {
+                    } else if (dinSykmelding.hentingFeilet || (arbeidsgiversSykmelding && arbeidsgiversSykmelding.hentingFeilet)) {
                         return (<Feilmelding />);
-                    } else if (!sykmelding.data) {
+                    } else if (!dinSykmelding.data) {
                         return (<Feilmelding
                             tittel={getLedetekst('din-sykmelding.fant-ikke-sykmelding.tittel', ledetekster.data)}
                             melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding', ledetekster.data)} />);
-                    } else if (sykmelding.data.status === 'SENDT') {
+                    } else if (dinSykmelding.data.status === 'SENDT' && arbeidsgiversSykmelding && arbeidsgiversSykmelding.data) {
                         return (<div>
                             <DinSendteSykmelding
-                                sykmelding={sykmelding.data}
-                                ledetekster={ledetekster.data}
-                                type="suksess"
-                                nokkelopplysninger={[
-                                [STATUS, INNSENDT_DATO],
-                                [ARBEIDSGIVER, ORGNUMMER],
-                                ]} />
+                                dinSykmelding={dinSykmelding.data}
+                                arbeidsgiversSykmelding={arbeidsgiversSykmelding.data}
+                                ledetekster={ledetekster.data} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
                         </div>);
-                    } else if (sykmelding.data.status === 'BEKREFTET' && sykmelding.data.nettoppBekreftet) {
+                    } else if (dinSykmelding.data.status === 'BEKREFTET' && dinSykmelding.data.nettoppBekreftet) {
                         return (<SykmeldingKvittering
                             tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel', ledetekster.data)}
-                            sykmelding={sykmelding.data}
-                            ledetekster={ledetekster.data} />);
-                    } else if (sykmelding.data.status === 'BEKREFTET' && !sykmelding.data.nettoppBekreftet) {
+                            sykmelding={dinSykmelding.data}
+                            ledetekster={ledetekster.data}
+                            sykepengerTittel={getLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tittel', ledetekster)}
+                            sykepengerTekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tekst', ledetekster)} />);
+                    } else if (dinSykmelding.data.status === 'BEKREFTET' && !dinSykmelding.data.nettoppBekreftet) {
                         return (<div>
-                            <DinBekreftedeSykmelding
-                                sykmelding={sykmelding.data}
-                                ledetekster={ledetekster.data}
-                                type="suksess"
-                                nokkelopplysninger={[
-                                [STATUS, INNSENDT_DATO],
-                                ]} />
-                            <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
-                        </div>);
-                    } else if (sykmelding.data.status === 'UTGAATT') {
-                        return (<div>
-                            <DinUtgaatteSykmelding
-                                sykmelding={sykmelding.data}
-                                ledetekster={ledetekster.data}
-                                type="info"
-                                nokkelopplysninger={[
-                                [STATUS],
-                                ]} />
+                            <DinBekrefteteSykmelding
+                                sykmelding={dinSykmelding.data}
+                                ledetekster={ledetekster.data} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
                         </div>);
                     }
                     return (<div>
                         <DinSykmelding
-                            sykmelding={sykmelding.data}
+                            sykmelding={dinSykmelding.data}
                             ledetekster={ledetekster.data}
                             visSendTilArbeidsgiver={visSendTilArbeidsgiver} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
@@ -102,23 +98,37 @@ export class DinSykmldSide extends Component {
 DinSykmldSide.propTypes = {
     dispatch: PropTypes.func,
     ledetekster: PropTypes.object,
-    sykmelding: PropTypes.object,
     arbeidsgivere: PropTypes.object,
     brodsmuler: PropTypes.array,
     visSendTilArbeidsgiver: PropTypes.bool,
     sykmeldingId: PropTypes.string,
+    dinSykmelding: PropTypes.object,
+    arbeidsgiversSykmelding: PropTypes.object,
 };
 
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
-    const sykmelding = state.dineSykmeldinger.data.filter((sykmld) => {
+    const dinSykmelding = state.dineSykmeldinger.data.filter((sykmld) => {
         return `${sykmld.id}` === `${sykmeldingId}`;
     })[0];
+    let arbeidsgiversSykmelding;
+    const props = {};
 
-    return {
+    if (dinSykmelding && dinSykmelding.status === 'SENDT') {
+        arbeidsgiversSykmelding = state.arbeidsgiversSykmeldinger.data.filter((sykmld) => {
+            return `${sykmld.id}` === `${sykmeldingId}`;
+        })[0];
+        props.arbeidsgiversSykmelding = {
+            data: arbeidsgiversSykmelding,
+            hentingFeilet: state.arbeidsgiversSykmeldinger.hentingFeilet,
+            henter: state.arbeidsgiversSykmeldinger.henter,
+        };
+    }
+
+    return Object.assign({}, props, {
         sykmeldingId,
-        sykmelding: {
-            data: sykmelding,
+        dinSykmelding: {
+            data: dinSykmelding,
             hentingFeilet: state.dineSykmeldinger.hentingFeilet,
             henter: state.dineSykmeldinger.henter,
         },
@@ -137,7 +147,7 @@ export function mapStateToProps(state, ownProps) {
         }, {
             tittel: getLedetekst('din-sykmelding.sidetittel', state.ledetekster.data),
         }],
-    };
+    });
 }
 
 export const DinSykmeldingContainer = connect(mapStateToProps)(DinSykmldSide);

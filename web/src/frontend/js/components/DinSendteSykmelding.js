@@ -4,22 +4,31 @@ import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
 import DineSykmeldingOpplysninger from './DineSykmeldingOpplysninger';
 import Utvidbar from './Utvidbar';
 import { getLedetekst } from '../ledetekster/index';
+import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../nokkelopplysninger/NokkelOpplysningerEnum';
 
-const DinSendteSykmelding = (props) => {
+const DinSendteSykmelding = ({ dinSykmelding, ledetekster, arbeidsgiversSykmelding }) => {
     return (<div>
-        <StatusPanel {...props} />
-        <Utvidbar erApen tittel={getLedetekst('din-sykmelding.tittel', props.ledetekster)}
+        <StatusPanel
+            sykmelding={dinSykmelding}
+            ledetekster={ledetekster}
+            nokkelopplysninger={[
+                [STATUS, INNSENDT_DATO],
+                [ARBEIDSGIVER, ORGNUMMER],
+            ]} />
+        <Utvidbar erApen tittel={getLedetekst('din-sykmelding.tittel', ledetekster)}
             ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege" className="blokk" variant="lysebla">
-            <DineSykmeldingOpplysninger {...props} />
+            <DineSykmeldingOpplysninger sykmelding={dinSykmelding} ledetekster={ledetekster} />
         </Utvidbar>
         <div className="blokk-l">
-            <ArbeidsgiversSykmelding {...props} />
+            <ArbeidsgiversSykmelding sykmelding={arbeidsgiversSykmelding} ledetekster={ledetekster} />
         </div>
     </div>);
 };
 
 DinSendteSykmelding.propTypes = {
     ledetekster: PropTypes.object,
+    dinSykmelding: PropTypes.object,
+    arbeidsgiversSykmelding: PropTypes.object,
 };
 
 export default DinSendteSykmelding;

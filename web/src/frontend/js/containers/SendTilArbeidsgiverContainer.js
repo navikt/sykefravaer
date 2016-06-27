@@ -5,7 +5,7 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import SendTilArbeidsgiver from '../components/SendTilArbeidsgiver';
 import SykmeldingKvittering from '../components/SykmeldingKvittering';
-import { getLedetekst } from '../ledetekster';
+import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
 import { getSykmelding } from '../utils';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
 import * as dinSykmeldingActions from '../actions/dinSykmelding_actions';
@@ -48,6 +48,8 @@ export class SendTilArbeidsgiverSide extends Component {
                                 brodtekst={this.getKvitteringBrodtekst()}
                                 ledetekster={this.props.ledetekster.data}
                                 sykmelding={this.props.sykmelding}
+                                sykepengerTittel={getLedetekst('send-til-arbeidsgiver.kvittering.sok-om-sykepenger.tittel', this.props.ledetekster.data)}
+                                sykepengerTekst={getHtmlLedetekst('send-til-arbeidsgiver.kvittering.sok-om-sykepenger.tekst', this.props.ledetekster.data)}
                                 />);
                         }
                         return (<SendTilArbeidsgiver

@@ -267,7 +267,7 @@ describe("DinSykmeldingContainer", () => {
             let sykmelding = {
                 henter: true
             };
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
             expect(component.find(AppSpinner)).to.have.length(1);
         }); 
 
@@ -275,7 +275,7 @@ describe("DinSykmeldingContainer", () => {
             let sykmelding = {
                 hentingFeilet: true
             };
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
 
@@ -284,7 +284,7 @@ describe("DinSykmeldingContainer", () => {
                 hentingFeilet: false,
                 data: undefined
             };
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
@@ -293,7 +293,7 @@ describe("DinSykmeldingContainer", () => {
                 hentingFeilet: false,
                 data: sykmeldinger[1]
             };
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
             expect(component.find(DinSykmelding)).to.have.length(1);
         });
 
@@ -305,7 +305,7 @@ describe("DinSykmeldingContainer", () => {
                     nettoppBekreftet: true
                 }
             };
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
             expect(component.find(SykmeldingKvittering)).to.have.length(1);
         });
 
@@ -319,7 +319,7 @@ describe("DinSykmeldingContainer", () => {
             let arbeidsgiversSykmelding = {
                 data: {}
             }
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
             expect(component.find(DinSendteSykmelding)).to.have.length(1);
         });
 
@@ -331,7 +331,7 @@ describe("DinSykmeldingContainer", () => {
                 }),
             };
             let spy = sinon.spy(dineArbeidsgivereActions, "hentAktuelleArbeidsgivere");
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
             expect(dispatch.calledOnce).to.be.true;
             expect(spy.calledOnce).to.be.true;
             spy.restore();
@@ -345,7 +345,7 @@ describe("DinSykmeldingContainer", () => {
                 })
             };
             let spy = sinon.spy(dineArbeidsgivereActions, "hentAktuelleArbeidsgivere");
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
             expect(spy.calledOnce).to.be.false;
             spy.restore();
         });
@@ -358,7 +358,7 @@ describe("DinSykmeldingContainer", () => {
                 }),
             };
             let spy = sinon.spy(arbeidsgiversSykmeldingerActions, "hentArbeidsgiversSykmeldinger");
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={ledetekster} dispatch={dispatch} />)
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
             expect(spy.calledOnce).to.be.true;
             spy.restore();
         });

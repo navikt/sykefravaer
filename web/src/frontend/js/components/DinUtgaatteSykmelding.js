@@ -4,7 +4,7 @@ import DineSykmeldingOpplysninger from './DineSykmeldingOpplysninger';
 import Utvidbar from './Utvidbar';
 import { getLedetekst } from '../ledetekster/index';
 
-const DinBekrefteteSykmelding = (props) => {
+const DinBekreftedeSykmelding = (props) => {
     return (<div>
         <StatusPanel {...props} />
         <Utvidbar erApen tittel={getLedetekst('din-sykmelding.tittel', props.ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg"
@@ -14,8 +14,8 @@ const DinBekrefteteSykmelding = (props) => {
     </div>);
 };
 
-DinBekrefteteSykmelding.propTypes = {
+DinBekreftedeSykmelding.propTypes = {
     ledetekster: PropTypes.object,
 };
 
-export default DinBekrefteteSykmelding;
+export default DinBekreftedeSykmelding;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
 import DinSykmelding from '../components/DinSykmelding';
 import DinSendteSykmelding from '../components/DinSendteSykmelding';
-import DinBekrefteteSykmelding from '../components/DinBekrefteteSykmelding';
+import DinBekreftedeSykmelding from '../components/DinBekreftedeSykmelding';
 import DinUtgaatteSykmelding from '../components/DinUtgaatteSykmelding';
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../nokkelopplysninger/NokkelOpplysningerEnum';
 import AppSpinner from '../components/AppSpinner';
@@ -65,7 +65,7 @@ export class DinSykmldSide extends Component {
                             ledetekster={ledetekster.data} />);
                     } else if (sykmelding.data.status === 'BEKREFTET' && !sykmelding.data.nettoppBekreftet) {
                         return (<div>
-                            <DinBekrefteteSykmelding
+                            <DinBekreftedeSykmelding
                                 sykmelding={sykmelding.data}
                                 ledetekster={ledetekster.data}
                                 type="suksess"

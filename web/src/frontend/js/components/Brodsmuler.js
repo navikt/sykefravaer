@@ -16,7 +16,7 @@ Brodsmule.propTypes = {
 
 const ToggleLink = ({ onClick }) => {
     return (<span>
-        <a className="js-toggle" href="#" onClick={onClick}>...</a>
+        <a role="button" aria-label="Vis hele brødsmulestien" className="js-toggle" href="#" onClick={onClick}>...</a>
         <span className="brodsmule-skille"> / </span>
     </span>);
 };

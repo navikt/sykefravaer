@@ -70,8 +70,8 @@ export class DinSykmldSide extends Component {
                             tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel', ledetekster.data)}
                             sykmelding={dinSykmelding.data}
                             ledetekster={ledetekster.data}
-                            sykepengerTittel={getLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tittel', ledetekster)}
-                            sykepengerTekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tekst', ledetekster)} />);
+                            sykepengerTittel={getLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tittel', ledetekster.data)}
+                            sykepengerTekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tekst', ledetekster.data)} />);
                     } else if (dinSykmelding.data.status === 'BEKREFTET' && !dinSykmelding.data.nettoppBekreftet) {
                         return (<div>
                             <DinBekrefteteSykmelding

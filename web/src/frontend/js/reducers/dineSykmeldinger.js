@@ -9,7 +9,7 @@ const initiellState = {
 export default function sykmeldinger(state = initiellState, action) {
     switch (action.type) {
         case 'SET_DINE_SYKMELDINGER': {
-            if (!state.data) {
+            if (!state.data || state.data.length === 0) {
                 return {
                     data: action.sykmeldinger,
                     henter: false,

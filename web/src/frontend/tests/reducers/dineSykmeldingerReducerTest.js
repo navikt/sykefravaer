@@ -7,7 +7,9 @@ import dineSykmeldinger from '../../js/reducers/dineSykmeldinger.js';
 describe('dineSykmeldinger', () => {
 
     it('håndterer SET_DINE_SYKMELDINGER når man ikke har sykmeldinger fra før', () => {
-        const initialState = {};
+        const initialState = {
+            data: []
+        };
         const action = {
             type: 'SET_DINE_SYKMELDINGER',
             sykmeldinger: [{

@@ -4,7 +4,7 @@ import { getContextRoot } from '../routers/paths.js';
 
 const Brodsmule = ({ sti, tittel }) => {
     return (<span>
-        <Link className="js-smule" to={getContextRoot() + sti}>{tittel}</Link>
+        <Link className="js-smule brodsmule" to={getContextRoot() + sti}>{tittel}</Link>
         <span className="brodsmule-skille"> / </span>
     </span>);
 };
@@ -16,7 +16,7 @@ Brodsmule.propTypes = {
 
 const ToggleLink = ({ onClick }) => {
     return (<span>
-        <a role="button" aria-label="Vis hele brødsmulestien" className="js-toggle" href="#" onClick={onClick}>...</a>
+        <a role="button" aria-label="Vis hele brødsmulestien" className="js-toggle brodsmule" href="#" onClick={onClick}>...</a>
         <span className="brodsmule-skille"> / </span>
     </span>);
 };
@@ -61,7 +61,7 @@ class Brodsmuler extends Component {
         return (<nav role="navigation" className="brodsmuler blokk side-innhold" aria-label="Du er her: ">
             <img src="/sykefravaer/img/svg/person.svg" alt="Du" className="brodsmuler-ikon" />
             <img src="/sykefravaer/img/svg/person-highcontrast.svg" alt="Du" className="brodsmuler-ikon brodsmuler-ikon-hoykontrast" />
-            <a href="/dittnav" className="js-smule">Ditt NAV</a>
+            <a href="/dittnav" className="js-smule brodsmule">Ditt NAV</a>
             {brodsmuler.length ? <span className="brodsmule-skille"> / </span> : ''}
             {this.visCollapsed() ? <ToggleLink onClick={(e) => {
                 e.preventDefault();
@@ -70,13 +70,13 @@ class Brodsmuler extends Component {
             {miniBrodsmuler.map((smule, idx) => {
                 if (miniBrodsmuler.length === idx + 1) {
                     return (<span key={idx} className="js-smuletekst">
-                        <span className="vekk">Du er her:</span> {smule.tittel}
+                        <span className="vekk">Du er her:</span> <span className="brodsmule">{smule.tittel}</span>
                     </span>);
                 } else if (smule.erKlikkbar) {
                     return (<Brodsmule key={idx} sti={smule.sti} tittel={smule.tittel} />);
                 }
                 return (<span key={idx}>
-                    {smule.tittel}
+                    <span className="brodsmule">{smule.tittel}</span>
                     <span className="brodsmule-skille"> / </span>
                 </span>);
             })}

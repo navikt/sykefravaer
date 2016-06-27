@@ -7,6 +7,10 @@
 	}
 }
 
+.brodsmule {
+	white-space: nowrap;
+}
+
 .brodsmuler-ikon, .brodsmuler-ikon-hoykontrast {
 	display: none; 
 }
@@ -18,11 +22,18 @@
 
 @media(min-width: @screen-medium) {
 
+	.brodsmuler {
+		padding-left: 3rem;
+		position: relative;
+	}
+
 	.brodsmuler-ikon {
-		margin-right: 1rem; 
+		position: absolute;
 		width: 2rem; 
 		height: 2rem; 
 		display: inline-block; 
+		top: 0;
+		left: 0;
 	}
 	
 	.brodsmuler-ikon-hoykontrast {

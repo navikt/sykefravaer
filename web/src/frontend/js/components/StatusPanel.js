@@ -6,8 +6,8 @@ const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger }) => {
     const html = nokkelopplysninger.map((rad) => {
         return (<div className="rad-container">
             {
-                rad.map((nokkelopplysning) => {
-                    return <StatusOpplysning ledetekster={ledetekster} sykmelding={sykmelding} nokkelopplysning={nokkelopplysning} />;
+                rad.map((nokkelopplysning, index) => {
+                    return <StatusOpplysning key={index} ledetekster={ledetekster} sykmelding={sykmelding} nokkelopplysning={nokkelopplysning} />;
                 })
             }
         </div>);
@@ -15,7 +15,7 @@ const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger }) => {
     return (
         <div className="panel blokk">
             <Varselstripe type="suksess">
-               {html}
+               <div>{html}</div>
             </Varselstripe>
         </div>);
 };

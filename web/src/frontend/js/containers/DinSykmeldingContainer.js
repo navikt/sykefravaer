@@ -4,7 +4,6 @@ import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
 import DinSykmelding from '../components/DinSykmelding';
 import DinSendteSykmelding from '../components/DinSendteSykmelding';
 import DinBekrefteteSykmelding from '../components/DinBekrefteteSykmelding';
-import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../nokkelopplysninger/NokkelOpplysningerEnum';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster/index';
@@ -23,9 +22,9 @@ export class DinSykmldSide extends Component {
     }
 
     componentWillMount() {
-        const { dispatch, sykmeldingId, dinSykmelding: { data } } = this.props;
-        if (data && data.status) {
-            switch (data.status) {
+        const { dispatch, sykmeldingId, dinSykmelding } = this.props;
+        if (dinSykmelding.data && dinSykmelding.data.status) {
+            switch (dinSykmelding.data.status) {
                 case 'SENDT': {
                     dispatch(hentArbeidsgiversSykmeldinger());
                     break;
@@ -63,11 +62,7 @@ export class DinSykmldSide extends Component {
                             <DinSendteSykmelding
                                 dinSykmelding={dinSykmelding.data}
                                 arbeidsgiversSykmelding={arbeidsgiversSykmelding.data}
-                                ledetekster={ledetekster.data}
-                                nokkelopplysninger={[
-                                [STATUS, INNSENDT_DATO],
-                                [ARBEIDSGIVER, ORGNUMMER],
-                                ]} />
+                                ledetekster={ledetekster.data} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
                         </div>);
                     } else if (dinSykmelding.data.status === 'BEKREFTET' && dinSykmelding.data.nettoppBekreftet) {
@@ -81,10 +76,7 @@ export class DinSykmldSide extends Component {
                         return (<div>
                             <DinBekrefteteSykmelding
                                 sykmelding={dinSykmelding.data}
-                                ledetekster={ledetekster.data}
-                                nokkelopplysninger={[
-                                [STATUS, INNSENDT_DATO],
-                                ]} />
+                                ledetekster={ledetekster.data} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
                         </div>);
                     }
@@ -118,14 +110,20 @@ export function mapStateToProps(state, ownProps) {
         return `${sykmld.id}` === `${sykmeldingId}`;
     })[0];
     let arbeidsgiversSykmelding;
+    const props = {};
 
-    if (dinSykmelding.status === 'SENDT') {
+    if (dinSykmelding && dinSykmelding.status === 'SENDT') {
         arbeidsgiversSykmelding = state.arbeidsgiversSykmeldinger.data.filter((sykmld) => {
             return `${sykmld.id}` === `${sykmeldingId}`;
         })[0];
+        props.arbeidsgiversSykmelding = {
+            data: arbeidsgiversSykmelding,
+            hentingFeilet: state.arbeidsgiversSykmeldinger.hentingFeilet,
+            henter: state.arbeidsgiversSykmeldinger.henter,
+        };
     }
 
-    let returnObject = {
+    return Object.assign({}, props, {
         sykmeldingId,
         dinSykmelding: {
             data: dinSykmelding,
@@ -147,19 +145,7 @@ export function mapStateToProps(state, ownProps) {
         }, {
             tittel: getLedetekst('din-sykmelding.sidetittel', state.ledetekster.data),
         }],
-    };
-
-    if (dinSykmelding.status === 'SENDT') {
-        returnObject = Object.assign({}, returnObject, {
-            arbeidsgiversSykmelding: {
-                data: arbeidsgiversSykmelding,
-                hentingFeilet: state.arbeidsgiversSykmeldinger.hentingFeilet,
-                henter: state.arbeidsgiversSykmeldinger.henter,
-            },
-        });
-    }
-
-    return returnObject;
+    });
 }
 
 export const DinSykmeldingContainer = connect(mapStateToProps)(DinSykmldSide);

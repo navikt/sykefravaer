@@ -11,6 +11,7 @@ const DinSendteSykmelding = ({ dinSykmelding, ledetekster, arbeidsgiversSykmeldi
         <StatusPanel
             sykmelding={dinSykmelding}
             ledetekster={ledetekster}
+            type="suksess"
             nokkelopplysninger={[
                 [STATUS, INNSENDT_DATO],
                 [ARBEIDSGIVER, ORGNUMMER],

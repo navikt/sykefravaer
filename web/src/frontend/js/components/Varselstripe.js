@@ -12,6 +12,10 @@ const Varselstripe = ({ type, children }) => {
             typeIkon = 'ikon-utropstegn.svg';
             break;
         }
+        case 'info': {
+            typeIkon = 'ikon-utropstegn.svg';
+            break;
+        }
         default: {
             typeIkon = 'ikon-informasjon.svg';
             break;

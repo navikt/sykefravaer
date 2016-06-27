@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import StatusOpplysning from '../nokkelopplysninger/NokkelOpplysningerMapper';
 import Varselstripe from './Varselstripe';
 
-const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger }) => {
+const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger, type }) => {
     const html = nokkelopplysninger.map((rad) => {
         return (<div className="rad-container">
             {
@@ -14,14 +14,15 @@ const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger }) => {
     });
     return (
         <div className="panel blokk">
-            <Varselstripe type="suksess">
-               <div>{html}</div>
+            <Varselstripe type={type}>
+               {html}
             </Varselstripe>
         </div>);
 };
 
 StatusPanel.propTypes = {
     sykmelding: PropTypes.object,
+    type: PropTypes.string,
     nokkelopplysninger: PropTypes.array,
     ledetekster: PropTypes.object,
 };

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
 import DinSykmelding from '../components/DinSykmelding';
 import DinSendteSykmelding from '../components/DinSendteSykmelding';
-import DinBekrefteteSykmelding from '../components/DinBekrefteteSykmelding';
+import DinBekreftedeSykmelding from '../components/DinBekreftedeSykmelding';
+import DinUtgaatteSykmelding from '../components/DinUtgaatteSykmelding';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster/index';
@@ -74,7 +75,14 @@ export class DinSykmldSide extends Component {
                             sykepengerTekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tekst', ledetekster.data)} />);
                     } else if (dinSykmelding.data.status === 'BEKREFTET' && !dinSykmelding.data.nettoppBekreftet) {
                         return (<div>
-                            <DinBekrefteteSykmelding
+                            <DinBekreftedeSykmelding
+                                sykmelding={dinSykmelding.data}
+                                ledetekster={ledetekster.data} />
+                            <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
+                        </div>);
+                    } else if (dinSykmelding.data.status === 'UTGAATT') {
+                        return (<div>
+                            <DinUtgaatteSykmelding
                                 sykmelding={dinSykmelding.data}
                                 ledetekster={ledetekster.data} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />

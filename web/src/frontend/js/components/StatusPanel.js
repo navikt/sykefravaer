@@ -3,11 +3,11 @@ import StatusOpplysning from '../nokkelopplysninger/NokkelOpplysningerMapper';
 import Varselstripe from './Varselstripe';
 
 const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger, type }) => {
-    const html = nokkelopplysninger.map((rad) => {
-        return (<div className="rad-container">
+    const html = nokkelopplysninger.map((rad, index1) => {
+        return (<div className="rad-container" key={index1}>
             {
-                rad.map((nokkelopplysning, index) => {
-                    return <StatusOpplysning key={index} ledetekster={ledetekster} sykmelding={sykmelding} nokkelopplysning={nokkelopplysning} />;
+                rad.map((nokkelopplysning, index2) => {
+                    return <StatusOpplysning key={index2} ledetekster={ledetekster} sykmelding={sykmelding} nokkelopplysning={nokkelopplysning} />;
                 })
             }
         </div>);

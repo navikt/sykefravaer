@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { getLedetekst } from '../ledetekster';
 
 const LenkeTilDineSykmeldinger = ({ ledetekster }) => {
-    return (<p className="side-innhold ikke-print">
+    return (<p className="side-innhold ikke-print blokk">
         <Link to="/sykefravaer/sykmeldinger">
             &lsaquo; {getLedetekst('din-sykmelding.tilbake', ledetekster)}
         </Link>

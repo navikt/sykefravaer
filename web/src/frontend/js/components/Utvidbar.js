@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { scrollTo } from '../utils';
+import { scrollTo, erSynligIViewport } from '../utils';
 
 export class Utvidbar extends Component {
 
@@ -95,6 +95,9 @@ export class Utvidbar extends Component {
                 hindreToggle: false,
                 visInnhold: false,
             });
+            if (!erSynligIViewport(this.refs.utvidbar)) {
+                scrollTo(this.refs.utvidbar, 600);
+            }
         }, 500);
     }
 

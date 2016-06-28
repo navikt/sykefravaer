@@ -28,6 +28,14 @@ StatusIkon.propTypes = {
 
 class Milepael extends Component {
 
+    getContainerClass() {
+        let className = this.props.erApen ? 'milepael-budskap-container er-apen' : 'milepael-budskap-container';
+        if (this.props.medAnimasjon) {
+            className = `${className} med-animasjon`;
+        }
+        return className;
+    }
+
     setNaavaerendeHoyde() {
         const budskapHoyde = this.refs['js-budskap'].offsetHeight;
         const naaHoyde = !this.props.erApen ? null : budskapHoyde;
@@ -41,6 +49,7 @@ class Milepael extends Component {
         this.setNaavaerendeHoyde();
         this.props.setMilepaelState({
             visBudskap: true,
+            medAnimasjon: true,
         });
         setTimeout(() => {
             const nyHoyde = this.refs['js-budskap'].offsetHeight;
@@ -52,12 +61,16 @@ class Milepael extends Component {
         setTimeout(() => {
             scrollTo(this.refs.boble, 1000);
             this.props.setMilepaelState({
+                medAnimasjon: false,
                 hoyde: 'auto',
             });
         }, 300);
     }
 
     lukk() {
+        this.props.setMilepaelState({
+            medAnimasjon: true,
+        });
         this.setNaavaerendeHoyde();
         setTimeout(() => {
             this.props.setMilepaelState({
@@ -68,6 +81,7 @@ class Milepael extends Component {
         setTimeout(() => {
             this.props.setMilepaelState({
                 visBudskap: false,
+                medAnimasjon: false,
             });
         }, 300);
     }
@@ -100,7 +114,7 @@ class Milepael extends Component {
                         <div
                             aria-hidden={!this.props.erApen}
                             style={this.props.hoyde ? { height: this.props.hoyde } : {}}
-                            className={this.props.erApen ? 'milepael-budskap-container er-apen' : 'milepael-budskap-container'}>
+                            className={this.getContainerClass()}>
                             <div ref="js-budskap">
                                 <TidslinjeBudskap
                                     vis={this.props.visBudskap}
@@ -125,6 +139,7 @@ Milepael.propTypes = {
     setMilepaelState: PropTypes.func,
     hoyde: PropTypes.string,
     visBudskap: PropTypes.bool,
+    medAnimasjon: PropTypes.bool,
 };
 
 export default Milepael;

@@ -84,7 +84,7 @@ describe("SendTilArbeidsgiver", () => {
                 ledetekster={ledetekster} />)
             component.find(".js-send").simulate("click");
             expect(component.state("erFeil")).to.be.true;
-            expect(component.state("feilmelding")).to.equal("Du må sende sykmeldingen på papir");
+            expect(component.state("feilmelding")).to.equal("Du må sende sykmeldingen manuelt dersom du har valgt «Annen arbeidsgiver»");
         });
 
         it("Skal oppdatere state i VelgArbeidsgiverContainer når man prøver å sende", () => {
@@ -97,7 +97,7 @@ describe("SendTilArbeidsgiver", () => {
                 ledetekster={ledetekster} />)
             component.find(".js-send").simulate("click");
             expect(component.find(VelgArbeidsgiverContainer).prop("erFeil")).to.be.true;
-            expect(component.find(VelgArbeidsgiverContainer).prop("feilmelding")).to.equal("Du må sende sykmeldingen på papir");
+            expect(component.find(VelgArbeidsgiverContainer).prop("feilmelding")).to.equal("Du må sende sykmeldingen manuelt dersom du har valgt «Annen arbeidsgiver»");
             expect(component.find(VelgArbeidsgiverContainer).prop("forsoektSendt")).to.be.true;
         });
 

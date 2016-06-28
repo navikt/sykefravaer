@@ -38,7 +38,7 @@ class SendTilArbeidsgiver extends Component {
         } else if (valgtArbeidsgiver.orgnummer === '0') {
             this.setState({
                 erFeil: true,
-                feilmelding: 'Du må sende sykmeldingen på papir',
+                feilmelding: 'Du må sende sykmeldingen manuelt dersom du har valgt «Annen arbeidsgiver»',
             });
         }
         return erFeil;

@@ -28,6 +28,13 @@ StatusIkon.propTypes = {
 
 class Milepael extends Component {
 
+    constructor(props) {
+        super(props);
+        this.props.setMilepaelState({
+            medAnimasjon: this.props.erApen === true,
+        });
+    }
+
     getContainerClass() {
         let className = this.props.erApen ? 'milepael-budskap-container er-apen' : 'milepael-budskap-container';
         if (this.props.medAnimasjon) {
@@ -66,6 +73,11 @@ class Milepael extends Component {
                 hoyde: 'auto',
                 hindreToggle: false,
             });
+            setTimeout(() => {
+                this.props.setMilepaelState({
+                    medAnimasjon: true,
+                });
+            }, 20);
         }, 300);
     }
 

@@ -70,6 +70,8 @@
     text-align: left;
 }
 
-.panel-ekstra:before, .panel-relatert:before {
-    margin-left: -(sqrt(2rem)/2); // Fikk endelig bruk for Pythagoras i CSS!
+@media(min-width: @screen-small) {
+    .panel-ekstra:before, .panel-relatert:before {
+        margin-left: -(sqrt(2rem)/2); // Fikk endelig bruk for Pythagoras i CSS!
+    }
 }

@@ -41,7 +41,7 @@ class Milepael extends Component {
         const naaHoyde = !this.props.erApen ? null : budskapHoyde;
 
         this.props.setMilepaelState({
-            hoyde: naaHoyde,
+            hoyde: `${naaHoyde}px`,
         });
     }
 
@@ -50,9 +50,10 @@ class Milepael extends Component {
         this.props.setMilepaelState({
             visBudskap: true,
             medAnimasjon: true,
+            hindreToggle: true,
         });
         setTimeout(() => {
-            const nyHoyde = this.refs['js-budskap'].offsetHeight;
+            const nyHoyde = `${this.refs['js-budskap'].offsetHeight}px`;
             this.props.setMilepaelState({
                 hoyde: nyHoyde,
                 erApen: true,
@@ -63,6 +64,7 @@ class Milepael extends Component {
             this.props.setMilepaelState({
                 medAnimasjon: false,
                 hoyde: 'auto',
+                hindreToggle: false,
             });
         }, 300);
     }
@@ -70,6 +72,7 @@ class Milepael extends Component {
     lukk() {
         this.props.setMilepaelState({
             medAnimasjon: true,
+            hindreToggle: true,
         });
         this.setNaavaerendeHoyde();
         setTimeout(() => {
@@ -82,15 +85,16 @@ class Milepael extends Component {
             this.props.setMilepaelState({
                 visBudskap: false,
                 medAnimasjon: false,
+                hindreToggle: false,
             });
         }, 300);
     }
 
     toggle(e) {
         e.preventDefault();
-        if (this.props.erApen) {
+        if (this.props.erApen && !this.props.hindreToggle) {
             this.lukk();
-        } else {
+        } else if (!this.props.hindreToggle) {
             this.apne();
         }
     }
@@ -140,6 +144,7 @@ Milepael.propTypes = {
     hoyde: PropTypes.string,
     visBudskap: PropTypes.bool,
     medAnimasjon: PropTypes.bool,
+    hindreToggle: PropTypes.bool,
 };
 
 export default Milepael;

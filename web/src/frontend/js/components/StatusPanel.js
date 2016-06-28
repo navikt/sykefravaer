@@ -15,7 +15,9 @@ const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger, type }) => {
     return (
         <div className="panel blokk">
             <Varselstripe type={type}>
-               {html}
+                <div>
+                   {html}
+               </div>
             </Varselstripe>
         </div>);
 };

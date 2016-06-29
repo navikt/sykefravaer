@@ -14,7 +14,7 @@ import Feilmelding from '../../js/components/Feilmelding.js';
 import Tidslinje from '../../js/components/Tidslinje.js';
 import sinon from 'sinon';
 
-const milepaelerData = [{
+const hendelserData = [{
     ledetekst: 'tidslinje.utarbeide.plan',
     bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
     alt: '',
@@ -46,7 +46,7 @@ const milepaelerData = [{
     key: 5
 }];
  
-describe("TidslinjeContainer", () => {
+describe.only("TidslinjeContainer", () => {
 
     let initState; 
 
@@ -61,8 +61,8 @@ describe("TidslinjeContainer", () => {
                 innstillinger: {},
                 bruker: {}
             },
-            milepaeler: {
-                data: milepaelerData
+            hendelser: {
+                data: hendelserData
             }
         }
     }); 
@@ -91,9 +91,9 @@ describe("TidslinjeContainer", () => {
 
     describe("mapStateToProps", () => {
 
-        it("Skal returnere milepaeler når arbeidssituasjon === undefined", () => {
+        it("Skal returnere hendelser når arbeidssituasjon === undefined", () => {
             const props = mapStateToProps(initState);
-            expect(props.milepaeler).to.deep.equal([{
+            expect(props.hendelser).to.deep.equal([{
                 ledetekst: 'tidslinje.utarbeide.plan',
                 bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
                 alt: '',
@@ -118,10 +118,10 @@ describe("TidslinjeContainer", () => {
             }]);
         });
 
-        it("Skal returnere milepaeler når arbeidssituasjon === 'UTEN_ARBEIDSGIVER'", () => {
+        it("Skal returnere hendelser når arbeidssituasjon === 'UTEN_ARBEIDSGIVER'", () => {
             initState.brukerinfo.innstillinger.arbeidssituasjon = 'UTEN_ARBEIDSGIVER'
             const props = mapStateToProps(initState);
-            expect(props.milepaeler).to.deep.equal([{
+            expect(props.hendelser).to.deep.equal([{
                 ledetekst: 'tidslinje.UTEN_ARBEIDSGIVER.nav',
                 visning: ['UTEN_ARBEIDSGIVER'],
                 key: 1
@@ -199,10 +199,10 @@ describe("TidslinjeContainer", () => {
 
     describe("TidslinjeSide", () => {
 
-        let apneMilepaelerSpy; 
+        let apneHendelserSpy; 
 
         beforeEach(() => {
-            apneMilepaelerSpy = sinon.spy(); 
+            apneHendelserSpy = sinon.spy(); 
         })
 
         it("Skal vise en AppSpinner dersom ledetekster ikke er lastet", () => {
@@ -211,7 +211,7 @@ describe("TidslinjeContainer", () => {
             };
             const milepaeler = {};
             const spy = sinon.spy(); 
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} apneMilepaeler={apneMilepaelerSpy} />);
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} apneHendelser={apneHendelserSpy} />);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
@@ -220,7 +220,7 @@ describe("TidslinjeContainer", () => {
                 hentingFeilet: true
             };
             const milepaeler = {};
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} apneMilepaeler={apneMilepaelerSpy} />);
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} apneHendelser={apneHendelserSpy} />);
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
@@ -252,12 +252,12 @@ describe("TidslinjeContainer", () => {
                 visning: ['MED_ARBEIDSGIVER'],
                 key: 4
             }];
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} arbeidssituasjon={arbeidssituasjon} apneMilepaeler={apneMilepaelerSpy} />);
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} arbeidssituasjon={arbeidssituasjon} apneHendelser={apneHendelserSpy} />);
             const tidslinjeComp = component.find(Tidslinje);
             expect(tidslinjeComp.prop("arbeidssituasjon")).to.equal("MED_ARBEIDSGIVER");
         })
 
-        it("Skal kalle på apneMilepaeler", () => {
+        it("Skal kalle på apneHendelser", () => {
             const ledetekster = {
                 data: {}
             };
@@ -270,9 +270,9 @@ describe("TidslinjeContainer", () => {
                 key: 0
             }];
             const hashMilepaeler = ["0", "2"]
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} arbeidssituasjon={arbeidssituasjon} apneMilepaeler={apneMilepaelerSpy} hashMilepaeler={hashMilepaeler} />);
-            expect(apneMilepaelerSpy.calledOnce).to.be.true;
-            expect(apneMilepaelerSpy.getCall(0).args[0]).to.deep.equal(["0", "2"]);
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} arbeidssituasjon={arbeidssituasjon} apneHendelser={apneHendelserSpy} hashMilepaeler={hashMilepaeler} />);
+            expect(apneHendelserSpy.calledOnce).to.be.true;
+            expect(apneHendelserSpy.getCall(0).args[0]).to.deep.equal(["0", "2"]);
         })        
 
     })

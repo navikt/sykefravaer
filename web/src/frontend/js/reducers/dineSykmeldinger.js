@@ -29,7 +29,7 @@ export default function sykmeldinger(state = initiellState, action) {
         }
         case 'HENTER_DINE_SYKMELDINGER': {
             return {
-                data: [],
+                data: state.data,
                 henter: true,
                 hentingFeilet: false,
             };

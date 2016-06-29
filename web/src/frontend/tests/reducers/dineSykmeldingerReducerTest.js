@@ -74,14 +74,39 @@ describe('dineSykmeldinger', () => {
         });
     });
 
-    it("Håndterer HENTER_DINE_SYKMELDINGER", () => {
-        const initialState = {};
+    it("Håndterer HENTER_DINE_SYKMELDINGER når man ikke har data fra før", () => {
+        const initialState = {
+            data: []
+        };
         const action = {
             type: "HENTER_DINE_SYKMELDINGER"
         }
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [],
+            henter: true,
+            hentingFeilet: false,
+        });
+    });
+
+    it("Håndterer HENTER_DINE_SYKMELDINGER når man har data fra før", () => {
+        const initialState = {
+            data: [{
+                id: 77, 
+            }, {
+                id: 6789
+            }]
+        };
+        const action = {
+            type: "HENTER_DINE_SYKMELDINGER"
+        }
+        const nextState = dineSykmeldinger(initialState, action);
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 77, 
+            }, {
+                id: 6789
+            }],
             henter: true,
             hentingFeilet: false,
         });

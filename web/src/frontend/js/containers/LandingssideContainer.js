@@ -3,12 +3,23 @@ import Landingsside from '../components/Landingsside.js';
 import { connect } from 'react-redux';
 import Side from '../sider/Side.js';
 import { getLedetekst } from '../ledetekster';
+import AppSpinner from '../components/AppSpinner';
+import Feilmelding from '../components/Feilmelding';
 
 export const LandingssideSide = (props) => {
     const { ledetekster, brodsmuler, skjulVarsel } = props;
     return (
         <Side tittel={getLedetekst('landingsside.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
-            <Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster.data} />
+            {
+                (() => {
+                    if (ledetekster.henter) {
+                        return <AppSpinner />;
+                    } else if (ledetekster.hentingFeilet) {
+                        return <Feilmelding />;
+                    }
+                    return (<Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster.data} />);
+                })()
+            }
         </Side>
     );
 };

@@ -46,7 +46,7 @@ const hendelserData = [{
     key: 5
 }];
  
-describe.only("TidslinjeContainer", () => {
+describe("TidslinjeContainer", () => {
 
     let initState; 
 
@@ -209,9 +209,9 @@ describe.only("TidslinjeContainer", () => {
             const ledetekster = {
                 henter: true
             };
-            const milepaeler = {};
+            const hendelser = {};
             const spy = sinon.spy(); 
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} apneHendelser={apneHendelserSpy} />);
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} hendelser={hendelser} apneHendelser={apneHendelserSpy} />);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
@@ -219,8 +219,8 @@ describe.only("TidslinjeContainer", () => {
             const ledetekster = {
                 hentingFeilet: true
             };
-            const milepaeler = {};
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} apneHendelser={apneHendelserSpy} />);
+            const hendelser = {};
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} hendelser={hendelser} apneHendelser={apneHendelserSpy} />);
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
@@ -229,7 +229,7 @@ describe.only("TidslinjeContainer", () => {
                 data: {}
             };
             const arbeidssituasjon = "MED_ARBEIDSGIVER";
-            const milepaeler = [{
+            const hendelser = [{
                 ledetekst: 'tidslinje.utarbeide.plan',
                 bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
                 alt: '',
@@ -252,7 +252,7 @@ describe.only("TidslinjeContainer", () => {
                 visning: ['MED_ARBEIDSGIVER'],
                 key: 4
             }];
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} arbeidssituasjon={arbeidssituasjon} apneHendelser={apneHendelserSpy} />);
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} hendelser={hendelser} arbeidssituasjon={arbeidssituasjon} apneHendelser={apneHendelserSpy} />);
             const tidslinjeComp = component.find(Tidslinje);
             expect(tidslinjeComp.prop("arbeidssituasjon")).to.equal("MED_ARBEIDSGIVER");
         })
@@ -262,7 +262,7 @@ describe.only("TidslinjeContainer", () => {
                 data: {}
             };
             const arbeidssituasjon = "MED_ARBEIDSGIVER";
-            const milepaeler = [{
+            const hendelser = [{
                 ledetekst: 'tidslinje.utarbeide.plan',
                 bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
                 alt: '',
@@ -270,7 +270,7 @@ describe.only("TidslinjeContainer", () => {
                 key: 0
             }];
             const hashMilepaeler = ["0", "2"]
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} milepaeler={milepaeler} arbeidssituasjon={arbeidssituasjon} apneHendelser={apneHendelserSpy} hashMilepaeler={hashMilepaeler} />);
+            const component = shallow(<TidslinjeSide ledetekster={ledetekster} hendelser={hendelser} arbeidssituasjon={arbeidssituasjon} apneHendelser={apneHendelserSpy} hashMilepaeler={hashMilepaeler} />);
             expect(apneHendelserSpy.calledOnce).to.be.true;
             expect(apneHendelserSpy.getCall(0).args[0]).to.deep.equal(["0", "2"]);
         })        

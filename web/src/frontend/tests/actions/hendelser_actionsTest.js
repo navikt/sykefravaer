@@ -38,4 +38,23 @@ describe("hendelser_actions", () => {
 
     });     
 
+    it("Skal ha en hentHendelser()-funksjon som returnerer en funksjon", () => {
+        const res = actions.hentHendelser();
+        expect(typeof res).to.equal("function")
+    });
+
+    it("Skal ha en henterHendelser()-funksjon som returnerer riktig action", () => {
+        const res = actions.henterHendelser();
+        expect(res).to.deep.equal({
+            type: 'HENTER_HENDELSER'
+        })
+    });
+
+    it("Skal ha en hentHendelserFeilet()-funksjon som returnerer riktig action", () => {
+        const res = actions.hentHendelserFeilet();
+        expect(res).to.deep.equal({
+            type: 'HENT_HENDELSER_FEILET'
+        })
+    });
+
 });

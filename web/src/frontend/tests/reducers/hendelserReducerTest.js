@@ -19,6 +19,8 @@ describe('hendelser', () => {
 
         expect(nextState).to.deep.equal({
             data: [],
+            henter: false, 
+            hentingFeilet: false
         });
     });   
 
@@ -39,7 +41,9 @@ describe('hendelser', () => {
             }, {
                 id: 4,
                 erApen: false
-            }]
+            }],
+            henter: false,
+            hentingFeilet: false
         };
         const action = {
             type: 'ÅPNE_HENDELSER',
@@ -69,7 +73,9 @@ describe('hendelser', () => {
             }, {
                 id: 4,
                 erApen: false,
-            }]
+            }],
+            henter: false,
+            hentingFeilet: false,
         });
     });  
 
@@ -84,7 +90,9 @@ describe('hendelser', () => {
             }, {
                 id: 2,
                 erApen: false
-            }]
+            }],
+            henter: false,
+            hentingFeilet: false,
         };
         const action = {
             type: 'SET_HENDELSEDATA',
@@ -108,8 +116,35 @@ describe('hendelser', () => {
             }, {
                 id: 2,
                 erApen: false
-            }]
+            }],
+            henter: false,
+            hentingFeilet: false
         });
     });
 
+    it("Håndterer HENTER_HENDELSER", () => {
+        const initiellState = {};
+        const action = {
+            type: "HENTER_HENDELSER"
+        }
+        const nextState = hendelser(initiellState, action);
+        expect(nextState).to.deep.equal({
+            data: [],
+            henter: true, 
+            hentingFeilet: false
+        })
+    }); 
+
+    it("Håndterer HENT_HENDELSER_FEILET", () => {
+        const initiellState = {};
+        const action = {
+            type: "HENT_HENDELSER_FEILET"
+        }
+        const nextState = hendelser(initiellState, action);
+        expect(nextState).to.deep.equal({
+            data: [],
+            henter: false, 
+            hentingFeilet: true,
+        })
+    }); 
 }); 

@@ -4,11 +4,17 @@ const settErApen = (hendelse, id, erApen) => {
     });
 };
 
-export default function hendelser(state = {}, action) {
+const initiellState = {
+    data: [],
+};
+
+export default function hendelser(state = initiellState, action) {
     switch (action.type) {
         case 'SET_HENDELSER': {
             return {
                 data: action.data,
+                henter: false,
+                hentingFeilet: false,
             };
         }
         case 'ÅPNE_HENDELSER': {
@@ -35,6 +41,20 @@ export default function hendelser(state = {}, action) {
                 return ret;
             });
             return Object.assign({}, state, { data });
+        }
+        case 'HENTER_HENDELSER': {
+            return {
+                data: [],
+                hentingFeilet: false,
+                henter: true,
+            };
+        }
+        case 'HENT_HENDELSER_FEILET': {
+            return {
+                data: [],
+                hentingFeilet: true,
+                henter: false,
+            };
         }
         default: {
             return state;

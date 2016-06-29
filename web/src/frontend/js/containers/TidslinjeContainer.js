@@ -5,11 +5,11 @@ import AppSpinner from '../components/AppSpinner.js';
 import Feilmelding from '../components/Feilmelding.js';
 import { connect } from 'react-redux';
 import { getLedetekst } from '../ledetekster';
-import * as actionCreators from '../actions/milepaeler_actions.js';
+import * as actionCreators from '../actions/hendelser_actions.js';
 
 export class TidslinjeSide extends Component {
     componentWillMount() {
-        this.props.apneMilepaeler(this.props.hashMilepaeler);
+        this.props.apneHendelser(this.props.hashMilepaeler);
     }
 
     render() {
@@ -29,14 +29,13 @@ export class TidslinjeSide extends Component {
     }
 }
 
-
 TidslinjeSide.propTypes = {
     brodsmuler: PropTypes.array,
     ledetekster: PropTypes.object,
-    milepaeler: PropTypes.array,
+    hendelser: PropTypes.array,
     arbeidssituasjon: PropTypes.string,
     hashMilepaeler: PropTypes.array,
-    apneMilepaeler: PropTypes.func,
+    apneHendelser: PropTypes.func,
 };
 
 export const mapArbeidssituasjonParam = (param) => {
@@ -56,8 +55,8 @@ export const mapArbeidssituasjonParam = (param) => {
     }
 };
 
-export function setHash(milepaeler) {
-    const apneMilepaeler = milepaeler
+export function setHash(hendelser) {
+    const apneHendelser = hendelser
         .filter((m) => {
             return m.erApen;
         })
@@ -66,24 +65,24 @@ export function setHash(milepaeler) {
         })
         .join('/');
 
-    window.history.replaceState(null, null, `#${apneMilepaeler}`);
+    window.history.replaceState(null, null, `#${apneHendelser}`);
 }
 
 export function mapStateToProps(state, ownProps) {
     let arbeidssituasjonParam = (ownProps && ownProps.params) ? ownProps.params.arbeidssituasjon : undefined;
     arbeidssituasjonParam = mapArbeidssituasjonParam(arbeidssituasjonParam);
     const arbeidssituasjon = arbeidssituasjonParam || state.brukerinfo.innstillinger.arbeidssituasjon || 'MED_ARBEIDSGIVER';
-    const milepaeler = state.milepaeler.data.filter((milepael) => {
-        return milepael.visning.indexOf(arbeidssituasjon) > -1;
+    const hendelser = state.hendelser.data.filter((hendelse) => {
+        return hendelse.visning.indexOf(arbeidssituasjon) > -1;
     });
 
-    setHash(milepaeler);
+    setHash(hendelser);
     const hashMilepaeler = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
 
     return {
         ledetekster: state.ledetekster,
         arbeidssituasjon,
-        milepaeler,
+        hendelser,
         hashMilepaeler,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),

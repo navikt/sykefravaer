@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import Milepael from './Milepael.js';
+import Hendelse from './Hendelse.js';
 import TidslinjeVelgArbeidssituasjonContainer from '../containers/TidslinjeVelgArbeidssituasjonContainer.js';
 import { getLedetekst } from '../ledetekster';
 
-const Tidslinje = ({ milepaeler = [], ledetekster, arbeidssituasjon, setMilepaeldata }) => {
+const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseData }) => {
     return (<div>
         <header className="tidslinje-header">
             <h1>Tidslinjen</h1>
@@ -14,9 +14,9 @@ const Tidslinje = ({ milepaeler = [], ledetekster, arbeidssituasjon, setMilepael
         <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
         <div className="tidslinje">
             {
-                milepaeler.map((milepael) => {
-                    return (<Milepael {...milepael} key={milepael.id} ledetekster={ledetekster} setMilepaelState={(data) => {
-                        setMilepaeldata(milepael.id, data);
+                hendelser.map((hendelse) => {
+                    return (<Hendelse {...hendelse} key={hendelse.id} ledetekster={ledetekster} setHendelseState={(data) => {
+                        setHendelseData(hendelse.id, data);
                     }} />);
                 })
             }
@@ -25,10 +25,10 @@ const Tidslinje = ({ milepaeler = [], ledetekster, arbeidssituasjon, setMilepael
 };
 
 Tidslinje.propTypes = {
-    milepaeler: PropTypes.array,
+    hendelser: PropTypes.array,
     ledetekster: PropTypes.object,
     arbeidssituasjon: PropTypes.string,
-    setMilepaeldata: PropTypes.func,
+    setHendelseData: PropTypes.func,
 };
 
 export default Tidslinje;

@@ -10,12 +10,12 @@ import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger.js';
 import ledetekster from './reducers/ledetekster.js';
 import brukerinfo from './reducers/brukerinfo.js';
 import arbeidsgivere from './reducers/arbeidsgivere.js';
-import milepaeler from './reducers/milepaeler.js';
+import hendelser from './reducers/hendelser.js';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions.js';
 import { hentLedetekster } from './actions/ledetekster_actions.js';
 import { hentBrukerinfo } from './actions/brukerinfo_actions.js';
-import { setMilepaeler } from './actions/milepaeler_actions.js';
-import milepaelerData from './milepaelerData';
+import { setHendelser } from './actions/hendelser_actions.js';
+import hendelserData from './hendelserData';
 import history from './history.js';
 
 const rootReducer = combineReducers({
@@ -24,7 +24,7 @@ const rootReducer = combineReducers({
     arbeidsgiversSykmeldinger,
     ledetekster,
     brukerinfo,
-    milepaeler,
+    hendelser,
     history,
 });
 
@@ -35,7 +35,7 @@ const store = createStore(rootReducer,
 store.dispatch(hentLedetekster());
 store.dispatch(hentDineSykmeldinger());
 store.dispatch(hentBrukerinfo());
-store.dispatch(setMilepaeler(milepaelerData));
+store.dispatch(setHendelser(hendelserData));
 
 render(<Provider store={store}>
         <AppRouter history={history} /></Provider>,

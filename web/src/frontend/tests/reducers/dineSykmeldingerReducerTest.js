@@ -4,7 +4,7 @@ import deepFreeze from 'deep-freeze';
 
 import dineSykmeldinger from '../../js/reducers/dineSykmeldinger.js';
 
-describe.only('dineSykmeldinger', () => {
+describe('dineSykmeldinger', () => {
 
     it('håndterer SET_DINE_SYKMELDINGER når man ikke har sykmeldinger fra før', () => {
         const initialState = {

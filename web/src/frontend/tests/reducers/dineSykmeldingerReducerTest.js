@@ -125,20 +125,63 @@ describe('dineSykmeldinger', () => {
         });
     });
 
-    it("håndterer SET_SORTERING ", () => {
+    it("håndterer SET_SORTERING dersom man ikke har sortering fra før", () => {
         const initialState = {};
         const action = {
-            type: 'SET_SORTERING',
-            sortering: 'arbeidsgiver'
+            type: "SET_SORTERING",
+            kriterium: "arbeidsgiver",
+            status: "tidligere",
         };
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
-            sortering: 'arbeidsgiver'
+            sortering: {
+                tidligere: "arbeidsgiver"
+            }
         });
-
-
     });
+
+    it("håndterer SET_SORTERING dersom man har sortering fra før", () => {
+        const initialState = {
+            sortering: {
+                tidligere: "dato"
+            }
+        };
+        const action = {
+            type: "SET_SORTERING",
+            kriterium: "arbeidsgiver",
+            status: "tidligere",
+        };
+        const nextState = dineSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            sortering: {
+                tidligere: "arbeidsgiver"
+            }
+        });
+    });
+
+    it("håndterer SET_SORTERING dersom man har sortering fra før, men ikke for den innsendte statusen", () => {
+        const initialState = {
+            sortering: {
+                tidligere: "dato"
+            }
+        };
+        const action = {
+            type: "SET_SORTERING",
+            kriterium: "arbeidsgiver",
+            status: "nye",
+        };
+        const nextState = dineSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            sortering: {
+                tidligere: "dato",
+                nye: "arbeidsgiver"
+            }
+        });
+    });
+
 
     it('håndterer SET_ARBEIDSSITUASJON', () => {
         const initialState = {

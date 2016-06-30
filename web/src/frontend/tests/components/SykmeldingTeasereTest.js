@@ -74,8 +74,10 @@ describe("SykmeldingTeasere", () => {
         expect(component.find("header").text()).to.contain("Mine sykmeldinger")
     });
 
-    it("Viser sortering", () => {
-        const component = shallow(<SykmeldingTeasere tittel="Mine sykmeldinger" sykmeldinger={sykmeldinger} ledetekster={ledetekster}/>);
+    it("Viser children dersom de er sendt inn", () => {
+        const component = shallow(<SykmeldingTeasere tittel="Mine sykmeldinger" sykmeldinger={sykmeldinger} ledetekster={ledetekster}>
+            <SykmeldingerSorteringContainer />
+            </SykmeldingTeasere>);
         expect(component.contains(<SykmeldingerSorteringContainer />)).to.equal(true);
     }); 
 

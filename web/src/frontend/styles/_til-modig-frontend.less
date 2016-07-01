@@ -48,7 +48,7 @@
 
 .header-verktoy-label {
 	.mixin-typo-normal(); 
-	color: @gray-icon;
+	color: @gray-inactive;
 	align-self: center; 
 }
 
@@ -74,4 +74,47 @@
     .panel-ekstra:before, .panel-relatert:before {
         margin-left: -(sqrt(2rem)/2); // Fikk endelig bruk for Pythagoras i CSS!
     }
+}
+
+.lenke {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid @color-border;
+    color: @color-link;
+    cursor: pointer;
+
+    &:hover {
+        border-bottom-color: @color-link;
+    }
+
+    &:focus {
+        background-color: @color-focus; 
+    }
+
+    &:active {      
+        color: @purple-visited;
+        border-right-color: @purple-visited;
+    }
+}
+
+.contrast .lenke {
+    color: @yellow; 
+    border-bottom-color: @white;
+
+    &:hover {
+        border-bottom-color: @color-blue-additional;
+        color: @color-blue-additional;
+    }
+
+    &:focus {
+        color: @color-blue-additional; 
+    }
+
+    &:active {
+        color: @white;
+        border-bottom-color: @white;
+    }
+
 }

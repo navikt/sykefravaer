@@ -18,11 +18,12 @@ const FlereOpplysninger = ({ sykmelding, ledetekster }) => {
             getSykmeldingOpplysning(sykmelding.bekreftelse,
                 'utstedelsesdato',
                 getLedetekst('din-sykmelding.annet.utstedelsesdato', ledetekster),
-                toDatePrettyPrint(sykmelding.bekreftelse.utstedelsesdato))
+                toDatePrettyPrint(sykmelding.bekreftelse.utstedelsesdato), 'H4')
         }
         {
             getSykmeldingOpplysning(sykmelding, 'startLegemeldtFravaer',
-                getLedetekst('din-sykmelding.mulighet.for.arbeid.start.legemeldt.fravaer.tittel', ledetekster), toDatePrettyPrint(sykmelding.startLegemeldtFravaer))
+                getLedetekst('din-sykmelding.mulighet.for.arbeid.start.legemeldt.fravaer.tittel', ledetekster),
+                toDatePrettyPrint(sykmelding.startLegemeldtFravaer), 'H4')
         }
         </div>
         <MulighetForArbeid sykmelding={sykmelding} ledetekster={ledetekster} />

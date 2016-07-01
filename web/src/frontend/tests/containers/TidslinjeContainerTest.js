@@ -46,7 +46,7 @@ const hendelserData = [{
     key: 5
 }];
  
-describe("TidslinjeContainer", () => {
+xdescribe("TidslinjeContainer", () => {
 
     let initState; 
 

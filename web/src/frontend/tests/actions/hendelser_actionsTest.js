@@ -56,5 +56,5 @@ describe("hendelser_actions", () => {
             type: 'HENT_HENDELSER_FEILET'
         })
     });
-
+    
 });

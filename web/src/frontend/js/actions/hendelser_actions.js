@@ -38,10 +38,12 @@ export function hentHendelser() {
         return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/tidslinje`)
         .then((response) => {
             if (response.status > 400) {
-                dispatch(hentHendelserFeilet());
-            } else {
-                dispatch(setHendelser(response.json().hendelser));
+                return dispatch(hentHendelserFeilet());
             }
+            return response.json();
+        })
+        .then((json) => {
+            return dispatch(setHendelser(json.hendelser));
         })
         .catch(() => {
             return dispatch(hentHendelserFeilet());

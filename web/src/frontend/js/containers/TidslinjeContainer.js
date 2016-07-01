@@ -9,7 +9,9 @@ import * as actionCreators from '../actions/hendelser_actions.js';
 
 export class TidslinjeSide extends Component {
     componentWillMount() {
-        this.props.apneHendelser(this.props.hashMilepaeler);
+        this.props.hentHendelser().then(() => {
+            this.props.apneHendelser(this.props.hashMilepaeler);
+        });
     }
 
     render() {
@@ -36,6 +38,7 @@ TidslinjeSide.propTypes = {
     arbeidssituasjon: PropTypes.string,
     hashMilepaeler: PropTypes.array,
     apneHendelser: PropTypes.func,
+    hentHendelser: PropTypes.func,
 };
 
 export const mapArbeidssituasjonParam = (param) => {
@@ -72,17 +75,18 @@ export function mapStateToProps(state, ownProps) {
     let arbeidssituasjonParam = (ownProps && ownProps.params) ? ownProps.params.arbeidssituasjon : undefined;
     arbeidssituasjonParam = mapArbeidssituasjonParam(arbeidssituasjonParam);
     const arbeidssituasjon = arbeidssituasjonParam || state.brukerinfo.innstillinger.arbeidssituasjon || 'MED_ARBEIDSGIVER';
-    const hendelser = state.hendelser.data.filter((hendelse) => {
-        return hendelse.visning.indexOf(arbeidssituasjon) > -1;
-    });
+    // const hendelser = state.hendelser.data.filter((hendelse) => {
+    //     return hendelse.visning.indexOf(arbeidssituasjon) > -1;
+    // });
+    // Kommenterte dette midlertidig ut, da hendelser fra SyfoREST p.t. ikke har noe 'visning'-attributt
 
-    setHash(hendelser);
+    // setHash(hendelser);
     const hashMilepaeler = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
 
     return {
         ledetekster: state.ledetekster,
         arbeidssituasjon,
-        hendelser,
+        hendelser: state.hendelser.data,
         hashMilepaeler,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),

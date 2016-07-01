@@ -147,4 +147,19 @@ describe('hendelser', () => {
             hentingFeilet: true,
         })
     }); 
+
+    it("Håndterer SET_HENDELSER", () => {
+        const initiellState = {};
+        const action = {
+            type: "SET_HENDELSER",
+            data: [{"antalldager":0,"tekstkey":"tidslinje.med-arbeidsgiver.sykefravaer.startet","type":"SYKEFRAVAER_STARTET","navigasjonsid":1},{"antalldager":28,"tekstkey":"tidslinje.med-arbeidsgiver.snakk.med.arbeidsgiver","type":"SNAKK_MED_ARBEIDSGIVER","navigasjonsid":2},{"antalldager":42,"tekstkey":"tidslinje.med-arbeidsgiver.varsel.sendt","type":"AKTIVTETSKRAV_VARSEL_SENDT","navigasjonsid":3},{"antalldager":49,"tekstkey":"tidslinje.med-arbeidsgiver.dialogmote-arbeidsgiver","type":"DIALOGMOTE_MED_ARBEIDSGIVER","navigasjonsid":4},{"antalldager":56,"tekstkey":"tidslinje.med-arbeidsgiver.aktivitetskrav","type":"NAV_VURDERE_KRAV_OM_AKTIVITET","navigasjonsid":5},{"antalldager":182,"tekstkey":"tidslinje.med-arbeidsgiver.dialogmote-nav","type":"FORBEREDELSE_DIALOGMOTE","navigasjonsid":6},{"antalldager":273,"tekstkey":"tidslinje.med-arbeidsgiver.langtidssykmeldt","type":"AKTIVITETER_SOM_LANGTIDSSYKMELDT","navigasjonsid":7},{"antalldager":364,"tekstkey":"tidslinje.med-arbeidsgiver.sluttfasen","type":"SLUTTFASEN_AV_SYKEFRAVAERET","navigasjonsid":8}]
+        }
+        const nextState = hendelser(initiellState, action);
+        expect(nextState).to.deep.equal({
+            data: [{"antalldager":0,"tekstkey":"tidslinje.med-arbeidsgiver.sykefravaer.startet","type":"SYKEFRAVAER_STARTET","navigasjonsid":1},{"antalldager":28,"tekstkey":"tidslinje.med-arbeidsgiver.snakk.med.arbeidsgiver","type":"SNAKK_MED_ARBEIDSGIVER","navigasjonsid":2},{"antalldager":42,"tekstkey":"tidslinje.med-arbeidsgiver.varsel.sendt","type":"AKTIVTETSKRAV_VARSEL_SENDT","navigasjonsid":3},{"antalldager":49,"tekstkey":"tidslinje.med-arbeidsgiver.dialogmote-arbeidsgiver","type":"DIALOGMOTE_MED_ARBEIDSGIVER","navigasjonsid":4},{"antalldager":56,"tekstkey":"tidslinje.med-arbeidsgiver.aktivitetskrav","type":"NAV_VURDERE_KRAV_OM_AKTIVITET","navigasjonsid":5},{"antalldager":182,"tekstkey":"tidslinje.med-arbeidsgiver.dialogmote-nav","type":"FORBEREDELSE_DIALOGMOTE","navigasjonsid":6},{"antalldager":273,"tekstkey":"tidslinje.med-arbeidsgiver.langtidssykmeldt","type":"AKTIVITETER_SOM_LANGTIDSSYKMELDT","navigasjonsid":7},{"antalldager":364,"tekstkey":"tidslinje.med-arbeidsgiver.sluttfasen","type":"SLUTTFASEN_AV_SYKEFRAVAERET","navigasjonsid":8}],
+            henter: false,
+            hentingFeilet: false,
+        })
+    });
+
 }); 

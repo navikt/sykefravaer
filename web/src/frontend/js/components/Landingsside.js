@@ -57,7 +57,8 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
             </div>
         </article>
         <Link className="landingsside-lenke js-dine-sykmeldinger-lenke" to="/sykefravaer/sykmeldinger">
-            <img src="/sykefravaer/img/svg/doctor-2.svg" alt="Lege" />
+            <img src="/sykefravaer/img/svg/doctor-2.svg" alt="Lege" className="landingsside-lenke-ikon" />
+            <img src="/sykefravaer/img/svg/doctor-2-highcontrast.svg" alt="Lege" className="landingsside-lenke-ikon landingsside-lenke-ikon-hoykontrast" />
             <span>{getLedetekst('landingsside.tilsykmeldinger.lenketekst', ledetekster)}</span>
         </Link>
         <GenerellInfo ledetekster={ledetekster} />

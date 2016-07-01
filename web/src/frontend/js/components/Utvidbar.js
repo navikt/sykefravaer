@@ -117,7 +117,7 @@ export class Utvidbar extends Component {
         return (<div ref="utvidbar" className={`utvidbar ${this.props.className ? this.props.className : ''}`} aria-expanded={this.state.erApen}>
                 <a href="javscript:void(0)"
                     role="button"
-                    aria-pressed={this.state.erApen}
+                    aria-expanded={this.state.erApen}
                     onMouseEnter={() => {this.onMouseEnter();}}
                     onMouseLeave={() => {this.onMouseLeave();}}
                     onClick={(event) => {this.toggle(event);}}
@@ -134,10 +134,11 @@ export class Utvidbar extends Component {
                             this.state.visInnhold && <div>
                                 {this.props.children}
                                 <div className="knapperad side-innhold">
-                                    <a role="button" href="#"
+                                    <button type="button"
+                                        className="lenke"
                                         aria-pressed={!this.state.erApen}
                                         tabIndex={this.state.erApen ? '' : '-1'}
-                                        onClick={(event) => {this.toggle(event);}}>Lukk</a>
+                                        onClick={(event) => {this.toggle(event);}}>Lukk</button>
                                 </div>
                             </div>
                         }

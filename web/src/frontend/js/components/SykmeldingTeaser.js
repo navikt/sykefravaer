@@ -47,7 +47,7 @@ class SykmeldingTeaser extends Component {
         const antallPerioder = this.props.sykmelding.mulighetForArbeid.perioder.length;
         const sistePeriodeIndex = antallPerioder - 1;
 
-        return (<article>
+        return (<article aria-labelledby={`sykmelding-header-${this.props.sykmelding.id}`}>
             <Link className="panel sykmelding-teaser" to={`${getContextRoot()}/sykmeldinger/${this.props.sykmelding.id}`}
                 onMouseEnter={() => {this.onMouseEnter();}}
                 onMouseLeave={() => {this.onMouseLeave();}}
@@ -59,7 +59,7 @@ class SykmeldingTeaser extends Component {
                 <img src={`/sykefravaer/img/svg/${this.state.ikonHoykontrast}`} alt="Lege" />
             </span>
             <div className="teaser-innhold">
-                <h3 className="js-title teaser-header">
+                <h3 className="js-title teaser-header" id={`sykmelding-header-${this.props.sykmelding.id}`}>
                     <small className="teaser-meta">{getLedetekst('sykmelding.teaser.dato', this.props.ledetekster, {
                         '%FOM%': toDatePrettyPrint(this.props.sykmelding.mulighetForArbeid.perioder[0].fom),
                         '%TOM%': toDatePrettyPrint(this.props.sykmelding.mulighetForArbeid.perioder[sistePeriodeIndex].tom),

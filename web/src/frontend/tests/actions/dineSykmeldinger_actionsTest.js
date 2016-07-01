@@ -52,7 +52,23 @@ describe("dineSykmeldinger_actions", () => {
 
 	it("Skal ha en hentDineSykmeldinger()-funksjon som returnerer en funksjon", () => {
 		expect(typeof actions.hentDineSykmeldinger()).to.equal("function")
-	});	
+	});
+
+	it("Skal ha en sorterSykmeldinger()-funksjon som returnerer riktig action", () => {
+		const res = actions.sorterSykmeldinger("arbeidsgiver", "tidligere");
+		expect(res).to.deep.equal({
+			type: "SET_SORTERING",
+			kriterium: "arbeidsgiver",
+			status: "tidligere",
+		});
+
+		const res2 = actions.sorterSykmeldinger("arbeidsgiver", "nye");
+		expect(res2).to.deep.equal({
+			type: "SET_SORTERING",
+			kriterium: "arbeidsgiver",
+			status: "nye",
+		});
+	})
 
 	describe("hentDineSykmeldinger()", () => {
 

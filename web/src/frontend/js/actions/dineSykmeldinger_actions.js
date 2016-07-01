@@ -19,10 +19,11 @@ export function setDineSykmeldinger(sykmeldinger = []) {
     };
 }
 
-export function sorterSykmeldinger(sortering) {
+export function sorterSykmeldinger(kriterium, status) {
     return {
         type: 'SET_SORTERING',
-        sortering,
+        kriterium,
+        status,
     };
 }
 

@@ -3,6 +3,7 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
+import getSykmelding from '../mockSykmeldinger.js';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -10,25 +11,58 @@ const expect = chai.expect;
 import DineSykmeldinger from "../../js/components/DineSykmeldinger.js";
 import SykmeldingTeasere from '../../js/components/SykmeldingTeasere.js';
 
-const sykmeldinger = [];
-
 describe("Dine sykmeldinger", () => {
 
     let component; 
+    let sykmeldinger; 
 
     beforeEach(() => {
-        component = shallow(<DineSykmeldinger sykmeldinger={sykmeldinger} ledetekster={ledetekster} />);
+        sykmeldinger = [
+            getSykmelding({
+                status: "NY"
+            }),
+            getSykmelding({
+                status: "BEKREFTET"
+            }),
+            getSykmelding({
+                status: "SENDT"
+            }),
+        ];
     });
 
     it("Skal vise overskrift for 'Dine sykmeldinger'", () => {
+        component = shallow(<DineSykmeldinger sykmeldinger={sykmeldinger} ledetekster={ledetekster} />);
         expect(component.find("h1").text()).to.equal("Dine sykmeldinger");
     });
 
     it("Skal vise introtekst", () => {
+        component = shallow(<DineSykmeldinger sykmeldinger={sykmeldinger} ledetekster={ledetekster} />);
         expect(component.find(".js-intro").length).to.equal(1)
     });
 
-    it("Skal rendre SykmeldingTeasere", () => {
+    it("Skal rendre to SykmeldingTeasere dersom man både har nye og gamle sykmeldinger", () => {
+        component = shallow(<DineSykmeldinger sykmeldinger={sykmeldinger} ledetekster={ledetekster} />);
+        expect(component.find(SykmeldingTeasere)).to.have.length(2);
+    });
+
+    it("Skal rendre én SykmeldingTeasere dersom man ikke har sykmeldinger", () => {
+        component = shallow(<DineSykmeldinger sykmeldinger={[]} ledetekster={ledetekster} />);
+        expect(component.find(SykmeldingTeasere)).to.have.length(1);
+    });
+
+    it("Skal rendre én SykmeldingTeasere dersom man bare har nye sykmeldinger", () => {
+        sykmeldinger = [
+            getSykmelding({
+                status: "NY"
+            }),
+            getSykmelding({
+                status: "NY"
+            }),
+            getSykmelding({
+                status: "NY"
+            }),
+        ];
+        component = shallow(<DineSykmeldinger sykmeldinger={sykmeldinger} ledetekster={ledetekster} />);
         expect(component.find(SykmeldingTeasere)).to.have.length(1);
     });
 

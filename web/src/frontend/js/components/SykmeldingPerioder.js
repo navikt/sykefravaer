@@ -3,10 +3,9 @@ import SykmeldingPeriode from './SykmeldingPeriode';
 import { getDuration, sorterPerioderEldsteForst } from '../utils/datoUtils';
 
 const SykmeldingPerioder = ({ perioder = [], ledetekster, Overskrift = 'H3' }) => {
-    const c = sorterPerioderEldsteForst(perioder);
     return (<div className="sykmelding-perioder">
         {
-            c.map((periode, index) => {
+            sorterPerioderEldsteForst(perioder).map((periode, index) => {
                 return (<SykmeldingPeriode
                     key={index}
                     periode={periode}

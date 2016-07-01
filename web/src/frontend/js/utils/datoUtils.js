@@ -30,19 +30,24 @@ export function getDuration(from, to) {
     return Math.round(Math.floor(parseDate(to) - parseDate(from)) / (1000 * 60 * 60 * 24)) + 1;
 }
 
-export function sorterPerioder(sykmelding) {
-    return Object.assign(sykmelding.mulighetForArbeid, {
-        perioder: sykmelding.mulighetForArbeid.perioder.sort((a, b) => {
-            if (toDate(a.fom).getTime() !== toDate(b.fom).getTime()) {
-                return toDate(a.fom) - toDate(b.fom);
-            }
-            return toDate(a.tom) - toDate(b.tom);
-        }),
+export function sorterPerioderEldsteForst(perioder) {
+    return perioder.sort((a, b) => {
+        if (toDate(a.fom).getTime() !== toDate(b.fom).getTime()) {
+            return toDate(a.fom) - toDate(b.fom);
+        }
+        return toDate(a.tom) - toDate(b.tom);
     });
 }
 
 export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
-    sykmeldinger.map(sorterPerioder);
+    sykmeldinger.map((sykmelding) => {
+            return Object.assign(
+            sykmelding.mulighetForArbeid,
+                { perioder: sorterPerioderEldsteForst(sykmelding.mulighetForArbeid.perioder) }
+            );
+        }
+
+    );
     return sykmeldinger.sort((a, b) => {
         if (kriterium === 'fom' || a.arbeidsgiver.trim().toUpperCase() === b.arbeidsgiver.trim().toUpperCase()) {
             if (toDate(a.mulighetForArbeid.perioder[0].fom).getTime() !== toDate(b.mulighetForArbeid.perioder[0].fom).getTime()) {

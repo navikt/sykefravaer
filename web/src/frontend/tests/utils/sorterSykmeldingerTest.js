@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { sorterSykmeldinger, sorterPerioder } from '../../js/utils/datoUtils';
+import { sorterSykmeldinger, sorterPerioderEldsteForst } from '../../js/utils/datoUtils';
 
-describe("sorterSykmeldinger", function() {
+describe("sorterSykmeldinger", function () {
 
     let sykmeldinger = [{
         "id": 1,
@@ -519,7 +519,7 @@ describe("sorterSykmeldinger", function() {
                     "grad": "100"
                 }]
             }
-        },{
+        }, {
             "id": 3,
             "arbeidsgiver": "Alnabru Frisør",
             "mulighetForArbeid": {
@@ -570,33 +570,34 @@ describe("sorterSykmeldinger", function() {
 
 
     it("Skal sorterer perioder så eldste perioder fom kommer først og hvis lik fom så kommer eldste tom nederst", () => {
-            let sykmelding = {
-                "id": 3,
-                "arbeidsgiver": "Alnabru Frisør",
-                "mulighetForArbeid": {
-                    "perioder": [{
-                        "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
-                        "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
-                        "grad": "100"
-                    }, {
-                        "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
-                        "tom": { year: 2015, monthValue: 4, dayOfMonth: 16 },
-                        "grad": "100"
-                    }]
-                }
-            };
-            let s = sorterPerioder(sykmelding);
-            expect(s).to.deep.equal({
-                "perioder": [{
-                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
-                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
-                    "grad": "100"
-                }, {
-                    "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
-                    "tom": { year: 2015, monthValue: 4, dayOfMonth: 16 },
-                    "grad": "100"
-                }]
-            });
-        }
-    );
+        let perioder = [{
+            "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+            "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
+            "grad": "100"
+        }, {
+            "fom": { year: 2015, monthValue: 4, dayOfMonth: 6 },
+            "tom": { year: 2015, monthValue: 4, dayOfMonth: 16 },
+            "grad": "100"
+        }, {
+            "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+            "tom": { year: 2015, monthValue: 4, dayOfMonth: 14 },
+            "grad": "100"
+        }];
+
+        const p = sorterPerioderEldsteForst(perioder);
+        expect(p).to.deep.equal(
+            [{
+                "fom": { year: 2015, monthValue: 4, dayOfMonth: 6 },
+                "tom": { year: 2015, monthValue: 4, dayOfMonth: 16 },
+                "grad": "100"
+            }, {
+                "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                "tom": { year: 2015, monthValue: 4, dayOfMonth: 14 },
+                "grad": "100"
+            }, {
+                "fom": { year: 2015, monthValue: 4, dayOfMonth: 8 },
+                "tom": { year: 2015, monthValue: 4, dayOfMonth: 15 },
+                "grad": "100"
+            }]);
+    })
 });

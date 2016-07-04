@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react';
 import SykmeldingPeriode from './SykmeldingPeriode';
-import { getDuration } from '../utils/datoUtils';
+import { getDuration, sorterPerioderEldsteForst } from '../utils/datoUtils';
 
 const SykmeldingPerioder = ({ perioder = [], ledetekster, Overskrift = 'H3' }) => {
     return (<div className="sykmelding-perioder">
         {
-            perioder.map((periode, index) => {
+            sorterPerioderEldsteForst(perioder).map((periode, index) => {
                 return (<SykmeldingPeriode
                     key={index}
                     periode={periode}

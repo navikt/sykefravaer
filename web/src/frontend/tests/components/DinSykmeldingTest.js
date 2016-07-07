@@ -56,7 +56,6 @@ describe("DinSykmelding", () => {
         const store = mockStore(getState);
 
         const brukerinfo = {
-            toggleSendTilArbeidsgiver: true,
             strengtFortroligAdresse: false,
         };
 
@@ -79,7 +78,6 @@ describe("DinSykmelding", () => {
         const store = mockStore(getState);
 
         const brukerinfo = {
-            toggleSendTilArbeidsgiver: true,
             strengtFortroligAdresse: false,
         };
 
@@ -101,7 +99,6 @@ describe("DinSykmelding", () => {
         };
 
         const brukerinfo = {
-            toggleSendTilArbeidsgiver: true,
             strengtFortroligAdresse: true,
         };
 

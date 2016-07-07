@@ -127,9 +127,7 @@ export function mapStateToProps(state, ownProps) {
             hentingFeilet: state.dineSykmeldinger.hentingFeilet,
             henter: state.dineSykmeldinger.henter,
         },
-        visSendTilArbeidsgiver: erPilotarbeidsgiver(state.arbeidsgivere.data) &&
-            !state.brukerinfo.bruker.data.strengtFortroligAdresse &&
-            state.brukerinfo.bruker.data.toggleSendTilArbeidsgiver,
+        visSendTilArbeidsgiver: erPilotarbeidsgiver(state.arbeidsgivere.data) && !state.brukerinfo.bruker.data.strengtFortroligAdresse,
         ledetekster: state.ledetekster,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),

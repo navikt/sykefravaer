@@ -97,7 +97,6 @@ describe("DinSykmeldingContainer", () => {
                 bruker: {
                     data: {
                         strengtFortroligAdresse: false,
-                        toggleSendTilArbeidsgiver: true,
                     },
                 }
             },
@@ -193,12 +192,6 @@ describe("DinSykmeldingContainer", () => {
             }]
             const res = mapStateToProps(state, ownProps);
             expect(res.visSendTilArbeidsgiver).to.be.false;
-        });
-
-        it("Skal returnere visSendTilArbeidsgiver === false hvis toggleSendTilArbeidsgiver === false", () => {
-            state.brukerinfo.bruker.data.toggleSendTilArbeidsgiver = false;
-            const res = mapStateToProps(state, ownProps);
-            expect(res.visSendTilArbeidsgiver).to.be.false; 
         });
 
         describe("Dersom dinSykmelding.status === 'SENDT'", () => {

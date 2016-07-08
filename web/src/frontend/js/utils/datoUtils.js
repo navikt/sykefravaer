@@ -41,11 +41,11 @@ export function sorterPerioderEldsteForst(perioder) {
 
 export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
     sykmeldinger.map((sykmelding) => {
-            return Object.assign(
+        return Object.assign(
             sykmelding.mulighetForArbeid,
                 { perioder: sorterPerioderEldsteForst(sykmelding.mulighetForArbeid.perioder) }
             );
-        }
+    }
 
     );
     return sykmeldinger.sort((a, b) => {

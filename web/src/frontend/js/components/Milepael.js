@@ -30,8 +30,8 @@ class Milepael extends Component {
 
     constructor(props) {
         super(props);
-        this.props.setMilepaelState({
-            medAnimasjon: this.props.erApen === true,
+        props.setMilepaelState({
+            medAnimasjon: props.erApen === true,
         });
     }
 

@@ -5,15 +5,24 @@ import AppSpinner from '../components/AppSpinner.js';
 import Feilmelding from '../components/Feilmelding.js';
 import { connect } from 'react-redux';
 import { getLedetekst } from '../ledetekster';
-import * as actionCreators from '../actions/hendelser_actions.js';
+import { hentSykeforloep } from '../actions/sykeforloep_actions.js'
+import { apneHendelser, setHendelseData } from '../actions/hendelser_actions.js'
 
 export class TidslinjeSide extends Component {
+
     componentWillMount() {
-        this.props.apneHendelser(this.props.hashMilepaeler);
+        const { dispatch, hashHendelser } = this.props;
+        dispatch(apneHendelser(hashHendelser));
+        dispatch(hentSykeforloep());
+    }
+
+    setHendelseData(id, data) {
+        const { dispatch } = this.props;
+        dispatch(setHendelseData(id, data))
     }
 
     render() {
-        const { brodsmuler, ledetekster } = this.props;
+        const { brodsmuler, ledetekster, hendelser, arbeidssituasjon } = this.props;
         return (<SideMedHoyrekolonne tittel={getLedetekst('tidslinje.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
             {
                 (() => {
@@ -22,7 +31,9 @@ export class TidslinjeSide extends Component {
                     } else if (ledetekster.hentingFeilet || !ledetekster.data) {
                         return (<Feilmelding />);
                     }
-                    return <Tidslinje {...this.props} ledetekster={ledetekster.data} />;
+                    return <Tidslinje hendelser={hendelser} ledetekster={ledetekster.data}
+                                      arbeidssituasjon={arbeidssituasjon}
+                                      setHendelseData={(id, data) => this.setHendelseData(id, data)}/>;
                 })()
             }
         </SideMedHoyrekolonne>);
@@ -30,6 +41,7 @@ export class TidslinjeSide extends Component {
 }
 
 TidslinjeSide.propTypes = {
+    dispatch: PropTypes.func,
     brodsmuler: PropTypes.array,
     ledetekster: PropTypes.object,
     hendelser: PropTypes.array,
@@ -77,13 +89,14 @@ export function mapStateToProps(state, ownProps) {
     });
 
     setHash(hendelser);
-    const hashMilepaeler = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
+    const hashHendelser = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
 
     return {
         ledetekster: state.ledetekster,
         arbeidssituasjon,
         hendelser,
-        hashMilepaeler,
+        hashHendelser,
+        sykeforloep: state.sykeforloep,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',
@@ -94,6 +107,6 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-const TidslinjeContainer = connect(mapStateToProps, actionCreators)(TidslinjeSide);
+const TidslinjeContainer = connect(mapStateToProps)(TidslinjeSide);
 
 export default TidslinjeContainer;

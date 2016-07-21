@@ -1,4 +1,4 @@
-const milepaelerData = [{
+const hendelserData = [{
     ledetekst: 'tidslinje.med-arbeidsgiver.snakk.med.arbeidsgiver',
     visning: ['MED_ARBEIDSGIVER'],
     type: 'MILEPAEL',
@@ -70,5 +70,5 @@ const milepaelerData = [{
     alt: '',
 }];
 
-export default milepaelerData;
+export default hendelserData;
 

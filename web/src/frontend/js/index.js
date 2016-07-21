@@ -15,8 +15,6 @@ import sykeforloep from './reducers/sykeforloep.js';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions.js';
 import { hentLedetekster } from './actions/ledetekster_actions.js';
 import { hentBrukerinfo } from './actions/brukerinfo_actions.js';
-import { setHendelser } from './actions/hendelser_actions.js';
-import hendelserData from './hendelserData';
 import history from './history.js';
 
 const rootReducer = combineReducers({
@@ -37,7 +35,6 @@ const store = createStore(rootReducer,
 store.dispatch(hentLedetekster());
 store.dispatch(hentDineSykmeldinger());
 store.dispatch(hentBrukerinfo());
-store.dispatch(setHendelser(hendelserData));
 
 render(<Provider store={store}>
         <AppRouter history={history} /></Provider>,

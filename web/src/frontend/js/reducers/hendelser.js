@@ -1,10 +1,14 @@
+const initiellState = {
+    data: [],
+};
+
 const settErApen = (hendelse, id, erApen) => {
     return Object.assign({}, hendelse, {
         erApen: `${hendelse.id}''` === `${id}''` ? erApen : hendelse.erApen === true,
     });
 };
 
-export default function hendelser(state = {}, action) {
+export default function hendelser(state = initiellState, action) {
     switch (action.type) {
         case 'SET_HENDELSER': {
             return {
@@ -25,6 +29,10 @@ export default function hendelser(state = {}, action) {
             });
             const ret = Object.assign({}, state, { data });
             return ret;
+        }
+        case 'LEGG_TIL_HENDELSER': {
+            const _hendelser = state.data.concat(action.hendelser);
+            return Object.assign({}, state, { data: _hendelser })
         }
         case 'SET_HENDELSEDATA': {
             const data = state.data.map((hendelse) => {

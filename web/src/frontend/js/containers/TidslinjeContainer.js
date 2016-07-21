@@ -6,14 +6,20 @@ import Feilmelding from '../components/Feilmelding.js';
 import { connect } from 'react-redux';
 import { getLedetekst } from '../ledetekster';
 import { hentSykeforloep } from '../actions/sykeforloep_actions.js'
-import { apneHendelser, setHendelseData } from '../actions/hendelser_actions.js'
+import { apneHendelser, setHendelseData, setHendelser } from '../actions/hendelser_actions.js'
+import hendelserData from '../hendelserData';
 
 export class TidslinjeSide extends Component {
 
     componentWillMount() {
+        const { dispatch } = this.props;
+        dispatch(setHendelser(hendelserData));
+        dispatch(hentSykeforloep());
+    }
+
+    componentDidMount() {
         const { dispatch, hashHendelser } = this.props;
         dispatch(apneHendelser(hashHendelser));
-        dispatch(hentSykeforloep());
     }
 
     setHendelseData(id, data) {
@@ -22,11 +28,12 @@ export class TidslinjeSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, hendelser, arbeidssituasjon } = this.props;
-        return (<SideMedHoyrekolonne tittel={getLedetekst('tidslinje.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
+        const { brodsmuler, ledetekster, hendelser, arbeidssituasjon, sykeforloep } = this.props;
+        return (<SideMedHoyrekolonne tittel={getLedetekst('tidslinje.sidetittel', ledetekster.data)}
+                                     brodsmuler={brodsmuler}>
             {
                 (() => {
-                    if (ledetekster.henter) {
+                    if (ledetekster.henter || sykeforloep.henter) {
                         return <AppSpinner />;
                     } else if (ledetekster.hentingFeilet || !ledetekster.data) {
                         return (<Feilmelding />);
@@ -86,6 +93,10 @@ export function mapStateToProps(state, ownProps) {
     const arbeidssituasjon = arbeidssituasjonParam || state.brukerinfo.innstillinger.arbeidssituasjon || 'MED_ARBEIDSGIVER';
     const hendelser = state.hendelser.data.filter((hendelse) => {
         return hendelse.visning.indexOf(arbeidssituasjon) > -1;
+    });
+
+    hendelser.sort((a, b) => {
+        return a.id - b.id
     });
 
     setHash(hendelser);

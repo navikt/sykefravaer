@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { getLedetekst } from '../ledetekster';
 import TidslinjeBudskap from './TidslinjeBudskap.js';
 import { scrollTo } from '../utils';
+import { toDatePrettyPrint } from '../utils/datoUtils.js'
 
 const StatusIkon = ({ type }) => {
     const status = {
@@ -11,9 +12,9 @@ const StatusIkon = ({ type }) => {
         alt: '',
     };
     if (type === 'START') {
-        status.statusClassName = 'milepael-status-start';
-        status.ikonClassName = 'milepael-ikon-start';
-        status.ikon = 'hake-hvit.svg';
+        status.statusClassName = '';
+        status.ikonClassName = '';
+        status.ikon = 'person.svg';
     }
     return (<div className={`milepael-status ${status.statusClassName}`}>
         <div className={`milepael-ikon ${status.ikonClassName}`}>
@@ -116,7 +117,7 @@ class Hendelse extends Component {
                 <StatusIkon type={this.props.type} />
                 <div className="milepael-innhold">
                     <div className="milepael-meta">
-                        <h2>{getLedetekst(`${this.props.ledetekst}.meta`, this.props.ledetekster)}</h2>
+                        <h2>{getLedetekst(`${this.props.ledetekst}.meta`, this.props.ledetekster, { '%DATO%': toDatePrettyPrint(this.props.data.oppfoelgingsdato) })} </h2>
                     </div>
                     <div className="milepael-boble" ref="boble">
                         <button

@@ -1,3 +1,5 @@
+import { leggTilHendelser } from './hendelser_actions.js';
+
 export function hentSykeforloepFeilet() {
     return {
         type: 'HENT_SYKEFORLOEP_FEILET',
@@ -31,6 +33,18 @@ export function hentSykeforloep() {
                 return response.json();
             })
             .then((json) => {
+                dispatch(leggTilHendelser({
+                    ledetekst: 'tidslinje.med-arbeidsgiver.snakk.med.arbeidsgiver',
+                    visning: ['MED_ARBEIDSGIVER'],
+                    type: 'START',
+                    id: 0,
+                    bilde: '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen4uker.svg',
+                    alt: '',
+                    data: {
+                        oppfoelgingsdato: json[0].oppfoelgingsdato
+                    }
+                }));
+                dispatch(leggTilHendelser(json[0].hendelser));
                 return dispatch(setSykeforloep(json));
             })
             .catch(() => {

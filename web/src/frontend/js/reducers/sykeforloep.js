@@ -1,4 +1,11 @@
-export default function sykeforloep(state = {}, action) {
+const initiellState = {
+    henter: false,
+    hentingFeilet: false,
+    data: [],
+};
+
+
+export default function sykeforloep(state = initiellState, action) {
     switch (action.type) {
         case 'HENT_SYKEFORLOEP_FEILET': {
             return Object.assign({}, state, {
@@ -15,13 +22,11 @@ export default function sykeforloep(state = {}, action) {
             };
         }
         case 'SET_SYKEFORLOEP': {
-            const data = Object.assign({}, action.data);
-            return Object.assign(state, {
+            return {
                 henter: false,
                 hentingFeilet: false,
-            }, {
-                data,
-            });
+                data: action.data
+            };
         }
         default: {
             return state;

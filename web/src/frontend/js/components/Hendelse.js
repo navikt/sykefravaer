@@ -13,8 +13,8 @@ const StatusIkon = ({ type }) => {
     };
     if (type === 'START') {
         status.statusClassName = '';
-        status.ikonClassName = '';
-        status.ikon = 'person.svg';
+        status.ikonClassName = 'milepael-ikon-person';
+        status.ikon = 'doctor-2.svg';
     }
     return (<div className={`milepael-status ${status.statusClassName}`}>
         <div className={`milepael-ikon ${status.ikonClassName}`}>
@@ -116,7 +116,8 @@ class Hendelse extends Component {
         return (<article className="milepael" ref="milepael">
                 <StatusIkon type={this.props.type} />
                 <div className="milepael-innhold">
-                    <div className="milepael-meta">
+                    <div
+                        className={this.props.type === 'START' ? "milepael-meta milepael-meta-start" : "milepael-meta"}>
                         <h2>{getLedetekst(`${this.props.ledetekst}.meta`, this.props.ledetekster, { '%DATO%': toDatePrettyPrint(this.props.data.oppfoelgingsdato) })} </h2>
                     </div>
                     <div className="milepael-boble" ref="boble">

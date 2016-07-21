@@ -37,7 +37,7 @@ export function hentSykeforloep() {
                     json.reverse();
                     dispatch(leggTilHendelser({
                         ledetekst: 'tidslinje.med-arbeidsgiver.snakk.med.arbeidsgiver',
-                        visning: ['MED_ARBEIDSGIVER'],
+                        visning: ['MED_ARBEIDSGIVER', 'UTEN_ARBEIDSGIVER'],
                         type: 'START',
                         id: 0,
                         bilde: '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen4uker.svg',

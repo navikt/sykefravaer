@@ -8,7 +8,6 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import { TidslinjeSide, mapStateToProps, mapArbeidssituasjonParam, setHash } from "../../js/containers/TidslinjeContainer.js";
-import TidslinjeVelgArbeidssituasjonContainer from "../../js/containers/TidslinjeVelgArbeidssituasjonContainer.js";
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
 import Tidslinje from '../../js/components/Tidslinje.js';

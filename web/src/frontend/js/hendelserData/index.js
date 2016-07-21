@@ -41,14 +41,6 @@ const hendelserData = [{
     alt: '',
     data: {},
 }, {
-    ledetekst: 'tidslinje.uten-arbeidsgiver.start',
-    visning: ['UTEN_ARBEIDSGIVER'],
-    type: 'MILEPAEL',
-    id: 6,
-    bilde: '/sykefravaer/img/tidslinje/uten-arbeidsgiver/innen8uker-4.svg',
-    alt: '',
-    data: {},
-}, {
     ledetekst: 'tidslinje.uten-arbeidsgiver.dialog',
     visning: ['UTEN_ARBEIDSGIVER'],
     type: 'MILEPAEL',

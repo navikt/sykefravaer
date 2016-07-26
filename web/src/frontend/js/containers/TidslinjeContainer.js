@@ -94,9 +94,8 @@ export function mapStateToProps(state, ownProps) {
     const hendelser = state.hendelser.data.filter((hendelse) => {
         return hendelse.visning.indexOf(arbeidssituasjon) > -1;
     });
-
     hendelser.sort((a, b) => {
-        return a.id - b.id
+        return a.dagerEtterStart - b.dagerEtterStart
     });
 
     setHash(hendelser);

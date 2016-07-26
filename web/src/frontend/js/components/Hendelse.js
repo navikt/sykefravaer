@@ -11,14 +11,26 @@ const StatusIkon = ({ type }) => {
         ikon: 'klokke-svart.svg',
         alt: '',
     };
-    if (type === 'START') {
+
+    if (type === 'SYKETILFELLE_START') {
         status.statusClassName = '';
         status.ikonClassName = 'milepael-ikon-person';
         status.ikon = 'doctor-2.svg';
+    } else if (type === 'MILEPAEL') {
+        status.statusClassName = '';
+        status.ikonClassName = 'milepael-ikon-sirkel';
+        status.ikon = 'tidslinje-sirkel-graa.svg';
+        status.img = 'milepael-ikon-sirkel-img'
+    } else if (type === 'AKTIVITETSKRAV_VARSEL') {
+        status.statusClassName = '';
+        status.ikonClassName = 'milepael-ikon-varsel';
+        status.ikon = 'ikon-utropstegn.svg';
+        status.img = ''
     }
+
     return (<div className={`milepael-status ${status.statusClassName}`}>
         <div className={`milepael-ikon ${status.ikonClassName}`}>
-            <img src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt} />
+            <img className={`${status.img}`} src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt}/>
         </div>
     </div>);
 };
@@ -113,36 +125,53 @@ class Hendelse extends Component {
     }
 
     render() {
+        const bilde = this.props.type === 'AKTIVITETSKRAV_VARSEL' ? `${this.props.bilde}_${this.props.arbeidssituasjon}.svg` : this.props.bilde;
+        const ledetekst = this.props.type === 'AKTIVITETSKRAV_VARSEL' ? `${this.props.ledetekst}_${this.props.arbeidssituasjon}` : this.props.ledetekst;
+
         return (<article className="milepael" ref="milepael">
-                <StatusIkon type={this.props.type} />
-                <div className="milepael-innhold">
+            <StatusIkon type={this.props.type}/>
+            {this.props.type === 'KLOKKE' || this.props.type === 'SYKETILFELLE_START' ?
+                (
                     <div
                         className={this.props.type === 'START' ? "milepael-meta milepael-meta-start" : "milepael-meta"}>
-                        <h2>{getLedetekst(`${this.props.ledetekst}.meta`, this.props.ledetekster, { '%DATO%': toDatePrettyPrint(this.props.data.oppfoelgingsdato) })} </h2>
+                        <h2> {getLedetekst(`${this.props.ledetekst}`, this.props.ledetekster, {
+                            '%DATO%': toDatePrettyPrint(this.props.data.oppfoelgingsdato),
+                            '%ANTALL_UKER%': this.props.antallUker
+                        })} </h2>
                     </div>
-                    <div className="milepael-boble" ref="boble">
-                        <button
-                            onClick={(e) => { this.toggle(e); }}
-                            aria-pressed={this.props.erApen}
-                            className={!this.props.erApen ? 'header-milepael' : 'header-milepael er-apen'}>
-                            <h3 className={!this.props.erApen ? 'milepael-tittel milepael-tittel-collapse' : 'milepael-tittel milepael-tittel-collapse er-apen'}>
-                                {getLedetekst(`${this.props.ledetekst}.tittel`, this.props.ledetekster)}
-                            </h3>
-                        </button>
-                        <div
-                            aria-hidden={!this.props.erApen}
-                            style={this.props.hoyde ? { height: this.props.hoyde } : {}}
-                            className={this.getContainerClass()}>
-                            <div ref="js-budskap">
-                                <TidslinjeBudskap
-                                    vis={this.props.visBudskap}
-                                    bilde={this.props.bilde}
-                                    alt={this.props.alt}
-                                    innhold={getLedetekst(`${this.props.ledetekst}.budskap`, this.props.ledetekster)} />
+                )
+                :
+                (
+                    <div className="milepael-innhold">
+                        <div className="milepael-boble" ref="boble">
+                            <button
+                                onClick={(e) => {
+                                    this.toggle(e);
+                                }}
+                                aria-pressed={this.props.erApen}
+                                className={!this.props.erApen ? 'header-milepael' : 'header-milepael er-apen'}>
+                                <div
+                                    className={!this.props.erApen ? 'milepael-tittel milepael-tittel-collapse' : 'milepael-tittel milepael-tittel-collapse er-apen'}
+                                    dangerouslySetInnerHTML={{ __html: getLedetekst(`${ledetekst}.tittel`, this.props.ledetekster, { '%DATO%': toDatePrettyPrint(this.props.data.hendelseDato) }) }}
+                                >
+                                </div>
+                            </button>
+                            <div
+                                aria-hidden={!this.props.erApen}
+                                style={this.props.hoyde ? { height: this.props.hoyde } : {}}
+                                className={this.getContainerClass()}>
+                                <div ref="js-budskap">
+                                    <TidslinjeBudskap
+                                        vis={this.props.visBudskap}
+                                        bilde={bilde}
+                                        alt={this.props.alt}
+                                        innhold={getLedetekst(`${ledetekst}.budskap`, this.props.ledetekster)}/>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                )
+            }
         </article>);
     }
 }

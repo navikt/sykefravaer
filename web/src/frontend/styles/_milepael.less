@@ -29,6 +29,15 @@
 .milepael-innhold {
     flex: 1;
     margin-bottom: 1rem;
+
+    ol {
+        padding-left: 10px;
+    }
+
+    li {
+        padding: 7px;
+        margin: 15px;
+    }
 }
 
 .header-milepael:extend(.header-bolk) {
@@ -68,19 +77,30 @@
 
 .milepael-tittel {
     .mixin-typo-infotekst();
-    display: flex;
-    width: 100%; 
-    margin: 0; 
-    padding: 0; 
+    width: 100%;
 
     span {
         flex: 1;
     }
+
+    h2 {
+        margin-top: 0;
+        -webkit-margin-before: 0;
+        margin-bottom: 10px;
+        font-family: Arial, sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
 }
 
 .milepael-tittel-collapse {
     background: data-uri("../img/svg/arrow-down.svg") no-repeat right center;
-    background-size: 1rem 1rem; 
+    background-size: 1rem 1rem;
     padding-right: 2rem;
 
     &:hover {
@@ -98,8 +118,8 @@
 
 .milepael-status {
     position: relative; 
-    width: 24px; 
-    margin-right: 13px; 
+    width: 24px;
+    margin-right: 13px;
 
     @media(min-width: @screen-xs) {
         width: 40px;
@@ -120,18 +140,7 @@
         background-color: @color-border;
     }
 
-    &:after {
-        background-color: @color-background;
-        background-image: data-uri('../img/svg/tidslinje-sirkel-graa.svg');
-        top: 3rem;
-        width: 1rem;
-        height: 1rem;
-        transform: translateX(-50%);
 
-        @media (min-width: @screen-xs) {
-            top: 3.8125rem; // 61px / 1rem aka 16px
-        }
-    }
 
 }
 
@@ -140,11 +149,10 @@
 }
 
 .tidslinje .milepael:last-child .milepael-status:before {
-    height: 4rem; 
+    height: 1.4rem;
 }
 
 .milepael-ikon {
-    display: block;
     width: 24px;
     height: 24px; 
     border-radius: 50%; 
@@ -162,6 +170,16 @@
 
 .milepael-ikon-person {
     background-color: #A7F5F4;
+}
+
+.milepael-ikon-sirkel-img {
+    width: 1rem;
+    height: 1rem;
+    background-color: #efefef;
+}
+
+.milepael-ikon-varsel {
+    background-color: #ba3a26;
 }
 
 .milepael-ikon-klokke {

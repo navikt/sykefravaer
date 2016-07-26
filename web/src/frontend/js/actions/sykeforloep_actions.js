@@ -35,18 +35,7 @@ export function hentSykeforloep() {
             .then((json) => {
                 if (json.length > 0) {
                     json.reverse();
-                    dispatch(leggTilHendelser({
-                        ledetekst: 'tidslinje.med-arbeidsgiver.snakk.med.arbeidsgiver',
-                        visning: ['MED_ARBEIDSGIVER', 'UTEN_ARBEIDSGIVER'],
-                        type: 'START',
-                        id: 0,
-                        bilde: '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen4uker.svg',
-                        alt: '',
-                        data: {
-                            oppfoelgingsdato: json[0].oppfoelgingsdato
-                        }
-                    }));
-                    dispatch(leggTilHendelser(json[0].hendelser));
+                    dispatch(leggTilHendelser(json[0]));
                 }
                 return dispatch(setSykeforloep(json));
             })

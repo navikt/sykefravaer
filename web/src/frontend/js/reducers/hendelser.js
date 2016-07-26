@@ -1,3 +1,5 @@
+import { getDuration, toDate, getAvstandIDager } from '../utils/datoUtils'
+
 const initiellState = {
     data: [],
 };
@@ -31,7 +33,39 @@ export default function hendelser(state = initiellState, action) {
             return ret;
         }
         case 'LEGG_TIL_HENDELSER': {
-            const _hendelser = state.data.concat(action.hendelser);
+
+            const _berik = action.sykeforloep.hendelser.map((hendelse, index) => {
+                var data = {};
+                var dagerEtterStart = -1;
+                var visning = ['MED_ARBEIDSGIVER', 'UTEN_ARBEIDSGIVER'];
+                var ledetekst = '';
+                var bilde = '';
+                switch (hendelse.type) {
+                    case 'SYKETILFELLE_START': {
+                        data = { oppfoelgingsdato: hendelse.inntruffetdato };
+                        ledetekst = 'tidslinje.forste-sykmeldingsdag';
+                        break;
+                    }
+                    case 'AKTIVITETSKRAV_VARSEL': {
+                        dagerEtterStart = getDuration(action.sykeforloep.oppfoelgingsdato, hendelse.inntruffetdato) - 1;
+                        ledetekst = 'tidslinje.aktivitetskrav.varsel';
+                        data = { hendelseDato: hendelse.inntruffetdato };
+                        bilde = '/sykefravaer/img/tidslinje/aktivitetskrav';
+                        break;
+                    }
+                }
+                return Object.assign({}, hendelse, {
+                    id: 'd' + index,
+                    dagerEtterStart: dagerEtterStart,
+                    data: data,
+                    visning: visning,
+                    ledetekst: ledetekst,
+                    bilde: bilde,
+                })
+            });
+
+            const _hendelser = state.data.concat(_berik);
+
             return Object.assign({}, state, { data: _hendelser })
         }
         case 'SET_HENDELSEDATA': {

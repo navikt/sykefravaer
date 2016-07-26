@@ -30,6 +30,14 @@ export function getDuration(from, to) {
     return Math.round(Math.floor(parseDate(to) - parseDate(from)) / (1000 * 60 * 60 * 24)) + 1;
 }
 
+export function getAvstandIDager(from, to) {
+    console.log('llo');
+    console.log(from);
+    console.log(to);
+
+    return Math.ceil(Math.abs(to.getTime() - from.getTime()) / (1000 * 3600 * 24));
+}
+
 export function sorterPerioder(sykmelding) {
     return Object.assign(sykmelding.mulighetForArbeid, {
         perioder: sykmelding.mulighetForArbeid.perioder.sort((a, b) => {

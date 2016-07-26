@@ -12,10 +12,10 @@ export function apneHendelser(hendelseIder) {
     };
 }
 
-export function leggTilHendelser(hendelser) {
+export function leggTilHendelser(sykeforloep) {
     return {
         type: 'LEGG_TIL_HENDELSER',
-        hendelser,
+        sykeforloep,
     };
 }
 

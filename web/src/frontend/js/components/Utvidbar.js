@@ -133,7 +133,7 @@ export class Utvidbar extends Component {
                         {
                             this.state.visInnhold && <div>
                                 {this.props.children}
-                                <div className="knapperad side-innhold">
+                                <div className="knapperad side-innhold ikke-print">
                                     <button type="button"
                                         className="lenke"
                                         aria-pressed={!this.state.erApen}

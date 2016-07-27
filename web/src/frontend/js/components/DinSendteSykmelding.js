@@ -8,7 +8,7 @@ import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../nokkelopplysn
 
 const DinSendteSykmelding = ({ dinSykmelding, ledetekster, arbeidsgiversSykmelding }) => {
     return (<div>
-        <h1 className="side-header typo-sidetittel">Sykmelding</h1>
+        <h1 className="side-header typo-sidetittel">{getLedetekst('din-sykmelding.tittel', ledetekster)}</h1>
         <StatusPanel
             sykmelding={dinSykmelding}
             ledetekster={ledetekster}
@@ -17,7 +17,7 @@ const DinSendteSykmelding = ({ dinSykmelding, ledetekster, arbeidsgiversSykmeldi
                 [STATUS, INNSENDT_DATO],
                 [ARBEIDSGIVER, ORGNUMMER],
             ]} />
-        <Utvidbar erApen tittel={getLedetekst('din-sykmelding.tittel', ledetekster)}
+        <Utvidbar erApen tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel', ledetekster)}
             ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege" className="blokk" variant="lysebla" Overskrift="H2">
             <DineSykmeldingOpplysninger sykmelding={dinSykmelding} ledetekster={ledetekster} />
         </Utvidbar>

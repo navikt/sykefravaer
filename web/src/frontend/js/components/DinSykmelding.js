@@ -13,9 +13,6 @@ const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false
             <h1 className="header-tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h1>
         </div>
         <div className="panel blokk">
-            <h2 className="typo-innholdstittel blokk-l">
-                {getLedetekst('din-sykmelding.tittel', ledetekster)}
-            </h2>
             <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
                 {
                     (visSendTilArbeidsgiver) ?

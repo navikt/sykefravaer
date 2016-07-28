@@ -10,6 +10,9 @@ import FlereOpplysninger from './FlereOpplysninger';
 
 const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
     return (<div>
+        <h2 className="typo-innholdstittel blokk-l">
+            {getLedetekst('din-sykmelding.tittel', ledetekster)}
+        </h2>
         <div className="blokk-l side-innhold">
             <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} ledetekster={ledetekster} />
             {

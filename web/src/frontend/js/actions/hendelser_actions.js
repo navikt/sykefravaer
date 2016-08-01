@@ -12,9 +12,10 @@ export function apneHendelser(hendelseIder) {
     };
 }
 
-export function hentHendelserFeilet() {
+export function leggTilHendelser(sykeforloep) {
     return {
-        type: 'HENT_HENDELSER_FEILET',
+        type: 'LEGG_TIL_HENDELSER',
+        sykeforloep,
     };
 }
 
@@ -23,30 +24,5 @@ export function setHendelseData(hendelseId, data) {
         type: 'SET_HENDELSEDATA',
         hendelseId,
         data,
-    };
-}
-
-export function henterHendelser() {
-    return {
-        type: 'HENTER_HENDELSER',
-    };
-}
-
-export function hentHendelser() {
-    return function hendelser(dispatch) {
-        dispatch(henterHendelser());
-        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/tidslinje`)
-        .then((response) => {
-            if (response.status > 400) {
-                return dispatch(hentHendelserFeilet());
-            }
-            return response.json();
-        })
-        .then((json) => {
-            return dispatch(setHendelser(json.hendelser));
-        })
-        .catch(() => {
-            return dispatch(hentHendelserFeilet());
-        });
     };
 }

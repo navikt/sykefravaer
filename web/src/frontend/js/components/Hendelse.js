@@ -1,66 +1,185 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { getLedetekst } from '../ledetekster';
-import TidslinjeBoble from './TidslinjeBoble.js';
+import TidslinjeBudskap from './TidslinjeBudskap.js';
+import { scrollTo } from '../utils';
+import { toDatePrettyPrint } from '../utils/datoUtils.js';
 
-const Ikon = ({ type }) => {
+const StatusIkon = ({ type }) => {
     const status = {
         statusClassName: 'milepael-status-klokke',
         ikonClassName: 'milepael-ikon-klokke',
         ikon: 'klokke-svart.svg',
         alt: '',
     };
-    if (type === 'START') {
-        status.statusClassName = 'milepael-status-start';
-        status.ikonClassName = 'milepael-ikon-start';
-        status.ikon = 'hake-hvit.svg';
+
+    if (type === 'SYKETILFELLE_START') {
+        status.statusClassName = '';
+        status.ikonClassName = 'milepael-ikon-person';
+        status.ikon = 'doctor-2.svg';
+    } else if (type === 'MILEPAEL') {
+        status.statusClassName = '';
+        status.ikonClassName = 'milepael-ikon-sirkel';
+        status.ikon = 'tidslinje-sirkel-graa.svg';
+        status.img = 'milepael-ikon-sirkel-img';
+    } else if (type === 'AKTIVITETSKRAV_VARSEL') {
+        status.statusClassName = '';
+        status.ikonClassName = 'milepael-ikon-varsel';
+        status.ikon = 'ikon-utropstegn.svg';
+        status.img = '';
     }
-    return (<div className={`milepael-ikon ${status.ikonClassName}`}>
-            <img src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt} />
-        </div>);
-};
 
-Ikon.propTypes = {
-    type: PropTypes.string,
-    children: PropTypes.object,
-};
-
-const Status = ({ children }) => {
-    return (<div className="milepael-status">
-        {children}
+    return (<div className={`milepael-status ${status.statusClassName}`}>
+        <div className={`milepael-ikon ${status.ikonClassName}`}>
+            <img className={`${status.img}`} src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt} />
+        </div>
     </div>);
 };
 
-Status.propTypes = {
+StatusIkon.propTypes = {
     type: PropTypes.string,
-    children: PropTypes.object,
 };
 
-const Innhold = ({ children }) => {
-    return (<div className="milepael-innhold">
-        {children}
-    </div>);
-};
+class Hendelse extends Component {
 
-Innhold.propTypes = {
-    children: PropTypes.object,
-};
+    constructor(props) {
+        super(props);
+        this.props.setHendelseState({
+            medAnimasjon: this.props.erApen === true,
+        });
+    }
 
-const Hendelse = (props) => {
-    // Under arbeid, men forhåpentligvis en start...
-    return (<article className="milepael" ref="milepael">
-        <Status type={props.type}>
-            <Ikon type={props.type} />
-        </Status>
-        <Innhold>
-            <div>
-                <div className="milepael-meta">
-                    <h2>{getLedetekst(`${props.ledetekst}.meta`, props.ledetekster)}</h2>
-                </div>
-                <TidslinjeBoble {...props} />
-            </div>
-        </Innhold>
-    </article>);
-};
+    getContainerClass() {
+        let className = this.props.erApen ? 'milepael-budskap-container er-apen' : 'milepael-budskap-container';
+        if (this.props.medAnimasjon) {
+            className = `${className} med-animasjon`;
+        }
+        return className;
+    }
+
+    setNaavaerendeHoyde() {
+        const budskapHoyde = this.refs['js-budskap'].offsetHeight;
+        const naaHoyde = !this.props.erApen ? null : budskapHoyde;
+
+        this.props.setHendelseState({
+            hoyde: `${naaHoyde}px`,
+        });
+    }
+
+    apne() {
+        this.setNaavaerendeHoyde();
+        this.props.setHendelseState({
+            visBudskap: true,
+            medAnimasjon: true,
+            hindreToggle: true,
+        });
+        setTimeout(() => {
+            const nyHoyde = `${this.refs['js-budskap'].offsetHeight}px`;
+            this.props.setHendelseState({
+                hoyde: nyHoyde,
+                erApen: true,
+            });
+        }, 0);
+        setTimeout(() => {
+            scrollTo(this.refs.boble, 1000);
+            this.props.setHendelseState({
+                medAnimasjon: false,
+                hoyde: 'auto',
+                hindreToggle: false,
+            });
+            setTimeout(() => {
+                this.props.setHendelseState({
+                    medAnimasjon: true,
+                });
+            }, 20);
+        }, 300);
+    }
+
+    lukk() {
+        this.props.setHendelseState({
+            medAnimasjon: true,
+            hindreToggle: true,
+        });
+        this.setNaavaerendeHoyde();
+        setTimeout(() => {
+            this.props.setHendelseState({
+                hoyde: '0',
+                erApen: false,
+            });
+        }, 0);
+        setTimeout(() => {
+            this.props.setHendelseState({
+                visBudskap: false,
+                medAnimasjon: false,
+                hindreToggle: false,
+            });
+        }, 300);
+    }
+
+    toggle(e) {
+        e.preventDefault();
+        if (this.props.erApen && !this.props.hindreToggle) {
+            this.lukk();
+        } else if (!this.props.hindreToggle) {
+            this.apne();
+        }
+    }
+
+    render() {
+        const bilde = this.props.type === 'AKTIVITETSKRAV_VARSEL' ? `${this.props.bilde}_${this.props.arbeidssituasjon}.svg` : this.props.bilde;
+        const ledetekst = this.props.type === 'AKTIVITETSKRAV_VARSEL' ? `${this.props.ledetekst}_${this.props.arbeidssituasjon}` : this.props.ledetekst;
+
+        return (<article className="milepael" ref="milepael">
+            <StatusIkon type={this.props.type} />
+            {this.props.type === 'KLOKKE' || this.props.type === 'SYKETILFELLE_START' ?
+                (
+                    <div
+                        className={this.props.type === 'START' ? 'milepael-meta milepael-meta-start' : 'milepael-meta'}>
+                        <h2> {getLedetekst(`${this.props.ledetekst}`, this.props.ledetekster, {
+                            '%DATO%': toDatePrettyPrint(this.props.data.oppfoelgingsdato),
+                            '%ANTALL_UKER%': this.props.antallUker,
+                        })} </h2>
+                    </div>
+                )
+                :
+                (
+                    <div className="milepael-innhold">
+                        <div className="milepael-boble" ref="boble">
+                            <button
+                                onClick={(e) => {
+                                    this.toggle(e);
+                                }}
+                                aria-pressed={this.props.erApen}
+                                className={!this.props.erApen ? 'header-milepael' : 'header-milepael er-apen'}>
+                                <div
+                                    className={!this.props.erApen ? 'milepael-tittel milepael-tittel-collapse' : 'milepael-tittel milepael-tittel-collapse er-apen'}
+                                    dangerouslySetInnerHTML={{
+                                        __html: getLedetekst(`${ledetekst}.tittel`,
+                                            this.props.ledetekster,
+                                            {
+                                                '%DATO%': toDatePrettyPrint(this.props.data.hendelseDato),
+                                            }),
+                                    }}>
+                                </div>
+                            </button>
+                            <div
+                                aria-hidden={!this.props.erApen}
+                                style={this.props.hoyde ? { height: this.props.hoyde } : {}}
+                                className={this.getContainerClass()}>
+                                <div ref="js-budskap">
+                                    <TidslinjeBudskap
+                                        vis={this.props.visBudskap}
+                                        bilde={bilde}
+                                        alt={this.props.alt}
+                                        innhold={getLedetekst(`${ledetekst}.budskap`, this.props.ledetekster)} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+        </article>);
+    }
+}
 
 Hendelse.propTypes = {
     erApen: PropTypes.bool,
@@ -74,6 +193,9 @@ Hendelse.propTypes = {
     visBudskap: PropTypes.bool,
     medAnimasjon: PropTypes.bool,
     hindreToggle: PropTypes.bool,
+    arbeidssituasjon: PropTypes.string,
+    data: PropTypes.object,
+    antallUker: PropTypes.object,
 };
 
 export default Hendelse;

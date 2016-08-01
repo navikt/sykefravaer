@@ -122,32 +122,6 @@ describe('hendelser', () => {
         });
     });
 
-    it("Håndterer HENTER_HENDELSER", () => {
-        const initiellState = {};
-        const action = {
-            type: "HENTER_HENDELSER"
-        }
-        const nextState = hendelser(initiellState, action);
-        expect(nextState).to.deep.equal({
-            data: [],
-            henter: true, 
-            hentingFeilet: false
-        })
-    }); 
-
-    it("Håndterer HENT_HENDELSER_FEILET", () => {
-        const initiellState = {};
-        const action = {
-            type: "HENT_HENDELSER_FEILET"
-        }
-        const nextState = hendelser(initiellState, action);
-        expect(nextState).to.deep.equal({
-            data: [],
-            henter: false, 
-            hentingFeilet: true,
-        })
-    }); 
-
     it("Håndterer SET_HENDELSER", () => {
         const initiellState = {};
         const action = {

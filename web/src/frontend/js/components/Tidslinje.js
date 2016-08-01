@@ -15,9 +15,17 @@ const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseD
         <div className="tidslinje">
             {
                 hendelser.map((hendelse) => {
-                    return (<Hendelse {...hendelse} key={hendelse.id} ledetekster={ledetekster} setHendelseState={(data) => {
-                        setHendelseData(hendelse.id, data);
-                    }} />);
+                    return (
+                        <Hendelse
+                            {...hendelse}
+                            key={hendelse.id}
+                            ledetekster={ledetekster}
+                            setHendelseState={(data) => {
+                                setHendelseData(hendelse.id, data);
+                            }}
+                            arbeidssituasjon={arbeidssituasjon}
+                        />
+                    );
                 })
             }
         </div>

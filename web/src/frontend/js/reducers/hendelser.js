@@ -1,11 +1,13 @@
+import { getDuration } from '../utils/datoUtils';
+
+const initiellState = {
+    data: [],
+};
+
 const settErApen = (hendelse, id, erApen) => {
     return Object.assign({}, hendelse, {
         erApen: `${hendelse.id}''` === `${id}''` ? erApen : hendelse.erApen === true,
     });
-};
-
-const initiellState = {
-    data: [],
 };
 
 export default function hendelser(state = initiellState, action) {
@@ -32,6 +34,41 @@ export default function hendelser(state = initiellState, action) {
             const ret = Object.assign({}, state, { data });
             return ret;
         }
+        case 'LEGG_TIL_HENDELSER': {
+            const _berik = action.sykeforloep.hendelser.map((hendelse, index) => {
+                let data = {};
+                let dagerEtterStart = -1;
+                const visning = ['MED_ARBEIDSGIVER', 'UTEN_ARBEIDSGIVER'];
+                let ledetekst = '';
+                let bilde = '';
+                switch (hendelse.type) {
+                    case 'SYKETILFELLE_START': {
+                        data = { oppfoelgingsdato: hendelse.inntruffetdato };
+                        ledetekst = 'tidslinje.forste-sykmeldingsdag';
+                        break;
+                    }
+                    default: {
+                        dagerEtterStart = getDuration(action.sykeforloep.oppfoelgingsdato, hendelse.inntruffetdato) - 1;
+                        ledetekst = 'tidslinje.aktivitetskrav.varsel';
+                        data = { hendelseDato: hendelse.inntruffetdato };
+                        bilde = '/sykefravaer/img/tidslinje/aktivitetskrav';
+                        break;
+                    }
+                }
+                return Object.assign({}, hendelse, {
+                    id: `d${index}`,
+                    dagerEtterStart,
+                    data,
+                    visning,
+                    ledetekst,
+                    bilde,
+                });
+            });
+
+            const _hendelser = state.data.concat(_berik);
+
+            return Object.assign({}, state, { data: _hendelser });
+        }
         case 'SET_HENDELSEDATA': {
             const data = state.data.map((hendelse) => {
                 let ret = hendelse;
@@ -41,20 +78,6 @@ export default function hendelser(state = initiellState, action) {
                 return ret;
             });
             return Object.assign({}, state, { data });
-        }
-        case 'HENTER_HENDELSER': {
-            return {
-                data: [],
-                hentingFeilet: false,
-                henter: true,
-            };
-        }
-        case 'HENT_HENDELSER_FEILET': {
-            return {
-                data: [],
-                hentingFeilet: true,
-                henter: false,
-            };
         }
         default: {
             return state;

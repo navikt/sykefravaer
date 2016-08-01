@@ -8,11 +8,11 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import { TidslinjeSide, mapStateToProps, mapArbeidssituasjonParam, setHash } from "../../js/containers/TidslinjeContainer.js";
-import TidslinjeVelgArbeidssituasjonContainer from "../../js/containers/TidslinjeVelgArbeidssituasjonContainer.js";
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
 import Tidslinje from '../../js/components/Tidslinje.js';
 import sinon from 'sinon';
+
 
 const hendelserData = [{
     ledetekst: 'tidslinje.utarbeide.plan',
@@ -45,16 +45,16 @@ const hendelserData = [{
     visning: ['UTEN_ARBEIDSGIVER'],
     key: 5
 }];
- 
-xdescribe("TidslinjeContainer", () => {
 
-    let initState; 
+describe("TidslinjeContainer", () => {
+
+    let initState;
 
     beforeEach(() => {
         initState = {
             ledetekster: {
                 data: ledetekster,
-                henter: false, 
+                henter: false,
                 hentingFeilet: false
             },
             brukerinfo: {
@@ -63,31 +63,34 @@ xdescribe("TidslinjeContainer", () => {
             },
             hendelser: {
                 data: hendelserData
+            },
+            sykeforloep: {
+                data: {},
             }
         }
-    }); 
+    });
 
     describe("mapArbeidssituasjonParam", () => {
         it("Skal returnere MED_ARBEIDSGIVER når param === 'med-arbeidsgiver'", () => {
             const resultat = mapArbeidssituasjonParam('med-arbeidsgiver');
             expect(resultat).to.equal("MED_ARBEIDSGIVER");
-        }); 
+        });
 
         it("Skal returnere UTEN_ARBEIDSGIVER når param === 'uten-arbeidsgiver'", () => {
             const resultat = mapArbeidssituasjonParam('uten-arbeidsgiver');
             expect(resultat).to.equal("UTEN_ARBEIDSGIVER");
-        }); 
+        });
 
         it("Skal returnere MED_ARBEIDSGIVER når param === 'mitt-ukjente-param'", () => {
             const resultat = mapArbeidssituasjonParam('mitt-ukjente-param');
             expect(resultat).to.equal("MED_ARBEIDSGIVER");
-        }); 
+        });
 
         it("Skal returnere undefined når param === undefined", () => {
             const resultat = mapArbeidssituasjonParam(undefined);
             expect(resultat).to.equal(undefined);
-        }); 
-    }); 
+        });
+    });
 
     describe("mapStateToProps", () => {
 
@@ -130,7 +133,7 @@ xdescribe("TidslinjeContainer", () => {
                 visning: ['UTEN_ARBEIDSGIVER'],
                 key: 5
             }]);
-        });        
+        });
 
         it("Skal returnere arbeidssituasjon fra parameter i URL dersom det finnes og er satt til med-arbeidsgiver", () => {
             initState.brukerinfo.innstillinger.arbeidssituasjon = 'UTEN_ARBEIDSGIVER';
@@ -162,13 +165,13 @@ xdescribe("TidslinjeContainer", () => {
             }
             const props = mapStateToProps(initState, ownProps);
             expect(props.arbeidssituasjon).to.equal("MED_ARBEIDSGIVER");
-        });        
+        });
 
         it("Skal returnere arbeidssituasjon", () => {
             initState.brukerinfo.innstillinger.arbeidssituasjon = 'UTEN_ARBEIDSGIVER'
             const props = mapStateToProps(initState);
             expect(props.arbeidssituasjon).to.equal("UTEN_ARBEIDSGIVER");
-        });               
+        });
 
         it("Skal returnere ledetekster", () => {
             const props = mapStateToProps(initState);
@@ -176,7 +179,7 @@ xdescribe("TidslinjeContainer", () => {
         });
 
         it("Skal returnere brødsmuler", () => {
-            const props = mapStateToProps(initState); 
+            const props = mapStateToProps(initState);
             expect(props.brodsmuler).to.deep.equal([{
                 tittel: 'Ditt sykefravær',
                 sti: '/',
@@ -186,32 +189,39 @@ xdescribe("TidslinjeContainer", () => {
             }])
         });
 
-        it("Skal returnere hashMilepaeler", () => {
+        it("Skal returnere hashHendelser", () => {
             const props = mapStateToProps(initState, {
                 location: {
                     hash: "#1/2"
                 }
             });
-            expect(props.hashMilepaeler).to.deep.equal(["1", "2"])
+            expect(props.hashHendelser).to.deep.equal(["1", "2"])
         });
 
     });
 
     describe("TidslinjeSide", () => {
 
-        let apneHendelserSpy; 
+        let apneHendelserSpy;
+        let dispatch;
 
         beforeEach(() => {
-            apneHendelserSpy = sinon.spy(); 
-        })
+            apneHendelserSpy = sinon.spy();
+            dispatch = sinon.spy();
+        });
 
-        it("Skal vise en AppSpinner dersom ledetekster ikke er lastet", () => {
+        it("Skal vise en AppSpinner dersom ledetekster ikke er lastet og vi venter på sykeforloep", () => {
             const ledetekster = {
                 henter: true
             };
             const hendelser = {};
-            const spy = sinon.spy(); 
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} hendelser={hendelser} apneHendelser={apneHendelserSpy} />);
+            const sykeforloep = {
+                henter: true
+            };
+            const spy = sinon.spy();
+            const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster}
+                                                     sykeforloep={sykeforloep} hendelser={hendelser}
+                                                     apneHendelser={apneHendelserSpy}/>);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
@@ -220,15 +230,19 @@ xdescribe("TidslinjeContainer", () => {
                 hentingFeilet: true
             };
             const hendelser = {};
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} hendelser={hendelser} apneHendelser={apneHendelserSpy} />);
+            const sykeforloep = {};
+            const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster}
+                                                     sykeforloep={sykeforloep} hendelser={hendelser}
+                                                     apneHendelser={apneHendelserSpy}/>);
             expect(component.find(Feilmelding)).to.have.length(1);
-        }); 
+        });
 
         it("Skal sende arbeidssituasjon videre til tidslinjen", () => {
             const ledetekster = {
                 data: {}
             };
             const arbeidssituasjon = "MED_ARBEIDSGIVER";
+            const sykeforloep = {};
             const hendelser = [{
                 ledetekst: 'tidslinje.utarbeide.plan',
                 bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
@@ -252,16 +266,21 @@ xdescribe("TidslinjeContainer", () => {
                 visning: ['MED_ARBEIDSGIVER'],
                 key: 4
             }];
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} hendelser={hendelser} arbeidssituasjon={arbeidssituasjon} apneHendelser={apneHendelserSpy} />);
+            const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster} hendelser={hendelser}
+                                                     sykeforloep={sykeforloep} arbeidssituasjon={arbeidssituasjon}
+                                                     apneHendelser={apneHendelserSpy}/>);
             const tidslinjeComp = component.find(Tidslinje);
             expect(tidslinjeComp.prop("arbeidssituasjon")).to.equal("MED_ARBEIDSGIVER");
         })
 
-        it("Skal kalle på apneHendelser", () => {
+        xit("Skal kalle på apneHendelser", () => {
             const ledetekster = {
                 data: {}
             };
             const arbeidssituasjon = "MED_ARBEIDSGIVER";
+            const sykeforloep = {
+                data: {}
+            };
             const hendelser = [{
                 ledetekst: 'tidslinje.utarbeide.plan',
                 bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
@@ -270,10 +289,13 @@ xdescribe("TidslinjeContainer", () => {
                 key: 0
             }];
             const hashMilepaeler = ["0", "2"]
-            const component = shallow(<TidslinjeSide ledetekster={ledetekster} hendelser={hendelser} arbeidssituasjon={arbeidssituasjon} apneHendelser={apneHendelserSpy} hashMilepaeler={hashMilepaeler} />);
+            const component = shallow(<TidslinjeSide dispatch={dispatch} sykeforloep={sykeforloep}
+                                                     ledetekster={ledetekster} hendelser={hendelser}
+                                                     arbeidssituasjon={arbeidssituasjon}
+                                                     hashMilepaeler={hashMilepaeler}/>);
             expect(apneHendelserSpy.calledOnce).to.be.true;
             expect(apneHendelserSpy.getCall(0).args[0]).to.deep.equal(["0", "2"]);
-        })        
+        })
 
     })
 
@@ -282,7 +304,7 @@ xdescribe("TidslinjeContainer", () => {
         let replaceState;
 
         beforeEach(() => {
-            replaceState = sinon.spy(); 
+            replaceState = sinon.spy();
             window.history = window.history || {};
             window.history.replaceState = replaceState;
         });
@@ -306,7 +328,7 @@ xdescribe("TidslinjeContainer", () => {
                 id: 2,
                 erApen: true
             }, {
-                id: 3, 
+                id: 3,
                 erApen: true
             }, {
                 id: 4,

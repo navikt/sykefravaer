@@ -5,29 +5,29 @@ import { toDatePrettyPrint } from '../utils/datoUtils.js';
 
 const Ikon = ({ type }) => {
     const status = {
-        statusClassName: 'milepael-status-klokke',
-        ikonClassName: 'milepael-ikon-klokke',
+        statusClassName: 'hendelse-status-klokke',
+        ikonClassName: 'hendelse-ikon-klokke',
         ikon: 'klokke-svart.svg',
         alt: '',
     };
 
     if (type === 'FØRSTE_SYKMELDINGSDAG') {
         status.statusClassName = '';
-        status.ikonClassName = 'milepael-ikon-person';
+        status.ikonClassName = 'hendelse-ikon-person';
         status.ikon = 'doctor-2.svg';
     } else if (type === 'BOBLE') {
         status.statusClassName = '';
-        status.ikonClassName = 'milepael-ikon-sirkel';
+        status.ikonClassName = 'hendelse-ikon-sirkel';
         status.ikon = 'tidslinje-sirkel-graa.svg';
-        status.img = 'milepael-ikon-sirkel-img';
+        status.img = 'hendelse-ikon-sirkel-img';
     } else if (type === 'AKTIVITETSKRAV_VARSEL') {
         status.statusClassName = '';
-        status.ikonClassName = 'milepael-ikon-varsel';
+        status.ikonClassName = 'hendelse-ikon-varsel';
         status.ikon = 'ikon-utropstegn.svg';
         status.img = '';
     }
 
-    return (<div className={`milepael-ikon ${status.ikonClassName}`}>
+    return (<div className={`hendelse-ikon ${status.ikonClassName}`}>
             <img className={`${status.img}`} src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt} />
         </div>);
 };
@@ -37,7 +37,7 @@ Ikon.propTypes = {
 };
 
 const Status = ({ children }) => {
-    return (<div className="milepael-status">
+    return (<div className="hendelse-status">
         {children}
     </div>);
 };
@@ -48,7 +48,7 @@ Status.propTypes = {
 };
 
 const Innhold = ({ children }) => {
-    return (<div className="milepael-innhold">
+    return (<div className="boble-innhold">
         {children}
     </div>);
 };
@@ -58,7 +58,7 @@ Innhold.propTypes = {
 };
 
 const Tittel = ({ tekst }) => {
-    return (<div className="milepael-meta">
+    return (<div className="tidslinje-tittel">
         <h2>{tekst}</h2>
     </div>);
 };
@@ -68,7 +68,7 @@ Tittel.propTypes = {
 };
 
 const Hendelse = (props) => {
-    return (<article className="milepael">
+    return (<div className="hendelse">
         <Status type={props.type}>
             <Ikon type={props.type} />
         </Status>
@@ -91,7 +91,7 @@ const Hendelse = (props) => {
                 })()
             }
         </Innhold>
-    </article>);
+    </div>);
 };
 
 Hendelse.propTypes = {

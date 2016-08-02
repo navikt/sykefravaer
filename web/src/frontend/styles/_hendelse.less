@@ -1,0 +1,107 @@
+.hendelse-status {
+    position: relative; 
+    width: 24px;
+    margin-right: 13px;
+
+    @media(min-width: @screen-xs) {
+        width: 40px;
+        margin-right: 20px; 
+    }
+
+    &:before, &:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+    }
+
+    &:before {
+        width: 1px;
+        height: 100%; 
+        top: 0; 
+        z-index: 0;
+        background-color: @color-border;
+    }
+
+
+
+}
+
+.hendelse-status-start:after {
+    background-image: data-uri('../img/svg/tidslinje-sirkel-groenn.svg');
+}
+
+.tidslinje .hendelse:last-child .hendelse-status:before {
+    height: 1.4rem;
+}
+
+.hendelse-ikon {
+    width: 24px;
+    height: 24px; 
+    border-radius: 50%; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    z-index: 10;
+    position: relative;
+
+    @media (min-width: @screen-xs) {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.hendelse-ikon-person {
+    background-color: #A7F5F4;
+    padding-bottom: 3px;
+
+    img {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.hendelse-ikon-sirkel-img {
+    width: 1rem;
+    height: 1rem;
+    background-color: #efefef;
+}
+
+.hendelse-ikon-varsel {
+    background-color: #ba3a26;
+}
+
+.hendelse-ikon-klokke {
+
+    height: 24px; 
+
+    img {
+        width: 24px;
+        height: 24px; 
+    }
+}
+
+.hendelse-ikon-start {
+    background-color: #06893a;
+
+    img {
+        width: 16px;
+        height: auto;
+    }
+}
+
+.hendelse-ikon-start:after {
+    content: "";
+    background: #06893a;
+    position: absolute;
+    width: 3px;
+    height: 24px;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+
+    @media (min-width: @screen-xs) {
+        top: 2rem;
+        height: 30px;
+    }
+}

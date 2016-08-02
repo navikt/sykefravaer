@@ -6,7 +6,7 @@ import { scrollTo } from '../utils';
 class TidslinjeBoble extends Component {
 
     getContainerClass() {
-        let className = this.props.erApen ? 'milepael-budskap-container er-apen' : 'milepael-budskap-container';
+        let className = this.props.erApen ? 'boble-budskap-container er-apen' : 'boble-budskap-container';
         if (this.props.medAnimasjon) {
             className = `${className} med-animasjon`;
         }
@@ -82,14 +82,14 @@ class TidslinjeBoble extends Component {
     }
 
     render() {
-        return (<div className="milepael-boble" ref="boble">
+        return (<article className="boble" ref="boble">
             <a
                 role="button"
                 onClick={(e) => { this.toggle(e); }}
                 aria-pressed={this.props.erApen}
                 href={`#${this.props.id}`}
-                className={!this.props.erApen ? 'header-milepael' : 'header-milepael er-apen'}>
-                <h3 className={!this.props.erApen ? 'milepael-tittel milepael-tittel-collapse' : 'milepael-tittel milepael-tittel-collapse er-apen'}>
+                className={!this.props.erApen ? 'header-boble' : 'header-boble er-apen'}>
+                <h3 className={!this.props.erApen ? 'boble-tittel boble-tittel-collapse' : 'boble-tittel boble-tittel-collapse er-apen'}>
                     {getLedetekst(`${this.props.tekstkey}.tittel`, this.props.ledetekster)}
                 </h3>
             </a>
@@ -105,7 +105,7 @@ class TidslinjeBoble extends Component {
                         innhold={getLedetekst(`${this.props.tekstkey}.budskap`, this.props.ledetekster)} />
                 </div>
             </div>
-        </div>);
+        </article>);
     }
 }
 

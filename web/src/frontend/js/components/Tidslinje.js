@@ -14,11 +14,11 @@ const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseD
         <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
         <div className="tidslinje">
             {
-                hendelser.map((hendelse) => {
+                hendelser.map((hendelse, index) => {
                     return (
                         <Hendelse
                             {...hendelse}
-                            key={hendelse.id}
+                            key={index}
                             ledetekster={ledetekster}
                             setHendelseState={(data) => {
                                 setHendelseData(hendelse.id, data);

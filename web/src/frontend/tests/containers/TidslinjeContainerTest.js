@@ -21,10 +21,6 @@ const hendelserData = [{
     visning: ['MED_ARBEIDSGIVER'],
     key: 0
 }, {
-    ledetekst: 'tidslinje.UTEN_ARBEIDSGIVER.nav',
-    visning: ['UTEN_ARBEIDSGIVER'],
-    key: 1
-}, {
     ledetekst: 'tidslinje.delta.arbeid',
     bilde: '/sykefravaer/img/tidslinje/innen6uker.svg',
     alt: '',
@@ -40,10 +36,6 @@ const hendelserData = [{
     ledetekst: 'tidslinje.sluttfasen',
     visning: ['MED_ARBEIDSGIVER'],
     key: 4
-}, {
-    ledetekst: 'tidslinje.UTEN_ARBEIDSGIVER.sluttfasen',
-    visning: ['UTEN_ARBEIDSGIVER'],
-    key: 5
 }];
 
 describe("TidslinjeContainer", () => {
@@ -61,8 +53,10 @@ describe("TidslinjeContainer", () => {
                 innstillinger: {},
                 bruker: {}
             },
-            hendelser: {
-                data: hendelserData
+            tidslinjer: {
+                data: [{
+                    hendelser: hendelserData
+                }]
             },
             sykeforloep: {
                 data: {},
@@ -94,7 +88,7 @@ describe("TidslinjeContainer", () => {
 
     describe("mapStateToProps", () => {
 
-        it("Skal returnere hendelser når arbeidssituasjon === undefined", () => {
+        it("Skal returnere hendelser", () => {
             const props = mapStateToProps(initState);
             expect(props.hendelser).to.deep.equal([{
                 ledetekst: 'tidslinje.utarbeide.plan',
@@ -118,20 +112,6 @@ describe("TidslinjeContainer", () => {
                 ledetekst: 'tidslinje.sluttfasen',
                 visning: ['MED_ARBEIDSGIVER'],
                 key: 4
-            }]);
-        });
-
-        it("Skal returnere hendelser når arbeidssituasjon === 'UTEN_ARBEIDSGIVER'", () => {
-            initState.brukerinfo.innstillinger.arbeidssituasjon = 'UTEN_ARBEIDSGIVER'
-            const props = mapStateToProps(initState);
-            expect(props.hendelser).to.deep.equal([{
-                ledetekst: 'tidslinje.UTEN_ARBEIDSGIVER.nav',
-                visning: ['UTEN_ARBEIDSGIVER'],
-                key: 1
-            }, {
-                ledetekst: 'tidslinje.UTEN_ARBEIDSGIVER.sluttfasen',
-                visning: ['UTEN_ARBEIDSGIVER'],
-                key: 5
             }]);
         });
 
@@ -210,17 +190,17 @@ describe("TidslinjeContainer", () => {
             dispatch = sinon.spy();
         });
 
-        it("Skal vise en AppSpinner dersom ledetekster ikke er lastet og vi venter på sykeforloep", () => {
+        it("Skal vise en AppSpinner dersom ledetekster ikke er lastet og vi venter på tidslinjer", () => {
             const ledetekster = {
                 henter: true
             };
-            const hendelser = {};
-            const sykeforloep = {
+            const hendelser = [];
+            const tidslinjer = {
                 henter: true
             };
             const spy = sinon.spy();
             const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster}
-                                                     sykeforloep={sykeforloep} hendelser={hendelser}
+                                                     tidslinjer={tidslinjer} hendelser={hendelser}
                                                      apneHendelser={apneHendelserSpy}/>);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
@@ -230,9 +210,9 @@ describe("TidslinjeContainer", () => {
                 hentingFeilet: true
             };
             const hendelser = {};
-            const sykeforloep = {};
+            const tidslinjer = {};
             const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster}
-                                                     sykeforloep={sykeforloep} hendelser={hendelser}
+                                                     tidslinjer={tidslinjer} hendelser={hendelser}
                                                      apneHendelser={apneHendelserSpy}/>);
             expect(component.find(Feilmelding)).to.have.length(1);
         });
@@ -242,7 +222,7 @@ describe("TidslinjeContainer", () => {
                 data: {}
             };
             const arbeidssituasjon = "MED_ARBEIDSGIVER";
-            const sykeforloep = {};
+            const tidslinjer = {};
             const hendelser = [{
                 ledetekst: 'tidslinje.utarbeide.plan',
                 bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
@@ -267,7 +247,7 @@ describe("TidslinjeContainer", () => {
                 key: 4
             }];
             const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster} hendelser={hendelser}
-                                                     sykeforloep={sykeforloep} arbeidssituasjon={arbeidssituasjon}
+                                                     tidslinjer={tidslinjer} arbeidssituasjon={arbeidssituasjon}
                                                      apneHendelser={apneHendelserSpy}/>);
             const tidslinjeComp = component.find(Tidslinje);
             expect(tidslinjeComp.prop("arbeidssituasjon")).to.equal("MED_ARBEIDSGIVER");

@@ -3,29 +3,6 @@ import { getLedetekst } from '../ledetekster';
 import TidslinjeBudskap from './TidslinjeBudskap.js';
 import { scrollTo } from '../utils';
 
-const StatusIkon = ({ type }) => {
-    const status = {
-        statusClassName: 'milepael-status-klokke',
-        ikonClassName: 'milepael-ikon-klokke',
-        ikon: 'klokke-svart.svg',
-        alt: '',
-    };
-    if (type === 'START') {
-        status.statusClassName = 'milepael-status-start';
-        status.ikonClassName = 'milepael-ikon-start';
-        status.ikon = 'hake-hvit.svg';
-    }
-    return (<div className={`milepael-status ${status.statusClassName}`}>
-        <div className={`milepael-ikon ${status.ikonClassName}`}>
-            <img src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt} />
-        </div>
-    </div>);
-};
-
-StatusIkon.propTypes = {
-    type: PropTypes.string,
-};
-
 class TidslinjeBoble extends Component {
 
     getContainerClass() {
@@ -106,14 +83,16 @@ class TidslinjeBoble extends Component {
 
     render() {
         return (<div className="milepael-boble" ref="boble">
-            <button
+            <a
+                role="button"
                 onClick={(e) => { this.toggle(e); }}
                 aria-pressed={this.props.erApen}
+                href={`#${this.props.id}`}
                 className={!this.props.erApen ? 'header-milepael' : 'header-milepael er-apen'}>
                 <h3 className={!this.props.erApen ? 'milepael-tittel milepael-tittel-collapse' : 'milepael-tittel milepael-tittel-collapse er-apen'}>
-                    {getLedetekst(`${this.props.ledetekst}.tittel`, this.props.ledetekster)}
+                    {getLedetekst(`${this.props.tekstkey}.tittel`, this.props.ledetekster)}
                 </h3>
-            </button>
+            </a>
             <div
                 aria-hidden={!this.props.erApen}
                 style={this.props.hoyde ? { height: this.props.hoyde } : {}}
@@ -123,7 +102,7 @@ class TidslinjeBoble extends Component {
                         vis={this.props.visBudskap}
                         bilde={this.props.bilde}
                         alt={this.props.alt}
-                        innhold={getLedetekst(`${this.props.ledetekst}.budskap`, this.props.ledetekster)} />
+                        innhold={getLedetekst(`${this.props.tekstkey}.budskap`, this.props.ledetekster)} />
                 </div>
             </div>
         </div>);
@@ -132,16 +111,16 @@ class TidslinjeBoble extends Component {
 
 TidslinjeBoble.propTypes = {
     erApen: PropTypes.bool,
-    ledetekst: PropTypes.string,
     ledetekster: PropTypes.object,
     bilde: PropTypes.string,
     alt: PropTypes.string,
-    type: PropTypes.string,
     setHendelseState: PropTypes.func,
     hoyde: PropTypes.string,
     visBudskap: PropTypes.bool,
     medAnimasjon: PropTypes.bool,
     hindreToggle: PropTypes.bool,
+    id: PropTypes.string,
+    tekstkey: PropTypes.string,
 };
 
 export default TidslinjeBoble;

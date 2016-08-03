@@ -1,9 +1,10 @@
+import { bilder } from '../tidslinjeData';
+
 const initiellState = {
     henter: false,
     hentingFeilet: false,
     data: [],
 };
-
 
 const settErApen = (hendelse, id, erApen) => {
     return Object.assign({}, hendelse, {
@@ -30,6 +31,20 @@ export const sorterHendelser = (hendelser) => {
     });
 };
 
+export const leggTilBilder = (_tidslinjer) => {
+    return _tidslinjer.map((tidslinje) => {
+        const hendelser = tidslinje.hendelser.map((hendelse) => {
+            if (bilder[hendelse.tekstkey]) {
+                return Object.assign({}, hendelse, {
+                    bilde: bilder[hendelse.tekstkey],
+                });
+            }
+            return hendelse;
+        });
+        return Object.assign({}, tidslinje, { hendelser });
+    });
+};
+
 export const leggTilTidshendelser = (_tidslinjer) => {
     const uker = [4, 7, 8, 26, 39];
     const tidshendelser = uker.map((uke) => {
@@ -49,6 +64,7 @@ export const leggTilTidshendelser = (_tidslinjer) => {
                 startdato: tidslinje.startdato,
             };
         } else {
+            hendelser[0].tekstkey = 'tidslinje.sykefravaeret-starter';
             hendelser[0].type = 'TITTEL';
         }
         return Object.assign({}, tidslinje, { hendelser });
@@ -76,7 +92,7 @@ export default function tidslinjer(state = initiellState, action) {
             return {
                 henter: false,
                 hentingFeilet: false,
-                data: settHendelseIder(leggTilTidshendelser(action.data)),
+                data: leggTilBilder(settHendelseIder(leggTilTidshendelser(action.data))),
             };
         }
         case 'ÅPNE_HENDELSER': {

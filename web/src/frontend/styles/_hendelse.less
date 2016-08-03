@@ -1,3 +1,27 @@
+.hendelse {
+    display: flex;
+    position: relative;
+    padding-bottom: 1rem;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 12px; 
+        height: 100%;
+        width: 1px;
+        background-color: @color-border;
+
+        @media(min-width: @screen-xs) {
+            left: 20px;
+        }
+    }
+}
+
+.hendelse:last-child:before {
+    height: 1rem;
+}
+
 .hendelse-status {
     position: relative; 
     width: 24px;
@@ -8,30 +32,12 @@
         margin-right: 20px; 
     }
 
-    &:before, &:after {
+    &:after {
         content: "";
         position: absolute;
         left: 50%;
     }
 
-    &:before {
-        width: 1px;
-        height: 100%; 
-        top: 0; 
-        z-index: 0;
-        background-color: @color-border;
-    }
-
-
-
-}
-
-.hendelse-status-start:after {
-    background-image: data-uri('../img/svg/tidslinje-sirkel-groenn.svg');
-}
-
-.tidslinje .hendelse:last-child .hendelse-status:before {
-    height: 1.4rem;
 }
 
 .hendelse-ikon {
@@ -50,17 +56,29 @@
     }
 }
 
-.hendelse-ikon-person {
+.hendelse-ikon-start {
     background-color: #A7F5F4;
-    padding-bottom: 3px;
 
     img {
-        width: 24px;
-        height: 24px;
+        width: 1rem;
+        height: 1rem;
+
+        @media (min-width: @screen-xs) {
+            width: 24px;
+            height: 24px;
+        }
     }
 }
 
-.hendelse-ikon-sirkel-img {
+.hendelse-ikon-sirkel {
+    padding-top: 30px;
+
+    @media (min-width: @screen-xs) {
+        padding-top: 20px;
+    }
+}
+
+.hendelse-ikon-sirkel img {
     width: 1rem;
     height: 1rem;
     background-color: #efefef;
@@ -80,28 +98,8 @@
     }
 }
 
-.hendelse-ikon-start {
-    background-color: #06893a;
-
-    img {
-        width: 16px;
-        height: auto;
-    }
-}
-
-.hendelse-ikon-start:after {
-    content: "";
-    background: #06893a;
-    position: absolute;
-    width: 3px;
-    height: 24px;
-    top: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 0;
-
-    @media (min-width: @screen-xs) {
-        top: 2rem;
-        height: 30px;
-    }
+.hendelse-innhold {
+    flex: 1;
+    display: flex;
+    align-items: center; 
 }

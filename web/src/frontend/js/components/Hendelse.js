@@ -12,23 +12,18 @@ const Ikon = ({ type }) => {
     };
 
     if (type === 'FØRSTE_SYKMELDINGSDAG') {
-        status.statusClassName = '';
-        status.ikonClassName = 'hendelse-ikon-person';
-        status.ikon = 'doctor-2.svg';
+        status.ikonClassName = 'hendelse-ikon-start';
+        status.ikon = 'plaster.svg';
     } else if (type === 'BOBLE') {
-        status.statusClassName = '';
         status.ikonClassName = 'hendelse-ikon-sirkel';
         status.ikon = 'tidslinje-sirkel-graa.svg';
-        status.img = 'hendelse-ikon-sirkel-img';
     } else if (type === 'AKTIVITETSKRAV_VARSEL') {
-        status.statusClassName = '';
         status.ikonClassName = 'hendelse-ikon-varsel';
         status.ikon = 'ikon-utropstegn.svg';
-        status.img = '';
     }
 
     return (<div className={`hendelse-ikon ${status.ikonClassName}`}>
-            <img className={`${status.img}`} src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt} />
+            <img src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt} />
         </div>);
 };
 
@@ -48,7 +43,7 @@ Status.propTypes = {
 };
 
 const Innhold = ({ children }) => {
-    return (<div className="boble-innhold">
+    return (<div className="hendelse-innhold">
         {children}
     </div>);
 };
@@ -77,6 +72,9 @@ const Hendelse = (props) => {
                 (() => {
                     switch (props.type) {
                         case 'TID': {
+                            return <Tittel tekst={getLedetekst(`${props.tekstkey}`, props.ledetekster)} />;
+                        }
+                        case 'TITTEL': {
                             return <Tittel tekst={getLedetekst(`${props.tekstkey}`, props.ledetekster)} />;
                         }
                         case 'FØRSTE_SYKMELDINGSDAG': {

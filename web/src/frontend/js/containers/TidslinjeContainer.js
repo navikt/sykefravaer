@@ -52,7 +52,7 @@ TidslinjeSide.propTypes = {
     hashMilepaeler: PropTypes.array,
     apneHendelser: PropTypes.func,
     hashHendelser: PropTypes.array,
-    tidslinjer: PropTypes.array,
+    tidslinjer: PropTypes.object,
 };
 
 export const mapArbeidssituasjonParam = (param) => {
@@ -94,6 +94,8 @@ export function mapStateToProps(state, ownProps) {
         setHash(hendelser);
     }
     const hashHendelser = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
+
+    console.log(hendelser);
 
     return {
         ledetekster: state.ledetekster,

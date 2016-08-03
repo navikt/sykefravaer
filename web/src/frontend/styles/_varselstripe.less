@@ -34,15 +34,18 @@
   }
 }
 
-.varselstripe--feil:before {
+.varselstripe--feil:before, 
+.varselstripe--feil .varselstripe__ikon:after {
   border-color: @color-error;
 }
 
-.varselstripe--info:before {
+.varselstripe--info:before,
+.varselstripe--info .varselstripe__ikon:after, {
   border-color: @color-warning
 }
 
-.varselstripe--suksess:before {
+.varselstripe--suksess:before, 
+.varselstripe--suksess .varselstripe__ikon:after {
   border-color: @color-success;
 }
 
@@ -50,8 +53,20 @@
 
   .varselstripe {
     position: relative;
-    padding-left: 3rem;
+    padding-left: 5rem;
     padding-top: 0;
+  }
+
+  .varselstripe__ikon:after {
+    content: "";
+    position: absolute;
+    width: 1px; 
+    height: 100%;
+    border-width: 0;
+    border-left-width: 2px;
+    border-style: solid; 
+    right: -1.5rem;
+    transform: translateX(-50%);
   }
 
   .varselstripe:before, .varselstripe__ikon {

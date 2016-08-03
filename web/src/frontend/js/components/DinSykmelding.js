@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { getLedetekst } from '../ledetekster/index';
 import DinSykmeldingBrukerInputContainer from '../containers/DinSykmeldingBrukerInputContainer';
 import arbeidssituasjoner from '../arbeidssituasjonData';
 import DineSykmeldingOpplysninger from './DineSykmeldingOpplysninger';

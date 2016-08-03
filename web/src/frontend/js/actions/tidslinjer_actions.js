@@ -1,3 +1,5 @@
+import { apneHendelser } from './hendelser_actions.js';
+
 export function hentTidslinjerFeilet() {
     return {
         type: 'HENT_TIDSLINJER_FEILET',
@@ -17,7 +19,7 @@ export function setTidslinjer(data = {}) {
     };
 }
 
-export function hentTidslinjer() {
+export function hentTidslinjer(apneHendelseIder = []) {
     return function tidslinjer(dispatch) {
         dispatch(henterTidslinjer());
         return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/tidslinje`, {
@@ -31,6 +33,9 @@ export function hentTidslinjer() {
         })
         .then((json) => {
             return dispatch(setTidslinjer(json));
+        })
+        .then(() => {
+            return dispatch(apneHendelser(apneHendelseIder));
         })
         .catch(() => {
             return dispatch(hentTidslinjerFeilet());

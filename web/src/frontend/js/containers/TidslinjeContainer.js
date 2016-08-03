@@ -11,8 +11,8 @@ import { setHendelseData } from '../actions/hendelser_actions.js';
 export class TidslinjeSide extends Component {
 
     componentWillMount() {
-        const { dispatch } = this.props;
-        dispatch(hentTidslinjer());
+        const { dispatch, hashHendelser } = this.props;
+        dispatch(hentTidslinjer(hashHendelser));
     }
 
     setHendelseData(id, data) {

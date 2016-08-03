@@ -4,26 +4,33 @@ import TidslinjeBoble from './TidslinjeBoble.js';
 import { toDatePrettyPrint } from '../utils/datoUtils.js';
 
 const Ikon = ({ type }) => {
-    const status = {
-        statusClassName: 'hendelse-status-klokke',
-        ikonClassName: 'hendelse-ikon-klokke',
-        ikon: 'klokke-svart.svg',
-        alt: '',
-    };
+    const status = {};
 
-    if (type === 'FØRSTE_SYKMELDINGSDAG') {
-        status.ikonClassName = 'hendelse-ikon-start';
-        status.ikon = 'plaster.svg';
-    } else if (type === 'BOBLE') {
-        status.ikonClassName = 'hendelse-ikon-sirkel';
-        status.ikon = 'tidslinje-sirkel-graa.svg';
-    } else if (type === 'AKTIVITETSKRAV_VARSEL') {
-        status.ikonClassName = 'hendelse-ikon-varsel';
-        status.ikon = 'ikon-utropstegn.svg';
+    switch (type) {
+        case 'FØRSTE_SYKMELDINGSDAG': {
+            status.ikonClassName = 'hendelse-ikon-start';
+            status.ikon = 'plaster.svg';
+            break;
+        }
+        case 'AKTIVITETSKRAV_VARSEL': {
+            status.ikonClassName = 'hendelse-ikon-varsel';
+            status.ikon = 'ikon-utropstegn.svg';
+            break;
+        }
+        case 'TID': {
+            status.ikonClassName = 'hendelse-ikon-klokke';
+            status.ikon = 'klokke-svart.svg';
+            break;
+        }
+        default: {
+            status.ikonClassName = 'hendelse-ikon-sirkel';
+            status.ikon = 'tidslinje-sirkel-graa.svg';
+            break;
+        }
     }
 
     return (<div className={`hendelse-ikon ${status.ikonClassName}`}>
-            <img src={`/sykefravaer/img/svg/${status.ikon}`} alt={status.alt} />
+            <img src={`/sykefravaer/img/svg/${status.ikon}`} alt="" />
         </div>);
 };
 
@@ -71,10 +78,8 @@ const Hendelse = (props) => {
             {
                 (() => {
                     switch (props.type) {
+                        case 'TITTEL':
                         case 'TID': {
-                            return <Tittel tekst={getLedetekst(`${props.tekstkey}`, props.ledetekster)} />;
-                        }
-                        case 'TITTEL': {
                             return <Tittel tekst={getLedetekst(`${props.tekstkey}`, props.ledetekster)} />;
                         }
                         case 'FØRSTE_SYKMELDINGSDAG': {

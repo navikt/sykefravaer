@@ -60,7 +60,8 @@ describe("TidslinjeContainer", () => {
             },
             sykeforloep: {
                 data: {},
-            }
+            },
+            arbeidssituasjon: 'MED_ARBEIDSGIVER',
         }
     });
 
@@ -201,7 +202,8 @@ describe("TidslinjeContainer", () => {
             const spy = sinon.spy();
             const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster}
                                                      tidslinjer={tidslinjer} hendelser={hendelser}
-                                                     apneHendelser={apneHendelserSpy}/>);
+                                                     apneHendelser={apneHendelserSpy}
+                                                     arbeidssituasjon='MED_ARBEIDSGIVER' />);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
@@ -213,7 +215,8 @@ describe("TidslinjeContainer", () => {
             const tidslinjer = {};
             const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster}
                                                      tidslinjer={tidslinjer} hendelser={hendelser}
-                                                     apneHendelser={apneHendelserSpy}/>);
+                                                     apneHendelser={apneHendelserSpy}
+                                                     arbeidssituasjon='MED_ARBEIDSGIVER' />);
             expect(component.find(Feilmelding)).to.have.length(1);
         });
 
@@ -248,34 +251,11 @@ describe("TidslinjeContainer", () => {
             }];
             const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster} hendelser={hendelser}
                                                      tidslinjer={tidslinjer} arbeidssituasjon={arbeidssituasjon}
-                                                     apneHendelser={apneHendelserSpy}/>);
+                                                     apneHendelser={apneHendelserSpy} 
+                                                     arbeidssituasjon='MED_ARBEIDSGIVER' />);
             const tidslinjeComp = component.find(Tidslinje);
             expect(tidslinjeComp.prop("arbeidssituasjon")).to.equal("MED_ARBEIDSGIVER");
-        })
-
-        xit("Skal kalle på apneHendelser", () => {
-            const ledetekster = {
-                data: {}
-            };
-            const arbeidssituasjon = "MED_ARBEIDSGIVER";
-            const sykeforloep = {
-                data: {}
-            };
-            const hendelser = [{
-                ledetekst: 'tidslinje.utarbeide.plan',
-                bilde: '/sykefravaer/img/tidslinje/innen4uker.svg',
-                alt: '',
-                visning: ['MED_ARBEIDSGIVER'],
-                key: 0
-            }];
-            const hashMilepaeler = ["0", "2"]
-            const component = shallow(<TidslinjeSide dispatch={dispatch} sykeforloep={sykeforloep}
-                                                     ledetekster={ledetekster} hendelser={hendelser}
-                                                     arbeidssituasjon={arbeidssituasjon}
-                                                     hashMilepaeler={hashMilepaeler}/>);
-            expect(apneHendelserSpy.calledOnce).to.be.true;
-            expect(apneHendelserSpy.getCall(0).args[0]).to.deep.equal(["0", "2"]);
-        })
+        });
 
     })
 

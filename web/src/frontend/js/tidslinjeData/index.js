@@ -9,4 +9,6 @@ export const bilder = {
     'tidslinje.uten-arbeidsgiver.dialog': '/sykefravaer/img/tidslinje/uten-arbeidsgiver/innen12uker.svg',
     'tidslinje.uten-arbeidsgiver.aktivitetsplan': '/sykefravaer/img/tidslinje/uten-arbeidsgiver/innen39uker.svg',
     'tidslinje.uten-arbeidsgiver.sluttfasen': '/sykefravaer/img/tidslinje/sluttfasen-3.svg',
+    'tidslinje.uten-arbeidsgiver.aktivitetskrav-varsel': '/sykefravaer/img/tidslinje/uten-arbeidsgiver/varsel_aktivitetskrav.svg',
+    'tidslinje.med-arbeidsgiver.aktivitetskrav-varsel': '/sykefravaer/img/tidslinje/med-arbeidsgiver/varsel_aktivitetskrav.svg',
 };

@@ -11,8 +11,8 @@ import { setHendelseData } from '../actions/hendelser_actions.js';
 export class TidslinjeSide extends Component {
 
     componentWillMount() {
-        const { dispatch, hashHendelser } = this.props;
-        dispatch(hentTidslinjer(hashHendelser));
+        const { dispatch, hashHendelser, arbeidssituasjon } = this.props;
+        dispatch(hentTidslinjer(hashHendelser, arbeidssituasjon));
     }
 
     setHendelseData(id, data) {
@@ -27,7 +27,7 @@ export class TidslinjeSide extends Component {
                 (() => {
                     if (ledetekster.henter || tidslinjer.henter) {
                         return <AppSpinner />;
-                    } else if (ledetekster.hentingFeilet || !ledetekster.data) {
+                    } else if (ledetekster.hentingFeilet || !ledetekster.data || tidslinjer.hentingFeilet || (tidslinjer.data && tidslinjer.data.length === 0)) {
                         return (<Feilmelding />);
                     }
                     return (<Tidslinje
@@ -94,7 +94,6 @@ export function mapStateToProps(state, ownProps) {
         setHash(hendelser);
     }
     const hashHendelser = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
-
     return {
         ledetekster: state.ledetekster,
         arbeidssituasjon,

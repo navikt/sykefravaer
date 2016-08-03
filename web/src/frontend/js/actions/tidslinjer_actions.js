@@ -1,4 +1,5 @@
 import { apneHendelser } from './hendelser_actions.js';
+import { setArbeidssituasjon } from './brukerinfo_actions.js';
 
 export function hentTidslinjerFeilet() {
     return {
@@ -12,17 +13,18 @@ export function henterTidslinjer() {
     };
 }
 
-export function setTidslinjer(data = {}) {
+export function setTidslinjer(tidslinjer = []) {
     return {
         type: 'SET_TIDSLINJER',
-        data,
+        tidslinjer,
     };
 }
 
-export function hentTidslinjer(apneHendelseIder = []) {
+export function hentTidslinjer(apneHendelseIder = [], arbeidssituasjon = 'MED_ARBEIDSGIVER') {
     return function tidslinjer(dispatch) {
         dispatch(henterTidslinjer());
-        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/tidslinje`, {
+        dispatch(setArbeidssituasjon(arbeidssituasjon));
+        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/tidslinje?arbeidssituasjon=${arbeidssituasjon}`, {
             credentials: 'include',
         })
         .then((response) => {
@@ -34,8 +36,11 @@ export function hentTidslinjer(apneHendelseIder = []) {
         .then((json) => {
             return dispatch(setTidslinjer(json));
         })
-        .then(() => {
-            return dispatch(apneHendelser(apneHendelseIder));
+        .then((respons) => {
+            if (apneHendelseIder.length) {
+                return dispatch(apneHendelser(apneHendelseIder));
+            }
+            return respons;
         })
         .catch(() => {
             return dispatch(hentTidslinjerFeilet());

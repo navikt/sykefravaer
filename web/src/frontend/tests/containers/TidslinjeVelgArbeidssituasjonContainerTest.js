@@ -72,23 +72,23 @@ describe("TidslinjeVelgArbeidssituasjonContainer", () => {
         });
 
         it("Skal vise faner med riktige props", () => {
-            let setArbeidssituasjonSpy = sinon.spy(); 
-            let component = shallow(<VelgArbeidssituasjon arbeidssituasjoner={initState.arbeidssituasjoner} setArbeidssituasjon={setArbeidssituasjonSpy} valgtArbeidssituasjon="UTEN_ARBEIDSGIVER" />)
+            let hentTidslinjerSpy = sinon.spy(); 
+            let component = shallow(<VelgArbeidssituasjon arbeidssituasjoner={initState.arbeidssituasjoner} hentTidslinjer={hentTidslinjerSpy} valgtArbeidssituasjon="UTEN_ARBEIDSGIVER" />)
             let faner = component.find(Radiofaner);
             expect(faner.prop("alternativer")).to.equal(initState.arbeidssituasjoner);
             expect(faner.prop("valgtAlternativ")).to.equal("UTEN_ARBEIDSGIVER");
         });
 
         it("Skal kalle på innsendt funksjon + redirect når man velger", () => {
-            let setArbeidssituasjonSpy = sinon.spy(); 
+            let hentTidslinjerSpy = sinon.spy(); 
             let redirStub = sinon.stub(VelgArbeidssituasjon.prototype, "redirect");
-            let component = mount(<VelgArbeidssituasjon arbeidssituasjoner={initState.arbeidssituasjoner} setArbeidssituasjon={setArbeidssituasjonSpy} valgtArbeidssituasjon="UTEN_ARBEIDSGIVER" />)
+            let component = mount(<VelgArbeidssituasjon arbeidssituasjoner={initState.arbeidssituasjoner} hentTidslinjer={hentTidslinjerSpy} valgtArbeidssituasjon="UTEN_ARBEIDSGIVER" />)
             let faner = component.find(Radiofaner);
             faner.find(".js-MED_ARBEIDSGIVER").simulate("change");
             expect(redirStub.calledOnce).to.be.true;
             expect(redirStub.getCall(0).args[0]).to.equal("med-arbeidsgiver");
-            expect(setArbeidssituasjonSpy.calledOnce).to.be.true;
-            expect(setArbeidssituasjonSpy.getCall(0).args[0]).to.equal("MED_ARBEIDSGIVER")
+            expect(hentTidslinjerSpy.calledOnce).to.be.true;
+            expect(hentTidslinjerSpy.getCall(0).args[1]).to.equal("MED_ARBEIDSGIVER")
         })
 
     })

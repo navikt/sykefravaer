@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as actionCreators from '../actions/brukerinfo_actions.js';
+import * as actionCreators from '../actions/tidslinjer_actions.js';
 import Radiofaner from '../components/Radiofaner.js';
 import history from '../history.js';
 import { getLedetekst } from '../ledetekster';
@@ -17,7 +17,7 @@ export class VelgArbeidssituasjon extends Component {
 
     changeHandler(verdi) {
         this.redirect(verdier[verdi]);
-        this.props.setArbeidssituasjon(verdi);
+        this.props.hentTidslinjer([], verdi);
     }
 
     render() {
@@ -33,7 +33,7 @@ export class VelgArbeidssituasjon extends Component {
 VelgArbeidssituasjon.propTypes = {
     arbeidssituasjoner: PropTypes.array,
     valgtArbeidssituasjon: PropTypes.string,
-    setArbeidssituasjon: PropTypes.func,
+    hentTidslinjer: PropTypes.func,
 };
 
 export function mapStateToProps(state, ownProps) {

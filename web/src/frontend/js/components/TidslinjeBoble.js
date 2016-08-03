@@ -3,6 +3,27 @@ import { getLedetekst } from '../ledetekster';
 import TidslinjeBudskap from './TidslinjeBudskap.js';
 import { scrollTo } from '../utils';
 
+const BobleHeader = (props) => {
+    return (<a
+        role="button"
+        onClick={(e) => { props.clickHandler(e); }}
+        aria-pressed={props.erApen}
+        href={`#${props.id}`}
+        className={!props.erApen ? 'header-boble' : 'header-boble er-apen'}>
+        <div
+            className={!props.erApen ? 'boble-tittel boble-tittel-collapse' : 'boble-tittel boble-tittel-collapse er-apen'}
+            dangerouslySetInnerHTML={{ __html: props.htmlTittel }}>
+        </div>
+    </a>);
+};
+
+BobleHeader.propTypes = {
+    clickHandler: PropTypes.func,
+    erApen: PropTypes.bool,
+    id: PropTypes.string,
+    htmlTittel: PropTypes.string,
+};
+
 class TidslinjeBoble extends Component {
 
     getContainerClass() {
@@ -11,6 +32,19 @@ class TidslinjeBoble extends Component {
             className = `${className} med-animasjon`;
         }
         return className;
+    }
+
+    getHtmlTittel() {
+        switch (this.props.type) {
+            case 'AKTIVITETSKRAV_VARSEL': {
+                return getLedetekst(`${this.props.tekstkey}.tittel`, this.props.ledetekster, {
+                    '%DATO%': '[Her kommer dato]',
+                });
+            }
+            default: {
+                return `<h3>${getLedetekst(`${this.props.tekstkey}.tittel`, this.props.ledetekster)}</h3>`;
+            }
+        }
     }
 
     setNaavaerendeHoyde() {
@@ -83,16 +117,11 @@ class TidslinjeBoble extends Component {
 
     render() {
         return (<article className="boble" ref="boble">
-            <a
-                role="button"
-                onClick={(e) => { this.toggle(e); }}
-                aria-pressed={this.props.erApen}
-                href={`#${this.props.id}`}
-                className={!this.props.erApen ? 'header-boble' : 'header-boble er-apen'}>
-                <h3 className={!this.props.erApen ? 'boble-tittel boble-tittel-collapse' : 'boble-tittel boble-tittel-collapse er-apen'}>
-                    {getLedetekst(`${this.props.tekstkey}.tittel`, this.props.ledetekster)}
-                </h3>
-            </a>
+            <BobleHeader {...this.props}
+                htmlTittel={this.getHtmlTittel()}
+                clickHandler={(e) => {
+                    this.toggle(e);
+                }} />
             <div
                 aria-hidden={!this.props.erApen}
                 style={this.props.hoyde ? { height: this.props.hoyde } : {}}
@@ -121,6 +150,7 @@ TidslinjeBoble.propTypes = {
     hindreToggle: PropTypes.bool,
     id: PropTypes.string,
     tekstkey: PropTypes.string,
+    type: PropTypes.string,
 };
 
 export default TidslinjeBoble;

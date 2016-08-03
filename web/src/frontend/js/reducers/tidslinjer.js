@@ -54,7 +54,7 @@ export const leggTilTidshendelser = (_tidslinjer) => {
             tekstkey: `tidslinje.antall-uker.${uke}`,
         };
     });
-    const s = _tidslinjer.map((tidslinje) => {
+    return _tidslinjer.map((tidslinje) => {
         let hendelser = tidslinje.hendelser.concat(tidshendelser);
         hendelser = sorterHendelser(hendelser);
         if (tidslinje.startdato) {
@@ -69,7 +69,6 @@ export const leggTilTidshendelser = (_tidslinjer) => {
         }
         return Object.assign({}, tidslinje, { hendelser });
     });
-    return s;
 };
 
 export default function tidslinjer(state = initiellState, action) {
@@ -92,7 +91,7 @@ export default function tidslinjer(state = initiellState, action) {
             return {
                 henter: false,
                 hentingFeilet: false,
-                data: leggTilBilder(settHendelseIder(leggTilTidshendelser(action.data))),
+                data: leggTilBilder(settHendelseIder(leggTilTidshendelser(action.tidslinjer))),
             };
         }
         case 'ÅPNE_HENDELSER': {

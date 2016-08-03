@@ -71,7 +71,7 @@ describe("brukerinfo_actions", () => {
 
 	it("Skal ha en setArbeidssituasjon()-funksjon som returnerer riktig action()", () => {
 		expect(actions.setArbeidssituasjon("MED_ARBEIDSGIVER")).to.deep.equal({
-			type: "SET_ARBEIDSSITUASJON",
+			type: "SET_TIDSLINJE_ARBEIDSSITUASJON",
 			arbeidssituasjon: "MED_ARBEIDSGIVER"
 		})
 	});

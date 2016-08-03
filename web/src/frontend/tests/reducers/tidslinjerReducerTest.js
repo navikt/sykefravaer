@@ -6,12 +6,12 @@ describe('tidslinjer', () => {
 
     describe("settHendelseIder", () => {
         it("Setter ID", () => {
-            const data = [{
+            const tidslinjer = [{
                 hendelser: [{}, {}]
             }, {
                 hendelser: [{}, {}, {}]
             }]
-            const res = settHendelseIder(data);
+            const res = settHendelseIder(tidslinjer);
             expect(res).to.deep.equal([{
                 hendelser: [{id: "00"}, {id: "01"}]
             }, {
@@ -103,7 +103,7 @@ describe('tidslinjer', () => {
         const initiellState = {};
         const action = {
             type: "SET_TIDSLINJER",
-            data: [{
+            tidslinjer: [{
                 "startdato": {
                     "year": 2016,
                     "month": "JUNE",
@@ -276,7 +276,7 @@ describe('tidslinjer', () => {
         const initiellState = {};
         const action = {
             type: "SET_TIDSLINJER",
-            data: [{
+            tidslinjer: [{
                 startdato: null,
                 "hendelser": [{
                     "id": null,
@@ -402,6 +402,7 @@ describe('tidslinjer', () => {
                 }]
             }])
     });
+
 
     it("Håndterer ÅPNE_HENDELSER", () => {
         const initiellState = {

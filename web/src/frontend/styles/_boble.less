@@ -54,21 +54,21 @@
 }
 
 .boble-tittel {
-    .mixin-typo-infotekst();
-    margin: 0;
     width: 100%;
 
     span {
         flex: 1;
     }
 
-    h2 {
-        margin-top: 0;
-        -webkit-margin-before: 0;
-        margin-bottom: 10px;
-        font-family: Arial, sans-serif;
-        font-weight: 700;
-        font-size: 1rem;
+    h3 {
+        margin: 0;
+        margin-bottom: .5rem;
+        .mixin-typo-element();
+    }
+
+    h3:only-child {
+        margin: 0;
+        .mixin-typo-infotekst();
     }
 
     p {
@@ -122,8 +122,9 @@
     }
 
     h4 {
-        .mixin-typo-undertittel(); 
-        margin: 0 0 1rem 0; 
+        .mixin-typo-element(); 
+        margin-top: 20px;
+        margin-bottom: 0; 
     }
 }
 

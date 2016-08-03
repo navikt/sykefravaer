@@ -95,8 +95,6 @@ export function mapStateToProps(state, ownProps) {
     }
     const hashHendelser = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
 
-    console.log(hendelser);
-
     return {
         ledetekster: state.ledetekster,
         arbeidssituasjon,

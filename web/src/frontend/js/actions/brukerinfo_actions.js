@@ -31,7 +31,7 @@ export function setBrukerinfo(brukerinfo = {}) {
 
 export function setArbeidssituasjon(arbeidssituasjon) {
     return {
-        type: 'SET_ARBEIDSSITUASJON',
+        type: 'SET_TIDSLINJE_ARBEIDSSITUASJON',
         arbeidssituasjon,
     };
 }

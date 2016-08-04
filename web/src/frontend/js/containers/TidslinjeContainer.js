@@ -5,38 +5,54 @@ import AppSpinner from '../components/AppSpinner.js';
 import Feilmelding from '../components/Feilmelding.js';
 import { connect } from 'react-redux';
 import { getLedetekst } from '../ledetekster';
-import * as actionCreators from '../actions/milepaeler_actions.js';
+import { hentTidslinjer } from '../actions/tidslinjer_actions.js';
+import { setHendelseData } from '../actions/hendelser_actions.js';
 
 export class TidslinjeSide extends Component {
+
     componentWillMount() {
-        this.props.apneMilepaeler(this.props.hashMilepaeler);
+        const { dispatch, hashHendelser, arbeidssituasjon } = this.props;
+        dispatch(hentTidslinjer(hashHendelser, arbeidssituasjon));
+    }
+
+    setHendelseData(id, data) {
+        const { dispatch } = this.props;
+        dispatch(setHendelseData(id, data));
     }
 
     render() {
-        const { brodsmuler, ledetekster } = this.props;
+        const { brodsmuler, ledetekster, hendelser, arbeidssituasjon, tidslinjer } = this.props;
         return (<SideMedHoyrekolonne tittel={getLedetekst('tidslinje.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
             {
                 (() => {
-                    if (ledetekster.henter) {
+                    if (ledetekster.henter || tidslinjer.henter) {
                         return <AppSpinner />;
-                    } else if (ledetekster.hentingFeilet || !ledetekster.data) {
+                    } else if (ledetekster.hentingFeilet || !ledetekster.data || tidslinjer.hentingFeilet || (tidslinjer.data && tidslinjer.data.length === 0)) {
                         return (<Feilmelding />);
                     }
-                    return <Tidslinje {...this.props} ledetekster={ledetekster.data} />;
+                    return (<Tidslinje
+                        hendelser={hendelser}
+                        ledetekster={ledetekster.data}
+                        arbeidssituasjon={arbeidssituasjon}
+                        setHendelseData={(id, data) => {
+                            this.setHendelseData(id, data);
+                        }} />);
                 })()
             }
         </SideMedHoyrekolonne>);
     }
 }
 
-
 TidslinjeSide.propTypes = {
+    dispatch: PropTypes.func,
     brodsmuler: PropTypes.array,
     ledetekster: PropTypes.object,
-    milepaeler: PropTypes.array,
+    hendelser: PropTypes.array,
     arbeidssituasjon: PropTypes.string,
     hashMilepaeler: PropTypes.array,
-    apneMilepaeler: PropTypes.func,
+    apneHendelser: PropTypes.func,
+    hashHendelser: PropTypes.array,
+    tidslinjer: PropTypes.object,
 };
 
 export const mapArbeidssituasjonParam = (param) => {
@@ -56,8 +72,8 @@ export const mapArbeidssituasjonParam = (param) => {
     }
 };
 
-export function setHash(milepaeler) {
-    const apneMilepaeler = milepaeler
+export function setHash(hendelser) {
+    const _apneHendelser = hendelser
         .filter((m) => {
             return m.erApen;
         })
@@ -66,25 +82,24 @@ export function setHash(milepaeler) {
         })
         .join('/');
 
-    window.history.replaceState(null, null, `#${apneMilepaeler}`);
+    window.history.replaceState(null, null, `#${_apneHendelser}`);
 }
 
 export function mapStateToProps(state, ownProps) {
     let arbeidssituasjonParam = (ownProps && ownProps.params) ? ownProps.params.arbeidssituasjon : undefined;
     arbeidssituasjonParam = mapArbeidssituasjonParam(arbeidssituasjonParam);
     const arbeidssituasjon = arbeidssituasjonParam || state.brukerinfo.innstillinger.arbeidssituasjon || 'MED_ARBEIDSGIVER';
-    const milepaeler = state.milepaeler.data.filter((milepael) => {
-        return milepael.visning.indexOf(arbeidssituasjon) > -1;
-    });
-
-    setHash(milepaeler);
-    const hashMilepaeler = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
-
+    const hendelser = state.tidslinjer && state.tidslinjer.data && state.tidslinjer.data.length ? state.tidslinjer.data[0].hendelser : [];
+    if (hendelser.length) {
+        setHash(hendelser);
+    }
+    const hashHendelser = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
     return {
         ledetekster: state.ledetekster,
         arbeidssituasjon,
-        milepaeler,
-        hashMilepaeler,
+        hendelser,
+        hashHendelser,
+        tidslinjer: state.tidslinjer,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',
@@ -95,6 +110,6 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-const TidslinjeContainer = connect(mapStateToProps, actionCreators)(TidslinjeSide);
+const TidslinjeContainer = connect(mapStateToProps)(TidslinjeSide);
 
 export default TidslinjeContainer;

@@ -1,0 +1,137 @@
+.hendelse {
+    display: flex;
+    position: relative;
+    padding-bottom: 1rem;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 12px; 
+        height: 100%;
+        width: 1px;
+        background-color: @color-border;
+
+        @media(min-width: @screen-xs) {
+            left: 20px;
+        }
+    }
+}
+
+.hendelse:last-child:before {
+    height: 1.5rem;
+}
+
+.hendelse-status {
+    position: relative; 
+    width: 24px;
+    margin-right: 13px;
+
+    @media(min-width: @screen-xs) {
+        width: 40px;
+        margin-right: 20px; 
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+    }
+
+}
+
+.hendelse-ikon {
+    width: 24px;
+    height: 24px; 
+    border-radius: 50%; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    z-index: 10;
+    position: relative;
+
+    @media (min-width: @screen-xs) {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+.hendelse-img-hoykontrast {
+    display: none; 
+}
+
+.hendelse-ikon-start {
+    background-color: #A7F5F4;
+
+    img {
+        width: 1rem;
+        height: 1rem;
+
+        @media (min-width: @screen-xs) {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
+
+.hendelse-ikon-sirkel {
+    padding-top: 30px;
+
+    @media (min-width: @screen-xs) {
+        padding-top: 20px;
+    }
+}
+
+.hendelse-ikon-sirkel img {
+    width: 1rem;
+    height: 1rem;
+    background-color: #efefef;
+}
+
+.hendelse-ikon-varsel {
+    background-color: #ba3a26;
+    margin-top: 20px;
+
+    img {
+        height: 12px;
+
+        @media (min-width: @screen-xs) {
+            height: 1rem;
+        }
+    }
+
+}
+
+.hendelse-ikon-klokke {
+
+    height: 24px; 
+
+    img {
+        width: 24px;
+        height: 24px; 
+    }
+}
+
+.hendelse-innhold {
+    flex: 1;
+    display: flex;
+    align-items: center; 
+}
+
+.contrast .hendelse-img-hoykontrast {
+    display: inline;
+}
+
+.contrast .hendelse-img {
+    display: none;
+}
+
+.contrast .hendelse-status,
+.contrast .hendelse-ikon-sirkel {
+    background-color: transparent!important;
+}
+
+.contrast .hendelse-ikon-start,
+.contrast .hendelse-ikon-varsel {
+    border: 1px solid #fff;
+}

@@ -5,7 +5,7 @@ export const lagHtml = (innhold, bilde, alt = '') => {
     if (bilde) {
         innholdMedBilde = `<img class="js-img" alt="${alt}" src="${bilde}" /> ${innhold}`;
     }
-    return { __html: `<div class="side-innhold milepael-budskap">${innholdMedBilde}</div>` };
+    return { __html: `<div class="side-innhold boble-budskap">${innholdMedBilde}</div>` };
 };
 
 const TidslinjeBudskap = ({ innhold, bilde, alt, vis }) => {

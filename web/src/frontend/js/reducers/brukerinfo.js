@@ -19,7 +19,7 @@ function innstillinger(state = innstillingerInitState, action) {
                 skjulUnderUtviklingVarsel: true,
             };
         }
-        case 'SET_ARBEIDSSITUASJON': {
+        case 'SET_TIDSLINJE_ARBEIDSSITUASJON': {
             return Object.assign({}, state, {
                 arbeidssituasjon: action.arbeidssituasjon,
             });

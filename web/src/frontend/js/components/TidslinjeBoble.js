@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { getLedetekst } from '../ledetekster';
 import TidslinjeBudskap from './TidslinjeBudskap.js';
 import { scrollTo } from '../utils';
+import { toDatePrettyPrint } from '../utils/datoUtils';
 
 const BobleHeader = (props) => {
     return (<a
@@ -38,7 +39,7 @@ class TidslinjeBoble extends Component {
         switch (this.props.type) {
             case 'AKTIVITETSKRAV_VARSEL': {
                 return getLedetekst(`${this.props.tekstkey}.tittel`, this.props.ledetekster, {
-                    '%DATO%': '[Her kommer dato]',
+                    '%DATO%': toDatePrettyPrint(this.props.inntruffetdato),
                 });
             }
             default: {
@@ -151,6 +152,7 @@ TidslinjeBoble.propTypes = {
     id: PropTypes.string,
     tekstkey: PropTypes.string,
     type: PropTypes.string,
+    inntruffetdato: PropTypes.object,
 };
 
 export default TidslinjeBoble;

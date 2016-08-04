@@ -6,13 +6,13 @@ export class Utvidbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            erApen: this.props.erApen,
-            ikon: this.props.ikon,
-            ikonHoykontrast: this.props.ikon.replace('.svg', '-highcontrast.svg'),
+            erApen: props.erApen,
+            ikon: props.ikon,
+            ikonHoykontrast: props.ikon.replace('.svg', '-highcontrast.svg'),
             containerClassName: '',
             hindreToggle: false,
-            hoyde: !this.props.erApen ? '0' : 'auto',
-            visInnhold: this.props.erApen,
+            hoyde: !props.erApen ? '0' : 'auto',
+            visInnhold: props.erApen,
         };
     }
 
@@ -133,7 +133,7 @@ export class Utvidbar extends Component {
                         {
                             this.state.visInnhold && <div>
                                 {this.props.children}
-                                <div className="knapperad side-innhold">
+                                <div className="knapperad side-innhold ikke-print">
                                     <button type="button"
                                         className="lenke"
                                         aria-pressed={!this.state.erApen}

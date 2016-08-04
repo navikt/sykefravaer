@@ -44,8 +44,10 @@ class SykmeldingTeaser extends Component {
     }
 
     render() {
-        const antallPerioder = this.props.sykmelding.mulighetForArbeid.perioder.length;
+        const { sykmelding, ledetekster } = this.props;
+        const antallPerioder = sykmelding.mulighetForArbeid.perioder.length;
         const sistePeriodeIndex = antallPerioder - 1;
+        const visStatus = sykmelding.status !== 'NY';
 
         return (<article aria-labelledby={`sykmelding-header-${this.props.sykmelding.id}`}>
             <Link className="panel sykmelding-teaser" to={`${getContextRoot()}/sykmeldinger/${this.props.sykmelding.id}`}
@@ -59,24 +61,29 @@ class SykmeldingTeaser extends Component {
                 <img src={`/sykefravaer/img/svg/${this.state.ikonHoykontrast}`} alt="Lege" />
             </span>
             <div className="teaser-innhold">
-                <h3 className="js-title teaser-header" id={`sykmelding-header-${this.props.sykmelding.id}`}>
-                    <small className="teaser-meta">{getLedetekst('sykmelding.teaser.dato', this.props.ledetekster, {
-                        '%FOM%': toDatePrettyPrint(this.props.sykmelding.mulighetForArbeid.perioder[0].fom),
-                        '%TOM%': toDatePrettyPrint(this.props.sykmelding.mulighetForArbeid.perioder[sistePeriodeIndex].tom),
-                    })} </small>
-                    <span className="teaser-tittel">
-                        {getLedetekst('sykmelding.teaser.tittel', this.props.ledetekster)}
-                    </span>
-                </h3>
+                <header className="teaser-header">
+                    <h3 className="js-title" id={`sykmelding-header-${this.props.sykmelding.id}`}>
+                        <small className="teaser-meta">{getLedetekst('sykmelding.teaser.dato', ledetekster, {
+                            '%FOM%': toDatePrettyPrint(sykmelding.mulighetForArbeid.perioder[0].fom),
+                            '%TOM%': toDatePrettyPrint(sykmelding.mulighetForArbeid.perioder[sistePeriodeIndex].tom),
+                        })} </small>
+                        <span className="teaser-tittel">
+                            {getLedetekst('sykmelding.teaser.tittel', ledetekster)}
+                        </span>
+                    </h3>
+                    {
+                        visStatus && <p className="teaser-status">{getLedetekst(`sykmelding.teaser.status.${sykmelding.status}`, ledetekster)}</p>
+                    }
+                </header>
                 {antallPerioder === 1 ?
                     (<SykmeldingPeriodeInfo
-                        periode={this.props.sykmelding.mulighetForArbeid.perioder[0]}
-                        arbeidsgiver={this.props.sykmelding.arbeidsgiver}
-                        ledetekster={this.props.ledetekster} />)
+                        periode={sykmelding.mulighetForArbeid.perioder[0]}
+                        arbeidsgiver={sykmelding.arbeidsgiver}
+                        ledetekster={ledetekster} />)
                     : (<PeriodeListe
-                        perioder={this.props.sykmelding.mulighetForArbeid.perioder}
-                        arbeidsgiver={this.props.sykmelding.arbeidsgiver}
-                        ledetekster={this.props.ledetekster} />)
+                        perioder={sykmelding.mulighetForArbeid.perioder}
+                        arbeidsgiver={sykmelding.arbeidsgiver}
+                        ledetekster={ledetekster} />)
                 }
             </div>
         </Link></article>);

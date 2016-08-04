@@ -73,8 +73,10 @@ export default function sykmeldinger(state = initiellState, action) {
             return Object.assign({}, state, { data });
         }
         case 'SET_SORTERING': {
+            const sortering = state.sortering || {};
+            sortering[action.status] = action.kriterium;
             return Object.assign({}, state, {
-                sortering: action.sortering,
+                sortering,
             });
         }
         default: {

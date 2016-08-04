@@ -14,8 +14,8 @@ const DinBekreftedeSykmelding = ({ sykmelding, ledetekster }) => {
             nokkelopplysninger={[
                 [STATUS],
             ]} />
-        <Utvidbar erApen tittel={getLedetekst('din-sykmelding.tittel', ledetekster)} ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg"
-            ikonAltTekst="Lege" className="blokk" variant="lysebla">
+        <Utvidbar erApen tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel', ledetekster)}
+            ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege" className="blokk" variant="lysebla">
             <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
         </Utvidbar>
     </div>);

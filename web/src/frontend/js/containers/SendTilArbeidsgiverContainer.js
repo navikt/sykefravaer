@@ -30,7 +30,7 @@ export class SendTilArbeidsgiverSide extends Component {
     }
 
     render() {
-        return this.props.brukerinfo.toggleSendTilArbeidsgiver ? (
+        return (
             <Side tittel={this.props.sidetittel} brodsmuler={this.props.brodsmuler}>
                 {
                     (() => {
@@ -62,7 +62,7 @@ export class SendTilArbeidsgiverSide extends Component {
                             }} />);
                     })()
                 }
-            </Side>) : null;
+            </Side>);
     }
 
 }

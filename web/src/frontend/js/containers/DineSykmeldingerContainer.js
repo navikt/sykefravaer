@@ -5,7 +5,6 @@ import Side from '../sider/Side.js';
 import AppSpinner from '../components/AppSpinner.js';
 import { getLedetekst } from '../ledetekster';
 import Feilmelding from '../components/Feilmelding.js';
-import { sorterSykmeldinger } from '../utils/datoUtils';
 
 export const DineSykmldSide = (props) => {
     const { ledetekster, brodsmuler, sykmeldinger } = props;
@@ -18,7 +17,8 @@ export const DineSykmldSide = (props) => {
                     return (<Feilmelding />);
                 }
                 return (<DineSykmeldinger
-                    sykmeldinger={sorterSykmeldinger(sykmeldinger.data, sykmeldinger.sortering)}
+                    sykmeldinger={sykmeldinger.data}
+                    sortering={sykmeldinger.sortering}
                     ledetekster={ledetekster.data} />);
             })()
         }

@@ -9,7 +9,10 @@ import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox';
 import FlereOpplysninger from './FlereOpplysninger';
 
 const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
-    return (<div>
+    return (<div className="dine-sykmelding-opplysninger">
+        <h2 className="typo-innholdstittel blokk-l">
+            {getLedetekst('din-sykmelding.tittel', ledetekster)}
+        </h2>
         <div className="blokk-l side-innhold">
             <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} ledetekster={ledetekster} />
             {
@@ -103,7 +106,7 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
             }
         </div>
         <Utvidbar tittel={getLedetekst('din-sykmelding.flere-opplysninger.tittel', ledetekster)}
-            ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege" className="blokk-l">
+            ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege" className="blokk-s">
             <div className="sykmelding-seksjoner">
                 <FlereOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
             </div>

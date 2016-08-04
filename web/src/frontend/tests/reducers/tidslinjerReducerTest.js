@@ -129,37 +129,37 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 27,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.snakk.med.arbeidsgiver"
+                    "tekstkey": "tidslinje.snakk-med-arbeidsgiver.MED_ARBEIDSGIVER"
                 }, {
                     "id": null,
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 48,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.dialogmote-arbeidsgiver"
+                    "tekstkey": "tidslinje.dialogmote-arbeidsgiver.MED_ARBEIDSGIVER"
                 }, {
                     "id": null,
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 55,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.aktivitetskrav"
+                    "tekstkey": "tidslinje.aktivitetskrav.MED_ARBEIDSGIVER"
                 }, {
                     "id": null,
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 181,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.dialogmote-nav"
+                    "tekstkey": "tidslinje.dialogmote-nav.MED_ARBEIDSGIVER"
                 }, {
                     "id": null,
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 272,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.langtidssykmeldt"
+                    "tekstkey": "tidslinje.langtidssykmeldt.MED_ARBEIDSGIVER"
                 }, {
                     "id": null,
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 364,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.sluttfasen"
+                    "tekstkey": "tidslinje.sluttfasen.MED_ARBEIDSGIVER"
                 }]
             }]
          };
@@ -206,7 +206,7 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 27,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.snakk.med.arbeidsgiver",
+                    "tekstkey": "tidslinje.snakk-med-arbeidsgiver.MED_ARBEIDSGIVER",
                     "bilde": '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen4uker.svg'
                 }, {
                     "id": "02",
@@ -218,7 +218,7 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 48,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.dialogmote-arbeidsgiver",
+                    "tekstkey": "tidslinje.dialogmote-arbeidsgiver.MED_ARBEIDSGIVER",
                     "bilde": '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen7uker.svg'
                 }, {
                     "id": "04",
@@ -230,7 +230,7 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 55,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.aktivitetskrav",
+                    "tekstkey": "tidslinje.aktivitetskrav.MED_ARBEIDSGIVER",
                     "bilde": '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen8uker.svg',
                 }, {
                     "id": "06",
@@ -242,7 +242,7 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 181,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.dialogmote-nav",
+                    "tekstkey": "tidslinje.dialogmote-nav.MED_ARBEIDSGIVER",
                     "bilde": '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen26uker.svg'
                 }, {
                     "id": "08",
@@ -254,7 +254,7 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 272,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.langtidssykmeldt",
+                    "tekstkey": "tidslinje.langtidssykmeldt.MED_ARBEIDSGIVER",
                     "bilde": '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen39uker.svg'
                 }, {
                     "id": "010",
@@ -266,7 +266,7 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 364,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.sluttfasen",
+                    "tekstkey": "tidslinje.sluttfasen.MED_ARBEIDSGIVER",
                     "bilde": '/sykefravaer/img/tidslinje/sluttfasen-3.svg'
                 }]
             }])
@@ -289,37 +289,37 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 27,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.snakk.med.arbeidsgiver",
+                    "tekstkey": "tidslinje.snakk-med-arbeidsgiver.MED_ARBEIDSGIVER",
                 }, {
                     "id": null,
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 48,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.dialogmote-arbeidsgiver",
+                    "tekstkey": "tidslinje.dialogmote-arbeidsgiver.MED_ARBEIDSGIVER",
                 }, {
                     "id": null,
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 55,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.aktivitetskrav",
+                    "tekstkey": "tidslinje.aktivitetskrav.MED_ARBEIDSGIVER",
                 }, {
                     "id": null,
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 181,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.dialogmote-nav",
+                    "tekstkey": "tidslinje.dialogmote-nav.MED_ARBEIDSGIVER",
                 }, {
                     "id": null,
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 272,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.langtidssykmeldt",
+                    "tekstkey": "tidslinje.langtidssykmeldt.MED_ARBEIDSGIVER",
                 }, {
                     "id": null,
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 364,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.sluttfasen",
+                    "tekstkey": "tidslinje.sluttfasen.MED_ARBEIDSGIVER",
                 }]
             }]
          };
@@ -337,7 +337,7 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 27,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.snakk.med.arbeidsgiver",
+                    "tekstkey": "tidslinje.snakk-med-arbeidsgiver.MED_ARBEIDSGIVER",
                     "bilde": "/sykefravaer/img/tidslinje/med-arbeidsgiver/innen4uker.svg"
                 }, {
                     "id": "02",
@@ -349,7 +349,7 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 48,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.dialogmote-arbeidsgiver",
+                    "tekstkey": "tidslinje.dialogmote-arbeidsgiver.MED_ARBEIDSGIVER",
                     "bilde": '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen7uker.svg',
                 }, {
                     "id": "04",
@@ -361,7 +361,7 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 55,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.aktivitetskrav",
+                    "tekstkey": "tidslinje.aktivitetskrav.MED_ARBEIDSGIVER",
                     "bilde": '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen8uker.svg'
                 }, {
                     "id": "06",
@@ -373,7 +373,7 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 181,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.dialogmote-nav",
+                    "tekstkey": "tidslinje.dialogmote-nav.MED_ARBEIDSGIVER",
                     "bilde": '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen26uker.svg',
                 }, {
                     "id": "08",
@@ -385,7 +385,7 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 272,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.langtidssykmeldt",
+                    "tekstkey": "tidslinje.langtidssykmeldt.MED_ARBEIDSGIVER",
                     "bilde": '/sykefravaer/img/tidslinje/med-arbeidsgiver/innen39uker.svg',
                 }, {
                     "id": "010",
@@ -397,7 +397,7 @@ describe('tidslinjer', () => {
                     "inntruffetdato": null,
                     "type": "BOBLE",
                     "antallDager": 364,
-                    "tekstkey": "tidslinje.med-arbeidsgiver.sluttfasen",
+                    "tekstkey": "tidslinje.sluttfasen.MED_ARBEIDSGIVER",
                     "bilde": '/sykefravaer/img/tidslinje/sluttfasen-3.svg'
                 }]
             }])

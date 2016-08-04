@@ -24,7 +24,7 @@ export function hentTidslinjer(apneHendelseIder = [], arbeidssituasjon = 'MED_AR
     return function tidslinjer(dispatch) {
         dispatch(henterTidslinjer());
         dispatch(setArbeidssituasjon(arbeidssituasjon));
-        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/tidslinje?arbeidssituasjon=${arbeidssituasjon}`, {
+        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/tidslinje?type=${arbeidssituasjon}`, {
             credentials: 'include',
         })
         .then((response) => {

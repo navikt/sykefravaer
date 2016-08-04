@@ -45,7 +45,7 @@ describe("tidslinjer_actions", () => {
 
         it("Kaller på riktige actions", () => {
             nock('http://tjenester.nav.no/syforest/')
-            .get("/tidslinje?arbeidssituasjon=MED_ARBEIDSGIVER")
+            .get("/tidslinje?type=MED_ARBEIDSGIVER")
             .reply(200, [{"navn": "Olsen"}])
 
             const expectedActions = [
@@ -63,7 +63,7 @@ describe("tidslinjer_actions", () => {
 
         it("Kaller på riktige actions når den kalles med apneHendelseIder", () => {
             nock('http://tjenester.nav.no/syforest/')
-            .get("/tidslinje?arbeidssituasjon=MED_ARBEIDSGIVER")
+            .get("/tidslinje?type=MED_ARBEIDSGIVER")
             .reply(200, [{"navn": "Olsen"}])
 
             const expectedActions = [

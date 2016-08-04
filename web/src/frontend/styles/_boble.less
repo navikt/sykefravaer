@@ -7,15 +7,6 @@
 .boble {
     overflow: hidden;
     border-radius: 4px;
-
-    ol {
-        padding-left: 10px;
-    }
-
-    li {
-        padding: 7px;
-        margin: 15px;
-    }
 }
 
 .header-boble:extend(.header-bolk) {
@@ -67,7 +58,7 @@
     }
 
     h3:only-child {
-        margin: 0;
+        margin: 0;  
         .mixin-typo-infotekst();
     }
 
@@ -125,6 +116,10 @@
         .mixin-typo-element(); 
         margin-top: 20px;
         margin-bottom: 0; 
+    }
+
+    ol {
+        padding-left: .5rem;
     }
 }
 

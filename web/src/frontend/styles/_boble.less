@@ -78,7 +78,7 @@
 }
 
 .boble-tittel-collapse {
-    background: data-uri("../img/svg/arrow-down.svg") no-repeat right center;
+    background: data-uri("../img/svg/arrow-down.svg") no-repeat right 2px;
     background-size: 1rem 1rem;
     padding-right: 2rem;
 
@@ -136,6 +136,26 @@
     }
 }
 
-.contrast .boble {
-    outline: 1px solid @white;
+.contrast {
+
+    .boble {
+        outline: 1px solid @white;
+    }
+
+    .boble-tittel-collapse {
+        background-image: data-uri("../img/svg/arrow-down-highcontrast.svg");
+
+        &:hover {
+            background-image: data-uri("../img/svg/arrow-down_hover-highcontrast.svg");
+        }
+
+        &.er-apen {
+            background-image: data-uri("../img/svg/arrow-up-highcontrast.svg");
+
+            &:hover {
+                background-image: data-uri("../img/svg/arrow-up_hover-highcontrast.svg")
+            }
+        }
+    }
+    
 }

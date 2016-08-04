@@ -56,6 +56,10 @@
     }
 }
 
+.hendelse-img-hoykontrast {
+    display: none; 
+}
+
 .hendelse-ikon-start {
     background-color: #A7F5F4;
 
@@ -112,4 +116,22 @@
     flex: 1;
     display: flex;
     align-items: center; 
+}
+
+.contrast .hendelse-img-hoykontrast {
+    display: inline;
+}
+
+.contrast .hendelse-img {
+    display: none;
+}
+
+.contrast .hendelse-status,
+.contrast .hendelse-ikon-sirkel {
+    background-color: transparent!important;
+}
+
+.contrast .hendelse-ikon-start,
+.contrast .hendelse-ikon-varsel {
+    border: 1px solid #fff;
 }

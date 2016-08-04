@@ -9,28 +9,29 @@ const Ikon = ({ type }) => {
     switch (type) {
         case 'FØRSTE_SYKMELDINGSDAG': {
             status.ikonClassName = 'hendelse-ikon-start';
-            status.ikon = 'plaster.svg';
+            status.ikon = 'plaster';
             break;
         }
         case 'AKTIVITETSKRAV_VARSEL': {
             status.ikonClassName = 'hendelse-ikon-varsel';
-            status.ikon = 'ikon-utropstegn.svg';
+            status.ikon = 'tidslinje-utropstegn';
             break;
         }
         case 'TID': {
             status.ikonClassName = 'hendelse-ikon-klokke';
-            status.ikon = 'klokke-svart.svg';
+            status.ikon = 'tidslinje-klokke';
             break;
         }
         default: {
             status.ikonClassName = 'hendelse-ikon-sirkel';
-            status.ikon = 'tidslinje-sirkel-graa.svg';
+            status.ikon = 'tidslinje-sirkel';
             break;
         }
     }
 
     return (<div className={`hendelse-ikon ${status.ikonClassName}`}>
-            <img src={`/sykefravaer/img/svg/${status.ikon}`} alt="" />
+            <img className="hendelse-img" src={`/sykefravaer/img/svg/${status.ikon}.svg`} alt="" />
+            <img className="hendelse-img-hoykontrast" src={`/sykefravaer/img/svg/${status.ikon}-highcontrast.svg`} alt="" />
         </div>);
 };
 

@@ -13,10 +13,11 @@ export function henterTidslinjer() {
     };
 }
 
-export function setTidslinjer(tidslinjer = []) {
+export function setTidslinjer(tidslinjer = [], arbeidssituasjon) {
     return {
         type: 'SET_TIDSLINJER',
         tidslinjer,
+        arbeidssituasjon,
     };
 }
 
@@ -34,7 +35,7 @@ export function hentTidslinjer(apneHendelseIder = [], arbeidssituasjon = 'MED_AR
             return response.json();
         })
         .then((json) => {
-            return dispatch(setTidslinjer(json));
+            return dispatch(setTidslinjer(json, arbeidssituasjon));
         })
         .then((respons) => {
             if (apneHendelseIder.length) {

@@ -51,7 +51,7 @@ describe("tidslinjer_actions", () => {
             const expectedActions = [
                 { type: "HENTER_TIDSLINJER"}, 
                 { type: "SET_TIDSLINJE_ARBEIDSSITUASJON", arbeidssituasjon: 'MED_ARBEIDSGIVER'},
-                { type: "SET_TIDSLINJER", tidslinjer: [{ "navn": "Olsen" }] }
+                { type: "SET_TIDSLINJER", tidslinjer: [{ "navn": "Olsen" }], arbeidssituasjon: 'MED_ARBEIDSGIVER' }
             ]
 
             return store.dispatch(actions.hentTidslinjer())
@@ -69,7 +69,7 @@ describe("tidslinjer_actions", () => {
             const expectedActions = [
                 { type: "HENTER_TIDSLINJER"}, 
                 { type: 'SET_TIDSLINJE_ARBEIDSSITUASJON', arbeidssituasjon: 'MED_ARBEIDSGIVER'},
-                { type: "SET_TIDSLINJER", tidslinjer: [{ "navn": "Olsen" }] },
+                { type: "SET_TIDSLINJER", tidslinjer: [{ "navn": "Olsen" }], arbeidssituasjon: 'MED_ARBEIDSGIVER' },
                 { type: "ÅPNE_HENDELSER", hendelseIder: ["02", "03"]}
             ]
 

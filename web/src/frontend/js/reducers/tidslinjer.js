@@ -45,8 +45,11 @@ export const leggTilBilder = (_tidslinjer) => {
     });
 };
 
-export const leggTilTidshendelser = (_tidslinjer) => {
-    const uker = [4, 7, 8, 26, 39];
+export const leggTilTidshendelser = (_tidslinjer, arbeidssituasjon) => {
+    let uker = [4, 7, 8, 26, 39];
+    if (arbeidssituasjon === 'UTEN_ARBEIDSGIVER') {
+        uker = [8, 12, 39];
+    }
     const tidshendelser = uker.map((uke) => {
         return {
             antallDager: (uke * 7),
@@ -91,7 +94,7 @@ export default function tidslinjer(state = initiellState, action) {
             return {
                 henter: false,
                 hentingFeilet: false,
-                data: leggTilBilder(settHendelseIder(leggTilTidshendelser(action.tidslinjer))),
+                data: leggTilBilder(settHendelseIder(leggTilTidshendelser(action.tidslinjer, action.arbeidssituasjon))),
             };
         }
         case 'ÅPNE_HENDELSER': {

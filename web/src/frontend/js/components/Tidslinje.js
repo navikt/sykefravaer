@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import Hendelse from './Hendelse.js';
+import HendelseTittel from './HendelseTittel.js';
+import HendelseBoble from './HendelseBoble.js';
 import TidslinjeVelgArbeidssituasjonContainer from '../containers/TidslinjeVelgArbeidssituasjonContainer.js';
 import { getLedetekst } from '../ledetekster';
 
@@ -14,22 +15,17 @@ const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseD
         <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
         <div className="tidslinje">
             {
-                hendelser.map((hendelse, index) => {
-                    return (
-                        <Hendelse
-                            {...hendelse}
-                            key={index}
-                            ledetekster={ledetekster}
-                            setHendelseState={(data) => {
-                                setHendelseData(hendelse.id, data);
-                            }}
-                            arbeidssituasjon={arbeidssituasjon}
-                        />
-                    );
+                hendelser.map((hendelse) => {
+                    if (hendelse.type !== 'BOBLE' && hendelse.type !== 'AKTIVITETSKRAV_VARSEL') {
+                        return <HendelseTittel {...hendelse} key={hendelse.id} ledetekster={ledetekster} />;
+                    }
+                    return (<HendelseBoble {...hendelse} key={hendelse.id} ledetekster={ledetekster} setHendelseState={(data) => {
+                        setHendelseData(hendelse.id, data);
+                    }} />);
                 })
             }
         </div>
-        </div>);
+    </div>);
 };
 
 Tidslinje.propTypes = {

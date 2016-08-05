@@ -4,7 +4,8 @@ import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
 import Tidslinje from "../../js/components/Tidslinje.js";
-import Hendelse from "../../js/components/Hendelse.js";
+import HendelseBoble from "../../js/components/HendelseBoble.js";
+import HendelseTittel from "../../js/components/HendelseTittel.js";
 import TidslinjeVelgArbeidssituasjonContainer from '../../js/containers/TidslinjeVelgArbeidssituasjonContainer.js';
 
 chai.use(chaiEnzyme());
@@ -97,9 +98,10 @@ const hendelserData = [{
 
 describe("Tidslinje", () => {
 
-    it("Skal rendre en Hendelse per tidspunkt", () => {
+    it("Skal rendre en HendelseTittel per tidspunkt og en HendelseBoble per boble", () => {
         let component = shallow(<Tidslinje ledetekster={ledetekster} hendelser={hendelserData} />)
-        expect(component.find(Hendelse)).to.have.length(hendelserData.length);
+        expect(component.find(HendelseBoble)).to.have.length(6);
+        expect(component.find(HendelseTittel)).to.have.length(6);
     });
 
     it("Skal vise en TidslinjeVelgArbeidssituasjonContainer", () => {

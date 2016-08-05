@@ -15,8 +15,9 @@ const settErApen = (hendelse, id, erApen) => {
 export const settHendelseIder = (_tidslinjer) => {
     return _tidslinjer.map((tidslinje, tidslinjeIndex) => {
         const hendelser = tidslinje.hendelser.map((hendelse, hendelseIndex) => {
+            const hendelseId = hendelse.id ? hendelse.id : hendelseIndex;
             return Object.assign({}, hendelse, {
-                id: `${tidslinjeIndex}${hendelseIndex}`,
+                id: `${tidslinjeIndex}${hendelseId}`,
             });
         });
         return Object.assign({}, tidslinje, {

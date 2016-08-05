@@ -1,35 +1,40 @@
 import React, { PropTypes } from 'react';
 
-const HendelseIkon = ({ type }) => {
-    const status = {};
+export const getIkon = (type) => {
+    const ikon = {};
 
     switch (type) {
         case 'FØRSTE_SYKMELDINGSDAG': {
-            status.ikonClassName = 'hendelse-ikon-start';
-            status.ikon = 'plaster';
+            ikon.className = 'hendelse-ikon-start';
+            ikon.bilde = 'plaster';
             break;
         }
         case 'AKTIVITETSKRAV_VARSEL': {
-            status.ikonClassName = 'hendelse-ikon-varsel';
-            status.ikon = 'varsel';
+            ikon.className = 'hendelse-ikon-varsel';
+            ikon.bilde = 'varsel';
             break;
         }
         case 'TITTEL':
         case 'TID': {
-            status.ikonClassName = 'hendelse-ikon-klokke';
-            status.ikon = 'klokke';
+            ikon.className = 'hendelse-ikon-klokke';
+            ikon.bilde = 'klokke';
             break;
         }
         default: {
-            status.ikonClassName = 'hendelse-ikon-sirkel';
-            status.ikon = 'sirkel';
+            ikon.className = 'hendelse-ikon-sirkel';
+            ikon.bilde = 'sirkel';
             break;
         }
     }
 
-    return (<div className={`hendelse-ikon ${status.ikonClassName}`}>
-            <img className="hendelse-img" src={`/sykefravaer/img/tidslinje/${status.ikon}.svg`} alt="" />
-            <img className="hendelse-img-hoykontrast" src={`/sykefravaer/img/tidslinje/${status.ikon}-highcontrast.svg`} alt="" />
+    return ikon;
+};
+
+const HendelseIkon = ({ type }) => {
+    const ikonData = getIkon(type);
+    return (<div className={`hendelse-ikon ${ikonData.className}`}>
+            <img className="hendelse-img" src={`/sykefravaer/img/tidslinje/${ikonData.bilde}.svg`} alt="" />
+            <img className="hendelse-img-hoykontrast" src={`/sykefravaer/img/tidslinje/${ikonData.bilde}-highcontrast.svg`} alt="" />
         </div>);
 };
 

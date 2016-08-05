@@ -37,16 +37,12 @@ class HendelseBoble extends Component {
     }
 
     getHtmlTittel() {
-        switch (this.props.type) {
-            case 'AKTIVITETSKRAV_VARSEL': {
-                return getLedetekst(`${this.props.tekstkey}.tittel`, this.props.ledetekster, {
-                    '%DATO%': toDatePrettyPrint(this.props.inntruffetdato),
-                });
-            }
-            default: {
-                return `<h3>${getLedetekst(`${this.props.tekstkey}.tittel`, this.props.ledetekster)}</h3>`;
-            }
+        if (this.props.type === 'AKTIVITETSKRAV_VARSEL') {
+            return getLedetekst(`${this.props.tekstkey}.tittel`, this.props.ledetekster, {
+                '%DATO%': toDatePrettyPrint(this.props.inntruffetdato),
+            });
         }
+        return `<h3>${getLedetekst(`${this.props.tekstkey}.tittel`, this.props.ledetekster)}</h3>`;
     }
 
     setNaavaerendeHoyde() {
@@ -118,7 +114,7 @@ class HendelseBoble extends Component {
     }
 
     render() {
-        return (<article className="hendelse boble js-hendelse">
+        return (<article className="hendelse js-hendelse">
                 <div className="hendelse-rad">
                     <div className="hendelse-status">
                         <HendelseIkon type={this.props.type} />

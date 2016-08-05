@@ -8,7 +8,7 @@ const expect = chai.expect;
 
 import HendelseIkon from "../../js/components/HendelseIkon.js";
 
-describe.only("HendelseIkon", () => {
+describe("HendelseIkon", () => {
 
     it("Skal vise to bilder; ett vanlig og ett for høykontrast", () => {
         let component = shallow(<HendelseIkon />);

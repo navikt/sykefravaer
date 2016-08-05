@@ -6,7 +6,7 @@
     <parent>
         <groupId>no.nav.syfo</groupId>
         <artifactId>syfofront</artifactId>
-        <version>2.0-LOCAL</version>
+        <version>3.0-LOCAL</version>
     </parent>
 
     <artifactId>syfofront-web</artifactId>

@@ -11,25 +11,25 @@ const HendelseIkon = ({ type }) => {
         }
         case 'AKTIVITETSKRAV_VARSEL': {
             status.ikonClassName = 'hendelse-ikon-varsel';
-            status.ikon = 'tidslinje-utropstegn';
+            status.ikon = 'varsel';
             break;
         }
         case 'TITTEL':
         case 'TID': {
             status.ikonClassName = 'hendelse-ikon-klokke';
-            status.ikon = 'tidslinje-klokke';
+            status.ikon = 'klokke';
             break;
         }
         default: {
             status.ikonClassName = 'hendelse-ikon-sirkel';
-            status.ikon = 'tidslinje-sirkel';
+            status.ikon = 'sirkel';
             break;
         }
     }
 
     return (<div className={`hendelse-ikon ${status.ikonClassName}`}>
-            <img className="hendelse-img" src={`/sykefravaer/img/svg/${status.ikon}.svg`} alt="" />
-            <img className="hendelse-img-hoykontrast" src={`/sykefravaer/img/svg/${status.ikon}-highcontrast.svg`} alt="" />
+            <img className="hendelse-img" src={`/sykefravaer/img/tidslinje/${status.ikon}.svg`} alt="" />
+            <img className="hendelse-img-hoykontrast" src={`/sykefravaer/img/tidslinje/${status.ikon}-highcontrast.svg`} alt="" />
         </div>);
 };
 

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import Dropdown from '../components/Dropdown.js';
 import { connect } from 'react-redux';
-import * as actionCreators from '../actions/dineSykmeldinger_actions.js';
+import Dropdown from '../components/skjema/Dropdown';
+import * as actionCreators from '../actions/dineSykmeldinger_actions';
 import { getLedetekst } from '../ledetekster';
 
 const DropdownContainer = ({ alternativer, sorterSykmeldinger, ledetekster, status }) => {

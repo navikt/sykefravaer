@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as actionCreators from '../actions/tidslinjer_actions.js';
-import Radiofaner from '../components/Radiofaner.js';
-import history from '../history.js';
+import * as actionCreators from '../actions/tidslinjer_actions';
+import Radiofaner from '../components/Radiofaner';
+import history from '../history';
 import { getLedetekst } from '../ledetekster';
 
 const verdier = {

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import DinSykmeldingBrukerInputContainer from '../containers/DinSykmeldingBrukerInputContainer';
-import arbeidssituasjoner from '../arbeidssituasjonData';
-import DineSykmeldingOpplysninger from './DineSykmeldingOpplysninger';
+import DinSykmeldingBrukerInputContainer from '../../containers/DinSykmeldingBrukerInputContainer';
+import arbeidssituasjoner from '../../arbeidssituasjonData';
+import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmeldingOpplysninger';
 
 const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false }) => {
     return (<div>

@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import { toDatePrettyPrint } from '../utils/datoUtils';
-import { getLedetekst } from '../ledetekster/index';
 import { SykmeldingOpplysning } from './SykmeldingOpplysning';
-import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils';
+import { toDatePrettyPrint } from '../../utils/datoUtils';
+import { getLedetekst } from '../../ledetekster';
+import { getSykmeldingCheckbox } from '../../utils/dinSykmeldingUtils';
 
 const Friskmelding = ({ sykmelding, ledetekster }) => {
     const visSeksjon = (sykmelding.friskmelding.antarReturSammeArbeidsgiver ||

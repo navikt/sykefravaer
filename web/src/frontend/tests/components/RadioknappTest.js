@@ -9,7 +9,7 @@ chai.use(chaiEnzyme());
 
 const expect = chai.expect;
 
-import Radioknapp from "../../js/components/Radioknapp.js";
+import Radioknapp from "../../js/components/skjema/Radioknapp.js";
 
 describe("Radioknapp", () => {
 

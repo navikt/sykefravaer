@@ -8,7 +8,7 @@ import getSykmelding from "../mockSykmeldinger.js";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import MulighetForArbeid from "../../js/components/MulighetForArbeid.js";
+import MulighetForArbeid from "../../js/components/sykmeldingOpplysninger/MulighetForArbeid.js";
 
 let component;
 

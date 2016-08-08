@@ -7,7 +7,7 @@ import ledetekster from "../ledetekster_mock.js";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import UtdypendeOpplysninger from "../../js/components/UtdypendeOpplysninger.js";
+import UtdypendeOpplysninger from "../../js/components/sykmeldingOpplysninger/UtdypendeOpplysninger.js";
 import getSykmelding from "../mockSykmeldinger.js";
 
 let component;

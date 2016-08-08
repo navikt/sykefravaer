@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import StatusPanel from './StatusPanel';
+import StatusPanel from '../StatusPanel';
 import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
-import DineSykmeldingOpplysninger from './DineSykmeldingOpplysninger';
-import Utvidbar from './Utvidbar';
-import { getLedetekst } from '../ledetekster/index';
-import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../nokkelopplysninger/NokkelOpplysningerEnum';
+import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmeldingOpplysninger';
+import Utvidbar from '../Utvidbar';
+import { getLedetekst } from '../../ledetekster/index';
+import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../nokkelopplysninger/NokkelOpplysningerEnum';
 
 const DinSendteSykmelding = ({ dinSykmelding, ledetekster, arbeidsgiversSykmelding }) => {
     return (<div>

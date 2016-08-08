@@ -1,19 +1,19 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
-import DinSykmelding from '../components/DinSykmelding';
-import DinSendteSykmelding from '../components/DinSendteSykmelding';
-import DinBekreftedeSykmelding from '../components/DinBekreftedeSykmelding';
-import DinUtgaatteSykmelding from '../components/DinUtgaatteSykmelding';
+import DinSykmelding from '../components/sykmelding/DinSykmelding';
+import DinSendteSykmelding from '../components/sykmelding/DinSendteSykmelding';
+import DinBekreftedeSykmelding from '../components/sykmelding/DinBekreftedeSykmelding';
+import DinUtgaatteSykmelding from '../components/sykmelding/DinUtgaatteSykmelding';
+import SykmeldingKvittering from '../components/sykmelding/SykmeldingKvittering';
+import LenkeTilDineSykmeldinger from '../components/LenkeTilDineSykmeldinger';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster/index';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { navigerFraBekreftetkvittering } from '../actions/dinSykmelding_actions';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
-import { erPilotarbeidsgiver } from '../utils/arbeidsgiverUtils.js';
-import SykmeldingKvittering from '../components/SykmeldingKvittering.js';
-import LenkeTilDineSykmeldinger from '../components/LenkeTilDineSykmeldinger.js';
+import { erPilotarbeidsgiver } from '../utils/arbeidsgiverUtils';
 
 export class DinSykmldSide extends Component {
 

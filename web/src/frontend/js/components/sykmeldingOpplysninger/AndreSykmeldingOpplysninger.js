@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import { getLedetekst } from '../ledetekster';
-import { getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
+import { getLedetekst } from '../../ledetekster';
+import { getSykmeldingOpplysning } from '../../utils/dinSykmeldingUtils';
 
 const AndreSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
     const visSeksjon = sykmelding.bekreftelse.sykmelderTlf || sykmelding.bekreftelse.utstedelsesdato;

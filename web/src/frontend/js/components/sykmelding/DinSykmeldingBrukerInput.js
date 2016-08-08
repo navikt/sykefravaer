@@ -1,10 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import { browserHistory } from 'react-router';
-import DropdownWrapper from '../components/DropdownWrapper.js';
-import Dropdown from '../components/Dropdown.js';
-import { getLedetekst } from '../ledetekster';
-import Hjelpetekst from '../components/Hjelpetekst.js';
-import Varselstripe from '../components/Varselstripe';
+import DropdownWrapper from '../skjema/DropdownWrapper.js';
+import Dropdown from '../skjema/Dropdown.js';
+import { getLedetekst } from '../../ledetekster';
+import Hjelpetekst from '../skjema/Hjelpetekst.js';
+import Varselstripe from '../Varselstripe';
 
 class DinSykmeldingBrukerInput extends Component {
 

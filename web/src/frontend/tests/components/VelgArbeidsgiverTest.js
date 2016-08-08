@@ -3,8 +3,8 @@ import React from 'react'
 import {mount, shallow, render} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
-import VelgArbeidsgiver from '../../js/components/VelgArbeidsgiver.js';
-import Radiogruppe from '../../js/components/Radiogruppe.js';
+import VelgArbeidsgiver from '../../js/components/sykmelding/VelgArbeidsgiver.js';
+import Radiogruppe from '../../js/components/skjema/Radiogruppe.js';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

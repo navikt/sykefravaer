@@ -6,7 +6,7 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import HendelseIkon, { getIkon } from "../../js/components/HendelseIkon.js";
+import HendelseIkon, { getIkon } from "../../js/components/tidslinje/HendelseIkon.js";
 
 describe("HendelseIkon", () => {
 

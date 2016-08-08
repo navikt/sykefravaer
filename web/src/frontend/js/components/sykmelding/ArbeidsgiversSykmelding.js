@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import Utvidbar from './Utvidbar.js';
-import SykmeldingPerioder from './SykmeldingPerioder.js';
-import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning.js';
-import { getLedetekst } from '../ledetekster';
-import FlereOpplysninger from './FlereOpplysninger.js';
-import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils';
+import Utvidbar from '../Utvidbar';
+import SykmeldingPerioder from '../sykmeldingOpplysninger/SykmeldingPerioder';
+import { SykmeldingNokkelOpplysning } from '../sykmeldingOpplysninger/SykmeldingOpplysning';
+import { getLedetekst } from '../../ledetekster';
+import FlereOpplysninger from '../sykmeldingOpplysninger/FlereOpplysninger';
+import { getSykmeldingCheckbox } from '../../utils/dinSykmeldingUtils';
 
 const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster, Overskrift = 'H2' }) => {
     return (<Utvidbar

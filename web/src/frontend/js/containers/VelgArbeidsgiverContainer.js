@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions.js';
-import { setArbeidsgiver } from '../actions/dinSykmelding_actions.js';
-import VelgArbeidsgiver from '../components/VelgArbeidsgiver.js';
+import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
+import { setArbeidsgiver } from '../actions/dinSykmelding_actions';
+import VelgArbeidsgiver from '../components/sykmelding/VelgArbeidsgiver';
 import { getLedetekst } from '../ledetekster';
 
 export class Velg extends Component {

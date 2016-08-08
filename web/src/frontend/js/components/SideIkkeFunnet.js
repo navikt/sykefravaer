@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { getLedetekst } from '../ledetekster';
-import Side from '../sider/Side.js';
-import Feilmelding from './Feilmelding.js';
+import Side from '../sider/Side';
+import Feilmelding from './Feilmelding';
 
 const SideIkkeFunnet = ({ ledetekster }) => {
     return (<Side tittel={getLedetekst('404.tittel', ledetekster)}>

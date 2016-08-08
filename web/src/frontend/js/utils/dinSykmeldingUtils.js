@@ -1,6 +1,6 @@
 import React from 'react';
-import { SykmeldingOpplysning } from '../components/SykmeldingOpplysning.js';
-import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox.js';
+import { SykmeldingOpplysning } from '../components/sykmeldingOpplysninger/SykmeldingOpplysning';
+import { SykmeldingCheckbox } from '../components/sykmeldingOpplysninger/SykmeldingCheckbox';
 
 export const getSykmeldingCheckbox = (sykmeldingBolk, felt, tekst, className) => {
     if (sykmeldingBolk[felt]) {

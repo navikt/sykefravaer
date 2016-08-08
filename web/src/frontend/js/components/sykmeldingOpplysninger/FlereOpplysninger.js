@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react';
-import MulighetForArbeid from './MulighetForArbeid.js';
-import Friskmelding from './Friskmelding.js';
-import UtdypendeOpplysninger from './UtdypendeOpplysninger.js';
-import BedreArbeidsevne from './BedreArbeidsevne.js';
-import MeldingTilNAV from './MeldingTilNAV.js';
-import Tilbakedatering from './Tilbakedatering.js';
-import MeldingTilArbeidsgiver from './MeldingTilArbeidsgiver.js';
-import AndreSykmeldingOpplysninger from './AndreSykmeldingOpplysninger.js';
-import { getLedetekst } from '../ledetekster/index';
-import { toDatePrettyPrint } from '../utils/datoUtils';
-import { getSykmeldingOpplysning } from '../utils/dinSykmeldingUtils.js';
+import MulighetForArbeid from './MulighetForArbeid';
+import Friskmelding from './Friskmelding';
+import UtdypendeOpplysninger from './UtdypendeOpplysninger';
+import BedreArbeidsevne from './BedreArbeidsevne';
+import MeldingTilNAV from './MeldingTilNAV';
+import Tilbakedatering from './Tilbakedatering';
+import MeldingTilArbeidsgiver from './MeldingTilArbeidsgiver';
+import AndreSykmeldingOpplysninger from './AndreSykmeldingOpplysninger';
+import { getLedetekst } from '../../ledetekster';
+import { toDatePrettyPrint } from '../../utils/datoUtils';
+import { getSykmeldingOpplysning } from '../../utils/dinSykmeldingUtils';
 
 const FlereOpplysninger = ({ sykmelding, ledetekster }) => {
     return (<div>

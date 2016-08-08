@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import Landingsside from '../components/Landingsside.js';
+import Landingsside from '../components/Landingsside';
 import { connect } from 'react-redux';
-import Side from '../sider/Side.js';
+import Side from '../sider/Side';
 import { getLedetekst } from '../ledetekster';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';

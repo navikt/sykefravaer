@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import SykmeldingPeriode from './SykmeldingPeriode';
-import { getDuration, sorterPerioderEldsteForst } from '../utils/datoUtils';
+import { getDuration, sorterPerioderEldsteForst } from '../../utils/datoUtils';
 
 const SykmeldingPerioder = ({ perioder = [], ledetekster, Overskrift = 'H3' }) => {
     return (<div className="sykmelding-perioder">

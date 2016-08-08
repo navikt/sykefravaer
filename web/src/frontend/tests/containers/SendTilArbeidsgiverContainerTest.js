@@ -12,8 +12,8 @@ const expect = chai.expect;
 import { SendTilArbeidsgiverSide, mapStateToProps } from "../../js/containers/SendTilArbeidsgiverContainer.js";
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
-import SendTilArbeidsgiver from '../../js/components/SendTilArbeidsgiver.js';
-import SykmeldingKvittering from '../../js/components/SykmeldingKvittering.js';
+import SendTilArbeidsgiver from '../../js/components/sykmelding/SendTilArbeidsgiver.js';
+import SykmeldingKvittering from '../../js/components/sykmelding/SykmeldingKvittering.js';
 
 let component;
 

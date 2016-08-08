@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import StatusPanel from './StatusPanel';
-import DineSykmeldingOpplysninger from './DineSykmeldingOpplysninger';
-import Utvidbar from './Utvidbar';
-import { getLedetekst } from '../ledetekster/index';
-import { STATUS } from '../nokkelopplysninger/NokkelOpplysningerEnum';
+import StatusPanel from '../StatusPanel';
+import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmeldingOpplysninger';
+import Utvidbar from '../Utvidbar';
+import { getLedetekst } from '../../ledetekster/index';
+import { STATUS } from '../../nokkelopplysninger/NokkelOpplysningerEnum';
 
 const DinBekreftedeSykmelding = ({ sykmelding, ledetekster }) => {
     return (<div>

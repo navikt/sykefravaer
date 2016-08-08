@@ -6,8 +6,8 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 import ledetekster from "../ledetekster_mock.js";
-import SykmeldingTeaser from "../../js/components/SykmeldingTeaser.js";
-import SykmeldingTeasere from "../../js/components/SykmeldingTeasere.js";
+import SykmeldingTeaser from "../../js/components/sykmeldinger/SykmeldingTeaser.js";
+import SykmeldingTeasere from "../../js/components/sykmeldinger/SykmeldingTeasere.js";
 import SykmeldingerSorteringContainer from "../../js/containers/SykmeldingerSorteringContainer.js";
 
 const sykmeldinger = [{

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import { getDuration } from '../utils/datoUtils';
-import { getLedetekst } from '../ledetekster/index';
+import { getDuration } from '../../utils/datoUtils';
+import { getLedetekst } from '../../ledetekster';
 
 const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekster }) => {
     let ledetekstNokkel = 'sykmelding.teaser.tekst';

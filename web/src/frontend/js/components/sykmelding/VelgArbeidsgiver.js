@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Radiogruppe from './Radiogruppe.js';
-import { getHtmlLedetekst, getLedetekst } from '../ledetekster';
+import Radiogruppe from '../skjema/Radiogruppe';
+import { getHtmlLedetekst, getLedetekst } from '../../ledetekster';
 
 const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere, feilmelding, erFeil, ledetekster }) => {
     return (<div className="blokk">

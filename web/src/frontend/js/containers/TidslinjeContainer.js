@@ -1,12 +1,12 @@
 import React, { PropTypes, Component } from 'react';
-import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne.js';
-import Tidslinje from '../components/Tidslinje.js';
-import AppSpinner from '../components/AppSpinner.js';
-import Feilmelding from '../components/Feilmelding.js';
 import { connect } from 'react-redux';
+import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
+import Tidslinje from '../components/tidslinje/Tidslinje';
+import AppSpinner from '../components/AppSpinner';
+import Feilmelding from '../components/Feilmelding';
 import { getLedetekst } from '../ledetekster';
-import { hentTidslinjer } from '../actions/tidslinjer_actions.js';
-import { setHendelseData } from '../actions/hendelser_actions.js';
+import { hentTidslinjer } from '../actions/tidslinjer_actions';
+import { setHendelseData } from '../actions/hendelser_actions';
 
 export class TidslinjeSide extends Component {
 

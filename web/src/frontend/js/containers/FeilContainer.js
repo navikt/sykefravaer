@@ -1,5 +1,5 @@
 import React from 'react';
-import SideIkkeFunnet from '../components/SideIkkeFunnet.js';
+import SideIkkeFunnet from '../components/SideIkkeFunnet';
 import { connect } from 'react-redux';
 
 const FeilSide = (state) => {

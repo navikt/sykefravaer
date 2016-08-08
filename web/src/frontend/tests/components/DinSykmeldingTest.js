@@ -10,10 +10,10 @@ const expect = chai.expect;
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import DinSykmelding from "../../js/components/DinSykmelding";
-import FlereOpplysninger from "../../js/components/FlereOpplysninger"
+import DinSykmelding from "../../js/components/sykmelding/DinSykmelding";
+import FlereOpplysninger from "../../js/components/sykmeldingOpplysninger/FlereOpplysninger"
 import DinSykmeldingBrukerInputContainer from "../../js/containers/DinSykmeldingBrukerInputContainer";
-import DineSykmeldingOpplysninger from "../../js/components/DineSykmeldingOpplysninger";
+import DineSykmeldingOpplysninger from "../../js/components/sykmeldingOpplysninger/DineSykmeldingOpplysninger";
 
 import { Provider } from 'react-redux';
 

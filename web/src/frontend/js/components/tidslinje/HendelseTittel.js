@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import { getLedetekst } from '../ledetekster';
-import { toDatePrettyPrint } from '../utils/datoUtils.js';
+import { getLedetekst } from '../../ledetekster';
+import { toDatePrettyPrint } from '../../utils/datoUtils';
 import HendelseIkon from './HendelseIkon';
 
 const HendelseTittel = (props) => {

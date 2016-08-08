@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import { getLedetekst } from '../ledetekster';
-import { SykmeldingCheckboxSelvstendig } from './SykmeldingCheckbox.js';
+import { getLedetekst } from '../../ledetekster';
+import { SykmeldingCheckboxSelvstendig } from './SykmeldingCheckbox';
 
 const MeldingTilNAV = ({ sykmelding, ledetekster }) => {
     if (!sykmelding.meldingTilNav.navBoerTaTakISaken) {

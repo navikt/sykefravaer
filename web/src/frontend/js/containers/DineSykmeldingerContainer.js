@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import DineSykmeldinger from '../components/DineSykmeldinger.js';
 import { connect } from 'react-redux';
+import DineSykmeldinger from '../components/sykmeldinger/DineSykmeldinger';
 import Side from '../sider/Side.js';
 import AppSpinner from '../components/AppSpinner.js';
 import { getLedetekst } from '../ledetekster';

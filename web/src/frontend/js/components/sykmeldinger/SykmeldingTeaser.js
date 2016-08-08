@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { getContextRoot } from '../routers/paths';
-import { toDatePrettyPrint } from '../utils/datoUtils';
-import { getLedetekst } from '../ledetekster/index';
+import { getContextRoot } from '../../routers/paths';
+import { toDatePrettyPrint } from '../../utils/datoUtils';
+import { getLedetekst } from '../../ledetekster';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
 
 const PeriodeListe = ({ perioder, arbeidsgiver, ledetekster }) => {

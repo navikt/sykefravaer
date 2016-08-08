@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import Artikkel from '../components/Artikkel.js';
-import Side from '../sider/Side.js';
-import AppSpinner from '../components/AppSpinner.js';
+import Artikkel from '../components/Artikkel';
+import Side from '../sider/Side';
+import AppSpinner from '../components/AppSpinner';
 import { connect } from 'react-redux';
-import { Feilmelding } from '../components/Feilmelding.js';
+import { Feilmelding } from '../components/Feilmelding';
 import { getLedetekst } from '../ledetekster';
 
 export const RollerSide = ({ ledetekster, brodsmuler }) => {

@@ -3,14 +3,14 @@ import React from 'react'
 import { mount, shallow, render } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import Dropdown from '../../js/components/Dropdown.js';
+import Dropdown from '../../js/components/skjema/Dropdown.js';
 import ledetekster from "../ledetekster_mock.js";
 
 chai.use(chaiEnzyme());
 
 const expect = chai.expect;
 
-import DinSykmeldingBrukerInput from "../../js/components/DinSykmeldingBrukerInput.js";
+import DinSykmeldingBrukerInput from "../../js/components/sykmelding/DinSykmeldingBrukerInput.js";
 
 describe("DinSykmeldingBrukerInput", () => {
 

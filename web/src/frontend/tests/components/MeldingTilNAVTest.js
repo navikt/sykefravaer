@@ -10,8 +10,8 @@ const expect = chai.expect;
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import MeldingTilNAV from "../../js/components/MeldingTilNAV.js";
-import DinSykmelding from "../../js/components/DinSykmelding.js";
+import MeldingTilNAV from "../../js/components/sykmeldingOpplysninger/MeldingTilNAV.js";
+import DinSykmelding from "../../js/components/sykmelding/DinSykmelding.js";
 
 let component;
 const middlewares = [thunk];

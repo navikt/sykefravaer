@@ -9,7 +9,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import { Velg, mapStateToProps } from "../../js/containers/VelgArbeidsgiverContainer.js";
-import VelgArbeidsgiver from "../../js/components/VelgArbeidsgiver.js";
+import VelgArbeidsgiver from "../../js/components/sykmelding/VelgArbeidsgiver.js";
 
 describe("VelgArbeidsgiverContainer", () => {
 

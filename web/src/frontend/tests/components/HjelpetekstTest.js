@@ -9,7 +9,7 @@ chai.use(chaiEnzyme());
 
 const expect = chai.expect;
 
-import Hjelpetekst from "../../js/components/Hjelpetekst.js";
+import Hjelpetekst from "../../js/components/skjema/Hjelpetekst.js";
 
 describe("Hjelpetekst", () => {
 

@@ -10,11 +10,11 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import Utvidbar from "../../js/components/Utvidbar.js";
-import FlereOpplysninger from "../../js/components/FlereOpplysninger.js";
+import FlereOpplysninger from "../../js/components/sykmeldingOpplysninger/FlereOpplysninger.js";
 
-import SendTilArbeidsgiver from "../../js/components/SendTilArbeidsgiver.js";
+import SendTilArbeidsgiver from "../../js/components/sykmelding/SendTilArbeidsgiver.js";
 import VelgArbeidsgiverContainer from '../../js/containers/VelgArbeidsgiverContainer.js';
-import ArbeidsgiversSykmelding from "../../js/components/ArbeidsgiversSykmelding.js";
+import ArbeidsgiversSykmelding from "../../js/components/sykmelding/ArbeidsgiversSykmelding.js";
 
 let component;
 let submitHandler;

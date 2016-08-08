@@ -7,7 +7,7 @@ import ledetekster from "../ledetekster_mock.js";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import SykmeldingPeriode from "../../js/components/SykmeldingPeriode.js";
+import SykmeldingPeriode from "../../js/components/sykmeldingOpplysninger/SykmeldingPeriode.js";
 
 describe("SykmeldingPeriode", () => {
 

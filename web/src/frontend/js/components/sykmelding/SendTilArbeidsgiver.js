@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react';
-import { getLedetekst } from '../ledetekster';
-import VelgArbeidsgiverContainer from '../containers/VelgArbeidsgiverContainer.js';
-import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding.js';
-import { scrollTo } from '../utils';
-import Varselstripe from './Varselstripe';
+import { getLedetekst } from '../../ledetekster';
+import VelgArbeidsgiverContainer from '../../containers/VelgArbeidsgiverContainer.js';
+import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
+import { scrollTo } from '../../utils';
+import Varselstripe from '../Varselstripe';
 
 class SendTilArbeidsgiver extends Component {
 

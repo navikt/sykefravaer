@@ -11,7 +11,7 @@ const expect = chai.expect;
 
 
 import StatusOpplysning from '../../js/nokkelopplysninger/NokkelOpplysningerMapper';
-import { SykmeldingNokkelOpplysning } from "../../js/components/SykmeldingOpplysning";
+import { SykmeldingNokkelOpplysning } from "../../js/components/sykmeldingOpplysninger/SykmeldingOpplysning";
 
 
 

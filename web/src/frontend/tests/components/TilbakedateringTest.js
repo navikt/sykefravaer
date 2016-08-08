@@ -8,7 +8,7 @@ import getSykmelding from "../mockSykmeldinger.js";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Tilbakedatering from "../../js/components/Tilbakedatering.js";
+import Tilbakedatering from "../../js/components/sykmeldingOpplysninger/Tilbakedatering.js";
 
 let component;
 

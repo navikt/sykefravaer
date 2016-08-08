@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import SykmeldingTeasere from '../components/SykmeldingTeasere.js';
-import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
-import { sorterSykmeldinger } from '../utils/datoUtils';
-import SykmeldingerSorteringContainer from '../containers/SykmeldingerSorteringContainer.js';
+import SykmeldingTeasere from './SykmeldingTeasere.js';
+import { getLedetekst, getHtmlLedetekst } from '../../ledetekster';
+import { sorterSykmeldinger } from '../../utils/datoUtils';
+import SykmeldingerSorteringContainer from '../../containers/SykmeldingerSorteringContainer';
 
 const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, sortering }) => {
     const nyeSykmeldinger = sykmeldinger.filter((sykmld) => {

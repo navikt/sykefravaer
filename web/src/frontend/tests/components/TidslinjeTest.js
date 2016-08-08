@@ -3,9 +3,9 @@ import React from 'react'
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
-import Tidslinje from "../../js/components/Tidslinje.js";
-import HendelseBoble from "../../js/components/HendelseBoble.js";
-import HendelseTittel from "../../js/components/HendelseTittel.js";
+import Tidslinje from "../../js/components/tidslinje/Tidslinje.js";
+import HendelseBoble from "../../js/components/tidslinje/HendelseBoble.js";
+import HendelseTittel from "../../js/components/tidslinje/HendelseTittel.js";
 import TidslinjeVelgArbeidssituasjonContainer from '../../js/containers/TidslinjeVelgArbeidssituasjonContainer.js';
 
 chai.use(chaiEnzyme());

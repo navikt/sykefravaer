@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
-import { getLedetekst } from '../ledetekster';
 import { Link } from 'react-router';
-import { getContextRoot } from '../routers/paths.js';
-import { scrollTo } from '../utils';
+import { getLedetekst } from '../../ledetekster';
+import { getContextRoot } from '../../routers/paths.js';
+import { scrollTo } from '../../utils';
 
 class SykmeldingKvittering extends Component {
 

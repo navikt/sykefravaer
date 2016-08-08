@@ -9,8 +9,8 @@ chai.use(chaiEnzyme());
 
 const expect = chai.expect;
 
-import Radiogruppe from "../../js/components/Radiogruppe.js";
-import Radioknapp from "../../js/components/Radioknapp.js";
+import Radiogruppe from "../../js/components/skjema/Radiogruppe.js";
+import Radioknapp from "../../js/components/skjema/Radioknapp.js";
 
 describe("Radiogruppe", () => {
 

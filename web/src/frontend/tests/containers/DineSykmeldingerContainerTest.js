@@ -11,7 +11,7 @@ const expect = chai.expect;
 import { DineSykmldSide, mapStateToProps } from "../../js/containers/DineSykmeldingerContainer.js";
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
-import DineSykmeldinger from '../../js/components/DineSykmeldinger.js';
+import DineSykmeldinger from '../../js/components/sykmeldinger/DineSykmeldinger.js';
 
 let component;
 let sykmeldinger;

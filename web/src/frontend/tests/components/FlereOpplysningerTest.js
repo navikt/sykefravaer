@@ -8,15 +8,15 @@ import getSykmelding from "../mockSykmeldinger.js";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import FlereOpplysninger from "../../js/components/FlereOpplysninger.js";
-import Friskmelding from "../../js/components/Friskmelding.js";
-import UtdypendeOpplysninger from "../../js/components/UtdypendeOpplysninger.js";
-import BedreArbeidsevne from "../../js/components/BedreArbeidsevne.js";
-import MeldingTilNAV from "../../js/components/MeldingTilNAV.js";
-import MeldingTilArbeidsgiver from "../../js/components/MeldingTilArbeidsgiver.js";
-import Tilbakedatering from "../../js/components/Tilbakedatering.js";
-import AndreSykmeldingOpplysninger from '../../js/components/AndreSykmeldingOpplysninger.js'
-import MulighetForArbeid from '../../js/components/MulighetForArbeid.js';
+import FlereOpplysninger from "../../js/components/sykmeldingOpplysninger/FlereOpplysninger.js";
+import Friskmelding from "../../js/components/sykmeldingOpplysninger/Friskmelding.js";
+import UtdypendeOpplysninger from "../../js/components/sykmeldingOpplysninger/UtdypendeOpplysninger.js";
+import BedreArbeidsevne from "../../js/components/sykmeldingOpplysninger/BedreArbeidsevne.js";
+import MeldingTilNAV from "../../js/components/sykmeldingOpplysninger/MeldingTilNAV.js";
+import MeldingTilArbeidsgiver from "../../js/components/sykmeldingOpplysninger/MeldingTilArbeidsgiver.js";
+import Tilbakedatering from "../../js/components/sykmeldingOpplysninger/Tilbakedatering.js";
+import AndreSykmeldingOpplysninger from '../../js/components/sykmeldingOpplysninger/AndreSykmeldingOpplysninger.js'
+import MulighetForArbeid from '../../js/components/sykmeldingOpplysninger/MulighetForArbeid.js';
 
 let component;
 

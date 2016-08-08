@@ -8,8 +8,8 @@ import getSykmelding from '../mockSykmeldinger.js';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import DineSykmeldinger from "../../js/components/DineSykmeldinger.js";
-import SykmeldingTeasere from '../../js/components/SykmeldingTeasere.js';
+import DineSykmeldinger from "../../js/components/sykmeldinger/DineSykmeldinger.js";
+import SykmeldingTeasere from '../../js/components/sykmeldinger/SykmeldingTeasere.js';
 
 describe("Dine sykmeldinger", () => {
 

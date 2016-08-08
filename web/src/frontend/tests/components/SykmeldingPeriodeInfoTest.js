@@ -6,7 +6,7 @@ import ledetekster from "../ledetekster_mock.js";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import SykmeldingPeriodeInfo from "../../js/components/SykmeldingPeriodeInfo.js";
+import SykmeldingPeriodeInfo from "../../js/components/sykmeldinger/SykmeldingPeriodeInfo.js";
 
 const periode = {
             "fom": { year: 2016, monthValue: 5, dayOfMonth: 1 },

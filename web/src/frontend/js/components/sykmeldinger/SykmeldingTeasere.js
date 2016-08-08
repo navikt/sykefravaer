@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import SykmeldingTeaser from './SykmeldingTeaser.js';
+import SykmeldingTeaser from './SykmeldingTeaser';
 
 const SykmeldingTeasere = ({ sykmeldinger, ledetekster, className, tittel = '', ingenSykmeldingerMelding, id, children }) => {
     return (<div className="blokk-l">

@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import { toDatePrettyPrint } from '../utils/datoUtils';
-import { getLedetekst } from '../ledetekster/index';
-import Utvidbar from '../components/Utvidbar';
+import { toDatePrettyPrint } from '../../utils/datoUtils';
+import { getLedetekst } from '../../ledetekster';
+import Utvidbar from '../Utvidbar';
 import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning';
 import SykmeldingPerioder from './SykmeldingPerioder';
-import { getSykmeldingCheckbox } from '../utils/dinSykmeldingUtils';
-import { SykmeldingCheckbox } from '../components/SykmeldingCheckbox';
+import { SykmeldingCheckbox } from './SykmeldingCheckbox';
 import FlereOpplysninger from './FlereOpplysninger';
+import { getSykmeldingCheckbox } from '../../utils/dinSykmeldingUtils';
 
 const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
     return (<div className="dine-sykmelding-opplysninger">

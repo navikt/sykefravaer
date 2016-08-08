@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import { toDatePrettyPrint } from '../utils/datoUtils';
-import { getLedetekst } from '../ledetekster/index';
+import { toDatePrettyPrint } from '../../utils/datoUtils';
+import { getLedetekst } from '../../ledetekster';
 
 const SykmeldingPeriode = ({ periode, antallDager = 1, ledetekster, Overskrift = 'H3' }) => {
     const dagNokkel = antallDager === 1 ? 'din-sykmelding.periode.dag' : 'din-sykmelding.periode.dager';

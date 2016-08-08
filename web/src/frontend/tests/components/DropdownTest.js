@@ -10,7 +10,7 @@ chai.use(chaiEnzyme());
 
 const expect = chai.expect;
 
-import Dropdown from "../../js/components/Dropdown.js";
+import Dropdown from "../../js/components/skjema/Dropdown.js";
 
 describe("Dropdown", () => { 
 

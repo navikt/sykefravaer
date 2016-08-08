@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Hjelpetekst from './Hjelpetekst.js';
+import Hjelpetekst from './skjema/Hjelpetekst';
 
 const Radiofaner = ({ alternativer = [], valgtAlternativ, changeHandler, className, radioName }) => {
     return (<div className="radiofaner-container"><ul className={`radiofaner ${className}`}>

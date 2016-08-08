@@ -83,6 +83,7 @@ export class Utvidbar extends Component {
             hoyde,
             hindreToggle: true,
         });
+        this.refs['js-toggle'].focus();
         setTimeout(() => {
             this.setState({
                 containerClassName: ' med-animasjon',
@@ -116,6 +117,7 @@ export class Utvidbar extends Component {
     render() {
         return (<div ref="utvidbar" className={`utvidbar ${this.props.className ? this.props.className : ''}`} aria-expanded={this.state.erApen}>
                 <a href="javscript:void(0)"
+                    ref="js-toggle"
                     role="button"
                     aria-expanded={this.state.erApen}
                     onMouseEnter={() => {this.onMouseEnter();}}

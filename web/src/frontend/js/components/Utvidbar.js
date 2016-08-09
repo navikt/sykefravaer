@@ -116,8 +116,9 @@ export class Utvidbar extends Component {
     }
 
     render() {
-        return (<div ref="utvidbar" className={`utvidbar ${this.props.className ? this.props.className : ''}`} aria-expanded={this.state.erApen}>
+        return (<div ref="utvidbar" className={`utvidbar ${this.props.className ? this.props.className : ''}`}>
                 <a href="javscript:void(0)"
+                    aria-expanded={this.state.erApen}
                     ref="js-toggle"
                     role="button"
                     aria-expanded={this.state.erApen}

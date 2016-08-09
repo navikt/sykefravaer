@@ -68,7 +68,9 @@ class DinSykmeldingBrukerInput extends Component {
                 this.valider(sykmelding);
             }}>
                 <div className="hjelpetekst-parent hjelpetekst-parent-inline">
-                    <h3 className="skjema-sporsmal med-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster.data)}</h3>
+                    <label htmlFor="select-arbeidssituasjon" className="skjema-sporsmal med-hjelpetekst">
+                        {getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster.data)}
+                    </label>
                     <Hjelpetekst
                         id="velg-arbeidssituasjon-hjelpetekst"
                         tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tittel', ledetekster.data)}
@@ -78,7 +80,7 @@ class DinSykmeldingBrukerInput extends Component {
                     <DropdownWrapper erFeil={this.state.forsoktSendt}
                         feilmelding={getLedetekst('din-sykmelding.arbeidssituasjon.feilmelding', ledetekster.data)}>
                         <div className="select-container">
-                            <Dropdown alternativer={this.getArbeidssituasjoner()}
+                            <Dropdown id="select-arbeidssituasjon" alternativer={this.getArbeidssituasjoner()}
                                 valgtAlternativ={sykmelding.arbeidssituasjon}
                                 onChange={(status) => {this.onDropdownChange(status);}} />
                         </div>

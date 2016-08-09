@@ -8,11 +8,11 @@ import { SykmeldingCheckbox } from './SykmeldingCheckbox';
 import FlereOpplysninger from './FlereOpplysninger';
 import { getSykmeldingCheckbox } from '../../utils/dinSykmeldingUtils';
 
-const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
+const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster, Overskrift = 'H2' }) => {
     return (<div className="dine-sykmelding-opplysninger">
-        <h2 className="typo-innholdstittel blokk-l">
+        <Overskrift className="typo-innholdstittel blokk-l">
             {getLedetekst('din-sykmelding.tittel', ledetekster)}
-        </h2>
+        </Overskrift>
         <div className="blokk-l side-innhold">
             <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} ledetekster={ledetekster} />
             {
@@ -117,6 +117,7 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
 DineSykmeldingOpplysninger.propTypes = {
     sykmelding: PropTypes.object,
     ledetekster: PropTypes.object,
+    Overskrift: PropTypes.string,
 };
 
 export default DineSykmeldingOpplysninger;

@@ -12,11 +12,13 @@ const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false
             <h1 className="header-tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h1>
         </div>
         <div className="panel blokk">
-            <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
-                {
-                    (visSendTilArbeidsgiver) ?
-                        <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} /> : null
-                }
+            <div className={visSendTilArbeidsgiver ? 'blokk' : null}>
+                <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
+            </div>
+            {
+                (visSendTilArbeidsgiver) ?
+                    <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} /> : null
+            }
         </div>
     </div>);
 };

@@ -142,7 +142,7 @@ export class Utvidbar extends Component {
                                     <button type="button"
                                         className="lenke"
                                         aria-pressed={!this.state.erApen}
-                                        tabIndex={this.state.erApen ? '' : '-1'}
+                                        tabIndex={this.state.erApen ? null : '-1'}
                                         onClick={(event) => {this.toggle(event);}}>Lukk</button>
                                 </div>
                             </div>

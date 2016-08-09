@@ -83,7 +83,6 @@ export class Utvidbar extends Component {
             hoyde,
             hindreToggle: true,
         });
-        this.refs['js-toggle'].focus();
         setTimeout(() => {
             this.setState({
                 containerClassName: ' med-animasjon',
@@ -100,6 +99,9 @@ export class Utvidbar extends Component {
                 scrollTo(this.refs.utvidbar, 600);
             }
         }, 500);
+        setTimeout(() => {
+            this.refs['js-toggle'].focus();
+        }, 300);
     }
 
     toggle(e) {

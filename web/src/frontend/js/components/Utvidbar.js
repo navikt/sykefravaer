@@ -30,6 +30,25 @@ export class Utvidbar extends Component {
         });
     }
 
+    onTransitionEnd() {
+        if (this.state.erApen) {
+            scrollTo(this.refs.utvidbar, 600);
+            this.setState({
+                hindreToggle: false,
+            });
+            this.setAutoHoyde();
+        } else {
+            this.setState({
+                hindreToggle: false,
+                visInnhold: false,
+            });
+            if (!erSynligIViewport(this.refs.utvidbar)) {
+                scrollTo(this.refs.utvidbar, 600);
+            }
+            this.refs['js-toggle'].focus();
+        }
+    }
+
     getHeaderClassName() {
         let c = !this.state.erApen ? 'utvidbar-header' : 'utvidbar-header utvidbar-header-apen';
         if (this.props.variant) {
@@ -67,14 +86,6 @@ export class Utvidbar extends Component {
                 hoyde,
             });
         }, 0);
-
-        setTimeout(() => {
-            scrollTo(this.refs.utvidbar, 600);
-            this.setState({
-                hindreToggle: false,
-            });
-            this.setAutoHoyde();
-        }, 300);
     }
 
     lukk() {
@@ -90,18 +101,6 @@ export class Utvidbar extends Component {
                 erApen: false,
             });
         }, 0);
-        setTimeout(() => {
-            this.setState({
-                hindreToggle: false,
-                visInnhold: false,
-            });
-            if (!erSynligIViewport(this.refs.utvidbar)) {
-                scrollTo(this.refs.utvidbar, 600);
-            }
-        }, 500);
-        setTimeout(() => {
-            this.refs['js-toggle'].focus();
-        }, 300);
     }
 
     toggle(e) {
@@ -132,7 +131,9 @@ export class Utvidbar extends Component {
                         <span className="header-tittel">{this.props.tittel}</span>
                     </this.props.Overskrift>
                 </a>
-                <div ref="container" style={{ height: this.state.hoyde }} className={`utvidbar-innhold-container${this.state.containerClassName}`}>
+                <div ref="container" style={{ height: this.state.hoyde }} className={`utvidbar-innhold-container${this.state.containerClassName}`} onTransitionEnd={() => {
+                    this.onTransitionEnd();
+                }}>
                     <div className="utvidbar-innhold" ref="innhold">
                         {
                             this.state.visInnhold && <div>

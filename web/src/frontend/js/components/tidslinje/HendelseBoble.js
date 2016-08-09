@@ -28,6 +28,28 @@ BobleHeader.propTypes = {
 
 class HendelseBoble extends Component {
 
+    onTransitionEnd() {
+        if (!this.props.erApen) {
+            this.props.setHendelseState({
+                visBudskap: false,
+                medAnimasjon: false,
+                hindreToggle: false,
+            });
+        } else {
+            scrollTo(this.refs['boble-header'], 1000);
+            this.props.setHendelseState({
+                medAnimasjon: false,
+                hoyde: 'auto',
+                hindreToggle: false,
+            });
+            setTimeout(() => {
+                this.props.setHendelseState({
+                    medAnimasjon: true,
+                });
+            }, 20);
+        }
+    }
+
     getContainerClass() {
         let className = this.props.erApen ? 'boble-budskap-container er-apen' : 'boble-budskap-container';
         if (this.props.medAnimasjon) {
@@ -68,19 +90,6 @@ class HendelseBoble extends Component {
                 erApen: true,
             });
         }, 0);
-        setTimeout(() => {
-            scrollTo(this.refs['boble-header'], 1000);
-            this.props.setHendelseState({
-                medAnimasjon: false,
-                hoyde: 'auto',
-                hindreToggle: false,
-            });
-            setTimeout(() => {
-                this.props.setHendelseState({
-                    medAnimasjon: true,
-                });
-            }, 20);
-        }, 300);
     }
 
     lukk() {
@@ -95,13 +104,6 @@ class HendelseBoble extends Component {
                 erApen: false,
             });
         }, 0);
-        setTimeout(() => {
-            this.props.setHendelseState({
-                visBudskap: false,
-                medAnimasjon: false,
-                hindreToggle: false,
-            });
-        }, 300);
     }
 
     toggle(e) {
@@ -133,7 +135,10 @@ class HendelseBoble extends Component {
                         <div
                             aria-hidden={!this.props.erApen}
                             style={this.props.hoyde ? { height: this.props.hoyde } : {}}
-                            className={this.getContainerClass()}>
+                            className={this.getContainerClass()}
+                            onTransitionEnd={() => {
+                                this.onTransitionEnd();
+                            }}>
                             <div ref="js-budskap">
                                 <TidslinjeBudskap
                                     vis={this.props.visBudskap}

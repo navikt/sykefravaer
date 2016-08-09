@@ -8,6 +8,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import Landingsside, { GenerellInfo } from "../../js/components/Landingsside.js";
+import LandingssideLenke from "../../js/components/LandingssideLenke.js";
 import UnderUtviklingVarselContainer from "../../js/containers/UnderUtviklingVarselContainer.js"
 
 describe("Sykmelding og oppfolging", () => {
@@ -26,7 +27,7 @@ describe("Sykmelding og oppfolging", () => {
 
     it("Skal vise lenkeboks til dine sykmeldinger", () => {
         component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={true}/>);
-        expect(component.find(".js-dine-sykmeldinger-lenke")).to.have.length(1);
+        expect(component.find(LandingssideLenke)).to.have.length(1);
     });
 
     it("Skal vise generell informasjon", () => {

@@ -1,7 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
-import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer.js';
+import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer';
+import LandingssideLenke from './LandingssideLenke';
 
 export class GenerellInfo extends Component {
     componentDidMount() {
@@ -56,11 +57,11 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
                 </div>
             </div>
         </article>
-        <Link className="landingsside-lenke js-dine-sykmeldinger-lenke" to="/sykefravaer/sykmeldinger">
-            <img src="/sykefravaer/img/svg/doctor-2.svg" alt="Lege" className="landingsside-lenke-ikon" />
-            <img src="/sykefravaer/img/svg/doctor-2-highcontrast.svg" alt="Lege" className="landingsside-lenke-ikon landingsside-lenke-ikon-hoykontrast" />
-            <span>{getLedetekst('landingsside.tilsykmeldinger.lenketekst', ledetekster)}</span>
-        </Link>
+        <nav role="navigation">
+            <LandingssideLenke to="/sykefravaer/sykmeldinger" ikonAlt="Lege">
+                {getLedetekst('landingsside.tilsykmeldinger.lenketekst', ledetekster)}
+            </LandingssideLenke>
+        </nav>
         <GenerellInfo ledetekster={ledetekster} />
     </div>);
 };

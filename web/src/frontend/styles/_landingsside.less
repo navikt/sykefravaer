@@ -1,3 +1,29 @@
+.landingsside-banner {
+  .mixin-panel-padding();
+  background-color: @white;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  display: block;
+  color: @color-text;
+
+  &:focus {
+    background-color: @white;
+    box-shadow: 0 0 0 3px @color-focus;
+  }
+
+}
+
+.landingsside-intro {
+  color: @color-text;
+
+  .lenke-fremhevet {
+    color: @color-link;
+  }
+  
+}
+
 .landingsside-intro-bilde {
   max-width: 18rem;
 }
@@ -5,6 +31,8 @@
 .landingsside-intro img {
   width: 100%;
 } 
+
+
 
 @media (min-width: @screen-small) {
   .landingsside-intro {
@@ -23,15 +51,7 @@
 
 .landingsside-lenke {
 
-  .mixin-panel-padding();
   .mixin-typo-undertittel();
-  background-color: @white;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  width: 100%;
-  margin-bottom: 2rem;
-  display: block;
-  color: @color-text;
   background-image: data-uri("../img/svg/pil-videre-graa.svg");
   background-repeat: no-repeat;
   background-position: 97% 50%;
@@ -43,11 +63,6 @@
   &:hover {
     background-image: data-uri("../img/svg/pil-videre-blaa.svg");
     color: @color-link;
-  }
-
-  &:focus {
-    background-color: @white;
-    box-shadow: 0 0 0 3px @color-focus;
   }
 
 }

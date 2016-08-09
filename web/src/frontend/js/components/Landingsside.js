@@ -42,22 +42,22 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
         {
             (!skjulVarsel ? <UnderUtviklingVarselContainer ledetekster={ledetekster} /> : null)
         }
-        <article className="panel js-intro-banner blokk side-innhold">
-            <div className="landingsside-intro">
-                <div className="landingsside-intro-bilde">
-                    <img src="/sykefravaer/img/svg/illustrasjon-landingsside-2.svg"
-                        alt="Samtale mellom deg, lege, arbeidsgiver og NAV" />
-                </div>
-                <div className="landingsside-intro-innhold">
-                    <h2 className="typo-undertittel">{getLedetekst('landingsside.intro.tittel', ledetekster)}</h2>
-                    <p>{getLedetekst('landingsside.intro.tekst', ledetekster)} </p>
-                    <p className="ustilet">
-                        <Link to="/sykefravaer/tidslinjen">{getLedetekst('landingsside.intro.lenketekst', ledetekster)}</Link>
-                    </p>
-                </div>
-            </div>
-        </article>
         <nav role="navigation">
+            <Link className="landingsside-banner js-intro-banner side-innhold" to="/sykefravaer/tidslinjen">
+                <div className="landingsside-intro">
+                    <div className="landingsside-intro-bilde">
+                        <img src="/sykefravaer/img/svg/illustrasjon-landingsside-2.svg"
+                            alt={getLedetekst('landingsside.intro.lenketekst', ledetekster)} />
+                    </div>
+                    <div className="landingsside-intro-innhold">
+                        <h2 className="typo-undertittel">{getLedetekst('landingsside.intro.tittel', ledetekster)}</h2>
+                        <p>{getLedetekst('landingsside.intro.tekst', ledetekster)} </p>
+                        <p className="ustilet">
+                            <span className="lenke-fremhevet">{getLedetekst('landingsside.intro.lenketekst', ledetekster)}</span>
+                        </p>
+                    </div>
+                </div>
+            </Link>    
             <LandingssideLenke to="/sykefravaer/sykmeldinger" ikonAlt="Lege">
                 {getLedetekst('landingsside.tilsykmeldinger.lenketekst', ledetekster)}
             </LandingssideLenke>

@@ -25,7 +25,7 @@ export default class LandingssideLenke extends Component {
     }
 
     render() {
-        return (<Link className="landingsside-lenke" to={this.props.to}
+        return (<Link className="landingsside-banner landingsside-lenke" to={this.props.to}
             onMouseEnter={() => {this.onMouseEnter();}}
             onMouseLeave={() => {this.onMouseLeave();}}>
             <img src={`/sykefravaer/img/svg/${this.state.ikon}`} alt={this.props.ikonAlt} className="landingsside-lenke-ikon" />

@@ -57,7 +57,7 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
                         </p>
                     </div>
                 </div>
-            </Link>    
+            </Link>
             <LandingssideLenke to="/sykefravaer/sykmeldinger" ikonAlt="Lege">
                 {getLedetekst('landingsside.tilsykmeldinger.lenketekst', ledetekster)}
             </LandingssideLenke>

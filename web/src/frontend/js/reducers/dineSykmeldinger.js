@@ -43,7 +43,7 @@ export default function sykmeldinger(state = initiellState, action) {
         }
         case 'SET_ARBEIDSSITUASJON': {
             const data = state.data.map((sykmelding) => {
-                const _sykmelding = sykmelding;
+                const _sykmelding = Object.assign({}, sykmelding);
                 if (_sykmelding.id === action.sykmeldingId) {
                     _sykmelding.arbeidssituasjon = action.arbeidssituasjon;
                 }
@@ -53,7 +53,7 @@ export default function sykmeldinger(state = initiellState, action) {
         }
         case 'SYKMELDING_BEKREFTET': {
             const data = state.data.map((sykmelding) => {
-                const _sykmelding = sykmelding;
+                const _sykmelding = Object.assign({}, sykmelding);
                 if (_sykmelding.id === action.sykmeldingId) {
                     _sykmelding.status = 'BEKREFTET';
                     _sykmelding.nettoppBekreftet = true;
@@ -64,7 +64,7 @@ export default function sykmeldinger(state = initiellState, action) {
         }
         case 'NAVIGER_FRA_BEKREFTETKVITTERING': {
             const data = state.data.map((sykmelding) => {
-                const _sykmelding = sykmelding;
+                const _sykmelding = Object.assign({}, sykmelding);
                 if (_sykmelding.id === action.sykmeldingId) {
                     _sykmelding.nettoppBekreftet = false;
                 }
@@ -73,8 +73,9 @@ export default function sykmeldinger(state = initiellState, action) {
             return Object.assign({}, state, { data });
         }
         case 'SET_SORTERING': {
-            const sortering = state.sortering || {};
+            let sortering = {};
             sortering[action.status] = action.kriterium;
+            sortering = Object.assign({}, state.sortering, sortering);
             return Object.assign({}, state, {
                 sortering,
             });

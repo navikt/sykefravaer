@@ -1,5 +1,6 @@
 import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
+import deepFreeze from 'deep-freeze';
 
 window.localStorage = {
     getItem: (item) => {
@@ -19,13 +20,13 @@ describe('brukerinfo', () => {
     })
 
     it("Håndterer skjulUnderUtviklingVarsel dersom state ikke er tom", () => {
-        initiellState = {
+        initiellState = deepFreeze({
             bruker: {
                 data: {
                     navn: "Helge"
                 }
             }
-        }
+        });
         const nextState = brukerinfo(initiellState, actions.skjulUnderUtviklingVarsel());
         expect(nextState).to.deep.equal({
             bruker: {
@@ -36,14 +37,14 @@ describe('brukerinfo', () => {
             innstillinger: {
                 skjulUnderUtviklingVarsel: true,
             }
-        })
+        });
 
-        initiellState = {
+        initiellState2 = deepFreeze({
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
             }
-        }
-        const nextState2 = brukerinfo(initiellState, actions.skjulUnderUtviklingVarsel());
+        });
+        const nextState2 = brukerinfo(initiellState2, actions.skjulUnderUtviklingVarsel());
         expect(nextState2).to.deep.equal({
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
@@ -53,7 +54,7 @@ describe('brukerinfo', () => {
     });
 
     it("Håndterer skjulUnderUtviklingVarsel dersom state er tom", () => {
-        initiellState = {}
+        initiellState = deepFreeze({});
         const nextState = brukerinfo(initiellState, actions.skjulUnderUtviklingVarsel());
         expect(nextState).to.deep.equal({
             innstillinger: {
@@ -64,11 +65,11 @@ describe('brukerinfo', () => {
     });    
 
     it("Håndterer hentBrukerinfoFeilet når skjulUnderUtviklingVarsel === false", () => {
-        initiellState = {
+        initiellState = deepFreeze({
             innstillinger: {
                 skjulUnderUtviklingVarsel: false
             }
-        }
+        });
         const nextState = brukerinfo(initiellState, actions.hentBrukerinfoFeilet());
         expect(nextState).to.deep.equal({
             bruker: {
@@ -83,13 +84,13 @@ describe('brukerinfo', () => {
     });
 
     it("Håndterer hentBrukerinfoFeilet når skjulUnderUtviklingVarsel === true", () => {
-        initiellState = {
+        initiellState = deepFreeze({
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
             }
-        }
-        const nextState2 = brukerinfo(initiellState, actions.hentBrukerinfoFeilet());
-        expect(nextState2).to.deep.equal({
+        });
+        const nextState = brukerinfo(initiellState, actions.hentBrukerinfoFeilet());
+        expect(nextState).to.deep.equal({
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
             },
@@ -102,11 +103,12 @@ describe('brukerinfo', () => {
     })
 
     it("Håndterer henterBrukerinfo når skjulUnderUtviklingVarsel === true", () => {
-        const nextState = brukerinfo({
+        initiellState = deepFreeze({
             innstillinger: {
                 skjulUnderUtviklingVarsel : true
             }
-        }, actions.henterBrukerinfo());
+        });
+        const nextState = brukerinfo(initiellState, actions.henterBrukerinfo());
         expect(nextState).to.deep.equal({
             bruker: {
                 henter: true,
@@ -120,11 +122,12 @@ describe('brukerinfo', () => {
     });   
 
     it("Håndterer henterBrukerinfo når skjulUnderUtviklingVarsel === false", () => {
-        const nextState = brukerinfo({
+        initiellState = deepFreeze({
             innstillinger: {
                 skjulUnderUtviklingVarsel : false
             }
-        }, actions.henterBrukerinfo());
+        });
+        const nextState = brukerinfo(initiellState, actions.henterBrukerinfo());
         expect(nextState).to.deep.equal({
             bruker: {
                 data: {},
@@ -158,7 +161,7 @@ describe('brukerinfo', () => {
     });
 
     it("Håndterer setBrukerinfo når brukerinfo finnes fra før (1)", () => {
-        initiellState = {
+        initiellState = deepFreeze({
             bruker: {
                 data: {
                     navn: "Christian",
@@ -168,7 +171,7 @@ describe('brukerinfo', () => {
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
             }
-        };
+        });
         const nextState1 = brukerinfo(initiellState, actions.setBrukerinfo({
             navn: "Helge",
             alder: 32
@@ -190,13 +193,13 @@ describe('brukerinfo', () => {
     });    
 
     it("Håndterer setBrukerinfo når brukerinfo finnes fra før (2)", () => {
-        initiellState = {
+        initiellState = deepFreeze({
             bruker: {
                 data: {},
                 hentingFeilet: true,
                 henter: false
             }
-        };
+        });
         const nextState2 = brukerinfo(initiellState, actions.setBrukerinfo({
             navn: "Helge",
             alder: 32
@@ -217,10 +220,10 @@ describe('brukerinfo', () => {
     });
 
     it("Håndterer setArbeidssituasjon", () => {
-        initiellState = {
+        initiellState = deepFreeze({
             innstillinger: {},
             bruker: {}
-        };
+        });
         const nyState = brukerinfo(initiellState, actions.setArbeidssituasjon("MED_ARBEIDSGIVER")); 
         expect(nyState).to.deep.equal({
             bruker: {},

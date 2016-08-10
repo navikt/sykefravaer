@@ -48,7 +48,7 @@ function bruker(state = {}, action) {
         }
         case 'SET_BRUKERINFO': {
             const data = Object.assign({}, action.data);
-            return Object.assign(state, {
+            return Object.assign({}, state, {
                 henter: false,
                 hentingFeilet: false,
             }, {

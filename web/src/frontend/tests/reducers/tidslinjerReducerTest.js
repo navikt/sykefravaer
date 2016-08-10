@@ -1,4 +1,5 @@
 import {expect} from 'chai';
+import deepFreeze from 'deep-freeze';
 
 import tidslinjer, { settHendelseIder, leggTilTidshendelser, sorterHendelser } from '../../js/reducers/tidslinjer.js';
 
@@ -6,11 +7,11 @@ describe('tidslinjer', () => {
 
     describe("settHendelseIder", () => {
         it("Setter ID", () => {
-            const tidslinjer = [{
+            const tidslinjer = deepFreeze([{
                 hendelser: [{}, {}]
             }, {
                 hendelser: [{}, {}, {}]
-            }]
+            }]);
             const res = settHendelseIder(tidslinjer);
             expect(res).to.deep.equal([{
                 hendelser: [{id: "00"}, {id: "01"}]
@@ -22,7 +23,7 @@ describe('tidslinjer', () => {
 
     describe("leggTilTidshendelser", () => {
         it("Legger til tidshendelser", () => {
-            const data = [{
+            const data = deepFreeze([{
                 hendelser: [{
                     antallDager: 0
                 }, {
@@ -30,7 +31,7 @@ describe('tidslinjer', () => {
                 }, {
                     antallDager: 49
                 }]
-            }];
+            }]);
             const res = leggTilTidshendelser(data);
             expect(res).to.deep.equal([{
                 hendelser: [{
@@ -68,7 +69,7 @@ describe('tidslinjer', () => {
 
 
     it("Håndterer HENT_TIDSLINJER_FEILET", () => {
-        const initiellState = {};
+        const initiellState = deepFreeze({});
         const action = {
             type: "HENT_TIDSLINJER_FEILET"
         }
@@ -81,7 +82,7 @@ describe('tidslinjer', () => {
     });
 
     it("Håndterer HENTER_TIDSLINJER", () => {
-        const initiellState = {};
+        const initiellState = deepFreeze({});
         const action = {
             type: "HENTER_TIDSLINJER"
         }
@@ -94,13 +95,13 @@ describe('tidslinjer', () => {
     });
 
     it("Sorterer hendelser", () => {
-        const hendelser = [{antallDager: 52}, { antallDager: 0}, {antallDager: 80}];
+        const hendelser = deepFreeze([{antallDager: 52}, { antallDager: 0}, {antallDager: 80}]);
         const res = sorterHendelser(hendelser);
         expect(res).to.deep.equal([{antallDager: 0}, { antallDager: 52}, {antallDager: 80}])
     });
 
     it("Håndterer SET_TIDSLINJER når sykeforløpet har en startdato", () => {
-        const initiellState = {};
+        const initiellState = deepFreeze({});
         const action = {
             type: "SET_TIDSLINJER",
             tidslinjer: [{
@@ -273,7 +274,7 @@ describe('tidslinjer', () => {
     });
 
     it("Håndterer SET_TIDSLINJER når sykeforløpet ikke har en startdato", () => {
-        const initiellState = {};
+        const initiellState = deepFreeze({});
         const action = {
             type: "SET_TIDSLINJER",
             tidslinjer: [{
@@ -404,7 +405,7 @@ describe('tidslinjer', () => {
     });
 
     it("Håndterer SET_TIDSLINJER når sykeforløpet har hendelser med ID", () => {
-        const initiellState = {};
+        const initiellState = deepFreeze({});
         const action = {
             type: "SET_TIDSLINJER",
             tidslinjer: [{
@@ -578,7 +579,7 @@ describe('tidslinjer', () => {
 
 
     it("Håndterer ÅPNE_HENDELSER", () => {
-        const initiellState = {
+        const initiellState = deepFreeze({
             data: [{
                 hendelser: [{
                     id: 0,
@@ -599,7 +600,7 @@ describe('tidslinjer', () => {
             }],
             henter: false,
             hentingFeilet: false
-        };
+        });
         const action = {
             type: 'ÅPNE_HENDELSER',
             hendelseIder: [0, 2, 3]
@@ -637,7 +638,7 @@ describe('tidslinjer', () => {
 
 
     it("Håndterer SET_HENDELSEDATA", () => {
-        const initiellState = {
+        const initiellState = deepFreeze({
             data: [{
                 hendelser: [{
                     id: 0,
@@ -652,7 +653,7 @@ describe('tidslinjer', () => {
             }],
             henter: false,
             hentingFeilet: false,
-        };
+        });
         const action = {
             type: 'SET_HENDELSEDATA',
             hendelseId: 1,

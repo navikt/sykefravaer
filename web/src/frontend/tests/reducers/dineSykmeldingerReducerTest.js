@@ -7,9 +7,9 @@ import dineSykmeldinger from '../../js/reducers/dineSykmeldinger.js';
 describe('dineSykmeldinger', () => {
 
     it('håndterer SET_DINE_SYKMELDINGER når man ikke har sykmeldinger fra før', () => {
-        const initialState = {
+        const initialState = deepFreeze({
             data: []
-        };
+        });
         const action = {
             type: 'SET_DINE_SYKMELDINGER',
             sykmeldinger: [{
@@ -30,7 +30,7 @@ describe('dineSykmeldinger', () => {
     });
 
     it('håndterer SET_DINE_SYKMELDINGER når man har sykmeldinger fra før, ved å kun overskrive properties som finnes', () => {
-        const initialState = {
+        const initialState = deepFreeze({
             data: [{
                 id: 44, 
                 fornavn: "Harald",
@@ -41,7 +41,7 @@ describe('dineSykmeldinger', () => {
                 fornavn: "Sonja",
                 etternavn: "Haraldsen"
             }]
-        };
+        });
         const action = {
             type: 'SET_DINE_SYKMELDINGER',
             sykmeldinger: [{
@@ -75,9 +75,9 @@ describe('dineSykmeldinger', () => {
     });
 
     it("Håndterer HENTER_DINE_SYKMELDINGER når man ikke har data fra før", () => {
-        const initialState = {
+        const initialState = deepFreeze({
             data: []
-        };
+        });
         const action = {
             type: "HENTER_DINE_SYKMELDINGER"
         }
@@ -90,13 +90,13 @@ describe('dineSykmeldinger', () => {
     });
 
     it("Håndterer HENTER_DINE_SYKMELDINGER når man har data fra før", () => {
-        const initialState = {
+        const initialState = deepFreeze({
             data: [{
                 id: 77, 
             }, {
                 id: 6789
             }]
-        };
+        });
         const action = {
             type: "HENTER_DINE_SYKMELDINGER"
         }
@@ -113,7 +113,7 @@ describe('dineSykmeldinger', () => {
     });
 
     it("Håndterer HENT_DINE_SYKMELDINGER_FEILET", () => {
-        const initialState = {};
+        const initialState = deepFreeze({});
         const action = {
             type: "HENT_DINE_SYKMELDINGER_FEILET"
         }
@@ -126,7 +126,7 @@ describe('dineSykmeldinger', () => {
     });
 
     it("håndterer SET_SORTERING dersom man ikke har sortering fra før", () => {
-        const initialState = {};
+        const initialState = deepFreeze({});
         const action = {
             type: "SET_SORTERING",
             kriterium: "arbeidsgiver",
@@ -142,11 +142,11 @@ describe('dineSykmeldinger', () => {
     });
 
     it("håndterer SET_SORTERING dersom man har sortering fra før", () => {
-        const initialState = {
+        const initialState = deepFreeze({
             sortering: {
                 tidligere: "dato"
             }
-        };
+        });
         const action = {
             type: "SET_SORTERING",
             kriterium: "arbeidsgiver",
@@ -162,11 +162,11 @@ describe('dineSykmeldinger', () => {
     });
 
     it("håndterer SET_SORTERING dersom man har sortering fra før, men ikke for den innsendte statusen", () => {
-        const initialState = {
+        const initialState = deepFreeze({
             sortering: {
                 tidligere: "dato"
             }
-        };
+        });
         const action = {
             type: "SET_SORTERING",
             kriterium: "arbeidsgiver",
@@ -184,13 +184,13 @@ describe('dineSykmeldinger', () => {
 
 
     it('håndterer SET_ARBEIDSSITUASJON', () => {
-        const initialState = {
+        const initialState = deepFreeze({
             data: [{
                 id: 23,
             }, {
                 id: 24,
             }]
-        };
+        });
         const action = {
             type: 'SET_ARBEIDSSITUASJON',
             arbeidssituasjon: 'test',
@@ -209,13 +209,13 @@ describe('dineSykmeldinger', () => {
     });
 
     it("Håndterer SYKMELDING_BEKREFTET", () => {
-        const initialState = {
+        const initialState = deepFreeze({
             data: [{
                 id: 23,
             }, {
                 id: 24,
             }]
-        };
+        });
         const action = {
             type: 'SYKMELDING_BEKREFTET',
             sykmeldingId: 23,
@@ -234,7 +234,7 @@ describe('dineSykmeldinger', () => {
     });
 
     it("Håndterer NAVIGER_FRA_BEKREFTETKVITTERING", () => {
-       const initialState = {
+       const initialState = deepFreeze({
            data: [{
                id: 23,
                status: "BEKREFTET",
@@ -242,7 +242,7 @@ describe('dineSykmeldinger', () => {
            }, {
                id: 24,
            }]
-       };
+       });
        const action = {
            type: 'NAVIGER_FRA_BEKREFTETKVITTERING',
            sykmeldingId: 23,

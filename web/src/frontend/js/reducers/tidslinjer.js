@@ -6,12 +6,6 @@ const initiellState = {
     data: [],
 };
 
-const settErApen = (hendelse, id, erApen) => {
-    return Object.assign({}, hendelse, {
-        erApen: `${hendelse.id}''` === `${id}''` ? erApen : hendelse.erApen === true,
-    });
-};
-
 export const settHendelseIder = (_tidslinjer) => {
     return _tidslinjer.map((tidslinje, tidslinjeIndex) => {
         const hendelser = tidslinje.hendelser.map((hendelse, hendelseIndex) => {
@@ -26,7 +20,8 @@ export const settHendelseIder = (_tidslinjer) => {
     });
 };
 
-export const sorterHendelser = (hendelser) => {
+export const sorterHendelser = (_hendelser) => {
+    const hendelser = [..._hendelser];
     return hendelser.sort((a, b) => {
         return a.antallDager > b.antallDager ? 1 : -1;
     });
@@ -68,8 +63,10 @@ export const leggTilTidshendelser = (_tidslinjer, arbeidssituasjon) => {
                 startdato: tidslinje.startdato,
             };
         } else {
-            hendelser[0].tekstkey = 'tidslinje.sykefravaeret-starter';
-            hendelser[0].type = 'TITTEL';
+            hendelser[0] = Object.assign({}, hendelser[0], {
+                tekstkey: 'tidslinje.sykefravaeret-starter',
+                type: 'TITTEL',
+            });
         }
         return Object.assign({}, tidslinje, { hendelser });
     });
@@ -99,32 +96,40 @@ export default function tidslinjer(state = initiellState, action) {
             };
         }
         case 'ÅPNE_HENDELSER': {
-            const data = state.data;
-            if (!data.length) {
+            if (!state.data.length) {
                 return state;
             }
-            let hendelser = data[0].hendelser;
-            action.hendelseIder.forEach((id) => {
-                hendelser = hendelser.map((hendelse) => {
-                    const obj = settErApen(hendelse, id, true);
-                    if (obj.erApen) {
-                        obj.visBudskap = true;
-                        obj.hoyde = 'auto';
-                    }
-                    return obj;
+            const data = state.data.map((tidslinje) => {
+                return Object.assign({}, tidslinje, {
+                    hendelser: tidslinje.hendelser.map((hendelse) => {
+                        let obj = hendelse;
+                        if (action.hendelseIder.indexOf(hendelse.id) !== -1) {
+                            obj = Object.assign({}, hendelse, {
+                                erApen: true,
+                                visBudskap: true,
+                                hoyde: 'auto',
+                            });
+                        }
+                        return obj;
+                    }),
                 });
             });
-            data[0].hendelser = hendelser;
             return Object.assign({}, state, { data });
         }
         case 'SET_HENDELSEDATA': {
-            const data = state.data;
-            data[0].hendelser = data[0].hendelser.map((hendelse) => {
-                let ret = hendelse;
-                if (hendelse.id === action.hendelseId) {
-                    ret = Object.assign({}, hendelse, action.data);
-                }
-                return ret;
+            if (!state.data.length) {
+                return state;
+            }
+            const data = state.data.map((tidslinje) => {
+                return Object.assign({}, tidslinje, {
+                    hendelser: tidslinje.hendelser.map((hendelse) => {
+                        let obj = hendelse;
+                        if (action.hendelseId === hendelse.id) {
+                            obj = Object.assign({}, hendelse, action.data);
+                        }
+                        return obj;
+                    }),
+                });
             });
             return Object.assign({}, state, { data });
         }

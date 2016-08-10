@@ -1,12 +1,13 @@
 import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
+import deepFreeze from 'deep-freeze';
 
 import ledetekster from '../../js/reducers/ledetekster.js';
 
 describe('ledetekster', () => {
 
     it('håndterer SET_LEDETEKSTER ', () => {
-        const initialState = {};
+        const initialState = deepFreeze({});
         const action = {
             type: 'SET_LEDETEKSTER',
             ledetekster: {
@@ -28,7 +29,7 @@ describe('ledetekster', () => {
     });
 
     it("Håndterer HENTER_LEDETEKSTER ", () => {
-        const initialState = {};
+        const initialState = deepFreeze({});
         const action = {
             type: 'HENTER_LEDETEKSTER'
         };
@@ -41,7 +42,7 @@ describe('ledetekster', () => {
     });
 
     it("Håndterer HENT_LEDETEKSTER_FEILET ", () => {
-        const initialState = {};
+        const initialState = deepFreeze({});
         const action = {
             type: 'HENT_LEDETEKSTER_FEILET'
         };

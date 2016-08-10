@@ -1,4 +1,5 @@
 import {List, Map, fromJS} from 'immutable';
+import deepFreeze from 'deep-freeze';
 import {expect} from 'chai';
 import * as actions from '../../js/actions/dinSykmelding_actions.js';
 import * as dactions from '../../js/actions/dineSykmeldinger_actions.js';
@@ -15,7 +16,7 @@ import arbeidsgiversSykmeldinger from '../../js/reducers/arbeidsgiversSykmelding
 describe('arbeidsgiversSykmeldinger', () => {
 
     it('håndterer SET_ARBEIDSGIVERS_SYKMELDINGER', () => {
-        const initialState = {};
+        const initialState = deepFreeze({});
         const action = {
             type: 'SET_ARBEIDSGIVERS_SYKMELDINGER',
             sykmeldinger: [{
@@ -36,7 +37,7 @@ describe('arbeidsgiversSykmeldinger', () => {
     });
 
     it("Håndterer HENTER_ARBEIDSGIVERS_SYKMELDINGER", () => {
-        const initialState = {};
+        const initialState = deepFreeze({});
         const action = {
             type: "HENTER_ARBEIDSGIVERS_SYKMELDINGER"
         }
@@ -49,7 +50,7 @@ describe('arbeidsgiversSykmeldinger', () => {
     });
 
     it("Håndterer HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET", () => {
-        const initialState = {};
+        const initialState = deepFreeze({});
         const action = {
             type: "HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET"
         }
@@ -62,7 +63,7 @@ describe('arbeidsgiversSykmeldinger', () => {
     });
 
     it("Håndterer SET_ARBEIDSGIVER", () => {
-        const initialState = {
+        const initialState = deepFreeze({
             data: [{
                 id: 1
             }, {
@@ -72,7 +73,7 @@ describe('arbeidsgiversSykmeldinger', () => {
             }],
             hentingFeilet: false,
             henter: false
-        };
+        });
         const action = {
             type: 'SET_ARBEIDSGIVER',
             arbeidsgiver: {
@@ -112,11 +113,11 @@ describe('arbeidsgiversSykmeldinger', () => {
                 }
             };
 
-            initialState = {
+            initialState = deepFreeze({
                 data: [sykmelding],
                 henter: false, 
                 hentingFeilet: false
-            };
+            });
 
             store = mockStore();
             window = window || {};

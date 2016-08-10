@@ -9,11 +9,12 @@ import SykmeldingKvittering from '../components/sykmelding/SykmeldingKvittering'
 import LenkeTilDineSykmeldinger from '../components/LenkeTilDineSykmeldinger';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { getLedetekst, getHtmlLedetekst } from '../ledetekster/index';
+import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { navigerFraBekreftetkvittering } from '../actions/dinSykmelding_actions';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
 import { erPilotarbeidsgiver } from '../utils/arbeidsgiverUtils';
+import { getSykmelding } from '../utils';
 
 export class DinSykmldSide extends Component {
 
@@ -103,16 +104,12 @@ DinSykmldSide.propTypes = {
 
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
-    const dinSykmelding = state.dineSykmeldinger.data.filter((sykmld) => {
-        return `${sykmld.id}` === `${sykmeldingId}`;
-    })[0];
+    const dinSykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId);
     let arbeidsgiversSykmelding;
     const props = {};
 
     if (dinSykmelding && dinSykmelding.status === 'SENDT') {
-        arbeidsgiversSykmelding = state.arbeidsgiversSykmeldinger.data.filter((sykmld) => {
-            return `${sykmld.id}` === `${sykmeldingId}`;
-        })[0];
+        arbeidsgiversSykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId);
         props.arbeidsgiversSykmelding = {
             data: arbeidsgiversSykmelding,
             hentingFeilet: state.arbeidsgiversSykmeldinger.hentingFeilet,

@@ -25,9 +25,9 @@ describe("getDuration", () => {
 });
 
 describe("getSykmelding", () => {
-	it("Skal returnere null dersom den ikke finner sykmeldingen", () => {
+	it("Skal returnere undefined dersom den ikke finner sykmeldingen", () => {
 		const res = getSykmelding([], 123);
-		expect(res).to.deep.equal(null);
+		expect(res).to.deep.equal(undefined);
 	});
 
 	it("Skal returnere sykmeldingen dersom den finner sykmeldingen", () => {

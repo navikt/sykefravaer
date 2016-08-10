@@ -87,5 +87,5 @@ export function onResizeThrottle(callback) {
 export function getSykmelding(sykmeldinger, sykmeldingId) {
     return sykmeldinger.filter((sykmld) => {
         return `${sykmld.id}` === `${sykmeldingId}`;
-    })[0] || null;
+    })[0];
 }

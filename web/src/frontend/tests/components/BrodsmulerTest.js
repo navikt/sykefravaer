@@ -18,13 +18,14 @@ describe("Brodsmuler", () => {
         expect(component).to.contain("Ditt NAV");
     });
 
-    it("Skal vise Ditt NAV og én brødsmule dersom én brødsmuler sendes inn", function () {
+    it("Skal vise Ditt NAV og én brødsmule dersom én brødsmule sendes inn", function () {
         const brodsmuler =  [{
             tittel: "Sykmelding", 
             erKlikkbar: true
         }]
-        const component = shallow(<Brodsmuler brodsmuler={brodsmuler} />)
-        expect(component).to.contain("Ditt NAV");
+        const component = mount(<Brodsmuler brodsmuler={brodsmuler} />)
+        expect(component.text()).to.contain("Ditt NAV");
+        expect(component.text()).to.contain("Sykmelding");
         expect(component.find(".js-smuletekst").length).to.equal(1);
         expect(component.find(".js-smule").length).to.equal(1);
     });

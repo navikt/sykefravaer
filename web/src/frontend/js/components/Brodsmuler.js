@@ -2,9 +2,19 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getContextRoot } from '../routers/paths.js';
 
-const Brodsmule = ({ sti, tittel }) => {
+const Brodsmule = ({ sti, tittel, sisteSmule, erKlikkbar }) => {
+    if (sisteSmule) {
+        return (<span className="js-smuletekst">
+            <span className="vekk">Du er her:</span> <span className="brodsmule">{tittel}</span>
+        </span>);
+    } else if (erKlikkbar) {
+        return (<span className="js-smuletekst">
+            <Link className="js-smule brodsmule" to={getContextRoot() + sti}>{tittel}</Link>
+            <span className="brodsmule-skille"> / </span>
+        </span>);
+    }
     return (<span>
-        <Link className="js-smule brodsmule" to={getContextRoot() + sti}>{tittel}</Link>
+        <span className="brodsmule">{tittel}</span>
         <span className="brodsmule-skille"> / </span>
     </span>);
 };
@@ -12,6 +22,8 @@ const Brodsmule = ({ sti, tittel }) => {
 Brodsmule.propTypes = {
     sti: PropTypes.string,
     tittel: PropTypes.string,
+    sisteSmule: PropTypes.bool,
+    erKlikkbar: PropTypes.bool,
 };
 
 const ToggleLink = ({ onClick }) => {
@@ -34,7 +46,7 @@ class Brodsmuler extends Component {
         };
     }
 
-    getMiniBrodsmuler() {
+    getSynligeBrodsmuler() {
         const { brodsmuler } = this.props;
         if (this.visCollapsed()) {
             return [
@@ -57,29 +69,29 @@ class Brodsmuler extends Component {
 
     render() {
         const { brodsmuler } = this.props;
-        const miniBrodsmuler = this.getMiniBrodsmuler();
+        const synligeBrodsmuler = this.getSynligeBrodsmuler();
         return (<nav role="navigation" className="brodsmuler blokk side-innhold" aria-label="Du er her: ">
             <img src="/sykefravaer/img/svg/person.svg" alt="Du" className="brodsmuler-ikon" />
             <img src="/sykefravaer/img/svg/person-highcontrast.svg" alt="Du" className="brodsmuler-ikon brodsmuler-ikon-hoykontrast" />
             <a href="/dittnav" className="js-smule brodsmule">Ditt NAV</a>
-            {brodsmuler.length ? <span className="brodsmule-skille"> / </span> : ''}
-            {this.visCollapsed() ? <ToggleLink onClick={(e) => {
-                e.preventDefault();
-                this.visAlleBrodsmuler();
-            }} /> : null}
-            {miniBrodsmuler.map((smule, idx) => {
-                if (miniBrodsmuler.length === idx + 1) {
-                    return (<span key={idx} className="js-smuletekst">
-                        <span className="vekk">Du er her:</span> <span className="brodsmule">{smule.tittel}</span>
-                    </span>);
-                } else if (smule.erKlikkbar) {
-                    return (<Brodsmule key={idx} sti={smule.sti} tittel={smule.tittel} />);
-                }
-                return (<span key={idx}>
-                    <span className="brodsmule">{smule.tittel}</span>
-                    <span className="brodsmule-skille"> / </span>
-                </span>);
-            })}
+            {brodsmuler.length && <span className="brodsmule-skille"> / </span>}
+            {
+                this.visCollapsed() && <ToggleLink onClick={(e) => {
+                    e.preventDefault();
+                    this.visAlleBrodsmuler();
+                }} />
+            }
+            {
+                synligeBrodsmuler
+                    .map((smule, index) => {
+                        return Object.assign({}, smule, {
+                            sisteSmule: synligeBrodsmuler.length === index + 1,
+                        });
+                    })
+                    .map((smule, index) => {
+                        return <Brodsmule key={index} {...smule} />;
+                    })
+            }
         </nav>);
     }
 }

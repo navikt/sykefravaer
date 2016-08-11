@@ -15,7 +15,7 @@ const SideMedHoyrekolonne = ({ children, tittel, brodsmuler = [] }) => {
                         <h2 className="typo-undertittel">Hjelp oss å bli bedre</h2>
                         <p className="typo-infotekst">Dette er en tjeneste som fortsatt er under utvikling. Gi oss tilbakemelding slik at vi kan bli bedre!</p>
                         <div className="knapperad">
-                            <a target="_blank" href="https://www.survey-xact.no/LinkCollector?key=3DRKVYA7351K" className="rammeknapp knapp-liten">Gi tilbakemelding</a>
+                            <a target="_blank" href="https://www.survey-xact.no/LinkCollector?key=5X4TARKQ1JCK" className="rammeknapp knapp-liten">Gi tilbakemelding</a>
                         </div>
                     </article>
                 </aside>

@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
+import Side from '../sider/Side';
 import DinSykmelding from '../components/sykmelding/DinSykmelding';
 import DinSendteSykmelding from '../components/sykmelding/DinSendteSykmelding';
 import DinBekreftedeSykmelding from '../components/sykmelding/DinBekreftedeSykmelding';
@@ -38,7 +38,7 @@ export class DinSykmldSide extends Component {
 
     render() {
         const { brodsmuler, ledetekster, dinSykmelding, visSendTilArbeidsgiver, arbeidsgiversSykmelding } = this.props;
-        return (<SideMedHoyrekolonne tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
+        return (<Side tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
                 { (() => {
                     if (dinSykmelding.henter || (arbeidsgiversSykmelding && arbeidsgiversSykmelding.henter)) {
                         return <AppSpinner ledetekster={ledetekster.data} />;
@@ -87,7 +87,7 @@ export class DinSykmldSide extends Component {
                         </div>);
                 })()
                 }
-            </SideMedHoyrekolonne>);
+            </Side>);
     }
 }
 

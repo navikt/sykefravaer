@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
-import DinSykmeldingBrukerInputContainer from '../../containers/DinSykmeldingBrukerInputContainer';
-import arbeidssituasjoner from '../../arbeidssituasjonData';
 import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmeldingOpplysninger';
+import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
 
 const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false }) => {
     return (<div>
@@ -16,8 +15,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, visSendTilArbeidsgiver = false
                 <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
             </div>
             {
-                (visSendTilArbeidsgiver) ?
-                    <DinSykmeldingBrukerInputContainer sykmelding={sykmelding} arbeidssituasjoner={arbeidssituasjoner} /> : null
+                visSendTilArbeidsgiver && <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
             }
         </div>
     </div>);

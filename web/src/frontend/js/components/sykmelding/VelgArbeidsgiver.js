@@ -12,7 +12,7 @@ const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere,
             erFeil={erFeil}
             onChange={onChange}
             setFokus={erFeil}
-            Overskrift="H2">
+            Overskrift="H3">
             {
                 arbeidsgivere.map((arbeidsgiver) => {
                     let labelSekundaer = (arbeidsgiver.orgnummer && arbeidsgiver.orgnummer.length) !== 1 ?

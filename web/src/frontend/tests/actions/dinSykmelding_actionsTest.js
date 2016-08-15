@@ -144,12 +144,17 @@ describe("dinSykmelding_actions", () => {
                 "id": 87654,
                 "status": "SENDT",
                 "sykmelder": "Hans Hansen"
-            });
+            })
+            .get("/sykmeldinger?type=arbeidsgiver")
+            .reply(200, [{
+                "id": 1
+            }]);
 
             const expectedActions = [
                 { type: "SENDER_SYKMELDING", sykmeldingId: 87654 },
                 { type: "SYKMELDING_SENDT", sykmeldingId: 87654, orgnummer: '***REMOVED***' },
-                { type: "HENTER_DINE_SYKMELDINGER" }
+                { type: "HENTER_DINE_SYKMELDINGER" }, 
+                { type: "HENTER_ARBEIDSGIVERS_SYKMELDINGER" }
             ]
 
             return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(87654, '***REMOVED***'))
@@ -201,10 +206,17 @@ describe("dinSykmelding_actions", () => {
                 "id": 1
             }]);
 
+            nock('http://tjenester.nav.no/syforest/')
+            .get("/sykmeldinger?type=arbeidsgiver")
+            .reply(200, [{
+                "id": 1
+            }]);
+
             const expectedActions = [
                 { type: "BEKREFTER_SYKMELDING", sykmeldingId: 56, arbeidssituasjon: "arbeidstaker" },
                 { type: "SYKMELDING_BEKREFTET", sykmeldingId: 56 },
-                { type: "HENTER_DINE_SYKMELDINGER" } 
+                { type: "HENTER_DINE_SYKMELDINGER" },
+                { type: "HENTER_ARBEIDSGIVERS_SYKMELDINGER"}
             ]
 
             return store.dispatch(actions.bekreftSykmelding(56, 'arbeidstaker'))

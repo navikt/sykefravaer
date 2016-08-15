@@ -1,16 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { setArbeidsgiver } from '../actions/dinSykmelding_actions';
 import VelgArbeidsgiver from '../components/sykmelding/VelgArbeidsgiver';
 import { getLedetekst } from '../ledetekster';
+import { getSykmelding } from '../utils';
 
 export class Velg extends Component {
-    componentWillMount() {
-        const { sykmelding, dispatch } = this.props;
-        const action = hentAktuelleArbeidsgivere(sykmelding.id);
-        dispatch(action);
-    }
 
     onChange(orgnummer) {
         const { arbeidsgivere, dispatch, sykmelding } = this.props;
@@ -40,7 +35,15 @@ Velg.propTypes = {
 };
 
 export function mapStateToProps(state, ownProps) {
-    const valgtArbeidsgiverOrgnummer = ownProps.sykmelding.valgtArbeidsgiver ? ownProps.sykmelding.valgtArbeidsgiver.orgnummer : undefined;
+    let sykmelding = {};
+    if (ownProps.sykmeldingId) {
+        const _sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, ownProps.sykmeldingId);
+        if (_sykmelding) {
+            sykmelding = _sykmelding;
+        }
+    }
+
+    const valgtArbeidsgiverOrgnummer = sykmelding && sykmelding.valgtArbeidsgiver ? sykmelding.valgtArbeidsgiver.orgnummer : undefined;
     const arbeidsgivereData = state.arbeidsgivere.data.concat([{
         orgnummer: '0',
         navn: getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.label', state.ledetekster.data),
@@ -48,11 +51,15 @@ export function mapStateToProps(state, ownProps) {
     const arbeidsgivere = Object.assign({}, state.arbeidsgivere, {
         data: arbeidsgivereData,
     });
+    const feilmelding = sykmelding.valgtArbeidsgiver ? 'Du må sende sykmeldingen til arbeidsgiveren din manuelt' : 'Vennligst velg en arbeidsgiver';
 
     return {
         ledetekster: state.ledetekster.data,
         arbeidsgivere: arbeidsgivere.data,
         valgtArbeidsgiverOrgnummer,
+        sykmelding,
+        feilmelding,
+        resetState: ownProps.resetState,
     };
 }
 

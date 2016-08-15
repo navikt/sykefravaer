@@ -290,18 +290,6 @@ describe("DinSykmeldingContainer", () => {
             expect(component.find(DinSykmelding)).to.have.length(1);
         });
 
-        it("Skal vise kvittering dersom sykmeldingen har status === 'BEKREFTET' og nettoppBekreftet === true", () => {
-            let sykmelding = {
-                hentingFeilet: false,
-                data: {
-                    status: "BEKREFTET",
-                    nettoppBekreftet: true
-                }
-            };
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
-            expect(component.find(SykmeldingKvittering)).to.have.length(1);
-        });
-
         it("Skal vise DinSendteSykmelding dersom sykmeldingen har status === 'SENDT'", () => {
             let sykmelding = {
                 hentingFeilet: false,

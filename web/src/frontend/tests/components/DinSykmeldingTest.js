@@ -1,6 +1,7 @@
 import chai from 'chai';
 import React from 'react'
 import { mount, shallow } from 'enzyme';
+import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
 import getSykmelding from "../mockSykmeldinger.js";
@@ -11,9 +12,14 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import DinSykmelding from "../../js/components/sykmelding/DinSykmelding";
+import DinSykmeldingSkjema from "../../js/components/sykmelding/DinSykmeldingSkjema";
 import FlereOpplysninger from "../../js/components/sykmeldingOpplysninger/FlereOpplysninger"
-import DinSykmeldingBrukerInputContainer from "../../js/containers/DinSykmeldingBrukerInputContainer";
+import VelgArbeidssituasjonContainer from "../../js/containers/VelgArbeidssituasjonContainer";
 import DineSykmeldingOpplysninger from "../../js/components/sykmeldingOpplysninger/DineSykmeldingOpplysninger";
+import VelgArbeidsgiverContainer from "../../js/containers/VelgArbeidsgiverContainer";
+import ArbeidsgiversSykmeldingContainer from "../../js/containers/ArbeidsgiversSykmeldingContainer";
+import Varselstripe from "../../js/components/Varselstripe";
+
 
 import { Provider } from 'react-redux';
 
@@ -28,7 +34,9 @@ describe("DinSykmelding", () => {
     beforeEach(() => {
 
         const getState = {
-            ledetekster: { ledetekster },
+            ledetekster: { 
+                data: ledetekster,
+            },
             brukerinfo: {
                 bruker: {
                     data: {},
@@ -46,7 +54,9 @@ describe("DinSykmelding", () => {
 
     it("Skal vise DineSykmeldingOpplysninger", () => {
         const getState = {
-            ledetekster: { ledetekster },
+            ledetekster: { 
+                data: ledetekster,
+            },
             brukerinfo: {
                 bruker: {
                     data: {},
@@ -61,54 +71,43 @@ describe("DinSykmelding", () => {
 
         component = mount(
             <Provider store={store}>
-                <DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}
-                               visSendTilArbeidsgiver={true}/></Provider>);
+                <DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} visSendTilArbeidsgiver={false}/>
+            </Provider>);
         expect(component.find(DineSykmeldingOpplysninger)).to.have.length(1);
-    });    
-
-    it("Skal vise DinSykmeldingBrukerInputContainer dersom visSendTilArbeidsgiver === true", () => {
-        const getState = {
-            ledetekster: { ledetekster },
-            brukerinfo: {
-                bruker: {
-                    data: {},
-                },
-            },
-        };
-        const store = mockStore(getState);
-
-        const brukerinfo = {
-            strengtFortroligAdresse: false,
-        };
-
-        component = mount(
-            <Provider store={store}>
-                <DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}
-                               visSendTilArbeidsgiver={true}/></Provider>);
-        expect(component.find(DinSykmeldingBrukerInputContainer)).to.have.length(1);
     });
 
-    it("Skal ikke vise DinSykmeldingBrukerInputContainer dersom visSendTilArbeidsgiver === false", () => {
+    it("Skal vise DinSykmeldingSkjema dersom visSendTilArbeidsgiver === true", () => {
         const getState = {
-            ledetekster: { ledetekster },
+            ledetekster: { 
+                data: ledetekster,
+            },
+            arbeidsgiversSykmeldinger: {
+                data: [{
+                    id: "123"
+                }]
+            },
+            arbeidsgivere: {
+                data: [],
+            },
             brukerinfo: {
                 bruker: {
                     data: {},
                 },
             },
         };
+        const store = mockStore(getState);
 
         const brukerinfo = {
-            strengtFortroligAdresse: true,
+            strengtFortroligAdresse: false,
         };
-
-        const store = mockStore(getState);
 
         component = mount(
             <Provider store={store}>
-                <DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster}
-                               visSendTilArbeidsgiver={false}/></Provider>);
-        expect(component.find(DinSykmeldingBrukerInputContainer)).to.have.length(0);
+                <DinSykmelding sykmelding={getSykmelding({
+                    id: "123"
+                })} ledetekster={ledetekster}
+                               visSendTilArbeidsgiver={true}/></Provider>);
+        expect(component.find(DinSykmeldingSkjema)).to.have.length(1);
     });
 
 });

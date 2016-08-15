@@ -6,13 +6,13 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { mapStateToProps } from "../../js/containers/DinSykmeldingBrukerInputContainer.js";
+import { mapStateToProps } from "../../js/containers/VelgArbeidssituasjonContainer.js";
 
 let state;
 let ownProps;
 let arbeidssituasjoner;
 
-describe("DinSykmeldingBrukerInputContainer", () => {
+describe("VelgArbeidssituasjonContainer", () => {
 
     beforeEach(() => {
         arbeidssituasjoner = [{
@@ -49,11 +49,15 @@ describe("DinSykmeldingBrukerInputContainer", () => {
             let state = {
                 ledetekster: {
                     data: []
+                },
+                arbeidsgiversSykmeldinger: {
+                    data: [{
+                        id: "123"
+                    }]
                 }
             }
             let ownProps = {
-                arbeidssituasjoner,
-                sykmelding: {}
+                sykmeldingId: "123"
             }
             expect(mapStateToProps(state, ownProps).arbeidssituasjoner).to.deep.equal(arbeidssituasjoner);
         }); 
@@ -62,14 +66,41 @@ describe("DinSykmeldingBrukerInputContainer", () => {
             let state = {
                 ledetekster: {
                     data: []
+                },
+                arbeidsgiversSykmeldinger: {
+                    data: [{
+                        id: "123"
+                    }]
                 }
             }
             let ownProps = {
                 arbeidssituasjoner,
-                sykmelding: {}
+                sykmeldingId: "123"
             }
             expect(mapStateToProps(state, ownProps).ledetekster).to.deep.equal({
                 data: []
+            });
+        });
+
+        it("returnerer sykmelding", () => {
+            let state = {
+                ledetekster: {
+                    data: []
+                },
+                arbeidsgiversSykmeldinger: {
+                    data: [{
+                        id: "123",
+                        navn: "Ole"
+                    }]
+                }
+            }
+            let ownProps = {
+                arbeidssituasjoner,
+                sykmeldingId: "123"
+            }
+            expect(mapStateToProps(state, ownProps).sykmelding).to.deep.equal({
+                "id": "123",
+                navn: "Ole"
             });
         });
 

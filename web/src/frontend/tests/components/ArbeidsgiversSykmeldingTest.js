@@ -11,7 +11,6 @@ const expect = chai.expect;
 import Utvidbar from "../../js/components/Utvidbar.js";
 import FlereOpplysninger from "../../js/components/sykmeldingOpplysninger/FlereOpplysninger.js";
 
-import SendTilArbeidsgiver from "../../js/components/sykmelding/SendTilArbeidsgiver.js";
 import SykmeldingPerioder from "../../js/components/sykmeldingOpplysninger/SykmeldingPerioder.js";
 import ArbeidsgiversSykmelding from '../../js/components/sykmelding/ArbeidsgiversSykmelding.js';
 

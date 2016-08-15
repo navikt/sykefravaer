@@ -5,11 +5,10 @@ import DinSykmelding from '../components/sykmelding/DinSykmelding';
 import DinSendteSykmelding from '../components/sykmelding/DinSendteSykmelding';
 import DinBekreftedeSykmelding from '../components/sykmelding/DinBekreftedeSykmelding';
 import DinUtgaatteSykmelding from '../components/sykmelding/DinUtgaatteSykmelding';
-import SykmeldingKvittering from '../components/sykmelding/SykmeldingKvittering';
 import LenkeTilDineSykmeldinger from '../components/LenkeTilDineSykmeldinger';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
+import { getLedetekst } from '../ledetekster';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { navigerFraBekreftetkvittering } from '../actions/dinSykmelding_actions';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
@@ -56,14 +55,7 @@ export class DinSykmldSide extends Component {
                                 ledetekster={ledetekster.data} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
                         </div>);
-                    } else if (dinSykmelding.data.status === 'BEKREFTET' && dinSykmelding.data.nettoppBekreftet) {
-                        return (<SykmeldingKvittering
-                            tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel', ledetekster.data)}
-                            sykmelding={dinSykmelding.data}
-                            ledetekster={ledetekster.data}
-                            sykepengerTittel={getLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tittel', ledetekster.data)}
-                            sykepengerTekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tekst', ledetekster.data)} />);
-                    } else if (dinSykmelding.data.status === 'BEKREFTET' && !dinSykmelding.data.nettoppBekreftet) {
+                    } else if (dinSykmelding.data.status === 'BEKREFTET') {
                         return (<div>
                             <DinBekreftedeSykmelding
                                 sykmelding={dinSykmelding.data}

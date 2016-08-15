@@ -1,27 +1,19 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 
-class Dropdown extends Component {
+const Dropdown = ({ alternativer, valgtAlternativ, ariaControls, id, onChange }) => {
+    return (<select
+        onChange={(event) => {onChange(event.target.value);}}
+        defaultValue={valgtAlternativ}
+        value={valgtAlternativ}
+        aria-controls={ariaControls}
+        id={id}>
+        {alternativer.map((alt, idx) => {
+            return (<option className={`js-${alt.verdi}`} key={idx}
+                value={alt.verdi}>{alt.tekst}</option>);
+        })}
+    </select>);
+};
 
-    componentDidUpdate() {
-        // Dette for å hindre at fokus settes på noe annet, f.eks. en hjelpetekst
-        this.refs.select.focus();
-    }
-
-    render() {
-        return (<select
-            onChange={(event) => {this.props.onChange(event.target.value);}}
-            defaultValue={this.props.valgtAlternativ}
-            value={this.props.valgtAlternativ}
-            aria-controls={this.props.ariaControls}
-            ref="select"
-            id={this.props.id}>
-            {this.props.alternativer.map((alt, idx) => {
-                return (<option className={`js-${alt.verdi}`} key={idx}
-                    value={alt.verdi}>{alt.tekst}</option>);
-            })}
-        </select>);
-    }
-}
 Dropdown.propTypes = {
     alternativer: PropTypes.array,
     valgtAlternativ: PropTypes.string,

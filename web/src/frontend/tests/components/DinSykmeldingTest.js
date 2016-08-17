@@ -77,7 +77,7 @@ describe("DinSykmelding", () => {
         expect(component.find(DineSykmeldingOpplysninger)).to.have.length(1);
     });
 
-    it("Skal vise DinSykmeldingSkjemaContainer dersom erPilotarbeidsgiver === true", () => {
+    it("Skal vise DinSykmeldingSkjemaContainer dersom harPilotarbeidsgiver === true", () => {
         const getState = {
             ledetekster: { 
                 data: ledetekster,
@@ -107,12 +107,12 @@ describe("DinSykmelding", () => {
                 <DinSykmelding sykmelding={getSykmelding({
                     id: "123"
                 })} ledetekster={ledetekster}
-                               erPilotarbeidsgiver={true}/></Provider>);
+                               harPilotarbeidsgiver={true}/></Provider>);
         expect(component.find(DinSykmeldingSkjemaContainer)).to.have.length(1);
     });
 
-    it("Skal vise info om utskrift i stedet for DinSykmeldingSkjema dersom harStrengtFortroligAdresse = true og erPilotarbeidsgiver = true", () => {
-        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} erPilotarbeidsgiver={true} harStrengtFortroligAdresse={true} />);
+    it("Skal vise info om utskrift i stedet for DinSykmeldingSkjema dersom harStrengtFortroligAdresse = true og harPilotarbeidsgiver = true", () => {
+        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} harPilotarbeidsgiver={true} harStrengtFortroligAdresse={true} />);
         expect(component.find(StrengtFortroligInfo)).to.have.length(1);
         expect(component.find(DinSykmeldingSkjemaContainer)).to.have.length(0);
     });
@@ -122,8 +122,8 @@ describe("DinSykmelding", () => {
         expect(component.find(StrengtFortroligInfo)).to.have.length(0);
     });
 
-    it("Skal verken vise StrengtFortroligInfo eller DinSykmeldingSkjemaContainer dersom erPilotarbeidsgiver = false", () => {
-        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} erPilotarbeidsgiver={false} harStrengtFortroligAdresse={true} />);
+    it("Skal verken vise StrengtFortroligInfo eller DinSykmeldingSkjemaContainer dersom harPilotarbeidsgiver = false", () => {
+        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} harPilotarbeidsgiver={false} harStrengtFortroligAdresse={true} />);
         expect(component.find(StrengtFortroligInfo)).to.have.length(0);
         expect(component.find(DinSykmeldingSkjemaContainer)).to.have.length(0);
     });

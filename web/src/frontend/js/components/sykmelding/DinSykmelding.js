@@ -3,7 +3,7 @@ import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmelding
 import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
 
-const DinSykmelding = ({ sykmelding, ledetekster, erPilotarbeidsgiver = false, harStrengtFortroligAdresse = false }) => {
+const DinSykmelding = ({ sykmelding, ledetekster, harPilotarbeidsgiver = false, harStrengtFortroligAdresse = false }) => {
     return (<div>
         <div className="header-bolk header-sykmelding">
             <img className="header-ikon" src="/sykefravaer/img/svg/person.svg" alt="Du" />
@@ -12,14 +12,14 @@ const DinSykmelding = ({ sykmelding, ledetekster, erPilotarbeidsgiver = false, h
             <h1 className="header-tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h1>
         </div>
         <div className="panel blokk">
-            <div className={erPilotarbeidsgiver ? 'blokk' : null}>
+            <div className={harPilotarbeidsgiver ? 'blokk' : null}>
                 <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
             </div>
             {
-                erPilotarbeidsgiver && !harStrengtFortroligAdresse && <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
+                harPilotarbeidsgiver && !harStrengtFortroligAdresse && <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
             }
             {
-                harStrengtFortroligAdresse && erPilotarbeidsgiver && <StrengtFortroligInfo sykmeldingId={sykmelding.id} ledetekster={ledetekster} />
+                harStrengtFortroligAdresse && harPilotarbeidsgiver && <StrengtFortroligInfo sykmeldingId={sykmelding.id} ledetekster={ledetekster} />
             }
         </div>
     </div>);
@@ -28,7 +28,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, erPilotarbeidsgiver = false, h
 DinSykmelding.propTypes = {
     sykmelding: PropTypes.object,
     ledetekster: PropTypes.object,
-    erPilotarbeidsgiver: PropTypes.bool,
+    harPilotarbeidsgiver: PropTypes.bool,
     harStrengtFortroligAdresse: PropTypes.bool,
 };
 

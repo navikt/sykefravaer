@@ -36,7 +36,7 @@ export class DinSykmldSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, dinSykmelding, erPilotarbgiver, arbeidsgiversSykmelding, harStrengtFortroligAdresse } = this.props;
+        const { brodsmuler, ledetekster, dinSykmelding, harPilotarbeidsgiver, arbeidsgiversSykmelding, harStrengtFortroligAdresse } = this.props;
         return (<Side tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
                 { (() => {
                     if (dinSykmelding.henter || (arbeidsgiversSykmelding && arbeidsgiversSykmelding.henter)) {
@@ -74,7 +74,7 @@ export class DinSykmldSide extends Component {
                         <DinSykmelding
                             sykmelding={dinSykmelding.data}
                             ledetekster={ledetekster.data}
-                            erPilotarbeidsgiver={erPilotarbgiver}
+                            harPilotarbeidsgiver={harPilotarbeidsgiver}
                             harStrengtFortroligAdresse={harStrengtFortroligAdresse} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
                         </div>);
@@ -89,7 +89,7 @@ DinSykmldSide.propTypes = {
     ledetekster: PropTypes.object,
     arbeidsgivere: PropTypes.object,
     brodsmuler: PropTypes.array,
-    erPilotarbgiver: PropTypes.bool,
+    harPilotarbeidsgiver: PropTypes.bool,
     harStrengtFortroligAdresse: PropTypes.bool,
     sykmeldingId: PropTypes.string,
     dinSykmelding: PropTypes.object,
@@ -118,7 +118,7 @@ export function mapStateToProps(state, ownProps) {
             hentingFeilet: state.dineSykmeldinger.hentingFeilet,
             henter: state.dineSykmeldinger.henter,
         },
-        erPilotarbgiver: erPilotarbeidsgiver(state.arbeidsgivere.data),
+        harPilotarbeidsgiver: erPilotarbeidsgiver(state.arbeidsgivere.data),
         harStrengtFortroligAdresse: state.brukerinfo.bruker.data.strengtFortroligAdresse,
         ledetekster: state.ledetekster,
         brodsmuler: [{

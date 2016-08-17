@@ -12,13 +12,14 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import DinSykmelding from "../../js/components/sykmelding/DinSykmelding";
-import DinSykmeldingSkjema from "../../js/components/sykmelding/DinSykmeldingSkjema";
+import DinSykmeldingSkjemaContainer from "../../js/containers/DinSykmeldingSkjemaContainer";
 import FlereOpplysninger from "../../js/components/sykmeldingOpplysninger/FlereOpplysninger"
 import VelgArbeidssituasjonContainer from "../../js/containers/VelgArbeidssituasjonContainer";
 import DineSykmeldingOpplysninger from "../../js/components/sykmeldingOpplysninger/DineSykmeldingOpplysninger";
 import VelgArbeidsgiverContainer from "../../js/containers/VelgArbeidsgiverContainer";
 import ArbeidsgiversSykmeldingContainer from "../../js/containers/ArbeidsgiversSykmeldingContainer";
 import Varselstripe from "../../js/components/Varselstripe";
+import StrengtFortroligInfo from "../../js/components/sykmelding/StrengtFortroligInfo";
 
 
 import { Provider } from 'react-redux';
@@ -76,7 +77,7 @@ describe("DinSykmelding", () => {
         expect(component.find(DineSykmeldingOpplysninger)).to.have.length(1);
     });
 
-    it("Skal vise DinSykmeldingSkjema dersom visSendTilArbeidsgiver === true", () => {
+    it("Skal vise DinSykmeldingSkjemaContainer dersom erPilotarbeidsgiver === true", () => {
         const getState = {
             ledetekster: { 
                 data: ledetekster,
@@ -106,8 +107,25 @@ describe("DinSykmelding", () => {
                 <DinSykmelding sykmelding={getSykmelding({
                     id: "123"
                 })} ledetekster={ledetekster}
-                               visSendTilArbeidsgiver={true}/></Provider>);
-        expect(component.find(DinSykmeldingSkjema)).to.have.length(1);
+                               erPilotarbeidsgiver={true}/></Provider>);
+        expect(component.find(DinSykmeldingSkjemaContainer)).to.have.length(1);
+    });
+
+    it("Skal vise info om utskrift i stedet for DinSykmeldingSkjema dersom harStrengtFortroligAdresse = true og erPilotarbeidsgiver = true", () => {
+        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} erPilotarbeidsgiver={true} harStrengtFortroligAdresse={true} />);
+        expect(component.find(StrengtFortroligInfo)).to.have.length(1);
+        expect(component.find(DinSykmeldingSkjemaContainer)).to.have.length(0);
+    });
+
+    it("Skal ikke vise info om utskrift dersom harStrengtFortroligAdresse = false", () => {
+        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} harStrengtFortroligAdresse={false} />);
+        expect(component.find(StrengtFortroligInfo)).to.have.length(0);
+    });
+
+    it("Skal verken vise StrengtFortroligInfo eller DinSykmeldingSkjemaContainer dersom erPilotarbeidsgiver = false", () => {
+        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} erPilotarbeidsgiver={false} harStrengtFortroligAdresse={true} />);
+        expect(component.find(StrengtFortroligInfo)).to.have.length(0);
+        expect(component.find(DinSykmeldingSkjemaContainer)).to.have.length(0);
     });
 
 });

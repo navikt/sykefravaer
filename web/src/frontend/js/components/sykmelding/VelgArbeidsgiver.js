@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import Radiogruppe from '../skjema/Radiogruppe';
 import { getHtmlLedetekst, getLedetekst } from '../../ledetekster';
+import { Link } from 'react-router';
+import { getContextRoot } from '../../routers/paths.js';
 
-const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere, feilmelding, erFeil, ledetekster }) => {
+const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere, feilmelding, erFeil, ledetekster, sykmelding }) => {
     return (<div className="blokk">
         <Radiogruppe
             name="valgt-arbeidsgiver"
@@ -31,17 +33,9 @@ const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere,
                                     dangerouslySetInnerHTML={getHtmlLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.infotekst', ledetekster)} />
                                 <div className="knapperad side-innhold">
                                     <p>
-                                    <button type="button" className="knapp knapp-hoved" onClick={() => {
-                                        window.print();
-                                    }}>{getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.skriv-ut', ledetekster)}</button>
-                                    </p>
-                                    <p>
-                                        <a href="#" onClick={(e) => {
-                                            e.preventDefault();
-                                            window.history.back();
-                                        }}>
-                                        {getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.tilbake', ledetekster)}
-                                        </a>
+                                    <Link target="_blank" to={`${getContextRoot()}/sykmeldinger/${sykmelding.id}/skriv-ut`} className="knapp knapp-hoved">
+                                        {getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.skriv-ut', ledetekster)}
+                                    </Link>
                                     </p>
                                 </div>
                             </div>}
@@ -59,6 +53,7 @@ VelgArbeidsgiver.propTypes = {
     feilmelding: PropTypes.string,
     erFeil: PropTypes.bool,
     ledetekster: PropTypes.object,
+    sykmelding: PropTypes.object,
 };
 
 export default VelgArbeidsgiver;

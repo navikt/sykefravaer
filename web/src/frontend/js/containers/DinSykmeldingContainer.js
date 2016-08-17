@@ -36,7 +36,7 @@ export class DinSykmldSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, dinSykmelding, visSendTilArbeidsgiver, arbeidsgiversSykmelding } = this.props;
+        const { brodsmuler, ledetekster, dinSykmelding, erPilotarbgiver, arbeidsgiversSykmelding, harStrengtFortroligAdresse } = this.props;
         return (<Side tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
                 { (() => {
                     if (dinSykmelding.henter || (arbeidsgiversSykmelding && arbeidsgiversSykmelding.henter)) {
@@ -74,7 +74,8 @@ export class DinSykmldSide extends Component {
                         <DinSykmelding
                             sykmelding={dinSykmelding.data}
                             ledetekster={ledetekster.data}
-                            visSendTilArbeidsgiver={visSendTilArbeidsgiver} />
+                            erPilotarbeidsgiver={erPilotarbgiver}
+                            harStrengtFortroligAdresse={harStrengtFortroligAdresse} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
                         </div>);
                 })()
@@ -88,7 +89,8 @@ DinSykmldSide.propTypes = {
     ledetekster: PropTypes.object,
     arbeidsgivere: PropTypes.object,
     brodsmuler: PropTypes.array,
-    visSendTilArbeidsgiver: PropTypes.bool,
+    erPilotarbgiver: PropTypes.bool,
+    harStrengtFortroligAdresse: PropTypes.bool,
     sykmeldingId: PropTypes.string,
     dinSykmelding: PropTypes.object,
     arbeidsgiversSykmelding: PropTypes.object,
@@ -116,7 +118,8 @@ export function mapStateToProps(state, ownProps) {
             hentingFeilet: state.dineSykmeldinger.hentingFeilet,
             henter: state.dineSykmeldinger.henter,
         },
-        visSendTilArbeidsgiver: erPilotarbeidsgiver(state.arbeidsgivere.data) && !state.brukerinfo.bruker.data.strengtFortroligAdresse,
+        erPilotarbgiver: erPilotarbeidsgiver(state.arbeidsgivere.data),
+        harStrengtFortroligAdresse: state.brukerinfo.bruker.data.strengtFortroligAdresse,
         ledetekster: state.ledetekster,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),

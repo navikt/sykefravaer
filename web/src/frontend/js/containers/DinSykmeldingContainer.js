@@ -5,11 +5,10 @@ import DinSykmelding from '../components/sykmelding/DinSykmelding';
 import DinSendteSykmelding from '../components/sykmelding/DinSendteSykmelding';
 import DinBekreftedeSykmelding from '../components/sykmelding/DinBekreftedeSykmelding';
 import DinUtgaatteSykmelding from '../components/sykmelding/DinUtgaatteSykmelding';
-import SykmeldingKvittering from '../components/sykmelding/SykmeldingKvittering';
 import LenkeTilDineSykmeldinger from '../components/LenkeTilDineSykmeldinger';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
+import { getLedetekst } from '../ledetekster';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { navigerFraBekreftetkvittering } from '../actions/dinSykmelding_actions';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
@@ -37,7 +36,7 @@ export class DinSykmldSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, dinSykmelding, visSendTilArbeidsgiver, arbeidsgiversSykmelding } = this.props;
+        const { brodsmuler, ledetekster, dinSykmelding, harPilotarbeidsgiver, arbeidsgiversSykmelding, harStrengtFortroligAdresse } = this.props;
         return (<Side tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
                 { (() => {
                     if (dinSykmelding.henter || (arbeidsgiversSykmelding && arbeidsgiversSykmelding.henter)) {
@@ -56,14 +55,7 @@ export class DinSykmldSide extends Component {
                                 ledetekster={ledetekster.data} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
                         </div>);
-                    } else if (dinSykmelding.data.status === 'BEKREFTET' && dinSykmelding.data.nettoppBekreftet) {
-                        return (<SykmeldingKvittering
-                            tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel', ledetekster.data)}
-                            sykmelding={dinSykmelding.data}
-                            ledetekster={ledetekster.data}
-                            sykepengerTittel={getLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tittel', ledetekster.data)}
-                            sykepengerTekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.sok-om-sykepenger.tekst', ledetekster.data)} />);
-                    } else if (dinSykmelding.data.status === 'BEKREFTET' && !dinSykmelding.data.nettoppBekreftet) {
+                    } else if (dinSykmelding.data.status === 'BEKREFTET') {
                         return (<div>
                             <DinBekreftedeSykmelding
                                 sykmelding={dinSykmelding.data}
@@ -82,7 +74,8 @@ export class DinSykmldSide extends Component {
                         <DinSykmelding
                             sykmelding={dinSykmelding.data}
                             ledetekster={ledetekster.data}
-                            visSendTilArbeidsgiver={visSendTilArbeidsgiver} />
+                            harPilotarbeidsgiver={harPilotarbeidsgiver}
+                            harStrengtFortroligAdresse={harStrengtFortroligAdresse} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
                         </div>);
                 })()
@@ -96,7 +89,8 @@ DinSykmldSide.propTypes = {
     ledetekster: PropTypes.object,
     arbeidsgivere: PropTypes.object,
     brodsmuler: PropTypes.array,
-    visSendTilArbeidsgiver: PropTypes.bool,
+    harPilotarbeidsgiver: PropTypes.bool,
+    harStrengtFortroligAdresse: PropTypes.bool,
     sykmeldingId: PropTypes.string,
     dinSykmelding: PropTypes.object,
     arbeidsgiversSykmelding: PropTypes.object,
@@ -124,7 +118,8 @@ export function mapStateToProps(state, ownProps) {
             hentingFeilet: state.dineSykmeldinger.hentingFeilet,
             henter: state.dineSykmeldinger.henter,
         },
-        visSendTilArbeidsgiver: erPilotarbeidsgiver(state.arbeidsgivere.data) && !state.brukerinfo.bruker.data.strengtFortroligAdresse,
+        harPilotarbeidsgiver: erPilotarbeidsgiver(state.arbeidsgivere.data),
+        harStrengtFortroligAdresse: state.brukerinfo.bruker.data.strengtFortroligAdresse,
         ledetekster: state.ledetekster,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),

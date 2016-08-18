@@ -143,21 +143,21 @@ describe("DinSykmeldingContainer", () => {
             expect(res.ledetekster.data).to.deep.equal(ledetekster);
         });
 
-        it("Skal returnere visSendTilArbeidsgiver === true hvis man har én pilotarbeidsgiver", () => {
+        it("Skal returnere harPilotarbeidsgiver === true hvis man har én pilotarbeidsgiver", () => {
             const res = mapStateToProps(state, ownProps);
-            expect(res.visSendTilArbeidsgiver).to.be.true;
+            expect(res.harPilotarbeidsgiver).to.be.true;
         });
 
-        it("Skal returnere visSendTilArbeidsgiver === false hvis man har ingen pilotarbeidsgivere", () => {
+        it("Skal returnere harPilotarbeidsgiver === false hvis man har ingen pilotarbeidsgivere", () => {
             state.arbeidsgivere.data = [{
                 orgnummer: 1234,
                 erpilotarbeidsgiver: false
             }]
             const res = mapStateToProps(state, ownProps);
-            expect(res.visSendTilArbeidsgiver).to.be.false;
+            expect(res.harPilotarbeidsgiver).to.be.false;
         }); 
 
-        it("Skal returnere visSendTilArbeidsgiver === false hvis man har flere arbeidsgivere", () => {
+        it("Skal returnere harPilotarbeidsgiver === false hvis man har flere arbeidsgivere", () => {
             state.arbeidsgivere.data = [{
                 orgnummer: 1234,
                 erpilotarbeidsgiver: true
@@ -166,33 +166,18 @@ describe("DinSykmeldingContainer", () => {
                 erpilotarbeidsgiver: false
             }]
             const res = mapStateToProps(state, ownProps);
-            expect(res.visSendTilArbeidsgiver).to.be.false;
+            expect(res.harPilotarbeidsgiver).to.be.false;
         }); 
 
-        it("Skal returnere visSendTilArbeidsgiver === false hvis man strengt fortrolig adresse", () => {
+        it("Skal returnere harStrengtFortroligAdresse === true hvis man strengt fortrolig adresse", () => {
             state.brukerinfo.bruker = {
                 data: {
                     strengtFortroligAdresse: true,
                 }
             };
             const res = mapStateToProps(state, ownProps);
-            expect(res.visSendTilArbeidsgiver).to.be.false;
+            expect(res.harStrengtFortroligAdresse).to.be.true;
         }); 
-
-        it("Skal returnere visSendTilArbeidsgiver === false hvis man strengt fortrolig adresse og én arbeidsgiver som ikke er pilotarbeidsgiver", () => {
-            state.brukerinfo.bruker = {
-                data: {
-                    strengtFortroligAdresse: true,
-                }
-            };
-            state.arbeidsgivere = {};
-            state.arbeidsgivere.data = [{
-                orgnummer: 1234,
-                erpilotarbeidsgiver: false
-            }]
-            const res = mapStateToProps(state, ownProps);
-            expect(res.visSendTilArbeidsgiver).to.be.false;
-        });
 
         describe("Dersom dinSykmelding.status === 'SENDT'", () => {
 
@@ -288,18 +273,6 @@ describe("DinSykmeldingContainer", () => {
             };
             let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
             expect(component.find(DinSykmelding)).to.have.length(1);
-        });
-
-        it("Skal vise kvittering dersom sykmeldingen har status === 'BEKREFTET' og nettoppBekreftet === true", () => {
-            let sykmelding = {
-                hentingFeilet: false,
-                data: {
-                    status: "BEKREFTET",
-                    nettoppBekreftet: true
-                }
-            };
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster} dispatch={dispatch} />)
-            expect(component.find(SykmeldingKvittering)).to.have.length(1);
         });
 
         it("Skal vise DinSendteSykmelding dersom sykmeldingen har status === 'SENDT'", () => {

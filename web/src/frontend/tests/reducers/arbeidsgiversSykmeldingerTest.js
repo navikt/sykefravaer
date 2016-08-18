@@ -100,6 +100,31 @@ describe('arbeidsgiversSykmeldinger', () => {
         })
     });           
 
+    it('håndterer SET_ARBEIDSSITUASJON', () => {
+        const initialState = deepFreeze({
+            data: [{
+                id: 23,
+            }, {
+                id: 24,
+            }]
+        });
+        const action = {
+            type: 'SET_ARBEIDSSITUASJON',
+            arbeidssituasjon: 'test',
+            sykmeldingId: 23,
+        };
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+                arbeidssituasjon: 'test'
+            }, {
+                id: 24,
+            }]
+        });
+    });
+
     describe("Innsending", () => {
 
         let sykmelding, action, initialState, store; 

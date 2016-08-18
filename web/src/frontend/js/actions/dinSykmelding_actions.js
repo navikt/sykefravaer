@@ -1,5 +1,6 @@
 import { getCookie } from '../utils/index';
 import * as dineSykmeldingerActions from './dineSykmeldinger_actions.js';
+import * as arbeidsgiversSykmeldingerActions from './arbeidsgiversSykmeldinger_actions.js';
 
 export function setArbeidssituasjon(arbeidssituasjon, sykmeldingId) {
     return {
@@ -87,6 +88,7 @@ export function bekreftSykmelding(sykmeldingId, arbeidssituasjon) {
             } else {
                 dispatch(sykmeldingBekreftet(sykmeldingId));
                 dispatch(dineSykmeldingerActions.hentDineSykmeldinger());
+                dispatch(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
             }
             return response;
         })
@@ -115,6 +117,7 @@ export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer) {
             } else {
                 dispatch(sykmeldingSendt(sykmeldingId, orgnummer));
                 dispatch(dineSykmeldingerActions.hentDineSykmeldinger());
+                dispatch(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
             }
         })
         .catch(() => {

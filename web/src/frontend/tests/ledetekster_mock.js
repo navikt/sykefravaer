@@ -171,7 +171,8 @@ const ledetekster = {
   "send-til-arbeidsgiver.orgnr": "Orgnr",
   "send-til-arbeidsgiver.annen-arbeidsgiver.label": "Annen arbeidsgiver",
   "tidslinje.filter.med-arbeidsgiver.hjelpetekst.tittel":"Jeg har ikke arbeidsgiver",
-  "tidslinje.filter.med-arbeidsgiver.hjelpetekst.tekst":"Velg «Jeg har ikke arbeidsgiver» dersom du er for eks. selvstendig næringsdrivende, frilanser eller arbeidsledig."
+  "tidslinje.filter.med-arbeidsgiver.hjelpetekst.tekst":"Velg «Jeg har ikke arbeidsgiver» dersom du er for eks. selvstendig næringsdrivende, frilanser eller arbeidsledig.",
+  "din-sykmelding.kvittering.sidetittel": "Kvittering"
 };
 
 export default ledetekster;

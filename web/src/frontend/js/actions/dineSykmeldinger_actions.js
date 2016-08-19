@@ -41,7 +41,10 @@ export function hentDineSykmeldinger() {
                 return response.json();
             })
             .then((json) => {
-                return dispatch(setDineSykmeldinger(json));
+                if (json && json.length) {
+                    return dispatch(setDineSykmeldinger(json));
+                }
+                return dispatch(hentDineSykmeldingerFeilet());
             })
             .catch(() => {
                 return dispatch(hentDineSykmeldingerFeilet());

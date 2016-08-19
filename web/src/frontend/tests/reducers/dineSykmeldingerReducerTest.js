@@ -35,7 +35,6 @@ describe('dineSykmeldinger', () => {
                 id: 44, 
                 fornavn: "Harald",
                 etternavn: "R.",
-                nettoppBekreftet: true
             }, {
                 id: 55,
                 fornavn: "Sonja",
@@ -63,7 +62,6 @@ describe('dineSykmeldinger', () => {
                 fornavn: "Harald",
                 etternavn: "R",
                 diagnose: "Forkjølet",
-                nettoppBekreftet: true
             }, {
                 id: 55, 
                 fornavn: "Sonja",
@@ -226,38 +224,10 @@ describe('dineSykmeldinger', () => {
             data: [{
                 id: 23,
                 status: 'BEKREFTET',
-                nettoppBekreftet: true,
             }, {
                 id: 24,
             }]
         });        
     });
-
-    it("Håndterer NAVIGER_FRA_BEKREFTETKVITTERING", () => {
-       const initialState = deepFreeze({
-           data: [{
-               id: 23,
-               status: "BEKREFTET",
-               nettoppBekreftet: true
-           }, {
-               id: 24,
-           }]
-       });
-       const action = {
-           type: 'NAVIGER_FRA_BEKREFTETKVITTERING',
-           sykmeldingId: 23,
-       };
-       const nextState = dineSykmeldinger(initialState, action);
-
-       expect(nextState).to.deep.equal({
-           data: [{
-               id: 23,
-               status: 'BEKREFTET',
-               nettoppBekreftet: false,
-           }, {
-               id: 24,
-           }]
-       });  
-    })
 
 }); 

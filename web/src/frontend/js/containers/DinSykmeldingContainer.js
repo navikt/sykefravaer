@@ -10,7 +10,6 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { getLedetekst } from '../ledetekster';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
-import { navigerFraBekreftetkvittering } from '../actions/dinSykmelding_actions';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
 import { erPilotarbeidsgiver } from '../utils/arbeidsgiverUtils';
 import { getSykmelding } from '../utils';
@@ -26,13 +25,6 @@ export class DinSykmldSide extends Component {
         const { dispatch, sykmeldingId } = this.props;
         dispatch(hentArbeidsgiversSykmeldinger());
         dispatch(hentAktuelleArbeidsgivere(sykmeldingId));
-    }
-
-    componentWillUnmount() {
-        if (this.props.dinSykmelding.data && this.props.dinSykmelding.data.nettoppBekreftet) {
-            const { dispatch } = this.props;
-            dispatch(navigerFraBekreftetkvittering(this.props.sykmeldingId));
-        }
     }
 
     render() {

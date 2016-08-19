@@ -4,6 +4,7 @@ import VelgArbeidssituasjonContainer from '../../containers/VelgArbeidssituasjon
 import VelgArbeidsgiverContainer from '../../containers/VelgArbeidsgiverContainer';
 import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykmeldingContainer';
 import Varselstripe from '../../components/Varselstripe';
+import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 
 class DinSykmeldingSkjema extends Component {
 
@@ -94,6 +95,7 @@ class DinSykmeldingSkjema extends Component {
             }
             this.valider();
         }}>
+            <ErOpplysningeneRiktige sykmelding={sykmelding} />
             <VelgArbeidssituasjonContainer
                 sykmeldingId={sykmelding.id}
                 erFeil={this.state.forsoktBekreftet && sykmelding.arbeidssituasjon === undefined} />

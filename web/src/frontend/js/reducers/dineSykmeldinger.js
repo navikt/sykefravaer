@@ -56,17 +56,6 @@ export default function sykmeldinger(state = initiellState, action) {
                 const _sykmelding = Object.assign({}, sykmelding);
                 if (_sykmelding.id === action.sykmeldingId) {
                     _sykmelding.status = 'BEKREFTET';
-                    _sykmelding.nettoppBekreftet = true;
-                }
-                return _sykmelding;
-            });
-            return Object.assign({}, state, { data });
-        }
-        case 'NAVIGER_FRA_BEKREFTETKVITTERING': {
-            const data = state.data.map((sykmelding) => {
-                const _sykmelding = Object.assign({}, sykmelding);
-                if (_sykmelding.id === action.sykmeldingId) {
-                    _sykmelding.nettoppBekreftet = false;
                 }
                 return _sykmelding;
             });

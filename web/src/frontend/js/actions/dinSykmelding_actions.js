@@ -62,13 +62,6 @@ export function sykmeldingBekreftet(sykmeldingId) {
     };
 }
 
-export function navigerFraBekreftetkvittering(sykmeldingId) {
-    return {
-        type: 'NAVIGER_FRA_BEKREFTETKVITTERING',
-        sykmeldingId,
-    };
-}
-
 export function bekreftSykmelding(sykmeldingId, arbeidssituasjon) {
     return function bekreft(dispatch) {
         dispatch(bekrefterSykmelding(sykmeldingId, arbeidssituasjon));

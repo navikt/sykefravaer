@@ -121,12 +121,6 @@ describe("dinSykmelding_actions", () => {
             const action = actions.bekreftSykmelding(14, "frilanser");
             expect(typeof action).to.equal("function");
         });   
-
-        it("Skal ha en navigerFraBekreftetkvittering()-funksjon som returnerer riktig action", () => {
-            const action = actions.navigerFraBekreftetkvittering(14);
-            expect(action.type).to.equal("NAVIGER_FRA_BEKREFTETKVITTERING");
-            expect(action.sykmeldingId).to.equal(14);
-        });           
           
     }); 
 

@@ -21,10 +21,6 @@ class DinSykmeldingSkjema extends Component {
     }
 
     bekreft(sykmelding) {
-        this.setState({
-            forsoktSendt: false,
-            forsoktBekreftet: true,
-        });
         this.props.bekreftSykmelding(sykmelding.id, sykmelding.arbeidssituasjon).then((respons) => {
             if (respons.status > 400) {
                 this.setState({
@@ -50,6 +46,11 @@ class DinSykmeldingSkjema extends Component {
         });
     }
 
+    harValgtAnnenArbeidsgiver() {
+        const { sykmelding } = this.props;
+        return sykmelding.valgtArbeidsgiver && sykmelding.valgtArbeidsgiver.orgnummer === '0';
+    }
+
     valider() {
         const { sykmelding, harStrengtFortroligAdresse } = this.props;
         this.setState({
@@ -61,7 +62,11 @@ class DinSykmeldingSkjema extends Component {
                 forsoktSendt: false,
             });
             return;
-        } else if (harStrengtFortroligAdresse) {
+        } else if (harStrengtFortroligAdresse || this.harValgtAnnenArbeidsgiver()) {
+            this.setState({
+                forsoktSendt: false,
+                forsoktBekreftet: true,
+            });
             this.bekreft(sykmelding);
         } else {
             if (sykmelding.arbeidssituasjon === 'arbeidstaker') {
@@ -70,7 +75,7 @@ class DinSykmeldingSkjema extends Component {
                         forsoktSendt: false,
                         forsoktBekreftet: false,
                     });
-                    if (sykmelding.valgtArbeidsgiver.orgnummer !== '0') {
+                    if (!this.harValgtAnnenArbeidsgiver()) {
                         this.send(sykmelding);
                     }
                 }
@@ -78,6 +83,10 @@ class DinSykmeldingSkjema extends Component {
                     forsoktSendt: true,
                 });
             } else {
+                this.setState({
+                    forsoktSendt: false,
+                    forsoktBekreftet: true,
+                });
                 this.bekreft(sykmelding);
             }
         }
@@ -85,8 +94,22 @@ class DinSykmeldingSkjema extends Component {
 
     render() {
         const { sykmelding, sender, ledetekster, harStrengtFortroligAdresse } = this.props;
-        const modus = sykmelding.arbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse ? 'SEND' : 'BEKREFT';
-        const knappetekst = modus === 'SEND' ? 'Send sykmelding' : 'Bekreft sykmelding';
+
+        const knappetekster = {
+            GA_VIDERE: 'Gå videre',
+            BEKREFT: 'Bekreft sykmelding',
+            SEND: 'Send sykmelding',
+        };
+
+        const modus = (() => {
+            if (!sykmelding.arbeidssituasjon) {
+                return 'GA_VIDERE';
+            }
+            if (sykmelding.arbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver()) {
+                return 'SEND';
+            }
+            return 'BEKREFT';
+        })();
 
         return (<form onSubmit={(e) => {
             if (e) {
@@ -127,6 +150,9 @@ class DinSykmeldingSkjema extends Component {
             {
                 modus === 'BEKREFT' && <p className="blokk">Å bekrefte sykmeldingen betyr at du er enig i innholdet, og at du ønsker å ta den i bruk.</p>
             }
+            {
+                modus === 'SEND' && <p className="blokk">Når du sender sykmeldingen vil den bli levert til din arbeidsgiver elektronisk.</p>
+            }
             <div aria-live="polite" role="alert">
             {
                 this.state.serverfeil && (this.state.forsoktSendt || this.state.forsoktBekreftet) &&
@@ -142,7 +168,7 @@ class DinSykmeldingSkjema extends Component {
                     e.preventDefault();
                     this.valider();
                 }}>
-                    {knappetekst}
+                    {knappetekster[modus]}
                     <span className="spinner-knapp" />
                 </button>
             </div>

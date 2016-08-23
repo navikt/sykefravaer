@@ -69,6 +69,29 @@ export default function sykmeldinger(state = initiellState, action) {
                 sortering,
             });
         }
+        case 'SET_FEILAKTIG_OPPLYSNING': {
+            const data = state.data.map((sykmelding) => {
+                const _sykmelding = Object.assign({}, sykmelding);
+                if (_sykmelding.id === action.sykmeldingId) {
+                    const s = {};
+                    s[action.opplysning] = action.erFeilaktig;
+                    _sykmelding.feilaktigeOpplysninger = Object.assign({}, _sykmelding.feilaktigeOpplysninger, s);
+                }
+                return _sykmelding;
+            });
+            return Object.assign({}, state, { data });
+        }
+        case 'SET_OPPLYSNINGENE_ER_RIKTIGE': {
+            const data = state.data.map((sykmelding) => {
+                const _sykmelding = Object.assign({}, sykmelding);
+                if (_sykmelding.id === action.sykmeldingId) {
+                    _sykmelding.opplysningeneErRiktige = action.erRiktige;
+                    _sykmelding.feilaktigeOpplysninger = {};
+                }
+                return _sykmelding;
+            });
+            return Object.assign({}, state, { data });
+        }
         default: {
             return state;
         }

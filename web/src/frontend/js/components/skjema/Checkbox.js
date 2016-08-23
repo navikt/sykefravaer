@@ -2,7 +2,9 @@ import React, { PropTypes } from 'react';
 
 const Checkbox = ({ id, name, label, erValgt = false, changeHandler, children }) => {
     return (<div className="nav-input">
-        <input className="nav-checkbox" id={id} name={name} type="checkbox" checked={erValgt} onChange={changeHandler} />
+        <input className="nav-checkbox" id={`checkbox-${id}`} name={name} type="checkbox" checked={erValgt} onChange={() => {
+            changeHandler(!erValgt);
+        }} />
         <label htmlFor={`checkbox-${id}`}>{label}</label>
         {
             erValgt && children

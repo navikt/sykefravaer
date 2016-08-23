@@ -62,6 +62,23 @@ export function sykmeldingBekreftet(sykmeldingId) {
     };
 }
 
+export function setOpplysningeneErRiktige(sykmeldingId, erRiktige) {
+    return {
+        type: 'SET_OPPLYSNINGENE_ER_RIKTIGE',
+        sykmeldingId,
+        erRiktige,
+    };
+}
+
+export function setFeilaktigOpplysning(sykmeldingId, opplysning, erFeilaktig) {
+    return {
+        type: 'SET_FEILAKTIG_OPPLYSNING',
+        opplysning,
+        erFeilaktig,
+        sykmeldingId,
+    };
+}
+
 export function bekreftSykmelding(sykmeldingId, arbeidssituasjon) {
     return function bekreft(dispatch) {
         dispatch(bekrefterSykmelding(sykmeldingId, arbeidssituasjon));

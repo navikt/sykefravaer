@@ -86,7 +86,7 @@ class DinSykmeldingSkjema extends Component {
 
 
     render() {
-        const { sykmelding, sender } = this.props;
+        const { sykmelding, sender, ledetekster } = this.props;
         const knappetekst = sykmelding.arbeidssituasjon === 'arbeidstaker' ? 'Send sykmelding' : 'Bekreft sykmelding';
 
         return (<form onSubmit={(e) => {
@@ -95,7 +95,13 @@ class DinSykmeldingSkjema extends Component {
             }
             this.valider();
         }}>
-            <ErOpplysningeneRiktige sykmelding={sykmelding} />
+            <ErOpplysningeneRiktige
+                ledetekster={ledetekster}
+                sykmelding={sykmelding}
+                feilmelding="Vennligst svar på om opplysningene er riktige"
+                erFeil={(this.state.forsoktSendt || this.state.forsoktBekreftet) && sykmelding.opplysningeneErRiktige === undefined}
+                setOpplysningeneErRiktige={this.props.setOpplysningeneErRiktige}
+                setFeilaktigOpplysning={this.props.setFeilaktigOpplysning} />
             <VelgArbeidssituasjonContainer
                 sykmeldingId={sykmelding.id}
                 erFeil={this.state.forsoktBekreftet && sykmelding.arbeidssituasjon === undefined} />
@@ -142,6 +148,10 @@ DinSykmeldingSkjema.propTypes = {
     bekreftSykmelding: PropTypes.func,
     sendSykmeldingTilArbeidsgiver: PropTypes.func,
     sender: PropTypes.bool,
+    ledetekster: PropTypes.object,
+    feilaktigeOpplysninger: PropTypes.object,
+    setOpplysningeneErRiktige: PropTypes.func,
+    setFeilaktigOpplysning: PropTypes.func,
 };
 
 export default DinSykmeldingSkjema;

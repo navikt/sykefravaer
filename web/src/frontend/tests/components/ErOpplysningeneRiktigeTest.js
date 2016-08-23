@@ -1,58 +1,139 @@
 import chai from 'chai';
 import React from 'react'
-import { mount, shallow } from 'enzyme';
+import { mount, shallow, render } from 'enzyme';
 import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
 import getSykmelding from "../mockSykmeldinger.js";
-import ErOpplysningeneRiktige, { HvilkeOpplysningerErIkkeRiktige } from '../../js/components/sykmelding/ErOpplysningeneRiktige';
+import ErOpplysningeneRiktige, { HvilkeOpplysningerErIkkeRiktige, SykmeldingFeilaktigeOpplysningerInfo, DuTrengerNySykmelding, DuKanBrukeSykmeldingenDinDiagnoseAndre, DuKanBrukeSykmeldingenDinArbeidsgiver } from '../../js/components/sykmelding/ErOpplysningeneRiktige';
 import Radiogruppe from '../../js/components/skjema/Radiogruppe';
 import Checkboxgruppe from '../../js/components/skjema/Checkboxgruppe';
+import Checkbox from '../../js/components/skjema/Checkbox';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("ErOpplysningeneRiktige", () => {
+describe.only("Er", () => {
 
-    it("Skal inneholde en Radiogruppe med spoersmaal = 'Er opplysningene i sykmeldingen riktige?'", () => {
-        let component = shallow(<ErOpplysningeneRiktige sykmelding={getSykmelding()} />);
-        expect(component.find(Radiogruppe)).to.have.length(1);
-        expect(component.find(Radiogruppe).prop("spoersmaal")).to.equal("Er opplysningene i sykmeldingen riktige?");
+    describe("ErOpplysningeneRiktige", () => {
+
+        it("Skal inneholde en Radiogruppe'", () => {
+            let component = shallow(<ErOpplysningeneRiktige sykmelding={getSykmelding()} />);
+            expect(component.find(Radiogruppe)).to.have.length(1);
+        });
+
+        it("Skal inneholde to input-felter", () => {
+            let component = shallow(<ErOpplysningeneRiktige sykmelding={getSykmelding()} />);
+            expect(component.find("input")).to.have.length(2);
+        });
+
     });
 
-    it("Skal inneholde to input-felter", () => {
-        let component = shallow(<ErOpplysningeneRiktige sykmelding={getSykmelding()} />);
-        expect(component.contains(<input name="ja" label="Ja, opplysningene er riktige" />)).to.be.true;
-        expect(component.contains(<input name="nei" label="Nei, opplysningene er ikke riktige"><HvilkeOpplysningerErIkkeRiktige /></input>)).to.be.true;
+
+    describe("HvilkeOpplysningerErIkkeRiktige", () => {
+        
+        it("Skal inneholde en Checkboxgruppe", () => {
+            let component = shallow(<HvilkeOpplysningerErIkkeRiktige />);
+            expect(component.find(Checkboxgruppe)).to.have.length(1);
+        });
+
+        it("Skal inneholde fem input-felter", () => {
+            let component = shallow(<HvilkeOpplysningerErIkkeRiktige />);
+            expect(component.find(Checkbox)).to.have.length(5);
+        });
+
+        it("Skal inneholde SykmeldingFeilaktigeOpplysningerInfo", () => {
+            let component = shallow(<HvilkeOpplysningerErIkkeRiktige />)
+            expect(component.contains(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={{}} />)).to.be.true;
+        });
+
+        it("Skal sette valgte feilaktige opplysninger til checked", () => {
+            const feilaktigeOpplysninger = {
+                periode: true,
+                diagnose: true,
+            }
+            let component = mount(<HvilkeOpplysningerErIkkeRiktige feilaktigeOpplysninger={feilaktigeOpplysninger} sykmeldingId="33" ledetekster={ledetekster} />);
+            expect(component.find("input[name='periode']")).to.be.checked();
+            expect(component.find("input[name='diagnose']")).to.be.checked();
+            expect(component.find("input[name='sykmeldingsgrad']")).not.to.be.checked();
+            expect(component.find("input[name='andre']")).not.to.be.checked();
+        });
+
+        it("Skal kalle på setFeilaktigOpplysning når man velger en checkbox", () => {
+            const spy = sinon.spy();
+            let component = mount(<HvilkeOpplysningerErIkkeRiktige sykmeldingId="33" setFeilaktigOpplysning={spy} ledetekster={ledetekster} />);
+            component.find("input[name='periode']").simulate("change");
+            expect(spy.calledOnce).to.equal(true);
+            expect(spy.getCall(0).args[0]).to.equal("33");
+            expect(spy.getCall(0).args[1]).to.equal("periode");
+            expect(spy.getCall(0).args[2]).to.equal(true);
+        });
+
     });
 
-    xit("Skal vise HvilkeOpplysningerErIkkeRiktige dersom man velger nei", () => {
-        let sykmelding = getSykmelding({
-            opplysningeneErRiktige: false,
+    describe.only("SykmeldingFeilaktigeOpplysningerInfo", () => {
+
+        it("Skal inneholde 'Du trenger ny sykmelding' dersom periode eller sykmeldingsgrad er blant de feilaktige opplysningene", () => {
+            const feilaktigeOpplysninger1 = {
+                periode: true
+            };
+            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
+            expect(component1.contains(<DuTrengerNySykmelding />)).to.be.true;
+
+            const feilaktigeOpplysninger2 = {
+                sykmeldingsgrad: true
+            };
+            let component2 = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger2} />);
+            expect(component2.contains(<DuTrengerNySykmelding />)).to.be.true;
+        }); 
+
+        it("Skal inneholde 'Du kan bruke sykmeldingen din Arbeidsgiver' dersom arbeidsgiver er den eneste feilaktige opplysningen", () => {
+            const feilaktigeOpplysninger1 = {
+                arbeidsgiver: true,
+            };
+            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver />)).to.be.true;
+        }); 
+
+        it("Skal inneholde 'Du kan bruke sykmeldingen din Arbeidsgiver' dersom arbeidsgiver og diagnose er de feilaktige opplysnignene", () => {
+            const feilaktigeOpplysninger1 = {
+                arbeidsgiver: true,
+                diagnose: true,
+            };
+            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver />)).to.be.true;
+            expect(component1.contains(<DuTrengerNySykmelding />)).to.be.false;
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre />)).to.be.false;
+        }); 
+
+        it("Skal inneholde 'Du trenger ny sykmelding' dersom periode og diagnose er de feilaktige opplysningene", () => {
+            const feilaktigeOpplysninger1 = {
+                periode: true,
+                diagnose: true,
+            };
+            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
+            expect(component1.contains(<DuTrengerNySykmelding />)).to.be.true;
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver />)).to.be.false;
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre />)).to.be.false;
+        });
+
+        it("Skal inneholde 'DuKanBrukeSykmeldingenDinDiagnoseAndre' dersom diagnose er den feilaktige opplysningen", () => {
+            const feilaktigeOpplysninger1 = {
+                diagnose: true,
+            };
+            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
+            expect(component1.contains(<DuTrengerNySykmelding />)).to.be.false;
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver />)).to.be.false;
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre />)).to.be.true;
+        });
+
+        it("Skal returnere null dersom ingen opplysninger er feilaktige", () => {
+            let component = shallow(<SykmeldingFeilaktigeOpplysningerInfo />);
+            expect(component.contains(<DuTrengerNySykmelding />)).to.be.false;
+            expect(component.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver />)).to.be.false;
+            expect(component.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre />)).to.be.false;    
         })
-        let component = mount(<ErOpplysningeneRiktige sykmelding={sykmelding} />);
-        expect(component.contains(HvilkeOpplysningerErIkkeRiktige)).to.be.true;
-    });
 
-});
-
-
-describe.only("HvilkeOpplysningerErIkkeRiktige", () => {
-    
-    it("Skal inneholde en Checkboxgruppe med spoersmaal = 'Hvilke opplysninger er ikke riktige?'", () => {
-        let component = shallow(<HvilkeOpplysningerErIkkeRiktige />);
-        expect(component.find(Checkboxgruppe)).to.have.length(1);
-        expect(component.find(Checkboxgruppe).prop("spoersmaal")).to.equal("Hvilke opplysninger er ikke riktige?")
-    });
-
-    it("Skal inneholde fem input-felter", () => {
-        let component = shallow(<HvilkeOpplysningerErIkkeRiktige />);
-        expect(component.find("input")).to.have.length(5);
-        expect(component.contains(<input value="periode" label="Periode" />)).to.be.true;
-        expect(component.contains(<input value="sykmeldingsgrad" label="Sykmeldingsgrad" />)).to.be.true;
-        expect(component.contains(<input value="arbeidsgiver" label="Arbeidsgiver" />)).to.be.true;
-        expect(component.contains(<input value="diagnose" label="Diagnose" />)).to.be.true;
-        expect(component.contains(<input value="andre" label="Andre opplysninger" />)).to.be.true;
-    });
+    }); 
 
 });

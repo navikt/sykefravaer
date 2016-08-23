@@ -12,7 +12,7 @@ import nock from 'nock';
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
 
-describe("dinSykmelding_actions", () => { 
+describe.only("dinSykmelding_actions", () => {
 
     beforeEach(() => {
         window = window || {};
@@ -51,6 +51,30 @@ describe("dinSykmelding_actions", () => {
         expect(action.sykmeldingId).to.equal(23);        
 
     });
+
+    it("Skal ha en setOpplysningeneErRiktige()-funksjon som returnerer riktig action", () => {
+        const action = actions.setOpplysningeneErRiktige(1234, true);
+        expect(action).to.deep.equal({
+            type: "SET_OPPLYSNINGENE_ER_RIKTIGE",
+            erRiktige: true,
+            sykmeldingId: 1234
+        });
+
+        const action2 = actions.setOpplysningeneErRiktige(465, false);
+        expect(action2).to.deep.equal({
+            type: "SET_OPPLYSNINGENE_ER_RIKTIGE",
+            erRiktige: false,
+            sykmeldingId: 465
+        });
+    })
+
+    it("Skal ha en setFeilaktigOpplysning som returnerer riktig action", () => {
+        const action = actions.setFeilaktigOpplysning(88, "periode", true); 
+        expect(action.type).to.equal("SET_FEILAKTIG_OPPLYSNING");
+        expect(action.opplysning).to.equal("periode");
+        expect(action.erFeilaktig).to.equal(true);
+        expect(action.sykmeldingId).to.equal(88)
+    })
 
     describe("Send sykmelding", () => {
 

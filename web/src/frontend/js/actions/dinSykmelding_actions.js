@@ -109,6 +109,7 @@ export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer) {
                 dispatch(dineSykmeldingerActions.hentDineSykmeldinger());
                 dispatch(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
             }
+            return response;
         })
         .catch(() => {
             return dispatch(sendSykmeldingFeilet(sykmeldingId));

@@ -166,7 +166,7 @@ describe("DinSykmeldingSkjema", () => {
             sendStub.restore();
         });
 
-        it("Setter forsoktSendt til true dersom valgtArbeidsgiver.orgnummer === '0'", () => {
+        it("Setter forsoktBekreftet til true og kaller på bekreft dersom valgtArbeidsgiver.orgnummer === '0'", () => {
             const sykmelding = getSykmelding({
                 arbeidssituasjon: 'arbeidstaker',
                 valgtArbeidsgiver: {
@@ -174,11 +174,12 @@ describe("DinSykmeldingSkjema", () => {
                     orgnummer: "0"
                 }
             });
-            const sendStub = sinon.stub(DinSykmeldingSkjema.prototype, "send");
+            const bekreftStub = sinon.stub(DinSykmeldingSkjema.prototype, "bekreft");
             const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} />);
             component.simulate("submit");
-            expect(component.state("forsoktSendt")).to.be.true;
-            sendStub.restore();
+            expect(component.state("forsoktBekreftet")).to.be.true;
+            expect(bekreftStub.calledOnce).to.be.true;
+            bekreftStub.restore();
         });
 
         it("Setter forsoktSendt til true dersom valgtArbeidsgiver === undefined", () => {
@@ -263,6 +264,13 @@ describe("DinSykmeldingSkjema", () => {
 
         it("Er 'Bekreft sykmelding' dersom man velger 'arbeidsledig',", () => {
             const sykmelding = { id: 23, arbeidssituasjon: 'arbeidsledig' };
+            const spy = sinon.spy();
+            const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} />);
+            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmelding")
+        });
+
+        it("Er 'Bekreft sykmelding' dersom man velger 'arbeidstaker' og deretter 'Annen arbeidsgiver',", () => {
+            const sykmelding = { id: 23, arbeidssituasjon: 'arbeidstaker', valgtArbeidsgiver: {orgnummer: '0'} };
             const spy = sinon.spy();
             const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} />);
             expect(component.find(".js-submit").text()).to.equal("Bekreft sykmelding")

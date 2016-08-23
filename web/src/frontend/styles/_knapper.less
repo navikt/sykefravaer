@@ -6,8 +6,8 @@
 
 .rammeknapp,
 .contrast .rammeknapp {
+    border: 2px solid @btn-border-color!important;
     padding: 8px 38px 10px 38px;
-    border: 2px solid @btn-border-color;
     box-shadow: none;
     &:hover {
         box-shadow: none;
@@ -18,6 +18,9 @@
 }
 
 .contrast .rammeknapp {
+
+    border-color: @white!important;
+
     &:hover, &:active, &:visited {
         transform: none;
     }

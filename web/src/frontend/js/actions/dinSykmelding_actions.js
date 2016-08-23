@@ -40,18 +40,15 @@ export function sykmeldingSendt(sykmeldingId, orgnummer) {
     };
 }
 
-export function bekrefterSykmelding(sykmeldingId, arbeidssituasjon) {
+export function bekrefterSykmelding() {
     return {
         type: 'BEKREFTER_SYKMELDING',
-        sykmeldingId,
-        arbeidssituasjon,
     };
 }
 
-export function bekreftSykmeldingFeilet(sykmeldingId) {
+export function bekreftSykmeldingFeilet() {
     return {
         type: 'BEKREFT_SYKMELDING_FEILET',
-        sykmeldingId,
     };
 }
 
@@ -81,7 +78,7 @@ export function setFeilaktigOpplysning(sykmeldingId, opplysning, erFeilaktig) {
 
 export function bekreftSykmelding(sykmeldingId, arbeidssituasjon) {
     return function bekreft(dispatch) {
-        dispatch(bekrefterSykmelding(sykmeldingId, arbeidssituasjon));
+        dispatch(bekrefterSykmelding());
         return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`,
             {
                 credentials: 'include',
@@ -94,7 +91,7 @@ export function bekreftSykmelding(sykmeldingId, arbeidssituasjon) {
             })
         .then((response) => {
             if (response.status > 400) {
-                dispatch(bekreftSykmeldingFeilet(sykmeldingId));
+                dispatch(bekreftSykmeldingFeilet());
             } else {
                 dispatch(sykmeldingBekreftet(sykmeldingId));
                 dispatch(dineSykmeldingerActions.hentDineSykmeldinger());
@@ -103,7 +100,7 @@ export function bekreftSykmelding(sykmeldingId, arbeidssituasjon) {
             return response;
         })
         .catch(() => {
-            return dispatch(bekreftSykmeldingFeilet(sykmeldingId));
+            return dispatch(bekreftSykmeldingFeilet());
         });
     };
 }
@@ -129,6 +126,7 @@ export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer) {
                 dispatch(dineSykmeldingerActions.hentDineSykmeldinger());
                 dispatch(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
             }
+            return response;
         })
         .catch(() => {
             return dispatch(sendSykmeldingFeilet(sykmeldingId));

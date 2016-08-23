@@ -180,6 +180,78 @@ describe('arbeidsgiversSykmeldinger', () => {
         });
     });
 
+    describe("Bekreft sykmelding", () => {
+        it("Håndterer BEKREFTER_SYKMELDING", () => {
+            const initialState = deepFreeze({
+                data: [],
+                henter: false,
+                sender: false,
+            });
+            const action = {
+                type: 'BEKREFTER_SYKMELDING',
+            }
+            const nextState = arbeidsgiversSykmeldinger(initialState, action);
+            expect(nextState).to.deep.equal({
+                data: [],
+                henter: false,
+                sender: true,
+                sendingFeilet: false,
+            });
+
+        });
+
+        it("Håndterer SYKMELDING_BEKREFTET", () => {
+            const initialState = deepFreeze({
+                data: [{
+                    id: 23,
+                }, {
+                    id: 24,
+                }]
+            });
+            const action = {
+                type: 'SYKMELDING_BEKREFTET',
+                sykmeldingId: 23,
+            };
+            const nextState = arbeidsgiversSykmeldinger(initialState, action);
+
+            expect(nextState).to.deep.equal({
+                data: [{
+                    id: 23,
+                    status: 'BEKREFTET',
+                }, {
+                    id: 24,
+                }]
+            });        
+        });
+
+        it("Håndterer BEKREFT_SYKMELDING_FEILET", () => {
+            const initialState = deepFreeze({
+                data: [{
+                    id: 23,
+                }, {
+                    id: 24,
+                }]
+            });
+            const action = {
+                type: 'BEKREFT_SYKMELDING_FEILET',
+            };
+            const nextState = arbeidsgiversSykmeldinger(initialState, action);
+
+            expect(nextState).to.deep.equal({
+                data: [{
+                    id: 23,
+                }, {
+                    id: 24,
+                }],
+                sendingFeilet: true,
+                sender: false,
+                henter: false,
+                hentingFeilet: false
+            });        
+        });
+
+    })
+
     describe("Innsending", () => {
 
         let sykmelding, action, initialState, store; 

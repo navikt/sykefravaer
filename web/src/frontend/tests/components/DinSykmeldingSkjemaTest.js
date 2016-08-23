@@ -12,6 +12,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import DinSykmeldingSkjema from "../../js/components/sykmelding/DinSykmeldingSkjema";
+import StrengtFortroligInfo from "../../js/components/sykmelding/StrengtFortroligInfo";
 import VelgArbeidssituasjonContainer from "../../js/containers/VelgArbeidssituasjonContainer";
 import DineSykmeldingOpplysninger from "../../js/components/sykmeldingOpplysninger/DineSykmeldingOpplysninger";
 import VelgArbeidsgiverContainer from "../../js/containers/VelgArbeidsgiverContainer";
@@ -104,6 +105,20 @@ describe("DinSykmeldingSkjema", () => {
         component.setState({"forsoktSendt": true});
         expect(component.find(VelgArbeidsgiverContainer).prop("erFeil")).to.be.true;
     });
+
+    it("Skal vise info om utskrift dersom harStrengtFortroligAdresse = true", () => {
+        component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding({
+            arbeidssituasjon: "arbeidstaker"
+        })} ledetekster={ledetekster} harStrengtFortroligAdresse={true} />);
+        expect(component.find(StrengtFortroligInfo)).to.have.length(1);
+    });
+
+    it("Skal ikke vise info om utskrift dersom harStrengtFortroligAdresse = false", () => {
+        component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding({
+            arbeidssituasjon: "arbeidstaker"
+        })} ledetekster={ledetekster} harStrengtFortroligAdresse={false} />);
+        expect(component.find(StrengtFortroligInfo)).to.have.length(0);
+    });    
 
     describe("Validering", () => {
 
@@ -221,7 +236,6 @@ describe("DinSykmeldingSkjema", () => {
             const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} sendSykmeldingTilArbeidsgiver={spy} sender={true} />);
             expect(component.find(".js-spinner")).to.have.length(1);
         })
-
     });
 
     describe("Tekst på knapp", () => {
@@ -261,6 +275,13 @@ describe("DinSykmeldingSkjema", () => {
             expect(component.find(".js-submit").text()).to.equal("Send sykmelding")
         });
 
+        it("Er 'Bekreft sykmelding' dersom man har strengt fortrolig adresse", () => {
+            const sykmelding = { id: 23, arbeidssituasjon: 'arbeidstaker' };
+            const spy = sinon.spy();
+            const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} harStrengtFortroligAdresse={true} />);
+            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmelding")
+        });
+
     }); 
 
     describe("Bekreft sykmelding", () => {
@@ -288,6 +309,32 @@ describe("DinSykmeldingSkjema", () => {
             expect(bekreftSpy.calledOnce).to.be.true;
             expect(bekreftSpy.getCall(0).args[0]).to.equal(23);
             expect(bekreftSpy.getCall(0).args[1]).to.equal("frilanser");
+        }); 
+
+        it("Kaller på bekreftSykmelding med sykmeldingId og arbeidssituasjon dersom man klikker på Bekreft-knappen når man har strengt fortrolig adresse", () => {
+            const sykmelding = { id: 23, arbeidssituasjon: 'arbeidstaker' };
+            const sendSpy = sinon.spy(); 
+            const httpRespons = {
+                status: 200
+            }
+            const bekreft = () => {
+                return {
+                    then: (func) => {
+                        return;
+                    }
+                };
+            }
+            let bekreftSpy = sinon.spy(bekreft);
+            const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding}
+              ledetekster={ledetekster}
+              bekreftSykmelding={bekreftSpy}
+              sendSykmeldingTilArbeidsgiver={sendSpy}
+              harStrengtFortroligAdresse={true}
+            />);
+            component.simulate("submit");
+            expect(bekreftSpy.calledOnce).to.be.true;
+            expect(bekreftSpy.getCall(0).args[0]).to.equal(23);
+            expect(bekreftSpy.getCall(0).args[1]).to.equal("arbeidstaker");
         }); 
 
     });

@@ -28,7 +28,7 @@ export class DinSykmldSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, dinSykmelding, harPilotarbeidsgiver, arbeidsgiversSykmelding, harStrengtFortroligAdresse } = this.props;
+        const { brodsmuler, ledetekster, dinSykmelding, harPilotarbeidsgiver, arbeidsgiversSykmelding } = this.props;
         return (<Side tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
                 { (() => {
                     if (dinSykmelding.henter || (arbeidsgiversSykmelding && arbeidsgiversSykmelding.henter)) {
@@ -66,8 +66,7 @@ export class DinSykmldSide extends Component {
                         <DinSykmelding
                             sykmelding={dinSykmelding.data}
                             ledetekster={ledetekster.data}
-                            harPilotarbeidsgiver={harPilotarbeidsgiver}
-                            harStrengtFortroligAdresse={harStrengtFortroligAdresse} />
+                            harPilotarbeidsgiver={harPilotarbeidsgiver} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster.data} />
                         </div>);
                 })()
@@ -82,7 +81,6 @@ DinSykmldSide.propTypes = {
     arbeidsgivere: PropTypes.object,
     brodsmuler: PropTypes.array,
     harPilotarbeidsgiver: PropTypes.bool,
-    harStrengtFortroligAdresse: PropTypes.bool,
     sykmeldingId: PropTypes.string,
     dinSykmelding: PropTypes.object,
     arbeidsgiversSykmelding: PropTypes.object,
@@ -103,6 +101,8 @@ export function mapStateToProps(state, ownProps) {
         };
     }
 
+    const harPilotarbeidsgiver = erPilotarbeidsgiver(state.arbeidsgivere.data);
+
     return Object.assign({}, props, {
         sykmeldingId,
         dinSykmelding: {
@@ -110,8 +110,7 @@ export function mapStateToProps(state, ownProps) {
             hentingFeilet: state.dineSykmeldinger.hentingFeilet,
             henter: state.dineSykmeldinger.henter,
         },
-        harPilotarbeidsgiver: erPilotarbeidsgiver(state.arbeidsgivere.data),
-        harStrengtFortroligAdresse: state.brukerinfo.bruker.data.strengtFortroligAdresse,
+        harPilotarbeidsgiver,
         ledetekster: state.ledetekster,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),

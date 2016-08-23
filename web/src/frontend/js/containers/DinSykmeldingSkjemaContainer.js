@@ -5,6 +5,7 @@ import DinSykmeldingSkjema from '../components/sykmelding/DinSykmeldingSkjema';
 
 export const mapStateToProps = (state, ownProps) => {
     let sykmelding = {};
+
     if (ownProps.sykmeldingId) {
         const _sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, ownProps.sykmeldingId);
         if (_sykmelding) {
@@ -16,6 +17,7 @@ export const mapStateToProps = (state, ownProps) => {
         sykmelding,
         ledetekster: state.ledetekster.data,
         sender: state.arbeidsgiversSykmeldinger.sender,
+        harStrengtFortroligAdresse: state.brukerinfo.bruker.data.strengtFortroligAdresse,
     };
 };
 

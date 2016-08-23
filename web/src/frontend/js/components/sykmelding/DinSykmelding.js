@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
 import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmeldingOpplysninger';
 import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
-import StrengtFortroligInfo from './StrengtFortroligInfo';
 
-const DinSykmelding = ({ sykmelding, ledetekster, harPilotarbeidsgiver = false, harStrengtFortroligAdresse = false }) => {
+const DinSykmelding = ({ sykmelding, ledetekster, harPilotarbeidsgiver = false }) => {
     return (<div>
         <div className="header-bolk header-sykmelding">
             <img className="header-ikon" src="/sykefravaer/img/svg/person.svg" alt="Du" />
@@ -16,10 +15,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, harPilotarbeidsgiver = false, 
                 <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
             </div>
             {
-                harPilotarbeidsgiver && !harStrengtFortroligAdresse && <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
-            }
-            {
-                harStrengtFortroligAdresse && harPilotarbeidsgiver && <StrengtFortroligInfo sykmeldingId={sykmelding.id} ledetekster={ledetekster} />
+                harPilotarbeidsgiver && <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
             }
         </div>
     </div>);

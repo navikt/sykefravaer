@@ -94,8 +94,6 @@ describe("dinSykmelding_actions", () => {
             const sykmeldingId = 12;
             const action = actions.bekrefterSykmelding(sykmeldingId, "arbeidstaker");
             expect(action).to.deep.equal({
-                sykmeldingId: 12, 
-                arbeidssituasjon: "arbeidstaker",
                 type: "BEKREFTER_SYKMELDING",
             });        
         });
@@ -104,7 +102,6 @@ describe("dinSykmelding_actions", () => {
             const sykmeldingId = 12;
             const action = actions.bekreftSykmeldingFeilet(sykmeldingId);
             expect(action).to.deep.equal({
-                sykmeldingId: 12, 
                 type: "BEKREFT_SYKMELDING_FEILET",
             });        
         });
@@ -207,7 +204,7 @@ describe("dinSykmelding_actions", () => {
             }]);
 
             const expectedActions = [
-                { type: "BEKREFTER_SYKMELDING", sykmeldingId: 56, arbeidssituasjon: "arbeidstaker" },
+                { type: "BEKREFTER_SYKMELDING" },
                 { type: "SYKMELDING_BEKREFTET", sykmeldingId: 56 },
                 { type: "HENTER_DINE_SYKMELDINGER" },
                 { type: "HENTER_ARBEIDSGIVERS_SYKMELDINGER"}
@@ -231,8 +228,8 @@ describe("dinSykmelding_actions", () => {
             .reply(500)
 
             const expectedActions = [
-                { type: "BEKREFTER_SYKMELDING", sykmeldingId: 88, arbeidssituasjon: "arbeidstaker"}, 
-                { type: "BEKREFT_SYKMELDING_FEILET", sykmeldingId: 88 }
+                { type: "BEKREFTER_SYKMELDING" }, 
+                { type: "BEKREFT_SYKMELDING_FEILET" }
             ]
 
             return store.dispatch(actions.bekreftSykmelding(88, 'arbeidstaker'))

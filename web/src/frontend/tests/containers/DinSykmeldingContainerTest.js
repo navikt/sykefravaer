@@ -169,16 +169,6 @@ describe("DinSykmeldingContainer", () => {
             expect(res.harPilotarbeidsgiver).to.be.false;
         }); 
 
-        it("Skal returnere harStrengtFortroligAdresse === true hvis man strengt fortrolig adresse", () => {
-            state.brukerinfo.bruker = {
-                data: {
-                    strengtFortroligAdresse: true,
-                }
-            };
-            const res = mapStateToProps(state, ownProps);
-            expect(res.harStrengtFortroligAdresse).to.be.true;
-        }); 
-
         describe("Dersom dinSykmelding.status === 'SENDT'", () => {
 
             beforeEach(() => {

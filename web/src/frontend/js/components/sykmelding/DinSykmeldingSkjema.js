@@ -4,6 +4,7 @@ import VelgArbeidssituasjonContainer from '../../containers/VelgArbeidssituasjon
 import VelgArbeidsgiverContainer from '../../containers/VelgArbeidsgiverContainer';
 import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykmeldingContainer';
 import Varselstripe from '../../components/Varselstripe';
+import StrengtFortroligInfo from './StrengtFortroligInfo';
 
 class DinSykmeldingSkjema extends Component {
 
@@ -19,6 +20,10 @@ class DinSykmeldingSkjema extends Component {
     }
 
     bekreft(sykmelding) {
+        this.setState({
+            forsoktSendt: false,
+            forsoktBekreftet: true,
+        });
         this.props.bekreftSykmelding(sykmelding.id, sykmelding.arbeidssituasjon).then((respons) => {
             if (respons.status > 400) {
                 this.setState({
@@ -45,19 +50,20 @@ class DinSykmeldingSkjema extends Component {
     }
 
     valider() {
-        const { sykmelding } = this.props;
+        const { sykmelding, harStrengtFortroligAdresse } = this.props;
         this.setState({
             serverfeil: false,
         });
-        switch (sykmelding.arbeidssituasjon) {
-            case undefined: {
-                this.setState({
-                    forsoktBekreftet: true,
-                    forsoktSendt: false,
-                });
-                return;
-            }
-            case 'arbeidstaker': {
+        if (!sykmelding.arbeidssituasjon) {
+            this.setState({
+                forsoktBekreftet: true,
+                forsoktSendt: false,
+            });
+            return;
+        } else if (harStrengtFortroligAdresse) {
+            this.bekreft(sykmelding);
+        } else {
+            if (sykmelding.arbeidssituasjon === 'arbeidstaker') {
                 if (sykmelding.valgtArbeidsgiver) {
                     this.setState({
                         forsoktSendt: false,
@@ -70,23 +76,16 @@ class DinSykmeldingSkjema extends Component {
                 this.setState({
                     forsoktSendt: true,
                 });
-                return;
-            }
-            default: {
-                this.setState({
-                    forsoktSendt: false,
-                    forsoktBekreftet: true,
-                });
+            } else {
                 this.bekreft(sykmelding);
-                return;
             }
         }
     }
 
-
     render() {
-        const { sykmelding, sender } = this.props;
-        const knappetekst = sykmelding.arbeidssituasjon === 'arbeidstaker' ? 'Send sykmelding' : 'Bekreft sykmelding';
+        const { sykmelding, sender, ledetekster, harStrengtFortroligAdresse } = this.props;
+        const modus = sykmelding.arbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse ? 'SEND' : 'BEKREFT';
+        const knappetekst = modus === 'SEND' ? 'Send sykmelding' : 'Bekreft sykmelding';
 
         return (<form onSubmit={(e) => {
             if (e) {
@@ -101,16 +100,24 @@ class DinSykmeldingSkjema extends Component {
                 sykmelding.arbeidssituasjon === 'arbeidstaker' &&
                     <div className="blokk">
                         <h2 className="typo-innholdstittel">Send til arbeidsgiveren din</h2>
-                        <VelgArbeidsgiverContainer
-                            sykmeldingId={sykmelding.id}
-                            erFeil={this.state.forsoktSendt && (!sykmelding.valgtArbeidsgiver || sykmelding.valgtArbeidsgiver.orgnummer === '0')}
-                            resetState={() => {
-                                this.setState({
-                                    forsoktSendt: false,
-                                });
-                            }} />
+                        {
+                            !harStrengtFortroligAdresse && <VelgArbeidsgiverContainer
+                                sykmeldingId={sykmelding.id}
+                                erFeil={this.state.forsoktSendt && (!sykmelding.valgtArbeidsgiver || sykmelding.valgtArbeidsgiver.orgnummer === '0')}
+                                resetState={() => {
+                                    this.setState({
+                                        forsoktSendt: false,
+                                    });
+                                }} />
+                        }
+                        {
+                            harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} ledetekster={ledetekster} />
+                        }
                         <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="H3" />
                     </div>
+            }
+            {
+                modus === 'BEKREFT' && <p className="blokk">Å bekrefte sykmeldingen betyr at du er enig i innholdet, og at du ønsker å ta den i bruk.</p>
             }
             <div aria-live="polite" role="alert">
             {
@@ -140,6 +147,8 @@ DinSykmeldingSkjema.propTypes = {
     bekreftSykmelding: PropTypes.func,
     sendSykmeldingTilArbeidsgiver: PropTypes.func,
     sender: PropTypes.bool,
+    harStrengtFortroligAdresse: PropTypes.bool,
+    ledetekster: PropTypes.object,
 };
 
 export default DinSykmeldingSkjema;

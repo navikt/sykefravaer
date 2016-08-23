@@ -49,10 +49,29 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
             });
             return Object.assign({}, state, { data });
         }
-        case 'SENDER_SYKMELDING': {
+        case 'SENDER_SYKMELDING':
+        case 'BEKREFTER_SYKMELDING': {
             return Object.assign({}, state, {
                 sender: true,
                 sendingFeilet: false,
+            });
+        }
+        case 'SYKMELDING_BEKREFTET': {
+            const data = state.data.map((sykmelding) => {
+                const _sykmelding = Object.assign({}, sykmelding);
+                if (_sykmelding.id === action.sykmeldingId) {
+                    _sykmelding.status = 'BEKREFTET';
+                }
+                return _sykmelding;
+            });
+            return Object.assign({}, state, { data });
+        }
+        case 'BEKREFT_SYKMELDING_FEILET': {
+            return Object.assign({}, state, {
+                sender: false,
+                sendingFeilet: true,
+                henter: false,
+                hentingFeilet: false,
             });
         }
         case 'SEND_SYKMELDING_FEILET': {

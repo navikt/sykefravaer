@@ -19,7 +19,6 @@ import DineSykmeldingOpplysninger from "../../js/components/sykmeldingOpplysning
 import VelgArbeidsgiverContainer from "../../js/containers/VelgArbeidsgiverContainer";
 import ArbeidsgiversSykmeldingContainer from "../../js/containers/ArbeidsgiversSykmeldingContainer";
 import Varselstripe from "../../js/components/Varselstripe";
-import StrengtFortroligInfo from "../../js/components/sykmelding/StrengtFortroligInfo";
 
 
 import { Provider } from 'react-redux';
@@ -111,20 +110,8 @@ describe("DinSykmelding", () => {
         expect(component.find(DinSykmeldingSkjemaContainer)).to.have.length(1);
     });
 
-    it("Skal vise info om utskrift i stedet for DinSykmeldingSkjema dersom harStrengtFortroligAdresse = true og harPilotarbeidsgiver = true", () => {
-        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} harPilotarbeidsgiver={true} harStrengtFortroligAdresse={true} />);
-        expect(component.find(StrengtFortroligInfo)).to.have.length(1);
-        expect(component.find(DinSykmeldingSkjemaContainer)).to.have.length(0);
-    });
-
-    it("Skal ikke vise info om utskrift dersom harStrengtFortroligAdresse = false", () => {
-        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} harStrengtFortroligAdresse={false} />);
-        expect(component.find(StrengtFortroligInfo)).to.have.length(0);
-    });
-
-    it("Skal verken vise StrengtFortroligInfo eller DinSykmeldingSkjemaContainer dersom harPilotarbeidsgiver = false", () => {
+    it("Skal ikke vise DinSykmeldingSkjemaContainer dersom harPilotarbeidsgiver = false", () => {
         component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} harPilotarbeidsgiver={false} harStrengtFortroligAdresse={true} />);
-        expect(component.find(StrengtFortroligInfo)).to.have.length(0);
         expect(component.find(DinSykmeldingSkjemaContainer)).to.have.length(0);
     });
 

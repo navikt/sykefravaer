@@ -16,6 +16,7 @@ import { hentArbeidsgiversSykmeldinger } from './actions/arbeidsgiversSykmelding
 import { hentLedetekster } from './actions/ledetekster_actions.js';
 import { hentBrukerinfo } from './actions/brukerinfo_actions.js';
 import history from './history.js';
+import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     tidslinjer,
     brukerinfo,
     history,
+    form: formReducer,
 });
 
 const store = createStore(rootReducer,

@@ -24,12 +24,11 @@ describe("Checkboxgruppe", () => {
         expect(component.find("H4").text()).to.equal("Hvilke frukter liker du?")
     });
 
-    it("Skal rendre en Checkbox per alternativ", () => {
+    it("Skal rendre children", () => {
         let component = shallow(<Checkboxgruppe spoersmaal="Hvilke frukter liker du?">
-                <input value="appelsin" name="appelsin" label="Appelsin" />
-                <input value="eple" name="appelsin" label="Eple" />
+                <p>Hei</p>
             </Checkboxgruppe>);
-        expect(component.find(Checkbox)).to.have.length(2);
+        expect(component.contains(<p>Hei</p>)).to.be.true;
     });
 
     it("Skal vise feilmelding dersom erFeil === true", () => {

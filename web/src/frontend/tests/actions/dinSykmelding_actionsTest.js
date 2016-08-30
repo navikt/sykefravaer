@@ -12,7 +12,7 @@ import nock from 'nock';
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
 
-describe.only("dinSykmelding_actions", () => {
+describe("dinSykmelding_actions", () => {
 
     beforeEach(() => {
         window = window || {};

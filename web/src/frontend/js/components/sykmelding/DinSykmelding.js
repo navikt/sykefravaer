@@ -11,13 +11,11 @@ const DinSykmelding = ({ sykmelding, ledetekster, harPilotarbeidsgiver = false }
             <h1 className="header-tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h1>
         </div>
         <div className="panel blokk">
-            <div className={harPilotarbeidsgiver ? 'blokk' : null}>
-                <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
-            </div>
-            {
-                harPilotarbeidsgiver && <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
-            }
+            <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
         </div>
+        {
+            harPilotarbeidsgiver && <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
+        }
     </div>);
 };
 

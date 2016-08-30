@@ -29,7 +29,7 @@ let component;
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe("DinSykmelding", () => {
+describe("DinSykmelding -", () => {
 
     beforeEach(() => {
 
@@ -42,6 +42,7 @@ describe("DinSykmelding", () => {
                     data: {},
                 },
             },
+            form: {}
         };
         const store = mockStore(getState);
 
@@ -62,6 +63,7 @@ describe("DinSykmelding", () => {
                     data: {},
                 },
             },
+            form: {}
         };
         const store = mockStore(getState);
 
@@ -94,6 +96,7 @@ describe("DinSykmelding", () => {
                     data: {},
                 },
             },
+            form: {}
         };
         const store = mockStore(getState);
 

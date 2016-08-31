@@ -46,7 +46,8 @@ export function hentDineSykmeldinger() {
                 }
                 return dispatch(hentDineSykmeldingerFeilet());
             })
-            .catch(() => {
+            .catch((err) => {
+                console.log(err);
                 return dispatch(hentDineSykmeldingerFeilet());
             });
     };

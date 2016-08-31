@@ -51,7 +51,8 @@ export function hentBrukerinfo() {
             .then((json) => {
                 return dispatch(setBrukerinfo(json));
             })
-            .catch(() => {
+            .catch((err) => {
+                console.log(err);
                 return dispatch(hentBrukerinfoFeilet());
             });
     };

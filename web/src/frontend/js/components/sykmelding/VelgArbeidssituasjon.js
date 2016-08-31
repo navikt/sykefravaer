@@ -31,7 +31,7 @@ class VelgArbeidssituasjon extends Component {
 
         return (
             <div className="blokk-l">
-                <div className="hjelpetekst-parent hjelpetekst-parent-inline">
+                <div className="hjelpetekst-parent hjelpetekst-parent-inline hjelpetekst-select">
                     <label htmlFor="select-arbeidssituasjon" className="skjema-sporsmal med-hjelpetekst">
                         {getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster)}
                     </label>

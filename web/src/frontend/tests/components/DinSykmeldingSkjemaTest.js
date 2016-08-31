@@ -75,7 +75,7 @@ describe("DinSykmeldingSkjema", () => {
         }
     });
 
-    it("Skal vise VelgArbeidssituasjonContainer", () => {
+    it("Skal vise VelgArbeidssituasjon", () => {
         component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding()}  {...reduxFormProps} />);
         expect(component.find(VelgArbeidssituasjon)).to.have.length(1);
     });

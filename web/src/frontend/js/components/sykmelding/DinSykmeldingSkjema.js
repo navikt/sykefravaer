@@ -6,7 +6,6 @@ import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykm
 import Varselstripe from '../../components/Varselstripe';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
-import { getLedetekst } from '../../ledetekster';
 
 class DinSykmeldingSkjema extends Component {
 
@@ -114,6 +113,7 @@ class DinSykmeldingSkjema extends Component {
         const modus = this.getSkjemaModus();
 
         return (<form className="panel blokk" onSubmit={handleSubmit(this.handleSubmit)}>
+            <h3 className="typo-innholdstittel">Behandle sykmelding</h3>
             <ErOpplysningeneRiktige {...this.props} />
             {
                 modus !== 'AVBRYT' && <VelgArbeidssituasjon {...this.props} />
@@ -121,7 +121,6 @@ class DinSykmeldingSkjema extends Component {
             {
                 arbeidssituasjon.value === 'arbeidstaker' && modus !== 'AVBRYT' &&
                     <div className="blokk">
-                        <h3 className="typo-innholdstittel">{getLedetekst('send-til-arbeidsgiver.tittel', ledetekster)}</h3>
                         {
                             <VelgArbeidsgiver {...this.props} />
                         }
@@ -141,7 +140,6 @@ class DinSykmeldingSkjema extends Component {
                 </div>
             }
             </div>
-            <div className="knapperad knapperad-adskilt">
             {
                 modus === 'BEKREFT' && <p className="blokk">Å bekrefte sykmeldingen betyr at du er enig i innholdet, og at du ønsker å ta den i bruk.</p>
             }
@@ -151,6 +149,7 @@ class DinSykmeldingSkjema extends Component {
             {
                 modus === 'AVBRYT' && <p className="blokk">Når du avbryter sykmeldingen, blablabla...</p>
             }
+            <div className="knapperad knapperad-adskilt">
                 <button type="submit" className={`js-submit knapp knapp-hoved ${(sender) ? 'er-inaktiv knapp-spinner js-spinner' : ''}`}>
                     {knappetekster[modus]}
                     <span className="spinner-knapp" />

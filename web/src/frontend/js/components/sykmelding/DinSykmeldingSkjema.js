@@ -113,7 +113,7 @@ class DinSykmeldingSkjema extends Component {
         const modus = this.getSkjemaModus();
 
         return (<form id="dinSykmeldingSkjema" className="panel blokk" onSubmit={handleSubmit(this.handleSubmit)}>
-            <h3 className="typo-innholdstittel">Behandle sykmelding</h3>
+            <h3 className="typo-innholdstittel">Starte sykmeldingen</h3>
             <ErOpplysningeneRiktige {...this.props} />
             {
                 modus !== 'AVBRYT' && <VelgArbeidssituasjon {...this.props} />

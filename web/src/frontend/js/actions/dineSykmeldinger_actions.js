@@ -41,13 +41,12 @@ export function hentDineSykmeldinger() {
                 return response.json();
             })
             .then((json) => {
-                if (json && json.length) {
+                if (json && json.constructor === Array) {
                     return dispatch(setDineSykmeldinger(json));
                 }
                 return dispatch(hentDineSykmeldingerFeilet());
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(() => {
                 return dispatch(hentDineSykmeldingerFeilet());
             });
     };

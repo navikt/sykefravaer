@@ -14,7 +14,6 @@ export const DineSykmldSide = (props) => {
                 if (sykmeldinger.henter) {
                     return <AppSpinner />;
                 } else if (sykmeldinger.hentingFeilet) {
-                    console.log('Henting av sykmeldinger feilet');
                     return (<Feilmelding />);
                 }
                 return (<DineSykmeldinger

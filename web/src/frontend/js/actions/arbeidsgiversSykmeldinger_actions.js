@@ -35,8 +35,7 @@ export function hentArbeidsgiversSykmeldinger() {
             .then((json) => {
                 return dispatch(setArbeidsgiversSykmeldinger(json));
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(() => {
                 return dispatch(hentArbeidsgiversSykmeldingerFeilet());
             });
     };

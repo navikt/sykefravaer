@@ -32,8 +32,7 @@ export function hentLedetekster() {
             .then((json) => {
                 return dispatch(setLedetekster(json));
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(() => {
                 return dispatch(hentLedeteksterFeilet());
             });
     };

@@ -33,7 +33,10 @@ export function hentArbeidsgiversSykmeldinger() {
                 return response.json();
             })
             .then((json) => {
-                return dispatch(setArbeidsgiversSykmeldinger(json));
+                if (json && json.constructor === Array) {
+                    return dispatch(setArbeidsgiversSykmeldinger(json));
+                }
+                return dispatch(hentArbeidsgiversSykmeldingerFeilet());
             })
             .catch(() => {
                 return dispatch(hentArbeidsgiversSykmeldingerFeilet());

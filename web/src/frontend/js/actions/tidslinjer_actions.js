@@ -43,7 +43,8 @@ export function hentTidslinjer(apneHendelseIder = [], arbeidssituasjon = 'MED_AR
             }
             return respons;
         })
-        .catch(() => {
+        .catch((err) => {
+            console.log(err);
             return dispatch(hentTidslinjerFeilet());
         });
     };

@@ -3,41 +3,54 @@ import DropdownWrapper from '../skjema/DropdownWrapper.js';
 import Dropdown from '../skjema/Dropdown.js';
 import { getLedetekst } from '../../ledetekster';
 import Hjelpetekst from '../skjema/Hjelpetekst.js';
+import arbeidssituasjoner from '../../arbeidssituasjonData';
 
 class VelgArbeidssituasjon extends Component {
 
-    onDropdownChange(status) {
-        this.props.setArbeidssituasjon(status, this.props.sykmelding.id);
+    onChange(arbeidssituasjon) {
+        this.props.fields.arbeidssituasjon.onChange(arbeidssituasjon);
+        this.props.untouch('sendSykmelding', 'valgtArbeidsgiver');
+    }
+
+    onBlur(arbeidssituasjon) {
+        this.props.fields.arbeidssituasjon.onBlur(arbeidssituasjon);
+        this.props.untouch('sendSykmelding', 'valgtArbeidsgiver');
     }
 
     getArbeidssituasjoner() {
-        if (!this.props.sykmelding.arbeidssituasjon) {
-            return this.props.arbeidssituasjoner;
+        if (this.props.fields.arbeidssituasjon.value === '') {
+            return arbeidssituasjoner;
         }
-        return this.props.arbeidssituasjoner.filter((situasjon) => {
-            return situasjon.verdi !== 'default';
+        return arbeidssituasjoner.filter((arbeidssituasjon) => {
+            return arbeidssituasjon.verdi !== 'default';
         });
     }
 
     render() {
-        const { ledetekster, sykmelding } = this.props;
+        const { ledetekster, fields: { arbeidssituasjon } } = this.props;
+
         return (
             <div className="blokk-l">
-                <div className="hjelpetekst-parent hjelpetekst-parent-inline">
+                <div className="hjelpetekst-parent hjelpetekst-parent-inline hjelpetekst-select">
                     <label htmlFor="select-arbeidssituasjon" className="skjema-sporsmal med-hjelpetekst">
-                        {getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster.data)}
+                        {getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster)}
                     </label>
                     <Hjelpetekst
                         id="velg-arbeidssituasjon-hjelpetekst"
-                        tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tittel', ledetekster.data)}
-                        tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tekst', ledetekster.data)} />
+                        tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tittel', ledetekster)}
+                        tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tekst', ledetekster)} />
                 </div>
-                <DropdownWrapper erFeil={this.props.erFeil}
-                    feilmelding={getLedetekst('din-sykmelding.arbeidssituasjon.feilmelding', ledetekster.data)}>
+                <DropdownWrapper erFeil={arbeidssituasjon.touched && arbeidssituasjon.error !== undefined}
+                    feilmelding={arbeidssituasjon.error}>
                     <div className="select-container">
                         <Dropdown id="select-arbeidssituasjon" alternativer={this.getArbeidssituasjoner()}
-                            valgtAlternativ={sykmelding.arbeidssituasjon}
-                            onChange={(status) => {this.onDropdownChange(status);}} />
+                            valgtAlternativ={arbeidssituasjon.value.length ? arbeidssituasjon.value : undefined}
+                            onChange={(arbsit) => {
+                                this.onChange(arbsit);
+                            }}
+                            onBlur={(arbsit) => {
+                                this.onBlur(arbsit);
+                            }} />
                     </div>
                 </DropdownWrapper>
             </div>
@@ -47,11 +60,9 @@ class VelgArbeidssituasjon extends Component {
 
 VelgArbeidssituasjon.propTypes = {
     sykmelding: PropTypes.object,
-    setArbeidssituasjon: PropTypes.func,
     ledetekster: PropTypes.object,
-    arbeidssituasjoner: PropTypes.array,
-    bekreftSykmelding: PropTypes.func,
-    erFeil: PropTypes.bool,
+    fields: PropTypes.object,
+    untouch: PropTypes.func,
 };
 
 export default VelgArbeidssituasjon;

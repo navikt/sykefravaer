@@ -24,7 +24,12 @@ describe("VelgArbeidsgiver", () => {
                 orgnummer: "123456789",
                 navn: "Mortens frukt og grønt"
             }],
-            ledetekster: ledeteksterDekorert
+            ledetekster: ledeteksterDekorert,
+            fields: {
+                valgtArbeidsgiver: {
+                    value: '',
+                }
+            }
         }
     })
 
@@ -34,13 +39,17 @@ describe("VelgArbeidsgiver", () => {
     }); 
 
     it("Skal sende feilmelding, erFeil og valgtArbeidsgiverOrgnummer videre til Radiogruppe", () => {
-        props.feilmelding = "Feilmelding";
-        props.erFeil = false;
-        props.valgtArbeidsgiverOrgnummer = "banan"
+        props.fields.valgtArbeidsgiver.error = "Feilmelding";
+        props.fields.valgtArbeidsgiver.value = {
+            orgnummer: "banan"
+        }
+        props.fields.valgtArbeidsgiver.touched = true;
         component = shallow(<VelgArbeidsgiver {...props} />)
         expect(component.find(Radiogruppe).prop("feilmelding")).to.equal("Feilmelding")
-        expect(component.find(Radiogruppe).prop("erFeil")).to.equal(false);
-        expect(component.find(Radiogruppe).prop("valgtVerdi")).to.equal("banan");
+        expect(component.find(Radiogruppe).prop("erFeil")).to.equal(true);
+        expect(component.find(Radiogruppe).prop("valgtVerdi")).to.equal(JSON.stringify({
+            orgnummer: "banan"
+        }));
     });
 
     it("Skal dekorere navn med orgnummer på format 123 456 789", () => {

@@ -89,3 +89,14 @@ export function getSykmelding(sykmeldinger, sykmeldingId) {
         return `${sykmld.id}` === `${sykmeldingId}`;
     })[0];
 }
+
+export function filtrerObjektKeys(objekt) {
+    const resultat = [];
+
+    for (const key in objekt) {
+        if (objekt[key]) {
+            resultat.push(objekt[key]);
+        }
+    }
+    return resultat;
+}

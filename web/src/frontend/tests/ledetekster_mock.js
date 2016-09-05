@@ -172,7 +172,10 @@ const ledetekster = {
   "send-til-arbeidsgiver.annen-arbeidsgiver.label": "Annen arbeidsgiver",
   "tidslinje.filter.med-arbeidsgiver.hjelpetekst.tittel":"Jeg har ikke arbeidsgiver",
   "tidslinje.filter.med-arbeidsgiver.hjelpetekst.tekst":"Velg «Jeg har ikke arbeidsgiver» dersom du er for eks. selvstendig næringsdrivende, frilanser eller arbeidsledig.",
-  "din-sykmelding.kvittering.sidetittel": "Kvittering"
+  "din-sykmelding.kvittering.sidetittel": "Kvittering",
+  "sykmelding.bekreft-opplysninger.sporsmal": "Er opplysningene riktige?",
+  "sykmelding.bekreft-opplysninger.svar-true": "Ja, opplysningene er riktige",
+  "sykmelding.bekreft-opplysninger.svar-false": "Nei, opplysningene er ikke riktige",
 };
 
 export default ledetekster;

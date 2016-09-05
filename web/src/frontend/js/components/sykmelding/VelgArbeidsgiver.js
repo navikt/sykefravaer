@@ -4,29 +4,33 @@ import { getHtmlLedetekst, getLedetekst } from '../../ledetekster';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths.js';
 
-const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere, feilmelding, erFeil, ledetekster, sykmelding }) => {
+const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, fields }) => {
+    const valgtArbeidsgiver = fields.valgtArbeidsgiver;
+    const erFeil = valgtArbeidsgiver.touched && typeof valgtArbeidsgiver.error === 'string';
+
     return (<div className="blokk">
         <Radiogruppe
-            name="valgt-arbeidsgiver"
+            name="valgtArbeidsgiver"
             spoersmaal={getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal', ledetekster)}
-            valgtVerdi={valgtArbeidsgiverOrgnummer}
-            feilmelding={feilmelding}
+            valgtVerdi={JSON.stringify(valgtArbeidsgiver.value)}
+            feilmelding={valgtArbeidsgiver.error}
+            onChange={(value) => {
+                valgtArbeidsgiver.onChange(JSON.parse(value));
+            }}
             erFeil={erFeil}
-            onChange={onChange}
-            setFokus={erFeil}
-            Overskrift="H3">
+            Overskrift="H4">
             {
                 arbeidsgivere.map((arbeidsgiver) => {
                     let labelSekundaer = (arbeidsgiver.orgnummer && arbeidsgiver.orgnummer.length) !== 1 ?
                         `(${getLedetekst('send-til-arbeidsgiver.orgnr', ledetekster)}: ${arbeidsgiver.orgnummer.replace(/(...)(...)(...)/g, '$1 $2 $3')})`
                         : null;
+
                     return (<input
                         key={arbeidsgiver.orgnummer}
                         id={arbeidsgiver.orgnummer}
-                        value={arbeidsgiver.orgnummer}
+                        value={JSON.stringify(arbeidsgiver)}
                         label={arbeidsgiver.navn}
-                        labelSekundaer={labelSekundaer}
-                        erValgt={arbeidsgiver.orgnummer === valgtArbeidsgiverOrgnummer}>
+                        labelSekundaer={labelSekundaer}>
                         {arbeidsgiver.orgnummer !== '0' ? null :
                             <div className="panel panel-ekstra">
                                 <div className="hode hode-advarsel hode-brodtekst redaksjonelt-innhold side-innhold"
@@ -47,13 +51,10 @@ const VelgArbeidsgiver = ({ valgtArbeidsgiverOrgnummer, onChange, arbeidsgivere,
 };
 
 VelgArbeidsgiver.propTypes = {
-    valgtArbeidsgiverOrgnummer: PropTypes.string,
-    onChange: PropTypes.func,
     arbeidsgivere: PropTypes.array,
-    feilmelding: PropTypes.string,
-    erFeil: PropTypes.bool,
     ledetekster: PropTypes.object,
     sykmelding: PropTypes.object,
+    fields: PropTypes.object,
 };
 
 export default VelgArbeidsgiver;

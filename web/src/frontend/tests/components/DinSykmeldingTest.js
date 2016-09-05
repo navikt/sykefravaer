@@ -14,9 +14,7 @@ import thunk from 'redux-thunk';
 import DinSykmelding from "../../js/components/sykmelding/DinSykmelding";
 import DinSykmeldingSkjemaContainer from "../../js/containers/DinSykmeldingSkjemaContainer";
 import FlereOpplysninger from "../../js/components/sykmeldingOpplysninger/FlereOpplysninger"
-import VelgArbeidssituasjonContainer from "../../js/containers/VelgArbeidssituasjonContainer";
 import DineSykmeldingOpplysninger from "../../js/components/sykmeldingOpplysninger/DineSykmeldingOpplysninger";
-import VelgArbeidsgiverContainer from "../../js/containers/VelgArbeidsgiverContainer";
 import ArbeidsgiversSykmeldingContainer from "../../js/containers/ArbeidsgiversSykmeldingContainer";
 import Varselstripe from "../../js/components/Varselstripe";
 
@@ -29,7 +27,7 @@ let component;
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe("DinSykmelding", () => {
+describe("DinSykmelding -", () => {
 
     beforeEach(() => {
 
@@ -42,6 +40,7 @@ describe("DinSykmelding", () => {
                     data: {},
                 },
             },
+            form: {}
         };
         const store = mockStore(getState);
 
@@ -62,6 +61,7 @@ describe("DinSykmelding", () => {
                     data: {},
                 },
             },
+            form: {}
         };
         const store = mockStore(getState);
 
@@ -94,6 +94,7 @@ describe("DinSykmelding", () => {
                     data: {},
                 },
             },
+            form: {}
         };
         const store = mockStore(getState);
 

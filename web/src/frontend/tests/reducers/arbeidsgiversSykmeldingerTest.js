@@ -125,6 +125,61 @@ describe('arbeidsgiversSykmeldinger', () => {
         });
     });
 
+    it("Håndterer SET_OPPLYSNINGENE_ER_RIKTIGE", () => {
+        const initialState = deepFreeze({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {
+                    "banan": true,
+                }
+            }, {
+                id: 24
+            }]
+        });
+        const action = {
+            type: 'SET_OPPLYSNINGENE_ER_RIKTIGE',
+            sykmeldingId: 23,
+            erRiktige: true,
+        };
+
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {},
+                opplysningeneErRiktige: true,
+            }, {
+                id: 24
+            }]
+        });
+
+        const initialState2 = deepFreeze({
+            data: [{
+                id: 23,
+            }, {
+                id: 24
+            }]
+        });
+        const action2 = {
+            type: 'SET_OPPLYSNINGENE_ER_RIKTIGE',
+            sykmeldingId: 23,
+            erRiktige: false,
+        };
+
+        const nextState2 = arbeidsgiversSykmeldinger(initialState2, action2);
+
+        expect(nextState2).to.deep.equal({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {},
+                opplysningeneErRiktige: false,
+            }, {
+                id: 24
+            }]
+        });
+    });
+
     describe("Bekreft sykmelding", () => {
         it("Håndterer BEKREFTER_SYKMELDING", () => {
             const initialState = deepFreeze({

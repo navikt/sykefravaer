@@ -3,6 +3,7 @@
 target
 node_modules
 *.log
+npm-debug.log*
 **/webapp/styles/**/*
 **/webapp/img/**/*
 **/webapp/js/**/*

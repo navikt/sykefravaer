@@ -14,6 +14,8 @@ const getInnsendtDato = (ledetekster, sykmelding) => {
     let nokkel = 'statuspanel.dato.innsendt';
     if (sykmelding.status === 'BEKREFTET') {
         nokkel = 'statuspanel.dato.bekreftet';
+    } else if (sykmelding.status === 'AVBRUTT') {
+        nokkel = 'statuspanel.dato.avbrutt';
     }
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst(nokkel, ledetekster)}>
         <p className="js-dato">{toDatePrettyPrint(sykmelding.sendtdato)}</p>

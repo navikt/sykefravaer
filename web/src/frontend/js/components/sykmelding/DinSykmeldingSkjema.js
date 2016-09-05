@@ -153,7 +153,7 @@ class DinSykmeldingSkjema extends Component {
                 modus === 'BEKREFT' && <p className="blokk">Å bekrefte sykmeldingen betyr at du er enig i innholdet, og at du ønsker å ta den i bruk.</p>
             }
             {
-                modus === 'SEND' && <p className="blokk">Når du sender sykmeldingen, vil den bli levert til arbeidsgiveren din elektronisk. Etterpå kan det være lurt å gi et lite tips om at du har gjort det — da får arbeidsgiveren også en påminnelse om å sjekke postkassen sin i Altinn.</p>
+                modus === 'SEND' && <p className="blokk">Når du sender sykmeldingen, vil den bli levert til arbeidsgiveren din elektronisk. Etterpå kan det være lurt å gi et lite tips om at du har gjort det – da får arbeidsgiveren også en påminnelse om å sjekke postkassen sin i Altinn.</p>
             }
             {
                 modus === 'AVBRYT' && <p className="blokk">Når du avbryter sykmeldingen, blablabla...</p>

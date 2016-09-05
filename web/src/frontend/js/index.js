@@ -12,7 +12,6 @@ import brukerinfo from './reducers/brukerinfo.js';
 import arbeidsgivere from './reducers/arbeidsgivere.js';
 import tidslinjer from './reducers/tidslinjer.js';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions.js';
-import { hentArbeidsgiversSykmeldinger } from './actions/arbeidsgiversSykmeldinger_actions.js';
 import { hentLedetekster } from './actions/ledetekster_actions.js';
 import { hentBrukerinfo } from './actions/brukerinfo_actions.js';
 import history from './history.js';
@@ -35,7 +34,6 @@ const store = createStore(rootReducer,
 
 store.dispatch(hentLedetekster());
 store.dispatch(hentDineSykmeldinger());
-store.dispatch(hentArbeidsgiversSykmeldinger());
 store.dispatch(hentBrukerinfo());
 
 render(<Provider store={store}>

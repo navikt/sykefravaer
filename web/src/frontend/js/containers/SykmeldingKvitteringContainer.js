@@ -21,10 +21,10 @@ export const KvitteringSide = (props) => {
                         return (<Feilmelding
                             tittel="Fant ikke kvittering"
                             melding="Vi fant ikke kvitteringen du ser etter. Er du sikker på at du er på riktig side?" />);
-                    } else if (sykmelding.status !== 'SENDT' && sykmelding.status !== 'BEKREFTET') {
-                        return <Feilmelding />;
+                    } else if (sykmelding.status === 'SENDT' || sykmelding.status === 'BEKREFTET' || sykmelding.status === 'AVBRUTT') {
+                        return <SykmeldingKvittering {...props} />;
                     }
-                    return (<SykmeldingKvittering {...props} />);
+                    return <Feilmelding />;
                 })()
             }
         </Side>
@@ -39,6 +39,26 @@ KvitteringSide.propTypes = {
     hentingFeilet: PropTypes.bool,
 };
 
+const getLedetekstNokkel = (sykmelding, nokkel) => {
+    if (!sykmelding) {
+        return null;
+    }
+    switch (sykmelding.status) {
+        case 'BEKREFTET': {
+            return `bekreft-sykmelding.${nokkel}`;
+        }
+        case 'SENDT': {
+            return `send-til-arbeidsgiver.${nokkel}`;
+        }
+        case 'AVBRUTT': {
+            return `avbryt-sykmelding.${nokkel}`;
+        }
+        default: {
+            return null;
+        }
+    }
+};
+
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
     const sykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId);
@@ -46,14 +66,11 @@ export function mapStateToProps(state, ownProps) {
     const henter = state.dineSykmeldinger.henter || state.ledetekster.henter;
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
 
-    const kvitteringTittelKey = sykmelding && sykmelding.status === 'SENDT' ? 'send-til-arbeidsgiver.kvittering.tittel' : 'bekreft-sykmelding.kvittering.tittel';
+    const kvitteringTittelKey = getLedetekstNokkel(sykmelding, 'kvittering.tittel');
     const kvitteringBrodtekstKey = sykmelding && sykmelding.status === 'SENDT' ? 'send-til-arbeidsgiver.kvittering.undertekst' : null;
-    const sykepengerTittel = sykmelding && sykmelding.status === 'SENDT' ?
-        'send-til-arbeidsgiver.kvittering.sok-om-sykepenger.tittel' :
-        'bekreft-sykmelding.kvittering.sok-om-sykepenger.tittel';
-    const sykepengerTekst = sykmelding && sykmelding.status === 'SENDT' ?
-        'send-til-arbeidsgiver.kvittering.sok-om-sykepenger.tekst' :
-        'bekreft-sykmelding.kvittering.sok-om-sykepenger.tekst';
+    const sykepengerTittel = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tittel');
+    const sykepengerTekst = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tekst');
+
     const brodtekst = kvitteringBrodtekstKey ? getLedetekst(kvitteringBrodtekstKey, ledetekster, {
         '%ARBEIDSGIVER%': sykmelding ? sykmelding.innsendtArbeidsgivernavn : undefined,
     }) : null;

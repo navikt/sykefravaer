@@ -154,7 +154,12 @@ describe("dinSykmelding_actions", () => {
                     'Content-Type': 'application/json'
                 }
             })
-            .post("/sykmeldinger/87654/actions/send", '***REMOVED***')
+            .post("/sykmeldinger/87654/actions/send", JSON.stringify({
+                orgnummer: '***REMOVED***',
+                feilaktigeOpplysninger: {
+                    andre: true
+                }
+            }))
             .reply(200, {
                 "id": 87654,
                 "status": "SENDT",
@@ -172,7 +177,9 @@ describe("dinSykmelding_actions", () => {
                 { type: "HENTER_ARBEIDSGIVERS_SYKMELDINGER" }
             ]
 
-            return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(87654, '***REMOVED***'))
+            return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(87654, '***REMOVED***', {
+                andre: true,
+            }))
                 .then(() => { 
                     expect(store.getActions()).to.deep.equal(expectedActions)
                 });
@@ -205,14 +212,17 @@ describe("dinSykmelding_actions", () => {
 
     describe("bekreftSykmelding()", () => {
 
-        it("Dispatcher SYKMELDING_BEKREFTET og HENTER_DINE_SYKMELDINGER når bekreftSykmelding() er fullført", () => {
+        it("Dispatcher SYKMELDING_BEKREFTET, HENTER_DINE_SYKMELDINGER og HENTER_ARBEIDSGIVERS_SYKMELDINGER når bekreftSykmelding() er fullført", () => {
             const store = mockStore();
             nock('http://tjenester.nav.no/syforest/', {
                 reqheaders: {
                     'Content-Type': 'application/json'
                 }
             })
-            .post("/sykmeldinger/56/actions/bekreft", "arbeidstaker")
+            .post("/sykmeldinger/56/actions/bekreft", JSON.stringify({
+                sykmeldingsgrad: true,
+                periode: false,
+            }))
             .reply(200, {});
 
             nock('http://tjenester.nav.no/syforest/')
@@ -234,7 +244,10 @@ describe("dinSykmelding_actions", () => {
                 { type: "HENTER_ARBEIDSGIVERS_SYKMELDINGER"}
             ]
 
-            return store.dispatch(actions.bekreftSykmelding(56, 'arbeidstaker'))
+            return store.dispatch(actions.bekreftSykmelding(56, {
+                sykmeldingsgrad: true,
+                periode: false,
+            }))
                 .then(() => { 
                     expect(store.getActions()).to.deep.equal(expectedActions)
                 });
@@ -263,7 +276,78 @@ describe("dinSykmelding_actions", () => {
 
         });
 
-    });         
+    });
+
+
+    describe("avbrytSykmelding()", () => {
+
+        it("Dispatcher SYKMELDING_AVBRUTT, HENTER_DINE_SYKMELDINGER og HENTER_ARBEIDSGIVERS_SYKMELDINGER når avbrytSykmelding() er fullført", () => {
+            const store = mockStore();
+            nock('http://tjenester.nav.no/syforest/', {
+                reqheaders: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .post("/sykmeldinger/56/actions/avbryt", JSON.stringify({
+                sykmeldingsgrad: false,
+                periode: true,
+                andre: true,
+            }))
+            .reply(200, {});
+
+            nock('http://tjenester.nav.no/syforest/')
+            .get("/sykmeldinger")
+            .reply(200, [{
+                "id": 1
+            }]);
+
+            nock('http://tjenester.nav.no/syforest/')
+            .get("/sykmeldinger?type=arbeidsgiver")
+            .reply(200, [{
+                "id": 1
+            }]);
+
+            const expectedActions = [
+                { type: "AVBRYTER_SYKMELDING" },
+                { type: "SYKMELDING_AVBRUTT", sykmeldingId: 56 },
+                { type: "HENTER_DINE_SYKMELDINGER" },
+                { type: "HENTER_ARBEIDSGIVERS_SYKMELDINGER"}
+            ]
+
+            return store.dispatch(actions.avbrytSykmelding(56, {
+                sykmeldingsgrad: false,
+                periode: true,
+                andre: true
+            }))
+                .then(() => { 
+                    expect(store.getActions()).to.deep.equal(expectedActions)
+                });
+
+        });
+
+        it("Dispatcher AVBRYT_SYKMELDING_FEILET når avbrytSykmelding() feiler", () => {
+            const store = mockStore();
+            nock('http://tjenester.nav.no/syforest/', {
+                reqheaders: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .post("/sykmeldinger/88/actions/avbryt", JSON.stringify({}))
+            .reply(500)
+
+            const expectedActions = [
+                { type: "AVBRYTER_SYKMELDING" }, 
+                { type: "AVBRYT_SYKMELDING_FEILET" }
+            ]
+
+            return store.dispatch(actions.avbrytSykmelding(88, {}))
+                .then(() => { 
+                    expect(store.getActions()).to.deep.equal(expectedActions)
+                });
+
+        });
+
+    })
 
 
 

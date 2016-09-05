@@ -35,8 +35,8 @@ class DinSykmeldingSkjema extends Component {
         browserHistory.push(`/sykefravaer/sykmeldinger/${this.props.sykmelding.id}/kvittering`);
     }
 
-    bekreft(sykmeldingId, arbeidssituasjon) {
-        this.props.bekreftSykmelding(sykmeldingId, arbeidssituasjon).then((respons) => {
+    bekreft(sykmeldingId, feilaktigeOpplysninger) {
+        this.props.bekreftSykmelding(sykmeldingId, feilaktigeOpplysninger).then((respons) => {
             if (respons.status > 400) {
                 this.setState({
                     forsoktBekreftet: true,
@@ -48,8 +48,8 @@ class DinSykmeldingSkjema extends Component {
         });
     }
 
-    send(sykmeldingId, orgnummer) {
-        this.props.sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer).then((respons) => {
+    send(sykmeldingId, orgnummer, feilaktigeOpplysninger) {
+        this.props.sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger).then((respons) => {
             if (respons.status > 400) {
                 this.setState({
                     forsoktSendt: true,
@@ -61,8 +61,17 @@ class DinSykmeldingSkjema extends Component {
         });
     }
 
-    avbryt() {
-        window.alert('Avbryter sykmelding - denne funksjonen er ikke laget enda!');
+    avbryt(sykmeldingId, feilaktigeOpplysninger) {
+        this.props.avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger).then((respons) => {
+            if (respons.status > 400) {
+                this.setState({
+                    forsoktSendt: true,
+                    serverfeil: true,
+                });
+            } else {
+                this.gaTilKvittering();
+            }
+        });
     }
 
     harValgtAnnenArbeidsgiver() {
@@ -82,15 +91,15 @@ class DinSykmeldingSkjema extends Component {
         }
         switch (this.getSkjemaModus()) {
             case 'BEKREFT': {
-                this.bekreft(sykmelding.id, fields.arbeidssituasjon);
+                this.bekreft(sykmelding.id, fields.feilaktigeOpplysninger);
                 return;
             }
             case 'SEND': {
-                this.send(sykmelding.id, fields.valgtArbeidsgiver.orgnummer);
+                this.send(sykmelding.id, fields.valgtArbeidsgiver.orgnummer, fields.feilaktigeOpplysninger);
                 return;
             }
             case 'AVBRYT': {
-                this.avbryt();
+                this.avbryt(sykmelding.id, fields.feilaktigeOpplysninger);
                 return;
             }
             default: {
@@ -122,7 +131,7 @@ class DinSykmeldingSkjema extends Component {
                 arbeidssituasjon.value === 'arbeidstaker' && modus !== 'AVBRYT' &&
                     <div className="blokk">
                         {
-                            <VelgArbeidsgiver {...this.props} />
+                            !harStrengtFortroligAdresse && <VelgArbeidsgiver {...this.props} />
                         }
                         {
                             harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} ledetekster={ledetekster} />
@@ -163,6 +172,7 @@ DinSykmeldingSkjema.propTypes = {
     sykmelding: PropTypes.object,
     bekreftSykmelding: PropTypes.func,
     sendSykmeldingTilArbeidsgiver: PropTypes.func,
+    avbrytSykmelding: PropTypes.func,
     sender: PropTypes.bool,
     ledetekster: PropTypes.object,
     feilaktigeOpplysninger: PropTypes.object,

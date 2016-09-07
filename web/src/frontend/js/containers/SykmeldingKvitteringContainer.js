@@ -47,6 +47,8 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
         case 'BEKREFTET': {
             if (alternativer.harStrengtFortroligAdresse) {
                 return `bekreft-sykmelding.skjermingskode-6.${nokkel}`;
+            } else if (sykmelding.arbeidssituasjon === 'arbeidstaker') {
+                return `bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.${nokkel}`;
             }
             return `bekreft-sykmelding.${nokkel}`;
         }
@@ -72,8 +74,8 @@ export function mapStateToProps(state, ownProps) {
 
     const kvitteringTittelKey = getLedetekstNokkel(sykmelding, 'kvittering.tittel');
     const kvitteringBrodtekstKey = sykmelding && sykmelding.status === 'SENDT' ? 'send-til-arbeidsgiver.kvittering.undertekst' : null;
-    const sykepengerTittel = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tittel');
-    const sykepengerTekst = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tekst', {
+    const sykepengerTittelNokkel = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tittel');
+    const sykepengerTekstNokkel = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tekst', {
         harStrengtFortroligAdresse,
     });
 
@@ -88,8 +90,8 @@ export function mapStateToProps(state, ownProps) {
         hentingFeilet,
         tittel: getLedetekst(kvitteringTittelKey, ledetekster),
         brodtekst,
-        sykepengerTittel: getLedetekst(sykepengerTittel, ledetekster),
-        sykepengerTekst: getHtmlLedetekst(sykepengerTekst, ledetekster),
+        sykepengerTittel: getLedetekst(sykepengerTittelNokkel, ledetekster),
+        sykepengerTekst: getHtmlLedetekst(sykepengerTekstNokkel, ledetekster),
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',

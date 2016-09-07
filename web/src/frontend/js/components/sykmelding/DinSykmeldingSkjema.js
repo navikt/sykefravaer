@@ -159,7 +159,8 @@ class DinSykmeldingSkjema extends Component {
                 modus === 'AVBRYT' && <p className="blokk">Når du avbryter sykmeldingen, blablabla...</p>
             }
             <div className="knapperad knapperad-adskilt">
-                <button type="submit" id="dinSykmeldingSkjemaSubmit" className={`js-submit knapp ${modus === 'AVBRYT' ? 'knapp-fare' : 'knapp-hoved'} ${(sender) ? 'er-inaktiv knapp-spinner js-spinner' : ''}`}>
+                <button type="submit" id="dinSykmeldingSkjemaSubmit"
+                    className={`js-submit knapp ${modus === 'AVBRYT' ? 'knapp-fare' : 'knapp-hoved'} ${(sender) ? 'er-inaktiv knapp-spinner js-spinner' : ''}`}>
                     {knappetekster[modus]}
                     <span className="spinner-knapp" />
                 </button>

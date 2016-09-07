@@ -83,9 +83,16 @@ const sykmeldinger = [{
         diagnosekode: "LP2"
     },
     arbeidsfoerEtterPerioden: true
+}, {
+    "id": 5,
+    "status": "BEKREFTET",
+    "innsendtArbeidsgivernavn": null,
+    "orgnummer": null,
+    "arbeidsgiver": "LOMMEN BARNEHAVE",
+    "arbeidssituasjon": 'arbeidstaker'
 }]
 
-describe.only("SykmeldingKvitteringContainer", () => {
+describe("SykmeldingKvitteringContainer", () => {
 
     let ownProps = {};
     let state = {};
@@ -209,6 +216,15 @@ describe.only("SykmeldingKvitteringContainer", () => {
                     }
                 }
             };
+            const res = mapStateToProps(state, ownProps);
+            expect(res.sykepengerTekst).to.deep.equal({__html: '<p>Min fine tekst</p>'});
+        });
+
+        it("Skal returnere riktig sykepengerTekst dersom bruker har valgt har valgt arbeidssituasjon arbeidstaker og arbeidsgiveren min er ikke her og bekreftet sykmeldingen", () => {
+            ownProps.params.sykmeldingId = 5;
+            state.ledetekster.data = Object.assign({}, state.ledetekster.data, {
+                'bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.sok-om-sykepenger.tekst': '<p>Min fine tekst</p>'
+            });
             const res = mapStateToProps(state, ownProps);
             expect(res.sykepengerTekst).to.deep.equal({__html: '<p>Min fine tekst</p>'});
         });

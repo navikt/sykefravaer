@@ -46,7 +46,7 @@ describe("DinSykmeldingSkjemaContainer", () => {
         return Object.assign({}, defaultState, state);
     }
 
-    describe.only("validate", () => {
+    describe("validate", () => {
 
         let fields = {}
 

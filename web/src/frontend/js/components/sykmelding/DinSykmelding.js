@@ -8,8 +8,8 @@ const DinSykmelding = ({ sykmelding, ledetekster, harPilotarbeidsgiver = false }
         <h1 className="side-header typo-sidetittel">{getLedetekst('din-sykmelding.tittel', ledetekster)}</h1>
         <div className="panel blokk">
             <div className="media">
-                <img src="/sykefravaer/img/svg/nav-ansatt.svg" className="media-img media-img-desktop" alt="" />
-                <img src="/sykefravaer/img/svg/nav-ansatt-mobil.svg" className="media-img media-img-mobil" alt="" />
+                <img src="/sykefravaer/img/svg/nav-ansatt.svg" className="media-img media-img-desktop" alt="Ansatt i NAV" />
+                <img src="/sykefravaer/img/svg/nav-ansatt-mobil.svg" className="media-img media-img-mobil" alt="Ansatt i NAV" />
                 <h2 className="typo-undertittel">{getLedetekst('din-sykmelding.ny-tjeneste.tittel', ledetekster)}</h2>
             </div>
             <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.ny-tjeneste.tekst', ledetekster)} />

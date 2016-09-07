@@ -33,7 +33,7 @@ export const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export const validate = (values) => {
+export const validate = (values, props = {}) => {
     const feilmeldinger = {};
 
     if (values.opplysningeneErRiktige === false && typeof values.feilaktigeOpplysninger === 'object' &&
@@ -49,7 +49,7 @@ export const validate = (values) => {
     if (values.opplysningeneErRiktige === false && (!values.feilaktigeOpplysninger || !filtrerObjektKeys(values.feilaktigeOpplysninger).length)) {
         feilmeldinger.feilaktigeOpplysninger = 'Vennligst oppgi hvilke opplysninger som ikke er riktige';
     }
-    if (values.arbeidssituasjon === 'arbeidstaker' && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer)) {
+    if (values.arbeidssituasjon === 'arbeidstaker' && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
         feilmeldinger.valgtArbeidsgiver = 'Vennligst velg arbeidsgiver';
     }
     return feilmeldinger;

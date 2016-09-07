@@ -39,12 +39,15 @@ KvitteringSide.propTypes = {
     hentingFeilet: PropTypes.bool,
 };
 
-const getLedetekstNokkel = (sykmelding, nokkel) => {
+export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
     if (!sykmelding) {
         return null;
     }
     switch (sykmelding.status) {
         case 'BEKREFTET': {
+            if (alternativer.harStrengtFortroligAdresse) {
+                return `bekreft-sykmelding.skjermingskode-6.${nokkel}`;
+            }
             return `bekreft-sykmelding.${nokkel}`;
         }
         case 'SENDT': {
@@ -65,11 +68,14 @@ export function mapStateToProps(state, ownProps) {
     const ledetekster = state.ledetekster.data;
     const henter = state.dineSykmeldinger.henter || state.ledetekster.henter;
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
+    const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
 
     const kvitteringTittelKey = getLedetekstNokkel(sykmelding, 'kvittering.tittel');
     const kvitteringBrodtekstKey = sykmelding && sykmelding.status === 'SENDT' ? 'send-til-arbeidsgiver.kvittering.undertekst' : null;
     const sykepengerTittel = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tittel');
-    const sykepengerTekst = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tekst');
+    const sykepengerTekst = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tekst', {
+        harStrengtFortroligAdresse,
+    });
 
     const brodtekst = kvitteringBrodtekstKey ? getLedetekst(kvitteringBrodtekstKey, ledetekster, {
         '%ARBEIDSGIVER%': sykmelding ? sykmelding.innsendtArbeidsgivernavn : undefined,

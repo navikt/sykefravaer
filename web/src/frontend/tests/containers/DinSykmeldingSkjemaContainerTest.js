@@ -46,7 +46,7 @@ describe("DinSykmeldingSkjemaContainer", () => {
         return Object.assign({}, defaultState, state);
     }
 
-    describe("validate", () => {
+    describe.only("validate", () => {
 
         let fields = {}
 
@@ -159,6 +159,16 @@ describe("DinSykmeldingSkjemaContainer", () => {
                 arbeidssituasjon: "Vennligst oppgi din arbeidssituasjon",
                 feilaktigeOpplysninger: "Vennligst oppgi hvilke opplysninger som ikke er riktige"
             })
+        });
+
+        it("Skal returnere {} dersom  opplysningeneErRiktige === true og arbeidssituasjon === 'arbeidstaker' og man har strengt fortrolig adresse", () => {
+            fields.opplysningeneErRiktige = true;
+            fields.arbeidssituasjon = 'arbeidstaker';
+            const props = {
+                harStrengtFortroligAdresse: true,
+            }
+            const res = validate(fields, props);
+            expect(res).to.deep.equal({})
         })
 
 

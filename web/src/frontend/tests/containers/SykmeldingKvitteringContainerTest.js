@@ -7,7 +7,7 @@ import ledetekster from "../ledetekster_mock.js";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { KvitteringSide, mapStateToProps } from "../../js/containers/SykmeldingKvitteringContainer.js";
+import { KvitteringSide, mapStateToProps, getLedetekstNokkel } from "../../js/containers/SykmeldingKvitteringContainer.js";
 import SykmeldingKvittering from '../../js/components/sykmelding/SykmeldingKvittering.js';
 
 const sykmeldinger = [{
@@ -64,9 +64,28 @@ const sykmeldinger = [{
         diagnosekode: "LP2"
     },
     arbeidsfoerEtterPerioden: true
+}, {
+    id: 4,
+    status: 'BEKREFTET',
+    fnr: "12",
+    fornavn: "Per",
+    etternavn: "Person",
+    sykmelder: "Ove Olsen",
+    arbeidsgiver: "Selskapet AS",
+    perioder: [{
+        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
+        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+        grad: 67
+    }],
+    hoveddiagnose: {
+        diagnose: "Influensa",
+        diagnosesystem: "ICPC",
+        diagnosekode: "LP2"
+    },
+    arbeidsfoerEtterPerioden: true
 }]
 
-describe("SykmeldingKvitteringContainer", () => {
+describe.only("SykmeldingKvitteringContainer", () => {
 
     let ownProps = {};
     let state = {};
@@ -80,11 +99,57 @@ describe("SykmeldingKvitteringContainer", () => {
         };
         state.ledetekster = {
             data: ledetekster
-        }
+        }; 
+        state.brukerinfo = {
+            bruker: {
+                data: {
+                    strengtFortroligAdresse: false
+                }
+            }
+        };
         ownProps.params = {
             sykmeldingId: 1,
         };
     }); 
+
+    describe("getLedetekstNokkel", () => {
+
+
+        it("Skal returnere null dersom sykmelding === undefined", () => {
+            const nokkel = getLedetekstNokkel(undefined);
+            expect(nokkel).to.equal(null);
+        });
+
+        it("Skal returnere null dersom sykmelding === (ukjent status)", () => {
+            const nokkel = getLedetekstNokkel({ status: '(en eller annen status som jeg ikke kan noe om)' });
+            expect(nokkel).to.equal(null);
+        });
+
+        it("Skal returnere riktig nokkel dersom sykmelding.status === 'BEKREFTET'", () => {
+            const nokkel = getLedetekstNokkel({ status: 'BEKREFTET'}, 'ostepop');
+            expect(nokkel).to.equal('bekreft-sykmelding.ostepop');
+        });
+
+        it("Skal returnere riktig nokkel dersom sykmelding.status === 'AVBRUTT'", () => {
+            const nokkel = getLedetekstNokkel({ status: 'AVBRUTT'}, 'ostepop');
+            expect(nokkel).to.equal('avbryt-sykmelding.ostepop');
+        })
+
+
+        it("Skal returnere riktig nokkel dersom sykmelding.status === 'SENDT'", () => {
+            const nokkel = getLedetekstNokkel({ status: 'SENDT'}, 'ostepop');
+            expect(nokkel).to.equal('send-til-arbeidsgiver.ostepop');
+        });
+
+        it("Skal returnere riktig nokkel dersom sykmelding.status === 'BEKREFTET' og bruker har strengt fortrolig adresse", () => {
+            const nokkel = getLedetekstNokkel({ status: 'BEKREFTET'}, 'ostepop', {
+                harStrengtFortroligAdresse: true
+            });
+            expect(nokkel).to.equal('bekreft-sykmelding.skjermingskode-6.ostepop');
+        });
+
+
+    });
 
     describe("mapStateToProps", () => {      
 
@@ -130,6 +195,22 @@ describe("SykmeldingKvitteringContainer", () => {
             state.ledetekster.hentingFeilet = true;
             const res = mapStateToProps(state, ownProps);
             expect(res.hentingFeilet).to.be.true;
+        });
+
+        it("Skal returnere riktig sykepengerTekst dersom bruker har strengt fortrolig adresse", () => {
+            ownProps.params.sykmeldingId = 4;
+            state.ledetekster.data = Object.assign({}, state.ledetekster.data, {
+                'bekreft-sykmelding.skjermingskode-6.kvittering.sok-om-sykepenger.tekst': '<p>Min fine tekst</p>'
+            })
+            state.brukerinfo = {
+                bruker: {
+                    data: {
+                        strengtFortroligAdresse: true
+                    }
+                }
+            };
+            const res = mapStateToProps(state, ownProps);
+            expect(res.sykepengerTekst).to.deep.equal({__html: '<p>Min fine tekst</p>'});
         });
 
         it("Skal returnere brødsmuler", () => {

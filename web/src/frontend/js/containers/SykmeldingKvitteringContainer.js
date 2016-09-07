@@ -73,21 +73,19 @@ export function mapStateToProps(state, ownProps) {
     const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
 
     const kvitteringTittelKey = getLedetekstNokkel(sykmelding, 'kvittering.tittel');
-    const kvitteringBrodtekstKey = sykmelding && sykmelding.status === 'SENDT' ? 'send-til-arbeidsgiver.kvittering.undertekst' : null;
+    const kvitteringBrodtekstKey = getLedetekstNokkel(sykmelding, 'kvittering.undertekst');
     const sykepengerTittelNokkel = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tittel');
     const sykepengerTekstNokkel = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tekst', {
         harStrengtFortroligAdresse,
     });
-
-    const brodtekst = kvitteringBrodtekstKey ? getLedetekst(kvitteringBrodtekstKey, ledetekster, {
-        '%ARBEIDSGIVER%': sykmelding ? sykmelding.innsendtArbeidsgivernavn : undefined,
-    }) : null;
+    const brodtekst = kvitteringBrodtekstKey ? getHtmlLedetekst(kvitteringBrodtekstKey, ledetekster) : null;
 
     return {
         sykmelding,
         henter,
         ledetekster,
         hentingFeilet,
+        sykmeldingStatus: sykmelding ? sykmelding.status : undefined,
         tittel: getLedetekst(kvitteringTittelKey, ledetekster),
         brodtekst,
         sykepengerTittel: getLedetekst(sykepengerTittelNokkel, ledetekster),

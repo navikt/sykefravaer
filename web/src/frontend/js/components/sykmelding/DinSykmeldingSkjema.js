@@ -6,6 +6,7 @@ import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykm
 import Varselstripe from '../../components/Varselstripe';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
+import { getLedetekst } from '../../ledetekster';
 
 class DinSykmeldingSkjema extends Component {
 
@@ -150,13 +151,7 @@ class DinSykmeldingSkjema extends Component {
             }
             </div>
             {
-                modus === 'BEKREFT' && <p className="blokk">Å bekrefte sykmeldingen betyr at du er enig i innholdet, og at du ønsker å ta den i bruk.</p>
-            }
-            {
-                modus === 'SEND' && <p className="blokk">Når du sender sykmeldingen, vil den bli levert til arbeidsgiveren din elektronisk. Etterpå kan det være lurt å gi et lite tips om at du har gjort det – da får arbeidsgiveren også en påminnelse om å sjekke postkassen sin i Altinn.</p>
-            }
-            {
-                modus === 'AVBRYT' && <p className="blokk">Når du avbryter sykmeldingen, blablabla...</p>
+                modus === 'GA_VIDERE' ? null : <p className="blokk">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`, ledetekster)}</p>
             }
             <div className="knapperad knapperad-adskilt">
                 <button type="submit" id="dinSykmeldingSkjemaSubmit"

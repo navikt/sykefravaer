@@ -281,9 +281,9 @@ describe("DinSykmeldingSkjema", () => {
 
     describe("Tekst på knapp", () => {
 
-        it("Er 'Bekreft sykmelding' dersom man velger 'selvstendig_naeringsdrivende',", () => {
-            reduxFormProps.fields.arbeidssituasjon = getField("selvstendig_naeringsdrivende");
-            const sykmelding = { id: '23', arbeidssituasjon: 'selvstendig_naeringsdrivende' };
+        it("Er 'Bekreft sykmelding' dersom man velger 'naeringsdrivende',", () => {
+            reduxFormProps.fields.arbeidssituasjon = getField("naeringsdrivende");
+            const sykmelding = { id: '23', arbeidssituasjon: 'naeringsdrivende' };
             const spy = sinon.spy();
             const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} {...reduxFormProps} />);
             expect(component.find(".js-submit").text()).to.equal("Bekreft sykmelding")

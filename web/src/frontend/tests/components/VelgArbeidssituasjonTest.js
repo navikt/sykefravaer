@@ -24,7 +24,7 @@ describe("VelgArbeidssituasjon", () => {
         },
         {
             tekst: 'Selvstendig næringsdrivende',
-            verdi: 'selvstendig_naeringsdrivende',
+            verdi: 'naeringsdrivende',
         },
         {
             tekst: 'Frilanser', 
@@ -72,7 +72,7 @@ describe("VelgArbeidssituasjon", () => {
                 },
                 {
                     tekst: 'Selvstendig næringsdrivende',
-                    verdi: 'selvstendig_naeringsdrivende',
+                    verdi: 'naeringsdrivende',
                 },
                 {
                     tekst: 'Frilanser',

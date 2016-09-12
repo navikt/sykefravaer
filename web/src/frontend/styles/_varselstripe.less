@@ -15,7 +15,7 @@
   height: 0;
   display: block;
   border-radius: 50%;
-  border: 1rem solid transparent;
+  border: 1rem solid @color-border;
   transform: translateX(-50%);
 }
 
@@ -52,6 +52,10 @@
 .varselstripe--suksess:before, 
 .varselstripe--suksess .varselstripe__ikon:after {
   border-color: @color-success;
+}
+
+.varselstripe--avbrutt:before {
+  border: none; 
 }
 
 .varselstripe--avbrutt .varselstripe__ikon:after {

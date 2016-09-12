@@ -46,7 +46,8 @@ export class DinSykmldSide extends Component {
                     } else if (dinSykmelding.status === 'BEKREFTET') {
                         return (<div>
                             <DinBekreftedeSykmelding
-                                sykmelding={dinSykmelding}
+                                dinSykmelding={dinSykmelding}
+                                arbeidsgiversSykmelding={arbeidsgiversSykmelding}
                                 ledetekster={ledetekster} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
                         </div>);
@@ -99,7 +100,7 @@ export function mapStateToProps(state, ownProps) {
     let arbeidsgiversSykmelding;
     const props = {};
 
-    if (dinSykmelding && dinSykmelding.status === 'SENDT') {
+    if (dinSykmelding && (dinSykmelding.status === 'SENDT' || (dinSykmelding.status === 'BEKREFTET' && dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER'))) {
         arbeidsgiversSykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId);
         props.arbeidsgiversSykmelding = {
             data: arbeidsgiversSykmelding,

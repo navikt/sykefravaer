@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const Varselstripe = ({ type, children }) => {
+const Varselstripe = ({ type = 'default', children }) => {
     const typeClass = `varselstripe--${type}`;
     const modigFrontendIkonRot = '/sykefravaer/img/modig-frontend/ikoner-svg/';
     let typeIkon;

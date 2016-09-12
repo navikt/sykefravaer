@@ -294,6 +294,18 @@ describe("DinSykmeldingContainer", () => {
             }
             let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster.data} dispatch={dispatch} />)
             expect(component.find(DinBekreftedeSykmelding)).to.have.length(1);
+        });
+
+        it("Skal vise DinBekreftedeSykmelding med arbeidsgivers sykmelding dersom sykmeldingen har status === 'BEKREFTET' og valgtArbeidssituasjon === 'ARBEIDSTAKER'", () => {
+            let sykmelding = {
+                status: "BEKREFTET",
+                valgtArbeidssituasjon: 'ARBEIDSTAKER'
+            }
+            let arbeidsgiversSykmelding = {
+                navn: "Olsen"
+            }
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster.data} dispatch={dispatch} />)
+            expect(component.contains(<DinBekreftedeSykmelding dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster.data} />)).to.be.true;
         }); 
 
         it("Skal hente aktuelle arbeidsgivere'", () => {

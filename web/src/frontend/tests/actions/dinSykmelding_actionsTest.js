@@ -220,8 +220,11 @@ describe("dinSykmelding_actions", () => {
                 }
             })
             .post("/sykmeldinger/56/actions/bekreft", JSON.stringify({
-                sykmeldingsgrad: true,
-                periode: false,
+                arbeidssituasjon: "frilanser",
+                feilaktigeOpplysninger: {
+                    sykmeldingsgrad: true,
+                    periode: false,
+                }
             }))
             .reply(200, {});
 
@@ -244,7 +247,7 @@ describe("dinSykmelding_actions", () => {
                 { type: "HENTER_ARBEIDSGIVERS_SYKMELDINGER"}
             ]
 
-            return store.dispatch(actions.bekreftSykmelding(56, {
+            return store.dispatch(actions.bekreftSykmelding(56, "frilanser", {
                 sykmeldingsgrad: true,
                 periode: false,
             }))

@@ -95,14 +95,18 @@ export function setFeilaktigOpplysning(sykmeldingId, opplysning, erFeilaktig) {
     };
 }
 
-export function bekreftSykmelding(sykmeldingId, feilaktigeOpplysninger = {}) {
+export function bekreftSykmelding(sykmeldingId, arbeidssituasjon = {}, feilaktigeOpplysninger = {}) {
     return function bekreft(dispatch) {
         dispatch(bekrefterSykmelding());
+        const body = {
+            arbeidssituasjon,
+            feilaktigeOpplysninger,
+        };
         return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`,
             {
                 credentials: 'include',
                 method: 'POST',
-                body: JSON.stringify(feilaktigeOpplysninger),
+                body: JSON.stringify(body),
                 headers: new Headers({
                     'Content-Type': 'application/json',
                     'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),

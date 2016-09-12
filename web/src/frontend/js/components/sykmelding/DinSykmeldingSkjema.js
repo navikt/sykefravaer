@@ -36,8 +36,8 @@ class DinSykmeldingSkjema extends Component {
         browserHistory.push(`/sykefravaer/sykmeldinger/${this.props.sykmelding.id}/kvittering`);
     }
 
-    bekreft(sykmeldingId, feilaktigeOpplysninger) {
-        this.props.bekreftSykmelding(sykmeldingId, feilaktigeOpplysninger).then((respons) => {
+    bekreft(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger) {
+        this.props.bekreftSykmelding(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger).then((respons) => {
             if (respons.status > 400) {
                 this.setState({
                     forsoktBekreftet: true,
@@ -92,7 +92,7 @@ class DinSykmeldingSkjema extends Component {
         }
         switch (this.getSkjemaModus()) {
             case 'BEKREFT': {
-                this.bekreft(sykmelding.id, fields.feilaktigeOpplysninger);
+                this.bekreft(sykmelding.id, fields.arbeidssituasjon, fields.feilaktigeOpplysninger);
                 return;
             }
             case 'SEND': {

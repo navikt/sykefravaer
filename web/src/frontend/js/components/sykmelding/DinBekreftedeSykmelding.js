@@ -19,7 +19,7 @@ const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding, ledet
             <DineSykmeldingOpplysninger sykmelding={dinSykmelding} ledetekster={ledetekster} />
         </Utvidbar>
         {
-            sykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER' && 
+            dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER' &&
             <div className="blokk">
                 <ArbeidsgiversSykmelding sykmelding={arbeidsgiversSykmelding} ledetekster={ledetekster} />
             </div>
@@ -29,7 +29,8 @@ const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding, ledet
 
 DinBekreftedeSykmelding.propTypes = {
     ledetekster: PropTypes.object,
-    sykmelding: PropTypes.object,
+    dinSykmelding: PropTypes.object,
+    arbeidsgiversSykmelding: PropTypes.object,
 };
 
 export default DinBekreftedeSykmelding;

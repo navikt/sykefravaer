@@ -89,7 +89,7 @@ const sykmeldinger = [{
     "innsendtArbeidsgivernavn": null,
     "orgnummer": null,
     "arbeidsgiver": "LOMMEN BARNEHAVE",
-    "arbeidssituasjon": 'arbeidstaker'
+    "valgtArbeidssituasjon": 'arbeidstaker'
 }]
 
 describe("SykmeldingKvitteringContainer", () => {

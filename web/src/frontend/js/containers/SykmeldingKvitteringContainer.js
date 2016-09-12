@@ -47,7 +47,7 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
         case 'BEKREFTET': {
             if (alternativer.harStrengtFortroligAdresse) {
                 return `bekreft-sykmelding.skjermingskode-6.${nokkel}`;
-            } else if (sykmelding.arbeidssituasjon === 'arbeidstaker') {
+            } else if (typeof sykmelding.valgtArbeidssituasjon === 'string' && sykmelding.valgtArbeidssituasjon.toUpperCase() === 'ARBEIDSTAKER') {
                 return `bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.${nokkel}`;
             }
             return `bekreft-sykmelding.${nokkel}`;
@@ -73,11 +73,10 @@ export function mapStateToProps(state, ownProps) {
     const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
 
     const kvitteringTittelKey = getLedetekstNokkel(sykmelding, 'kvittering.tittel');
-    const kvitteringBrodtekstKey = getLedetekstNokkel(sykmelding, 'kvittering.undertekst');
-    const sykepengerTittelNokkel = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tittel');
-    const sykepengerTekstNokkel = getLedetekstNokkel(sykmelding, 'kvittering.sok-om-sykepenger.tekst', {
+    const kvitteringBrodtekstKey = getLedetekstNokkel(sykmelding, 'kvittering.undertekst', {
         harStrengtFortroligAdresse,
     });
+    const tittel = kvitteringTittelKey ? getLedetekst(kvitteringTittelKey, ledetekster) : null;
     const brodtekst = kvitteringBrodtekstKey ? getHtmlLedetekst(kvitteringBrodtekstKey, ledetekster) : null;
 
     return {
@@ -86,10 +85,8 @@ export function mapStateToProps(state, ownProps) {
         ledetekster,
         hentingFeilet,
         sykmeldingStatus: sykmelding ? sykmelding.status : undefined,
-        tittel: getLedetekst(kvitteringTittelKey, ledetekster),
+        tittel,
         brodtekst,
-        sykepengerTittel: getLedetekst(sykepengerTittelNokkel, ledetekster),
-        sykepengerTekst: getHtmlLedetekst(sykepengerTekstNokkel, ledetekster),
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',

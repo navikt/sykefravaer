@@ -204,10 +204,11 @@ describe("SykmeldingKvitteringContainer", () => {
             expect(res.hentingFeilet).to.be.true;
         });
 
-        it("Skal returnere riktig sykepengerTekst dersom bruker har strengt fortrolig adresse", () => {
+        it("Skal returnere riktig tekst dersom bruker har strengt fortrolig adresse", () => {
             ownProps.params.sykmeldingId = 4;
             state.ledetekster.data = Object.assign({}, state.ledetekster.data, {
-                'bekreft-sykmelding.skjermingskode-6.kvittering.sok-om-sykepenger.tekst': '<p>Min fine tekst</p>'
+                'bekreft-sykmelding.kvittering.tittel': 'Min fine tittel',
+                'bekreft-sykmelding.skjermingskode-6.kvittering.undertekst': '<p>Min fine tekst</p>'
             })
             state.brukerinfo = {
                 bruker: {
@@ -217,16 +218,17 @@ describe("SykmeldingKvitteringContainer", () => {
                 }
             };
             const res = mapStateToProps(state, ownProps);
-            expect(res.sykepengerTekst).to.deep.equal({__html: '<p>Min fine tekst</p>'});
+            expect(res.brodtekst).to.deep.equal({__html: '<p>Min fine tekst</p>'});
+            expect(res.tittel).to.deep.equal('Min fine tittel');
         });
 
         it("Skal returnere riktig sykepengerTekst dersom bruker har valgt har valgt arbeidssituasjon arbeidstaker og arbeidsgiveren min er ikke her og bekreftet sykmeldingen", () => {
             ownProps.params.sykmeldingId = 5;
             state.ledetekster.data = Object.assign({}, state.ledetekster.data, {
-                'bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.sok-om-sykepenger.tekst': '<p>Min fine tekst</p>'
+                'bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.undertekst': '<p>Min fine tekst</p>'
             });
             const res = mapStateToProps(state, ownProps);
-            expect(res.sykepengerTekst).to.deep.equal({__html: '<p>Min fine tekst</p>'});
+            expect(res.brodtekst).to.deep.equal({__html: '<p>Min fine tekst</p>'});
         });
 
         it("Skal returnere brødsmuler", () => {

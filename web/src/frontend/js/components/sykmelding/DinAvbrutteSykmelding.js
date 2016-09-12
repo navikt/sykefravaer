@@ -11,7 +11,7 @@ const DinAvbrutteSykmelding = ({ sykmelding, ledetekster }) => {
         <StatusPanel
             sykmelding={sykmelding}
             ledetekster={ledetekster}
-            type="suksess"
+            type="avbrutt"
             nokkelopplysninger={[[STATUS, INNSENDT_DATO]]} />
         <Utvidbar erApen tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel', ledetekster)}
             ikon="svg/person.svg" ikonHover="svg/person_hover.svg" ikonAltTekst="Du" className="blokk" variant="lysebla" Overskrift="H2">

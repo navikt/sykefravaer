@@ -16,6 +16,13 @@ const SykmeldingKvittering = ({ tittel, brodtekst, ledetekster, sykmeldingStatus
             <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={brodtekst} />
         </div>
         <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
+        <div className="panel">
+            <h2 className="typo-undertittel">Hjelp oss å bli bedre</h2>
+            <p>Dette er en tjeneste som fortsatt er under utvikling. Gi oss tilbakemelding slik at vi kan bli bedre!</p>
+            <p className="knapperad">
+                <a href="https://www.survey-xact.no/LinkCollector?key=5U5KSNH43P9K" className="rammeknapp" target="_blank">Gi tilbakemelding</a>
+            </p>
+        </div>
     </div>);
 };
 

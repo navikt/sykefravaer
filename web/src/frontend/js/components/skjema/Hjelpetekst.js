@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
 let SET_FOCUS;
+let lukk;
 
 class Hjelpetekst extends Component {
     constructor(props) {
@@ -23,13 +24,18 @@ class Hjelpetekst extends Component {
             erApen: true,
         });
         SET_FOCUS = true;
+        lukk = () => {
+            this.lukk();
+            document.removeEventListener('click', lukk);
+        };
+        document.addEventListener('click', lukk);
     }
 
     lukk() {
+        SET_FOCUS = true;
         this.setState({
             erApen: false,
         });
-        SET_FOCUS = true;
     }
 
     toggle() {

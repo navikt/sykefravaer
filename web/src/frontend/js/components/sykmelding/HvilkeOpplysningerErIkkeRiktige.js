@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Checkboxgruppe from '../skjema/Checkboxgruppe';
 import { getLedetekst } from '../../ledetekster';
+import { Field } from 'redux-form';
 
 export const DuTrengerNySykmelding = () => {
     return (<div className="panel panel-relatert">
@@ -43,39 +44,27 @@ SykmeldingFeilaktigeOpplysningerInfo.propTypes = {
     feilaktigeOpplysninger: PropTypes.object,
 };
 
-const HvilkeOpplysningerErIkkeRiktige = (props) => {
-    const { fields: { feilaktigeOpplysninger }, ledetekster } = props;
+const Checkbox = ({ name, id, checked }) => {
+    return <input type="checkbox" className="nav-checkbox" name={name} id={id} />
+}
+
+const HvilkeOpplysningerErIkkeRiktige = ({ skjemaData, ledetekster }) => {
     const inputs = ['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre'];
-    const erFeil = feilaktigeOpplysninger.error && feilaktigeOpplysninger.touched;
-
-    const parse = (e, value) => {
-        const obj = {};
-        obj[value] = e.target.checked;
-        const ret = Object.assign({}, feilaktigeOpplysninger.value, obj);
-        return ret;
-    };
-
+    const erFeil = false;
+    
     const checkboxer = inputs.map((input) => {
         return (<div className="nav-input" key={input}>
-            <input name={input}
-                onChange={(e) => {
-                    feilaktigeOpplysninger.onChange(parse(e, input));
-                }}
-                onBlur={(e) => {
-                    feilaktigeOpplysninger.onBlur(parse(e, input));
-                }}
-                id={`checkbox-${input}`} type="checkbox" className="nav-checkbox" checked={feilaktigeOpplysninger.value[input] === true} />
+            <Field component="input" className="nav-checkbox" type="checkbox" name={`feilaktigeOpplysninger.${input}`} id={`checkbox-${input}`} value="true" />
             <label htmlFor={`checkbox-${input}`}>{getLedetekst(`sykmelding.bekreft-opplysninger.hvilke-opplysninger.${input}`, ledetekster)}</label>
         </div>);
     });
 
     return (<div className="panel panel-ekstra">
         <Checkboxgruppe
-            feilmelding={feilaktigeOpplysninger.error} erFeil={erFeil}
+            erFeil={erFeil}
             Overskrift="h4"
             spoersmaal={getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sporsmal', ledetekster)}>
-                {checkboxer}
-            <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger.value !== '' ? feilaktigeOpplysninger.value : {}} />
+            {checkboxer}
         </Checkboxgruppe>
     </div>);
 };

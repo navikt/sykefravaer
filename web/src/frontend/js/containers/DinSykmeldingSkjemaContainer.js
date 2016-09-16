@@ -2,7 +2,7 @@ import { getSykmelding, filtrerObjektKeys } from '../utils';
 import * as actionCreators from '../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../components/sykmelding/DinSykmeldingSkjema';
 import { getLedetekst } from '../ledetekster';
-import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
 export const mapStateToProps = (state, ownProps) => {
     let sykmelding = {};
@@ -24,6 +24,7 @@ export const mapStateToProps = (state, ownProps) => {
     });
 
     return {
+        skjemaData: state.form.dinSykmeldingSkjema,
         initialValues: sykmelding,
         sykmelding,
         ledetekster: state.ledetekster.data,
@@ -33,32 +34,6 @@ export const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export const validate = (values, props = {}) => {
-    const feilmeldinger = {};
-
-    if (values.opplysningeneErRiktige === false && typeof values.feilaktigeOpplysninger === 'object' &&
-        (values.feilaktigeOpplysninger.periode || values.feilaktigeOpplysninger.sykmeldingsgrad)) {
-        return {};
-    }
-    if (values.opplysningeneErRiktige === undefined) {
-        feilmeldinger.opplysningeneErRiktige = 'Vennligst svar på om opplysningene er riktige';
-    }
-    if (values.arbeidssituasjon === undefined) {
-        feilmeldinger.arbeidssituasjon = 'Vennligst oppgi din arbeidssituasjon';
-    }
-    if (values.opplysningeneErRiktige === false && (!values.feilaktigeOpplysninger || !filtrerObjektKeys(values.feilaktigeOpplysninger).length)) {
-        feilmeldinger.feilaktigeOpplysninger = 'Vennligst oppgi hvilke opplysninger som ikke er riktige';
-    }
-    if (values.arbeidssituasjon === 'arbeidstaker' && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
-        feilmeldinger.valgtArbeidsgiver = 'Vennligst velg arbeidsgiver';
-    }
-    return feilmeldinger;
-};
-
-const DinSykmeldingSkjemaContainer = reduxForm({
-    form: 'sendSykmelding',
-    fields: ['opplysningeneErRiktige', 'feilaktigeOpplysninger', 'arbeidssituasjon', 'valgtArbeidsgiver'],
-    validate,
-}, mapStateToProps, actionCreators)(DinSykmeldingSkjema);
+const DinSykmeldingSkjemaContainer = connect(mapStateToProps, actionCreators)(DinSykmeldingSkjema); 
 
 export default DinSykmeldingSkjemaContainer;

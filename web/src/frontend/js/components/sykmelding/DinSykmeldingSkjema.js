@@ -190,7 +190,7 @@ class DinSykmeldingSkjema extends Component {
                     </button>
                 </p>
                 <div className="avbryt-sykmelding-dialog">
-                    <p className="blokk-s">
+                    <p className="blokk">
                         <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" className="lenke-fremhevet" onClick={(e) => {
                             e.preventDefault();
                             this.setState({

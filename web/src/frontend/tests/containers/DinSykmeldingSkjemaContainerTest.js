@@ -32,6 +32,9 @@ describe("DinSykmeldingSkjemaContainer", () => {
                     orgnummer: "***REMOVED***"
                 }]
             },
+            dineSykmeldinger: {
+
+            },
             ledetekster: {
                 data: ledetekster
             },

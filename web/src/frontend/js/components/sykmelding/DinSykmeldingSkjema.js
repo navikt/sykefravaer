@@ -8,6 +8,27 @@ import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
 import { getLedetekst } from '../../ledetekster';
 
+const AvbrytDialog = ({ ledetekster, avbryter, avbrytHandler, bekreftHandler }) => {
+    return (<div className="panel panel-ekstra">
+        <p>Er du sikker på at du vil avbryte denne sykmeldingen?</p>
+        <div className="knapperad">
+            <button className={`knapp knapp-fare ${avbryter ? 'er-inaktiv knapp-spinner' : ''}`} type="button" onClick={(e) => {
+                e.preventDefault();
+                bekreftHandler();
+            }}>Ja, jeg er sikker
+                <span className="spinner-knapp" />
+            </button> 
+        </div>
+        <p>
+            <a href="#" role="button" className="lenke-fremhevet" onClick={(e) => {
+                e.preventDefault();
+                avbrytHandler();
+            }}>Avbryt
+            </a>
+        </p>
+    </div>);
+}
+
 class DinSykmeldingSkjema extends Component {
 
     constructor(props) {
@@ -111,7 +132,7 @@ class DinSykmeldingSkjema extends Component {
 
     render() {
         const { fields: { arbeidssituasjon },
-            sykmelding, sender, ledetekster, harStrengtFortroligAdresse, handleSubmit } = this.props;
+            sykmelding, sender, avbryter, ledetekster, harStrengtFortroligAdresse, handleSubmit } = this.props;
 
         const knappetekster = {
             GA_VIDERE: 'Gå videre',
@@ -154,11 +175,33 @@ class DinSykmeldingSkjema extends Component {
                 modus === 'GA_VIDERE' ? null : <p className="blokk">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`, ledetekster)}</p>
             }
             <div className="knapperad knapperad-adskilt">
-                <button type="submit" id="dinSykmeldingSkjemaSubmit"
-                    className={`js-submit knapp ${modus === 'AVBRYT' ? 'knapp-fare' : 'knapp-hoved'} ${(sender) ? 'er-inaktiv knapp-spinner js-spinner' : ''}`}>
-                    {knappetekster[modus]}
-                    <span className="spinner-knapp" />
-                </button>
+                <p className="blokk-s">
+                    <button type="submit" id="dinSykmeldingSkjemaSubmit"
+                        className={`js-submit knapp ${modus === 'AVBRYT' ? 'knapp-fare' : 'knapp-hoved'} ${(sender) ? 'er-inaktiv knapp-spinner js-spinner' : ''}`}>
+                        {knappetekster[modus]}
+                        <span className="spinner-knapp" />
+                    </button>
+                </p>
+                <div className="avbryt-sykmelding-dialog">
+                    <p className="blokk-s">
+                        <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" className="lenke-fremhevet" onClick={(e) => {
+                            e.preventDefault();
+                            this.setState({
+                                visAvbrytDialog: !this.state.visAvbrytDialog,
+                            });
+                        }}>Jeg ønsker ikke å bruke denne sykmeldingen</a>
+                    </p>
+                    {
+                        this.state.visAvbrytDialog && <AvbrytDialog avbryter={avbryter} avbrytHandler={() => {
+                            this.setState({
+                                visAvbrytDialog: false,
+                            });
+                            this.refs['js-trigger-avbryt-sykmelding'].focus();
+                        }} bekreftHandler={() => {
+                            this.avbryt(sykmelding.id);
+                        }} />
+                    }
+                </div>
             </div>
         </form>);
     }

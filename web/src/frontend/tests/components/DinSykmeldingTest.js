@@ -86,6 +86,9 @@ describe("DinSykmelding -", () => {
                     id: "123"
                 }]
             },
+            dineSykmeldinger: {
+
+            },
             arbeidsgivere: {
                 data: [],
             },

@@ -230,6 +230,81 @@ describe('dineSykmeldingerReducer', () => {
         });        
     });
 
+    it("Håndterer AVBRYTER_SYKMELDING", () => {
+        const initialState = deepFreeze({
+            data: [{
+                id: 23,
+            }, {
+                id: 24,
+            }]
+        });
+        const action = {
+            type: 'AVBRYTER_SYKMELDING',
+        };
+        const nextState = dineSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+            }, {
+                id: 24,
+            }],
+            avbryter: true,
+            avbrytFeilet: false,
+        });           
+    });
+
+    it("Håndterer SYKMELDING_AVBRUTT", () => {
+        const initialState = deepFreeze({
+            data: [{
+                id: 23,
+            }, {
+                id: 24,
+            }],
+            avbryter: true,
+        });
+        const action = {
+            type: 'SYKMELDING_AVBRUTT',
+        };
+        const nextState = dineSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+            }, {
+                id: 24,
+            }],
+            avbryter: false,
+            avbrytFeilet: false,
+        });        
+    });
+
+    it("Håndterer AVBRYT_SYKMELDING_FEILET", () => {
+        const initialState = deepFreeze({
+            data: [{
+                id: 23,
+            }, {
+                id: 24,
+            }],
+            avbryter: true
+        });
+        const action = {
+            type: 'AVBRYT_SYKMELDING_FEILET',
+        };
+        const nextState = dineSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+            }, {
+                id: 24,
+            }],
+            avbryter: false,
+            avbrytFeilet: true,
+        });        
+    });
+
+
     it("Håndterer SET_FEILAKTIG_OPPLYSNING dersom opplysningen ikke er feilaktig fra før", () => {
 
         const initialState = deepFreeze({

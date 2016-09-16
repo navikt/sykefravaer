@@ -12,7 +12,6 @@ import Feilmelding from '../components/Feilmelding';
 import { getLedetekst } from '../ledetekster';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
-import { erPilotarbeidsgiver } from '../utils/arbeidsgiverUtils';
 import { getSykmelding } from '../utils';
 
 export class DinSykmldSide extends Component {
@@ -24,7 +23,7 @@ export class DinSykmldSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, dinSykmelding, harPilotarbeidsgiver, arbeidsgiversSykmelding, henter, hentingFeilet } = this.props;
+        const { brodsmuler, ledetekster, dinSykmelding, arbeidsgiversSykmelding, henter, hentingFeilet } = this.props;
         return (<Side tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
                 { (() => {
                     if (henter) {
@@ -62,8 +61,7 @@ export class DinSykmldSide extends Component {
                         return (<div>
                             <DinSykmelding
                                 sykmelding={dinSykmelding}
-                                ledetekster={ledetekster}
-                                harPilotarbeidsgiver={harPilotarbeidsgiver} />
+                                ledetekster={ledetekster} />
                                 <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
                             </div>);
                     } else if (dinSykmelding.status === 'AVBRUTT') {
@@ -86,7 +84,6 @@ DinSykmldSide.propTypes = {
     ledetekster: PropTypes.object,
     arbeidsgivere: PropTypes.object,
     brodsmuler: PropTypes.array,
-    harPilotarbeidsgiver: PropTypes.bool,
     sykmeldingId: PropTypes.string,
     dinSykmelding: PropTypes.object,
     arbeidsgiversSykmelding: PropTypes.object,
@@ -109,15 +106,12 @@ export function mapStateToProps(state, ownProps) {
         };
     }
 
-    const harPilotarbeidsgiver = erPilotarbeidsgiver(state.arbeidsgivere.data);
-
     return Object.assign({}, props, {
         sykmeldingId,
         henter: state.dineSykmeldinger.henter || state.arbeidsgiversSykmeldinger.henter || state.ledetekster.henter,
         hentingFeilet: state.dineSykmeldinger.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet,
         dinSykmelding,
         arbeidsgiversSykmelding,
-        harPilotarbeidsgiver,
         ledetekster: state.ledetekster.data,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),

@@ -3,7 +3,7 @@ import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmelding
 import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
 import { getLedetekst, getHtmlLedetekst } from '../../ledetekster';
 
-const DinSykmelding = ({ sykmelding, ledetekster, harPilotarbeidsgiver = false }) => {
+const DinSykmelding = ({ sykmelding, ledetekster }) => {
     return (<div>
         <h1 className="side-header typo-sidetittel">{getLedetekst('din-sykmelding.tittel', ledetekster)}</h1>
         <div className="panel blokk">
@@ -23,16 +23,13 @@ const DinSykmelding = ({ sykmelding, ledetekster, harPilotarbeidsgiver = false }
         <div className="panel blokk">
             <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
         </div>
-        {
-            harPilotarbeidsgiver && <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
-        }
+        <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
     </div>);
 };
 
 DinSykmelding.propTypes = {
     sykmelding: PropTypes.object,
     ledetekster: PropTypes.object,
-    harPilotarbeidsgiver: PropTypes.bool,
     harStrengtFortroligAdresse: PropTypes.bool,
 };
 

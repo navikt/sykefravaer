@@ -10,8 +10,8 @@ import { getLedetekst } from '../../ledetekster';
 
 const AvbrytDialog = ({ ledetekster, avbryter, avbrytHandler, bekreftHandler }) => {
     return (<div className="panel panel-ekstra">
-        <p>{getLedetekst('din-sykmelding.avbryt.spoersmal', ledetekster)}</p>
-        <div className="knapperad">
+        <p className="blokk-s">{getLedetekst('din-sykmelding.avbryt.spoersmal', ledetekster)}</p>
+        <div className="blokk-xs">
             <button className={`knapp knapp-fare ${avbryter ? 'er-inaktiv knapp-spinner' : ''}`} type="button" onClick={(e) => {
                 e.preventDefault();
                 bekreftHandler();
@@ -19,7 +19,7 @@ const AvbrytDialog = ({ ledetekster, avbryter, avbrytHandler, bekreftHandler }) 
                 <span className="spinner-knapp" />
             </button>
         </div>
-        <p>
+        <p className="sist">
             <a href="#" role="button" className="lenke-fremhevet" onClick={(e) => {
                 e.preventDefault();
                 avbrytHandler();

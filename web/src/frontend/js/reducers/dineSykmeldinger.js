@@ -50,7 +50,7 @@ export default function sykmeldinger(state = initiellState, action) {
             return Object.assign({}, state, {
                 avbryter: false,
                 avbrytFeilet: false,
-            }); 
+            });
         }
         case 'HENT_DINE_SYKMELDINGER_FEILET': {
             return {

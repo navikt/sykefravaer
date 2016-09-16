@@ -10,24 +10,31 @@ import { getLedetekst } from '../../ledetekster';
 
 const AvbrytDialog = ({ ledetekster, avbryter, avbrytHandler, bekreftHandler }) => {
     return (<div className="panel panel-ekstra">
-        <p>Er du sikker på at du vil avbryte denne sykmeldingen?</p>
+        <p>{getLedetekst('din-sykmelding.avbryt.spoersmal', ledetekster)}</p>
         <div className="knapperad">
             <button className={`knapp knapp-fare ${avbryter ? 'er-inaktiv knapp-spinner' : ''}`} type="button" onClick={(e) => {
                 e.preventDefault();
                 bekreftHandler();
-            }}>Ja, jeg er sikker
+            }}><p>{getLedetekst('din-sykmelding.avbryt.ja', ledetekster)}</p>
                 <span className="spinner-knapp" />
-            </button> 
+            </button>
         </div>
         <p>
             <a href="#" role="button" className="lenke-fremhevet" onClick={(e) => {
                 e.preventDefault();
                 avbrytHandler();
-            }}>Avbryt
+            }}>{getLedetekst('din-sykmelding.avbryt.angre', ledetekster)}
             </a>
         </p>
     </div>);
-}
+};
+
+AvbrytDialog.propTypes = {
+    ledetekster: PropTypes.object,
+    avbryter: PropTypes.bool,
+    avbrytHandler: PropTypes.func,
+    bekreftHandler: PropTypes.func,
+};
 
 class DinSykmeldingSkjema extends Component {
 
@@ -213,6 +220,7 @@ DinSykmeldingSkjema.propTypes = {
     sendSykmeldingTilArbeidsgiver: PropTypes.func,
     avbrytSykmelding: PropTypes.func,
     sender: PropTypes.bool,
+    avbryter: PropTypes.bool,
     ledetekster: PropTypes.object,
     feilaktigeOpplysninger: PropTypes.object,
     setOpplysningeneErRiktige: PropTypes.func,

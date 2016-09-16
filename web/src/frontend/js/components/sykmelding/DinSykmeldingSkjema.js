@@ -15,7 +15,7 @@ const AvbrytDialog = ({ ledetekster, avbryter, avbrytHandler, bekreftHandler }) 
             <button className={`knapp knapp-fare ${avbryter ? 'er-inaktiv knapp-spinner' : ''}`} type="button" onClick={(e) => {
                 e.preventDefault();
                 bekreftHandler();
-            }}><p>{getLedetekst('din-sykmelding.avbryt.ja', ledetekster)}</p>
+            }}>{getLedetekst('din-sykmelding.avbryt.ja', ledetekster)}
                 <span className="spinner-knapp" />
             </button>
         </div>
@@ -199,7 +199,7 @@ class DinSykmeldingSkjema extends Component {
                         }}>Jeg ønsker ikke å bruke denne sykmeldingen</a>
                     </p>
                     {
-                        this.state.visAvbrytDialog && <AvbrytDialog avbryter={avbryter} avbrytHandler={() => {
+                        this.state.visAvbrytDialog && <AvbrytDialog avbryter={avbryter} ledetekster={ledetekster} avbrytHandler={() => {
                             this.setState({
                                 visAvbrytDialog: false,
                             });

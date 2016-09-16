@@ -6,10 +6,16 @@ import ArbeidsgiversSykmelding from '../components/sykmelding/ArbeidsgiversSykme
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import { Feilmelding } from '../components/Feilmelding';
+import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
 
 let printTrigget = false;
 
 class SkrivUt extends Component {
+
+    componentWillMount() {
+        const { dispatch } = this.props;
+        dispatch(hentArbeidsgiversSykmeldinger());
+    }
 
     componentDidUpdate() {
         const { sykmelding, henter, hentingFeilet } = this.props;
@@ -23,13 +29,14 @@ class SkrivUt extends Component {
 
     render() {
         const { sykmelding, ledetekster, brodsmuler, henter, hentingFeilet } = this.props;
+
         return (<Side tittel={getLedetekst('skriv-ut-sykmelding.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
                 (() => {
                     if (henter) {
-                        return <AppSpinner />;
+                        return <p>1</p>;
                     } else if (hentingFeilet || !sykmelding) {
-                        return <Feilmelding />;
+                        return <p>1</p>
                     }
                     return (
                         <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} erApen />

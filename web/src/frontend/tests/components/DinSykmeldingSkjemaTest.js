@@ -11,7 +11,7 @@ const expect = chai.expect;
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import DinSykmeldingSkjema from "../../js/components/sykmelding/DinSykmeldingSkjema";
+import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent } from "../../js/components/sykmelding/DinSykmeldingSkjema";
 import StrengtFortroligInfo from "../../js/components/sykmelding/StrengtFortroligInfo";
 import VelgArbeidssituasjon from "../../js/components/sykmelding/VelgArbeidssituasjon";
 import DineSykmeldingOpplysninger from "../../js/components/sykmeldingOpplysninger/DineSykmeldingOpplysninger";
@@ -21,7 +21,7 @@ import Varselstripe from "../../js/components/Varselstripe";
 
 import { Provider } from 'react-redux';
 
-describe("DinSykmeldingSkjema", () => {
+describe("DinSykmeldingSkjema -", () => {
 
     let component;
 
@@ -31,6 +31,7 @@ describe("DinSykmeldingSkjema", () => {
     let store;
     let state;
     let brukerinfo;
+    let skjemaData;
 
     const getField = (value) => {
         return {
@@ -57,65 +58,63 @@ describe("DinSykmeldingSkjema", () => {
                 },
             },
         };
+
         store = mockStore(getState);
+
         brukerinfo = {
             strengtFortroligAdresse: false,
         };
 
-        reduxFormProps = {
-            fields: {
-                opplysningeneErRiktige: getField(""),
-                feilaktigeOpplysninger: getField(""),
-                arbeidssituasjon: getField(""),
-                valgtArbeidsgiver: getField("")
-            },
-            handleSubmit: () => {
-                return;
-            }
+        skjemaData = {
+            fields: {},
+            values: {}
         }
     });
 
     it("Skal vise VelgArbeidssituasjon", () => {
-        component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding()}  {...reduxFormProps} />);
+        component = mount(<Provider store={store}>
+            <DinSykmeldingSkjema />
+        </Provider>);
         expect(component.find(VelgArbeidssituasjon)).to.have.length(1);
     });
 
     it("Skal ikke vise VelgArbeidsgiver dersom arbeidssituasjon === undefined", () => {
-        component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding()}  {...reduxFormProps} />);
+        component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} />);
         expect(component.find(VelgArbeidsgiver)).to.have.length(0);
         expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(0);
     });
 
     it("Skal ikke vise VelgArbeidsgiver arbeidssituasjon === 'arbeidsledig'", () => {
+        skjemaData.values.valgtArbeidssituasjon = 'arbeidsledig';
         component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding({
                     'arbeidssituasjon': 'arbeidsledig'
-                })}  {...reduxFormProps} />);
+                })} skjemaData={skjemaData} />);
         expect(component.find(VelgArbeidsgiver)).to.have.length(0);
         expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(0);
     });
 
     it("Skal vise VelgArbeidsgiver og ArbeidsgiversSykmeldingContainer dersom arbeidssituasjon === 'arbeidstaker'", () => {
-        reduxFormProps.fields.arbeidssituasjon.value = 'arbeidstaker';
-        component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding({
-                        arbeidssituasjon: 'arbeidstaker',
-                    })}  {...reduxFormProps} />);
+        skjemaData.values.valgtArbeidssituasjon = 'arbeidstaker';
+        component = mount(<Provider store={store}>
+            <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={[]} />
+        </Provider>);
         expect(component.find(VelgArbeidsgiver)).to.have.length(1);
         expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(1);
     });
 
     it("Skal vise info om utskrift dersom harStrengtFortroligAdresse = true", () => {
-        reduxFormProps.fields.arbeidssituasjon.value = 'arbeidstaker';
-        component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding({
-            arbeidssituasjon: "arbeidstaker"
-        })} ledetekster={ledetekster} harStrengtFortroligAdresse={true}  {...reduxFormProps} />);
+        skjemaData.values.valgtArbeidssituasjon = 'arbeidstaker';
+        component = mount(<Provider store={store}>
+            <DinSykmeldingSkjema sykmelding={getSykmelding()} arbeidsgivere={[]} harStrengtFortroligAdresse={true} skjemaData={skjemaData} ledetekster={ledetekster} />
+        </Provider>);
         expect(component.find(StrengtFortroligInfo)).to.have.length(1);
     });
 
     it("Skal ikke vise info om utskrift dersom harStrengtFortroligAdresse = false", () => {
-        reduxFormProps.fields.arbeidssituasjon.value = 'arbeidstaker';
-        component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding({
-            arbeidssituasjon: "arbeidstaker"
-        })} ledetekster={ledetekster} harStrengtFortroligAdresse={false}  {...reduxFormProps} />);
+        skjemaData.values.valgtArbeidssituasjon = 'arbeidstaker';
+        component = mount(<Provider store={store}>
+            <DinSykmeldingSkjema sykmelding={getSykmelding()} ledetekster={ledetekster} harStrengtFortroligAdresse={false} skjemaData={skjemaData} arbeidsgivere={[]} />
+        </Provider>);
         expect(component.find(StrengtFortroligInfo)).to.have.length(0);
     });
 
@@ -124,49 +123,57 @@ describe("DinSykmeldingSkjema", () => {
         let component;
 
         it("Skal være GA_VIDERE by default", () => {
-            component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding()} {...reduxFormProps} />);
+            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />);
             const modus = component.instance().getSkjemaModus();
             expect(modus).to.equal("GA_VIDERE")
         })
 
         it("Skal være AVBRYT dersom periode eller sykmeldingsgrad er feil", () => {
-            reduxFormProps.fields.feilaktigeOpplysninger.value = {
-                periode: true
+            skjemaData.values = {
+                feilaktigeOpplysninger: {
+                    periode: true
+                },
+                opplysningeneErRiktige: false,
             }
-            reduxFormProps.fields.opplysningeneErRiktige.value = false;
-            component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding()} {...reduxFormProps} />); 
+            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus = component.instance().getSkjemaModus();
             expect(modus).to.equal("AVBRYT")
 
-            reduxFormProps.fields.feilaktigeOpplysninger.value = {
-                sykmeldingsgrad: true
+            skjemaData.values.feilaktigeOpplysninger = {
+                sykmeldingsgrad: true,
             }
-            let component2 = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding()} {...reduxFormProps} />); 
+            let component2 = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus2 = component2.instance().getSkjemaModus();
             expect(modus2).to.equal("AVBRYT")
         });
 
-        it("Skal være SEND dersom arbeidssituasjon === 'arbeidstaker'", () => {
-            reduxFormProps.fields.arbeidssituasjon.value = 'arbeidstaker';
-            component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding()} {...reduxFormProps} />); 
+        it("Skal være SEND dersom valgtArbeidssituasjon === 'arbeidstaker'", () => {
+            skjemaData.values = {
+                valgtArbeidssituasjon: 'arbeidstaker'
+            }
+            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus = component.instance().getSkjemaModus();
             expect(modus).to.equal("SEND")
         });
 
 
         it("Skal være BEKREFT dersom arbeidssituasjon === 'arbeidstaker' og valgtArbeidsgiver.orgnummer = '0'", () => {
-            reduxFormProps.fields.arbeidssituasjon.value = 'arbeidstaker';
-            reduxFormProps.fields.valgtArbeidsgiver.value = {
-                orgnummer: '0'
-            };
-            component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding()} {...reduxFormProps} />); 
+            skjemaData.values = {
+                valgtArbeidssituasjon: 'arbeidstaker',
+                valgtArbeidsgiver: {
+                    orgnummer: '0'
+                }
+            }
+            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus = component.instance().getSkjemaModus();
             expect(modus).to.equal("BEKREFT")
         });
 
         it("Skal være BEKREFT dersom bruker har strengt fortrolig adresse", () => {
-            reduxFormProps.fields.arbeidssituasjon.value = 'arbeidstaker';
-            component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding()} {...reduxFormProps} harStrengtFortroligAdresse />); 
+            skjemaData.values = {
+                valgtArbeidssituasjon: 'arbeidstaker'
+            }
+            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} harStrengtFortroligAdresse handleSubmit={sinon.spy()} />); 
             const modus = component.instance().getSkjemaModus();
             expect(modus).to.equal("BEKREFT")
         });
@@ -177,18 +184,18 @@ describe("DinSykmeldingSkjema", () => {
 
         let component;
 
-        it("Lagrer opplysningeneErRiktige", () => {
+        it.only("Lagrer opplysningeneErRiktige", () => {
             const setOpplysningeneErRiktigeSpy = sinon.spy();
             const setArbeidssituasjonSpy = sinon.spy();
             const setArbeidsgiverSpy = sinon.spy()
-            component = shallow(<DinSykmeldingSkjema
-
+            component = shallow(<DinSykmeldingSkjemaComponent
                 setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
                 setArbeidssituasjon={setArbeidssituasjonSpy}
                 setArbeidsgiver={setArbeidsgiverSpy}
                 sykmelding={getSykmelding({
                     id: "olsen"
-                })} {...reduxFormProps} />);
+                })}
+                handleSubmit={sinon.spy()} />);
             component.instance().handleSubmit({
                 opplysningeneErRiktige: true
             });
@@ -203,14 +210,15 @@ describe("DinSykmeldingSkjema", () => {
             const setArbeidssituasjonSpy = sinon.spy();
             const setArbeidsgiverSpy = sinon.spy()
 
-            component = shallow(<DinSykmeldingSkjema
+            component = shallow(<DinSykmeldingSkjemaComponent
                 setFeilaktigOpplysning={setFeilaktigOpplysningSpy}
                 setArbeidssituasjon={setArbeidssituasjonSpy}
                 setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
                 setArbeidsgiver={setArbeidsgiverSpy}
                 sykmelding={getSykmelding({
                     id: "olsen"
-                })} {...reduxFormProps} />);
+                })}
+                handleSubmit={sinon.spy()} />);
             component.instance().handleSubmit({
                 feilaktigeOpplysninger: {
                     periode: true,
@@ -232,14 +240,14 @@ describe("DinSykmeldingSkjema", () => {
             const setArbeidssituasjonSpy = sinon.spy();
             const setArbeidsgiverSpy = sinon.spy()
 
-            component = shallow(<DinSykmeldingSkjema
+            component = shallow(<DinSykmeldingSkjemaComponent
                 setFeilaktigOpplysning={setFeilaktigOpplysningSpy}
                 setArbeidssituasjon={setArbeidssituasjonSpy}
                 setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
                 setArbeidsgiver={setArbeidsgiverSpy}
                 sykmelding={getSykmelding({
                     id: "olsen"
-                })} {...reduxFormProps} />);
+                })} />);
             component.instance().handleSubmit({
                 arbeidssituasjon: 'arbeidstaker'
             });
@@ -254,14 +262,15 @@ describe("DinSykmeldingSkjema", () => {
             const setArbeidssituasjonSpy = sinon.spy();
             const setArbeidsgiverSpy = sinon.spy()
 
-            component = shallow(<DinSykmeldingSkjema
+            component = shallow(<DinSykmeldingSkjemaComponent
                 setFeilaktigOpplysning={setFeilaktigOpplysningSpy}
                 setArbeidssituasjon={setArbeidssituasjonSpy}
                 setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
                 setArbeidsgiver={setArbeidsgiverSpy}
                 sykmelding={getSykmelding({
                     id: "887766"
-                })} {...reduxFormProps} />);
+                })}
+                handleSubmit={sinon.spy()} />);
             component.instance().handleSubmit({
                 valgtArbeidsgiver: {
                     orgnummer: "123456",

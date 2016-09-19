@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Checkboxgruppe from '../skjema/Checkboxgruppe';
 import { getLedetekst } from '../../ledetekster';
 import { Field } from 'redux-form';
+import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
 
 export const DuTrengerNySykmelding = () => {
     return (<div className="panel panel-relatert">
@@ -50,11 +51,12 @@ const Checkbox = ({ name, id, checked }) => {
 
 const HvilkeOpplysningerErIkkeRiktige = ({ skjemaData, ledetekster }) => {
     const inputs = ['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre'];
-    const erFeil = false;
-    
+    const erFeil = visFeilmelding(skjemaData, "feilaktigeOpplysninger");
+    const feilmelding = getFeilmelding(skjemaData, "feilaktigeOpplysninger");
+
     const checkboxer = inputs.map((input) => {
         return (<div className="nav-input" key={input}>
-            <Field component="input" className="nav-checkbox" type="checkbox" name={`feilaktigeOpplysninger.${input}`} id={`checkbox-${input}`} value="true" />
+            <Field component="input" className="nav-checkbox" type="checkbox" name={`feilaktigeOpplysninger.${input}`} id={`checkbox-${input}`} value={name} />
             <label htmlFor={`checkbox-${input}`}>{getLedetekst(`sykmelding.bekreft-opplysninger.hvilke-opplysninger.${input}`, ledetekster)}</label>
         </div>);
     });
@@ -62,6 +64,7 @@ const HvilkeOpplysningerErIkkeRiktige = ({ skjemaData, ledetekster }) => {
     return (<div className="panel panel-ekstra">
         <Checkboxgruppe
             erFeil={erFeil}
+            feilmelding={feilmelding}
             Overskrift="h4"
             spoersmaal={getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sporsmal', ledetekster)}>
             {checkboxer}

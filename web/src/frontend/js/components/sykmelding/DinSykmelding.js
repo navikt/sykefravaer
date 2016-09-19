@@ -23,9 +23,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, harPilotarbeidsgiver = false }
         <div className="panel blokk">
             <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
         </div>
-        {
-            harPilotarbeidsgiver && <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
-        }
+        <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
     </div>);
 };
 

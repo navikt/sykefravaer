@@ -4,11 +4,16 @@ import Radiogruppe from '../skjema/Radiogruppe';
 import { getHtmlLedetekst, getLedetekst } from '../../ledetekster';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths.js';
+import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
 
 const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }) => {
     const values = skjemaData && skjemaData.values ? skjemaData.values : {};
+    const erFeil = visFeilmelding(skjemaData, 'valgtArbeidsgiver');
+    const feilmelding = getFeilmelding(skjemaData, 'valgtArbeidsgiver');
 
     return (<div className="blokk">
+        <div className={erFeil ? 'skjema-feilomrade feil' : 'skjema-feilomrade'}>
+            <h4 className="skjema-sporsmal">{getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal', ledetekster)}</h4>
             {
                 arbeidsgivere.map((arbeidsgiver, index) => {
                     const labelSekundaer = (arbeidsgiver.orgnummer && arbeidsgiver.orgnummer.length) !== 1 ?
@@ -49,6 +54,10 @@ const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }
                     </div>);
                 })
             }
+            <span className="skjema-feilmelding" role="alert" aria-live="polite">
+                {erFeil ? feilmelding : null}
+            </span>
+        </div>
     </div>);
 };
 

@@ -10,15 +10,7 @@ import { getLedetekst } from '../../ledetekster';
 import { reduxForm, Field } from 'redux-form';
 import { filtrerObjektKeys } from '../../utils';
 
-class DinSykmeldingSkjema extends Component {
-
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         forsoktSendt: false,
-    //     };
-    //     this.handleSubmit = this.handleSubmit.bind(this);
-    // }
+export class DinSykmeldingSkjemaComponent extends Component {
 
     getValues() {
         const { skjemaData } = this.props;
@@ -32,7 +24,6 @@ class DinSykmeldingSkjema extends Component {
             return 'GA_VIDERE';
         }
         const { opplysningeneErRiktige, feilaktigeOpplysninger, valgtArbeidssituasjon } = values; 
-        console.log("values", values)
         if (opplysningeneErRiktige === false && feilaktigeOpplysninger && (feilaktigeOpplysninger.periode || feilaktigeOpplysninger.sykmeldingsgrad)) {
             return 'AVBRYT';
         }
@@ -94,10 +85,9 @@ class DinSykmeldingSkjema extends Component {
     }
 
     handleSubmit(fields) {
-        console.log(fields);
-        return false;
-        // const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding } = this.props;
-        // setOpplysningeneErRiktige(sykmelding.id, fields.opplysningeneErRiktige);
+        const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding, skjemaData } = this.props;
+        const values = this.getValues();
+        setOpplysningeneErRiktige(sykmelding.id, values.opplysningeneErRiktige);
         // setArbeidssituasjon(fields.arbeidssituasjon, sykmelding.id);
         // setArbeidsgiver(sykmelding.id, fields.valgtArbeidsgiver);
         // for (const key in fields.feilaktigeOpplysninger) {
@@ -126,8 +116,6 @@ class DinSykmeldingSkjema extends Component {
 
     render() {
         const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, handleSubmit } = this.props;
-        console.log("this.props", this.props);
-
         const values = skjemaData && skjemaData.values ? skjemaData.values : {};
         const knappetekster = {
             GA_VIDERE: 'Gå videre',
@@ -137,11 +125,15 @@ class DinSykmeldingSkjema extends Component {
         };
         const modus = this.getSkjemaModus();
 
+        console.log("values", values);
+
         return (<form id="dinSykmeldingSkjema" className="panel blokk" onSubmit={handleSubmit(this.handleSubmit)}>
             <h3 className="typo-innholdstittel">Starte sykmeldingen</h3>
-            <ErOpplysningeneRiktige skjemaData={skjemaData} ledetekster={ledetekster} />
             {
-                modus !== 'AVBRYT' && <VelgArbeidssituasjon {...this.props} />
+                skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} ledetekster={ledetekster} />
+            }
+            {
+                modus !== 'AVBRYT' && <VelgArbeidssituasjon skjemaData={skjemaData} ledetekster={ledetekster} />
             }
             {
                 values.valgtArbeidssituasjon === 'arbeidstaker' && modus !== 'AVBRYT' &&
@@ -166,7 +158,7 @@ class DinSykmeldingSkjema extends Component {
     }
 }
 
-DinSykmeldingSkjema.propTypes = {
+DinSykmeldingSkjemaComponent.propTypes = {
     sykmelding: PropTypes.object,
     bekreftSykmelding: PropTypes.func,
     sendSykmeldingTilArbeidsgiver: PropTypes.func,
@@ -184,7 +176,6 @@ DinSykmeldingSkjema.propTypes = {
 };
 
 export const validate = (values, props = {}) => {
-    console.log("Nå validerer jeg.")
     const feilmeldinger = {};
 
     if (values.opplysningeneErRiktige === false && typeof values.feilaktigeOpplysninger === 'object' &&
@@ -195,21 +186,20 @@ export const validate = (values, props = {}) => {
         feilmeldinger.opplysningeneErRiktige = 'Vennligst svar på om opplysningene er riktige';
     }
     if (!values.valgtArbeidssituasjon) {
-        feilmeldinger.arbeidssituasjon = 'Vennligst oppgi din arbeidssituasjon';
+        feilmeldinger.valgtArbeidssituasjon = 'Vennligst oppgi din arbeidssituasjon';
     }
     if (values.opplysningeneErRiktige === false && (!values.feilaktigeOpplysninger || !filtrerObjektKeys(values.feilaktigeOpplysninger).length)) {
         feilmeldinger.feilaktigeOpplysninger = 'Vennligst oppgi hvilke opplysninger som ikke er riktige';
     }
-    if (values.arbeidssituasjon === 'arbeidstaker' && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
+    if (values.valgtArbeidssituasjon === 'arbeidstaker' && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
         feilmeldinger.valgtArbeidsgiver = 'Vennligst velg arbeidsgiver';
     }
-    console.log("feilmeldinger", feilmeldinger)
     return feilmeldinger;
 };
 
-DinSykmeldingSkjema = reduxForm({
+const DinSykmeldingSkjema = reduxForm({
     form: 'dinSykmeldingSkjema',
     validate,
-})(DinSykmeldingSkjema);
+})(DinSykmeldingSkjemaComponent);
 
 export default DinSykmeldingSkjema;

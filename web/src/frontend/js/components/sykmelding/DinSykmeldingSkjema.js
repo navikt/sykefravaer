@@ -86,32 +86,31 @@ export class DinSykmeldingSkjemaComponent extends Component {
 
     handleSubmit(fields) {
         const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding, skjemaData } = this.props;
-        const values = this.getValues();
-        setOpplysningeneErRiktige(sykmelding.id, values.opplysningeneErRiktige);
-        // setArbeidssituasjon(fields.arbeidssituasjon, sykmelding.id);
-        // setArbeidsgiver(sykmelding.id, fields.valgtArbeidsgiver);
-        // for (const key in fields.feilaktigeOpplysninger) {
-        //     if (fields.feilaktigeOpplysninger.hasOwnProperty(key)) {
-        //         setFeilaktigOpplysning(sykmelding.id, key, fields.feilaktigeOpplysninger[key]);
-        //     }
-        // }
-        // switch (this.getSkjemaModus()) {
-        //     case 'BEKREFT': {
-        //         this.bekreft(sykmelding.id, fields.arbeidssituasjon, fields.feilaktigeOpplysninger);
-        //         return;
-        //     }
-        //     case 'SEND': {
-        //         this.send(sykmelding.id, fields.valgtArbeidsgiver.orgnummer, fields.feilaktigeOpplysninger);
-        //         return;
-        //     }
-        //     case 'AVBRYT': {
-        //         this.avbryt(sykmelding.id, fields.feilaktigeOpplysninger);
-        //         return;
-        //     }
-        //     default: {
-        //         return;
-        //     }
-        // }
+        setOpplysningeneErRiktige(sykmelding.id, fields.opplysningeneErRiktige);
+        setArbeidssituasjon(fields.valgtArbeidssituasjon, sykmelding.id);
+        setArbeidsgiver(sykmelding.id, fields.valgtArbeidsgiver);
+        for (const key in fields.feilaktigeOpplysninger) {
+            if (fields.feilaktigeOpplysninger.hasOwnProperty(key)) {
+                setFeilaktigOpplysning(sykmelding.id, key, fields.feilaktigeOpplysninger[key]);
+            }
+        }
+        switch (this.getSkjemaModus()) {
+            case 'BEKREFT': {
+                this.bekreft(sykmelding.id, fields.valgtArbeidssituasjon, fields.feilaktigeOpplysninger);
+                return;
+            }
+            case 'SEND': {
+                this.send(sykmelding.id, fields.valgtArbeidsgiver.orgnummer, fields.feilaktigeOpplysninger);
+                return;
+            }
+            case 'AVBRYT': {
+                this.avbryt(sykmelding.id, fields.feilaktigeOpplysninger);
+                return;
+            }
+            default: {
+                return;
+            }
+        }
     }
 
     render() {

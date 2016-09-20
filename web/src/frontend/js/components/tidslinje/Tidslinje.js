@@ -15,7 +15,12 @@ const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseD
         <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
         <div className="tidslinje">
             {
-                hendelser.map((hendelse) => {
+                hendelser
+                .filter((hendelse) => {
+                    return hendelse.type !== 'NY_NAERMESTE_LEDER';
+                    // Skjuler dette til vi har navn på leder på plass
+                })
+                .map((hendelse) => {
                     if (hendelse.type !== 'BOBLE' && hendelse.type !== 'AKTIVITETSKRAV_VARSEL') {
                         return <HendelseTittel {...hendelse} key={hendelse.id} ledetekster={ledetekster} />;
                     }

@@ -4,8 +4,23 @@ import HvilkeOpplysningerErIkkeRiktige from './HvilkeOpplysningerErIkkeRiktige';
 import { Field } from 'redux-form';
 import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
 
-const ErOpplysningeneRiktige = ({ skjemaData, ledetekster }) => {
-    const opplysningeneErRiktige = {};
+const Radio = (field) => {
+    return (<input
+        {...field.input}
+        type="radio"
+        name={field.name}
+        id={field.id}
+        value={field.verdi}
+        className="nav-radioknapp"
+        checked={field.checked}
+        onChange={(e) => {
+            field.untouch();
+            field.input.onChange(e);
+        }}
+    />);
+}
+
+const ErOpplysningeneRiktige = ({ skjemaData, ledetekster, untouch }) => {
     const alternativer = [true, false];
     const verdi = skjemaData.values ? skjemaData.values.opplysningeneErRiktige : null;
     const erFeil = visFeilmelding(skjemaData, 'opplysningeneErRiktige');
@@ -18,16 +33,20 @@ const ErOpplysningeneRiktige = ({ skjemaData, ledetekster }) => {
                 alternativer.map((alternativ) => {
                     return (<div className="nav-input" key={alternativ}>
                         <Field
-                            component="input"
-                            type="radio"
+                            component={Radio}
                             name="opplysningeneErRiktige"
                             id={`radio-${alternativ}`}
-                            value={alternativ}
-                            className="nav-radioknapp"
-                            parse={(verdi) => {
-                                return verdi === 'true';
+                            verdi={alternativ}
+                            parse={(e) => {
+                                return e === 'true';
                             }}
-                            checked={alternativ === verdi} />
+                            untouch={() => {
+                                untouch("feilaktigeOpplysninger.periode",
+                                    "feilaktigeOpplysninger.sykmeldingsgrad",
+                                    "feilaktigeOpplysninger.arbeidsgiver",
+                                    "feilaktigeOpplysninger.diagnose",
+                                    "feilaktigeOpplysninger.andre");
+                            }} />
                         <label htmlFor={`radio-${alternativ}`}>{getLedetekst(`sykmelding.bekreft-opplysninger.svar-${alternativ}`, ledetekster)}</label>
                     </div>);
                 })
@@ -40,8 +59,7 @@ const ErOpplysningeneRiktige = ({ skjemaData, ledetekster }) => {
 
 ErOpplysningeneRiktige.propTypes = {
     ledetekster: PropTypes.object,
-    feilmelding: PropTypes.string,
-    fields: PropTypes.object,
+    skjemaData: PropTypes.object,
     untouch: PropTypes.func,
 };
 

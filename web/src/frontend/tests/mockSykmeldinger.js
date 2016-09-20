@@ -1,5 +1,5 @@
 const sykmelding = {
-    id: 3456789,
+    id: "3456789",
     pasient: {
         fnr: "***REMOVED***",
         fornavn: "Per",

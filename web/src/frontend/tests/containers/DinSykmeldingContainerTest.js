@@ -113,8 +113,7 @@ describe("DinSykmeldingContainer", () => {
             },
             arbeidsgivere: {
                 data: [{
-                    orgnummer: 12345678,
-                    erpilotarbeidsgiver: true,
+                    orgnummer: 12345678
                 }]
             }
         };
@@ -153,32 +152,6 @@ describe("DinSykmeldingContainer", () => {
             const res = mapStateToProps(state, ownProps);
             expect(res.ledetekster).to.deep.equal(ledetekster);
         });
-
-        it("Skal returnere harPilotarbeidsgiver === true hvis man har én pilotarbeidsgiver", () => {
-            const res = mapStateToProps(state, ownProps);
-            expect(res.harPilotarbeidsgiver).to.be.true;
-        });
-
-        it("Skal returnere harPilotarbeidsgiver === false hvis man har ingen pilotarbeidsgivere", () => {
-            state.arbeidsgivere.data = [{
-                orgnummer: 1234,
-                erpilotarbeidsgiver: false
-            }]
-            const res = mapStateToProps(state, ownProps);
-            expect(res.harPilotarbeidsgiver).to.be.false;
-        }); 
-
-        it("Skal returnere harPilotarbeidsgiver === false hvis man har flere arbeidsgivere", () => {
-            state.arbeidsgivere.data = [{
-                orgnummer: 1234,
-                erpilotarbeidsgiver: true
-            }, {
-                orgnummer: 12345678,
-                erpilotarbeidsgiver: false
-            }]
-            const res = mapStateToProps(state, ownProps);
-            expect(res.harPilotarbeidsgiver).to.be.false;
-        }); 
 
         describe("Dersom dinSykmelding.status === 'SENDT'", () => {
 

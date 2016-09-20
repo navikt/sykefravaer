@@ -53,6 +53,7 @@ const HvilkeOpplysningerErIkkeRiktige = ({ skjemaData, ledetekster }) => {
     const inputs = ['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre'];
     const erFeil = visFeilmelding(skjemaData, "feilaktigeOpplysninger");
     const feilmelding = getFeilmelding(skjemaData, "feilaktigeOpplysninger");
+    const feilaktigeOpplysninger = skjemaData.values.feilaktigeOpplysninger;
 
     const checkboxer = inputs.map((input) => {
         return (<div className="nav-input" key={input}>
@@ -68,6 +69,7 @@ const HvilkeOpplysningerErIkkeRiktige = ({ skjemaData, ledetekster }) => {
             Overskrift="h4"
             spoersmaal={getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sporsmal', ledetekster)}>
             {checkboxer}
+            <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger} />
         </Checkboxgruppe>
     </div>);
 };

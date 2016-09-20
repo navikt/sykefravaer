@@ -34,6 +34,24 @@ export default function sykmeldinger(state = initiellState, action) {
                 hentingFeilet: false,
             };
         }
+        case 'AVBRYTER_SYKMELDING': {
+            return Object.assign({}, state, {
+                avbryter: true,
+                avbrytFeilet: false,
+            });
+        }
+        case 'AVBRYT_SYKMELDING_FEILET': {
+            return Object.assign({}, state, {
+                avbryter: false,
+                avbrytFeilet: true,
+            });
+        }
+        case 'SYKMELDING_AVBRUTT': {
+            return Object.assign({}, state, {
+                avbryter: false,
+                avbrytFeilet: false,
+            });
+        }
         case 'HENT_DINE_SYKMELDINGER_FEILET': {
             return {
                 data: [],

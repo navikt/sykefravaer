@@ -31,6 +31,13 @@ export default function arbeidsgivere(state = initiellState, action) {
                 sykmeldingId: action.sykmeldingId,
             };
         }
+        case 'BRUKER_ER_UTLOGGET': {
+            return {
+                data: [],
+                hentingFeilet: false,
+                henter: false,
+            };
+        }
         default: {
             return state;
         }

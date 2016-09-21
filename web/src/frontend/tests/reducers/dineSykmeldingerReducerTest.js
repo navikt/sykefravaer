@@ -529,7 +529,22 @@ describe('dineSykmeldingerReducer', () => {
         });
     });
 
-
+    it("Håndterer BRUKER_ER_UTLOGGET", () => {
+        const initialState = deepFreeze({
+            data: [{id: "5566"}],
+            henter: false,
+            hentingFeilet: false
+        });
+        const action = {
+            type: "BRUKER_ER_UTLOGGET"
+        };
+        const nextState = dineSykmeldinger(initialState, action);
+        expect(nextState).to.deep.equal({
+            henter: false,
+            hentingFeilet: false,
+            data: []
+        })
+    })
 
 
 

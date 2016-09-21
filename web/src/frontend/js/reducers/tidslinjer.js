@@ -133,6 +133,13 @@ export default function tidslinjer(state = initiellState, action) {
             });
             return Object.assign({}, state, { data });
         }
+        case 'BRUKER_ER_UTLOGGET': {
+            return {
+                data: [],
+                hentingFeilet: false,
+                henter: false,
+            };
+        }
         default: {
             return state;
         }

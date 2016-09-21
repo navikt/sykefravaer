@@ -3,6 +3,7 @@ import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from '../../js/actions/brukerinfo_actions.js';
 import sinon from 'sinon';
+import * as utils from '../../js/utils/index';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -74,6 +75,10 @@ describe("brukerinfo_actions", () => {
 			type: "SET_TIDSLINJE_ARBEIDSSITUASJON",
 			arbeidssituasjon: "MED_ARBEIDSGIVER"
 		})
+	});
+
+	it("Skal ha en sjekkInnlogging()-funksjon som returnerer riktig action", () => {
+		expect(typeof actions.sjekkInnlogging()).to.equal("function")
 	});
 
 });

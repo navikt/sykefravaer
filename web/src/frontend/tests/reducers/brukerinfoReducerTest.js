@@ -1,6 +1,8 @@
 import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
 import deepFreeze from 'deep-freeze';
+import * as utils from '../../js/utils/index';
+import sinon from 'sinon';
 
 window.localStorage = {
     getItem: (item) => {
@@ -166,6 +168,7 @@ describe('brukerinfo', () => {
                 data: {
                     navn: "Christian",
                     alder: 35,
+                    hoyde: 185
                 }
             },
             innstillinger: {
@@ -182,7 +185,8 @@ describe('brukerinfo', () => {
                 hentingFeilet: false,
                 data: {
                     navn: "Helge",
-                    alder: 32
+                    alder: 32,
+                    hoyde: 185
                 }
             },
             innstillinger: {
@@ -232,5 +236,75 @@ describe('brukerinfo', () => {
             }
         })  
     });
+
+    it("Håndterer sjekkerInnlogging når man ikke er innlogget fra før", () => {
+        initiellState = deepFreeze({
+            innstillinger: {},
+            bruker: {
+                data: {
+                    eple: "OK"
+                }
+            }
+        });
+        const nyState = brukerinfo(initiellState, actions.sjekkerInnlogging()); 
+        expect(nyState).to.deep.equal({
+            bruker: {
+                henter: true,
+                hentingFeilet: false,
+                data: {
+                    eple: "OK"
+                }
+            },
+            innstillinger: {}
+        });
+    });
+
+    it("Håndterer setErUtlogget()", () => {
+        initiellState = deepFreeze({
+            innstillinger: {},
+            bruker: {
+                data: {
+                    fisk: "OK"
+                }
+            }
+        });
+        const nyState = brukerinfo(initiellState, actions.setErUtlogget()); 
+        expect(nyState).to.deep.equal({
+            bruker: {
+                henter: false,
+                hentingFeilet: false,
+                data: {
+                    erInnlogget: false,
+                }
+            },
+            innstillinger: {}
+        });
+    });
+
+
+    it("Håndterer setErInnlogget()", () => {
+        initiellState = deepFreeze({
+            innstillinger: {},
+            bruker: {
+                data: {
+                    fisk: "OK"
+                }
+            }
+        });
+        const nyState = brukerinfo(initiellState, actions.setErInnlogget()); 
+        expect(nyState).to.deep.equal({
+            bruker: {
+                henter: false,
+                hentingFeilet: false,
+                data: {
+                    erInnlogget: true,
+                    fisk: "OK"
+                }
+            },
+            innstillinger: {}
+        });
+    });
+
+
 
 }); 

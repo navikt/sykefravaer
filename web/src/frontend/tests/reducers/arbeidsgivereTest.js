@@ -74,4 +74,21 @@ describe('arbeidsgivere', () => {
 
     });
 
+    it("Håndterer BRUKER_ER_UTLOGGET", () => {
+        const initialState = deepFreeze({
+            data: [{navn: "Olsens sykkelbud"}],
+            henter: false,
+            hentingFeilet: false
+        });
+        const action = {
+            type: "BRUKER_ER_UTLOGGET"
+        };
+        const nextState = arbeidsgivere(initialState, action);
+        expect(nextState).to.deep.equal({
+            henter: false,
+            hentingFeilet: false,
+            data: []
+        })
+    })
+
 });

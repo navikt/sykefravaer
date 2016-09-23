@@ -5,7 +5,7 @@ import InnloggingContainer from '../containers/InnloggingContainer';
 
 const SideMedHoyrekolonne = ({ children, tittel, brodsmuler = [] }) => {
     return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
-        <div className="begrensning begrensning--bred side-syfofront">
+        <div className="begrensning begrensning--bred side">
             <Brodsmuler brodsmuler={brodsmuler} />
             <InnloggingContainer>
                 <div className="row">

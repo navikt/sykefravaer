@@ -1,0 +1,102 @@
+.opplysning {
+    margin-bottom: 2rem; 
+
+    h5, h6 {
+        .mixin-typo-element(); 
+        margin-bottom: .25rem; 
+    }
+
+    p {
+        margin-bottom: 1rem; 
+    }
+
+}
+
+.opplysning__verdi:before {
+    content: "\2013 ";
+    display: inline-block;
+    margin-right: .25rem;
+}
+
+.nokkelopplysning {
+    margin-bottom: 2rem;
+
+    h2, h3, h4 {
+        margin-bottom: .25rem; 
+        .mixin-typo-etikett-liten(); 
+        color: @gray-inactive; 
+        margin-top: 0; 
+    }   
+
+    p {
+        .mixin-typo-infotekst();
+        margin: 0; 
+    }
+}
+
+.subopplysning {
+    margin-left: 1.5rem;
+}
+
+.checkboxOpplysning {
+    display: flex; 
+
+    img {
+        align-self: flex-start; 
+        display: inline-block;
+        width: 1rem;
+        height: auto;
+        margin-right: .5rem; 
+        margin-top: 2px; 
+        vertical-align: top; 
+
+        @media(min-width: @screen-xs) {
+            margin-top: 1px; 
+        }
+    }
+
+    .ikon-hoykontrast {
+        display: none; 
+    }
+
+}
+
+.checkboxOpplysning__label {
+    flex: 1;
+}
+
+.contrast {
+    .checkboxOpplysning .ikon {
+        display: none; 
+    }
+
+    .checkboxOpplysning .ikon--hoykontrast {
+        display: block;
+    }
+}
+
+.opplysning .checkboxOpplysning {
+    margin-bottom: .5rem; 
+
+    &:last-child {
+        margin-bottom: 1rem; 
+    }
+}
+
+.skravert {
+    border: 1rem solid #000; 
+    max-width: 10rem; 
+    height: 0; 
+    overflow: hidden; 
+
+    @media screen {
+        width: 100%; 
+        max-width: 12rem; 
+        height: 2rem; 
+        background: data-uri("../img/png/skravert.png"); 
+        background-size: 5px 5px; 
+        display: block; 
+        text-indent: -9999px;
+        border: 0;
+    }
+}

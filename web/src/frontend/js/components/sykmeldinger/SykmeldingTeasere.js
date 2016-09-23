@@ -3,8 +3,8 @@ import SykmeldingTeaser from './SykmeldingTeaser';
 
 const SykmeldingTeasere = ({ sykmeldinger, ledetekster, className, tittel = '', ingenSykmeldingerMelding, id, children }) => {
     return (<div className="blokk-l">
-        <header className="header-bolk">
-            <h2 className="header-tittel">{tittel}</h2>
+        <header className="inngangspanelerHeader">
+            <h2 className="inngangspanelerHeader__tittel">{tittel}</h2>
             {children}
         </header>
         <div id={id} className={className || 'js-content'}>

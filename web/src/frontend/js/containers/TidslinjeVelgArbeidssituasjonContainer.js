@@ -26,7 +26,7 @@ export class VelgArbeidssituasjon extends Component {
             valgtAlternativ={this.props.valgtArbeidssituasjon}
             changeHandler={(v) => { this.changeHandler(v); }}
             radioName="tidslinje-arbeidssituasjon"
-            className="tidslinje-faner" />);
+            className="tidslinje__faner" />);
     }
 }
 

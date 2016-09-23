@@ -3,15 +3,14 @@ import HendelseTittel from './HendelseTittel';
 import HendelseBoble from './HendelseBoble';
 import TidslinjeVelgArbeidssituasjonContainer from '../../containers/TidslinjeVelgArbeidssituasjonContainer';
 import { getLedetekst } from '../../ledetekster';
+import Sidetopp from '../Sidetopp';
 
 const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseData }) => {
+    const htmlIntro = {
+        __html: `<p>${getLedetekst('tidslinje.introtekst', ledetekster)}</p>`,
+    };
     return (<div>
-        <header className="tidslinje-header">
-            <h1>Tidslinjen</h1>
-        </header>
-        <p className="tidslinje-intro">
-            {getLedetekst('tidslinje.introtekst', ledetekster)}
-        </p>
+        <Sidetopp tittel="Tidslinjen" htmlTekst={htmlIntro} />
         <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
         <div className="tidslinje">
             {

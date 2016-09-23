@@ -13,7 +13,7 @@ const Radioknapp = ({ value, label, erValgt, name, onChange, id, labelSekundaer,
                         id={`radio-${id}`} />
                     <label htmlFor={`radio-${id}`}>
                         {label}
-                        {labelSekundaer ? <span className="label-sekundaer">{labelSekundaer}</span> : null}
+                        {labelSekundaer ? <span className="sekundaerLabel">{labelSekundaer}</span> : null}
                     </label>
                     { erValgt && children }
                 </div>

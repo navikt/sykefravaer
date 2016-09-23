@@ -19,7 +19,7 @@ export class Varsel extends Component {
     }
 
     render() {
-        return (<div className={`panel typo-infotekst blokk-l under-utvikling-varsel ${(this.state.synlig ? 'er-synlig' : '')}`}>
+        return (<div className={`panel typo-infotekst blokk-l underUtvikling ${(this.state.synlig ? 'underUtvikling--erSynlig' : '')}`}>
             <Varselstripe>
                 <p className="sist">{getLedetekst('under-utvikling.varsel.tekst', this.props.ledetekster)}</p>
             </Varselstripe>

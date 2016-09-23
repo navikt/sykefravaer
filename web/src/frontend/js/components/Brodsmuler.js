@@ -10,12 +10,12 @@ const Brodsmule = ({ sti, tittel, sisteSmule, erKlikkbar }) => {
     } else if (erKlikkbar) {
         return (<span className="js-smuletekst">
             <Link className="js-smule brodsmule" to={getContextRoot() + sti}>{tittel}</Link>
-            <span className="brodsmule-skille"> / </span>
+            <span className="brodsmule__skille"> / </span>
         </span>);
     }
     return (<span>
         <span className="brodsmule">{tittel}</span>
-        <span className="brodsmule-skille"> / </span>
+        <span className="brodsmule__skille"> / </span>
     </span>);
 };
 
@@ -29,7 +29,7 @@ Brodsmule.propTypes = {
 const ToggleLink = ({ onClick }) => {
     return (<span>
         <a role="button" aria-label="Vis hele brødsmulestien" className="js-toggle brodsmule" href="#" onClick={onClick}>...</a>
-        <span className="brodsmule-skille"> / </span>
+        <span className="brodsmule__skille"> / </span>
     </span>);
 };
 
@@ -70,11 +70,11 @@ class Brodsmuler extends Component {
     render() {
         const { brodsmuler } = this.props;
         const synligeBrodsmuler = this.getSynligeBrodsmuler();
-        return (<nav role="navigation" className="brodsmuler blokk side-innhold" aria-label="Du er her: ">
-            <img src="/sykefravaer/img/svg/person.svg" alt="Du" className="brodsmuler-ikon" />
-            <img src="/sykefravaer/img/svg/person-highcontrast.svg" alt="Du" className="brodsmuler-ikon brodsmuler-ikon-hoykontrast" />
+        return (<nav role="navigation" className="brodsmuler side-innhold" aria-label="Du er her: ">
+            <img src="/sykefravaer/img/svg/person.svg" alt="Du" className="brodsmuler__ikon" />
+            <img src="/sykefravaer/img/svg/person-highcontrast.svg" alt="Du" className="brodsmuler__ikon brodsmuler__ikon--hoykontrast" />
             <a href="/dittnav" className="js-smule brodsmule">Ditt NAV</a>
-            {brodsmuler.length && <span className="brodsmule-skille"> / </span>}
+            {brodsmuler.length && <span className="brodsmule__skille"> / </span>}
             {
                 this.visCollapsed() && <ToggleLink onClick={(e) => {
                     e.preventDefault();

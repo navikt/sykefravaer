@@ -5,11 +5,11 @@ export const lagHtml = (innhold, bilde, alt = '') => {
     if (bilde) {
         innholdMedBilde = `<img class="js-img" alt="${alt}" src="${bilde}" /> ${innhold}`;
     }
-    return { __html: `<div class="side-innhold boble-budskap">${innholdMedBilde}</div>` };
+    return { __html: `<div class="side-innhold tidslinjeBoble__budskap">${innholdMedBilde}</div>` };
 };
 
 const TidslinjeBudskap = ({ innhold, bilde, alt, vis }) => {
-    return (<div className={`panel panel-stablet panel-budskap ${(!vis ? 'er-usynlig' : '')}`}
+    return (<div className={`tidslinjeBoble__innhold ${(!vis ? 'tidslinjeBoble__innhold--erUsynlig' : '')}`}
         dangerouslySetInnerHTML={lagHtml(innhold, bilde, alt)}></div>);
 };
 

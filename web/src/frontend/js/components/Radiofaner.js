@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import Hjelpetekst from './skjema/Hjelpetekst';
 
 const Radiofaner = ({ alternativer = [], valgtAlternativ, changeHandler, className, radioName }) => {
-    return (<div className="radiofaner-container">
-        <ul className={`radiofaner ${className}`}>
+    return (<div className="radiofaner">
+        <ul className={`radiofaner__valg ${className}`}>
             {
                 alternativer.map((a, index) => {
                     const erValgt = a.verdi === valgtAlternativ;

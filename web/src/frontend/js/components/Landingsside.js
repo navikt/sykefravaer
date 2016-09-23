@@ -36,26 +36,26 @@ GenerellInfo.propTypes = {
 
 const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
     return (<div>
-        <h1 className="side-header typo-sidetittel js-sidetittel">
-            {getLedetekst('landingsside.sidetittel', ledetekster)}
-        </h1>
+        <div className="sidetopp">
+            <h1 className="sidetopp__tittel js-sidetittel">
+                {getLedetekst('landingsside.sidetittel', ledetekster)}
+            </h1>
+        </div>
         {
             (!skjulVarsel ? <UnderUtviklingVarselContainer ledetekster={ledetekster} /> : null)
         }
         <nav role="navigation">
-            <Link className="landingsside-banner js-intro-banner side-innhold" to="/sykefravaer/tidslinjen">
-                <div className="landingsside-intro">
-                    <div className="landingsside-intro-bilde">
-                        <img src="/sykefravaer/img/svg/illustrasjon-landingsside-2.svg"
-                            alt={getLedetekst('landingsside.intro.lenketekst', ledetekster)} />
-                    </div>
-                    <div className="landingsside-intro-innhold">
-                        <h2 className="typo-undertittel">{getLedetekst('landingsside.intro.tittel', ledetekster)}</h2>
-                        <p>{getLedetekst('landingsside.intro.tekst', ledetekster)} </p>
-                        <p className="ustilet">
-                            <span className="lenke-fremhevet">{getLedetekst('landingsside.intro.lenketekst', ledetekster)}</span>
-                        </p>
-                    </div>
+            <Link className="tidslinjeTeaser js-intro-banner side-innhold" to="/sykefravaer/tidslinjen">
+                <div className="tidslinjeTeaser__img">
+                    <img src="/sykefravaer/img/svg/illustrasjon-landingsside-2.svg"
+                        alt={getLedetekst('landingsside.intro.lenketekst', ledetekster)} />
+                </div>
+                <div className="tidslinjeTeaser__innhold">
+                    <h2 className="typo-undertittel">{getLedetekst('landingsside.intro.tittel', ledetekster)}</h2>
+                    <p>{getLedetekst('landingsside.intro.tekst', ledetekster)} </p>
+                    <p className="ustilet">
+                        <span className="lenke-fremhevet">{getLedetekst('landingsside.intro.lenketekst', ledetekster)}</span>
+                    </p>
                 </div>
             </Link>
             <LandingssideLenke to="/sykefravaer/sykmeldinger" ikonAlt="Lege">

@@ -106,8 +106,8 @@ export class Utvidbar extends Component {
     toggle(e) {
         e.preventDefault();
         if (!this.state.hindreToggle) {
-            /* hindreToggle for å hindre dobbelklikk, 
-            eller at noen klikker mens animasjonen pågår. 
+            /* hindreToggle for å hindre dobbelklikk,
+            eller at noen klikker mens animasjonen pågår.
             Dobbelklikk vil skape kluss med logikken. */
             if (this.state.erApen) {
                 this.lukk();

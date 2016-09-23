@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const Sidetopp = ({ tittel, htmlTekst }) => {
     return (<header className="sidetopp">
@@ -11,6 +11,11 @@ const Sidetopp = ({ tittel, htmlTekst }) => {
             </div>
         }
     </header>);
-}
+};
+
+Sidetopp.propTypes = {
+    tittel: PropTypes.string.isRequired,
+    htmlTekst: PropTypes.object,
+};
 
 export default Sidetopp;

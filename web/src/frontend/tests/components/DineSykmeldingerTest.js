@@ -4,6 +4,7 @@ import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
 import getSykmelding from '../mockSykmeldinger.js';
+import Sidetopp from "../../js/components/Sidetopp";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -32,12 +33,7 @@ describe("Dine sykmeldinger", () => {
 
     it("Skal vise overskrift for 'Dine sykmeldinger'", () => {
         component = shallow(<DineSykmeldinger sykmeldinger={sykmeldinger} ledetekster={ledetekster} />);
-        expect(component.find("h1").text()).to.equal("Dine sykmeldinger");
-    });
-
-    it("Skal vise introtekst", () => {
-        component = shallow(<DineSykmeldinger sykmeldinger={sykmeldinger} ledetekster={ledetekster} />);
-        expect(component.find(".js-intro").length).to.equal(1)
+        expect(component.find(Sidetopp).prop("tittel")).to.equal("Dine sykmeldinger");
     });
 
     it("Skal rendre to SykmeldingTeasere dersom man både har nye og gamle sykmeldinger", () => {

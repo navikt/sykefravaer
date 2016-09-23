@@ -25,11 +25,11 @@ export default class LandingssideLenke extends Component {
     }
 
     render() {
-        return (<Link className="landingsside-banner landingsside-lenke" to={this.props.to}
+        return (<Link className="peker" to={this.props.to}
             onMouseEnter={() => {this.onMouseEnter();}}
             onMouseLeave={() => {this.onMouseLeave();}}>
-            <img src={`/sykefravaer/img/svg/${this.state.ikon}`} alt={this.props.ikonAlt} className="landingsside-lenke-ikon" />
-            <img src={`/sykefravaer/img/svg/${this.state.ikonHoykontrast}`} alt={this.props.ikonAlt} className="landingsside-lenke-ikon landingsside-lenke-ikon-hoykontrast" />
+            <img src={`/sykefravaer/img/svg/${this.state.ikon}`} alt={this.props.ikonAlt} className="peker__ikon" />
+            <img src={`/sykefravaer/img/svg/${this.state.ikonHoykontrast}`} alt={this.props.ikonAlt} className="peker__ikon peker__ikon--hoykontrast" />
             <span>{this.props.children}</span>
         </Link>);
     }

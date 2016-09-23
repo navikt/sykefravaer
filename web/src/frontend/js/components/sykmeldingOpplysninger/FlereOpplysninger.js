@@ -13,7 +13,7 @@ import { getSykmeldingOpplysning } from '../../utils/dinSykmeldingUtils';
 
 const FlereOpplysninger = ({ sykmelding, ledetekster }) => {
     return (<div>
-        <div className="sykmelding-seksjon">
+        <div className="sykmeldingSeksjon">
         {
             getSykmeldingOpplysning(sykmelding.bekreftelse,
                 'utstedelsesdato',

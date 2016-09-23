@@ -1,0 +1,41 @@
+.sykmeldingPerioder {
+
+	margin-bottom: 2rem; 
+
+	.nokkelopplysning:not(:only-child) {
+		padding-bottom: 1rem;
+		margin-bottom: 1rem;
+		border-bottom: 1px solid @color-border;
+	}
+
+}
+
+@media(min-width: @screen-xs) {
+	.rad-container {
+		display: flex; 
+
+		.nokkelopplysning {
+			margin-right: 2rem; 
+			width: 60%;
+		}
+	}
+}
+
+/* Flere opplysninger fra den som har sykmeldt deg */
+
+.sykmeldingSeksjon {
+	margin-bottom: 2rem; 
+	border-bottom: 1px solid @color-border; 
+
+	&:last-of-type
+	 {
+		margin: 0; 
+		border: 0; 
+	}
+}
+
+.sykmeldingSeksjon__tittel {
+	.mixin-typo-undertittel();
+	margin-bottom: 2rem; 
+	margin-top: 0;
+}

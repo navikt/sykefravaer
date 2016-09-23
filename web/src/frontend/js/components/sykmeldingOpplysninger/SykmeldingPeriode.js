@@ -4,7 +4,7 @@ import { getLedetekst } from '../../ledetekster';
 
 const SykmeldingPeriode = ({ periode, antallDager = 1, ledetekster, Overskrift = 'H3' }) => {
     const dagNokkel = antallDager === 1 ? 'din-sykmelding.periode.dag' : 'din-sykmelding.periode.dager';
-    return (<div className="sykmelding-nokkelopplysning">
+    return (<div className="nokkelopplysning">
             <Overskrift>{getLedetekst('din-sykmelding.periode.tittel', ledetekster)}</Overskrift>
             <p className="js-periode blokk-xxs">
                 <strong>{toDatePrettyPrint(periode.fom)} &ndash; {toDatePrettyPrint(periode.tom)}</strong> &bull; {antallDager}&nbsp;{getLedetekst(dagNokkel, ledetekster)}

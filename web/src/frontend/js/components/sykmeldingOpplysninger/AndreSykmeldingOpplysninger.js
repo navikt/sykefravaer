@@ -7,8 +7,8 @@ const AndreSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
     if (!visSeksjon) {
         return <span />;
     }
-    return (<div className="sykmelding-seksjon">
-            <h4 className="sykmelding-seksjonstittel">Annet</h4>
+    return (<div className="sykmeldingSeksjon">
+            <h4 className="sykmeldingSeksjon__tittel">Annet</h4>
             {
                 getSykmeldingOpplysning(sykmelding.bekreftelse, 'sykmelderTlf', getLedetekst('din-sykmelding.annet.telefon', ledetekster))
             }

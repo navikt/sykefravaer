@@ -50,29 +50,29 @@ class SykmeldingTeaser extends Component {
         const visStatus = sykmelding.status !== 'NY';
 
         return (<article aria-labelledby={`sykmelding-header-${this.props.sykmelding.id}`}>
-            <Link className="panel sykmelding-teaser" to={`${getContextRoot()}/sykmeldinger/${this.props.sykmelding.id}`}
+            <Link className="inngangspanel" to={`${getContextRoot()}/sykmeldinger/${this.props.sykmelding.id}`}
                 onMouseEnter={() => {this.onMouseEnter();}}
                 onMouseLeave={() => {this.onMouseLeave();}}
             >
-            <span className="teaser-ikon">
+            <span className="inngangspanel__ikon">
                 <img src={`/sykefravaer/img/svg/${this.state.ikon}`} alt="Lege" />
             </span>
-            <span className="teaser-ikon teaser-ikon-hoykontrast">
+            <span className="inngangspanel__ikon inngangspanel__ikon--hoykontrast">
                 <img src={`/sykefravaer/img/svg/${this.state.ikonHoykontrast}`} alt="Lege" />
             </span>
-            <div className="teaser-innhold">
-                <header className="teaser-header">
+            <div className="inngangspanel__innhold">
+                <header className="inngangspanel__header">
                     <h3 className="js-title" id={`sykmelding-header-${this.props.sykmelding.id}`}>
-                        <small className="teaser-meta">{getLedetekst('sykmelding.teaser.dato', ledetekster, {
+                        <small className="inngangspanel__meta">{getLedetekst('sykmelding.teaser.dato', ledetekster, {
                             '%FOM%': toDatePrettyPrint(sykmelding.mulighetForArbeid.perioder[0].fom),
                             '%TOM%': toDatePrettyPrint(sykmelding.mulighetForArbeid.perioder[sistePeriodeIndex].tom),
                         })} </small>
-                        <span className="teaser-tittel">
+                        <span className="inngangspanel__tittel">
                             {getLedetekst('sykmelding.teaser.tittel', ledetekster)}
                         </span>
                     </h3>
                     {
-                        visStatus && <p className="teaser-status">{getLedetekst(`sykmelding.teaser.status.${sykmelding.status}`, ledetekster)}</p>
+                        visStatus && <p className="inngangspanel__status">{getLedetekst(`sykmelding.teaser.status.${sykmelding.status}`, ledetekster)}</p>
                     }
                 </header>
                 {antallPerioder === 1 ?

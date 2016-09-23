@@ -11,14 +11,14 @@ const HendelseTittel = (props) => {
         });
     }
 
-    return (<div className="hendelse hendelse-rad js-hendelse">
-        <div className="hendelse-status">
+    return (<div className="tidslinjeHendelse tidslinjeHendelse__rad js-hendelse">
+        <div className="tidslinjeHendelse__status">
             <HendelseIkon type={props.type} />
         </div>
-        <div className="hendelse-innhold">
-            <div className="tidslinje-tittel">
-                <h2>{titteltekst}</h2>
-            </div>
+        <div className="tidslinjeHendelse__innhold">
+            <h2 className="tidslinjeHendelse__tittel">
+                {titteltekst}
+            </h2>
         </div>
     </div>);
 };

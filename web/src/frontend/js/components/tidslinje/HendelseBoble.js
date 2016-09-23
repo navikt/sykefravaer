@@ -11,9 +11,9 @@ const BobleHeader = (props) => {
         onClick={(e) => { props.clickHandler(e); }}
         aria-pressed={props.erApen}
         href={`#${props.id}`}
-        className={!props.erApen ? 'header-boble' : 'header-boble er-apen'}>
+        className={!props.erApen ? 'tidslinjeBoble__header' : 'tidslinjeBoble__header tidslinjeBoble__header--erApen'}>
         <div
-            className={!props.erApen ? 'boble-tittel boble-tittel-collapse' : 'boble-tittel boble-tittel-collapse er-apen'}
+            className={!props.erApen ? 'tidslinjeBoble__tittel' : 'tidslinjeBoble__tittel tidslinjeBoble__tittel--erApen'}
             dangerouslySetInnerHTML={{ __html: props.htmlTittel }}>
         </div>
     </a>);
@@ -51,9 +51,9 @@ class HendelseBoble extends Component {
     }
 
     getContainerClass() {
-        let className = this.props.erApen ? 'boble-budskap-container er-apen' : 'boble-budskap-container';
+        let className = this.props.erApen ? 'tidslinjeBoble__budskapContainer tidslinjeBoble__budskapContainer--erApen' : 'tidslinjeBoble__budskapContainer';
         if (this.props.medAnimasjon) {
-            className = `${className} med-animasjon`;
+            className = `${className} tidslinjeBoble__budskapContainer--medAnimasjon`;
         }
         return className;
     }
@@ -116,12 +116,12 @@ class HendelseBoble extends Component {
     }
 
     render() {
-        return (<article className="hendelse js-hendelse">
-                <div className="hendelse-rad">
-                    <div className="hendelse-status">
+        return (<article className="tidslinjeHendelse js-hendelse">
+                <div className="tidslinjeHendelse__rad">
+                    <div className="tidslinjeHendelse__status">
                         <HendelseIkon type={this.props.type} />
                     </div>
-                    <div className="hendelse-innhold" ref="boble-header">
+                    <div className="tidslinjeHendelse__innhold" ref="boble-header">
                         <BobleHeader {...this.props}
                             htmlTittel={this.getHtmlTittel()}
                             clickHandler={(e) => {
@@ -129,9 +129,9 @@ class HendelseBoble extends Component {
                             }} />
                     </div>
                 </div>
-                <div className="hendelse-rad">
-                    <div className="hendelse-status" />
-                    <div className="hendelse-innhold">
+                <div className="tidslinjeHendelse__rad">
+                    <div className="tidslinjeHendelse__status" />
+                    <div className="tidslinjeHendelse__innhold">
                         <div
                             aria-hidden={!this.props.erApen}
                             style={this.props.hoyde ? { height: this.props.hoyde } : {}}

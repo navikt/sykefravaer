@@ -3,6 +3,7 @@ import SykmeldingTeasere from './SykmeldingTeasere.js';
 import { getLedetekst, getHtmlLedetekst } from '../../ledetekster';
 import { sorterSykmeldinger } from '../../utils/datoUtils';
 import SykmeldingerSorteringContainer from '../../containers/SykmeldingerSorteringContainer';
+import Sidetopp from '../Sidetopp';
 
 const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, sortering }) => {
     const nyeSykmeldinger = sykmeldinger.filter((sykmld) => {
@@ -15,12 +16,10 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, sortering }) =>
     const tidligereSortering = sortering && sortering.tidligere ? sortering.tidligere : undefined;
 
     return (<div>
-        <h1 className="side-header typo-sidetittel">
-            {getLedetekst('dine-sykmeldinger.tittel', ledetekster)}
-        </h1>
-        <div className="dine-sykmeldinger-intro redaksjonelt-innhold side-innhold js-intro">
-            <p dangerouslySetInnerHTML={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst', ledetekster)} />
-        </div>
+        <Sidetopp
+            tittel={getLedetekst('dine-sykmeldinger.tittel', ledetekster)}
+            htmlTekst={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst', ledetekster)}
+            />
         <SykmeldingTeasere
             sykmeldinger={sorterSykmeldinger(nyeSykmeldinger, nyeSortering)}
             tittel={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.tittel', ledetekster)}

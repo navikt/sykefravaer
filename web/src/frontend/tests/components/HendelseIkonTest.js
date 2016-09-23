@@ -21,7 +21,7 @@ describe("HendelseIkon", () => {
             const ikon = getIkon('FØRSTE_SYKMELDINGSDAG');
             expect(ikon).to.deep.equal({
                 bilde: "plaster",
-                className: "hendelse-ikon-start"
+                className: "tidslinjeHendelse__ikon--start"
             });
         });
 
@@ -29,7 +29,7 @@ describe("HendelseIkon", () => {
             const ikon = getIkon('AKTIVITETSKRAV_VARSEL');
             expect(ikon).to.deep.equal({
                 bilde: "varsel",
-                className: "hendelse-ikon-varsel"
+                className: "tidslinjeHendelse__ikon--varsel"
             });
         });
 
@@ -37,7 +37,7 @@ describe("HendelseIkon", () => {
             const ikon = getIkon('TITTEL');
             expect(ikon).to.deep.equal({
                 bilde: "klokke",
-                className: "hendelse-ikon-klokke"
+                className: "tidslinjeHendelse__ikon--klokke"
             });
         });
 
@@ -45,7 +45,7 @@ describe("HendelseIkon", () => {
             const ikon = getIkon('TID');
             expect(ikon).to.deep.equal({
                 bilde: "klokke",
-                className: "hendelse-ikon-klokke"
+                className: "tidslinjeHendelse__ikon--klokke"
             });
         });
 
@@ -53,7 +53,7 @@ describe("HendelseIkon", () => {
             const ikon = getIkon('');
             expect(ikon).to.deep.equal({
                 bilde: "sirkel",
-                className: "hendelse-ikon-sirkel"
+                className: "tidslinjeHendelse__ikon--sirkel"
             });
         });
     })

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import StatusOpplysning from '../nokkelopplysninger/NokkelOpplysningerMapper';
+import StatusOpplysning from '../nokkelopplysninger/StatusOpplysning';
 import Varselstripe from './Varselstripe';
 
 const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger, type }) => {

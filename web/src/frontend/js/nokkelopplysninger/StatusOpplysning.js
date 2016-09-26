@@ -4,13 +4,13 @@ import { SykmeldingNokkelOpplysning } from '../components/sykmeldingOpplysninger
 import { toDatePrettyPrint } from '../utils/datoUtils';
 import { getLedetekst } from '../ledetekster/index';
 
-const getStatus = (ledetekster, sykmelding) => {
+const Status = ({ ledetekster, status }) => {
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.status', ledetekster)}>
-        <p className="js-status">{getLedetekst(`statuspanel.status.${sykmelding.status}`, ledetekster)}</p>
+        <p className="js-status">{getLedetekst(`statuspanel.status.${status}`, ledetekster)}</p>
     </SykmeldingNokkelOpplysning>);
 };
 
-const getInnsendtDato = (ledetekster, sykmelding) => {
+const InnsendtDato = ({ ledetekster, sendtdato }) => {
     let nokkel = 'statuspanel.dato.innsendt';
     if (sykmelding.status === 'BEKREFTET') {
         nokkel = 'statuspanel.dato.bekreftet';
@@ -18,42 +18,43 @@ const getInnsendtDato = (ledetekster, sykmelding) => {
         nokkel = 'statuspanel.dato.avbrutt';
     }
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst(nokkel, ledetekster)}>
-        <p className="js-dato">{toDatePrettyPrint(sykmelding.sendtdato)}</p>
+        <p className="js-dato">{toDatePrettyPrint(sendtdato)}</p>
     </SykmeldingNokkelOpplysning>);
 };
 
-const getArbeidsgiver = (ledetekster, sykmelding) => {
+const Arbeidsgiver = ({ ledetekster, sykmelding }) => {
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.arbeidsgiver', ledetekster)}>
         <p className="js-arbeidsgiver">{sykmelding.innsendtArbeidsgivernavn}</p>
     </SykmeldingNokkelOpplysning>);
 };
 
-const getOrgnummer = (ledetekster, sykmelding) => {
-    let orgnummer = sykmelding.orgnummer;
-    if (orgnummer) {
-        orgnummer = orgnummer.replace(/(...)(...)(...)/g, '$1 $2 $3');
+const Orgnummer = ({ ledetekster, orgnummer }) => {
+    let _orgnummer = orgnummer;
+    if (_orgnummer) {
+        _orgnummer = _orgnummer.replace(/(...)(...)(...)/g, '$1 $2 $3');
     }
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.organisasjonsnummer', ledetekster)}>
-        <p className="js-organisasjonsnummer">{orgnummer}</p>
+        <p className="js-organisasjonsnummer">{_orgnummer}</p>
     </SykmeldingNokkelOpplysning>);
 };
 
 const StatusOpplysning = ({ sykmelding, ledetekster, nokkelopplysning }) => {
     switch (nokkelopplysning) {
         case STATUS: {
-            return getStatus(ledetekster, sykmelding);
+            return <Status ledetekster={ledetekster} status={sykmelding.status} />;
         }
         case INNSENDT_DATO: {
-            return getInnsendtDato(ledetekster, sykmelding);
+            return <InnsendtDato ledetekster={ledetekster} sendtdato={sykmelding.sendtdato} />;
         }
         case ARBEIDSGIVER: {
-            return getArbeidsgiver(ledetekster, sykmelding);
+            return <Arbeidsgiver ledetekster={ledetekster} arbeidsgiver={sykmelding.innsendtArbeidsgivernavn} />;
         }
         case ORGNUMMER: {
-            return getOrgnummer(ledetekster, sykmelding);
+            return <Orgnummer ledetekster={ledetekster} orgnummer={sykmelding.orgnummer} />;
         }
-        default:
-            return <noscript />;
+        default: {
+            return null;
+        }
     }
 };
 

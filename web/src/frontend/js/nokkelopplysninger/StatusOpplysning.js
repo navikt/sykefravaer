@@ -10,6 +10,11 @@ const Status = ({ ledetekster, status }) => {
     </SykmeldingNokkelOpplysning>);
 };
 
+Status.propTypes = {
+    ledetekster: PropTypes.object,
+    status: PropTypes.string,
+};
+
 const InnsendtDato = ({ ledetekster, sendtdato, status }) => {
     let nokkel = 'statuspanel.dato.innsendt';
     if (status === 'BEKREFTET') {
@@ -22,10 +27,21 @@ const InnsendtDato = ({ ledetekster, sendtdato, status }) => {
     </SykmeldingNokkelOpplysning>);
 };
 
+InnsendtDato.propTypes = {
+    ledetekster: PropTypes.object,
+    sendtdato: PropTypes.string,
+    status: PropTypes.string,
+};
+
 const Arbeidsgiver = ({ ledetekster, arbeidsgiver }) => {
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.arbeidsgiver', ledetekster)}>
         <p className="js-arbeidsgiver">{arbeidsgiver}</p>
     </SykmeldingNokkelOpplysning>);
+};
+
+Arbeidsgiver.propTypes = {
+    ledetekster: PropTypes.object,
+    arbeidsgiver: PropTypes.string,
 };
 
 const Orgnummer = ({ ledetekster, orgnummer }) => {
@@ -36,6 +52,11 @@ const Orgnummer = ({ ledetekster, orgnummer }) => {
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.organisasjonsnummer', ledetekster)}>
         <p className="js-organisasjonsnummer">{_orgnummer}</p>
     </SykmeldingNokkelOpplysning>);
+};
+
+Orgnummer.propTypes = {
+    ledetekster: PropTypes.object,
+    orgnummer: PropTypes.string,
 };
 
 const StatusOpplysning = ({ sykmelding, ledetekster, nokkelopplysning }) => {

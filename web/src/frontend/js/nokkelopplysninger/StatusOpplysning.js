@@ -29,7 +29,7 @@ const InnsendtDato = ({ ledetekster, sendtdato, status }) => {
 
 InnsendtDato.propTypes = {
     ledetekster: PropTypes.object,
-    sendtdato: PropTypes.string,
+    sendtdato: PropTypes.object,
     status: PropTypes.string,
 };
 

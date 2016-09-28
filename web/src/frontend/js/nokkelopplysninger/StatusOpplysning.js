@@ -10,11 +10,11 @@ const Status = ({ ledetekster, status }) => {
     </SykmeldingNokkelOpplysning>);
 };
 
-const InnsendtDato = ({ ledetekster, sendtdato }) => {
+const InnsendtDato = ({ ledetekster, sendtdato, status }) => {
     let nokkel = 'statuspanel.dato.innsendt';
-    if (sykmelding.status === 'BEKREFTET') {
+    if (status === 'BEKREFTET') {
         nokkel = 'statuspanel.dato.bekreftet';
-    } else if (sykmelding.status === 'AVBRUTT') {
+    } else if (status === 'AVBRUTT') {
         nokkel = 'statuspanel.dato.avbrutt';
     }
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst(nokkel, ledetekster)}>
@@ -22,9 +22,9 @@ const InnsendtDato = ({ ledetekster, sendtdato }) => {
     </SykmeldingNokkelOpplysning>);
 };
 
-const Arbeidsgiver = ({ ledetekster, sykmelding }) => {
+const Arbeidsgiver = ({ ledetekster, arbeidsgiver }) => {
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.arbeidsgiver', ledetekster)}>
-        <p className="js-arbeidsgiver">{sykmelding.innsendtArbeidsgivernavn}</p>
+        <p className="js-arbeidsgiver">{arbeidsgiver}</p>
     </SykmeldingNokkelOpplysning>);
 };
 
@@ -44,7 +44,7 @@ const StatusOpplysning = ({ sykmelding, ledetekster, nokkelopplysning }) => {
             return <Status ledetekster={ledetekster} status={sykmelding.status} />;
         }
         case INNSENDT_DATO: {
-            return <InnsendtDato ledetekster={ledetekster} sendtdato={sykmelding.sendtdato} />;
+            return <InnsendtDato ledetekster={ledetekster} sendtdato={sykmelding.sendtdato} status={sykmelding.status} />;
         }
         case ARBEIDSGIVER: {
             return <Arbeidsgiver ledetekster={ledetekster} arbeidsgiver={sykmelding.innsendtArbeidsgivernavn} />;

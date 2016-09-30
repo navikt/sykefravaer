@@ -143,9 +143,9 @@ class DinSykmeldingSkjema extends Component {
 
         const knappetekster = {
             GA_VIDERE: 'Gå videre',
-            BEKREFT: 'Bekreft sykmelding',
-            SEND: 'Send sykmelding',
-            AVBRYT: 'Avbryt sykmelding',
+            BEKREFT: 'Bekreft sykmeldingen',
+            SEND: 'Send sykmeldingen',
+            AVBRYT: 'Avbryt sykmeldingen',
         };
 
         const modus = this.getSkjemaModus();

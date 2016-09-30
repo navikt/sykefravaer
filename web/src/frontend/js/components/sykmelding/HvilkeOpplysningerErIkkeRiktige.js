@@ -5,7 +5,7 @@ import { getLedetekst } from '../../ledetekster';
 export const DuTrengerNySykmelding = () => {
     return (<div className="panel panel-relatert">
         <h5 className="hode hode-advarsel hode-dekorert typo-undertittel">Du trenger ny sykmelding</h5>
-        <p>Du må avbryte denne sykmeldingen, og kontakte den som har sykmeldt deg for å få en ny.</p>
+        <p>Du må avbryte denne sykmeldingen og kontakte den som har sykmeldt deg for å få en ny.</p>
     </div>);
 };
 

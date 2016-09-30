@@ -281,39 +281,39 @@ describe("DinSykmeldingSkjema", () => {
 
     describe("Tekst på knapp", () => {
 
-        it("Er 'Bekreft sykmelding' dersom man velger 'naeringsdrivende',", () => {
+        it("Er 'Bekreft sykmeldingen' dersom man velger 'naeringsdrivende',", () => {
             reduxFormProps.fields.arbeidssituasjon = getField("naeringsdrivende");
             const sykmelding = { id: '23', arbeidssituasjon: 'naeringsdrivende' };
             const spy = sinon.spy();
             const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} {...reduxFormProps} />);
-            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmelding")
+            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmeldingen")
         });
 
-        it("Er 'Bekreft sykmelding' dersom man velger 'frilanser',", () => {
+        it("Er 'Bekreft sykmeldingen' dersom man velger 'frilanser',", () => {
             const sykmelding = { id: '23', arbeidssituasjon: 'frilanser' };
             reduxFormProps.fields.arbeidssituasjon = getField("frilanser");
             const spy = sinon.spy();
             const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} {...reduxFormProps} />);
-            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmelding")
+            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmeldingen")
         });
 
-        it("Er 'Bekreft sykmelding' dersom man velger 'annet',", () => {
+        it("Er 'Bekreft sykmeldingen' dersom man velger 'annet',", () => {
             const sykmelding = { id: '23', arbeidssituasjon: 'annet' };
             reduxFormProps.fields.arbeidssituasjon = getField("annet");
             const spy = sinon.spy();
             const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} {...reduxFormProps} />);
-            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmelding")
+            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmeldingen")
         });
 
-        it("Er 'Bekreft sykmelding' dersom man velger 'arbeidsledig',", () => {
+        it("Er 'Bekreft sykmeldingen' dersom man velger 'arbeidsledig',", () => {
             const sykmelding = { id: '23', arbeidssituasjon: 'arbeidsledig' };
             reduxFormProps.fields.arbeidssituasjon = getField("arbeidsledig");
             const spy = sinon.spy();
             const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} {...reduxFormProps} />);
-            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmelding")
+            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmeldingen")
         });
 
-        it("Er 'Bekreft sykmelding' dersom man velger 'arbeidstaker' og deretter 'Annen arbeidsgiver',", () => {
+        it("Er 'Bekreft sykmeldingen' dersom man velger 'arbeidstaker' og deretter 'Annen arbeidsgiver',", () => {
             const sykmelding = { id: '23', arbeidssituasjon: 'arbeidstaker', valgtArbeidsgiver: {orgnummer: '0'} };
             reduxFormProps.fields.opplysningeneErRiktige = {
                 value: true
@@ -326,23 +326,23 @@ describe("DinSykmeldingSkjema", () => {
             }
             const spy = sinon.spy();
             const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} {...reduxFormProps} />);
-            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmelding")
+            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmeldingen")
         });
 
-        it("Er 'Send sykmelding' dersom man velger 'arbeidstaker',", () => {
+        it("Er 'Send sykmeldingen' dersom man velger 'arbeidstaker',", () => {
             const sykmelding = { id: '23', arbeidssituasjon: 'arbeidstaker' };
             reduxFormProps.fields.arbeidssituasjon = getField("arbeidstaker");
             const spy = sinon.spy();
             const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} {...reduxFormProps} />);
-            expect(component.find(".js-submit").text()).to.equal("Send sykmelding")
+            expect(component.find(".js-submit").text()).to.equal("Send sykmeldingen")
         });
 
-        it("Er 'Bekreft sykmelding' dersom man har strengt fortrolig adresse", () => {
+        it("Er 'Bekreft sykmeldingen' dersom man har strengt fortrolig adresse", () => {
             const sykmelding = { id: '23', arbeidssituasjon: 'arbeidstaker' };
             reduxFormProps.fields.arbeidssituasjon = getField("arbeidstaker");
             const spy = sinon.spy();
             const component = shallow(<DinSykmeldingSkjema sykmelding={sykmelding} {...reduxFormProps} harStrengtFortroligAdresse={true} />);
-            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmelding")
+            expect(component.find(".js-submit").text()).to.equal("Bekreft sykmeldingen")
         });
 
     }); 
@@ -394,7 +394,7 @@ describe("DinSykmeldingSkjema", () => {
         })
     });
 
-    xdescribe("Bekreft sykmelding", () => {
+    xdescribe("Bekreft sykmeldingen", () => {
 
         it("Kaller på bekreftSykmelding med sykmeldingId og arbeidssituasjon dersom man klikker på Bekreft-knappen,", () => {
             const sykmelding = { id: '23', arbeidssituasjon: 'frilanser' };

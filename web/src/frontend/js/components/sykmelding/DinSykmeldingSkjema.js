@@ -130,7 +130,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 return;
             }
             case 'AVBRYT': {
-                this.avbryt(sykmelding.id, values.feilaktigeOpplysninger);
+                this.setState({
+                    visAvbrytDialog: !this.state.visAvbrytDialog,
+                });
                 return;
             }
             default: {
@@ -191,7 +193,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                         <span className="spinner-knapp" />
                     </button>
                 </p>
-                <div className="avbryt-sykmelding-dialog">
+                <div className="dinSykmeldingSkjema__avbrytSykmeldingDialog">
                     <p className="blokk">
                         <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" className="lenke-fremhevet" onClick={(e) => {
                             e.preventDefault();

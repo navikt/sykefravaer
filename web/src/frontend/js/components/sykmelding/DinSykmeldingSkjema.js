@@ -75,8 +75,8 @@ export class DinSykmeldingSkjemaComponent extends Component {
         });
     }
 
-    send(sykmeldingId, orgnummer, feilaktigeOpplysninger) {
-        this.props.sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger).then((respons) => {
+    send(sykmeldingId, orgnummer, feilaktigeOpplysninger, beOmNyNaermesteLeder) {
+        this.props.sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger, beOmNyNaermesteLeder).then((respons) => {
             if (respons.status > 400) {
                 this.setState({
                     forsoktSendt: true,
@@ -122,7 +122,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
         }
         switch (modus) {
             case 'SEND': {
-                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, values.feilaktigeOpplysninger);
+                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, values.feilaktigeOpplysninger, values.beOmNyNaermesteLeder);
                 return;
             }
             case 'BEKREFT': {

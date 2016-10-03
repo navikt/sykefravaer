@@ -10,7 +10,7 @@ import { getLedetekst, getHtmlLedetekst } from '../../ledetekster';
 
 const AvbrytDialog = ({ ledetekster, avbryter, avbrytHandler, bekreftHandler }) => {
     return (<div className="panel panel-ekstra">
-        <p className="blokk-s">{getHtmlLedetekst('din-sykmelding.avbryt.spoersmal', ledetekster)}</p>
+        <p className="blokk-s" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.avbryt.spoersmal', ledetekster)} />
         <div className="blokk-xs">
             <button className={`knapp knapp-fare ${avbryter ? 'er-inaktiv knapp-spinner' : ''}`} type="button" onClick={(e) => {
                 e.preventDefault();

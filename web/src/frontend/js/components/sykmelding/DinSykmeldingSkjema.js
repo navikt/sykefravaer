@@ -254,6 +254,9 @@ export const validate = (values, props = {}) => {
     if (values.valgtArbeidssituasjon === 'arbeidstaker' && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
         feilmeldinger.valgtArbeidsgiver = 'Vennligst velg arbeidsgiver';
     }
+    if (values.beOmNyNaermesteLeder === undefined) {
+        feilmeldinger.beOmNyNaermesteLeder = 'Vennligst svar på dette spørsmålet';
+    }
     return feilmeldinger;
 };
 

@@ -20,6 +20,7 @@ import ArbeidsgiversSykmeldingContainer from "../../js/containers/ArbeidsgiversS
 import Varselstripe from "../../js/components/Varselstripe";
 import Checkboxgruppe from '../../js/components/skjema/Checkboxgruppe';
 import HvilkeOpplysningerErIkkeRiktige, { SykmeldingFeilaktigeOpplysningerInfo, DuTrengerNySykmelding, DuKanBrukeSykmeldingenDinDiagnoseAndre, DuKanBrukeSykmeldingenDinArbeidsgiver } from '../../js/components/sykmelding/HvilkeOpplysningerErIkkeRiktige';
+import ErLederRiktig from '../../js/components/sykmelding/ErLederRiktig';
 
 import { Provider } from 'react-redux';
 
@@ -538,6 +539,40 @@ describe("DinSykmeldingSkjema -", () => {
             expect(component.find(".js-annen-info")).to.have.length(1);
         });
 
+        it("Skal ikke spørre om oppgitt nærmeste leder er riktig leder dersom man ikke har valgt arbeidsgiver", () => {
+            expect(component.find(ErLederRiktig)).to.have.length(0);
+        });
+
+        it("Skal ikke spørre om oppgitt nærmeste leder er riktig leder dersom valgt arbeidsgiver ikke har noen ledere", () => {
+            skjemaData.values.valgtArbeidsgiver = {
+                orgnummer: "123456789",
+                navn: "Mortens frukt og grønt"
+            }
+            component = mount(<Provider store={store}>
+                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
+            </Provider>);
+            expect(component.find(ErLederRiktig)).to.have.length(0);
+        });
+
+        it("Skal spørre om oppgitt nærmeste leder er riktig leder dersom valgt arbeidsgiver har en leder", () => {
+            const arbeidsgivere = [{
+                orgnummer: "123456789",
+                navn: "Mortens frukt og grønt"
+            }, {
+                orgnummer: "0", 
+                navn: "Annen arbeidsgiver"
+            }]
+            skjemaData.values.valgtArbeidsgiver = {
+                orgnummer: "123456789",
+                navn: "Mortens frukt og grønt",
+                naermesteLeder: "Ole Olsen"
+            }
+            const component = mount(<Provider store={store}>
+                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
+            </Provider>);
+            expect(component.find(ErLederRiktig)).to.have.length(1);
+        });
+
     });
 
     describe("validate", () => {
@@ -648,6 +683,7 @@ describe("DinSykmeldingSkjema -", () => {
 
         it("SKal returnere valgtArbeidssituasjon dersom opplysningeneErRiktige === false og alt annet er undefined", () => {
             fields.opplysningeneErRiktige = false;
+            fields.beOmNyNaermesteLeder = true;
             const res = validate(fields);
             expect(res).to.deep.equal({
                 valgtArbeidssituasjon: "Vennligst oppgi din arbeidssituasjon",
@@ -657,13 +693,19 @@ describe("DinSykmeldingSkjema -", () => {
 
         it("Skal returnere {} dersom  opplysningeneErRiktige === true og valgtArbeidssituasjon === 'arbeidstaker' og man har strengt fortrolig adresse", () => {
             fields.opplysningeneErRiktige = true;
+            fields.beOmNyNaermesteLeder = true,
             fields.valgtArbeidssituasjon = 'arbeidstaker';
             const props = {
                 harStrengtFortroligAdresse: true,
             }
             const res = validate(fields, props);
             expect(res).to.deep.equal({})
-        })
+        });
+
+        it("Skal returnere beOmNyNaermesteLeder dersom beOmNyNaermesteLeder === undefined", () => {
+            const res = validate(fields);
+            expect(typeof res.beOmNyNaermesteLeder).to.equal("string");
+        });
 
 
     });

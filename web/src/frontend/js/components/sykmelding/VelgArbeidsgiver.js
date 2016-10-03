@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths.js';
 import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
 import ErLederRiktig from './ErLederRiktig';
+import Hjelpetekst from '../skjema/Hjelpetekst';
 
 const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }) => {
     const values = skjemaData && skjemaData.values ? skjemaData.values : {};
@@ -14,7 +15,13 @@ const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }
     return (<div>
         <div className="blokk">
             <div className={erFeil ? 'skjema-feilomrade feil' : 'skjema-feilomrade'}>
-                <h4 className="skjema-sporsmal">{getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal', ledetekster)}</h4>
+                <div className="hjelpetekst-parent hjelpetekst-parent-inline hjelpetekst-select">
+                    <h4 className="skjema-sporsmal med-hjelpetekst">{getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal', ledetekster)}</h4>
+                    <Hjelpetekst
+                        id="velg-arbeidsgiver-hjelpetekst"
+                        tittel={getLedetekst('din-sykmelding.velg-arbeidsgiver.hjelpetekst.tittel', ledetekster)}
+                        tekst={getLedetekst('din-sykmelding.velg-arbeidsgiver.hjelpetekst.tekst', ledetekster)} />
+                </div>
                 {
                     arbeidsgivere.map((arbeidsgiver, index) => {
                         const labelSekundaer = (arbeidsgiver.orgnummer && arbeidsgiver.orgnummer.length) !== 1 ?

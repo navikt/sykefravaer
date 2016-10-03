@@ -27,8 +27,8 @@ const VelgArbeidssituasjon = (props) => {
                 </label>
                 <Hjelpetekst
                     id="velg-arbeidssituasjon-hjelpetekst"
-                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tittel', ledetekster)}
-                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjeleptekst.tekst', ledetekster)} />
+                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tittel', ledetekster)}
+                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tekst', ledetekster)} />
             </div>
             <DropdownWrapper erFeil={erFeil} feilmelding={getFeilmelding(skjemaData, 'valgtArbeidssituasjon')}>
                 <div className="select-container">

@@ -1,61 +1,65 @@
 import React, { PropTypes } from 'react';
 import { getLedetekst } from '../../ledetekster';
 import HvilkeOpplysningerErIkkeRiktige from './HvilkeOpplysningerErIkkeRiktige';
+import { Field } from 'redux-form';
+import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
 
-const ErOpplysningeneRiktige = (props) => {
-    const { fields: { opplysningeneErRiktige, arbeidssituasjon }, ledetekster, untouch } = props;
-    const visFeilmelding = opplysningeneErRiktige.touched && opplysningeneErRiktige.value === '';
+const Radio = (field) => {
+    return (<input
+        {...field.input}
+        type="radio"
+        name={field.name}
+        id={field.id}
+        value={field.verdi}
+        className="nav-radioknapp"
+        checked={field.checked}
+        onChange={(e) => {
+            field.untouch();
+            field.input.onChange(e);
+        }}
+    />);
+};
 
-    const tilbakestillFeilmeldinger = () => {
-        untouch('sendSykmelding', 'feilaktigeOpplysninger');
-        if (arbeidssituasjon.value !== 'arbeidstaker') {
-            untouch('sendSykmelding', 'valgtArbeidsgiver');
-        }
-    };
-
-    const blurHandler = (e) => {
-        const boolValue = e.target.value === 'true';
-        opplysningeneErRiktige.onBlur(boolValue);
-        tilbakestillFeilmeldinger();
-    };
-
-    const changeHandler = (e) => {
-        const boolValue = e.target.value === 'true';
-        opplysningeneErRiktige.onChange(boolValue);
-        tilbakestillFeilmeldinger();
-    };
-
-    const alternativer = ['true', 'false'];
+const ErOpplysningeneRiktige = ({ skjemaData, ledetekster, untouch }) => {
+    const alternativer = [true, false];
+    const verdi = skjemaData.values ? skjemaData.values.opplysningeneErRiktige : null;
+    const erFeil = visFeilmelding(skjemaData, 'opplysningeneErRiktige');
+    const feilmelding = getFeilmelding(skjemaData, 'opplysningeneErRiktige');
 
     return (<div className="blokk-s">
-        <div className={`skjema-feilomrade${visFeilmelding ? ' feil' : ''}`}>
+        <div className={`skjema-feilomrade${erFeil ? ' feil' : ''}`}>
             <h3 className="skjema-sporsmal">{getLedetekst('sykmelding.bekreft-opplysninger.sporsmal', ledetekster)}</h3>
             {
                 alternativer.map((alternativ) => {
                     return (<div className="nav-input" key={alternativ}>
-                        <input
+                        <Field
+                            component={Radio}
+                            name="opplysningeneErRiktige"
                             id={`radio-${alternativ}`}
-                            className="nav-radioknapp"
-                            type="radio"
-                            onBlur={blurHandler}
-                            onChange={changeHandler}
-                            value={alternativ}
-                            checked={opplysningeneErRiktige.value === (alternativ === 'true')} />
+                            verdi={alternativ}
+                            parse={(e) => {
+                                return e === 'true';
+                            }}
+                            untouch={() => {
+                                untouch('feilaktigeOpplysninger.periode',
+                                    'feilaktigeOpplysninger.sykmeldingsgrad',
+                                    'feilaktigeOpplysninger.arbeidsgiver',
+                                    'feilaktigeOpplysninger.diagnose',
+                                    'feilaktigeOpplysninger.andre');
+                            }} />
                         <label htmlFor={`radio-${alternativ}`}>{getLedetekst(`sykmelding.bekreft-opplysninger.svar-${alternativ}`, ledetekster)}</label>
                     </div>);
                 })
             }
-            {opplysningeneErRiktige.value === false && <HvilkeOpplysningerErIkkeRiktige {...props} />}
-            <p className="skjema-feilmelding" role="alert" aria-live="polite">{visFeilmelding && opplysningeneErRiktige.error}</p>
+            {verdi === false && <HvilkeOpplysningerErIkkeRiktige skjemaData={skjemaData} ledetekster={ledetekster} />}
+            <p className="skjema-feilmelding" role="alert" aria-live="polite">{erFeil && feilmelding}</p>
         </div>
     </div>);
 };
 
 ErOpplysningeneRiktige.propTypes = {
-    sykmelding: PropTypes.object.isRequired,
     ledetekster: PropTypes.object,
-    feilmelding: PropTypes.string,
-    fields: PropTypes.object,
+    skjemaData: PropTypes.object,
     untouch: PropTypes.func,
 };
 

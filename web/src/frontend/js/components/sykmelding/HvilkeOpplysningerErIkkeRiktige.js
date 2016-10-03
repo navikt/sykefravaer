@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import Checkboxgruppe from '../skjema/Checkboxgruppe';
 import { getLedetekst } from '../../ledetekster';
+import { Field } from 'redux-form';
+import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
 
 export const DuTrengerNySykmelding = () => {
     return (<div className="panel panel-relatert">
@@ -43,50 +45,34 @@ SykmeldingFeilaktigeOpplysningerInfo.propTypes = {
     feilaktigeOpplysninger: PropTypes.object,
 };
 
-const HvilkeOpplysningerErIkkeRiktige = (props) => {
-    const { fields: { feilaktigeOpplysninger }, ledetekster } = props;
+const HvilkeOpplysningerErIkkeRiktige = ({ skjemaData, ledetekster }) => {
     const inputs = ['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre'];
-    const erFeil = feilaktigeOpplysninger.error && feilaktigeOpplysninger.touched;
+    const erFeil = visFeilmelding(skjemaData, 'feilaktigeOpplysninger');
+    const feilmelding = getFeilmelding(skjemaData, 'feilaktigeOpplysninger');
+    const feilaktigeOpplysninger = skjemaData.values.feilaktigeOpplysninger;
 
-    const parse = (e, value) => {
-        const obj = {};
-        obj[value] = e.target.checked;
-        const ret = Object.assign({}, feilaktigeOpplysninger.value, obj);
-        return ret;
-    };
-
-    const checkboxer = inputs.map((input) => {
-        return (<div className="nav-input" key={input}>
-            <input name={input}
-                onChange={(e) => {
-                    feilaktigeOpplysninger.onChange(parse(e, input));
-                }}
-                onBlur={(e) => {
-                    feilaktigeOpplysninger.onBlur(parse(e, input));
-                }}
-                id={`checkbox-${input}`} type="checkbox" className="nav-checkbox" checked={feilaktigeOpplysninger.value[input] === true} />
+    const checkboxer = inputs.map((input, index) => {
+        return (<div className="nav-input" key={index}>
+            <Field component="input" className="nav-checkbox" type="checkbox" name={`feilaktigeOpplysninger.${input}`} id={`checkbox-${input}`} />
             <label htmlFor={`checkbox-${input}`}>{getLedetekst(`sykmelding.bekreft-opplysninger.hvilke-opplysninger.${input}`, ledetekster)}</label>
         </div>);
     });
 
     return (<div className="panel panel-ekstra">
         <Checkboxgruppe
-            feilmelding={feilaktigeOpplysninger.error} erFeil={erFeil}
+            erFeil={erFeil}
+            feilmelding={feilmelding}
             Overskrift="h4"
             spoersmaal={getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sporsmal', ledetekster)}>
-                {checkboxer}
-            <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger.value !== '' ? feilaktigeOpplysninger.value : {}} />
+            {checkboxer}
+            <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger} />
         </Checkboxgruppe>
     </div>);
 };
 
 HvilkeOpplysningerErIkkeRiktige.propTypes = {
-    sykmeldingId: PropTypes.string,
-    feilaktigeOpplysninger: PropTypes.object,
-    setFeilaktigOpplysning: PropTypes.func,
+    skjemaData: PropTypes.object,
     ledetekster: PropTypes.object,
-    forsoktSendt: PropTypes.bool,
-    fields: PropTypes.object,
 };
 
 export default HvilkeOpplysningerErIkkeRiktige;

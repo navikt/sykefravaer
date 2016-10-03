@@ -7,6 +7,8 @@ import Varselstripe from '../../components/Varselstripe';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
 import { getLedetekst, getHtmlLedetekst } from '../../ledetekster';
+import { reduxForm } from 'redux-form';
+import { filtrerObjektKeys } from '../../utils';
 
 const AvbrytDialog = ({ ledetekster, avbryter, avbrytHandler, bekreftHandler }) => {
     return (<div className="panel panel-ekstra">
@@ -36,32 +38,28 @@ AvbrytDialog.propTypes = {
     bekreftHandler: PropTypes.func,
 };
 
-class DinSykmeldingSkjema extends Component {
+export class DinSykmeldingSkjemaComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            forsoktSendt: false,
-        };
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {};
     }
 
-    getSkjemaModus() {
-        const { fields: { opplysningeneErRiktige, feilaktigeOpplysninger, arbeidssituasjon }, harStrengtFortroligAdresse } = this.props;
-        if (opplysningeneErRiktige.value === false && feilaktigeOpplysninger.value && (feilaktigeOpplysninger.value.periode || feilaktigeOpplysninger.value.sykmeldingsgrad)) {
-            return 'AVBRYT';
-        }
-        if (!arbeidssituasjon.value || arbeidssituasjon.value === '') {
+    getSkjemaModus(values, harStrengtFortroligAdresse) {
+        if (values === {}) {
             return 'GA_VIDERE';
         }
-        if (arbeidssituasjon.value === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver()) {
+        const { opplysningeneErRiktige, feilaktigeOpplysninger, valgtArbeidssituasjon } = values;
+        if (opplysningeneErRiktige === false && feilaktigeOpplysninger && (feilaktigeOpplysninger.periode || feilaktigeOpplysninger.sykmeldingsgrad)) {
+            return 'AVBRYT';
+        }
+        if (!valgtArbeidssituasjon) {
+            return 'GA_VIDERE';
+        }
+        if (valgtArbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values)) {
             return 'SEND';
         }
         return 'BEKREFT';
-    }
-
-    gaTilKvittering() {
-        browserHistory.push(`/sykefravaer/sykmeldinger/${this.props.sykmelding.id}/kvittering`);
     }
 
     bekreft(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger) {
@@ -72,7 +70,7 @@ class DinSykmeldingSkjema extends Component {
                     serverfeil: true,
                 });
             } else {
-                this.gaTilKvittering();
+                this.gaTilKvittering(sykmeldingId);
             }
         });
     }
@@ -85,7 +83,7 @@ class DinSykmeldingSkjema extends Component {
                     serverfeil: true,
                 });
             } else {
-                this.gaTilKvittering();
+                this.gaTilKvittering(sykmeldingId);
             }
         });
     }
@@ -98,37 +96,41 @@ class DinSykmeldingSkjema extends Component {
                     serverfeil: true,
                 });
             } else {
-                this.gaTilKvittering();
+                this.gaTilKvittering(sykmeldingId);
             }
         });
     }
 
-    harValgtAnnenArbeidsgiver() {
-        const { fields: { valgtArbeidsgiver } } = this.props;
-        return valgtArbeidsgiver.value !== '' && valgtArbeidsgiver.value.orgnummer === '0';
+    gaTilKvittering(sykmeldingId) {
+        browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/kvittering`);
     }
 
-    handleSubmit(fields) {
+    harValgtAnnenArbeidsgiver(values) {
+        return values.valgtArbeidsgiver && values.valgtArbeidsgiver.orgnummer === '0';
+    }
+
+    handleSubmit(values) {
+        const modus = this.getSkjemaModus(values, this.props.harStrengtFortroligAdresse);
         const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding } = this.props;
-        setOpplysningeneErRiktige(sykmelding.id, fields.opplysningeneErRiktige);
-        setArbeidssituasjon(fields.arbeidssituasjon, sykmelding.id);
-        setArbeidsgiver(sykmelding.id, fields.valgtArbeidsgiver);
-        for (const key in fields.feilaktigeOpplysninger) {
-            if (fields.feilaktigeOpplysninger.hasOwnProperty(key)) {
-                setFeilaktigOpplysning(sykmelding.id, key, fields.feilaktigeOpplysninger[key]);
+        setOpplysningeneErRiktige(sykmelding.id, values.opplysningeneErRiktige);
+        setArbeidssituasjon(values.valgtArbeidssituasjon, sykmelding.id);
+        setArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver);
+        for (const key in values.feilaktigeOpplysninger) {
+            if (values.feilaktigeOpplysninger.hasOwnProperty(key)) {
+                setFeilaktigOpplysning(sykmelding.id, key, values.feilaktigeOpplysninger[key]);
             }
         }
-        switch (this.getSkjemaModus()) {
-            case 'BEKREFT': {
-                this.bekreft(sykmelding.id, fields.arbeidssituasjon, fields.feilaktigeOpplysninger);
+        switch (modus) {
+            case 'SEND': {
+                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, values.feilaktigeOpplysninger);
                 return;
             }
-            case 'SEND': {
-                this.send(sykmelding.id, fields.valgtArbeidsgiver.orgnummer, fields.feilaktigeOpplysninger);
+            case 'BEKREFT': {
+                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, values.feilaktigeOpplysninger);
                 return;
             }
             case 'AVBRYT': {
-                this.avbryt(sykmelding.id, fields.feilaktigeOpplysninger);
+                this.avbryt(sykmelding.id, values.feilaktigeOpplysninger);
                 return;
             }
             default: {
@@ -138,26 +140,26 @@ class DinSykmeldingSkjema extends Component {
     }
 
     render() {
-        const { fields: { arbeidssituasjon },
-            sykmelding, sender, avbryter, ledetekster, harStrengtFortroligAdresse, handleSubmit } = this.props;
-
+        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, avbryter, handleSubmit, untouch } = this.props;
+        const values = skjemaData && skjemaData.values ? skjemaData.values : {};
         const knappetekster = {
             GA_VIDERE: 'Gå videre',
-            BEKREFT: 'Bekreft sykmeldingen',
-            SEND: 'Send sykmeldingen',
-            AVBRYT: 'Avbryt sykmeldingen',
+            BEKREFT: 'Bekreft sykmelding',
+            SEND: 'Send sykmelding',
+            AVBRYT: 'Avbryt sykmelding',
         };
+        const modus = this.getSkjemaModus(values, harStrengtFortroligAdresse);
 
-        const modus = this.getSkjemaModus();
-
-        return (<form id="dinSykmeldingSkjema" className="panel blokk" onSubmit={handleSubmit(this.handleSubmit)}>
-            <h3 className="typo-innholdstittel">Bruk sykmeldingen</h3>
-            <ErOpplysningeneRiktige {...this.props} />
+        return (<form id="dinSykmeldingSkjema" className="panel blokk" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
+            <h3 className="typo-innholdstittel">Starte sykmeldingen</h3>
             {
-                modus !== 'AVBRYT' && <VelgArbeidssituasjon {...this.props} />
+                skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
             }
             {
-                arbeidssituasjon.value === 'arbeidstaker' && modus !== 'AVBRYT' &&
+                modus !== 'AVBRYT' && <VelgArbeidssituasjon skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
+            }
+            {
+                values.valgtArbeidssituasjon === 'arbeidstaker' && modus !== 'AVBRYT' &&
                     <div className="blokk">
                         {
                             !harStrengtFortroligAdresse && <VelgArbeidsgiver {...this.props} />
@@ -189,7 +191,7 @@ class DinSykmeldingSkjema extends Component {
                         <span className="spinner-knapp" />
                     </button>
                 </p>
-                <div className="avbrytSykmelding">
+                <div className="avbryt-sykmelding-dialog">
                     <p className="blokk">
                         <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" className="lenke-fremhevet" onClick={(e) => {
                             e.preventDefault();
@@ -214,22 +216,50 @@ class DinSykmeldingSkjema extends Component {
     }
 }
 
-DinSykmeldingSkjema.propTypes = {
+DinSykmeldingSkjemaComponent.propTypes = {
     sykmelding: PropTypes.object,
-    bekreftSykmelding: PropTypes.func,
-    sendSykmeldingTilArbeidsgiver: PropTypes.func,
-    avbrytSykmelding: PropTypes.func,
     sender: PropTypes.bool,
     avbryter: PropTypes.bool,
     ledetekster: PropTypes.object,
-    feilaktigeOpplysninger: PropTypes.object,
-    setOpplysningeneErRiktige: PropTypes.func,
-    setFeilaktigOpplysning: PropTypes.func,
+    handleSubmit: PropTypes.func,
+    skjemaData: PropTypes.object,
+    untouch: PropTypes.func,
+    sendSykmeldingTilArbeidsgiver: PropTypes.func,
+    bekreftHandler: PropTypes.func,
+    avbrytSykmelding: PropTypes.func,
     harStrengtFortroligAdresse: PropTypes.bool,
-    fields: PropTypes.object,
+    setOpplysningeneErRiktige: PropTypes.func,
     setArbeidssituasjon: PropTypes.func,
     setArbeidsgiver: PropTypes.func,
-    handleSubmit: PropTypes.func,
+    bekreftSykmelding: PropTypes.func,
+    setFeilaktigOpplysning: PropTypes.func,
 };
+
+export const validate = (values, props = {}) => {
+    const feilmeldinger = {};
+
+    if (values.opplysningeneErRiktige === false && typeof values.feilaktigeOpplysninger === 'object' &&
+        (values.feilaktigeOpplysninger.periode || values.feilaktigeOpplysninger.sykmeldingsgrad)) {
+        return {};
+    }
+    if (values.opplysningeneErRiktige === undefined) {
+        feilmeldinger.opplysningeneErRiktige = 'Vennligst svar på om opplysningene er riktige';
+    }
+    if (!values.valgtArbeidssituasjon) {
+        feilmeldinger.valgtArbeidssituasjon = 'Vennligst oppgi din arbeidssituasjon';
+    }
+    if (values.opplysningeneErRiktige === false && (!values.feilaktigeOpplysninger || !filtrerObjektKeys(values.feilaktigeOpplysninger).length)) {
+        feilmeldinger.feilaktigeOpplysninger = 'Vennligst oppgi hvilke opplysninger som ikke er riktige';
+    }
+    if (values.valgtArbeidssituasjon === 'arbeidstaker' && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
+        feilmeldinger.valgtArbeidsgiver = 'Vennligst velg arbeidsgiver';
+    }
+    return feilmeldinger;
+};
+
+const DinSykmeldingSkjema = reduxForm({
+    form: 'dinSykmeldingSkjema',
+    validate,
+})(DinSykmeldingSkjemaComponent);
 
 export default DinSykmeldingSkjema;

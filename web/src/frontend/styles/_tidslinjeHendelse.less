@@ -1,4 +1,4 @@
-.hendelse {
+.tidslinjeHendelse {
     position: relative;
     padding-bottom: 1rem;
 
@@ -21,12 +21,12 @@
     }
 }
 
-.hendelse-rad {
+.tidslinjeHendelse__rad {
     display: flex;
     flex-flow: row wrap;
 }
 
-.hendelse-status {
+.tidslinjeHendelse__status {
     position: relative; 
     flex-basis: 24px;
     margin-right: 13px;
@@ -47,7 +47,7 @@
 
 }
 
-.hendelse-ikon {
+.tidslinjeHendelse__ikon {
     width: 24px;
     height: 24px; 
     border-radius: 50%; 
@@ -63,11 +63,11 @@
     }
 }
 
-.hendelse-img-hoykontrast {
+.tidslinjeHendelse__img--hoykontrast {
     display: none; 
 }
 
-.hendelse-ikon-start {
+.tidslinjeHendelse__ikon--start {
     background-color: #A3E0F4;
 
     img {
@@ -81,13 +81,13 @@
     }
 }
 
-.hendelse-ikon-sirkel img {
+.tidslinjeHendelse__ikon--sirkel img {
     width: 1rem;
     height: 1rem;
     background-color: #efefef;
 }
 
-.hendelse-ikon-varsel {
+.tidslinjeHendelse__ikon--varsel {
     background-color: #FFBD66;
 
     img {
@@ -100,7 +100,7 @@
 
 }
 
-.hendelse-ikon-klokke {
+.tidslinjeHendelse__ikon--klokke {
 
     height: 24px; 
 
@@ -110,26 +110,32 @@
     }
 }
 
-.hendelse-innhold {
+
+.tidslinjeHendelse__tittel {
+    .mixin-typo-element();
+    margin: 0; 
+}
+
+.tidslinjeHendelse__innhold {
     flex: 1;
     display: flex;
     align-items: center; 
 }
 
-.contrast .hendelse-img-hoykontrast {
+.contrast .tidslinjeHendelse__img--hoykontrast {
     display: inline;
 }
 
-.contrast .hendelse-img {
+.contrast .tidslinjeHendelse__img {
     display: none;
 }
 
-.contrast .hendelse-status,
-.contrast .hendelse-ikon-sirkel {
+.contrast .tidslinjeHendelse__status,
+.contrast .tidslinjeHendelse__ikon--sirkel {
     background-color: transparent!important;
 }
 
-.contrast .hendelse-ikon-start,
-.contrast .hendelse-ikon-varsel {
+.contrast .tidslinjeHendelse__ikon--start,
+.contrast .tidslinjeHendelse__ikon--varsel {
     border: 1px solid #fff;
 }

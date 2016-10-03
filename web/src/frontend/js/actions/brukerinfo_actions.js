@@ -1,4 +1,5 @@
 import { harLocalStorageStotte } from '../utils';
+import Ajax from 'simple-ajax';
 
 export function skjulUnderUtviklingVarsel() {
     if (harLocalStorageStotte()) {
@@ -33,6 +34,38 @@ export function setArbeidssituasjon(arbeidssituasjon) {
     return {
         type: 'SET_TIDSLINJE_ARBEIDSSITUASJON',
         arbeidssituasjon,
+    };
+}
+
+export function setErInnlogget() {
+    return {
+        type: 'BRUKER_ER_INNLOGGET',
+    };
+}
+
+export function setErUtlogget() {
+    return {
+        type: 'BRUKER_ER_UTLOGGET',
+    };
+}
+
+export function sjekkerInnlogging() {
+    return {
+        type: 'SJEKKER_INNLOGGING',
+    };
+}
+
+export function sjekkInnlogging() {
+    return function innlogging(dispatch) {
+        const ajax = new Ajax('/sykefravaer/');
+        ajax.on('success', () => {
+            dispatch(setErInnlogget());
+        });
+        ajax.on('error', () => {
+            dispatch(setErUtlogget());
+        });
+        dispatch(sjekkerInnlogging());
+        ajax.send();
     };
 }
 

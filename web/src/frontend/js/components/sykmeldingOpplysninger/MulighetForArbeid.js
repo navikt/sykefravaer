@@ -15,7 +15,7 @@ const Aarsaker = ({ aarsaker, containerClassName }) => {
     return (<div className={containerClassName}>
         {
             fjernAnnet(aarsaker).map((aarsak, key) => {
-                return <SykmeldingCheckbox tekst={aarsak} key={key} className="sykmelding-subopplysning" />;
+                return <SykmeldingCheckbox tekst={aarsak} key={key} className="subopplysning" />;
             })
         }
     </div>);
@@ -34,8 +34,8 @@ const MulighetForArbeid = ({ sykmelding, ledetekster }) => {
     if (!visSeksjon) {
         return <span />;
     }
-    return (<div className="sykmelding-seksjon">
-                <h4 className="sykmelding-seksjonstittel">{getLedetekst('din-sykmelding.mulighet.for.arbeid.tittel', ledetekster)}</h4>
+    return (<div className="sykmeldingSeksjon">
+                <h4 className="sykmeldingSeksjon__tittel">{getLedetekst('din-sykmelding.mulighet.for.arbeid.tittel', ledetekster)}</h4>
                 {
                     (sykmelding.mulighetForArbeid.aktivitetIkkeMulig433 && sykmelding.mulighetForArbeid.aktivitetIkkeMulig433.length) > 0 ?
                         <SykmeldingOpplysning tittel={getLedetekst('din-sykmelding.mulighet.for.arbeid.pasient.ikke.i.arbeid.tittel', ledetekster)}>

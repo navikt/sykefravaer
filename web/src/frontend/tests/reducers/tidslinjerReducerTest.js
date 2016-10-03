@@ -684,4 +684,22 @@ describe('tidslinjer', () => {
         });
     });
 
+    it("Håndterer BRUKER_ER_UTLOGGET", () => {
+        const initialState = deepFreeze({
+            data: [{startdato: "", hendelser: []}],
+            henter: false,
+            hentingFeilet: false
+        });
+        const action = {
+            type: "BRUKER_ER_UTLOGGET"
+        };
+        const nextState = tidslinjer(initialState, action);
+        expect(nextState).to.deep.equal({
+            henter: false,
+            hentingFeilet: false,
+            data: []
+        })
+    })
+
+
 }); 

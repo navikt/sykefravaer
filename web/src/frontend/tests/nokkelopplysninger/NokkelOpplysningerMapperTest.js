@@ -10,7 +10,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 
-import StatusOpplysning from '../../js/nokkelopplysninger/NokkelOpplysningerMapper';
+import StatusOpplysning from '../../js/nokkelopplysninger/StatusOpplysning';
 import { SykmeldingNokkelOpplysning } from "../../js/components/sykmeldingOpplysninger/SykmeldingOpplysning";
 
 
@@ -20,12 +20,12 @@ describe("NokkelOpplysningerMapper", () => {
     let component;
 
     it("En nøkkelopplysning som finnes i mappingen blir til et SykmeldingNokkelOpplysning - element", () => {
-        component = shallow(<StatusOpplysning sykmelding={getSykmelding()} ledetekster={ledetekster} nokkelopplysning={STATUS} />);
+        component = mount(<StatusOpplysning sykmelding={getSykmelding()} ledetekster={ledetekster} nokkelopplysning={STATUS} />);
         expect(component.find(SykmeldingNokkelOpplysning)).to.have.length(1)
     });
 
     it("Ukjent nøkkelattributt vises ikke", () => {
-        component = shallow(<StatusOpplysning sykmelding={getSykmelding()} ledetekster={ledetekster} nokkelopplysning={'noe'} />);
+        component = mount(<StatusOpplysning sykmelding={getSykmelding()} ledetekster={ledetekster} nokkelopplysning={'noe'} />);
         expect(component.find(SykmeldingNokkelOpplysning)).to.have.length(0)
     });
 });

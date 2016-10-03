@@ -6,14 +6,14 @@ const MeldingTilNAV = ({ sykmelding, ledetekster }) => {
     if (!sykmelding.meldingTilNav.navBoerTaTakISaken) {
         return <span />;
     }
-    return (<div className="sykmelding-seksjon">
-        <h4 className="sykmelding-seksjonstittel">{getLedetekst('din-sykmelding.meldingnav.tittel', ledetekster)}</h4>
+    return (<div className="sykmeldingSeksjon">
+        <h4 className="sykmeldingSeksjon__tittel">{getLedetekst('din-sykmelding.meldingnav.tittel', ledetekster)}</h4>
         <SykmeldingCheckboxSelvstendig tekst={getLedetekst('din-sykmelding.meldingnav.navboertatakisaken.tittel', ledetekster)} jsClassName="navBoerTaTakISaken" />
         {
             !sykmelding.meldingTilNav.navBoerTaTakISakenBegrunnelse ? null :
-            <div className="sykmelding-opplysning sykmelding-subopplysning">
+            <div className="opplysning subopplysning">
                 <h6>{getLedetekst('din-sykmelding.meldingnav.navboertatakisaken.begrunnelse.tittel', ledetekster)}</h6>
-                <p className="sykmelding-opplysning-verdi js-navBoerTaTakISakenBegrunnelse">{sykmelding.meldingTilNav.navBoerTaTakISakenBegrunnelse}</p>
+                <p className="opplysning__verdi js-navBoerTaTakISakenBegrunnelse">{sykmelding.meldingTilNav.navBoerTaTakISakenBegrunnelse}</p>
             </div>
         }
     </div>);

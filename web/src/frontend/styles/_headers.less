@@ -1,44 +1,45 @@
-.header-bolk {
+.panelHeader {
 	.mixin-panel-padding(); 
 	display: flex; 
 	width: 100%;
 	padding-top: 1.25rem;
 	padding-bottom: 1.25rem; 
-	margin-bottom: 1px; 
-	display: flex; 	
-	background: @white;  
-	margin-bottom: 1px; 
+	background: @white;
 }
 
-.header-ikon {
+.panelHeader--lysebla {
+	background: #d1eff9;
+}
+
+.panelHeader__ikon {
 	width: 24px;
 	height: auto; 
 	margin-right: 1rem; 	
 	align-self: flex-start;
 }
 
-.header-tittel {
+.panelHeader__ikon--hoykontrast {
+	display: none;
+}
+
+.panelHeader__tittel {
 	flex: 1;		
 	margin: 0;
 	align-self: center;
 	.mixin-typo-element(); 
 }
 
-.header-ikon-hoykontrast {
-	display: none;
-}
-
 .contrast {
 
-	.header-bolk {
+	.panelHeader {
 		border: 1px solid @white;
 	}
 
-	.header-ikon {
+	.panelHeader__ikon {
 		display: none; 
 	}
 
-	.header-ikon-hoykontrast {
+	.panelHeader__ikon--hoykontrast {
 		display: block; 
 	}
 }

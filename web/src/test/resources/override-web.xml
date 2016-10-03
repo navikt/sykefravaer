@@ -28,7 +28,7 @@
         <filter-class>no.nav.syfo.FakeLoginFilter</filter-class>
         <init-param>
             <param-name>defaultFnr</param-name>
-            <param-value>14127729256</param-value>
+            <param-value>***REMOVED***</param-value>
         </init-param>
     </filter>
     <filter-mapping>

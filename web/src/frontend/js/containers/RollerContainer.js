@@ -7,7 +7,7 @@ import { Feilmelding } from '../components/Feilmelding';
 import { getLedetekst } from '../ledetekster';
 
 export const RollerSide = ({ ledetekster, brodsmuler }) => {
-    return (<Side brodsmuler={brodsmuler} tittel={getLedetekst('roller.sidetittel', ledetekster)}>
+    return (<Side brodsmuler={brodsmuler} tittel={getLedetekst('roller.sidetittel', ledetekster.data)}>
         {
             (() => {
                 if (ledetekster.henter) {

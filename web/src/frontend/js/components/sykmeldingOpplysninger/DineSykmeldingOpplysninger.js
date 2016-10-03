@@ -9,7 +9,7 @@ import FlereOpplysninger from './FlereOpplysninger';
 import { getSykmeldingCheckbox } from '../../utils/dinSykmeldingUtils';
 
 const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster, Overskrift = 'H2' }) => {
-    return (<div className="dine-sykmelding-opplysninger">
+    return (<div className="dine-opplysninger">
         <Overskrift className="typo-innholdstittel blokk-l">
             {getLedetekst('din-sykmelding.tittel', ledetekster)}
         </Overskrift>
@@ -79,7 +79,7 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster, Overskrift = 'H2'
             }
             {
                 !sykmelding.diagnose.yrkesskadeDato ? null :
-                    <SykmeldingNokkelOpplysning tittel="Skadedato" className="sykmelding-subopplysning">
+                    <SykmeldingNokkelOpplysning tittel="Skadedato" className="subopplysning">
                         <p className=" js-yrkesskadeDato">{toDatePrettyPrint(sykmelding.diagnose.yrkesskadeDato)}</p>
                     </SykmeldingNokkelOpplysning>
             }
@@ -107,7 +107,7 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster, Overskrift = 'H2'
         </div>
         <Utvidbar tittel={getLedetekst('din-sykmelding.flere-opplysninger.tittel', ledetekster)}
             ikon="svg/doctor-2.svg" ikonHover="svg/doctor-2_hover.svg" ikonAltTekst="Lege" className="blokk-s">
-            <div className="sykmelding-seksjoner">
+            <div className="sykmeldingSeksjoner">
                 <FlereOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
             </div>
         </Utvidbar>

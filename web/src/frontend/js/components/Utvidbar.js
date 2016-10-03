@@ -50,33 +50,33 @@ export class Utvidbar extends Component {
     }
 
     getHeaderClassName() {
-        let c = !this.state.erApen ? 'utvidbar-header' : 'utvidbar-header utvidbar-header-apen';
+        let c = !this.state.erApen ? 'utvidbar__header' : 'utvidbar__header utvidbar__header-erApen';
         if (this.props.variant) {
-            c = `${c} utvidbar-header-${this.props.variant}`;
+            c = `${c} utvidbar__header--${this.props.variant}`;
         }
         return c;
     }
 
     setAutoHoyde() {
+        /* Fjerner animasjonsklassen slik at Safari ikke
+        tegner komponenten på nytt når høyde settes til 'auto': */
         this.setState({
             containerClassName: '',
         });
-        /* Fjerner animasjonsklassen slik at Safari ikke
-        tegner komponenten på nytt når høyde settes til 'auto' */
+        // Setter høyde til auto:
         setTimeout(() => {
             this.setState({
                 hoyde: 'auto',
                 containerClassName: '',
             });
         }, 0);
-        // Setter høyde til auto
     }
 
     apne() {
         this.setState({
             hoyde: '0',
             hindreToggle: true,
-            containerClassName: ' med-animasjon',
+            containerClassName: ' utvidbar__innholdContainer--medAnimasjon',
             visInnhold: true,
         });
         setTimeout(() => {
@@ -96,7 +96,7 @@ export class Utvidbar extends Component {
         });
         setTimeout(() => {
             this.setState({
-                containerClassName: ' med-animasjon',
+                containerClassName: ' utvidbar__innholdContainer--medAnimasjon',
                 hoyde: '0',
                 erApen: false,
             });
@@ -106,7 +106,9 @@ export class Utvidbar extends Component {
     toggle(e) {
         e.preventDefault();
         if (!this.state.hindreToggle) {
-            // hindreToggle for å hindre dobbelklikk, eller at noen klikker mens animasjonen pågår. Dobbelklikk vil skape kluss med logikken.
+            /* hindreToggle for å hindre dobbelklikk,
+            eller at noen klikker mens animasjonen pågår.
+            Dobbelklikk vil skape kluss med logikken. */
             if (this.state.erApen) {
                 this.lukk();
             } else {
@@ -125,17 +127,17 @@ export class Utvidbar extends Component {
                     onMouseEnter={() => {this.onMouseEnter();}}
                     onMouseLeave={() => {this.onMouseLeave();}}
                     onClick={(event) => {this.toggle(event);}}
-                    className="utvidbar-toggle">
+                    className="utvidbar__toggle">
                     <this.props.Overskrift className={this.getHeaderClassName()}>
-                        <img src={`/sykefravaer/img/${this.state.ikon}`} alt={this.props.ikonAltTekst} className="header-ikon" />
-                        <img src={`/sykefravaer/img/${this.state.ikonHoykontrast}`} alt={this.props.ikonAltTekst} className="header-ikon header-ikon-hoykontrast" />
-                        <span className="header-tittel">{this.props.tittel}</span>
+                        <img src={`/sykefravaer/img/${this.state.ikon}`} alt={this.props.ikonAltTekst} className="utvidbar__ikon" />
+                        <img src={`/sykefravaer/img/${this.state.ikonHoykontrast}`} alt={this.props.ikonAltTekst} className="utvidbar__ikon utvidbar__ikon--hoykontrast" />
+                        <span className={!this.state.erApen ? 'utvidbar__tittel' : 'utvidbar__tittel utvidbar__tittel-erApen'}>{this.props.tittel}</span>
                     </this.props.Overskrift>
                 </a>
-                <div ref="container" style={{ height: this.state.hoyde }} className={`utvidbar-innhold-container${this.state.containerClassName}`} onTransitionEnd={() => {
+                <div ref="container" style={{ height: this.state.hoyde }} className={`utvidbar__innholdContainer${this.state.containerClassName}`} onTransitionEnd={() => {
                     this.onTransitionEnd();
                 }}>
-                    <div className="utvidbar-innhold" ref="innhold">
+                    <div className="utvidbar__innhold" ref="innhold">
                         {
                             this.state.visInnhold && <div>
                                 {this.props.children}

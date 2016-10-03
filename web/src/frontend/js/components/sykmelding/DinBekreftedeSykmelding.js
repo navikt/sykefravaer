@@ -5,10 +5,11 @@ import Utvidbar from '../Utvidbar';
 import { getLedetekst } from '../../ledetekster/index';
 import { STATUS, INNSENDT_DATO } from '../../nokkelopplysninger/NokkelOpplysningerEnum';
 import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding.js';
+import Sidetopp from '../Sidetopp';
 
 const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding, ledetekster }) => {
     return (<div>
-        <h1 className="side-header typo-sidetittel">{getLedetekst('din-sykmelding.tittel', ledetekster)}</h1>
+        <Sidetopp tittel={getLedetekst('din-sykmelding.tittel', ledetekster)} />
         <StatusPanel
             sykmelding={dinSykmelding}
             ledetekster={ledetekster}

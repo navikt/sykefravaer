@@ -3,6 +3,7 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
+import InnloggingContainer from "../../js/containers/InnloggingContainer";
 const DocumentTitle = require('react-document-title');
 
 chai.use(chaiEnzyme());
@@ -26,8 +27,8 @@ describe("SideMedHoyreKolonne", () => {
 
     beforeEach(() => {
         
-        component = mount(<SideMedHoyreKolonne tittel="Min side" brodsmuler={brodsmuler}>
-            <article>Mitt innhold</article>
+        component = shallow(<SideMedHoyreKolonne tittel="Min side" brodsmuler={brodsmuler}>
+            <article id="mitt-innhold">Mitt innhold</article>
             </SideMedHoyreKolonne>);
     })
 
@@ -36,7 +37,7 @@ describe("SideMedHoyreKolonne", () => {
     })
 
     it("Skal rendre innhold som sendes inn", () => {
-        expect(component.contains(<article>Mitt innhold</article>)).to.equal(true);
+        expect(component.contains(<article id="mitt-innhold">Mitt innhold</article>)).to.equal(true);
     });
 
     it("SKal vise aside med disclaimer", () => {
@@ -44,5 +45,12 @@ describe("SideMedHoyreKolonne", () => {
         expect(component.find("aside").text()).to.contain("Dette er en tjeneste som fortsatt er under utvikling. Gi oss tilbakemelding slik at vi kan bli bedre!")
         expect(component.find("aside").text()).to.contain("Gi tilbakemelding")
     }); 
+
+    it("Skal wrappe children i en InnloggingContainer", () => {
+       expect(component.find(InnloggingContainer)).to.have.length(1);
+       expect(component.find(InnloggingContainer).find("#mitt-innhold")).to.have.length(1);
+    });
+
+
 
 }); 

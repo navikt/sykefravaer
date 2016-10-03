@@ -6,12 +6,12 @@ import FlereOpplysninger from './FlereOpplysninger';
 import { getSykmeldingCheckbox } from '../../utils/dinSykmeldingUtils';
 
 const ArbeidsgiversSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
-    return (<div className="side-innhold">
-        <header className="arbeidsgivers-header">
-            <h3 className="arbeidsgivers-tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h3>
-            <p className="js-fnr arbeidsgivers-fodselsnummer">{sykmelding.pasient.fnr}</p>
+    return (<div className="side-innhold arbeidsgiversSykmelding">
+        <header className="arbeidsgiversSykmelding__header">
+            <h3 className="arbeidsgiversSykmelding__tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h3>
+            <p className="js-fnr arbeidsgiversSykmelding__fodselsnummer">{sykmelding.pasient.fnr}</p>
         </header>
-        <div className="arbeidsgivers-nokkelopplysninger">
+        <div className="arbeidsgiversSykmelding__nokkelopplysninger">
             <SykmeldingPerioder
                 perioder={sykmelding.mulighetForArbeid.perioder}
                 ledetekster={ledetekster}

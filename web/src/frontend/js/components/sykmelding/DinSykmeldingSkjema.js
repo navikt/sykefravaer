@@ -194,14 +194,16 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     </button>
                 </p>
                 <div className="dinSykmeldingSkjema__avbrytSykmeldingDialog">
-                    <p className="blokk">
-                        <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" className="lenke-fremhevet" onClick={(e) => {
-                            e.preventDefault();
-                            this.setState({
-                                visAvbrytDialog: !this.state.visAvbrytDialog,
-                            });
-                        }}>Jeg ønsker ikke å bruke denne sykmeldingen</a>
-                    </p>
+                    {
+                        modus !== 'AVBRYT' && <p className="blokk">
+                            <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" className="lenke-fremhevet" onClick={(e) => {
+                                e.preventDefault();
+                                this.setState({
+                                    visAvbrytDialog: !this.state.visAvbrytDialog,
+                                });
+                            }}>Jeg ønsker ikke å bruke denne sykmeldingen</a>
+                        </p>
+                    }
                     {
                         this.state.visAvbrytDialog && <AvbrytDialog avbryter={avbryter} ledetekster={ledetekster} avbrytHandler={() => {
                             this.setState({

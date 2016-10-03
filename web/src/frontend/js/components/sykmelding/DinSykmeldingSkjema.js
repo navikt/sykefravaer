@@ -187,7 +187,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
             }
             <div className="knapperad knapperad-adskilt">
                 <p className="blokk-s">
-                    <button type="submit" id="dinSykmeldingSkjemaSubmit"
+                    <button ref={modus === 'AVBRYT' ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
                         className={`js-submit knapp ${modus === 'AVBRYT' ? 'knapp-fare' : 'knapp-hoved'} ${(sender) ? 'er-inaktiv knapp-spinner js-spinner' : ''}`}>
                         {knappetekster[modus]}
                         <span className="spinner-knapp" />

@@ -158,7 +158,8 @@ describe("dinSykmelding_actions", () => {
                 orgnummer: '***REMOVED***',
                 feilaktigeOpplysninger: {
                     andre: true
-                }
+                },
+                beOmNyNaermesteLeder: true,
             }))
             .reply(200, {
                 "id": 87654,

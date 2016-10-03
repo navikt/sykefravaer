@@ -128,12 +128,13 @@ export function bekreftSykmelding(sykmeldingId, arbeidssituasjon = {}, feilaktig
     };
 }
 
-export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger = {}) {
+export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger = {}, beOmNyNaermesteLeder = true) {
     return function send(dispatch) {
         dispatch(senderSykmelding(sykmeldingId));
         const body = {
             orgnummer,
             feilaktigeOpplysninger,
+            beOmNyNaermesteLeder,
         };
         return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/send`,
             {

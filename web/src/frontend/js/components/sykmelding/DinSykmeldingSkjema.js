@@ -45,7 +45,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
         this.state = {};
     }
 
-    getSkjemaModus (values, harStrengtFortroligAdresse) {
+    getSkjemaModus(values, harStrengtFortroligAdresse) {
         if (values === {}) {
             return 'GA_VIDERE';
         }
@@ -62,7 +62,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
         return 'BEKREFT';
     }
 
-    bekreft (sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger) {
+    bekreft(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger) {
         this.props.bekreftSykmelding(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger).then((respons) => {
             if (respons.status > 400) {
                 this.setState({
@@ -75,7 +75,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
         });
     }
 
-    send (sykmeldingId, orgnummer, feilaktigeOpplysninger) {
+    send(sykmeldingId, orgnummer, feilaktigeOpplysninger) {
         this.props.sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger).then((respons) => {
             if (respons.status > 400) {
                 this.setState({
@@ -88,7 +88,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
         });
     }
 
-    avbryt (sykmeldingId, feilaktigeOpplysninger) {
+    avbryt(sykmeldingId, feilaktigeOpplysninger) {
         this.props.avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger).then((respons) => {
             if (respons.status > 400) {
                 this.setState({
@@ -101,15 +101,15 @@ export class DinSykmeldingSkjemaComponent extends Component {
         });
     }
 
-    gaTilKvittering (sykmeldingId) {
+    gaTilKvittering(sykmeldingId) {
         browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/kvittering`);
     }
 
-    harValgtAnnenArbeidsgiver (values) {
+    harValgtAnnenArbeidsgiver(values) {
         return values.valgtArbeidsgiver && values.valgtArbeidsgiver.orgnummer === '0';
     }
 
-    handleSubmit (values) {
+    handleSubmit(values) {
         const modus = this.getSkjemaModus(values, this.props.harStrengtFortroligAdresse);
         const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding } = this.props;
         setOpplysningeneErRiktige(sykmelding.id, values.opplysningeneErRiktige);
@@ -131,6 +131,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
             }
             case 'AVBRYT': {
                 this.avbryt(sykmelding.id, values.feilaktigeOpplysninger);
+                return;
+            }
+            default: {
                 return;
             }
         }
@@ -221,6 +224,15 @@ DinSykmeldingSkjemaComponent.propTypes = {
     handleSubmit: PropTypes.func,
     skjemaData: PropTypes.object,
     untouch: PropTypes.func,
+    sendSykmeldingTilArbeidsgiver: PropTypes.func,
+    bekreftHandler: PropTypes.func,
+    avbrytSykmelding: PropTypes.func,
+    harStrengtFortroligAdresse: PropTypes.bool,
+    setOpplysningeneErRiktige: PropTypes.func,
+    setArbeidssituasjon: PropTypes.func,
+    setArbeidsgiver: PropTypes.func,
+    bekreftSykmelding: PropTypes.func,
+    setFeilaktigOpplysning: PropTypes.func,
 };
 
 export const validate = (values, props = {}) => {

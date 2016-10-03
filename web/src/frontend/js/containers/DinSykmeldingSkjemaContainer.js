@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
 import { getSykmelding } from '../utils';
 import * as actionCreators from '../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../components/sykmelding/DinSykmeldingSkjema';
 import { getLedetekst } from '../ledetekster';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 
 export const mapStateToProps = (state, ownProps) => {
     let sykmelding = {};

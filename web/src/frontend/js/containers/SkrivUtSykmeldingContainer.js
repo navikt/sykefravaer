@@ -34,9 +34,9 @@ class SkrivUt extends Component {
             {
                 (() => {
                     if (henter) {
-                        return <p>1</p>;
+                        return <AppSpinner />;
                     } else if (hentingFeilet || !sykmelding) {
-                        return <p>1</p>
+                        return <Feilmelding />;
                     }
                     return (
                         <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} erApen />
@@ -54,6 +54,7 @@ SkrivUt.propTypes = {
     brodsmuler: PropTypes.array,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
+    dispatch: PropTypes.func,
 };
 
 export const mapStateToProps = (state, ownProps) => {

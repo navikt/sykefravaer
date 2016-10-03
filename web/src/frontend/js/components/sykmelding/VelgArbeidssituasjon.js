@@ -1,6 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 import DropdownWrapper from '../skjema/DropdownWrapper.js';
-import Dropdown from '../skjema/Dropdown.js';
 import { getLedetekst } from '../../ledetekster';
 import Hjelpetekst from '../skjema/Hjelpetekst.js';
 import arbeidssituasjoner from '../../arbeidssituasjonData';
@@ -14,11 +13,10 @@ const getArbeidssituasjoner = (skjemaData) => {
     return arbeidssituasjoner.filter((arbeidssituasjon) => {
         return arbeidssituasjon.verdi !== 'default';
     });
-}
+};
 
 const VelgArbeidssituasjon = (props) => {
-    const { skjemaData, ledetekster } = props;
-    const fields = skjemaData && skjemaData.fields ? skjemaData.fields : {};
+    const { skjemaData, ledetekster, untouch } = props;
     const erFeil = visFeilmelding(skjemaData, 'valgtArbeidssituasjon');
 
     return (
@@ -34,10 +32,12 @@ const VelgArbeidssituasjon = (props) => {
             </div>
             <DropdownWrapper erFeil={erFeil} feilmelding={getFeilmelding(skjemaData, 'valgtArbeidssituasjon')}>
                 <div className="select-container">
-                    <Field component="select" name="valgtArbeidssituasjon">
+                    <Field component="select" name="valgtArbeidssituasjon" onBlur={() => {
+                        untouch('valgtArbeidsgiver');
+                    }}>
                         {
                             getArbeidssituasjoner(skjemaData).map((arbeidssituasjon, index) => {
-                                return <option value={arbeidssituasjon.verdi} key={index}>{arbeidssituasjon.tekst}</option>
+                                return <option value={arbeidssituasjon.verdi} key={index}>{arbeidssituasjon.tekst}</option>;
                             })
                         }
                     </Field>
@@ -45,12 +45,11 @@ const VelgArbeidssituasjon = (props) => {
             </DropdownWrapper>
         </div>
     );
-}
+};
 
 VelgArbeidssituasjon.propTypes = {
-    sykmelding: PropTypes.object,
     ledetekster: PropTypes.object,
-    fields: PropTypes.object,
+    skjemaData: PropTypes.object,
     untouch: PropTypes.func,
 };
 

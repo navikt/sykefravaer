@@ -18,7 +18,7 @@ const Radio = (field) => {
             field.input.onChange(e);
         }}
     />);
-}
+};
 
 const ErOpplysningeneRiktige = ({ skjemaData, ledetekster, untouch }) => {
     const alternativer = [true, false];
@@ -41,11 +41,11 @@ const ErOpplysningeneRiktige = ({ skjemaData, ledetekster, untouch }) => {
                                 return e === 'true';
                             }}
                             untouch={() => {
-                                untouch("feilaktigeOpplysninger.periode",
-                                    "feilaktigeOpplysninger.sykmeldingsgrad",
-                                    "feilaktigeOpplysninger.arbeidsgiver",
-                                    "feilaktigeOpplysninger.diagnose",
-                                    "feilaktigeOpplysninger.andre");
+                                untouch('feilaktigeOpplysninger.periode',
+                                    'feilaktigeOpplysninger.sykmeldingsgrad',
+                                    'feilaktigeOpplysninger.arbeidsgiver',
+                                    'feilaktigeOpplysninger.diagnose',
+                                    'feilaktigeOpplysninger.andre');
                             }} />
                         <label htmlFor={`radio-${alternativ}`}>{getLedetekst(`sykmelding.bekreft-opplysninger.svar-${alternativ}`, ledetekster)}</label>
                     </div>);

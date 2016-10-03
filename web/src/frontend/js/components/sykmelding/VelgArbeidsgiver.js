@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import Radiogruppe from '../skjema/Radiogruppe';
 import { getHtmlLedetekst, getLedetekst } from '../../ledetekster';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths.js';
@@ -28,19 +27,20 @@ const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }
                             type="radio"
                             name="valgtArbeidsgiver"
                             id={`arbeidsgiver-${arbeidsgiver.orgnummer}`}
-                            value={arbeidsgiver.orgnummer} 
+                            value={arbeidsgiver.orgnummer}
                             className="nav-radioknapp"
                             checked={checked}
                             parse={(orgnummer) => {
                                 return arbeidsgivere.filter((arbgiver) => {
                                     return arbgiver.orgnummer === orgnummer;
-                                })[0]
+                                })[0];
                             }} />
-                        <label htmlFor={`arbeidsgiver-${arbeidsgiver.orgnummer}`}>{arbeidsgiver.navn} {labelSekundaer ? <span className="label-sekundaer">{labelSekundaer}</span> : null}</label>
+                        <label htmlFor={`arbeidsgiver-${arbeidsgiver.orgnummer}`}>{arbeidsgiver.navn}
+                            {labelSekundaer ? <span className="label-sekundaer">{labelSekundaer}</span> : null}</label>
                         {
-                            visAnnenInfo && 
-                            <div className="panel panel-ekstra">
-                                <div className="hode hode-advarsel hode-brodtekst redaksjonelt-innhold side-innhold" 
+                            visAnnenInfo &&
+                            <div className="panel panel-ekstra js-annen-info">
+                                <div className="hode hode-advarsel hode-brodtekst redaksjonelt-innhold side-innhold"
                                     dangerouslySetInnerHTML={getHtmlLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.infotekst', ledetekster)} />
                                 <div className="knapperad side-innhold">
                                     <p>
@@ -65,7 +65,7 @@ VelgArbeidsgiver.propTypes = {
     arbeidsgivere: PropTypes.array,
     ledetekster: PropTypes.object,
     sykmelding: PropTypes.object,
-    fields: PropTypes.object,
+    skjemaData: PropTypes.object,
 };
 
 export default VelgArbeidsgiver;

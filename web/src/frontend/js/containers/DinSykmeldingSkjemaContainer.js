@@ -1,8 +1,10 @@
-import { getSykmelding, filtrerObjektKeys } from '../utils';
+import React, { Component } from 'react';
+import { getSykmelding } from '../utils';
 import * as actionCreators from '../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../components/sykmelding/DinSykmeldingSkjema';
 import { getLedetekst } from '../ledetekster';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 export const mapStateToProps = (state, ownProps) => {
     let sykmelding = {};
@@ -23,6 +25,8 @@ export const mapStateToProps = (state, ownProps) => {
         data: arbeidsgivereData,
     });
 
+    const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
+
     return {
         skjemaData: state.form.dinSykmeldingSkjema,
         initialValues: sykmelding,
@@ -30,11 +34,11 @@ export const mapStateToProps = (state, ownProps) => {
         ledetekster: state.ledetekster.data,
         sender: state.arbeidsgiversSykmeldinger.sender,
         avbryter: state.dineSykmeldinger.avbryter,
-        harStrengtFortroligAdresse: state.brukerinfo.bruker.data.strengtFortroligAdresse,
+        harStrengtFortroligAdresse,
         arbeidsgivere: arbeidsgivere.data,
     };
 };
 
-const DinSykmeldingSkjemaContainer = connect(mapStateToProps, actionCreators)(DinSykmeldingSkjema); 
+const DinSykmeldingSkjemaContainer = connect(mapStateToProps, actionCreators)(DinSykmeldingSkjema);
 
 export default DinSykmeldingSkjemaContainer;

@@ -45,19 +45,15 @@ SykmeldingFeilaktigeOpplysningerInfo.propTypes = {
     feilaktigeOpplysninger: PropTypes.object,
 };
 
-const Checkbox = ({ name, id, checked }) => {
-    return <input type="checkbox" className="nav-checkbox" name={name} id={id} />
-}
-
 const HvilkeOpplysningerErIkkeRiktige = ({ skjemaData, ledetekster }) => {
     const inputs = ['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre'];
-    const erFeil = visFeilmelding(skjemaData, "feilaktigeOpplysninger");
-    const feilmelding = getFeilmelding(skjemaData, "feilaktigeOpplysninger");
+    const erFeil = visFeilmelding(skjemaData, 'feilaktigeOpplysninger');
+    const feilmelding = getFeilmelding(skjemaData, 'feilaktigeOpplysninger');
     const feilaktigeOpplysninger = skjemaData.values.feilaktigeOpplysninger;
 
-    const checkboxer = inputs.map((input) => {
-        return (<div className="nav-input" key={input}>
-            <Field component="input" className="nav-checkbox" type="checkbox" name={`feilaktigeOpplysninger.${input}`} id={`checkbox-${input}`} value={name} />
+    const checkboxer = inputs.map((input, index) => {
+        return (<div className="nav-input" key={index}>
+            <Field component="input" className="nav-checkbox" type="checkbox" name={`feilaktigeOpplysninger.${input}`} id={`checkbox-${input}`} />
             <label htmlFor={`checkbox-${input}`}>{getLedetekst(`sykmelding.bekreft-opplysninger.hvilke-opplysninger.${input}`, ledetekster)}</label>
         </div>);
     });
@@ -75,12 +71,8 @@ const HvilkeOpplysningerErIkkeRiktige = ({ skjemaData, ledetekster }) => {
 };
 
 HvilkeOpplysningerErIkkeRiktige.propTypes = {
-    sykmeldingId: PropTypes.string,
-    feilaktigeOpplysninger: PropTypes.object,
-    setFeilaktigOpplysning: PropTypes.func,
+    skjemaData: PropTypes.object,
     ledetekster: PropTypes.object,
-    forsoktSendt: PropTypes.bool,
-    fields: PropTypes.object,
 };
 
 export default HvilkeOpplysningerErIkkeRiktige;

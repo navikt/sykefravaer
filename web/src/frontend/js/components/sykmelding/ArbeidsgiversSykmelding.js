@@ -4,7 +4,7 @@ import ArbeidsgiversSykmeldingOpplysninger from '../sykmeldingOpplysninger/Arbei
 
 const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster, Overskrift = 'H2', erApen = false }) => {
     return (<Utvidbar
-        tittel="Opplysninger til arbeidsgiveren din"
+        tittel="Dette får arbeidsgiveren din se"
         ikon="svg/doctor-2.svg"
         ikonHover="svg/doctor-2_hover.svg"
         ikonAltTekst="Lege"

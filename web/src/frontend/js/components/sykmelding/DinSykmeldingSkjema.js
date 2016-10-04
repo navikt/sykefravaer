@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import VelgArbeidssituasjon from '../../components/sykmelding/VelgArbeidssituasjon';
 import VelgArbeidsgiver from '../../components/sykmelding/VelgArbeidsgiver';
 import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykmeldingContainer';
@@ -142,7 +142,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     render() {
-        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, avbryter, handleSubmit, untouch } = this.props;
+        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, avbryter, handleSubmit, untouch, erEldsteNyeSykmelding, eldsteSykmeldingId } = this.props;
         const values = skjemaData && skjemaData.values ? skjemaData.values : {};
         const knappetekster = {
             GA_VIDERE: 'Gå videre',
@@ -154,6 +154,16 @@ export class DinSykmeldingSkjemaComponent extends Component {
 
         return (<form id="dinSykmeldingSkjema" className="panel blokk" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
             <h3 className="typo-innholdstittel">Bruk sykmeldingen</h3>
+            {
+                !erEldsteNyeSykmelding && <div className="panel panel-ramme">
+                    <Varselstripe type="info">
+                        <p className="sist side-innhold">
+                            Du har eldre sykmeldinger som du bør behandle
+                            før denne. <Link to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>Gå til den eldste sykmeldingen.</Link>
+                        </p>
+                    </Varselstripe>
+                </div>
+            }
             {
                 skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
             }
@@ -237,6 +247,8 @@ DinSykmeldingSkjemaComponent.propTypes = {
     setArbeidsgiver: PropTypes.func,
     bekreftSykmelding: PropTypes.func,
     setFeilaktigOpplysning: PropTypes.func,
+    erEldsteNyeSykmelding: PropTypes.bool,
+    eldsteSykmeldingId: PropTypes.string,
 };
 
 export const validate = (values, props = {}) => {

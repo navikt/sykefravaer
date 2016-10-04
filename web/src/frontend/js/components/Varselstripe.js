@@ -13,11 +13,11 @@ const Varselstripe = ({ type = 'default', children }) => {
             break;
         }
         case 'feil': {
-            typeIkon = `${modigFrontendIkonRot}ikon-utropstegn.svg`;
+            typeIkon = '/sykefravaer/img/svg/utropstegn-hvit.svg';
             break;
         }
         case 'info': {
-            typeIkon = `${modigFrontendIkonRot}ikon-utropstegn.svg`;
+            typeIkon = '/sykefravaer/img/svg/utropstegn-hvit.svg';
             break;
         }
         case 'avbrutt': {

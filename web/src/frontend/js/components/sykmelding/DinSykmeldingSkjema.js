@@ -158,8 +158,8 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 !erEldsteNyeSykmelding && <div className="panel panel-ramme">
                     <Varselstripe type="info">
                         <p className="sist side-innhold">
-                            Du har eldre sykmeldinger som du bør behandle før denne.
-                            <Link to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>Gå til den eldste sykmeldingen.</Link>
+                            Du har eldre sykmeldinger som du bør behandle
+                            før denne. <Link to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>Gå til den eldste sykmeldingen.</Link>
                         </p>
                     </Varselstripe>
                 </div>
@@ -248,7 +248,7 @@ DinSykmeldingSkjemaComponent.propTypes = {
     bekreftSykmelding: PropTypes.func,
     setFeilaktigOpplysning: PropTypes.func,
     erEldsteNyeSykmelding: PropTypes.bool,
-    eldsteSykmeldingId: PropTypes.bool,
+    eldsteSykmeldingId: PropTypes.string,
 };
 
 export const validate = (values, props = {}) => {

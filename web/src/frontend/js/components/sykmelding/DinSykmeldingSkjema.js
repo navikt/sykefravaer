@@ -153,7 +153,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
         const modus = this.getSkjemaModus(values, harStrengtFortroligAdresse);
 
         return (<form id="dinSykmeldingSkjema" className="panel blokk" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
-            <h3 className="typo-innholdstittel">Starte sykmeldingen</h3>
+            <h3 className="typo-innholdstittel">Bruk sykmeldingen</h3>
             {
                 skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
             }

@@ -19,7 +19,7 @@ const ArbeidsgiversSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
             {
                 !sykmelding.skalViseSkravertFelt ? null :
                 <SykmeldingNokkelOpplysning tittel={getLedetekst('send-til-arbeidsgiver.diagnose.tittel', ledetekster)} Overskrift="H4">
-                    <p className="skravert js-diagnose">{getLedetekst('send-til-arbeidsgiver.diagnose.skjult', ledetekster)}</p>
+                    <img src="/sykefravaer/img/svg/sladd.svg" className="js-skravert" alt={getLedetekst('send-til-arbeidsgiver.diagnose.skjult', ledetekster)} />
                 </SykmeldingNokkelOpplysning>
             }
             {

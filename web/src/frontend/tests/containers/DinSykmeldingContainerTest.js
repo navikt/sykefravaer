@@ -7,6 +7,7 @@ import ledetekster from "../ledetekster_mock.js";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
+import getSykmelding from "../mockSykmeldinger";
 import { DinSykmldSide, mapStateToProps } from "../../js/containers/DinSykmeldingContainer.js";
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
@@ -30,64 +31,59 @@ describe("DinSykmeldingContainer", () => {
 
     beforeEach(() => {
 
-        sykmeldinger = [{
-            id: 2,
-            fnr: "12",
-            fornavn: "Per",
-            etternavn: "Person",
-            sykmelder: "Ove Olsen",
-            arbeidsgiver: "Selskapet AS",
-            perioder: [{
-                fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
-                grad: 67
-            }],
-            hoveddiagnose: {
-                diagnose: "Influensa",
-                diagnosesystem: "ICPC",
-                diagnosekode: "LP2"
-            },
-            arbeidsfoerEtterPerioden: true,
-            status: 'NY'
-        }, {
-            id: 1,
-            fnr: "12",
-            fornavn: "Per",
-            etternavn: "Person",
-            sykmelder: "Ove Olsen",
-            arbeidsgiver: "Selskapet AS",
-            perioder: [{
-                fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
-                grad: 67
-            }],
-            hoveddiagnose: {
-                diagnose: "Influensa",
-                diagnosesystem: "ICPC",
-                diagnosekode: "LP2"
-            },
-            arbeidsfoerEtterPerioden: true,
-            status: 'NY'
-        }, {
-            id: 3,
-            fnr: "12",
-            fornavn: "Per",
-            etternavn: "Person",
-            sykmelder: "Ove Olsen",
-            arbeidsgiver: "Selskapet AS",
-            perioder: [{
-                fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
-                grad: 67
-            }],
-            hoveddiagnose: {
-                diagnose: "Influensa",
-                diagnosesystem: "ICPC",
-                diagnosekode: "LP2"
-            },
-            arbeidsfoerEtterPerioden: true,
-            status: 'NY'
-        }];
+        sykmeldinger = [
+            getSykmelding({
+                id: 2,
+                mulighetForArbeid: {
+                    perioder: [{
+                        fom: { year: 2016, monthValue: 1, dayOfMonth: 1 },
+                        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                        grad: 67
+                    }],
+                }
+            }), 
+            getSykmelding({
+                id: 1,
+                mulighetForArbeid: {
+                    perioder: [{
+                        fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
+                        tom: { year: 2016, monthValue: 2, dayOfMonth: 6 },
+                        grad: 67
+                    }],
+                }
+            }), 
+            getSykmelding({
+                id: 3,
+                mulighetForArbeid: {
+                    perioder: [{
+                        fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
+                        tom: { year: 2016, monthValue: 3, dayOfMonth: 10 },
+                        grad: 67
+                    }],
+                }
+            }),
+            getSykmelding({
+                id: 4,
+                mulighetForArbeid: {
+                    perioder: [{
+                        fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
+                        tom: { year: 2016, monthValue: 3, dayOfMonth: 20 },
+                        grad: 67
+                    }],
+                }
+            }),
+            getSykmelding({
+                id: 5,
+                status: "GAMMEL",
+                mulighetForArbeid: {
+                    perioder: [{
+                        fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
+                        tom: { year: 2016, monthValue: 3, dayOfMonth: 20 },
+                        grad: 67
+                    }],
+                }
+            })
+        ]
 
         state = {
             dineSykmeldinger: {

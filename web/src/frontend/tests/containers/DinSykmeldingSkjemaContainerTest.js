@@ -3,6 +3,7 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock.js";
+import getSykmelding from '../mockSykmeldinger';
 
 import { DinSykmldSkjema, mapStateToProps, validate } from "../../js/containers/DinSykmeldingSkjemaContainer";
 
@@ -33,7 +34,59 @@ describe("DinSykmeldingSkjemaContainer", () => {
                 }]
             },
             dineSykmeldinger: {
-
+                data: [
+                    getSykmelding({
+                        id: 2,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 1, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                                grad: 67
+                            }],
+                        }
+                    }), 
+                    getSykmelding({
+                        id: 1,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 2, dayOfMonth: 6 },
+                                grad: 67
+                            }],
+                        }
+                    }), 
+                    getSykmelding({
+                        id: 3,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 3, dayOfMonth: 10 },
+                                grad: 67
+                            }],
+                        }
+                    }),
+                    getSykmelding({
+                        id: 4,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 3, dayOfMonth: 20 },
+                                grad: 67
+                            }],
+                        }
+                    }),
+                    getSykmelding({
+                        id: 5,
+                        status: "GAMMEL",
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 3, dayOfMonth: 20 },
+                                grad: 67
+                            }],
+                        }
+                    })
+                ]
             },
             ledetekster: {
                 data: ledetekster
@@ -116,7 +169,32 @@ describe("DinSykmeldingSkjemaContainer", () => {
             expect(props.skjemaData).to.deep.equal({
                 "test": "OK"
             })
-        })
+        });
+
+        describe("erEldsteNyeSykmelding", () => {
+
+            it("Skal returnere erEldsteNyeSykmelding === false dersom den valgte sykmeldingen ikke er den eldste", () => {
+                const res = mapStateToProps(getState(), {
+                    sykmeldingId: 3
+                });
+                expect(res.erEldsteNyeSykmelding).to.be.false;
+            });
+
+            it("Skal returnere erEldsteNyeSykmelding === true dersom den valgte sykmeldingen er den eldste", () => {
+                const res = mapStateToProps(getState(), {
+                    sykmeldingId: 2
+                });
+                expect(res.erEldsteNyeSykmelding).to.be.true;
+            });
+
+            it("Skal returnere eldsteSykmeldingId", () => {
+                const res = mapStateToProps(getState(), {
+                    sykmeldingId: 4
+                });
+                expect(res.eldsteSykmeldingId).to.equal(2);
+            });
+
+        });
 
     });
 

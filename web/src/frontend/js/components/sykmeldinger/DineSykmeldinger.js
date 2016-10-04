@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import SykmeldingTeasere from './SykmeldingTeasere.js';
 import { getLedetekst, getHtmlLedetekst } from '../../ledetekster';
-import { sorterSykmeldinger } from '../../utils/datoUtils';
+import { sorterSykmeldinger, sorterSykmeldingerEldsteFoerst } from '../../utils/datoUtils';
 import SykmeldingerSorteringContainer from '../../containers/SykmeldingerSorteringContainer';
 import Sidetopp from '../Sidetopp';
 
@@ -12,7 +12,6 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, sortering }) =>
     const tidligereSykmeldinger = sykmeldinger.filter((sykmld) => {
         return sykmld.status !== 'NY';
     });
-    const nyeSortering = sortering && sortering.nye ? sortering.nye : undefined;
     const tidligereSortering = sortering && sortering.tidligere ? sortering.tidligere : undefined;
 
     return (<div>
@@ -21,7 +20,7 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, sortering }) =>
             htmlTekst={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst', ledetekster)}
             />
         <SykmeldingTeasere
-            sykmeldinger={sorterSykmeldinger(nyeSykmeldinger, nyeSortering)}
+            sykmeldinger={sorterSykmeldingerEldsteFoerst(nyeSykmeldinger)}
             tittel={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.tittel', ledetekster)}
             ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.ingen-sykmeldinger.melding', ledetekster)}
             className="js-nye-sykmeldinger"

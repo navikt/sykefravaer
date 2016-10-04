@@ -40,7 +40,7 @@ export function mapStateToProps(state) {
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: 'Dine sykmeldinger',
+            tittel: getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data),
             sti: '/sykmeldinger',
         }],
     };

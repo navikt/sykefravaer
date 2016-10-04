@@ -4,39 +4,48 @@ import { getLedetekst } from '../../ledetekster';
 import { Field } from 'redux-form';
 import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
 
-export const DuTrengerNySykmelding = () => {
+export const DuTrengerNySykmelding = ({ ledetekster }) => {
     return (<div className="panel panel-relatert">
-        <h5 className="hode hode-advarsel hode-dekorert typo-undertittel">Du trenger ny sykmelding</h5>
-        <p>Du må avbryte denne sykmeldingen og kontakte den som har sykmeldt deg for å få en ny.</p>
+        <h5 className="hode hode-advarsel hode-dekorert typo-undertittel">
+            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tittel', ledetekster)}
+        </h5>
+        <p>
+            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tekst', ledetekster)}
+        </p>
     </div>);
 };
 
-export const DuKanBrukeSykmeldingenDinArbeidsgiver = () => {
+export const DuKanBrukeSykmeldingenDinArbeidsgiver = ({ ledetekster }) => {
     return (<div className="panel panel-relatert">
-        <h5 className="typo-undertittel blokk-xs">Du kan bruke sykmeldingen din</h5>
-        <p>Du velger hvilken arbeidsgiver du skal sende sykmeldingen til i neste steg.
-        Vær oppmerksom på at den du sender til likevel får se hvilken arbeidsgiver som
-        opprinnelig sto i sykmeldingen. Hvis sykmeldingen senere skal forlenges, må du
-        gi beskjed til den som sykmelder deg om at den inneholder feil. </p>
+        <h5 className="typo-undertittel blokk-xs">
+            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel', ledetekster)}
+        </h5>
+        <p>
+            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tekst', ledetekster)}
+        </p>
     </div>);
 };
 
-export const DuKanBrukeSykmeldingenDinDiagnoseAndre = () => {
+export const DuKanBrukeSykmeldingenDinDiagnoseAndre = ({ ledetekster }) => {
     return (<div className="panel panel-relatert">
-        <h5 className="typo-undertittel blokk-xs">Du kan bruke sykmeldingen din</h5>
-        <p>Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.</p>
+        <h5 className="typo-undertittel blokk-xs">
+        {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel', ledetekster)}
+        </h5>
+        <p>
+            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tekst', ledetekster)}
+        </p>
     </div>);
 };
 
-export const SykmeldingFeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = {} }) => {
+export const SykmeldingFeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = {}, ledetekster }) => {
     if (feilaktigeOpplysninger.periode || feilaktigeOpplysninger.sykmeldingsgrad) {
-        return <DuTrengerNySykmelding />;
+        return <DuTrengerNySykmelding ledetekster={ledetekster} />;
     }
     if (feilaktigeOpplysninger.arbeidsgiver) {
-        return <DuKanBrukeSykmeldingenDinArbeidsgiver />;
+        return <DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />;
     }
     if (feilaktigeOpplysninger.diagnose || feilaktigeOpplysninger.andre) {
-        return <DuKanBrukeSykmeldingenDinDiagnoseAndre />;
+        return <DuKanBrukeSykmeldingenDinDiagnoseAndre ledetekster={ledetekster} />;
     }
     return null;
 };
@@ -65,7 +74,7 @@ const HvilkeOpplysningerErIkkeRiktige = ({ skjemaData, ledetekster }) => {
             Overskrift="h4"
             spoersmaal={getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sporsmal', ledetekster)}>
             {checkboxer}
-            <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger} />
+            <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger} ledetekster={ledetekster} />
         </Checkboxgruppe>
     </div>);
 };

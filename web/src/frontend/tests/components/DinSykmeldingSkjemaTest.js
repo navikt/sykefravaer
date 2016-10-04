@@ -402,22 +402,22 @@ describe("DinSykmeldingSkjema -", () => {
             const feilaktigeOpplysninger1 = {
                 periode: true
             };
-            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
-            expect(component1.contains(<DuTrengerNySykmelding />)).to.be.true;
+            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
+            expect(component1.contains(<DuTrengerNySykmelding ledetekster={ledetekster} />)).to.be.true;
 
             const feilaktigeOpplysninger2 = {
                 sykmeldingsgrad: true
             };
-            let component2 = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger2} />);
-            expect(component2.contains(<DuTrengerNySykmelding />)).to.be.true;
+            let component2 = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} feilaktigeOpplysninger={feilaktigeOpplysninger2} />);
+            expect(component2.contains(<DuTrengerNySykmelding ledetekster={ledetekster} />)).to.be.true;
         }); 
 
         it("Skal inneholde 'Du kan bruke sykmeldingen din Arbeidsgiver' dersom arbeidsgiver er den eneste feilaktige opplysningen", () => {
             const feilaktigeOpplysninger1 = {
                 arbeidsgiver: true,
             };
-            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver />)).to.be.true;
+            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />)).to.be.true;
         }); 
 
         it("Skal inneholde 'Du kan bruke sykmeldingen din Arbeidsgiver' dersom arbeidsgiver og diagnose er de feilaktige opplysnignene", () => {
@@ -425,10 +425,10 @@ describe("DinSykmeldingSkjema -", () => {
                 arbeidsgiver: true,
                 diagnose: true,
             };
-            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver />)).to.be.true;
-            expect(component1.contains(<DuTrengerNySykmelding />)).to.be.false;
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre />)).to.be.false;
+            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />)).to.be.true;
+            expect(component1.contains(<DuTrengerNySykmelding ledetekster={ledetekster} />)).to.be.false;
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre ledetekster={ledetekster} />)).to.be.false;
         }); 
 
         it("Skal inneholde 'Du trenger ny sykmelding' dersom periode og diagnose er de feilaktige opplysningene", () => {
@@ -436,27 +436,27 @@ describe("DinSykmeldingSkjema -", () => {
                 periode: true,
                 diagnose: true,
             };
-            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
-            expect(component1.contains(<DuTrengerNySykmelding />)).to.be.true;
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver />)).to.be.false;
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre />)).to.be.false;
+            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
+            expect(component1.contains(<DuTrengerNySykmelding ledetekster={ledetekster} />)).to.be.true;
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />)).to.be.false;
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre ledetekster={ledetekster} />)).to.be.false;
         });
 
         it("Skal inneholde 'DuKanBrukeSykmeldingenDinDiagnoseAndre' dersom diagnose er den feilaktige opplysningen", () => {
             const feilaktigeOpplysninger1 = {
                 diagnose: true,
             };
-            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
-            expect(component1.contains(<DuTrengerNySykmelding />)).to.be.false;
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver />)).to.be.false;
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre />)).to.be.true;
+            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
+            expect(component1.contains(<DuTrengerNySykmelding ledetekster={ledetekster} />)).to.be.false;
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />)).to.be.false;
+            expect(component1.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre ledetekster={ledetekster} />)).to.be.true;
         });
 
         it("Skal returnere null dersom ingen opplysninger er feilaktige", () => {
-            let component = shallow(<SykmeldingFeilaktigeOpplysningerInfo />);
-            expect(component.contains(<DuTrengerNySykmelding />)).to.be.false;
-            expect(component.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver />)).to.be.false;
-            expect(component.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre />)).to.be.false;    
+            let component = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} />);
+            expect(component.contains(<DuTrengerNySykmelding ledetekster={ledetekster} />)).to.be.false;
+            expect(component.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />)).to.be.false;
+            expect(component.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre ledetekster={ledetekster} />)).to.be.false;    
         })
 
     }); 

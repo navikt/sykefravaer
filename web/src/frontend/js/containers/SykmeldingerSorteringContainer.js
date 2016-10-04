@@ -26,10 +26,10 @@ function mapStateToProps(state) {
     return {
         ledetekster: state.ledetekster,
         alternativer: [{
-            tekst: 'Dato',
+            tekst: getLedetekst('dine-sykmeldinger.sorter.dato', state.ledetekster.data),
             verdi: 'fom',
         }, {
-            tekst: 'Arbeidsgiver',
+            tekst: getLedetekst('dine-sykmeldinger.sorter.arbeidsgiver', state.ledetekster.data),
             verdi: 'arbeidsgiver',
         }],
     };

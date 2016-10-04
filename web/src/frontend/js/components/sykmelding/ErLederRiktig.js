@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
+import { getLedetekst } from '../../ledetekster';
 
-const ErLederRiktig = ({ naermesteLeder, skjemaData }) => {
+const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {
     const alternativer = [{
         label: 'Ja',
         beOmNyNaermesteLeder: false,
@@ -14,10 +15,16 @@ const ErLederRiktig = ({ naermesteLeder, skjemaData }) => {
     const feilmelding = getFeilmelding(skjemaData, 'beOmNyNaermesteLeder');
 
     return (<div className="blokk">
-        <h4 className="skjema-sporsmal">Din nærmeste leder med personalansvar</h4>
-        <p>Nærmeste leder vil få sykmeldingen du sender til arbeidsgiver. Personen kan også bli kontaktet av NAV hvis det er behov for det underveis i sykefraværet. </p>
+        <h4 className="skjema-sporsmal">{getLedetekst('starte-sykmelding.bekreft-naermeste-leder.tittel', ledetekster)}</h4>
+        <p>{getLedetekst('starte-sykmelding.bekreft-naermeste-leder.tekst', ledetekster)}</p>
         <div className={erFeil ? 'skjema-feilomrade feil' : 'skjema-feilomrade'}>
-            <h5 className="label radiogruppeLabel">Er {naermesteLeder} din nærmeste leder?</h5>
+            <h5 className="label radiogruppeLabel">
+                {
+                    getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal', ledetekster, {
+                        "%NAERMESTELEDER%": naermesteLeder
+                    })
+                }
+            </h5>
             {
                 alternativer.map((alternativ, index) => {
                     return (<div className="nav-input" key={index}>

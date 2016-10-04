@@ -144,22 +144,15 @@ export class DinSykmeldingSkjemaComponent extends Component {
     render() {
         const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, avbryter, handleSubmit, untouch, erEldsteNyeSykmelding, eldsteSykmeldingId } = this.props;
         const values = skjemaData && skjemaData.values ? skjemaData.values : {};
-        const knappetekster = {
-            GA_VIDERE: 'Gå videre',
-            BEKREFT: 'Bekreft sykmelding',
-            SEND: 'Send sykmelding',
-            AVBRYT: 'Avbryt sykmelding',
-        };
         const modus = this.getSkjemaModus(values, harStrengtFortroligAdresse);
 
         return (<form id="dinSykmeldingSkjema" className="panel blokk" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
-            <h3 className="typo-innholdstittel">Bruk sykmeldingen</h3>
+            <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel', ledetekster)}</h3>
             {
                 !erEldsteNyeSykmelding && <div className="panel panel-ramme">
                     <Varselstripe type="info">
-                        <p className="sist side-innhold">
-                            Du har eldre sykmeldinger som du bør behandle
-                            før denne. <Link to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>Gå til den eldste sykmeldingen.</Link>
+                        <p className="sist side-innhold">{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst', ledetekster)}
+                             <Link to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke', ledetekster)}</Link>
                         </p>
                     </Varselstripe>
                 </div>
@@ -199,7 +192,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 <p className="blokk-s">
                     <button ref={modus === 'AVBRYT' ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
                         className={`js-submit knapp ${modus === 'AVBRYT' ? 'knapp-fare' : 'knapp-hoved'} ${(sender) ? 'er-inaktiv knapp-spinner js-spinner' : ''}`}>
-                        {knappetekster[modus]}
+                        {getLedetekst(`starte-sykmelding.knapp.${modus}`, ledetekster)}
                         <span className="spinner-knapp" />
                     </button>
                 </p>
@@ -211,7 +204,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                                 this.setState({
                                     visAvbrytDialog: !this.state.visAvbrytDialog,
                                 });
-                            }}>Jeg ønsker ikke å bruke denne sykmeldingen</a>
+                            }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog', ledetekster)}</a>
                         </p>
                     }
                     {

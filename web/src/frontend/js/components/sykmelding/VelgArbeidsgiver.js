@@ -70,7 +70,7 @@ const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }
         </div>
         {
             values.valgtArbeidsgiver && values.valgtArbeidsgiver.naermesteLeder &&
-                <ErLederRiktig naermesteLeder={values.valgtArbeidsgiver.naermesteLeder} skjemaData={skjemaData} />
+                <ErLederRiktig naermesteLeder={values.valgtArbeidsgiver.naermesteLeder} skjemaData={skjemaData} ledetekster={ledetekster} />
         }
     </div>);
 };

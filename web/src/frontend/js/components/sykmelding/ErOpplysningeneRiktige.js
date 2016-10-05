@@ -24,8 +24,8 @@ const ErOpplysningeneRiktige = ({ skjemaData, ledetekster, untouch }) => {
                             id={`radio-${alternativ}`}
                             value={alternativ}
                             checked={verdi === alternativ}
-                            parse={(verdi) => {
-                                return verdi === 'true';
+                            parse={(v) => {
+                                return v === 'true';
                             }}
                             onBlur={() => {
                                 untouch('feilaktigeOpplysninger.periode',

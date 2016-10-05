@@ -15,6 +15,10 @@ export const DuTrengerNySykmelding = ({ ledetekster }) => {
     </div>);
 };
 
+DuTrengerNySykmelding.propTypes = {
+    ledetekster: PropTypes.object,
+};
+
 export const DuKanBrukeSykmeldingenDinArbeidsgiver = ({ ledetekster }) => {
     return (<div className="panel panel-relatert">
         <h5 className="typo-undertittel blokk-xs">
@@ -26,6 +30,10 @@ export const DuKanBrukeSykmeldingenDinArbeidsgiver = ({ ledetekster }) => {
     </div>);
 };
 
+DuKanBrukeSykmeldingenDinArbeidsgiver.propTypes = {
+    ledetekster: PropTypes.object,
+};
+
 export const DuKanBrukeSykmeldingenDinDiagnoseAndre = ({ ledetekster }) => {
     return (<div className="panel panel-relatert">
         <h5 className="typo-undertittel blokk-xs">
@@ -35,6 +43,10 @@ export const DuKanBrukeSykmeldingenDinDiagnoseAndre = ({ ledetekster }) => {
             {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tekst', ledetekster)}
         </p>
     </div>);
+};
+
+DuKanBrukeSykmeldingenDinDiagnoseAndre.propTypes = {
+    ledetekster: PropTypes.object,
 };
 
 export const SykmeldingFeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = {}, ledetekster }) => {
@@ -52,6 +64,7 @@ export const SykmeldingFeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = 
 
 SykmeldingFeilaktigeOpplysningerInfo.propTypes = {
     feilaktigeOpplysninger: PropTypes.object,
+    ledetekster: PropTypes.object,
 };
 
 const HvilkeOpplysningerErIkkeRiktige = ({ skjemaData, ledetekster }) => {

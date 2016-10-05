@@ -1,7 +1,5 @@
 .sykmeldingPerioder {
 
-	margin-bottom: 2rem; 
-
 	.nokkelopplysning:not(:only-child) {
 		padding-bottom: 1rem;
 		margin-bottom: 1rem;
@@ -16,7 +14,13 @@
 
 		.nokkelopplysning {
 			margin-right: 2rem; 
-			width: 60%;
+			flex: 1;
+			width: ~"calc(50% - 2rem)";
+		}
+
+		.nokkelopplysning:last-child {
+			width: 50%;
+			margin-right: 0;
 		}
 	}
 }

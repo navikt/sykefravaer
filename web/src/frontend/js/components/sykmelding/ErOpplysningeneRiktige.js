@@ -4,22 +4,6 @@ import HvilkeOpplysningerErIkkeRiktige from './HvilkeOpplysningerErIkkeRiktige';
 import { Field } from 'redux-form';
 import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
 
-const Radio = (field) => {
-    return (<input
-        {...field.input}
-        type="radio"
-        name={field.name}
-        id={field.id}
-        value={field.verdi}
-        className="nav-radioknapp"
-        checked={field.checked}
-        onChange={(e) => {
-            field.untouch();
-            field.input.onChange(e);
-        }}
-    />);
-};
-
 const ErOpplysningeneRiktige = ({ skjemaData, ledetekster, untouch }) => {
     const alternativer = [true, false];
     const verdi = skjemaData.values ? skjemaData.values.opplysningeneErRiktige : null;
@@ -30,17 +14,20 @@ const ErOpplysningeneRiktige = ({ skjemaData, ledetekster, untouch }) => {
         <div className={`skjema-feilomrade${erFeil ? ' feil' : ''}`}>
             <h3 className="skjema-sporsmal">{getLedetekst('sykmelding.bekreft-opplysninger.sporsmal', ledetekster)}</h3>
             {
-                alternativer.map((alternativ) => {
-                    return (<div className="nav-input" key={alternativ}>
+                alternativer.map((alternativ, index) => {
+                    return (<div className="nav-input" key={index}>
                         <Field
-                            component={Radio}
+                            component="input"
+                            type="radio"
                             name="opplysningeneErRiktige"
+                            className="nav-radioknapp"
                             id={`radio-${alternativ}`}
-                            verdi={alternativ}
-                            parse={(e) => {
-                                return e === 'true';
+                            value={alternativ}
+                            checked={verdi === alternativ}
+                            parse={(verdi) => {
+                                return verdi === 'true';
                             }}
-                            untouch={() => {
+                            onBlur={() => {
                                 untouch('feilaktigeOpplysninger.periode',
                                     'feilaktigeOpplysninger.sykmeldingsgrad',
                                     'feilaktigeOpplysninger.arbeidsgiver',

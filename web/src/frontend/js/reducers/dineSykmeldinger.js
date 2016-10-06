@@ -1,6 +1,5 @@
 const initiellState = {
     henter: false,
-    arbeidsforhold: [],
     hentingFeilet: false,
     data: [],
     erFeil: false,

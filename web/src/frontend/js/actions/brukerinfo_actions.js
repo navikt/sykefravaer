@@ -1,5 +1,4 @@
 import { harLocalStorageStotte } from '../utils';
-import Ajax from 'simple-ajax';
 
 export function skjulUnderUtviklingVarsel() {
     if (harLocalStorageStotte()) {
@@ -56,36 +55,13 @@ export function sjekkerInnlogging() {
 }
 
 export function sjekkInnlogging() {
-    return function innlogging(dispatch) {
-        const ajax = new Ajax('/sykefravaer/');
-        ajax.on('success', () => {
-            dispatch(setErInnlogget());
-        });
-        ajax.on('error', () => {
-            dispatch(setErUtlogget());
-        });
-        dispatch(sjekkerInnlogging());
-        ajax.send();
+    return {
+        type: 'SJEKK_INNLOGGING_FORESPURT',
     };
 }
 
 export function hentBrukerinfo() {
-    return function brukerinfo(dispatch) {
-        dispatch(henterBrukerinfo());
-        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/informasjon/bruker`, {
-            credentials: 'include',
-        })
-            .then((response) => {
-                if (response.status > 400) {
-                    dispatch(hentBrukerinfoFeilet());
-                }
-                return response.json();
-            })
-            .then((json) => {
-                return dispatch(setBrukerinfo(json));
-            })
-            .catch(() => {
-                return dispatch(hentBrukerinfoFeilet());
-            });
+    return {
+        type: 'HENT_BRUKERINFO_FORESPURT'
     };
 }

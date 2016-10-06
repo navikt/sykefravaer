@@ -29,8 +29,10 @@ describe("ledetekster_actions", () => {
 		})
 	});	
 
-	it("Should have a hentLedetekster action that returns a function", () => {
-		expect(typeof actions.hentLedetekster()).to.equal("function")
+	it("Should have a hentLedetekster funksjon som returnerer riktig action", () => {
+		expect(actions.hentLedetekster()).to.deep.equal({
+			type: 'HENT_LEDETEKSTER_FORESPURT'
+		})
 	});	
 
 });

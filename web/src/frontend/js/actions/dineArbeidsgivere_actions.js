@@ -23,23 +23,8 @@ export function setAktuelleArbeidsgivere(sykmeldingId, arbeidsgivere) {
 }
 
 export function hentAktuelleArbeidsgivere(sykmeldingId) {
-    return function arbeidsgivere(dispatch) {
-        dispatch(henterAktuelleArbeidsgivere(sykmeldingId));
-        const url = `${window.SYFO_SETTINGS.REST_ROOT}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`;
-        return fetch(url, {
-            credentials: 'include',
-        })
-            .then((response) => {
-                if (response.status > 400) {
-                    dispatch(hentAktuelleArbeidsgivereFeilet(sykmeldingId));
-                }
-                return response.json();
-            })
-            .then((json) => {
-                return dispatch(setAktuelleArbeidsgivere(sykmeldingId, json));
-            })
-            .catch(() => {
-                return dispatch(hentAktuelleArbeidsgivereFeilet(sykmeldingId));
-            });
+    return {
+        type: 'HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT',
+        sykmeldingId,
     };
 }

@@ -32,6 +32,7 @@ DineSykmldSide.propTypes = {
 };
 
 export function mapStateToProps(state) {
+    console.log("state", state);
     return {
         sykmeldinger: state.dineSykmeldinger,
         ledetekster: state.ledetekster,

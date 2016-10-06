@@ -96,97 +96,28 @@ export function setFeilaktigOpplysning(sykmeldingId, opplysning, erFeilaktig) {
 }
 
 export function bekreftSykmelding(sykmeldingId, arbeidssituasjon = {}, feilaktigeOpplysninger = {}) {
-    return function bekreft(dispatch) {
-        dispatch(bekrefterSykmelding());
-        const body = {
-            arbeidssituasjon,
-            feilaktigeOpplysninger,
-        };
-        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`,
-            {
-                credentials: 'include',
-                method: 'POST',
-                body: JSON.stringify(body),
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
-                }),
-            })
-        .then((response) => {
-            if (response.status > 400) {
-                dispatch(bekreftSykmeldingFeilet());
-            } else {
-                dispatch(sykmeldingBekreftet(sykmeldingId));
-                dispatch(dineSykmeldingerActions.hentDineSykmeldinger());
-                dispatch(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
-            }
-            return response;
-        })
-        .catch(() => {
-            return dispatch(bekreftSykmeldingFeilet());
-        });
-    };
+    return {
+        type: 'BEKREFT_SYKMELDING_FORESPURT',
+        sykmeldingId,
+        arbeidssituasjon,
+        feilaktigeOpplysninger,
+    }
 }
 
 export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger = {}, beOmNyNaermesteLeder = true) {
-    return function send(dispatch) {
-        dispatch(senderSykmelding(sykmeldingId));
-        const body = {
-            orgnummer,
-            feilaktigeOpplysninger,
-            beOmNyNaermesteLeder,
-        };
-        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/send`,
-            {
-                credentials: 'include',
-                method: 'POST',
-                body: JSON.stringify(body),
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
-                }),
-            })
-        .then((response) => {
-            if (response.status > 400) {
-                dispatch(sendSykmeldingFeilet(sykmeldingId));
-            } else {
-                dispatch(sykmeldingSendt(sykmeldingId, orgnummer));
-                dispatch(dineSykmeldingerActions.hentDineSykmeldinger());
-                dispatch(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
-            }
-            return response;
-        })
-        .catch(() => {
-            return dispatch(sendSykmeldingFeilet(sykmeldingId));
-        });
-    };
+    return {
+        type: 'SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT',
+        sykmeldingId,
+        orgnummer,
+        feilaktigeOpplysninger,
+        beOmNyNaermesteLeder,
+    }
 }
 
 export function avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger = {}) {
-    return function send(dispatch) {
-        dispatch(avbryterSykmelding(sykmeldingId));
-        return fetch(`${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/avbryt`,
-            {
-                credentials: 'include',
-                method: 'POST',
-                body: JSON.stringify(feilaktigeOpplysninger),
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
-                }),
-            })
-        .then((response) => {
-            if (response.status > 400) {
-                dispatch(avbrytSykmeldingFeilet(sykmeldingId));
-            } else {
-                dispatch(sykmeldingAvbrutt(sykmeldingId));
-                dispatch(dineSykmeldingerActions.hentDineSykmeldinger());
-                dispatch(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
-            }
-            return response;
-        })
-        .catch(() => {
-            return dispatch(avbrytSykmeldingFeilet(sykmeldingId));
-        });
+    return {
+        type: 'AVBRYT_SYKMELDING_FORESPURT',
+        sykmeldingId,
+        feilaktigeOpplysninger,
     };
 }

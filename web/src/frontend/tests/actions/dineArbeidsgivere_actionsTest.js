@@ -3,21 +3,14 @@ import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from '../../js/actions/dineArbeidsgivere_actions.js';
 
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import nock from 'nock';
-
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-const middlewares = [ thunk ];
-const mockStore = configureMockStore(middlewares);
 
 describe("dineArbeidsgivere_actions", () => {
 
     let store; 
 
     beforeEach(() => {
-        store = mockStore();
         window = window || {};
         window.SYFO_SETTINGS = {
             REST_ROOT: 'http://tjenester.nav.no/syforest'
@@ -25,10 +18,11 @@ describe("dineArbeidsgivere_actions", () => {
     });    
 
     it("Skal ha en hentAktuelleArbeidsgivere(sykmeldingId, dato)-funksjon som returnerer en funksjon", () => {
-        const sykmeldingId = "olsen";
-        const dato = { year: 2015, monthValue: 12, dayOfMonth: 31 };
-        const resultat = actions.hentAktuelleArbeidsgivere(sykmeldingId, dato);
-        expect(typeof resultat).to.equal("function");
+        const action = actions.hentAktuelleArbeidsgivere("455");
+        expect(action).to.deep.equal({
+            type: 'HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT',
+            sykmeldingId: "455"
+        });
     });
 
     it("Skal ha en henterAktuelleArbeidsgivere(sykmeldingId)-funksjon som returnerer riktig action", () => {
@@ -79,43 +73,5 @@ describe("dineArbeidsgivere_actions", () => {
             }]
         })
     });
-
-    it("Kaller på setAktuelleArbeidsgivere() når hentAktuelleArbeidsgivere() er fullført", () => {
-        nock('http://tjenester.nav.no/syforest/')
-        .get("/informasjon/arbeidsgivere?sykmeldingId=55")
-        .reply(200, [{
-            orgnr: 12345678,
-            navn: "Hansens Frisørsalong"
-        }, {
-            orgnr: 87654321,
-            navn: "Oslo Sykkelbutikk"
-        }, {
-            orgnr: 32165478,
-            navn: "Bergen Malingsfabrikk"
-        }])
-
-        const id = "55";
-        const dato = { year: 2015, monthValue: 12, dayOfMonth: 31 };
-
-        const expectedActions = [
-            { type: "HENTER_AKTUELLE_ARBEIDSGIVERE", sykmeldingId: "55"}, 
-            { type: "SET_AKTUELLE_ARBEIDSGIVERE", sykmeldingId: "55", arbeidsgivere: [{
-            orgnr: 12345678,
-            navn: "Hansens Frisørsalong"
-        }, {
-            orgnr: 87654321,
-            navn: "Oslo Sykkelbutikk"
-        }, {
-            orgnr: 32165478,
-            navn: "Bergen Malingsfabrikk"
-        }]}]
-
-        return store.dispatch(actions.hentAktuelleArbeidsgivere(id, dato))
-            .then(() => { 
-                expect(store.getActions()).to.deep.equal(expectedActions)
-            });
-    });    
-
-
 
 });

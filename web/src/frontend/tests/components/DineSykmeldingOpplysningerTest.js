@@ -135,11 +135,11 @@ describe("DineSykmeldingOpplysninger", () => {
 
             component = mount(<DineSykmeldingOpplysninger sykmelding={getSykmelding({
                 diagnose: {
-                    bidiagnose: {
+                    bidiagnoser: [{
                         diagnose: "Mageknipe",
                         diagnosesystem: "IZPZ",
                         diagnosekode: "LP3"
-                    }
+                    }]
                 }
             })} ledetekster={ledetekster}/>)
             expect(component.find(".js-bidiagnose").text()).to.equal("Mageknipe")
@@ -285,11 +285,11 @@ describe("DineSykmeldingOpplysninger", () => {
                     "diagnosekode": "L87",
                     "diagnosesystem": "ICPC-2"
                 },
-                "bidiagnose": {
+                "bidiagnoser": [{
                     "diagnose": "GANGLION SENE",
                     "diagnosekode": "L87",
                     "diagnosesystem": "ICPC-2"
-                },
+                }],
                 "fravaersgrunnLovfestet": "CS",
                 "fravaerBeskrivelse": "Vedkommende er under behandling og legen erklærer at behandlingen gjør det nødvendig at vedkommende ikke arbeider",
                 "arbeidsfoerEtterPerioden": true,
@@ -350,11 +350,11 @@ describe("DineSykmeldingOpplysninger", () => {
                     "diagnosekode": "L87",
                     "diagnosesystem": "ICPC-2"
                 },
-                "bidiagnose": {
+                "bidiagnoser": [{
                     "diagnose": "GANGLION SENE",
                     "diagnosekode": "L87",
                     "diagnosesystem": "ICPC-2"
-                },
+                }],
                 "fravaersgrunnLovfestet": "CS",
                 "fravaerBeskrivelse": "Vedkommende er under behandling og legen erklærer at behandlingen gjør det nødvendig at vedkommende ikke arbeider",
                 "arbeidsfoerEtterPerioden": false,

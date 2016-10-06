@@ -3,7 +3,6 @@ import * as actionCreators from '../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../components/sykmelding/DinSykmeldingSkjema';
 import { getLedetekst } from '../ledetekster';
 import { connect } from 'react-redux';
-import { sorterSykmeldingerEldsteFoerst } from '../utils/datoUtils';
 
 export const mapStateToProps = (state, ownProps) => {
     let sykmelding = {};
@@ -25,18 +24,10 @@ export const mapStateToProps = (state, ownProps) => {
     });
     const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
 
-    const nyeSykmeldinger = state.dineSykmeldinger.data.filter((_sykmelding) => {
-        return _sykmelding.status === 'NY';
-    });
-    const eldsteSykmelding = sorterSykmeldingerEldsteFoerst(nyeSykmeldinger)[0];
-    const erEldsteNyeSykmelding = eldsteSykmelding.id === ownProps.sykmeldingId;
-
     return {
         skjemaData: state.form.dinSykmeldingSkjema,
         initialValues: sykmelding,
         sykmelding,
-        erEldsteNyeSykmelding,
-        eldsteSykmeldingId: eldsteSykmelding.id,
         ledetekster: state.ledetekster.data,
         sender: state.arbeidsgiversSykmeldinger.sender,
         avbryter: state.dineSykmeldinger.avbryter,

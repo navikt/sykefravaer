@@ -5,10 +5,31 @@ import HendelseIkon from './HendelseIkon';
 import { scrollTo } from '../../utils';
 import { toDatePrettyPrint } from '../../utils/datoUtils';
 
+export function getHtmlTittel(hendelse, ledetekster) {
+    switch (hendelse.type) {
+        case 'AKTIVITETSKRAV_VARSEL': {
+            return getLedetekst(`${hendelse.tekstkey}.tittel`, ledetekster, {
+                '%DATO%': toDatePrettyPrint(hendelse.inntruffetdato),
+            });
+        }
+        case 'NY_NAERMESTE_LEDER': {
+            return getLedetekst(`${hendelse.tekstkey}.tittel`, ledetekster, {
+                '%DATO%': toDatePrettyPrint(hendelse.inntruffetdato),
+                '%ARBEIDSGIVER%': 'Din arbeidsgiver',
+                '%NAERMESTELEDER%': hendelse.data.naermesteLeder.navn,
+            });
+        }
+        default:
+            return `<h3>${getLedetekst(`${hendelse.tekstkey}.tittel`, ledetekster)}</h3>`;
+    }
+}
+
 const BobleHeader = (props) => {
     return (<a
         role="button"
-        onClick={(e) => { props.clickHandler(e); }}
+        onClick={(e) => {
+            props.clickHandler(e);
+        }}
         aria-pressed={props.erApen}
         href={`#${props.id}`}
         className={!props.erApen ? 'tidslinjeBoble__header' : 'tidslinjeBoble__header tidslinjeBoble__header--erApen'}>
@@ -29,7 +50,7 @@ BobleHeader.propTypes = {
 class HendelseBoble extends Component {
 
     onTransitionEnd() {
-        if (!this.props.erApen) {
+        if (!this.props.hendelse.erApen) {
             this.props.setHendelseState({
                 visBudskap: false,
                 medAnimasjon: false,
@@ -51,25 +72,16 @@ class HendelseBoble extends Component {
     }
 
     getContainerClass() {
-        let className = this.props.erApen ? 'tidslinjeBoble__budskapContainer tidslinjeBoble__budskapContainer--erApen' : 'tidslinjeBoble__budskapContainer';
-        if (this.props.medAnimasjon) {
+        let className = this.props.hendelse.erApen ? 'tidslinjeBoble__budskapContainer tidslinjeBoble__budskapContainer--erApen' : 'tidslinjeBoble__budskapContainer';
+        if (this.props.hendelse.medAnimasjon) {
             className = `${className} tidslinjeBoble__budskapContainer--medAnimasjon`;
         }
         return className;
     }
 
-    getHtmlTittel() {
-        if (this.props.type === 'AKTIVITETSKRAV_VARSEL') {
-            return getLedetekst(`${this.props.tekstkey}.tittel`, this.props.ledetekster, {
-                '%DATO%': toDatePrettyPrint(this.props.inntruffetdato),
-            });
-        }
-        return `<h3>${getLedetekst(`${this.props.tekstkey}.tittel`, this.props.ledetekster)}</h3>`;
-    }
-
     setNaavaerendeHoyde() {
         const budskapHoyde = this.refs['js-budskap'].offsetHeight;
-        const naaHoyde = !this.props.erApen ? null : budskapHoyde;
+        const naaHoyde = !this.props.hendelse.erApen ? null : budskapHoyde;
 
         this.props.setHendelseState({
             hoyde: `${naaHoyde}px`,
@@ -108,65 +120,69 @@ class HendelseBoble extends Component {
 
     toggle(e) {
         e.preventDefault();
-        if (this.props.erApen && !this.props.hindreToggle) {
+        if (this.props.hendelse.erApen && !this.props.hendelse.hindreToggle) {
             this.lukk();
-        } else if (!this.props.hindreToggle) {
+        } else if (!this.props.hendelse.hindreToggle) {
             this.apne();
         }
     }
 
     render() {
         return (<article className="tidslinjeHendelse js-hendelse">
-                <div className="tidslinjeHendelse__rad">
-                    <div className="tidslinjeHendelse__status">
-                        <HendelseIkon type={this.props.type} />
-                    </div>
-                    <div className="tidslinjeHendelse__innhold" ref="boble-header">
-                        <BobleHeader {...this.props}
-                            htmlTittel={this.getHtmlTittel()}
-                            clickHandler={(e) => {
-                                this.toggle(e);
-                            }} />
-                    </div>
+            <div className="tidslinjeHendelse__rad">
+                <div className="tidslinjeHendelse__status">
+                    <HendelseIkon type={this.props.hendelse.type}/>
                 </div>
-                <div className="tidslinjeHendelse__rad">
-                    <div className="tidslinjeHendelse__status" />
-                    <div className="tidslinjeHendelse__innhold">
-                        <div
-                            aria-hidden={!this.props.erApen}
-                            style={this.props.hoyde ? { height: this.props.hoyde } : {}}
-                            className={this.getContainerClass()}
-                            onTransitionEnd={() => {
-                                this.onTransitionEnd();
-                            }}>
-                            <div ref="js-budskap">
-                                <TidslinjeBudskap
-                                    vis={this.props.visBudskap}
-                                    bilde={this.props.bilde}
-                                    alt={this.props.alt}
-                                    innhold={getLedetekst(`${this.props.tekstkey}.budskap`, this.props.ledetekster)} />
-                            </div>
+                <div className="tidslinjeHendelse__innhold" ref="boble-header">
+                    <BobleHeader {...this.props.hendelse}
+                                 htmlTittel={getHtmlTittel(this.props.hendelse, this.props.ledetekster)}
+                                 clickHandler={(e) => {
+                                     this.toggle(e);
+                                 }}/>
+                </div>
+            </div>
+            <div className="tidslinjeHendelse__rad">
+                <div className="tidslinjeHendelse__status"/>
+                <div className="tidslinjeHendelse__innhold">
+                    <div
+                        aria-hidden={!this.props.hendelse.erApen}
+                        style={this.props.hendelse.hoyde ? { height: this.props.hendelse.hoyde } : {}}
+                        className={this.getContainerClass()}
+                        onTransitionEnd={() => {
+                            this.onTransitionEnd();
+                        }}>
+                        <div ref="js-budskap">
+                            <TidslinjeBudskap
+                                vis={this.props.hendelse.visBudskap}
+                                bilde={this.props.hendelse.bilde}
+                                alt={this.props.hendelse.alt}
+                                innhold={getLedetekst(`${this.props.hendelse.tekstkey}.budskap`, this.props.ledetekster)}/>
                         </div>
                     </div>
                 </div>
+            </div>
         </article>);
     }
 }
 
 HendelseBoble.propTypes = {
-    erApen: PropTypes.bool,
     ledetekster: PropTypes.object,
-    bilde: PropTypes.string,
-    alt: PropTypes.string,
     setHendelseState: PropTypes.func,
-    hoyde: PropTypes.string,
-    visBudskap: PropTypes.bool,
-    medAnimasjon: PropTypes.bool,
-    hindreToggle: PropTypes.bool,
-    id: PropTypes.string,
-    tekstkey: PropTypes.string,
-    type: PropTypes.string,
-    inntruffetdato: PropTypes.object,
+    hendelse: PropTypes.shape({
+        antallDager: PropTypes.number,
+        bilde: PropTypes.string,
+        data: PropTypes.object,
+        id: PropTypes.string,
+        inntruffetdato: PropTypes.date,
+        tekstkey: PropTypes.string,
+        type: PropTypes.string,
+        erApen: PropTypes.bool,
+        medAnimasjon: PropTypes.bool,
+        hindreToggle: PropTypes.bool,
+        hoyde: PropTypes.number,
+        visBudskap: PropTypes.bool,
+        alt: PropTypes.number,
+    }),
 };
 
 export default HendelseBoble;

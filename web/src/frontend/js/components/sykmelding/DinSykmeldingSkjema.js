@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import VelgArbeidssituasjon from '../../components/sykmelding/VelgArbeidssituasjon';
 import VelgArbeidsgiver from '../../components/sykmelding/VelgArbeidsgiver';
 import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykmeldingContainer';
@@ -10,11 +9,11 @@ import { getLedetekst, getHtmlLedetekst } from '../../ledetekster';
 import { reduxForm } from 'redux-form';
 import { filtrerObjektKeys } from '../../utils';
 
-const AvbrytDialog = ({ ledetekster, sender, avbrytHandler, bekreftHandler }) => {
+const AvbrytDialog = ({ ledetekster, avbryter, avbrytHandler, bekreftHandler }) => {
     return (<div className="panel panel-ekstra">
         <p className="blokk-s" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.avbryt.spoersmal', ledetekster)} />
         <div className="blokk-xs">
-            <button className={`knapp knapp-fare ${sender ? 'er-inaktiv knapp-spinner' : ''}`} type="button" onClick={(e) => {
+            <button className={`knapp knapp-fare ${avbryter ? 'er-inaktiv knapp-spinner' : ''}`} type="button" onClick={(e) => {
                 e.preventDefault();
                 bekreftHandler();
             }}>{getLedetekst('din-sykmelding.avbryt.ja', ledetekster)}
@@ -73,12 +72,8 @@ export class DinSykmeldingSkjemaComponent extends Component {
         this.props.bekreftSykmelding(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger);
     }
 
-    send(sykmeldingId, orgnummer, feilaktigeOpplysninger, beOmNyNaermesteLeder) {
-        this.props.sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger, beOmNyNaermesteLeder);
-    }
-
     avbryt(sykmeldingId, feilaktigeOpplysninger) {
-        this.props.avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger)    
+        this.props.avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger);
     }
 
     harValgtAnnenArbeidsgiver(values) {
@@ -88,21 +83,31 @@ export class DinSykmeldingSkjemaComponent extends Component {
     handleSubmit(values) {
         const modus = this.getSkjemaModus(values, this.props.harStrengtFortroligAdresse);
         const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding } = this.props;
-        setOpplysningeneErRiktige(sykmelding.id, values.opplysningeneErRiktige);
-        setArbeidssituasjon(values.valgtArbeidssituasjon, sykmelding.id);
-        setArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver);
+        let feilaktigeOpplysninger = values.feilaktigeOpplysninger;
         for (const key in values.feilaktigeOpplysninger) {
             if (values.feilaktigeOpplysninger.hasOwnProperty(key)) {
                 setFeilaktigOpplysning(sykmelding.id, key, values.feilaktigeOpplysninger[key]);
             }
         }
+        setOpplysningeneErRiktige(sykmelding.id, values.opplysningeneErRiktige);
+        if (values.opplysningeneErRiktige) {
+            for (const key in values.feilaktigeOpplysninger) {
+                if (values.feilaktigeOpplysninger.hasOwnProperty(key)) {
+                    setFeilaktigOpplysning(sykmelding.id, key, false);
+                }
+            }
+            feilaktigeOpplysninger = {};
+        }
+        setArbeidssituasjon(values.valgtArbeidssituasjon, sykmelding.id);
+        setArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver);
+
         switch (modus) {
             case 'SEND': {
-                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, values.feilaktigeOpplysninger, values.beOmNyNaermesteLeder);
+                this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysninger, values.beOmNyNaermesteLeder);
                 return;
             }
             case 'BEKREFT': {
-                this.bekreft(sykmelding.id, values.valgtArbeidssituasjon, values.feilaktigeOpplysninger);
+                this.bekreft(sykmelding.id, values.valgtArbeidssituasjon, feilaktigeOpplysninger);
                 return;
             }
             case 'AVBRYT': {

@@ -36,7 +36,7 @@ export function post(url, body) {
     })
     .then((res) => {
         if (res.status > 400) {
-            throw 'Error';
+            throw new Error('Forespørsel feilet');
         } else {
             return res;
         }

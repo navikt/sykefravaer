@@ -5,7 +5,7 @@ import deepFreeze from 'deep-freeze';
 import dineSykmeldinger from '../../js/reducers/dineSykmeldinger.js';
 import * as dinSykmeldingActions from '../../js/actions/dinSykmelding_actions';
 
-describe.only('dineSykmeldingerReducer', () => {
+describe('dineSykmeldingerReducer', () => {
 
     it('håndterer SET_DINE_SYKMELDINGER når man ikke har sykmeldinger fra før', () => {
         const initialState = deepFreeze({
@@ -200,7 +200,7 @@ describe.only('dineSykmeldingerReducer', () => {
         expect(nextState).to.deep.equal({
             data: [{
                 id: 23,
-                arbeidssituasjon: 'test'
+                valgtArbeidssituasjon: 'test'
             }, {
                 id: 24,
             }]
@@ -264,7 +264,6 @@ describe.only('dineSykmeldingerReducer', () => {
             }, {
                 id: 24,
             }],
-            sender: true,
         });
         const action = {
             type: 'SYKMELDING_AVBRUTT',
@@ -291,7 +290,7 @@ describe.only('dineSykmeldingerReducer', () => {
             }, {
                 id: 24,
             }],
-            sender: true
+            avbryter: true
         });
         const action = {
             type: 'AVBRYT_SYKMELDING_FEILET',
@@ -501,7 +500,9 @@ describe.only('dineSykmeldingerReducer', () => {
         expect(nextState).to.deep.equal({
             data: [{
                 id: 23,
-                feilaktigeOpplysninger: {},
+                feilaktigeOpplysninger: {
+                    "banan": true,
+                },
                 opplysningeneErRiktige: true,
             }, {
                 id: 24
@@ -526,12 +527,12 @@ describe.only('dineSykmeldingerReducer', () => {
         expect(nextState2).to.deep.equal({
             data: [{
                 id: 23,
-                feilaktigeOpplysninger: {},
                 opplysningeneErRiktige: false,
             }, {
                 id: 24
             }]
         });
+
     });
 
     it("Håndterer BRUKER_ER_UTLOGGET", () => {

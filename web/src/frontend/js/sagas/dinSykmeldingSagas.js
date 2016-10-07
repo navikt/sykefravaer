@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 
 const gaTilKvittering = (sykmeldingId) => {
     browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/kvittering`);
-}
+};
 
 export function* bekreftSykmelding(action) {
     yield put({ type: 'BEKREFTER_SYKMELDING' });
@@ -19,6 +19,7 @@ export function* bekreftSykmelding(action) {
         yield put(actions.sykmeldingBekreftet(action.sykmeldingId));
         yield put({ type: 'HENT_DINE_SYKMELDINGER_FORESPURT' });
         yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
+        gaTilKvittering(action.sykmeldingId);
     } catch (e) {
         yield put(actions.bekreftSykmeldingFeilet());
     }
@@ -36,6 +37,7 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
         yield put(actions.sykmeldingSendt(action.sykmeldingId));
         yield put({ type: 'HENT_DINE_SYKMELDINGER_FORESPURT' });
         yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
+        gaTilKvittering(action.sykmeldingId);
     } catch (e) {
         yield put(actions.sendSykmeldingFeilet());
     }
@@ -49,6 +51,7 @@ export function* avbrytSykmelding(action) {
         yield put(actions.sykmeldingAvbrutt(action.sykmeldingId));
         yield put({ type: 'HENT_DINE_SYKMELDINGER_FORESPURT' });
         yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
+        gaTilKvittering(action.sykmeldingId);
     } catch (e) {
         yield put(actions.avbrytSykmeldingFeilet());
     }

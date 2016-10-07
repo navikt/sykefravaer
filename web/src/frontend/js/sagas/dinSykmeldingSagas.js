@@ -28,7 +28,7 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
     };
     try {
         yield call(post, `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/send`, body);
-        yield put({ type: 'SYKMELDING_SENDT', sykmeldingId: action.sykmeldingId });
+        yield put(actions.sykmeldingSendt(action.sykmeldingId));
         yield put({ type: 'HENT_DINE_SYKMELDINGER_FORESPURT' });
         yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
     } catch (e) {
@@ -41,7 +41,7 @@ export function* avbrytSykmelding(action) {
     const body = action.feilaktigeOpplysninger;
     try {
         yield call(post, `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/avbryt`, body);
-        yield put({ type: 'SYKMELDING_AVBRUTT', sykmeldingId: action.sykmeldingId });
+        yield put(actions.sykmeldingAvbrutt(action.sykmeldingId));
         yield put({ type: 'HENT_DINE_SYKMELDINGER_FORESPURT' });
         yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
     } catch (e) {
@@ -65,6 +65,6 @@ export default function* dinSykmeldingSagas() {
     yield [
         fork(watchAvbrytSykmelding),
         fork(watchSendSykmelding),
-        fork(watchBekreftSykmelding)
-    ]
+        fork(watchBekreftSykmelding),
+    ];
 }

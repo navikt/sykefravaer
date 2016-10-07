@@ -10,11 +10,11 @@ import { getLedetekst, getHtmlLedetekst } from '../../ledetekster';
 import { reduxForm } from 'redux-form';
 import { filtrerObjektKeys } from '../../utils';
 
-const AvbrytDialog = ({ ledetekster, avbryter, avbrytHandler, bekreftHandler }) => {
+const AvbrytDialog = ({ ledetekster, sender, avbrytHandler, bekreftHandler }) => {
     return (<div className="panel panel-ekstra">
         <p className="blokk-s" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.avbryt.spoersmal', ledetekster)} />
         <div className="blokk-xs">
-            <button className={`knapp knapp-fare ${avbryter ? 'er-inaktiv knapp-spinner' : ''}`} type="button" onClick={(e) => {
+            <button className={`knapp knapp-fare ${sender ? 'er-inaktiv knapp-spinner' : ''}`} type="button" onClick={(e) => {
                 e.preventDefault();
                 bekreftHandler();
             }}>{getLedetekst('din-sykmelding.avbryt.ja', ledetekster)}
@@ -63,42 +63,19 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     bekreft(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger) {
-        this.props.bekreftSykmelding(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger).then((respons) => {
-            if (respons.status > 400) {
-                this.setState({
-                    forsoktBekreftet: true,
-                    serverfeil: true,
-                });
-            } else {
-                this.gaTilKvittering(sykmeldingId);
-            }
-        });
+        this.props.bekreftSykmelding(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger);
     }
 
     send(sykmeldingId, orgnummer, feilaktigeOpplysninger, beOmNyNaermesteLeder) {
-        this.props.sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger, beOmNyNaermesteLeder).then((respons) => {
-            if (respons.status > 400) {
-                this.setState({
-                    forsoktSendt: true,
-                    serverfeil: true,
-                });
-            } else {
-                this.gaTilKvittering(sykmeldingId);
-            }
-        });
+        try {
+            this.props.sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger, beOmNyNaermesteLeder);
+        } catch (e) {
+            console.log("e", e)
+        }
     }
 
     avbryt(sykmeldingId, feilaktigeOpplysninger) {
-        this.props.avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger).then((respons) => {
-            if (respons.status > 400) {
-                this.setState({
-                    forsoktSendt: true,
-                    serverfeil: true,
-                });
-            } else {
-                this.gaTilKvittering(sykmeldingId);
-            }
-        });
+        this.props.avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger)    
     }
 
     gaTilKvittering(sykmeldingId) {
@@ -126,7 +103,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 return;
             }
             case 'BEKREFT': {
-                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, values.feilaktigeOpplysninger);
+                this.bekreft(sykmelding.id, values.valgtArbeidssituasjon, values.feilaktigeOpplysninger);
                 return;
             }
             case 'AVBRYT': {
@@ -142,7 +119,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     render() {
-        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, avbryter, handleSubmit, untouch, erEldsteNyeSykmelding, eldsteSykmeldingId } = this.props;
+        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, sendingFeilet, avbryter, avbrytFeilet, handleSubmit, untouch, erEldsteNyeSykmelding, eldsteSykmeldingId } = this.props;
         const values = skjemaData && skjemaData.values ? skjemaData.values : {};
         const modus = this.getSkjemaModus(values, harStrengtFortroligAdresse);
 
@@ -177,7 +154,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
             }
             <div aria-live="polite" role="alert">
             {
-                this.state.serverfeil && (this.state.forsoktSendt || this.state.forsoktBekreftet) &&
+                (sendingFeilet || avbrytFeilet) &&
                 <div className="panel panel-ramme js-varsel">
                     <Varselstripe type="feil">
                         <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
@@ -226,7 +203,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
 DinSykmeldingSkjemaComponent.propTypes = {
     sykmelding: PropTypes.object,
     sender: PropTypes.bool,
+    sendingFeilet: PropTypes.bool,
     avbryter: PropTypes.bool,
+    avbrytFeilet: PropTypes.bool,
     ledetekster: PropTypes.object,
     handleSubmit: PropTypes.func,
     skjemaData: PropTypes.object,

@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-fetch';
-
 export function henterDineSykmeldinger() {
     return {
         type: 'HENTER_DINE_SYKMELDINGER',

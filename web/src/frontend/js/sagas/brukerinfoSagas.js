@@ -1,24 +1,25 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { get, getAjax } from '../api';
+import * as actions from '../actions/brukerinfo_actions';
 
 export function* hentBrukerinfo() {
-    yield put({ type: 'HENTER_BRUKERINFO' });
+    yield put(actions.henterBrukerinfo());
     try {
         const data = yield call(get, `${window.SYFO_SETTINGS.REST_ROOT}/informasjon/bruker`);
-        yield put({ type: 'SET_BRUKERINFO', data });
+        yield put(actions.setBrukerinfo(data));
     } catch (e) {
-        yield put({ type: 'HENT_BRUKERINFO_FEILET' });
+        yield put(actions.hentBrukerinfoFeilet());
     }
 }
 
 export function* sjekkInnlogging() {
-    yield put({ type: 'SJEKKER_INNLOGGING' });
+    yield put(actions.sjekkerInnlogging());
     try {
-        const data = yield call(getAjax, '/sykefravaer/');
-        yield put({ type: 'BRUKER_ER_INNLOGGET'})
+        yield call(getAjax, '/sykefravaer/');
+        yield put(actions.setErInnlogget());
     } catch (e) {
-        yield put({ type: 'BRUKER_ER_UTLOGGET'})
+        yield put(actions.setErUtlogget());
     }
 }
 
@@ -33,6 +34,6 @@ function* watchSjekkInnlogging() {
 export default function* brukerinfoSagas() {
     yield [
         fork(watchHentBrukerinfo),
-        fork(watchSjekkInnlogging)
-    ]
+        fork(watchSjekkInnlogging),
+    ];
 }

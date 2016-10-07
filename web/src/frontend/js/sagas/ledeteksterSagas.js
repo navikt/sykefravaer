@@ -3,7 +3,7 @@ import { takeEvery } from 'redux-saga';
 import { get } from '../api';
 import * as actions from '../actions/ledetekster_actions';
 
-export function* hentLedetekster(action) {
+export function* hentLedetekster() {
     yield put(actions.henterLedetekster());
     try {
         const ledetekster = yield call(get, `${window.SYFO_SETTINGS.REST_ROOT}/informasjon/tekster`);

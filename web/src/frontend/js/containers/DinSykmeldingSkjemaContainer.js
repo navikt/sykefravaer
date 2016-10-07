@@ -40,6 +40,8 @@ export const mapStateToProps = (state, ownProps) => {
         ledetekster: state.ledetekster.data,
         sender: state.arbeidsgiversSykmeldinger.sender,
         avbryter: state.dineSykmeldinger.avbryter,
+        sendingFeilet: state.dineSykmeldinger.sendingFeilet,
+        avbrytFeilet: state.dineSykmeldinger.avbrytFeilet,
         harStrengtFortroligAdresse,
         arbeidsgivere: arbeidsgivere.data,
     };

@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-fetch';
-
 export function henterArbeidsgiversSykmeldinger() {
     return {
         type: 'HENTER_ARBEIDSGIVERS_SYKMELDINGER',

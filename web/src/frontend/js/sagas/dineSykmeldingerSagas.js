@@ -1,14 +1,15 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { get } from '../api';
+import * as actions from '../actions/dineSykmeldinger_actions';
 
-export function* hentDineSykmeldinger(action) {
-    yield put({ type: 'HENTER_DINE_SYKMELDINGER' });
+export function* hentDineSykmeldinger() {
+    yield put(actions.henterDineSykmeldinger());
     try {
-        const sykmeldinger = yield call(get, `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger`);
-        yield put({ type: 'SET_DINE_SYKMELDINGER', sykmeldinger });
+        const data = yield call(get, `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger`);
+        yield put(actions.setDineSykmeldinger(data));
     } catch (e) {
-        yield put({ type: 'HENT_DINE_SYKMELDINGER_FEILET' });
+        yield put(actions.hentDineSykmeldingerFeilet());
     }
 }
 

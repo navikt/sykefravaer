@@ -4,16 +4,9 @@ import {expect} from 'chai';
 import * as actions from '../../js/actions/dinSykmelding_actions.js';
 import * as dactions from '../../js/actions/dineSykmeldinger_actions.js';
 
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import nock from 'nock';
-const middlewares = [ thunk ];
-const mockStore = configureMockStore(middlewares);
-
-
 import arbeidsgiversSykmeldinger from '../../js/reducers/arbeidsgiversSykmeldinger.js';
 
-describe('arbeidsgiversSykmeldinger', () => {
+describe.only('arbeidsgiversSykmeldinger', () => {
 
     it('håndterer SET_ARBEIDSGIVERS_SYKMELDINGER', () => {
         const initialState = deepFreeze({});

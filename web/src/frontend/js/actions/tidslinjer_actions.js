@@ -1,6 +1,3 @@
-import { apneHendelser } from './hendelser_actions.js';
-import { setArbeidssituasjon } from './brukerinfo_actions.js';
-
 export function hentTidslinjerFeilet() {
     return {
         type: 'HENT_TIDSLINJER_FEILET',

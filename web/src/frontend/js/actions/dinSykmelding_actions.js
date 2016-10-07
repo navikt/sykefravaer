@@ -1,7 +1,3 @@
-import { getCookie } from '../utils/index';
-import * as dineSykmeldingerActions from './dineSykmeldinger_actions.js';
-import * as arbeidsgiversSykmeldingerActions from './arbeidsgiversSykmeldinger_actions.js';
-
 export function setArbeidssituasjon(arbeidssituasjon, sykmeldingId) {
     return {
         type: 'SET_ARBEIDSSITUASJON',
@@ -32,11 +28,10 @@ export function sendSykmeldingFeilet(sykmeldingId) {
     };
 }
 
-export function sykmeldingSendt(sykmeldingId, orgnummer) {
+export function sykmeldingSendt(sykmeldingId) {
     return {
         type: 'SYKMELDING_SENDT',
         sykmeldingId,
-        orgnummer,
     };
 }
 
@@ -101,7 +96,7 @@ export function bekreftSykmelding(sykmeldingId, arbeidssituasjon = {}, feilaktig
         sykmeldingId,
         arbeidssituasjon,
         feilaktigeOpplysninger,
-    }
+    };
 }
 
 export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger = {}, beOmNyNaermesteLeder = true) {
@@ -111,7 +106,7 @@ export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktig
         orgnummer,
         feilaktigeOpplysninger,
         beOmNyNaermesteLeder,
-    }
+    };
 }
 
 export function avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger = {}) {

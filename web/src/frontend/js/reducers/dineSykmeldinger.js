@@ -35,20 +35,27 @@ export default function sykmeldinger(state = initiellState, action) {
         }
         case 'AVBRYTER_SYKMELDING': {
             return Object.assign({}, state, {
-                avbryter: true,
-                avbrytFeilet: false,
+                sender: true,
+                sendingFeilet: false,
             });
         }
         case 'AVBRYT_SYKMELDING_FEILET': {
             return Object.assign({}, state, {
-                avbryter: false,
-                avbrytFeilet: true,
+                sender: false,
+                sendingFeilet: true,
             });
         }
         case 'SYKMELDING_AVBRUTT': {
-            return Object.assign({}, state, {
-                avbryter: false,
-                avbrytFeilet: false,
+            const data = state.data.map((sykmelding) => {
+                const _sykmelding = Object.assign({}, sykmelding);
+                if (_sykmelding.id === action.sykmeldingId) {
+                    _sykmelding.status = 'AVBRUTT';
+                }
+                return _sykmelding;
+            });
+            return Object.assign({}, state, { data }, {
+                sender: false,
+                sendingFeilet: false,
             });
         }
         case 'HENT_DINE_SYKMELDINGER_FEILET': {
@@ -76,7 +83,10 @@ export default function sykmeldinger(state = initiellState, action) {
                 }
                 return _sykmelding;
             });
-            return Object.assign({}, state, { data });
+            return Object.assign({}, state, { data }, {
+                sender: false,
+                sendingFeilet: false,
+            });
         }
         case 'SET_SORTERING': {
             let sortering = {};
@@ -108,6 +118,37 @@ export default function sykmeldinger(state = initiellState, action) {
                 return _sykmelding;
             });
             return Object.assign({}, state, { data });
+        }
+        case 'SENDER_SYKMELDING': 
+        case 'BEKREFTER_SYKMELDING': {
+            return Object.assign({}, state, {
+                sender: true,
+                sendingFeilet: false,
+                henter: false,
+                hentingFeilet: false
+            })
+        }
+        case 'SEND_SYKMELDING_FEILET':
+        case 'BEKREFT_SYKMELDING_FEILET': {
+            return Object.assign({}, state, {
+                sender: false,
+                sendingFeilet: true,
+                henter: false,
+                hentingFeilet: false,
+            })
+        }
+        case 'SYKMELDING_SENDT': {
+            const data = state.data.map((sykmelding) => {
+                const _sykmelding = Object.assign({}, sykmelding);
+                if (_sykmelding.id === action.sykmeldingId) {
+                    _sykmelding.status = 'SENDT';
+                }
+                return _sykmelding;
+            });
+            return Object.assign({}, state, { data }, {
+                sender: false,
+                sendingFeilet: false,
+            });
         }
         case 'BRUKER_ER_UTLOGGET': {
             return {

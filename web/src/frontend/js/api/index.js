@@ -1,5 +1,6 @@
-import { getCookie } from '../utils/index';
+import { getCookie } from '../utils';
 import Ajax from 'simple-ajax';
+import fetch from 'isomorphic-fetch';
 
 export function get(url) {
     return fetch(url, {
@@ -15,10 +16,12 @@ export function get(url) {
 
 export function getAjax(url) {
     const ajax = new Ajax(url);
-    return new Promise((resolve, reject) => {
+    const promise = new Promise((resolve, reject) => {
         ajax.on('success', resolve);
         ajax.on('error', reject);
     });
+    ajax.send();
+    return promise;
 }
 
 export function post(url, body) {
@@ -30,6 +33,13 @@ export function post(url, body) {
             'Content-Type': 'application/json',
             'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
         }),
+    })
+    .then((res) => {
+        if (res.status > 400) {
+            throw 'Error';
+        } else {
+            return res;
+        }
     })
     .catch((err) => {
         throw err;

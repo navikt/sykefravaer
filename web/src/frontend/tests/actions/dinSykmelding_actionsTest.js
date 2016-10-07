@@ -91,11 +91,10 @@ describe("dinSykmelding_actions", () => {
         });
 
         it("Skal ha en sykmeldingSendt()-funksjon som returnerer riktig action", () => {
-            const action = actions.sykmeldingSendt(14, '123');
+            const action = actions.sykmeldingSendt(14);
             expect(action).to.deep.equal({
                 sykmeldingId: 14, 
                 type: "SYKMELDING_SENDT",
-                orgnummer: '123',
             });
         });
 

@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-fetch';
-
 export function hentAktuelleArbeidsgivereFeilet(sykmeldingId) {
     return {
         type: 'HENT_AKTUELLE_ARBEIDSGIVERE_FEILET',

@@ -62,6 +62,6 @@ export function sjekkInnlogging() {
 
 export function hentBrukerinfo() {
     return {
-        type: 'HENT_BRUKERINFO_FORESPURT'
+        type: 'HENT_BRUKERINFO_FORESPURT',
     };
 }

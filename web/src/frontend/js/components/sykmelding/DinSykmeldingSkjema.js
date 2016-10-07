@@ -45,6 +45,13 @@ export class DinSykmeldingSkjemaComponent extends Component {
         this.state = {};
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.sykmelding.id !== prevProps.sykmelding.id) {
+            // Tilbakestiller data i skjema dersom man navigverer til en ny sykmelding
+            this.props.reset();
+        }
+    }
+
     getSkjemaModus(values, harStrengtFortroligAdresse) {
         if (values === {}) {
             return 'GA_VIDERE';
@@ -111,21 +118,12 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     render() {
-        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, sendingFeilet, avbryter, avbrytFeilet, handleSubmit, untouch, erEldsteNyeSykmelding, eldsteSykmeldingId } = this.props;
+        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, sendingFeilet, avbryter, avbrytFeilet, handleSubmit, untouch } = this.props;
         const values = skjemaData && skjemaData.values ? skjemaData.values : {};
         const modus = this.getSkjemaModus(values, harStrengtFortroligAdresse);
 
         return (<form id="dinSykmeldingSkjema" className="panel blokk" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
             <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel', ledetekster)}</h3>
-            {
-                !erEldsteNyeSykmelding && <div className="panel panel-ramme">
-                    <Varselstripe type="info">
-                        <p className="sist side-innhold">{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst', ledetekster)}
-                             <Link to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke', ledetekster)}</Link>
-                        </p>
-                    </Varselstripe>
-                </div>
-            }
             {
                 skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
             }
@@ -213,6 +211,7 @@ DinSykmeldingSkjemaComponent.propTypes = {
     setFeilaktigOpplysning: PropTypes.func,
     erEldsteNyeSykmelding: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
+    reset: PropTypes.func,
 };
 
 export const validate = (values, props = {}) => {

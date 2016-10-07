@@ -33,21 +33,21 @@ describe("DinSykmeldingContainer", () => {
 
         sykmeldinger = [
             getSykmelding({
-                id: 2,
-                mulighetForArbeid: {
-                    perioder: [{
-                        fom: { year: 2016, monthValue: 1, dayOfMonth: 1 },
-                        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
-                        grad: 67
-                    }],
-                }
-            }), 
-            getSykmelding({
                 id: 1,
                 mulighetForArbeid: {
                     perioder: [{
                         fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
                         tom: { year: 2016, monthValue: 2, dayOfMonth: 6 },
+                        grad: 67
+                    }],
+                }
+            }), 
+            getSykmelding({
+                id: 2,
+                mulighetForArbeid: {
+                    perioder: [{
+                        fom: { year: 2016, monthValue: 1, dayOfMonth: 1 },
+                        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
                         grad: 67
                     }],
                 }
@@ -192,6 +192,29 @@ describe("DinSykmeldingContainer", () => {
             });            
 
         })
+
+
+        describe("erEldsteNyeSykmelding", () => {
+
+            it("Skal returnere erEldsteNyeSykmelding === false dersom den valgte sykmeldingen ikke er den eldste", () => {
+                ownProps.params.sykmeldingId = 3
+                const res = mapStateToProps(state, ownProps);
+                expect(res.erEldsteNyeSykmelding).to.be.false;
+            });
+
+            it("Skal returnere erEldsteNyeSykmelding === true dersom den valgte sykmeldingen er den eldste", () => {
+                ownProps.params.sykmeldingId = 2;
+                const res = mapStateToProps(state, ownProps);
+                expect(res.erEldsteNyeSykmelding).to.be.true;
+            });
+
+            it("Skal returnere eldsteSykmeldingId", () => {
+                ownProps.params.sykmeldingId = 4;
+                const res = mapStateToProps(state, ownProps);
+                expect(res.eldsteSykmeldingId).to.equal(2);
+            });
+
+        });
 
     });
 

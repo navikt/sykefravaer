@@ -171,31 +171,6 @@ describe("DinSykmeldingSkjemaContainer", () => {
             })
         });
 
-        describe("erEldsteNyeSykmelding", () => {
-
-            it("Skal returnere erEldsteNyeSykmelding === false dersom den valgte sykmeldingen ikke er den eldste", () => {
-                const res = mapStateToProps(getState(), {
-                    sykmeldingId: 3
-                });
-                expect(res.erEldsteNyeSykmelding).to.be.false;
-            });
-
-            it("Skal returnere erEldsteNyeSykmelding === true dersom den valgte sykmeldingen er den eldste", () => {
-                const res = mapStateToProps(getState(), {
-                    sykmeldingId: 2
-                });
-                expect(res.erEldsteNyeSykmelding).to.be.true;
-            });
-
-            it("Skal returnere eldsteSykmeldingId", () => {
-                const res = mapStateToProps(getState(), {
-                    sykmeldingId: 4
-                });
-                expect(res.eldsteSykmeldingId).to.equal(2);
-            });
-
-        });
-
     });
 
 });

@@ -2,6 +2,11 @@ import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { post } from '../api';
 import * as actions from '../actions/dinSykmelding_actions';
+import { browserHistory } from 'react-router';
+
+const gaTilKvittering = (sykmeldingId) => {
+    browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/kvittering`);
+}
 
 export function* bekreftSykmelding(action) {
     yield put({ type: 'BEKREFTER_SYKMELDING' });

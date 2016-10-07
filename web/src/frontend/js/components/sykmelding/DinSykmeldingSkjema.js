@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { browserHistory, Link } from 'react-router';
+import { Link } from 'react-router';
 import VelgArbeidssituasjon from '../../components/sykmelding/VelgArbeidssituasjon';
 import VelgArbeidsgiver from '../../components/sykmelding/VelgArbeidsgiver';
 import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykmeldingContainer';
@@ -67,19 +67,11 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     send(sykmeldingId, orgnummer, feilaktigeOpplysninger, beOmNyNaermesteLeder) {
-        try {
-            this.props.sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger, beOmNyNaermesteLeder);
-        } catch (e) {
-            console.log("e", e)
-        }
+        this.props.sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger, beOmNyNaermesteLeder);
     }
 
     avbryt(sykmeldingId, feilaktigeOpplysninger) {
         this.props.avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger)    
-    }
-
-    gaTilKvittering(sykmeldingId) {
-        browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/kvittering`);
     }
 
     harValgtAnnenArbeidsgiver(values) {

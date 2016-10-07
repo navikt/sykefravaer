@@ -119,23 +119,25 @@ class HendelseBoble extends Component {
     }
 
     toggle(e) {
+        const { hendelse } = this.props;
         e.preventDefault();
-        if (this.props.hendelse.erApen && !this.props.hendelse.hindreToggle) {
+        if (hendelse.erApen && !hendelse.hindreToggle) {
             this.lukk();
-        } else if (!this.props.hendelse.hindreToggle) {
+        } else if (!hendelse.hindreToggle) {
             this.apne();
         }
     }
 
     render() {
+        const { hendelse, ledetekster } = this.props;
         return (<article className="tidslinjeHendelse js-hendelse">
             <div className="tidslinjeHendelse__rad">
                 <div className="tidslinjeHendelse__status">
-                    <HendelseIkon type={this.props.hendelse.type}/>
+                    <HendelseIkon type={hendelse.type}/>
                 </div>
                 <div className="tidslinjeHendelse__innhold" ref="boble-header">
-                    <BobleHeader {...this.props.hendelse}
-                                 htmlTittel={getHtmlTittel(this.props.hendelse, this.props.ledetekster)}
+                    <BobleHeader {...hendelse}
+                                 htmlTittel={getHtmlTittel(hendelse, ledetekster)}
                                  clickHandler={(e) => {
                                      this.toggle(e);
                                  }}/>
@@ -145,18 +147,18 @@ class HendelseBoble extends Component {
                 <div className="tidslinjeHendelse__status"/>
                 <div className="tidslinjeHendelse__innhold">
                     <div
-                        aria-hidden={!this.props.hendelse.erApen}
-                        style={this.props.hendelse.hoyde ? { height: this.props.hendelse.hoyde } : {}}
+                        aria-hidden={!hendelse.erApen}
+                        style={hendelse.hoyde ? { height: hendelse.hoyde } : {}}
                         className={this.getContainerClass()}
                         onTransitionEnd={() => {
                             this.onTransitionEnd();
                         }}>
                         <div ref="js-budskap">
                             <TidslinjeBudskap
-                                vis={this.props.hendelse.visBudskap}
-                                bilde={this.props.hendelse.bilde}
-                                alt={this.props.hendelse.alt}
-                                innhold={getLedetekst(`${this.props.hendelse.tekstkey}.budskap`, this.props.ledetekster)}/>
+                                vis={hendelse.visBudskap}
+                                bilde={hendelse.bilde}
+                                alt={hendelse.alt}
+                                innhold={getLedetekst(`${hendelse.tekstkey}.budskap`, ledetekster)}/>
                         </div>
                     </div>
                 </div>

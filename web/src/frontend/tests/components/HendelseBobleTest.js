@@ -12,7 +12,7 @@ describe("HendelseBoble", () => {
 
     describe("getHtmlTittel", () => {
 
-        it("aktivitetkravvarsel faar aktivitetskravtekst", () => {
+        it("aktivitetkrav-varsel faar aktivitetskrav-tekst", () => {
             const hendelse = {
                 antallDager: 20,
                 type: 'AKTIVITETSKRAV_VARSEL',
@@ -26,7 +26,7 @@ describe("HendelseBoble", () => {
             expect(html).to.be.equal('28.02.2016')
         });
 
-        it("ny NL-varsel faar NL-tekst", () => {
+        it("ny-naermesteLeder-varsel faar nearmesteLeder-tekst", () => {
             const hendelse = {
                 antallDager: 20,
                 type: 'NY_NAERMESTE_LEDER',
@@ -47,7 +47,7 @@ describe("HendelseBoble", () => {
             expect(html).to.be.equal('<h3>28.02.2016</h3><p>Din arbeidsgiver har oppgitt <b>navn</b> som din personalansvarlige leder</p>')
         });
 
-        it("default faar bare valig tittel", () => {
+        it("default hendelse faar default tittel", () => {
             const hendelse = {
                 tekstkey: 'key',
             };

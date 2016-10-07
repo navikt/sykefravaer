@@ -6,7 +6,7 @@ import Sidetopp from '../Sidetopp';
 import Varselstripe from '../Varselstripe';
 import { Link } from 'react-router';
 
-const DinSykmelding = ({ sykmelding, ledetekster, erEldsteNyeSykmelding, eldsteSykmeldingId }) => {
+const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, eldsteSykmeldingId }) => {
     return (<div>
         <Sidetopp tittel={getLedetekst('din-sykmelding.tittel', ledetekster)} />
         <div className="panel blokk">
@@ -18,7 +18,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, erEldsteNyeSykmelding, eldsteS
             <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.ny-tjeneste.tekst', ledetekster)} />
         </div>
         {
-            !erEldsteNyeSykmelding && <div className="panel blokk">
+            visEldreSykmeldingVarsel && <div className="panel blokk">
                 <Varselstripe type="info">
                     <p className="sist side-innhold">
                         <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst', ledetekster)} </span>
@@ -43,7 +43,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, erEldsteNyeSykmelding, eldsteS
 DinSykmelding.propTypes = {
     sykmelding: PropTypes.object,
     ledetekster: PropTypes.object,
-    erEldsteNyeSykmelding: PropTypes.bool,
+    visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
 };
 

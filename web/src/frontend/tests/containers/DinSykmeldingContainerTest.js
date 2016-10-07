@@ -194,24 +194,139 @@ describe("DinSykmeldingContainer", () => {
         })
 
 
-        describe("erEldsteNyeSykmelding", () => {
+        describe("visEldreSykmeldingVarsel", () => {
 
-            it("Skal returnere erEldsteNyeSykmelding === false dersom den valgte sykmeldingen ikke er den eldste", () => {
+            it("Skal returnere visEldreSykmeldingVarsel === true dersom den valgte sykmeldingen ikke er den eldste", () => {
                 ownProps.params.sykmeldingId = 3
                 const res = mapStateToProps(state, ownProps);
-                expect(res.erEldsteNyeSykmelding).to.be.false;
+                expect(res.visEldreSykmeldingVarsel).to.be.true;
             });
 
-            it("Skal returnere erEldsteNyeSykmelding === true dersom den valgte sykmeldingen er den eldste", () => {
+            it("Skal returnere visEldreSykmeldingVarsel === false dersom den valgte sykmeldingen er den eldste", () => {
                 ownProps.params.sykmeldingId = 2;
                 const res = mapStateToProps(state, ownProps);
-                expect(res.erEldsteNyeSykmelding).to.be.true;
+                expect(res.visEldreSykmeldingVarsel).to.be.false;
             });
 
             it("Skal returnere eldsteSykmeldingId", () => {
                 ownProps.params.sykmeldingId = 4;
                 const res = mapStateToProps(state, ownProps);
                 expect(res.eldsteSykmeldingId).to.equal(2);
+            });
+
+            it("Skal returnere false dersom den valgte sykmeldingen har samme periode som den eldste sykmeldingen", () => {
+                state.dineSykmeldinger.data = [
+                    getSykmelding({
+                        id: 1,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 2, dayOfMonth: 6 },
+                                grad: 100
+                            }],
+                        }
+                    }),
+                    getSykmelding({
+                        id: 2,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 2, dayOfMonth: 6 },
+                                grad: 100
+                            }],
+                        }
+                    }),
+                    getSykmelding({
+                        id: 3,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 12, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 12, dayOfMonth: 6 },
+                                grad: 100
+                            }],
+                        }
+                    })
+                ];
+                ownProps.params.sykmeldingId = 2;
+                const res = mapStateToProps(state, ownProps);
+                expect(res.visEldreSykmeldingVarsel).to.equal(false);
+            });
+
+            it("Skal returnere true dersom den valgte sykmeldingen er ikke er eldst, men har samme varighet som den eldste sykmeldingen", () => {
+                state.dineSykmeldinger.data = [
+                    getSykmelding({
+                        id: 1,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 2, dayOfMonth: 6 },
+                                grad: 100
+                            }],
+                        }
+                    }),
+                    getSykmelding({
+                        id: 2,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 4, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 4, dayOfMonth: 6 },
+                                grad: 100
+                            }],
+                        }
+                    }),
+                    getSykmelding({
+                        id: 3,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 3, dayOfMonth: 6 },
+                                grad: 100
+                            }],
+                        }
+                    })
+                ];
+                ownProps.params.sykmeldingId = 3;
+                const res = mapStateToProps(state, ownProps);
+                expect(res.visEldreSykmeldingVarsel).to.equal(true);
+            });
+
+
+            it("Skal returnere true dersom den valgte sykmeldingen er ikke er eldst, men har samme varighet som en annen sykmelding som heller ikke er eldst", () => {
+                state.dineSykmeldinger.data = [
+                    getSykmelding({
+                        id: 1,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 2, dayOfMonth: 6 },
+                                grad: 100
+                            }],
+                        }
+                    }),
+                    getSykmelding({
+                        id: 2,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 3, dayOfMonth: 6 },
+                                grad: 100
+                            }],
+                        }
+                    }),
+                    getSykmelding({
+                        id: 3,
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
+                                tom: { year: 2016, monthValue: 3, dayOfMonth: 6 },
+                                grad: 100
+                            }],
+                        }
+                    })
+                ];
+                ownProps.params.sykmeldingId = 3;
+                const res = mapStateToProps(state, ownProps);
+                expect(res.visEldreSykmeldingVarsel).to.equal(true);
             });
 
         });

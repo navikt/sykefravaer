@@ -2,6 +2,8 @@ import { getCookie } from '../utils';
 import Ajax from 'simple-ajax';
 import fetch from 'isomorphic-fetch';
 
+// Dette mangler tester
+
 export function get(url) {
     return fetch(url, {
         credentials: 'include',

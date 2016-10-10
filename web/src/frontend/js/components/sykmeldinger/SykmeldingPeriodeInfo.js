@@ -25,6 +25,9 @@ const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekst
     if (periode.grad === null) {
         ledetekstNokkel += '.ingen-grad';
     }
+    if (periode.reisetilskudd && periode.grad) {
+        ledetekstNokkel += '.gradert';
+    }
     return (<Element className="js-periode">{getLedetekst(ledetekstNokkel, ledetekster, {
         '%GRAD%': periode.grad,
         '%ARBEIDSGIVER%': arbeidsgiver,

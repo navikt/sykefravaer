@@ -66,24 +66,6 @@ export function harLocalStorageStotte() {
     }
 }
 
-export function onResizeThrottle(callback) {
-    let resizeTimeout;
-    const resizeThrottler = () => {
-        // ignore resize events as long as an actualResizeHandler execution is in the queue
-        if (!resizeTimeout) {
-            resizeTimeout = setTimeout(() => {
-                resizeTimeout = null;
-                if (typeof callback === 'function') {
-                    callback();
-                }
-
-                // The actualResizeHandler will execute at a rate of 15fps
-            }, 66);
-        }
-    };
-    window.addEventListener('resize', resizeThrottler, false);
-}
-
 export function getSykmelding(sykmeldinger, sykmeldingId) {
     return sykmeldinger.filter((sykmld) => {
         return `${sykmld.id}` === `${sykmeldingId}`;

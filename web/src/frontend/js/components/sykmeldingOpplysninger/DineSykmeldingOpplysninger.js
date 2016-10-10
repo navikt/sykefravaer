@@ -37,8 +37,8 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster, Overskrift = 'H2'
                 </div>) : null
             }
             {
-                sykmelding.diagnose.bidiagnoser && sykmelding.diagnose.bidiagnoser.map((bidiagnose) => {
-                    return (<div className="rad-container">
+                sykmelding.diagnose.bidiagnoser && sykmelding.diagnose.bidiagnoser.map((bidiagnose, index) => {
+                    return (<div className="rad-container" key={index}>
                         <SykmeldingNokkelOpplysning
                             tittel={getLedetekst('din-sykmelding.bidiagnose.tittel', ledetekster)}>
                             <p className="js-bidiagnose">{bidiagnose.diagnose}</p>
@@ -56,7 +56,7 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster, Overskrift = 'H2'
                                 )
                             </p>
                         </SykmeldingNokkelOpplysning>
-                    </div>)
+                    </div>);
                 })
             }
             {

@@ -140,21 +140,15 @@ const visEldreSykmeldingVarsel = (sykmeldinger, sykmeldingId) => {
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
     const dinSykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId);
-    let arbeidsgiversSykmelding;
-    const props = {};
+    let arbeidsgiversSykmelding = {};
 
     if (dinSykmelding && (dinSykmelding.status === 'SENDT' || (dinSykmelding.status === 'BEKREFTET' && dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER'))) {
         arbeidsgiversSykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId);
-        props.arbeidsgiversSykmelding = {
-            data: arbeidsgiversSykmelding,
-            hentingFeilet: state.arbeidsgiversSykmeldinger.hentingFeilet,
-            henter: state.arbeidsgiversSykmeldinger.henter,
-        };
     }
 
     const eldsteNyeSykmelding = getEldsteNyeSykmelding(state.dineSykmeldinger.data, sykmeldingId);
 
-    return Object.assign({}, props, {
+    return {
         sykmeldingId,
         henter: state.dineSykmeldinger.henter || state.arbeidsgiversSykmeldinger.henter || state.ledetekster.henter,
         hentingFeilet: state.dineSykmeldinger.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet,
@@ -174,7 +168,7 @@ export function mapStateToProps(state, ownProps) {
         }, {
             tittel: getLedetekst('din-sykmelding.sidetittel', state.ledetekster.data),
         }],
-    });
+    };
 }
 
 export const DinSykmeldingContainer = connect(mapStateToProps)(DinSykmldSide);

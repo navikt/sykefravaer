@@ -97,7 +97,7 @@ describe("DinSykmeldingContainer", () => {
                 henter: true,
             },
             ledetekster: {
-                data: [],
+                data: ledetekster,
                 henter: true
             },
             brukerinfo: {

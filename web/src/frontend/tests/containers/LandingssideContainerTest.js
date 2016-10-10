@@ -33,7 +33,9 @@ describe("LandingssideContainer", () => {
         it("Skal returnere ledetekster", function () {
             const res = mapStateToProps({
                 ledetekster: {
-                    "min.tekst": "Dette er en test"
+                    data: {
+                        "min.tekst": "Dette er en test"
+                    }
                 },
                 brukerinfo: {
                     data: {}

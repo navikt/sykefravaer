@@ -14,17 +14,24 @@ import Checkboxgruppe from "../../js/components/skjema/Checkboxgruppe.js";
 describe("Checkboxgruppe", () => {
 
     it("Skal vise spørsmål", () => {
-        let component = shallow(<Checkboxgruppe spoersmaal="Hvilke frukter liker du?" />);
+        let component = shallow(<Checkboxgruppe spoersmaal="Hvilke frukter liker du?">
+            <p>Hei</p>
+            <p>Hei</p>
+        </Checkboxgruppe>);
         expect(component.find(".js-sporsmal").text()).to.equal("Hvilke frukter liker du?")
     });
 
     it("Skal vise spørsmål med riktig overskriftsnivå", () => {
-        let component = shallow(<Checkboxgruppe name="frukt" spoersmaal="Hvilke frukter liker du?" Overskrift="H4" />);
+        let component = shallow(<Checkboxgruppe name="frukt" spoersmaal="Hvilke frukter liker du?" Overskrift="H4">
+            <p>Hei</p>
+            <p>Hei</p>
+        </Checkboxgruppe>);
         expect(component.find("H4").text()).to.equal("Hvilke frukter liker du?")
     });
 
     it("Skal rendre children", () => {
         let component = shallow(<Checkboxgruppe spoersmaal="Hvilke frukter liker du?">
+                <p>Hei</p>
                 <p>Hei</p>
             </Checkboxgruppe>);
         expect(component.contains(<p>Hei</p>)).to.be.true;

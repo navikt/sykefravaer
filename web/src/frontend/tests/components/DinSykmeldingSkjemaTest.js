@@ -238,6 +238,8 @@ describe("DinSykmeldingSkjema -", () => {
                     
                 }
             })
+            const skjemaData = {};
+            skjemaData.values = {};
 
             component = shallow(<DinSykmeldingSkjemaComponent
                 setFeilaktigOpplysning={setFeilaktigOpplysningSpy}
@@ -245,6 +247,7 @@ describe("DinSykmeldingSkjema -", () => {
                 setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
                 setArbeidsgiver={setArbeidsgiverSpy}
                 sendSykmeldingTilArbeidsgiver={sendSykmeldingTilArbeidsgiverStub}
+                skjemaData={skjemaData}
                 sykmelding={getSykmelding({
                     id: "olsen"
                 })}

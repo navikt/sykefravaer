@@ -140,11 +140,11 @@ export class DinSykmeldingSkjemaComponent extends Component {
         }
         switch (modus) {
             case 'SEND': {
-                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, values.feilaktigeOpplysninger, values.beOmNyNaermesteLeder);
+                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, this.getFeilaktigeOpplysninger(), values.beOmNyNaermesteLeder);
                 return;
             }
             case 'BEKREFT': {
-                this.bekreft(sykmelding.id, values.valgtArbeidssituasjon, values.feilaktigeOpplysninger);
+                this.bekreft(sykmelding.id, values.valgtArbeidssituasjon, this.getFeilaktigeOpplysninger());
                 return;
             }
             case 'AVBRYT': {

@@ -114,7 +114,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 return;
             }
             case 'BEKREFT': {
-                this.props.bekreftSykmelding(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger);
+                this.props.bekreftSykmelding(sykmelding.id, values.valgtArbeidssituasjon, feilaktigeOpplysninger);
                 return;
             }
             case 'AVBRYT': {

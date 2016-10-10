@@ -2,7 +2,6 @@ export const toDate = (dato) => {
     return new Date(dato.year, dato.monthValue - 1, dato.dayOfMonth);
 };
 
-//  midlertidig fiks til vi får på plass react-intl. Da kan vi bruke <FormattedDate value={toDate(dato)} format="norskLang"/> istedenfor
 export const toDatePrettyPrint = (dato) => {
     if (typeof dato === 'undefined' || dato === null) {
         return null;

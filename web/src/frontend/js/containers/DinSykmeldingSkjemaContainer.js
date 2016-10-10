@@ -1,8 +1,26 @@
+import React, { PropTypes } from 'react';
 import { getSykmelding } from '../utils';
 import * as actionCreators from '../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../components/sykmelding/DinSykmeldingSkjema';
 import { getLedetekst } from '../ledetekster';
 import { connect } from 'react-redux';
+import AppSpinner from '../components/AppSpinner';
+import Feilmelding from '../components/Feilmelding';
+
+const Skjema = (props) => {
+    const { henter, hentingFeilet } = props;
+    if (henter) {
+        return <AppSpinner />;
+    } else if (hentingFeilet) {
+        return <Feilmelding />;
+    }
+    return <DinSykmeldingSkjema {...props} />;
+};
+
+Skjema.propTypes = {
+    henter: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
+};
 
 export const mapStateToProps = (state, ownProps) => {
     let sykmelding = {};
@@ -35,9 +53,11 @@ export const mapStateToProps = (state, ownProps) => {
         avbrytFeilet: state.dineSykmeldinger.avbrytFeilet,
         harStrengtFortroligAdresse,
         arbeidsgivere: arbeidsgivere.data,
+        hentingFeilet: state.arbeidsgivere.hentingFeilet,
+        henter: state.arbeidsgivere.henter,
     };
 };
 
-const DinSykmeldingSkjemaContainer = connect(mapStateToProps, actionCreators)(DinSykmeldingSkjema);
+const DinSykmeldingSkjemaContainer = connect(mapStateToProps, actionCreators)(Skjema);
 
 export default DinSykmeldingSkjemaContainer;

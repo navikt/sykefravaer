@@ -103,7 +103,7 @@ const getEldsteNyeSykmelding = (sykmeldinger) => {
     return sorterSykmeldingerEldsteFoerst(nyeSykmeldinger)[0];
 };
 
-const erEldsteNyeSykmelding = (sykmeldinger, sykmeldingId) => {
+const erEldsteSykmelding = (sykmeldinger, sykmeldingId) => {
     const eldsteSykmelding = getEldsteNyeSykmelding(sykmeldinger, sykmeldingId);
     return eldsteSykmelding && eldsteSykmelding.id === sykmeldingId;
 };
@@ -127,11 +127,14 @@ const harSammePeriodeSomDenEldsteSykmeldingen = (sykmeldinger, sykmeldingId) => 
 };
 
 const visEldreSykmeldingVarsel = (sykmeldinger, sykmeldingId) => {
-    const erEldst = erEldsteNyeSykmelding(sykmeldinger, sykmeldingId);
+    const nyeSykmeldinger = sykmeldinger.filter((s) => {
+        return s.status === 'NY';
+    });
+    const erEldst = erEldsteSykmelding(nyeSykmeldinger, sykmeldingId);
     if (erEldst) {
         return false;
     }
-    if (!erEldst && detFinnesAndreSykmeldingerMedSammePeriode(sykmeldinger, sykmeldingId) && harSammePeriodeSomDenEldsteSykmeldingen(sykmeldinger, sykmeldingId)) {
+    if (!erEldst && detFinnesAndreSykmeldingerMedSammePeriode(nyeSykmeldinger, sykmeldingId) && harSammePeriodeSomDenEldsteSykmeldingen(nyeSykmeldinger, sykmeldingId)) {
         return false;
     }
     return true;

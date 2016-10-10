@@ -6,7 +6,7 @@ import { getLedetekst } from '../ledetekster';
 
 const DropdownContainer = ({ alternativer, sorterSykmeldinger, ledetekster, status }) => {
     return (<div className="header-verktoy">
-        <label htmlFor="sykmeldinger-sortering" className="header-verktoy-label">{getLedetekst('dine-sykmeldinger.sorter.label', ledetekster.data)}</label>
+        <label htmlFor="sykmeldinger-sortering" className="header-verktoy-label">{getLedetekst('dine-sykmeldinger.sorter.label', ledetekster)}</label>
         <div className="select-container select-container--liten">
             <Dropdown alternativer={alternativer} id="sykmeldinger-sortering" ariaControls={`sykmelding-liste-${status}`} onChange={(kriterium) => {
                 sorterSykmeldinger(kriterium, status);
@@ -23,13 +23,15 @@ DropdownContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
+    const ledetekster = state.ledetekster.data;
+
     return {
-        ledetekster: state.ledetekster,
+        ledetekster,
         alternativer: [{
-            tekst: getLedetekst('dine-sykmeldinger.sorter.dato', state.ledetekster.data),
+            tekst: getLedetekst('dine-sykmeldinger.sorter.dato', ledetekster),
             verdi: 'fom',
         }, {
-            tekst: getLedetekst('dine-sykmeldinger.sorter.arbeidsgiver', state.ledetekster.data),
+            tekst: getLedetekst('dine-sykmeldinger.sorter.arbeidsgiver', ledetekster),
             verdi: 'arbeidsgiver',
         }],
     };

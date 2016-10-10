@@ -29,10 +29,8 @@ describe("RollerContainer", () => {
                 },
             });
             expect(res.ledetekster).to.deep.equal({
-                data: {
-                    "min.tekst": "Dette er en test"
-                }
-            })
+                "min.tekst": "Dette er en test"
+            });
         });
 
     });

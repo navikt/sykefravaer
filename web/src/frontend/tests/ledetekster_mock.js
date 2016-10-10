@@ -176,6 +176,8 @@ const ledetekster = {
   "sykmelding.bekreft-opplysninger.sporsmal": "Er opplysningene riktige?",
   "sykmelding.bekreft-opplysninger.svar-true": "Ja, opplysningene er riktige",
   "sykmelding.bekreft-opplysninger.svar-false": "Nei, opplysningene er ikke riktige",
+  'sykmelding.teaser.tekst.reisetilskudd.en-dag.uten-arbeidsgiver.gradert': "Du har reisetilskudd i %DAGER% dag",
+  'sykmelding.teaser.tekst.reisetilskudd.gradert': 'Du er %GRAD% % sykmeldt med reisetilskudd i %DAGER% dager'
 };
 
 export default ledetekster;

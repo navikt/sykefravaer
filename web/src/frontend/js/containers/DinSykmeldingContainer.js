@@ -13,6 +13,7 @@ import { getLedetekst } from '../ledetekster';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
 import { getSykmelding } from '../utils';
+import { sorterSykmeldingerEldsteFoerst } from '../utils/datoUtils';
 
 export class DinSykmldSide extends Component {
 
@@ -23,7 +24,7 @@ export class DinSykmldSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, dinSykmelding, arbeidsgiversSykmelding, henter, hentingFeilet } = this.props;
+        const { brodsmuler, ledetekster, dinSykmelding, arbeidsgiversSykmelding, henter, hentingFeilet, visEldreSykmeldingVarsel, eldsteSykmeldingId } = this.props;
         return (<Side tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
                 { (() => {
                     if (henter) {
@@ -61,7 +62,9 @@ export class DinSykmldSide extends Component {
                         return (<div>
                             <DinSykmelding
                                 sykmelding={dinSykmelding}
-                                ledetekster={ledetekster} />
+                                ledetekster={ledetekster}
+                                visEldreSykmeldingVarsel={visEldreSykmeldingVarsel}
+                                eldsteSykmeldingId={eldsteSykmeldingId} />
                                 <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
                             </div>);
                     } else if (dinSykmelding.status === 'AVBRUTT') {
@@ -89,29 +92,70 @@ DinSykmldSide.propTypes = {
     arbeidsgiversSykmelding: PropTypes.object,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
+    visEldreSykmeldingVarsel: PropTypes.bool,
+    eldsteSykmeldingId: PropTypes.string,
+};
+
+const getEldsteNyeSykmelding = (sykmeldinger) => {
+    const nyeSykmeldinger = sykmeldinger.filter((_sykmelding) => {
+        return _sykmelding.status === 'NY';
+    });
+    return sorterSykmeldingerEldsteFoerst(nyeSykmeldinger)[0];
+};
+
+const erEldsteNyeSykmelding = (sykmeldinger, sykmeldingId) => {
+    const eldsteSykmelding = getEldsteNyeSykmelding(sykmeldinger, sykmeldingId);
+    return eldsteSykmelding && eldsteSykmelding.id === sykmeldingId;
+};
+
+const detFinnesAndreSykmeldingerMedSammePeriode = (sykmeldinger, sykmeldingId) => {
+    const sykmelding = getSykmelding(sykmeldinger, sykmeldingId);
+    if (!sykmelding || !sykmelding.mulighetForArbeid) {
+        return false;
+    }
+    const denneSykmeldingensPerioder = JSON.stringify(sykmelding.mulighetForArbeid.perioder);
+    const antallMedSammePerioder = sykmeldinger.filter((_sykmelding) => {
+        return JSON.stringify(_sykmelding.mulighetForArbeid.perioder) === denneSykmeldingensPerioder;
+    }).length;
+    return antallMedSammePerioder > 1;
+};
+
+const harSammePeriodeSomDenEldsteSykmeldingen = (sykmeldinger, sykmeldingId) => {
+    const sykmelding = getSykmelding(sykmeldinger, sykmeldingId);
+    const eldsteSykmelding = sorterSykmeldingerEldsteFoerst(sykmeldinger)[0];
+    return JSON.stringify(sykmelding.mulighetForArbeid.perioder) === JSON.stringify(eldsteSykmelding.mulighetForArbeid.perioder);
+};
+
+const visEldreSykmeldingVarsel = (sykmeldinger, sykmeldingId) => {
+    const erEldst = erEldsteNyeSykmelding(sykmeldinger, sykmeldingId);
+    if (erEldst) {
+        return false;
+    }
+    if (!erEldst && detFinnesAndreSykmeldingerMedSammePeriode(sykmeldinger, sykmeldingId) && harSammePeriodeSomDenEldsteSykmeldingen(sykmeldinger, sykmeldingId)) {
+        return false;
+    }
+    return true;
 };
 
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
     const dinSykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId);
-    let arbeidsgiversSykmelding;
-    const props = {};
+    let arbeidsgiversSykmelding = {};
 
     if (dinSykmelding && (dinSykmelding.status === 'SENDT' || (dinSykmelding.status === 'BEKREFTET' && dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER'))) {
         arbeidsgiversSykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId);
-        props.arbeidsgiversSykmelding = {
-            data: arbeidsgiversSykmelding,
-            hentingFeilet: state.arbeidsgiversSykmeldinger.hentingFeilet,
-            henter: state.arbeidsgiversSykmeldinger.henter,
-        };
     }
 
-    return Object.assign({}, props, {
+    const eldsteNyeSykmelding = getEldsteNyeSykmelding(state.dineSykmeldinger.data, sykmeldingId);
+
+    return {
         sykmeldingId,
         henter: state.dineSykmeldinger.henter || state.arbeidsgiversSykmeldinger.henter || state.ledetekster.henter,
         hentingFeilet: state.dineSykmeldinger.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet,
         dinSykmelding,
         arbeidsgiversSykmelding,
+        visEldreSykmeldingVarsel: visEldreSykmeldingVarsel(state.dineSykmeldinger.data, sykmeldingId),
+        eldsteSykmeldingId: eldsteNyeSykmelding ? eldsteNyeSykmelding.id : '',
         ledetekster: state.ledetekster.data,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
@@ -124,7 +168,7 @@ export function mapStateToProps(state, ownProps) {
         }, {
             tittel: getLedetekst('din-sykmelding.sidetittel', state.ledetekster.data),
         }],
-    });
+    };
 }
 
 export const DinSykmeldingContainer = connect(mapStateToProps)(DinSykmldSide);

@@ -201,18 +201,20 @@ describe("SykmeldingPeriodeInfo", () => {
 
     });
 
-    xit("Viser reisetilskudd dersom sykmeldingen er gradert med reisetilskudd", function() {
+    it("Viser reisetilskudd dersom sykmeldingen er gradert med reisetilskudd", function() {
         const periode = shallow(<SykmeldingPeriodeInfo periode={getPeriode({
             reisetilskudd: true,
             grad: 88
-        })}/>);
-        expect(periode.find(".js-periode").text()).to.equal("Du er 88 % sykmeldt med reisetilskudd");
+        })}
+        ledetekster={ledetekster} arbeidsgiver="BEKK" />);
+        expect(periode.find(".js-periode").text()).to.equal("Du er 88 % sykmeldt med reisetilskudd i 16 dager");
     });
 
     describe("Reisetilskudd", () => {
         it("Viser reisetilskudd dersom sykmeldingen er ugradert med reisetilskudd", function() {
             const periode = shallow(<SykmeldingPeriodeInfo periode={getPeriode({
                 reisetilskudd: true,
+                grad: undefined,
                 tom: { year: 2016, monthValue: 5, dayOfMonth: 10 }
             })} arbeidsgiver="BEKK" ledetekster={ledetekster}/>);
             expect(periode.find(".js-periode").text()).to.equal("Du har reisetilskudd i 10 dager");

@@ -37,25 +37,27 @@ const DineSykmeldingOpplysninger = ({ sykmelding, ledetekster, Overskrift = 'H2'
                 </div>) : null
             }
             {
-                sykmelding.diagnose.bidiagnose ? (<div className="rad-container">
-                    <SykmeldingNokkelOpplysning
-                        tittel={getLedetekst('din-sykmelding.bidiagnose.tittel', ledetekster)}>
-                        <p className="js-bidiagnose">{sykmelding.diagnose.bidiagnose.diagnose}</p>
-                    </SykmeldingNokkelOpplysning>
-                    <SykmeldingNokkelOpplysning
-                        tittel={getLedetekst('din-sykmelding.diagnosekode.tittel', ledetekster)}>
-                        <p>
+                sykmelding.diagnose.bidiagnoser && sykmelding.diagnose.bidiagnoser.map((bidiagnose, index) => {
+                    return (<div className="rad-container" key={index}>
+                        <SykmeldingNokkelOpplysning
+                            tittel={getLedetekst('din-sykmelding.bidiagnose.tittel', ledetekster)}>
+                            <p className="js-bidiagnose">{bidiagnose.diagnose}</p>
+                        </SykmeldingNokkelOpplysning>
+                        <SykmeldingNokkelOpplysning
+                            tittel={getLedetekst('din-sykmelding.diagnosekode.tittel', ledetekster)}>
+                            <p>
                             <span
-                                className="js-bidiagnose-kode">{sykmelding.diagnose.bidiagnose.diagnosekode}
+                                className="js-bidiagnose-kode">{bidiagnose.diagnosekode}
                             </span>
-                            &nbsp;(
+                                &nbsp;(
                                 <span
-                                    className="js-bidiagnose-system">{sykmelding.diagnose.bidiagnose.diagnosesystem}
+                                    className="js-bidiagnose-system">{bidiagnose.diagnosesystem}
                                 </span>
-                            )
-                        </p>
-                    </SykmeldingNokkelOpplysning>
-                </div>) : null
+                                )
+                            </p>
+                        </SykmeldingNokkelOpplysning>
+                    </div>);
+                })
             }
             {
                 sykmelding.diagnose.fravaersgrunnLovfestet ?

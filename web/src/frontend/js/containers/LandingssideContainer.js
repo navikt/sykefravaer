@@ -6,18 +6,18 @@ import { getLedetekst } from '../ledetekster';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 
-export const LandingssideSide = (props) => {
-    const { ledetekster, brodsmuler, skjulVarsel } = props;
+export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter, hentingFeilet }) => {
     return (
         <Side tittel={getLedetekst('landingsside.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
             {
                 (() => {
-                    if (ledetekster.henter) {
+                    if (henter) {
                         return <AppSpinner />;
-                    } else if (ledetekster.hentingFeilet) {
+                    }
+                    if (hentingFeilet) {
                         return <Feilmelding />;
                     }
-                    return (<Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster.data} />);
+                    return (<Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster} />);
                 })()
             }
         </Side>
@@ -28,11 +28,15 @@ LandingssideSide.propTypes = {
     ledetekster: PropTypes.object,
     brodsmuler: PropTypes.array,
     skjulVarsel: PropTypes.bool,
+    henter: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {
     return {
-        ledetekster: state.ledetekster,
+        ledetekster: state.ledetekster.data,
+        henter: state.ledetekster.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet,
         skjulVarsel: (state.brukerinfo && state.brukerinfo.innstillinger) ? (state.brukerinfo.innstillinger.skjulUnderUtviklingVarsel === true) : false,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),

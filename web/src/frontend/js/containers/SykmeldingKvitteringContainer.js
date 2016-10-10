@@ -15,13 +15,16 @@ export const KvitteringSide = (props) => {
                 (() => {
                     if (henter) {
                         return <AppSpinner />;
-                    } else if (hentingFeilet) {
+                    }
+                    if (hentingFeilet) {
                         return <Feilmelding />;
-                    } else if (!sykmelding) {
+                    }
+                    if (!sykmelding) {
                         return (<Feilmelding
                             tittel="Fant ikke kvittering"
                             melding="Vi fant ikke kvitteringen du ser etter. Er du sikker på at du er på riktig side?" />);
-                    } else if (sykmelding.status === 'SENDT' || sykmelding.status === 'BEKREFTET' || sykmelding.status === 'AVBRUTT') {
+                    }
+                    if (sykmelding.status === 'SENDT' || sykmelding.status === 'BEKREFTET' || sykmelding.status === 'AVBRUTT') {
                         return <SykmeldingKvittering {...props} />;
                     }
                     return <Feilmelding />;
@@ -80,10 +83,10 @@ export function mapStateToProps(state, ownProps) {
     const brodtekst = kvitteringBrodtekstKey ? getHtmlLedetekst(kvitteringBrodtekstKey, ledetekster) : null;
 
     return {
-        sykmelding,
         henter,
-        ledetekster,
         hentingFeilet,
+        sykmelding,
+        ledetekster,
         sykmeldingStatus: sykmelding ? sykmelding.status : undefined,
         tittel,
         brodtekst,

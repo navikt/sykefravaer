@@ -6,13 +6,14 @@ import { connect } from 'react-redux';
 import { Feilmelding } from '../components/Feilmelding';
 import { getLedetekst } from '../ledetekster';
 
-export const RollerSide = ({ ledetekster, brodsmuler }) => {
+export const RollerSide = ({ ledetekster, brodsmuler, henter, hentingFeilet }) => {
     return (<Side brodsmuler={brodsmuler} tittel={getLedetekst('roller.sidetittel', ledetekster.data)}>
         {
             (() => {
-                if (ledetekster.henter) {
+                if (henter) {
                     return <AppSpinner />;
-                } else if (ledetekster.hentingFeilet) {
+                }
+                if (hentingFeilet) {
                     return <Feilmelding />;
                 }
                 return (<Artikkel tittel={getLedetekst('roller.tittel', ledetekster.data)}
@@ -25,11 +26,15 @@ export const RollerSide = ({ ledetekster, brodsmuler }) => {
 RollerSide.propTypes = {
     ledetekster: PropTypes.object,
     brodsmuler: PropTypes.array,
+    hentingFeilet: PropTypes.bool,
+    henter: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {
     return {
-        ledetekster: state.ledetekster,
+        ledetekster: state.ledetekster.data,
+        hentingFeilet: state.ledetekster.hentingFeilet,
+        henter: state.ledetekster.henter,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',

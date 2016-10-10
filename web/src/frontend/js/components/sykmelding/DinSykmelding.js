@@ -3,8 +3,10 @@ import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmelding
 import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
 import { getLedetekst, getHtmlLedetekst } from '../../ledetekster';
 import Sidetopp from '../Sidetopp';
+import Varselstripe from '../Varselstripe';
+import { Link } from 'react-router';
 
-const DinSykmelding = ({ sykmelding, ledetekster }) => {
+const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, eldsteSykmeldingId }) => {
     return (<div>
         <Sidetopp tittel={getLedetekst('din-sykmelding.tittel', ledetekster)} />
         <div className="panel blokk">
@@ -15,6 +17,16 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
             </div>
             <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.ny-tjeneste.tekst', ledetekster)} />
         </div>
+        {
+            visEldreSykmeldingVarsel && <div className="panel blokk">
+                <Varselstripe type="info">
+                    <p className="sist side-innhold">
+                        <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst', ledetekster)} </span>
+                        <Link to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke', ledetekster)}</Link>
+                    </p>
+                </Varselstripe>
+            </div>
+        }
         <header className="panelHeader panelHeader--lysebla">
             <img className="panelHeader__ikon" src="/sykefravaer/img/svg/person.svg" alt="Du" />
             <img className="panelHeader__ikon panelHeader__ikon--hoykontrast"
@@ -31,7 +43,8 @@ const DinSykmelding = ({ sykmelding, ledetekster }) => {
 DinSykmelding.propTypes = {
     sykmelding: PropTypes.object,
     ledetekster: PropTypes.object,
-    harStrengtFortroligAdresse: PropTypes.bool,
+    visEldreSykmeldingVarsel: PropTypes.bool,
+    eldsteSykmeldingId: PropTypes.string,
 };
 
 export default DinSykmelding;

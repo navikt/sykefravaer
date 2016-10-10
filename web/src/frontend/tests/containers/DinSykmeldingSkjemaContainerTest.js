@@ -161,6 +161,42 @@ describe("DinSykmeldingSkjemaContainer", () => {
             }])
         });
 
+        it("Skal returnere hentingFeilet dersom arbeidsgivere feiler", () => {
+            const state = getState();
+            state.arbeidsgivere.hentingFeilet = true;
+            const props = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(props.hentingFeilet).to.be.true;
+        });
+
+        it("Skal returnere hentingFeilet === false dersom arbeidsgivere feiler", () => {
+            const state = getState();
+            state.arbeidsgivere.hentingFeilet = false;
+            const props = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(props.hentingFeilet).to.be.false;
+        });
+
+        it("Skal returnere henter dersom arbeidsgivere hentes", () => {
+            const state = getState();
+            state.arbeidsgivere.henter = true;
+            const props = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(props.henter).to.be.true;
+        });
+
+        it("Skal returnere henter === false dersom arbeidsgivere ikke hentes", () => {
+            const state = getState();
+            state.arbeidsgivere.henter = false;
+            const props = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(props.henter).to.be.false;
+        });
+
         it("Skal returnere skjemadata", () => {
             const state = getState(); 
             const props = mapStateToProps(state, {
@@ -169,31 +205,6 @@ describe("DinSykmeldingSkjemaContainer", () => {
             expect(props.skjemaData).to.deep.equal({
                 "test": "OK"
             })
-        });
-
-        describe("erEldsteNyeSykmelding", () => {
-
-            it("Skal returnere erEldsteNyeSykmelding === false dersom den valgte sykmeldingen ikke er den eldste", () => {
-                const res = mapStateToProps(getState(), {
-                    sykmeldingId: 3
-                });
-                expect(res.erEldsteNyeSykmelding).to.be.false;
-            });
-
-            it("Skal returnere erEldsteNyeSykmelding === true dersom den valgte sykmeldingen er den eldste", () => {
-                const res = mapStateToProps(getState(), {
-                    sykmeldingId: 2
-                });
-                expect(res.erEldsteNyeSykmelding).to.be.true;
-            });
-
-            it("Skal returnere eldsteSykmeldingId", () => {
-                const res = mapStateToProps(getState(), {
-                    sykmeldingId: 4
-                });
-                expect(res.eldsteSykmeldingId).to.equal(2);
-            });
-
         });
 
     });

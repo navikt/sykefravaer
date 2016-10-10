@@ -96,14 +96,17 @@ describe("DineSykmeldingerContainer", () => {
                     innstillinger: {}
                 }
             });
-            expect(res.sykmeldinger).to.deep.equal(sykmeldinger)
+            expect(res.sykmeldinger).to.deep.equal(sykmeldinger.data)
         });
 
         it("Skal returnere ledetekster", function () {
             const res = mapStateToProps({
                 ledetekster: {
-                    "min.tekst": "Dette er en test"
+                    data: {
+                        "min.tekst": "Dette er en test"
+                    }
                 },
+                dineSykmeldinger: sykmeldinger,
                 brukerinfo: {
                     bruker: {},
                     innstillinger: {}
@@ -123,37 +126,24 @@ describe("DineSykmeldingerContainer", () => {
             dispatch = sinon.spy(); 
         });
 
-        it("Skal vise spinner dersom sykmeldinger hentes", () => {
-            let sykmeldinger = {
-                henter: true
-            }
-            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={sykmeldinger} dispatch={dispatch} />);
+        it("Skal vise spinner dersom data hentes", () => {
+            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={[]} henter dispatch={dispatch} />);
             expect(component.contains(<AppSpinner />)).to.equal(true);
         });
 
-        it("Skal ikke spinner dersom sykmeldinger ikke hentes", () => {
-            let sykmeldinger = {
-                henter: false
-            }
-            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={sykmeldinger} dispatch={dispatch} />);
+        it("Skal ikke spinner dersom data ikke hentes", () => {
+            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={[]} dispatch={dispatch} />);
             expect(component.contains(<AppSpinner />)).to.equal(false);
         });
 
         it("Skal vise feilmelding dersom henting feilet", () => {
-            let sykmeldinger = {
-                hentingFeilet: true
-            }
-            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={sykmeldinger} dispatch={dispatch} />);
+            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={[]} dispatch={dispatch} hentingFeilet />);
             expect(component.contains(<Feilmelding />)).to.equal(true);
         }); 
 
         it("Skal vise DineSykmeldinger dersom henting er OK", () => {
-            let sykmeldinger = {
-                hentingFeilet: false, 
-                henter: false,
-                data: []
-            }
-            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={sykmeldinger} dispatch={dispatch} />);
+            let sykmeldinger = [];
+            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={[]} dispatch={dispatch} />);
             expect(component.find(DineSykmeldinger)).to.have.length(1);
         });     
 

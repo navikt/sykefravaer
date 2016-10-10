@@ -211,7 +211,7 @@ describe("TidslinjeContainer", () => {
             const ledetekster = {
                 hentingFeilet: true
             };
-            const hendelser = {};
+            const hendelser = [];
             const tidslinjer = {};
             const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster}
                                                      tidslinjer={tidslinjer} hendelser={hendelser}

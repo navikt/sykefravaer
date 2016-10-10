@@ -6,20 +6,19 @@ import AppSpinner from '../components/AppSpinner.js';
 import { getLedetekst } from '../ledetekster';
 import Feilmelding from '../components/Feilmelding.js';
 
-export const DineSykmldSide = (props) => {
-    const { ledetekster, brodsmuler, sykmeldinger } = props;
+export const DineSykmldSide = ({ ledetekster, brodsmuler, sykmeldinger, henter, hentingFeilet }) => {
     return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
         {
             (() => {
-                if (sykmeldinger.henter) {
+                if (henter) {
                     return <AppSpinner />;
-                } else if (sykmeldinger.hentingFeilet) {
+                } else if (hentingFeilet) {
                     return (<Feilmelding />);
                 }
                 return (<DineSykmeldinger
-                    sykmeldinger={sykmeldinger.data}
+                    sykmeldinger={sykmeldinger}
                     sortering={sykmeldinger.sortering}
-                    ledetekster={ledetekster.data} />);
+                    ledetekster={ledetekster} />);
             })()
         }
     </Side>);
@@ -28,13 +27,17 @@ export const DineSykmldSide = (props) => {
 DineSykmldSide.propTypes = {
     ledetekster: PropTypes.object,
     brodsmuler: PropTypes.array,
-    sykmeldinger: PropTypes.object,
+    sykmeldinger: PropTypes.array,
+    henter: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {
     return {
-        sykmeldinger: state.dineSykmeldinger,
-        ledetekster: state.ledetekster,
+        sykmeldinger: state.dineSykmeldinger.data,
+        henter: state.ledetekster.henter || state.dineSykmeldinger.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet,
+        ledetekster: state.ledetekster.data,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',

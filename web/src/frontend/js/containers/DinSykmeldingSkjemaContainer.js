@@ -56,6 +56,6 @@ export const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const DinSykmeldingSkjemaContainer = connect(mapStateToProps, actionCreators)(DinSykmeldingSkjema);
+const DinSykmeldingSkjemaContainer = connect(mapStateToProps, actionCreators)(Skjema);
 
 export default DinSykmeldingSkjemaContainer;

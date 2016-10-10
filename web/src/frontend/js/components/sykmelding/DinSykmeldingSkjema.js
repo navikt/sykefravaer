@@ -133,7 +133,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 return;
             }
             case 'BEKREFT': {
-                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, values.feilaktigeOpplysninger);
+                this.bekreft(sykmelding.id, values.valgtArbeidssituasjon, values.feilaktigeOpplysninger);
                 return;
             }
             case 'AVBRYT': {

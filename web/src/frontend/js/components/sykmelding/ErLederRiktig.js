@@ -21,7 +21,7 @@ const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {
             <h5 className="label radiogruppeLabel">
                 {
                     getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal', ledetekster, {
-                        '%NAERMESTELEDER%': naermesteLeder,
+                        '%NAERMESTELEDER%': naermesteLeder.navn,
                     })
                 }
             </h5>
@@ -49,7 +49,12 @@ const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {
 
 ErLederRiktig.propTypes = {
     skjemaData: PropTypes.object,
-    naermesteLeder: PropTypes.string,
+    naermesteLeder: PropTypes.shape({
+        navn: PropTypes.string,
+        epost: PropTypes.string,
+        mobil: PropTypes.string,
+        organinsasjonsnavn: PropTypes.string,
+    }),
     ledetekster: PropTypes.object,
 };
 

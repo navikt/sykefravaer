@@ -15,7 +15,7 @@ const hendelserData = [{
     "id": "00",
     "inntruffetdato": null,
     "type": "FØRSTE_SYKMELDINGSDAG",
-    "antallDager": 0,
+    "antallDager": -1,
     "tekstkey": "tidslinje.forste-sykmeldingsdag",
     "data": {
         startdato: {

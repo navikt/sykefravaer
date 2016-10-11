@@ -15,15 +15,12 @@ const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseD
         <div className="tidslinje">
             {
                 hendelser
-                .filter((hendelse) => {
-                    return hendelse.type !== 'NY_NAERMESTE_LEDER';
-                    // Skjuler dette til vi har navn på leder på plass
-                })
                 .map((hendelse) => {
-                    if (hendelse.type !== 'BOBLE' && hendelse.type !== 'AKTIVITETSKRAV_VARSEL') {
+                    if (hendelse.type !== 'BOBLE' && hendelse.type !== 'AKTIVITETSKRAV_VARSEL' && hendelse.type !== 'NY_NAERMESTE_LEDER') {
                         return <HendelseTittel {...hendelse} key={hendelse.id} ledetekster={ledetekster} />;
                     }
-                    return (<HendelseBoble {...hendelse} key={hendelse.id} ledetekster={ledetekster} setHendelseState={(data) => {
+                    return (<HendelseBoble hendelse={hendelse} key={hendelse.id} ledetekster={ledetekster}
+                                           setHendelseState={(data) => {
                         setHendelseData(hendelse.id, data);
                     }} />);
                 })

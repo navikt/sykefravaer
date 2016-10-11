@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-fetch';
-
 export function henterDineSykmeldinger() {
     return {
         type: 'HENTER_DINE_SYKMELDINGER',
@@ -28,26 +26,7 @@ export function sorterSykmeldinger(kriterium, status) {
 }
 
 export function hentDineSykmeldinger() {
-    return function sykmeldinger(dispatch) {
-        dispatch(henterDineSykmeldinger());
-        const url = `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger`;
-        return fetch(url, {
-            credentials: 'include',
-        })
-            .then((response) => {
-                if (response.status > 400) {
-                    dispatch(hentDineSykmeldingerFeilet());
-                }
-                return response.json();
-            })
-            .then((json) => {
-                if (json && json.constructor === Array) {
-                    return dispatch(setDineSykmeldinger(json));
-                }
-                return dispatch(hentDineSykmeldingerFeilet());
-            })
-            .catch(() => {
-                return dispatch(hentDineSykmeldingerFeilet());
-            });
+    return {
+        type: 'HENT_DINE_SYKMELDINGER_FORESPURT',
     };
 }

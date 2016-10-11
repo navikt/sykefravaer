@@ -78,7 +78,9 @@ describe("brukerinfo_actions", () => {
 	});
 
 	it("Skal ha en sjekkInnlogging()-funksjon som returnerer riktig action", () => {
-		expect(typeof actions.sjekkInnlogging()).to.equal("function")
+		expect(actions.sjekkInnlogging()).to.deep.equal({
+			type: 'SJEKK_INNLOGGING_FORESPURT'
+		});
 	});
 
 });

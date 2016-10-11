@@ -1,10 +1,9 @@
 var path = require("path");
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
+var mainPath = path.resolve(__dirname, 'js', 'index.js');
 
 module.exports = {
-    entry: {
-        app: "./js/index.js"
-    },
+    entry: ["babel-polyfill", mainPath],
     output: {
         path: path.resolve(__dirname, "build"),
         publicPath: "http://localhost:8080/assets/",

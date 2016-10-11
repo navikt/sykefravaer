@@ -2,15 +2,9 @@ import chai from 'chai';
 import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from '../../js/actions/dinSykmelding_actions.js';
-import { browserHistory } from 'react-router';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import nock from 'nock';
-const middlewares = [ thunk ];
-const mockStore = configureMockStore(middlewares);
 
 describe("dinSykmelding_actions", () => {
 
@@ -97,18 +91,40 @@ describe("dinSykmelding_actions", () => {
         });
 
         it("Skal ha en sykmeldingSendt()-funksjon som returnerer riktig action", () => {
-            const action = actions.sykmeldingSendt(14, '123');
+            const action = actions.sykmeldingSendt(14);
             expect(action).to.deep.equal({
                 sykmeldingId: 14, 
                 type: "SYKMELDING_SENDT",
-                orgnummer: '123',
             });
         });
 
-        it("Skal ha en sendSykmeldingTilArbeidsgiver()-funksjon som returnerer en funksjon", () => {
-            const action = actions.sendSykmeldingTilArbeidsgiver(14);
-            expect(typeof action).to.equal("function");
-        });     
+        it("Skal ha en sendSykmeldingTilArbeidsgiver()-funksjon som returnerer rikig action", () => {
+            const action = actions.sendSykmeldingTilArbeidsgiver(14, "344");
+            expect(action).to.deep.equal({
+                type: 'SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT',
+                sykmeldingId: 14,
+                feilaktigeOpplysninger: {},
+                orgnummer: "344",
+                beOmNyNaermesteLeder: true,
+            });
+        });
+
+        it("Skal ha en sendSykmeldingTilArbeidsgiver()-funksjon som returnerer rikig action når man har feilaktigeOpplysninger", () => {
+            const action = actions.sendSykmeldingTilArbeidsgiver(14, "344", {
+                periode: true,
+                sykmeldingsgrad: false,
+            });
+            expect(action).to.deep.equal({
+                type: 'SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT',
+                sykmeldingId: 14,
+                feilaktigeOpplysninger: {
+                    periode: true,
+                    sykmeldingsgrad: false,
+                },
+                orgnummer: "344",
+                beOmNyNaermesteLeder: true,
+            });
+        });   
 
     });
 
@@ -138,218 +154,79 @@ describe("dinSykmelding_actions", () => {
             });
         }); 
 
-        it("Skal ha en bekreftSykmelding()-funksjon som returnerer en funksjon", () => {
+        it("Skal ha en bekreftSykmelding()-funksjon som returnerer rikig action", () => {
             const action = actions.bekreftSykmelding(14, "frilanser");
-            expect(typeof action).to.equal("function");
+            expect(action).to.deep.equal({
+                type: "BEKREFT_SYKMELDING_FORESPURT",
+                arbeidssituasjon: "frilanser",
+                feilaktigeOpplysninger: {},
+                sykmeldingId: 14
+            })
         });   
-          
-    }); 
 
-    describe("sendSykmeldingTilArbeidsgiver()", () => {
-
-        it("Dispatcher SYKMELDING_SENDT, HENTER_DINE_SYKMELDINGER når sendSykmeldingTilArbeidsgiver() er fullført", () => {
-            const store = mockStore();
-            nock('http://tjenester.nav.no/syforest/', {
-                reqheaders: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .post("/sykmeldinger/87654/actions/send", JSON.stringify({
-                orgnummer: '***REMOVED***',
-                feilaktigeOpplysninger: {
-                    andre: true
-                },
-                beOmNyNaermesteLeder: true,
-            }))
-            .reply(200, {
-                "id": 87654,
-                "status": "SENDT",
-                "sykmelder": "Hans Hansen"
-            })
-            .get("/sykmeldinger?type=arbeidsgiver")
-            .reply(200, [{
-                "id": 1
-            }]);
-
-            const expectedActions = [
-                { type: "SENDER_SYKMELDING", sykmeldingId: 87654 },
-                { type: "SYKMELDING_SENDT", sykmeldingId: 87654, orgnummer: '***REMOVED***' },
-                { type: "HENTER_DINE_SYKMELDINGER" }, 
-                { type: "HENTER_ARBEIDSGIVERS_SYKMELDINGER" }
-            ]
-
-            return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(87654, '***REMOVED***', {
-                andre: true,
-            }))
-                .then(() => { 
-                    expect(store.getActions()).to.deep.equal(expectedActions)
-                });
-
-        });
-
-        it("Dispatcher SEND_SYKMELDING_FEILET når sendSykmeldingTilArbeidsgiver() feiler", () => {
-            const store = mockStore();
-            nock('http://tjenester.nav.no/syforest/', {
-                reqheaders: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .post("/sykmeldinger/56/actions/send", '***REMOVED***')
-            .reply(500) 
-
-            const expectedActions = [
-                { type: "SENDER_SYKMELDING", sykmeldingId: 57}, 
-                { type: "SEND_SYKMELDING_FEILET", sykmeldingId: 57 }
-            ]
-
-            return store.dispatch(actions.sendSykmeldingTilArbeidsgiver(57, ***REMOVED***))
-                .then(() => { 
-                    expect(store.getActions()).to.deep.equal(expectedActions)
-                });
-
-        });            
-
-    });     
-
-    describe("bekreftSykmelding()", () => {
-
-        it("Dispatcher SYKMELDING_BEKREFTET, HENTER_DINE_SYKMELDINGER og HENTER_ARBEIDSGIVERS_SYKMELDINGER når bekreftSykmelding() er fullført", () => {
-            const store = mockStore();
-            nock('http://tjenester.nav.no/syforest/', {
-                reqheaders: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .post("/sykmeldinger/56/actions/bekreft", JSON.stringify({
+        it("Skal ha en bekreftSykmelding()-funksjon som returnerer rikig action når man har feilaktigeOpplysninger", () => {
+            const action = actions.bekreftSykmelding(14, "frilanser", {
+                periode: true,
+            });
+            expect(action).to.deep.equal({
+                type: "BEKREFT_SYKMELDING_FORESPURT",
                 arbeidssituasjon: "frilanser",
                 feilaktigeOpplysninger: {
-                    sykmeldingsgrad: true,
-                    periode: false,
-                }
-            }))
-            .reply(200, {});
-
-            nock('http://tjenester.nav.no/syforest/')
-            .get("/sykmeldinger")
-            .reply(200, [{
-                "id": 1
-            }]);
-
-            nock('http://tjenester.nav.no/syforest/')
-            .get("/sykmeldinger?type=arbeidsgiver")
-            .reply(200, [{
-                "id": 1
-            }]);
-
-            const expectedActions = [
-                { type: "BEKREFTER_SYKMELDING" },
-                { type: "SYKMELDING_BEKREFTET", sykmeldingId: 56 },
-                { type: "HENTER_DINE_SYKMELDINGER" },
-                { type: "HENTER_ARBEIDSGIVERS_SYKMELDINGER"}
-            ]
-
-            return store.dispatch(actions.bekreftSykmelding(56, "frilanser", {
-                sykmeldingsgrad: true,
-                periode: false,
-            }))
-                .then(() => { 
-                    expect(store.getActions()).to.deep.equal(expectedActions)
-                });
-
-        });
-
-        it("Dispatcher BEKREFT_SYKMELDING_FEILET når bekreftSykmelding() feiler", () => {
-            const store = mockStore();
-            nock('http://tjenester.nav.no/syforest/', {
-                reqheaders: {
-                    'Content-Type': 'application/json'
-                }
+                    periode: true,
+                },
+                sykmeldingId: 14
             })
-            .post("/sykmeldinger/88/actions/bekreft", 'arbeidstaker')
-            .reply(500)
-
-            const expectedActions = [
-                { type: "BEKREFTER_SYKMELDING" }, 
-                { type: "BEKREFT_SYKMELDING_FEILET" }
-            ]
-
-            return store.dispatch(actions.bekreftSykmelding(88, 'arbeidstaker'))
-                .then(() => { 
-                    expect(store.getActions()).to.deep.equal(expectedActions)
-                });
-
         });
-
-    });
-
+          
+    });    
 
     describe("avbrytSykmelding()", () => {
 
-        it("Dispatcher SYKMELDING_AVBRUTT, HENTER_DINE_SYKMELDINGER og HENTER_ARBEIDSGIVERS_SYKMELDINGER når avbrytSykmelding() er fullført", () => {
-            const store = mockStore();
-            nock('http://tjenester.nav.no/syforest/', {
-                reqheaders: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .post("/sykmeldinger/56/actions/avbryt", JSON.stringify({
-                sykmeldingsgrad: false,
-                periode: true,
-                andre: true,
-            }))
-            .reply(200, {});
-
-            nock('http://tjenester.nav.no/syforest/')
-            .get("/sykmeldinger")
-            .reply(200, [{
-                "id": 1
-            }]);
-
-            nock('http://tjenester.nav.no/syforest/')
-            .get("/sykmeldinger?type=arbeidsgiver")
-            .reply(200, [{
-                "id": 1
-            }]);
-
-            const expectedActions = [
-                { type: "AVBRYTER_SYKMELDING" },
-                { type: "SYKMELDING_AVBRUTT", sykmeldingId: 56 },
-                { type: "HENTER_DINE_SYKMELDINGER" },
-                { type: "HENTER_ARBEIDSGIVERS_SYKMELDINGER"}
-            ]
-
-            return store.dispatch(actions.avbrytSykmelding(56, {
-                sykmeldingsgrad: false,
-                periode: true,
-                andre: true
-            }))
-                .then(() => { 
-                    expect(store.getActions()).to.deep.equal(expectedActions)
-                });
-
+        it("Skal ha en avbryterSykmelding()-funksjon som returnerer rikig action", () => {
+            const sykmeldingId = 12;
+            const action = actions.avbryterSykmelding(sykmeldingId);
+            expect(action).to.deep.equal({
+                type: "AVBRYTER_SYKMELDING",
+            });        
         });
 
-        it("Dispatcher AVBRYT_SYKMELDING_FEILET når avbrytSykmelding() feiler", () => {
-            const store = mockStore();
-            nock('http://tjenester.nav.no/syforest/', {
-                reqheaders: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .post("/sykmeldinger/88/actions/avbryt", JSON.stringify({}))
-            .reply(500)
-
-            const expectedActions = [
-                { type: "AVBRYTER_SYKMELDING" }, 
-                { type: "AVBRYT_SYKMELDING_FEILET" }
-            ]
-
-            return store.dispatch(actions.avbrytSykmelding(88, {}))
-                .then(() => { 
-                    expect(store.getActions()).to.deep.equal(expectedActions)
-                });
-
+        it("Skal ha en avbrytSykmeldingFeilet()-funksjon som returnerer rikig action", () => {
+            const sykmeldingId = 12;
+            const action = actions.avbrytSykmeldingFeilet(sykmeldingId);
+            expect(action).to.deep.equal({
+                type: "AVBRYT_SYKMELDING_FEILET",
+            });        
         });
+
+        it("Skal ha en sykmeldingAvbrutt()-funksjon som returnerer riktig action", () => {
+            const action = actions.sykmeldingAvbrutt(14);
+            expect(action).to.deep.equal({
+                sykmeldingId: 14, 
+                type: "SYKMELDING_AVBRUTT",
+            });
+        }); 
+
+        it("Skal ha en avbrytSykmelding()-funksjon som returnerer rikig action", () => {
+            const action = actions.avbrytSykmelding(14);
+            expect(action).to.deep.equal({
+                type: "AVBRYT_SYKMELDING_FORESPURT",
+                feilaktigeOpplysninger: {},
+                sykmeldingId: 14
+            })
+        });   
+
+        it("Skal ha en avbrytSykmelding()-funksjon som returnerer rikig action når man har feilaktigeOpplysninger", () => {
+            const action = actions.avbrytSykmelding(14, {
+                periode: true,
+            });
+            expect(action).to.deep.equal({
+                type: "AVBRYT_SYKMELDING_FORESPURT",
+                feilaktigeOpplysninger: {
+                    periode: true,
+                },
+                sykmeldingId: 14
+            })
+        });        
 
     })
 

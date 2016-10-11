@@ -4,13 +4,6 @@ import {expect} from 'chai';
 import * as actions from '../../js/actions/dinSykmelding_actions.js';
 import * as dactions from '../../js/actions/dineSykmeldinger_actions.js';
 
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import nock from 'nock';
-const middlewares = [ thunk ];
-const mockStore = configureMockStore(middlewares);
-
-
 import arbeidsgiversSykmeldinger from '../../js/reducers/arbeidsgiversSykmeldinger.js';
 
 describe('arbeidsgiversSykmeldinger', () => {
@@ -118,7 +111,7 @@ describe('arbeidsgiversSykmeldinger', () => {
         expect(nextState).to.deep.equal({
             data: [{
                 id: 23,
-                arbeidssituasjon: 'test'
+                valgtArbeidssituasjon: 'test'
             }, {
                 id: 24,
             }]
@@ -147,7 +140,9 @@ describe('arbeidsgiversSykmeldinger', () => {
         expect(nextState).to.deep.equal({
             data: [{
                 id: 23,
-                feilaktigeOpplysninger: {},
+                feilaktigeOpplysninger: {
+                    "banan": true,
+                },
                 opplysningeneErRiktige: true,
             }, {
                 id: 24
@@ -172,7 +167,6 @@ describe('arbeidsgiversSykmeldinger', () => {
         expect(nextState2).to.deep.equal({
             data: [{
                 id: 23,
-                feilaktigeOpplysninger: {},
                 opplysningeneErRiktige: false,
             }, {
                 id: 24
@@ -252,9 +246,178 @@ describe('arbeidsgiversSykmeldinger', () => {
 
     })
 
+    it("Håndterer SET_FEILAKTIG_OPPLYSNING dersom opplysningen ikke er feilaktig fra før", () => {
+
+        const initialState = deepFreeze({
+            data: [{
+                id: 23,
+            }, {
+                id: 24
+            }]
+        });
+        const action = {
+            type: 'SET_FEILAKTIG_OPPLYSNING',
+            sykmeldingId: 23,
+            opplysning: "periode",
+            erFeilaktig: true
+        };
+
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {
+                    "periode": true
+                }
+            }, {
+                id: 24
+            }]
+        });
+
+    });
+
+
+    it("Håndterer SET_FEILAKTIG_OPPLYSNING dersom opplysningen er feilaktig fra før", () => {
+
+        const initialState = deepFreeze({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {
+                    "periode": true
+                }
+            }, {
+                id: 24
+            }]
+        });
+        const action = {
+            type: 'SET_FEILAKTIG_OPPLYSNING',
+            sykmeldingId: 23,
+            opplysning: "periode",
+            erFeilaktig: false
+        };
+
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {
+                    "periode": false
+                }
+            }, {
+                id: 24
+            }]
+        });
+
+    });
+
+    it("Håndterer SET_FEILAKTIG_OPPLYSNING dersom opplysningen er feilaktig fra før og man prøver å sette den til feilaktig", () => {
+
+        const initialState = deepFreeze({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {
+                    "periode": true
+                }
+            }, {
+                id: 24
+            }]
+        });
+        const action = {
+            type: 'SET_FEILAKTIG_OPPLYSNING',
+            sykmeldingId: 23,
+            opplysning: "periode",
+            erFeilaktig: true
+        };
+
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {
+                    "periode": true
+                }
+            }, {
+                id: 24
+            }]
+        });
+
+    });
+
+    it("Håndterer SET_FEILAKTIG_OPPLYSNING dersom den settes til false", () => {
+
+        const initialState = deepFreeze({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {
+                    "periode": true
+                }
+            }, {
+                id: 24
+            }]
+        });
+        const action = {
+            type: 'SET_FEILAKTIG_OPPLYSNING',
+            sykmeldingId: 23,
+            opplysning: "periode",
+            erFeilaktig: false
+        };
+
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {
+                    "periode": false
+                }
+            }, {
+                id: 24
+            }]
+        });
+
+    });
+
+    it("Håndterer SET_FEILAKTIG_OPPLYSNING dersom det finnes en (annen) feilaktig opplysning fra før", () => {
+
+        const initialState = deepFreeze({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {
+                    "banan": true,
+                }
+            }, {
+                id: 24
+            }]
+        });
+        const action = {
+            type: 'SET_FEILAKTIG_OPPLYSNING',
+            sykmeldingId: 23,
+            opplysning: "periode",
+            erFeilaktig: true
+        };
+
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {
+                    "banan": true,
+                    "periode": true
+                }
+            }, {
+                id: 24
+            }]
+        });
+
+    });
+
     describe("Innsending", () => {
 
-        let sykmelding, action, initialState, store; 
+        let sykmelding, action, initialState; 
 
         beforeEach(() => {
             sykmelding = {
@@ -271,16 +434,11 @@ describe('arbeidsgiversSykmeldinger', () => {
                 hentingFeilet: false
             });
 
-            store = mockStore();
             window = window || {};
             window.SYFO_SETTINGS = {
                 REST_ROOT: 'http://tjenester.nav.no/syforest'
             }
         });
-
-        afterEach(() => {
-            nock.cleanAll();
-        }); 
 
         it("Håndterer SENDER_SYKMELDING", () => {
             action = {

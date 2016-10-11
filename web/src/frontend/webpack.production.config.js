@@ -8,9 +8,7 @@ var config = {
 
   // We change to normal source mapping
   devtool: 'source-map',
-  entry: {
-    app: "./js/index.js"
-  },
+  entry: ['babel-polyfill', mainPath],
   output: {
     path: buildPath,
     filename: 'bundle-prod.js'

@@ -3,6 +3,7 @@ import {expect} from 'chai';
 import deepFreeze from 'deep-freeze';
 
 import dineSykmeldinger from '../../js/reducers/dineSykmeldinger.js';
+import * as dinSykmeldingActions from '../../js/actions/dinSykmelding_actions';
 
 describe('dineSykmeldingerReducer', () => {
 
@@ -199,7 +200,7 @@ describe('dineSykmeldingerReducer', () => {
         expect(nextState).to.deep.equal({
             data: [{
                 id: 23,
-                arbeidssituasjon: 'test'
+                valgtArbeidssituasjon: 'test'
             }, {
                 id: 24,
             }]
@@ -221,6 +222,8 @@ describe('dineSykmeldingerReducer', () => {
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
+            sender: false,
+            sendingFeilet: false,
             data: [{
                 id: 23,
                 status: 'BEKREFTET',
@@ -261,16 +264,17 @@ describe('dineSykmeldingerReducer', () => {
             }, {
                 id: 24,
             }],
-            avbryter: true,
         });
         const action = {
             type: 'SYKMELDING_AVBRUTT',
+            sykmeldingId: 23,
         };
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
             data: [{
                 id: 23,
+                status: 'AVBRUTT'
             }, {
                 id: 24,
             }],
@@ -496,7 +500,9 @@ describe('dineSykmeldingerReducer', () => {
         expect(nextState).to.deep.equal({
             data: [{
                 id: 23,
-                feilaktigeOpplysninger: {},
+                feilaktigeOpplysninger: {
+                    "banan": true,
+                },
                 opplysningeneErRiktige: true,
             }, {
                 id: 24
@@ -521,12 +527,12 @@ describe('dineSykmeldingerReducer', () => {
         expect(nextState2).to.deep.equal({
             data: [{
                 id: 23,
-                feilaktigeOpplysninger: {},
                 opplysningeneErRiktige: false,
             }, {
                 id: 24
             }]
         });
+
     });
 
     it("Håndterer BRUKER_ER_UTLOGGET", () => {
@@ -545,8 +551,6 @@ describe('dineSykmeldingerReducer', () => {
             data: []
         })
     })
-
-
 
 
 }); 

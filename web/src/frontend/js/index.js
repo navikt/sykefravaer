@@ -4,7 +4,7 @@ import React from 'react';
 import AppRouter from './routers/AppRouter.js';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunkMiddleware from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import dineSykmeldinger from './reducers/dineSykmeldinger.js';
 import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger.js';
 import ledetekster from './reducers/ledetekster.js';
@@ -16,6 +16,7 @@ import { hentLedetekster } from './actions/ledetekster_actions.js';
 import { hentBrukerinfo } from './actions/brukerinfo_actions.js';
 import history from './history.js';
 import { reducer as formReducer } from 'redux-form';
+import rootSaga from './sagas';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
@@ -28,9 +29,13 @@ const rootReducer = combineReducers({
     form: formReducer,
 });
 
+const sagaMiddleware = createSagaMiddleware();
+
 const store = createStore(rootReducer,
-    applyMiddleware(thunkMiddleware)
+    applyMiddleware(sagaMiddleware)
 );
+
+sagaMiddleware.run(rootSaga);
 
 store.dispatch(hentLedetekster());
 store.dispatch(hentDineSykmeldinger());

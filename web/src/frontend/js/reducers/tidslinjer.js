@@ -89,10 +89,11 @@ export default function tidslinjer(state = initiellState, action) {
             };
         }
         case 'SET_TIDSLINJER': {
+            const data = leggTilBilder(settHendelseIder(leggTilTidshendelser(action.tidslinjer, action.arbeidssituasjon)));
             return {
                 henter: false,
                 hentingFeilet: false,
-                data: leggTilBilder(settHendelseIder(leggTilTidshendelser(action.tidslinjer, action.arbeidssituasjon))),
+                data,
             };
         }
         case 'ÅPNE_HENDELSER': {

@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { browserHistory } from 'react-router';
 import VelgArbeidssituasjon from '../../components/sykmelding/VelgArbeidssituasjon';
 import VelgArbeidsgiver from '../../components/sykmelding/VelgArbeidsgiver';
 import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykmeldingContainer';
@@ -80,47 +79,8 @@ export class DinSykmeldingSkjemaComponent extends Component {
         return feilaktigeOpplysninger;
     }
 
-    bekreft(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger) {
-        this.props.bekreftSykmelding(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger).then((respons) => {
-            if (respons.status > 400) {
-                this.setState({
-                    forsoktBekreftet: true,
-                    serverfeil: true,
-                });
-            } else {
-                this.gaTilKvittering(sykmeldingId);
-            }
-        });
-    }
-
-    send(sykmeldingId, orgnummer, feilaktigeOpplysninger, beOmNyNaermesteLeder) {
-        this.props.sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger, beOmNyNaermesteLeder).then((respons) => {
-            if (respons.status > 400) {
-                this.setState({
-                    forsoktSendt: true,
-                    serverfeil: true,
-                });
-            } else {
-                this.gaTilKvittering(sykmeldingId);
-            }
-        });
-    }
-
     avbryt(sykmeldingId, feilaktigeOpplysninger) {
-        this.props.avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger).then((respons) => {
-            if (respons.status > 400) {
-                this.setState({
-                    forsoktSendt: true,
-                    serverfeil: true,
-                });
-            } else {
-                this.gaTilKvittering(sykmeldingId);
-            }
-        });
-    }
-
-    gaTilKvittering(sykmeldingId) {
-        browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/kvittering`);
+        this.props.avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger);
     }
 
     harValgtAnnenArbeidsgiver(values) {
@@ -130,21 +90,31 @@ export class DinSykmeldingSkjemaComponent extends Component {
     handleSubmit(values) {
         const modus = this.getSkjemaModus(values, this.props.harStrengtFortroligAdresse);
         const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding } = this.props;
-        setOpplysningeneErRiktige(sykmelding.id, values.opplysningeneErRiktige);
-        setArbeidssituasjon(values.valgtArbeidssituasjon, sykmelding.id);
-        setArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver);
+        let feilaktigeOpplysninger = values.feilaktigeOpplysninger;
         for (const key in values.feilaktigeOpplysninger) {
             if (values.feilaktigeOpplysninger.hasOwnProperty(key)) {
                 setFeilaktigOpplysning(sykmelding.id, key, values.feilaktigeOpplysninger[key]);
             }
         }
+        setOpplysningeneErRiktige(sykmelding.id, values.opplysningeneErRiktige);
+        if (values.opplysningeneErRiktige) {
+            for (const key in values.feilaktigeOpplysninger) {
+                if (values.feilaktigeOpplysninger.hasOwnProperty(key)) {
+                    setFeilaktigOpplysning(sykmelding.id, key, false);
+                }
+            }
+            feilaktigeOpplysninger = {};
+        }
+        setArbeidssituasjon(values.valgtArbeidssituasjon, sykmelding.id);
+        setArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver);
+
         switch (modus) {
             case 'SEND': {
-                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, this.getFeilaktigeOpplysninger(), values.beOmNyNaermesteLeder);
+                this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysninger, values.beOmNyNaermesteLeder);
                 return;
             }
             case 'BEKREFT': {
-                this.bekreft(sykmelding.id, values.valgtArbeidssituasjon, this.getFeilaktigeOpplysninger());
+                this.props.bekreftSykmelding(sykmelding.id, values.valgtArbeidssituasjon, feilaktigeOpplysninger);
                 return;
             }
             case 'AVBRYT': {
@@ -160,7 +130,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     render() {
-        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, avbryter, handleSubmit, untouch } = this.props;
+        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, sendingFeilet, avbryter, avbrytFeilet, handleSubmit, untouch } = this.props;
         const values = skjemaData && skjemaData.values ? skjemaData.values : {};
         const modus = this.getSkjemaModus(values, harStrengtFortroligAdresse);
 
@@ -186,7 +156,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
             }
             <div aria-live="polite" role="alert">
             {
-                this.state.serverfeil && (this.state.forsoktSendt || this.state.forsoktBekreftet) &&
+                (sendingFeilet || avbrytFeilet) &&
                 <div className="panel panel-ramme js-varsel">
                     <Varselstripe type="feil">
                         <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
@@ -235,7 +205,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
 DinSykmeldingSkjemaComponent.propTypes = {
     sykmelding: PropTypes.object,
     sender: PropTypes.bool,
+    sendingFeilet: PropTypes.bool,
     avbryter: PropTypes.bool,
+    avbrytFeilet: PropTypes.bool,
     ledetekster: PropTypes.object,
     handleSubmit: PropTypes.func,
     skjemaData: PropTypes.object,

@@ -4,6 +4,16 @@ const initiellState = {
     data: [],
 };
 
+const setSykmeldingProps = (sykmeldinger, sykmeldingId, props) => {
+    return sykmeldinger.map((sykmelding) => {
+        let _sykmelding = Object.assign({}, sykmelding);
+        if (_sykmelding.id === sykmeldingId) {
+            _sykmelding = Object.assign({}, _sykmelding, props);
+        }
+        return _sykmelding;
+    });
+};
+
 export default function arbeidsgiversSykmeldinger(state = initiellState, action) {
     switch (action.type) {
         case 'SET_ARBEIDSGIVERS_SYKMELDINGER': {
@@ -28,24 +38,14 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
             };
         }
         case 'SET_ARBEIDSGIVER': {
-            const data = state.data.map((sykmld) => {
-                let ret = sykmld;
-                if (sykmld.id === action.sykmeldingId) {
-                    ret = Object.assign({}, sykmld, {
-                        valgtArbeidsgiver: action.arbeidsgiver,
-                    });
-                }
-                return ret;
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                valgtArbeidsgiver: action.arbeidsgiver,
             });
             return Object.assign({}, state, { data });
         }
         case 'SET_ARBEIDSSITUASJON': {
-            const data = state.data.map((sykmelding) => {
-                const _sykmelding = Object.assign({}, sykmelding);
-                if (_sykmelding.id === action.sykmeldingId) {
-                    _sykmelding.arbeidssituasjon = action.arbeidssituasjon;
-                }
-                return _sykmelding;
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                valgtArbeidssituasjon: action.arbeidssituasjon,
             });
             return Object.assign({}, state, { data });
         }
@@ -57,12 +57,8 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
             });
         }
         case 'SYKMELDING_BEKREFTET': {
-            const data = state.data.map((sykmelding) => {
-                const _sykmelding = Object.assign({}, sykmelding);
-                if (_sykmelding.id === action.sykmeldingId) {
-                    _sykmelding.status = 'BEKREFTET';
-                }
-                return _sykmelding;
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                status: 'BEKREFTET',
             });
             return Object.assign({}, state, { data });
         }
@@ -81,14 +77,8 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
             });
         }
         case 'SYKMELDING_SENDT': {
-            const data = state.data.map((sykmld) => {
-                let ret = sykmld;
-                if (sykmld.id === action.sykmeldingId) {
-                    ret = Object.assign({}, sykmld, {
-                        status: 'SENDT',
-                    });
-                }
-                return ret;
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                status: 'SENDT',
             });
             return Object.assign({}, state, { data }, {
                 sender: false,
@@ -108,13 +98,8 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
             return Object.assign({}, state, { data });
         }
         case 'SET_OPPLYSNINGENE_ER_RIKTIGE': {
-            const data = state.data.map((sykmelding) => {
-                const _sykmelding = Object.assign({}, sykmelding);
-                if (_sykmelding.id === action.sykmeldingId) {
-                    _sykmelding.opplysningeneErRiktige = action.erRiktige;
-                    _sykmelding.feilaktigeOpplysninger = {};
-                }
-                return _sykmelding;
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                opplysningeneErRiktige: action.erRiktige,
             });
             return Object.assign({}, state, { data });
         }

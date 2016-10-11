@@ -1,9 +1,18 @@
 const initiellState = {
     henter: false,
-    arbeidsforhold: [],
     hentingFeilet: false,
     data: [],
     erFeil: false,
+};
+
+const setSykmeldingProps = (_sykmeldinger, sykmeldingId, props) => {
+    return _sykmeldinger.map((sykmelding) => {
+        let _sykmelding = Object.assign({}, sykmelding);
+        if (_sykmelding.id === sykmeldingId) {
+            _sykmelding = Object.assign({}, _sykmelding, props);
+        }
+        return _sykmelding;
+    });
 };
 
 export default function sykmeldinger(state = initiellState, action) {
@@ -47,7 +56,10 @@ export default function sykmeldinger(state = initiellState, action) {
             });
         }
         case 'SYKMELDING_AVBRUTT': {
-            return Object.assign({}, state, {
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                status: 'AVBRUTT',
+            });
+            return Object.assign({}, state, { data }, {
                 avbryter: false,
                 avbrytFeilet: false,
             });
@@ -60,24 +72,19 @@ export default function sykmeldinger(state = initiellState, action) {
             };
         }
         case 'SET_ARBEIDSSITUASJON': {
-            const data = state.data.map((sykmelding) => {
-                const _sykmelding = Object.assign({}, sykmelding);
-                if (_sykmelding.id === action.sykmeldingId) {
-                    _sykmelding.arbeidssituasjon = action.arbeidssituasjon;
-                }
-                return _sykmelding;
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                valgtArbeidssituasjon: action.arbeidssituasjon,
             });
             return Object.assign({}, state, { data });
         }
         case 'SYKMELDING_BEKREFTET': {
-            const data = state.data.map((sykmelding) => {
-                const _sykmelding = Object.assign({}, sykmelding);
-                if (_sykmelding.id === action.sykmeldingId) {
-                    _sykmelding.status = 'BEKREFTET';
-                }
-                return _sykmelding;
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                status: 'BEKREFTET',
             });
-            return Object.assign({}, state, { data });
+            return Object.assign({}, state, { data }, {
+                sender: false,
+                sendingFeilet: false,
+            });
         }
         case 'SET_SORTERING': {
             let sortering = {};
@@ -100,15 +107,37 @@ export default function sykmeldinger(state = initiellState, action) {
             return Object.assign({}, state, { data });
         }
         case 'SET_OPPLYSNINGENE_ER_RIKTIGE': {
-            const data = state.data.map((sykmelding) => {
-                const _sykmelding = Object.assign({}, sykmelding);
-                if (_sykmelding.id === action.sykmeldingId) {
-                    _sykmelding.opplysningeneErRiktige = action.erRiktige;
-                    _sykmelding.feilaktigeOpplysninger = {};
-                }
-                return _sykmelding;
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                opplysningeneErRiktige: action.erRiktige,
             });
             return Object.assign({}, state, { data });
+        }
+        case 'SENDER_SYKMELDING':
+        case 'BEKREFTER_SYKMELDING': {
+            return Object.assign({}, state, {
+                sender: true,
+                sendingFeilet: false,
+                henter: false,
+                hentingFeilet: false,
+            });
+        }
+        case 'SEND_SYKMELDING_FEILET':
+        case 'BEKREFT_SYKMELDING_FEILET': {
+            return Object.assign({}, state, {
+                sender: false,
+                sendingFeilet: true,
+                henter: false,
+                hentingFeilet: false,
+            });
+        }
+        case 'SYKMELDING_SENDT': {
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                status: 'SENDT',
+            });
+            return Object.assign({}, state, { data }, {
+                sender: false,
+                sendingFeilet: false,
+            });
         }
         case 'BRUKER_ER_UTLOGGET': {
             return {

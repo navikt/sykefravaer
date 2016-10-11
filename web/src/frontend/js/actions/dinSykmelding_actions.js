@@ -1,4 +1,4 @@
-import { getCookie } from '../utils/index';
+import { getCookie } from 'digisyfo-npm';
 import * as dineSykmeldingerActions from './dineSykmeldinger_actions.js';
 import * as arbeidsgiversSykmeldingerActions from './arbeidsgiversSykmeldinger_actions.js';
 

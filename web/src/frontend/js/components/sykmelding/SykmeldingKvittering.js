@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { getLedetekst } from '../../ledetekster';
+import { getLedetekst } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
 

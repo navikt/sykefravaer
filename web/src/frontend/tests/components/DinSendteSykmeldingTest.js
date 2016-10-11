@@ -9,10 +9,9 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import DinSendteSykmelding from "../../js/components/sykmelding/DinSendteSykmelding";
-import DineSykmeldingOpplysninger from "../../js/components/sykmeldingOpplysninger/DineSykmeldingOpplysninger";
+import { DineSykmeldingOpplysninger } from "digisyfo-npm";
 import StatusPanel from "../../js/components/StatusPanel";
 import ArbeidsgiversSykmelding from "../../js/components/sykmelding/ArbeidsgiversSykmelding";
-import FlereOpplysninger from "../../js/components/sykmeldingOpplysninger/FlereOpplysninger";
 
 describe("DinSendteSykmelding", () => {
 

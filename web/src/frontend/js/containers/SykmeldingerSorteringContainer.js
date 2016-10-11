@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Dropdown from '../components/skjema/Dropdown';
 import * as actionCreators from '../actions/dineSykmeldinger_actions';
-import { getLedetekst } from '../ledetekster';
+import { getLedetekst } from 'digisyfo-npm';
 
 const DropdownContainer = ({ alternativer, sorterSykmeldinger, ledetekster, status }) => {
     return (<div className="header-verktoy">

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/brukerinfo_actions.js';
-import { getLedetekst } from '../ledetekster';
+import { getLedetekst } from 'digisyfo-npm';
 import Varselstripe from '../components/Varselstripe';
 
 export class Varsel extends Component {

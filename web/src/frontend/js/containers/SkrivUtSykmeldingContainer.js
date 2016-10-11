@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { getSykmelding } from '../utils';
-import { getLedetekst } from '../ledetekster';
+import { getSykmelding, getLedetekst } from 'digisyfo-npm';
 import ArbeidsgiversSykmelding from '../components/sykmelding/ArbeidsgiversSykmelding';
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';

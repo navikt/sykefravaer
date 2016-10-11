@@ -4,7 +4,7 @@ import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
 import Tidslinje from '../components/tidslinje/Tidslinje';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { getLedetekst } from '../ledetekster';
+import { getLedetekst } from 'digisyfo-npm';
 import { hentTidslinjer } from '../actions/tidslinjer_actions';
 import { setHendelseData } from '../actions/hendelser_actions';
 

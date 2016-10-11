@@ -3,7 +3,7 @@ import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from '../../js/actions/brukerinfo_actions.js';
 import sinon from 'sinon';
-import * as utils from '../../js/utils/index';
+import * as utils from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

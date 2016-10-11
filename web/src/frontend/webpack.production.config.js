@@ -15,6 +15,11 @@ var config = {
     path: buildPath,
     filename: 'bundle-prod.js'
   },
+  resolve: {
+      alias: {
+          react: path.join(__dirname, 'node_modules', 'react')
+      }
+  },
   module: {
     loaders: [{
       test: /\.js$/,

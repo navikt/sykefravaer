@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths';
-import { toDatePrettyPrint } from '../../utils';
-import { getLedetekst } from '../../ledetekster';
+import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
 
 const PeriodeListe = ({ perioder, arbeidsgiver, ledetekster }) => {

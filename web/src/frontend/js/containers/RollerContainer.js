@@ -4,7 +4,7 @@ import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import { connect } from 'react-redux';
 import { Feilmelding } from '../components/Feilmelding';
-import { getLedetekst } from '../ledetekster';
+import { getLedetekst } from 'digisyfo-npm';
 
 export const RollerSide = ({ ledetekster, brodsmuler, henter, hentingFeilet }) => {
     return (<Side brodsmuler={brodsmuler} tittel={getLedetekst('roller.sidetittel', ledetekster.data)}>

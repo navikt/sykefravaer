@@ -1,4 +1,4 @@
-import { harLocalStorageStotte } from '../utils';
+import { harLocalStorageStotte } from 'digisyfo-npm';
 import Ajax from 'simple-ajax';
 
 export function skjulUnderUtviklingVarsel() {

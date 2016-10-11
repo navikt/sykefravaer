@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import HendelseTittel from './HendelseTittel';
 import HendelseBoble from './HendelseBoble';
 import TidslinjeVelgArbeidssituasjonContainer from '../../containers/TidslinjeVelgArbeidssituasjonContainer';
-import { getLedetekst } from '../../ledetekster';
+import { getLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 
 const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseData }) => {

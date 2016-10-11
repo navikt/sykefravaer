@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { getSykmelding } from '../utils';
+import { getSykmelding } from 'digisyfo-npm';
 import ArbeidsgiversSykmelding from '../components/sykmelding/ArbeidsgiversSykmelding';
 
 const ArbeidsgiversSykmeldingWrapper = ({ sykmelding, ledetekster, Overskrift }) => {

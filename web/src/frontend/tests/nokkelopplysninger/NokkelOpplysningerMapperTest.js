@@ -11,7 +11,7 @@ const expect = chai.expect;
 
 
 import StatusOpplysning from '../../js/nokkelopplysninger/StatusOpplysning';
-import { SykmeldingNokkelOpplysning } from "../../js/components/sykmeldingOpplysninger/SykmeldingOpplysning";
+import { SykmeldingNokkelOpplysning } from "digisyfo-npm";
 
 
 

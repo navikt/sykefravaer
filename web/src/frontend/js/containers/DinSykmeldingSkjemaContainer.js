@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
-import { getSykmelding } from '../utils';
+import { getSykmelding, getLedetekst } from 'digisyfo-npm';
 import * as actionCreators from '../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../components/sykmelding/DinSykmeldingSkjema';
-import { getLedetekst } from '../ledetekster';
 import { connect } from 'react-redux';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';

@@ -6,9 +6,8 @@ import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykm
 import Varselstripe from '../../components/Varselstripe';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
-import { getLedetekst, getHtmlLedetekst } from '../../ledetekster';
 import { reduxForm } from 'redux-form';
-import { filtrerObjektKeys } from '../../utils';
+import { filtrerObjektKeys, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 
 const AvbrytDialog = ({ ledetekster, avbryter, avbrytHandler, bekreftHandler }) => {
     return (<div className="panel panel-ekstra">

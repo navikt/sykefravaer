@@ -14,7 +14,7 @@ import thunk from 'redux-thunk';
 import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, validate } from "../../js/components/sykmelding/DinSykmeldingSkjema";
 import StrengtFortroligInfo from "../../js/components/sykmelding/StrengtFortroligInfo";
 import VelgArbeidssituasjon from "../../js/components/sykmelding/VelgArbeidssituasjon";
-import DineSykmeldingOpplysninger from "../../js/components/sykmeldingOpplysninger/DineSykmeldingOpplysninger";
+import { DineSykmeldingOpplysninger } from "digisyfo-npm";
 import VelgArbeidsgiver from "../../js/components/sykmelding/VelgArbeidsgiver";
 import ArbeidsgiversSykmeldingContainer from "../../js/containers/ArbeidsgiversSykmeldingContainer";
 import Varselstripe from "../../js/components/Varselstripe";

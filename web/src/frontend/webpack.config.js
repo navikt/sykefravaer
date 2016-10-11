@@ -10,6 +10,11 @@ module.exports = {
         publicPath: "http://localhost:8080/assets/",
         filename: "bundle.js"
     },
+    resolve: {
+        alias: {
+            react: path.join(__dirname, 'node_modules', 'react')
+        }
+    },
     module: {
         loaders: [
 

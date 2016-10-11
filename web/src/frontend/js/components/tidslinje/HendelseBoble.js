@@ -1,8 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import { getLedetekst } from '../../ledetekster';
 import TidslinjeBudskap from './TidslinjeBudskap';
 import HendelseIkon from './HendelseIkon';
-import { scrollTo, toDatePrettyPrint } from '../../utils';
+import { scrollTo, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 
 const BobleHeader = (props) => {
     return (<a

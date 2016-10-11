@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
-import Utvidbar from '../Utvidbar';
-import ArbeidsgiversSykmeldingOpplysninger from '../sykmeldingOpplysninger/ArbeidsgiversSykmeldingOpplysninger';
+import { ArbeidsgiversSykmeldingOpplysninger, Utvidbar } from 'digisyfo-npm';
 
 const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster, Overskrift = 'H2', erApen = false }) => {
     return (<Utvidbar

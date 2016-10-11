@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react';
 import StatusPanel from '../StatusPanel';
 import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
-import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmeldingOpplysninger';
-import Utvidbar from '../Utvidbar';
-import { getLedetekst } from '../../ledetekster';
+import { getLedetekst, Utvidbar, DineSykmeldingOpplysninger } from 'digisyfo-npm';
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../nokkelopplysninger/NokkelOpplysningerEnum';
 import Sidetopp from '../Sidetopp';
 

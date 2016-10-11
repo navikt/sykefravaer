@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst } from '../../ledetekster';
+import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths.js';
 
 const StrengtFortroligInfo = ({ sykmeldingId, ledetekster }) => {

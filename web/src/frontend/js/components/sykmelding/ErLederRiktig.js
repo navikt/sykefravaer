@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
-import { getLedetekst } from '../../ledetekster';
+import { visFeilmelding, getFeilmelding, getLedetekst } from 'digisyfo-npm';
 
 const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {
     const alternativer = [{

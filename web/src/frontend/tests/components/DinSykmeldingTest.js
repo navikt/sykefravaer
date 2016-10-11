@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 import DinSykmelding from "../../js/components/sykmelding/DinSykmelding";
 import DinSykmeldingSkjemaContainer from "../../js/containers/DinSykmeldingSkjemaContainer";
-import DineSykmeldingOpplysninger from "../../js/components/sykmeldingOpplysninger/DineSykmeldingOpplysninger";
+import { DineSykmeldingOpplysninger } from "digisyfo-npm";
 
 import { Provider } from 'react-redux';
 

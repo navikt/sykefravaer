@@ -1,10 +1,8 @@
 import React, { PropTypes } from 'react';
-import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmeldingOpplysninger';
 import StatusPanel from '../StatusPanel';
-import Utvidbar from '../Utvidbar';
-import { getLedetekst } from '../../ledetekster/index';
+import { getLedetekst, DineSykmeldingOpplysninger, Utvidbar } from 'digisyfo-npm';
 import { STATUS, INNSENDT_DATO } from '../../nokkelopplysninger/NokkelOpplysningerEnum';
-import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding.js';
+import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
 import Sidetopp from '../Sidetopp';
 
 const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding, ledetekster }) => {

@@ -1,9 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import { getLedetekst } from '../../ledetekster';
 import TidslinjeBudskap from './TidslinjeBudskap';
 import HendelseIkon from './HendelseIkon';
-import { scrollTo } from '../../utils';
-import { toDatePrettyPrint } from '../../utils/datoUtils';
+import { scrollTo, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 
 export function getHtmlTittel(hendelse, ledetekster) {
     switch (hendelse.type) {
@@ -133,18 +131,18 @@ class HendelseBoble extends Component {
         return (<article className="tidslinjeHendelse js-hendelse">
             <div className="tidslinjeHendelse__rad">
                 <div className="tidslinjeHendelse__status">
-                    <HendelseIkon type={hendelse.type}/>
+                    <HendelseIkon type={hendelse.type} />
                 </div>
                 <div className="tidslinjeHendelse__innhold" ref="boble-header">
                     <BobleHeader {...hendelse}
-                                 htmlTittel={getHtmlTittel(hendelse, ledetekster)}
-                                 clickHandler={(e) => {
-                                     this.toggle(e);
-                                 }}/>
+                        htmlTittel={getHtmlTittel(hendelse, ledetekster)}
+                        clickHandler={(e) => {
+                            this.toggle(e);
+                        }} />
                 </div>
             </div>
             <div className="tidslinjeHendelse__rad">
-                <div className="tidslinjeHendelse__status"/>
+                <div className="tidslinjeHendelse__status" />
                 <div className="tidslinjeHendelse__innhold">
                     <div
                         aria-hidden={!hendelse.erApen}
@@ -158,7 +156,7 @@ class HendelseBoble extends Component {
                                 vis={hendelse.visBudskap}
                                 bilde={hendelse.bilde}
                                 alt={hendelse.alt}
-                                innhold={getLedetekst(`${hendelse.tekstkey}.budskap`, ledetekster)}/>
+                                innhold={getLedetekst(`${hendelse.tekstkey}.budskap`, ledetekster)} />
                         </div>
                     </div>
                 </div>

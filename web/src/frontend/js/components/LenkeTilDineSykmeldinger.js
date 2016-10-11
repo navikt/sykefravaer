@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { getLedetekst } from '../ledetekster';
+import { getLedetekst } from 'digisyfo-npm';
 
 const LenkeTilDineSykmeldinger = ({ ledetekster }) => {
     return (<p className="side-innhold ikke-print blokk navigasjonsstripe">

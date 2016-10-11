@@ -9,11 +9,9 @@ import DinUtgaatteSykmelding from '../components/sykmelding/DinUtgaatteSykmeldin
 import LenkeTilDineSykmeldinger from '../components/LenkeTilDineSykmeldinger';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { getLedetekst } from '../ledetekster';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
-import { getSykmelding } from '../utils';
-import { sorterSykmeldingerEldsteFoerst } from '../utils/datoUtils';
+import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst } from 'digisyfo-npm';
 
 export class DinSykmldSide extends Component {
 

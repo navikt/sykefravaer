@@ -1,7 +1,7 @@
 import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
 import deepFreeze from 'deep-freeze';
-import * as utils from '../../js/utils/index';
+import * as utils from 'digisyfo-npm';
 import sinon from 'sinon';
 
 window.localStorage = {

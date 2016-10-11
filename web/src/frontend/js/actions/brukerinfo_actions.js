@@ -1,4 +1,4 @@
-import { harLocalStorageStotte } from '../utils';
+import { harLocalStorageStotte } from 'digisyfo-npm';
 
 export function skjulUnderUtviklingVarsel() {
     if (harLocalStorageStotte()) {

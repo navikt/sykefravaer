@@ -2,10 +2,9 @@ import React, { PropTypes } from 'react';
 import SykmeldingKvittering from '../components/sykmelding/SykmeldingKvittering';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
-import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
+import { getLedetekst, getHtmlLedetekst, getSykmelding } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { getSykmelding } from '../utils';
 
 export const KvitteringSide = (props) => {
     const { sykmelding, henter, hentingFeilet, ledetekster, brodsmuler } = props;

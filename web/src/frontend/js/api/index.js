@@ -1,4 +1,4 @@
-import { getCookie } from '../utils';
+import { getCookie } from 'digisyfo-npm';
 import Ajax from 'simple-ajax';
 import fetch from 'isomorphic-fetch';
 

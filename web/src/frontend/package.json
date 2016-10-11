@@ -58,6 +58,7 @@
     "jsfmt": "0.5.3",
     "moment": "2.11.2",
     "path": "0.12.7",
+    "react": "15.3.2",
     "promise-polyfill": "6.0.2",
     "react": "15.3.2",
     "react-document-title": "2.0.1",

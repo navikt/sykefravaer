@@ -8,12 +8,10 @@ import getSykmelding from "../mockSykmeldinger.js";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Utvidbar from "../../js/components/Utvidbar.js";
-import FlereOpplysninger from "../../js/components/sykmeldingOpplysninger/FlereOpplysninger.js";
+import { Utvidbar } from "digisyfo-npm";
 
-import SykmeldingPerioder from "../../js/components/sykmeldingOpplysninger/SykmeldingPerioder.js";
 import ArbeidsgiversSykmelding from '../../js/components/sykmelding/ArbeidsgiversSykmelding.js';
-import ArbeidsgiversSykmeldingOpplysninger from '../../js/components/sykmeldingOpplysninger/ArbeidsgiversSykmeldingOpplysninger.js';
+import { ArbeidsgiversSykmeldingOpplysninger } from 'digisyfo-npm';
 
 let component;
 

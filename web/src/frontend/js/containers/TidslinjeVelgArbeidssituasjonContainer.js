@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../actions/tidslinjer_actions';
 import Radiofaner from '../components/Radiofaner';
 import history from '../history';
-import { getLedetekst } from '../ledetekster';
+import { getLedetekst } from 'digisyfo-npm';
 
 const verdier = {
     MED_ARBEIDSGIVER: 'med-arbeidsgiver',

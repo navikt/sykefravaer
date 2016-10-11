@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst } from '../ledetekster';
+import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import UnderUtviklingVarselContainer from '../containers/UnderUtviklingVarselContainer';
 import LandingssideLenke from './LandingssideLenke';
 

@@ -20,9 +20,9 @@ const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseD
                         return <HendelseTittel {...hendelse} key={hendelse.id} ledetekster={ledetekster} />;
                     }
                     return (<HendelseBoble hendelse={hendelse} key={hendelse.id} ledetekster={ledetekster}
-                                           setHendelseState={(data) => {
-                        setHendelseData(hendelse.id, data);
-                    }} />);
+                        setHendelseState={(data) => {
+                            setHendelseData(hendelse.id, data);
+                        }} />);
                 })
             }
         </div>

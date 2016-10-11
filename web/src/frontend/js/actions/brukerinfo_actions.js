@@ -1,5 +1,4 @@
 import { harLocalStorageStotte } from 'digisyfo-npm';
-import Ajax from 'simple-ajax';
 
 export function skjulUnderUtviklingVarsel() {
     if (harLocalStorageStotte()) {

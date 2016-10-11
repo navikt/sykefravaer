@@ -1,7 +1,3 @@
-import { getCookie } from 'digisyfo-npm';
-import * as dineSykmeldingerActions from './dineSykmeldinger_actions.js';
-import * as arbeidsgiversSykmeldingerActions from './arbeidsgiversSykmeldinger_actions.js';
-
 export function setArbeidssituasjon(arbeidssituasjon, sykmeldingId) {
     return {
         type: 'SET_ARBEIDSSITUASJON',

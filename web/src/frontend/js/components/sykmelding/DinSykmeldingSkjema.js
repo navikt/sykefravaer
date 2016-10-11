@@ -69,6 +69,17 @@ export class DinSykmeldingSkjemaComponent extends Component {
         return 'BEKREFT';
     }
 
+
+    getFeilaktigeOpplysninger() {
+        const { skjemaData } = this.props;
+        const feilaktigeOpplysninger = skjemaData.values.feilaktigeOpplysninger;
+        const opplysningeneErRiktige = skjemaData.values.opplysningeneErRiktige;
+        if (opplysningeneErRiktige) {
+            return {};
+        }
+        return feilaktigeOpplysninger;
+    }
+
     bekreft(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger) {
         this.props.bekreftSykmelding(sykmeldingId, arbeidssituasjon, feilaktigeOpplysninger).then((respons) => {
             if (respons.status > 400) {
@@ -129,11 +140,11 @@ export class DinSykmeldingSkjemaComponent extends Component {
         }
         switch (modus) {
             case 'SEND': {
-                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, values.feilaktigeOpplysninger, values.beOmNyNaermesteLeder);
+                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, this.getFeilaktigeOpplysninger(), values.beOmNyNaermesteLeder);
                 return;
             }
             case 'BEKREFT': {
-                this.send(sykmelding.id, values.valgtArbeidsgiver.orgnummer, values.feilaktigeOpplysninger);
+                this.bekreft(sykmelding.id, values.valgtArbeidssituasjon, this.getFeilaktigeOpplysninger());
                 return;
             }
             case 'AVBRYT': {
@@ -212,7 +223,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                             });
                             this.refs['js-trigger-avbryt-sykmelding'].focus();
                         }} bekreftHandler={() => {
-                            this.avbryt(sykmelding.id);
+                            this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
                         }} />
                     }
                 </div>

@@ -1,4 +1,5 @@
-import { toDate, getSykmeldingStartdato, getPeriodeSpenn } from './datoUtils';
+import { toDate } from './datoUtils';
+import * as utils from './index';
 
 export function sorterPerioderEldsteFoerst(perioder) {
     return perioder.sort((a, b) => {
@@ -11,12 +12,12 @@ export function sorterPerioderEldsteFoerst(perioder) {
 
 export function sorterSykmeldingerEldsteFoerst(sykmeldinger) {
     return sykmeldinger.sort((a, b) => {
-        const startdatoA = toDate(getSykmeldingStartdato(a));
-        const startdatoB = toDate(getSykmeldingStartdato(b));
+        const startdatoA = toDate(utils.getSykmeldingStartdato(a));
+        const startdatoB = toDate(utils.getSykmeldingStartdato(b));
         if (startdatoA.getTime() !== startdatoB.getTime()) {
             return startdatoA - startdatoB;
         }
-        return getPeriodeSpenn(a.mulighetForArbeid.perioder) < getPeriodeSpenn(b.mulighetForArbeid.perioder) ? -1 : 1;
+        return utils.getPeriodeSpenn(a.mulighetForArbeid.perioder) < utils.getPeriodeSpenn(b.mulighetForArbeid.perioder) ? -1 : 1;
     });
 }
 
@@ -27,9 +28,9 @@ export function sorterSykmeldinger(sykmeldinger = [], kriterium = 'fom') {
     });
     return sykmeldinger.sort((a, b) => {
         if (kriterium === 'fom' || a.arbeidsgiver.trim().toUpperCase() === b.arbeidsgiver.trim().toUpperCase()) {
-            if (toDate(getSykmeldingStartdato(a)).getTime() !== toDate(getSykmeldingStartdato(b)).getTime()) {
+            if (toDate(utils.getSykmeldingStartdato(a)).getTime() !== toDate(utils.getSykmeldingStartdato(b)).getTime()) {
                 // Hvis a og b har ulik startdato, sorterer vi etter startdato
-                return toDate(getSykmeldingStartdato(b)) - toDate(getSykmeldingStartdato(a));
+                return toDate(utils.getSykmeldingStartdato(b)) - toDate(utils.getSykmeldingStartdato(a));
             }
             const sistePeriodeB = b.mulighetForArbeid.perioder[b.mulighetForArbeid.perioder.length - 1];
             const sistePeriodeA = a.mulighetForArbeid.perioder[a.mulighetForArbeid.perioder.length - 1];

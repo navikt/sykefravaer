@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { sorterSykmeldinger, sorterPerioderEldsteFoerst, sorterSykmeldingerEldsteFoerst, getPeriodeSpenn, getSykmeldingStartdato } from '../../js/utils/sorterSykmeldingerUtils';
+import { sorterSykmeldinger, sorterPerioderEldsteFoerst, sorterSykmeldingerEldsteFoerst, getSykmeldingStartdato } from '../../js/utils/sorterSykmeldingerUtils';
 import getSykmelding from '../mockSykmeldinger';
 
 describe("sorterSykmeldinger", function () {
@@ -670,63 +670,7 @@ describe("sorterSykmeldinger", function () {
             "grad": "100"
         }]);
     });
-
-    describe("getPeriodeSpenn", () => {
-        it("skal returnere antall dager mellom startdato i første periode og sluttdato i siste periode", () => {
-            const perioder = [{
-                "fom": { year: 2015, monthValue: 1, dayOfMonth: 1 },
-                "tom": { year: 2015, monthValue: 1, dayOfMonth: 2 },
-                "grad": "100"
-            }, {
-                "fom": { year: 2015, monthValue: 1, dayOfMonth: 1 },
-                "tom": { year: 2015, monthValue: 1, dayOfMonth: 3 },
-                "grad": "100"
-            }, {
-                "fom": { year: 2015, monthValue: 1, dayOfMonth: 1},
-                "tom": { year: 2015, monthValue: 1, dayOfMonth: 20 },
-                "grad": "100"
-            }];
-            const p = getPeriodeSpenn(perioder);
-            expect(p).to.equal(20)
-        });
-    });
-
-    describe("getSykmeldingStartdato", () => {
-        it("skal returnere startdato for første periode", () => {
-            const res1 = getSykmeldingStartdato({
-                "id": 1,
-                "mulighetForArbeid": {
-                    "perioder": [{
-                        "fom": { year: 2014, monthValue: 1, dayOfMonth: 1 },
-                        "tom": { year: 2014, monthValue: 1, dayOfMonth: 10 },
-                        "grad": "80"
-                    }, {
-                        "fom": { year: 2014, monthValue: 2, dayOfMonth: 2 },
-                        "tom": { year: 2014, monthValue: 2, dayOfMonth: 5 }, 
-                        "grad": "80"
-                    }]
-                }
-            })
-            expect(res1).to.deep.equal({ year: 2014, monthValue: 1, dayOfMonth: 1 });
-
-            const res2 = getSykmeldingStartdato({
-                "id": 1,
-                "mulighetForArbeid": {
-                    "perioder": [{
-                        "fom": { year: 2014, monthValue: 1, dayOfMonth: 1 },
-                        "tom": { year: 2014, monthValue: 1, dayOfMonth: 10 },
-                        "grad": "80"
-                    }, {
-                        "fom": { year: 2012, monthValue: 2, dayOfMonth: 2 },
-                        "tom": { year: 2014, monthValue: 2, dayOfMonth: 5 }, 
-                        "grad": "80"
-                    }]
-                }
-            })
-            expect(res2).to.deep.equal({ year: 2012, monthValue: 2, dayOfMonth: 2 })
-        });
-    });
-
+    
     describe("sorterSykmeldingerEldsteFoerst", () => {
         it("Skal sortere etter startdato for første periode med eldste først dersom eldsteForst === true", () => {
             const eldsteForst = true;

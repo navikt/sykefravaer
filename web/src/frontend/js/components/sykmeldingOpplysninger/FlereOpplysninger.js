@@ -8,8 +8,7 @@ import Tilbakedatering from './Tilbakedatering';
 import MeldingTilArbeidsgiver from './MeldingTilArbeidsgiver';
 import AndreSykmeldingOpplysninger from './AndreSykmeldingOpplysninger';
 import { getLedetekst } from '../../ledetekster';
-import { toDatePrettyPrint } from '../../utils/datoUtils';
-import { getSykmeldingOpplysning } from '../../utils/dinSykmeldingUtils';
+import { toDatePrettyPrint, getSykmeldingOpplysning } from '../../utils';
 
 const FlereOpplysninger = ({ sykmelding, ledetekster }) => {
     return (<div>

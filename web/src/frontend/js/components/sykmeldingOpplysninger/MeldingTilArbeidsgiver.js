@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { getLedetekst } from '../../ledetekster';
-import { getSykmeldingOpplysning } from '../../utils/dinSykmeldingUtils';
+import { getSykmeldingOpplysning } from '../../utils';
 
 const MeldingTilArbeidsgiver = ({ sykmelding, ledetekster }) => {
     const visSeksjon = sykmelding.innspillTilArbeidsgiver;

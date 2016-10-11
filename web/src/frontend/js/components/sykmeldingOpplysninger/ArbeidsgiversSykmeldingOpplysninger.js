@@ -3,7 +3,7 @@ import SykmeldingPerioder from './SykmeldingPerioder';
 import { SykmeldingNokkelOpplysning } from './SykmeldingOpplysning';
 import { getLedetekst } from '../../ledetekster';
 import FlereOpplysninger from './FlereOpplysninger';
-import { getSykmeldingCheckbox } from '../../utils/dinSykmeldingUtils';
+import { getSykmeldingCheckbox } from '../../utils';
 
 const ArbeidsgiversSykmeldingOpplysninger = ({ sykmelding, ledetekster }) => {
     return (<div className="side-innhold arbeidsgiversSykmelding">

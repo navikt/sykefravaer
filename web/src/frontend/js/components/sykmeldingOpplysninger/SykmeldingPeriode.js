@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { toDatePrettyPrint } from '../../utils/datoUtils';
+import { toDatePrettyPrint } from '../../utils';
 import { getLedetekst } from '../../ledetekster';
 
 const SykmeldingPeriode = ({ periode, antallDager = 1, ledetekster, Overskrift = 'H3' }) => {

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from './NokkelOpplysningerEnum';
 import { SykmeldingNokkelOpplysning } from '../components/sykmeldingOpplysninger/SykmeldingOpplysning';
-import { toDatePrettyPrint } from '../utils/datoUtils';
+import { toDatePrettyPrint } from '../utils';
 import { getLedetekst } from '../ledetekster/index';
 
 const Status = ({ ledetekster, status }) => {

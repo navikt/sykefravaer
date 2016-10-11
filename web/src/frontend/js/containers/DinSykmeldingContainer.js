@@ -12,8 +12,7 @@ import Feilmelding from '../components/Feilmelding';
 import { getLedetekst } from '../ledetekster';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
-import { getSykmelding } from '../utils';
-import { sorterSykmeldingerEldsteFoerst } from '../utils/datoUtils';
+import { getSykmelding, sorterSykmeldingerEldsteFoerst } from '../utils';
 
 export class DinSykmldSide extends Component {
 

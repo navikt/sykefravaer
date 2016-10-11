@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
-import { toDatePrettyPrint } from '../../utils/datoUtils';
+import { toDatePrettyPrint, getSykmeldingOpplysning } from '../../utils';
 import { getLedetekst } from '../../ledetekster';
-import { getSykmeldingOpplysning } from '../../utils/dinSykmeldingUtils';
 
 const Tilbakedatering = ({ sykmelding, ledetekster }) => {
     const visSeksjon = sykmelding.tilbakedatering.dokumenterbarPasientkontakt || sykmelding.tilbakedatering.tilbakedatertBegrunnelse;

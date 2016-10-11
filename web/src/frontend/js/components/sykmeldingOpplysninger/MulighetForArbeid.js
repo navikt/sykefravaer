@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { getLedetekst } from '../../ledetekster';
 import { SykmeldingOpplysning } from './SykmeldingOpplysning';
 import { SykmeldingCheckbox } from './SykmeldingCheckbox';
-import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../../utils/dinSykmeldingUtils';
+import { getSykmeldingCheckbox, getSykmeldingOpplysning } from '../../utils';
 
 const fjernAnnet = (array) => {
     if (array.length === 1 && array.indexOf('Annet') > -1) {

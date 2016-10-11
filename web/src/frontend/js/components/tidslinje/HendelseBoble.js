@@ -2,8 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { getLedetekst } from '../../ledetekster';
 import TidslinjeBudskap from './TidslinjeBudskap';
 import HendelseIkon from './HendelseIkon';
-import { scrollTo } from '../../utils';
-import { toDatePrettyPrint } from '../../utils/datoUtils';
+import { scrollTo, toDatePrettyPrint } from '../../utils';
 
 const BobleHeader = (props) => {
     return (<a

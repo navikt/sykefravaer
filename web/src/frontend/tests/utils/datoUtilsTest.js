@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { toDatePrettyPrint, getDuration } from '../../js/utils/datoUtils';
+import { toDatePrettyPrint, getDuration, getPeriodeSpenn, getSykmeldingStartdato } from '../../js/utils/datoUtils';
 
 describe("datoUtils", () => {
 
-    describe("toDate", () => {
+    describe("toDatePrettyPrint", () => {
         it("Skal formatere dato", () => {
             expect(toDatePrettyPrint({ year: 2014, monthValue: 2, dayOfMonth: 28 })).to.equal("28.02.2014");
         });
@@ -23,5 +23,5 @@ describe("datoUtils", () => {
             expect(getDuration({ year: 2014, monthValue: 6, dayOfMonth: 30 }, { year: 2014, monthValue: 7, dayOfMonth: 5 })).to.equal(6);
         });
     });
-    
+
 });

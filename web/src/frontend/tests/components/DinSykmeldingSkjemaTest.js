@@ -568,7 +568,10 @@ describe("DinSykmeldingSkjema -", () => {
             skjemaData.values.valgtArbeidsgiver = {
                 orgnummer: "123456789",
                 navn: "Mortens frukt og grønt",
-                naermesteLeder: "Ole Olsen"
+                naermesteLeder: {
+                    navn: "Ole Olsen",
+                    epost: "ole.olsen@test.no"
+                }
             }
             const component = mount(<Provider store={store}>
                 <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />

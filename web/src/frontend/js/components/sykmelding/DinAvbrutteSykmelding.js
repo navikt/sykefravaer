@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmeldingOpplysninger';
 import StatusPanel from '../StatusPanel';
 import Utvidbar from '../Utvidbar';
-import { getLedetekst } from '../../ledetekster/index';
+import { getLedetekst } from '../../ledetekster';
 import { STATUS, INNSENDT_DATO } from '../../nokkelopplysninger/NokkelOpplysningerEnum';
 import Sidetopp from '../Sidetopp';
 

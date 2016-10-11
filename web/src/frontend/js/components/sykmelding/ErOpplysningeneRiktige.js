@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { getLedetekst } from '../../ledetekster';
 import HvilkeOpplysningerErIkkeRiktige from './HvilkeOpplysningerErIkkeRiktige';
 import { Field } from 'redux-form';
-import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
+import { visFeilmelding, getFeilmelding } from '../../utils';
 
 const ErOpplysningeneRiktige = ({ skjemaData, ledetekster, untouch }) => {
     const alternativer = [true, false];

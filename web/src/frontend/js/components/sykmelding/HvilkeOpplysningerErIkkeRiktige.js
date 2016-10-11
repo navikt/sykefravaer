@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
+import { Field } from 'redux-form';
 import Checkboxgruppe from '../skjema/Checkboxgruppe';
 import { getLedetekst } from '../../ledetekster';
-import { Field } from 'redux-form';
-import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
+import { visFeilmelding, getFeilmelding } from '../../utils';
 
 export const DuTrengerNySykmelding = ({ ledetekster }) => {
     return (<div className="panel panel-relatert">

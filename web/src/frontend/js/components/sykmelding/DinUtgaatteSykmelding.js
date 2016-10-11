@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import StatusPanel from '../StatusPanel';
 import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmeldingOpplysninger';
 import Utvidbar from '../Utvidbar';
-import { getLedetekst } from '../../ledetekster/index';
+import { getLedetekst } from '../../ledetekster';
 import { STATUS } from '../../nokkelopplysninger/NokkelOpplysningerEnum';
 
 const DinBekreftedeSykmelding = ({ sykmelding, ledetekster }) => {

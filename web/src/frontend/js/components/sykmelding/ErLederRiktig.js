@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
+import { visFeilmelding, getFeilmelding } from '../../utils';
 import { getLedetekst } from '../../ledetekster';
 
 const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {

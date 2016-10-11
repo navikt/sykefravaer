@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import { getHtmlLedetekst, getLedetekst } from '../../ledetekster';
 import { Link } from 'react-router';
-import { getContextRoot } from '../../routers/paths.js';
-import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
+import { getContextRoot } from '../../routers/paths';
+import { visFeilmelding, getFeilmelding } from '../../utils';
 import ErLederRiktig from './ErLederRiktig';
 import Hjelpetekst from '../skjema/Hjelpetekst';
 

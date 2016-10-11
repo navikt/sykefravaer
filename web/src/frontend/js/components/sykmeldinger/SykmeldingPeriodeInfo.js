@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { getDuration } from '../../utils/datoUtils';
+import { getDuration } from '../../utils';
 import { getLedetekst } from '../../ledetekster';
 
 const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekster }) => {

@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import DineSykmeldingOpplysninger from '../sykmeldingOpplysninger/DineSykmeldingOpplysninger';
 import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
 import { getLedetekst, getHtmlLedetekst } from '../../ledetekster';
 import Sidetopp from '../Sidetopp';
 import Varselstripe from '../Varselstripe';
-import { Link } from 'react-router';
 
 const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, eldsteSykmeldingId }) => {
     return (<div>

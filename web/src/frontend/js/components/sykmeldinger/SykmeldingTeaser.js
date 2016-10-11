@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths';
-import { toDatePrettyPrint } from '../../utils/datoUtils';
+import { toDatePrettyPrint } from '../../utils';
 import { getLedetekst } from '../../ledetekster';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
 

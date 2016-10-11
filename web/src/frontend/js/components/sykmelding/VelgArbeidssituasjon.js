@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
+import { Field } from 'redux-form';
 import DropdownWrapper from '../skjema/DropdownWrapper.js';
 import { getLedetekst } from '../../ledetekster';
 import Hjelpetekst from '../skjema/Hjelpetekst.js';
 import arbeidssituasjoner from '../../arbeidssituasjonData';
-import { Field } from 'redux-form';
-import { visFeilmelding, getFeilmelding } from '../../utils/valideringUtils';
+import { visFeilmelding, getFeilmelding } from '../../utils';
 
 const getArbeidssituasjoner = (skjemaData) => {
     if (!skjemaData || !skjemaData.values || !skjemaData.values.valgtArbeidssituasjon) {

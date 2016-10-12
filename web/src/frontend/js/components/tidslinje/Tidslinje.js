@@ -9,12 +9,16 @@ const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseD
     const htmlIntro = {
         __html: `<p>${getLedetekst('tidslinje.introtekst', ledetekster)}</p>`,
     };
+    var nyNaermesteLederHendelseMedArbeidsgiver = (hendelse) => {
+        return !(arbeidssituasjon === 'UTEN_ARBEIDSGIVER' && hendelse.type == 'NY_NAERMESTE_LEDER');
+    };
     return (<div>
         <Sidetopp tittel="Tidslinjen" htmlTekst={htmlIntro} />
         <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
         <div className="tidslinje">
             {
                 hendelser
+                    .filter(nyNaermesteLederHendelseMedArbeidsgiver)
                 .map((hendelse) => {
                     if (hendelse.type !== 'BOBLE' && hendelse.type !== 'AKTIVITETSKRAV_VARSEL' && hendelse.type !== 'NY_NAERMESTE_LEDER') {
                         return <HendelseTittel {...hendelse} key={hendelse.id} ledetekster={ledetekster} />;

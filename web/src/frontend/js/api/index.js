@@ -9,6 +9,9 @@ export function get(url) {
         credentials: 'include',
     })
     .then((res) => {
+        if (res.status > 400) {
+            throw new Error('Forespørsel feilet');
+        }
         return res.json();
     })
     .catch((err) => {

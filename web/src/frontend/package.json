@@ -47,7 +47,7 @@
     "cheerio": "0.20.0",
     "chokidar": "1.6.0",
     "deep-freeze": "0.0.1",
-    "digisyfo-npm": "1.0.5",
+    "digisyfo-npm": "1.0.8",
     "enzyme": "2.2.0",
     "express": "4.13.4",
     "fetch": "1.0.1",

@@ -7,7 +7,7 @@ const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {
         label: 'Ja',
         beOmNyNaermesteLeder: false,
     }, {
-        label: 'Nei – NAV ber arbeidsgiveren din oppgi ny personalasvarlig',
+        label: 'Nei – NAV ber arbeidsgiveren din oppgi ny leder',
         beOmNyNaermesteLeder: true,
     }];
     const erFeil = visFeilmelding(skjemaData, 'beOmNyNaermesteLeder');

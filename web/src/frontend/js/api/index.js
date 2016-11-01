@@ -1,6 +1,5 @@
 import { getCookie } from 'digisyfo-npm';
 import Ajax from 'simple-ajax';
-import fetch from 'isomorphic-fetch';
 
 // Dette mangler tester
 
@@ -9,8 +8,11 @@ export function get(url) {
         credentials: 'include',
     })
     .then((res) => {
+        if (res.status === 404) {
+            throw new Error('404');
+        }
         if (res.status > 400) {
-            throw new Error('Forespørsel feilet');
+            throw new Error('Det oppstod en feil');
         }
         return res.json();
     })

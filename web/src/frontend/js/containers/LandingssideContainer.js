@@ -33,13 +33,14 @@ LandingssideSide.propTypes = {
 };
 
 export function mapStateToProps(state) {
+    const ledetekster = state.ledetekster.data;
     return {
-        ledetekster: state.ledetekster.data,
+        ledetekster,
         henter: state.ledetekster.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
         skjulVarsel: (state.brukerinfo && state.brukerinfo.innstillinger) ? (state.brukerinfo.innstillinger.skjulUnderUtviklingVarsel === true) : false,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
         }],
     };

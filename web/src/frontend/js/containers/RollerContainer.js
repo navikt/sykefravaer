@@ -17,7 +17,7 @@ export const RollerSide = ({ ledetekster, brodsmuler, henter, hentingFeilet }) =
                     return <Feilmelding />;
                 }
                 return (<Artikkel tittel={getLedetekst('roller.tittel', ledetekster)}
-                                  innhold={getLedetekst('roller.innhold', ledetekster)}/>);
+                    innhold={getLedetekst('roller.innhold', ledetekster)} />);
             })()
         }
     </Side>);
@@ -31,16 +31,17 @@ RollerSide.propTypes = {
 };
 
 export function mapStateToProps(state) {
+    const ledetekster = state.ledetekster.data;
     return {
-        ledetekster: state.ledetekster.data,
+        ledetekster,
         hentingFeilet: state.ledetekster.hentingFeilet,
         henter: state.ledetekster.henter,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('landingsside.sidetittel', ledetekster),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('roller.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('roller.sidetittel', ledetekster),
         }],
     };
 }

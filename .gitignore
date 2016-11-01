@@ -11,3 +11,4 @@ npm-debug.log*
 **/webapp/*.html
 web/src/frontend/img/modig-frontend/**/*
 web/src/frontend/coverage
+web/src/frontend/.nyc_output

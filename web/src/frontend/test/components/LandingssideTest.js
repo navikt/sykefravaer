@@ -45,4 +45,18 @@ describe("Sykmelding og oppfolging", () => {
         expect(component.find(UnderUtviklingVarselContainer)).to.have.length(0);
     });
 
+    describe("GenerellInfo", () => {
+
+        it("Skal vise en overskrift", () => {
+            component = shallow(<GenerellInfo ledetekster={ledetekster} />);
+            expect(component.find("h2")).to.have.length(1);
+        });
+
+        it("Skal vise to lenker", () => {
+           component = mount(<GenerellInfo ledetekster={ledetekster} />);
+           expect(component.find("a")).to.have.length(2); 
+        })
+
+    })
+
 }); 

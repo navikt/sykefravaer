@@ -9,8 +9,8 @@ const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseD
     const htmlIntro = {
         __html: `<p>${getLedetekst('tidslinje.introtekst', ledetekster)}</p>`,
     };
-    var nyNaermesteLederHendelseMedArbeidsgiver = (hendelse) => {
-        return !(arbeidssituasjon === 'UTEN_ARBEIDSGIVER' && hendelse.type == 'NY_NAERMESTE_LEDER');
+    const nyNaermesteLederHendelseMedArbeidsgiver = (hendelse) => {
+        return !(arbeidssituasjon === 'UTEN_ARBEIDSGIVER' && hendelse.type === 'NY_NAERMESTE_LEDER');
     };
     return (<div>
         <Sidetopp tittel="Tidslinjen" htmlTekst={htmlIntro} />

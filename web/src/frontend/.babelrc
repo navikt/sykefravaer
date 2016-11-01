@@ -1,3 +1,8 @@
 {
-  "presets": ["es2015-without-strict", "react"]
+  "presets": ["es2015-without-strict", "react"],
+  "env": {
+    "test": {
+        "plugins": ["istanbul"]
+    }
+  }
 }

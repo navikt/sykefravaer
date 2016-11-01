@@ -23,11 +23,10 @@
     "scripts:watch": "webpack-dev-server --inline",
     "lint": "eslint js/. --ext .js"
   },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ]
+  "nyc": {
+    "require": ["babel-register"],
+    "sourceMap": false,
+    "instrument": false
   },
   "author": "Helge Fredheim <helge.fredheim@nav.no>",
   "license": "ISC",
@@ -74,6 +73,7 @@
     "babel-core": "6.5.2",
     "babel-eslint": "6.0.0",
     "babel-istanbul": "0.11.0",
+    "babel-plugin-istanbul": "2.0.3",
     "babel-preset-es2015-without-strict": "0.0.3",
     "chai": "3.5.0",
     "chai-enzyme": "0.4.2",

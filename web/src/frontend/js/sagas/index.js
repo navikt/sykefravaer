@@ -3,7 +3,7 @@ import brukerinfoSagas from './brukerinfoSagas';
 import dineArbeidsgivereSagas from './dineArbeidsgivereSagas';
 import dineSykmeldingerSagas from './dineSykmeldingerSagas';
 import dinSykmeldingSagas from './dinSykmeldingSagas';
-import ledeteksterSagas from './ledeteksterSagas';
+import { ledeteksterSagas } from 'digisyfo-npm';
 import tidslinjerSagas from './tidslinjerSagas';
 
 export default function * rootSaga() {

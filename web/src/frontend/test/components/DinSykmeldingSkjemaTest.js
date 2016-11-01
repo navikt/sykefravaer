@@ -9,7 +9,7 @@ import getSykmelding from "../mockSykmeldinger.js";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 
 import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, validate } from "../../js/components/sykmelding/DinSykmeldingSkjema";
 import StrengtFortroligInfo from "../../js/components/sykmelding/StrengtFortroligInfo";
@@ -27,8 +27,8 @@ import { Provider } from 'react-redux';
 describe("DinSykmeldingSkjema -", () => {
 
     let component;
-
-    const middlewares = [thunk];
+    const sagaMiddleware = createSagaMiddleware();
+    const middlewares = [sagaMiddleware];
     const mockStore = configureMockStore(middlewares);
 
     let store;

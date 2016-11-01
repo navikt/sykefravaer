@@ -140,7 +140,7 @@
                 <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
                 <sonar.sources>src/frontend/js</sonar.sources>
                 <sonar.javascript.lcov.reportPath>src/frontend/coverage/lcov.info</sonar.javascript.lcov.reportPath>
-                <npm.testmode>coverage</npm.testmode>
+                <npm.testmode>test</npm.testmode>
             </properties>
         </profile>
     </profiles>

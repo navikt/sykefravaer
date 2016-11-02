@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
 
-const Varselstripe = ({ type = 'default', children }) => {
-    const typeClass = `varselstripe--${type}`;
-    const modigFrontendIkonRot = '/sykefravaer/img/modig-frontend/ikoner-svg/';
+export function getIkon(type) {
     let typeIkon;
     let ikonAlt = 'Info';
+    const modigFrontendIkonRot = '/sykefravaer/img/modig-frontend/ikoner-svg/';
 
     switch (type) {
         case 'suksess': {
@@ -30,6 +29,16 @@ const Varselstripe = ({ type = 'default', children }) => {
             break;
         }
     }
+    return {
+        typeIkon,
+        ikonAlt,
+    };
+}
+
+const Varselstripe = ({ type = 'default', children }) => {
+    const typeClass = `varselstripe--${type}`;
+    const { typeIkon, ikonAlt } = getIkon(type);
+
     return (<div className={`varselstripe ${(type ? typeClass : '')}`}>
         <div className="varselstripe__ikon">
             <img src={typeIkon} alt={ikonAlt} />

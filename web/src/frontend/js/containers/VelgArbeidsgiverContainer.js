@@ -4,8 +4,7 @@ import { setArbeidsgiver } from '../actions/dinSykmelding_actions';
 import VelgArbeidsgiver from '../components/sykmelding/VelgArbeidsgiver';
 import { getLedetekst, getSykmelding } from 'digisyfo-npm';
 
-export class Velg extends Component {
-
+export class VelgArbeidsgiverWrapper extends Component {
     onChange(orgnummer) {
         const { arbeidsgivere, dispatch, sykmelding } = this.props;
         const arbeidsgiver = arbeidsgivere.filter((arbgiver) => {
@@ -24,7 +23,7 @@ export class Velg extends Component {
     }
 }
 
-Velg.propTypes = {
+VelgArbeidsgiverWrapper.propTypes = {
     sykmelding: PropTypes.object.isRequired,
     dispatch: PropTypes.func,
     ledetekster: PropTypes.object,
@@ -62,6 +61,6 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-const VelgArbeidsgiverContainer = connect(mapStateToProps)(Velg);
+const VelgArbeidsgiverContainer = connect(mapStateToProps)(VelgArbeidsgiverWrapper);
 
 export default VelgArbeidsgiverContainer;

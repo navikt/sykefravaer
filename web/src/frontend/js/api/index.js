@@ -1,8 +1,6 @@
 import { getCookie } from 'digisyfo-npm';
 import Ajax from 'simple-ajax';
 
-// Dette mangler tester
-
 export function get(url) {
     return fetch(url, {
         credentials: 'include',
@@ -24,7 +22,9 @@ export function get(url) {
 export function getAjax(url) {
     const ajax = new Ajax(url);
     const promise = new Promise((resolve, reject) => {
-        ajax.on('success', resolve);
+        ajax.on('success', (respons, responsTekst) => {
+            resolve(responsTekst);
+        });
         ajax.on('error', reject);
     });
     ajax.send();

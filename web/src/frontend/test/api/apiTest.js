@@ -1,6 +1,9 @@
 import { expect } from 'chai';
-import { get, post } from '../../js/api';
+import { get, post, getAjax } from '../../js/api';
 import fetchMock from 'fetch-mock';
+import sinon from 'sinon';
+
+
 
 describe("api", () => {
     describe("get", () => {
@@ -75,5 +78,48 @@ describe("api", () => {
 
 
     });
+
+    describe("getAjax", () => {
+
+        let server;
+
+        beforeEach(() => {
+            server = sinon.fakeServer.create();
+        });
+
+        afterEach(() => {
+            server.restore();
+        });
+
+        it("Skal returnere promise som resolves ved success (JSON)", (done) => {
+            getAjax("/olsen").then((respons) => {
+                expect(JSON.parse(respons)).to.deep.equal({"test": "OK"});
+                done();
+            });
+            server.requests[0].respond(200, {
+                "Content-Type": "application/json"
+            }, JSON.stringify({
+                "test": "OK"
+            }));
+        });
+
+        it("Skal returnere promise som resolves ved success (TEKST)", (done) => {
+            getAjax("/olsen").then((respons) => {
+                expect(respons).to.deep.equal("Min respons");
+                done();
+            });
+            server.requests[0].respond(200, {
+                "Content-Type": "text/plain"
+            }, "Min respons");
+        });
+
+        it("Skal returnere promise som rejected ved feil", (done) => {
+            getAjax("/olsen").catch((a) => {
+                done();
+            });
+            server.requests[0].respond(500);
+        });
+
+    })
 
 });

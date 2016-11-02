@@ -3,7 +3,7 @@ import { hentTidslinjer } from '../../js/sagas/tidslinjerSagas.js';
 import { get } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
 
-describe.only("tidslinjerSagas", () => {
+describe("tidslinjerSagas", () => {
 
     window.SYFO_SETTINGS = {
         REST_ROOT: "http://tjenester.nav.no/syforest"

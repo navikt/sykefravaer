@@ -10,7 +10,7 @@ export function* hentTidslinjer(action) {
         const data = yield call(get, `${window.SYFO_SETTINGS.REST_ROOT}/tidslinje?type=${action.arbeidssituasjon}`);
         yield put(actions.setTidslinjer(data, action.arbeidssituasjon));
         if (action.apneHendelseIder.length) {
-            put(apneHendelser(actions.apneHendelseIder));
+            yield put(apneHendelser(action.apneHendelseIder));
         }
     } catch (e) {
         yield put(actions.hentTidslinjerFeilet());

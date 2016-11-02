@@ -3,7 +3,7 @@ import { hentTidslinjer } from '../../js/sagas/tidslinjerSagas.js';
 import { get } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
 
-describe("tidslinjerSagas", () => {
+describe.only("tidslinjerSagas", () => {
 
     window.SYFO_SETTINGS = {
         REST_ROOT: "http://tjenester.nav.no/syforest"
@@ -33,5 +33,10 @@ describe("tidslinjerSagas", () => {
         })
         expect(generator.next("data").value).to.deep.equal(nextPut);
     });
+
+    it("Skal dernest åpne hendelser dersom action.apneHendelseIder.length > 0", () => {
+        const nextPut = put({ type: 'ÅPNE_HENDELSER', hendelseIder: [ '3' ] });
+        expect(generator.next().value).to.deep.equal(nextPut)
+    })
 
 });

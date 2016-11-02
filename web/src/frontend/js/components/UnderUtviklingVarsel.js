@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
-import Varselstripe from './Varselstripe';
+import Varselstripe from '../components/Varselstripe';
 
 class UnderUtviklingVarsel extends Component {
     constructor(props) {
@@ -21,7 +21,9 @@ class UnderUtviklingVarsel extends Component {
             <Varselstripe>
                 <p className="sist">{getLedetekst('under-utvikling.varsel.tekst', this.props.ledetekster)}</p>
             </Varselstripe>
-            <button className="modal-lukk" onClick={() => { this.props.skjulUnderUtviklingVarsel();}}>{getLedetekst('under-utvikling.varsel.lukk', this.props.ledetekster)}</button>
+            <button className="js-lukk modal-lukk" onClick={() => { 
+                this.props.skjulUnderUtviklingVarsel();
+            }}>{getLedetekst('under-utvikling.varsel.lukk', this.props.ledetekster)}</button>
         </div>);
     }
 

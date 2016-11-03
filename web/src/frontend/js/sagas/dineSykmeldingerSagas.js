@@ -6,7 +6,7 @@ import * as actions from '../actions/dineSykmeldinger_actions';
 export function* hentDineSykmeldinger() {
     yield put(actions.henterDineSykmeldinger());
     try {
-        const data = yield call(get, `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger`);
+        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger`);
         yield put(actions.setDineSykmeldinger(data));
     } catch (e) {
         yield put(actions.hentDineSykmeldingerFeilet());

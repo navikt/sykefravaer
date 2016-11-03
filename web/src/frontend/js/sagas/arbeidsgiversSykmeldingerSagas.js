@@ -6,7 +6,7 @@ import * as actions from '../actions/arbeidsgiversSykmeldinger_actions';
 export function* hentArbeidsgiversSykmeldinger() {
     yield put({ type: 'HENTER_ARBEIDSGIVERS_SYKMELDINGER' });
     try {
-        const data = yield call(get, `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger?type=arbeidsgiver`);
+        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger?type=arbeidsgiver`);
         yield put(actions.setArbeidsgiversSykmeldinger(data));
     } catch (e) {
         yield put(actions.hentArbeidsgiversSykmeldingerFeilet());

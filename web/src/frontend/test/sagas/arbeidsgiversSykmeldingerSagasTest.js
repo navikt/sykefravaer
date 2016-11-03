@@ -5,7 +5,7 @@ import { put, call } from 'redux-saga/effects';
 
 describe("arbeidsgiversSykmeldingerSagas", () => {
 
-    window.SYFO_SETTINGS = {
+    window.APP_SETTINGS = {
         REST_ROOT: "http://tjenester.nav.no/syforest"
     }
 

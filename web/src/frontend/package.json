@@ -95,7 +95,7 @@
     "less-loader": "2.2.2",
     "less-plugin-autoprefix": "1.5.1",
     "mocha": "3.1.2",
-    "modig-frontend": "git+http://stash.devillo.no/scm/felles/modig-frontend.git#modig-frontend-3.0.23",
+    "modig-frontend": "git+http://stash.devillo.no/scm/felles/modig-frontend.git#modig-frontend-4.0.10",
     "mustache": "2.2.1",
     "nodemon": "1.8.1",
     "nyc": "8.3.2",

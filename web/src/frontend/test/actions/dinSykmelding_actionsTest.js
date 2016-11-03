@@ -10,7 +10,7 @@ describe("dinSykmelding_actions", () => {
 
     beforeEach(() => {
         window = window || {};
-        window.SYFO_SETTINGS = {
+        window.APP_SETTINGS = {
             REST_ROOT: 'http://tjenester.nav.no/syforest'
         }
     });

@@ -6,7 +6,7 @@ import * as actions from '../actions/brukerinfo_actions';
 export function* hentBrukerinfo() {
     yield put(actions.henterBrukerinfo());
     try {
-        const data = yield call(get, `${window.SYFO_SETTINGS.REST_ROOT}/informasjon/bruker`);
+        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/informasjon/bruker`);
         yield put(actions.setBrukerinfo(data));
     } catch (e) {
         yield put(actions.hentBrukerinfoFeilet());

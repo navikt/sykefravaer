@@ -17,7 +17,7 @@ import VelgArbeidssituasjon from "../../js/components/sykmelding/VelgArbeidssitu
 import { DineSykmeldingOpplysninger } from "digisyfo-npm";
 import VelgArbeidsgiver from "../../js/components/sykmelding/VelgArbeidsgiver";
 import ArbeidsgiversSykmeldingContainer from "../../js/containers/ArbeidsgiversSykmeldingContainer";
-import Varselstripe from "../../js/components/Varselstripe";
+import { Varselstripe } from "digisyfo-npm";
 import Checkboxgruppe from '../../js/components/skjema/Checkboxgruppe';
 import HvilkeOpplysningerErIkkeRiktige, { SykmeldingFeilaktigeOpplysningerInfo, DuTrengerNySykmelding, DuKanBrukeSykmeldingenDinDiagnoseAndre, DuKanBrukeSykmeldingenDinArbeidsgiver } from '../../js/components/sykmelding/HvilkeOpplysningerErIkkeRiktige';
 import ErLederRiktig from '../../js/components/sykmelding/ErLederRiktig';

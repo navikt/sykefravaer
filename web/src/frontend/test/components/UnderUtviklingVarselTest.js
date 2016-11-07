@@ -8,7 +8,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import UnderUtviklingVarsel from "../../js/components/UnderUtviklingVarsel";
-import Varselstripe from "../../js/components/Varselstripe";
+import { Varselstripe } from "digisyfo-npm";
 import ledetekster from "../ledetekster_mock.js";
 
 describe("UnderUtviklingVarsel", () => {

@@ -2,11 +2,10 @@ import React, { PropTypes, Component } from 'react';
 import VelgArbeidssituasjon from '../../components/sykmelding/VelgArbeidssituasjon';
 import VelgArbeidsgiver from '../../components/sykmelding/VelgArbeidsgiver';
 import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykmeldingContainer';
-import Varselstripe from '../../components/Varselstripe';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
 import { reduxForm } from 'redux-form';
-import { filtrerObjektKeys, getLedetekst } from 'digisyfo-npm';
+import { filtrerObjektKeys, getLedetekst, Varselstripe } from 'digisyfo-npm';
 import AvbrytDialog from './AvbrytDialog';
 
 export class DinSykmeldingSkjemaComponent extends Component {

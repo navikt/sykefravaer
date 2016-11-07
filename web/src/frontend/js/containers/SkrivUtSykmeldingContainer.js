@@ -59,26 +59,27 @@ SkrivUt.propTypes = {
 export const mapStateToProps = (state, ownProps) => {
     const sykmeldingId = ownProps.params.sykmeldingId;
     const sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId);
+    const ledetekster = state.ledetekster.data;
 
     return {
         sykmelding,
         henter: state.ledetekster.henter || state.arbeidsgiversSykmeldinger.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet,
-        ledetekster: state.ledetekster.data,
+        ledetekster,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('landingsside.sidetittel', ledetekster),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('dine-sykmeldinger.sidetittel', ledetekster),
             sti: '/sykmeldinger',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('din-sykmelding.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('din-sykmelding.sidetittel', ledetekster),
             sti: `/sykmeldinger/${sykmeldingId}`,
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('skriv-ut-sykmelding.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('skriv-ut-sykmelding.sidetittel', ledetekster),
         }],
     };
 };

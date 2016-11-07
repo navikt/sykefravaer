@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { getLedetekst } from 'digisyfo-npm';
-import Varselstripe from '../components/Varselstripe';
+import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 
 class UnderUtviklingVarsel extends Component {
     constructor(props) {

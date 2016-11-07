@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
-import { getLedetekst, getHtmlLedetekst, DineSykmeldingOpplysninger } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, DineSykmeldingOpplysninger, Varselstripe } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
-import Varselstripe from '../Varselstripe';
 
 const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, eldsteSykmeldingId }) => {
     return (<div>

@@ -15,7 +15,7 @@ export function* bekreftSykmelding(action) {
             arbeidssituasjon: action.arbeidssituasjon,
             feilaktigeOpplysninger: action.feilaktigeOpplysninger,
         };
-        yield call(post, `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/bekreft`, body);
+        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/bekreft`, body);
         yield put(actions.sykmeldingBekreftet(action.sykmeldingId));
         yield put({ type: 'HENT_DINE_SYKMELDINGER_FORESPURT' });
         yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
@@ -33,7 +33,7 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
         orgnummer: action.orgnummer,
     };
     try {
-        yield call(post, `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/send`, body);
+        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/send`, body);
         yield put(actions.sykmeldingSendt(action.sykmeldingId));
         yield put({ type: 'HENT_DINE_SYKMELDINGER_FORESPURT' });
         yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
@@ -47,7 +47,7 @@ export function* avbrytSykmelding(action) {
     yield put({ type: 'AVBRYTER_SYKMELDING' });
     const body = action.feilaktigeOpplysninger;
     try {
-        yield call(post, `${window.SYFO_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/avbryt`, body);
+        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/avbryt`, body);
         yield put(actions.sykmeldingAvbrutt(action.sykmeldingId));
         yield put({ type: 'HENT_DINE_SYKMELDINGER_FORESPURT' });
         yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });

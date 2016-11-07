@@ -7,7 +7,7 @@ export function* hentDineArbeidsgivere(action) {
     const sykmeldingId = action.sykmeldingId;
     yield put(actions.henterAktuelleArbeidsgivere(sykmeldingId));
     try {
-        const data = yield call(get, `${window.SYFO_SETTINGS.REST_ROOT}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`);
+        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`);
         yield put(actions.setAktuelleArbeidsgivere(sykmeldingId, data));
     } catch (e) {
         yield put(actions.hentAktuelleArbeidsgivereFeilet(sykmeldingId));

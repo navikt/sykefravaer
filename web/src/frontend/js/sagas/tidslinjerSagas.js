@@ -7,7 +7,7 @@ import { apneHendelser } from '../actions/hendelser_actions.js';
 export function* hentTidslinjer(action) {
     yield put(actions.henterTidslinjer());
     try {
-        const data = yield call(get, `${window.SYFO_SETTINGS.REST_ROOT}/tidslinje?type=${action.arbeidssituasjon}`);
+        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/tidslinje?type=${action.arbeidssituasjon}`);
         yield put(actions.setTidslinjer(data, action.arbeidssituasjon));
         if (action.apneHendelseIder.length) {
             yield put(apneHendelser(action.apneHendelseIder));

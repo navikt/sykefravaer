@@ -2,11 +2,11 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock.js";
+import ledetekster from "../ledetekster_mock";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import SykmeldingPeriodeInfo from "../../js/components/sykmeldinger/SykmeldingPeriodeInfo.js";
+import SykmeldingPeriodeInfo from "../../js/components/sykmeldinger/SykmeldingPeriodeInfo";
 
 const periode = {
             "fom": { year: 2016, monthValue: 5, dayOfMonth: 1 },

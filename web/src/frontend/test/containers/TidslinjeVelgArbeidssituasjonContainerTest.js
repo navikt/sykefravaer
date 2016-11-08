@@ -2,14 +2,14 @@ import chai from 'chai';
 import React from 'react'
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock.js";
+import ledetekster from "../ledetekster_mock";
 import sinon from 'sinon';
-import history from '../../js/history.js';
+import history from '../../js/history';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { VelgArbeidssituasjon, mapStateToProps, erstattUrl } from "../../js/containers/TidslinjeVelgArbeidssituasjonContainer.js";
+import { VelgArbeidssituasjon, mapStateToProps, erstattUrl } from "../../js/containers/TidslinjeVelgArbeidssituasjonContainer";
 import { Radiofaner } from "digisyfo-npm";
 
 describe("TidslinjeVelgArbeidssituasjonContainer", () => {

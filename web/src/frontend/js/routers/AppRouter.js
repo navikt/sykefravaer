@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import { Router, Route } from 'react-router';
-import DineSykmeldingerContainer from '../containers/DineSykmeldingerContainer.js';
-import LandingssideContainer from '../containers/LandingssideContainer.js';
-import { DinSykmeldingContainer } from '../containers/DinSykmeldingContainer.js';
-import SkrivUtSykmeldingContainer from '../containers/SkrivUtSykmeldingContainer.js';
-import TidslinjeContainer from '../containers/TidslinjeContainer.js';
-import SykmeldingKvitteringContainer from '../containers/SykmeldingKvitteringContainer.js';
-import RollerContainer from '../containers/RollerContainer.js';
+import DineSykmeldingerContainer from '../containers/DineSykmeldingerContainer';
+import LandingssideContainer from '../containers/LandingssideContainer';
+import { DinSykmeldingContainer } from '../containers/DinSykmeldingContainer';
+import SkrivUtSykmeldingContainer from '../containers/SkrivUtSykmeldingContainer';
+import TidslinjeContainer from '../containers/TidslinjeContainer';
+import SykmeldingKvitteringContainer from '../containers/SykmeldingKvitteringContainer';
+import RollerContainer from '../containers/RollerContainer';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>

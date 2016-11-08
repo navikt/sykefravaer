@@ -8,7 +8,7 @@ chai.use(chaiEnzyme());
 
 const expect = chai.expect;
 
-import Artikkel from "../../js/components/Artikkel.js";
+import Artikkel from "../../js/components/Artikkel";
 
 describe("Artikkel", () => {
 

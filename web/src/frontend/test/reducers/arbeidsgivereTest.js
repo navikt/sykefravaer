@@ -2,7 +2,7 @@ import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
 import deepFreeze from 'deep-freeze';
 
-import arbeidsgivere from '../../js/reducers/arbeidsgivere.js';
+import arbeidsgivere from '../../js/reducers/arbeidsgivere';
 
 describe('arbeidsgivere', () => {
 

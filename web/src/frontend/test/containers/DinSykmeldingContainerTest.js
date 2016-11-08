@@ -2,20 +2,20 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock.js";
+import ledetekster from "../ledetekster_mock";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import getSykmelding from "../mockSykmeldinger";
-import { DinSykmldSide, mapStateToProps } from "../../js/containers/DinSykmeldingContainer.js";
-import AppSpinner from '../../js/components/AppSpinner.js';
-import Feilmelding from '../../js/components/Feilmelding.js';
-import DinSykmelding from '../../js/components/sykmelding/DinSykmelding.js';
-import SykmeldingKvittering from '../../js/components/sykmelding/SykmeldingKvittering.js';
-import DinSendteSykmelding from '../../js/components/sykmelding/DinSendteSykmelding.js';
-import DinAvbrutteSykmelding from '../../js/components/sykmelding/DinAvbrutteSykmelding.js';
-import DinBekreftedeSykmelding from '../../js/components/sykmelding/DinBekreftedeSykmelding.js';
+import { DinSykmldSide, mapStateToProps } from "../../js/containers/DinSykmeldingContainer";
+import AppSpinner from '../../js/components/AppSpinner';
+import Feilmelding from '../../js/components/Feilmelding';
+import DinSykmelding from '../../js/components/sykmelding/DinSykmelding';
+import SykmeldingKvittering from '../../js/components/sykmelding/SykmeldingKvittering';
+import DinSendteSykmelding from '../../js/components/sykmelding/DinSendteSykmelding';
+import DinAvbrutteSykmelding from '../../js/components/sykmelding/DinAvbrutteSykmelding';
+import DinBekreftedeSykmelding from '../../js/components/sykmelding/DinBekreftedeSykmelding';
 import sinon from 'sinon';
 import * as dineArbeidsgivereActions from '../../js/actions/dineArbeidsgivere_actions';
 import * as arbeidsgiversSykmeldingerActions from '../../js/actions/arbeidsgiversSykmeldinger_actions';

@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock.js";
+import ledetekster from "../ledetekster_mock";
 import sinon from 'sinon';
 const expect = chai.expect;
 

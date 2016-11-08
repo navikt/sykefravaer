@@ -1,18 +1,18 @@
 import './utils/init/globals';
 import { render } from 'react-dom';
 import React from 'react';
-import AppRouter from './routers/AppRouter.js';
+import AppRouter from './routers/AppRouter';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import dineSykmeldinger from './reducers/dineSykmeldinger.js';
-import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger.js';
-import brukerinfo from './reducers/brukerinfo.js';
-import arbeidsgivere from './reducers/arbeidsgivere.js';
-import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions.js';
+import dineSykmeldinger from './reducers/dineSykmeldinger';
+import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger';
+import brukerinfo from './reducers/brukerinfo';
+import arbeidsgivere from './reducers/arbeidsgivere';
+import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
 import { hentLedetekster, ledetekster, tidslinjer } from 'digisyfo-npm';
-import { hentBrukerinfo } from './actions/brukerinfo_actions.js';
-import history from './history.js';
+import { hentBrukerinfo } from './actions/brukerinfo_actions';
+import history from './history';
 import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';
 

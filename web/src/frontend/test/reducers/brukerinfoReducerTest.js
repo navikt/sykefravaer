@@ -10,8 +10,8 @@ window.localStorage = {
     }
 }
 
-import * as actions from '../../js/actions/brukerinfo_actions.js';
-import brukerinfo from '../../js/reducers/brukerinfo.js';
+import * as actions from '../../js/actions/brukerinfo_actions';
+import brukerinfo from '../../js/reducers/brukerinfo';
 
 describe('brukerinfo', () => {
 

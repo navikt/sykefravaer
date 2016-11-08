@@ -5,9 +5,9 @@ import chaiEnzyme from 'chai-enzyme';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import ledetekster from "../ledetekster_mock.js";
-import SykmeldingTeaser from "../../js/components/sykmeldinger/SykmeldingTeaser.js";
-import getSykmelding from "../mockSykmeldinger.js";
+import ledetekster from "../ledetekster_mock";
+import SykmeldingTeaser from "../../js/components/sykmeldinger/SykmeldingTeaser";
+import getSykmelding from "../mockSykmeldinger";
 
 describe("SykmeldingTeaser", () => {
     it("Viser datoer", function () {

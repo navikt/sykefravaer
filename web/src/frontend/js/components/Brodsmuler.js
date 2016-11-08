@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { getContextRoot } from '../routers/paths.js';
+import { getContextRoot } from '../routers/paths';
 
 const Brodsmule = ({ sti, tittel, sisteSmule, erKlikkbar }) => {
     if (sisteSmule) {

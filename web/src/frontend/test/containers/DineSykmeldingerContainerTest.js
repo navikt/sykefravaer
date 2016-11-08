@@ -2,16 +2,16 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock.js";
+import ledetekster from "../ledetekster_mock";
 import sinon from 'sinon';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { DineSykmldSide, mapStateToProps } from "../../js/containers/DineSykmeldingerContainer.js";
-import AppSpinner from '../../js/components/AppSpinner.js';
-import Feilmelding from '../../js/components/Feilmelding.js';
-import DineSykmeldinger from '../../js/components/sykmeldinger/DineSykmeldinger.js';
+import { DineSykmldSide, mapStateToProps } from "../../js/containers/DineSykmeldingerContainer";
+import AppSpinner from '../../js/components/AppSpinner';
+import Feilmelding from '../../js/components/Feilmelding';
+import DineSykmeldinger from '../../js/components/sykmeldinger/DineSykmeldinger';
 
 let component;
 let sykmeldinger;

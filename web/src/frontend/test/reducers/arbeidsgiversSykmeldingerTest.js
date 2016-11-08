@@ -1,10 +1,10 @@
 import {List, Map, fromJS} from 'immutable';
 import deepFreeze from 'deep-freeze';
 import {expect} from 'chai';
-import * as actions from '../../js/actions/dinSykmelding_actions.js';
-import * as dactions from '../../js/actions/dineSykmeldinger_actions.js';
+import * as actions from '../../js/actions/dinSykmelding_actions';
+import * as dactions from '../../js/actions/dineSykmeldinger_actions';
 
-import arbeidsgiversSykmeldinger from '../../js/reducers/arbeidsgiversSykmeldinger.js';
+import arbeidsgiversSykmeldinger from '../../js/reducers/arbeidsgiversSykmeldinger';
 
 describe('arbeidsgiversSykmeldinger', () => {
 

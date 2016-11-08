@@ -9,7 +9,7 @@ const expect = chai.expect;
 
 import UnderUtviklingVarsel from "../../js/components/UnderUtviklingVarsel";
 import { Varselstripe } from "digisyfo-npm";
-import ledetekster from "../ledetekster_mock.js";
+import ledetekster from "../ledetekster_mock";
 
 describe("UnderUtviklingVarsel", () => {
 

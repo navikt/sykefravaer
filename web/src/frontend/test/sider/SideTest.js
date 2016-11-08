@@ -2,15 +2,15 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock.js";
+import ledetekster from "../ledetekster_mock";
 import InnloggingContainer from "../../js/containers/InnloggingContainer";
 const DocumentTitle = require('react-document-title');
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Side from "../../js/sider/Side.js";
-import Brodsmuler from '../../js/components/Brodsmuler.js';
+import Side from "../../js/sider/Side";
+import Brodsmuler from '../../js/components/Brodsmuler';
 
 let component;
 

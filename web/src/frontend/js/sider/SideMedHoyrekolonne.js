@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Brodsmuler from '../components/Brodsmuler.js';
+import Brodsmuler from '../components/Brodsmuler';
 const DocumentTitle = require('react-document-title');
 import InnloggingContainer from '../containers/InnloggingContainer';
 

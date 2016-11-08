@@ -9,7 +9,7 @@ import sinon from 'sinon';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { Innlogging, mapStateToProps } from "../../js/containers/InnloggingContainer.js";
+import { Innlogging, mapStateToProps } from "../../js/containers/InnloggingContainer";
 
 describe("InnloggingContainer", () => {
 

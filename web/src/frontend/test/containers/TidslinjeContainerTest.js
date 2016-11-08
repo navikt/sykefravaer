@@ -2,14 +2,14 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock.js";
+import ledetekster from "../ledetekster_mock";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { TidslinjeSide, mapStateToProps, mapArbeidssituasjonParam, setHash } from "../../js/containers/TidslinjeContainer.js";
-import AppSpinner from '../../js/components/AppSpinner.js';
-import Feilmelding from '../../js/components/Feilmelding.js';
+import { TidslinjeSide, mapStateToProps, mapArbeidssituasjonParam, setHash } from "../../js/containers/TidslinjeContainer";
+import AppSpinner from '../../js/components/AppSpinner';
+import Feilmelding from '../../js/components/Feilmelding';
 import { Tidslinje } from 'digisyfo-npm';
 import sinon from 'sinon';
 

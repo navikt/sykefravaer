@@ -2,7 +2,7 @@ import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
 import deepFreeze from 'deep-freeze';
 
-import dineSykmeldinger from '../../js/reducers/dineSykmeldinger.js';
+import dineSykmeldinger from '../../js/reducers/dineSykmeldinger';
 import * as dinSykmeldingActions from '../../js/actions/dinSykmelding_actions';
 
 describe('dineSykmeldingerReducer', () => {

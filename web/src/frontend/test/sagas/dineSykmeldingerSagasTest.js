@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { hentDineSykmeldinger } from '../../js/sagas/dineSykmeldingerSagas.js';
+import { hentDineSykmeldinger } from '../../js/sagas/dineSykmeldingerSagas';
 import { get } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
 

@@ -2,8 +2,8 @@ import chai from 'chai';
 import React from 'react'
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock.js";
-import getSykmelding from "../mockSykmeldinger.js";
+import ledetekster from "../ledetekster_mock";
+import getSykmelding from "../mockSykmeldinger";
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../js/nokkelopplysninger/NokkelOpplysningerEnum';
 import StatusPanel from '../../js/components/StatusPanel';
 import StatusOpplysning from "../../js/nokkelopplysninger/StatusOpplysning";

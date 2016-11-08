@@ -3,14 +3,14 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import chaiJquery from 'chai-jquery';
-import ledetekster from "../ledetekster_mock.js";
+import ledetekster from "../ledetekster_mock";
 import sinon from 'sinon';
 
 chai.use(chaiEnzyme());
 
 const expect = chai.expect;
 
-import Dropdown from "../../js/components/skjema/Dropdown.js";
+import Dropdown from "../../js/components/skjema/Dropdown";
 
 describe("Dropdown", () => { 
 

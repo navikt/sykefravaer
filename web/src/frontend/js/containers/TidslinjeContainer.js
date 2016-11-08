@@ -59,7 +59,8 @@ TidslinjeSide.propTypes = {
     apneHendelser: PropTypes.func,
     hashHendelser: PropTypes.array,
     tidslinjer: PropTypes.array,
-    hentingFeilet: PropTypes.bool
+    hentingFeilet: PropTypes.bool,
+    henter: PropTypes.bool,
 };
 
 export const mapArbeidssituasjonParam = (param) => {

@@ -3,8 +3,8 @@ import React from 'react'
 import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock.js";
-import getSykmelding from "../mockSykmeldinger.js";
+import ledetekster from "../ledetekster_mock";
+import getSykmelding from "../mockSykmeldinger";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

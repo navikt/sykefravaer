@@ -2,13 +2,13 @@ import chai from 'chai';
 import React from 'react'
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock.js";
+import ledetekster from "../ledetekster_mock";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { RollerSide, mapStateToProps } from "../../js/containers/RollerContainer.js";
-import Artikkel from '../../js/components/Artikkel.js';
+import { RollerSide, mapStateToProps } from "../../js/containers/RollerContainer";
+import Artikkel from '../../js/components/Artikkel';
 
 describe("RollerContainer", () => {
 

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
-import { getContextRoot } from '../../routers/paths.js';
+import { getContextRoot } from '../../routers/paths';
 
 const StrengtFortroligInfo = ({ sykmeldingId, ledetekster }) => {
     return (<div className="panel panel-ramme blokk">

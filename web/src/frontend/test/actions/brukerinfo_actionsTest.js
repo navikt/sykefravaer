@@ -1,7 +1,7 @@
 import chai from 'chai';
 import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
-import * as actions from '../../js/actions/brukerinfo_actions.js';
+import * as actions from '../../js/actions/brukerinfo_actions';
 import sinon from 'sinon';
 import * as utils from 'digisyfo-npm';
 

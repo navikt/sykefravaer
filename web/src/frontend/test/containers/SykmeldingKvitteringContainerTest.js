@@ -2,13 +2,13 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock.js";
+import ledetekster from "../ledetekster_mock";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { KvitteringSide, mapStateToProps, getLedetekstNokkel } from "../../js/containers/SykmeldingKvitteringContainer.js";
-import SykmeldingKvittering from '../../js/components/sykmelding/SykmeldingKvittering.js';
+import { KvitteringSide, mapStateToProps, getLedetekstNokkel } from "../../js/containers/SykmeldingKvitteringContainer";
+import SykmeldingKvittering from '../../js/components/sykmelding/SykmeldingKvittering';
 
 const sykmeldinger = [{
     id: 2,

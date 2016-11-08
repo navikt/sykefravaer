@@ -6,7 +6,7 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Brodsmuler from "../../js/components/Brodsmuler.js";
+import Brodsmuler from "../../js/components/Brodsmuler";
 
 describe("Brodsmuler", () => { 
 

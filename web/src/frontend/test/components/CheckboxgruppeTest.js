@@ -9,7 +9,7 @@ chai.use(chaiEnzyme());
 
 const expect = chai.expect;
 
-import Checkboxgruppe from "../../js/components/skjema/Checkboxgruppe.js";
+import Checkboxgruppe from "../../js/components/skjema/Checkboxgruppe";
 
 describe("Checkboxgruppe", () => {
 

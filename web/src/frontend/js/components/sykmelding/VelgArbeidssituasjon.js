@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import DropdownWrapper from '../skjema/DropdownWrapper.js';
+import DropdownWrapper from '../skjema/DropdownWrapper';
 import arbeidssituasjoner from '../../arbeidssituasjonData';
 import { visFeilmelding, getFeilmelding, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 

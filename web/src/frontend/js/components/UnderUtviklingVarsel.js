@@ -20,7 +20,7 @@ class UnderUtviklingVarsel extends Component {
             <Varselstripe>
                 <p className="sist">{getLedetekst('under-utvikling.varsel.tekst', this.props.ledetekster)}</p>
             </Varselstripe>
-            <button className="js-lukk modal-lukk" onClick={() => { 
+            <button className="js-lukk modal-lukk" onClick={() => {
                 this.props.skjulUnderUtviklingVarsel();
             }}>{getLedetekst('under-utvikling.varsel.lukk', this.props.ledetekster)}</button>
         </div>);

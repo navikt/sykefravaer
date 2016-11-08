@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import DineSykmeldinger from '../components/sykmeldinger/DineSykmeldinger';
-import Side from '../sider/Side.js';
-import AppSpinner from '../components/AppSpinner.js';
+import Side from '../sider/Side';
+import AppSpinner from '../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
-import Feilmelding from '../components/Feilmelding.js';
+import Feilmelding from '../components/Feilmelding';
 
 export const DineSykmldSide = ({ ledetekster, brodsmuler, sykmeldinger, henter, hentingFeilet }) => {
     return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>

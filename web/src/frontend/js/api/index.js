@@ -7,17 +7,14 @@ export function get(url) {
     })
     .then((res) => {
         if (res.status === 404) {
-            console.log("404", res);
             throw new Error('404');
         }
         if (res.status > 400) {
-            console.log("400", res);
             throw new Error('Det oppstod en feil');
         }
         return res.json();
     })
     .catch((err) => {
-        console.log(err);
         throw err;
     });
 }

@@ -8,7 +8,7 @@ import Feilmelding from '../components/Feilmelding';
 
 export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter, hentingFeilet }) => {
     return (
-        <Side tittel={getLedetekst('landingsside.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
+        <Side tittel={getLedetekst('landingsside.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
                 (() => {
                     if (henter) {
@@ -40,7 +40,7 @@ export function mapStateToProps(state) {
         hentingFeilet: state.ledetekster.hentingFeilet,
         skjulVarsel: (state.brukerinfo && state.brukerinfo.innstillinger) ? (state.brukerinfo.innstillinger.skjulUnderUtviklingVarsel === true) : false,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel'),
+            tittel: getLedetekst('landingsside.sidetittel', ledetekster),
             sti: '/',
         }],
     };

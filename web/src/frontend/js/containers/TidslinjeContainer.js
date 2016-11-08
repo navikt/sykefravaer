@@ -1,12 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
-import Tidslinje from '../components/tidslinje/Tidslinje';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { getLedetekst } from 'digisyfo-npm';
-import { hentTidslinjer } from '../actions/tidslinjer_actions';
-import { setHendelseData } from '../actions/hendelser_actions';
+import { getLedetekst, Tidslinje, hentTidslinjer, setHendelseData } from 'digisyfo-npm';
 import Sidetopp from '../components/Sidetopp';
 import TidslinjeVelgArbeidssituasjonContainer from './TidslinjeVelgArbeidssituasjonContainer';
 

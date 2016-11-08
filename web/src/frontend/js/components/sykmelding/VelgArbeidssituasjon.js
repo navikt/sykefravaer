@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import DropdownWrapper from '../skjema/DropdownWrapper.js';
-import Hjelpetekst from '../skjema/Hjelpetekst.js';
 import arbeidssituasjoner from '../../arbeidssituasjonData';
-import { visFeilmelding, getFeilmelding, getLedetekst } from 'digisyfo-npm';
+import { visFeilmelding, getFeilmelding, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 
 const getArbeidssituasjoner = (skjemaData) => {
     if (!skjemaData || !skjemaData.values || !skjemaData.values.valgtArbeidssituasjon) {

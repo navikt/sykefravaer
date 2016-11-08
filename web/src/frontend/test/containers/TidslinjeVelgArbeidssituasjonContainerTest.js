@@ -10,7 +10,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import { VelgArbeidssituasjon, mapStateToProps, erstattUrl } from "../../js/containers/TidslinjeVelgArbeidssituasjonContainer.js";
-import Radiofaner from "../../js/components/Radiofaner.js";
+import { Radiofaner } from "digisyfo-npm";
 
 describe("TidslinjeVelgArbeidssituasjonContainer", () => {
 

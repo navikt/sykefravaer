@@ -10,7 +10,7 @@ const expect = chai.expect;
 import { TidslinjeSide, mapStateToProps, mapArbeidssituasjonParam, setHash } from "../../js/containers/TidslinjeContainer.js";
 import AppSpinner from '../../js/components/AppSpinner.js';
 import Feilmelding from '../../js/components/Feilmelding.js';
-import Tidslinje from '../../js/components/tidslinje/Tidslinje.js';
+import { Tidslinje } from 'digisyfo-npm';
 import sinon from 'sinon';
 
 

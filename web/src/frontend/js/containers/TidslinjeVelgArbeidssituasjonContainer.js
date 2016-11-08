@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as actionCreators from '../actions/tidslinjer_actions';
-import Radiofaner from '../components/Radiofaner';
 import history from '../history';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, hentTidslinjer, Radiofaner } from 'digisyfo-npm';
 
 const verdier = {
     MED_ARBEIDSGIVER: 'med-arbeidsgiver',
@@ -54,6 +52,6 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-const TidslinjeVelgArbeidssituasjonContainer = connect(mapStateToProps, actionCreators)(VelgArbeidssituasjon);
+const TidslinjeVelgArbeidssituasjonContainer = connect(mapStateToProps, { hentTidslinjer })(VelgArbeidssituasjon);
 
 export default TidslinjeVelgArbeidssituasjonContainer;

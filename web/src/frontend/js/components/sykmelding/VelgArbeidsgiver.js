@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import { getHtmlLedetekst, getLedetekst, visFeilmelding, getFeilmelding } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst, visFeilmelding, getFeilmelding, Hjelpetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths';
 import ErLederRiktig from './ErLederRiktig';
-import Hjelpetekst from '../skjema/Hjelpetekst';
 
 const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }) => {
     const values = skjemaData && skjemaData.values ? skjemaData.values : {};

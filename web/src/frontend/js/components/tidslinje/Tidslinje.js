@@ -1,21 +1,13 @@
 import React, { PropTypes } from 'react';
 import HendelseTittel from './HendelseTittel';
 import HendelseBoble from './HendelseBoble';
-import TidslinjeVelgArbeidssituasjonContainer from '../../containers/TidslinjeVelgArbeidssituasjonContainer';
 import { getLedetekst } from 'digisyfo-npm';
-import Sidetopp from '../Sidetopp';
 
 const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseData }) => {
-    const htmlIntro = {
-        __html: `<p>${getLedetekst('tidslinje.introtekst', ledetekster)}</p>`,
-    };
     const nyNaermesteLederHendelseMedArbeidsgiver = (hendelse) => {
         return !(arbeidssituasjon === 'UTEN_ARBEIDSGIVER' && hendelse.type === 'NY_NAERMESTE_LEDER');
     };
-    return (<div>
-        <Sidetopp tittel="Tidslinjen" htmlTekst={htmlIntro} />
-        <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
-        <div className="tidslinje">
+    return (<div className="tidslinje">
             {
                 hendelser
                     .filter(nyNaermesteLederHendelseMedArbeidsgiver)
@@ -29,8 +21,7 @@ const Tidslinje = ({ hendelser = [], ledetekster, arbeidssituasjon, setHendelseD
                         }} />);
                 })
             }
-        </div>
-    </div>);
+        </div>);
 };
 
 Tidslinje.propTypes = {

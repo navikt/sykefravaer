@@ -156,7 +156,7 @@ describe("TidslinjeContainer", () => {
 
         it("Skal returnere ledetekster", () => {
             const props = mapStateToProps(initState);
-            expect(props.ledetekster).to.deep.equal(initState.ledetekster);
+            expect(props.ledetekster).to.deep.equal(initState.ledetekster.data);
         });
 
         it("Skal returnere brødsmuler", () => {
@@ -200,10 +200,11 @@ describe("TidslinjeContainer", () => {
                 henter: true
             };
             const spy = sinon.spy();
-            const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster}
-                                                     tidslinjer={tidslinjer} hendelser={hendelser}
+            const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster.data}
+                                                     tidslinjer={tidslinjer.data} hendelser={hendelser}
                                                      apneHendelser={apneHendelserSpy}
-                                                     arbeidssituasjon='MED_ARBEIDSGIVER' />);
+                                                     arbeidssituasjon='MED_ARBEIDSGIVER'
+                                                     henter />);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
@@ -213,10 +214,10 @@ describe("TidslinjeContainer", () => {
             };
             const hendelser = [];
             const tidslinjer = {};
-            const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster}
-                                                     tidslinjer={tidslinjer} hendelser={hendelser}
+            const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster.data}
+                                                     tidslinjer={tidslinjer.data} hendelser={hendelser}
                                                      apneHendelser={apneHendelserSpy}
-                                                     arbeidssituasjon='MED_ARBEIDSGIVER' />);
+                                                     arbeidssituasjon='MED_ARBEIDSGIVER' hentingFeilet />);
             expect(component.find(Feilmelding)).to.have.length(1);
         });
 

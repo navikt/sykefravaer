@@ -104,10 +104,4 @@ describe("Tidslinje", () => {
         expect(component.find(HendelseTittel)).to.have.length(6);
     });
 
-    it("Skal vise en TidslinjeVelgArbeidssituasjonContainer", () => {
-        let component = shallow(<Tidslinje ledetekster={ledetekster} hendelser={hendelserData} arbeidssituasjon="MED_ARBEIDSGIVER" />)
-        expect(component.find(TidslinjeVelgArbeidssituasjonContainer)).to.have.length(1);
-        expect(component.find(TidslinjeVelgArbeidssituasjonContainer).prop("arbeidssituasjon")).to.equal("MED_ARBEIDSGIVER");
-    });
-
 })

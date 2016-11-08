@@ -179,7 +179,7 @@ HendelseBoble.propTypes = {
         erApen: PropTypes.bool,
         medAnimasjon: PropTypes.bool,
         hindreToggle: PropTypes.bool,
-        hoyde: PropTypes.number,
+        hoyde: PropTypes.string,
         visBudskap: PropTypes.bool,
         alt: PropTypes.number,
     }),

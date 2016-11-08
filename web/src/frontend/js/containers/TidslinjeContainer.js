@@ -7,6 +7,8 @@ import Feilmelding from '../components/Feilmelding';
 import { getLedetekst } from 'digisyfo-npm';
 import { hentTidslinjer } from '../actions/tidslinjer_actions';
 import { setHendelseData } from '../actions/hendelser_actions';
+import Sidetopp from '../components/Sidetopp';
+import TidslinjeVelgArbeidssituasjonContainer from './TidslinjeVelgArbeidssituasjonContainer';
 
 export class TidslinjeSide extends Component {
 
@@ -21,22 +23,29 @@ export class TidslinjeSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, hendelser, arbeidssituasjon, tidslinjer } = this.props;
-        return (<SideMedHoyrekolonne tittel={getLedetekst('tidslinje.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
+        const { brodsmuler, ledetekster, hendelser, arbeidssituasjon, tidslinjer, henter, hentingFeilet } = this.props;
+        const htmlIntro = {
+            __html: `<p>${getLedetekst('tidslinje.introtekst', ledetekster)}</p>`,
+        };
+        return (<SideMedHoyrekolonne tittel={getLedetekst('tidslinje.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
                 (() => {
-                    if (ledetekster.henter || tidslinjer.henter) {
+                    if (henter) {
                         return <AppSpinner />;
-                    } else if (ledetekster.hentingFeilet || !ledetekster.data || tidslinjer.hentingFeilet || (tidslinjer.data && tidslinjer.data.length === 0)) {
+                    } else if (hentingFeilet || !ledetekster || (tidslinjer && tidslinjer.length === 0)) {
                         return (<Feilmelding />);
                     }
-                    return (<Tidslinje
-                        hendelser={hendelser}
-                        ledetekster={ledetekster.data}
-                        arbeidssituasjon={arbeidssituasjon}
-                        setHendelseData={(id, data) => {
-                            this.setHendelseData(id, data);
-                        }} />);
+                    return (<div>
+                        <Sidetopp tittel="Tidslinjen" htmlTekst={htmlIntro} />
+                        <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
+                        <Tidslinje
+                            hendelser={hendelser}
+                            ledetekster={ledetekster}
+                            arbeidssituasjon={arbeidssituasjon}
+                            setHendelseData={(id, data) => {
+                                this.setHendelseData(id, data);
+                            }} />
+                    </div>);
                 })()
             }
         </SideMedHoyrekolonne>);
@@ -52,7 +61,8 @@ TidslinjeSide.propTypes = {
     hashMilepaeler: PropTypes.array,
     apneHendelser: PropTypes.func,
     hashHendelser: PropTypes.array,
-    tidslinjer: PropTypes.object,
+    tidslinjer: PropTypes.array,
+    hentingFeilet: PropTypes.bool
 };
 
 export const mapArbeidssituasjonParam = (param) => {
@@ -94,18 +104,21 @@ export function mapStateToProps(state, ownProps) {
         setHash(hendelser);
     }
     const hashHendelser = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
+    const ledetekster = state.ledetekster.data;
     return {
-        ledetekster: state.ledetekster,
+        ledetekster,
         arbeidssituasjon,
         hendelser,
         hashHendelser,
-        tidslinjer: state.tidslinjer,
+        tidslinjer: state.tidslinjer.data,
+        henter: ledetekster.henter || state.tidslinjer.henter,
+        hentingFeilet: ledetekster.hentingFeilet || state.tidslinjer.hentingFeilet,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('landingsside.sidetittel', ledetekster),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('tidslinje.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('tidslinje.sidetittel', ledetekster),
         }],
     };
 }

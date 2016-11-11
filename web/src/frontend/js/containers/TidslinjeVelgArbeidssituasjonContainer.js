@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import history from '../history';
-import { getLedetekst, hentTidslinjer, Radiofaner } from 'digisyfo-npm';
+import { getLedetekst, Radiofaner } from 'digisyfo-npm';
+import { hentTidslinjer } from '../actions/tidslinjer_actions';
 
 const verdier = {
     MED_ARBEIDSGIVER: 'med-arbeidsgiver',

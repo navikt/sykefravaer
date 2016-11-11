@@ -51,8 +51,8 @@ ErLederRiktig.propTypes = {
     naermesteLeder: PropTypes.shape({
         navn: PropTypes.string,
         epost: PropTypes.string,
-        mobil: PropTypes.string,
-        organinsasjonsnavn: PropTypes.string,
+        tlf: PropTypes.string,
+        organisasjonsnavn: PropTypes.string,
     }),
     ledetekster: PropTypes.object,
 };

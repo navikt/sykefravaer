@@ -1,6 +1,7 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { get, getAjax } from '../api';
+import { log } from 'digisyfo-npm';
 import * as actions from '../actions/brukerinfo_actions';
 
 export function* hentBrukerinfo() {
@@ -9,6 +10,7 @@ export function* hentBrukerinfo() {
         const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/informasjon/bruker`);
         yield put(actions.setBrukerinfo(data));
     } catch (e) {
+        log(e);
         yield put(actions.hentBrukerinfoFeilet());
     }
 }
@@ -19,6 +21,7 @@ export function* sjekkInnlogging() {
         yield call(getAjax, '/sykefravaer/');
         yield put(actions.setErInnlogget());
     } catch (e) {
+        log(e);
         yield put(actions.setErUtlogget());
     }
 }

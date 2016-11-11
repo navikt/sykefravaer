@@ -2,7 +2,7 @@ import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { get } from '../api';
 import * as actions from '../actions/tidslinjer_actions';
-import { apneHendelser } from 'digisyfo-npm';
+import { apneHendelser, log } from 'digisyfo-npm';
 
 export function* hentTidslinjer(action) {
     yield put(actions.henterTidslinjer());
@@ -13,6 +13,7 @@ export function* hentTidslinjer(action) {
             yield put(apneHendelser(action.apneHendelseIder));
         }
     } catch (e) {
+        log(e);
         yield put(actions.hentTidslinjerFeilet());
     }
 }

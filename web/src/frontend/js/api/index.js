@@ -1,4 +1,4 @@
-import { getCookie } from 'digisyfo-npm';
+import { getCookie, log } from 'digisyfo-npm';
 import Ajax from 'simple-ajax';
 
 export function get(url) {
@@ -7,14 +7,17 @@ export function get(url) {
     })
     .then((res) => {
         if (res.status === 404) {
+            log(res);
             throw new Error('404');
         }
         if (res.status > 400) {
+            log(res);
             throw new Error('Det oppstod en feil');
         }
         return res.json();
     })
     .catch((err) => {
+        log(err);
         throw err;
     });
 }
@@ -43,12 +46,14 @@ export function post(url, body) {
     })
     .then((res) => {
         if (res.status > 400) {
+            log(res);
             throw new Error('Forespørsel feilet');
         } else {
             return res;
         }
     })
     .catch((err) => {
+        log(err);
         throw err;
     });
 }

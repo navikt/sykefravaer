@@ -11,13 +11,15 @@ var dev = {
     "buildRoot": "http://localhost:8080/assets",
     "restRoot": "http://localhost:8182/syforest",
     "bundleFileName": `bundle.js`,
+    "enableLogging": true,
 };
 
 var prod = {
     'timestamp': `${timestamp}`,
     "buildRoot": "/sykefravaer/js",
     "restRoot": "/syforest",
-    "bundleFileName": "bundle-prod.js"
+    "bundleFileName": "bundle-prod.js",
+    "enableLogging": false,
 };
 
 fs.readFile(front, function (err, data) {

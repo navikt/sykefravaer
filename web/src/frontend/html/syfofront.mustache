@@ -25,6 +25,7 @@
         window.APP_SETTINGS = {
             "REST_ROOT": "{{{restRoot}}}",
             "APP_ROOT": "/sykefravaer",
+            {{#enableLogging}}"ENABLE_LOGGING": {{{enableLogging}}}{{/enableLogging}}
         };
     </script>
     <script src="{{{buildRoot}}}/{{{bundleFileName}}}?rev={{{timestamp}}}"></script>

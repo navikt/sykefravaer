@@ -3,6 +3,7 @@ import { takeEvery } from 'redux-saga';
 import { post } from '../api';
 import * as actions from '../actions/dinSykmelding_actions';
 import { browserHistory } from 'react-router';
+import { log } from 'digisyfo-npm';
 
 const gaTilKvittering = (sykmeldingId) => {
     browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/kvittering`);
@@ -21,6 +22,7 @@ export function* bekreftSykmelding(action) {
         yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
         gaTilKvittering(action.sykmeldingId);
     } catch (e) {
+        log(e);
         yield put(actions.bekreftSykmeldingFeilet());
     }
 }
@@ -39,6 +41,7 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
         yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
         gaTilKvittering(action.sykmeldingId);
     } catch (e) {
+        log(e);
         yield put(actions.sendSykmeldingFeilet());
     }
 }
@@ -53,6 +56,7 @@ export function* avbrytSykmelding(action) {
         yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
         gaTilKvittering(action.sykmeldingId);
     } catch (e) {
+        log(e);
         yield put(actions.avbrytSykmeldingFeilet());
     }
 }

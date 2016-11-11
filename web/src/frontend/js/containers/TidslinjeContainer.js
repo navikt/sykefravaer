@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { getLedetekst, Tidslinje, hentTidslinjer, setHendelseData } from 'digisyfo-npm';
+import { getLedetekst, Tidslinje, setHendelseData } from 'digisyfo-npm';
 import Sidetopp from '../components/Sidetopp';
 import TidslinjeVelgArbeidssituasjonContainer from './TidslinjeVelgArbeidssituasjonContainer';
+import { hentTidslinjer } from '../actions/tidslinjer_actions';
 
 export class TidslinjeSide extends Component {
 

@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import SideMedHoyrekolonne from '../sider/SideMedHoyrekolonne';
+import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { getLedetekst, Tidslinje, setHendelseData } from 'digisyfo-npm';
@@ -25,7 +25,7 @@ export class TidslinjeSide extends Component {
         const htmlIntro = {
             __html: `<p>${getLedetekst('tidslinje.introtekst', ledetekster)}</p>`,
         };
-        return (<SideMedHoyrekolonne tittel={getLedetekst('tidslinje.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
+        return (<Side tittel={getLedetekst('tidslinje.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
                 (() => {
                     if (henter) {
@@ -46,7 +46,7 @@ export class TidslinjeSide extends Component {
                     </div>);
                 })()
             }
-        </SideMedHoyrekolonne>);
+        </Side>);
     }
 }
 

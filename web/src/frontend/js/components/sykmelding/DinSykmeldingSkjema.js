@@ -33,6 +33,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
         if (!valgtArbeidssituasjon) {
             return 'GA_VIDERE';
         }
+        if (valgtArbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values) && values.beOmNyNaermesteLeder === false) {
+            return 'SEND-MED-NAERMESTE-LEDER';
+        }
         if (valgtArbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values)) {
             return 'SEND';
         }
@@ -80,6 +83,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
         setArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver);
 
         switch (modus) {
+            case 'SEND-MED-NAERMESTE-LEDER':
             case 'SEND': {
                 this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysninger, values.beOmNyNaermesteLeder);
                 return;

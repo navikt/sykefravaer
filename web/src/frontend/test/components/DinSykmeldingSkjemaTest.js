@@ -496,7 +496,7 @@ describe("DinSykmeldingSkjema -", () => {
     }); 
 
 
-    describe("VelgArbeidsgiver", () => { 
+    describe("VelgArbeidsgiver", () => {
 
         let component;
         let arbeidsgivere; 
@@ -557,6 +557,73 @@ describe("DinSykmeldingSkjema -", () => {
             expect(component.find(ErLederRiktig)).to.have.length(0);
         });
 
+        it("Skal vise egen tekst for innsending ved JA på bekreft nærmest leder", () => {
+            const arbeidsgivere = [{
+                orgnummer: "123456789",
+                navn: "Mortens frukt og grønt"
+            }, {
+                orgnummer: "0",
+                navn: "Annen arbeidsgiver"
+            }];
+            skjemaData.values = {
+                beOmNyNaermesteLeder: false,
+                valgtArbeidssituasjon: 'arbeidstaker',
+                valgtArbeidsgiver: {
+                    orgnummer: "123456789",
+                    navn: "Mortens frukt og grønt",
+                    naermesteLeder: {
+                        navn: "Ole Olsen",
+                        epost: "ole.olsen@test.no"
+                    }
+            }};
+            const ledetekster = {
+                'starte-sykmelding.info.send-med-naermeste-leder': 'Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.',
+                'starte-sykmelding.knapp.SEND-MED-NAERMESTE-LEDER': 'Send sykmelding',
+            };
+
+            const component = mount(<Provider store={store}>
+                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} ledetekster={ledetekster}/>
+            </Provider>);
+
+            expect(component.text()).to.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.')
+            expect(component.text()).to.contain('Send sykmelding')
+        });
+
+        it("Skal ikke vise egen tekst for innsending ved NEI på bekreft nærmest leder", () => {
+            const arbeidsgivere = [{
+                orgnummer: "123456789",
+                navn: "Mortens frukt og grønt"
+            }, {
+                orgnummer: "0",
+                navn: "Annen arbeidsgiver"
+            }];
+            skjemaData.values = {
+                beOmNyNaermesteLeder: true,
+                valgtArbeidssituasjon: 'arbeidstaker',
+                valgtArbeidsgiver: {
+                    orgnummer: "123456789",
+                    navn: "Mortens frukt og grønt",
+                    naermesteLeder: {
+                        navn: "Ole Olsen",
+                        epost: "ole.olsen@test.no"
+                    }
+                }};
+            const ledetekster = {
+                'starte-sykmelding.info.send-med-naermeste-leder': 'Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.',
+                'starte-sykmelding.knapp.SEND-MED-NAERMESTE-LEDER': 'Send sykmelding',
+                'starte-sykmelding.info.send': 'Sykmeldingen blir sendt til bedriftens innboks i Altinn. Vi anbefaler at du tipser arbeidsgiveren din om at du har sendt sykmeldingen siden dette er nytt for dem også.',
+                'starte-sykmelding.knapp.SEND': 'Send sykmelding',
+            };
+
+            const component = mount(<Provider store={store}>
+                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} ledetekster={ledetekster}/>
+            </Provider>);
+
+            expect(component.text()).to.not.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.')
+            expect(component.text()).to.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Vi anbefaler at du tipser arbeidsgiveren din om at du har sendt sykmeldingen siden dette er nytt for dem også.')
+            expect(component.text()).to.contain('Send sykmelding')
+        });
+
         it("Skal spørre om oppgitt nærmeste leder er riktig leder dersom valgt arbeidsgiver har en leder", () => {
             const arbeidsgivere = [{
                 orgnummer: "123456789",
@@ -564,7 +631,7 @@ describe("DinSykmeldingSkjema -", () => {
             }, {
                 orgnummer: "0", 
                 navn: "Annen arbeidsgiver"
-            }]
+            }];
             skjemaData.values.valgtArbeidsgiver = {
                 orgnummer: "123456789",
                 navn: "Mortens frukt og grønt",
@@ -572,13 +639,12 @@ describe("DinSykmeldingSkjema -", () => {
                     navn: "Ole Olsen",
                     epost: "ole.olsen@test.no"
                 }
-            }
+            };
             const component = mount(<Provider store={store}>
                 <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
             </Provider>);
             expect(component.find(ErLederRiktig)).to.have.length(1);
         });
-
     });
 
     describe("validate", () => {

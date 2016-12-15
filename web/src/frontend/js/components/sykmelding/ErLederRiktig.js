@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import { visFeilmelding, getFeilmelding, getLedetekst } from 'digisyfo-npm';
+import { visFeilmelding, getFeilmelding, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 
 const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {
     const alternativer = [{
@@ -14,16 +14,18 @@ const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {
     const feilmelding = getFeilmelding(skjemaData, 'beOmNyNaermesteLeder');
 
     return (<div className="blokk">
-        <h4 className="skjema-sporsmal">{getLedetekst('starte-sykmelding.bekreft-naermeste-leder.tittel', ledetekster)}</h4>
-        <p>{getLedetekst('starte-sykmelding.bekreft-naermeste-leder.tekst', ledetekster)}</p>
+        <div className="hjelpetekst-parent hjelpetekst-parent-inline hjelpetekst-select">
+            <label htmlFor="select-beOmNyNaermesteLeder" className="skjema-sporsmal med-hjelpetekst">
+                {getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal', ledetekster, {
+                    '%NAERMESTELEDER%': naermesteLeder.navn,
+                })}
+            </label>
+            <Hjelpetekst
+                id="velg-beOmNyNaermesteLeder-hjelpetekst"
+                tittel={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tittel', ledetekster)}
+                tekst={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tekst', ledetekster)} />
+        </div>
         <div className={erFeil ? 'skjema-feilomrade feil' : 'skjema-feilomrade'}>
-            <h5 className="label radiogruppeLabel">
-                {
-                    getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal', ledetekster, {
-                        '%NAERMESTELEDER%': naermesteLeder.navn,
-                    })
-                }
-            </h5>
             {
                 alternativer.map((alternativ, index) => {
                     return (<div className="nav-input" key={index}>

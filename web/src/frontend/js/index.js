@@ -41,7 +41,6 @@ sagaMiddleware.run(rootSaga);
 store.dispatch(hentLedetekster());
 store.dispatch(hentDineSykmeldinger());
 store.dispatch(hentBrukerinfo());
-store.dispatch(hentLedere());
 
 render(<Provider store={store}>
         <AppRouter history={history} /></Provider>,

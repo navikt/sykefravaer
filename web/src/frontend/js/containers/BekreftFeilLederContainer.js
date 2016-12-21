@@ -32,9 +32,11 @@ export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftF
         knappClassName += ' knapp-spinner';
     }
     return (<div>
-        <h3 className="typo-undertittel">Feil nærmeste leder</h3>
-        <p>Er du sikker på at det er feil at <strong>{leder.navn}</strong> er din nærmeste leder i <strong>{leder.organisasjonsnavn}</strong>?</p>
-        <div aria-live="polite" role="alert" className={avkreftFeilet ? 'blokk' : ''}>
+        <div className={avkreftFeilet ? 'blokk' : ''}>
+            <h3 className="typo-undertittel">Feil nærmeste leder</h3>
+            <p>Er du sikker på at det er feil at <strong>{leder.navn}</strong> er din nærmeste leder i <strong>{leder.organisasjonsnavn}</strong>?</p>
+        </div>
+        <div aria-live="polite" role="alert" className={avkreftFeilet ? 'panel panel-ramme panel-komprimert' : ''}>
             {
                 avkreftFeilet && <Varselstripe type="feil">
                     <p className="sist">Beklager, det oppstod en feil!</p>

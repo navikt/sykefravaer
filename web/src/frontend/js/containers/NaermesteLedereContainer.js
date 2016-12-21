@@ -8,13 +8,13 @@ export class Container extends Component {
         const { hentLedere } = this.props;
         hentLedere();
     }
-    
+
     render() {
         const { henter, ledere, hentingFeilet } = this.props;
         if (henter || !ledere || ledere.length === 0 || hentingFeilet) {
             return null;
         }
-        return <Naermesteledere ledere={ledere} />;        
+        return <Naermesteledere ledere={ledere} />;
     }
 }
 
@@ -22,6 +22,7 @@ Container.propTypes = {
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     ledere: PropTypes.array,
+    hentLedere: PropTypes.func,
 };
 
 export function mapStateToProps(state) {
@@ -32,6 +33,6 @@ export function mapStateToProps(state) {
     };
 }
 
-const NaermesteLedereContainer = connect(mapStateToProps)(Container);
+const NaermesteLedereContainer = connect(mapStateToProps, actions)(Container);
 
 export default NaermesteLedereContainer;

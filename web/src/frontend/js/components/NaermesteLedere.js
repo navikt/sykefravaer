@@ -39,7 +39,7 @@ export default class NaermesteLedere extends Component {
     }
 
     lukkLightbox() {
-        this.refs[`js-leder-${this.state.leder.orgnummer}`].focus()
+        this.refs[`js-leder-${this.state.leder.orgnummer}`].focus();
         this.setState({
             visLightbox: false,
             leder: undefined,

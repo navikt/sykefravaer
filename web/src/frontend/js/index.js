@@ -13,7 +13,6 @@ import ledere from './reducers/ledere';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
 import { hentLedetekster, ledetekster, tidslinjer } from 'digisyfo-npm';
 import { hentBrukerinfo } from './actions/brukerinfo_actions';
-import { hentLedere } from './actions/ledere_actions';
 import history from './history';
 import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';

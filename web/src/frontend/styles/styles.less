@@ -1,6 +1,9 @@
+@nodeModulesPath: "node_modules/";
 @base-url: "../node_modules/modig-frontend/modig-frontend-ressurser/src/main/resources/less";
 
 @import "@{base-url}/includes/variables";
+@import "@{nodeModulesPath}nav-frontend-core/less/styles";
+@import "@{nodeModulesPath}nav-frontend-skjema-design/less/styles";
 
 @modig-frontend-images-root-url: "../img/modig-frontend/";
 
@@ -59,6 +62,12 @@
 		padding-left: 2rem; 
 		padding-right: 2rem; 
 	}
+}
+
+.medHjelpetekst {
+	display: flex;
+	position: relative;
+	padding-right: 2em;
 }
 
 .start-container {

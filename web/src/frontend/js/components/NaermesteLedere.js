@@ -1,27 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Lightbox from './Lightbox';
-
-export const BekreftFeil = ({ leder, onAvbryt, onBekreft }) => {
-    return (<div>
-        <h3 className="typo-undertittel">Feil nærmeste leder</h3>
-        <p>Er du sikker på at det er feil at <strong>{leder.navn}</strong> er din nærmeste leder i {leder.organisasjon}?</p>
-        <div className="knapperad">
-            <button type="button" className="knapp knapp-fare blokk-s js-bekreft" onClick={() => {
-                onBekreft(leder.orgnummer);
-            }}>Ja, dette er feil</button>
-            <p className="side-innhold"><a className="js-avbryt" href="#" role="button" onClick={(e) => {
-                e.preventDefault();
-                onAvbryt();
-            }}>Avbryt</a></p>
-        </div>
-    </div>);
-};
-
-BekreftFeil.propTypes = {
-    leder: PropTypes.object,
-    onAvbryt: PropTypes.func,
-    onBekreft: PropTypes.func,
-};
+import BekreftFeilLederContainer from '../containers/BekreftFeilLederContainer';
 
 export default class NaermesteLedere extends Component {
     constructor(props) {
@@ -39,7 +18,10 @@ export default class NaermesteLedere extends Component {
     }
 
     lukkLightbox() {
-        this.refs[`js-leder-${this.state.leder.orgnummer}`].focus();
+        const knapp = this.refs[`js-leder-${this.state.leder.orgnummer}`];
+        if (knapp) {
+            knapp.focus();
+        }
         this.setState({
             visLightbox: false,
             leder: undefined,
@@ -52,7 +34,7 @@ export default class NaermesteLedere extends Component {
             {this.state.visLightbox && <Lightbox onClose={() => {
                 this.lukkLightbox();
             }}>
-                <BekreftFeil leder={this.state.leder} onAvbryt={() => {
+                <BekreftFeilLederContainer orgnummer={this.state.leder.orgnummer} onAvbryt={() => {
                     this.lukkLightbox();
                 }} />
             </Lightbox>}

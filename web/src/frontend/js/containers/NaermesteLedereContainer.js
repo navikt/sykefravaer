@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Naermesteledere from '../components/Naermesteledere';
+import NaermesteLedere from '../components/NaermesteLedere';
 import * as actions from '../actions/ledere_actions';
 
 export class Container extends Component {
@@ -14,7 +14,7 @@ export class Container extends Component {
         if (henter || !ledere || ledere.length === 0 || hentingFeilet) {
             return null;
         }
-        return <Naermesteledere ledere={ledere} />;
+        return <NaermesteLedere ledere={ledere} />;
     }
 }
 

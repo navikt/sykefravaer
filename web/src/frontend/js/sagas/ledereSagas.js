@@ -16,7 +16,7 @@ export function* hentLedere() {
 }
 
 export function* avkreftLeder(action) {
-    yield put(actions.avkreftLeder(action.orgnummer));
+    yield put(actions.avkrefterLeder(action.orgnummer));
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/naermesteledere/${action.orgnummer}/actions/avkreft`);
         yield put(actions.lederAvkreftet(action.orgnummer));

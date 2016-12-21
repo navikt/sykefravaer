@@ -91,9 +91,15 @@ describe("BekreftFeilLederContainer", () => {
             leder = {
                 navn: "Ole Olsen",
                 orgnummer: "123456789",
-                organisasjon: "Solstrålen Barnehage"
+                organisasjonsnavn: "Solstrålen Barnehage"
             };
         });
+
+        it("Skal vise navn på leder og organisasjonsnavn", () => {
+            compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)
+            expect(compo.text()).to.contain("Ole Olsen");
+            expect(compo.text()).to.contain("Solstrålen Barnehage");
+        })
 
         it("Skal kalle på avkreftLeder når man klikker på bekreft", () => {
             compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)

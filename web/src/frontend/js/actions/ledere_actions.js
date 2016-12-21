@@ -25,7 +25,7 @@ export const hentLedereFeilet = () => {
 
 export const avkreftLeder = (orgnummer) => {
     return {
-        type: 'AVKREFT_LEDER',
+        type: 'AVKREFT_LEDER_FORESPURT',
         orgnummer,
     };
 };

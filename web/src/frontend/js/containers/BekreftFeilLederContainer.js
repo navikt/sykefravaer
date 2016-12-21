@@ -1,18 +1,26 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/ledere_actions';
 import { Varselstripe } from 'digisyfo-npm';
 
-export const LederAvkreftet = ({ onLukk }) => {
-    return (<div>
-        <p className="hode hode-suksess">Lederen er avkreftet!</p>
-        <p className="side-innhold">
-        <a className="js-lukk" href="#" role="button" onClick={(e) => {
-            e.preventDefault();
-            onLukk();
-        }}>Avbryt</a></p>
-    </div>);
-};
+export class LederAvkreftet extends Component {
+    componentDidMount() {
+        this.refs.lukk.focus();
+    }
+
+    render() {
+        const { onLukk } = this.props;
+        return (<div>
+            <p className="hode hode-suksess">Lederen er avkreftet!</p>
+            <div className="knapperad">
+                <button ref="lukk" className="rammeknapp js-lukk" href="#" onClick={(e) => {
+                    e.preventDefault();
+                    onLukk();
+                }}>Lukk</button>
+            </div>
+        </div>);
+    }
+}
 
 LederAvkreftet.propTypes = {
     onLukk: PropTypes.func,
@@ -25,7 +33,7 @@ export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftF
     }
     return (<div>
         <h3 className="typo-undertittel">Feil nærmeste leder</h3>
-        <p>Er du sikker på at det er feil at <strong>{leder.navn}</strong> er din nærmeste leder i {leder.organisasjon}?</p>
+        <p>Er du sikker på at det er feil at <strong>{leder.navn}</strong> er din nærmeste leder i <strong>{leder.organisasjonsnavn}</strong>?</p>
         <div aria-live="polite" role="alert" className={avkreftFeilet ? 'blokk' : ''}>
             {
                 avkreftFeilet && <Varselstripe type="feil">

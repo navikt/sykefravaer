@@ -21,6 +21,11 @@ describe("NaermesteLedere", () => {
             navn: "Ole Olsen",
             orgnummer: "123456789",
             organisasjonsnavn: "Solstrålen Barnehage"
+        }, {
+            navn: "Ole Larsen",
+            orgnummer: "444555",
+            organisasjonsnavn: "Solstrålen Pizza",
+            avkreftet: true,
         }]
     })
 
@@ -29,6 +34,16 @@ describe("NaermesteLedere", () => {
         expect(compo.text()).to.contain("Ole Olsen");
         expect(compo.text()).to.contain("Solstrålen Barnehage");
     });
+
+    it("Skal vise avkreftede ledere", () => {
+        const compo = shallow(<NaermesteLedere ledere={ledere} />)
+        expect(compo.find(".leder--avkreftet")).to.have.length(1);
+    });
+
+    it("Skal bare vise feil-knapp for aktive ledere", () => {
+        const compo = shallow(<NaermesteLedere ledere={ledere} />);
+        expect(compo.find(".js-feil")).to.have.length(1);
+    })
 
     it("Skal vise en lightbox når man klikker på Dette er feil", () => {
         const compo = shallow(<NaermesteLedere ledere={ledere} />);
@@ -40,6 +55,8 @@ describe("NaermesteLedere", () => {
        const compo = shallow(<NaermesteLedere ledere={ledere} />);
        compo.find(".js-feil").simulate("click");
        expect(compo.find(BekreftFeilLederContainer)).to.have.length(1); 
-    })
+    });
+
+
 
 });

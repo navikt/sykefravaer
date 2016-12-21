@@ -42,15 +42,17 @@ export default class NaermesteLedere extends Component {
             <p>Din nærmeste leder med personalansvar vil få se sykmeldinger du sender inn fra nav.no.</p>
             {
                 ledere.map((leder, index) => {
-                    return (<div className="leder" key={index}>
+                    return (<div className={`leder ${leder.avkreftet ? ' leder--avkreftet' : ''}`} key={index}>
                         <div className="leder__data">
                             <h3>{leder.navn}</h3>
                             <p>{leder.organisasjonsnavn}</p>
                         </div>
                         <div className="leder__handlinger">
-                            <button ref={`js-leder-${leder.orgnummer}`} type="button" className="rammeknapp knapp-liten js-feil" onClick={() => {
-                                this.apneLightbox(leder);
-                            }}>Dette er feil</button>
+                            {
+                                !leder.avkreftet && <button ref={`js-leder-${leder.orgnummer}`} type="button" className="rammeknapp knapp-liten js-feil" onClick={() => {
+                                    this.apneLightbox(leder);
+                                }}>Dette er feil</button>
+                            }
                         </div>
                     </div>);
                 })

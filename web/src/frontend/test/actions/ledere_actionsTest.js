@@ -16,7 +16,7 @@ describe('ledere_actions', () => {
         const res = actions.avkreftLeder(orgnummer)
 
         expect(res).to.deep.equal({
-            type: "AVKREFT_LEDER",
+            type: "AVKREFT_LEDER_FORESPURT",
             orgnummer: orgnummer
         })
     });

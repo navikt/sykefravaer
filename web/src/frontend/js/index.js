@@ -9,6 +9,7 @@ import dineSykmeldinger from './reducers/dineSykmeldinger';
 import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger';
 import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
+import ledere from './reducers/ledere';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
 import { hentLedetekster, ledetekster, tidslinjer } from 'digisyfo-npm';
 import { hentBrukerinfo } from './actions/brukerinfo_actions';
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
     tidslinjer,
     brukerinfo,
     history,
+    ledere,
     form: formReducer,
 });
 

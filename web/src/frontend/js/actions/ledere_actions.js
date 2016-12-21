@@ -1,9 +1,14 @@
-
 export const hentLedere = () => {
     return {
         type: 'HENT_LEDERE_FORESPURT',
     };
 };
+
+export const henterLedere = () => {
+    return {
+        type: 'HENTER_LEDERE',
+    }
+}
 
 export const ledereHentet = (data) => {
     return {
@@ -17,7 +22,6 @@ export const hentLedereFeilet = () => {
         type: 'HENT_LEDERE_FEILET',
     };
 };
-
 
 export const avkreftLeder = (orgnummer) => {
     return {

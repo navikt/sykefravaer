@@ -79,13 +79,13 @@ describe("BekreftFeilLederContainer", () => {
 
         let feil;
         let compo;
-        let onBekreft;
+        let avkreftLeder;
         let onAvbryt;
         let leder;
         let preventDefault;
 
         beforeEach(() => {
-            onBekreft = sinon.spy();
+            avkreftLeder = sinon.spy();
             onAvbryt = sinon.spy();
             preventDefault = sinon.spy();
             leder = {
@@ -95,14 +95,14 @@ describe("BekreftFeilLederContainer", () => {
             };
         });
 
-        it("Skal kalle på onBekreft når man klikker på bekreft", () => {
-            compo = shallow(<BekreftFeil leder={leder} onBekreft={onBekreft} onAvbryt={onAvbryt} />)
+        it("Skal kalle på avkreftLeder når man klikker på bekreft", () => {
+            compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)
             compo.find(".js-bekreft").simulate("click");
-            expect(onBekreft.calledWith("123456789")).to.be.true;
+            expect(avkreftLeder.calledWith("123456789")).to.be.true;
         });
 
         it("Skal kalle på onAvbryt når man klikker på avbryt", () => {
-            compo = shallow(<BekreftFeil leder={leder} onBekreft={onBekreft} onAvbryt={onAvbryt} />)
+            compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)
             compo.find(".js-avbryt").simulate("click", {
                 preventDefault
             });
@@ -111,12 +111,12 @@ describe("BekreftFeilLederContainer", () => {
         });
 
         it("Skal vise feilmelding dersom avkreft feiler", () => {
-            compo = shallow(<BekreftFeil leder={leder} onBekreft={onBekreft} onAvbryt={onAvbryt} avkreftFeilet />)
+            compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} avkreftFeilet />)
             expect(compo.find(Varselstripe)).to.have.length(1);
         });
 
         it("Skal ikke vise feilmelding dersom avkreft ikke feiler", () => {
-            compo = shallow(<BekreftFeil leder={leder} onBekreft={onBekreft} onAvbryt={onAvbryt} />)
+            compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)
             expect(compo.find(Varselstripe)).to.have.length(0);
         });
 
@@ -125,13 +125,13 @@ describe("BekreftFeilLederContainer", () => {
 
             it("Skal vise kvittering dersom lederen ikke er avkreftet", () => {
                 leder.avkreftet = false;
-                compo = shallow(<Container leder={leder} onBekreft={onBekreft} onAvbryt={onAvbryt} />);
+                compo = shallow(<Container leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />);
                 expect(compo.find(BekreftFeil)).to.have.length(1)
             })
 
             it("Skal vise kvittering dersom lederen er avkreftet", () => {
                 leder.avkreftet = true;
-                compo = shallow(<Container leder={leder} onBekreft={onBekreft} onAvbryt={onAvbryt} />);
+                compo = shallow(<Container leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />);
                 expect(compo.find(LederAvkreftet)).to.have.length(1)
             });
         });

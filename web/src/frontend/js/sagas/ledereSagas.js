@@ -5,7 +5,7 @@ import { log } from 'digisyfo-npm';
 import * as actions from '../actions/ledere_actions';
 
 export function* hentLedere() {
-    yield put(actions.hentLedere());
+    yield put(actions.henterLedere());
     try {
         const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/naermesteledere`);
         yield put(actions.ledereHentet(data));
@@ -31,7 +31,7 @@ function* watchHentLedere() {
 }
 
 function* watchAvkreftLeder() {
-    yield* takeEvery('HENT_LEDERE_FORESPURT', avkreftLeder);
+    yield* takeEvery('AVKREFT_LEDER_FORESPURT', avkreftLeder);
 }
 
 export default function* ledereSagas() {

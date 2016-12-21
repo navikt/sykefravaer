@@ -18,7 +18,7 @@ LederAvkreftet.propTypes = {
     onLukk: PropTypes.func,
 };
 
-export const BekreftFeil = ({ leder, onAvbryt, onBekreft, avkrefter, avkreftFeilet }) => {
+export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftFeilet }) => {
     let knappClassName = 'knapp knapp-fare blokk-s js-bekreft';
     if (avkrefter) {
         knappClassName += ' knapp-spinner';
@@ -35,7 +35,7 @@ export const BekreftFeil = ({ leder, onAvbryt, onBekreft, avkrefter, avkreftFeil
         </div>
         <div className="knapperad">
             <button type="button" disabled={avkrefter} className={knappClassName} onClick={() => {
-                onBekreft(leder.orgnummer);
+                avkreftLeder(leder.orgnummer);
             }}>Ja, dette er feil <span className="spinner-knapp" /></button>
             <p className="side-innhold"><a className="js-avbryt" href="#" role="button" onClick={(e) => {
                 e.preventDefault();

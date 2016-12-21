@@ -35,7 +35,7 @@ describe("NaermesteLedereContainer", () => {
             const ledere = [{
                 navn: "Ole Olsen",
                 orgnummer: "123456789",
-                organisasjon: "Solstrålen Barnehage"
+                organisasjonsnavn: "Solstrålen Barnehage"
             }]
             const compo = shallow(<Container hentLedere={hentLedere} ledere={ledere} />)
             expect(compo.html()).to.contain("Ole Olsen"); 

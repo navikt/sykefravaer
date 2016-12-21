@@ -48,7 +48,7 @@ export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftF
 BekreftFeil.propTypes = {
     leder: PropTypes.object,
     onAvbryt: PropTypes.func,
-    onBekreft: PropTypes.func,
+    avkreftLeder: PropTypes.func,
     avkrefter: PropTypes.bool,
     avkreftFeilet: PropTypes.bool,
 };

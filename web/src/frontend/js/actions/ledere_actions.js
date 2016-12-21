@@ -7,8 +7,8 @@ export const hentLedere = () => {
 export const henterLedere = () => {
     return {
         type: 'HENTER_LEDERE',
-    }
-}
+    };
+};
 
 export const ledereHentet = (data) => {
     return {

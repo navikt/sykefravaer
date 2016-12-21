@@ -45,7 +45,7 @@ export default class NaermesteLedere extends Component {
                     return (<div className="leder" key={index}>
                         <div className="leder__data">
                             <h3>{leder.navn}</h3>
-                            <p>{leder.organisasjon}</p>
+                            <p>{leder.organisasjonsnavn}</p>
                         </div>
                         <div className="leder__handlinger">
                             <button ref={`js-leder-${leder.orgnummer}`} type="button" className="rammeknapp knapp-liten js-feil" onClick={() => {

@@ -12,7 +12,7 @@ import static no.nav.sbl.dialogarena.test.path.FilesAndDirs.WEBAPP_SOURCE;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class StartJetty {
-    private static final int PORT = 8181;
+    private static final int PORT = 8282;
     private static final Logger logger = getLogger(StartJetty.class);
 
     public static void main(String[] args) throws Exception {

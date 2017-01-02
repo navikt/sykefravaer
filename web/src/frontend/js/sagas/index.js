@@ -5,6 +5,7 @@ import dineSykmeldingerSagas from './dineSykmeldingerSagas';
 import dinSykmeldingSagas from './dinSykmeldingSagas';
 import tidslinjerSagas from './tidslinjerSagas';
 import ledereSagas from './ledereSagas';
+import deltakerSagas from './deltakerSagas';
 import { ledeteksterSagas } from 'digisyfo-npm';
 
 export default function * rootSaga() {
@@ -17,5 +18,6 @@ export default function * rootSaga() {
         ledeteksterSagas(),
         tidslinjerSagas(),
         ledereSagas(),
+        deltakerSagas(),
     ];
 }

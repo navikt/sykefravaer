@@ -10,6 +10,7 @@ var dev = {
     'timestamp': `${timestamp}`,
     "buildRoot": "http://localhost:8080/assets",
     "restRoot": "http://localhost:8182/syforest",
+    "moterestRoot": "http://localhost:8184/moterest",
     "bundleFileName": `bundle.js`,
     "enableLogging": true,
 };
@@ -18,6 +19,7 @@ var prod = {
     'timestamp': `${timestamp}`,
     "buildRoot": "/sykefravaer/js",
     "restRoot": "/syforest",
+    "moterestRoot": "/moterest",
     "bundleFileName": "bundle-prod.js",
     "enableLogging": false,
 };

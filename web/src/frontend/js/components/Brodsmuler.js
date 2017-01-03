@@ -72,7 +72,6 @@ class Brodsmuler extends Component {
         const synligeBrodsmuler = this.getSynligeBrodsmuler();
         return (<nav role="navigation" className="brodsmuler side-innhold" aria-label="Du er her: ">
             <img src="/sykefravaer/img/svg/person.svg" alt="Du" className="brodsmuler__ikon" />
-            <img src="/sykefravaer/img/svg/person-highcontrast.svg" alt="Du" className="brodsmuler__ikon brodsmuler__ikon--hoykontrast" />
             <a href="/dittnav" className="js-smule brodsmule">Ditt NAV</a>
             {brodsmuler.length && <span className="brodsmule__skille"> / </span>}
             {

@@ -29,6 +29,7 @@
     display: flex; 
     width: 100%;
     color: @color-text;
+    border-bottom-width: 0;
 
     &:hover, &:focus {
         position: relative; 
@@ -46,6 +47,7 @@
     }
 
     p {
+        margin-top: 0;
         margin-bottom: .5rem;
         .mixin-typo-infotekst(); 
     }
@@ -87,16 +89,6 @@
             height: auto; 
         }
     }
-
-    .inngangspanel__ikon--hoykontrast, 
-    .contrast .inngangspanel__ikon {
-        display: none; 
-    }
-
-    .contrast .inngangspanel__ikon--hoykontrast {
-        display: block;
-    }
-
 }
 
 .inngangspanel__meta {

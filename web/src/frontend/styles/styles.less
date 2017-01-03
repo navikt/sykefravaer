@@ -4,13 +4,13 @@
 @import "@{base-url}/includes/variables";
 @import "@{nodeModulesPath}nav-frontend-core/less/styles";
 @import "@{nodeModulesPath}nav-frontend-skjema-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-typografi-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-knapper-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-hjelpetekst-design/less/styles";
 
 @modig-frontend-images-root-url: "../img/modig-frontend/";
 
-@import "@{base-url}/includes/mixins/mixins-grid";
 @import "@{base-url}/includes/mixins/mixins-knapper";
-@import "@{base-url}/includes/mixins/mixins-typografi";
-@import "@{base-url}/includes/mixins/mixins-utils";
 
 @import "@{base-url}/includes/mixins/mixins-utils";
 
@@ -37,7 +37,6 @@
 @import "_radiofaner.less";
 @import "_underUtvikling.less";
 @import "_varselstripe.less";
-@import "_knapper.less";
 @import "_sykmelding.less";
 @import "_sykmeldingArbeidsgiver.less";
 @import "_sykmeldingKvittering.less";
@@ -64,6 +63,14 @@
 		padding-left: 2rem; 
 		padding-right: 2rem; 
 	}
+}
+
+.mixin-typo-etikett-liten() {
+	.mixin-typo-etikettLiten();
+}
+
+.mixin-lenke-negativ() {
+
 }
 
 .medHjelpetekst {
@@ -127,4 +134,8 @@
     .utvidbar[aria-expanded="false"] {
         display: none;
     }
+}
+
+p {
+	margin-top: 0;
 }

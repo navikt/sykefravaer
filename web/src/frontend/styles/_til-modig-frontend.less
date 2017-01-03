@@ -52,7 +52,7 @@
 	align-self: center; 
 }
 
-.contrast .modal-lukk, .contrast .hjelpetekst-lukk, .contrast .hjelpetekst-lukk:hover, .contrast .hjelpetekst-active, .modal-lukk:hover, .modal-lukk:focus, .modal-lukk:active {
+.modal-lukk:hover, .modal-lukk:focus, .modal-lukk:active {
     background-image: data-uri('image/svg+xml;charset=UTF-8', '../img/svg/modig-frontend_ikon-kryss-hvit.svg');
 }
 
@@ -109,34 +109,6 @@
         color: @purple-visited;
         border-right-color: @purple-visited;
     }
-}
-
-.contrast .lenke {
-    color: @yellow; 
-    border-bottom-color: @white;
-
-    &:hover {
-        border-bottom-color: @color-blue-additional;
-        color: @color-blue-additional;
-    }
-
-    &:focus {
-        color: @color-blue-additional; 
-    }
-
-    &:active {
-        color: @white;
-        border-bottom-color: @white;
-    }
-
-}
-
-.contrast .panel {
-    border: 1px solid @white;
-}
-
-.contrast .hjelpetekst {
-    background-color: transparent!important; // For å overskrive dekoratør
 }
 
 .hjelpetekst-select {

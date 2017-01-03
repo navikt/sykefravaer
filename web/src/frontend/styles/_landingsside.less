@@ -1,14 +1,19 @@
 .tidslinjeTeaser:extend(.panel), .peker:extend(.panel) {
   color: @color-text;
   margin-bottom: 1.5rem;
+  border-bottom-width: 0;
 
   &:focus {
     background-color: @white;
     box-shadow: 0 0 0 3px @color-focus;
   }
 
+  &:visited, &:hover, &:active {
+    color: @color-text;
+  }
+
   .lenke-fremhevet {
-    color: @color-link;
+    .lenke;
   }
 
 }
@@ -64,23 +69,4 @@
   width: 2rem;
   height: 2rem;
   margin-right: .5rem;
-}
-
-.peker__ikon--hoykontrast {
-  display: none; 
-}
-
-.contrast {
-
-  .peker, .tidslinjeTeaser {
-    border: 1px solid @white;
-  }
-
-  .peker__ikon {
-    display: none; 
-  }
-
-  .peker__ikon--hoykontrast {
-    display: inline;
-  }
 }

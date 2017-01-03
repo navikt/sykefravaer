@@ -20,7 +20,7 @@ const DinSendteSykmelding = ({ dinSykmelding, ledetekster, arbeidsgiversSykmeldi
             ikon="svg/person.svg" ikonHover="svg/person_hover.svg" ikonAltTekst="Du" className="blokk" variant="lysebla" Overskrift="H2">
             <DineSykmeldingOpplysninger sykmelding={dinSykmelding} ledetekster={ledetekster} />
         </Utvidbar>
-        <div className="blokk-l">
+        <div className="blokk--l">
             <ArbeidsgiversSykmelding sykmelding={arbeidsgiversSykmelding} ledetekster={ledetekster} />
         </div>
     </div>);

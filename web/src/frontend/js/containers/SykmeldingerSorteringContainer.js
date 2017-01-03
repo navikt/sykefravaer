@@ -7,7 +7,7 @@ import { getLedetekst } from 'digisyfo-npm';
 const DropdownContainer = ({ alternativer, sorterSykmeldinger, ledetekster, status }) => {
     return (<div className="header-verktoy">
         <label htmlFor="sykmeldinger-sortering" className="header-verktoy-label">{getLedetekst('dine-sykmeldinger.sorter.label', ledetekster)}</label>
-        <div className="select-container select-container--liten">
+        <div className="selectContainer selectContainer--liten">
             <Dropdown alternativer={alternativer} id="sykmeldinger-sortering" ariaControls={`sykmelding-liste-${status}`} onChange={(kriterium) => {
                 sorterSykmeldinger(kriterium, status);
             }} />

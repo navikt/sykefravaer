@@ -11,11 +11,6 @@
   &:visited, &:hover, &:active {
     color: @color-text;
   }
-
-  .lenke-fremhevet {
-    .lenke;
-  }
-
 }
 
 .tidslinjeTeaser__img {
@@ -57,6 +52,10 @@
   transform: translate3d(0, 0, 0);
   width: 100%;
   display: flex;
+
+  span {
+    align-self: center;    
+  }
 
   &:hover {
     background-image: data-uri("../img/svg/pil-videre-blaa.svg");

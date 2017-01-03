@@ -16,11 +16,11 @@ class UnderUtviklingVarsel extends Component {
     }
 
     render() {
-        return (<div className={`panel typo-infotekst blokk-l underUtvikling ${(this.state.synlig ? 'underUtvikling--erSynlig' : '')}`}>
+        return (<div className={`panel typo-infotekst blokk--l underUtvikling ${(this.state.synlig ? 'underUtvikling--erSynlig' : '')}`}>
             <Varselstripe>
                 <p className="sist">{getLedetekst('under-utvikling.varsel.tekst', this.props.ledetekster)}</p>
             </Varselstripe>
-            <button className="js-lukk modal-lukk" onClick={() => {
+            <button className="js-lukk lightbox__lukk" onClick={() => {
                 this.props.skjulUnderUtviklingVarsel();
             }}>{getLedetekst('under-utvikling.varsel.lukk', this.props.ledetekster)}</button>
         </div>);

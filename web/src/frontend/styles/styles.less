@@ -6,6 +6,7 @@
 @import "@{nodeModulesPath}nav-frontend-skjema-design/less/styles";
 @import "@{nodeModulesPath}nav-frontend-typografi-design/less/styles";
 @import "@{nodeModulesPath}nav-frontend-knapper-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-brodsmuler-design/less/styles";
 @import "@{nodeModulesPath}nav-frontend-hjelpetekst-design/less/styles";
 
 @modig-frontend-images-root-url: "../img/modig-frontend/";
@@ -17,17 +18,12 @@
 @import "@{base-url}/nav_extra/hoder";
 @import "@{base-url}/nav_extra/paneler";
 @import "@{base-url}/nav_extra/utilities";
-@import "@{base-url}/nav_extra/knapperader";
-@import "@{base-url}/nav_extra/skjema";
-@import "@{base-url}/nav_extra/modaler";
-@import "@{base-url}/nav_extra/hjelpetekst";
-@import "@{base-url}/nav_extra/validering";
 
 @import "_til-modig-frontend.less";
 @import "_overstyringer-dekorator.less";
 
+@import "_avstander.less";
 @import "_artikkel.less";
-@import "_brodsmuler.less";
 @import "_headers.less";
 @import "_layout.less";
 @import "_utvidbar.less";
@@ -76,7 +72,6 @@
 .medHjelpetekst {
 	display: flex;
 	position: relative;
-	padding-right: 2em;
 }
 
 .start-container {

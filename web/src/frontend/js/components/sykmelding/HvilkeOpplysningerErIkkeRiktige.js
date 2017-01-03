@@ -20,7 +20,7 @@ DuTrengerNySykmelding.propTypes = {
 
 export const DuKanBrukeSykmeldingenDinArbeidsgiver = ({ ledetekster }) => {
     return (<div className="panel panel-relatert">
-        <h5 className="typo-undertittel blokk-xs">
+        <h5 className="typo-undertittel blokk--xs">
             {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel', ledetekster)}
         </h5>
         <p>
@@ -35,7 +35,7 @@ DuKanBrukeSykmeldingenDinArbeidsgiver.propTypes = {
 
 export const DuKanBrukeSykmeldingenDinDiagnoseAndre = ({ ledetekster }) => {
     return (<div className="panel panel-relatert">
-        <h5 className="typo-undertittel blokk-xs">
+        <h5 className="typo-undertittel blokk--xs">
         {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel', ledetekster)}
         </h5>
         <p>
@@ -73,8 +73,8 @@ const HvilkeOpplysningerErIkkeRiktige = ({ skjemaData, ledetekster }) => {
     const feilaktigeOpplysninger = skjemaData.values.feilaktigeOpplysninger;
 
     const checkboxer = inputs.map((input, index) => {
-        return (<div className="nav-input" key={index}>
-            <Field component="input" className="nav-checkbox" type="checkbox" name={`feilaktigeOpplysninger.${input}`} id={`checkbox-${input}`} />
+        return (<div className="skjema__input" key={index}>
+            <Field component="input" className="checkboks" type="checkbox" name={`feilaktigeOpplysninger.${input}`} id={`checkbox-${input}`} />
             <label htmlFor={`checkbox-${input}`}>{getLedetekst(`sykmelding.bekreft-opplysninger.hvilke-opplysninger.${input}`, ledetekster)}</label>
         </div>);
     });

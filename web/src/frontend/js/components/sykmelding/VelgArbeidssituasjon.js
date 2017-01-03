@@ -18,9 +18,9 @@ const VelgArbeidssituasjon = (props) => {
     const erFeil = visFeilmelding(skjemaData, 'valgtArbeidssituasjon');
 
     return (
-        <div className="blokk-l">
-            <div className="hjelpetekst-parent hjelpetekst-parent-inline hjelpetekst-select">
-                <label htmlFor="select-arbeidssituasjon" className="skjema-sporsmal med-hjelpetekst">
+        <div className="blokk--l">
+            <div className="medHjelpetekst">
+                <label htmlFor="select-arbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
                     {getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster)}
                 </label>
                 <Hjelpetekst
@@ -29,8 +29,8 @@ const VelgArbeidssituasjon = (props) => {
                     tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tekst', ledetekster)} />
             </div>
             <DropdownWrapper erFeil={erFeil} feilmelding={getFeilmelding(skjemaData, 'valgtArbeidssituasjon')}>
-                <div className="select-container">
-                    <Field component="select" name="valgtArbeidssituasjon" onBlur={() => {
+                <div className="selectContainer">
+                    <Field component="select" className={erFeil ? 'input--feil' : ''} name="valgtArbeidssituasjon" onBlur={() => {
                         untouch('valgtArbeidsgiver');
                     }}>
                         {

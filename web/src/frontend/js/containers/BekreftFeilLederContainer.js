@@ -27,10 +27,7 @@ LederAvkreftet.propTypes = {
 };
 
 export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftFeilet }) => {
-    let knappClassName = 'knapp knapp-fare blokk-s js-bekreft';
-    if (avkrefter) {
-        knappClassName += ' knapp-spinner';
-    }
+    let knappClassName = 'knapp knapp--fare blokk--s js-bekreft';
     return (<div>
         <div className={avkreftFeilet ? 'blokk' : ''}>
             <h3 className="typo-undertittel">Feil nærmeste leder</h3>
@@ -46,7 +43,9 @@ export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftF
         <div className="knapperad">
             <button type="button" disabled={avkrefter} className={knappClassName} onClick={() => {
                 avkreftLeder(leder.orgnummer);
-            }}>Ja, dette er feil <span className="spinner-knapp" /></button>
+            }}>Ja, dette er feil 
+                {avkrefter && <span className="knapp__spinner" />}
+            </button>
             <p className="side-innhold"><a className="js-avbryt" href="#" role="button" onClick={(e) => {
                 e.preventDefault();
                 onAvbryt();

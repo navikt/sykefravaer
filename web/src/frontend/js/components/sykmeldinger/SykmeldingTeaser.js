@@ -24,21 +24,18 @@ class SykmeldingTeaser extends Component {
         super(props);
         this.state = {
             ikon: 'doctor-2.svg',
-            ikonHoykontrast: 'doctor-2-highcontrast.svg',
         };
     }
 
     onMouseEnter() {
         this.setState({
             ikon: 'doctor-2_hover.svg',
-            ikonHoykontrast: 'doctor-2_hover-highcontrast.svg',
         });
     }
 
     onMouseLeave() {
         this.setState({
             ikon: 'doctor-2.svg',
-            ikonHoykontrast: 'doctor-2-highcontrast.svg',
         });
     }
 
@@ -55,9 +52,6 @@ class SykmeldingTeaser extends Component {
             >
             <span className="inngangspanel__ikon">
                 <img src={`/sykefravaer/img/svg/${this.state.ikon}`} alt="Lege" />
-            </span>
-            <span className="inngangspanel__ikon inngangspanel__ikon--hoykontrast">
-                <img src={`/sykefravaer/img/svg/${this.state.ikonHoykontrast}`} alt="Lege" />
             </span>
             <div className="inngangspanel__innhold">
                 <header className="inngangspanel__header">

@@ -1,16 +1,16 @@
 .tidslinjeTeaser:extend(.panel), .peker:extend(.panel) {
   color: @color-text;
   margin-bottom: 1.5rem;
+  border-bottom-width: 0;
 
   &:focus {
     background-color: @white;
     box-shadow: 0 0 0 3px @color-focus;
   }
 
-  .lenke-fremhevet {
-    color: @color-link;
+  &:visited, &:hover, &:active {
+    color: @color-text;
   }
-
 }
 
 .tidslinjeTeaser__img {
@@ -53,6 +53,10 @@
   width: 100%;
   display: flex;
 
+  span {
+    align-self: center;    
+  }
+
   &:hover {
     background-image: data-uri("../img/svg/pil-videre-blaa.svg");
     color: @color-link;
@@ -64,23 +68,4 @@
   width: 2rem;
   height: 2rem;
   margin-right: .5rem;
-}
-
-.peker__ikon--hoykontrast {
-  display: none; 
-}
-
-.contrast {
-
-  .peker, .tidslinjeTeaser {
-    border: 1px solid @white;
-  }
-
-  .peker__ikon {
-    display: none; 
-  }
-
-  .peker__ikon--hoykontrast {
-    display: inline;
-  }
 }

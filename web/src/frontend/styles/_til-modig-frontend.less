@@ -1,4 +1,4 @@
-.select-container--liten {
+.selectContainer--liten {
     &:after {
         top: 8px;
     }
@@ -14,7 +14,7 @@
 
 @media (min-width: @screen-small) {
     // 620px;
-    .select-container--liten {
+    .selectContainer--liten {
     	option, select {
             font-size: @rem-as-14px;
         }
@@ -42,7 +42,7 @@
 	padding-right: 2rem;
 }
 
-.nav-input .hjelpetekst {
+.skjema__input .hjelpetekst {
     top: 2px; 
 }
 
@@ -50,20 +50,6 @@
 	.mixin-typo-normal(); 
 	color: @gray-inactive;
 	align-self: center; 
-}
-
-.contrast .modal-lukk, .contrast .hjelpetekst-lukk, .contrast .hjelpetekst-lukk:hover, .contrast .hjelpetekst-active, .modal-lukk:hover, .modal-lukk:focus, .modal-lukk:active {
-    background-image: data-uri('image/svg+xml;charset=UTF-8', '../img/svg/modig-frontend_ikon-kryss-hvit.svg');
-}
-
-.hjelpetekst-lukk {
-    background-image: data-uri('../img/png/modig-frontend_ikon-kryss-hvit.png');
-    // Bruker PNG fordi IE11 ikke vil rendre SVG
-}
-
-.skjema-feilomrade.feil:focus {
-    box-shadow: 0 0 0 4px @color-focus;
-    outline: none; 
 }
 
 .hode-brodtekst {
@@ -80,65 +66,4 @@
     .panel-ekstra:before, .panel-relatert:before {
         margin-left: -(sqrt(2rem)/2); // Fikk endelig bruk for Pythagoras i CSS!
     }
-}
-
-@media (max-width: 768px) {
-    a.lenke-fremhevet {
-        color: @color-link;
-    }
-}
-
-.lenke {
-    margin: 0;
-    padding: 0;
-    background-color: transparent;
-    border: 0;
-    border-bottom: 1px solid @color-border;
-    color: @color-link;
-    cursor: pointer;
-
-    &:hover {
-        border-bottom-color: @color-link;
-    }
-
-    &:focus {
-        background-color: @color-focus; 
-    }
-
-    &:active {      
-        color: @purple-visited;
-        border-right-color: @purple-visited;
-    }
-}
-
-.contrast .lenke {
-    color: @yellow; 
-    border-bottom-color: @white;
-
-    &:hover {
-        border-bottom-color: @color-blue-additional;
-        color: @color-blue-additional;
-    }
-
-    &:focus {
-        color: @color-blue-additional; 
-    }
-
-    &:active {
-        color: @white;
-        border-bottom-color: @white;
-    }
-
-}
-
-.contrast .panel {
-    border: 1px solid @white;
-}
-
-.contrast .hjelpetekst {
-    background-color: transparent!important; // For å overskrive dekoratør
-}
-
-.hjelpetekst-select {
-    margin-bottom: .5rem;
 }

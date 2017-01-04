@@ -12,9 +12,9 @@ const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }
 
     return (<div>
         <div className="blokk">
-            <div className={erFeil ? 'skjema-feilomrade feil' : 'skjema-feilomrade'}>
-                <div className="hjelpetekst-parent hjelpetekst-parent-inline hjelpetekst-select">
-                    <h4 className="skjema-sporsmal med-hjelpetekst">{getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal', ledetekster)}</h4>
+            <div className={erFeil ? 'skjema__feilomrade skjema__feilomrade--feil' : 'skjema__feilomrade'}>
+                <div className="medHjelpetekst">
+                    <h4 className="skjema__sporsmal">{getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal', ledetekster)}</h4>
                     <Hjelpetekst
                         id="velg-arbeidsgiver-hjelpetekst"
                         tittel={getLedetekst('din-sykmelding.velg-arbeidsgiver.hjelpetekst.tittel', ledetekster)}
@@ -27,7 +27,7 @@ const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }
                             : null;
                         const visAnnenInfo = values.valgtArbeidsgiver && values.valgtArbeidsgiver.orgnummer === '0' && arbeidsgiver.orgnummer === '0';
                         const checked = (values.valgtArbeidsgiver && values.valgtArbeidsgiver.orgnummer === arbeidsgiver.orgnummer) === true;
-                        return (<div className="nav-input" key={index}>
+                        return (<div className="skjema__input" key={index}>
                             <Field
                                 key={index}
                                 component="input"
@@ -35,7 +35,7 @@ const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }
                                 name="valgtArbeidsgiver"
                                 id={`arbeidsgiver-${arbeidsgiver.orgnummer}`}
                                 value={arbeidsgiver.orgnummer}
-                                className="nav-radioknapp"
+                                className="radioknapp"
                                 checked={checked}
                                 parse={(orgnummer) => {
                                     return arbeidsgivere.filter((arbgiver) => {
@@ -49,7 +49,7 @@ const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }
                                 <div className="panel panel-ekstra js-annen-info">
                                     <div className="hode hode-advarsel hode-brodtekst redaksjonelt-innhold side-innhold"
                                         dangerouslySetInnerHTML={getHtmlLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.infotekst', ledetekster)} />
-                                    <div className="knapperad side-innhold">
+                                    <div className="knapperad">
                                         <p>
                                             <Link target="_blank" to={`${getContextRoot()}/sykmeldinger/${sykmelding.id}/skriv-ut`} className="rammeknapp">
                                                 {getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.skriv-ut', ledetekster)}
@@ -61,7 +61,7 @@ const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }
                         </div>);
                     })
                 }
-                <span className="skjema-feilmelding" role="alert" aria-live="polite">
+                <span className="skjema__feilmelding" role="alert" aria-live="polite">
                     {erFeil && feilmelding}
                 </span>
             </div>

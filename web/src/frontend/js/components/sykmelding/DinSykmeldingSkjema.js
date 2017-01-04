@@ -143,17 +143,17 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 modus === 'GA_VIDERE' ? null : <p className="blokk">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`, ledetekster)}</p>
             }
             <div className="knapperad knapperad-adskilt">
-                <p className="blokk-s">
-                    <button ref={modus === 'AVBRYT' ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
-                        className={`js-submit knapp ${modus === 'AVBRYT' ? 'knapp-fare' : 'knapp-hoved'} ${(sender) ? 'er-inaktiv knapp-spinner js-spinner' : ''}`}>
+                <p className="blokk--s">
+                    <button disabled={sender} ref={modus === 'AVBRYT' ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
+                        className={`js-submit knapp ${modus === 'AVBRYT' ? 'knapp--fare' : ''} ${(sender) ? 'js-spinner' : ''}`}>
                         {getLedetekst(`starte-sykmelding.knapp.${modus}`, ledetekster)}
-                        <span className="spinner-knapp" />
+                        { sender && <span className="knapp__spinner" /> }
                     </button>
                 </p>
                 <div className="dinSykmeldingSkjema__avbrytSykmeldingDialog">
                     {
                         modus !== 'AVBRYT' && <p className="blokk">
-                            <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" className="lenke-fremhevet" onClick={(e) => {
+                            <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" onClick={(e) => {
                                 e.preventDefault();
                                 this.setState({
                                     visAvbrytDialog: !this.state.visAvbrytDialog,

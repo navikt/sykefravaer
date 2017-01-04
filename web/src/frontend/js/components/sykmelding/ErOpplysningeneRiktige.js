@@ -9,17 +9,17 @@ const ErOpplysningeneRiktige = ({ skjemaData, ledetekster, untouch }) => {
     const erFeil = visFeilmelding(skjemaData, 'opplysningeneErRiktige');
     const feilmelding = getFeilmelding(skjemaData, 'opplysningeneErRiktige');
 
-    return (<div className="blokk-s">
-        <div className={`skjema-feilomrade${erFeil ? ' feil' : ''}`}>
-            <h3 className="skjema-sporsmal">{getLedetekst('sykmelding.bekreft-opplysninger.sporsmal', ledetekster)}</h3>
+    return (<div className="blokk--l">
+        <div className={`skjema__feilomrade${erFeil ? ' skjema__feilomrade--feil' : ''}`}>
+            <h3 className="skjema__sporsmal">{getLedetekst('sykmelding.bekreft-opplysninger.sporsmal', ledetekster)}</h3>
             {
                 alternativer.map((alternativ, index) => {
-                    return (<div className="nav-input" key={index}>
+                    return (<div className="skjema__input" key={index}>
                         <Field
                             component="input"
                             type="radio"
                             name="opplysningeneErRiktige"
-                            className="nav-radioknapp"
+                            className="radioknapp"
                             id={`radio-${alternativ}`}
                             value={alternativ}
                             checked={verdi === alternativ}
@@ -38,7 +38,7 @@ const ErOpplysningeneRiktige = ({ skjemaData, ledetekster, untouch }) => {
                 })
             }
             {verdi === false && <HvilkeOpplysningerErIkkeRiktige skjemaData={skjemaData} ledetekster={ledetekster} />}
-            <p className="skjema-feilmelding" role="alert" aria-live="polite">{erFeil && feilmelding}</p>
+            <p className="skjema__feilmelding" role="alert" aria-live="polite">{erFeil && feilmelding}</p>
         </div>
     </div>);
 };

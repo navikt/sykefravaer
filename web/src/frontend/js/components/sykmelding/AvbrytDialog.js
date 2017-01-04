@@ -3,17 +3,17 @@ import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 
 const AvbrytDialog = ({ ledetekster, avbryter, avbrytHandler, bekreftHandler }) => {
     return (<div className="panel panel-ekstra">
-        <p className="blokk-s" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.avbryt.spoersmal', ledetekster)} />
-        <div className="blokk-xs">
-            <button disabled={avbryter} className={`js-bekreft knapp knapp-fare ${avbryter ? 'er-inaktiv knapp-spinner' : ''}`} type="button" onClick={(e) => {
+        <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.avbryt.spoersmal', ledetekster)} />
+        <div className="blokk--xs">
+            <button disabled={avbryter} className="js-bekreft knapp knapp--fare" type="button" onClick={(e) => {
                 e.preventDefault();
                 bekreftHandler();
             }}>{getLedetekst('din-sykmelding.avbryt.ja', ledetekster)}
-                <span className="spinner-knapp" />
+                { avbryter && <span className="knapp__spinner" /> }
             </button>
         </div>
         <p className="sist">
-            <a href="#" role="button" className="js-avbryt lenke-fremhevet" onClick={(e) => {
+            <a href="#" role="button" className="js-avbryt" onClick={(e) => {
                 e.preventDefault();
                 avbrytHandler();
             }}>{getLedetekst('din-sykmelding.avbryt.angre', ledetekster)}

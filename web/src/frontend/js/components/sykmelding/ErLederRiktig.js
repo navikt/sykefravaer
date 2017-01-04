@@ -14,8 +14,8 @@ const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {
     const feilmelding = getFeilmelding(skjemaData, 'beOmNyNaermesteLeder');
 
     return (<div className="blokk">
-        <div className="hjelpetekst-parent hjelpetekst-parent-inline hjelpetekst-select">
-            <label htmlFor="select-beOmNyNaermesteLeder" className="skjema-sporsmal med-hjelpetekst">
+        <div className="medHjelpetekst">
+            <label htmlFor="select-beOmNyNaermesteLeder" className="skjema__sporsmal">
                 {getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal', ledetekster, {
                     '%NAERMESTELEDER%': naermesteLeder.navn,
                 })}
@@ -25,7 +25,7 @@ const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {
                 tittel={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tittel', ledetekster)}
                 tekst={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tekst', ledetekster)} />
         </div>
-        <div className={erFeil ? 'skjema-feilomrade feil' : 'skjema-feilomrade'}>
+        <div className={erFeil ? 'skjema__feilomrade skjema__feilomrade--feil' : 'skjema__feilomrade'}>
             {
                 alternativer.map((alternativ, index) => {
                     return (<div className="nav-input" key={index}>
@@ -33,7 +33,7 @@ const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {
                             component="input"
                             type="radio"
                             name="beOmNyNaermesteLeder"
-                            className="nav-radioknapp"
+                            className="radioknapp"
                             id={`beOmNyNaermesteLeder-${alternativ.beOmNyNaermesteLeder}`}
                             value={alternativ.beOmNyNaermesteLeder}
                             parse={(value) => {
@@ -43,7 +43,7 @@ const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {
                     </div>);
                 })
             }
-            <p className="skjema-feilmelding" aria-live="polite">{erFeil && feilmelding}</p>
+            <p className="skjema__feilmelding" aria-live="polite">{erFeil && feilmelding}</p>
         </div>
     </div>);
 };

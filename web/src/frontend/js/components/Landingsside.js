@@ -55,7 +55,7 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
                     <h2 className="typo-undertittel">{getLedetekst('landingsside.intro.tittel', ledetekster)}</h2>
                     <p>{getLedetekst('landingsside.intro.tekst', ledetekster)} </p>
                     <p className="ustilet">
-                        <span className="lenke-fremhevet">{getLedetekst('landingsside.intro.lenketekst', ledetekster)}</span>
+                        <span className="lenke">{getLedetekst('landingsside.intro.lenketekst', ledetekster)}</span>
                     </p>
                 </div>
             </Link>

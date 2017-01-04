@@ -4,30 +4,26 @@
 @import "@{base-url}/includes/variables";
 @import "@{nodeModulesPath}nav-frontend-core/less/styles";
 @import "@{nodeModulesPath}nav-frontend-skjema-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-typografi-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-knapper-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-brodsmuler-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-hjelpetekst-design/less/styles";
 
 @modig-frontend-images-root-url: "../img/modig-frontend/";
 
-@import "@{base-url}/includes/mixins/mixins-grid";
 @import "@{base-url}/includes/mixins/mixins-knapper";
-@import "@{base-url}/includes/mixins/mixins-typografi";
-@import "@{base-url}/includes/mixins/mixins-utils";
 
 @import "@{base-url}/includes/mixins/mixins-utils";
 
 @import "@{base-url}/nav_extra/hoder";
 @import "@{base-url}/nav_extra/paneler";
 @import "@{base-url}/nav_extra/utilities";
-@import "@{base-url}/nav_extra/knapperader";
-@import "@{base-url}/nav_extra/skjema";
-@import "@{base-url}/nav_extra/modaler";
-@import "@{base-url}/nav_extra/hjelpetekst";
-@import "@{base-url}/nav_extra/validering";
 
 @import "_til-modig-frontend.less";
 @import "_overstyringer-dekorator.less";
 
+@import "_avstander.less";
 @import "_artikkel.less";
-@import "_brodsmuler.less";
 @import "_headers.less";
 @import "_layout.less";
 @import "_utvidbar.less";
@@ -37,7 +33,6 @@
 @import "_radiofaner.less";
 @import "_underUtvikling.less";
 @import "_varselstripe.less";
-@import "_knapper.less";
 @import "_sykmelding.less";
 @import "_sykmeldingArbeidsgiver.less";
 @import "_sykmeldingKvittering.less";
@@ -66,10 +61,17 @@
 	}
 }
 
+.mixin-typo-etikett-liten() {
+	.mixin-typo-etikettLiten();
+}
+
+.mixin-lenke-negativ() {
+
+}
+
 .medHjelpetekst {
 	display: flex;
 	position: relative;
-	padding-right: 2em;
 }
 
 .start-container {
@@ -127,4 +129,8 @@
     .utvidbar[aria-expanded="false"] {
         display: none;
     }
+}
+
+p {
+	margin-top: 0;
 }

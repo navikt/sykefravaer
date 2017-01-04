@@ -1,6 +1,10 @@
 .varselstripe {
   position: relative;
   padding-top: 3rem;
+
+  p {
+    margin-top: 0;
+  }
 }
 
 .varselstripe:before, .varselstripe__ikon {
@@ -96,14 +100,4 @@
     transform: translateY(-50%);
   }
 
-}
-
-.contrast .varselstripe:before {
-  background-color: transparent;
-  border: 1px solid @white;
-  padding: 1rem;
-}
-
-.contrast .varselstripe__ikon {
-  background-color: transparent!important; // Dette for å overskrive dekoratør
 }

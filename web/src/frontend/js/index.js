@@ -16,6 +16,7 @@ import { hentBrukerinfo } from './actions/brukerinfo_actions';
 import history from './history';
 import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';
+import { svar, deltaker } from 'moter-npm';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
@@ -26,6 +27,8 @@ const rootReducer = combineReducers({
     brukerinfo,
     history,
     ledere,
+    svar,
+    deltaker,
     form: formReducer,
 });
 

@@ -5,9 +5,11 @@ import { put, call } from 'redux-saga/effects';
 
 describe("dineArbeidsgivereSagas", () => {
 
-    window.APP_SETTINGS = {
-        REST_ROOT: "http://tjenester.nav.no/syforest"
-    }
+    beforeEach(() => {
+        window.APP_SETTINGS = {
+            REST_ROOT: "http://tjenester.nav.no/syforest"
+        }
+    });
 
     const generator = hentDineArbeidsgivere({
         type: 'HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT',

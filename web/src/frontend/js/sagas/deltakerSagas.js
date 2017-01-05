@@ -6,7 +6,7 @@ import { actiontyper, deltakerActions } from 'moter-npm';
 export function* hentDeltaker(action) {
     yield put(deltakerActions.henterDeltaker());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.MOTEREST_ROOT}/api/moter/siste`);
+        const data = yield call(get, `${window.APP_SETTINGS.MOTEREST_ROOT}/moter/siste`);
         yield put(deltakerActions.deltakerHentet(data));
     } catch (e) {
         if (e.message === '404') {

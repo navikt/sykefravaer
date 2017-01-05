@@ -6,7 +6,7 @@ import { put, call } from 'redux-saga/effects';
 describe("deltakerSagas", () => {
     beforeEach(() => {
         window.APP_SETTINGS = {
-            MOTEREST_ROOT: "http://tjenester.nav.no/moterest"
+            MOTEREST_ROOT: "http://tjenester.nav.no/moterest/api"
         }
     });
 

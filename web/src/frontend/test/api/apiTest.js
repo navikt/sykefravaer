@@ -35,6 +35,16 @@ describe("api", () => {
 
         });
 
+        it("Skal kalle kaste en 410-exception hvis det returneres 410", (done) => {
+
+            fetchMock.get("*", 410);
+            get("/ingen-url").catch((e) => {
+                expect(e.message).to.equal("410")
+                done();
+            });
+
+        });
+
         it("Skal kalle kaste en exception hvis det returneres > 400", (done) => {
 
             fetchMock.get("*", 500);

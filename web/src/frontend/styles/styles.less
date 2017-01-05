@@ -45,6 +45,7 @@
 @import "_utils.less";
 @import "_feilmelding.less";
 @import "_naermesteLedere.less";
+@import "_mote.less";
 @import "_lightbox.less";
 
 @greenLight: #63b282;
@@ -133,4 +134,15 @@
 
 p {
 	margin-top: 0;
+}
+
+.lenke {
+	.mixin-lenke();
+}
+
+button.lenke {
+	padding: 0;
+	background-color: transparent;
+	border: 0;
+	.mixin-lenke();
 }

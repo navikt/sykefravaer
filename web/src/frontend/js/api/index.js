@@ -10,6 +10,10 @@ export function get(url) {
             log(res);
             throw new Error('404');
         }
+        if (res.status === 410) {
+            log(res);
+            throw new Error('410');
+        }
         if (res.status > 400) {
             log(res);
             throw new Error('Det oppstod en feil');
@@ -46,9 +50,12 @@ export function post(url, body) {
     })
     .then((res) => {
         if (res.status > 400) {
-            log(res);
             throw new Error('Forespørsel feilet');
         } else {
+            const contentType = res.headers.get('Content-Type') || '';
+            if (contentType.includes('json')) {
+                return res.json();
+            }
             return res;
         }
     })

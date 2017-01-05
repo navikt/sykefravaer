@@ -66,13 +66,77 @@ describe("api", () => {
         it("Skal returnere et promise", (done) => {
 
             fetchMock.post("*", {
-                hello: "world"
+                body: {hello: "world"},
+                headers: {
+                    "Content-Type": "application/json"
+                }
             });
 
             post("/posturl").then((data) => {
                 done();
             })
      
+        });
+
+        it("Skal funke når forespørsel returnerer en streng", (done) => {
+
+            fetchMock.post("*", {
+                body: "olsen",
+                headers: {
+                    "Content-Type": "text/plain"
+                }
+            });
+
+            post("/posturl").then((data) => {
+                done();
+            });
+        
+        });
+
+        it("Skal funke når forespørsel returnerer void uten Content-Type", (done) => {
+
+            fetchMock.post("*", {
+                body: "",
+            });
+
+            post("/posturl").then((data) => {
+                done();
+            });
+        
+        });
+
+
+        it("Skal funke når forespørsel returnerer innhold med Content-Type = application/json; charset=utf-8", (done) => {
+
+            fetchMock.post("*", {
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+                body: JSON.stringify({hello: "world"}),
+            });
+
+            post("/posturl").then((data) => {
+                expect(data).to.deep.equal({hello: "world"})
+                done();
+            });
+        
+        });
+
+
+        it("Skal returnere et promise som vi kan hente ut data fra", (done) => {
+
+            fetchMock.post("*", {
+                body: {hello: "world"},
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            post("/posturl").then((data) => {
+                expect(data).to.deep.equal({hello: "world"})
+                done();
+            })
+        
         });
 
         it("Skal kaste en error hvis det oppstår en feil", (done) => {
@@ -88,6 +152,7 @@ describe("api", () => {
 
 
     });
+
 
     describe("getAjax", () => {
 

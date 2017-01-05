@@ -6,9 +6,11 @@ import { put, call } from 'redux-saga/effects';
 
 describe("dinSykmeldingSagas", () => {
 
-    window.APP_SETTINGS = {
-        REST_ROOT: "http://tjenester.nav.no/syforest"
-    }
+    beforeEach(() => {
+        window.APP_SETTINGS = {
+            REST_ROOT: "http://tjenester.nav.no/syforest"
+        }
+    })
 
     describe("bekreftSykmelding", () => {
 

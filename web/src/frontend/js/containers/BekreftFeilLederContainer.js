@@ -43,7 +43,7 @@ export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftF
         <div className="knapperad">
             <button type="button" disabled={avkrefter} className={knappClassName} onClick={() => {
                 avkreftLeder(leder.orgnummer);
-            }}>Ja, dette er feil 
+            }}>Ja, dette er feil
                 {avkrefter && <span className="knapp__spinner" />}
             </button>
             <p className="side-innhold"><a className="js-avbryt" href="#" role="button" onClick={(e) => {

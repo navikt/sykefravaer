@@ -42,7 +42,7 @@ export class Container extends Component {
                 return <Feilmelding />;
             })()
         }
-        </Side>)
+        </Side>);
     }
 }
 
@@ -52,13 +52,18 @@ Container.propTypes = {
     deltaker: PropTypes.object,
     brodsmuler: PropTypes.array,
     ledetekster: PropTypes.object,
+    actions: PropTypes.object,
+    hentingFeilet: PropTypes.bool,
+    harSvart: PropTypes.bool,
+    motetUtgaatt: PropTypes.bool,
+    erBekreftet: PropTypes.bool,
 };
 
 export function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators(deltakerActions, dispatch),
     };
-};
+}
 
 export const harSvartTidligere = (deltaker) => {
     return deltaker && (deltaker.alternativer && deltaker.alternativer.filter((alternativ) => {
@@ -81,11 +86,11 @@ export function mapStateToProps(state) {
         erBekreftet: state.deltaker && state.deltaker.data && state.deltaker.data.bekreftetAlternativ !== null,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', ledetekster),
-            sti: "/",
+            sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('mote.sidetittel', ledetekster)
-        }]
+            tittel: getLedetekst('mote.sidetittel', ledetekster),
+        }],
     };
 }
 

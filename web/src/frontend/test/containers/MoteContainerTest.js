@@ -71,7 +71,7 @@ describe("MoteContainer", () => {
                 motetUtgaatt: true
             })
             const comp = shallow(<Container actions={actions} harSvart motetUtgaatt deltaker={deltaker_} ledetekster={ledetekster} />);
-            expect(comp.contains(<Feilmelding tittel="Møteforespørselen er ikke lenger aktiv" melding="Ved behov kan du ringe oss på telefon 55 55 33 36" />)).to.be.true;
+            expect(comp.find(Feilmelding)).to.have.length(1);
         });
 
         it("Skal vise en BekreftetKvittering hvis tidspunkt er bekreftet", () => {

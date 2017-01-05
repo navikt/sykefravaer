@@ -3,7 +3,7 @@ import { takeEvery } from 'redux-saga';
 import { get } from '../api';
 import { actiontyper, deltakerActions } from 'moter-npm';
 
-export function* hentDeltaker(action) {
+export function* hentDeltaker() {
     yield put(deltakerActions.henterDeltaker());
     try {
         const data = yield call(get, `${window.APP_SETTINGS.MOTEREST_ROOT}/moter/siste`);

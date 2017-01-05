@@ -34,8 +34,9 @@ describe("svarSagas", () => {
         const nextPut = put(svarActions.svarSendt({
             tidOgStedIdListe: [17],
             avvikListe: []
-        }, new Date()));
-        expect(generator.next().value).to.deep.equal(nextPut);
+        }, "svarTidspunkt"));
+        expect(generator.next({svarTidspunkt: "svarTidspunkt"}).value).to.deep.equal(nextPut);
     }); 
+
 
 });

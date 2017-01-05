@@ -27,7 +27,7 @@ const rootReducer = combineReducers({
     brukerinfo,
     history,
     ledere,
-    svar, 
+    svar,
     deltaker,
     form: formReducer,
 });

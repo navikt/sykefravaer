@@ -17,7 +17,7 @@
 
     <resources>
         <baseUrl mapToProperty="dialogarena.cms" alias="appres.cms"/>
-        <baseUrl mapToProperty="sykefravaerapi" alias="sykefravaerapi"/>
+        <rest mapToProperty="sykefravaerapi" alias="sykefravaerapi"/>
     </resources>
 
     <loadBalancer isAlive="sykefravaer/internal/isAlive" />

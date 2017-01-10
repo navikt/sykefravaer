@@ -25,7 +25,7 @@ export default class LandingssideLenke extends Component {
     }
 
     render() {
-        return (<Link className={`peker js-${this.props.type}`} to={this.props.to}
+        return (<Link className="peker" to={this.props.to}
             onMouseEnter={() => {this.onMouseEnter();}}
             onMouseLeave={() => {this.onMouseLeave();}}>
             <div className={`peker__ikon ${this.state.variant}`}>
@@ -46,5 +46,4 @@ LandingssideLenke.propTypes = {
     tittel: PropTypes.string.isRequired,
     undertittel: PropTypes.string,
     to: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
 };

@@ -25,10 +25,12 @@ export class Container extends Component {
                     return <Feilmelding />;
                 }
                 if (motetUtgaatt || (deltaker && deltaker.status === 'AVBRUTT')) {
-                    return <Feilmelding tittel={getLedetekst('mote.feilmelding.utgaatt.tittel', ledetekster)} melding={getLedetekst('mote.feilmelding.utgaatt.melding', ledetekster)} />;
+                    return (<Feilmelding tittel={getLedetekst('mote.feilmelding.utgaatt.tittel', ledetekster)}
+                        melding={getLedetekst('mote.feilmelding.utgaatt.melding', ledetekster)} />);
                 }
                 if (fantIkkeDeltaker) {
-                    return <Feilmelding tittel={getLedetekst('mote.feilmelding.ingen-moter.tittel', ledetekster)} melding={getLedetekst('mote.feilmelding.ingen-moter.melding', ledetekster)} />;
+                    return (<Feilmelding tittel={getLedetekst('mote.feilmelding.ingen-moter.tittel', ledetekster)}
+                        melding={getLedetekst('mote.feilmelding.ingen-moter.melding', ledetekster)} />);
                 }
                 if (erBekreftet) {
                     return <BekreftetKvittering deltaker={deltaker} ledetekster={ledetekster} />;

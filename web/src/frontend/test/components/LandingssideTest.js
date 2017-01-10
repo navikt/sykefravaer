@@ -15,19 +15,29 @@ describe("Sykmelding og oppfolging", () => {
 
     let component;
 
+    it("Skal vise bilde over overskriften", () => {
+        component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={false}/>);
+        expect(component.find(".sidetopp__bilde")).to.have.length(1);
+    });
+
     it("Skal vise overskrift for 'Ditt sykefravær'", () => {
         component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={false}/>);
         expect(component.find(".js-sidetittel").text()).to.equal("Ditt sykefravær");
     });
 
-    it("SKal vise intro-banner", () => {
-        component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={false}/>);
-        expect(component.find(".js-intro-banner")).to.have.length(1);
-    })
-
-    it("Skal vise lenkeboks til dine sykmeldinger", () => {
+    it("Skal vise to lenkebokser om vi ikke har dialogmoter eller soknader", () => {
         component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={true}/>);
-        expect(component.find(LandingssideLenke)).to.have.length(1);
+        expect(component.find(LandingssideLenke)).to.have.length(2);
+    });
+
+    it("Skal vise lenkeboks til dialogmoter om vi har et dialogmote", () => {
+        component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={true} dialogmoter={[{id: 1}]}/>);
+        expect(component.find(LandingssideLenke)).to.have.length(3);
+    });
+
+    it("Skal vise lenkeboks til soknader om vi har en soknad", () => {
+        component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={true} soknader={[{id: 1}]}/>);
+        expect(component.find(LandingssideLenke)).to.have.length(3);
     });
 
     it("Skal vise generell informasjon", () => {

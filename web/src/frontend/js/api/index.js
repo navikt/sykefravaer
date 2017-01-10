@@ -5,25 +5,25 @@ export function get(url) {
     return fetch(url, {
         credentials: 'include',
     })
-    .then((res) => {
-        if (res.status === 404) {
-            log(res);
-            throw new Error('404');
-        }
-        if (res.status === 410) {
-            log(res);
-            throw new Error('410');
-        }
-        if (res.status > 400) {
-            log(res);
-            throw new Error('Det oppstod en feil');
-        }
-        return res.json();
-    })
-    .catch((err) => {
-        log(err);
-        throw err;
-    });
+        .then((res) => {
+            if (res.status === 404) {
+                log(res);
+                throw new Error('404');
+            }
+            if (res.status === 410) {
+                log(res);
+                throw new Error('410');
+            }
+            if (res.status > 400) {
+                log(res);
+                throw new Error('Det oppstod en feil');
+            }
+            return res.json();
+        })
+        .catch((err) => {
+            log(err);
+            throw err;
+        });
 }
 
 export function getAjax(url) {
@@ -44,23 +44,27 @@ export function post(url, body) {
         method: 'POST',
         body: JSON.stringify(body),
         headers: new Headers({
-            'Content-Type': 'application/json',
-            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
-        }),
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
+            },
+            {
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN-MOTEREST': getCookie('XSRF-TOKEN-MOTEREST'),
+            }),
     })
-    .then((res) => {
-        if (res.status > 400) {
-            throw new Error('Forespørsel feilet');
-        } else {
-            const contentType = res.headers.get('Content-Type') || '';
-            if (contentType.includes('json')) {
-                return res.json();
+        .then((res) => {
+            if (res.status > 400) {
+                throw new Error('Forespørsel feilet');
+            } else {
+                const contentType = res.headers.get('Content-Type') || '';
+                if (contentType.includes('json')) {
+                    return res.json();
+                }
+                return res;
             }
-            return res;
-        }
-    })
-    .catch((err) => {
-        log(err);
-        throw err;
-    });
+        })
+        .catch((err) => {
+            log(err);
+            throw err;
+        });
 }

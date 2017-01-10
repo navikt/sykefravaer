@@ -44,9 +44,9 @@ export function post(url, body) {
         method: 'POST',
         body: JSON.stringify(body),
         headers: new Headers({
-                'Content-Type': 'application/json',
-                'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
-            },
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
+        },
             {
                 'Content-Type': 'application/json',
                 'X-XSRF-TOKEN-MOTEREST': getCookie('XSRF-TOKEN-MOTEREST'),

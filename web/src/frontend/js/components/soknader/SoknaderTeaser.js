@@ -8,19 +8,19 @@ class SoknadTeaser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ikon: 'sykmeldinger.svg',
+            ikon: 'soknader.svg',
         };
     }
 
     onMouseEnter() {
         this.setState({
-            ikon: 'sykmeldinger_hover-blue.svg',
+            ikon: 'soknader_hover-blue.svg',
         });
     }
 
     onMouseLeave() {
         this.setState({
-            ikon: 'sykmeldinger.svg',
+            ikon: 'soknader.svg',
         });
     }
 

@@ -5,19 +5,22 @@ export default class LandingssideLenke extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ikon: 'doctor-2.svg',
+            ikon: `${props.ikon}.svg`,
+            variant: `peker__ikon--${props.variant}`,
         };
     }
 
     onMouseEnter() {
         this.setState({
-            ikon: 'doctor-2_hover.svg',
+            ikon: `${this.props.ikon}_hover.svg`,
+            variant: `peker__ikon--${this.props.variant}Uthevet`,
         });
     }
 
     onMouseLeave() {
         this.setState({
-            ikon: 'doctor-2.svg',
+            ikon: `${this.props.ikon}.svg`,
+            variant: `peker__ikon--${this.props.variant}`,
         });
     }
 
@@ -25,14 +28,22 @@ export default class LandingssideLenke extends Component {
         return (<Link className="peker" to={this.props.to}
             onMouseEnter={() => {this.onMouseEnter();}}
             onMouseLeave={() => {this.onMouseLeave();}}>
-            <img src={`/sykefravaer/img/svg/${this.state.ikon}`} alt={this.props.ikonAlt} className="peker__ikon" />
-            <span>{this.props.children}</span>
+            <div className={`peker__ikon ${this.state.variant}`}>
+                <img src={`/sykefravaer/img/svg/${this.state.ikon}`} alt={this.props.ikonAlt} />
+            </div>
+            <div className="peker__innhold">
+                <h2 className="typo-undertittel">{this.props.tittel}</h2>
+                <p className="typo-undertekst">{this.props.undertittel}</p>
+            </div>
         </Link>);
     }
 }
 
 LandingssideLenke.propTypes = {
-    ikonAlt: PropTypes.string,
-    children: PropTypes.string,
-    to: PropTypes.string,
+    ikon: PropTypes.string.isRequired,
+    ikonAlt: PropTypes.string.isRequired,
+    variant: PropTypes.string,
+    tittel: PropTypes.string.isRequired,
+    undertittel: PropTypes.string,
+    to: PropTypes.string.isRequired,
 };

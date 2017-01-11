@@ -35,9 +35,11 @@ GenerellInfo.propTypes = {
     ledetekster: PropTypes.object,
 };
 
-const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
+const Landingsside = ({ ledetekster = {}, skjulVarsel = false, soknader = [], dialogmoter = [] }) => {
     return (<div>
         <div className="sidetopp">
+            <img className="sidetopp__bilde blokk" src="/sykefravaer/img/svg/illustrasjon-landingsside-2.svg"
+                alt={getLedetekst('landingsside.intro.lenketekst', ledetekster)} />
             <h1 className="sidetopp__tittel js-sidetittel">
                 {getLedetekst('landingsside.sidetittel', ledetekster)}
             </h1>
@@ -46,22 +48,19 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
             (!skjulVarsel ? <UnderUtviklingVarselContainer ledetekster={ledetekster} /> : null)
         }
         <nav role="navigation">
-            <Link className="tidslinjeTeaser js-intro-banner side-innhold" to="/sykefravaer/tidslinjen">
-                <div className="tidslinjeTeaser__img">
-                    <img src="/sykefravaer/img/svg/illustrasjon-landingsside-2.svg"
-                        alt={getLedetekst('landingsside.intro.lenketekst', ledetekster)} />
-                </div>
-                <div className="tidslinjeTeaser__innhold">
-                    <h2 className="typo-undertittel">{getLedetekst('landingsside.intro.tittel', ledetekster)}</h2>
-                    <p>{getLedetekst('landingsside.intro.tekst', ledetekster)} </p>
-                    <p className="ustilet">
-                        <span className="lenke">{getLedetekst('landingsside.intro.lenketekst', ledetekster)}</span>
-                    </p>
-                </div>
-            </Link>
-            <LandingssideLenke to="/sykefravaer/sykmeldinger" ikonAlt="Lege">
-                {getLedetekst('landingsside.tilsykmeldinger.lenketekst', ledetekster)}
-            </LandingssideLenke>
+            <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
+                undertittel="Informasjon og oversikt over aktiviteter" variant="fersken" />
+            <LandingssideLenke to="/sykefravaer/sykmeldinger" ikon="sykmeldinger" ikonAlt="Sykmelding" tittel="Sykmeldinger"
+                variant="lysblaa" />
+            {
+                soknader.length > 0 &&
+                    <LandingssideLenke to="/sykefravaer/#" ikon="soknader" ikonAlt="Søknader" tittel="Søknader om sykepenger" variant="lysgronn" />
+
+            }
+            {
+                dialogmoter.length > 0 &&
+                    <LandingssideLenke to="/sykefravaer/#" ikon="dialogmoter" ikonAlt="Dialogmøter" tittel="Dialogmøter" variant="ceil" />
+            }
         </nav>
         <NaermesteLedereContainer />
         <GenerellInfo ledetekster={ledetekster} />
@@ -71,6 +70,8 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false }) => {
 Landingsside.propTypes = {
     ledetekster: PropTypes.object.isRequired,
     skjulVarsel: PropTypes.bool.isRequired,
+    soknader: PropTypes.array,
+    dialogmoter: PropTypes.array,
 };
 
 export default Landingsside;

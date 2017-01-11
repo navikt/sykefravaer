@@ -1,4 +1,4 @@
-.tidslinjeTeaser:extend(.panel), .peker:extend(.panel) {
+.peker:extend(.panel) {
   color: @color-text;
   margin-bottom: 1.5rem;
   border-bottom-width: 0;
@@ -13,32 +13,8 @@
   }
 }
 
-.tidslinjeTeaser__img {
-  max-width: 18rem;
-
-  img {
-    width: 100%; 
-  }
-}
-
-
-
-@media (min-width: @screen-xs) {
-
-  .tidslinjeTeaser, .peker {
-    display: flex;
-    margin-bottom: 2rem;
-  }
-
-  .tidslinjeTeaser__img {
-    width: 40%;
-    margin-right: 2rem;
-  }
-
-  .tidslinjeTeaser__innhold {
-    flex: 1
-  }
-
+.sidetopp__bilde {
+    display: none;
 }
 
 .peker {
@@ -52,20 +28,109 @@
   transform: translate3d(0, 0, 0);
   width: 100%;
   display: flex;
+  padding: 0;
+  margin-bottom: 0.5rem;
 
   span {
-    align-self: center;    
+    align-self: center;
   }
 
   &:hover {
     background-image: data-uri("../img/svg/pil-videre-blaa.svg");
     color: @color-link;
+    box-shadow: #b7b1a9 0 2px 1px 0;
   }
 
+  &:last-child {
+    margin-bottom: 1rem;
+  }
 }
 
 .peker__ikon {
-  width: 2rem;
-  height: 2rem;
-  margin-right: .5rem;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.625rem;
+  height: 4.5rem;
+
+  img {
+    display: none;
+  }
+}
+
+@media (min-width: @screen-small) {
+  .sidetopp__bilde {
+    width: 30%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .peker__ikon {
+    width: 4.5rem;
+    margin-right: 1.5rem;
+
+    img {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+    }
+  }
+
+  .peker {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.peker__ikon--fersken {
+  background-color: #FFF2E0;
+}
+
+.peker__ikon--lysblaa {
+  background-color: #DBF3FB;
+}
+
+.peker__ikon--lysgronn {
+  background-color: #E9EDC3;
+}
+
+.peker__ikon--ceil {
+  background-color: #C5D9E3;
+}
+
+.peker__ikon--ferskenUthevet {
+  background-color: #FFE1B8;
+}
+
+.peker__ikon--lysblaaUthevet {
+  background-color: #B9E7F7;
+}
+
+.peker__ikon--lysgronnUthevet {
+  background-color: #D5DA8B;
+}
+
+.peker__ikon--ceilUthevet {
+  background-color: #8DB4C7;
+}
+
+.peker__innhold {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.25rem;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
 }

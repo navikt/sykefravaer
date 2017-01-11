@@ -23,19 +23,19 @@ class SykmeldingTeaser extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ikon: 'doctor-2.svg',
+            ikon: 'sykmeldinger.svg',
         };
     }
 
     onMouseEnter() {
         this.setState({
-            ikon: 'doctor-2_hover.svg',
+            ikon: 'sykmeldinger_hover-blue.svg',
         });
     }
 
     onMouseLeave() {
         this.setState({
-            ikon: 'doctor-2.svg',
+            ikon: 'sykmeldinger.svg',
         });
     }
 
@@ -51,7 +51,7 @@ class SykmeldingTeaser extends Component {
                 onMouseLeave={() => {this.onMouseLeave();}}
             >
             <span className="inngangspanel__ikon">
-                <img src={`/sykefravaer/img/svg/${this.state.ikon}`} alt="Lege" />
+                <img src={`/sykefravaer/img/svg/${this.state.ikon}`} />
             </span>
             <div className="inngangspanel__innhold">
                 <header className="inngangspanel__header">

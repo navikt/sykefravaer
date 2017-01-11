@@ -46,11 +46,8 @@ export function post(url, body) {
         headers: new Headers({
             'Content-Type': 'application/json',
             'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
-        },
-            {
-                'Content-Type': 'application/json',
-                'X-XSRF-TOKEN-MOTEREST': getCookie('XSRF-TOKEN-MOTEREST'),
-            }),
+            'X-XSRF-TOKEN-MOTEREST': getCookie('XSRF-TOKEN-MOTEREST'),
+        }),
     })
         .then((res) => {
             if (res.status > 400) {

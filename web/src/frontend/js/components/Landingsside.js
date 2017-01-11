@@ -54,7 +54,7 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false, soknader = [], di
                 variant="lysblaa" />
             {
                 soknader.length > 0 &&
-                    <LandingssideLenke to="/sykefravaer/#" ikon="soknader" ikonAlt="Søknader" tittel="Søknader om sykepenger" variant="lysgronn" />
+                    <LandingssideLenke to="/sykefravaer/soknader" ikon="soknader" ikonAlt="Søknader" tittel="Søknader om sykepenger" variant="lysgronn" />
 
             }
             {

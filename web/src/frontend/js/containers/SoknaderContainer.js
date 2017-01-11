@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
-import Landingsside from '../components/Landingsside';
+import Soknader from '../components/soknader/Soknader';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 
-export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter, hentingFeilet, soknader, dialogmoter }) => {
+export const SoknaderSide = ({ ledetekster, brodsmuler, henter, hentingFeilet, soknader }) => {
     return (
-        <Side tittel={getLedetekst('landingsside.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
+        <Side tittel={getLedetekst('soknader.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
                 (() => {
                     if (henter) {
@@ -17,39 +17,40 @@ export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter,
                     if (hentingFeilet) {
                         return <Feilmelding />;
                     }
-                    return (<Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster} soknader={soknader} dialogmoter={dialogmoter} />);
+                    return (<Soknader ledetekster={ledetekster} soknader={soknader} />);
                 })()
             }
         </Side>
     );
 };
 
-LandingssideSide.propTypes = {
+SoknaderSide.propTypes = {
     ledetekster: PropTypes.object,
     brodsmuler: PropTypes.array,
-    skjulVarsel: PropTypes.bool,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     soknader: PropTypes.array,
-    dialogmoter: PropTypes.array,
 };
 
 export function mapStateToProps(state) {
     const ledetekster = state.ledetekster.data;
+    const nySoknad = { id: 1, status: 'NY', fom: '01.01.2017', tom: '01.20.2017', arbeidsgiver: 'BEKK Consulting AS' };
+    const innsendtSoknad = { id: 2, status: 'SENDT', fom: '01.01.2017', tom: '01.20.2017', arbeidsgiver: 'BEKK Consulting AS', innsendingsDato: '02.01.2017' };
     return {
         ledetekster,
         henter: state.ledetekster.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
-        skjulVarsel: (state.brukerinfo && state.brukerinfo.innstillinger) ? (state.brukerinfo.innstillinger.skjulUnderUtviklingVarsel === true) : false,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', ledetekster),
             sti: '/',
+            erKlikkbar: true,
+        }, {
+            tittel: getLedetekst('soknader.sidetittel', ledetekster),
         }],
-        soknader: [{ id: 1 }],
-        dialogmoter: [],
+        soknader: [nySoknad, innsendtSoknad],
     };
 }
 
-const LandingssideContainer = connect(mapStateToProps)(LandingssideSide);
+const SoknaderContainer = connect(mapStateToProps)(SoknaderSide);
 
-export default LandingssideContainer;
+export default SoknaderContainer;

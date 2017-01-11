@@ -13,7 +13,7 @@ export default class LandingssideLenke extends Component {
     onMouseEnter() {
         this.setState({
             ikon: `${this.props.ikon}_hover.svg`,
-            variant: `peker__ikon--${this.props.variant}-uthevet`,
+            variant: `peker__ikon--${this.props.variant}Uthevet`,
         });
     }
 

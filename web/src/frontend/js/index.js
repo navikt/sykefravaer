@@ -6,6 +6,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import dineSykmeldinger from './reducers/dineSykmeldinger';
+import sykepengesoknad from './reducers/sykepengesoknad';
 import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger';
 import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
@@ -20,6 +21,7 @@ import { svar, deltaker } from 'moter-npm';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
+    sykepengesoknad,
     arbeidsgivere,
     arbeidsgiversSykmeldinger,
     ledetekster,

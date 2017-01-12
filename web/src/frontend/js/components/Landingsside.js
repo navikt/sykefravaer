@@ -47,7 +47,7 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false, soknader = [], di
         {
             (!skjulVarsel ? <UnderUtviklingVarselContainer ledetekster={ledetekster} /> : null)
         }
-        <nav role="navigation">
+        <nav className="blokk" role="navigation">
             <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
                 undertittel="Informasjon og oversikt over aktiviteter" variant="fersken" />
             <LandingssideLenke to="/sykefravaer/sykmeldinger" ikon="sykmeldinger" ikonAlt="Sykmelding" tittel="Sykmeldinger"

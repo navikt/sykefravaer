@@ -1,45 +1,56 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import Soknader from '../components/soknader/Soknader';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
+import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 
-export const SoknaderSide = ({ ledetekster, brodsmuler, henter, hentingFeilet, soknader }) => {
-    return (
-        <Side tittel={getLedetekst('soknader.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
-            {
-                (() => {
-                    if (henter) {
-                        return <AppSpinner />;
-                    }
-                    if (hentingFeilet) {
-                        return <Feilmelding />;
-                    }
-                    return (<Soknader ledetekster={ledetekster} soknader={soknader} />);
-                })()
-            }
-        </Side>
-    );
-};
+export class SoknaderSide extends Component {
+
+    componentWillMount() {
+        const { dispatch } = this.props;
+        dispatch(hentSykepengesoknader());
+    }
+
+    render() {
+        const { ledetekster, brodsmuler, henter, hentingFeilet, sykepengesoknader } = this.props;
+        return (
+            <Side tittel={getLedetekst('soknader.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
+                {
+                    (() => {
+                        if (henter) {
+                            return <AppSpinner />;
+                        }
+                        if (hentingFeilet) {
+                            return <Feilmelding />;
+                        }
+                        return (<Soknader ledetekster={ledetekster} soknader={sykepengesoknader} />);
+                    })()
+                }
+            </Side>
+        );
+    }
+}
 
 SoknaderSide.propTypes = {
     ledetekster: PropTypes.object,
     brodsmuler: PropTypes.array,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    soknader: PropTypes.array,
+    sykepengesoknader: PropTypes.array,
+    dispatch: PropTypes.func.isRequired,
 };
 
 export function mapStateToProps(state) {
     const ledetekster = state.ledetekster.data;
-    const nySoknad = { id: 1, status: 'NY', fom: '01.01.2017', tom: '01.20.2017', arbeidsgiver: 'BEKK Consulting AS' };
-    const innsendtSoknad = { id: 2, status: 'SENDT', fom: '01.01.2017', tom: '01.20.2017', arbeidsgiver: 'BEKK Consulting AS', innsendingsDato: '02.01.2017' };
+    const sykepengesoknader = state.sykepengesoknader.data;
     return {
         ledetekster,
-        henter: state.ledetekster.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet,
+        sykepengesoknader,
+        henter: state.ledetekster.henter || state.sykepengesoknader.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', ledetekster),
             sti: '/',
@@ -47,7 +58,6 @@ export function mapStateToProps(state) {
         }, {
             tittel: getLedetekst('soknader.sidetittel', ledetekster),
         }],
-        soknader: [nySoknad, innsendtSoknad],
     };
 }
 

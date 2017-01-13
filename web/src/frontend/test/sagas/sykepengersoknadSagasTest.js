@@ -24,14 +24,14 @@ describe("sykepengersoknadSagas", () => {
         });
 
         it("Skal dernest hente sykepengesoknader", () => {
-            const nextCall = call(get, "http://tjenester.nav.no/syforest/sykepengesoknad");
+            const nextCall = call(get, "http://tjenester.nav.no/syforest/soknader");
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
         it("Skal dernest sette soknader på state", () => {
             const nextPut = put({
                 type: 'SET_SYKEPENGESOKNADER',
-                soknader: [{id: '1'}],
+                sykepengesoknader: [{id: '1'}],
             });
             expect(generator.next([{
                 id: '1',
@@ -42,7 +42,7 @@ describe("sykepengersoknadSagas", () => {
     describe('innsending', () => {
         const generator = sendSykepengesoknad({
             type: 'SEND_SYKEPENGESOKNAD_FORESPURT',
-            soknad: { id: '1' },
+            sykepengesoknad: { id: '1' },
         });
 
         it("skal dispatche SENDER_SYKEPENGESOKNAD", () => {
@@ -53,7 +53,7 @@ describe("sykepengersoknadSagas", () => {
         });
 
         it("skal dernest sende sykepengesoknader", () => {
-            const nextCall = call(post, "http://tjenester.nav.no/syforest/sykepengesoknad/actions/send/1");
+            const nextCall = call(post, "http://tjenester.nav.no/syforest/soknader/actions/send/1");
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

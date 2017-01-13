@@ -10,10 +10,10 @@ export function hentSykepengesoknaderFeilet() {
     };
 }
 
-export function setSykepengesoknader(soknader = []) {
+export function setSykepengesoknader(sykepengesoknader = []) {
     return {
         type: 'SET_SYKEPENGESOKNADER',
-        soknader,
+        sykepengesoknader,
     };
 }
 
@@ -23,10 +23,10 @@ export function hentSykepengesoknader() {
     };
 }
 
-export function sendSykepengesoknad(soknad) {
+export function sendSykepengesoknad(sykepengesoknad) {
     return {
         type: 'SEND_SYKEPENGESOKNAD_FORESPURT',
-        soknad: soknad
+        sykepengesoknad,
     };
 }
 

@@ -1,16 +1,13 @@
 import {List, Map, fromJS} from 'immutable';
 import deepFreeze from 'deep-freeze';
 import {expect} from 'chai';
-import * as actions from '../../js/actions/sykepengesoknad_actions';
+import * as actions from '../../js/actions/sykepengesoknader_actions';
 
-import sykepengesoknad from '../../js/reducers/sykepengesoknad';
+import sykepengesoknad from '../../js/reducers/sykepengesoknader';
 
 describe('sykepengesoknad', () => {
 
     describe('henter', () => {
-        const soknad = {
-            id: '1',
-        };
 
         let initialState = deepFreeze({
             data: [],
@@ -23,7 +20,7 @@ describe('sykepengesoknad', () => {
         it('håndterer SET_SYKEPENGESOKNADER', () => {
             const action = {
                 type: 'SET_SYKEPENGESOKNADER',
-                soknader: [{
+                sykepengesoknader: [{
                     pair: ['Trainspotting', '28 Days Later'],
                     tally: {Trainspotting: 1}
                 }],
@@ -59,7 +56,7 @@ describe('sykepengesoknad', () => {
         it("håndterer HENT_SYKEPENGESOKNADER_FEILET", () => {
             const soknad = {
                 id: '1',
-            }
+            };
 
             initialState = deepFreeze({
                 data: [soknad],
@@ -147,6 +144,4 @@ describe('sykepengesoknad', () => {
             });
         });
     });
-
-
 });

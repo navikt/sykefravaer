@@ -1,12 +1,12 @@
 import chai from 'chai';
 import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
-import * as actions from '../../js/actions/sykepengesoknad_actions';
+import * as actions from '../../js/actions/sykepengesoknader_actions';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("sykepengesoknad_actions", () => {
+describe("sykepengesoknader_actions", () => {
 
     beforeEach(() => {
         window = window || {};
@@ -25,7 +25,7 @@ describe("sykepengesoknad_actions", () => {
         it("Skal ha en setSykepengesoknader()-funksjon som returnerer riktig action", () => {
             expect(actions.setSykepengesoknader([{id: 12345}])).to.deep.equal({
                 type: 'SET_SYKEPENGESOKNADER',
-                soknader: [{
+                sykepengesoknader: [{
                     id: 12345
                 }]
             });
@@ -48,7 +48,7 @@ describe("sykepengesoknad_actions", () => {
         it("skal ha en sendSykepengesoknad()-funksjon som returnerer riktig action", () => {
             expect(actions.sendSykepengesoknad({id: '1'})).to.deep.equal({
                 type: 'SEND_SYKEPENGESOKNAD_FORESPURT',
-                soknad: {id: '1'},
+                sykepengesoknad: {id: '1'},
             });
         });
 

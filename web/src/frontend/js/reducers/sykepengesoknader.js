@@ -6,8 +6,8 @@ const initiellState = {
     data: [],
 };
 
-const setSykepengesoknadProps = (sykepengesoknader, soknadsId, props) => {
-    return sykepengesoknader.map((soknad) => {
+const setSykepengesoknaderProps = (_sykepengesoknader, soknadsId, props) => {
+    return _sykepengesoknader.map((soknad) => {
         let _soknad = Object.assign({}, soknad);
         if (_soknad.id === soknadsId) {
             _soknad = Object.assign({}, _soknad, props);
@@ -16,12 +16,11 @@ const setSykepengesoknadProps = (sykepengesoknader, soknadsId, props) => {
     });
 };
 
-export default function sykepengesoknad(state = initiellState, action) {
+export default function sykepengesoknader(state = initiellState, action) {
     switch (action.type) {
-        default:
         case 'SET_SYKEPENGESOKNADER': {
             return Object.assign({}, state, {
-                data: action.soknader,
+                data: action.sykepengesoknader,
                 henter: false,
                 hentingFeilet: false,
             });
@@ -51,7 +50,7 @@ export default function sykepengesoknad(state = initiellState, action) {
             });
         }
         case 'SYKEPENGESOKNAD_SENDT': {
-            const data = setSykepengesoknadProps(state.data, action.sykepengesoknadsId, {
+            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
                 status: 'SENDT',
             });
             return Object.assign({}, state, { data }, {
@@ -59,6 +58,7 @@ export default function sykepengesoknad(state = initiellState, action) {
                 sendingFeilet: false,
             });
         }
-        return state;
+        default:
+            return state;
     }
 }

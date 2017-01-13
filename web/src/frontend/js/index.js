@@ -12,6 +12,7 @@ import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
 import ledere from './reducers/ledere';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
+import { hentSykepengesoknader } from './actions/sykepengesoknader_actions';
 import { hentLedetekster, ledetekster, tidslinjer } from 'digisyfo-npm';
 import { hentBrukerinfo } from './actions/brukerinfo_actions';
 import history from './history';
@@ -44,6 +45,7 @@ sagaMiddleware.run(rootSaga);
 
 store.dispatch(hentLedetekster());
 store.dispatch(hentDineSykmeldinger());
+store.dispatch(hentSykepengesoknader());
 store.dispatch(hentBrukerinfo());
 
 render(<Provider store={store}>

@@ -25,6 +25,9 @@ describe("LandingssideContainer", () => {
                 },
                 ledetekster: {
                     data: []
+                },
+                sykepengesoknader: {
+                    data: []
                 }
             });
             expect(res.skjulVarsel).to.equal(true)
@@ -39,7 +42,10 @@ describe("LandingssideContainer", () => {
                 },
                 brukerinfo: {
                     data: {}
-                }     
+                },
+                sykepengesoknader: {
+                    data: []
+                }
             });
             expect(res.ledetekster).to.deep.equal({
                 "min.tekst": "Dette er en test"

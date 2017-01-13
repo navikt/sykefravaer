@@ -6,7 +6,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 
-export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter, hentingFeilet, soknader, dialogmoter }) => {
+export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter, hentingFeilet, sykepengesoknader, dialogmoter }) => {
     return (
         <Side tittel={getLedetekst('landingsside.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
@@ -17,7 +17,7 @@ export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter,
                     if (hentingFeilet) {
                         return <Feilmelding />;
                     }
-                    return (<Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster} soknader={soknader} dialogmoter={dialogmoter} />);
+                    return (<Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster} sykepengesoknader={sykepengesoknader} dialogmoter={dialogmoter} />);
                 })()
             }
         </Side>
@@ -30,22 +30,23 @@ LandingssideSide.propTypes = {
     skjulVarsel: PropTypes.bool,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    soknader: PropTypes.array,
+    sykepengesoknader: PropTypes.array,
     dialogmoter: PropTypes.array,
 };
 
 export function mapStateToProps(state) {
     const ledetekster = state.ledetekster.data;
+    const sykepengesoknader = state.sykepengesoknader.data;
     return {
         ledetekster,
-        henter: state.ledetekster.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet,
+        henter: state.ledetekster.henter || state.sykepengesoknader.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet,
         skjulVarsel: (state.brukerinfo && state.brukerinfo.innstillinger) ? (state.brukerinfo.innstillinger.skjulUnderUtviklingVarsel === true) : false,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', ledetekster),
             sti: '/',
         }],
-        soknader: [{ id: 1 }],
+        sykepengesoknader,
         dialogmoter: [],
     };
 }

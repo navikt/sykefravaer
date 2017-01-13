@@ -4,7 +4,7 @@ import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';
 
 const Soknader = ({ ledetekster = {}, soknader = [] }) => {
-    const nyeSoknader = soknader.filter((soknad) => { return soknad.status === 'NY'; });
+    const soknaderTilBehandling = soknader.filter((soknad) => { return soknad.status === 'NY' || soknad.status === 'LAGRET'; });
     const sendteSoknader = soknader.filter((soknad) => { return soknad.status === 'SENDT'; });
 
     return (<div>
@@ -13,7 +13,7 @@ const Soknader = ({ ledetekster = {}, soknader = [] }) => {
             htmlTekst={getHtmlLedetekst('soknader.introduksjonstekst', ledetekster)}
         />
         <SoknadTeasere
-            soknader={nyeSoknader}
+            soknader={soknaderTilBehandling}
             tittel={getLedetekst('soknader.venter-paa-behandling.tittel', ledetekster)}
             tomListeTekst={getLedetekst('soknader.venter-paa-behandling.ingen-soknader', ledetekster)}
             className="js-til-behandling"

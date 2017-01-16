@@ -19,6 +19,7 @@ import history from './history';
 import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';
 import { svar, deltaker } from 'moter-npm';
+import pilot from './reducers/pilot';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
     ledere,
     svar,
     deltaker,
+    pilot,
     form: formReducer,
 });
 

@@ -431,7 +431,7 @@ describe("DinSykmeldingContainer", () => {
             };
             let spy = sinon.spy(dineArbeidsgivereActions, "hentAktuelleArbeidsgivere");
             let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster.data} dispatch={dispatch} />)
-            expect(dispatch.calledTwice).to.be.true;
+            expect(dispatch.calledThrice).to.be.true;
             expect(spy.calledOnce).to.be.true;
             spy.restore();
         });
@@ -445,7 +445,7 @@ describe("DinSykmeldingContainer", () => {
             };
             let spy = sinon.spy(arbeidsgiversSykmeldingerActions, "hentArbeidsgiversSykmeldinger");
             let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster.data} dispatch={dispatch} />)
-            expect(dispatch.calledTwice).to.be.true;
+            expect(dispatch.calledThrice).to.be.true;
             expect(spy.calledOnce).to.be.true;
             spy.restore();
         });

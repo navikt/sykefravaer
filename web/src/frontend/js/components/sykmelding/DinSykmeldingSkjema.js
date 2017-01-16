@@ -105,7 +105,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     render() {
-        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, sendingFeilet, avbryter, avbrytFeilet, handleSubmit, untouch } = this.props;
+        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, sendingFeilet, avbryter, avbrytFeilet, handleSubmit, untouch, pilotSykepenger } = this.props;
         const values = skjemaData && skjemaData.values ? skjemaData.values : {};
         const modus = this.getSkjemaModus(values, harStrengtFortroligAdresse);
 
@@ -173,6 +173,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     }
                 </div>
             </div>
+            {
+                pilotSykepenger && <p>PILOT</p>
+            }
         </form>);
     }
 }
@@ -199,6 +202,7 @@ DinSykmeldingSkjemaComponent.propTypes = {
     erEldsteNyeSykmelding: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     reset: PropTypes.func,
+    pilotSykepenger: PropTypes.bool,
 };
 
 export const validate = (values, props = {}) => {

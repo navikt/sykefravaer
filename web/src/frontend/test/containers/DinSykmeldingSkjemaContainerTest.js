@@ -102,6 +102,11 @@ describe("DinSykmeldingSkjemaContainer", () => {
                         strengtFortroligAdresse: true
                     }
                 }
+            },
+            pilot: {
+                data: {
+                    pilotSykepenger: false
+                }
             }
         };
         return Object.assign({}, defaultState, state);

@@ -25,7 +25,6 @@ export function* sendSykepengesoknad(action) {
     }
 }
 
-
 function* watchHentSykepengesoknader() {
     yield* takeEvery('HENT_SYKEPENGESOKNADER_FORESPURT', hentSykepengesoknader);
 }
@@ -34,9 +33,14 @@ function* watchSendSykepengesoknad() {
     yield* takeEvery('SEND_SYKEPENGESOKNAD_FORESPURT', sendSykepengesoknad);
 }
 
+function* watchSykmeldingSendt() {
+    yield* takeEvery('SYKMELDING_SENDT', hentSykepengesoknader);
+}
+
 export default function* sykepengesoknadSagas() {
     yield [
         fork(watchHentSykepengesoknader),
         fork(watchSendSykepengesoknad),
+        fork(watchSykmeldingSendt),
     ];
 }

@@ -32,7 +32,7 @@ class SoknadTeaser extends Component {
         const visStatus = soknad.status !== 'NY';
 
         return (<article aria-labelledby={`soknader-header-${soknad.id}`}>
-            <Link className="inngangspanel" to={`${getContextRoot()}/soknader/${soknad.id}`}
+            <Link className="inngangspanel js-panel" to={`${getContextRoot()}/soknader/${soknad.id}`}
                 onMouseEnter={() => {this.onMouseEnter();}}
                 onMouseLeave={() => {this.onMouseLeave();}}
             >
@@ -42,25 +42,29 @@ class SoknadTeaser extends Component {
             <div className="inngangspanel__innhold">
                 <header className="inngangspanel__header">
                     <h3 className="js-title" id={`soknad-header-${soknad.id}`}>
-                        <small className="inngangspanel__meta">{getLedetekst('soknad.teaser.dato', ledetekster, { '%DATO%': toDatePrettyPrint(soknad.opprettetDato) }) } </small>
+                        <small className="inngangspanel__meta js-meta">
+                            {getLedetekst('soknad.teaser.dato', ledetekster, { '%DATO%': toDatePrettyPrint(soknad.opprettetDato) }) }
+                        </small>
                         <span className="inngangspanel__tittel">
                             {getLedetekst('soknad.teaser.tittel', ledetekster)}
                         </span>
                     </h3>
                     {
                         visStatus &&
-                            <p className="inngangspanel__status">
+                            <p className="inngangspanel__status js-status">
                             { getLedetekst(`soknad.teaser.status.${soknad.status}`, ledetekster, { '%DATO%': soknad.innsendingsDato }) }
                             </p>
                     }
                 </header>
-                <p className="inngangspanel__tekst">{getLedetekst('soknad.teaser.tekst', ledetekster,
+                <p className="inngangspanel__tekst js-tekst">{getLedetekst('soknad.teaser.tekst', ledetekster,
                     {
                         '%FRA%': toDatePrettyPrint(tidligsteFom(perioder)),
                         '%TIL%': toDatePrettyPrint(senesteTom(perioder)) }
                     )
                 }</p>
-                <p className="inngangspanel__undertekst mute">{getLedetekst('soknad.teaser.undertekst', ledetekster, { '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn }) }</p>
+                <p className="inngangspanel__undertekst js-undertekst mute">
+                    {getLedetekst('soknad.teaser.undertekst', ledetekster, { '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn }) }
+                </p>
             </div>
         </Link></article>);
     }

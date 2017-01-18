@@ -16,7 +16,7 @@ describe("SoknaderContainer", () => {
 
     describe("mapStateToProps", () => {
 
-        it("skal returnere ledetekster", function () {
+        it("skal returnere ledetekster og soknader", function () {
             const res = mapStateToProps({
                 ledetekster: {
                     data: {
@@ -26,16 +26,20 @@ describe("SoknaderContainer", () => {
                     hentingFeilet: false,
                 },
                 sykepengesoknader: {
-                    data: [],
+                    data: [{
+                        id: 1,
+                    }],
                     henter: false,
                     hentingFeilet: false,
                 },
             });
             expect(res.ledetekster).to.deep.equal({
                 "min.tekst": "Dette er en test"
-            })
-        });        
-
+            });
+            expect(res.sykepengesoknader).to.deep.equal([
+                {id: 1}
+            ]);
+        });
     });
 
     describe("SoknaderSide", () => {

@@ -18,11 +18,20 @@ describe("SoknadTeaser", () => {
     };
 
     const soknad = {
-        id: 1,
-        status: 'NY',
-        fom: '01.06.2016',
-        tom: '13.06.2016',
-        arbeidsgiver: 'BEKK Consulting AS',
+        opprettetDato: '2016-01-20',
+        aktiviteter: [
+            {
+                avvik: {},
+                grad: 100,
+                periode: {
+                    fom: '2016-01-01',
+                    tom: '2016-01-20',
+                }
+            },
+        ],
+        arbeidsgiver: {
+            navn: 'BEKK Consulting AS',
+        }
     };
 
     it('er en lenke', () => {
@@ -32,7 +41,7 @@ describe("SoknadTeaser", () => {
 
     it('har opprettet tekst', () => {
         const component = shallow(<SoknaderTeaser soknad={soknad} ledetekster={ledetekster} />)
-        expect(component.find('.inngangspanel__meta').text()).to.contain('Opprettet 01.06.2016')
+        expect(component.find('.inngangspanel__meta').text()).to.contain('Opprettet 20.01.2016')
     });
 
     it('har tittel', () => {

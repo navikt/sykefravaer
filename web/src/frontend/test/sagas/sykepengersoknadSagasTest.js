@@ -30,7 +30,7 @@ describe("sykepengersoknadSagas", () => {
 
         it("Skal dernest sette soknader på state", () => {
             const nextPut = put({
-                type: 'SET_SYKEPENGESOKNADER',
+                type: 'SYKEPENGESOKNADER_HENTET',
                 sykepengesoknader: [{id: '1'}],
             });
             expect(generator.next([{

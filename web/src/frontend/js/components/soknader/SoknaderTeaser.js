@@ -28,7 +28,7 @@ class SoknadTeaser extends Component {
     render() {
         const { soknad, ledetekster } = this.props;
 
-        const perioder = soknad.aktiviteter.map(a => a.periode);
+        const perioder = soknad.aktiviteter.map(a => { return a.periode; });
         const visStatus = soknad.status !== 'NY';
 
         return (<article aria-labelledby={`soknader-header-${soknad.id}`}>
@@ -54,7 +54,12 @@ class SoknadTeaser extends Component {
                             </p>
                     }
                 </header>
-                <p className="inngangspanel__tekst">{getLedetekst('soknad.teaser.tekst', ledetekster, { '%FRA%': toDatePrettyPrint(tidligsteFom(perioder)), '%TIL%': toDatePrettyPrint(senesteTom(perioder)) }) }</p>
+                <p className="inngangspanel__tekst">{getLedetekst('soknad.teaser.tekst', ledetekster,
+                    {
+                        '%FRA%': toDatePrettyPrint(tidligsteFom(perioder)),
+                        '%TIL%': toDatePrettyPrint(senesteTom(perioder)) }
+                    )
+                }</p>
                 <p className="inngangspanel__undertekst mute">{getLedetekst('soknad.teaser.undertekst', ledetekster, { '%ARBEIDSGIVER%': soknad.arbeidsgiver }) }</p>
             </div>
         </Link></article>);
@@ -70,7 +75,7 @@ SoknadTeaser.propTypes = {
             periode: PropTypes.shape({
                 fom: PropTypes.string.isRequired,
                 tom: PropTypes.string.isRequired,
-            })
+            }),
         })),
         arbeidsgiver: PropTypes.shape({
             navn: PropTypes.string.isRequired,

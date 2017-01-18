@@ -3,6 +3,7 @@ import { takeEvery } from 'redux-saga';
 import { get, getAjax } from '../api';
 import { log } from 'digisyfo-npm';
 import * as actions from '../actions/brukerinfo_actions';
+import * as actiontyper from '../actions/actiontyper';
 
 export function* hentBrukerinfo() {
     yield put(actions.henterBrukerinfo());
@@ -27,11 +28,11 @@ export function* sjekkInnlogging() {
 }
 
 function* watchHentBrukerinfo() {
-    yield* takeEvery('HENT_BRUKERINFO_FORESPURT', hentBrukerinfo);
+    yield* takeEvery(actiontyper.HENT_BRUKERINFO_FORESPURT, hentBrukerinfo);
 }
 
 function* watchSjekkInnlogging() {
-    yield* takeEvery('SJEKK_INNLOGGING_FORESPURT', sjekkInnlogging);
+    yield* takeEvery(actiontyper.SJEKK_INNLOGGING_FORESPURT, sjekkInnlogging);
 }
 
 export default function* brukerinfoSagas() {

@@ -3,6 +3,7 @@ import { takeEvery } from 'redux-saga';
 import { get } from '../api';
 import { log } from 'digisyfo-npm';
 import * as actions from '../actions/dineArbeidsgivere_actions';
+import * as actiontyper from '../actions/actiontyper';
 
 export function* hentDineArbeidsgivere(action) {
     const sykmeldingId = action.sykmeldingId;
@@ -17,7 +18,7 @@ export function* hentDineArbeidsgivere(action) {
 }
 
 function* watchHentArbeidsgiversSykmeldinger() {
-    yield* takeEvery('HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT', hentDineArbeidsgivere);
+    yield* takeEvery(actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT, hentDineArbeidsgivere);
 }
 
 export default function* dineSykmeldingerSagas() {

@@ -1,6 +1,7 @@
 import {List, Map, fromJS} from 'immutable';
 import deepFreeze from 'deep-freeze';
 import {expect} from 'chai';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 import sykepengesoknad from '../../js/reducers/sykepengesoknader';
 
@@ -18,7 +19,7 @@ describe('sykepengesoknad', () => {
 
         it('håndterer SYKEPENGESOKNADER_HENTET', () => {
             const action = {
-                type: 'SYKEPENGESOKNADER_HENTET',
+                type: actiontyper.SYKEPENGESOKNADER_HENTET,
                 sykepengesoknader: [{
                     pair: ['Trainspotting', '28 Days Later'],
                     tally: {Trainspotting: 1}
@@ -40,7 +41,7 @@ describe('sykepengesoknad', () => {
 
         it("håndterer HENTER_SYKEPENGESOKNADER", () => {
             const action = {
-                type: "HENTER_SYKEPENGESOKNADER"
+                type: actiontyper.HENTER_SYKEPENGESOKNADER
             };
             const nextState = sykepengesoknad(initialState, action);
             expect(nextState).to.deep.equal({
@@ -66,7 +67,7 @@ describe('sykepengesoknad', () => {
             });
 
             const action = {
-                type: "HENT_SYKEPENGESOKNADER_FEILET"
+                type: actiontyper.HENT_SYKEPENGESOKNADER_FEILET
             };
             const nextState = sykepengesoknad(initialState, action);
             expect(nextState).to.deep.equal({
@@ -95,7 +96,7 @@ describe('sykepengesoknad', () => {
 
         it("håndterer SENDER_SYKEPENGESOKNAD", () => {
             const action = {
-                type: "SENDER_SYKEPENGESOKNAD"
+                type: actiontyper.SENDER_SYKEPENGESOKNAD
             };
             const nextState = sykepengesoknad(initialState, action);
             expect(nextState).to.deep.equal({
@@ -107,9 +108,9 @@ describe('sykepengesoknad', () => {
             });
         });
 
-        it("håndterer SENDER_SYKEPENGESOKNAD_FEILET", () => {
+        it("håndterer SEND_SYKEPENGESOKNAD_FEILET", () => {
             const action = {
-                type: "SENDER_SYKEPENGESOKNAD_FEILET"
+                type: actiontyper.SEND_SYKEPENGESOKNAD_FEILET
             };
             const nextState = sykepengesoknad(initialState, action);
             expect(nextState).to.deep.equal({
@@ -130,7 +131,7 @@ describe('sykepengesoknad', () => {
                 sendingFeilet: false,
             });
             const action = {
-                type: "SYKEPENGESOKNAD_SENDT",
+                type: actiontyper.SYKEPENGESOKNAD_SENDT,
                 sykepengesoknadsId: '1',
             };
             const nextState = sykepengesoknad(initialState, action);

@@ -1,18 +1,20 @@
+import * as actiontyper from './actiontyper';
+
 export function hentTidslinjerFeilet() {
     return {
-        type: 'HENT_TIDSLINJER_FEILET',
+        type: actiontyper.HENT_TIDSLINJER_FEILET,
     };
 }
 
 export function henterTidslinjer() {
     return {
-        type: 'HENTER_TIDSLINJER',
+        type: actiontyper.HENTER_TIDSLINJER,
     };
 }
 
 export function setTidslinjer(tidslinjer = [], arbeidssituasjon) {
     return {
-        type: 'SET_TIDSLINJER',
+        type: actiontyper.SET_TIDSLINJER,
         tidslinjer,
         arbeidssituasjon,
     };
@@ -20,7 +22,7 @@ export function setTidslinjer(tidslinjer = [], arbeidssituasjon) {
 
 export function hentTidslinjer(apneHendelseIder = [], arbeidssituasjon = 'MED_ARBEIDSGIVER') {
     return {
-        type: 'HENT_TIDSLINJER_FORESPURT',
+        type: actiontyper.HENT_TIDSLINJER_FORESPURT,
         apneHendelseIder,
         arbeidssituasjon,
     };

@@ -1,8 +1,6 @@
 import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
 import deepFreeze from 'deep-freeze';
-import * as utils from 'digisyfo-npm';
-import sinon from 'sinon';
 
 window.localStorage = {
     getItem: (item) => {
@@ -10,7 +8,7 @@ window.localStorage = {
     }
 }
 
-import * as actions from '../../js/actions/brukerinfo_actions';
+import * as brukerinfoActions from '../../js/actions/brukerinfo_actions';
 import brukerinfo from '../../js/reducers/brukerinfo';
 
 describe('brukerinfo', () => {
@@ -29,7 +27,7 @@ describe('brukerinfo', () => {
                 }
             }
         });
-        const nextState = brukerinfo(initiellState, actions.skjulUnderUtviklingVarsel());
+        const nextState = brukerinfo(initiellState, brukerinfoActions.skjulUnderUtviklingVarsel());
         expect(nextState).to.deep.equal({
             bruker: {
                 data: {
@@ -46,7 +44,7 @@ describe('brukerinfo', () => {
                 skjulUnderUtviklingVarsel: true
             }
         });
-        const nextState2 = brukerinfo(initiellState2, actions.skjulUnderUtviklingVarsel());
+        const nextState2 = brukerinfo(initiellState2, brukerinfoActions.skjulUnderUtviklingVarsel());
         expect(nextState2).to.deep.equal({
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
@@ -57,7 +55,7 @@ describe('brukerinfo', () => {
 
     it("Håndterer skjulUnderUtviklingVarsel dersom state er tom", () => {
         initiellState = deepFreeze({});
-        const nextState = brukerinfo(initiellState, actions.skjulUnderUtviklingVarsel());
+        const nextState = brukerinfo(initiellState, brukerinfoActions.skjulUnderUtviklingVarsel());
         expect(nextState).to.deep.equal({
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
@@ -72,7 +70,7 @@ describe('brukerinfo', () => {
                 skjulUnderUtviklingVarsel: false
             }
         });
-        const nextState = brukerinfo(initiellState, actions.hentBrukerinfoFeilet());
+        const nextState = brukerinfo(initiellState, brukerinfoActions.hentBrukerinfoFeilet());
         expect(nextState).to.deep.equal({
             bruker: {
                 data: {},
@@ -91,7 +89,7 @@ describe('brukerinfo', () => {
                 skjulUnderUtviklingVarsel: true
             }
         });
-        const nextState = brukerinfo(initiellState, actions.hentBrukerinfoFeilet());
+        const nextState = brukerinfo(initiellState, brukerinfoActions.hentBrukerinfoFeilet());
         expect(nextState).to.deep.equal({
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
@@ -110,7 +108,7 @@ describe('brukerinfo', () => {
                 skjulUnderUtviklingVarsel : true
             }
         });
-        const nextState = brukerinfo(initiellState, actions.henterBrukerinfo());
+        const nextState = brukerinfo(initiellState, brukerinfoActions.henterBrukerinfo());
         expect(nextState).to.deep.equal({
             bruker: {
                 henter: true,
@@ -129,7 +127,7 @@ describe('brukerinfo', () => {
                 skjulUnderUtviklingVarsel : false
             }
         });
-        const nextState = brukerinfo(initiellState, actions.henterBrukerinfo());
+        const nextState = brukerinfo(initiellState, brukerinfoActions.henterBrukerinfo());
         expect(nextState).to.deep.equal({
             bruker: {
                 data: {},
@@ -143,7 +141,7 @@ describe('brukerinfo', () => {
     });       
 
     it("Håndterer setBrukerinfo når brukerinfo ikke finnes fra før", () => {
-        const nextState = brukerinfo(initiellState, actions.setBrukerinfo({
+        const nextState = brukerinfo(initiellState, brukerinfoActions.setBrukerinfo({
             navn: "Helge",
             alder: 32
         }));
@@ -175,7 +173,7 @@ describe('brukerinfo', () => {
                 skjulUnderUtviklingVarsel: true
             }
         });
-        const nextState1 = brukerinfo(initiellState, actions.setBrukerinfo({
+        const nextState1 = brukerinfo(initiellState, brukerinfoActions.setBrukerinfo({
             navn: "Helge",
             alder: 32
         }));
@@ -204,7 +202,7 @@ describe('brukerinfo', () => {
                 henter: false
             }
         });
-        const nextState2 = brukerinfo(initiellState, actions.setBrukerinfo({
+        const nextState2 = brukerinfo(initiellState, brukerinfoActions.setBrukerinfo({
             navn: "Helge",
             alder: 32
         })); 
@@ -228,7 +226,7 @@ describe('brukerinfo', () => {
             innstillinger: {},
             bruker: {}
         });
-        const nyState = brukerinfo(initiellState, actions.setArbeidssituasjon("MED_ARBEIDSGIVER")); 
+        const nyState = brukerinfo(initiellState, brukerinfoActions.setArbeidssituasjon("MED_ARBEIDSGIVER"));
         expect(nyState).to.deep.equal({
             bruker: {},
             innstillinger: {
@@ -246,7 +244,7 @@ describe('brukerinfo', () => {
                 }
             }
         });
-        const nyState = brukerinfo(initiellState, actions.sjekkerInnlogging()); 
+        const nyState = brukerinfo(initiellState, brukerinfoActions.sjekkerInnlogging());
         expect(nyState).to.deep.equal({
             bruker: {
                 henter: true,
@@ -268,7 +266,7 @@ describe('brukerinfo', () => {
                 }
             }
         });
-        const nyState = brukerinfo(initiellState, actions.setErUtlogget()); 
+        const nyState = brukerinfo(initiellState, brukerinfoActions.setErUtlogget());
         expect(nyState).to.deep.equal({
             bruker: {
                 henter: false,
@@ -291,7 +289,7 @@ describe('brukerinfo', () => {
                 }
             }
         });
-        const nyState = brukerinfo(initiellState, actions.setErInnlogget()); 
+        const nyState = brukerinfo(initiellState, brukerinfoActions.setErInnlogget());
         expect(nyState).to.deep.equal({
             bruker: {
                 henter: false,

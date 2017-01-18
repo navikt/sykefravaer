@@ -3,6 +3,7 @@ import { takeEvery } from 'redux-saga';
 import { get } from '../api';
 import { log } from 'digisyfo-npm';
 import * as actions from '../actions/dineSykmeldinger_actions';
+import * as actiontyper from '../actions/actiontyper';
 
 export function* hentDineSykmeldinger() {
     yield put(actions.henterDineSykmeldinger());
@@ -16,7 +17,7 @@ export function* hentDineSykmeldinger() {
 }
 
 function* watchHentDineSykmeldinger() {
-    yield* takeEvery('HENT_DINE_SYKMELDINGER_FORESPURT', hentDineSykmeldinger);
+    yield* takeEvery(actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT, hentDineSykmeldinger);
 }
 
 export default function* dineSykmeldingerSagas() {

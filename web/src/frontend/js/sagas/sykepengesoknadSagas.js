@@ -3,6 +3,7 @@ import { takeEvery } from 'redux-saga';
 import { get, post } from '../api';
 import * as actions from '../actions/sykepengesoknader_actions';
 import { log } from 'digisyfo-npm';
+import * as actiontyper from '../actions/actiontyper';
 
 export function* hentSykepengesoknader() {
     yield put(actions.henterSykepengesoknader());
@@ -16,7 +17,7 @@ export function* hentSykepengesoknader() {
 }
 
 export function* sendSykepengesoknad(action) {
-    yield put({ type: 'SENDER_SYKEPENGESOKNAD' });
+    yield put({ type: actiontyper.SENDER_SYKEPENGESOKNAD });
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/actions/send/${action.sykepengesoknad.id}`);
         yield put(actions.sykepengesoknadSendt(action.sykepengesoknad.id));
@@ -26,15 +27,15 @@ export function* sendSykepengesoknad(action) {
 }
 
 function* watchHentSykepengesoknader() {
-    yield* takeEvery('HENT_SYKEPENGESOKNADER_FORESPURT', hentSykepengesoknader);
+    yield* takeEvery(actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT, hentSykepengesoknader);
 }
 
 function* watchSendSykepengesoknad() {
-    yield* takeEvery('SEND_SYKEPENGESOKNAD_FORESPURT', sendSykepengesoknad);
+    yield* takeEvery(actiontyper.SEND_SYKEPENGESOKNAD_FORESPURT, sendSykepengesoknad);
 }
 
 function* watchSykmeldingSendt() {
-    yield* takeEvery('SYKMELDING_SENDT', hentSykepengesoknader);
+    yield* takeEvery(actiontyper.SYKMELDING_SENDT, hentSykepengesoknader);
 }
 
 export default function* sykepengesoknadSagas() {

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import * as actiontyper from '../actions/actiontyper';
 
 let innstillingerInitState;
 
@@ -14,12 +15,12 @@ try {
 
 function innstillinger(state = innstillingerInitState, action) {
     switch (action.type) {
-        case 'SKJUL_UNDER_UTVIKLING_VARSEL': {
+        case actiontyper.SKJUL_UNDER_UTVIKLING_VARSEL: {
             return {
                 skjulUnderUtviklingVarsel: true,
             };
         }
-        case 'SET_TIDSLINJE_ARBEIDSSITUASJON': {
+        case actiontyper.SET_TIDSLINJE_ARBEIDSSITUASJON: {
             return Object.assign({}, state, {
                 arbeidssituasjon: action.arbeidssituasjon,
             });
@@ -32,21 +33,21 @@ function innstillinger(state = innstillingerInitState, action) {
 
 function bruker(state = {}, action) {
     switch (action.type) {
-        case 'HENT_BRUKERINFO_FEILET': {
+        case actiontyper.HENT_BRUKERINFO_FEILET: {
             return Object.assign({}, state, {
                 data: {},
                 henter: false,
                 hentingFeilet: true,
             });
         }
-        case 'HENTER_BRUKERINFO': {
+        case actiontyper.HENTER_BRUKERINFO: {
             return {
                 data: {},
                 henter: true,
                 hentingFeilet: false,
             };
         }
-        case 'SET_BRUKERINFO': {
+        case actiontyper.SET_BRUKERINFO: {
             const data = Object.assign({}, state.data, action.data);
             return Object.assign({}, state, {
                 henter: false,
@@ -55,7 +56,7 @@ function bruker(state = {}, action) {
                 data,
             });
         }
-        case 'BRUKER_ER_UTLOGGET': {
+        case actiontyper.BRUKER_ER_UTLOGGET: {
             return {
                 henter: false,
                 hentingFeilet: false,
@@ -64,7 +65,7 @@ function bruker(state = {}, action) {
                 },
             };
         }
-        case 'BRUKER_ER_INNLOGGET': {
+        case actiontyper.BRUKER_ER_INNLOGGET: {
             const data = Object.assign({}, state.data, {
                 erInnlogget: true,
             });
@@ -74,7 +75,7 @@ function bruker(state = {}, action) {
                 data,
             });
         }
-        case 'SJEKKER_INNLOGGING': {
+        case actiontyper.SJEKKER_INNLOGGING: {
             return Object.assign({}, state, {
                 henter: true,
                 hentingFeilet: false,

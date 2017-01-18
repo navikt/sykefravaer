@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { hentBrukerinfo, sjekkInnlogging } from '../../js/sagas/brukerinfoSagas';
 import { get, getAjax } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 describe("brukerinfoSagas", () => {
 
@@ -14,7 +15,7 @@ describe("brukerinfoSagas", () => {
 
         it("Skal dispatche HENTER_BRUKERINFO", () => {
             const nextPut = put({
-                type: 'HENTER_BRUKERINFO'
+                type: actiontyper.HENTER_BRUKERINFO
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
@@ -26,7 +27,7 @@ describe("brukerinfoSagas", () => {
 
         it("Skal dernest sette brukerinfo", () => {
             const nextPut = put({
-                type: 'SET_BRUKERINFO',
+                type: actiontyper.SET_BRUKERINFO,
                 data: {
                     navn: "Ole Olsen"
                 }
@@ -43,7 +44,7 @@ describe("brukerinfoSagas", () => {
 
         it("Skal dispatche SJEKKER_INNLOGGING", () => {
             const nextPut = put({
-                type: 'SJEKKER_INNLOGGING'
+                type: actiontyper.SJEKKER_INNLOGGING
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
@@ -55,12 +56,9 @@ describe("brukerinfoSagas", () => {
 
         it("Skal dernest sette status for innlogging", () => {
             const nextPut = put({
-                type: 'BRUKER_ER_INNLOGGET',
-            })
+                type: actiontyper.BRUKER_ER_INNLOGGET,
+            });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
-
     });
-
-
 });

@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { hentSykepengesoknader, sendSykepengesoknad } from '../../js/sagas/sykepengesoknadSagas';
 import { get, post } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 describe("sykepengersoknadSagas", () => {
 
@@ -13,12 +14,12 @@ describe("sykepengersoknadSagas", () => {
 
     describe('henting', () => {
         const generator = hentSykepengesoknader({
-            type: 'HENT_SYKEPENGESOKNADER_FORESPURT',
+            type: actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT,
         });
 
         it("Skal dispatche HENTER_SYKEPENGESOKNADER", () => {
             const nextPut = put({
-                type: 'HENTER_SYKEPENGESOKNADER',
+                type: actiontyper.HENTER_SYKEPENGESOKNADER,
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
@@ -30,7 +31,7 @@ describe("sykepengersoknadSagas", () => {
 
         it("Skal dernest sette soknader på state", () => {
             const nextPut = put({
-                type: 'SYKEPENGESOKNADER_HENTET',
+                type: actiontyper.SYKEPENGESOKNADER_HENTET,
                 sykepengesoknader: [{id: '1'}],
             });
             expect(generator.next([{
@@ -41,13 +42,13 @@ describe("sykepengersoknadSagas", () => {
 
     describe('innsending', () => {
         const generator = sendSykepengesoknad({
-            type: 'SEND_SYKEPENGESOKNAD_FORESPURT',
+            type: actiontyper.SEND_SYKEPENGESOKNAD_FORESPURT,
             sykepengesoknad: { id: '1' },
         });
 
         it("skal dispatche SENDER_SYKEPENGESOKNAD", () => {
             const nextPut = put({
-                type: 'SENDER_SYKEPENGESOKNAD',
+                type: actiontyper.SENDER_SYKEPENGESOKNAD,
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
@@ -59,7 +60,7 @@ describe("sykepengersoknadSagas", () => {
 
         it("skal dernest sette status som sendt", () => {
             const nextPut = put({
-                type: 'SYKEPENGESOKNAD_SENDT',
+                type: actiontyper.SYKEPENGESOKNAD_SENDT,
                 sykepengesoknadsId: '1',
             });
             expect(generator.next().value).to.deep.equal(nextPut);

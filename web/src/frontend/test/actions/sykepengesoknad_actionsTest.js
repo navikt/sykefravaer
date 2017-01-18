@@ -2,6 +2,7 @@ import chai from 'chai';
 import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from '../../js/actions/sykepengesoknader_actions';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -18,13 +19,13 @@ describe("sykepengesoknader_actions", () => {
     describe('henter',() => {
         it("Skal ha en henterSykepengesoknader()-funksjon som returnerer riktig action", () => {
             expect(actions.henterSykepengesoknader()).to.deep.equal({
-                type: 'HENTER_SYKEPENGESOKNADER'
+                type: actiontyper.HENTER_SYKEPENGESOKNADER
             })
         });
 
         it("Skal ha en sykepengesoknaderHentet()-funksjon som returnerer riktig action", () => {
             expect(actions.sykepengesoknaderHentet([{id: 12345}])).to.deep.equal({
-                type: 'SYKEPENGESOKNADER_HENTET',
+                type: actiontyper.SYKEPENGESOKNADER_HENTET,
                 sykepengesoknader: [{
                     id: 12345
                 }]
@@ -33,13 +34,13 @@ describe("sykepengesoknader_actions", () => {
 
         it("Skal ha en hentSykepengesoknaderFeilet()-funksjon som returnerer riktig action", () => {
             expect(actions.hentSykepengesoknaderFeilet()).to.deep.equal({
-                type: 'HENT_SYKEPENGESOKNADER_FEILET'
+                type: actiontyper.HENT_SYKEPENGESOKNADER_FEILET
             })
         });
 
         it("Skal ha en hentSykepengesoknader()-funksjon som returnerer riktig action", () => {
             expect(actions.hentSykepengesoknader()).to.deep.equal({
-                type: 'HENT_SYKEPENGESOKNADER_FORESPURT'
+                type: actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT
             });
         });
     });
@@ -47,26 +48,26 @@ describe("sykepengesoknader_actions", () => {
     describe('innsending', () => {
         it("skal ha en sendSykepengesoknad()-funksjon som returnerer riktig action", () => {
             expect(actions.sendSykepengesoknad({id: '1'})).to.deep.equal({
-                type: 'SEND_SYKEPENGESOKNAD_FORESPURT',
+                type: actiontyper.SEND_SYKEPENGESOKNAD_FORESPURT,
                 sykepengesoknad: {id: '1'},
             });
         });
 
         it("skal ha en senderSykepengesoknad()-funksjon som returnerer riktig action", () => {
             expect(actions.senderSykepengesoknad()).to.deep.equal({
-                type: 'SENDER_SYKEPENGESOKNAD',
+                type: actiontyper.SENDER_SYKEPENGESOKNAD,
             });
         });
 
         it("skal ha en sendSykepengesoknadFeilet()-funksjon som returnerer riktig action", () => {
             expect(actions.sendSykepengesoknadFeilet()).to.deep.equal({
-                type: 'SEND_SYKEPENGESOKNAD_FEILET'
+                type: actiontyper.SEND_SYKEPENGESOKNAD_FEILET
             });
         });
 
         it("skal ha en sykepengesoknadSendt()-funksjon som returnerer riktig action", () => {
             expect(actions.sykepengesoknadSendt('1')).to.deep.equal({
-                type: 'SYKEPENGESOKNAD_SENDT',
+                type: actiontyper.SYKEPENGESOKNAD_SENDT,
                 sykepengesoknadsId: '1',
             });
         });

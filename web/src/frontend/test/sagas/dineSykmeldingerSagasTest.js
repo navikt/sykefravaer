@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { hentDineSykmeldinger } from '../../js/sagas/dineSykmeldingerSagas';
 import { get } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 describe("dineSykmeldingerSagas", () => {
 
@@ -12,7 +13,7 @@ describe("dineSykmeldingerSagas", () => {
     const generator = hentDineSykmeldinger();
 
     it("Skal dispatche HENTER_DINE_SYKMELDINGER", () => {
-        const nextPut = put({type: 'HENTER_DINE_SYKMELDINGER'});
+        const nextPut = put({type: actiontyper.HENTER_DINE_SYKMELDINGER});
         expect(generator.next().value).to.deep.equal(nextPut);
     });
 
@@ -23,7 +24,7 @@ describe("dineSykmeldingerSagas", () => {
 
     it("Skal dernest sette dine sykmeldinger", () => {
         const nextPut = put({
-            type: 'SET_DINE_SYKMELDINGER',
+            type: actiontyper.SET_DINE_SYKMELDINGER,
             sykmeldinger: [{
                 id: 1,
                 diagnose: "Alt vel"

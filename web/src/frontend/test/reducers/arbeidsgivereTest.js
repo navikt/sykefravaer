@@ -1,6 +1,7 @@
 import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
 import deepFreeze from 'deep-freeze';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 import arbeidsgivere from '../../js/reducers/arbeidsgivere';
 
@@ -9,7 +10,7 @@ describe('arbeidsgivere', () => {
     it("håndterer HENTER_AKTUELLE_ARBEIDSGIVERE", () => {
         const initialState = deepFreeze({});
         const action = {
-            type: 'HENTER_AKTUELLE_ARBEIDSGIVERE',
+            type: actiontyper.HENTER_AKTUELLE_ARBEIDSGIVERE,
             sykmeldingId: 55
         };
         const nextState = arbeidsgivere(initialState, action);
@@ -26,7 +27,7 @@ describe('arbeidsgivere', () => {
             henter: true
         });
         const action = {
-            type: 'HENT_AKTUELLE_ARBEIDSGIVERE_FEILET',
+            type: actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FEILET,
             sykmeldingId: 88
         }
         const nextState = arbeidsgivere(initialState, action);
@@ -41,7 +42,7 @@ describe('arbeidsgivere', () => {
     it("håndterer SET_AKTUELLE_ARBEIDSGIVERE", () => {
         const initialState = deepFreeze({});
         const action = {
-            type: 'SET_AKTUELLE_ARBEIDSGIVERE',
+            type: actiontyper.SET_AKTUELLE_ARBEIDSGIVERE,
             arbeidsgivere: [{
                 orgnr: 12345678,
                 navn: "Hansens Frisørsalong"
@@ -81,7 +82,7 @@ describe('arbeidsgivere', () => {
             hentingFeilet: false
         });
         const action = {
-            type: "BRUKER_ER_UTLOGGET"
+            type: actiontyper.BRUKER_ER_UTLOGGET
         };
         const nextState = arbeidsgivere(initialState, action);
         expect(nextState).to.deep.equal({

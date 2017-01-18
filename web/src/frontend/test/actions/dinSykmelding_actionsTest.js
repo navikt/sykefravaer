@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from '../../js/actions/dinSykmelding_actions';
-
+import * as actiontyper from '../../js/actions/actiontyper';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
@@ -22,7 +22,7 @@ describe("dinSykmelding_actions", () => {
 
         var action = actions.setArbeidssituasjon(arbeidssituasjon, sykmeldingId);
 
-        expect(action.type).to.equal("SET_ARBEIDSSITUASJON");
+        expect(action.type).to.equal(actiontyper.SET_ARBEIDSSITUASJON);
         expect(action.arbeidssituasjon).to.equal('test');
         expect(action.sykmeldingId).to.equal(23);
     });
@@ -37,7 +37,7 @@ describe("dinSykmelding_actions", () => {
 
         var action = actions.setArbeidsgiver(sykmeldingId, arbeidsgiver);
 
-        expect(action.type).to.equal("SET_ARBEIDSGIVER");
+        expect(action.type).to.equal(actiontyper.SET_ARBEIDSGIVER);
         expect(action.arbeidsgiver).to.deep.equal({
             orgnummer: 12345678,
             navn: "Mosveens Sykkelverksted & Hipstercafe"
@@ -49,14 +49,14 @@ describe("dinSykmelding_actions", () => {
     it("Skal ha en setOpplysningeneErRiktige()-funksjon som returnerer riktig action", () => {
         const action = actions.setOpplysningeneErRiktige(1234, true);
         expect(action).to.deep.equal({
-            type: "SET_OPPLYSNINGENE_ER_RIKTIGE",
+            type: actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE,
             erRiktige: true,
             sykmeldingId: 1234
         });
 
         const action2 = actions.setOpplysningeneErRiktige(465, false);
         expect(action2).to.deep.equal({
-            type: "SET_OPPLYSNINGENE_ER_RIKTIGE",
+            type: actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE,
             erRiktige: false,
             sykmeldingId: 465
         });
@@ -64,7 +64,7 @@ describe("dinSykmelding_actions", () => {
 
     it("Skal ha en setFeilaktigOpplysning som returnerer riktig action", () => {
         const action = actions.setFeilaktigOpplysning(88, "periode", true); 
-        expect(action.type).to.equal("SET_FEILAKTIG_OPPLYSNING");
+        expect(action.type).to.equal(actiontyper.SET_FEILAKTIG_OPPLYSNING);
         expect(action.opplysning).to.equal("periode");
         expect(action.erFeilaktig).to.equal(true);
         expect(action.sykmeldingId).to.equal(88)
@@ -77,7 +77,7 @@ describe("dinSykmelding_actions", () => {
             const action = actions.senderSykmelding(sykmeldingId);
             expect(action).to.deep.equal({
                 sykmeldingId: 12, 
-                type: "SENDER_SYKMELDING",
+                type: actiontyper.SENDER_SYKMELDING,
             });
         });
 
@@ -86,7 +86,7 @@ describe("dinSykmelding_actions", () => {
             const action = actions.sendSykmeldingFeilet(sykmeldingId);
             expect(action).to.deep.equal({
                 sykmeldingId: 12, 
-                type: "SEND_SYKMELDING_FEILET",
+                type: actiontyper.SEND_SYKMELDING_FEILET,
             });
         });
 
@@ -94,14 +94,14 @@ describe("dinSykmelding_actions", () => {
             const action = actions.sykmeldingSendt(14);
             expect(action).to.deep.equal({
                 sykmeldingId: 14, 
-                type: "SYKMELDING_SENDT",
+                type: actiontyper.SYKMELDING_SENDT,
             });
         });
 
         it("Skal ha en sendSykmeldingTilArbeidsgiver()-funksjon som returnerer rikig action", () => {
             const action = actions.sendSykmeldingTilArbeidsgiver(14, "344");
             expect(action).to.deep.equal({
-                type: 'SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT',
+                type: actiontyper.SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT,
                 sykmeldingId: 14,
                 feilaktigeOpplysninger: {},
                 orgnummer: "344",
@@ -115,7 +115,7 @@ describe("dinSykmelding_actions", () => {
                 sykmeldingsgrad: false,
             });
             expect(action).to.deep.equal({
-                type: 'SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT',
+                type: actiontyper.SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT,
                 sykmeldingId: 14,
                 feilaktigeOpplysninger: {
                     periode: true,
@@ -134,7 +134,7 @@ describe("dinSykmelding_actions", () => {
             const sykmeldingId = 12;
             const action = actions.bekrefterSykmelding(sykmeldingId, "arbeidstaker");
             expect(action).to.deep.equal({
-                type: "BEKREFTER_SYKMELDING",
+                type: actiontyper.BEKREFTER_SYKMELDING,
             });        
         });
 
@@ -142,7 +142,7 @@ describe("dinSykmelding_actions", () => {
             const sykmeldingId = 12;
             const action = actions.bekreftSykmeldingFeilet(sykmeldingId);
             expect(action).to.deep.equal({
-                type: "BEKREFT_SYKMELDING_FEILET",
+                type: actiontyper.BEKREFT_SYKMELDING_FEILET,
             });        
         });
 
@@ -150,14 +150,14 @@ describe("dinSykmelding_actions", () => {
             const action = actions.sykmeldingBekreftet(14);
             expect(action).to.deep.equal({
                 sykmeldingId: 14, 
-                type: "SYKMELDING_BEKREFTET",
+                type: actiontyper.SYKMELDING_BEKREFTET,
             });
         }); 
 
         it("Skal ha en bekreftSykmelding()-funksjon som returnerer rikig action", () => {
             const action = actions.bekreftSykmelding(14, "frilanser");
             expect(action).to.deep.equal({
-                type: "BEKREFT_SYKMELDING_FORESPURT",
+                type: actiontyper.BEKREFT_SYKMELDING_FORESPURT,
                 arbeidssituasjon: "frilanser",
                 feilaktigeOpplysninger: {},
                 sykmeldingId: 14
@@ -169,7 +169,7 @@ describe("dinSykmelding_actions", () => {
                 periode: true,
             });
             expect(action).to.deep.equal({
-                type: "BEKREFT_SYKMELDING_FORESPURT",
+                type: actiontyper.BEKREFT_SYKMELDING_FORESPURT,
                 arbeidssituasjon: "frilanser",
                 feilaktigeOpplysninger: {
                     periode: true,
@@ -186,7 +186,7 @@ describe("dinSykmelding_actions", () => {
             const sykmeldingId = 12;
             const action = actions.avbryterSykmelding(sykmeldingId);
             expect(action).to.deep.equal({
-                type: "AVBRYTER_SYKMELDING",
+                type: actiontyper.AVBRYTER_SYKMELDING,
             });        
         });
 
@@ -194,7 +194,7 @@ describe("dinSykmelding_actions", () => {
             const sykmeldingId = 12;
             const action = actions.avbrytSykmeldingFeilet(sykmeldingId);
             expect(action).to.deep.equal({
-                type: "AVBRYT_SYKMELDING_FEILET",
+                type: actiontyper.AVBRYT_SYKMELDING_FEILET,
             });        
         });
 
@@ -202,14 +202,14 @@ describe("dinSykmelding_actions", () => {
             const action = actions.sykmeldingAvbrutt(14);
             expect(action).to.deep.equal({
                 sykmeldingId: 14, 
-                type: "SYKMELDING_AVBRUTT",
+                type: actiontyper.SYKMELDING_AVBRUTT,
             });
         }); 
 
         it("Skal ha en avbrytSykmelding()-funksjon som returnerer rikig action", () => {
             const action = actions.avbrytSykmelding(14);
             expect(action).to.deep.equal({
-                type: "AVBRYT_SYKMELDING_FORESPURT",
+                type: actiontyper.AVBRYT_SYKMELDING_FORESPURT,
                 feilaktigeOpplysninger: {},
                 sykmeldingId: 14
             })
@@ -220,7 +220,7 @@ describe("dinSykmelding_actions", () => {
                 periode: true,
             });
             expect(action).to.deep.equal({
-                type: "AVBRYT_SYKMELDING_FORESPURT",
+                type: actiontyper.AVBRYT_SYKMELDING_FORESPURT,
                 feilaktigeOpplysninger: {
                     periode: true,
                 },
@@ -229,7 +229,4 @@ describe("dinSykmelding_actions", () => {
         });        
 
     })
-
-
-
 });

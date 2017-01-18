@@ -2,6 +2,7 @@ import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { get } from '../api';
 import { actiontyper, deltakerActions } from 'moter-npm';
+import * as syfoactiontyper from '../actions/actiontyper';
 
 export function* hentDeltaker() {
     yield put(deltakerActions.henterDeltaker());
@@ -20,7 +21,7 @@ export function* hentDeltaker() {
 }
 
 function* watchHentDeltaker() {
-    yield* takeEvery(actiontyper.HENT_DELTAKER_FORESPURT, hentDeltaker);
+    yield* takeEvery(syfoactiontyper.HENT_DELTAKER_FORESPURT, hentDeltaker);
 }
 
 export default function* deltakerSagas() {

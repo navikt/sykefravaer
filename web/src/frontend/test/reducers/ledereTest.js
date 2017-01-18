@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import deepFreeze from 'deep-freeze';
-import * as actions from '../../js/actions/ledere_actions';
+import * as ledereActions from '../../js/actions/ledere_actions';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 import ledere from '../../js/reducers/ledere.js';
 
@@ -14,7 +15,7 @@ describe('ledere', () => {
     it("håndterer LEDERE_HENTET", () => {
         const initialState = deepFreeze({});
         const action = {
-            type: 'LEDERE_HENTET',
+            type: actiontyper.LEDERE_HENTET,
             data: [{
                 navn: "Kurt Nilsen"
             }, {
@@ -44,7 +45,7 @@ describe('ledere', () => {
             henter: false,
         });
         const action = {
-            type: 'HENTER_LEDERE'
+            type: actiontyper.HENTER_LEDERE
         }
         const nextState = ledere(initialState, action);
         expect(nextState).to.deep.equal({
@@ -59,7 +60,7 @@ describe('ledere', () => {
             henter: false,
         });
         const action = {
-            type: 'HENT_LEDERE_FEILET'
+            type: actiontyper.HENT_LEDERE_FEILET
         }
         const nextState = ledere(initialState, action);
         expect(nextState).to.deep.equal({
@@ -86,7 +87,7 @@ describe('ledere', () => {
                 },
             ]
         });
-        const action = actions.avkrefterLeder()
+        const action = ledereActions.avkrefterLeder()
         const nextState = ledere(initialState, action);
         expect(nextState).to.deep.equal({
             avkrefter: true,
@@ -112,7 +113,7 @@ describe('ledere', () => {
                 },
             ]
         });
-        const action = actions.avkreftLederFeilet()
+        const action = ledereActions.avkreftLederFeilet()
         const nextState = ledere(initialState, action);
         expect(nextState).to.deep.equal({
             avkrefter: false,
@@ -138,7 +139,7 @@ describe('ledere', () => {
                 },
             ]
         });
-        const action = actions.lederAvkreftet('23529291');
+        const action = ledereActions.lederAvkreftet('23529291');
         const nextState = ledere(initialState, action);
 
         expect(nextState).to.deep.equal({

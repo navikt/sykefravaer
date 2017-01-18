@@ -1,50 +1,52 @@
+import * as actiontyper from './actiontyper';
+
 export function henterSykepengesoknader() {
     return {
-        type: 'HENTER_SYKEPENGESOKNADER',
+        type: actiontyper.HENTER_SYKEPENGESOKNADER,
     };
 }
 
 export function hentSykepengesoknaderFeilet() {
     return {
-        type: 'HENT_SYKEPENGESOKNADER_FEILET',
+        type: actiontyper.HENT_SYKEPENGESOKNADER_FEILET,
     };
 }
 
 export function sykepengesoknaderHentet(sykepengesoknader = []) {
     return {
-        type: 'SYKEPENGESOKNADER_HENTET',
+        type: actiontyper.SYKEPENGESOKNADER_HENTET,
         sykepengesoknader,
     };
 }
 
 export function hentSykepengesoknader() {
     return {
-        type: 'HENT_SYKEPENGESOKNADER_FORESPURT',
+        type: actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT,
     };
 }
 
 export function sendSykepengesoknad(sykepengesoknad) {
     return {
-        type: 'SEND_SYKEPENGESOKNAD_FORESPURT',
+        type: actiontyper.SEND_SYKEPENGESOKNAD_FORESPURT,
         sykepengesoknad,
     };
 }
 
 export function sendSykepengesoknadFeilet() {
     return {
-        type: 'SEND_SYKEPENGESOKNAD_FEILET',
+        type: actiontyper.SEND_SYKEPENGESOKNAD_FEILET,
     };
 }
 
 export function sykepengesoknadSendt(sykepengesoknadsId) {
     return {
-        type: 'SYKEPENGESOKNAD_SENDT',
+        type: actiontyper.SYKEPENGESOKNAD_SENDT,
         sykepengesoknadsId,
     };
 }
 
 export function senderSykepengesoknad() {
     return {
-        type: 'SENDER_SYKEPENGESOKNAD',
+        type: actiontyper.SENDER_SYKEPENGESOKNAD,
     };
 }

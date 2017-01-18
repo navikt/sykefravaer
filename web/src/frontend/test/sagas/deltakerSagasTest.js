@@ -28,7 +28,5 @@ describe("deltakerSagas", () => {
                 "test": "OK"
             }).value).to.deep.equal(nextPut);
         });
-
     });
-
-})
+});

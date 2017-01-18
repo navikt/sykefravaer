@@ -3,6 +3,7 @@ import { hentLedere, avkreftLeder } from '../../js/sagas/ledereSagas.js';
 import * as actions from '../../js/actions/ledere_actions';
 import { get, post } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 describe("ledereSagas", () => {
 
@@ -16,7 +17,7 @@ describe("ledereSagas", () => {
         const generator = hentLedere({});
 
         it("Skal dispatche HENTER_LEDERE", () => {
-            const nextPut = put({type: 'HENTER_LEDERE'});
+            const nextPut = put({type: actiontyper.HENTER_LEDERE});
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
@@ -27,7 +28,7 @@ describe("ledereSagas", () => {
 
         it("Skal dernest lagre ledere", () => {
             const nextPut = put({
-                type: 'LEDERE_HENTET',
+                type: actiontyper.LEDERE_HENTET,
                 data: "mine data"
             });
             expect(generator.next("mine data").value).to.deep.equal(nextPut);

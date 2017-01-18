@@ -1,3 +1,5 @@
+import * as actiontyper from '../actions/actiontyper';
+
 const initiellState = {
     henter: false,
     hentingFeilet: false,
@@ -18,38 +20,38 @@ const setSykepengesoknaderProps = (_sykepengesoknader, soknadsId, props) => {
 
 export default function sykepengesoknader(state = initiellState, action) {
     switch (action.type) {
-        case 'SYKEPENGESOKNADER_HENTET': {
+        case actiontyper.SYKEPENGESOKNADER_HENTET: {
             return Object.assign({}, state, {
                 data: action.sykepengesoknader,
                 henter: false,
                 hentingFeilet: false,
             });
         }
-        case 'HENTER_SYKEPENGESOKNADER': {
+        case actiontyper.HENTER_SYKEPENGESOKNADER: {
             return Object.assign({}, state, {
                 henter: true,
                 hentingFeilet: false,
             });
         }
-        case 'HENT_SYKEPENGESOKNADER_FEILET': {
+        case actiontyper.HENT_SYKEPENGESOKNADER_FEILET: {
             return Object.assign({}, state, {
                 henter: false,
                 hentingFeilet: true,
             });
         }
-        case 'SENDER_SYKEPENGESOKNAD': {
+        case actiontyper.SENDER_SYKEPENGESOKNAD: {
             return Object.assign({}, state, {
                 sender: true,
                 sendingFeilet: false,
             });
         }
-        case 'SENDER_SYKEPENGESOKNAD_FEILET': {
+        case actiontyper.SEND_SYKEPENGESOKNAD_FEILET: {
             return Object.assign({}, state, {
                 sender: false,
                 sendingFeilet: true,
             });
         }
-        case 'SYKEPENGESOKNAD_SENDT': {
+        case actiontyper.SYKEPENGESOKNAD_SENDT: {
             const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
                 status: 'SENDT',
             });

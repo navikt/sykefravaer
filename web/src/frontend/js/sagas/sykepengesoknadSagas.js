@@ -8,7 +8,7 @@ export function* hentSykepengesoknader() {
     yield put(actions.henterSykepengesoknader());
     try {
         const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/soknader`);
-        yield put(actions.setSykepengesoknader(data));
+        yield put(actions.sykepengesoknaderHentet(data));
     } catch (e) {
         log(e);
         yield put(actions.hentSykepengesoknaderFeilet());

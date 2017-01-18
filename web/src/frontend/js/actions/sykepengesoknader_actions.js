@@ -10,9 +10,9 @@ export function hentSykepengesoknaderFeilet() {
     };
 }
 
-export function setSykepengesoknader(sykepengesoknader = []) {
+export function sykepengesoknaderHentet(sykepengesoknader = []) {
     return {
-        type: 'SET_SYKEPENGESOKNADER',
+        type: 'SYKEPENGESOKNADER_HENTET',
         sykepengesoknader,
     };
 }

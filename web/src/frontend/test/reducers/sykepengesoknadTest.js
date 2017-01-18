@@ -1,7 +1,6 @@
 import {List, Map, fromJS} from 'immutable';
 import deepFreeze from 'deep-freeze';
 import {expect} from 'chai';
-import * as actions from '../../js/actions/sykepengesoknader_actions';
 
 import sykepengesoknad from '../../js/reducers/sykepengesoknader';
 
@@ -17,9 +16,9 @@ describe('sykepengesoknad', () => {
             sendingFeilet: false,
         });
 
-        it('håndterer SET_SYKEPENGESOKNADER', () => {
+        it('håndterer SYKEPENGESOKNADER_HENTET', () => {
             const action = {
-                type: 'SET_SYKEPENGESOKNADER',
+                type: 'SYKEPENGESOKNADER_HENTET',
                 sykepengesoknader: [{
                     pair: ['Trainspotting', '28 Days Later'],
                     tally: {Trainspotting: 1}

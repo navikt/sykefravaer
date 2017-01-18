@@ -22,9 +22,9 @@ describe("sykepengesoknader_actions", () => {
             })
         });
 
-        it("Skal ha en setSykepengesoknader()-funksjon som returnerer riktig action", () => {
-            expect(actions.setSykepengesoknader([{id: 12345}])).to.deep.equal({
-                type: 'SET_SYKEPENGESOKNADER',
+        it("Skal ha en sykepengesoknaderHentet()-funksjon som returnerer riktig action", () => {
+            expect(actions.sykepengesoknaderHentet([{id: 12345}])).to.deep.equal({
+                type: 'SYKEPENGESOKNADER_HENTET',
                 sykepengesoknader: [{
                     id: 12345
                 }]

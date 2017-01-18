@@ -60,7 +60,7 @@ describe("SoknadTeaser", () => {
     });
 
     it('viser ikke status om soknad er ny', () => {
-        const _soknad = Object.assign({}, soknad, {status: 'NY'})
+        const _soknad = Object.assign({}, soknad, {status: 'NY'});
         const component = shallow(<SoknaderTeaser soknad={_soknad} ledetekster={ledetekster} />)
         expect(component.find('.inngangspanel__status')).to.be.length(0)
     });

@@ -60,7 +60,7 @@ class SoknadTeaser extends Component {
                         '%TIL%': toDatePrettyPrint(senesteTom(perioder)) }
                     )
                 }</p>
-                <p className="inngangspanel__undertekst mute">{getLedetekst('soknad.teaser.undertekst', ledetekster, { '%ARBEIDSGIVER%': soknad.arbeidsgiver }) }</p>
+                <p className="inngangspanel__undertekst mute">{getLedetekst('soknad.teaser.undertekst', ledetekster, { '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn }) }</p>
             </div>
         </Link></article>);
     }

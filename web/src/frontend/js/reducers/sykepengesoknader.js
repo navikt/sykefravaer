@@ -18,7 +18,7 @@ const setSykepengesoknaderProps = (_sykepengesoknader, soknadsId, props) => {
 
 export default function sykepengesoknader(state = initiellState, action) {
     switch (action.type) {
-        case 'SET_SYKEPENGESOKNADER': {
+        case 'SYKEPENGESOKNADER_HENTET': {
             return Object.assign({}, state, {
                 data: action.sykepengesoknader,
                 henter: false,

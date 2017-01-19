@@ -8,6 +8,7 @@ import TidslinjeContainer from '../containers/TidslinjeContainer';
 import SykmeldingKvitteringContainer from '../containers/SykmeldingKvitteringContainer';
 import RollerContainer from '../containers/RollerContainer';
 import MoteContainer from '../containers/MoteContainer';
+import SoknaderContainer from '../containers/SoknaderContainer';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
@@ -18,6 +19,7 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/sykmeldinger/:sykmeldingId" component={DinSykmeldingContainer} />
         <Route path="/sykefravaer/sykmeldinger/:sykmeldingId/skriv-ut" component={SkrivUtSykmeldingContainer} />
         <Route path="/sykefravaer/sykmeldinger/:sykmeldingId/kvittering" component={SykmeldingKvitteringContainer} />
+        <Route path="/sykefravaer/soknader" component={SoknaderContainer} />
         <Route path="/sykefravaer/roller-og-ansvarsomrader" component={RollerContainer} />
         <Route path="/sykefravaer/dialogmote" component={MoteContainer} />
         <Route path="*" component={LandingssideContainer} />

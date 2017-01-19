@@ -11,7 +11,7 @@ import Landingsside, { GenerellInfo } from "../../js/components/Landingsside";
 import LandingssideLenke from "../../js/components/LandingssideLenke";
 import UnderUtviklingVarselContainer from "../../js/containers/UnderUtviklingVarselContainer"
 
-describe("Sykmelding og oppfolging", () => {
+describe("Landingsside", () => {
 
     let component;
 
@@ -36,7 +36,7 @@ describe("Sykmelding og oppfolging", () => {
     });
 
     it("Skal vise lenkeboks til soknader om vi har en soknad", () => {
-        component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={true} soknader={[{id: 1}]}/>);
+        component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={true} sykepengesoknader={[{id: 1}]}/>);
         expect(component.find(LandingssideLenke)).to.have.length(3);
     });
 

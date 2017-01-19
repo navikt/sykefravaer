@@ -1,3 +1,5 @@
+import * as actiontyper from '../actions/actiontyper';
+
 const initiellState = {
     henter: false,
     hentingFeilet: false,
@@ -7,7 +9,7 @@ const initiellState = {
 
 export default function arbeidsgivere(state = initiellState, action) {
     switch (action.type) {
-        case 'SET_AKTUELLE_ARBEIDSGIVERE': {
+        case actiontyper.SET_AKTUELLE_ARBEIDSGIVERE: {
             return {
                 data: action.arbeidsgivere,
                 hentingFeilet: false,
@@ -15,7 +17,7 @@ export default function arbeidsgivere(state = initiellState, action) {
                 sykmeldingId: action.sykmeldingId,
             };
         }
-        case 'HENT_AKTUELLE_ARBEIDSGIVERE_FEILET': {
+        case actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FEILET: {
             return {
                 data: [],
                 hentingFeilet: true,
@@ -23,7 +25,7 @@ export default function arbeidsgivere(state = initiellState, action) {
                 sykmeldingId: action.sykmeldingId,
             };
         }
-        case 'HENTER_AKTUELLE_ARBEIDSGIVERE': {
+        case actiontyper.HENTER_AKTUELLE_ARBEIDSGIVERE: {
             return {
                 data: [],
                 hentingFeilet: false,
@@ -31,7 +33,7 @@ export default function arbeidsgivere(state = initiellState, action) {
                 sykmeldingId: action.sykmeldingId,
             };
         }
-        case 'BRUKER_ER_UTLOGGET': {
+        case actiontyper.BRUKER_ER_UTLOGGET: {
             return {
                 data: [],
                 hentingFeilet: false,

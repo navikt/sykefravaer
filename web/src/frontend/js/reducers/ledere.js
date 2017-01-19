@@ -1,3 +1,5 @@
+import * as actiontyper from '../actions/actiontyper';
+
 const defaultState = {
     data: [],
 };
@@ -14,28 +16,28 @@ const setLederProps = (_ledere, orgnummer, props) => {
 
 const ledere = (state = defaultState, action = {}) => {
     switch (action.type) {
-        case 'LEDERE_HENTET': {
+        case actiontyper.LEDERE_HENTET: {
             return {
                 data: action.data,
                 henter: false,
                 hentingFeilet: false,
             };
         }
-        case 'HENTER_LEDERE': {
+        case actiontyper.HENTER_LEDERE: {
             return {
                 henter: true,
                 hentingFeilet: false,
                 data: [],
             };
         }
-        case 'HENT_LEDERE_FEILET': {
+        case actiontyper.HENT_LEDERE_FEILET: {
             return {
                 henter: false,
                 hentingFeilet: true,
                 data: [],
             };
         }
-        case 'LEDER_AVKREFTET': {
+        case actiontyper.LEDER_AVKREFTET: {
             const _ledere = setLederProps(state.data, action.orgnummer, { avkreftet: true });
 
             return Object.assign({}, state, {
@@ -44,14 +46,14 @@ const ledere = (state = defaultState, action = {}) => {
                 data: _ledere,
             });
         }
-        case 'LEDER_AVKREFTET_FEILET': {
+        case actiontyper.LEDER_AVKREFTET_FEILET: {
             return Object.assign({}, state,
                 {
                     avkrefter: false,
                     avkreftFeilet: true,
                 });
         }
-        case 'AVKREFTER_LEDER': {
+        case actiontyper.AVKREFTER_LEDER: {
             return Object.assign({}, state,
                 {
                     avkrefter: true,

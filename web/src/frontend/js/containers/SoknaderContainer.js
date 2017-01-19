@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
-import Landingsside from '../components/Landingsside';
+import Soknader from '../components/soknader/Soknader';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 
-export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter, hentingFeilet, sykepengesoknader, dialogmoter }) => {
+export const SoknaderSide = ({ ledetekster, brodsmuler, henter, hentingFeilet, sykepengesoknader }) => {
     return (
-        <Side tittel={getLedetekst('landingsside.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
+        <Side tittel={getLedetekst('soknader.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
                 (() => {
                     if (henter) {
@@ -17,21 +17,19 @@ export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter,
                     if (hentingFeilet) {
                         return <Feilmelding />;
                     }
-                    return (<Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster} sykepengesoknader={sykepengesoknader} dialogmoter={dialogmoter} />);
+                    return (<Soknader ledetekster={ledetekster} soknader={sykepengesoknader} />);
                 })()
             }
         </Side>
     );
 };
 
-LandingssideSide.propTypes = {
+SoknaderSide.propTypes = {
     ledetekster: PropTypes.object,
     brodsmuler: PropTypes.array,
-    skjulVarsel: PropTypes.bool,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.array,
-    dialogmoter: PropTypes.array,
 };
 
 export function mapStateToProps(state) {
@@ -39,18 +37,19 @@ export function mapStateToProps(state) {
     const sykepengesoknader = state.sykepengesoknader.data;
     return {
         ledetekster,
+        sykepengesoknader,
         henter: state.ledetekster.henter || state.sykepengesoknader.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet,
-        skjulVarsel: (state.brukerinfo && state.brukerinfo.innstillinger) ? (state.brukerinfo.innstillinger.skjulUnderUtviklingVarsel === true) : false,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', ledetekster),
             sti: '/',
+            erKlikkbar: true,
+        }, {
+            tittel: getLedetekst('soknader.sidetittel', ledetekster),
         }],
-        sykepengesoknader,
-        dialogmoter: [],
     };
 }
 
-const LandingssideContainer = connect(mapStateToProps)(LandingssideSide);
+const SoknaderContainer = connect(mapStateToProps)(SoknaderSide);
 
-export default LandingssideContainer;
+export default SoknaderContainer;

@@ -1,3 +1,5 @@
+import * as actiontyper from '../actions/actiontyper';
+
 const initiellState = {
     henter: false,
     hentingFeilet: false,
@@ -17,7 +19,7 @@ const setSykmeldingProps = (_sykmeldinger, sykmeldingId, props) => {
 
 export default function sykmeldinger(state = initiellState, action) {
     switch (action.type) {
-        case 'SET_DINE_SYKMELDINGER': {
+        case actiontyper.SET_DINE_SYKMELDINGER: {
             if (!state.data || state.data.length === 0) {
                 return {
                     data: action.sykmeldinger,
@@ -36,26 +38,26 @@ export default function sykmeldinger(state = initiellState, action) {
                 hentingFeilet: false,
             };
         }
-        case 'HENTER_DINE_SYKMELDINGER': {
+        case actiontyper.HENTER_DINE_SYKMELDINGER: {
             return {
                 data: state.data,
                 henter: true,
                 hentingFeilet: false,
             };
         }
-        case 'AVBRYTER_SYKMELDING': {
+        case actiontyper.AVBRYTER_SYKMELDING: {
             return Object.assign({}, state, {
                 avbryter: true,
                 avbrytFeilet: false,
             });
         }
-        case 'AVBRYT_SYKMELDING_FEILET': {
+        case actiontyper.AVBRYT_SYKMELDING_FEILET: {
             return Object.assign({}, state, {
                 avbryter: false,
                 avbrytFeilet: true,
             });
         }
-        case 'SYKMELDING_AVBRUTT': {
+        case actiontyper.SYKMELDING_AVBRUTT: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: 'AVBRUTT',
             });
@@ -64,20 +66,20 @@ export default function sykmeldinger(state = initiellState, action) {
                 avbrytFeilet: false,
             });
         }
-        case 'HENT_DINE_SYKMELDINGER_FEILET': {
+        case actiontyper.HENT_DINE_SYKMELDINGER_FEILET: {
             return {
                 data: [],
                 henter: false,
                 hentingFeilet: true,
             };
         }
-        case 'SET_ARBEIDSSITUASJON': {
+        case actiontyper.SET_ARBEIDSSITUASJON: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 valgtArbeidssituasjon: action.arbeidssituasjon,
             });
             return Object.assign({}, state, { data });
         }
-        case 'SYKMELDING_BEKREFTET': {
+        case actiontyper.SYKMELDING_BEKREFTET: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: 'BEKREFTET',
             });
@@ -86,7 +88,7 @@ export default function sykmeldinger(state = initiellState, action) {
                 sendingFeilet: false,
             });
         }
-        case 'SET_SORTERING': {
+        case actiontyper.SET_SORTERING: {
             let sortering = {};
             sortering[action.status] = action.kriterium;
             sortering = Object.assign({}, state.sortering, sortering);
@@ -94,7 +96,7 @@ export default function sykmeldinger(state = initiellState, action) {
                 sortering,
             });
         }
-        case 'SET_FEILAKTIG_OPPLYSNING': {
+        case actiontyper.SET_FEILAKTIG_OPPLYSNING: {
             const data = state.data.map((sykmelding) => {
                 const _sykmelding = Object.assign({}, sykmelding);
                 if (_sykmelding.id === action.sykmeldingId) {
@@ -106,14 +108,14 @@ export default function sykmeldinger(state = initiellState, action) {
             });
             return Object.assign({}, state, { data });
         }
-        case 'SET_OPPLYSNINGENE_ER_RIKTIGE': {
+        case actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 opplysningeneErRiktige: action.erRiktige,
             });
             return Object.assign({}, state, { data });
         }
-        case 'SENDER_SYKMELDING':
-        case 'BEKREFTER_SYKMELDING': {
+        case actiontyper.SENDER_SYKMELDING:
+        case actiontyper.BEKREFTER_SYKMELDING: {
             return Object.assign({}, state, {
                 sender: true,
                 sendingFeilet: false,
@@ -121,8 +123,8 @@ export default function sykmeldinger(state = initiellState, action) {
                 hentingFeilet: false,
             });
         }
-        case 'SEND_SYKMELDING_FEILET':
-        case 'BEKREFT_SYKMELDING_FEILET': {
+        case actiontyper.SEND_SYKMELDING_FEILET:
+        case actiontyper.BEKREFT_SYKMELDING_FEILET: {
             return Object.assign({}, state, {
                 sender: false,
                 sendingFeilet: true,
@@ -130,7 +132,7 @@ export default function sykmeldinger(state = initiellState, action) {
                 hentingFeilet: false,
             });
         }
-        case 'SYKMELDING_SENDT': {
+        case actiontyper.SYKMELDING_SENDT: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: 'SENDT',
             });
@@ -139,7 +141,7 @@ export default function sykmeldinger(state = initiellState, action) {
                 sendingFeilet: false,
             });
         }
-        case 'BRUKER_ER_UTLOGGET': {
+        case actiontyper.BRUKER_ER_UTLOGGET: {
             return {
                 data: [],
                 hentingFeilet: false,

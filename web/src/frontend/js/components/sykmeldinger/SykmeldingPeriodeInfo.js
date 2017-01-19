@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { getDuration, getLedetekst } from 'digisyfo-npm';
+import { getDuration, getLedetekst, toDate } from 'digisyfo-npm';
 
 const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekster }) => {
     let ledetekstNokkel = 'sykmelding.teaser.tekst';
@@ -15,7 +15,7 @@ const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekst
     if (periode.avventende) {
         ledetekstNokkel = 'sykmelding.teaser.tekst.avventende';
     }
-    if (periode.fom.year === periode.fom.year && periode.fom.monthValue === periode.fom.monthValue && periode.fom.dayOfMonth === periode.tom.dayOfMonth) {
+    if (toDate(periode.fom).getTime() === toDate(periode.tom).getTime()) {
         ledetekstNokkel += '.en-dag';
     }
     if (!arbeidsgiver) {

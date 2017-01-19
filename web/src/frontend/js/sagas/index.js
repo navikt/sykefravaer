@@ -3,6 +3,7 @@ import brukerinfoSagas from './brukerinfoSagas';
 import dineArbeidsgivereSagas from './dineArbeidsgivereSagas';
 import dineSykmeldingerSagas from './dineSykmeldingerSagas';
 import dinSykmeldingSagas from './dinSykmeldingSagas';
+import sykepengesoknadSagas from './sykepengesoknadSagas';
 import tidslinjerSagas from './tidslinjerSagas';
 import ledereSagas from './ledereSagas';
 import deltakerSagas from './deltakerSagas';
@@ -16,6 +17,7 @@ export default function * rootSaga() {
         dineArbeidsgivereSagas(),
         dineSykmeldingerSagas(),
         dinSykmeldingSagas(),
+        sykepengesoknadSagas(),
         ledeteksterSagas(),
         tidslinjerSagas(),
         ledereSagas(),

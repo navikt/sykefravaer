@@ -1,50 +1,52 @@
+import * as actiontyper from './actiontyper';
+
 export const hentLedere = () => {
     return {
-        type: 'HENT_LEDERE_FORESPURT',
+        type: actiontyper.HENT_LEDERE_FORESPURT,
     };
 };
 
 export const henterLedere = () => {
     return {
-        type: 'HENTER_LEDERE',
+        type: actiontyper.HENTER_LEDERE,
     };
 };
 
 export const ledereHentet = (data) => {
     return {
-        type: 'LEDERE_HENTET',
+        type: actiontyper.LEDERE_HENTET,
         data,
     };
 };
 
 export const hentLedereFeilet = () => {
     return {
-        type: 'HENT_LEDERE_FEILET',
+        type: actiontyper.HENT_LEDERE_FEILET,
     };
 };
 
 export const avkreftLeder = (orgnummer) => {
     return {
-        type: 'AVKREFT_LEDER_FORESPURT',
+        type: actiontyper.AVKREFT_LEDER_FORESPURT,
         orgnummer,
     };
 };
 
 export const lederAvkreftet = (orgnummer) => {
     return {
-        type: 'LEDER_AVKREFTET',
+        type: actiontyper.LEDER_AVKREFTET,
         orgnummer,
     };
 };
 
 export const avkreftLederFeilet = () => {
     return {
-        type: 'LEDER_AVKREFTET_FEILET',
+        type: actiontyper.LEDER_AVKREFTET_FEILET,
     };
 };
 
 export const avkrefterLeder = () => {
     return {
-        type: 'AVKREFTER_LEDER',
+        type: actiontyper.AVKREFTER_LEDER,
     };
 };

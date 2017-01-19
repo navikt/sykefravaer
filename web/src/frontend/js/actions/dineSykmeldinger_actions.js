@@ -1,25 +1,27 @@
+import * as actiontyper from './actiontyper';
+
 export function henterDineSykmeldinger() {
     return {
-        type: 'HENTER_DINE_SYKMELDINGER',
+        type: actiontyper.HENTER_DINE_SYKMELDINGER,
     };
 }
 
 export function hentDineSykmeldingerFeilet() {
     return {
-        type: 'HENT_DINE_SYKMELDINGER_FEILET',
+        type: actiontyper.HENT_DINE_SYKMELDINGER_FEILET,
     };
 }
 
 export function setDineSykmeldinger(sykmeldinger = []) {
     return {
-        type: 'SET_DINE_SYKMELDINGER',
+        type: actiontyper.SET_DINE_SYKMELDINGER,
         sykmeldinger,
     };
 }
 
 export function sorterSykmeldinger(kriterium, status) {
     return {
-        type: 'SET_SORTERING',
+        type: actiontyper.SET_SORTERING,
         kriterium,
         status,
     };
@@ -27,6 +29,6 @@ export function sorterSykmeldinger(kriterium, status) {
 
 export function hentDineSykmeldinger() {
     return {
-        type: 'HENT_DINE_SYKMELDINGER_FORESPURT',
+        type: actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT,
     };
 }

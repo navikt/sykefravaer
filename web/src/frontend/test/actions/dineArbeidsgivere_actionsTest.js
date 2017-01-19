@@ -2,6 +2,7 @@ import chai from 'chai';
 import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from '../../js/actions/dineArbeidsgivere_actions';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -20,7 +21,7 @@ describe("dineArbeidsgivere_actions", () => {
     it("Skal ha en hentAktuelleArbeidsgivere(sykmeldingId, dato)-funksjon som returnerer en funksjon", () => {
         const action = actions.hentAktuelleArbeidsgivere("455");
         expect(action).to.deep.equal({
-            type: 'HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT',
+            type: actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT,
             sykmeldingId: "455"
         });
     });
@@ -30,7 +31,7 @@ describe("dineArbeidsgivere_actions", () => {
         const dato = { year: 2015, monthValue: 12, dayOfMonth: 31 };
         const resultat = actions.henterAktuelleArbeidsgivere(sykmeldingId);
         expect(resultat).to.deep.equal({
-            type: "HENTER_AKTUELLE_ARBEIDSGIVERE",
+            type: actiontyper.HENTER_AKTUELLE_ARBEIDSGIVERE,
             sykmeldingId: "olsen",
         })
     });
@@ -40,7 +41,7 @@ describe("dineArbeidsgivere_actions", () => {
         const dato = { year: 2015, monthValue: 12, dayOfMonth: 31 };
         const resultat = actions.hentAktuelleArbeidsgivereFeilet(sykmeldingId);
         expect(resultat).to.deep.equal({
-            type: "HENT_AKTUELLE_ARBEIDSGIVERE_FEILET",
+            type: actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FEILET,
             sykmeldingId: "olsen",
         })
     });
@@ -59,7 +60,7 @@ describe("dineArbeidsgivere_actions", () => {
         }]
         const resultat = actions.setAktuelleArbeidsgivere(sykmeldingId, arbeidsgivere);
         expect(resultat).to.deep.equal({
-            type: "SET_AKTUELLE_ARBEIDSGIVERE",
+            type: actiontyper.SET_AKTUELLE_ARBEIDSGIVERE,
             sykmeldingId: "olsen",
             arbeidsgivere: [{
                 orgnr: 12345678,

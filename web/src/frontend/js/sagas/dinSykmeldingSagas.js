@@ -4,13 +4,14 @@ import { post } from '../api';
 import * as actions from '../actions/dinSykmelding_actions';
 import { browserHistory } from 'react-router';
 import { log } from 'digisyfo-npm';
+import * as actiontyper from '../actions/actiontyper';
 
 const gaTilKvittering = (sykmeldingId) => {
     browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/kvittering`);
 };
 
 export function* bekreftSykmelding(action) {
-    yield put({ type: 'BEKREFTER_SYKMELDING' });
+    yield put({ type: actiontyper.BEKREFTER_SYKMELDING });
     try {
         const body = {
             arbeidssituasjon: action.arbeidssituasjon,
@@ -18,8 +19,8 @@ export function* bekreftSykmelding(action) {
         };
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/bekreft`, body);
         yield put(actions.sykmeldingBekreftet(action.sykmeldingId));
-        yield put({ type: 'HENT_DINE_SYKMELDINGER_FORESPURT' });
-        yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
+        yield put({ type: actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT });
+        yield put({ type: actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT });
         gaTilKvittering(action.sykmeldingId);
     } catch (e) {
         log(e);
@@ -28,7 +29,7 @@ export function* bekreftSykmelding(action) {
 }
 
 export function* sendSykmeldingTilArbeidsgiver(action) {
-    yield put({ type: 'SENDER_SYKMELDING' });
+    yield put({ type: actiontyper.SENDER_SYKMELDING });
     const body = {
         feilaktigeOpplysninger: action.feilaktigeOpplysninger,
         beOmNyNaermesteLeder: action.beOmNyNaermesteLeder,
@@ -37,8 +38,8 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/send`, body);
         yield put(actions.sykmeldingSendt(action.sykmeldingId));
-        yield put({ type: 'HENT_DINE_SYKMELDINGER_FORESPURT' });
-        yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
+        yield put({ type: actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT });
+        yield put({ type: actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT });
         gaTilKvittering(action.sykmeldingId);
     } catch (e) {
         log(e);
@@ -47,13 +48,13 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
 }
 
 export function* avbrytSykmelding(action) {
-    yield put({ type: 'AVBRYTER_SYKMELDING' });
+    yield put({ type: actiontyper.AVBRYTER_SYKMELDING });
     const body = action.feilaktigeOpplysninger;
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/avbryt`, body);
         yield put(actions.sykmeldingAvbrutt(action.sykmeldingId));
-        yield put({ type: 'HENT_DINE_SYKMELDINGER_FORESPURT' });
-        yield put({ type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT' });
+        yield put({ type: actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT });
+        yield put({ type: actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT });
         gaTilKvittering(action.sykmeldingId);
     } catch (e) {
         log(e);
@@ -62,15 +63,15 @@ export function* avbrytSykmelding(action) {
 }
 
 function* watchAvbrytSykmelding() {
-    yield* takeEvery('AVBRYT_SYKMELDING_FORESPURT', avbrytSykmelding);
+    yield* takeEvery(actiontyper.AVBRYT_SYKMELDING_FORESPURT, avbrytSykmelding);
 }
 
 function* watchSendSykmelding() {
-    yield* takeEvery('SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT', sendSykmeldingTilArbeidsgiver);
+    yield* takeEvery(actiontyper.SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT, sendSykmeldingTilArbeidsgiver);
 }
 
 function* watchBekreftSykmelding() {
-    yield* takeEvery('BEKREFT_SYKMELDING_FORESPURT', bekreftSykmelding);
+    yield* takeEvery(actiontyper.BEKREFT_SYKMELDING_FORESPURT, bekreftSykmelding);
 }
 
 export default function* dinSykmeldingSagas() {

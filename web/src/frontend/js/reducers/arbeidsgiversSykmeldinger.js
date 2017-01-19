@@ -1,3 +1,5 @@
+import * as actiontyper from '../actions/actiontyper';
+
 const initiellState = {
     henter: false,
     hentingFeilet: false,
@@ -16,53 +18,53 @@ const setSykmeldingProps = (sykmeldinger, sykmeldingId, props) => {
 
 export default function arbeidsgiversSykmeldinger(state = initiellState, action) {
     switch (action.type) {
-        case 'SET_ARBEIDSGIVERS_SYKMELDINGER': {
+        case actiontyper.SET_ARBEIDSGIVERS_SYKMELDINGER: {
             return {
                 data: action.sykmeldinger,
                 henter: false,
                 hentingFeilet: false,
             };
         }
-        case 'HENTER_ARBEIDSGIVERS_SYKMELDINGER': {
+        case actiontyper.HENTER_ARBEIDSGIVERS_SYKMELDINGER: {
             return {
                 data: [],
                 henter: true,
                 hentingFeilet: false,
             };
         }
-        case 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET': {
+        case actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET: {
             return {
                 data: [],
                 henter: false,
                 hentingFeilet: true,
             };
         }
-        case 'SET_ARBEIDSGIVER': {
+        case actiontyper.SET_ARBEIDSGIVER: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 valgtArbeidsgiver: action.arbeidsgiver,
             });
             return Object.assign({}, state, { data });
         }
-        case 'SET_ARBEIDSSITUASJON': {
+        case actiontyper.SET_ARBEIDSSITUASJON: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 valgtArbeidssituasjon: action.arbeidssituasjon,
             });
             return Object.assign({}, state, { data });
         }
-        case 'SENDER_SYKMELDING':
-        case 'BEKREFTER_SYKMELDING': {
+        case actiontyper.SENDER_SYKMELDING:
+        case actiontyper.BEKREFTER_SYKMELDING: {
             return Object.assign({}, state, {
                 sender: true,
                 sendingFeilet: false,
             });
         }
-        case 'SYKMELDING_BEKREFTET': {
+        case actiontyper.SYKMELDING_BEKREFTET: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: 'BEKREFTET',
             });
             return Object.assign({}, state, { data });
         }
-        case 'BEKREFT_SYKMELDING_FEILET': {
+        case actiontyper.BEKREFT_SYKMELDING_FEILET: {
             return Object.assign({}, state, {
                 sender: false,
                 sendingFeilet: true,
@@ -70,13 +72,13 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
                 hentingFeilet: false,
             });
         }
-        case 'SEND_SYKMELDING_FEILET': {
+        case actiontyper.SEND_SYKMELDING_FEILET: {
             return Object.assign({}, state, {
                 sender: false,
                 sendingFeilet: true,
             });
         }
-        case 'SYKMELDING_SENDT': {
+        case actiontyper.SYKMELDING_SENDT: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: 'SENDT',
             });
@@ -85,7 +87,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
                 sendingFeilet: false,
             });
         }
-        case 'SET_FEILAKTIG_OPPLYSNING': {
+        case actiontyper.SET_FEILAKTIG_OPPLYSNING: {
             const data = state.data.map((sykmelding) => {
                 const _sykmelding = Object.assign({}, sykmelding);
                 if (_sykmelding.id === action.sykmeldingId) {
@@ -97,13 +99,13 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
             });
             return Object.assign({}, state, { data });
         }
-        case 'SET_OPPLYSNINGENE_ER_RIKTIGE': {
+        case actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 opplysningeneErRiktige: action.erRiktige,
             });
             return Object.assign({}, state, { data });
         }
-        case 'BRUKER_ER_UTLOGGET': {
+        case actiontyper.BRUKER_ER_UTLOGGET: {
             return {
                 data: [],
                 hentingFeilet: false,

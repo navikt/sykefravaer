@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { hentArbeidsgiversSykmeldinger } from '../../js/sagas/arbeidsgiversSykmeldingerSagas';
 import { get } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 describe("arbeidsgiversSykmeldingerSagas", () => {
 
@@ -12,7 +13,7 @@ describe("arbeidsgiversSykmeldingerSagas", () => {
     const generator = hentArbeidsgiversSykmeldinger();
 
     it("Skal dispatche HENTER_ARBEIDSGIVERS_SYKMELDINGER", () => {
-        const nextPut = put({type: 'HENTER_ARBEIDSGIVERS_SYKMELDINGER'});
+        const nextPut = put({type: actiontyper.HENTER_ARBEIDSGIVERS_SYKMELDINGER});
         expect(generator.next().value).to.deep.equal(nextPut);
     });
 
@@ -23,7 +24,7 @@ describe("arbeidsgiversSykmeldingerSagas", () => {
 
     it("Skal dernest sette arbeidsgivers sykmeldinger", () => {
         const nextPut = put({
-            type: 'SET_ARBEIDSGIVERS_SYKMELDINGER',
+            type: actiontyper.SET_ARBEIDSGIVERS_SYKMELDINGER,
             sykmeldinger: [{
                 id: 1,
                 diagnose: "Alt vel"

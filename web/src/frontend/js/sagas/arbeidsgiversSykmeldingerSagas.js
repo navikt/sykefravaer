@@ -3,9 +3,10 @@ import { takeEvery } from 'redux-saga';
 import { get } from '../api';
 import * as actions from '../actions/arbeidsgiversSykmeldinger_actions';
 import { log } from 'digisyfo-npm';
+import * as actiontyper from '../actions/actiontyper';
 
 export function* hentArbeidsgiversSykmeldinger() {
-    yield put({ type: 'HENTER_ARBEIDSGIVERS_SYKMELDINGER' });
+    yield put({ type: actiontyper.HENTER_ARBEIDSGIVERS_SYKMELDINGER });
     try {
         const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger?type=arbeidsgiver`);
         yield put(actions.setArbeidsgiversSykmeldinger(data));
@@ -16,7 +17,7 @@ export function* hentArbeidsgiversSykmeldinger() {
 }
 
 function* watchHentArbeidsgiversSykmeldinger() {
-    yield* takeEvery('HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT', hentArbeidsgiversSykmeldinger);
+    yield* takeEvery(actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT, hentArbeidsgiversSykmeldinger);
 }
 
 export default function* arbeidsgiversSykmeldingerSagas() {

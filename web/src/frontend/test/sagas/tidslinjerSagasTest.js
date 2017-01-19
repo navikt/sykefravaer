@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { hentTidslinjer } from '../../js/sagas/tidslinjerSagas.js';
 import { get } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 describe("tidslinjerSagas", () => {
 
@@ -12,13 +13,13 @@ describe("tidslinjerSagas", () => {
     });
 
     const generator = hentTidslinjer({
-        type: 'HENT_TIDSLINJER_FORESPURT',
+        type: actiontyper.HENT_TIDSLINJER_FORESPURT,
         apneHendelseIder: ['3'],
         arbeidssituasjon: 'MED_ARBEIDSGIVER'
     });
 
     it("Skal dispatche HENTER_TIDSLINJER", () => {
-        const nextPut = put({type: 'HENTER_TIDSLINJER'});
+        const nextPut = put({type: actiontyper.HENTER_TIDSLINJER});
         expect(generator.next().value).to.deep.equal(nextPut);
     });
 
@@ -29,7 +30,7 @@ describe("tidslinjerSagas", () => {
 
     it("Skal dernest sette dine tidslinjer", () => {
         const nextPut = put({
-            type: 'SET_TIDSLINJER',
+            type: actiontyper.SET_TIDSLINJER,
             tidslinjer: "data",
             arbeidssituasjon: 'MED_ARBEIDSGIVER'
         })

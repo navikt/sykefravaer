@@ -85,7 +85,7 @@ describe("DineSykmeldingerContainer", () => {
 
     describe("mapStateToProps", () => {
 
-        it("Skal returnere dineSykmeldinger", function() {
+        it("skal returnere dineSykmeldinger", function() {
             const res = mapStateToProps({
                 dineSykmeldinger: sykmeldinger,
                 ledetekster: {
@@ -99,7 +99,7 @@ describe("DineSykmeldingerContainer", () => {
             expect(res.sykmeldinger).to.deep.equal(sykmeldinger.data)
         });
 
-        it("Skal returnere ledetekster", function () {
+        it("skal returnere ledetekster", function () {
             const res = mapStateToProps({
                 ledetekster: {
                     data: {

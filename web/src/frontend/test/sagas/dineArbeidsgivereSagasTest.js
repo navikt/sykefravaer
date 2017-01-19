@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { hentDineArbeidsgivere } from '../../js/sagas/dineArbeidsgivereSagas';
 import { get } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 describe("dineArbeidsgivereSagas", () => {
 
@@ -12,13 +13,13 @@ describe("dineArbeidsgivereSagas", () => {
     });
 
     const generator = hentDineArbeidsgivere({
-        type: 'HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT',
+        type: actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT,
         sykmeldingId: '887766'
     });
 
     it("Skal dispatche HENTER_AKTUELLE_ARBEIDSGIVERE", () => {
         const nextPut = put({
-            type: 'HENTER_AKTUELLE_ARBEIDSGIVERE',
+            type: actiontyper.HENTER_AKTUELLE_ARBEIDSGIVERE,
             sykmeldingId: '887766'
         });
         expect(generator.next().value).to.deep.equal(nextPut);
@@ -31,7 +32,7 @@ describe("dineArbeidsgivereSagas", () => {
 
     it("Skal dernest sette aktuelle arbeidsgivere", () => {
         const nextPut = put({
-            type: 'SET_AKTUELLE_ARBEIDSGIVERE',
+            type: actiontyper.SET_AKTUELLE_ARBEIDSGIVERE,
             sykmeldingId: "887766",
             arbeidsgivere: [{
                 orgnummer: "112233445",

@@ -3,6 +3,7 @@ import { takeEvery } from 'redux-saga';
 import { get, post } from '../api';
 import { log } from 'digisyfo-npm';
 import * as actions from '../actions/ledere_actions';
+import * as actiontyper from '../actions/actiontyper';
 
 export function* hentLedere() {
     yield put(actions.henterLedere());
@@ -27,11 +28,11 @@ export function* avkreftLeder(action) {
 }
 
 function* watchHentLedere() {
-    yield* takeEvery('HENT_LEDERE_FORESPURT', hentLedere);
+    yield* takeEvery(actiontyper.HENT_LEDERE_FORESPURT, hentLedere);
 }
 
 function* watchAvkreftLeder() {
-    yield* takeEvery('AVKREFT_LEDER_FORESPURT', avkreftLeder);
+    yield* takeEvery(actiontyper.AVKREFT_LEDER_FORESPURT, avkreftLeder);
 }
 
 export default function* ledereSagas() {

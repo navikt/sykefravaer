@@ -6,11 +6,13 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import dineSykmeldinger from './reducers/dineSykmeldinger';
+import sykepengesoknader from './reducers/sykepengesoknader';
 import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger';
 import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
 import ledere from './reducers/ledere';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
+import { hentSykepengesoknader } from './actions/sykepengesoknader_actions';
 import { hentLedetekster, ledetekster, tidslinjer } from 'digisyfo-npm';
 import { hentBrukerinfo } from './actions/brukerinfo_actions';
 import history from './history';
@@ -20,6 +22,7 @@ import { svar, deltaker } from 'moter-npm';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
+    sykepengesoknader,
     arbeidsgivere,
     arbeidsgiversSykmeldinger,
     ledetekster,
@@ -42,6 +45,7 @@ sagaMiddleware.run(rootSaga);
 
 store.dispatch(hentLedetekster());
 store.dispatch(hentDineSykmeldinger());
+store.dispatch(hentSykepengesoknader());
 store.dispatch(hentBrukerinfo());
 
 render(<Provider store={store}>

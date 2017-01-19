@@ -3,6 +3,7 @@ import { takeEvery } from 'redux-saga';
 import { get } from '../api';
 import * as actions from '../actions/tidslinjer_actions';
 import { apneHendelser, log } from 'digisyfo-npm';
+import * as actiontyper from '../actions/actiontyper';
 
 export function* hentTidslinjer(action) {
     yield put(actions.henterTidslinjer());
@@ -19,7 +20,7 @@ export function* hentTidslinjer(action) {
 }
 
 function* watchHentTidslinjer() {
-    yield* takeEvery('HENT_TIDSLINJER_FORESPURT', hentTidslinjer);
+    yield* takeEvery(actiontyper.HENT_TIDSLINJER_FORESPURT, hentTidslinjer);
 }
 
 export default function* tidslinjerSagas() {

@@ -3,6 +3,7 @@ import { bekreftSykmelding, sendSykmeldingTilArbeidsgiver, avbrytSykmelding } fr
 import * as actions from '../../js/actions/dinSykmelding_actions';
 import { post } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
+import * as actiontyper from '../../js/actions/actiontyper';
 
 describe("dinSykmeldingSagas", () => {
 
@@ -20,7 +21,7 @@ describe("dinSykmeldingSagas", () => {
         const generator = bekreftSykmelding(action);
 
         it("Skal dispatche BEKREFTER_SYKMELDING", () => {
-            const nextPut = put({type: 'BEKREFTER_SYKMELDING'});
+            const nextPut = put({type: actiontyper.BEKREFTER_SYKMELDING});
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
@@ -36,7 +37,7 @@ describe("dinSykmeldingSagas", () => {
 
         it("Skal dernest dispatche SYKMELDING_BEKREFTET", () => {
             const nextPut = put({
-                type: 'SYKMELDING_BEKREFTET',
+                type: actiontyper.SYKMELDING_BEKREFTET,
                 sykmeldingId: "123"
             });
             expect(generator.next().value).to.deep.equal(nextPut);
@@ -44,14 +45,14 @@ describe("dinSykmeldingSagas", () => {
 
         it("Skal dernest dispatche HENT_DINE_SYKMELDINGER_FORESPURT", () => {
             const nextPut = put({
-                type: 'HENT_DINE_SYKMELDINGER_FORESPURT',
+                type: actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT,
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
         it("Skal dernest dispatche HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT", () => {
             const nextPut = put({
-                type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT',
+                type: actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT,
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
@@ -66,7 +67,7 @@ describe("dinSykmeldingSagas", () => {
         const generator = sendSykmeldingTilArbeidsgiver(action);
 
         it("Skal dispatche SENDER_SYKMELDING", () => {
-            const nextPut = put({type: 'SENDER_SYKMELDING'});
+            const nextPut = put({type: actiontyper.SENDER_SYKMELDING});
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
@@ -83,7 +84,7 @@ describe("dinSykmeldingSagas", () => {
 
         it("Skal dernest dispatche SYKMELDING_SENDT", () => {
             const nextPut = put({
-                type: 'SYKMELDING_SENDT',
+                type: actiontyper.SYKMELDING_SENDT,
                 sykmeldingId: "minSykmeldingId"
             });
             expect(generator.next().value).to.deep.equal(nextPut);
@@ -91,14 +92,14 @@ describe("dinSykmeldingSagas", () => {
 
         it("Skal dernest hente dine sykmeldinger", () => {
             const nextPut = put({
-                type: 'HENT_DINE_SYKMELDINGER_FORESPURT',
+                type: actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT,
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
         it("Skal dernest hente arbeidsgivers sykmeldinger", () => {
             const nextPut = put({
-                type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT',
+                type: actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT,
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
@@ -113,7 +114,7 @@ describe("dinSykmeldingSagas", () => {
         const generator = avbrytSykmelding(action);
 
         it("Skal dispatche AVBRYTER_SYKMELDING", () => {
-            const nextPut = put({type: 'AVBRYTER_SYKMELDING'});
+            const nextPut = put({type: actiontyper.AVBRYTER_SYKMELDING});
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
@@ -126,7 +127,7 @@ describe("dinSykmeldingSagas", () => {
 
         it("SKal dernest dispatche SYKMELDING_AVBRUTT", () => {
             const nextPut = put({
-                type: 'SYKMELDING_AVBRUTT', 
+                type: actiontyper.SYKMELDING_AVBRUTT,
                 sykmeldingId: "minAndreSykmeldingId"
             });
             expect(generator.next().value).to.deep.equal(nextPut);
@@ -134,14 +135,14 @@ describe("dinSykmeldingSagas", () => {
 
         it("Skal dernest hente dine sykmeldinger", () => {
             const nextPut = put({
-                type: 'HENT_DINE_SYKMELDINGER_FORESPURT',
+                type: actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT,
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
         it("Skal dernest hente arbeidsgivers sykmeldinger", () => {
             const nextPut = put({
-                type: 'HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT',
+                type: actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT,
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });

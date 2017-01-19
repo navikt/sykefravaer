@@ -52,7 +52,7 @@ class SoknadTeaser extends Component {
                     {
                         visStatus &&
                             <p className="inngangspanel__status js-status">
-                            { getLedetekst(`soknad.teaser.status.${soknad.status}`, ledetekster, { '%DATO%': soknad.innsendingsDato }) }
+                            { getLedetekst(`soknad.teaser.status.${soknad.status}`, ledetekster, { '%DATO%': toDatePrettyPrint(soknad.innsendingsDato) }) }
                             </p>
                     }
                 </header>

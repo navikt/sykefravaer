@@ -17,10 +17,10 @@ import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst } from 'dig
 export class DinSykmldSide extends Component {
 
     componentWillMount() {
-        const { dispatch, sykmeldingId } = this.props;
-        dispatch(hentArbeidsgiversSykmeldinger());
-        dispatch(hentAktuelleArbeidsgivere(sykmeldingId));
-        dispatch(hentPilotSykepenger(sykmeldingId));
+        const { hentArbeidsgiversSykmeldinger, hentAktuelleArbeidsgivere, hentPilotSykepenger, sykmeldingId } = this.props;
+        hentArbeidsgiversSykmeldinger();
+        hentAktuelleArbeidsgivere(sykmeldingId);
+        hentPilotSykepenger(sykmeldingId);
     }
 
     render() {
@@ -174,4 +174,6 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-export const DinSykmeldingContainer = connect(mapStateToProps)(DinSykmldSide);
+export const DinSykmeldingContainer = connect(mapStateToProps, {
+    hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger, hentPilotSykepenger
+})(DinSykmldSide);

@@ -1,4 +1,5 @@
 import * as actiontyper from '../actions/actiontyper';
+import { tilDato, parseDatoerPeriodeListe, parseDatoerPeriode } from '../utils/serialisering/dato';
 
 const initiellState = {
     henter: false,
@@ -18,11 +19,41 @@ const setSykepengesoknaderProps = (_sykepengesoknader, soknadsId, props) => {
     });
 };
 
+const parseAktivitetsdatoer = (aktiviteter) => {
+    return aktiviteter.map((aktivitet) => {
+        return Object.assign({}, aktivitet,
+            {
+                periode: parseDatoerPeriode(aktivitet.periode),
+            }
+        );
+    });
+};
+const parseUtdanningsDato = (utdanning) => {
+    return utdanning && Object.assign({}, utdanning, { utdanningStartdato: tilDato(utdanning.utdanningStartdato) });
+};
+
+export const parseDatofelter = (soknad) => {
+    const _soknad = Object.assign({}, soknad);
+    _soknad.aktiviteter = parseAktivitetsdatoer(soknad.aktiviteter);
+    _soknad.egenmeldingsperioder = parseDatoerPeriodeListe(soknad.egenmeldingsperioder);
+    _soknad.ferie = parseDatoerPeriodeListe(soknad.ferie);
+    _soknad.permisjon = parseDatoerPeriodeListe(soknad.permisjon);
+    _soknad.utenlandsOpphold = parseDatoerPeriodeListe(soknad.utenlandsOpphold);
+    _soknad.utdanning = parseUtdanningsDato(soknad.utdanning);
+    _soknad.gjenopptattArbeidFulltUtDato = tilDato(soknad.gjenopptattArbeidFulltUtDato);
+    _soknad.identdato = tilDato(soknad.identdato);
+    _soknad.innsendtDato = tilDato(soknad.innsendtDato);
+    _soknad.opprettetDato = tilDato(soknad.opprettetDato);
+    return _soknad;
+};
+
 export default function sykepengesoknader(state = initiellState, action) {
     switch (action.type) {
         case actiontyper.SYKEPENGESOKNADER_HENTET: {
+            const soknader = action.sykepengesoknader.map((s) => { return parseDatofelter(s); });
+
             return Object.assign({}, state, {
-                data: action.sykepengesoknader,
+                data: soknader,
                 henter: false,
                 hentingFeilet: false,
             });

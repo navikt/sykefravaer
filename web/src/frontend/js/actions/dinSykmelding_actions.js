@@ -101,13 +101,14 @@ export function bekreftSykmelding(sykmeldingId, arbeidssituasjon = {}, feilaktig
     };
 }
 
-export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger = {}, beOmNyNaermesteLeder = true) {
+export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger = {}, beOmNyNaermesteLeder = true, arbeidsgiverForskutterer = false) {
     return {
         type: actiontyper.SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT,
         sykmeldingId,
         orgnummer,
         feilaktigeOpplysninger,
         beOmNyNaermesteLeder,
+        arbeidsgiverForskutterer,
     };
 }
 

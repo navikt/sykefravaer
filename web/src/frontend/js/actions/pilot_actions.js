@@ -1,7 +1,7 @@
 export const hentPilotSykepenger = (sykmeldingId) => {
     return {
         type: 'HENT_PILOT_SYKEPENGER_FORESPURT',
-        sykmeldingId: sykmeldingId,
+        sykmeldingId,
     };
 };
 
@@ -14,7 +14,9 @@ export const henterPilotSykepenger = () => {
 export const pilotSykepengerHentet = (erPilot) => {
     return {
         type: 'PILOT_SYKEPENGER_HENTET',
-        data: {pilotSykepenger: erPilot},
+        data: {
+            pilotSykepenger: erPilot,
+        },
     };
 };
 

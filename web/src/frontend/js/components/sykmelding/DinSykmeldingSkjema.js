@@ -64,6 +64,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
     handleSubmit(values) {
         const modus = this.getSkjemaModus(values, this.props.harStrengtFortroligAdresse);
         const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding } = this.props;
+
         let feilaktigeOpplysninger = values.feilaktigeOpplysninger;
         for (const key in values.feilaktigeOpplysninger) {
             if (values.feilaktigeOpplysninger.hasOwnProperty(key)) {
@@ -82,10 +83,13 @@ export class DinSykmeldingSkjemaComponent extends Component {
         setArbeidssituasjon(values.valgtArbeidssituasjon, sykmelding.id);
         setArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver);
 
+        const arbeidsgiverForskutterer = values.arbeidsgiverForskutterer === 'JA';
+
         switch (modus) {
             case 'SEND-MED-NAERMESTE-LEDER':
             case 'SEND': {
-                this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysninger, values.beOmNyNaermesteLeder);
+                this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id,
+                    values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysninger, values.beOmNyNaermesteLeder, arbeidsgiverForskutterer);
                 return;
             }
             case 'BEKREFT': {
@@ -105,7 +109,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     render() {
-        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, sendingFeilet, avbryter, avbrytFeilet, handleSubmit, untouch, pilotSykepenger } = this.props;
+        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, sendingFeilet, avbryter, avbrytFeilet, handleSubmit, untouch } = this.props;
         const values = skjemaData && skjemaData.values ? skjemaData.values : {};
         const modus = this.getSkjemaModus(values, harStrengtFortroligAdresse);
 
@@ -173,9 +177,6 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     }
                 </div>
             </div>
-            {
-                pilotSykepenger && <p>PILOT</p>
-            }
         </form>);
     }
 }
@@ -226,6 +227,9 @@ export const validate = (values, props = {}) => {
     }
     if (values.beOmNyNaermesteLeder === undefined) {
         feilmeldinger.beOmNyNaermesteLeder = 'Vennligst svar på dette spørsmålet';
+    }
+    if (props.pilotSykepenger && values.arbeidsgiverForskutterer === undefined) {
+        feilmeldinger.arbeidsgiverForskutterer = 'Vennligst svar på dette spørsmålet';
     }
     return feilmeldinger;
 };

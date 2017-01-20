@@ -78,6 +78,7 @@ describe("dinSykmeldingSagas", () => {
                 },
                 orgnummer: "5678",
                 beOmNyNaermesteLeder: true,
+                arbeidsgiverForskutterer: false,
             });
             expect(generator.next().value).to.deep.equal(nextCall);
         });

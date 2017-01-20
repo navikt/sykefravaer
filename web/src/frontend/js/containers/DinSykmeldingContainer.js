@@ -11,14 +11,16 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
+import { hentPilotSykepenger } from '../actions/pilot_actions';
 import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst } from 'digisyfo-npm';
 
 export class DinSykmldSide extends Component {
 
     componentWillMount() {
-        const { dispatch, sykmeldingId } = this.props;
-        dispatch(hentArbeidsgiversSykmeldinger());
-        dispatch(hentAktuelleArbeidsgivere(sykmeldingId));
+        const { hentArbeidsgiversSykmeldinger, hentAktuelleArbeidsgivere, hentPilotSykepenger, sykmeldingId } = this.props;
+        hentArbeidsgiversSykmeldinger();
+        hentAktuelleArbeidsgivere(sykmeldingId);
+        hentPilotSykepenger(sykmeldingId);
     }
 
     render() {
@@ -172,4 +174,6 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-export const DinSykmeldingContainer = connect(mapStateToProps)(DinSykmldSide);
+export const DinSykmeldingContainer = connect(mapStateToProps, {
+    hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger, hentPilotSykepenger
+})(DinSykmldSide);

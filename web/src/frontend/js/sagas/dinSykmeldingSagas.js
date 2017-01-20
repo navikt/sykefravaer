@@ -34,6 +34,7 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
         feilaktigeOpplysninger: action.feilaktigeOpplysninger,
         beOmNyNaermesteLeder: action.beOmNyNaermesteLeder,
         orgnummer: action.orgnummer,
+        arbeidsgiverForskutterer: action.arbeidsgiverForskutterer,
     };
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/send`, body);

@@ -106,6 +106,7 @@ describe("dinSykmelding_actions", () => {
                 feilaktigeOpplysninger: {},
                 orgnummer: "344",
                 beOmNyNaermesteLeder: true,
+                arbeidsgiverForskutterer: false,
             });
         });
 
@@ -123,6 +124,7 @@ describe("dinSykmelding_actions", () => {
                 },
                 orgnummer: "344",
                 beOmNyNaermesteLeder: true,
+                arbeidsgiverForskutterer: false,
             });
         });   
 

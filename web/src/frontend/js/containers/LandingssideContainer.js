@@ -6,7 +6,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 
-export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter, hentingFeilet, sykepengesoknader, dialogmoter }) => {
+export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter, hentingFeilet, sykepengesoknader, harDialogmote }) => {
     return (
         <Side tittel={getLedetekst('landingsside.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
@@ -17,7 +17,7 @@ export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter,
                     if (hentingFeilet) {
                         return <Feilmelding />;
                     }
-                    return (<Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster} sykepengesoknader={sykepengesoknader} dialogmoter={dialogmoter} />);
+                    return (<Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster} sykepengesoknader={sykepengesoknader} harDialogmote={harDialogmote} />);
                 })()
             }
         </Side>
@@ -47,7 +47,7 @@ export function mapStateToProps(state) {
             sti: '/',
         }],
         sykepengesoknader,
-        dialogmoter: [],
+        harDialogmote: state.deltaker.hentingFeilet === false && state.deltaker.henter === false,
     };
 }
 

@@ -54,6 +54,7 @@ export const mapStateToProps = (state, ownProps) => {
         arbeidsgivere: arbeidsgivere.data,
         hentingFeilet: state.arbeidsgivere.hentingFeilet,
         henter: state.arbeidsgivere.henter,
+        pilotSykepenger: state.pilot.data.pilotSykepenger,
     };
 };
 

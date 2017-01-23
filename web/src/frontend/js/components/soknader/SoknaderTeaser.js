@@ -53,6 +53,7 @@ class SoknadTeaser extends Component {
                         visStatus &&
                             <p className="inngangspanel__status js-status">
                             { getLedetekst(`soknad.teaser.status.${soknad.status}`, ledetekster, { '%DATO%': toDatePrettyPrint(soknad.innsendingsDato) }) }
+                            { getLedetekst(`soknad.teaser.status.${soknad.status}`, ledetekster, { '%DATO%': toDatePrettyPrint(soknad.innsendtDato) }) }
                             </p>
                     }
                 </header>
@@ -72,18 +73,19 @@ class SoknadTeaser extends Component {
 
 SoknadTeaser.propTypes = {
     soknad: PropTypes.shape({
-        opprettetDato: PropTypes.string.isRequired,
+        opprettetDato: PropTypes.instanceOf(Date),
         aktiviteter: PropTypes.arrayOf(PropTypes.shape({
             avvik: PropTypes.object,
             grad: PropTypes.number,
             periode: PropTypes.shape({
-                fom: PropTypes.string.isRequired,
-                tom: PropTypes.string.isRequired,
+                fom: PropTypes.instanceOf(Date).isRequired,
+                tom: PropTypes.instanceOf(Date).isRequired,
             }),
         })),
         arbeidsgiver: PropTypes.shape({
             navn: PropTypes.string.isRequired,
         }),
+        innsendtDato: PropTypes.instanceOf(Date),
     }).isRequired,
     ledetekster: PropTypes.object,
 };

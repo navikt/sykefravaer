@@ -4,8 +4,9 @@ import { getHtmlLedetekst, getLedetekst, visFeilmelding, getFeilmelding, Hjelpet
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths';
 import ErLederRiktig from './ErLederRiktig';
+import ForskuttererArbeidsgiver from './ForskuttererArbeidsgiver';
 
-const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }) => {
+const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData, pilotSykepenger }) => {
     const values = skjemaData && skjemaData.values ? skjemaData.values : {};
     const erFeil = visFeilmelding(skjemaData, 'valgtArbeidsgiver');
     const feilmelding = getFeilmelding(skjemaData, 'valgtArbeidsgiver');
@@ -70,6 +71,9 @@ const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData }
             values.valgtArbeidsgiver && values.valgtArbeidsgiver.naermesteLeder &&
                 <ErLederRiktig naermesteLeder={values.valgtArbeidsgiver.naermesteLeder} skjemaData={skjemaData} ledetekster={ledetekster} />
         }
+        {
+            pilotSykepenger && values.valgtArbeidsgiver && <ForskuttererArbeidsgiver arbeidsgiver={values.valgtArbeidsgiver} skjemaData={skjemaData} ledetekster={ledetekster} />
+        }
     </div>);
 };
 
@@ -78,6 +82,7 @@ VelgArbeidsgiver.propTypes = {
     ledetekster: PropTypes.object,
     sykmelding: PropTypes.object,
     skjemaData: PropTypes.object,
+    pilotSykepenger: PropTypes.bool,
 };
 
 export default VelgArbeidsgiver;

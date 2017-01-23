@@ -5,12 +5,8 @@ import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock";
 import getSykmelding from "../mockSykmeldinger";
-
-chai.use(chaiEnzyme());
-const expect = chai.expect;
 import configureMockStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
-
 import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, validate } from "../../js/components/sykmelding/DinSykmeldingSkjema";
 import StrengtFortroligInfo from "../../js/components/sykmelding/StrengtFortroligInfo";
 import VelgArbeidssituasjon from "../../js/components/sykmelding/VelgArbeidssituasjon";
@@ -21,8 +17,11 @@ import { Varselstripe } from "digisyfo-npm";
 import Checkboxgruppe from '../../js/components/skjema/Checkboxgruppe';
 import HvilkeOpplysningerErIkkeRiktige, { SykmeldingFeilaktigeOpplysningerInfo, DuTrengerNySykmelding, DuKanBrukeSykmeldingenDinDiagnoseAndre, DuKanBrukeSykmeldingenDinArbeidsgiver } from '../../js/components/sykmelding/HvilkeOpplysningerErIkkeRiktige';
 import ErLederRiktig from '../../js/components/sykmelding/ErLederRiktig';
-
+import ForskuttererArbeidsgiver from '../../js/components/sykmelding/ForskuttererArbeidsgiver';
 import { Provider } from 'react-redux';
+
+chai.use(chaiEnzyme());
+const expect = chai.expect;
 
 describe("DinSykmeldingSkjema -", () => {
 
@@ -644,6 +643,40 @@ describe("DinSykmeldingSkjema -", () => {
                 <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
             </Provider>);
             expect(component.find(ErLederRiktig)).to.have.length(1);
+        });
+
+        it("Skal ikke vise valg for arbeidsgiver forskutterer dersom brukeren ikke er med i pilot sykepenger", () => {
+            const arbeidsgivere = [{
+                orgnummer: "123456789",
+                navn: "Mortens frukt og grønt"
+            }];
+            skjemaData.values.valgtArbeidsgiver = {
+                orgnummer: "123456789",
+                navn: "Mortens frukt og grønt"
+            };
+
+            const component = mount(<Provider store={store}>
+                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} pilotSykepenger={false} />
+            </Provider>);
+
+            expect(component.find(ForskuttererArbeidsgiver)).to.have.length(0);
+        });
+
+        it("Skal bare vise valg for arbeidsgiver forskutterer dersom brukeren er med i pilot sykepenger", () => {
+            const arbeidsgivere = [{
+                orgnummer: "123456789",
+                navn: "Mortens frukt og grønt"
+            }];
+            skjemaData.values.valgtArbeidsgiver = {
+                orgnummer: "123456789",
+                navn: "Mortens frukt og grønt"
+            };
+
+            const component = mount(<Provider store={store}>
+                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} pilotSykepenger={true} />
+            </Provider>);
+
+            expect(component.find(ForskuttererArbeidsgiver)).to.have.length(1);
         });
     });
 

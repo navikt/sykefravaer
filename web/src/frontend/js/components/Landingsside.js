@@ -35,7 +35,7 @@ GenerellInfo.propTypes = {
     ledetekster: PropTypes.object,
 };
 
-const Landingsside = ({ ledetekster = {}, skjulVarsel = false, sykepengesoknader = [], dialogmoter = [] }) => {
+const Landingsside = ({ ledetekster = {}, skjulVarsel = false, sykepengesoknader = [], harDialogmote = false }) => {
     return (<div>
         <div className="sidetopp">
             <img className="sidetopp__bilde blokk" src="/sykefravaer/img/svg/illustrasjon-landingsside-2.svg"
@@ -58,8 +58,8 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false, sykepengesoknader
 
             }
             {
-                dialogmoter.length > 0 &&
-                    <LandingssideLenke to="/sykefravaer/#" ikon="dialogmoter" ikonAlt="Dialogmøter" tittel="Dialogmøter" variant="ceil" />
+                harDialogmote &&
+                    <LandingssideLenke to="/sykefravaer/dialogmote" ikon="dialogmoter" ikonAlt="Dialogmøter" tittel="Dialogmøter" variant="ceil" />
             }
         </nav>
         <NaermesteLedereContainer />

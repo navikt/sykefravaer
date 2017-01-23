@@ -28,6 +28,9 @@ describe("LandingssideContainer", () => {
                 },
                 sykepengesoknader: {
                     data: []
+                },
+                deltaker: {
+                    data: [{harDialogmote:false}]
                 }
             });
             expect(res.skjulVarsel).to.equal(true)
@@ -45,6 +48,9 @@ describe("LandingssideContainer", () => {
                 },
                 sykepengesoknader: {
                     data: []
+                },
+                deltaker: {
+                    data: [{harDialogmote:false}]
                 }
             });
             expect(res.ledetekster).to.deep.equal({

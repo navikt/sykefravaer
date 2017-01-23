@@ -35,6 +35,7 @@ SoknaderSide.propTypes = {
 export function mapStateToProps(state) {
     const ledetekster = state.ledetekster.data;
     const sykepengesoknader = state.sykepengesoknader.data;
+
     return {
         ledetekster,
         sykepengesoknader,

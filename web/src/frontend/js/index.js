@@ -18,7 +18,7 @@ import { hentBrukerinfo } from './actions/brukerinfo_actions';
 import history from './history';
 import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';
-import { svar, deltaker } from 'moter-npm';
+import { deltakerActions, svar, deltaker } from 'moter-npm';
 import pilot from './reducers/pilot';
 
 const rootReducer = combineReducers({
@@ -49,6 +49,7 @@ store.dispatch(hentLedetekster());
 store.dispatch(hentDineSykmeldinger());
 store.dispatch(hentSykepengesoknader());
 store.dispatch(hentBrukerinfo());
+store.dispatch(deltakerActions.hentDeltaker());
 
 render(<Provider store={store}>
         <AppRouter history={history} /></Provider>,

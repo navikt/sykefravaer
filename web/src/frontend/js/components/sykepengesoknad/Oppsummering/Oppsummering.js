@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import setup from '../setup';
 import FravaerOgFriskmelding from './FravaerOgFriskmelding';
 import AktiviteterISykmeldingsperioden from './AktiviteterISykmeldingsperioden';
-import { Utvidbar } from '../../../digisyfo-npm';
+import { Utvidbar } from 'digisyfo-npm';
 import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
 import { Field } from 'redux-form';
 import { Avkrysset } from './opplysninger';

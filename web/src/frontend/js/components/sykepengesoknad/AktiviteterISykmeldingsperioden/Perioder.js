@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Fields } from 'redux-form';
 import JaEllerNei from '../JaEllerNei';
-import { toDatePrettyPrint } from '../../../digisyfo-npm';
+import { toDatePrettyPrint } from 'digisyfo-npm';
 import AngiTid from './AngiTid';
 
 const Periode = ({ field, index }) => {

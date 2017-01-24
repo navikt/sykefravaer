@@ -6,7 +6,7 @@ import setup from '../setup';
 import Egenmeldingsdager from './Egenmeldingsdager';
 import GjenopptattArbeidFulltUt from './GjenopptattArbeidFulltUt';
 import FeriePermisjonEllerUtenlandsopphold from './FeriePermisjonEllerUtenlandsopphold';
-import * as valideringUtils from '../../../utils/sykepengerValideringUtils';
+import * as valideringUtils from '../valideringUtils';
 import Knapperad from '../../skjema/Knapperad';
 
 const FravaerOgFriskmelding = ({ handleSubmit }) => {

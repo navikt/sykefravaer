@@ -10,7 +10,7 @@ const Feilomrade = ({ touched, error, children }) => {
 Feilomrade.propTypes = {
     touched: PropTypes.bool,
     error: PropTypes.string,
-    children: PropTypes.array,
+    children: PropTypes.object,
 };
 
 export default Feilomrade;

@@ -47,7 +47,7 @@ sagaMiddleware.run(rootSaga);
 
 store.dispatch(hentLedetekster());
 store.dispatch(hentDineSykmeldinger());
-store.dispatch(hentSykepengesoknader());
+// store.dispatch(hentSykepengesoknader());
 store.dispatch(hentBrukerinfo());
 
 render(<Provider store={store}>

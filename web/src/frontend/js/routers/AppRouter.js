@@ -21,7 +21,7 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/sykmeldinger/:sykmeldingId/skriv-ut" component={SkrivUtSykmeldingContainer} />
         <Route path="/sykefravaer/sykmeldinger/:sykmeldingId/kvittering" component={SykmeldingKvitteringContainer} />
         <Route path="/sykefravaer/soknader" component={SoknaderContainer} />
-        <Route path="/sykefravaer/soknader/:sykepengeSoknadId" component={FoerDuBegynnerContainer} />
+        <Route path="/sykefravaer/soknader/:sykepengesoknadId" component={FoerDuBegynnerContainer} />
         <Route path="/sykefravaer/roller-og-ansvarsomrader" component={RollerContainer} />
         <Route path="/sykefravaer/dialogmote" component={MoteContainer} />
         <Route path="*" component={LandingssideContainer} />

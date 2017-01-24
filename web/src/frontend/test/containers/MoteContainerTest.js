@@ -196,6 +196,9 @@ describe("MoteContainer", () => {
         });
 
         it("Skal returnere harSvart", () => {
+            state.deltaker.data = {
+                svarTidspunkt: "2017-09-12T07:09:00Z"
+            };
             const props = mapStateToProps(state);
             expect(props.harSvart).to.be.false;
         });

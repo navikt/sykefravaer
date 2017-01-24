@@ -19,7 +19,7 @@ export const Container = (props) => {
             if (sykepengesoknad === undefined) {
                 return <Feilmelding tittel="Beklager, vi finner ikke søknaden du ser etter" melding="Er du sikker på at du er på riktig adresse?" />
             }
-            return <FoerDuBegynner soknad={sykepengesoknad} ledetekster={ledetekster} />
+            return <FoerDuBegynner sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
         })()
     }
     </Side>);

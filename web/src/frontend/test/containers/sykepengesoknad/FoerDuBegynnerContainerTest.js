@@ -98,6 +98,7 @@ describe("FoerDuBegynnerContainer", () => {
         it("Skal vise FoerDuBegynner hvis alt er OK", () => {
             const component = shallow(<Container sykepengesoknad={minSoknad} ledetekster={ledetekster} />);
             expect(component.find(FoerDuBegynner)).to.have.length(1);
+            expect(component.find(FoerDuBegynner).prop("sykepengesoknad")).to.deep.equal(minSoknad);
             expect(component.find(AppSpinner)).to.have.length(0);
             expect(component.find(Feilmelding)).to.have.length(0);
         }); 

@@ -4,9 +4,9 @@ import SykepengerSkjema from '../SykepengerSkjema';
 import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';
 
-const FoerDuBegynner = ({ handleSubmit }) => {
+const FoerDuBegynner = ({ handleSubmit, sykepengesoknad }) => {
     const onSubmit = () => {
-        history.push('/sykepenger/fravaer-og-friskmelding');
+        history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`);
     };
 
     return (<SykepengerSkjema apentUtdrag tittel="Før du begynner">
@@ -35,16 +35,6 @@ export const validate = (values) => {
     return feilmeldinger;
 };
 
-const FoerDuBegynnerSkjema = setup(validate, FoerDuBegynner, {
-    perioder: [{
-        gjennomsnittPerUke: {
-            enhet: 'prosent',
-        },
-    }, {
-        gjennomsnittPerUke: {
-            enhet: 'prosent',
-        },
-    }],
-});
+const FoerDuBegynnerSkjema = setup(validate, FoerDuBegynner);
 
 export default FoerDuBegynnerSkjema;

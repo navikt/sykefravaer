@@ -28,12 +28,12 @@ const JaEllerNei = (props) => {
     const { intro, input, children } = props;
     const visTillegg = input.value && children;
     return (<div className="blokk--xs">
-        <div className={`hovedspoersmal ${visTillegg ? 'hovedspoersmal--medTillegg' : ''}`}>
+        <div className={`hovedsporsmal ${visTillegg ? 'hovedsporsmal--medTillegg' : ''}`}>
             { intro && <p className="skjema__sporsmal blokk--s">{intro}</p> }
             <JaEllerNeiRadioknapper {...props} />
         </div>
         {
-            visTillegg && <div className="tilleggsspoersmal">
+            visTillegg && <div className="tilleggssporsmal">
                 {children}
             </div>
         }

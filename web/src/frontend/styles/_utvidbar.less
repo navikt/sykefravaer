@@ -25,8 +25,9 @@
 }
 
 .utvidbar__header:extend(.panelHeader) {
-	padding: .5rem;
+	padding: .75em;
 	margin: 0;
+	min-height: 3.5em;
 	.mixin-typo-infotekst();
 
 	@media(min-width: @screen-xs) {
@@ -34,21 +35,26 @@
 		padding-right: 1rem;
 	}
 
-	&:hover .utvidbar__tittel { 
-		background-image: data-uri("../img/svg/arrow-down_hover.svg");
-	}
-
 }
 
-.utvidbar__ikon:extend(.panelHeader__ikon) {
+.utvidbar__ikon {
+	width: 1.5em;
+	height: 1.5em;
+	margin-right: 1em;
 
+	@media(min-width: @skjermMini) {
+		width: 2em;
+		height: 2em;
+	}
 }
 
 .utvidbar__tittel {
-	padding-right: 2rem; 
-	background: data-uri("../img/svg/arrow-down.svg") no-repeat 100% .5rem;
-	background-size: 1rem .5rem;
+	padding-right: 2em; 
+	background: data-uri("../img/svg/arrow-down_hover.svg") no-repeat 100% .5em;
+	background-size: 1em .5em;
 	flex: 1;
+	align-self: center;
+	display: flex;
 }
 
 .utvidbar__header--lilla {
@@ -60,10 +66,6 @@
 }
 
 .utvidbar__tittel--erApen {
-	background-image: data-uri("../img/svg/arrow-up.svg");
-}
-
-.utvidbar__header--erApen:hover .utvidbar__tittel {
 	background-image: data-uri("../img/svg/arrow-up_hover.svg");
 }
 
@@ -77,8 +79,12 @@
 }
 
 .utvidbar__innhold { 
-	padding: 1.5rem 1rem 2.5rem 1rem;
+	padding: 1.5em 1em 2.5em 1em;
 	background-color: @white;
+
+	@media(min-width: @skjermMini) {
+		padding: 2.5em;
+	}
 }
 
 @media print {

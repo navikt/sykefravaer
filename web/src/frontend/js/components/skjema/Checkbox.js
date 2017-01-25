@@ -7,7 +7,7 @@ const Checkbox = ({ input, label, id, children }) => {
             <label htmlFor={id}>{label}</label>
         </div>
         {
-            input.value === true && children && <div className="ekstraspoersmal">{children}</div>
+            input.value === true && children && <div className="ekstrasporsmal">{children}</div>
         }
     </div>);
 };

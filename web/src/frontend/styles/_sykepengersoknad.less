@@ -1,0 +1,150 @@
+.inputgruppe {
+}
+
+.inputgruppe--horisontal {
+    display: flex; 
+
+    .skjema__input {
+        margin-right: 2em;
+    }
+}
+
+.medEnhet {
+    display: flex;
+}
+
+.medEnhet__enhet {
+    margin: 0;
+    margin-left: .5em;
+    align-self: center;
+}
+
+.skjema__feilmelding:empty {
+    display: none;
+}
+
+.oppsummering__sporsmal {
+    .mixin-typo-element();
+    margin-top: 1em;
+    margin-bottom: .5em;
+}
+
+.oppsummering__bolk {
+    border-bottom: 1px solid @ikonGraa;
+    margin-bottom: 2em;
+    padding-bottom: 2em;
+}
+
+.oppsummering__tilleggssvar {
+    padding-left: 1.5em;
+    margin-bottom: 2em; 
+}
+
+.oppsummering__perioder {
+    margin-left: 1.5em; 
+    margin-top: 0;
+    padding: 0;    
+
+    li {
+        list-style-type: none;
+    }
+}
+
+.oppsummering__fom {
+    margin-right: 1em;
+}
+
+.oppsummering__dato {
+    padding-left: 1.5em;
+}
+
+.oppsummering__dato, .oppsummering__perioder li {
+    &:before {
+        content: "\2022";
+        display: inline-block;
+        width: .5em;
+        margin-right: .5em;
+    }
+}
+
+.oppsummering__avkrysset {
+    display: flex;
+    width: 100%;
+
+    img {
+        width: 1em;
+        height: 1em;
+        margin-right: .5em;
+    }
+
+    span {
+        flex: 1;
+    }
+}
+
+.periodevelger__fom, .periodevelger__tom {
+    margin-bottom: 1em;
+}
+
+.periodevelger__periode:first-child .periodevelger__tom {
+    margin-bottom: 0;
+}
+
+@media(min-width: @screen-xs) {
+    .periodevelger__periode {
+        display: flex;
+    }
+
+    .periodevelger__fom, .periodevelger__tom {
+        margin-right: 2em;
+    }
+
+    .periodevelger__verktoy {
+        padding-top: 1.55em;
+        height: 4em;
+        line-height: 2;
+    }
+}
+
+@media(max-width: @screen-xs) {
+    .periodevelger__periode {
+        margin-bottom: 2em;
+    }
+    .periodevelger__periode:not(:last-child) {
+        padding-bottom: 2em;
+        border-bottom: 1px solid @ikonGraa;
+    }
+}
+
+.knapperad--forrigeNeste {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: @screen-xs) {
+    .knapperad--forrigeNeste {
+        flex-direction: column-reverse;
+    }
+
+    .knapperad__element {
+        margin-bottom: 2em;
+    }
+}
+
+@media(min-width: @screen-xs) {
+
+    .knapperad__element {
+        margin-right: 2em;
+    }
+
+    .knapperad__element:last-child {
+        margin-right: 0;
+    }
+
+}
+
+.sykepenger__stegtittel {
+    .mixin-typo-innholdstittel();
+    margin-top: 0;
+    margin-bottom: 1em;
+}

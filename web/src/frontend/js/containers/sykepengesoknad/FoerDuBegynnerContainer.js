@@ -11,15 +11,15 @@ export const Container = (props) => {
     {
         (() => {
             if (henter) {
-                return <AppSpinner />
+                return <AppSpinner />;
             }
             if (hentingFeilet) {
-                return <Feilmelding />
+                return <Feilmelding />;
             }
             if (sykepengesoknad === undefined) {
-                return <Feilmelding tittel="Beklager, vi finner ikke søknaden du ser etter" melding="Er du sikker på at du er på riktig adresse?" />
+                return <Feilmelding tittel="Beklager, vi finner ikke søknaden du ser etter" melding="Er du sikker på at du er på riktig adresse?" />;
             }
-            return <FoerDuBegynner sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
+            return <FoerDuBegynner sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />;
         })()
     }
     </Side>);
@@ -27,6 +27,10 @@ export const Container = (props) => {
 
 Container.propTypes = {
     brodsmuler: PropTypes.array,
+    sykepengesoknad: PropTypes.object,
+    henter: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
+    ledetekster: PropTypes.object,
 };
 
 export const mapStateToProps = (state, ownProps) => {

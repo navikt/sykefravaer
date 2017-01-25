@@ -9,16 +9,16 @@ import FeriePermisjonEllerUtenlandsopphold from './FeriePermisjonEllerUtenlandso
 import * as valideringUtils from '../valideringUtils';
 import Knapperad from '../../skjema/Knapperad';
 
-const FravaerOgFriskmelding = ({ handleSubmit }) => {
+const FravaerOgFriskmelding = ({ handleSubmit, sykepengesoknad, ledetekster }) => {
     const onSubmit = () => {
-        history.push('/sykepenger/aktiviteter-i-sykmeldingsperioden');
+        history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`);
     };
 
     return (<SykepengerSkjema aktivtSteg="1" tittel="Fravær og friskmelding">
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Egenmeldingsdager />
-            <GjenopptattArbeidFulltUt />
-            <FeriePermisjonEllerUtenlandsopphold />
+            <Egenmeldingsdager sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
+            <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
+            <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
 
             <Knapperad variant="knapperad--forrigeNeste">
                 <Link to="/sykepenger" className="rammeknapp">Tilbake</Link>
@@ -31,7 +31,9 @@ const FravaerOgFriskmelding = ({ handleSubmit }) => {
 };
 
 FravaerOgFriskmelding.propTypes = {
-    handleSubmit: PropTypes.func,
+    handleSubmit: PropTypes.func.isRequired,
+    sykepengesoknad: PropTypes.object.isRequired,
+    ledetekster: PropTypes.object,
 };
 
 export const validate = (values, props) => {

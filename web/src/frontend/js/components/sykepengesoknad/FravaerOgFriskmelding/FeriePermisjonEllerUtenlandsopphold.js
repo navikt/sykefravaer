@@ -5,10 +5,12 @@ import Checkbox from '../../skjema/Checkbox';
 import Radioknapper from '../../skjema/Radioknapper';
 import { FieldArray, Field } from 'redux-form';
 import Feilomrade from '../../skjema/Feilomrade';
+import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
 
-const SoktOmSykepenger = () => {
+const SoktOmSykepenger = ({ ledetekster }) => {
     return (<Field
-        spoersmal="Har du søkt om å beholde sykepenger under dette oppholdet utenfor Norge?"
+        spoersmal={getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal', ledetekster)}
         name="utenlandsoppholdSoktOmSykepenger"
         component={Radioknapper}
         Overskrift="h5"
@@ -18,7 +20,7 @@ const SoktOmSykepenger = () => {
                     return (<input {...alt} key={index}>
                         {
                             alt.value === false && (<div className="presisering">
-                                <p className="sist">Som hovedregel kan du bare få sykepenger når du oppholder deg i Norge. Du kan søke om å beholde sykepenger i en kort periode ved opphold utenfor Norge.</p>
+                                <p className="sist">{getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet', ledetekster)}</p>
                             </div>)
                         }
                     </input>);
@@ -27,15 +29,19 @@ const SoktOmSykepenger = () => {
         </Field>);
 };
 
-const FeriePermisjonEllerUtenlandsopphold = ({ fields, meta }) => {
+SoktOmSykepenger.propTypes = {
+    ledetekster: PropTypes.object,
+};
+
+const FeriePermisjonEllerUtenlandsopphold = ({ fields, meta, ledetekster }) => {
     const labels = {
-        ferie: 'tatt ut ferie',
-        permisjon: 'hatt permisjon',
-        utenlandsopphold: 'oppholdt meg utenfor Norge',
+        ferie: getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.tatt-ut-ferie', ledetekster),
+        permisjon: getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.hatt-permisjon', ledetekster),
+        utenlandsopphold: getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.oppholdt-meg-utenfor-norge', ledetekster),
     };
 
     return (<Feilomrade {...meta}>
-        <h4 className="skjema__sporsmal">Jeg har...</h4>
+        <h4 className="skjema__sporsmal">{getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har', ledetekster)}</h4>
     {
         fields.map((field, index) => {
             return (<Field key={index} component={Checkbox} name={`${field}.avkrysset`} label={labels[field]} id={`checkbox-${field}`}>
@@ -43,7 +49,7 @@ const FeriePermisjonEllerUtenlandsopphold = ({ fields, meta }) => {
                     <Periodevelger name={`${field}.perioder`} />
                 </div>
                 {
-                    field === 'utenlandsopphold' && <SoktOmSykepenger />
+                    field === 'utenlandsopphold' && <SoktOmSykepenger ledetekster={ledetekster} />
                 }
             </Field>);
         })
@@ -54,14 +60,26 @@ const FeriePermisjonEllerUtenlandsopphold = ({ fields, meta }) => {
 FeriePermisjonEllerUtenlandsopphold.propTypes = {
     fields: PropTypes.object,
     meta: PropTypes.object,
+    ledetekster: PropTypes.object.isRequired,
 };
 
-const GjenopptattArbeidFulltUt = () => {
+const FeriePermisjonEllerUtenlandsoppholdField = ({ sykepengesoknad, ledetekster }) => {
+    const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
+        return aktivitet.periode;
+    });
     return (<JaEllerNei
-        spoersmal="Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 31.01.2017?"
+        spoersmal={getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal', ledetekster, {
+            '%FOM%': toDatePrettyPrint(tidligsteFom(perioder)),
+            '%TOM%': toDatePrettyPrint(senesteTom(perioder)),
+        })}
         name="harHattFeriePermisjonEllerUtenlandsopphold">
-            <FieldArray component={FeriePermisjonEllerUtenlandsopphold} name="feriePermisjonEllerUtenlandsopphold" fields={['ferie', 'permisjon', 'utenlandsopphold']} />
+            <FieldArray component={FeriePermisjonEllerUtenlandsopphold} name="feriePermisjonEllerUtenlandsopphold" fields={['ferie', 'permisjon', 'utenlandsopphold']} ledetekster={ledetekster} />
     </JaEllerNei>);
 };
 
-export default GjenopptattArbeidFulltUt;
+FeriePermisjonEllerUtenlandsoppholdField.propTypes = {
+    sykepengesoknad: PropTypes.object,
+    ledetekster: PropTypes.object,
+};
+
+export default FeriePermisjonEllerUtenlandsoppholdField;

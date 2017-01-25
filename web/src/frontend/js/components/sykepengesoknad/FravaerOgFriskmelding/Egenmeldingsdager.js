@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from './Periodevelger';
+import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 
-const EgenmeldingsDager = () => {
+const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
     return (<JaEllerNei
-        spoersmal="Brukte du egenmeldingsdager før det legemeldte fraværet startet den 01.12.2016?"
+        spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.janei.sporsmal', ledetekster, {
+            '%DATO%': toDatePrettyPrint(sykepengesoknad.identdato),
+        })}
         name="bruktEgenmeldingsdagerFoerLegemeldtFravaer">
-        <Periodevelger name="egenmeldingsperioder" spoersmal="Når brukte du egenmelding?" />
+        <Periodevelger name="egenmeldingsperioder" spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal', ledetekster)} />
     </JaEllerNei>);
+};
+
+EgenmeldingsDager.propTypes = {
+    sykepengesoknad: PropTypes.object.isRequired,
+    ledetekster: PropTypes.object.isRequired,
 };
 
 export default EgenmeldingsDager;

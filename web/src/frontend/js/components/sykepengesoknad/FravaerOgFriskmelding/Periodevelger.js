@@ -2,6 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { FieldArray } from 'redux-form';
 import Datovelger from '../../skjema/Datovelger';
 import Feilomrade from '../../skjema/Feilomrade';
+import { getLedetekst } from 'digisyfo-npm';
+import { connect } from 'react-redux';
 
 export class Periodevelger extends Component {
     componentWillMount() {
@@ -11,7 +13,8 @@ export class Periodevelger extends Component {
     }
 
     render() {
-        const { fields, namePrefix, spoersmal, meta, Overskrift } = this.props;
+        const { fields, namePrefix, spoersmal, meta, Overskrift, ledetekster } = this.props;
+
         return (<div className="periodevelger">
             <div className={meta && meta.touched && meta.error ? 'blokk' : ''}>
                 <Feilomrade {...meta}>
@@ -23,11 +26,11 @@ export class Periodevelger extends Component {
                             const tomId = `tom-${namePrefix}-${index}`;
                             return (<div key={index} className="periodevelger__periode">
                                 <div className="periodevelger__fom input--s">
-                                    <label htmlFor={fomId}>Fra dato</label>
+                                    <label htmlFor={fomId}>{getLedetekst('sykepengesoknad.periodevelger.fom', ledetekster)}</label>
                                     <Datovelger name={`${namePrefix}[${index}].fom`} id={fomId} />
                                 </div>
                                 <div className="periodevelger__tom input--s">
-                                    <label htmlFor={tomId}>Til dato</label>
+                                    <label htmlFor={tomId}>{getLedetekst('sykepengesoknad.periodevelger.tom', ledetekster)}</label>
                                     <Datovelger name={`${namePrefix}[${index}].tom`} id={tomId} />
                                 </div>
                                 <div className="periodevelger__verktoy">
@@ -35,7 +38,7 @@ export class Periodevelger extends Component {
                                     index > 0 && <a role="button" href="#" onClick={(e) => {
                                         e.preventDefault();
                                         fields.remove(index);
-                                    }}>Slett periode</a>
+                                    }}>{getLedetekst('sykepengesoknad.periodevelger.slett', ledetekster)}</a>
                                 }
                                 </div>
                             </div>);
@@ -47,7 +50,7 @@ export class Periodevelger extends Component {
             <button className="rammeknapp rammeknapp--mini" onClick={(e) => {
                 e.preventDefault();
                 fields.push({});
-            }}>+ Legg til periode</button>
+            }}>+ {getLedetekst('sykepengesoknad.periodevelger.legg-til', ledetekster)}</button>
         </div>);
     }
 }
@@ -58,19 +61,29 @@ Periodevelger.propTypes = {
     spoersmal: PropTypes.string,
     meta: PropTypes.object,
     Overskrift: PropTypes.string,
+    ledetekster: PropTypes.object,
 };
 
 Periodevelger.defaultProps = {
     Overskrift: 'h4',
 };
 
-const PeriodevelgerField = ({ name, spoersmal }) => {
-    return <FieldArray component={Periodevelger} name={name} namePrefix={name} spoersmal={spoersmal} />;
+const mapStateToProps = (state) => {
+    return {
+        ledetekster: state.ledetekster.data,
+    };
+};
+
+const StateConnectedPeriodevelger = connect(mapStateToProps)(Periodevelger);
+
+const PeriodevelgerField = ({ name, spoersmal, ledetekster }) => {
+    return <FieldArray component={StateConnectedPeriodevelger} name={name} namePrefix={name} spoersmal={spoersmal} ledetekster={ledetekster} />;
 };
 
 PeriodevelgerField.propTypes = {
     name: PropTypes.string,
     spoersmal: PropTypes.string,
+    ledetekster: PropTypes.object,
 };
 
 export default PeriodevelgerField;

@@ -25,6 +25,7 @@ const FoerDuBegynner = ({ handleSubmit, sykepengesoknad }) => {
 
 FoerDuBegynner.propTypes = {
     handleSubmit: PropTypes.func,
+    sykepengesoknad: PropTypes.func,
 };
 
 export const validate = (values) => {

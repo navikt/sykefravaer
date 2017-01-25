@@ -9,11 +9,11 @@ const expect = chai.expect;
 
 import AppSpinner from '../../../js/components/AppSpinner';
 import Feilmelding from '../../../js/components/Feilmelding';
-import FoerDuBegynner from '../../../js/components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
-import { Container, mapStateToProps } from '../../../js/containers/sykepengesoknad/FoerDuBegynnerContainer';
+import FravaerOgFriskmelding from '../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FravaerOgFriskmelding';
+import { Container, mapStateToProps } from '../../../js/containers/sykepengesoknad/FravaerOgFriskmeldingContainer';
 import { soknader } from '../../mockSoknader';
 
-describe("FoerDuBegynnerContainer", () => {
+describe("FravaerOgFriskmeldingContainer", () => {
 
     let state;
     let ownProps;
@@ -93,15 +93,15 @@ describe("FoerDuBegynnerContainer", () => {
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
-        it("Skal vise FoerDuBegynner hvis alt er OK", () => {
+        it("Skal vise FravaerOgFriskmelding hvis alt er OK", () => {
             const component = shallow(<Container sykepengesoknad={minSoknad} ledetekster={ledetekster} />);
-            expect(component.find(FoerDuBegynner)).to.have.length(1);
-            expect(component.find(FoerDuBegynner).prop("sykepengesoknad")).to.deep.equal(minSoknad);
+            expect(component.find(FravaerOgFriskmelding)).to.have.length(1);
+            expect(component.find(FravaerOgFriskmelding).prop("sykepengesoknad")).to.deep.equal(minSoknad);
             expect(component.find(AppSpinner)).to.have.length(0);
             expect(component.find(Feilmelding)).to.have.length(0);
         }); 
 
-    })
+    });
 
     describe("mapStateToProps", () => {
         it("Skal returnere riktig søknad hvis den finnes", () => {
@@ -138,6 +138,6 @@ describe("FoerDuBegynnerContainer", () => {
             const props = mapStateToProps(state, ownProps);
             expect(props.hentingFeilet).to.be.false;
         });
-    })
+    });
 
 });

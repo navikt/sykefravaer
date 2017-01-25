@@ -4,7 +4,7 @@ import Feilomrade from './Feilomrade';
 export const Radioknapp = ({ input, value, children, id, label }) => {
     return (<div>
         <div className="skjema__input">
-            <input id={id} className="radioknapp" type="radio" {...input} checked={input.value === value} value={value} onBlur={() => {
+            <input id={id} className="radioknapp" type="radio" {...input} checked={input.value.toString() === value.toString()} value={value} onBlur={() => {
                 input.onBlur();
             }} />
             <label htmlFor={id}>{label}</label>

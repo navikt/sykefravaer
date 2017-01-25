@@ -1,4 +1,4 @@
-import { getSykmeldingStartdato } from 'digisyfo-npm';
+import { tidligsteFom } from '../../utils/periodeUtils';
 
 export const lagDato = (dato) => {
     const d = dato.split('.');
@@ -18,14 +18,13 @@ export const erIFortiden = (dato) => {
     return oppgittDato.getTime() < dagensDato.getTime();
 };
 
-export const datoErEtterFøersteSykmeldingsdag = (dato, sykmelding) => {
+export const datoErEtterFøersteSykmeldingsdag = (dato, sykepengesoknad) => {
     const oppgittDato = lagDato(dato);
-    const _foersteSykmeldingsdato = getSykmeldingStartdato(sykmelding);
-    const foersteSykmeldingsdato = new Date();
-    foersteSykmeldingsdato.setDate(_foersteSykmeldingsdato.dayOfMonth);
-    foersteSykmeldingsdato.setMonth(_foersteSykmeldingsdato.monthValue - 1);
-    foersteSykmeldingsdato.setYear(_foersteSykmeldingsdato.year);
-    return oppgittDato.getTime() > foersteSykmeldingsdato.getTime();
+    const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
+        return aktivitet.periode;
+    });
+    const foersteSykmeldingsdato = tidligsteFom(perioder);
+     return oppgittDato.getTime() > foersteSykmeldingsdato.getTime();
 };
 
 export const harMinstEnPeriode = (perioder = []) => {

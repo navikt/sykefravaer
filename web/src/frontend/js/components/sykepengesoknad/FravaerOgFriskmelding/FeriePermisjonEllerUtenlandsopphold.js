@@ -58,7 +58,7 @@ const FeriePermisjonEllerUtenlandsopphold = ({ fields, meta, ledetekster }) => {
 };
 
 FeriePermisjonEllerUtenlandsopphold.propTypes = {
-    fields: PropTypes.object,
+    fields: PropTypes.array,
     meta: PropTypes.object,
     ledetekster: PropTypes.object.isRequired,
 };

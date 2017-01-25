@@ -3,10 +3,10 @@ import Radioknapper from '../skjema/Radioknapper';
 import { Field } from 'redux-form';
 
 export const jaEllerNeiAlternativer = [{
-    value: true,
+    value: 'true',
     label: 'Ja',
 }, {
-    value: false,
+    value: 'false',
     label: 'Nei',
 }];
 

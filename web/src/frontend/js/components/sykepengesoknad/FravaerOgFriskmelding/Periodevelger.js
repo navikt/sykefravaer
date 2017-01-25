@@ -18,33 +18,33 @@ export class Periodevelger extends Component {
         return (<div className="periodevelger">
             <div className={meta && meta.touched && meta.error ? 'blokk' : ''}>
                 <Feilomrade {...meta}>
-                <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
-                <div className="periodevelger__perioder">
-                    {
-                        fields.map((field, index) => {
-                            const fomId = `fom-${namePrefix}-${index}`;
-                            const tomId = `tom-${namePrefix}-${index}`;
-                            return (<div key={index} className="periodevelger__periode">
-                                <div className="periodevelger__fom input--s">
-                                    <label htmlFor={fomId}>{getLedetekst('sykepengesoknad.periodevelger.fom', ledetekster)}</label>
-                                    <Datovelger name={`${namePrefix}[${index}].fom`} id={fomId} />
-                                </div>
-                                <div className="periodevelger__tom input--s">
-                                    <label htmlFor={tomId}>{getLedetekst('sykepengesoknad.periodevelger.tom', ledetekster)}</label>
-                                    <Datovelger name={`${namePrefix}[${index}].tom`} id={tomId} />
-                                </div>
-                                <div className="periodevelger__verktoy">
-                                {
-                                    index > 0 && <a role="button" href="#" onClick={(e) => {
-                                        e.preventDefault();
-                                        fields.remove(index);
-                                    }}>{getLedetekst('sykepengesoknad.periodevelger.slett', ledetekster)}</a>
-                                }
-                                </div>
-                            </div>);
-                        })
-                    }
-                </div>
+                    <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
+                    <div className="periodevelger__perioder">
+                        {
+                            fields.map((field, index) => {
+                                const fomId = `fom-${namePrefix}-${index}`;
+                                const tomId = `tom-${namePrefix}-${index}`;
+                                return (<div key={index} className="periodevelger__periode">
+                                    <div className="periodevelger__fom input--s">
+                                        <label htmlFor={fomId}>{getLedetekst('sykepengesoknad.periodevelger.fom', ledetekster)}</label>
+                                        <Datovelger name={`${namePrefix}[${index}].fom`} id={fomId} />
+                                    </div>
+                                    <div className="periodevelger__tom input--s">
+                                        <label htmlFor={tomId}>{getLedetekst('sykepengesoknad.periodevelger.tom', ledetekster)}</label>
+                                        <Datovelger name={`${namePrefix}[${index}].tom`} id={tomId} />
+                                    </div>
+                                    <div className="periodevelger__verktoy">
+                                    {
+                                        index > 0 && <a role="button" href="#" onClick={(e) => {
+                                            e.preventDefault();
+                                            fields.remove(index);
+                                        }}>{getLedetekst('sykepengesoknad.periodevelger.slett', ledetekster)}</a>
+                                    }
+                                    </div>
+                                </div>);
+                            })
+                        }
+                    </div>
                 </Feilomrade>
             </div>
             <button className="rammeknapp rammeknapp--mini" onClick={(e) => {
@@ -56,7 +56,10 @@ export class Periodevelger extends Component {
 }
 
 Periodevelger.propTypes = {
-    fields: PropTypes.array,
+    fields: PropTypes.oneOfType(
+        React.PropTypes.array,
+        React.PropTypes.object,
+    ),
     namePrefix: PropTypes.string,
     spoersmal: PropTypes.string,
     meta: PropTypes.object,

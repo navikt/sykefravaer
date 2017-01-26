@@ -5,47 +5,62 @@ import history from '../../../history';
 import setup from '../setup';
 import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../JaEllerNei';
 import Datovelger from '../../skjema/Datovelger';
-import Perioder from './Perioder';
+import Aktiviteter from './Aktiviteter';
 import AndreInntektskilder from './AndreInntektskilder';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
+import { toDatePrettyPrint } from 'digisyfo-npm';
+import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
+import * as foerDuBegynner from '../FoerDuBegynner/FoerDuBegynner';
+import * as fravaerOgFriskmelding from '../FravaerOgFriskmelding/FravaerOgFriskmelding';
 
 const UtdanningStartDato = () => {
     return (<div className="blokk">
         <label className="skjema__sporsmal" htmlFor="utdanningStartdato">Når startet du på utdanningen?</label>
-        <Datovelger name="utdanningStartdato" id="utdanningStartdato" />
+        <Datovelger name="utdanning.utdanningStartdato" id="utdanningStartdato" />
     </div>);
 };
 
-const AktiviteterISykmeldingsperioden = ({ handleSubmit, sykmelding }) => {
+const AktiviteterISykmeldingsperioden = (props) => {
+    const { handleSubmit, sykepengesoknad, ledetekster, autofill, untouch } = props;
+    const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
+        return aktivitet.periode;
+    });
     const onSubmit = () => {
-        history.push('/sykepenger/oppsummering');
+        history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
     };
 
     return (<SykepengerSkjema aktivtSteg="2" tittel="Aktiviteter i sykmeldingsperioden">
         <form onSubmit={handleSubmit(onSubmit)}>
-            <FieldArray component={Perioder} fields={sykmelding.mulighetForArbeid.perioder} name="perioder" />
+            <FieldArray
+                component={Aktiviteter}
+                fields={sykepengesoknad.aktiviteter}
+                autofill={autofill}
+                untouch={untouch}
+                name="aktiviteter"
+                ledetekster={ledetekster}
+                arbeidsgiver={sykepengesoknad.arbeidsgiver.navn} />
 
             <JaEllerNei
                 name="harAndreInntektskilder"
-                spoersmal="Har du andre inntektskilder enn SOLSTRÅLEN BARNEHAGE?">
+                spoersmal={`Har du andre inntektskilder enn ${sykepengesoknad.arbeidsgiver.navn}?`}>
                 <AndreInntektskilder />
             </JaEllerNei>
 
             <JaEllerNei
-                name="underUtdanning"
-                spoersmal="Har du vært under utdanning i løpet av perioden 01.01.2017 – 31.01.2017?">
+                name="utdanning.underUtdanning"
+                spoersmal={`Har du vært under utdanning i løpet av perioden ${toDatePrettyPrint(tidligsteFom(perioder))} – ${toDatePrettyPrint(senesteTom(perioder))}?`}>
                 <UtdanningStartDato />
                 <Field
                     component={JaEllerNeiRadioknapper}
-                    name="erUtdanningFulltidsstudium"
+                    name="utdanning.erUtdanningFulltidsstudium"
                     parse={parseJaEllerNei}
                     spoersmal="Er utdanningen et fulltidsstudium?"
                     Overskrift="h4" />
             </JaEllerNei>
 
             <Knapperad variant="knapperad--forrigeNeste">
-                <Link to="/sykepenger/fravaer-og-friskmelding" className="rammeknapp">Tilbake</Link>
+                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} className="rammeknapp">Tilbake</Link>
                 <button type="submit" className="knapp">Gå videre</button>
             </Knapperad>
         </form>
@@ -57,46 +72,61 @@ AktiviteterISykmeldingsperioden.propTypes = {
     sykmelding: PropTypes.object,
 };
 
-const validerPerioder = (values, sykmeldingPerioder) => {
-    const feil = sykmeldingPerioder.map((periode, index) => {
-        const jobbetMerEnnPlanlagt = (!values || !values.perioder || !values.perioder[index] || values.perioder[index].jobbetMerEnnPlanlagt === undefined) ? 'Du må svare på om du har jobbet mer enn planlagt' : undefined;
-        const gjennomsnittPerUke = (() => {
-            const enhetFeil = 'Vennligst oppgi enhet';
+const validerAktiviteter = (values, aktiviteter) => {
+    const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer enn planlagt';
+    const feil = aktiviteter.map((aktivitet, index) => {
+        if (!values.aktiviteter || !values.aktiviteter[index]) {
+            return {
+                jobbetMerEnnPlanlagt: jobbetMerEnnPlanlagtFeil,
+            };
+        } else if (values.aktiviteter[index].jobbetMerEnnPlanlagt === false) {
+            return {};
+        }
+        const jobbetMerEnnPlanlagt = values.aktiviteter[index].jobbetMerEnnPlanlagt === undefined ? undefined : jobbetMerEnnPlanlagtFeil;
+
+        const avvik = (() => {
             const antallFeil = 'Vennligst oppgi antall';
             const normaltAntallFeil = 'Vennligst oppgi normalt antall';
             const res = {};
-            if (!values || !values.perioder || !values.perioder[index]) {
-                res.enhet = enhetFeil;
-                res.antall = antallFeil;
-                if (periode.grad === 100) {
-                    res.normaltAntall = normaltAntallFeil;
-                }
+
+            if (!values || !values.aktiviteter || !values.aktiviteter[index] || !values.aktiviteter[index].avvik) {
+                res.arbeidsgrad = antallFeil
+                res.arbeidstimerNormalUke = normaltAntallFeil;
                 return res;
             }
-            if (!values.perioder[index].gjennomsnittPerUke || !values.perioder[index].gjennomsnittPerUke.antall) {
-                res.antall = antallFeil;
+
+            const avvik = values.aktiviteter[index].avvik
+
+            if (!avvik.arbeidstimerNormalUke) {
+                res.arbeidstimerNormalUke = normaltAntallFeil;
             }
-            if (!values.perioder[index].gjennomsnittPerUke || !values.perioder[index].gjennomsnittPerUke.enhet) {
-                res.enhet = enhetFeil;
+
+            if (!avvik.arbeidsgrad && (avvik.enhet === 'prosent' || !avvik.enhet)) {
+                res.arbeidsgrad = antallFeil;
             }
-            if (periode.grad === 100 && (!values.perioder[index].gjennomsnittPerUke || !values.perioder[index].gjennomsnittPerUke.normaltAntall)) {
-                res.normaltAntall = normaltAntallFeil;
+
+            if (!avvik.timer && avvik.enhet === 'timer') {
+                res.timer = antallFeil;
             }
+
             return res;
         })();
 
-        const f = { gjennomsnittPerUke };
-        if (jobbetMerEnnPlanlagt) {
+        const f = {};
+        if (!values.aktiviteter[index].jobbetMerEnnPlanlagt) {
             f.jobbetMerEnnPlanlagt = jobbetMerEnnPlanlagt;
+        }
+        if (Object.keys(avvik).length > 0) {
+            f.avvik = avvik;
         }
         return f;
     });
 
-    const erSvarFeil = feil.filter((f) => {
-        return f.jobbetMerEnnPlanlagt;
-    }).length > 0;
+    const faktiskeFeil = feil.filter((f) => {
+        return Object.keys(f).length > 0
+    });
 
-    if (erSvarFeil) {
+    if (faktiskeFeil.length > 0) {
         return feil;
     }
     return undefined;
@@ -115,6 +145,10 @@ const getAntallAvkryssedeInntektstkilder = (inntektskilder = []) => {
 export const validate = (values, props) => {
     const sykmelding = props.sykmelding;
     const feilmeldinger = {};
+    if (Object.keys(foerDuBegynner.validate(values, props)).length > 0 || Object.keys(fravaerOgFriskmelding.validate(values, props)).length) {
+        props.sendTilFoerDuBegynner(props.sykepengesoknad);
+    }
+    
     if (values.harAndreInntektskilder === undefined) {
         feilmeldinger.harAndreInntektskilder = 'Du må svare på om du har andre inntektskilder';
     } else if (values.harAndreInntektskilder) {
@@ -134,20 +168,25 @@ export const validate = (values, props) => {
             feilmeldinger.andreInntektskilder = andreInntektskilderFeilmeldinger;
         }
     }
-    if (values.underUtdanning === undefined) {
-        feilmeldinger.underUtdanning = 'Vennligst svar på om du har vært under utdanning';
-    } else if (values.underUtdanning) {
-        if (!values.utdanningStartdato) {
-            feilmeldinger.utdanningStartdato = 'Vennligst oppgi når du startet på utdanningen';
+    const utdanningsfeilmelding = {};
+    if (values.utdanning === undefined || values.utdanning.underUtdanning === undefined) {
+        utdanningsfeilmelding.underUtdanning = 'Vennligst svar på om du har vært under utdanning';
+    } else if (values.utdanning.underUtdanning === true) {
+        if (!values.utdanning.utdanningStartdato) {
+            utdanningsfeilmelding.utdanningStartdato = 'Vennligst oppgi når du startet på utdanningen';
         }
-        if (values.erUtdanningFulltidsstudium === undefined) {
-            feilmeldinger.erUtdanningFulltidsstudium = 'Vennligst svar på om utdanningen er et fulltidsstudium';
+        if (values.utdanning.erUtdanningFulltidsstudium === undefined) {
+            utdanningsfeilmelding.erUtdanningFulltidsstudium = 'Vennligst svar på om utdanningen er et fulltidsstudium';
         }
     }
 
-    const periodeFeil = validerPerioder(values, sykmelding.mulighetForArbeid.perioder);
-    if (periodeFeil) {
-        feilmeldinger.perioder = periodeFeil;
+    if (Object.keys(utdanningsfeilmelding).length > 0) {
+        feilmeldinger.utdanning = utdanningsfeilmelding;
+    }
+
+    const aktivitetFeil = validerAktiviteter(values, props.sykepengesoknad.aktiviteter);
+    if (aktivitetFeil) {
+        feilmeldinger.aktiviteter = aktivitetFeil;
     }
     return feilmeldinger;
 };

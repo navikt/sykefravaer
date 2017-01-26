@@ -56,10 +56,10 @@ export class Periodevelger extends Component {
 }
 
 Periodevelger.propTypes = {
-    fields: PropTypes.oneOfType(
+    fields: PropTypes.oneOfType([
         React.PropTypes.array,
         React.PropTypes.object,
-    ),
+    ]),
     namePrefix: PropTypes.string,
     spoersmal: PropTypes.string,
     meta: PropTypes.object,

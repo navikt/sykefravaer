@@ -19,7 +19,7 @@ const SoktOmSykepenger = ({ ledetekster }) => {
                 jaEllerNeiAlternativer.map((alt, index) => {
                     return (<input {...alt} key={index}>
                         {
-                            alt.value === false && (<div className="presisering">
+                            alt.value === true ? null : (<div className="presisering">
                                 <p className="sist">{getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet', ledetekster)}</p>
                             </div>)
                         }

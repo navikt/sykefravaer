@@ -10,10 +10,10 @@ const Feilomrade = ({ touched, error, children }) => {
 Feilomrade.propTypes = {
     touched: PropTypes.bool,
     error: PropTypes.string,
-    children: PropTypes.oneOfType(
+    children: PropTypes.oneOfType([
         React.PropTypes.array,
         React.PropTypes.object,
-    ),
+    ]),
 };
 
 export default Feilomrade;

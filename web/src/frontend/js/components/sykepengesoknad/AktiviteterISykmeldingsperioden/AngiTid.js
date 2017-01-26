@@ -1,12 +1,28 @@
 import React, { PropTypes, Component } from 'react';
 import { Field } from 'redux-form';
 import Radioknapper from '../../skjema/Radioknapper';
-import Tallvelger from '../../skjema/Tallvelger';
+import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
 import { lagDesimaltall } from '../../../utils';
 
 class AngiTid extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            valgtEnhet: 'prosent'
+        };
+    }
+
+    componentDidMount() {
+        this.setEnhet('prosent');
+    }
+
+    setEnhet(enhet) {
+        const { autofill } = this.props;
+        autofill(this.getEnhetName(), enhet);
+    }
+
     getValgtEnhet() {
-        return this.props.perioder[this.props.periodeIndex].gjennomsnittPerUke.enhet.input.value;
+        return this.state.valgtEnhet;
     }
 
     getEnhetLabel() {
@@ -17,16 +33,23 @@ class AngiTid extends Component {
         return 'Hvor mange timer jobber du normalt per uke?';
     }
 
-    visFaktiskAntall() {
-        return this.getValgtEnhet() !== '';
+    getAntallName() {
+        if (this.getValgtEnhet() === 'prosent') {
+            return this.props.names[0];
+        }
+        return this.props.names[1];
     }
 
-    visNormaltAntall() {
-        return this.visFaktiskAntall() && this.props.perioder[this.props.periodeIndex].gjennomsnittPerUke.normaltAntall;
+    getEnhetName() {
+        return this.props.names[3];
+    }
+
+    getAntallId() {
+        return `angiTid-${this.props.aktivitetIndex}`;
     }
 
     render() {
-        const { input } = this.props;
+        const { input, autofill, untouch } = this.props;
         const enheter = [{
             value: 'prosent',
             label: 'i prosent',
@@ -36,25 +59,46 @@ class AngiTid extends Component {
         }];
 
         return (<div>
-                <Field component={Radioknapper} name={this.props.names[0]} horisontal>
-                    {enheter.map((enhet, index) => {
-                        return <input {...enhet} key={index} />;
-                    })}
-                </Field>
-                {this.visFaktiskAntall() && <div className={this.visNormaltAntall() ? 'blokk' : ''}>
-                    <Field id={`angiTid--${this.props.periodeIndex}`} component={Tallvelger} parse={lagDesimaltall} label={this.getEnhetLabel()} name={this.props.names[1]} />
-                </div> }
-                {this.visNormaltAntall() && <div className="skjema__input">
-                    <label htmlFor={`periode-${this.props.periodeIndex}-normal`} className="skjema__sporsmal">{this.getNormalSporsmal()}</label>
-                    <Field name={this.props.names[2]} id={`periode-${this.props.periodeIndex}-normal`} component={Tallvelger} parse={lagDesimaltall} label="timer per uke" />
-                </div>}
+            <div className="inputgruppe inputgruppe--horisontal">
+                {
+                    enheter.map((enhet, index) => {
+                        const name = `enhet_${this.props.aktivitetIndex}`;
+                        const id = `${name}_${index}`;
+                        return (<div className="skjema__input" key={index}>
+                            <input
+                                onChange={() => {
+                                    autofill(this.getAntallName(), null);
+                                    untouch(this.getAntallName());
+                                    this.setState({
+                                        valgtEnhet: enhet.value,
+                                    });
+                                    this.setEnhet(enhet.value);
+                                }}
+                                type="radio"
+                                className="radioknapp"
+                                value={enhet.value}
+                                name={name}
+                                id={id}
+                                checked={enhet.value === this.state.valgtEnhet}
+                                aria-controls={this.getAntallId()} />
+                            <label htmlFor={id}>{enhet.label}</label>
+                        </div>)
+                    })
+                }
+            </div>
+            <div className="blokk">
+                <Field id={this.getAntallId()} component={TekstfeltMedEnhet} parse={lagDesimaltall} label={this.getEnhetLabel()} name={this.getAntallName()} />
+            </div>
+            <div className="skjema__input">
+                <label htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`} className="skjema__sporsmal">{this.getNormalSporsmal()}</label>
+                <Field name={this.props.names[2]} id={`aktivitet-${this.props.aktivitetIndex}-normal`} component={TekstfeltMedEnhet} parse={lagDesimaltall} label="timer per uke" />
+            </div>
         </div>);
     }
 }
 
 AngiTid.propTypes = {
-    perioder: PropTypes.array,
-    periodeIndex: PropTypes.number,
+    aktivitetIndex: PropTypes.number,
     input: PropTypes.object,
     names: PropTypes.array,
 };

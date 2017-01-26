@@ -1,10 +1,8 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { history } from '../../history';
+import history from '../../history';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
-    console.log("olsen")
-
     // history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
 };
 

@@ -3,10 +3,10 @@ import Radioknapper from '../skjema/Radioknapper';
 import { Field } from 'redux-form';
 
 export const jaEllerNeiAlternativer = [{
-    value: 'true',
+    value: true,
     label: 'Ja',
 }, {
-    value: 'false',
+    value: false,
     label: 'Nei',
 }];
 
@@ -43,7 +43,10 @@ const JaEllerNei = (props) => {
 JaEllerNei.propTypes = {
     intro: PropTypes.string,
     input: PropTypes.object,
-    children: PropTypes.object,
+    children: PropTypes.oneOfType([
+        React.PropTypes.array,
+        React.PropTypes.object,
+    ]),
 };
 
 export const parseJaEllerNei = (value) => {

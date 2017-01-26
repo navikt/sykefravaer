@@ -16,10 +16,10 @@ Checkbox.propTypes = {
     input: PropTypes.object,
     label: PropTypes.string,
     id: PropTypes.string,
-    children: PropTypes.oneOfType(
+    children: PropTypes.oneOfType([
         React.PropTypes.array,
         React.PropTypes.object,
-    ),
+    ]),
 };
 
 export default Checkbox;

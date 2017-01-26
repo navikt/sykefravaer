@@ -21,7 +21,7 @@ const AndreInntektskilder = ({ fields, meta }) => {
             fields.map((field, index) => {
                 return (<Field label={inntektskildeLabels[field]} id={`inntektskilde-${index}`} name={`andreInntektskilder.${field}].avkrysset`} key={index} component={Checkbox}>
                     {
-                        field !== 'annet' && <Field
+                        field === 'annet' ? null : <Field
                             component={JaEllerNeiRadioknapper}
                             spoersmal="Er du sykmeldt fra dette?"
                             parse={parseJaEllerNei}

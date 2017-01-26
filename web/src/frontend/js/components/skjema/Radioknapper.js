@@ -25,16 +25,14 @@ Radioknapp.propTypes = {
 };
 
 const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children, horisontal = false }) => {
-    return (<Feilomrade {...meta}>
-        <div>
-            <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
-            <div className={horisontal ? 'inputgruppe inputgruppe--horisontal' : 'inputgruppe'}>
-                {
-                    children.map((radioknapp, index) => {
-                        return <Radioknapp key={index} input={input} id={`${input.name}-${index}`} {...radioknapp.props} />;
-                    })
-                }
-            </div>
+    return (<Feilomrade {...meta}>  
+        <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
+        <div className={horisontal ? 'inputgruppe inputgruppe--horisontal' : 'inputgruppe'}>
+            {
+                children.map((radioknapp, index) => {
+                    return <Radioknapp key={index} input={input} id={`${input.name}-${index}`} {...radioknapp.props} />;
+                })
+            }
         </div>
     </Feilomrade>);
 };

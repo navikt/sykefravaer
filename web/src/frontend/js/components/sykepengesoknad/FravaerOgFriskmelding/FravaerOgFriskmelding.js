@@ -8,6 +8,7 @@ import GjenopptattArbeidFulltUt from './GjenopptattArbeidFulltUt';
 import FeriePermisjonEllerUtenlandsopphold from './FeriePermisjonEllerUtenlandsopphold';
 import * as valideringUtils from '../valideringUtils';
 import Knapperad from '../../skjema/Knapperad';
+import * as foerDuBegynner from '../FoerDuBegynner/FoerDuBegynner';
 
 const FravaerOgFriskmelding = ({ handleSubmit, sykepengesoknad, ledetekster }) => {
     const onSubmit = () => {
@@ -38,6 +39,10 @@ FravaerOgFriskmelding.propTypes = {
 
 export const validate = (values, props) => {
     const feilmeldinger = {};
+
+    if (Object.keys(foerDuBegynner.validate(values)).length !== 0) {
+        props.sendTilFoerDuBegynner(props.sykepengesoknad);
+    }
 
     if (values.bruktEgenmeldingsdagerFoerLegemeldtFravaer === undefined) {
         feilmeldinger.bruktEgenmeldingsdagerFoerLegemeldtFravaer = 'Du må svare om du brukte egenmeldingsdager før det legemeldte fraværet startet';

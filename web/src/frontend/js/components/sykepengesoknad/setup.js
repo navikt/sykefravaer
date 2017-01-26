@@ -1,5 +1,12 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { history } from '../../history';
+
+const sendTilFoerDuBegynner = (sykepengesoknad) => {
+    console.log("olsen")
+
+    // history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
+};
 
 const setup = (validate, Component, initialValues) => {
     const form = reduxForm({
@@ -7,6 +14,7 @@ const setup = (validate, Component, initialValues) => {
         validate,
         destroyOnUnmount: false,
         forceUnregisterOnUnmount: true,
+        sendTilFoerDuBegynner,
     })(Component);
     if (initialValues) {
         return connect(() => {

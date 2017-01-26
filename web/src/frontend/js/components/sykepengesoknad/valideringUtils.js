@@ -1,3 +1,4 @@
+import { history } from '../../history';
 import { tidligsteFom } from '../../utils/periodeUtils';
 
 export const lagDato = (dato) => {

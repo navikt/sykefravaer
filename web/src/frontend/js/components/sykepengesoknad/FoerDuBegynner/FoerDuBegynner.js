@@ -4,7 +4,8 @@ import SykepengerSkjema from '../SykepengerSkjema';
 import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';
 
-const FoerDuBegynner = ({ handleSubmit, sykepengesoknad }) => {
+const FoerDuBegynner = (props) => {
+    const { handleSubmit, sykepengesoknad } = props;
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`);
     };
@@ -25,7 +26,7 @@ const FoerDuBegynner = ({ handleSubmit, sykepengesoknad }) => {
 
 FoerDuBegynner.propTypes = {
     handleSubmit: PropTypes.func,
-    sykepengesoknad: PropTypes.func,
+    sykepengesoknad: PropTypes.object,
 };
 
 export const validate = (values) => {

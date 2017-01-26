@@ -23,7 +23,7 @@ const Stegindikator = ({ aktivtSteg }) => {
                     {
                         (() => {
                             if (erPassert) {
-                                return <img src="/img/sykepenger/stegindikator__hake.svg" alt="Hake" />;
+                                return <img src={`${window.APP_SETTINGS.APP_ROOT}/img/nav-frontend-grafikk/grafikk/stegindikator__hake.svg`} alt="Hake" />;
                             }
                             return s;
                         })()
@@ -59,7 +59,7 @@ const SykepengerSkjema = ({ children, aktivtSteg, tittel, visBekreftelse = false
 
 SykepengerSkjema.propTypes = {
     children: PropTypes.element.isRequired,
-    aktivtSteg: PropTypes.string.isRequired,
+    aktivtSteg: PropTypes.string,
     tittel: PropTypes.string,
     visBekreftelse: PropTypes.bool,
     apentUtdrag: PropTypes.bool,

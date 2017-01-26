@@ -15,7 +15,10 @@ export const Radioknapp = ({ input, value, children, id, label }) => {
 
 Radioknapp.propTypes = {
     input: PropTypes.object,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.bool,
+    ]),
     children: PropTypes.object,
     id: PropTypes.string,
     label: PropTypes.string,

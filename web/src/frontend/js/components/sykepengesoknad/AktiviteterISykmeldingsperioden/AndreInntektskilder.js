@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Field, FieldArray } from 'redux-form';
 import Checkbox from '../../skjema/Checkbox';
-import { JaEllerNeiRadioknapper, parseJaEllerNei } from '../JaEllerNei';
+import { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
 import Feilomrade from '../../skjema/Feilomrade';
+import Radioknapper from '../../skjema/Radioknapper';
 
 const ANDRE_ARBEIDSFORHOLD = 'ANDRE_ARBEIDSFORHOLD';
 const SELVSTENDIG_NAERINGSDRIVENDE = 'SELVSTENDIG_NAERINGSDRIVENDE';
@@ -28,10 +29,17 @@ const AndreInntektskilder = ({ fields, meta }) => {
                 return (<Field label={inntektskildeLabels[field]} id={`inntektskilde-${index}`} name={`andreInntektskilder.${field}].avkrysset`} key={index} component={Checkbox}>
                     {
                         field === ANNET ? null : <Field
-                            component={JaEllerNeiRadioknapper}
+                            component={Radioknapper}
                             spoersmal="Er du sykmeldt fra dette?"
                             parse={parseJaEllerNei}
-                            name={`andreInntektskilder.${field}.sykmeldt`} />
+                            name={`andreInntektskilder.${field}.sykmeldt`}>
+                                <input label="Ja" value={true}>
+                                    <div className="presisering blokk">
+                                        <p className="sist">Legen må sende inn én sykmelding for hvert arbeidsforhold du er sykmeldt fra. Du kan altså ikke bruke samme sykmelding overfor flere arbeidsgivere. Det betyr også at du må sende en egen søknad om sykepenger for hver av sykmeldingene.</p>
+                                    </div>
+                                </input>
+                                <input label="Nei" value={false} />
+                            </Field>
                     }
                 </Field>);
             })

@@ -11,13 +11,13 @@ import history from '../../../history';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
 
-export const Oppsummering = ({ sykepengesoknad, handleSubmit }) => {
+export const Oppsummering = ({ sykepengesoknad, handleSubmit, ledetekster }) => {
     const label = 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte';
     const onSubmit = () => {
         alert('Send søknad, takk.');
     };
 
-    return (<SykepengerSkjema aktivtSteg="3">
+    return (<SykepengerSkjema aktivtSteg="3" sykepengesoknad={sykepengesoknad} ledetekster={ledetekster}>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="blokk">
                 <Utvidbar tittel="Oppsummering" Overskrift="h2">

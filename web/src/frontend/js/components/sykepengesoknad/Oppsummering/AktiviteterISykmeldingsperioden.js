@@ -129,7 +129,7 @@ Utdanning.propTypes = {
 export const Aktiviteter = ({ sykepengesoknad, ledetekster }) => {
     return (<div>
         {sykepengesoknad.aktiviteter.map((aktivitet, index) => {
-            return <Aktivitet aktivitet={aktivitet} index={index} ledetekster={ledetekster} />
+            return <Aktivitet aktivitet={aktivitet} index={index} ledetekster={ledetekster} />;
         })}
     </div>);
 };

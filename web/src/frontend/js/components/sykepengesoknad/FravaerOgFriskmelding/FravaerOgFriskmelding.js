@@ -15,7 +15,7 @@ const FravaerOgFriskmelding = ({ handleSubmit, sykepengesoknad, ledetekster }) =
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`);
     };
 
-    return (<SykepengerSkjema aktivtSteg="1" tittel="Fravær og friskmelding">
+    return (<SykepengerSkjema aktivtSteg="1" tittel="Fravær og friskmelding" ledetekster={ledetekster} sykepengesoknad={sykepengesoknad}>
         <form onSubmit={handleSubmit(onSubmit)}>
             <Egenmeldingsdager sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
             <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />

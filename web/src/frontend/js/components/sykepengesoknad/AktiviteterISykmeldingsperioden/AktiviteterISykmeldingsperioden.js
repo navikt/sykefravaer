@@ -30,7 +30,7 @@ const AktiviteterISykmeldingsperioden = (props) => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
     };
 
-    return (<SykepengerSkjema aktivtSteg="2" tittel="Aktiviteter i sykmeldingsperioden">
+    return (<SykepengerSkjema aktivtSteg="2" tittel="Aktiviteter i sykmeldingsperioden" ledetekster={ledetekster} sykepengesoknad={sykepengesoknad}>
         <form onSubmit={handleSubmit(onSubmit)}>
             <FieldArray
                 component={Aktiviteter}

@@ -11,10 +11,10 @@ import history from '../../../history';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
 
-export const Oppsummering = ({ soknad, sykmelding, handleSubmit }) => {
+export const Oppsummering = ({ sykepengesoknad, handleSubmit }) => {
     const label = 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte';
     const onSubmit = () => {
-        history.replace('/sykepenger/kvittering');
+        alert('Send søknad, takk.');
     };
 
     return (<SykepengerSkjema aktivtSteg="3">
@@ -25,8 +25,8 @@ export const Oppsummering = ({ soknad, sykmelding, handleSubmit }) => {
                         <div className="oppsummering__bolk">
                             <Avkrysset tekst="Jeg er klar over at dersom jeg gir uriktige opplysninger eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar." />
                         </div>
-                        <FravaerOgFriskmelding soknad={soknad} />
-                        <AktiviteterISykmeldingsperioden soknad={soknad} sykmelding={sykmelding} />
+                        <FravaerOgFriskmelding sykepengesoknad={sykepengesoknad} />
+                        <AktiviteterISykmeldingsperioden sykepengesoknad={sykepengesoknad} />
                     </div>
                 </Utvidbar>
           </div>
@@ -40,7 +40,7 @@ export const Oppsummering = ({ soknad, sykmelding, handleSubmit }) => {
           </div>
           <Field component={CheckboxSelvstendig} name="informasjonLestOgBekreftetKorrekt" id="informasjonLestOgBekreftetKorrekt" label={label} />
           <Knapperad variant="knapperad--forrigeNeste">
-              <Link to="/sykepenger/aktiviteter-i-sykmeldingsperioden" className="rammeknapp rammeknapp--forrige">Tilbake</Link>
+              <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`} className="rammeknapp rammeknapp--forrige">Tilbake</Link>
               <button className="knapp">Send søknad</button>
           </Knapperad>
       </form>
@@ -48,8 +48,7 @@ export const Oppsummering = ({ soknad, sykmelding, handleSubmit }) => {
 };
 
 Oppsummering.propTypes = {
-    soknad: PropTypes.object,
-    sykmelding: PropTypes.object,
+    sykepengesoknad: PropTypes.object,
     handleSubmit: PropTypes.func,
 };
 

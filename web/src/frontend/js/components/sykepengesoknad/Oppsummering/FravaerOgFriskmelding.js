@@ -1,13 +1,14 @@
 import React, { PropTypes } from 'react';
 import { Avkrysset } from './opplysninger';
+import { toDatePrettyPrint } from 'digisyfo-npm';
 
 export const Perioder = ({ perioder }) => {
-    return (<ul className="oppsummering__perioder">
+    return (<ul className="oppsummering__perioder js-perioder">
     {
         perioder.map((periode, index) => {
             return (<li key={index}>
-                <span className="oppsummering__fom">Fra {periode.fom} </span>
-                <span className="oppsummering__tom">Til {periode.tom}</span>
+                <span className="oppsummering__fom">Fra {toDatePrettyPrint(periode.fom)} </span>
+                <span className="oppsummering__tom">Til {toDatePrettyPrint(periode.tom)}</span>
             </li>);
         })
     }
@@ -18,101 +19,103 @@ Perioder.propTypes = {
     perioder: PropTypes.array,
 };
 
-const Egenmeldingsdager = ({ soknad }) => {
+const Egenmeldingsdager = ({ sykepengesoknad }) => {
     return (<div className="js-egenmeldingsdager oppsummering__bolk">
-        <h3 className="oppsummering__sporsmal">Brukte du egenmeldingsdager før du ble sykmeldt den 01.12.2016?</h3>
-        <Avkrysset tekst={soknad.bruktEgenmeldingsdagerFoerLegemeldtFravaer ? 'Ja' : 'Nei'} />
-        {soknad.bruktEgenmeldingsdagerFoerLegemeldtFravaer && <Perioder perioder={soknad.egenmeldingsperioder} /> }
+        <h3 className="oppsummering__sporsmal">Brukte du egenmeldingsdager før du ble sykmeldt den {toDatePrettyPrint(sykepengesoknad.identdato)}?</h3>
+        <Avkrysset tekst={sykepengesoknad.egenmeldingsperioder.length > 0 ? 'Ja' : 'Nei'} />
+        {sykepengesoknad.egenmeldingsperioder.length > 0 && <Perioder perioder={sykepengesoknad.egenmeldingsperioder} /> }
     </div>);
 };
 
 Egenmeldingsdager.propTypes = {
-    soknad: PropTypes.object,
+    sykepengesoknad: PropTypes.object,
 };
 
-const GjenopptattArbeidFulltUt = ({ soknad }) => {
+const GjenopptattArbeidFulltUt = ({ sykepengesoknad }) => {
     return (<div className="js-gjenopptattArbeid oppsummering__bolk">
         <h3 className="oppsummering__sporsmal">Har du gjenopptatt arbeidet ditt hos SOLSTRÅLEN BARNEHAGE fullt ut?</h3>
-        <Avkrysset tekst={soknad.harGjenopptattArbeidFulltUt ? 'Ja' : 'Nei'} />
-        {soknad.harGjenopptattArbeidFulltUt && <p className="oppsummering__dato">Den {soknad.gjenopptattArbeidFulltUtDato}</p>}
+        <Avkrysset tekst={sykepengesoknad.gjenopptattArbeidFulltUtDato ? 'Ja' : 'Nei'} />
+        {sykepengesoknad.gjenopptattArbeidFulltUtDato && <p className="oppsummering__dato">Den {toDatePrettyPrint(sykepengesoknad.gjenopptattArbeidFulltUtDato)}</p>}
     </div>);
 };
 
 GjenopptattArbeidFulltUt.propTypes = {
-    soknad: PropTypes.object,
+    sykepengesoknad: PropTypes.object,
 };
 
-const Ferie = ({ soknad }) => {
+const Ferie = ({ perioder }) => {
     return (<div className="js-ferie">
         <Avkrysset tekst="tatt ut ferie" />
-        <Perioder perioder={soknad.ferie.perioder} />
+        <Perioder perioder={perioder} />
     </div>);
 };
 
 Ferie.propTypes = {
-    soknad: PropTypes.object,
+    perioder: PropTypes.array,
 };
 
-const Permisjon = ({ soknad }) => {
+const Permisjon = ({ perioder }) => {
     return (<div className="js-permisjon blokk">
         <Avkrysset tekst="hatt permisjon" />
-        <Perioder perioder={soknad.permisjon.perioder} />
+        <Perioder perioder={perioder} />
     </div>);
 };
 
 Permisjon.propTypes = {
-    soknad: PropTypes.object,
+    perioder: PropTypes.array,
 };
 
-const Utenlandsopphold = ({ soknad }) => {
+const Utenlandsopphold = ({ perioder, utenlandsoppholdSoktOmSykepenger }) => {
     return (<div className="js-utenlandsopphold">
         <Avkrysset tekst="oppholdt meg utenfor Norge" />
-        <Perioder perioder={soknad.utenlandsopphold.perioder} />
+        <Perioder perioder={perioder} />
         <div className="js-utenlandsoppholdSoktOmSykepenger oppsummering__tilleggssvar">
             <h5 className="oppsummering__sporsmal">Har du søkt om å beholde sykepenger under dette oppholdet utenfor Norge?</h5>
-            <Avkrysset tekst={soknad.utenlandsoppholdSoktOmSykepenger ? 'Ja' : 'Nei'} />
+            <Avkrysset tekst={utenlandsoppholdSoktOmSykepenger ? 'Ja' : 'Nei'} />
         </div>
     </div>);
 };
 
 Utenlandsopphold.propTypes = {
-    soknad: PropTypes.object,
+    utenlandsoppholdSoktOmSykepenger: PropTypes.bool,
+    perioder: PropTypes.array,
 };
 
-const FeriePermisjonEllerUtenlandsopphold = ({ soknad }) => {
+const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad }) => {
+    const harHattFeriePermisjonEllerUtenlandsopphold = sykepengesoknad.ferie.length > 0 || sykepengesoknad.permisjon.length > 0 || sykepengesoknad.utenlandsopphold.length > 0;
     return (<div className="js-feriePermisjonUtenlandsopphold oppsummering__bolk">
         <h3 className="oppsummering__sporsmal">Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 - 31.01.2017?</h3>
-        <Avkrysset tekst={soknad.harHattFeriePermisjonEllerUtenlandsopphold ? 'Ja' : 'Nei'} />
+        <Avkrysset tekst={harHattFeriePermisjonEllerUtenlandsopphold ? 'Ja' : 'Nei'} />
         {
-            soknad.harHattFeriePermisjonEllerUtenlandsopphold && <h4 className="oppsummering__sporsmal">Jeg har ...</h4>
+            harHattFeriePermisjonEllerUtenlandsopphold && <h4 className="oppsummering__sporsmal">Jeg har ...</h4>
         }
         {
-            soknad.harHattFeriePermisjonEllerUtenlandsopphold && soknad.ferie && soknad.ferie.avkrysset && <Ferie soknad={soknad} />
+            sykepengesoknad.ferie && sykepengesoknad.ferie.length > 0 && <Ferie perioder={sykepengesoknad.ferie} />
         }
         {
-            soknad.harHattFeriePermisjonEllerUtenlandsopphold && soknad.permisjon && soknad.permisjon.avkrysset && <Permisjon soknad={soknad} />
+            sykepengesoknad.permisjon && sykepengesoknad.permisjon.length > 0 && <Permisjon perioder={sykepengesoknad.permisjon} />
         }
         {
-            soknad.harHattFeriePermisjonEllerUtenlandsopphold && soknad.utenlandsopphold && soknad.utenlandsopphold.avkrysset && <Utenlandsopphold soknad={soknad} />
+            sykepengesoknad.utenlandsopphold && sykepengesoknad.utenlandsopphold.length > 0 && <Utenlandsopphold perioder={sykepengesoknad.utenlandsopphold} utenlandsoppholdSoktOmSykepenger={sykepengesoknad.utenlandsoppholdSoktOmSykepenger} />
         }
 
     </div>);
 };
 
 FeriePermisjonEllerUtenlandsopphold.propTypes = {
-    soknad: PropTypes.object,
+    sykepengesoknad: PropTypes.object,
 };
 
-const FravaerOgFriskmelding = ({ soknad }) => {
+const FravaerOgFriskmelding = ({ sykepengesoknad }) => {
     return (<div>
-        <Egenmeldingsdager soknad={soknad} />
-        <GjenopptattArbeidFulltUt soknad={soknad} />
-        <FeriePermisjonEllerUtenlandsopphold soknad={soknad} />
+        <Egenmeldingsdager sykepengesoknad={sykepengesoknad} />
+        <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
+        <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />
     </div>);
 };
 
 FravaerOgFriskmelding.propTypes = {
-    soknad: PropTypes.object,
+    sykepengesoknad: PropTypes.object,
 };
 
 export default FravaerOgFriskmelding;

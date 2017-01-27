@@ -3,10 +3,22 @@ import { reduxForm } from 'redux-form';
 import history from '../../history';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
+    console.log('SEND TIL SIDE 1!');
     // history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
 };
 
-const setup = (validate, Component, initialValues) => {
+const mapToInitialValues = (soknad) => {
+    return Object.assign({}, soknad, {
+        aktiviteter: soknad.aktiviteter.map((aktivitet) => {
+            return Object.assign({}, aktivitet, {
+                avvik: {},
+            });
+        }),
+        utdanning: {},
+    });
+};
+
+const setup = (validate, Component, initialize = false) => {
     const form = reduxForm({
         form: 'sykepengerSkjema',
         validate,
@@ -14,10 +26,10 @@ const setup = (validate, Component, initialValues) => {
         forceUnregisterOnUnmount: true,
         sendTilFoerDuBegynner,
     })(Component);
-    if (initialValues) {
-        return connect(() => {
+    if (initialize) {
+        return connect((state, ownProps) => {
             return {
-                initialValues,
+                initialValues: mapToInitialValues(ownProps.sykepengesoknad),
             };
         })(form);
     }

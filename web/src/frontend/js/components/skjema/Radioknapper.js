@@ -25,7 +25,7 @@ Radioknapp.propTypes = {
 };
 
 const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children, horisontal = false }) => {
-    return (<Feilomrade {...meta}>  
+    return (<Feilomrade {...meta}>
         <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
         <div className={horisontal ? 'inputgruppe inputgruppe--horisontal' : 'inputgruppe'}>
             {

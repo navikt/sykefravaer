@@ -48,7 +48,7 @@ const AktiviteterISykmeldingsperioden = (props) => {
             </JaEllerNei>
 
             <JaEllerNei
-                name="utdanning.underUtdanning"
+                name="utdanning.underUtdanningISykmeldingsperioden"
                 spoersmal={`Har du vært under utdanning i løpet av perioden ${toDatePrettyPrint(tidligsteFom(perioder))} – ${toDatePrettyPrint(senesteTom(perioder))}?`}>
                 <UtdanningStartDato />
                 <Field
@@ -69,7 +69,10 @@ const AktiviteterISykmeldingsperioden = (props) => {
 
 AktiviteterISykmeldingsperioden.propTypes = {
     handleSubmit: PropTypes.func,
-    sykmelding: PropTypes.object,
+    sykepengesoknad: PropTypes.object,
+    ledetekster: PropTypes.object,
+    autofill: PropTypes.func,
+    untouch: PropTypes.func,
 };
 
 const validerAktiviteter = (values, aktiviteter) => {
@@ -90,22 +93,22 @@ const validerAktiviteter = (values, aktiviteter) => {
             const res = {};
 
             if (!values || !values.aktiviteter || !values.aktiviteter[index] || !values.aktiviteter[index].avvik) {
-                res.arbeidsgrad = antallFeil
+                res.arbeidsgrad = antallFeil;
                 res.arbeidstimerNormalUke = normaltAntallFeil;
                 return res;
             }
 
-            const avvik = values.aktiviteter[index].avvik
+            const avvikValues = values.aktiviteter[index].avvik;
 
-            if (!avvik.arbeidstimerNormalUke) {
+            if (!avvikValues.arbeidstimerNormalUke) {
                 res.arbeidstimerNormalUke = normaltAntallFeil;
             }
 
-            if (!avvik.arbeidsgrad && (avvik.enhet === 'prosent' || !avvik.enhet)) {
+            if (!avvikValues.arbeidsgrad && (avvikValues.enhet === 'prosent' || !avvikValues.enhet)) {
                 res.arbeidsgrad = antallFeil;
             }
 
-            if (!avvik.timer && avvik.enhet === 'timer') {
+            if (!avvikValues.timer && avvikValues.enhet === 'timer') {
                 res.timer = antallFeil;
             }
 
@@ -123,7 +126,7 @@ const validerAktiviteter = (values, aktiviteter) => {
     });
 
     const faktiskeFeil = feil.filter((f) => {
-        return Object.keys(f).length > 0
+        return Object.keys(f).length > 0;
     });
 
     if (faktiskeFeil.length > 0) {
@@ -143,12 +146,11 @@ const getAntallAvkryssedeInntektstkilder = (inntektskilder = []) => {
 };
 
 export const validate = (values, props) => {
-    const sykmelding = props.sykmelding;
     const feilmeldinger = {};
     if (Object.keys(foerDuBegynner.validate(values, props)).length > 0 || Object.keys(fravaerOgFriskmelding.validate(values, props)).length) {
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
-    
+
     if (values.harAndreInntektskilder === undefined) {
         feilmeldinger.harAndreInntektskilder = 'Du må svare på om du har andre inntektskilder';
     } else if (values.harAndreInntektskilder) {
@@ -169,9 +171,9 @@ export const validate = (values, props) => {
         }
     }
     const utdanningsfeilmelding = {};
-    if (values.utdanning === undefined || values.utdanning.underUtdanning === undefined) {
-        utdanningsfeilmelding.underUtdanning = 'Vennligst svar på om du har vært under utdanning';
-    } else if (values.utdanning.underUtdanning === true) {
+    if (values.utdanning === undefined || values.utdanning.underUtdanningISykmeldingsperioden === undefined) {
+        utdanningsfeilmelding.underUtdanningISykmeldingsperioden = 'Vennligst svar på om du har vært under utdanning';
+    } else if (values.utdanning.underUtdanningISykmeldingsperioden === true) {
         if (!values.utdanning.utdanningStartdato) {
             utdanningsfeilmelding.utdanningStartdato = 'Vennligst oppgi når du startet på utdanningen';
         }

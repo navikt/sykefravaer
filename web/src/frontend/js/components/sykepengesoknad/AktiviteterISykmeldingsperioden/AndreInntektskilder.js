@@ -4,14 +4,20 @@ import Checkbox from '../../skjema/Checkbox';
 import { JaEllerNeiRadioknapper, parseJaEllerNei } from '../JaEllerNei';
 import Feilomrade from '../../skjema/Feilomrade';
 
-export const inntektskildeLabels = {
-    andreArbeidsforhold: 'Andre arbeidsforhold',
-    selvstendigNaeringsdrivende: 'Selvstendig næringsdrivende',
-    selvstendigNaeringsdrivendeDagmamma: 'Selvstendig næringsdrivende dagmamma',
-    jordbrukerFiskerReindriftsutoever: 'Jordbruker / Fisker / Reindriftsutøver',
-    frilanser: 'Frilanser',
-    annet: 'Annet',
-};
+const ANDRE_ARBEIDSFORHOLD = 'ANDRE_ARBEIDSFORHOLD';
+const SELVSTENDIG_NAERINGSDRIVENDE = 'SELVSTENDIG_NAERINGSDRIVENDE';
+const SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA = 'SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA';
+const JORDBRUKER_FISKER_REINDRIFTSUTOEVER = 'JORDBRUKER_FISKER_REINDRIFTSUTOEVER';
+const FRILANSER = 'FRILANSER';
+const ANNET = 'ANNET';
+
+export const inntektskildeLabels = {};
+inntektskildeLabels[ANDRE_ARBEIDSFORHOLD] = 'Andre arbeidsforhold';
+inntektskildeLabels[SELVSTENDIG_NAERINGSDRIVENDE] = 'Selvstendig næringsdrivende';
+inntektskildeLabels[SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA] = 'Selvstendig næringsdrivende dagmamma';
+inntektskildeLabels[JORDBRUKER_FISKER_REINDRIFTSUTOEVER] = 'Jordbruker / Fisker / Reindriftsutøver';
+inntektskildeLabels[FRILANSER] = 'Frilanser';
+inntektskildeLabels[ANNET] = 'Annet';
 
 const AndreInntektskilder = ({ fields, meta }) => {
     return (<Feilomrade {...meta}>
@@ -21,7 +27,7 @@ const AndreInntektskilder = ({ fields, meta }) => {
             fields.map((field, index) => {
                 return (<Field label={inntektskildeLabels[field]} id={`inntektskilde-${index}`} name={`andreInntektskilder.${field}].avkrysset`} key={index} component={Checkbox}>
                     {
-                        field === 'annet' ? null : <Field
+                        field === ANNET ? null : <Field
                             component={JaEllerNeiRadioknapper}
                             spoersmal="Er du sykmeldt fra dette?"
                             parse={parseJaEllerNei}
@@ -39,15 +45,15 @@ AndreInntektskilder.propTypes = {
 };
 
 const AndreInntektskilderComponent = () => {
-    const inntektskildetyper = [
-        'andreArbeidsforhold',
-        'selvstendigNaeringsdrivende',
-        'selvstendigNaeringsdrivendeDagmamma',
-        'jordbrukerFiskerReindriftsutoever',
-        'frilanser',
-        'annet',
+    const fields = [
+        ANDRE_ARBEIDSFORHOLD,
+        SELVSTENDIG_NAERINGSDRIVENDE,
+        SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA,
+        JORDBRUKER_FISKER_REINDRIFTSUTOEVER,
+        FRILANSER,
+        ANNET,
     ];
-    return <FieldArray component={AndreInntektskilder} fields={inntektskildetyper} name="andreInntektskilder" />;
+    return <FieldArray component={AndreInntektskilder} fields={fields} name="andreInntektskilder" />;
 };
 
 export default AndreInntektskilderComponent;

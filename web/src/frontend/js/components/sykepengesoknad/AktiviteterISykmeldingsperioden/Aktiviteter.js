@@ -10,9 +10,9 @@ const _ledetekster = {
     'sykepengesoknad.aktiviteter.gradert.sporsmal': 'Har du jobbet mer enn dette?',
     'sykepengesoknad.aktiviteter.ugradert.intro': 'I perioden %FOM% til perioden %TOM% skulle du ikke jobbe hos %ARBEIDSGIVER%.',
     'sykepengesoknad.aktiviteter.ugradert.sporsmal': 'Har du jobbet?',
-}
+};
 
-const Akvivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
+const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
     const ledetekstPrefix = field.grad === 100 ? 'sykepengesoknad.aktiviteter.ugradert' : 'sykepengesoknad.aktiviteter.gradert';
 
     return (<JaEllerNei
@@ -37,16 +37,19 @@ const Akvivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
     </JaEllerNei>);
 };
 
-Akvivitet.propTypes = {
+Aktivitet.propTypes = {
     field: PropTypes.object,
     index: PropTypes.number,
+    arbeidsgiver: PropTypes.string,
+    autofill: PropTypes.func,
+    untouch: PropTypes.func,
 };
 
-const Aktiviteter = ({ fields, arbeidsgiver, ledetekster, autofill, untouch }) => {
+const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch }) => {
     return (<div>
         {
             fields.map((field, index) => {
-                return <Akvivitet field={field} index={index} key={index} arbeidsgiver={arbeidsgiver} autofill={autofill} untouch={untouch} />;
+                return <Aktivitet field={field} index={index} key={index} arbeidsgiver={arbeidsgiver} autofill={autofill} untouch={untouch} />;
             })
         }
     </div>);

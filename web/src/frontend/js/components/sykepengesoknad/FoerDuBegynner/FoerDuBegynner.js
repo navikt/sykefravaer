@@ -37,6 +37,7 @@ export const validate = (values) => {
     return feilmeldinger;
 };
 
-const FoerDuBegynnerSkjema = setup(validate, FoerDuBegynner);
+const initialize = true;
+const FoerDuBegynnerSkjema = setup(validate, FoerDuBegynner, initialize);
 
 export default FoerDuBegynnerSkjema;

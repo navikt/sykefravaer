@@ -6,40 +6,41 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import FravaerOgFriskmelding from '../../../../js/components/sykepengesoknad/Oppsummering/FravaerOgFriskmelding';
-import { soknad } from './soknad';
+import { getSoknad } from '../../../mockSoknader';
 
 describe("Oppsummering - FravaerOgFriskmelding", () => {
 
     let component;
-    let getSoknad = (_soknad) => {
-      return Object.assign({}, soknad, _soknad);
-    }
 
     it("Skal vise egenmeldingsdager hvis det er krysset av for egenmeldingsdager", () => {
-      component = mount(<FravaerOgFriskmelding soknad={getSoknad({
-        bruktEgenmeldingsdagerFoerLegemeldtFravaer: true
-      })} />)
+      const soknad = getSoknad({
+        egenmeldingsperioder: [{
+            fom: "2016-12-27",
+            tom: "2016-12-31"
+        }]
+      });
+      component = mount(<FravaerOgFriskmelding sykepengesoknad={soknad} />)
       const fragment = component.find(".js-egenmeldingsdager");
-      expect(fragment.text()).to.contain("Brukte du egenmeldingsdager før du ble sykmeldt den 01.12.2016?");
+      expect(fragment.text()).to.contain("Brukte du egenmeldingsdager før du ble sykmeldt den 15.07.2016?");
       expect(fragment.text()).to.contain("Ja");
       expect(fragment.text()).to.contain("Fra 27.12.2016");
       expect(fragment.text()).to.contain("Til 31.12.2016");
+      expect(fragment.find(".js-perioder")).to.have.length(1);
     });
 
-    it("Skal ikke vise egenmeldingsdager hvis det er krysset av for ikke egenmeldingsdager", () => {
-      component = mount(<FravaerOgFriskmelding soknad={getSoknad({
-        bruktEgenmeldingsdagerFoerLegemeldtFravaer: false,
+    it("Skal ikke vise egenmeldingsdager hvis det ikke er krysset av for egenmeldingsdager", () => {
+      component = mount(<FravaerOgFriskmelding sykepengesoknad={getSoknad({
+        egenmeldingsperioder: []
       })} />)
       const fragment = component.find(".js-egenmeldingsdager");
-      expect(fragment.text()).to.contain("Brukte du egenmeldingsdager før du ble sykmeldt den 01.12.2016?");
+      expect(fragment.text()).to.contain("Brukte du egenmeldingsdager før du ble sykmeldt den 15.07.2016?");
       expect(fragment.text()).to.contain("Nei");
-      expect(fragment.text()).not.to.contain("Fra 27.12.2016");
-      expect(fragment.text()).not.to.contain("Til 31.12.2016");
+      expect(fragment.find(".js-perioder")).to.have.length(0);
     });
 
     it("Skal vise gjenopptatt arbeid fullt ut", () => {
-      component = mount(<FravaerOgFriskmelding soknad={getSoknad({
-        harGjenopptattArbeidFulltUt: true,
+      component = mount(<FravaerOgFriskmelding sykepengesoknad={getSoknad({
+        gjenopptattArbeidFulltUtDato: "2017-01-15"
       })} />);
       const fragment = component.find(".js-gjenopptattArbeid");
       expect(fragment.text()).to.contain("Har du gjenopptatt arbeidet ditt hos SOLSTRÅLEN BARNEHAGE fullt ut?");
@@ -48,8 +49,8 @@ describe("Oppsummering - FravaerOgFriskmelding", () => {
     });
 
     it("Skal vise gjenopptatt arbeid fullt ut dersom det er krysset av for nei", () => {
-      component = mount(<FravaerOgFriskmelding soknad={getSoknad({
-        harGjenopptattArbeidFulltUt: false,
+      component = mount(<FravaerOgFriskmelding sykepengesoknad={getSoknad({
+        gjenopptattArbeidFulltUtDato: null,
       })} />);
       const fragment = component.find(".js-gjenopptattArbeid");
       expect(fragment.text()).to.contain("Har du gjenopptatt arbeidet ditt hos SOLSTRÅLEN BARNEHAGE fullt ut?");
@@ -63,17 +64,19 @@ describe("Oppsummering - FravaerOgFriskmelding", () => {
 
       beforeEach(() => {
         getFragment = (soknad = {}) => {
-          const c = mount(<FravaerOgFriskmelding soknad={getSoknad(soknad)} />);
+          const c = mount(<FravaerOgFriskmelding sykepengesoknad={getSoknad(soknad)} />);
           return c.find(".js-feriePermisjonUtenlandsopphold");
         }
       })
 
-      describe("Dersom svaret er nei", () => {
+      describe("Dersom svaret er nei pga tomme array", () => {
         let fragment; 
 
         beforeEach(() => {
           fragment = getFragment({
-            harHattFeriePermisjonEllerUtenlandsopphold: false,
+            ferie: [],
+            permisjon: [],
+            utenlandsopphold: [],
           })
         });
 
@@ -82,7 +85,7 @@ describe("Oppsummering - FravaerOgFriskmelding", () => {
           expect(fragment.text()).to.contain("Nei");
         });
 
-      })
+      });
 
       describe("Dersom svaret er ja", () => {
 
@@ -90,7 +93,10 @@ describe("Oppsummering - FravaerOgFriskmelding", () => {
 
         beforeEach(() => {
           fragment = getFragment({
-            harHattFeriePermisjonEllerUtenlandsopphold: true,
+            ferie: [{
+              fom: "2017-01-02",
+              tom: "2017-01-10"
+            }]
           })
         })
         
@@ -112,20 +118,17 @@ describe("Oppsummering - FravaerOgFriskmelding", () => {
         beforeEach(() => {
           fragment = getFragment({
             "harHattFeriePermisjonEllerUtenlandsopphold": true,
-            "ferie": {
-              "avkrysset": true,
-              "perioder": [{
-                "fom": "12.01.2017",
-                "tom": "15.01.2017"
-              }]
-            }
+            "ferie": [{
+              fom: "2017-01-02",
+              tom: "2017-01-10"
+            }]
           });
         });
 
         it("Skal vise informasjon om ferien", () => {
           expect(fragment.text()).to.contain("tatt ut ferie");
-          expect(fragment.text()).to.contain("Fra 12.01.2017");
-          expect(fragment.text()).to.contain("Til 15.01.2017");
+          expect(fragment.text()).to.contain("Fra 02.01.2017");
+          expect(fragment.text()).to.contain("Til 10.01.2017");
         });
 
       });
@@ -136,14 +139,10 @@ describe("Oppsummering - FravaerOgFriskmelding", () => {
 
         beforeEach(() => {
           fragment = getFragment({
-            "harHattFeriePermisjonEllerUtenlandsopphold": true,
-            "permisjon": {
-              "avkrysset": true,
-              "perioder": [{
-                "fom": "12.01.2017",
-                "tom": "15.01.2017"
-              }]
-            }
+            "permisjon": [{
+              fom: "2017-01-12",
+              tom: "2017-01-15"
+            }]
           });
         });
 
@@ -162,13 +161,10 @@ describe("Oppsummering - FravaerOgFriskmelding", () => {
         beforeEach(() => {
           fragment = getFragment({
             "utenlandsoppholdSoktOmSykepenger": false,
-            "utenlandsopphold": {
-              "avkrysset": true,
-              "perioder": [{
-                "fom": "12.01.2017",
-                "tom": "15.01.2017"
-              }]
-            }
+            "utenlandsopphold": [{
+              fom: "2017-01-12",
+              tom: "2017-01-15"
+            }]
           });
         });
 
@@ -188,4 +184,4 @@ describe("Oppsummering - FravaerOgFriskmelding", () => {
 
     });
 
-})
+});

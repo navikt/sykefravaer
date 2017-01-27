@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { Field } from 'redux-form';
-import Radioknapper from '../../skjema/Radioknapper';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
 import { lagDesimaltall } from '../../../utils';
 
@@ -8,7 +7,7 @@ class AngiTid extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            valgtEnhet: 'prosent'
+            valgtEnhet: 'prosent',
         };
     }
 
@@ -82,7 +81,7 @@ class AngiTid extends Component {
                                 checked={enhet.value === this.state.valgtEnhet}
                                 aria-controls={this.getAntallId()} />
                             <label htmlFor={id}>{enhet.label}</label>
-                        </div>)
+                        </div>);
                     })
                 }
             </div>
@@ -101,6 +100,8 @@ AngiTid.propTypes = {
     aktivitetIndex: PropTypes.number,
     input: PropTypes.object,
     names: PropTypes.array,
+    autofill: PropTypes.func,
+    untouch: PropTypes.func,
 };
 
 export default AngiTid;

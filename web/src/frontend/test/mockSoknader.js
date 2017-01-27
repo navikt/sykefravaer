@@ -19,7 +19,7 @@ export const soknader = [{
   "gjenopptattArbeidFulltUtDato": null,
   "ferie": [],
   "permisjon": [],
-  "utenlandsOpphold": [],
+  "utenlandsopphold": [],
   "aktiviteter": [{
     "periode": {
       "fom": "2016-07-15",
@@ -48,7 +48,7 @@ export const soknader = [{
   "gjenopptattArbeidFulltUtDato": null,
   "ferie": [],
   "permisjon": [],
-  "utenlandsOpphold": [],
+  "utenlandsopphold": [],
   "aktiviteter": [{
     "periode": {
       "fom": "2016-07-15",
@@ -77,7 +77,7 @@ export const soknader = [{
   "gjenopptattArbeidFulltUtDato": null,
   "ferie": [],
   "permisjon": [],
-  "utenlandsOpphold": [],
+  "utenlandsopphold": [],
   "aktiviteter": [{
     "periode": {
       "fom": "2016-07-15",
@@ -106,7 +106,7 @@ export const soknader = [{
   "gjenopptattArbeidFulltUtDato": null,
   "ferie": [],
   "permisjon": [],
-  "utenlandsOpphold": [],
+  "utenlandsopphold": [],
   "aktiviteter": [{
     "periode": {
       "fom": "2016-07-15",
@@ -138,7 +138,7 @@ export const getSoknad = (soknad = {}) => {
     "gjenopptattArbeidFulltUtDato": null,
     "ferie": [],
     "permisjon": [],
-    "utenlandsOpphold": [],
+    "utenlandsopphold": [],
     "aktiviteter": [{
       "periode": {
         "fom": "2017-01-01",
@@ -148,8 +148,8 @@ export const getSoknad = (soknad = {}) => {
       "avvik": null
     }, {
       "periode": {
-        "fom": "2017-16-01",
-        "tom": "2017-16-25"
+        "fom": "2017-01-01",
+        "tom": "2017-01-25"
       },
       "grad": 50,
       "avvik": null

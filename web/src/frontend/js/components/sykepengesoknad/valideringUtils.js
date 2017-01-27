@@ -25,7 +25,7 @@ export const datoErEtterFøersteSykmeldingsdag = (dato, sykepengesoknad) => {
         return aktivitet.periode;
     });
     const foersteSykmeldingsdato = tidligsteFom(perioder);
-     return oppgittDato.getTime() > foersteSykmeldingsdato.getTime();
+    return oppgittDato.getTime() > foersteSykmeldingsdato.getTime();
 };
 
 export const harMinstEnPeriode = (perioder = []) => {

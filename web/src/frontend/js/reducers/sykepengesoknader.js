@@ -38,7 +38,7 @@ export const parseDatofelter = (soknad) => {
     _soknad.egenmeldingsperioder = parseDatoerPeriodeListe(soknad.egenmeldingsperioder);
     _soknad.ferie = parseDatoerPeriodeListe(soknad.ferie);
     _soknad.permisjon = parseDatoerPeriodeListe(soknad.permisjon);
-    _soknad.utenlandsOpphold = parseDatoerPeriodeListe(soknad.utenlandsOpphold);
+    _soknad.utenlandsopphold = parseDatoerPeriodeListe(soknad.utenlandsopphold);
     _soknad.utdanning = parseUtdanningsDato(soknad.utdanning);
     _soknad.gjenopptattArbeidFulltUtDato = tilDato(soknad.gjenopptattArbeidFulltUtDato);
     _soknad.identdato = tilDato(soknad.identdato);
@@ -50,8 +50,9 @@ export const parseDatofelter = (soknad) => {
 export default function sykepengesoknader(state = initiellState, action) {
     switch (action.type) {
         case actiontyper.SYKEPENGESOKNADER_HENTET: {
-            const soknader = action.sykepengesoknader.map((s) => { return parseDatofelter(s); });
-
+            const soknader = action.sykepengesoknader.map((s) => {
+                return parseDatofelter(s);
+            });
             return Object.assign({}, state, {
                 data: soknader,
                 henter: false,

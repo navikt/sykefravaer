@@ -49,7 +49,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
                 "aktiviteter":[{"jobbetMerEnnPlanlagt":false},{"jobbetMerEnnPlanlagt":false}],
                 "harAndreInntektskilder":false,
                 "utdanning": {
-                    "underUtdanning": false
+                    "underUtdanningISykmeldingsperioden": false
                 }
             }
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
@@ -346,20 +346,20 @@ describe("AktiviteterISykmeldingsperioden", () => {
         });
 
 
-        describe("underUtdanning", () => {
-            it("Skal validere underUtdanning", () => {
+        describe("underUtdanningISykmeldingsperioden", () => {
+            it("Skal validere underUtdanningISykmeldingsperioden", () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-                expect(res.utdanning.underUtdanning).to.equal("Vennligst svar på om du har vært under utdanning");
+                expect(res.utdanning.underUtdanningISykmeldingsperioden).to.equal("Vennligst svar på om du har vært under utdanning");
             })
 
             describe("Hvis brukeren ikke har vært under utdanning", () => {
                 beforeEach(() => {
-                    values.underUtdanning = false;
+                    values.underUtdanningISykmeldingsperioden = false;
                 });
 
-                it("Skal ikke validere underUtdanning", () => {
+                it("Skal ikke validere underUtdanningISykmeldingsperioden", () => {
                     const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-                    expect(res.underUtdanning).to.be.undefined;
+                    expect(res.underUtdanningISykmeldingsperioden).to.be.undefined;
                 });
 
             });
@@ -368,13 +368,13 @@ describe("AktiviteterISykmeldingsperioden", () => {
             describe("Hvis brukeren har vært under utdanning", () => {
                 beforeEach(() => {
                     values.utdanning = {
-                        underUtdanning: true,
+                        underUtdanningISykmeldingsperioden: true,
                     };
                 });
 
-                it("Skal ikke validere underUtdanning", () => {
+                it("Skal ikke validere underUtdanningISykmeldingsperioden", () => {
                     const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-                    expect(res.underUtdanning).to.be.undefined;
+                    expect(res.underUtdanningISykmeldingsperioden).to.be.undefined;
                 });
 
                 describe("utdanningStartdato", () => {
@@ -415,7 +415,9 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
             describe("Hvis brukeren ikke har vært under utdanning", () => {
                 beforeEach(() => {
-                    values.underUtdanning = false;
+                    values.utdanning = {
+                        underUtdanningISykmeldingsperioden: false
+                    }
                 })
 
                 it("Skal ikke validere at utdanningStartdato er påkrevd", () => {

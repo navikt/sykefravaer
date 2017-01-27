@@ -66,30 +66,33 @@ export const validate = (values, props) => {
     if (values.harHattFeriePermisjonEllerUtenlandsopphold === undefined) {
         feilmeldinger.harHattFeriePermisjonEllerUtenlandsopphold = 'Vennligst svar på om du har hatt ferie, permisjon eller utenlandsopphold';
     } else if (values.harHattFeriePermisjonEllerUtenlandsopphold) {
-        if ((!values.ferie && !values.utenlandsopphold && !values.permisjon) || [values.ferie, values.permisjon, values.utenlandsopphold].filter((a) => {
-            return a ? a.avkrysset : false;
+        if (([values.harHattFerie, values.harHattPermisjon, values.harHattUtenlandsopphold]).filter((a) => {
+            return a;
         }).length === 0) {
             feilmeldinger.feriePermisjonEllerUtenlandsopphold = {
                 _error: 'Vennligst kryss av ett av alternativene',
             };
         }
 
-        if (values.ferie && values.ferie.avkrysset) {
-            feilmeldinger.ferie = {
-                perioder: valideringUtils.validerPerioder(values.ferie.perioder),
-            };
+        if (values.harHattFerie) {
+            const feriefeilmeldinger = valideringUtils.validerPerioder(values.ferie);
+            if (feriefeilmeldinger) {
+                feilmeldinger.ferie = feriefeilmeldinger;
+            }
         }
 
-        if (values.utenlandsopphold && values.utenlandsopphold.avkrysset) {
-            feilmeldinger.utenlandsopphold = {
-                perioder: valideringUtils.validerPerioder(values.utenlandsopphold.perioder),
-            };
+        if (values.harHattUtenlandsopphold) {
+            const utenlandsoppholdfeilmeldinger = valideringUtils.validerPerioder(values.utenlandsopphold);
+            if (utenlandsoppholdfeilmeldinger) {
+                feilmeldinger.utenlandsopphold = utenlandsoppholdfeilmeldinger;
+            }
         }
 
-        if (values.permisjon && values.permisjon.avkrysset) {
-            feilmeldinger.permisjon = {
-                perioder: valideringUtils.validerPerioder(values.permisjon.perioder),
-            };
+        if (values.harHattPermisjon) {
+            const permisjonfeilmeldinger = valideringUtils.validerPerioder(values.permisjon);
+            if (permisjonfeilmeldinger) {
+                feilmeldinger.permisjon = permisjonfeilmeldinger;
+            }
         }
 
         if (values.utenlandsoppholdSoktOmSykepenger === undefined) {

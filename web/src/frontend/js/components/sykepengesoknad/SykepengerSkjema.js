@@ -17,7 +17,8 @@ SykepengerSkjema.propTypes = {
     children: PropTypes.element.isRequired,
     aktivtSteg: PropTypes.string,
     tittel: PropTypes.string,
-    apentUtdrag: PropTypes.bool,
+    sykepengesoknad: PropTypes.object,
+    ledetekster: PropTypes.object,
 };
 
 export default SykepengerSkjema;

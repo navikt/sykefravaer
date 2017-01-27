@@ -221,9 +221,7 @@ describe("FravaerOgFriskmelding", () => {
           describe("Dersom svaret er ja og man ikke har krysset av for ferie", () => {
             beforeEach(() => {
               values.harHattFeriePermisjonEllerUtenlandsopphold = true;
-              values.ferie = {
-                avkrysset: false,
-              }
+              
             });
 
             it("Skal validere at ferie, permisjon eller utenlandsopphold er avkrysset", () => {
@@ -238,9 +236,8 @@ describe("FravaerOgFriskmelding", () => {
           describe("Dersom svaret er ja og man har krysset av for ferie", () => {
             beforeEach(() => {
               values.harHattFeriePermisjonEllerUtenlandsopphold = true;
-              values.ferie = {
-                avkrysset: true,
-              }
+              values.harHattFerie = true;
+              
             });
 
             it("Skal ikke validere at ferie, permisjon eller utenlandsopphold er avkrysset", () => {
@@ -250,7 +247,7 @@ describe("FravaerOgFriskmelding", () => {
 
             it("Skal validere at man har lagt til perioder", () => {
               const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-              expect(res.ferie.perioder).to.deep.equal({
+              expect(res.ferie).to.deep.equal({
                 _error: "Vennligst oppgi minst én periode"
               })
             });
@@ -260,9 +257,7 @@ describe("FravaerOgFriskmelding", () => {
           describe("Dersom svaret er ja og man har krysset av for permisjon", () => {
             beforeEach(() => {
               values.harHattFeriePermisjonEllerUtenlandsopphold = true;
-              values.permisjon = {
-                avkrysset: true,
-              }
+              values.harHattPermisjon = true;
             });
 
             it("Skal ikke validere at ferie, permisjon eller utenlandsopphold er avkrysset", () => {
@@ -272,7 +267,7 @@ describe("FravaerOgFriskmelding", () => {
 
             it("Skal validere at man har lagt til perioder", () => {
               const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-              expect(res.permisjon.perioder).to.deep.equal({
+              expect(res.permisjon).to.deep.equal({
                 _error: "Vennligst oppgi minst én periode"
               })
             });
@@ -282,9 +277,7 @@ describe("FravaerOgFriskmelding", () => {
           describe("Dersom svaret er ja og man har krysset av for utenlandsopphold", () => {
             beforeEach(() => {
               values.harHattFeriePermisjonEllerUtenlandsopphold = true;
-              values.utenlandsopphold = {
-                avkrysset: true,
-              }
+              values.harHattUtenlandsopphold = true;
             });
 
             it("Skal ikke validere at ferie, permisjon eller utenlandsopphold er avkrysset", () => {
@@ -294,7 +287,7 @@ describe("FravaerOgFriskmelding", () => {
 
             it("Skal validere at man har lagt til perioder", () => {
               const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-              expect(res.utenlandsopphold.perioder).to.deep.equal({
+              expect(res.utenlandsopphold).to.deep.equal({
                 _error: "Vennligst oppgi minst én periode"
               })
             });
@@ -323,12 +316,8 @@ describe("FravaerOgFriskmelding", () => {
           describe("Dersom svaret er ja og man har krysset av for utenlandsopphold og ferie", () => {
             beforeEach(() => {
               values.harHattFeriePermisjonEllerUtenlandsopphold = true;
-              values.utenlandsopphold = {
-                avkrysset: true,
-              }
-              values.ferie = {
-                avkrysset: true
-              }
+              values.harHattUtenlandsopphold = true;
+              values.harHattFerie = true;
             });
 
             it("Skal ikke validere at ferie, permisjon eller utenlandsopphold er avkrysset", () => {
@@ -338,10 +327,10 @@ describe("FravaerOgFriskmelding", () => {
 
             it("Skal validere at man har lagt til perioder", () => {
               const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-              expect(res.ferie.perioder).to.deep.equal({
+              expect(res.ferie).to.deep.equal({
                 _error: "Vennligst oppgi minst én periode"
               });
-              expect(res.utenlandsopphold.perioder).to.deep.equal({
+              expect(res.utenlandsopphold).to.deep.equal({
                 _error: "Vennligst oppgi minst én periode"
               });
             });

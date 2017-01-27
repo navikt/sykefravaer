@@ -56,5 +56,12 @@ export const validerPerioder = (perioder) => {
             _error: 'Vennligst oppgi minst én periode',
         };
     }
-    return validerDatoerIPerioder(perioder);
+    const datofeil = validerDatoerIPerioder(perioder);
+    const faktiskeDatofeil = datofeil.filter((feil) => {
+        return feil !== undefined;
+    });
+    if (faktiskeDatofeil.length > 0) {
+        return datofeil;
+    }
+    return null;
 };

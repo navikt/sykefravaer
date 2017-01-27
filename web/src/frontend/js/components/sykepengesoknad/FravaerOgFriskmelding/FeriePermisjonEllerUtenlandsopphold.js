@@ -40,13 +40,18 @@ const FeriePermisjonEllerUtenlandsopphold = ({ fields, meta, ledetekster }) => {
         utenlandsopphold: getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.oppholdt-meg-utenfor-norge', ledetekster),
     };
 
+    const getName = (field) => {
+        return `harHatt${field[0].toUpperCase()}${field.substr(1)}`;
+    };
+
     return (<Feilomrade {...meta}>
         <h4 className="skjema__sporsmal">{getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har', ledetekster)}</h4>
     {
         fields.map((field, index) => {
-            return (<Field key={index} component={Checkbox} name={`${field}.avkrysset`} label={labels[field]} id={`checkbox-${field}`}>
+            const name = `${getName(field)}`;
+            return (<Field key={index} component={Checkbox} name={name} label={labels[field]} id={`checkbox-${field}`}>
                 <div className={field === 'utenlandsopphold' ? 'blokk' : ''}>
-                    <Periodevelger name={`${field}.perioder`} />
+                    <Periodevelger name={field} />
                 </div>
                 {
                     field === 'utenlandsopphold' && <SoktOmSykepenger ledetekster={ledetekster} />

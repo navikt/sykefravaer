@@ -225,7 +225,7 @@ describe("MoteContainer", () => {
                 }],
                 "avvik": ["MITT_FINE_AVVIK"],
                 "naermesteLeder": "Helge Fredheim",
-                "svarTidspunkt": null
+                "svarTidspunkt": "2017-08-08T07:09:00Z"
             }
             const props = mapStateToProps(state);
             expect(props.harSvart).to.be.true;
@@ -247,7 +247,7 @@ describe("MoteContainer", () => {
                 }],
                 "avvik": [],
                 "naermesteLeder": "Helge Fredheim",
-                "svarTidspunkt": null
+                "svarTidspunkt": "2017-08-08T07:09:00Z"
             }
             const props = mapStateToProps(state);
             expect(props.harSvart).to.be.true;

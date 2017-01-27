@@ -68,7 +68,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 export const harTattStillingTilAlleAlternativer = (deltaker) => {
-    return deltaker && (deltaker.alternativer && deltaker.alternativer.filter((alternativ) => {
+    return deltaker && deltaker.svarTidspunkt !== null && (deltaker.alternativer && deltaker.alternativer.filter((alternativ) => {
         return alternativ.created > deltaker.svarTidspunkt;
     }).length === 0);
 };

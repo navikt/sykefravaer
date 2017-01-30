@@ -20,6 +20,13 @@ inntektskildeLabels[JORDBRUKER_FISKER_REINDRIFTSUTOEVER] = 'Jordbruker / Fisker 
 inntektskildeLabels[FRILANSER] = 'Frilanser';
 inntektskildeLabels[ANNET] = 'Annet';
 
+const presiseringer = {};
+presiseringer[ANDRE_ARBEIDSFORHOLD] = 'Legen må sende inn én sykmelding for hvert arbeidsforhold du er sykmeldt fra. Du kan altså ikke bruke samme sykmelding overfor flere arbeidsgivere. Det betyr også at du må sende en egen søknad om sykepenger for hver av sykmeldingene.';
+presiseringer[SELVSTENDIG_NAERINGSDRIVENDE] = 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for selvstendig næringsdrivende. Søknaden om sykepenger for dette må du derfor sende på papir.';
+presiseringer[SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA] = 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for selvstendig næringsdrivende. Søknaden om sykepenger for dagmamma må du derfor sende på papir.';
+presiseringer[JORDBRUKER_FISKER_REINDRIFTSUTOEVER] = 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem . Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for disse gruppene. Søknaden om sykepenger for dette må du derfor sende på papir.';
+presiseringer[FRILANSER] = 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for frilansere. Søknaden om sykepenger for frilanser må du derfor sende på papir.';
+
 const AndreInntektskilder = ({ fields, meta }) => {
     return (<Feilomrade {...meta}>
         <h4 className="skjema__sporsmal">Hvilke andre inntektskilder har du?</h4>
@@ -35,7 +42,7 @@ const AndreInntektskilder = ({ fields, meta }) => {
                             name={`andreInntektskilder.${field}.sykmeldt`}>
                                 <input label="Ja" value={true}>
                                     <div className="presisering blokk">
-                                        <p className="sist">Legen må sende inn én sykmelding for hvert arbeidsforhold du er sykmeldt fra. Du kan altså ikke bruke samme sykmelding overfor flere arbeidsgivere. Det betyr også at du må sende en egen søknad om sykepenger for hver av sykmeldingene.</p>
+                                        <p className="sist">{presiseringer[field]}</p>
                                     </div>
                                 </input>
                                 <input label="Nei" value={false} />

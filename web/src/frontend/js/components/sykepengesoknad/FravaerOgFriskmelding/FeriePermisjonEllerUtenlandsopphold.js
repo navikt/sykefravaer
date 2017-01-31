@@ -11,7 +11,7 @@ import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
 const SoktOmSykepenger = ({ ledetekster }) => {
     return (<Field
         spoersmal={getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal', ledetekster)}
-        name="utenlandsoppholdSoktOmSykepenger"
+        name="utenlandsopphold.soektOmSykepengerIPerioden"
         component={Radioknapper}
         Overskrift="h5"
         parse={parseJaEllerNei}>
@@ -50,12 +50,19 @@ const FeriePermisjonEllerUtenlandsopphold = ({ fields, meta, ledetekster }) => {
         fields.map((field, index) => {
             const name = `${getName(field)}`;
             return (<Field key={index} component={Checkbox} name={name} label={labels[field]} id={`checkbox-${field}`}>
-                <div className={field === 'utenlandsopphold' ? 'blokk' : ''}>
-                    <Periodevelger name={field} />
-                </div>
-                {
-                    field === 'utenlandsopphold' && <SoktOmSykepenger ledetekster={ledetekster} />
-                }
+            {
+                (() => {
+                    if (field === 'utenlandsopphold') {
+                        return (<div>
+                            <div className="blokk">
+                                <Periodevelger name="utenlandsopphold.perioder" />
+                            </div>
+                            <SoktOmSykepenger ledetekster={ledetekster} />
+                        </div>);
+                    }
+                    return <Periodevelger name={field} />;
+                })()
+            }
             </Field>);
         })
     }

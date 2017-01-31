@@ -65,24 +65,24 @@ Permisjon.propTypes = {
     perioder: PropTypes.array,
 };
 
-const Utenlandsopphold = ({ perioder, utenlandsoppholdSoktOmSykepenger }) => {
+const Utenlandsopphold = ({ perioder, soektOmSykepengerIPerioden }) => {
     return (<div className="js-utenlandsopphold">
         <Avkrysset tekst="oppholdt meg utenfor Norge" />
         <Perioder perioder={perioder} />
         <div className="js-utenlandsoppholdSoktOmSykepenger oppsummering__tilleggssvar">
             <h5 className="oppsummering__sporsmal">Har du søkt om å beholde sykepenger under dette oppholdet utenfor Norge?</h5>
-            <Avkrysset tekst={utenlandsoppholdSoktOmSykepenger ? 'Ja' : 'Nei'} />
+            <Avkrysset tekst={soektOmSykepengerIPerioden ? 'Ja' : 'Nei'} />
         </div>
     </div>);
 };
 
 Utenlandsopphold.propTypes = {
-    utenlandsoppholdSoktOmSykepenger: PropTypes.bool,
+    soektOmSykepengerIPerioden: PropTypes.bool,
     perioder: PropTypes.array,
 };
 
 const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad }) => {
-    const harHattFeriePermisjonEllerUtenlandsopphold = sykepengesoknad.ferie.length > 0 || sykepengesoknad.permisjon.length > 0 || sykepengesoknad.utenlandsopphold.length > 0;
+    const harHattFeriePermisjonEllerUtenlandsopphold = sykepengesoknad.ferie.length > 0 || sykepengesoknad.permisjon.length > 0 || sykepengesoknad.utenlandsopphold.perioder.length > 0;
     return (<div className="js-feriePermisjonUtenlandsopphold oppsummering__bolk">
         <h3 className="oppsummering__sporsmal">Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 - 31.01.2017?</h3>
         <Avkrysset tekst={harHattFeriePermisjonEllerUtenlandsopphold ? 'Ja' : 'Nei'} />
@@ -96,7 +96,9 @@ const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad }) => {
             sykepengesoknad.permisjon && sykepengesoknad.permisjon.length > 0 && <Permisjon perioder={sykepengesoknad.permisjon} />
         }
         {
-            sykepengesoknad.utenlandsopphold && sykepengesoknad.utenlandsopphold.length > 0 && <Utenlandsopphold perioder={sykepengesoknad.utenlandsopphold} utenlandsoppholdSoktOmSykepenger={sykepengesoknad.utenlandsoppholdSoktOmSykepenger} />
+            sykepengesoknad.utenlandsopphold && sykepengesoknad.utenlandsopphold.perioder.length > 0 && <Utenlandsopphold
+                perioder={sykepengesoknad.utenlandsopphold.perioder}
+                soektOmSykepengerIPerioden={sykepengesoknad.utenlandsopphold.soektOmSykepengerIPerioden} />
         }
 
     </div>);

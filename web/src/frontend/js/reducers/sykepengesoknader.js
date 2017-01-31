@@ -38,7 +38,7 @@ export const parseDatofelter = (soknad) => {
     _soknad.egenmeldingsperioder = parseDatoerPeriodeListe(soknad.egenmeldingsperioder);
     _soknad.ferie = parseDatoerPeriodeListe(soknad.ferie);
     _soknad.permisjon = parseDatoerPeriodeListe(soknad.permisjon);
-    _soknad.utenlandsopphold = parseDatoerPeriodeListe(soknad.utenlandsopphold);
+    _soknad.utenlandsopphold.perioder = parseDatoerPeriodeListe(soknad.utenlandsopphold.perioder);
     _soknad.utdanning = parseUtdanningsDato(soknad.utdanning);
     _soknad.gjenopptattArbeidFulltUtDato = tilDato(soknad.gjenopptattArbeidFulltUtDato);
     _soknad.identdato = tilDato(soknad.identdato);

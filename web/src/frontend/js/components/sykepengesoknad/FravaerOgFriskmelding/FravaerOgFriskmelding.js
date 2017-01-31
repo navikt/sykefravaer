@@ -82,8 +82,17 @@ export const validate = (values, props) => {
         }
 
         if (values.harHattUtenlandsopphold) {
-            const utenlandsoppholdfeilmeldinger = valideringUtils.validerPerioder(values.utenlandsopphold);
-            if (utenlandsoppholdfeilmeldinger) {
+            const utenlandsoppholdPeriodefeilmeldinger = valideringUtils.validerPerioder(values.utenlandsopphold.perioder);
+            const utenlandsoppholdfeilmeldinger = {};
+            if (utenlandsoppholdPeriodefeilmeldinger) {
+                utenlandsoppholdfeilmeldinger.perioder = utenlandsoppholdPeriodefeilmeldinger;
+            }
+
+            if (values.utenlandsopphold.soektOmSykepengerIPerioden === null) {
+                utenlandsoppholdfeilmeldinger.soektOmSykepengerIPerioden = 'Vennligst oppgi om du har søkt på sykepenger under oppholdet utenfor Norge';
+            }
+
+            if (Object.keys(utenlandsoppholdfeilmeldinger).length > 0) {
                 feilmeldinger.utenlandsopphold = utenlandsoppholdfeilmeldinger;
             }
         }
@@ -93,10 +102,6 @@ export const validate = (values, props) => {
             if (permisjonfeilmeldinger) {
                 feilmeldinger.permisjon = permisjonfeilmeldinger;
             }
-        }
-
-        if (values.utenlandsoppholdSoktOmSykepenger === undefined) {
-            feilmeldinger.utenlandsoppholdSoktOmSykepenger = 'Vennligst oppgi om du har søkt på sykepenger under oppholdet utenfor Norge';
         }
     }
     return feilmeldinger;

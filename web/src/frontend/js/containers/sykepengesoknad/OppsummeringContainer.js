@@ -6,7 +6,7 @@ import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 
 export const Container = (props) => {
-    const { brodsmuler, sykepengesoknad, henter, hentingFeilet, ledetekster } = props;
+    const { brodsmuler, skjemasoknad, sykepengesoknad, henter, hentingFeilet, ledetekster } = props;
     return (<Side tittel="Søknad om sykepenger" brodsmuler={brodsmuler}>
     {
         (() => {
@@ -19,7 +19,7 @@ export const Container = (props) => {
             if (sykepengesoknad === undefined) {
                 return <Feilmelding tittel="Beklager, vi finner ikke søknaden du ser etter" melding="Er du sikker på at du er på riktig adresse?" />;
             }
-            return <Oppsummering sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />;
+            return <Oppsummering sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} skjemasoknad={skjemasoknad} />;
         })()
     }
     </Side>);
@@ -31,9 +31,11 @@ Container.propTypes = {
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     ledetekster: PropTypes.object,
+    skjemasoknad: PropTypes.object,
 };
 
 export const mapStateToProps = (state, ownProps) => {
+    const skjemasoknad = state.form.sykepengerSkjema ? state.form.sykepengerSkjema.values : undefined;
     return {
         brodsmuler: [{
             tittel: 'Ditt sykefravær',
@@ -46,6 +48,7 @@ export const mapStateToProps = (state, ownProps) => {
         }, {
             tittel: 'Søknad',
         }],
+        skjemasoknad,
         sykepengesoknad: state.sykepengesoknader.data.filter((soknad) => {
             return soknad.id === ownProps.params.sykepengesoknadId;
         })[0],

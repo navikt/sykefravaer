@@ -1,7 +1,7 @@
 import chai from 'chai';
 const expect = chai.expect;
 
-import { parseDato, lagHeltall, lagDesimaltall } from '../../js/utils';
+import { parseDato, lagHeltall, lagDesimaltall, erGyldigDato } from '../../js/utils';
 
 describe("utils", () => {
 
@@ -112,6 +112,23 @@ describe("utils", () => {
             expect(dato).to.equal("34");
         });
 
+    });
+
+    describe("erGyldigDato", () => {
+        it("Skal returnere false ved 'dd.mm.yy'", () => {
+            const d = erGyldigDato("02.01.17");
+            expect(d).to.be.false;
+        });
+
+        it("Skal returnere true ved 'dd.mm.yyyy'", () => {
+            const d = erGyldigDato("02.01.2017");
+            expect(d).to.be.true;
+        });
+
+        it("Skal returnere false ved ugyldige datoer", () => {
+            const d = erGyldigDato("31.11.2017");
+            expect(d).to.be.false;
+        });
     });
 
 });

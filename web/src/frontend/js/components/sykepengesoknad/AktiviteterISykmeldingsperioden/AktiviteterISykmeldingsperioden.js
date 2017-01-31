@@ -76,6 +76,7 @@ AktiviteterISykmeldingsperioden.propTypes = {
 };
 
 const validerAktiviteter = (values, aktiviteter) => {
+    console.log(JSON.stringify(values));
     const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer enn planlagt';
     const feil = aktiviteter.map((aktivitet, index) => {
         if (!values.aktiviteter || !values.aktiviteter[index]) {
@@ -150,6 +151,8 @@ export const validate = (values, props) => {
     if (Object.keys(foerDuBegynner.validate(values, props)).length > 0 || Object.keys(fravaerOgFriskmelding.validate(values, props)).length) {
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
+
+    console.log('Verdier i skjema\n', JSON.stringify(values));
 
     if (values.harAndreInntektskilder === undefined) {
         feilmeldinger.harAndreInntektskilder = 'Du må svare på om du har andre inntektskilder';

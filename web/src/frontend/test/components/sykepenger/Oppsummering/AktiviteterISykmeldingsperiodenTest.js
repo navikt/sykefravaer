@@ -23,59 +23,15 @@ describe("AktiviteterISykmeldingsperioden", () => {
     let component;
     let sykepengesoknad;
 
-    let getSykmelding = (sykmelding) => {
-        return Object.assign({}, {
-            id: "3456789",
-            pasient: {
-                fnr: "***REMOVED***",
-                fornavn: "Per",
-                etternavn: "Person",
-            },
-            arbeidsgiver: "Selskapet AS",
-            orgnummer: "123456789",
-            status: 'NY',
-            identdato: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-            diagnose: {
-                hoveddiagnose: {
-                    diagnose: "Influensa",
-                    diagnosesystem: "ICPC",
-                    diagnosekode: "LP2"
-                },
-            },
-            mulighetForArbeid: {
-                perioder: [{
-                    grad: 50,
-                        fom: { year: 2017, monthValue: 1, dayOfMonth: 1 },
-                        tom: { year: 2017, monthValue: 1, dayOfMonth: 15 },
-                    }, {
-                    grad: 100,
-                    fom: { year: 2017, monthValue: 1, dayOfMonth: 16 },
-                    tom: { year: 2017, monthValue: 1, dayOfMonth: 31 },
-                }],
-            },
-            friskmelding: {
-                arbeidsfoerEtterPerioden: true,
-            },
-            utdypendeOpplysninger: {},
-            arbeidsevne: {},
-            meldingTilNav: {},
-            tilbakedatering: {},
-            bekreftelse: {
-                sykmelder: "Ove Olsen",
-                utstedelsesdato: { year: 2016, monthValue: 5, dayOfMonth: 2 }
-            },
-        }, sykmelding)
-    }
-
     beforeEach(() => {
         sykepengesoknad = getSoknad();
-    })
+    });
 
     describe("Aktiviteter", () => {
         let component;
 
         beforeEach(() => {
-            component = shallow(<Aktiviteter sykepengesoknad={sykepengesoknad} sykmelding={getSykmelding()} />);
+            component = shallow(<Aktiviteter sykepengesoknad={sykepengesoknad} />);
         });
 
         it("Skal vise to Aktivitet", () => {     
@@ -89,7 +45,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
         let component;
 
         beforeEach(() => {
-            component = mount(<AktiviteterISykmeldingsperioden sykepengesoknad={sykepengesoknad} sykmelding={getSykmelding()} ledetekster={_ledetekster} />);
+            component = mount(<AktiviteterISykmeldingsperioden sykepengesoknad={sykepengesoknad} ledetekster={_ledetekster} />);
         })
 
         it("Skal inneholde Aktiviteter", () => {
@@ -98,11 +54,11 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
         it("Skal inneholde Inntektskilder", () => {
             expect(component.find(Inntektskilder)).to.have.length(1);
-        })
+        });
 
         it("Skal inneholde Utdanning", () => {
             expect(component.find(Utdanning)).to.have.length(1);
-        })
+        });
 
     });
 

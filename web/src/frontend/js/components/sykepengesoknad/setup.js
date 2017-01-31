@@ -3,8 +3,7 @@ import { reduxForm } from 'redux-form';
 import history from '../../history';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
-    console.log('SEND TIL SIDE 1!');
-    // history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
+    history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
 };
 
 const mapToInitialValues = (soknad) => {

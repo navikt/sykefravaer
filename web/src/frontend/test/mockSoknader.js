@@ -19,7 +19,10 @@ export const soknader = [{
   "gjenopptattArbeidFulltUtDato": null,
   "ferie": [],
   "permisjon": [],
-  "utenlandsopphold": [],
+  "utenlandsopphold": {
+    "perioder": [],
+    "soektOmSykepengerIPerioden": null,
+  },
   "aktiviteter": [{
     "periode": {
       "fom": "2016-07-15",
@@ -48,7 +51,10 @@ export const soknader = [{
   "gjenopptattArbeidFulltUtDato": null,
   "ferie": [],
   "permisjon": [],
-  "utenlandsopphold": [],
+  "utenlandsopphold": {
+    "perioder": [],
+    "soektOmSykepengerIPerioden": null,
+  },
   "aktiviteter": [{
     "periode": {
       "fom": "2016-07-15",
@@ -77,7 +83,10 @@ export const soknader = [{
   "gjenopptattArbeidFulltUtDato": null,
   "ferie": [],
   "permisjon": [],
-  "utenlandsopphold": [],
+  "utenlandsopphold": {
+    "perioder": [],
+    "soektOmSykepengerIPerioden": null,
+  },
   "aktiviteter": [{
     "periode": {
       "fom": "2016-07-15",
@@ -106,7 +115,10 @@ export const soknader = [{
   "gjenopptattArbeidFulltUtDato": null,
   "ferie": [],
   "permisjon": [],
-  "utenlandsopphold": [],
+  "utenlandsopphold": {
+    "perioder": [],
+    "soektOmSykepengerIPerioden": null,
+  },
   "aktiviteter": [{
     "periode": {
       "fom": "2016-07-15",
@@ -138,7 +150,10 @@ export const getSoknad = (soknad = {}) => {
     "gjenopptattArbeidFulltUtDato": null,
     "ferie": [],
     "permisjon": [],
-    "utenlandsopphold": [],
+    "utenlandsopphold": {
+      "perioder": [],
+      "soektOmSykepengerIPerioden": null,
+    },
     "aktiviteter": [{
       "periode": {
         "fom": "2017-01-01",

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Field, FieldArray } from 'redux-form';
 import Checkbox from '../../skjema/Checkbox';
-import { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
+import { parseJaEllerNei } from '../JaEllerNei';
 import Feilomrade from '../../skjema/Feilomrade';
 import Radioknapper from '../../skjema/Radioknapper';
 
@@ -33,14 +33,14 @@ const AndreInntektskilder = ({ fields, meta }) => {
         <p>Du trenger ikke oppgi andre ytelser fra NAV.</p>
         {
             fields.map((field, index) => {
-                return (<Field label={inntektskildeLabels[field]} id={`inntektskilde-${index}`} name={`andreInntektskilder.${field}].avkrysset`} key={index} component={Checkbox}>
+                return (<Field label={inntektskildeLabels[field]} id={`inntektskilde-${index}`} name={`andreInntektskilder.${field}.avkrysset`} key={index} component={Checkbox}>
                     {
                         field === ANNET ? null : <Field
                             component={Radioknapper}
                             spoersmal="Er du sykmeldt fra dette?"
                             parse={parseJaEllerNei}
                             name={`andreInntektskilder.${field}.sykmeldt`}>
-                                <input label="Ja" value={true}>
+                                <input label="Ja" value>
                                     <div className="presisering blokk">
                                         <p className="sist">{presiseringer[field]}</p>
                                     </div>

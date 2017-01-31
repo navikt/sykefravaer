@@ -8,7 +8,7 @@ const expect = chai.expect;
 import FravaerOgFriskmelding from '../../../../js/components/sykepengesoknad/Oppsummering/FravaerOgFriskmelding';
 import { getSoknad } from '../../../mockSoknader';
 
-describe("Oppsummering - FravaerOgFriskmelding", () => {
+describe("Oppsummering - FravaerOgFriskmelding -", () => {
 
     let component;
 
@@ -76,7 +76,10 @@ describe("Oppsummering - FravaerOgFriskmelding", () => {
           fragment = getFragment({
             ferie: [],
             permisjon: [],
-            utenlandsopphold: [],
+            utenlandsopphold: {
+              perioder: [],
+              soektOmSykepengerIPerioden: null,
+            }
           })
         });
 
@@ -160,11 +163,13 @@ describe("Oppsummering - FravaerOgFriskmelding", () => {
 
         beforeEach(() => {
           fragment = getFragment({
-            "utenlandsoppholdSoktOmSykepenger": false,
-            "utenlandsopphold": [{
-              fom: "2017-01-12",
-              tom: "2017-01-15"
-            }]
+            "utenlandsopphold": {
+              "perioder": [{
+                fom: "2017-01-12",
+                tom: "2017-01-15"
+              }],
+              "soektOmSykepengerIPerioden": false,
+            }
           });
         });
 

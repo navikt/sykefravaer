@@ -61,6 +61,20 @@ Aktivitet.propTypes = {
     arbeidsgiver: PropTypes.string,
 };
 
+export const Aktiviteter = ({ sykepengesoknad, ledetekster }) => {
+    return (<div>
+        {sykepengesoknad.aktiviteter.map((aktivitet, index) => {
+            return <Aktivitet aktivitet={aktivitet} index={index} ledetekster={ledetekster} key={index} />;
+        })}
+    </div>);
+};
+
+Aktiviteter.propTypes = {
+    sykepengesoknad: PropTypes.object,
+    ledetekster: PropTypes.object,
+};
+
+
 const AndreInntektskilder = ({ inntektskilder }) => {
     return (<div className="oppsummering__bolk">
         {
@@ -124,19 +138,6 @@ export const Utdanning = ({ sykepengesoknad }) => {
 
 Utdanning.propTypes = {
     sykepengesoknad: PropTypes.object,
-};
-
-export const Aktiviteter = ({ sykepengesoknad, ledetekster }) => {
-    return (<div>
-        {sykepengesoknad.aktiviteter.map((aktivitet, index) => {
-            return <Aktivitet aktivitet={aktivitet} index={index} ledetekster={ledetekster} />;
-        })}
-    </div>);
-};
-
-Aktiviteter.propTypes = {
-    sykepengesoknad: PropTypes.object,
-    ledetekster: PropTypes.object,
 };
 
 const AktiviteterISykmeldingsperioden = ({ sykepengesoknad, ledetekster }) => {

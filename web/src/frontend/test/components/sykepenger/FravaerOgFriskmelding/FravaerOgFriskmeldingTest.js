@@ -276,38 +276,67 @@ describe("FravaerOgFriskmelding", () => {
 
           describe("Dersom svaret er ja og man har krysset av for utenlandsopphold", () => {
             beforeEach(() => {
+              values.utenlandsopphold = {
+                perioder: [],
+                soektOmSykepengerIPerioden: null,
+              }
               values.harHattFeriePermisjonEllerUtenlandsopphold = true;
               values.harHattUtenlandsopphold = true;
             });
 
-            it("Skal ikke validere at ferie, permisjon eller utenlandsopphold er avkrysset", () => {
+            it("Må ikke ferie, permisjon eller utenlandsopphold være avkrysset", () => {
               const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
               expect(res.feriePermisjonEllerUtenlandsopphold).to.be.undefined;
             });
 
             it("Skal validere at man har lagt til perioder", () => {
               const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-              expect(res.utenlandsopphold).to.deep.equal({
+              expect(res.utenlandsopphold.perioder).to.deep.equal({
                 _error: "Vennligst oppgi minst én periode"
               })
             });
 
-            it("Skal validere at man har svart på utenlandsoppholdSoktOmSykepenger", () => {
+            it("Skal validere at man har svart på soektOmSykepengerIPerioden", () => {
               const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-              expect(res.utenlandsoppholdSoktOmSykepenger).to.equal("Vennligst oppgi om du har søkt på sykepenger under oppholdet utenfor Norge")
+              expect(res.utenlandsopphold.soektOmSykepengerIPerioden).to.equal("Vennligst oppgi om du har søkt på sykepenger under oppholdet utenfor Norge")
             });
 
-            it("Skal validere at man har svart på utenlandsoppholdSoktOmSykepenger når dette spørsmålet er besvart med ja", () => {
-              values.utenlandsoppholdSoktOmSykepenger = true;
+            it("Skal validere at man har svart på soektOmSykepengerIPerioden når dette spørsmålet er besvart med ja", () => {
+              values.utenlandsopphold = {
+                soektOmSykepengerIPerioden: true,
+              };
               const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-              expect(res.utenlandsoppholdSoktOmSykepenger).to.be.undefined;
+              expect(res.utenlandsopphold.soektOmSykepengerIPerioden).to.be.undefined;
             });
 
 
-            it("Skal validere at man har svart på utenlandsoppholdSoktOmSykepenger når dette spørsmålet er besvart med nei", () => {
-              values.utenlandsoppholdSoktOmSykepenger = false;
+            it("Skal validere at man har svart på soektOmSykepengerIPerioden når dette spørsmålet er besvart med nei", () => {
+              values.utenlandsopphold = {
+                soektOmSykepengerIPerioden: false,
+              };
               const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-              expect(res.utenlandsoppholdSoktOmSykepenger).to.be.undefined;
+              expect(res.utenlandsopphold.soektOmSykepengerIPerioden).to.be.undefined;
+            });
+
+            describe("Hvis man har fylt ut deler av en periode", () => {
+              beforeEach(() => {
+                values.utenlandsopphold = {
+                  perioder: [{
+                    fom: "12.02.2017"
+                  }],
+                  soektOmSykepengerIPerioden: null,
+                }
+                values.harHattFeriePermisjonEllerUtenlandsopphold = true;
+                values.harHattUtenlandsopphold = true;
+              });
+
+              it("Skal funke", () => {
+                const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                expect(res.utenlandsopphold.perioder).to.deep.equal([{
+                  tom: "Vennligst fyll ut dato"
+                }])
+                expect(res.utenlandsopphold.soektOmSykepengerIPerioden).to.equal("Vennligst oppgi om du har søkt på sykepenger under oppholdet utenfor Norge");
+              })
             });
 
           });
@@ -318,6 +347,10 @@ describe("FravaerOgFriskmelding", () => {
               values.harHattFeriePermisjonEllerUtenlandsopphold = true;
               values.harHattUtenlandsopphold = true;
               values.harHattFerie = true;
+              values.utenlandsopphold = {
+                perioder: [],
+                soektOmSykepengerIPerioden: null,
+              }
             });
 
             it("Skal ikke validere at ferie, permisjon eller utenlandsopphold er avkrysset", () => {
@@ -330,7 +363,7 @@ describe("FravaerOgFriskmelding", () => {
               expect(res.ferie).to.deep.equal({
                 _error: "Vennligst oppgi minst én periode"
               });
-              expect(res.utenlandsopphold).to.deep.equal({
+              expect(res.utenlandsopphold.perioder).to.deep.equal({
                 _error: "Vennligst oppgi minst én periode"
               });
             });

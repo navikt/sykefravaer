@@ -50,10 +50,24 @@
         box-shadow: #ccc 0 0 4px 2px; /* hentet fra saksoversikt */
     }
 
+    &:active, &:focus {
+        .inngangspanel__undertekst {
+            color: @aktivBlaa;
+        }
+    }
+
     p {
         margin-top: 0;
         margin-bottom: .5rem;
         .mixin-typo-infotekst(); 
+    }
+
+    .inngangspanel__undertekst {
+        .mixin-typo-normal();
+    }
+
+    .inngangspanel__tekst {
+        margin-bottom: 1.25rem;
     }
 
     @media(min-width: @screen-small) {
@@ -118,7 +132,8 @@
 }
 
 .inngangspanel__status {
-    margin-bottom: 8px; 
+    .mixin-typo-normal();
+    margin-bottom: 8px;
 }
 
 .inngangspanel__punktliste {

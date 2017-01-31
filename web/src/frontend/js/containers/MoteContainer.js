@@ -67,15 +67,15 @@ export function mapDispatchToProps(dispatch) {
     };
 }
 
-export const harSvartTidligere = (deltaker) => {
-    return deltaker && (deltaker.alternativer && deltaker.alternativer.filter((alternativ) => {
-        return alternativ.tidligereValgt === true;
-    }).length > 0 || deltaker.avvik && deltaker.avvik.length > 0);
+export const harTattStillingTilAlleAlternativer = (deltaker) => {
+    return deltaker && deltaker.svarTidspunkt !== null && (deltaker.alternativer && deltaker.alternativer.filter((alternativ) => {
+        return alternativ.created > deltaker.svarTidspunkt;
+    }).length === 0);
 };
 
 export function mapStateToProps(state) {
     const ledetekster = state.ledetekster.data;
-    const harSvart = state.svar.sendt || harSvartTidligere(state.deltaker.data) || false;
+    const harSvart = state.svar.sendt || harTattStillingTilAlleAlternativer(state.deltaker.data) || false;
 
     return {
         ledetekster,
@@ -99,3 +99,4 @@ export function mapStateToProps(state) {
 const MoteContainer = connect(mapStateToProps, mapDispatchToProps)(Container);
 
 export default MoteContainer;
+

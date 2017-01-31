@@ -196,6 +196,9 @@ describe("MoteContainer", () => {
         });
 
         it("Skal returnere harSvart", () => {
+            state.deltaker.data = {
+                svarTidspunkt: "2017-09-12T07:09:00Z"
+            };
             const props = mapStateToProps(state);
             expect(props.harSvart).to.be.false;
         });
@@ -222,7 +225,7 @@ describe("MoteContainer", () => {
                 }],
                 "avvik": ["MITT_FINE_AVVIK"],
                 "naermesteLeder": "Helge Fredheim",
-                "svarTidspunkt": null
+                "svarTidspunkt": "2017-08-08T07:09:00Z"
             }
             const props = mapStateToProps(state);
             expect(props.harSvart).to.be.true;
@@ -244,7 +247,7 @@ describe("MoteContainer", () => {
                 }],
                 "avvik": [],
                 "naermesteLeder": "Helge Fredheim",
-                "svarTidspunkt": null
+                "svarTidspunkt": "2017-08-08T07:09:00Z"
             }
             const props = mapStateToProps(state);
             expect(props.harSvart).to.be.true;

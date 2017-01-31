@@ -31,7 +31,7 @@ describe("Landingsside", () => {
     });
 
     it("Skal vise lenkeboks til dialogmoter om vi har et dialogmote", () => {
-        component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={true} dialogmoter={[{id: 1}]}/>);
+        component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={true} harDialogmote={true}/>);
         expect(component.find(LandingssideLenke)).to.have.length(3);
     });
 

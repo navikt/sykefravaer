@@ -13,34 +13,23 @@ const Radioknapp = ({ id, label, input, value, children }) => {
     </div>);
 };
 
-const Radioknapper = ({ input, meta, alternativer, ledetekster }) => {
+const Radioknapper = ({ input, meta, ledetekster }) => {
     return (<Feilomrade {...meta}>
-        {
-            alternativer.map((alternativ, index) => {
-                return (<Radioknapp key={index} label={alternativ.label} id={`arbeidsgiverForskutterer-${alternativ.verdi}`} value={alternativ.verdi} input={input}>
-                    {
-                        alternativ.verdi === 'VET_IKKE' ? <div className="panel panel-ekstra">
-                            <p className="sist">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.vet-ikke', ledetekster)}</p>
-                        </div> : null
-                    }
-                </Radioknapp>);
-            })
-        }
+        <Radioknapp key={0} label="Ja" id="arbeidsgiverForskutterer-JA" value="JA" input={input}>
+            <div className="panel panel-ekstra">
+                <p className="sist">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.ja', ledetekster)}</p>
+            </div>
+        </Radioknapp>
+        <Radioknapp key={1} label="Nei" id="arbeidsgiverForskutterer-NEI" value="NEI" input={input} />
+        <Radioknapp key={2} label="Vet ikke" id="arbeidsgiverForskutterer-VET_IKKE" value="VET_IKKE" input={input}>
+            <div className="panel panel-ekstra">
+                <p className="sist">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.vet-ikke', ledetekster)}</p>
+            </div>
+        </Radioknapp>
     </Feilomrade>);
 };
 
 const ForskuttererArbeidsgiver = ({ arbeidsgiver, ledetekster }) => {
-    const alternativer = [{
-        label: 'Ja',
-        verdi: 'JA',
-    }, {
-        label: 'Nei',
-        verdi: 'NEI',
-    }, {
-        label: 'Vet ikke',
-        verdi: 'VET_IKKE',
-    }];
-
     return (<div className="blokk">
         <h3 className="skjema__sporsmal">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.overskrift', ledetekster)}</h3>
         <p>{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.tekst', ledetekster)}</p>
@@ -49,7 +38,7 @@ const ForskuttererArbeidsgiver = ({ arbeidsgiver, ledetekster }) => {
                 '%ARBEIDSGIVER%': arbeidsgiver.navn,
             })}
         </p>
-        <Field component={Radioknapper} alternativer={alternativer} name="arbeidsgiverForskutterer" ledetekster={ledetekster} />
+        <Field component={Radioknapper} name="arbeidsgiverForskutterer" ledetekster={ledetekster} />
     </div>);
 };
 
@@ -64,7 +53,6 @@ Radioknapp.propTypes = {
 Radioknapper.propTypes = {
     input: PropTypes.object,
     meta: PropTypes.object,
-    alternativer: PropTypes.array,
     ledetekster: PropTypes.object,
 };
 

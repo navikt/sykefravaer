@@ -5,7 +5,7 @@ import Checkbox from '../../skjema/Checkbox';
 import Radioknapper from '../../skjema/Radioknapper';
 import { FieldArray, Field } from 'redux-form';
 import Feilomrade from '../../skjema/Feilomrade';
-import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
 
 const SoktOmSykepenger = ({ ledetekster }) => {
@@ -20,7 +20,7 @@ const SoktOmSykepenger = ({ ledetekster }) => {
                     return (<input {...alt} key={index}>
                         {
                             alt.value === true ? null : (<div className="presisering">
-                                <p className="sist">{getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet', ledetekster)}</p>
+                                <div dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet', ledetekster)} />
                             </div>)
                         }
                     </input>);

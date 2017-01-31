@@ -14,6 +14,7 @@ const mapToInitialValues = (soknad) => {
             });
         }),
         utdanning: {},
+        andreInntektskilder: {},
     });
 };
 

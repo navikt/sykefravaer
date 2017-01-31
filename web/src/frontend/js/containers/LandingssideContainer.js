@@ -32,6 +32,7 @@ LandingssideSide.propTypes = {
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.array,
     dialogmoter: PropTypes.array,
+    harDialogmote: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {

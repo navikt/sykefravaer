@@ -72,6 +72,7 @@ Landingsside.propTypes = {
     skjulVarsel: PropTypes.bool.isRequired,
     sykepengesoknader: PropTypes.array,
     dialogmoter: PropTypes.array,
+    harDialogmote: PropTypes.bool,
 };
 
 export default Landingsside;

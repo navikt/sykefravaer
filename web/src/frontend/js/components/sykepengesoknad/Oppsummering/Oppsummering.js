@@ -10,7 +10,7 @@ import SykepengerSkjema from '../SykepengerSkjema';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
 import mapSkjemasoknadToBackendsoknad from '../mapSkjemasoknadToBackendsoknad';
-import Varselstripe from 'digisyfo-npm';
+import { Varselstripe } from 'digisyfo-npm';
 import * as foerDuBegynner from '../FoerDuBegynner/FoerDuBegynner';
 import * as aktiviteterISykmeldingsperioden from '../AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
 import * as fravaerOgFriskmelding from '../FravaerOgFriskmelding/FravaerOgFriskmelding';
@@ -58,7 +58,7 @@ export const OppsummeringWrap = (props) => {
             <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             {
                 sendingFeilet && <Varselstripe type="feil">
-                    <p>Beklager, det oppstod en feil!</p>
+                    <p>Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
                 </Varselstripe>
             }
             <Knapperad variant="knapperad--forrigeNeste">

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Side from '../../sider/Side';
 import * as soknadActions from '../../actions/sykepengesoknader_actions';
 import AppSpinner from '../../components/AppSpinner';
@@ -36,6 +37,12 @@ GenerellSoknad.propTypes = {
     Component: PropTypes.func.isRequired,
 };
 
+export function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(soknadActions, dispatch),
+    };
+}
+
 export const mapStateToProps = (state, ownProps) => {
     const skjemasoknad = state.form && state.form.sykepengerSkjema ? state.form.sykepengerSkjema.values : undefined;
     return {
@@ -51,8 +58,6 @@ export const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const Container = connect(mapStateToProps, {
-    actions: soknadActions,
-})(GenerellSoknad);
+const Container = connect(mapStateToProps, mapDispatchToProps)(GenerellSoknad);
 
 export default Container;

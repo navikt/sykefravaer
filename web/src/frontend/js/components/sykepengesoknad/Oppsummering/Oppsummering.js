@@ -72,6 +72,8 @@ OppsummeringWrap.propTypes = {
     skjemasoknad: PropTypes.object,
     ledetekster: PropTypes.object,
     actions: PropTypes.object,
+    sender: PropTypes.bool,
+    sendingFeilet: PropTypes.bool,
 };
 
 const validate = (values) => {

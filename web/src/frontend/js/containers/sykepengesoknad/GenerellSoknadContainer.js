@@ -6,7 +6,7 @@ import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 
 export const GenerellSoknad = (props) => {
-    const { Component, brodsmuler, sykepengesoknad, henter, hentingFeilet, ledetekster } = props;
+    const { Component, brodsmuler, sykepengesoknad, henter, hentingFeilet } = props;
     return (<Side tittel="Søknad om sykepenger" brodsmuler={brodsmuler}>
     {
         (() => {
@@ -52,7 +52,7 @@ export const mapStateToProps = (state, ownProps) => {
 };
 
 const Container = connect(mapStateToProps, {
-    actions: soknadActions
+    actions: soknadActions,
 })(GenerellSoknad);
 
 export default Container;

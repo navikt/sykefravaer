@@ -17,4 +17,4 @@ const OppsummeringContainer = () => {
     return <GenerellSoknadContainer Component={Oppsummering} brodsmuler={brodsmuler} />;
 };
 
-export default FravaerOgFriskmeldingContainer;
+export default OppsummeringContainer;

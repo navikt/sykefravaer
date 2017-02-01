@@ -54,7 +54,7 @@ describe("sykepengersoknadSagas", () => {
         });
 
         it("skal dernest sende sykepengesoknader", () => {
-            const nextCall = call(post, "http://tjenester.nav.no/syforest/soknader/actions/send/1");
+            const nextCall = call(post, "http://tjenester.nav.no/syforest/soknader/1/actions/send", {id: '1'});
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

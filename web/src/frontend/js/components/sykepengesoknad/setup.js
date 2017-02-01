@@ -6,7 +6,7 @@ const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
 };
 
-const mapToInitialValues = (soknad) => {
+export const mapToInitialValues = (soknad) => {
     return Object.assign({}, soknad, {
         aktiviteter: soknad.aktiviteter.map((aktivitet) => {
             return Object.assign({}, aktivitet, {
@@ -15,6 +15,9 @@ const mapToInitialValues = (soknad) => {
         }),
         utdanning: {},
         andreInntektskilder: {},
+        utenlandsopphold: {
+            perioder: []
+        }
     });
 };
 

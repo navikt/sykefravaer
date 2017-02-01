@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 
-
 const DropdownWrapper = ({ erFeil, feilmelding, children }) => {
     const maybeFeilmelding = erFeil ? feilmelding : '';
     return (

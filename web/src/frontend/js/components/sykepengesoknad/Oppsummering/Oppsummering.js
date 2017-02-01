@@ -11,6 +11,9 @@ import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
 import mapSkjemasoknadToBackendsoknad from '../mapSkjemasoknadToBackendsoknad';
 import Varselstripe from 'digisyfo-npm';
+import * as foerDuBegynner from '../FoerDuBegynner/FoerDuBegynner';
+import * as aktiviteterISykmeldingsperioden from '../AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
+import * as fravaerOgFriskmelding from '../FravaerOgFriskmelding/FravaerOgFriskmelding';
 
 const Oppsummering = ({ sykepengesoknad }) => {
     return (<div>
@@ -52,11 +55,11 @@ export const OppsummeringWrap = (props) => {
                     <li>du kan miste retten til sykepenger hvis du uten rimelig grunn nekter å opplyse om egen funksjonsevne eller nekter å ta imot tilbud om behandling og/eller tilrettelegging</li>
                 </ul>
             </div>
-            <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="informasjonLestOgBekreftetKorrekt" label={label} />
+            <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             {
                 sendingFeilet && <Varselstripe type="feil">
-                <p>Beklager, det oppstod en feil!</p>
-            </Varselstripe>
+                    <p>Beklager, det oppstod en feil!</p>
+                </Varselstripe>
             }
             <Knapperad variant="knapperad--forrigeNeste">
                 <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`} className="rammeknapp rammeknapp--forrige">Tilbake</Link>
@@ -76,10 +79,16 @@ OppsummeringWrap.propTypes = {
     sendingFeilet: PropTypes.bool,
 };
 
-const validate = (values) => {
-    if (!values.informasjonLestOgBekreftetKorrekt) {
+export const validate = (values, props) => {
+    foerDuBegynner.validate(values, props);
+    fravaerOgFriskmelding.validate(values, props);
+    if (Object.keys(aktiviteterISykmeldingsperioden.validate(values, props)).length > 0) {
+        props.sendTilFoerDuBegynner(props.sykepengesoknad);
+    }
+
+    if (!values.bekreftetKorrektInformasjon) {
         return {
-            informasjonLestOgBekreftetKorrekt: 'Du må bekrefte at du har lest informasjonen og bekreftet at opplysningene du har gitt er korrekte',
+            bekreftetKorrektInformasjon: 'Du må bekrefte at du har lest informasjonen og bekreftet at opplysningene du har gitt er korrekte',
         };
     }
     return {};

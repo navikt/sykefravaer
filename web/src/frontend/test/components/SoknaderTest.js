@@ -42,9 +42,9 @@ describe("Søknader om sykepenger", () => {
     });
 
     it('sokander sendes videre til SoknaderTeasere', () => {
-
-        component = shallow(<Soknader ledetekster={ledetekster} soknader={[{id: 1, status: 'SENDT' }, {id: 2, status: 'NY' }]} />);
-        expect(component.find('.js-til-behandling').props().soknader).to.have.length(1);
+        component = shallow(<Soknader ledetekster={ledetekster} soknader={[{id: 1, status: 'SENDT' }, {id: 2, status: 'NY' }, {id: 3, status: 'NY' }, {id: 4, status: 'RANDOM' }, {id: 5, status: 'LAGRET' }]} />);
+        expect(component.find('.js-til-behandling').props().soknader).to.have.length(3);
         expect(component.find('.js-sendt').props().soknader).to.have.length(1);
-    });
+    })
+
 }); 

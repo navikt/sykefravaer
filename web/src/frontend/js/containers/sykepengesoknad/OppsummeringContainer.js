@@ -1,6 +1,14 @@
 import React from 'react';
 import Oppsummering from '../../components/sykepengesoknad/Oppsummering/Oppsummering';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
+import Feilmelding from '../../components/Feilmelding';
+
+const OppsummeringWrap = (props) => {
+    if (props.skjemasoknad) {
+        return <Oppsummering {...props} />
+    }
+    return <Feilmelding tittel="Du må starte på første side i søknaden" melding={null} />
+}
 
 const OppsummeringContainer = ({ params }) => {
     const brodsmuler = [{
@@ -14,7 +22,7 @@ const OppsummeringContainer = ({ params }) => {
     }, {
         tittel: 'Søknad',
     }];
-    return <GenerellSoknadContainer Component={Oppsummering} brodsmuler={brodsmuler} params={params} />;
+    return <GenerellSoknadContainer Component={OppsummeringWrap} brodsmuler={brodsmuler} params={params} />;
 };
 
 export default OppsummeringContainer;

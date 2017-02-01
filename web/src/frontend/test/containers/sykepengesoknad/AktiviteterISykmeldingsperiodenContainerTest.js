@@ -10,7 +10,7 @@ import AktiviteterISykmeldingsperioden from '../../../js/components/sykepengesok
 import AktiviteterISykmeldingsperiodenContainer from '../../../js/containers/sykepengesoknad/AktiviteterISykmeldingsperiodenContainer';
 import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 
-describe.only("AktiviteterISykmeldingsperiodenContainer", () => {
+describe("AktiviteterISykmeldingsperiodenContainer", () => {
 
     let component; 
 

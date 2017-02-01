@@ -13,7 +13,7 @@ import FoerDuBegynner from '../../../js/components/sykepengesoknad/FoerDuBegynne
 import { GenerellSoknad, mapStateToProps } from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 import { soknader } from '../../mockSoknader';
 
-describe.only("GenerellSoknadContainer", () => {
+describe("GenerellSoknadContainer", () => {
 
     let state;
     let ownProps;

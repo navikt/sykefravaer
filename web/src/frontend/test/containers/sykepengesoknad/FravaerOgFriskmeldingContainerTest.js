@@ -10,7 +10,7 @@ import FravaerOgFriskmelding from '../../../js/components/sykepengesoknad/Fravae
 import FravaerOgFriskmeldingContainer from '../../../js/containers/sykepengesoknad/FravaerOgFriskmeldingContainer';
 import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 
-describe.only("FravaerOgFriskmeldingContainer", () => {
+describe("FravaerOgFriskmeldingContainer", () => {
 
     let component; 
 

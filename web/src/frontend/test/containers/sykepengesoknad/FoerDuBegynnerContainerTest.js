@@ -10,7 +10,7 @@ import FoerDuBegynner from '../../../js/components/sykepengesoknad/FoerDuBegynne
 import FoerDuBegynnerContainer from '../../../js/containers/sykepengesoknad/FoerDuBegynnerContainer';
 import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 
-describe.only("FoerDuBegynnerContainer", () => {
+describe("FoerDuBegynnerContainer", () => {
 
     let component; 
 

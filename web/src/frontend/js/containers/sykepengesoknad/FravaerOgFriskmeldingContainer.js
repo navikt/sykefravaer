@@ -14,7 +14,7 @@ const FravaerOgFriskmeldingContainer = () => {
     }, {
         tittel: 'Søknad',
     }];
-    return <GenerellSoknadContainer Component={FravaerOgFriskmelding} brodsmuler={brodsmuler} />
+    return <GenerellSoknadContainer Component={FravaerOgFriskmelding} brodsmuler={brodsmuler} />;
 };
 
 export default FravaerOgFriskmeldingContainer;

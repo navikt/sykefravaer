@@ -14,7 +14,7 @@ const AktiviteterISykmeldingsperiodenContainer = () => {
     }, {
         tittel: 'Søknad',
     }];
-    return <GenerellSoknadContainer Component={AktiviteterISykmeldingsperioden} brodsmuler={brodsmuler} />
+    return <GenerellSoknadContainer Component={AktiviteterISykmeldingsperioden} brodsmuler={brodsmuler} />;
 };
 
 export default AktiviteterISykmeldingsperiodenContainer;

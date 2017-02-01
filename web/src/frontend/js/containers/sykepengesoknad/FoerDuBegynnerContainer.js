@@ -14,7 +14,7 @@ const FoerDuBegynnerContainer = () => {
     }, {
         tittel: 'Søknad',
     }];
-    return <GenerellSoknadContainer Component={FoerDuBegynner} brodsmuler={brodsmuler} />
+    return <GenerellSoknadContainer Component={FoerDuBegynner} brodsmuler={brodsmuler} />;
 };
 
 export default FoerDuBegynnerContainer;

@@ -8,7 +8,7 @@ const expect = chai.expect;
 import { Oppsummering, mapSkjemasoknadToBackendsoknad } from '../../../../js/components/sykepengesoknad/Oppsummering/Oppsummering';
 import { getSoknad } from '../../../mockSoknader';
 
-describe("Oppsummering", () => {
+describe.only("Oppsummering", () => {
 
     describe("mapSkjemasoknadToBackendsoknad", () => {
 
@@ -103,7 +103,7 @@ describe("Oppsummering", () => {
             it("Skal sette gjenopptattArbeidFulltUtDato til null hvis harGjenopptattArbeidFulltUt = false", () => {
                 sykepengesoknad.harGjenopptattArbeidFulltUt = false;
                 const soknad = mapSkjemasoknadToBackendsoknad(sykepengesoknad);
-                expect(soknad.gjenopptattArbeidFulltUtDato).to.deep.equal(null);
+                expect(soknad.gjenopptattArbeidFulltUtDato).to.deep.equal(null); 
             });
         });
 
@@ -113,7 +113,7 @@ describe("Oppsummering", () => {
                 sykepengesoknad.harHattFeriePermisjonEllerUtenlandsopphold = false;
                 const soknad = mapSkjemasoknadToBackendsoknad(sykepengesoknad);
                 expect(soknad.ferie).to.deep.equal([]);
-                expect(soknad.utenlandsopphold).to.deep.equal({perioder: []});
+                expect(soknad.utenlandsopphold).to.be.null;
                 expect(soknad.permisjon).to.deep.equal([]);
             });
 
@@ -209,21 +209,21 @@ describe("Oppsummering", () => {
                     sykepengesoknad.harHattUtenlandsopphold = false; 
                     sykepengesoknad.harHattFeriePermisjonEllerUtenlandsopphold = true; 
                     const soknad = mapSkjemasoknadToBackendsoknad(sykepengesoknad);
-                    expect(soknad.utenlandsopphold).to.deep.equal({perioder: []});
+                    expect(soknad.utenlandsopphold).to.be.null;
                 });
 
                 it("Skal ikke parse datofelter i utenlandsopphold dersom harHattFeriePermisjonEllerUtenlandsopphold = false", () => {
                     sykepengesoknad.harHattUtenlandsopphold = true; 
                     sykepengesoknad.harHattFeriePermisjonEllerUtenlandsopphold = false; 
                     const soknad = mapSkjemasoknadToBackendsoknad(sykepengesoknad);
-                    expect(soknad.utenlandsopphold).to.deep.equal({perioder: []});
+                    expect(soknad.utenlandsopphold).to.be.null;
                 });
 
                 it("Skal ikke parse datofelter i utenlandsopphold dersom harHattUtenlandsopphold = false && harHattFeriePermisjonEllerUtenlandsopphold = false", () => {
                     sykepengesoknad.harHattUtenlandsopphold = false; 
                     sykepengesoknad.harHattFeriePermisjonEllerUtenlandsopphold = false;
                     const soknad = mapSkjemasoknadToBackendsoknad(sykepengesoknad); 
-                    expect(soknad.utenlandsopphold).to.deep.equal({perioder: []});
+                    expect(soknad.utenlandsopphold).to.be.null;
                 });
             });
 

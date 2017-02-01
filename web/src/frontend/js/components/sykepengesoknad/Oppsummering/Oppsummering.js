@@ -84,9 +84,7 @@ export const mapSkjemasoknadToBackendsoknad = (soknad) => {
 
     const permisjon = harHattPermisjon ? soknad.permisjon : [];
     const ferie = harHattFerie ? soknad.ferie : [];
-    const utenlandsopphold = harHattUtenlandsopphold ? getUtenlandsopphold(soknad.utenlandsopphold) : {
-        perioder: [],
-    };
+    const utenlandsopphold = harHattUtenlandsopphold ? getUtenlandsopphold(soknad.utenlandsopphold) : null;
 
     const backendSoknad = Object.assign({}, soknad, {
         permisjon: parsePerioder(permisjon),

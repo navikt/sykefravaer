@@ -38,7 +38,6 @@ export const OppsummeringWrap = (props) => {
         actions.sendSykepengesoknad(soknadObjekt);
     };
     const backendSoknad = mapSkjemasoknadToBackendsoknad(skjemasoknad);
-    console.log(JSON.stringify(skjemasoknad));
 
     return (<SykepengerSkjema aktivtSteg="3" sykepengesoknad={sykepengesoknad} ledetekster={ledetekster}>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -80,11 +79,11 @@ OppsummeringWrap.propTypes = {
 };
 
 export const validate = (values, props) => {
-    // foerDuBegynner.validate(values, props);
-    // fravaerOgFriskmelding.validate(values, props);
-    // if (Object.keys(aktiviteterISykmeldingsperioden.validate(values, props)).length > 0) {
-    //     props.sendTilFoerDuBegynner(props.sykepengesoknad);
-    // }
+    foerDuBegynner.validate(values, props);
+    fravaerOgFriskmelding.validate(values, props);
+    if (Object.keys(aktiviteterISykmeldingsperioden.validate(values, props)).length > 0) {
+        props.sendTilFoerDuBegynner(props.sykepengesoknad);
+    }
 
     if (!values.bekreftetKorrektInformasjon) {
         return {

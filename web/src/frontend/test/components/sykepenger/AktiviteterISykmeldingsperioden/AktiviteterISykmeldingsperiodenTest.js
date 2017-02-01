@@ -12,6 +12,7 @@ import { getSoknad } from '../../../mockSoknader';
 
 describe("AktiviteterISykmeldingsperioden", () => {
 
+
     describe("Validate", () => {
 
         let values; 

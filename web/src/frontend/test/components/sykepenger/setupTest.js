@@ -4,6 +4,8 @@ import chai from 'chai';
 import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 
+import deepFreeze from 'deep-freeze';
+
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
@@ -14,7 +16,7 @@ describe("setup", () => {
         let values; 
 
         beforeEach(() => {
-            values = {
+            values = deepFreeze({
                 andreInntektskilder: [],
                 aktiviteter:  [
                     {
@@ -42,7 +44,7 @@ describe("setup", () => {
                         avvik: null
                     }
                 ]
-            };
+            });
         });
 
         it("Skal sette avvik på aktiviteter", () => {

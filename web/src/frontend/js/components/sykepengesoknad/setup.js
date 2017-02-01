@@ -16,8 +16,8 @@ export const mapToInitialValues = (soknad) => {
         utdanning: {},
         andreInntektskilder: {},
         utenlandsopphold: {
-            perioder: []
-        }
+            perioder: [],
+        },
     });
 };
 

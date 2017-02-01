@@ -44,14 +44,22 @@ const getUtdanning = (utdanning) => {
 
 const getAktiviteter = (aktiviteter) => {
     return aktiviteter.map((aktivitet) => {
-        const _aktivitet = aktivitet;
-        if (!_aktivitet.jobbetMerEnnPlanlagt) {
-            _aktivitet.avvik = null;
+        const _a = {
+            periode: aktivitet.periode,
+        };
+        if (aktivitet.jobbetMerEnnPlanlagt) {
+            _a.avvik = {
+                arbeidstimerNormalUke: aktivitet.avvik.arbeidstimerNormalUke
+            };
+            if (aktivitet.enhet === 'timer') {
+                _a.avvik.arbeidstimer = aktivitet.avvik.arbeidstimer;
+            } else {
+                _a.avvik.arbeidsgrad = aktivitet.avvik.arbeidsgrad;
+            }
         } else {
-            delete _aktivitet.avvik.enhet;
+            _a.avvik = null;
         }
-        delete _aktivitet.jobbetMerEnnPlanlagt;
-        return _aktivitet;
+        return _a;
     });
 };
 

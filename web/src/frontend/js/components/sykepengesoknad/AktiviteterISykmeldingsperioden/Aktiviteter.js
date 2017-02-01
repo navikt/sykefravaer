@@ -16,7 +16,6 @@ const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
     const ledetekstPrefix = field.grad === 100 ? 'sykepengesoknad.aktiviteter.ugradert' : 'sykepengesoknad.aktiviteter.gradert';
 
     return (<JaEllerNei
-        key={index}
         name={`aktiviteter[${index}].jobbetMerEnnPlanlagt`}
         intro={getLedetekst(`${ledetekstPrefix}.intro`, _ledetekster, {
             '%FOM%': toDatePrettyPrint(field.periode.fom),

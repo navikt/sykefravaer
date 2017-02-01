@@ -113,7 +113,7 @@ describe("Oppsummering", () => {
                 sykepengesoknad.harHattFeriePermisjonEllerUtenlandsopphold = false;
                 const soknad = mapSkjemasoknadToBackendsoknad(sykepengesoknad);
                 expect(soknad.ferie).to.deep.equal([]);
-                expect(soknad.utenlandsopphold).to.deep.equal({});
+                expect(soknad.utenlandsopphold).to.deep.equal({perioder: []});
                 expect(soknad.permisjon).to.deep.equal([]);
             });
 
@@ -209,21 +209,21 @@ describe("Oppsummering", () => {
                     sykepengesoknad.harHattUtenlandsopphold = false; 
                     sykepengesoknad.harHattFeriePermisjonEllerUtenlandsopphold = true; 
                     const soknad = mapSkjemasoknadToBackendsoknad(sykepengesoknad);
-                    expect(soknad.utenlandsopphold).to.deep.equal({});
+                    expect(soknad.utenlandsopphold).to.deep.equal({perioder: []});
                 });
 
                 it("Skal ikke parse datofelter i utenlandsopphold dersom harHattFeriePermisjonEllerUtenlandsopphold = false", () => {
                     sykepengesoknad.harHattUtenlandsopphold = true; 
                     sykepengesoknad.harHattFeriePermisjonEllerUtenlandsopphold = false; 
                     const soknad = mapSkjemasoknadToBackendsoknad(sykepengesoknad);
-                    expect(soknad.utenlandsopphold).to.deep.equal({});
+                    expect(soknad.utenlandsopphold).to.deep.equal({perioder: []});
                 });
 
                 it("Skal ikke parse datofelter i utenlandsopphold dersom harHattUtenlandsopphold = false && harHattFeriePermisjonEllerUtenlandsopphold = false", () => {
                     sykepengesoknad.harHattUtenlandsopphold = false; 
                     sykepengesoknad.harHattFeriePermisjonEllerUtenlandsopphold = false;
                     const soknad = mapSkjemasoknadToBackendsoknad(sykepengesoknad); 
-                    expect(soknad.utenlandsopphold).to.deep.equal({});
+                    expect(soknad.utenlandsopphold).to.deep.equal({perioder: []});
                 });
             });
 

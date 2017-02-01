@@ -6,21 +6,21 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import FravaerOgFriskmelding from '../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FravaerOgFriskmelding';
-import FravaerOgFriskmeldingContainer from '../../../js/containers/sykepengesoknad/FravaerOgFriskmeldingContainer';
+import AktiviteterISykmeldingsperioden from '../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
+import AktiviteterISykmeldingsperiodenContainer from '../../../js/containers/sykepengesoknad/AktiviteterISykmeldingsperiodenContainer';
 import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 
-describe("FravaerOgFriskmeldingContainer", () => {
+describe("AktiviteterISykmeldingsperiodenContainer", () => {
 
     let component; 
 
     beforeEach(() => {
-        component = shallow(<FravaerOgFriskmeldingContainer />);
+        component = shallow(<AktiviteterISykmeldingsperiodenContainer />);
     });
 
     it("Skal inneholde en GenerellSoknadContainer med riktige props", () => {
         expect(component.find(GenerellSoknadContainer)).to.have.length(1);
-        expect(component.find(GenerellSoknadContainer).prop("Component")).to.deep.equal(FravaerOgFriskmelding);
+        expect(component.find(GenerellSoknadContainer).prop("Component")).to.deep.equal(AktiviteterISykmeldingsperioden);
         expect(component.find(GenerellSoknadContainer).prop("Brodsmuler")).to.be.defined;
     });
 

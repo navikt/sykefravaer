@@ -10,6 +10,7 @@ import SykepengerSkjema from '../SykepengerSkjema';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
 import mapSkjemasoknadToBackendsoknad from '../mapSkjemasoknadToBackendsoknad';
+import Varselstripe from 'digisyfo-npm';
 
 const Oppsummering = ({ sykepengesoknad }) => {
     return (<div>
@@ -26,12 +27,12 @@ Oppsummering.propTypes = {
 };
 
 export const OppsummeringWrap = (props) => {
-    const { skjemasoknad, sykepengesoknad, handleSubmit, ledetekster, sendSykepengesoknad } = props;
+    const { skjemasoknad, sykepengesoknad, handleSubmit, ledetekster, actions, sender, sendingFeilet } = props;
     const label = 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte';
     const onSubmit = (values) => {
         const soknad = mapSkjemasoknadToBackendsoknad(values);
         const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
-        sendSykepengesoknad(soknadObjekt);
+        actions.sendSykepengesoknad(soknadObjekt);
     };
     const backendSoknad = mapSkjemasoknadToBackendsoknad(skjemasoknad);
     console.log(JSON.stringify(skjemasoknad));
@@ -52,9 +53,14 @@ export const OppsummeringWrap = (props) => {
                 </ul>
             </div>
             <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="informasjonLestOgBekreftetKorrekt" label={label} />
+            {
+                sendingFeilet && <Varselstripe type="feil">
+                <p>Beklager, det oppstod en feil!</p>
+            </Varselstripe>
+            }
             <Knapperad variant="knapperad--forrigeNeste">
                 <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`} className="rammeknapp rammeknapp--forrige">Tilbake</Link>
-                <button className="knapp">Send søknad</button>
+                <button className="knapp">Send søknad{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}</button>
             </Knapperad>
         </form>
     </SykepengerSkjema>);
@@ -65,7 +71,7 @@ OppsummeringWrap.propTypes = {
     handleSubmit: PropTypes.func,
     skjemasoknad: PropTypes.object,
     ledetekster: PropTypes.object,
-    sendSykepengesoknad: PropTypes.func,
+    actions: PropTypes.object,
 };
 
 const validate = (values) => {

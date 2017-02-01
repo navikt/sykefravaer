@@ -1,0 +1,101 @@
+.hovedsporsmal, .tilleggssporsmal, .presisering {
+    padding: 1em;
+    background-color: @hvit;
+    position: relative;
+    margin-bottom: .5em;
+
+    @media(min-width: @skjermMini) {
+        padding: 2em;
+    }
+}
+
+.hovedsporsmal--medTillegg, .tilleggssporsmal, .ekstrasporsmal, .presisering {
+    &:after {
+        content: "";
+        width: 1em;
+        height: 1em;
+        position: absolute;
+        display: block;
+        left: 1em;
+        transform-origin: 50% 50%;
+
+        @media(min-width: @skjermMini) {
+            left: 1.5em;
+        }
+    }
+}
+
+.hovedsporsmal--medTillegg {
+    &:after {
+        font-size: 1.5em;
+        background-color: @hvit;
+        transform: translateY(50%) rotate(45deg) skew(5deg, 5deg);
+        bottom: 0;
+        z-index: 10;
+    }
+}
+
+
+.tilleggssporsmal {
+    box-shadow: 0 0 0 1px @lenkeBlaa inset;
+    padding-top: 2em;
+
+    @media(min-width: @skjermMini) {
+        padding-top: 3em;
+    }
+    
+    &:after {
+        background-color: @bakgrunnGraa;
+        transform: translateY(-50%) rotate(45deg) scale(1.1,1.1) skew(5deg, 5deg);
+        top: 1px;
+        border-bottom: 1px solid @lenkeBlaa;
+        border-right: 1px solid @lenkeBlaa;
+        font-size: 1.5em;
+    }
+}
+
+.ekstrasporsmal, .presisering {
+    padding: 1em;
+    position: relative;
+
+    &:after {
+        font-size: 1.3333333333333333em;
+        top: 0;
+        transform: translateY(-50%) rotate(45deg) skew(5deg, 5deg);
+    }
+}
+
+.presisering {
+    margin-top: 2em;
+
+    &:after {
+        background-color: @hvit;
+    }
+}
+
+.ekstrasporsmal {
+    background-color: @bakgrunnGraa;
+    margin: 2em ~"calc(-1em + 1px)" 1em;
+
+    @media(min-width: @skjermMini) {
+        margin-left: ~"calc(-2em + 1px)";
+        margin-right: ~"calc(-2em + 1px)";
+        padding-left: 2em;
+        padding-right: 2em;
+    }
+
+    &:after {
+        background-color: @bakgrunnGraa;
+    }
+}
+
+#cb-checkbox-utenlandsopphold {
+    // Megahack
+    .ekstrasporsmal {
+        margin-bottom: ~"calc(-1em + 1px)";
+
+        @media(min-width: @skjermMini) {
+            margin-bottom: ~"calc(-2em + 1px)";
+        }
+    }
+}

@@ -200,23 +200,23 @@ describe('sykepengesoknad', () => {
         it("parser datofelter i utenlandsopphold", () => {
             const soknad = Object.assign({},getSoknad(),
                 {
-                    utenlandsopphold: [
+                    utenlandsopphold: {
+                        soektOmSykepengerIPerioden: false,
+                        perioder: [
                         {
-                            soektOmSykepengerIPerioden: false,
                             fom: "2016-07-15",
                             tom: "2017-01-19",
                         }, {
-                            soektOmSykepengerIPerioden: true,
                             fom: "2016-07-15",
                             tom: "2017-01-19",
                         },
                     ]
+                    } 
                 });
             const _soknad = parseDatofelter(soknad);
-            expect(_soknad.utenlandsopphold[0].soektOmSykepengerIPerioden).to.be.equal(false);
-            expect(_soknad.utenlandsopphold[1].fom.getTime()).to.be.equal(new Date("2016-07-15").getTime());
-            expect(_soknad.utenlandsopphold[1].tom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-            expect(_soknad.utenlandsopphold[1].soektOmSykepengerIPerioden).to.be.equal(true);
+            expect(_soknad.utenlandsopphold.soektOmSykepengerIPerioden).to.be.equal(false);
+            expect(_soknad.utenlandsopphold.perioder[1].fom.getTime()).to.be.equal(new Date("2016-07-15").getTime());
+            expect(_soknad.utenlandsopphold.perioder[1].tom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
 
         it("parser datofelter i utdanning", () => {
@@ -293,7 +293,10 @@ const getSoknad = () => {
         identdato: null,
         permisjon: [],
         utdanning: null,
-        utenlandsopphold: [],
+        utenlandsopphold: {
+            perioder: [],
+            soektOmSykepengerIPerioden: null,
+        },
         opprettetDato: "2017-01-01",
         innsendtDato: null,
     };
@@ -317,7 +320,10 @@ const getParsetSoknad = () => {
         identdato: null,
         permisjon: [],
         utdanning: null,
-        utenlandsopphold: [],
+        utenlandsopphold: {
+            perioder: [],
+            soektOmSykepengerIPerioden: null,
+        },
         opprettetDato: new Date("2017-01-01"),
         innsendtDato: null,
     };

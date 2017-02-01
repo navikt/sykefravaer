@@ -138,6 +138,45 @@ describe("GenerellSoknadContainer", () => {
             const props = mapStateToProps(state, ownProps);
             expect(props.hentingFeilet).to.be.false;
         });
-    })
+
+        it("Skal returnere sendingFeilet === true dersom sending av søknaden feiler", () => {
+            state.sykepengesoknader.sendingFeilet = true;
+            const props = mapStateToProps(state, ownProps);
+            expect(props.sendingFeilet).to.be.true;
+        });
+
+        it("Skal returnere sendingFeilet === false dersom sending av søknaden ikke feiler", () => {
+            state.sykepengesoknader.sendingFeilet = false;
+            const props = mapStateToProps(state, ownProps);
+            expect(props.sendingFeilet).to.be.false;
+        });
+
+        it("Skal returnere sender === true dersom søknad sendes", () => {
+            state.sykepengesoknader.sender = true;
+            const props = mapStateToProps(state, ownProps);
+            expect(props.sender).to.be.true;
+        });
+
+        it("Skal returnere sender === false dersom søknad ikke sendes", () => {
+            state.sykepengesoknader.sender = false;
+            const props = mapStateToProps(state, ownProps);
+            expect(props.sender).to.be.false;
+        });
+
+        it("Skal returnere skjemasoknad hvis det finnes skjemasoknad med values", () => {
+            state.form = {
+                sykepengerSkjema: {
+                    values: {
+                        random: "random"
+                    }
+                }
+            };
+            const props = mapStateToProps(state, ownProps);
+            expect(props.skjemasoknad).to.deep.equal({
+                random: "random",
+            });
+        });
+
+    });
 
 });

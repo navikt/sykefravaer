@@ -6,7 +6,7 @@ import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 
 export const GenerellSoknad = (props) => {
-    const { Component, brodsmuler, sykepengesoknad, henter, hentingFeilet } = props;
+    const { Component, brodsmuler, sykepengesoknad, henter, hentingFeilet, ledetekster } = props;
     return (<Side tittel="Søknad om sykepenger" brodsmuler={brodsmuler}>
     {
         (() => {
@@ -37,6 +37,7 @@ GenerellSoknad.propTypes = {
 };
 
 export const mapStateToProps = (state, ownProps) => {
+    const skjemasoknad = state.form && state.form.sykepengerSkjema ? state.form.sykepengerSkjema.values : undefined;
     return {
         sykepengesoknad: state.sykepengesoknader.data.filter((soknad) => {
             return soknad.id === ownProps.params.sykepengesoknadId;
@@ -44,11 +45,14 @@ export const mapStateToProps = (state, ownProps) => {
         henter: state.sykepengesoknader.henter || state.ledetekster.henter,
         hentingFeilet: state.sykepengesoknader.hentingFeilet || state.sykepengesoknader.hentingFeilet,
         ledetekster: state.ledetekster.data,
+        skjemasoknad,
+        sender: state.sykepengesoknader.sender,
+        sendingFeilet: state.sykepengesoknader.sendingFeilet,
     };
 };
 
 const Container = connect(mapStateToProps, {
-    actions: soknadActions,
+    actions: soknadActions
 })(GenerellSoknad);
 
 export default Container;

@@ -120,10 +120,12 @@ Oppsummering.propTypes = {
 };
 
 export const OppsummeringWrap = (props) => {
-    const { skjemasoknad, sykepengesoknad, handleSubmit, ledetekster } = props;
+    const { skjemasoknad, sykepengesoknad, handleSubmit, ledetekster, sendSykepengesoknad } = props;
     const label = 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte';
-    const onSubmit = () => {
-        alert('Send søknad, takk.');
+    const onSubmit = (values) => {
+        const soknad = mapSkjemasoknadToBackendsoknad(values);
+        const soknadObjekt = JSON.parse(JSON.stringify(soknad));
+        sendSykepengesoknad(soknadObjekt);
     };
     const backendSoknad = mapSkjemasoknadToBackendsoknad(skjemasoknad);
     console.log(JSON.stringify(skjemasoknad));
@@ -143,7 +145,7 @@ export const OppsummeringWrap = (props) => {
                     <li>du kan miste retten til sykepenger hvis du uten rimelig grunn nekter å opplyse om egen funksjonsevne eller nekter å ta imot tilbud om behandling og/eller tilrettelegging</li>
                 </ul>
             </div>
-            <Field component={CheckboxSelvstendig} name="informasjonLestOgBekreftetKorrekt" id="informasjonLestOgBekreftetKorrekt" label={label} />
+            <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="informasjonLestOgBekreftetKorrekt" label={label} />
             <Knapperad variant="knapperad--forrigeNeste">
                 <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`} className="rammeknapp rammeknapp--forrige">Tilbake</Link>
                 <button className="knapp">Send søknad</button>
@@ -157,6 +159,7 @@ OppsummeringWrap.propTypes = {
     handleSubmit: PropTypes.func,
     skjemasoknad: PropTypes.object,
     ledetekster: PropTypes.object,
+    sendSykepengesoknad: PropTypes.func,
 };
 
 const validate = (values) => {

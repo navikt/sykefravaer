@@ -4,9 +4,10 @@ import Side from '../../sider/Side';
 import Oppsummering from '../../components/sykepengesoknad/Oppsummering/Oppsummering';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
+import * as sykepengesoknadActions from '../../actions/sykepengesoknader_actions';
 
 export const Container = (props) => {
-    const { brodsmuler, skjemasoknad, sykepengesoknad, henter, hentingFeilet, ledetekster } = props;
+    const { brodsmuler, skjemasoknad, sykepengesoknad, henter, hentingFeilet, ledetekster, sendSykepengesoknad } = props;
     return (<Side tittel="Søknad om sykepenger" brodsmuler={brodsmuler}>
     {
         (() => {
@@ -19,7 +20,7 @@ export const Container = (props) => {
             if (sykepengesoknad === undefined) {
                 return <Feilmelding tittel="Beklager, vi finner ikke søknaden du ser etter" melding="Er du sikker på at du er på riktig adresse?" />;
             }
-            return <Oppsummering sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} skjemasoknad={skjemasoknad} />;
+            return <Oppsummering sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} skjemasoknad={skjemasoknad} sendSykepengesoknad={sendSykepengesoknad} />;
         })()
     }
     </Side>);
@@ -58,6 +59,6 @@ export const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const OppsummeringContainer = connect(mapStateToProps)(Container);
+const OppsummeringContainer = connect(mapStateToProps, sykepengesoknadActions)(Container);
 
 export default OppsummeringContainer;

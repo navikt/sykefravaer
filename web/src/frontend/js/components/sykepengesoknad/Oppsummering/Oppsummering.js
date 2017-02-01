@@ -26,12 +26,12 @@ Oppsummering.propTypes = {
 };
 
 export const OppsummeringWrap = (props) => {
-    const { skjemasoknad, sykepengesoknad, handleSubmit, ledetekster, sendSykepengesoknad } = props;
+    const { skjemasoknad, sykepengesoknad, handleSubmit, ledetekster, actions } = props;
     const label = 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte';
     const onSubmit = (values) => {
         const soknad = mapSkjemasoknadToBackendsoknad(values);
         const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
-        sendSykepengesoknad(soknadObjekt);
+        actions.sendSykepengesoknad(soknadObjekt);
     };
     const backendSoknad = mapSkjemasoknadToBackendsoknad(skjemasoknad);
     console.log(JSON.stringify(skjemasoknad));
@@ -65,7 +65,7 @@ OppsummeringWrap.propTypes = {
     handleSubmit: PropTypes.func,
     skjemasoknad: PropTypes.object,
     ledetekster: PropTypes.object,
-    sendSykepengesoknad: PropTypes.func,
+    actions: PropTypes.object,
 };
 
 const validate = (values) => {

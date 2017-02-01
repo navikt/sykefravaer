@@ -32,13 +32,17 @@ const parseUtdanningsDato = (utdanning) => {
     return utdanning && Object.assign({}, utdanning, { utdanningStartdato: tilDato(utdanning.utdanningStartdato) });
 };
 
+const parseUtenlandsopphold = (utenlandsopphold) => {
+    return utenlandsopphold && Object.assign({}, utenlandsopphold, { perioder: parseDatoerPeriodeListe(utenlandsopphold.perioder) });
+};
+
 export const parseDatofelter = (soknad) => {
     const _soknad = Object.assign({}, soknad);
     _soknad.aktiviteter = parseAktivitetsdatoer(soknad.aktiviteter);
-    _soknad.egenmeldingsperioder = parseDatoerPeriodeListe(soknad.egenmeldingsperioder);
-    _soknad.ferie = parseDatoerPeriodeListe(soknad.ferie);
-    _soknad.permisjon = parseDatoerPeriodeListe(soknad.permisjon);
-    _soknad.utenlandsopphold.perioder = parseDatoerPeriodeListe(soknad.utenlandsopphold.perioder);
+    _soknad.egenmeldingsperioder = soknad.egenmeldingsperioder && parseDatoerPeriodeListe(soknad.egenmeldingsperioder);
+    _soknad.ferie = soknad.ferie && parseDatoerPeriodeListe(soknad.ferie);
+    _soknad.permisjon = soknad.permisjon && parseDatoerPeriodeListe(soknad.permisjon);
+    _soknad.utenlandsopphold = parseUtenlandsopphold(soknad.utenlandsopphold);
     _soknad.utdanning = parseUtdanningsDato(soknad.utdanning);
     _soknad.gjenopptattArbeidFulltUtDato = tilDato(soknad.gjenopptattArbeidFulltUtDato);
     _soknad.identdato = tilDato(soknad.identdato);

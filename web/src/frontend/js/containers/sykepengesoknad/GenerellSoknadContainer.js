@@ -33,7 +33,7 @@ GenerellSoknad.propTypes = {
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     ledetekster: PropTypes.object,
-    Component: PropTypes.object,
+    Component: PropTypes.func.isRequired,
 };
 
 export const mapStateToProps = (state, ownProps) => {

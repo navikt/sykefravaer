@@ -2,7 +2,7 @@ import React from 'react';
 import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 
-const FoerDuBegynnerContainer = () => {
+const FoerDuBegynnerContainer = ({ params }) => {
     const brodsmuler = [{
         tittel: 'Ditt sykefravær',
         sti: '/',
@@ -14,7 +14,7 @@ const FoerDuBegynnerContainer = () => {
     }, {
         tittel: 'Søknad',
     }];
-    return <GenerellSoknadContainer Component={FoerDuBegynner} brodsmuler={brodsmuler} />;
+    return <GenerellSoknadContainer Component={FoerDuBegynner} brodsmuler={brodsmuler} params={params} />;
 };
 
 export default FoerDuBegynnerContainer;

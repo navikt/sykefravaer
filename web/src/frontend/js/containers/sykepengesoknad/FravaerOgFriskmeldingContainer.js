@@ -2,7 +2,7 @@ import React from 'react';
 import FravaerOgFriskmelding from '../../components/sykepengesoknad/FravaerOgFriskmelding/FravaerOgFriskmelding';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 
-const FravaerOgFriskmeldingContainer = () => {
+const FravaerOgFriskmeldingContainer = ({ params }) => {
     const brodsmuler = [{
         tittel: 'Ditt sykefravær',
         sti: '/',
@@ -14,7 +14,7 @@ const FravaerOgFriskmeldingContainer = () => {
     }, {
         tittel: 'Søknad',
     }];
-    return <GenerellSoknadContainer Component={FravaerOgFriskmelding} brodsmuler={brodsmuler} />;
+    return <GenerellSoknadContainer Component={FravaerOgFriskmelding} brodsmuler={brodsmuler} params={params} />;
 };
 
 export default FravaerOgFriskmeldingContainer;

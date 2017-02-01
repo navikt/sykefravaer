@@ -2,7 +2,7 @@ import React from 'react';
 import AktiviteterISykmeldingsperioden from '../../components/sykepengesoknad/AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 
-const AktiviteterISykmeldingsperiodenContainer = () => {
+const AktiviteterISykmeldingsperiodenContainer = ({ params }) => {
     const brodsmuler = [{
         tittel: 'Ditt sykefravær',
         sti: '/',
@@ -14,7 +14,7 @@ const AktiviteterISykmeldingsperiodenContainer = () => {
     }, {
         tittel: 'Søknad',
     }];
-    return <GenerellSoknadContainer Component={AktiviteterISykmeldingsperioden} brodsmuler={brodsmuler} />;
+    return <GenerellSoknadContainer Component={AktiviteterISykmeldingsperioden} brodsmuler={brodsmuler} params={params} />;
 };
 
 export default AktiviteterISykmeldingsperiodenContainer;

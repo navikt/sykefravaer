@@ -2,7 +2,7 @@ import React from 'react';
 import Oppsummering from '../../components/sykepengesoknad/Oppsummering/Oppsummering';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 
-const OppsummeringContainer = () => {
+const OppsummeringContainer = ({ params }) => {
     const brodsmuler = [{
         tittel: 'Ditt sykefravær',
         sti: '/',
@@ -14,7 +14,7 @@ const OppsummeringContainer = () => {
     }, {
         tittel: 'Søknad',
     }];
-    return <GenerellSoknadContainer Component={Oppsummering} brodsmuler={brodsmuler} />;
+    return <GenerellSoknadContainer Component={Oppsummering} brodsmuler={brodsmuler} params={params} />;
 };
 
 export default OppsummeringContainer;

@@ -9,6 +9,7 @@ const Datovelger = (props) => {
         component={Tekstfelt}
         placeholder="dd.mm.åååå"
         className="input--s"
+        type="tel"
         validate={(input) => {
             if (!input) {
                 return undefined;

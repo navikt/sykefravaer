@@ -229,7 +229,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
         });
 
-        describe.only("Inntektskilde", () => {
+        describe("Inntektskilde", () => {
 
             it("Skal validere hvorvidt brukeren har andre inntektskilder", () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });

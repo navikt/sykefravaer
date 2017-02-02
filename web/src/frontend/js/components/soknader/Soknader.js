@@ -4,8 +4,9 @@ import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';
 
 const Soknader = ({ ledetekster = {}, soknader = [] }) => {
-    const soknaderTilBehandling = soknader.filter((soknad) => { return soknad.status === 'NY' || soknad.status === 'LAGRET'; });
-    const sendteSoknader = soknader.filter((soknad) => { return soknad.status === 'SENDT'; });
+    const nyeSoknader = soknader.filter((soknad) => {
+        return soknad.status === 'NY';
+    });
 
     return (<div>
         <Sidetopp
@@ -13,23 +14,13 @@ const Soknader = ({ ledetekster = {}, soknader = [] }) => {
             htmlTekst={getHtmlLedetekst('soknader.introduksjonstekst', ledetekster)}
         />
         <SoknadTeasere
-            soknader={soknaderTilBehandling}
+            soknader={nyeSoknader}
             tittel={getLedetekst('soknader.venter-paa-behandling.tittel', ledetekster)}
             tomListeTekst={getLedetekst('soknader.venter-paa-behandling.ingen-soknader', ledetekster)}
             className="js-til-behandling"
             ledetekster={ledetekster}
             id="soknader-list-til-behandling"
         />
-        {
-            sendteSoknader.length > 0 && (<SoknadTeasere
-                soknader={sendteSoknader}
-                tittel={getLedetekst('soknader.sendt.tittel', ledetekster)}
-                tomListeTekst={getLedetekst('soknader.sendt.ingen-soknader', ledetekster)}
-                className="js-sendt"
-                ledetekster={ledetekster}
-                id="soknader-sendt"
-            />)
-        }
     </div>);
 };
 

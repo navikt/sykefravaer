@@ -163,6 +163,4 @@ describe("Oppsummering", () => {
         expect(sendTilFoerDuBegynner.called).to.be.false;
     });
 
-
-
 })

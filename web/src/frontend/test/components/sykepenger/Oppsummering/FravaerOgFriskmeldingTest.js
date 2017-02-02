@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import FravaerOgFriskmelding from '../../../../js/components/sykepengesoknad/Oppsummering/FravaerOgFriskmelding';
+import FravaerOgFriskmelding, { FeriePermisjonEllerUtenlandsopphold } from '../../../../js/components/sykepengesoknad/Oppsummering/FravaerOgFriskmelding';
 import { getSoknad } from '../../../mockSoknader';
 
 describe("Oppsummering - FravaerOgFriskmelding -", () => {
@@ -19,7 +19,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
             tom: "2016-12-31"
         }]
       });
-      component = mount(<FravaerOgFriskmelding sykepengesoknad={soknad} />)
+      component = mount(<FravaerOgFriskmelding sykepengesoknad={soknad} />);
       const fragment = component.find(".js-egenmeldingsdager");
       expect(fragment.text()).to.contain("Brukte du egenmeldingsdager før du ble sykmeldt den 15.07.2016?");
       expect(fragment.text()).to.contain("Ja");
@@ -39,11 +39,12 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
     });
 
     it("Skal vise gjenopptatt arbeid fullt ut", () => {
-      component = mount(<FravaerOgFriskmelding sykepengesoknad={getSoknad({
+      const soknad = getSoknad({
         gjenopptattArbeidFulltUtDato: "2017-01-15"
-      })} />);
+      });
+      component = mount(<FravaerOgFriskmelding sykepengesoknad={soknad} />);
       const fragment = component.find(".js-gjenopptattArbeid");
-      expect(fragment.text()).to.contain("Har du gjenopptatt arbeidet ditt hos SOLSTRÅLEN BARNEHAGE fullt ut?");
+      expect(fragment.text()).to.contain("Har du gjenopptatt arbeidet ditt hos BYGGMESTER BLOM AS fullt ut?");
       expect(fragment.text()).to.contain("Ja");
       expect(fragment.text()).to.contain("Den 15.01.2017")    
     });
@@ -53,7 +54,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
         gjenopptattArbeidFulltUtDato: null,
       })} />);
       const fragment = component.find(".js-gjenopptattArbeid");
-      expect(fragment.text()).to.contain("Har du gjenopptatt arbeidet ditt hos SOLSTRÅLEN BARNEHAGE fullt ut?");
+      expect(fragment.text()).to.contain("Har du gjenopptatt arbeidet ditt hos BYGGMESTER BLOM AS fullt ut?");
       expect(fragment.text()).to.contain("Nei");
       expect(fragment.text()).not.to.contain("Den 15.01.2017")    
     });
@@ -64,9 +65,12 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
 
       beforeEach(() => {
         getFragment = (soknad = {}) => {
-          const c = mount(<FravaerOgFriskmelding sykepengesoknad={getSoknad(soknad)} />);
-          return c.find(".js-feriePermisjonUtenlandsopphold");
+          return mount(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad(soknad)} />);
         }
+      })
+
+      it("Skal vise riktig spørsmål", () => {
+
       })
 
       describe("Dersom svaret er nei pga tomme array", () => {
@@ -76,15 +80,12 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
           fragment = getFragment({
             ferie: [],
             permisjon: [],
-            utenlandsopphold: {
-              perioder: [],
-              soektOmSykepengerIPerioden: null,
-            }
+            utenlandsopphold: null
           })
         });
 
         it("Skal vise ferie, permisjon eller utenlandsopphold", () => {
-          expect(fragment.text()).to.contain("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 - 31.01.2017?");
+          expect(fragment.text()).to.contain("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 - 25.01.2017?");
           expect(fragment.text()).to.contain("Nei");
         });
 
@@ -104,7 +105,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
         })
         
         it("Skal vise ferie, permisjon eller utenlandsopphold", () => {
-          expect(fragment.text()).to.contain("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 - 31.01.2017?");
+          expect(fragment.text()).to.contain("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 - 25.01.2017?");
           expect(fragment.text()).to.contain("Ja");
         });
 

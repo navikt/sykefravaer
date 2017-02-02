@@ -15,7 +15,7 @@ import * as foerDuBegynner from '../FoerDuBegynner/FoerDuBegynner';
 import * as aktiviteterISykmeldingsperioden from '../AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
 import * as fravaerOgFriskmelding from '../FravaerOgFriskmelding/FravaerOgFriskmelding';
 
-const Oppsummering = ({ sykepengesoknad }) => {
+export const Oppsummering = ({ sykepengesoknad }) => {
     return (<div>
         <div className="oppsummering__bolk">
             <Avkrysset tekst="Jeg er klar over at dersom jeg gir uriktige opplysninger eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar." />

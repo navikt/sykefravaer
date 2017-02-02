@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Avkrysset } from './opplysninger';
 import { toDatePrettyPrint } from 'digisyfo-npm';
+import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
 
 export const Perioder = ({ perioder }) => {
     return (<ul className="oppsummering__perioder js-perioder">
@@ -33,7 +34,7 @@ Egenmeldingsdager.propTypes = {
 
 const GjenopptattArbeidFulltUt = ({ sykepengesoknad }) => {
     return (<div className="js-gjenopptattArbeid oppsummering__bolk">
-        <h3 className="oppsummering__sporsmal">Har du gjenopptatt arbeidet ditt hos SOLSTRÅLEN BARNEHAGE fullt ut?</h3>
+        <h3 className="oppsummering__sporsmal">Har du gjenopptatt arbeidet ditt hos {sykepengesoknad.arbeidsgiver.navn} fullt ut?</h3>
         <Avkrysset tekst={sykepengesoknad.gjenopptattArbeidFulltUtDato ? 'Ja' : 'Nei'} />
         {sykepengesoknad.gjenopptattArbeidFulltUtDato && <p className="oppsummering__dato">Den {toDatePrettyPrint(sykepengesoknad.gjenopptattArbeidFulltUtDato)}</p>}
     </div>);
@@ -81,26 +82,32 @@ Utenlandsopphold.propTypes = {
     perioder: PropTypes.array,
 };
 
-const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad }) => {
-    const harHattFeriePermisjonEllerUtenlandsopphold = sykepengesoknad.ferie.length > 0 || sykepengesoknad.permisjon.length > 0 || sykepengesoknad.utenlandsopphold.perioder.length > 0;
+export const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad }) => {
+    const harHattFerie = sykepengesoknad.ferie && sykepengesoknad.ferie.length > 0;
+    const harHattPermisjon = sykepengesoknad.permisjon && sykepengesoknad.permisjon.length > 0;
+    const harHattUtenlandsopphold = sykepengesoknad.utenlandsopphold && sykepengesoknad.utenlandsopphold.perioder && sykepengesoknad.utenlandsopphold.perioder.length > 0;
+    const harHattFeriePermisjonEllerUtenlandsopphold = harHattFerie || harHattPermisjon || harHattUtenlandsopphold;
+    const sykmeldingsperioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
+        return aktivitet.periode;
+    });
+
     return (<div className="js-feriePermisjonUtenlandsopphold oppsummering__bolk">
-        <h3 className="oppsummering__sporsmal">Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 - 31.01.2017?</h3>
+        <h3 className="oppsummering__sporsmal">Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden {toDatePrettyPrint(tidligsteFom(sykmeldingsperioder))} - {toDatePrettyPrint(senesteTom(sykmeldingsperioder))}?</h3>
         <Avkrysset tekst={harHattFeriePermisjonEllerUtenlandsopphold ? 'Ja' : 'Nei'} />
         {
             harHattFeriePermisjonEllerUtenlandsopphold && <h4 className="oppsummering__sporsmal">Jeg har ...</h4>
         }
         {
-            sykepengesoknad.ferie && sykepengesoknad.ferie.length > 0 && <Ferie perioder={sykepengesoknad.ferie} />
+            harHattFerie && <Ferie perioder={sykepengesoknad.ferie} />
         }
         {
-            sykepengesoknad.permisjon && sykepengesoknad.permisjon.length > 0 && <Permisjon perioder={sykepengesoknad.permisjon} />
+            harHattPermisjon && <Permisjon perioder={sykepengesoknad.permisjon} />
         }
         {
-            sykepengesoknad.utenlandsopphold && sykepengesoknad.utenlandsopphold.perioder.length > 0 && <Utenlandsopphold
+            harHattUtenlandsopphold && <Utenlandsopphold
                 perioder={sykepengesoknad.utenlandsopphold.perioder}
                 soektOmSykepengerIPerioden={sykepengesoknad.utenlandsopphold.soektOmSykepengerIPerioden} />
         }
-
     </div>);
 };
 

@@ -2,8 +2,12 @@ import React from 'react';
 import Oppsummering from '../../components/sykepengesoknad/Oppsummering/Oppsummering';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import Feilmelding from '../../components/Feilmelding';
+import Kvittering from '../../components/sykepengesoknad/Kvittering';
 
-const OppsummeringWrap = (props) => {
+export const Controller = (props) => {
+    if (props.sykepengesoknad.status === 'SENDT') {
+        return <Kvittering />
+    }
     if (props.skjemasoknad) {
         return <Oppsummering {...props} />
     }
@@ -22,7 +26,7 @@ const OppsummeringContainer = ({ params }) => {
     }, {
         tittel: 'Søknad',
     }];
-    return <GenerellSoknadContainer Component={OppsummeringWrap} brodsmuler={brodsmuler} params={params} />;
+    return <GenerellSoknadContainer Component={Controller} brodsmuler={brodsmuler} params={params} />;
 };
 
 export default OppsummeringContainer;

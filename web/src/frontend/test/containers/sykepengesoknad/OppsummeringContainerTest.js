@@ -6,18 +6,18 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import AktiviteterISykmeldingsperioden from '../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
-import AktiviteterISykmeldingsperiodenContainer, { Controller } from '../../../js/containers/sykepengesoknad/AktiviteterISykmeldingsperiodenContainer';
+import Oppsummering from '../../../js/components/sykepengesoknad/Oppsummering/Oppsummering';
+import OppsummeringContainer, { Controller } from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
 import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 import Kvittering from '../../../js/components/sykepengesoknad/Kvittering';
 import Feilmelding from '../../../js/components/Feilmelding';
 
-describe("AktiviteterISykmeldingsperiodenContainer", () => {
+describe("OppsummeringContainer", () => {
 
     let component; 
 
     beforeEach(() => {
-        component = shallow(<AktiviteterISykmeldingsperiodenContainer />);
+        component = shallow(<OppsummeringContainer />);
     });
 
     it("Skal inneholde en GenerellSoknadContainer med riktige props", () => {
@@ -45,18 +45,18 @@ describe("AktiviteterISykmeldingsperiodenContainer", () => {
             }
             const containerComponent = shallow(<Controller sykepengesoknad={sykepengesoknad} skjemasoknad={skjemasoknad} />)
             expect(containerComponent.find(Kvittering)).to.have.length(1);
-            expect(containerComponent.find(AktiviteterISykmeldingsperioden)).to.have.length(0);
+            expect(containerComponent.find(Oppsummering)).to.have.length(0);
         });
 
-        it("Skal vise AktiviteterISykmeldingsperioden hvis søknad har status = NY", () => {
+        it("Skal vise Oppsummering hvis søknad har status = NY", () => {
             const sykepengesoknad = {
                 status: "NY",
             }
             const containerComponent = shallow(<Controller sykepengesoknad={sykepengesoknad} skjemasoknad={skjemasoknad} />)
             expect(containerComponent.find(Kvittering)).to.have.length(0);
-            expect(containerComponent.find(AktiviteterISykmeldingsperioden)).to.have.length(1);
+            expect(containerComponent.find(Oppsummering)).to.have.length(1);
         });
-        
+
     });
 
 });

@@ -165,7 +165,7 @@ describe("GenerellSoknadContainer", () => {
 
         it("Skal returnere skjemasoknad hvis det finnes skjemasoknad med values", () => {
             state.form = {
-                sykepengerSkjema: {
+                SYKEPENGERSKJEMA: {
                     values: {
                         random: "random"
                     }

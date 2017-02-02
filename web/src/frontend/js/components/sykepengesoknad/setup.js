@@ -21,9 +21,11 @@ export const mapToInitialValues = (soknad) => {
     });
 };
 
+export const SYKEPENGER_SKJEMANAVN = 'SYKEPENGERSKJEMA';
+
 const setup = (validate, Component, initialize = false) => {
     const form = reduxForm({
-        form: 'sykepengerSkjema',
+        form: SYKEPENGER_SKJEMANAVN,
         validate,
         destroyOnUnmount: false,
         forceUnregisterOnUnmount: true,

@@ -5,6 +5,7 @@ import Side from '../../sider/Side';
 import * as soknadActions from '../../actions/sykepengesoknader_actions';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
+import { SYKEPENGER_SKJEMANAVN } from '../../components/sykepengesoknad/setup';
 
 export const GenerellSoknad = (props) => {
     const { Component, brodsmuler, sykepengesoknad, henter, hentingFeilet } = props;
@@ -44,7 +45,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 export const mapStateToProps = (state, ownProps) => {
-    const skjemasoknad = state.form && state.form.sykepengerSkjema ? state.form.sykepengerSkjema.values : undefined;
+    const skjemasoknad = state.form && state.form[SYKEPENGER_SKJEMANAVN] ? state.form[SYKEPENGER_SKJEMANAVN].values : undefined;
     return {
         sykepengesoknad: state.sykepengesoknader.data.filter((soknad) => {
             return soknad.id === ownProps.params.sykepengesoknadId;

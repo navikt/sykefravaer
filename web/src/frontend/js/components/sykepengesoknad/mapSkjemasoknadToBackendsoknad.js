@@ -46,6 +46,7 @@ const getAktiviteter = (aktiviteter) => {
     return aktiviteter.map((aktivitet) => {
         const _a = {
             periode: aktivitet.periode,
+            grad: aktivitet.grad,
         };
         if (aktivitet.jobbetMerEnnPlanlagt) {
             _a.avvik = {

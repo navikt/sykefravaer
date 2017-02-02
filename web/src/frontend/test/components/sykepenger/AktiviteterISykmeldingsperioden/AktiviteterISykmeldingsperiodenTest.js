@@ -12,7 +12,6 @@ import { getSoknad } from '../../../mockSoknader';
 
 describe("AktiviteterISykmeldingsperioden", () => {
 
-
     describe("Validate", () => {
 
         let values; 
@@ -230,7 +229,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
         });
 
-        describe("Inntektskilde", () => {
+        describe.only("Inntektskilde", () => {
 
             it("Skal validere hvorvidt brukeren har andre inntektskilder", () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
@@ -257,9 +256,13 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
             describe("Dersom brukeren har andre inntektskilder", () => {
                 let res;
-                let values = {
-                    harAndreInntektskilder: true
-                };
+                let values;
+
+                beforeEach(() => {
+                    values = {
+                        harAndreInntektskilder: true
+                    };
+                });
 
                 it("Brukeren må velge hvilken inntektskilde", () => {
                     const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
@@ -270,7 +273,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
                 
                 it("Brukeren må velge hvilken inntektskilde", () => {
                     values.andreInntektskilder = [{
-                        andreArbeidsforhold: {
+                        "ANDRE_ARBEIDSFORHOLD": {
                             avkrysset: false
                         }
                     }]
@@ -282,11 +285,11 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
                 it("Brukeren må velge hvilken inntektskilde", () => {
                     values.andreInntektskilder = [{
-                        andreArbeidsforhold: {
+                        ANDRE_ARBEIDSFORHOLD: {
                             avkrysset: false
                         }
                     }, {
-                        frilanser: {
+                        FRILANSER: {
                             avkrysset: false,
                         }
                     }]
@@ -298,17 +301,16 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
                 it("Brukeren må svare på om han/hun er sykmeldt for hver avkrysset inntektskilde (1)", () => {
                     values.andreInntektskilder = {
-                        "andreArbeidsforhold": {
+                        "ANDRE_ARBEIDSFORHOLD": {
                             avkrysset: true,
-                            }
-                        }, {
-                           "frilanser": {
-                                avkrysset: false,
-                            }
+                        },
+                        "FRILANSER": {
+                            avkrysset: false, 
                         }
+                    }
                     const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                     expect(res.andreInntektskilder).to.deep.equal({
-                        andreArbeidsforhold: {
+                        ANDRE_ARBEIDSFORHOLD: {
                             "sykmeldt": "Vennligst svar på om du er sykmeldt"
                         }
                     })
@@ -316,31 +318,82 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
                 it("Brukeren må svare på om han/hun er sykmeldt for hver avkrysset inntektskilde (2)", () => {
                     values.andreInntektskilder = {
-                        "andreArbeidsforhold": {
+                        "ANDRE_ARBEIDSFORHOLD": {
                             avkrysset: true,
                             sykmeldt: false    
                         },
-                        "frilanser": {
+                        "FRILANSER": {
                             avkrysset: false, 
                         }
                     }
                     const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-                    expect(res.andreInntektskilder).to.deep.equal({})
+                    expect(res.hasOwnProperty("andreInntektskilder")).to.be.false;
                 });
 
                 it("Brukeren må svare på om han/hun er sykmeldt for hver avkrysset inntektskilde (3)", () => {
                     values.andreInntektskilder = {
-                        "andreArbeidsforhold": {
+                        "ANDRE_ARBEIDSFORHOLD": {
                             avkrysset: true,
                             sykmeldt: true    
                         }, 
-                        "frilanser": {
+                        "FRILANSER": {
                             avkrysset: false, 
                         }
                     };
                     const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-                    expect(res.andreInntektskilder).to.deep.equal({})
+                    expect(res.hasOwnProperty("andreInntektskilder")).to.be.false;
                 });
+
+                it("Skal ikke klage på andre inntektskilder hvis dette er oppgitt", () => {
+                    const values = {
+                      "andreInntektskilder": {
+                        "ANDRE_ARBEIDSFORHOLD": {
+                          "avkrysset": true,
+                          "sykmeldt": false
+                        }
+                      },
+                      "harAndreInntektskilder": true
+                    };
+                  const sykepengesoknad = {
+                    "id": "b2450694-bc57-40cd-a834-34c817ace7e3",
+                    "status": "NY",
+                    "innsendtDato": null,
+                    "opprettetDato": "2017-02-02T00:00:00.000Z",
+                    "arbeidsgiver": {
+                      "navn": "BYGGMESTER BLOM AS",
+                      "orgnummer": "***REMOVED***",
+                      "naermesteLeder": null
+                    },
+                    "identdato": "2017-02-15T00:00:00.000Z",
+                    "ansvarBekreftet": false,
+                    "bekreftetKorrektInformasjon": false,
+                    "arbeidsgiverUtbetalerLoenn": true,
+                    "egenmeldingsperioder": [],
+                    "gjenopptattArbeidFulltUtDato": null,
+                    "ferie": [],
+                    "permisjon": [],
+                    "utenlandsopphold": null,
+                    "aktiviteter": [{
+                      "periode": {
+                        "fom": "2016-07-15T00:00:00.000Z",
+                        "tom": "2016-07-20T00:00:00.000Z"
+                      },
+                      "grad": 100,
+                      "avvik": null
+                    }],
+                    "andreInntektskilder": [],
+                    "utdanning": null
+                  };
+
+                  const res = validate(values, {
+                      sykepengesoknad,
+                      sendTilFoerDuBegynner
+                  });
+
+                  expect(res.hasOwnProperty("andreInntektskilder")).to.be.false;
+
+                });
+
 
             });
 

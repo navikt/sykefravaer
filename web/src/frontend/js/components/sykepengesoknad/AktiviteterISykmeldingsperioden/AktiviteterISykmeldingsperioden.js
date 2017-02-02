@@ -146,6 +146,11 @@ const getAntallAvkryssedeInntektstkilder = (inntektskilder = []) => {
 };
 
 export const validate = (values, props) => {
+
+    const steg = "AktiviteterISykmeldingsperioden";
+    console.log("verdier på steg " + steg + "\n", JSON.stringify(values));
+    console.log("sykepengesoknad på steg " + steg + "\n", JSON.stringify(props.sykepengesoknad));
+
     const feilmeldinger = {};
     if (Object.keys(foerDuBegynner.validate(values, props)).length > 0 || Object.keys(fravaerOgFriskmelding.validate(values, props)).length) {
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
@@ -167,7 +172,9 @@ export const validate = (values, props) => {
                     };
                 }
             }
-            feilmeldinger.andreInntektskilder = andreInntektskilderFeilmeldinger;
+            if (Object.keys(andreInntektskilderFeilmeldinger).length > 0) {
+                feilmeldinger.andreInntektskilder = andreInntektskilderFeilmeldinger;
+            }
         }
     }
     const utdanningsfeilmelding = {};

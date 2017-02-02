@@ -68,11 +68,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
           return mount(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad(soknad)} />);
         }
       })
-
-      it("Skal vise riktig spørsmål", () => {
-
-      })
-
+      
       describe("Dersom svaret er nei pga tomme array", () => {
         let fragment; 
 

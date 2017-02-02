@@ -36,7 +36,7 @@ Avvik.propTypes = {
 export const Aktivitet = ({ aktivitet, ledetekster, arbeidsgiver }) => {
     const ledetekstPrefix = getLedetekstPrefix(aktivitet);
 
-    return (<div className="oppsummering__bolk">
+    return (<div className="oppsummering__bolk js-aktivitet">
         <p className="oppsummering__sporsmal">
         {
             getLedetekst(`${ledetekstPrefix}.intro`, ledetekster, {
@@ -62,7 +62,7 @@ Aktivitet.propTypes = {
 };
 
 export const Aktiviteter = ({ sykepengesoknad, ledetekster }) => {
-    return (<div>
+    return (<div id="aktiviteter">
         {sykepengesoknad.aktiviteter.map((aktivitet, index) => {
             return <Aktivitet aktivitet={aktivitet} index={index} ledetekster={ledetekster} key={index} />;
         })}
@@ -75,11 +75,11 @@ Aktiviteter.propTypes = {
 };
 
 
-const AndreInntektskilder = ({ inntektskilder }) => {
-    return (<div className="oppsummering__bolk">
+const AndreInntektskilderListe = ({ inntektskilder }) => {
+    return (<div className="oppsummering__bolk" id="andre-inntektskilder-liste">
         {
             inntektskilder.map((k, index) => {
-                return (<div key={index}>
+                return (<div key={index} className="js-annen-inntektskilde">
                     <Avkrysset tekst={inntektskildeLabels[k.annenInntektskildeType]} />
                     {
                         k.annenInntektskildeType !== 'ANNET' && <div className="js-inntektskilde-sykmeldt oppsummering__tilleggssvar">
@@ -93,19 +93,19 @@ const AndreInntektskilder = ({ inntektskilder }) => {
     </div>);
 };
 
-AndreInntektskilder.propTypes = {
+AndreInntektskilderListe.propTypes = {
     inntektskilder: PropTypes.array,
 };
 
 export const Inntektskilder = ({ sykepengesoknad }) => {
-    return (<div>
+    return (<div id="inntektskilder">
         <h3 className="oppsummering__sporsmal">Har du andre inntektskilder enn {sykepengesoknad.arbeidsgiver.navn}?</h3>
         <Avkrysset tekst={sykepengesoknad.andreInntektskilder.length > 0 ? 'Ja' : 'Nei'} />
         {
             sykepengesoknad.andreInntektskilder.length > 0 && <h4 className="oppsummering__sporsmal">Hvilke inntektskilder har du?</h4>
         }
         {
-            sykepengesoknad.andreInntektskilder.length > 0 && <AndreInntektskilder inntektskilder={sykepengesoknad.andreInntektskilder} />
+            sykepengesoknad.andreInntektskilder.length > 0 && <AndreInntektskilderListe inntektskilder={sykepengesoknad.andreInntektskilder} />
         }
     </div>);
 };
@@ -118,7 +118,7 @@ export const Utdanning = ({ sykepengesoknad }) => {
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });
-    return (<div>
+    return (<div id="oppsummering-utdann ing">
         <h3 className="oppsummering__sporsmal">Har du vært under utdanning i løpet av perioden {toDatePrettyPrint(tidligsteFom(perioder))} - {toDatePrettyPrint(senesteTom(perioder))}?</h3>
         <Avkrysset tekst={sykepengesoknad.utdanning ? 'Ja' : 'Nei'} />
         {
@@ -141,7 +141,7 @@ Utdanning.propTypes = {
 };
 
 const AktiviteterISykmeldingsperioden = ({ sykepengesoknad, ledetekster }) => {
-    return (<div>
+    return (<div id="aktiviteter-i-sykmeldingsperioden">
         <Aktiviteter sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
         <Inntektskilder sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
         <Utdanning sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />

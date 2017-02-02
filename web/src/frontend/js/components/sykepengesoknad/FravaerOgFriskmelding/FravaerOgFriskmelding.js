@@ -60,7 +60,10 @@ export const validate = (values, props) => {
     }
 
     if (values.bruktEgenmeldingsdagerFoerLegemeldtFravaer) {
-        feilmeldinger.egenmeldingsperioder = valideringUtils.validerPerioder(values.egenmeldingsperioder);
+        const egenmeldingsperioderFeil = valideringUtils.validerPerioder(values.egenmeldingsperioder);
+        if (egenmeldingsperioderFeil) {
+            feilmeldinger.egenmeldingsperioder = egenmeldingsperioderFeil;
+        }
     }
 
     if (values.harHattFeriePermisjonEllerUtenlandsopphold === undefined) {

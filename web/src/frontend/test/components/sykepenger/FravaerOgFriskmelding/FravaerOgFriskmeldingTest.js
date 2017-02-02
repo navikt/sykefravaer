@@ -370,6 +370,87 @@ describe("FravaerOgFriskmelding", () => {
 
           });
 
+          it("Skal ikke klage hvis egenmeldingsperioder er fylt ut riktig", () => {
+
+              const values = {
+                "id": "b2450694-bc57-40cd-a834-34c817ace7e3",
+                "status": "NY",
+                "innsendtDato": null,
+                "opprettetDato": "2017-02-02T00:00:00.000Z",
+                "arbeidsgiver": {
+                  "navn": "BYGGMESTER BLOM AS",
+                  "orgnummer": "***REMOVED***",
+                  "naermesteLeder": null
+                },
+                "identdato": "2017-02-15T00:00:00.000Z",
+                "ansvarBekreftet": true,
+                "bekreftetKorrektInformasjon": false,
+                "arbeidsgiverUtbetalerLoenn": true,
+                "egenmeldingsperioder": [{
+                  "fom": "12.01.2020",
+                  "tom": "15.01.2020"
+                }],
+                "gjenopptattArbeidFulltUtDato": null,
+                "ferie": [],
+                "permisjon": [],
+                "utenlandsopphold": {
+                  "perioder": []
+                },
+                "aktiviteter": [{
+                  "periode": {
+                    "fom": "2016-07-15T00:00:00.000Z",
+                    "tom": "2016-07-20T00:00:00.000Z"
+                  },
+                  "grad": 100,
+                  "avvik": {}
+                }],
+                "andreInntektskilder": {},
+                "utdanning": {},
+                "bruktEgenmeldingsdagerFoerLegemeldtFravaer": true,
+                "harGjenopptattArbeidFulltUt": false,
+                "harHattFeriePermisjonEllerUtenlandsopphold": false
+              };
+
+              const sykepengesoknad = {
+                "id": "b2450694-bc57-40cd-a834-34c817ace7e3",
+                "status": "NY",
+                "innsendtDato": null,
+                "opprettetDato": "2017-02-02T00:00:00.000Z",
+                "arbeidsgiver": {
+                  "navn": "BYGGMESTER BLOM AS",
+                  "orgnummer": "***REMOVED***",
+                  "naermesteLeder": null
+                },
+                "identdato": "2017-02-15T00:00:00.000Z",
+                "ansvarBekreftet": false,
+                "bekreftetKorrektInformasjon": false,
+                "arbeidsgiverUtbetalerLoenn": true,
+                "egenmeldingsperioder": [],
+                "gjenopptattArbeidFulltUtDato": null,
+                "ferie": [],
+                "permisjon": [],
+                "utenlandsopphold": null,
+                "aktiviteter": [{
+                  "periode": {
+                    "fom": "2016-07-15T00:00:00.000Z",
+                    "tom": "2016-07-20T00:00:00.000Z"
+                  },
+                  "grad": 100,
+                  "avvik": null
+                }],
+                "andreInntektskilder": [],
+                "utdanning": null
+              }
+
+              const res = validate(values, {
+                  sykepengesoknad,
+                  sendTilFoerDuBegynner
+              });
+
+              expect(res).to.deep.equal({});
+
+          });
+
         });
 
     });

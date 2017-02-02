@@ -430,8 +430,9 @@ describe("AktiviteterISykmeldingsperioden", () => {
                     const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                     expect(res.erUtdanningFulltidsstudium).to.be.undefined;
                 });
-            })
-        })
+            });
+
+        });
 
 
     });

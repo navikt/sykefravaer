@@ -6,7 +6,7 @@ import setup from '../setup';
 import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../JaEllerNei';
 import Datovelger from '../../skjema/Datovelger';
 import Aktiviteter from './Aktiviteter';
-import AndreInntektskilder from './AndreInntektskilder';
+import AndreInntektskilder, { ANNET } from './AndreInntektskilder';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
 import { toDatePrettyPrint } from 'digisyfo-npm';
@@ -146,13 +146,13 @@ const getAntallAvkryssedeInntektstkilder = (inntektskilder = []) => {
 };
 
 export const validate = (values, props) => {
-
     const steg = "AktiviteterISykmeldingsperioden";
     console.log("verdier på steg " + steg + "\n", JSON.stringify(values));
-    console.log("sykepengesoknad på steg " + steg + "\n", JSON.stringify(props.sykepengesoknad));
+    console.log("sykepengesoknad på steg " + steg + "\n", JSON.stringify(props.sykepengesoknad));    
 
     const feilmeldinger = {};
     if (Object.keys(foerDuBegynner.validate(values, props)).length > 0 || Object.keys(fravaerOgFriskmelding.validate(values, props)).length) {
+        console.log("Feil i step 2");
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
 
@@ -166,7 +166,7 @@ export const validate = (values, props) => {
         } else {
             const andreInntektskilderFeilmeldinger = {};
             for (const inntektskilde in values.andreInntektskilder) {
-                if (values.andreInntektskilder[inntektskilde].avkrysset && values.andreInntektskilder[inntektskilde].sykmeldt === undefined) {
+                if (inntektskilde !== ANNET && values.andreInntektskilder[inntektskilde].avkrysset && values.andreInntektskilder[inntektskilde].sykmeldt === undefined) {
                     andreInntektskilderFeilmeldinger[inntektskilde] = {
                         sykmeldt: 'Vennligst svar på om du er sykmeldt',
                     };

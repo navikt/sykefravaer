@@ -79,18 +79,20 @@ OppsummeringWrap.propTypes = {
 };
 
 export const validate = (values, props) => {
-    foerDuBegynner.validate(values, props);
-    fravaerOgFriskmelding.validate(values, props);
-    if (Object.keys(aktiviteterISykmeldingsperioden.validate(values, props)).length > 0) {
+    const foerDuBegynnerFeil = foerDuBegynner.validate(values, props);
+    const fravaerOgFriskmeldingFeil = fravaerOgFriskmelding.validate(values, props);
+    const aktiviteterISykmeldingsperiodenFeil = aktiviteterISykmeldingsperioden.validate(values, props);
+    const feilmeldinger = Object.assign({}, foerDuBegynnerFeil, fravaerOgFriskmeldingFeil, aktiviteterISykmeldingsperiodenFeil);
+
+    if (Object.keys(feilmeldinger).length > 0) {
+        console.error("Feilmeldinger \n", feilmeldinger);
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
 
     if (!values.bekreftetKorrektInformasjon) {
-        return {
-            bekreftetKorrektInformasjon: 'Du må bekrefte at du har lest informasjonen og bekreftet at opplysningene du har gitt er korrekte',
-        };
+        feilmeldinger.bekreftetKorrektInformasjon = 'Du må bekrefte at du har lest informasjonen og bekreftet at opplysningene du har gitt er korrekte';
     }
-    return {};
+    return feilmeldinger;
 };
 
 const OppsummeringSkjema = setup(validate, OppsummeringWrap);

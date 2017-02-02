@@ -42,9 +42,10 @@ export const validate = (values, props) => {
 
     const steg = "FravaerOgFriskmelding";
     console.log("verdier på steg " + steg + "\n", JSON.stringify(values));
-    console.log("sykepengesoknad på steg " + steg + "\n", JSON.stringify(props.sykepengesoknad));
-
+    console.log("sykepengesoknad på steg " + steg + "\n", JSON.stringify(props.sykepengesoknad));    
+    
     if (Object.keys(foerDuBegynner.validate(values)).length !== 0) {
+        console.log("Feil i step 1");
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
 

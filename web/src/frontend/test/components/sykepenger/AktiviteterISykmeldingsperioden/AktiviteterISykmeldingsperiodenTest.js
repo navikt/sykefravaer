@@ -344,6 +344,20 @@ describe("AktiviteterISykmeldingsperioden", () => {
                     expect(res.hasOwnProperty("andreInntektskilder")).to.be.false;
                 });
 
+                it("Brukeren må ikke svare på om han/hun er sykmeldt for ANNET", () => {
+                    values.andreInntektskilder = {
+                        "ANDRE_ARBEIDSFORHOLD": {
+                            avkrysset: true,
+                            sykmeldt: true    
+                        }, 
+                        "ANNET": {
+                            avkrysset: true, 
+                        }
+                    };
+                    const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                    expect(res.hasOwnProperty("andreInntektskilder")).to.be.false;
+                });
+
                 it("Skal ikke klage på andre inntektskilder hvis dette er oppgitt", () => {
                     const values = {
                       "andreInntektskilder": {

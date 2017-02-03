@@ -22,7 +22,7 @@ const FravaerOgFriskmelding = ({ handleSubmit, sykepengesoknad, ledetekster }) =
             <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
 
             <Knapperad variant="knapperad--forrigeNeste">
-                <Link to="/sykepenger" className="rammeknapp">Tilbake</Link>
+                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/`} className="rammeknapp">Tilbake</Link>
                 <button type="submit" className="knapp">
                     Gå videre
                 </button>

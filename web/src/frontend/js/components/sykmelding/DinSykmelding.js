@@ -4,7 +4,7 @@ import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaCo
 import { getLedetekst, getHtmlLedetekst, DineSykmeldingOpplysninger, Varselstripe } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 
-const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, eldsteSykmeldingId }) => {
+const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, eldsteSykmeldingId, pilotSykepenger = false }) => {
     return (<div>
         <Sidetopp tittel={getLedetekst('din-sykmelding.tittel', ledetekster)} />
         <div className="panel blokk">
@@ -13,7 +13,11 @@ const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, elds
                 <img src="/sykefravaer/img/svg/nav-ansatt-mobil.svg" className="media__img media__img--mobil" alt="Ansatt i NAV" />
                 <h2 className="typo-syfotittel">{getLedetekst('din-sykmelding.ny-tjeneste.tittel', ledetekster)}</h2>
             </div>
-            <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.ny-tjeneste.tekst', ledetekster)} />
+            {
+                pilotSykepenger
+                    ? <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.ny-tjeneste.pilot.tekst', ledetekster)} />
+                    : <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.ny-tjeneste.tekst', ledetekster)} />
+            }
         </div>
         {
             visEldreSykmeldingVarsel && <div className="panel blokk">
@@ -43,6 +47,7 @@ DinSykmelding.propTypes = {
     ledetekster: PropTypes.object,
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
+    pilotSykepenger: PropTypes.bool,
 };
 
 export default DinSykmelding;

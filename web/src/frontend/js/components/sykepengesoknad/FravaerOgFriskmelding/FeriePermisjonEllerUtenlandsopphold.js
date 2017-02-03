@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import JaEllerNei, { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
-import Periodevelger from './Periodevelger';
+import Periodevelger from '../../skjema/Periodevelger';
 import Checkbox from '../../skjema/Checkbox';
 import Radioknapper from '../../skjema/Radioknapper';
 import { FieldArray, Field } from 'redux-form';

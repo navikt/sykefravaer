@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { FieldArray } from 'redux-form';
-import Datovelger from '../../skjema/Datovelger';
-import Feilomrade from '../../skjema/Feilomrade';
+import Datovelger from './Datovelger';
+import Feilomrade from './Feilomrade';
 import { getLedetekst } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 

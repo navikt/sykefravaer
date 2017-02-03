@@ -8,8 +8,8 @@ import sinon from 'sinon';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Datovelger from '../../../../js/components/skjema/Datovelger';
-import { Periodevelger } from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/Periodevelger';
+import Datovelger from '../../../js/components/skjema/Datovelger';
+import { Periodevelger } from '../../../js/components/skjema/Periodevelger';
 
 describe("Periodevelger", () => {
 

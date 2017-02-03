@@ -22,7 +22,7 @@ Perioder.propTypes = {
 
 const Egenmeldingsdager = ({ sykepengesoknad }) => {
     return (<div className="js-egenmeldingsdager oppsummering__bolk">
-        <h3 className="oppsummering__sporsmal">Brukte du egenmeldingsdager før du ble sykmeldt den {toDatePrettyPrint(sykepengesoknad.identdato)}?</h3>
+        <h3 className="oppsummering__sporsmal">Brukte du egenmeldingsdager før det legemeldte fraværet startet den {toDatePrettyPrint(sykepengesoknad.identdato)}?</h3>
         <Avkrysset tekst={sykepengesoknad.egenmeldingsperioder.length > 0 ? 'Ja' : 'Nei'} />
         {sykepengesoknad.egenmeldingsperioder.length > 0 && <Perioder perioder={sykepengesoknad.egenmeldingsperioder} /> }
     </div>);

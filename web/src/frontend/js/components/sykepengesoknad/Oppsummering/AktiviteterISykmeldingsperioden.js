@@ -22,7 +22,7 @@ export const Avvik = ({ aktivitet, arbeidsgiver, ledetekster }) => {
         </div>
         <div>
             <h4 className="oppsummering__sporsmal">Hvor mange timer jobber du normalt per uke?</h4>
-            <p>{arbeidstimerNormalUke} timer totalt per uke</p>
+            <p>{arbeidstimerNormalUke} timer per uke</p>
         </div>
     </div>);
 };

@@ -15,13 +15,13 @@ import * as foerDuBegynner from '../FoerDuBegynner/FoerDuBegynner';
 import * as aktiviteterISykmeldingsperioden from '../AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
 import * as fravaerOgFriskmelding from '../FravaerOgFriskmelding/FravaerOgFriskmelding';
 
-export const Oppsummering = ({ sykepengesoknad }) => {
+export const Oppsummering = ({ sykepengesoknad, ledetekster }) => {
     return (<div>
         <div className="oppsummering__bolk">
             <Avkrysset tekst="Jeg er klar over at dersom jeg gir uriktige opplysninger eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar." />
         </div>
         <FravaerOgFriskmelding sykepengesoknad={sykepengesoknad} />
-        <AktiviteterISykmeldingsperioden sykepengesoknad={sykepengesoknad} />
+        <AktiviteterISykmeldingsperioden sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
     </div>);
 };
 
@@ -39,11 +39,13 @@ export const OppsummeringWrap = (props) => {
     };
     const backendSoknad = mapSkjemasoknadToBackendsoknad(skjemasoknad);
 
+    console.log(JSON.stringify(backendSoknad))
+
     return (<SykepengerSkjema aktivtSteg="3" sykepengesoknad={sykepengesoknad} ledetekster={ledetekster}>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="blokk">
                 <Utvidbar tittel="Oppsummering" Overskrift="h2">
-                    <Oppsummering sykepengesoknad={backendSoknad} />
+                    <Oppsummering sykepengesoknad={backendSoknad} ledetekster={ledetekster} />
                 </Utvidbar>
             </div>
             <div className="panel blokk">

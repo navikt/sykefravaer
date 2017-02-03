@@ -29,7 +29,7 @@ export const Avvik = ({ aktivitet, arbeidsgiver, ledetekster }) => {
 
 Avvik.propTypes = {
     aktivitet: PropTypes.object,
-    arbeidsgiver: PropTypes.object,
+    arbeidsgiver: PropTypes.string,
     ledetekster: PropTypes.object,
 };
 
@@ -64,7 +64,7 @@ Aktivitet.propTypes = {
 export const Aktiviteter = ({ sykepengesoknad, ledetekster }) => {
     return (<div id="aktiviteter">
         {sykepengesoknad.aktiviteter.map((aktivitet, index) => {
-            return <Aktivitet aktivitet={aktivitet} index={index} ledetekster={ledetekster} key={index} />;
+            return <Aktivitet aktivitet={aktivitet} arbeidsgiver={sykepengesoknad.arbeidsgiver.navn} ledetekster={ledetekster} key={index} />;
         })}
     </div>);
 };
@@ -73,7 +73,6 @@ Aktiviteter.propTypes = {
     sykepengesoknad: PropTypes.object,
     ledetekster: PropTypes.object,
 };
-
 
 const AndreInntektskilderListe = ({ inntektskilder }) => {
     return (<div className="oppsummering__bolk" id="andre-inntektskilder-liste">
@@ -149,8 +148,8 @@ const AktiviteterISykmeldingsperioden = ({ sykepengesoknad, ledetekster }) => {
 };
 
 AktiviteterISykmeldingsperioden.propTypes = {
-    sykepengesoknad: PropTypes.object,
-    ledetekster: PropTypes.object,
+    sykepengesoknad: PropTypes.object.isRequired,
+    ledetekster: PropTypes.object.isRequired,
 };
 
 export default AktiviteterISykmeldingsperioden;

@@ -38,6 +38,10 @@ describe("AktiviteterISykmeldingsperioden", () => {
             expect(component.find(Aktivitet)).to.have.length(2);
         });
 
+        it("Skal sende arbeidsgiver videre til hver Aktivitet", () => {
+            expect(component.find(Aktivitet).first().prop("arbeidsgiver")).to.equal("BYGGMESTER BLOM AS")
+        })
+
     });
 
     describe("AktiviteterISykmeldingsperioden", () => {

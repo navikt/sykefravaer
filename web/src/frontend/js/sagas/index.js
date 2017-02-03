@@ -7,7 +7,7 @@ import sykepengesoknadSagas from './sykepengesoknadSagas';
 import tidslinjerSagas from './tidslinjerSagas';
 import ledereSagas from './ledereSagas';
 import svarSagas from './svarSagas';
-import deltakerSagas from './deltakerSagas'
+import deltakerSagas from './deltakerSagas';
 import pilotSykepengerSagas from './pilotSykepengerSagas';
 import { ledeteksterSagas } from 'digisyfo-npm';
 

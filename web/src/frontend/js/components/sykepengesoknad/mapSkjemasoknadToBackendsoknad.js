@@ -50,7 +50,7 @@ const getAktiviteter = (aktiviteter) => {
         };
         if (aktivitet.jobbetMerEnnPlanlagt) {
             _a.avvik = {
-                arbeidstimerNormalUke: aktivitet.avvik.arbeidstimerNormalUke
+                arbeidstimerNormalUke: aktivitet.avvik.arbeidstimerNormalUke,
             };
             if (aktivitet.enhet === 'timer') {
                 _a.avvik.arbeidstimer = aktivitet.avvik.arbeidstimer;

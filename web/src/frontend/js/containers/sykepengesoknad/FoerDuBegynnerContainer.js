@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 
@@ -15,6 +15,12 @@ const FoerDuBegynnerContainer = ({ params }) => {
         tittel: 'Søknad',
     }];
     return <GenerellSoknadContainer Component={FoerDuBegynner} brodsmuler={brodsmuler} params={params} />;
+};
+
+FoerDuBegynnerContainer.propTypes = {
+    params: PropTypes.shape({
+        sykepengesoknadId: PropTypes.string,
+    }),
 };
 
 export default FoerDuBegynnerContainer;

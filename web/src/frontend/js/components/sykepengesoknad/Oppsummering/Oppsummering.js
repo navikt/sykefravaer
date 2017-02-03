@@ -70,7 +70,7 @@ export const OppsummeringWrap = (props) => {
             }
             <Knapperad variant="knapperad--forrigeNeste">
                 <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`} className="rammeknapp rammeknapp--forrige">Tilbake</Link>
-                <button className="knapp">Send søknad{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}</button>
+                <button className="knapp" type="submit" disabled={sender}>Send søknad{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}</button>
             </Knapperad>
         </form>
     </SykepengerSkjema>);

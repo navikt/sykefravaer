@@ -28,7 +28,7 @@ const FravaerOgFriskmeldingContainer = ({ params }) => {
         erKlikkbar: true,
     }, {
         tittel: 'Søknader om sykepenger',
-        sti: '/soknader',
+        sti: '/soknader/',
         erKlikkbar: true,
     }, {
         tittel: 'Søknad',

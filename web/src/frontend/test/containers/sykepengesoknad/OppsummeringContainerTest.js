@@ -10,7 +10,7 @@ import Oppsummering from '../../../js/components/sykepengesoknad/Oppsummering/Op
 import OppsummeringContainer, { Controller } from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
 import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 import Kvittering from '../../../js/components/sykepengesoknad/Kvittering';
-import Feilmelding from '../../../js/components/Feilmelding';
+import StartIgjen from '../../../js/components/sykepengesoknad/StartIgjen';
 
 describe("OppsummeringContainer", () => {
 
@@ -34,9 +34,9 @@ describe("OppsummeringContainer", () => {
             skjemasoknad = {}
         });
 
-        it("SKal vise Feilmelding hvis skjemasoknad ikke finnes", () => {
+        it("SKal vise StartIgjen hvis skjemasoknad ikke finnes", () => {
             const containerComponent = shallow(<Controller sykepengesoknad={{}} />)
-            expect(containerComponent.find(Feilmelding)).to.have.length(1);
+            expect(containerComponent.find(StartIgjen)).to.have.length(1);
         })
 
         it("Skal vise Kvittering hvis søknad har status SENDT", () => {

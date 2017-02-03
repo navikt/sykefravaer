@@ -29,6 +29,14 @@ Oppsummering.propTypes = {
     sykepengesoknad: PropTypes.object,
 };
 
+const SendingFeilet = () => {
+    return (<div className="panel panel-komprimert">
+        <Varselstripe type="feil">
+            <p>Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
+        </Varselstripe>
+    </div>)
+}
+
 export const OppsummeringWrap = (props) => {
     const { skjemasoknad, sykepengesoknad, handleSubmit, ledetekster, actions, sender, sendingFeilet } = props;
     const label = 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte';
@@ -58,9 +66,7 @@ export const OppsummeringWrap = (props) => {
             </div>
             <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             {
-                sendingFeilet && <Varselstripe type="feil">
-                    <p>Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
-                </Varselstripe>
+                sendingFeilet && <SendingFeilet />
             }
             <Knapperad variant="knapperad--forrigeNeste">
                 <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`} className="rammeknapp rammeknapp--forrige">Tilbake</Link>

@@ -111,6 +111,11 @@ describe("DinSykmeldingContainer", () => {
                 data: [{
                     orgnummer: 12345678
                 }]
+            },
+            pilot: {
+                data: {
+                    pilotSykepenger: false
+                }
             }
         };
         ownProps.params = {};

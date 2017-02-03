@@ -24,7 +24,9 @@ export class DinSykmldSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, dinSykmelding, arbeidsgiversSykmelding, henter, hentingFeilet, visEldreSykmeldingVarsel, eldsteSykmeldingId } = this.props;
+        const { brodsmuler, ledetekster, dinSykmelding, arbeidsgiversSykmelding, henter, hentingFeilet,
+            visEldreSykmeldingVarsel, eldsteSykmeldingId, pilotSykepenger } = this.props;
+
         return (<Side tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
                 { (() => {
                     if (henter) {
@@ -64,7 +66,8 @@ export class DinSykmldSide extends Component {
                                 sykmelding={dinSykmelding}
                                 ledetekster={ledetekster}
                                 visEldreSykmeldingVarsel={visEldreSykmeldingVarsel}
-                                eldsteSykmeldingId={eldsteSykmeldingId} />
+                                eldsteSykmeldingId={eldsteSykmeldingId}
+                                pilotSykepenger={pilotSykepenger} />
                                 <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
                             </div>);
                     } else if (dinSykmelding.status === 'AVBRUTT') {
@@ -97,6 +100,7 @@ DinSykmldSide.propTypes = {
     hentPilotSykepenger: PropTypes.func,
     hentAktuelleArbeidsgivere: PropTypes.func,
     hentArbeidsgiversSykmeldinger: PropTypes.func,
+    pilotSykepenger: PropTypes.bool,
 };
 
 const getEldsteNyeSykmelding = (sykmeldinger) => {
@@ -156,7 +160,7 @@ export function mapStateToProps(state, ownProps) {
 
     return {
         sykmeldingId,
-        henter: state.dineSykmeldinger.henter || state.arbeidsgiversSykmeldinger.henter || state.ledetekster.henter,
+        henter: state.dineSykmeldinger.henter || state.arbeidsgiversSykmeldinger.henter || state.ledetekster.henter || state.pilot.henter,
         hentingFeilet: state.dineSykmeldinger.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet,
         dinSykmelding,
         arbeidsgiversSykmelding,
@@ -174,6 +178,7 @@ export function mapStateToProps(state, ownProps) {
         }, {
             tittel: getLedetekst('din-sykmelding.sidetittel', state.ledetekster.data),
         }],
+        pilotSykepenger: state.pilot.data.pilotSykepenger,
     };
 }
 

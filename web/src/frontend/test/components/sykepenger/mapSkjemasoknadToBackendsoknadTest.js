@@ -272,12 +272,31 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
             expect(soknad.aktiviteter[0].avvik).to.be.null;
         });
 
-        it("Skal ikke sette avvik til null, men fjerne enhet, hvis jobbetMerEnnPlanlagt === true", () => {
+        it("Skal ikke sette avvik til null, men fjerne enhet, hvis jobbetMerEnnPlanlagt === true og enhet === prosent", () => {
+            sykepengesoknad.aktiviteter[0].avvik = {
+                enhet: "prosent",
+                arbeidsgrad: "80",
+                "arbeidstimerNormalUke": "37,5"
+            }
             sykepengesoknad.aktiviteter[0].jobbetMerEnnPlanlagt = true;
             const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad));
             expect(soknad.aktiviteter[0].avvik).to.deep.equal({
-              "arbeidsgrad": "80",
-              "arbeidstimerNormalUke": "37,5"
+                "arbeidsgrad": "80",
+                "arbeidstimerNormalUke": "37,5"
+            });
+        });
+
+        it("Skal ikke sette avvik til null, men fjerne enhet, hvis jobbetMerEnnPlanlagt === true og enhet === timer", () => {
+            sykepengesoknad.aktiviteter[0].avvik = {
+                "enhet": "timer",
+                "timer": "55",
+                "arbeidstimerNormalUke": "37,5"
+            };
+            sykepengesoknad.aktiviteter[0].jobbetMerEnnPlanlagt = true;
+            const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad));
+            expect(soknad.aktiviteter[0].avvik).to.deep.equal({
+                "timer": "55",
+                "arbeidstimerNormalUke": "37,5"
             });
         });
 
@@ -356,6 +375,84 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
             expect(soknad.hasOwnProperty("harAndreInntektskilder")).to.be.false;
         });                                                       
 
+
+    });
+
+    describe("TEST", () => {
+
+        let soknad;
+
+        it("funker", () => {
+            soknad = mapSkjemasoknadToBackendsoknad(deepFreeze({
+              "id": "8d9fb9aa-9b84-442d-92af-523eb2b28a0c",
+              "status": "NY",
+              "innsendtDato": null,
+              "opprettetDato": "2017-02-03T00:00:00.000Z",
+              "arbeidsgiver": {
+                "navn": "LØNNS- OG REGNSKAPSSENTERET",
+                "orgnummer": "***REMOVED***",
+                "naermesteLeder": null
+              },
+              "identdato": "2017-02-15T00:00:00.000Z",
+              "ansvarBekreftet": true,
+              "bekreftetKorrektInformasjon": false,
+              "arbeidsgiverUtbetalerLoenn": true,
+              "egenmeldingsperioder": [{}],
+              "gjenopptattArbeidFulltUtDato": null,
+              "ferie": [],
+              "permisjon": [],
+              "utenlandsopphold": {
+                "perioder": []
+              },
+              "aktiviteter": [{
+                "periode": {
+                  "fom": "2016-07-15T00:00:00.000Z",
+                  "tom": "2016-07-20T00:00:00.000Z"
+                },
+                "grad": 100,
+                "avvik": {
+                  "enhet": "timer",
+                  "arbeidsgrad": null,
+                  "timer": "11",
+                  "arbeidstimerNormalUke": "12"
+                },
+                "jobbetMerEnnPlanlagt": true
+              }],
+              "andreInntektskilder": {
+                "ANDRE_ARBEIDSFORHOLD": {
+                  "avkrysset": true,
+                  "sykmeldt": true
+                },
+                "SELVSTENDIG_NAERINGSDRIVENDE": {
+                  "avkrysset": false
+                },
+                "SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA": {
+                  "avkrysset": false
+                },
+                "JORDBRUKER_FISKER_REINDRIFTSUTOEVER": {
+                  "avkrysset": false
+                },
+                "FRILANSER": {
+                  "avkrysset": false
+                },
+                "ANNET": {
+                  "avkrysset": false
+                }
+              },
+              "utdanning": {
+                "underUtdanningISykmeldingsperioden": false
+              },
+              "bruktEgenmeldingsdagerFoerLegemeldtFravaer": false,
+              "harGjenopptattArbeidFulltUt": false,
+              "harHattFeriePermisjonEllerUtenlandsopphold": false,
+              "harAndreInntektskilder": true
+            }));
+            expect(soknad.aktiviteter[0].avvik).to.deep.equal({
+                timer: "11",
+                arbeidstimerNormalUke: "12"
+            });
+
+        });
 
     });
 

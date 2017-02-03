@@ -52,8 +52,8 @@ const getAktiviteter = (aktiviteter) => {
             _a.avvik = {
                 arbeidstimerNormalUke: aktivitet.avvik.arbeidstimerNormalUke,
             };
-            if (aktivitet.enhet === 'timer') {
-                _a.avvik.arbeidstimer = aktivitet.avvik.arbeidstimer;
+            if (aktivitet.avvik.enhet === 'timer') {
+                _a.avvik.timer = aktivitet.avvik.timer;
             } else {
                 _a.avvik.arbeidsgrad = aktivitet.avvik.arbeidsgrad;
             }

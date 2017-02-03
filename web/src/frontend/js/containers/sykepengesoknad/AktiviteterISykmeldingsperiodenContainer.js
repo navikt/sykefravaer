@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import AktiviteterISykmeldingsperioden from '../../components/sykepengesoknad/AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
-import Feilmelding from '../../components/Feilmelding';
+import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
 
 export const Controller = (props) => {
@@ -11,7 +11,7 @@ export const Controller = (props) => {
     if (props.skjemasoknad) {
         return <AktiviteterISykmeldingsperioden {...props} />;
     }
-    return <Feilmelding tittel="Du må starte på første side i søknaden" melding={null} />;
+    return <StartIgjen sykepengesoknad={props.sykepengesoknad} />;
 };
 
 Controller.propTypes = {

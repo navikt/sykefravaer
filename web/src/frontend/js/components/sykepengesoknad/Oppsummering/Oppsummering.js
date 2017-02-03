@@ -32,7 +32,7 @@ Oppsummering.propTypes = {
 const SendingFeilet = () => {
     return (<div className="panel panel-komprimert">
         <Varselstripe type="feil">
-            <p>Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
+            <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
         </Varselstripe>
     </div>)
 }
@@ -64,7 +64,9 @@ export const OppsummeringWrap = (props) => {
                     <li>fristen for å søke sykepenger er som hovedregel 3 måneder</li>
                 </ul>
             </div>
-            <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
+            <div className="blokk">
+                <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
+            </div>
             {
                 sendingFeilet && <SendingFeilet />
             }

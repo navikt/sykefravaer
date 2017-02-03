@@ -12,6 +12,17 @@ export class Periodevelger extends Component {
         }
     }
 
+    getFomId(index) {
+        const { namePrefix } = this.props;
+        return `fom-${namePrefix}-${index}`;
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.fields.length !== prevProps.fields.length) {
+            document.getElementById(this.getFomId(this.props.fields.length - 1)).focus();
+        }
+    }
+
     render() {
         const { fields, namePrefix, spoersmal, meta, Overskrift, ledetekster } = this.props;
 
@@ -22,7 +33,7 @@ export class Periodevelger extends Component {
                     <div className="periodevelger__perioder">
                         {
                             fields.map((field, index) => {
-                                const fomId = `fom-${namePrefix}-${index}`;
+                                const fomId = this.getFomId(index);
                                 const tomId = `tom-${namePrefix}-${index}`;
                                 return (<div key={index} className="periodevelger__periode">
                                     <div className="periodevelger__fom input--s">
@@ -47,7 +58,7 @@ export class Periodevelger extends Component {
                     </div>
                 </Feilomrade>
             </div>
-            <button className="rammeknapp rammeknapp--mini" onClick={(e) => {
+            <button className="rammeknapp rammeknapp--mini" type="button" onClick={(e) => {
                 e.preventDefault();
                 fields.push({});
             }}>+ {getLedetekst('sykepengesoknad.periodevelger.legg-til', ledetekster)}</button>

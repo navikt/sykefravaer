@@ -12,7 +12,7 @@ export const Controller = (props) => {
         return <FravaerOgFriskmelding {...props} />;
     }
     return <StartIgjen sykepengesoknad={props.sykepengesoknad} />;
-}
+};
 
 Controller.propTypes = {
     sykepengesoknad: PropTypes.shape({

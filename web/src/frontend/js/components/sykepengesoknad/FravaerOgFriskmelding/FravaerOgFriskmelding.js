@@ -40,12 +40,7 @@ FravaerOgFriskmelding.propTypes = {
 export const validate = (values, props) => {
     const feilmeldinger = {};
 
-    const steg = 'FravaerOgFriskmelding';
-    console.log(`verdier på steg ${steg}\n`, JSON.stringify(values));
-    console.log(`sykepengesoknad på steg ${steg}\n`, JSON.stringify(props.sykepengesoknad));  
-    
     if (Object.keys(foerDuBegynner.validate(values)).length !== 0) {
-        console.log("Feil i step 1");
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
 
@@ -59,7 +54,7 @@ export const validate = (values, props) => {
             feilmeldinger.gjenopptattArbeidFulltUtDato = 'Vennligst oppgi når du gjenopptok arbeidet fullt ut';
         } else if (!valideringUtils.erIFortiden(values.gjenopptattArbeidFulltUtDato)) {
             feilmeldinger.gjenopptattArbeidFulltUtDato = 'Datoen må være bakover i tid';
-        } else if (!valideringUtils.datoErEtterFøersteSykmeldingsdag(values.gjenopptattArbeidFulltUtDato, props.sykepengesoknad)) {
+        } else if (!valideringUtils.datoErEtterFoersteSykmeldingsdag(values.gjenopptattArbeidFulltUtDato, props.sykepengesoknad)) {
             feilmeldinger.gjenopptattArbeidFulltUtDato = 'Datoen må være etter at du ble sykmeldt';
         }
     }

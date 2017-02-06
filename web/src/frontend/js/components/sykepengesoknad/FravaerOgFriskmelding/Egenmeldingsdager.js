@@ -2,11 +2,12 @@ import React, { PropTypes } from 'react';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { tidligsteFom } from '../../../utils/periodeUtils';
 
 const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
     return (<JaEllerNei
         spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.janei.sporsmal', ledetekster, {
-            '%DATO%': toDatePrettyPrint(sykepengesoknad.identdato),
+            '%DATO%': toDatePrettyPrint(tidligsteFom(sykepengesoknad.aktiviteter.map(a => { return a.periode }))),
         })}
         name="bruktEgenmeldingsdagerFoerLegemeldtFravaer">
         <Periodevelger name="egenmeldingsperioder" spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal', ledetekster)} />

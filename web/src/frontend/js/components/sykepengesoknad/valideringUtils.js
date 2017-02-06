@@ -18,7 +18,7 @@ export const erIFortiden = (dato) => {
     return oppgittDato.getTime() < dagensDato.getTime();
 };
 
-export const datoErEtterFøersteSykmeldingsdag = (dato, sykepengesoknad) => {
+export const datoErEtterFoersteSykmeldingsdag = (dato, sykepengesoknad) => {
     const oppgittDato = lagDato(dato);
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;

@@ -36,7 +36,7 @@ const FravaerOgFriskmeldingContainer = ({ params }) => {
     return <GenerellSoknadContainer Component={Controller} brodsmuler={brodsmuler} params={params} />;
 };
 
-FravaerOgFriskmelding.propTypes = {
+FravaerOgFriskmeldingContainer.propTypes = {
     params: PropTypes.shape({
         sykepengesoknadId: PropTypes.string,
     }),

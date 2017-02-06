@@ -12,15 +12,15 @@ export class Periodevelger extends Component {
         }
     }
 
-    getFomId(index) {
-        const { namePrefix } = this.props;
-        return `fom-${namePrefix}-${index}`;
-    }
-
     componentDidUpdate(prevProps) {
         if (this.props.fields.length !== prevProps.fields.length) {
             document.getElementById(this.getFomId(this.props.fields.length - 1)).focus();
         }
+    }
+
+    getFomId(index) {
+        const { namePrefix } = this.props;
+        return `fom-${namePrefix}-${index}`;
     }
 
     render() {

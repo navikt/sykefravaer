@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Oppsummering from '../../components/sykepengesoknad/Oppsummering/Oppsummering';
+import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
@@ -9,7 +9,7 @@ export const Controller = (props) => {
         return <Kvittering />;
     }
     if (props.skjemasoknad) {
-        return <Oppsummering {...props} />;
+        return <OppsummeringSkjema {...props} />;
     }
     return <StartIgjen sykepengesoknad={props.sykepengesoknad} />;
 };

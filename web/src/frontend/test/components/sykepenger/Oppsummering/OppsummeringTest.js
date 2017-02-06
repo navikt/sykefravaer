@@ -6,7 +6,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 import sinon from 'sinon';
 
-import { Oppsummering, validate } from '../../../../js/components/sykepengesoknad/Oppsummering/Oppsummering';
+import { validate } from '../../../../js/components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import { getSoknad } from '../../../mockSoknader';
 
 describe("Oppsummering", () => {

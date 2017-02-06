@@ -41,6 +41,7 @@ Aktivitet.propTypes = {
     arbeidsgiver: PropTypes.string,
     autofill: PropTypes.func,
     untouch: PropTypes.func,
+    ledetekster: PropTypes.object,
 };
 
 const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch, ledetekster }) => {

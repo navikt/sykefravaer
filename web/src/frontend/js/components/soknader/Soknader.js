@@ -7,6 +7,9 @@ const Soknader = ({ ledetekster = {}, soknader = [] }) => {
     const nyeSoknader = soknader.filter((soknad) => {
         return soknad.status === 'NY';
     });
+    const sendteSoknader = soknader.filter((soknad) => {
+        return soknad.status === 'SENDT';
+    });
 
     return (<div>
         <Sidetopp
@@ -21,6 +24,16 @@ const Soknader = ({ ledetekster = {}, soknader = [] }) => {
             ledetekster={ledetekster}
             id="soknader-list-til-behandling"
         />
+        {
+            sendteSoknader.length > 0 && (<SoknadTeasere
+                soknader={sendteSoknader}
+                tittel={getLedetekst('soknader.sendt.tittel', ledetekster)}
+                tomListeTekst={getLedetekst('soknader.sendt.ingen-soknader', ledetekster)}
+                className="js-sendt"
+                ledetekster={ledetekster}
+                id="soknader-sendt"
+            />)
+        }
     </div>);
 };
 

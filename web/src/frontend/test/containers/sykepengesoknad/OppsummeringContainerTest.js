@@ -6,7 +6,7 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Oppsummering from '../../../js/components/sykepengesoknad/Oppsummering/Oppsummering';
+import OppsummeringSkjema from '../../../js/components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import OppsummeringContainer, { Controller } from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
 import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 import Kvittering from '../../../js/components/sykepengesoknad/Kvittering';
@@ -45,16 +45,16 @@ describe("OppsummeringContainer", () => {
             }
             const containerComponent = shallow(<Controller sykepengesoknad={sykepengesoknad} skjemasoknad={skjemasoknad} />)
             expect(containerComponent.find(Kvittering)).to.have.length(1);
-            expect(containerComponent.find(Oppsummering)).to.have.length(0);
+            expect(containerComponent.find(OppsummeringSkjema)).to.have.length(0);
         });
 
-        it("Skal vise Oppsummering hvis søknad har status = NY", () => {
+        it("Skal vise OppsummeringSkjema hvis søknad har status = NY", () => {
             const sykepengesoknad = {
                 status: "NY",
             }
             const containerComponent = shallow(<Controller sykepengesoknad={sykepengesoknad} skjemasoknad={skjemasoknad} />)
             expect(containerComponent.find(Kvittering)).to.have.length(0);
-            expect(containerComponent.find(Oppsummering)).to.have.length(1);
+            expect(containerComponent.find(OppsummeringSkjema)).to.have.length(1);
         });
 
     });

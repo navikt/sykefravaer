@@ -131,7 +131,7 @@ describe("utils", () => {
         });
     });
 
-    describe.only("fraInputdatoTilJSDato", () => {
+    describe("fraInputdatoTilJSDato", () => {
         it("Skal håndtere dd.mm.åååå", () => {
             const dato = "12.02.2017";
             const res = fraInputdatoTilJSDato(dato);

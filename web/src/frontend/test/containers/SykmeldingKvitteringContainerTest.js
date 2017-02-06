@@ -17,11 +17,13 @@ const sykmeldinger = [{
     etternavn: "Person",
     sykmelder: "Ove Olsen",
     arbeidsgiver: "Selskapet AS",
-    perioder: [{
-        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
-        grad: 67
-    }],
+    mulighetForArbeid: {
+        perioder: [{
+            fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
+            tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+            grad: 67
+        }],
+    },
     hoveddiagnose: {
         diagnose: "Influensa",
         diagnosesystem: "ICPC",
@@ -53,11 +55,13 @@ const sykmeldinger = [{
     etternavn: "Person",
     sykmelder: "Ove Olsen",
     arbeidsgiver: "Selskapet AS",
-    perioder: [{
-        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
-        grad: 67
-    }],
+    mulighetForArbeid: {
+        perioder: [{
+            fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
+            tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+            grad: 67
+        }],
+    },
     hoveddiagnose: {
         diagnose: "Influensa",
         diagnosesystem: "ICPC",
@@ -72,24 +76,33 @@ const sykmeldinger = [{
     etternavn: "Person",
     sykmelder: "Ove Olsen",
     arbeidsgiver: "Selskapet AS",
-    perioder: [{
-        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
-        grad: 67
-    }],
     hoveddiagnose: {
         diagnose: "Influensa",
         diagnosesystem: "ICPC",
         diagnosekode: "LP2"
     },
-    arbeidsfoerEtterPerioden: true
+    arbeidsfoerEtterPerioden: true,
+    mulighetForArbeid: {
+        perioder: [{
+            fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
+            tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+            grad: 67
+        }],
+    }
 }, {
     "id": 5,
     "status": "BEKREFTET",
     "innsendtArbeidsgivernavn": null,
     "orgnummer": null,
     "arbeidsgiver": "LOMMEN BARNEHAVE",
-    "valgtArbeidssituasjon": 'arbeidstaker'
+    "valgtArbeidssituasjon": 'arbeidstaker',
+    "mulighetForArbeid": {
+        "perioder": [{
+            "fom": { "year": 2015, "monthValue": 12, "dayOfMonth": 31 },
+            "tom": { "year": 2016, "monthValue": 1, "dayOfMonth": 6 },
+            "grad": 67
+        }],
+    }
 }]
 
 describe("SykmeldingKvitteringContainer", () => {
@@ -116,6 +129,11 @@ describe("SykmeldingKvitteringContainer", () => {
         };
         ownProps.params = {
             sykmeldingId: 1,
+        };
+        state.pilot = {
+            data: {
+                pilotSykepenger: false
+            }
         };
     }); 
 

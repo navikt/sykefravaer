@@ -8,9 +8,11 @@ import { Varselstripe } from 'digisyfo-npm';
 import * as foerDuBegynner from '../FoerDuBegynner/FoerDuBegynner';
 import * as aktiviteterISykmeldingsperioden from '../AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
 import * as fravaerOgFriskmelding from '../FravaerOgFriskmelding/FravaerOgFriskmelding';
-import { Soknad } from '../Soknad';
+import Soknad from '../Soknad';
+import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
+import { Field } from 'redux-form';
 
-const SendingFeilet = () => {
+export const SendingFeilet = () => {
     return (<div className="panel panel-komprimert">
         <Varselstripe type="feil">
             <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
@@ -20,6 +22,7 @@ const SendingFeilet = () => {
 
 export const OppsummeringSide = (props) => {
     const { skjemasoknad, sykepengesoknad, handleSubmit, ledetekster, actions, sender, sendingFeilet } = props;
+    const label = 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte';
     const onSubmit = (values) => {
         const soknad = mapSkjemasoknadToBackendsoknad(values);
         const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
@@ -30,6 +33,7 @@ export const OppsummeringSide = (props) => {
     return (<SykepengerSkjema aktivtSteg="3" sykepengesoknad={sykepengesoknad} ledetekster={ledetekster}>
         <form onSubmit={handleSubmit(onSubmit)}>
             <Soknad sykepengesoknad={backendSoknad} ledetekster={ledetekster} />
+            <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             {
                 sendingFeilet && <SendingFeilet />
             }

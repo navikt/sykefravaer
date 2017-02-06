@@ -33,7 +33,9 @@ export const OppsummeringSide = (props) => {
     return (<SykepengerSkjema aktivtSteg="3" sykepengesoknad={sykepengesoknad} ledetekster={ledetekster}>
         <form onSubmit={handleSubmit(onSubmit)}>
             <Soknad sykepengesoknad={backendSoknad} ledetekster={ledetekster} />
-            <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
+            <div className={sendingFeilet ? 'blokk' : ''}>
+                <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
+            </div>
             {
                 sendingFeilet && <SendingFeilet />
             }

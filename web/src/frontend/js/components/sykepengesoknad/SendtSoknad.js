@@ -3,6 +3,7 @@ import Soknad from './Soknad';
 import { Avkrysset } from './Oppsummering/opplysninger';
 import Sidetopp from '../Sidetopp';
 import { SykmeldingNokkelOpplysning, Varselstripe, toDatePrettyPrint } from 'digisyfo-npm';
+import SykmeldingUtdrag from './SykmeldingUtdrag';
 
 const Statuspanel = ({ opplysninger }) => {
     return (<div className="panel panel-komprimert blokk">
@@ -46,6 +47,7 @@ const SendtSoknad = ({ ledetekster, sykepengesoknad }) => {
     return (<div>
         <Sidetopp tittel="Søknad om sykepenger" />
         <Statuspanel opplysninger={nokkelOpplysninger} />
+        <SykmeldingUtdrag ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} />
         <Soknad ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} />
         <div className="bekreftet-container">
             <Avkrysset tekst="Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte." />

@@ -6,7 +6,6 @@ import VaerKlarOverAt from './VaerKlarOverAt';
 
 const Soknad = ({ ledetekster, sykepengesoknad, apentUtdrag = true }) => {
     return (<div>
-        <SykmeldingUtdrag ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} />
         <div className="blokk">
             <Utvidbar tittel="Oppsummering" erApen={apentUtdrag}>
                 <Oppsummering ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} />

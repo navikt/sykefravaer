@@ -2,9 +2,10 @@ import React, { PropTypes } from 'react';
 import SykmeldingKvittering from '../components/sykmelding/SykmeldingKvittering';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
-import { getLedetekst, getHtmlLedetekst, getSykmelding } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, getSykmelding, toDatePrettyPrint } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
+import { senesteTom } from '../utils/periodeUtils';
 
 export const KvitteringSide = (props) => {
     const { sykmelding, henter, hentingFeilet, ledetekster, brodsmuler } = props;
@@ -41,7 +42,7 @@ KvitteringSide.propTypes = {
     hentingFeilet: PropTypes.bool,
 };
 
-export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
+export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}, pilotSykepenger = false) => {
     if (!sykmelding) {
         return null;
     }
@@ -55,6 +56,12 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
             return `bekreft-sykmelding.${nokkel}`;
         }
         case 'SENDT': {
+            if (pilotSykepenger) {
+                if (Date.now() > Date.parse(senesteTom(sykmelding.mulighetForArbeid.perioder))) {
+                    return `send-til-arbeidsgiver.pilot.sok.${nokkel}`;
+                }
+                return `send-til-arbeidsgiver.pilot.${nokkel}`;
+            }
             return `send-til-arbeidsgiver.${nokkel}`;
         }
         case 'AVBRUTT': {
@@ -73,13 +80,14 @@ export function mapStateToProps(state, ownProps) {
     const henter = state.dineSykmeldinger.henter || state.ledetekster.henter;
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
     const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
+    const pilotSykepenger = state.pilot.data.pilotSykepenger;
 
     const kvitteringTittelKey = getLedetekstNokkel(sykmelding, 'kvittering.tittel');
-    const kvitteringBrodtekstKey = getLedetekstNokkel(sykmelding, 'kvittering.undertekst', {
-        harStrengtFortroligAdresse,
-    });
+    const kvitteringBrodtekstKey = getLedetekstNokkel(sykmelding, 'kvittering.undertekst', { harStrengtFortroligAdresse }, pilotSykepenger);
     const tittel = kvitteringTittelKey ? getLedetekst(kvitteringTittelKey, ledetekster) : null;
-    const brodtekst = kvitteringBrodtekstKey ? getHtmlLedetekst(kvitteringBrodtekstKey, ledetekster) : null;
+    const brodtekst = kvitteringBrodtekstKey ? getHtmlLedetekst(kvitteringBrodtekstKey, ledetekster, {
+        '%TOM%': toDatePrettyPrint(senesteTom(sykmelding.mulighetForArbeid.perioder)),
+    }) : null;
 
     return {
         henter,

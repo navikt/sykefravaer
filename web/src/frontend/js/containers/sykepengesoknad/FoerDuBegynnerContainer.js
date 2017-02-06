@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
-import Feilmelding from '../../components';
+import Feilmelding from '../../components/Feilmelding';
 
 export const Controller = (props) => {
     const { sykepengesoknad, ledetekster } = props;

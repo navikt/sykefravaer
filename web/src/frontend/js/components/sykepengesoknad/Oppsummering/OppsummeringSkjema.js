@@ -11,6 +11,7 @@ import * as fravaerOgFriskmelding from '../FravaerOgFriskmelding/FravaerOgFriskm
 import Soknad from '../Soknad';
 import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
 import { Field } from 'redux-form';
+import validate from '../validering/validerOppsummering';
 
 export const SendingFeilet = () => {
     return (<div className="panel panel-komprimert">
@@ -55,23 +56,6 @@ OppsummeringSide.propTypes = {
     actions: PropTypes.object,
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
-};
-
-export const validate = (values, props) => {
-    const foerDuBegynnerFeil = foerDuBegynner.validate(values, props);
-    const fravaerOgFriskmeldingFeil = fravaerOgFriskmelding.validate(values, props);
-    const aktiviteterISykmeldingsperiodenFeil = aktiviteterISykmeldingsperioden.validate(values, props);
-    const feilmeldinger = Object.assign({}, foerDuBegynnerFeil, fravaerOgFriskmeldingFeil, aktiviteterISykmeldingsperiodenFeil);
-
-    if (Object.keys(feilmeldinger).length > 0) {
-        console.error('Feilmeldinger \n', feilmeldinger);
-        props.sendTilFoerDuBegynner(props.sykepengesoknad);
-    }
-
-    if (!values.bekreftetKorrektInformasjon) {
-        feilmeldinger.bekreftetKorrektInformasjon = 'Du må bekrefte at du har lest informasjonen og bekreftet at opplysningene du har gitt er korrekte';
-    }
-    return feilmeldinger;
 };
 
 const OppsummeringSkjema = setup(validate, OppsummeringSide);

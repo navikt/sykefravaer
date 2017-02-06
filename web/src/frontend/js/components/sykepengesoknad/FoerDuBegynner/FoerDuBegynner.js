@@ -4,6 +4,7 @@ import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';
 import SykmeldingUtdrag from '../SykmeldingUtdrag';
 import Sidetopp from '../../Sidetopp';
+import validate from '../validering/validerFoerDuBegynner';
 
 const FoerDuBegynner = (props) => {
     const { handleSubmit, sykepengesoknad, ledetekster } = props;
@@ -32,14 +33,6 @@ FoerDuBegynner.propTypes = {
     handleSubmit: PropTypes.func,
     sykepengesoknad: PropTypes.object,
     ledetekster: PropTypes.object,
-};
-
-export const validate = (values) => {
-    const feilmeldinger = {};
-    if (!values.ansvarBekreftet) {
-        feilmeldinger.ansvarBekreftet = 'Du må bekrefte dette før du går videre';
-    }
-    return feilmeldinger;
 };
 
 const initialize = true;

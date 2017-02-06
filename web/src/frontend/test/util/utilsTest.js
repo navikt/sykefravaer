@@ -1,7 +1,7 @@
 import chai from 'chai';
 const expect = chai.expect;
 
-import { parseDato, lagHeltall, lagDesimaltall, erGyldigDato } from '../../js/utils';
+import { parseDato, lagHeltall, lagDesimaltall, erGyldigDato, fraInputdatoTilJSDato } from '../../js/utils';
 
 describe("utils", () => {
 
@@ -130,5 +130,19 @@ describe("utils", () => {
             expect(d).to.be.false;
         });
     });
+
+    describe.only("fraInputdatoTilJSDato", () => {
+        it("Skal håndtere dd.mm.åååå", () => {
+            const dato = "12.02.2017";
+            const res = fraInputdatoTilJSDato(dato);
+            expect(res.getTime()).to.equal(new Date("2017-02-12").getTime());
+        });
+
+        it("Skal håndtere dd.mm.åå", () => {
+            const dato = "12.02.17";
+            const res = fraInputdatoTilJSDato(dato);
+            expect(res.getTime()).to.equal(new Date("2017-02-12").getTime());
+        });
+    })
 
 });

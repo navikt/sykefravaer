@@ -11,6 +11,7 @@ const Datovelger = (props) => {
         className="input--s"
         type="tel"
         validate={(input) => {
+            console.log("vallider", input, erGyldigDato(input))
             if (!input) {
                 return undefined;
             } else if (!erGyldigDato(input)) {

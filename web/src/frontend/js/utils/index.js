@@ -44,6 +44,9 @@ export const erGyldigDato = (dato) => {
     if (!re.test(dato)) {
         return false;
     }
+    if (dato.trim().length !== 10) {
+        return false;
+    }
     const _dato = fraInputdatoTilJSDato(dato);
     if (isNaN(_dato.getTime())) {
         return false;

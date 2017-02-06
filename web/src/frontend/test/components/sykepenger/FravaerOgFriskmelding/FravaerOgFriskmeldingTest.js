@@ -102,7 +102,7 @@ describe("FravaerOgFriskmelding", () => {
             it("Skal validere at datoen ikke er før første sykepengesoknad dag", () => {
                 values.gjenopptattArbeidFulltUtDato = "25.12.2016";
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-                expect(res.gjenopptattArbeidFulltUtDato).to.equal("Datoen må være etter at du ble sykmeldt");
+                expect(res.gjenopptattArbeidFulltUtDato).to.equal("Datoen må være etter at du ble sykmeldt 01.01.2017");
             })
 
 

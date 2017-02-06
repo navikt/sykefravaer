@@ -9,6 +9,8 @@ import FeriePermisjonEllerUtenlandsopphold from './FeriePermisjonEllerUtenlandso
 import * as valideringUtils from '../valideringUtils';
 import Knapperad from '../../skjema/Knapperad';
 import * as foerDuBegynner from '../FoerDuBegynner/FoerDuBegynner';
+import { tidligsteFom } from '../../../utils/periodeUtils';
+import { toDatePrettyPrint } from 'digisyfo-npm';
 
 const FravaerOgFriskmelding = ({ handleSubmit, sykepengesoknad, ledetekster }) => {
     const onSubmit = () => {
@@ -60,7 +62,10 @@ export const validate = (values, props) => {
         } else if (!valideringUtils.erIFortiden(values.gjenopptattArbeidFulltUtDato)) {
             feilmeldinger.gjenopptattArbeidFulltUtDato = 'Datoen må være bakover i tid';
         } else if (!valideringUtils.datoErEtterFoersteSykmeldingsdag(values.gjenopptattArbeidFulltUtDato, props.sykepengesoknad)) {
-            feilmeldinger.gjenopptattArbeidFulltUtDato = 'Datoen må være etter at du ble sykmeldt';
+            const perioder = props.sykepengesoknad.aktiviteter.map((aktivitet) => {
+                return aktivitet.periode;
+            });
+            feilmeldinger.gjenopptattArbeidFulltUtDato = `Datoen må være etter at du ble sykmeldt ${toDatePrettyPrint(tidligsteFom(perioder))}`;
         }
     }
 

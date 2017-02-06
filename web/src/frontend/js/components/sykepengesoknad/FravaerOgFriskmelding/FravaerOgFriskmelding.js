@@ -1,4 +1,4 @@
-        import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import SykepengerSkjema from '../SykepengerSkjema';
 import { Link } from 'react-router';
 import history from '../../../history';

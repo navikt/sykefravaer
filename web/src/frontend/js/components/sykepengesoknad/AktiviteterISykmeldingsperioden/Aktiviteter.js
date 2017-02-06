@@ -5,7 +5,7 @@ import { toDatePrettyPrint } from 'digisyfo-npm';
 import AngiTid from './AngiTid';
 import { getLedetekst } from 'digisyfo-npm';
 
-const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch, ledetekster }) => {
+export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch, ledetekster }) => {
     const ledetekstPrefix = field.grad === 100 ? 'sykepengesoknad.aktiviteter.ugradert' : 'sykepengesoknad.aktiviteter.gradert';
 
     return (<JaEllerNei

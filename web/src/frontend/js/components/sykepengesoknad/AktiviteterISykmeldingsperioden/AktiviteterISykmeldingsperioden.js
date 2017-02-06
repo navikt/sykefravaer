@@ -6,21 +6,21 @@ import setup from '../setup';
 import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../JaEllerNei';
 import Datovelger from '../../skjema/Datovelger';
 import Aktiviteter from './Aktiviteter';
-import AndreInntektskilder, { ANNET } from './AndreInntektskilder';
+import AndreInntektskilder from './AndreInntektskilder';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
 import { toDatePrettyPrint } from 'digisyfo-npm';
 import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
 import validate from '../validering/validerAktiviteterISykmeldingsperioden';
 
-const UtdanningStartDato = () => {
+export const UtdanningStartDato = () => {
     return (<div className="blokk">
         <label className="skjema__sporsmal" htmlFor="utdanningStartdato">Når startet du på utdanningen?</label>
         <Datovelger name="utdanning.utdanningStartdato" id="utdanningStartdato" />
     </div>);
 };
 
-const AktiviteterISykmeldingsperioden = (props) => {
+export const AktiviteterISykmeldingsperioden = (props) => {
     const { handleSubmit, sykepengesoknad, ledetekster, autofill, untouch } = props;
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;

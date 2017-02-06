@@ -5,12 +5,21 @@ import { parseJaEllerNei } from '../JaEllerNei';
 import Feilomrade from '../../skjema/Feilomrade';
 import Radioknapper from '../../skjema/Radioknapper';
 
-const ANDRE_ARBEIDSFORHOLD = 'ANDRE_ARBEIDSFORHOLD';
-const SELVSTENDIG_NAERINGSDRIVENDE = 'SELVSTENDIG_NAERINGSDRIVENDE';
-const SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA = 'SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA';
-const JORDBRUKER_FISKER_REINDRIFTSUTOEVER = 'JORDBRUKER_FISKER_REINDRIFTSUTOEVER';
-const FRILANSER = 'FRILANSER';
+ANDRE_ARBEIDSFORHOLD = 'ANDRE_ARBEIDSFORHOLD';
+SELVSTENDIG_NAERINGSDRIVENDE = 'SELVSTENDIG_NAERINGSDRIVENDE';
+SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA = 'SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA';
+JORDBRUKER_FISKER_REINDRIFTSUTOEVER = 'JORDBRUKER_FISKER_REINDRIFTSUTOEVER';
+FRILANSER = 'FRILANSER';
 export const ANNET = 'ANNET';
+
+export const fields = [
+    ANDRE_ARBEIDSFORHOLD,
+    SELVSTENDIG_NAERINGSDRIVENDE,
+    SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA,
+    JORDBRUKER_FISKER_REINDRIFTSUTOEVER,
+    FRILANSER,
+    ANNET,
+];
 
 export const inntektskildeLabels = {};
 inntektskildeLabels[ANDRE_ARBEIDSFORHOLD] = 'Andre arbeidsforhold';
@@ -27,7 +36,7 @@ presiseringer[SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA] = 'Legen må sende inn én 
 presiseringer[JORDBRUKER_FISKER_REINDRIFTSUTOEVER] = 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem . Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for disse gruppene. Søknaden om sykepenger for dette må du derfor sende på papir.';
 presiseringer[FRILANSER] = 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for frilansere. Søknaden om sykepenger for frilanser må du derfor sende på papir.';
 
-const AndreInntektskilder = ({ fields, meta }) => {
+export const VelgInntektskilder = ({ fields, meta }) => {
     return (<Feilomrade {...meta}>
         <h4 className="skjema__sporsmal">Hvilke andre inntektskilder har du?</h4>
         <p>Du trenger ikke oppgi andre ytelser fra NAV.</p>
@@ -54,21 +63,13 @@ const AndreInntektskilder = ({ fields, meta }) => {
     </Feilomrade>);
 };
 
-AndreInntektskilder.propTypes = {
+VelgInntektskilder.propTypes = {
     fields: PropTypes.array,
     meta: PropTypes.object,
 };
 
 const AndreInntektskilderComponent = () => {
-    const fields = [
-        ANDRE_ARBEIDSFORHOLD,
-        SELVSTENDIG_NAERINGSDRIVENDE,
-        SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA,
-        JORDBRUKER_FISKER_REINDRIFTSUTOEVER,
-        FRILANSER,
-        ANNET,
-    ];
-    return <FieldArray component={AndreInntektskilder} fields={fields} name="andreInntektskilder" />;
+    return <FieldArray component={VelgInntektskilder} fields={fields} name="andreInntektskilder" />;
 };
 
 export default AndreInntektskilderComponent;

@@ -36,9 +36,24 @@ describe("Egenmeldingsdager", () => {
 
     it("Skal vise riktig spørsmål", () => {
         const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad({
-            identdato: "2017-05-20"
+            aktiviteter: [{
+                periode: {
+                    fom: "2017-01-01",
+                    tom: "2017-01-15"
+                },
+                grad: 100,
+                avvik: null
+            },
+                {
+                    periode: {
+                        fom: "2017-01-16",
+                        tom: "2017-01-20"
+                    },
+                    grad: 50,
+                    avvik: null
+                }],
         })} ledetekster={_ledetekster} />);
-        expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Brukte du egenmeldingsdager før det legemeldte fraværet startet den 20.05.2017?")
+        expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Brukte du egenmeldingsdager før det legemeldte fraværet startet den 01.01.2017?")
     });
 
 });

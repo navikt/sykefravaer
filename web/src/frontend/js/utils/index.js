@@ -4,6 +4,9 @@ export const lagHeltall = (streng) => {
 
 export const lagDesimaltall = (streng) => {
     let s = streng.replace(/,/g, '.');
+    if (s.startsWith('.')) {
+        return '';
+    }
     if (!s.endsWith('.')) {
         s = parseFloat(s);
         if (isNaN(s)) {

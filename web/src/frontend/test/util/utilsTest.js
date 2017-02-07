@@ -3,7 +3,7 @@ const expect = chai.expect;
 
 import { parseDato, lagHeltall, lagDesimaltall, erGyldigDato, fraInputdatoTilJSDato } from '../../js/utils';
 
-describe("utils", () => {
+describe.only("utils", () => {
 
     describe("lagHeltall", () => {
         it("Skal fjerne bokstaver", () => {
@@ -57,7 +57,17 @@ describe("utils", () => {
             const n = lagDesimaltall("");
             expect(n).to.equal("");
         });
-    })
+
+        it("Skal fjerne komma hvis det står først", () => {
+            const n = lagDesimaltall(",");
+            expect(n).to.equal("");
+        });
+
+        it("Skal fjerne komma hvis det står først", () => {
+            const n = lagDesimaltall(",,");
+            expect(n).to.equal("");
+        });
+    });
 
     describe("parseDato", () => {
 

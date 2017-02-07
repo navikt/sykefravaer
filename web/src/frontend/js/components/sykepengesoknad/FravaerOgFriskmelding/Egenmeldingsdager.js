@@ -7,7 +7,7 @@ import { tidligsteFom } from '../../../utils/periodeUtils';
 const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
     return (<JaEllerNei
         spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.janei.sporsmal', ledetekster, {
-            '%DATO%': toDatePrettyPrint(tidligsteFom(sykepengesoknad.aktiviteter.map(a => { return a.periode }))),
+            '%DATO%': toDatePrettyPrint(sykepengesoknad.identdato),
         })}
         name="bruktEgenmeldingsdagerFoerLegemeldtFravaer">
         <Periodevelger name="egenmeldingsperioder" spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal', ledetekster)} />

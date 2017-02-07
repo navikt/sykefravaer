@@ -21,12 +21,8 @@ Perioder.propTypes = {
 };
 
 const Egenmeldingsdager = ({ sykepengesoknad }) => {
-    const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
-        return aktivitet.periode;
-    });
-    const startdato = tidligsteFom(perioder);
     return (<div className="js-egenmeldingsdager oppsummering__bolk">
-        <h3 className="oppsummering__sporsmal">Brukte du egenmeldingsdager før det legemeldte fraværet startet den {toDatePrettyPrint(startdato)}?</h3>
+        <h3 className="oppsummering__sporsmal">Brukte du egenmeldingsdager før det legemeldte fraværet startet den {toDatePrettyPrint(sykepengesoknad.identdato)}?</h3>
         <Avkrysset tekst={sykepengesoknad.egenmeldingsperioder.length > 0 ? 'Ja' : 'Nei'} />
         {sykepengesoknad.egenmeldingsperioder.length > 0 && <Perioder perioder={sykepengesoknad.egenmeldingsperioder} /> }
     </div>);

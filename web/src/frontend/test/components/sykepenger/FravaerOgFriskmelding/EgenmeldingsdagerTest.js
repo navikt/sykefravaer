@@ -53,7 +53,7 @@ describe("Egenmeldingsdager", () => {
                     avvik: null
                 }],
         })} ledetekster={_ledetekster} />);
-        expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Brukte du egenmeldingsdager før det legemeldte fraværet startet den 01.01.2017?")
+        expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Brukte du egenmeldingsdager før det legemeldte fraværet startet den 15.07.2016?")
     });
 
 });

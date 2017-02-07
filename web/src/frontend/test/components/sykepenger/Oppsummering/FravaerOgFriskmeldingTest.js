@@ -21,7 +21,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
       });
       component = mount(<FravaerOgFriskmelding sykepengesoknad={soknad} />);
       const fragment = component.find(".js-egenmeldingsdager");
-      expect(fragment.text()).to.contain("Brukte du egenmeldingsdager før det legemeldte fraværet startet den 01.01.2017?");
+      expect(fragment.text()).to.contain("Brukte du egenmeldingsdager før det legemeldte fraværet startet den 15.07.2016?");
       expect(fragment.text()).to.contain("Ja");
       expect(fragment.text()).to.contain("Fra 27.12.2016");
       expect(fragment.text()).to.contain("Til 31.12.2016");
@@ -33,7 +33,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
         egenmeldingsperioder: []
       })} />)
       const fragment = component.find(".js-egenmeldingsdager");
-      expect(fragment.text()).to.contain("Brukte du egenmeldingsdager før det legemeldte fraværet startet den 01.01.2017?");
+      expect(fragment.text()).to.contain("Brukte du egenmeldingsdager før det legemeldte fraværet startet den 15.07.2016?");
       expect(fragment.text()).to.contain("Nei");
       expect(fragment.find(".js-perioder")).to.have.length(0);
     });

@@ -109,7 +109,7 @@
     "modig-frontend": "git+http://stash.devillo.no/scm/felles/modig-frontend.git#modig-frontend-4.0.10",
     "mustache": "2.2.1",
     "nodemon": "1.8.1",
-    "nyc": "8.3.2",
+    "nyc": "10.1.2",
     "parallelshell": "2.0.0",
     "proxy-middleware": "0.15.0",
     "react-addons-test-utils": "0.14.7",

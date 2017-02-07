@@ -90,12 +90,6 @@ describe("validerFravaerOgFriskmelding", () => {
                 expect(res.gjenopptattArbeidFulltUtDato).to.equal("Datoen må være bakover i tid");
             });
 
-            it("Skal validere at datoen er bakover i tid", () => {
-                values.gjenopptattArbeidFulltUtDato = "12.12.2020";
-                const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-                expect(res.gjenopptattArbeidFulltUtDato).to.equal("Datoen må være bakover i tid");
-            });
-
             it("Skal validere at datoen ikke er før første sykepengesoknad dag", () => {
                 values.gjenopptattArbeidFulltUtDato = "25.12.2016";
                 sykepengesoknad.identdato = new Date("2017-01-01");

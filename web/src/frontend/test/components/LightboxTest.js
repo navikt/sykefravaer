@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 import Lightbox from "../../js/components/Lightbox";
 
-describe.only("Lightbox", () => {
+describe("Lightbox", () => {
 
     let component; 
     let onClose;

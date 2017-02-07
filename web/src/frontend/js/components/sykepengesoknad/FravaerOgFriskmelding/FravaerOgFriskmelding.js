@@ -6,7 +6,6 @@ import setup from '../setup';
 import Egenmeldingsdager from './Egenmeldingsdager';
 import GjenopptattArbeidFulltUt from './GjenopptattArbeidFulltUt';
 import FeriePermisjonEllerUtenlandsopphold from './FeriePermisjonEllerUtenlandsopphold';
-import * as valideringUtils from '../valideringUtils';
 import Knapperad from '../../skjema/Knapperad';
 import * as foerDuBegynner from '../FoerDuBegynner/FoerDuBegynner';
 import { tidligsteFom } from '../../../utils/periodeUtils';

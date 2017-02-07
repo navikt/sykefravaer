@@ -3,7 +3,7 @@ const expect = chai.expect;
 
 import { parseDato, lagHeltall, lagDesimaltall, erGyldigDato, fraInputdatoTilJSDato } from '../../js/utils';
 
-describe.only("utils", () => {
+describe("utils", () => {
 
     describe("lagHeltall", () => {
         it("Skal fjerne bokstaver", () => {

@@ -26,9 +26,6 @@ export const validate = (values, props) => {
         } else if (!valideringUtils.erIFortiden(values.gjenopptattArbeidFulltUtDato)) {
             feilmeldinger.gjenopptattArbeidFulltUtDato = 'Datoen må være bakover i tid';
         } else if (!valideringUtils.datoErEtterFoersteSykmeldingsdag(values.gjenopptattArbeidFulltUtDato, props.sykepengesoknad)) {
-            const perioder = props.sykepengesoknad.aktiviteter.map((aktivitet) => {
-                return aktivitet.periode;
-            });
             feilmeldinger.gjenopptattArbeidFulltUtDato = `Datoen må være etter at du ble sykmeldt ${toDatePrettyPrint(props.sykepengesoknad.identdato)}`;
         }
     }

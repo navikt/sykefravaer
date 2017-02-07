@@ -8,19 +8,21 @@ import SykmeldingUtdrag from './SykmeldingUtdrag';
 const Statuspanel = ({ opplysninger }) => {
     return (<div className="panel panel-komprimert blokk">
         <Varselstripe type="suksess">
-            {
-                opplysninger.map((opplysninger_, index1) => {
-                    return (<div className="rad-container" key={index1}>
-                        {
-                            opplysninger_.map(({ tittel, opplysning }, index2) => {
-                                return (<SykmeldingNokkelOpplysning Overskrift="h2" tittel={tittel} key={index2}>
-                                    <p>{opplysning}</p>
-                                </SykmeldingNokkelOpplysning>)
-                            })
-                        }
-                    </div>)
-                })
-            }
+            <div>
+                {
+                    opplysninger.map((opplysninger_, index1) => {
+                        return (<div className="rad-container" key={index1}>
+                            {
+                                opplysninger_.map(({ tittel, opplysning }, index2) => {
+                                    return (<SykmeldingNokkelOpplysning Overskrift="h2" tittel={tittel} key={index2}>
+                                        <p>{opplysning}</p>
+                                    </SykmeldingNokkelOpplysning>)
+                                })
+                            }
+                        </div>)
+                    })
+                }
+            </div>
         </Varselstripe>
     </div>);
 };

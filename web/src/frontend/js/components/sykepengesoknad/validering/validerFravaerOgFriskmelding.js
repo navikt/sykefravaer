@@ -1,17 +1,17 @@
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import * as valideringUtils from './valideringUtils';
-import { toDatePrettyPrint } from 'digisyfo-npm';
+import { toDatePrettyPrint, log } from 'digisyfo-npm';
 import { tidligsteFom } from '../../../utils/periodeUtils';
 
 export const validate = (values, props) => {
     const feilmeldinger = {};
 
     const steg = 'FravaerOgFriskmelding';
-    console.log(`verdier på steg ${steg}\n`, JSON.stringify(values));
-    console.log(`sykepengesoknad på steg ${steg}\n`, JSON.stringify(props.sykepengesoknad));
+    log(`verdier på steg ${steg}\n`, JSON.stringify(values));
+    log(`sykepengesoknad på steg ${steg}\n`, JSON.stringify(props.sykepengesoknad));
 
     if (Object.keys(validerFoerDuBegynner(values)).length !== 0) {
-        console.log('Feil i step 1');
+        log('Feil i step 1');
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
 

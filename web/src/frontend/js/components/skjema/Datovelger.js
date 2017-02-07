@@ -33,7 +33,6 @@ const Datovelger = (props) => {
         placeholder="dd.mm.åååå"
         component={Datofelt}
         validate={(input) => {
-            console.log("vallider", input, erGyldigDato(input))
             if (!input) {
                 return undefined;
             } else if (!erGyldigDato(input)) {

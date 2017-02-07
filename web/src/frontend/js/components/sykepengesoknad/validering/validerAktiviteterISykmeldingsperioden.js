@@ -1,6 +1,7 @@
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 import { ANNET } from '../AktiviteterISykmeldingsperioden/AndreInntektskilder';
+import { log } from 'digisyfo-npm';
 
 const validerAktiviteter = (values, aktiviteter) => {
     const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer enn planlagt';
@@ -74,12 +75,12 @@ const getAntallAvkryssedeInntektstkilder = (inntektskilder = []) => {
 
 const validate = (values, props) => {
     const steg = 'AktiviteterISykmeldingsperioden';
-    console.log(`verdier på steg ${steg}\n`, JSON.stringify(values));
-    console.log(`sykepengesoknad på steg ${steg}\n`, JSON.stringify(props.sykepengesoknad));
+    log(`verdier på steg ${steg}\n`, JSON.stringify(values));
+    log(`sykepengesoknad på steg ${steg}\n`, JSON.stringify(props.sykepengesoknad));
 
     const feilmeldinger = {};
     if (Object.keys(validerFoerDuBegynner(values, props)).length > 0 || Object.keys(validerFravaerOgFriskmelding(values, props)).length) {
-        console.log('Feil i step 2');
+        log('Feil i step 2');
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
 

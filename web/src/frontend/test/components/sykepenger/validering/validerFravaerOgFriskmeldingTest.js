@@ -45,7 +45,7 @@ describe("validerFravaerOgFriskmelding", () => {
 
     describe("harGjenopptattArbeidFulltUt", () => {
 
-        it("Skal validere", () => {
+        it("Skal klage hvis man ikke har svart på spørsmålet", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.harGjenopptattArbeidFulltUt).to.equal("Vennligst oppgi om du har gjenopptatt arbeidet fullt ut")
         });
@@ -56,7 +56,7 @@ describe("validerFravaerOgFriskmelding", () => {
                 values.harGjenopptattArbeidFulltUt = false;
             });
 
-            it("Skal ikke validere", () => {
+            it("Skal ikke klage", () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.harGjenopptattArbeidFulltUt).to.be.undefined;
             })
@@ -68,29 +68,29 @@ describe("validerFravaerOgFriskmelding", () => {
                 values.harGjenopptattArbeidFulltUt = true;
             });
 
-            it("Skal ikke validere harGjenopptattArbeidFulltUt", () => {
+            it("Skal ikke klage på at harGjenopptattArbeidFulltUt ikke er fylt ut", () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.harGjenopptattArbeidFulltUt).to.be.undefined;
             });
 
-            it("Skal validere at gjenopptattArbeidFulltUtDato er påkrevd", () => {
+            it("Skal påse at gjenopptattArbeidFulltUtDato er påkrevd", () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.gjenopptattArbeidFulltUtDato).to.equal("Vennligst oppgi når du gjenopptok arbeidet fullt ut")
             });
 
-            it("Skal validere at gjenopptattArbeidFulltUtDato er på riktig format", () => {
+            it("Skal påse at gjenopptattArbeidFulltUtDato er på riktig format", () => {
                 values.gjenopptattArbeidFulltUtDato = "10.01.2017"
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.gjenopptattArbeidFulltUtDato).to.be.undefined;
             });
 
-            it("Skal validere at datoen er bakover i tid", () => {
+            it("Skal påse at datoen er bakover i tid", () => {
                 values.gjenopptattArbeidFulltUtDato = "12.12.2020";
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.gjenopptattArbeidFulltUtDato).to.equal("Datoen må være bakover i tid");
             });
 
-            it("Skal validere at datoen ikke er før første sykepengesoknad dag", () => {
+            it("Skal påse at datoen ikke er før første sykepengesoknad dag", () => {
                 values.gjenopptattArbeidFulltUtDato = "25.12.2016";
                 sykepengesoknad.identdato = new Date("2017-01-01");
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });

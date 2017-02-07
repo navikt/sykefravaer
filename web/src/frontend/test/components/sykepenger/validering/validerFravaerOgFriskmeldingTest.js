@@ -276,7 +276,7 @@ describe("validerFravaerOgFriskmelding", () => {
           values.utenlandsopphold = {
             perioder: [],
             soektOmSykepengerIPerioden: null,
-          }
+          };
           values.harHattFeriePermisjonEllerUtenlandsopphold = true;
           values.harHattUtenlandsopphold = true;
         });
@@ -304,6 +304,14 @@ describe("validerFravaerOgFriskmelding", () => {
           };
           const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
           expect(res.utenlandsopphold.soektOmSykepengerIPerioden).to.be.undefined;
+        });
+
+        it("Skal feile validering dersom en ikke har svart på om en har soekt om sykepenger under utenlandsoppholdet", () => {
+            values.utenlandsopphold = {
+                perioder: [],
+            };
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+            expect(res.utenlandsopphold.soektOmSykepengerIPerioden).to.equal("Vennligst oppgi om du har søkt på sykepenger under oppholdet utenfor Norge");
         });
 
 

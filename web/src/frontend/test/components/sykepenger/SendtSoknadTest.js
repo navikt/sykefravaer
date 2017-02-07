@@ -12,7 +12,7 @@ import { Avkrysset } from '../../../js/components/sykepengesoknad/Oppsummering/o
 import  { getSoknad } from '../../mockSoknader';
 import { Varselstripe } from 'digisyfo-npm';
 
-describe.only("SendtSoknad", () => {
+describe("SendtSoknad", () => {
 
     let component; 
     let sykepengesoknad = getSoknad();

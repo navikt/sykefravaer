@@ -24,23 +24,23 @@ JaEllerNeiRadioknapper.propTypes = {
     input: PropTypes.object,
 };
 
-const JaEllerNei = (props) => {
+export const RendreJaEllerNei = (props) => {
     const { intro, input, children } = props;
-    const visTillegg = input.value && children;
+    const visTillegg = input.value && children ? true : false;
     return (<div className="blokk--xs">
         <div className={`hovedsporsmal ${visTillegg ? 'hovedsporsmal--medTillegg' : ''}`}>
-            { intro && <p className="skjema__sporsmal blokk--s">{intro}</p> }
+            { intro && <p className="skjema__sporsmal blokk--s js-intro">{intro}</p> }
             <JaEllerNeiRadioknapper {...props} />
         </div>
         {
-            visTillegg && <div className="tilleggssporsmal">
+            visTillegg ? <div className="tilleggssporsmal js-tillegg">
                 {children}
-            </div>
+            </div> : null
         }
     </div>);
 };
 
-JaEllerNei.propTypes = {
+RendreJaEllerNei.propTypes = {
     intro: PropTypes.string,
     input: PropTypes.object,
     children: PropTypes.oneOfType([
@@ -53,8 +53,8 @@ export const parseJaEllerNei = (value) => {
     return value === 'true' || value === 'false' ? value === 'true' : value;
 };
 
-const JaEllerNeiField = (props) => {
-    return <Field component={JaEllerNei} {...props} parse={parseJaEllerNei} />;
+const JaEllerNei = (props) => {
+    return <Field component={RendreJaEllerNei} {...props} parse={parseJaEllerNei} />;
 };
 
-export default JaEllerNeiField;
+export default JaEllerNei;

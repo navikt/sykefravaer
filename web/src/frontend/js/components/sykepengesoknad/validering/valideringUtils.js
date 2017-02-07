@@ -20,10 +20,7 @@ export const erIFortiden = (dato) => {
 
 export const datoErEtterFoersteSykmeldingsdag = (dato, sykepengesoknad) => {
     const oppgittDato = lagDato(dato);
-    const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
-        return aktivitet.periode;
-    });
-    const foersteSykmeldingsdato = tidligsteFom(perioder);
+    const foersteSykmeldingsdato = sykepengesoknad.identdato;
     return oppgittDato.getTime() > foersteSykmeldingsdato.getTime();
 };
 

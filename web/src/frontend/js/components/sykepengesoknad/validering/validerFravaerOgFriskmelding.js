@@ -29,7 +29,7 @@ export const validate = (values, props) => {
             const perioder = props.sykepengesoknad.aktiviteter.map((aktivitet) => {
                 return aktivitet.periode;
             });
-            feilmeldinger.gjenopptattArbeidFulltUtDato = `Datoen må være etter at du ble sykmeldt ${toDatePrettyPrint(tidligsteFom(perioder))}`;
+            feilmeldinger.gjenopptattArbeidFulltUtDato = `Datoen må være etter at du ble sykmeldt ${toDatePrettyPrint(props.sykepengesoknad.identdato)}`;
         }
     }
 

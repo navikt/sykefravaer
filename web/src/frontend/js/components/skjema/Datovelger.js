@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { parseDato, erGyldigDato } from '../../utils';
+import { parseDato, erGyldigDato, erGyldigDatoformat } from '../../utils';
 import { Field } from 'redux-form';
 import Feilmelding from './Feilmelding';
 import MaskedInput from 'react-maskedinput';
@@ -35,8 +35,10 @@ const Datovelger = (props) => {
         validate={(input) => {
             if (!input) {
                 return undefined;
-            } else if (!erGyldigDato(input)) {
+            } else if (!erGyldigDatoformat(input)) {
                 return 'Datoen må være på formatet dd.mm.åååå';
+            } else if (!erGyldigDato(input)) {
+                return 'Datoen er ikke gyldig';
             }
             return undefined;
         }}

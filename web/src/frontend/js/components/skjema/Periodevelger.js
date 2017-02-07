@@ -12,17 +12,6 @@ export class Periodevelger extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.fields.length !== prevProps.fields.length) {
-            document.getElementById(this.getFomId(this.props.fields.length - 1)).focus();
-        }
-    }
-
-    getFomId(index) {
-        const { namePrefix } = this.props;
-        return `fom-${namePrefix}-${index}`;
-    }
-
     render() {
         const { fields, namePrefix, spoersmal, meta, Overskrift, ledetekster } = this.props;
 
@@ -33,7 +22,7 @@ export class Periodevelger extends Component {
                     <div className="periodevelger__perioder">
                         {
                             fields.map((field, index) => {
-                                const fomId = this.getFomId(index);
+                                const fomId = `fom-${namePrefix}-${index}`;
                                 const tomId = `tom-${namePrefix}-${index}`;
                                 return (<div key={index} className="periodevelger__periode">
                                     <div className="periodevelger__fom input--s">

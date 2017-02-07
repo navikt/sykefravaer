@@ -7,10 +7,10 @@ export const erIFortiden = (dato) => {
     return oppgittDato.getTime() < dagensDato.getTime();
 };
 
-export const datoErFoersteSykmeldingsdag = (dato, sykepengesoknad) => {
+export const datoErFoersteSykmeldingsdagEllerSenere = (dato, sykepengesoknad) => {
     const oppgittDato = fraInputdatoTilJSDato(dato);
     const foersteSykmeldingsdato = sykepengesoknad.identdato;
-    return oppgittDato.getTime() > foersteSykmeldingsdato.getTime();
+    return oppgittDato.getTime() >= foersteSykmeldingsdato.getTime();
 };
 
 export const harMinstEnPeriode = (perioder = []) => {

@@ -42,6 +42,13 @@ export const validerDatoerIPerioder = (perioder) => {
         if (feil.tom || feil.fom) {
             return feil;
         }
+        const fom = lagDato(periode.fom);
+        const tom = lagDato(periode.tom);
+        if (fom.getTime() > tom.getTime()) {
+            feil.fom = "Startdato må være før sluttdato";
+            feil.tom = "Sluttdato må være etter startdato";
+            return feil;
+        }
         return undefined;
     });
 };

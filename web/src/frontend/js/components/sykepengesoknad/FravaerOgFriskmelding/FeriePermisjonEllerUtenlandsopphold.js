@@ -8,7 +8,7 @@ import Feilomrade from '../../skjema/Feilomrade';
 import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
 
-const SoktOmSykepenger = ({ ledetekster }) => {
+export const SoktOmSykepenger = ({ ledetekster }) => {
     return (<Field
         spoersmal={getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal', ledetekster)}
         name="utenlandsopphold.soektOmSykepengerIPerioden"
@@ -19,7 +19,7 @@ const SoktOmSykepenger = ({ ledetekster }) => {
                 jaEllerNeiAlternativer.map((alt, index) => {
                     return (<input {...alt} key={index}>
                         {
-                            alt.value === true ? null : (<div className="presisering">
+                            alt.value === true ? null : (<div className="presisering js-presisering">
                                 <div dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet', ledetekster)} />
                             </div>)
                         }
@@ -33,7 +33,7 @@ SoktOmSykepenger.propTypes = {
     ledetekster: PropTypes.object,
 };
 
-const FeriePermisjonEllerUtenlandsopphold = ({ fields, meta, ledetekster }) => {
+export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, ledetekster }) => {
     const labels = {
         ferie: getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.tatt-ut-ferie', ledetekster),
         permisjon: getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.hatt-permisjon', ledetekster),
@@ -46,36 +46,36 @@ const FeriePermisjonEllerUtenlandsopphold = ({ fields, meta, ledetekster }) => {
 
     return (<Feilomrade {...meta}>
         <h4 className="skjema__sporsmal">{getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har', ledetekster)}</h4>
-    {
-        fields.map((field, index) => {
-            const name = `${getName(field)}`;
-            return (<Field key={index} component={Checkbox} name={name} label={labels[field]} id={`checkbox-${field}`}>
-            {
-                (() => {
-                    if (field === 'utenlandsopphold') {
-                        return (<div>
-                            <div className="blokk">
-                                <Periodevelger name="utenlandsopphold.perioder" />
-                            </div>
-                            <SoktOmSykepenger ledetekster={ledetekster} />
-                        </div>);
-                    }
-                    return <Periodevelger name={field} />;
-                })()
-            }
-            </Field>);
-        })
-    }
+        {
+            fields.map((field, index) => {
+                const name = `${getName(field)}`;
+                return (<Field key={index} component={Checkbox} name={name} label={labels[field]} id={`checkbox-${field}`}>
+                {
+                    (() => {
+                        if (field === 'utenlandsopphold') {
+                            return (<div>
+                                <div className="blokk">
+                                    <Periodevelger name="utenlandsopphold.perioder" />
+                                </div>
+                                <SoktOmSykepenger ledetekster={ledetekster} />
+                            </div>);
+                        }
+                        return <Periodevelger name={field} />;
+                    })()
+                }
+                </Field>);
+            })
+        }
     </Feilomrade>);
 };
 
-FeriePermisjonEllerUtenlandsopphold.propTypes = {
+RendreFeriePermisjonEllerUtenlandsopphold.propTypes = {
     fields: PropTypes.array,
     meta: PropTypes.object,
     ledetekster: PropTypes.object.isRequired,
 };
 
-const FeriePermisjonEllerUtenlandsoppholdField = ({ sykepengesoknad, ledetekster }) => {
+const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, ledetekster }) => {
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });
@@ -85,13 +85,13 @@ const FeriePermisjonEllerUtenlandsoppholdField = ({ sykepengesoknad, ledetekster
             '%TOM%': toDatePrettyPrint(senesteTom(perioder)),
         })}
         name="harHattFeriePermisjonEllerUtenlandsopphold">
-            <FieldArray component={FeriePermisjonEllerUtenlandsopphold} name="feriePermisjonEllerUtenlandsopphold" fields={['ferie', 'permisjon', 'utenlandsopphold']} ledetekster={ledetekster} />
+            <FieldArray component={RendreFeriePermisjonEllerUtenlandsopphold} name="feriePermisjonEllerUtenlandsopphold" fields={['ferie', 'permisjon', 'utenlandsopphold']} ledetekster={ledetekster} />
     </JaEllerNei>);
 };
 
-FeriePermisjonEllerUtenlandsoppholdField.propTypes = {
+FeriePermisjonEllerUtenlandsopphold.propTypes = {
     sykepengesoknad: PropTypes.object,
     ledetekster: PropTypes.object,
 };
 
-export default FeriePermisjonEllerUtenlandsoppholdField;
+export default FeriePermisjonEllerUtenlandsopphold;

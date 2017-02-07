@@ -5,53 +5,149 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import FeriePermisjonEllerUtenlandsopphold from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FeriePermisjonEllerUtenlandsopphold';
-import JaEllerNei from '../../../../js/components/sykepengesoknad/JaEllerNei';
+import FeriePermisjonEllerUtenlandsopphold, { RendreFeriePermisjonEllerUtenlandsopphold, SoktOmSykepenger } from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FeriePermisjonEllerUtenlandsopphold';
+import JaEllerNei, { parseJaEllerNei } from '../../../../js/components/sykepengesoknad/JaEllerNei';
 import { getSoknad } from '../../../mockSoknader';
 import { ledetekster } from '../../../ledetekster_mock';
+import { Field, FieldArray } from 'redux-form';
+import Checkbox from '../../../../js/components/skjema/Checkbox';
+import Periodevelger from '../../../../js/components/skjema/Periodevelger';
+import Radioknapper from '../../../../js/components/skjema/Radioknapper';
+
 
 describe("FeriePermisjonEllerUtenlandsopphold", () => {
 
-    let _ledetekster;
-    let getSykepengesoknad;
+  let _ledetekster;
+  let getSykepengesoknad;
+  let compo;
+
+  beforeEach(() => {
+    _ledetekster = Object.assign({}, ledetekster, {
+      'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal': "Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden %FOM% – %TOM%?",
+      'sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har': "Jeg har...",
+      'sykepengesoknad.ferie-permisjon-utenlandsopphold.tatt-ut-ferie': "tatt ut ferie",
+      'sykepengesoknad.ferie-permisjon-utenlandsopphold.hatt-permisjon': "hatt permisjon",
+      'sykepengesoknad.ferie-permisjon-utenlandsopphold.oppholdt-meg-utenfor-norge': 'oppholdt meg utenfor Norge',
+      'sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal': 'Har du søkt om å beholde sykepenger under dette oppholdet utenfor Norge?',
+      'sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet': 'Som hovedregel kan du bare få sykepenger når du oppholder deg i Norge. Du kan søke om å beholde sykepenger i en kort periode ved opphold utenfor Norge.'
+    });
+
+    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} ledetekster={_ledetekster} />);
+  });
+
+  it("Skal inneholde en JaEllerNei med riktig name", () => {
+    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} ledetekster={_ledetekster} />);
+    expect(compo.find(JaEllerNei)).to.have.length(1);
+    expect(compo.find(JaEllerNei).prop("name")).to.equal("harHattFeriePermisjonEllerUtenlandsopphold")
+  });
+
+  it("Skal vise riktig spørsmål", () => {
+    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad({
+      aktiviteter: [{
+        "periode": {
+          "fom": "2017-01-01",
+          "tom": "2017-01-15"
+        },
+        "grad": 100,
+        "avvik": null
+      }, {
+        "periode": {
+          "fom": "2017-01-16",
+          "tom": "2017-01-30"
+        },
+        "grad": 50,
+        "avvik": null
+      }]
+    })} ledetekster={_ledetekster} />);
+    expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 30.01.2017?");
+  });
+
+  it("Skal inneholde et FieldArray", () => {
+    const array = compo.find(FieldArray)
+    expect(array.prop("component")).to.deep.equal(RendreFeriePermisjonEllerUtenlandsopphold);
+    expect(array.prop("name")).to.equal("feriePermisjonEllerUtenlandsopphold");
+    expect(array.prop("fields")).to.deep.equal(['ferie', 'permisjon', 'utenlandsopphold'])
+  })
+
+  describe("RendreFeriePermisjonEllerUtenlandsopphold", () => {
+    let component; 
 
     beforeEach(() => {
-        _ledetekster = Object.assign({}, ledetekster, {
-            'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal': "Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden %FOM% – %TOM%?",
-            'sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har': "Jeg har...",
-            'sykepengesoknad.ferie-permisjon-utenlandsopphold.tatt-ut-ferie': "tatt ut ferie",
-            'sykepengesoknad.ferie-permisjon-utenlandsopphold.hatt-permisjon': "hatt permisjon",
-            'sykepengesoknad.ferie-permisjon-utenlandsopphold.oppholdt-meg-utenfor-norge': 'oppholdt meg utenfor Norge',
-            'sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal': 'Har du søkt om å beholde sykepenger under dette oppholdet utenfor Norge?',
-            'sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet': 'Som hovedregel kan du bare få sykepenger når du oppholder deg i Norge. Du kan søke om å beholde sykepenger i en kort periode ved opphold utenfor Norge.'
-        })
+      const meta = {
+        error: "Feilmelding",
+        touched: false,
+      }
+      const fields = ['ferie', 'permisjon', 'utenlandsopphold'];
+      component = shallow(<RendreFeriePermisjonEllerUtenlandsopphold fields={fields} ledetekster={_ledetekster} meta={meta} />);
+    })
+
+    it("Skal inneholde ett checkbox-Field med Peiodevelger per field", () => {
+      expect(component.find(Field)).to.have.length(3);
+      const names = ["harHattFerie", "harHattPermisjon", "harHattUtenlandsopphold"];
+      for (let i = 0; i < 3; i++) {
+        const c = component.find(Field).at(i);
+        expect(c.prop("component")).to.deep.equal(Checkbox);
+        expect(c.find(Periodevelger)).to.have.length(1);
+        expect(c.prop("name")).to.equal(names[i]);
+      }
     });
 
-    it("Skal inneholde en JaEllerNei med riktig name", () => {
-        const compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} ledetekster={_ledetekster} />);
-        expect(compo.find(JaEllerNei)).to.have.length(1);
-        expect(compo.find(JaEllerNei).prop("name")).to.equal("harHattFeriePermisjonEllerUtenlandsopphold")
+    it("Skal inneholde Periodevelger med riktig name", () => {
+      const ferieCheckbox = component.find(Field).at(0);
+      const permisjonCheckbox = component.find(Field).at(1);
+      expect(ferieCheckbox.find(Periodevelger).prop("name")).to.equal("ferie");
+      expect(permisjonCheckbox.find(Periodevelger).prop("name")).to.equal("permisjon");
     });
 
-    it("Skal vise riktig spørsmål", () => {
-        const compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad({
-            aktiviteter: [{
-              "periode": {
-                "fom": "2017-01-01",
-                "tom": "2017-01-15"
-              },
-              "grad": 100,
-              "avvik": null
-            }, {
-              "periode": {
-                "fom": "2017-01-16",
-                "tom": "2017-01-30"
-              },
-              "grad": 50,
-              "avvik": null
-            }]
-        })} ledetekster={_ledetekster} />);
-        expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 30.01.2017?");
+    describe("utenlandsopphold", () => {
+      let utenlandsoppholdCheckbox; 
+      beforeEach(() => {
+        utenlandsoppholdCheckbox = component.find(Field).at(2);
+      })
+
+      it("Skal ha en periodevelger med riktig name", () => {
+        expect(utenlandsoppholdCheckbox.find(Periodevelger).prop("name")).to.equal("utenlandsopphold.perioder");
+      });
+
+      it("Skal inneholde SoktOmSykepenger", () => {
+        expect(utenlandsoppholdCheckbox.find(SoktOmSykepenger)).to.have.length(1);
+      })
+
     });
+
+
+    describe("SoktOmSykepenger", () => {
+      let component; 
+      let f;
+
+      beforeEach(() => {
+        component = shallow(<SoktOmSykepenger ledetekster={_ledetekster} />)
+        f = component.find(Field);
+      })
+
+      it("Skal inneholde et Field med riktig name og riktig component", () => {
+        expect(f.prop("name")).to.equal("utenlandsopphold.soektOmSykepengerIPerioden");
+        expect(f.prop("component")).to.deep.equal(Radioknapper);
+        expect(f.prop("parse")).to.deep.equal(parseJaEllerNei);
+      });
+
+      it("Skal inneholde to input", () => {
+        expect(f.find("input")).to.have.length(2);
+        const ja = f.find("input").at(0);
+        const nei = f.find("input").at(1);
+        expect(ja.prop("value")).to.equal(true);
+        expect(nei.prop("value")).to.equal(false)
+      });
+
+      it("Skal inneholde ja uten presisering og nei med presisering", () => {
+        const ja = f.find("input").at(0);
+        const nei = f.find("input").at(1);
+        expect(ja.find(".js-presisering")).to.have.length(0);
+        expect(nei.find(".js-presisering")).to.have.length(1);
+      });
+
+    });
+
+  });
 
 });

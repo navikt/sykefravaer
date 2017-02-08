@@ -30,10 +30,11 @@ export function sendSykmeldingFeilet(sykmeldingId) {
     };
 }
 
-export function sykmeldingSendt(sykmeldingId) {
+export function sykmeldingSendt(sykmeldingId, options) {
     return {
         type: actiontyper.SYKMELDING_SENDT,
         sykmeldingId,
+        options,
     };
 }
 

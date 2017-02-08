@@ -86,7 +86,10 @@ describe("dinSykmeldingSagas", () => {
         it("Skal dernest dispatche SYKMELDING_SENDT", () => {
             const nextPut = put({
                 type: actiontyper.SYKMELDING_SENDT,
-                sykmeldingId: "minSykmeldingId"
+                sykmeldingId: "minSykmeldingId",
+                options: {
+                    arbeidsgiverForskutterer: false,
+                }
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });

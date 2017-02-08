@@ -1,25 +1,16 @@
-export const lagDato = (dato) => {
-    const d = dato.split('.');
-    const dag = parseFloat(d[0]);
-    const maaned = parseFloat(d[1]);
-    const aar = parseFloat(d[2]);
-    const s = new Date();
-    s.setDate(dag);
-    s.setMonth(maaned - 1);
-    s.setYear(aar);
-    return s;
-};
+import { tidligsteFom } from '../../../utils/periodeUtils';
+import { fraInputdatoTilJSDato } from '../../../utils';
 
 export const erIFortiden = (dato) => {
-    const oppgittDato = lagDato(dato);
+    const oppgittDato = fraInputdatoTilJSDato(dato);
     const dagensDato = new Date();
     return oppgittDato.getTime() < dagensDato.getTime();
 };
 
-export const datoErEtterFoersteSykmeldingsdag = (dato, sykepengesoknad) => {
-    const oppgittDato = lagDato(dato);
+export const datoErFoersteSykmeldingsdagEllerSenere = (dato, sykepengesoknad) => {
+    const oppgittDato = fraInputdatoTilJSDato(dato);
     const foersteSykmeldingsdato = sykepengesoknad.identdato;
-    return oppgittDato.getTime() > foersteSykmeldingsdato.getTime();
+    return oppgittDato.getTime() >= foersteSykmeldingsdato.getTime();
 };
 
 export const harMinstEnPeriode = (perioder = []) => {
@@ -40,8 +31,8 @@ export const validerDatoerIPerioder = (perioder) => {
         if (feil.tom || feil.fom) {
             return feil;
         }
-        const fom = lagDato(periode.fom);
-        const tom = lagDato(periode.tom);
+        const fom = fraInputdatoTilJSDato(periode.fom);
+        const tom = fraInputdatoTilJSDato(periode.tom);
         if (fom.getTime() > tom.getTime()) {
             feil.fom = 'Startdato må være før sluttdato';
             feil.tom = 'Sluttdato må være etter startdato';

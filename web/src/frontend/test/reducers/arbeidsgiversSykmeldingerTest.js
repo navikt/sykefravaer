@@ -471,8 +471,11 @@ describe('arbeidsgiversSykmeldinger', () => {
         it("Håndterer SYKMELDING_SENDT", () => {
             action = {
                 type: actiontyper.SYKMELDING_SENDT,
-                sykmeldingId: 56
-            }
+                sykmeldingId: 56,
+                options: {
+                    arbeidsgiverForskutterer: true,
+                }
+            };
             const nextState = arbeidsgiversSykmeldinger(initialState, action);
             expect(nextState).to.deep.equal({
                 data: [{
@@ -481,7 +484,8 @@ describe('arbeidsgiversSykmeldinger', () => {
                     valgtArbeidsgiver: {
                         orgnummer: 123456789,
                         navn: 'Olsens Sykkelbud'
-                    }
+                    },
+                    arbeidsgiverForskutterer: true,
                 }],
                 henter: false,
                 hentingFeilet: false,
@@ -489,7 +493,6 @@ describe('arbeidsgiversSykmeldinger', () => {
                 sendingFeilet: false
             });            
         });
-
     });
 
     it("Håndterer BRUKER_ER_UTLOGGET", () => {

@@ -1,7 +1,7 @@
 import chai from 'chai';
 const expect = chai.expect;
 
-import { parseDato, lagHeltall, lagDesimaltall, erGyldigDato, fraInputdatoTilJSDato } from '../../js/utils';
+import { parseDato, lagHeltall, lagDesimaltall, erGyldigDato, fraInputdatoTilJSDato, erGyldigDatoformat } from '../../js/utils';
 
 describe("utils", () => {
 
@@ -57,7 +57,17 @@ describe("utils", () => {
             const n = lagDesimaltall("");
             expect(n).to.equal("");
         });
-    })
+
+        it("Skal fjerne komma hvis det står først", () => {
+            const n = lagDesimaltall(",");
+            expect(n).to.equal("");
+        });
+
+        it("Skal fjerne komma hvis det står først", () => {
+            const n = lagDesimaltall(",,");
+            expect(n).to.equal("");
+        });
+    });
 
     describe("parseDato", () => {
 
@@ -112,6 +122,38 @@ describe("utils", () => {
             expect(dato).to.equal("34");
         });
 
+    });
+
+    describe("erGyldigDatoformat", () => {
+        it("Skal returnere true ved 12.02.2017", () => {
+            const d = erGyldigDatoformat("12.02.2017");
+            expect(d).to.be.true;
+        });
+
+        it("Skal returnere false ved dd.mm.yy", () => {
+            const d = erGyldigDatoformat("02.01.17");
+            expect(d).to.be.false;
+        })
+
+        it("Skal returnere false ved aa.bb.cccc", () => {
+            const d = erGyldigDatoformat("aa.bb.cccc");
+            expect(d).to.be.false;
+        });
+
+        it("Skal returnere false ved 02.02.____", () => {
+            const d = erGyldigDatoformat("02.02.____");
+            expect(d).to.be.false;
+        });
+
+        it("Skal returnere false ved 02.0a.1234", () => {
+            const d = erGyldigDatoformat("02.02.____");
+            expect(d).to.be.false;
+        });
+
+        it("Skal returnere true ved 42.01.2020", () => {
+            const d = erGyldigDatoformat("42.01.2020");
+            expect(d).to.be.true;
+        })
     });
 
     describe("erGyldigDato", () => {

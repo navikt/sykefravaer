@@ -98,7 +98,7 @@ describe('dineSykmeldingerReducer', () => {
         });
         const action = {
             type: actiontyper.HENTER_DINE_SYKMELDINGER
-        }
+        };
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [{
@@ -115,7 +115,7 @@ describe('dineSykmeldingerReducer', () => {
         const initialState = deepFreeze({});
         const action = {
             type: actiontyper.HENT_DINE_SYKMELDINGER_FEILET
-        }
+        };
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [],
@@ -550,5 +550,32 @@ describe('dineSykmeldingerReducer', () => {
             hentingFeilet: false,
             data: []
         })
-    })
+    });
+
+    it("Håndterer SYKMELDING_SENDT", () => {
+        const initialState = deepFreeze({
+            data: [{id: 56}],
+            henter: false,
+            hentingFeilet: false
+        });
+        const action = {
+            type: actiontyper.SYKMELDING_SENDT,
+            sykmeldingId: 56,
+            options: {
+                arbeidsgiverForskutterer: true,
+            }
+        };
+        const nextState = dineSykmeldinger(initialState, action);
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 56,
+                status: 'SENDT',
+                arbeidsgiverForskutterer: true,
+            }],
+            henter: false,
+            hentingFeilet: false,
+            sender: false,
+            sendingFeilet: false
+        });
+    });
 }); 

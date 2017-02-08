@@ -3,17 +3,25 @@ import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from '../../js/actions/sykepengesoknader_actions';
 import * as actiontyper from '../../js/actions/actiontyper';
+import sinon from 'sinon';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe("sykepengesoknader_actions", () => {
 
+    let clock;
+
     beforeEach(() => {
         window = window || {};
         window.APP_SETTINGS = {
             REST_ROOT: 'http://tjenester.nav.no/syforest'
         }
+        clock = sinon.useFakeTimers(1484524800000); // 16. januar 2017
+    });
+
+    afterEach(() => {
+        clock.restore();
     });
 
     describe('henter',() => {
@@ -66,9 +74,10 @@ describe("sykepengesoknader_actions", () => {
         });
 
         it("skal ha en sykepengesoknadSendt()-funksjon som returnerer riktig action", () => {
-            expect(actions.sykepengesoknadSendt('1')).to.deep.equal({
+            expect(actions.sykepengesoknadSendt('1', new Date())).to.deep.equal({
                 type: actiontyper.SYKEPENGESOKNAD_SENDT,
                 sykepengesoknadsId: '1',
+                innsendtDato: new Date(),
             });
         });
     })

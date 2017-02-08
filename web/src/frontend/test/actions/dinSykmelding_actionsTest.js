@@ -76,7 +76,7 @@ describe("dinSykmelding_actions", () => {
             const sykmeldingId = 12;
             const action = actions.senderSykmelding(sykmeldingId);
             expect(action).to.deep.equal({
-                sykmeldingId: 12, 
+                sykmeldingId: 12,
                 type: actiontyper.SENDER_SYKMELDING,
             });
         });
@@ -91,9 +91,12 @@ describe("dinSykmelding_actions", () => {
         });
 
         it("Skal ha en sykmeldingSendt()-funksjon som returnerer riktig action", () => {
-            const action = actions.sykmeldingSendt(14);
+            const action = actions.sykmeldingSendt(14, { arbeidsgiverForskutterer: false });
             expect(action).to.deep.equal({
-                sykmeldingId: 14, 
+                sykmeldingId: 14,
+                options: {
+                    arbeidsgiverForskutterer: false,
+                },
                 type: actiontyper.SYKMELDING_SENDT,
             });
         });

@@ -24,7 +24,7 @@ const SykmeldingUtdrag = ({ erApen, sykepengesoknad, ledetekster }) => {
                 </div>
                 <SykmeldingNokkelOpplysning
                     tittel="Dato sykmeldingen ble skrevet">
-                    <p className="js-utstedelsesdato">{toDatePrettyPrint(sykepengesoknad.identdato)}</p>
+                    <p className="js-utstedelsesdato">{toDatePrettyPrint(sykepengesoknad.sykmeldingSkrevetDato)}</p>
                 </SykmeldingNokkelOpplysning>
             </div>
         </Utvidbar>

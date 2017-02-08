@@ -272,6 +272,16 @@ describe('sykepengesoknad', () => {
             const _soknad = parseDatofelter(soknad);
             expect(_soknad.opprettetDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
+
+        it("parser sykmeldingSkrevetDato", () => {
+            const soknad = Object.assign({}, getSoknad(),
+                {
+                    sykmeldingSkrevetDato: "2017-01-19"
+                }
+            );
+            const _soknad = parseDatofelter(soknad);
+            expect(_soknad.sykmeldingSkrevetDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
+        });
     })
 });
 
@@ -299,6 +309,7 @@ const getSoknad = () => {
         },
         opprettetDato: "2017-01-01",
         innsendtDato: null,
+        sykmeldingSkrevetDato: "2017-02-15",
     };
 };
 
@@ -326,6 +337,7 @@ const getParsetSoknad = () => {
         },
         opprettetDato: new Date("2017-01-01"),
         innsendtDato: null,
+        sykmeldingSkrevetDato: new Date("2017-02-15"),
     };
 };
 

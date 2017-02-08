@@ -7,9 +7,6 @@ import Egenmeldingsdager from './Egenmeldingsdager';
 import GjenopptattArbeidFulltUt from './GjenopptattArbeidFulltUt';
 import FeriePermisjonEllerUtenlandsopphold from './FeriePermisjonEllerUtenlandsopphold';
 import Knapperad from '../../skjema/Knapperad';
-import * as foerDuBegynner from '../FoerDuBegynner/FoerDuBegynner';
-import { tidligsteFom } from '../../../utils/periodeUtils';
-import { toDatePrettyPrint } from 'digisyfo-npm';
 import validerFravaerOgFriskmelding from '../validering/validerFravaerOgFriskmelding';
 
 const FravaerOgFriskmelding = ({ handleSubmit, sykepengesoknad, ledetekster }) => {

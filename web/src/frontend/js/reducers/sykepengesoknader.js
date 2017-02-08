@@ -90,6 +90,7 @@ export default function sykepengesoknader(state = initiellState, action) {
         case actiontyper.SYKEPENGESOKNAD_SENDT: {
             const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
                 status: 'SENDT',
+                innsendtDato: action.innsendtDato,
             });
             return Object.assign({}, state, { data }, {
                 sender: false,

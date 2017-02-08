@@ -3,14 +3,22 @@ import { hentSykepengesoknader, sendSykepengesoknad } from '../../js/sagas/sykep
 import { get, post } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
 import * as actiontyper from '../../js/actions/actiontyper';
+import sinon from 'sinon';
 
 describe("sykepengersoknadSagas", () => {
+
+    let clock;
 
     beforeEach(() => {
         window.APP_SETTINGS = {
             REST_ROOT: "http://tjenester.nav.no/syforest"
         }
+        clock = sinon.useFakeTimers(1484524800000); // 16. januar 2017
     });
+
+    afterEach(() => {
+        clock.restore();
+    })
 
     describe('henting', () => {
         const generator = hentSykepengesoknader({
@@ -62,6 +70,7 @@ describe("sykepengersoknadSagas", () => {
             const nextPut = put({
                 type: actiontyper.SYKEPENGESOKNAD_SENDT,
                 sykepengesoknadsId: '1',
+                innsendtDato: new Date("2017-01-16"),
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });

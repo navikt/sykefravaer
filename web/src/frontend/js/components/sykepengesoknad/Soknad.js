@@ -6,7 +6,7 @@ import { Utvidbar } from 'digisyfo-npm';
 const Soknad = ({ ledetekster, sykepengesoknad, apentUtdrag = true }) => {
     return (<div>
         <div className="blokk">
-            <Utvidbar tittel="Oppsummering" erApen={apentUtdrag}>
+            <Utvidbar tittel="Oppsummering" erApen={apentUtdrag} Overskrift="h2">
                 <Oppsummering ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} />
             </Utvidbar>
         </div>

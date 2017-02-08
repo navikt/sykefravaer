@@ -41,6 +41,7 @@
 	width: 1.5em;
 	height: 1.5em;
 	margin-right: 1em;
+	align-self: center; 
 
 	@media(min-width: @skjermMini) {
 		width: 2em;
@@ -49,12 +50,33 @@
 }
 
 .utvidbar__tittel {
-	padding-right: 2em; 
-	background: data-uri("../img/svg/arrow-down_hover.svg") no-repeat 100% .5em;
-	background-size: 1em .5em;
 	flex: 1;
 	align-self: center;
 	display: flex;
+}
+
+.utvidbar__handling {
+	padding-right: 1.5em; 
+	background-image: data-uri("../img/svg/arrow-down_hover.svg");
+	background-repeat: no-repeat;
+	background-position: 100% center;
+	background-size: 1em .5em;
+	color: @lenkeBlaa;
+	min-height: 1em;
+	align-self: center;
+	font-style: normal;
+	
+	@media(min-width: @skjermMini) {
+		margin-left: 1em;
+	}
+}
+
+.utvidbar__handling__tekst {
+	display: none;
+
+	@media (min-width: @skjermMini) {
+		display: inline;
+	}
 }
 
 .utvidbar__header--lilla {
@@ -65,7 +87,7 @@
 	background-color: @blueLight;
 }
 
-.utvidbar__tittel--erApen {
+.utvidbar__header--erApen .utvidbar__handling {
 	background-image: data-uri("../img/svg/arrow-up_hover.svg");
 }
 

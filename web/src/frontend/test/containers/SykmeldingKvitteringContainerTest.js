@@ -138,16 +138,23 @@ describe("SykmeldingKvitteringContainer", () => {
     }); 
 
     describe("getLedetekstNokkel", () => {
-
-
+        const sykmelding = {};
         it("Skal returnere null dersom sykmelding === undefined", () => {
-            const nokkel = getLedetekstNokkel(undefined);
+            const nokkel = getLedetekstNokkel(undefined, null, {});
             expect(nokkel).to.equal(null);
         });
 
         it("Skal returnere null dersom sykmelding === (ukjent status)", () => {
-            const nokkel = getLedetekstNokkel({ status: '(en eller annen status som jeg ikke kan noe om)' });
+            const _sykmelding = Object.assign({}, sykmelding, { status: '(en eller annen status som jeg ikke kan noe om)' });
+            const nokkel = getLedetekstNokkel(_sykmelding, 'nokkel', {});
             expect(nokkel).to.equal(null);
+        });
+
+        it("Skal returnere arbeidstaker-uten-arbeidsgiver om bruker er arbeidstaker", () => {
+            const _sykmelding = Object.assign({}, sykmelding, { status: 'BEKREFTET', valgtArbeidssituasjon: 'ARBEIDSTAKER' });
+            const alternativer = {};
+            const nokkel = getLedetekstNokkel(_sykmelding, 'ostepop', alternativer);
+            expect(nokkel).to.equal('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.ostepop');
         });
 
         it("Skal returnere riktig nokkel dersom sykmelding.status === 'BEKREFTET'", () => {
@@ -158,12 +165,54 @@ describe("SykmeldingKvitteringContainer", () => {
         it("Skal returnere riktig nokkel dersom sykmelding.status === 'AVBRUTT'", () => {
             const nokkel = getLedetekstNokkel({ status: 'AVBRUTT'}, 'ostepop');
             expect(nokkel).to.equal('avbryt-sykmelding.ostepop');
-        })
+        });
 
-
-        it("Skal returnere riktig nokkel dersom sykmelding.status === 'SENDT'", () => {
-            const nokkel = getLedetekstNokkel({ status: 'SENDT'}, 'ostepop');
+        it("Skal returnere send-til-arbeidstaker om arbeidsgiver ikke forskutterer lønn", () => {
+            const _sykmelding = Object.assign({}, sykmelding, { status: 'SENDT', arbeidsgiverForskutterer: false });
+            const alternativer = {};
+            const nokkel = getLedetekstNokkel(_sykmelding, 'ostepop', alternativer);
             expect(nokkel).to.equal('send-til-arbeidsgiver.ostepop');
+        });
+
+        it("Skal returnere send-til-arbeidstaker om bruker ikke er i piloten", () => {
+            const _sykmelding = Object.assign({}, sykmelding, { status: 'SENDT', arbeidsgiverForskutterer: true });
+            const alternativer = {};
+            const nokkel = getLedetekstNokkel(_sykmelding, 'ostepop', alternativer, false);
+            expect(nokkel).to.equal('send-til-arbeidsgiver.ostepop');
+        });
+
+        it("Skal returnere riktig nokkel dersom perioder ikke er passert", () => {
+            const fom = new Date();
+            fom.setDate(fom.getDate() - 2);
+            const tom = new Date();
+            tom.setDate(tom.getDate() + 2);
+            const _sykmelding = Object.assign({}, sykmelding, {
+                status: 'SENDT',
+                arbeidsgiverForskutterer: true,
+                mulighetForArbeid: {
+                    perioder: [{fom: fom, tom: tom}],
+                }
+            });
+            const alternativer = {};
+            const nokkel = getLedetekstNokkel(_sykmelding, 'ostepop', alternativer, true);
+            expect(nokkel).to.equal('send-til-arbeidsgiver.pilot.ostepop');
+        });
+
+        it("Skal returnere riktig nokkel dersom perioder er passert", () => {
+            const fom = new Date();
+            fom.setDate(fom.getDate() - 10);
+            const tom = new Date();
+            tom.setDate(tom.getDate() -8);
+            const _sykmelding = Object.assign({}, sykmelding, {
+                status: 'SENDT',
+                arbeidsgiverForskutterer: true,
+                mulighetForArbeid: {
+                    perioder: [{fom: fom, tom: tom}],
+                }
+            });
+            const alternativer = {};
+            const nokkel = getLedetekstNokkel(_sykmelding, 'ostepop', alternativer, true);
+            expect(nokkel).to.equal('send-til-arbeidsgiver.pilot.sok.ostepop');
         });
 
         it("Skal returnere riktig nokkel dersom sykmelding.status === 'BEKREFTET' og bruker har strengt fortrolig adresse", () => {
@@ -172,6 +221,8 @@ describe("SykmeldingKvitteringContainer", () => {
             });
             expect(nokkel).to.equal('bekreft-sykmelding.skjermingskode-6.ostepop');
         });
+
+
 
 
     });

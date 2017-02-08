@@ -11,6 +11,8 @@ const SykmeldingUtdrag = ({ erApen, sykepengesoknad, ledetekster }) => {
         };
     });
 
+    console.log(sykepengesoknad);
+
     return (<div className="blokk">
             <Utvidbar Overskrift="h2" erApen={erApen} visLukklenke={!erApen} tittel="Informasjon fra sykmeldingen søknaden gjelder for" variant="lysebla" ikon="svg/plaster.svg" ikonHover="svg/plaster--hover.svg" ikonAltTekst="Plaster-ikon">
             <div>
@@ -24,7 +26,7 @@ const SykmeldingUtdrag = ({ erApen, sykepengesoknad, ledetekster }) => {
                 </div>
                 <SykmeldingNokkelOpplysning
                     tittel="Dato sykmeldingen ble skrevet">
-                    <p className="js-utstedelsesdato">{toDatePrettyPrint(sykepengesoknad.identdato)}</p>
+                    <p className="js-utstedelsesdato">{toDatePrettyPrint(sykepengesoknad.sykmeldingSkrevetDato)}</p>
                 </SykmeldingNokkelOpplysning>
             </div>
         </Utvidbar>

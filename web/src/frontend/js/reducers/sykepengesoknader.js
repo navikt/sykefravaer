@@ -48,6 +48,7 @@ export const parseDatofelter = (soknad) => {
     _soknad.identdato = tilDato(soknad.identdato);
     _soknad.innsendtDato = tilDato(soknad.innsendtDato);
     _soknad.opprettetDato = tilDato(soknad.opprettetDato);
+    _soknad.sykmeldingSkrevetDato = tilDato(soknad.sykmeldingSkrevetDato);
     return _soknad;
 };
 

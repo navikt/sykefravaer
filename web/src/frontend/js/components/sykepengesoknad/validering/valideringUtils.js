@@ -1,5 +1,3 @@
-import { tidligsteFom } from '../../../utils/periodeUtils';
-
 export const lagDato = (dato) => {
     const d = dato.split('.');
     const dag = parseFloat(d[0]);
@@ -45,8 +43,8 @@ export const validerDatoerIPerioder = (perioder) => {
         const fom = lagDato(periode.fom);
         const tom = lagDato(periode.tom);
         if (fom.getTime() > tom.getTime()) {
-            feil.fom = "Startdato må være før sluttdato";
-            feil.tom = "Sluttdato må være etter startdato";
+            feil.fom = 'Startdato må være før sluttdato';
+            feil.tom = 'Sluttdato må være etter startdato';
             return feil;
         }
         return undefined;

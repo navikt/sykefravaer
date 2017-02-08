@@ -23,6 +23,12 @@ export const mapToInitialValues = (soknad) => {
 
 export const SYKEPENGER_SKJEMANAVN = 'SYKEPENGERSKJEMA';
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+        initialValues: mapToInitialValues(ownProps.sykepengesoknad),
+    };
+};
+
 const setup = (validate, Component, initialize = false) => {
     const form = reduxForm({
         form: SYKEPENGER_SKJEMANAVN,
@@ -32,11 +38,7 @@ const setup = (validate, Component, initialize = false) => {
         sendTilFoerDuBegynner,
     })(Component);
     if (initialize) {
-        return connect((state, ownProps) => {
-            return {
-                initialValues: mapToInitialValues(ownProps.sykepengesoknad),
-            };
-        })(form);
+        return connect(mapStateToProps)(form);
     }
     return form;
 };

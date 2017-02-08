@@ -11,6 +11,7 @@ import { SoknaderSide, mapStateToProps } from "../../js/containers/SoknaderConta
 import Soknader from '../../js/components/soknader/Soknader';
 import AppSpinner from '../../js/components/AppSpinner';
 import Feilmelding from '../../js/components/Feilmelding';
+import { SYKEPENGER_SKJEMANAVN } from '../../js/components/sykepengesoknad/setup';
 
 describe("SoknaderContainer", () => {
 
@@ -45,29 +46,38 @@ describe("SoknaderContainer", () => {
     describe("SoknaderSide", () => {
 
         let dispatch;
+        let destroy; 
+        let actions;
+        let ledetekster;
+
         beforeEach(() => {
             dispatch = sinon.spy();
+            destroy = sinon.spy();
+            actions = { destroy };
+            ledetekster = {"nokkel": "verdi"};
+        });
+
+        it("Skal kalle på destroy", () => {
+            let component = shallow(<SoknaderSide actions={actions} ledetekster={ledetekster} soknader={[]} henter={false} hentingFeilet={true} dispatch={dispatch} />);
+            expect(destroy.calledWith(SYKEPENGER_SKJEMANAVN)).to.be.true;
         });
 
         it("Skal vise feilmelding om henting feilet", () => {
-            let ledetekster = {"nokkel": "verdi"};
-            let component = shallow(<SoknaderSide ledetekster={ledetekster} soknader={[]} henter={false} hentingFeilet={true} dispatch={dispatch} />);
+            let component = shallow(<SoknaderSide actions={actions} ledetekster={ledetekster} soknader={[]} henter={false} hentingFeilet={true} dispatch={dispatch} />);
             expect(component.find(Soknader)).to.have.length(0);
             expect(component.find(Feilmelding)).to.have.length(1);
             expect(component.find(AppSpinner)).to.have.length(0);
         });
 
         it("Skal vise spinner om vi venter på data", () => {
-            let ledetekster = {"nokkel": "verdi"};
-            let component = shallow(<SoknaderSide ledetekster={ledetekster} soknader={[]} henter={true} hentingFeilet={false} dispatch={dispatch} />);
+            let component = shallow(<SoknaderSide actions={actions} ledetekster={ledetekster} soknader={[]} henter={true} hentingFeilet={false} dispatch={dispatch} />);
             expect(component.find(Soknader)).to.have.length(0);
             expect(component.find(Feilmelding)).to.have.length(0);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
         it("Skal vise Soknaderside", () => {
-            let ledetekster = {"nokkel": "verdi"};
-            let component = shallow(<SoknaderSide ledetekster={ledetekster} soknader={[]} henter={false} hentingFeilet={false} dispatch={dispatch} />);
+            let component = shallow(<SoknaderSide actions={actions} ledetekster={ledetekster} soknader={[]} henter={false} hentingFeilet={false} dispatch={dispatch} />);
             expect(component.find(Soknader)).to.have.length(1);
             expect(component.find(Feilmelding)).to.have.length(0);
             expect(component.find(AppSpinner)).to.have.length(0);

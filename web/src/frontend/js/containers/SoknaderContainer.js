@@ -5,8 +5,12 @@ import Side from '../sider/Side';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
+import { destroy } from 'redux-form';
+import { bindActionCreators } from 'redux';
+import { SYKEPENGER_SKJEMANAVN } from '../components/sykepengesoknad/setup';
 
-export const SoknaderSide = ({ ledetekster, brodsmuler, henter, hentingFeilet, sykepengesoknader }) => {
+export const SoknaderSide = ({ ledetekster, brodsmuler, henter, hentingFeilet, sykepengesoknader, actions }) => {
+    actions.destroy(SYKEPENGER_SKJEMANAVN);
     return (
         <Side tittel={getLedetekst('soknader.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
@@ -30,6 +34,13 @@ SoknaderSide.propTypes = {
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.array,
+    actions: PropTypes.object.isRequired,
+};
+
+export function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators({ destroy }, dispatch),
+    };
 };
 
 export function mapStateToProps(state) {
@@ -51,6 +62,6 @@ export function mapStateToProps(state) {
     };
 }
 
-const SoknaderContainer = connect(mapStateToProps)(SoknaderSide);
+const SoknaderContainer = connect(mapStateToProps, mapDispatchToProps)(SoknaderSide);
 
 export default SoknaderContainer;

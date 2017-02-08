@@ -74,10 +74,16 @@ describe("sykepengesoknader_actions", () => {
         });
 
         it("skal ha en sykepengesoknadSendt()-funksjon som returnerer riktig action", () => {
-            expect(actions.sykepengesoknadSendt('1', new Date())).to.deep.equal({
+            expect(actions.sykepengesoknadSendt('1', {
+                id: '1',
+                felt: 'felt'
+            })).to.deep.equal({
                 type: actiontyper.SYKEPENGESOKNAD_SENDT,
                 sykepengesoknadsId: '1',
-                innsendtDato: new Date(),
+                sykepengesoknad: {
+                    id: '1',
+                    felt: 'felt'
+                }
             });
         });
     })

@@ -38,11 +38,11 @@ export function sendSykepengesoknadFeilet() {
     };
 }
 
-export function sykepengesoknadSendt(sykepengesoknadsId, innsendtDato) {
+export function sykepengesoknadSendt(sykepengesoknadsId, sykepengesoknad) {
     return {
         type: actiontyper.SYKEPENGESOKNAD_SENDT,
         sykepengesoknadsId,
-        innsendtDato,
+        sykepengesoknad,
     };
 }
 

@@ -66,13 +66,19 @@ describe("sykepengersoknadSagas", () => {
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it("skal dernest sette status som sendt", () => {
+        it("skal dernest overskrive soknad med soknad fra rest-tjenesten", () => {
             const nextPut = put({
                 type: actiontyper.SYKEPENGESOKNAD_SENDT,
                 sykepengesoknadsId: '1',
-                innsendtDato: new Date("2017-01-16"),
+                sykepengesoknad: {
+                    id: '1',
+                    testdata: 'testdata',
+                }
             });
-            expect(generator.next().value).to.deep.equal(nextPut);
+            expect(generator.next({
+                id: '1',
+                testdata: 'testdata',
+            }).value).to.deep.equal(nextPut);
         });
     })
 });

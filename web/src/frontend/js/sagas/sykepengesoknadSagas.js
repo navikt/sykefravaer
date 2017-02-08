@@ -19,8 +19,8 @@ export function* hentSykepengesoknader() {
 export function* sendSykepengesoknad(action) {
     yield put({ type: actiontyper.SENDER_SYKEPENGESOKNAD });
     try {
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/send`, action.sykepengesoknad);
-        yield put(actions.sykepengesoknadSendt(action.sykepengesoknad.id, new Date()));
+        const sykepengesoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/send`, action.sykepengesoknad);
+        yield put(actions.sykepengesoknadSendt(action.sykepengesoknad.id, sykepengesoknad));
     } catch (e) {
         yield put(actions.sendSykepengesoknadFeilet());
     }

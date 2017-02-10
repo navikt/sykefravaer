@@ -48,7 +48,8 @@ describe("sykepengersoknadSagas", () => {
         });
     });
 
-    describe('innsending', () => {
+    describe('innsending der REST-tjeneste svarer med søknad', () => {
+        // GAMMELT RESTSVAR
         const generator = sendSykepengesoknad({
             type: actiontyper.SEND_SYKEPENGESOKNAD_FORESPURT,
             sykepengesoknad: { id: '1' },
@@ -66,7 +67,7 @@ describe("sykepengersoknadSagas", () => {
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it("skal dernest overskrive soknad med soknad fra rest-tjenesten", () => {
+        it("skal overskrive overskrive soknad med soknad fra rest-tjenesten hvis den svarer med en søknad", () => {
             const nextPut = put({
                 type: actiontyper.SYKEPENGESOKNAD_SENDT,
                 sykepengesoknadsId: '1',
@@ -80,5 +81,37 @@ describe("sykepengersoknadSagas", () => {
                 testdata: 'testdata',
             }).value).to.deep.equal(nextPut);
         });
-    })
+    });
+
+
+    describe('innsending der REST-tjeneste ikke svarer med søknad', () => {
+        // GAMMELT RESTSVAR
+        const generator = sendSykepengesoknad({
+            type: actiontyper.SEND_SYKEPENGESOKNAD_FORESPURT,
+            sykepengesoknad: { id: '1' },
+        });
+
+        it("skal dispatche SENDER_SYKEPENGESOKNAD", () => {
+            const nextPut = put({
+                type: actiontyper.SENDER_SYKEPENGESOKNAD,
+            });
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
+
+        it("skal dernest sende sykepengesoknader", () => {
+            const nextCall = call(post, "http://tjenester.nav.no/syforest/soknader/1/actions/send", {id: '1'});
+            expect(generator.next().value).to.deep.equal(nextCall);
+        });
+
+        it("skal overskrive overskrive soknad med soknad fra rest-tjenesten hvis den svarer med en søknad", () => {
+            const nextPut = put({
+                type: actiontyper.SYKEPENGESOKNAD_SENDT,
+                sykepengesoknadsId: '1',
+                sykepengesoknad: undefined,
+            });
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
+    });
+
+
 });

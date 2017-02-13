@@ -4,6 +4,7 @@ import Checkbox from '../../skjema/Checkbox';
 import { parseJaEllerNei } from '../JaEllerNei';
 import Feilomrade from '../../skjema/Feilomrade';
 import Radioknapper from '../../skjema/Radioknapper';
+import { getLedetekst } from 'digisyfo-npm';
 
 const ANDRE_ARBEIDSFORHOLD = 'ANDRE_ARBEIDSFORHOLD';
 const SELVSTENDIG_NAERINGSDRIVENDE = 'SELVSTENDIG_NAERINGSDRIVENDE';
@@ -21,40 +22,33 @@ export const fields = [
     ANNET,
 ];
 
-export const inntektskildeLabels = {};
-inntektskildeLabels[ANDRE_ARBEIDSFORHOLD] = 'Andre arbeidsforhold';
-inntektskildeLabels[SELVSTENDIG_NAERINGSDRIVENDE] = 'Selvstendig næringsdrivende';
-inntektskildeLabels[SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA] = 'Selvstendig næringsdrivende dagmamma';
-inntektskildeLabels[JORDBRUKER_FISKER_REINDRIFTSUTOEVER] = 'Jordbruker / Fisker / Reindriftsutøver';
-inntektskildeLabels[FRILANSER] = 'Frilanser';
-inntektskildeLabels[ANNET] = 'Annet';
+export const getInntektskildeLabel = (field, ledetekster) => {
+    return getLedetekst(`sykepengesoknad.andre-inntektskilder.${field}.label`, ledetekster);
+};
 
-const presiseringer = {};
-presiseringer[ANDRE_ARBEIDSFORHOLD] = 'Legen må sende inn én sykmelding for hvert arbeidsforhold du er sykmeldt fra. Du kan altså ikke bruke samme sykmelding overfor flere arbeidsgivere. Det betyr også at du må sende en egen søknad om sykepenger for hver av sykmeldingene.';
-presiseringer[SELVSTENDIG_NAERINGSDRIVENDE] = 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for selvstendig næringsdrivende. Søknaden om sykepenger for dette må du derfor sende på papir.';
-presiseringer[SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA] = 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for selvstendig næringsdrivende. Søknaden om sykepenger for dagmamma må du derfor sende på papir.';
-presiseringer[JORDBRUKER_FISKER_REINDRIFTSUTOEVER] = 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem . Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for disse gruppene. Søknaden om sykepenger for dette må du derfor sende på papir.';
-presiseringer[FRILANSER] = 'Legen må sende inn én sykmelding for hver arbeidssituasjon du er sykmeldt fra, og du må søke om sykepenger for hver av dem. Foreløpig støtter ikke den digitale løsningen søknad om sykepenger for frilansere. Søknaden om sykepenger for frilanser må du derfor sende på papir.';
+const getPresisering = (field, ledetekster) => {
+    return getLedetekst(`sykepengesoknad.andre-inntektskilder.${field}.presisering`, ledetekster);
+};
 
-export const VelgInntektskilder = ({ fields, meta }) => {
+export const VelgInntektskilder = ({ fields, meta, ledetekster }) => {
     return (<Feilomrade {...meta}>
-        <h4 className="skjema__sporsmal">Hvilke andre inntektskilder har du?</h4>
-        <p>Du trenger ikke oppgi andre ytelser fra NAV.</p>
+        <h4 className="skjema__sporsmal">{getLedetekst('sykepengesoknad.andre-inntektskilder.hvilke-inntektskilder.sporsmal', ledetekster)}</h4>
+        <p>{getLedetekst('sykepengesoknad.andre-inntektskilder.hvilke-inntektskilder.informasjon', ledetekster)}</p>
         {
             fields.map((field, index) => {
-                return (<Field label={inntektskildeLabels[field]} id={`inntektskilde-${index}`} name={`andreInntektskilder.${field}.avkrysset`} key={index} component={Checkbox}>
+                return (<Field label={getInntektskildeLabel(field, ledetekster)} id={`inntektskilde-${index}`} name={`andreInntektskilder.${field}.avkrysset`} key={index} component={Checkbox}>
                     {
                         field === ANNET ? null : <Field
                             component={Radioknapper}
-                            spoersmal="Er du sykmeldt fra dette?"
+                            spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.er-du-sykmeldt-fra-dette.sporsmal', ledetekster)}
                             parse={parseJaEllerNei}
                             name={`andreInntektskilder.${field}.sykmeldt`}>
-                                <input label="Ja" value>
+                                <input label={getLedetekst('sykepengesoknad.ja', ledetekster)} value>
                                     <div className="presisering blokk">
-                                        <p className="sist">{presiseringer[field]}</p>
+                                        <p className="sist">{getPresisering(field, ledetekster)}</p>
                                     </div>
                                 </input>
-                                <input label="Nei" value={false} />
+                                <input label={getLedetekst('sykepengesoknad.nei', ledetekster)} value={false} />
                             </Field>
                     }
                 </Field>);
@@ -66,10 +60,15 @@ export const VelgInntektskilder = ({ fields, meta }) => {
 VelgInntektskilder.propTypes = {
     fields: PropTypes.array,
     meta: PropTypes.object,
+    ledetekster: PropTypes.object,
 };
 
-const AndreInntektskilderComponent = () => {
-    return <FieldArray component={VelgInntektskilder} fields={fields} name="andreInntektskilder" />;
+const AndreInntektskilderComponent = ({ ledetekster }) => {
+    return <FieldArray component={VelgInntektskilder} fields={fields} ledetekster={ledetekster} name="andreInntektskilder" />;
+};
+
+AndreInntektskilderComponent.propTypes = {
+    ledetekster: PropTypes.object,
 };
 
 export default AndreInntektskilderComponent;

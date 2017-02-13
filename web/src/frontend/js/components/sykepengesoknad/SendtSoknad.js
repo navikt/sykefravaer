@@ -16,10 +16,10 @@ const Statuspanel = ({ opplysninger }) => {
                                 opplysninger_.map(({ tittel, opplysning }, index2) => {
                                     return (<SykmeldingNokkelOpplysning Overskrift="h2" tittel={tittel} key={index2}>
                                         <p>{opplysning}</p>
-                                    </SykmeldingNokkelOpplysning>)
+                                    </SykmeldingNokkelOpplysning>);
                                 })
                             }
-                        </div>)
+                        </div>);
                     })
                 }
             </div>

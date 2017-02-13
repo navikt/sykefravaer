@@ -1,4 +1,3 @@
-import { tidligsteFom } from '../../../utils/periodeUtils';
 import { fraInputdatoTilJSDato } from '../../../utils';
 
 export const erIFortiden = (dato) => {

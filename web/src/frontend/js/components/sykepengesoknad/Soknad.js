@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import Oppsummering from './Oppsummering/Oppsummering';
-import SykmeldingUtdrag from './SykmeldingUtdrag';
 import { Utvidbar } from 'digisyfo-npm';
 
 const Soknad = ({ ledetekster, sykepengesoknad, apentUtdrag = true }) => {

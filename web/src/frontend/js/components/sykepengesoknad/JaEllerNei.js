@@ -26,7 +26,7 @@ JaEllerNeiRadioknapper.propTypes = {
 
 export const RendreJaEllerNei = (props) => {
     const { intro, input, children } = props;
-    const visTillegg = input.value && children ? true : false;
+    const visTillegg = input.value && children;
     return (<div className="blokk--xs">
         <div className={`hovedsporsmal ${visTillegg ? 'hovedsporsmal--medTillegg' : ''}`}>
             { intro && <p className="skjema__sporsmal blokk--s js-intro">{intro}</p> }

@@ -41,7 +41,7 @@ export function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators({ destroy }, dispatch),
     };
-};
+}
 
 export function mapStateToProps(state) {
     const ledetekster = state.ledetekster.data;

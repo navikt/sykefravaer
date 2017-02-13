@@ -1,7 +1,6 @@
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import * as valideringUtils from './valideringUtils';
 import { toDatePrettyPrint, log } from 'digisyfo-npm';
-import { tidligsteFom } from '../../../utils/periodeUtils';
 
 export const validate = (values, props) => {
     const feilmeldinger = {};

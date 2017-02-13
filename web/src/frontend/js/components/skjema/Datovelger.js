@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react';
-import { parseDato, erGyldigDato, erGyldigDatoformat } from '../../utils';
+import { erGyldigDato, erGyldigDatoformat } from '../../utils';
 import { Field } from 'redux-form';
 import Feilmelding from './Feilmelding';
 import MaskedInput from 'react-maskedinput';
 
 const Datofelt = (props) => {
-    const { meta, className, input, id } = props;
+    const { meta, input, id } = props;
     return (<div>
         <MaskedInput
             type="tel"
             mask="11.11.1111"
-            autoComplete="off" 
+            autoComplete="off"
             placeholder={props.placeholder} type={props.type || 'text'} id={id}
             className={`input--s ${meta.touched && meta.error ? ' input--feil' : ''}`} {...input} value={input.value} />
         <Feilmelding {...meta} />
@@ -22,7 +22,6 @@ Datofelt.propTypes = {
     id: PropTypes.string,
     input: PropTypes.object,
     type: PropTypes.string,
-    className: PropTypes.string,
     onKeyUp: PropTypes.func,
     placeholder: PropTypes.string,
     mask: PropTypes.string,

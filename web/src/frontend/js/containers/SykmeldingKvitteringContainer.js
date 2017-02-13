@@ -42,7 +42,9 @@ KvitteringSide.propTypes = {
     hentingFeilet: PropTypes.bool,
 };
 
-const periodePassert = (sykmelding) =>  { return Date.now() > Date.parse(senesteTom(sykmelding.mulighetForArbeid.perioder)) };
+const erPeriodePassert = (sykmelding) => {
+    return Date.now() > Date.parse(senesteTom(sykmelding.mulighetForArbeid.perioder));
+};
 
 export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}, pilotSykepenger = false) => {
     if (!sykmelding) {
@@ -60,7 +62,7 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}, pilotS
         case 'SENDT': {
             if (sykmelding.arbeidsgiverForskutterer) {
                 if (pilotSykepenger) {
-                    if (periodePassert(sykmelding)) {
+                    if (erPeriodePassert(sykmelding)) {
                         return `send-til-arbeidsgiver.pilot.sok.${nokkel}`;
                     }
                     return `send-til-arbeidsgiver.pilot.${nokkel}`;

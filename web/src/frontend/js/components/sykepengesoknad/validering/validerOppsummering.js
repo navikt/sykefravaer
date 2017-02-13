@@ -9,7 +9,6 @@ const validate = (values, props) => {
     const feilmeldinger = Object.assign({}, foerDuBegynnerFeil, fravaerOgFriskmeldingFeil, aktiviteterISykmeldingsperiodenFeil);
 
     if (Object.keys(feilmeldinger).length > 0) {
-        console.error('Feilmeldinger \n', feilmeldinger);
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
 

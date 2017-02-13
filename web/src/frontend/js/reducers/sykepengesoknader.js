@@ -91,7 +91,7 @@ export default function sykepengesoknader(state = initiellState, action) {
         case actiontyper.SYKEPENGESOKNAD_SENDT: {
             let data;
             // GAMMELT RESTSVAR
-            if (action.sykepengesoknad) {
+            if (action.sykepengesoknad && action.sykepengesoknad.id) {
                 data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, action.sykepengesoknad);
             } else {
                 data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {

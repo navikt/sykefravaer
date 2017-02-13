@@ -7,6 +7,7 @@ const expect = chai.expect;
 
 import FravaerOgFriskmelding, { FeriePermisjonEllerUtenlandsopphold } from '../../../../js/components/sykepengesoknad/Oppsummering/FravaerOgFriskmelding';
 import { getSoknad } from '../../../mockSoknader';
+import ledetekster from '../../../ledetekster_mock';
 
 describe("Oppsummering - FravaerOgFriskmelding -", () => {
 
@@ -19,7 +20,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
             tom: "2016-12-31"
         }]
       });
-      component = mount(<FravaerOgFriskmelding sykepengesoknad={soknad} />);
+      component = mount(<FravaerOgFriskmelding ledetekster={ledetekster} sykepengesoknad={soknad} />);
       const fragment = component.find(".js-egenmeldingsdager");
       expect(fragment.text()).to.contain("Brukte du egenmeldingsdager før det legemeldte fraværet startet den 15.07.2016?");
       expect(fragment.text()).to.contain("Ja");
@@ -29,7 +30,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
     });
 
     it("Skal ikke vise egenmeldingsdager hvis det ikke er krysset av for egenmeldingsdager", () => {
-      component = mount(<FravaerOgFriskmelding sykepengesoknad={getSoknad({
+      component = mount(<FravaerOgFriskmelding ledetekster={ledetekster} sykepengesoknad={getSoknad({
         egenmeldingsperioder: []
       })} />)
       const fragment = component.find(".js-egenmeldingsdager");
@@ -42,7 +43,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
       const soknad = getSoknad({
         gjenopptattArbeidFulltUtDato: "2017-01-15"
       });
-      component = mount(<FravaerOgFriskmelding sykepengesoknad={soknad} />);
+      component = mount(<FravaerOgFriskmelding ledetekster={ledetekster} sykepengesoknad={soknad} />);
       const fragment = component.find(".js-gjenopptattArbeid");
       expect(fragment.text()).to.contain("Har du gjenopptatt arbeidet ditt hos BYGGMESTER BLOM AS fullt ut?");
       expect(fragment.text()).to.contain("Ja");
@@ -50,7 +51,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
     });
 
     it("Skal vise gjenopptatt arbeid fullt ut dersom det er krysset av for nei", () => {
-      component = mount(<FravaerOgFriskmelding sykepengesoknad={getSoknad({
+      component = mount(<FravaerOgFriskmelding ledetekster={ledetekster} sykepengesoknad={getSoknad({
         gjenopptattArbeidFulltUtDato: null,
       })} />);
       const fragment = component.find(".js-gjenopptattArbeid");
@@ -65,7 +66,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
 
       beforeEach(() => {
         getFragment = (soknad = {}) => {
-          return mount(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad(soknad)} />);
+          return mount(<FeriePermisjonEllerUtenlandsopphold ledetekster={ledetekster} sykepengesoknad={getSoknad(soknad)} />);
         }
       })
       
@@ -81,7 +82,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
         });
 
         it("Skal vise ferie, permisjon eller utenlandsopphold", () => {
-          expect(fragment.text()).to.contain("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 - 25.01.2017?");
+          expect(fragment.text()).to.contain("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 25.01.2017?");
           expect(fragment.text()).to.contain("Nei");
         });
 
@@ -101,7 +102,7 @@ describe("Oppsummering - FravaerOgFriskmelding -", () => {
         })
         
         it("Skal vise ferie, permisjon eller utenlandsopphold", () => {
-          expect(fragment.text()).to.contain("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 - 25.01.2017?");
+          expect(fragment.text()).to.contain("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 25.01.2017?");
           expect(fragment.text()).to.contain("Ja");
         });
 

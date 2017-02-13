@@ -10,13 +10,13 @@ import Sidetopp from '../../../js/components/Sidetopp';
 import SykmeldingUtdrag from '../../../js/components/sykepengesoknad/SykmeldingUtdrag';
 import { Avkrysset } from '../../../js/components/sykepengesoknad/Oppsummering/opplysninger';
 import  { getSoknad } from '../../mockSoknader';
+import ledetekster from '../../ledetekster_mock';
 import { Varselstripe } from 'digisyfo-npm';
 
 describe("SendtSoknad", () => {
 
     let component; 
     let sykepengesoknad = getSoknad();
-    let ledetekster = {"test": "ledetekst" };
 
     beforeEach(() => {
         component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />)
@@ -35,7 +35,7 @@ describe("SendtSoknad", () => {
     });
 
     it("Skal inneholde en Avkrysset", () => {
-        expect(component.contains(<Avkrysset tekst="Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte." />)).to.be.true;
+        expect(component.contains(<Avkrysset tekst="Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte" />)).to.be.true;
     });
 
     it("SKal inneholde en Varselstripe", () => {

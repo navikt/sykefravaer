@@ -130,10 +130,34 @@ describe('sykepengesoknader', () => {
                 sender: false,
                 sendingFeilet: false,
             });
-            const action = actions.sykepengesoknadSendt("1", new Date());
+            const action = actions.sykepengesoknadSendt("1", {
+                id: '1',
+                fiskekake: 'fiskekake',
+                sylt: 'jordbærsylt'
+            });
             const nextState = sykepengesoknader(initialState, action);
             expect(nextState).to.deep.equal({
-                data: [{ id: '1', status: 'SENDT', innsendtDato: new Date('2017-01-16') }, { id: '2' }],
+                data: [{ id: '1', fiskekake: 'fiskekake', sylt: 'jordbærsylt'}, { id: '2' }],
+                sender: false,
+                sendingFeilet: false,
+                henter: false,
+                hentingFeilet: false,
+            });
+        });
+
+        it("håndterer SYKEPENGESOKNAD_SENDT hvis REST-tjeneste ikke svarer med søknad", () => {
+            // GAMMELT RESTSVAR
+            let initialState = deepFreeze({
+                data: [{id: '1'},{id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const action = actions.sykepengesoknadSendt("1");
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState).to.deep.equal({
+                data: [{ id: '1', status: 'SENDT'}, { id: '2' }],
                 sender: false,
                 sendingFeilet: false,
                 henter: false,

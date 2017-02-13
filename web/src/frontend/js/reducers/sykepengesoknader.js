@@ -89,10 +89,15 @@ export default function sykepengesoknader(state = initiellState, action) {
             });
         }
         case actiontyper.SYKEPENGESOKNAD_SENDT: {
-            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
-                status: 'SENDT',
-                innsendtDato: action.innsendtDato,
-            });
+            let data;
+            // GAMMELT RESTSVAR
+            if (action.sykepengesoknad) {
+                data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, action.sykepengesoknad);
+            } else {
+                data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
+                    status: 'SENDT',
+                });
+            }
             return Object.assign({}, state, { data }, {
                 sender: false,
                 sendingFeilet: false,

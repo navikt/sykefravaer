@@ -96,6 +96,7 @@ export default function sykepengesoknader(state = initiellState, action) {
             } else {
                 data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
                     status: 'SENDT',
+                    innsendtDato: new Date(),
                 });
             }
             return Object.assign({}, state, { data }, {

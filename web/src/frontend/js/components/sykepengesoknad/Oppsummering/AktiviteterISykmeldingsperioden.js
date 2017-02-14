@@ -18,11 +18,11 @@ export const Avvik = ({ aktivitet, arbeidsgiver, ledetekster }) => {
                     '%ARBEIDSGIVER%': arbeidsgiver,
                 })
             }</h4>
-            <p>{antall} totalt per uke</p>
+            <p>{String(antall).replace('.',',')} totalt per uke</p>
         </div>
         <div>
             <h4 className="oppsummering__sporsmal">Hvor mange timer jobber du normalt per uke?</h4>
-            <p>{arbeidstimerNormalUke} timer per uke</p>
+            <p>{String(arbeidstimerNormalUke).replace('.',',')} timer per uke</p>
         </div>
     </div>);
 };

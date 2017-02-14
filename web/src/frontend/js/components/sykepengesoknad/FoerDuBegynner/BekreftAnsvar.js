@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
+import { getLedetekst } from 'digisyfo-npm';
 
-const BekreftAnsvar = () => {
-    const label = 'Jeg er klar over at dersom jeg gir uriktige opplysninger eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar.';
+const BekreftAnsvar = ({ ledetekster }) => {
+    const label = getLedetekst('sykepengesoknad.bekreft-ansvar.label', ledetekster);
     return (<div className="blokk">
-        <p>Det du fyller ut har avgjørende betydning for sykepengene NAV
-        utbetaler. Det er svært viktig at opplysningene du gir er riktige. Derfor ber
-        vi deg bekrefte dette:</p>
+        <p>{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst', ledetekster)}</p>
         <Field component={CheckboxSelvstendig} name="ansvarBekreftet" id="ansvarBekreftet" label={label} />
     </div>);
+};
+
+BekreftAnsvar.propTypes = {
+    ledetekster: PropTypes.object,
 };
 
 export default BekreftAnsvar;

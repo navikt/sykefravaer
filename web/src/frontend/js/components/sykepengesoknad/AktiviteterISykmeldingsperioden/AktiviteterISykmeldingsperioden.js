@@ -9,15 +9,19 @@ import Aktiviteter from './Aktiviteter';
 import AndreInntektskilder from './AndreInntektskilder';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
-import { toDatePrettyPrint } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
 import validate from '../validering/validerAktiviteterISykmeldingsperioden';
 
-export const UtdanningStartDato = () => {
+export const UtdanningStartDato = ({ ledetekster }) => {
     return (<div className="blokk">
-        <label className="skjema__sporsmal" htmlFor="utdanningStartdato">Når startet du på utdanningen?</label>
+        <label className="skjema__sporsmal" htmlFor="utdanningStartdato">{getLedetekst('sykepengesoknad.utdanning.startdato.sporsmal', ledetekster)}</label>
         <Datovelger name="utdanning.utdanningStartdato" id="utdanningStartdato" />
     </div>);
+};
+
+UtdanningStartDato.propTypes = {
+    ledetekster: PropTypes.object,
 };
 
 export const AktiviteterISykmeldingsperioden = (props) => {
@@ -29,7 +33,7 @@ export const AktiviteterISykmeldingsperioden = (props) => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
     };
 
-    return (<SykepengerSkjema aktivtSteg="2" tittel="Aktiviteter i sykmeldingsperioden" ledetekster={ledetekster} sykepengesoknad={sykepengesoknad}>
+    return (<SykepengerSkjema aktivtSteg="2" tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel', ledetekster)} ledetekster={ledetekster} sykepengesoknad={sykepengesoknad}>
         <form onSubmit={handleSubmit(onSubmit)}>
             <FieldArray
                 component={Aktiviteter}
@@ -42,19 +46,24 @@ export const AktiviteterISykmeldingsperioden = (props) => {
 
             <JaEllerNei
                 name="harAndreInntektskilder"
-                spoersmal={`Har du andre inntektskilder enn ${sykepengesoknad.arbeidsgiver.navn}?`}>
-                <AndreInntektskilder />
+                spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', ledetekster, {
+                    '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
+                })}>
+                <AndreInntektskilder ledetekster={ledetekster} />
             </JaEllerNei>
 
             <JaEllerNei
                 name="utdanning.underUtdanningISykmeldingsperioden"
-                spoersmal={`Har du vært under utdanning i løpet av perioden ${toDatePrettyPrint(tidligsteFom(perioder))} – ${toDatePrettyPrint(senesteTom(perioder))}?`}>
-                <UtdanningStartDato />
+                spoersmal={getLedetekst('sykepengesoknad.utdanning.ja-nei.sporsmal', ledetekster, {
+                    '%STARTDATO%': toDatePrettyPrint(tidligsteFom(perioder)),
+                    '%SLUTTDATO%': toDatePrettyPrint(senesteTom(perioder)),
+                })}>
+                <UtdanningStartDato ledetekster={ledetekster} />
                 <Field
                     component={JaEllerNeiRadioknapper}
                     name="utdanning.erUtdanningFulltidsstudium"
                     parse={parseJaEllerNei}
-                    spoersmal="Er utdanningen et fulltidsstudium?"
+                    spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal', ledetekster)}
                     Overskrift="h4" />
             </JaEllerNei>
 

@@ -2,13 +2,14 @@ import React, { PropTypes } from 'react';
 import FravaerOgFriskmelding from './FravaerOgFriskmelding';
 import AktiviteterISykmeldingsperioden from './AktiviteterISykmeldingsperioden';
 import { Avkrysset } from './opplysninger';
+import { getLedetekst } from 'digisyfo-npm';
 
 const Oppsummering = ({ sykepengesoknad, ledetekster }) => {
     return (<div>
         <div className="oppsummering__bolk">
-            <Avkrysset tekst="Jeg er klar over at dersom jeg gir uriktige opplysninger eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar." />
+            <Avkrysset tekst={getLedetekst('sykepengesoknad.bekreft-ansvar.label', ledetekster)} />
         </div>
-        <FravaerOgFriskmelding sykepengesoknad={sykepengesoknad} />
+        <FravaerOgFriskmelding sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
         <AktiviteterISykmeldingsperioden sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
     </div>);
 };

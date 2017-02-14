@@ -14,6 +14,7 @@ import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../../../..
 import AndreInntektskilder from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AndreInntektskilder';
 import Datovelger from '../../../../js/components/skjema/Datovelger';
 import { Link } from 'react-router';
+import ledetekster from '../../../ledetekster_mock';
 
 import { getSoknad } from '../../../mockSoknader';
 
@@ -22,7 +23,6 @@ describe("AktiviteterISykmeldingsperioden", () => {
     let sykepengesoknad = getSoknad({
         id: "min-soknad"
     });
-    let ledetekster = { 'ledetekst': 'tekst' }
     let handleSubmit;
     let component;
     let untouch;
@@ -60,7 +60,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
     it("Skal inneholde JaEllerNei med name=utdanning.underUtdanningISykmeldingsperioden", () => {
         const jaEllerNei = component.find(JaEllerNei).last();
         expect(jaEllerNei.prop("name")).to.equal("utdanning.underUtdanningISykmeldingsperioden");
-        expect(jaEllerNei.prop("spoersmal")).to.equal("Har du vært under utdanning i løpet av perioden 01.01.2017 – 25.01.2017?")
+        expect(jaEllerNei.prop("spoersmal")).to.equal("Har du vært under utdanning i løpet av perioden 01.01.2017 - 25.01.2017?")
 
         const startdato = jaEllerNei.find(UtdanningStartDato);
         expect(startdato).to.have.length(1);
@@ -90,7 +90,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
         let component
 
         beforeEach(() =>  {
-            component = shallow(<UtdanningStartDato />)
+            component = shallow(<UtdanningStartDato ledetekster={ledetekster} />)
         });
 
         it("Skal inneholde Datovelger", () => {

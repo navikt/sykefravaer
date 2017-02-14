@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
-import { tidligsteFom } from '../../../utils/periodeUtils';
 
 const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
     return (<JaEllerNei

@@ -4,7 +4,7 @@ import SykepengerSkjema from '../SykepengerSkjema';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
 import mapSkjemasoknadToBackendsoknad from '../mapSkjemasoknadToBackendsoknad';
-import { Varselstripe } from 'digisyfo-npm';
+import { Varselstripe, getLedetekst } from 'digisyfo-npm';
 import Soknad from '../Soknad';
 import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
 import { Field } from 'redux-form';
@@ -20,7 +20,7 @@ export const SendingFeilet = () => {
 
 export const OppsummeringSide = (props) => {
     const { skjemasoknad, sykepengesoknad, handleSubmit, ledetekster, actions, sender, sendingFeilet } = props;
-    const label = 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte';
+    const label = getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label', ledetekster);
     const onSubmit = (values) => {
         const soknad = mapSkjemasoknadToBackendsoknad(values);
         const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
@@ -38,8 +38,8 @@ export const OppsummeringSide = (props) => {
                 sendingFeilet && <SendingFeilet />
             }
             <Knapperad variant="knapperad--forrigeNeste">
-                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`} className="rammeknapp rammeknapp--forrige">Tilbake</Link>
-                <button className="knapp" type="submit" disabled={sender}>Send søknad{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}</button>
+                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`} className="rammeknapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake', ledetekster)}</Link>
+                <button className="knapp" type="submit" disabled={sender}>{getLedetekst('sykepengesoknad.send', ledetekster)}{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}</button>
             </Knapperad>
         </form>
     </SykepengerSkjema>);

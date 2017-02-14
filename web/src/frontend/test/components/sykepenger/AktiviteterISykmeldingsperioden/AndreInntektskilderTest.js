@@ -7,6 +7,7 @@ import AndreInntektskilderComponent, { VelgInntektskilder, fields } from '../../
 import { FieldArray, Field } from 'redux-form';
 import Checkbox from '../../../../js/components/skjema/Checkbox';
 import Radioknapper from '../../../../js/components/skjema/Radioknapper';
+import ledetekster from '../../../ledetekster_mock';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -28,10 +29,10 @@ describe("AndreInntektskilder", () => {
 
         beforeEach(() => {
             const meta = { error: "Feil", touched: false };
-            component = shallow(<VelgInntektskilder fields={fields} meta={meta} />);
+            component = shallow(<VelgInntektskilder fields={fields} meta={meta} ledetekster={ledetekster} />);
         });
 
-        it("Skal rendre to Field for hver field, unntatt Annet der det bare skal være eén Field", () => {
+        it("Skal rendre to Field for hver field, unntatt Annet der det bare skal være én Field", () => {
             const fields = component.find(Field);
             expect(fields).to.have.length(11); 
         });

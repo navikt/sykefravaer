@@ -9,27 +9,20 @@ import Egenmeldingsdager from '../../../../js/components/sykepengesoknad/Fravaer
 import Periodevelger from '../../../../js/components/skjema/Periodevelger';
 import JaEllerNei from '../../../../js/components/sykepengesoknad/JaEllerNei';
 import { getSoknad } from '../../../mockSoknader';
-import { ledetekster } from '../../../ledetekster_mock';
+import ledetekster from '../../../ledetekster_mock';
 
 describe("Egenmeldingsdager", () => {
 
-    let _ledetekster;
     let getSykepengesoknad;
 
-    beforeEach(() => {
-        _ledetekster = Object.assign({}, ledetekster, {
-            'sykepengesoknad.egenmeldingsdager.janei.sporsmal': 'Brukte du egenmeldingsdager før det legemeldte fraværet startet den %DATO%?',
-        })
-    });
-
     it("Skal inneholde en JaEllerNei med riktig name", () => {
-        const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad()} ledetekster={_ledetekster} />);
+        const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad()} ledetekster={ledetekster} />);
         expect(compo.find(JaEllerNei)).to.have.length(1);
         expect(compo.find(JaEllerNei).prop("name")).to.equal("bruktEgenmeldingsdagerFoerLegemeldtFravaer")
     });
 
     it("Skal inneholde en JaEllerNei med riktig children", () => {
-        const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad()} ledetekster={_ledetekster} />);
+        const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad()} ledetekster={ledetekster} />);
         expect(compo.find(Periodevelger)).to.have.length(1);
         expect(compo.find(Periodevelger).prop("name")).to.equal("egenmeldingsperioder");
     });
@@ -52,7 +45,7 @@ describe("Egenmeldingsdager", () => {
                     grad: 50,
                     avvik: null
                 }],
-        })} ledetekster={_ledetekster} />);
+        })} ledetekster={ledetekster} />);
         expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Brukte du egenmeldingsdager før det legemeldte fraværet startet den 15.07.2016?")
     });
 

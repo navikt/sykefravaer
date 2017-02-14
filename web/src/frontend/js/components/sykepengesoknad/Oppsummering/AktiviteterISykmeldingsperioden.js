@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Avkrysset } from './opplysninger';
 import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
-import { inntektskildeLabels } from '../AktiviteterISykmeldingsperioden/AndreInntektskilder';
+import { getInntektskildeLabel } from '../AktiviteterISykmeldingsperioden/AndreInntektskilder';
 import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
 
 const getLedetekstPrefix = (aktivitet) => {
@@ -10,7 +10,9 @@ const getLedetekstPrefix = (aktivitet) => {
 
 export const Avvik = ({ aktivitet, arbeidsgiver, ledetekster }) => {
     const { arbeidsgrad, timer, arbeidstimerNormalUke } = aktivitet.avvik;
-    const antall = arbeidsgrad ? `${arbeidsgrad} prosent` : `${timer} timer`;
+    const antall = arbeidsgrad ? `${arbeidsgrad}` : `${timer}`;
+    const nokkel = arbeidsgrad ? 'sykepengesoknad.angi-tid.antall.label.prosent' : 'sykepengesoknad.angi-tid.antall.label.timer';
+    const antallMedLabel = `${String(antall).replace('.',',')} ${getLedetekst(nokkel, ledetekster)}`;
     return (<div className="js-avvik">
         <div>
             <h4 className="oppsummering__sporsmal">{
@@ -18,11 +20,11 @@ export const Avvik = ({ aktivitet, arbeidsgiver, ledetekster }) => {
                     '%ARBEIDSGIVER%': arbeidsgiver,
                 })
             }</h4>
-            <p>{String(antall).replace('.',',')} totalt per uke</p>
+            <p>{antallMedLabel}</p>
         </div>
         <div>
-            <h4 className="oppsummering__sporsmal">Hvor mange timer jobber du normalt per uke?</h4>
-            <p>{String(arbeidstimerNormalUke).replace('.',',')} timer per uke</p>
+            <h4 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal', ledetekster)}</h4>
+            <p>{String(arbeidstimerNormalUke).replace('.',',')} {getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label', ledetekster)}</p>
         </div>
     </div>);
 };
@@ -48,7 +50,7 @@ export const Aktivitet = ({ aktivitet, ledetekster, arbeidsgiver }) => {
         }
         </p>
         <h3 className="oppsummering__sporsmal">{getLedetekst(`${ledetekstPrefix}.sporsmal`, ledetekster)}</h3>
-        <Avkrysset tekst={aktivitet.avvik ? 'Ja' : 'Nei'} />
+        <Avkrysset tekst={aktivitet.avvik ? getLedetekst('sykepengesoknad.ja', ledetekster) : getLedetekst('sykepengesoknad.nei', ledetekster)} />
         {
             aktivitet.avvik && <Avvik aktivitet={aktivitet} arbeidsgiver={arbeidsgiver} ledetekster={ledetekster} />
         }
@@ -74,16 +76,16 @@ Aktiviteter.propTypes = {
     ledetekster: PropTypes.object,
 };
 
-const AndreInntektskilderListe = ({ inntektskilder }) => {
+const AndreInntektskilderListe = ({ inntektskilder, ledetekster }) => {
     return (<div className="oppsummering__bolk" id="andre-inntektskilder-liste">
         {
             inntektskilder.map((k, index) => {
                 return (<div key={index} className="js-annen-inntektskilde">
-                    <Avkrysset tekst={inntektskildeLabels[k.annenInntektskildeType]} />
+                    <Avkrysset tekst={getInntektskildeLabel(k.annenInntektskildeType, ledetekster)} />
                     {
                         k.annenInntektskildeType !== 'ANNET' && <div className="js-inntektskilde-sykmeldt oppsummering__tilleggssvar">
-                            <h5 className="oppsummering__sporsmal">Er du sykmeldt fra dette?</h5>
-                            <Avkrysset tekst={k.sykmeldt ? 'Ja' : 'Nei'} />
+                            <h5 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.andre-inntektskilder.er-du-sykmeldt-fra-dette.sporsmal', ledetekster)}</h5>
+                            <Avkrysset tekst={k.sykmeldt ? getLedetekst('sykepengesoknad.ja', ledetekster) : getLedetekst('sykepengesoknad.nei', ledetekster)} />
                         </div>
                     }
                 </div>);
@@ -94,41 +96,48 @@ const AndreInntektskilderListe = ({ inntektskilder }) => {
 
 AndreInntektskilderListe.propTypes = {
     inntektskilder: PropTypes.array,
+    ledetekster: PropTypes.object,
 };
 
-export const Inntektskilder = ({ sykepengesoknad }) => {
+export const Inntektskilder = ({ sykepengesoknad, ledetekster }) => {
     return (<div id="inntektskilder">
-        <h3 className="oppsummering__sporsmal">Har du andre inntektskilder enn {sykepengesoknad.arbeidsgiver.navn}?</h3>
-        <Avkrysset tekst={sykepengesoknad.andreInntektskilder.length > 0 ? 'Ja' : 'Nei'} />
+        <h3 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', ledetekster, {
+            '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
+        })}</h3>
+        <Avkrysset tekst={sykepengesoknad.andreInntektskilder.length > 0 ? getLedetekst('sykepengesoknad.ja', ledetekster) : getLedetekst('sykepengesoknad.nei', ledetekster)} />
         {
-            sykepengesoknad.andreInntektskilder.length > 0 && <h4 className="oppsummering__sporsmal">Hvilke inntektskilder har du?</h4>
+            sykepengesoknad.andreInntektskilder.length > 0 && <h4 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.andre-inntektskilder.hvilke-inntektskilder.sporsmal', ledetekster)}</h4>
         }
         {
-            sykepengesoknad.andreInntektskilder.length > 0 && <AndreInntektskilderListe inntektskilder={sykepengesoknad.andreInntektskilder} />
+            sykepengesoknad.andreInntektskilder.length > 0 && <AndreInntektskilderListe inntektskilder={sykepengesoknad.andreInntektskilder} ledetekster={ledetekster} />
         }
     </div>);
 };
 
 Inntektskilder.propTypes = {
     sykepengesoknad: PropTypes.object,
+    ledetekster: PropTypes.object,
 };
 
-export const Utdanning = ({ sykepengesoknad }) => {
+export const Utdanning = ({ sykepengesoknad, ledetekster }) => {
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });
-    return (<div id="oppsummering-utdann ing">
-        <h3 className="oppsummering__sporsmal">Har du vært under utdanning i løpet av perioden {toDatePrettyPrint(tidligsteFom(perioder))} - {toDatePrettyPrint(senesteTom(perioder))}?</h3>
-        <Avkrysset tekst={sykepengesoknad.utdanning ? 'Ja' : 'Nei'} />
+    return (<div id="oppsummering-utdanning">
+        <h3 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.utdanning.ja-nei.sporsmal', ledetekster, {
+            '%STARTDATO%': toDatePrettyPrint(tidligsteFom(perioder)),
+            '%SLUTTDATO%': toDatePrettyPrint(senesteTom(perioder)),
+        })}</h3>
+        <Avkrysset tekst={sykepengesoknad.utdanning ? getLedetekst('sykepengesoknad.ja', ledetekster) : getLedetekst('sykepengesoknad.nei', ledetekster)} />
         {
             sykepengesoknad.utdanning && (<div className="js-utdanning-fulltid">
-                <h3 className="oppsummering__sporsmal">Er utdanningen et fulltidsstudium?</h3>
-                <Avkrysset tekst={sykepengesoknad.utdanning.erUtdanningFulltidsstudium ? 'Ja' : 'Nei'} />
+                <h3 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal', ledetekster)}</h3>
+                <Avkrysset tekst={sykepengesoknad.utdanning.erUtdanningFulltidsstudium ? getLedetekst('sykepengesoknad.ja', ledetekster) : getLedetekst('sykepengesoknad.nei', ledetekster)} />
             </div>)
         }
         {
             sykepengesoknad.utdanning && (<div className="js-utdanning-start">
-                <h3 className="oppsummering__sporsmal">Når startet du på utdanningen?</h3>
+                <h3 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.utdanning.startdato.sporsmal', ledetekster)}</h3>
                 <p>Den {toDatePrettyPrint(sykepengesoknad.utdanning.utdanningStartdato)}</p>
             </div>)
         }
@@ -137,6 +146,7 @@ export const Utdanning = ({ sykepengesoknad }) => {
 
 Utdanning.propTypes = {
     sykepengesoknad: PropTypes.object,
+    ledetekster: PropTypes.object,
 };
 
 const AktiviteterISykmeldingsperioden = ({ sykepengesoknad, ledetekster }) => {

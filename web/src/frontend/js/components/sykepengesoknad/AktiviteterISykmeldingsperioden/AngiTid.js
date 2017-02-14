@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Field } from 'redux-form';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
 import { lagDesimaltall } from '../../../utils';
+import { getLedetekst } from 'digisyfo-npm';
 
 class AngiTid extends Component {
     constructor(props) {
@@ -25,11 +26,11 @@ class AngiTid extends Component {
     }
 
     getEnhetLabel() {
-        return this.getValgtEnhet() === 'timer' ? 'timer totalt per uke' : 'prosent totalt per uke';
+        return getLedetekst(`sykepengesoknad.angi-tid.antall.label.${this.getValgtEnhet()}`, this.props.ledetekster);
     }
 
     getNormalSporsmal() {
-        return 'Hvor mange timer jobber du normalt per uke?';
+        return getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal', this.props.ledetekster);
     }
 
     getAntallName() {
@@ -48,13 +49,11 @@ class AngiTid extends Component {
     }
 
     render() {
-        const { input, autofill, untouch } = this.props;
+        const { input, autofill, untouch, ledetekster } = this.props;
         const enheter = [{
             value: 'prosent',
-            label: 'i prosent',
         }, {
             value: 'timer',
-            label: 'i timer',
         }];
 
         return (<div>
@@ -80,7 +79,7 @@ class AngiTid extends Component {
                                 id={id}
                                 checked={enhet.value === this.state.valgtEnhet}
                                 aria-controls={this.getAntallId()} />
-                            <label htmlFor={id}>{enhet.label}</label>
+                            <label htmlFor={id}>{getLedetekst(`sykepengesoknad.angi-tid.velg-enhet.label.${enhet.value}`, ledetekster)}</label>
                         </div>);
                     })
                 }
@@ -90,7 +89,12 @@ class AngiTid extends Component {
             </div>
             <div className="skjema__input">
                 <label htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`} className="skjema__sporsmal">{this.getNormalSporsmal()}</label>
-                <Field name={this.props.names[2]} id={`aktivitet-${this.props.aktivitetIndex}-normal`} component={TekstfeltMedEnhet} parse={lagDesimaltall} label="timer per uke" />
+                <Field
+                    name={this.props.names[2]}
+                    id={`aktivitet-${this.props.aktivitetIndex}-normal`}
+                    component={TekstfeltMedEnhet}
+                    parse={lagDesimaltall}
+                    label={getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label', ledetekster)} />
             </div>
         </div>);
     }
@@ -102,6 +106,7 @@ AngiTid.propTypes = {
     names: PropTypes.array,
     autofill: PropTypes.func,
     untouch: PropTypes.func,
+    ledetekster: PropTypes.object,
 };
 
 export default AngiTid;

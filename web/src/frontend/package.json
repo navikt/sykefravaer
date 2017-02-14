@@ -64,6 +64,7 @@
     "path": "0.12.7",
     "promise-polyfill": "6.0.2",
     "react": "15.3.2",
+    "react-day-picker": "4.0.0",
     "react-document-title": "2.0.1",
     "react-dom": "15.3.2",
     "react-maskedinput": "3.3.4",

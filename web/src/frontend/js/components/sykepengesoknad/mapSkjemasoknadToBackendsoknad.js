@@ -50,12 +50,12 @@ const getAktiviteter = (aktiviteter) => {
         };
         if (aktivitet.jobbetMerEnnPlanlagt) {
             _a.avvik = {
-                arbeidstimerNormalUke: parseFloat(aktivitet.avvik.arbeidstimerNormalUke.replace(',','.')),
+                arbeidstimerNormalUke: parseFloat(aktivitet.avvik.arbeidstimerNormalUke.replace(',', '.')),
             };
             if (aktivitet.avvik.enhet === 'timer') {
-                _a.avvik.timer = parseFloat(aktivitet.avvik.timer.replace(',','.'));
+                _a.avvik.timer = parseFloat(aktivitet.avvik.timer.replace(',', '.'));
             } else {
-                _a.avvik.arbeidsgrad = parseFloat(aktivitet.avvik.arbeidsgrad.replace(',','.'));
+                _a.avvik.arbeidsgrad = parseFloat(aktivitet.avvik.arbeidsgrad.replace(',', '.'));
             }
         } else {
             _a.avvik = null;

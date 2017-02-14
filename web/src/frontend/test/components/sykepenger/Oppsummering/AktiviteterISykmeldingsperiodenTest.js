@@ -133,7 +133,7 @@ describe("AktiviteterISykmeldingsperioden (Oppsummering)", () => {
                       "avvik": null
                     }]
                 });
-                component = mount(<Aktivitet ledetekster={ledetekster} arbeidsgiver="BYGGMESTER BLOM AS" ledetekster={ledetekster} aktivitet={soknad.aktiviteter[1]} />);
+                component = mount(<Aktivitet  arbeidsgiver="BYGGMESTER BLOM AS" ledetekster={ledetekster} aktivitet={soknad.aktiviteter[1]} />);
             });
 
             it("Skal vise spørsmål som inneholder perioden og gradering", () => {

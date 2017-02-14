@@ -6,7 +6,7 @@ import Kvittering from '../../components/sykepengesoknad/Kvittering';
 
 export const Controller = (props) => {
     if (props.sykepengesoknad.status === 'SENDT') {
-        return <Kvittering />;
+        return <Kvittering ledetekster={props.ledetekster}/>;
     }
     if (props.skjemasoknad) {
         return <OppsummeringSkjema {...props} />;

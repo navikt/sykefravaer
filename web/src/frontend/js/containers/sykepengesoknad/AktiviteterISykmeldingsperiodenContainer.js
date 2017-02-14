@@ -6,7 +6,7 @@ import Kvittering from '../../components/sykepengesoknad/Kvittering';
 
 export const Controller = (props) => {
     if (props.sykepengesoknad.status === 'SENDT') {
-        return <Kvittering />;
+        return <Kvittering ledetekster={props.ledetekster} />;
     }
     if (props.skjemasoknad) {
         return <AktiviteterISykmeldingsperioden {...props} />;
@@ -19,6 +19,7 @@ Controller.propTypes = {
         status: PropTypes.string.isRequired,
     }),
     skjemasoknad: PropTypes.object,
+    ledetekster: PropTypes.object,
 };
 
 const AktiviteterISykmeldingsperiodenContainer = ({ params }) => {

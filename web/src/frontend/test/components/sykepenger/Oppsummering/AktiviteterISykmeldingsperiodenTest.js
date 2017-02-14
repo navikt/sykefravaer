@@ -8,17 +8,10 @@ const expect = chai.expect;
 import AktiviteterISykmeldingsperioden, { Aktiviteter, Aktivitet, Inntektskilder, Utdanning } from '../../../../js/components/sykepengesoknad/Oppsummering/AktiviteterISykmeldingsperioden';
 import { Avkrysset } from '../../../../js/components/sykepengesoknad/Oppsummering/opplysninger';
 import { getSoknad } from '../../../mockSoknader';
+import ledetekster from '../../../ledetekster_mock';
 
-let _ledetekster = {
-    'sykepengesoknad.aktiviteter.gradert.intro': 'I perioden %FOM% - %TOM% skulle du jobbe %ARBEIDSGRAD% % av din normale arbeidstid hos %ARBEIDSGIVER%.',
-    'sykepengesoknad.aktiviteter.gradert.sporsmal': 'Har du jobbet mer enn dette?',
-    'sykepengesoknad.aktiviteter.ugradert.intro': 'I perioden %FOM% - %TOM% var du 100 % sykmeldt fra %ARBEIDSGIVER%.',
-    'sykepengesoknad.aktiviteter.ugradert.sporsmal': 'Har du jobbet?',
-    'sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet': 'Hvor mye har du jobbet i gjennomsnitt per uke i denne perioden hos %ARBEIDSGIVER%?',
-    'sykepengesoknad.aktiviteter.avvik.normal-jobbing': "Hvor mange timer jobber du normalt per uke?"
-}
 
-describe("AktiviteterISykmeldingsperioden", () => {
+describe("AktiviteterISykmeldingsperioden (Oppsummering)", () => {
 
     let component;
     let sykepengesoknad;
@@ -31,7 +24,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
         let component;
 
         beforeEach(() => {
-            component = shallow(<Aktiviteter sykepengesoknad={sykepengesoknad} />);
+            component = shallow(<Aktiviteter sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />);
         });
 
         it("Skal vise to Aktivitet", () => {     
@@ -49,7 +42,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
         let component;
 
         beforeEach(() => {
-            component = mount(<AktiviteterISykmeldingsperioden sykepengesoknad={sykepengesoknad} ledetekster={_ledetekster} />);
+            component = mount(<AktiviteterISykmeldingsperioden sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />);
         })
 
         it("Skal inneholde Aktiviteter", () => {
@@ -93,7 +86,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
                       }
                     }]
                 });
-                component = mount(<Aktivitet ledetekster={_ledetekster} arbeidsgiver="BYGGMESTER BLOM AS" aktivitet={soknad.aktiviteter[1]} />);
+                component = mount(<Aktivitet ledetekster={ledetekster} arbeidsgiver="BYGGMESTER BLOM AS" aktivitet={soknad.aktiviteter[1]} />);
             });
 
             it("Skal vise spørsmål som inneholder perioden og gradering", () => {
@@ -140,7 +133,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
                       "avvik": null
                     }]
                 });
-                component = mount(<Aktivitet ledetekster={_ledetekster} arbeidsgiver="BYGGMESTER BLOM AS" ledetekster={_ledetekster} aktivitet={soknad.aktiviteter[1]} />);
+                component = mount(<Aktivitet ledetekster={ledetekster} arbeidsgiver="BYGGMESTER BLOM AS" ledetekster={ledetekster} aktivitet={soknad.aktiviteter[1]} />);
             });
 
             it("Skal vise spørsmål som inneholder perioden og gradering", () => {
@@ -189,11 +182,11 @@ describe("AktiviteterISykmeldingsperioden", () => {
                   "avvik": null
                 }]
             });
-            component = render(<Aktivitet ledetekster={_ledetekster} arbeidsgiver="BYGGMESTER BLOM AS" aktivitet={soknad.aktiviteter[0]} />);
+            component = render(<Aktivitet ledetekster={ledetekster} arbeidsgiver="BYGGMESTER BLOM AS" aktivitet={soknad.aktiviteter[0]} />);
         })
 
         it("Skal vise spørsmål som inneholder perioden og gradering", () => {
-            expect(component.text()).to.contain("I perioden 01.01.2017 - 15.01.2017 var du 100 % sykmeldt fra BYGGMESTER BLOM AS.");
+            expect(component.text()).to.contain("I perioden 01.01.2017 - 15.01.2017 skulle du ikke jobbe hos BYGGMESTER BLOM AS.");
         });
 
         it("Skal vise spørsmål Har du jobbet noe?", () => {
@@ -231,7 +224,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
                   "avvik": null
                 }]
             });
-            component = render(<Aktivitet ledetekster={_ledetekster} arbeidsgiver="BYGGMESTER BLOM AS" aktivitet={soknad.aktiviteter[0]} />);
+            component = render(<Aktivitet ledetekster={ledetekster} arbeidsgiver="BYGGMESTER BLOM AS" aktivitet={soknad.aktiviteter[0]} />);
         })
 
         it("Skal vise avvik", () => {
@@ -247,7 +240,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
         describe("Hvis man ikke har andre inntektskilder", () => {
 
             beforeEach(() => {
-                component = render(<Inntektskilder sykepengesoknad={getSoknad({
+                component = render(<Inntektskilder ledetekster={ledetekster} sykepengesoknad={getSoknad({
                     andreInntektskilder: [],
                 })} />)
             });
@@ -258,14 +251,14 @@ describe("AktiviteterISykmeldingsperioden", () => {
             });
 
             it("Skal ikke spørre om hvilke inntektskilder dette er", () => {
-                expect(component.text()).not.to.contain("Hvilke inntektskilder har du?");
+                expect(component.text()).not.to.contain("Hvilke andre inntektskilder har du?");
             });
 
         });
 
         describe("Hvis man har andre inntektskilder", () => {
             beforeEach(() => {
-                component = render(<Inntektskilder sykepengesoknad={getSoknad({
+                component = render(<Inntektskilder ledetekster={ledetekster} sykepengesoknad={getSoknad({
                     andreInntektskilder: [{
                         annenInntektskildeType: "ANDRE_ARBEIDSFORHOLD",
                         sykmeldt: true
@@ -280,7 +273,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
             });
 
             it("SKal spørre om hvilke inntektskilder dette er", () => {
-                expect(component.text()).to.contain("Hvilke inntektskilder har du?");
+                expect(component.text()).to.contain("Hvilke andre inntektskilder har du?");
             })
             
             it("Skal liste opp inntektskildene", () => {
@@ -306,7 +299,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
         describe("Dersom man ikke har vært under utdanning", () => {
             beforeEach(() => {
-                component = render(<Utdanning sykepengesoknad={getSoknad({
+                component = render(<Utdanning ledetekster={ledetekster} sykepengesoknad={getSoknad({
                     utdanning: null
                 })} />);
             })
@@ -328,7 +321,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
         describe("Dersom man har vært under utdanning", () => {
             beforeEach(() => {
-                component = render(<Utdanning sykepengesoknad={getSoknad({
+                component = render(<Utdanning ledetekster={ledetekster} sykepengesoknad={getSoknad({
                     utdanning: {
                         utdanningStartdato: "2017-01-15",
                         erUtdanningFulltidsstudium: true

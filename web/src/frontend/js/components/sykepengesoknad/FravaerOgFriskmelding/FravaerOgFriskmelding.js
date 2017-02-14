@@ -8,23 +8,22 @@ import GjenopptattArbeidFulltUt from './GjenopptattArbeidFulltUt';
 import FeriePermisjonEllerUtenlandsopphold from './FeriePermisjonEllerUtenlandsopphold';
 import Knapperad from '../../skjema/Knapperad';
 import validerFravaerOgFriskmelding from '../validering/validerFravaerOgFriskmelding';
+import { getLedetekst } from 'digisyfo-npm';
 
 const FravaerOgFriskmelding = ({ handleSubmit, sykepengesoknad, ledetekster }) => {
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`);
     };
 
-    return (<SykepengerSkjema aktivtSteg="1" tittel="Fravær og friskmelding" ledetekster={ledetekster} sykepengesoknad={sykepengesoknad}>
+    return (<SykepengerSkjema aktivtSteg="1" tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel', ledetekster)} ledetekster={ledetekster} sykepengesoknad={sykepengesoknad}>
         <form onSubmit={handleSubmit(onSubmit)}>
             <Egenmeldingsdager sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
             <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
             <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
 
             <Knapperad variant="knapperad--forrigeNeste">
-                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/`} className="rammeknapp">Tilbake</Link>
-                <button type="submit" className="knapp">
-                    Gå videre
-                </button>
+                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/`} className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake', ledetekster)}</Link>
+                <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre', ledetekster)}</button>
             </Knapperad>
         </form>
     </SykepengerSkjema>);

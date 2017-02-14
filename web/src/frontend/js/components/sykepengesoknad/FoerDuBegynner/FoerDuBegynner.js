@@ -5,6 +5,7 @@ import BekreftAnsvar from './BekreftAnsvar';
 import SykmeldingUtdrag from '../SykmeldingUtdrag';
 import Sidetopp from '../../Sidetopp';
 import validate from '../validering/validerFoerDuBegynner';
+import { getLedetekst } from 'digisyfo-npm';
 
 const FoerDuBegynner = (props) => {
     const { handleSubmit, sykepengesoknad, ledetekster } = props;
@@ -13,17 +14,17 @@ const FoerDuBegynner = (props) => {
     };
 
     return (<div>
-        <Sidetopp tittel="Søknad om sykepenger" />
+        <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel', ledetekster)} />
         <SykmeldingUtdrag erApen sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
-        <h2 className="sykepenger__stegtittel">Før du begynner</h2>
+        <h2 className="sykepenger__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel', ledetekster)}</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="panel">
                 <div className="redaksjonelt">
-                    <BekreftAnsvar />
+                    <BekreftAnsvar ledetekster={ledetekster} />
                 </div>
             </div>
             <div className="knapperad">
-                <button type="submit" className="knapp">Gå videre</button>
+                <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre', ledetekster)}</button>
             </div>
         </form>
     </div>);

@@ -157,7 +157,7 @@ describe('sykepengesoknader', () => {
             const action = actions.sykepengesoknadSendt("1");
             const nextState = sykepengesoknader(initialState, action);
             expect(nextState).to.deep.equal({
-                data: [{ id: '1', status: 'SENDT'}, { id: '2' }],
+                data: [{ id: '1', status: 'SENDT', innsendtDato: new Date()}, { id: '2' }],
                 sender: false,
                 sendingFeilet: false,
                 henter: false,

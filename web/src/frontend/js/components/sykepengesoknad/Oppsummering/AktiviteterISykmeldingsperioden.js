@@ -12,7 +12,7 @@ export const Avvik = ({ aktivitet, arbeidsgiver, ledetekster }) => {
     const { arbeidsgrad, timer, arbeidstimerNormalUke } = aktivitet.avvik;
     const antall = arbeidsgrad ? `${arbeidsgrad}` : `${timer}`;
     const nokkel = arbeidsgrad ? 'sykepengesoknad.angi-tid.antall.label.prosent' : 'sykepengesoknad.angi-tid.antall.label.timer';
-    const antallMedLabel = `${antall} ${getLedetekst(nokkel, ledetekster)}`;
+    const antallMedLabel = `${String(antall).replace('.', ',')} ${getLedetekst(nokkel, ledetekster)}`;
     return (<div className="js-avvik">
         <div>
             <h4 className="oppsummering__sporsmal">{
@@ -24,7 +24,7 @@ export const Avvik = ({ aktivitet, arbeidsgiver, ledetekster }) => {
         </div>
         <div>
             <h4 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal', ledetekster)}</h4>
-            <p>{arbeidstimerNormalUke} {getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label', ledetekster)}</p>
+            <p>{String(arbeidstimerNormalUke).replace('.', ',')} {getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label', ledetekster)}</p>
         </div>
     </div>);
 };

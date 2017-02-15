@@ -72,7 +72,8 @@ const VelgArbeidsgiver = ({ arbeidsgivere, ledetekster, sykmelding, skjemaData, 
                 <ErLederRiktig naermesteLeder={values.valgtArbeidsgiver.naermesteLeder} skjemaData={skjemaData} ledetekster={ledetekster} />
         }
         {
-            pilotSykepenger && values.valgtArbeidsgiver && values.valgtArbeidsgiver.orgnummer !== '0' && <ForskuttererArbeidsgiver arbeidsgiver={values.valgtArbeidsgiver} skjemaData={skjemaData} ledetekster={ledetekster} />
+            pilotSykepenger && values.valgtArbeidsgiver && values.valgtArbeidsgiver.orgnummer !== '0' &&
+                <ForskuttererArbeidsgiver arbeidsgiver={values.valgtArbeidsgiver} skjemaData={skjemaData} ledetekster={ledetekster} />
         }
     </div>);
 };

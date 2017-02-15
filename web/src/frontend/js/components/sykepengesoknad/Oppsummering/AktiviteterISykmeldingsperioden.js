@@ -106,10 +106,12 @@ export const Inntektskilder = ({ sykepengesoknad, ledetekster }) => {
         })}</h3>
         <Avkrysset tekst={sykepengesoknad.andreInntektskilder.length > 0 ? getLedetekst('sykepengesoknad.ja', ledetekster) : getLedetekst('sykepengesoknad.nei', ledetekster)} />
         {
-            sykepengesoknad.andreInntektskilder.length > 0 && <h4 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.andre-inntektskilder.hvilke-inntektskilder.sporsmal', ledetekster)}</h4>
+            sykepengesoknad.andreInntektskilder.length > 0 &&
+                <h4 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.andre-inntektskilder.hvilke-inntektskilder.sporsmal', ledetekster)}</h4>
         }
         {
-            sykepengesoknad.andreInntektskilder.length > 0 && <AndreInntektskilderListe inntektskilder={sykepengesoknad.andreInntektskilder} ledetekster={ledetekster} />
+            sykepengesoknad.andreInntektskilder.length > 0 &&
+                <AndreInntektskilderListe inntektskilder={sykepengesoknad.andreInntektskilder} ledetekster={ledetekster} />
         }
     </div>);
 };
@@ -132,7 +134,11 @@ export const Utdanning = ({ sykepengesoknad, ledetekster }) => {
         {
             sykepengesoknad.utdanning && (<div className="js-utdanning-fulltid">
                 <h3 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal', ledetekster)}</h3>
-                <Avkrysset tekst={sykepengesoknad.utdanning.erUtdanningFulltidsstudium ? getLedetekst('sykepengesoknad.ja', ledetekster) : getLedetekst('sykepengesoknad.nei', ledetekster)} />
+                <Avkrysset
+                    tekst={sykepengesoknad.utdanning.erUtdanningFulltidsstudium
+                        ? getLedetekst('sykepengesoknad.ja', ledetekster)
+                        : getLedetekst('sykepengesoknad.nei', ledetekster)}
+                />
             </div>)
         }
         {

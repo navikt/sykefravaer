@@ -7,7 +7,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import FoerDuBegynner from '../../../js/components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
-import FoerDuBegynnerContainer, { Controller } from '../../../js/containers/sykepengesoknad/FoerDuBegynnerContainer';
+import { FoerDuBegynnerContainer, Controller } from '../../../js/containers/sykepengesoknad/FoerDuBegynnerContainer';
 import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 import SendtSoknad from '../../../js/components/sykepengesoknad/SendtSoknad';
 
@@ -44,7 +44,5 @@ describe("FoerDuBegynnerContainer", () => {
             expect(component.find(FoerDuBegynner)).to.have.length(1);
             expect(component.find(SendtSoknad)).to.have.length(0);
         })
-
     })
-
 });

@@ -10,7 +10,9 @@ const GjenopptattArbeidFulltUt = ({ sykepengesoknad, ledetekster }) => {
         })}
         name="harGjenopptattArbeidFulltUt">
         <div>
-            <label htmlFor="gjenopptattArbeidFulltUtDato" className="skjema__sporsmal">{getLedetekst('sykepengesoknad.gjenopptatt-arbeid-fullt-ut.dato.sporsmal', ledetekster)}</label>
+            <label htmlFor="gjenopptattArbeidFulltUtDato" className="skjema__sporsmal">
+                {getLedetekst('sykepengesoknad.gjenopptatt-arbeid-fullt-ut.dato.sporsmal', ledetekster)}
+            </label>
             <Datovelger id="gjenopptattArbeidFulltUtDato" name="gjenopptattArbeidFulltUtDato" />
         </div>
     </JaEllerNei>);

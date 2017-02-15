@@ -107,10 +107,16 @@ describe("DinSykmeldingSkjemaContainer", () => {
                 data: {
                     pilotSykepenger: false
                 }
+            },
+            vedlikehold: {
+                data: {
+                    vedlikehold: false
+                },
+                henter: false,
             }
         };
         return Object.assign({}, defaultState, state);
-    }
+    };
 
     describe("mapStateToProps", () => {
 
@@ -211,7 +217,6 @@ describe("DinSykmeldingSkjemaContainer", () => {
                 "test": "OK"
             })
         });
-
     });
 
 });

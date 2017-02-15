@@ -85,7 +85,11 @@ const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, ledetekster }) =
             '%TOM%': toDatePrettyPrint(senesteTom(perioder)),
         })}
         name="harHattFeriePermisjonEllerUtenlandsopphold">
-            <FieldArray component={RendreFeriePermisjonEllerUtenlandsopphold} name="feriePermisjonEllerUtenlandsopphold" fields={['ferie', 'permisjon', 'utenlandsopphold']} ledetekster={ledetekster} />
+            <FieldArray
+                component={RendreFeriePermisjonEllerUtenlandsopphold}
+                name="feriePermisjonEllerUtenlandsopphold"
+                fields={['ferie', 'permisjon', 'utenlandsopphold']}
+                ledetekster={ledetekster} />
     </JaEllerNei>);
 };
 

@@ -108,7 +108,8 @@ export const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, ledetekst
         })}</h3>
         <Avkrysset tekst={harHattFeriePermisjonEllerUtenlandsopphold ? getLedetekst('sykepengesoknad.ja', ledetekster) : getLedetekst('sykepengesoknad.nei', ledetekster)} />
         {
-            harHattFeriePermisjonEllerUtenlandsopphold && <h4 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har', ledetekster)}</h4>
+            harHattFeriePermisjonEllerUtenlandsopphold &&
+                <h4 className="oppsummering__sporsmal">{getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har', ledetekster)}</h4>
         }
         {
             harHattFerie && <Ferie perioder={sykepengesoknad.ferie} ledetekster={ledetekster} />

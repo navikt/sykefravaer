@@ -38,8 +38,15 @@ export const OppsummeringSide = (props) => {
                 sendingFeilet && <SendingFeilet />
             }
             <Knapperad variant="knapperad--forrigeNeste">
-                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`} className="rammeknapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake', ledetekster)}</Link>
-                <button className="knapp" type="submit" disabled={sender}>{getLedetekst('sykepengesoknad.send', ledetekster)}{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}</button>
+                <Link
+                    to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}
+                    className="rammeknapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake', ledetekster)}
+                </Link>
+                <button
+                    className="knapp"
+                    type="submit"
+                    disabled={sender}>{getLedetekst('sykepengesoknad.send', ledetekster)}{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}
+                </button>
             </Knapperad>
         </form>
     </SykepengerSkjema>);

@@ -14,19 +14,23 @@ const FravaerOgFriskmelding = ({ handleSubmit, sykepengesoknad, ledetekster }) =
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`);
     };
+    return (
+        <SykepengerSkjema
+            aktivtSteg="1"
+            tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel', ledetekster)}
+            ledetekster={ledetekster}
+            sykepengesoknad={sykepengesoknad}>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Egenmeldingsdager sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
+                    <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
+                    <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
 
-    return (<SykepengerSkjema aktivtSteg="1" tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel', ledetekster)} ledetekster={ledetekster} sykepengesoknad={sykepengesoknad}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <Egenmeldingsdager sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
-            <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
-            <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
-
-            <Knapperad variant="knapperad--forrigeNeste">
-                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/`} className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake', ledetekster)}</Link>
-                <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre', ledetekster)}</button>
-            </Knapperad>
-        </form>
-    </SykepengerSkjema>);
+                    <Knapperad variant="knapperad--forrigeNeste">
+                        <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/`} className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake', ledetekster)}</Link>
+                        <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre', ledetekster)}</button>
+                    </Knapperad>
+                </form>
+        </SykepengerSkjema>);
 };
 
 FravaerOgFriskmelding.propTypes = {

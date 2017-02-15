@@ -1,11 +1,21 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
 import Feilmelding from '../../components/Feilmelding';
+import AppSpinner from '../../components/AppSpinner';
+import { getLedetekst } from 'digisyfo-npm';
 
 export const Controller = (props) => {
-    const { sykepengesoknad, ledetekster } = props;
+    const { sykepengesoknad, ledetekster, vedlikehold } = props;
+    if (vedlikehold) {
+        return (<Feilmelding
+            tittel={getLedetekst('under-vedlikehold.varsel.tittel', ledetekster)}
+            melding={getLedetekst('under-vedlikehold.varsel.tekst', ledetekster)}
+        />);
+    }
+
     if (sykepengesoknad.status === 'NY') {
         return <FoerDuBegynner {...props} />;
     }
@@ -21,9 +31,29 @@ Controller.propTypes = {
     }),
     skjemasoknad: PropTypes.object,
     ledetekster: PropTypes.object,
+    vedlikehold: PropTypes.bool,
 };
 
-const FoerDuBegynnerContainer = ({ params }) => {
+export const FoerDuBegynnerContainer = ({ params, vedlikehold, brodsmuler, henter }) => {
+    if (henter) {
+        return <AppSpinner />;
+    }
+    return <GenerellSoknadContainer Component={Controller} brodsmuler={brodsmuler} params={params} vedlikehold={vedlikehold} />;
+};
+
+
+FoerDuBegynnerContainer.propTypes = {
+    params: PropTypes.shape({
+        sykepengesoknadId: PropTypes.string,
+    }),
+    brodsmuler: PropTypes.array,
+    henter: PropTypes.bool,
+    vedlikehold: PropTypes.bool,
+};
+
+export const mapStateToProps = (state) => {
+    const henter = state.vedlikehold.henter;
+
     const brodsmuler = [{
         tittel: 'Ditt sykefravær',
         sti: '/',
@@ -35,14 +65,14 @@ const FoerDuBegynnerContainer = ({ params }) => {
     }, {
         tittel: 'Søknad',
     }];
-    return <GenerellSoknadContainer Component={Controller} brodsmuler={brodsmuler} params={params} />;
+
+    return {
+        henter,
+        brodsmuler,
+        vedlikehold: state.vedlikehold.data.vedlikehold,
+    };
 };
 
+const foerDuBegynnerContainer = connect(mapStateToProps)(FoerDuBegynnerContainer);
 
-FoerDuBegynnerContainer.propTypes = {
-    params: PropTypes.shape({
-        sykepengesoknadId: PropTypes.string,
-    }),
-};
-
-export default FoerDuBegynnerContainer;
+export default foerDuBegynnerContainer;

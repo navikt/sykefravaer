@@ -373,9 +373,7 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
 
         it("Skal fjerne harAndreInntektskilder", () => {
             expect(soknad.hasOwnProperty("harAndreInntektskilder")).to.be.false;
-        });                                                       
-
-
+        });
     });
 
     describe("Mapper mellom tall og tekst i avvik", () => {

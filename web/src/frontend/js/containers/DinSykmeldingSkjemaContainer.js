@@ -7,11 +7,13 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 
 const Skjema = (props) => {
-    const { henter, hentingFeilet } = props;
+    const { henter, hentingFeilet, vedlikehold, ledetekster } = props;
     if (henter) {
         return <AppSpinner />;
     } else if (hentingFeilet) {
         return <Feilmelding />;
+    } else if (vedlikehold) {
+        return <Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel', ledetekster)} melding={getLedetekst('under-vedlikehold.varsel.tekst', ledetekster)} />;
     }
     return <DinSykmeldingSkjema {...props} />;
 };
@@ -19,6 +21,8 @@ const Skjema = (props) => {
 Skjema.propTypes = {
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
+    vedlikehold: PropTypes.bool,
+    ledetekster: PropTypes.object,
 };
 
 export const mapStateToProps = (state, ownProps) => {
@@ -53,8 +57,9 @@ export const mapStateToProps = (state, ownProps) => {
         harStrengtFortroligAdresse,
         arbeidsgivere: arbeidsgivere.data,
         hentingFeilet: state.arbeidsgivere.hentingFeilet,
-        henter: state.arbeidsgivere.henter,
+        henter: state.arbeidsgivere.henter || state.vedlikehold.henter,
         pilotSykepenger: state.pilot.data.pilotSykepenger,
+        vedlikehold: state.vedlikehold.data.vedlikehold,
     };
 };
 

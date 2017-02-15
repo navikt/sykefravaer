@@ -36,22 +36,28 @@ export const VelgInntektskilder = ({ fields, meta, ledetekster }) => {
         <p>{getLedetekst('sykepengesoknad.andre-inntektskilder.hvilke-inntektskilder.informasjon', ledetekster)}</p>
         {
             fields.map((field, index) => {
-                return (<Field label={getInntektskildeLabel(field, ledetekster)} id={`inntektskilde-${index}`} name={`andreInntektskilder.${field}.avkrysset`} key={index} component={Checkbox}>
-                    {
-                        field === ANNET ? null : <Field
-                            component={Radioknapper}
-                            spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.er-du-sykmeldt-fra-dette.sporsmal', ledetekster)}
-                            parse={parseJaEllerNei}
-                            name={`andreInntektskilder.${field}.sykmeldt`}>
-                                <input label={getLedetekst('sykepengesoknad.ja', ledetekster)} value>
-                                    <div className="presisering blokk">
-                                        <p className="sist">{getPresisering(field, ledetekster)}</p>
-                                    </div>
-                                </input>
-                                <input label={getLedetekst('sykepengesoknad.nei', ledetekster)} value={false} />
-                            </Field>
-                    }
-                </Field>);
+                return (
+                    <Field
+                        label={getInntektskildeLabel(field, ledetekster)}
+                        id={`inntektskilde-${index}`}
+                        name={`andreInntektskilder.${field}.avkrysset`}
+                        key={index}
+                        component={Checkbox}>
+                        {
+                            field === ANNET ? null : <Field
+                                component={Radioknapper}
+                                spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.er-du-sykmeldt-fra-dette.sporsmal', ledetekster)}
+                                parse={parseJaEllerNei}
+                                name={`andreInntektskilder.${field}.sykmeldt`}>
+                                    <input label={getLedetekst('sykepengesoknad.ja', ledetekster)} value>
+                                        <div className="presisering blokk">
+                                            <p className="sist">{getPresisering(field, ledetekster)}</p>
+                                        </div>
+                                    </input>
+                                    <input label={getLedetekst('sykepengesoknad.nei', ledetekster)} value={false} />
+                                </Field>
+                        }
+                    </Field>);
             })
         }
     </Feilomrade>);

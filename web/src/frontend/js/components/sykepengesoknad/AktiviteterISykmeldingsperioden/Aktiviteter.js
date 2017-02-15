@@ -31,7 +31,11 @@ export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch, ledet
                 component={AngiTid}
                 aktivitetIndex={index}
                 ledetekster={ledetekster}
-                names={[`aktiviteter[${index}].avvik.arbeidsgrad`, `aktiviteter[${index}].avvik.timer`, `aktiviteter[${index}].avvik.arbeidstimerNormalUke`, `aktiviteter[${index}].avvik.enhet`]} />
+                names={[
+                    `aktiviteter[${index}].avvik.arbeidsgrad`,
+                    `aktiviteter[${index}].avvik.timer`,
+                    `aktiviteter[${index}].avvik.arbeidstimerNormalUke`,
+                    `aktiviteter[${index}].avvik.enhet`]} />
         </div>
     </JaEllerNei>);
 };

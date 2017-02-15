@@ -33,7 +33,7 @@ describe("ledereSagas", () => {
             });
             expect(generator.next("mine data").value).to.deep.equal(nextPut);
         });
-    })
+    });
 
     describe("avkreftLeder", () => {
         const generator = avkreftLeder(actions.avkreftLeder('orgnummer'))

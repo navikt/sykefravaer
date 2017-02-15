@@ -8,6 +8,7 @@ import tidslinjerSagas from './tidslinjerSagas';
 import ledereSagas from './ledereSagas';
 import svarSagas from './svarSagas';
 import deltakerSagas from './deltakerSagas';
+import vedlikeholdSagas from './vedlikeholdSagas';
 import pilotSykepengerSagas from './pilotSykepengerSagas';
 import { ledeteksterSagas } from 'digisyfo-npm';
 
@@ -25,5 +26,6 @@ export default function * rootSaga() {
         ledereSagas(),
         svarSagas(),
         pilotSykepengerSagas(),
+        vedlikeholdSagas(),
     ];
 }

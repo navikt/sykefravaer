@@ -15,11 +15,13 @@ import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
 import { hentSykepengesoknader } from './actions/sykepengesoknader_actions';
 import { hentLedetekster, ledetekster, tidslinjer } from 'digisyfo-npm';
 import { hentBrukerinfo } from './actions/brukerinfo_actions';
+import { hentVedlikehold } from './actions/vedlikehold_actions';
 import history from './history';
 import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';
 import { deltakerActions, svar, deltaker } from 'moter-npm';
 import pilot from './reducers/pilot';
+import vedlikehold from './reducers/vedlikehold';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
@@ -34,6 +36,7 @@ const rootReducer = combineReducers({
     svar,
     deltaker,
     pilot,
+    vedlikehold,
     form: formReducer,
 });
 
@@ -49,6 +52,7 @@ store.dispatch(hentLedetekster());
 store.dispatch(hentDineSykmeldinger());
 store.dispatch(hentSykepengesoknader());
 store.dispatch(hentBrukerinfo());
+store.dispatch(hentVedlikehold());
 store.dispatch(deltakerActions.hentDeltaker());
 
 render(<Provider store={store}>

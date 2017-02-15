@@ -17,6 +17,12 @@ export class DatoField extends Component {
         };
     }
 
+    onKeyUp(e) {
+        if (e.which === 27) {
+            this.lukk();
+        }
+    }
+
     toggle() {
         if (this.state.erApen) {
             this.lukk();
@@ -38,12 +44,6 @@ export class DatoField extends Component {
         this.refs.toggle.focus();
     }
 
-    onKeyUp(e) {
-        if (e.which === 27) {
-            this.lukk();
-        }
-    }
-
     render() {
         const { meta, input, id } = this.props;
 
@@ -55,11 +55,11 @@ export class DatoField extends Component {
                     <MaskedInput
                         type="tel"
                         mask="11.11.1111"
-                        autoComplete="off" 
+                        autoComplete="off"
                         placeholder="dd.mm.åååå"
                         id={id}
                         className={`datovelger__input${meta.touched && meta.error ? ' input--feil' : ''}`} {...input} />
-                    <button 
+                    <button
                         className="js-toggle datovelger__toggleDayPicker"
                         ref="toggle"
                         id={`toggle-${id}`}
@@ -71,16 +71,16 @@ export class DatoField extends Component {
                             this.toggle();
                         }}
                         aria-pressed={this.erApen}>
-                        {this.state.erApen ? "Skjul datovelger" : "Vis datovelger"}
+                        {this.state.erApen ? 'Skjul datovelger' : 'Vis datovelger'}
                     </button>
                 </div>
                 { this.state.erApen && <DayPickerComponent
                     {...this.props}
                     ariaControlledBy={`toggle-${id}`}
                     onDayClick={(event, jsDato) => {
-                        const { dispatch, input, skjemanavn } = this.props;
-                        var s = toDatePrettyPrint(new Date(jsDato));
-                        dispatch(autofill(skjemanavn, input.name, s));
+                        const { dispatch, skjemanavn } = this.props;
+                        const s = toDatePrettyPrint(new Date(jsDato));
+                        dispatch(autofill(skjemanavn, this.props.input.name, s));
                         this.lukk();
                     }}
                     onKeyUp={(e) => {
@@ -96,12 +96,14 @@ export class DatoField extends Component {
 }
 
 DatoField.propTypes = {
-    meta: PropTypes.object,
-    id: PropTypes.string,
-    input: PropTypes.object,
+    meta: PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
+    input: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    skjemanavn: PropTypes.string.isRequired,
 };
 
-const ConnectedDatoField = connect()(DatoField)
+const ConnectedDatoField = connect()(DatoField);
 
 export const validerDatoField = (input) => {
     if (!input) {
@@ -114,7 +116,7 @@ export const validerDatoField = (input) => {
     return undefined;
 };
 
-let Datovelger = (props) => {
+const Datovelger = (props) => {
     return (<Field
         component={ConnectedDatoField}
         skjemanavn={SYKEPENGER_SKJEMANAVN}

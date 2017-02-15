@@ -19,7 +19,11 @@ export const Caption = ({ date }) => {
     return (<div className="DayPicker-Caption" role="heading" aria-live="assertive" aria-atomic="true">
         {`${MONTHS[date.getMonth()]} ${date.getFullYear()}`}
     </div>);
-}
+};
+
+Caption.propTypes = {
+    date: PropTypes.instanceOf(Date),
+};
 
 let lukk;
 
@@ -27,7 +31,7 @@ class DayPickerComponent extends Component {
     componentDidMount() {
         lukk = () => {
             this.props.lukk();
-        }
+        };
         document.addEventListener('click', lukk);
     }
 
@@ -35,16 +39,14 @@ class DayPickerComponent extends Component {
         document.removeEventListener('click', lukk);
     }
 
-    getDateFromValue () {
+    getDateFromValue() {
         const { input } = this.props;
         const v = input.value;
         if (!erGyldigDatoformat(v) || !erGyldigDato(v)) {
             return undefined;
         }
-        else {
-            const d = input.value.split('.');
-            return new Date(`${d[2]}-${d[1]}-${d[0]}`);            
-        }
+        const d = input.value.split('.');
+        return new Date(`${d[2]}-${d[1]}-${d[0]}`);
     }
 
     getInitialMonth() {
@@ -58,9 +60,8 @@ class DayPickerComponent extends Component {
     selectedDays(day) {
         if (!this.getDateFromValue()) {
             return false;
-        } else {
-            return DateUtils.isSameDay(this.getDateFromValue(), day)
-        }
+        } 
+        return DateUtils.isSameDay(this.getDateFromValue(), day);
     }
 
     render() {
@@ -88,11 +89,14 @@ class DayPickerComponent extends Component {
             />
         </div>)
     }
-}
+};
 
 DayPickerComponent.propTypes = {
-    input: PropTypes.object,
+    input: PropTypes.object.isRequired,
     onKeyUp: PropTypes.func.isRequired,
+    lukk: PropTypes.func.isRequired,
+    ariaControlledBy: PropTypes.string,
+    onDayClick: PropTypes.func.isRequired,
 };
 
 export default DayPickerComponent;

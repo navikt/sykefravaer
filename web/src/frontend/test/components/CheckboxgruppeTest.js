@@ -2,8 +2,6 @@ import chai from 'chai';
 import React from 'react'
 import { mount, shallow, render } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import chaiJquery from 'chai-jquery';
-import sinon from 'sinon';
 
 chai.use(chaiEnzyme());
 

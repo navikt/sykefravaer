@@ -43,6 +43,8 @@
     background-position: center;
     background-size: contain;
     cursor: pointer;
+    transform: translateX(0);
+    .mixin-transition(150ms, transform);
 
     &:after {
       content: "";
@@ -137,6 +139,10 @@
 
       .DayPicker-Day:hover {
         background-color: @fokusOrange;
+      }
+
+      .DayPicker-Day:empty:hover {
+        background-color: transparent;
       }
 
       .DayPicker-Day:last-child {

@@ -18,7 +18,8 @@ export class DatoField extends Component {
     }
 
     onKeyUp(e) {
-        if (e.which === 27) {
+        const ESCAPE_KEYCODE = 27;
+        if (e.which === ESCAPE_KEYCODE) {
             this.lukk();
         }
     }
@@ -48,8 +49,12 @@ export class DatoField extends Component {
         const { meta, input, id } = this.props;
 
         return (<div className="datovelger">
-            <div className="datovelger__inner" onClick={(e) => {
-                e.nativeEvent && e.nativeEvent.stopImmediatePropagation ? e.nativeEvent.stopImmediatePropagation() : e.stopPropagation();
+            <div className="datovelger__inner" onClick={(event) => {
+                try {
+                    event.nativeEvent.stopImmediatePropagation();
+                } catch (e) {
+                    event.stopPropagation();
+                }
             }}>
                 <div className="datovelger__inputContainer">
                     <MaskedInput

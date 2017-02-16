@@ -60,7 +60,7 @@ class DayPickerComponent extends Component {
     selectedDays(day) {
         if (!this.getDateFromValue()) {
             return false;
-        } 
+        }
         return DateUtils.isSameDay(this.getDateFromValue(), day);
     }
 
@@ -87,9 +87,9 @@ class DayPickerComponent extends Component {
                     this.props.onDayClick(event, jsDato);
                 }}
             />
-        </div>)
+        </div>);
     }
-};
+}
 
 DayPickerComponent.propTypes = {
     input: PropTypes.object.isRequired,

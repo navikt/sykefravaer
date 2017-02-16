@@ -241,10 +241,15 @@
     background-image: data-uri("../img/svg/kalender.svg");
     background-repeat: no-repeat;
     background-position: center center;
+    background-size: 16px 16px;
 
     &:focus {
       outline: none;
       box-shadow: 0 0 0 3px @fokusOrange;
     }
+
+    &:hover, &:focus {
+      background-image: data-uri("../img/svg/kalender--hover.svg");
+    }
   }
-}
+} 

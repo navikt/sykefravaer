@@ -30,7 +30,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
         if (opplysningeneErRiktige === false && feilaktigeOpplysninger && (feilaktigeOpplysninger.periode || feilaktigeOpplysninger.sykmeldingsgrad)) {
             return 'AVBRYT';
         }
-        if (!valgtArbeidssituasjon) {
+        if (!valgtArbeidssituasjon || valgtArbeidssituasjon === 'default') {
             return 'GA_VIDERE';
         }
         if (valgtArbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values) && values.beOmNyNaermesteLeder === false) {
@@ -216,7 +216,7 @@ export const validate = (values, props = {}) => {
     if (values.opplysningeneErRiktige === undefined) {
         feilmeldinger.opplysningeneErRiktige = 'Vennligst svar på om opplysningene er riktige';
     }
-    if (!values.valgtArbeidssituasjon) {
+    if (!values.valgtArbeidssituasjon || values.valgtArbeidssituasjon === 'default') {
         feilmeldinger.valgtArbeidssituasjon = 'Vennligst oppgi din arbeidssituasjon';
     }
     if (values.opplysningeneErRiktige === false && (!values.feilaktigeOpplysninger || !filtrerObjektKeys(values.feilaktigeOpplysninger).length)) {

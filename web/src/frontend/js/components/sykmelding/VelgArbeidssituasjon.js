@@ -1,21 +1,39 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import DropdownWrapper from '../skjema/DropdownWrapper';
 import arbeidssituasjoner from '../../arbeidssituasjonData';
-import { visFeilmelding, getFeilmelding, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import Feilmelding from '../skjema/Feilmelding';
 
-const getArbeidssituasjoner = (skjemaData) => {
-    if (!skjemaData || !skjemaData.values || !skjemaData.values.valgtArbeidssituasjon) {
+const getArbeidssituasjoner = (arbeidssituasjon) => {
+    if (!arbeidssituasjon || arbeidssituasjon === 'default') {
         return arbeidssituasjoner;
     }
-    return arbeidssituasjoner.filter((arbeidssituasjon) => {
-        return arbeidssituasjon.verdi !== 'default';
+    return arbeidssituasjoner.filter((a) => {
+        return a.verdi !== 'default';
     });
 };
 
+export const RendreVelgArbeidssituasjon = (props) => {
+    const { input, meta } = props;
+    return (
+        <div>
+            <select {...input}>
+                {getArbeidssituasjoner(input.value).map((arbeidssituasjon, index) => {
+                    return <option value={arbeidssituasjon.verdi} key={index}>{arbeidssituasjon.tekst}</option>;
+                })}
+            </select>
+            <Feilmelding {...meta} />
+        </div>
+    );
+};
+
+RendreVelgArbeidssituasjon.propTypes = {
+    input: PropTypes.object,
+    meta: PropTypes.object,
+};
+
 const VelgArbeidssituasjon = (props) => {
-    const { skjemaData, ledetekster, untouch } = props;
-    const erFeil = visFeilmelding(skjemaData, 'valgtArbeidssituasjon');
+    const { ledetekster, untouch } = props;
 
     return (
         <div className="blokk--l">
@@ -28,19 +46,11 @@ const VelgArbeidssituasjon = (props) => {
                     tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tittel', ledetekster)}
                     tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tekst', ledetekster)} />
             </div>
-            <DropdownWrapper erFeil={erFeil} feilmelding={getFeilmelding(skjemaData, 'valgtArbeidssituasjon')}>
-                <div className="selectContainer">
-                    <Field component="select" className={erFeil ? 'input--feil' : ''} name="valgtArbeidssituasjon" onBlur={() => {
-                        untouch('valgtArbeidsgiver');
-                    }}>
-                        {
-                            getArbeidssituasjoner(skjemaData).map((arbeidssituasjon, index) => {
-                                return <option value={arbeidssituasjon.verdi} key={index}>{arbeidssituasjon.tekst}</option>;
-                            })
-                        }
-                    </Field>
-                </div>
-            </DropdownWrapper>
+            <div className="selectContainer">
+                <Field component={RendreVelgArbeidssituasjon} name="valgtArbeidssituasjon" onBlur={() => {
+                    untouch('valgtArbeidsgiver');
+                }} />
+            </div>
         </div>
     );
 };

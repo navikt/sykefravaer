@@ -483,15 +483,6 @@ describe("DinSykmeldingSkjema -", () => {
             const dropdown = component.find("select");
             expect(dropdown.value).to.equal(undefined);
         });
-
-        it("Fjerner default når man velger arbeidssituasjon", () => {
-            skjemaData.values.valgtArbeidssituasjon = 'arbeidsledig';
-            component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} />
-            </Provider>);
-            expect(component.find("option")).to.have.length(5);
-        });
-
     }); 
 
 

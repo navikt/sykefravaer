@@ -17,11 +17,13 @@ export const RendreVelgArbeidssituasjon = (props) => {
     const { input, meta } = props;
     return (
         <div>
-            <select {...input}>
-                {getArbeidssituasjoner(input.value).map((arbeidssituasjon, index) => {
-                    return <option value={arbeidssituasjon.verdi} key={index}>{arbeidssituasjon.tekst}</option>;
-                })}
-            </select>
+            <div className="selectContainer">
+                <select {...input}>
+                    {getArbeidssituasjoner(input.value).map((arbeidssituasjon, index) => {
+                        return <option value={arbeidssituasjon.verdi} key={index}>{arbeidssituasjon.tekst}</option>;
+                    })}
+                </select>
+            </div>
             <Feilmelding {...meta} />
         </div>
     );
@@ -46,11 +48,10 @@ const VelgArbeidssituasjon = (props) => {
                     tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tittel', ledetekster)}
                     tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tekst', ledetekster)} />
             </div>
-            <div className="selectContainer">
-                <Field component={RendreVelgArbeidssituasjon} name="valgtArbeidssituasjon" onBlur={() => {
-                    untouch('valgtArbeidsgiver');
-                }} />
-            </div>
+            <Field component={RendreVelgArbeidssituasjon} name="valgtArbeidssituasjon" onBlur={() => {
+                untouch('valgtArbeidsgiver');
+            }} />
+
         </div>
     );
 };

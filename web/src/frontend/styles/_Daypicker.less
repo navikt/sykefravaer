@@ -44,11 +44,19 @@
     background-size: contain;
     cursor: pointer;
     transform: translateX(0);
-    .mixin-transition(150ms, transform);
+    text-indent: -9999px;
+    border: 0;
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px @fokusOrange;
+    }
 
     &:after {
       content: "";
       position: absolute;
+      top: 0;
       border-bottom: 1em solid transparent;
       border-top: 1em solid transparent;
     }
@@ -58,10 +66,7 @@
       left: 1em;
       &:after {
         border-right: 1em solid @lenkeBlaa;
-      }
-
-      &:hover {
-        transform: translateX(-2px);
+        left: 0;
       }
 
       &:hover:after {
@@ -74,10 +79,6 @@
       &:after {
         right: 0;
         border-left: 1em solid @lenkeBlaa;
-      }
-
-      &:hover {
-        transform: translateX(2px);
       }
 
       &:hover:after {
@@ -238,7 +239,7 @@
     position: absolute;
     top: 1px;
     left: ~'calc(6.65em - 1px)';
-    background-image: data-uri("../img/svg/kalender.svg");
+    background-image: data-uri("../img/png/kalender.png");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 16px 16px;
@@ -249,7 +250,7 @@
     }
 
     &:hover, &:focus {
-      background-image: data-uri("../img/svg/kalender--hover.svg");
+      background-image: data-uri("../img/png/kalender--hover.png");
     }
   }
 } 

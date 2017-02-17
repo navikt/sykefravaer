@@ -15,11 +15,7 @@ const Radioknapp = ({ id, label, input, value, children }) => {
 
 const Radioknapper = ({ input, meta, ledetekster }) => {
     return (<Feilomrade {...meta}>
-        <Radioknapp key={0} label="Ja" id="arbeidsgiverForskutterer-JA" value="JA" input={input}>
-            <div className="panel panel-ekstra">
-                <p className="sist">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.ja', ledetekster)}</p>
-            </div>
-        </Radioknapp>
+        <Radioknapp key={0} label="Ja" id="arbeidsgiverForskutterer-JA" value="JA" input={input} />
         <Radioknapp key={1} label="Nei" id="arbeidsgiverForskutterer-NEI" value="NEI" input={input} />
         <Radioknapp key={2} label="Vet ikke" id="arbeidsgiverForskutterer-VET_IKKE" value="VET_IKKE" input={input}>
             <div className="panel panel-ekstra">

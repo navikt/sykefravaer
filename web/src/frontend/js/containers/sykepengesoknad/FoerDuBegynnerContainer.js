@@ -6,14 +6,15 @@ import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
 import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
+import { datoMedKlokkeslett } from '../../utils/datoUtils';
 
 export const Controller = (props) => {
     const { sykepengesoknad, ledetekster, vedlikehold } = props;
-    if (vedlikehold) {
-        return (<Feilmelding
-            tittel={getLedetekst('under-vedlikehold.varsel.tittel', ledetekster)}
-            melding={getLedetekst('under-vedlikehold.varsel.tekst', ledetekster)}
-        />);
+    if (vedlikehold.datospennMedTid) {
+        return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel', ledetekster)} melding={getLedetekst('under-vedlikehold.varsel.tekst', ledetekster, {
+            fra: datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
+            til: datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
+        })} />);
     }
 
     if (sykepengesoknad.status === 'NY') {
@@ -31,7 +32,9 @@ Controller.propTypes = {
     }),
     skjemasoknad: PropTypes.object,
     ledetekster: PropTypes.object,
-    vedlikehold: PropTypes.bool,
+    vedlikehold: PropTypes.shape({
+        datospennMedTid: PropTypes.object,
+    }),
 };
 
 export const FoerDuBegynnerContainer = ({ params, vedlikehold, brodsmuler, henter }) => {

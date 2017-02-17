@@ -4,8 +4,9 @@ import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../ledetekster_mock";
 import getSykmelding from '../mockSykmeldinger';
+import Feilmelding from '../../js/components/Feilmelding';
 
-import { DinSykmldSkjema, mapStateToProps, validate } from "../../js/containers/DinSykmeldingSkjemaContainer";
+import { DinSykmldSkjema, mapStateToProps, validate, Skjema } from "../../js/containers/DinSykmeldingSkjemaContainer";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -219,4 +220,10 @@ describe("DinSykmeldingSkjemaContainer", () => {
         });
     });
 
+    describe("Render", () => {
+        it("Skal vise planlagt-vedlikehold ved vedlikehold", () => {
+            const comp = shallow(<Skjema vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+            expect(comp.find(Feilmelding)).to.have.length(1);
+        });
+    });
 });

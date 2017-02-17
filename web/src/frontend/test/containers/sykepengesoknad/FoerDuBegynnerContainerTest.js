@@ -10,6 +10,7 @@ import FoerDuBegynner from '../../../js/components/sykepengesoknad/FoerDuBegynne
 import { FoerDuBegynnerContainer, Controller } from '../../../js/containers/sykepengesoknad/FoerDuBegynnerContainer';
 import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 import SendtSoknad from '../../../js/components/sykepengesoknad/SendtSoknad';
+import Feilmelding from '../../../js/components/Feilmelding';
 
 describe("FoerDuBegynnerContainer", () => {
 
@@ -25,13 +26,21 @@ describe("FoerDuBegynnerContainer", () => {
         expect(component.find(GenerellSoknadContainer).prop("Brodsmuler")).to.be.defined;
     });
 
+    it("Skal vise planlagt vedlikehold ved vedlikehold", () => {
+        const sykepengesoknad = {
+            status: 'SENDT',
+        };
+        const comp = shallow(<Controller sykepengesoknad={sykepengesoknad} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+        expect(comp.find(Feilmelding)).to.have.length(1);
+    });
+
     describe("Hvis søknad er SENDT", () => {
 
         it("Skal vise en SendtSoknad hvis sykepengesoknad.status === 'SENDT'", () => {
             const sykepengesoknad = {
-                status: 'SENDT'
+                status: 'SENDT',
             };
-            const component = shallow(<Controller sykepengesoknad={sykepengesoknad} />);
+            const component = shallow(<Controller sykepengesoknad={sykepengesoknad} vedlikehold={{datospennMedTid: null}} />);
             expect(component.find(SendtSoknad)).to.have.length(1);
             expect(component.find(FoerDuBegynner)).to.have.length(0);
         });
@@ -40,7 +49,7 @@ describe("FoerDuBegynnerContainer", () => {
             const sykepengesoknad = {
                 status: 'NY'
             };
-            const component = shallow(<Controller sykepengesoknad={sykepengesoknad} />);
+            const component = shallow(<Controller sykepengesoknad={sykepengesoknad} vedlikehold={{datospennMedTid: null}} />);
             expect(component.find(FoerDuBegynner)).to.have.length(1);
             expect(component.find(SendtSoknad)).to.have.length(0);
         })

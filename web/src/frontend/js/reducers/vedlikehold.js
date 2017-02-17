@@ -2,7 +2,7 @@ import * as actiontyper from '../actions/actiontyper';
 
 const defaultState = {
     data: {
-        vedlikehold: false,
+        vedlikehold: {},
     },
     henter: false,
     hentingFeilet: false,

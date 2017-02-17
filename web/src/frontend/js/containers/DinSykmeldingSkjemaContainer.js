@@ -3,17 +3,21 @@ import { getSykmelding, getLedetekst } from 'digisyfo-npm';
 import * as actionCreators from '../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../components/sykmelding/DinSykmeldingSkjema';
 import { connect } from 'react-redux';
+import { datoMedKlokkeslett } from '../utils/datoUtils';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 
-const Skjema = (props) => {
+export const Skjema = (props) => {
     const { henter, hentingFeilet, vedlikehold, ledetekster } = props;
     if (henter) {
         return <AppSpinner />;
     } else if (hentingFeilet) {
         return <Feilmelding />;
-    } else if (vedlikehold) {
-        return <Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel', ledetekster)} melding={getLedetekst('under-vedlikehold.varsel.tekst', ledetekster)} />;
+    } else if (vedlikehold.datospennMedTid) {
+        return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel', ledetekster)} melding={getLedetekst('under-vedlikehold.varsel.tekst', ledetekster, {
+            '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
+            '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
+        })} />);
     }
     return <DinSykmeldingSkjema {...props} />;
 };
@@ -21,7 +25,9 @@ const Skjema = (props) => {
 Skjema.propTypes = {
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    vedlikehold: PropTypes.bool,
+    vedlikehold: PropTypes.shape({
+        datospennMedTid: PropTypes.object,
+    }),
     ledetekster: PropTypes.object,
 };
 

@@ -15,7 +15,7 @@ export const opplysninger = [
     }];
 
 export const DuTrengerNySykmelding = ({ ledetekster }) => {
-    return (<div className="panel panel-relatert ekstrasporsmal">
+    return (<div className="ekstrasporsmal">
         <h5 className="hode hode-advarsel hode-dekorert typo-undertittel">
             {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tittel', ledetekster)}
         </h5>
@@ -30,7 +30,7 @@ DuTrengerNySykmelding.propTypes = {
 };
 
 export const DuKanBrukeSykmeldingenDinArbeidsgiver = ({ ledetekster }) => {
-    return (<div className="panel panel-relatert ekstrasporsmal">
+    return (<div className="ekstrasporsmal">
         <h5 className="typo-undertittel blokk--xs">
             {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel', ledetekster)}
         </h5>
@@ -45,7 +45,7 @@ DuKanBrukeSykmeldingenDinArbeidsgiver.propTypes = {
 };
 
 export const DuKanBrukeSykmeldingenDinDiagnoseAndre = ({ ledetekster }) => {
-    return (<div className="panel panel-relatert ekstrasporsmal">
+    return (<div className="ekstrasporsmal">
         <h5 className="typo-undertittel blokk--xs">
             {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel', ledetekster)}
         </h5>
@@ -95,7 +95,7 @@ export const RenderFeilaktigeOpplysninger = ({ fields, meta, ledetekster, skjema
         {
             fields.map((field, index) => {
                 const name = `${getName(field)}`;
-                return <Field key={index} component={Checkbox} name={`feilaktigeOpplysninger.${name}`} label={labels[field]} id={`checkbox-${field}`} />;
+                return <Field key={index} component={Checkbox} name={`feilaktigeOpplysninger.${name}`} label={labels[field]} id={`checkbox-${field}`}  />;
             })
         }
         <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={skjemaData.values.feilaktigeOpplysninger} ledetekster={ledetekster} />
@@ -130,7 +130,6 @@ export const ErOpplysningeneRiktige = (props) => {
 ErOpplysningeneRiktige.propTypes = {
     ledetekster: PropTypes.object,
     skjemaData: PropTypes.object,
-    untouch: PropTypes.func,
 };
 
 export default ErOpplysningeneRiktige;

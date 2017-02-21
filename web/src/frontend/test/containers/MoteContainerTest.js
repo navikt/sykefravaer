@@ -197,7 +197,10 @@ describe("MoteContainer", () => {
 
         it("Skal returnere harSvart", () => {
             state.deltaker.data = {
-                svarTidspunkt: "2017-09-12T07:09:00Z"
+                svarTidspunkt: "2017-09-12T07:09:00Z",
+                alternativer: [{
+                    opprettet: "2017-09-13T07:09:00Z"
+                }]
             };
             const props = mapStateToProps(state);
             expect(props.harSvart).to.be.false;
@@ -205,6 +208,12 @@ describe("MoteContainer", () => {
 
         it("Skal returnere harSvart når svar er sendt", () => {
             state.svar.sendt = true;
+            state.deltaker.data = {
+                svarTidspunkt: "2017-09-12T07:09:00Z",
+                alternativer: [{
+                    opprettet: "2017-09-11T07:09:00Z"
+                }]
+            };
             const props = mapStateToProps(state);
             expect(props.harSvart).to.be.true;
         });

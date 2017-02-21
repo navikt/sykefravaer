@@ -69,14 +69,13 @@ export function mapDispatchToProps(dispatch) {
 
 export const harTattStillingTilAlleAlternativer = (deltaker) => {
     return deltaker && deltaker.svarTidspunkt !== null && (deltaker.alternativer && deltaker.alternativer.filter((alternativ) => {
-        return alternativ.created > deltaker.svarTidspunkt;
-    }).length === 0);
+            return new Date(alternativ.opprettet) > new Date(deltaker.svarTidspunkt);
+        }).length === 0);
 };
 
 export function mapStateToProps(state) {
     const ledetekster = state.ledetekster.data;
-    const harSvart = state.svar.sendt || harTattStillingTilAlleAlternativer(state.deltaker.data) || false;
-
+    const harSvart = harTattStillingTilAlleAlternativer(state.deltaker.data);
     return {
         ledetekster,
         harSvart,

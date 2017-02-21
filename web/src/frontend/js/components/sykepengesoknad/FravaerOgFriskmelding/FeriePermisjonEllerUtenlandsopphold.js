@@ -6,7 +6,7 @@ import Radioknapper from '../../skjema/Radioknapper';
 import { FieldArray, Field } from 'redux-form';
 import Feilomrade from '../../skjema/Feilomrade';
 import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
-import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
+import * as periodeUtils from '../../../utils/periodeUtils';
 
 export const SoktOmSykepenger = ({ ledetekster }) => {
     return (<Field
@@ -33,7 +33,7 @@ SoktOmSykepenger.propTypes = {
     ledetekster: PropTypes.object,
 };
 
-export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, ledetekster }) => {
+export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, ledetekster, tidligsteFom, senesteTom }) => {
     const labels = {
         ferie: getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.tatt-ut-ferie', ledetekster),
         permisjon: getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.hatt-permisjon', ledetekster),
@@ -55,12 +55,12 @@ export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, ledete
                         if (field === 'utenlandsopphold') {
                             return (<div>
                                 <div className="blokk">
-                                    <Periodevelger name="utenlandsopphold.perioder" />
+                                    <Periodevelger name="utenlandsopphold.perioder" tidligsteFom={tidligsteFom} senesteTom={senesteTom} />
                                 </div>
                                 <SoktOmSykepenger ledetekster={ledetekster} />
                             </div>);
                         }
-                        return <Periodevelger name={field} />;
+                        return <Periodevelger name={field} tidligsteFom={tidligsteFom} senesteTom={senesteTom} />;
                     })()
                 }
                 </Field>);
@@ -73,22 +73,29 @@ RendreFeriePermisjonEllerUtenlandsopphold.propTypes = {
     fields: PropTypes.array,
     meta: PropTypes.object,
     ledetekster: PropTypes.object.isRequired,
+    tidligsteFom: PropTypes.instanceOf(Date),
+    senesteTom: PropTypes.instanceOf(Date),
 };
 
 const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, ledetekster }) => {
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });
+    const tidligsteFom = periodeUtils.tidligsteFom(perioder);
+    const senesteTom = periodeUtils.senesteTom(perioder);
+
     return (<JaEllerNei
         spoersmal={getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal', ledetekster, {
-            '%FOM%': toDatePrettyPrint(tidligsteFom(perioder)),
-            '%TOM%': toDatePrettyPrint(senesteTom(perioder)),
+            '%FOM%': toDatePrettyPrint(tidligsteFom),
+            '%TOM%': toDatePrettyPrint(senesteTom),
         })}
         name="harHattFeriePermisjonEllerUtenlandsopphold">
             <FieldArray
                 component={RendreFeriePermisjonEllerUtenlandsopphold}
                 name="feriePermisjonEllerUtenlandsopphold"
                 fields={['ferie', 'permisjon', 'utenlandsopphold']}
+                tidligsteFom={tidligsteFom}
+                senesteTom={senesteTom}
                 ledetekster={ledetekster} />
     </JaEllerNei>);
 };

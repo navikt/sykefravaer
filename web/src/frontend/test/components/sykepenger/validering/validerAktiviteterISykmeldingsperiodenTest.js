@@ -450,10 +450,59 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 });
 
                 it("Skal ikke validere dersom felter er utfylt", () => {
-                    values.utdanning.utdanningStartdato = "12.09.2017"
+                    values.utdanning.utdanningStartdato = "14.01.2017"
                     const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                     expect(res.utdanning.utdanningStartdato).to.be.undefined;
                 });
+
+                it("Skal klage sin nød hvis oppgitt dato er etter tom-dato i siste periode i sykmeldingen", () => {
+                    const sykepengesoknad = getSoknad({
+                        "aktiviteter": [{
+                          "periode": {
+                            "fom": "2016-07-15T00:00:00.000Z",
+                            "tom": "2016-07-20T00:00:00.000Z"
+                          },
+                          "grad": 100,
+                          "avvik": null
+                        }],
+                    })
+                    values.utdanning.utdanningStartdato = "21.07.2016";
+                    const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                    expect(res.utdanning.utdanningStartdato).to.equal("Datoen kan ikke være etter sykmeldingsperioden gikk ut den 20.07.2016");
+                });
+
+                it("Skal være happy-go-lucky hvis oppgitt dato er samme dag som tom-dato i siste periode i sykmeldingen", () => {
+                    const sykepengesoknad = getSoknad({
+                        "aktiviteter": [{
+                          "periode": {
+                            "fom": "2016-07-15T00:00:00.000Z",
+                            "tom": "2016-07-20T00:00:00.000Z"
+                          },
+                          "grad": 100,
+                          "avvik": null
+                        }],
+                    })
+                    values.utdanning.utdanningStartdato = "20.07.2016";
+                    const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                    expect(res.utdanning.utdanningStartdato).to.be.undefined;
+                });
+
+                it("Skal være happy-go-lucky hvis oppgitt dato er før tom-dato i siste periode i sykmeldingen", () => {
+                    const sykepengesoknad = getSoknad({
+                        "aktiviteter": [{
+                          "periode": {
+                            "fom": "2016-07-15T00:00:00.000Z",
+                            "tom": "2016-07-20T00:00:00.000Z"
+                          },
+                          "grad": 100,
+                          "avvik": null
+                        }],
+                    })
+                    values.utdanning.utdanningStartdato = "19.07.2016";
+                    const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                    expect(res.utdanning.utdanningStartdato).to.be.undefined;
+                });
+
             }); 
 
             describe("erUtdanningFulltidsstudium", () => {

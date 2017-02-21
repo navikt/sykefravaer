@@ -1,6 +1,9 @@
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 import { ANNET } from '../AktiviteterISykmeldingsperioden/AndreInntektskilder';
+import { fraInputdatoTilJSDato } from '../../../utils';
+import { senesteTom } from '../../../utils/periodeUtils';
+import { toDatePrettyPrint } from 'digisyfo-npm';
 
 const validerAktiviteter = (values, aktiviteter) => {
     const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer enn planlagt';
@@ -78,6 +81,11 @@ const validate = (values, props) => {
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
 
+    const perioder = props.sykepengesoknad.aktiviteter.map((aktivitet) => {
+        return aktivitet.periode;
+    });
+    const tomDato = senesteTom(perioder);
+
     if (values.harAndreInntektskilder === undefined) {
         feilmeldinger.harAndreInntektskilder = 'Du må svare på om du har andre inntektskilder';
     } else if (values.harAndreInntektskilder) {
@@ -108,6 +116,9 @@ const validate = (values, props) => {
         }
         if (values.utdanning.erUtdanningFulltidsstudium === undefined) {
             utdanningsfeilmelding.erUtdanningFulltidsstudium = 'Vennligst svar på om utdanningen er et fulltidsstudium';
+        }
+        if (values.utdanning.utdanningStartdato && fraInputdatoTilJSDato(values.utdanning.utdanningStartdato) > tomDato) {
+            utdanningsfeilmelding.utdanningStartdato = `Datoen kan ikke være etter sykmeldingsperioden gikk ut den ${toDatePrettyPrint(tomDato)}`;
         }
     }
 

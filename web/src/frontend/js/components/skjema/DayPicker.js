@@ -84,7 +84,7 @@ class DayPickerComponent extends Component {
         if (s) {
             return s;
         }
-        return new Date();
+        return this.props.senesteTom || new Date();
     }
 
     selectedDays(day) {
@@ -92,6 +92,11 @@ class DayPickerComponent extends Component {
             return false;
         }
         return DateUtils.isSameDay(this.getDateFromValue(), day);
+    }
+
+    erDeaktivertDag(day) {
+        const { tidligsteFom, senesteTom } = this.props;
+        return day < tidligsteFom || day > senesteTom;
     }
 
     render() {
@@ -111,11 +116,16 @@ class DayPickerComponent extends Component {
                 firstDayOfWeek={1}
                 captionElement={<Caption />}
                 navbarElement={<NavBar />}
+                disabledDays={(day) => {
+                    return this.erDeaktivertDag(day);
+                }}
                 selectedDays={(day) => {
                     return this.selectedDays(day);
                 }}
                 onDayClick={(event, jsDato) => {
-                    this.props.onDayClick(event, jsDato);
+                    if (!this.erDeaktivertDag(jsDato)) {
+                        this.props.onDayClick(event, jsDato);
+                    }
                 }}
             />
         </div>);
@@ -128,6 +138,8 @@ DayPickerComponent.propTypes = {
     lukk: PropTypes.func.isRequired,
     ariaControlledBy: PropTypes.string,
     onDayClick: PropTypes.func.isRequired,
+    senesteTom: PropTypes.instanceOf(Date),
+    tidligsteFom: PropTypes.instanceOf(Date),
 };
 
 export default DayPickerComponent;

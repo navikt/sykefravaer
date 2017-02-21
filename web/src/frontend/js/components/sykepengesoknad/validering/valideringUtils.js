@@ -33,7 +33,6 @@ export const validerDatoerIPerioder = (perioder) => {
         const fom = fraInputdatoTilJSDato(periode.fom);
         const tom = fraInputdatoTilJSDato(periode.tom);
         if (fom.getTime() > tom.getTime()) {
-            feil.fom = 'Startdato må være før sluttdato';
             feil.tom = 'Sluttdato må være etter startdato';
             return feil;
         }

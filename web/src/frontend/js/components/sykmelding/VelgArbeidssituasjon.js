@@ -51,7 +51,6 @@ const VelgArbeidssituasjon = (props) => {
             <Field component={RendreVelgArbeidssituasjon} name="valgtArbeidssituasjon" onBlur={() => {
                 untouch('valgtArbeidsgiver');
             }} />
-
         </div>
     );
 };

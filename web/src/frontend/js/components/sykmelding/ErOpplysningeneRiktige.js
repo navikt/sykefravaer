@@ -1,46 +1,130 @@
 import React, { PropTypes } from 'react';
-import HvilkeOpplysningerErIkkeRiktige from './HvilkeOpplysningerErIkkeRiktige';
-import { Field } from 'redux-form';
-import { visFeilmelding, getFeilmelding, getLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
+import Checkbox from '../skjema/Checkbox';
+import Feilomrade from '../skjema/Feilomrade';
+import JaEllerNei from '../../components/sykepengesoknad/JaEllerNei';
+import { FieldArray, Field } from 'redux-form';
 
-const ErOpplysningeneRiktige = ({ skjemaData, ledetekster, untouch }) => {
-    const alternativer = [true, false];
-    const verdi = skjemaData.values ? skjemaData.values.opplysningeneErRiktige : null;
-    const erFeil = visFeilmelding(skjemaData, 'opplysningeneErRiktige');
-    const feilmelding = getFeilmelding(skjemaData, 'opplysningeneErRiktige');
+export const opplysninger = [
+    {
+        label: 'Andre',
+        value: false,
+    }, {
+        label: 'Noen',
+        value: false,
+    }];
 
-    return (<div className="blokk--l">
-        <div className={`skjema__feilomrade${erFeil ? ' skjema__feilomrade--feil' : ''}`}>
-            <h3 className="skjema__sporsmal">{getLedetekst('sykmelding.bekreft-opplysninger.sporsmal', ledetekster)}</h3>
-            {
-                alternativer.map((alternativ, index) => {
-                    return (<div className="skjema__input" key={index}>
-                        <Field
-                            component="input"
-                            type="radio"
-                            name="opplysningeneErRiktige"
-                            className="radioknapp"
-                            id={`radio-${alternativ}`}
-                            value={alternativ}
-                            checked={verdi === alternativ}
-                            parse={(v) => {
-                                return v === 'true';
-                            }}
-                            onBlur={() => {
-                                untouch('feilaktigeOpplysninger.periode',
-                                    'feilaktigeOpplysninger.sykmeldingsgrad',
-                                    'feilaktigeOpplysninger.arbeidsgiver',
-                                    'feilaktigeOpplysninger.diagnose',
-                                    'feilaktigeOpplysninger.andre');
-                            }} />
-                        <label htmlFor={`radio-${alternativ}`}>{getLedetekst(`sykmelding.bekreft-opplysninger.svar-${alternativ}`, ledetekster)}</label>
-                    </div>);
-                })
-            }
-            {verdi === false && <HvilkeOpplysningerErIkkeRiktige skjemaData={skjemaData} ledetekster={ledetekster} />}
-            <p className="skjema__feilmelding" role="alert" aria-live="polite">{erFeil && feilmelding}</p>
-        </div>
+export const DuTrengerNySykmelding = ({ ledetekster }) => {
+    return (<div className="panel panel-relatert ekstrasporsmal">
+        <h5 className="hode hode-advarsel hode-dekorert typo-undertittel">
+            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tittel', ledetekster)}
+        </h5>
+        <p>
+            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tekst', ledetekster)}
+        </p>
     </div>);
+};
+
+DuTrengerNySykmelding.propTypes = {
+    ledetekster: PropTypes.object,
+};
+
+export const DuKanBrukeSykmeldingenDinArbeidsgiver = ({ ledetekster }) => {
+    return (<div className="panel panel-relatert ekstrasporsmal">
+        <h5 className="typo-undertittel blokk--xs">
+            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel', ledetekster)}
+        </h5>
+        <p>
+            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tekst', ledetekster)}
+        </p>
+    </div>);
+};
+
+DuKanBrukeSykmeldingenDinArbeidsgiver.propTypes = {
+    ledetekster: PropTypes.object,
+};
+
+export const DuKanBrukeSykmeldingenDinDiagnoseAndre = ({ ledetekster }) => {
+    return (<div className="panel panel-relatert ekstrasporsmal">
+        <h5 className="typo-undertittel blokk--xs">
+            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel', ledetekster)}
+        </h5>
+        <p>
+            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tekst', ledetekster)}
+        </p>
+    </div>);
+};
+
+DuKanBrukeSykmeldingenDinDiagnoseAndre.propTypes = {
+    ledetekster: PropTypes.object,
+};
+
+export const SykmeldingFeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = {}, ledetekster }) => {
+    if (feilaktigeOpplysninger.periode || feilaktigeOpplysninger.sykmeldingsgrad) {
+        return <DuTrengerNySykmelding ledetekster={ledetekster} />;
+    }
+    if (feilaktigeOpplysninger.arbeidsgiver) {
+        return <DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />;
+    }
+    if (feilaktigeOpplysninger.diagnose || feilaktigeOpplysninger.andre) {
+        return <DuKanBrukeSykmeldingenDinDiagnoseAndre ledetekster={ledetekster} />;
+    }
+    return null;
+};
+
+SykmeldingFeilaktigeOpplysningerInfo.propTypes = {
+    feilaktigeOpplysninger: PropTypes.object,
+    ledetekster: PropTypes.object,
+};
+
+export const RenderFeilaktigeOpplysninger = ({ fields, meta, ledetekster, skjemaData }) => {
+    const labels = {
+        periode: getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.periode', ledetekster),
+        sykmeldingsgrad: getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sykmeldingsgrad', ledetekster),
+        arbeidsgiver: getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.arbeidsgiver', ledetekster),
+        diagnose: getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.diagnose', ledetekster),
+        andre: getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.andre', ledetekster),
+    };
+
+    const getName = (field) => {
+        return field;
+    };
+
+    return (<Feilomrade {...meta}>
+        <h4 className="skjema__sporsmal">Hvilke opplysninger er ikke riktige?</h4>
+        {
+            fields.map((field, index) => {
+                const name = `${getName(field)}`;
+                return <Field key={index} component={Checkbox} name={`feilaktigeOpplysninger.${name}`} label={labels[field]} id={`checkbox-${field}`} />;
+            })
+        }
+        <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={skjemaData.values.feilaktigeOpplysninger} ledetekster={ledetekster} />
+    </Feilomrade>);
+};
+
+RenderFeilaktigeOpplysninger.propTypes = {
+    fields: PropTypes.array,
+    meta: PropTypes.object,
+    ledetekster: PropTypes.object,
+    skjemaData: PropTypes.object,
+};
+
+export const ErOpplysningeneRiktige = (props) => {
+    const { ledetekster } = props;
+
+    return (
+    <JaEllerNei
+        verdi={false}
+        spoersmal="Er opplysningene riktige?"
+        name="opplysningeneErRiktige">
+        <FieldArray
+            {...props}
+            component={RenderFeilaktigeOpplysninger}
+            name="feilaktigeOpplysninger"
+            fields={['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre']}
+            ledetekster={ledetekster} />
+    </JaEllerNei>
+    );
 };
 
 ErOpplysningeneRiktige.propTypes = {

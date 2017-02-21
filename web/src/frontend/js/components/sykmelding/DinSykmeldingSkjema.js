@@ -5,7 +5,7 @@ import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykm
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
 import { reduxForm } from 'redux-form';
-import { filtrerObjektKeys, getLedetekst, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import AvbrytDialog from './AvbrytDialog';
 
 export class DinSykmeldingSkjemaComponent extends Component {
@@ -113,69 +113,74 @@ export class DinSykmeldingSkjemaComponent extends Component {
         const values = skjemaData && skjemaData.values ? skjemaData.values : {};
         const modus = this.getSkjemaModus(values, harStrengtFortroligAdresse);
 
-        return (<form id="dinSykmeldingSkjema" className="panel blokk" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
+        return (<form id="dinSykmeldingSkjema" className="" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
             <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel', ledetekster)}</h3>
             {
-                skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
+                skjemaData && <ErOpplysningeneRiktige className="panel" skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
             }
             {
-                modus !== 'AVBRYT' && <VelgArbeidssituasjon skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
+                modus !== 'AVBRYT' && (<div className="panel blokk">
+
+                {
+                    <VelgArbeidssituasjon skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} modus={modus} />
+                }
+                {
+                    values.valgtArbeidssituasjon === 'arbeidstaker' &&
+                        <div className="blokk">
+                            {
+                                !harStrengtFortroligAdresse && <VelgArbeidsgiver {...this.props} />
+                            }
+                            {
+                                harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} ledetekster={ledetekster} />
+                            }
+                        </div>
+                }
+            </div>)
             }
-            {
-                values.valgtArbeidssituasjon === 'arbeidstaker' && modus !== 'AVBRYT' &&
-                    <div className="blokk">
-                        {
-                            !harStrengtFortroligAdresse && <VelgArbeidsgiver {...this.props} />
-                        }
-                        {
-                            harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} ledetekster={ledetekster} />
-                        }
-                        <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="H4" />
+            { values.valgtArbeidssituasjon === 'arbeidstaker' && <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="H4" /> }
+                <div aria-live="polite" role="alert">
+                {
+                    (sendingFeilet || avbrytFeilet) &&
+                    <div className="panel panel-ramme js-varsel">
+                        <Varselstripe type="feil">
+                            <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
+                        </Varselstripe>
                     </div>
-            }
-            <div aria-live="polite" role="alert">
-            {
-                (sendingFeilet || avbrytFeilet) &&
-                <div className="panel panel-ramme js-varsel">
-                    <Varselstripe type="feil">
-                        <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
-                    </Varselstripe>
+                }
                 </div>
-            }
-            </div>
-            {
-                modus === 'GA_VIDERE' ? null : <p className="blokk">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`, ledetekster)}</p>
-            }
-            <div className="knapperad knapperad-adskilt">
-                <p className="blokk--s">
-                    <button disabled={sender} ref={modus === 'AVBRYT' ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
-                        className={`js-submit knapp ${modus === 'AVBRYT' ? 'knapp--fare' : ''} ${(sender) ? 'js-spinner' : ''}`}>
-                        {getLedetekst(`starte-sykmelding.knapp.${modus}`, ledetekster)}
-                        { sender && <span className="knapp__spinner" /> }
-                    </button>
-                </p>
-                <div className="dinSykmeldingSkjema__avbrytSykmeldingDialog">
-                    {
-                        modus !== 'AVBRYT' && <p className="blokk">
-                            <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" onClick={(e) => {
-                                e.preventDefault();
+                {
+                    modus === 'GA_VIDERE' ? null : <p className="sist">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`, ledetekster)}</p>
+                }
+                <div className="knapperad knapperad-adskilt">
+                    <p className="blokk--s">
+                        <button disabled={sender} ref={modus === 'AVBRYT' ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
+                            className={`js-submit knapp ${modus === 'AVBRYT' ? 'knapp--fare' : ''} ${(sender) ? 'js-spinner' : ''}`}>
+                            {getLedetekst(`starte-sykmelding.knapp.${modus}`, ledetekster)}
+                            { sender && <span className="knapp__spinner" /> }
+                        </button>
+                    </p>
+                    <div className="dinSykmeldingSkjema__avbrytSykmeldingDialog">
+                        {
+                            modus !== 'AVBRYT' && <p className="blokk">
+                                <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" onClick={(e) => {
+                                    e.preventDefault();
+                                    this.setState({
+                                        visAvbrytDialog: !this.state.visAvbrytDialog,
+                                    });
+                                }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog', ledetekster)}</a>
+                            </p>
+                        }
+                        {
+                            this.state.visAvbrytDialog && <AvbrytDialog avbryter={avbryter} ledetekster={ledetekster} avbrytHandler={() => {
                                 this.setState({
-                                    visAvbrytDialog: !this.state.visAvbrytDialog,
+                                    visAvbrytDialog: false,
                                 });
-                            }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog', ledetekster)}</a>
-                        </p>
-                    }
-                    {
-                        this.state.visAvbrytDialog && <AvbrytDialog avbryter={avbryter} ledetekster={ledetekster} avbrytHandler={() => {
-                            this.setState({
-                                visAvbrytDialog: false,
-                            });
-                            this.refs['js-trigger-avbryt-sykmelding'].focus();
-                        }} bekreftHandler={() => {
-                            this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
-                        }} />
-                    }
-                </div>
+                                this.refs['js-trigger-avbryt-sykmelding'].focus();
+                            }} bekreftHandler={() => {
+                                this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
+                            }} />
+                        }
+                    </div>
             </div>
         </form>);
     }
@@ -206,6 +211,17 @@ DinSykmeldingSkjemaComponent.propTypes = {
     pilotSykepenger: PropTypes.bool,
 };
 
+const ingenFeilaktigeOpplysningerOppgitt = (feilaktigeOpplysninger) => {
+    const v = [
+        feilaktigeOpplysninger.periode,
+        feilaktigeOpplysninger.sykmeldingsgrad,
+        feilaktigeOpplysninger.arbeidsgiver,
+        feilaktigeOpplysninger.diagnose,
+        feilaktigeOpplysninger.perioder,
+    ];
+    return v.filter((a) => { return a; }).length === 0;
+};
+
 export const validate = (values, props = {}) => {
     const feilmeldinger = {};
 
@@ -219,9 +235,13 @@ export const validate = (values, props = {}) => {
     if (!values.valgtArbeidssituasjon || values.valgtArbeidssituasjon === 'default') {
         feilmeldinger.valgtArbeidssituasjon = 'Vennligst oppgi din arbeidssituasjon';
     }
-    if (values.opplysningeneErRiktige === false && (!values.feilaktigeOpplysninger || !filtrerObjektKeys(values.feilaktigeOpplysninger).length)) {
-        feilmeldinger.feilaktigeOpplysninger = 'Vennligst oppgi hvilke opplysninger som ikke er riktige';
+
+    if (!values.opplysningeneErRiktige) {
+        if (!values.feilaktigeOpplysninger || (values.feilaktigeOpplysninger && ingenFeilaktigeOpplysningerOppgitt(values.feilaktigeOpplysninger))) {
+            feilmeldinger.feilaktigeOpplysninger = { _error: 'Vennligst oppgi hvilke opplysninger som ikke er riktige' };
+        }
     }
+
     if (values.valgtArbeidssituasjon === 'arbeidstaker' && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
         feilmeldinger.valgtArbeidsgiver = 'Vennligst velg arbeidsgiver';
     }

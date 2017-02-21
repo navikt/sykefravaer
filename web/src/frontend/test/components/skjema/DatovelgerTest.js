@@ -86,7 +86,7 @@ describe("Datovelger", () => {
             expect(res).to.be.undefined;
         });
 
-        it("Skal ikke klage hvis datoen er etter som fra", () => {
+        it("Skal ikke klage hvis datoen er etter fra", () => {
             const res = validerDatoField("02.12.2018", {
                 fra: new Date("2018-12-01"),
                 til: new Date("2018-12-10"),

@@ -61,15 +61,12 @@ export class DinSykmldSide extends Component {
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
                         </div>);
                     } else if (dinSykmelding.status === 'NY') {
-                        return (<div>
-                            <DinSykmelding
-                                sykmelding={dinSykmelding}
-                                ledetekster={ledetekster}
-                                visEldreSykmeldingVarsel={visEldreSykmeldingVarsel}
-                                eldsteSykmeldingId={eldsteSykmeldingId}
-                                pilotSykepenger={pilotSykepenger} />
-                                <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
-                            </div>);
+                        return (<DinSykmelding
+                            sykmelding={dinSykmelding}
+                            ledetekster={ledetekster}
+                            visEldreSykmeldingVarsel={visEldreSykmeldingVarsel}
+                            eldsteSykmeldingId={eldsteSykmeldingId}
+                            pilotSykepenger={pilotSykepenger} />);
                     } else if (dinSykmelding.status === 'AVBRUTT') {
                         return (<div>
                             <DinAvbrutteSykmelding

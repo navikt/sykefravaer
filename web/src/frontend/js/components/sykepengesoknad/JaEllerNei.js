@@ -25,8 +25,8 @@ JaEllerNeiRadioknapper.propTypes = {
 };
 
 export const RendreJaEllerNei = (props) => {
-    const { intro, input, children, verdi = true } = props;
-    const visTillegg = (input.value === verdi) && children;
+    const { intro, input, children, verdiMedTilleggssporsmal = true } = props;
+    const visTillegg = (input.value === verdiMedTilleggssporsmal) && children;
     return (<div className="blokk--xs">
         <div className={`hovedsporsmal ${visTillegg ? 'hovedsporsmal--medTillegg' : ''}`}>
             { intro && <p className="skjema__sporsmal blokk--s js-intro">{intro}</p> }
@@ -43,7 +43,7 @@ export const RendreJaEllerNei = (props) => {
 RendreJaEllerNei.propTypes = {
     intro: PropTypes.string,
     input: PropTypes.object,
-    verdi: PropTypes.bool,
+    verdiMedTilleggssporsmal: PropTypes.bool,
     children: PropTypes.oneOfType([
         React.PropTypes.array,
         React.PropTypes.object,

@@ -8,6 +8,14 @@ import { reduxForm } from 'redux-form';
 import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import AvbrytDialog from './AvbrytDialog';
 
+const modi = {
+    GA_VIDERE: 'GA_VIDERE',
+    AVBRYT: 'AVBRYT',
+    SEND_MED_NAERMESTE_LEDER: 'SEND-MED-NAERMESTE-LEDER',
+    SEND: 'SEND',
+    BEKREFT: 'BEKREFT',
+};
+
 export class DinSykmeldingSkjemaComponent extends Component {
 
     constructor(props) {
@@ -24,22 +32,22 @@ export class DinSykmeldingSkjemaComponent extends Component {
 
     getSkjemaModus(values, harStrengtFortroligAdresse) {
         if (values === {}) {
-            return 'GA_VIDERE';
+            return modi.GA_VIDERE;
         }
         const { opplysningeneErRiktige, feilaktigeOpplysninger, valgtArbeidssituasjon } = values;
         if (opplysningeneErRiktige === false && feilaktigeOpplysninger && (feilaktigeOpplysninger.periode || feilaktigeOpplysninger.sykmeldingsgrad)) {
-            return 'AVBRYT';
+            return modi.AVBRYT;
         }
         if (!valgtArbeidssituasjon || valgtArbeidssituasjon === 'default') {
-            return 'GA_VIDERE';
+            return modi.GA_VIDERE;
         }
         if (valgtArbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values) && values.beOmNyNaermesteLeder === false) {
-            return 'SEND-MED-NAERMESTE-LEDER';
+            return modi.SEND_MED_NAERMESTE_LEDER;
         }
         if (valgtArbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values)) {
-            return 'SEND';
+            return modi.SEND;
         }
-        return 'BEKREFT';
+        return modi.BEKREFT;
     }
 
 
@@ -86,17 +94,17 @@ export class DinSykmeldingSkjemaComponent extends Component {
         const arbeidsgiverForskutterer = values.arbeidsgiverForskutterer === 'JA';
 
         switch (modus) {
-            case 'SEND-MED-NAERMESTE-LEDER':
-            case 'SEND': {
+            case modi.SEND_MED_NAERMESTE_LEDER:
+            case modi.SEND: {
                 this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id,
                     values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysninger, values.beOmNyNaermesteLeder, arbeidsgiverForskutterer);
                 return;
             }
-            case 'BEKREFT': {
+            case modi.BEKREFT: {
                 this.props.bekreftSykmelding(sykmelding.id, values.valgtArbeidssituasjon, feilaktigeOpplysninger);
                 return;
             }
-            case 'AVBRYT': {
+            case modi.AVBRYT: {
                 this.setState({
                     visAvbrytDialog: !this.state.visAvbrytDialog,
                 });
@@ -116,13 +124,12 @@ export class DinSykmeldingSkjemaComponent extends Component {
         return (<form id="dinSykmeldingSkjema" className="" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
             <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel', ledetekster)}</h3>
             {
-                skjemaData && <ErOpplysningeneRiktige className="panel" skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
+                skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
             }
             {
-                modus !== 'AVBRYT' && (<div className="panel blokk">
-
+                modus !== modi.AVBRYT && (<div className="panel blokk">
                 {
-                    <VelgArbeidssituasjon skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} modus={modus} />
+                    <VelgArbeidssituasjon ledetekster={ledetekster} untouch={untouch} modus={modus} />
                 }
                 {
                     values.valgtArbeidssituasjon === 'arbeidstaker' &&
@@ -138,30 +145,31 @@ export class DinSykmeldingSkjemaComponent extends Component {
             </div>)
             }
             { values.valgtArbeidssituasjon === 'arbeidstaker' && <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="H4" /> }
+
                 <div aria-live="polite" role="alert">
-                {
-                    (sendingFeilet || avbrytFeilet) &&
-                    <div className="panel panel-ramme js-varsel">
-                        <Varselstripe type="feil">
-                            <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
-                        </Varselstripe>
-                    </div>
-                }
+                    {
+                        (sendingFeilet || avbrytFeilet) &&
+                        <div className="panel panel-ramme js-varsel">
+                            <Varselstripe type="feil">
+                                <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
+                            </Varselstripe>
+                        </div>
+                    }
                 </div>
                 {
-                    modus === 'GA_VIDERE' ? null : <p className="sist">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`, ledetekster)}</p>
+                    modus !== modi.GA_VIDERE && <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`, ledetekster)}</p>
                 }
                 <div className="knapperad knapperad-adskilt">
                     <p className="blokk--s">
-                        <button disabled={sender} ref={modus === 'AVBRYT' ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
-                            className={`js-submit knapp ${modus === 'AVBRYT' ? 'knapp--fare' : ''} ${(sender) ? 'js-spinner' : ''}`}>
+                        <button disabled={sender} ref={modus === modi.AVBRYT ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
+                            className={`js-submit knapp ${modus === modi.AVBRYT ? 'knapp--fare' : ''} ${(sender) ? 'js-spinner' : ''}`}>
                             {getLedetekst(`starte-sykmelding.knapp.${modus}`, ledetekster)}
                             { sender && <span className="knapp__spinner" /> }
                         </button>
                     </p>
                     <div className="dinSykmeldingSkjema__avbrytSykmeldingDialog">
                         {
-                            modus !== 'AVBRYT' && <p className="blokk">
+                            modus !== modi.AVBRYT && <p className="blokk">
                                 <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" onClick={(e) => {
                                     e.preventDefault();
                                     this.setState({
@@ -238,7 +246,9 @@ export const validate = (values, props = {}) => {
 
     if (!values.opplysningeneErRiktige) {
         if (!values.feilaktigeOpplysninger || (values.feilaktigeOpplysninger && ingenFeilaktigeOpplysningerOppgitt(values.feilaktigeOpplysninger))) {
-            feilmeldinger.feilaktigeOpplysninger = { _error: 'Vennligst oppgi hvilke opplysninger som ikke er riktige' };
+            feilmeldinger.feilaktigeOpplysninger = {
+                _error: 'Vennligst oppgi hvilke opplysninger som ikke er riktige',
+            };
         }
     }
 

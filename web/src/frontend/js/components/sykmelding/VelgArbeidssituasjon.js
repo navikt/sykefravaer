@@ -14,11 +14,20 @@ const getArbeidssituasjoner = (arbeidssituasjon) => {
 };
 
 export const RendreVelgArbeidssituasjon = (props) => {
-    const { input, meta } = props;
+    const { input, meta, ledetekster } = props;
     return (
-        <div>
+        <div className={input.value && input.value !== 'default' ? 'blokk' : ''}>
+            <div className="medHjelpetekst">
+                <label htmlFor="select-arbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
+                    {getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster)}
+                </label>
+                <Hjelpetekst
+                    id="velg-arbeidssituasjon-hjelpetekst"
+                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tittel', ledetekster)}
+                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tekst', ledetekster)} />
+            </div>
             <div className="selectContainer">
-                <select {...input}>
+                <select {...input} className={meta.error && meta.touched ? 'input--feil' : ''}>
                     {getArbeidssituasjoner(input.value).map((arbeidssituasjon, index) => {
                         return <option value={arbeidssituasjon.verdi} key={index}>{arbeidssituasjon.tekst}</option>;
                     })}
@@ -32,32 +41,19 @@ export const RendreVelgArbeidssituasjon = (props) => {
 RendreVelgArbeidssituasjon.propTypes = {
     input: PropTypes.object,
     meta: PropTypes.object,
+    ledetekster: PropTypes.object,
 };
 
 const VelgArbeidssituasjon = (props) => {
     const { ledetekster, untouch } = props;
 
-    return (
-        <div className="blokk--l">
-            <div className="medHjelpetekst">
-                <label htmlFor="select-arbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
-                    {getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster)}
-                </label>
-                <Hjelpetekst
-                    id="velg-arbeidssituasjon-hjelpetekst"
-                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tittel', ledetekster)}
-                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tekst', ledetekster)} />
-            </div>
-            <Field component={RendreVelgArbeidssituasjon} name="valgtArbeidssituasjon" onBlur={() => {
-                untouch('valgtArbeidsgiver');
-            }} />
-        </div>
-    );
+    return (<Field ledetekster={ledetekster} component={RendreVelgArbeidssituasjon} name="valgtArbeidssituasjon" onBlur={() => {
+        untouch('valgtArbeidsgiver');
+    }} />);
 };
 
 VelgArbeidssituasjon.propTypes = {
     ledetekster: PropTypes.object,
-    skjemaData: PropTypes.object,
     untouch: PropTypes.func,
 };
 

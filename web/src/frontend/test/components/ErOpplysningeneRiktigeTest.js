@@ -15,21 +15,13 @@ const expect = chai.expect;
 import ErOpplysningeneRiktige, { RenderFeilaktigeOpplysninger, SykmeldingFeilaktigeOpplysningerInfo, DuTrengerNySykmelding, DuKanBrukeSykmeldingenDinArbeidsgiver, DuKanBrukeSykmeldingenDinDiagnoseAndre  } from '../../js/components/sykmelding/ErOpplysningeneRiktige';
 import JaEllerNei from '../../js/components/sykepengesoknad/JaEllerNei';
 
-
 describe("ErOpplysningeneRiktige - ", () => {
 
     let skjemaData = {};
-    let store;
-
-    const sagaMiddleware = createSagaMiddleware();
-    const middlewares = [sagaMiddleware];
-    const mockStore = configureMockStore(middlewares);
-
+    
     beforeEach(() => {
         skjemaData.values = {};
         skjemaData.values.opplysningeneErRiktige = false;
-
-        store = mockStore()
     });
 
 

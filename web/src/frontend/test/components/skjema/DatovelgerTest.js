@@ -41,8 +41,8 @@ describe("Datovelger", () => {
             expect(component.find(Field).prop("skjemanavn")).to.deep.equal("SYKEPENGERSKJEMA");
         });
 
-        it("Skal sende validate videre til Field", () => {
-            expect(component.find(Field).prop("validate")).to.deep.equal(validerDatoField);
+        it("Skal sende en validate-funksjon videre til Field", () => {
+            expect(typeof component.find(Field).prop("validate")).to.equal("function");
         })
 
         it("Skal sende props videre til Field", () => {
@@ -69,7 +69,90 @@ describe("Datovelger", () => {
             const res = validerDatoField("31.11.2018");
             expect(res).to.equal("Datoen er ikke gyldig");
         });
-    })
+
+        it("Skal klage hvis datoen er før fra", () => {
+            const res = validerDatoField("30.11.2018", {
+                fra: new Date("2018-12-01"),
+                til: new Date("2018-12-10"),
+            });
+            expect(res).to.equal("Datoen må være innenfor perioden 01.12.2018-10.12.2018");
+        });
+
+        it("Skal ikke klage hvis datoen er samme dato som fra", () => {
+            const res = validerDatoField("01.12.2018", {
+                fra: new Date("2018-12-01"),
+                til: new Date("2018-12-10"),
+            });
+            expect(res).to.be.undefined;
+        });
+
+        it("Skal ikke klage hvis datoen er etter fra", () => {
+            const res = validerDatoField("02.12.2018", {
+                fra: new Date("2018-12-01"),
+                til: new Date("2018-12-10"),
+            });
+            expect(res).to.be.undefined;
+        });
+
+        it("Skal klage hvis datoen er etter til", () => {
+            const res = validerDatoField("31.12.2018", {
+                fra: new Date("2018-12-01"),
+                til: new Date("2018-12-10"),
+            });
+            expect(res).to.equal("Datoen må være innenfor perioden 01.12.2018-10.12.2018");
+        });
+
+        it("Skal ikke klage hvis datoen er samme dato som til", () => {
+            const res = validerDatoField("10.12.2018", {
+                fra: new Date("2018-12-01"),
+                til: new Date("2018-12-10"),
+            });
+            expect(res).to.be.undefined;
+        });
+
+        it("Skal klage hvis datoen er etter til hvis bare til er oppgitt", () => {
+            const res = validerDatoField("12.12.2018", {
+                til: new Date("2018-12-11"),
+            });
+            expect(res).to.equal("Datoen må være før 11.12.2018");
+        });
+
+        it("Skal ikke klage hvis datoen er samme dato som til hvis bare til er oppgitt", () => {
+            const res = validerDatoField("11.12.2018", {
+                til: new Date("2018-12-11"),
+            });
+            expect(res).to.be.undefined;
+        });
+
+        it("Skal ikke klage hvis datoen er før til hvis bare til er oppgitt", () => {
+            const res = validerDatoField("10.12.2018", {
+                til: new Date("2018-12-11"),
+            });
+            expect(res).to.be.undefined;
+        });
+
+        it("Skal klage hvis datoen er før fra hvis bare fra er oppgitt", () => {
+            const res = validerDatoField("10.12.2018", {
+                fra: new Date("2018-12-11"),
+            });
+            expect(res).to.equal("Datoen må være etter 11.12.2018");
+        });
+
+        it("Skal ikke klage hvis datoen er samme dag som fra hvis bare fra er oppgitt", () => {
+            const res = validerDatoField("11.12.2018", {
+                fra: new Date("2018-12-11"),
+            });
+            expect(res).to.be.undefined;
+        });
+
+        it("Skal ikke klage hvis datoen er etter fra hvis bare fra er oppgitt", () => {
+            const res = validerDatoField("12.12.2018", {
+                fra: new Date("2018-12-11"),
+            });
+            expect(res).to.be.undefined;
+        });
+
+    });
 
     describe("DatoField", () => {
 

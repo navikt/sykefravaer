@@ -22,7 +22,29 @@ describe("validerFravaerOgFriskmelding", () => {
         };
         clock = sinon.useFakeTimers(1484210369692); // Setter dagens dato til 12. januar 2017
         sykepengesoknad = getSoknad({
-          id: "min-soknad-id"
+          id: "min-soknad-id",
+          "aktiviteter": [{
+            "periode": {
+              "fom": "2016-07-15",
+              "tom": "2016-07-20"
+            },
+            "grad": 100,
+            "avvik": null
+          }, {
+            "periode": {
+              "fom": "2016-07-15",
+              "tom": "2016-07-20"
+            },
+            "grad": 60,
+            "avvik": null
+          }, {
+            "periode": {
+              "fom": "2016-07-15",
+              "tom": "2016-07-20"
+            },
+            "grad": 60,
+            "avvik": null
+          }],
         });
         sendTilFoerDuBegynner = sinon.spy();
     });

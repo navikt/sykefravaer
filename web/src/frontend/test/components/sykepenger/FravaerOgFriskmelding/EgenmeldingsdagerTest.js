@@ -22,9 +22,16 @@ describe("Egenmeldingsdager", () => {
     });
 
     it("Skal inneholde en JaEllerNei med riktig children", () => {
-        const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad()} ledetekster={ledetekster} />);
+        const senesteTom = new Date("2017-02-01");
+        const tidligsteFom = new Date(senesteTom);
+        tidligsteFom.setMonth(tidligsteFom.getMonth() - 6);
+        const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad({
+            identdato: new Date("2017-02-01"),
+        })} ledetekster={ledetekster} />);
         expect(compo.find(Periodevelger)).to.have.length(1);
         expect(compo.find(Periodevelger).prop("name")).to.equal("egenmeldingsperioder");
+        expect(compo.find(Periodevelger).prop("senesteTom")).to.deep.equal(senesteTom);
+        expect(compo.find(Periodevelger).prop("tidligsteFom")).to.deep.equal(tidligsteFom);
     });
 
     it("Skal vise riktig spørsmål", () => {

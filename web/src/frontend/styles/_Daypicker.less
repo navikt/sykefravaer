@@ -156,10 +156,18 @@
 
 /* Default modifiers */
 
-.DayPicker-Day--disabled {
-  color: #dce0e0;
+.DayPicker-Day--disabled, .DayPicker-Day--disabled:last-child {
+  color: @ikonGraa;
   cursor: default;
-  background-color: #eff1f1;
+  font-weight: normal;
+
+  &:focus {
+    color: @inaktivGraa;
+  }
+}
+
+.DayPicker-Day--disabled:hover {
+  background-color: transparent;
 }
 
 .DayPicker-Day--outside {

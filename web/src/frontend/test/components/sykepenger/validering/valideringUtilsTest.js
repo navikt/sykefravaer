@@ -47,7 +47,6 @@ describe("valideringUtils", () => {
                 tom: "12.12.2012"
             }]);
             expect(res).to.deep.equal([{
-                fom: "Startdato må være før sluttdato",
                 tom: "Sluttdato må være etter startdato"
             }]);
         });
@@ -68,6 +67,8 @@ describe("valideringUtils", () => {
             expect(res).to.be.null;
         });
 
-    })
+    });
+
+
 
 })

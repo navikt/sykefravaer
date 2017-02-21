@@ -66,11 +66,15 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
     const array = compo.find(FieldArray)
     expect(array.prop("component")).to.deep.equal(RendreFeriePermisjonEllerUtenlandsopphold);
     expect(array.prop("name")).to.equal("feriePermisjonEllerUtenlandsopphold");
-    expect(array.prop("fields")).to.deep.equal(['ferie', 'permisjon', 'utenlandsopphold'])
+    expect(array.prop("fields")).to.deep.equal(['ferie', 'permisjon', 'utenlandsopphold']);
+    expect(array.prop("tidligsteFom")).to.deep.equal(new Date("2017-01-01"));
+    expect(array.prop("senesteTom")).to.deep.equal(new Date("2017-01-25"));
   })
 
   describe("RendreFeriePermisjonEllerUtenlandsopphold", () => {
     let component; 
+    let tidligsteFom;
+    let senesteTom;
 
     beforeEach(() => {
       const meta = {
@@ -78,7 +82,9 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
         touched: false,
       }
       const fields = ['ferie', 'permisjon', 'utenlandsopphold'];
-      component = shallow(<RendreFeriePermisjonEllerUtenlandsopphold fields={fields} ledetekster={_ledetekster} meta={meta} />);
+      tidligsteFom = new Date("2017-01-10");
+      senesteTom = new Date("2017-01-20");
+      component = shallow(<RendreFeriePermisjonEllerUtenlandsopphold fields={fields} ledetekster={_ledetekster} meta={meta} tidligsteFom={tidligsteFom} senesteTom={senesteTom} />);
     })
 
     it("Skal inneholde ett checkbox-Field med Peiodevelger per field", () => {
@@ -92,11 +98,12 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
       }
     });
 
-    it("Skal inneholde Periodevelger med riktig name", () => {
+    it("Skal inneholde Periodevelger med riktig name, tidligsteFom og senesteTom", () => {
       const ferieCheckbox = component.find(Field).at(0);
       const permisjonCheckbox = component.find(Field).at(1);
       expect(ferieCheckbox.find(Periodevelger).prop("name")).to.equal("ferie");
-      expect(permisjonCheckbox.find(Periodevelger).prop("name")).to.equal("permisjon");
+      expect(permisjonCheckbox.find(Periodevelger).prop("tidligsteFom")).to.equal(tidligsteFom);
+      expect(permisjonCheckbox.find(Periodevelger).prop("senesteTom")).to.equal(senesteTom);
     });
 
     describe("utenlandsopphold", () => {
@@ -105,8 +112,10 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
         utenlandsoppholdCheckbox = component.find(Field).at(2);
       })
 
-      it("Skal ha en periodevelger med riktig name", () => {
+      it("Skal ha en periodevelger med riktig name, tidligsteFom og senesteTom", () => {
         expect(utenlandsoppholdCheckbox.find(Periodevelger).prop("name")).to.equal("utenlandsopphold.perioder");
+        expect(utenlandsoppholdCheckbox.find(Periodevelger).prop("tidligsteFom")).to.equal(tidligsteFom);
+        expect(utenlandsoppholdCheckbox.find(Periodevelger).prop("senesteTom")).to.equal(senesteTom);
       });
 
       it("Skal inneholde SoktOmSykepenger", () => {

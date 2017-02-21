@@ -16,7 +16,11 @@ const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
             })}
             name="bruktEgenmeldingsdagerFoerLegemeldtFravaer"
             hjelpetekst={hjelpetekst}>
-        <Periodevelger name="egenmeldingsperioder" spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal', ledetekster)} />
+            <Periodevelger
+                name="egenmeldingsperioder"
+                spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal', ledetekster)}
+                tidligsteFom={tidligsteFom}
+                senesteTom={sykepengesoknad.identdato} />
     </JaEllerNei>);
 };
 

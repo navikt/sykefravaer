@@ -25,8 +25,19 @@ describe("Egenmeldingsdager", () => {
         const senesteTom = new Date("2017-02-01");
         const tidligsteFom = new Date(senesteTom);
         tidligsteFom.setMonth(tidligsteFom.getMonth() - 6);
+
+        const aktiviteter = [{
+            "periode": {
+                "fom": tidligsteFom,
+                "tom": senesteTom,
+            },
+            "grad": 100,
+            "avvik": null
+        }];
+
         const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad({
             identdato: new Date("2017-02-01"),
+            aktiviteter: aktiviteter,
         })} ledetekster={ledetekster} />);
         expect(compo.find(Periodevelger)).to.have.length(1);
         expect(compo.find(Periodevelger).prop("name")).to.equal("egenmeldingsperioder");

@@ -2,8 +2,14 @@ import React, { PropTypes } from 'react';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import { Hjelpetekst, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import * as periodeUtils from '../../../utils/periodeUtils';
 
 const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
+    const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
+        return aktivitet.periode;
+    });
+    const tidligsteFom = periodeUtils.tidligsteFom(perioder);
+
     const hjelpetekst = (<Hjelpetekst
         id="velg-arbeidssituasjon-hjelpetekst"
         tittel={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tittel', ledetekster)}

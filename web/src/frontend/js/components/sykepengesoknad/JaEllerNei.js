@@ -85,7 +85,7 @@ export class RendreJaEllerNei extends Component {
 
     getErApen(props) {
         const { input, children, verdiMedTilleggssporsmal = true } = props;
-        return (input.value === verdiMedTilleggssporsmal) && children;
+        return (input.value === verdiMedTilleggssporsmal) && children ? true : false;
     }
 
     setAutoHoyde() {
@@ -161,9 +161,6 @@ export class RendreJaEllerNei extends Component {
                 {
                     this.state.visInnhold ? <div className="tilleggssporsmal js-tillegg" ref="innhold">
                         <div className="tilleggssporsmal__innhold" style={{ opacity: this.state.opacity }}>
-                            <div className="tilleggssporsmal__pil">
-                                <img src={`${window.APP_SETTINGS.APP_ROOT}/img/skjema/sporsmal__pil.svg`} alt="Pil nedover" />
-                            </div>
                             {children}
                         </div>
                     </div> : null

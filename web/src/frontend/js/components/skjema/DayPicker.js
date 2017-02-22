@@ -15,6 +15,10 @@ const localeUtils = Object.assign({}, LocaleUtils, {
     formatDay,
 });
 
+const pad = (nr) => {
+    return nr > 9 || nr.length > 1 ? nr : `0${nr}`;
+};
+
 export const Caption = ({ date }) => {
     return (<div className="DayPicker-Caption" role="heading" aria-live="assertive" aria-atomic="true">
         {`${MONTHS[date.getMonth()]} ${date.getFullYear()}`}
@@ -96,7 +100,8 @@ class DayPickerComponent extends Component {
 
     erDeaktivertDag(day) {
         const { tidligsteFom, senesteTom } = this.props;
-        return day < tidligsteFom || day > senesteTom;
+        const _day = new Date(`${day.getFullYear()}-${pad(day.getMonth() + 1)}-${pad(day.getDate())}`);
+        return _day < tidligsteFom || _day > senesteTom;
     }
 
     render() {

@@ -30,8 +30,8 @@ describe("Egenmeldingsdager", () => {
         expect(compo.find(Periodevelger).prop("name")).to.equal("egenmeldingsperioder");
     });
 
-    it("Skal sette tidligsteFom til identdato minus seks måneder og senesteTom til identdato på periodevelgeren", () => {
-        const senesteTom = new Date("2017-02-01");
+    it("Skal sette tidligsteFom til dagen før identdato minus seks måneder og senesteTom til dagen før identdato på periodevelgeren", () => {
+        const senesteTom = new Date("2017-01-31");
         const tidligsteFom = new Date(senesteTom);
         tidligsteFom.setMonth(tidligsteFom.getMonth() - 6);
 

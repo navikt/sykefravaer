@@ -149,6 +149,13 @@ describe("DaypickerComponent", () => {
             expect(component.instance().erDeaktivertDag(new Date("2017-01-19"))).to.be.false;
         });
 
+        it("Feil med tidssone", () => {
+            var day = new Date("Wed Jul 20 2016 12:00:00 GMT+0200 (Central Europe Daylight Time)");
+            var senesteTom = new Date("Wed Jul 20 2016 02:00:00 GMT+0200 (Central Europe Daylight Time)");
+            component = shallow(<DaypickerComponent input={input} meta={meta} id="olsen" senesteTom={senesteTom} />);
+            expect(component.instance().erDeaktivertDag(day)).to.be.false;
+        })
+
         describe("erDeaktivertDag med bare tidligsteFom", () => {
 
             beforeEach(() => {

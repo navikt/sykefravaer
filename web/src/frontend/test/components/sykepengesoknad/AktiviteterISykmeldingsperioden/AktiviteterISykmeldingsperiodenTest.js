@@ -87,16 +87,22 @@ describe("AktiviteterISykmeldingsperioden", () => {
     describe("UtdanningStartDato", () => {
 
         let datovelger;
-        let component
+        let component;
+        let tidligsteFom;
+        let senesteTom;
 
         beforeEach(() =>  {
-            component = shallow(<UtdanningStartDato ledetekster={ledetekster} />)
+            tidligsteFom = new Date("2017-01-20");
+            senesteTom = new Date("2017-01-30");
+            component = shallow(<UtdanningStartDato ledetekster={ledetekster} tidligsteFom={tidligsteFom} senesteTom={senesteTom} />)
         });
 
-        it("Skal inneholde Datovelger", () => {
+        it("Skal inneholde Datovelger med tidligsteFom og senesteTom", () => {
             datovelger = component.find(Datovelger);
             expect(datovelger).to.have.length(1);
             expect(datovelger.prop("name")).to.equal("utdanning.utdanningStartdato");
+            expect(datovelger.prop("tidligsteFom")).to.equal(tidligsteFom);
+            expect(datovelger.prop("senesteTom")).to.equal(senesteTom);
         });
 
         it("Skal inneholde label med riktig spørsmål", () => {

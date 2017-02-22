@@ -5,8 +5,10 @@ import { Hjelpetekst, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 
 const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
     const identdato = sykepengesoknad.identdato;
-    const tidligsteFom = new Date(identdato);
-    tidligsteFom.setMonth(identdato.getMonth() - 6);
+    const senesteTom = new Date(identdato);
+    senesteTom.setDate(identdato.getDate() - 1);
+    const tidligsteFom = new Date(senesteTom);
+    tidligsteFom.setMonth(senesteTom.getMonth() - 6);
 
     const hjelpetekst = (<Hjelpetekst
         id="egenmeldingsdager-hjelpetekst"
@@ -24,7 +26,7 @@ const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
                 name="egenmeldingsperioder"
                 spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal', ledetekster)}
                 tidligsteFom={tidligsteFom}
-                senesteTom={identdato} />
+                senesteTom={senesteTom} />
     </JaEllerNei>);
 };
 

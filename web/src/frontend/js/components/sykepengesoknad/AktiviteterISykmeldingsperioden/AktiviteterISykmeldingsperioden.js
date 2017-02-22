@@ -10,18 +10,20 @@ import AndreInntektskilder from './AndreInntektskilder';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
 import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
-import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
+import * as periodeUtils from '../../../utils/periodeUtils';
 import validate from '../validering/validerAktiviteterISykmeldingsperioden';
 
-export const UtdanningStartDato = ({ ledetekster }) => {
+export const UtdanningStartDato = ({ ledetekster, tidligsteFom, senesteTom }) => {
     return (<div className="blokk">
         <label className="skjema__sporsmal" htmlFor="utdanningStartdato">{getLedetekst('sykepengesoknad.utdanning.startdato.sporsmal', ledetekster)}</label>
-        <Datovelger name="utdanning.utdanningStartdato" id="utdanningStartdato" />
+        <Datovelger name="utdanning.utdanningStartdato" id="utdanningStartdato" tidligsteFom={tidligsteFom} senesteTom={senesteTom} />
     </div>);
 };
 
 UtdanningStartDato.propTypes = {
     ledetekster: PropTypes.object,
+    tidligsteFom: PropTypes.instanceOf(Date),
+    senesteTom: PropTypes.instanceOf(Date),
 };
 
 export const AktiviteterISykmeldingsperioden = (props) => {
@@ -29,6 +31,9 @@ export const AktiviteterISykmeldingsperioden = (props) => {
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });
+    const _tidligsteFom = periodeUtils.tidligsteFom(perioder);
+    const _senesteTom = periodeUtils.senesteTom(perioder);
+
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
     };
@@ -60,10 +65,10 @@ export const AktiviteterISykmeldingsperioden = (props) => {
                 <JaEllerNei
                     name="utdanning.underUtdanningISykmeldingsperioden"
                     spoersmal={getLedetekst('sykepengesoknad.utdanning.ja-nei.sporsmal', ledetekster, {
-                        '%STARTDATO%': toDatePrettyPrint(tidligsteFom(perioder)),
-                        '%SLUTTDATO%': toDatePrettyPrint(senesteTom(perioder)),
+                        '%STARTDATO%': toDatePrettyPrint(_tidligsteFom),
+                        '%SLUTTDATO%': toDatePrettyPrint(_senesteTom),
                     })}>
-                    <UtdanningStartDato ledetekster={ledetekster} />
+                    <UtdanningStartDato ledetekster={ledetekster} tidligsteFom={_tidligsteFom} senesteTom={_senesteTom} />
                     <Field
                         component={JaEllerNeiRadioknapper}
                         name="utdanning.erUtdanningFulltidsstudium"

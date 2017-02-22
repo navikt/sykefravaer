@@ -13,7 +13,7 @@ const GjenopptattArbeidFulltUt = ({ sykepengesoknad, ledetekster }) => {
             <label htmlFor="gjenopptattArbeidFulltUtDato" className="skjema__sporsmal">
                 {getLedetekst('sykepengesoknad.gjenopptatt-arbeid-fullt-ut.dato.sporsmal', ledetekster)}
             </label>
-            <Datovelger id="gjenopptattArbeidFulltUtDato" name="gjenopptattArbeidFulltUtDato" />
+            <Datovelger id="gjenopptattArbeidFulltUtDato" name="gjenopptattArbeidFulltUtDato" senesteTom={new Date()} />
         </div>
     </JaEllerNei>);
 };

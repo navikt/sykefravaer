@@ -59,7 +59,8 @@
 }
 
 .ekstrasporsmal {
-    background-color: #ededec;
+    background-color: @bakgrunnGraa;
+    box-shadow: 0 0 0 1px @inaktivGraa inset;
     margin: 2em -1em 1em;
 
     @media(min-width: @skjermMini) {
@@ -70,7 +71,9 @@
     }
 
     &:after {
-        background-color: #ededec;
+        background-color: @bakgrunnGraa;
+        border-left: 1px solid @inaktivGraa;
+        border-top: 1px solid @inaktivGraa;
     }
 }
 

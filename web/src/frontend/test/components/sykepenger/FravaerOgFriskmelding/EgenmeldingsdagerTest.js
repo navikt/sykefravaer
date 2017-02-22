@@ -21,29 +21,27 @@ describe("Egenmeldingsdager", () => {
         expect(compo.find(JaEllerNei).prop("name")).to.equal("bruktEgenmeldingsdagerFoerLegemeldtFravaer")
     });
 
-    it("Skal inneholde en JaEllerNei med riktig children", () => {
+    it("Skal inneholde en JaEllerNei som inneholder en periodevelger med name = egenmeldingsperioder", () => {
+        const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad({
+            identdato: new Date("2017-02-01"),
+        })} ledetekster={ledetekster} />);
+
+        expect(compo.find(Periodevelger)).to.have.length(1);
+        expect(compo.find(Periodevelger).prop("name")).to.equal("egenmeldingsperioder");
+    });
+
+    it("Skal sette tidligsteFom til identdato minus seks måneder og senesteTom til identdato på periodevelgeren", () => {
         const senesteTom = new Date("2017-02-01");
         const tidligsteFom = new Date(senesteTom);
         tidligsteFom.setMonth(tidligsteFom.getMonth() - 6);
 
-        const aktiviteter = [{
-            "periode": {
-                "fom": tidligsteFom,
-                "tom": senesteTom,
-            },
-            "grad": 100,
-            "avvik": null
-        }];
-
         const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad({
             identdato: new Date("2017-02-01"),
-            aktiviteter: aktiviteter,
         })} ledetekster={ledetekster} />);
-        expect(compo.find(Periodevelger)).to.have.length(1);
-        expect(compo.find(Periodevelger).prop("name")).to.equal("egenmeldingsperioder");
+
         expect(compo.find(Periodevelger).prop("senesteTom")).to.deep.equal(senesteTom);
         expect(compo.find(Periodevelger).prop("tidligsteFom")).to.deep.equal(tidligsteFom);
-    });
+    })
 
     it("Skal vise riktig spørsmål", () => {
         const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad({

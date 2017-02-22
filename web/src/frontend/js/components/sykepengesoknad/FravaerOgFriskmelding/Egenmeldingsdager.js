@@ -2,23 +2,21 @@ import React, { PropTypes } from 'react';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import { Hjelpetekst, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
-import * as periodeUtils from '../../../utils/periodeUtils';
 
 const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
-    const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
-        return aktivitet.periode;
-    });
-    const tidligsteFom = periodeUtils.tidligsteFom(perioder);
+    const identdato = sykepengesoknad.identdato;
+    const tidligsteFom = new Date(identdato);
+    tidligsteFom.setMonth(identdato.getMonth() - 6);
 
     const hjelpetekst = (<Hjelpetekst
-        id="velg-arbeidssituasjon-hjelpetekst"
+        id="egenmeldingsdager-hjelpetekst"
         tittel={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tittel', ledetekster)}
         tekst={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tekst', ledetekster)} />);
 
     return (
         <JaEllerNei
             spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.janei.sporsmal', ledetekster, {
-                '%DATO%': toDatePrettyPrint(sykepengesoknad.identdato),
+                '%DATO%': toDatePrettyPrint(identdato),
             })}
             name="bruktEgenmeldingsdagerFoerLegemeldtFravaer"
             hjelpetekst={hjelpetekst}>
@@ -26,7 +24,7 @@ const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
                 name="egenmeldingsperioder"
                 spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal', ledetekster)}
                 tidligsteFom={tidligsteFom}
-                senesteTom={sykepengesoknad.identdato} />
+                senesteTom={identdato} />
     </JaEllerNei>);
 };
 

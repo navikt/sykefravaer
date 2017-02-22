@@ -14,8 +14,6 @@ import { DineSykmeldingOpplysninger } from "digisyfo-npm";
 import VelgArbeidsgiver from "../../js/components/sykmelding/VelgArbeidsgiver";
 import ArbeidsgiversSykmeldingContainer from "../../js/containers/ArbeidsgiversSykmeldingContainer";
 import { Varselstripe } from "digisyfo-npm";
-import Checkboxgruppe from '../../js/components/skjema/Checkboxgruppe';
-import HvilkeOpplysningerErIkkeRiktige, { SykmeldingFeilaktigeOpplysningerInfo, DuTrengerNySykmelding, DuKanBrukeSykmeldingenDinDiagnoseAndre, DuKanBrukeSykmeldingenDinArbeidsgiver } from '../../js/components/sykmelding/HvilkeOpplysningerErIkkeRiktige';
 import ErLederRiktig from '../../js/components/sykmelding/ErLederRiktig';
 import ForskuttererArbeidsgiver from '../../js/components/sykmelding/ForskuttererArbeidsgiver';
 import { Provider } from 'react-redux';
@@ -291,178 +289,6 @@ describe("DinSykmeldingSkjema -", () => {
 
     })
 
-    describe("ErOpplysningeneRiktige", () => {
-
-        let skjemaData = {}
-        let bekreftSpy;
-        let sendSpy;
-
-        beforeEach(() => {
-            skjemaData = {
-                values: {
-                    opplysningeneErRiktige: undefined,
-                    feilaktigeOpplysninger: {},
-                },
-            };
-            bekreftSpy = sinon.spy();
-            sendSpy = sinon.spy();
-        });
-
-        it("Skal inneholde spørsmål", () => {
-            let component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={{}}
-                  ledetekster={ledetekster}
-                  bekreftSykmelding={bekreftSpy}
-                  sendSykmeldingTilArbeidsgiver={sendSpy}
-                  skjemaData={skjemaData}
-                />
-            </Provider>);
-            expect(component.text()).to.contain("Er opplysningene riktige?")
-        }); 
-
-        it("Skal inneholde to input-felter", () => {
-            let component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={{}}
-                  ledetekster={ledetekster}
-                  bekreftSykmelding={bekreftSpy}
-                  sendSykmeldingTilArbeidsgiver={sendSpy}
-                  skjemaData={skjemaData}
-                />
-            </Provider>);
-            expect(component.find("input")).to.have.length(2);
-            expect(component.text()).to.contain("Ja, opplysningene er riktige")
-            expect(component.text()).to.contain("Nei, opplysningene er ikke riktige")
-        });
-
-        it("Skal vise HvilkeOpplysningerErIkkeRiktige dersom opplysningene ikke er riktige", () => {
-            skjemaData.values.opplysningeneErRiktige = false;
-            let component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={{}}
-                  ledetekster={ledetekster}
-                  bekreftSykmelding={bekreftSpy}
-                  sendSykmeldingTilArbeidsgiver={sendSpy}
-                  skjemaData={skjemaData}
-                />
-            </Provider>);
-            expect(component.find(HvilkeOpplysningerErIkkeRiktige)).to.have.length(1);
-        });
-
-        it("Skal ikke vise HvilkeOpplysningerErIkkeRiktige dersom opplysningene er riktige", () => {
-            skjemaData.values.opplysningeneErRiktige = true;
-            let component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={{}}
-                  ledetekster={ledetekster}
-                  bekreftSykmelding={bekreftSpy}
-                  sendSykmeldingTilArbeidsgiver={sendSpy}
-                  skjemaData={skjemaData}
-                />
-            </Provider>);
-            expect(component.find(HvilkeOpplysningerErIkkeRiktige)).to.have.length(0);
-        });
-
-    });
-
-    describe("HvilkeOpplysningerErIkkeRiktige - ", () => {
-
-        beforeEach(() => {
-            skjemaData.values = {};
-            skjemaData.values.opplysningeneErRiktige = false;
-        });
-        
-        it("Skal inneholde en Checkboxgruppe", () => {
-            let component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} />
-            </Provider>);
-            expect(component.find(Checkboxgruppe)).to.have.length(1);
-        });
-
-        it("Skal inneholde fem input-felter", () => {
-            let component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} />
-            </Provider>);
-            expect(component.find("input[type='checkbox']")).to.have.length(5);
-        });
-
-        it("Skal inneholde SykmeldingFeilaktigeOpplysningerInfo", () => {
-            let component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} />
-            </Provider>);
-            expect(component.find(SykmeldingFeilaktigeOpplysningerInfo)).to.have.length(1);
-        });
-
-    });
-
-
-    describe("SykmeldingFeilaktigeOpplysningerInfo", () => {
-
-        beforeEach(() => {
-            skjemaData.values = {};
-            skjemaData.values.opplysningeneErRiktige = false;
-        });
-
-        it("Skal inneholde 'Du trenger ny sykmelding' dersom periode eller sykmeldingsgrad er blant de feilaktige opplysningene", () => {
-            const feilaktigeOpplysninger1 = {
-                periode: true
-            };
-            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
-            expect(component1.contains(<DuTrengerNySykmelding ledetekster={ledetekster} />)).to.be.true;
-
-            const feilaktigeOpplysninger2 = {
-                sykmeldingsgrad: true
-            };
-            let component2 = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} feilaktigeOpplysninger={feilaktigeOpplysninger2} />);
-            expect(component2.contains(<DuTrengerNySykmelding ledetekster={ledetekster} />)).to.be.true;
-        }); 
-
-        it("Skal inneholde 'Du kan bruke sykmeldingen din Arbeidsgiver' dersom arbeidsgiver er den eneste feilaktige opplysningen", () => {
-            const feilaktigeOpplysninger1 = {
-                arbeidsgiver: true,
-            };
-            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />)).to.be.true;
-        }); 
-
-        it("Skal inneholde 'Du kan bruke sykmeldingen din Arbeidsgiver' dersom arbeidsgiver og diagnose er de feilaktige opplysnignene", () => {
-            const feilaktigeOpplysninger1 = {
-                arbeidsgiver: true,
-                diagnose: true,
-            };
-            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />)).to.be.true;
-            expect(component1.contains(<DuTrengerNySykmelding ledetekster={ledetekster} />)).to.be.false;
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre ledetekster={ledetekster} />)).to.be.false;
-        }); 
-
-        it("Skal inneholde 'Du trenger ny sykmelding' dersom periode og diagnose er de feilaktige opplysningene", () => {
-            const feilaktigeOpplysninger1 = {
-                periode: true,
-                diagnose: true,
-            };
-            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
-            expect(component1.contains(<DuTrengerNySykmelding ledetekster={ledetekster} />)).to.be.true;
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />)).to.be.false;
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre ledetekster={ledetekster} />)).to.be.false;
-        });
-
-        it("Skal inneholde 'DuKanBrukeSykmeldingenDinDiagnoseAndre' dersom diagnose er den feilaktige opplysningen", () => {
-            const feilaktigeOpplysninger1 = {
-                diagnose: true,
-            };
-            let component1 = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} feilaktigeOpplysninger={feilaktigeOpplysninger1} />);
-            expect(component1.contains(<DuTrengerNySykmelding ledetekster={ledetekster} />)).to.be.false;
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />)).to.be.false;
-            expect(component1.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre ledetekster={ledetekster} />)).to.be.true;
-        });
-
-        it("Skal returnere null dersom ingen opplysninger er feilaktige", () => {
-            let component = shallow(<SykmeldingFeilaktigeOpplysningerInfo ledetekster={ledetekster} />);
-            expect(component.contains(<DuTrengerNySykmelding ledetekster={ledetekster} />)).to.be.false;
-            expect(component.contains(<DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />)).to.be.false;
-            expect(component.contains(<DuKanBrukeSykmeldingenDinDiagnoseAndre ledetekster={ledetekster} />)).to.be.false;    
-        })
-
-    }); 
-
     describe("Velg arbeidssituasjon", () => { 
 
         let component;
@@ -673,7 +499,7 @@ describe("DinSykmeldingSkjema -", () => {
 
     describe("validate", () => {
 
-        let fields = {}
+        let fields = {};
 
         beforeEach(() => {
             fields = {
@@ -705,7 +531,7 @@ describe("DinSykmeldingSkjema -", () => {
             fields.opplysningeneErRiktige = false;
             fields.feilaktigeOpplysninger = {};
             const res = validate(fields);
-            expect(res.feilaktigeOpplysninger).to.equal("Vennligst oppgi hvilke opplysninger som ikke er riktige")
+            expect(res.feilaktigeOpplysninger._error).to.equal("Vennligst oppgi hvilke opplysninger som ikke er riktige")
         });
 
         it("Skal returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger === { periode: false }", () => {
@@ -714,7 +540,7 @@ describe("DinSykmeldingSkjema -", () => {
                 periode: false
             };
             const res = validate(fields);
-            expect(res.feilaktigeOpplysninger).to.equal("Vennligst oppgi hvilke opplysninger som ikke er riktige")
+            expect(res.feilaktigeOpplysninger._error).to.equal("Vennligst oppgi hvilke opplysninger som ikke er riktige")
         });
 
         it("Skal ikke returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger === { periode: true }", () => {
@@ -783,7 +609,7 @@ describe("DinSykmeldingSkjema -", () => {
             const res = validate(fields);
             expect(res).to.deep.equal({
                 valgtArbeidssituasjon: "Vennligst oppgi din arbeidssituasjon",
-                feilaktigeOpplysninger: "Vennligst oppgi hvilke opplysninger som ikke er riktige"
+                feilaktigeOpplysninger: { _error: "Vennligst oppgi hvilke opplysninger som ikke er riktige" }
             })
         });
 

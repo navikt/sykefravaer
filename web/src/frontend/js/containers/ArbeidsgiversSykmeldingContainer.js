@@ -5,7 +5,9 @@ import ArbeidsgiversSykmelding from '../components/sykmelding/ArbeidsgiversSykme
 
 const ArbeidsgiversSykmeldingWrapper = ({ sykmelding, ledetekster, Overskrift }) => {
     if (sykmelding) {
-        return <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} Overskrift={Overskrift} />;
+        return (<div className="blokk">
+            <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} Overskrift={Overskrift} />
+        </div>);
     }
     return null;
 };

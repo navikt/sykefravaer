@@ -5,8 +5,16 @@ import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykm
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
 import { reduxForm } from 'redux-form';
-import { filtrerObjektKeys, getLedetekst, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import AvbrytDialog from './AvbrytDialog';
+
+const modi = {
+    GA_VIDERE: 'GA_VIDERE',
+    AVBRYT: 'AVBRYT',
+    SEND_MED_NAERMESTE_LEDER: 'SEND-MED-NAERMESTE-LEDER',
+    SEND: 'SEND',
+    BEKREFT: 'BEKREFT',
+};
 
 export class DinSykmeldingSkjemaComponent extends Component {
 
@@ -24,22 +32,22 @@ export class DinSykmeldingSkjemaComponent extends Component {
 
     getSkjemaModus(values, harStrengtFortroligAdresse) {
         if (values === {}) {
-            return 'GA_VIDERE';
+            return modi.GA_VIDERE;
         }
         const { opplysningeneErRiktige, feilaktigeOpplysninger, valgtArbeidssituasjon } = values;
         if (opplysningeneErRiktige === false && feilaktigeOpplysninger && (feilaktigeOpplysninger.periode || feilaktigeOpplysninger.sykmeldingsgrad)) {
-            return 'AVBRYT';
+            return modi.AVBRYT;
         }
         if (!valgtArbeidssituasjon || valgtArbeidssituasjon === 'default') {
-            return 'GA_VIDERE';
+            return modi.GA_VIDERE;
         }
         if (valgtArbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values) && values.beOmNyNaermesteLeder === false) {
-            return 'SEND-MED-NAERMESTE-LEDER';
+            return modi.SEND_MED_NAERMESTE_LEDER;
         }
         if (valgtArbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values)) {
-            return 'SEND';
+            return modi.SEND;
         }
-        return 'BEKREFT';
+        return modi.BEKREFT;
     }
 
 
@@ -86,17 +94,17 @@ export class DinSykmeldingSkjemaComponent extends Component {
         const arbeidsgiverForskutterer = values.arbeidsgiverForskutterer === 'JA';
 
         switch (modus) {
-            case 'SEND-MED-NAERMESTE-LEDER':
-            case 'SEND': {
+            case modi.SEND_MED_NAERMESTE_LEDER:
+            case modi.SEND: {
                 this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id,
                     values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysninger, values.beOmNyNaermesteLeder, arbeidsgiverForskutterer);
                 return;
             }
-            case 'BEKREFT': {
+            case modi.BEKREFT: {
                 this.props.bekreftSykmelding(sykmelding.id, values.valgtArbeidssituasjon, feilaktigeOpplysninger);
                 return;
             }
-            case 'AVBRYT': {
+            case modi.AVBRYT: {
                 this.setState({
                     visAvbrytDialog: !this.state.visAvbrytDialog,
                 });
@@ -113,69 +121,74 @@ export class DinSykmeldingSkjemaComponent extends Component {
         const values = skjemaData && skjemaData.values ? skjemaData.values : {};
         const modus = this.getSkjemaModus(values, harStrengtFortroligAdresse);
 
-        return (<form id="dinSykmeldingSkjema" className="panel blokk" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
+        return (<form id="dinSykmeldingSkjema" className="" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
             <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel', ledetekster)}</h3>
             {
                 skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
             }
             {
-                modus !== 'AVBRYT' && <VelgArbeidssituasjon skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
+                modus !== modi.AVBRYT && (<div className="panel blokk">
+                {
+                    <VelgArbeidssituasjon ledetekster={ledetekster} untouch={untouch} modus={modus} />
+                }
+                {
+                    values.valgtArbeidssituasjon === 'arbeidstaker' &&
+                        <div className="blokk">
+                            {
+                                !harStrengtFortroligAdresse && <VelgArbeidsgiver {...this.props} />
+                            }
+                            {
+                                harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} ledetekster={ledetekster} />
+                            }
+                        </div>
+                }
+            </div>)
             }
-            {
-                values.valgtArbeidssituasjon === 'arbeidstaker' && modus !== 'AVBRYT' &&
-                    <div className="blokk">
-                        {
-                            !harStrengtFortroligAdresse && <VelgArbeidsgiver {...this.props} />
-                        }
-                        {
-                            harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} ledetekster={ledetekster} />
-                        }
-                        <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="H4" />
-                    </div>
-            }
-            <div aria-live="polite" role="alert">
-            {
-                (sendingFeilet || avbrytFeilet) &&
-                <div className="panel panel-ramme js-varsel">
-                    <Varselstripe type="feil">
-                        <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
-                    </Varselstripe>
-                </div>
-            }
-            </div>
-            {
-                modus === 'GA_VIDERE' ? null : <p className="blokk">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`, ledetekster)}</p>
-            }
-            <div className="knapperad knapperad-adskilt">
-                <p className="blokk--s">
-                    <button disabled={sender} ref={modus === 'AVBRYT' ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
-                        className={`js-submit knapp ${modus === 'AVBRYT' ? 'knapp--fare' : ''} ${(sender) ? 'js-spinner' : ''}`}>
-                        {getLedetekst(`starte-sykmelding.knapp.${modus}`, ledetekster)}
-                        { sender && <span className="knapp__spinner" /> }
-                    </button>
-                </p>
-                <div className="dinSykmeldingSkjema__avbrytSykmeldingDialog">
+            { values.valgtArbeidssituasjon === 'arbeidstaker' && <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="H4" /> }
+
+                <div aria-live="polite" role="alert">
                     {
-                        modus !== 'AVBRYT' && <p className="blokk">
-                            <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" onClick={(e) => {
-                                e.preventDefault();
+                        (sendingFeilet || avbrytFeilet) &&
+                        <div className="panel panel-ramme js-varsel">
+                            <Varselstripe type="feil">
+                                <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
+                            </Varselstripe>
+                        </div>
+                    }
+                </div>
+                {
+                    modus !== modi.GA_VIDERE && <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`, ledetekster)}</p>
+                }
+                <div className="knapperad knapperad-adskilt">
+                    <p className="blokk--s">
+                        <button disabled={sender} ref={modus === modi.AVBRYT ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
+                            className={`js-submit knapp ${modus === modi.AVBRYT ? 'knapp--fare' : ''} ${(sender) ? 'js-spinner' : ''}`}>
+                            {getLedetekst(`starte-sykmelding.knapp.${modus}`, ledetekster)}
+                            { sender && <span className="knapp__spinner" /> }
+                        </button>
+                    </p>
+                    <div className="dinSykmeldingSkjema__avbrytSykmeldingDialog">
+                        {
+                            modus !== modi.AVBRYT && <p className="blokk">
+                                <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" onClick={(e) => {
+                                    e.preventDefault();
+                                    this.setState({
+                                        visAvbrytDialog: !this.state.visAvbrytDialog,
+                                    });
+                                }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog', ledetekster)}</a>
+                            </p>
+                        }
+                        {
+                            this.state.visAvbrytDialog && <AvbrytDialog avbryter={avbryter} ledetekster={ledetekster} avbrytHandler={() => {
                                 this.setState({
-                                    visAvbrytDialog: !this.state.visAvbrytDialog,
+                                    visAvbrytDialog: false,
                                 });
-                            }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog', ledetekster)}</a>
-                        </p>
-                    }
-                    {
-                        this.state.visAvbrytDialog && <AvbrytDialog avbryter={avbryter} ledetekster={ledetekster} avbrytHandler={() => {
-                            this.setState({
-                                visAvbrytDialog: false,
-                            });
-                            this.refs['js-trigger-avbryt-sykmelding'].focus();
-                        }} bekreftHandler={() => {
-                            this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
-                        }} />
-                    }
-                </div>
+                                this.refs['js-trigger-avbryt-sykmelding'].focus();
+                            }} bekreftHandler={() => {
+                                this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
+                            }} />
+                        }
+                    </div>
             </div>
         </form>);
     }
@@ -206,6 +219,17 @@ DinSykmeldingSkjemaComponent.propTypes = {
     pilotSykepenger: PropTypes.bool,
 };
 
+const ingenFeilaktigeOpplysningerOppgitt = (feilaktigeOpplysninger) => {
+    const v = [
+        feilaktigeOpplysninger.periode,
+        feilaktigeOpplysninger.sykmeldingsgrad,
+        feilaktigeOpplysninger.arbeidsgiver,
+        feilaktigeOpplysninger.diagnose,
+        feilaktigeOpplysninger.perioder,
+    ];
+    return v.filter((a) => { return a; }).length === 0;
+};
+
 export const validate = (values, props = {}) => {
     const feilmeldinger = {};
 
@@ -219,9 +243,15 @@ export const validate = (values, props = {}) => {
     if (!values.valgtArbeidssituasjon || values.valgtArbeidssituasjon === 'default') {
         feilmeldinger.valgtArbeidssituasjon = 'Vennligst oppgi din arbeidssituasjon';
     }
-    if (values.opplysningeneErRiktige === false && (!values.feilaktigeOpplysninger || !filtrerObjektKeys(values.feilaktigeOpplysninger).length)) {
-        feilmeldinger.feilaktigeOpplysninger = 'Vennligst oppgi hvilke opplysninger som ikke er riktige';
+
+    if (!values.opplysningeneErRiktige) {
+        if (!values.feilaktigeOpplysninger || (values.feilaktigeOpplysninger && ingenFeilaktigeOpplysningerOppgitt(values.feilaktigeOpplysninger))) {
+            feilmeldinger.feilaktigeOpplysninger = {
+                _error: 'Vennligst oppgi hvilke opplysninger som ikke er riktige',
+            };
+        }
     }
+
     if (values.valgtArbeidssituasjon === 'arbeidstaker' && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
         feilmeldinger.valgtArbeidsgiver = 'Vennligst velg arbeidsgiver';
     }

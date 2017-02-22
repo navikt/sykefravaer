@@ -47,43 +47,26 @@
     text-indent: -9999px;
     border: 0;
     background-color: transparent;
+    background-image: data-uri("../img/svg/pil-videre-graa.svg");
 
     &:focus {
       outline: none;
       box-shadow: 0 0 0 3px @fokusOrange;
     }
 
-    &:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      border-bottom: 1em solid transparent;
-      border-top: 1em solid transparent;
+    &:focus, &:hover {
+      background-image: data-uri("../img/svg/pil-videre-blaa.svg");
     }
+
   }
 
     .DayPicker-NavButton--prev {
       left: 1em;
-      &:after {
-        border-right: 1em solid @lenkeBlaa;
-        left: 0;
-      }
-
-      &:hover:after {
-        border-right-color: lighten(@lenkeBlaa, 5%);
-      }
+      transform: rotate(180deg);
     }
 
     .DayPicker-NavButton--next {
       right: 1em;
-      &:after {
-        right: 0;
-        border-left: 1em solid @lenkeBlaa;
-      }
-
-      &:hover:after {
-        border-left-color: lighten(@lenkeBlaa, 5%);
-      }
     }
 
 

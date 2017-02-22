@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../../ledetekster_mock";
+import ledetekster from "../../mockLedetekster";
 import getSykmelding from '../../mockSykmeldinger';
 import Sidetopp from "../../../js/components/Sidetopp";
 

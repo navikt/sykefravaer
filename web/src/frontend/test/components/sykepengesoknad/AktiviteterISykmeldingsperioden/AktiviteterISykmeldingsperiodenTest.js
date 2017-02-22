@@ -14,7 +14,7 @@ import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../../../..
 import AndreInntektskilder from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AndreInntektskilder';
 import Datovelger from '../../../../js/components/skjema/Datovelger';
 import { Link } from 'react-router';
-import ledetekster from '../../../ledetekster_mock';
+import ledetekster from '../../../mockLedetekster';
 
 import { getSoknad } from '../../../mockSoknader';
 

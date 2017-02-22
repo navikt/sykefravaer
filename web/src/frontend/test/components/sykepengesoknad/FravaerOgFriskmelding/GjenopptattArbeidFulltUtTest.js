@@ -9,7 +9,7 @@ import GjenopptattArbeidFulltUt from '../../../../js/components/sykepengesoknad/
 import Datovelger from '../../../../js/components/skjema/Datovelger';
 import JaEllerNei from '../../../../js/components/sykepengesoknad/JaEllerNei';
 import { getSoknad } from '../../../mockSoknader';
-import { ledetekster } from '../../../ledetekster_mock';
+import { ledetekster } from '../../../mockLedetekster';
 
 describe("GjenopptattArbeidFulltUt", () => {
 

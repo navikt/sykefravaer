@@ -8,7 +8,7 @@ const expect = chai.expect;
 import AktiviteterISykmeldingsperioden, { Aktiviteter, Aktivitet, Inntektskilder, Utdanning } from '../../../../js/components/sykepengesoknad/Oppsummering/AktiviteterISykmeldingsperioden';
 import { Avkrysset } from '../../../../js/components/sykepengesoknad/Oppsummering/opplysninger';
 import { getSoknad } from '../../../mockSoknader';
-import ledetekster from '../../../ledetekster_mock';
+import ledetekster from '../../../mockLedetekster';
 
 
 describe("AktiviteterISykmeldingsperioden (Oppsummering)", () => {

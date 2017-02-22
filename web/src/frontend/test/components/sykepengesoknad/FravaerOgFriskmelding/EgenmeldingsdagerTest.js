@@ -9,7 +9,7 @@ import Egenmeldingsdager from '../../../../js/components/sykepengesoknad/Fravaer
 import Periodevelger from '../../../../js/components/skjema/Periodevelger';
 import JaEllerNei from '../../../../js/components/sykepengesoknad/JaEllerNei';
 import { getSoknad } from '../../../mockSoknader';
-import ledetekster from '../../../ledetekster_mock';
+import ledetekster from '../../../mockLedetekster';
 
 describe("Egenmeldingsdager", () => {
 

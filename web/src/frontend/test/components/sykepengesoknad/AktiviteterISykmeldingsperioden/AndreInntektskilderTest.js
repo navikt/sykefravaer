@@ -7,7 +7,7 @@ import AndreInntektskilderComponent, { VelgInntektskilder, fields } from '../../
 import { FieldArray, Field } from 'redux-form';
 import Checkbox from '../../../../js/components/skjema/Checkbox';
 import Radioknapper from '../../../../js/components/skjema/Radioknapper';
-import ledetekster from '../../../ledetekster_mock';
+import ledetekster from '../../../mockLedetekster';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

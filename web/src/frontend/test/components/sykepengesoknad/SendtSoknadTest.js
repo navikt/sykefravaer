@@ -10,7 +10,7 @@ import Sidetopp from '../../../js/components/Sidetopp';
 import SykmeldingUtdrag from '../../../js/components/sykepengesoknad/SykmeldingUtdrag';
 import { Avkrysset } from '../../../js/components/sykepengesoknad/Oppsummering/opplysninger';
 import  { getSoknad } from '../../mockSoknader';
-import ledetekster from '../../ledetekster_mock';
+import ledetekster from '../../mockLedetekster';
 import { Varselstripe } from 'digisyfo-npm';
 
 describe("SendtSoknad", () => {

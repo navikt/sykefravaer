@@ -4,7 +4,7 @@ import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 
-import ledetekster from "../../ledetekster_mock";
+import ledetekster from "../../mockLedetekster";
 import NaermesteLedere from '../../../js/components/landingsside/NaermesteLedere';
 import BekreftFeilLederContainer from '../../../js/containers/BekreftFeilLederContainer';
 import Lightbox from '../../../js/components/Lightbox';

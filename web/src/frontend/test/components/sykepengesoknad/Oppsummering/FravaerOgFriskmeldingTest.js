@@ -7,7 +7,7 @@ const expect = chai.expect;
 
 import FravaerOgFriskmelding, { FeriePermisjonEllerUtenlandsopphold } from '../../../../js/components/sykepengesoknad/Oppsummering/FravaerOgFriskmelding';
 import { getSoknad } from '../../../mockSoknader';
-import ledetekster from '../../../ledetekster_mock';
+import ledetekster from '../../../mockLedetekster';
 
 describe("Oppsummering - FravaerOgFriskmelding -", () => {
 

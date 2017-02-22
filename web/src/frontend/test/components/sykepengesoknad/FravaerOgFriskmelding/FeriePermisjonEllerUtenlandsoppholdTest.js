@@ -8,7 +8,7 @@ const expect = chai.expect;
 import FeriePermisjonEllerUtenlandsopphold, { RendreFeriePermisjonEllerUtenlandsopphold, SoktOmSykepenger } from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FeriePermisjonEllerUtenlandsopphold';
 import JaEllerNei, { parseJaEllerNei } from '../../../../js/components/sykepengesoknad/JaEllerNei';
 import { getSoknad } from '../../../mockSoknader';
-import { ledetekster } from '../../../ledetekster_mock';
+import { ledetekster } from '../../../mockLedetekster';
 import { Field, FieldArray } from 'redux-form';
 import Checkbox from '../../../../js/components/skjema/Checkbox';
 import Periodevelger from '../../../../js/components/skjema/Periodevelger';

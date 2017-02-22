@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import ledetekster from "../../ledetekster_mock";
+import ledetekster from "../../mockLedetekster";
 import SykmeldingTeaser from "../../../js/components/sykmeldinger/SykmeldingTeaser";
 import getSykmelding from "../../mockSykmeldinger";
 

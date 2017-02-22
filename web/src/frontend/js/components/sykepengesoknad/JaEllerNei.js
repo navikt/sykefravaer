@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Radioknapper from '../skjema/Radioknapper';
 import { Field } from 'redux-form';
+import { scrollTo, erSynligIViewport } from 'digisyfo-npm';
 
 export const jaEllerNeiAlternativer = [{
     value: true,
@@ -24,20 +25,152 @@ JaEllerNeiRadioknapper.propTypes = {
     input: PropTypes.object,
 };
 
-export const RendreJaEllerNei = (props) => {
-    const { intro, input, children, verdiMedTilleggssporsmal = true } = props;
-    const visTillegg = (input.value === verdiMedTilleggssporsmal) && children;
-    return (<div className="blokk--xs">
-        <div className={`hovedsporsmal ${visTillegg ? 'hovedsporsmal--medTillegg' : ''}`}>
-            { intro && <p className="skjema__sporsmal blokk--s js-intro">{intro}</p> }
-            <JaEllerNeiRadioknapper {...props} />
-        </div>
-        {
-            visTillegg ? <div className="tilleggssporsmal js-tillegg">
-                {children}
-            </div> : null
+export class RendreJaEllerNei extends Component {
+    constructor(props) {
+        super(props);
+        const erApen = this.getErApen(props);
+        this.state = {
+            erApen,
+            containerClassName: '',
+            hindreToggle: false,
+            hoyde: !erApen ? '0' : 'auto',
+            visInnhold: erApen,
+            opacity: erApen ? '1' : '0',
+        };
+    }
+
+    componentDidUpdate(prevProps) {
+        const varApen = this.getErApen(prevProps);
+        const erApen = this.getErApen(this.props);
+        if (erApen !== varApen) {
+            if (erApen) {
+                this.apne();
+            } else {
+                this.lukk();
+            }
         }
-    </div>);
+    }
+
+    getContainerClass() {
+        return `tilleggssporsmal__innholdContainer${this.state.containerClassName}`;
+    }
+
+    onHoydeTransitionEnd(event) {
+        if (!this.state.harAnimasjon) {
+            return false;
+        }
+        if (this.state.erApen) {
+            this.setState({
+                hindreToggle: false,
+                harAnimasjon: false,
+            });
+            this.setAutoHoyde();
+            this.fadeIn();
+            setTimeout(() => {
+                scrollTo(this.refs.sporsmal, 600);
+            }, 300);
+        } else {
+            this.setState({
+                hindreToggle: false,
+                visInnhold: false,
+                harAnimasjon: false,
+                opacity: '0',
+            });
+            if (!erSynligIViewport(this.refs.sporsmal)) {
+                scrollTo(this.refs.sporsmal, 600);
+            }
+        }
+        return;
+    }
+
+    getErApen(props) {
+        const { input, children, verdiMedTilleggssporsmal = true } = props;
+        return (input.value === verdiMedTilleggssporsmal) && children;
+    }
+
+    setAutoHoyde() {
+        /* Fjerner animasjonsklassen slik at Safari ikke
+        tegner komponenten på nytt når høyde settes til 'auto': */
+        this.setState({
+            containerClassName: '',
+        });
+        // Setter høyde til auto:
+        setTimeout(() => {
+            this.setState({
+                hoyde: 'auto',
+                containerClassName: '',
+            });
+        }, 0);
+    }
+
+    fadeUt() {
+        this.setState({
+            opacity: '0',
+        });
+    }
+
+    fadeIn() {
+        this.setState({
+            opacity: '1',
+        });
+    }
+
+    apne() {
+        this.setState({
+            hoyde: '0',
+            hindreToggle: true,
+            containerClassName: ' tilleggssporsmal__innholdContainer--medAnimasjon',
+            visInnhold: true,
+            harAnimasjon: true,
+        });
+        setTimeout(() => {
+            const hoyde = this.refs.innhold.offsetHeight;
+            this.setState({
+                erApen: true,
+                hoyde,
+            });
+        }, 0);
+    }
+
+    lukk() {
+        const hoyde = this.refs.innhold.offsetHeight;
+        this.setState({
+            hoyde,
+            hindreToggle: true,
+            opacity: '0',
+        });
+        setTimeout(() => {
+            this.setState({
+                containerClassName: ' tilleggssporsmal__innholdContainer--medAnimasjon',
+                hoyde: '0',
+                erApen: false,
+            });
+        }, 0);
+    }
+
+    render() {
+        const { intro, input, children } = this.props;
+        return (<div className="blokk--xs">
+            <div className="hovedsporsmal" ref="sporsmal">
+                { intro && <p className="skjema__sporsmal blokk--s js-intro">{intro}</p> }
+                <JaEllerNeiRadioknapper {...this.props} />
+            </div>
+            <div ref="container" style={{ height: this.state.hoyde }} className={this.getContainerClass()} onTransitionEnd={(event) => {
+                this.onHoydeTransitionEnd(event);
+            }}>
+                {
+                    this.state.visInnhold ? <div className="tilleggssporsmal js-tillegg" ref="innhold">
+                        <div className="tilleggssporsmal__innhold" style={{ opacity: this.state.opacity }}>
+                            <div className="tilleggssporsmal__pil">
+                                <img src={`${window.APP_SETTINGS.APP_ROOT}/img/skjema/sporsmal__pil.svg`} alt="Pil nedover" />
+                            </div>
+                            {children}
+                        </div>
+                    </div> : null
+                }
+            </div>
+        </div>);
+    }
 };
 
 RendreJaEllerNei.propTypes = {
@@ -56,10 +189,6 @@ export const parseJaEllerNei = (value) => {
 
 const JaEllerNei = (props) => {
     return <Field component={RendreJaEllerNei} {...props} parse={parseJaEllerNei} />;
-};
-
-JaEllerNei.protoTypes = {
-    verdi: PropTypes.bool,
 };
 
 export default JaEllerNei;

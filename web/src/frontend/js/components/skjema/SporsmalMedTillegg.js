@@ -1,29 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import Radioknapper from '../skjema/Radioknapper';
-import { Field } from 'redux-form';
+import React, { Component, PropTypes } from 'react'
 import { scrollTo, erSynligIViewport } from 'digisyfo-npm';
-
-export const jaEllerNeiAlternativer = [{
-    value: true,
-    label: 'Ja',
-}, {
-    value: false,
-    label: 'Nei',
-}];
-
-export const JaEllerNeiRadioknapper = (props) => {
-    return (<Radioknapper {...props} name={props.input.name}>
-        {
-            jaEllerNeiAlternativer.map((alternativ, index) => {
-                return <input {...alternativ} key={index} />;
-            })
-        }
-    </Radioknapper>);
-};
-
-JaEllerNeiRadioknapper.propTypes = {
-    input: PropTypes.object,
-};
 
 export class SporsmalMedTillegg extends Component {
     constructor(props) {
@@ -170,27 +146,17 @@ export class SporsmalMedTillegg extends Component {
     }
 };
 
-const RendreJaEllerNei = (props) => {
-    const Valg = <JaEllerNeiRadioknapper {...props} />
-    return <SporsmalMedTillegg {...props} Valg={Valg} />;
-}
-
 SporsmalMedTillegg.propTypes = {
     intro: PropTypes.string,
     input: PropTypes.object,
-    verdiMedTilleggssporsmal: PropTypes.bool,
+    verdiMedTilleggssporsmal: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.bool,
+    ]),
     children: PropTypes.oneOfType([
-        React.PropTypes.array,
-        React.PropTypes.object,
+        PropTypes.array,
+        PropTypes.object,
     ]),
 };
 
-export const parseJaEllerNei = (value) => {
-    return value === 'true' || value === 'false' ? value === 'true' : value;
-};
-
-const JaEllerNei = (props) => {
-    return <Field component={RendreJaEllerNei} {...props} parse={parseJaEllerNei} />;
-};
-
-export default JaEllerNei;
+export default SporsmalMedTillegg;

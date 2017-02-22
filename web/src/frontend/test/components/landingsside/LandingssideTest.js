@@ -2,14 +2,14 @@ import chai from 'chai';
 import React from 'react'
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock";
+import ledetekster from "../../ledetekster_mock";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Landingsside, { GenerellInfo } from "../../js/components/Landingsside";
-import LandingssideLenke from "../../js/components/LandingssideLenke";
-import UnderUtviklingVarselContainer from "../../js/containers/UnderUtviklingVarselContainer"
+import Landingsside, { GenerellInfo } from "../../../js/components/landingsside/Landingsside";
+import LandingssideLenke from "../../../js/components/landingsside/LandingssideLenke";
+import UnderUtviklingVarselContainer from "../../../js/containers/UnderUtviklingVarselContainer"
 
 describe("Landingsside", () => {
 

@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import VelgArbeidssituasjon from '../../components/sykmelding/VelgArbeidssituasjon';
-import VelgArbeidsgiver from '../../components/sykmelding/VelgArbeidsgiver';
+import VelgArbeidssituasjon from './VelgArbeidssituasjon';
+import VelgArbeidsgiver from './VelgArbeidsgiver';
 import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';

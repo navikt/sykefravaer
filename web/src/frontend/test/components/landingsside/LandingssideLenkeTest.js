@@ -6,7 +6,7 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import LandingssideLenke from '../../js/components/LandingssideLenke'
+import LandingssideLenke from '../../../js/components/landingsside/LandingssideLenke'
 
 describe("LandingsideLenke", () => {
 	it('Skal vise tittel', () => {

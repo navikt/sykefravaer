@@ -8,7 +8,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import { LandingssideSide, mapStateToProps } from "../../js/containers/LandingssideContainer";
-import Landingsside from '../../js/components/Landingsside';
+import Landingsside from '../../js/components/landingsside/Landingsside';
 
 
 describe("LandingssideContainer", () => {

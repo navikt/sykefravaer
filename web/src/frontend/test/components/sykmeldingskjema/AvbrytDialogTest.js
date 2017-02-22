@@ -2,13 +2,13 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from '../ledetekster_mock';
+import ledetekster from '../../ledetekster_mock';
 import sinon from 'sinon';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import AvbrytDialog from "../../js/components/sykmelding/AvbrytDialog";
+import AvbrytDialog from "../../../js/components/sykmeldingskjema/AvbrytDialog";
 
 describe("AvbrytDialog", () => { 
 

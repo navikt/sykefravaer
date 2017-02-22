@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Landingsside from '../components/Landingsside';
+import Landingsside from '../components/landingsside/Landingsside';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
 import { getLedetekst } from 'digisyfo-npm';

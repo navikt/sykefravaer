@@ -2,14 +2,14 @@ import chai from 'chai';
 import React from 'react'
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock";
-import getSykmelding from "../mockSykmeldinger";
+import ledetekster from "../../ledetekster_mock";
+import getSykmelding from "../../mockSykmeldinger";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import DinSykmelding from "../../js/components/sykmelding/DinSykmelding";
-import DinSykmeldingSkjemaContainer from "../../js/containers/DinSykmeldingSkjemaContainer";
+import DinSykmelding from "../../../js/components/sykmelding/DinSykmelding";
+import DinSykmeldingSkjemaContainer from "../../../js/containers/DinSykmeldingSkjemaContainer";
 import { DineSykmeldingOpplysninger } from "digisyfo-npm";
 
 import { Provider } from 'react-redux';

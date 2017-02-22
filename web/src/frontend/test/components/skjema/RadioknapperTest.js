@@ -2,7 +2,7 @@ import chai from "chai";
 import React from "react";
 import {mount, shallow} from "enzyme";
 import chaiEnzyme from "chai-enzyme";
-import Radioknapper from "../../js/components/skjema/Radioknapper";
+import Radioknapper from "../../../js/components/skjema/Radioknapper";
 import {Hjelpetekst} from "digisyfo-npm";
 
 chai.use(chaiEnzyme());

@@ -3,7 +3,7 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { FieldArray, Field } from 'redux-form';
-import Checkbox from '../../js/components/skjema/Checkbox';
+import Checkbox from '../../../js/components/skjema/Checkbox';
 
 import configureMockStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
@@ -12,8 +12,8 @@ import { Provider } from 'react-redux';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import ErOpplysningeneRiktige, { RenderFeilaktigeOpplysninger, SykmeldingFeilaktigeOpplysningerInfo, DuTrengerNySykmelding, DuKanBrukeSykmeldingenDinArbeidsgiver, DuKanBrukeSykmeldingenDinDiagnoseAndre  } from '../../js/components/sykmelding/ErOpplysningeneRiktige';
-import JaEllerNei from '../../js/components/sykepengesoknad/JaEllerNei';
+import ErOpplysningeneRiktige, { RenderFeilaktigeOpplysninger, SykmeldingFeilaktigeOpplysningerInfo, DuTrengerNySykmelding, DuKanBrukeSykmeldingenDinArbeidsgiver, DuKanBrukeSykmeldingenDinDiagnoseAndre  } from '../../../js/components/sykmeldingskjema/ErOpplysningeneRiktige';
+import JaEllerNei from '../../../js/components/sykepengesoknad/JaEllerNei';
 
 describe("ErOpplysningeneRiktige - ", () => {
 

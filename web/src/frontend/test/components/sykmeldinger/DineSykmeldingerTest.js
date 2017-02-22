@@ -2,15 +2,15 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock";
-import getSykmelding from '../mockSykmeldinger';
-import Sidetopp from "../../js/components/Sidetopp";
+import ledetekster from "../../ledetekster_mock";
+import getSykmelding from '../../mockSykmeldinger';
+import Sidetopp from "../../../js/components/Sidetopp";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import DineSykmeldinger from "../../js/components/sykmeldinger/DineSykmeldinger";
-import SykmeldingTeasere from '../../js/components/sykmeldinger/SykmeldingTeasere';
+import DineSykmeldinger from "../../../js/components/sykmeldinger/DineSykmeldinger";
+import SykmeldingTeasere from '../../../js/components/sykmeldinger/SykmeldingTeasere';
 
 describe("Dine sykmeldinger", () => {
 

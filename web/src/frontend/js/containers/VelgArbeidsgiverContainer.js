@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { setArbeidsgiver } from '../actions/dinSykmelding_actions';
-import VelgArbeidsgiver from '../components/sykmelding/VelgArbeidsgiver';
+import VelgArbeidsgiver from '../components/sykmeldingskjema/VelgArbeidsgiver';
 import { getLedetekst, getSykmelding } from 'digisyfo-npm';
 
 export class VelgArbeidsgiverWrapper extends Component {

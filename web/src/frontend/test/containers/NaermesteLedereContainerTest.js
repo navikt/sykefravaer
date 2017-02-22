@@ -9,7 +9,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import { Container, mapStateToProps } from '../../js/containers/NaermesteLedereContainer';
-import Naermesteledere from '../../js/components/NaermesteLedere';
+import Naermesteledere from '../../js/components/landingsside/NaermesteLedere';
 
 describe("NaermesteLedereContainer", () => {
 

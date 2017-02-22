@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Soknader from '../components/soknader/Soknader';
+import Soknader from '../components/sykepengesoknader/Soknader';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
 import { getLedetekst } from 'digisyfo-npm';

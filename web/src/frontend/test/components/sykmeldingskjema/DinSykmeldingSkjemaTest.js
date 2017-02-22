@@ -3,19 +3,19 @@ import React from 'react'
 import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock";
-import getSykmelding from "../mockSykmeldinger";
+import ledetekster from "../../ledetekster_mock";
+import getSykmelding from "../../mockSykmeldinger";
 import configureMockStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
-import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, validate } from "../../js/components/sykmelding/DinSykmeldingSkjema";
-import StrengtFortroligInfo from "../../js/components/sykmelding/StrengtFortroligInfo";
-import VelgArbeidssituasjon from "../../js/components/sykmelding/VelgArbeidssituasjon";
+import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, validate } from "../../../js/components/sykmeldingskjema/DinSykmeldingSkjema";
+import StrengtFortroligInfo from "../../../js/components/sykmeldingskjema/StrengtFortroligInfo";
+import VelgArbeidssituasjon from "../../../js/components/sykmeldingskjema/VelgArbeidssituasjon";
 import { DineSykmeldingOpplysninger } from "digisyfo-npm";
-import VelgArbeidsgiver from "../../js/components/sykmelding/VelgArbeidsgiver";
-import ArbeidsgiversSykmeldingContainer from "../../js/containers/ArbeidsgiversSykmeldingContainer";
+import VelgArbeidsgiver from "../../../js/components/sykmeldingskjema/VelgArbeidsgiver";
+import ArbeidsgiversSykmeldingContainer from "../../../js/containers/ArbeidsgiversSykmeldingContainer";
 import { Varselstripe } from "digisyfo-npm";
-import ErLederRiktig from '../../js/components/sykmelding/ErLederRiktig';
-import ForskuttererArbeidsgiver from '../../js/components/sykmelding/ForskuttererArbeidsgiver';
+import ErLederRiktig from "../../../js/components/sykmeldingskjema/ErLederRiktig";
+import ForskuttererArbeidsgiver from "../../../js/components/sykmeldingskjema/ForskuttererArbeidsgiver";
 import { Provider } from 'react-redux';
 
 chai.use(chaiEnzyme());

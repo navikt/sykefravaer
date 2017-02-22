@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import Lightbox from './Lightbox';
-import BekreftFeilLederContainer from '../containers/BekreftFeilLederContainer';
+import Lightbox from '../Lightbox';
+import BekreftFeilLederContainer from '../../containers/BekreftFeilLederContainer';
 
 export default class NaermesteLedere extends Component {
     constructor(props) {

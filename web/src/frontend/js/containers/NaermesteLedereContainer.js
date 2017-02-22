@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import NaermesteLedere from '../components/NaermesteLedere';
+import NaermesteLedere from '../components/landingsside/NaermesteLedere';
 import * as actions from '../actions/ledere_actions';
 
 export class Container extends Component {

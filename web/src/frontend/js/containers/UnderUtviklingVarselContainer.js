@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/brukerinfo_actions';
-import UnderUtviklingVarsel from '../components/UnderUtviklingVarsel';
+import UnderUtviklingVarsel from '../components/landingsside/UnderUtviklingVarsel';
 
 function mapStateToProps() {
     return {};

@@ -6,7 +6,7 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import VelgArbeidssituasjon, { RendreVelgArbeidssituasjon } from '../../js/components/sykmelding/VelgArbeidssituasjon';
+import VelgArbeidssituasjon, { RendreVelgArbeidssituasjon } from '../../../js/components/sykmeldingskjema/VelgArbeidssituasjon';
 import { FieldArray, Field } from 'redux-form';
 
 describe('VelgArbeidssituasjon', () => {

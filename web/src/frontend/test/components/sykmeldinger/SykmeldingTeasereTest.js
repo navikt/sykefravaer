@@ -5,10 +5,10 @@ import chaiEnzyme from 'chai-enzyme';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import ledetekster from "../ledetekster_mock";
-import SykmeldingTeaser from "../../js/components/sykmeldinger/SykmeldingTeaser";
-import SykmeldingTeasere from "../../js/components/sykmeldinger/SykmeldingTeasere";
-import SykmeldingerSorteringContainer from "../../js/containers/SykmeldingerSorteringContainer";
+import ledetekster from "../../ledetekster_mock";
+import SykmeldingTeaser from "../../../js/components/sykmeldinger/SykmeldingTeaser";
+import SykmeldingTeasere from "../../../js/components/sykmeldinger/SykmeldingTeasere";
+import SykmeldingerSorteringContainer from "../../../js/containers/SykmeldingerSorteringContainer";
 
 const sykmeldinger = [{
     id: 1,

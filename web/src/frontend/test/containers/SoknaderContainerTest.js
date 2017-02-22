@@ -8,7 +8,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import { SoknaderSide, mapStateToProps } from "../../js/containers/SoknaderContainer";
-import Soknader from '../../js/components/soknader/Soknader';
+import Soknader from '../../js/components/sykepengesoknader/Soknader';
 import AppSpinner from '../../js/components/AppSpinner';
 import Feilmelding from '../../js/components/Feilmelding';
 import { SYKEPENGER_SKJEMANAVN } from '../../js/components/sykepengesoknad/setup';

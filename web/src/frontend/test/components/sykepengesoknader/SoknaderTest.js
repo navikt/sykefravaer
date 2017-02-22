@@ -6,9 +6,9 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Soknader from "../../js/components/soknader/Soknader";
-import SoknaderTeasere from "../../js/components/soknader/SoknaderTeasere";
-import Sidetopp from "../../js/components/Sidetopp";
+import Soknader from "../../../js/components/sykepengesoknader/Soknader";
+import SoknaderTeasere from "../../../js/components/sykepengesoknader/SoknaderTeasere";
+import Sidetopp from "../../../js/components/Sidetopp";
 
 describe("Søknader om sykepenger", () => {
 

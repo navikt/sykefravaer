@@ -6,7 +6,7 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import SoknaderTeaser from "../../js/components/soknader/SoknaderTeaser";
+import SoknaderTeaser from "../../../js/components/sykepengesoknader/SoknaderTeaser";
 
 describe("SoknadTeaser", () => {
 

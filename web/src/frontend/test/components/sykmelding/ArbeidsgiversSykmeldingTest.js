@@ -2,15 +2,15 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock";
-import getSykmelding from "../mockSykmeldinger";
+import ledetekster from "../../ledetekster_mock";
+import getSykmelding from "../../mockSykmeldinger";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import { Utvidbar } from "digisyfo-npm";
 
-import ArbeidsgiversSykmelding from '../../js/components/sykmelding/ArbeidsgiversSykmelding';
+import ArbeidsgiversSykmelding from '../../../js/components/sykmelding/ArbeidsgiversSykmelding';
 import { ArbeidsgiversSykmeldingOpplysninger } from 'digisyfo-npm';
 
 let component;

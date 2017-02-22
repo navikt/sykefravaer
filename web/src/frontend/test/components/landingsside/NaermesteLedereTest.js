@@ -2,12 +2,12 @@ import chai from 'chai';
 import React from 'react'
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../ledetekster_mock";
 import sinon from 'sinon';
 
-import NaermesteLedere from '../../js/components/NaermesteLedere';
-import BekreftFeilLederContainer from '../../js/containers/BekreftFeilLederContainer';
-import Lightbox from '../../js/components/Lightbox';
+import ledetekster from "../../ledetekster_mock";
+import NaermesteLedere from '../../../js/components/landingsside/NaermesteLedere';
+import BekreftFeilLederContainer from '../../../js/containers/BekreftFeilLederContainer';
+import Lightbox from '../../../js/components/Lightbox';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

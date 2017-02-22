@@ -94,14 +94,14 @@ describe("AktiviteterISykmeldingsperioden", () => {
         beforeEach(() =>  {
             tidligsteFom = new Date("2017-01-20");
             senesteTom = new Date("2017-01-30");
-            component = shallow(<UtdanningStartDato ledetekster={ledetekster} tidligsteFom={tidligsteFom} senesteTom={senesteTom} />)
+            component = shallow(<UtdanningStartDato ledetekster={ledetekster} senesteTom={senesteTom} />)
         });
 
-        it("Skal inneholde Datovelger med tidligsteFom og senesteTom", () => {
+        it("Skal inneholde Datovelger uten tidligsteFom men med senesteTom", () => {
             datovelger = component.find(Datovelger);
             expect(datovelger).to.have.length(1);
             expect(datovelger.prop("name")).to.equal("utdanning.utdanningStartdato");
-            expect(datovelger.prop("tidligsteFom")).to.equal(tidligsteFom);
+            expect(datovelger.prop("tidligsteFom")).to.equal(undefined);
             expect(datovelger.prop("senesteTom")).to.equal(senesteTom);
         });
 

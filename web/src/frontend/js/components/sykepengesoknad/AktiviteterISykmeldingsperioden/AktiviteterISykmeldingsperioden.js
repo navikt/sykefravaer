@@ -13,16 +13,15 @@ import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import * as periodeUtils from '../../../utils/periodeUtils';
 import validate from '../validering/validerAktiviteterISykmeldingsperioden';
 
-export const UtdanningStartDato = ({ ledetekster, tidligsteFom, senesteTom }) => {
+export const UtdanningStartDato = ({ ledetekster, senesteTom }) => {
     return (<div className="blokk">
         <label className="skjema__sporsmal" htmlFor="utdanningStartdato">{getLedetekst('sykepengesoknad.utdanning.startdato.sporsmal', ledetekster)}</label>
-        <Datovelger name="utdanning.utdanningStartdato" id="utdanningStartdato" tidligsteFom={tidligsteFom} senesteTom={senesteTom} />
+        <Datovelger name="utdanning.utdanningStartdato" id="utdanningStartdato" senesteTom={senesteTom} />
     </div>);
 };
 
 UtdanningStartDato.propTypes = {
     ledetekster: PropTypes.object,
-    tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
 };
 
@@ -68,7 +67,7 @@ export const AktiviteterISykmeldingsperioden = (props) => {
                         '%STARTDATO%': toDatePrettyPrint(_tidligsteFom),
                         '%SLUTTDATO%': toDatePrettyPrint(_senesteTom),
                     })}>
-                    <UtdanningStartDato ledetekster={ledetekster} tidligsteFom={_tidligsteFom} senesteTom={_senesteTom} />
+                    <UtdanningStartDato ledetekster={ledetekster} senesteTom={_senesteTom} />
                     <Field
                         component={JaEllerNeiRadioknapper}
                         name="utdanning.erUtdanningFulltidsstudium"

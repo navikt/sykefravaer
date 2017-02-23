@@ -225,7 +225,7 @@ const ingenFeilaktigeOpplysningerOppgitt = (feilaktigeOpplysninger) => {
         feilaktigeOpplysninger.sykmeldingsgrad,
         feilaktigeOpplysninger.arbeidsgiver,
         feilaktigeOpplysninger.diagnose,
-        feilaktigeOpplysninger.perioder,
+        feilaktigeOpplysninger.andre,
     ];
     return v.filter((a) => { return a; }).length === 0;
 };

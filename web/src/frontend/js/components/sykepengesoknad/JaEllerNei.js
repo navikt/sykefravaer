@@ -170,7 +170,7 @@ export class SporsmalMedTillegg extends Component {
     }
 };
 
-const RendreJaEllerNei = (props) => {
+export const RendreJaEllerNei = (props) => {
     const Valg = <JaEllerNeiRadioknapper {...props} />
     return <SporsmalMedTillegg {...props} Valg={Valg} />;
 }

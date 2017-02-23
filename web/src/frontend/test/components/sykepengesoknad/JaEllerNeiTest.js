@@ -4,7 +4,7 @@ import {mount, shallow, render} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import JaEllerNei, { RendreJaEllerNei, parseJaEllerNei, JaEllerNeiRadioknapper, jaEllerNeiAlternativer } from '../../../js/components/sykepengesoknad/JaEllerNei';
+import JaEllerNei, { SporsmalMedTillegg, RendreJaEllerNei, parseJaEllerNei, JaEllerNeiRadioknapper, jaEllerNeiAlternativer } from '../../../js/components/sykepengesoknad/JaEllerNei';
 import Radioknapper from '../../../js/components/skjema/Radioknapper';
 import { Field } from 'redux-form';
 
@@ -22,7 +22,6 @@ describe("JaEllerNei", () => {
         expect(component.find(Field)).to.have.length(1);
         expect(component.find(Field).prop("component")).to.deep.equal(RendreJaEllerNei);
         expect(component.find(Field).prop("parse")).to.deep.equal(parseJaEllerNei);
-        expect(component.find(Field).prop("sporsmal"))
     });
 
     describe("parseJaEllerNei", () => {
@@ -60,30 +59,9 @@ describe("JaEllerNei", () => {
             component = shallow(<RendreJaEllerNei {...props} />);
         })
 
-        it("Skal vise intro hvis det er intro", () => {
-            component = shallow(<RendreJaEllerNei intro="Min intro" {...props} />);
-            expect(component).to.contain("Min intro");
-            expect(component.find(".js-intro")).to.have.length(1);
-        });
-
-        it("Skal ikke vise intro hvis det ikke er intro", () => {
-            expect(component.find(".js-intro")).to.have.length(0);
-        });
-
-        it("Skal inneholde JaEllerNeiRadioknapper", () => {
-            expect(component.contains(<JaEllerNeiRadioknapper {...props} />)).to.be.true;
-        });
-
-        it("Skal vise children hvis verdi === true og det finnes children", () => {
-            props.input.value = true;
-            component = shallow(<RendreJaEllerNei {...props}><p>Test</p></RendreJaEllerNei>)
-            expect(component.find(".js-tillegg")).to.have.length(1);
-            expect(component.find(".js-tillegg")).to.contain(<p>Test</p>);
-        });
-
-        it("Skal ikke vise children hvis verdi !== true og det finnes children", () => {
-            component = shallow(<RendreJaEllerNei {...props}><p>Test</p></RendreJaEllerNei>)
-            expect(component.find(".js-tillegg")).to.have.length(0);
+        it("Skal inneholde SporsmalMedTillegg", () => {
+            expect(component.find(SporsmalMedTillegg)).to.have.length(1);
+            expect(component.find(SporsmalMedTillegg).prop("Valg")).to.deep.equal(<JaEllerNeiRadioknapper {...props} />)
         });
 
     });

@@ -16,7 +16,7 @@ const getArbeidssituasjoner = (arbeidssituasjon) => {
 export const RendreVelgArbeidssituasjon = (props) => {
     const { input, meta, ledetekster } = props;
     return (
-        <div className={input.value && input.value !== 'default' ? 'blokk' : ''}>
+        <div className="hovedsporsmal">
             <div className="medHjelpetekst">
                 <label htmlFor="select-arbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
                     {getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster)}

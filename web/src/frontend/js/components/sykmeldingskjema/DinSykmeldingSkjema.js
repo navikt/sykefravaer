@@ -127,7 +127,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
             }
             {
-                modus !== modi.AVBRYT && (<div className="panel blokk">
+                modus !== modi.AVBRYT && (<div className="blokk">
                 {
                     <VelgArbeidssituasjon ledetekster={ledetekster} untouch={untouch} modus={modus} />
                 }

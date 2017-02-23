@@ -43,7 +43,7 @@ export class SporsmalMedTillegg extends Component {
             this.setAutoHoyde();
             this.fadeIn();
             setTimeout(() => {
-                scrollTo(this.refs.sporsmal, 600);
+                scrollTo(this.refs.hovedsporsmal, 600);
             }, 300);
         } else {
             this.setState({
@@ -52,16 +52,15 @@ export class SporsmalMedTillegg extends Component {
                 harAnimasjon: false,
                 opacity: '0',
             });
-            if (!erSynligIViewport(this.refs.sporsmal)) {
-                scrollTo(this.refs.sporsmal, 600);
+            if (!erSynligIViewport(this.refs.hovedsporsmal)) {
+                scrollTo(this.refs.hovedsporsmal, 600);
             }
         }
         return;
     }
 
     getErApen(props) {
-        const { input, children, verdiMedTilleggssporsmal = true } = props;
-        return (input.value === verdiMedTilleggssporsmal) && children ? true : false;
+        return this.props.visTillegg(props);
     }
 
     setAutoHoyde() {
@@ -100,7 +99,7 @@ export class SporsmalMedTillegg extends Component {
             harAnimasjon: true,
         });
         setTimeout(() => {
-            const hoyde = this.refs.innhold.offsetHeight;
+            const hoyde = this.refs.tilleggsinnhold.offsetHeight;
             this.setState({
                 erApen: true,
                 hoyde,
@@ -109,7 +108,7 @@ export class SporsmalMedTillegg extends Component {
     }
 
     lukk() {
-        const hoyde = this.refs.innhold.offsetHeight;
+        const hoyde = this.refs.tilleggsinnhold.offsetHeight;
         this.setState({
             hoyde,
             hindreToggle: true,
@@ -125,18 +124,17 @@ export class SporsmalMedTillegg extends Component {
     }
 
     render() {
-        const { intro, input, children, Valg } = this.props;
-        return (<div className="blokk--xs">
-            <div className="hovedsporsmal" ref="sporsmal">
-                { intro && <p className="skjema__sporsmal blokk--s js-intro">{intro}</p> }
-                {Valg}
+        const { input, children, Sporsmal, className } = this.props;
+        return (<div className={className}>
+            <div ref="hovedsporsmal">
+                {Sporsmal}
             </div>
             <div ref="container" style={{ height: this.state.hoyde }} className={this.getContainerClass()} onTransitionEnd={(event) => {
                 this.onHoydeTransitionEnd(event);
             }}>
                 {
-                    this.state.visInnhold ? <div className="tilleggssporsmal js-tillegg" ref="innhold">
-                        <div className="tilleggssporsmal__innhold" style={{ opacity: this.state.opacity }}>
+                    this.state.visInnhold ? <div className="js-tillegg" ref="tilleggsinnhold">
+                        <div className="tilleggsinnhold__innhold" style={{ opacity: this.state.opacity }}>
                             {children}
                         </div>
                     </div> : null

@@ -312,7 +312,7 @@ describe("DinSykmeldingSkjema -", () => {
     }); 
 
 
-    describe("VelgArbeidsgiver", () => {
+    describe.only("VelgArbeidsgiver", () => {
 
         let component;
         let arbeidsgivere; 

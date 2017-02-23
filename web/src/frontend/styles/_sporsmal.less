@@ -60,20 +60,17 @@
 
 .ekstrasporsmal {
     background-color: @bakgrunnGraa;
-    box-shadow: 0 0 0 1px @inaktivGraa inset;
-    margin: 2em -1em 1em;
+    margin: 2em -.5em 1em;
 
     @media(min-width: @skjermMini) {
-        margin-left: -2em;
-        margin-right: -2em;
-        padding-left: 2em;
-        padding-right: 2em;
+        margin-left: -1em;
+        margin-right: -1em;
+        padding-left: 1em;
+        padding-right: 1em;
     }
 
     &:after {
         background-color: @bakgrunnGraa;
-        border-left: 1px solid @inaktivGraa;
-        border-top: 1px solid @inaktivGraa;
     }
 }
 
@@ -102,9 +99,9 @@
 }
 
 #cb-checkbox-utenlandsopphold .ekstrasporsmal, .ekstrasporsmal--sist {
-    margin-bottom: ~"calc(-1em + 1px)";
+    margin-bottom: ~"calc(-.5em + 1px)";
 
     @media(min-width: @skjermMini) {
-        margin-bottom: ~"calc(-2em + 1px)";
+        margin-bottom: ~"calc(-1em + 1px)";
     }
 }

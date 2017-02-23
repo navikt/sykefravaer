@@ -2,31 +2,15 @@ import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import { getLedetekst } from 'digisyfo-npm';
 import Feilomrade from '../skjema/Feilomrade';
+import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
+import { Radioknapp } from '../skjema/Radioknapper';
 
-const Radioknapp = ({ id, label, input, value, children }) => {
-    return (<div className="skjema__input">
-        <input type="radio" className="radioknapp" id={id} {...input} value={value} />
-        <label htmlFor={id}>{label}</label>
-        {
-            input.value === value && children ? children : null
-        }
-    </div>);
-};
+const VET_IKKE = 'VET_IKKE';
+const JA = 'JA';
+const NEI = 'NEI';
 
-const Radioknapper = ({ input, meta, ledetekster }) => {
-    return (<Feilomrade {...meta}>
-        <Radioknapp key={0} label="Ja" id="arbeidsgiverForskutterer-JA" value="JA" input={input} />
-        <Radioknapp key={1} label="Nei" id="arbeidsgiverForskutterer-NEI" value="NEI" input={input} />
-        <Radioknapp key={2} label="Vet ikke" id="arbeidsgiverForskutterer-VET_IKKE" value="VET_IKKE" input={input}>
-            <div className="panel panel-ekstra">
-                <p className="sist">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.vet-ikke', ledetekster)}</p>
-            </div>
-        </Radioknapp>
-    </Feilomrade>);
-};
-
-const ForskuttererArbeidsgiver = ({ arbeidsgiver, ledetekster }) => {
-    return (<div className="blokk">
+const ForskuttererSporsmal = ({ input, meta, ledetekster, arbeidsgiver }) => {
+    return (<div>
         <h3 className="skjema__sporsmal">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.overskrift', ledetekster)}</h3>
         <p>{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.tekst', ledetekster)}</p>
         <p>
@@ -34,25 +18,46 @@ const ForskuttererArbeidsgiver = ({ arbeidsgiver, ledetekster }) => {
                 '%ARBEIDSGIVER%': arbeidsgiver.navn,
             })}
         </p>
-        <Field component={Radioknapper} name="arbeidsgiverForskutterer" ledetekster={ledetekster} />
+        <Feilomrade {...meta}>
+            <Radioknapp key={0} label="Ja" id="arbeidsgiverForskutterer-JA" value={JA} input={input} />
+            <Radioknapp key={1} label="Nei" id="arbeidsgiverForskutterer-NEI" value={NEI} input={input} />
+            <Radioknapp key={2} label="Vet ikke" id="arbeidsgiverForskutterer-VET_IKKE" value={VET_IKKE} input={input} />
+        </Feilomrade>
     </div>);
 };
 
-Radioknapp.propTypes = {
-    id: PropTypes.string,
-    label: PropTypes.string,
-    input: PropTypes.object,
-    value: PropTypes.string,
-    children: PropTypes.object,
-};
-
-Radioknapper.propTypes = {
+ForskuttererSporsmal.propTypes = {
     input: PropTypes.object,
     meta: PropTypes.object,
     ledetekster: PropTypes.object,
+    arbeidsgiver: PropTypes.object,
+};
+
+const rendreForskuttererArbeidsgiver = (props) => {
+    const { ledetekster } = props;
+    const Sporsmal = <ForskuttererSporsmal {...props} />
+    return (<SporsmalMedTillegg {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
+        const input = _props.input; 
+        return input && input.value === VET_IKKE;
+    }}>
+        <div className="ekstrasporsmal">
+            <p className="sist">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.vet-ikke', ledetekster)}</p>
+        </div>
+    </SporsmalMedTillegg>);
+};
+
+rendreForskuttererArbeidsgiver.propTypes = {
+    ledetekster: PropTypes.object,
+}
+
+const ForskuttererArbeidsgiver = ({ arbeidsgiver, ledetekster }) => {
+    return (<div className="blokk">
+        <Field component={rendreForskuttererArbeidsgiver} name="arbeidsgiverForskutterer" ledetekster={ledetekster} arbeidsgiver={arbeidsgiver} />
+    </div>);
 };
 
 ForskuttererArbeidsgiver.propTypes = {
+    input: PropTypes.object,
     arbeidsgiver: PropTypes.object,
     ledetekster: PropTypes.object,
 };

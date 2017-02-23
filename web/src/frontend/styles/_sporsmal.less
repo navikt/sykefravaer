@@ -1,4 +1,4 @@
-.hovedsporsmal, .tilleggssporsmal, .presisering {
+.hovedsporsmal, .presisering {
     padding: 1em;
     background-color: @hvit;
     position: relative;
@@ -14,29 +14,26 @@
     }
 }
 
+.tilleggssporsmal {
+    padding: 1em;
+    background-color: @hvit;
+    position: relative;
+
+    @media(min-width: @skjermMini) {
+        padding-top: 0;
+    }
+}
+
 .tilleggssporsmal__innholdContainer--medAnimasjon {
     overflow: hidden;
     .mixin-transition(.3s, height);
     transform: translate3d(0, 0, 0);
 }
 
-.tilleggssporsmal__innhold {
+.tilleggsinnhold__innhold {
     opacity: 0;
     .mixin-transition(.3s, opacity);
     position: relative;
-}
-
-.tilleggssporsmal__pil {
-    position: absolute;
-    top: -2em;
-    width: 1em;
-    height: 1em;
-    display: flex;
-    margin-left: 3px;
-
-    img {
-        width: 100%;
-    }
 }
 
 .ekstrasporsmal, .presisering {

@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
 import Feilomrade from './Feilomrade';
 
-export const Radioknapp = ({ input, value, children, id, label }) => {
+export const Radioknapp = ({ input, value, children, id, label, checked, labelSekundaer }) => {
     return (<div>
         <div className="skjema__input">
-            <input id={id} className="radioknapp" type="radio" {...input} checked={input.value.toString() === value.toString()} value={value} onBlur={() => {
+            <input id={id} className="radioknapp" type="radio" {...input} checked={checked || input.value.toString() === value.toString()} value={value} onBlur={() => {
                 input.onBlur();
             }} />
-            <label htmlFor={id}>{label}</label>
+            <label htmlFor={id}>{label} {labelSekundaer ? <span className="sekundaerLabel">{labelSekundaer}</span> : null}</label>
         </div>
         {input.value === value && children}
     </div>);

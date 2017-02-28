@@ -9,7 +9,7 @@ const VET_IKKE = 'VET_IKKE';
 const JA = 'JA';
 const NEI = 'NEI';
 
-const ForskuttererSporsmal = ({ input, meta, ledetekster, arbeidsgiver }) => {
+export const ForskuttererSporsmal = ({ input, meta, ledetekster, arbeidsgiver }) => {
     return (<div>
         <h3 className="skjema__sporsmal">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.overskrift', ledetekster)}</h3>
         <p>{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.tekst', ledetekster)}</p>
@@ -33,27 +33,29 @@ ForskuttererSporsmal.propTypes = {
     arbeidsgiver: PropTypes.object,
 };
 
-const rendreForskuttererArbeidsgiver = (props) => {
+export const RendreForskuttererArbeidsgiver = (props) => {
     const { ledetekster } = props;
-    const Sporsmal = <ForskuttererSporsmal {...props} />
-    return (<SporsmalMedTillegg {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
-        const input = _props.input; 
+    const Sporsmal = <ForskuttererSporsmal {...props} />;
+    return (<SporsmalMedTillegg className="hovedsporsmal__tilleggssporsmal" {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
+        const input = _props.input;
         return input && input.value === VET_IKKE;
     }}>
-        <div className="ekstrasporsmal">
+        <div className="ekstrasporsmal ekstrasporsmal--sist">
             <p className="sist">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.vet-ikke', ledetekster)}</p>
         </div>
     </SporsmalMedTillegg>);
 };
 
-rendreForskuttererArbeidsgiver.propTypes = {
+RendreForskuttererArbeidsgiver.propTypes = {
     ledetekster: PropTypes.object,
-}
+};
 
 const ForskuttererArbeidsgiver = ({ arbeidsgiver, ledetekster }) => {
-    return (<div className="blokk">
-        <Field component={rendreForskuttererArbeidsgiver} name="arbeidsgiverForskutterer" ledetekster={ledetekster} arbeidsgiver={arbeidsgiver} />
-    </div>);
+    return (<Field
+        component={RendreForskuttererArbeidsgiver}
+        name="arbeidsgiverForskutterer"
+        ledetekster={ledetekster}
+        arbeidsgiver={arbeidsgiver} />);
 };
 
 ForskuttererArbeidsgiver.propTypes = {

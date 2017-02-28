@@ -84,12 +84,11 @@ describe("DinSykmeldingSkjema -", () => {
         expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(0);
     });
 
-    it("Skal vise VelgArbeidsgiver og ArbeidsgiversSykmeldingContainer dersom arbeidssituasjon === 'arbeidstaker'", () => {
+    it("Skal vise ArbeidsgiversSykmeldingContainer dersom arbeidssituasjon === 'arbeidstaker'", () => {
         skjemaData.values.valgtArbeidssituasjon = 'arbeidstaker';
         component = mount(<Provider store={store}>
             <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={[]} />
         </Provider>);
-        expect(component.find(VelgArbeidsgiver)).to.have.length(1);
         expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(1);
     });
 
@@ -312,7 +311,7 @@ describe("DinSykmeldingSkjema -", () => {
     }); 
 
 
-    describe.only("VelgArbeidsgiver", () => {
+    describe("Logikk i skjemaet basert på svar i VelgArbeidsgiver", () => {
 
         let component;
         let arbeidsgivere; 
@@ -333,44 +332,6 @@ describe("DinSykmeldingSkjema -", () => {
             component = mount(<Provider store={store}>
                 <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
             </Provider>);
-        })
-
-        it("Skal inneholde radioknapper", () => {
-            expect(component.find("#arbeidsgiver-0")).to.have.length(1);
-            expect(component.find("#arbeidsgiver-123456789")).to.have.length(1);
-        });
-
-        it("Skal dekorere navn med orgnummer på format 123 456 789", () => {
-            expect(component.text()).to.contain("123 456 789");
-        });
-
-        it("Skal i utgangspunktet ikke vise mer info", () => {
-            expect(component.find(".js-annen-info")).to.have.length(0);
-        });
-
-        it("Skal vise mer info dersom man velger annen arbeidsgiver", () => {
-            skjemaData.values.valgtArbeidsgiver = {
-                orgnummer: "0"
-            }
-            component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} ledetekster={{}} />
-            </Provider>);
-            expect(component.find(".js-annen-info")).to.have.length(1);
-        });
-
-        it("Skal ikke spørre om oppgitt nærmeste leder er riktig leder dersom man ikke har valgt arbeidsgiver", () => {
-            expect(component.find(ErLederRiktig)).to.have.length(0);
-        });
-
-        it("Skal ikke spørre om oppgitt nærmeste leder er riktig leder dersom valgt arbeidsgiver ikke har noen ledere", () => {
-            skjemaData.values.valgtArbeidsgiver = {
-                orgnummer: "123456789",
-                navn: "Mortens frukt og grønt"
-            }
-            component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
-            </Provider>);
-            expect(component.find(ErLederRiktig)).to.have.length(0);
         });
 
         it("Skal vise egen tekst for innsending ved JA på bekreft nærmest leder", () => {
@@ -440,61 +401,6 @@ describe("DinSykmeldingSkjema -", () => {
             expect(component.text()).to.contain('Send sykmelding')
         });
 
-        it("Skal spørre om oppgitt nærmeste leder er riktig leder dersom valgt arbeidsgiver har en leder", () => {
-            const arbeidsgivere = [{
-                orgnummer: "123456789",
-                navn: "Mortens frukt og grønt"
-            }, {
-                orgnummer: "0", 
-                navn: "Annen arbeidsgiver"
-            }];
-            skjemaData.values.valgtArbeidsgiver = {
-                orgnummer: "123456789",
-                navn: "Mortens frukt og grønt",
-                naermesteLeder: {
-                    navn: "Ole Olsen",
-                    epost: "ole.olsen@test.no"
-                }
-            };
-            const component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
-            </Provider>);
-            expect(component.find(ErLederRiktig)).to.have.length(1);
-        });
-
-        it("Skal ikke vise valg for arbeidsgiver forskutterer dersom brukeren ikke er med i pilot sykepenger", () => {
-            const arbeidsgivere = [{
-                orgnummer: "123456789",
-                navn: "Mortens frukt og grønt"
-            }];
-            skjemaData.values.valgtArbeidsgiver = {
-                orgnummer: "123456789",
-                navn: "Mortens frukt og grønt"
-            };
-
-            const component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} pilotSykepenger={false} />
-            </Provider>);
-
-            expect(component.find(ForskuttererArbeidsgiver)).to.have.length(0);
-        });
-
-        it("Skal bare vise valg for arbeidsgiver forskutterer dersom brukeren er med i pilot sykepenger", () => {
-            const arbeidsgivere = [{
-                orgnummer: "123456789",
-                navn: "Mortens frukt og grønt"
-            }];
-            skjemaData.values.valgtArbeidsgiver = {
-                orgnummer: "123456789",
-                navn: "Mortens frukt og grønt"
-            };
-
-            const component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} pilotSykepenger={true} />
-            </Provider>);
-
-            expect(component.find(ForskuttererArbeidsgiver)).to.have.length(1);
-        });
     });
 
     describe("validate", () => {

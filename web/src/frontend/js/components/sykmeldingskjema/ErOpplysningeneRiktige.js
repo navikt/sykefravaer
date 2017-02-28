@@ -4,6 +4,7 @@ import Checkbox from '../skjema/Checkbox';
 import Feilomrade from '../skjema/Feilomrade';
 import JaEllerNei from '../../components/sykepengesoknad/JaEllerNei';
 import { FieldArray, Field } from 'redux-form';
+import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 
 const Tilleggsinfo = ({ children }) => {
     return (<div className="ekstrasporsmal ekstrasporsmal--sist">{children}</div>);
@@ -30,7 +31,7 @@ DuTrengerNySykmelding.propTypes = {
 
 export const DuKanBrukeSykmeldingenDinArbeidsgiver = ({ ledetekster }) => {
     return (<Tilleggsinfo>
-        <h5 className="typo-undertittel blokk--xs">
+        <h5 className="hode hode-informasjon hode-dekorert typo-undertittel">
             {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel', ledetekster)}
         </h5>
         <p>
@@ -45,7 +46,7 @@ DuKanBrukeSykmeldingenDinArbeidsgiver.propTypes = {
 
 export const DuKanBrukeSykmeldingenDinDiagnoseAndre = ({ ledetekster }) => {
     return (<Tilleggsinfo>
-        <h5 className="typo-undertittel blokk--xs">
+        <h5 className="hode hode-informasjon hode-dekorert typo-undertittel">
             {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel', ledetekster)}
         </h5>
         <p>
@@ -76,7 +77,7 @@ SykmeldingFeilaktigeOpplysningerInfo.propTypes = {
     ledetekster: PropTypes.object,
 };
 
-export const RenderFeilaktigeOpplysninger = ({ fields, meta, ledetekster, skjemaData }) => {
+export const HvilkeOpplysninger = ({ fields, meta, ledetekster }) => {
     const labels = {
         periode: getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.periode', ledetekster),
         sykmeldingsgrad: getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sykmeldingsgrad', ledetekster),
@@ -92,8 +93,27 @@ export const RenderFeilaktigeOpplysninger = ({ fields, meta, ledetekster, skjema
                 return <Field key={index} component={Checkbox} name={`feilaktigeOpplysninger.${field}`} label={labels[field]} id={`checkbox-${field}`} />;
             })
         }
-        <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={skjemaData.values.feilaktigeOpplysninger} ledetekster={ledetekster} />
     </Feilomrade>);
+};
+
+HvilkeOpplysninger.propTypes = {
+    fields: PropTypes.object,
+    meta: PropTypes.object,
+    ledetekster: PropTypes.object,
+};
+
+export const RenderFeilaktigeOpplysninger = (props) => {
+    const { ledetekster, skjemaData } = props;
+    const Sporsmal = <HvilkeOpplysninger {...props} />;
+
+    return (<SporsmalMedTillegg {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
+        const _skjemaData = _props.skjemaData;
+        const s = _skjemaData && _skjemaData.values && _skjemaData.values.feilaktigeOpplysninger ? _skjemaData.values.feilaktigeOpplysninger : false;
+        const a = s && (s.periode || s.sykmeldingsgrad || s.arbeidsgiver || s.diagnose || s.andre);
+        return a === true;
+    }}>
+        <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={skjemaData.values.feilaktigeOpplysninger} ledetekster={ledetekster} />
+    </SporsmalMedTillegg>);
 };
 
 RenderFeilaktigeOpplysninger.propTypes = {
@@ -108,7 +128,7 @@ export const ErOpplysningeneRiktige = (props) => {
 
     return (<JaEllerNei
         verdiMedTilleggssporsmal={false}
-        spoersmal="Er opplysningene riktige?"
+        spoersmal="Er opplysningene i sykmeldingen riktige?"
         name="opplysningeneErRiktige">
         <FieldArray
             {...props}

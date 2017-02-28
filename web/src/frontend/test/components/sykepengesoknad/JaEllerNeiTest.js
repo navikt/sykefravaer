@@ -5,6 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 import JaEllerNei, { RendreJaEllerNei, parseJaEllerNei, JaEllerNeiRadioknapper, jaEllerNeiAlternativer } from '../../../js/components/sykepengesoknad/JaEllerNei';
+import SporsmalMedTillegg from '../../../js/components/skjema/SporsmalMedTillegg';
 import Radioknapper from '../../../js/components/skjema/Radioknapper';
 import { Field } from 'redux-form';
 
@@ -60,30 +61,31 @@ describe("JaEllerNei", () => {
             component = shallow(<RendreJaEllerNei {...props} />);
         })
 
-        it("Skal vise intro hvis det er intro", () => {
-            component = shallow(<RendreJaEllerNei intro="Min intro" {...props} />);
-            expect(component).to.contain("Min intro");
-            expect(component.find(".js-intro")).to.have.length(1);
-        });
-
-        it("Skal ikke vise intro hvis det ikke er intro", () => {
-            expect(component.find(".js-intro")).to.have.length(0);
-        });
-
         it("Skal inneholde JaEllerNeiRadioknapper", () => {
-            expect(component.contains(<JaEllerNeiRadioknapper {...props} />)).to.be.true;
+            expect(component.find(SporsmalMedTillegg).prop("Sporsmal")).to.deep.equal(<JaEllerNeiRadioknapper {...props} />);
         });
 
-        it("Skal vise children hvis verdi === true og det finnes children", () => {
-            props.input.value = true;
-            component = shallow(<RendreJaEllerNei {...props}><p>Test</p></RendreJaEllerNei>)
-            expect(component.find(".js-tillegg")).to.have.length(1);
-            expect(component.find(".js-tillegg")).to.contain(<p>Test</p>);
-        });
+        describe("visTillegg", () => {
 
-        it("Skal ikke vise children hvis verdi !== true og det finnes children", () => {
-            component = shallow(<RendreJaEllerNei {...props}><p>Test</p></RendreJaEllerNei>)
-            expect(component.find(".js-tillegg")).to.have.length(0);
+            it("Skal returnere true hvis verdi === true", () => {
+                props.input.value = true;
+                props.children = "...";
+                component = shallow(<RendreJaEllerNei {...props} />);
+                expect(component.prop("visTillegg")(props)).to.be.true;
+            });
+
+            it("Skal returnere false hvis verdi === true og det ikke finnes children", () => {
+                props.input.value = true;
+                component = shallow(<RendreJaEllerNei {...props} />);
+                expect(component.prop("visTillegg")(props)).to.be.false;
+            });
+
+            it("Skal returnere false hvis verdi === false", () => {
+                props.input.value = false;
+                component = shallow(<RendreJaEllerNei {...props}><p>Test</p></RendreJaEllerNei>);
+                expect(component.prop("visTillegg")(props)).to.be.false;
+            });
+
         });
 
     });
@@ -113,6 +115,16 @@ describe("JaEllerNei", () => {
                 sporsmal: "Liker du frukt?"
             }
             component = shallow(<JaEllerNeiRadioknapper {...props} />)
+        });
+
+        it("Skal ikke vise intro hvis det ikke er intro", () => {
+            expect(component.find(".js-intro")).to.have.length(0);
+        });
+
+        it("Skal vise intro hvis det er intro", () => {
+            component = shallow(<JaEllerNeiRadioknapper {...props} intro="Min intro" />)
+            expect(component).to.contain("Min intro");
+            expect(component.find(".js-intro")).to.have.length(1);
         });
 
         it("Skal inneholde Radioknapper", () => {

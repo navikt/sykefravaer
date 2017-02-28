@@ -3,15 +3,10 @@ export const datoMedKlokkeslett = (dato) => {
         return '';
     }
 
-    const d = new Date(dato);
-
-    const datoJustert = new Date(d.getTime() + (d.getTimezoneOffset() * 60000));
-
-    const days = datoJustert.getDate() < 10 ? `${datoJustert.getDate()}` : `${datoJustert.getDate()}`;
-    const months = datoJustert.getMonth() + 1;
-    const hours = datoJustert.getHours() < 10 ? `0${datoJustert.getHours()}` : `${datoJustert.getHours()}`;
-    const minutes = datoJustert.getMinutes() < 10 ? `0${datoJustert.getMinutes()}` : `${datoJustert.getMinutes()}`;
+    const days = parseInt(dato.substring(8,10)) < 10 ? dato.substring(9,10) : dato.substring(8,10);
+    const months = parseInt(dato.substring(5,7)) < 10 ? dato.substring(6,7) : dato.substring(5,7);
+    const time = dato.substring(11, 16);
 
     /* 16/2 klokken 14:15 */
-    return `${days}/${months} klokken ${hours}:${minutes}`;
+    return `${days}/${months} klokken ${time}`;
 };

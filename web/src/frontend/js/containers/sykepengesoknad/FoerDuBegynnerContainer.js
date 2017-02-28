@@ -10,10 +10,11 @@ import { datoMedKlokkeslett } from '../../utils/datoUtils';
 
 export const Controller = (props) => {
     const { sykepengesoknad, ledetekster, vedlikehold } = props;
+    console.log(vedlikehold)
     if (vedlikehold.datospennMedTid) {
         return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel', ledetekster)} melding={getLedetekst('under-vedlikehold.varsel.tekst', ledetekster, {
-            fra: datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
-            til: datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
+            '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
+            '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
         })} />);
     }
 
@@ -51,7 +52,7 @@ FoerDuBegynnerContainer.propTypes = {
     }),
     brodsmuler: PropTypes.array,
     henter: PropTypes.bool,
-    vedlikehold: PropTypes.bool,
+    vedlikehold: PropTypes.object,
 };
 
 export const mapStateToProps = (state) => {

@@ -4,8 +4,8 @@ import {mount, shallow, render} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import JaEllerNei, { RendreJaEllerNei, parseJaEllerNei, JaEllerNeiRadioknapper, jaEllerNeiAlternativer } from '../../../js/components/sykepengesoknad/JaEllerNei';
 import SporsmalMedTillegg from '../../../js/components/skjema/SporsmalMedTillegg';
+import JaEllerNei, { RendreJaEllerNei, parseJaEllerNei, JaEllerNeiRadioknapper, jaEllerNeiAlternativer } from '../../../js/components/sykepengesoknad/JaEllerNei';
 import Radioknapper from '../../../js/components/skjema/Radioknapper';
 import { Field } from 'redux-form';
 
@@ -23,7 +23,6 @@ describe("JaEllerNei", () => {
         expect(component.find(Field)).to.have.length(1);
         expect(component.find(Field).prop("component")).to.deep.equal(RendreJaEllerNei);
         expect(component.find(Field).prop("parse")).to.deep.equal(parseJaEllerNei);
-        expect(component.find(Field).prop("sporsmal"))
     });
 
     describe("parseJaEllerNei", () => {

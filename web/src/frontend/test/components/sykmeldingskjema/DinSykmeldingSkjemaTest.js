@@ -327,7 +327,7 @@ describe("DinSykmeldingSkjema -", () => {
             }, {
                 orgnummer: "0", 
                 navn: "Annen arbeidsgiver"
-            }]
+            }];
 
             component = mount(<Provider store={store}>
                 <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />

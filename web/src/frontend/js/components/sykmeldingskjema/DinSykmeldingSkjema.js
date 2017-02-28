@@ -139,7 +139,6 @@ export class DinSykmeldingSkjemaComponent extends Component {
             </div>)
             }
             { values.valgtArbeidssituasjon === 'arbeidstaker' && <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="H4" /> }
-
                 <div aria-live="polite" role="alert">
                     {
                         (sendingFeilet || avbrytFeilet) &&
@@ -183,7 +182,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                             }} />
                         }
                     </div>
-            </div>
+                </div>
         </form>);
     }
 }
@@ -219,7 +218,7 @@ const ingenFeilaktigeOpplysningerOppgitt = (feilaktigeOpplysninger) => {
         feilaktigeOpplysninger.sykmeldingsgrad,
         feilaktigeOpplysninger.arbeidsgiver,
         feilaktigeOpplysninger.diagnose,
-        feilaktigeOpplysninger.perioder,
+        feilaktigeOpplysninger.andre,
     ];
     return v.filter((a) => { return a; }).length === 0;
 };

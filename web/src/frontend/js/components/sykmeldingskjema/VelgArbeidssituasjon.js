@@ -3,6 +3,8 @@ import { Field } from 'redux-form';
 import arbeidssituasjoner from '../../arbeidssituasjonData';
 import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import Feilmelding from '../skjema/Feilmelding';
+import VelgArbeidsgiver from './VelgArbeidsgiver';
+import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 
 const getArbeidssituasjoner = (arbeidssituasjon) => {
     if (!arbeidssituasjon || arbeidssituasjon === 'default') {
@@ -16,7 +18,7 @@ const getArbeidssituasjoner = (arbeidssituasjon) => {
 export const RendreVelgArbeidssituasjon = (props) => {
     const { input, meta, ledetekster } = props;
     return (
-        <div className="hovedsporsmal">
+        <div>
             <div className="medHjelpetekst">
                 <label htmlFor="select-arbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
                     {getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster)}
@@ -38,6 +40,16 @@ export const RendreVelgArbeidssituasjon = (props) => {
     );
 };
 
+export const Velg = (props) => {
+    const Sporsmal = <RendreVelgArbeidssituasjon {...props} />;
+    return (<SporsmalMedTillegg className="hovedsporsmal" {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
+        const { input } = _props;
+        return input.value === 'arbeidstaker';
+    }}>
+        <VelgArbeidsgiver {...props} />
+    </SporsmalMedTillegg>);
+};
+
 RendreVelgArbeidssituasjon.propTypes = {
     input: PropTypes.object,
     meta: PropTypes.object,
@@ -45,16 +57,26 @@ RendreVelgArbeidssituasjon.propTypes = {
 };
 
 const VelgArbeidssituasjon = (props) => {
-    const { ledetekster, untouch } = props;
+    const { ledetekster, untouch, arbeidsgivere, sykmelding, pilotSykepenger } = props;
 
-    return (<Field ledetekster={ledetekster} component={RendreVelgArbeidssituasjon} name="valgtArbeidssituasjon" onBlur={() => {
-        untouch('valgtArbeidsgiver');
-    }} />);
+    return (<Field
+        ledetekster={ledetekster}
+        arbeidsgivere={arbeidsgivere}
+        pilotSykepenger={pilotSykepenger}
+        sykmelding={sykmelding}
+        component={Velg}
+        name="valgtArbeidssituasjon"
+        onBlur={() => {
+            untouch('valgtArbeidsgiver');
+        }} />);
 };
 
 VelgArbeidssituasjon.propTypes = {
     ledetekster: PropTypes.object,
     untouch: PropTypes.func,
+    arbeidsgivere: PropTypes.array,
+    sykmelding: PropTypes.object,
+    pilotSykepenger: PropTypes.bool,
 };
 
 export default VelgArbeidssituasjon;

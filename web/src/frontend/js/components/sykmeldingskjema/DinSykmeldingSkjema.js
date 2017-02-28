@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import VelgArbeidssituasjon from './VelgArbeidssituasjon';
-import VelgArbeidsgiver from './VelgArbeidsgiver';
 import ArbeidsgiversSykmeldingContainer from '../../containers/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
@@ -128,15 +127,10 @@ export class DinSykmeldingSkjemaComponent extends Component {
             }
             {
                 modus !== modi.AVBRYT && (<div className="blokk">
-                {
-                    <VelgArbeidssituasjon ledetekster={ledetekster} untouch={untouch} modus={modus} />
-                }
+                <VelgArbeidssituasjon {...this.props} />
                 {
                     values.valgtArbeidssituasjon === 'arbeidstaker' &&
                         <div className="blokk">
-                            {
-                                !harStrengtFortroligAdresse && <VelgArbeidsgiver {...this.props} />
-                            }
                             {
                                 harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} ledetekster={ledetekster} />
                             }
@@ -145,7 +139,6 @@ export class DinSykmeldingSkjemaComponent extends Component {
             </div>)
             }
             { values.valgtArbeidssituasjon === 'arbeidstaker' && <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="H4" /> }
-
                 <div aria-live="polite" role="alert">
                     {
                         (sendingFeilet || avbrytFeilet) &&
@@ -189,7 +182,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                             }} />
                         }
                     </div>
-            </div>
+                </div>
         </form>);
     }
 }

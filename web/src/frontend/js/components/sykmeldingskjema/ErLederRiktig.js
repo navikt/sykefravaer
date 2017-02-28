@@ -1,51 +1,54 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import { visFeilmelding, getFeilmelding, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import Radioknapper from '../skjema/Radioknapper';
 
-const ErLederRiktig = ({ naermesteLeder, skjemaData, ledetekster }) => {
+export const RendreErLederRiktig = ({ input, meta, ledetekster, naermesteLeder }) => {
     const alternativer = [{
         label: 'Ja',
-        beOmNyNaermesteLeder: false,
+        value: false,
     }, {
         label: 'Nei – NAV ber arbeidsgiveren din oppgi ny leder',
-        beOmNyNaermesteLeder: true,
+        value: true,
     }];
-    const erFeil = visFeilmelding(skjemaData, 'beOmNyNaermesteLeder');
-    const feilmelding = getFeilmelding(skjemaData, 'beOmNyNaermesteLeder');
 
-    return (<div className="blokk">
-        <div className="medHjelpetekst">
-            <label htmlFor="select-beOmNyNaermesteLeder" className="skjema__sporsmal">
-                {getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal', ledetekster, {
-                    '%NAERMESTELEDER%': naermesteLeder.navn,
-                })}
-            </label>
-            <Hjelpetekst
-                id="velg-beOmNyNaermesteLeder-hjelpetekst"
-                tittel={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tittel', ledetekster)}
-                tekst={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tekst', ledetekster)} />
-        </div>
-        <div className={erFeil ? 'skjema__feilomrade skjema__feilomrade--feil' : 'skjema__feilomrade'}>
+    const hjelpetekst = (<Hjelpetekst
+        id="velg-beOmNyNaermesteLeder-hjelpetekst"
+        tittel={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tittel', ledetekster)}
+        tekst={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tekst', ledetekster)} />);
+
+    return (<div className="hovedsporsmal__tilleggssporsmal">
+        <Radioknapper
+            input={input}
+            meta={meta}
+            spoersmal={getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal', ledetekster, {
+                '%NAERMESTELEDER%': naermesteLeder.navn,
+            })}
+            hjelpetekst={hjelpetekst}>
             {
                 alternativer.map((alternativ, index) => {
-                    return (<div className="nav-input" key={index}>
-                        <Field
-                            component="input"
-                            type="radio"
-                            name="beOmNyNaermesteLeder"
-                            className="radioknapp"
-                            id={`beOmNyNaermesteLeder-${alternativ.beOmNyNaermesteLeder}`}
-                            value={alternativ.beOmNyNaermesteLeder}
-                            parse={(value) => {
-                                return value === 'true';
-                            }} />
-                        <label htmlFor={`beOmNyNaermesteLeder-${alternativ.beOmNyNaermesteLeder}`}>{alternativ.label}</label>
-                    </div>);
+                    return <input {...alternativ} key={index} />;
                 })
             }
-            <p className="skjema__feilmelding" aria-live="polite">{erFeil && feilmelding}</p>
-        </div>
+        </Radioknapper>
     </div>);
+};
+
+RendreErLederRiktig.propTypes = {
+    input: PropTypes.object,
+    meta: PropTypes.object,
+    ledetekster: PropTypes.object,
+    naermesteLeder: PropTypes.object,
+};
+
+const ErLederRiktig = (props) => {
+    return (<Field
+        {...props}
+        component={RendreErLederRiktig}
+        name="beOmNyNaermesteLeder"
+        parse={(value) => {
+            return value === 'true';
+        }} />);
 };
 
 ErLederRiktig.propTypes = {

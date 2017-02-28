@@ -12,8 +12,9 @@ import { Provider } from 'react-redux';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import ErOpplysningeneRiktige, { RenderFeilaktigeOpplysninger, SykmeldingFeilaktigeOpplysningerInfo, DuTrengerNySykmelding, DuKanBrukeSykmeldingenDinArbeidsgiver, DuKanBrukeSykmeldingenDinDiagnoseAndre  } from '../../../js/components/sykmeldingskjema/ErOpplysningeneRiktige';
+import ErOpplysningeneRiktige, { HvilkeOpplysninger, RenderFeilaktigeOpplysninger, SykmeldingFeilaktigeOpplysningerInfo, DuTrengerNySykmelding, DuKanBrukeSykmeldingenDinArbeidsgiver, DuKanBrukeSykmeldingenDinDiagnoseAndre  } from '../../../js/components/sykmeldingskjema/ErOpplysningeneRiktige';
 import JaEllerNei from '../../../js/components/sykepengesoknad/JaEllerNei';
+import Feilomrade from '../../../js/components/skjema/Feilomrade';
 
 describe("ErOpplysningeneRiktige - ", () => {
 
@@ -42,35 +43,25 @@ describe("ErOpplysningeneRiktige - ", () => {
 
     it("skal vise riktig spoersmal", () => {
         const comp = shallow(<ErOpplysningeneRiktige ledetekster={{}} skjemaData={skjemaData}/>)
-        expect(comp.find(JaEllerNei).prop("spoersmal")).to.equal("Er opplysningene riktige?");
+        expect(comp.find(JaEllerNei).prop("spoersmal")).to.equal("Er opplysningene i sykmeldingen riktige?");
     });
 
     describe("RenderFeilaktigeOpplysninger", () => {
 
         let component;
+        let fields;
+        let meta;
 
         beforeEach(() => {
-            const meta = {
+            meta = {
                 error: "Feilmelding",
                 touched: false,
             };
-            const fields = ['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre'];
+            fields = ['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre'];
             component = shallow(<RenderFeilaktigeOpplysninger fields={fields} ledetekster={{}} meta={meta} skjemaData={skjemaData}/>);
         });
 
-        it("Skal inneholde ett checkbox-Field per field", () => {
-            expect(component.find(Field)).to.have.length(5);
-            const names = ["feilaktigeOpplysninger.periode",
-                "feilaktigeOpplysninger.sykmeldingsgrad",
-                "feilaktigeOpplysninger.arbeidsgiver",
-                "feilaktigeOpplysninger.diagnose",
-                "feilaktigeOpplysninger.andre"];
-            for (let i = 0; i < 5; i++) {
-                const c = component.find(Field).at(i);
-                expect(c.prop("component")).to.deep.equal(Checkbox);
-                expect(c.prop("name")).to.equal(names[i]);
-            }
-        });
+
 
         it("viser sykmeldingFeilaktigeOpplysningerInfo", () => {
             const meta = {
@@ -84,6 +75,33 @@ describe("ErOpplysningeneRiktige - ", () => {
             const comp = shallow(<RenderFeilaktigeOpplysninger fields={fields} ledetekster={{}} meta={meta} skjemaData={skjemaData} />);
 
             expect(comp.find(SykmeldingFeilaktigeOpplysningerInfo)).to.be.length(1);
+        });
+
+        describe("HvilkeOpplysninger", () => {
+
+            beforeEach(() => {
+                component = shallow(<HvilkeOpplysninger fields={fields} ledetekster={{}} meta={meta} skjemaData={skjemaData}/>);
+            })
+
+            it("Skal inneholde et Feilomrade", () => {
+                expect(component.find(Feilomrade)).to.have.length(1);
+                expect(component.find(Feilomrade).prop("error")).to.deep.equal(meta.error);
+                expect(component.find(Feilomrade).prop("touched")).to.deep.equal(meta.touched);
+            })
+
+            it("Skal inneholde ett checkbox-Field med riktig name-attributt per field", () => {
+                expect(component.find(Field)).to.have.length(5);
+                const names = ["feilaktigeOpplysninger.periode",
+                    "feilaktigeOpplysninger.sykmeldingsgrad",
+                    "feilaktigeOpplysninger.arbeidsgiver",
+                    "feilaktigeOpplysninger.diagnose",
+                    "feilaktigeOpplysninger.andre"];
+                for (let i = 0; i < 5; i++) {
+                    const c = component.find(Field).at(i);
+                    expect(c.prop("component")).to.deep.equal(Checkbox);
+                    expect(c.prop("name")).to.equal(names[i]);
+                }
+            });
         });
     });
 

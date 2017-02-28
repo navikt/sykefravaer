@@ -22,6 +22,8 @@ Radioknapp.propTypes = {
     children: PropTypes.object,
     id: PropTypes.string,
     label: PropTypes.string,
+    checked: PropTypes.bool,
+    labelSekundaer: PropTypes.string,
 };
 
 const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children, horisontal = false, hjelpetekst }) => {

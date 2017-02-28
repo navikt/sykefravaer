@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 import { scrollTo, erSynligIViewport } from 'digisyfo-npm';
 
 export class SporsmalMedTillegg extends Component {
@@ -27,13 +27,9 @@ export class SporsmalMedTillegg extends Component {
         }
     }
 
-    getContainerClass() {
-        return `tilleggssporsmal__innholdContainer${this.state.containerClassName}`;
-    }
-
-    onHoydeTransitionEnd(event) {
+    onHoydeTransitionEnd() {
         if (!this.state.harAnimasjon) {
-            return false;
+            return;
         }
         if (this.state.erApen) {
             this.setState({
@@ -43,20 +39,22 @@ export class SporsmalMedTillegg extends Component {
             this.setAutoHoyde();
             this.fadeIn();
             setTimeout(() => {
-                scrollTo(this.refs.hovedsporsmal, 600);
+                this.scrollToHovedsporsmal();
             }, 300);
-        } else {
-            this.setState({
-                hindreToggle: false,
-                visInnhold: false,
-                harAnimasjon: false,
-                opacity: '0',
-            });
-            if (!erSynligIViewport(this.refs.hovedsporsmal)) {
-                scrollTo(this.refs.hovedsporsmal, 600);
-            }
+            return;
         }
+        this.setState({
+            hindreToggle: false,
+            visInnhold: false,
+            harAnimasjon: false,
+            opacity: '0',
+        });
+        this.scrollToHovedsporsmal();
         return;
+    }
+
+    getContainerClass() {
+        return `tilleggssporsmal__innholdContainer${this.state.containerClassName}`;
     }
 
     getErApen(props) {
@@ -67,6 +65,7 @@ export class SporsmalMedTillegg extends Component {
         /* Fjerner animasjonsklassen slik at Safari ikke
         tegner komponenten på nytt når høyde settes til 'auto': */
         this.setState({
+            gammelHoyde: this.state.hoyde,
             containerClassName: '',
         });
         // Setter høyde til auto:
@@ -76,6 +75,12 @@ export class SporsmalMedTillegg extends Component {
                 containerClassName: '',
             });
         }, 0);
+    }
+
+    scrollToHovedsporsmal() {
+        if (!erSynligIViewport(this.refs.hovedsporsmal)) {
+            scrollTo(this.refs.hovedsporsmal, 600);
+        }
     }
 
     fadeUt() {
@@ -98,9 +103,10 @@ export class SporsmalMedTillegg extends Component {
             visInnhold: true,
             harAnimasjon: true,
         });
+        const that = this;
         setTimeout(() => {
-            const hoyde = this.refs.tilleggsinnhold.offsetHeight;
-            this.setState({
+            const hoyde = that.refs.tilleggsinnhold.offsetHeight;
+            that.setState({
                 erApen: true,
                 hoyde,
             });
@@ -108,7 +114,7 @@ export class SporsmalMedTillegg extends Component {
     }
 
     lukk() {
-        const hoyde = this.refs.tilleggsinnhold.offsetHeight;
+        const hoyde = this.refs.tilleggsinnhold.offsetHeight || this.state.gammelHoyde;
         this.setState({
             hoyde,
             hindreToggle: true,
@@ -124,13 +130,13 @@ export class SporsmalMedTillegg extends Component {
     }
 
     render() {
-        const { input, children, Sporsmal, className } = this.props;
+        const { children, Sporsmal, className } = this.props;
         return (<div className={className}>
             <div ref="hovedsporsmal">
                 {Sporsmal}
             </div>
-            <div ref="container" style={{ height: this.state.hoyde }} className={this.getContainerClass()} onTransitionEnd={(event) => {
-                this.onHoydeTransitionEnd(event);
+            <div ref="container" style={{ height: this.state.hoyde }} className={this.getContainerClass()} onTransitionEnd={() => {
+                this.onHoydeTransitionEnd();
             }}>
                 {
                     this.state.visInnhold ? <div className="js-tillegg" ref="tilleggsinnhold">
@@ -142,19 +148,16 @@ export class SporsmalMedTillegg extends Component {
             </div>
         </div>);
     }
-};
+}
 
 SporsmalMedTillegg.propTypes = {
-    intro: PropTypes.string,
-    input: PropTypes.object,
-    verdiMedTilleggssporsmal: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.bool,
-    ]),
     children: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.object,
     ]),
+    Sporsmal: PropTypes.element,
+    visTillegg: PropTypes.func,
+    className: PropTypes.string,
 };
 
 export default SporsmalMedTillegg;

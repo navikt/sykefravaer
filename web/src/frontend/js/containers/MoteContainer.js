@@ -69,8 +69,8 @@ export function mapDispatchToProps(dispatch) {
 
 export const harTattStillingTilAlleAlternativer = (deltaker) => {
     return deltaker && deltaker.svarTidspunkt !== null && (deltaker.alternativer && deltaker.alternativer.filter((alternativ) => {
-            return new Date(alternativ.opprettet) > new Date(deltaker.svarTidspunkt);
-        }).length === 0);
+        return new Date(alternativ.opprettet) > new Date(deltaker.svarTidspunkt);
+    }).length === 0);
 };
 
 export function mapStateToProps(state) {

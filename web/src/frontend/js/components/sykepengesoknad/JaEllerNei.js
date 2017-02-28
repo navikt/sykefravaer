@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import Radioknapper from '../skjema/Radioknapper';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { Field } from 'redux-form';
@@ -29,15 +29,22 @@ JaEllerNeiRadioknapper.propTypes = {
     intro: PropTypes.string,
 };
 
-const RendreJaEllerNei = (props) => {
-    const Sporsmal = <JaEllerNeiRadioknapper {...props} />
+export const RendreJaEllerNei = (props) => {
+    const Sporsmal = <JaEllerNeiRadioknapper {...props} />;
     return (<SporsmalMedTillegg {...props} Sporsmal={Sporsmal} className="hovedsporsmal blokk--xs" visTillegg={(_props) => {
         const { input, children, verdiMedTilleggssporsmal = true } = _props;
-        return (input.value === verdiMedTilleggssporsmal) && children ? true : false;
+        if ((input.value === verdiMedTilleggssporsmal) && children) {
+            return true;
+        }
+        return false;
     }}>
-        <div className="tilleggssporsmal">{props.children}</div>
+        <div className="hovedsporsmal__tilleggssporsmal">{props.children}</div>
     </SporsmalMedTillegg>);
-}
+};
+
+RendreJaEllerNei.propTypes = {
+    children: PropTypes.element,
+};
 
 export const parseJaEllerNei = (value) => {
     return value === 'true' || value === 'false' ? value === 'true' : value;

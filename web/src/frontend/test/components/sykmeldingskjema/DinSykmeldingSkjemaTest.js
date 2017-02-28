@@ -328,7 +328,7 @@ describe("DinSykmeldingSkjema -", () => {
             }, {
                 orgnummer: "0", 
                 navn: "Annen arbeidsgiver"
-            }]
+            }];
 
             component = mount(<Provider store={store}>
                 <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
@@ -351,7 +351,7 @@ describe("DinSykmeldingSkjema -", () => {
         it("Skal vise mer info dersom man velger annen arbeidsgiver", () => {
             skjemaData.values.valgtArbeidsgiver = {
                 orgnummer: "0"
-            }
+            };
             component = mount(<Provider store={store}>
                 <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} ledetekster={{}} />
             </Provider>);
@@ -490,7 +490,7 @@ describe("DinSykmeldingSkjema -", () => {
             };
 
             const component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} pilotSykepenger={true} />
+                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} pilotSykepenger={true} ledetekster={{}} />
             </Provider>);
 
             expect(component.find(ForskuttererArbeidsgiver)).to.have.length(1);

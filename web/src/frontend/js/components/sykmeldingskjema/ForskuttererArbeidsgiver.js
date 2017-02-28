@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Feilomrade from '../skjema/Feilomrade';
 
 const Radioknapp = ({ id, label, input, value, children }) => {
@@ -16,11 +16,11 @@ const Radioknapp = ({ id, label, input, value, children }) => {
 const Radioknapper = ({ input, meta, ledetekster }) => {
     return (<Feilomrade {...meta}>
         <Radioknapp key={0} label="Ja" id="arbeidsgiverForskutterer-JA" value="JA" input={input} />
-        <Radioknapp key={1} label="Nei" id="arbeidsgiverForskutterer-NEI" value="NEI" input={input} />
+        <Radioknapp key={1} label="Nei" id="arbeidsgiverForskutterer-NEI" value="NEI" input={input}>
+            <div className="panel panel-ekstra" dangerouslySetInnerHTML={getHtmlLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.nei-vet-ikke', ledetekster)} />
+        </Radioknapp>
         <Radioknapp key={2} label="Vet ikke" id="arbeidsgiverForskutterer-VET_IKKE" value="VET_IKKE" input={input}>
-            <div className="panel panel-ekstra">
-                <p className="sist">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.vet-ikke', ledetekster)}</p>
-            </div>
+            <div className="panel panel-ekstra" dangerouslySetInnerHTML={getHtmlLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.nei-vet-ikke', ledetekster)} />
         </Radioknapp>
     </Feilomrade>);
 };

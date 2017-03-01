@@ -10,7 +10,6 @@ def application = "syfofront"
 def t4 = "t4"
 def t4_kode = "16560"
 
-def t1 = "t1"
 def t1_kode = "16557"
 
 def notifyFailed(reason, error) {
@@ -77,9 +76,7 @@ node {
 stage("Deploy app til T1") {
     callback = "${env.BUILD_URL}input/Deploy/"
     node {
-        mattermostSend color: 'GREEN', message: "Deployer ${application}:${releaseVersion} til ${t1} for smoketest", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
         def deploy = common.deployApp('syfofront', releaseVersion, "${t1_kode}", callback, commiter).key
-
         try {
             timeout(time: 15, unit: 'MINUTES') {
                 input id: 'deploy', message: "deployer ${deploy}, deploy OK?"
@@ -93,40 +90,74 @@ stage("Deploy app til T1") {
 
 node {
     stage("Run nightwatch") {
-        mattermostSend color: 'GREEN', message: "Kjører smoketests i T1", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
         build job: 'syfosjekker', parameters: [[$class: 'StringParameterValue', name: 'miljo', value: 't1']]
     }
 
     stage("Log versions in T1") {
-        syfofront_version = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfofront\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
-        syforest_version = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syforest\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
-        syfoservice_version = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfoservice\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
+        syfofront_version_t1 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfofront\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
+        syforest_version_t1 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syforest\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
+        syfoservice_version_t1 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfoservice\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
 
         print(
             "------------ Versjoner som er testet ------------\n" +
             "Syfofront:   ${syfofront_version}" +
-            "Syforest:    ${syforest_version}" +
-            "Syfoservice: ${syfoservice_version}" +
+            "Syforest:    ${syforest_version_t1}" +
+            "Syfoservice: ${syfoservice_version_t1}" +
             "-------------------------------------------------\n"
         )
+
+        msg = "Fant gyldig configurasjon i T1: syfofront:${syforest_version_t1} syforest:${syforest_version_t1} syfoservice:${syfoservice_version_t1}\n promoterer denne videre til T4!"
+        mattermostSend color: 'GREEN', message: msg, channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
     }
 }
 
-stage("Deploy app til T4") {
+stage("Deploy apper til T4") {
+
     callback = "${env.BUILD_URL}input/Deploy/"
     node {
-        mattermostSend color: 'GREEN', message: "Deployer ${application}:${releaseVersion} til ${t4}!", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
-        def deploy = common.deployApp(application, releaseVersion, "${t4_kode}", callback, commiter).key
+        syfofront_version_t4 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfofront\\&environment=t4\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
+        syforest_version_t4 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syforest\\&environment=t4\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
+        syfoservice_version_t4 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfoservice\\&environment=t4\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
 
-        try {
-            timeout(time: 15, unit: 'MINUTES') {
-                input id: 'deploy', message: "deployer ${deploy}, deploy OK?"
+        if (syfofront_version_t1 != syfofront_version_t4) {
+            def deploy = common.deployApp('syfofront', syfofront_version_t1, "${t4_kode}", callback, commiter).key
+
+            try {
+                timeout(time: 15, unit: 'MINUTES') {
+                    input id: 'deploy', message: "deployer ${deploy}, deploy OK?"
+                }
+            } catch (Exception e) {
+                msg = "Deploy feilet [" + deploy + "](https://jira.adeo.no/browse/" + deploy + ")"
+                notifyFailed(msg, e)
             }
-        } catch (Exception e) {
-            msg = "Deploy feilet [" + deploy + "](https://jira.adeo.no/browse/" + deploy + ")"
-            notifyFailed(msg, e)
+        }
+
+        if (syforest_version_t1 != syforest_version_t4) {
+            def deploy = common.deployApp('syforest', syforest_version_t1, "${t4_kode}", callback, commiter).key
+
+            try {
+                timeout(time: 15, unit: 'MINUTES') {
+                    input id: 'deploy', message: "deployer ${deploy}, deploy OK?"
+                }
+            } catch (Exception e) {
+                msg = "Deploy feilet [" + deploy + "](https://jira.adeo.no/browse/" + deploy + ")"
+                notifyFailed(msg, e)
+            }
+        }
+
+        if (syfoservice_version_t1 != syfoservice_version_t4) {
+            def deploy = common.deployApp('syfoservice', syfoservice_version_t1, "${t4_kode}", callback, commiter).key
+
+            try {
+                timeout(time: 15, unit: 'MINUTES') {
+                    input id: 'deploy', message: "deployer ${deploy}, deploy OK?"
+                }
+            } catch (Exception e) {
+                msg = "Deploy feilet [" + deploy + "](https://jira.adeo.no/browse/" + deploy + ")"
+                notifyFailed(msg, e)
+            }
         }
     }
 }
 
-mattermostSend color: 'GREEN', message: "SUCCESS: syfofront:${releaseVersion} passerte automatiske tester i T1 og er deplyet til T4!", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+mattermostSend color: '#4cff28', message: "Nye versjoner ute i T4! Nå kan dere teste @digisyfo.ola @morten", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true

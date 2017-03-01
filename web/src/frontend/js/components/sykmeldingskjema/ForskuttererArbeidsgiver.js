@@ -38,10 +38,10 @@ export const RendreForskuttererArbeidsgiver = (props) => {
     const Sporsmal = <ForskuttererSporsmal {...props} />;
     return (<SporsmalMedTillegg className="hovedsporsmal__tilleggssporsmal" {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
         const input = _props.input;
-        return input && input.value === VET_IKKE;
+        return input && (input.value === VET_IKKE || input.value === NEI);
     }}>
         <div className="ekstrasporsmal ekstrasporsmal--sist">
-            <p className="sist">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.vet-ikke', ledetekster)}</p>
+            <p className="sist">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.nei-vet-ikke', ledetekster)}</p>
         </div>
     </SporsmalMedTillegg>);
 };

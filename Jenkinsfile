@@ -40,7 +40,7 @@ node {
     }
 
     stage('Build (java)') {
-        mattermostSend color: 'GREEN', message: "Bygger ${application}:${releaseVersion}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+        mattermostSend color: 'GREEN', message: "Pipeline starter - ${application}:${releaseVersion}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
         try {
             sh "mvn clean install"
         } catch (Exception e) {
@@ -77,8 +77,8 @@ node {
 stage("Deploy app til T1") {
     callback = "${env.BUILD_URL}input/Deploy/"
     node {
-        mattermostSend color: 'GREEN', message: "Deployer ${application}:${releaseVersion} til ${t1}!", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
-        def deploy = common.deployApp(application, releaseVersion, "${t1_kode}", callback, commiter).key
+        mattermostSend color: 'GREEN', message: "Deployer ${application}:${releaseVersion} til ${t1} for smoketest", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+        def deploy = common.deployApp('syfofront', releaseVersion, "${t1_kode}", callback, commiter).key
 
         try {
             timeout(time: 15, unit: 'MINUTES') {
@@ -93,6 +93,7 @@ stage("Deploy app til T1") {
 
 node {
     stage("Run nightwatch") {
+        mattermostSend color: 'GREEN', message: "Kjører smoketests i T1", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
         build job: 'syfosjekker', parameters: [[$class: 'StringParameterValue', name: 'miljo', value: 't1']]
     }
 

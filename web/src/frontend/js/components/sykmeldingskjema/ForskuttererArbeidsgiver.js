@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Feilomrade from '../skjema/Feilomrade';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { Radioknapp } from '../skjema/Radioknapper';
@@ -40,9 +40,7 @@ export const RendreForskuttererArbeidsgiver = (props) => {
         const input = _props.input;
         return input && (input.value === VET_IKKE || input.value === NEI);
     }}>
-        <div className="ekstrasporsmal ekstrasporsmal--sist">
-            <p className="sist">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.nei-vet-ikke', ledetekster)}</p>
-        </div>
+        <div className="ekstrasporsmal ekstrasporsmal--sist" dangerouslySetInnerHTML={getHtmlLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.nei-vet-ikke', ledetekster)} />
     </SporsmalMedTillegg>);
 };
 

@@ -47,6 +47,17 @@ node {
         }
     }
 
+    stage('Sonar') {
+        withSonarQubeEnv('SBL sonar') {
+            try {
+                sh "mvn ${SONAR_MAVEN_GOAL} -Dsonar.host.url=${SONAR_HOST_URL}"
+
+            } catch(Exception e) {
+                notifyFailed("Sonar feilet", e)
+            }
+        }
+    }
+
     stage('Set Version') {
         script {
             def pom = readMavenPom file: 'pom.xml'
@@ -100,7 +111,7 @@ node {
 
         print(
             "------------ Versjoner som er testet ------------\n" +
-            "Syfofront:   ${syfofront_version}" +
+            "Syfofront:   ${syfofront_version_t1}" +
             "Syforest:    ${syforest_version_t1}" +
             "Syfoservice: ${syfoservice_version_t1}" +
             "-------------------------------------------------\n"

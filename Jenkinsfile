@@ -7,9 +7,7 @@ def releaseVersion, commitHash, pomVersion, buildNr
 def commiter, committerEmail, lastcommit
 def application = "syfofront"
 
-def t4 = "t4"
 def t4_kode = "16560"
-
 def t1_kode = "16557"
 
 def notifyFailed(reason, error) {
@@ -117,7 +115,7 @@ node {
             "-------------------------------------------------\n"
         )
 
-        msg = "Fant gyldig configurasjon i T1: syfofront:${syforest_version_t1} syforest:${syforest_version_t1} syfoservice:${syfoservice_version_t1}\n promoterer denne videre til T4!"
+        msg = "Fant gyldig configurasjon i T1: syfofront:${syfofront_version_t1} syforest:${syforest_version_t1} syfoservice:${syfoservice_version_t1}\n promoterer denne videre til T4!"
         mattermostSend color: 'GREEN', message: msg, channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
     }
 }
@@ -131,6 +129,7 @@ stage("Deploy apper til T4") {
         syfoservice_version_t4 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfoservice\\&environment=t4\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
 
         if (syfofront_version_t1 != syfofront_version_t4) {
+            print("Deployer syfofront:${syfofront_version_t1} til T4")
             def deploy = common.deployApp('syfofront', syfofront_version_t1, "${t4_kode}", callback, commiter).key
 
             try {
@@ -144,6 +143,7 @@ stage("Deploy apper til T4") {
         }
 
         if (syforest_version_t1 != syforest_version_t4) {
+            print("Deployer syforest:${syforest_version_t1} til T4")
             def deploy = common.deployApp('syforest', syforest_version_t1, "${t4_kode}", callback, commiter).key
 
             try {
@@ -157,6 +157,7 @@ stage("Deploy apper til T4") {
         }
 
         if (syfoservice_version_t1 != syfoservice_version_t4) {
+            print("Deployer syfoservice:${syfoservice_version_t1} til T4")
             def deploy = common.deployApp('syfoservice', syfoservice_version_t1, "${t4_kode}", callback, commiter).key
 
             try {

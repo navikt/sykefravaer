@@ -14,7 +14,7 @@ export const Controller = (props) => {
     if (vedlikehold.datospennMedTid) {
         return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel', ledetekster)} melding={getLedetekst('under-vedlikehold.varsel.tekst', ledetekster, {
             '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
-            '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
+            '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
         })} />);
     }
 

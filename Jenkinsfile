@@ -9,6 +9,7 @@ def application = "syfofront"
 
 def t4_kode = "16560"
 def t1_kode = "16557"
+def GREEN = "#4cff28"
 
 def notifyFailed(reason, error) {
     changelog = common.getChangeString()
@@ -34,10 +35,11 @@ node {
 
     stage('Checkout') {
         git "ssh://git@stash.devillo.no:7999/syfo/${application}.git"
+        mattermostSend color: GREEN, message: lastcommit, channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
     }
 
     stage('Build (java)') {
-        mattermostSend color: 'GREEN', message: "Pipeline starter - ${application}:${releaseVersion}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+        mattermostSend color: GREEN, message: "Pipeline starter - ${application}:${releaseVersion}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
         try {
             sh "mvn clean install"
         } catch (Exception e) {
@@ -115,8 +117,8 @@ node {
             "-------------------------------------------------\n"
         )
 
-        msg = "Fant gyldig configurasjon i T1: syfofront:${syfofront_version_t1} syforest:${syforest_version_t1} syfoservice:${syfoservice_version_t1}\n promoterer denne videre til T4!"
-        mattermostSend color: 'GREEN', message: msg, channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+        msg = "Fant gyldig configurasjon i T1:\n-syfofront:${syfofront_version_t1} -syforest:${syforest_version_t1} -syfoservice:${syfoservice_version_t1}\n promoterer denne videre til T4!"
+        mattermostSend color: GREEN, message: msg, channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
     }
 }
 
@@ -172,4 +174,4 @@ stage("Deploy apper til T4") {
     }
 }
 
-mattermostSend color: '#4cff28', message: "Nye versjoner ute i T4! Nå kan dere teste @digisyfo.ola @morten", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+mattermostSend color: GREEN, message: "Nye versjoner ute i T4! Nå kan dere teste @digisyfo.ola @morten", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true

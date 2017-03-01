@@ -20,6 +20,10 @@ def notifyFailed(reason, error) {
 node {
     common.setupTools("Maven 3.3.3", "java8")
 
+    stage('Checkout') {
+        git "ssh://git@stash.devillo.no:7999/syfo/${application}.git"
+    }
+
     stage('Setup') {
         def pom = readMavenPom file: 'pom.xml'
 
@@ -31,10 +35,6 @@ node {
         buildNr = env.BUILD_NUMBER
         commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
         releaseVersion = pomVersion + "." + buildNr + "-" + commitHash
-    }
-
-    stage('Checkout') {
-        git "ssh://git@stash.devillo.no:7999/syfo/${application}.git"
         mattermostSend color: GREEN, message: lastcommit, channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
     }
 
@@ -117,7 +117,7 @@ node {
             "-------------------------------------------------\n"
         )
 
-        msg = "Fant gyldig configurasjon i T1:\n-syfofront:${syfofront_version_t1} -syforest:${syforest_version_t1} -syfoservice:${syfoservice_version_t1}\n promoterer denne videre til T4!"
+        msg = "Fant gyldig configurasjon i T1 og promoterer disse videre til T4!\n - syfofront:${syfofront_version_t1}\n - syforest:${syforest_version_t1}\n - syfoservice:${syfoservice_version_t1}"
         mattermostSend color: GREEN, message: msg, channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
     }
 }

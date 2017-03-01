@@ -13,7 +13,7 @@ def GREEN = "#4cff28"
 
 def notifyFailed(reason, error) {
     changelog = common.getChangeString()
-    mattermostSend color: 'RED', message: "syfofront pipeline feilet: ${reason} \n\n${changelog}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+    mattermostSend color: '#fc3535', message: "syfofront pipeline feilet: ${reason} \n\n${changelog}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
     throw error
 }
 
@@ -35,7 +35,7 @@ node {
         buildNr = env.BUILD_NUMBER
         commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
         releaseVersion = pomVersion + "." + buildNr + "-" + commitHash
-        mattermostSend color: GREEN, message: lastcommit, channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+        mattermostSend color: GREEN, message: common.getChangeString(), channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
     }
 
     stage('Build (java)') {
@@ -101,7 +101,10 @@ stage("Deploy app til T1") {
 
 node {
     stage("Run nightwatch") {
-        build job: 'syfosjekker', parameters: [[$class: 'StringParameterValue', name: 'miljo', value: 't1']]
+        def sjekker = build job: 'syfosjekker', parameters: [[$class: 'StringParameterValue', name: 'miljo', value: 't1']]
+        if (sjekker.result != 'SUCCESS'){
+            notifyFailed("Syfosjekker feilet test i T1", null)
+        }
     }
 
     stage("Log versions in T1") {

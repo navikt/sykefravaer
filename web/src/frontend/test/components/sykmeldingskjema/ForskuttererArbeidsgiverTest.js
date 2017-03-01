@@ -76,7 +76,7 @@ describe("ForskuttererArbeidsgiver", () => {
                 props.input = {
                     value: "NEI"
                 }
-                expect(component.find(SporsmalMedTillegg).prop("visTillegg")(props)).to.be.false;
+                expect(component.find(SporsmalMedTillegg).prop("visTillegg")(props)).to.be.true;
             });
         })
 

@@ -111,16 +111,18 @@ node {
         syfofront_version_t1 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfofront\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
         syforest_version_t1 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syforest\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
         syfoservice_version_t1 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfoservice\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
+        syfotekster_version_t1 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfotekster\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
 
         print(
             "------------ Versjoner som er testet ------------\n" +
             "Syfofront:   ${syfofront_version_t1}" +
             "Syforest:    ${syforest_version_t1}" +
             "Syfoservice: ${syfoservice_version_t1}" +
+            "Syfotekster: ${syfotekster_version_t1}" +
             "-------------------------------------------------\n"
         )
 
-        msg = "Fant gyldig configurasjon i T1 og promoterer disse videre til T4!\n - syfofront:${syfofront_version_t1}\n - syforest:${syforest_version_t1}\n - syfoservice:${syfoservice_version_t1}"
+        msg = "Fant gyldig configurasjon i T1 og promoterer disse videre til T4!\n - syfofront:${syfofront_version_t1}\n - syforest:${syforest_version_t1}\n - syfoservice:${syfoservice_version_t1}\n - syfotekster:${syfotekster_version_t1}"
         mattermostSend color: GREEN, message: msg, channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
     }
 }
@@ -132,6 +134,7 @@ stage("Deploy apper til T4") {
         syfofront_version_t4 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfofront\\&environment=t4\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
         syforest_version_t4 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syforest\\&environment=t4\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
         syfoservice_version_t4 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfoservice\\&environment=t4\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
+        syfotekster_version_t4 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfotekster\\&environment=t4\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
 
         if (syfofront_version_t1 != syfofront_version_t4) {
             print("Deployer syfofront:${syfofront_version_t1} til T4")
@@ -164,6 +167,20 @@ stage("Deploy apper til T4") {
         if (syfoservice_version_t1 != syfoservice_version_t4) {
             print("Deployer syfoservice:${syfoservice_version_t1} til T4")
             def deploy = common.deployApp('syfoservice', syfoservice_version_t1, "${t4_kode}", callback, commiter).key
+
+            try {
+                timeout(time: 15, unit: 'MINUTES') {
+                    input id: 'deploy', message: "deployer ${deploy}, deploy OK?"
+                }
+            } catch (Exception e) {
+                msg = "Deploy feilet [" + deploy + "](https://jira.adeo.no/browse/" + deploy + ")"
+                notifyFailed(msg, e)
+            }
+        }
+
+        if (syfotekster_version_t1 != syfotekster_version_t4) {
+            print("Deployer syfotekster:${syfotekster_version_t1} til T4")
+            def deploy = common.deployApp('syfotekster', syfotekster_version_t1, "${t4_kode}", callback, commiter).key
 
             try {
                 timeout(time: 15, unit: 'MINUTES') {

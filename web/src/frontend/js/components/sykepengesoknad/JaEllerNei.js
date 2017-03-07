@@ -43,7 +43,7 @@ export const RendreJaEllerNei = (props) => {
 };
 
 RendreJaEllerNei.propTypes = {
-    children: PropTypes.element,
+    children: PropTypes.node,
 };
 
 export const parseJaEllerNei = (value) => {

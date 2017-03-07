@@ -15,7 +15,7 @@ const validerAktiviteter = (values, aktiviteter) => {
         } else if (values.aktiviteter[index].jobbetMerEnnPlanlagt === false) {
             return {};
         }
-        const jobbetMerEnnPlanlagt = values.aktiviteter[index].jobbetMerEnnPlanlagt === undefined ? undefined : jobbetMerEnnPlanlagtFeil;
+        const jobbetMerEnnPlanlagt = values.aktiviteter[index].jobbetMerEnnPlanlagt !== undefined ? undefined : jobbetMerEnnPlanlagtFeil;
 
         const avvik = (() => {
             const antallFeil = 'Vennligst oppgi antall';

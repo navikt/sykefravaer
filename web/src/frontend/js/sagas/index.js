@@ -6,17 +6,15 @@ import dinSykmeldingSagas from './dinSykmeldingSagas';
 import sykepengesoknadSagas from './sykepengesoknadSagas';
 import tidslinjerSagas from './tidslinjerSagas';
 import ledereSagas from './ledereSagas';
-import svarSagas from './svarSagas';
-import deltakerSagas from './deltakerSagas';
 import vedlikeholdSagas from './vedlikeholdSagas';
 import pilotSykepengerSagas from './pilotSykepengerSagas';
+import moteSagas from './moteSagas';
 import { ledeteksterSagas } from 'digisyfo-npm';
 
 export default function * rootSaga() {
     yield [
         arbeidsgiversSykmeldingerSagas(),
         brukerinfoSagas(),
-        deltakerSagas(),
         dineArbeidsgivereSagas(),
         dineSykmeldingerSagas(),
         dinSykmeldingSagas(),
@@ -24,8 +22,8 @@ export default function * rootSaga() {
         ledeteksterSagas(),
         tidslinjerSagas(),
         ledereSagas(),
-        svarSagas(),
         pilotSykepengerSagas(),
         vedlikeholdSagas(),
+        moteSagas(),
     ];
 }

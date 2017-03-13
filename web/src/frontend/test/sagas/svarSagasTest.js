@@ -4,7 +4,6 @@ import { svarActions } from 'moter-npm';
 import { post } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
 
-
 describe("svarSagas", () => {
 
     beforeEach(() => {
@@ -13,10 +12,9 @@ describe("svarSagas", () => {
         }
     })
 
-    const generator = sendSvar(svarActions.sendSvar("hansen", {
-        tidOgStedIdListe: [17],
-        avvikListe: []
-    }));
+    const action = svarActions.sendSvar("minFineMoteUuid", "Bruker", [1, 2])
+
+    const generator = sendSvar(action);
 
     it("Skal dispatche SENDER_SVAR", () => {
         const nextPut = put(svarActions.senderSvar());
@@ -24,19 +22,14 @@ describe("svarSagas", () => {
     });
 
     it("Skal poste svar",  () => {
-        const nextCall = call(post, 'http://tjenester.nav.no/moterest/api/moter/hansen', {
-            tidOgStedIdListe: [17],
-            avvikListe: []
-        });
+        const nextCall = call(post, 'http://tjenester.nav.no/moterest/api/v2/moter/actions/minFineMoteUuid', [1, 2]);
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 
-    it("Skal deretter dispatche SVAR_SENDT", () => {
-        const nextPut = put(svarActions.svarSendt({
-            tidOgStedIdListe: [17],
-            avvikListe: []
-        }, "svarTidspunkt"));
-        expect(generator.next({svarTidspunkt: "svarTidspunkt"}).value).to.deep.equal(nextPut);
+    it("Skal deretter dispatche SVAR_SENDT", () => {    
+        const action = svarActions.svarSendt([1, 2], "Bruker", "mittFineSvartidspunkt")
+        const nextPut = put(action);
+        expect(generator.next({svartidspunkt: "mittFineSvartidspunkt"}).value).to.deep.equal(nextPut);
     }); 
 
 

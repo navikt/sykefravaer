@@ -6,7 +6,15 @@ import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 
-export const LandingssideSide = ({ ledetekster, brodsmuler, skjulVarsel, henter, hentingFeilet, sykepengesoknader, harDialogmote }) => {
+export const LandingssideSide = (props) => {
+    const {
+        ledetekster,
+        brodsmuler,
+        skjulVarsel,
+        henter,
+        hentingFeilet,
+        sykepengesoknader,
+        harDialogmote } = props;
     return (
         <Side tittel={getLedetekst('landingsside.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
@@ -48,7 +56,7 @@ export function mapStateToProps(state) {
             sti: '/',
         }],
         sykepengesoknader,
-        harDialogmote: state.deltaker.hentingFeilet === false && state.deltaker.henter === false,
+        harDialogmote: state.mote.data !== null,
     };
 }
 

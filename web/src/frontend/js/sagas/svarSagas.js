@@ -6,8 +6,8 @@ import { svarActions, actiontyper } from 'moter-npm';
 export function* sendSvar(action) {
     yield put(svarActions.senderSvar());
     try {
-        const svar = yield call(post, `${window.APP_SETTINGS.MOTEREST_ROOT}/moter/${action.id}`, action.data);
-        yield put(svarActions.svarSendt(action.data, svar.svarTidspunkt));
+        const svar = yield call(post, `${window.APP_SETTINGS.MOTEREST_ROOT}/v2/moter/actions/${action.moteUuid}`, action.data);
+        yield put(svarActions.svarSendt(action.data, action.deltakertype, svar.svartidspunkt));
     } catch (e) {
         yield put(svarActions.sendSvarFeilet());
     }

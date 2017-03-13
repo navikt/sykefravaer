@@ -20,7 +20,7 @@ import { hentVedlikehold } from './actions/vedlikehold_actions';
 import history from './history';
 import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';
-import { deltakerActions, svar, deltaker } from 'moter-npm';
+import { svar, mote, moteActions } from 'moter-npm';
 import pilot from './reducers/pilot';
 import vedlikehold from './reducers/vedlikehold';
 
@@ -35,9 +35,9 @@ const rootReducer = combineReducers({
     history,
     ledere,
     svar,
-    deltaker,
     pilot,
     vedlikehold,
+    mote,
     form: formReducer,
 });
 
@@ -54,7 +54,7 @@ store.dispatch(hentDineSykmeldinger());
 store.dispatch(hentSykepengesoknader());
 store.dispatch(hentBrukerinfo());
 store.dispatch(hentVedlikehold());
-store.dispatch(deltakerActions.hentDeltaker());
+store.dispatch(moteActions.hentMote());
 
 render(<Provider store={store}>
         <AppRouter history={history} /></Provider>,

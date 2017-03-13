@@ -1,20 +1,30 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { deltakerActions, Svarside, Kvittering, BekreftetKvittering } from 'moter-npm';
+import { moteActions, Kvittering, BekreftetKvittering, getSvarsideModus, Svarside, konstanter, proptypes } from 'moter-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import Side from '../sider/Side';
 import { bindActionCreators } from 'redux';
 
+const { BEKREFTET, MOTESTATUS, BRUKER, AVBRUTT } = konstanter;
+
+export const brukerHarSvart = (svartTidspunkt, created) => {
+    if (!svartTidspunkt) {
+        return false;
+    }
+    return svartTidspunkt > created;
+};
+
 export class Container extends Component {
     constructor(props) {
         super(props);
-        props.actions.hentDeltaker();
+        props.actions.hentMote();
     }
 
     render() {
-        const { henter, fantIkkeDeltaker, deltaker, brodsmuler, ledetekster, hentingFeilet, harSvart, motetUtgaatt, erBekreftet } = this.props;
+        const { henter, mote, brodsmuler, ledetekster, hentingFeilet, moteIkkeFunnet } = this.props;
+        const modus = getSvarsideModus(mote);
         return (<Side tittel={getLedetekst('mote.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
         {
             (() => {
@@ -24,22 +34,23 @@ export class Container extends Component {
                 if (hentingFeilet) {
                     return <Feilmelding />;
                 }
-                if (motetUtgaatt || (deltaker && deltaker.status === 'AVBRUTT')) {
+                if (moteIkkeFunnet) {
+                    return (<Feilmelding
+                        tittel="Du har ingen møteforespørsel for øyeblikket"
+                        melding="Er du sikker på at du er på riktig side?" />);
+                }
+                if (modus === BEKREFTET) {
+                    return <BekreftetKvittering mote={mote} ledetekster={ledetekster} deltakertype={BRUKER} />;
+                }
+                if (modus === MOTESTATUS) {
+                    return <Kvittering mote={mote} ledetekster={ledetekster} deltakertype={BRUKER} />;
+                }
+                if (modus === AVBRUTT) {
                     return (<Feilmelding tittel={getLedetekst('mote.feilmelding.utgaatt.tittel', ledetekster)}
                         melding={getLedetekst('mote.feilmelding.utgaatt.melding', ledetekster)} />);
                 }
-                if (fantIkkeDeltaker) {
-                    return (<Feilmelding tittel={getLedetekst('mote.feilmelding.ingen-moter.tittel', ledetekster)}
-                        melding={getLedetekst('mote.feilmelding.ingen-moter.melding', ledetekster)} />);
-                }
-                if (erBekreftet) {
-                    return <BekreftetKvittering deltaker={deltaker} ledetekster={ledetekster} />;
-                }
-                if (harSvart) {
-                    return <Kvittering deltaker={deltaker} ledetekster={ledetekster} />;
-                }
-                if (deltaker) {
-                    return <Svarside deltaker={deltaker} ledetekster={ledetekster} deltakerId={deltaker.deltakerUuid} />;
+                if (mote) {
+                    return <Svarside mote={mote} ledetekster={ledetekster} deltakertype={BRUKER} />;
                 }
                 return <Feilmelding />;
             })()
@@ -56,35 +67,24 @@ Container.propTypes = {
     ledetekster: PropTypes.object,
     actions: PropTypes.object,
     hentingFeilet: PropTypes.bool,
-    harSvart: PropTypes.bool,
-    motetUtgaatt: PropTypes.bool,
-    erBekreftet: PropTypes.bool,
+    moteIkkeFunnet: PropTypes.bool,
+    mote: proptypes.mote,
 };
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(deltakerActions, dispatch),
+        actions: bindActionCreators(moteActions, dispatch),
     };
 }
 
-export const harTattStillingTilAlleAlternativer = (deltaker) => {
-    return deltaker && deltaker.svarTidspunkt !== null && (deltaker.alternativer && deltaker.alternativer.filter((alternativ) => {
-        return new Date(alternativ.opprettet) > new Date(deltaker.svarTidspunkt);
-    }).length === 0);
-};
-
 export function mapStateToProps(state) {
     const ledetekster = state.ledetekster.data;
-    const harSvart = harTattStillingTilAlleAlternativer(state.deltaker.data);
     return {
         ledetekster,
-        harSvart,
-        deltaker: state.deltaker.data,
-        fantIkkeDeltaker: state.deltaker.fantIkkeDeltaker,
-        henter: state.deltaker.henter,
-        hentingFeilet: state.deltaker.hentingFeilet || state.ledetekster.hentingFeilet || false,
-        motetUtgaatt: state.deltaker.motetUtgaatt || false,
-        erBekreftet: state.deltaker && state.deltaker.data && state.deltaker.data.bekreftetAlternativ !== null,
+        mote: state.mote.data,
+        moteIkkeFunnet: state.mote.moteIkkeFunnet === true,
+        henter: state.mote.henter,
+        hentingFeilet: state.mote.hentingFeilet || state.ledetekster.hentingFeilet || false,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', ledetekster),
             sti: '/',

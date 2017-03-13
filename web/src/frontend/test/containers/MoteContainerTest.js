@@ -6,7 +6,8 @@ import ledetekster from "../mockLedetekster";
 import AppSpinner from '../../js/components/AppSpinner';
 import Feilmelding from '../../js/components/Feilmelding';
 import sinon from 'sinon';
-import { Kvittering, Svarside, BekreftetKvittering } from 'moter-npm';
+import { getSvarsideModus, Kvittering, BekreftetKvittering } from 'moter-npm';
+import { Svarside, getMote, moteBekreftet, moteAvbrutt, moteIkkeBesvart, moteBesvartAlleAlternativer, moteBesvartMedNyeAlternativerBesvart, moteBesvartMedNyeAlternativerIkkeBesvart } from '../mockMote';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -18,28 +19,12 @@ describe("MoteContainer", () => {
     describe("Container", () => {
 
         let actions;
-        let deltaker;
+        let mote;
 
         beforeEach(() => {
-            deltaker = {
-                "deltakerUuid": "min-deltaker-id",
-                "alternativer": [{
-                    "id": 273,
-                    "tid": "2017-09-09T07:09:00Z",
-                    "tidligereValgt": false,
-                    "sted": "Oslo"
-                }, {
-                    "id": 272,
-                    "tid": "2017-09-08T07:09:00Z",
-                    "tidligereValgt": false,
-                    "sted": "Oslo"
-                }],
-                "avvik": [],
-                "naermesteLeder": "Helge Fredheim",
-                "svarTidspunkt": null
-            };
+            mote = getMote();
             actions = {
-                hentDeltaker: sinon.spy(),
+                hentMote: sinon.spy(),
             };
         });
 
@@ -48,54 +33,20 @@ describe("MoteContainer", () => {
             expect(comp.find(AppSpinner)).to.have.length(1);
         });
 
-        it("Skal vise en feilmelding hvis fantIkke = true", () => {
-            const comp = shallow(<Container actions={actions} ledetekster={ledetekster} fantIkke />);
-            expect(comp.contains(<Feilmelding />)).to.be.true;
-        });
-
         it("Skal vise en feilmelding hvis hentingFeilet = true", () => {
             const comp = shallow(<Container actions={actions} ledetekster={ledetekster} hentingFeilet />);
             expect(comp.contains(<Feilmelding />)).to.be.true;
         });
 
-        it("Skal vise en Kvittering hvis brukeren har svart", () => {
-            const deltaker_ = Object.assign({}, deltaker, {
-                avvik: ['INGEN_AV_TIDSPUNKTENE_PASSER']
-            })
-            const comp = shallow(<Container actions={actions} harSvart deltaker={deltaker_} ledetekster={ledetekster} />);
-            expect(comp.contains(<Kvittering deltaker={deltaker_} ledetekster={ledetekster} />)).to.be.true;
-        });
+        describe("Hvis alle alternativer er besvart", () => {
 
-        it("Skal vise en Feilmelding hvis motetUtgaatt = true", () => {
-            const deltaker_ = Object.assign({}, deltaker, {
-                motetUtgaatt: true
-            })
-            const comp = shallow(<Container actions={actions} harSvart motetUtgaatt deltaker={deltaker_} ledetekster={ledetekster} />);
-            expect(comp.find(Feilmelding)).to.have.length(1);
-        });
-
-        it("Skal vise en BekreftetKvittering hvis tidspunkt er bekreftet", () => {
-            const deltaker_ = Object.assign({}, deltaker, {
-                bekreftetAlternativ: {
-                    "id": 272,
-                    "tid": "2017-09-08T07:09:00Z",
-                    "tidligereValgt": false,
-                    "sted": "Oslo"
-                }
+            it("Skal vise Kvittering", () => {
+                component = shallow(<Container actions={actions} mote={moteBesvartAlleAlternativer} ledetekster={ledetekster} />);
+                expect(component.find(Kvittering)).to.have.length(1);
             });
-            const comp = shallow(<Container actions={actions} erBekreftet deltaker={deltaker_} ledetekster={ledetekster} />);
-            expect(comp.contains(<BekreftetKvittering deltaker={deltaker_} ledetekster={ledetekster} />)).to.be.true;
+
         });
 
-        it("Skal vise en Svarside hvis brukeren ikke har svart", () => {
-            const comp = shallow(<Container actions={actions} deltaker={deltaker} ledetekster={ledetekster} />);
-            expect(comp.find(Svarside)).to.have.length(1);
-            expect(comp.find(Svarside).props()).to.deep.equal({
-                deltakerId: "min-deltaker-id",
-                deltaker,
-                ledetekster,
-            });
-        });
 
     });
 
@@ -108,28 +59,8 @@ describe("MoteContainer", () => {
                 ledetekster: {
                     data: ledetekster,
                 },
-                deltaker: {
-                    data: {
-                        "bekreftetAlternativ": null,
-                        "deltakerUuid": "min-deltaker-id",
-                        "alternativer": [{
-                            "id": 273,
-                            "tid": "2017-09-09T07:09:00Z",
-                            "tidligereValgt": false,
-                            "sted": "Oslo"
-                        }, {
-                            "id": 272,
-                            "tid": "2017-09-08T07:09:00Z",
-                            "tidligereValgt": false,
-                            "sted": "Oslo"
-                        }],
-                        "avvik": [],
-                        "naermesteLeder": "Helge Fredheim",
-                        "svarTidspunkt": null
-                    },
-                    henter: false,
-                    hentingFeilet: false,
-                    fantIkkeDeltaker: false
+                mote: {
+                    data: null,
                 },
                 svar: {
                     sendt: false,
@@ -138,25 +69,25 @@ describe("MoteContainer", () => {
         })    
 
         it("Skal returnere henter dersom det hentes møte", () => {
-            state.deltaker.henter = true;
+            state.mote.henter = true;
             const props = mapStateToProps(state);
             expect(props.henter).to.be.true;
         });
 
         it("Skal returnere henter === false dersom det ikke hentes møte", () => {
-            state.deltaker.henter = false;
+            state.mote.henter = false;
             const props = mapStateToProps(state);
             expect(props.henter).to.be.false;
         });
 
         it("Skal returnere hentingFeilet dersom henting av møte feiler", () => {
-            state.deltaker.hentingFeilet = true;
+            state.mote.hentingFeilet = true;
             const props = mapStateToProps(state);
             expect(props.hentingFeilet).to.be.true;
         });
 
         it("Skal returnere hentingFeilet === false dersom henting av møte ikke feiler", () => {
-            state.deltaker.hentingFeilet = false;
+            state.mote.hentingFeilet = false;
             const props = mapStateToProps(state);
             expect(props.hentingFeilet).to.be.false;
         });
@@ -173,122 +104,23 @@ describe("MoteContainer", () => {
             expect(props.hentingFeilet).to.be.false;
         });
 
-        it("Skal returnere fantIkkeDeltaker dersom deltaker ikke finnes", () => {
-            state.deltaker.fantIkkeDeltaker = true;
+        it("Skal returnere moteIkkeFunnet dersom møte ikke finnes", () => {
+            state.mote.moteIkkeFunnet = true;
             const props = mapStateToProps(state);
-            expect(props.fantIkkeDeltaker).to.be.true;
+            expect(props.moteIkkeFunnet).to.be.true;
         });
 
-        it("Skal returnere fantIkkeDeltaker === false deltaker finnes", () => {
-            state.deltaker.fantIkkeDeltaker = false;
+        it("Skal returnere moteIkkeFunnet === false hvis møte finnes", () => {
+            // state.mote.moteIkkeFunnet er nå undefined, så vi setter den ikke
             const props = mapStateToProps(state);
-            expect(props.fantIkkeDeltaker).to.be.false;
+            expect(props.moteIkkeFunnet).to.be.false;
         });
 
-        it("Skal returnere deltaker dersom deltaker finnes", () => {
-            state.deltaker.data = {
-                navn: "Ole"
-            };
+        it("Skal returnere mote dersom mote finnes", () => {
+            state.mote.data = getMote();
             const props = mapStateToProps(state);
-            expect(props.deltaker).to.deep.equal({
-                navn: "Ole"
-            });
+            expect(props.mote).to.deep.equal(state.mote.data);
         });
-
-        it("Skal returnere harSvart", () => {
-            state.deltaker.data = {
-                svarTidspunkt: "2017-09-12T07:09:00Z",
-                alternativer: [{
-                    opprettet: "2017-09-13T07:09:00Z"
-                }]
-            };
-            const props = mapStateToProps(state);
-            expect(props.harSvart).to.be.false;
-        });
-
-        it("Skal returnere harSvart når svar er sendt", () => {
-            state.svar.sendt = true;
-            state.deltaker.data = {
-                svarTidspunkt: "2017-09-12T07:09:00Z",
-                alternativer: [{
-                    opprettet: "2017-09-11T07:09:00Z"
-                }]
-            };
-            const props = mapStateToProps(state);
-            expect(props.harSvart).to.be.true;
-        });
-
-        it("Skal returnere harSvart når svar er sendt tidligere (med avvik)", () => {
-            state.deltaker.data = {
-                "deltakerUuid": "min-deltaker-id",
-                "alternativer": [{
-                    "id": 273,
-                    "tid": "2017-09-09T07:09:00Z",
-                    "tidligereValgt": false,
-                    "sted": "Oslo"
-                }, {
-                    "id": 272,
-                    "tid": "2017-09-08T07:09:00Z",
-                    "tidligereValgt": false,
-                    "sted": "Oslo"
-                }],
-                "avvik": ["MITT_FINE_AVVIK"],
-                "naermesteLeder": "Helge Fredheim",
-                "svarTidspunkt": "2017-08-08T07:09:00Z"
-            }
-            const props = mapStateToProps(state);
-            expect(props.harSvart).to.be.true;
-        });
-
-        it("Skal returnere harSvart når svar er sendt tidligere (med tidspunkt)", () => {
-            state.deltaker.data = {
-                "deltakerUuid": "min-deltaker-id",
-                "alternativer": [{
-                    "id": 273,
-                    "tid": "2017-09-09T07:09:00Z",
-                    "tidligereValgt": true,
-                    "sted": "Oslo"
-                }, {
-                    "id": 272,
-                    "tid": "2017-09-08T07:09:00Z",
-                    "tidligereValgt": false,
-                    "sted": "Oslo"
-                }],
-                "avvik": [],
-                "naermesteLeder": "Helge Fredheim",
-                "svarTidspunkt": "2017-08-08T07:09:00Z"
-            }
-            const props = mapStateToProps(state);
-            expect(props.harSvart).to.be.true;
-        });
-
-        it("Skal returnere erBekreftet når møtet ikke er bekreftet", () => {
-            const props = mapStateToProps(state);
-            expect(props.erBekreftet).to.be.false
-        });
-
-        it("Skal returnere erBekreftet når møtet er bekreftet", () => {
-            state.deltaker.data.bekreftetAlternativ = {
-                "id": 272,
-                "tid": "2017-09-08T07:09:00Z",
-                "tidligereValgt": false,
-                "sted": "Oslo"
-            };
-            const props = mapStateToProps(state);
-            expect(props.erBekreftet).to.be.true
-        });
-
-        it("Skal returnere motetUtgaatt", () => {
-            const props = mapStateToProps(state);
-            expect(props.motetUtgaatt).to.be.false;
-        });
-
-        it("Skal returnere motetUtgaatt hvis møtet er utgått", () => {
-            state.deltaker.motetUtgaatt = true;
-            const props = mapStateToProps(state);
-            expect(props.motetUtgaatt).to.be.true;
-        });
-
 
     });
 

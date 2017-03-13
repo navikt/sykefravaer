@@ -16,47 +16,51 @@ describe("LandingssideContainer", () => {
 
     describe("mapStateToProps", () => {
 
-        it("Skal returnere skjulUnderUtviklingVarsel", function() {
-            const res = mapStateToProps({
+        let state;
+
+        beforeEach(() => {
+            state = {
                 brukerinfo: {
                     innstillinger: {
                         skjulUnderUtviklingVarsel: true
                     }
                 },
                 ledetekster: {
-                    data: []
-                },
-                sykepengesoknader: {
-                    data: []
-                },
-                deltaker: {
-                    data: [{harDialogmote:false}]
-                }
-            });
-            expect(res.skjulVarsel).to.equal(true)
-        });
-
-        it("Skal returnere ledetekster", function () {
-            const res = mapStateToProps({
-                ledetekster: {
-                    data: {
-                        "min.tekst": "Dette er en test"
-                    }
-                },
-                brukerinfo: {
                     data: {}
                 },
                 sykepengesoknader: {
                     data: []
                 },
-                deltaker: {
-                    data: [{harDialogmote:false}]
-                }
-            });
+                mote: {}
+            }
+        })
+
+        it("Skal returnere skjulUnderUtviklingVarsel", function() {
+            const res = mapStateToProps(state);
+            expect(res.skjulVarsel).to.equal(true)
+        });
+
+        it("Skal returnere ledetekster", function () {
+            state.ledetekster.data = {
+                "min.tekst": "Dette er en test"
+            }
+            const res = mapStateToProps(state);
             expect(res.ledetekster).to.deep.equal({
                 "min.tekst": "Dette er en test"
             })
-        });        
+        });
+
+        it("Skal returnere harDialogmote === false", () => {
+            state.mote.data = null;
+            const res = mapStateToProps(state);
+            expect(res.harDialogmote).to.be.false;
+        });
+
+        it("Skal returnere harDialogmote === true", () => {
+            state.mote.data = {};
+            const res = mapStateToProps(state);
+            expect(res.harDialogmote).to.be.true;
+        });
 
     });
 

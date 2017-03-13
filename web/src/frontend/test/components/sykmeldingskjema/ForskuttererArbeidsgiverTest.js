@@ -25,7 +25,8 @@ describe("ForskuttererArbeidsgiver", () => {
             meta: {
                 touched: true,
                 error: "123"
-            }
+            },
+            ledetekster: {},
         };
     });
 
@@ -46,7 +47,7 @@ describe("ForskuttererArbeidsgiver", () => {
     describe("RendreForskuttererArbeidsgiver", () => {
 
         beforeEach(() => {
-            component = shallow(<RendreForskuttererArbeidsgiver {...props} />);
+            component = shallow(<RendreForskuttererArbeidsgiver {...props} ledetekster={{}}/>);
         });
 
         it("Skal inneholde et SporsmalMedTillegg", () => {
@@ -76,7 +77,7 @@ describe("ForskuttererArbeidsgiver", () => {
                 props.input = {
                     value: "NEI"
                 }
-                expect(component.find(SporsmalMedTillegg).prop("visTillegg")(props)).to.be.false;
+                expect(component.find(SporsmalMedTillegg).prop("visTillegg")(props)).to.be.true;
             });
         })
 

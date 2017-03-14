@@ -6,8 +6,8 @@
   "test": "npm run test",
   "scripts": {
     "prebuild": "node createProdFolders.js",
-    "dev": "title syfofront && parallelshell \"npm run prebuild\" \"npm run images\" \"npm run vendor:build\" \"npm run static:build:local\" \"npm run scripts:watch\" \"npm run styles:watch\"",
-    "build": "parallelshell \"npm run prebuild\" \"npm run static:build\" \"npm run scripts:build\" \"npm run images\" \"npm run vendor:build\" \"npm run styles:build\"",
+    "dev": "title syfofront && parallelshell \"npm run prebuild\" \"npm run images\" \"npm run static:build:local\" \"npm run scripts:watch\" \"npm run styles:watch\"",
+    "build": "parallelshell \"npm run prebuild\" \"npm run static:build\" \"npm run scripts:build\" \"npm run images\" \"npm run styles:build\"",
     "test:watch": "cross-env NODE_ENV=test nyc mocha --watch -G --compilers js:babel-core/register --require babel-polyfill ./test/setup.js --recursive test",
     "test": "cross-env NODE_ENV=test nyc mocha -G --compilers js:babel-core/register --require babel-polyfill ./test/setup.js --recursive test",
     "posttest": "nyc report --reporter=html --reporter=lcov",
@@ -19,7 +19,6 @@
     "images:copy:modig-frontend": "cp -R node_modules/modig-frontend/modig-frontend-ressurser/src/main/resources/META-INF/resources/img img/modig-frontend",
     "images:copy:nav-frontend": "cp -R node_modules/nav-frontend-grafikk img",
     "images:install": "cp -R img ../main/webapp",
-    "vendor:build": "cp -R vendor ../main/webapp",
     "scripts:build": "set NODE_ENV=production&&node deploy.js",
     "scripts:watch": "webpack-dev-server --inline",
     "lint": "eslint js/. --ext .js"

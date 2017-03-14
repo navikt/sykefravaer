@@ -9,6 +9,7 @@ import ledereSagas from './ledereSagas';
 import vedlikeholdSagas from './vedlikeholdSagas';
 import pilotSykepengerSagas from './pilotSykepengerSagas';
 import moteSagas from './moteSagas';
+import svarSagas from './svarSagas';
 import { ledeteksterSagas } from 'digisyfo-npm';
 
 export default function * rootSaga() {
@@ -25,5 +26,6 @@ export default function * rootSaga() {
         pilotSykepengerSagas(),
         vedlikeholdSagas(),
         moteSagas(),
+        svarSagas(),
     ];
 }

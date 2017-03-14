@@ -27,9 +27,9 @@ describe("svarSagas", () => {
     });
 
     it("Skal deretter dispatche SVAR_SENDT", () => {    
-        const action = svarActions.svarSendt([1, 2], "Bruker", "mittFineSvartidspunkt")
+        const action = svarActions.svarSendt([1, 2], "Bruker", new Date("2017-01-01"));
         const nextPut = put(action);
-        expect(generator.next({svartidspunkt: "mittFineSvartidspunkt"}).value).to.deep.equal(nextPut);
+        expect(generator.next({svartidspunkt: "2017-01-01"}).value).to.deep.equal(nextPut);
     }); 
 
 

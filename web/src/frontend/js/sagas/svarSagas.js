@@ -8,7 +8,8 @@ export function* sendSvar(action) {
     yield put(svarActions.senderSvar());
     try {
         const svar = yield call(post, `${window.APP_SETTINGS.MOTEREST_ROOT}/v2/moter/actions/${action.moteUuid}/send`, action.data);
-        yield put(svarActions.svarSendt(action.data, action.deltakertype, svar.svartidspunkt));
+        const a = svarActions.svarSendt(action.data, action.deltakertype, new Date(svar.svartidspunkt));
+        yield put(a);
     } catch (e) {
         log(e);
         yield put(svarActions.sendSvarFeilet());

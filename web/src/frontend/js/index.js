@@ -56,6 +56,12 @@ store.dispatch(hentBrukerinfo());
 store.dispatch(hentVedlikehold());
 store.dispatch(moteActions.hentMote());
 
+if (window.location.href.indexOf('visLedetekster=true') > -1) {
+    window.localStorage.setItem('visLedetekster', true);
+} else if (window.location.href.indexOf('visLedetekster=false') > -1) {
+    window.localStorage.removeItem('visLedetekster');
+}
+
 render(<Provider store={store}>
         <AppRouter history={history} /></Provider>,
     document.getElementById('maincontent'));

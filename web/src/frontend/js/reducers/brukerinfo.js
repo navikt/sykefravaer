@@ -58,8 +58,6 @@ function bruker(state = {}, action) {
         }
         case actiontyper.BRUKER_ER_UTLOGGET: {
             return {
-                henter: false,
-                hentingFeilet: false,
                 data: {
                     erInnlogget: false,
                 },
@@ -70,8 +68,6 @@ function bruker(state = {}, action) {
                 erInnlogget: true,
             });
             return Object.assign({}, state, {
-                henter: false,
-                hentingFeilet: false,
                 data,
             });
         }

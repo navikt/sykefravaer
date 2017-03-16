@@ -269,6 +269,8 @@ describe('brukerinfo', () => {
         const nyState = brukerinfo(initiellState, brukerinfoActions.setErUtlogget());
         expect(nyState).to.deep.equal({
             bruker: {
+                henter: false,
+                hentingFeilet: false,
                 data: {
                     erInnlogget: false,
                 }
@@ -290,6 +292,8 @@ describe('brukerinfo', () => {
         const nyState = brukerinfo(initiellState, brukerinfoActions.setErInnlogget());
         expect(nyState).to.deep.equal({
             bruker: {
+                henter: false,
+                hentingFeilet: false,
                 data: {
                     erInnlogget: true,
                     fisk: "OK"

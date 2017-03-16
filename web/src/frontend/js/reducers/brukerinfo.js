@@ -61,6 +61,8 @@ function bruker(state = {}, action) {
                 data: {
                     erInnlogget: false,
                 },
+                henter: false,
+                hentingFeilet: false,
             };
         }
         case actiontyper.BRUKER_ER_INNLOGGET: {
@@ -69,6 +71,8 @@ function bruker(state = {}, action) {
             });
             return Object.assign({}, state, {
                 data,
+                henter: false,
+                hentingFeilet: false,
             });
         }
         case actiontyper.SJEKKER_INNLOGGING: {

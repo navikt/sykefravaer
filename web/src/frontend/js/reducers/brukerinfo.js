@@ -31,6 +31,41 @@ function innstillinger(state = innstillingerInitState, action) {
     }
 }
 
+function innlogging(state = {}, action) {
+    switch (action.type) {
+        case actiontyper.BRUKER_ER_UTLOGGET: {
+            return {
+                erInnlogget: false,
+                henter: false,
+                hentingFeilet: false,
+            };
+        }
+        case actiontyper.BRUKER_ER_INNLOGGET: {
+            return Object.assign({}, state, {
+                erInnlogget: true,
+                henter: false,
+                hentingFeilet: false,
+            });
+        }
+        case actiontyper.SJEKKER_INNLOGGING: {
+            return Object.assign({}, state, {
+                henter: true,
+                hentingFeilet: false,
+            });
+        }
+        case actiontyper.SJEKK_INNLOGGING_FEILET: {
+            return {
+                erInnlogget: false,
+                hentingFeilet: true,
+                henter: false,
+            };
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
 function bruker(state = {}, action) {
     switch (action.type) {
         case actiontyper.HENT_BRUKERINFO_FEILET: {
@@ -56,31 +91,6 @@ function bruker(state = {}, action) {
                 data,
             });
         }
-        case actiontyper.BRUKER_ER_UTLOGGET: {
-            return {
-                data: {
-                    erInnlogget: false,
-                },
-                henter: false,
-                hentingFeilet: false,
-            };
-        }
-        case actiontyper.BRUKER_ER_INNLOGGET: {
-            const data = Object.assign({}, state.data, {
-                erInnlogget: true,
-            });
-            return Object.assign({}, state, {
-                data,
-                henter: false,
-                hentingFeilet: false,
-            });
-        }
-        case actiontyper.SJEKKER_INNLOGGING: {
-            return Object.assign({}, state, {
-                henter: true,
-                hentingFeilet: false,
-            });
-        }
         default: {
             return state;
         }
@@ -90,6 +100,7 @@ function bruker(state = {}, action) {
 const brukerinfo = combineReducers({
     bruker,
     innstillinger,
+    innlogging,
 });
 
 export default brukerinfo;

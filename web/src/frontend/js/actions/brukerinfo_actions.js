@@ -62,6 +62,12 @@ export function sjekkInnlogging() {
     };
 }
 
+export function sjekkInnloggingFeilet() {
+    return {
+        type: actiontyper.SJEKK_INNLOGGING_FEILET,
+    }
+}
+
 export function hentBrukerinfo() {
     return {
         type: actiontyper.HENT_BRUKERINFO_FORESPURT,

@@ -18,12 +18,10 @@ describe("InnloggingContainer", () => {
         it("Skal returnere erInnlogget, henter og hentingFeilet", () => {
             const state = {
                 brukerinfo: {
-                    bruker: {
-                        data: {
-                            erInnlogget: true,
-                        },
+                    innlogging: {
+                        erInnlogget: true,
+                        henter: false,
                         hentingFeilet: false,
-                        henter: false
                     }
                 }
             }
@@ -37,12 +35,6 @@ describe("InnloggingContainer", () => {
     });
 
     describe("Innlogging", () => {
-
-        it("Skal vise AppSpinner dersom henter === true", () => {
-            let sjekkInnloggingSpy = sinon.spy();
-            let comp = shallow(<Innlogging henter sjekkInnlogging={sjekkInnloggingSpy} />);
-            expect(comp.contains(<AppSpinner />)).to.be.true;
-        });
 
         it("Skal vise Feilmelding dersom hentingFeilet === true", () => {
             let sjekkInnloggingSpy = sinon.spy();

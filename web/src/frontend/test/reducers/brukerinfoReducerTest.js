@@ -2,9 +2,14 @@ import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
 import deepFreeze from 'deep-freeze';
 
+let item;
+
 window.localStorage = {
     getItem: (item) => {
         return item
+    },
+    setItem: (_item) => {
+        item = _item;
     }
 }
 
@@ -36,7 +41,8 @@ describe('brukerinfo', () => {
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: true,
-            }
+            },
+            innlogging: {}
         });
 
         initiellState2 = deepFreeze({
@@ -49,7 +55,8 @@ describe('brukerinfo', () => {
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
             },
-            bruker: {}
+            bruker: {},
+            innlogging: {}
         })
     });
 
@@ -60,7 +67,8 @@ describe('brukerinfo', () => {
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
             },
-            bruker: {}
+            bruker: {},
+            innlogging: {}
         })
     });    
 
@@ -80,6 +88,7 @@ describe('brukerinfo', () => {
             innstillinger: {
                 skjulUnderUtviklingVarsel: false
             },
+            innlogging: {}
         });      
     });
 
@@ -98,7 +107,8 @@ describe('brukerinfo', () => {
                 data: {},
                 hentingFeilet: true,
                 henter: false,
-            }
+            },
+            innlogging: {}
         });  
     })
 
@@ -106,7 +116,8 @@ describe('brukerinfo', () => {
         initiellState = deepFreeze({
             innstillinger: {
                 skjulUnderUtviklingVarsel : true
-            }
+            },
+            innlogging: {}
         });
         const nextState = brukerinfo(initiellState, brukerinfoActions.henterBrukerinfo());
         expect(nextState).to.deep.equal({
@@ -117,7 +128,8 @@ describe('brukerinfo', () => {
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
-            }
+            },
+            innlogging: {}
         });
     });   
 
@@ -136,7 +148,8 @@ describe('brukerinfo', () => {
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: false
-            }
+            },
+            innlogging: {}
         });
     });       
 
@@ -156,7 +169,8 @@ describe('brukerinfo', () => {
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: false
-            }
+            },
+            innlogging: {}
         })
     });
 
@@ -171,7 +185,8 @@ describe('brukerinfo', () => {
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
-            }
+            },
+            innlogging: {}
         });
         const nextState1 = brukerinfo(initiellState, brukerinfoActions.setBrukerinfo({
             navn: "Helge",
@@ -189,7 +204,8 @@ describe('brukerinfo', () => {
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
-            }
+            },
+            innlogging: {}
         });
               
     });    
@@ -217,7 +233,8 @@ describe('brukerinfo', () => {
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: false
-            }
+            },
+            innlogging: {}
         })  
     });
 
@@ -231,28 +248,26 @@ describe('brukerinfo', () => {
             bruker: {},
             innstillinger: {
                 arbeidssituasjon: "MED_ARBEIDSGIVER"
-            }
+            },
+            innlogging: {}
         })  
     });
 
     it("Håndterer sjekkerInnlogging når man ikke er innlogget fra før", () => {
         initiellState = deepFreeze({
             innstillinger: {},
-            bruker: {
-                data: {
-                    eple: "OK"
-                }
-            }
+            innlogging: {
+                henter: false,
+            },
+            bruker: {}
         });
         const nyState = brukerinfo(initiellState, brukerinfoActions.sjekkerInnlogging());
         expect(nyState).to.deep.equal({
-            bruker: {
+            innlogging: {
                 henter: true,
                 hentingFeilet: false,
-                data: {
-                    eple: "OK"
-                }
             },
+            bruker: {},
             innstillinger: {}
         });
     });
@@ -260,49 +275,55 @@ describe('brukerinfo', () => {
     it("Håndterer setErUtlogget()", () => {
         initiellState = deepFreeze({
             innstillinger: {},
-            bruker: {
-                data: {
-                    fisk: "OK"
-                }
-            }
+            innlogging: {
+                erInnlogget: true,
+            },
+            bruker: {}
         });
         const nyState = brukerinfo(initiellState, brukerinfoActions.setErUtlogget());
         expect(nyState).to.deep.equal({
-            bruker: {
+            innlogging: {
+                erInnlogget: false,
                 henter: false,
                 hentingFeilet: false,
-                data: {
-                    erInnlogget: false,
-                }
             },
+            bruker: {},
             innstillinger: {}
         });
     });
-
 
     it("Håndterer setErInnlogget()", () => {
         initiellState = deepFreeze({
             innstillinger: {},
-            bruker: {
-                data: {
-                    fisk: "OK"
-                }
-            }
+            bruker: {}
         });
         const nyState = brukerinfo(initiellState, brukerinfoActions.setErInnlogget());
         expect(nyState).to.deep.equal({
-            bruker: {
+            innlogging: {
+                erInnlogget: true,
                 henter: false,
                 hentingFeilet: false,
-                data: {
-                    erInnlogget: true,
-                    fisk: "OK"
-                }
             },
+            bruker: {},
             innstillinger: {}
         });
     });
 
-
+    it("Håndterer sjekkInnloggingFeilet()", () => {
+        initiellState = deepFreeze({
+            innstillinger: {},
+            bruker: {}
+        });
+        const nyState = brukerinfo(initiellState, brukerinfoActions.sjekkInnloggingFeilet());
+        expect(nyState).to.deep.equal({
+            innlogging: {
+                erInnlogget: false,
+                henter: false,
+                hentingFeilet: true,
+            },
+            bruker: {},
+            innstillinger: {}
+        });
+    });
 
 }); 

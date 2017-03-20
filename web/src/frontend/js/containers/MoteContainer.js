@@ -23,7 +23,7 @@ export class Container extends Component {
     }
 
     render() {
-        const { henter, mote, brodsmuler, ledetekster, hentingFeilet, moteIkkeFunnet } = this.props;
+        const { henter, mote, brodsmuler, ledetekster, hentingFeilet, moteIkkeFunnet, sender, sendingFeilet } = this.props;
         const modus = getSvarsideModus(mote);
         return (<Side tittel={getLedetekst('mote.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
         {
@@ -50,7 +50,7 @@ export class Container extends Component {
                         melding={getLedetekst('mote.feilmelding.utgaatt.melding', ledetekster)} />);
                 }
                 if (mote) {
-                    return <Svarside mote={mote} ledetekster={ledetekster} deltakertype={BRUKER} />;
+                    return <Svarside mote={mote} ledetekster={ledetekster} deltakertype={BRUKER} sender={sender} sendingFeilet={sendingFeilet} />;
                 }
                 return <Feilmelding />;
             })()
@@ -68,6 +68,8 @@ Container.propTypes = {
     actions: PropTypes.object,
     hentingFeilet: PropTypes.bool,
     moteIkkeFunnet: PropTypes.bool,
+    sender: PropTypes.bool,
+    sendingFeilet: PropTypes.bool,
     mote: proptypes.mote,
 };
 
@@ -85,6 +87,8 @@ export function mapStateToProps(state) {
         moteIkkeFunnet: state.mote.moteIkkeFunnet === true,
         henter: state.mote.henter,
         hentingFeilet: state.mote.hentingFeilet || state.ledetekster.hentingFeilet || false,
+        sender: state.svar.sender,
+        sendingFeilet: state.svar.sendingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', ledetekster),
             sti: '/',

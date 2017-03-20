@@ -15,9 +15,14 @@ describe("InnloggingContainer", () => {
 
     describe("mapStateToProps", () => {
 
-        it("Skal returnere erInnlogget, henter og hentingFeilet", () => {
-            const state = {
+        let state; 
+
+        beforeEach(() => {
+            state = {
                 brukerinfo: {
+                    bruker: {
+                        hentingFeilet: false,
+                    },
                     innlogging: {
                         erInnlogget: true,
                         henter: false,
@@ -25,12 +30,24 @@ describe("InnloggingContainer", () => {
                     }
                 }
             }
+        });
+
+        it("Skal returnere erInnlogget, henter og hentingFeilet", () => {
             expect(mapStateToProps(state)).to.deep.equal({
                 erInnlogget: true,
                 henter: false,
                 hentingFeilet: false
             })
-        })
+        });
+
+        it("Skal returnere hentingFeilet === true hvis bruker.hentingFeilet === true", () => {
+            state.brukerinfo.bruker.hentingFeilet = true,
+            expect(mapStateToProps(state)).to.deep.equal({
+                erInnlogget: true,
+                henter: false,
+                hentingFeilet: true
+            });
+        });
 
     });
 

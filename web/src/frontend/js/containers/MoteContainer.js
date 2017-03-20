@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { moteActions, Kvittering, BekreftetKvittering, getSvarsideModus, Svarside, konstanter, proptypes } from 'moter-npm';
+import { moteActions, svarActions, Kvittering, BekreftetKvittering, getSvarsideModus, Svarside, konstanter, proptypes } from 'moter-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
@@ -23,7 +23,7 @@ export class Container extends Component {
     }
 
     render() {
-        const { henter, mote, brodsmuler, ledetekster, hentingFeilet, moteIkkeFunnet, sender, sendingFeilet } = this.props;
+        const { henter, mote, brodsmuler, ledetekster, hentingFeilet, moteIkkeFunnet, actions } = this.props;
         const modus = getSvarsideModus(mote);
         return (<Side tittel={getLedetekst('mote.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
         {
@@ -50,7 +50,7 @@ export class Container extends Component {
                         melding={getLedetekst('mote.feilmelding.utgaatt.melding', ledetekster)} />);
                 }
                 if (mote) {
-                    return <Svarside mote={mote} ledetekster={ledetekster} deltakertype={BRUKER} sender={sender} sendingFeilet={sendingFeilet} />;
+                    return <Svarside {...this.props} deltakertype={BRUKER} sendSvar={actions.sendSvar} />;
                 }
                 return <Feilmelding />;
             })()
@@ -74,8 +74,10 @@ Container.propTypes = {
 };
 
 export function mapDispatchToProps(dispatch) {
+    const mActions = bindActionCreators(moteActions, dispatch);
+    const sActions = bindActionCreators(svarActions, dispatch);
     return {
-        actions: bindActionCreators(moteActions, dispatch),
+        actions: Object.assign({}, mActions, sActions),
     };
 }
 

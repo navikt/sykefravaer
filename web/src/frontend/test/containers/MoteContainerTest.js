@@ -6,26 +6,32 @@ import ledetekster from "../mockLedetekster";
 import AppSpinner from '../../js/components/AppSpinner';
 import Feilmelding from '../../js/components/Feilmelding';
 import sinon from 'sinon';
-import { getSvarsideModus, Kvittering, BekreftetKvittering } from 'moter-npm';
-import { Svarside, getMote, moteBekreftet, moteAvbrutt, moteIkkeBesvart, moteBesvartAlleAlternativer, moteBesvartMedNyeAlternativerBesvart, moteBesvartMedNyeAlternativerIkkeBesvart } from '../mockMote';
+import { getSvarsideModus, Kvittering, BekreftetKvittering, Svarside } from 'moter-npm';
+import { getMote, moteBekreftet, moteAvbrutt, moteIkkeBesvart, moteBesvartAlleAlternativer, moteBesvartMedNyeAlternativerBesvart, moteBesvartMedNyeAlternativerIkkeBesvart } from '../mockMote';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { Container, mapStateToProps } from '../../js/containers/MoteContainer';
+import { Container, mapStateToProps, mapDispatchToProps } from '../../js/containers/MoteContainer';
 
 describe("MoteContainer", () => {
 
     describe("Container", () => {
 
+        let moteActions;
+        let svarActions;
         let actions;
         let mote;
 
         beforeEach(() => {
             mote = getMote();
-            actions = {
+            moteActions = {
                 hentMote: sinon.spy(),
             };
+            svarActions = {
+                sendSvar: sinon.spy(),
+            }
+            actions = Object.assign({}, svarActions, moteActions);
         });
 
         it("Skal vise AppSpinner hvis henter = true", () => {
@@ -38,6 +44,19 @@ describe("MoteContainer", () => {
             expect(comp.contains(<Feilmelding />)).to.be.true;
         });
 
+        it("Skal sende alle props videre til Svarside", () => {
+            const comp = shallow(<Container mote={mote} actions={actions} ledetekster={ledetekster} banan="banan" eple="eple" />);
+            const s = comp.find(Svarside);
+            expect(s.prop("banan")).to.equal("banan");
+            expect(s.prop("eple")).to.equal("eple");
+            expect(s.prop("mote")).to.deep.equal(mote);
+        });
+
+        it("Skal sende sendSvar videre til Svarside", () => {
+            const comp = shallow(<Container mote={mote} actions={actions} ledetekster={ledetekster} />);
+            expect(comp.find(Svarside).prop("sendSvar")).to.deep.equal(svarActions.sendSvar)
+        })
+
         describe("Hvis alle alternativer er besvart", () => {
 
             it("Skal vise Kvittering", () => {
@@ -49,6 +68,27 @@ describe("MoteContainer", () => {
 
 
     });
+
+    describe("mapDispatchToProps", () => {
+
+        let dispatch;
+        let props;
+
+        beforeEach(() => {
+            dispatch = sinon.spy();
+            props = mapDispatchToProps(dispatch);
+        });
+
+        it("Skal returnere et actions-object", () => {
+            expect(typeof props.actions).to.equal("object");
+        });
+
+        it("Skal returnere møteActions og svarActions", () => {
+            const a = props.actions;
+            expect(typeof a.sendSvar).to.equal("function");
+            expect(typeof a.hentMote).to.equal("function");
+        })
+    })
 
     describe("mapStateToProps", () => {
 
@@ -121,6 +161,30 @@ describe("MoteContainer", () => {
             const props = mapStateToProps(state);
             expect(props.mote).to.deep.equal(state.mote.data);
         });
+
+        it("Skal returnere sender === true dersom svar sendes", () => {
+            state.svar.sender = true;
+            const props = mapStateToProps(state);
+            expect(props.sender).to.be.true;
+        });
+
+        it("Skal returnere sender === false dersom svar ikke sendes", () => {
+            state.svar.sender = false;
+            const props = mapStateToProps(state);
+            expect(props.sender).to.be.false;
+        });
+
+        it("Skal returnere sendingFeilet === true dersom sending av svar feiler", () => {
+            state.svar.sendingFeilet = true;
+            const props = mapStateToProps(state);
+            expect(props.sendingFeilet).to.be.true;
+        });
+
+        it("Skal returnere sendingFeiløet === false dersom sendiung av svar ikke har feilet", () => {
+            state.svar.sendingFeilet = false;
+            const props = mapStateToProps(state);
+            expect(props.sendingFeilet).to.be.false;
+        });        
 
     });
 

@@ -30,7 +30,9 @@ Innlogging.propTypes = {
 };
 
 export const mapStateToProps = (state) => {
-    return state.brukerinfo.innlogging;
+    return Object.assign({}, state.brukerinfo.innlogging, {
+        hentingFeilet: state.brukerinfo.innlogging.hentingFeilet || state.brukerinfo.bruker.hentingFeilet,
+    });
 };
 
 export default connect(mapStateToProps, actions)(Innlogging);

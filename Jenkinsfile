@@ -20,11 +20,10 @@ def notifyFailed(reason, error) {
 node {
     common.setupTools("Maven 3.3.3", "java8")
 
-    stage('Checkout') {
-        git "ssh://git@stash.devillo.no:7999/syfo/${application}.git"
-    }
+    stage('Bygger app') {
 
-    stage('Setup') {
+        git "ssh://git@stash.devillo.no:7999/syfo/${application}.git"
+
         def pom = readMavenPom file: 'pom.xml'
 
         commiter = sh(script: 'git log -1 --pretty=format:"%ae (%an)"', returnStdout: true).trim()
@@ -35,11 +34,8 @@ node {
         buildNr = env.BUILD_NUMBER
         commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
         releaseVersion = pomVersion + "." + buildNr + "-" + commitHash
-        mattermostSend color: GREEN, message: common.getChangeString(), channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
-    }
 
-    stage('Build (java)') {
-        mattermostSend color: GREEN, message: "Pipeline starter - ${application}:${releaseVersion}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+        mattermostSend color: GREEN, message: "Pipeline starter - ${application}:${releaseVersion} \n\n Changelog:\n ${common.getChangeString()}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
         try {
             sh "mvn clean install"
         } catch (Exception e) {
@@ -47,7 +43,7 @@ node {
         }
     }
 
-    stage('Sonar') {
+    stage('Sjekker kvalitet (Sonar)') {
         withSonarQubeEnv('SBL sonar') {
             try {
                 sh "mvn ${SONAR_MAVEN_GOAL} -Dsonar.host.url=${SONAR_HOST_URL}"
@@ -58,7 +54,7 @@ node {
         }
     }
 
-    stage('Set Version') {
+    stage('Lagrer artifakter (Nexus)') {
         script {
             def pom = readMavenPom file: 'pom.xml'
 
@@ -72,9 +68,7 @@ node {
             releaseVersion = pomVersion + "." + buildNr + "-" + commitHash
             sh "mvn versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
         }
-    }
 
-    stage('Deploy nexus') {
         try {
             sh "mvn -B deploy -DskipTests"
             currentBuild.description = "Version: ${releaseVersion}"
@@ -84,7 +78,7 @@ node {
     }
 }
 
-stage("Deploy app til T1") {
+stage("Deployer til T1") {
     callback = "${env.BUILD_URL}input/Deploy/"
     node {
         def deploy = common.deployApp('syfofront', releaseVersion, "${t1_kode}", callback, commiter).key
@@ -100,14 +94,16 @@ stage("Deploy app til T1") {
 }
 
 node {
-    stage("Run nightwatch") {
+    stage("Funker det?") {
         def sjekker = build job: 'syfosjekker', parameters: [[$class: 'StringParameterValue', name: 'miljo', value: 't1']]
         if (sjekker.result != 'SUCCESS'){
             notifyFailed("Syfosjekker feilet test i T1", null)
         }
     }
+}
 
-    stage("Log versions in T1") {
+stage("Deployer til T4") {
+    node {
         syfofront_version_t1 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfofront\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
         syforest_version_t1 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syforest\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
         syfoservice_version_t1 = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfoservice\\&environment=t1\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true)
@@ -125,9 +121,6 @@ node {
         msg = "Fant gyldig configurasjon i T1 og promoterer disse videre til T4!\n - syfofront:${syfofront_version_t1}\n - syforest:${syforest_version_t1}\n - syfoservice:${syfoservice_version_t1}\n - syfotekster:${syfotekster_version_t1}"
         mattermostSend color: GREEN, message: msg, channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
     }
-}
-
-stage("Deploy apper til T4") {
 
     callback = "${env.BUILD_URL}input/Deploy/"
     node {

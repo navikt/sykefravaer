@@ -13,7 +13,7 @@ import { getSoknad } from '../../../mockSoknader';
 describe("validerAktiviteterISykmeldingsperioden", () => {
 
     let values; 
-    let sykmelding;
+    let sykepengesoknad;
 
     beforeEach(() => {
         values = {

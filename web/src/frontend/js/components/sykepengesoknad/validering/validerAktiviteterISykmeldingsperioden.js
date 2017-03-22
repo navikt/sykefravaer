@@ -5,6 +5,13 @@ import { fraInputdatoTilJSDato } from '../../../utils';
 import { senesteTom } from '../../../utils/periodeUtils';
 import { toDatePrettyPrint } from 'digisyfo-npm';
 
+const parseString = (str) => {
+    if (str) {
+        return parseFloat(str.replace(',', '.'));
+    }
+    return null;
+};
+
 const validerAktiviteter = (values, aktiviteter) => {
     const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer enn planlagt';
     const feil = aktiviteter.map((aktivitet, index) => {
@@ -20,28 +27,42 @@ const validerAktiviteter = (values, aktiviteter) => {
         const avvik = (() => {
             const antallFeil = 'Vennligst oppgi antall';
             const normaltAntallFeil = 'Vennligst oppgi normalt antall';
+            const ikkeJobbetMerEnnGraderingProsentFeil = 'Prosenten du har oppgitt er lavere enn sykmeldingsgraden. Husk å oppgi hvor mye du har jobbet totalt';
+            const ikkeJobbetMerEnnGraderingTimerFeil = 'Antall timer du har oppgitt er lavere enn sykmeldingen tilsier. Husk å oppgi hvor mye du har jobbet totalt';
+            const overHundreProsent = 'NAV forholder seg ikke til arbeidstid over 100%. Oppgi et tall fra 0-100';
             const res = {};
 
-            if (!values || !values.aktiviteter || !values.aktiviteter[index] || !values.aktiviteter[index].avvik) {
-                res.arbeidsgrad = antallFeil;
-                res.arbeidstimerNormalUke = normaltAntallFeil;
-                return res;
+            if (values && values.aktiviteter[index] && values.aktiviteter[index].jobbetMerEnnPlanlagt) {
+                if (values.aktiviteter[index].avvik) {
+                    if (values.aktiviteter[index].avvik.enhet === 'prosent') {
+                        if (values.aktiviteter[index].avvik.arbeidsgrad > 100) {
+                            res.arbeidsgrad = overHundreProsent;
+                        }
+                        if (values.aktiviteter[index].avvik.arbeidsgrad <= (100 - values.aktiviteter[index].grad)) {
+                            res.arbeidsgrad = ikkeJobbetMerEnnGraderingProsentFeil;
+                        }
+                        if (!values.aktiviteter[index].avvik.arbeidsgrad || values.aktiviteter[index].avvik.arbeidsgrad === '') {
+                            res.arbeidsgrad = antallFeil;
+                        }
+                    } else if (values.aktiviteter[index].avvik.enhet === 'timer') {
+                        if (values.aktiviteter[index].avvik.arbeidstimerNormalUke && parseString(values.aktiviteter[index].avvik.arbeidstimerNormalUke) > 0) {
+                            if ((parseString(values.aktiviteter[index].avvik.timer) / parseString(values.aktiviteter[index].avvik.arbeidstimerNormalUke)) * 100
+                                <= (100 - values.aktiviteter[index].grad)) {
+                                res.timer = ikkeJobbetMerEnnGraderingTimerFeil;
+                            }
+                        }
+                        if (!values.aktiviteter[index].avvik.timer || values.aktiviteter[index].avvik.timer === '') {
+                            res.timer = antallFeil;
+                        }
+                    }
+                    if (!values.aktiviteter[index].avvik.arbeidstimerNormalUke || values.aktiviteter[index].avvik.arbeidstimerNormalUke === '') {
+                        res.arbeidstimerNormalUke = normaltAntallFeil;
+                    }
+                } else {
+                    res.arbeidsgrad = antallFeil;
+                    res.arbeidstimerNormalUke = normaltAntallFeil;
+                }
             }
-
-            const avvikValues = values.aktiviteter[index].avvik;
-
-            if (!avvikValues.arbeidstimerNormalUke) {
-                res.arbeidstimerNormalUke = normaltAntallFeil;
-            }
-
-            if (!avvikValues.arbeidsgrad && (avvikValues.enhet === 'prosent' || !avvikValues.enhet)) {
-                res.arbeidsgrad = antallFeil;
-            }
-
-            if (!avvikValues.timer && avvikValues.enhet === 'timer') {
-                res.timer = antallFeil;
-            }
-
             return res;
         })();
 

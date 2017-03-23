@@ -35,7 +35,7 @@ node {
         commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
         releaseVersion = pomVersion + "." + buildNr + "-" + commitHash
 
-        mattermostSend color: GREEN, message: "Pipeline starter - ${application}:${releaseVersion} \n\n Changelog:\n ${common.getChangeString()}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+        mattermostSend color: GREEN, message: "Pipeline starter - ${application}:${releaseVersion} \n\n Changelog:\n${common.getChangeString()}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
         try {
             sh "mvn clean install"
         } catch (Exception e) {
@@ -96,8 +96,10 @@ stage("Deployer til T1") {
 node {
     stage("Funker det?") {
         def sjekker = build job: 'syfosjekker', parameters: [[$class: 'StringParameterValue', name: 'miljo', value: 't1']]
+
+        print(sjekker.result)
         if (sjekker.result != 'SUCCESS'){
-            notifyFailed("Syfosjekker feilet test i T1", null)
+            notifyFailed("Syfosjekker feilet test i T1!", null)
         }
     }
 }

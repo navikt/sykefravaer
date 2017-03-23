@@ -12,8 +12,7 @@ def t1_kode = "16557"
 def GREEN = "#4cff28"
 
 def notifyFailed(reason, error) {
-    changelog = common.getChangeString()
-    mattermostSend color: '#fc3535', message: "syfofront pipeline feilet: ${reason} \n\n${changelog}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+    mattermostSend color: '#fc3535', message: "syfofront pipeline feilet: ${reason}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
     throw error
 }
 

@@ -13,7 +13,7 @@ import { getSoknad } from '../../../mockSoknader';
 describe("validerAktiviteterISykmeldingsperioden", () => {
 
     let values; 
-    let sykmelding; 
+    let sykepengesoknad;
 
     beforeEach(() => {
         values = {
@@ -49,7 +49,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             "utdanning": {
                 "underUtdanningISykmeldingsperioden": false
             }
-        }
+        };
         const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
         expect(res).to.deep.equal({})
     });
@@ -61,7 +61,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
     });
 
     it("Skal ikke kalle på sendTilFoerDuBegynner dersom alt fra side 1 + 2 ikke er fylt ut", () => {
-        const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+        validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
         expect(sendTilFoerDuBegynner.called).to.be.false;
     });
 
@@ -114,7 +114,8 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             values.aktiviteter = [{
                 jobbetMerEnnPlanlagt: true,
                 avvik: {
-                    arbeidsgrad: ""
+                    arbeidsgrad: "",
+                    enhet: "prosent",
                 }
             }, {
                 jobbetMerEnnPlanlagt: true,
@@ -225,6 +226,90 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             }])
         });
 
+        it("Skal ikke validere om arbeidsgrad er over 100%", () => {
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    arbeidsgrad: 101,
+                    enhet: "prosent",
+                    arbeidstimerNormalUke: "37,5"
+                }
+            }, {
+                jobbetMerEnnPlanlagt: false,
+            }];
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+            expect(res.aktiviteter).to.deep.equal([{
+                avvik: {
+                    arbeidsgrad: "NAV forholder seg ikke til arbeidstid over 100%. Oppgi et tall fra 0-100",
+                }
+            }, {}])
+        });
+
+
+
+
+        it("Skal ikke validere dersom oppgitt arbeidsgrad er laver enn (100 - sykmeldt grad)", () => {
+
+            let _soknad = getSoknad({
+                "aktiviteter": [{
+                    "periode": {
+                        "fom": "2017-16-01",
+                        "tom": "2017-16-25"
+                    },
+                    "grad": 50,
+                    "avvik": null
+                }]
+            });
+
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    arbeidsgrad: 45,
+                    enhet: "prosent",
+                    arbeidstimerNormalUke: "37,5"
+                },
+                grad: 50,
+            }];
+
+            const res = validate(values, { sykepengesoknad:_soknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.deep.equal([{
+                avvik: {
+                    arbeidsgrad: "Prosenten du har oppgitt er lavere enn sykmeldingsgraden. Husk å oppgi hvor mye du har jobbet totalt",
+                }
+            }])
+        });
+
+        it("Skal ikke validere dersom oppgitt (arbeidstimer / normalArbeidstidUke) er lavere enn arbeidsgrad", () => {
+            let _soknad = getSoknad({
+                "aktiviteter": [{
+                    "periode": {
+                        "fom": "2017-16-01",
+                        "tom": "2017-16-25"
+                    },
+                    "grad": 50,
+                    "avvik": null
+                }]
+            });
+
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    timer: "10",
+                    enhet: "timer",
+                    arbeidstimerNormalUke: "37,5"
+                },
+                grad: 50,
+            }];
+
+            const res = validate(values, { sykepengesoknad:_soknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.deep.equal([{
+                avvik: {
+                    timer: "Antall timer du har oppgitt er lavere enn sykmeldingen tilsier. Husk å oppgi hvor mye du har jobbet totalt",
+                }
+            }])
+        });
     });
 
     describe("Inntektskilde", () => {
@@ -238,7 +323,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
 
             beforeEach(() => {
                 values.harAndreInntektskilder = false;
-            })
+            });
 
             it("Skal ikke validere hvorvidt brukeren har andre inntektskilder", () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });

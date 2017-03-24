@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { moteActions, svarActions, Kvittering, BekreftetKvittering, getSvarsideModus, Svarside, konstanter, proptypes } from 'moter-npm';
+import { moteActions, svarActions, Kvittering, AvbruttMote, BekreftetKvittering, getSvarsideModus, Svarside, konstanter, proptypes } from 'moter-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
@@ -46,8 +46,7 @@ export class Container extends Component {
                     return <Kvittering mote={mote} ledetekster={ledetekster} deltakertype={BRUKER} />;
                 }
                 if (modus === AVBRUTT) {
-                    return (<Feilmelding tittel={getLedetekst('mote.feilmelding.utgaatt.tittel', ledetekster)}
-                        melding={getLedetekst('mote.feilmelding.utgaatt.melding', ledetekster)} />);
+                    return (<AvbruttMote mote={mote} ledetekster={ledetekster} deltakertype={BRUKER} />);
                 }
                 if (mote) {
                     return <Svarside {...this.props} deltakertype={BRUKER} sendSvar={actions.sendSvar} />;

@@ -1,9 +1,18 @@
 import React, { PropTypes } from 'react';
-import Soknad from './Soknad';
-import { Avkrysset } from './Oppsummering/opplysninger';
 import Sidetopp from '../Sidetopp';
-import { SykmeldingNokkelOpplysning, Varselstripe, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { Soknad, SykmeldingNokkelOpplysning, Varselstripe, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
+
+export const Avkrysset = ({ tekst }) => {
+    return (<div className="oppsummering__avkrysset">
+        <img src={`${window.APP_SETTINGS.APP_ROOT}/img/png/check-box-1.png`} alt="Avkrysset" />
+        <span>{tekst}</span>
+    </div>);
+};
+
+Avkrysset.propTypes = {
+    tekst: PropTypes.string,
+};
 
 const Statuspanel = ({ opplysninger }) => {
     return (<div className="panel panel-komprimert blokk">
@@ -50,7 +59,7 @@ const SendtSoknad = ({ ledetekster, sykepengesoknad }) => {
         <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel', ledetekster)} />
         <Statuspanel opplysninger={nokkelOpplysninger} />
         <SykmeldingUtdrag ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} />
-        <Soknad ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} />
+        <Soknad ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} tittel={'Oppsummering'} />
         <div className="bekreftet-container">
             <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label', ledetekster)} />
         </div>

@@ -5,10 +5,10 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 import SendtSoknad from '../../../js/components/sykepengesoknad/SendtSoknad';
-import Soknad from '../../../js/components/sykepengesoknad/Soknad';
+import { Soknad } from 'digisyfo-npm';
 import Sidetopp from '../../../js/components/Sidetopp';
 import SykmeldingUtdrag from '../../../js/components/sykepengesoknad/SykmeldingUtdrag';
-import { Avkrysset } from '../../../js/components/sykepengesoknad/Oppsummering/opplysninger';
+import { Avkrysset } from '../../../js/components/sykepengesoknad/SendtSoknad';
 import  { getSoknad } from '../../mockSoknader';
 import ledetekster from '../../mockLedetekster';
 import { Varselstripe } from 'digisyfo-npm';
@@ -31,7 +31,7 @@ describe("SendtSoknad", () => {
     });
 
     it("Skal inneholde en Soknad", () => {
-        expect(component.contains(<Soknad ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} />)).to.be.true;
+        expect(component.contains(<Soknad ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} tittel={'Oppsummering'}/>)).to.be.true;
     });
 
     it("Skal inneholde en Avkrysset", () => {

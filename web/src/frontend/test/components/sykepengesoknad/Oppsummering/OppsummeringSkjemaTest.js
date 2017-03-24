@@ -10,7 +10,7 @@ import { Field } from 'redux-form';
 import { validate, OppsummeringSide, SendingFeilet } from '../../../../js/components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import { getSoknad } from '../../../mockSoknader';
 import mapSkjemasoknadToBackendsoknad from '../../../../js/components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
-import Soknad from '../../../../js/components/sykepengesoknad/Soknad';
+import { Soknad } from 'digisyfo-npm';
 import { Link } from 'react-router';
 
 import CheckboxSelvstendig from '../../../../js/components/skjema/CheckboxSelvstendig';

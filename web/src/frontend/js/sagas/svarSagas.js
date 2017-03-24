@@ -9,7 +9,7 @@ export function* sendSvar(action) {
     try {
         const svar = yield call(post, `${window.APP_SETTINGS.MOTEREST_ROOT}/v2/moter/actions/${action.moteUuid}/send`, {
             valgteAlternativIder: action.data,
-            deltakertype: 'Bruker',
+            deltakertype: action.deltakertype,
         });
         const a = svarActions.svarSendt(action.data, action.deltakertype, new Date(svar.svartidspunkt));
         yield put(a);

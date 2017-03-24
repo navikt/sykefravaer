@@ -22,7 +22,10 @@ describe("svarSagas", () => {
     });
 
     it("Skal poste svar",  () => {
-        const nextCall = call(post, 'http://tjenester.nav.no/moterest/api/v2/moter/actions/minFineMoteUuid/send', [1, 2]);
+        const nextCall = call(post, 'http://tjenester.nav.no/moterest/api/v2/moter/actions/minFineMoteUuid/send', {
+            valgteAlternativIder: [1, 2],
+            deltakertype: 'Bruker',
+        });
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

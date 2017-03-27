@@ -12,8 +12,15 @@ const parseString = (str) => {
     return null;
 };
 
+export const antallFeil = 'Vennligst oppgi antall';
+export const normaltAntallFeil = 'Vennligst oppgi normalt antall';
+export const ikkeJobbetMerEnnGraderingProsentFeil = 'Prosenten du har oppgitt er lavere enn sykmeldingsgraden. Husk å oppgi hvor mye du har jobbet totalt';
+export const ikkeJobbetMerEnnGraderingTimerFeil = 'Antall timer du har oppgitt er lavere enn sykmeldingen tilsier. Husk å oppgi hvor mye du har jobbet totalt';
+export const overHundreFeil = 'Du må oppgi et tall fra 1 til 100';
+export const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer enn planlagt';
+
 const validerAktiviteter = (values, aktiviteter) => {
-    const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer enn planlagt';
+
     const feil = aktiviteter.map((aktivitet, index) => {
         if (!values.aktiviteter || !values.aktiviteter[index]) {
             return {
@@ -25,18 +32,13 @@ const validerAktiviteter = (values, aktiviteter) => {
         const jobbetMerEnnPlanlagt = values.aktiviteter[index].jobbetMerEnnPlanlagt !== undefined ? undefined : jobbetMerEnnPlanlagtFeil;
 
         const avvik = (() => {
-            const antallFeil = 'Vennligst oppgi antall';
-            const normaltAntallFeil = 'Vennligst oppgi normalt antall';
-            const ikkeJobbetMerEnnGraderingProsentFeil = 'Prosenten du har oppgitt er lavere enn sykmeldingsgraden. Husk å oppgi hvor mye du har jobbet totalt';
-            const ikkeJobbetMerEnnGraderingTimerFeil = 'Antall timer du har oppgitt er lavere enn sykmeldingen tilsier. Husk å oppgi hvor mye du har jobbet totalt';
-            const overHundreProsent = 'NAV forholder seg ikke til arbeidstid over 100%. Oppgi et tall fra 0-100';
             const res = {};
 
             if (values && values.aktiviteter[index] && values.aktiviteter[index].jobbetMerEnnPlanlagt) {
                 if (values.aktiviteter[index].avvik) {
                     if (values.aktiviteter[index].avvik.enhet === 'prosent') {
                         if (values.aktiviteter[index].avvik.arbeidsgrad > 100) {
-                            res.arbeidsgrad = overHundreProsent;
+                            res.arbeidsgrad = overHundreFeil;
                         }
                         if (values.aktiviteter[index].avvik.arbeidsgrad <= (100 - values.aktiviteter[index].grad)) {
                             res.arbeidsgrad = ikkeJobbetMerEnnGraderingProsentFeil;
@@ -50,13 +52,19 @@ const validerAktiviteter = (values, aktiviteter) => {
                                 <= (100 - values.aktiviteter[index].grad)) {
                                 res.timer = ikkeJobbetMerEnnGraderingTimerFeil;
                             }
+                            if (parseString(values.aktiviteter[index].avvik.timer) > 100) {
+                                res.timer = overHundreFeil
+                            }
                         }
                         if (!values.aktiviteter[index].avvik.timer || values.aktiviteter[index].avvik.timer === '') {
                             res.timer = antallFeil;
                         }
                     }
+                    // Nor
                     if (!values.aktiviteter[index].avvik.arbeidstimerNormalUke || values.aktiviteter[index].avvik.arbeidstimerNormalUke === '') {
                         res.arbeidstimerNormalUke = normaltAntallFeil;
+                    } else if (values.aktiviteter[index].avvik.arbeidstimerNormalUke > 100) {
+                        res.arbeidstimerNormalUke = overHundreFeil;
                     }
                 } else {
                     res.arbeidsgrad = antallFeil;

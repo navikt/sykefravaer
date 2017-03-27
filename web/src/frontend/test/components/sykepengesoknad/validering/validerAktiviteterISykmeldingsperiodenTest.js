@@ -7,7 +7,13 @@ import sinon from 'sinon';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import validate from '../../../../js/components/sykepengesoknad/validering/validerAktiviteterISykmeldingsperioden';
+import validate, {
+    antallFeil,
+    ikkeJobbetMerEnnGraderingProsentFeil,
+    ikkeJobbetMerEnnGraderingTimerFeil,
+    normaltAntallFeil,
+    overHundreFeil,
+    jobbetMerEnnPlanlagtFeil } from '../../../../js/components/sykepengesoknad/validering/validerAktiviteterISykmeldingsperioden';
 import { getSoknad } from '../../../mockSoknader';
 
 describe("validerAktiviteterISykmeldingsperioden", () => {
@@ -76,8 +82,8 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
         it("Skal validere alle aktiviteter i søknaden", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.aktiviteter).to.have.length(2); 
-            expect(res.aktiviteter[0].jobbetMerEnnPlanlagt).to.equal("Vennligst oppgi om du har jobbet mer enn planlagt");
-            expect(res.aktiviteter[1].jobbetMerEnnPlanlagt).to.equal("Vennligst oppgi om du har jobbet mer enn planlagt");
+            expect(res.aktiviteter[0].jobbetMerEnnPlanlagt).to.equal(jobbetMerEnnPlanlagtFeil);
+            expect(res.aktiviteter[1].jobbetMerEnnPlanlagt).to.equal(jobbetMerEnnPlanlagtFeil);
         });
 
         it("Skal validere alle aktiviteter i sykmeldingen når man ikke har jobbet mer enn planlagt", () => {
@@ -99,13 +105,13 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    arbeidsgrad: "Vennligst oppgi antall",
-                    arbeidstimerNormalUke: "Vennligst oppgi normalt antall"
+                    arbeidsgrad: antallFeil,
+                    arbeidstimerNormalUke: normaltAntallFeil
                 }
             }, {
                 avvik: {
-                    arbeidsgrad: "Vennligst oppgi antall",
-                    arbeidstimerNormalUke: "Vennligst oppgi normalt antall"
+                    arbeidsgrad: antallFeil,
+                    arbeidstimerNormalUke: normaltAntallFeil
                 }
             }])
         });
@@ -123,13 +129,13 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    arbeidsgrad: "Vennligst oppgi antall",
-                    arbeidstimerNormalUke: "Vennligst oppgi normalt antall"
+                    arbeidsgrad: antallFeil,
+                    arbeidstimerNormalUke: normaltAntallFeil
                 }
             }, {
                 avvik: {
-                    arbeidsgrad: "Vennligst oppgi antall",
-                    arbeidstimerNormalUke: "Vennligst oppgi normalt antall"
+                    arbeidsgrad: antallFeil,
+                    arbeidstimerNormalUke: normaltAntallFeil
                 }
             }])
         });
@@ -147,12 +153,12 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    arbeidstimerNormalUke: "Vennligst oppgi normalt antall"
+                    arbeidstimerNormalUke: normaltAntallFeil
                 }
             }, {
                 avvik: {
-                    arbeidsgrad: "Vennligst oppgi antall",
-                    arbeidstimerNormalUke: "Vennligst oppgi normalt antall"
+                    arbeidsgrad: antallFeil,
+                    arbeidstimerNormalUke: normaltAntallFeil
                 }
             }])
         });
@@ -170,13 +176,13 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.aktiviteter[0]).to.deep.equal({
                 avvik: {
-                    timer: "Vennligst oppgi antall",
+                    timer: antallFeil,
                 }
             });
             expect(res.aktiviteter[1]).to.deep.equal({
                 avvik: {
-                    arbeidsgrad: "Vennligst oppgi antall",
-                    arbeidstimerNormalUke: "Vennligst oppgi normalt antall"
+                    arbeidsgrad: antallFeil,
+                    arbeidstimerNormalUke: normaltAntallFeil
                 }
             })
         });
@@ -195,13 +201,13 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.aktiviteter[0]).to.deep.equal({
                 avvik: {
-                    timer: "Vennligst oppgi antall",
+                    timer: antallFeil,
                 }
             });
             expect(res.aktiviteter[1]).to.deep.equal({
                 avvik: {
-                    arbeidsgrad: "Vennligst oppgi antall",
-                    arbeidstimerNormalUke: "Vennligst oppgi normalt antall"
+                    arbeidsgrad: antallFeil,
+                    arbeidstimerNormalUke: normaltAntallFeil
                 }
             })
         });
@@ -220,8 +226,8 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.aktiviteter).to.deep.equal([{}, {
                 avvik: {
-                    arbeidsgrad: "Vennligst oppgi antall",
-                    arbeidstimerNormalUke: "Vennligst oppgi normalt antall"
+                    arbeidsgrad: antallFeil,
+                    arbeidstimerNormalUke: normaltAntallFeil
                 }
             }])
         });
@@ -240,7 +246,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    arbeidsgrad: "NAV forholder seg ikke til arbeidstid over 100%. Oppgi et tall fra 0-100",
+                    arbeidsgrad: overHundreFeil,
                 }
             }, {}])
         });
@@ -275,7 +281,105 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
 
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    arbeidsgrad: "Prosenten du har oppgitt er lavere enn sykmeldingsgraden. Husk å oppgi hvor mye du har jobbet totalt",
+                    arbeidsgrad: ikkeJobbetMerEnnGraderingProsentFeil,
+                }
+            }])
+        });
+
+        it("Skal ikke validere dersom oppgitt timer gir lavere arbeidsgrad enn gradering", () => {
+
+            let _soknad = getSoknad({
+                "aktiviteter": [{
+                    "periode": {
+                        "fom": "2017-16-01",
+                        "tom": "2017-16-25"
+                    },
+                    "grad": 50,
+                    "avvik": null
+                }]
+            });
+
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    timer: "10",
+                    enhet: "timer",
+                    arbeidstimerNormalUke: "37,5"
+                },
+                grad: 50,
+            }];
+
+            const res = validate(values, { sykepengesoknad:_soknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.deep.equal([{
+                avvik: {
+                    timer: ikkeJobbetMerEnnGraderingTimerFeil,
+                }
+            }])
+        });
+
+        it("Skal ikke validere tall i prosent over 100", () => {
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    arbeidsgrad: 101,
+                    enhet: "prosent",
+                    arbeidstimerNormalUke: "37,5"
+                },
+                grad: 50,
+            }, {
+                jobbetMerEnnPlanlagt: false,
+            }];
+
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.deep.equal([{
+                avvik: {
+                    arbeidsgrad: overHundreFeil,
+                }
+            }, {}])
+        });
+
+        it("Skal ikke validere tall i timer over 100", () => {
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    timer: "101",
+                    enhet: "timer",
+                    arbeidstimerNormalUke: "37,5"
+                },
+                grad: 50,
+            }, {
+                jobbetMerEnnPlanlagt: false,
+            }];
+
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.deep.equal([{
+                avvik: {
+                    timer: overHundreFeil,
+                }
+            }, {}])
+        });
+
+        it("Skal ikke validere normal arbeidstid over 100", () => {
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: false,
+            }, {
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    arbeidsgrad: 70,
+                    enhet: "prosent",
+                    arbeidstimerNormalUke: "101"
+                },
+                grad: 50,
+            }];
+
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.deep.equal([{},{
+                avvik: {
+                    arbeidstimerNormalUke: overHundreFeil,
                 }
             }])
         });

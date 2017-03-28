@@ -1,31 +1,25 @@
 .varselstripe {
   position: relative;
-  padding-top: 3rem;
+  padding-top: 3em;
 
   p {
     margin-top: 0;
   }
 }
 
-.varselstripe:before, .varselstripe__ikon {
+.varselstripe p:last-child {
+  margin-bottom: 0;
+}
+
+.varselstripe__ikon {
   position: absolute;
   left: 50%; 
   top: 0;
 }
 
-.varselstripe:before {
-  content: "";
-  width: 0;
-  height: 0;
-  display: block;
-  border-radius: 50%;
-  border: 1rem solid @color-border;
-  transform: translateX(-50%);
-}
-
 .varselstripe__ikon {
-  width: 2rem; 
-  height: 2rem;
+  width: 2em; 
+  height: 2em;
   top: 0; 
   left: 50%; 
   transform: translateX(-50%);
@@ -38,22 +32,24 @@
   }
 
   &:after {
-    border-color: @color-border;
+    border-color: @color-text;
   }
   
 }
 
-.varselstripe--feil:before, 
 .varselstripe--feil .varselstripe__ikon:after {
   border-color: @color-error;
 }
 
-.varselstripe--info:before,
-.varselstripe--info .varselstripe__ikon:after {
-  border-color: @color-warning
+.varselstripe--info:before {
+  border-color: #FFFFFF;
 }
 
-.varselstripe--suksess:before, 
+.varselstripe--info img {
+  width: 2em;
+  height: 2em;
+}
+
 .varselstripe--suksess .varselstripe__ikon:after {
   border-color: @color-success;
 }
@@ -67,15 +63,15 @@
 }
 
 .varselstripe--avbrutt img {
-  width: 2rem;
-  height: 2rem;
+  width: 2em;
+  height: 2em;
 }
 
 @media(min-width: @screen-xs) {
 
   .varselstripe {
     position: relative;
-    padding-left: 5rem;
+    padding-left: 5em;
     padding-top: 0;
   }
 
@@ -87,7 +83,7 @@
     border-width: 0;
     border-left-width: 1px;
     border-style: solid; 
-    right: -1.5rem;
+    right: -1.5em;
     transform: translateX(-50%);
   }
 
@@ -100,8 +96,4 @@
     transform: translateY(-50%);
   }
 
-}
-
-.alignSelfToCenter {
-  align-self: center;
 }

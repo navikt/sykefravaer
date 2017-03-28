@@ -20,7 +20,7 @@ export const Controller = (props) => {
     if (sykepengesoknad.status === 'NY') {
         return <FoerDuBegynner {...props} />;
     }
-    if (sykepengesoknad.status === 'SENDT') {
+    if (sykepengesoknad.status === 'SENDT' || sykepengesoknad.status === 'TIL_SENDING') {
         return <SendtSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />;
     }
     return <Feilmelding tittel="Søknaden har ukjent status" />;

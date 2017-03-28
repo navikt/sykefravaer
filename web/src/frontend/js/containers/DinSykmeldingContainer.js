@@ -37,7 +37,7 @@ export class DinSykmldSide extends Component {
                         return (<Feilmelding
                             tittel={getLedetekst('din-sykmelding.fant-ikke-sykmelding.tittel', ledetekster)}
                             melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding', ledetekster)} />);
-                    } else if (dinSykmelding.status === 'SENDT' && arbeidsgiversSykmelding && arbeidsgiversSykmelding) {
+                    } else if ((dinSykmelding.status === 'SENDT' || dinSykmelding.status === 'TIL_SENDING') && dinSykmelding && arbeidsgiversSykmelding) {
                         return (<div>
                             <DinSendteSykmelding
                                 dinSykmelding={dinSykmelding}

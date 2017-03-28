@@ -8,6 +8,7 @@ import SendtSoknad from '../../../js/components/sykepengesoknad/SendtSoknad';
 import { Soknad } from 'digisyfo-npm';
 import Sidetopp from '../../../js/components/Sidetopp';
 import SykmeldingUtdrag from '../../../js/components/sykepengesoknad/SykmeldingUtdrag';
+import Statuspanel from '../../../js/components/sykepengesoknad/Statuspanel';
 import { Avkrysset } from '../../../js/components/sykepengesoknad/SendtSoknad';
 import  { getSoknad } from '../../mockSoknader';
 import ledetekster from '../../mockLedetekster';
@@ -39,8 +40,12 @@ describe("SendtSoknad", () => {
     });
 
     it("SKal inneholde en Varselstripe", () => {
-        component = mount(<SendtSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />)
+        component = mount(<SendtSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />);
         expect(component.find(Varselstripe)).to.have.length(1);
     });
 
-})
+    it("Skal inneholde statuspanel", () => {
+        component = mount(<SendtSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />);
+        expect(component.find(Statuspanel)).to.have.length(1);
+    });
+});

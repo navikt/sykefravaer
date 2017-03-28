@@ -1,10 +1,23 @@
 import React, { PropTypes } from 'react';
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from './NokkelOpplysningerEnum';
-import { SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { Hjelpetekst, SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+
+const tilSendingHjelpetekst = () => {
+    return (<Hjelpetekst
+        tittel={getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tittel')}
+        tekst={getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tekst')} />);
+};
 
 const Status = ({ ledetekster, status }) => {
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.status', ledetekster)}>
-        <p className="js-status">{getLedetekst(`statuspanel.status.${status}`, ledetekster)}</p>
+        {status === 'TIL_SENDING' ?
+            <div>
+                <span>{getLedetekst(`statuspanel.status.${status}`, ledetekster)}</span>
+                {tilSendingHjelpetekst()}
+            </div>
+            :
+            <p className="js-status">{getLedetekst(`statuspanel.status.${status}`, ledetekster)}</p>
+        }
     </SykmeldingNokkelOpplysning>);
 };
 

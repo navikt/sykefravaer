@@ -20,7 +20,6 @@ export const overHundreFeil = 'Du må oppgi et tall fra 1 til 100';
 export const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer enn planlagt';
 
 const validerAktiviteter = (values, aktiviteter) => {
-
     const feil = aktiviteter.map((aktivitet, index) => {
         if (!values.aktiviteter || !values.aktiviteter[index]) {
             return {
@@ -47,20 +46,21 @@ const validerAktiviteter = (values, aktiviteter) => {
                             res.arbeidsgrad = antallFeil;
                         }
                     } else if (values.aktiviteter[index].avvik.enhet === 'timer') {
+                        if (parseString(values.aktiviteter[index].avvik.timer) > 100) {
+                            res.timer = overHundreFeil;
+                        }
+
                         if (values.aktiviteter[index].avvik.arbeidstimerNormalUke && parseString(values.aktiviteter[index].avvik.arbeidstimerNormalUke) > 0) {
                             if ((parseString(values.aktiviteter[index].avvik.timer) / parseString(values.aktiviteter[index].avvik.arbeidstimerNormalUke)) * 100
                                 <= (100 - values.aktiviteter[index].grad)) {
                                 res.timer = ikkeJobbetMerEnnGraderingTimerFeil;
                             }
-                            if (parseString(values.aktiviteter[index].avvik.timer) > 100) {
-                                res.timer = overHundreFeil
-                            }
                         }
+
                         if (!values.aktiviteter[index].avvik.timer || values.aktiviteter[index].avvik.timer === '') {
                             res.timer = antallFeil;
                         }
                     }
-                    // Nor
                     if (!values.aktiviteter[index].avvik.arbeidstimerNormalUke || values.aktiviteter[index].avvik.arbeidstimerNormalUke === '') {
                         res.arbeidstimerNormalUke = normaltAntallFeil;
                     } else if (values.aktiviteter[index].avvik.arbeidstimerNormalUke > 100) {

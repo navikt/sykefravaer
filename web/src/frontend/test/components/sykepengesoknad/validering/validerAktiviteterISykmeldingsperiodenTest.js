@@ -410,11 +410,44 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
 
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    timer: "Antall timer du har oppgitt er lavere enn sykmeldingen tilsier. Husk å oppgi hvor mye du har jobbet totalt",
+                    timer: ikkeJobbetMerEnnGraderingTimerFeil,
+                }
+            }])
+        });
+
+        it("Skal gi valideringsfeil på timer selv om normal arbeidstid ikke er oppgitt", ()=> {
+            let _soknad = getSoknad({
+                "aktiviteter": [{
+                    "periode": {
+                        "fom": "2017-16-01",
+                        "tom": "2017-16-25"
+                    },
+                    "grad": 50,
+                    "avvik": null
+                }]
+            });
+
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    timer: "1000",
+                    enhet: "timer",
+                },
+                grad: 50,
+            }];
+
+            const res = validate(values, { sykepengesoknad:_soknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.deep.equal([{
+                avvik: {
+                    timer: overHundreFeil,
+                    arbeidstimerNormalUke: normaltAntallFeil,
                 }
             }])
         });
     });
+
+
 
     describe("Inntektskilde", () => {
 

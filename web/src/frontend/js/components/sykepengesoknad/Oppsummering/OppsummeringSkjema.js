@@ -4,8 +4,7 @@ import SykepengerSkjema from '../SykepengerSkjema';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
 import mapSkjemasoknadToBackendsoknad from '../mapSkjemasoknadToBackendsoknad';
-import { Varselstripe, getLedetekst } from 'digisyfo-npm';
-import Soknad from '../Soknad';
+import { Soknad, Varselstripe, getLedetekst } from 'digisyfo-npm';
 import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
 import { Field } from 'redux-form';
 import validate from '../validering/validerOppsummering';
@@ -30,7 +29,7 @@ export const OppsummeringSide = (props) => {
 
     return (<SykepengerSkjema aktivtSteg="3" sykepengesoknad={sykepengesoknad} ledetekster={ledetekster}>
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Soknad sykepengesoknad={backendSoknad} ledetekster={ledetekster} />
+            <Soknad sykepengesoknad={backendSoknad} ledetekster={ledetekster} tittel={'Oppsummering'} />
             <div className={sendingFeilet ? 'bekreftet-container blokk' : 'bekreftet-container'}>
                 <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             </div>

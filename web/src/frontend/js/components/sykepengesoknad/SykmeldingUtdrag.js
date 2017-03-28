@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { SykmeldingPerioder, SykmeldingNokkelOpplysning, toDatePrettyPrint } from 'digisyfo-npm';
-import { Avkrysset } from './Oppsummering/opplysninger';
+import { Avkrysset } from './SendtSoknad';
 import { Utvidbar, getLedetekst } from 'digisyfo-npm';
 
 const SykmeldingUtdrag = ({ erApen, sykepengesoknad, ledetekster }) => {

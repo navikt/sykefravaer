@@ -5,7 +5,7 @@ import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
 
 export const Controller = (props) => {
-    if (props.sykepengesoknad.status === 'SENDT') {
+    if (props.sykepengesoknad.status === 'SENDT' || props.sykepengesoknad.status === 'TIL_SENDING') {
         return <Kvittering ledetekster={props.ledetekster} />;
     }
     if (props.skjemasoknad) {

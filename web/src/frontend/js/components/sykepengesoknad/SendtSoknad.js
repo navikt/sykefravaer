@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import Sidetopp from '../Sidetopp';
-import { Soknad, SykmeldingNokkelOpplysning, Varselstripe, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { Soknad, toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
+import Statuspanel from './Statuspanel';
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">
@@ -14,36 +15,29 @@ Avkrysset.propTypes = {
     tekst: PropTypes.string,
 };
 
-const Statuspanel = ({ opplysninger }) => {
-    return (<div className="panel panel-komprimert blokk">
-        <Varselstripe type="suksess">
-            <div>
-                {
-                    opplysninger.map((opplysninger_, index1) => {
-                        return (<div className="rad-container" key={index1}>
-                            {
-                                opplysninger_.map(({ tittel, opplysning }, index2) => {
-                                    return (<SykmeldingNokkelOpplysning Overskrift="h2" tittel={tittel} key={index2}>
-                                        <p>{opplysning}</p>
-                                    </SykmeldingNokkelOpplysning>);
-                                })
-                            }
-                        </div>);
-                    })
-                }
-            </div>
-        </Varselstripe>
-    </div>);
+const getStatusTittel = (status) => {
+    let statustekst;
+    if (status === 'SENDT') {
+        statustekst = getLedetekst('sykepengesoknad.status.SENDT');
+    } else if (status === 'TIL_SENDING') {
+        statustekst = getLedetekst('sykepengesoknad.status.TIL_SENDING');
+    } else {
+        statustekst = 'Ukjent status';
+    }
+    return statustekst;
 };
 
-Statuspanel.propTypes = {
-    opplysninger: PropTypes.array,
+export const tilSendingHjelpetekst = () => {
+    return (<Hjelpetekst
+        tittel={getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tittel')}
+        tekst={getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tekst')} />);
 };
 
 const SendtSoknad = ({ ledetekster, sykepengesoknad }) => {
     const nokkelOpplysninger = [[{
         tittel: getLedetekst('sykepengesoknad.oppsummering.status.label', ledetekster),
-        opplysning: sykepengesoknad.status === 'SENDT' ? getLedetekst('sykepengesoknad.status.SENDT', ledetekster) : 'Ukjent status',
+        opplysning: getStatusTittel(sykepengesoknad.status),
+        hjelpetekst: sykepengesoknad.status === 'TIL_SENDING' ? tilSendingHjelpetekst() : null,
     }, {
         tittel: getLedetekst('sykepengesoknad.oppsummering.dato.label', ledetekster),
         opplysning: toDatePrettyPrint(sykepengesoknad.innsendtDato),

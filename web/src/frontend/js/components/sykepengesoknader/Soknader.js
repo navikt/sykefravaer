@@ -8,7 +8,7 @@ const Soknader = ({ ledetekster = {}, soknader = [] }) => {
         return soknad.status === 'NY';
     });
     const sendteSoknader = soknader.filter((soknad) => {
-        return soknad.status === 'SENDT';
+        return soknad.status === 'SENDT' || soknad.status === 'TIL_SENDING';
     });
 
     return (<div>

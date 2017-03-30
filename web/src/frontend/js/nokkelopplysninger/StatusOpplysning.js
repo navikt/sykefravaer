@@ -11,7 +11,7 @@ const tilSendingHjelpetekst = () => {
 const Status = ({ ledetekster, status }) => {
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.status', ledetekster)}>
         {status === 'TIL_SENDING' ?
-            <div>
+            <div className="medHjelpetekst">
                 <span>{getLedetekst(`statuspanel.status.${status}`, ledetekster)}</span>
                 {tilSendingHjelpetekst()}
             </div>

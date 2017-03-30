@@ -30,7 +30,7 @@
 	min-height: 3.5em;
 	.mixin-typo-infotekst();
 
-	@media(min-width: @screen-xs) {
+	@media(min-width: @skjermMini) {
 		padding-left: 1rem;
 		padding-right: 1rem;
 	}
@@ -91,11 +91,8 @@
 	background-image: data-uri("../img/svg/arrow-up_hover.svg");
 }
 
-.utvidbar__innholdContainer {
-	overflow: hidden;
-}
-
 .utvidbar__innholdContainer--medAnimasjon {
+	overflow: hidden;
 	transition: height ease-in-out .3s;
 	transform: translate3d(0, 0, 0);
 }
@@ -107,6 +104,10 @@
 	@media(min-width: @skjermMini) {
 		padding: 2.5em;
 	}
+}
+
+.utvidbar__innhold:empty {
+	padding: 0;
 }
 
 @media print {

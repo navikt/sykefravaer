@@ -122,6 +122,7 @@ export class SporsmalMedTillegg extends Component {
         });
         setTimeout(() => {
             this.setState({
+                harAnimasjon: true,
                 containerClassName: ' tilleggssporsmal__innholdContainer--medAnimasjon',
                 hoyde: '0',
                 erApen: false,

@@ -24,7 +24,7 @@ export const KvitteringSide = (props) => {
                             tittel="Fant ikke kvittering"
                             melding="Vi fant ikke kvitteringen du ser etter. Er du sikker på at du er på riktig side?" />);
                     }
-                    if (sykmelding.status === 'SENDT' || sykmelding.status === 'SENDT' || sykmelding.status === 'BEKREFTET' || sykmelding.status === 'AVBRUTT') {
+                    if (sykmelding.status === 'SENDT' || sykmelding.status === 'TIL_SENDING' || sykmelding.status === 'BEKREFTET' || sykmelding.status === 'AVBRUTT') {
                         return <SykmeldingKvittering {...props} />;
                     }
                     return <Feilmelding />;

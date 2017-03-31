@@ -59,6 +59,7 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}, pilotS
             }
             return `bekreft-sykmelding.${nokkel}`;
         }
+        case 'TIL_SENDING':
         case 'SENDT': {
             if (sykmelding.arbeidsgiverForskutterer) {
                 if (pilotSykepenger) {

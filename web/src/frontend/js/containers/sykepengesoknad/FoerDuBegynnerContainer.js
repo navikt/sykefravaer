@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
+import UtgaattSoknad from '../../components/sykepengesoknad/UtgaattSoknad';
 import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
@@ -22,6 +23,9 @@ export const Controller = (props) => {
     }
     if (sykepengesoknad.status === 'SENDT' || sykepengesoknad.status === 'TIL_SENDING') {
         return <SendtSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />;
+    }
+    if (sykepengesoknad.status === 'UTGAATT') {
+        return <UtgaattSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />;
     }
     return <Feilmelding tittel="Søknaden har ukjent status" />;
 };

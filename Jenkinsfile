@@ -33,12 +33,14 @@ node {
         buildNr = env.BUILD_NUMBER
         commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
         releaseVersion = pomVersion + "." + buildNr + "-" + commitHash
+        sh "mvn versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
 
         mattermostSend color: GREEN, message: "Pipeline starter - ${application}:${releaseVersion} \n\n Changelog:\n${common.getChangeString()}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
         try {
-            sh "mvn clean install"
+            sh "mvn clean deploy"
+            currentBuild.description = "Version: ${releaseVersion}"
         } catch (Exception e) {
-            notifyFailed("Bygg feilet", e)
+            notifyFailed("Bygg/deploy til Nexus feilet", e)
         }
     }
 
@@ -46,33 +48,9 @@ node {
         withSonarQubeEnv('SBL sonar') {
             try {
                 sh "mvn ${SONAR_MAVEN_GOAL} -Dsonar.host.url=${SONAR_HOST_URL}"
-
             } catch(Exception e) {
                 notifyFailed("Sonar feilet", e)
             }
-        }
-    }
-
-    stage('Lagrer artifakter (Nexus)') {
-        script {
-            def pom = readMavenPom file: 'pom.xml'
-
-            commiter = sh(script: 'git log -1 --pretty=format:"%ae (%an)"', returnStdout: true).trim()
-            committerEmail = sh(script: 'git log -1 --pretty=format:"%ae"', returnStdout: true).trim()
-            lastcommit = sh(script: 'git log -1 --pretty=format:"%ae (%an) %h %s"', returnStdout: true).trim()
-
-            pomVersion = pom.version.tokenize("-")[0]
-            buildNr = env.BUILD_NUMBER
-            commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-            releaseVersion = pomVersion + "." + buildNr + "-" + commitHash
-            sh "mvn versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
-        }
-
-        try {
-            sh "mvn -B deploy -DskipTests"
-            currentBuild.description = "Version: ${releaseVersion}"
-        } catch (Exception e) {
-            notifyFailed("Deploy av artifakt til nexus feilet", e)
         }
     }
 }

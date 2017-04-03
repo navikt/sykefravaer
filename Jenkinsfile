@@ -72,7 +72,7 @@ stage("Deployer til T1") {
 
 node {
     stage("Funker det?") {
-        def sjekker = build job: 'syfosjekker', parameters: [[$class: 'StringParameterValue', name: 'miljo', value: 't1']]
+        def sjekker = build job: 'syfosjekker', propagate: 'false', parameters: [[$class: 'StringParameterValue', name: 'miljo', value: 't1']]
 
         print(sjekker.result)
         if (sjekker.result != 'SUCCESS'){

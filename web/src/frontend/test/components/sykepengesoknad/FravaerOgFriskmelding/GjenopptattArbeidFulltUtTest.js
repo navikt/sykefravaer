@@ -29,11 +29,13 @@ describe("GjenopptattArbeidFulltUt", () => {
         expect(compo.find(JaEllerNei).prop("name")).to.equal("harGjenopptattArbeidFulltUt")
     });
 
-    it("Skal inneholde en JaEllerNei med riktig children", () => {
+    it("Skal inneholde en JaEllerNei med riktig children (Datovelger)", () => {
         const compo = shallow(<GjenopptattArbeidFulltUt sykepengesoknad={getSoknad()} ledetekster={_ledetekster} />);
         expect(compo.find(Datovelger)).to.have.length(1);
         expect(compo.find(Datovelger).prop("name")).to.equal("gjenopptattArbeidFulltUtDato");
         expect(compo.find(Datovelger).prop("id")).to.equal("gjenopptattArbeidFulltUtDato");
+        expect(compo.find(Datovelger).prop("tidligsteFom")).to.deep.equal(new Date('2017-01-01'));
+        expect(compo.find(Datovelger).prop("senesteTom")).to.deep.equal(new Date('2017-01-25'));
     });
 
     it("Skal vise riktig spørsmål", () => {

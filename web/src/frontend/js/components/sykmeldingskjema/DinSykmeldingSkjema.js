@@ -22,6 +22,14 @@ export class DinSykmeldingSkjemaComponent extends Component {
         this.state = {};
     }
 
+    componentWillUpdate(prevProps) {
+        if (this.props.skjemaData && prevProps.skjemaData && this.props.skjemaData.values.opplysningeneErRiktige !== prevProps.skjemaData.values.opplysningeneErRiktige) {
+            this.setState({
+                visAvbrytDialog: false,
+            });
+        }
+    }
+
     componentDidUpdate(prevProps) {
         if (this.props.sykmelding.id !== prevProps.sykmelding.id) {
             // Tilbakestiller data i skjema dersom man navigverer til en ny sykmelding

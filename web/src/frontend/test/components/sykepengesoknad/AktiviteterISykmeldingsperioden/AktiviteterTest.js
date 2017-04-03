@@ -107,6 +107,10 @@ describe("Aktiviteter", () => {
             expect(ja).to.contain("Hvor mye har du jobbet i gjennomsnitt per uke i denne perioden hos MORTENS GRØNNSAKER?")
         });
 
+        it("Skal inneholde en Hjelpetekst", () => {
+            expect(ja.prop("hjelpetekst")).to.be.defined;
+        });
+
         it("Skal inneholde Fields", () => {
             const fields = ja.find(Fields);
             expect(fields).to.have.length(1)
@@ -140,6 +144,10 @@ describe("Aktiviteter", () => {
             expect(ja.prop("intro")).to.equal("I perioden 01.01.2017 - 15.01.2017 skulle du ikke jobbe hos MORTENS GRØNNSAKER.")
             expect(ja.prop("spoersmal")).to.equal("Har du jobbet?");
             expect(ja).to.contain("Hvor mye har du jobbet i gjennomsnitt per uke i denne perioden hos MORTENS GRØNNSAKER?")
+        });
+
+        it("Skal ikke inneholde en Hjelpetekst", () => {
+            expect(ja.prop("hjelpetekst")).to.be.null;
         });
 
         it("Skal inneholde Fields", () => {

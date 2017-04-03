@@ -1,12 +1,15 @@
 import React, { PropTypes } from 'react';
 import { Fields } from 'redux-form';
 import JaEllerNei from '../JaEllerNei';
-import { toDatePrettyPrint } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import AngiTid from './AngiTid';
-import { getLedetekst } from 'digisyfo-npm';
 
 export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch, ledetekster }) => {
     const ledetekstPrefix = field.grad === 100 ? 'sykepengesoknad.aktiviteter.ugradert' : 'sykepengesoknad.aktiviteter.gradert';
+
+    const hjelpetekst = field.grad !== 100 ? <Hjelpetekst
+        tittel={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tittel', ledetekster)}
+        tekst={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tekst', ledetekster)} /> : null;
 
     return (<JaEllerNei
         name={`aktiviteter[${index}].jobbetMerEnnPlanlagt`}
@@ -16,7 +19,8 @@ export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch, ledet
             '%ARBEIDSGIVER%': arbeidsgiver,
             '%ARBEIDSGRAD%': 100 - field.grad,
         })}
-        spoersmal={getLedetekst(`${ledetekstPrefix}.sporsmal`, ledetekster)}>
+        spoersmal={getLedetekst(`${ledetekstPrefix}.sporsmal`, ledetekster)}
+        hjelpetekst={hjelpetekst}>
         <div>
             <h4 className="skjema__sporsmal">
                 {

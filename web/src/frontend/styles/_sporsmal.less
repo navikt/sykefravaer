@@ -1,4 +1,4 @@
-.hovedsporsmal, .presisering {
+.hovedsporsmal, .presisering, .snakkeboble {
     padding: 1em;
     background-color: @hvit;
     position: relative;
@@ -51,7 +51,7 @@
     }
 }
 
-.presisering {
+.presisering, .snakkeboble {
     margin-top: 2em;
 
     &:after {
@@ -75,7 +75,7 @@
     }
 }
 
-.ekstrasporsmal, .presisering {
+.ekstrasporsmal, .presisering, .snakkeboble {
     &:after {
         content: "";
         width: 1em;
@@ -94,8 +94,21 @@
 .presisering {
     margin-top: 2em;
 
+    p:last-child {
+        margin-bottom: 0;
+    }
+
     &:after {
         background-color: @hvit;
+    }
+}
+
+.snakkeboble {
+    &:after {
+        font-size: 1.3333333333333333em;
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, -50%) rotate(45deg) skew(5deg, 5deg);
     }
 }
 

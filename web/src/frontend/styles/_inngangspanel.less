@@ -6,7 +6,7 @@
     padding-bottom: 1.25rem; 
     margin-bottom: 1px; 
     display: flex;  
-    background: @white;  
+    background: @hvit;  
     margin-bottom: 1px; 
 }
 
@@ -28,7 +28,7 @@
     transform: translate3d(0, 0, 0);
     display: flex; 
     width: 100%;
-    color: @color-text;
+    color: @navTekst;
     border-bottom-width: 0;
 
     &:hover, &:focus {
@@ -37,12 +37,12 @@
     }
 
     &:visited {
-        color: @color-text;
+        color: @navTekst;
     }
 
     &:focus {
-        background-color: @white;
-        outline: 3px solid @color-focus;
+        background-color: @hvit;
+        outline: 3px solid @fokusOrange;
     }
 
     &:hover {
@@ -70,7 +70,7 @@
         margin-bottom: 1.25rem;
     }
 
-    @media(min-width: @screen-small) {
+    @media(min-width: @skjermLiten) {
         background-position: 97% 35px; 
     }
 }
@@ -79,7 +79,7 @@
     display: none; 
 }
 
-@media(min-width: @screen-small) {
+@media(min-width: @skjermLiten) {
     .inngangspanel__innhold {
         flex: 1;
 
@@ -97,7 +97,7 @@
     }
 }
 
-@media(min-width: @screen-medium) {
+@media(min-width: @skjermMedium) {
 
     .inngangspanel__ikon {
         display: block;

@@ -8,11 +8,7 @@
 	}
 }
 
-.mixin-typo-mute() {
-	color: @gray-inactive; 
-}
-
-@media (min-width: @screen-small) {
+@media (min-width: @skjermLiten) {
     // 620px;
     .selectContainer--liten {
     	option, select {
@@ -21,7 +17,7 @@
     }
 }
 
-@media (min-width: @screen-small) {
+@media (min-width: @skjermLiten) {
 
 	.header-verktoy {
 		display: flex; 
@@ -48,7 +44,7 @@
 
 .header-verktoy-label {
 	.mixin-typo-normal(); 
-	color: @gray-inactive;
+	color: @inaktivGraa;
 	align-self: center; 
 }
 
@@ -62,7 +58,7 @@
     font-weight: normal;
 }
 
-@media(min-width: @screen-small) {
+@media(min-width: @skjermLiten) {
     .panel-ekstra:before, .panel-relatert:before {
         margin-left: -(sqrt(2rem)/2); // Fikk endelig bruk for Pythagoras i CSS!
     }

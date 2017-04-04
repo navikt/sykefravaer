@@ -35,16 +35,16 @@
     }
 }
 
-@media (min-width: @screen-xs) { 
+@media (min-width: @skjermMini) { 
     .nokkelopplysning--hoveddiagnose {
         margin-bottom: 0;
     }
 }
 
 .nokkelopplysning__tittel {
-        .mixin-typo-etikett-liten(); 
+        .mixin-typo-etikettLiten(); 
         margin-bottom: .25rem; 
-        color: @gray-inactive; 
+        color: @inaktivGraa; 
         margin-top: 0; 
 }
 
@@ -57,7 +57,7 @@ p.nokkelopplysning__meta {
     display: none;
 }
 
-@media (min-width: @screen-xs) {
+@media (min-width: @skjermMini) {
     .nokkelopplysning__meta--mobil {
         display: none;
     }
@@ -84,7 +84,7 @@ p.nokkelopplysning__meta {
         margin-top: 2px; 
         vertical-align: top; 
 
-        @media(min-width: @screen-xs) {
+        @media(min-width: @skjermMini) {
             margin-top: 1px; 
         }
     }

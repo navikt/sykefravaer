@@ -1,0 +1,88 @@
+.hode {
+    position: relative;
+    padding-top: 3.25em;
+    margin-top: 0;
+    margin-bottom: 1em;
+
+    &:before {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        content: "";
+        width: 2em;
+        height: 2em;
+        display: block;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+}
+
+.hode__tittel {
+    .mixin-typo-undertittel();
+    position: relative;
+    margin: 0;
+    margin-bottom: 1em;
+    text-align: center;
+    padding-bottom: ~"calc(1.25em + 1px)";
+
+    &:after {
+        width: 1.6em; 
+        height: 1px;
+        content: "";
+        display: block;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        position: absolute;
+        background-color: @navTekst;
+    }
+}
+
+.hode__melding {
+    text-align: center;
+}
+
+.hode--feil {
+    &:before {
+        background-image: url('/sykefravaer/img/svg/hoder/utropstegn--fylt.svg');
+        background-size: 100% 100%;
+    }
+
+    .hode__tittel:after {
+        background-color: @advarselRoed;
+    }
+}
+
+.hode--suksess {
+    &:before {
+        background-image: url('/sykefravaer/img/svg/hoder/hake--fylt.svg');
+        background-size: 100% 100%;
+    }
+
+    .hode__tittel:after {
+        background-color: @suksessGroenn;
+    }
+}
+
+.hode--informasjon {
+    &:before {
+        background-image: url('/sykefravaer/img/svg/hoder/informasjon--fylt.svg');
+        background-size: 100% 100%;
+    }
+
+    .hode__tittel:after {
+        background-color: @ikonGraa;
+    }
+}
+
+.hode--advarsel {
+    &:before {
+        background-image: url('/sykefravaer/img/svg/hoder/advarsel--fylt.svg');
+        background-size: 100% 100%;
+    }
+
+    .hode__tittel:after {
+        background-color: @infoOrange;
+    }
+}

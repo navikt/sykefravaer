@@ -6,8 +6,10 @@ const Kvittering = ({ ledetekster }) => {
     return (<div>
         <Sidetopp tittel="Kvittering" />
         <div className="panel">
-            <h2 className="hode hode-suksess hode-dekorert">{getLedetekst('sykepengesoknad.kvittering.tittel', ledetekster)}</h2>
-            <div dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.kvittering.tekst', ledetekster)} />
+            <div className="hode hode--suksess">
+                <h2 className="hode__tittel">{getLedetekst('sykepengesoknad.kvittering.tittel', ledetekster)}</h2>
+                <div dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.kvittering.tekst', ledetekster)} />
+            </div>
         </div>
         <article className="panel typo-infotekst ikke-print js-tilbakemelding">
             <h2 className="typo-undertittel">Hjelp oss å bli bedre</h2>

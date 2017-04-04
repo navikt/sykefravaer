@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 
 const AvbrytDialog = ({ ledetekster, avbryter, avbrytHandler, bekreftHandler }) => {
-    return (<div className="panel panel-relatert">
+    return (<div className="snakkeboble">
         <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.avbryt.spoersmal', ledetekster)} />
         <div className="blokk--xs">
             <button disabled={avbryter} className="js-bekreft knapp knapp--fare" type="button" onClick={(e) => {

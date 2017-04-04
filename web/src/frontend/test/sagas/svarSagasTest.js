@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { sendSvar } from '../../js/sagas/svarSagas.js';
-import { svarActions } from 'moter-npm';
+import { svarActions, lagJsDate } from 'moter-npm';
 import { post } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
 
@@ -30,9 +30,9 @@ describe("svarSagas", () => {
     });
 
     it("Skal deretter dispatche SVAR_SENDT", () => {    
-        const action = svarActions.svarSendt([1, 2], "Bruker", new Date("2017-01-01"));
+        const action = svarActions.svarSendt([1, 2], "Bruker", lagJsDate("2017-01-01T14:18:24.000"));
         const nextPut = put(action);
-        expect(generator.next({svartidspunkt: "2017-01-01"}).value).to.deep.equal(nextPut);
+        expect(generator.next({svartidspunkt: "2017-01-01T14:18:24.000"}).value).to.deep.equal(nextPut);
     }); 
 
 

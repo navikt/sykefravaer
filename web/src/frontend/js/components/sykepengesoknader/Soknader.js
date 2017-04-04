@@ -2,13 +2,14 @@ import React, { PropTypes } from 'react';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';
+import { SENDT, TIL_SENDING, UTGAATT, NY } from '../../statuser/sykepengesoknadstatuser';
 
 const Soknader = ({ ledetekster = {}, soknader = [] }) => {
     const nyeSoknader = soknader.filter((soknad) => {
-        return soknad.status === 'NY';
+        return soknad.status === NY;
     });
     const sendteSoknader = soknader.filter((soknad) => {
-        return soknad.status === 'SENDT' || soknad.status === 'TIL_SENDING' || soknad.status === 'UTGAATT';
+        return soknad.status === SENDT || soknad.status === TIL_SENDING || soknad.status === UTGAATT;
     });
 
     return (<div>

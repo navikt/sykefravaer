@@ -3,6 +3,7 @@ import Sidetopp from '../Sidetopp';
 import { Soknad, toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Statuspanel from './Statuspanel';
+import { SENDT, TIL_SENDING } from '../../statuser/sykepengesoknadstatuser';
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">
@@ -17,9 +18,9 @@ Avkrysset.propTypes = {
 
 const getStatusTittel = (status) => {
     let statustekst;
-    if (status === 'SENDT') {
+    if (status === SENDT) {
         statustekst = getLedetekst('sykepengesoknad.status.SENDT');
-    } else if (status === 'TIL_SENDING') {
+    } else if (status === TIL_SENDING) {
         statustekst = getLedetekst('sykepengesoknad.status.TIL_SENDING');
     } else {
         statustekst = 'Ukjent status';
@@ -37,7 +38,7 @@ const SendtSoknad = ({ ledetekster, sykepengesoknad }) => {
     const nokkelOpplysninger = [[{
         tittel: getLedetekst('sykepengesoknad.oppsummering.status.label', ledetekster),
         opplysning: getStatusTittel(sykepengesoknad.status),
-        hjelpetekst: sykepengesoknad.status === 'TIL_SENDING' ? tilSendingHjelpetekst() : null,
+        hjelpetekst: sykepengesoknad.status === TIL_SENDING ? tilSendingHjelpetekst() : null,
     }, {
         tittel: getLedetekst('sykepengesoknad.oppsummering.dato.label', ledetekster),
         opplysning: toDatePrettyPrint(sykepengesoknad.innsendtDato),

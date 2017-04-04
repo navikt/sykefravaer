@@ -3,9 +3,10 @@ import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/Op
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
+import { SENDT, TIL_SENDING } from '../../statuser/sykepengesoknadstatuser';
 
 export const Controller = (props) => {
-    if (props.sykepengesoknad.status === 'SENDT' || props.sykepengesoknad.status === 'TIL_SENDING') {
+    if (props.sykepengesoknad.status === SENDT || props.sykepengesoknad.status === TIL_SENDING) {
         return <Kvittering ledetekster={props.ledetekster} />;
     }
     if (props.skjemasoknad) {

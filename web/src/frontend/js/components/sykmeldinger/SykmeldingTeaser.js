@@ -4,6 +4,7 @@ import { getContextRoot } from '../../routers/paths';
 import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
 import { tidligsteFom, senesteTom } from '../../utils/periodeUtils';
+import { NY } from '../../statuser/sykmeldingstatuser';
 
 const PeriodeListe = ({ perioder, arbeidsgiver, ledetekster }) => {
     return (<ul className="teaser-punktliste js-perioder">
@@ -43,7 +44,7 @@ class SykmeldingTeaser extends Component {
     render() {
         const { sykmelding, ledetekster } = this.props;
         const antallPerioder = sykmelding.mulighetForArbeid.perioder.length;
-        const visStatus = sykmelding.status !== 'NY';
+        const visStatus = sykmelding.status !== NY;
 
         return (<article aria-labelledby={`sykmelding-header-${this.props.sykmelding.id}`}>
             <Link className="inngangspanel" to={`${getContextRoot()}/sykmeldinger/${this.props.sykmelding.id}`}

@@ -1,4 +1,5 @@
 import * as actiontyper from '../actions/actiontyper';
+import { SENDT, BEKREFTET } from '../statuser/sykmeldingstatuser';
 
 const initiellState = {
     henter: false,
@@ -60,7 +61,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
         }
         case actiontyper.SYKMELDING_BEKREFTET: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
-                status: 'BEKREFTET',
+                status: BEKREFTET,
             });
             return Object.assign({}, state, { data });
         }
@@ -80,7 +81,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
         }
         case actiontyper.SYKMELDING_SENDT: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
-                status: 'SENDT',
+                status: SENDT,
                 arbeidsgiverForskutterer: action.options.arbeidsgiverForskutterer,
             });
             return Object.assign({}, state, { data }, {

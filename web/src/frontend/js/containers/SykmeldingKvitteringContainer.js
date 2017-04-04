@@ -6,6 +6,7 @@ import { getLedetekst, getHtmlLedetekst, getSykmelding, toDatePrettyPrint } from
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { senesteTom } from '../utils/periodeUtils';
+import { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } from '../statuser/sykmeldingstatuser';
 
 export const KvitteringSide = (props) => {
     const { sykmelding, henter, hentingFeilet, ledetekster, brodsmuler } = props;
@@ -24,7 +25,7 @@ export const KvitteringSide = (props) => {
                             tittel="Fant ikke kvittering"
                             melding="Vi fant ikke kvitteringen du ser etter. Er du sikker på at du er på riktig side?" />);
                     }
-                    if (sykmelding.status === 'SENDT' || sykmelding.status === 'TIL_SENDING' || sykmelding.status === 'BEKREFTET' || sykmelding.status === 'AVBRUTT') {
+                    if (sykmelding.status === SENDT || sykmelding.status === TIL_SENDING || sykmelding.status === BEKREFTET || sykmelding.status === AVBRUTT) {
                         return <SykmeldingKvittering {...props} />;
                     }
                     return <Feilmelding />;
@@ -51,7 +52,7 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}, pilotS
         return null;
     }
     switch (sykmelding.status) {
-        case 'BEKREFTET': {
+        case BEKREFTET: {
             if (alternativer.harStrengtFortroligAdresse) {
                 return `bekreft-sykmelding.skjermingskode-6.${nokkel}`;
             } else if (typeof sykmelding.valgtArbeidssituasjon === 'string' && sykmelding.valgtArbeidssituasjon.toUpperCase() === 'ARBEIDSTAKER') {
@@ -59,8 +60,8 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}, pilotS
             }
             return `bekreft-sykmelding.${nokkel}`;
         }
-        case 'TIL_SENDING':
-        case 'SENDT': {
+        case TIL_SENDING:
+        case SENDT: {
             if (sykmelding.arbeidsgiverForskutterer) {
                 if (pilotSykepenger) {
                     if (erPeriodePassert(sykmelding)) {
@@ -71,7 +72,7 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}, pilotS
             }
             return `send-til-arbeidsgiver.${nokkel}`;
         }
-        case 'AVBRUTT': {
+        case AVBRUTT: {
             return `avbryt-sykmelding.${nokkel}`;
         }
         default: {

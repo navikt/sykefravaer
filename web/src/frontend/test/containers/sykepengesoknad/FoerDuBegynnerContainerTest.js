@@ -34,24 +34,22 @@ describe("FoerDuBegynnerContainer", () => {
         expect(comp.find(Feilmelding)).to.have.length(1);
     });
 
-    describe("Hvis søknad er SENDT", () => {
+    it("Skal vise en SendtSoknad hvis sykepengesoknad.status === 'SENDT'", () => {
+        const sykepengesoknad = {
+            status: 'SENDT',
+        };
+        const component = shallow(<Controller sykepengesoknad={sykepengesoknad} vedlikehold={{datospennMedTid: null}} />);
+        expect(component.find(SendtSoknad)).to.have.length(1);
+        expect(component.find(FoerDuBegynner)).to.have.length(0);
+    });
 
-        it("Skal vise en SendtSoknad hvis sykepengesoknad.status === 'SENDT'", () => {
-            const sykepengesoknad = {
-                status: 'SENDT',
-            };
-            const component = shallow(<Controller sykepengesoknad={sykepengesoknad} vedlikehold={{datospennMedTid: null}} />);
-            expect(component.find(SendtSoknad)).to.have.length(1);
-            expect(component.find(FoerDuBegynner)).to.have.length(0);
-        });
-
-        it("Skal vise en FoerDuBegynner hvis sykepengesoknad.status === 'NY'", () => {
-            const sykepengesoknad = {
-                status: 'NY'
-            };
-            const component = shallow(<Controller sykepengesoknad={sykepengesoknad} vedlikehold={{datospennMedTid: null}} />);
-            expect(component.find(FoerDuBegynner)).to.have.length(1);
-            expect(component.find(SendtSoknad)).to.have.length(0);
-        })
+    it("Skal vise en FoerDuBegynner hvis sykepengesoknad.status === 'NY'", () => {
+        const sykepengesoknad = {
+            status: 'NY'
+        };
+        const component = shallow(<Controller sykepengesoknad={sykepengesoknad} vedlikehold={{datospennMedTid: null}} />);
+        expect(component.find(FoerDuBegynner)).to.have.length(1);
+        expect(component.find(SendtSoknad)).to.have.length(0);
     })
+    
 });

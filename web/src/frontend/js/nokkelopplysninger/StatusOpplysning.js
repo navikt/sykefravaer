@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from './NokkelOpplysningerEnum';
 import { Hjelpetekst, SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { BEKREFTET, AVBRUTT, TIL_SENDING } from '../statuser/sykmeldingstatuser';
 
 const tilSendingHjelpetekst = () => {
     return (<Hjelpetekst
@@ -10,7 +11,7 @@ const tilSendingHjelpetekst = () => {
 
 const Status = ({ ledetekster, status }) => {
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.status', ledetekster)}>
-        {status === 'TIL_SENDING' ?
+        {status === TIL_SENDING ?
             <div className="medHjelpetekst">
                 <span>{getLedetekst(`statuspanel.status.${status}`, ledetekster)}</span>
                 {tilSendingHjelpetekst()}
@@ -28,9 +29,9 @@ Status.propTypes = {
 
 const InnsendtDato = ({ ledetekster, sendtdato, status }) => {
     let nokkel = 'statuspanel.dato.innsendt';
-    if (status === 'BEKREFTET') {
+    if (status === BEKREFTET) {
         nokkel = 'statuspanel.dato.bekreftet';
-    } else if (status === 'AVBRUTT') {
+    } else if (status === AVBRUTT) {
         nokkel = 'statuspanel.dato.avbrutt';
     }
     return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst(nokkel, ledetekster)}>

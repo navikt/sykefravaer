@@ -13,6 +13,7 @@ import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions'
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
 import { hentPilotSykepenger } from '../actions/pilot_actions';
 import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst } from 'digisyfo-npm';
+import { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } from '../statuser/sykmeldingstatuser';
 
 export class DinSykmldSide extends Component {
 
@@ -37,7 +38,7 @@ export class DinSykmldSide extends Component {
                         return (<Feilmelding
                             tittel={getLedetekst('din-sykmelding.fant-ikke-sykmelding.tittel', ledetekster)}
                             melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding', ledetekster)} />);
-                    } else if ((dinSykmelding.status === 'SENDT' || dinSykmelding.status === 'TIL_SENDING') && dinSykmelding && arbeidsgiversSykmelding) {
+                    } else if ((dinSykmelding.status === SENDT || dinSykmelding.status === TIL_SENDING) && dinSykmelding && arbeidsgiversSykmelding) {
                         return (<div>
                             <DinSendteSykmelding
                                 dinSykmelding={dinSykmelding}
@@ -45,7 +46,7 @@ export class DinSykmldSide extends Component {
                                 ledetekster={ledetekster} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
                         </div>);
-                    } else if (dinSykmelding.status === 'BEKREFTET') {
+                    } else if (dinSykmelding.status === BEKREFTET) {
                         return (<div>
                             <DinBekreftedeSykmelding
                                 dinSykmelding={dinSykmelding}
@@ -53,21 +54,21 @@ export class DinSykmldSide extends Component {
                                 ledetekster={ledetekster} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
                         </div>);
-                    } else if (dinSykmelding.status === 'UTGAATT') {
+                    } else if (dinSykmelding.status === UTGAATT) {
                         return (<div>
                             <DinUtgaatteSykmelding
                                 sykmelding={dinSykmelding}
                                 ledetekster={ledetekster} />
                             <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
                         </div>);
-                    } else if (dinSykmelding.status === 'NY') {
+                    } else if (dinSykmelding.status === NY) {
                         return (<DinSykmelding
                             sykmelding={dinSykmelding}
                             ledetekster={ledetekster}
                             visEldreSykmeldingVarsel={visEldreSykmeldingVarsel}
                             eldsteSykmeldingId={eldsteSykmeldingId}
                             pilotSykepenger={pilotSykepenger} />);
-                    } else if (dinSykmelding.status === 'AVBRUTT') {
+                    } else if (dinSykmelding.status === AVBRUTT) {
                         return (<div>
                             <DinAvbrutteSykmelding
                                 sykmelding={dinSykmelding}
@@ -132,7 +133,7 @@ const harSammePeriodeSomDenEldsteSykmeldingen = (sykmeldinger, sykmeldingId) => 
 
 const visEldreSykmeldingVarsel = (sykmeldinger, sykmeldingId) => {
     const nyeSykmeldinger = sykmeldinger.filter((s) => {
-        return s.status === 'NY';
+        return s.status === NY;
     });
     const erEldst = erEldsteSykmelding(nyeSykmeldinger, sykmeldingId);
     if (erEldst) {
@@ -149,7 +150,7 @@ export function mapStateToProps(state, ownProps) {
     const dinSykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId);
     let arbeidsgiversSykmelding = {};
 
-    if (dinSykmelding && (dinSykmelding.status === 'SENDT' || (dinSykmelding.status === 'BEKREFTET' && dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER'))) {
+    if (dinSykmelding && (dinSykmelding.status === SENDT || (dinSykmelding.status === BEKREFTET && dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER'))) {
         arbeidsgiversSykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId);
     }
 

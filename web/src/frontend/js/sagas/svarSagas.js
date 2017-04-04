@@ -1,7 +1,7 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { post } from '../api';
-import { svarActions, actiontyper } from 'moter-npm';
+import { svarActions, actiontyper, lagJsDate } from 'moter-npm';
 import { log } from 'digisyfo-npm';
 
 export function* sendSvar(action) {
@@ -11,7 +11,7 @@ export function* sendSvar(action) {
             valgteAlternativIder: action.data,
             deltakertype: action.deltakertype,
         });
-        const a = svarActions.svarSendt(action.data, action.deltakertype, new Date(svar.svartidspunkt));
+        const a = svarActions.svarSendt(action.data, action.deltakertype, lagJsDate(svar.svartidspunkt));
         yield put(a);
     } catch (e) {
         log(e);

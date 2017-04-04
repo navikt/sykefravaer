@@ -16,12 +16,14 @@ Tilleggsinfo.propTypes = {
 
 export const DuTrengerNySykmelding = ({ ledetekster }) => {
     return (<Tilleggsinfo>
-        <h5 className="hode hode-advarsel hode-dekorert typo-undertittel">
-            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tittel', ledetekster)}
-        </h5>
-        <p>
-            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tekst', ledetekster)}
-        </p>
+        <div className="hode hode--advarsel">
+            <h5 className="hode__tittel">
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tittel', ledetekster)}
+            </h5>
+            <p>
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tekst', ledetekster)}
+            </p>
+        </div>
     </Tilleggsinfo>);
 };
 
@@ -31,12 +33,14 @@ DuTrengerNySykmelding.propTypes = {
 
 export const DuKanBrukeSykmeldingenDinArbeidsgiver = ({ ledetekster }) => {
     return (<Tilleggsinfo>
-        <h5 className="hode hode-informasjon hode-dekorert typo-undertittel">
-            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel', ledetekster)}
-        </h5>
-        <p>
-            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tekst', ledetekster)}
-        </p>
+        <div className="hode hode--informasjon">
+            <h5 className="hode__tittel">
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel', ledetekster)}
+            </h5>
+            <p>
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tekst', ledetekster)}
+            </p>
+        </div>
     </Tilleggsinfo>);
 };
 
@@ -46,12 +50,14 @@ DuKanBrukeSykmeldingenDinArbeidsgiver.propTypes = {
 
 export const DuKanBrukeSykmeldingenDinDiagnoseAndre = ({ ledetekster }) => {
     return (<Tilleggsinfo>
-        <h5 className="hode hode-informasjon hode-dekorert typo-undertittel">
-            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel', ledetekster)}
-        </h5>
-        <p>
-            {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tekst', ledetekster)}
-        </p>
+        <div className="hode hode--informasjon">
+            <h5 className="hode__tittel">
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel', ledetekster)}
+            </h5>
+            <p>
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tekst', ledetekster)}
+            </p>
+        </div>
     </Tilleggsinfo>);
 };
 

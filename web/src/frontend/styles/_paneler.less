@@ -1,0 +1,40 @@
+.panel {
+
+    // Standard-panel
+    // <div class="panel"></div>
+
+    background: @hvit;
+    padding: 1em 1em 1.25em 1em;
+    margin-bottom: 1em;
+    display: block;
+
+    &:focus {
+        outline: 3px @fokusOrange solid;
+    }
+
+}
+
+.panel-komprimert {
+    padding: .5em 1em;
+}
+
+@media (min-width: @skjermMini) {
+    .panel {
+        padding: 2em 2em 2.25em 2em;
+    }
+
+    .panel-komprimert {
+        padding: 1.25em 2em;
+    }
+
+    .panel-ekstra, .panel-relatert {
+        border-left-width: 1px;
+        border-right-width: 1px;
+        margin-left: 0;
+        margin-right: 0;
+        padding-top: 20px;
+        &:before {
+            left: 2em;
+        }
+    }
+}

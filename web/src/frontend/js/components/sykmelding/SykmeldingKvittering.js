@@ -5,15 +5,17 @@ import Sidetopp from '../Sidetopp';
 
 const SykmeldingKvittering = ({ tittel, brodtekst, ledetekster, sykmeldingStatus }) => {
     const ikon = sykmeldingStatus === 'AVBRUTT' ? 'avbryt-sykmelding.svg' : 'digital-til-papir.svg';
-    const tittelKlasse = sykmeldingStatus === 'AVBRUTT' ? 'tittel-avbrutt' : 'tittel-bekreftet';
+    const ikonKlasse = sykmeldingStatus === 'AVBRUTT' ? 'illustrertTittel__img--mikro' : '';
 
     return (<div>
         <Sidetopp tittel={getLedetekst('din-sykmelding.kvittering.sidetittel', ledetekster)} />
         <div className="panel blokk typo-infotekst side-innhold">
-            <h2 className={`tittel tittel-dekorert tittel-illustrert typo-undertittel blokk ${tittelKlasse}`}>
-                <img src={`/sykefravaer/img/svg/${ikon}`} alt="" />
-                {tittel}
-            </h2>
+            <div className="illustrertTittel">
+                <img className={`illustrertTittel__img ${ikonKlasse}`}src={`/sykefravaer/img/svg/${ikon}`} alt="" />
+                <h2 className="illustrertTittel__tittel">
+                    {tittel}
+                </h2>
+            </div>
             <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={brodtekst} />
         </div>
         <LenkeTilDineSykmeldinger ledetekster={ledetekster} />

@@ -1,15 +1,15 @@
 .peker:extend(.panel) {
-  color: @color-text;
+  color: @navTekst;
   margin-bottom: 1.5rem;
   border-bottom-width: 0;
 
   &:focus {
-    background-color: @white;
-    box-shadow: 0 0 0 3px @color-focus;
+    background-color: @hvit;
+    box-shadow: 0 0 0 3px @fokusOrange;
   }
 
   &:visited, &:hover, &:active {
-    color: @color-text;
+    color: @navTekst;
   }
 }
 
@@ -37,7 +37,7 @@
 
   &:hover {
     background-image: data-uri("../img/svg/pil-videre-blaa.svg");
-    color: @color-link;
+    color: @lenkeBlaa;
     box-shadow: #b7b1a9 0 2px 1px 0;
   }
 }
@@ -55,7 +55,7 @@
   }
 }
 
-@media (min-width: @screen-small) {
+@media (min-width: @skjermLiten) {
   .sidetopp__bilde {
     width: 30%;
     display: block;

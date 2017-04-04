@@ -1,7 +1,5 @@
 @nodeModulesPath: "node_modules/";
-@base-url: "../node_modules/modig-frontend/modig-frontend-ressurser/src/main/resources/less";
 
-@import "@{base-url}/includes/variables";
 @import "@{nodeModulesPath}nav-frontend-core/less/styles";
 @import "@{nodeModulesPath}nav-frontend-skjema-design/less/styles";
 @import "@{nodeModulesPath}nav-frontend-typografi-design/less/styles";
@@ -10,19 +8,8 @@
 @import "@{nodeModulesPath}nav-frontend-hjelpetekst-design/less/styles";
 @import "@{nodeModulesPath}nav-frontend-stegindikator-design/less/styles";
 
-@modig-frontend-images-root-url: "../img/modig-frontend/";
-
-@import "@{base-url}/includes/mixins/mixins-knapper";
-
-@import "@{base-url}/includes/mixins/mixins-utils";
-
-@import "@{base-url}/nav_extra/hoder";
-@import "@{base-url}/nav_extra/paneler";
-@import "@{base-url}/nav_extra/utilities";
-
-@import "_til-modig-frontend.less";
-@import "_overstyringer-dekorator.less";
-
+@import "_paneler.less";
+@import "_hoder.less";
 @import "_artikkel.less";
 @import "_headers.less";
 @import "_layout.less";
@@ -42,37 +29,33 @@
 @import "_media.less";
 @import "_inngangspanel.less";
 @import "_sidetopp.less";
-@import "_utils.less";
-@import "_feilmelding.less";
+@import "_spinner.less";
 @import "_naermesteLedere.less";
 @import "_mote.less";
 @import "_lightbox.less";
 @import "_sporsmal.less";
 @import "_sykepengersoknad.less";
-@import "_avstander.less";
 @import "_Daypicker.less";
-
+@import "_overstyringer-dekorator.less";
+@import "_lenker.less";
+@import "_redaksjonelt.less";
+@import "_utils.less";
+@import "_avstander.less";
 
 @greenLight: #63b282;
 @blueLight: #c3ddf4;
-@textColor: #3e3832;
+@navTekst: #3e3832;
+@skjermLiten: 30em;
+@skjermMedium: 35em;
 
 .mixin-panel-padding() {
 	padding-left: 1rem; 
 	padding-right: 1rem; 
 
-	@media(min-width: @screen-xs) {
+	@media(min-width: @skjermMini) {
 		padding-left: 2rem; 
 		padding-right: 2rem; 
 	}
-}
-
-.mixin-typo-etikett-liten() {
-	.mixin-typo-etikettLiten();
-}
-
-.mixin-lenke-negativ() {
-
 }
 
 .medHjelpetekst {
@@ -90,35 +73,6 @@
 	}
 }
 
-.app-spinner {
-	.mixin-nav-spinner(4rem, 5px); 
-	border-bottom-color: @gray-icon;
-	border-left-color: @gray-icon;  
-	border-top-color: @gray-inactive;
-	border-right-color: @gray-inactive;
-	margin-left: auto; 
-	margin-right: auto;
-	margin-top: 8rem;
-}
-
-.panel-transparent {
-	background-color: transparent; 
-}
-
-.redaksjonelt-innhold {
-
-	// Brukes på redaktørstyrt HTML.
-
-	line-height: 1.6; 
-
-	h2, h3, h4 {
-		.mixin-typo-element(); 
-		margin-top: 20px;
-		margin-bottom: 0; 
-	}
-
-}
-
 @media print { 
 
 	.ikke-print {
@@ -126,7 +80,7 @@
 	}
 
     .panel {
-        border: 1px solid #b7b1a9;
+        border: 1px solid @ikonGraa;
 	}
 
     .sykmelding-nokkelopplysning, .sykmelding-opplysning {
@@ -142,13 +96,8 @@ p {
 	margin-top: 0;
 }
 
-.lenke {
-	.mixin-lenke();
-}
-
-button.lenke {
-	padding: 0;
-	background-color: transparent;
-	border: 0;
-	.mixin-lenke();
+.typo-syfotittel {
+    font-family: @profilfont;
+    font-size: 1.25em;
+    font-weight: normal;
 }

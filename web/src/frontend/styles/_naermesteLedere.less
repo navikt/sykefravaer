@@ -1,6 +1,6 @@
 .leder {
     padding: 1rem .5rem;
-    border-bottom: 1px solid @color-border; 
+    border-bottom: 1px solid @ikonGraa; 
 
     h3 {
         .mixin-typo-element();
@@ -8,13 +8,13 @@
     }
 
     p {
-        .mixin-typo-etikett-liten(); 
-        color: @gray-inactive; 
+        .mixin-typo-etikettLiten(); 
+        color: @inaktivGraa; 
         margin-top: 0;
     }
 
     &:first-of-type {
-        border-top: 1px solid @color-border;
+        border-top: 1px solid @ikonGraa;
     }
 }
 
@@ -22,7 +22,7 @@
     text-decoration: line-through;
 }
 
-@media(min-width: @screen-xs) {
+@media(min-width: @skjermMini) {
     .leder {
         display: flex;
     }

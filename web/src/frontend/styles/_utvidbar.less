@@ -1,27 +1,27 @@
 @purple-light: #e0dae7;
 
 .utvidbar {
-	border: 1px solid @color-border; 
+	border: 1px solid @ikonGraa; 
 	border-radius: 2px; 
 }
 
 .utvidbar__toggle {
-	color: @color-text; 
+	color: @navTekst; 
 	display: flex; 
 	width: 100%;
 	border-bottom-width: 0;
 }
 
 .utvidbar__toggle:focus {
-	color: @color-text;
+	color: @navTekst;
 	background-color: transparent; 
-	box-shadow: 0 0 0 3px @color-focus;
+	box-shadow: 0 0 0 3px @fokusOrange;
 	z-index: 1;
 	position: relative; 
 }
 
 .utvidbar__toggle:hover {
-	color: @color-link; 
+	color: @lenkeBlaa; 
 }
 
 .utvidbar__header:extend(.panelHeader) {
@@ -99,7 +99,7 @@
 
 .utvidbar__innhold { 
 	padding: 1.5em 1em 2.5em 1em;
-	background-color: @white;
+	background-color: @hvit;
 
 	@media(min-width: @skjermMini) {
 		padding: 2.5em;
@@ -112,7 +112,7 @@
 
 @media print {
 	.utvidbar__toggle {
-		border-bottom: 1px solid @color-border;
+		border-bottom: 1px solid @ikonGraa;
 		text-decoration: none;
 	}
 }

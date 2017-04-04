@@ -7,15 +7,15 @@
     border-radius: 4px;
     border: 0; 
     text-align: left;
-    background: @white;
-    color: @textColor;
+    background: @hvit;
+    color: @navTekst;
 
     &:visited, &:active {
-        color: @textColor;
+        color: @navTekst;
     }
 
     &:hover {
-        color: @blue-link;
+        color: @lenkeBlaa;
     }
 
     img {
@@ -24,19 +24,19 @@
     }
 
     &:focus {
-        background: @white; 
+        background: @hvit; 
         border: 0; 
         outline: 0; 
     }
 
     &:focus .tidslinjeBoble__tittel {
-        background-color: @white; 
-        outline: 3px solid @color-focus; 
+        background-color: @hvit; 
+        outline: 3px solid @fokusOrange; 
     }
 }
 
 .tidslinjeBoble__header .tidslinjeBoble__headeractive {
-    color: @color-text; 
+    color: @navTekst; 
 }
 
 .tidslinjeBoble__header--erApen {
@@ -121,7 +121,7 @@
 }
 
 .tidslinjeBoble__innhold:extend(.panel) {
-    border-top: 1px solid @color-border; 
+    border-top: 1px solid @ikonGraa; 
     margin-bottom: 0;
 }
 

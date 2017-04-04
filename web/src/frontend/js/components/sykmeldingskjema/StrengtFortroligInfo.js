@@ -5,7 +5,7 @@ import { getContextRoot } from '../../routers/paths';
 
 const StrengtFortroligInfo = ({ sykmeldingId, ledetekster }) => {
     return (<div className="panel panel-ramme blokk">
-        <div className="hode hode-advarsel hode-brodtekst redaksjonelt-innhold"
+        <div className="hode hode--advarsel redaksjonelt-innhold"
             dangerouslySetInnerHTML={getHtmlLedetekst('send-til-arbeidsgiver.skjermingskode-6.infotekst', ledetekster)}>
         </div>
         <div className="knapperad">

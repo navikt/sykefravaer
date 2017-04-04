@@ -9,9 +9,9 @@
         left: 12px; 
         height: 100%;
         width: 1px;
-        background-color: @color-border;
+        background-color: @ikonGraa;
 
-        @media(min-width: @screen-xs) {
+        @media(min-width: @skjermMini) {
             left: 20px;
         }
     }
@@ -34,7 +34,7 @@
     align-items: center; 
     justify-content: center; 
 
-    @media(min-width: @screen-xs) {
+    @media(min-width: @skjermMini) {
         flex-basis: 40px;
         margin-right: 20px; 
     }
@@ -57,14 +57,10 @@
     z-index: 10;
     position: relative;
 
-    @media (min-width: @screen-xs) {
+    @media (min-width: @skjermMini) {
         width: 40px;
         height: 40px;
     }
-}
-
-.tidslinjeHendelse__img--hoykontrast {
-    display: none; 
 }
 
 .tidslinjeHendelse__ikon--start {
@@ -74,7 +70,7 @@
         width: 1rem;
         height: 1rem;
 
-        @media (min-width: @screen-xs) {
+        @media (min-width: @skjermMini) {
             width: 24px;
             height: 24px;
         }
@@ -93,7 +89,7 @@
     img {
         height: 13px;
 
-        @media (min-width: @screen-xs) {
+        @media (min-width: @skjermMini) {
             height: 13px;
         }
     }

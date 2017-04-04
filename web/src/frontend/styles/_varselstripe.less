@@ -32,13 +32,13 @@
   }
 
   &:after {
-    border-color: @color-text;
+    border-color: @navTekst;
   }
   
 }
 
 .varselstripe--feil .varselstripe__ikon:after {
-  border-color: @color-error;
+  border-color: @advarselRoed;
 }
 
 .varselstripe--info:before {
@@ -51,7 +51,7 @@
 }
 
 .varselstripe--suksess .varselstripe__ikon:after {
-  border-color: @color-success;
+  border-color: @suksessGroenn;
 }
 
 .varselstripe--avbrutt:before {
@@ -59,7 +59,7 @@
 }
 
 .varselstripe--avbrutt .varselstripe__ikon:after {
-  border-color: @color-error;
+  border-color: @advarselRoed;
 }
 
 .varselstripe--avbrutt img {
@@ -67,7 +67,7 @@
   height: 2em;
 }
 
-@media(min-width: @screen-xs) {
+@media(min-width: @skjermMini) {
 
   .varselstripe {
     position: relative;

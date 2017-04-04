@@ -8,6 +8,7 @@ import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
+import { NY, SENDT, UTGAATT, TIL_SENDING } from '../../statuser/sykepengesoknadstatuser';
 
 export const Controller = (props) => {
     const { sykepengesoknad, ledetekster, vedlikehold } = props;
@@ -18,13 +19,13 @@ export const Controller = (props) => {
         })} />);
     }
 
-    if (sykepengesoknad.status === 'NY') {
+    if (sykepengesoknad.status === NY) {
         return <FoerDuBegynner {...props} />;
     }
-    if (sykepengesoknad.status === 'SENDT' || sykepengesoknad.status === 'TIL_SENDING') {
+    if (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) {
         return <SendtSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />;
     }
-    if (sykepengesoknad.status === 'UTGAATT') {
+    if (sykepengesoknad.status === UTGAATT) {
         return <UtgaattSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />;
     }
     return <Feilmelding tittel="Søknaden har ukjent status" />;

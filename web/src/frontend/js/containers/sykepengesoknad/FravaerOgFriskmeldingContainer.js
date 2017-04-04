@@ -3,9 +3,10 @@ import FravaerOgFriskmelding from '../../components/sykepengesoknad/FravaerOgFri
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
+import { SENDT } from '../../statuser/sykepengesoknadstatuser';
 
 export const Controller = (props) => {
-    if (props.sykepengesoknad.status === 'SENDT') {
+    if (props.sykepengesoknad.status === SENDT) {
         return <Kvittering ledetekster={props.ledetekster} />;
     }
     if (props.skjemasoknad) {

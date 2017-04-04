@@ -1,5 +1,6 @@
 import * as actiontyper from '../actions/actiontyper';
 import { tilDato, parseDatoerPeriodeListe, parseDatoerPeriode } from '../utils/serialisering/dato';
+import { SENDT } from '../statuser/sykepengesoknadstatuser';
 
 const initiellState = {
     henter: false,
@@ -95,7 +96,7 @@ export default function sykepengesoknader(state = initiellState, action) {
                 data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, action.sykepengesoknad);
             } else {
                 data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
-                    status: 'SENDT',
+                    status: SENDT,
                     innsendtDato: new Date(),
                 });
             }

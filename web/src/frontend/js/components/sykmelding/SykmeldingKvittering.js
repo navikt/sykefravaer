@@ -2,10 +2,11 @@ import React, { PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
+import { AVBRUTT } from '../../statuser/sykmeldingstatuser';
 
 const SykmeldingKvittering = ({ tittel, brodtekst, ledetekster, sykmeldingStatus }) => {
-    const ikon = sykmeldingStatus === 'AVBRUTT' ? 'avbryt-sykmelding.svg' : 'digital-til-papir.svg';
-    const tittelKlasse = sykmeldingStatus === 'AVBRUTT' ? 'tittel-avbrutt' : 'tittel-bekreftet';
+    const ikon = sykmeldingStatus === AVBRUTT ? 'avbryt-sykmelding.svg' : 'digital-til-papir.svg';
+    const tittelKlasse = sykmeldingStatus === AVBRUTT ? 'tittel-avbrutt' : 'tittel-bekreftet';
 
     return (<div>
         <Sidetopp tittel={getLedetekst('din-sykmelding.kvittering.sidetittel', ledetekster)} />

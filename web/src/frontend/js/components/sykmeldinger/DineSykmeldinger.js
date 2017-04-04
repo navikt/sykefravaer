@@ -3,13 +3,14 @@ import SykmeldingTeasere from './SykmeldingTeasere';
 import { getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerEldsteFoerst } from 'digisyfo-npm';
 import SykmeldingerSorteringContainer from '../../containers/SykmeldingerSorteringContainer';
 import Sidetopp from '../Sidetopp';
+import { NY } from '../../statuser/sykmeldingstatuser';
 
 const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, sortering }) => {
     const nyeSykmeldinger = sykmeldinger.filter((sykmld) => {
-        return sykmld.status === 'NY';
+        return sykmld.status === NY;
     });
     const tidligereSykmeldinger = sykmeldinger.filter((sykmld) => {
-        return sykmld.status !== 'NY';
+        return sykmld.status !== NY;
     });
     const tidligereSortering = sortering && sortering.tidligere ? sortering.tidligere : undefined;
 

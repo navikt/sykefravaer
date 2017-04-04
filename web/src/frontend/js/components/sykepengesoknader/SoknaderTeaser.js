@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import { tidligsteFom, senesteTom } from '../../utils/periodeUtils';
+import { NY } from '../../statuser/sykepengesoknadstatuser';
 
 class SoknadTeaser extends Component {
 
@@ -29,7 +30,7 @@ class SoknadTeaser extends Component {
         const { soknad, ledetekster } = this.props;
 
         const perioder = soknad.aktiviteter.map(a => { return a.periode; });
-        const visStatus = soknad.status !== 'NY';
+        const visStatus = soknad.status !== NY;
 
         return (<article aria-labelledby={`soknader-header-${soknad.id}`}>
             <Link className="inngangspanel js-panel" to={`${getContextRoot()}/soknader/${soknad.id}`}

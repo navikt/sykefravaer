@@ -6,7 +6,7 @@ import { AVBRUTT } from '../../statuser/sykmeldingstatuser';
 
 const SykmeldingKvittering = ({ tittel, brodtekst, ledetekster, sykmeldingStatus }) => {
     const ikon = sykmeldingStatus === AVBRUTT ? 'avbryt-sykmelding.svg' : 'digital-til-papir.svg';
-    const tittelKlasse = sykmeldingStatus === AVBRUTT ? 'tittel-avbrutt' : 'tittel-bekreftet';
+    const ikonKlasse = sykmeldingStatus === AVBRUTT ? 'illustrertTittel__img--mikro' : '';
 
     return (<div>
         <Sidetopp tittel={getLedetekst('din-sykmelding.kvittering.sidetittel', ledetekster)} />

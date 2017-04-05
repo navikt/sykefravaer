@@ -1,15 +1,89 @@
-.tittel-bekreftet:after {
-    background-color: #F5A523;
-}
-
-.tittel-illustrert img {
-    display: block;
+.stegvisKvittering {
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 2rem; 
+    max-width: 27em
 }
 
-.tittel-avbrutt img {
-    height: 2rem;
-    width: 2rem;
+.kvitteringsteg {
+    position: relative;
+    padding-bottom: 2em;
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+
+    &:last-child {
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+}
+
+.kvitteringsteg__innhold {
+    text-align: center;
+}
+
+.kvitteringsteg__tittel {
+    .mixin-typo-element();
+    margin-top: 0;
+    margin-bottom: .5em;
+}
+
+.kvitteringsteg__ikon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+
+    &:before {
+        content: "";
+        position: absolute;
+        display: block;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 2em;
+        width: 4px;
+        background: url('/sykefravaer/img/svg/kvitteringprikk.svg');
+        background-size: .25em .25em;
+    }
+
+    img {
+        width: 4em;
+        height: 4em;
+    }
+}
+
+.kvitteringsteg:last-child .kvitteringsteg__ikon:before {
+    display: none;
+}
+
+.kvittering__utenlandsopphold p:last-child {
+    margin-bottom: 0;
+}
+
+@media (min-width: @skjermLiten) {
+
+    .kvitteringsteg {
+        flex-direction: row;
+        align-items: stretch;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+
+
+    .kvitteringsteg__ikon {
+        margin: 0;
+        width: 6em;
+        position: relative;
+        padding-bottom: 4em;
+
+        &:before {
+            height: ~"calc(100% - 4em)";
+        }
+    }
+
+    .kvitteringsteg__innhold {
+        text-align: left;
+        flex: 1;
+    }
+
 }

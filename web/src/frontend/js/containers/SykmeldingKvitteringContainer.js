@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
-import SykmeldingKvittering from '../components/sykmelding/SykmeldingKvittering';
+import SykmeldingKvittering, { kvitteringtyper } from '../components/sykmelding/SykmeldingKvittering';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
 import { getLedetekst, getHtmlLedetekst, getSykmelding, toDatePrettyPrint } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { senesteTom } from '../utils/periodeUtils';
+import * as actions from '../actions/sykepengesoknader_actions';
 import { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } from '../statuser/sykmeldingstatuser';
 
 export const KvitteringSide = (props) => {
@@ -47,7 +48,7 @@ const erPeriodePassert = (sykmelding) => {
     return Date.now() > Date.parse(senesteTom(sykmelding.mulighetForArbeid.perioder));
 };
 
-export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}, pilotSykepenger = false) => {
+export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
     if (!sykmelding) {
         return null;
     }
@@ -62,14 +63,6 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}, pilotS
         }
         case TIL_SENDING:
         case SENDT: {
-            if (sykmelding.arbeidsgiverForskutterer) {
-                if (pilotSykepenger) {
-                    if (erPeriodePassert(sykmelding)) {
-                        return `send-til-arbeidsgiver.pilot.sok.${nokkel}`;
-                    }
-                    return `send-til-arbeidsgiver.pilot.${nokkel}`;
-                }
-            }
             return `send-til-arbeidsgiver.${nokkel}`;
         }
         case AVBRUTT: {
@@ -79,6 +72,16 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}, pilotS
             return null;
         }
     }
+};
+
+export const getKvitteringtype = (sykmelding, erPilot) => {
+    if (!sykmelding || !erPilot || (sykmelding.status !== SENDT && sykmelding.status !== TIL_SENDING) || !sykmelding.arbeidsgiverForskutterer) {
+        return kvitteringtyper.STANDARDKVITTERING;
+    }
+    if (erPeriodePassert(sykmelding)) {
+        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA;
+    }
+    return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE;
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -91,7 +94,7 @@ export function mapStateToProps(state, ownProps) {
     const pilotSykepenger = state.pilot.data.pilotSykepenger;
 
     const kvitteringTittelKey = getLedetekstNokkel(sykmelding, 'kvittering.tittel');
-    const kvitteringBrodtekstKey = getLedetekstNokkel(sykmelding, 'kvittering.undertekst', { harStrengtFortroligAdresse }, pilotSykepenger);
+    const kvitteringBrodtekstKey = getLedetekstNokkel(sykmelding, 'kvittering.undertekst', { harStrengtFortroligAdresse });
     const tittel = kvitteringTittelKey ? getLedetekst(kvitteringTittelKey, ledetekster) : null;
     const brodtekst = kvitteringBrodtekstKey ? getHtmlLedetekst(kvitteringBrodtekstKey, ledetekster, {
         '%TOM%': toDatePrettyPrint(senesteTom(sykmelding.mulighetForArbeid.perioder)),
@@ -104,6 +107,7 @@ export function mapStateToProps(state, ownProps) {
         ledetekster,
         sykmeldingStatus: sykmelding ? sykmelding.status : undefined,
         tittel,
+        kvitteringtype: getKvitteringtype(sykmelding, pilotSykepenger),
         brodtekst,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
@@ -123,6 +127,6 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-const SykmeldingKvitteringContainer = connect(mapStateToProps)(KvitteringSide);
+const SykmeldingKvitteringContainer = connect(mapStateToProps, actions)(KvitteringSide);
 
 export default SykmeldingKvitteringContainer;

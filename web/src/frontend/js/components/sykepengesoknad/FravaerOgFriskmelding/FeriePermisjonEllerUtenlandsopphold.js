@@ -20,7 +20,9 @@ export const SoktOmSykepenger = ({ ledetekster }) => {
                     return (<input {...alt} key={index}>
                         {
                             alt.value === true ? null : (<div className="presisering js-presisering">
-                                <div dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet', ledetekster)} />
+                                <div
+                                    className="redaksjonelt-innhold"
+                                    dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet', ledetekster)} />
                             </div>)
                         }
                     </input>);

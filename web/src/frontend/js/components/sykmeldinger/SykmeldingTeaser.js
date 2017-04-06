@@ -47,7 +47,7 @@ class SykmeldingTeaser extends Component {
         const visStatus = sykmelding.status !== NY;
 
         return (<article aria-labelledby={`sykmelding-header-${this.props.sykmelding.id}`}>
-            <Link className="inngangspanel" to={`${getContextRoot()}/sykmeldinger/${this.props.sykmelding.id}`}
+            <Link className="inngangspanel inngangspanel--sykmelding" to={`${getContextRoot()}/sykmeldinger/${this.props.sykmelding.id}`}
                 onMouseEnter={() => {this.onMouseEnter();}}
                 onMouseLeave={() => {this.onMouseLeave();}}
             >
@@ -69,16 +69,18 @@ class SykmeldingTeaser extends Component {
                         visStatus && <p className="inngangspanel__status">{getLedetekst(`sykmelding.teaser.status.${sykmelding.status}`, ledetekster)}</p>
                     }
                 </header>
-                {antallPerioder === 1 ?
-                    (<SykmeldingPeriodeInfo
-                        periode={sykmelding.mulighetForArbeid.perioder[0]}
-                        arbeidsgiver={sykmelding.arbeidsgiver}
-                        ledetekster={ledetekster} />)
-                    : (<PeriodeListe
-                        perioder={sykmelding.mulighetForArbeid.perioder}
-                        arbeidsgiver={sykmelding.arbeidsgiver}
-                        ledetekster={ledetekster} />)
-                }
+                <div className="inngangspanel__tekst">
+                    {antallPerioder === 1 ?
+                        (<SykmeldingPeriodeInfo
+                            periode={sykmelding.mulighetForArbeid.perioder[0]}
+                            arbeidsgiver={sykmelding.arbeidsgiver}
+                            ledetekster={ledetekster} />)
+                        : (<PeriodeListe
+                            perioder={sykmelding.mulighetForArbeid.perioder}
+                            arbeidsgiver={sykmelding.arbeidsgiver}
+                            ledetekster={ledetekster} />)
+                    }
+                </div>
             </div>
         </Link></article>);
     }

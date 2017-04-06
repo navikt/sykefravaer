@@ -41,7 +41,7 @@ ArbeidsgiverRadioknapper.propTypes = {
 export const SkrivUt = (props) => {
     const { ledetekster, sykmelding } = props;
     return (<div className="ekstrasporsmal ekstrasporsmal--sist">
-        <div className="hode hode--advarsel redaksjonelt-innhold side-innhold"
+        <div className="hode hode--advarsel redaksjonelt-innhold"
             dangerouslySetInnerHTML={getHtmlLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.infotekst', ledetekster)} />
         <div className="knapperad">
             <p>

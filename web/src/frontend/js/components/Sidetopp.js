@@ -6,7 +6,7 @@ const Sidetopp = ({ tittel, htmlTekst }) => {
             {tittel}
         </h1>
         {
-            htmlTekst && <div className="sidetopp__intro side-innhold js-intro">
+            htmlTekst && <div className="sidetopp__intro js-intro">
                 <p dangerouslySetInnerHTML={htmlTekst} />
             </div>
         }

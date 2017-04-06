@@ -171,7 +171,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     <div className="dinSykmeldingSkjema__avbrytSykmeldingDialog">
                         {
                             modus !== modi.AVBRYT && <p className="blokk">
-                                <a href="#" role="button" ref="js-trigger-avbryt-sykmelding" onClick={(e) => {
+                                <a className="lenke" href="#" role="button" ref="js-trigger-avbryt-sykmelding" onClick={(e) => {
                                     e.preventDefault();
                                     this.setState({
                                         visAvbrytDialog: !this.state.visAvbrytDialog,

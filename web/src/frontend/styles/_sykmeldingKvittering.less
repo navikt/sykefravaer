@@ -20,6 +20,10 @@
 
 .kvitteringsteg__innhold {
     text-align: center;
+
+    a {
+        .mixin-lenke();
+    }
 }
 
 .kvitteringsteg__tittel {
@@ -54,6 +58,10 @@
 
 .kvitteringsteg:last-child .kvitteringsteg__ikon:before {
     display: none;
+}
+
+.kvittering__utenlandsopphold a {
+    .mixin-lenke();
 }
 
 .kvittering__utenlandsopphold p:last-child {

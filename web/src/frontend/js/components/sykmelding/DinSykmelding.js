@@ -22,9 +22,9 @@ const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, elds
         {
             visEldreSykmeldingVarsel && <div className="panel blokk">
                 <Varselstripe type="info">
-                    <p className="sist side-innhold">
+                    <p className="sist">
                         <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst', ledetekster)} </span>
-                        <Link to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke', ledetekster)}</Link>
+                        <Link className="lenke" to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke', ledetekster)}</Link>
                     </p>
                 </Varselstripe>
             </div>

@@ -46,7 +46,7 @@ export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftF
             }}>Ja, dette er feil
                 {avkrefter && <span className="knapp__spinner" />}
             </button>
-            <p className="side-innhold"><a className="js-avbryt" href="#" role="button" onClick={(e) => {
+            <p><a className="lenke js-avbryt" href="#" role="button" onClick={(e) => {
                 e.preventDefault();
                 onAvbryt();
             }}>Avbryt</a></p>

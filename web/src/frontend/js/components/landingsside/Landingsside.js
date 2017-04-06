@@ -13,16 +13,16 @@ export class GenerellInfo extends Component {
     }
 
     render() {
-        return (<article className="panel blokk side-innhold js-generell-informasjon">
+        return (<article className="panel blokk js-generell-informasjon">
             <h2 className="typo-undertittel">Sykmeldt &mdash; hva nå?</h2>
-            <div dangerouslySetInnerHTML={getHtmlLedetekst('landingsside.generell.informasjon.tekst', this.props.ledetekster)} />
+            <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('landingsside.generell.informasjon.tekst', this.props.ledetekster)} />
             <p>
-                <a href={getLedetekst('landingsside.generell.informasjon.lenke1.url', this.props.ledetekster)}>
+                <a className="lenke" href={getLedetekst('landingsside.generell.informasjon.lenke1.url', this.props.ledetekster)}>
                     {getLedetekst('landingsside.generell.informasjon.lenke1.tittel', this.props.ledetekster)}
                 </a>
             </p>
             <p>
-                <Link to={getLedetekst('landingsside.generell.informasjon.lenke2.url', this.props.ledetekster)}>
+                <Link className="lenke" to={getLedetekst('landingsside.generell.informasjon.lenke2.url', this.props.ledetekster)}>
                     {getLedetekst('landingsside.generell.informasjon.lenke2.tittel', this.props.ledetekster)}
                 </Link>
             </p>

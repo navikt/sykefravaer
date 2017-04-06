@@ -11,7 +11,7 @@ export class LederAvkreftet extends Component {
     render() {
         const { onLukk } = this.props;
         return (<div>
-            <p className="hode hode-suksess">Lederen er avkreftet!</p>
+            <p className="hode hode--suksess">Lederen er avkreftet!</p>
             <div className="knapperad">
                 <button ref="lukk" className="rammeknapp js-lukk" href="#" onClick={(e) => {
                     e.preventDefault();
@@ -33,7 +33,7 @@ export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftF
             <h3 className="typo-undertittel">Feil nærmeste leder</h3>
             <p>Er du sikker på at det er feil at <strong>{leder.navn}</strong> er din nærmeste leder i <strong>{leder.organisasjonsnavn}</strong>?</p>
         </div>
-        <div aria-live="polite" role="alert" className={avkreftFeilet ? 'panel panel-ramme panel-komprimert' : ''}>
+        <div aria-live="polite" role="alert" className={avkreftFeilet ? 'panel panel--ramme panel--komprimert' : ''}>
             {
                 avkreftFeilet && <Varselstripe type="feil">
                     <p className="sist">Beklager, det oppstod en feil!</p>

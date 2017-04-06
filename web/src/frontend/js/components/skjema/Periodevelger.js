@@ -20,7 +20,7 @@ export const Periode = (props) => {
         </div>
         <div className="periodevelger__verktoy">
         {
-            index > 0 && <a role="button" href="#" onClick={(e) => {
+            index > 0 && <a role="button" className="lenke" href="#" onClick={(e) => {
                 e.preventDefault();
                 onRemoveHandler();
             }}>{getLedetekst('sykepengesoknad.periodevelger.slett', ledetekster)}</a>

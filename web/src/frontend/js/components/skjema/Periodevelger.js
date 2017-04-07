@@ -71,10 +71,10 @@ export class Periodevelger extends Component {
                     </div>
                 </Feilomrade>
             </div>
-            <button className="rammeknapp rammeknapp--mini" type="button" onClick={(e) => {
+            <button className="lenke" type="button" onClick={(e) => {
                 e.preventDefault();
                 fields.push({});
-            }}>+ {getLedetekst('sykepengesoknad.periodevelger.legg-til', ledetekster)}</button>
+            }}>+ {getLedetekst('sykepengesoknad.periodevelger.legg-til-ekstra', ledetekster)}</button>
         </div>);
     }
 }

@@ -5,8 +5,8 @@ import * as actionCreators from '../actions/dineSykmeldinger_actions';
 import { getLedetekst } from 'digisyfo-npm';
 
 const DropdownContainer = ({ alternativer, sorterSykmeldinger, ledetekster, status }) => {
-    return (<div className="header-verktoy">
-        <label htmlFor="sykmeldinger-sortering" className="header-verktoy-label">{getLedetekst('dine-sykmeldinger.sorter.label', ledetekster)}</label>
+    return (<div className="inngangspanelerHeader__verktoy">
+        <label htmlFor="sykmeldinger-sortering" className="inngangspanelerHeader__verktoyLabel">{getLedetekst('dine-sykmeldinger.sorter.label', ledetekster)}</label>
         <div className="selectContainer selectContainer--liten">
             <Dropdown alternativer={alternativer} id="sykmeldinger-sortering" ariaControls={`sykmelding-liste-${status}`} onChange={(kriterium) => {
                 sorterSykmeldinger(kriterium, status);

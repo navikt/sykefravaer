@@ -17,6 +17,10 @@
     align-self: center;
 }
 
+.inngangspanelerHeader__verktoy {
+    .mixin-typo-normal();
+}
+
 .inngangspanel:extend(.panel) {
     margin-bottom: 1px; 
     padding-right: 3rem; 
@@ -100,6 +104,16 @@
 }
 
 @media(min-width: @skjermMedium) {
+
+    .inngangspanelerHeader__verktoy {
+        display: flex;
+    }
+
+    .inngangspanelerHeader__verktoyLabel {
+        margin-bottom: 0;
+        align-self: center;
+        margin-right: .5em;
+    }
 
     .inngangspanel__ikon {
         display: block;

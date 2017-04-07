@@ -4,9 +4,9 @@ import { ArbeidsgiversSykmeldingOpplysninger, Utvidbar } from 'digisyfo-npm';
 const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster, Overskrift = 'H2', erApen = false }) => {
     return (<Utvidbar
         tittel="Dette får arbeidsgiveren din se"
-        ikon="svg/doctor-2.svg"
-        ikonHover="svg/doctor-2_hover.svg"
-        ikonAltTekst="Lege"
+        ikon="svg/arbeidsgiver.svg"
+        ikonHover="svg/arbeidsgiver--hover.svg"
+        ikonAltTekst="Arbeidsgiver"
         erApen={erApen}
         variant="lilla"
         Overskrift={Overskrift}>

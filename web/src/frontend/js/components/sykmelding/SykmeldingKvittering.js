@@ -19,7 +19,7 @@ export const Kvitteringsteg = ({ ikon, alt, tittel, children }) => {
         </div>
         <div className="kvitteringsteg__innhold">
             <h2 className="kvitteringsteg__tittel js-tittel">{tittel}</h2>
-            <div className="kvitteringsteg__tekst js-tekst">{children}</div>
+            <div className="js-tekst">{children}</div>
         </div>
     </div>);
 };
@@ -56,7 +56,7 @@ Standardkvittering.propTypes = {
 };
 
 export const HtmlAvsnitt = ({ nokkel, replacements = null }) => {
-    return <p dangerouslySetInnerHTML={{ __html: getLedetekst(nokkel, replacements) }}></p>;
+    return <p className="kvitteringsteg__tekst" dangerouslySetInnerHTML={{ __html: getLedetekst(nokkel, replacements) }}></p>;
 };
 
 HtmlAvsnitt.propTypes = {
@@ -73,7 +73,7 @@ export const KvitteringSokNa = ({ hentSykepengesoknader }) => {
             </Kvitteringsteg>
             <Kvitteringsteg ikon="kvitteringSokSykepenger.svg" alt="Søk om sykepenger" tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-2.tittel')}>
                 <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-na.steg-2.tekst" />
-                <p>
+                <p className="kvitteringsteg__handling">
                     <a onClick={(e) => {
                         e.preventDefault();
                         hentSykepengesoknader();

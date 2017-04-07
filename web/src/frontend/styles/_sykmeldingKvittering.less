@@ -20,10 +20,20 @@
 
 .kvitteringsteg__innhold {
     text-align: center;
+    margin-bottom: 1em;
+}
+
+.kvitteringsteg__tekst {
+    margin-bottom: 0;
 
     a {
         .mixin-lenke();
     }
+}
+
+.kvitteringsteg__handling {
+    margin-top: 1em;
+    margin-bottom: 0;
 }
 
 .kvitteringsteg__tittel {
@@ -56,8 +66,20 @@
     }
 }
 
-.kvitteringsteg:last-child .kvitteringsteg__ikon:before {
-    display: none;
+.kvitteringsteg:last-child {
+
+    .kvitteringsteg__ikon {
+        padding-bottom: 0;
+
+        &:before {
+            display: none;
+        }
+    }
+
+    .kvitteringsteg__innhold {
+        margin-bottom: 0;
+    }
+
 }
 
 .kvittering__utenlandsopphold a {
@@ -82,7 +104,6 @@
         margin: 0;
         width: 6em;
         position: relative;
-        padding-bottom: 4em;
 
         &:before {
             height: ~"calc(100% - 4em)";
@@ -91,6 +112,7 @@
 
     .kvitteringsteg__innhold {
         text-align: left;
+        margin-bottom: 2.5em;
         flex: 1;
     }
 

@@ -1,9 +1,25 @@
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import * as valideringUtils from './valideringUtils';
 import { toDatePrettyPrint } from 'digisyfo-npm';
+import { fraInputdatoTilJSDato } from '../../../utils';
+import { tidligsteFom } from '../../../utils/periodeUtils';
 
 export const validate = (values, props) => {
     const feilmeldinger = {};
+    let gjenopptattArbeidFulltUtDato;
+    const periodealternativer = {};
+    if (values.harGjenopptattArbeidFulltUt) {
+        try {
+            gjenopptattArbeidFulltUtDato = fraInputdatoTilJSDato(values.gjenopptattArbeidFulltUtDato);
+            const perioder = props.sykepengesoknad.aktiviteter.map((a) => {
+                return a.periode;
+            });
+            periodealternativer.fra = tidligsteFom(perioder);
+            periodealternativer.til = new Date(gjenopptattArbeidFulltUtDato - 1000 * 60 * 60 * 24);
+        } catch (e) {
+            gjenopptattArbeidFulltUtDato = null;
+        }
+    }
 
     if (Object.keys(validerFoerDuBegynner(values)).length !== 0) {
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
@@ -43,14 +59,14 @@ export const validate = (values, props) => {
         }
 
         if (values.harHattFerie) {
-            const feriefeilmeldinger = valideringUtils.validerPerioder(values.ferie);
+            const feriefeilmeldinger = valideringUtils.validerPerioder(values.ferie, periodealternativer);
             if (feriefeilmeldinger) {
                 feilmeldinger.ferie = feriefeilmeldinger;
             }
         }
 
         if (values.harHattUtenlandsopphold) {
-            const utenlandsoppholdPeriodefeilmeldinger = valideringUtils.validerPerioder(values.utenlandsopphold.perioder);
+            const utenlandsoppholdPeriodefeilmeldinger = valideringUtils.validerPerioder(values.utenlandsopphold.perioder, periodealternativer);
             const utenlandsoppholdfeilmeldinger = {};
             if (utenlandsoppholdPeriodefeilmeldinger) {
                 utenlandsoppholdfeilmeldinger.perioder = utenlandsoppholdPeriodefeilmeldinger;
@@ -66,7 +82,7 @@ export const validate = (values, props) => {
         }
 
         if (values.harHattPermisjon) {
-            const permisjonfeilmeldinger = valideringUtils.validerPerioder(values.permisjon);
+            const permisjonfeilmeldinger = valideringUtils.validerPerioder(values.permisjon, periodealternativer);
             if (permisjonfeilmeldinger) {
                 feilmeldinger.permisjon = permisjonfeilmeldinger;
             }

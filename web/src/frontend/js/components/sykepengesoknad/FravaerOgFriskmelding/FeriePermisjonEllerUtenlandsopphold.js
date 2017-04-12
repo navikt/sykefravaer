@@ -7,6 +7,9 @@ import { FieldArray, Field } from 'redux-form';
 import Feilomrade from '../../skjema/Feilomrade';
 import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import * as periodeUtils from '../../../utils/periodeUtils';
+import { connect } from 'react-redux';
+import { SYKEPENGER_SKJEMANAVN } from '../setup';
+import { fraInputdatoTilJSDato } from '../../../utils';
 
 export const SoktOmSykepenger = ({ ledetekster }) => {
     return (<Field
@@ -79,12 +82,16 @@ RendreFeriePermisjonEllerUtenlandsopphold.propTypes = {
     senesteTom: PropTypes.instanceOf(Date),
 };
 
-const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, ledetekster }) => {
+export const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, ledetekster, gjenopptattArbeidFulltUtDato }) => {
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });
     const tidligsteFom = periodeUtils.tidligsteFom(perioder);
-    const senesteTom = periodeUtils.senesteTom(perioder);
+    let senesteTom = periodeUtils.senesteTom(perioder);
+
+    if (gjenopptattArbeidFulltUtDato) {
+        senesteTom = new Date(gjenopptattArbeidFulltUtDato - (1000 * 60 * 60 * 24));
+    }
 
     return (<JaEllerNei
         spoersmal={getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal', ledetekster, {
@@ -105,6 +112,29 @@ const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, ledetekster }) =
 FeriePermisjonEllerUtenlandsopphold.propTypes = {
     sykepengesoknad: PropTypes.object,
     ledetekster: PropTypes.object,
+    gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
 };
 
-export default FeriePermisjonEllerUtenlandsopphold;
+export const mapStateToProps = (state) => {
+    const values = state.form[SYKEPENGER_SKJEMANAVN].values;
+    let gjenopptattArbeidFulltUtDato = values.gjenopptattArbeidFulltUtDato;
+    if (!values.harGjenopptattArbeidFulltUt) {
+        gjenopptattArbeidFulltUtDato = null;
+    } else {
+        try {
+            gjenopptattArbeidFulltUtDato = fraInputdatoTilJSDato(gjenopptattArbeidFulltUtDato);
+        } catch (e) {
+            gjenopptattArbeidFulltUtDato = null;
+        }
+        if (gjenopptattArbeidFulltUtDato && isNaN(gjenopptattArbeidFulltUtDato.getTime())) {
+            gjenopptattArbeidFulltUtDato = null;
+        }
+    }
+    return {
+        gjenopptattArbeidFulltUtDato,
+    };
+};
+
+const FeriePermisjonEllerUtenlandsoppholdConnected = connect(mapStateToProps)(FeriePermisjonEllerUtenlandsopphold);
+
+export default FeriePermisjonEllerUtenlandsoppholdConnected;

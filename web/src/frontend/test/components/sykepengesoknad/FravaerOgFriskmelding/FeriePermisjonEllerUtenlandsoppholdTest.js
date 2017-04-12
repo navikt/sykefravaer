@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import FeriePermisjonEllerUtenlandsopphold, { RendreFeriePermisjonEllerUtenlandsopphold, SoktOmSykepenger } from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FeriePermisjonEllerUtenlandsopphold';
+import { FeriePermisjonEllerUtenlandsopphold, RendreFeriePermisjonEllerUtenlandsopphold, SoktOmSykepenger, mapStateToProps } from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FeriePermisjonEllerUtenlandsopphold';
 import JaEllerNei, { parseJaEllerNei } from '../../../../js/components/sykepengesoknad/JaEllerNei';
 import { getSoknad } from '../../../mockSoknader';
 import { ledetekster } from '../../../mockLedetekster';
@@ -70,6 +70,12 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
     expect(array.prop("tidligsteFom")).to.deep.equal(new Date("2017-01-01"));
     expect(array.prop("senesteTom")).to.deep.equal(new Date("2017-01-25"));
   })
+
+  it("Skal inneholde et FieldArray med senesteTom === gjenopptattArbeidFulltUtDato - 1 dag hvis gjenopptattArbeidFulltUtDato er en dato", () => {
+    const gjenopptattArbeidFulltUtDato = new Date("2017-12-23");
+    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} ledetekster={_ledetekster} gjenopptattArbeidFulltUtDato={gjenopptattArbeidFulltUtDato} />);
+    expect(compo.find(FieldArray).prop("senesteTom")).to.deep.equal(new Date("2017-12-22"));
+  });
 
   describe("RendreFeriePermisjonEllerUtenlandsopphold", () => {
     let component; 
@@ -156,6 +162,54 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
       });
 
     });
+
+    describe("mapStateToProps", () => {
+
+      let state; 
+
+      beforeEach(() => {
+        state = {
+          form: {
+            SYKEPENGERSKJEMA: {
+              values: {
+                harGjenopptattArbeidFulltUt: true,
+              }
+            }
+          }
+        };
+      });
+
+      it("Skal returnere null hvis harGjenopptattArbeidFulltUt er false og gjenopptattArbeidFulltUtDato er riktig fylt ut", () => {
+        state.form.SYKEPENGERSKJEMA.values.harGjenopptattArbeidFulltUt = false;
+        state.form.SYKEPENGERSKJEMA.values.gjenopptattArbeidFulltUtDato = "20.02.2017";
+        const props = mapStateToProps(state);
+        expect(props.gjenopptattArbeidFulltUtDato).to.be.null;
+      })
+
+      it("Skal returnere gjenopptattArbeidFulltUtDato = null hvis gjenopptattArbeidFulltUtDato ikke er fylt ut", () => {
+        const props = mapStateToProps(state);
+        expect(props.gjenopptattArbeidFulltUtDato).to.be.null;
+      });
+
+      it("Skal returnere gjenopptattArbeidFulltUtDato = null hvis gjenopptattArbeidFulltUtDato er noe ugyldig (1)", () => {
+        state.form.SYKEPENGERSKJEMA.values.gjenopptattArbeidFulltUtDato = "02.02"
+        const props = mapStateToProps(state);
+        expect(props.gjenopptattArbeidFulltUtDato).to.be.null;
+      });
+
+      it("Skal returnere gjenopptattArbeidFulltUtDato = null hvis gjenopptattArbeidFulltUtDato er en ugyldig streng", () => {
+        state.form.SYKEPENGERSKJEMA.values.gjenopptattArbeidFulltUtDato = "0_.__.____"
+        const props = mapStateToProps(state);
+        expect(props.gjenopptattArbeidFulltUtDato).to.be.null;
+      });
+
+      it("Skal returnere gjenopptattArbeidFulltUtDato = null hvis gjenopptattArbeidFulltUtDato er noe gyldig", () => {
+        state.form.SYKEPENGERSKJEMA.values.gjenopptattArbeidFulltUtDato = "23.12.2017";
+        const props = mapStateToProps(state);
+        expect(props.gjenopptattArbeidFulltUtDato).to.deep.equal(new Date("2017-12-23"));
+      });
+
+    }); 
 
   });
 

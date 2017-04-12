@@ -53,7 +53,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
         } catch (e) {
             valgteFeilaktigeOpplysninger = [];
         }
-        if (opplysningeneErRiktige === false && feilaktigeOpplysninger && 
+        if (opplysningeneErRiktige === false && feilaktigeOpplysninger &&
                 (valgteFeilaktigeOpplysninger.indexOf(PERIODE) > - 1 || valgteFeilaktigeOpplysninger.indexOf(SYKMELDINGSGRAD) > -1)) {
             return modi.AVBRYT;
         }

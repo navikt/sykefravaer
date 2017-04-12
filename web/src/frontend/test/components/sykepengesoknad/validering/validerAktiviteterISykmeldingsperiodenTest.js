@@ -15,6 +15,7 @@ import validate, {
     overHundreFeil,
     jobbetMerEnnPlanlagtFeil } from '../../../../js/components/sykepengesoknad/validering/validerAktiviteterISykmeldingsperioden';
 import { getSoknad } from '../../../mockSoknader';
+import inntektskildetyper from '../../../../js/enums/inntektskildetyper';
 
 describe("validerAktiviteterISykmeldingsperioden", () => {
 
@@ -480,23 +481,21 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
 
             beforeEach(() => {
                 values = {
-                    harAndreInntektskilder: true
+                    harAndreInntektskilder: true,
+                    andreInntektskilder: [...inntektskildetyper],
                 };
             });
 
-            it("Brukeren må velge hvilken inntektskilde", () => {
+            it("Brukeren må velge hvilken inntektskilde hvis ingenting er utfylt", () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.andreInntektskilder).to.deep.equal({
                     _error: "Vennligst oppgi hvilke andre inntektskilder du har"
                 })
             });
-            
-            it("Brukeren må velge hvilken inntektskilde", () => {
-                values.andreInntektskilder = [{
-                    "ANDRE_ARBEIDSFORHOLD": {
-                        avkrysset: false
-                    }
-                }]
+
+            it("Brukeren må velge hvilken inntektskilde hvis alt er utfylt", () => {
+                values.andreInntektskilder[4].avkrysset = false;
+                values.andreInntektskilder[3].avkrysset = false;
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.andreInntektskilder).to.deep.equal({
                     _error: "Vennligst oppgi hvilke andre inntektskilder du har"
@@ -504,15 +503,6 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             });
 
             it("Brukeren må velge hvilken inntektskilde", () => {
-                values.andreInntektskilder = [{
-                    ANDRE_ARBEIDSFORHOLD: {
-                        avkrysset: false
-                    }
-                }, {
-                    FRILANSER: {
-                        avkrysset: false,
-                    }
-                }]
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.andreInntektskilder).to.deep.equal({
                     _error: "Vennligst oppgi hvilke andre inntektskilder du har"
@@ -520,114 +510,46 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             });
 
             it("Brukeren må svare på om han/hun er sykmeldt for hver avkrysset inntektskilde (1)", () => {
-                values.andreInntektskilder = {
-                    "ANDRE_ARBEIDSFORHOLD": {
-                        avkrysset: true,
-                    },
-                    "FRILANSER": {
-                        avkrysset: false, 
-                    }
-                }
+                values.andreInntektskilder[0] = Object.assign({}, inntektskildetyper[0], {
+                    avkrysset: true,
+                }); 
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-                expect(res.andreInntektskilder).to.deep.equal({
-                    ANDRE_ARBEIDSFORHOLD: {
-                        "sykmeldt": "Vennligst svar på om du er sykmeldt"
-                    }
-                })
+                expect(res.andreInntektskilder[0]).to.deep.equal({
+                    "sykmeldt": "Vennligst svar på om du er sykmeldt"
+                });
             });
 
             it("Brukeren må svare på om han/hun er sykmeldt for hver avkrysset inntektskilde (2)", () => {
-                values.andreInntektskilder = {
-                    "ANDRE_ARBEIDSFORHOLD": {
-                        avkrysset: true,
-                        sykmeldt: false    
-                    },
-                    "FRILANSER": {
-                        avkrysset: false, 
-                    }
-                }
+                values.andreInntektskilder[0] = Object.assign({}, inntektskildetyper[0], {
+                    sykmeldt: false,
+                    avkrysset: true,
+                });
+                values.andreInntektskilder[4] = Object.assign({}, inntektskildetyper[4], {
+                    avkrysset: false,
+                });
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.hasOwnProperty("andreInntektskilder")).to.be.false;
             });
 
             it("Brukeren må svare på om han/hun er sykmeldt for hver avkrysset inntektskilde (3)", () => {
-                values.andreInntektskilder = {
-                    "ANDRE_ARBEIDSFORHOLD": {
-                        avkrysset: true,
-                        sykmeldt: true    
-                    }, 
-                    "FRILANSER": {
-                        avkrysset: false, 
-                    }
-                };
+                values.andreInntektskilder[0] = Object.assign({}, inntektskildetyper[0], {
+                    avkrysset: true,
+                    sykmeldt: true,
+                });
+                values.andreInntektskilder[4] = Object.assign({}, inntektskildetyper[4], {
+                    avkrysset: false,
+                });
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.hasOwnProperty("andreInntektskilder")).to.be.false;
             });
 
             it("Brukeren må ikke svare på om han/hun er sykmeldt for ANNET", () => {
-                values.andreInntektskilder = {
-                    "ANDRE_ARBEIDSFORHOLD": {
-                        avkrysset: true,
-                        sykmeldt: true    
-                    }, 
-                    "ANNET": {
-                        avkrysset: true, 
-                    }
-                };
+                values.andreInntektskilder[5] = Object.assign({}, inntektskildetyper[5], {
+                    avkrysset: true,
+                });
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.hasOwnProperty("andreInntektskilder")).to.be.false;
             });
-
-            it("Skal ikke klage på andre inntektskilder hvis dette er oppgitt", () => {
-                const values = {
-                  "andreInntektskilder": {
-                    "ANDRE_ARBEIDSFORHOLD": {
-                      "avkrysset": true,
-                      "sykmeldt": false
-                    }
-                  },
-                  "harAndreInntektskilder": true
-                };
-              const sykepengesoknad = {
-                "id": "b2450694-bc57-40cd-a834-34c817ace7e3",
-                "status": "NY",
-                "innsendtDato": null,
-                "opprettetDato": "2017-02-02T00:00:00.000Z",
-                "arbeidsgiver": {
-                  "navn": "BYGGMESTER BLOM AS",
-                  "orgnummer": "***REMOVED***",
-                  "naermesteLeder": null
-                },
-                "identdato": "2017-02-15T00:00:00.000Z",
-                "ansvarBekreftet": false,
-                "bekreftetKorrektInformasjon": false,
-                "arbeidsgiverUtbetalerLoenn": true,
-                "egenmeldingsperioder": [],
-                "gjenopptattArbeidFulltUtDato": null,
-                "ferie": [],
-                "permisjon": [],
-                "utenlandsopphold": null,
-                "aktiviteter": [{
-                  "periode": {
-                    "fom": "2016-07-15T00:00:00.000Z",
-                    "tom": "2016-07-20T00:00:00.000Z"
-                  },
-                  "grad": 100,
-                  "avvik": null
-                }],
-                "andreInntektskilder": [],
-                "utdanning": null
-              };
-
-              const res = validate(values, {
-                  sykepengesoknad,
-                  sendTilFoerDuBegynner
-              });
-
-              expect(res.hasOwnProperty("andreInntektskilder")).to.be.false;
-
-            });
-
 
         });
 

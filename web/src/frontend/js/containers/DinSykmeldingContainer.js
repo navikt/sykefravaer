@@ -13,7 +13,7 @@ import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions'
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
 import { hentPilotSykepenger } from '../actions/pilot_actions';
 import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst } from 'digisyfo-npm';
-import { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } from '../statuser/sykmeldingstatuser';
+import { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } from '../enums/sykmeldingstatuser';
 
 export class DinSykmldSide extends Component {
 

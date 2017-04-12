@@ -5,29 +5,14 @@ import { parseJaEllerNei } from '../JaEllerNei';
 import Feilomrade from '../../skjema/Feilomrade';
 import Radioknapper from '../../skjema/Radioknapper';
 import { getLedetekst } from 'digisyfo-npm';
+import inntektskildetyper, { ANNET } from '../../../enums/inntektskildetyper';
 
-const ANDRE_ARBEIDSFORHOLD = 'ANDRE_ARBEIDSFORHOLD';
-const SELVSTENDIG_NAERINGSDRIVENDE = 'SELVSTENDIG_NAERINGSDRIVENDE';
-const SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA = 'SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA';
-const JORDBRUKER_FISKER_REINDRIFTSUTOEVER = 'JORDBRUKER_FISKER_REINDRIFTSUTOEVER';
-const FRILANSER = 'FRILANSER';
-export const ANNET = 'ANNET';
-
-export const fields = [
-    ANDRE_ARBEIDSFORHOLD,
-    SELVSTENDIG_NAERINGSDRIVENDE,
-    SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA,
-    JORDBRUKER_FISKER_REINDRIFTSUTOEVER,
-    FRILANSER,
-    ANNET,
-];
-
-export const getInntektskildeLabel = (field, ledetekster) => {
-    return getLedetekst(`sykepengesoknad.andre-inntektskilder.${field}.label`, ledetekster);
+export const getInntektskildeLabel = (annenInntektskildeType, ledetekster) => {
+    return getLedetekst(`sykepengesoknad.andre-inntektskilder.${annenInntektskildeType}.label`, ledetekster);
 };
 
-const getPresisering = (field, ledetekster) => {
-    return getLedetekst(`sykepengesoknad.andre-inntektskilder.${field}.presisering`, ledetekster);
+const getPresisering = (annenInntektskildeType, ledetekster) => {
+    return getLedetekst(`sykepengesoknad.andre-inntektskilder.${annenInntektskildeType}.presisering`, ledetekster);
 };
 
 export const VelgInntektskilder = ({ fields, meta, ledetekster }) => {
@@ -38,20 +23,20 @@ export const VelgInntektskilder = ({ fields, meta, ledetekster }) => {
             fields.map((field, index) => {
                 return (
                     <Field
-                        label={getInntektskildeLabel(field, ledetekster)}
+                        label={getInntektskildeLabel(field.annenInntektskildeType, ledetekster)}
                         id={`inntektskilde-${index}`}
-                        name={`andreInntektskilder.${field}.avkrysset`}
+                        name={`andreInntektskilder[${index}].avkrysset`}
                         key={index}
                         component={Checkbox}>
                         {
-                            field === ANNET ? null : <Field
+                            field.annenInntektskildeType === ANNET ? null : <Field
                                 component={Radioknapper}
                                 spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.er-du-sykmeldt-fra-dette.sporsmal', ledetekster)}
                                 parse={parseJaEllerNei}
-                                name={`andreInntektskilder.${field}.sykmeldt`}>
+                                name={`andreInntektskilder[${index}].sykmeldt`}>
                                     <input label={getLedetekst('sykepengesoknad.ja', ledetekster)} value>
                                         <div className="presisering blokk">
-                                            <p className="sist">{getPresisering(field, ledetekster)}</p>
+                                            <p className="sist">{getPresisering(field.annenInntektskildeType, ledetekster)}</p>
                                         </div>
                                     </input>
                                     <input label={getLedetekst('sykepengesoknad.nei', ledetekster)} value={false} />
@@ -70,7 +55,7 @@ VelgInntektskilder.propTypes = {
 };
 
 const AndreInntektskilderComponent = ({ ledetekster }) => {
-    return <FieldArray component={VelgInntektskilder} fields={fields} ledetekster={ledetekster} name="andreInntektskilder" />;
+    return <FieldArray component={VelgInntektskilder} fields={inntektskildetyper} ledetekster={ledetekster} name="andreInntektskilder" />;
 };
 
 AndreInntektskilderComponent.propTypes = {

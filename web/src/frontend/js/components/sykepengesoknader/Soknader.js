@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';
-import { SENDT, TIL_SENDING, UTGAATT, NY } from '../../statuser/sykepengesoknadstatuser';
+import { SENDT, TIL_SENDING, UTGAATT, NY } from '../../enums/sykepengesoknadstatuser';
 
 const Soknader = ({ ledetekster = {}, soknader = [] }) => {
     const nyeSoknader = soknader.filter((soknad) => {

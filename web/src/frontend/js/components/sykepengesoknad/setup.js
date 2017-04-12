@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import history from '../../history';
+import inntektskildetyper from '../../enums/inntektskildetyper';
+import { touch } from 'redux-form';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
@@ -14,7 +16,7 @@ export const mapToInitialValues = (soknad) => {
             });
         }),
         utdanning: {},
-        andreInntektskilder: {},
+        andreInntektskilder: inntektskildetyper,
         utenlandsopphold: {
             perioder: [],
         },
@@ -36,6 +38,12 @@ const setup = (validate, Component, initialize = false) => {
         destroyOnUnmount: false,
         forceUnregisterOnUnmount: true,
         sendTilFoerDuBegynner,
+        onSubmitFail: (errors, dispatch) => {
+            const errorFields = Object.keys(errors);
+            errorFields.forEach((error) => {
+                dispatch(touch(SYKEPENGER_SKJEMANAVN, error));
+            });
+        },
     })(Component);
     if (initialize) {
         return connect(mapStateToProps)(form);

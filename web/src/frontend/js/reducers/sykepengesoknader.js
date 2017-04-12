@@ -1,6 +1,6 @@
 import * as actiontyper from '../actions/actiontyper';
 import { tilDato, parseDatoerPeriodeListe, parseDatoerPeriode } from '../utils/serialisering/dato';
-import { SENDT } from '../statuser/sykepengesoknadstatuser';
+import { SENDT } from '../enums/sykepengesoknadstatuser';
 
 const initiellState = {
     henter: false,

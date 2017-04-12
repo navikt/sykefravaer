@@ -6,9 +6,9 @@ import { getLedetekst } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 
 export const Periode = (props) => {
-    const { ledetekster, fields, index, onRemoveHandler, tidligsteFom, senesteTom } = props;
-    const fomName = `${fields.name}.fom`;
-    const tomName = `${fields.name}.tom`;
+    const { ledetekster, name, index, onRemoveHandler, tidligsteFom, senesteTom } = props;
+    const fomName = `${name}.fom`;
+    const tomName = `${name}.tom`;
     return (<div className="periodevelger__periode">
         <div className="periodevelger__fom input--s">
             <label htmlFor={fomName}>{getLedetekst('sykepengesoknad.periodevelger.fom', ledetekster)}</label>
@@ -36,6 +36,7 @@ Periode.propTypes = {
     onRemoveHandler: PropTypes.func,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
+    name: PropTypes.string.isRequired,
 };
 
 export class Periodevelger extends Component {
@@ -47,7 +48,6 @@ export class Periodevelger extends Component {
 
     render() {
         const { fields, namePrefix, spoersmal, meta, Overskrift, ledetekster, tidligsteFom, senesteTom } = this.props;
-
         return (<div className="periodevelger">
             <div className={meta && meta.touched && meta.error ? 'blokk' : ''}>
                 <Feilomrade {...meta}>
@@ -55,8 +55,7 @@ export class Periodevelger extends Component {
                     <div className="periodevelger__perioder">
                         {
                             fields.map((field, index) => {
-                                return (<FieldArray
-                                    component={Periode}
+                                return (<Periode
                                     name={`${namePrefix}[${index}]`}
                                     ledetekster={ledetekster}
                                     key={index}
@@ -103,7 +102,7 @@ const mapStateToProps = (state) => {
     };
 };
 
-const StateConnectedPeriodevelger = connect(mapStateToProps)(Periodevelger);
+export const StateConnectedPeriodevelger = connect(mapStateToProps)(Periodevelger);
 
 const PeriodevelgerField = ({ name, spoersmal, ledetekster, tidligsteFom, senesteTom }) => {
     return (<FieldArray

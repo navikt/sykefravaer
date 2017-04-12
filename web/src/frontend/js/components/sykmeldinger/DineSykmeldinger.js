@@ -3,7 +3,7 @@ import SykmeldingTeasere from './SykmeldingTeasere';
 import { getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerEldsteFoerst } from 'digisyfo-npm';
 import SykmeldingerSorteringContainer from '../../containers/SykmeldingerSorteringContainer';
 import Sidetopp from '../Sidetopp';
-import { NY } from '../../statuser/sykmeldingstatuser';
+import { NY } from '../../enums/sykmeldingstatuser';
 
 const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, sortering }) => {
     const nyeSykmeldinger = sykmeldinger.filter((sykmld) => {

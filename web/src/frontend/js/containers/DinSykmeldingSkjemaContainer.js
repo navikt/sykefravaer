@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { datoMedKlokkeslett } from '../utils/datoUtils';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
+import feilaktigeOpplysninger from '../enums/feilaktigeOpplysninger';
 
 export const Skjema = (props) => {
     const { henter, hentingFeilet, vedlikehold, ledetekster } = props;
@@ -53,7 +54,9 @@ export const mapStateToProps = (state, ownProps) => {
 
     return {
         skjemaData: state.form.dinSykmeldingSkjema,
-        initialValues: sykmelding,
+        initialValues: Object.assign({}, sykmelding, {
+            feilaktigeOpplysninger,
+        }),
         sykmelding,
         ledetekster: state.ledetekster.data,
         sender: state.arbeidsgiversSykmeldinger.sender,

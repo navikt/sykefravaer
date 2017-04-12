@@ -6,6 +6,7 @@ import StrengtFortroligInfo from './StrengtFortroligInfo';
 import { reduxForm } from 'redux-form';
 import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import AvbrytDialog from './AvbrytDialog';
+import { PERIODE, SYKMELDINGSGRAD } from '../../enums/feilaktigeOpplysninger';
 
 const modi = {
     GA_VIDERE: 'GA_VIDERE',
@@ -42,7 +43,18 @@ export class DinSykmeldingSkjemaComponent extends Component {
             return modi.GA_VIDERE;
         }
         const { opplysningeneErRiktige, feilaktigeOpplysninger, valgtArbeidssituasjon } = values;
-        if (opplysningeneErRiktige === false && feilaktigeOpplysninger && (feilaktigeOpplysninger.periode || feilaktigeOpplysninger.sykmeldingsgrad)) {
+        let valgteFeilaktigeOpplysninger;
+        try {
+            valgteFeilaktigeOpplysninger = feilaktigeOpplysninger.filter((o) => {
+                return o.avkrysset;
+            }).map((o) => {
+                return o.opplysning;
+            });
+        } catch (e) {
+            valgteFeilaktigeOpplysninger = [];
+        }
+        if (opplysningeneErRiktige === false && feilaktigeOpplysninger && 
+                (valgteFeilaktigeOpplysninger.indexOf(PERIODE) > - 1 || valgteFeilaktigeOpplysninger.indexOf(SYKMELDINGSGRAD) > -1)) {
             return modi.AVBRYT;
         }
         if (!valgtArbeidssituasjon || valgtArbeidssituasjon === 'default') {
@@ -57,15 +69,19 @@ export class DinSykmeldingSkjemaComponent extends Component {
         return modi.BEKREFT;
     }
 
-
-    getFeilaktigeOpplysninger() {
+    getFeilaktigeOpplysninger(_values) {
         const { skjemaData } = this.props;
-        const feilaktigeOpplysninger = skjemaData.values.feilaktigeOpplysninger;
-        const opplysningeneErRiktige = skjemaData.values.opplysningeneErRiktige;
-        if (opplysningeneErRiktige) {
-            return {};
+        const values = _values || skjemaData.values;
+        const returverdi = {};
+        if (values.opplysningeneErRiktige) {
+            return returverdi;
         }
-        return feilaktigeOpplysninger;
+        values.feilaktigeOpplysninger.filter((o) => {
+            return o.avkrysset;
+        }).forEach((o) => {
+            returverdi[o.opplysning] = true;
+        });
+        return returverdi;
     }
 
     avbryt(sykmeldingId, feilaktigeOpplysninger) {
@@ -80,21 +96,11 @@ export class DinSykmeldingSkjemaComponent extends Component {
         const modus = this.getSkjemaModus(values, this.props.harStrengtFortroligAdresse);
         const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding } = this.props;
 
-        let feilaktigeOpplysninger = values.feilaktigeOpplysninger;
-        for (const key in values.feilaktigeOpplysninger) {
-            if (values.feilaktigeOpplysninger.hasOwnProperty(key)) {
-                setFeilaktigOpplysning(sykmelding.id, key, values.feilaktigeOpplysninger[key]);
-            }
+        const feilaktigeOpplysninger = values.feilaktigeOpplysninger;
+        for (let i = 0; i < feilaktigeOpplysninger.length; i++) {
+            setFeilaktigOpplysning(sykmelding.id, feilaktigeOpplysninger[i].opplysning, feilaktigeOpplysninger[i].avkrysset === true);
         }
         setOpplysningeneErRiktige(sykmelding.id, values.opplysningeneErRiktige);
-        if (values.opplysningeneErRiktige) {
-            for (const key in values.feilaktigeOpplysninger) {
-                if (values.feilaktigeOpplysninger.hasOwnProperty(key)) {
-                    setFeilaktigOpplysning(sykmelding.id, key, false);
-                }
-            }
-            feilaktigeOpplysninger = {};
-        }
         setArbeidssituasjon(values.valgtArbeidssituasjon, sykmelding.id);
         setArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver);
 
@@ -103,12 +109,14 @@ export class DinSykmeldingSkjemaComponent extends Component {
         switch (modus) {
             case modi.SEND_MED_NAERMESTE_LEDER:
             case modi.SEND: {
+                const feilaktigeOpplysningerParam = this.getFeilaktigeOpplysninger(values);
                 this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id,
-                    values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysninger, values.beOmNyNaermesteLeder, arbeidsgiverForskutterer);
+                    values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysningerParam, values.beOmNyNaermesteLeder, arbeidsgiverForskutterer);
                 return;
             }
             case modi.BEKREFT: {
-                this.props.bekreftSykmelding(sykmelding.id, values.valgtArbeidssituasjon, feilaktigeOpplysninger);
+                const feilaktigeOpplysningerParam = this.getFeilaktigeOpplysninger(values);
+                this.props.bekreftSykmelding(sykmelding.id, values.valgtArbeidssituasjon, feilaktigeOpplysningerParam);
                 return;
             }
             case modi.AVBRYT: {
@@ -220,22 +228,16 @@ DinSykmeldingSkjemaComponent.propTypes = {
     pilotSykepenger: PropTypes.bool,
 };
 
-const ingenFeilaktigeOpplysningerOppgitt = (feilaktigeOpplysninger) => {
-    const v = [
-        feilaktigeOpplysninger.periode,
-        feilaktigeOpplysninger.sykmeldingsgrad,
-        feilaktigeOpplysninger.arbeidsgiver,
-        feilaktigeOpplysninger.diagnose,
-        feilaktigeOpplysninger.andre,
-    ];
-    return v.filter((a) => { return a; }).length === 0;
-};
-
 export const validate = (values, props = {}) => {
     const feilmeldinger = {};
+    const feilaktigeOpplysninger = values.feilaktigeOpplysninger || [];
+    const avkryssedeFeilaktigeOpplysninger = feilaktigeOpplysninger.filter((o) => {
+        return o.avkrysset;
+    }).map((o) => {
+        return o.opplysning;
+    });
 
-    if (values.opplysningeneErRiktige === false && typeof values.feilaktigeOpplysninger === 'object' &&
-        (values.feilaktigeOpplysninger.periode || values.feilaktigeOpplysninger.sykmeldingsgrad)) {
+    if (values.opplysningeneErRiktige === false && (avkryssedeFeilaktigeOpplysninger.indexOf(PERIODE) > -1 || avkryssedeFeilaktigeOpplysninger.indexOf(SYKMELDINGSGRAD) > -1)) {
         return {};
     }
     if (values.opplysningeneErRiktige === undefined) {
@@ -245,12 +247,10 @@ export const validate = (values, props = {}) => {
         feilmeldinger.valgtArbeidssituasjon = 'Vennligst oppgi din arbeidssituasjon';
     }
 
-    if (!values.opplysningeneErRiktige) {
-        if (!values.feilaktigeOpplysninger || (values.feilaktigeOpplysninger && ingenFeilaktigeOpplysningerOppgitt(values.feilaktigeOpplysninger))) {
-            feilmeldinger.feilaktigeOpplysninger = {
-                _error: 'Vennligst oppgi hvilke opplysninger som ikke er riktige',
-            };
-        }
+    if (!values.opplysningeneErRiktige && avkryssedeFeilaktigeOpplysninger.length === 0) {
+        feilmeldinger.feilaktigeOpplysninger = {
+            _error: 'Vennligst oppgi hvilke opplysninger som ikke er riktige',
+        };
     }
 
     if (values.valgtArbeidssituasjon === 'arbeidstaker' && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {

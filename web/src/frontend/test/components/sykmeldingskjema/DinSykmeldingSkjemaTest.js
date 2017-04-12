@@ -17,6 +17,8 @@ import { Varselstripe } from "digisyfo-npm";
 import ErLederRiktig from "../../../js/components/sykmeldingskjema/ErLederRiktig";
 import ForskuttererArbeidsgiver from "../../../js/components/sykmeldingskjema/ForskuttererArbeidsgiver";
 import { Provider } from 'react-redux';
+import feilaktigeOpplysninger from "../../../js/enums/feilaktigeOpplysninger";
+import deepFreeze from 'deep-freeze';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -33,6 +35,7 @@ describe("DinSykmeldingSkjema -", () => {
     let skjemaData;
 
     beforeEach(() => {
+        deepFreeze(feilaktigeOpplysninger);
         getState = {
             ledetekster: { 
                 data: ledetekster,
@@ -120,18 +123,20 @@ describe("DinSykmeldingSkjema -", () => {
 
         it("Skal være AVBRYT dersom periode eller sykmeldingsgrad er feil", () => {
             let values = {
-                feilaktigeOpplysninger: {
-                    periode: true
-                },
+                feilaktigeOpplysninger: [{
+                    opplysning: "periode",
+                    avkrysset: true,
+                }],
                 opplysningeneErRiktige: false,
             }
             component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus = component.instance().getSkjemaModus(values, false);
             expect(modus).to.equal("AVBRYT")
 
-            values.feilaktigeOpplysninger = {
-                sykmeldingsgrad: true,
-            }
+            values.feilaktigeOpplysninger = [{
+                opplysning: "sykmeldingsgrad",
+                avkrysset: true,
+            }]
             let component2 = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus2 = component2.instance().getSkjemaModus(values, false);
             expect(modus2).to.equal("AVBRYT")
@@ -170,24 +175,75 @@ describe("DinSykmeldingSkjema -", () => {
 
     });
 
+    describe("getFeilaktigeOpplysninger", () => {
+        let component; 
+
+        beforeEach(() => {
+            skjemaData = {};
+        });
+        
+        it("Skal returnere tomt object hvis opplysningeneErRiktige === true", () => {
+            skjemaData.values = {
+                feilaktigeOpplysninger: [...feilaktigeOpplysninger],
+                opplysningeneErRiktige: true
+            };
+            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />);
+            expect(component.instance().getFeilaktigeOpplysninger()).to.deep.equal({})
+        });
+
+        it("Skal returnere avkryssede opplysninger object hvis opplysningeneErRiktige === false", () => {
+            const f = [...feilaktigeOpplysninger];
+            f[0] = Object.assign({}, feilaktigeOpplysninger[0], {
+                avkrysset: true,
+            });
+            f[1] = Object.assign({}, feilaktigeOpplysninger[1], {
+                avkrysset: true,
+            })
+            f[2] = Object.assign({}, feilaktigeOpplysninger[2], {
+                avkrysset: false,
+            })
+            skjemaData.values = {
+                feilaktigeOpplysninger: f,
+                opplysningeneErRiktige: false,
+            };
+            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />);
+            expect(component.instance().getFeilaktigeOpplysninger()).to.deep.equal({
+                periode: true,
+                sykmeldingsgrad: true,
+            })
+        }); 
+
+    })
+
     describe("handleSubmit", () => {
 
         let component;
+        let skjemaData;
+
+        beforeEach(() => {
+            skjemaData = {};
+            skjemaData.values = {
+                feilaktigeOpplysninger: [...feilaktigeOpplysninger]
+            };
+        })
 
         it("Lagrer opplysningeneErRiktige", () => {
             const setOpplysningeneErRiktigeSpy = sinon.spy();
             const setArbeidssituasjonSpy = sinon.spy();
             const setArbeidsgiverSpy = sinon.spy()
+            const setFeilaktigOpplysningSpy = sinon.spy();
             component = shallow(<DinSykmeldingSkjemaComponent
                 setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
                 setArbeidssituasjon={setArbeidssituasjonSpy}
                 setArbeidsgiver={setArbeidsgiverSpy}
+                setFeilaktigOpplysning={setFeilaktigOpplysningSpy}
                 sykmelding={getSykmelding({
                     id: "olsen"
                 })}
                 handleSubmit={sinon.spy()} />);
             component.instance().handleSubmit({
-                opplysningeneErRiktige: true
+                opplysningeneErRiktige: true,
+                feilaktigeOpplysninger,
             });
             expect(setOpplysningeneErRiktigeSpy.calledOnce).to.be.true;
             expect(setOpplysningeneErRiktigeSpy.getCall(0).args[0]).to.equal("olsen");
@@ -198,7 +254,7 @@ describe("DinSykmeldingSkjema -", () => {
             const setFeilaktigOpplysningSpy = sinon.spy();
             const setOpplysningeneErRiktigeSpy = sinon.spy();
             const setArbeidssituasjonSpy = sinon.spy();
-            const setArbeidsgiverSpy = sinon.spy()
+            const setArbeidsgiverSpy = sinon.spy();
 
             component = shallow(<DinSykmeldingSkjemaComponent
                 setFeilaktigOpplysning={setFeilaktigOpplysningSpy}
@@ -210,18 +266,58 @@ describe("DinSykmeldingSkjema -", () => {
                 })}
                 handleSubmit={sinon.spy()} />);
             component.instance().handleSubmit({
-                feilaktigeOpplysninger: {
-                    periode: true,
-                    sykmeldingsgrad: true,
-                }
+                feilaktigeOpplysninger: [{
+                    opplysning: "periode",
+                    avkrysset: true,
+                }, {
+                    opplysning: "sykmeldingsgrad",
+                    avkrysset: true,
+                }]
             });
-            expect(setFeilaktigOpplysningSpy.calledTwice).to.be.true;
+            expect(setFeilaktigOpplysningSpy.callCount).to.equal(2);
             expect(setFeilaktigOpplysningSpy.getCall(0).args[0]).to.equal("olsen");
             expect(setFeilaktigOpplysningSpy.getCall(0).args[1]).to.equal("periode");
             expect(setFeilaktigOpplysningSpy.getCall(0).args[2]).to.equal(true);
             expect(setFeilaktigOpplysningSpy.getCall(1).args[0]).to.equal("olsen");
             expect(setFeilaktigOpplysningSpy.getCall(1).args[1]).to.equal("sykmeldingsgrad");
             expect(setFeilaktigOpplysningSpy.getCall(1).args[2]).to.equal(true);
+        });
+
+        it("Sender feilaktigeOpplysninger til arbeidsgiver", () => {
+            const setFeilaktigOpplysningSpy = sinon.spy();
+            const setOpplysningeneErRiktigeSpy = sinon.spy();
+            const setArbeidssituasjonSpy = sinon.spy();
+            const setArbeidsgiverSpy = sinon.spy();
+            const handleSubmitSpy = sinon.spy();
+            const sendSykmeldingTilArbeidsgiverSpy = sinon.spy();
+            const f = [...feilaktigeOpplysninger];
+            f[4] = Object.assign({}, f[4], {
+                avkrysset: true,
+            })
+
+            component = shallow(<DinSykmeldingSkjemaComponent
+                setFeilaktigOpplysning={setFeilaktigOpplysningSpy}
+                setArbeidssituasjon={setArbeidssituasjonSpy}
+                setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
+                setArbeidsgiver={setArbeidsgiverSpy}
+                sykmelding={getSykmelding({
+                    id: "olsen"
+                })}
+                skjemaData={skjemaData}
+                sendSykmeldingTilArbeidsgiver={sendSykmeldingTilArbeidsgiverSpy}
+                handleSubmit={handleSubmitSpy} />);
+            component.instance().handleSubmit({
+                feilaktigeOpplysninger: f,
+                opplysningeneErRiktige: false,
+                valgtArbeidssituasjon: 'arbeidstaker',
+                valgtArbeidsgiver: {
+                    orgnummer: "123456789"
+                }
+            });
+            expect(sendSykmeldingTilArbeidsgiverSpy.callCount).to.equal(1);
+            expect(sendSykmeldingTilArbeidsgiverSpy.getCall(0).args).to.deep.equal(["olsen", "123456789", {
+                andre: true,
+            }, undefined, false]);
         });
 
         it("Lagrer arbeidssituasjon", () => {
@@ -233,9 +329,7 @@ describe("DinSykmeldingSkjema -", () => {
                 then: () => {
                     
                 }
-            })
-            const skjemaData = {};
-            skjemaData.values = {};
+            });
 
             component = shallow(<DinSykmeldingSkjemaComponent
                 setFeilaktigOpplysning={setFeilaktigOpplysningSpy}
@@ -249,6 +343,7 @@ describe("DinSykmeldingSkjema -", () => {
                 })}
                 handleSubmit={sinon.spy()} />);
             component.instance().handleSubmit({
+                feilaktigeOpplysninger,
                 valgtArbeidssituasjon: 'arbeidstaker',
                 valgtArbeidsgiver: {}
             });
@@ -268,11 +363,14 @@ describe("DinSykmeldingSkjema -", () => {
                 setArbeidssituasjon={setArbeidssituasjonSpy}
                 setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
                 setArbeidsgiver={setArbeidsgiverSpy}
+                skjemaData={skjemaData}
                 sykmelding={getSykmelding({
                     id: "887766"
                 })}
                 handleSubmit={sinon.spy()} />);
             component.instance().handleSubmit({
+                opplysningeneErRiktige: true,
+                feilaktigeOpplysninger,
                 valgtArbeidsgiver: {
                     orgnummer: "123456",
                     navn: "Hansens pizzabud"
@@ -409,7 +507,7 @@ describe("DinSykmeldingSkjema -", () => {
 
         beforeEach(() => {
             fields = {
-                feilaktigeOpplysninger: undefined,
+                feilaktigeOpplysninger: [...feilaktigeOpplysninger],
                 opplysningeneErRiktige: undefined,
                 valgtArbeidssituasjon: undefined,
                 valgtArbeidsgiver: undefined
@@ -433,37 +531,38 @@ describe("DinSykmeldingSkjema -", () => {
             expect(res.opplysningeneErRiktige).to.be.undefined;
         });
 
-        it("Skal returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger === {}", () => {
+        it("Skal returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger === default", () => {
             fields.opplysningeneErRiktige = false;
-            fields.feilaktigeOpplysninger = {};
             const res = validate(fields);
             expect(res.feilaktigeOpplysninger._error).to.equal("Vennligst oppgi hvilke opplysninger som ikke er riktige")
         });
 
-        it("Skal returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger === { periode: false }", () => {
+        it("Skal returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger har en uavkrysset opplysning", () => {
             fields.opplysningeneErRiktige = false;
-            fields.feilaktigeOpplysninger = {
-                periode: false
-            };
+            fields.feilaktigeOpplysninger[0] = Object.assign({}, feilaktigeOpplysninger[0], {
+                avkrysset: false,
+            });
             const res = validate(fields);
-            expect(res.feilaktigeOpplysninger._error).to.equal("Vennligst oppgi hvilke opplysninger som ikke er riktige")
+            expect(res.feilaktigeOpplysninger._error).to.equal("Vennligst oppgi hvilke opplysninger som ikke er riktige");
         });
 
-        it("Skal ikke returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger === { periode: true }", () => {
+        it("Skal ikke returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger har en avkrysset opplysning", () => {
             fields.opplysningeneErRiktige = false;
-            fields.feilaktigeOpplysninger = {
-                periode: true
-            };
+            fields.feilaktigeOpplysninger[0] = Object.assign({}, feilaktigeOpplysninger[0], {
+                avkrysset: true,
+            });
             const res = validate(fields);
             expect(res.feilaktigeOpplysninger).to.be.undefined;
         });
 
-        it("Skal ikke returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger === { periode: true, sykmeldingsgrad: false }", () => {
+        it("Skal ikke returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger har en avkrysset og en uavkrysset opplysning", () => {
             fields.opplysningeneErRiktige = false;
-            fields.feilaktigeOpplysninger = {
-                periode: true,
-                sykmeldingsgrad: false,
-            };
+            fields.feilaktigeOpplysninger[0] = Object.assign({}, feilaktigeOpplysninger[0], {
+                avkrysset: false,
+            });
+            fields.feilaktigeOpplysninger[1] = Object.assign({}, feilaktigeOpplysninger[1], {
+                avkrysset: true,
+            });
             const res = validate(fields);
             expect(res.feilaktigeOpplysninger).to.be.undefined;
         });
@@ -498,18 +597,28 @@ describe("DinSykmeldingSkjema -", () => {
         });
 
         it("Skal ikke returnere noen ting dersom opplysningeneErRiktige = false og periode er feilaktig", () => {
-            fields = {"opplysningeneErRiktige":false,"feilaktigeOpplysninger":{"periode":true}};
+            fields = {
+                "opplysningeneErRiktige":false,
+                "feilaktigeOpplysninger": [{
+                    opplysning: "periode",
+                    avkrysset: true
+                }]};
             const res = validate(fields);
             expect(res).to.deep.equal({});
         });
 
         it("Skal ikke returnere noen ting dersom opplysningeneErRiktige = false og sykmeldingsgrad er feilaktig", () => {
-            fields = {"opplysningeneErRiktige":false,"feilaktigeOpplysninger":{"sykmeldingsgrad":true}};
+            fields = {
+                "opplysningeneErRiktige": false,
+                "feilaktigeOpplysninger": [{
+                    opplysning: "sykmeldingsgrad",
+                    avkrysset: true,
+                }]};
             const res = validate(fields);
             expect(res).to.deep.equal({});
         });
 
-        it("SKal returnere valgtArbeidssituasjon dersom opplysningeneErRiktige === false og alt annet er undefined", () => {
+        it("Skal returnere valgtArbeidssituasjon dersom opplysningeneErRiktige === false og alt annet er undefined", () => {
             fields.opplysningeneErRiktige = false;
             fields.beOmNyNaermesteLeder = true;
             const res = validate(fields);
@@ -535,9 +644,6 @@ describe("DinSykmeldingSkjema -", () => {
             expect(typeof res.beOmNyNaermesteLeder).to.equal("string");
         });
 
-
     });
-
-
 
 });

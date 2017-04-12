@@ -3,7 +3,7 @@ import AktiviteterISykmeldingsperioden from '../../components/sykepengesoknad/Ak
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
-import { SENDT } from '../../statuser/sykepengesoknadstatuser';
+import { SENDT } from '../../enums/sykepengesoknadstatuser';
 
 export const Controller = (props) => {
     if (props.sykepengesoknad.status === SENDT) {

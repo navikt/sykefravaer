@@ -8,6 +8,7 @@ import deepFreeze from 'deep-freeze';
 
 import { getSoknad } from '../../mockSoknader';
 import mapSkjemasoknadToBackendsoknad from '../../../js/components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
+import inntektskildetyper from '../../../js/enums/inntektskildetyper';
 
 describe("mapSkjemasoknadToBackendsoknad", () => {
 
@@ -35,28 +36,35 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
                 "tom": "18.03.2017"
             }]
         };
-        sykepengesoknad.andreInntektskilder = {
-            "ANDRE_ARBEIDSFORHOLD": {
-              "avkrysset": true,
-              "sykmeldt": true
-            },
-            "SELVSTENDIG_NAERINGSDRIVENDE": {
-              "avkrysset": false
-            },
-            "SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA": {
-              "avkrysset": true,
-              "sykmeldt": false,
-            },
-            "JORDBRUKER_FISKER_REINDRIFTSUTOEVER": {
-              "avkrysset": false
-            },
-            "FRILANSER": {
-              "avkrysset": false
-            },
-            "ANNET": {
-              "avkrysset": true
-            }
-        };
+
+        deepFreeze(inntektskildetyper);
+
+        const andreInntektskilder = [].concat(inntektskildetyper);
+
+        andreInntektskilder[0] = Object.assign({}, inntektskildetyper[0], {
+            avkrysset: true,
+            sykmeldt: true,
+        });
+
+        andreInntektskilder[1] = Object.assign({}, inntektskildetyper[1], {
+            avkrysset: false,
+        });
+
+        andreInntektskilder[2] = Object.assign({}, inntektskildetyper[2], {
+            avkrysset: false,
+            sykmeldt: false,
+        });
+
+        andreInntektskilder[3] = Object.assign({}, inntektskildetyper[3], {
+            avkrysset: false,
+        });
+
+        andreInntektskilder[4] = Object.assign({}, inntektskildetyper[4], {
+            avkrysset: false,
+        });
+
+        sykepengesoknad.andreInntektskilder = andreInntektskilder;
+
         sykepengesoknad.utdanning = {}
 
         sykepengesoknad.gjenopptattArbeidFulltUtDato = "20.01.2017";
@@ -236,29 +244,17 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
 
         it("Skal konvertere andreInntektskilder hvis det finnes inntektskilder", () => {
             const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad));
-            expect(soknad.andreInntektskilder).to.deep.equal([
-                {
-                    annenInntektskildeType: 'ANDRE_ARBEIDSFORHOLD',
-                    sykmeldt: true,
-                }, {
-                    annenInntektskildeType: 'SELVSTENDIG_NAERINGSDRIVENDE_DAGMAMMA',
-                    sykmeldt: false,
-                }, {
-                    annenInntektskildeType: 'ANNET',
-                    sykmeldt: false,
-                }
-            ]);
+            expect(soknad.andreInntektskilder).to.deep.equal([{
+                annenInntektskildeType: 'ANDRE_ARBEIDSFORHOLD',
+                sykmeldt: true,
+            }]);
         });
 
-        it("Skal konvertere andreInntektskilder hvis andreInntektskilder === {}", () => {
-            sykepengesoknad.andreInntektskilder = {};
-            const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad));
-            expect(soknad.andreInntektskilder).to.deep.equal([]);
-        });
-
-        it("Skal ikke konvertere andreInntektskilder hvis andreInntektskilder === []", () => {
-            sykepengesoknad.andreInntektskilder = [];
-            const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad));
+        it("Skal ikke konvertere andreInntektskilder hvis andreInntektskilder === default", () => {
+            const _sykepengesoknad = Object.assign({}, sykepengesoknad, {
+                andreInntektskilder: inntektskildetyper
+            });
+            const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(_sykepengesoknad));
             expect(soknad.andreInntektskilder).to.deep.equal([]);
         });
 

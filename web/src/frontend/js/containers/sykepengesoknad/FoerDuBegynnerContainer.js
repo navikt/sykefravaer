@@ -8,7 +8,7 @@ import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
-import { NY, SENDT, UTGAATT, TIL_SENDING } from '../../statuser/sykepengesoknadstatuser';
+import { NY, SENDT, UTGAATT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 
 export const Controller = (props) => {
     const { sykepengesoknad, ledetekster, vedlikehold } = props;

@@ -8,8 +8,8 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import Datovelger from '../../../js/components/skjema/Datovelger';
-import { Periodevelger, Periode } from '../../../js/components/skjema/Periodevelger';
-import { FieldArray } from 'redux-form';
+import { Periodevelger, Periode, StateConnectedPeriodevelger } from '../../../js/components/skjema/Periodevelger';
+import { Field } from 'redux-form';
 
 describe("Periodevelger", () => {
 
@@ -38,10 +38,10 @@ describe("Periodevelger", () => {
         expect(push.calledWith({})).to.be.false;
     });
 
-    it("Skal inneholde et FieldArray med component = Periode ", () => {
+    it("Skal inneholde en Periode per periode ", () => {
+        fields = [{}, {}]
         const compo = shallow(<Periodevelger fields={fields} />);
-        expect(compo.find(FieldArray)).to.have.length(1);
-        expect(compo.find(FieldArray).prop("component")).to.deep.equal(Periode);
+        expect(compo.find(Periode)).to.have.length(2);
     });
 
     describe("Periode", () => {

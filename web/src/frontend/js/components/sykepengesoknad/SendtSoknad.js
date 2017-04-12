@@ -3,7 +3,7 @@ import Sidetopp from '../Sidetopp';
 import { Soknad, toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Statuspanel from './Statuspanel';
-import { SENDT, TIL_SENDING } from '../../statuser/sykepengesoknadstatuser';
+import { SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">

@@ -150,7 +150,7 @@ export function mapStateToProps(state, ownProps) {
     const dinSykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId);
     let arbeidsgiversSykmelding = {};
 
-    if (dinSykmelding && (dinSykmelding.status === SENDT || (dinSykmelding.status === BEKREFTET && dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER'))) {
+    if (dinSykmelding && (dinSykmelding.status === SENDT || dinSykmelding.status === TIL_SENDING || (dinSykmelding.status === BEKREFTET && dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER'))) {
         arbeidsgiversSykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId);
     }
 

@@ -196,6 +196,50 @@ describe("DinSykmeldingContainer", () => {
                 });
             });            
 
+        });
+
+        describe("Dersom dinSykmelding.status === 'TIL_SENDING'", () => {
+
+            beforeEach(() => {
+                state.dineSykmeldinger.data.push({
+                    id: 44,
+                    status: "TIL_SENDING"
+                });
+                ownProps = {
+                    params: {
+                        sykmeldingId: 44
+                    }
+                };
+            });
+
+            it("Skal returnere arbeidsgiversSykmelding når arbeidsgiversSykmeldinger = []'", () => {
+                state.arbeidsgiversSykmeldinger = {
+                    data: [],
+                    hentingFeilet: false,
+                    henter: false,
+                }
+                const res = mapStateToProps(state, ownProps);
+                expect(res.arbeidsgiversSykmelding).to.deep.equal(undefined);
+            });
+
+            it("Skal returnere arbeidsgiversSykmelding når arbeidsgiversSykmeldinger = [{...}]'", () => {
+                state.arbeidsgiversSykmeldinger = {
+                    data: [{
+                        id: 44, 
+                        fornavn: "Hans",
+                        etternavn: "Olsen"
+                    }],
+                    hentingFeilet: false, 
+                    henter: false,
+                }
+                const res = mapStateToProps(state, ownProps);
+                expect(res.arbeidsgiversSykmelding).to.deep.equal({
+                    id: 44, 
+                    fornavn: "Hans",
+                    etternavn: "Olsen"
+                });
+            });            
+
         })
 
 

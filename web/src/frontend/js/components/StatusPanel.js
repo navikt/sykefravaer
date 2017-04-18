@@ -4,7 +4,7 @@ import { Varselstripe } from 'digisyfo-npm';
 
 const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger, type }) => {
     const html = nokkelopplysninger.map((rad, index1) => {
-        return (<div className="statusopplysninger" key={index1}>
+        return (<div className="statusopplysninger js-rad" key={index1}>
             {
                 rad.map((nokkelopplysning, index2) => {
                     return <StatusOpplysning key={index2} ledetekster={ledetekster} sykmelding={sykmelding} nokkelopplysning={nokkelopplysning} />;

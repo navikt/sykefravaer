@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { Varselstripe, SykmeldingNokkelOpplysning } from 'digisyfo-npm';
 
 export const Statuspanel = ({ opplysninger }) => {
-    console.log(opplysninger)
     return (<div className="panel panel--komprimert blokk">
         <Varselstripe type="suksess">
             <div>

@@ -18,7 +18,7 @@ describe("StatusPanelTest", () => {
 
         component = shallow(<StatusPanel sykmelding={getSykmelding()} ledetekster={ledetekster} nokkelopplysninger={nokkelopplysninger} />);
         expect(component.find(StatusOpplysning)).to.have.length(0);
-        expect(component.find(".rad-container")).to.have.length(0);
+        expect(component.find(".js-rad")).to.have.length(0);
     });
 
     it("En enkelt rad, med et element gir en container og et element", () => {
@@ -26,7 +26,7 @@ describe("StatusPanelTest", () => {
 
         component = shallow(<StatusPanel sykmelding={getSykmelding()} ledetekster={ledetekster} nokkelopplysninger={nokkelopplysninger} />);
         expect(component.find(StatusOpplysning)).to.have.length(1);
-        expect(component.find(".rad-container")).to.have.length(1);
+        expect(component.find(".js-rad")).to.have.length(1);
     });
 
     it("En enkelt rad, med to elementer gir en container og to elementer", () => {
@@ -34,7 +34,7 @@ describe("StatusPanelTest", () => {
 
         component = shallow(<StatusPanel sykmelding={getSykmelding()} ledetekster={ledetekster} nokkelopplysninger={nokkelopplysninger} />);
         expect(component.find(StatusOpplysning)).to.have.length(2);
-        expect(component.find(".rad-container")).to.have.length(1);
+        expect(component.find(".js-rad")).to.have.length(1);
     });
 
     it("To rader, med et element hver gir to containere og to elementer", () => {
@@ -42,7 +42,7 @@ describe("StatusPanelTest", () => {
 
         component = shallow(<StatusPanel sykmelding={getSykmelding()} ledetekster={ledetekster} nokkelopplysninger={nokkelopplysninger} />);
         expect(component.find(StatusOpplysning)).to.have.length(2);
-        expect(component.find(".rad-container")).to.have.length(2);
+        expect(component.find(".js-rad")).to.have.length(2);
     });
 
     it("To rader, med tre elementer hver gir tre containere og 9 elementer", () => {
@@ -50,7 +50,7 @@ describe("StatusPanelTest", () => {
 
         component = shallow(<StatusPanel sykmelding={getSykmelding()} ledetekster={ledetekster} nokkelopplysninger={nokkelopplysninger} />);
         expect(component.find(StatusOpplysning)).to.have.length(9);
-        expect(component.find(".rad-container")).to.have.length(3);
+        expect(component.find(".js-rad")).to.have.length(3);
     });
 
     it("To rader, med 3/2/1 elementer hver gir tre containere og 6 elementer", () => {
@@ -58,7 +58,7 @@ describe("StatusPanelTest", () => {
 
         component = shallow(<StatusPanel sykmelding={getSykmelding()} ledetekster={ledetekster} nokkelopplysninger={nokkelopplysninger} />);
         expect(component.find(StatusOpplysning)).to.have.length(6);
-        expect(component.find(".rad-container")).to.have.length(3);
+        expect(component.find(".js-rad")).to.have.length(3);
     });
 
 });

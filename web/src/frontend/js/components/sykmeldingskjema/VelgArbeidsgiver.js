@@ -10,16 +10,16 @@ import Radioknapper from '../skjema/Radioknapper';
 
 export const ArbeidsgiverRadioknapper = (props) => {
     const { ledetekster, input, arbeidsgivere } = props;
-    let intro = null;
+    let hjelpelinje = null;
 
     if (arbeidsgivere.length > 2) {
-        intro = <p>{getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.flere-arbeidsgivere-infotekst', ledetekster)}</p>;
+        hjelpelinje = <p>{getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.flere-arbeidsgivere-infotekst', ledetekster)}</p>;
     }
 
     return (<Radioknapper
         spoersmal={getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal', ledetekster)}
         name="valgtArbeidsgiver"
-        intro={intro}
+        hjelpelinje={hjelpelinje}
         {...props}>
         {
             arbeidsgivere.map((arbeidsgiver, index) => {

@@ -26,13 +26,13 @@ Radioknapp.propTypes = {
     labelSekundaer: PropTypes.string,
 };
 
-const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children, horisontal = false, hjelpetekst, intro }) => {
+const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children, horisontal = false, hjelpetekst, hjelpelinje }) => {
     return (<Feilomrade {...meta}>
         <div className={`${hjelpetekst ? 'medHjelpetekst' : ''}`}>
             <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
             { hjelpetekst }
         </div>
-        { intro }
+        { hjelpelinje }
         <div className={horisontal ? 'inputgruppe inputgruppe--horisontal' : 'inputgruppe'}>
             {
                 children.map((radioknapp, index) => {
@@ -51,7 +51,7 @@ Radioknapper.propTypes = {
     children: PropTypes.array,
     horisontal: PropTypes.bool,
     hjelpetekst: PropTypes.object,
-    intro: PropTypes.object,
+    hjelpelinje: PropTypes.object,
 };
 
 export default Radioknapper;

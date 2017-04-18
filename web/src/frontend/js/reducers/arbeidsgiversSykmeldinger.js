@@ -1,5 +1,5 @@
 import * as actiontyper from '../actions/actiontyper';
-import { SENDT, BEKREFTET } from '../statuser/sykmeldingstatuser';
+import { SENDT, BEKREFTET } from '../enums/sykmeldingstatuser';
 
 const initiellState = {
     henter: false,

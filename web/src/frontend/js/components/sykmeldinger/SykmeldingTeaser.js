@@ -4,7 +4,7 @@ import { getContextRoot } from '../../routers/paths';
 import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
 import { tidligsteFom, senesteTom } from '../../utils/periodeUtils';
-import { NY } from '../../statuser/sykmeldingstatuser';
+import { NY } from '../../enums/sykmeldingstatuser';
 
 const PeriodeListe = ({ perioder, arbeidsgiver, ledetekster }) => {
     return (<ul className="teaser-punktliste js-perioder">

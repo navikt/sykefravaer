@@ -5,13 +5,14 @@ import Feilomrade from '../skjema/Feilomrade';
 import JaEllerNei from '../../components/sykepengesoknad/JaEllerNei';
 import { FieldArray, Field } from 'redux-form';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
+import feilaktigeOpplysningerFields, { PERIODE, SYKMELDINGSGRAD, ARBEIDSGIVER, DIAGNOSE, ANDRE } from '../../enums/feilaktigeOpplysninger';
 
 const Tilleggsinfo = ({ children }) => {
     return (<div className="ekstrasporsmal ekstrasporsmal--sist">{children}</div>);
 };
 
 Tilleggsinfo.propTypes = {
-    children: PropTypes.array,
+    children: PropTypes.object,
 };
 
 export const DuTrengerNySykmelding = ({ ledetekster }) => {
@@ -65,45 +66,59 @@ DuKanBrukeSykmeldingenDinDiagnoseAndre.propTypes = {
     ledetekster: PropTypes.object,
 };
 
-export const SykmeldingFeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = {}, ledetekster }) => {
-    if (feilaktigeOpplysninger.periode || feilaktigeOpplysninger.sykmeldingsgrad) {
+const getAvkryssedeOpplysninger = (feilaktigeOpplysninger) => {
+    return feilaktigeOpplysninger.filter((o) => {
+        return o.avkrysset;
+    }).map((o) => {
+        return o.opplysning;
+    });
+};
+
+export const SykmeldingFeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = [], ledetekster }) => {
+    const opplysninger = getAvkryssedeOpplysninger(feilaktigeOpplysninger);
+    if (opplysninger.indexOf(PERIODE) > -1 || opplysninger.indexOf(SYKMELDINGSGRAD) > -1) {
         return <DuTrengerNySykmelding ledetekster={ledetekster} />;
     }
-    if (feilaktigeOpplysninger.arbeidsgiver) {
+    if (opplysninger.indexOf(ARBEIDSGIVER) > -1) {
         return <DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />;
     }
-    if (feilaktigeOpplysninger.diagnose || feilaktigeOpplysninger.andre) {
+    if (opplysninger.indexOf(DIAGNOSE) > -1 || opplysninger.indexOf(ANDRE) > -1) {
         return <DuKanBrukeSykmeldingenDinDiagnoseAndre ledetekster={ledetekster} />;
     }
     return null;
 };
 
 SykmeldingFeilaktigeOpplysningerInfo.propTypes = {
-    feilaktigeOpplysninger: PropTypes.object,
+    feilaktigeOpplysninger: PropTypes.array,
     ledetekster: PropTypes.object,
 };
 
 export const HvilkeOpplysninger = ({ fields, meta, ledetekster }) => {
-    const labels = {
-        periode: getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.periode', ledetekster),
-        sykmeldingsgrad: getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sykmeldingsgrad', ledetekster),
-        arbeidsgiver: getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.arbeidsgiver', ledetekster),
-        diagnose: getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.diagnose', ledetekster),
-        andre: getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.andre', ledetekster),
-    };
+    const labels = {};
+    labels[PERIODE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.periode', ledetekster);
+    labels[SYKMELDINGSGRAD] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sykmeldingsgrad', ledetekster);
+    labels[ARBEIDSGIVER] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.arbeidsgiver', ledetekster);
+    labels[DIAGNOSE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.diagnose', ledetekster);
+    labels[ANDRE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.andre', ledetekster);
 
     return (<Feilomrade {...meta}>
         <h4 className="skjema__sporsmal">Hvilke opplysninger er ikke riktige?</h4>
         {
             fields.map((field, index) => {
-                return <Field key={index} component={Checkbox} name={`feilaktigeOpplysninger.${field}`} label={labels[field]} id={`checkbox-${field}`} />;
+                const opplysning = field.opplysning;
+                return (<Field
+                    key={index}
+                    component={Checkbox}
+                    name={`feilaktigeOpplysninger[${index}].avkrysset`}
+                    label={labels[opplysning]}
+                    id={`checkbox-${opplysning}`} />);
             })
         }
     </Feilomrade>);
 };
 
 HvilkeOpplysninger.propTypes = {
-    fields: PropTypes.object,
+    fields: PropTypes.array,
     meta: PropTypes.object,
     ledetekster: PropTypes.object,
 };
@@ -113,10 +128,14 @@ export const RenderFeilaktigeOpplysninger = (props) => {
     const Sporsmal = <HvilkeOpplysninger {...props} />;
 
     return (<SporsmalMedTillegg {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
-        const _skjemaData = _props.skjemaData;
-        const s = _skjemaData && _skjemaData.values && _skjemaData.values.feilaktigeOpplysninger ? _skjemaData.values.feilaktigeOpplysninger : false;
-        const a = s && (s.periode || s.sykmeldingsgrad || s.arbeidsgiver || s.diagnose || s.andre);
-        return a === true;
+        try {
+            const feilaktigeOpplysninger = _props.skjemaData.values.feilaktigeOpplysninger;
+            return feilaktigeOpplysninger.filter((o) => {
+                return o.avkrysset;
+            }).length > 0;
+        } catch (e) {
+            return false;
+        }
     }}>
         <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={skjemaData.values.feilaktigeOpplysninger} ledetekster={ledetekster} />
     </SporsmalMedTillegg>);
@@ -140,7 +159,7 @@ export const ErOpplysningeneRiktige = (props) => {
             {...props}
             component={RenderFeilaktigeOpplysninger}
             name="feilaktigeOpplysninger"
-            fields={['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre']}
+            fields={feilaktigeOpplysningerFields}
             ledetekster={ledetekster} />
     </JaEllerNei>);
 };

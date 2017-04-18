@@ -10,19 +10,14 @@ const parsePerioder = (perioder) => {
 };
 
 const parseInntektskilder = (inntektskilder) => {
-    if (Array.isArray(inntektskilder)) {
-        return inntektskilder;
-    }
-    const a = [];
-    for (const annenInntektskildeType in inntektskilder) {
-        if (inntektskilder[annenInntektskildeType].avkrysset) {
-            a.push({
-                annenInntektskildeType,
-                sykmeldt: inntektskilder[annenInntektskildeType].sykmeldt === true,
-            });
-        }
-    }
-    return a;
+    return inntektskilder.filter((i) => {
+        return i.avkrysset;
+    }).map((i) => {
+        return {
+            annenInntektskildeType: i.annenInntektskildeType,
+            sykmeldt: i.sykmeldt,
+        };
+    });
 };
 
 const getUtenlandsopphold = (utenlandsopphold) => {

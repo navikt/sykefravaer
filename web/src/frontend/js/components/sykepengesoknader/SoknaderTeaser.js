@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import { tidligsteFom, senesteTom } from '../../utils/periodeUtils';
-import { NY } from '../../statuser/sykepengesoknadstatuser';
+import { NY } from '../../enums/sykepengesoknadstatuser';
 
 class SoknadTeaser extends Component {
 

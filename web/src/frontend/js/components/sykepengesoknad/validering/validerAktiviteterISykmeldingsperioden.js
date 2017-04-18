@@ -1,6 +1,6 @@
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
-import { ANNET } from '../AktiviteterISykmeldingsperioden/AndreInntektskilder';
+import { ANNET } from '../../../enums/inntektskildetyper';
 import { fraInputdatoTilJSDato } from '../../../utils';
 import { senesteTom } from '../../../utils/periodeUtils';
 import { toDatePrettyPrint } from 'digisyfo-npm';
@@ -95,13 +95,9 @@ const validerAktiviteter = (values, aktiviteter) => {
 };
 
 const getAntallAvkryssedeInntektstkilder = (inntektskilder = []) => {
-    const avkryssede = [];
-    for (const inntektskilde in inntektskilder) {
-        if (inntektskilder[inntektskilde].avkrysset) {
-            avkryssede.push(inntektskilde);
-        }
-    }
-    return avkryssede.length;
+    return inntektskilder.filter((i) => {
+        return i.avkrysset;
+    }).length;
 };
 
 const validate = (values, props) => {
@@ -123,15 +119,18 @@ const validate = (values, props) => {
                 _error: 'Vennligst oppgi hvilke andre inntektskilder du har',
             };
         } else {
-            const andreInntektskilderFeilmeldinger = {};
-            for (const inntektskilde in values.andreInntektskilder) {
-                if (inntektskilde !== ANNET && values.andreInntektskilder[inntektskilde].avkrysset && values.andreInntektskilder[inntektskilde].sykmeldt === undefined) {
-                    andreInntektskilderFeilmeldinger[inntektskilde] = {
+            const andreInntektskilderFeilmeldinger = values.andreInntektskilder.map((i) => {
+                if (i.avkrysset && i.sykmeldt === undefined && i.annenInntektskildeType !== ANNET) {
+                    return {
                         sykmeldt: 'Vennligst svar på om du er sykmeldt',
                     };
                 }
-            }
-            if (Object.keys(andreInntektskilderFeilmeldinger).length > 0) {
+                return {};
+            });
+            const erFeil = andreInntektskilderFeilmeldinger.filter((i) => {
+                return Object.keys(i).length > 0;
+            }).length > 0;
+            if (erFeil) {
                 feilmeldinger.andreInntektskilder = andreInntektskilderFeilmeldinger;
             }
         }

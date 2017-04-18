@@ -7,7 +7,7 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { senesteTom } from '../utils/periodeUtils';
 import * as actions from '../actions/sykepengesoknader_actions';
-import { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } from '../statuser/sykmeldingstatuser';
+import { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } from '../enums/sykmeldingstatuser';
 
 export const KvitteringSide = (props) => {
     const { sykmelding, henter, hentingFeilet, ledetekster, brodsmuler } = props;

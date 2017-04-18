@@ -15,8 +15,9 @@ const expect = chai.expect;
 import ErOpplysningeneRiktige, { HvilkeOpplysninger, RenderFeilaktigeOpplysninger, SykmeldingFeilaktigeOpplysningerInfo, DuTrengerNySykmelding, DuKanBrukeSykmeldingenDinArbeidsgiver, DuKanBrukeSykmeldingenDinDiagnoseAndre  } from '../../../js/components/sykmeldingskjema/ErOpplysningeneRiktige';
 import JaEllerNei from '../../../js/components/sykepengesoknad/JaEllerNei';
 import Feilomrade from '../../../js/components/skjema/Feilomrade';
+import feilaktigeOpplysninger from '../../../js/enums/feilaktigeOpplysninger';
 
-describe("ErOpplysningeneRiktige - ", () => {
+describe("ErOpplysningeneRiktige -", () => {
 
     let skjemaData = {};
     
@@ -37,7 +38,7 @@ describe("ErOpplysningeneRiktige - ", () => {
 
         expect(array.prop("component")).to.deep.equal(RenderFeilaktigeOpplysninger);
         expect(array.prop("name")).to.equal("feilaktigeOpplysninger");
-        expect(array.prop("fields")).to.deep.equal(['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre']);
+        expect(array.prop("fields")).to.deep.equal(feilaktigeOpplysninger);
         expect(comp.find(FieldArray)).to.be.length(1);
     });
 
@@ -91,15 +92,11 @@ describe("ErOpplysningeneRiktige - ", () => {
 
             it("Skal inneholde ett checkbox-Field med riktig name-attributt per field", () => {
                 expect(component.find(Field)).to.have.length(5);
-                const names = ["feilaktigeOpplysninger.periode",
-                    "feilaktigeOpplysninger.sykmeldingsgrad",
-                    "feilaktigeOpplysninger.arbeidsgiver",
-                    "feilaktigeOpplysninger.diagnose",
-                    "feilaktigeOpplysninger.andre"];
-                for (let i = 0; i < 5; i++) {
+                const names = [...feilaktigeOpplysninger];
+                for (let i = 0; i < feilaktigeOpplysninger.length; i++) {
                     const c = component.find(Field).at(i);
                     expect(c.prop("component")).to.deep.equal(Checkbox);
-                    expect(c.prop("name")).to.equal(names[i]);
+                    expect(c.prop("name")).to.equal(`feilaktigeOpplysninger[${i}].avkrysset`);
                 }
             });
         });
@@ -107,28 +104,28 @@ describe("ErOpplysningeneRiktige - ", () => {
 
     describe("SykmeldingFeilaktigeOpplysningerInfo", () => {
         it("viser DuTrengerNySykmelding ved periode eller sykmeldingsgrad", () => {
-            let comp = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={{ periode: true}}/> );
+            let comp = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={[{ opplysning: "periode", avkrysset: true}]}/> );
             expect(comp.find(DuTrengerNySykmelding)).to.be.length(1);
 
-            comp = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={{ sykmeldingsgrad: true}}/> );
+            comp = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={[{ opplysning: "sykmeldingsgrad", avkrysset: true}]}/> );
             expect(comp.find(DuTrengerNySykmelding)).to.be.length(1);
         });
 
         it("viser DuKanBrukeSykmeldingenDinArbeidsgiver", () => {
-            let comp = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={{ arbeidsgiver: true}}/> );
+            let comp = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={[{ opplysning: "arbeidsgiver", avkrysset: true}]}/> );
             expect(comp.find(DuKanBrukeSykmeldingenDinArbeidsgiver)).to.be.length(1);
         });
 
         it("viser DuKanBrukeSykmeldingenDinDiagnoseAndre ved diagnose eller andre", () => {
-            let comp = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={{ andre: true}}/> );
+            let comp = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={[{ opplysning: "andre", avkrysset: true}]}/> );
             expect(comp.find(DuKanBrukeSykmeldingenDinDiagnoseAndre)).to.be.length(1);
 
-            comp = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={{ diagnose: true}}/> );
+            comp = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={[{ opplysning: "diagnose", avkrysset: true}]}/> );
             expect(comp.find(DuKanBrukeSykmeldingenDinDiagnoseAndre)).to.be.length(1);
         });
 
         it("viser null ellers", () => {
-            let comp = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={{}}/> );
+            let comp = shallow(<SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={[]}/> );
             expect(comp.find(DuKanBrukeSykmeldingenDinDiagnoseAndre)).to.be.length(0);
             expect(comp.find(DuKanBrukeSykmeldingenDinArbeidsgiver)).to.be.length(0);
             expect(comp.find(DuTrengerNySykmelding)).to.be.length(0);

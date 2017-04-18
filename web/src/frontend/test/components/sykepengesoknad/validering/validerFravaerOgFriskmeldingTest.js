@@ -22,29 +22,7 @@ describe("validerFravaerOgFriskmelding", () => {
         };
         clock = sinon.useFakeTimers(1484210369692); // Setter dagens dato til 12. januar 2017
         sykepengesoknad = getSoknad({
-          id: "min-soknad-id",
-          "aktiviteter": [{
-            "periode": {
-              "fom": "2016-07-15",
-              "tom": "2016-07-20"
-            },
-            "grad": 100,
-            "avvik": null
-          }, {
-            "periode": {
-              "fom": "2016-07-15",
-              "tom": "2016-07-20"
-            },
-            "grad": 60,
-            "avvik": null
-          }, {
-            "periode": {
-              "fom": "2016-07-15",
-              "tom": "2016-07-20"
-            },
-            "grad": 60,
-            "avvik": null
-          }],
+          id: "min-soknad-id"
         });
         sendTilFoerDuBegynner = sinon.spy();
     });
@@ -257,7 +235,6 @@ describe("validerFravaerOgFriskmelding", () => {
         beforeEach(() => {
           values.harHattFeriePermisjonEllerUtenlandsopphold = true;
           values.harHattFerie = true;
-          
         });
 
         it("Skal ikke validere at ferie, permisjon eller utenlandsopphold er avkrysset", () => {
@@ -270,6 +247,33 @@ describe("validerFravaerOgFriskmelding", () => {
           expect(res.ferie).to.deep.equal({
             _error: "Vennligst oppgi minst én periode"
           })
+        });
+
+      });
+
+      describe("Dersom svaret er ja og man har krysset av for ferie og fylt ut gjenopptattArbeidFulltUtDato", () => {
+        beforeEach(() => {
+          values.harGjenopptattArbeidFulltUt = true;
+          values.gjenopptattArbeidFulltUtDato = "12.07.2020"
+          values.harHattFeriePermisjonEllerUtenlandsopphold = true;
+          values.harHattFerie = true;
+          values.ferie = [{
+            fom: "10.07.2020",
+            tom: "15.07.2020"
+          }]
+        });
+
+        it("Skal klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato", () => {
+          const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+          expect(res.ferie).to.deep.equal([{
+            tom: "Datoen må være innenfor perioden 01.01.2017-11.07.2020"
+          }])
+        });
+
+        it("Skal ikke klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato hvis values.harGjenopptattArbeidFulltUt = false", () => {
+          values.harGjenopptattArbeidFulltUt = false;
+          const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+          expect(res.ferie).to.be.undefined;
         });
 
       });
@@ -290,6 +294,32 @@ describe("validerFravaerOgFriskmelding", () => {
           expect(res.permisjon).to.deep.equal({
             _error: "Vennligst oppgi minst én periode"
           })
+        });
+
+        describe("Dersom man har fylt ut gjenopptattArbeidFulltUtDato", () => {
+          beforeEach(() => {
+            values.harGjenopptattArbeidFulltUt = true;
+            values.gjenopptattArbeidFulltUtDato = "12.07.2020"
+            values.harHattFeriePermisjonEllerUtenlandsopphold = true;
+            values.permisjon = [{
+              fom: "10.07.2020",
+              tom: "15.07.2020"
+            }]
+          });
+
+          it("Skal klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato", () => {
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+            expect(res.permisjon).to.deep.equal([{
+              tom: "Datoen må være innenfor perioden 01.01.2017-11.07.2020"
+            }])
+          });
+
+          it("Skal ikke klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato hvis values.harGjenopptattArbeidFulltUt = false", () => {
+            values.harGjenopptattArbeidFulltUt = false;
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+            expect(res.permisjon).to.be.undefined;
+          });
+
         });
 
       });
@@ -365,6 +395,32 @@ describe("validerFravaerOgFriskmelding", () => {
             }])
             expect(res.utenlandsopphold.soektOmSykepengerIPerioden).to.equal("Vennligst oppgi om du har søkt på sykepenger under oppholdet utenfor Norge");
           })
+        });
+
+        describe("Dersom man har fylt ut gjenopptattArbeidFulltUtDato", () => {
+          beforeEach(() => {
+            values.harGjenopptattArbeidFulltUt = true;
+            values.gjenopptattArbeidFulltUtDato = "12.07.2020"
+            values.harHattFeriePermisjonEllerUtenlandsopphold = true;
+            values.utenlandsopphold.perioder = [{
+              fom: "10.07.2020",
+              tom: "15.07.2020"
+            }]
+          });
+
+          it("Skal klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato", () => {
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+            expect(res.utenlandsopphold.perioder).to.deep.equal([{
+              tom: "Datoen må være innenfor perioden 01.01.2017-11.07.2020"
+            }])
+          });
+
+          it("Skal ikke klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato hvis values.harGjenopptattArbeidFulltUt = false", () => {
+            values.harGjenopptattArbeidFulltUt = false;
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+            expect(res.utenlandsopphold.perioder).to.be.undefined;
+          });
+
         });
 
       });

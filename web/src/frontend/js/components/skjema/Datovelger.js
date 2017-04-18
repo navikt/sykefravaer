@@ -7,7 +7,7 @@ import { SYKEPENGER_SKJEMANAVN } from '../sykepengesoknad/setup';
 import MaskedInput from 'react-maskedinput';
 import { toDatePrettyPrint } from 'digisyfo-npm';
 import DayPickerComponent from './DayPicker';
-import { autofill, touch } from 'redux-form';
+import { autofill, touch, formValueSelector } from 'redux-form';
 import { fraInputdatoTilJSDato } from '../../utils';
 
 export class DatoField extends Component {
@@ -114,7 +114,17 @@ DatoField.propTypes = {
     senesteTom: PropTypes.instanceOf(Date),
 };
 
-const ConnectedDatoField = connect()(DatoField);
+const mapStateToProps = (state, ownProps) => {
+    const inputName = ownProps.input.name;
+    const skjemanavn = ownProps.skjemanavn;
+    const selector = formValueSelector(skjemanavn);
+    const inputValue = selector(state, inputName);
+    return {
+        inputValue,
+    };
+};
+
+const ConnectedDatoField = connect(mapStateToProps)(DatoField);
 
 export const validerPeriode = (input, alternativer) => {
     const { fra, til } = alternativer;

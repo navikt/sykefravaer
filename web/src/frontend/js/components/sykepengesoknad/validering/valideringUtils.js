@@ -1,4 +1,5 @@
 import { fraInputdatoTilJSDato } from '../../../utils';
+import { validerPeriode } from '../../../components/skjema/Datovelger';
 
 export const erIFortiden = (dato) => {
     const oppgittDato = fraInputdatoTilJSDato(dato);
@@ -18,7 +19,7 @@ export const harMinstEnPeriode = (perioder = []) => {
     }).length > 0;
 };
 
-export const validerDatoerIPerioder = (perioder) => {
+export const validerDatoerIPerioder = (perioder, alternativer) => {
     return perioder.map((periode) => {
         const feil = {};
         if (!periode.fom) {
@@ -36,17 +37,30 @@ export const validerDatoerIPerioder = (perioder) => {
             feil.tom = 'Sluttdato må være etter startdato';
             return feil;
         }
+        if (alternativer) {
+            const fomFeil = validerPeriode(periode.fom, alternativer);
+            const tomFeil = validerPeriode(periode.tom, alternativer);
+            if (fomFeil) {
+                feil.fom = fomFeil;
+            }
+            if (tomFeil) {
+                feil.tom = tomFeil;
+            }
+            if (feil.fom || feil.tom) {
+                return feil;
+            }
+        }
         return undefined;
     });
 };
 
-export const validerPerioder = (perioder) => {
+export const validerPerioder = (perioder, alternativer) => {
     if (!harMinstEnPeriode(perioder)) {
         return {
             _error: 'Vennligst oppgi minst én periode',
         };
     }
-    const datofeil = validerDatoerIPerioder(perioder);
+    const datofeil = validerDatoerIPerioder(perioder, alternativer);
     const faktiskeDatofeil = datofeil.filter((feil) => {
         return feil !== undefined;
     });

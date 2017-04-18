@@ -54,7 +54,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
             valgteFeilaktigeOpplysninger = [];
         }
         if (opplysningeneErRiktige === false && feilaktigeOpplysninger && 
-                (valgteFeilaktigeOpplysninger.indexOf(PERIODE) > - 1 || valgteFeilaktigeOpplysninger.indexOf(SYKMELDINGSGRAD) > -1)) {
+                (valgteFeilaktigeOpplysninger.indexOf(PERIODE) > -1 || valgteFeilaktigeOpplysninger.indexOf(SYKMELDINGSGRAD) > -1)) {
             return modi.AVBRYT;
         }
         if (!valgtArbeidssituasjon || valgtArbeidssituasjon === 'default') {

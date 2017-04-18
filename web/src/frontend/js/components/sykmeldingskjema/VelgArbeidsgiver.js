@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import { getHtmlLedetekst, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths';
 import ErLederRiktig from './ErLederRiktig';
@@ -10,15 +10,16 @@ import Radioknapper from '../skjema/Radioknapper';
 
 export const ArbeidsgiverRadioknapper = (props) => {
     const { ledetekster, input, arbeidsgivere } = props;
-    const hjelpetekst = (<Hjelpetekst
-        id="velg-arbeidsgiver-hjelpetekst"
-        tittel={getLedetekst('din-sykmelding.velg-arbeidsgiver.hjelpetekst.tittel', ledetekster)}
-        tekst={getLedetekst('din-sykmelding.velg-arbeidsgiver.hjelpetekst.tekst', ledetekster)} />);
+    let intro = null;
+
+    if (arbeidsgivere.length > 2) {
+        intro = <p>{getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.flere-arbeidsgivere-infotekst', ledetekster)}</p>;
+    }
 
     return (<Radioknapper
         spoersmal={getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal', ledetekster)}
         name="valgtArbeidsgiver"
-        hjelpetekst={hjelpetekst}
+        intro={intro}
         {...props}>
         {
             arbeidsgivere.map((arbeidsgiver, index) => {

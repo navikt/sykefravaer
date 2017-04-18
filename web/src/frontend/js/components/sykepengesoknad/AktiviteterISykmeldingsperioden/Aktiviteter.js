@@ -4,8 +4,13 @@ import JaEllerNei from '../JaEllerNei';
 import { toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import AngiTid from './AngiTid';
 
-export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch, ledetekster }) => {
+export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch, ledetekster, gjenopptattArbeidFulltUtDato }) => {
     const ledetekstPrefix = field.grad === 100 ? 'sykepengesoknad.aktiviteter.ugradert' : 'sykepengesoknad.aktiviteter.gradert';
+    let tomDato = field.periode.tom;
+
+    if (gjenopptattArbeidFulltUtDato) {
+        tomDato = new Date(gjenopptattArbeidFulltUtDato - (1000 * 60 * 60 * 24));
+    }
 
     const hjelpetekst = field.grad !== 100 ? <Hjelpetekst
         tittel={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tittel', ledetekster)}
@@ -15,7 +20,7 @@ export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch, ledet
         name={`aktiviteter[${index}].jobbetMerEnnPlanlagt`}
         intro={getLedetekst(`${ledetekstPrefix}.intro`, ledetekster, {
             '%FOM%': toDatePrettyPrint(field.periode.fom),
-            '%TOM%': toDatePrettyPrint(field.periode.tom),
+            '%TOM%': toDatePrettyPrint(tomDato),
             '%ARBEIDSGIVER%': arbeidsgiver,
             '%ARBEIDSGRAD%': 100 - field.grad,
         })}
@@ -52,13 +57,15 @@ Aktivitet.propTypes = {
     autofill: PropTypes.func,
     untouch: PropTypes.func,
     ledetekster: PropTypes.object,
+    gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
 };
 
-const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch, ledetekster }) => {
+const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch, ledetekster, gjenopptattArbeidFulltUtDato }) => {
     return (<div>
         {
             fields.map((field, index) => {
                 return (<Aktivitet
+                    gjenopptattArbeidFulltUtDato={gjenopptattArbeidFulltUtDato}
                     field={field}
                     index={index}
                     key={index}
@@ -77,6 +84,7 @@ Aktiviteter.propTypes = {
     untouch: PropTypes.func,
     arbeidsgiver: PropTypes.string,
     ledetekster: PropTypes.object,
+    gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
 };
 
 export default Aktiviteter;

@@ -51,10 +51,14 @@ describe("Aktiviteter", () => {
 
     describe("Aktiviteter", () => {
 
+        let dato; 
+
         beforeEach(() => {
+            dato = new Date();
             component = shallow(<Aktiviteter
                 fields={aktiviteter}
                 arbeidsgiver="MORTENS GRØNNSAKER"
+                gjenopptattArbeidFulltUtDato={dato}
                 ledetekster={ledetekster}
                 autofill={autofill}
                 untouch={untouch} />)
@@ -69,6 +73,7 @@ describe("Aktiviteter", () => {
                 field={aktiviteter[0]}
                 index={0}
                 arbeidsgiver="MORTENS GRØNNSAKER"
+                gjenopptattArbeidFulltUtDato={dato}
                 autofill={autofill}
                 untouch={untouch}
                 ledetekster={ledetekster} />)).to.be.true;
@@ -77,6 +82,7 @@ describe("Aktiviteter", () => {
                 field={aktiviteter[1]}
                 index={1}
                 arbeidsgiver="MORTENS GRØNNSAKER"
+                gjenopptattArbeidFulltUtDato={dato}
                 autofill={autofill}
                 untouch={untouch}
                 ledetekster={ledetekster} />)).to.be.true;
@@ -160,6 +166,30 @@ describe("Aktiviteter", () => {
             expect(fields.prop("names")).to.deep.equal([`aktiviteter[0].avvik.arbeidsgrad`, `aktiviteter[0].avvik.timer`, `aktiviteter[0].avvik.arbeidstimerNormalUke`, `aktiviteter[0].avvik.enhet`])
         })
 
+    });
+
+
+    describe("Aktivitet med gjenopptattArbeidFulltUtDato", () => {
+
+        let ja;
+        let dato; 
+
+        beforeEach(() => {
+            dato = new Date("2017-01-10");
+            component = shallow(<Aktivitet
+                field={aktiviteter[0]}
+                gjenopptattArbeidFulltUtDato={dato}
+                index={0}
+                arbeidsgiver="MORTENS GRØNNSAKER"
+                autofill={autofill}
+                untouch={untouch}
+                ledetekster={ledetekster} />)
+            ja = component.find(JaEllerNei);
+        });
+
+        it("Skal sende datoen videre til ledetekst", () => {
+            expect(ja.prop("intro")).to.equal("I perioden 01.01.2017 - 09.01.2017 skulle du ikke jobbe hos MORTENS GRØNNSAKER.")
+        });
     });
 
 

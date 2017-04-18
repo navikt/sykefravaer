@@ -64,11 +64,24 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
         const startdato = jaEllerNei.find(UtdanningStartDato);
         expect(startdato).to.have.length(1);
+        expect(startdato.prop("senesteTom")).to.deep.equal(new Date("2017-01-25"));
 
         const fulltidField = jaEllerNei.find(Field);
         expect(fulltidField).to.have.length(1);
         expect(fulltidField.prop("name")).to.equal("utdanning.erUtdanningFulltidsstudium");
     });
+
+    it("Skal sette senesteTom til gjenopptattArbeidFulltUtDato - 1 dag hvis gjenopptattArbeidFulltUtDato er oppgitt", () => {
+        const dato = new Date("2017-01-20");
+        component = shallow(<AktiviteterISykmeldingsperioden
+            ledetekster={ledetekster}
+            sykepengesoknad={sykepengesoknad}
+            handleSubmit={handleSubmit}
+            gjenopptattArbeidFulltUtDato={dato}
+            autofill={autofill}
+            untouch={untouch} />)
+        expect(component.find(UtdanningStartDato).prop("senesteTom")).to.deep.equal(new Date("2017-01-19"));
+    })
 
     it("Skal inneholde spørsmål om utdanningen er et fulltidsstudium", () => {
         const jaEllerNei = component.find(JaEllerNei).last();

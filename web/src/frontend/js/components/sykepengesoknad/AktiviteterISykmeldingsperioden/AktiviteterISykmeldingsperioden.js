@@ -12,6 +12,7 @@ import Knapperad from '../../skjema/Knapperad';
 import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import * as periodeUtils from '../../../utils/periodeUtils';
 import validate from '../validering/validerAktiviteterISykmeldingsperioden';
+import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';
 
 export const UtdanningStartDato = ({ ledetekster, senesteTom }) => {
     return (<div className="blokk">
@@ -26,12 +27,16 @@ UtdanningStartDato.propTypes = {
 };
 
 export const AktiviteterISykmeldingsperioden = (props) => {
-    const { handleSubmit, sykepengesoknad, ledetekster, autofill, untouch } = props;
+    const { handleSubmit, sykepengesoknad, ledetekster, autofill, untouch, gjenopptattArbeidFulltUtDato } = props;
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });
     const _tidligsteFom = periodeUtils.tidligsteFom(perioder);
-    const _senesteTom = periodeUtils.senesteTom(perioder);
+    let _senesteTom = periodeUtils.senesteTom(perioder);
+
+    if (gjenopptattArbeidFulltUtDato) {
+        _senesteTom = new Date(gjenopptattArbeidFulltUtDato - (1000 * 60 * 60 * 24));
+    }
 
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
@@ -45,6 +50,7 @@ export const AktiviteterISykmeldingsperioden = (props) => {
             sykepengesoknad={sykepengesoknad}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FieldArray
+                    gjenopptattArbeidFulltUtDato={gjenopptattArbeidFulltUtDato}
                     component={Aktiviteter}
                     fields={sykepengesoknad.aktiviteter}
                     autofill={autofill}
@@ -90,8 +96,11 @@ AktiviteterISykmeldingsperioden.propTypes = {
     ledetekster: PropTypes.object,
     autofill: PropTypes.func,
     untouch: PropTypes.func,
+    gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
 };
 
-const AktiviteterISykmeldingsperiodenSkjema = setup(validate, AktiviteterISykmeldingsperioden);
+const AktiviteterISykmeldingsperiodenConnected = connectGjenopptattArbeidFulltUtDato(AktiviteterISykmeldingsperioden);
+
+const AktiviteterISykmeldingsperiodenSkjema = setup(validate, AktiviteterISykmeldingsperiodenConnected);
 
 export default AktiviteterISykmeldingsperiodenSkjema;

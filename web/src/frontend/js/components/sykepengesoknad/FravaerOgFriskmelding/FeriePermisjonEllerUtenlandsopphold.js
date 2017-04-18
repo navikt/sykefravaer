@@ -7,9 +7,7 @@ import { FieldArray, Field } from 'redux-form';
 import Feilomrade from '../../skjema/Feilomrade';
 import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import * as periodeUtils from '../../../utils/periodeUtils';
-import { connect } from 'react-redux';
-import { SYKEPENGER_SKJEMANAVN } from '../setup';
-import { fraInputdatoTilJSDato } from '../../../utils';
+import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';
 
 export const SoktOmSykepenger = ({ ledetekster }) => {
     return (<Field
@@ -115,26 +113,6 @@ FeriePermisjonEllerUtenlandsopphold.propTypes = {
     gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
 };
 
-export const mapStateToProps = (state) => {
-    const values = state.form[SYKEPENGER_SKJEMANAVN].values;
-    let gjenopptattArbeidFulltUtDato = values.gjenopptattArbeidFulltUtDato;
-    if (!values.harGjenopptattArbeidFulltUt) {
-        gjenopptattArbeidFulltUtDato = null;
-    } else {
-        try {
-            gjenopptattArbeidFulltUtDato = fraInputdatoTilJSDato(gjenopptattArbeidFulltUtDato);
-        } catch (e) {
-            gjenopptattArbeidFulltUtDato = null;
-        }
-        if (gjenopptattArbeidFulltUtDato && isNaN(gjenopptattArbeidFulltUtDato.getTime())) {
-            gjenopptattArbeidFulltUtDato = null;
-        }
-    }
-    return {
-        gjenopptattArbeidFulltUtDato,
-    };
-};
-
-const FeriePermisjonEllerUtenlandsoppholdConnected = connect(mapStateToProps)(FeriePermisjonEllerUtenlandsopphold);
+const FeriePermisjonEllerUtenlandsoppholdConnected = connectGjenopptattArbeidFulltUtDato(FeriePermisjonEllerUtenlandsopphold);
 
 export default FeriePermisjonEllerUtenlandsoppholdConnected;

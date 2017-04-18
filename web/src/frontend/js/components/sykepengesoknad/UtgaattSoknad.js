@@ -6,7 +6,7 @@ import SykmeldingUtdrag from './SykmeldingUtdrag';
 const UtgaattSoknad = ({ ledetekster, sykepengesoknad }) => {
     return (<div>
         <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel', ledetekster)} />
-        <div className="panel panel-komprimert">
+        <div className="panel panel--komprimert">
             <Varselstripe type="info" fylt>
                 <p className="sist">{getLedetekst('sykepengesoknad.utgaatt.info.tekst')}</p>
             </Varselstripe>

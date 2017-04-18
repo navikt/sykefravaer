@@ -10,7 +10,7 @@ import { Field } from 'redux-form';
 import validate from '../validering/validerOppsummering';
 
 export const SendingFeilet = () => {
-    return (<div className="panel panel-komprimert">
+    return (<div className="panel panel--komprimert">
         <Varselstripe type="feil">
             <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
         </Varselstripe>

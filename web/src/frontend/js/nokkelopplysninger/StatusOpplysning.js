@@ -10,7 +10,7 @@ const tilSendingHjelpetekst = () => {
 };
 
 const Status = ({ ledetekster, status }) => {
-    return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.status', ledetekster)}>
+    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="H2" tittel={getLedetekst('statuspanel.status', ledetekster)}>
         {status === TIL_SENDING ?
             <div className="medHjelpetekst">
                 <span>{getLedetekst(`statuspanel.status.${status}`, ledetekster)}</span>
@@ -34,7 +34,7 @@ const InnsendtDato = ({ ledetekster, sendtdato, status }) => {
     } else if (status === AVBRUTT) {
         nokkel = 'statuspanel.dato.avbrutt';
     }
-    return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst(nokkel, ledetekster)}>
+    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="H2" tittel={getLedetekst(nokkel, ledetekster)}>
         <p className="js-dato">{toDatePrettyPrint(sendtdato)}</p>
     </SykmeldingNokkelOpplysning>);
 };
@@ -46,7 +46,7 @@ InnsendtDato.propTypes = {
 };
 
 const Arbeidsgiver = ({ ledetekster, arbeidsgiver }) => {
-    return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.arbeidsgiver', ledetekster)}>
+    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="H2" tittel={getLedetekst('statuspanel.arbeidsgiver', ledetekster)}>
         <p className="js-arbeidsgiver">{arbeidsgiver}</p>
     </SykmeldingNokkelOpplysning>);
 };
@@ -61,7 +61,7 @@ const Orgnummer = ({ ledetekster, orgnummer }) => {
     if (_orgnummer) {
         _orgnummer = _orgnummer.replace(/(...)(...)(...)/g, '$1 $2 $3');
     }
-    return (<SykmeldingNokkelOpplysning Overskrift="H2" tittel={getLedetekst('statuspanel.organisasjonsnummer', ledetekster)}>
+    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="H2" tittel={getLedetekst('statuspanel.organisasjonsnummer', ledetekster)}>
         <p className="js-organisasjonsnummer">{_orgnummer}</p>
     </SykmeldingNokkelOpplysning>);
 };

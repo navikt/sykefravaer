@@ -16,7 +16,7 @@ const DinSendteSykmelding = ({ dinSykmelding, ledetekster, arbeidsgiversSykmeldi
                 [STATUS, INNSENDT_DATO],
                 [ARBEIDSGIVER, ORGNUMMER],
             ]} />
-        <Utvidbar erApen tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel', ledetekster)}
+        <Utvidbar tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel', ledetekster)}
             ikon="svg/person.svg" ikonHover="svg/person_hover.svg" ikonAltTekst="Du" className="blokk" variant="lysebla" Overskrift="H2">
             <DineSykmeldingOpplysninger sykmelding={dinSykmelding} ledetekster={ledetekster} />
         </Utvidbar>

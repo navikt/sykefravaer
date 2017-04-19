@@ -13,7 +13,8 @@ import validate, {
     ikkeJobbetMerEnnGraderingTimerFeil,
     normaltAntallFeil,
     overHundreFeil,
-    jobbetMerEnnPlanlagtFeil } from '../../../../js/components/sykepengesoknad/validering/validerAktiviteterISykmeldingsperioden';
+    jobbetMerEnnPlanlagtFeil,
+    sammeNormalAntallFeil } from '../../../../js/components/sykepengesoknad/validering/validerAktiviteterISykmeldingsperioden';
 import { getSoknad } from '../../../mockSoknader';
 import inntektskildetyper from '../../../../js/enums/inntektskildetyper';
 
@@ -446,6 +447,142 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 }
             }])
         });
+
+        describe("Samme normale arbeidstid", () => {
+            it("Skal kreve at man har oppgitt samme normalarbeidstid for hver periode", () => {
+                values.aktiviteter = [{
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        arbeidsgrad: "40",
+                        enhet: "prosent",
+                        arbeidstimerNormalUke: "40"
+                    }
+                }, {
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        arbeidsgrad: "40",
+                        enhet: "prosent",
+                        arbeidstimerNormalUke: "50"
+                    }
+                }];
+                const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                expect(res.aktiviteter).to.deep.equal([{
+                    avvik: {
+                        arbeidstimerNormalUke: sammeNormalAntallFeil,
+                    }
+                }, {
+                    avvik: {
+                        arbeidstimerNormalUke: sammeNormalAntallFeil,
+                    }
+                }])
+            });
+
+            it("Skal ikke protestere hvis bruker har oppgitt samme normalarbeidstid for hver periode hvis bruker har jobbet mer enn planlagt i bare en av periodene", () => {
+                values.aktiviteter = [{
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        arbeidsgrad: "40",
+                        enhet: "prosent",
+                        arbeidstimerNormalUke: "40"
+                    }
+                }, {
+                    jobbetMerEnnPlanlagt: false,
+                    avvik: {
+                        arbeidsgrad: "40",
+                        enhet: "prosent",
+                        arbeidstimerNormalUke: "50"
+                    }
+                }];
+                const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                expect(res.aktiviteter).to.deep.equal(undefined)
+            });
+
+            it("Skal ikke protestere hvis bruker har oppgitt samme normalarbeidstid for hver periode", () => {
+                values.aktiviteter = [{
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        arbeidsgrad: "40",
+                        enhet: "prosent",
+                        arbeidstimerNormalUke: "40"
+                    }
+                }, {
+                    jobbetMerEnnPlanlagt: false,
+                    avvik: {
+                        arbeidsgrad: "40",
+                        enhet: "prosent",
+                        arbeidstimerNormalUke: "40"
+                    }
+                }];
+                const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                expect(res.aktiviteter).to.deep.equal(undefined)
+            });
+
+            it("Skal ikke protestere hvis bruker har oppgitt normalarbeidstid og bare har én periode", () => {
+                const sykepengesoknad = getSoknad({
+                    "aktiviteter": [{
+                        "periode": {
+                            "fom": "2017-16-01",
+                            "tom": "2017-16-25"
+                        },
+                        "grad": 50,
+                        "avvik": null
+                    }]
+                });
+                values.aktiviteter = [{
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        arbeidsgrad: "40",
+                        enhet: "prosent",
+                        arbeidstimerNormalUke: "40"
+                    }
+                }];
+                const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                expect(res.aktiviteter).to.deep.equal(undefined)
+            });
+
+            it("Skal ikke protestere på samme normalarbeidstid hvis bruker har oppgitt normalarbeidstid for kun én periode (og tom streng for den andre)", () => {
+                values.aktiviteter = [{
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        arbeidsgrad: "40",
+                        enhet: "prosent",
+                        arbeidstimerNormalUke: "40"
+                    }
+                }, {
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        arbeidsgrad: "40",
+                        enhet: "prosent",
+                        arbeidstimerNormalUke: ""
+                    }
+                }];
+                const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                expect(res.aktiviteter[0].avvik).to.be.undefined;
+                expect(res.aktiviteter[1].avvik.arbeidstimerNormalUke).to.equal("Vennligst oppgi normalt antall");
+            });
+
+            it("Skal ikke protestere på samme normalarbeidstid hvis bruker har oppgitt normalarbeidstid for kun én periode (og ingenting for den andre)", () => {
+                values.aktiviteter = [{
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        arbeidsgrad: "40",
+                        enhet: "prosent",
+                        arbeidstimerNormalUke: "40"
+                    }
+                }, {
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        arbeidsgrad: "40",
+                        enhet: "prosent",
+                    }
+                }];
+                const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                expect(res.aktiviteter[0].avvik).to.be.undefined;
+                expect(res.aktiviteter[1].avvik.arbeidstimerNormalUke).to.equal("Vennligst oppgi normalt antall");
+            });
+
+        });
+
     });
 
 

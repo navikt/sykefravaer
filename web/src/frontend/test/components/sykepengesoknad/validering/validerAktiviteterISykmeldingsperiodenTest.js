@@ -449,7 +449,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
         });
 
         describe("Samme normale arbeidstid", () => {
-            it("Skal validere at man har oppgitt samme normalarbeidstid for hver periode", () => {
+            it("Skal kreve at man har oppgitt samme normalarbeidstid for hver periode", () => {
                 values.aktiviteter = [{
                     jobbetMerEnnPlanlagt: true,
                     avvik: {
@@ -477,7 +477,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 }])
             });
 
-            it("Skal ikke validere at man har oppgitt samme normalarbeidstid for hver periode hvis man har jobbetMerEnnPlanlagt i bare en av periodene", () => {
+            it("Skal ikke protestere hvis bruker har oppgitt samme normalarbeidstid for hver periode hvis bruker har jobbet mer enn planlagt i bare en av periodene", () => {
                 values.aktiviteter = [{
                     jobbetMerEnnPlanlagt: true,
                     avvik: {
@@ -497,7 +497,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 expect(res.aktiviteter).to.deep.equal(undefined)
             });
 
-            it("Skal ikke validere at man har oppgitt samme normalarbeidstid for hver periode hvis man har oppgitt samme antall i hver av periodene", () => {
+            it("Skal ikke protestere hvis bruker har oppgitt samme normalarbeidstid for hver periode", () => {
                 values.aktiviteter = [{
                     jobbetMerEnnPlanlagt: true,
                     avvik: {
@@ -517,7 +517,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 expect(res.aktiviteter).to.deep.equal(undefined)
             });
 
-            it("Skal ikke validere at man har oppgitt samme normalarbeidstid for hver periode hvis man bare har én periode", () => {
+            it("Skal ikke protestere hvis bruker har oppgitt normalarbeidstid og bare har én periode", () => {
                 const sykepengesoknad = getSoknad({
                     "aktiviteter": [{
                         "periode": {
@@ -540,7 +540,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 expect(res.aktiviteter).to.deep.equal(undefined)
             });
 
-            it("Skal ikke validere at man har oppgitt samme normalarbeidstid for hver periode hvis man bare har oppgitt normalt antall i en av periodene (og tom streng for den andre)", () => {
+            it("Skal ikke protestere på samme normalarbeidstid hvis bruker har oppgitt normalarbeidstid for kun én periode (og tom streng for den andre)", () => {
                 values.aktiviteter = [{
                     jobbetMerEnnPlanlagt: true,
                     avvik: {
@@ -561,7 +561,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 expect(res.aktiviteter[1].avvik.arbeidstimerNormalUke).to.equal("Vennligst oppgi normalt antall");
             });
 
-            it("Skal ikke validere at man har oppgitt samme normalarbeidstid for hver periode hvis man bare har oppgitt normalt antall i en av periodene (og ingenting for den andre)", () => {
+            it("Skal ikke protestere på samme normalarbeidstid hvis bruker har oppgitt normalarbeidstid for kun én periode (og ingenting for den andre)", () => {
                 values.aktiviteter = [{
                     jobbetMerEnnPlanlagt: true,
                     avvik: {

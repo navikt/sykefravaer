@@ -5,13 +5,14 @@ import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import Feilmelding from '../skjema/Feilmelding';
 import VelgArbeidsgiver from './VelgArbeidsgiver';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
+import { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
 
 const getArbeidssituasjoner = (arbeidssituasjon) => {
-    if (!arbeidssituasjon || arbeidssituasjon === 'default') {
+    if (!arbeidssituasjon || arbeidssituasjon === DEFAULT) {
         return arbeidssituasjoner;
     }
     return arbeidssituasjoner.filter((a) => {
-        return a.verdi !== 'default';
+        return a.verdi !== DEFAULT;
     });
 };
 
@@ -44,7 +45,7 @@ export const Velg = (props) => {
     const Sporsmal = <RendreVelgArbeidssituasjon {...props} />;
     return (<SporsmalMedTillegg className="hovedsporsmal" {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
         const { input } = _props;
-        return input.value === 'arbeidstaker';
+        return input.value === ARBEIDSTAKER;
     }}>
         <VelgArbeidsgiver {...props} />
     </SporsmalMedTillegg>);

@@ -1,28 +1,30 @@
+import { DEFAULT, ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG, ANNET } from '../enums/arbeidssituasjoner';
+
 const arbeidssituasjoner = [
     {
         tekst: 'Velg arbeidssituasjon',
-        verdi: 'default',
+        verdi: DEFAULT,
         skjult: true,
     },
     {
         tekst: 'Arbeidstaker',
-        verdi: 'arbeidstaker',
+        verdi: ARBEIDSTAKER,
     },
     {
         tekst: 'Selvstendig næringsdrivende',
-        verdi: 'naeringsdrivende',
+        verdi: NAERINGSDRIVENDE,
     },
     {
         tekst: 'Frilanser',
-        verdi: 'frilanser',
+        verdi: FRILANSER,
     },
     {
         tekst: 'Arbeidsledig',
-        verdi: 'arbeidsledig',
+        verdi: ARBEIDSLEDIG,
     },
     {
         tekst: 'Annet',
-        verdi: 'annet',
+        verdi: ANNET,
     },
 ];
 

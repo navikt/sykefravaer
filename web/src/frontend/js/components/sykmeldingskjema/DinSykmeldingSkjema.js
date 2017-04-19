@@ -7,6 +7,7 @@ import { reduxForm } from 'redux-form';
 import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import AvbrytDialog from './AvbrytDialog';
 import { PERIODE, SYKMELDINGSGRAD } from '../../enums/feilaktigeOpplysninger';
+import { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
 
 const modi = {
     GA_VIDERE: 'GA_VIDERE',
@@ -57,13 +58,13 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 (valgteFeilaktigeOpplysninger.indexOf(PERIODE) > -1 || valgteFeilaktigeOpplysninger.indexOf(SYKMELDINGSGRAD) > -1)) {
             return modi.AVBRYT;
         }
-        if (!valgtArbeidssituasjon || valgtArbeidssituasjon === 'default') {
+        if (!valgtArbeidssituasjon || valgtArbeidssituasjon === DEFAULT) {
             return modi.GA_VIDERE;
         }
-        if (valgtArbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values) && values.beOmNyNaermesteLeder === false) {
+        if (valgtArbeidssituasjon === ARBEIDSTAKER && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values) && values.beOmNyNaermesteLeder === false) {
             return modi.SEND_MED_NAERMESTE_LEDER;
         }
-        if (valgtArbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values)) {
+        if (valgtArbeidssituasjon === ARBEIDSTAKER && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values)) {
             return modi.SEND;
         }
         return modi.BEKREFT;
@@ -145,7 +146,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 modus !== modi.AVBRYT && (<div className="blokk">
                 <VelgArbeidssituasjon {...this.props} />
                 {
-                    values.valgtArbeidssituasjon === 'arbeidstaker' &&
+                    values.valgtArbeidssituasjon === ARBEIDSTAKER &&
                         <div className="blokk">
                             {
                                 harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} ledetekster={ledetekster} />
@@ -154,7 +155,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 }
             </div>)
             }
-            { values.valgtArbeidssituasjon === 'arbeidstaker' && <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="H4" /> }
+            { values.valgtArbeidssituasjon === ARBEIDSTAKER && <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="H4" /> }
                 <div aria-live="polite" role="alert">
                     {
                         (sendingFeilet || avbrytFeilet) &&
@@ -253,7 +254,7 @@ export const validate = (values, props = {}) => {
         };
     }
 
-    if (values.valgtArbeidssituasjon === 'arbeidstaker' && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
+    if (values.valgtArbeidssituasjon === ARBEIDSTAKER && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
         feilmeldinger.valgtArbeidsgiver = 'Vennligst velg arbeidsgiver';
     }
     if (values.beOmNyNaermesteLeder === undefined) {

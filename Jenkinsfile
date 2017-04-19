@@ -16,6 +16,17 @@ def notifyFailed(reason, error) {
     throw error
 }
 
+def changelog(commitHash) {
+    def prodVersion = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfofront\\&environment=p\\&onlyLatest=true | jq .[].version | tr -d '\"' | tr -d '\\n'", returnStdout: true)
+
+    def oldCommit = prodVersion
+    def newCommit = commitHash
+    def keyword = "SYFOUTV"
+
+    def log = sh (script: "git log ${oldCommit}...${newCommit} --grep=${keyword} --reverse --pretty=format:\"- %s (%an, %ar: %h)\" | grep -v Merge", returnStdout: true)
+    return log
+}
+
 node {
     common.setupTools("Maven 3.3.3", "java8")
 
@@ -35,10 +46,11 @@ node {
         releaseVersion = pomVersion + "." + buildNr + "-" + commitHash
         sh "mvn versions:set -B -DnewVersion=${releaseVersion} -DgenerateBackupPoms=false"
 
-        mattermostSend color: GREEN, message: "Pipeline starter - ${application}:${releaseVersion} \n\n Changelog:\n${common.getChangeString()}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+        mattermostSend color: GREEN, message: "Pipeline starter - ${application}:${releaseVersion}\n\n ${common.getChangeString()}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
         try {
             sh "mvn clean deploy"
             currentBuild.description = "Version: ${releaseVersion}"
+            sh "git tag ${releaseVersion} ${commitHash}; git push --tags"
         } catch (Exception e) {
             notifyFailed("Bygg/deploy til Nexus feilet", e)
         }
@@ -97,7 +109,7 @@ stage("Deployer til T4") {
             "-------------------------------------------------\n"
         )
 
-        msg = "Fant gyldig configurasjon i T1 og promoterer disse videre til T4!\n - syfofront:${syfofront_version_t1}\n - syforest:${syforest_version_t1}\n - syfoservice:${syfoservice_version_t1}\n - syfotekster:${syfotekster_version_t1}"
+        msg = "Fant gyldig kombinasjon av appene i T1 og promoterer disse videre til T4!\n - syfofront:${syfofront_version_t1}\n - syforest:${syforest_version_t1}\n - syfoservice:${syfoservice_version_t1}\n - syfotekster:${syfotekster_version_t1}"
         mattermostSend color: GREEN, message: msg, channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
     }
 
@@ -166,4 +178,6 @@ stage("Deployer til T4") {
     }
 }
 
-mattermostSend color: GREEN, message: "Nye versjoner ute i T4! Nå kan dere teste @digisyfo.ola @morten", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+node {
+    mattermostSend color: GREEN, message: "Nye versjoner ute i T4!\n\nChangelog:\n${changelog(commitHash)}", channel: 'town-square', endpoint: 'http://chatsbl.devillo.no/hooks/6mid6fqmqpfk7poss9s8764smw', v2enabled: true
+}

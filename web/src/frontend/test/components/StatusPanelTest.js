@@ -4,9 +4,9 @@ import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../mockLedetekster";
 import getSykmelding from "../mockSykmeldinger";
-import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../js/nokkelopplysninger/NokkelOpplysningerEnum';
+import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../js/enums/nokkelopplysninger';
 import StatusPanel from '../../js/components/StatusPanel';
-import StatusOpplysning from "../../js/nokkelopplysninger/StatusOpplysning";
+import StatusOpplysning from "../../js/components/StatusOpplysning";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 

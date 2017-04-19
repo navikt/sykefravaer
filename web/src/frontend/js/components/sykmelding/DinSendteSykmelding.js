@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import StatusPanel from '../StatusPanel';
 import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
 import { getLedetekst, Utvidbar, DineSykmeldingOpplysninger } from 'digisyfo-npm';
-import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../nokkelopplysninger/NokkelOpplysningerEnum';
+import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../enums/nokkelopplysninger';
 import Sidetopp from '../Sidetopp';
 
 const DinSendteSykmelding = ({ dinSykmelding, ledetekster, arbeidsgiversSykmelding }) => {

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import StatusOpplysning from '../nokkelopplysninger/StatusOpplysning';
+import StatusOpplysning from './StatusOpplysning';
 import { Varselstripe } from 'digisyfo-npm';
 
 const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger, type }) => {

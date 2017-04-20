@@ -118,9 +118,9 @@ KvitteringSokSenere.propTypes = {
 };
 
 const SykmeldingKvittering = (props) => {
-    const { ledetekster, kvitteringtype } = props;
+    const { kvitteringtype } = props;
     return (<div>
-        <Sidetopp tittel={getLedetekst('din-sykmelding.kvittering.sidetittel', ledetekster)} />
+        <Sidetopp tittel={getLedetekst('din-sykmelding.kvittering.sidetittel')} />
         {
             (() => {
                 if (kvitteringtype === kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE) {
@@ -132,7 +132,7 @@ const SykmeldingKvittering = (props) => {
                 return <Standardkvittering {...props} />;
             })()
         }
-        <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
+        <LenkeTilDineSykmeldinger />
         <div className="panel">
             <h2 className="kvitteringsteg__tittel">Hjelp oss å bli bedre</h2>
             <p>Dette er en tjeneste som fortsatt er under utvikling. Gi oss tilbakemelding slik at vi kan bli bedre!</p>
@@ -144,7 +144,6 @@ const SykmeldingKvittering = (props) => {
 };
 
 SykmeldingKvittering.propTypes = {
-    ledetekster: PropTypes.object,
     kvitteringtype: PropTypes.oneOf([
         kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE,
         kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA,

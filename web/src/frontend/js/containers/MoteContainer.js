@@ -24,9 +24,9 @@ export class Container extends Component {
     }
 
     render() {
-        const { henter, mote, brodsmuler, ledetekster, hentingFeilet, moteIkkeFunnet, actions } = this.props;
+        const { henter, mote, brodsmuler, hentingFeilet, moteIkkeFunnet, actions } = this.props;
         const modus = getSvarsideModus(mote);
-        return (<Side tittel={getLedetekst('mote.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
+        return (<Side tittel={getLedetekst('mote.sidetittel')} brodsmuler={brodsmuler}>
         {
             (() => {
                 if (henter) {
@@ -41,13 +41,13 @@ export class Container extends Component {
                         melding="Er du sikker på at du er på riktig side?" />);
                 }
                 if (modus === BEKREFTET) {
-                    return <BekreftetKvittering mote={mote} ledetekster={ledetekster} deltakertype={BRUKER} />;
+                    return <BekreftetKvittering mote={mote} deltakertype={BRUKER} />;
                 }
                 if (modus === MOTESTATUS) {
-                    return <Kvittering mote={mote} ledetekster={ledetekster} deltakertype={BRUKER} />;
+                    return <Kvittering mote={mote} deltakertype={BRUKER} />;
                 }
                 if (modus === AVBRUTT) {
-                    return (<AvbruttMote mote={mote} ledetekster={ledetekster} deltakertype={BRUKER} />);
+                    return (<AvbruttMote mote={mote} deltakertype={BRUKER} />);
                 }
                 if (mote) {
                     return <Svarside {...this.props} deltakertype={BRUKER} sendSvar={actions.sendSvar} />;
@@ -64,7 +64,6 @@ Container.propTypes = {
     fantIkkeDeltaker: PropTypes.bool,
     deltaker: moterPropTypes.deltaker,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    ledetekster: PropTypes.object,
     actions: PropTypes.object,
     hentingFeilet: PropTypes.bool,
     moteIkkeFunnet: PropTypes.bool,
@@ -82,9 +81,7 @@ export function mapDispatchToProps(dispatch) {
 }
 
 export function mapStateToProps(state) {
-    const ledetekster = state.ledetekster.data;
     return {
-        ledetekster,
         mote: state.mote.data,
         moteIkkeFunnet: state.mote.moteIkkeFunnet === true,
         henter: state.mote.henter,
@@ -92,11 +89,11 @@ export function mapStateToProps(state) {
         sender: state.svar.sender,
         sendingFeilet: state.svar.sendingFeilet,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', ledetekster),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('mote.sidetittel', ledetekster),
+            tittel: getLedetekst('mote.sidetittel'),
         }],
     };
 }

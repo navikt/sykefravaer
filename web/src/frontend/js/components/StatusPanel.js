@@ -3,12 +3,12 @@ import StatusOpplysning from './StatusOpplysning';
 import { Varselstripe } from 'digisyfo-npm';
 import { sykmelding as sykmeldingPt } from '../propTypes';
 
-const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger, type }) => {
+const StatusPanel = ({ sykmelding, nokkelopplysninger, type }) => {
     const html = nokkelopplysninger.map((rad, index1) => {
         return (<div className="statusopplysninger js-rad" key={index1}>
             {
                 rad.map((nokkelopplysning, index2) => {
-                    return <StatusOpplysning key={index2} ledetekster={ledetekster} sykmelding={sykmelding} nokkelopplysning={nokkelopplysning} />;
+                    return <StatusOpplysning key={index2} sykmelding={sykmelding} nokkelopplysning={nokkelopplysning} />;
                 })
             }
         </div>);
@@ -27,7 +27,6 @@ StatusPanel.propTypes = {
     sykmelding: sykmeldingPt,
     type: PropTypes.string,
     nokkelopplysninger: PropTypes.array,
-    ledetekster: PropTypes.object,
 };
 
 export default StatusPanel;

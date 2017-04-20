@@ -10,13 +10,18 @@ import Periodevelger from '../../../../js/components/skjema/Periodevelger';
 import JaEllerNei from '../../../../js/components/sykepengesoknad/JaEllerNei';
 import { getSoknad } from '../../../mockSoknader';
 import ledetekster from '../../../mockLedetekster';
+import { setLedetekster } from 'digisyfo-npm';
 
 describe("Egenmeldingsdager", () => {
 
     let getSykepengesoknad;
 
+    beforeEach(() => {
+        setLedetekster(ledetekster);
+    });
+
     it("Skal inneholde en JaEllerNei med riktig name", () => {
-        const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad()} ledetekster={ledetekster} />);
+        const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad()} />);
         expect(compo.find(JaEllerNei)).to.have.length(1);
         expect(compo.find(JaEllerNei).prop("name")).to.equal("bruktEgenmeldingsdagerFoerLegemeldtFravaer")
     });
@@ -24,7 +29,7 @@ describe("Egenmeldingsdager", () => {
     it("Skal inneholde en JaEllerNei som inneholder en periodevelger med name = egenmeldingsperioder", () => {
         const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad({
             identdato: new Date("2017-02-01"),
-        })} ledetekster={ledetekster} />);
+        })} />);
 
         expect(compo.find(Periodevelger)).to.have.length(1);
         expect(compo.find(Periodevelger).prop("name")).to.equal("egenmeldingsperioder");
@@ -37,7 +42,7 @@ describe("Egenmeldingsdager", () => {
 
         const compo = shallow(<Egenmeldingsdager sykepengesoknad={getSoknad({
             identdato: new Date("2017-02-01"),
-        })} ledetekster={ledetekster} />);
+        })} />);
 
         expect(compo.find(Periodevelger).prop("senesteTom")).to.deep.equal(senesteTom);
         expect(compo.find(Periodevelger).prop("tidligsteFom")).to.deep.equal(tidligsteFom);
@@ -61,7 +66,7 @@ describe("Egenmeldingsdager", () => {
                     grad: 50,
                     avvik: null
                 }],
-        })} ledetekster={ledetekster} />);
+        })} />);
         expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Brukte du egenmeldingsdager før det legemeldte fraværet startet den 15.07.2016?")
     });
 

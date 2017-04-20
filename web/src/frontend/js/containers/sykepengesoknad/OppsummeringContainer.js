@@ -8,7 +8,7 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export const Controller = (props) => {
     if (props.sykepengesoknad.status === SENDT || props.sykepengesoknad.status === TIL_SENDING) {
-        return <Kvittering ledetekster={props.ledetekster} />;
+        return <Kvittering />;
     }
     if (props.skjemasoknad) {
         return <OppsummeringSkjema {...props} />;
@@ -19,7 +19,6 @@ export const Controller = (props) => {
 Controller.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
     skjemasoknad: PropTypes.object,
-    ledetekster: PropTypes.object,
 };
 
 const OppsummeringContainer = ({ params }) => {

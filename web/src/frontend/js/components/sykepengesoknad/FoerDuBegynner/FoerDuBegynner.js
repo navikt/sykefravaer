@@ -9,23 +9,23 @@ import { getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 const FoerDuBegynner = (props) => {
-    const { handleSubmit, sykepengesoknad, ledetekster } = props;
+    const { handleSubmit, sykepengesoknad } = props;
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`);
     };
 
     return (<div>
-        <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel', ledetekster)} />
-        <SykmeldingUtdrag erApen sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />
-        <h2 className="sykepenger__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel', ledetekster)}</h2>
+        <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
+        <SykmeldingUtdrag erApen sykepengesoknad={sykepengesoknad} />
+        <h2 className="sykepenger__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="panel">
                 <div className="redaksjonelt">
-                    <BekreftAnsvar ledetekster={ledetekster} />
+                    <BekreftAnsvar />
                 </div>
             </div>
             <div className="knapperad">
-                <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre', ledetekster)}</button>
+                <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre')}</button>
             </div>
         </form>
     </div>);
@@ -34,7 +34,6 @@ const FoerDuBegynner = (props) => {
 FoerDuBegynner.propTypes = {
     handleSubmit: PropTypes.func,
     sykepengesoknad: sykepengesoknadPt,
-    ledetekster: PropTypes.object,
 };
 
 const initialize = true;

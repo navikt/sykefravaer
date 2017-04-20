@@ -64,5 +64,4 @@ export default class NaermesteLedere extends Component {
 
 NaermesteLedere.propTypes = {
     ledere: PropTypes.arrayOf(naermesteLederPt),
-    ledetekster: PropTypes.object,
 };

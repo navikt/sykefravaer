@@ -5,27 +5,27 @@ import { getLedetekst, getHtmlLedetekst, DineSykmeldingOpplysninger, Varselstrip
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 
-const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, eldsteSykmeldingId, pilotSykepenger = false }) => {
+const DinSykmelding = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, pilotSykepenger = false }) => {
     return (<div>
-        <Sidetopp tittel={getLedetekst('din-sykmelding.tittel', ledetekster)} />
+        <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
         <div className="panel blokk">
             <div className="media">
                 <img src="/sykefravaer/img/svg/nav-ansatt.svg" className="media__img media__img--desktop" alt="Ansatt i NAV" />
                 <img src="/sykefravaer/img/svg/nav-ansatt-mobil.svg" className="media__img media__img--mobil" alt="Ansatt i NAV" />
-                <h2 className="typo-syfotittel">{getLedetekst('din-sykmelding.ny-tjeneste.tittel', ledetekster)}</h2>
+                <h2 className="typo-syfotittel">{getLedetekst('din-sykmelding.ny-tjeneste.tittel')}</h2>
             </div>
             {
                 pilotSykepenger
-                    ? <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.ny-tjeneste.pilot.tekst', ledetekster)} />
-                    : <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.ny-tjeneste.tekst', ledetekster)} />
+                    ? <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.ny-tjeneste.pilot.tekst')} />
+                    : <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.ny-tjeneste.tekst')} />
             }
         </div>
         {
             visEldreSykmeldingVarsel && <div className="panel blokk">
                 <Varselstripe type="info">
                     <p className="sist">
-                        <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst', ledetekster)} </span>
-                        <Link className="lenke" to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke', ledetekster)}</Link>
+                        <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')} </span>
+                        <Link className="lenke" to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}</Link>
                     </p>
                 </Varselstripe>
             </div>
@@ -37,7 +37,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, elds
             <h2 className="panelHeader__tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h2>
         </header>
         <div className="panel blokk">
-            <DineSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
+            <DineSykmeldingOpplysninger sykmelding={sykmelding} />
         </div>
         <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
     </div>);
@@ -45,7 +45,6 @@ const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, elds
 
 DinSykmelding.propTypes = {
     sykmelding: sykmeldingPt,
-    ledetekster: PropTypes.object,
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     pilotSykepenger: PropTypes.bool,

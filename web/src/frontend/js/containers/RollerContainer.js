@@ -7,8 +7,8 @@ import { Feilmelding } from '../components/Feilmelding';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmuler as brodsmulePt } from '../propTypes';
 
-export const RollerSide = ({ ledetekster, brodsmuler, henter, hentingFeilet }) => {
-    return (<Side brodsmuler={brodsmuler} tittel={getLedetekst('roller.sidetittel', ledetekster.data)}>
+export const RollerSide = ({ brodsmuler, henter, hentingFeilet }) => {
+    return (<Side brodsmuler={brodsmuler} tittel={getLedetekst('roller.sidetittel')}>
         {
             (() => {
                 if (henter) {
@@ -17,32 +17,29 @@ export const RollerSide = ({ ledetekster, brodsmuler, henter, hentingFeilet }) =
                 if (hentingFeilet) {
                     return <Feilmelding />;
                 }
-                return (<Artikkel tittel={getLedetekst('roller.tittel', ledetekster)}
-                    innhold={getLedetekst('roller.innhold', ledetekster)} />);
+                return (<Artikkel tittel={getLedetekst('roller.tittel')}
+                    innhold={getLedetekst('roller.innhold')} />);
             })()
         }
     </Side>);
 };
 
 RollerSide.propTypes = {
-    ledetekster: PropTypes.object,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     hentingFeilet: PropTypes.bool,
     henter: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {
-    const ledetekster = state.ledetekster.data;
     return {
-        ledetekster,
         hentingFeilet: state.ledetekster.hentingFeilet,
         henter: state.ledetekster.henter,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', ledetekster),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('roller.sidetittel', ledetekster),
+            tittel: getLedetekst('roller.sidetittel'),
         }],
     };
 }

@@ -10,15 +10,15 @@ import Radioknapper from '../skjema/Radioknapper';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 
 export const ArbeidsgiverRadioknapper = (props) => {
-    const { ledetekster, input, arbeidsgivere } = props;
+    const { input, arbeidsgivere } = props;
     let hjelpelinje = null;
 
     if (arbeidsgivere.length > 2) {
-        hjelpelinje = <p>{getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.flere-arbeidsgivere-infotekst', ledetekster)}</p>;
+        hjelpelinje = <p>{getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.flere-arbeidsgivere-infotekst')}</p>;
     }
 
     return (<Radioknapper
-        spoersmal={getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal', ledetekster)}
+        spoersmal={getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal')}
         name="valgtArbeidsgiver"
         hjelpelinje={hjelpelinje}
         {...props}>
@@ -26,7 +26,7 @@ export const ArbeidsgiverRadioknapper = (props) => {
             arbeidsgivere.map((arbeidsgiver, index) => {
                 const checked = (input.value && input.value.orgnummer === arbeidsgiver.orgnummer) === true;
                 const labelSekundaer = (arbeidsgiver.orgnummer && arbeidsgiver.orgnummer.length) !== 1 ?
-                    `(${getLedetekst('send-til-arbeidsgiver.orgnr', ledetekster)}: ${arbeidsgiver.orgnummer.replace(/(...)(...)(...)/g, '$1 $2 $3')})`
+                    `(${getLedetekst('send-til-arbeidsgiver.orgnr')}: ${arbeidsgiver.orgnummer.replace(/(...)(...)(...)/g, '$1 $2 $3')})`
                     : null;
                 return <input checked={checked} key={index} label={arbeidsgiver.navn} value={arbeidsgiver.orgnummer} labelSekundaer={labelSekundaer} />;
             })
@@ -35,20 +35,19 @@ export const ArbeidsgiverRadioknapper = (props) => {
 };
 
 ArbeidsgiverRadioknapper.propTypes = {
-    ledetekster: PropTypes.object.isRequired,
     input: PropTypes.object.isRequired,
     arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt).isRequired,
 };
 
 export const SkrivUt = (props) => {
-    const { ledetekster, sykmelding } = props;
+    const { sykmelding } = props;
     return (<div className="ekstrasporsmal ekstrasporsmal--sist">
         <div className="hode hode--advarsel redaksjonelt-innhold"
-            dangerouslySetInnerHTML={getHtmlLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.infotekst', ledetekster)} />
+            dangerouslySetInnerHTML={getHtmlLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.infotekst')} />
         <div className="knapperad">
             <p>
                 <Link target="_blank" to={`${getContextRoot()}/sykmeldinger/${sykmelding.id}/skriv-ut`} className="rammeknapp">
-                    {getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.skriv-ut', ledetekster)}
+                    {getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.skriv-ut')}
                 </Link>
             </p>
         </div>
@@ -56,12 +55,11 @@ export const SkrivUt = (props) => {
 };
 
 SkrivUt.propTypes = {
-    ledetekster: PropTypes.object.isRequired,
     sykmelding: sykmeldingPt.isRequired,
 };
 
 export const Tilleggsinfo = (props) => {
-    const { input, ledetekster, pilotSykepenger } = props;
+    const { input, pilotSykepenger } = props;
     const { value } = input;
     return (<div>
         {
@@ -69,25 +67,26 @@ export const Tilleggsinfo = (props) => {
         }
         {
             value && value.naermesteLeder ?
-                <ErLederRiktig naermesteLeder={value.naermesteLeder} ledetekster={ledetekster} /> : null
+                <ErLederRiktig naermesteLeder={value.naermesteLeder} /> : null
         }
         {
             pilotSykepenger && value && value.orgnummer && value.orgnummer !== '0' ?
-                <ForskuttererArbeidsgiver arbeidsgiver={value} ledetekster={ledetekster} /> : null
+                <ForskuttererArbeidsgiver arbeidsgiver={value} /> : null
         }
     </div>);
 };
 
 Tilleggsinfo.propTypes = {
     input: PropTypes.object.isRequired,
-    ledetekster: PropTypes.object.isRequired,
     pilotSykepenger: PropTypes.bool.isRequired,
 };
 
 export const visTilleggssporsmal = (_props) => {
     const { input, pilotSykepenger } = _props;
     const { value } = input;
-    return !value ? false : (value.orgnummer === '0' || (pilotSykepenger && value.orgnummer !== '0') || (typeof value.naermesteLeder === 'object' && value.naermesteLeder !== null));
+    return !value ? false : (value.orgnummer === '0' ||
+        (pilotSykepenger && value.orgnummer !== '0') ||
+        (typeof value.naermesteLeder === 'object' && value.naermesteLeder !== null));
 };
 
 export const RendreVelgArbeidsgiver = (props) => {
@@ -106,13 +105,12 @@ RendreVelgArbeidsgiver.propTypes = {
 };
 
 const VelgArbeidsgiver = (props) => {
-    const { arbeidsgivere, ledetekster, sykmelding, skjemaData, pilotSykepenger } = props;
+    const { arbeidsgivere, sykmelding, skjemaData, pilotSykepenger } = props;
 
     return (<Field
-        spoersmal={getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal', ledetekster)}
+        spoersmal={getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal')}
         name="valgtArbeidsgiver"
         arbeidsgivere={arbeidsgivere}
-        ledetekster={ledetekster}
         parse={(orgnummer) => {
             return arbeidsgivere.filter((arbgiver) => {
                 return arbgiver.orgnummer === orgnummer;
@@ -126,7 +124,6 @@ const VelgArbeidsgiver = (props) => {
 
 VelgArbeidsgiver.propTypes = {
     arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
-    ledetekster: PropTypes.object,
     sykmelding: sykmeldingPt,
     skjemaData: PropTypes.object,
     pilotSykepenger: PropTypes.bool,

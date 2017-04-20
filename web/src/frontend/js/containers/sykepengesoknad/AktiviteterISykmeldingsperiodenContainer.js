@@ -7,7 +7,7 @@ import { SENDT } from '../../enums/sykepengesoknadstatuser';
 
 export const Controller = (props) => {
     if (props.sykepengesoknad.status === SENDT) {
-        return <Kvittering ledetekster={props.ledetekster} />;
+        return <Kvittering />;
     }
     if (props.skjemasoknad) {
         return <AktiviteterISykmeldingsperioden {...props} />;
@@ -20,7 +20,6 @@ Controller.propTypes = {
         status: PropTypes.string.isRequired,
     }),
     skjemasoknad: PropTypes.object,
-    ledetekster: PropTypes.object,
 };
 
 const AktiviteterISykmeldingsperiodenContainer = ({ params }) => {

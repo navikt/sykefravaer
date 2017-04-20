@@ -10,7 +10,7 @@ import { Field } from 'redux-form';
 import { validate, OppsummeringSide, SendingFeilet } from '../../../../js/components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import { getSoknad } from '../../../mockSoknader';
 import mapSkjemasoknadToBackendsoknad from '../../../../js/components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
-import { Soknad } from 'digisyfo-npm';
+import { Soknad, setLedetekster } from 'digisyfo-npm';
 import { Link } from 'react-router';
 
 import CheckboxSelvstendig from '../../../../js/components/skjema/CheckboxSelvstendig';
@@ -35,14 +35,13 @@ describe("OppsummeringSkjema", () => {
           sykepengesoknad = getSoknad({
             id: "olsen"
           });
-          ledetekster = { tekst: "test" };
+          setLedetekster({ tekst: "test" });
           handleSubmit = sinon.spy();
 
           component = shallow(<OppsummeringSide
             handleSubmit={handleSubmit}
             skjemasoknad={skjemasoknad}
-            sykepengesoknad={sykepengesoknad}
-            ledetekster={ledetekster} />);
+            sykepengesoknad={sykepengesoknad} />);
         });
 
         it("Skal inneholde et Field med riktig name", () => {
@@ -63,7 +62,7 @@ describe("OppsummeringSkjema", () => {
         });
 
         it("SKal inneholde en SendingFeilet hvis sendingFeilet", () => {
-          const component2 = shallow(<OppsummeringSide handleSubmit={handleSubmit} skjemasoknad={skjemasoknad} sykepengesoknad={sykepengesoknad} sendingFeilet={true} ledetekster={ledetekster} />);
+          const component2 = shallow(<OppsummeringSide handleSubmit={handleSubmit} skjemasoknad={skjemasoknad} sykepengesoknad={sykepengesoknad} sendingFeilet={true} />);
           expect(component2.find(SendingFeilet)).to.have.length(1); 
         });
 

@@ -26,55 +26,51 @@ export class DinSykmldSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, dinSykmelding, arbeidsgiversSykmelding, henter, hentingFeilet,
+        const { brodsmuler, dinSykmelding, arbeidsgiversSykmelding, henter, hentingFeilet,
             visEldreSykmeldingVarsel, eldsteSykmeldingId, pilotSykepenger } = this.props;
 
-        return (<Side tittel={getLedetekst('din-sykmelding.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
+        return (<Side tittel={getLedetekst('din-sykmelding.sidetittel')} brodsmuler={brodsmuler}>
                 { (() => {
                     if (henter) {
-                        return <AppSpinner ledetekster={ledetekster} />;
+                        return <AppSpinner />;
                     } else if (hentingFeilet) {
                         return (<Feilmelding />);
                     } else if (!dinSykmelding) {
                         return (<Feilmelding
-                            tittel={getLedetekst('din-sykmelding.fant-ikke-sykmelding.tittel', ledetekster)}
-                            melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding', ledetekster)} />);
+                            tittel={getLedetekst('din-sykmelding.fant-ikke-sykmelding.tittel')}
+                            melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding')} />);
                     } else if ((dinSykmelding.status === SENDT || dinSykmelding.status === TIL_SENDING) && dinSykmelding && arbeidsgiversSykmelding) {
                         return (<div>
                             <DinSendteSykmelding
                                 dinSykmelding={dinSykmelding}
                                 arbeidsgiversSykmelding={arbeidsgiversSykmelding}
-                                ledetekster={ledetekster} />
-                            <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
+                                />
+                            <LenkeTilDineSykmeldinger />
                         </div>);
                     } else if (dinSykmelding.status === BEKREFTET) {
                         return (<div>
                             <DinBekreftedeSykmelding
                                 dinSykmelding={dinSykmelding}
                                 arbeidsgiversSykmelding={arbeidsgiversSykmelding}
-                                ledetekster={ledetekster} />
-                            <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
+                                />
+                            <LenkeTilDineSykmeldinger />
                         </div>);
                     } else if (dinSykmelding.status === UTGAATT) {
                         return (<div>
-                            <DinUtgaatteSykmelding
-                                sykmelding={dinSykmelding}
-                                ledetekster={ledetekster} />
-                            <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
+                            <DinUtgaatteSykmelding sykmelding={dinSykmelding} />
+                            <LenkeTilDineSykmeldinger />
                         </div>);
                     } else if (dinSykmelding.status === NY) {
                         return (<DinSykmelding
                             sykmelding={dinSykmelding}
-                            ledetekster={ledetekster}
                             visEldreSykmeldingVarsel={visEldreSykmeldingVarsel}
                             eldsteSykmeldingId={eldsteSykmeldingId}
                             pilotSykepenger={pilotSykepenger} />);
                     } else if (dinSykmelding.status === AVBRUTT) {
                         return (<div>
                             <DinAvbrutteSykmelding
-                                sykmelding={dinSykmelding}
-                                ledetekster={ledetekster} />
-                            <LenkeTilDineSykmeldinger ledetekster={ledetekster} />
+                                sykmelding={dinSykmelding} />
+                            <LenkeTilDineSykmeldinger />
                         </div>);
                     }
                     return <Feilmelding tittel="Sykmeldingen har ukjent status" />;
@@ -86,7 +82,6 @@ export class DinSykmldSide extends Component {
 
 DinSykmldSide.propTypes = {
     dispatch: PropTypes.func,
-    ledetekster: PropTypes.object,
     arbeidsgivere: PropTypes.object,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     sykmeldingId: PropTypes.string,
@@ -165,7 +160,6 @@ export function mapStateToProps(state, ownProps) {
         arbeidsgiversSykmelding,
         visEldreSykmeldingVarsel: visEldreSykmeldingVarsel(state.dineSykmeldinger.data, sykmeldingId),
         eldsteSykmeldingId: eldsteNyeSykmelding ? eldsteNyeSykmelding.id : '',
-        ledetekster: state.ledetekster.data,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',

@@ -94,7 +94,7 @@ describe("GenerellSoknadContainer", () => {
         }); 
 
         it("Skal vise innsendt komponent hvis alt er OK", () => {
-            const component = shallow(<GenerellSoknad Component={FoerDuBegynner} sykepengesoknad={minSoknad} ledetekster={ledetekster} />);
+            const component = shallow(<GenerellSoknad Component={FoerDuBegynner} sykepengesoknad={minSoknad} />);
             expect(component.find(FoerDuBegynner)).to.have.length(1);
             expect(component.find(FoerDuBegynner).prop("sykepengesoknad")).to.deep.equal(minSoknad);
             expect(component.find(AppSpinner)).to.have.length(0);

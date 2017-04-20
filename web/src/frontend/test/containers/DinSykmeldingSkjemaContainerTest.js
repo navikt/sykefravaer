@@ -7,6 +7,7 @@ import getSykmelding from '../mockSykmeldinger';
 import Feilmelding from '../../js/components/Feilmelding';
 
 import { DinSykmldSkjema, mapStateToProps, validate, Skjema } from "../../js/containers/DinSykmeldingSkjemaContainer";
+import { setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -121,6 +122,10 @@ describe("DinSykmeldingSkjemaContainer", () => {
 
     describe("mapStateToProps", () => {
 
+        beforeEach(() => {
+            setLedetekster(ledetekster);
+        });
+
         it("Skal returnere sykmelding", () => {
             const state = getState();
             const props = mapStateToProps(state, {
@@ -130,14 +135,6 @@ describe("DinSykmeldingSkjemaContainer", () => {
                 id: 123,
                 navn: "Olsen"
             })
-        });
-
-        it("Skal returnere ledetekster", () => {
-            const state = getState();
-            const props = mapStateToProps(state, {
-                sykmeldingId: 123
-            });
-            expect(props.ledetekster).to.deep.equal(ledetekster);
         });
 
         it("Skal returnere sender", () => {

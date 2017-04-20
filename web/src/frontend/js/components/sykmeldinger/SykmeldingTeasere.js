@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import SykmeldingTeaser from './SykmeldingTeaser';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 
-const SykmeldingTeasere = ({ sykmeldinger, ledetekster, className, tittel = '', ingenSykmeldingerMelding, id, children }) => {
+const SykmeldingTeasere = ({ sykmeldinger, className, tittel = '', ingenSykmeldingerMelding, id, children }) => {
     return (<div className="blokk--l">
         <header className="inngangspanelerHeader">
             <h2 className="inngangspanelerHeader__tittel">{tittel}</h2>
@@ -11,7 +11,7 @@ const SykmeldingTeasere = ({ sykmeldinger, ledetekster, className, tittel = '', 
         <div id={id} className={className || 'js-content'}>
         {
             (sykmeldinger.length ? sykmeldinger.map((sykmelding, idx) => {
-                return <SykmeldingTeaser key={idx} sykmelding={sykmelding} ledetekster={ledetekster} />;
+                return <SykmeldingTeaser key={idx} sykmelding={sykmelding} />;
             }) : <p className="panel typo-infotekst">{ingenSykmeldingerMelding}</p>)
         }
         </div>
@@ -20,7 +20,6 @@ const SykmeldingTeasere = ({ sykmeldinger, ledetekster, className, tittel = '', 
 
 SykmeldingTeasere.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
-    ledetekster: PropTypes.object,
     className: PropTypes.string,
     tittel: PropTypes.string,
     ingenSykmeldingerMelding: PropTypes.string,

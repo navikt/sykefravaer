@@ -15,55 +15,43 @@ Tilleggsinfo.propTypes = {
     children: PropTypes.object,
 };
 
-export const DuTrengerNySykmelding = ({ ledetekster }) => {
+export const DuTrengerNySykmelding = () => {
     return (<Tilleggsinfo>
         <div className="hode hode--advarsel">
             <h5 className="hode__tittel">
-                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tittel', ledetekster)}
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tittel')}
             </h5>
             <p>
-                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tekst', ledetekster)}
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.ny-sykmelding.tekst')}
             </p>
         </div>
     </Tilleggsinfo>);
 };
 
-DuTrengerNySykmelding.propTypes = {
-    ledetekster: PropTypes.object,
-};
-
-export const DuKanBrukeSykmeldingenDinArbeidsgiver = ({ ledetekster }) => {
+export const DuKanBrukeSykmeldingenDinArbeidsgiver = () => {
     return (<Tilleggsinfo>
         <div className="hode hode--informasjon">
             <h5 className="hode__tittel">
-                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel', ledetekster)}
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tittel')}
             </h5>
             <p>
-                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tekst', ledetekster)}
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.arbeidsgiver.tekst')}
             </p>
         </div>
     </Tilleggsinfo>);
 };
 
-DuKanBrukeSykmeldingenDinArbeidsgiver.propTypes = {
-    ledetekster: PropTypes.object,
-};
-
-export const DuKanBrukeSykmeldingenDinDiagnoseAndre = ({ ledetekster }) => {
+export const DuKanBrukeSykmeldingenDinDiagnoseAndre = () => {
     return (<Tilleggsinfo>
         <div className="hode hode--informasjon">
             <h5 className="hode__tittel">
-                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel', ledetekster)}
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tittel')}
             </h5>
             <p>
-                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tekst', ledetekster)}
+                {getLedetekst('starte-sykmelding.feilaktige-opplysninger.du-kan-bruke-sykmelding.andre.tekst')}
             </p>
         </div>
     </Tilleggsinfo>);
-};
-
-DuKanBrukeSykmeldingenDinDiagnoseAndre.propTypes = {
-    ledetekster: PropTypes.object,
 };
 
 const getAvkryssedeOpplysninger = (feilaktigeOpplysninger) => {
@@ -74,32 +62,31 @@ const getAvkryssedeOpplysninger = (feilaktigeOpplysninger) => {
     });
 };
 
-export const SykmeldingFeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = [], ledetekster }) => {
+export const SykmeldingFeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = [] }) => {
     const opplysninger = getAvkryssedeOpplysninger(feilaktigeOpplysninger);
     if (opplysninger.indexOf(PERIODE) > -1 || opplysninger.indexOf(SYKMELDINGSGRAD) > -1) {
-        return <DuTrengerNySykmelding ledetekster={ledetekster} />;
+        return <DuTrengerNySykmelding />;
     }
     if (opplysninger.indexOf(ARBEIDSGIVER) > -1) {
-        return <DuKanBrukeSykmeldingenDinArbeidsgiver ledetekster={ledetekster} />;
+        return <DuKanBrukeSykmeldingenDinArbeidsgiver />;
     }
     if (opplysninger.indexOf(DIAGNOSE) > -1 || opplysninger.indexOf(ANDRE) > -1) {
-        return <DuKanBrukeSykmeldingenDinDiagnoseAndre ledetekster={ledetekster} />;
+        return <DuKanBrukeSykmeldingenDinDiagnoseAndre />;
     }
     return null;
 };
 
 SykmeldingFeilaktigeOpplysningerInfo.propTypes = {
     feilaktigeOpplysninger: PropTypes.array,
-    ledetekster: PropTypes.object,
 };
 
-export const HvilkeOpplysninger = ({ fields, meta, ledetekster }) => {
+export const HvilkeOpplysninger = ({ fields, meta }) => {
     const labels = {};
-    labels[PERIODE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.periode', ledetekster);
-    labels[SYKMELDINGSGRAD] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sykmeldingsgrad', ledetekster);
-    labels[ARBEIDSGIVER] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.arbeidsgiver', ledetekster);
-    labels[DIAGNOSE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.diagnose', ledetekster);
-    labels[ANDRE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.andre', ledetekster);
+    labels[PERIODE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.periode');
+    labels[SYKMELDINGSGRAD] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.sykmeldingsgrad');
+    labels[ARBEIDSGIVER] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.arbeidsgiver');
+    labels[DIAGNOSE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.diagnose');
+    labels[ANDRE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.andre');
 
     return (<Feilomrade {...meta}>
         <h4 className="skjema__sporsmal">Hvilke opplysninger er ikke riktige?</h4>
@@ -120,11 +107,10 @@ export const HvilkeOpplysninger = ({ fields, meta, ledetekster }) => {
 HvilkeOpplysninger.propTypes = {
     fields: PropTypes.array,
     meta: PropTypes.object,
-    ledetekster: PropTypes.object,
 };
 
 export const RenderFeilaktigeOpplysninger = (props) => {
-    const { ledetekster, skjemaData } = props;
+    const { skjemaData } = props;
     const Sporsmal = <HvilkeOpplysninger {...props} />;
 
     return (<SporsmalMedTillegg {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
@@ -137,20 +123,17 @@ export const RenderFeilaktigeOpplysninger = (props) => {
             return false;
         }
     }}>
-        <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={skjemaData.values.feilaktigeOpplysninger} ledetekster={ledetekster} />
+        <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={skjemaData.values.feilaktigeOpplysninger} />
     </SporsmalMedTillegg>);
 };
 
 RenderFeilaktigeOpplysninger.propTypes = {
     fields: PropTypes.array,
     meta: PropTypes.object,
-    ledetekster: PropTypes.object,
     skjemaData: PropTypes.object,
 };
 
 export const ErOpplysningeneRiktige = (props) => {
-    const { ledetekster } = props;
-
     return (<JaEllerNei
         verdiMedTilleggssporsmal={false}
         spoersmal="Er opplysningene i sykmeldingen riktige?"
@@ -159,13 +142,11 @@ export const ErOpplysningeneRiktige = (props) => {
             {...props}
             component={RenderFeilaktigeOpplysninger}
             name="feilaktigeOpplysninger"
-            fields={feilaktigeOpplysningerFields}
-            ledetekster={ledetekster} />
+            fields={feilaktigeOpplysningerFields} />
     </JaEllerNei>);
 };
 
 ErOpplysningeneRiktige.propTypes = {
-    ledetekster: PropTypes.object,
     skjemaData: PropTypes.object,
 };
 

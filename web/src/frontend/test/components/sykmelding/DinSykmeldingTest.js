@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 import DinSykmelding from "../../../js/components/sykmelding/DinSykmelding";
 import DinSykmeldingSkjemaContainer from "../../../js/containers/DinSykmeldingSkjemaContainer";
-import { DineSykmeldingOpplysninger } from "digisyfo-npm";
+import { DineSykmeldingOpplysninger, setLedetekster } from "digisyfo-npm";
 
 import { Provider } from 'react-redux';
 
@@ -18,13 +18,17 @@ let component;
 
 describe("DinSykmelding -", () => {
 
+    beforeEach(() => {
+        setLedetekster(ledetekster);
+    });
+
     it("Skal vise DineSykmeldingOpplysninger", () => {
-        component = shallow(<DinSykmelding sykmelding={getSykmelding()} ledetekster={ledetekster} />)
+        component = shallow(<DinSykmelding sykmelding={getSykmelding()} />)
 
         expect(component.find(DineSykmeldingOpplysninger)).to.have.length(1);
         expect(component.find(DinSykmeldingSkjemaContainer)).to.have.length(1);
 
-        expect(component.contains(<DineSykmeldingOpplysninger sykmelding={getSykmelding()} ledetekster={ledetekster} />)).to.be.true;
+        expect(component.contains(<DineSykmeldingOpplysninger sykmelding={getSykmelding()} />)).to.be.true;
         expect(component.contains(<DinSykmeldingSkjemaContainer sykmeldingId={getSykmelding().id} />)).to.be.true;
     });
 

@@ -14,20 +14,19 @@ import * as periodeUtils from '../../../utils/periodeUtils';
 import validate from '../validering/validerAktiviteterISykmeldingsperioden';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
-export const UtdanningStartDato = ({ ledetekster, senesteTom }) => {
+export const UtdanningStartDato = ({ senesteTom }) => {
     return (<div className="blokk">
-        <label className="skjema__sporsmal" htmlFor="utdanningStartdato">{getLedetekst('sykepengesoknad.utdanning.startdato.sporsmal', ledetekster)}</label>
+        <label className="skjema__sporsmal" htmlFor="utdanningStartdato">{getLedetekst('sykepengesoknad.utdanning.startdato.sporsmal')}</label>
         <Datovelger name="utdanning.utdanningStartdato" id="utdanningStartdato" senesteTom={senesteTom} />
     </div>);
 };
 
 UtdanningStartDato.propTypes = {
-    ledetekster: PropTypes.object,
     senesteTom: PropTypes.instanceOf(Date),
 };
 
 export const AktiviteterISykmeldingsperioden = (props) => {
-    const { handleSubmit, sykepengesoknad, ledetekster, autofill, untouch } = props;
+    const { handleSubmit, sykepengesoknad, autofill, untouch } = props;
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });
@@ -41,8 +40,7 @@ export const AktiviteterISykmeldingsperioden = (props) => {
     return (
         <SykepengerSkjema
             aktivtSteg="2"
-            tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel', ledetekster)}
-            ledetekster={ledetekster}
+            tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
             sykepengesoknad={sykepengesoknad}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <FieldArray
@@ -51,29 +49,28 @@ export const AktiviteterISykmeldingsperioden = (props) => {
                     autofill={autofill}
                     untouch={untouch}
                     name="aktiviteter"
-                    ledetekster={ledetekster}
                     arbeidsgiver={sykepengesoknad.arbeidsgiver.navn} />
 
                 <JaEllerNei
                     name="harAndreInntektskilder"
-                    spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', ledetekster, {
+                    spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', {
                         '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
                     })}>
-                    <AndreInntektskilder ledetekster={ledetekster} />
+                    <AndreInntektskilder />
                 </JaEllerNei>
 
                 <JaEllerNei
                     name="utdanning.underUtdanningISykmeldingsperioden"
-                    spoersmal={getLedetekst('sykepengesoknad.utdanning.ja-nei.sporsmal', ledetekster, {
+                    spoersmal={getLedetekst('sykepengesoknad.utdanning.ja-nei.sporsmal', {
                         '%STARTDATO%': toDatePrettyPrint(_tidligsteFom),
                         '%SLUTTDATO%': toDatePrettyPrint(_senesteTom),
                     })}>
-                    <UtdanningStartDato ledetekster={ledetekster} senesteTom={_senesteTom} />
+                    <UtdanningStartDato senesteTom={_senesteTom} />
                     <Field
                         component={JaEllerNeiRadioknapper}
                         name="utdanning.erUtdanningFulltidsstudium"
                         parse={parseJaEllerNei}
-                        spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal', ledetekster)}
+                        spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal')}
                         Overskrift="h4" />
                 </JaEllerNei>
 
@@ -88,7 +85,6 @@ export const AktiviteterISykmeldingsperioden = (props) => {
 AktiviteterISykmeldingsperioden.propTypes = {
     handleSubmit: PropTypes.func,
     sykepengesoknad: sykepengesoknadPt,
-    ledetekster: PropTypes.object,
     autofill: PropTypes.func,
     untouch: PropTypes.func,
 };

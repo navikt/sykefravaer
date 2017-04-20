@@ -10,7 +10,7 @@ const expect = chai.expect;
 import { KvitteringSide, getKvitteringtype, mapStateToProps, getLedetekstNokkel } from "../../js/containers/SykmeldingKvitteringContainer";
 import SykmeldingKvittering, { SykmeldingKvitteringSokNa, SykmeldingKvitteringSokSenere } from '../../js/components/sykmelding/SykmeldingKvittering';
 import sinon from 'sinon';
-import { getSykmelding } from '../mockSykmeldinger';
+import getSykmelding from '../mockSykmeldinger';
 
 const sykmeldinger = [{
     id: 2,

@@ -7,6 +7,7 @@ import { getLedetekst, Tidslinje, setHendelseData } from 'digisyfo-npm';
 import Sidetopp from '../components/Sidetopp';
 import TidslinjeVelgArbeidssituasjonContainer from './TidslinjeVelgArbeidssituasjonContainer';
 import { hentTidslinjer } from '../actions/tidslinjer_actions';
+import { brodsmule as brodsmulePt } from '../propTypes';
 
 export class TidslinjeSide extends Component {
 
@@ -52,7 +53,7 @@ export class TidslinjeSide extends Component {
 
 TidslinjeSide.propTypes = {
     dispatch: PropTypes.func,
-    brodsmuler: PropTypes.array,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     ledetekster: PropTypes.object,
     hendelser: PropTypes.array,
     arbeidssituasjon: PropTypes.string,

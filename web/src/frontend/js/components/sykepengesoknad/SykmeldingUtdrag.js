@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { SykmeldingPerioder, SykmeldingNokkelOpplysning, toDatePrettyPrint } from 'digisyfo-npm';
 import { Avkrysset } from './SendtSoknad';
 import { Utvidbar, getLedetekst } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 const SykmeldingUtdrag = ({ erApen, sykepengesoknad, ledetekster }) => {
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
@@ -39,7 +40,7 @@ const SykmeldingUtdrag = ({ erApen, sykepengesoknad, ledetekster }) => {
 
 SykmeldingUtdrag.propTypes = {
     erApen: PropTypes.bool,
-    sykepengesoknad: PropTypes.object,
+    sykepengesoknad: sykepengesoknadPt,
     ledetekster: PropTypes.object,
 };
 

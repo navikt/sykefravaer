@@ -7,6 +7,7 @@ import ErLederRiktig from './ErLederRiktig';
 import ForskuttererArbeidsgiver from './ForskuttererArbeidsgiver';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import Radioknapper from '../skjema/Radioknapper';
+import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 
 export const ArbeidsgiverRadioknapper = (props) => {
     const { ledetekster, input, arbeidsgivere } = props;
@@ -36,7 +37,7 @@ export const ArbeidsgiverRadioknapper = (props) => {
 ArbeidsgiverRadioknapper.propTypes = {
     ledetekster: PropTypes.object.isRequired,
     input: PropTypes.object.isRequired,
-    arbeidsgivere: PropTypes.array.isRequired,
+    arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt).isRequired,
 };
 
 export const SkrivUt = (props) => {
@@ -56,7 +57,7 @@ export const SkrivUt = (props) => {
 
 SkrivUt.propTypes = {
     ledetekster: PropTypes.object.isRequired,
-    sykmelding: PropTypes.object.isRequired,
+    sykmelding: sykmeldingPt.isRequired,
 };
 
 export const Tilleggsinfo = (props) => {
@@ -124,9 +125,9 @@ const VelgArbeidsgiver = (props) => {
 };
 
 VelgArbeidsgiver.propTypes = {
-    arbeidsgivere: PropTypes.array,
+    arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
     ledetekster: PropTypes.object,
-    sykmelding: PropTypes.object,
+    sykmelding: sykmeldingPt,
     skjemaData: PropTypes.object,
     pilotSykepenger: PropTypes.bool,
 };

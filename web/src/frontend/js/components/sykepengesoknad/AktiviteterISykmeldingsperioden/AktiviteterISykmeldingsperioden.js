@@ -12,6 +12,7 @@ import Knapperad from '../../skjema/Knapperad';
 import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import * as periodeUtils from '../../../utils/periodeUtils';
 import validate from '../validering/validerAktiviteterISykmeldingsperioden';
+import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 export const UtdanningStartDato = ({ ledetekster, senesteTom }) => {
     return (<div className="blokk">
@@ -86,7 +87,7 @@ export const AktiviteterISykmeldingsperioden = (props) => {
 
 AktiviteterISykmeldingsperioden.propTypes = {
     handleSubmit: PropTypes.func,
-    sykepengesoknad: PropTypes.object,
+    sykepengesoknad: sykepengesoknadPt,
     ledetekster: PropTypes.object,
     autofill: PropTypes.func,
     untouch: PropTypes.func,

@@ -14,9 +14,9 @@ describe("SykmeldingTeaser", () => {
         const sykmelding = {
             mulighetForArbeid: {
                 perioder: [{
-                    fom: { year: 2016, monthValue: 2, dayOfMonth: 2 },
-                    tom: { year: 2016, monthValue: 2, dayOfMonth: 16 },
-                    grad: "100"
+                    fom: "2016-02-02",
+                    tom: "2016-02-16",
+                    grad: 100
                 }],
             }
         };
@@ -29,9 +29,9 @@ describe("SykmeldingTeaser", () => {
         const teaser = mount(<SykmeldingTeaser sykmelding={getSykmelding({
             mulighetForArbeid: {
                 perioder: [{
-                    fom: { year: 2016, monthValue: 2, dayOfMonth: 2 },
-                    tom: { year: 2016, monthValue: 2, dayOfMonth: 16 },
-                    grad: "100",
+                    fom: "2016-02-02",
+                    tom: "2016-02-16",
+                    grad: 100,
                 }],
             },
             arbeidsgiver: "Bekk Consulting AS",
@@ -51,8 +51,8 @@ describe("SykmeldingTeaser", () => {
         const teaser = mount(<SykmeldingTeaser sykmelding={getSykmelding({
             mulighetForArbeid: {
                 perioder: [{
-                    fom: { year: 2016, monthValue: 2, dayOfMonth: 2 },
-                    tom: { year: 2016, monthValue: 2, dayOfMonth: 16 },
+                    fom: "2016-02-02",
+                    tom: "2016-02-16",
                     grad: null
                 }]
             }
@@ -61,16 +61,16 @@ describe("SykmeldingTeaser", () => {
     });    
 
     it("Skal være et <article />-element", function () {
-        const teaser = shallow(<SykmeldingTeaser sykmelding={{
+        const teaser = shallow(<SykmeldingTeaser sykmelding={getSykmelding({
 			arbeidsgiver: "Bekk Consulting AS",
 			mulighetForArbeid: {
 			    perioder: [{
-                    fom: { year: 2016, monthValue: 2, dayOfMonth: 2 },
-                    tom: { year: 2016, monthValue: 2, dayOfMonth: 16 },
-                    grad: "100"
+                    fom: "2016-02-02",
+                    tom: "2016-02-16",
+                    grad: 100
                 }]
 			}
-		}}/>);
+		})}/>);
         expect(teaser).to.have.tagName("article")
     });
 

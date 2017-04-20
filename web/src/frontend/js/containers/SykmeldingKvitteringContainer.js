@@ -8,6 +8,7 @@ import Feilmelding from '../components/Feilmelding';
 import { senesteTom } from '../utils/periodeUtils';
 import * as actions from '../actions/sykepengesoknader_actions';
 import { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } from '../enums/sykmeldingstatuser';
+import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes';
 
 export const KvitteringSide = (props) => {
     const { sykmelding, henter, hentingFeilet, ledetekster, brodsmuler } = props;
@@ -38,8 +39,8 @@ export const KvitteringSide = (props) => {
 
 KvitteringSide.propTypes = {
     ledetekster: PropTypes.object,
-    brodsmuler: PropTypes.array,
-    sykmelding: PropTypes.object,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
+    sykmelding: sykmeldingPt,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
 };

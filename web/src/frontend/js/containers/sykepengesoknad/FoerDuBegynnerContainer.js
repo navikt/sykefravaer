@@ -9,6 +9,7 @@ import AppSpinner from '../../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import { NY, SENDT, UTGAATT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export const Controller = (props) => {
     const { sykepengesoknad, ledetekster, vedlikehold } = props;
@@ -32,9 +33,7 @@ export const Controller = (props) => {
 };
 
 Controller.propTypes = {
-    sykepengesoknad: PropTypes.shape({
-        status: PropTypes.string.isRequired,
-    }),
+    sykepengesoknad: sykepengesoknadPt,
     skjemasoknad: PropTypes.object,
     ledetekster: PropTypes.object,
     vedlikehold: PropTypes.shape({

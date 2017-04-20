@@ -14,6 +14,7 @@ import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldin
 import { hentPilotSykepenger } from '../actions/pilot_actions';
 import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst } from 'digisyfo-npm';
 import { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } from '../enums/sykmeldingstatuser';
+import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes';
 
 export class DinSykmldSide extends Component {
 
@@ -87,10 +88,10 @@ DinSykmldSide.propTypes = {
     dispatch: PropTypes.func,
     ledetekster: PropTypes.object,
     arbeidsgivere: PropTypes.object,
-    brodsmuler: PropTypes.array,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     sykmeldingId: PropTypes.string,
-    dinSykmelding: PropTypes.object,
-    arbeidsgiversSykmelding: PropTypes.object,
+    dinSykmelding: sykmeldingPt,
+    arbeidsgiversSykmelding: sykmeldingPt,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     visEldreSykmeldingVarsel: PropTypes.bool,

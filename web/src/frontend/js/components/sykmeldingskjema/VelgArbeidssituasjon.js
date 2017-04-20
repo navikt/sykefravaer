@@ -6,6 +6,7 @@ import Feilmelding from '../skjema/Feilmelding';
 import VelgArbeidsgiver from './VelgArbeidsgiver';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
+import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 
 const getArbeidssituasjoner = (arbeidssituasjon) => {
     if (!arbeidssituasjon || arbeidssituasjon === DEFAULT) {
@@ -75,8 +76,8 @@ const VelgArbeidssituasjon = (props) => {
 VelgArbeidssituasjon.propTypes = {
     ledetekster: PropTypes.object,
     untouch: PropTypes.func,
-    arbeidsgivere: PropTypes.array,
-    sykmelding: PropTypes.object,
+    arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
+    sykmelding: sykmeldingPt,
     pilotSykepenger: PropTypes.bool,
 };
 

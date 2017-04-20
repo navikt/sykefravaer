@@ -33,52 +33,52 @@ describe("DinSykmeldingContainer", () => {
 
         sykmeldinger = [
             getSykmelding({
-                id: 1,
+                id: "1",
                 mulighetForArbeid: {
                     perioder: [{
-                        fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
-                        tom: { year: 2016, monthValue: 2, dayOfMonth: 6 },
+                        fom: "2016-02-01",
+                        tom: "2016-02-06",
                         grad: 67
                     }],
                 }
             }), 
             getSykmelding({
-                id: 2,
+                id: "2",
                 mulighetForArbeid: {
                     perioder: [{
-                        fom: { year: 2016, monthValue: 1, dayOfMonth: 1 },
-                        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                        fom: "2016-01-01",
+                        tom: "2016-01-06",
                         grad: 67
                     }],
                 }
             }), 
             getSykmelding({
-                id: 3,
+                id: "3",
                 mulighetForArbeid: {
                     perioder: [{
-                        fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
-                        tom: { year: 2016, monthValue: 3, dayOfMonth: 10 },
+                        fom: "2016-03-01",
+                        tom: "2016-03-10",
                         grad: 67
                     }],
                 }
             }),
             getSykmelding({
-                id: 4,
+                id: "4",
                 mulighetForArbeid: {
                     perioder: [{
-                        fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
-                        tom: { year: 2016, monthValue: 3, dayOfMonth: 20 },
+                        fom: "2016-03-01",
+                        tom: "2016-03-20",
                         grad: 67
                     }],
                 }
             }),
             getSykmelding({
-                id: 5,
-                status: "GAMMEL",
+                id: "5",
+                status: "SENDT",
                 mulighetForArbeid: {
                     perioder: [{
-                        fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
-                        tom: { year: 2016, monthValue: 3, dayOfMonth: 20 },
+                        fom: "2016-03-01",
+                        tom: "2016-03-20",
                         grad: 67
                     }],
                 }
@@ -158,7 +158,7 @@ describe("DinSykmeldingContainer", () => {
 
             beforeEach(() => {
                 state.dineSykmeldinger.data.push({
-                    id: 44,
+                    id: "44",
                     status: "SENDT"
                 });
                 ownProps = {
@@ -181,7 +181,7 @@ describe("DinSykmeldingContainer", () => {
             it("Skal returnere arbeidsgiversSykmelding når arbeidsgiversSykmeldinger = [{...}]'", () => {
                 state.arbeidsgiversSykmeldinger = {
                     data: [{
-                        id: 44, 
+                        id: "44", 
                         fornavn: "Hans",
                         etternavn: "Olsen"
                     }],
@@ -190,7 +190,7 @@ describe("DinSykmeldingContainer", () => {
                 }
                 const res = mapStateToProps(state, ownProps);
                 expect(res.arbeidsgiversSykmelding).to.deep.equal({
-                    id: 44, 
+                    id: "44", 
                     fornavn: "Hans",
                     etternavn: "Olsen"
                 });
@@ -202,12 +202,12 @@ describe("DinSykmeldingContainer", () => {
 
             beforeEach(() => {
                 state.dineSykmeldinger.data.push({
-                    id: 44,
+                    id: "44",
                     status: "TIL_SENDING"
                 });
                 ownProps = {
                     params: {
-                        sykmeldingId: 44
+                        sykmeldingId: "44"
                     }
                 };
             });
@@ -225,7 +225,7 @@ describe("DinSykmeldingContainer", () => {
             it("Skal returnere arbeidsgiversSykmelding når arbeidsgiversSykmeldinger = [{...}]'", () => {
                 state.arbeidsgiversSykmeldinger = {
                     data: [{
-                        id: 44, 
+                        id: "44", 
                         fornavn: "Hans",
                         etternavn: "Olsen"
                     }],
@@ -234,7 +234,7 @@ describe("DinSykmeldingContainer", () => {
                 }
                 const res = mapStateToProps(state, ownProps);
                 expect(res.arbeidsgiversSykmelding).to.deep.equal({
-                    id: 44, 
+                    id: "44", 
                     fornavn: "Hans",
                     etternavn: "Olsen"
                 });
@@ -246,27 +246,27 @@ describe("DinSykmeldingContainer", () => {
         describe("visEldreSykmeldingVarsel", () => {
 
             it("Skal returnere visEldreSykmeldingVarsel === true dersom den valgte sykmeldingen ikke er den eldste", () => {
-                ownProps.params.sykmeldingId = 3
+                ownProps.params.sykmeldingId = "3"
                 const res = mapStateToProps(state, ownProps);
                 expect(res.visEldreSykmeldingVarsel).to.be.true;
             });
 
             it("Skal returnere visEldreSykmeldingVarsel === false dersom den valgte sykmeldingen er den eldste", () => {
-                ownProps.params.sykmeldingId = 2;
+                ownProps.params.sykmeldingId = "2";
                 const res = mapStateToProps(state, ownProps);
                 expect(res.visEldreSykmeldingVarsel).to.be.false;
             });
 
             it("Skal returnere eldsteSykmeldingId", () => {
-                ownProps.params.sykmeldingId = 4;
+                ownProps.params.sykmeldingId = "4";
                 const res = mapStateToProps(state, ownProps);
-                expect(res.eldsteSykmeldingId).to.equal(2);
+                expect(res.eldsteSykmeldingId).to.equal("2");
             });
 
             it("Skal returnere false dersom den valgte sykmeldingen har samme periode som den eldste sykmeldingen", () => {
                 state.dineSykmeldinger.data = [
                     getSykmelding({
-                        id: 1,
+                        id: "1",
                         mulighetForArbeid: {
                             perioder: [{
                                 fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
@@ -276,7 +276,7 @@ describe("DinSykmeldingContainer", () => {
                         }
                     }),
                     getSykmelding({
-                        id: 2,
+                        id: "2",
                         mulighetForArbeid: {
                             perioder: [{
                                 fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
@@ -286,7 +286,7 @@ describe("DinSykmeldingContainer", () => {
                         }
                     }),
                     getSykmelding({
-                        id: 3,
+                        id: "3",
                         mulighetForArbeid: {
                             perioder: [{
                                 fom: { year: 2016, monthValue: 12, dayOfMonth: 1 },
@@ -304,7 +304,7 @@ describe("DinSykmeldingContainer", () => {
             it("Skal returnere true dersom den valgte sykmeldingen er ikke er eldst, men har samme varighet som den eldste sykmeldingen", () => {
                 state.dineSykmeldinger.data = [
                     getSykmelding({
-                        id: 1,
+                        id: "1",
                         mulighetForArbeid: {
                             perioder: [{
                                 fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
@@ -314,7 +314,7 @@ describe("DinSykmeldingContainer", () => {
                         }
                     }),
                     getSykmelding({
-                        id: 2,
+                        id: "2",
                         mulighetForArbeid: {
                             perioder: [{
                                 fom: { year: 2016, monthValue: 4, dayOfMonth: 1 },
@@ -324,7 +324,7 @@ describe("DinSykmeldingContainer", () => {
                         }
                     }),
                     getSykmelding({
-                        id: 3,
+                        id: "3",
                         mulighetForArbeid: {
                             perioder: [{
                                 fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
@@ -334,7 +334,7 @@ describe("DinSykmeldingContainer", () => {
                         }
                     })
                 ];
-                ownProps.params.sykmeldingId = 3;
+                ownProps.params.sykmeldingId = "3";
                 const res = mapStateToProps(state, ownProps);
                 expect(res.visEldreSykmeldingVarsel).to.equal(true);
             });
@@ -343,7 +343,7 @@ describe("DinSykmeldingContainer", () => {
             it("Skal returnere true dersom den valgte sykmeldingen er ikke er eldst, men har samme varighet som en annen sykmelding som heller ikke er eldst", () => {
                 state.dineSykmeldinger.data = [
                     getSykmelding({
-                        id: 1,
+                        id: "1",
                         mulighetForArbeid: {
                             perioder: [{
                                 fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
@@ -353,7 +353,7 @@ describe("DinSykmeldingContainer", () => {
                         }
                     }),
                     getSykmelding({
-                        id: 2,
+                        id: "2",
                         mulighetForArbeid: {
                             perioder: [{
                                 fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
@@ -363,7 +363,7 @@ describe("DinSykmeldingContainer", () => {
                         }
                     }),
                     getSykmelding({
-                        id: 3,
+                        id: "3",
                         mulighetForArbeid: {
                             perioder: [{
                                 fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
@@ -373,7 +373,7 @@ describe("DinSykmeldingContainer", () => {
                         }
                     })
                 ];
-                ownProps.params.sykmeldingId = 3;
+                ownProps.params.sykmeldingId = "3";
                 const res = mapStateToProps(state, ownProps);
                 expect(res.visEldreSykmeldingVarsel).to.equal(true);
             });
@@ -398,7 +398,8 @@ describe("DinSykmeldingContainer", () => {
 
         beforeEach(() => {
             sykmelding = {
-                status: 'NY'
+                status: 'NY',
+                id: "min-sykmelding-id",
             };
 
             hentArbeidsgiversSykmeldinger = sinon.spy();
@@ -413,7 +414,7 @@ describe("DinSykmeldingContainer", () => {
             expect(component.find(AppSpinner)).to.have.length(1);
         }); 
 
-        it("Skal vise Feilmelding når siden laster", () => {
+        it("Skal vise Feilmelding hvis noe feiler", () => {
             let component = shallow(<DinSykmldSide hentingFeilet={true} dinSykmelding={sykmelding} ledetekster={state.ledetekster.data}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
@@ -421,10 +422,7 @@ describe("DinSykmeldingContainer", () => {
         });
 
         it("Skal vise feilmelding dersom sykmeldingen ikke finnes", () => {
-            let sykmelding = {
-                hentingFeilet: false,
-                data: undefined
-            };
+            let sykmelding = undefined;
             let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster.data}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
@@ -441,10 +439,11 @@ describe("DinSykmeldingContainer", () => {
 
         it("Skal vise DinSendteSykmelding dersom sykmeldingen har status === 'SENDT'", () => {
             let sykmelding = {
-                status: 'SENDT'
+                status: 'SENDT',
+                id: "min-sykmelding-id",
             }
             let arbeidsgiversSykmelding = {
-                data: {}
+                id: "arbeidsgivers-syk"
             }
             let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster.data}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
@@ -455,9 +454,10 @@ describe("DinSykmeldingContainer", () => {
         it("Skal vise DinAvbrutteSykmelding dersom sykmeldingen har status === 'AVBRUTT'", () => {
             let sykmelding = {
                 status: "AVBRUTT",
+                id: "min-sykmelding-id",
             }
             let arbeidsgiversSykmelding = {
-                data: {}
+                id: "arbeidsgivers-sykmelding-id",
             }
             let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster.data}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
@@ -468,9 +468,10 @@ describe("DinSykmeldingContainer", () => {
         it("Skal vise DinBekreftedeSykmelding dersom sykmeldingen har status === 'BEKREFTET'", () => {
             let sykmelding = {
                 status: "BEKREFTET",
+                id: "min-sykmelding-id",
             }
             let arbeidsgiversSykmelding = {
-                data: {}
+                id: "arbeidsgivers-sykmelding-id"
             }
             let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster.data}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
@@ -478,13 +479,14 @@ describe("DinSykmeldingContainer", () => {
             expect(component.find(DinBekreftedeSykmelding)).to.have.length(1);
         });
 
-        it("Skal vise DinBekreftedeSykmelding med arbeidsgivers sykmelding dersom sykmeldingen har status === 'BEKREFTET' og valgtArbeidssituasjon === 'ARBEIDSTAKER'", () => {
+        it("Skal vise DinBekreftedeSykmelding med arbeidsgivers sykmelding dersom sykmeldingen har status === 'BEKREFTET' og valgtArbeidssituasjon === 'arbeidstaker'", () => {
             let sykmelding = {
                 status: "BEKREFTET",
-                valgtArbeidssituasjon: 'ARBEIDSTAKER'
+                valgtArbeidssituasjon: 'arbeidstaker',
+                id: "min-sykmelding-id",
             }
             let arbeidsgiversSykmelding = {
-                navn: "Olsen"
+                id: "arbeidsgivers-sykmelding-id"
             }
             let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster.data}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
@@ -493,12 +495,7 @@ describe("DinSykmeldingContainer", () => {
         }); 
 
         it("Skal hente aktuelle arbeidsgivere, arbeidsgivers sykmeldinger og sykepengepilot", () => {
-            let sykmelding = {
-                hentingFeilet: false,
-                data: Object.assign({}, sykmeldinger[1], {
-                    status: "NY"
-                }),
-            };
+            let sykmelding = sykmeldinger[1];
             shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster.data}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
                                                    hentPilotSykepenger={hentPilotSykepenger} sykmeldingId={"1"} />)

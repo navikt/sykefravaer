@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
 import { getLedetekst, getHtmlLedetekst, DineSykmeldingOpplysninger, Varselstripe } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
+import { sykmelding as sykmeldingPt } from '../../propTypes';
 
 const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, eldsteSykmeldingId, pilotSykepenger = false }) => {
     return (<div>
@@ -43,7 +44,7 @@ const DinSykmelding = ({ sykmelding, ledetekster, visEldreSykmeldingVarsel, elds
 };
 
 DinSykmelding.propTypes = {
-    sykmelding: PropTypes.object,
+    sykmelding: sykmeldingPt,
     ledetekster: PropTypes.object,
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,

@@ -18,7 +18,7 @@ describe("SoknadTeaser", () => {
     };
 
     const soknad = {
-        id: 1,
+        id: "1",
         opprettetDato: new Date("2016-01-20"),
         aktiviteter: [
             {

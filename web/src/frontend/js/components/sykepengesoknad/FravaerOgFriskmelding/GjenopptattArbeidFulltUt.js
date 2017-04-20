@@ -3,6 +3,7 @@ import JaEllerNei from '../JaEllerNei';
 import Datovelger from '../../skjema/Datovelger';
 import { getLedetekst } from 'digisyfo-npm';
 import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
+import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 const GjenopptattArbeidFulltUt = ({ sykepengesoknad, ledetekster }) => {
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
@@ -23,7 +24,7 @@ const GjenopptattArbeidFulltUt = ({ sykepengesoknad, ledetekster }) => {
 };
 
 GjenopptattArbeidFulltUt.propTypes = {
-    sykepengesoknad: PropTypes.object.isRequired,
+    sykepengesoknad: sykepengesoknadPt,
     ledetekster: PropTypes.object.isRequired,
 };
 

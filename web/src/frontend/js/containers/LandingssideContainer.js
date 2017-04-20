@@ -5,6 +5,8 @@ import Side from '../sider/Side';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
+import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt } from '../propTypes';
+import { proptypes as motePropTypes } from 'moter-npm';
 
 export const LandingssideSide = (props) => {
     const {
@@ -34,12 +36,12 @@ export const LandingssideSide = (props) => {
 
 LandingssideSide.propTypes = {
     ledetekster: PropTypes.object,
-    brodsmuler: PropTypes.array,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     skjulVarsel: PropTypes.bool,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    sykepengesoknader: PropTypes.array,
-    dialogmoter: PropTypes.array,
+    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    dialogmoter: PropTypes.arrayOf(motePropTypes.mote),
     harDialogmote: PropTypes.bool,
 };
 

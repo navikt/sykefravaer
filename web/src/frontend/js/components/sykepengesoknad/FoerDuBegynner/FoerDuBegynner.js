@@ -6,6 +6,7 @@ import SykmeldingUtdrag from '../SykmeldingUtdrag';
 import Sidetopp from '../../Sidetopp';
 import validate from '../validering/validerFoerDuBegynner';
 import { getLedetekst } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 const FoerDuBegynner = (props) => {
     const { handleSubmit, sykepengesoknad, ledetekster } = props;
@@ -32,7 +33,7 @@ const FoerDuBegynner = (props) => {
 
 FoerDuBegynner.propTypes = {
     handleSubmit: PropTypes.func,
-    sykepengesoknad: PropTypes.object,
+    sykepengesoknad: sykepengesoknadPt,
     ledetekster: PropTypes.object,
 };
 

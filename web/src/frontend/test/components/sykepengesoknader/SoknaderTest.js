@@ -10,7 +10,7 @@ import Soknader from "../../../js/components/sykepengesoknader/Soknader";
 import SoknaderTeasere from "../../../js/components/sykepengesoknader/SoknaderTeasere";
 import Sidetopp from "../../../js/components/Sidetopp";
 
-describe("Søknader om sykepenger", () => {
+describe("Soknader", () => {
 
     const ledetekster = {
         'soknader.introduksjonstekst': 'introtekst',
@@ -35,20 +35,20 @@ describe("Søknader om sykepenger", () => {
     });
 
     it('Bare nye sokander sendes videre til SoknaderTeasere', () => {
-        component = shallow(<Soknader ledetekster={ledetekster} soknader={[{id: 1, status: 'SENDT' }, {id: 2, status: 'NY' }, {id: 3, status: 'NY' }, {id: 4, status: 'RANDOM' }, {id: 5, status: 'LAGRET' }]} />);
+        component = shallow(<Soknader ledetekster={ledetekster} soknader={[{id: "1", status: 'SENDT' }, {id: "2", status: 'NY' }, {id: "3", status: 'NY' }, {id: "4", status: 'UTGAATT' }, {id: "5", status: 'LAGRET' }]} />);
         expect(component.find('.js-til-behandling').props().soknader).to.have.length(2);
     });
 
 
     xit('viser innsendte søknader om vi har noen', () => {
-        const soknad = {id: 1, status: 'SENDT', fom: '01.01.2017', tom: '01.20.2017', arbeidsgiver: 'BEKK Consulting AS', innsendingsDato: '02.01.2017'}
+        const soknad = {id: "1", status: 'SENDT', fom: '01.01.2017', tom: '01.20.2017', arbeidsgiver: 'BEKK Consulting AS', innsendingsDato: '02.01.2017'}
 
         component = shallow(<Soknader ledetekster={ledetekster} soknader={[soknad]} />);
         expect(component.find(".js-sendt")).to.have.length(1);
     });
 
     xit('sokander sendes videre til SoknaderTeasere', () => {
-        component = shallow(<Soknader ledetekster={ledetekster} soknader={[{id: 1, status: 'SENDT' }, {id: 2, status: 'NY' }, {id: 3, status: 'NY' }, {id: 4, status: 'RANDOM' }, {id: 5, status: 'LAGRET' }]} />);
+        component = shallow(<Soknader ledetekster={ledetekster} soknader={[{id: "1", status: 'SENDT' }, {id: "2", status: 'NY' }, {id: "3", status: 'NY' }, {id: "4", status: 'UTGAATT' }, {id: "5", status: 'LAGRET' }]} />);
         expect(component.find('.js-til-behandling').props().soknader).to.have.length(3);
         expect(component.find('.js-sendt').props().soknader).to.have.length(1);
     })

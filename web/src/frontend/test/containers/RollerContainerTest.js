@@ -38,7 +38,7 @@ describe("RollerContainer", () => {
     describe("RollerSide", () => {
 
         it("Skal vise en artikkel", () => {
-            let component = shallow(<RollerSide ledetekster={ledetekster} brodsmuler={[]}/>);
+            let component = shallow(<RollerSide ledetekster={ledetekster} brodsmuler={[{}]}/>);
             expect(component.find(Artikkel)).to.have.length(1);
         });
     })

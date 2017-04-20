@@ -5,6 +5,7 @@ import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
 import Feilmelding from '../components/Feilmelding';
+import { brodsmule as brodsmulePt, sykmelding as sykmeldingPt } from '../propTypes';
 
 export const DineSykmldSide = ({ ledetekster, brodsmuler, sykmeldinger, henter, hentingFeilet }) => {
     return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
@@ -26,8 +27,8 @@ export const DineSykmldSide = ({ ledetekster, brodsmuler, sykmeldinger, henter, 
 
 DineSykmldSide.propTypes = {
     ledetekster: PropTypes.object,
-    brodsmuler: PropTypes.array,
-    sykmeldinger: PropTypes.array,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
+    sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
 };

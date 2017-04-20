@@ -8,6 +8,7 @@ const expect = chai.expect;
 
 import SoknaderTeaser from '../../../js/components/sykepengesoknader/SoknaderTeaser';
 import SoknaderTeasere from '../../../js/components/sykepengesoknader/SoknaderTeasere';
+import { getSoknad } from '../../mockSoknader';
 
 describe("SoknadTeasere", () => {
 
@@ -16,31 +17,7 @@ describe("SoknadTeasere", () => {
         'soknader.sidetittel': 'tittel',
     };
 
-    const soknader = [
-        {
-            id: 1,
-            status: 'NY',
-            fom: '01.01.2017',
-            tom: '01.20.2017',
-            arbeidsgiver: 'BEKK Consulting AS',
-        },
-        {
-            id: 2,
-            status: 'SENDT',
-            fom: '23.11.2016',
-            tom: '30.11.2016',
-            arbeidsgiver: 'BEKK Consulting AS',
-            innsendingsDato: '02.01.2017'
-        },
-        {
-            id: 3,
-            status: 'NY',
-            fom: '01.06.2016',
-            tom: '13.06.2016',
-            arbeidsgiver: 'BEKK Consulting AS',
-        },
-
-    ];
+    const soknader = [ getSoknad(), getSoknad(), getSoknad() ];
 
     it("Viser en header", () => {
         const component = shallow(<SoknaderTeasere tittel="Søknader som venter din behandling" soknader={soknader} ledetekster={ledetekster}/>);

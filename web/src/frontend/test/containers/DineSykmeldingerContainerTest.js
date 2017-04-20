@@ -30,8 +30,8 @@ describe("DineSykmeldingerContainer", () => {
             sykmelder: "Ove Olsen",
             arbeidsgiver: "Selskapet AS",
             perioder: [{
-                fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                fom: "2015-12-31",
+                tom: "2016-01-06",
                 grad: 67
             }],
             hoveddiagnose: {
@@ -48,8 +48,8 @@ describe("DineSykmeldingerContainer", () => {
             sykmelder: "Ove Olsen",
             arbeidsgiver: "Selskapet AS",
             perioder: [{
-                fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                fom: "2015-12-31",
+                tom: "2016-01-06",
                 grad: 67
             }],
             hoveddiagnose: {
@@ -66,8 +66,8 @@ describe("DineSykmeldingerContainer", () => {
             sykmelder: "Ove Olsen",
             arbeidsgiver: "Selskapet AS",
             perioder: [{
-                fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                fom: "2015-12-31",
+                tom: "2016-01-06",
                 grad: 67
             }],
             hoveddiagnose: {

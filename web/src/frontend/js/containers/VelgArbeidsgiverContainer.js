@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { setArbeidsgiver } from '../actions/dinSykmelding_actions';
 import VelgArbeidsgiver from '../components/sykmeldingskjema/VelgArbeidsgiver';
 import { getLedetekst, getSykmelding } from 'digisyfo-npm';
+import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt } from '../propTypes';
 
 export class VelgArbeidsgiverWrapper extends Component {
     onChange(orgnummer) {
@@ -24,10 +25,10 @@ export class VelgArbeidsgiverWrapper extends Component {
 }
 
 VelgArbeidsgiverWrapper.propTypes = {
-    sykmelding: PropTypes.object.isRequired,
+    sykmelding: sykmeldingPt.isRequired,
     dispatch: PropTypes.func,
     ledetekster: PropTypes.object,
-    arbeidsgivere: PropTypes.array,
+    arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
     valgtArbeidsgiverOrgnummer: PropTypes.string,
     resetState: PropTypes.func,
 };

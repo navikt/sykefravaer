@@ -4,6 +4,7 @@ import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import { tidligsteFom, senesteTom } from '../../utils/periodeUtils';
 import { NY } from '../../enums/sykepengesoknadstatuser';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 class SoknadTeaser extends Component {
 
@@ -73,21 +74,7 @@ class SoknadTeaser extends Component {
 }
 
 SoknadTeaser.propTypes = {
-    soknad: PropTypes.shape({
-        opprettetDato: PropTypes.instanceOf(Date),
-        aktiviteter: PropTypes.arrayOf(PropTypes.shape({
-            avvik: PropTypes.object,
-            grad: PropTypes.number,
-            periode: PropTypes.shape({
-                fom: PropTypes.instanceOf(Date).isRequired,
-                tom: PropTypes.instanceOf(Date).isRequired,
-            }),
-        })),
-        arbeidsgiver: PropTypes.shape({
-            navn: PropTypes.string.isRequired,
-        }),
-        innsendtDato: PropTypes.instanceOf(Date),
-    }).isRequired,
+    soknad: sykepengesoknadPt.isRequired,
     ledetekster: PropTypes.object,
 };
 

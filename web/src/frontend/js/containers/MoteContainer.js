@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { moteActions, svarActions, Kvittering, AvbruttMote, BekreftetKvittering, getSvarsideModus, Svarside, konstanter, proptypes } from 'moter-npm';
+import { moteActions, svarActions, Kvittering, AvbruttMote, BekreftetKvittering, getSvarsideModus, Svarside, konstanter, proptypes as moterPropTypes } from 'moter-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import Side from '../sider/Side';
 import { bindActionCreators } from 'redux';
+import { brodsmule as brodsmulePt } from '../propTypes';
 
 const { BEKREFTET, MOTESTATUS, BRUKER, AVBRUTT } = konstanter;
 
@@ -61,15 +62,15 @@ export class Container extends Component {
 Container.propTypes = {
     henter: PropTypes.bool,
     fantIkkeDeltaker: PropTypes.bool,
-    deltaker: PropTypes.object,
-    brodsmuler: PropTypes.array,
+    deltaker: moterPropTypes.deltaker,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     ledetekster: PropTypes.object,
     actions: PropTypes.object,
     hentingFeilet: PropTypes.bool,
     moteIkkeFunnet: PropTypes.bool,
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
-    mote: proptypes.mote,
+    mote: moterPropTypes.mote,
 };
 
 export function mapDispatchToProps(dispatch) {

@@ -60,7 +60,8 @@ describe("MoteContainer", () => {
         describe("Hvis alle alternativer er besvart", () => {
 
             it("Skal vise Kvittering", () => {
-                component = shallow(<Container actions={actions} mote={moteBesvartAlleAlternativer} ledetekster={ledetekster} />);
+                mote = moteBesvartAlleAlternativer;
+                component = shallow(<Container actions={actions} mote={mote} ledetekster={ledetekster} />);
                 expect(component.find(Kvittering)).to.have.length(1);
             });
 

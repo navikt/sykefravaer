@@ -10,6 +10,7 @@ const expect = chai.expect;
 import { KvitteringSide, getKvitteringtype, mapStateToProps, getLedetekstNokkel } from "../../js/containers/SykmeldingKvitteringContainer";
 import SykmeldingKvittering, { SykmeldingKvitteringSokNa, SykmeldingKvitteringSokSenere } from '../../js/components/sykmelding/SykmeldingKvittering';
 import sinon from 'sinon';
+import getSykmelding from '../mockSykmeldinger';
 
 const sykmeldinger = [{
     id: 2,
@@ -20,8 +21,8 @@ const sykmeldinger = [{
     arbeidsgiver: "Selskapet AS",
     mulighetForArbeid: {
         perioder: [{
-            fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-            tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+            fom: "2015-12-31",
+            tom: "2016-01-06",
             grad: 67
         }],
     },
@@ -39,8 +40,8 @@ const sykmeldinger = [{
     sykmelder: "Ove Olsen",
     arbeidsgiver: "Selskapet AS",
     perioder: [{
-        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+        fom: "2015-12-31",
+        tom: "2016-01-06",
         grad: 67
     }],
     hoveddiagnose: {
@@ -58,8 +59,8 @@ const sykmeldinger = [{
     arbeidsgiver: "Selskapet AS",
     mulighetForArbeid: {
         perioder: [{
-            fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-            tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+            fom: "2015-12-31",
+            tom: "2016-01-06",
             grad: 67
         }],
     },
@@ -85,8 +86,8 @@ const sykmeldinger = [{
     arbeidsfoerEtterPerioden: true,
     mulighetForArbeid: {
         perioder: [{
-            fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-            tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+            fom: "2015-12-31",
+            tom: "2016-01-06",
             grad: 67
         }],
     }
@@ -99,8 +100,8 @@ const sykmeldinger = [{
     "valgtArbeidssituasjon": 'arbeidstaker',
     "mulighetForArbeid": {
         "perioder": [{
-            "fom": { "year": 2015, "monthValue": 12, "dayOfMonth": 31 },
-            "tom": { "year": 2016, "monthValue": 1, "dayOfMonth": 6 },
+            "fom": "2015-12-31",
+            "tom": "2016-01-06",
             "grad": 67
         }],
     }
@@ -421,9 +422,9 @@ describe("SykmeldingKvitteringContainer", () => {
 
         beforeEach(() => {
             props = {};
-            props.sykmelding = {
+            props.sykmelding = getSykmelding({
                 status: 'BEKREFTET'
-            };
+            });
         })
 
         it("Skal inneholde en SykmeldingKvittering hvis sykmeldingen er BEKREFTET", () => {

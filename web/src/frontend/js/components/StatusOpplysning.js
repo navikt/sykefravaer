@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../enums/nokkelopplysninger';
 import { Hjelpetekst, SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import { BEKREFTET, AVBRUTT, TIL_SENDING } from '../enums/sykmeldingstatuser';
+import { sykmelding as sykmeldingPt } from '../propTypes';
 
 const tilSendingHjelpetekst = () => {
     return (<Hjelpetekst
@@ -92,7 +93,7 @@ const StatusOpplysning = ({ sykmelding, ledetekster, nokkelopplysning }) => {
 };
 
 StatusOpplysning.propTypes = {
-    sykmelding: PropTypes.object,
+    sykmelding: sykmeldingPt,
     nokkelopplysning: PropTypes.string,
     ledetekster: PropTypes.object,
 };

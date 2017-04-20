@@ -5,6 +5,7 @@ import Sidetopp from '../Sidetopp';
 import { AVBRUTT } from '../../enums/sykmeldingstatuser';
 import { senesteTom } from '../../utils/periodeUtils';
 import history from '../../history';
+import { sykmelding as sykmeldingPt } from '../../propTypes';
 
 export const kvitteringtyper = {
     STANDARDKVITTERING: 'STANDARDKVITTERING',
@@ -113,7 +114,7 @@ export const KvitteringSokSenere = ({ sykmelding }) => {
 };
 
 KvitteringSokSenere.propTypes = {
-    sykmelding: PropTypes.object,
+    sykmelding: sykmeldingPt,
 };
 
 const SykmeldingKvittering = (props) => {

@@ -28,6 +28,7 @@ describe("DinSendteSykmelding", () => {
         let dinSykmelding = getSykmelding();
         dinSykmelding.status = 'SENDT';
         let arbeidsgiversSykmelding = {
+            id: "arbeidsgivers-sykmelding-id",
             test: "olsen"
         };
         component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={ledetekster}/>);
@@ -38,6 +39,7 @@ describe("DinSendteSykmelding", () => {
         let dinSykmelding = getSykmelding();
         dinSykmelding.status = 'SENDT';
         let arbeidsgiversSykmelding = {
+            id: "arbeidsgivers-sykmelding-id",
             test: "olsen"
         };
         component = shallow(<DinSendteSykmelding sykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={ledetekster}/>);

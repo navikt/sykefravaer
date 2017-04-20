@@ -4,6 +4,7 @@ import { Soknad, toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-n
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Statuspanel from './Statuspanel';
 import { SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">
@@ -63,7 +64,7 @@ const SendtSoknad = ({ ledetekster, sykepengesoknad }) => {
 
 SendtSoknad.propTypes = {
     ledetekster: PropTypes.object,
-    sykepengesoknad: PropTypes.object,
+    sykepengesoknad: sykepengesoknadPt,
 };
 
 export default SendtSoknad;

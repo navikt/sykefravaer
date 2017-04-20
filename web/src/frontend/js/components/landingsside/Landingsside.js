@@ -4,6 +4,7 @@ import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import UnderUtviklingVarselContainer from '../../containers/UnderUtviklingVarselContainer';
 import NaermesteLedereContainer from '../../containers/NaermesteLedereContainer';
 import LandingssideLenke from './LandingssideLenke';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export class GenerellInfo extends Component {
     componentDidMount() {
@@ -70,7 +71,7 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false, sykepengesoknader
 Landingsside.propTypes = {
     ledetekster: PropTypes.object.isRequired,
     skjulVarsel: PropTypes.bool.isRequired,
-    sykepengesoknader: PropTypes.array,
+    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     dialogmoter: PropTypes.array,
     harDialogmote: PropTypes.bool,
 };

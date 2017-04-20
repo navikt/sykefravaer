@@ -4,6 +4,7 @@ import Datovelger from './Datovelger';
 import Feilomrade from './Feilomrade';
 import { getLedetekst } from 'digisyfo-npm';
 import { connect } from 'react-redux';
+import { harOverlappendePerioder } from '../../utils/periodeUtils';
 
 export const Periode = (props) => {
     const { ledetekster, name, index, onRemoveHandler, tidligsteFom, senesteTom } = props;
@@ -106,6 +107,12 @@ export const StateConnectedPeriodevelger = connect(mapStateToProps)(Periodevelge
 
 const PeriodevelgerField = ({ name, spoersmal, ledetekster, tidligsteFom, senesteTom }) => {
     return (<FieldArray
+        validate={(value) => {
+            if (harOverlappendePerioder(value)) {
+                return 'Du kan ikke legge inn perioder som overlapper med hverandre';
+            }
+            return undefined;
+        }}
         component={StateConnectedPeriodevelger}
         name={name}
         namePrefix={name}

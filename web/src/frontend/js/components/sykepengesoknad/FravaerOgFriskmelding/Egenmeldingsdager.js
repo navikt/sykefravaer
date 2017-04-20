@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import { Hjelpetekst, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
     const identdato = sykepengesoknad.identdato;
@@ -31,7 +32,7 @@ const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
 };
 
 EgenmeldingsDager.propTypes = {
-    sykepengesoknad: PropTypes.object.isRequired,
+    sykepengesoknad: sykepengesoknadPt.isRequired,
     ledetekster: PropTypes.object.isRequired,
 };
 

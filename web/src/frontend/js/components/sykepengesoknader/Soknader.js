@@ -3,6 +3,7 @@ import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';
 import { SENDT, TIL_SENDING, UTGAATT, NY } from '../../enums/sykepengesoknadstatuser';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 const Soknader = ({ ledetekster = {}, soknader = [] }) => {
     const nyeSoknader = soknader.filter((soknad) => {
@@ -40,7 +41,7 @@ const Soknader = ({ ledetekster = {}, soknader = [] }) => {
 
 Soknader.propTypes = {
     ledetekster: PropTypes.object.isRequired,
-    soknader: PropTypes.array,
+    soknader: PropTypes.arrayOf(sykepengesoknadPt),
 };
 
 export default Soknader;

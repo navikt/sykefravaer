@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 const StartIgjen = ({ sykepengesoknad }) => {
     return (<div className="panel">
@@ -11,9 +12,7 @@ const StartIgjen = ({ sykepengesoknad }) => {
 };
 
 StartIgjen.propTypes = {
-    sykepengesoknad: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-    }),
+    sykepengesoknad: sykepengesoknadPt,
 };
 
 export default StartIgjen;

@@ -8,6 +8,7 @@ import { Soknad, Varselstripe, getLedetekst } from 'digisyfo-npm';
 import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
 import { Field } from 'redux-form';
 import validate from '../validering/validerOppsummering';
+import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 export const SendingFeilet = () => {
     return (<div className="panel panel--komprimert">
@@ -52,7 +53,7 @@ export const OppsummeringSide = (props) => {
 };
 
 OppsummeringSide.propTypes = {
-    sykepengesoknad: PropTypes.object,
+    sykepengesoknad: sykepengesoknadPt,
     handleSubmit: PropTypes.func,
     skjemasoknad: PropTypes.object,
     ledetekster: PropTypes.object,

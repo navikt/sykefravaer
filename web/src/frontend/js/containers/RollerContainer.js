@@ -5,6 +5,7 @@ import AppSpinner from '../components/AppSpinner';
 import { connect } from 'react-redux';
 import { Feilmelding } from '../components/Feilmelding';
 import { getLedetekst } from 'digisyfo-npm';
+import { brodsmuler as brodsmulePt } from '../propTypes';
 
 export const RollerSide = ({ ledetekster, brodsmuler, henter, hentingFeilet }) => {
     return (<Side brodsmuler={brodsmuler} tittel={getLedetekst('roller.sidetittel', ledetekster.data)}>
@@ -25,7 +26,7 @@ export const RollerSide = ({ ledetekster, brodsmuler, henter, hentingFeilet }) =
 
 RollerSide.propTypes = {
     ledetekster: PropTypes.object,
-    brodsmuler: PropTypes.array,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     hentingFeilet: PropTypes.bool,
     henter: PropTypes.bool,
 };

@@ -8,6 +8,7 @@ import Feilmelding from '../components/Feilmelding';
 import { destroy } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { SYKEPENGER_SKJEMANAVN } from '../components/sykepengesoknad/setup';
+import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt } from '../propTypes';
 
 export const SoknaderSide = ({ ledetekster, brodsmuler, henter, hentingFeilet, sykepengesoknader, actions }) => {
     actions.destroy(SYKEPENGER_SKJEMANAVN);
@@ -30,10 +31,10 @@ export const SoknaderSide = ({ ledetekster, brodsmuler, henter, hentingFeilet, s
 
 SoknaderSide.propTypes = {
     ledetekster: PropTypes.object,
-    brodsmuler: PropTypes.array,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    sykepengesoknader: PropTypes.array,
+    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     actions: PropTypes.object.isRequired,
 };
 

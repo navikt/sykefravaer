@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Lightbox from '../Lightbox';
 import BekreftFeilLederContainer from '../../containers/BekreftFeilLederContainer';
+import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 
 export default class NaermesteLedere extends Component {
     constructor(props) {
@@ -62,6 +63,6 @@ export default class NaermesteLedere extends Component {
 }
 
 NaermesteLedere.propTypes = {
-    ledere: PropTypes.array,
+    ledere: PropTypes.arrayOf(naermesteLederPt),
     ledetekster: PropTypes.object,
 };

@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/ledere_actions';
 import { Varselstripe } from 'digisyfo-npm';
+import { naermesteLeder as naermesteLederPt } from '../propTypes';
 
 export class LederAvkreftet extends Component {
     componentDidMount() {
@@ -55,7 +56,7 @@ export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftF
 };
 
 BekreftFeil.propTypes = {
-    leder: PropTypes.object,
+    leder: naermesteLederPt,
     onAvbryt: PropTypes.func,
     avkreftLeder: PropTypes.func,
     avkrefter: PropTypes.bool,

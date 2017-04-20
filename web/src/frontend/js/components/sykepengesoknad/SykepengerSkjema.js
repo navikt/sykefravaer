@@ -3,6 +3,7 @@ import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Sidetopp from '../Sidetopp';
 import Stegindikator from './Stegindikator';
 import { getLedetekst } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 const SykepengerSkjema = ({ children, aktivtSteg, tittel, sykepengesoknad, ledetekster }) => {
     return (<div>
@@ -18,7 +19,7 @@ SykepengerSkjema.propTypes = {
     children: PropTypes.element.isRequired,
     aktivtSteg: PropTypes.string,
     tittel: PropTypes.string,
-    sykepengesoknad: PropTypes.object,
+    sykepengesoknad: sykepengesoknadPt,
     ledetekster: PropTypes.object,
 };
 

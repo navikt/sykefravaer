@@ -6,6 +6,7 @@ import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import { Feilmelding } from '../components/Feilmelding';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
+import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes';
 
 let printTrigget = false;
 
@@ -48,9 +49,9 @@ class SkrivUt extends Component {
 }
 
 SkrivUt.propTypes = {
-    sykmelding: PropTypes.object,
+    sykmelding: sykmeldingPt,
     ledetekster: PropTypes.object,
-    brodsmuler: PropTypes.array,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     dispatch: PropTypes.func,

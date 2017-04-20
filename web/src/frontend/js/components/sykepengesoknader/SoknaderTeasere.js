@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import SoknaderTeaser from './SoknaderTeaser';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 const SoknaderTeasere = ({ soknader, ledetekster, className, tittel = '', tomListeTekst, id }) => {
     return (<div className="blokk--l">
@@ -17,7 +18,7 @@ const SoknaderTeasere = ({ soknader, ledetekster, className, tittel = '', tomLis
 };
 
 SoknaderTeasere.propTypes = {
-    soknader: PropTypes.array,
+    soknader: PropTypes.arrayOf(sykepengesoknadPt),
     ledetekster: PropTypes.object,
     className: PropTypes.string,
     tittel: PropTypes.string,

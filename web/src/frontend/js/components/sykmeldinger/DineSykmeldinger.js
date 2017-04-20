@@ -4,6 +4,7 @@ import { getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerE
 import SykmeldingerSorteringContainer from '../../containers/SykmeldingerSorteringContainer';
 import Sidetopp from '../Sidetopp';
 import { NY } from '../../enums/sykmeldingstatuser';
+import { sykmelding as sykmeldingPt } from '../../propTypes';
 
 const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, sortering }) => {
     const nyeSykmeldinger = sykmeldinger.filter((sykmld) => {
@@ -41,7 +42,7 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, sortering }) =>
 };
 
 DineSykmeldinger.propTypes = {
-    sykmeldinger: PropTypes.array.isRequired,
+    sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     ledetekster: PropTypes.object.isRequired,
     sortering: PropTypes.object,
 };

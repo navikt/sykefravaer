@@ -5,6 +5,7 @@ import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
 import { tidligsteFom, senesteTom } from '../../utils/periodeUtils';
 import { NY } from '../../enums/sykmeldingstatuser';
+import { sykmelding as sykmeldingPt, sykmeldingperiode } from '../../propTypes';
 
 const PeriodeListe = ({ perioder, arbeidsgiver, ledetekster }) => {
     return (<ul className="teaser-punktliste js-perioder">
@@ -17,7 +18,7 @@ const PeriodeListe = ({ perioder, arbeidsgiver, ledetekster }) => {
 PeriodeListe.propTypes = {
     arbeidsgiver: PropTypes.string,
     ledetekster: PropTypes.object,
-    perioder: PropTypes.array,
+    perioder: PropTypes.arrayOf(sykmeldingperiode),
 };
 
 class SykmeldingTeaser extends Component {
@@ -87,7 +88,7 @@ class SykmeldingTeaser extends Component {
 }
 
 SykmeldingTeaser.propTypes = {
-    sykmelding: PropTypes.object.isRequired,
+    sykmelding: sykmeldingPt,
     ledetekster: PropTypes.object,
 };
 

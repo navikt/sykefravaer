@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import StatusPanel from '../StatusPanel';
 import { Utvidbar, getLedetekst, DineSykmeldingOpplysninger } from 'digisyfo-npm';
 import { STATUS } from '../../enums/nokkelopplysninger';
+import { sykmelding as sykmeldingPt } from '../../propTypes';
 
 const DinBekreftedeSykmelding = ({ sykmelding, ledetekster }) => {
     return (<div>
@@ -21,7 +22,7 @@ const DinBekreftedeSykmelding = ({ sykmelding, ledetekster }) => {
 
 DinBekreftedeSykmelding.propTypes = {
     ledetekster: PropTypes.object,
-    sykmelding: PropTypes.object,
+    sykmelding: sykmeldingPt,
 };
 
 export default DinBekreftedeSykmelding;

@@ -104,7 +104,7 @@ export const moteBesvartAlleAlternativer = getMote({
     "type": "Bruker",
     "svartidspunkt": new Date("2017-02-26T12:57:11.906"),
     "svar": [{
-      "id": "random - lagt inn for å sikre at det hentes ut riktig svar basert på ID",
+      "id": 4635431321385684,
       "tid": new Date("2017-03-08T12:57:11.906"),
       "created": new Date("2017-02-23T12:57:11.906"),
       "sted": "Sannergata 2",

@@ -4,6 +4,7 @@ import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
 import { getLedetekst, Utvidbar, DineSykmeldingOpplysninger } from 'digisyfo-npm';
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../enums/nokkelopplysninger';
 import Sidetopp from '../Sidetopp';
+import { sykmelding as sykmeldingPt } from '../../propTypes';
 
 const DinSendteSykmelding = ({ dinSykmelding, ledetekster, arbeidsgiversSykmelding }) => {
     return (<div>
@@ -28,8 +29,8 @@ const DinSendteSykmelding = ({ dinSykmelding, ledetekster, arbeidsgiversSykmeldi
 
 DinSendteSykmelding.propTypes = {
     ledetekster: PropTypes.object,
-    dinSykmelding: PropTypes.object,
-    arbeidsgiversSykmelding: PropTypes.object,
+    dinSykmelding: sykmeldingPt,
+    arbeidsgiversSykmelding: sykmeldingPt,
 };
 
 export default DinSendteSykmelding;

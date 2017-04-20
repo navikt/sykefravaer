@@ -8,6 +8,7 @@ import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import AvbrytDialog from './AvbrytDialog';
 import { PERIODE, SYKMELDINGSGRAD } from '../../enums/feilaktigeOpplysninger';
 import { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
+import { sykmelding as sykmeldingPt } from '../../propTypes';
 
 const modi = {
     GA_VIDERE: 'GA_VIDERE',
@@ -205,7 +206,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
 }
 
 DinSykmeldingSkjemaComponent.propTypes = {
-    sykmelding: PropTypes.object,
+    sykmelding: sykmeldingPt,
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
     avbryter: PropTypes.bool,

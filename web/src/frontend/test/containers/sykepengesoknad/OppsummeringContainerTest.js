@@ -11,6 +11,7 @@ import OppsummeringContainer, { Controller } from '../../../js/containers/sykepe
 import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 import Kvittering from '../../../js/components/sykepengesoknad/Kvittering';
 import StartIgjen from '../../../js/components/sykepengesoknad/StartIgjen';
+import { getSoknad } from '../../mockSoknader';
 
 describe("OppsummeringContainer", () => {
 
@@ -35,23 +36,23 @@ describe("OppsummeringContainer", () => {
         });
 
         it("SKal vise StartIgjen hvis skjemasoknad ikke finnes", () => {
-            const containerComponent = shallow(<Controller sykepengesoknad={{}} />)
+            const containerComponent = shallow(<Controller sykepengesoknad={getSoknad({})} />)
             expect(containerComponent.find(StartIgjen)).to.have.length(1);
         })
 
         it("Skal vise Kvittering hvis søknad har status SENDT", () => {
-            const sykepengesoknad = {
+            const sykepengesoknad = getSoknad({
                 status: "SENDT",
-            }
+            })
             const containerComponent = shallow(<Controller sykepengesoknad={sykepengesoknad} skjemasoknad={skjemasoknad} />)
             expect(containerComponent.find(Kvittering)).to.have.length(1);
             expect(containerComponent.find(OppsummeringSkjema)).to.have.length(0);
         });
 
         it("Skal vise OppsummeringSkjema hvis søknad har status = NY", () => {
-            const sykepengesoknad = {
+            const sykepengesoknad = getSoknad({
                 status: "NY",
-            }
+            });
             const containerComponent = shallow(<Controller sykepengesoknad={sykepengesoknad} skjemasoknad={skjemasoknad} />)
             expect(containerComponent.find(Kvittering)).to.have.length(0);
             expect(containerComponent.find(OppsummeringSkjema)).to.have.length(1);

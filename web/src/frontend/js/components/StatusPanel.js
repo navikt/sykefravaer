@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import StatusOpplysning from './StatusOpplysning';
 import { Varselstripe } from 'digisyfo-npm';
+import { sykmelding as sykmeldingPt } from '../propTypes';
 
 const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger, type }) => {
     const html = nokkelopplysninger.map((rad, index1) => {
@@ -23,7 +24,7 @@ const StatusPanel = ({ sykmelding, ledetekster, nokkelopplysninger, type }) => {
 };
 
 StatusPanel.propTypes = {
-    sykmelding: PropTypes.object,
+    sykmelding: sykmeldingPt,
     type: PropTypes.string,
     nokkelopplysninger: PropTypes.array,
     ledetekster: PropTypes.object,

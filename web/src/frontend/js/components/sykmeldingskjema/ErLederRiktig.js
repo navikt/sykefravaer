@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import Radioknapper from '../skjema/Radioknapper';
+import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 
 export const RendreErLederRiktig = ({ input, meta, ledetekster, naermesteLeder }) => {
     const alternativer = [{
@@ -38,7 +39,7 @@ RendreErLederRiktig.propTypes = {
     input: PropTypes.object,
     meta: PropTypes.object,
     ledetekster: PropTypes.object,
-    naermesteLeder: PropTypes.object,
+    naermesteLeder: naermesteLederPt,
 };
 
 const ErLederRiktig = (props) => {
@@ -53,12 +54,7 @@ const ErLederRiktig = (props) => {
 
 ErLederRiktig.propTypes = {
     skjemaData: PropTypes.object,
-    naermesteLeder: PropTypes.shape({
-        navn: PropTypes.string,
-        epost: PropTypes.string,
-        tlf: PropTypes.string,
-        organisasjonsnavn: PropTypes.string,
-    }),
+    naermesteLeder: naermesteLederPt,
     ledetekster: PropTypes.object,
 };
 

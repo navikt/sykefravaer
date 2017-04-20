@@ -7,6 +7,7 @@ import { FieldArray, Field } from 'redux-form';
 import Feilomrade from '../../skjema/Feilomrade';
 import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import * as periodeUtils from '../../../utils/periodeUtils';
+import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 export const SoktOmSykepenger = ({ ledetekster }) => {
     return (<Field
@@ -103,7 +104,7 @@ const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, ledetekster }) =
 };
 
 FeriePermisjonEllerUtenlandsopphold.propTypes = {
-    sykepengesoknad: PropTypes.object,
+    sykepengesoknad: sykepengesoknadPt,
     ledetekster: PropTypes.object,
 };
 

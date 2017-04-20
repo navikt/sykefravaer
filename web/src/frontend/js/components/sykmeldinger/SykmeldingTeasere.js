@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import SykmeldingTeaser from './SykmeldingTeaser';
+import { sykmelding as sykmeldingPt } from '../../propTypes';
 
 const SykmeldingTeasere = ({ sykmeldinger, ledetekster, className, tittel = '', ingenSykmeldingerMelding, id, children }) => {
     return (<div className="blokk--l">
@@ -18,7 +19,7 @@ const SykmeldingTeasere = ({ sykmeldinger, ledetekster, className, tittel = '', 
 };
 
 SykmeldingTeasere.propTypes = {
-    sykmeldinger: PropTypes.array,
+    sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     ledetekster: PropTypes.object,
     className: PropTypes.string,
     tittel: PropTypes.string,

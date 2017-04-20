@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getSykmelding } from 'digisyfo-npm';
 import ArbeidsgiversSykmelding from '../components/sykmelding/ArbeidsgiversSykmelding';
+import { sykmelding as sykmeldingPt } from '../propTypes';
 
 const ArbeidsgiversSykmeldingWrapper = ({ sykmelding, ledetekster, Overskrift }) => {
     if (sykmelding) {
@@ -13,7 +14,7 @@ const ArbeidsgiversSykmeldingWrapper = ({ sykmelding, ledetekster, Overskrift })
 };
 
 ArbeidsgiversSykmeldingWrapper.propTypes = {
-    sykmelding: PropTypes.object,
+    sykmelding: sykmeldingPt,
     ledetekster: PropTypes.object,
     Overskrift: PropTypes.string,
 };

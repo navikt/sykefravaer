@@ -8,7 +8,7 @@ const sykmelding = {
     arbeidsgiver: "Selskapet AS",
     orgnummer: "123456789",
     status: 'NY',
-    identdato: { year: 2015, monthValue: 12, dayOfMonth: 31 },
+    identdato: "2015-12-31",
     diagnose: {
         hoveddiagnose: {
             diagnose: "Influensa",
@@ -18,8 +18,8 @@ const sykmelding = {
     },
     mulighetForArbeid: {
         perioder: [{
-            fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-            tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+            fom: "2015-12-31",
+            tom: "2016-01-06",
             grad: 67
         }],
     },
@@ -32,7 +32,7 @@ const sykmelding = {
     tilbakedatering: {},
     bekreftelse: {
         sykmelder: "Ove Olsen",
-        utstedelsesdato: { year: 2016, monthValue: 5, dayOfMonth: 2 }
+        utstedelsesdato: "2016-05-02"
     },
 };
 

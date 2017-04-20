@@ -9,6 +9,7 @@ import FeriePermisjonEllerUtenlandsopphold from './FeriePermisjonEllerUtenlandso
 import Knapperad from '../../skjema/Knapperad';
 import validerFravaerOgFriskmelding from '../validering/validerFravaerOgFriskmelding';
 import { getLedetekst } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 const FravaerOgFriskmelding = ({ handleSubmit, sykepengesoknad, ledetekster }) => {
     const onSubmit = () => {
@@ -35,7 +36,7 @@ const FravaerOgFriskmelding = ({ handleSubmit, sykepengesoknad, ledetekster }) =
 
 FravaerOgFriskmelding.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
-    sykepengesoknad: PropTypes.object.isRequired,
+    sykepengesoknad: sykepengesoknadPt,
     ledetekster: PropTypes.object,
 };
 

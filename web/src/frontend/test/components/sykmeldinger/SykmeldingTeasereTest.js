@@ -11,15 +11,15 @@ import SykmeldingTeasere from "../../../js/components/sykmeldinger/SykmeldingTea
 import SykmeldingerSorteringContainer from "../../../js/containers/SykmeldingerSorteringContainer";
 
 const sykmeldinger = [{
-    id: 1,
+    id: "1",
     fnr: "12",
     fornavn: "Per",
     etternavn: "Person",
     sykmelder: "Ove Olsen",
     arbeidsgiver: "Selskapet AS",
     perioder: [{
-        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+        fom: "2015-12-31",
+        tom: "2016-01-06",
         grad: 67
     }],
     hoveddiagnose: {
@@ -29,15 +29,15 @@ const sykmeldinger = [{
     },
     arbeidsfoerEtterPerioden: true
 }, {
-    id: 2,
+    id: "2",
     fnr: "12",
     fornavn: "Per",
     etternavn: "Person",
     sykmelder: "Ove Olsen",
     arbeidsgiver: "Selskapet AS",
     perioder: [{
-        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+        fom: "2015-12-31",
+        tom: "2016-01-06",
         grad: 67
     }],
     hoveddiagnose: {
@@ -47,15 +47,15 @@ const sykmeldinger = [{
     },
     arbeidsfoerEtterPerioden: true
 }, {
-    id: 3,
+    id: "3",
     fnr: "12",
     fornavn: "Per",
     etternavn: "Person",
     sykmelder: "Ove Olsen",
     arbeidsgiver: "Selskapet AS",
     perioder: [{
-        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+        fom: "2015-12-31",
+        tom: "2016-01-06",
         grad: 67
     }],
     hoveddiagnose: {

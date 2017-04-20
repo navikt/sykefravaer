@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Sidetopp from '../Sidetopp';
 import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 const UtgaattSoknad = ({ ledetekster, sykepengesoknad }) => {
     return (<div>
@@ -17,7 +18,7 @@ const UtgaattSoknad = ({ ledetekster, sykepengesoknad }) => {
 
 UtgaattSoknad.propTypes = {
     ledetekster: PropTypes.object,
-    sykepengesoknad: PropTypes.object,
+    sykepengesoknad: sykepengesoknadPt,
 };
 
 export default UtgaattSoknad;

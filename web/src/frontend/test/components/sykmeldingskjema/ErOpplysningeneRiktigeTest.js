@@ -72,7 +72,12 @@ describe("ErOpplysningeneRiktige -", () => {
 
             const fields = ['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre'];
 
-            skjemaData.values = Object.assign({}, skjemaData.values, { feilaktigeOpplysninger: { arbeidsgiver: true }});
+            skjemaData.values = Object.assign({}, skjemaData.values, {
+                feilaktigeOpplysninger: [{
+                    opplysning: 'arbeidsgiver', 
+                    avkrysset: true
+                }] 
+            });
             const comp = shallow(<RenderFeilaktigeOpplysninger fields={fields} ledetekster={{}} meta={meta} skjemaData={skjemaData} />);
 
             expect(comp.find(SykmeldingFeilaktigeOpplysningerInfo)).to.be.length(1);

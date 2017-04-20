@@ -10,6 +10,7 @@ const expect = chai.expect;
 import Landingsside, { GenerellInfo } from "../../../js/components/landingsside/Landingsside";
 import LandingssideLenke from "../../../js/components/landingsside/LandingssideLenke";
 import UnderUtviklingVarselContainer from "../../../js/containers/UnderUtviklingVarselContainer"
+import { getSoknad } from '../../mockSoknader';
 
 describe("Landingsside", () => {
 
@@ -36,7 +37,7 @@ describe("Landingsside", () => {
     });
 
     it("Skal vise lenkeboks til soknader om vi har en soknad", () => {
-        component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={true} sykepengesoknader={[{id: 1}]}/>);
+        component = shallow(<Landingsside ledetekster={ledetekster} skjulVarsel={true} sykepengesoknader={[getSoknad()]}/>);
         expect(component.find(LandingssideLenke)).to.have.length(3);
     });
 

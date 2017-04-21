@@ -50,9 +50,9 @@ export default class NaermesteLedere extends Component {
                         </div>
                         <div className="leder__handlinger">
                             {
-                                !leder.avkreftet && <button ref={`js-leder-${leder.orgnummer}`} type="button" className="rammeknapp rammeknapp--mini js-feil" onClick={() => {
+                                !leder.avkreftet && <button ref={`js-leder-${leder.orgnummer}`} type="button" className="lenke leder__meldFeil js-feil" onClick={() => {
                                     this.apneLightbox(leder);
-                                }}>Dette er feil</button>
+                                }}>Meld feil</button>
                             }
                         </div>
                     </div>);

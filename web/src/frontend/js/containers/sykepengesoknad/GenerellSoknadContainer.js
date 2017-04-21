@@ -35,7 +35,6 @@ GenerellSoknad.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    ledetekster: PropTypes.object,
     Component: PropTypes.func.isRequired,
 };
 
@@ -53,7 +52,6 @@ export const mapStateToProps = (state, ownProps) => {
         })[0],
         henter: state.sykepengesoknader.henter || state.ledetekster.henter,
         hentingFeilet: state.sykepengesoknader.hentingFeilet || state.sykepengesoknader.hentingFeilet,
-        ledetekster: state.ledetekster.data,
         skjemasoknad,
         sender: state.sykepengesoknader.sender,
         sendingFeilet: state.sykepengesoknader.sendingFeilet,

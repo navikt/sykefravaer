@@ -18,17 +18,17 @@ const getArbeidssituasjoner = (arbeidssituasjon) => {
 };
 
 export const RendreVelgArbeidssituasjon = (props) => {
-    const { input, meta, ledetekster } = props;
+    const { input, meta } = props;
     return (
         <div>
             <div className="medHjelpetekst">
                 <label htmlFor="select-arbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
-                    {getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster)}
+                    {getLedetekst('din-sykmelding.arbeidssituasjon.tittel')}
                 </label>
                 <Hjelpetekst
                     id="velg-arbeidssituasjon-hjelpetekst"
-                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tittel', ledetekster)}
-                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tekst', ledetekster)} />
+                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tittel')}
+                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tekst')} />
             </div>
             <div className="selectContainer">
                 <select {...input} className={meta.error && meta.touched ? 'input--feil' : ''}>
@@ -55,14 +55,12 @@ export const Velg = (props) => {
 RendreVelgArbeidssituasjon.propTypes = {
     input: PropTypes.object,
     meta: PropTypes.object,
-    ledetekster: PropTypes.object,
 };
 
 const VelgArbeidssituasjon = (props) => {
-    const { ledetekster, untouch, arbeidsgivere, sykmelding, pilotSykepenger } = props;
+    const { untouch, arbeidsgivere, sykmelding, pilotSykepenger } = props;
 
     return (<Field
-        ledetekster={ledetekster}
         arbeidsgivere={arbeidsgivere}
         pilotSykepenger={pilotSykepenger}
         sykmelding={sykmelding}
@@ -74,7 +72,6 @@ const VelgArbeidssituasjon = (props) => {
 };
 
 VelgArbeidssituasjon.propTypes = {
-    ledetekster: PropTypes.object,
     untouch: PropTypes.func,
     arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
     sykmelding: sykmeldingPt,

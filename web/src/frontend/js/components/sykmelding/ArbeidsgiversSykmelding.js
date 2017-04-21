@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { ArbeidsgiversSykmeldingOpplysninger, Utvidbar } from 'digisyfo-npm';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 
-const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster, Overskrift = 'H2', erApen = false }) => {
+const ArbeidsgiversSykmelding = ({ sykmelding, Overskrift = 'H2', erApen = false }) => {
     return (<Utvidbar
         tittel="Dette får arbeidsgiveren din se"
         ikon="svg/arbeidsgiver.svg"
@@ -11,13 +11,12 @@ const ArbeidsgiversSykmelding = ({ sykmelding, ledetekster, Overskrift = 'H2', e
         erApen={erApen}
         variant="lilla"
         Overskrift={Overskrift}>
-            <ArbeidsgiversSykmeldingOpplysninger sykmelding={sykmelding} ledetekster={ledetekster} />
+            <ArbeidsgiversSykmeldingOpplysninger sykmelding={sykmelding} />
     </Utvidbar>);
 };
 
 ArbeidsgiversSykmelding.propTypes = {
     sykmelding: sykmeldingPt,
-    ledetekster: PropTypes.object,
     Overskrift: PropTypes.string,
     erApen: PropTypes.bool,
 };

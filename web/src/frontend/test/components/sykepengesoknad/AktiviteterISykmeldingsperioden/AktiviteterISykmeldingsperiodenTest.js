@@ -17,6 +17,7 @@ import { Link } from 'react-router';
 import ledetekster from '../../../mockLedetekster';
 
 import { getSoknad } from '../../../mockSoknader';
+import { setLedetekster } from 'digisyfo-npm';
 
 describe("AktiviteterISykmeldingsperioden", () => {
 
@@ -33,7 +34,6 @@ describe("AktiviteterISykmeldingsperioden", () => {
         autofill = sinon.spy();
         untouch = sinon.spy();
         component = shallow(<AktiviteterISykmeldingsperioden
-            ledetekster={ledetekster}
             sykepengesoknad={sykepengesoknad}
             handleSubmit={handleSubmit}
             autofill={autofill}
@@ -45,7 +45,6 @@ describe("AktiviteterISykmeldingsperioden", () => {
         expect(arr.prop("component")).to.deep.equal(Aktiviteter);
         expect(arr.prop("fields")).to.deep.equal(sykepengesoknad.aktiviteter);
         expect(arr.prop("name")).to.equal("aktiviteter");
-        expect(arr.prop("ledetekster")).to.deep.equal(ledetekster);
         expect(arr.prop("arbeidsgiver")).to.equal("BYGGMESTER BLOM AS")
         expect(arr.prop("autofill")).to.deep.equal(autofill);
         expect(arr.prop("untouch")).to.deep.equal(untouch);
@@ -94,7 +93,8 @@ describe("AktiviteterISykmeldingsperioden", () => {
         beforeEach(() =>  {
             tidligsteFom = new Date("2017-01-20");
             senesteTom = new Date("2017-01-30");
-            component = shallow(<UtdanningStartDato ledetekster={ledetekster} senesteTom={senesteTom} />)
+            setLedetekster(ledetekster);
+            component = shallow(<UtdanningStartDato senesteTom={senesteTom} />)
         });
 
         it("Skal inneholde Datovelger uten tidligsteFom men med senesteTom", () => {

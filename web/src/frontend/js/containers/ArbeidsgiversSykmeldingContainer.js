@@ -4,10 +4,10 @@ import { getSykmelding } from 'digisyfo-npm';
 import ArbeidsgiversSykmelding from '../components/sykmelding/ArbeidsgiversSykmelding';
 import { sykmelding as sykmeldingPt } from '../propTypes';
 
-const ArbeidsgiversSykmeldingWrapper = ({ sykmelding, ledetekster, Overskrift }) => {
+const ArbeidsgiversSykmeldingWrapper = ({ sykmelding, Overskrift }) => {
     if (sykmelding) {
         return (<div className="blokk">
-            <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} Overskrift={Overskrift} />
+            <ArbeidsgiversSykmelding sykmelding={sykmelding} Overskrift={Overskrift} />
         </div>);
     }
     return null;
@@ -15,7 +15,6 @@ const ArbeidsgiversSykmeldingWrapper = ({ sykmelding, ledetekster, Overskrift })
 
 ArbeidsgiversSykmeldingWrapper.propTypes = {
     sykmelding: sykmeldingPt,
-    ledetekster: PropTypes.object,
     Overskrift: PropTypes.string,
 };
 
@@ -31,7 +30,6 @@ export const mapStateToProps = (state, ownProps) => {
 
     return {
         sykmelding,
-        ledetekster: state.ledetekster.data,
         Overskrift: ownProps.Overskrift,
     };
 };

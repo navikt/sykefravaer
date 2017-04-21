@@ -20,7 +20,7 @@ describe("SykmeldingTeaser", () => {
                 }],
             }
         };
-        const teaser = shallow(<SykmeldingTeaser sykmelding={getSykmelding(sykmelding)} ledetekster={ledetekster}/>);
+        const teaser = shallow(<SykmeldingTeaser sykmelding={getSykmelding(sykmelding)} />);
         expect(teaser.find(".js-title").text()).to.contain("fra 02.02.2016 til 16.02.2016");
         expect(teaser.find(".js-title").text()).to.contain("Sykmelding");
     });
@@ -35,7 +35,7 @@ describe("SykmeldingTeaser", () => {
                 }],
             },
             arbeidsgiver: "Bekk Consulting AS",
-        })} ledetekster={ledetekster}/>);
+        })} />);
 
         expect(teaser.find(".js-periode").text()).to.contain("Bekk Consulting AS")
     });
@@ -43,7 +43,7 @@ describe("SykmeldingTeaser", () => {
     it("Viser ikke arbeidsgiver dersom arbeidsgiver ikke finnes", function() {
         const teaser = mount(<SykmeldingTeaser sykmelding={getSykmelding({
             arbeidsgiver: null
-        })} ledetekster={ledetekster} />);
+        })}  />);
         expect(teaser.text()).to.not.contain("fra null")
     });
 
@@ -56,7 +56,7 @@ describe("SykmeldingTeaser", () => {
                     grad: null
                 }]
             }
-        })} ledetekster={ledetekster} />);
+        })}  />);
         expect(teaser.text()).to.not.contain("Du er null %")
     });    
 

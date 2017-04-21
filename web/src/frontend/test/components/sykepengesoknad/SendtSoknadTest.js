@@ -12,7 +12,7 @@ import Statuspanel from '../../../js/components/sykepengesoknad/Statuspanel';
 import { Avkrysset } from '../../../js/components/sykepengesoknad/SendtSoknad';
 import  { getSoknad } from '../../mockSoknader';
 import ledetekster from '../../mockLedetekster';
-import { Varselstripe } from 'digisyfo-npm';
+import { Varselstripe, setLedetekster } from 'digisyfo-npm';
 
 describe("SendtSoknad", () => {
 
@@ -20,7 +20,8 @@ describe("SendtSoknad", () => {
     let sykepengesoknad = getSoknad();
 
     beforeEach(() => {
-        component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />)
+        setLedetekster(ledetekster);
+        component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />)
     });
 
     it("Skal inneholde en Sidetopp", () => {
@@ -28,11 +29,11 @@ describe("SendtSoknad", () => {
     });
 
     it("Skal inneholde et SykmeldingUtdrag", () => {
-        expect(component.contains(<SykmeldingUtdrag ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} />)).to.be.true;
+        expect(component.contains(<SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />)).to.be.true;
     });
 
     it("Skal inneholde en Soknad", () => {
-        expect(component.contains(<Soknad ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} tittel={'Oppsummering'}/>)).to.be.true;
+        expect(component.contains(<Soknad sykepengesoknad={sykepengesoknad} tittel={'Oppsummering'}/>)).to.be.true;
     });
 
     it("Skal inneholde en Avkrysset", () => {
@@ -40,12 +41,12 @@ describe("SendtSoknad", () => {
     });
 
     it("SKal inneholde en Varselstripe", () => {
-        component = mount(<SendtSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />);
+        component = mount(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
         expect(component.find(Varselstripe)).to.have.length(1);
     });
 
     it("Skal inneholde statuspanel", () => {
-        component = mount(<SendtSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />);
+        component = mount(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
         expect(component.find(Statuspanel)).to.have.length(1);
     });
 });

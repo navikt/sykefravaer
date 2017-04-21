@@ -4,27 +4,27 @@ import JaEllerNei from '../JaEllerNei';
 import { toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import AngiTid from './AngiTid';
 
-export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch, ledetekster }) => {
+export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
     const ledetekstPrefix = field.grad === 100 ? 'sykepengesoknad.aktiviteter.ugradert' : 'sykepengesoknad.aktiviteter.gradert';
 
     const hjelpetekst = field.grad !== 100 ? <Hjelpetekst
-        tittel={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tittel', ledetekster)}
-        tekst={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tekst', ledetekster)} /> : null;
+        tittel={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tittel')}
+        tekst={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tekst')} /> : null;
 
     return (<JaEllerNei
         name={`aktiviteter[${index}].jobbetMerEnnPlanlagt`}
-        intro={getLedetekst(`${ledetekstPrefix}.intro`, ledetekster, {
+        intro={getLedetekst(`${ledetekstPrefix}.intro`, {
             '%FOM%': toDatePrettyPrint(field.periode.fom),
             '%TOM%': toDatePrettyPrint(field.periode.tom),
             '%ARBEIDSGIVER%': arbeidsgiver,
             '%ARBEIDSGRAD%': 100 - field.grad,
         })}
-        spoersmal={getLedetekst(`${ledetekstPrefix}.sporsmal`, ledetekster)}
+        spoersmal={getLedetekst(`${ledetekstPrefix}.sporsmal`)}
         hjelpetekst={hjelpetekst}>
         <div>
             <h4 className="skjema__sporsmal">
                 {
-                    getLedetekst('sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet', ledetekster, {
+                    getLedetekst('sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet', {
                         '%ARBEIDSGIVER%': arbeidsgiver,
                     })
                 }
@@ -34,7 +34,6 @@ export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch, ledet
                 untouch={untouch}
                 component={AngiTid}
                 aktivitetIndex={index}
-                ledetekster={ledetekster}
                 names={[
                     `aktiviteter[${index}].avvik.arbeidsgrad`,
                     `aktiviteter[${index}].avvik.timer`,
@@ -51,10 +50,9 @@ Aktivitet.propTypes = {
     arbeidsgiver: PropTypes.string,
     autofill: PropTypes.func,
     untouch: PropTypes.func,
-    ledetekster: PropTypes.object,
 };
 
-const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch, ledetekster }) => {
+const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch }) => {
     return (<div>
         {
             fields.map((field, index) => {
@@ -64,8 +62,7 @@ const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch, ledetekster }) =
                     key={index}
                     arbeidsgiver={arbeidsgiver}
                     autofill={autofill}
-                    untouch={untouch}
-                    ledetekster={ledetekster} />);
+                    untouch={untouch} />);
             })
         }
     </div>);
@@ -76,7 +73,6 @@ Aktiviteter.propTypes = {
     autofill: PropTypes.func,
     untouch: PropTypes.func,
     arbeidsgiver: PropTypes.string,
-    ledetekster: PropTypes.object,
 };
 
 export default Aktiviteter;

@@ -35,35 +35,34 @@ export const tilSendingHjelpetekst = () => {
         tekst={getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tekst')} />);
 };
 
-const SendtSoknad = ({ ledetekster, sykepengesoknad }) => {
+const SendtSoknad = ({ sykepengesoknad }) => {
     const nokkelOpplysninger = [[{
-        tittel: getLedetekst('sykepengesoknad.oppsummering.status.label', ledetekster),
+        tittel: getLedetekst('sykepengesoknad.oppsummering.status.label'),
         opplysning: getStatusTittel(sykepengesoknad.status),
         hjelpetekst: sykepengesoknad.status === TIL_SENDING ? tilSendingHjelpetekst() : null,
     }, {
-        tittel: getLedetekst('sykepengesoknad.oppsummering.dato.label', ledetekster),
+        tittel: getLedetekst('sykepengesoknad.oppsummering.dato.label'),
         opplysning: toDatePrettyPrint(sykepengesoknad.innsendtDato),
     }], [{
-        tittel: getLedetekst('sykepengesoknad.oppsummering.arbeidsgiver.label', ledetekster),
+        tittel: getLedetekst('sykepengesoknad.oppsummering.arbeidsgiver.label'),
         opplysning: sykepengesoknad.arbeidsgiver.navn,
     }, {
-        tittel: getLedetekst('sykepengesoknad.oppsummering.organisasjonsnummer.label', ledetekster),
+        tittel: getLedetekst('sykepengesoknad.oppsummering.organisasjonsnummer.label'),
         opplysning: sykepengesoknad.arbeidsgiver.orgnummer,
     }]];
 
     return (<div>
-        <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel', ledetekster)} />
+        <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
         <Statuspanel opplysninger={nokkelOpplysninger} />
-        <SykmeldingUtdrag ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} />
-        <Soknad ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} tittel={'Oppsummering'} />
+        <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />
+        <Soknad sykepengesoknad={sykepengesoknad} tittel={'Oppsummering'} />
         <div className="bekreftet-container">
-            <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label', ledetekster)} />
+            <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label')} />
         </div>
     </div>);
 };
 
 SendtSoknad.propTypes = {
-    ledetekster: PropTypes.object,
     sykepengesoknad: sykepengesoknadPt,
 };
 

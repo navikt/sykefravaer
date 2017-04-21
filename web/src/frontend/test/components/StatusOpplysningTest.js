@@ -14,22 +14,22 @@ const expect = chai.expect;
 
 describe("StatusOpplysning", () => {
    it("Skal vise hjelpetekst for status === TIL_SENDING", () => {
-       const comp = mount(<StatusOpplysning ledetekster={{}} nokkelopplysning='STATUS' sykmelding={getSykmelding({status: 'TIL_SENDING'})} />);
+       const comp = mount(<StatusOpplysning nokkelopplysning='STATUS' sykmelding={getSykmelding({status: 'TIL_SENDING'})} />);
        expect(comp.find(Hjelpetekst)).to.have.length(1);
    });
 
     it("Skal ikke vise hjelpetekst for status !== TIL_SENDING", () => {
-        const comp = mount(<StatusOpplysning ledetekster={{}} nokkelopplysning='STATUS' sykmelding={getSykmelding({status: 'NY'})} />);
+        const comp = mount(<StatusOpplysning nokkelopplysning='STATUS' sykmelding={getSykmelding({status: 'NY'})} />);
         expect(comp.find(Hjelpetekst)).to.have.length(0);
     });
 
     it("En nøkkelopplysning som finnes i mappingen blir til et SykmeldingNokkelOpplysning - element", () => {
-        component = mount(<StatusOpplysning sykmelding={getSykmelding()} ledetekster={ledetekster} nokkelopplysning={STATUS} />);
+        component = mount(<StatusOpplysning sykmelding={getSykmelding()} nokkelopplysning={STATUS} />);
         expect(component.find(SykmeldingNokkelOpplysning)).to.have.length(1)
     });
 
     it("Ukjent nøkkelattributt vises ikke", () => {
-        component = mount(<StatusOpplysning sykmelding={getSykmelding()} ledetekster={ledetekster} nokkelopplysning={'noe'} />);
+        component = mount(<StatusOpplysning sykmelding={getSykmelding()} nokkelopplysning={'noe'} />);
         expect(component.find(SykmeldingNokkelOpplysning)).to.have.length(0)
     });
 

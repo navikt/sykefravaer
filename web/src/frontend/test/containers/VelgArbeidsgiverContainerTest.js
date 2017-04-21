@@ -100,13 +100,6 @@ describe("VelgArbeidsgiverContainer", () => {
             }]);
         });
 
-        it("Skal returnere ledetekster", () => {
-            const props = mapStateToProps(state, {
-                sykmeldingId: "33"
-            });
-            expect(props.ledetekster).to.deep.equal(ledetekster)
-        });
-
         it("Skal returnere sykmelding", () => {
             const props = mapStateToProps(state, {
                 sykmeldingId: "123"

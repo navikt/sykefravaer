@@ -36,18 +36,17 @@ VelgArbeidssituasjon.propTypes = {
 };
 
 export function mapStateToProps(state, ownProps) {
-    const ledetekster = state.ledetekster.data;
     return {
         valgtArbeidssituasjon: state.brukerinfo.innstillinger.arbeidssituasjon || ownProps.arbeidssituasjon || 'MED_ARBEIDSGIVER',
         arbeidssituasjoner: [{
-            tittel: getLedetekst('tidslinje.filter.med-arbeidsgiver', ledetekster),
+            tittel: getLedetekst('tidslinje.filter.med-arbeidsgiver'),
             verdi: 'MED_ARBEIDSGIVER',
         }, {
-            tittel: getLedetekst('tidslinje.filter.uten-arbeidsgiver', ledetekster),
+            tittel: getLedetekst('tidslinje.filter.uten-arbeidsgiver'),
             verdi: 'UTEN_ARBEIDSGIVER',
             hjelpetekst: {
-                tittel: getLedetekst('tidslinje.filter.med-arbeidsgiver.hjelpetekst.tittel', ledetekster),
-                tekst: getLedetekst('tidslinje.filter.med-arbeidsgiver.hjelpetekst.tekst', ledetekster),
+                tittel: getLedetekst('tidslinje.filter.med-arbeidsgiver.hjelpetekst.tittel'),
+                tekst: getLedetekst('tidslinje.filter.med-arbeidsgiver.hjelpetekst.tekst'),
             },
         }],
     };

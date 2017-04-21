@@ -146,14 +146,6 @@ describe("DinSykmeldingContainer", () => {
             expect(res.hentingFeilet).to.equal(true);
         });
 
-        it("Skal returnere ledetekster", () => {
-            state.ledetekster = {
-                data: ledetekster
-            };
-            const res = mapStateToProps(state, ownProps);
-            expect(res.ledetekster).to.deep.equal(ledetekster);
-        });
-
         describe("Dersom dinSykmelding.status === 'SENDT'", () => {
 
             beforeEach(() => {
@@ -408,14 +400,14 @@ describe("DinSykmeldingContainer", () => {
         });
 
         it("Skal vise AppSpinner når siden laster", () => {
-            let component = shallow(<DinSykmldSide henter={true} dinSykmelding={sykmelding} ledetekster={state.ledetekster.data}
+            let component = shallow(<DinSykmldSide henter={true} dinSykmelding={sykmelding}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.find(AppSpinner)).to.have.length(1);
         }); 
 
         it("Skal vise Feilmelding hvis noe feiler", () => {
-            let component = shallow(<DinSykmldSide hentingFeilet={true} dinSykmelding={sykmelding} ledetekster={state.ledetekster.data}
+            let component = shallow(<DinSykmldSide hentingFeilet={true} dinSykmelding={sykmelding}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.contains(<Feilmelding />)).to.equal(true);
@@ -423,7 +415,7 @@ describe("DinSykmeldingContainer", () => {
 
         it("Skal vise feilmelding dersom sykmeldingen ikke finnes", () => {
             let sykmelding = undefined;
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster.data}
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.find(Feilmelding)).to.have.length(1);
@@ -431,7 +423,7 @@ describe("DinSykmeldingContainer", () => {
 
         it("Skal vise sykmelding dersom den finnes", () => {
             let sykmelding = sykmeldinger[1];
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster.data}
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.find(DinSykmelding)).to.have.length(1);
@@ -445,7 +437,7 @@ describe("DinSykmeldingContainer", () => {
             let arbeidsgiversSykmelding = {
                 id: "arbeidsgivers-syk"
             }
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster.data}
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.find(DinSendteSykmelding)).to.have.length(1);
@@ -459,7 +451,7 @@ describe("DinSykmeldingContainer", () => {
             let arbeidsgiversSykmelding = {
                 id: "arbeidsgivers-sykmelding-id",
             }
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster.data}
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.find(DinAvbrutteSykmelding)).to.have.length(1);
@@ -473,7 +465,7 @@ describe("DinSykmeldingContainer", () => {
             let arbeidsgiversSykmelding = {
                 id: "arbeidsgivers-sykmelding-id"
             }
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster.data}
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.find(DinBekreftedeSykmelding)).to.have.length(1);
@@ -488,15 +480,15 @@ describe("DinSykmeldingContainer", () => {
             let arbeidsgiversSykmelding = {
                 id: "arbeidsgivers-sykmelding-id"
             }
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster.data}
+            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
-            expect(component.contains(<DinBekreftedeSykmelding dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} ledetekster={state.ledetekster.data} />)).to.be.true;
+            expect(component.contains(<DinBekreftedeSykmelding dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} />)).to.be.true;
         }); 
 
         it("Skal hente aktuelle arbeidsgivere, arbeidsgivers sykmeldinger og sykepengepilot", () => {
             let sykmelding = sykmeldinger[1];
-            shallow(<DinSykmldSide dinSykmelding={sykmelding} ledetekster={state.ledetekster.data}
+            shallow(<DinSykmldSide dinSykmelding={sykmelding}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
                                                    hentPilotSykepenger={hentPilotSykepenger} sykmeldingId={"1"} />)
             expect(hentAktuelleArbeidsgivere.calledWith("1")).to.be.true;

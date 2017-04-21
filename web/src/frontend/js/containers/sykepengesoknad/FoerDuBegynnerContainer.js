@@ -12,9 +12,9 @@ import { NY, SENDT, UTGAATT, TIL_SENDING } from '../../enums/sykepengesoknadstat
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export const Controller = (props) => {
-    const { sykepengesoknad, ledetekster, vedlikehold } = props;
+    const { sykepengesoknad, vedlikehold } = props;
     if (vedlikehold.datospennMedTid) {
-        return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel', ledetekster)} melding={getLedetekst('under-vedlikehold.varsel.tekst', ledetekster, {
+        return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel')} melding={getLedetekst('under-vedlikehold.varsel.tekst', {
             '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
             '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
         })} />);
@@ -24,10 +24,10 @@ export const Controller = (props) => {
         return <FoerDuBegynner {...props} />;
     }
     if (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) {
-        return <SendtSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />;
+        return <SendtSoknad sykepengesoknad={sykepengesoknad} />;
     }
     if (sykepengesoknad.status === UTGAATT) {
-        return <UtgaattSoknad sykepengesoknad={sykepengesoknad} ledetekster={ledetekster} />;
+        return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
     }
     return <Feilmelding tittel="Søknaden har ukjent status" />;
 };
@@ -35,7 +35,6 @@ export const Controller = (props) => {
 Controller.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
     skjemasoknad: PropTypes.object,
-    ledetekster: PropTypes.object,
     vedlikehold: PropTypes.shape({
         datospennMedTid: PropTypes.object,
     }),

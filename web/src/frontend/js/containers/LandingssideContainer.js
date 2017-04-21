@@ -10,7 +10,6 @@ import { proptypes as motePropTypes } from 'moter-npm';
 
 export const LandingssideSide = (props) => {
     const {
-        ledetekster,
         brodsmuler,
         skjulVarsel,
         henter,
@@ -18,7 +17,7 @@ export const LandingssideSide = (props) => {
         sykepengesoknader,
         harDialogmote } = props;
     return (
-        <Side tittel={getLedetekst('landingsside.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
+        <Side tittel={getLedetekst('landingsside.sidetittel')} brodsmuler={brodsmuler}>
             {
                 (() => {
                     if (henter) {
@@ -27,7 +26,7 @@ export const LandingssideSide = (props) => {
                     if (hentingFeilet) {
                         return <Feilmelding />;
                     }
-                    return (<Landingsside skjulVarsel={skjulVarsel} ledetekster={ledetekster} sykepengesoknader={sykepengesoknader} harDialogmote={harDialogmote} />);
+                    return (<Landingsside skjulVarsel={skjulVarsel} sykepengesoknader={sykepengesoknader} harDialogmote={harDialogmote} />);
                 })()
             }
         </Side>
@@ -35,7 +34,6 @@ export const LandingssideSide = (props) => {
 };
 
 LandingssideSide.propTypes = {
-    ledetekster: PropTypes.object,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     skjulVarsel: PropTypes.bool,
     henter: PropTypes.bool,
@@ -46,15 +44,13 @@ LandingssideSide.propTypes = {
 };
 
 export function mapStateToProps(state) {
-    const ledetekster = state.ledetekster.data;
     const sykepengesoknader = state.sykepengesoknader.data;
     return {
-        ledetekster,
         henter: state.ledetekster.henter || state.sykepengesoknader.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet,
         skjulVarsel: (state.brukerinfo && state.brukerinfo.innstillinger) ? (state.brukerinfo.innstillinger.skjulUnderUtviklingVarsel === true) : false,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', ledetekster),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
         }],
         sykepengesoknader,

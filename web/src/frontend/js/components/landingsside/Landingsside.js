@@ -16,15 +16,15 @@ export class GenerellInfo extends Component {
     render() {
         return (<article className="panel blokk js-generell-informasjon">
             <h2 className="typo-undertittel">Sykmeldt &mdash; hva nå?</h2>
-            <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('landingsside.generell.informasjon.tekst', this.props.ledetekster)} />
+            <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('landingsside.generell.informasjon.tekst')} />
             <p>
-                <a className="lenke" href={getLedetekst('landingsside.generell.informasjon.lenke1.url', this.props.ledetekster)}>
-                    {getLedetekst('landingsside.generell.informasjon.lenke1.tittel', this.props.ledetekster)}
+                <a className="lenke" href={getLedetekst('landingsside.generell.informasjon.lenke1.url')}>
+                    {getLedetekst('landingsside.generell.informasjon.lenke1.tittel')}
                 </a>
             </p>
             <p>
-                <Link className="lenke" to={getLedetekst('landingsside.generell.informasjon.lenke2.url', this.props.ledetekster)}>
-                    {getLedetekst('landingsside.generell.informasjon.lenke2.tittel', this.props.ledetekster)}
+                <Link className="lenke" to={getLedetekst('landingsside.generell.informasjon.lenke2.url')}>
+                    {getLedetekst('landingsside.generell.informasjon.lenke2.tittel')}
                 </Link>
             </p>
         </article>);
@@ -32,21 +32,17 @@ export class GenerellInfo extends Component {
 
 }
 
-GenerellInfo.propTypes = {
-    ledetekster: PropTypes.object,
-};
-
-const Landingsside = ({ ledetekster = {}, skjulVarsel = false, sykepengesoknader = [], harDialogmote = false }) => {
+const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmote = false }) => {
     return (<div>
         <div className="sidetopp">
             <img className="sidetopp__bilde blokk" src="/sykefravaer/img/svg/illustrasjon-landingsside-2.svg"
-                alt={getLedetekst('landingsside.intro.lenketekst', ledetekster)} />
+                alt={getLedetekst('landingsside.intro.lenketekst')} />
             <h1 className="sidetopp__tittel js-sidetittel">
-                {getLedetekst('landingsside.sidetittel', ledetekster)}
+                {getLedetekst('landingsside.sidetittel')}
             </h1>
         </div>
         {
-            (!skjulVarsel ? <UnderUtviklingVarselContainer ledetekster={ledetekster} /> : null)
+            (!skjulVarsel ? <UnderUtviklingVarselContainer /> : null)
         }
         <nav className="blokk" role="navigation">
             <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
@@ -64,12 +60,11 @@ const Landingsside = ({ ledetekster = {}, skjulVarsel = false, sykepengesoknader
             }
         </nav>
         <NaermesteLedereContainer />
-        <GenerellInfo ledetekster={ledetekster} />
+        <GenerellInfo />
     </div>);
 };
 
 Landingsside.propTypes = {
-    ledetekster: PropTypes.object.isRequired,
     skjulVarsel: PropTypes.bool.isRequired,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     dialogmoter: PropTypes.array,

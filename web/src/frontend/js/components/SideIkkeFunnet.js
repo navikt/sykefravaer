@@ -1,16 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import Side from '../sider/Side';
 import Feilmelding from './Feilmelding';
 
-const SideIkkeFunnet = ({ ledetekster }) => {
-    return (<Side tittel={getLedetekst('404.tittel', ledetekster)}>
-        <Feilmelding tittel={getLedetekst('404.tittel', ledetekster)} melding={getLedetekst('404.tekst', ledetekster)} />
+const SideIkkeFunnet = () => {
+    return (<Side tittel={getLedetekst('404.tittel')}>
+        <Feilmelding tittel={getLedetekst('404.tittel')} melding={getLedetekst('404.tekst')} />
     </Side>);
-};
-
-SideIkkeFunnet.propTypes = {
-    ledetekster: PropTypes.object,
 };
 
 export default SideIkkeFunnet;

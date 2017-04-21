@@ -47,7 +47,7 @@ describe("ForskuttererArbeidsgiver", () => {
     describe("RendreForskuttererArbeidsgiver", () => {
 
         beforeEach(() => {
-            component = shallow(<RendreForskuttererArbeidsgiver {...props} ledetekster={{}}/>);
+            component = shallow(<RendreForskuttererArbeidsgiver {...props} />);
         });
 
         it("Skal inneholde et SporsmalMedTillegg", () => {

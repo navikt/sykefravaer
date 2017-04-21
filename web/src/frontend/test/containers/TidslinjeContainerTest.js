@@ -10,7 +10,7 @@ const expect = chai.expect;
 import { TidslinjeSide, mapStateToProps, mapArbeidssituasjonParam, setHash } from "../../js/containers/TidslinjeContainer";
 import AppSpinner from '../../js/components/AppSpinner';
 import Feilmelding from '../../js/components/Feilmelding';
-import { Tidslinje } from 'digisyfo-npm';
+import { Tidslinje, setLedetekster } from 'digisyfo-npm';
 import sinon from 'sinon';
 
 
@@ -43,6 +43,7 @@ describe("TidslinjeContainer", () => {
     let initState;
 
     beforeEach(() => {
+        setLedetekster(ledetekster);
         initState = {
             ledetekster: {
                 data: ledetekster,
@@ -152,11 +153,6 @@ describe("TidslinjeContainer", () => {
             initState.brukerinfo.innstillinger.arbeidssituasjon = 'UTEN_ARBEIDSGIVER'
             const props = mapStateToProps(initState);
             expect(props.arbeidssituasjon).to.equal("UTEN_ARBEIDSGIVER");
-        });
-
-        it("Skal returnere ledetekster", () => {
-            const props = mapStateToProps(initState);
-            expect(props.ledetekster).to.deep.equal(initState.ledetekster.data);
         });
 
         it("Skal returnere brødsmuler", () => {

@@ -19,6 +19,7 @@ import ForskuttererArbeidsgiver from "../../../js/components/sykmeldingskjema/Fo
 import { Provider } from 'react-redux';
 import feilaktigeOpplysninger from "../../../js/enums/feilaktigeOpplysninger";
 import deepFreeze from 'deep-freeze';
+import { setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -35,6 +36,7 @@ describe("DinSykmeldingSkjema -", () => {
     let skjemaData;
 
     beforeEach(() => {
+        setLedetekster(ledetekster);
         deepFreeze(feilaktigeOpplysninger);
         getState = {
             ledetekster: { 
@@ -98,7 +100,7 @@ describe("DinSykmeldingSkjema -", () => {
     it("Skal vise info om utskrift dersom harStrengtFortroligAdresse = true", () => {
         skjemaData.values.valgtArbeidssituasjon = 'arbeidstaker';
         component = mount(<Provider store={store}>
-            <DinSykmeldingSkjema sykmelding={getSykmelding()} arbeidsgivere={[]} harStrengtFortroligAdresse={true} skjemaData={skjemaData} ledetekster={ledetekster} />
+            <DinSykmeldingSkjema sykmelding={getSykmelding()} arbeidsgivere={[]} harStrengtFortroligAdresse={true} skjemaData={skjemaData}  />
         </Provider>);
         expect(component.find(StrengtFortroligInfo)).to.have.length(1);
     });
@@ -106,7 +108,7 @@ describe("DinSykmeldingSkjema -", () => {
     it("Skal ikke vise info om utskrift dersom harStrengtFortroligAdresse = false", () => {
         skjemaData.values.valgtArbeidssituasjon = 'arbeidstaker';
         component = mount(<Provider store={store}>
-            <DinSykmeldingSkjema sykmelding={getSykmelding()} ledetekster={ledetekster} harStrengtFortroligAdresse={false} skjemaData={skjemaData} arbeidsgivere={[]} />
+            <DinSykmeldingSkjema sykmelding={getSykmelding()}  harStrengtFortroligAdresse={false} skjemaData={skjemaData} arbeidsgivere={[]} />
         </Provider>);
         expect(component.find(StrengtFortroligInfo)).to.have.length(0);
     });
@@ -455,9 +457,10 @@ describe("DinSykmeldingSkjema -", () => {
                 'starte-sykmelding.info.send-med-naermeste-leder': 'Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.',
                 'starte-sykmelding.knapp.SEND-MED-NAERMESTE-LEDER': 'Send sykmelding',
             };
+            setLedetekster(ledetekster);
 
             const component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} ledetekster={ledetekster}/>
+                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
             </Provider>);
 
             expect(component.text()).to.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.')
@@ -489,9 +492,10 @@ describe("DinSykmeldingSkjema -", () => {
                 'starte-sykmelding.info.send': 'Sykmeldingen blir sendt til bedriftens innboks i Altinn. Vi anbefaler at du tipser arbeidsgiveren din om at du har sendt sykmeldingen siden dette er nytt for dem også.',
                 'starte-sykmelding.knapp.SEND': 'Send sykmelding',
             };
+            setLedetekster(ledetekster);
 
             const component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} ledetekster={ledetekster}/>
+                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
             </Provider>);
 
             expect(component.text()).to.not.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.')

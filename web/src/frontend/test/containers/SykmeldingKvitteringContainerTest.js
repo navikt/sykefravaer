@@ -11,6 +11,7 @@ import { KvitteringSide, getKvitteringtype, mapStateToProps, getLedetekstNokkel 
 import SykmeldingKvittering, { SykmeldingKvitteringSokNa, SykmeldingKvitteringSokSenere } from '../../js/components/sykmelding/SykmeldingKvittering';
 import sinon from 'sinon';
 import getSykmelding from '../mockSykmeldinger';
+import { setLedetekster } from 'digisyfo-npm';
 
 const sykmeldinger = [{
     id: 2,
@@ -342,11 +343,6 @@ describe("SykmeldingKvitteringContainer", () => {
             expect(res.henter).to.be.true;
         });
 
-        it("Skal returnere ledetekster", () => {
-            const res = mapStateToProps(state, ownProps);
-            expect(res.ledetekster).to.deep.equal(ledetekster)
-        });
-
         it("Skal returnere sykmelding === undefined dersom sykmeldingen ikke finnes", () => {
             ownProps.params = {
                 sykmeldingId: "Ukjent_ID"
@@ -370,10 +366,11 @@ describe("SykmeldingKvitteringContainer", () => {
 
         it("Skal returnere riktig tekst dersom bruker har strengt fortrolig adresse", () => {
             ownProps.params.sykmeldingId = 4;
-            state.ledetekster.data = Object.assign({}, state.ledetekster.data, {
+            const ledetekster = Object.assign({}, state.ledetekster.data, {
                 'bekreft-sykmelding.kvittering.tittel': 'Min fine tittel',
                 'bekreft-sykmelding.skjermingskode-6.kvittering.undertekst': '<p>Min fine tekst</p>'
             })
+            setLedetekster(ledetekster);
             state.brukerinfo = {
                 bruker: {
                     data: {
@@ -388,9 +385,10 @@ describe("SykmeldingKvitteringContainer", () => {
 
         it("Skal returnere riktig sykepengerTekst dersom bruker har valgt har valgt arbeidssituasjon arbeidstaker og arbeidsgiveren min er ikke her og bekreftet sykmeldingen", () => {
             ownProps.params.sykmeldingId = 5;
-            state.ledetekster.data = Object.assign({}, state.ledetekster.data, {
+            const ledetekster = Object.assign({}, state.ledetekster.data, {
                 'bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.undertekst': '<p>Min fine tekst</p>'
             });
+            setLedetekster(ledetekster);
             const res = mapStateToProps(state, ownProps);
             expect(res.brodtekst).to.deep.equal({__html: '<p>Min fine tekst</p>'});
         });

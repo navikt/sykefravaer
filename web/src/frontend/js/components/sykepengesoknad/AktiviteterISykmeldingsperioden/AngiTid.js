@@ -26,11 +26,11 @@ class AngiTid extends Component {
     }
 
     getEnhetLabel() {
-        return getLedetekst(`sykepengesoknad.angi-tid.antall.label.${this.getValgtEnhet()}`, this.props.ledetekster);
+        return getLedetekst(`sykepengesoknad.angi-tid.antall.label.${this.getValgtEnhet()}`);
     }
 
     getNormalSporsmal() {
-        return getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal', this.props.ledetekster);
+        return getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal');
     }
 
     getAntallName() {
@@ -49,7 +49,7 @@ class AngiTid extends Component {
     }
 
     render() {
-        const { input, autofill, untouch, ledetekster } = this.props;
+        const { input, autofill, untouch } = this.props;
         const enheter = [{
             value: 'prosent',
         }, {
@@ -79,7 +79,7 @@ class AngiTid extends Component {
                                 id={id}
                                 checked={enhet.value === this.state.valgtEnhet}
                                 aria-controls={this.getAntallId()} />
-                            <label htmlFor={id}>{getLedetekst(`sykepengesoknad.angi-tid.velg-enhet.label.${enhet.value}`, ledetekster)}</label>
+                            <label htmlFor={id}>{getLedetekst(`sykepengesoknad.angi-tid.velg-enhet.label.${enhet.value}`)}</label>
                         </div>);
                     })
                 }
@@ -94,7 +94,7 @@ class AngiTid extends Component {
                     id={`aktivitet-${this.props.aktivitetIndex}-normal`}
                     component={TekstfeltMedEnhet}
                     parse={lagDesimaltall}
-                    label={getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label', ledetekster)} />
+                    label={getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label')} />
             </div>
         </div>);
     }
@@ -106,7 +106,6 @@ AngiTid.propTypes = {
     names: PropTypes.array,
     autofill: PropTypes.func,
     untouch: PropTypes.func,
-    ledetekster: PropTypes.object,
 };
 
 export default AngiTid;

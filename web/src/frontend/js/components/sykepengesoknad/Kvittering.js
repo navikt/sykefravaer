@@ -1,14 +1,14 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Sidetopp from '../Sidetopp';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 
-const Kvittering = ({ ledetekster }) => {
+const Kvittering = () => {
     return (<div>
         <Sidetopp tittel="Kvittering" />
         <div className="panel">
             <div className="hode hode--suksess">
-                <h2 className="hode__tittel">{getLedetekst('sykepengesoknad.kvittering.tittel', ledetekster)}</h2>
-                <div dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.kvittering.tekst', ledetekster)} />
+                <h2 className="hode__tittel">{getLedetekst('sykepengesoknad.kvittering.tittel')}</h2>
+                <div dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.kvittering.tekst')} />
             </div>
         </div>
         <article className="panel typo-infotekst ikke-print js-tilbakemelding">
@@ -19,10 +19,6 @@ const Kvittering = ({ ledetekster }) => {
             </div>
         </article>
     </div>);
-};
-
-Kvittering.propTypes = {
-    ledetekster: PropTypes.object,
 };
 
 export default Kvittering;

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import StatusPanel from '../StatusPanel';
 import { getLedetekst, DineSykmeldingOpplysninger, Utvidbar } from 'digisyfo-npm';
 import { STATUS, INNSENDT_DATO } from '../../enums/nokkelopplysninger';
@@ -6,29 +6,27 @@ import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 
-const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding, ledetekster }) => {
+const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding }) => {
     return (<div>
-        <Sidetopp tittel={getLedetekst('din-sykmelding.tittel', ledetekster)} />
+        <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
         <StatusPanel
             sykmelding={dinSykmelding}
-            ledetekster={ledetekster}
             type="suksess"
             nokkelopplysninger={[[STATUS, INNSENDT_DATO]]} />
-        <Utvidbar erApen tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel', ledetekster)}
+        <Utvidbar erApen tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}
             ikon="svg/person.svg" ikonHover="svg/person_hover.svg" ikonAltTekst="Du" className="blokk" variant="lysebla" Overskrift="H2">
-            <DineSykmeldingOpplysninger sykmelding={dinSykmelding} ledetekster={ledetekster} />
+            <DineSykmeldingOpplysninger sykmelding={dinSykmelding} />
         </Utvidbar>
         {
             dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER' &&
             <div className="blokk">
-                <ArbeidsgiversSykmelding sykmelding={arbeidsgiversSykmelding} ledetekster={ledetekster} />
+                <ArbeidsgiversSykmelding sykmelding={arbeidsgiversSykmelding} />
             </div>
         }
     </div>);
 };
 
 DinBekreftedeSykmelding.propTypes = {
-    ledetekster: PropTypes.object,
     dinSykmelding: sykmeldingPt,
     arbeidsgiversSykmelding: sykmeldingPt,
 };

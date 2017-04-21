@@ -9,12 +9,12 @@ const VET_IKKE = 'VET_IKKE';
 const JA = 'JA';
 const NEI = 'NEI';
 
-export const ForskuttererSporsmal = ({ input, meta, ledetekster, arbeidsgiver }) => {
+export const ForskuttererSporsmal = ({ input, meta, arbeidsgiver }) => {
     return (<div>
-        <h3 className="skjema__sporsmal">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.overskrift', ledetekster)}</h3>
-        <p>{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.tekst', ledetekster)}</p>
+        <h3 className="skjema__sporsmal">{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.overskrift')}</h3>
+        <p>{getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.tekst')}</p>
         <p>
-            {getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.sporsmal', ledetekster, {
+            {getLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.sporsmal', {
                 '%ARBEIDSGIVER%': arbeidsgiver.navn,
             })}
         </p>
@@ -29,37 +29,29 @@ export const ForskuttererSporsmal = ({ input, meta, ledetekster, arbeidsgiver })
 ForskuttererSporsmal.propTypes = {
     input: PropTypes.object,
     meta: PropTypes.object,
-    ledetekster: PropTypes.object,
     arbeidsgiver: PropTypes.object,
 };
 
 export const RendreForskuttererArbeidsgiver = (props) => {
-    const { ledetekster } = props;
     const Sporsmal = <ForskuttererSporsmal {...props} />;
     return (<SporsmalMedTillegg className="hovedsporsmal__tilleggssporsmal" {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
         const input = _props.input;
         return input && (input.value === VET_IKKE || input.value === NEI);
     }}>
-        <div className="ekstrasporsmal ekstrasporsmal--sist" dangerouslySetInnerHTML={getHtmlLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.nei-vet-ikke', ledetekster)} />
+        <div className="ekstrasporsmal ekstrasporsmal--sist" dangerouslySetInnerHTML={getHtmlLedetekst('starte-sykmelding.arbeidsgiver-forskutterer.nei-vet-ikke')} />
     </SporsmalMedTillegg>);
 };
 
-RendreForskuttererArbeidsgiver.propTypes = {
-    ledetekster: PropTypes.object,
-};
-
-const ForskuttererArbeidsgiver = ({ arbeidsgiver, ledetekster }) => {
+const ForskuttererArbeidsgiver = ({ arbeidsgiver }) => {
     return (<Field
         component={RendreForskuttererArbeidsgiver}
         name="arbeidsgiverForskutterer"
-        ledetekster={ledetekster}
         arbeidsgiver={arbeidsgiver} />);
 };
 
 ForskuttererArbeidsgiver.propTypes = {
     input: PropTypes.object,
     arbeidsgiver: PropTypes.object,
-    ledetekster: PropTypes.object,
 };
 
 export default ForskuttererArbeidsgiver;

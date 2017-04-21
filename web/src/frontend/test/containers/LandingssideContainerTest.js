@@ -40,16 +40,6 @@ describe("LandingssideContainer", () => {
             expect(res.skjulVarsel).to.equal(true)
         });
 
-        it("Skal returnere ledetekster", function () {
-            state.ledetekster.data = {
-                "min.tekst": "Dette er en test"
-            }
-            const res = mapStateToProps(state);
-            expect(res.ledetekster).to.deep.equal({
-                "min.tekst": "Dette er en test"
-            })
-        });
-
         it("Skal returnere harDialogmote === false", () => {
             state.mote.data = null;
             const res = mapStateToProps(state);
@@ -68,7 +58,7 @@ describe("LandingssideContainer", () => {
 
         it("Skal vise Landingsside", () => {
             let ledetekster = {"nokkel": "verdi"}
-            let component = shallow(<LandingssideSide ledetekster={ledetekster} skjulVarsel={false}/>);
+            let component = shallow(<LandingssideSide skjulVarsel={false}/>);
             expect(component.find(Landingsside)).to.have.length(1);
         });
     })

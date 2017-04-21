@@ -5,7 +5,7 @@ import SoknadTeasere from './SoknaderTeasere';
 import { SENDT, TIL_SENDING, UTGAATT, NY } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
-const Soknader = ({ ledetekster = {}, soknader = [] }) => {
+const Soknader = ({ soknader = [] }) => {
     const nyeSoknader = soknader.filter((soknad) => {
         return soknad.status === NY;
     });
@@ -15,24 +15,22 @@ const Soknader = ({ ledetekster = {}, soknader = [] }) => {
 
     return (<div>
         <Sidetopp
-            tittel={getLedetekst('soknader.sidetittel', ledetekster)}
-            htmlTekst={getHtmlLedetekst('soknader.introduksjonstekst', ledetekster)}
+            tittel={getLedetekst('soknader.sidetittel')}
+            htmlTekst={getHtmlLedetekst('soknader.introduksjonstekst')}
         />
         <SoknadTeasere
             soknader={nyeSoknader}
-            tittel={getLedetekst('soknader.venter-paa-behandling.tittel', ledetekster)}
-            tomListeTekst={getLedetekst('soknader.venter-paa-behandling.ingen-soknader', ledetekster)}
+            tittel={getLedetekst('soknader.venter-paa-behandling.tittel')}
+            tomListeTekst={getLedetekst('soknader.venter-paa-behandling.ingen-soknader')}
             className="js-til-behandling"
-            ledetekster={ledetekster}
             id="soknader-list-til-behandling"
         />
         {
             sendteSoknader.length > 0 && (<SoknadTeasere
                 soknader={sendteSoknader}
-                tittel={getLedetekst('soknader.sendt.tittel', ledetekster)}
-                tomListeTekst={getLedetekst('soknader.sendt.ingen-soknader', ledetekster)}
+                tittel={getLedetekst('soknader.sendt.tittel')}
+                tomListeTekst={getLedetekst('soknader.sendt.ingen-soknader')}
                 className="js-sendt"
-                ledetekster={ledetekster}
                 id="soknader-sendt"
             />)
         }
@@ -40,7 +38,6 @@ const Soknader = ({ ledetekster = {}, soknader = [] }) => {
 };
 
 Soknader.propTypes = {
-    ledetekster: PropTypes.object.isRequired,
     soknader: PropTypes.arrayOf(sykepengesoknadPt),
 };
 

@@ -7,8 +7,8 @@ import { getLedetekst } from 'digisyfo-npm';
 import Feilmelding from '../components/Feilmelding';
 import { brodsmule as brodsmulePt, sykmelding as sykmeldingPt } from '../propTypes';
 
-export const DineSykmldSide = ({ ledetekster, brodsmuler, sykmeldinger, henter, hentingFeilet }) => {
-    return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel', ledetekster.data)} brodsmuler={brodsmuler}>
+export const DineSykmldSide = ({ brodsmuler, sykmeldinger, henter, hentingFeilet }) => {
+    return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')} brodsmuler={brodsmuler}>
         {
             (() => {
                 if (henter) {
@@ -18,15 +18,13 @@ export const DineSykmldSide = ({ ledetekster, brodsmuler, sykmeldinger, henter, 
                 }
                 return (<DineSykmeldinger
                     sykmeldinger={sykmeldinger}
-                    sortering={sykmeldinger.sortering}
-                    ledetekster={ledetekster} />);
+                    sortering={sykmeldinger.sortering} />);
             })()
         }
     </Side>);
 };
 
 DineSykmldSide.propTypes = {
-    ledetekster: PropTypes.object,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     henter: PropTypes.bool,
@@ -38,7 +36,6 @@ export function mapStateToProps(state) {
         sykmeldinger: state.dineSykmeldinger.data,
         henter: state.ledetekster.henter || state.dineSykmeldinger.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet,
-        ledetekster: state.ledetekster.data,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
             sti: '/',

@@ -1,23 +1,22 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Sidetopp from '../Sidetopp';
 import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
-const UtgaattSoknad = ({ ledetekster, sykepengesoknad }) => {
+const UtgaattSoknad = ({ sykepengesoknad }) => {
     return (<div>
-        <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel', ledetekster)} />
+        <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
         <div className="panel panel--komprimert">
             <Varselstripe type="info" fylt>
                 <p className="sist">{getLedetekst('sykepengesoknad.utgaatt.info.tekst')}</p>
             </Varselstripe>
         </div>
-        <SykmeldingUtdrag ledetekster={ledetekster} sykepengesoknad={sykepengesoknad} erApen />
+        <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} erApen />
     </div>);
 };
 
 UtgaattSoknad.propTypes = {
-    ledetekster: PropTypes.object,
     sykepengesoknad: sykepengesoknadPt,
 };
 

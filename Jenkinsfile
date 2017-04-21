@@ -17,14 +17,17 @@ def notifyFailed(reason, error) {
 }
 
 def changelog(commitHash) {
-    def prodVersion = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfofront\\&environment=p\\&onlyLatest=true | jq .[].version | tr -d '\"' | tr -d '\\n'", returnStdout: true)
+    def prodVersion = sh (script: "curl https://vera.adeo.no/api/v1/deploylog?application=syfofront\\&environment=p\\&onlyLatest=true | jq .[].version | tr -d '\"'", returnStdout: true).trim()
 
     def oldCommit = prodVersion
     def newCommit = commitHash
     def keyword = "SYFOUTV"
 
-    def log = sh (script: "git log ${oldCommit}...${newCommit} --grep=${keyword} --reverse --pretty=format:\"- %s (%an, %ar: %h)\" | grep -v Merge", returnStdout: true)
-    return log
+    try {
+        return sh (script: "git log ${oldCommit}...${newCommit} --grep=${keyword} --reverse --pretty=format:\"- %s (%an, %ar: %h)\" | grep -v Merge", returnStdout: true)
+    } catch (Exception e) {
+        return "Ingen funksjonelle endringer"
+    }
 }
 
 node {

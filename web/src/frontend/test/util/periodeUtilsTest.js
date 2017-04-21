@@ -278,6 +278,19 @@ describe("periodeUtils", () => {
             expect(periodeOverlapperMedPeriode(a, b)).to.be.true;
         });
 
+        it("Hjelpetest 1", () => {
+            const a = {
+                fom: "06.07.2016",
+                tom: "09.07.2016"
+            };
+            const b = {
+                fom: "07.07.2016",
+                tom: "10.07.2016"
+            };
+            const perioder = [a];
+            expect(periodeOverlapperMedPerioder(a, [b])).to.be.true;
+        });
+
     });
 
     describe("perioderOverlapperMedPerioder", () => {
@@ -402,19 +415,6 @@ describe("periodeUtils", () => {
             };
             const perioder = [a, b];
             expect(harOverlappendePerioder(perioder)).to.be.true;
-        });
-
-        it("Hjelpetest 1", () => {
-            const a = {
-                fom: "06.07.2016",
-                tom: "09.07.2016"
-            };
-            const b = {
-                fom: "07.07.2016",
-                tom: "10.07.2016"
-            };
-            const perioder = [a];
-            expect(periodeOverlapperMedPerioder(a, [b])).to.be.true;
         });
 
     });

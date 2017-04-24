@@ -22,7 +22,7 @@ describe("utils", () => {
         });
     });
 
-    describe.only("lagDesimaltall", () => {
+    describe("lagDesimaltall", () => {
         it("Skal fjerne bokstaver", () => {
             const n = lagDesimaltall("12f");
             expect(n).to.equal("12");

@@ -4,6 +4,12 @@ import { Varselstripe } from 'digisyfo-npm';
 import { sykmelding as sykmeldingPt } from '../propTypes';
 
 const StatusPanel = ({ sykmelding, nokkelopplysninger, type }) => {
+    const varselprops = {
+        type,
+    };
+    if (type === 'avbrutt') {
+        varselprops.ikon = `${window.APP_SETTINGS.APP_ROOT}/img/svg/avbryt-sykmelding-roed.svg`;
+    }
     const html = nokkelopplysninger.map((rad, index1) => {
         return (<div className="statusopplysninger js-rad" key={index1}>
             {
@@ -15,7 +21,7 @@ const StatusPanel = ({ sykmelding, nokkelopplysninger, type }) => {
     });
     return (
         <div className="panel panel--komprimert blokk">
-            <Varselstripe type={type}>
+            <Varselstripe {...varselprops}>
                 <div>
                    {html}
                </div>

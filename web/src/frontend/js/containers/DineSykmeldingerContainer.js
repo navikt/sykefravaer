@@ -37,11 +37,11 @@ export function mapStateToProps(state) {
         henter: state.ledetekster.henter || state.dineSykmeldinger.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('dine-sykmeldinger.sidetittel'),
             sti: '/sykmeldinger',
         }],
     };

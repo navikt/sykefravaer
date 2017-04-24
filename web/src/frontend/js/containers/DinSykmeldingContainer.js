@@ -161,15 +161,15 @@ export function mapStateToProps(state, ownProps) {
         visEldreSykmeldingVarsel: visEldreSykmeldingVarsel(state.dineSykmeldinger.data, sykmeldingId),
         eldsteSykmeldingId: eldsteNyeSykmelding ? eldsteNyeSykmelding.id : '',
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('dine-sykmeldinger.sidetittel'),
             sti: '/sykmeldinger',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('din-sykmelding.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('din-sykmelding.sidetittel'),
         }],
         pilotSykepenger: state.pilot.data.pilotSykepenger,
     };

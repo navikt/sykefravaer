@@ -43,7 +43,7 @@ export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, tidlig
         return `harHatt${field[0].toUpperCase()}${field.substr(1)}`;
     };
 
-    return (<Feilomrade {...meta}>
+    return (<Feilomrade {...meta} id='feriePermisjonEllerUtenlandsopphold'>
         <h4 className="skjema__sporsmal">{getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har')}</h4>
         {
             fields.map((field, index) => {

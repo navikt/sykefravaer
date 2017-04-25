@@ -1,8 +1,9 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import history from '../../history';
 import inntektskildetyper from '../../enums/inntektskildetyper';
-import { touch } from 'redux-form';
+import Feiloppsummering, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
@@ -31,50 +32,13 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const getKeys = (key, errors, prefix) => {
-    if (typeof errors[key] === 'string') {
-        if (prefix) {
-            return [`${prefix}.${key}`];
-        }
-        return [key];
-    }
-    let keys = [];
-    let newPrefix = key;
-    if (prefix) {
-        if (isNaN(parseInt(key, 10))) {
-            newPrefix = `${prefix}.${key}`;
-        } else {
-            newPrefix = `${prefix}[${key}]`;
-        }
-    }
-    for (const nKey in errors[key]) {
-        if (errors[key][nKey]) {
-            keys = [...getKeys(nKey, errors[key], newPrefix), ...keys];
-        }
-    }
-    keys = keys.map((k) => {
-        if (k.indexOf('_error') > -1) {
-            return k.replace('._error', '');
-        }
-        return k;
-    });
-    return keys;
-};
-
-export const getNestedKeys = (errors) => {
-    let keys = [];
-    for (const key in errors) {
-        if (errors[key]) {
-            const keysToAdd = getKeys(key, errors);
-            if (keysToAdd) {
-                keys = [...keysToAdd, ...keys];
-            }
-        }
-    }
-    return keys;
-};
-
 const setup = (validate, Component, initialize = false) => {
+    const Skjema = (props) => {
+        return (<div>
+            <Feiloppsummering skjemanavn={SYKEPENGER_SKJEMANAVN} />
+            <Component {...props} />
+        </div>);
+    };
     const form = reduxForm({
         form: SYKEPENGER_SKJEMANAVN,
         validate,
@@ -82,12 +46,9 @@ const setup = (validate, Component, initialize = false) => {
         forceUnregisterOnUnmount: true,
         sendTilFoerDuBegynner,
         onSubmitFail: (errors, dispatch) => {
-            const errorFields = getNestedKeys(errors);
-            errorFields.forEach((field) => {
-                dispatch(touch(SYKEPENGER_SKJEMANAVN, field));
-            });
+            onSubmitFail(errors, dispatch, SYKEPENGER_SKJEMANAVN);
         },
-    })(Component);
+    })(Skjema);
     if (initialize) {
         return connect(mapStateToProps)(form);
     }

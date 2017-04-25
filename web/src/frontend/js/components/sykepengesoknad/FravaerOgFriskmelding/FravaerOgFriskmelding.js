@@ -11,33 +11,42 @@ import validerFravaerOgFriskmelding from '../validering/validerFravaerOgFriskmel
 import { getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
-const FravaerOgFriskmelding = ({ handleSubmit, sykepengesoknad }) => {
+let FravaerOgFriskmeldingSkjema = (props) => {
+    const { handleSubmit, sykepengesoknad } = props;
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`);
     };
+    return (<form onSubmit={handleSubmit(onSubmit)}>
+        <Egenmeldingsdager sykepengesoknad={sykepengesoknad} />
+        <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
+        <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />
+
+        <Knapperad variant="knapperad--forrigeNeste">
+            <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/`} className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
+            <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre')}</button>
+        </Knapperad>
+    </form>);
+};
+
+FravaerOgFriskmeldingSkjema.propTypes = {
+    handleSubmit: PropTypes.func.isRequired,
+    sykepengesoknad: sykepengesoknadPt,
+};
+
+FravaerOgFriskmeldingSkjema = setup(validerFravaerOgFriskmelding, FravaerOgFriskmeldingSkjema);
+
+const FravaerOgFriskmelding = ({ sykepengesoknad }) => {
     return (
         <SykepengerSkjema
             aktivtSteg="1"
             tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel')}
             sykepengesoknad={sykepengesoknad}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Egenmeldingsdager sykepengesoknad={sykepengesoknad} />
-                    <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
-                    <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />
-
-                    <Knapperad variant="knapperad--forrigeNeste">
-                        <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/`} className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
-                        <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre')}</button>
-                    </Knapperad>
-                </form>
+                <FravaerOgFriskmeldingSkjema sykepengesoknad={sykepengesoknad} />
         </SykepengerSkjema>);
 };
 
 FravaerOgFriskmelding.propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
     sykepengesoknad: sykepengesoknadPt,
 };
 
-const FravaerOgFriskmeldingSkjema = setup(validerFravaerOgFriskmelding, FravaerOgFriskmelding);
-
-export default FravaerOgFriskmeldingSkjema;
+export default FravaerOgFriskmelding;

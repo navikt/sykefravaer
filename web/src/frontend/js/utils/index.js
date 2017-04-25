@@ -70,3 +70,19 @@ export const erGyldigDato = (dato) => {
     }
     return erGyldigDatoformat(dato);
 };
+
+export const getObjectValueByString = (o, s) => {
+    // o = objekt
+    // s = string
+    let string = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    string = string.replace(/^\./, ''); // strip a leading dot
+    const keys = string.split('.');
+    let obj = Object.assign({}, o);
+    for (let i = 0, n = keys.length; i < n; ++i) {
+        const key = keys[i];
+        if (key in obj) {
+            obj = obj[key];
+        }
+    }
+    return obj;
+};

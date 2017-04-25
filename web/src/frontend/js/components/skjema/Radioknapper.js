@@ -27,7 +27,7 @@ Radioknapp.propTypes = {
 };
 
 const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children, horisontal = false, hjelpetekst, hjelpelinje }) => {
-    return (<Feilomrade {...meta}>
+    return (<Feilomrade {...meta} id={input.name}>
         <div className={`${hjelpetekst ? 'medHjelpetekst' : ''}`}>
             <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
             { hjelpetekst }

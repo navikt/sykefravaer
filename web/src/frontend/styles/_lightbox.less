@@ -26,7 +26,7 @@
     border: 0;      
     text-indent: -9999px;
     border: 1px solid @ikonGraa;
-    background: transparent url('/sykefravaer/img/modig-frontend/ikoner-svg/ikon-kryss-sort.svg') no-repeat center center;
+    background: transparent data-uri('@{nodeModulesPath}nav-frontend-grafikk/ikoner/kryss--sort.svg') no-repeat center center;
     background-size: 1rem 1rem;
     cursor: pointer;
 
@@ -38,7 +38,7 @@
     &:hover {
         border-color: @lenkeBlaa;
         background-color: @lenkeBlaa;
-        background-image: url('/sykefravaer/img/modig-frontend/ikoner-svg/ikon-kryss-hvit.svg');
+        background-image: data-uri('@{nodeModulesPath}nav-frontend-grafikk/ikoner/kryss--hvit.svg');
     }
 
     &:focus {

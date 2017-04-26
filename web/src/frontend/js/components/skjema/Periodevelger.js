@@ -50,7 +50,7 @@ export class Periodevelger extends Component {
         const { fields, namePrefix, spoersmal, meta, Overskrift, tidligsteFom, senesteTom } = this.props;
         return (<div className="periodevelger">
             <div className={meta && meta.touched && meta.error ? 'blokk' : ''}>
-                <Feilomrade {...meta}>
+                <Feilomrade {...meta} id={namePrefix}>
                     <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
                     <div className="periodevelger__perioder">
                         {

@@ -23,6 +23,7 @@ import rootSaga from './sagas';
 import { svar, mote, moteActions } from 'moter-npm';
 import pilot from './reducers/pilot';
 import vedlikehold from './reducers/vedlikehold';
+import reduxFormMeta from './reducers/reduxFormMeta';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
     vedlikehold,
     mote,
     form: formReducer,
+    formMeta: reduxFormMeta,
 });
 
 const sagaMiddleware = createSagaMiddleware();

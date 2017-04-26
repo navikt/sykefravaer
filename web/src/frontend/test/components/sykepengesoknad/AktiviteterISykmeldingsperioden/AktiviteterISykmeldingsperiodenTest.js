@@ -7,7 +7,7 @@ import sinon from 'sinon';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { AktiviteterISykmeldingsperioden, UtdanningStartDato } from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
+import { AktiviteterISykmeldingsperiodenSkjema, UtdanningStartDato } from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
 import { Field, FieldArray } from 'redux-form';
 import Aktiviteter from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/Aktiviteter';
 import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../../../../js/components/sykepengesoknad/JaEllerNei';
@@ -33,7 +33,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
         handleSubmit = sinon.spy();
         autofill = sinon.spy();
         untouch = sinon.spy();
-        component = shallow(<AktiviteterISykmeldingsperioden
+        component = shallow(<AktiviteterISykmeldingsperiodenSkjema
             sykepengesoknad={sykepengesoknad}
             handleSubmit={handleSubmit}
             autofill={autofill}

@@ -1,7 +1,7 @@
 import chai from 'chai';
 const expect = chai.expect;
 
-import { parseDato, lagHeltall, lagDesimaltall, erGyldigDato, fraInputdatoTilJSDato, erGyldigDatoformat } from '../../js/utils';
+import { parseDato, lagHeltall, lagDesimaltall, erGyldigDato, fraInputdatoTilJSDato, erGyldigDatoformat, getObjectValueByString } from '../../js/utils';
 
 describe("utils", () => {
 
@@ -200,6 +200,57 @@ describe("utils", () => {
             const dato = "12.02.17";
             const res = fraInputdatoTilJSDato(dato);
             expect(res.getTime()).to.equal(new Date("2017-02-12").getTime());
+        });
+    })
+
+    describe("getObjectValueByString", () => {
+        it("Returnerer verdi fra streng", () => {
+            const o = {
+                "person": {
+                    fornavn: "Eli",
+                    adresse: {
+                        gate: "Portveien",
+                        nummer: "2"
+                    }
+                }
+            };
+            expect(getObjectValueByString(o, "person.adresse.nummer")).to.equal("2")
+        });
+
+        it("Returnerer verdi fra streng ved array av strenger", () => {
+            const o = {
+                "person": {
+                    fornavn: "Eli",
+                    adresse: {
+                        gate: "Portveien",
+                        nummer: "2"
+                    },
+                    hobbyer: ["hage", "giraffer", "jarl"]
+                }
+            };
+            expect(getObjectValueByString(o, "person.hobbyer[0]")).to.equal("hage")
+        });
+
+        it("Returnerer verdi fra streng ved array av objekter", () => {
+            const o = {
+                "person": {
+                    fornavn: "Eli",
+                    adresse: {
+                        gate: "Portveien",
+                        nummer: "2"
+                    },
+                    hobbyer: ["hage", "giraffer", "jarl"],
+                    barn: [{
+                        fornavn: "Titten",
+                        etternavn: "Tei"
+                    }, {
+                        fornavn: "Ole",
+                        etternavn: "Tei"
+                    }]
+                }
+            };
+            expect(getObjectValueByString(o, "person.barn[1].fornavn")).to.equal("Ole")
+            expect(getObjectValueByString(o, "person.barn[1].etternavn")).to.equal("Tei")
         });
     })
 

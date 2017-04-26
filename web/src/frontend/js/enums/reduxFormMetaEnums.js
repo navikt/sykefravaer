@@ -1,0 +1,1 @@
+export const SEND_SKJEMA_FEILET = 'SEND_SKJEMA_FEILET';

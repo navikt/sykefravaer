@@ -42,53 +42,47 @@ export const AktiviteterISykmeldingsperioden = (props) => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
     };
 
-    return (
-        <SykepengerSkjema
-            aktivtSteg="2"
-            tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
-            sykepengesoknad={sykepengesoknad}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <FieldArray
-                    gjenopptattArbeidFulltUtDato={gjenopptattArbeidFulltUtDato}
-                    component={Aktiviteter}
-                    fields={sykepengesoknad.aktiviteter}
-                    autofill={autofill}
-                    untouch={untouch}
-                    name="aktiviteter"
-                    arbeidsgiver={sykepengesoknad.arbeidsgiver.navn} />
+    return (<form onSubmit={handleSubmit(onSubmit)}>
+        <FieldArray
+            gjenopptattArbeidFulltUtDato={gjenopptattArbeidFulltUtDato}
+            component={Aktiviteter}
+            fields={sykepengesoknad.aktiviteter}
+            autofill={autofill}
+            untouch={untouch}
+            name="aktiviteter"
+            arbeidsgiver={sykepengesoknad.arbeidsgiver.navn} />
 
-                <JaEllerNei
-                    name="harAndreInntektskilder"
-                    spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', {
-                        '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
-                    })}>
-                    <AndreInntektskilder />
-                </JaEllerNei>
+        <JaEllerNei
+            name="harAndreInntektskilder"
+            spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', {
+                '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
+            })}>
+            <AndreInntektskilder />
+        </JaEllerNei>
 
-                <JaEllerNei
-                    name="utdanning.underUtdanningISykmeldingsperioden"
-                    spoersmal={getLedetekst('sykepengesoknad.utdanning.ja-nei.sporsmal', {
-                        '%STARTDATO%': toDatePrettyPrint(_tidligsteFom),
-                        '%SLUTTDATO%': toDatePrettyPrint(_senesteTom),
-                    })}>
-                    <UtdanningStartDato senesteTom={_senesteTom} />
-                    <Field
-                        component={JaEllerNeiRadioknapper}
-                        name="utdanning.erUtdanningFulltidsstudium"
-                        parse={parseJaEllerNei}
-                        spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal')}
-                        Overskrift="h4" />
-                </JaEllerNei>
+        <JaEllerNei
+            name="utdanning.underUtdanningISykmeldingsperioden"
+            spoersmal={getLedetekst('sykepengesoknad.utdanning.ja-nei.sporsmal', {
+                '%STARTDATO%': toDatePrettyPrint(_tidligsteFom),
+                '%SLUTTDATO%': toDatePrettyPrint(_senesteTom),
+            })}>
+            <UtdanningStartDato senesteTom={_senesteTom} />
+            <Field
+                component={JaEllerNeiRadioknapper}
+                name="utdanning.erUtdanningFulltidsstudium"
+                parse={parseJaEllerNei}
+                spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal')}
+                Overskrift="h4" />
+        </JaEllerNei>
 
-                <Knapperad variant="knapperad--forrigeNeste">
-                    <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} className="rammeknapp">Tilbake</Link>
-                    <button type="submit" className="knapp">Gå videre</button>
-                </Knapperad>
-            </form>
-        </SykepengerSkjema>);
+        <Knapperad variant="knapperad--forrigeNeste">
+            <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} className="rammeknapp">Tilbake</Link>
+            <button type="submit" className="knapp">Gå videre</button>
+        </Knapperad>
+    </form>);
 };
 
-AktiviteterISykmeldingsperioden.propTypes = {
+AktiviteterISykmeldingsperiodenSkjema.propTypes = {
     handleSubmit: PropTypes.func,
     sykepengesoknad: sykepengesoknadPt,
     autofill: PropTypes.func,
@@ -96,8 +90,24 @@ AktiviteterISykmeldingsperioden.propTypes = {
     gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
 };
 
-const AktiviteterISykmeldingsperiodenConnected = connectGjenopptattArbeidFulltUtDato(AktiviteterISykmeldingsperioden);
+const AktiviteterISykmeldingsperiodenSkjemaConnected = connectGjenopptattArbeidFulltUtDato(AktiviteterISykmeldingsperiodenSkjema);
 
-const AktiviteterISykmeldingsperiodenSkjema = setup(validate, AktiviteterISykmeldingsperiodenConnected);
+const AktiviteterISykmeldingsperiodenReduxSkjema = setup(validate, AktiviteterISykmeldingsperiodenSkjemaConnected);
 
-export default AktiviteterISykmeldingsperiodenSkjema;
+export const AktiviteterISykmeldingsperioden = (props) => {
+    const { sykepengesoknad } = props;
+
+    return (
+        <SykepengerSkjema
+            aktivtSteg="2"
+            tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
+            sykepengesoknad={sykepengesoknad}>
+            <AktiviteterISykmeldingsperiodenReduxSkjema sykepengesoknad={sykepengesoknad} />
+        </SykepengerSkjema>);
+};
+
+AktiviteterISykmeldingsperioden.propTypes = {
+    sykepengesoknad: sykepengesoknadPt,
+};
+
+export default AktiviteterISykmeldingsperioden;

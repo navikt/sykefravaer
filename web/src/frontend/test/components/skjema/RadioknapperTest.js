@@ -12,13 +12,13 @@ describe("Radioknapper", () => {
 
     it("Viser hjelpetekst om satt", () => {
         const hjelpetekst = <Hjelpetekst id={'1'} tekst={'tekst'} tittel={'tittel'}/>;
-        const comp = shallow(<Radioknapper hjelpetekst={hjelpetekst} children={[]} meta={{}} spoersmal='spoersmaal' />)
+        const comp = shallow(<Radioknapper hjelpetekst={hjelpetekst} children={[]} meta={{}} input={{}} spoersmal='spoersmaal' />)
         expect(comp.find(Hjelpetekst)).to.have.length(1);
     });
 
     it("Viser ikke hjelpetekst om satt", () => {
         const hjelpetekst = <Hjelpetekst id={'1'} tekst={'tekst'} tittel={'tittel'}/>;
-        const comp = shallow(<Radioknapper hjelpetekst={hjelpetekst} children={[]} meta={{}} spoersmal='spoersmaal' />)
+        const comp = shallow(<Radioknapper hjelpetekst={hjelpetekst} children={[]} meta={{}} input={{}} spoersmal='spoersmaal' />)
         expect(comp.find(Hjelpetekst)).to.have.length(1);
     });
 });

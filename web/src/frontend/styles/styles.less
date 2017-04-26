@@ -104,3 +104,54 @@ p {
     font-size: 1.25em;
     font-weight: normal;
 }
+
+.panel--feiloppsummering {
+	background-color: @advarselRoed;
+	color: @hvit;
+
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 0 3px @bakgrunnGraa, 0 0 0 6px @fokusOrange;
+	}
+
+	a:link {
+		color: @hvit;
+		border-bottom: 1px solid @advarselRoedBakgrunn;
+	}
+
+	a:hover, a:active {
+		border-bottom-color: @hvit;
+	}
+
+	a:focus, a:active {
+		color: @navTekst;
+		border-bottom-color: @fokusOrange;
+	}
+
+	a:visited {
+		color: @hvit;
+	}
+}
+
+.feiloppsummering__tittel {
+	.mixin-typo-undertittel();
+	margin-top: 0;
+}
+
+.feiloppsummering__liste {
+	padding: 0;
+	margin: 0;
+	margin-left: 2em;
+}
+
+.feiloppsummering__feil {
+	margin-bottom: .25em;
+}
+
+.skjema__feilomrade:focus {
+	outline: none;
+}
+
+.skjema__feilomrade--feil:focus {
+	box-shadow: 0 0 0 8px @advarselRoedBakgrunn, 0 0 0 11px @fokusOrange;
+}

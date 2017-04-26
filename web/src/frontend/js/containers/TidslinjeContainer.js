@@ -7,6 +7,7 @@ import { getLedetekst, Tidslinje, setHendelseData } from 'digisyfo-npm';
 import Sidetopp from '../components/Sidetopp';
 import TidslinjeVelgArbeidssituasjonContainer from './TidslinjeVelgArbeidssituasjonContainer';
 import { hentTidslinjer } from '../actions/tidslinjer_actions';
+import { brodsmule as brodsmulePt } from '../propTypes';
 
 export class TidslinjeSide extends Component {
 
@@ -21,16 +22,16 @@ export class TidslinjeSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, hendelser, arbeidssituasjon, tidslinjer, henter, hentingFeilet } = this.props;
+        const { brodsmuler, hendelser, arbeidssituasjon, tidslinjer, henter, hentingFeilet } = this.props;
         const htmlIntro = {
-            __html: `<p>${getLedetekst('tidslinje.introtekst', ledetekster)}</p>`,
+            __html: `<p>${getLedetekst('tidslinje.introtekst')}</p>`,
         };
-        return (<Side tittel={getLedetekst('tidslinje.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
+        return (<Side tittel={getLedetekst('tidslinje.sidetittel')} brodsmuler={brodsmuler}>
             {
                 (() => {
                     if (henter) {
                         return <AppSpinner />;
-                    } else if (hentingFeilet || !ledetekster || (tidslinjer && tidslinjer.length === 0)) {
+                    } else if (hentingFeilet || (tidslinjer && tidslinjer.length === 0)) {
                         return (<Feilmelding />);
                     }
                     return (<div>
@@ -38,7 +39,6 @@ export class TidslinjeSide extends Component {
                         <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
                         <Tidslinje
                             hendelser={hendelser}
-                            ledetekster={ledetekster}
                             arbeidssituasjon={arbeidssituasjon}
                             setHendelseData={(id, data) => {
                                 this.setHendelseData(id, data);
@@ -52,8 +52,7 @@ export class TidslinjeSide extends Component {
 
 TidslinjeSide.propTypes = {
     dispatch: PropTypes.func,
-    brodsmuler: PropTypes.array,
-    ledetekster: PropTypes.object,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     hendelser: PropTypes.array,
     arbeidssituasjon: PropTypes.string,
     hashMilepaeler: PropTypes.array,
@@ -103,21 +102,19 @@ export function mapStateToProps(state, ownProps) {
         setHash(hendelser);
     }
     const hashHendelser = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
-    const ledetekster = state.ledetekster.data;
     return {
-        ledetekster,
         arbeidssituasjon,
         hendelser,
         hashHendelser,
         tidslinjer: state.tidslinjer.data,
-        henter: ledetekster.henter || state.tidslinjer.henter,
-        hentingFeilet: ledetekster.hentingFeilet || state.tidslinjer.hentingFeilet,
+        henter: state.ledetekster.henter || state.tidslinjer.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet || state.tidslinjer.hentingFeilet,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', ledetekster),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('tidslinje.sidetittel', ledetekster),
+            tittel: getLedetekst('tidslinje.sidetittel'),
         }],
     };
 }

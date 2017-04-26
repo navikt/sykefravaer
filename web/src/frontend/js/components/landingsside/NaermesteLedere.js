@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Lightbox from '../Lightbox';
 import BekreftFeilLederContainer from '../../containers/BekreftFeilLederContainer';
+import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 
 export default class NaermesteLedere extends Component {
     constructor(props) {
@@ -49,9 +50,9 @@ export default class NaermesteLedere extends Component {
                         </div>
                         <div className="leder__handlinger">
                             {
-                                !leder.avkreftet && <button ref={`js-leder-${leder.orgnummer}`} type="button" className="rammeknapp rammeknapp--mini js-feil" onClick={() => {
+                                !leder.avkreftet && <button ref={`js-leder-${leder.orgnummer}`} type="button" className="lenke leder__meldFeil js-feil" onClick={() => {
                                     this.apneLightbox(leder);
-                                }}>Dette er feil</button>
+                                }}>Meld feil</button>
                             }
                         </div>
                     </div>);
@@ -62,6 +63,5 @@ export default class NaermesteLedere extends Component {
 }
 
 NaermesteLedere.propTypes = {
-    ledere: PropTypes.array,
-    ledetekster: PropTypes.object,
+    ledere: PropTypes.arrayOf(naermesteLederPt),
 };

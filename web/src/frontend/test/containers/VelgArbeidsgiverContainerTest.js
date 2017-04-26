@@ -13,7 +13,7 @@ describe("VelgArbeidsgiverContainer", () => {
 
     describe("VelgArbeidsgiverWrapper", () => {
         let sykmelding = {
-            id: 1234
+            id: "1234"
         }
         let arbeidsgivere = [{
             orgnummer: "123",
@@ -26,7 +26,7 @@ describe("VelgArbeidsgiverContainer", () => {
             comp.instance().onChange("123");
             expect(dispatch.getCall(0).args[0]).to.deep.equal({
                 type: "SET_ARBEIDSGIVER",
-                sykmeldingId: 1234,
+                sykmeldingId: "1234",
                 arbeidsgiver: {
                     orgnummer: "123",
                     navn: "Oles sykkelservice"
@@ -98,13 +98,6 @@ describe("VelgArbeidsgiverContainer", () => {
                 navn: "Annen arbeidsgiver",
                 orgnummer: "0"
             }]);
-        });
-
-        it("Skal returnere ledetekster", () => {
-            const props = mapStateToProps(state, {
-                sykmeldingId: "33"
-            });
-            expect(props.ledetekster).to.deep.equal(ledetekster)
         });
 
         it("Skal returnere sykmelding", () => {

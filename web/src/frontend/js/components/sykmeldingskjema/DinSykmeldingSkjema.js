@@ -7,6 +7,8 @@ import { reduxForm } from 'redux-form';
 import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import AvbrytDialog from './AvbrytDialog';
 import { PERIODE, SYKMELDINGSGRAD } from '../../enums/feilaktigeOpplysninger';
+import { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
+import { sykmelding as sykmeldingPt } from '../../propTypes';
 
 const modi = {
     GA_VIDERE: 'GA_VIDERE',
@@ -57,13 +59,13 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 (valgteFeilaktigeOpplysninger.indexOf(PERIODE) > -1 || valgteFeilaktigeOpplysninger.indexOf(SYKMELDINGSGRAD) > -1)) {
             return modi.AVBRYT;
         }
-        if (!valgtArbeidssituasjon || valgtArbeidssituasjon === 'default') {
+        if (!valgtArbeidssituasjon || valgtArbeidssituasjon === DEFAULT) {
             return modi.GA_VIDERE;
         }
-        if (valgtArbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values) && values.beOmNyNaermesteLeder === false) {
+        if (valgtArbeidssituasjon === ARBEIDSTAKER && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values) && values.beOmNyNaermesteLeder === false) {
             return modi.SEND_MED_NAERMESTE_LEDER;
         }
-        if (valgtArbeidssituasjon === 'arbeidstaker' && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values)) {
+        if (valgtArbeidssituasjon === ARBEIDSTAKER && !harStrengtFortroligAdresse && !this.harValgtAnnenArbeidsgiver(values)) {
             return modi.SEND;
         }
         return modi.BEKREFT;
@@ -132,29 +134,29 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     render() {
-        const { skjemaData, ledetekster, harStrengtFortroligAdresse, sykmelding, sender, sendingFeilet, avbryter, avbrytFeilet, handleSubmit, untouch } = this.props;
+        const { skjemaData, harStrengtFortroligAdresse, sykmelding, sender, sendingFeilet, avbryter, avbrytFeilet, handleSubmit, untouch } = this.props;
         const values = skjemaData && skjemaData.values ? skjemaData.values : {};
         const modus = this.getSkjemaModus(values, harStrengtFortroligAdresse);
 
         return (<form id="dinSykmeldingSkjema" className="" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
-            <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel', ledetekster)}</h3>
+            <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel')}</h3>
             {
-                skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} ledetekster={ledetekster} untouch={untouch} />
+                skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} untouch={untouch} />
             }
             {
                 modus !== modi.AVBRYT && (<div className="blokk">
                 <VelgArbeidssituasjon {...this.props} />
                 {
-                    values.valgtArbeidssituasjon === 'arbeidstaker' &&
+                    values.valgtArbeidssituasjon === ARBEIDSTAKER &&
                         <div className="blokk">
                             {
-                                harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} ledetekster={ledetekster} />
+                                harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} />
                             }
                         </div>
                 }
             </div>)
             }
-            { values.valgtArbeidssituasjon === 'arbeidstaker' && <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="H4" /> }
+            { values.valgtArbeidssituasjon === ARBEIDSTAKER && <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="H4" /> }
                 <div aria-live="polite" role="alert">
                     {
                         (sendingFeilet || avbrytFeilet) &&
@@ -166,13 +168,13 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     }
                 </div>
                 {
-                    modus !== modi.GA_VIDERE && <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`, ledetekster)}</p>
+                    modus !== modi.GA_VIDERE && <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>
                 }
                 <div className="knapperad knapperad-adskilt">
                     <p className="blokk--s">
                         <button disabled={sender} ref={modus === modi.AVBRYT ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
                             className={`js-submit knapp ${modus === modi.AVBRYT ? 'knapp--fare' : ''} ${(sender) ? 'js-spinner' : ''}`}>
-                            {getLedetekst(`starte-sykmelding.knapp.${modus}`, ledetekster)}
+                            {getLedetekst(`starte-sykmelding.knapp.${modus}`)}
                             { sender && <span className="knapp__spinner" /> }
                         </button>
                     </p>
@@ -184,11 +186,11 @@ export class DinSykmeldingSkjemaComponent extends Component {
                                     this.setState({
                                         visAvbrytDialog: !this.state.visAvbrytDialog,
                                     });
-                                }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog', ledetekster)}</a>
+                                }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</a>
                             </p>
                         }
                         {
-                            this.state.visAvbrytDialog && <AvbrytDialog avbryter={avbryter} ledetekster={ledetekster} avbrytHandler={() => {
+                            this.state.visAvbrytDialog && <AvbrytDialog avbryter={avbryter} avbrytHandler={() => {
                                 this.setState({
                                     visAvbrytDialog: false,
                                 });
@@ -204,12 +206,11 @@ export class DinSykmeldingSkjemaComponent extends Component {
 }
 
 DinSykmeldingSkjemaComponent.propTypes = {
-    sykmelding: PropTypes.object,
+    sykmelding: sykmeldingPt,
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
     avbryter: PropTypes.bool,
     avbrytFeilet: PropTypes.bool,
-    ledetekster: PropTypes.object,
     handleSubmit: PropTypes.func,
     skjemaData: PropTypes.object,
     untouch: PropTypes.func,
@@ -253,7 +254,7 @@ export const validate = (values, props = {}) => {
         };
     }
 
-    if (values.valgtArbeidssituasjon === 'arbeidstaker' && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
+    if (values.valgtArbeidssituasjon === ARBEIDSTAKER && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
         feilmeldinger.valgtArbeidsgiver = 'Vennligst velg arbeidsgiver';
     }
     if (values.beOmNyNaermesteLeder === undefined) {

@@ -1,9 +1,10 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import { Hjelpetekst, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
-const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
+const EgenmeldingsDager = ({ sykepengesoknad }) => {
     const identdato = sykepengesoknad.identdato;
     const senesteTom = new Date(identdato);
     senesteTom.setDate(identdato.getDate() - 1);
@@ -12,27 +13,26 @@ const EgenmeldingsDager = ({ sykepengesoknad, ledetekster }) => {
 
     const hjelpetekst = (<Hjelpetekst
         id="egenmeldingsdager-hjelpetekst"
-        tittel={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tittel', ledetekster)}
-        tekst={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tekst', ledetekster)} />);
+        tittel={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tittel')}
+        tekst={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tekst')} />);
 
     return (
         <JaEllerNei
-            spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.janei.sporsmal', ledetekster, {
+            spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.janei.sporsmal', {
                 '%DATO%': toDatePrettyPrint(identdato),
             })}
             name="bruktEgenmeldingsdagerFoerLegemeldtFravaer"
             hjelpetekst={hjelpetekst}>
             <Periodevelger
                 name="egenmeldingsperioder"
-                spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal', ledetekster)}
+                spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal')}
                 tidligsteFom={tidligsteFom}
                 senesteTom={senesteTom} />
     </JaEllerNei>);
 };
 
 EgenmeldingsDager.propTypes = {
-    sykepengesoknad: PropTypes.object.isRequired,
-    ledetekster: PropTypes.object.isRequired,
+    sykepengesoknad: sykepengesoknadPt.isRequired,
 };
 
 export default EgenmeldingsDager;

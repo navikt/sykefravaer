@@ -26,18 +26,18 @@ describe("UnderUtviklingVarsel", () => {
     });
 
     it("Skal inneholde en Varselstripe", () => {
-        const component = shallow(<UnderUtviklingVarsel skjulUnderUtviklingVarsel={skjulUnderUtviklingVarsel} ledetekster={ledetekster} />)
+        const component = shallow(<UnderUtviklingVarsel skjulUnderUtviklingVarsel={skjulUnderUtviklingVarsel} />)
         expect(component.find(Varselstripe)).to.have.length(1);
     });
 
     it("Skal kalle på skjulUnderUtviklingVarsel når man klikker på js-lukk", () => {
-        const component = shallow(<UnderUtviklingVarsel skjulUnderUtviklingVarsel={skjulUnderUtviklingVarsel} ledetekster={ledetekster} />);
+        const component = shallow(<UnderUtviklingVarsel skjulUnderUtviklingVarsel={skjulUnderUtviklingVarsel} />);
         component.find(".js-lukk").simulate("click");
         expect(skjulUnderUtviklingVarsel.calledOnce).to.be.true;
     });
 
     it("Skal sette erSynlig = true etter 200 ms", () => {
-        const component = shallow(<UnderUtviklingVarsel skjulUnderUtviklingVarsel={skjulUnderUtviklingVarsel} ledetekster={ledetekster} />);
+        const component = shallow(<UnderUtviklingVarsel skjulUnderUtviklingVarsel={skjulUnderUtviklingVarsel} />);
         expect(component.state().synlig).to.be.false;
         clock.tick(199);
         expect(component.state().synlig).to.be.false;

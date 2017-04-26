@@ -2,7 +2,7 @@ import {List, Map, fromJS} from 'immutable';
 import deepFreeze from 'deep-freeze';
 import {expect} from 'chai';
 import * as actiontyper from '../../js/actions/actiontyper';
-import { parseDatofelter } from '../../js/reducers/sykepengesoknader';
+import { parseDatofelter, sorterAktiviteterEldsteFoerst } from '../../js/reducers/sykepengesoknader';
 import sykepengesoknader from '../../js/reducers/sykepengesoknader';
 import * as actions from '../../js/actions/sykepengesoknader_actions';
 import sinon from 'sinon';
@@ -308,6 +308,60 @@ describe('sykepengesoknader', () => {
             const _soknad = parseDatofelter(soknad);
             expect(_soknad.sykmeldingSkrevetDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
+
+    });
+
+    describe("sorterAktiviteterEldsteFoerst", () => {
+
+        it("Sorterer aktiviteter", () => {
+            const soknad = {
+                aktiviteter: [{
+                    avvik: null,
+                    grad: 100,
+                    periode: {
+                        fom: new Date("2016-07-25"),
+                        tom: new Date("2016-07-28"),
+                    }
+                }, {
+                    avvik: null,
+                    grad: 100,
+                    periode: {
+                        fom: new Date("2016-07-10"),
+                        tom: new Date("2016-07-20"),
+                    }
+                }, {
+                    avvik: null,
+                    grad: 100,
+                    periode: {
+                        fom: new Date("2016-07-10"),
+                        tom: new Date("2016-07-21"),
+                    }
+                }]
+            };
+            expect(sorterAktiviteterEldsteFoerst(soknad).aktiviteter).to.deep.equal([{
+                avvik: null,
+                grad: 100,
+                periode: {
+                    fom: new Date("2016-07-10"),
+                    tom: new Date("2016-07-20"),
+                }
+            }, {
+                avvik: null,
+                grad: 100,
+                periode: {
+                    fom: new Date("2016-07-10"),
+                    tom: new Date("2016-07-21"),
+                }
+            }, {
+                avvik: null,
+                grad: 100,
+                periode: {
+                    fom: new Date("2016-07-25"),
+                    tom: new Date("2016-07-28"),
+                }
+            }])
+        });
+
     })
 });
 

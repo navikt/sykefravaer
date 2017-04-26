@@ -24,13 +24,13 @@ describe("GenerellSoknadContainer", () => {
           "id": "min-soknad-id",
           "status": "NY",
           "innsendtDato": null,
-          "opprettetDato": "2017-01-19",
+          "opprettetDato": new Date("2017-01-19"),
           "arbeidsgiver": {
             "navn": "BYGGMESTER BLOM AS",
             "orgnummer": "***REMOVED***",
             "naermesteLeder": null
           },
-          "identdato": "2016-07-15",
+          "identdato": new Date("2016-07-15"),
           "ansvarBekreftet": false,
           "bekreftetKorrektInformasjon": false,
           "arbeidsgiverUtbetalerLoenn": false,
@@ -41,8 +41,8 @@ describe("GenerellSoknadContainer", () => {
           "utenlandsOpphold": [],
           "aktiviteter": [{
             "periode": {
-              "fom": "2016-07-15",
-              "tom": "2017-01-19"
+              "fom": new Date("2016-07-15"),
+              "tom": new Date("2017-01-19")
             },
             "grad": 100,
             "avvik": null
@@ -94,7 +94,7 @@ describe("GenerellSoknadContainer", () => {
         }); 
 
         it("Skal vise innsendt komponent hvis alt er OK", () => {
-            const component = shallow(<GenerellSoknad Component={FoerDuBegynner} sykepengesoknad={minSoknad} ledetekster={ledetekster} />);
+            const component = shallow(<GenerellSoknad Component={FoerDuBegynner} sykepengesoknad={minSoknad} />);
             expect(component.find(FoerDuBegynner)).to.have.length(1);
             expect(component.find(FoerDuBegynner).prop("sykepengesoknad")).to.deep.equal(minSoknad);
             expect(component.find(AppSpinner)).to.have.length(0);

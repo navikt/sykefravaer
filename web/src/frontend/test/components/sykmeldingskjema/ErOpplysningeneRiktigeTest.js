@@ -28,12 +28,12 @@ describe("ErOpplysningeneRiktige -", () => {
 
 
     it("Inneholder en ja/nei", () => {
-        const comp = shallow(<ErOpplysningeneRiktige ledetekster={{}} skjemaData={skjemaData}/>);
+        const comp = shallow(<ErOpplysningeneRiktige skjemaData={skjemaData}/>);
         expect(comp.find(JaEllerNei)).to.be.length(1);
     });
 
     it("inneholder et fieldarray", () => {
-        const comp = shallow(<ErOpplysningeneRiktige ledetekster={{}} skjemaData={skjemaData}/>);
+        const comp = shallow(<ErOpplysningeneRiktige skjemaData={skjemaData}/>);
         const array = comp.find(FieldArray);
 
         expect(array.prop("component")).to.deep.equal(RenderFeilaktigeOpplysninger);
@@ -43,7 +43,7 @@ describe("ErOpplysningeneRiktige -", () => {
     });
 
     it("skal vise riktig spoersmal", () => {
-        const comp = shallow(<ErOpplysningeneRiktige ledetekster={{}} skjemaData={skjemaData}/>)
+        const comp = shallow(<ErOpplysningeneRiktige skjemaData={skjemaData}/>)
         expect(comp.find(JaEllerNei).prop("spoersmal")).to.equal("Er opplysningene i sykmeldingen riktige?");
     });
 
@@ -59,7 +59,7 @@ describe("ErOpplysningeneRiktige -", () => {
                 touched: false,
             };
             fields = ['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre'];
-            component = shallow(<RenderFeilaktigeOpplysninger fields={fields} ledetekster={{}} meta={meta} skjemaData={skjemaData}/>);
+            component = shallow(<RenderFeilaktigeOpplysninger fields={fields} meta={meta} skjemaData={skjemaData}/>);
         });
 
 
@@ -72,8 +72,13 @@ describe("ErOpplysningeneRiktige -", () => {
 
             const fields = ['periode', 'sykmeldingsgrad', 'arbeidsgiver', 'diagnose', 'andre'];
 
-            skjemaData.values = Object.assign({}, skjemaData.values, { feilaktigeOpplysninger: { arbeidsgiver: true }});
-            const comp = shallow(<RenderFeilaktigeOpplysninger fields={fields} ledetekster={{}} meta={meta} skjemaData={skjemaData} />);
+            skjemaData.values = Object.assign({}, skjemaData.values, {
+                feilaktigeOpplysninger: [{
+                    opplysning: 'arbeidsgiver', 
+                    avkrysset: true
+                }] 
+            });
+            const comp = shallow(<RenderFeilaktigeOpplysninger fields={fields} meta={meta} skjemaData={skjemaData} />);
 
             expect(comp.find(SykmeldingFeilaktigeOpplysningerInfo)).to.be.length(1);
         });
@@ -81,7 +86,7 @@ describe("ErOpplysningeneRiktige -", () => {
         describe("HvilkeOpplysninger", () => {
 
             beforeEach(() => {
-                component = shallow(<HvilkeOpplysninger fields={fields} ledetekster={{}} meta={meta} skjemaData={skjemaData}/>);
+                component = shallow(<HvilkeOpplysninger fields={fields} meta={meta} skjemaData={skjemaData}/>);
             })
 
             it("Skal inneholde et Feilomrade", () => {

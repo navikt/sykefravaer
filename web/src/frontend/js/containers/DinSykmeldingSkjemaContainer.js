@@ -9,13 +9,13 @@ import Feilmelding from '../components/Feilmelding';
 import feilaktigeOpplysninger from '../enums/feilaktigeOpplysninger';
 
 export const Skjema = (props) => {
-    const { henter, hentingFeilet, vedlikehold, ledetekster } = props;
+    const { henter, hentingFeilet, vedlikehold } = props;
     if (henter) {
         return <AppSpinner />;
     } else if (hentingFeilet) {
         return <Feilmelding />;
     } else if (vedlikehold.datospennMedTid) {
-        return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel', ledetekster)} melding={getLedetekst('under-vedlikehold.varsel.tekst', ledetekster, {
+        return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel')} melding={getLedetekst('under-vedlikehold.varsel.tekst', {
             '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
             '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
         })} />);
@@ -29,7 +29,6 @@ Skjema.propTypes = {
     vedlikehold: PropTypes.shape({
         datospennMedTid: PropTypes.object,
     }),
-    ledetekster: PropTypes.object,
 };
 
 export const mapStateToProps = (state, ownProps) => {
@@ -44,7 +43,7 @@ export const mapStateToProps = (state, ownProps) => {
 
     const arbeidsgivereData = state.arbeidsgivere.data.concat([{
         orgnummer: '0',
-        navn: getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.label', state.ledetekster.data),
+        navn: getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.label'),
     }]);
 
     const arbeidsgivere = Object.assign({}, state.arbeidsgivere, {
@@ -58,7 +57,6 @@ export const mapStateToProps = (state, ownProps) => {
             feilaktigeOpplysninger,
         }),
         sykmelding,
-        ledetekster: state.ledetekster.data,
         sender: state.arbeidsgiversSykmeldinger.sender,
         sendingFeilet: state.dineSykmeldinger.sendingFeilet,
         avbryter: state.dineSykmeldinger.avbryter,

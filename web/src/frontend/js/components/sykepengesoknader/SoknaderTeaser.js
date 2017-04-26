@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import { tidligsteFom, senesteTom } from '../../utils/periodeUtils';
 import { NY } from '../../enums/sykepengesoknadstatuser';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 class SoknadTeaser extends Component {
 
@@ -27,7 +28,7 @@ class SoknadTeaser extends Component {
     }
 
     render() {
-        const { soknad, ledetekster } = this.props;
+        const { soknad } = this.props;
 
         const perioder = soknad.aktiviteter.map(a => { return a.periode; });
         const visStatus = soknad.status !== NY;
@@ -44,27 +45,27 @@ class SoknadTeaser extends Component {
                     <header className="inngangspanel__header">
                         <h3 className="js-title" id={`soknad-header-${soknad.id}`}>
                             <small className="inngangspanel__meta js-meta">
-                                {getLedetekst('soknad.teaser.dato', ledetekster, { '%DATO%': toDatePrettyPrint(soknad.opprettetDato) }) }
+                                {getLedetekst('soknad.teaser.dato', { '%DATO%': toDatePrettyPrint(soknad.opprettetDato) }) }
                             </small>
                             <span className="inngangspanel__tittel">
-                                {getLedetekst('soknad.teaser.tittel', ledetekster)}
+                                {getLedetekst('soknad.teaser.tittel')}
                             </span>
                         </h3>
                         {
                             visStatus &&
                                 <p className="inngangspanel__status js-status">
-                                { getLedetekst(`soknad.teaser.status.${soknad.status}`, ledetekster, { '%DATO%': toDatePrettyPrint(soknad.innsendtDato) }) }
+                                { getLedetekst(`soknad.teaser.status.${soknad.status}`, { '%DATO%': toDatePrettyPrint(soknad.innsendtDato) }) }
                                 </p>
                         }
                     </header>
-                    <p className="inngangspanel__tekst js-tekst">{getLedetekst('soknad.teaser.tekst', ledetekster,
+                    <p className="inngangspanel__tekst js-tekst">{getLedetekst('soknad.teaser.tekst',
                         {
                             '%FRA%': toDatePrettyPrint(tidligsteFom(perioder)),
                             '%TIL%': toDatePrettyPrint(senesteTom(perioder)) }
                         )
                     }</p>
                     <p className="inngangspanel__undertekst js-undertekst mute">
-                        {getLedetekst('soknad.teaser.undertekst', ledetekster, { '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn }) }
+                        {getLedetekst('soknad.teaser.undertekst', { '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn }) }
                     </p>
                 </div>
             </Link>
@@ -73,22 +74,7 @@ class SoknadTeaser extends Component {
 }
 
 SoknadTeaser.propTypes = {
-    soknad: PropTypes.shape({
-        opprettetDato: PropTypes.instanceOf(Date),
-        aktiviteter: PropTypes.arrayOf(PropTypes.shape({
-            avvik: PropTypes.object,
-            grad: PropTypes.number,
-            periode: PropTypes.shape({
-                fom: PropTypes.instanceOf(Date).isRequired,
-                tom: PropTypes.instanceOf(Date).isRequired,
-            }),
-        })),
-        arbeidsgiver: PropTypes.shape({
-            navn: PropTypes.string.isRequired,
-        }),
-        innsendtDato: PropTypes.instanceOf(Date),
-    }).isRequired,
-    ledetekster: PropTypes.object,
+    soknad: sykepengesoknadPt.isRequired,
 };
 
 export default SoknadTeaser;

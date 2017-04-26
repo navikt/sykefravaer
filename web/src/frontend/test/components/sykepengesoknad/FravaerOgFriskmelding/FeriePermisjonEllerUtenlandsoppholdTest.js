@@ -13,6 +13,7 @@ import { Field, FieldArray } from 'redux-form';
 import Checkbox from '../../../../js/components/skjema/Checkbox';
 import Periodevelger from '../../../../js/components/skjema/Periodevelger';
 import Radioknapper from '../../../../js/components/skjema/Radioknapper';
+import { setLedetekster } from 'digisyfo-npm';
 
 
 describe("FeriePermisjonEllerUtenlandsopphold", () => {
@@ -31,12 +32,13 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
       'sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal': 'Har du søkt om å beholde sykepenger under dette oppholdet utenfor Norge?',
       'sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet': 'Som hovedregel kan du bare få sykepenger når du oppholder deg i Norge. Du kan søke om å beholde sykepenger i en kort periode ved opphold utenfor Norge.'
     });
+    setLedetekster(_ledetekster);
 
-    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} ledetekster={_ledetekster} />);
+    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} />);
   });
 
   it("Skal inneholde en JaEllerNei med riktig name", () => {
-    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} ledetekster={_ledetekster} />);
+    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} />);
     expect(compo.find(JaEllerNei)).to.have.length(1);
     expect(compo.find(JaEllerNei).prop("name")).to.equal("harHattFeriePermisjonEllerUtenlandsopphold")
   });
@@ -58,7 +60,7 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
         "grad": 50,
         "avvik": null
       }]
-    })} ledetekster={_ledetekster} />);
+    })} />);
     expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 30.01.2017?");
   });
 
@@ -90,7 +92,7 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
       const fields = ['ferie', 'permisjon', 'utenlandsopphold'];
       tidligsteFom = new Date("2017-01-10");
       senesteTom = new Date("2017-01-20");
-      component = shallow(<RendreFeriePermisjonEllerUtenlandsopphold fields={fields} ledetekster={_ledetekster} meta={meta} tidligsteFom={tidligsteFom} senesteTom={senesteTom} />);
+      component = shallow(<RendreFeriePermisjonEllerUtenlandsopphold fields={fields} meta={meta} tidligsteFom={tidligsteFom} senesteTom={senesteTom} />);
     })
 
     it("Skal inneholde ett checkbox-Field med Peiodevelger per field", () => {
@@ -136,7 +138,7 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
       let f;
 
       beforeEach(() => {
-        component = shallow(<SoktOmSykepenger ledetekster={_ledetekster} />)
+        component = shallow(<SoktOmSykepenger />)
         f = component.find(Field);
       })
 

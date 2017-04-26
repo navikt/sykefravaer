@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import NaermesteLedere from '../components/landingsside/NaermesteLedere';
 import * as actions from '../actions/ledere_actions';
+import { naermesteLeder as naermesteLederPt } from '../propTypes';
 
 export class Container extends Component {
     componentWillMount() {
@@ -21,7 +22,7 @@ export class Container extends Component {
 Container.propTypes = {
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    ledere: PropTypes.array,
+    ledere: PropTypes.arrayOf(naermesteLederPt),
     hentLedere: PropTypes.func,
 };
 

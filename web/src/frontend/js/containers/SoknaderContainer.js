@@ -8,11 +8,12 @@ import Feilmelding from '../components/Feilmelding';
 import { destroy } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { SYKEPENGER_SKJEMANAVN } from '../components/sykepengesoknad/setup';
+import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt } from '../propTypes';
 
-export const SoknaderSide = ({ ledetekster, brodsmuler, henter, hentingFeilet, sykepengesoknader, actions }) => {
+export const SoknaderSide = ({ brodsmuler, henter, hentingFeilet, sykepengesoknader, actions }) => {
     actions.destroy(SYKEPENGER_SKJEMANAVN);
     return (
-        <Side tittel={getLedetekst('soknader.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
+        <Side tittel={getLedetekst('soknader.sidetittel')} brodsmuler={brodsmuler}>
             {
                 (() => {
                     if (henter) {
@@ -21,7 +22,7 @@ export const SoknaderSide = ({ ledetekster, brodsmuler, henter, hentingFeilet, s
                     if (hentingFeilet) {
                         return <Feilmelding />;
                     }
-                    return (<Soknader ledetekster={ledetekster} soknader={sykepengesoknader} />);
+                    return (<Soknader soknader={sykepengesoknader} />);
                 })()
             }
         </Side>
@@ -29,11 +30,10 @@ export const SoknaderSide = ({ ledetekster, brodsmuler, henter, hentingFeilet, s
 };
 
 SoknaderSide.propTypes = {
-    ledetekster: PropTypes.object,
-    brodsmuler: PropTypes.array,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    sykepengesoknader: PropTypes.array,
+    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     actions: PropTypes.object.isRequired,
 };
 
@@ -44,20 +44,18 @@ export function mapDispatchToProps(dispatch) {
 }
 
 export function mapStateToProps(state) {
-    const ledetekster = state.ledetekster.data;
     const sykepengesoknader = state.sykepengesoknader.data;
 
     return {
-        ledetekster,
         sykepengesoknader,
         henter: state.ledetekster.henter || state.sykepengesoknader.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', ledetekster),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('soknader.sidetittel', ledetekster),
+            tittel: getLedetekst('soknader.sidetittel'),
         }],
     };
 }

@@ -14,7 +14,7 @@ import { FieldArray, Field } from 'redux-form';
 describe('VelgArbeidssituasjon', () => {
 
     it("Har et field med Velg", () => {
-        const comp = shallow(<VelgArbeidssituasjon ledetekster={{eple: 'kake'}}/>)
+        const comp = shallow(<VelgArbeidssituasjon />)
         const field = comp.find(Field);
         expect(field.props().component).to.deep.equal(Velg);
     });

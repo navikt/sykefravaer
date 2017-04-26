@@ -2,8 +2,9 @@ import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import Radioknapper from '../skjema/Radioknapper';
+import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 
-export const RendreErLederRiktig = ({ input, meta, ledetekster, naermesteLeder }) => {
+export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
     const alternativer = [{
         label: 'Ja',
         value: false,
@@ -14,14 +15,14 @@ export const RendreErLederRiktig = ({ input, meta, ledetekster, naermesteLeder }
 
     const hjelpetekst = (<Hjelpetekst
         id="velg-beOmNyNaermesteLeder-hjelpetekst"
-        tittel={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tittel', ledetekster)}
-        tekst={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tekst', ledetekster)} />);
+        tittel={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tittel')}
+        tekst={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tekst')} />);
 
     return (<div className="hovedsporsmal__tilleggssporsmal">
         <Radioknapper
             input={input}
             meta={meta}
-            spoersmal={getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal', ledetekster, {
+            spoersmal={getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal', {
                 '%NAERMESTELEDER%': naermesteLeder.navn,
             })}
             hjelpetekst={hjelpetekst}>
@@ -37,8 +38,7 @@ export const RendreErLederRiktig = ({ input, meta, ledetekster, naermesteLeder }
 RendreErLederRiktig.propTypes = {
     input: PropTypes.object,
     meta: PropTypes.object,
-    ledetekster: PropTypes.object,
-    naermesteLeder: PropTypes.object,
+    naermesteLeder: naermesteLederPt,
 };
 
 const ErLederRiktig = (props) => {
@@ -53,13 +53,7 @@ const ErLederRiktig = (props) => {
 
 ErLederRiktig.propTypes = {
     skjemaData: PropTypes.object,
-    naermesteLeder: PropTypes.shape({
-        navn: PropTypes.string,
-        epost: PropTypes.string,
-        tlf: PropTypes.string,
-        organisasjonsnavn: PropTypes.string,
-    }),
-    ledetekster: PropTypes.object,
+    naermesteLeder: naermesteLederPt,
 };
 
 export default ErLederRiktig;

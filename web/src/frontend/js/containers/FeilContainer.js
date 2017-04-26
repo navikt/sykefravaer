@@ -1,12 +1,6 @@
 import SideIkkeFunnet from '../components/SideIkkeFunnet';
 import { connect } from 'react-redux';
 
-function mapStateToProps(state) {
-    return {
-        ledetekster: state.ledetekster.data,
-    };
-}
-
-const FeilContainer = connect(mapStateToProps)(SideIkkeFunnet);
+const FeilContainer = connect()(SideIkkeFunnet);
 
 export default FeilContainer;

@@ -12,6 +12,8 @@ import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/Gene
 import SendtSoknad from '../../../js/components/sykepengesoknad/SendtSoknad';
 import Feilmelding from '../../../js/components/Feilmelding';
 
+import { getSoknad } from '../../mockSoknader';
+
 describe("FoerDuBegynnerContainer", () => {
 
     let component; 
@@ -27,26 +29,26 @@ describe("FoerDuBegynnerContainer", () => {
     });
 
     it("Skal vise planlagt vedlikehold ved vedlikehold", () => {
-        const sykepengesoknad = {
+        const sykepengesoknad = getSoknad({
             status: 'SENDT',
-        };
+        });
         const comp = shallow(<Controller sykepengesoknad={sykepengesoknad} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
         expect(comp.find(Feilmelding)).to.have.length(1);
     });
 
     it("Skal vise en SendtSoknad hvis sykepengesoknad.status === 'SENDT'", () => {
-        const sykepengesoknad = {
+        const sykepengesoknad = getSoknad({
             status: 'SENDT',
-        };
+        });
         const component = shallow(<Controller sykepengesoknad={sykepengesoknad} vedlikehold={{datospennMedTid: null}} />);
         expect(component.find(SendtSoknad)).to.have.length(1);
         expect(component.find(FoerDuBegynner)).to.have.length(0);
     });
 
     it("Skal vise en FoerDuBegynner hvis sykepengesoknad.status === 'NY'", () => {
-        const sykepengesoknad = {
+        const sykepengesoknad = getSoknad({
             status: 'NY'
-        };
+        });
         const component = shallow(<Controller sykepengesoknad={sykepengesoknad} vedlikehold={{datospennMedTid: null}} />);
         expect(component.find(FoerDuBegynner)).to.have.length(1);
         expect(component.find(SendtSoknad)).to.have.length(0);

@@ -10,6 +10,18 @@ const initiellState = {
     data: [],
 };
 
+export function sorterAktiviteterEldsteFoerst(soknad) {
+    const aktiviteter = soknad.aktiviteter.sort((a, b) => {
+        if (a.periode.fom.getTime() !== b.periode.fom.getTime()) {
+            return a.periode.fom - b.periode.fom;
+        }
+        return a.periode.tom - b.periode.tom;
+    });
+    return Object.assign({}, soknad, {
+        aktiviteter,
+    });
+}
+
 const setSykepengesoknaderProps = (_sykepengesoknader, soknadsId, props) => {
     return _sykepengesoknader.map((soknad) => {
         let _soknad = Object.assign({}, soknad);
@@ -29,6 +41,7 @@ const parseAktivitetsdatoer = (aktiviteter) => {
         );
     });
 };
+
 const parseUtdanningsDato = (utdanning) => {
     return utdanning && Object.assign({}, utdanning, { utdanningStartdato: tilDato(utdanning.utdanningStartdato) });
 };
@@ -57,7 +70,8 @@ export default function sykepengesoknader(state = initiellState, action) {
     switch (action.type) {
         case actiontyper.SYKEPENGESOKNADER_HENTET: {
             const soknader = action.sykepengesoknader.map((s) => {
-                return parseDatofelter(s);
+                const datoparsetSoknad = parseDatofelter(s);
+                return Object.assign({}, datoparsetSoknad, sorterAktiviteterEldsteFoerst(datoparsetSoknad));
             });
             return Object.assign({}, state, {
                 data: soknader,

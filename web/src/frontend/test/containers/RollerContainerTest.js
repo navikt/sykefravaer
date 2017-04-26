@@ -20,25 +20,12 @@ describe("RollerContainer", () => {
             expect(typeof res.brodsmuler.length).to.equal("number");
         });
 
-        it("Skal returnere ledetekster", function () {
-            const res = mapStateToProps({
-                ledetekster: {
-                    data: {
-                        "min.tekst": "Dette er en test"
-                    }
-                },
-            });
-            expect(res.ledetekster).to.deep.equal({
-                "min.tekst": "Dette er en test"
-            });
-        });
-
     });
 
     describe("RollerSide", () => {
 
         it("Skal vise en artikkel", () => {
-            let component = shallow(<RollerSide ledetekster={ledetekster} brodsmuler={[]}/>);
+            let component = shallow(<RollerSide brodsmuler={[{}]}/>);
             expect(component.find(Artikkel)).to.have.length(1);
         });
     })

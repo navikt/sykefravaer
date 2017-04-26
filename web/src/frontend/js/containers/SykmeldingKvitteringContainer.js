@@ -8,11 +8,12 @@ import Feilmelding from '../components/Feilmelding';
 import { senesteTom } from '../utils/periodeUtils';
 import * as actions from '../actions/sykepengesoknader_actions';
 import { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } from '../enums/sykmeldingstatuser';
+import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes';
 
 export const KvitteringSide = (props) => {
-    const { sykmelding, henter, hentingFeilet, ledetekster, brodsmuler } = props;
+    const { sykmelding, henter, hentingFeilet, brodsmuler } = props;
     return (
-        <Side tittel={getLedetekst('din-sykmelding.kvittering.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
+        <Side tittel={getLedetekst('din-sykmelding.kvittering.sidetittel')} brodsmuler={brodsmuler}>
             {
                 (() => {
                     if (henter) {
@@ -37,9 +38,8 @@ export const KvitteringSide = (props) => {
 };
 
 KvitteringSide.propTypes = {
-    ledetekster: PropTypes.object,
-    brodsmuler: PropTypes.array,
-    sykmelding: PropTypes.object,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
+    sykmelding: sykmeldingPt,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
 };
@@ -87,7 +87,6 @@ export const getKvitteringtype = (sykmelding, erPilot) => {
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
     const sykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId);
-    const ledetekster = state.ledetekster.data;
     const henter = state.dineSykmeldinger.henter || state.ledetekster.henter;
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
     const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
@@ -95,8 +94,8 @@ export function mapStateToProps(state, ownProps) {
 
     const kvitteringTittelKey = getLedetekstNokkel(sykmelding, 'kvittering.tittel');
     const kvitteringBrodtekstKey = getLedetekstNokkel(sykmelding, 'kvittering.undertekst', { harStrengtFortroligAdresse });
-    const tittel = kvitteringTittelKey ? getLedetekst(kvitteringTittelKey, ledetekster) : null;
-    const brodtekst = kvitteringBrodtekstKey ? getHtmlLedetekst(kvitteringBrodtekstKey, ledetekster, {
+    const tittel = kvitteringTittelKey ? getLedetekst(kvitteringTittelKey) : null;
+    const brodtekst = kvitteringBrodtekstKey ? getHtmlLedetekst(kvitteringBrodtekstKey, {
         '%TOM%': toDatePrettyPrint(senesteTom(sykmelding.mulighetForArbeid.perioder)),
     }) : null;
 
@@ -104,25 +103,24 @@ export function mapStateToProps(state, ownProps) {
         henter,
         hentingFeilet,
         sykmelding,
-        ledetekster,
         sykmeldingStatus: sykmelding ? sykmelding.status : undefined,
         tittel,
         kvitteringtype: getKvitteringtype(sykmelding, pilotSykepenger),
         brodtekst,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('dine-sykmeldinger.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('dine-sykmeldinger.sidetittel'),
             sti: '/sykmeldinger',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('din-sykmelding.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('din-sykmelding.sidetittel'),
             sti: `/sykmeldinger/${sykmeldingId}`,
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('din-sykmelding.kvittering.sidetittel', state.ledetekster.data),
+            tittel: getLedetekst('din-sykmelding.kvittering.sidetittel'),
         }],
     };
 }

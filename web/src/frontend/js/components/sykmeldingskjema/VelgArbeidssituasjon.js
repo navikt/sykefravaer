@@ -5,28 +5,30 @@ import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import Feilmelding from '../skjema/Feilmelding';
 import VelgArbeidsgiver from './VelgArbeidsgiver';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
+import { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
+import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 
 const getArbeidssituasjoner = (arbeidssituasjon) => {
-    if (!arbeidssituasjon || arbeidssituasjon === 'default') {
+    if (!arbeidssituasjon || arbeidssituasjon === DEFAULT) {
         return arbeidssituasjoner;
     }
     return arbeidssituasjoner.filter((a) => {
-        return a.verdi !== 'default';
+        return a.verdi !== DEFAULT;
     });
 };
 
 export const RendreVelgArbeidssituasjon = (props) => {
-    const { input, meta, ledetekster } = props;
+    const { input, meta } = props;
     return (
         <div>
             <div className="medHjelpetekst">
                 <label htmlFor="select-arbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
-                    {getLedetekst('din-sykmelding.arbeidssituasjon.tittel', ledetekster)}
+                    {getLedetekst('din-sykmelding.arbeidssituasjon.tittel')}
                 </label>
                 <Hjelpetekst
                     id="velg-arbeidssituasjon-hjelpetekst"
-                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tittel', ledetekster)}
-                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tekst', ledetekster)} />
+                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tittel')}
+                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tekst')} />
             </div>
             <div className="selectContainer">
                 <select {...input} className={meta.error && meta.touched ? 'input--feil' : ''}>
@@ -44,7 +46,7 @@ export const Velg = (props) => {
     const Sporsmal = <RendreVelgArbeidssituasjon {...props} />;
     return (<SporsmalMedTillegg className="hovedsporsmal" {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
         const { input } = _props;
-        return input.value === 'arbeidstaker';
+        return input.value === ARBEIDSTAKER;
     }}>
         <VelgArbeidsgiver {...props} />
     </SporsmalMedTillegg>);
@@ -53,14 +55,12 @@ export const Velg = (props) => {
 RendreVelgArbeidssituasjon.propTypes = {
     input: PropTypes.object,
     meta: PropTypes.object,
-    ledetekster: PropTypes.object,
 };
 
 const VelgArbeidssituasjon = (props) => {
-    const { ledetekster, untouch, arbeidsgivere, sykmelding, pilotSykepenger } = props;
+    const { untouch, arbeidsgivere, sykmelding, pilotSykepenger } = props;
 
     return (<Field
-        ledetekster={ledetekster}
         arbeidsgivere={arbeidsgivere}
         pilotSykepenger={pilotSykepenger}
         sykmelding={sykmelding}
@@ -72,10 +72,9 @@ const VelgArbeidssituasjon = (props) => {
 };
 
 VelgArbeidssituasjon.propTypes = {
-    ledetekster: PropTypes.object,
     untouch: PropTypes.func,
-    arbeidsgivere: PropTypes.array,
-    sykmelding: PropTypes.object,
+    arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
+    sykmelding: sykmeldingPt,
     pilotSykepenger: PropTypes.bool,
 };
 

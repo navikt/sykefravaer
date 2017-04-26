@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { setArbeidsgiver } from '../actions/dinSykmelding_actions';
 import VelgArbeidsgiver from '../components/sykmeldingskjema/VelgArbeidsgiver';
 import { getLedetekst, getSykmelding } from 'digisyfo-npm';
+import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt } from '../propTypes';
 
 export class VelgArbeidsgiverWrapper extends Component {
     onChange(orgnummer) {
@@ -24,10 +25,9 @@ export class VelgArbeidsgiverWrapper extends Component {
 }
 
 VelgArbeidsgiverWrapper.propTypes = {
-    sykmelding: PropTypes.object.isRequired,
+    sykmelding: sykmeldingPt.isRequired,
     dispatch: PropTypes.func,
-    ledetekster: PropTypes.object,
-    arbeidsgivere: PropTypes.array,
+    arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
     valgtArbeidsgiverOrgnummer: PropTypes.string,
     resetState: PropTypes.func,
 };
@@ -44,7 +44,7 @@ export function mapStateToProps(state, ownProps) {
     const valgtArbeidsgiverOrgnummer = sykmelding && sykmelding.valgtArbeidsgiver ? sykmelding.valgtArbeidsgiver.orgnummer : undefined;
     const arbeidsgivereData = state.arbeidsgivere.data.concat([{
         orgnummer: '0',
-        navn: getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.label', state.ledetekster.data),
+        navn: getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.label'),
     }]);
     const arbeidsgivere = Object.assign({}, state.arbeidsgivere, {
         data: arbeidsgivereData,
@@ -52,7 +52,6 @@ export function mapStateToProps(state, ownProps) {
     const feilmelding = sykmelding.valgtArbeidsgiver ? 'Du må sende sykmeldingen til arbeidsgiveren din manuelt' : 'Vennligst velg en arbeidsgiver';
 
     return {
-        ledetekster: state.ledetekster.data,
         arbeidsgivere: arbeidsgivere.data,
         valgtArbeidsgiverOrgnummer,
         sykmelding,

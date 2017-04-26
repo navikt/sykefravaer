@@ -12,6 +12,7 @@ import { Field, FieldArray, Fields } from 'redux-form';
 import Aktiviteter, { Aktivitet } from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/Aktiviteter';
 import AngiTid from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AngiTid';
 import JaEllerNei from '../../../../js/components/sykepengesoknad/JaEllerNei';
+import { setLedetekster } from 'digisyfo-npm';
 
 describe("Aktiviteter", () => {
 
@@ -47,11 +48,13 @@ describe("Aktiviteter", () => {
             'sykepengesoknad.aktiviteter.gradert.intro': "I perioden %FOM% - %TOM% skulle du jobbe %ARBEIDSGRAD% % av din normale arbeidstid hos %ARBEIDSGIVER%.",
             'sykepengesoknad.aktiviteter.ugradert.sporsmal': "Har du jobbet?",
         };
+
+        setLedetekster(ledetekster);
     });
 
     describe("Aktiviteter", () => {
 
-        let dato; 
+        let dato;
 
         beforeEach(() => {
             dato = new Date();
@@ -75,8 +78,7 @@ describe("Aktiviteter", () => {
                 arbeidsgiver="MORTENS GRØNNSAKER"
                 gjenopptattArbeidFulltUtDato={dato}
                 autofill={autofill}
-                untouch={untouch}
-                ledetekster={ledetekster} />)).to.be.true;
+                untouch={untouch} />)).to.be.true;
 
             expect(component.contains(<Aktivitet
                 field={aktiviteter[1]}
@@ -84,8 +86,7 @@ describe("Aktiviteter", () => {
                 arbeidsgiver="MORTENS GRØNNSAKER"
                 gjenopptattArbeidFulltUtDato={dato}
                 autofill={autofill}
-                untouch={untouch}
-                ledetekster={ledetekster} />)).to.be.true;
+                untouch={untouch} />)).to.be.true;
         });
 
     });
@@ -100,8 +101,7 @@ describe("Aktiviteter", () => {
                 index={1}
                 arbeidsgiver="MORTENS GRØNNSAKER"
                 autofill={autofill}
-                untouch={untouch}
-                ledetekster={ledetekster} />)
+                untouch={untouch} />)
             ja = component.find(JaEllerNei);
         });
 
@@ -139,8 +139,7 @@ describe("Aktiviteter", () => {
                 index={0}
                 arbeidsgiver="MORTENS GRØNNSAKER"
                 autofill={autofill}
-                untouch={untouch}
-                ledetekster={ledetekster} />)
+                untouch={untouch} />)
             ja = component.find(JaEllerNei);
         });
 
@@ -172,7 +171,7 @@ describe("Aktiviteter", () => {
     describe("Aktivitet med gjenopptattArbeidFulltUtDato", () => {
 
         let ja;
-        let dato; 
+        let dato;
 
         beforeEach(() => {
             dato = new Date("2017-01-10");

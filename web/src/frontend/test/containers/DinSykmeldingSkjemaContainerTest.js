@@ -7,6 +7,7 @@ import getSykmelding from '../mockSykmeldinger';
 import Feilmelding from '../../js/components/Feilmelding';
 
 import { DinSykmldSkjema, mapStateToProps, validate, Skjema } from "../../js/containers/DinSykmeldingSkjemaContainer";
+import { setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -40,8 +41,8 @@ describe("DinSykmeldingSkjemaContainer", () => {
                         id: 2,
                         mulighetForArbeid: {
                             perioder: [{
-                                fom: { year: 2016, monthValue: 1, dayOfMonth: 1 },
-                                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                                fom: "2016-01-01",
+                                tom: "2016-01-06",
                                 grad: 67
                             }],
                         }
@@ -50,8 +51,8 @@ describe("DinSykmeldingSkjemaContainer", () => {
                         id: 1,
                         mulighetForArbeid: {
                             perioder: [{
-                                fom: { year: 2016, monthValue: 2, dayOfMonth: 1 },
-                                tom: { year: 2016, monthValue: 2, dayOfMonth: 6 },
+                                fom: "2016-02-01",
+                                tom: "2016-02-06",
                                 grad: 67
                             }],
                         }
@@ -60,8 +61,8 @@ describe("DinSykmeldingSkjemaContainer", () => {
                         id: 3,
                         mulighetForArbeid: {
                             perioder: [{
-                                fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
-                                tom: { year: 2016, monthValue: 3, dayOfMonth: 10 },
+                                fom: "2016-03-01",
+                                tom: "2016-03-10",
                                 grad: 67
                             }],
                         }
@@ -70,8 +71,8 @@ describe("DinSykmeldingSkjemaContainer", () => {
                         id: 4,
                         mulighetForArbeid: {
                             perioder: [{
-                                fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
-                                tom: { year: 2016, monthValue: 3, dayOfMonth: 20 },
+                                fom: "2016-03-01",
+                                tom: "2016-03-20",
                                 grad: 67
                             }],
                         }
@@ -81,8 +82,8 @@ describe("DinSykmeldingSkjemaContainer", () => {
                         status: "GAMMEL",
                         mulighetForArbeid: {
                             perioder: [{
-                                fom: { year: 2016, monthValue: 3, dayOfMonth: 1 },
-                                tom: { year: 2016, monthValue: 3, dayOfMonth: 20 },
+                                fom: "2016-03-01",
+                                tom: "2016-03-20",
                                 grad: 67
                             }],
                         }
@@ -121,6 +122,10 @@ describe("DinSykmeldingSkjemaContainer", () => {
 
     describe("mapStateToProps", () => {
 
+        beforeEach(() => {
+            setLedetekster(ledetekster);
+        });
+
         it("Skal returnere sykmelding", () => {
             const state = getState();
             const props = mapStateToProps(state, {
@@ -130,14 +135,6 @@ describe("DinSykmeldingSkjemaContainer", () => {
                 id: 123,
                 navn: "Olsen"
             })
-        });
-
-        it("Skal returnere ledetekster", () => {
-            const state = getState();
-            const props = mapStateToProps(state, {
-                sykmeldingId: 123
-            });
-            expect(props.ledetekster).to.deep.equal(ledetekster);
         });
 
         it("Skal returnere sender", () => {

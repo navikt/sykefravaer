@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getContextRoot } from '../routers/paths';
+import { brodsmule as brodsmuleProptype } from '../propTypes';
 
 const Brodsmule = ({ sti, tittel, sisteSmule, erKlikkbar }) => {
     if (sisteSmule) {
@@ -98,7 +99,7 @@ class Brodsmuler extends Component {
 }
 
 Brodsmuler.propTypes = {
-    brodsmuler: PropTypes.array,
+    brodsmuler: PropTypes.arrayOf(brodsmuleProptype),
 };
 
 export default Brodsmuler;

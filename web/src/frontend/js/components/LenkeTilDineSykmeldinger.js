@@ -1,17 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 import { getLedetekst } from 'digisyfo-npm';
 
-const LenkeTilDineSykmeldinger = ({ ledetekster }) => {
+const LenkeTilDineSykmeldinger = () => {
     return (<p className="ikke-print blokk navigasjonsstripe">
         <Link to="/sykefravaer/sykmeldinger">
-            {getLedetekst('din-sykmelding.tilbake', ledetekster)}
+            {getLedetekst('din-sykmelding.tilbake')}
         </Link>
     </p>);
-};
-
-LenkeTilDineSykmeldinger.propTypes = {
-    ledetekster: PropTypes.object,
 };
 
 export default LenkeTilDineSykmeldinger;

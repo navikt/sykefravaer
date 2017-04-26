@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Brodsmuler from '../components/Brodsmuler';
 const DocumentTitle = require('react-document-title');
 import InnloggingContainer from '../containers/InnloggingContainer';
+import { brodsmule as brodsmulePt } from '../propTypes';
 
 const SideMedHoyrekolonne = ({ children, tittel, brodsmuler = [] }) => {
     return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
@@ -30,7 +31,7 @@ const SideMedHoyrekolonne = ({ children, tittel, brodsmuler = [] }) => {
 SideMedHoyrekolonne.propTypes = {
     children: PropTypes.object,
     tittel: PropTypes.string,
-    brodsmuler: PropTypes.array,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
 };
 
 export default SideMedHoyrekolonne;

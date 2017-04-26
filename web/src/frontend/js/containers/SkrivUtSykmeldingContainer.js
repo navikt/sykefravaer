@@ -6,6 +6,7 @@ import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import { Feilmelding } from '../components/Feilmelding';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
+import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes';
 
 let printTrigget = false;
 
@@ -27,9 +28,9 @@ class SkrivUt extends Component {
     }
 
     render() {
-        const { sykmelding, ledetekster, brodsmuler, henter, hentingFeilet } = this.props;
+        const { sykmelding, brodsmuler, henter, hentingFeilet } = this.props;
 
-        return (<Side tittel={getLedetekst('skriv-ut-sykmelding.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
+        return (<Side tittel={getLedetekst('skriv-ut-sykmelding.sidetittel')} brodsmuler={brodsmuler}>
             {
                 (() => {
                     if (henter) {
@@ -38,7 +39,7 @@ class SkrivUt extends Component {
                         return <Feilmelding />;
                     }
                     return (
-                        <ArbeidsgiversSykmelding sykmelding={sykmelding} ledetekster={ledetekster} erApen />
+                        <ArbeidsgiversSykmelding sykmelding={sykmelding} erApen />
                     );
                 })()
             }
@@ -48,9 +49,8 @@ class SkrivUt extends Component {
 }
 
 SkrivUt.propTypes = {
-    sykmelding: PropTypes.object,
-    ledetekster: PropTypes.object,
-    brodsmuler: PropTypes.array,
+    sykmelding: sykmeldingPt,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     dispatch: PropTypes.func,
@@ -59,27 +59,25 @@ SkrivUt.propTypes = {
 export const mapStateToProps = (state, ownProps) => {
     const sykmeldingId = ownProps.params.sykmeldingId;
     const sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId);
-    const ledetekster = state.ledetekster.data;
 
     return {
         sykmelding,
         henter: state.ledetekster.henter || state.arbeidsgiversSykmeldinger.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet,
-        ledetekster,
         brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel', ledetekster),
+            tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('dine-sykmeldinger.sidetittel', ledetekster),
+            tittel: getLedetekst('dine-sykmeldinger.sidetittel'),
             sti: '/sykmeldinger',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('din-sykmelding.sidetittel', ledetekster),
+            tittel: getLedetekst('din-sykmelding.sidetittel'),
             sti: `/sykmeldinger/${sykmeldingId}`,
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('skriv-ut-sykmelding.sidetittel', ledetekster),
+            tittel: getLedetekst('skriv-ut-sykmelding.sidetittel'),
         }],
     };
 };

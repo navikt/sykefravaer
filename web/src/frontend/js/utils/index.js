@@ -13,7 +13,13 @@ export const lagDesimaltall = (streng) => {
             return '';
         }
     }
-    return `${s}`.replace(/\./g, ',');
+    s = `${s}`.replace(/\./g, ',');
+    if (s.indexOf(',') > -1) {
+        s = s.split(',');
+        s = [s[0], s[1].substr(0, 2)];
+        return s.join(',');
+    }
+    return s;
 };
 
 export const parseDato = (input) => {

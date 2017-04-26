@@ -4,8 +4,9 @@ import { getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerE
 import SykmeldingerSorteringContainer from '../../containers/SykmeldingerSorteringContainer';
 import Sidetopp from '../Sidetopp';
 import { NY } from '../../enums/sykmeldingstatuser';
+import { sykmelding as sykmeldingPt } from '../../propTypes';
 
-const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, sortering }) => {
+const DineSykmeldinger = ({ sykmeldinger = [], sortering }) => {
     const nyeSykmeldinger = sykmeldinger.filter((sykmld) => {
         return sykmld.status === NY;
     });
@@ -16,23 +17,21 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, sortering }) =>
 
     return (<div>
         <Sidetopp
-            tittel={getLedetekst('dine-sykmeldinger.tittel', ledetekster)}
-            htmlTekst={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst', ledetekster)}
+            tittel={getLedetekst('dine-sykmeldinger.tittel')}
+            htmlTekst={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst')}
             />
         <SykmeldingTeasere
             sykmeldinger={sorterSykmeldingerEldsteFoerst(nyeSykmeldinger)}
-            tittel={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.tittel', ledetekster)}
-            ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.ingen-sykmeldinger.melding', ledetekster)}
+            tittel={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.tittel')}
+            ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.ingen-sykmeldinger.melding')}
             className="js-nye-sykmeldinger"
-            ledetekster={ledetekster}
             id="sykmelding-liste-nye" />
         {
             tidligereSykmeldinger.length > 0 && <SykmeldingTeasere
                 sykmeldinger={sorterSykmeldinger(tidligereSykmeldinger, tidligereSortering)}
-                tittel={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.tittel', ledetekster)}
-                ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.ingen-sykmeldinger.melding', ledetekster)}
+                tittel={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.tittel')}
+                ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.ingen-sykmeldinger.melding')}
                 className="js-tidligere-sykmeldinger"
-                ledetekster={ledetekster}
                 id="sykmelding-liste-tidligere">
                     <SykmeldingerSorteringContainer status="tidligere" />
                 </SykmeldingTeasere>
@@ -41,8 +40,7 @@ const DineSykmeldinger = ({ sykmeldinger = [], ledetekster = {}, sortering }) =>
 };
 
 DineSykmeldinger.propTypes = {
-    sykmeldinger: PropTypes.array.isRequired,
-    ledetekster: PropTypes.object.isRequired,
+    sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     sortering: PropTypes.object,
 };
 

@@ -5,23 +5,22 @@ import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
 import { tidligsteFom, senesteTom } from '../../utils/periodeUtils';
 import { NY } from '../../enums/sykmeldingstatuser';
+import { sykmelding as sykmeldingPt, sykmeldingperiode } from '../../propTypes';
 
-const PeriodeListe = ({ perioder, arbeidsgiver, ledetekster }) => {
+const PeriodeListe = ({ perioder, arbeidsgiver }) => {
     return (<ul className="teaser-punktliste js-perioder">
         {perioder.map((periode, index) => {
-            return (<SykmeldingPeriodeInfo key={index} periode={periode} arbeidsgiver={arbeidsgiver} Element="li" ledetekster={ledetekster} />);
+            return (<SykmeldingPeriodeInfo key={index} periode={periode} arbeidsgiver={arbeidsgiver} Element="li" />);
         })}
     </ul>);
 };
 
 PeriodeListe.propTypes = {
     arbeidsgiver: PropTypes.string,
-    ledetekster: PropTypes.object,
-    perioder: PropTypes.array,
+    perioder: PropTypes.arrayOf(sykmeldingperiode),
 };
 
 class SykmeldingTeaser extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -42,7 +41,7 @@ class SykmeldingTeaser extends Component {
     }
 
     render() {
-        const { sykmelding, ledetekster } = this.props;
+        const { sykmelding } = this.props;
         const antallPerioder = sykmelding.mulighetForArbeid.perioder.length;
         const visStatus = sykmelding.status !== NY;
 
@@ -57,28 +56,26 @@ class SykmeldingTeaser extends Component {
             <div className="inngangspanel__innhold">
                 <header className="inngangspanel__header">
                     <h3 className="js-title" id={`sykmelding-header-${this.props.sykmelding.id}`}>
-                        <small className="inngangspanel__meta">{getLedetekst('sykmelding.teaser.dato', ledetekster, {
+                        <small className="inngangspanel__meta">{getLedetekst('sykmelding.teaser.dato', {
                             '%FOM%': toDatePrettyPrint(tidligsteFom(sykmelding.mulighetForArbeid.perioder)),
                             '%TOM%': toDatePrettyPrint(senesteTom(sykmelding.mulighetForArbeid.perioder)),
                         })} </small>
                         <span className="inngangspanel__tittel">
-                            {getLedetekst('sykmelding.teaser.tittel', ledetekster)}
+                            {getLedetekst('sykmelding.teaser.tittel')}
                         </span>
                     </h3>
                     {
-                        visStatus && <p className="inngangspanel__status">{getLedetekst(`sykmelding.teaser.status.${sykmelding.status}`, ledetekster)}</p>
+                        visStatus && <p className="inngangspanel__status">{getLedetekst(`sykmelding.teaser.status.${sykmelding.status}`)}</p>
                     }
                 </header>
                 <div className="inngangspanel__tekst">
                     {antallPerioder === 1 ?
                         (<SykmeldingPeriodeInfo
                             periode={sykmelding.mulighetForArbeid.perioder[0]}
-                            arbeidsgiver={sykmelding.arbeidsgiver}
-                            ledetekster={ledetekster} />)
+                            arbeidsgiver={sykmelding.arbeidsgiver} />)
                         : (<PeriodeListe
                             perioder={sykmelding.mulighetForArbeid.perioder}
-                            arbeidsgiver={sykmelding.arbeidsgiver}
-                            ledetekster={ledetekster} />)
+                            arbeidsgiver={sykmelding.arbeidsgiver} />)
                     }
                 </div>
             </div>
@@ -87,8 +84,7 @@ class SykmeldingTeaser extends Component {
 }
 
 SykmeldingTeaser.propTypes = {
-    sykmelding: PropTypes.object.isRequired,
-    ledetekster: PropTypes.object,
+    sykmelding: sykmeldingPt,
 };
 
 export default SykmeldingTeaser;

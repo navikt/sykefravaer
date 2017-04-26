@@ -6,6 +6,7 @@ import * as soknadActions from '../../actions/sykepengesoknader_actions';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { SYKEPENGER_SKJEMANAVN } from '../../components/sykepengesoknad/setup';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export const GenerellSoknad = (props) => {
     const { Component, brodsmuler, sykepengesoknad, henter, hentingFeilet } = props;
@@ -31,10 +32,9 @@ export const GenerellSoknad = (props) => {
 
 GenerellSoknad.propTypes = {
     brodsmuler: PropTypes.array,
-    sykepengesoknad: PropTypes.object,
+    sykepengesoknad: sykepengesoknadPt,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    ledetekster: PropTypes.object,
     Component: PropTypes.func.isRequired,
 };
 
@@ -52,7 +52,6 @@ export const mapStateToProps = (state, ownProps) => {
         })[0],
         henter: state.sykepengesoknader.henter || state.ledetekster.henter,
         hentingFeilet: state.sykepengesoknader.hentingFeilet || state.sykepengesoknader.hentingFeilet,
-        ledetekster: state.ledetekster.data,
         skjemasoknad,
         sender: state.sykepengesoknader.sender,
         sendingFeilet: state.sykepengesoknader.sendingFeilet,

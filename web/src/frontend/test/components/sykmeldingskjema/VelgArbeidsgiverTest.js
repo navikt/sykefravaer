@@ -6,6 +6,7 @@ import sinon from 'sinon';
 import { Field } from 'redux-form';
 import getSykmelding from "../../mockSykmeldinger";
 import ledetekster from '../../mockLedetekster';
+import { setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -47,8 +48,8 @@ describe("VelgArbeidsgiver", () => {
             arbeidsgivere,
             sykmelding,
             input,
-            ledetekster,
         }
+        setLedetekster(ledetekster);
         component = shallow(<VelgArbeidsgiver {...props} />);
     });
 
@@ -130,7 +131,7 @@ describe("VelgArbeidsgiver", () => {
             };
             component = shallow(<Tilleggsinfo {...props} />)
             expect(component.find(ErLederRiktig)).to.have.length(1);
-            expect(component.contains(<ErLederRiktig naermesteLeder={props.input.value.naermesteLeder} ledetekster={ledetekster} />)).to.be.true;
+            expect(component.contains(<ErLederRiktig naermesteLeder={props.input.value.naermesteLeder} />)).to.be.true;
         });
 
         it("Skal inneholde ErLederRiktig hvis value.naermesteLeder === null", () => {

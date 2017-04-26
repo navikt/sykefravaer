@@ -30,8 +30,8 @@ describe("DineSykmeldingerContainer", () => {
             sykmelder: "Ove Olsen",
             arbeidsgiver: "Selskapet AS",
             perioder: [{
-                fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                fom: "2015-12-31",
+                tom: "2016-01-06",
                 grad: 67
             }],
             hoveddiagnose: {
@@ -48,8 +48,8 @@ describe("DineSykmeldingerContainer", () => {
             sykmelder: "Ove Olsen",
             arbeidsgiver: "Selskapet AS",
             perioder: [{
-                fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                fom: "2015-12-31",
+                tom: "2016-01-06",
                 grad: 67
             }],
             hoveddiagnose: {
@@ -66,8 +66,8 @@ describe("DineSykmeldingerContainer", () => {
             sykmelder: "Ove Olsen",
             arbeidsgiver: "Selskapet AS",
             perioder: [{
-                fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-                tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+                fom: "2015-12-31",
+                tom: "2016-01-06",
                 grad: 67
             }],
             hoveddiagnose: {
@@ -99,25 +99,6 @@ describe("DineSykmeldingerContainer", () => {
             expect(res.sykmeldinger).to.deep.equal(sykmeldinger.data)
         });
 
-        it("skal returnere ledetekster", function () {
-            const res = mapStateToProps({
-                ledetekster: {
-                    data: {
-                        "min.tekst": "Dette er en test"
-                    }
-                },
-                dineSykmeldinger: sykmeldinger,
-                brukerinfo: {
-                    bruker: {},
-                    innstillinger: {}
-                }     
-            });
-            expect(res.ledetekster).to.deep.equal({
-                "min.tekst": "Dette er en test"
-            })
-        });
-
-
     });
 
     describe("DineSykmldSide", () => {
@@ -127,23 +108,23 @@ describe("DineSykmeldingerContainer", () => {
         });
 
         it("Skal vise spinner dersom data hentes", () => {
-            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={[]} henter dispatch={dispatch} />);
+            let component = shallow(<DineSykmldSide sykmeldinger={[]} henter dispatch={dispatch} />);
             expect(component.contains(<AppSpinner />)).to.equal(true);
         });
 
         it("Skal ikke spinner dersom data ikke hentes", () => {
-            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={[]} dispatch={dispatch} />);
+            let component = shallow(<DineSykmldSide sykmeldinger={[]} dispatch={dispatch} />);
             expect(component.contains(<AppSpinner />)).to.equal(false);
         });
 
         it("Skal vise feilmelding dersom henting feilet", () => {
-            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={[]} dispatch={dispatch} hentingFeilet />);
+            let component = shallow(<DineSykmldSide sykmeldinger={[]} dispatch={dispatch} hentingFeilet />);
             expect(component.contains(<Feilmelding />)).to.equal(true);
         }); 
 
         it("Skal vise DineSykmeldinger dersom henting er OK", () => {
             let sykmeldinger = [];
-            let component = shallow(<DineSykmldSide ledetekster={ledetekster} sykmeldinger={[]} dispatch={dispatch} />);
+            let component = shallow(<DineSykmldSide sykmeldinger={[]} dispatch={dispatch} />);
             expect(component.find(DineSykmeldinger)).to.have.length(1);
         });     
 

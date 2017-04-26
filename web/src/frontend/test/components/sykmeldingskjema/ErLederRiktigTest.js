@@ -3,6 +3,7 @@ import React from 'react'
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from '../../mockLedetekster';
+import { setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -12,6 +13,10 @@ import Radioknapper from '../../../js/components/skjema/Radioknapper';
 import { FieldArray, Field } from 'redux-form';
 
 describe("ErLederRiktig", () => {
+
+    beforeEach(() => {
+        setLedetekster(ledetekster);
+    })
 
     it("Skal inneholde et Field med name = beOmNyNaermesteLeder", () => {
         let component = shallow(<ErLederRiktig />)
@@ -27,7 +32,6 @@ describe("ErLederRiktig", () => {
             props = {
                 input: {test: "test"},
                 meta: {test2: "test2"},
-                ledetekster,
                 naermesteLeder: {}
             };
             c = shallow(<RendreErLederRiktig {...props} />)

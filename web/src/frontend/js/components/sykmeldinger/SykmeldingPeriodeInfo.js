@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import { getDuration, getLedetekst, toDate } from 'digisyfo-npm';
+import { sykmeldingperiode } from '../../propTypes';
 
-const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekster }) => {
+const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p' }) => {
     let ledetekstNokkel = 'sykmelding.teaser.tekst';
     if (periode.behandlingsdager === 1) {
         ledetekstNokkel = 'sykmelding.teaser.tekst.behandlingsdag';
@@ -27,7 +28,7 @@ const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekst
     if (periode.reisetilskudd && periode.grad) {
         ledetekstNokkel += '.gradert';
     }
-    return (<Element className="js-periode">{getLedetekst(ledetekstNokkel, ledetekster, {
+    return (<Element className="js-periode">{getLedetekst(ledetekstNokkel, {
         '%GRAD%': periode.grad,
         '%ARBEIDSGIVER%': arbeidsgiver,
         '%DAGER%': getDuration(periode.fom, periode.tom),
@@ -36,10 +37,9 @@ const SykmeldingPeriodeInfo = ({ periode, arbeidsgiver, Element = 'p', ledetekst
 };
 
 SykmeldingPeriodeInfo.propTypes = {
-    periode: PropTypes.object,
+    periode: sykmeldingperiode,
     arbeidsgiver: PropTypes.string,
     Element: PropTypes.string,
-    ledetekster: PropTypes.object,
 };
 
 export default SykmeldingPeriodeInfo;

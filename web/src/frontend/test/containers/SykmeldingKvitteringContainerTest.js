@@ -10,6 +10,8 @@ const expect = chai.expect;
 import { KvitteringSide, getKvitteringtype, mapStateToProps, getLedetekstNokkel } from "../../js/containers/SykmeldingKvitteringContainer";
 import SykmeldingKvittering, { SykmeldingKvitteringSokNa, SykmeldingKvitteringSokSenere } from '../../js/components/sykmelding/SykmeldingKvittering';
 import sinon from 'sinon';
+import getSykmelding from '../mockSykmeldinger';
+import { setLedetekster } from 'digisyfo-npm';
 
 const sykmeldinger = [{
     id: 2,
@@ -20,8 +22,8 @@ const sykmeldinger = [{
     arbeidsgiver: "Selskapet AS",
     mulighetForArbeid: {
         perioder: [{
-            fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-            tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+            fom: "2015-12-31",
+            tom: "2016-01-06",
             grad: 67
         }],
     },
@@ -39,8 +41,8 @@ const sykmeldinger = [{
     sykmelder: "Ove Olsen",
     arbeidsgiver: "Selskapet AS",
     perioder: [{
-        fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-        tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+        fom: "2015-12-31",
+        tom: "2016-01-06",
         grad: 67
     }],
     hoveddiagnose: {
@@ -58,8 +60,8 @@ const sykmeldinger = [{
     arbeidsgiver: "Selskapet AS",
     mulighetForArbeid: {
         perioder: [{
-            fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-            tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+            fom: "2015-12-31",
+            tom: "2016-01-06",
             grad: 67
         }],
     },
@@ -85,8 +87,8 @@ const sykmeldinger = [{
     arbeidsfoerEtterPerioden: true,
     mulighetForArbeid: {
         perioder: [{
-            fom: { year: 2015, monthValue: 12, dayOfMonth: 31 },
-            tom: { year: 2016, monthValue: 1, dayOfMonth: 6 },
+            fom: "2015-12-31",
+            tom: "2016-01-06",
             grad: 67
         }],
     }
@@ -99,8 +101,8 @@ const sykmeldinger = [{
     "valgtArbeidssituasjon": 'arbeidstaker',
     "mulighetForArbeid": {
         "perioder": [{
-            "fom": { "year": 2015, "monthValue": 12, "dayOfMonth": 31 },
-            "tom": { "year": 2016, "monthValue": 1, "dayOfMonth": 6 },
+            "fom": "2015-12-31",
+            "tom": "2016-01-06",
             "grad": 67
         }],
     }
@@ -341,11 +343,6 @@ describe("SykmeldingKvitteringContainer", () => {
             expect(res.henter).to.be.true;
         });
 
-        it("Skal returnere ledetekster", () => {
-            const res = mapStateToProps(state, ownProps);
-            expect(res.ledetekster).to.deep.equal(ledetekster)
-        });
-
         it("Skal returnere sykmelding === undefined dersom sykmeldingen ikke finnes", () => {
             ownProps.params = {
                 sykmeldingId: "Ukjent_ID"
@@ -369,10 +366,11 @@ describe("SykmeldingKvitteringContainer", () => {
 
         it("Skal returnere riktig tekst dersom bruker har strengt fortrolig adresse", () => {
             ownProps.params.sykmeldingId = 4;
-            state.ledetekster.data = Object.assign({}, state.ledetekster.data, {
+            const ledetekster = Object.assign({}, state.ledetekster.data, {
                 'bekreft-sykmelding.kvittering.tittel': 'Min fine tittel',
                 'bekreft-sykmelding.skjermingskode-6.kvittering.undertekst': '<p>Min fine tekst</p>'
             })
+            setLedetekster(ledetekster);
             state.brukerinfo = {
                 bruker: {
                     data: {
@@ -387,9 +385,10 @@ describe("SykmeldingKvitteringContainer", () => {
 
         it("Skal returnere riktig sykepengerTekst dersom bruker har valgt har valgt arbeidssituasjon arbeidstaker og arbeidsgiveren min er ikke her og bekreftet sykmeldingen", () => {
             ownProps.params.sykmeldingId = 5;
-            state.ledetekster.data = Object.assign({}, state.ledetekster.data, {
+            const ledetekster = Object.assign({}, state.ledetekster.data, {
                 'bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.undertekst': '<p>Min fine tekst</p>'
             });
+            setLedetekster(ledetekster);
             const res = mapStateToProps(state, ownProps);
             expect(res.brodtekst).to.deep.equal({__html: '<p>Min fine tekst</p>'});
         });
@@ -421,9 +420,9 @@ describe("SykmeldingKvitteringContainer", () => {
 
         beforeEach(() => {
             props = {};
-            props.sykmelding = {
+            props.sykmelding = getSykmelding({
                 status: 'BEKREFTET'
-            };
+            });
         })
 
         it("Skal inneholde en SykmeldingKvittering hvis sykmeldingen er BEKREFTET", () => {

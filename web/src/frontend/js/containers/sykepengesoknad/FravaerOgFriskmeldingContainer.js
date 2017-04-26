@@ -4,10 +4,11 @@ import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
 import { SENDT } from '../../enums/sykepengesoknadstatuser';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export const Controller = (props) => {
     if (props.sykepengesoknad.status === SENDT) {
-        return <Kvittering ledetekster={props.ledetekster} />;
+        return <Kvittering />;
     }
     if (props.skjemasoknad) {
         return <FravaerOgFriskmelding {...props} />;
@@ -16,11 +17,8 @@ export const Controller = (props) => {
 };
 
 Controller.propTypes = {
-    sykepengesoknad: PropTypes.shape({
-        status: PropTypes.string.isRequired,
-    }),
+    sykepengesoknad: sykepengesoknadPt,
     skjemasoknad: PropTypes.object,
-    ledetekster: PropTypes.object,
 };
 
 const FravaerOgFriskmeldingContainer = ({ params }) => {

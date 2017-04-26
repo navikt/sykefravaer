@@ -9,6 +9,7 @@ import Checkbox from '../../../../js/components/skjema/Checkbox';
 import Radioknapper from '../../../../js/components/skjema/Radioknapper';
 import ledetekster from '../../../mockLedetekster';
 import inntektskildetyper from '../../../../js/enums/inntektskildetyper';
+import { setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -30,7 +31,8 @@ describe("AndreInntektskilder", () => {
 
         beforeEach(() => {
             const meta = { error: "Feil", touched: false };
-            component = shallow(<VelgInntektskilder fields={inntektskildetyper} meta={meta} ledetekster={ledetekster} />);
+            setLedetekster(ledetekster);
+            component = shallow(<VelgInntektskilder fields={inntektskildetyper} meta={meta} />);
         });
 
         it("Skal rendre to Field for hver field, unntatt Annet der det bare skal være én Field", () => {

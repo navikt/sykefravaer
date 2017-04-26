@@ -35,17 +35,17 @@ describe("MoteContainer", () => {
         });
 
         it("Skal vise AppSpinner hvis henter = true", () => {
-            const comp = shallow(<Container actions={actions} henter ledetekster={ledetekster} />);
+            const comp = shallow(<Container actions={actions} henter />);
             expect(comp.find(AppSpinner)).to.have.length(1);
         });
 
         it("Skal vise en feilmelding hvis hentingFeilet = true", () => {
-            const comp = shallow(<Container actions={actions} ledetekster={ledetekster} hentingFeilet />);
+            const comp = shallow(<Container actions={actions} hentingFeilet />);
             expect(comp.contains(<Feilmelding />)).to.be.true;
         });
 
         it("Skal sende alle props videre til Svarside", () => {
-            const comp = shallow(<Container mote={mote} actions={actions} ledetekster={ledetekster} banan="banan" eple="eple" />);
+            const comp = shallow(<Container mote={mote} actions={actions} banan="banan" eple="eple" />);
             const s = comp.find(Svarside);
             expect(s.prop("banan")).to.equal("banan");
             expect(s.prop("eple")).to.equal("eple");
@@ -53,14 +53,15 @@ describe("MoteContainer", () => {
         });
 
         it("Skal sende sendSvar videre til Svarside", () => {
-            const comp = shallow(<Container mote={mote} actions={actions} ledetekster={ledetekster} />);
+            const comp = shallow(<Container mote={mote} actions={actions} />);
             expect(comp.find(Svarside).prop("sendSvar")).to.deep.equal(svarActions.sendSvar)
         })
 
         describe("Hvis alle alternativer er besvart", () => {
 
             it("Skal vise Kvittering", () => {
-                component = shallow(<Container actions={actions} mote={moteBesvartAlleAlternativer} ledetekster={ledetekster} />);
+                mote = moteBesvartAlleAlternativer;
+                component = shallow(<Container actions={actions} mote={mote} />);
                 expect(component.find(Kvittering)).to.have.length(1);
             });
 

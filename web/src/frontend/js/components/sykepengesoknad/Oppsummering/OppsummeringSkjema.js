@@ -8,6 +8,7 @@ import { Soknad, Varselstripe, getLedetekst } from 'digisyfo-npm';
 import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
 import { Field } from 'redux-form';
 import validate from '../validering/validerOppsummering';
+import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 export const SendingFeilet = () => {
     return (<div className="panel panel--komprimert">
@@ -18,8 +19,8 @@ export const SendingFeilet = () => {
 };
 
 export const OppsummeringSide = (props) => {
-    const { skjemasoknad, sykepengesoknad, handleSubmit, ledetekster, actions, sender, sendingFeilet } = props;
-    const label = getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label', ledetekster);
+    const { skjemasoknad, sykepengesoknad, handleSubmit, actions, sender, sendingFeilet } = props;
+    const label = getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label');
     const onSubmit = (values) => {
         const soknad = mapSkjemasoknadToBackendsoknad(values);
         const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
@@ -27,9 +28,9 @@ export const OppsummeringSide = (props) => {
     };
     const backendSoknad = mapSkjemasoknadToBackendsoknad(skjemasoknad);
 
-    return (<SykepengerSkjema aktivtSteg="3" sykepengesoknad={sykepengesoknad} ledetekster={ledetekster}>
+    return (<SykepengerSkjema aktivtSteg="3" sykepengesoknad={sykepengesoknad}>
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Soknad apentUtdrag={false} sykepengesoknad={backendSoknad} ledetekster={ledetekster} tittel={'Oppsummering'} />
+            <Soknad apentUtdrag={false} sykepengesoknad={backendSoknad} tittel={'Oppsummering'} />
             <div className={sendingFeilet ? 'bekreftet-container blokk' : 'bekreftet-container'}>
                 <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             </div>
@@ -39,12 +40,12 @@ export const OppsummeringSide = (props) => {
             <Knapperad variant="knapperad--forrigeNeste">
                 <Link
                     to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}
-                    className="rammeknapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake', ledetekster)}
+                    className="rammeknapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake')}
                 </Link>
                 <button
                     className="knapp"
                     type="submit"
-                    disabled={sender}>{getLedetekst('sykepengesoknad.send', ledetekster)}{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}
+                    disabled={sender}>{getLedetekst('sykepengesoknad.send')}{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}
                 </button>
             </Knapperad>
         </form>
@@ -52,10 +53,9 @@ export const OppsummeringSide = (props) => {
 };
 
 OppsummeringSide.propTypes = {
-    sykepengesoknad: PropTypes.object,
+    sykepengesoknad: sykepengesoknadPt,
     handleSubmit: PropTypes.func,
     skjemasoknad: PropTypes.object,
-    ledetekster: PropTypes.object,
     actions: PropTypes.object,
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,

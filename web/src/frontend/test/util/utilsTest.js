@@ -67,6 +67,22 @@ describe("utils", () => {
             const n = lagDesimaltall(",,");
             expect(n).to.equal("");
         });
+
+        it("Skal kun godta to desimaler for tall under 10", () => {
+            const n = lagDesimaltall("1,145");
+            expect(n).to.equal("1,14");
+        });
+
+        it("Skal kun godta to desimaler for tall over 10", () => {
+            const n = lagDesimaltall("11,1451");
+            expect(n).to.equal("11,14");
+        });
+
+        it("Skal kun godta to desimaler for tall over 100", () => {
+            const n = lagDesimaltall("456,1451");
+            expect(n).to.equal("456,14");
+        });
+
     });
 
     describe("parseDato", () => {

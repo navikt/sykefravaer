@@ -33,6 +33,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
         handleSubmit = sinon.spy();
         autofill = sinon.spy();
         untouch = sinon.spy();
+        setLedetekster(ledetekster);
         component = shallow(<AktiviteterISykmeldingsperiodenSkjema
             sykepengesoknad={sykepengesoknad}
             handleSubmit={handleSubmit}
@@ -72,7 +73,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
     it("Skal sette senesteTom til gjenopptattArbeidFulltUtDato - 1 dag hvis gjenopptattArbeidFulltUtDato er oppgitt", () => {
         const dato = new Date("2017-01-20");
-        component = shallow(<AktiviteterISykmeldingsperioden
+        component = shallow(<AktiviteterISykmeldingsperiodenSkjema
             ledetekster={ledetekster}
             sykepengesoknad={sykepengesoknad}
             handleSubmit={handleSubmit}
@@ -106,7 +107,6 @@ describe("AktiviteterISykmeldingsperioden", () => {
         beforeEach(() =>  {
             tidligsteFom = new Date("2017-01-20");
             senesteTom = new Date("2017-01-30");
-            setLedetekster(ledetekster);
             component = shallow(<UtdanningStartDato senesteTom={senesteTom} />)
         });
 

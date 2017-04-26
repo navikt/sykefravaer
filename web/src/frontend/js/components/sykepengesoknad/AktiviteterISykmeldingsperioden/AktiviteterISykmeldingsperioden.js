@@ -26,7 +26,7 @@ UtdanningStartDato.propTypes = {
     senesteTom: PropTypes.instanceOf(Date),
 };
 
-export const AktiviteterISykmeldingsperioden = (props) => {
+export const AktiviteterISykmeldingsperiodenSkjema = (props) => {
     const { handleSubmit, sykepengesoknad, autofill, untouch, gjenopptattArbeidFulltUtDato } = props;
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;

@@ -109,12 +109,16 @@ p {
 	background-color: @advarselRoed;
 	color: @hvit;
 
+	a:visited {
+		color: @hvit;
+	}
+
 	&:focus {
 		outline: none;
 		box-shadow: 0 0 0 3px @bakgrunnGraa, 0 0 0 6px @fokusOrange;
 	}
 
-	a:link {
+	a {
 		color: @hvit;
 		border-bottom: 1px solid @advarselRoedBakgrunn;
 	}
@@ -128,9 +132,6 @@ p {
 		border-bottom-color: @fokusOrange;
 	}
 
-	a:visited {
-		color: @hvit;
-	}
 }
 
 .feiloppsummering__tittel {

@@ -17,8 +17,8 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 export const UtdanningStartDato = ({ senesteTom }) => {
     return (<div className="blokk">
-        <label className="skjema__sporsmal" htmlFor="utdanningStartdato">{getLedetekst('sykepengesoknad.utdanning.startdato.sporsmal')}</label>
-        <Datovelger name="utdanning.utdanningStartdato" id="utdanningStartdato" senesteTom={senesteTom} />
+        <label className="skjema__sporsmal" htmlFor="utdanning.utdanningStartdato">{getLedetekst('sykepengesoknad.utdanning.startdato.sporsmal')}</label>
+        <Datovelger name="utdanning.utdanningStartdato" id="utdanning.utdanningStartdato" senesteTom={senesteTom} />
     </div>);
 };
 

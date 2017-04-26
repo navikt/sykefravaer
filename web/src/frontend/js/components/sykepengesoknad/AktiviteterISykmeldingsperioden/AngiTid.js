@@ -78,20 +78,20 @@ class AngiTid extends Component {
                                 name={name}
                                 id={id}
                                 checked={enhet.value === this.state.valgtEnhet}
-                                aria-controls={this.getAntallId()} />
+                                aria-controls={this.getAntallName()} />
                             <label htmlFor={id}>{getLedetekst(`sykepengesoknad.angi-tid.velg-enhet.label.${enhet.value}`)}</label>
                         </div>);
                     })
                 }
             </div>
             <div className="blokk">
-                <Field id={this.getAntallId()} component={TekstfeltMedEnhet} parse={lagDesimaltall} label={this.getEnhetLabel()} name={this.getAntallName()} />
+                <Field id={this.getAntallName()} component={TekstfeltMedEnhet} parse={lagDesimaltall} label={this.getEnhetLabel()} name={this.getAntallName()} />
             </div>
             <div className="skjema__input">
                 <label htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`} className="skjema__sporsmal">{this.getNormalSporsmal()}</label>
                 <Field
                     name={this.props.names[2]}
-                    id={`aktivitet-${this.props.aktivitetIndex}-normal`}
+                    id={this.props.names[2]}
                     component={TekstfeltMedEnhet}
                     parse={lagDesimaltall}
                     label={getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label')} />

@@ -18,7 +18,7 @@ export const ForskuttererSporsmal = ({ input, meta, arbeidsgiver }) => {
                 '%ARBEIDSGIVER%': arbeidsgiver.navn,
             })}
         </p>
-        <Feilomrade {...meta}>
+        <Feilomrade {...meta} id="arbeidsgiverForskutterer">
             <Radioknapp key={0} label="Ja" id="arbeidsgiverForskutterer-JA" value={JA} input={input} />
             <Radioknapp key={1} label="Nei" id="arbeidsgiverForskutterer-NEI" value={NEI} input={input} />
             <Radioknapp key={2} label="Vet ikke" id="arbeidsgiverForskutterer-VET_IKKE" value={VET_IKKE} input={input} />

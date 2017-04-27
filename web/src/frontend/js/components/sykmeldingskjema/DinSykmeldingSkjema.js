@@ -9,6 +9,7 @@ import AvbrytDialog from './AvbrytDialog';
 import { PERIODE, SYKMELDINGSGRAD } from '../../enums/feilaktigeOpplysninger';
 import { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
+import FeiloppsummeringContainer, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
 
 const modi = {
     GA_VIDERE: 'GA_VIDERE',
@@ -17,6 +18,8 @@ const modi = {
     SEND: 'SEND',
     BEKREFT: 'BEKREFT',
 };
+
+const DIN_SYKMELDING_SKJEMANAVN = 'dinSykmeldingSkjema';
 
 export class DinSykmeldingSkjemaComponent extends Component {
 
@@ -139,6 +142,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
         const modus = this.getSkjemaModus(values, harStrengtFortroligAdresse);
 
         return (<form id="dinSykmeldingSkjema" className="" onSubmit={handleSubmit(this.handleSubmit.bind(this))}>
+            <FeiloppsummeringContainer skjemanavn={DIN_SYKMELDING_SKJEMANAVN} />
             <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel')}</h3>
             {
                 skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} untouch={untouch} />
@@ -242,33 +246,40 @@ export const validate = (values, props = {}) => {
         return {};
     }
     if (values.opplysningeneErRiktige === undefined) {
-        feilmeldinger.opplysningeneErRiktige = 'Vennligst svar på om opplysningene er riktige';
+        feilmeldinger.opplysningeneErRiktige = 'Vennligst svar på om opplysningene i sykmeldingen er riktige';
     }
     if (!values.valgtArbeidssituasjon || values.valgtArbeidssituasjon === 'default') {
-        feilmeldinger.valgtArbeidssituasjon = 'Vennligst oppgi din arbeidssituasjon';
+        feilmeldinger.valgtArbeidssituasjon = 'Vennligst oppgi din arbeidssituasjon for denne sykmeldingen';
     }
 
-    if (!values.opplysningeneErRiktige && avkryssedeFeilaktigeOpplysninger.length === 0) {
+    if (values.opplysningeneErRiktige === false && avkryssedeFeilaktigeOpplysninger.length === 0) {
         feilmeldinger.feilaktigeOpplysninger = {
             _error: 'Vennligst oppgi hvilke opplysninger som ikke er riktige',
         };
     }
 
     if (values.valgtArbeidssituasjon === ARBEIDSTAKER && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
-        feilmeldinger.valgtArbeidsgiver = 'Vennligst velg arbeidsgiver';
+        feilmeldinger.valgtArbeidsgiver = 'Vennligst velg arbeidsgiver for denne sykmeldingen';
     }
-    if (values.beOmNyNaermesteLeder === undefined) {
-        feilmeldinger.beOmNyNaermesteLeder = 'Vennligst svar på dette spørsmålet';
+    if (values.valgtArbeidssituasjon === ARBEIDSTAKER && values.valgtArbeidsgiver && values.valgtArbeidsgiver.orgnummer !== '0') {
+        if (values.valgtArbeidsgiver.naermesteLeder && values.beOmNyNaermesteLeder === undefined) {
+            feilmeldinger.beOmNyNaermesteLeder = `Vennligst svar på om ${values.valgtArbeidsgiver.naermesteLeder.navn} er din nærmeste leder med personalansvar`;
+        }
+
+        if (props.pilotSykepenger && values.arbeidsgiverForskutterer === undefined) {
+            feilmeldinger.arbeidsgiverForskutterer = `Vennligst svar på om ${values.valgtArbeidsgiver.navn} betaler lønnen din hvis du er syk lenger enn 16 dager`;
+        }
     }
-    if (props.pilotSykepenger && values.arbeidsgiverForskutterer === undefined) {
-        feilmeldinger.arbeidsgiverForskutterer = 'Vennligst svar på dette spørsmålet';
-    }
+
     return feilmeldinger;
 };
 
 const DinSykmeldingSkjema = reduxForm({
-    form: 'dinSykmeldingSkjema',
+    form: DIN_SYKMELDING_SKJEMANAVN,
     validate,
+    onSubmitFail: (error, dispatch) => {
+        onSubmitFail(error, dispatch, DIN_SYKMELDING_SKJEMANAVN);
+    },
 })(DinSykmeldingSkjemaComponent);
 
 export default DinSykmeldingSkjema;

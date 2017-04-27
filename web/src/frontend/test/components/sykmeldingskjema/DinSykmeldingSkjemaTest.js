@@ -53,6 +53,9 @@ describe("DinSykmeldingSkjema -", () => {
                     data: {},
                 },
             },
+            form: {
+                dinSykmeldingSkjema: {}
+            }
         };
 
         store = mockStore(getState);
@@ -520,8 +523,7 @@ describe("DinSykmeldingSkjema -", () => {
 
         it("Skal returnere opplysningeneErRiktige og arbeidssituasjon dersom opplysningeneErRiktige === undefined og valgtArbeidssituasjon === undefined", () => {
             const res = validate(fields);
-            expect(typeof res.opplysningeneErRiktige).to.equal("string");
-            expect(typeof res.valgtArbeidssituasjon).to.equal("string");
+            expect(Object.keys(res)).to.deep.equal(["opplysningeneErRiktige", "valgtArbeidssituasjon"]);
         });
 
         it("Skal returnere opplysningeneErRiktige dersom opplysningeneErRiktige === undefined", () => {
@@ -627,14 +629,14 @@ describe("DinSykmeldingSkjema -", () => {
             fields.beOmNyNaermesteLeder = true;
             const res = validate(fields);
             expect(res).to.deep.equal({
-                valgtArbeidssituasjon: "Vennligst oppgi din arbeidssituasjon",
+                valgtArbeidssituasjon: "Vennligst oppgi din arbeidssituasjon for denne sykmeldingen",
                 feilaktigeOpplysninger: { _error: "Vennligst oppgi hvilke opplysninger som ikke er riktige" }
             })
         });
 
         it("Skal returnere {} dersom  opplysningeneErRiktige === true og valgtArbeidssituasjon === 'arbeidstaker' og man har strengt fortrolig adresse", () => {
             fields.opplysningeneErRiktige = true;
-            fields.beOmNyNaermesteLeder = true,
+            fields.beOmNyNaermesteLeder = true;
             fields.valgtArbeidssituasjon = 'arbeidstaker';
             const props = {
                 harStrengtFortroligAdresse: true,
@@ -643,10 +645,113 @@ describe("DinSykmeldingSkjema -", () => {
             expect(res).to.deep.equal({})
         });
 
-        it("Skal returnere beOmNyNaermesteLeder dersom beOmNyNaermesteLeder === undefined", () => {
-            const res = validate(fields);
-            expect(typeof res.beOmNyNaermesteLeder).to.equal("string");
-        });
+        describe("beOmNyNaermesteLeder", () => {
+
+            it("Skal ikke returnere beOmNyNaermesteLeder dersom det ikke er valgt arbeidsgiver", () => {
+                const res = validate(fields);
+                expect(res.beOmNyNaermesteLeder).to.be.undefined;
+            });
+
+            it("Skal ikke returnere beOmNyNaermesteLeder dersom det er valgt arbeidsgiver, men ikke arbeidssituasjon", () => {
+                fields.valgtArbeidsgiver = {
+                    orgnummer: "123",
+                    navn: "Alna",
+                    naermesteLeder: {}
+                }
+                const res = validate(fields);
+                expect(res.beOmNyNaermesteLeder).to.be.undefined;
+            });
+
+            it("Skal ikke returnere beOmNyNaermesteLeder dersom det er valgt arbeidsgiver og arbeidssituasjon, men arbeidssituasjon er frilanser", () => {
+                fields.valgtArbeidsgiver = {
+                    orgnummer: "123",
+                    navn: "Alna",
+                    naermesteLeder: {}
+                }
+                fields.valgtArbeidssituasjon = "frilanser";
+                const res = validate(fields);
+                expect(res.beOmNyNaermesteLeder).to.be.undefined;
+            });
+
+            it("Skal ikke returnere beOmNyNaermesteLeder dersom det er valgt arbeidsgiver og arbeidssituasjon, men arbeidsgiver er uten nærmeste leder", () => {
+                fields.valgtArbeidsgiver = {
+                    orgnummer: "123",
+                    navn: "Alna",
+                }
+                fields.valgtArbeidssituasjon = "arbeidstaker";
+                const res = validate(fields);
+                expect(res.beOmNyNaermesteLeder).to.be.undefined;
+            });
+
+            it("Skal returnere beOmNyNaermesteLeder dersom det er valgt arbeidsgiver og arbeidssituasjon, og arbeidsgiver har nærmeste leder", () => {
+                fields.valgtArbeidsgiver = {
+                    orgnummer: "123",
+                    navn: "Alna",
+                    naermesteLeder: {
+                        navn: "Ole"
+                    }
+                }
+                fields.valgtArbeidssituasjon = "arbeidstaker";
+                const res = validate(fields);
+                expect(typeof res.beOmNyNaermesteLeder).to.equal("string")
+            });
+        })
+
+        describe("arbeidsgiverForskutterer", () => {
+            it("Skal returnere arbeidsgiverForskutterer dersom arbeidssituasjon = arbeidstaker og det er valgt en arbeidsgiver", () => {
+                fields.opplysningeneErRiktige = true;
+                fields.valgtArbeidssituasjon = 'arbeidstaker';
+                fields.valgtArbeidsgiver = {
+                    orgnummer: "***REMOVED***",
+                    navn: "Alna Frisør"
+                };
+                fields.beOmNyNaermesteLeder = false;
+                const res = validate(fields, {
+                    pilotSykepenger: true,
+                });
+                expect(Object.keys(res)).to.deep.equal(["arbeidsgiverForskutterer"]);
+            });
+
+            it("Skal ikke returnere arbeidsgiverForskutterer dersom arbeidssituasjon = arbeidstaker og det er valgt en arbeidsgiver og pilotSykepenger = false", () => {
+                fields.opplysningeneErRiktige = true;
+                fields.valgtArbeidssituasjon = 'arbeidstaker';
+                fields.valgtArbeidsgiver = {
+                    orgnummer: "***REMOVED***",
+                    navn: "Alna Frisør"
+                };
+                fields.beOmNyNaermesteLeder = false;
+                const res = validate(fields, {
+                    pilotSykepenger: false,
+                });
+                expect(Object.keys(res)).to.deep.equal([]);
+            });
+
+            it("Skal ikke returnere arbeidsgiverForskutterer dersom arbeidssituasjon = arbeidstaker og det er valgt 'annen arbeidsgiver' og pilotSykepenger = true", () => {
+                fields.opplysningeneErRiktige = true;
+                fields.valgtArbeidssituasjon = 'arbeidstaker';
+                fields.valgtArbeidsgiver = {
+                    orgnummer: "0",
+                    navn: "Annen arbeidsgiver"
+                };
+                fields.beOmNyNaermesteLeder = false;
+                const res = validate(fields, {
+                    pilotSykepenger: true,
+                });
+                expect(Object.keys(res)).to.deep.equal([]);
+            });
+
+            it("Skal ikke returnere arbeidsgiverForskutterer dersom arbeidssituasjon = arbeidstaker og det ikke er valgt arbeidsgiver og pilotSykepenger = true", () => {
+                fields.opplysningeneErRiktige = true;
+                fields.valgtArbeidssituasjon = 'arbeidstaker';
+                fields.beOmNyNaermesteLeder = false;
+                const res = validate(fields, {
+                    pilotSykepenger: true,
+                });
+                expect(Object.keys(res)).to.deep.equal(['valgtArbeidsgiver']);
+            });
+        })
+
+
 
     });
 

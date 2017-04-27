@@ -88,7 +88,7 @@ export const HvilkeOpplysninger = ({ fields, meta }) => {
     labels[DIAGNOSE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.diagnose');
     labels[ANDRE] = getLedetekst('sykmelding.bekreft-opplysninger.hvilke-opplysninger.andre');
 
-    return (<Feilomrade {...meta}>
+    return (<Feilomrade {...meta} id="feilaktigeOpplysninger">
         <h4 className="skjema__sporsmal">Hvilke opplysninger er ikke riktige?</h4>
         {
             fields.map((field, index) => {

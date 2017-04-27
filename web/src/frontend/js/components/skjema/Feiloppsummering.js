@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Fields, Field } from 'redux-form';
 import { getObjectValueByString } from '../../utils';
+import { scrollTo, erSynligIViewport } from 'digisyfo-npm';
 
 const FeilElement = ({ input, meta }) => {
     return (<li className="feiloppsummering__feil">
@@ -19,10 +20,16 @@ FeilElement.propTypes = {
 
 class Feilliste extends Component {
     componentDidUpdate(prevProps) {
-        const { settFokus, sendSkjemaFeiletHandtert, skjemaErGyldig, skjemanavn } = this.props;
+        const { settFokus, skjemaErGyldig, skjemanavn } = this.props;
         if (settFokus) {
-            this.refs.oppsummering.focus();
-            sendSkjemaFeiletHandtert(skjemanavn);
+            if (!erSynligIViewport(this.refs.oppsummering)) {
+                scrollTo(this.refs.oppsummering, 300);
+                setTimeout(() => {
+                    this.fokuserOppsummering();
+                }, 300);
+            } else {
+                this.fokuserOppsummering();
+            }
         }
         if (this.getErrors(this.props).length === 0 && this.getErrors(prevProps).length > 0) {
             skjemaErGyldig(skjemanavn);
@@ -34,6 +41,12 @@ class Feilliste extends Component {
             const meta = getObjectValueByString(props, field).meta;
             return meta && meta.touched && meta.error && meta.error !== '';
         });
+    }
+
+    fokuserOppsummering() {
+        const { sendSkjemaFeiletHandtert, skjemanavn } = this.props;
+        this.refs.oppsummering.focus();
+        sendSkjemaFeiletHandtert(skjemanavn);
     }
 
     render() {

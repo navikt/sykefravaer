@@ -83,17 +83,17 @@ describe("DinSykmeldingSkjema -", () => {
         expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(0);
     });
 
-    it("Skal ikke vise VelgArbeidsgiver arbeidssituasjon === 'arbeidsledig'", () => {
-        skjemaData.values.valgtArbeidssituasjon = 'arbeidsledig';
+    it("Skal ikke vise VelgArbeidsgiver arbeidssituasjon === 'ARBEIDSLEDIG'", () => {
+        skjemaData.values.valgtArbeidssituasjon = 'ARBEIDSLEDIG';
         component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding({
-                    'arbeidssituasjon': 'arbeidsledig',
+                    'arbeidssituasjon': 'ARBEIDSLEDIG',
                 })} skjemaData={skjemaData} />);
         expect(component.find(VelgArbeidsgiver)).to.have.length(0);
         expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(0);
     });
 
-    it("Skal vise ArbeidsgiversSykmeldingContainer dersom arbeidssituasjon === 'arbeidstaker'", () => {
-        skjemaData.values.valgtArbeidssituasjon = 'arbeidstaker';
+    it("Skal vise ArbeidsgiversSykmeldingContainer dersom arbeidssituasjon === 'ARBEIDSTAKER'", () => {
+        skjemaData.values.valgtArbeidssituasjon = 'ARBEIDSTAKER';
         component = mount(<Provider store={store}>
             <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={[]} />
         </Provider>);
@@ -101,7 +101,7 @@ describe("DinSykmeldingSkjema -", () => {
     });
 
     it("Skal vise info om utskrift dersom harStrengtFortroligAdresse = true", () => {
-        skjemaData.values.valgtArbeidssituasjon = 'arbeidstaker';
+        skjemaData.values.valgtArbeidssituasjon = 'ARBEIDSTAKER';
         component = mount(<Provider store={store}>
             <DinSykmeldingSkjema sykmelding={getSykmelding()} arbeidsgivere={[]} harStrengtFortroligAdresse={true} skjemaData={skjemaData}  />
         </Provider>);
@@ -109,7 +109,7 @@ describe("DinSykmeldingSkjema -", () => {
     });
 
     it("Skal ikke vise info om utskrift dersom harStrengtFortroligAdresse = false", () => {
-        skjemaData.values.valgtArbeidssituasjon = 'arbeidstaker';
+        skjemaData.values.valgtArbeidssituasjon = 'ARBEIDSTAKER';
         component = mount(<Provider store={store}>
             <DinSykmeldingSkjema sykmelding={getSykmelding()}  harStrengtFortroligAdresse={false} skjemaData={skjemaData} arbeidsgivere={[]} />
         </Provider>);
@@ -147,9 +147,9 @@ describe("DinSykmeldingSkjema -", () => {
             expect(modus2).to.equal("AVBRYT")
         });
 
-        it("Skal være SEND dersom valgtArbeidssituasjon === 'arbeidstaker'", () => {
+        it("Skal være SEND dersom valgtArbeidssituasjon === 'ARBEIDSTAKER'", () => {
             let values = {
-                valgtArbeidssituasjon: 'arbeidstaker'
+                valgtArbeidssituasjon: 'ARBEIDSTAKER'
             }
             component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus = component.instance().getSkjemaModus(values, false);
@@ -157,9 +157,9 @@ describe("DinSykmeldingSkjema -", () => {
         });
 
 
-        it("Skal være BEKREFT dersom arbeidssituasjon === 'arbeidstaker' og valgtArbeidsgiver.orgnummer = '0'", () => {
+        it("Skal være BEKREFT dersom arbeidssituasjon === 'ARBEIDSTAKER' og valgtArbeidsgiver.orgnummer = '0'", () => {
             let values = {
-                valgtArbeidssituasjon: 'arbeidstaker',
+                valgtArbeidssituasjon: 'ARBEIDSTAKER',
                 valgtArbeidsgiver: {
                     orgnummer: '0'
                 }
@@ -171,7 +171,7 @@ describe("DinSykmeldingSkjema -", () => {
 
         it("Skal være BEKREFT dersom bruker har strengt fortrolig adresse", () => {
             let values = {
-                valgtArbeidssituasjon: 'arbeidstaker'
+                valgtArbeidssituasjon: 'ARBEIDSTAKER'
             }
             component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus = component.instance().getSkjemaModus(values, true);
@@ -314,7 +314,7 @@ describe("DinSykmeldingSkjema -", () => {
             component.instance().handleSubmit({
                 feilaktigeOpplysninger: f,
                 opplysningeneErRiktige: false,
-                valgtArbeidssituasjon: 'arbeidstaker',
+                valgtArbeidssituasjon: 'ARBEIDSTAKER',
                 valgtArbeidsgiver: {
                     orgnummer: "123456789"
                 }
@@ -349,11 +349,11 @@ describe("DinSykmeldingSkjema -", () => {
                 handleSubmit={sinon.spy()} />);
             component.instance().handleSubmit({
                 feilaktigeOpplysninger,
-                valgtArbeidssituasjon: 'arbeidstaker',
+                valgtArbeidssituasjon: 'ARBEIDSTAKER',
                 valgtArbeidsgiver: {}
             });
             expect(setArbeidssituasjonSpy.calledOnce).to.be.true;
-            expect(setArbeidssituasjonSpy.getCall(0).args[0]).to.equal("arbeidstaker");
+            expect(setArbeidssituasjonSpy.getCall(0).args[0]).to.equal("ARBEIDSTAKER");
             expect(setArbeidssituasjonSpy.getCall(0).args[1]).to.equal("olsen");
         });
 
@@ -422,7 +422,7 @@ describe("DinSykmeldingSkjema -", () => {
         beforeEach(() => {
             skjemaData.values = {};
             skjemaData.values.opplysningeneErRiktige = true;
-            skjemaData.values.valgtArbeidssituasjon = 'arbeidstaker';
+            skjemaData.values.valgtArbeidssituasjon = 'ARBEIDSTAKER';
 
             arbeidsgivere = [{
                 orgnummer: "123456789",
@@ -447,7 +447,7 @@ describe("DinSykmeldingSkjema -", () => {
             }];
             skjemaData.values = {
                 beOmNyNaermesteLeder: false,
-                valgtArbeidssituasjon: 'arbeidstaker',
+                valgtArbeidssituasjon: 'ARBEIDSTAKER',
                 valgtArbeidsgiver: {
                     orgnummer: "123456789",
                     navn: "Mortens frukt og grønt",
@@ -480,7 +480,7 @@ describe("DinSykmeldingSkjema -", () => {
             }];
             skjemaData.values = {
                 beOmNyNaermesteLeder: true,
-                valgtArbeidssituasjon: 'arbeidstaker',
+                valgtArbeidssituasjon: 'ARBEIDSTAKER',
                 valgtArbeidsgiver: {
                     orgnummer: "123456789",
                     navn: "Mortens frukt og grønt",
@@ -574,26 +574,26 @@ describe("DinSykmeldingSkjema -", () => {
         });
 
 
-        it("Skal returnere valgtArbeidssituasjon dersom valgtArbeidssituasjon = 'arbeidstaker'", () => {
+        it("Skal returnere valgtArbeidssituasjon dersom valgtArbeidssituasjon = 'ARBEIDSTAKER'", () => {
             fields.valgtArbeidssituasjon = undefined;
             const res = validate(fields);
             expect(res.valgtArbeidssituasjon).to.be.defined;
         });
 
-        it("Skal ikke returnere valgtArbeidssituasjon dersom valgtArbeidssituasjon === 'arbeidstaker'", () => {
-            fields.valgtArbeidssituasjon = 'arbeidstaker';
+        it("Skal ikke returnere valgtArbeidssituasjon dersom valgtArbeidssituasjon === 'ARBEIDSTAKER'", () => {
+            fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
             const res = validate(fields);
             expect(res.valgtArbeidssituasjon).to.be.undefined;
         });
 
-        it("Skal returnere valgtArbeidsgiver dersom valgtArbeidssituasjon === 'arbeidstaker' og valgtArbeidsgiver === undefined", () => {
-            fields.valgtArbeidssituasjon = 'arbeidstaker';
+        it("Skal returnere valgtArbeidsgiver dersom valgtArbeidssituasjon === 'ARBEIDSTAKER' og valgtArbeidsgiver === undefined", () => {
+            fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
             const res = validate(fields);
             expect(res.valgtArbeidsgiver).to.be.defined;
         });
 
-        it("Skal ikke returnere valgtArbeidsgiver dersom valgtArbeidssituasjon === 'arbeidstaker' og valgtArbeidsgiver === {}", () => {
-            fields.valgtArbeidssituasjon = 'arbeidstaker';
+        it("Skal ikke returnere valgtArbeidsgiver dersom valgtArbeidssituasjon === 'ARBEIDSTAKER' og valgtArbeidsgiver === {}", () => {
+            fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
             fields.valgtArbeidsgiver = {
                 orgnummer: "***REMOVED***",
                 navn: "Alna Frisør"
@@ -634,10 +634,10 @@ describe("DinSykmeldingSkjema -", () => {
             })
         });
 
-        it("Skal returnere {} dersom  opplysningeneErRiktige === true og valgtArbeidssituasjon === 'arbeidstaker' og man har strengt fortrolig adresse", () => {
+        it("Skal returnere {} dersom  opplysningeneErRiktige === true og valgtArbeidssituasjon === 'ARBEIDSTAKER' og man har strengt fortrolig adresse", () => {
             fields.opplysningeneErRiktige = true;
             fields.beOmNyNaermesteLeder = true;
-            fields.valgtArbeidssituasjon = 'arbeidstaker';
+            fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
             const props = {
                 harStrengtFortroligAdresse: true,
             }
@@ -662,13 +662,13 @@ describe("DinSykmeldingSkjema -", () => {
                 expect(res.beOmNyNaermesteLeder).to.be.undefined;
             });
 
-            it("Skal ikke returnere beOmNyNaermesteLeder dersom det er valgt arbeidsgiver og arbeidssituasjon, men arbeidssituasjon er frilanser", () => {
+            it("Skal ikke returnere beOmNyNaermesteLeder dersom det er valgt arbeidsgiver og arbeidssituasjon, men arbeidssituasjon er FRILANSER", () => {
                 fields.valgtArbeidsgiver = {
                     orgnummer: "123",
                     navn: "Alna",
                     naermesteLeder: {}
                 }
-                fields.valgtArbeidssituasjon = "frilanser";
+                fields.valgtArbeidssituasjon = "FRILANSER";
                 const res = validate(fields);
                 expect(res.beOmNyNaermesteLeder).to.be.undefined;
             });
@@ -678,7 +678,7 @@ describe("DinSykmeldingSkjema -", () => {
                     orgnummer: "123",
                     navn: "Alna",
                 }
-                fields.valgtArbeidssituasjon = "arbeidstaker";
+                fields.valgtArbeidssituasjon = "ARBEIDSTAKER";
                 const res = validate(fields);
                 expect(res.beOmNyNaermesteLeder).to.be.undefined;
             });
@@ -691,16 +691,16 @@ describe("DinSykmeldingSkjema -", () => {
                         navn: "Ole"
                     }
                 }
-                fields.valgtArbeidssituasjon = "arbeidstaker";
+                fields.valgtArbeidssituasjon = "ARBEIDSTAKER";
                 const res = validate(fields);
                 expect(typeof res.beOmNyNaermesteLeder).to.equal("string")
             });
         })
 
         describe("arbeidsgiverForskutterer", () => {
-            it("Skal returnere arbeidsgiverForskutterer dersom arbeidssituasjon = arbeidstaker og det er valgt en arbeidsgiver", () => {
+            it("Skal returnere arbeidsgiverForskutterer dersom arbeidssituasjon = ARBEIDSTAKER og det er valgt en arbeidsgiver", () => {
                 fields.opplysningeneErRiktige = true;
-                fields.valgtArbeidssituasjon = 'arbeidstaker';
+                fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
                 fields.valgtArbeidsgiver = {
                     orgnummer: "***REMOVED***",
                     navn: "Alna Frisør"
@@ -712,9 +712,9 @@ describe("DinSykmeldingSkjema -", () => {
                 expect(Object.keys(res)).to.deep.equal(["arbeidsgiverForskutterer"]);
             });
 
-            it("Skal ikke returnere arbeidsgiverForskutterer dersom arbeidssituasjon = arbeidstaker og det er valgt en arbeidsgiver og pilotSykepenger = false", () => {
+            it("Skal ikke returnere arbeidsgiverForskutterer dersom arbeidssituasjon = ARBEIDSTAKER og det er valgt en arbeidsgiver og pilotSykepenger = false", () => {
                 fields.opplysningeneErRiktige = true;
-                fields.valgtArbeidssituasjon = 'arbeidstaker';
+                fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
                 fields.valgtArbeidsgiver = {
                     orgnummer: "***REMOVED***",
                     navn: "Alna Frisør"
@@ -726,9 +726,9 @@ describe("DinSykmeldingSkjema -", () => {
                 expect(Object.keys(res)).to.deep.equal([]);
             });
 
-            it("Skal ikke returnere arbeidsgiverForskutterer dersom arbeidssituasjon = arbeidstaker og det er valgt 'annen arbeidsgiver' og pilotSykepenger = true", () => {
+            it("Skal ikke returnere arbeidsgiverForskutterer dersom arbeidssituasjon = ARBEIDSTAKER og det er valgt 'annen arbeidsgiver' og pilotSykepenger = true", () => {
                 fields.opplysningeneErRiktige = true;
-                fields.valgtArbeidssituasjon = 'arbeidstaker';
+                fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
                 fields.valgtArbeidsgiver = {
                     orgnummer: "0",
                     navn: "Annen arbeidsgiver"
@@ -740,9 +740,9 @@ describe("DinSykmeldingSkjema -", () => {
                 expect(Object.keys(res)).to.deep.equal([]);
             });
 
-            it("Skal ikke returnere arbeidsgiverForskutterer dersom arbeidssituasjon = arbeidstaker og det ikke er valgt arbeidsgiver og pilotSykepenger = true", () => {
+            it("Skal ikke returnere arbeidsgiverForskutterer dersom arbeidssituasjon = ARBEIDSTAKER og det ikke er valgt arbeidsgiver og pilotSykepenger = true", () => {
                 fields.opplysningeneErRiktige = true;
-                fields.valgtArbeidssituasjon = 'arbeidstaker';
+                fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
                 fields.beOmNyNaermesteLeder = false;
                 const res = validate(fields, {
                     pilotSykepenger: true,

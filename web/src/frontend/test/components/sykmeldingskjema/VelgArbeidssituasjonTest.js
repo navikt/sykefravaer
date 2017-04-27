@@ -37,16 +37,16 @@ describe('VelgArbeidssituasjon', () => {
             expect(component.find(SporsmalMedTillegg).contains(<VelgArbeidsgiver {...props} />)).to.be.true;
         });
 
-        it("Skal vise tillegg hvis arbeidssituasjon === 'arbeidstaker'", () => {
+        it("Skal vise tillegg hvis arbeidssituasjon === 'ARBEIDSTAKER'", () => {
             props.input = {
-                value: "arbeidstaker"
+                value: "ARBEIDSTAKER"
             }
             expect(component.find(SporsmalMedTillegg).prop("visTillegg")(props)).to.be.true;
         }); 
 
-        it("Skal ikke vise tillegg hvis arbeidssituasjon === 'noe annet enn arbeidstaker'", () => {
+        it("Skal ikke vise tillegg hvis arbeidssituasjon === 'noe annet enn ARBEIDSTAKER'", () => {
             props.input = {
-                value: "noe annet enn arbeidstaker"
+                value: "noe annet enn ARBEIDSTAKER"
             }
             expect(component.find(SporsmalMedTillegg).prop("visTillegg")(props)).to.be.false;
         }); 
@@ -62,14 +62,14 @@ describe('VelgArbeidssituasjon', () => {
         });
 
         it("Har med default option om default arbeidssituasjon er valgt", () => {
-            const input = {value: 'default'};
+            const input = {value: 'DEFAULT'};
             const meta = {};
             const comp = shallow(RendreVelgArbeidssituasjon({input, meta}));
             expect((comp.find('option').length)).to.be.equal(6);
         });
 
         it("Har ikke med default option om arbeidssituasjon er valgt", () => {
-            const input = {value: 'frilanser'};
+            const input = {value: 'FRILANSER'};
             const meta = {};
             const comp = shallow(RendreVelgArbeidssituasjon({input, meta}));
             expect((comp.find('option').length)).to.be.equal(5);

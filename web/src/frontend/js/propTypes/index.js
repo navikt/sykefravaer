@@ -94,7 +94,7 @@ export const sykmeldingperiode = PropTypes.shape({
 });
 
 export const sykmelding = PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     startLegemeldtFravaer: PropTypes.string,
     skalViseSkravertFelt: PropTypes.bool,
     identdato: PropTypes.string,

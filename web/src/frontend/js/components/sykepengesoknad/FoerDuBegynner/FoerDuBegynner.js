@@ -22,7 +22,7 @@ let FoerDuBegynnerSkjema = (props) => {
         <div className="knapperad">
             <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre')}</button>
         </div>
-    </form>)
+    </form>);
 };
 
 FoerDuBegynnerSkjema.propTypes = {

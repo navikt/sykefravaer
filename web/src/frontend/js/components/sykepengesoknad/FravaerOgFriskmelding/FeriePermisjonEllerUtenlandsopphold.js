@@ -5,7 +5,7 @@ import Checkbox from '../../skjema/Checkbox';
 import Radioknapper from '../../skjema/Radioknapper';
 import { FieldArray, Field } from 'redux-form';
 import Feilomrade from '../../skjema/Feilomrade';
-import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, getTomDato } from 'digisyfo-npm';
 import * as periodeUtils from '../../../utils/periodeUtils';
 import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
@@ -44,7 +44,7 @@ export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, tidlig
         return `harHatt${field[0].toUpperCase()}${field.substr(1)}`;
     };
 
-    return (<Feilomrade {...meta} id='feriePermisjonEllerUtenlandsopphold'>
+    return (<Feilomrade {...meta} id="feriePermisjonEllerUtenlandsopphold">
         <h4 className="skjema__sporsmal">{getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har')}</h4>
         {
             fields.map((field, index) => {
@@ -77,15 +77,14 @@ RendreFeriePermisjonEllerUtenlandsopphold.propTypes = {
 };
 
 export const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, gjenopptattArbeidFulltUtDato }) => {
+    const _soknad = Object.assign({}, sykepengesoknad, {
+        gjenopptattArbeidFulltUtDato,
+    });
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });
     const tidligsteFom = periodeUtils.tidligsteFom(perioder);
-    let senesteTom = periodeUtils.senesteTom(perioder);
-
-    if (gjenopptattArbeidFulltUtDato) {
-        senesteTom = new Date(gjenopptattArbeidFulltUtDato - (1000 * 60 * 60 * 24));
-    }
+    const senesteTom = getTomDato(_soknad);
 
     return (<JaEllerNei
         spoersmal={getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal', {

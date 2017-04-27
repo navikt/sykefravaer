@@ -9,7 +9,7 @@ import Aktiviteter from './Aktiviteter';
 import AndreInntektskilder from './AndreInntektskilder';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
-import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, getTomDato } from 'digisyfo-npm';
 import * as periodeUtils from '../../../utils/periodeUtils';
 import validate from '../validering/validerAktiviteterISykmeldingsperioden';
 import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';
@@ -32,11 +32,10 @@ export const AktiviteterISykmeldingsperiodenSkjema = (props) => {
         return aktivitet.periode;
     });
     const _tidligsteFom = periodeUtils.tidligsteFom(perioder);
-    let _senesteTom = periodeUtils.senesteTom(perioder);
-
-    if (gjenopptattArbeidFulltUtDato) {
-        _senesteTom = new Date(gjenopptattArbeidFulltUtDato - (1000 * 60 * 60 * 24));
-    }
+    const _soknad = Object.assign({}, sykepengesoknad, {
+        gjenopptattArbeidFulltUtDato,
+    });
+    const _senesteTom = getTomDato(_soknad);
 
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);

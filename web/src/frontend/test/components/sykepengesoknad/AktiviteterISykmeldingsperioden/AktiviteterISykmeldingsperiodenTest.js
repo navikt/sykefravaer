@@ -71,6 +71,32 @@ describe("AktiviteterISykmeldingsperioden", () => {
         expect(fulltidField.prop("name")).to.equal("utdanning.erUtdanningFulltidsstudium");
     });
 
+    it("Skal inneholde JaEllerNei for utdanning med riktig dato dersom gjenopptattArbeidFulltUtDato er oppgitt", () => {
+        const dato = new Date("2017-01-23");
+        component = shallow(<AktiviteterISykmeldingsperiodenSkjema
+            gjenopptattArbeidFulltUtDato={dato}
+            sykepengesoknad={sykepengesoknad}
+            handleSubmit={handleSubmit}
+            autofill={autofill}
+            untouch={untouch} />)
+        const jaEllerNei = component.find(JaEllerNei).last();
+        expect(jaEllerNei.prop("name")).to.equal("utdanning.underUtdanningISykmeldingsperioden");
+        expect(jaEllerNei.prop("spoersmal")).to.equal("Har du vært under utdanning i løpet av perioden 01.01.2017 - 22.01.2017?")
+    });
+
+    it("Skal inneholde JaEllerNei for utdanning med riktig dato dersom gjenopptattArbeidFulltUtDato er oppgitt som samme dag som tidligsteFom", () => {
+        const dato = new Date("2017-01-01");
+        component = shallow(<AktiviteterISykmeldingsperiodenSkjema
+            gjenopptattArbeidFulltUtDato={dato}
+            sykepengesoknad={sykepengesoknad}
+            handleSubmit={handleSubmit}
+            autofill={autofill}
+            untouch={untouch} />)
+        const jaEllerNei = component.find(JaEllerNei).last();
+        expect(jaEllerNei.prop("name")).to.equal("utdanning.underUtdanningISykmeldingsperioden");
+        expect(jaEllerNei.prop("spoersmal")).to.equal("Har du vært under utdanning i løpet av perioden 01.01.2017 - 01.01.2017?")
+    });
+
     it("Skal sette senesteTom til gjenopptattArbeidFulltUtDato - 1 dag hvis gjenopptattArbeidFulltUtDato er oppgitt", () => {
         const dato = new Date("2017-01-20");
         component = shallow(<AktiviteterISykmeldingsperiodenSkjema
@@ -81,7 +107,19 @@ describe("AktiviteterISykmeldingsperioden", () => {
             autofill={autofill}
             untouch={untouch} />)
         expect(component.find(UtdanningStartDato).prop("senesteTom")).to.deep.equal(new Date("2017-01-19"));
-    })
+    });
+
+    it("Skal sette senesteTom til gjenopptattArbeidFulltUtDato hvis gjenopptattArbeidFulltUtDato er oppgitt som samme dato som tidligsteFom", () => {
+        const dato = new Date("2017-01-01");
+        component = shallow(<AktiviteterISykmeldingsperiodenSkjema
+            ledetekster={ledetekster}
+            sykepengesoknad={sykepengesoknad}
+            handleSubmit={handleSubmit}
+            gjenopptattArbeidFulltUtDato={dato}
+            autofill={autofill}
+            untouch={untouch} />)
+        expect(component.find(UtdanningStartDato).prop("senesteTom")).to.deep.equal(new Date("2017-01-01"));
+    });
 
     it("Skal inneholde spørsmål om utdanningen er et fulltidsstudium", () => {
         const jaEllerNei = component.find(JaEllerNei).last();

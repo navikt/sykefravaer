@@ -79,6 +79,12 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
     expect(compo.find(FieldArray).prop("senesteTom")).to.deep.equal(new Date("2017-12-22"));
   });
 
+  it("Skal inneholde et FieldArray med senesteTom === gjenopptattArbeidFulltUtDato hvis gjenopptattArbeidFulltUtDato er en dato som er samme dag som tidligsteFom", () => {
+    const gjenopptattArbeidFulltUtDato = new Date("2017-01-01");
+    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} ledetekster={_ledetekster} gjenopptattArbeidFulltUtDato={gjenopptattArbeidFulltUtDato} />);
+    expect(compo.find(FieldArray).prop("senesteTom")).to.deep.equal(new Date("2017-01-01"));
+  });
+
   describe("RendreFeriePermisjonEllerUtenlandsopphold", () => {
     let component; 
     let tidligsteFom;

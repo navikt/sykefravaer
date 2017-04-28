@@ -526,6 +526,12 @@ describe("DinSykmeldingSkjema -", () => {
             expect(Object.keys(res)).to.deep.equal(["opplysningeneErRiktige", "valgtArbeidssituasjon"]);
         });
 
+        it("Skal returnere valgtArbeidssituasjon hvis valgtArbeidssituasjon === DEFAULT", () => {
+            fields.valgtArbeidssituasjon = 'DEFAULT';
+            const res = validate(fields);
+            expect(Object.keys(res)).to.deep.equal(["opplysningeneErRiktige", "valgtArbeidssituasjon"]);
+        });
+
         it("Skal returnere opplysningeneErRiktige dersom opplysningeneErRiktige === undefined", () => {
             const res = validate(fields);
             expect(typeof res.opplysningeneErRiktige).to.equal("string");

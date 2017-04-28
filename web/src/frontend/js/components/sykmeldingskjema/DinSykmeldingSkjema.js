@@ -248,7 +248,7 @@ export const validate = (values, props = {}) => {
     if (values.opplysningeneErRiktige === undefined) {
         feilmeldinger.opplysningeneErRiktige = 'Vennligst svar på om opplysningene i sykmeldingen er riktige';
     }
-    if (!values.valgtArbeidssituasjon || values.valgtArbeidssituasjon === 'default') {
+    if (!values.valgtArbeidssituasjon || values.valgtArbeidssituasjon === DEFAULT) {
         feilmeldinger.valgtArbeidssituasjon = 'Vennligst oppgi din arbeidssituasjon for denne sykmeldingen';
     }
 

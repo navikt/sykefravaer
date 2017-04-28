@@ -1,6 +1,6 @@
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import * as valideringUtils from './valideringUtils';
-import { toDatePrettyPrint } from 'digisyfo-npm';
+import { toDatePrettyPrint, getTomDato } from 'digisyfo-npm';
 import { fraInputdatoTilJSDato } from '../../../utils';
 import { tidligsteFom } from '../../../utils/periodeUtils';
 
@@ -15,7 +15,9 @@ export const validate = (values, props) => {
                 return a.periode;
             });
             periodealternativer.fra = tidligsteFom(perioder);
-            periodealternativer.til = new Date(gjenopptattArbeidFulltUtDato - 1000 * 60 * 60 * 24);
+            periodealternativer.til = getTomDato(Object.assign({}, props.sykepengesoknad, {
+                gjenopptattArbeidFulltUtDato,
+            }));
         } catch (e) {
             gjenopptattArbeidFulltUtDato = null;
         }

@@ -152,6 +152,14 @@ describe("Datovelger", () => {
             expect(res).to.be.undefined;
         });
 
+        it("Skal ikke klage hvis tidligsteFom === senesteTom og oppgitt dato === tidligsteFom", () => {
+            const res = validerDatoField("15.07.2016", {
+                fra: new Date("2016-07-15"),
+                til: new Date("2017-07-15"),
+            });
+            expect(res).to.be.undefined;
+        });
+
     });
 
     describe("DatoField", () => {

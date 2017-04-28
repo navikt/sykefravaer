@@ -2,8 +2,7 @@ import validerFoerDuBegynner from './validerFoerDuBegynner';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 import { ANNET } from '../../../enums/inntektskildetyper';
 import { fraInputdatoTilJSDato } from '../../../utils';
-import { senesteTom } from '../../../utils/periodeUtils';
-import { toDatePrettyPrint } from 'digisyfo-npm';
+import { toDatePrettyPrint, getTomDato } from 'digisyfo-npm';
 
 const parseString = (str) => {
     if (str) {
@@ -119,10 +118,10 @@ const validate = (values, props) => {
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
 
-    const perioder = props.sykepengesoknad.aktiviteter.map((aktivitet) => {
-        return aktivitet.periode;
+    const _sykepengesoknad = Object.assign({}, props.sykepengesoknad, {
+        gjenopptattArbeidFulltUtDato: values.gjenopptattArbeidFulltUtDato,
     });
-    const tomDato = senesteTom(perioder);
+    const tomDato = getTomDato(_sykepengesoknad);
 
     if (values.harAndreInntektskilder === undefined) {
         feilmeldinger.harAndreInntektskilder = 'Du må svare på om du har andre inntektskilder';

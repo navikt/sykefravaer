@@ -3,6 +3,7 @@ import * as actions from '../actions/reduxFormMeta_actions';
 import Feiloppsummering from '../components/skjema/Feiloppsummering';
 import { touch } from 'redux-form';
 import { SEND_SKJEMA_FEILET } from '../enums/reduxFormMetaEnums';
+import { getObjectValueByString } from '../utils';
 
 const getKeys = (key, errors, prefix) => {
     if (typeof errors[key] === 'string') {
@@ -60,17 +61,28 @@ export const mapStateToProps = (state, ownProps) => {
     const meta = state.formMeta && state.formMeta[skjemanavn] && state.formMeta[skjemanavn] ? state.formMeta[skjemanavn] : {};
     const visFeilliste = meta.status === SEND_SKJEMA_FEILET;
     const settFokus = meta.status === SEND_SKJEMA_FEILET && meta.settFokus === true;
-    let names = getNestedKeys(state.form[skjemanavn].syncErrors);
+    const feltnavnMedFeil = getNestedKeys(state.form[skjemanavn].syncErrors);
+    const reduxForm = state.form[skjemanavn];
 
-    if (names.length === 0) {
-        names = ['INGEN_FEIL'];
-    }
+    const feilmeldinger = feltnavnMedFeil.filter((feltnavn) => {
+        try {
+            return getObjectValueByString(reduxForm.fields, feltnavn).touched;
+        } catch (e) {
+            return false;
+        }
+    }).map((feltnavn) => {
+        const feilmelding = getObjectValueByString(reduxForm.syncErrors, feltnavn);
+        return {
+            feltnavn,
+            feilmelding: feilmelding._error || feilmelding,
+        };
+    });
 
     return {
         skjemanavn,
         settFokus,
         visFeilliste,
-        names,
+        feilmeldinger,
     };
 };
 

@@ -33,7 +33,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const setup = (validate, Component, initialize = false) => {
-    const Skjema = (props) => {
+    const ComponentMedOppsummering = (props) => {
         return (<div>
             <Feiloppsummering skjemanavn={SYKEPENGER_SKJEMANAVN} />
             <Component {...props} />
@@ -48,7 +48,7 @@ const setup = (validate, Component, initialize = false) => {
         onSubmitFail: (errors, dispatch) => {
             onSubmitFail(errors, dispatch, SYKEPENGER_SKJEMANAVN);
         },
-    })(Skjema);
+    })(ComponentMedOppsummering);
     if (initialize) {
         return connect(mapStateToProps)(form);
     }

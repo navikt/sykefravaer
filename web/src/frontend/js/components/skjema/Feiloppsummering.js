@@ -1,24 +1,18 @@
 import React, { PropTypes, Component } from 'react';
-import { Fields, Field } from 'redux-form';
-import { getObjectValueByString } from '../../utils';
 import { scrollTo, erSynligIViewport } from 'digisyfo-npm';
 
-const FeilElement = ({ input, meta }) => {
+const FeillisteMelding = ({ feltnavn, feilmelding }) => {
     return (<li className="feiloppsummering__feil">
-        <a href={`#${input.name}`}>{meta.error}</a>
+        <a href={`#${feltnavn}`}>{feilmelding}</a>
     </li>);
 };
 
-FeilElement.propTypes = {
-    input: PropTypes.shape({
-        name: PropTypes.string,
-    }),
-    meta: PropTypes.shape({
-        error: PropTypes.string,
-    }),
+FeillisteMelding.propTypes = {
+    feltnavn: PropTypes.string,
+    feilmelding: PropTypes.string,
 };
 
-class Feilliste extends Component {
+class Feiloppsummering extends Component {
     componentDidUpdate(prevProps) {
         const { settFokus, skjemaErGyldig, skjemanavn } = this.props;
         if (settFokus) {
@@ -31,16 +25,13 @@ class Feilliste extends Component {
                 this.fokuserOppsummering();
             }
         }
-        if (this.getErrors(this.props).length === 0 && this.getErrors(prevProps).length > 0) {
+        if (this.getFeilmeldinger(this.props).length === 0 && this.getFeilmeldinger(prevProps).length > 0) {
             skjemaErGyldig(skjemanavn);
         }
     }
 
-    getErrors(props) {
-        return props.names.filter((field) => {
-            const meta = getObjectValueByString(props, field).meta;
-            return meta && meta.touched && meta.error && meta.error !== '';
-        });
+    getFeilmeldinger(props) {
+        return props.feilmeldinger || [];
     }
 
     fokuserOppsummering() {
@@ -50,17 +41,17 @@ class Feilliste extends Component {
     }
 
     render() {
-        const errors = this.getErrors(this.props);
+        const feilmeldinger = this.getFeilmeldinger(this.props);
         return (<div aria-live="polite" role="alert">
         {
             (() => {
-                if (errors.length > 0 && this.props.visFeilliste) {
+                if (feilmeldinger.length > 0 && this.props.visFeilliste) {
                     return (<div className="panel panel--feiloppsummering blokk--xs" ref="oppsummering" tabIndex="-1">
-                        <h3 className="feiloppsummering__tittel">Det er {errors.length} feil i skjemaet</h3>
+                        <h3 className="feiloppsummering__tittel">Det er {feilmeldinger.length} feil i skjemaet</h3>
                         <ul className="feiloppsummering__liste">
                         {
-                            errors.map((field, index) => {
-                                return <Field key={index} name={field} component={FeilElement} />;
+                            feilmeldinger.map((feilmld, index) => {
+                                return <FeillisteMelding key={index} {...feilmld} />;
                             })
                         }
                         </ul>
@@ -73,16 +64,16 @@ class Feilliste extends Component {
     }
 }
 
-Feilliste.propTypes = {
+Feiloppsummering.propTypes = {
     settFokus: PropTypes.bool,
     sendSkjemaFeiletHandtert: PropTypes.func.isRequired,
     skjemaErGyldig: PropTypes.func.isRequired,
     skjemanavn: PropTypes.string.isRequired,
     visFeilliste: PropTypes.bool,
-};
-
-const Feiloppsummering = (props) => {
-    return <Fields {...props} component={Feilliste} />;
+    feilmeldinger: PropTypes.arrayOf(PropTypes.shape({
+        feltnavn: PropTypes.string,
+        feilmelding: PropTypes.string,
+    })),
 };
 
 export default Feiloppsummering;

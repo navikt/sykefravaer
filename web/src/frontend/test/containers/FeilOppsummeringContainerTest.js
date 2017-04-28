@@ -55,12 +55,23 @@ describe("FeiloppsummeringContainer", () => {
             expect(mapStateToProps(state, ownProps).visFeilliste).to.be.true;
         });
 
-        it("Returnerer names hvis det ikke finnes feil i skjema", () => {
-            expect(mapStateToProps(state, ownProps).names).to.deep.equal(["INGEN_FEIL"]);
+        it("Returnerer feilmeldinger = [] hvis det ikke finnes feil i skjema", () => {
+            expect(mapStateToProps(state, ownProps).feilmeldinger).to.deep.equal([]);
         });
 
-        it("Returnerer names hvis det finnes feil i skjema", () => {
+        it("Returnerer feilmeldinger hvis det finnes feil i skjema og feltene er touched", () => {
             state.form.MITTSKJEMA = {
+                fields: {
+                    felt1: {
+                        touched: true,
+                    },
+                    felt2: {
+                        touched: false,
+                    },
+                    felt3: {
+                        touched: true
+                    }
+                },
                 syncErrors: {
                     "felt1": "Testfeilmelding 1",
                     "felt2": "Testfeilmelding 2",
@@ -69,7 +80,13 @@ describe("FeiloppsummeringContainer", () => {
                     }
                 }
             }
-            expect(mapStateToProps(state, ownProps).names).to.deep.equal(["felt1", "felt2", "felt3"]);
+            expect(mapStateToProps(state, ownProps).feilmeldinger).to.deep.equal([{
+                feilmelding: "Testfeilmelding 1",
+                feltnavn: "felt1",
+            }, {
+                feilmelding: "Testfeilmelding 3",
+                feltnavn: "felt3"
+            }]);
         });
 
     });

@@ -7,7 +7,7 @@
     <parent>
         <artifactId>syfofront</artifactId>
         <groupId>no.nav.syfo</groupId>
-        <version>4.2-LOCAL</version>
+        <version>4.3-LOCAL</version>
     </parent>
 
     <artifactId>syfofront-ear</artifactId>

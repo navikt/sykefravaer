@@ -372,6 +372,24 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
         });
     });
 
+    describe("arbeidsgiverForskutterer", () => {
+        it("Returnerer arbeidsgiverForskutterer hvis visForskutteringssporsmal === true", () => {
+            sykepengesoknad.arbeidsgiverForskutterer = 'VET_IKKE';
+            const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad), {
+                visForskutteringssporsmal: true
+            })
+            expect(soknad.arbeidsgiverForskutterer).to.equal("VET_IKKE");
+        });
+
+        it("Returnerer ikke arbeidsgiverForskutterer hvis visForskutteringssporsmal === true", () => {
+            sykepengesoknad.arbeidsgiverForskutterer = 'VET_IKKE';
+            const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad), {
+                visForskutteringssporsmal: false
+            })
+            expect(soknad.arbeidsgiverForskutterer).to.be.undefined;
+        });
+    });
+
     describe("Mapper mellom tall og tekst i avvik", () => {
         const soknad = Object.assign({}, getSoknad(), {
             "utdanning": {

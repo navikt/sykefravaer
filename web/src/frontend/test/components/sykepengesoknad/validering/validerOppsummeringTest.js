@@ -167,6 +167,38 @@ describe("OppsummeringSkjema", () => {
           });
           expect(sendTilFoerDuBegynner.called).to.be.false;
       });
+
+      it("Skal ikke kreve at arbeidsgiverForskutterer er satt hvis visForskutteringssporsmal er false", () => {
+        const res = validate(gyldigeVerdier, {
+          sendTilFoerDuBegynner,
+          visForskutteringssporsmal: false,
+          sykepengesoknad
+        });
+        expect(res).to.deep.equal({});
+      });
+
+      it("Skal kreve at arbeidsgiverForskutterer er satt hvis visForskutteringssporsmal er true", () => {
+        const res = validate(gyldigeVerdier, {
+          sendTilFoerDuBegynner,
+          visForskutteringssporsmal: true,
+          sykepengesoknad
+        });
+        expect(res).to.deep.equal({
+          arbeidsgiverForskutterer: "Vennligst svar på om arbeidsgiveren din betaler lønnen når du er syk"
+        });
+      });
+
+      it("Skal ikke klage hvis arbeidsgiverForskutterer er satt hvis visForskutteringssporsmal er true", () => {
+        const res = validate(Object.assign({}, gyldigeVerdier, {
+          arbeidsgiverForskutterer: "JA"
+        }), {
+          sendTilFoerDuBegynner,
+          visForskutteringssporsmal: true,
+          sykepengesoknad
+        });
+        expect(res).to.deep.equal({});
+      });
+
     });
 
 

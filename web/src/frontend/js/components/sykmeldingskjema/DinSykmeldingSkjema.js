@@ -19,7 +19,7 @@ const modi = {
     BEKREFT: 'BEKREFT',
 };
 
-const DIN_SYKMELDING_SKJEMANAVN = 'dinSykmeldingSkjema';
+export const DIN_SYKMELDING_SKJEMANAVN = 'dinSykmeldingSkjema';
 
 export class DinSykmeldingSkjemaComponent extends Component {
 
@@ -109,7 +109,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
         setArbeidssituasjon(values.valgtArbeidssituasjon, sykmelding.id);
         setArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver);
 
-        const arbeidsgiverForskutterer = values.arbeidsgiverForskutterer === 'JA';
+        const arbeidsgiverForskutterer = true;
 
         switch (modus) {
             case modi.SEND_MED_NAERMESTE_LEDER:

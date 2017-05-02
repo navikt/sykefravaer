@@ -1,17 +1,51 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
 import { SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { connect } from 'react-redux';
+import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
+import * as actions from '../../actions/forskutteringssporsmal_actions';
+
+export class Oppsummering extends Component {
+    constructor(props) {
+        super(props);
+        const { sjekkSkalViseForskutteringssporsmal, backendsoknad } = this.props;
+        sjekkSkalViseForskutteringssporsmal(backendsoknad);
+    }
+
+    render() {
+        if (this.props.henterForskutteringssporsmal) {
+            return null;
+        }
+        return <OppsummeringSkjema {...this.props} />;
+    }
+}
+
+Oppsummering.propTypes = {
+    sjekkSkalViseForskutteringssporsmal: PropTypes.func,
+    backendsoknad: sykepengesoknadPt,
+    henterForskutteringssporsmal: PropTypes.bool,
+};
+
+export const mapStateToProps = (state, ownProps) => {
+    return {
+        henterForskutteringssporsmal: state.forskutteringssporsmal.henter === true,
+        visForskutteringssporsmal: state.forskutteringssporsmal.visSporsmal === true,
+        backendsoknad: mapSkjemasoknadToBackendsoknad(ownProps.skjemasoknad),
+    };
+};
+
+export const ConnectedOppsummering = connect(mapStateToProps, actions)(Oppsummering);
 
 export const Controller = (props) => {
     if (props.sykepengesoknad.status === SENDT || props.sykepengesoknad.status === TIL_SENDING) {
         return <Kvittering />;
     }
     if (props.skjemasoknad) {
-        return <OppsummeringSkjema {...props} />;
+        return <ConnectedOppsummering {...props} />;
     }
     return <StartIgjen sykepengesoknad={props.sykepengesoknad} />;
 };
@@ -33,7 +67,10 @@ const OppsummeringContainer = ({ params }) => {
     }, {
         tittel: 'Søknad',
     }];
-    return <GenerellSoknadContainer Component={Controller} brodsmuler={brodsmuler} params={params} />;
+    return (<GenerellSoknadContainer
+        Component={Controller}
+        brodsmuler={brodsmuler}
+        params={params} />);
 };
 
 OppsummeringContainer.propTypes = {

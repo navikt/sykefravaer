@@ -11,6 +11,7 @@ import pilotSykepengerSagas from './pilotSykepengerSagas';
 import moteSagas from './moteSagas';
 import svarSagas from './svarSagas';
 import { ledeteksterSagas } from 'digisyfo-npm';
+import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
 
 export default function * rootSaga() {
     yield [
@@ -27,5 +28,6 @@ export default function * rootSaga() {
         vedlikeholdSagas(),
         moteSagas(),
         svarSagas(),
+        forskutteringssporsmalSagas(),
     ];
 }

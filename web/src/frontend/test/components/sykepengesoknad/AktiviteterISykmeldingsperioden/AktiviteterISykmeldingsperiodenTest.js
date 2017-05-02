@@ -133,7 +133,7 @@ describe("AktiviteterISykmeldingsperioden", () => {
 
     it("Skal inneholde en Link til forrige side", () => {
         expect(component.find(Link).prop("to")).to.equal("/sykefravaer/soknader/min-soknad/fravaer-og-friskmelding")
-    })
+    });
 
     describe("UtdanningStartDato", () => {
 

@@ -43,7 +43,6 @@ export const AktiviteterISykmeldingsperiodenSkjema = (props) => {
 
     return (<form onSubmit={handleSubmit(onSubmit)}>
         <FieldArray
-            gjenopptattArbeidFulltUtDato={gjenopptattArbeidFulltUtDato}
             component={Aktiviteter}
             fields={sykepengesoknad.aktiviteter}
             autofill={autofill}

@@ -4,14 +4,9 @@ import JaEllerNei from '../JaEllerNei';
 import { toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import AngiTid from './AngiTid';
 
-export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch, gjenopptattArbeidFulltUtDato }) => {
+export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
     const ledetekstPrefix = field.grad === 100 ? 'sykepengesoknad.aktiviteter.ugradert' : 'sykepengesoknad.aktiviteter.gradert';
-    let tomDato = field.periode.tom;
-
-    if (gjenopptattArbeidFulltUtDato) {
-        tomDato = new Date(gjenopptattArbeidFulltUtDato - (1000 * 60 * 60 * 24));
-    }
-
+    const tomDato = field.periode.tom;
     const hjelpetekst = field.grad !== 100 ? <Hjelpetekst
         tittel={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tittel')}
         tekst={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tekst')} /> : null;
@@ -55,15 +50,13 @@ Aktivitet.propTypes = {
     arbeidsgiver: PropTypes.string,
     autofill: PropTypes.func,
     untouch: PropTypes.func,
-    gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
 };
 
-const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch, gjenopptattArbeidFulltUtDato }) => {
+const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch }) => {
     return (<div>
         {
             fields.map((field, index) => {
                 return (<Aktivitet
-                    gjenopptattArbeidFulltUtDato={gjenopptattArbeidFulltUtDato}
                     field={field}
                     index={index}
                     key={index}
@@ -80,7 +73,6 @@ Aktiviteter.propTypes = {
     autofill: PropTypes.func,
     untouch: PropTypes.func,
     arbeidsgiver: PropTypes.string,
-    gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
 };
 
 export default Aktiviteter;

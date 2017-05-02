@@ -27,15 +27,15 @@ describe("Aktiviteter", () => {
         untouch = sinon.spy();
         aktiviteter = [{
           "periode": {
-            "fom": "2017-01-01",
-            "tom": "2017-01-15"
+            "fom": new Date("2017-01-01"),
+            "tom": new Date("2017-01-15")
           },
           "grad": 100,
           "avvik": null
         }, {
           "periode": {
-            "fom": "2017-01-01",
-            "tom": "2017-01-25"
+            "fom": new Date("2017-01-16"),
+            "tom": new Date("2017-01-25")
           },
           "grad": 35,
           "avvik": null
@@ -76,7 +76,6 @@ describe("Aktiviteter", () => {
                 field={aktiviteter[0]}
                 index={0}
                 arbeidsgiver="MORTENS GRØNNSAKER"
-                gjenopptattArbeidFulltUtDato={dato}
                 autofill={autofill}
                 untouch={untouch} />)).to.be.true;
 
@@ -84,7 +83,6 @@ describe("Aktiviteter", () => {
                 field={aktiviteter[1]}
                 index={1}
                 arbeidsgiver="MORTENS GRØNNSAKER"
-                gjenopptattArbeidFulltUtDato={dato}
                 autofill={autofill}
                 untouch={untouch} />)).to.be.true;
         });
@@ -108,7 +106,7 @@ describe("Aktiviteter", () => {
         it("Skal inneholde en JaEllerNei", () => {
             expect(ja).to.have.length(1);
             expect(ja.prop("name")).to.equal("aktiviteter[1].jobbetMerEnnPlanlagt");
-            expect(ja.prop("intro")).to.equal("I perioden 01.01.2017 - 25.01.2017 skulle du jobbe 65 % av din normale arbeidstid hos MORTENS GRØNNSAKER.")
+            expect(ja.prop("intro")).to.equal("I perioden 16.01.2017 - 25.01.2017 skulle du jobbe 65 % av din normale arbeidstid hos MORTENS GRØNNSAKER.")
             expect(ja.prop("spoersmal")).to.equal("Har du jobbet mer enn dette?");
             expect(ja).to.contain("Hvor mye har du jobbet i gjennomsnitt per uke i denne perioden hos MORTENS GRØNNSAKER?")
         });
@@ -168,12 +166,12 @@ describe("Aktiviteter", () => {
     });
 
 
-    describe("Aktivitet med gjenopptattArbeidFulltUtDato", () => {
+    xdescribe("Aktivitet med gjenopptattArbeidFulltUtDato", () => {
 
         let ja;
         let dato;
 
-        beforeEach(() => {
+        it("Skal sende datoen videre til ledetekst hvis datoen er innenfor perioden", () => {
             dato = new Date("2017-01-10");
             component = shallow(<Aktivitet
                 field={aktiviteter[0]}
@@ -184,11 +182,37 @@ describe("Aktiviteter", () => {
                 untouch={untouch}
                 ledetekster={ledetekster} />)
             ja = component.find(JaEllerNei);
-        });
-
-        it("Skal sende datoen videre til ledetekst", () => {
             expect(ja.prop("intro")).to.equal("I perioden 01.01.2017 - 09.01.2017 skulle du ikke jobbe hos MORTENS GRØNNSAKER.")
         });
+
+        it("Skal vise riktig ledetekst hvis datoen er innenfor perioden", () => {
+            dato = new Date("2017-01-15");
+            component = shallow(<Aktivitet
+                field={aktiviteter[0]}
+                gjenopptattArbeidFulltUtDato={dato}
+                index={0}
+                arbeidsgiver="MORTENS GRØNNSAKER"
+                autofill={autofill}
+                untouch={untouch}
+                ledetekster={ledetekster} />)
+            ja = component.find(JaEllerNei);
+            expect(ja.prop("intro")).to.equal("I perioden 01.01.2017 - 14.01.2017 skulle du ikke jobbe hos MORTENS GRØNNSAKER.")
+        });
+
+        it("Skal ikke sende datoen videre til ledetekst hvis datoen er utenfor perioden", () => {
+            dato = new Date("2017-01-18");
+            component = shallow(<Aktivitet
+                field={aktiviteter[0]}
+                gjenopptattArbeidFulltUtDato={dato}
+                index={0}
+                arbeidsgiver="MORTENS GRØNNSAKER"
+                autofill={autofill}
+                untouch={untouch}
+                ledetekster={ledetekster} />)
+            ja = component.find(JaEllerNei);
+            expect(ja.prop("intro")).to.equal("I perioden 01.01.2017 - 15.01.2017 skulle du ikke jobbe hos MORTENS GRØNNSAKER.")
+        });
+
     });
 
 

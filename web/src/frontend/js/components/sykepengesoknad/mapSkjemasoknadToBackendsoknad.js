@@ -92,6 +92,8 @@ const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {
 
     if (!alternativer.visForskutteringssporsmal) {
         delete backendSoknad.arbeidsgiverForskutterer;
+    } else {
+        backendSoknad.arbeidsgiverForskutterer = backendSoknad.arbeidsgiverForskutterer !== 'NEI'; /* HACK */
     }
 
     frontendProps.forEach((prop) => {

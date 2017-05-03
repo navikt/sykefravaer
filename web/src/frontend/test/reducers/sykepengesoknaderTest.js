@@ -145,6 +145,81 @@ describe('sykepengesoknader', () => {
             });
         });
 
+        it("håndterer SYKEPENGESOKNAD_SENDT når arbeidsgiverForskutterer === true", () => {
+            /* HACK - fjernes når arbeidsgiverForskutterer er en streng */
+            let initialState = deepFreeze({
+                data: [{id: '1'},{id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const action = actions.sykepengesoknadSendt("1", {
+                id: '1',
+                fiskekake: 'fiskekake',
+                sylt: 'jordbærsylt',
+                arbeidsgiverForskutterer: true,
+            });
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState).to.deep.equal({
+                data: [{ id: '1', fiskekake: 'fiskekake', sylt: 'jordbærsylt', arbeidsgiverForskutterer: 'JA'}, { id: '2' }],
+                sender: false,
+                sendingFeilet: false,
+                henter: false,
+                hentingFeilet: false,
+            });
+        });
+
+        it("håndterer SYKEPENGESOKNAD_SENDT når arbeidsgiverForskutterer === false", () => {
+            /* HACK - fjernes når arbeidsgiverForskutterer er en streng */
+            let initialState = deepFreeze({
+                data: [{id: '1'},{id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const action = actions.sykepengesoknadSendt("1", {
+                id: '1',
+                fiskekake: 'fiskekake',
+                sylt: 'jordbærsylt',
+                arbeidsgiverForskutterer: false,
+            });
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState).to.deep.equal({
+                data: [{ id: '1', fiskekake: 'fiskekake', sylt: 'jordbærsylt', arbeidsgiverForskutterer: 'NEI'}, { id: '2' }],
+                sender: false,
+                sendingFeilet: false,
+                henter: false,
+                hentingFeilet: false,
+            });
+        });
+
+        it("håndterer SYKEPENGESOKNAD_SENDT når arbeidsgiverForskutterer === null", () => {
+            /* HACK - fjernes når arbeidsgiverForskutterer er en streng */
+            let initialState = deepFreeze({
+                data: [{id: '1'},{id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const action = actions.sykepengesoknadSendt("1", {
+                id: '1',
+                fiskekake: 'fiskekake',
+                sylt: 'jordbærsylt',
+                arbeidsgiverForskutterer: null,
+            });
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState).to.deep.equal({
+                data: [{ id: '1', fiskekake: 'fiskekake', sylt: 'jordbærsylt', arbeidsgiverForskutterer: null}, { id: '2' }],
+                sender: false,
+                sendingFeilet: false,
+                henter: false,
+                hentingFeilet: false,
+            });
+        });
+
         it("håndterer SYKEPENGESOKNAD_SENDT hvis REST-tjeneste ikke svarer med søknad", () => {
             // GAMMELT RESTSVAR
             let initialState = deepFreeze({

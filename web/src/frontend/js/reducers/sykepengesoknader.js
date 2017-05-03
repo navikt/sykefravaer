@@ -50,6 +50,26 @@ const parseUtenlandsopphold = (utenlandsopphold) => {
     return utenlandsopphold && Object.assign({}, utenlandsopphold, { perioder: parseDatoerPeriodeListe(utenlandsopphold.perioder) });
 };
 
+const setArbeidsgiverForskutterer = (sykepengesoknad) => {
+    if (sykepengesoknad.arbeidsgiverForskutterer === undefined) {
+        return sykepengesoknad;
+    }
+    const arbeidsgiverForskutterer = ((s) => {
+        if (s.arbeidsgiverForskutterer) {
+            return 'JA';
+        }
+        if (s.arbeidsgiverForskutterer === false) {
+            return 'NEI';
+        }
+        if (s.arbeidsgiverForskutterer === null) {
+            return null;
+        }
+    })(sykepengesoknad);
+    return Object.assign({}, sykepengesoknad, {
+        arbeidsgiverForskutterer,
+    });
+}
+
 export const parseDatofelter = (soknad) => {
     const _soknad = Object.assign({}, soknad);
     _soknad.aktiviteter = parseAktivitetsdatoer(soknad.aktiviteter);
@@ -70,8 +90,9 @@ export default function sykepengesoknader(state = initiellState, action) {
     switch (action.type) {
         case actiontyper.SYKEPENGESOKNADER_HENTET: {
             const soknader = action.sykepengesoknader.map((s) => {
-                const datoparsetSoknad = parseDatofelter(s);
-                return Object.assign({}, datoparsetSoknad, sorterAktiviteterEldsteFoerst(datoparsetSoknad));
+                let soknad = parseDatofelter(s);
+                soknad = setArbeidsgiverForskutterer(soknad);
+                return sorterAktiviteterEldsteFoerst(soknad);
             });
             return Object.assign({}, state, {
                 data: soknader,
@@ -107,7 +128,7 @@ export default function sykepengesoknader(state = initiellState, action) {
             let data;
             // GAMMELT RESTSVAR
             if (action.sykepengesoknad && action.sykepengesoknad.id) {
-                data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, action.sykepengesoknad);
+                data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, Object.assign({}, setArbeidsgiverForskutterer(action.sykepengesoknad)));
             } else {
                 data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
                     status: SENDT,

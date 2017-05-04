@@ -373,47 +373,12 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
     });
 
     describe("arbeidsgiverForskutterer", () => {
-        xit("Returnerer arbeidsgiverForskutterer hvis visForskutteringssporsmal === true", () => {
+        it("Returnerer arbeidsgiverForskutterer hvis visForskutteringssporsmal === true", () => {
             sykepengesoknad.arbeidsgiverForskutterer = 'VET_IKKE';
             const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad), {
                 visForskutteringssporsmal: true
             })
             expect(soknad.arbeidsgiverForskutterer).to.equal("VET_IKKE");
-        });
-
-        it("Returnerer arbeidsgiverForskutterer hvis visForskutteringssporsmal === 'VET_IKKE'", () => {
-            /* HACK - fjernes når dette feltet er en streng */
-            sykepengesoknad.arbeidsgiverForskutterer = 'VET_IKKE';
-            const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad), {
-                visForskutteringssporsmal: true
-            })
-            expect(soknad.arbeidsgiverForskutterer).to.equal(true);
-        });
-
-        it("Returnerer arbeidsgiverForskutterer hvis visForskutteringssporsmal === JA", () => {
-            /* HACK - fjernes når dette feltet er en streng */
-            sykepengesoknad.arbeidsgiverForskutterer = 'JA';
-            const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad), {
-                visForskutteringssporsmal: true
-            })
-            expect(soknad.arbeidsgiverForskutterer).to.equal(true);
-        });
-
-        it("Returnerer arbeidsgiverForskutterer hvis visForskutteringssporsmal === NEI", () => {
-            /* HACK - fjernes når dette feltet er en streng */
-            sykepengesoknad.arbeidsgiverForskutterer = 'NEI';
-            const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad), {
-                visForskutteringssporsmal: true
-            })
-            expect(soknad.arbeidsgiverForskutterer).to.equal(false);
-        });
-
-        it("Returnerer ikke arbeidsgiverForskutterer hvis visForskutteringssporsmal === true", () => {
-            sykepengesoknad.arbeidsgiverForskutterer = 'VET_IKKE';
-            const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad), {
-                visForskutteringssporsmal: false
-            })
-            expect(soknad.arbeidsgiverForskutterer).to.be.undefined;
         });
     });
 

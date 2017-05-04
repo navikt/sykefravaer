@@ -4,10 +4,7 @@ import { getLedetekst, getHtmlLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import Feilomrade from '../../skjema/Feilomrade';
 import SporsmalMedTillegg from '../../skjema/SporsmalMedTillegg';
 import { Radioknapp } from '../../skjema/Radioknapper';
-
-const VET_IKKE = 'VET_IKKE';
-const JA = 'JA';
-const NEI = 'NEI';
+import { JA, NEI, VET_IKKE } from '../../../enums/forskutterersvar';
 
 export const ForskuttererSporsmal = ({ input, meta }) => {
     return (<Feilomrade {...meta} id="arbeidsgiverForskutterer">
@@ -49,7 +46,7 @@ export const RendreForskuttererArbeidsgiver = (props) => {
 
 RendreForskuttererArbeidsgiver.propTypes = {
     input: PropTypes.shape({
-        value: PropTypes.oneOf([VET_IKKE, JA, NEI]),
+        value: PropTypes.oneOf([JA, NEI, VET_IKKE]),
     }),
 };
 

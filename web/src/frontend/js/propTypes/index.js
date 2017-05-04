@@ -3,6 +3,7 @@ import * as sykmldstatuser from '../enums/sykmeldingstatuser';
 import * as arbeidssituasjoner from '../enums/arbeidssituasjoner';
 import * as soknadstatuser from '../enums/sykepengesoknadstatuser';
 import { fields as inntektskildetyper } from '../enums/inntektskildetyper';
+import { JA, NEI, VET_IKKE } from '../enums/forskutterersvar';
 
 export const arbeidssituasjon = PropTypes.oneOf([
     arbeidssituasjoner.ARBEIDSTAKER,
@@ -52,7 +53,7 @@ export const sykepengesoknad = PropTypes.shape({
     identdato: PropTypes.instanceOf(Date),
     ansvarBekreftet: PropTypes.bool,
     bekreftetKorrektInformasjon: PropTypes.bool,
-    arbeidsgiverUtbetalerLoenn: PropTypes.bool,
+    arbeidsgiverForskutterer: PropTypes.oneOf([JA, NEI, VET_IKKE]),
     egenmeldingsperioder: PropTypes.arrayOf(soknadperiode),
     gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
     ferie: PropTypes.arrayOf(soknadperiode),

@@ -38,7 +38,7 @@ ForskuttererSporsmal.propTypes = {
 
 export const RendreForskuttererArbeidsgiver = (props) => {
     const Sporsmal = <ForskuttererSporsmal {...props} />;
-    return (<SporsmalMedTillegg className="hovedsporsmal" {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
+    return (<SporsmalMedTillegg className="hovedsporsmal blokk" {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
         const input = _props.input;
         return input && (input.value === VET_IKKE || input.value === NEI || input.value === JA);
     }}>

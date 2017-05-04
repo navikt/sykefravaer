@@ -260,14 +260,25 @@ describe('sykepengesoknader', () => {
             expect(_soknad.identdato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
 
-        it("parser innsendtDato", () => {
+        it("parser sendtTilArbeidsgiverDato", () => {
             const soknad = Object.assign({}, getSoknad(),
                 {
-                    innsendtDato: "2017-01-19"
+                    sendtTilArbeidsgiverDato: "2017-01-19"
                 }
             );
             const _soknad = parseDatofelter(soknad);
-            expect(_soknad.innsendtDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
+            expect(_soknad.sendtTilArbeidsgiverDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
+        });
+
+
+        it("parser sendtTilNAVDato", () => {
+            const soknad = Object.assign({}, getSoknad(),
+                {
+                    sendtTilNAVDato: "2017-01-19"
+                }
+            );
+            const _soknad = parseDatofelter(soknad);
+            expect(_soknad.sendtTilNAVDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
 
         it("parser opprettetDato", () => {
@@ -369,7 +380,8 @@ const getSoknad = () => {
             soektOmSykepengerIPerioden: null,
         },
         opprettetDato: "2017-01-01",
-        innsendtDato: null,
+        sendtTilArbeidsgiverDato: null,
+        sendtTilNAVDato: null,
         sykmeldingSkrevetDato: "2017-02-15",
     };
 };
@@ -397,7 +409,8 @@ const getParsetSoknad = () => {
             soektOmSykepengerIPerioden: null,
         },
         opprettetDato: new Date("2017-01-01"),
-        innsendtDato: null,
+        sendtTilArbeidsgiverDato: null,
+        sendtTilNAVDato: null,
         sykmeldingSkrevetDato: new Date("2017-02-15"),
     };
 };

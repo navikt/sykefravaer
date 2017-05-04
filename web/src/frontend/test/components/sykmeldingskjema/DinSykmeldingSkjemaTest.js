@@ -15,7 +15,6 @@ import VelgArbeidsgiver from "../../../js/components/sykmeldingskjema/VelgArbeid
 import ArbeidsgiversSykmeldingContainer from "../../../js/containers/ArbeidsgiversSykmeldingContainer";
 import { Varselstripe } from "digisyfo-npm";
 import ErLederRiktig from "../../../js/components/sykmeldingskjema/ErLederRiktig";
-import ForskuttererArbeidsgiver from "../../../js/components/sykmeldingskjema/ForskuttererArbeidsgiver";
 import { Provider } from 'react-redux';
 import feilaktigeOpplysninger from "../../../js/enums/feilaktigeOpplysninger";
 import deepFreeze from 'deep-freeze';

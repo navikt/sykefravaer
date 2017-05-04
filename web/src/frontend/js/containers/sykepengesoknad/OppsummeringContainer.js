@@ -42,7 +42,7 @@ export const ConnectedOppsummering = connect(mapStateToProps, actions)(Oppsummer
 
 export const Controller = (props) => {
     if (props.sykepengesoknad.status === SENDT || props.sykepengesoknad.status === TIL_SENDING) {
-        return <Kvittering />;
+        return <Kvittering sykepengesoknad={props.sykepengesoknad} />;
     }
     if (props.skjemasoknad) {
         return <ConnectedOppsummering {...props} />;

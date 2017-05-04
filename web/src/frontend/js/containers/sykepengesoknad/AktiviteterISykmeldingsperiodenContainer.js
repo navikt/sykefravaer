@@ -3,11 +3,11 @@ import AktiviteterISykmeldingsperioden from '../../components/sykepengesoknad/Ak
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
-import { SENDT } from '../../enums/sykepengesoknadstatuser';
+import { SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 
 export const Controller = (props) => {
-    if (props.sykepengesoknad.status === SENDT) {
-        return <Kvittering />;
+    if (props.sykepengesoknad.status === SENDT || props.sykepengesoknad.status === TIL_SENDING) {
+        return <Kvittering sykepengesoknad={props.sykepengesoknad} />;
     }
     if (props.skjemasoknad) {
         return <AktiviteterISykmeldingsperioden {...props} />;

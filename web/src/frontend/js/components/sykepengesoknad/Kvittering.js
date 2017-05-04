@@ -1,14 +1,30 @@
 import React from 'react';
 import Sidetopp from '../Sidetopp';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
-const Kvittering = () => {
+const getSendtTil = (sykepengesoknad) => {
+    if (sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato) {
+        return '.til-arbeidsgiver-og-nav';
+    }
+    if (sykepengesoknad.sendtTilArbeidsgiverDato) {
+        return '.til-arbeidsgiver';
+    }
+    if (sykepengesoknad.sendtTilNAVDato) {
+        return '.til-nav';
+    }
+    return '';
+};
+
+const Kvittering = ({ sykepengesoknad }) => {
     return (<div>
         <Sidetopp tittel="Kvittering" />
         <div className="panel">
             <div className="hode hode--suksess">
-                <h2 className="hode__tittel">{getLedetekst('sykepengesoknad.kvittering.tittel')}</h2>
-                <div dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.kvittering.tekst')} />
+                <h2 className="hode__tittel">{getLedetekst(`sykepengesoknad.kvittering${getSendtTil(sykepengesoknad)}.tittel`)}</h2>
+                <div dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.kvittering${getSendtTil(sykepengesoknad)}.tekst`, {
+                    '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver ? sykepengesoknad.arbeidsgiver.navn : '',
+                })} />
             </div>
         </div>
         <article className="panel typo-infotekst ikke-print js-tilbakemelding">
@@ -19,6 +35,10 @@ const Kvittering = () => {
             </div>
         </article>
     </div>);
+};
+
+Kvittering.propTypes = {
+    sykepengesoknad: sykepengesoknadPt.isRequired,
 };
 
 export default Kvittering;

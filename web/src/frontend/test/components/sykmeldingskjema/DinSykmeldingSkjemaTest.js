@@ -322,7 +322,7 @@ describe("DinSykmeldingSkjema -", () => {
             expect(sendSykmeldingTilArbeidsgiverSpy.callCount).to.equal(1);
             expect(sendSykmeldingTilArbeidsgiverSpy.getCall(0).args).to.deep.equal(["olsen", "123456789", {
                 andre: true,
-            }, undefined, true]);
+            }, undefined]);
         });
 
         it("Lagrer arbeidssituasjon", () => {

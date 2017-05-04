@@ -61,14 +61,12 @@ const setArbeidsgiverForskutterer = (sykepengesoknad) => {
         if (s.arbeidsgiverForskutterer === false) {
             return 'NEI';
         }
-        if (s.arbeidsgiverForskutterer === null) {
-            return null;
-        }
+        return null;
     })(sykepengesoknad);
     return Object.assign({}, sykepengesoknad, {
         arbeidsgiverForskutterer,
     });
-}
+};
 
 export const parseDatofelter = (soknad) => {
     const _soknad = Object.assign({}, soknad);

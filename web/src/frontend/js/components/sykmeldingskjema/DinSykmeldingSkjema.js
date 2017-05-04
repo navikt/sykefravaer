@@ -109,14 +109,12 @@ export class DinSykmeldingSkjemaComponent extends Component {
         setArbeidssituasjon(values.valgtArbeidssituasjon, sykmelding.id);
         setArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver);
 
-        const arbeidsgiverForskutterer = true;
-
         switch (modus) {
             case modi.SEND_MED_NAERMESTE_LEDER:
             case modi.SEND: {
                 const feilaktigeOpplysningerParam = this.getFeilaktigeOpplysninger(values);
                 this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id,
-                    values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysningerParam, values.beOmNyNaermesteLeder, arbeidsgiverForskutterer);
+                    values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysningerParam, values.beOmNyNaermesteLeder);
                 return;
             }
             case modi.BEKREFT: {

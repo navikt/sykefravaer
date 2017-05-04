@@ -34,11 +34,10 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
         feilaktigeOpplysninger: action.feilaktigeOpplysninger,
         beOmNyNaermesteLeder: action.beOmNyNaermesteLeder,
         orgnummer: action.orgnummer,
-        arbeidsgiverForskutterer: action.arbeidsgiverForskutterer,
     };
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/send`, body);
-        yield put(actions.sykmeldingSendt(action.sykmeldingId, { arbeidsgiverForskutterer: action.arbeidsgiverForskutterer }));
+        yield put(actions.sykmeldingSendt(action.sykmeldingId));
         yield put({ type: actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT });
         yield put({ type: actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT });
         gaTilKvittering(action.sykmeldingId);

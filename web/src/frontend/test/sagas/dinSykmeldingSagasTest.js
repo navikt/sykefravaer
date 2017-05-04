@@ -78,7 +78,6 @@ describe("dinSykmeldingSagas", () => {
                 },
                 orgnummer: "5678",
                 beOmNyNaermesteLeder: true,
-                arbeidsgiverForskutterer: false,
             });
             expect(generator.next().value).to.deep.equal(nextCall);
         });
@@ -87,9 +86,6 @@ describe("dinSykmeldingSagas", () => {
             const nextPut = put({
                 type: actiontyper.SYKMELDING_SENDT,
                 sykmeldingId: "minSykmeldingId",
-                options: {
-                    arbeidsgiverForskutterer: false,
-                }
             });
             expect(generator.next().value).to.deep.equal(nextPut);
         });

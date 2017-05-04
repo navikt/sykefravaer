@@ -91,12 +91,9 @@ describe("dinSykmelding_actions", () => {
         });
 
         it("Skal ha en sykmeldingSendt()-funksjon som returnerer riktig action", () => {
-            const action = actions.sykmeldingSendt(14, { arbeidsgiverForskutterer: false });
+            const action = actions.sykmeldingSendt(14);
             expect(action).to.deep.equal({
                 sykmeldingId: 14,
-                options: {
-                    arbeidsgiverForskutterer: false,
-                },
                 type: actiontyper.SYKMELDING_SENDT,
             });
         });
@@ -109,7 +106,6 @@ describe("dinSykmelding_actions", () => {
                 feilaktigeOpplysninger: {},
                 orgnummer: "344",
                 beOmNyNaermesteLeder: true,
-                arbeidsgiverForskutterer: false,
             });
         });
 
@@ -127,7 +123,6 @@ describe("dinSykmelding_actions", () => {
                 },
                 orgnummer: "344",
                 beOmNyNaermesteLeder: true,
-                arbeidsgiverForskutterer: false,
             });
         });   
 

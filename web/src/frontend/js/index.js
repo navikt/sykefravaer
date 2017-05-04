@@ -12,11 +12,13 @@ import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger';
 import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
 import ledere from './reducers/ledere';
+import oppfolgingsdialoger from './reducers/oppfolgingsdialoger';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
 import { hentSykepengesoknader } from './actions/sykepengesoknader_actions';
 import { hentLedetekster, ledetekster, tidslinjer } from 'digisyfo-npm';
 import { hentBrukerinfo } from './actions/brukerinfo_actions';
 import { hentVedlikehold } from './actions/vedlikehold_actions';
+import { hentOppfolgingsdialoger } from './actions/oppfolgingsdialoger_actions';
 import history from './history';
 import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';
@@ -35,6 +37,7 @@ const rootReducer = combineReducers({
     brukerinfo,
     history,
     ledere,
+    oppfolgingsdialoger,
     svar,
     pilot,
     vedlikehold,
@@ -57,6 +60,7 @@ store.dispatch(hentSykepengesoknader());
 store.dispatch(hentBrukerinfo());
 store.dispatch(hentVedlikehold());
 store.dispatch(moteActions.hentMote());
+store.dispatch(hentOppfolgingsdialoger());
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {
     window.localStorage.setItem('visLedetekster', true);

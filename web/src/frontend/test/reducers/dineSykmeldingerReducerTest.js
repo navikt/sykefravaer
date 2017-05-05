@@ -561,16 +561,12 @@ describe('dineSykmeldingerReducer', () => {
         const action = {
             type: actiontyper.SYKMELDING_SENDT,
             sykmeldingId: 56,
-            options: {
-                arbeidsgiverForskutterer: true,
-            }
         };
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [{
                 id: 56,
                 status: 'SENDT',
-                arbeidsgiverForskutterer: true,
             }],
             henter: false,
             hentingFeilet: false,

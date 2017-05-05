@@ -19,7 +19,7 @@ const OppfolgingsdialogTeaser = ({ oppfolgingsdialog }) => {
 };
 
 OppfolgingsdialogTeaser.propTypes = {
-    oppfolgingsdialog: PropTypes.object,
+    oppfolgingsdialog: PropTypes.array,
 };
 
 export default OppfolgingsdialogTeaser;

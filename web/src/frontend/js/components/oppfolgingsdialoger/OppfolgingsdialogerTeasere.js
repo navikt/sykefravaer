@@ -8,8 +8,8 @@ const OppfolgingsTeasere = ({ oppfolgingsdialoger, className, tittel = '', ingen
         </header>
         <div id={id} className={className || 'js-content'}>
             {
-                (oppfolgingsdialoger.length ? oppfolgingsdialoger.map((oppfolgingsdialog) => {
-                    return <OppfolgingsdialogerTeaser oppfolgingsdialog={oppfolgingsdialog} />;
+                (oppfolgingsdialoger.length ? oppfolgingsdialoger.map((oppfolgingsdialog, idx) => {
+                    return <OppfolgingsdialogerTeaser oppfolgingsdialog={oppfolgingsdialog} key={idx} />;
                 }) : <p className="panel typo-infotekst">{ingenOppfolgingsdialogerMelding}</p>)
             }
         </div>

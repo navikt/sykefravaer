@@ -5,10 +5,10 @@ import { log } from 'digisyfo-npm';
 import * as actions from '../actions/oppfolgingsdialoger_actions';
 import * as actiontyper from '../actions/actiontyper';
 
-export function* hentOppfolgingsdialoger(action) {
-    yield put(actions.henterOppfolgingsdialoger(action.enhet));
+export function* hentOppfolgingsdialoger() {
+    yield put(actions.henterOppfolgingsdialoger());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.OPPFOELGINGSDIALOGREST_ROOT}/sykmeldt/oppfolgingsdialoger`);
+        const data = yield call(get, `${window.APP_SETTINGS.OPPFOELGINGSDIALOGREST_ROOT}/sykmeldt/oppfoelgingsdialoger`);
         yield put(actions.oppfolgingsdialogerHentet(data));
     } catch (e) {
         log(e);

@@ -4,11 +4,11 @@ import {mount, shallow, render} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import SendtSoknad from '../../../js/components/sykepengesoknad/SendtSoknad';
+import SendtSoknad, { getNokkelopplysninger} from '../../../js/components/sykepengesoknad/SendtSoknad';
 import { Soknad } from 'digisyfo-npm';
 import Sidetopp from '../../../js/components/Sidetopp';
 import SykmeldingUtdrag from '../../../js/components/sykepengesoknad/SykmeldingUtdrag';
-import Statuspanel from '../../../js/components/sykepengesoknad/Statuspanel';
+import Soknadstatuspanel from '../../../js/components/sykepengesoknad/Soknadstatuspanel';
 import { Avkrysset } from '../../../js/components/sykepengesoknad/SendtSoknad';
 import  { getSoknad } from '../../mockSoknader';
 import ledetekster from '../../mockLedetekster';
@@ -20,7 +20,10 @@ describe("SendtSoknad", () => {
     let sykepengesoknad = getSoknad();
 
     beforeEach(() => {
-        setLedetekster(ledetekster);
+        setLedetekster(Object.assign({}, ledetekster, {
+            'sykepengesoknad.oppsummering.status.label': "Status",
+            'sykepengesoknad.status.TIL_SENDING': 'Sendes...'
+        }));
         component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />)
     });
 
@@ -45,8 +48,9 @@ describe("SendtSoknad", () => {
         expect(component.find(Varselstripe)).to.have.length(1);
     });
 
-    it("Skal inneholde statuspanel", () => {
+    it("Skal inneholde Soknadstatuspanel", () => {
         component = mount(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
-        expect(component.find(Statuspanel)).to.have.length(1);
+        expect(component.find(Soknadstatuspanel)).to.have.length(1);
     });
+
 });

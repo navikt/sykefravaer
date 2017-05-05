@@ -3,7 +3,7 @@ import Sidetopp from '../Sidetopp';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
-const getSendtTil = (sykepengesoknad) => {
+export const getSendtTilSuffix = (sykepengesoknad) => {
     if (sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato) {
         return '.til-arbeidsgiver-og-nav';
     }
@@ -21,8 +21,8 @@ const Kvittering = ({ sykepengesoknad }) => {
         <Sidetopp tittel="Kvittering" />
         <div className="panel">
             <div className="hode hode--suksess">
-                <h2 className="hode__tittel">{getLedetekst(`sykepengesoknad.kvittering${getSendtTil(sykepengesoknad)}.tittel`)}</h2>
-                <div dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.kvittering${getSendtTil(sykepengesoknad)}.tekst`, {
+                <h2 className="hode__tittel">{getLedetekst(`sykepengesoknad.kvittering${getSendtTilSuffix(sykepengesoknad)}.tittel`)}</h2>
+                <div dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.kvittering${getSendtTilSuffix(sykepengesoknad)}.tekst`, {
                     '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver ? sykepengesoknad.arbeidsgiver.navn : '',
                 })} />
             </div>

@@ -31,10 +31,10 @@ export const validate = (values, props) => {
         feilmeldinger.bruktEgenmeldingsdagerFoerLegemeldtFravaer = 'Du må svare om du brukte egenmeldingsdager før det legemeldte fraværet startet';
     }
     if (values.harGjenopptattArbeidFulltUt === undefined) {
-        feilmeldinger.harGjenopptattArbeidFulltUt = 'Vennligst oppgi om du har gjenopptatt arbeidet fullt ut';
+        feilmeldinger.harGjenopptattArbeidFulltUt = 'Vennligst oppgi om du var tilbake i arbeid før sykmeldingsperioden utløp';
     } else if (values.harGjenopptattArbeidFulltUt) {
         if (!values.gjenopptattArbeidFulltUtDato) {
-            feilmeldinger.gjenopptattArbeidFulltUtDato = 'Vennligst oppgi når du gjenopptok arbeidet fullt ut';
+            feilmeldinger.gjenopptattArbeidFulltUtDato = 'Vennligst oppgi når du gjenopptok arbeidet';
         } else if (!valideringUtils.erIFortiden(values.gjenopptattArbeidFulltUtDato)) {
             feilmeldinger.gjenopptattArbeidFulltUtDato = 'Datoen må være bakover i tid';
         } else if (!valideringUtils.datoErFoersteSykmeldingsdagEllerSenere(values.gjenopptattArbeidFulltUtDato, props.sykepengesoknad)) {

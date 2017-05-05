@@ -47,7 +47,7 @@ describe("validerFravaerOgFriskmelding", () => {
 
         it("Skal klage hvis man ikke har svart på spørsmålet", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-            expect(res.harGjenopptattArbeidFulltUt).to.equal("Vennligst oppgi om du har gjenopptatt arbeidet fullt ut")
+            expect(res.harGjenopptattArbeidFulltUt).to.equal("Vennligst oppgi om du var tilbake i arbeid før sykmeldingsperioden utløp")
         });
 
         describe("Dersom svaret er nei", () => {
@@ -75,7 +75,7 @@ describe("validerFravaerOgFriskmelding", () => {
 
             it("Skal påse at gjenopptattArbeidFulltUtDato er påkrevd", () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-                expect(res.gjenopptattArbeidFulltUtDato).to.equal("Vennligst oppgi når du gjenopptok arbeidet fullt ut")
+                expect(res.gjenopptattArbeidFulltUtDato).to.equal("Vennligst oppgi når du gjenopptok arbeidet")
             });
 
             it("Skal påse at gjenopptattArbeidFulltUtDato er på riktig format", () => {

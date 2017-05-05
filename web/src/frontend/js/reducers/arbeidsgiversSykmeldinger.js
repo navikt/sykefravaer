@@ -82,7 +82,6 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
         case actiontyper.SYKMELDING_SENDT: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: SENDT,
-                arbeidsgiverForskutterer: action.options.arbeidsgiverForskutterer,
             });
             return Object.assign({}, state, { data }, {
                 sender: false,

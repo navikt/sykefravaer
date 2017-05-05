@@ -11,9 +11,11 @@ export function* hentOppfolgingsdialoger(action) {
         const data = yield call(get, `${window.APP_SETTINGS.OPPFOELGINGSDIALOGREST_ROOT}/sykmeldt/oppfolgingsdialoger`);
         yield put(actions.oppfolgingsdialogerHentet(data));
     } catch (e) {
+        log(e);
         yield put(actions.hentOppfolgingsdialogerFeilet());
     }
 }
+
 
 function* watchHentOppfolgingsdialoger() {
     yield* takeEvery(actiontyper.HENT_OPPFOLGINGSDIALOGER_FORESPURT, hentOppfolgingsdialoger);

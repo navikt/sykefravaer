@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { connect }from 'react-redux';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
 import Side from '../sider/Side';
 import Feilmelding from '../components/Feilmelding';
@@ -23,15 +23,14 @@ export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, hente
     </Side>);
 };
 
-OppfolgingsdialogerSide.PropTypes = {
+OppfolgingsdialogerSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    oppfolgingsdialoger: PropTypes.arrayOf(PropTypes.object),
+    oppfolgingsdialoger: PropTypes.array,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
 };
 
-
-export function mapStateToProps(state) {
+export const mapStateToProps = (state) => {
     return {
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
         henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter,
@@ -44,8 +43,8 @@ export function mapStateToProps(state) {
             tittel: getLedetekst('oppfolgingsdialoger.sidetittel'),
             sti: '/oppfolgingsdialoger',
         }],
-    }
-}
+    };
+};
 
 const OppfolgingsdialogerContainer = connect(mapStateToProps)(OppfolgingsdialogerSide);
 

@@ -13,7 +13,7 @@ import FoerDuBegynnerContainer from '../containers/sykepengesoknad/FoerDuBegynne
 import FravaerOgFriskmeldingContainer from '../containers/sykepengesoknad/FravaerOgFriskmeldingContainer';
 import AktiviteterISykmeldingsperiodenContainer from '../containers/sykepengesoknad/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringContainer from '../containers/sykepengesoknad/OppsummeringContainer';
-import OppfolgingsdialogerContainer from '../containers/OppfolgingsdialogerContainer'
+import OppfolgingsdialogerContainer from '../containers/OppfolgingsdialogerContainer';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>

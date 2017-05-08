@@ -326,6 +326,16 @@ describe('sykepengesoknader', () => {
             expect(_soknad.innsendtDato).to.be.undefined;
         });
 
+        it("parser forrigeSykeforloepTom", () => {
+            const soknad = Object.assign({}, getSoknad(),
+                {
+                    forrigeSykeforloepTom: "2017-01-19"
+                }
+            );
+            const _soknad = parseDatofelter(soknad);
+            expect(_soknad.forrigeSykeforloepTom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
+        });
+
     });
 
     describe("sorterAktiviteterEldsteFoerst", () => {
@@ -409,11 +419,12 @@ const getSoknad = () => {
         sendtTilNAVDato: null,
         innsendtDato: null,
         sykmeldingSkrevetDato: "2017-02-15",
+        forrigeSykeforloepTom: "2017-01-18"
     };
 };
 
 const getParsetSoknad = () => {
-    return soknad = {
+    return {
         aktiviteter: [
             {
                 avvik: null,
@@ -439,6 +450,7 @@ const getParsetSoknad = () => {
         sendtTilNAVDato: null,
         innsendtDato: null,
         sykmeldingSkrevetDato: new Date("2017-02-15"),
+        forrigeSykeforloepTom: new Date("2017-01-18"),
     };
 };
 

@@ -64,6 +64,28 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
     expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 30.01.2017?");
   });
 
+  it("Skal vise riktig spørsmål dersom forrigeSykeforloepTom er satt", () => {
+    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad({
+      forrigeSykeforloepTom: new Date("2016-12-22"),
+      aktiviteter: [{
+        "periode": {
+          "fom": "2017-01-01",
+          "tom": "2017-01-15"
+        },
+        "grad": 100,
+        "avvik": null
+      }, {
+        "periode": {
+          "fom": "2017-01-16",
+          "tom": "2017-01-30"
+        },
+        "grad": 50,
+        "avvik": null
+      }]
+    })} />);
+    expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 22.12.2016 – 30.01.2017?");
+  });
+
   it("Skal inneholde et FieldArray", () => {
     const array = compo.find(FieldArray)
     expect(array.prop("component")).to.deep.equal(RendreFeriePermisjonEllerUtenlandsopphold);

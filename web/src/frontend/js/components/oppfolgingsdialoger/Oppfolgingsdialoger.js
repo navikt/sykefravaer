@@ -4,7 +4,6 @@ import Sidetopp from '../Sidetopp';
 import OppfolgingsdialogerTeasere from './OppfolgingsdialogerTeasere';
 
 const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [] }) => {
-
     return (<div>
         <Sidetopp
             tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />

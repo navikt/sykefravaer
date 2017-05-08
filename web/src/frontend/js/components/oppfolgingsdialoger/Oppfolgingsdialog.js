@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 
 const Oppfolgingsdialog = ({ oppfolgingsdialog }) => {

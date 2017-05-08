@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
@@ -8,24 +8,19 @@ import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import { getOppfolgingsdialog } from '../utils/oppfolgingsdialogUtils';
 
-export class OppfolgingsdialogSide extends Component {
-
-    render() {
-        const { brodsmuler, oppfolgingsdialog, henter, hentingFeilet} = this.props;
-
-        return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
-                { (() => {
-                    if (henter) {
-                        return <AppSpinner />;
-                    } else if (hentingFeilet) {
-                        return (<Feilmelding />);
-                    }
-                    return <Oppfolgingsdialog oppfolgingsdialog={oppfolgingsdialog} />;
-                })()
-                }
-            </Side>);
-    }
-}
+export const OppfolgingsdialogSide = ({ brodsmuler, oppfolgingsdialog, henter, hentingFeilet }) => {
+    return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
+        { (() => {
+            if (henter) {
+                return <AppSpinner />;
+            } else if (hentingFeilet) {
+                return (<Feilmelding />);
+            }
+            return <Oppfolgingsdialog oppfolgingsdialog={oppfolgingsdialog} />;
+        })()
+        }
+    </Side>);
+};
 
 OppfolgingsdialogSide.propTypes = {
     dispatch: PropTypes.func,

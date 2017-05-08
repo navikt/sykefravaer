@@ -4,7 +4,7 @@ import { getContextRoot } from '../../routers/paths';
 
 const OppfolgingsdialogTeaser = ({ oppfolgingsdialog }) => {
     return (<article aria-labelledby={`oppfolgingsdialog-header-${oppfolgingsdialog.oppfoelgingsdialogId}`}>
-        <Link className="inngangspanel" to={`${getContextRoot()}/oppfolgingsdialog/${oppfolgingsdialog.oppfoelgingsdialogId}`}>
+        <Link className="inngangspanel" to={`${getContextRoot()}/oppfolgingsdialoger/${oppfolgingsdialog.oppfoelgingsdialogId}`}>
             <div className="inngangspanel__innhold">
                 <header className="inngangspanel__header">
                     <h3 className="js-title" id={`oppfolgingsdialog-header-${oppfolgingsdialog.oppfoelgingsdialogId}`}>

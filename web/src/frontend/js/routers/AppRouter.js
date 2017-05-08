@@ -14,6 +14,7 @@ import FravaerOgFriskmeldingContainer from '../containers/sykepengesoknad/Fravae
 import AktiviteterISykmeldingsperiodenContainer from '../containers/sykepengesoknad/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringContainer from '../containers/sykepengesoknad/OppsummeringContainer';
 import OppfolgingsdialogerContainer from '../containers/OppfolgingsdialogerContainer';
+import OppfolgingsdialogContainer from '../containers/OppfolgingsdialogContainer';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
@@ -32,6 +33,7 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/roller-og-ansvarsomrader" component={RollerContainer} />
         <Route path="/sykefravaer/dialogmote" component={MoteContainer} />
         <Route path="/sykefravaer/oppfolgingsdialoger" component={OppfolgingsdialogerContainer} />
+        <Route path="/sykefravaer/oppfolgingsdialoger/:oppfolgingsdialogId" component={OppfolgingsdialogContainer} />
         <Route path="*" component={LandingssideContainer} />
     </Router>);
 };

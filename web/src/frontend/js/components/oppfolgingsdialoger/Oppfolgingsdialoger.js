@@ -4,12 +4,6 @@ import Sidetopp from '../Sidetopp';
 import OppfolgingsdialogerTeasere from './OppfolgingsdialogerTeasere';
 
 const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [] }) => {
-    const nyeOppfolgingsdialoger = oppfolgingsdialoger.filter((dialog) => {
-        return dialog;
-    });
-    const tidligereOppfolgingsdialoger = oppfolgingsdialoger.filter((dialog) => {
-        return dialog;
-    });
 
     return (<div>
         <Sidetopp
@@ -18,15 +12,9 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [] }) => {
             {getLedetekst('oppfolgingsdialog.knapp.ny-oppfolgingsdialog')}
         </button>
         <OppfolgingsdialogerTeasere
-            oppfolgingsdialoger={nyeOppfolgingsdialoger}
+            oppfolgingsdialoger={oppfolgingsdialoger}
             tittel={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.tittel')}
             ingenOppfolgingsdialogerMelding={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.ingen-oppfolgingsdialoger.melding')} />
-        {
-            tidligereOppfolgingsdialoger.length > 0 && <OppfolgingsdialogerTeasere
-                oppfolgingsdialoger={tidligereOppfolgingsdialoger}
-                tittel={getLedetekst('oppfolgingsdialoger.tidligere-oppfolgingsdialoger.tittel')}
-                ingenOppfolgingsdialogerMelding={getLedetekst('oppfolgingsdialoger.tidligere-oppfolgingsdialoger.ingen-oppfolgingsdialoger.melding')} />
-        }
     </div>);
 };
 

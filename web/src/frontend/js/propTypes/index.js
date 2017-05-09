@@ -54,7 +54,7 @@ export const sykepengesoknad = PropTypes.shape({
     identdato: PropTypes.instanceOf(Date),
     ansvarBekreftet: PropTypes.bool,
     bekreftetKorrektInformasjon: PropTypes.bool,
-    arbeidsgiverForskutterer: PropTypes.oneOf([JA, NEI, VET_IKKE]),
+    arbeidsgiverForskutterer: PropTypes.oneOf([null, JA, NEI, VET_IKKE]),
     egenmeldingsperioder: PropTypes.arrayOf(soknadperiode),
     gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
     ferie: PropTypes.arrayOf(soknadperiode),

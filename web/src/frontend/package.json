@@ -106,7 +106,7 @@
     "mocha": "3.1.2",
     "mustache": "2.2.1",
     "nodemon": "1.8.1",
-    "nyc": "10.1.2",
+    "nyc": "10.3.2",
     "parallelshell": "2.0.0",
     "proxy-middleware": "0.15.0",
     "react-addons-test-utils": "0.14.7",

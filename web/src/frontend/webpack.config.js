@@ -15,17 +15,17 @@ module.exports = {
         }
     },
     module: {
-        loaders: [
-
+        rules: [
             {
                 test: /\.js$/,
-                loader: 'babel',
-                query: {
-                    presets: ["react", "es2015", "babel-preset-stage-1"]
-                },
-                exclude: [nodeModulesPath]
+                exclude: [/node_modules/],
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ["react", "es2015", "babel-preset-stage-1"]
+                    }
+                }]
             }
-
         ]
     },
     devServer: {

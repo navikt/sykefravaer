@@ -9,4 +9,3 @@ var createFolderIfItDoesntExist = function(folder) {
 }
 
 createFolderIfItDoesntExist("styles");
-createFolderIfItDoesntExist("vendor");

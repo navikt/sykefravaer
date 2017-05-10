@@ -1,7 +1,7 @@
 var Webpack = require('webpack');
 var path = require('path');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var buildPath = '../main/webapp/js';
+var buildPath = path.resolve(__dirname, "../main/webapp/js");
 var mainPath = path.resolve(__dirname, 'js', 'index.js');
 
 var config = {
@@ -19,14 +19,18 @@ var config = {
       }
   },
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loader: 'babel',
-      query: {
-        presets: ["react", "es2015", "babel-preset-stage-1"]
-      },      
-      exclude: [nodeModulesPath]
-    }]
+      rules: [
+          {
+              test: /\.js$/,
+              exclude: [/node_modules/],
+              use: [{
+                  loader: 'babel-loader',
+                  options: {
+                      presets: ["react", "es2015", "babel-preset-stage-1"]
+                  }
+              }]
+          }
+      ]
   },
   plugins: [
     new Webpack.DefinePlugin({

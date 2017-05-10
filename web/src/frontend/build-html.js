@@ -1,10 +1,8 @@
 var fs = require("fs");
 var Mustache = require("mustache");
 
-front = process.argv[2];
-env = process.argv[3];
-
-var timestamp = Date.now().toString();
+var env = process.argv[2];
+var timestamp = process.argv[3] || Date.now().toString();
 
 var dev = {
     'timestamp': `${timestamp}`,
@@ -24,7 +22,7 @@ var prod = {
     "enableLogging": false,
 };
 
-fs.readFile(front, function (err, data) {
+fs.readFile("html/syfofront.mustache", function (err, data) {
     if (err) throw err;
     const html = Mustache.render(data.toString(), env === 'prod' ? prod : dev);
     fs.writeFile('../main/webapp/syfofront.html', html, 'utf-8', (err) => {

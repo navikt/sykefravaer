@@ -17,6 +17,16 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.less$/,
+                use: [{
+                    loader: "style-loader"
+                }, {
+                    loader: "css-loader"
+                }, {
+                    loader: "less-loader"
+                }]
+            },
+            {
                 test: /\.js$/,
                 exclude: [/node_modules/],
                 use: [{
@@ -24,6 +34,12 @@ module.exports = {
                     options: {
                         presets: ["react", "es2015", "babel-preset-stage-1"]
                     }
+                }]
+            },
+            {
+                test: /\.((woff2?|svg)(\?v=[0-9]\.[0-9]\.[0-9]))|(woff2?|svg|jpe?g|png|gif|ico)$/,
+                use: [{
+                    loader: 'svg-url-loader'
                 }]
             }
         ]

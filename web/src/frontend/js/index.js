@@ -24,6 +24,7 @@ import { svar, mote, moteActions } from 'moter-npm';
 import pilot from './reducers/pilot';
 import vedlikehold from './reducers/vedlikehold';
 import reduxFormMeta from './reducers/reduxFormMeta';
+import '../styles/styles.less';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
@@ -57,6 +58,8 @@ store.dispatch(hentSykepengesoknader());
 store.dispatch(hentBrukerinfo());
 store.dispatch(hentVedlikehold());
 store.dispatch(moteActions.hentMote());
+
+console.log("123")
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {
     window.localStorage.setItem('visLedetekster', true);

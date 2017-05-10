@@ -90,7 +90,7 @@
     "eslint": "2.5.3",
     "eslint-config-airbnb": "6.2.0",
     "eslint-plugin-react": "4.2.3",
-    "extract-text-webpack-plugin": "^2.1.0",
+    "extract-text-webpack-plugin": "2.1.0",
     "fetch-mock": "5.5.0",
     "fs": "0.0.2",
     "has-ansi": "2.0.0",
@@ -112,7 +112,6 @@
     "sinon": "2.1.0",
     "style-loader": "0.13.0",
     "svg-loader": "0.0.2",
-    "svg-url-loader": "^2.0.2",
     "vinyl-source-stream": "1.1.0",
     "webpack-dev-server": "2.4.5"
   }

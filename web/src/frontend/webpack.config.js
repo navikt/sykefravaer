@@ -15,17 +15,33 @@ module.exports = {
         }
     },
     module: {
-        loaders: [
-
+        rules: [
+            {
+                test: /\.less$/,
+                use: [{
+                    loader: "style-loader"
+                }, {
+                    loader: "css-loader"
+                }, {
+                    loader: "less-loader"
+                }]
+            },
             {
                 test: /\.js$/,
-                loader: 'babel',
-                query: {
-                    presets: ["react", "es2015"]
-                },
-                exclude: [nodeModulesPath]
+                exclude: [/node_modules/],
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ["react", "es2015", "babel-preset-stage-1"]
+                    }
+                }]
+            },
+            {
+                test: /\.((woff2?|svg)(\?v=[0-9]\.[0-9]\.[0-9]))|(woff2?|svg|jpe?g|png|gif|ico)$/,
+                use: [{
+                    loader: 'svg-url-loader'
+                }]
             }
-
         ]
     },
     devServer: {

@@ -24,6 +24,7 @@ import { svar, mote, moteActions } from 'moter-npm';
 import pilot from './reducers/pilot';
 import vedlikehold from './reducers/vedlikehold';
 import reduxFormMeta from './reducers/reduxFormMeta';
+import '../styles/styles.less';
 import forskutteringssporsmal from './reducers/forskutteringssporsmal';
 
 const rootReducer = combineReducers({

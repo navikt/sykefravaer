@@ -23,17 +23,19 @@ export const RendreVelgArbeidssituasjon = (props) => {
         <div>
             <div className="medHjelpetekst">
                 <label htmlFor="select-arbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
-                    {getLedetekst('din-sykmelding.arbeidssituasjon.tittel')}
+                    {getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}
                 </label>
                 <Hjelpetekst
                     id="velg-arbeidssituasjon-hjelpetekst"
-                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tittel')}
-                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tekst')} />
+                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tittel')}
+                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')} />
             </div>
             <div className="selectContainer">
                 <select id="valgtArbeidssituasjon" {...input} className={meta.error && meta.touched ? 'input--feil' : ''}>
                     {getArbeidssituasjoner(input.value).map((arbeidssituasjon, index) => {
-                        return <option value={arbeidssituasjon.verdi} key={index}>{arbeidssituasjon.tekst}</option>;
+                        return (<option value={arbeidssituasjon.verdi} key={index}>
+                            {getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${arbeidssituasjon.verdi.toLowerCase()}`)}
+                        </option>);
                     })}
                 </select>
             </div>

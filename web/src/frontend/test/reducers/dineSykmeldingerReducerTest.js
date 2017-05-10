@@ -1,9 +1,12 @@
-import {List, Map, fromJS} from 'immutable';
 import {expect} from 'chai';
 import deepFreeze from 'deep-freeze';
 
 import dineSykmeldinger from '../../js/reducers/dineSykmeldinger';
 import * as actiontyper from '../../js/actions/actiontyper';
+import * as actions from '../../js/actions/dineSykmeldinger_actions';
+import * as dinSykmeldingActions from '../../js/actions/dinSykmelding_actions';
+import * as brukerActions from '../../js/actions/brukerinfo_actions';
+
 
 describe('dineSykmeldingerReducer', () => {
 
@@ -11,13 +14,10 @@ describe('dineSykmeldingerReducer', () => {
         const initialState = deepFreeze({
             data: []
         });
-        const action = {
-            type: actiontyper.SET_DINE_SYKMELDINGER,
-            sykmeldinger: [{
-                pair: ['Trainspotting', '28 Days Later'],
-                tally: {Trainspotting: 1}
-            }],
-        };
+        const action = actions.setDineSykmeldinger([{
+            pair: ['Trainspotting', '28 Days Later'],
+            tally: {Trainspotting: 1}
+        }])
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -42,19 +42,16 @@ describe('dineSykmeldingerReducer', () => {
                 etternavn: "Haraldsen"
             }]
         });
-        const action = {
-            type: actiontyper.SET_DINE_SYKMELDINGER,
-            sykmeldinger: [{
-                id: 44,
-                fornavn: "Harald",
-                etternavn: "R",
-                diagnose: "Forkjølet"
-            }, {
-                id: 55,
-                fornavn: "Sonja",
-                etternavn: "Haraldsen"
-            }],
-        };
+        const action = actions.setDineSykmeldinger([{
+            id: 44,
+            fornavn: "Harald",
+            etternavn: "R",
+            diagnose: "Forkjølet"
+        }, {
+            id: 55,
+            fornavn: "Sonja",
+            etternavn: "Haraldsen"
+        }])
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -77,9 +74,7 @@ describe('dineSykmeldingerReducer', () => {
         const initialState = deepFreeze({
             data: []
         });
-        const action = {
-            type: actiontyper.HENTER_DINE_SYKMELDINGER
-        }
+        const action = actions.henterDineSykmeldinger();
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [],
@@ -96,9 +91,7 @@ describe('dineSykmeldingerReducer', () => {
                 id: 6789
             }]
         });
-        const action = {
-            type: actiontyper.HENTER_DINE_SYKMELDINGER
-        };
+        const action = actions.henterDineSykmeldinger();
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [{
@@ -113,9 +106,7 @@ describe('dineSykmeldingerReducer', () => {
 
     it("Håndterer HENT_DINE_SYKMELDINGER_FEILET", () => {
         const initialState = deepFreeze({});
-        const action = {
-            type: actiontyper.HENT_DINE_SYKMELDINGER_FEILET
-        };
+        const action = actions.hentDineSykmeldingerFeilet();
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [],
@@ -126,11 +117,7 @@ describe('dineSykmeldingerReducer', () => {
 
     it("håndterer SET_SORTERING dersom man ikke har sortering fra før", () => {
         const initialState = deepFreeze({});
-        const action = {
-            type: actiontyper.SET_SORTERING,
-            kriterium: "arbeidsgiver",
-            status: "tidligere",
-        };
+        const action = actions.sorterSykmeldinger("arbeidsgiver", "tidligere");
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -146,11 +133,7 @@ describe('dineSykmeldingerReducer', () => {
                 tidligere: "dato"
             }
         });
-        const action = {
-            type: actiontyper.SET_SORTERING,
-            kriterium: "arbeidsgiver",
-            status: "tidligere",
-        };
+        const action = actions.sorterSykmeldinger("arbeidsgiver", "tidligere");
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -166,11 +149,7 @@ describe('dineSykmeldingerReducer', () => {
                 tidligere: "dato"
             }
         });
-        const action = {
-            type: actiontyper.SET_SORTERING,
-            kriterium: "arbeidsgiver",
-            status: "nye",
-        };
+        const action = actions.sorterSykmeldinger("arbeidsgiver", "nye");
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -190,11 +169,7 @@ describe('dineSykmeldingerReducer', () => {
                 id: 24,
             }]
         });
-        const action = {
-            type: actiontyper.SET_ARBEIDSSITUASJON,
-            arbeidssituasjon: 'test',
-            sykmeldingId: 23,
-        };
+        const action = dinSykmeldingActions.setArbeidssituasjon("test", 23);
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -215,10 +190,7 @@ describe('dineSykmeldingerReducer', () => {
                 id: 24,
             }]
         });
-        const action = {
-            type: actiontyper.SYKMELDING_BEKREFTET,
-            sykmeldingId: 23,
-        };
+        const action = dinSykmeldingActions.sykmeldingBekreftet(23);
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -241,9 +213,7 @@ describe('dineSykmeldingerReducer', () => {
                 id: 24,
             }]
         });
-        const action = {
-            type: actiontyper.AVBRYTER_SYKMELDING,
-        };
+        const action = dinSykmeldingActions.avbryterSykmelding();
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -265,10 +235,7 @@ describe('dineSykmeldingerReducer', () => {
                 id: 24,
             }],
         });
-        const action = {
-            type: actiontyper.SYKMELDING_AVBRUTT,
-            sykmeldingId: 23,
-        };
+        const action = dinSykmeldingActions.sykmeldingAvbrutt(23);
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -292,9 +259,7 @@ describe('dineSykmeldingerReducer', () => {
             }],
             avbryter: true
         });
-        const action = {
-            type: actiontyper.AVBRYT_SYKMELDING_FEILET,
-        };
+        const action = dinSykmeldingActions.avbrytSykmeldingFeilet();
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -318,13 +283,7 @@ describe('dineSykmeldingerReducer', () => {
                 id: 24
             }]
         });
-        const action = {
-            type: actiontyper.SET_FEILAKTIG_OPPLYSNING,
-            sykmeldingId: 23,
-            opplysning: "periode",
-            erFeilaktig: true
-        };
-
+        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, "periode", true);
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -353,12 +312,7 @@ describe('dineSykmeldingerReducer', () => {
                 id: 24
             }]
         });
-        const action = {
-            type: actiontyper.SET_FEILAKTIG_OPPLYSNING,
-            sykmeldingId: 23,
-            opplysning: "periode",
-            erFeilaktig: false
-        };
+        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, "periode", false);
 
         const nextState = dineSykmeldinger(initialState, action);
 
@@ -387,12 +341,7 @@ describe('dineSykmeldingerReducer', () => {
                 id: 24
             }]
         });
-        const action = {
-            type: actiontyper.SET_FEILAKTIG_OPPLYSNING,
-            sykmeldingId: 23,
-            opplysning: "periode",
-            erFeilaktig: true
-        };
+        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, "periode", true);
 
         const nextState = dineSykmeldinger(initialState, action);
 
@@ -421,12 +370,7 @@ describe('dineSykmeldingerReducer', () => {
                 id: 24
             }]
         });
-        const action = {
-            type: actiontyper.SET_FEILAKTIG_OPPLYSNING,
-            sykmeldingId: 23,
-            opplysning: "periode",
-            erFeilaktig: false
-        };
+        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, "periode", false);
 
         const nextState = dineSykmeldinger(initialState, action);
 
@@ -455,12 +399,7 @@ describe('dineSykmeldingerReducer', () => {
                 id: 24
             }]
         });
-        const action = {
-            type: actiontyper.SET_FEILAKTIG_OPPLYSNING,
-            sykmeldingId: 23,
-            opplysning: "periode",
-            erFeilaktig: true
-        };
+        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, "periode", true);
 
         const nextState = dineSykmeldinger(initialState, action);
 
@@ -489,11 +428,7 @@ describe('dineSykmeldingerReducer', () => {
                 id: 24
             }]
         });
-        const action = {
-            type: actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE,
-            sykmeldingId: 23,
-            erRiktige: true,
-        };
+        const action = dinSykmeldingActions.setOpplysningeneErRiktige(23, true);
 
         const nextState = dineSykmeldinger(initialState, action);
 
@@ -516,11 +451,7 @@ describe('dineSykmeldingerReducer', () => {
                 id: 24
             }]
         });
-        const action2 = {
-            type: actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE,
-            sykmeldingId: 23,
-            erRiktige: false,
-        };
+        const action2 = dinSykmeldingActions.setOpplysningeneErRiktige(23, false);
 
         const nextState2 = dineSykmeldinger(initialState2, action2);
 
@@ -541,9 +472,7 @@ describe('dineSykmeldingerReducer', () => {
             henter: false,
             hentingFeilet: false
         });
-        const action = {
-            type: actiontyper.BRUKER_ER_UTLOGGET
-        };
+        const action = brukerActions.setErUtlogget();
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             henter: false,
@@ -558,10 +487,7 @@ describe('dineSykmeldingerReducer', () => {
             henter: false,
             hentingFeilet: false
         });
-        const action = {
-            type: actiontyper.SYKMELDING_SENDT,
-            sykmeldingId: 56,
-        };
+        const action = dinSykmeldingActions.sykmeldingSendt(56);
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [{

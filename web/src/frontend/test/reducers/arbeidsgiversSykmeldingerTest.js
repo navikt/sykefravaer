@@ -1,20 +1,19 @@
-import {List, Map, fromJS} from 'immutable';
 import deepFreeze from 'deep-freeze';
 import {expect} from 'chai';
 import * as actiontyper from '../../js/actions/actiontyper';
 import arbeidsgiversSykmeldinger from '../../js/reducers/arbeidsgiversSykmeldinger';
+import * as arbActions from '../../js/actions/arbeidsgiversSykmeldinger_actions';
+import * as dsActions from '../../js/actions/dinSykmelding_actions';
+import * as brukerActions from '../../js/actions/brukerinfo_actions';
 
 describe('arbeidsgiversSykmeldinger', () => {
 
     it('håndterer SET_ARBEIDSGIVERS_SYKMELDINGER', () => {
         const initialState = deepFreeze({});
-        const action = {
-            type: actiontyper.SET_ARBEIDSGIVERS_SYKMELDINGER,
-            sykmeldinger: [{
-                pair: ['Trainspotting', '28 Days Later'],
-                tally: {Trainspotting: 1}
-            }],
-        };
+        const action = arbActions.setArbeidsgiversSykmeldinger([{
+            pair: ['Trainspotting', '28 Days Later'],
+            tally: {Trainspotting: 1}
+        }]);
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -29,9 +28,7 @@ describe('arbeidsgiversSykmeldinger', () => {
 
     it("Håndterer HENTER_ARBEIDSGIVERS_SYKMELDINGER", () => {
         const initialState = deepFreeze({});
-        const action = {
-            type: actiontyper.HENTER_ARBEIDSGIVERS_SYKMELDINGER
-        }
+        const action = arbActions.henterArbeidsgiversSykmeldinger();
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [],
@@ -42,9 +39,7 @@ describe('arbeidsgiversSykmeldinger', () => {
 
     it("Håndterer HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET", () => {
         const initialState = deepFreeze({});
-        const action = {
-            type: actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET
-        }
+        const action = arbActions.hentArbeidsgiversSykmeldingerFeilet();
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [],
@@ -65,14 +60,10 @@ describe('arbeidsgiversSykmeldinger', () => {
             hentingFeilet: false,
             henter: false
         });
-        const action = {
-            type: actiontyper.SET_ARBEIDSGIVER,
-            arbeidsgiver: {
-                orgnummer: 12345678,
-                navn: "Mosveens Verktøyutleie D/A"
-            },
-            sykmeldingId: 69
-        }
+        const action = dsActions.setArbeidsgiver(69, {
+            orgnummer: 12345678,
+            navn: "Mosveens Verktøyutleie D/A"
+        });
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             hentingFeilet: false,
@@ -99,11 +90,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                 id: 24,
             }]
         });
-        const action = {
-            type: actiontyper.SET_ARBEIDSSITUASJON,
-            arbeidssituasjon: 'test',
-            sykmeldingId: 23,
-        };
+        const action = dsActions.setArbeidssituasjon("test", 23)
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -127,11 +114,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                 id: 24
             }]
         });
-        const action = {
-            type: actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE,
-            sykmeldingId: 23,
-            erRiktige: true,
-        };
+        const action = dsActions.setOpplysningeneErRiktige(23, true);
 
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
 
@@ -154,11 +137,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                 id: 24
             }]
         });
-        const action2 = {
-            type: actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE,
-            sykmeldingId: 23,
-            erRiktige: false,
-        };
+        const action2 = dsActions.setOpplysningeneErRiktige(23, false);
 
         const nextState2 = arbeidsgiversSykmeldinger(initialState2, action2);
 
@@ -179,9 +158,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                 henter: false,
                 sender: false,
             });
-            const action = {
-                type: actiontyper.BEKREFTER_SYKMELDING,
-            }
+            const action = dsActions.bekrefterSykmelding();
             const nextState = arbeidsgiversSykmeldinger(initialState, action);
             expect(nextState).to.deep.equal({
                 data: [],
@@ -200,10 +177,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                     id: 24,
                 }]
             });
-            const action = {
-                type: actiontyper.SYKMELDING_BEKREFTET,
-                sykmeldingId: 23,
-            };
+            const action = dsActions.sykmeldingBekreftet(23);
             const nextState = arbeidsgiversSykmeldinger(initialState, action);
 
             expect(nextState).to.deep.equal({
@@ -224,9 +198,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                     id: 24,
                 }]
             });
-            const action = {
-                type: actiontyper.BEKREFT_SYKMELDING_FEILET,
-            };
+            const action = dsActions.bekreftSykmeldingFeilet(23);
             const nextState = arbeidsgiversSykmeldinger(initialState, action);
 
             expect(nextState).to.deep.equal({
@@ -253,12 +225,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                 id: 24
             }]
         });
-        const action = {
-            type: actiontyper.SET_FEILAKTIG_OPPLYSNING,
-            sykmeldingId: 23,
-            opplysning: "periode",
-            erFeilaktig: true
-        };
+        const action = dsActions.setFeilaktigOpplysning(23, "periode", true);
 
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
 
@@ -288,12 +255,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                 id: 24
             }]
         });
-        const action = {
-            type: actiontyper.SET_FEILAKTIG_OPPLYSNING,
-            sykmeldingId: 23,
-            opplysning: "periode",
-            erFeilaktig: false
-        };
+        const action = dsActions.setFeilaktigOpplysning(23, "periode", false);
 
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
 
@@ -322,12 +284,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                 id: 24
             }]
         });
-        const action = {
-            type: actiontyper.SET_FEILAKTIG_OPPLYSNING,
-            sykmeldingId: 23,
-            opplysning: "periode",
-            erFeilaktig: true
-        };
+        const action = dsActions.setFeilaktigOpplysning(23, "periode", true);
 
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
 
@@ -356,12 +313,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                 id: 24
             }]
         });
-        const action = {
-            type: actiontyper.SET_FEILAKTIG_OPPLYSNING,
-            sykmeldingId: 23,
-            opplysning: "periode",
-            erFeilaktig: false
-        };
+        const action = dsActions.setFeilaktigOpplysning(23, "periode", false);
 
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
 
@@ -390,12 +342,7 @@ describe('arbeidsgiversSykmeldinger', () => {
                 id: 24
             }]
         });
-        const action = {
-            type: actiontyper.SET_FEILAKTIG_OPPLYSNING,
-            sykmeldingId: 23,
-            opplysning: "periode",
-            erFeilaktig: true
-        };
+        const action = dsActions.setFeilaktigOpplysning(23, "periode", true);
 
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
 
@@ -439,10 +386,7 @@ describe('arbeidsgiversSykmeldinger', () => {
         });
 
         it("Håndterer SENDER_SYKMELDING", () => {
-            action = {
-                type: actiontyper.SENDER_SYKMELDING,
-                sykmeldingId: 56
-            }
+            action = dsActions.senderSykmelding(56);
             const nextState = arbeidsgiversSykmeldinger(initialState, action);
             expect(nextState).to.deep.equal({
                 data: [sykmelding],
@@ -454,10 +398,7 @@ describe('arbeidsgiversSykmeldinger', () => {
         });
 
         it("Håndterer SEND_SYKMELDING_FEILET", () => {
-            action = {
-                type: actiontyper.SEND_SYKMELDING_FEILET,
-                sykmeldingId: 56
-            }
+            action = dsActions.sendSykmeldingFeilet(56);
             const nextState = arbeidsgiversSykmeldinger(initialState, action);
             expect(nextState).to.deep.equal({
                 data: [sykmelding],
@@ -469,10 +410,7 @@ describe('arbeidsgiversSykmeldinger', () => {
         });        
 
         it("Håndterer SYKMELDING_SENDT", () => {
-            action = {
-                type: actiontyper.SYKMELDING_SENDT,
-                sykmeldingId: 56,
-            };
+            action = dsActions.sykmeldingSendt(56);
             const nextState = arbeidsgiversSykmeldinger(initialState, action);
             expect(nextState).to.deep.equal({
                 data: [{
@@ -497,9 +435,7 @@ describe('arbeidsgiversSykmeldinger', () => {
             henter: false,
             hentingFeilet: false
         });
-        const action = {
-            type: actiontyper.BRUKER_ER_UTLOGGET
-        };
+        const action = brukerActions.setErUtlogget();
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             henter: false,

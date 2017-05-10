@@ -23,7 +23,7 @@ var config = {
       test: /\.js$/,
       loader: 'babel',
       query: {
-        presets: ["react", "es2015"]
+        presets: ["react", "es2015", "babel-preset-stage-1"]
       },      
       exclude: [nodeModulesPath]
     }]

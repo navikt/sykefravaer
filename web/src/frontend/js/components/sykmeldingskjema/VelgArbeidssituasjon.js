@@ -33,9 +33,9 @@ export const RendreVelgArbeidssituasjon = (props) => {
             <div className="selectContainer">
                 <select id="valgtArbeidssituasjon" {...input} className={meta.error && meta.touched ? 'input--feil' : ''}>
                     {getArbeidssituasjoner(input.value).map((arbeidssituasjon, index) => {
-                        return <option value={arbeidssituasjon.verdi} key={index}>
+                        return (<option value={arbeidssituasjon.verdi} key={index}>
                             {getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${arbeidssituasjon.verdi.toLowerCase()}`)}
-                        </option>;
+                        </option>);
                     })}
                 </select>
             </div>

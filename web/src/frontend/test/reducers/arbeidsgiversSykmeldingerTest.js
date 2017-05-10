@@ -1,4 +1,3 @@
-import {List, Map, fromJS} from 'immutable';
 import deepFreeze from 'deep-freeze';
 import {expect} from 'chai';
 import * as actiontyper from '../../js/actions/actiontyper';

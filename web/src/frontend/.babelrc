@@ -1,5 +1,5 @@
 {
-  "presets": ["es2015-without-strict", "react"],
+  "presets": ["es2015-without-strict", "react", "babel-preset-stage-1"],
   "env": {
     "test": {
         "plugins": ["istanbul"]

@@ -98,6 +98,7 @@
     "eslint-plugin-react": "4.2.3",
     "fetch-mock": "5.5.0",
     "fs": "0.0.2",
+    "has-ansi": "2.0.0",
     "jsdom": "8.0.4",
     "jsfmt": "0.5.3",
     "less": "2.7.2",

@@ -64,7 +64,7 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
     expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 30.01.2017?");
   });
 
-  it.only("Skal vise riktig spørsmål dersom forrigeSykeforloepTom er satt", () => {
+  it("Skal vise riktig spørsmål dersom forrigeSykeforloepTom er satt", () => {
     const soknad = getSoknad({
       forrigeSykeforloepTom: "2016-12-22",
       aktiviteter: [{

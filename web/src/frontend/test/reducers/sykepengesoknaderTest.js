@@ -129,14 +129,12 @@ describe('sykepengesoknader', () => {
                 sender: false,
                 sendingFeilet: false,
             });
-            const action = actions.sykepengesoknadSendt("1", {
-                id: '1',
-                fiskekake: 'fiskekake',
-                sylt: 'jordbærsylt'
-            });
+            const action = actions.sykepengesoknadSendt("1", getSoknad());
             const nextState = sykepengesoknader(initialState, action);
             expect(nextState).to.deep.equal({
-                data: [{ id: '1', fiskekake: 'fiskekake', sylt: 'jordbærsylt'}, { id: '2' }],
+                data: [getParsetSoknad(), {
+                    id: '2'
+                }],
                 sender: false,
                 sendingFeilet: false,
                 henter: false,
@@ -418,7 +416,8 @@ const getSoknad = () => {
         sendtTilNAVDato: null,
         innsendtDato: null,
         sykmeldingSkrevetDato: "2017-02-15",
-        forrigeSykeforloepTom: "2017-01-18"
+        forrigeSykeforloepTom: "2017-01-18",
+        id: "1"
     };
 };
 
@@ -450,6 +449,7 @@ const getParsetSoknad = () => {
         innsendtDato: null,
         sykmeldingSkrevetDato: new Date("2017-02-15"),
         forrigeSykeforloepTom: new Date("2017-01-18"),
+        id: "1"
     };
 };
 

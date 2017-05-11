@@ -50,22 +50,22 @@ const parseUtenlandsopphold = (utenlandsopphold) => {
 };
 
 export const parseDatofelter = (soknad) => {
-    const _soknad = Object.assign({}, soknad);
-    _soknad.aktiviteter = parseAktivitetsdatoer(soknad.aktiviteter);
-    _soknad.egenmeldingsperioder = soknad.egenmeldingsperioder && parseDatoerPeriodeListe(soknad.egenmeldingsperioder);
-    _soknad.ferie = soknad.ferie && parseDatoerPeriodeListe(soknad.ferie);
-    _soknad.permisjon = soknad.permisjon && parseDatoerPeriodeListe(soknad.permisjon);
-    _soknad.utenlandsopphold = parseUtenlandsopphold(soknad.utenlandsopphold);
-    _soknad.utdanning = parseUtdanningsDato(soknad.utdanning);
-    _soknad.gjenopptattArbeidFulltUtDato = tilDato(soknad.gjenopptattArbeidFulltUtDato);
-    _soknad.identdato = tilDato(soknad.identdato);
-    _soknad.sendtTilArbeidsgiverDato = tilDato(soknad.sendtTilArbeidsgiverDato);
-    _soknad.sendtTilNAVDato = tilDato(soknad.sendtTilNAVDato);
-    _soknad.innsendtDato = tilDato(soknad.innsendtDato);
-    _soknad.opprettetDato = tilDato(soknad.opprettetDato);
-    _soknad.sykmeldingSkrevetDato = tilDato(soknad.sykmeldingSkrevetDato);
-    _soknad.forrigeSykeforloepTom = tilDato(soknad.forrigeSykeforloepTom);
-    return _soknad;
+    return Object.assign({}, soknad, {
+        aktiviteter: parseAktivitetsdatoer(soknad.aktiviteter),
+        egenmeldingsperioder: soknad.egenmeldingsperioder && parseDatoerPeriodeListe(soknad.egenmeldingsperioder),
+        ferie: soknad.ferie && parseDatoerPeriodeListe(soknad.ferie),
+        permisjon: soknad.permisjon && parseDatoerPeriodeListe(soknad.permisjon),
+        utenlandsopphold: parseUtenlandsopphold(soknad.utenlandsopphold),
+        utdanning: parseUtdanningsDato(soknad.utdanning),
+        gjenopptattArbeidFulltUtDato: tilDato(soknad.gjenopptattArbeidFulltUtDato),
+        identdato: tilDato(soknad.identdato),
+        sendtTilArbeidsgiverDato: tilDato(soknad.sendtTilArbeidsgiverDato),
+        sendtTilNAVDato: tilDato(soknad.sendtTilNAVDato),
+        innsendtDato: tilDato(soknad.innsendtDato),
+        opprettetDato: tilDato(soknad.opprettetDato),
+        sykmeldingSkrevetDato: tilDato(soknad.sykmeldingSkrevetDato),
+        forrigeSykeforloepTom: tilDato(soknad.forrigeSykeforloepTom),
+    });
 };
 
 export default function sykepengesoknader(state = initiellState, action) {
@@ -106,7 +106,7 @@ export default function sykepengesoknader(state = initiellState, action) {
             });
         }
         case actiontyper.SYKEPENGESOKNAD_SENDT: {
-            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, action.sykepengesoknad);
+            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, parseDatofelter(action.sykepengesoknad));
             return Object.assign({}, state, { data }, {
                 sender: false,
                 sendingFeilet: false,

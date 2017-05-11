@@ -39,7 +39,7 @@
     "babelify": "7.3.0",
     "cheerio": "0.20.0",
     "chokidar": "1.6.0",
-    "digisyfo-npm": "1.10.2",
+    "digisyfo-npm": "1.11.0",
     "fetch": "1.0.1",
     "http-proxy": "1.13.2",
     "isomorphic-fetch": "2.2.1",

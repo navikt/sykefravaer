@@ -4,6 +4,7 @@ var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var buildPath = path.resolve(__dirname, "../main/webapp/js");
 var mainPath = path.resolve(__dirname, 'js', 'index.js');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var autoprefixer = require("autoprefixer");
 
 var config = function (opts) {
   var timestamp = opts.timestamp;
@@ -32,6 +33,13 @@ var config = function (opts) {
                 use: extractLess.extract({
                   use: [{
                     loader: "css-loader"
+                  }, {
+                    loader: "postcss-loader",
+                    options: {
+                        plugins: function() {
+                            return [autoprefixer]
+                        }
+                    }
                   }, {
                     loader: "less-loader"
                   }]

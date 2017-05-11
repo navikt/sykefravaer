@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { SykmeldingPerioder, SykmeldingNokkelOpplysning, toDatePrettyPrint } from 'digisyfo-npm';
-import { Avkrysset } from './SendtSoknad';
 import { Utvidbar, getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 

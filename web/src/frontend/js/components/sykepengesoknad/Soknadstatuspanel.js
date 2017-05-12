@@ -32,7 +32,7 @@ export const getNokkelopplysninger = (sykepengesoknad) => {
         hjelpetekst: sykepengesoknad.status === TIL_SENDING ? tilSendingHjelpetekst() : null,
     }, {
         tittel: getLedetekst('sykepengesoknad.oppsummering.dato.label'),
-        opplysning: toDatePrettyPrint(sykepengesoknad.sendtTilNAVDato || sykepengesoknad.sendtTilArbeidsgiverDato || sykepengesoknad.innsendtDato),
+        opplysning: toDatePrettyPrint(sykepengesoknad.sendtTilNAVDato || sykepengesoknad.sendtTilArbeidsgiverDato),
     }], [{
         tittel: getLedetekst('sykepengesoknad.oppsummering.arbeidsgiver.label'),
         opplysning: `${sykepengesoknad.arbeidsgiver.navn} (${sykepengesoknad.arbeidsgiver.orgnummer})`,

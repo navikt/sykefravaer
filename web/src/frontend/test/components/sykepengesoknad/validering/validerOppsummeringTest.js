@@ -24,7 +24,6 @@ describe("OppsummeringSkjema", () => {
         sykepengesoknad = getSoknad({
           "id": "813ada8c-b7e6-496c-b33c-c7547ef10caf",
           "status": "LAGRET",
-          "innsendtDato": null,
           "opprettetDato": "2017-02-01",
           "arbeidsgiver": {
             "navn": "BYGGMESTER BLOM AS",
@@ -71,7 +70,6 @@ describe("OppsummeringSkjema", () => {
         gyldigeVerdier = {
           "id": "813ada8c-b7e6-496c-b33c-c7547ef10caf",
           "status": "LAGRET",
-          "innsendtDato": null,
           "opprettetDato": "2017-02-01T00:00:00.000Z",
           "arbeidsgiver": {
             "navn": "BYGGMESTER BLOM AS",

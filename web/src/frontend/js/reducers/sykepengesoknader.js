@@ -61,7 +61,6 @@ export const parseDatofelter = (soknad) => {
         identdato: tilDato(soknad.identdato),
         sendtTilArbeidsgiverDato: tilDato(soknad.sendtTilArbeidsgiverDato),
         sendtTilNAVDato: tilDato(soknad.sendtTilNAVDato),
-        innsendtDato: tilDato(soknad.innsendtDato),
         opprettetDato: tilDato(soknad.opprettetDato),
         sykmeldingSkrevetDato: tilDato(soknad.sykmeldingSkrevetDato),
         forrigeSykeforloepTom: tilDato(soknad.forrigeSykeforloepTom),

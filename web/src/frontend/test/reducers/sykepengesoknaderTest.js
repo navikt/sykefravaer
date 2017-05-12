@@ -267,16 +267,6 @@ describe('sykepengesoknader', () => {
             expect(_soknad.sendtTilArbeidsgiverDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
 
-        it("parser innsendtDato", () => {
-            const soknad = Object.assign({}, getSoknad(),
-                {
-                    innsendtDato: "2017-01-19"
-                }
-            );
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.innsendtDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-        });
-
         it("parser sendtTilNAVDato", () => {
             const soknad = Object.assign({}, getSoknad(),
                 {
@@ -314,13 +304,6 @@ describe('sykepengesoknader', () => {
             const _soknad = parseDatofelter(soknad);
             expect(_soknad.sendtTilNAVDato).to.be.undefined;
             expect(_soknad.sendtTilArbeidsgiverDato).to.be.undefined;
-        });
-
-        it("Funker hvis innsendtDato ikke finnes på søknaden", () => {
-            const soknad = getSoknad();
-            delete(soknad.innsendtDato);
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.innsendtDato).to.be.undefined;
         });
 
         it("parser forrigeSykeforloepTom", () => {
@@ -414,7 +397,6 @@ const getSoknad = () => {
         opprettetDato: "2017-01-01",
         sendtTilArbeidsgiverDato: null,
         sendtTilNAVDato: null,
-        innsendtDato: null,
         sykmeldingSkrevetDato: "2017-02-15",
         forrigeSykeforloepTom: "2017-01-18",
         id: "1"
@@ -446,7 +428,6 @@ const getParsetSoknad = () => {
         opprettetDato: new Date("2017-01-01"),
         sendtTilArbeidsgiverDato: null,
         sendtTilNAVDato: null,
-        innsendtDato: null,
         sykmeldingSkrevetDato: new Date("2017-02-15"),
         forrigeSykeforloepTom: new Date("2017-01-18"),
         id: "1"

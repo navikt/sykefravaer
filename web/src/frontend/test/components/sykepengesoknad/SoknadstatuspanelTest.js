@@ -39,7 +39,7 @@ describe("Sykepengesoknad - Statuspanel", () => {
         expect(component.find(Varselstripe)).to.have.length(1);
     });
 
-    describe("Når søknaden bare har innsendtDato", () => {
+    describe("Når søknaden sendes til NAV", () => {
         
         let component;
         let sykepengesoknad;
@@ -47,7 +47,7 @@ describe("Sykepengesoknad - Statuspanel", () => {
         beforeEach(() => {
             sykepengesoknad = getSoknad({
                 status: statuser.TIL_SENDING,
-                innsendtDato: new Date("1945-05-08"),
+                sendtTilNAVDato: new Date("1945-05-08"),
             });
             component = mount(<Statuspanel sykepengesoknad={sykepengesoknad} />)
         });

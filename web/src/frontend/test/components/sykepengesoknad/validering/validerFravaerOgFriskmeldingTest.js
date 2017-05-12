@@ -461,7 +461,6 @@ describe("validerFravaerOgFriskmelding", () => {
           const values = {
             "id": "b2450694-bc57-40cd-a834-34c817ace7e3",
             "status": "NY",
-            "innsendtDato": null,
             "opprettetDato": "2017-02-02T00:00:00.000Z",
             "arbeidsgiver": {
               "navn": "BYGGMESTER BLOM AS",
@@ -500,7 +499,6 @@ describe("validerFravaerOgFriskmelding", () => {
           const sykepengesoknad = {
             "id": "b2450694-bc57-40cd-a834-34c817ace7e3",
             "status": "NY",
-            "innsendtDato": null,
             "opprettetDato": "2017-02-02T00:00:00.000Z",
             "arbeidsgiver": {
               "navn": "BYGGMESTER BLOM AS",

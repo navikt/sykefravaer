@@ -26,8 +26,6 @@ var prod = {
 
 var settings = env === 'prod' ? prod : dev;
 
-console.log("settgings", settings);
-
 fs.readFile("html/syfofront.mustache", function (err, data) {
     if (err) throw err;
     const html = Mustache.render(data.toString(), settings);

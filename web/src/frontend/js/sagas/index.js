@@ -10,7 +10,7 @@ import vedlikeholdSagas from './vedlikeholdSagas';
 import pilotSykepengerSagas from './pilotSykepengerSagas';
 import moteSagas from './moteSagas';
 import svarSagas from './svarSagas';
-import oppfolgingsdialogerSagas from './oppfolgingsdialogerSagas';
+import { oppfolgingsdialogerAtSagas as oppfolgingsdialogerSagas } from 'oppfolgingsdialog-npm';
 import { ledeteksterSagas } from 'digisyfo-npm';
 
 export default function * rootSaga() {

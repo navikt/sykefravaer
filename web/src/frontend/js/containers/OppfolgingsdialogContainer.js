@@ -7,6 +7,7 @@ import { getOppfolgingsdialog } from '../utils/oppfolgingsdialogUtils';
 import { Oppfolgingsdialog } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
+import Sidetopp from '../components/Sidetopp';
 
 export const OppfolgingsdialogSide = ({ brodsmuler, oppfolgingsdialog, henter, hentingFeilet }) => {
     return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
@@ -16,7 +17,10 @@ export const OppfolgingsdialogSide = ({ brodsmuler, oppfolgingsdialog, henter, h
             } else if (hentingFeilet) {
                 return (<Feilmelding />);
             }
-            return <Oppfolgingsdialog oppfolgingsdialog={oppfolgingsdialog} />;
+            return (
+                <Oppfolgingsdialog oppfolgingsdialog={oppfolgingsdialog}>
+                    <Sidetopp tittel={getLedetekst('oppfolgingsdialog.tittel')} />
+                </Oppfolgingsdialog>);
         })()
         }
     </Side>);

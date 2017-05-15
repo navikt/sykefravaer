@@ -3,7 +3,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import OppfolgingsdialogerTeasere from './OppfolgingsdialogerTeasere';
 import { OppfolgingsdialogInfoboks } from 'oppfolgingsdialog-npm';
-import { isEmpty } from '../../utils/oppfolgingsdialogUtils'
+import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
 
 const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [] }) => {
     return (<div>

@@ -5,5 +5,5 @@ export function getOppfolgingsdialog(oppfolgingsdialoger, oppfolgingsdialogId) {
 }
 
 export const isEmpty = (array) => {
-    return array.length > 0 ? false : true;
+    return array.length === 0;
 };

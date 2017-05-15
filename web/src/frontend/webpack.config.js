@@ -1,6 +1,7 @@
 var path = require("path");
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var mainPath = path.resolve(__dirname, 'js', 'index.js');
+var autoprefixer = require("autoprefixer");
 
 module.exports = {
     entry: ["babel-polyfill", mainPath],
@@ -22,6 +23,13 @@ module.exports = {
                     loader: "style-loader"
                 }, {
                     loader: "css-loader"
+                }, {
+                    loader: "postcss-loader",
+                    options: {
+                        plugins: function() {
+                            return [autoprefixer]
+                        }
+                    }
                 }, {
                     loader: "less-loader"
                 }]

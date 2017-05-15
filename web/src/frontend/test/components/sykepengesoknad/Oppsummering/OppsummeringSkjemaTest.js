@@ -7,7 +7,7 @@ const expect = chai.expect;
 import sinon from 'sinon';
 import { Field } from 'redux-form';
 
-import { validate, OppsummeringSide, SendingFeilet } from '../../../../js/components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
+import { validate, OppsummeringForm, SendingFeilet } from '../../../../js/components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import { getSoknad } from '../../../mockSoknader';
 import mapSkjemasoknadToBackendsoknad from '../../../../js/components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
 import { Soknad, setLedetekster } from 'digisyfo-npm';
@@ -38,7 +38,8 @@ describe("OppsummeringSkjema", () => {
           setLedetekster({ tekst: "test" });
           handleSubmit = sinon.spy();
 
-          component = shallow(<OppsummeringSide
+          component = shallow(<OppsummeringForm
+            backendsoknad={{"backendsoknad": "backendsoknad"}}
             handleSubmit={handleSubmit}
             skjemasoknad={skjemasoknad}
             sykepengesoknad={sykepengesoknad} />);
@@ -51,10 +52,7 @@ describe("OppsummeringSkjema", () => {
         });
 
         it("Skal inneholde en Soknad med riktige props", () => {
-          const mappaSoknad = mapSkjemasoknadToBackendsoknad(skjemasoknad);
-          expect(component.find(Soknad)).to.have.length(1);
-          expect(component.find(Soknad).prop("ledetekster")).to.deep.equal(ledetekster);
-          expect(component.find(Soknad).prop("sykepengesoknad")).to.deep.equal(mappaSoknad)
+          expect(component.find(Soknad).prop("sykepengesoknad")).to.deep.equal({"backendsoknad": "backendsoknad"})
         });
 
         it("Skal inneholde en Link til forrige side", () => {
@@ -62,7 +60,7 @@ describe("OppsummeringSkjema", () => {
         });
 
         it("SKal inneholde en SendingFeilet hvis sendingFeilet", () => {
-          const component2 = shallow(<OppsummeringSide handleSubmit={handleSubmit} skjemasoknad={skjemasoknad} sykepengesoknad={sykepengesoknad} sendingFeilet={true} />);
+          const component2 = shallow(<OppsummeringForm handleSubmit={handleSubmit} skjemasoknad={skjemasoknad} sykepengesoknad={sykepengesoknad} sendingFeilet={true} />);
           expect(component2.find(SendingFeilet)).to.have.length(1); 
         });
 

@@ -12,7 +12,6 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import VelgArbeidsgiver, { RendreVelgArbeidsgiver, Tilleggsinfo, ArbeidsgiverRadioknapper, visTilleggssporsmal, SkrivUt } from "../../../js/components/sykmeldingskjema/VelgArbeidsgiver";
-import ForskuttererArbeidsgiver from '../../../js/components/sykmeldingskjema/ForskuttererArbeidsgiver';
 import ErLederRiktig from '../../../js/components/sykmeldingskjema/ErLederRiktig';
 import SporsmalMedTillegg from '../../../js/components/skjema/SporsmalMedTillegg';
 import Radioknapper from '../../../js/components/skjema/Radioknapper';
@@ -142,40 +141,6 @@ describe("VelgArbeidsgiver", () => {
             expect(component.find(ErLederRiktig)).to.have.length(0);
         });
 
-        it("Skal inneholde ForskuttererArbeidsgiver hvis pilotSykepenger === true og det er valgt en arbeidsgiver", () => {
-            props.pilotSykepenger = true;
-            props.input.value = {
-                orgnummer: "1234"
-            };
-            component = shallow(<Tilleggsinfo {...props} />)
-            expect(component.find(ForskuttererArbeidsgiver)).to.have.length(1); 
-        });
-
-        it("Skal ikke inneholde ForskuttererArbeidsgiver hvis pilotSykepenger === true og det ikke er valgt en arbeidsgiver", () => {
-            props.pilotSykepenger = true;
-            props.input.value = {};
-            component = shallow(<Tilleggsinfo {...props} />)
-            expect(component.find(ForskuttererArbeidsgiver)).to.have.length(0); 
-        });
-
-
-        it("Skal ikke inneholde ForskuttererArbeidsgiver hvis pilotSykepenger === true og det ikke er valgt en arbeidsgiver", () => {
-            props.pilotSykepenger = true;
-            props.input.value = undefined;
-            component = shallow(<Tilleggsinfo {...props} />)
-            expect(component.find(ForskuttererArbeidsgiver)).to.have.length(0); 
-        });
-
-        it("Skal inneholde ForskuttererArbeidsgiver hvis pilotSykepenger === false og det er valgt en arbeidsgiver", () => {
-            props.pilotSykepenger = false;
-            props.input.value = {
-                orgnummer: "1234"
-            };
-            component = shallow(<Tilleggsinfo {...props} />)
-            expect(component.find(ForskuttererArbeidsgiver)).to.have.length(0); 
-        });
-
-
     }); 
 
     describe("visTilleggssporsmal", () => {
@@ -203,14 +168,7 @@ describe("VelgArbeidsgiver", () => {
             const res = visTilleggssporsmal(props);
             expect(res).to.be.true;
         });
-
-        it("Skal returnere true hvis value.orgnummer !== '0' og brukeren er med i pilot", () => {
-            props.input.value.orgnummer = '123';
-            props.pilotSykepenger = true;
-            const res = visTilleggssporsmal(props);
-            expect(res).to.be.true;
-        });
-
+        
         it("Skal returnere true hvis brukeren har nærmeste leder", () => {
             props.input.value.naermesteLeder = {
                 navn: "Ole"

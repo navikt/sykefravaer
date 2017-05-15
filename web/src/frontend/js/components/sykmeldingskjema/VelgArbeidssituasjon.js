@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import arbeidssituasjoner from '../../arbeidssituasjonData';
 import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import Feilmelding from '../skjema/Feilmelding';
 import VelgArbeidsgiver from './VelgArbeidsgiver';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
-import { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
+import arbeidssituasjoner, { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 
 const getArbeidssituasjoner = (arbeidssituasjon) => {

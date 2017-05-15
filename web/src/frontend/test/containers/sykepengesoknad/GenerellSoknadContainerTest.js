@@ -23,7 +23,6 @@ describe("GenerellSoknadContainer", () => {
         minSoknad = {
           "id": "min-soknad-id",
           "status": "NY",
-          "innsendtDato": null,
           "opprettetDato": new Date("2017-01-19"),
           "arbeidsgiver": {
             "navn": "BYGGMESTER BLOM AS",

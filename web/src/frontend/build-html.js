@@ -11,6 +11,7 @@ var dev = {
     "moterestRoot": "http://localhost:8184/moterest/api",
     "bundleFileName": `bundle.js`,
     "enableLogging": true,
+    "isProd": false,
 };
 
 var prod = {
@@ -20,11 +21,14 @@ var prod = {
     "moterestRoot": "/moterest/api",
     "bundleFileName": "bundle-prod.js",
     "enableLogging": false,
+    "isProd": true
 };
+
+var settings = env === 'prod' ? prod : dev;
 
 fs.readFile("html/syfofront.mustache", function (err, data) {
     if (err) throw err;
-    const html = Mustache.render(data.toString(), env === 'prod' ? prod : dev);
+    const html = Mustache.render(data.toString(), settings);
     fs.writeFile('../main/webapp/syfofront.html', html, 'utf-8', (err) => {
         if (err) throw err;
     });

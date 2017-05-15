@@ -25,6 +25,7 @@ import pilot from './reducers/pilot';
 import vedlikehold from './reducers/vedlikehold';
 import reduxFormMeta from './reducers/reduxFormMeta';
 import '../styles/styles.less';
+import forskutteringssporsmal from './reducers/forskutteringssporsmal';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
     mote,
     form: formReducer,
     formMeta: reduxFormMeta,
+    forskutteringssporsmal,
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -58,8 +60,6 @@ store.dispatch(hentSykepengesoknader());
 store.dispatch(hentBrukerinfo());
 store.dispatch(hentVedlikehold());
 store.dispatch(moteActions.hentMote());
-
-console.log("123")
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {
     window.localStorage.setItem('visLedetekster', true);

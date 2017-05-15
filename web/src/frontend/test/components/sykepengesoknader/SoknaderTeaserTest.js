@@ -37,7 +37,9 @@ describe("SoknadTeaser", () => {
     };
 
     beforeEach(() => {
-        setLedetekster(ledetekster);
+        setLedetekster(Object.assign({}, ledetekster, {
+            'soknad.teaser.status.SENDT': 'Sendt %DATO%'
+        }));
     });
 
     it('er en lenke', () => {
@@ -78,8 +80,39 @@ describe("SoknadTeaser", () => {
     });
 
     it('viser status om soknad er sendt', () => {
-        const _soknad = Object.assign({}, soknad, {status: 'SENDT', innsendingsDato: '02.06.2016'})
+        const _soknad = Object.assign({}, soknad, {status: 'SENDT'})
         const component = shallow(<SoknaderTeaser soknad={_soknad} />)
         expect(component.find('.js-status')).to.be.length(1)
     });
+
+    it("Viser datoen søknaden er sendt hvis den bare er sendt til NAV", () => {
+        const _soknad = Object.assign({}, soknad, {
+            status: 'SENDT',
+            sendtTilArbeidsgiverDato: null,
+            sendtTilNAVDato: new Date("2017-05-11")
+        });
+        const component = shallow(<SoknaderTeaser soknad={_soknad} />);
+        expect(component.find(".js-status").text()).to.contain("Sendt 11.05.2017");
+    });
+
+    it("Viser datoen søknaden er sendt hvis den bare er sendt til arbeidsgiver", () => {
+        const _soknad = Object.assign({}, soknad, {
+            status: 'SENDT',
+            sendtTilNAVDato: null,
+            sendtTilArbeidsgiverDato: new Date("2017-05-11")
+        });
+        const component = shallow(<SoknaderTeaser soknad={_soknad} />);
+        expect(component.find(".js-status").text()).to.contain("Sendt 11.05.2017");
+    });
+
+    it("Viser datoen søknaden er sendt hvis den er sendt til begge", () => {
+        const _soknad = Object.assign({}, soknad, {
+            status: 'SENDT',
+            sendtTilNAVDato: new Date("2017-05-11"),
+            sendtTilArbeidsgiverDato: new Date("2017-05-11")
+        });
+        const component = shallow(<SoknaderTeaser soknad={_soknad} />);
+        expect(component.find(".js-status").text()).to.contain("Sendt 11.05.2017");
+    });
+
 }); 

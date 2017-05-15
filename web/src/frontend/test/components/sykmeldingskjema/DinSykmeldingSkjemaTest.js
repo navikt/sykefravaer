@@ -15,7 +15,6 @@ import VelgArbeidsgiver from "../../../js/components/sykmeldingskjema/VelgArbeid
 import ArbeidsgiversSykmeldingContainer from "../../../js/containers/ArbeidsgiversSykmeldingContainer";
 import { Varselstripe } from "digisyfo-npm";
 import ErLederRiktig from "../../../js/components/sykmeldingskjema/ErLederRiktig";
-import ForskuttererArbeidsgiver from "../../../js/components/sykmeldingskjema/ForskuttererArbeidsgiver";
 import { Provider } from 'react-redux';
 import feilaktigeOpplysninger from "../../../js/enums/feilaktigeOpplysninger";
 import deepFreeze from 'deep-freeze';
@@ -322,7 +321,7 @@ describe("DinSykmeldingSkjema -", () => {
             expect(sendSykmeldingTilArbeidsgiverSpy.callCount).to.equal(1);
             expect(sendSykmeldingTilArbeidsgiverSpy.getCall(0).args).to.deep.equal(["olsen", "123456789", {
                 andre: true,
-            }, undefined, false]);
+            }, undefined]);
         });
 
         it("Lagrer arbeidssituasjon", () => {

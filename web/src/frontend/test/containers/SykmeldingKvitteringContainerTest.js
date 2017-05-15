@@ -162,7 +162,6 @@ describe("SykmeldingKvitteringContainer", () => {
 
             beforeEach(() => {
                 sykmelding = {
-                    arbeidsgiverForskutterer: true,
                     mulighetForArbeid: {
                         perioder: [{
                             fom: "2017-01-10",
@@ -180,13 +179,6 @@ describe("SykmeldingKvitteringContainer", () => {
 
             it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er SENDT", () => {
                 const res = getKvitteringtype(sykmelding, false);
-                expect(res).to.equal("STANDARDKVITTERING");
-            });
-
-            it("Skal returnere STANDARDKVITTERING hvis arbeidsgiver ikke forskutterer, brukeren er pilot og søknaden er TIL_SENDING", () => {
-                sykmelding.status = "TIL_SENDING";
-                sykmelding.arbeidsgiverForskutterer = false;
-                const res = getKvitteringtype(sykmelding, true);
                 expect(res).to.equal("STANDARDKVITTERING");
             });
 
@@ -214,7 +206,6 @@ describe("SykmeldingKvitteringContainer", () => {
 
             beforeEach(() => {
                 sykmelding = {
-                    arbeidsgiverForskutterer: true,
                     mulighetForArbeid: {
                         perioder: [{
                             fom: "2017-01-10",
@@ -239,13 +230,6 @@ describe("SykmeldingKvitteringContainer", () => {
                 sykmelding.status = "TIL_SENDING";
                 const res = getKvitteringtype(sykmelding, true);
                 expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_SENERE");
-            });
-
-            it("Skal returnere STANDARDKVITTERING hvis arbeidsgiver ikke forskutterer, brukeren er pilot og søknaden er TIL_SENDING", () => {
-                sykmelding.status = "TIL_SENDING";
-                sykmelding.arbeidsgiverForskutterer = false;
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("STANDARDKVITTERING");
             });
 
             it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er TIL_SENDING", () => {

@@ -9,7 +9,9 @@
     {{fragment.megamenu-resources}}
     {{fragment.scripts}}
     <%={{ }}=%>
-    <link href="/sykefravaer/js/styles.{{{timestamp}}}.css" rel="stylesheet"/>
+        {{#isProd}}
+        <link href="/sykefravaer/js/styles.{{{timestamp}}}.css" rel="stylesheet"/>
+        {{/isProd}}
     {{=<% %>=}}
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 </head>

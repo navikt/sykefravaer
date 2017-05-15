@@ -30,11 +30,10 @@ export function sendSykmeldingFeilet(sykmeldingId) {
     };
 }
 
-export function sykmeldingSendt(sykmeldingId, options) {
+export function sykmeldingSendt(sykmeldingId) {
     return {
         type: actiontyper.SYKMELDING_SENDT,
         sykmeldingId,
-        options,
     };
 }
 
@@ -102,14 +101,13 @@ export function bekreftSykmelding(sykmeldingId, arbeidssituasjon = {}, feilaktig
     };
 }
 
-export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger = {}, beOmNyNaermesteLeder = true, arbeidsgiverForskutterer = false) {
+export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktigeOpplysninger = {}, beOmNyNaermesteLeder = true) {
     return {
         type: actiontyper.SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT,
         sykmeldingId,
         orgnummer,
         feilaktigeOpplysninger,
         beOmNyNaermesteLeder,
-        arbeidsgiverForskutterer,
     };
 }
 

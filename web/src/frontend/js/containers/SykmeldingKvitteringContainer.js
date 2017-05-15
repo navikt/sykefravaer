@@ -75,7 +75,7 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
 };
 
 export const getKvitteringtype = (sykmelding, erPilot) => {
-    if (!sykmelding || !erPilot || (sykmelding.status !== SENDT && sykmelding.status !== TIL_SENDING) || !sykmelding.arbeidsgiverForskutterer) {
+    if (!sykmelding || !erPilot || (sykmelding.status !== SENDT && sykmelding.status !== TIL_SENDING)) {
         return kvitteringtyper.STANDARDKVITTERING;
     }
     if (erPeriodePassert(sykmelding)) {

@@ -1,12 +1,6 @@
 @nodeModulesPath: "~";
 
 @import "@{nodeModulesPath}nav-frontend-core/less/styles";
-@import "@{nodeModulesPath}nav-frontend-skjema-design/less/styles";
-@import "@{nodeModulesPath}nav-frontend-typografi-design/less/styles";
-@import "@{nodeModulesPath}nav-frontend-knapper-design/less/styles";
-@import "@{nodeModulesPath}nav-frontend-brodsmuler-design/less/styles";
-@import "@{nodeModulesPath}nav-frontend-hjelpetekst-design/less/styles";
-@import "@{nodeModulesPath}nav-frontend-stegindikator-design/less/styles";
 
 @import "_paneler.less";
 @import "_hoder.less";
@@ -42,8 +36,14 @@
 @import "_redaksjonelt.less";
 @import "_utils.less";
 @import "_avstander.less";
-
 @import "_dekoratorVarsler.less";
+
+@import "@{nodeModulesPath}nav-frontend-skjema-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-typografi-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-knapper-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-brodsmuler-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-hjelpetekst-design/less/styles";
+@import "@{nodeModulesPath}nav-frontend-stegindikator-design/less/styles";
 
 @greenLight: #63b282;
 @blueLight: #c3ddf4;
@@ -78,7 +78,7 @@
 
 @media print { 
 
-	.ikke-print {
+	.ikke-print, .hodefot {
 		display: none; 	
 	}
 
@@ -103,56 +103,4 @@ p {
     font-family: @profilfont;
     font-size: 1.25em;
     font-weight: normal;
-}
-
-.panel--feiloppsummering {
-	background-color: @advarselRoed;
-	color: @hvit;
-
-	a:visited {
-		color: @hvit;
-	}
-
-	&:focus {
-		outline: none;
-		box-shadow: 0 0 0 3px @bakgrunnGraa, 0 0 0 6px @fokusOrange;
-	}
-
-	a {
-		color: @hvit;
-		border-bottom: 1px solid @advarselRoedBakgrunn;
-	}
-
-	a:hover, a:active {
-		border-bottom-color: @hvit;
-	}
-
-	a:focus, a:active {
-		color: @navTekst;
-		border-bottom-color: @fokusOrange;
-	}
-
-}
-
-.feiloppsummering__tittel {
-	.mixin-typo-undertittel();
-	margin-top: 0;
-}
-
-.feiloppsummering__liste {
-	padding: 0;
-	margin: 0;
-	margin-left: 2em;
-}
-
-.feiloppsummering__feil {
-	margin-bottom: .25em;
-}
-
-.skjema__feilomrade:focus {
-	outline: none;
-}
-
-.skjema__feilomrade--feil:focus {
-	box-shadow: 0 0 0 8px @advarselRoedBakgrunn, 0 0 0 11px @fokusOrange;
 }

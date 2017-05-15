@@ -129,14 +129,12 @@ describe('sykepengesoknader', () => {
                 sender: false,
                 sendingFeilet: false,
             });
-            const action = actions.sykepengesoknadSendt("1", {
-                id: '1',
-                fiskekake: 'fiskekake',
-                sylt: 'jordbærsylt'
-            });
+            const action = actions.sykepengesoknadSendt("1", getSoknad());
             const nextState = sykepengesoknader(initialState, action);
             expect(nextState).to.deep.equal({
-                data: [{ id: '1', fiskekake: 'fiskekake', sylt: 'jordbærsylt'}, { id: '2' }],
+                data: [getParsetSoknad(), {
+                    id: '2'
+                }],
                 sender: false,
                 sendingFeilet: false,
                 henter: false,
@@ -144,25 +142,6 @@ describe('sykepengesoknader', () => {
             });
         });
 
-        it("håndterer SYKEPENGESOKNAD_SENDT hvis REST-tjeneste ikke svarer med søknad", () => {
-            // GAMMELT RESTSVAR
-            let initialState = deepFreeze({
-                data: [{id: '1'},{id: '2'}],
-                henter: false,
-                hentingFeilet: false,
-                sender: false,
-                sendingFeilet: false,
-            });
-            const action = actions.sykepengesoknadSendt("1");
-            const nextState = sykepengesoknader(initialState, action);
-            expect(nextState).to.deep.equal({
-                data: [{ id: '1', status: 'SENDT', innsendtDato: new Date()}, { id: '2' }],
-                sender: false,
-                sendingFeilet: false,
-                henter: false,
-                hentingFeilet: false,
-            });
-        });
     });
 
     describe("parsing", () => {
@@ -278,14 +257,24 @@ describe('sykepengesoknader', () => {
             expect(_soknad.identdato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
 
-        it("parser innsendtDato", () => {
+        it("parser sendtTilArbeidsgiverDato", () => {
             const soknad = Object.assign({}, getSoknad(),
                 {
-                    innsendtDato: "2017-01-19"
+                    sendtTilArbeidsgiverDato: "2017-01-19"
                 }
             );
             const _soknad = parseDatofelter(soknad);
-            expect(_soknad.innsendtDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
+            expect(_soknad.sendtTilArbeidsgiverDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
+        });
+
+        it("parser sendtTilNAVDato", () => {
+            const soknad = Object.assign({}, getSoknad(),
+                {
+                    sendtTilNAVDato: "2017-01-19"
+                }
+            );
+            const _soknad = parseDatofelter(soknad);
+            expect(_soknad.sendtTilNAVDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
 
         it("parser opprettetDato", () => {
@@ -306,6 +295,25 @@ describe('sykepengesoknader', () => {
             );
             const _soknad = parseDatofelter(soknad);
             expect(_soknad.sykmeldingSkrevetDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
+        });
+
+        it("Funker hvis sendtTilNAVDato og/eller sendtTilArbeidsgiverDato ikke finnes på søknaden", () => {
+            const soknad = getSoknad();
+            delete(soknad.sendtTilNAVDato);
+            delete(soknad.sendtTilArbeidsgiverDato);
+            const _soknad = parseDatofelter(soknad);
+            expect(_soknad.sendtTilNAVDato).to.be.undefined;
+            expect(_soknad.sendtTilArbeidsgiverDato).to.be.undefined;
+        });
+
+        it("parser forrigeSykeforloepTom", () => {
+            const soknad = Object.assign({}, getSoknad(),
+                {
+                    forrigeSykeforloepTom: "2017-01-19"
+                }
+            );
+            const _soknad = parseDatofelter(soknad);
+            expect(_soknad.forrigeSykeforloepTom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
 
     });
@@ -387,13 +395,16 @@ const getSoknad = () => {
             soektOmSykepengerIPerioden: null,
         },
         opprettetDato: "2017-01-01",
-        innsendtDato: null,
+        sendtTilArbeidsgiverDato: null,
+        sendtTilNAVDato: null,
         sykmeldingSkrevetDato: "2017-02-15",
+        forrigeSykeforloepTom: "2017-01-18",
+        id: "1"
     };
 };
 
 const getParsetSoknad = () => {
-    return soknad = {
+    return {
         aktiviteter: [
             {
                 avvik: null,
@@ -415,8 +426,11 @@ const getParsetSoknad = () => {
             soektOmSykepengerIPerioden: null,
         },
         opprettetDato: new Date("2017-01-01"),
-        innsendtDato: null,
+        sendtTilArbeidsgiverDato: null,
+        sendtTilNAVDato: null,
         sykmeldingSkrevetDato: new Date("2017-02-15"),
+        forrigeSykeforloepTom: new Date("2017-01-18"),
+        id: "1"
     };
 };
 

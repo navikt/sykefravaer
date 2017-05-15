@@ -15,6 +15,11 @@ const validate = (values, props) => {
     if (!values.bekreftetKorrektInformasjon) {
         feilmeldinger.bekreftetKorrektInformasjon = 'Du må bekrefte at du har lest informasjonen og bekreftet at opplysningene du har gitt er korrekte';
     }
+
+    if (props.visForskutteringssporsmal && !values.arbeidsgiverForskutterer) {
+        feilmeldinger.arbeidsgiverForskutterer = 'Vennligst svar på om arbeidsgiveren din betaler lønnen når du er syk';
+    }
+
     return feilmeldinger;
 };
 

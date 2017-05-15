@@ -410,9 +410,7 @@ describe('arbeidsgiversSykmeldinger', () => {
         });        
 
         it("Håndterer SYKMELDING_SENDT", () => {
-            action = dsActions.sykmeldingSendt(56, {
-                arbeidsgiverForskutterer: true,
-            });
+            action = dsActions.sykmeldingSendt(56);
             const nextState = arbeidsgiversSykmeldinger(initialState, action);
             expect(nextState).to.deep.equal({
                 data: [{
@@ -422,7 +420,6 @@ describe('arbeidsgiversSykmeldinger', () => {
                         orgnummer: 123456789,
                         navn: 'Olsens Sykkelbud'
                     },
-                    arbeidsgiverForskutterer: true,
                 }],
                 henter: false,
                 hentingFeilet: false,

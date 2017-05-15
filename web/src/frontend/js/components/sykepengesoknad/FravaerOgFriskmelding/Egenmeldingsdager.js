@@ -14,7 +14,9 @@ const EgenmeldingsDager = ({ sykepengesoknad }) => {
     const hjelpetekst = (<Hjelpetekst
         id="egenmeldingsdager-hjelpetekst"
         tittel={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tittel')}
-        tekst={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tekst')} />);
+        tekst={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tekst', {
+            '%DATO%': toDatePrettyPrint(identdato),
+        })} />);
 
     return (
         <JaEllerNei

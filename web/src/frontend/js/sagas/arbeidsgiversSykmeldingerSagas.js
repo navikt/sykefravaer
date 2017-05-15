@@ -6,7 +6,7 @@ import { log } from 'digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
 
 export function* hentArbeidsgiversSykmeldinger() {
-    yield put({ type: actiontyper.HENTER_ARBEIDSGIVERS_SYKMELDINGER });
+    yield put(actions.henterArbeidsgiversSykmeldinger());
     try {
         const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger?type=arbeidsgiver`);
         yield put(actions.setArbeidsgiversSykmeldinger(data));

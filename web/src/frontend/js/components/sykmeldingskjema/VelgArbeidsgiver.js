@@ -4,7 +4,6 @@ import { getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths';
 import ErLederRiktig from './ErLederRiktig';
-import ForskuttererArbeidsgiver from './ForskuttererArbeidsgiver';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import Radioknapper from '../skjema/Radioknapper';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
@@ -59,7 +58,7 @@ SkrivUt.propTypes = {
 };
 
 export const Tilleggsinfo = (props) => {
-    const { input, pilotSykepenger } = props;
+    const { input } = props;
     const { value } = input;
     return (<div>
         {
@@ -69,23 +68,17 @@ export const Tilleggsinfo = (props) => {
             value && value.naermesteLeder ?
                 <ErLederRiktig naermesteLeder={value.naermesteLeder} /> : null
         }
-        {
-            pilotSykepenger && value && value.orgnummer && value.orgnummer !== '0' ?
-                <ForskuttererArbeidsgiver arbeidsgiver={value} /> : null
-        }
     </div>);
 };
 
 Tilleggsinfo.propTypes = {
     input: PropTypes.object.isRequired,
-    pilotSykepenger: PropTypes.bool.isRequired,
 };
 
 export const visTilleggssporsmal = (_props) => {
-    const { input, pilotSykepenger } = _props;
+    const { input } = _props;
     const { value } = input;
     return !value ? false : (value.orgnummer === '0' ||
-        (pilotSykepenger && value.orgnummer !== '0') ||
         (typeof value.naermesteLeder === 'object' && value.naermesteLeder !== null));
 };
 
@@ -105,7 +98,7 @@ RendreVelgArbeidsgiver.propTypes = {
 };
 
 const VelgArbeidsgiver = (props) => {
-    const { arbeidsgivere, sykmelding, skjemaData, pilotSykepenger } = props;
+    const { arbeidsgivere, sykmelding, skjemaData } = props;
 
     return (<Field
         spoersmal={getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal')}
@@ -118,7 +111,6 @@ const VelgArbeidsgiver = (props) => {
         }}
         sykmelding={sykmelding}
         component={RendreVelgArbeidsgiver}
-        pilotSykepenger={pilotSykepenger}
         skjemaData={skjemaData} />);
 };
 
@@ -126,7 +118,6 @@ VelgArbeidsgiver.propTypes = {
     arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
     sykmelding: sykmeldingPt,
     skjemaData: PropTypes.object,
-    pilotSykepenger: PropTypes.bool,
 };
 
 export default VelgArbeidsgiver;

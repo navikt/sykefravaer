@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import Oppfolgingsdialog from '../components/oppfolgingsdialoger/Oppfolgingsdialog';
+import { getOppfolgingsdialog } from '../utils/oppfolgingsdialogUtils';
+import { Oppfolgingsdialog } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
-import { getOppfolgingsdialog } from '../utils/oppfolgingsdialogUtils';
 
 export const OppfolgingsdialogSide = ({ brodsmuler, oppfolgingsdialog, henter, hentingFeilet }) => {
     return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>

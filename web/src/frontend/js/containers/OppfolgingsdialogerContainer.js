@@ -7,7 +7,7 @@ import AppSpinner from '../components/AppSpinner';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Oppfolgingsdialoger from '../components/oppfolgingsdialoger/Oppfolgingsdialoger';
 
-export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, henter, hentingFeilet }) => {
+export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet }) => {
     return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} brodsmuler={brodsmuler}>
         {
             (() => {
@@ -17,7 +17,8 @@ export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, hente
                     return (<Feilmelding />);
                 }
                 return (<Oppfolgingsdialoger
-                    oppfolgingsdialoger={oppfolgingsdialoger} />);
+                    oppfolgingsdialoger={oppfolgingsdialoger}
+                    ledetekster={ledetekster} />);
             })()
         }
     </Side>);
@@ -26,6 +27,7 @@ export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, hente
 OppfolgingsdialogerSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     oppfolgingsdialoger: PropTypes.array,
+    ledetekster: PropTypes.object,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
 };

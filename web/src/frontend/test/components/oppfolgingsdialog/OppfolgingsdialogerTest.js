@@ -32,9 +32,24 @@ describe("Oppfolgingsdialoger", () => {
         expect(component.find('.nyoppfolgingsdialogknapp')).to.have.length(1);
     });
 
-    it("Skal rendre én OppfolgingsdialogerTeasere dersom man ikke har oppfolgingsdialoger", () => {
+    it("Skal ikke vise OppfolgingsdialogerTeasere dersom man ikke har oppfolgingsdialoger", () => {
         component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={[]} />);
+        expect(component.find(OppfolgingsdialogerTeasere)).to.have.length(0);
+    });
+
+    it("Skal vise en Pil dersom man ikke har oppfolgingsdialoger", () => {
+        component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={[]} />);
+        expect(component.find('img.pil')).to.have.length(1);
+    });
+
+    it("Skal rendre én OppfolgingsdialogerTeasere dersom man har oppfolgingsdialoger", () => {
+        component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
         expect(component.find(OppfolgingsdialogerTeasere)).to.have.length(1);
+    });
+
+    it("Skal ikke vise en Pil dersom man har oppfolgingsdialoger", () => {
+        component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
+        expect(component.find('img.pil')).to.have.length(0);
     });
 
 });

@@ -3,6 +3,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import OppfolgingsdialogerTeasere from './OppfolgingsdialogerTeasere';
 import { OppfolgingsdialogInfoboks } from 'oppfolgingsdialog-npm';
+import { isEmpty } from '../../utils/oppfolgingsdialogUtils'
 
 const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [] }) => {
     return (<div>
@@ -13,14 +14,19 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [] }) => {
             altUrl="Oppfølgingsdialog"
             tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.infoboks.tittel')}
             tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.infoboks.tekst')} />
-        <img className="pil" src="/sykefravaer/img/svg/pil.svg" alt="pil" />
+
+        { isEmpty(oppfolgingsdialoger) &&
+            <img className="pil" src="/sykefravaer/img/svg/pil.svg" alt="pil" />
+        }
         <button className="nyoppfolgingsdialogknapp">
             {getLedetekst('oppfolgingsdialog.knapp.ny-oppfolgingsdialog')}
         </button>
-        <OppfolgingsdialogerTeasere
-            oppfolgingsdialoger={oppfolgingsdialoger}
-            tittel={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.tittel')}
-            ingenOppfolgingsdialogerMelding={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.ingen-oppfolgingsdialoger.melding')} />
+        { !isEmpty(oppfolgingsdialoger) &&
+            <OppfolgingsdialogerTeasere
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                tittel={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.tittel')}
+                ingenOppfolgingsdialogerMelding={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.ingen-oppfolgingsdialoger.melding')} />
+        }
     </div>);
 };
 

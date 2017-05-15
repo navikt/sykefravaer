@@ -45,7 +45,7 @@
     text-indent: -9999px;
     border: 0;
     background-color: transparent;
-    background-image: data-uri("../img/svg/pil-videre-graa.svg");
+    background-image: data-uri("../img/png/pilNeste--graa.png");
     background-size: 1.25em 1.25em;
 
     &:focus {
@@ -54,14 +54,18 @@
     }
 
     &:focus, &:hover {
-      background-image: data-uri("../img/svg/pil-videre-blaa.svg");
+      background-image: data-uri("../img/png/pilNeste--blaa.png");
     }
 
   }
 
     .DayPicker-NavButton--prev {
       left: 1em;
-      transform: rotate(180deg);
+      background-image: data-uri("../img/png/pilForrige--graa.png");
+
+      &:focus, &:hover {
+        background-image: data-uri("../img/png/pilForrige--blaa.png");
+      }
     }
 
     .DayPicker-NavButton--next {

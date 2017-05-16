@@ -11,7 +11,7 @@ describe("oppfolgingsdialogerSagas", () => {
 
     const generator = hentOppfolgingsdialoger();
 
-    xit("Skal dispatche HENTER_OPPFOLGINGSDIALOGER_AT", () => {
+    it("Skal dispatche HENTER_OPPFOLGINGSDIALOGER_AT", () => {
         const nextPut = put({type: actiontyper.HENTER_OPPFOLGINGSDIALOGER_AT});
         expect(generator.next().value).to.deep.equal(nextPut);
     });

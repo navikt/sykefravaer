@@ -280,6 +280,30 @@ describe("validerFravaerOgFriskmelding", () => {
 
       });
 
+      describe("Dersom svaret er ja og man har krysset av for ferie og fylt og søknaden har forrigeSykeforloepTom satt", () => {
+        beforeEach(() => {
+          sykepengesoknad = getSoknad({
+            forrigeSykeforloepTom: new Date("2016-05-12"),
+          })
+          values.harHattFeriePermisjonEllerUtenlandsopphold = true;
+          values.harGjenopptattArbeidFulltUt = true;
+          values.gjenopptattArbeidFulltUtDato = "17.01.2017"
+          values.harHattFerie = true;
+          values.ferie = [{
+            fom: "10.01.2015",
+            tom: "15.01.2017"
+          }]
+        });
+
+        it.only("Skal klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato", () => {
+          const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+          expect(res.ferie).to.deep.equal([{
+            fom: "Datoen må være innenfor perioden 12.05.2016-16.01.2017"
+          }])
+        });
+
+      });
+
       describe("Dersom svaret er ja og man har krysset av for permisjon", () => {
         beforeEach(() => {
           values.harHattFeriePermisjonEllerUtenlandsopphold = true;

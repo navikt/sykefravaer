@@ -5,17 +5,18 @@ import { fraInputdatoTilJSDato } from '../../../utils';
 import { tidligsteFom } from '../../../utils/periodeUtils';
 
 export const validate = (values, props) => {
+    const { sykepengesoknad } = props;
     const feilmeldinger = {};
     let gjenopptattArbeidFulltUtDato;
     const periodealternativer = {};
     if (values.harGjenopptattArbeidFulltUt) {
         try {
             gjenopptattArbeidFulltUtDato = fraInputdatoTilJSDato(values.gjenopptattArbeidFulltUtDato);
-            const perioder = props.sykepengesoknad.aktiviteter.map((a) => {
+            const perioder = sykepengesoknad.aktiviteter.map((a) => {
                 return a.periode;
             });
-            periodealternativer.fra = tidligsteFom(perioder);
-            periodealternativer.til = getTomDato(Object.assign({}, props.sykepengesoknad, {
+            periodealternativer.fra = sykepengesoknad.forrigeSykeforloepTom || tidligsteFom(perioder);
+            periodealternativer.til = getTomDato(Object.assign({}, sykepengesoknad, {
                 gjenopptattArbeidFulltUtDato,
             }));
         } catch (e) {
@@ -24,12 +25,13 @@ export const validate = (values, props) => {
     }
 
     if (Object.keys(validerFoerDuBegynner(values)).length !== 0) {
-        props.sendTilFoerDuBegynner(props.sykepengesoknad);
+        props.sendTilFoerDuBegynner(sykepengesoknad);
     }
 
     if (values.bruktEgenmeldingsdagerFoerLegemeldtFravaer === undefined) {
         feilmeldinger.bruktEgenmeldingsdagerFoerLegemeldtFravaer = 'Du må svare om du brukte egenmeldingsdager før det legemeldte fraværet startet';
     }
+
     if (values.harGjenopptattArbeidFulltUt === undefined) {
         feilmeldinger.harGjenopptattArbeidFulltUt = 'Vennligst oppgi om du var tilbake i arbeid før sykmeldingsperioden utløp';
     } else if (values.harGjenopptattArbeidFulltUt) {
@@ -37,8 +39,8 @@ export const validate = (values, props) => {
             feilmeldinger.gjenopptattArbeidFulltUtDato = 'Vennligst oppgi når du gjenopptok arbeidet';
         } else if (!valideringUtils.erIFortiden(values.gjenopptattArbeidFulltUtDato)) {
             feilmeldinger.gjenopptattArbeidFulltUtDato = 'Datoen må være bakover i tid';
-        } else if (!valideringUtils.datoErFoersteSykmeldingsdagEllerSenere(values.gjenopptattArbeidFulltUtDato, props.sykepengesoknad)) {
-            feilmeldinger.gjenopptattArbeidFulltUtDato = `Datoen kan ikke være før du ble sykmeldt ${toDatePrettyPrint(props.sykepengesoknad.identdato)}`;
+        } else if (!valideringUtils.datoErFoersteSykmeldingsdagEllerSenere(values.gjenopptattArbeidFulltUtDato, sykepengesoknad)) {
+            feilmeldinger.gjenopptattArbeidFulltUtDato = `Datoen kan ikke være før du ble sykmeldt ${toDatePrettyPrint(sykepengesoknad.identdato)}`;
         }
     }
 

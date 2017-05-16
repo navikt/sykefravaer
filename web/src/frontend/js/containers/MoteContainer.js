@@ -1,21 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { moteActions, svarActions, Kvittering, AvbruttMote, BekreftetKvittering, getSvarsideModus, Svarside, konstanter, proptypes as moterPropTypes } from 'moter-npm';
+import { moteActions, svarActions, Kvittering, MotePassert, AvbruttMote, BekreftetKvittering, getSvarsideModus, Svarside, konstanter, proptypes as moterPropTypes } from 'moter-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import Side from '../sider/Side';
+import { erMotePassert } from '../utils/index';
 import { bindActionCreators } from 'redux';
 import { brodsmule as brodsmulePt } from '../propTypes';
 
 const { BEKREFTET, MOTESTATUS, BRUKER, AVBRUTT } = konstanter;
-
-export const brukerHarSvart = (svartTidspunkt, created) => {
-    if (!svartTidspunkt) {
-        return false;
-    }
-    return svartTidspunkt > created;
-};
 
 export class Container extends Component {
     constructor(props) {
@@ -39,6 +33,9 @@ export class Container extends Component {
                     return (<Feilmelding
                         tittel="Du har ingen møteforespørsel for øyeblikket"
                         melding="Er du sikker på at du er på riktig side?" />);
+                }
+                if (erMotePassert(mote)) {
+                    return <MotePassert deltakertype={BRUKER} />;
                 }
                 if (modus === BEKREFTET) {
                     return <BekreftetKvittering mote={mote} deltakertype={BRUKER} />;

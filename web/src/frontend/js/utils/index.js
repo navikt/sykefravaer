@@ -48,6 +48,21 @@ export const fraInputdatoTilJSDato = (inputDato) => {
     return new Date(d);
 };
 
+export const newDate = () => {
+    const now = new Date();
+    return new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getHours(), now.getUTCMinutes(), now.getUTCSeconds());
+};
+
+export const erMotePassert = (mote) => {
+    if (mote.bekreftetAlternativ && mote.bekreftetAlternativ.tid <= newDate()) {
+        return true;
+    }
+    const antallAlternativer = mote.alternativer.length;
+    return mote.alternativer.filter((alternativ) => {
+        return alternativ.tid <= newDate();
+    }).length === antallAlternativer;
+};
+
 export const erGyldigDatoformat = (dato) => {
     const d = dato.replace(/\./g, '');
     let s = `${parseInt(d, 10)}`;

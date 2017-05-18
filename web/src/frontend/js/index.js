@@ -12,6 +12,7 @@ import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger';
 import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
 import ledere from './reducers/ledere';
+import allearbeidsgivere from './reducers/allearbeidsgivere';
 import { oppfolgingsdialogerAt as oppfolgingsdialoger } from 'oppfolgingsdialog-npm';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
 import { hentSykepengesoknader } from './actions/sykepengesoknader_actions';
@@ -30,6 +31,7 @@ import reduxFormMeta from './reducers/reduxFormMeta';
 const rootReducer = combineReducers({
     dineSykmeldinger,
     sykepengesoknader,
+    allearbeidsgivere,
     arbeidsgivere,
     arbeidsgiversSykmeldinger,
     ledetekster,

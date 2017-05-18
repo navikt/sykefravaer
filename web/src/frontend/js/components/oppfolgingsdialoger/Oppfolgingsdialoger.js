@@ -4,6 +4,7 @@ import Sidetopp from '../Sidetopp';
 import OppfolgingsdialogerTeasere from './OppfolgingsdialogerTeasere';
 import { OppfolgingsdialogInfoboks } from 'oppfolgingsdialog-npm';
 import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
+import { Link } from 'react-router';
 
 const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [] }) => {
     return (<div>
@@ -18,9 +19,11 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [] }) => {
         { isEmpty(oppfolgingsdialoger) &&
             <img className="pil" src="/sykefravaer/img/svg/pil.svg" alt="pil" />
         }
-        <button className="nyoppfolgingsdialogknapp">
-            {getLedetekst('oppfolgingsdialog.knapp.ny-oppfolgingsdialog')}
-        </button>
+        <div className="knapperad">
+            <Link role="button" className="knapp__opprettOppfolgingsdialog" to={"/sykefravaer/oppfolgingsdialoger/opprett"}>
+                {getLedetekst('oppfolgingsdialog.knapp.ny-oppfolgingsdialog')}
+            </Link>
+        </div>
         { !isEmpty(oppfolgingsdialoger) &&
             <OppfolgingsdialogerTeasere
                 oppfolgingsdialoger={oppfolgingsdialoger}
@@ -32,6 +35,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [] }) => {
 
 Oppfolgingsdialoger.propTypes = {
     oppfolgingsdialoger: PropTypes.array,
+    ledetekster: PropTypes.object,
 };
 
 export default Oppfolgingsdialoger;

@@ -8,7 +8,7 @@ import { brodsmule as brodsmulePt } from '../propTypes';
 import Oppfolgingsdialoger from '../components/oppfolgingsdialoger/Oppfolgingsdialoger';
 
 export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet }) => {
-    return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} brodsmuler={brodsmuler}>
+    return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
         {
             (() => {
                 if (henter) {
@@ -34,6 +34,7 @@ OppfolgingsdialogerSide.propTypes = {
 
 export const mapStateToProps = (state) => {
     return {
+        ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
         henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet,

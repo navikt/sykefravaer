@@ -295,7 +295,7 @@ describe("validerFravaerOgFriskmelding", () => {
           }]
         });
 
-        it.only("Skal klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato", () => {
+        it("Skal klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato", () => {
           const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
           expect(res.ferie).to.deep.equal([{
             fom: "Datoen må være innenfor perioden 12.05.2016-16.01.2017"

@@ -15,15 +15,15 @@ const ArbeidsgiverSkjema = ({ ledetekster, arbeidsgivere, handleSubmit, avbrytHr
                         <div className="skjema__input">
                             <Field
                                 className="radioknapp radioknapp--mork"
+                                name={`arbeidsgiver-${index}`}
                                 component="input"
                                 type="radio"
                                 id={`arbeidsgiver-${index}`}
                                 key={index}
                                 value={arbeidsgiver.navn}
-                                name="arbeidsgiver"
-                                />
+                            />
                             <label htmlFor={`arbeidsgiver-${index}`}>
-                                {arbeidsgiver.navn}
+                            {arbeidsgiver.navn}
                             </label>
                         </div>
                     );

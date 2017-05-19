@@ -7,6 +7,7 @@ import AppSpinner from '../components/AppSpinner';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import OpprettOppfolgingsdialog from '../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
 import { hentAlleArbeidsgivere } from '../actions/alleArbeidsgivere_actions';
+import { OppfolgingsdialogSamtykke } from 'oppfolgingsdialog-npm';
 
 export class OpprettOppfolgingsdialogSide extends Component {
 
@@ -14,8 +15,10 @@ export class OpprettOppfolgingsdialogSide extends Component {
         super(props);
         this.state = {
             arbeidsgiverValgt: '',
+            samtykket: false,
         };
         this.velgArbeidsgiver = this.velgArbeidsgiver.bind(this);
+        this.samtykk = this.samtykk.bind(this);
     }
 
     componentWillMount() {
@@ -26,6 +29,14 @@ export class OpprettOppfolgingsdialogSide extends Component {
         this.setState({
             arbeidsgiverValgt: value.arbeidsgiver,
         });
+    }
+
+    samtykk(value) {
+        if (value.samtykkeInput) {
+            this.setState({
+                samtykket: true,
+            });
+        }
     }
 
     render() {
@@ -39,7 +50,14 @@ export class OpprettOppfolgingsdialogSide extends Component {
                     } else if (hentingFeilet) {
                         return (<Feilmelding />);
                     } else if (this.state.arbeidsgiverValgt !== '') {
-                        // Legg inn Samtykke-komponent
+                        return (
+                            <OppfolgingsdialogSamtykke
+                                ledetekster={ledetekster}
+                                avbrytHref={"/sykefravaer/oppfolgingsdialoger"}
+                                svgUrl="/sykefravaer/img/svg/samtykke.svg"
+                                svgAlt="samtykkeIllustrasjon"
+                                samtykk={this.samtykk}
+                            />);
                     }
                     return (
                         <OpprettOppfolgingsdialog

@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
 import Side from '../sider/Side';
+import Sidetopp from '../components/Sidetopp';
 import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
 import { brodsmule as brodsmulePt } from '../propTypes';
@@ -51,21 +52,29 @@ export class OpprettOppfolgingsdialogSide extends Component {
                         return (<Feilmelding />);
                     } else if (this.state.arbeidsgiverValgt !== '') {
                         return (
+                            <div>
+                                <Sidetopp
+                                    tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
                             <OppfolgingsdialogSamtykke
                                 ledetekster={ledetekster}
                                 avbrytHref={"/sykefravaer/oppfolgingsdialoger"}
                                 svgUrl="/sykefravaer/img/svg/samtykke.svg"
                                 svgAlt="samtykkeIllustrasjon"
                                 samtykk={this.samtykk}
-                            />);
+                            />
+                            </div>);
                     }
                     return (
+                        <div>
+                            <Sidetopp
+                                tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
                         <OpprettOppfolgingsdialog
                             arbeidsgivere={arbeidsgivere}
                             ledetekster={ledetekster}
                             avbrytHref={"/sykefravaer/oppfolgingsdialoger"}
                             velgArbeidsgiver={this.velgArbeidsgiver}
-                        />);
+                        />
+                        </div>);
                 })()
             }
         </Side>);

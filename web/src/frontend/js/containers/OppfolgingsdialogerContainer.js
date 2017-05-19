@@ -6,8 +6,23 @@ import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Oppfolgingsdialoger from '../components/oppfolgingsdialoger/Oppfolgingsdialoger';
+import { OppfolgingsdialogInfoboks } from 'oppfolgingsdialog-npm';
 
-export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet }) => {
+const hentFeilmelding = ({ ledetekster, begrensning }) => {
+    if (begrensning.aldersbegrensning) {
+        return getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.aldersbegrensning.tekst', ledetekster);
+    } else if (begrensning.kodebegrensning) {
+        return getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst', ledetekster);
+    }
+    return '';
+};
+hentFeilmelding.propTyopes = {
+    ledetekster: PropTypes.object,
+    aldersbegrensning: PropTypes.bool,
+    begrensning: PropTypes.object,
+};
+
+export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet, brukerHarTilgang, begrensning }) => {
     return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
         {
             (() => {
@@ -15,10 +30,18 @@ export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, ledet
                     return <AppSpinner />;
                 } else if (hentingFeilet) {
                     return (<Feilmelding />);
+                } else if (brukerHarTilgang) {
+                    return (<Oppfolgingsdialoger
+                        oppfolgingsdialoger={oppfolgingsdialoger}
+                        ledetekster={ledetekster} />);
                 }
-                return (<Oppfolgingsdialoger
-                    oppfolgingsdialoger={oppfolgingsdialoger}
-                    ledetekster={ledetekster} />);
+                return (<OppfolgingsdialogInfoboks
+                    svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                    svgAlt="ikkeTilgangIllustrasjon"
+                    tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel', ledetekster)}
+                    tekst={hentFeilmelding({ ledetekster, begrensning })}
+                    />
+                );
             })()
         }
     </Side>);
@@ -30,9 +53,14 @@ OppfolgingsdialogerSide.propTypes = {
     ledetekster: PropTypes.object,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
+    brukerHarTilgang: PropTypes.bool,
+    begrensning: PropTypes.object,
 };
 
 export const mapStateToProps = (state) => {
+    const aldersbegrensning = false;
+    const kodebegrensning = false;
+
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
@@ -46,6 +74,8 @@ export const mapStateToProps = (state) => {
             tittel: getLedetekst('oppfolgingsdialoger.sidetittel'),
             sti: '/oppfolgingsdialoger',
         }],
+        begrensning: { aldersbegrensning, kodebegrensning },
+        brukerHarTilgang: !aldersbegrensning && !kodebegrensning,
     };
 };
 

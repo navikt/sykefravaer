@@ -32,6 +32,13 @@ export function sendSykepengesoknad(sykepengesoknad) {
     };
 }
 
+export function sendSykepengesoknadTilArbeidsgiver(sykepengesoknadsId) {
+    return {
+        type: actiontyper.SEND_SYKEPENGESOKNAD_TIL_ARBEIDSGIVER_FORESPURT,
+        sykepengesoknadsId,
+    };
+}
+
 export function sendSykepengesoknadFeilet() {
     return {
         type: actiontyper.SEND_SYKEPENGESOKNAD_FEILET,

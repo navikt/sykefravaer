@@ -47,8 +47,8 @@ const ErLederRiktig = (props) => {
         component={RendreErLederRiktig}
         name="beOmNyNaermesteLeder"
         parse={(value) => {
-            if (value !== undefined){
-               return value === 'true';
+            if (value !== undefined) {
+                return value === 'true';
             }
             return value;
         }} />);

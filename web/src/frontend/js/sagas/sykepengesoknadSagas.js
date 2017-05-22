@@ -26,6 +26,16 @@ export function* sendSykepengesoknad(action) {
     }
 }
 
+export function* sendSykepengesoknadTilArbeidsgiver(action) {
+    yield put(actions.senderSykepengesoknad());
+    try {
+        const sykepengesoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/send-til-arbeidsgiver`);
+        yield put(actions.sykepengesoknadSendt(action.sykepengesoknadsId, sykepengesoknad));
+    } catch (e) {
+        yield put(actions.sendSykepengesoknadFeilet());
+    }
+}
+
 function* watchHentSykepengesoknader() {
     yield* takeEvery(actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT, hentSykepengesoknader);
 }

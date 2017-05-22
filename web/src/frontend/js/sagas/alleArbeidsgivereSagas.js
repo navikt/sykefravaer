@@ -11,8 +11,10 @@ export function* hentAlleArbeidsgivere() {
         // const data = yield call(get, `${window.APP_SETTINGS.OPPFOELGINGSDIALOGREST_ROOT}/sykmeldt/arbeidsgivere`);
         const data = [{
             navn: 'DNB',
+            virksomhetsnummer: '***REMOVED***',
         }, {
             navn: 'KIWI',
+            virksomhetsnummer: '981566379',
         }];
         yield put(actions.alleArbeidsgivereHentet(data));
     } catch (e) {

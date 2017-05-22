@@ -15,9 +15,11 @@ export class OpprettOppfolgingsdialogSide extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arbeidsgiverValgt: '',
+            arbeidsgiver: '',
+            arbeidsgiverValgt: false,
             samtykket: false,
         };
+        this.handleOptionChange = this.handleOptionChange.bind(this);
         this.velgArbeidsgiver = this.velgArbeidsgiver.bind(this);
         this.samtykk = this.samtykk.bind(this);
     }
@@ -26,9 +28,15 @@ export class OpprettOppfolgingsdialogSide extends Component {
         this.props.hentAlleArbeidsgivere();
     }
 
-    velgArbeidsgiver(value) {
+    handleOptionChange(e) {
         this.setState({
-            arbeidsgiverValgt: value.arbeidsgiver,
+            arbeidsgiver: e.target.value,
+        });
+    }
+
+    velgArbeidsgiver() {
+        this.setState({
+            arbeidsgiverValgt: true,
         });
     }
 
@@ -50,7 +58,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
                         return <AppSpinner />;
                     } else if (hentingFeilet) {
                         return (<Feilmelding />);
-                    } else if (this.state.arbeidsgiverValgt !== '') {
+                    } else if (this.state.arbeidsgiverValgt) {
                         return (
                             <div>
                                 <Sidetopp
@@ -68,12 +76,14 @@ export class OpprettOppfolgingsdialogSide extends Component {
                         <div>
                             <Sidetopp
                                 tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
-                        <OpprettOppfolgingsdialog
-                            arbeidsgivere={arbeidsgivere}
-                            ledetekster={ledetekster}
-                            avbrytHref={"/sykefravaer/oppfolgingsdialoger"}
-                            velgArbeidsgiver={this.velgArbeidsgiver}
-                        />
+                            <OpprettOppfolgingsdialog
+                                arbeidsgivere={arbeidsgivere}
+                                ledetekster={ledetekster}
+                                avbrytHref={"/sykefravaer/oppfolgingsdialoger"}
+                                velgArbeidsgiver={this.velgArbeidsgiver}
+                                arbeidsgiverValg={this.state.arbeidsgiver}
+                                handleOptionChange={this.handleOptionChange}
+                            />
                         </div>);
                 })()
             }

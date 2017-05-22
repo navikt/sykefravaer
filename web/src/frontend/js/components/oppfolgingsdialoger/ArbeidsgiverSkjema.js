@@ -5,22 +5,23 @@ import { Field, reduxForm } from 'redux-form';
 
 const VELG_ARBEIDSGIVER_SKJEMANAVN = 'velgArbeidsgiver';
 
-const ArbeidsgiverSkjema = ({ ledetekster, arbeidsgivere, handleSubmit, avbrytHref }) => {
+const ArbeidsgiverSkjema = ({ ledetekster, arbeidsgivere, handleSubmit, avbrytHref, handleOptionChange, arbeidsgiverValg }) => {
     return (
         <form onSubmit={handleSubmit}>
         <div className="inputgruppe">
             {
                 arbeidsgivere.map((arbeidsgiver, index) => {
                     return (
-                        <div className="skjema__input">
+                        <div className="skjema__input" key={`input-${index}`}>
                             <Field
                                 className="radioknapp radioknapp--mork"
                                 name={`arbeidsgiver-${index}`}
                                 component="input"
                                 type="radio"
                                 id={`arbeidsgiver-${index}`}
-                                key={index}
-                                value={arbeidsgiver.navn}
+                                value={arbeidsgiver.virksomhetsnummer}
+                                onChange={handleOptionChange}
+                                checked={arbeidsgiver.virksomhetsnummer === arbeidsgiverValg}
                             />
                             <label htmlFor={`arbeidsgiver-${index}`}>
                             {arbeidsgiver.navn}
@@ -48,6 +49,8 @@ ArbeidsgiverSkjema.propTypes = {
     arbeidsgivere: PropTypes.array,
     avbrytHref: PropTypes.string,
     handleSubmit: PropTypes.func,
+    handleOptionChange: PropTypes.func,
+    arbeidsgiverValg: PropTypes.string,
 };
 
 const ReduxSkjema = reduxForm({

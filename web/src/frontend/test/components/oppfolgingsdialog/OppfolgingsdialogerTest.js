@@ -27,9 +27,9 @@ describe("Oppfolgingsdialoger", () => {
         expect(component.find(Sidetopp).prop("tittel")).to.equal("Oppfølgingsdialoger");
     });
 
-    it("Skal vise knapp for å opprett oppfolgingsdialog", () => {
+    it("Skal vise knapp for å opprette oppfolgingsdialog", () => {
         component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
-        expect(component.find('.nyoppfolgingsdialogknapp')).to.have.length(1);
+        expect(component.find('.knapp__opprettOppfolgingsdialog')).to.have.length(1);
     });
 
     it("Skal ikke vise OppfolgingsdialogerTeasere dersom man ikke har oppfolgingsdialoger", () => {

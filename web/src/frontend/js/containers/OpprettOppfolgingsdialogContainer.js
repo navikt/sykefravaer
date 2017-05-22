@@ -92,11 +92,9 @@ export class OpprettOppfolgingsdialogSide extends Component {
 OpprettOppfolgingsdialogSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     arbeidsgivere: PropTypes.array,
-    sykmeldinger: PropTypes.array,
     ledetekster: PropTypes.object,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    sykmeldingId: PropTypes.string,
 };
 
 export const mapStateToProps = (state) => {

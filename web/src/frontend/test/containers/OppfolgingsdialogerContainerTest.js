@@ -12,12 +12,10 @@ import { getOppfolgingsdialoger } from '../mockOppfolgingsdialoger';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-let component;
 let oppfolgingsdialoger;
 
 describe("OppfolgingsdialogerContainer", () => {
 
-    let component; 
     let dispatch;
 
     beforeEach(() => {
@@ -48,30 +46,38 @@ describe("OppfolgingsdialogerContainer", () => {
 
     describe("OppfolgingsdialogerSide", () => {
 
+        const aldersbegrensning = false;
+        const kodebegrensning = false;
+        const begrensning = {aldersbegrensning, kodebegrensning};
+        const brukerHarTilgang = !aldersbegrensning && !kodebegrensning;
+
         beforeEach(() => {
             dispatch = sinon.spy();
         });
 
         it("Skal vise spinner dersom data hentes", () => {
-            let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]} henter dispatch={dispatch} />);
+            let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]} henter dispatch={dispatch}/>);
             expect(component.contains(<AppSpinner />)).to.equal(true);
         });
 
-        it("Skal ikke spinner dersom data ikke hentes", () => {
-            let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]} dispatch={dispatch} />);
+        it("Skal ikke vise spinner dersom data ikke hentes", () => {
+            let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]} dispatch={dispatch}
+                                                             begrensning={begrensning}/>);
             expect(component.contains(<AppSpinner />)).to.equal(false);
         });
 
         it("Skal vise feilmelding dersom henting feilet", () => {
-            let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]} dispatch={dispatch} hentingFeilet />);
+            let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]} dispatch={dispatch}
+                                                             hentingFeilet/>);
             expect(component.contains(<Feilmelding />)).to.equal(true);
-        }); 
+        });
 
         it("Skal vise Oppfolgingsdialoger dersom henting er OK", () => {
-            let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]} dispatch={dispatch} />);
+            let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]} dispatch={dispatch}
+                                                             begrensning={begrensning}
+                                                             brukerHarTilgang={brukerHarTilgang}/>);
             expect(component.find(Oppfolgingsdialoger)).to.have.length(1);
-        });     
+        });
+    });
 
-    })
-
-}); 
+});

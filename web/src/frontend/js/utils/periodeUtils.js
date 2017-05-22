@@ -10,25 +10,28 @@ export const tidligsteFom = (perioder) => {
     })[0];
 };
 
-export const erBrukerSykmeldtHosVirksomhetenPdd = (sykmeldinger) => {
+export const erBrukerSykmeldtPdd = (sykmeldinger) => {
     return sykmeldinger.filter(sykmelding => {
-            return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
-                const tom = fraInputdatoTilJSDato(periode.tom);
-                tom.setDate(tom.getDate() + 1);
-                return fraInputdatoTilJSDato(periode.fom) < new Date() && fraInputdatoTilJSDato(periode.tom) > new Date();
-            }).size() > 0;
-    }).size() > 0;
+        return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
+            const tom = fraInputdatoTilJSDato(periode.tom);
+            tom.setDate(tom.getDate() + 1);
+            return fraInputdatoTilJSDato(periode.fom) < new Date() && fraInputdatoTilJSDato(periode.tom) > new Date();
+        }).length > 0;
+    }).length > 0;
 };
 
-export const finnArbeidsgivereMedAktivSykmelding = (sykmeldinger) => {
+export const finnArbeidsgivereForAktiveSykmeldinger = (sykmeldinger) => {
     return sykmeldinger.filter(sykmelding => {
-            return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
-                    const tom = fraInputdatoTilJSDato(periode.tom);
-                    tom.setDate(tom.getDate() + 1);
-                    return fraInputdatoTilJSDato(periode.fom) < new Date() && fraInputdatoTilJSDato(periode.tom) > new Date();
-                }).size() > 0;
-        }).map((sykmelding) => {
-        return sykmelding.orgnummer;
+        return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
+            const tom = fraInputdatoTilJSDato(periode.tom);
+            tom.setDate(tom.getDate() + 1);
+            return fraInputdatoTilJSDato(periode.fom) < new Date() && fraInputdatoTilJSDato(periode.tom) > new Date();
+        }).length > 0;
+    }).map((sykmelding) => {
+        return {
+            virksomhetsnummer: sykmelding.orgnummer,
+            navn: sykmelding.arbeidsgiver,
+        };
     });
 };
 

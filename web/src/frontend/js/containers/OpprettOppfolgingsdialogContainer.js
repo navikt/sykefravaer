@@ -7,8 +7,8 @@ import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import OpprettOppfolgingsdialog from '../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
-import { hentAlleArbeidsgivere } from '../actions/alleArbeidsgivere_actions';
 import { OppfolgingsdialogSamtykke } from 'oppfolgingsdialog-npm';
+import { finnArbeidsgivereForAktiveSykmeldinger } from '../utils/periodeUtils';
 
 export class OpprettOppfolgingsdialogSide extends Component {
 
@@ -24,10 +24,6 @@ export class OpprettOppfolgingsdialogSide extends Component {
         this.samtykk = this.samtykk.bind(this);
     }
 
-    componentWillMount() {
-        this.props.hentAlleArbeidsgivere();
-    }
-
     handleOptionChange(e) {
         this.setState({
             arbeidsgiver: e.target.value,
@@ -35,9 +31,11 @@ export class OpprettOppfolgingsdialogSide extends Component {
     }
 
     velgArbeidsgiver() {
-        this.setState({
-            arbeidsgiverValgt: true,
-        });
+        if(this.state.arbeidsgiver !== '') {
+            this.setState({
+                arbeidsgiverValgt: true,
+            });
+        }
     }
 
     samtykk(value) {
@@ -94,19 +92,21 @@ export class OpprettOppfolgingsdialogSide extends Component {
 OpprettOppfolgingsdialogSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     arbeidsgivere: PropTypes.array,
+    sykmeldinger: PropTypes.array,
     ledetekster: PropTypes.object,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     sykmeldingId: PropTypes.string,
-    hentAlleArbeidsgivere: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
+    const sykmeldinger = state.dineSykmeldinger.data;
+
     return {
         ledetekster: state.ledetekster.data,
-        arbeidsgivere: state.allearbeidsgivere.data,
-        henter: state.ledetekster.henter || state.allearbeidsgivere.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet || state.allearbeidsgivere.hentingFeilet,
+        arbeidsgivere: finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger),
+        henter: state.ledetekster.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -118,6 +118,6 @@ export const mapStateToProps = (state) => {
     };
 };
 
-const OppfolgingsdialogContainer = connect(mapStateToProps, { hentAlleArbeidsgivere })(OpprettOppfolgingsdialogSide);
+const OppfolgingsdialogContainer = connect(mapStateToProps)(OpprettOppfolgingsdialogSide);
 
 export default OppfolgingsdialogContainer;

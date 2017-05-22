@@ -44,7 +44,8 @@ const parsedato = (dato) => {
 };
 
 export const fraInputdatoTilJSDato = (inputDato) => {
-    return new Date(inputDato);
+    const d = parsedato(inputDato);
+    return new Date(d);
 };
 
 export const erGyldigDatoformat = (dato) => {

@@ -8,7 +8,7 @@ import AppSpinner from '../components/AppSpinner';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import OpprettOppfolgingsdialog from '../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
 import { OppfolgingsdialogSamtykke } from 'oppfolgingsdialog-npm';
-import { finnArbeidsgivereForAktiveSykmeldinger } from '../utils/periodeUtils';
+import { finnArbeidsgivereForAktiveSykmeldinger } from '../utils/sykmeldingUtils';
 
 export class OpprettOppfolgingsdialogSide extends Component {
 
@@ -31,7 +31,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
     }
 
     velgArbeidsgiver() {
-        if(this.state.arbeidsgiver !== '') {
+        if (this.state.arbeidsgiver !== '') {
             this.setState({
                 arbeidsgiverValgt: true,
             });

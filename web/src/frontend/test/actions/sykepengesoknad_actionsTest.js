@@ -86,15 +86,21 @@ describe("sykepengesoknader_actions", () => {
                 }
             });
         });
-    });
 
-    describe('innsending til arbeidsgiver', () => {
         it("skal ha en sendSykepengesoknadTilArbeidsgiver()-funksjon som returnerer riktig action", () => {
             expect(actions.sendSykepengesoknadTilArbeidsgiver('1')).to.deep.equal({
                 type: actiontyper.SEND_SYKEPENGESOKNAD_TIL_ARBEIDSGIVER_FORESPURT,
                 sykepengesoknadsId: '1',
             });
         });
+
+        it("skal ha en sendSykepengesoknadTilNAV()-funksjon som returnerer riktig action", () => {
+            expect(actions.sendSykepengesoknadTilNAV('1')).to.deep.equal({
+                type: actiontyper.SEND_SYKEPENGESOKNAD_TIL_NAV_FORESPURT,
+                sykepengesoknadsId: '1',
+            });
+        });
     });
+
 
 });

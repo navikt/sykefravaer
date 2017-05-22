@@ -39,6 +39,13 @@ export function sendSykepengesoknadTilArbeidsgiver(sykepengesoknadsId) {
     };
 }
 
+export function sendSykepengesoknadTilNAV(sykepengesoknadsId) {
+    return {
+        type: actiontyper.SEND_SYKEPENGESOKNAD_TIL_NAV_FORESPURT,
+        sykepengesoknadsId,
+    };
+}
+
 export function sendSykepengesoknadFeilet() {
     return {
         type: actiontyper.SEND_SYKEPENGESOKNAD_FEILET,

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { hentSykepengesoknader, sendSykepengesoknad, sendSykepengesoknadTilArbeidsgiver } from '../../js/sagas/sykepengesoknadSagas';
+import { hentSykepengesoknader, sendSykepengesoknad, sendSykepengesoknadTilArbeidsgiver, sendSykepengesoknadTilNAV } from '../../js/sagas/sykepengesoknadSagas';
 import { get, post } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
 import * as actiontyper from '../../js/actions/actiontyper';
@@ -115,6 +115,38 @@ describe("sykepengersoknadSagas", () => {
             }).value).to.deep.equal(nextPut);
         });
     });
+
+    describe('innsending til NAV', () => {
+
+        const action = actions.sendSykepengesoknadTilNAV("1");
+        const generator = sendSykepengesoknadTilNAV(action);
+
+        it("skal dispatche SENDER_SYKEPENGESOKNAD", () => {
+            const action = actions.senderSykepengesoknad();
+            const nextPut = put(action);
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
+
+        it("skal dernest sende sykepengesoknad", () => {
+            const nextCall = call(post, "http://tjenester.nav.no/syforest/soknader/1/actions/send-til-nav");
+            expect(generator.next().value).to.deep.equal(nextCall);
+        });
+
+        it("skal overskrive overskrive soknad med soknad fra rest-tjenesten", () => {
+            const nextPut = put({
+                type: actiontyper.SYKEPENGESOKNAD_SENDT,
+                sykepengesoknadsId: '1',
+                sykepengesoknad: {
+                    id: '1',
+                    testdata: 'testdata',
+                }
+            });
+            expect(generator.next({
+                id: '1',
+                testdata: 'testdata',
+            }).value).to.deep.equal(nextPut);
+        });
+    });    
 
     describe('innsending der REST-tjeneste ikke svarer med søknad', () => {
         // GAMMELT RESTSVAR

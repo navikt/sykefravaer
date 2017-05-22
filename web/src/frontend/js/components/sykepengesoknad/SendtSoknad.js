@@ -5,7 +5,7 @@ import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Soknadstatuspanel from './Soknadstatuspanel';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { connect } from 'react-redux';
-import { sendSykepengesoknadTilArbeidsgiver } from '../../actions/sykepengesoknader_actions';
+import { sendSykepengesoknadTilArbeidsgiver, sendSykepengesoknadTilNAV } from '../../actions/sykepengesoknader_actions';
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">
@@ -19,15 +19,24 @@ Avkrysset.propTypes = {
 };
 
 export const Knapperad = ({ sykepengesoknad, dispatch }) => {
-    if (sykepengesoknad.sendtTilArbeidsgiverDato) {
+    if (sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato) {
         return null;
+    }
+    if (sykepengesoknad.sendtTilNAVDato) {
+        return (<div className="knapperad">
+            <button onClick={(e) => {
+                e.preventDefault();
+                const action = sendSykepengesoknadTilArbeidsgiver(sykepengesoknad.id);
+                dispatch(action);
+            }} className="js-send-til-arbeidsgiver rammeknapp">Send til arbeidsgiver</button>
+        </div>);
     }
     return (<div className="knapperad">
         <button onClick={(e) => {
             e.preventDefault();
-            const action = sendSykepengesoknadTilArbeidsgiver(sykepengesoknad.id);
+            const action = sendSykepengesoknadTilNAV(sykepengesoknad.id);
             dispatch(action);
-        }} className="js-send-til-arbeidsgiver rammeknapp">Send til arbeidsgiver</button>
+        }} className="js-send-til-nav rammeknapp">Send til NAV</button>
     </div>);
 };
 

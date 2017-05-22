@@ -36,12 +36,30 @@ export function* sendSykepengesoknadTilArbeidsgiver(action) {
     }
 }
 
+export function* sendSykepengesoknadTilNAV(action) {
+    yield put(actions.senderSykepengesoknad());
+    try {
+        const sykepengesoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/send-til-nav`);
+        yield put(actions.sykepengesoknadSendt(action.sykepengesoknadsId, sykepengesoknad));
+    } catch (e) {
+        yield put(actions.sendSykepengesoknadFeilet());
+    }
+}
+
 function* watchHentSykepengesoknader() {
     yield* takeEvery(actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT, hentSykepengesoknader);
 }
 
 function* watchSendSykepengesoknad() {
     yield* takeEvery(actiontyper.SEND_SYKEPENGESOKNAD_FORESPURT, sendSykepengesoknad);
+}
+
+function* watchSendSykepengesoknadTilNAV() {
+    yield* takeEvery(actiontyper.SEND_SYKEPENGESOKNAD_TIL_NAV_FORESPURT, sendSykepengesoknadTilNAV);
+}
+
+function* watchSendSykepengesoknadTilArbeidsgiver() {
+    yield* takeEvery(actiontyper.SEND_SYKEPENGESOKNAD_TIL_ARBEIDSGIVER_FORESPURT, sendSykepengesoknadTilArbeidsgiver);
 }
 
 function* watchSykmeldingSendt() {
@@ -53,5 +71,7 @@ export default function* sykepengesoknadSagas() {
         fork(watchHentSykepengesoknader),
         fork(watchSendSykepengesoknad),
         fork(watchSykmeldingSendt),
+        fork(watchSendSykepengesoknadTilNAV),
+        fork(watchSendSykepengesoknadTilArbeidsgiver),
     ];
 }

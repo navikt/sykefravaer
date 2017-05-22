@@ -15,7 +15,7 @@ describe("datoUtils", () => {
 
     it("skal formattere dato", () => {
         const datotekst = datoMedKlokkeslett("2017-02-02T11:00:00");
-        expect(datotekst).to.be.equal('2/2 klokken 11:00')
+        expect(datotekst).to.be.equal('2/2 asd 11:00')
     });
 
     it("skal ikke krasje ved bad input", () => {

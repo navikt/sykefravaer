@@ -1,21 +1,20 @@
-import { tidligsteFom,
+import {
+    tidligsteFom,
     senesteTom,
     periodeErHelg,
     perioderErHelg,
     periodeOverlapperMedPeriode,
     periodeOverlapperMedPerioder,
     perioderOverlapperMedPerioder,
-    harOverlappendePerioder } from "../../js/utils/periodeUtils";
+    harOverlappendePerioder
+} from "../../js/utils/periodeUtils";
 import chai from "chai";
-import chaiEnzyme from "chai-enzyme";
-
-chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe("periodeUtils", () => {
 
     describe("tidligsteFom og senesteTom", () => {
-        
+
         it("Regner ut tidligsteFom og senesteTom", () => {
             const perioder = [
                 {
@@ -33,9 +32,7 @@ describe("periodeUtils", () => {
                 }, {
                     fom: '2017-05-21',
                     tom: '2017-05-22',
-                }, {
-
-                }
+                }, {}
             ];
 
             const fom = tidligsteFom(perioder);

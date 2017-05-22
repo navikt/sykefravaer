@@ -10,6 +10,28 @@ export const tidligsteFom = (perioder) => {
     })[0];
 };
 
+export const erBrukerSykmeldtHosVirksomhetenPdd = (sykmeldinger) => {
+    return sykmeldinger.filter(sykmelding => {
+            return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
+                const tom = fraInputdatoTilJSDato(periode.tom);
+                tom.setDate(tom.getDate() + 1);
+                return fraInputdatoTilJSDato(periode.fom) < new Date() && fraInputdatoTilJSDato(periode.tom) > new Date();
+            }).size() > 0;
+    }).size() > 0;
+};
+
+export const finnArbeidsgivereMedAktivSykmelding = (sykmeldinger) => {
+    return sykmeldinger.filter(sykmelding => {
+            return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
+                    const tom = fraInputdatoTilJSDato(periode.tom);
+                    tom.setDate(tom.getDate() + 1);
+                    return fraInputdatoTilJSDato(periode.fom) < new Date() && fraInputdatoTilJSDato(periode.tom) > new Date();
+                }).size() > 0;
+        }).map((sykmelding) => {
+        return sykmelding.orgnummer;
+    });
+};
+
 export const senesteTom = (perioder) => {
     return perioder.map(p => { return p.tom; }).sort((p1, p2) => {
         if (p1 < p2) {

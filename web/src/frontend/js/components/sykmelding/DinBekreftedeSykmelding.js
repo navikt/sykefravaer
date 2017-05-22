@@ -4,7 +4,7 @@ import { getLedetekst, DineSykmeldingOpplysninger, Utvidbar } from 'digisyfo-npm
 import { STATUS, INNSENDT_DATO } from '../../enums/nokkelopplysninger';
 import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
 import Sidetopp from '../Sidetopp';
-import { sykmelding as sykmeldingPt } from '../../propTypes';
+import { sykmelding as sykmeldingPt } from '../../propTypes/index';
 
 const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding }) => {
     return (<div>

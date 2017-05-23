@@ -56,7 +56,7 @@ const SendtSoknad = ({ sykepengesoknad }) => {
         <div className="bekreftet-container">
             <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label')} />
         </div>
-        <ConnectedKnapperad />
+        <ConnectedKnapperad sykepengesoknad={sykepengesoknad} />
     </div>);
 };
 

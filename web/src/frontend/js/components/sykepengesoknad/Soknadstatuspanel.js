@@ -25,6 +25,13 @@ export const tilSendingHjelpetekst = () => {
         tekst={getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tekst')} />);
 };
 
+const getArbeidsgiverOpplysning = (sykepengesoknad) => {
+    return {
+        tittel: getLedetekst('sykepengesoknad.oppsummering.arbeidsgiver.label'),
+        opplysning: `${sykepengesoknad.arbeidsgiver.navn} (${sykepengesoknad.arbeidsgiver.orgnummer})`,
+    };
+}
+
 export const getNokkelopplysninger = (sykepengesoknad) => {
     return [[{
         tittel: getLedetekst('sykepengesoknad.oppsummering.status.label'),
@@ -33,38 +40,62 @@ export const getNokkelopplysninger = (sykepengesoknad) => {
     }, {
         tittel: getLedetekst('sykepengesoknad.oppsummering.dato.label'),
         opplysning: toDatePrettyPrint(sykepengesoknad.sendtTilNAVDato || sykepengesoknad.sendtTilArbeidsgiverDato),
-    }], [{
-        tittel: getLedetekst('sykepengesoknad.oppsummering.arbeidsgiver.label'),
-        opplysning: `${sykepengesoknad.arbeidsgiver.navn} (${sykepengesoknad.arbeidsgiver.orgnummer})`,
-    }]];
+    }], [getArbeidsgiverOpplysning(sykepengesoknad)]];
 };
 
-export const Statuspanel = ({ sykepengesoknad }) => {
+const SendtLikt = ({ sykepengesoknad }) => {
     const opplysninger = getNokkelopplysninger(sykepengesoknad);
+    return (<div>
+        {
+            opplysninger.map((opplysninger_, index1) => {
+                return (<div className="statusopplysninger" key={index1}>
+                    {
+                        opplysninger_.map(({ tittel, opplysning, hjelpetekst }, index2) => {
+                            return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel={tittel} key={index2}>
+                                {
+                                    hjelpetekst ?
+                                        <div>
+                                            <span>{opplysning}</span>{hjelpetekst}
+                                        </div>
+                                        :
+                                        <p>{opplysning}</p>
+                                }
+                            </SykmeldingNokkelOpplysning>);
+                        })
+                    }
+                </div>);
+            })
+        }
+    </div>);
+}
+
+const SendtUlikt = ({ sykepengesoknad }) => {
+    const opplysning = getArbeidsgiverOpplysning(sykepengesoknad);
+    return (<div className="statusopplysninger">
+        <SykmeldingNokkelOpplysning Overskrift="h2" tittel="Status">
+            <p>
+                {getLedetekst('sykepengesoknad.status.SENDT.til-nav')}: {toDatePrettyPrint(sykepengesoknad.sendtTilNAVDato)} <br />
+                {getLedetekst('sykepengesoknad.status.SENDT.til-arbeidsgiver')}: {toDatePrettyPrint(sykepengesoknad.sendtTilArbeidsgiverDato)}
+            </p>
+        </SykmeldingNokkelOpplysning>
+        <SykmeldingNokkelOpplysning Overskrift="h2" tittel={opplysning.tittel}>
+            <p>{opplysning.opplysning}</p>
+        </SykmeldingNokkelOpplysning>
+    </div>)
+}
+
+export const Statuspanel = ({ sykepengesoknad }) => {
+    const sendtTilBeggeMenIkkeSamtidig = sykepengesoknad.sendtTilNAVDato && sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato.getTime() !== sykepengesoknad.sendtTilArbeidsgiverDato.getTime();
     return (<div className="panel panel--komprimert blokk">
         <Varselstripe type="suksess">
-            <div>
-                {
-                    opplysninger.map((opplysninger_, index1) => {
-                        return (<div className="statusopplysninger" key={index1}>
-                            {
-                                opplysninger_.map(({ tittel, opplysning, hjelpetekst }, index2) => {
-                                    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel={tittel} key={index2}>
-                                        {
-                                            hjelpetekst ?
-                                                <div>
-                                                    <span>{opplysning}</span>{hjelpetekst}
-                                                </div>
-                                                :
-                                                <p>{opplysning}</p>
-                                        }
-                                    </SykmeldingNokkelOpplysning>);
-                                })
-                            }
-                        </div>);
-                    })
-                }
-            </div>
+            {
+                (() => {
+                    if (sendtTilBeggeMenIkkeSamtidig) {
+                        return <SendtUlikt sykepengesoknad={sykepengesoknad} />;
+                    }
+                    return <SendtLikt sykepengesoknad={sykepengesoknad} />;
+                })()
+            }
         </Varselstripe>
     </div>);
 };

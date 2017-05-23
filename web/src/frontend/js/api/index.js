@@ -47,6 +47,7 @@ export function post(url, body) {
             'Content-Type': 'application/json',
             'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
             'X-XSRF-TOKEN-MOTEREST': getCookie('XSRF-TOKEN-MOTEREST'),
+            'X-XSRF-TOKEN-OPPFOELGINGSDIALOGREST': getCookie('XSRF-TOKEN-OPPFOELGINGSDIALOGREST'),
         }),
     })
         .then((res) => {

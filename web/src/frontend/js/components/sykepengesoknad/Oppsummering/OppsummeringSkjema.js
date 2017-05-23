@@ -27,17 +27,19 @@ export const OppsummeringForm = (props) => {
             visForskutteringssporsmal: visForskutteringssporsmal === true,
         });
         const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
-        actions.sendSykepengesoknad(soknadObjekt);
+        if (!values.korrigerer) {
+            actions.sendSykepengesoknad(soknadObjekt);
+        } else {
+            console.log("Send korrigering!");
+        }
     };
     return (<form onSubmit={handleSubmit(onSubmit)}>
         <Soknad apentUtdrag={false} sykepengesoknad={backendsoknad} tittel="Oppsummering" />
         <div className={sendingFeilet || visForskutteringssporsmal ? 'bekreftet-container blokk' : 'bekreftet-container'}>
             <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
         </div>
-        { visForskutteringssporsmal && <ForskuttererArbeidsgiver />}
-        {
-            sendingFeilet && <SendingFeilet />
-        }
+        { visForskutteringssporsmal && <ForskuttererArbeidsgiver /> }
+        { sendingFeilet && <SendingFeilet /> }
         <Knapperad variant="knapperad--forrigeNeste">
             <Link
                 to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}

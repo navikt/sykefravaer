@@ -212,6 +212,23 @@ describe('sykepengesoknader', () => {
 
     });
 
+    describe("Endring", () => {
+
+        it("Håndterer ENDRING_SYKEPENGESOKNAD_STARTET", () => {
+            let initialState = deepFreeze({
+                data: [{id: '1'},{id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const action = actions.endringStartet(getSoknad());
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState.data).to.deep.equal([{id: '1'},{id: '2'},getParsetSoknad()])
+        });
+
+    });
+
     describe("parsing", () => {
         it("parser datofelter i aktivitet og beholder resten av feltene", () => {
             const _soknad = parseDatofelter(getSoknad());

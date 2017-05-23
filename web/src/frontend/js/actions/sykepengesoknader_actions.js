@@ -87,3 +87,23 @@ export function sendSykepengesoknadHarIkkeFeilet() {
         type: actiontyper.SEND_SYKEPENGESOKNAD_HAR_IKKE_FEILET,
     };
 }
+
+export function startEndringForespurt(sykepengesoknadsId) {
+    return {
+        type: actiontyper.START_ENDRING_SYKEPENGESOKNAD_FORESPURT,
+        sykepengesoknadsId,
+    };
+}
+
+export function endringStartet(sykepengesoknad) {
+    return {
+        type: actiontyper.ENDRING_SYKEPENGESOKNAD_STARTET,
+        sykepengesoknad,
+    };
+}
+
+export function startEndringFeilet() {
+    return {
+        type: actiontyper.START_ENDRING_FEILET,
+    }
+}

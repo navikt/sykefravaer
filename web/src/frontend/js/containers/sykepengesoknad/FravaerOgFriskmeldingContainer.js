@@ -7,6 +7,9 @@ import { SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export const Controller = (props) => {
+    if (props.korrigerendeSoknad) {
+        return <FravaerOgFriskmelding {...props} />;
+    }
     if (props.sykepengesoknad.status === SENDT || props.sykepengesoknad.status === TIL_SENDING) {
         return <Kvittering sykepengesoknad={props.sykepengesoknad} />;
     }

@@ -4,8 +4,12 @@ import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
 import { SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export const Controller = (props) => {
+    if (props.korrigerendeSoknad) {
+        return <AktiviteterISykmeldingsperioden {...props} />;
+    }
     if (props.sykepengesoknad.status === SENDT || props.sykepengesoknad.status === TIL_SENDING) {
         return <Kvittering sykepengesoknad={props.sykepengesoknad} />;
     }
@@ -16,9 +20,7 @@ export const Controller = (props) => {
 };
 
 Controller.propTypes = {
-    sykepengesoknad: PropTypes.shape({
-        status: PropTypes.string.isRequired,
-    }),
+    sykepengesoknad: sykepengesoknadPt,
     skjemasoknad: PropTypes.object,
 };
 

@@ -52,6 +52,6 @@ describe("FoerDuBegynnerContainer", () => {
         const component = shallow(<Controller sykepengesoknad={sykepengesoknad} vedlikehold={{datospennMedTid: null}} />);
         expect(component.find(FoerDuBegynner)).to.have.length(1);
         expect(component.find(SendtSoknad)).to.have.length(0);
-    })
+    });
     
 });

@@ -40,7 +40,7 @@ describe("OppsummeringContainer", () => {
         it("Skal vise StartIgjen hvis skjemasoknad ikke finnes", () => {
             const containerComponent = shallow(<Controller sykepengesoknad={getSoknad({})} />)
             expect(containerComponent.find(StartIgjen)).to.have.length(1);
-        })
+        });
 
         it("Skal vise Kvittering hvis søknad har status SENDT", () => {
             const sykepengesoknad = getSoknad({
@@ -59,6 +59,7 @@ describe("OppsummeringContainer", () => {
             expect(containerComponent.find(Kvittering)).to.have.length(0);
             expect(containerComponent.find(ConnectedOppsummering)).to.have.length(1);
         });
+
 
     });
 

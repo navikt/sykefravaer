@@ -123,6 +123,10 @@ export default function sykepengesoknader(state = initiellState, action) {
                 sendingFeilet: false,
             });
         }
+        case actiontyper.ENDRING_SYKEPENGESOKNAD_STARTET: {
+            const data = [...state.data, parseDatofelter(action.sykepengesoknad)];
+            return Object.assign({}, state, { data });
+        }
         default:
             return state;
     }

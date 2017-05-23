@@ -4,6 +4,7 @@ import { get, post } from '../api';
 import * as actions from '../actions/sykepengesoknader_actions';
 import { log } from 'digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
+import history from '../history';
 
 export function* hentSykepengesoknader() {
     yield put(actions.henterSykepengesoknader());
@@ -49,6 +50,17 @@ export function* sendSykepengesoknadTilNAV(action) {
     }
 }
 
+export function* startEndring(action) {
+    try {
+        const sykepengesoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/korriger`);
+        yield put(actions.endringStartet(sykepengesoknad));
+        yield history.push(`/sykefravaer/soknader/${sykepengesoknad.id}`);
+    } catch (e) {
+        log(e);
+        yield put(actions.startEndringFeilet());
+    }
+}
+
 function* watchHentSykepengesoknader() {
     yield* takeEvery(actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT, hentSykepengesoknader);
 }
@@ -69,6 +81,10 @@ function* watchSykmeldingSendt() {
     yield* takeEvery(actiontyper.SYKMELDING_SENDT, hentSykepengesoknader);
 }
 
+function* watchEndreSykepengesoknad() {
+    yield* takeEvery(actiontyper.START_ENDRING_SYKEPENGESOKNAD_FORESPURT, startEndring);
+}
+
 export default function* sykepengesoknadSagas() {
     yield [
         fork(watchHentSykepengesoknader),
@@ -76,5 +92,6 @@ export default function* sykepengesoknadSagas() {
         fork(watchSykmeldingSendt),
         fork(watchSendSykepengesoknadTilNAV),
         fork(watchSendSykepengesoknadTilArbeidsgiver),
+        fork(watchEndreSykepengesoknad),
     ];
 }

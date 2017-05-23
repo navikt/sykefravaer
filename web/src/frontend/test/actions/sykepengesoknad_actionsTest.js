@@ -133,5 +133,35 @@ describe("sykepengesoknader_actions", () => {
 
     });
 
+    describe("Endring", () => {
+
+        it("Skal ha nødvendige actiontyper", () => {
+            expect(actiontyper.START_ENDRING_SYKEPENGESOKNAD_FORESPURT).to.equal("START_ENDRING_SYKEPENGESOKNAD_FORESPURT");
+            expect(actiontyper.ENDRING_SYKEPENGESOKNAD_STARTET).to.equal("ENDRING_SYKEPENGESOKNAD_STARTET");
+            expect(actiontyper.START_ENDRING_FEILET).to.equal("START_ENDRING_FEILET");
+        });
+
+        it("Skal ha en startEndringFeilet()-funksjon som returnerer riktig action", () => {
+            expect(actions.startEndringFeilet()).to.deep.equal({
+                type: actiontyper.START_ENDRING_FEILET,
+            });
+        });
+
+        it("Skal ha en startEndringForespurt()-funksjon som returnerer riktig action", () => {
+            expect(actions.startEndringForespurt("55")).to.deep.equal({
+                type: actiontyper.START_ENDRING_SYKEPENGESOKNAD_FORESPURT,
+                sykepengesoknadsId: "55"
+            });
+        });
+
+        it("Skal ha en endringStartet()-funksjon som returnerer riktig action", () => {
+            expect(actions.endringStartet({id: "44"})).to.deep.equal({
+                type: actiontyper.ENDRING_SYKEPENGESOKNAD_STARTET,
+                sykepengesoknad: {
+                    id: "44"
+                }
+            });
+        });
+    });
 
 });

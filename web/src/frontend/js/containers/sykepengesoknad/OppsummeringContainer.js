@@ -41,6 +41,9 @@ export const mapStateToProps = (state, ownProps) => {
 export const ConnectedOppsummering = connect(mapStateToProps, actions)(Oppsummering);
 
 export const Controller = (props) => {
+    if (props.korrigerendeSoknad) {
+        return <ConnectedOppsummering {...props} />;
+    }
     if (props.sykepengesoknad.status === SENDT || props.sykepengesoknad.status === TIL_SENDING) {
         return <Kvittering sykepengesoknad={props.sykepengesoknad} />;
     }

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { hentSykepengesoknader, sendSykepengesoknad, sendSykepengesoknadTilArbeidsgiver, sendSykepengesoknadTilNAV } from '../../js/sagas/sykepengesoknadSagas';
+import { hentSykepengesoknader, sendSykepengesoknad, sendSykepengesoknadTilArbeidsgiver, sendSykepengesoknadTilNAV, startEndring } from '../../js/sagas/sykepengesoknadSagas';
 import { get, post } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
 import * as actiontyper from '../../js/actions/actiontyper';
@@ -171,5 +171,22 @@ describe("sykepengersoknadSagas", () => {
         });
     });
 
+    describe("Endring", () => {
+
+        const action = actions.startEndringForespurt("123");
+        const generator = startEndring(action);
+
+        it("Skal sende forespørsel til server", () => {
+            const nextCall = call(post, "http://tjenester.nav.no/syforest/soknader/123/actions/korriger");
+            expect(generator.next().value).to.deep.equal(nextCall);
+        });
+
+        it("Skal dispatche endringStartet", () => {
+            const action = actions.endringStartet({id: "123"})
+            const nextPut = put(action);
+            expect(generator.next({id: "123"}).value).to.deep.equal(nextPut);
+        });
+
+    });
 
 });

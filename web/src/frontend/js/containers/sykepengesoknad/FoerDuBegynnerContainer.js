@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
@@ -6,31 +6,35 @@ import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
 import UtgaattSoknad from '../../components/sykepengesoknad/UtgaattSoknad';
 import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, scrollTo } from 'digisyfo-npm';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
-import { NY, SENDT, UTGAATT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
+import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
-export const Controller = (props) => {
-    const { sykepengesoknad, vedlikehold } = props;
-    if (vedlikehold.datospennMedTid) {
-        return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel')} melding={getLedetekst('under-vedlikehold.varsel.tekst', {
-            '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
-            '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
-        })} />);
-    }
+export class Controller extends Component {
+    render() {
+        const { sykepengesoknad, vedlikehold, korrigerendeSoknad } = this.props;
+        if (vedlikehold.datospennMedTid) {
+            return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel')} melding={getLedetekst('under-vedlikehold.varsel.tekst', {
+                '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
+                '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
+            })} />);
+        }
 
-    if (sykepengesoknad.status === NY) {
-        return <FoerDuBegynner {...props} />;
+        if (sykepengesoknad.status === NY || sykepengesoknad.status === UTKAST_TIL_KORRIGERING) {
+            return (<div ref="foerDuBegynner">
+                <FoerDuBegynner {...this.props} />
+            </div>);
+        }
+        if (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) {
+            return <SendtSoknad sykepengesoknad={sykepengesoknad} />;
+        }
+        if (sykepengesoknad.status === UTGAATT) {
+            return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
+        }
+        return <Feilmelding tittel="Søknaden har ukjent status" />;
     }
-    if (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) {
-        return <SendtSoknad sykepengesoknad={sykepengesoknad} />;
-    }
-    if (sykepengesoknad.status === UTGAATT) {
-        return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
-    }
-    return <Feilmelding tittel="Søknaden har ukjent status" />;
-};
+}
 
 Controller.propTypes = {
     sykepengesoknad: sykepengesoknadPt,

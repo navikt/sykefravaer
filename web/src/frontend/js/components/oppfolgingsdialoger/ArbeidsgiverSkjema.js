@@ -13,8 +13,8 @@ const hentInputClassName = (harNaermesteLeder) => {
 
 const ArbeidsgiverSkjema = ({ ledetekster, arbeidsgivere, handleSubmit, avbrytHref, handleOptionChange, arbeidsgiverValg }) => {
     return (
-        <form className="inngangspanel__innhold" onSubmit={handleSubmit}>
-            <div className="inputgruppe">
+        <form onSubmit={handleSubmit}>
+            <div className="inputgruppe inputgruppe__velgarbeisgiver">
                 {
                     arbeidsgivere.map((arbeidsgiver, index) => {
                         return (
@@ -52,7 +52,7 @@ const ArbeidsgiverSkjema = ({ ledetekster, arbeidsgivere, handleSubmit, avbrytHr
             <div className="knapperad">
                 <button
                     type="submit"
-                    className="knapp knapp--enten knapp__velgarbeidsgiver"
+                    className="knapp knapp__velgarbeidsgiver"
                     disabled={!sykmeldtHarNaermestelederHosArbeidsgivere(arbeidsgivere)}>
                     {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.velg-arbeidsgiver', ledetekster)}
                 </button>

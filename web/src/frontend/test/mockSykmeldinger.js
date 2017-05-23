@@ -1,3 +1,26 @@
+export const getArbeidsgivere = [
+    {
+        "virksomhetsnummer": "123456789",
+        "navn": "Lommen Barnehave",
+        "harNaermesteLeder": false,
+    },
+    {
+        "virksomhetsnummer": "***REMOVED***",
+        "navn": "Skogen Barnehave",
+        "harNaermesteLeder": true,
+    }
+];
+
+const arbeidsgiver = {
+    "virksomhetsnummer": "***REMOVED***",
+    "navn": "Lommen Barnehave",
+    "harNaermesteLeder": false,
+};
+
+export const getArbeidsgiver = (ag) => {
+    return Object.assign({}, arbeidsgiver, ag)
+};
+
 export const getSykmeldinger = [
     {
         id: "31ac2ac8-aa31-4f5f-8bda-fd199aa7d8f4",
@@ -109,7 +132,7 @@ export const getSykmeldinger = [
         naermesteLederStatus: null,
         innsendtArbeidsgivernavn: null,
         valgtArbeidssituasjon: null,
-        orgnummer: "123456788",
+        orgnummer: "***REMOVED***",
         sendtdato: null,
         pasient: {
             fnr: "***REMOVED***",

@@ -8,7 +8,13 @@ export const erBrukerSykmeldtPdd = (sykmeldinger) => {
     }).length > 0;
 };
 
-export const finnArbeidsgivereForAktiveSykmeldinger = (sykmeldinger) => {
+export const sykmeldtHarNaermestelederHosArbeidsgiver = (virksomhetsnummer, naermesteLedere) => {
+    return naermesteLedere.filter(leder => {
+        return virksomhetsnummer === leder.orgnummer;
+    }).length > 0;
+};
+
+export const finnArbeidsgivereForAktiveSykmeldinger = (sykmeldinger, naermesteLedere) => {
     return sykmeldinger.filter(sykmelding => {
         return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
             const tom = new Date(periode.tom);
@@ -19,6 +25,19 @@ export const finnArbeidsgivereForAktiveSykmeldinger = (sykmeldinger) => {
         return {
             virksomhetsnummer: sykmelding.orgnummer,
             navn: sykmelding.arbeidsgiver,
+            harNaermesteLeder: sykmeldtHarNaermestelederHosArbeidsgiver(sykmelding.orgnummer, naermesteLedere),
         };
     });
+};
+
+export const sykmeldtHarManglendeNaermesteLeder = (arbeidsgivere) => {
+    return arbeidsgivere.filter(arbeidsgiver => {
+        return !arbeidsgiver.harNaermesteLeder;
+    }).length > 0;
+};
+
+export const sykmeldtHarNaermestelederHosArbeidsgivere = (arbeidsgivere) => {
+    return arbeidsgivere.filter(arbeidsgiver => {
+        return arbeidsgiver.harNaermesteLeder;
+    }).length > 0;
 };

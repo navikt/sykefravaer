@@ -101,10 +101,11 @@ OpprettOppfolgingsdialogSide.propTypes = {
 
 export const mapStateToProps = (state) => {
     const sykmeldinger = state.dineSykmeldinger.data;
+    const naermesteLedere = state.ledere.data;
 
     return {
         ledetekster: state.ledetekster.data,
-        arbeidsgivere: finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger),
+        arbeidsgivere: finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere),
         henter: state.ledetekster.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
         brodsmuler: [{

@@ -9,16 +9,14 @@ const OpprettOppfolgingsdialog = ({ arbeidsgivere, ledetekster, avbrytHref, hand
                 <img className="illustrertTittel__img" src="/sykefravaer/img/svg/leder.svg" alt="leder" />
                 <h2 className="illustrertTittel__tittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.tittel')}</h2>
             </div>
-            {
-                <ArbeidsgiverSkjema
-                    arbeidsgivere={arbeidsgivere}
-                    onSubmit={velgArbeidsgiver}
-                    avbrytHref={avbrytHref}
-                    ledetekster={ledetekster}
-                    handleOptionChange={handleOptionChange}
-                    arbeidsgiverValg={arbeidsgiverValg}
-                />
-            }
+            <ArbeidsgiverSkjema
+                arbeidsgivere={arbeidsgivere}
+                onSubmit={velgArbeidsgiver}
+                avbrytHref={avbrytHref}
+                ledetekster={ledetekster}
+                handleOptionChange={handleOptionChange}
+                arbeidsgiverValg={arbeidsgiverValg}
+            />
         </div>
     );
 };

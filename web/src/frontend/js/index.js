@@ -18,6 +18,7 @@ import { hentSykepengesoknader } from './actions/sykepengesoknader_actions';
 import { hentLedetekster, ledetekster, tidslinjer } from 'digisyfo-npm';
 import { hentBrukerinfo } from './actions/brukerinfo_actions';
 import { hentVedlikehold } from './actions/vedlikehold_actions';
+import { hentLedere } from './actions/ledere_actions';
 import { hentOppfolgingsdialogerAt as hentOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
 import history from './history';
 import { reducer as formReducer } from 'redux-form';
@@ -61,6 +62,7 @@ store.dispatch(hentBrukerinfo());
 store.dispatch(hentVedlikehold());
 store.dispatch(moteActions.hentMote());
 store.dispatch(hentOppfolgingsdialoger());
+store.dispatch(hentLedere());
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {
     window.localStorage.setItem('visLedetekster', true);

@@ -5,6 +5,9 @@
 .lenke {
     cursor: pointer;
 }
+.lenke__avbryt {
+    text-transform: uppercase;
+}
 .knapp__opprettOppfolgingsdialog {
     cursor: pointer;
     display: inline-block;
@@ -25,7 +28,28 @@
 .knapp__velgarbeidsgiver, knapp__samtykk {
     margin-right: 1em;
 }
+.knapp__velgarbeidsgiver:disabled {
+    background-color: #7f756c;
+}
 .pil {
     display: block;
     margin: 0 auto 2em auto;
+}
+.inputgruppe {
+    margin-bottom: 2em;
+}
+.skjema__input--inaktiv {
+    opacity: 0.5;
+}
+.skjema__feilomrade {
+    margin-left: 2em;
+    margin-bottom: 1em;
+    vertical-align: middle;
+    line-height: 1em;
+}
+.skjema__feilomrade__ikon {
+    margin-right: 1em;
+}
+.skjema__feilomrade__tekst {
+    font-size: 0.8em;
 }

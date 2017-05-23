@@ -7,7 +7,7 @@ import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import OpprettOppfolgingsdialog from '../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
-import { OppfolgingsdialogSamtykke } from 'oppfolgingsdialog-npm';
+import { OppfolgingsdialogSamtykke, opprettOppfolgingsdialogAt as opprettOppfolgingsdialog } from 'oppfolgingsdialog-npm';
 import { finnArbeidsgivereForAktiveSykmeldinger } from '../utils/sykmeldingUtils';
 
 export class OpprettOppfolgingsdialogSide extends Component {
@@ -43,6 +43,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
             this.setState({
                 samtykket: true,
             });
+            this.props.opprettOppfolgingsdialog(this.state.arbeidsgiver);
         }
     }
 
@@ -95,6 +96,7 @@ OpprettOppfolgingsdialogSide.propTypes = {
     ledetekster: PropTypes.object,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
+    opprettOppfolgingsdialog: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
@@ -116,6 +118,6 @@ export const mapStateToProps = (state) => {
     };
 };
 
-const OppfolgingsdialogContainer = connect(mapStateToProps)(OpprettOppfolgingsdialogSide);
+const OppfolgingsdialogContainer = connect(mapStateToProps, { opprettOppfolgingsdialog })(OpprettOppfolgingsdialogSide);
 
 export default OppfolgingsdialogContainer;

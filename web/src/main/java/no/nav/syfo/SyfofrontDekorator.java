@@ -24,10 +24,9 @@ public class SyfofrontDekorator extends DecoratorFilter {
     }
 
     private EnonicContentRetriever setUpContentRetriever() {
-        EnonicContentRetriever contentRetriever = new EnonicContentRetriever(APPLICATION_NAME);
+        EnonicContentRetriever contentRetriever = new EnonicContentRetriever(10000);
         contentRetriever.setBaseUrl(System.getProperty("dialogarena.cms.url"));
         contentRetriever.setRefreshIntervalSeconds(1800);
-        contentRetriever.setHttpTimeoutMillis(10000);
         return contentRetriever;
     }
 }

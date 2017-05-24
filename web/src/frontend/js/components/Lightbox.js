@@ -39,7 +39,7 @@ class Lightbox extends Component {
 }
 
 Lightbox.propTypes = {
-    children: PropTypes.object,
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     onClose: PropTypes.func,
 };
 

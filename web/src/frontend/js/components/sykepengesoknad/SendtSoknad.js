@@ -1,11 +1,10 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Sidetopp from '../Sidetopp';
 import { Soknad, getLedetekst } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Soknadstatuspanel from './Soknadstatuspanel';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
-import { connect } from 'react-redux';
-import { sendSykepengesoknadTilArbeidsgiver, sendSykepengesoknadTilNAV } from '../../actions/sykepengesoknader_actions';
+import Ettersending from './Ettersending';
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">
@@ -18,47 +17,34 @@ Avkrysset.propTypes = {
     tekst: PropTypes.string,
 };
 
-export const Knapperad = ({ sykepengesoknad, dispatch }) => {
-    if (sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato) {
-        return null;
+export const Knapperad = (props) => {
+    return (<div className="knapperad knapperad--adskilt">
+        <Ettersending {...props} manglendeDato="sendtTilNAVDato" ledetekstKeySuffix="send-til-nav" />
+        <Ettersending {...props} manglendeDato="sendtTilArbeidsgiverDato" ledetekstKeySuffix="send-til-arbeidsgiver" />
+    </div>);
+};
+
+class SendtSoknad extends Component {
+    scrollTilTopp() {
+        scrollTo(this.refs.sendtSoknad, 300);
     }
-    if (sykepengesoknad.sendtTilNAVDato) {
-        return (<div className="knapperad">
-            <button onClick={(e) => {
-                e.preventDefault();
-                const action = sendSykepengesoknadTilArbeidsgiver(sykepengesoknad.id);
-                dispatch(action);
-            }} className="js-send-til-arbeidsgiver rammeknapp">Send til arbeidsgiver</button>
+
+    render() {
+        const { sykepengesoknad } = this.props;
+        return (<div ref="sendtSoknad">
+            <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
+            <Soknadstatuspanel sykepengesoknad={sykepengesoknad} />
+            <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />
+            <Soknad sykepengesoknad={sykepengesoknad} tittel="Oppsummering" />
+            <div className="bekreftet-container">
+                <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label')} />
+            </div>
+            <Knapperad sykepengesoknad={sykepengesoknad} scrollTilTopp={() => {
+                this.scrollTilTopp();
+            }} />
         </div>);
     }
-    return (<div className="knapperad">
-        <button onClick={(e) => {
-            e.preventDefault();
-            const action = sendSykepengesoknadTilNAV(sykepengesoknad.id);
-            dispatch(action);
-        }} className="js-send-til-nav rammeknapp">Send til NAV</button>
-    </div>);
-};
-
-Knapperad.propTypes = {
-    sykepengesoknad: sykepengesoknadPt,
-    dispatch: PropTypes.func,
-};
-
-export const ConnectedKnapperad = connect()(Knapperad);
-
-const SendtSoknad = ({ sykepengesoknad }) => {
-    return (<div>
-        <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
-        <Soknadstatuspanel sykepengesoknad={sykepengesoknad} />
-        <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />
-        <Soknad sykepengesoknad={sykepengesoknad} tittel="Oppsummering" />
-        <div className="bekreftet-container">
-            <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label')} />
-        </div>
-        <ConnectedKnapperad sykepengesoknad={sykepengesoknad} />
-    </div>);
-};
+}
 
 SendtSoknad.propTypes = {
     sykepengesoknad: sykepengesoknadPt,

@@ -22,6 +22,7 @@ export function* sendSykepengesoknad(action) {
         const sykepengesoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/send`, action.sykepengesoknad);
         yield put(actions.sykepengesoknadSendt(action.sykepengesoknad.id, sykepengesoknad));
     } catch (e) {
+        log(e);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }
@@ -30,8 +31,9 @@ export function* sendSykepengesoknadTilArbeidsgiver(action) {
     yield put(actions.senderSykepengesoknad());
     try {
         const sykepengesoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/send-til-arbeidsgiver`);
-        yield put(actions.sykepengesoknadSendt(action.sykepengesoknadsId, sykepengesoknad));
+        yield put(actions.sykepengesoknadSendtTilArbeidsgiver(action.sykepengesoknadsId, sykepengesoknad));
     } catch (e) {
+        log(e);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }
@@ -40,8 +42,9 @@ export function* sendSykepengesoknadTilNAV(action) {
     yield put(actions.senderSykepengesoknad());
     try {
         const sykepengesoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/send-til-nav`);
-        yield put(actions.sykepengesoknadSendt(action.sykepengesoknadsId, sykepengesoknad));
+        yield put(actions.sykepengesoknadSendtTilNAV(action.sykepengesoknadsId, sykepengesoknad));
     } catch (e) {
+        log(e);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }

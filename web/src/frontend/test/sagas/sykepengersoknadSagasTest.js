@@ -101,14 +101,8 @@ describe("sykepengersoknadSagas", () => {
         });
 
         it("skal overskrive overskrive soknad med soknad fra rest-tjenesten", () => {
-            const nextPut = put({
-                type: actiontyper.SYKEPENGESOKNAD_SENDT,
-                sykepengesoknadsId: '1',
-                sykepengesoknad: {
-                    id: '1',
-                    testdata: 'testdata',
-                }
-            });
+            const action = actions.sykepengesoknadSendtTilArbeidsgiver("1");
+            const nextPut = put(action);
             expect(generator.next({
                 id: '1',
                 testdata: 'testdata',
@@ -133,14 +127,8 @@ describe("sykepengersoknadSagas", () => {
         });
 
         it("skal overskrive overskrive soknad med soknad fra rest-tjenesten", () => {
-            const nextPut = put({
-                type: actiontyper.SYKEPENGESOKNAD_SENDT,
-                sykepengesoknadsId: '1',
-                sykepengesoknad: {
-                    id: '1',
-                    testdata: 'testdata',
-                }
-            });
+            const action = actions.sykepengesoknadSendtTilNAV("1");
+            const nextPut = put(action);
             expect(generator.next({
                 id: '1',
                 testdata: 'testdata',

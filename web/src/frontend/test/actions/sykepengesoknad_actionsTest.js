@@ -100,6 +100,35 @@ describe("sykepengesoknader_actions", () => {
                 sykepengesoknadsId: '1',
             });
         });
+
+        it("skal ha en sykepengesoknadSendtTilNAV()-funksjon som returnerer riktig action", () => {
+            expect(actions.sykepengesoknadSendtTilNAV('1')).to.deep.equal({
+                type: actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV,
+                sykepengesoknadsId: '1',
+            });
+        });
+
+        it("skal ha en sykepengesoknadSendtTilArbeidsgiver()-funksjon som returnerer riktig action", () => {
+            expect(actions.sykepengesoknadSendtTilArbeidsgiver('1')).to.deep.equal({
+                type: actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER,
+                sykepengesoknadsId: '1',
+            });
+        });
+
+        it("skal ha en sykepengesoknadSendt()-funksjon som returnerer riktig action", () => {
+            expect(actions.sykepengesoknadSendt('1', {
+                id: '1',
+                felt: 'felt'
+            })).to.deep.equal({
+                type: actiontyper.SYKEPENGESOKNAD_SENDT,
+                sykepengesoknadsId: '1',
+                sykepengesoknad: {
+                    id: '1',
+                    felt: 'felt'
+                }
+            });
+        });
+
     });
 
 

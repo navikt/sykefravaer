@@ -30,7 +30,7 @@ const getArbeidsgiverOpplysning = (sykepengesoknad) => {
         tittel: getLedetekst('sykepengesoknad.oppsummering.arbeidsgiver.label'),
         opplysning: `${sykepengesoknad.arbeidsgiver.navn} (${sykepengesoknad.arbeidsgiver.orgnummer})`,
     };
-}
+};
 
 export const getNokkelopplysninger = (sykepengesoknad) => {
     return [[{
@@ -67,7 +67,11 @@ const SendtLikt = ({ sykepengesoknad }) => {
             })
         }
     </div>);
-}
+};
+
+SendtLikt.propTypes = {
+    sykepengesoknad: sykepengesoknadPt,
+};
 
 const SendtUlikt = ({ sykepengesoknad }) => {
     const opplysning = getArbeidsgiverOpplysning(sykepengesoknad);
@@ -81,8 +85,12 @@ const SendtUlikt = ({ sykepengesoknad }) => {
         <SykmeldingNokkelOpplysning Overskrift="h2" tittel={opplysning.tittel}>
             <p>{opplysning.opplysning}</p>
         </SykmeldingNokkelOpplysning>
-    </div>)
-}
+    </div>);
+};
+
+SendtUlikt.propTypes = {
+    sykepengesoknad: sykepengesoknadPt,
+};
 
 export const Statuspanel = ({ sykepengesoknad }) => {
     const sendtTilBeggeMenIkkeSamtidig = sykepengesoknad.sendtTilNAVDato && sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato.getTime() !== sykepengesoknad.sendtTilArbeidsgiverDato.getTime();

@@ -60,8 +60,28 @@ export function sykepengesoknadSendt(sykepengesoknadsId, sykepengesoknad) {
     };
 }
 
+export function sykepengesoknadSendtTilNAV(sykepengesoknadsId) {
+    return {
+        type: actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV,
+        sykepengesoknadsId,
+    };
+}
+
+export function sykepengesoknadSendtTilArbeidsgiver(sykepengesoknadsId) {
+    return {
+        type: actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER,
+        sykepengesoknadsId,
+    };
+}
+
 export function senderSykepengesoknad() {
     return {
         type: actiontyper.SENDER_SYKEPENGESOKNAD,
+    };
+}
+
+export function sendSykepengesoknadHarIkkeFeilet() {
+    return {
+        type: actiontyper.SEND_SYKEPENGESOKNAD_HAR_IKKE_FEILET,
     };
 }

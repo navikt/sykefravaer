@@ -29,7 +29,7 @@
   "author": "DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
   "dependencies": {
-    "digisyfo-npm": "1.11.2",
+    "digisyfo-npm": "1.11.3",
     "fetch": "1.0.1",
     "isomorphic-fetch": "2.2.1",
     "moter-npm": "3.1.35",

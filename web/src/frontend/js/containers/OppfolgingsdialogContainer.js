@@ -35,11 +35,14 @@ OppfolgingsdialogSide.propTypes = {
     hentingFeilet: PropTypes.bool,
 };
 
+
 export function mapStateToProps(state, ownProps) {
     const oppfolgingsdialogId = ownProps.params.oppfolgingsdialogId;
     const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, oppfolgingsdialogId);
+    const arbeidsgiver = oppfolgingsdialog ? oppfolgingsdialog.virksomhetsnummer : '';
 
     return {
+        ledetekster: state.ledetekster.data,
         henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter,
         hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet,
         oppfolgingsdialog,
@@ -53,7 +56,7 @@ export function mapStateToProps(state, ownProps) {
             sti: '/oppfolgingsdialoger',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('oppfolgingsdialog.sidetittel'),
+            tittel: arbeidsgiver,
         }],
     };
 }

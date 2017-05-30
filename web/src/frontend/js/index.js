@@ -15,7 +15,7 @@ import ledere from './reducers/ledere';
 import { oppfolgingsdialogerAt as oppfolgingsdialoger, arbeidsoppgaver } from 'oppfolgingsdialog-npm';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
 import { hentSykepengesoknader } from './actions/sykepengesoknader_actions';
-import { hentLedetekster, ledetekster, tidslinjer } from 'digisyfo-npm';
+import { hentLedetekster, hentToggles, ledetekster, tidslinjer, toggles } from 'digisyfo-npm';
 import { hentBrukerinfo } from './actions/brukerinfo_actions';
 import { hentVedlikehold } from './actions/vedlikehold_actions';
 import { hentLedere } from './actions/ledere_actions';
@@ -44,6 +44,7 @@ const rootReducer = combineReducers({
     pilot,
     vedlikehold,
     mote,
+    toggles,
     form: formReducer,
     formMeta: reduxFormMeta,
 });
@@ -64,6 +65,7 @@ store.dispatch(hentVedlikehold());
 store.dispatch(moteActions.hentMote());
 store.dispatch(hentOppfolgingsdialoger());
 store.dispatch(hentLedere());
+store.dispatch(hentToggles());
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {
     window.localStorage.setItem('visLedetekster', true);

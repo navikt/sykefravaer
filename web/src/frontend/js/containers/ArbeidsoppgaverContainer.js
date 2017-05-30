@@ -15,7 +15,17 @@ export class ArbeidsoppgaverSide extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            visArbeidsoppgaveSkjema: false,
+        };
+        this.toggleArbeidsoppgaveSkjema = this.toggleArbeidsoppgaveSkjema.bind(this);
         this.sendArbeidsoppgave = this.sendArbeidsoppgave.bind(this);
+    }
+
+    toggleArbeidsoppgaveSkjema() {
+        this.setState({
+            visArbeidsoppgaveSkjema: !this.state.visArbeidsoppgaveSkjema,
+        });
     }
 
     sendArbeidsoppgave(values) {
@@ -53,15 +63,22 @@ export class ArbeidsoppgaverSide extends Component {
                             bruker={arbeidsgiver}
                             rootUrl={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}/`}
                         />
-
-                        <div className="knapperad">
-                            <Link role="button"
-                                className="knapp knapp__opprettarbeidsoppgave"
-                                to={"/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}/arbeidsoppgaver/opprett"}>
-                                {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-arbeidsoppgavelegg')}
-                            </Link>
-                        </div>
-
+                        {
+                            this.state.visArbeidsoppgaveSkjema ?
+                            <LagreArbeidsoppgaveSkjema
+                                ledetekster={ledetekster}
+                                avbrytHref={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}/arbeidsoppgaver`}
+                                sendArbeidsoppgave={this.sendArbeidsoppgave}
+                                cancel={this.toggleArbeidsoppgaveSkjema}
+                            /> :
+                            <div className="knapperad">
+                                <button
+                                    className="knapp knapp__opprettarbeidsoppgave"
+                                    onClick={this.toggleArbeidsoppgaveSkjema}>
+                                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-arbeidsoppgave')}
+                                </button>
+                            </div>
+                        }
                     </div>
                 );
             })()

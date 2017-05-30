@@ -96,11 +96,35 @@ export class LagreArbeidsoppgaveSkjema extends Component {
         );
     }
 
-    render() {
-        const { ledetekster, avbrytHref, handleSubmit, sendArbeidsoppgave } = this.props;
+    renderKnapper(avbrytHref, cancel, ledetekster) {
+        const avbrytKnapp = cancel ?
+            <Link className="lenke lenke__avbryt" onClick={cancel}>
+                {getLedetekst('oppfolgingsdialog.knapp.avbryt', ledetekster)}
+            </Link>
+            :
+            <Link className="lenke lenke__avbryt" to={avbrytHref}>
+                {getLedetekst('oppfolgingsdialog.knapp.avbryt', ledetekster)}
+            </Link>;
 
         return (
-            <form onSubmit={handleSubmit(sendArbeidsoppgave)} className="panel">
+            <div className="knapperad">
+                <button
+                    type="submit"
+                    className="knapp knapp__opprettarbeidsoppgave"
+                    disabled={this.state.gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.svar[1] && this.state.selectedCheckboxes.size === 0}>
+                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.ny-arbeidsoppgave', ledetekster)}
+                </button>
+                { avbrytKnapp }
+            </div>
+        );
+    }
+
+
+    render() {
+        const { ledetekster, avbrytHref, handleSubmit, sendArbeidsoppgave, cancel } = this.props;
+
+        return (
+            <form onSubmit={handleSubmit(sendArbeidsoppgave)} className="panel panel--lysblaa">
 
                 {this.renderTextfelt(FELTER.arbeidsoppgavenavn, ledetekster)}
 
@@ -162,17 +186,7 @@ export class LagreArbeidsoppgaveSkjema extends Component {
                     </Varselstripe>
                 }
 
-                <div className="knapperad">
-                    <button
-                        type="submit"
-                        className="knapp knapp__opprettarbeidsoppgave"
-                        disabled={this.state.gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.svar[1] && this.state.selectedCheckboxes.size === 0}>
-                        {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.ny-arbeidsoppgave', ledetekster)}
-                    </button>
-                    <Link className="lenke lenke__avbryt" to={avbrytHref}>
-                        {getLedetekst('oppfolgingsdialog.knapp.avbryt', ledetekster)}
-                    </Link>
-                </div>
+                { this.renderKnapper(avbrytHref, cancel, ledetekster) }
             </form>
         );
     }
@@ -184,6 +198,7 @@ LagreArbeidsoppgaveSkjema.propTypes = {
     handleOptionChange: PropTypes.func,
     handleSubmit: PropTypes.func,
     sendArbeidsoppgave: PropTypes.func,
+    cancel: PropTypes.func,
 };
 
 function validate(values) {

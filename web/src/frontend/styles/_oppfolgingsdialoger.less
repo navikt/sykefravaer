@@ -73,10 +73,12 @@
 
 .arbeidsgivertabell {
     width: 100%;
-    border-collapse: collapse;
 
-    th, td {
+    tr {
         border-bottom: 0.5em solid #efefef;
+    }
+    tbody tr:last-child {
+        border-bottom: none;
     }
 
     th {
@@ -89,8 +91,21 @@
     td {
         padding: 1.5em 1em;
         background: #fff;
+        &:last-child {
+            padding-left: 0;
+            cursor: pointer;
+        }
+    }
+
+    td, th {
+        &:nth-child(1) {
+            width: 40%
+        }
     }
 }
 .arbeidsgivertabell__advarsel__ikon {
     margin-right: 1em;
+}
+.panel--lysblaa {
+    background: #cfe2f3;
 }

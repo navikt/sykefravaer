@@ -7,7 +7,7 @@ import Checkbox from '../skjema/Checkbox';
 import Tekstfelt from '../skjema/Tekstfelt';
 import Tekstarea from '../skjema/Tekstarea';
 
-const OPPRETT_ARBEIDSOPPGAVE_SKJEMANAVN = 'velgArbeidsgiver';
+const LAGRE_ARBEIDSOPPGAVE_SKJEMANAVN = 'velgArbeidsgiver';
 const FELTER = {
     arbeidsoppgavenavn: {
         navn: 'arbeidsoppgavenavn',
@@ -37,7 +37,7 @@ const FELTER = {
     },
 };
 
-export class OpprettArbeidsoppgaveSkjema extends Component {
+export class LagreArbeidsoppgaveSkjema extends Component {
 
     constructor(props) {
         super(props);
@@ -178,7 +178,7 @@ export class OpprettArbeidsoppgaveSkjema extends Component {
     }
 }
 
-OpprettArbeidsoppgaveSkjema.propTypes = {
+LagreArbeidsoppgaveSkjema.propTypes = {
     ledetekster: PropTypes.object,
     avbrytHref: PropTypes.string,
     handleOptionChange: PropTypes.func,
@@ -201,9 +201,9 @@ function validate(values) {
 
 
 const ReduxSkjema = reduxForm({
-    form: OPPRETT_ARBEIDSOPPGAVE_SKJEMANAVN,
+    form: LAGRE_ARBEIDSOPPGAVE_SKJEMANAVN,
     felter: Object.keys(FELTER),
     validate,
-})(OpprettArbeidsoppgaveSkjema);
+})(LagreArbeidsoppgaveSkjema);
 
 export default ReduxSkjema;

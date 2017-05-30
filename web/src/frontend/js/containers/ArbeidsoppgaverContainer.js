@@ -9,7 +9,7 @@ import { getOppfolgingsdialog } from '../utils/oppfolgingsdialogUtils';
 import { lagreArbeidsoppgave, OppfolgingsdialogArbeidsoppgaver } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
-import OpprettArbeidsoppgaveSkjema from '../components/oppfolgingsdialoger/OpprettArbeidsoppgaveSkjema';
+import LagreArbeidsoppgaveSkjema from '../components/oppfolgingsdialoger/LagreArbeidsoppgaveSkjema';
 
 export class ArbeidsoppgaverSide extends Component {
 
@@ -20,7 +20,7 @@ export class ArbeidsoppgaverSide extends Component {
 
     sendArbeidsoppgave(values) {
         this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialogId, values);
-        history.push(`/sykefravaer/oppfolgingsdialoger/${this.props.oppfolgingsdialogId}/`);
+        history.push(`/sykefravaer/oppfolgingsdialoger/${this.props.oppfolgingsdialogId}/arbeidsoppgaver`);
     }
 
     render() {
@@ -32,11 +32,11 @@ export class ArbeidsoppgaverSide extends Component {
                     return <AppSpinner />;
                 } else if (hentingFeilet || senderFeilet) {
                     return (<Feilmelding />);
-                } else if (oppfolgingsdialog.arbeidsoppgaveListe.length !== 0) {
+                } else if (oppfolgingsdialog.arbeidsoppgaveListe.length === 0) {
                     return (
                         <div>
                             <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel', ledetekster)}</h2>
-                            <OpprettArbeidsoppgaveSkjema
+                            <LagreArbeidsoppgaveSkjema
                                 ledetekster={ledetekster}
                                 avbrytHref={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}`}
                                 sendArbeidsoppgave={this.sendArbeidsoppgave}

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import OppfolgingsdialogerTeaser from './OppfolgingsdialogerTeaser';
 
-const OppfolgingsTeasere = ({ oppfolgingsdialoger, className, tittel = '', ingenOppfolgingsdialogerMelding, id }) => {
+const OppfolgingsdialogerTeasere = ({ oppfolgingsdialoger, className, tittel = '', ingenOppfolgingsdialogerMelding, id }) => {
     return (<div className="blokk--l">
         <header>
             <h2>{tittel}</h2>
@@ -16,7 +16,7 @@ const OppfolgingsTeasere = ({ oppfolgingsdialoger, className, tittel = '', ingen
     </div>);
 };
 
-OppfolgingsTeasere.propTypes = {
+OppfolgingsdialogerTeasere.propTypes = {
     oppfolgingsdialoger: PropTypes.array,
     className: PropTypes.string,
     tittel: PropTypes.string,
@@ -24,4 +24,4 @@ OppfolgingsTeasere.propTypes = {
     id: PropTypes.string,
 };
 
-export default OppfolgingsTeasere;
+export default OppfolgingsdialogerTeasere;

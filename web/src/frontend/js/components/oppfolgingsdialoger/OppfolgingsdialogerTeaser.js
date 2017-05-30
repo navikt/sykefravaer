@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths';
+import { getLedetekst } from 'digisyfo-npm';
+import { oppfolgingsdialogSistEndret } from 'oppfolgingsdialog-npm';
 
 const OppfolgingsdialogTeaser = ({ oppfolgingsdialog }) => {
     return (<article aria-labelledby={`oppfolgingsdialog-header-${oppfolgingsdialog.oppfoelgingsdialogId}`}>
@@ -8,12 +10,14 @@ const OppfolgingsdialogTeaser = ({ oppfolgingsdialog }) => {
             <div className="inngangspanel__innhold">
                 <header className="inngangspanel__header">
                     <h3 className="js-title" id={`oppfolgingsdialog-header-${oppfolgingsdialog.oppfoelgingsdialogId}`}>
-                        Arbeidsgiver {oppfolgingsdialog.virksomhetsnummer}
+                        {oppfolgingsdialog.virksomhetsnummer}
                     </h3>
                 </header>
-                <div className="inngangspanel__tekst">
-                    Dato xx.xx.xxxx
-                </div>
+                <p className="inngangspanel__tekst">
+                    {getLedetekst('oppfolgingsdialog.arbeidsgiver.info.opprettetAv')}: { oppfolgingsdialogSistEndret(oppfolgingsdialog).sistEndretAvAktoerId }
+                    <br />
+                    {getLedetekst('oppfolgingsdialog.arbeidsgiver.info.sisteEndret')}: { oppfolgingsdialogSistEndret(oppfolgingsdialog).sistEndretDato }
+                </p>
             </div>
         </Link></article>);
 };

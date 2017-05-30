@@ -14,9 +14,9 @@ describe("LandingsideLenke", () => {
         expect(lenke.find("h2").length).to.equal(1);
 	});
 
-    it('Skal vise tom undertittel om den ikke er definert', () => {
+    it('Skal ikke vise undertittel om den ikke er definert', () => {
         let lenke = shallow(<LandingssideLenke tittel="Tittel" ikon="ikon" ikonAlt="banan" />);
-        expect(lenke.find("p").text()).to.equal('');
+        expect(lenke.find("p").length).to.equal(0);
     });
 
 	it('Viser undertittel om den er gitt', () => {

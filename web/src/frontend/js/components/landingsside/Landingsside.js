@@ -32,7 +32,7 @@ export class GenerellInfo extends Component {
 
 }
 
-const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmote = false }) => {
+const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmote = false, visOppfoelgingsdialog = false }) => {
     return (<div>
         <div className="sidetopp">
             <img className="sidetopp__bilde blokk" src="/sykefravaer/img/svg/illustrasjon-landingsside-2.svg"
@@ -60,7 +60,8 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
             }
 
             {
-                <LandingssideLenke to="/sykefravaer/oppfolgingsdialoger" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
+                visOppfoelgingsdialog &&
+                    <LandingssideLenke to="/sykefravaer/oppfolgingsdialoger" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
             }
         </nav>
         <NaermesteLedereContainer />
@@ -69,6 +70,7 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
 };
 
 Landingsside.propTypes = {
+    visOppfoelgingsdialog: PropTypes.bool.isRequired,
     skjulVarsel: PropTypes.bool.isRequired,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     dialogmoter: PropTypes.array,

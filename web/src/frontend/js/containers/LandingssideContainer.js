@@ -15,6 +15,7 @@ export const LandingssideSide = (props) => {
         henter,
         hentingFeilet,
         sykepengesoknader,
+        visOppfoelgingsdialog,
         harDialogmote } = props;
     return (
         <Side tittel={getLedetekst('landingsside.sidetittel')} brodsmuler={brodsmuler}>
@@ -26,7 +27,7 @@ export const LandingssideSide = (props) => {
                     if (hentingFeilet) {
                         return <Feilmelding />;
                     }
-                    return (<Landingsside skjulVarsel={skjulVarsel} sykepengesoknader={sykepengesoknader} harDialogmote={harDialogmote} />);
+                    return (<Landingsside visOppfoelgingsdialog={visOppfoelgingsdialog} skjulVarsel={skjulVarsel} sykepengesoknader={sykepengesoknader} harDialogmote={harDialogmote} />);
                 })()
             }
         </Side>
@@ -37,6 +38,7 @@ LandingssideSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     skjulVarsel: PropTypes.bool,
     henter: PropTypes.bool,
+    visOppfoelgingsdialog: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     dialogmoter: PropTypes.arrayOf(motePropTypes.mote),
@@ -45,8 +47,10 @@ LandingssideSide.propTypes = {
 
 export function mapStateToProps(state) {
     const sykepengesoknader = state.sykepengesoknader.data;
+    const visOppfoelgingsdialog = state.toggles.data['syfotoggles.oppfoelgingsdialog'] === 'true';
+
     return {
-        henter: state.ledetekster.henter || state.sykepengesoknader.henter,
+        henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.toggles.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet,
         skjulVarsel: (state.brukerinfo && state.brukerinfo.innstillinger) ? (state.brukerinfo.innstillinger.skjulUnderUtviklingVarsel === true) : false,
         brodsmuler: [{
@@ -54,6 +58,7 @@ export function mapStateToProps(state) {
             sti: '/',
         }],
         sykepengesoknader,
+        visOppfoelgingsdialog,
         harDialogmote: state.mote.data !== null,
     };
 }

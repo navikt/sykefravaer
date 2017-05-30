@@ -11,7 +11,7 @@ import pilotSykepengerSagas from './pilotSykepengerSagas';
 import moteSagas from './moteSagas';
 import svarSagas from './svarSagas';
 import { oppfolgingsdialogerAtSagas as oppfolgingsdialogerSagas, arbeidsoppgaveSagas } from 'oppfolgingsdialog-npm';
-import { ledeteksterSagas, toggleSagas } from 'digisyfo-npm';
+import { ledeteksterSagas, togglesSagas } from 'digisyfo-npm';
 
 export default function * rootSaga() {
     yield [
@@ -30,6 +30,6 @@ export default function * rootSaga() {
         svarSagas(),
         oppfolgingsdialogerSagas(),
         arbeidsoppgaveSagas(),
-        toggleSagas(),
+        togglesSagas(),
     ];
 }

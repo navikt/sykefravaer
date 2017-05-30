@@ -13,14 +13,12 @@ export default class LandingssideLenke extends Component {
     onMouseEnter() {
         this.setState({
             ikon: `${this.props.ikon}_hover.svg`,
-            variant: `peker__ikon--${this.props.variant}Uthevet`,
         });
     }
 
     onMouseLeave() {
         this.setState({
             ikon: `${this.props.ikon}.svg`,
-            variant: `peker__ikon--${this.props.variant}`,
         });
     }
 
@@ -33,7 +31,7 @@ export default class LandingssideLenke extends Component {
             </div>
             <div className="peker__innhold">
                 <h2 className="typo-undertittel">{this.props.tittel}</h2>
-                <p className="typo-undertekst">{this.props.undertittel}</p>
+                { this.props.undertittel ? <p className="peker__undertittel">{this.props.undertittel}</p> : null }
             </div>
         </Link>);
     }

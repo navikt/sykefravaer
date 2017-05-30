@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Landingsside from '../components/landingsside/Landingsside';
 import { connect } from 'react-redux';
-import Side from '../sider/Side';
+import StrippetSide from '../sider/StrippetSide';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
@@ -17,7 +17,7 @@ export const LandingssideSide = (props) => {
         sykepengesoknader,
         harDialogmote } = props;
     return (
-        <Side tittel={getLedetekst('landingsside.sidetittel')} brodsmuler={brodsmuler}>
+        <StrippetSide tittel={getLedetekst('landingsside.sidetittel')}>
             {
                 (() => {
                     if (henter) {
@@ -26,10 +26,14 @@ export const LandingssideSide = (props) => {
                     if (hentingFeilet) {
                         return <Feilmelding />;
                     }
-                    return (<Landingsside skjulVarsel={skjulVarsel} sykepengesoknader={sykepengesoknader} harDialogmote={harDialogmote} />);
+                    return (<Landingsside
+                        brodsmuler={brodsmuler}
+                        skjulVarsel={skjulVarsel}
+                        sykepengesoknader={sykepengesoknader}
+                        harDialogmote={harDialogmote} />);
                 })()
             }
-        </Side>
+        </StrippetSide>
     );
 };
 

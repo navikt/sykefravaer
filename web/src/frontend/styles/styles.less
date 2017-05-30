@@ -2,6 +2,9 @@
 
 @import "@{nodeModulesPath}nav-frontend-core/less/styles";
 
+@standardfont: 'Source Sans Pro', Arial, Sans-serif;
+@profilfont: @standardfont;
+
 @import "_paneler.less";
 @import "_hoder.less";
 @import "_artikkel.less";
@@ -37,6 +40,7 @@
 @import "_utils.less";
 @import "_avstander.less";
 @import "_dekoratorVarsler.less";
+@import "_sidebanner.less";
 
 @import "@{nodeModulesPath}nav-frontend-skjema-design/less/styles";
 @import "@{nodeModulesPath}nav-frontend-typografi-design/less/styles";
@@ -100,7 +104,23 @@ p {
 }
 
 .typo-syfotittel {
-    font-family: @profilfont;
+    font-family: @standardfont;
     font-size: 1.25em;
     font-weight: normal;
+}
+
+.app-syfofront {
+	font-family: @standardfont;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body, html {
+	text-rendering: optimizeLegibility;
+	text-rendering: geometricPrecision;
+	font-smooth: always;
+	font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-webkit-font-smoothing: antialiased;
+	-webkit-font-smoothing: subpixel-antialiased;
 }

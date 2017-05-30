@@ -1,6 +1,6 @@
 .peker:extend(.panel) {
   color: @navTekst;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.5em;
   border-bottom-width: 0;
 
   &:focus {
@@ -18,18 +18,16 @@
 }
 
 .peker {
-
-  .mixin-typo-undertittel();
   background-image: data-uri("../img/svg/pil-videre-graa.svg");
   background-repeat: no-repeat;
   background-position: 97% 50%;
-  background-size: 1rem 1rem;
+  background-size: 1em 1em;
   transition: background-position ease-in-out .1s;
   transform: translate3d(0, 0, 0);
   width: 100%;
   display: flex;
   padding: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5em;
 
   span {
     align-self: center;
@@ -43,16 +41,20 @@
 }
 
 .peker__ikon {
-  margin-right: 1rem;
+  margin-right: 1em;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 0.625rem;
-  height: 4.5rem;
+  width: 0.625em;
+  height: 4.5em;
 
   img {
     display: none;
   }
+}
+
+.peker__undertittel {
+  .mixin-typo-normal();
 }
 
 @media (min-width: @skjermLiten) {
@@ -64,66 +66,51 @@
   }
 
   .peker__ikon {
-    width: 4.5rem;
-    margin-right: 1.5rem;
+    width: 4.5em;
+    margin-right: 1.5em;
 
     img {
-      width: 2rem;
-      height: 2rem;
+      width: 2em;
+      height: 2em;
       display: flex;
     }
   }
 
   .peker {
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
 
     &:last-child {
-      margin-bottom: 2rem;
+      margin-bottom: 2em;
     }
   }
 }
 
 .peker__ikon--fersken {
-  background-color: #FFF2E0;
+  background-color: #FFE5C2;
 }
 
 .peker__ikon--lysblaa {
-  background-color: #DBF3FB;
+  background-color: #C2EAF7;
 }
 
 .peker__ikon--lysgronn {
-  background-color: #E9EDC3;
+  background-color: #DADE99;
 }
 
 .peker__ikon--ceil {
-  background-color: #C5D9E3;
-}
-
-.peker__ikon--ferskenUthevet {
-  background-color: #FFE1B8;
-}
-
-.peker__ikon--lysblaaUthevet {
-  background-color: #B9E7F7;
-}
-
-.peker__ikon--lysgronnUthevet {
-  background-color: #D5DA8B;
-}
-
-.peker__ikon--ceilUthevet {
-  background-color: #8DB4C7;
+  background-color: #99BDCD;
 }
 
 .peker__innhold {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-right: 2em;
 
   h2 {
     margin-top: 0;
     margin-bottom: 0;
-    font-size: 1.25rem;
+    font-size: 1.25em;
   }
 
   p {

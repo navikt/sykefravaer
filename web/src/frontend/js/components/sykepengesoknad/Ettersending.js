@@ -30,7 +30,7 @@ export const EttersendingDialog = (props) => {
                 } else {
                     sendSykepengesoknadTilArbeidsgiver(sykepengesoknad.id);
                 }
-            }}>{getLedetekst(`sykepengesoknad.ettersending.knapp.bekreft.${ledetekstKeySuffix}`)}</button>
+            }}>{getLedetekst(`sykepengesoknad.ettersending.knapp.bekreft.${ledetekstKeySuffix}`)} { sender ? <span className="knapp__spinner" /> : null}</button>
             <p>
                 <a onClick={(e) => {
                     e.preventDefault();
@@ -116,7 +116,7 @@ export class Ettersending extends Component {
                     visKvittering: true,
                 });
             }
-            return;      
+            return;
         } catch (e) {
             return;
         }
@@ -164,6 +164,7 @@ Ettersending.propTypes = {
     ledetekstKeySuffix: ledetekstKeySuffixPt,
     sykepengesoknad: sykepengesoknadPt,
     scrollTilTopp: PropTypes.func,
+    dispatch: PropTypes.func,
 };
 
 const ConnectedEttersending = connect()(Ettersending);

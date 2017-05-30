@@ -150,13 +150,10 @@ describe('sykepengesoknader', () => {
                 sender: false,
                 sendingFeilet: false,
             });
-            const action = actions.sykepengesoknadSendtTilNAV("1");
+            const action = actions.sykepengesoknadSendtTilNAV("1", getSoknad());
             const nextState = sykepengesoknader(initialState, action);
             expect(nextState).to.deep.equal({
-                data: [{
-                    id: "1",
-                    sendtTilNAVDato: new Date()
-                }, {
+                data: [getParsetSoknad(), {
                     id: '2'
                 }],
                 sender: false,
@@ -174,13 +171,10 @@ describe('sykepengesoknader', () => {
                 sender: false,
                 sendingFeilet: false,
             });
-            const action = actions.sykepengesoknadSendtTilArbeidsgiver("1");
+            const action = actions.sykepengesoknadSendtTilArbeidsgiver("1", getSoknad());
             const nextState = sykepengesoknader(initialState, action);
             expect(nextState).to.deep.equal({
-                data: [{
-                    id: "1",
-                    sendtTilArbeidsgiverDato: new Date()
-                }, {
+                data: [getParsetSoknad(), {
                     id: '2'
                 }],
                 sender: false,

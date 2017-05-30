@@ -102,16 +102,18 @@ describe("sykepengesoknader_actions", () => {
         });
 
         it("skal ha en sykepengesoknadSendtTilNAV()-funksjon som returnerer riktig action", () => {
-            expect(actions.sykepengesoknadSendtTilNAV('1')).to.deep.equal({
+            expect(actions.sykepengesoknadSendtTilNAV('1', {id: '1'})).to.deep.equal({
                 type: actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV,
                 sykepengesoknadsId: '1',
+                sykepengesoknad: {id: '1'}
             });
         });
 
         it("skal ha en sykepengesoknadSendtTilArbeidsgiver()-funksjon som returnerer riktig action", () => {
-            expect(actions.sykepengesoknadSendtTilArbeidsgiver('1')).to.deep.equal({
+            expect(actions.sykepengesoknadSendtTilArbeidsgiver('1', {id: '1'})).to.deep.equal({
                 type: actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER,
                 sykepengesoknadsId: '1',
+                sykepengesoknad: {id: '1'}
             });
         });
 

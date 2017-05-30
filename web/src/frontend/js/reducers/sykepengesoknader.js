@@ -110,37 +110,9 @@ export default function sykepengesoknader(state = initiellState, action) {
                 sender: false,
             });
         }
-        case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV: {
-            const data = state.data.map((s) => {
-                if (s.id === action.sykepengesoknadsId) {
-                    return Object.assign({}, s, {
-                        sendtTilNAVDato: new Date(),
-                    });
-                }
-                return s;
-            });
-            return Object.assign({}, state, {
-                data,
-                sender: false,
-                sendingFeilet: false,
-            });
-        }
+        case actiontyper.SYKEPENGESOKNAD_SENDT:
+        case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV:
         case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER: {
-            const data = state.data.map((s) => {
-                if (s.id === action.sykepengesoknadsId) {
-                    return Object.assign({}, s, {
-                        sendtTilArbeidsgiverDato: new Date(),
-                    });
-                }
-                return s;
-            });
-            return Object.assign({}, state, {
-                data,
-                sender: false,
-                sendingFeilet: false,
-            });
-        }
-        case actiontyper.SYKEPENGESOKNAD_SENDT: {
             const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, parseDatofelter(action.sykepengesoknad));
             return Object.assign({}, state, { data }, {
                 sender: false,

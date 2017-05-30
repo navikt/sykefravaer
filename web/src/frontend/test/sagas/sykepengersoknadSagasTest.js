@@ -100,8 +100,11 @@ describe("sykepengersoknadSagas", () => {
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it("skal overskrive overskrive soknad med soknad fra rest-tjenesten", () => {
-            const action = actions.sykepengesoknadSendtTilArbeidsgiver("1");
+        it("skal overskrive soknad med soknad fra rest-tjenesten", () => {
+            const action = actions.sykepengesoknadSendtTilArbeidsgiver("1", {
+                id: '1',
+                testdata: 'testdata',
+            });
             const nextPut = put(action);
             expect(generator.next({
                 id: '1',
@@ -127,7 +130,10 @@ describe("sykepengersoknadSagas", () => {
         });
 
         it("skal overskrive overskrive soknad med soknad fra rest-tjenesten", () => {
-            const action = actions.sykepengesoknadSendtTilNAV("1");
+            const action = actions.sykepengesoknadSendtTilNAV("1", {
+                id: '1',
+                testdata: 'testdata',
+            });
             const nextPut = put(action);
             expect(generator.next({
                 id: '1',

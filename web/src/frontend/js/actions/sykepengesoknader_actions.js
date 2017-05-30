@@ -60,17 +60,19 @@ export function sykepengesoknadSendt(sykepengesoknadsId, sykepengesoknad) {
     };
 }
 
-export function sykepengesoknadSendtTilNAV(sykepengesoknadsId) {
+export function sykepengesoknadSendtTilNAV(sykepengesoknadsId, sykepengesoknad) {
     return {
         type: actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV,
         sykepengesoknadsId,
+        sykepengesoknad,
     };
 }
 
-export function sykepengesoknadSendtTilArbeidsgiver(sykepengesoknadsId) {
+export function sykepengesoknadSendtTilArbeidsgiver(sykepengesoknadsId, sykepengesoknad) {
     return {
         type: actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER,
         sykepengesoknadsId,
+        sykepengesoknad,
     };
 }
 

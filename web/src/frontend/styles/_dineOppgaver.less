@@ -1,0 +1,75 @@
+.dineOppgaver:extend(.panel) {
+	box-shadow: 0 0 0 5px #87D5EE inset;
+}
+
+.dineOppgaver__container {
+	padding-top: 1.5
+}
+
+.dineOppgaver__illustrasjon,
+.dineOppgaver__tittel {
+	text-align:  center;
+}
+
+.dineOppgaver__tittel {
+	.mixin-typo-systemtittel();
+	margin: 0 0 1em 0;
+	padding-bottom: .5em;
+	padding-top: .5em;
+	border-bottom: 1px solid @ikonGraa;
+}
+
+.dineOppgaver__liste {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	li {
+		position: relative;
+		padding-left: 0;
+		position: relative;
+		margin-bottom: 1em;
+	}
+
+	li:last-child {
+		margin-bottom: 0;
+	}
+
+	a {
+		-webkit-font-smoothing: subpixel-antialiased;
+		-webkit-text-stroke: 0.3px;			
+		.mixin-typo-ingress();
+		color: @navTekst;
+	}
+
+	a:after {
+		content: "\203A";
+		color: @ikonGraa;
+		margin-left: .5em;
+		transform: scale(1.5, 1.5);
+	}
+
+	a:hover, a:hover:after {
+		color: @lenkeBlaa;
+	}
+
+}
+
+@media (min-width: @skjermLiten) {
+	.dineOppgaver__container {
+		display: flex;
+	}
+
+	.dineOppgaver__illustrasjon {
+		margin-right: 2em;
+	}
+
+	.dineOppgaver__tekst {
+		width: 100%;
+	}
+
+	.dineOppgaver__tittel {
+		width: 100%;
+		text-align: left;
+	}
+}

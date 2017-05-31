@@ -31,6 +31,9 @@ describe("LandingssideContainer", () => {
                 sykepengesoknader: {
                     data: []
                 },
+                dineSykmeldinger: {
+                    data: [{}]
+                },
                 mote: {}
             }
         })
@@ -50,6 +53,11 @@ describe("LandingssideContainer", () => {
             state.mote.data = {};
             const res = mapStateToProps(state);
             expect(res.harDialogmote).to.be.true;
+        });
+
+        it("Skal returnere sykepengesoknader", () => {
+            const res = mapStateToProps(state);
+            expect(res.sykepengesoknader).to.deep.equal([]);
         });
 
     });

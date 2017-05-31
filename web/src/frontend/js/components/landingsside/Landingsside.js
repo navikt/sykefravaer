@@ -6,6 +6,7 @@ import NaermesteLedereContainer from '../../containers/NaermesteLedereContainer'
 import LandingssideLenke from './LandingssideLenke';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Brodsmuler from '../Brodsmuler';
+import DineOppgaverContainer from '../../containers/DineOppgaverContainer';
 
 export class GenerellInfo extends Component {
     componentDidMount() {
@@ -30,7 +31,6 @@ export class GenerellInfo extends Component {
             </p>
         </article>);
     }
-
 }
 
 const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmote = false, brodsmuler }) => {
@@ -46,6 +46,7 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
             {
                 (!skjulVarsel ? <UnderUtviklingVarselContainer /> : null)
             }
+            <DineOppgaverContainer />
             <nav className="blokk" role="navigation">
                 <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
                     undertittel="Informasjon og oversikt over aktiviteter" variant="fersken" />
@@ -70,8 +71,8 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
 Landingsside.propTypes = {
     skjulVarsel: PropTypes.bool.isRequired,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
-    dialogmoter: PropTypes.array,
     harDialogmote: PropTypes.bool,
+    brodsmuler: PropTypes.array,
 };
 
 export default Landingsside;

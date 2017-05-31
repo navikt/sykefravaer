@@ -4,6 +4,9 @@
 
 @standardfont: 'Source Sans Pro', Arial, Sans-serif;
 @profilfont: @standardfont;
+.mixin-typo-infotekst() {
+	.mixin-typo-normal();
+}
 
 @import "_paneler.less";
 @import "_hoder.less";
@@ -41,6 +44,7 @@
 @import "_avstander.less";
 @import "_dekoratorVarsler.less";
 @import "_sidebanner.less";
+@import "_dineOppgaver.less";
 
 @import "@{nodeModulesPath}nav-frontend-skjema-design/less/styles";
 @import "@{nodeModulesPath}nav-frontend-typografi-design/less/styles";
@@ -110,17 +114,5 @@ p {
 }
 
 .app-syfofront {
-	font-family: @standardfont;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-body, html {
-	text-rendering: optimizeLegibility;
-	text-rendering: geometricPrecision;
-	font-smooth: always;
-	font-smoothing: antialiased;
-	-moz-font-smoothing: antialiased;
-	-webkit-font-smoothing: antialiased;
-	-webkit-font-smoothing: subpixel-antialiased;
+	font-family: @standardfont;	
 }

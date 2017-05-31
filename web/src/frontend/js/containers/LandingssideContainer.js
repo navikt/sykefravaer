@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Landingsside from '../components/landingsside/Landingsside';
 import { connect } from 'react-redux';
 import StrippetSide from '../sider/StrippetSide';
+import Side from '../sider/Side';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
@@ -16,23 +17,26 @@ export const LandingssideSide = (props) => {
         hentingFeilet,
         sykepengesoknader,
         harDialogmote } = props;
+
+    if (henter || hentingFeilet) {
+        return (<Side tittel={getLedetekst('landingsside.sidetittel')} brodsmuler={brodsmuler}>
+        {
+            (() => {
+                if (henter) {
+                    return <AppSpinner />;
+                }
+                return <Feilmelding />;
+            })()
+        }
+        </Side>);
+    }
     return (
         <StrippetSide tittel={getLedetekst('landingsside.sidetittel')}>
-            {
-                (() => {
-                    if (henter) {
-                        return <AppSpinner />;
-                    }
-                    if (hentingFeilet) {
-                        return <Feilmelding />;
-                    }
-                    return (<Landingsside
-                        brodsmuler={brodsmuler}
-                        skjulVarsel={skjulVarsel}
-                        sykepengesoknader={sykepengesoknader}
-                        harDialogmote={harDialogmote} />);
-                })()
-            }
+            <Landingsside
+                brodsmuler={brodsmuler}
+                skjulVarsel={skjulVarsel}
+                sykepengesoknader={sykepengesoknader}
+                harDialogmote={harDialogmote} />
         </StrippetSide>
     );
 };
@@ -49,6 +53,7 @@ LandingssideSide.propTypes = {
 
 export function mapStateToProps(state) {
     const sykepengesoknader = state.sykepengesoknader.data;
+
     return {
         henter: state.ledetekster.henter || state.sykepengesoknader.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet,

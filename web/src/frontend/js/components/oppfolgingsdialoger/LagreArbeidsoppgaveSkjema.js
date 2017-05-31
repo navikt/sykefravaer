@@ -207,6 +207,7 @@ LagreArbeidsoppgaveSkjema.propTypes = {
     handleSubmit: PropTypes.func,
     sendArbeidsoppgave: PropTypes.func,
     cancel: PropTypes.func,
+    initialize: PropTypes.func,
 };
 
 function validate(values) {

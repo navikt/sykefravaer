@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
-import OppfolgingsdialogerTeasere from './OppfolgingsdialogerTeasere';
-import { OppfolgingsdialogInfoboks } from 'oppfolgingsdialog-npm';
+import { OppfolgingsdialogInfoboks, OppfolgingsdialogTeasere } from 'oppfolgingsdialog-npm';
 import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
+import { getContextRoot } from '../../routers/paths';
 import { Link } from 'react-router';
 
-const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [] }) => {
+const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
     return (<div>
         <Sidetopp
             tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
@@ -25,10 +25,13 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [] }) => {
             </Link>
         </div>
         { !isEmpty(oppfolgingsdialoger) &&
-            <OppfolgingsdialogerTeasere
+            <OppfolgingsdialogTeasere
                 oppfolgingsdialoger={oppfolgingsdialoger}
                 tittel={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.tittel')}
                 ingenOppfolgingsdialogerMelding={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.ingen-oppfolgingsdialoger.melding')}
+                rootUrl={`${getContextRoot()}`}
+                ledetekster={ledetekster}
+                brukertype={"sykmeldt"}
             />
         }
     </div>);

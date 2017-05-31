@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths';
+import { restdatoTildato, finnSistEndretAvNavn } from 'oppfolgingsdialog-npm';
 
 const OppfolgingsdialogTeaser = ({ oppfolgingsdialog }) => {
     return (<article aria-labelledby={`oppfolgingsdialog-header-${oppfolgingsdialog.oppfoelgingsdialogId}`}>
@@ -12,9 +13,9 @@ const OppfolgingsdialogTeaser = ({ oppfolgingsdialog }) => {
                     </h3>
                 </header>
                 <p className="inngangspanel__tekst">
-                    Siste endret: { oppfolgingsdialog.sistEndretDato }
+                    Siste endret: {restdatoTildato(oppfolgingsdialog.sistEndretDato)}
                     <br />
-                    Endret av: { oppfolgingsdialog.sistEndretAvAktoerId }
+                    Endret av: {finnSistEndretAvNavn(oppfolgingsdialog)}
                 </p>
             </div>
         </Link></article>);

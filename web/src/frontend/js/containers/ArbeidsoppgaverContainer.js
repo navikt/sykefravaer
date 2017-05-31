@@ -5,7 +5,11 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import history from '../history';
 import { getOppfolgingsdialog } from '../utils/oppfolgingsdialogUtils';
-import { lagreArbeidsoppgave, OppfolgingsdialogArbeidsoppgaver } from 'oppfolgingsdialog-npm';
+import {
+    lagreArbeidsoppgave,
+    OppfolgingsdialogSide,
+    OppfolgingsdialogOppgaveTabell,
+} from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import LagreArbeidsoppgaveSkjema from '../components/oppfolgingsdialoger/LagreArbeidsoppgaveSkjema';
@@ -42,44 +46,42 @@ export class ArbeidsoppgaverSide extends Component {
                     return <AppSpinner />;
                 } else if (hentingFeilet || senderFeilet) {
                     return (<Feilmelding />);
-                } else if (oppfolgingsdialog.arbeidsoppgaveListe.length === 0) {
-                    return (
-                        <div>
-                            <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel', ledetekster)}</h2>
-                            <LagreArbeidsoppgaveSkjema
-                                ledetekster={ledetekster}
-                                avbrytHref={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}`}
-                                sendArbeidsoppgave={this.sendArbeidsoppgave}
-                            />
-                        </div>
-                    );
                 }
                 return (
-                    <div>
-                        <OppfolgingsdialogArbeidsoppgaver
-                            ledetekster={ledetekster}
-                            arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe}
-                            tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel', ledetekster)}
-                            bruker={arbeidsgiver}
-                            rootUrl={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}/`}
-                        />
+                    <OppfolgingsdialogSide brukernavn={arbeidsgiver} ledetekster={ledetekster} rootUrl={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}`}>
                         {
-                            this.state.visArbeidsoppgaveSkjema ?
-                            <LagreArbeidsoppgaveSkjema
-                                ledetekster={ledetekster}
-                                avbrytHref={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}/arbeidsoppgaver`}
-                                sendArbeidsoppgave={this.sendArbeidsoppgave}
-                                cancel={this.toggleArbeidsoppgaveSkjema}
-                            /> :
-                            <div className="knapperad">
-                                <button
-                                    className="knapp knapp__opprettarbeidsoppgave"
-                                    onClick={this.toggleArbeidsoppgaveSkjema}>
-                                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-arbeidsoppgave')}
-                                </button>
-                            </div>
+                            oppfolgingsdialog.arbeidsoppgaveListe.length === 0 ?
+                                <div>
+                                    <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel', ledetekster)}</h2>
+                                    <LagreArbeidsoppgaveSkjema
+                                        ledetekster={ledetekster}
+                                        avbrytHref={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}`}
+                                        sendArbeidsoppgave={this.sendArbeidsoppgave}
+                                    />
+                                </div>
+                                :
+                                <div>
+                                    <OppfolgingsdialogOppgaveTabell
+                                        arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />
+                                    {
+                                        this.state.visArbeidsoppgaveSkjema ?
+                                            <LagreArbeidsoppgaveSkjema
+                                                ledetekster={ledetekster}
+                                                avbrytHref={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}/arbeidsoppgaver`}
+                                                sendArbeidsoppgave={this.sendArbeidsoppgave}
+                                                cancel={this.toggleArbeidsoppgaveSkjema}
+                                            /> :
+                                            <div className="knapperad">
+                                                <button
+                                                    className="knapp knapp__opprettarbeidsoppgave"
+                                                    onClick={this.toggleArbeidsoppgaveSkjema}>
+                                                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-arbeidsoppgave')}
+                                                </button>
+                                            </div>
+                                    }
+                                </div>
                         }
-                    </div>
+                    </OppfolgingsdialogSide>
                 );
             })()
             }

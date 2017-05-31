@@ -2,13 +2,13 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths';
 
-const OppfolgingsdialogTeaser = ({ oppfolgingsdialog, bruker }) => {
+const OppfolgingsdialogTeaser = ({ oppfolgingsdialog }) => {
     return (<article aria-labelledby={`oppfolgingsdialog-header-${oppfolgingsdialog.oppfoelgingsdialogId}`}>
         <Link className="inngangspanel" to={`${getContextRoot()}/oppfolgingsdialoger/${oppfolgingsdialog.oppfoelgingsdialogId}`}>
             <div className="inngangspanel__innhold">
                 <header className="inngangspanel__header">
                     <h3 className="js-title" id={`oppfolgingsdialog-header-${oppfolgingsdialog.oppfoelgingsdialogId}`}>
-                        { bruker }
+                        { oppfolgingsdialog.virksomhetsnavn }
                     </h3>
                 </header>
                 <p className="inngangspanel__tekst">
@@ -22,7 +22,6 @@ const OppfolgingsdialogTeaser = ({ oppfolgingsdialog, bruker }) => {
 
 OppfolgingsdialogTeaser.propTypes = {
     oppfolgingsdialog: PropTypes.object,
-    bruker: PropTypes.string,
 };
 
 export default OppfolgingsdialogTeaser;

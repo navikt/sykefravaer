@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, initialize } from 'redux-form';
 import { Varselstripe } from 'digisyfo-npm';
 import Checkbox from '../skjema/Checkbox';
 import Tekstfelt from '../skjema/Tekstfelt';
@@ -48,11 +48,19 @@ export class LagreArbeidsoppgaveSkjema extends Component {
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.toggleCheckbox = this.toggleCheckbox.bind(this);
     }
+    componentDidMount() {
+        this.handleInitialize();
+    }
+    handleInitialize() {
+        const initData = {
+            "radiosvar0": FELTER.kanGjennomfoeres.svar[0],
+        };
+        this.props.initialize(initData);
+    }
 
     handleOptionChange(e) {
         this.setState({
             gjennomfoeringSvarValgt: e.target.value,
-            gjennomfoeringIkkeValgt: true,
         });
     }
 
@@ -177,7 +185,7 @@ export class LagreArbeidsoppgaveSkjema extends Component {
                 }
 
                 {
-                    this.state.gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.svar[1] && this.renderTextArea(FELTER.beskrivelse, ledetekster)
+                    this.state.gjennomfoeringSvarValgt !== FELTER.kanGjennomfoeres.svar[0] && this.renderTextArea(FELTER.beskrivelse, ledetekster)
                 }
 
                 {

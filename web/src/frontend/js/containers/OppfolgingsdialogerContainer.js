@@ -7,7 +7,6 @@ import AppSpinner from '../components/AppSpinner';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Oppfolgingsdialoger from '../components/oppfolgingsdialoger/Oppfolgingsdialoger';
 import { OppfolgingsdialogInfoboks } from 'oppfolgingsdialog-npm';
-import { finnArbeidsgivere } from '../utils/oppfolgingsdialogUtils';
 
 const hentFeilmelding = ({ ledetekster, begrensning }) => {
     if (begrensning.aldersbegrensning) {
@@ -23,7 +22,7 @@ hentFeilmelding.propTyopes = {
     begrensning: PropTypes.object,
 };
 
-export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, arbeidsgivere, ledetekster, henter, hentingFeilet, brukerHarTilgang, begrensning }) => {
+export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet, brukerHarTilgang, begrensning }) => {
     return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
         {
             (() => {
@@ -35,7 +34,7 @@ export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, arbei
                     return (<Oppfolgingsdialoger
                         oppfolgingsdialoger={oppfolgingsdialoger}
                         ledetekster={ledetekster}
-                        arbeidsgivere={arbeidsgivere} />);
+                    />);
                 }
                 return (<OppfolgingsdialogInfoboks
                     svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
@@ -52,7 +51,6 @@ export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, arbei
 OppfolgingsdialogerSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     oppfolgingsdialoger: PropTypes.array,
-    arbeidsgivere: PropTypes.array,
     ledetekster: PropTypes.object,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
@@ -67,7 +65,6 @@ export const mapStateToProps = (state) => {
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
-        arbeidsgivere: finnArbeidsgivere(state),
         henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet,
         brodsmuler: [{

@@ -6,7 +6,7 @@ import { OppfolgingsdialogInfoboks } from 'oppfolgingsdialog-npm';
 import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
 import { Link } from 'react-router';
 
-const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], arbeidsgivere }) => {
+const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [] }) => {
     return (<div>
         <Sidetopp
             tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
@@ -29,7 +29,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], arbeidsgivere }) => {
                 oppfolgingsdialoger={oppfolgingsdialoger}
                 tittel={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.tittel')}
                 ingenOppfolgingsdialogerMelding={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.ingen-oppfolgingsdialoger.melding')}
-                arbeidsgivere={arbeidsgivere} />
+            />
         }
     </div>);
 };
@@ -37,7 +37,6 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], arbeidsgivere }) => {
 Oppfolgingsdialoger.propTypes = {
     oppfolgingsdialoger: PropTypes.array,
     ledetekster: PropTypes.object,
-    arbeidsgivere: PropTypes.array,
 };
 
 export default Oppfolgingsdialoger;

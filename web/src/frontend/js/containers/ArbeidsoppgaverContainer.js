@@ -13,7 +13,6 @@ import {
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import LagreArbeidsoppgaveSkjema from '../components/oppfolgingsdialoger/LagreArbeidsoppgaveSkjema';
-import { finnArbeidsgivere, finnOppfolgingsdialogsArbeidsgivernavn } from '../utils/oppfolgingsdialogUtils';
 
 export class ArbeidsoppgaverSide extends Component {
 
@@ -38,7 +37,7 @@ export class ArbeidsoppgaverSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, arbeidsgiver, henter, hentingFeilet, sender, senderFeilet } = this.props;
+        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, sender, senderFeilet } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
@@ -48,7 +47,10 @@ export class ArbeidsoppgaverSide extends Component {
                     return (<Feilmelding />);
                 }
                 return (
-                    <OppfolgingsdialogSide brukernavn={arbeidsgiver} ledetekster={ledetekster} rootUrl={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}`}>
+                    <OppfolgingsdialogSide
+                        brukernavn={oppfolgingsdialog.virksomhetsnavn}
+                        ledetekster={ledetekster}
+                        rootUrl={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}`}>
                         {
                             oppfolgingsdialog.arbeidsoppgaveListe.length === 0 ?
                                 <div>
@@ -95,7 +97,6 @@ ArbeidsoppgaverSide.propTypes = {
     ledetekster: PropTypes.object,
     oppfolgingsdialog: PropTypes.object,
     oppfolgingsdialogId: PropTypes.string,
-    arbeidsgiver: PropTypes.string,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     sender: PropTypes.bool,
@@ -106,9 +107,7 @@ ArbeidsoppgaverSide.propTypes = {
 export function mapStateToProps(state, ownProps) {
     const oppfolgingsdialogId = ownProps.params.oppfolgingsdialogId;
     const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, oppfolgingsdialogId);
-
-    const arbeidsgivere = finnArbeidsgivere(state);
-    const arbeidsgiver = finnOppfolgingsdialogsArbeidsgivernavn(arbeidsgivere, oppfolgingsdialog);
+    const virksomhetsnavn = oppfolgingsdialog ? oppfolgingsdialog.virksomhetsnavn : '';
 
     return {
         ledetekster: state.ledetekster.data,
@@ -118,7 +117,6 @@ export function mapStateToProps(state, ownProps) {
         sendingFeilet: state.arbeidsoppgaver.sendingFeilet,
         oppfolgingsdialog,
         oppfolgingsdialogId,
-        arbeidsgiver,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -128,7 +126,7 @@ export function mapStateToProps(state, ownProps) {
             sti: '/oppfolgingsdialoger',
             erKlikkbar: true,
         }, {
-            tittel: arbeidsgiver,
+            tittel: virksomhetsnavn,
         }],
     };
 }

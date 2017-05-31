@@ -142,6 +142,71 @@ describe('sykepengesoknader', () => {
             });
         });
 
+        it("håndterer SYKEPENGESOKNAD_SENDT_TIL_NAV", () => {
+            let initialState = deepFreeze({
+                data: [{id: '1'},{id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const action = actions.sykepengesoknadSendtTilNAV("1", getSoknad());
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState).to.deep.equal({
+                data: [getParsetSoknad(), {
+                    id: '2'
+                }],
+                sender: false,
+                sendingFeilet: false,
+                henter: false,
+                hentingFeilet: false,
+            });
+        });
+
+        it("håndterer SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER", () => {
+            let initialState = deepFreeze({
+                data: [{id: '1'},{id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const action = actions.sykepengesoknadSendtTilArbeidsgiver("1", getSoknad());
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState).to.deep.equal({
+                data: [getParsetSoknad(), {
+                    id: '2'
+                }],
+                sender: false,
+                sendingFeilet: false,
+                henter: false,
+                hentingFeilet: false,
+            });
+        });
+
+        it("håndterer SEND_SYKEPENGESOKNAD_HAR_IKKE_FEILET", () => {
+            let initialState = deepFreeze({
+                data: [{id: '1'},{id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: true,
+            });
+            const action = actions.sendSykepengesoknadHarIkkeFeilet();
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState).to.deep.equal({
+                data: [{
+                    id: "1",
+                }, {
+                    id: '2'
+                }],
+                sender: false,
+                sendingFeilet: false,
+                henter: false,
+                hentingFeilet: false,
+            });
+        });
+
     });
 
     describe("parsing", () => {

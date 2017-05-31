@@ -103,7 +103,7 @@ describe("Sykepengesoknad - Statuspanel", () => {
         
     });
 
-    describe("Når søknaden er sendt til NAV og arbeidsgiver", () => {
+    describe("Når søknaden er sendt til NAV og arbeidsgiver samtidig", () => {
         
         let component;
         let sykepengesoknad;
@@ -135,5 +135,36 @@ describe("Sykepengesoknad - Statuspanel", () => {
         });
         
     });
+
+    describe("Når søknaden er sendt til NAV og arbeidsgiver på to ulike tidspunkt", () => {
+        
+        let component;
+        let sykepengesoknad;
+
+        beforeEach(() => {
+            sykepengesoknad = getSoknad({
+                status: statuser.SENDT,
+                sendtTilArbeidsgiverDato: new Date("2017-05-17"),
+                sendtTilNAVDato: new Date("2017-05-20"),
+            });
+            component = mount(<Statuspanel sykepengesoknad={sykepengesoknad} />)
+        });
+
+        it("Skal vise riktig status", () => {
+            expect(component.text()).to.contain("Status");
+            expect(component.text()).to.contain("Sendt til NAV: 20.05.2017");
+            expect(component.text()).to.contain("Sendt til arbeidsgiver: 17.05.2017");
+        });
+
+        it("Skal ikke inneholde Hjelpetekst", () => {
+            expect(component.find(Hjelpetekst)).to.have.length(0);
+        })
+
+        it("Skal vise navn + orgnummer på arbeidsgiver", () => {
+            expect(component.text()).to.contain("BYGGMESTER BLOM AS (***REMOVED***)");
+        });
+        
+    });
+
 
 });

@@ -1,8 +1,9 @@
 import { expect } from 'chai';
-import { hentSykepengesoknader, sendSykepengesoknad } from '../../js/sagas/sykepengesoknadSagas';
+import { hentSykepengesoknader, sendSykepengesoknad, sendSykepengesoknadTilArbeidsgiver, sendSykepengesoknadTilNAV } from '../../js/sagas/sykepengesoknadSagas';
 import { get, post } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
 import * as actiontyper from '../../js/actions/actiontyper';
+import * as actions from '../../js/actions/sykepengesoknader_actions';
 import sinon from 'sinon';
 
 describe("sykepengersoknadSagas", () => {
@@ -83,6 +84,63 @@ describe("sykepengersoknadSagas", () => {
         });
     });
 
+    describe('innsending til arbeidsgiver', () => {
+
+        const action = actions.sendSykepengesoknadTilArbeidsgiver("1");
+        const generator = sendSykepengesoknadTilArbeidsgiver(action);
+
+        it("skal dispatche SENDER_SYKEPENGESOKNAD", () => {
+            const action = actions.senderSykepengesoknad();
+            const nextPut = put(action);
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
+
+        it("skal dernest sende sykepengesoknad", () => {
+            const nextCall = call(post, "http://tjenester.nav.no/syforest/soknader/1/actions/send-til-arbeidsgiver");
+            expect(generator.next().value).to.deep.equal(nextCall);
+        });
+
+        it("skal overskrive soknad med soknad fra rest-tjenesten", () => {
+            const action = actions.sykepengesoknadSendtTilArbeidsgiver("1", {
+                id: '1',
+                testdata: 'testdata',
+            });
+            const nextPut = put(action);
+            expect(generator.next({
+                id: '1',
+                testdata: 'testdata',
+            }).value).to.deep.equal(nextPut);
+        });
+    });
+
+    describe('innsending til NAV', () => {
+
+        const action = actions.sendSykepengesoknadTilNAV("1");
+        const generator = sendSykepengesoknadTilNAV(action);
+
+        it("skal dispatche SENDER_SYKEPENGESOKNAD", () => {
+            const action = actions.senderSykepengesoknad();
+            const nextPut = put(action);
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
+
+        it("skal dernest sende sykepengesoknad", () => {
+            const nextCall = call(post, "http://tjenester.nav.no/syforest/soknader/1/actions/send-til-nav");
+            expect(generator.next().value).to.deep.equal(nextCall);
+        });
+
+        it("skal overskrive overskrive soknad med soknad fra rest-tjenesten", () => {
+            const action = actions.sykepengesoknadSendtTilNAV("1", {
+                id: '1',
+                testdata: 'testdata',
+            });
+            const nextPut = put(action);
+            expect(generator.next({
+                id: '1',
+                testdata: 'testdata',
+            }).value).to.deep.equal(nextPut);
+        });
+    });    
 
     describe('innsending der REST-tjeneste ikke svarer med søknad', () => {
         // GAMMELT RESTSVAR

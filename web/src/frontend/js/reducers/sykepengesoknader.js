@@ -104,7 +104,15 @@ export default function sykepengesoknader(state = initiellState, action) {
                 sendingFeilet: true,
             });
         }
-        case actiontyper.SYKEPENGESOKNAD_SENDT: {
+        case actiontyper.SEND_SYKEPENGESOKNAD_HAR_IKKE_FEILET: {
+            return Object.assign({}, state, {
+                sendingFeilet: false,
+                sender: false,
+            });
+        }
+        case actiontyper.SYKEPENGESOKNAD_SENDT:
+        case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV:
+        case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER: {
             const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, parseDatofelter(action.sykepengesoknad));
             return Object.assign({}, state, { data }, {
                 sender: false,

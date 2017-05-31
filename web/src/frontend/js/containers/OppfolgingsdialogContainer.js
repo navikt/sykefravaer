@@ -8,6 +8,7 @@ import { Oppfolgingsdialog } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Sidetopp from '../components/Sidetopp';
+import { finnArbeidsgivere, finnOppfolgingsdialogsArbeidsgivernavn } from '../utils/oppfolgingsdialogUtils';
 
 export const OppfolgingsdialogSide = ({ brodsmuler, oppfolgingsdialog, henter, hentingFeilet }) => {
     return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
@@ -39,7 +40,9 @@ OppfolgingsdialogSide.propTypes = {
 export function mapStateToProps(state, ownProps) {
     const oppfolgingsdialogId = ownProps.params.oppfolgingsdialogId;
     const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, oppfolgingsdialogId);
-    const arbeidsgiver = oppfolgingsdialog ? oppfolgingsdialog.virksomhetsnummer : '';
+
+    const arbeidsgivere = finnArbeidsgivere(state);
+    const arbeidsgiver = finnOppfolgingsdialogsArbeidsgivernavn(arbeidsgivere, oppfolgingsdialog);
 
     return {
         ledetekster: state.ledetekster.data,

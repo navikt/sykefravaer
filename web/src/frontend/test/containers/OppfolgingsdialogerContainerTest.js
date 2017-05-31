@@ -3,7 +3,7 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { OppfolgingsdialogerSide, mapStateToProps } from "../../js/containers/OppfolgingsdialogerContainer";
+import { OppfolgingsdialogerSide } from "../../js/containers/OppfolgingsdialogerContainer";
 import AppSpinner from '../../js/components/AppSpinner';
 import Feilmelding from '../../js/components/Feilmelding';
 import Oppfolgingsdialoger from '../../js/components/oppfolgingsdialoger/Oppfolgingsdialoger';
@@ -24,24 +24,6 @@ describe("OppfolgingsdialogerContainer", () => {
         oppfolgingsdialoger = {
             data: oppfolgingsdialogerArray
         }
-    });
-
-    describe("mapStateToProps", () => {
-
-        it("skal returnere oppfolgingsdialoger", function() {
-            const res = mapStateToProps({
-                oppfolgingsdialoger: oppfolgingsdialoger,
-                ledetekster: {
-                    data: []
-                },
-                brukerinfo: {
-                    bruker: {},
-                    innstillinger: {}
-                }
-            });
-            expect(res.oppfolgingsdialoger).to.deep.equal(oppfolgingsdialoger.data)
-        });
-
     });
 
     describe("OppfolgingsdialogerSide", () => {

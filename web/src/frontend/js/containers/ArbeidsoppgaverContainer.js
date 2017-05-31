@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
@@ -10,6 +9,7 @@ import { lagreArbeidsoppgave, OppfolgingsdialogArbeidsoppgaver } from 'oppfolgin
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import LagreArbeidsoppgaveSkjema from '../components/oppfolgingsdialoger/LagreArbeidsoppgaveSkjema';
+import { finnArbeidsgivere, finnOppfolgingsdialogsArbeidsgivernavn } from '../utils/oppfolgingsdialogUtils';
 
 export class ArbeidsoppgaverSide extends Component {
 
@@ -104,7 +104,9 @@ ArbeidsoppgaverSide.propTypes = {
 export function mapStateToProps(state, ownProps) {
     const oppfolgingsdialogId = ownProps.params.oppfolgingsdialogId;
     const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, oppfolgingsdialogId);
-    const arbeidsgiver = oppfolgingsdialog ? oppfolgingsdialog.virksomhetsnummer : '';
+
+    const arbeidsgivere = finnArbeidsgivere(state);
+    const arbeidsgiver = finnOppfolgingsdialogsArbeidsgivernavn(arbeidsgivere, oppfolgingsdialog);
 
     return {
         ledetekster: state.ledetekster.data,

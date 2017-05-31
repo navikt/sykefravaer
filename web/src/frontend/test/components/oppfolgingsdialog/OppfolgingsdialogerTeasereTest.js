@@ -7,11 +7,13 @@ import OppfolgingsdialogerTeaser from "../../../js/components/oppfolgingsdialoge
 import OppfolgingsdialogerTeasere from "../../../js/components/oppfolgingsdialoger/OppfolgingsdialogerTeasere";
 import { setLedetekster } from 'digisyfo-npm';
 import { getOppfolgingsdialoger } from '../../mockOppfolgingsdialoger';
+import { getArbeidsgivere } from '../../mockArbeidsgivere';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 const oppfolgingsdialoger = getOppfolgingsdialoger;
+const arbeidsgivere = getArbeidsgivere;
 
 describe("OppfolgingsdialogerTeasere", () => {
 
@@ -20,13 +22,13 @@ describe("OppfolgingsdialogerTeasere", () => {
     });
 
     it("Viser en header", () => {
-        const component = shallow(<OppfolgingsdialogerTeasere tittel="Oppfolgingsdialoger" oppfolgingsdialoger={oppfolgingsdialoger} />);
+        const component = shallow(<OppfolgingsdialogerTeasere tittel="Oppfolgingsdialoger" oppfolgingsdialoger={oppfolgingsdialoger} arbeidsgivere={arbeidsgivere} />);
         expect(component.find("header")).to.have.length(1);
         expect(component.find("header").text()).to.contain("Oppfolgingsdialoger")
     });
 
-    it("Viser en OppfolgingsdialogTeaser per oppfolgingsdialog", function () {
-        const component = shallow(<OppfolgingsdialogerTeasere oppfolgingsdialoger={oppfolgingsdialoger} />);
+    it("Viser en OppfolgingsdialogTeaser per oppfolgingsdialog", () => {
+        const component = shallow(<OppfolgingsdialogerTeasere oppfolgingsdialoger={oppfolgingsdialoger} arbeidsgivere={arbeidsgivere} />);
         expect(component.find(OppfolgingsdialogerTeaser)).to.have.length(1);
     });
 

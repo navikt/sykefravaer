@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import OppfolgingsdialogerTeaser from './OppfolgingsdialogerTeaser';
+import { finnOppfolgingsdialogsArbeidsgivernavn } from '../../utils/oppfolgingsdialogUtils';
 
-const OppfolgingsdialogerTeasere = ({ oppfolgingsdialoger, className, tittel = '', ingenOppfolgingsdialogerMelding, id }) => {
+const OppfolgingsdialogerTeasere = ({ oppfolgingsdialoger, className, tittel = '', ingenOppfolgingsdialogerMelding, id, arbeidsgivere }) => {
     return (<div className="blokk--l">
         <header>
             <h2>{tittel}</h2>
@@ -9,7 +10,11 @@ const OppfolgingsdialogerTeasere = ({ oppfolgingsdialoger, className, tittel = '
         <div id={id} className={className || 'js-content'}>
             {
                 (oppfolgingsdialoger.length ? oppfolgingsdialoger.map((oppfolgingsdialog, idx) => {
-                    return <OppfolgingsdialogerTeaser oppfolgingsdialog={oppfolgingsdialog} key={idx} />;
+                    return (<OppfolgingsdialogerTeaser
+                        oppfolgingsdialog={oppfolgingsdialog}
+                        key={idx}
+                        bruker={finnOppfolgingsdialogsArbeidsgivernavn(arbeidsgivere, oppfolgingsdialog)}
+                    />);
                 }) : <p className="panel typo-infotekst">{ingenOppfolgingsdialogerMelding}</p>)
             }
         </div>
@@ -22,6 +27,7 @@ OppfolgingsdialogerTeasere.propTypes = {
     tittel: PropTypes.string,
     ingenOppfolgingsdialogerMelding: PropTypes.string,
     id: PropTypes.string,
+    arbeidsgivere: PropTypes.array,
 };
 
 export default OppfolgingsdialogerTeasere;

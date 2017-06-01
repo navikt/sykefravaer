@@ -5,10 +5,12 @@ import Side from '../sider/Side';
 import Sidetopp from '../components/Sidetopp';
 import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
+import history from '../history';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import OpprettOppfolgingsdialog from '../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
 import { OppfolgingsdialogSamtykke, opprettOppfolgingsdialogAt as opprettOppfolgingsdialog } from 'oppfolgingsdialog-npm';
 import { finnArbeidsgivereForAktiveSykmeldinger } from '../utils/sykmeldingUtils';
+import { getSykmeldinger } from '../../test/mockSykmeldinger';
 
 export class OpprettOppfolgingsdialogSide extends Component {
 
@@ -22,6 +24,13 @@ export class OpprettOppfolgingsdialogSide extends Component {
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.velgArbeidsgiver = this.velgArbeidsgiver.bind(this);
         this.samtykk = this.samtykk.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        console.log("prevProps", prevProps)
+        if (prevProps.oppretter && this.props.opprettet) {
+            history.push(`/sykefravaer/oppfolgingsdialoger/`);
+        }
     }
 
     handleOptionChange(e) {
@@ -48,14 +57,14 @@ export class OpprettOppfolgingsdialogSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, henter, hentingFeilet, arbeidsgivere } = this.props;
+        const { brodsmuler, ledetekster, henter, hentingFeilet, arbeidsgivere, oppretter, opprettingFeilet } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialoger.opprett.tittel')} brodsmuler={brodsmuler}>
             {
                 (() => {
-                    if (henter) {
+                    if (henter || oppretter) {
                         return <AppSpinner />;
-                    } else if (hentingFeilet) {
+                    } else if (hentingFeilet || opprettingFeilet) {
                         return (<Feilmelding />);
                     } else if (this.state.arbeidsgiverValgt) {
                         return (
@@ -96,6 +105,9 @@ OpprettOppfolgingsdialogSide.propTypes = {
     ledetekster: PropTypes.object,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
+    oppretter: PropTypes.bool,
+    opprettet: PropTypes.bool,
+    opprettingFeilet: PropTypes.bool,
     opprettOppfolgingsdialog: PropTypes.func,
 };
 
@@ -105,9 +117,12 @@ export const mapStateToProps = (state) => {
 
     return {
         ledetekster: state.ledetekster.data,
-        arbeidsgivere: finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere),
+        arbeidsgivere: finnArbeidsgivereForAktiveSykmeldinger(getSykmeldinger, naermesteLedere),
         henter: state.ledetekster.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
+        oppretter: state.oppfolgingsdialoger.oppretter,
+        opprettet: state.oppfolgingsdialoger.opprettet,
+        opprettingFeilet: state.oppfolgingsdialoger.opprettingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

@@ -30,15 +30,13 @@ export const LandingssideSide = (props) => {
         }
         </Side>);
     }
-    return (
-        <StrippetSide tittel={getLedetekst('landingsside.sidetittel')}>
-            <Landingsside
-                brodsmuler={brodsmuler}
-                skjulVarsel={skjulVarsel}
-                sykepengesoknader={sykepengesoknader}
-                harDialogmote={harDialogmote} />
-        </StrippetSide>
-    );
+    return (<StrippetSide tittel={getLedetekst('landingsside.sidetittel')}>
+        <Landingsside
+            brodsmuler={brodsmuler}
+            skjulVarsel={skjulVarsel}
+            sykepengesoknader={sykepengesoknader}
+            harDialogmote={harDialogmote} />
+    </StrippetSide>);
 };
 
 LandingssideSide.propTypes = {

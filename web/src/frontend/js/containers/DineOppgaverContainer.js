@@ -5,6 +5,8 @@ import { NY as NY_SYKEPENGESOKNAD } from '../enums/sykepengesoknadstatuser';
 import { Link } from 'react-router';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../propTypes';
 import { getLedetekst } from 'digisyfo-npm';
+import { getSvarsideModus } from 'moter-npm';
+import { erMotePassert } from '../utils';
 
 const Li = ({ tekst, url }) => {
     return (<li>
@@ -41,7 +43,7 @@ NySykepengesoknad.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
 };
 
-export const DineOppgaver = ({ sykmeldinger, sykepengesoknader, visOppgaver }) => {
+export const DineOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote }) => {
     if (!visOppgaver) {
         return null;
     }
@@ -53,8 +55,9 @@ export const DineOppgaver = ({ sykmeldinger, sykepengesoknader, visOppgaver }) =
             <div className="dineOppgaver__tekst">
                 <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
                 <ul className="dineOppgaver__liste">
-                    { sykmeldinger.length > 0 ? <NySykmelding sykmeldinger={sykmeldinger} /> : null}
-                    { sykepengesoknader.length > 0 ? <NySykepengesoknad sykepengesoknader={sykepengesoknader} /> : null}
+                    { sykmeldinger.length > 0 ? <NySykmelding sykmeldinger={sykmeldinger} /> : null }
+                    { sykepengesoknader.length > 0 ? <NySykepengesoknad sykepengesoknader={sykepengesoknader} /> : null }
+                    { mote !== null ? <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> : null }
                 </ul>
             </div>
         </div>
@@ -65,6 +68,7 @@ DineOppgaver.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     visOppgaver: PropTypes.bool,
+    mote: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
 };
 
 export const mapStateToProps = (state) => {
@@ -74,12 +78,22 @@ export const mapStateToProps = (state) => {
     const sykepengesoknader = state.sykepengesoknader.data.filter((s) => {
         return s.status === NY_SYKEPENGESOKNAD;
     });
-    const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0;
+    const mote = state.mote.data;
+    let moteRes = null;
+
+    if (mote && !erMotePassert(mote)) {
+        if (getSvarsideModus(mote) === 'SKJEMA') {
+            moteRes = 'TRENGER_SVAR';
+        }
+    }
+
+    const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null;
 
     return {
         sykmeldinger,
         sykepengesoknader,
         visOppgaver,
+        mote: moteRes,
     };
 };
 

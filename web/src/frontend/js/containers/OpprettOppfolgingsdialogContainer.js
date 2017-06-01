@@ -10,7 +10,6 @@ import { brodsmule as brodsmulePt } from '../propTypes';
 import OpprettOppfolgingsdialog from '../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
 import { OppfolgingsdialogSamtykke, opprettOppfolgingsdialogAt as opprettOppfolgingsdialog } from 'oppfolgingsdialog-npm';
 import { finnArbeidsgivereForAktiveSykmeldinger } from '../utils/sykmeldingUtils';
-import { getSykmeldinger } from '../../test/mockSykmeldinger';
 
 export class OpprettOppfolgingsdialogSide extends Component {
 
@@ -117,7 +116,7 @@ export const mapStateToProps = (state) => {
 
     return {
         ledetekster: state.ledetekster.data,
-        arbeidsgivere: finnArbeidsgivereForAktiveSykmeldinger(getSykmeldinger, naermesteLedere),
+        arbeidsgivere: finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere),
         henter: state.ledetekster.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
         oppretter: state.oppfolgingsdialoger.oppretter,

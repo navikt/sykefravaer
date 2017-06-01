@@ -31,7 +31,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
                 ingenOppfolgingsdialogerMelding={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.ingen-oppfolgingsdialoger.melding')}
                 rootUrl={`${getContextRoot()}`}
                 ledetekster={ledetekster}
-                brukertype={"sykmeldt"}
+                brukertype={"SYKMELDT"}
             />
         }
     </div>);

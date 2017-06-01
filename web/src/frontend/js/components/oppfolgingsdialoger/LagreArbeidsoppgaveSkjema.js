@@ -53,7 +53,7 @@ export class LagreArbeidsoppgaveSkjema extends Component {
     }
     handleInitialize() {
         const initData = {
-            "radiosvar0": FELTER.kanGjennomfoeres.svar[0],
+            'radiosvar0': FELTER.kanGjennomfoeres.svar[0],
         };
         this.props.initialize(initData);
     }
@@ -218,16 +218,16 @@ function validate(values) {
     }
     const navnLengde = values.arbeidsoppgavenavn ? values.arbeidsoppgavenavn.length : 0;
     const navnMaksLengde = 120;
-    if(navnLengde > navnMaksLengde) {
-        feilmeldinger.arbeidsoppgavenavn = 'Maks 120 tegn tillatt'
+    if (navnLengde > navnMaksLengde) {
+        feilmeldinger.arbeidsoppgavenavn = 'Maks 120 tegn tillatt';
     }
     if (!values.beskrivelse) {
         feilmeldinger.beskrivelse = 'Fyll inn beskrivelse';
     }
     const beskrivelseLengde = values.beskrivelse ? values.beskrivelse.length : 0;
     const beskrivelseMaksLengde = 2000;
-    if(beskrivelseLengde > beskrivelseMaksLengde) {
-        feilmeldinger.beskrivelse = 'Maks 2000 tegn tillatt'
+    if (beskrivelseLengde > beskrivelseMaksLengde) {
+        feilmeldinger.beskrivelse = 'Maks 2000 tegn tillatt';
     }
     return feilmeldinger;
 }

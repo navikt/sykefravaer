@@ -12,7 +12,7 @@ import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger';
 import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
 import ledere from './reducers/ledere';
-import { oppfolgingsdialogerAt as oppfolgingsdialoger, arbeidsoppgaver } from 'oppfolgingsdialog-npm';
+import { oppfolgingsdialogerAt as oppfolgingsdialoger, arbeidsoppgaver, samtykke } from 'oppfolgingsdialog-npm';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
 import { hentSykepengesoknader } from './actions/sykepengesoknader_actions';
 import { hentLedetekster, hentToggles, ledetekster, tidslinjer, toggles } from 'digisyfo-npm';
@@ -40,6 +40,7 @@ const rootReducer = combineReducers({
     history,
     ledere,
     oppfolgingsdialoger,
+    samtykke,
     svar,
     pilot,
     vedlikehold,

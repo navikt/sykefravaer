@@ -17,6 +17,7 @@ import OppfolgingsdialogerContainer from '../containers/OppfolgingsdialogerConta
 import OppfolgingsdialogContainer from '../containers/OppfolgingsdialogContainer';
 import OpprettOppfolgingsdialogContainer from '../containers/OpprettOppfolgingsdialogContainer';
 import ArbeidsoppgaverContainer from '../containers/ArbeidsoppgaverContainer';
+import OppfolgingsdialogSamtykkeContainer from '../containers/OppfolgingsdialogSamtykkeContainer';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
@@ -38,6 +39,7 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/oppfolgingsdialoger/opprett" component={OpprettOppfolgingsdialogContainer} />
         <Route path="/sykefravaer/oppfolgingsdialoger/:oppfolgingsdialogId" component={OppfolgingsdialogContainer} />
         <Route path="/sykefravaer/oppfolgingsdialoger/:oppfolgingsdialogId/arbeidsoppgaver" component={ArbeidsoppgaverContainer} />
+        <Route path="/sykefravaer/oppfolgingsdialoger/:oppfolgingsdialogId/samtykk" component={OppfolgingsdialogSamtykkeContainer} />
         <Route path="*" component={LandingssideContainer} />
     </Router>);
 };

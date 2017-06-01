@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import history from '../history';
 import { getOppfolgingsdialog } from '../utils/oppfolgingsdialogUtils';
+import { hentOppfolgingsdialogerAt as hentOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
 import {
     lagreArbeidsoppgave,
     OppfolgingsdialogSide,
@@ -25,6 +25,12 @@ export class ArbeidsoppgaverSide extends Component {
         this.sendArbeidsoppgave = this.sendArbeidsoppgave.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.lagrer && this.props.lagret) {
+            this.props.hentOppfolgingsdialoger();
+        }
+    }
+
     toggleArbeidsoppgaveSkjema() {
         this.setState({
             visArbeidsoppgaveSkjema: !this.state.visArbeidsoppgaveSkjema,
@@ -33,17 +39,16 @@ export class ArbeidsoppgaverSide extends Component {
 
     sendArbeidsoppgave(values) {
         this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialogId, values);
-        history.push(`/sykefravaer/oppfolgingsdialoger/${this.props.oppfolgingsdialogId}/arbeidsoppgaver`);
     }
 
     render() {
-        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, sender, senderFeilet } = this.props;
+        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, lagrer, lagringFeilet } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
-                if (henter || sender) {
+                if (henter || lagrer) {
                     return <AppSpinner />;
-                } else if (hentingFeilet || senderFeilet) {
+                } else if (hentingFeilet || lagringFeilet) {
                     return (<Feilmelding />);
                 }
                 return (
@@ -99,9 +104,11 @@ ArbeidsoppgaverSide.propTypes = {
     oppfolgingsdialogId: PropTypes.string,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    sender: PropTypes.bool,
-    senderFeilet: PropTypes.bool,
+    lagrer: PropTypes.bool,
+    lagret: PropTypes.bool,
+    lagringFeilet: PropTypes.bool,
     lagreArbeidsoppgave: PropTypes.func,
+    hentOppfolgingsdialoger: PropTypes.func,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -113,8 +120,9 @@ export function mapStateToProps(state, ownProps) {
         ledetekster: state.ledetekster.data,
         henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter,
         hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet,
-        sender: state.arbeidsoppgaver.sender,
-        sendingFeilet: state.arbeidsoppgaver.sendingFeilet,
+        lagrer: state.arbeidsoppgaver.lagrer,
+        lagret: state.arbeidsoppgaver.lagret,
+        lagringFeilet: state.arbeidsoppgaver.lagringFeilet,
         oppfolgingsdialog,
         oppfolgingsdialogId,
         brodsmuler: [{
@@ -131,6 +139,6 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-const ArbeidsoppgaverContainer = connect(mapStateToProps, { lagreArbeidsoppgave })(ArbeidsoppgaverSide);
+const ArbeidsoppgaverContainer = connect(mapStateToProps, { lagreArbeidsoppgave, hentOppfolgingsdialoger })(ArbeidsoppgaverSide);
 
 export default ArbeidsoppgaverContainer;

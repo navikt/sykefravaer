@@ -43,6 +43,38 @@ export class ArbeidsoppgaverSide extends Component {
         this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialogId, values);
     }
 
+    renderNotifikasjonBoks(virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver) {
+        return (<NotifikasjonBoks
+            imgUrl={"/sykefravaer/img/svg/informasjonsboks.svg"}
+            tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
+                '%VIRKSOMHETSNAVN%': virksomhetsnavn,
+                '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver,
+            })}
+            classNames={'panel--oransje'}
+        />);
+    }
+    renderOppfolgingsdialogOppgaveTabell(arbeidsoppgaveListe) {
+        return (
+            <OppfolgingsdialogOppgaveTabell
+                arbeidsoppgaveListe={arbeidsoppgaveListe}
+                urlImgArrow={'/sykefravaer/img/svg/arrow-down.svg'}
+                urlImgVarsel={'/sykefravaer/img/svg/varseltrekant.svg'}
+            />
+        );
+    }
+
+    renderKnapper() {
+        return (
+            <div className="knapperad">
+                <button
+                    className="knapp knapp__opprettarbeidsoppgave"
+                    onClick={this.toggleArbeidsoppgaveSkjema}>
+                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-arbeidsoppgave')}
+                </button>
+            </div>
+        );
+    }
+
     render() {
         const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, lagrer, lagringFeilet } = this.props;
 
@@ -74,19 +106,11 @@ export class ArbeidsoppgaverSide extends Component {
                                 <div>
                                     {
                                         antallIkkeVurderteArbeidsoppgaver > 0 &&
-                                        <NotifikasjonBoks
-                                            imgUrl={"/sykefravaer/img/svg/informasjonsboks.svg"}
-                                            tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
-                                                '%VIRKSOMHETSNAVN%': oppfolgingsdialog.virksomhetsnavn,
-                                                '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver,
-                                            })}
-                                        />
+                                        this.renderNotifikasjonBoks(oppfolgingsdialog.virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver)
                                     }
-                                    <OppfolgingsdialogOppgaveTabell
-                                        arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe}
-                                        urlImgArrow="/sykefravaer/img/svg/arrow-down.svg"
-                                        urlImgVarsel="/sykefravaer/img/svg/varseltrekant.svg"
-                                    />
+                                    {
+                                        this.renderOppfolgingsdialogOppgaveTabell(oppfolgingsdialog.arbeidsoppgaveListe)
+                                    }
                                     {
                                         this.state.visArbeidsoppgaveSkjema ?
                                             <LagreArbeidsoppgaveSkjema
@@ -95,13 +119,7 @@ export class ArbeidsoppgaverSide extends Component {
                                                 sendArbeidsoppgave={this.sendArbeidsoppgave}
                                                 cancel={this.toggleArbeidsoppgaveSkjema}
                                             /> :
-                                            <div className="knapperad">
-                                                <button
-                                                    className="knapp knapp__opprettarbeidsoppgave"
-                                                    onClick={this.toggleArbeidsoppgaveSkjema}>
-                                                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-arbeidsoppgave')}
-                                                </button>
-                                            </div>
+                                            this.renderKnapper()
                                     }
                                 </div>
                         }

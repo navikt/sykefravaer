@@ -26,9 +26,8 @@ export class OpprettOppfolgingsdialogSide extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log("prevProps", prevProps)
         if (prevProps.oppretter && this.props.opprettet) {
-            history.push(`/sykefravaer/oppfolgingsdialoger/`);
+            history.push('/sykefravaer/oppfolgingsdialoger/');
         }
     }
 

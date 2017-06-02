@@ -21,6 +21,11 @@ const FELTER = {
             'Ja, den kan gjennomføres med tilrettelegging',
             'Nei, den kan ikke gjennomføres',
         ],
+        knapper: [
+            'radiosvar0',
+            'radiosvar1',
+            'radiosvar2',
+        ],
     },
     gjennomfoering: {
         navn: 'gjennomfoering',
@@ -42,25 +47,26 @@ export class LagreArbeidsoppgaveSkjema extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            gjennomfoeringSvarValgt: FELTER.kanGjennomfoeres.svar[0],
+            gjennomfoeringSvarValgt: FELTER.kanGjennomfoeres.knapper[0],
             selectedCheckboxes: new Set(),
         };
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.toggleCheckbox = this.toggleCheckbox.bind(this);
+        this.submitArbeidsoppgave = this.submitArbeidsoppgave.bind(this);
     }
     componentDidMount() {
         this.handleInitialize();
     }
     handleInitialize() {
         const initData = {
-            'radiosvar0': FELTER.kanGjennomfoeres.svar[0],
+            'radiosvar0': 'true',
         };
         this.props.initialize(initData);
     }
 
     handleOptionChange(e) {
         this.setState({
-            gjennomfoeringSvarValgt: e.target.value,
+            gjennomfoeringSvarValgt: e.target.name,
         });
     }
 
@@ -74,6 +80,11 @@ export class LagreArbeidsoppgaveSkjema extends Component {
         this.setState({
             selectedCheckboxes: set,
         });
+    }
+
+    submitArbeidsoppgave(values) {
+        Object.assign(values, { gjennomfoeringSvarValgt: this.state.gjennomfoeringSvarValgt });
+        this.props.sendArbeidsoppgave(values);
     }
 
     renderTextfelt(felt, ledetekster) {
@@ -119,7 +130,7 @@ export class LagreArbeidsoppgaveSkjema extends Component {
                 <button
                     type="submit"
                     className="knapp knapp__opprettarbeidsoppgave"
-                    disabled={this.state.gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.svar[1] && this.state.selectedCheckboxes.size === 0}>
+                    disabled={this.state.gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.knapper[1] && this.state.selectedCheckboxes.size === 0}>
                     {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.ny-arbeidsoppgave', ledetekster)}
                 </button>
                 { avbrytKnapp }
@@ -127,12 +138,11 @@ export class LagreArbeidsoppgaveSkjema extends Component {
         );
     }
 
-
     render() {
-        const { ledetekster, avbrytHref, handleSubmit, sendArbeidsoppgave, cancel } = this.props;
+        const { ledetekster, avbrytHref, handleSubmit, cancel } = this.props;
 
         return (
-            <form onSubmit={handleSubmit(sendArbeidsoppgave)} className="panel panel--lysblaa">
+            <form onSubmit={handleSubmit(this.submitArbeidsoppgave)} className="panel panel--lysblaa">
 
                 {this.renderTextfelt(FELTER.arbeidsoppgavenavn, ledetekster)}
 
@@ -148,9 +158,9 @@ export class LagreArbeidsoppgaveSkjema extends Component {
                                         component={"input"}
                                         type="radio"
                                         id={`radiosvar-${index}`}
-                                        value={svar}
+                                        value={FELTER.kanGjennomfoeres.knapper[index] === this.state.gjennomfoeringSvarValgt}
                                         onChange={this.handleOptionChange}
-                                        checked={svar === this.state.gjennomfoeringSvarValgt}
+                                        checked={FELTER.kanGjennomfoeres.knapper[index] === this.state.gjennomfoeringSvarValgt}
                                     />
                                     <label htmlFor={`radiosvar-${index}`}>
                                         {svar}
@@ -162,7 +172,7 @@ export class LagreArbeidsoppgaveSkjema extends Component {
                 </div>
 
                 {
-                    this.state.gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.svar[1] &&
+                    this.state.gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.knapper[1] &&
 
                     <div className="inputgruppe">
                         <h3>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.tilrettelegging', ledetekster)}</h3>
@@ -185,11 +195,11 @@ export class LagreArbeidsoppgaveSkjema extends Component {
                 }
 
                 {
-                    this.state.gjennomfoeringSvarValgt !== FELTER.kanGjennomfoeres.svar[0] && this.renderTextArea(FELTER.beskrivelse, ledetekster)
+                    this.state.gjennomfoeringSvarValgt !== FELTER.kanGjennomfoeres.knapper[0] && this.renderTextArea(FELTER.beskrivelse, ledetekster)
                 }
 
                 {
-                    this.state.gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.svar[1] && <Varselstripe>
+                    this.state.gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.knapper[1] && <Varselstripe>
                         <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.varselstripe.tekst', ledetekster)}</p>
                     </Varselstripe>
                 }

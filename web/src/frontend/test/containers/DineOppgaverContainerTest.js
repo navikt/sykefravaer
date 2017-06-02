@@ -79,6 +79,14 @@ describe("DineOppgaverContainer", () => {
             expect(res.visOppgaver).to.be.false;
         });
 
+        it("Skal returnere visOppgaver === true hvis det finnes møte, men ingen sykmeldinger/sykepengesoknader", () => {
+            state.dineSykmeldinger.data = [];
+            state.sykepengesoknader.data = [];
+            state.mote.data = moteIkkeBesvart;
+            const res = mapStateToProps(state);
+            expect(res.visOppgaver).to.be.true;
+        });
+
         describe("Møte", () => {
 
             beforeEach(() => {

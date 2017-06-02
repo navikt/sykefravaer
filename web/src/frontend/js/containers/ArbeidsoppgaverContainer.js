@@ -72,16 +72,21 @@ export class ArbeidsoppgaverSide extends Component {
                                 </div>
                                 :
                                 <div>
-
                                     {
                                         antallIkkeVurderteArbeidsoppgaver > 0 &&
                                         <NotifikasjonBoks
                                             imgUrl={"/sykefravaer/img/svg/informasjonsboks.svg"}
-                                            tekst={`${oppfolgingsdialog.virksomhetsnavn} har lagt til ${antallIkkeVurderteArbeidsoppgaver} nye arbeidsoppgaver`}
+                                            tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
+                                                '%VIRKSOMHETSNAVN%': oppfolgingsdialog.virksomhetsnavn,
+                                                '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver,
+                                            })}
                                         />
                                     }
                                     <OppfolgingsdialogOppgaveTabell
-                                        arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />
+                                        arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe}
+                                        urlImgArrow="/sykefravaer/img/svg/arrow-down.svg"
+                                        urlImgVarsel="/sykefravaer/img/svg/varseltrekant.svg"
+                                    />
                                     {
                                         this.state.visArbeidsoppgaveSkjema ?
                                             <LagreArbeidsoppgaveSkjema

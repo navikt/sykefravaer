@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { getOppfolgingsdialog } from '../utils/oppfolgingsdialogUtils';
+import { getOppfolgingsdialog, isEmpty } from '../utils/oppfolgingsdialogUtils';
 import { hentOppfolgingsdialogerAt as hentOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
 import {
     lagreArbeidsoppgave,
     OppfolgingsdialogSide,
     OppfolgingsdialogOppgaveTabell,
+    finnArbeidsoppgaverIkkeVurdertAvSykmeldt,
+    NotifikasjonBoks,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
@@ -44,6 +46,8 @@ export class ArbeidsoppgaverSide extends Component {
     render() {
         const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, lagrer, lagringFeilet } = this.props;
 
+        const antallIkkeVurderteArbeidsoppgaver = oppfolgingsdialog ? finnArbeidsoppgaverIkkeVurdertAvSykmeldt(oppfolgingsdialog.arbeidsoppgaveListe).length : 0;
+
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
                 if (henter || lagrer) {
@@ -57,7 +61,7 @@ export class ArbeidsoppgaverSide extends Component {
                         ledetekster={ledetekster}
                         rootUrl={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}`}>
                         {
-                            oppfolgingsdialog.arbeidsoppgaveListe.length === 0 ?
+                            isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                                 <div>
                                     <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel', ledetekster)}</h2>
                                     <LagreArbeidsoppgaveSkjema
@@ -68,6 +72,14 @@ export class ArbeidsoppgaverSide extends Component {
                                 </div>
                                 :
                                 <div>
+
+                                    {
+                                        antallIkkeVurderteArbeidsoppgaver > 0 &&
+                                        <NotifikasjonBoks
+                                            imgUrl={"/sykefravaer/img/svg/informasjonsboks.svg"}
+                                            tekst={`${oppfolgingsdialog.virksomhetsnavn} har lagt til ${antallIkkeVurderteArbeidsoppgaver} nye arbeidsoppgaver`}
+                                        />
+                                    }
                                     <OppfolgingsdialogOppgaveTabell
                                         arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />
                                     {

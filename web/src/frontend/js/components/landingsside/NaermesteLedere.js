@@ -31,7 +31,7 @@ export default class NaermesteLedere extends Component {
 
     render() {
         const { ledere } = this.props;
-        return (<div className="panel blokk">
+        return (<div>
             {this.state.visLightbox && <Lightbox onClose={() => {
                 this.lukkLightbox();
             }}>
@@ -39,15 +39,10 @@ export default class NaermesteLedere extends Component {
                     this.lukkLightbox();
                 }} />
             </Lightbox>}
-            <h2 className="typo-undertittel">Din nærmeste leder</h2>
-            <p>Din nærmeste leder med personalansvar vil få se sykmeldinger du sender inn fra nav.no.</p>
             {
                 ledere.map((leder, index) => {
                     return (<div className={`leder ${leder.avkreftet ? ' leder--avkreftet' : ''}`} key={index}>
-                        <div className="leder__data">
-                            <h3>{leder.navn}</h3>
-                            <p>{leder.organisasjonsnavn}</p>
-                        </div>
+                        <p className="leder__informasjon">Din nærmeste leder i {leder.organisasjonsnavn} er {leder.navn}</p>
                         <div className="leder__handlinger">
                             {
                                 !leder.avkreftet && <button ref={`js-leder-${leder.orgnummer}`} type="button" className="lenke leder__meldFeil js-feil" onClick={() => {

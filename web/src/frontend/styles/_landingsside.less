@@ -131,3 +131,30 @@
     margin-bottom: 0;
   }
 }
+
+.landingspanel:extend(.panel) {
+    box-shadow: 0 0 0 5px #C2EAF7 inset;
+    margin-bottom: .5em;
+}
+
+.landingspanel__tittel {
+
+}
+
+@media (min-width: @skjermLiten) {
+
+  .peker__ikon {
+    width: 4.5em;
+    margin-right: 1.5em;
+
+    img {
+      width: 2em;
+      height: 2em;
+      display: flex;
+    }
+  }
+
+  .peker, .landingspanel {
+    margin-bottom: 1em;
+  }
+}

@@ -7,6 +7,7 @@ import LandingssideLenke from './LandingssideLenke';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Brodsmuler from '../Brodsmuler';
 import DineOppgaverContainer from '../../containers/DineOppgaverContainer';
+import DinSituasjonContainer from '../../containers/DinSituasjonContainer';
 
 export class GenerellInfo extends Component {
     componentDidMount() {
@@ -48,7 +49,8 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
             }
 
             <DineOppgaverContainer />
-            <nav className="blokk" role="navigation">
+            <DinSituasjonContainer />
+            <nav role="navigation">
                 <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
                     undertittel="Informasjon og oversikt over aktiviteter" variant="fersken" />
                 <LandingssideLenke to="/sykefravaer/sykmeldinger" ikon="sykmeldinger" ikonAlt="Sykmelding" tittel="Sykmeldinger"
@@ -67,7 +69,6 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
                     <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
                 }
             </nav>
-            <NaermesteLedereContainer />
             <GenerellInfo />
         </div>
     </div>);

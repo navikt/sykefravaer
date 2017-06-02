@@ -1,5 +1,5 @@
 .dineOppgaver:extend(.panel) {
-	box-shadow: 0 0 0 5px #87D5EE inset;
+	box-shadow: 0 0 0 5px #C2EAF7 inset;
 }
 
 .dineOppgaver__container {
@@ -14,9 +14,7 @@
 .dineOppgaver__tittel {
 	.mixin-typo-systemtittel();
 	margin: 0 0 1em 0;
-	padding-bottom: .5em;
 	padding-top: .5em;
-	border-bottom: 1px solid @ikonGraa;
 }
 
 .dineOppgaver__liste {
@@ -36,21 +34,18 @@
 	}
 
 	a {
-		-webkit-font-smoothing: subpixel-antialiased;
-		-webkit-text-stroke: 0.3px;			
 		.mixin-typo-ingress();
+		background-image: data-uri("../img/png/pilNeste--graa.png");
+		background-repeat: no-repeat;
+		background-position: right center;
+		background-size: .75em;
+		padding-right: 1.25em;
 		color: @navTekst;
 	}
 
-	a:after {
-		content: "\203A";
-		color: @ikonGraa;
-		margin-left: .5em;
-		transform: scale(1.5, 1.5);
-	}
-
-	a:hover, a:hover:after {
+	a:hover {
 		color: @lenkeBlaa;
+		background-image: data-uri("../img/png/pilNeste--blaa.png");
 	}
 
 }

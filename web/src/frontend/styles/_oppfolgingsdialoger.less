@@ -1,3 +1,6 @@
+@lenkeBlaa: #0067c5;
+@lenkeGraa: #c8c8c8;
+
 .blokk__velgarbeidsgiver {
     padding-left: 4em;
     padding-right: 4em;
@@ -122,18 +125,39 @@
 
 }
 
-
-
-
-
-
-
-.oppfolgingsdialogLenkAktiv {
-    font-size: 0.8rem;
+.navigasjonsLenkeListe {
+    padding: 0;
 }
-.oppfolgingsdialogHeaderDiv{
-    background-image: data-uri("../img/svg/pil-videre-graa.svg");
-    background-repeat: no-repeat;
-    margin-left: 0.7rem;
-    margin-right: 0.7rem;
+.navigasjon__element {
+    display: inline-block;
+    padding: .5em 0;
+    .mixin-typo-element();
+    text-transform: uppercase;
+    &:not(:last-child):after {
+        content: "";
+        background-image: data-uri("../img/svg/pil-videre-graa.svg");
+        background-repeat: no-repeat;
+        padding: 0 .5em;
+        margin-left: 1em;
+        margin-right: 0.5em;
+    }
+}
+.navigasjon__element__inner {
+    align-items: center;
+    cursor: pointer;
+    color: @lenkeGraa;
+    a {
+        color: @lenkeGraa;
+    }
+    &:hover {
+        border-bottom: 4px @lenkeBlaa solid;
+    }
+    border-bottom: none;
+}
+.navigasjon__element__inner--active {
+    color: @lenkeBlaa;
+    a {
+        color: @lenkeBlaa;
+    }
+    border-bottom: 4px @lenkeBlaa solid;
 }

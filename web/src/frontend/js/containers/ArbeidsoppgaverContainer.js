@@ -104,6 +104,7 @@ export class ArbeidsoppgaverSide extends Component {
                                 </div>
                                 :
                                 <div>
+                                    <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel', ledetekster)}</h2>
                                     {
                                         antallIkkeVurderteArbeidsoppgaver > 0 &&
                                         this.renderNotifikasjonBoks(oppfolgingsdialog.virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver)

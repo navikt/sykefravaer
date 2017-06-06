@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import { Field, reduxForm, initialize } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { Varselstripe } from 'digisyfo-npm';
 import Checkbox from '../skjema/Checkbox';
 import Tekstfelt from '../skjema/Tekstfelt';
@@ -59,7 +59,7 @@ export class LagreArbeidsoppgaveSkjema extends Component {
     }
     handleInitialize() {
         const initData = {
-            'radiosvar0': 'true',
+            radiosvar0: 'true',
         };
         this.props.initialize(initData);
     }

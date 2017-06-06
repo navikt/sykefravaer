@@ -98,7 +98,7 @@ export class ArbeidsoppgaverSide extends Component {
                                     <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel', ledetekster)}</h2>
                                     <LagreArbeidsoppgaveSkjema
                                         ledetekster={ledetekster}
-                                        avbrytHref={`/sykefravaer/oppfolgingsdialoger`}
+                                        avbrytHref={'/sykefravaer/oppfolgingsdialoger'}
                                         sendArbeidsoppgave={this.sendArbeidsoppgave}
                                     />
                                 </div>

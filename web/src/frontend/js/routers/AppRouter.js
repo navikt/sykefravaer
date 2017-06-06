@@ -35,11 +35,11 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/soknader/:sykepengesoknadId/oppsummering" component={OppsummeringContainer} />
         <Route path="/sykefravaer/roller-og-ansvarsomrader" component={RollerContainer} />
         <Route path="/sykefravaer/dialogmote" component={MoteContainer} />
-        <Route path="/sykefravaer/oppfolgingsdialoger" component={OppfolgingsdialogerContainer} />
-        <Route path="/sykefravaer/oppfolgingsdialoger/opprett" component={OpprettOppfolgingsdialogContainer} />
-        <Route path="/sykefravaer/oppfolgingsdialoger/:oppfolgingsdialogId" component={OppfolgingsdialogContainer} />
-        <Route path="/sykefravaer/oppfolgingsdialoger/:oppfolgingsdialogId/arbeidsoppgaver" component={ArbeidsoppgaverContainer} />
-        <Route path="/sykefravaer/oppfolgingsdialoger/:oppfolgingsdialogId/samtykk" component={OppfolgingsdialogSamtykkeContainer} />
+        <Route path="/sykefravaer/oppfolgingsplaner" component={OppfolgingsdialogerContainer} />
+        <Route path="/sykefravaer/oppfolgingsplaner/opprett" component={OpprettOppfolgingsdialogContainer} />
+        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId" component={OppfolgingsdialogContainer} />
+        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId/arbeidsoppgaver" component={ArbeidsoppgaverContainer} />
+        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId/samtykk" component={OppfolgingsdialogSamtykkeContainer} />
         <Route path="*" component={LandingssideContainer} />
     </Router>);
 };

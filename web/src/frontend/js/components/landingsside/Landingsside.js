@@ -61,7 +61,7 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
 
             {
                 visOppfoelgingsdialog &&
-                    <LandingssideLenke to="/sykefravaer/oppfolgingsdialoger" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
+                    <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
             }
         </nav>
         <NaermesteLedereContainer />

@@ -47,7 +47,7 @@ describe("validerFravaerOgFriskmelding", () => {
 
         it("Skal klage hvis man ikke har svart på spørsmålet", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-            expect(res.harGjenopptattArbeidFulltUt).to.equal("Vennligst oppgi om du har gjenopptatt arbeidet fullt ut")
+            expect(res.harGjenopptattArbeidFulltUt).to.equal("Vennligst oppgi om du var tilbake i arbeid før sykmeldingsperioden utløp")
         });
 
         describe("Dersom svaret er nei", () => {
@@ -75,7 +75,7 @@ describe("validerFravaerOgFriskmelding", () => {
 
             it("Skal påse at gjenopptattArbeidFulltUtDato er påkrevd", () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-                expect(res.gjenopptattArbeidFulltUtDato).to.equal("Vennligst oppgi når du gjenopptok arbeidet fullt ut")
+                expect(res.gjenopptattArbeidFulltUtDato).to.equal("Vennligst oppgi når du gjenopptok arbeidet")
             });
 
             it("Skal påse at gjenopptattArbeidFulltUtDato er på riktig format", () => {
@@ -280,6 +280,30 @@ describe("validerFravaerOgFriskmelding", () => {
 
       });
 
+      describe("Dersom svaret er ja og man har krysset av for ferie og fylt og søknaden har forrigeSykeforloepTom satt", () => {
+        beforeEach(() => {
+          sykepengesoknad = getSoknad({
+            forrigeSykeforloepTom: new Date("2016-05-12"),
+          })
+          values.harHattFeriePermisjonEllerUtenlandsopphold = true;
+          values.harGjenopptattArbeidFulltUt = true;
+          values.gjenopptattArbeidFulltUtDato = "17.01.2017"
+          values.harHattFerie = true;
+          values.ferie = [{
+            fom: "10.01.2015",
+            tom: "15.01.2017"
+          }]
+        });
+
+        it("Skal klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato", () => {
+          const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+          expect(res.ferie).to.deep.equal([{
+            fom: "Datoen må være innenfor perioden 12.05.2016-16.01.2017"
+          }])
+        });
+
+      });
+
       describe("Dersom svaret er ja og man har krysset av for permisjon", () => {
         beforeEach(() => {
           values.harHattFeriePermisjonEllerUtenlandsopphold = true;
@@ -461,7 +485,6 @@ describe("validerFravaerOgFriskmelding", () => {
           const values = {
             "id": "b2450694-bc57-40cd-a834-34c817ace7e3",
             "status": "NY",
-            "innsendtDato": null,
             "opprettetDato": "2017-02-02T00:00:00.000Z",
             "arbeidsgiver": {
               "navn": "BYGGMESTER BLOM AS",
@@ -500,7 +523,6 @@ describe("validerFravaerOgFriskmelding", () => {
           const sykepengesoknad = {
             "id": "b2450694-bc57-40cd-a834-34c817ace7e3",
             "status": "NY",
-            "innsendtDato": null,
             "opprettetDato": "2017-02-02T00:00:00.000Z",
             "arbeidsgiver": {
               "navn": "BYGGMESTER BLOM AS",

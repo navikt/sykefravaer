@@ -30,7 +30,7 @@
     width: 100%;
 
     p {
-        .mixin-typo-infotekst();
+        .mixin-typo-normal();
         margin: 0; 
     }
 }
@@ -112,6 +112,10 @@ p.nokkelopplysning__meta {
         margin-bottom: 0;
     }
 
+    .nokkelopplysning:last-child {
+        margin-bottom: 0;
+    }
+
 }
 
 .nokkelopplysning--statusopplysning {
@@ -150,6 +154,12 @@ p.nokkelopplysning__meta {
             margin-left: 1em;
         }
 
+    }
+
+    .nokkelopplysning--statusopplysning:only-child {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
     }
 
 }

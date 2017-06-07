@@ -46,7 +46,7 @@ const ArbeidsgiverSkjema = ({ arbeidsgivere, handleSubmit, avbrytHref, handleOpt
 
             {sykmeldtHarManglendeNaermesteLeder(arbeidsgivere) &&
             <Varselstripe>
-                <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varselstripe.tekst')}Les mer <Link className="lenke">her</Link></p>
+                <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varselstripe.tekst')}</p>
             </Varselstripe>}
 
             <div className="knapperad">

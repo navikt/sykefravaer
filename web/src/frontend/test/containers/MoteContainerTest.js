@@ -22,6 +22,7 @@ describe("MoteContainer", () => {
         let svarActions;
         let actions;
         let mote;
+        let clock;
 
         beforeEach(() => {
             mote = getMote();
@@ -30,8 +31,9 @@ describe("MoteContainer", () => {
             };
             svarActions = {
                 sendSvar: sinon.spy(),
-            }
+            };
             actions = Object.assign({}, svarActions, moteActions);
+            clock = sinon.useFakeTimers(1485524800000); // in a distant future in a galaxy far, far away
         });
 
         it("Skal vise AppSpinner hvis henter = true", () => {

@@ -32,6 +32,20 @@ export function sendSykepengesoknad(sykepengesoknad) {
     };
 }
 
+export function sendSykepengesoknadTilArbeidsgiver(sykepengesoknadsId) {
+    return {
+        type: actiontyper.SEND_SYKEPENGESOKNAD_TIL_ARBEIDSGIVER_FORESPURT,
+        sykepengesoknadsId,
+    };
+}
+
+export function sendSykepengesoknadTilNAV(sykepengesoknadsId) {
+    return {
+        type: actiontyper.SEND_SYKEPENGESOKNAD_TIL_NAV_FORESPURT,
+        sykepengesoknadsId,
+    };
+}
+
 export function sendSykepengesoknadFeilet() {
     return {
         type: actiontyper.SEND_SYKEPENGESOKNAD_FEILET,
@@ -46,8 +60,30 @@ export function sykepengesoknadSendt(sykepengesoknadsId, sykepengesoknad) {
     };
 }
 
+export function sykepengesoknadSendtTilNAV(sykepengesoknadsId, sykepengesoknad) {
+    return {
+        type: actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV,
+        sykepengesoknadsId,
+        sykepengesoknad,
+    };
+}
+
+export function sykepengesoknadSendtTilArbeidsgiver(sykepengesoknadsId, sykepengesoknad) {
+    return {
+        type: actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER,
+        sykepengesoknadsId,
+        sykepengesoknad,
+    };
+}
+
 export function senderSykepengesoknad() {
     return {
         type: actiontyper.SENDER_SYKEPENGESOKNAD,
+    };
+}
+
+export function sendSykepengesoknadHarIkkeFeilet() {
+    return {
+        type: actiontyper.SEND_SYKEPENGESOKNAD_HAR_IKKE_FEILET,
     };
 }

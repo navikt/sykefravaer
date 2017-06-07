@@ -66,6 +66,7 @@ export const getMote = (mote) => {
 export const moteAvbrutt = getMote({status: 'AVBRUTT'});
 
 export const moteBekreftet = getMote({status: 'BEKREFTET'});
+moteBekreftet.deltakere[1].svartidspunkt = new Date("2017-02-25");
 
 export const moteIkkeBesvart = getMote();
 

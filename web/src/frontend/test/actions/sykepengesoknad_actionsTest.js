@@ -86,5 +86,52 @@ describe("sykepengesoknader_actions", () => {
                 }
             });
         });
-    })
+
+        it("skal ha en sendSykepengesoknadTilArbeidsgiver()-funksjon som returnerer riktig action", () => {
+            expect(actions.sendSykepengesoknadTilArbeidsgiver('1')).to.deep.equal({
+                type: actiontyper.SEND_SYKEPENGESOKNAD_TIL_ARBEIDSGIVER_FORESPURT,
+                sykepengesoknadsId: '1',
+            });
+        });
+
+        it("skal ha en sendSykepengesoknadTilNAV()-funksjon som returnerer riktig action", () => {
+            expect(actions.sendSykepengesoknadTilNAV('1')).to.deep.equal({
+                type: actiontyper.SEND_SYKEPENGESOKNAD_TIL_NAV_FORESPURT,
+                sykepengesoknadsId: '1',
+            });
+        });
+
+        it("skal ha en sykepengesoknadSendtTilNAV()-funksjon som returnerer riktig action", () => {
+            expect(actions.sykepengesoknadSendtTilNAV('1', {id: '1'})).to.deep.equal({
+                type: actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV,
+                sykepengesoknadsId: '1',
+                sykepengesoknad: {id: '1'}
+            });
+        });
+
+        it("skal ha en sykepengesoknadSendtTilArbeidsgiver()-funksjon som returnerer riktig action", () => {
+            expect(actions.sykepengesoknadSendtTilArbeidsgiver('1', {id: '1'})).to.deep.equal({
+                type: actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER,
+                sykepengesoknadsId: '1',
+                sykepengesoknad: {id: '1'}
+            });
+        });
+
+        it("skal ha en sykepengesoknadSendt()-funksjon som returnerer riktig action", () => {
+            expect(actions.sykepengesoknadSendt('1', {
+                id: '1',
+                felt: 'felt'
+            })).to.deep.equal({
+                type: actiontyper.SYKEPENGESOKNAD_SENDT,
+                sykepengesoknadsId: '1',
+                sykepengesoknad: {
+                    id: '1',
+                    felt: 'felt'
+                }
+            });
+        });
+
+    });
+
+
 });

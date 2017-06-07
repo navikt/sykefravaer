@@ -1,6 +1,5 @@
 import * as actiontyper from '../actions/actiontyper';
 import { tilDato, parseDatoerPeriodeListe, parseDatoerPeriode } from '../utils/serialisering/dato';
-import { SENDT } from '../enums/sykepengesoknadstatuser';
 
 const initiellState = {
     henter: false,
@@ -51,27 +50,29 @@ const parseUtenlandsopphold = (utenlandsopphold) => {
 };
 
 export const parseDatofelter = (soknad) => {
-    const _soknad = Object.assign({}, soknad);
-    _soknad.aktiviteter = parseAktivitetsdatoer(soknad.aktiviteter);
-    _soknad.egenmeldingsperioder = soknad.egenmeldingsperioder && parseDatoerPeriodeListe(soknad.egenmeldingsperioder);
-    _soknad.ferie = soknad.ferie && parseDatoerPeriodeListe(soknad.ferie);
-    _soknad.permisjon = soknad.permisjon && parseDatoerPeriodeListe(soknad.permisjon);
-    _soknad.utenlandsopphold = parseUtenlandsopphold(soknad.utenlandsopphold);
-    _soknad.utdanning = parseUtdanningsDato(soknad.utdanning);
-    _soknad.gjenopptattArbeidFulltUtDato = tilDato(soknad.gjenopptattArbeidFulltUtDato);
-    _soknad.identdato = tilDato(soknad.identdato);
-    _soknad.innsendtDato = tilDato(soknad.innsendtDato);
-    _soknad.opprettetDato = tilDato(soknad.opprettetDato);
-    _soknad.sykmeldingSkrevetDato = tilDato(soknad.sykmeldingSkrevetDato);
-    return _soknad;
+    return Object.assign({}, soknad, {
+        aktiviteter: parseAktivitetsdatoer(soknad.aktiviteter),
+        egenmeldingsperioder: soknad.egenmeldingsperioder && parseDatoerPeriodeListe(soknad.egenmeldingsperioder),
+        ferie: soknad.ferie && parseDatoerPeriodeListe(soknad.ferie),
+        permisjon: soknad.permisjon && parseDatoerPeriodeListe(soknad.permisjon),
+        utenlandsopphold: parseUtenlandsopphold(soknad.utenlandsopphold),
+        utdanning: parseUtdanningsDato(soknad.utdanning),
+        gjenopptattArbeidFulltUtDato: tilDato(soknad.gjenopptattArbeidFulltUtDato),
+        identdato: tilDato(soknad.identdato),
+        sendtTilArbeidsgiverDato: tilDato(soknad.sendtTilArbeidsgiverDato),
+        sendtTilNAVDato: tilDato(soknad.sendtTilNAVDato),
+        opprettetDato: tilDato(soknad.opprettetDato),
+        sykmeldingSkrevetDato: tilDato(soknad.sykmeldingSkrevetDato),
+        forrigeSykeforloepTom: tilDato(soknad.forrigeSykeforloepTom),
+    });
 };
 
 export default function sykepengesoknader(state = initiellState, action) {
     switch (action.type) {
         case actiontyper.SYKEPENGESOKNADER_HENTET: {
             const soknader = action.sykepengesoknader.map((s) => {
-                const datoparsetSoknad = parseDatofelter(s);
-                return Object.assign({}, datoparsetSoknad, sorterAktiviteterEldsteFoerst(datoparsetSoknad));
+                const soknad = parseDatofelter(s);
+                return sorterAktiviteterEldsteFoerst(soknad);
             });
             return Object.assign({}, state, {
                 data: soknader,
@@ -103,17 +104,16 @@ export default function sykepengesoknader(state = initiellState, action) {
                 sendingFeilet: true,
             });
         }
-        case actiontyper.SYKEPENGESOKNAD_SENDT: {
-            let data;
-            // GAMMELT RESTSVAR
-            if (action.sykepengesoknad && action.sykepengesoknad.id) {
-                data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, action.sykepengesoknad);
-            } else {
-                data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
-                    status: SENDT,
-                    innsendtDato: new Date(),
-                });
-            }
+        case actiontyper.SEND_SYKEPENGESOKNAD_HAR_IKKE_FEILET: {
+            return Object.assign({}, state, {
+                sendingFeilet: false,
+                sender: false,
+            });
+        }
+        case actiontyper.SYKEPENGESOKNAD_SENDT:
+        case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV:
+        case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER: {
+            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, parseDatofelter(action.sykepengesoknad));
             return Object.assign({}, state, { data }, {
                 sender: false,
                 sendingFeilet: false,

@@ -54,12 +54,6 @@
         box-shadow: #ccc 0 0 4px 2px; /* hentet fra saksoversikt */
     }
 
-    &:active, &:focus {
-        .inngangspanel__undertekst {
-            color: @aktivBlaa;
-        }
-    }
-
     .inngangspanel__undertekst {
         .mixin-typo-normal();
     }
@@ -81,7 +75,7 @@
     p {
         margin-top: 0;
         margin-bottom: .5rem;
-        .mixin-typo-infotekst(); 
+        .mixin-typo-normal(); 
     }
 }
 
@@ -141,7 +135,7 @@
 }
 
 .inngangspanel__tittel {
-    .mixin-typo-element(); 
+    .mixin-typo-undertittel(); 
     display: block; 
     margin: 0; 
     margin-bottom: 8px; 

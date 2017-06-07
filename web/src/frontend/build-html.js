@@ -1,10 +1,8 @@
 var fs = require("fs");
 var Mustache = require("mustache");
 
-front = process.argv[2];
-env = process.argv[3];
-
-var timestamp = Date.now().toString();
+var env = process.argv[2];
+var timestamp = process.argv[3] || Date.now().toString();
 
 var dev = {
     'timestamp': `${timestamp}`,
@@ -14,6 +12,7 @@ var dev = {
     "oppfoelgingsdialogrestRoot": "http://localhost:8580/oppfoelgingsdialogrest/api",
     "bundleFileName": `bundle.js`,
     "enableLogging": true,
+    "isProd": false,
 };
 
 var prod = {
@@ -24,11 +23,14 @@ var prod = {
     "oppfoelgingsdialogrestRoot": "/oppfoelgingsdialogrest/api",
     "bundleFileName": "bundle-prod.js",
     "enableLogging": false,
+    "isProd": true
 };
 
-fs.readFile(front, function (err, data) {
+var settings = env === 'prod' ? prod : dev;
+
+fs.readFile("html/syfofront.mustache", function (err, data) {
     if (err) throw err;
-    const html = Mustache.render(data.toString(), env === 'prod' ? prod : dev);
+    const html = Mustache.render(data.toString(), settings);
     fs.writeFile('../main/webapp/syfofront.html', html, 'utf-8', (err) => {
         if (err) throw err;
     });

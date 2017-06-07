@@ -21,11 +21,6 @@ describe("Landingsside", () => {
         setLedetekster(ledetekster);
     });
 
-    it("Skal vise bilde over overskriften", () => {
-        component = shallow(<Landingsside skjulVarsel={false}/>);
-        expect(component.find(".sidetopp__bilde")).to.have.length(1);
-    });
-
     it("Skal vise overskrift for 'Ditt sykefravær'", () => {
         component = shallow(<Landingsside skjulVarsel={false}/>);
         expect(component.find(".js-sidetittel").text()).to.equal("Ditt sykefravær");

@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
-import arbeidssituasjoner from '../../arbeidssituasjonData';
 import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import Feilmelding from '../skjema/Feilmelding';
 import VelgArbeidsgiver from './VelgArbeidsgiver';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
-import { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
+import arbeidssituasjoner, { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
 
 const getArbeidssituasjoner = (arbeidssituasjon) => {
@@ -23,17 +22,19 @@ export const RendreVelgArbeidssituasjon = (props) => {
         <div>
             <div className="medHjelpetekst">
                 <label htmlFor="select-arbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
-                    {getLedetekst('din-sykmelding.arbeidssituasjon.tittel')}
+                    {getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}
                 </label>
                 <Hjelpetekst
                     id="velg-arbeidssituasjon-hjelpetekst"
-                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tittel')}
-                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.tekst')} />
+                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tittel')}
+                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')} />
             </div>
             <div className="selectContainer">
                 <select id="valgtArbeidssituasjon" {...input} className={meta.error && meta.touched ? 'input--feil' : ''}>
                     {getArbeidssituasjoner(input.value).map((arbeidssituasjon, index) => {
-                        return <option value={arbeidssituasjon.verdi} key={index}>{arbeidssituasjon.tekst}</option>;
+                        return (<option value={arbeidssituasjon.verdi} key={index}>
+                            {getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${arbeidssituasjon.verdi.toLowerCase()}`)}
+                        </option>);
                     })}
                 </select>
             </div>

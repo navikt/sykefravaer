@@ -5,6 +5,8 @@ import UnderUtviklingVarselContainer from '../../containers/UnderUtviklingVarsel
 import NaermesteLedereContainer from '../../containers/NaermesteLedereContainer';
 import LandingssideLenke from './LandingssideLenke';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import Brodsmuler from '../Brodsmuler';
+import DineOppgaverContainer from '../../containers/DineOppgaverContainer';
 
 export class GenerellInfo extends Component {
     componentDidMount() {
@@ -29,43 +31,45 @@ export class GenerellInfo extends Component {
             </p>
         </article>);
     }
-
 }
 
-const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmote = false, visOppfoelgingsdialog = false }) => {
+const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmote = false, brodsmuler, visOppfoelgingsdialog = false }) => {
     return (<div>
-        <div className="sidetopp">
-            <img className="sidetopp__bilde blokk" src="/sykefravaer/img/svg/illustrasjon-landingsside-2.svg"
-                alt={getLedetekst('landingsside.intro.lenketekst')} />
-            <h1 className="sidetopp__tittel js-sidetittel">
-                {getLedetekst('landingsside.sidetittel')}
-            </h1>
+        <div className="sidebanner">
+            <div className="sidebanner__innhold">
+                <Brodsmuler brodsmuler={brodsmuler} />
+                <h1 className="js-sidetittel sidebanner__tittel">{getLedetekst('landingsside.sidetittel')}</h1>
+                <img className="sidebanner__illustrasjon" src="/sykefravaer/img/svg/landingsside/konsultasjon.svg" alt="Konsultasjon" />
+            </div>
         </div>
-        {
-            (!skjulVarsel ? <UnderUtviklingVarselContainer /> : null)
-        }
-        <nav className="blokk" role="navigation">
-            <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
-                undertittel="Informasjon og oversikt over aktiviteter" variant="fersken" />
-            <LandingssideLenke to="/sykefravaer/sykmeldinger" ikon="sykmeldinger" ikonAlt="Sykmelding" tittel="Sykmeldinger"
-                variant="lysblaa" />
+        <div className="begrensning">
             {
-                sykepengesoknader.length > 0 &&
-                    <LandingssideLenke to="/sykefravaer/soknader" ikon="soknader" ikonAlt="Søknader" tittel="Søknader om sykepenger" variant="lysgronn" />
-
-            }
-            {
-                harDialogmote &&
-                    <LandingssideLenke to="/sykefravaer/dialogmote" ikon="dialogmoter" ikonAlt="Dialogmøter" tittel="Dialogmøter" variant="ceil" />
+                (!skjulVarsel ? <UnderUtviklingVarselContainer /> : null)
             }
 
-            {
-                visOppfoelgingsdialog &&
+            <DineOppgaverContainer />
+            <nav className="blokk" role="navigation">
+                <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
+                    undertittel="Informasjon og oversikt over aktiviteter" variant="fersken" />
+                <LandingssideLenke to="/sykefravaer/sykmeldinger" ikon="sykmeldinger" ikonAlt="Sykmelding" tittel="Sykmeldinger"
+                    variant="lysblaa" />
+                {
+                    sykepengesoknader.length > 0 &&
+                        <LandingssideLenke to="/sykefravaer/soknader" ikon="soknader" ikonAlt="Søknader" tittel="Søknader om sykepenger" variant="lysgronn" />
+
+                }
+                {
+                    harDialogmote &&
+                        <LandingssideLenke to="/sykefravaer/dialogmote" ikon="dialogmoter" ikonAlt="Dialogmøter" tittel="Dialogmøter" variant="ceil" />
+                }
+                {
+                    visOppfoelgingsdialog &&
                     <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
-            }
-        </nav>
-        <NaermesteLedereContainer />
-        <GenerellInfo />
+                }
+            </nav>
+            <NaermesteLedereContainer />
+            <GenerellInfo />
+        </div>
     </div>);
 };
 
@@ -73,8 +77,8 @@ Landingsside.propTypes = {
     visOppfoelgingsdialog: PropTypes.bool.isRequired,
     skjulVarsel: PropTypes.bool.isRequired,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
-    dialogmoter: PropTypes.array,
     harDialogmote: PropTypes.bool,
+    brodsmuler: PropTypes.array,
 };
 
 export default Landingsside;

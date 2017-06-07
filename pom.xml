@@ -13,7 +13,7 @@
 
     <groupId>no.nav.syfo</groupId>
     <artifactId>syfofront</artifactId>
-    <version>4.3-LOCAL</version>
+    <version>5.0-LOCAL</version>
 
     <modules>
         <module>config</module>
@@ -36,7 +36,7 @@
             <dependency>
                 <groupId>no.nav.sbl</groupId>
                 <artifactId>innholdshenter</artifactId>
-                <version>2.6</version>
+                <version>5.0</version>
             </dependency>
             <dependency>
                 <groupId>no.nav.sbl.dialogarena</groupId>

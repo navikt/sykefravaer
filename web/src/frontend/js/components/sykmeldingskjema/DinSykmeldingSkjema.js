@@ -19,7 +19,7 @@ const modi = {
     BEKREFT: 'BEKREFT',
 };
 
-const DIN_SYKMELDING_SKJEMANAVN = 'dinSykmeldingSkjema';
+export const DIN_SYKMELDING_SKJEMANAVN = 'dinSykmeldingSkjema';
 
 export class DinSykmeldingSkjemaComponent extends Component {
 
@@ -109,14 +109,12 @@ export class DinSykmeldingSkjemaComponent extends Component {
         setArbeidssituasjon(values.valgtArbeidssituasjon, sykmelding.id);
         setArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver);
 
-        const arbeidsgiverForskutterer = values.arbeidsgiverForskutterer === 'JA';
-
         switch (modus) {
             case modi.SEND_MED_NAERMESTE_LEDER:
             case modi.SEND: {
                 const feilaktigeOpplysningerParam = this.getFeilaktigeOpplysninger(values);
                 this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id,
-                    values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysningerParam, values.beOmNyNaermesteLeder, arbeidsgiverForskutterer);
+                    values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysningerParam, values.beOmNyNaermesteLeder);
                 return;
             }
             case modi.BEKREFT: {

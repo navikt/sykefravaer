@@ -4,15 +4,18 @@ import {mount, shallow, render} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import SendtSoknad from '../../../js/components/sykepengesoknad/SendtSoknad';
+import SendtSoknad, { getNokkelopplysninger, Knapperad } from '../../../js/components/sykepengesoknad/SendtSoknad';
+import { sendSykepengesoknadTilArbeidsgiver, sendSykepengesoknadTilNAV } from '../../../js/actions/sykepengesoknader_actions';
 import { Soknad } from 'digisyfo-npm';
 import Sidetopp from '../../../js/components/Sidetopp';
 import SykmeldingUtdrag from '../../../js/components/sykepengesoknad/SykmeldingUtdrag';
-import Statuspanel from '../../../js/components/sykepengesoknad/Statuspanel';
+import Soknadstatuspanel from '../../../js/components/sykepengesoknad/Soknadstatuspanel';
+import Lightbox from '../../../js/components/Lightbox';
 import { Avkrysset } from '../../../js/components/sykepengesoknad/SendtSoknad';
 import  { getSoknad } from '../../mockSoknader';
 import ledetekster from '../../mockLedetekster';
 import { Varselstripe, setLedetekster } from 'digisyfo-npm';
+import sinon from 'sinon';
 
 describe("SendtSoknad", () => {
 
@@ -20,7 +23,10 @@ describe("SendtSoknad", () => {
     let sykepengesoknad = getSoknad();
 
     beforeEach(() => {
-        setLedetekster(ledetekster);
+        setLedetekster(Object.assign({}, ledetekster, {
+            'sykepengesoknad.oppsummering.status.label': "Status",
+            'sykepengesoknad.status.TIL_SENDING': 'Sendes...'
+        }));
         component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />)
     });
 
@@ -40,13 +46,15 @@ describe("SendtSoknad", () => {
         expect(component.contains(<Avkrysset tekst="Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte" />)).to.be.true;
     });
 
-    it("SKal inneholde en Varselstripe", () => {
-        component = mount(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
-        expect(component.find(Varselstripe)).to.have.length(1);
+    it("Skal inneholde Soknadstatuspanel", () => {
+        component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
+        expect(component.find(Soknadstatuspanel)).to.have.length(1);
     });
 
-    it("Skal inneholde statuspanel", () => {
-        component = mount(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
-        expect(component.find(Statuspanel)).to.have.length(1);
-    });
+    it("Skal inneholde Knapperad", () => {
+       component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
+       expect(component.find(Knapperad)).to.have.length(1); 
+    })
+
+
 });

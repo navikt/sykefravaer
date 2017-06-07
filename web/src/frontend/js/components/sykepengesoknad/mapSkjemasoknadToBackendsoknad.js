@@ -70,7 +70,7 @@ const frontendProps = [
     'harAndreInntektskilder',
 ];
 
-const mapSkjemasoknadToBackendsoknad = (soknad) => {
+const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {
     const harHattPermisjon = soknad.harHattFeriePermisjonEllerUtenlandsopphold && soknad.harHattPermisjon;
     const harHattFerie = soknad.harHattFeriePermisjonEllerUtenlandsopphold && soknad.harHattFerie;
     const harHattUtenlandsopphold = soknad.harHattFeriePermisjonEllerUtenlandsopphold && soknad.harHattUtenlandsopphold;
@@ -89,6 +89,10 @@ const mapSkjemasoknadToBackendsoknad = (soknad) => {
         aktiviteter: getAktiviteter(soknad.aktiviteter),
         utdanning: getUtdanning(soknad.utdanning),
     });
+
+    if (!alternativer.visForskutteringssporsmal) {
+        delete backendSoknad.arbeidsgiverForskutterer;
+    }
 
     frontendProps.forEach((prop) => {
         delete backendSoknad[prop];

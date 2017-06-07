@@ -29,10 +29,18 @@
     margin-bottom: .5em;
 }
 
-.oppsummering__bolk {
+.oppsummering__bolk,
+.oppsummering__seksjon {
     border-bottom: 1px solid @ikonGraa;
     margin-bottom: 2em;
     padding-bottom: 2em;
+}
+
+.oppsummering__bolk:last-child, 
+.oppsummering__seksjon:last-child {
+    border-bottom-width: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .oppsummering__tilleggssvar {
@@ -75,6 +83,7 @@
         width: 1em;
         height: 1em;
         margin-right: .5em;
+        margin-top: .175em;
     }
 
     span {

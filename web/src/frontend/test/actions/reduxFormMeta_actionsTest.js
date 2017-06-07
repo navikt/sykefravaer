@@ -9,6 +9,11 @@ describe('reduxFormMeta_actions', () => {
         expect(actiontyper.SEND_SKJEMA_FEILET).to.equal("SEND_SKJEMA_FEILET");
         expect(actiontyper.SEND_SKJEMA_FEILET_HANDTERT).to.equal("SEND_SKJEMA_FEILET_HÅNDTERT");
         expect(actiontyper.SKJEMA_ER_GYLDIG).to.equal("SKJEMA_ER_GYLDIG");
+        expect(actiontyper.SJEKK_SKAL_VISE_FORSKUTTERINGSSPORSMAL_FORESPURT).to.equal("SJEKK_SKAL_VISE_FORSKUTTERINGSSPØRSMAL_FORESPURT");
+        expect(actiontyper.SJEKKER_SKAL_VISE_FORSKUTTERINGSSPORSMAL).to.equal("SJEKKER_SKAL_VISE_FORSKUTTERINGSSPØRSMAL");
+        expect(actiontyper.SKAL_VISE_FORSKUTTERINGSSPORSMAL_SJEKKET).to.equal("SKAL_VISE_FORSKUTTERINGSSPØRSMAL_SJEKKET");
+        expect(actiontyper.SJEKK_SKAL_VISE_FORSKUTTERINGSSPORSMAL_FEILET).to.equal("SJEKK_SKAL_VISE_FORSKUTTERINGSSPØRSMAL_FEILET");
+
     })
 
     it("Har en sendSkjemaFeilet som returnerer riktig action", () => {
@@ -31,5 +36,6 @@ describe('reduxFormMeta_actions', () => {
             skjemanavn: "TESTSKJEMA"
         })
     });
+
 
 });

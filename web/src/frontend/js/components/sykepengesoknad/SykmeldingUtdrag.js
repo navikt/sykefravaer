@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { SykmeldingPerioder, SykmeldingNokkelOpplysning, toDatePrettyPrint } from 'digisyfo-npm';
-import { Avkrysset } from './SendtSoknad';
 import { Utvidbar, getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
@@ -26,9 +25,6 @@ const SykmeldingUtdrag = ({ erApen, sykepengesoknad }) => {
                     tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.arbeidsgiver')}>
                     <p className="js-arbeidsgiver">{sykepengesoknad.arbeidsgiver.navn}</p>
                 </SykmeldingNokkelOpplysning>
-                <div className="blokk">
-                    <Avkrysset tekst={getLedetekst('sykepengesoknad.sykmelding-utdrag.lonn-etter-16-dager')} />
-                </div>
                 <SykmeldingNokkelOpplysning
                     tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.dato-sykmeldingen-ble-skrevet')}>
                     <p className="js-utstedelsesdato">{toDatePrettyPrint(sykepengesoknad.sykmeldingSkrevetDato)}</p>

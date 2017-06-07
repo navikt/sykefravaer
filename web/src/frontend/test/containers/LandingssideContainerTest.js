@@ -36,6 +36,9 @@ describe("LandingssideContainer", () => {
                 sykepengesoknader: {
                     data: []
                 },
+                dineSykmeldinger: {
+                    data: [{}]
+                },
                 mote: {}
             }
         });
@@ -73,6 +76,10 @@ describe("LandingssideContainer", () => {
             };
             const res = mapStateToProps(state);
             expect(res.visOppfoelgingsdialog).to.be.false;
+        });
+        it("Skal returnere sykepengesoknader", () => {
+            const res = mapStateToProps(state);
+            expect(res.sykepengesoknader).to.deep.equal([]);
         });
 
     });

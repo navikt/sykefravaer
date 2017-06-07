@@ -13,21 +13,10 @@ public class SyfofrontDekorator extends DecoratorFilter {
     private static final String APPLICATION_NAME = "syfofront";
     private static final List<String> NO_DECORATOR_PATTERNS = new ArrayList<>(asList(".*/img/.*", ".*/css/.*", ".*/js/.*", ".*/font/.*", ".*selftest.*"));
     private static final List<String> FRAGMENT_NAMES= new ArrayList<>(asList("webstats-ga-notrack", "header-withmenu", "footer-withmenu", "styles", "scripts", "skiplinks", "megamenu-resources"));
+    private static final EnonicContentRetriever ENONIC_CONTENT_RETRIEVER = new EnonicContentRetriever(10000, System.getProperty("dialogarena.cms.url"), 1800);
 
     public SyfofrontDekorator() {
-        super();
-        setFragmentsUrl(FRAGMENTS_URL);
-        setContentRetriever(setUpContentRetriever());
-        setApplicationName(APPLICATION_NAME);
+        super(FRAGMENTS_URL, ENONIC_CONTENT_RETRIEVER, FRAGMENT_NAMES, APPLICATION_NAME);
         setNoDecoratePatterns(NO_DECORATOR_PATTERNS);
-        setFragmentNames(FRAGMENT_NAMES);
-    }
-
-    private EnonicContentRetriever setUpContentRetriever() {
-        EnonicContentRetriever contentRetriever = new EnonicContentRetriever(APPLICATION_NAME);
-        contentRetriever.setBaseUrl(System.getProperty("dialogarena.cms.url"));
-        contentRetriever.setRefreshIntervalSeconds(1800);
-        contentRetriever.setHttpTimeoutMillis(10000);
-        return contentRetriever;
     }
 }

@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Landingsside from '../components/landingsside/Landingsside';
 import { connect } from 'react-redux';
+import StrippetSide from '../sider/StrippetSide';
 import Side from '../sider/Side';
 import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
@@ -17,21 +18,27 @@ export const LandingssideSide = (props) => {
         sykepengesoknader,
         visOppfoelgingsdialog,
         harDialogmote } = props;
-    return (
-        <Side tittel={getLedetekst('landingsside.sidetittel')} brodsmuler={brodsmuler}>
-            {
-                (() => {
-                    if (henter) {
-                        return <AppSpinner />;
-                    }
-                    if (hentingFeilet) {
-                        return <Feilmelding />;
-                    }
-                    return (<Landingsside visOppfoelgingsdialog={visOppfoelgingsdialog} skjulVarsel={skjulVarsel} sykepengesoknader={sykepengesoknader} harDialogmote={harDialogmote} />);
-                })()
-            }
-        </Side>
-    );
+
+    if (henter || hentingFeilet) {
+        return (<Side tittel={getLedetekst('landingsside.sidetittel')} brodsmuler={brodsmuler}>
+        {
+            (() => {
+                if (henter) {
+                    return <AppSpinner />;
+                }
+                return <Feilmelding />;
+            })()
+        }
+        </Side>);
+    }
+    return (<StrippetSide tittel={getLedetekst('landingsside.sidetittel')}>
+        <Landingsside
+            visOppfoelgingsdialog={visOppfoelgingsdialog}
+            brodsmuler={brodsmuler}
+            skjulVarsel={skjulVarsel}
+            sykepengesoknader={sykepengesoknader}
+            harDialogmote={harDialogmote} />
+    </StrippetSide>);
 };
 
 LandingssideSide.propTypes = {

@@ -39,7 +39,7 @@ describe("Oppfolgingsdialoger", () => {
 
     it("Skal vise en Pil dersom man ikke har oppfolgingsdialoger", () => {
         component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={[]} />);
-        expect(component.find('img.pil')).to.have.length(1);
+        expect(component.find('img.oppfolgingsdialoger__pil')).to.have.length(1);
     });
 
     xit("Skal rendre én OppfolgingsdialogerTeasere dersom man har oppfolgingsdialoger", () => {

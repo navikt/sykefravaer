@@ -248,7 +248,8 @@ const ledetekster = {
   "sykepengesoknad.aktiviteter.ugradert.sporsmal": "Har du jobbet?",
   "sykepengesoknad.periodevelger.fom": "Fra dato",
   "sykepengesoknad.ferie-permisjon-utenlandsopphold.oppholdt-meg-utenfor-norge": "oppholdt meg utenfor Norge",
-  "sykepengesoknad.ferie-permisjon-utenlandsopphold.hatt-permisjon": "hatt permisjon"
+  "sykepengesoknad.ferie-permisjon-utenlandsopphold.hatt-permisjon": "hatt permisjon",
+  "oppfolgingsdialoger.sidetittel": "Oppfølgingsdialoger",
 };
 
 export default ledetekster;

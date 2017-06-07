@@ -9,6 +9,7 @@ var dev = {
     "buildRoot": "http://localhost:8080/assets",
     "restRoot": "http://localhost:8182/syforest",
     "moterestRoot": "http://localhost:8184/moterest/api",
+    "oppfoelgingsdialogrestRoot": "http://localhost:8580/oppfoelgingsdialogrest/api",
     "bundleFileName": `bundle.js`,
     "enableLogging": true,
     "isProd": false,
@@ -19,6 +20,7 @@ var prod = {
     "buildRoot": "/sykefravaer/js",
     "restRoot": "/syforest",
     "moterestRoot": "/moterest/api",
+    "oppfoelgingsdialogrestRoot": "/oppfoelgingsdialogrest/api",
     "bundleFileName": "bundle-prod.js",
     "enableLogging": false,
     "isProd": true

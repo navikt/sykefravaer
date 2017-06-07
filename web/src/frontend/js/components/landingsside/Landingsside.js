@@ -33,7 +33,7 @@ export class GenerellInfo extends Component {
     }
 }
 
-const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmote = false, brodsmuler }) => {
+const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmote = false, brodsmuler, visOppfoelgingsdialog = false }) => {
     return (<div>
         <div className="sidebanner">
             <div className="sidebanner__innhold">
@@ -46,6 +46,7 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
             {
                 (!skjulVarsel ? <UnderUtviklingVarselContainer /> : null)
             }
+
             <DineOppgaverContainer />
             <nav className="blokk" role="navigation">
                 <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
@@ -61,6 +62,10 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
                     harDialogmote &&
                         <LandingssideLenke to="/sykefravaer/dialogmote" ikon="dialogmoter" ikonAlt="Dialogmøter" tittel="Dialogmøter" variant="ceil" />
                 }
+                {
+                    visOppfoelgingsdialog &&
+                    <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
+                }
             </nav>
             <NaermesteLedereContainer />
             <GenerellInfo />
@@ -69,6 +74,7 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
 };
 
 Landingsside.propTypes = {
+    visOppfoelgingsdialog: PropTypes.bool.isRequired,
     skjulVarsel: PropTypes.bool.isRequired,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     harDialogmote: PropTypes.bool,

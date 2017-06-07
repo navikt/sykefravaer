@@ -1,0 +1,136 @@
+@lenkeGraa: #c8c8c8;
+@panelLysblaa: #cfe2f3;
+@panelOransje: #fdbc6d;
+
+.lenke {
+    cursor: pointer;
+}
+.lenke--avbryt {
+    text-transform: uppercase;
+}
+.oppfolgingsdialoger__pil {
+    display: block;
+    margin: 0 auto 2em auto;
+}
+.panel--lysblaa {
+    background: @panelLysblaa;
+}
+.panel--oransje {
+    background: @panelOransje;
+};
+.panel_informasjon {
+    padding: 1em 2em;
+}
+.panel_informasjon_img {
+    margin-right: 1em;
+}
+.panel_informasjon_tekst {
+
+}
+
+.velgarbeidsgiver__blokk {
+    padding-left: 4em;
+    padding-right: 4em;
+}
+.velgarbeidsgiver__inputgruppe {
+    margin-bottom: 2em;
+}
+
+.oppfolgingsdialoger__rammeknapp {
+    margin-bottom: 3em;
+}
+.arbeidsgiverskjema__feilomrade {
+    margin-left: 2em;
+    margin-bottom: 1em;
+    vertical-align: middle;
+    line-height: 1em;
+}
+.arbeidsgiverskjema__feilomrade__ikon {
+    margin-right: 1em;
+}
+.arbeidsgiverskjema__feilomrade__tekst {
+    font-size: 0.8em;
+}
+.skjema__input--inaktiv {
+    opacity: 0.5;
+}
+.samtykke__inputgruppe {
+    margin-top: 4em;
+    text-align: center;
+    & > div {
+        display: inline-block;
+    }
+}
+
+.arbeidsgivertabell {
+    width: 100%;
+
+    tr {
+        border-bottom: 0.5em solid #efefef;
+    }
+    tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    th {
+        color: @navTekst;
+        background: #fff;
+        text-align: left;
+        padding: 1em;
+    }
+
+    td {
+        padding: 1.5em 1em;
+        background: #fff;
+        &:last-child {
+            padding-left: 0;
+            cursor: pointer;
+        }
+    }
+
+    td, th {
+        &:nth-child(1) {
+            width: 40%
+        }
+    }
+}
+.arbeidsgivertabell__advarsel__ikon {
+    margin-right: 1em;
+}
+
+.navigasjonsLenkeListe {
+    padding: 0;
+}
+.navigasjon__element {
+    display: inline-block;
+    padding: .5em 0;
+    .mixin-typo-element();
+    text-transform: uppercase;
+    &:not(:last-child):after {
+        content: "";
+        background-image: data-uri("../img/svg/pil-videre-graa.svg");
+        background-repeat: no-repeat;
+        padding: 0 .5em;
+        margin-left: 1em;
+        margin-right: 0.5em;
+    }
+}
+.navigasjon__element__inner {
+    align-items: center;
+    cursor: pointer;
+    color: @lenkeGraa;
+    a {
+        color: @lenkeGraa;
+    }
+    &:hover {
+        border-bottom: 4px @lenkeBlaa solid;
+    }
+    border-bottom: none;
+}
+.navigasjon__element__inner--active {
+    color: @lenkeBlaa;
+    a {
+        color: @lenkeBlaa;
+    }
+    border-bottom: 4px @lenkeBlaa solid;
+}

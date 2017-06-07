@@ -12,11 +12,14 @@ import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger';
 import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
 import ledere from './reducers/ledere';
+import { oppfolgingsdialogerAt as oppfolgingsdialoger, arbeidsoppgaver, samtykke } from 'oppfolgingsdialog-npm';
 import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
 import { hentSykepengesoknader } from './actions/sykepengesoknader_actions';
-import { hentLedetekster, ledetekster, tidslinjer } from 'digisyfo-npm';
+import { hentLedetekster, hentToggles, ledetekster, tidslinjer, toggles } from 'digisyfo-npm';
 import { hentBrukerinfo } from './actions/brukerinfo_actions';
 import { hentVedlikehold } from './actions/vedlikehold_actions';
+import { hentLedere } from './actions/ledere_actions';
+import { hentOppfolgingsdialogerAt as hentOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
 import history from './history';
 import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';
@@ -32,15 +35,19 @@ const rootReducer = combineReducers({
     sykepengesoknader,
     arbeidsgivere,
     arbeidsgiversSykmeldinger,
+    arbeidsoppgaver,
     ledetekster,
     tidslinjer,
     brukerinfo,
     history,
     ledere,
+    oppfolgingsdialoger,
+    samtykke,
     svar,
     pilot,
     vedlikehold,
     mote,
+    toggles,
     form: formReducer,
     formMeta: reduxFormMeta,
     forskutteringssporsmal,
@@ -60,6 +67,9 @@ store.dispatch(hentSykepengesoknader());
 store.dispatch(hentBrukerinfo());
 store.dispatch(hentVedlikehold());
 store.dispatch(moteActions.hentMote());
+store.dispatch(hentOppfolgingsdialoger());
+store.dispatch(hentLedere());
+store.dispatch(hentToggles());
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {
     window.localStorage.setItem('visLedetekster', true);

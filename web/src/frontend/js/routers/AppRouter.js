@@ -13,6 +13,11 @@ import FoerDuBegynnerContainer from '../containers/sykepengesoknad/FoerDuBegynne
 import FravaerOgFriskmeldingContainer from '../containers/sykepengesoknad/FravaerOgFriskmeldingContainer';
 import AktiviteterISykmeldingsperiodenContainer from '../containers/sykepengesoknad/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringContainer from '../containers/sykepengesoknad/OppsummeringContainer';
+import OppfolgingsdialogerContainer from '../containers/OppfolgingsdialogerContainer';
+import OppfolgingsdialogContainer from '../containers/OppfolgingsdialogContainer';
+import OpprettOppfolgingsdialogContainer from '../containers/OpprettOppfolgingsdialogContainer';
+import ArbeidsoppgaverContainer from '../containers/ArbeidsoppgaverContainer';
+import OppfolgingsdialogSamtykkeContainer from '../containers/OppfolgingsdialogSamtykkeContainer';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
@@ -30,6 +35,11 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/soknader/:sykepengesoknadId/oppsummering" component={OppsummeringContainer} />
         <Route path="/sykefravaer/roller-og-ansvarsomrader" component={RollerContainer} />
         <Route path="/sykefravaer/dialogmote" component={MoteContainer} />
+        <Route path="/sykefravaer/oppfolgingsplaner" component={OppfolgingsdialogerContainer} />
+        <Route path="/sykefravaer/oppfolgingsplaner/opprett" component={OpprettOppfolgingsdialogContainer} />
+        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId" component={OppfolgingsdialogContainer} />
+        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId/arbeidsoppgaver" component={ArbeidsoppgaverContainer} />
+        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId/samtykk" component={OppfolgingsdialogSamtykkeContainer} />
         <Route path="*" component={LandingssideContainer} />
     </Router>);
 };

@@ -28,6 +28,11 @@ describe("LandingssideContainer", () => {
                 ledetekster: {
                     data: {}
                 },
+                toggles: {
+                    data: {
+                        'syfotoggles.oppfoelgingsdialog': 'true',
+                    }
+                },
                 sykepengesoknader: {
                     data: []
                 },
@@ -36,7 +41,7 @@ describe("LandingssideContainer", () => {
                 },
                 mote: {}
             }
-        })
+        });
 
         it("Skal returnere skjulUnderUtviklingVarsel", function() {
             const res = mapStateToProps(state);
@@ -55,6 +60,23 @@ describe("LandingssideContainer", () => {
             expect(res.harDialogmote).to.be.true;
         });
 
+        it("Skal returnere visOppfoelgingsdialog === true", () => {
+            const res = mapStateToProps(state);
+            expect(res.visOppfoelgingsdialog).to.be.true;
+        });
+        it("Skal returnere visOppfoelgingsdialog === false hvis false", () => {
+            state.toggles.data = {
+                'syfotoggles.oppfoelgingsdialog': 'false',
+            };
+            const res = mapStateToProps(state);
+            expect(res.visOppfoelgingsdialog).to.be.false;
+        });
+        it("Skal returnere visOppfoelgingsdialog === false hvis ikke definert", () => {
+            state.toggles.data = {
+            };
+            const res = mapStateToProps(state);
+            expect(res.visOppfoelgingsdialog).to.be.false;
+        });
         it("Skal returnere sykepengesoknader", () => {
             const res = mapStateToProps(state);
             expect(res.sykepengesoknader).to.deep.equal([]);

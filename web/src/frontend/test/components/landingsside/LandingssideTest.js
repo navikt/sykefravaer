@@ -26,23 +26,28 @@ describe("Landingsside", () => {
         expect(component.find(".js-sidetittel").text()).to.equal("Ditt sykefravær");
     });
 
-    it("Skal vise to lenkebokser om vi ikke har dialogmoter eller soknader", () => {
-        component = shallow(<Landingsside skjulVarsel={true}/>);
+    it("Skal vise tre lenkebokser om vi ikke har dialogmoter eller soknader", () => {
+        component = shallow(<Landingsside skjulVarsel={true} />);
         expect(component.find(LandingssideLenke)).to.have.length(2);
     });
 
     it("Skal vise lenkeboks til dialogmoter om vi har et dialogmote", () => {
-        component = shallow(<Landingsside skjulVarsel={true} harDialogmote={true}/>);
+        component = shallow(<Landingsside skjulVarsel={true} harDialogmote={true} />);
+        expect(component.find(LandingssideLenke)).to.have.length(3);
+    });
+
+    it("Skal vise lenkeboks til oppfølgingsdialog om vi har oppfolgingsdialog togglet pa", () => {
+        component = shallow(<Landingsside skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true}/>);
         expect(component.find(LandingssideLenke)).to.have.length(3);
     });
 
     it("Skal vise lenkeboks til soknader om vi har en soknad", () => {
-        component = shallow(<Landingsside skjulVarsel={true} sykepengesoknader={[getSoknad()]}/>);
+        component = shallow(<Landingsside skjulVarsel={true} sykepengesoknader={[getSoknad()]} />);
         expect(component.find(LandingssideLenke)).to.have.length(3);
     });
 
     it("Skal vise generell informasjon", () => {
-        component = shallow(<Landingsside skjulVarsel={true}/>);
+        component = shallow(<Landingsside skjulVarsel={true} />);
         expect(component.find(GenerellInfo)).to.have.length(1);
     });
 

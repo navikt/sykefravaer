@@ -10,3 +10,10 @@ export const datoMedKlokkeslett = (dato) => {
     /* 16/2 klokken 14:15 */
     return `${days}/${months} klokken ${time}`;
 };
+
+export const trekkDagerFraDato = (dato, dager) => {
+    return new Date().setTime(dato.getTime() - (dager * 86400000));
+};
+export const leggTilDagerPaaDato = (dato, dager) => {
+    return new Date().setTime(dato.getTime() + (dager * 86400000));
+};

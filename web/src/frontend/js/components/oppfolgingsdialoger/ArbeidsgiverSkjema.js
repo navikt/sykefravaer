@@ -56,7 +56,7 @@ const ArbeidsgiverSkjema = ({ arbeidsgivere, handleSubmit, avbrytHref, handleOpt
                     disabled={!sykmeldtHarNaermestelederHosArbeidsgivere(arbeidsgivere)}>
                     {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.velg-arbeidsgiver')}
                 </button>
-                <Link className="lenke lenke__avbryt" to={avbrytHref}>
+                <Link className="lenke lenke--avbryt" to={avbrytHref}>
                     {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
                 </Link>
             </div>

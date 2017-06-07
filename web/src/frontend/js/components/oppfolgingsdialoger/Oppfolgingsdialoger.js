@@ -17,7 +17,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
             tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.infoboks.tekst')} />
 
         { isEmpty(oppfolgingsdialoger) &&
-            <img className="pil" src="/sykefravaer/img/svg/pil.svg" alt="pil" />
+            <img className="oppfolgingsdialoger__pil" src="/sykefravaer/img/svg/oppfolgingsdialog-opprett-pil.svg" alt="pil" />
         }
         <div className="knapperad">
             <Link role="button" className="rammeknapp oppfolgingsdialoger__rammeknapp" to={"/sykefravaer/oppfolgingsplaner/opprett"}>

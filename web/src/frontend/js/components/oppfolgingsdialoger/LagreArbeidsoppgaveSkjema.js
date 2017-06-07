@@ -79,11 +79,11 @@ RenderTekstOmraade.propTypes = {
 
 export const RenderKnapper = ({ avbrytHref, cancel, gjennomfoeringSvarValgt, selectedCheckboxes }) => {
     const avbrytKnapp = cancel ?
-        <Link className="lenke lenke__avbryt" onClick={cancel}>
+        <Link className="lenke lenke--avbryt" onClick={cancel}>
             {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
         </Link>
         :
-        <Link className="lenke lenke__avbryt" to={avbrytHref}>
+        <Link className="lenke lenke--avbryt" to={avbrytHref}>
             {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
         </Link>;
 

@@ -18,7 +18,7 @@ import LagreArbeidsoppgaveSkjema from '../components/oppfolgingsdialoger/LagreAr
 
 export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver }) => {
     return (<NotifikasjonBoks
-        imgUrl={"/sykefravaer/img/svg/informasjonsboks.svg"}
+        imgUrl={"/sykefravaer/img/svg/notifikasjon-illustrasjon.svg"}
         tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
             '%VIRKSOMHETSNAVN%': virksomhetsnavn,
             '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver.toString(),

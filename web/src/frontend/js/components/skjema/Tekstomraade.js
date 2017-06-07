@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Feilmelding from './Feilmelding';
 
-const Tekstarea = (props) => {
+const Tekstomraade = (props) => {
     const { meta, className, input, id } = props;
     return (<div>
         <textarea autoComplete="off" placeholder={props.placeholder} type={props.type || 'text'} id={id}
@@ -10,7 +10,7 @@ const Tekstarea = (props) => {
     </div>);
 };
 
-Tekstarea.propTypes = {
+Tekstomraade.propTypes = {
     meta: PropTypes.object,
     id: PropTypes.string,
     input: PropTypes.object,
@@ -20,4 +20,4 @@ Tekstarea.propTypes = {
     placeholder: PropTypes.string,
 };
 
-export default Tekstarea;
+export default Tekstomraade;

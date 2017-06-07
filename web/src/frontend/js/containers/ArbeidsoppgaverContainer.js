@@ -16,6 +16,49 @@ import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import LagreArbeidsoppgaveSkjema from '../components/oppfolgingsdialoger/LagreArbeidsoppgaveSkjema';
 
+export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver }) => {
+    return (<NotifikasjonBoks
+        imgUrl={"/sykefravaer/img/svg/informasjonsboks.svg"}
+        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
+            '%VIRKSOMHETSNAVN%': virksomhetsnavn,
+            '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver.toString(),
+        })}
+        classNames={'panel--oransje'}
+    />);
+};
+RenderNotifikasjonBoks.propTypes = {
+    virksomhetsnavn: PropTypes.string,
+    antallIkkeVurderteArbeidsoppgaver: PropTypes.number,
+};
+
+export const RenderOppfolgingsdialogOppgaveTabell = ({ arbeidsoppgaveListe }) => {
+    return (
+        <OppfolgingsdialogOppgaveTabell
+            arbeidsoppgaveListe={arbeidsoppgaveListe}
+            urlImgArrow="/sykefravaer/img/svg/arrow-down.svg"
+            urlImgVarsel="/sykefravaer/img/svg/varseltrekant.svg"
+        />
+    );
+};
+RenderOppfolgingsdialogOppgaveTabell.propTypes = {
+    arbeidsoppgaveListe: PropTypes.array,
+};
+
+export const RenderKnapper = ({ toggleArbeidsoppgaveSkjema }) => {
+    return (
+        <div className="knapperad">
+            <button
+                className="knapp knapperad__element"
+                onClick={toggleArbeidsoppgaveSkjema}>
+                {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-arbeidsoppgave')}
+            </button>
+        </div>
+    );
+};
+RenderKnapper.propTypes = {
+    toggleArbeidsoppgaveSkjema: PropTypes.func,
+};
+
 export class ArbeidsoppgaverSide extends Component {
 
     constructor(props) {
@@ -43,38 +86,6 @@ export class ArbeidsoppgaverSide extends Component {
         this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialogId, values);
     }
 
-    renderNotifikasjonBoks(virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver) {
-        return (<NotifikasjonBoks
-            imgUrl={"/sykefravaer/img/svg/informasjonsboks.svg"}
-            tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
-                '%VIRKSOMHETSNAVN%': virksomhetsnavn,
-                '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver,
-            })}
-            classNames={'panel--oransje'}
-        />);
-    }
-    renderOppfolgingsdialogOppgaveTabell(arbeidsoppgaveListe) {
-        return (
-            <OppfolgingsdialogOppgaveTabell
-                arbeidsoppgaveListe={arbeidsoppgaveListe}
-                urlImgArrow={'/sykefravaer/img/svg/arrow-down.svg'}
-                urlImgVarsel={'/sykefravaer/img/svg/varseltrekant.svg'}
-            />
-        );
-    }
-
-    renderKnapper() {
-        return (
-            <div className="knapperad">
-                <button
-                    className="knapp knapp__opprettarbeidsoppgave"
-                    onClick={this.toggleArbeidsoppgaveSkjema}>
-                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-arbeidsoppgave')}
-                </button>
-            </div>
-        );
-    }
-
     render() {
         const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, lagrer, lagringFeilet } = this.props;
 
@@ -91,36 +102,37 @@ export class ArbeidsoppgaverSide extends Component {
                     <OppfolgingsdialogSide
                         brukernavn={oppfolgingsdialog.virksomhetsnavn}
                         ledetekster={ledetekster}
-                        rootUrl={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}`}>
+                        rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}>
                         {
                             isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                                 <div>
-                                    <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel', ledetekster)}</h2>
+                                    <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
                                     <LagreArbeidsoppgaveSkjema
-                                        ledetekster={ledetekster}
-                                        avbrytHref={'/sykefravaer/oppfolgingsdialoger'}
+                                        avbrytHref={'/sykefravaer/oppfolgingsplaner'}
                                         sendArbeidsoppgave={this.sendArbeidsoppgave}
                                     />
                                 </div>
                                 :
                                 <div>
-                                    <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel', ledetekster)}</h2>
+                                    <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
                                     {
                                         antallIkkeVurderteArbeidsoppgaver > 0 &&
-                                        this.renderNotifikasjonBoks(oppfolgingsdialog.virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver)
+                                        <RenderNotifikasjonBoks
+                                            virksomhetsnavn={oppfolgingsdialog.virksomhetsnavn}
+                                            antallIkkeVurderteArbeidsoppgaver={antallIkkeVurderteArbeidsoppgaver} />
                                     }
                                     {
-                                        this.renderOppfolgingsdialogOppgaveTabell(oppfolgingsdialog.arbeidsoppgaveListe)
+                                        <RenderOppfolgingsdialogOppgaveTabell
+                                            arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />
                                     }
                                     {
                                         this.state.visArbeidsoppgaveSkjema ?
                                             <LagreArbeidsoppgaveSkjema
-                                                ledetekster={ledetekster}
-                                                avbrytHref={`/sykefravaer/oppfolgingsdialoger/${oppfolgingsdialogId}/arbeidsoppgaver`}
+                                                avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
                                                 sendArbeidsoppgave={this.sendArbeidsoppgave}
                                                 cancel={this.toggleArbeidsoppgaveSkjema}
                                             /> :
-                                            this.renderKnapper()
+                                            <RenderKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
                                     }
                                 </div>
                         }
@@ -167,7 +179,7 @@ export function mapStateToProps(state, ownProps) {
             erKlikkbar: true,
         }, {
             tittel: getLedetekst('oppfolgingsdialoger.sidetittel'),
-            sti: '/oppfolgingsdialoger',
+            sti: '/oppfolgingsplaner',
             erKlikkbar: true,
         }, {
             tittel: virksomhetsnavn,

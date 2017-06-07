@@ -1,66 +1,59 @@
 @lenkeBlaa: #0067c5;
 @lenkeGraa: #c8c8c8;
+@panelLysblaa: #cfe2f3;
+@panelOransje: #fdbc6d;
 
-.blokk__velgarbeidsgiver {
-    padding-left: 4em;
-    padding-right: 4em;
-}
 .lenke {
     cursor: pointer;
 }
 .lenke__avbryt {
     text-transform: uppercase;
 }
-.knapp__opprettOppfolgingsdialog {
-    cursor: pointer;
-    display: inline-block;
-    background-color: transparent;
-    line-height: 1;
-    border: 2px solid #0067c5;
-    border-radius: .125em;
-    margin: auto;
-    margin-bottom: 3rem;
-    padding: 0.6em 2.4em;
-    font-family: Arial,Sans-serif;
-    font-size: 0.875em;
-    color: #0067c5;
-    letter-spacing: .0625em;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-.knapp__velgarbeidsgiver {
-    margin-right: 1em;
-}
-.knapp__velgarbeidsgiver:disabled {
-    background-color: #7f756c;
-}
-.knapp__samtykk {
-    margin-right: 1em;
-}
-.knapp__opprettarbeidsoppgave {
-    margin-right: 1em;
-}
 .pil {
     display: block;
     margin: 0 auto 2em auto;
 }
-.inputgruppe__velgarbeisgiver {
+.panel--lysblaa {
+    background: @panelLysblaa;
+}
+.panel--oransje {
+    background: @panelOransje;
+};
+.panel_informasjon {
+    padding: 1em 2em;
+}
+.panel_informasjon_img {
+    margin-right: 1em;
+}
+.panel_informasjon_tekst {
+
+}
+
+.velgarbeidsgiver__blokk {
+    padding-left: 4em;
+    padding-right: 4em;
+}
+.velgarbeidsgiver__inputgruppe {
     margin-bottom: 2em;
 }
-.skjema__input--inaktiv {
-    opacity: 0.5;
+
+.oppfolgingsdialoger__rammeknapp {
+    margin-bottom: 3em;
 }
-.skjema__feilomrade {
+.arbeidsgiverskjema__feilomrade {
     margin-left: 2em;
     margin-bottom: 1em;
     vertical-align: middle;
     line-height: 1em;
 }
-.skjema__feilomrade__ikon {
+.arbeidsgiverskjema__feilomrade__ikon {
     margin-right: 1em;
 }
-.skjema__feilomrade__tekst {
+.arbeidsgiverskjema__feilomrade__tekst {
     font-size: 0.8em;
+}
+.skjema__input--inaktiv {
+    opacity: 0.5;
 }
 .inputgruppe__samtykke {
     margin-top: 4em;
@@ -68,10 +61,6 @@
 }
 .inputgruppe__samtykke > div {
     display: inline-block;
-}
-
-.arbeidsoppgave__infoboks {
-    background-color: #FDBC6D;
 }
 
 .arbeidsgivertabell {
@@ -108,21 +97,6 @@
 }
 .arbeidsgivertabell__advarsel__ikon {
     margin-right: 1em;
-}
-.panel--lysblaa {
-    background: #cfe2f3;
-}
-.panel--oransje {
-    background: #fdbc6d;
-};
-.panel_informasjon {
-    padding: 1em 2em;
-}
-.panel_informasjon_img {
-    margin-right: 1em;
-}
-.panel_informasjon_tekst {
-
 }
 
 .navigasjonsLenkeListe {

@@ -27,7 +27,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.oppretter && this.props.opprettet) {
-            history.push('/sykefravaer/oppfolgingsdialoger/');
+            history.push('/sykefravaer/oppfolgingsplaner/');
         }
     }
 
@@ -71,9 +71,9 @@ export class OpprettOppfolgingsdialogSide extends Component {
                                     tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
                             <OppfolgingsdialogSamtykke
                                 ledetekster={ledetekster}
-                                avbrytHref={"/sykefravaer/oppfolgingsdialoger"}
+                                avbrytHref="/sykefravaer/oppfolgingsplaner"
                                 svgUrl="/sykefravaer/img/svg/samtykke.svg"
-                                svgAlt="samtykkeIllustrasjon"
+                                svgAlt="samtykke"
                                 samtykk={this.samtykk}
                             />
                             </div>);
@@ -84,8 +84,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
                                 tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
                             <OpprettOppfolgingsdialog
                                 arbeidsgivere={arbeidsgivere}
-                                ledetekster={ledetekster}
-                                avbrytHref={"/sykefravaer/oppfolgingsdialoger"}
+                                avbrytHref="/sykefravaer/oppfolgingsplaner"
                                 velgArbeidsgiver={this.velgArbeidsgiver}
                                 arbeidsgiverValg={this.state.arbeidsgiver}
                                 handleOptionChange={this.handleOptionChange}
@@ -127,7 +126,7 @@ export const mapStateToProps = (state) => {
             erKlikkbar: true,
         }, {
             tittel: getLedetekst('oppfolgingsdialoger.sidetittel'),
-            sti: '/oppfolgingsdialoger',
+            sti: '/oppfolgingsplaner',
         }],
     };
 };

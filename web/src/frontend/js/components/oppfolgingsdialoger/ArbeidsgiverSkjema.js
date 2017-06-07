@@ -11,10 +11,10 @@ const hentInputClassName = (harNaermesteLeder) => {
     return harNaermesteLeder ? 'skjema__input' : 'skjema__input--inaktiv';
 };
 
-const ArbeidsgiverSkjema = ({ ledetekster, arbeidsgivere, handleSubmit, avbrytHref, handleOptionChange, arbeidsgiverValg }) => {
+const ArbeidsgiverSkjema = ({ arbeidsgivere, handleSubmit, avbrytHref, handleOptionChange, arbeidsgiverValg }) => {
     return (
         <form onSubmit={handleSubmit}>
-            <div className="inputgruppe inputgruppe__velgarbeisgiver">
+            <div className="inputgruppe velgarbeidsgiver__inputgruppe">
                 {
                     arbeidsgivere.map((arbeidsgiver, index) => {
                         return (
@@ -34,9 +34,9 @@ const ArbeidsgiverSkjema = ({ ledetekster, arbeidsgivere, handleSubmit, avbrytHr
                                 {arbeidsgiver.navn}
                                 </label>
                                 { !arbeidsgiver.harNaermesteLeder &&
-                                    <div className="skjema__feilomrade">
-                                        <img className="skjema__feilomrade__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
-                                        <span className="skjema__feilomrade__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.tekst', ledetekster)}</span>
+                                    <div className="arbeidsgiverskjema__feilomrade">
+                                        <img className="arbeidsgiverskjema__feilomrade__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
+                                        <span className="arbeidsgiverskjema__feilomrade__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.tekst')}</span>
                                     </div>}
                             </div>
                         );
@@ -46,25 +46,24 @@ const ArbeidsgiverSkjema = ({ ledetekster, arbeidsgivere, handleSubmit, avbrytHr
 
             {sykmeldtHarManglendeNaermesteLeder(arbeidsgivere) &&
             <Varselstripe>
-                <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varselstripe.tekst', ledetekster)}Les mer <Link className="lenke">her</Link></p>
+                <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varselstripe.tekst')}Les mer <Link className="lenke">her</Link></p>
             </Varselstripe>}
 
             <div className="knapperad">
                 <button
                     type="submit"
-                    className="knapp knapp__velgarbeidsgiver"
+                    className="knapp knapperad__element"
                     disabled={!sykmeldtHarNaermestelederHosArbeidsgivere(arbeidsgivere)}>
-                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.velg-arbeidsgiver', ledetekster)}
+                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.velg-arbeidsgiver')}
                 </button>
                 <Link className="lenke lenke__avbryt" to={avbrytHref}>
-                    {getLedetekst('oppfolgingsdialog.knapp.avbryt', ledetekster)}
+                    {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
                 </Link>
             </div>
         </form>);
 };
 
 ArbeidsgiverSkjema.propTypes = {
-    ledetekster: PropTypes.object,
     arbeidsgivere: PropTypes.array,
     avbrytHref: PropTypes.string,
     handleSubmit: PropTypes.func,

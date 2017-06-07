@@ -21,7 +21,7 @@ export class OppfolgingsdialogSamtykkeSide extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.sender && this.props.sendt) {
-            history.push(`/sykefravaer/oppfolgingsdialoger/${this.props.oppfolgingsdialogId}/arbeidsoppgaver`);
+            history.push(`/sykefravaer/oppfolgingsplaner/${this.props.oppfolgingsdialogId}/arbeidsoppgaver`);
         }
     }
 
@@ -52,7 +52,7 @@ export class OppfolgingsdialogSamtykkeSide extends Component {
                                 tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
                             <OppfolgingsdialogSamtykke
                                 ledetekster={ledetekster}
-                                avbrytHref={"/sykefravaer/oppfolgingsdialoger"}
+                                avbrytHref="/sykefravaer/oppfolgingsplaner"
                                 svgUrl="/sykefravaer/img/svg/samtykke.svg"
                                 svgAlt="samtykkeIllustrasjon"
                                 samtykk={this.samtykk}
@@ -93,7 +93,7 @@ export const mapStateToProps = (state, ownProps) => {
             erKlikkbar: true,
         }, {
             tittel: getLedetekst('oppfolgingsdialoger.sidetittel'),
-            sti: '/oppfolgingsdialoger',
+            sti: '/oppfolgingsplaner',
         }],
     };
 };

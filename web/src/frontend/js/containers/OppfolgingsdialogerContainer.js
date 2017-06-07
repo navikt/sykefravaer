@@ -8,21 +8,7 @@ import { brodsmule as brodsmulePt } from '../propTypes';
 import Oppfolgingsdialoger from '../components/oppfolgingsdialoger/Oppfolgingsdialoger';
 import { OppfolgingsdialogInfoboks } from 'oppfolgingsdialog-npm';
 
-const hentFeilmelding = ({ ledetekster, begrensning }) => {
-    if (begrensning.aldersbegrensning) {
-        return getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.aldersbegrensning.tekst', ledetekster);
-    } else if (begrensning.kodebegrensning) {
-        return getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst', ledetekster);
-    }
-    return '';
-};
-hentFeilmelding.propTyopes = {
-    ledetekster: PropTypes.object,
-    aldersbegrensning: PropTypes.bool,
-    begrensning: PropTypes.object,
-};
-
-export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet, brukerHarTilgang, begrensning }) => {
+export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet, brukerHarTilgang }) => {
     return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
         {
             (() => {
@@ -38,9 +24,9 @@ export const OppfolgingsdialogerSide = ({ brodsmuler, oppfolgingsdialoger, ledet
                 }
                 return (<OppfolgingsdialogInfoboks
                     svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
-                    svgAlt="ikkeTilgangIllustrasjon"
-                    tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel', ledetekster)}
-                    tekst={hentFeilmelding({ ledetekster, begrensning })}
+                    svgAlt="ikkeTilgang"
+                    tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                    tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
                     />
                 );
             })()
@@ -55,11 +41,9 @@ OppfolgingsdialogerSide.propTypes = {
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     brukerHarTilgang: PropTypes.bool,
-    begrensning: PropTypes.object,
 };
 
 export const mapStateToProps = (state) => {
-    const aldersbegrensning = false;
     const kodebegrensning = false;
 
     return {
@@ -73,10 +57,9 @@ export const mapStateToProps = (state) => {
             erKlikkbar: true,
         }, {
             tittel: getLedetekst('oppfolgingsdialoger.sidetittel'),
-            sti: '/oppfolgingsdialoger',
+            sti: '/oppfolgingsplaner',
         }],
-        begrensning: { aldersbegrensning, kodebegrensning },
-        brukerHarTilgang: !aldersbegrensning && !kodebegrensning,
+        brukerHarTilgang: !kodebegrensning,
     };
 };
 

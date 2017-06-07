@@ -29,7 +29,7 @@ describe("Oppfolgingsdialoger", () => {
 
     it("Skal vise knapp for å opprette oppfolgingsdialog", () => {
         component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
-        expect(component.find('.knapp__opprettOppfolgingsdialog')).to.have.length(1);
+        expect(component.find('.rammeknapp')).to.have.length(1);
     });
 
     xit("Skal ikke vise OppfolgingsdialogerTeasere dersom man ikke har oppfolgingsdialoger", () => {

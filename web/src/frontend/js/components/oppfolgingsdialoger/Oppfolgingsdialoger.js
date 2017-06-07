@@ -12,7 +12,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
             tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
         <OppfolgingsdialogInfoboks
             svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks.svg"
-            altUrl="Oppfølgingsdialog"
+            altUrl="Oppfølgingsplan"
             tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.infoboks.tittel')}
             tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.infoboks.tekst')} />
 
@@ -20,7 +20,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
             <img className="pil" src="/sykefravaer/img/svg/pil.svg" alt="pil" />
         }
         <div className="knapperad">
-            <Link role="button" className="knapp__opprettOppfolgingsdialog" to={"/sykefravaer/oppfolgingsdialoger/opprett"}>
+            <Link role="button" className="rammeknapp oppfolgingsdialoger__rammeknapp" to={"/sykefravaer/oppfolgingsplaner/opprett"}>
                 {getLedetekst('oppfolgingsdialog.knapp.ny-oppfolgingsdialog')}
             </Link>
         </div>
@@ -31,7 +31,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
                 ingenOppfolgingsdialogerMelding={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.ingen-oppfolgingsdialoger.melding')}
                 rootUrl={`${getContextRoot()}`}
                 ledetekster={ledetekster}
-                brukertype={"SYKMELDT"}
+                brukertype="SYKMELDT"
             />
         }
     </div>);

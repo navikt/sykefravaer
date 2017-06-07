@@ -53,7 +53,7 @@ export function mapStateToProps(state, ownProps) {
             erKlikkbar: true,
         }, {
             tittel: getLedetekst('oppfolgingsdialoger.sidetittel'),
-            sti: '/oppfolgingsdialoger',
+            sti: '/oppfolgingsplaner',
             erKlikkbar: true,
         }, {
             tittel: virksomhetsnavn,

@@ -5,10 +5,10 @@ import { Field, reduxForm } from 'redux-form';
 import { Varselstripe } from 'digisyfo-npm';
 import Checkbox from '../skjema/Checkbox';
 import Tekstfelt from '../skjema/Tekstfelt';
-import Tekstarea from '../skjema/Tekstarea';
+import Tekstomraade from '../skjema/Tekstomraade';
 
 const LAGRE_ARBEIDSOPPGAVE_SKJEMANAVN = 'velgArbeidsgiver';
-const FELTER = {
+export const FELTER = {
     arbeidsoppgavenavn: {
         navn: 'arbeidsoppgavenavn',
         tekst: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.navn',
@@ -40,6 +40,129 @@ const FELTER = {
         navn: 'beskrivelse',
         tekst: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel.skjema.forklaring',
     },
+};
+
+
+export const RenderTekstfelt = ({ felt }) => {
+    return (
+        <div className="skjema__input">
+            <h3>{getLedetekst(felt.tekst)}</h3>
+            <Field
+                className="input--l"
+                name={felt.navn}
+                component={Tekstfelt}
+                placeholder="Skriv in tekst"
+            />
+        </div>
+    );
+};
+RenderTekstfelt.propTypes = {
+    felt: PropTypes.object,
+};
+
+export const RenderTekstOmraade = ({ felt }) => {
+    return (
+        <div className="skjema__input">
+            <h3>{getLedetekst(felt.tekst)}</h3>
+            <Field
+                className="input--l"
+                name={felt.navn}
+                component={Tekstomraade}
+                placeholder="Skriv in tekst"
+            />
+        </div>
+    );
+};
+RenderTekstOmraade.propTypes = {
+    felt: PropTypes.object,
+};
+
+export const RenderKnapper = ({ avbrytHref, cancel, gjennomfoeringSvarValgt, selectedCheckboxes }) => {
+    const avbrytKnapp = cancel ?
+        <Link className="lenke lenke__avbryt" onClick={cancel}>
+            {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
+        </Link>
+        :
+        <Link className="lenke lenke__avbryt" to={avbrytHref}>
+            {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
+        </Link>;
+
+    return (
+        <div className="knapperad">
+            <button
+                type="submit"
+                className="knapp knapperad__element"
+                disabled={gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.knapper[1] && selectedCheckboxes.size === 0}>
+                {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.ny-arbeidsoppgave')}
+            </button>
+            { avbrytKnapp }
+        </div>
+    );
+};
+RenderKnapper.propTypes = {
+    avbrytHref: PropTypes.string,
+    cancel: PropTypes.func,
+    gjennomfoeringSvarValgt: PropTypes.string,
+    selectedCheckboxes: PropTypes.any,
+};
+
+export const RenderRadioknapper = ({ gjennomfoeringSvarValgt, handleOptionChange }) => {
+    return (
+        <div className="inputgruppe">
+            <h3>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.gjennomfoering')}</h3>
+            {
+                FELTER.kanGjennomfoeres.svar.map((svar, index) => {
+                    return (
+                        <div className="skjema__input" key={`kanGjennomfoeres-${index}`}>
+                            <Field
+                                className="radioknapp radioknapp--mork"
+                                name={`radiosvar${index}`}
+                                component={"input"}
+                                type="radio"
+                                id={`radiosvar-${index}`}
+                                value={FELTER.kanGjennomfoeres.knapper[index] === gjennomfoeringSvarValgt}
+                                onChange={handleOptionChange}
+                                checked={FELTER.kanGjennomfoeres.knapper[index] === gjennomfoeringSvarValgt}
+                            />
+                            <label htmlFor={`radiosvar-${index}`}>
+                                {svar}
+                            </label>
+                        </div>
+                    );
+                })
+            }
+        </div>
+    );
+};
+RenderRadioknapper.propTypes = {
+    gjennomfoeringSvarValgt: PropTypes.string,
+    handleOptionChange: PropTypes.func,
+};
+
+export const RenderCheckoxer = ({ toggleCheckbox }) => {
+    return (
+        <div className="inputgruppe">
+            <h3>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.tilrettelegging')}</h3>
+            {
+                FELTER.gjennomfoering.svar.map((svar, index) => {
+                    return (
+                        <Field
+                            key={`gjennomfoering-${index}`}
+                            name={`checkboks${index}`}
+                            component={Checkbox}
+                            label={svar}
+                            id={`checkbox-${index}`}
+                            value={svar}
+                            onChange={toggleCheckbox}
+                        />
+                    );
+                })
+            }
+        </div>
+    );
+};
+RenderCheckoxer.propTypes = {
+    toggleCheckbox: PropTypes.func,
 };
 
 export class LagreArbeidsoppgaveSkjema extends Component {
@@ -87,131 +210,48 @@ export class LagreArbeidsoppgaveSkjema extends Component {
         this.props.sendArbeidsoppgave(values);
     }
 
-    renderTextfelt(felt, ledetekster) {
-        return (
-            <div className="skjema__input">
-                <h3>{getLedetekst(felt.tekst, ledetekster)}</h3>
-                <Field
-                    className="input--l"
-                    name={felt.navn}
-                    component={Tekstfelt}
-                    placeholder="Skriv in tekst"
-                />
-            </div>
-        );
-    }
-
-    renderTextArea(felt, ledetekster) {
-        return (
-            <div className="skjema__input">
-                <h3>{getLedetekst(felt.tekst, ledetekster)}</h3>
-                <Field
-                    className="input--l"
-                    name={felt.navn}
-                    component={Tekstarea}
-                    placeholder="Skriv in tekst"
-                />
-            </div>
-        );
-    }
-
-    renderKnapper(avbrytHref, cancel, ledetekster) {
-        const avbrytKnapp = cancel ?
-            <Link className="lenke lenke__avbryt" onClick={cancel}>
-                {getLedetekst('oppfolgingsdialog.knapp.avbryt', ledetekster)}
-            </Link>
-            :
-            <Link className="lenke lenke__avbryt" to={avbrytHref}>
-                {getLedetekst('oppfolgingsdialog.knapp.avbryt', ledetekster)}
-            </Link>;
-
-        return (
-            <div className="knapperad">
-                <button
-                    type="submit"
-                    className="knapp knapp__opprettarbeidsoppgave"
-                    disabled={this.state.gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.knapper[1] && this.state.selectedCheckboxes.size === 0}>
-                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.ny-arbeidsoppgave', ledetekster)}
-                </button>
-                { avbrytKnapp }
-            </div>
-        );
-    }
-
     render() {
-        const { ledetekster, avbrytHref, handleSubmit, cancel } = this.props;
+        const { avbrytHref, handleSubmit, cancel } = this.props;
 
         return (
             <form onSubmit={handleSubmit(this.submitArbeidsoppgave)} className="panel panel--lysblaa">
 
-                {this.renderTextfelt(FELTER.arbeidsoppgavenavn, ledetekster)}
+                <RenderTekstfelt felt={FELTER.arbeidsoppgavenavn} />
 
-                <div className="inputgruppe">
-                    <h3>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.gjennomfoering', ledetekster)}</h3>
-                    {
-                        FELTER.kanGjennomfoeres.svar.map((svar, index) => {
-                            return (
-                                <div className="skjema__input" key={`kanGjennomfoeres-${index}`}>
-                                    <Field
-                                        className="radioknapp radioknapp--mork"
-                                        name={`radiosvar${index}`}
-                                        component={"input"}
-                                        type="radio"
-                                        id={`radiosvar-${index}`}
-                                        value={FELTER.kanGjennomfoeres.knapper[index] === this.state.gjennomfoeringSvarValgt}
-                                        onChange={this.handleOptionChange}
-                                        checked={FELTER.kanGjennomfoeres.knapper[index] === this.state.gjennomfoeringSvarValgt}
-                                    />
-                                    <label htmlFor={`radiosvar-${index}`}>
-                                        {svar}
-                                    </label>
-                                </div>
-                            );
-                        })
-                    }
-                </div>
+                <RenderRadioknapper
+                    handleOptionChange={this.handleOptionChange}
+                    gjennomfoeringSvarValgt={this.state.gjennomfoeringSvarValgt}
+                />
 
                 {
                     this.state.gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.knapper[1] &&
-
-                    <div className="inputgruppe">
-                        <h3>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.tilrettelegging', ledetekster)}</h3>
-                        {
-                            FELTER.gjennomfoering.svar.map((svar, index) => {
-                                return (
-                                        <Field
-                                            key={`gjennomfoering-${index}`}
-                                            name={`checkboks${index}`}
-                                            component={Checkbox}
-                                            label={svar}
-                                            id={`checkbox-${index}`}
-                                            value={svar}
-                                            onChange={this.toggleCheckbox}
-                                        />
-                                );
-                            })
-                        }
-                    </div>
+                    <RenderCheckoxer
+                        toggleCheckbox={this.toggleCheckbox}
+                    />
                 }
 
                 {
-                    this.state.gjennomfoeringSvarValgt !== FELTER.kanGjennomfoeres.knapper[0] && this.renderTextArea(FELTER.beskrivelse, ledetekster)
+                    this.state.gjennomfoeringSvarValgt !== FELTER.kanGjennomfoeres.knapper[0] && <RenderTekstOmraade felt={FELTER.beskrivelse} />
                 }
 
                 {
                     this.state.gjennomfoeringSvarValgt === FELTER.kanGjennomfoeres.knapper[1] && <Varselstripe>
-                        <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.varselstripe.tekst', ledetekster)}</p>
+                        <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.varselstripe.tekst')}</p>
                     </Varselstripe>
                 }
 
-                { this.renderKnapper(avbrytHref, cancel, ledetekster) }
+                <RenderKnapper
+                    avbrytHref={avbrytHref}
+                    cancel={cancel}
+                    gjennomfoeringSvarValgt={this.state.gjennomfoeringSvarValgt}
+                    selectedCheckboxes={this.state.selectedCheckboxes}
+                />
             </form>
         );
     }
 }
 
 LagreArbeidsoppgaveSkjema.propTypes = {
-    ledetekster: PropTypes.object,
     avbrytHref: PropTypes.string,
     handleOptionChange: PropTypes.func,
     handleSubmit: PropTypes.func,

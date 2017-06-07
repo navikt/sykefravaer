@@ -88,6 +88,11 @@ describe("sykmeldingUtils", () => {
             expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(2);
         });
 
+        xit("skal returnere 1 arbeidsgiver", () => {
+            const sykmeldinger = [sykmeldingAktiv, sykmeldingAktiv];
+            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
+        });
+
     });
 
     describe("sykmeldtHarNaermestelederHosArbeidsgiver", () => {

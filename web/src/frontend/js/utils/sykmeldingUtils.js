@@ -27,6 +27,10 @@ export const finnArbeidsgivereForAktiveSykmeldinger = (sykmeldinger, naermesteLe
             navn: sykmelding.arbeidsgiver,
             harNaermesteLeder: sykmeldtHarNaermestelederHosArbeidsgiver(sykmelding.orgnummer, naermesteLedere),
         };
+    }).filter((sykmelding, idx, self) => {
+        return self.findIndex(t => {
+            return t.virksomhetsnummer === sykmelding.virksomhetsnummer;
+        }) === idx;
     });
 };
 

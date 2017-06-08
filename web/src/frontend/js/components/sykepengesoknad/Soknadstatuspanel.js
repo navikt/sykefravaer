@@ -92,7 +92,7 @@ SendtUlikt.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
 };
 
-export const Statuspanel = ({ sykepengesoknad }) => {
+export const Statuspanel = ({ sykepengesoknad, children }) => {
     const sendtTilBeggeMenIkkeSamtidig = sykepengesoknad.sendtTilNAVDato && sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato.getTime() !== sykepengesoknad.sendtTilArbeidsgiverDato.getTime();
     return (<div className="panel panel--komprimert blokk">
         <Varselstripe type="suksess">
@@ -104,6 +104,7 @@ export const Statuspanel = ({ sykepengesoknad }) => {
                     return <SendtLikt sykepengesoknad={sykepengesoknad} />;
                 })()
             }
+            {children}
         </Varselstripe>
     </div>);
 };

@@ -18,7 +18,7 @@ Avkrysset.propTypes = {
 };
 
 export const Knapperad = (props) => {
-    return (<div className="knapperad knapperad--adskilt">
+    return (<div className="knapperad knapperad--sendtSoknad">
         <Ettersending {...props} manglendeDato="sendtTilNAVDato" ledetekstKeySuffix="send-til-nav" />
         <Ettersending {...props} manglendeDato="sendtTilArbeidsgiverDato" ledetekstKeySuffix="send-til-arbeidsgiver" />
     </div>);
@@ -33,15 +33,17 @@ class SendtSoknad extends Component {
         const { sykepengesoknad } = this.props;
         return (<div ref="sendtSoknad">
             <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
-            <Soknadstatuspanel sykepengesoknad={sykepengesoknad} />
+            <Soknadstatuspanel sykepengesoknad={sykepengesoknad}>
+                <Knapperad sykepengesoknad={sykepengesoknad} scrollTilTopp={() => {
+                    this.scrollTilTopp();
+                }} />
+            </Soknadstatuspanel>
             <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />
             <Soknad sykepengesoknad={sykepengesoknad} tittel="Oppsummering" />
             <div className="bekreftet-container">
                 <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label')} />
             </div>
-            <Knapperad sykepengesoknad={sykepengesoknad} scrollTilTopp={() => {
-                this.scrollTilTopp();
-            }} />
+            
         </div>);
     }
 }

@@ -84,7 +84,7 @@ export class Arbeidsoppgaver extends Component {
                             <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
                             <LagreArbeidsoppgaveSkjema
                                 avbrytHref={'/sykefravaer/oppfolgingsplaner'}
-                                sendArbeidsoppgave={sendArbeidsoppgave}
+                                onSubmit={sendArbeidsoppgave}
                             />
                         </div>
                         :
@@ -104,7 +104,7 @@ export class Arbeidsoppgaver extends Component {
                                 this.state.visArbeidsoppgaveSkjema ?
                                     <LagreArbeidsoppgaveSkjema
                                         avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
-                                        sendArbeidsoppgave={this.sendArbeidsoppgave}
+                                        onSubmit={sendArbeidsoppgave}
                                         cancel={this.toggleArbeidsoppgaveSkjema}
                                     /> :
                                     <RenderKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />

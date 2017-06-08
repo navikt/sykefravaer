@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import ArbeidsgiverSkjema from './ArbeidsgiverSkjema';
 
-const OpprettOppfolgingsdialog = ({ arbeidsgivere, avbrytHref, handleOptionChange, velgArbeidsgiver, arbeidsgiverValg }) => {
+const OpprettOppfolgingsdialog = ({ arbeidsgivere, avbrytHref, velgArbeidsgiver }) => {
     return (
         <div className="panel blokk velgarbeidsgiver__blokk">
             <div className="illustrertTittel">
@@ -13,8 +13,6 @@ const OpprettOppfolgingsdialog = ({ arbeidsgivere, avbrytHref, handleOptionChang
                 arbeidsgivere={arbeidsgivere}
                 onSubmit={velgArbeidsgiver}
                 avbrytHref={avbrytHref}
-                handleOptionChange={handleOptionChange}
-                arbeidsgiverValg={arbeidsgiverValg}
             />
         </div>
     );
@@ -23,9 +21,7 @@ const OpprettOppfolgingsdialog = ({ arbeidsgivere, avbrytHref, handleOptionChang
 OpprettOppfolgingsdialog.propTypes = {
     arbeidsgivere: PropTypes.array,
     avbrytHref: PropTypes.string,
-    handleOptionChange: PropTypes.func,
     velgArbeidsgiver: PropTypes.func,
-    arbeidsgiverValg: PropTypes.string,
 };
 
 export default OpprettOppfolgingsdialog;

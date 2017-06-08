@@ -16,12 +16,9 @@ export class OpprettOppfolgingsdialogSide extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arbeidsgiver: '',
-            arbeidsgiverValgt: false,
-            samtykket: false,
+            side: 1,
         };
-        this.handleOptionChange = this.handleOptionChange.bind(this);
-        this.velgArbeidsgiver = this.velgArbeidsgiver.bind(this);
+        this.nesteSide = this.nesteSide.bind(this);
         this.samtykk = this.samtykk.bind(this);
     }
 
@@ -37,21 +34,14 @@ export class OpprettOppfolgingsdialogSide extends Component {
         });
     }
 
-    velgArbeidsgiver() {
-        if (this.state.arbeidsgiver !== '') {
-            this.setState({
-                arbeidsgiverValgt: true,
-            });
-        }
+    nesteSide() {
+        this.setState({
+            side: this.state.side + 1,
+        });
     }
 
-    samtykk(value) {
-        if (value.samtykkeInput) {
-            this.setState({
-                samtykket: true,
-            });
-            this.props.opprettOppfolgingsdialog(this.state.arbeidsgiver);
-        }
+    samtykk(values) {
+        this.props.opprettOppfolgingsdialog(values.arbeidsgiver);
     }
 
     render() {
@@ -64,7 +54,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
                         return <AppSpinner />;
                     } else if (hentingFeilet || opprettingFeilet) {
                         return (<Feilmelding />);
-                    } else if (this.state.arbeidsgiverValgt) {
+                    } else if (this.state.side === 2) {
                         return (
                             <div>
                                 <Sidetopp
@@ -85,9 +75,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
                             <OpprettOppfolgingsdialog
                                 arbeidsgivere={arbeidsgivere}
                                 avbrytHref="/sykefravaer/oppfolgingsplaner"
-                                velgArbeidsgiver={this.velgArbeidsgiver}
-                                arbeidsgiverValg={this.state.arbeidsgiver}
-                                handleOptionChange={this.handleOptionChange}
+                                velgArbeidsgiver={this.nesteSide}
                             />
                         </div>);
                 })()

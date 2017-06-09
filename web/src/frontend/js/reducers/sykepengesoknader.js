@@ -7,6 +7,7 @@ const initiellState = {
     sender: false,
     sendingFeilet: false,
     data: [],
+    hentet: false,
 };
 
 export function sorterAktiviteterEldsteFoerst(soknad) {
@@ -78,18 +79,21 @@ export default function sykepengesoknader(state = initiellState, action) {
                 data: soknader,
                 henter: false,
                 hentingFeilet: false,
+                hentet: true,
             });
         }
         case actiontyper.HENTER_SYKEPENGESOKNADER: {
             return Object.assign({}, state, {
                 henter: true,
                 hentingFeilet: false,
+                hentet: false,
             });
         }
         case actiontyper.HENT_SYKEPENGESOKNADER_FEILET: {
             return Object.assign({}, state, {
                 henter: false,
                 hentingFeilet: true,
+                hentet: false,
             });
         }
         case actiontyper.SENDER_SYKEPENGESOKNAD: {

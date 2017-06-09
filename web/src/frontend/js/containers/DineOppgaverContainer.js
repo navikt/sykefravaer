@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { NY as NY_SYKMELDING } from '../enums/sykmeldingstatuser';
 import { NY as NY_SYKEPENGESOKNAD } from '../enums/sykepengesoknadstatuser';
@@ -7,6 +7,7 @@ import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from
 import { getLedetekst } from 'digisyfo-npm';
 import { getSvarsideModus } from 'moter-npm';
 import { erMotePassert } from '../utils';
+import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 
 const Li = ({ tekst, url }) => {
     return (<li>
@@ -43,32 +44,44 @@ NySykepengesoknad.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
 };
 
-export const DineOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote }) => {
-    if (!visOppgaver) {
-        return null;
+export class DineOppgaver extends Component {
+    componentWillMount() {
+        const { sykmeldingerHentet } = this.props;
+        if (!sykmeldingerHentet) {
+            this.props.hentDineSykmeldinger();
+        }
     }
-    return (<div className="dineOppgaver blokk">
-        <div className="dineOppgaver__container">
-            <div className="dineOppgaver__illustrasjon">
-                <img src="/sykefravaer/img/svg/landingsside/oppgaver.svg" alt="Oppgaver" />
+
+    render() {
+        const { sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote } = this.props;
+        if (!visOppgaver) {
+            return null;
+        }
+        return (<div className="dineOppgaver blokk">
+            <div className="dineOppgaver__container">
+                <div className="dineOppgaver__illustrasjon">
+                    <img src="/sykefravaer/img/svg/landingsside/oppgaver.svg" alt="Oppgaver" />
+                </div>
+                <div className="dineOppgaver__tekst">
+                    <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
+                    <ul className="dineOppgaver__liste">
+                        { sykmeldinger.length > 0 ? <NySykmelding sykmeldinger={sykmeldinger} /> : null }
+                        { sykepengesoknader.length > 0 ? <NySykepengesoknad sykepengesoknader={sykepengesoknader} /> : null }
+                        { mote !== null ? <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> : null }
+                    </ul>
+                </div>
             </div>
-            <div className="dineOppgaver__tekst">
-                <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
-                <ul className="dineOppgaver__liste">
-                    { sykmeldinger.length > 0 ? <NySykmelding sykmeldinger={sykmeldinger} /> : null }
-                    { sykepengesoknader.length > 0 ? <NySykepengesoknad sykepengesoknader={sykepengesoknader} /> : null }
-                    { mote !== null ? <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> : null }
-                </ul>
-            </div>
-        </div>
-    </div>);
-};
+        </div>);
+    }
+}
 
 DineOppgaver.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     visOppgaver: PropTypes.bool,
     mote: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
+    sykmeldingerHentet: PropTypes.bool,
+    hentDineSykmeldinger: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
@@ -90,6 +103,7 @@ export const mapStateToProps = (state) => {
     const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null;
 
     return {
+        sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
         sykmeldinger,
         sykepengesoknader,
         visOppgaver,
@@ -97,6 +111,6 @@ export const mapStateToProps = (state) => {
     };
 };
 
-const DineOppgaverContainer = connect(mapStateToProps)(DineOppgaver);
+const DineOppgaverContainer = connect(mapStateToProps, { hentDineSykmeldinger })(DineOppgaver);
 
 export default DineOppgaverContainer;

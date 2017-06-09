@@ -13,17 +13,13 @@ import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
 import ledere from './reducers/ledere';
 import { oppfolgingsdialogerAt as oppfolgingsdialoger, arbeidsoppgaver, samtykke } from 'oppfolgingsdialog-npm';
-import { hentDineSykmeldinger } from './actions/dineSykmeldinger_actions';
-import { hentSykepengesoknader } from './actions/sykepengesoknader_actions';
-import { hentLedetekster, hentToggles, ledetekster, tidslinjer, toggles } from 'digisyfo-npm';
-import { hentBrukerinfo } from './actions/brukerinfo_actions';
+import { hentLedetekster, ledetekster, tidslinjer, toggles } from 'digisyfo-npm';
 import { hentVedlikehold } from './actions/vedlikehold_actions';
-import { hentLedere } from './actions/ledere_actions';
 import { hentOppfolgingsdialogerAt as hentOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
 import history from './history';
 import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';
-import { svar, mote, moteActions } from 'moter-npm';
+import { svar, mote } from 'moter-npm';
 import pilot from './reducers/pilot';
 import vedlikehold from './reducers/vedlikehold';
 import reduxFormMeta from './reducers/reduxFormMeta';
@@ -61,15 +57,11 @@ const store = createStore(rootReducer,
 
 sagaMiddleware.run(rootSaga);
 
+// <OBS>: Minimer antall kall som gjøres her!
 store.dispatch(hentLedetekster());
-store.dispatch(hentDineSykmeldinger());
-store.dispatch(hentSykepengesoknader());
-store.dispatch(hentBrukerinfo());
 store.dispatch(hentVedlikehold());
-store.dispatch(moteActions.hentMote());
 store.dispatch(hentOppfolgingsdialoger());
-store.dispatch(hentLedere());
-store.dispatch(hentToggles());
+// </OBS>
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {
     window.localStorage.setItem('visLedetekster', true);

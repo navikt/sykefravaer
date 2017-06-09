@@ -30,7 +30,8 @@ describe("DineOppgaverContainer", () => {
                     }, {
                         status: "SENDT",
                         id: "2"
-                    }]
+                    }],
+                    hentet: true,
                 },
                 sykepengesoknader: {
                     data: [{
@@ -57,6 +58,17 @@ describe("DineOppgaverContainer", () => {
                 status: "NY",
                 id: "1"
             }])
+        });
+
+        it("Skal returnere sykmeldingerHentet", () => {
+            const res = mapStateToProps(state);
+            expect(res.sykmeldingerHentet).to.be.true;
+        });
+
+        it("Skal returnere sykmeldingerHentet", () => {
+            state.dineSykmeldinger.hentet = false;
+            const res = mapStateToProps(state);
+            expect(res.sykmeldingerHentet).to.be.false;
         });
 
         it("Skal returnere NYE sykepengesoknader", () => {
@@ -162,18 +174,18 @@ describe("DineOppgaverContainer", () => {
         });
 
         it("Skal vise null hvis visOppgaver === false", () => {
-            let component = shallow(<DineOppgaver visOppgaver={false} />);
+            let component = shallow(<DineOppgaver sykmeldingerHentet visOppgaver={false} />);
             expect(component.html()).to.be.null;
         });
 
         it("Skal vise null hvis visOppgaver === false", () => {
-            let component = shallow(<DineOppgaver visOppgaver={false} />);
+            let component = shallow(<DineOppgaver sykmeldingerHentet visOppgaver={false} />);
             expect(component.html()).to.be.null;
         });
 
         describe("Hvis du har oppgaver", () => {
             beforeEach(() => {
-                component = shallow(<DineOppgaver visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{}, {}]} />);
+                component = shallow(<DineOppgaver sykmeldingerHentet visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{}, {}]} />);
             });
 
             it("Skal vise tittel", () => {
@@ -181,31 +193,31 @@ describe("DineOppgaverContainer", () => {
             });
 
             it("Skal vise en lenke til din sykepengesoknad hvis det er én søknad", () => {
-                component = mount(<DineOppgaver visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{}, {}]} />);
+                component = mount(<DineOppgaver sykmeldingerHentet visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{}, {}]} />);
                 expect(component.find(Link).at(1).prop("to")).to.equal("/sykefravaer/soknader/1");
                 expect(component.find(Link).at(1).text()).to.equal("Du har 1 ny søknad");
             });
 
             it("Skal vise en lenke til dine sykepengesoknader hvis det er flere søknader", () => {
-                component = mount(<DineOppgaver visOppgaver={true} sykepengesoknader={[{id: "1"}, {}]} sykmeldinger={[{}, {}]} />);
+                component = mount(<DineOppgaver sykmeldingerHentet visOppgaver={true} sykepengesoknader={[{id: "1"}, {}]} sykmeldinger={[{}, {}]} />);
                 expect(component.find(Link).at(1).prop("to")).to.equal("/sykefravaer/soknader");
                 expect(component.find(Link).at(1).text()).to.equal("Du har 2 nye søknader");
             });
 
             it("Skal vise en lenke til din sykmelding hvis det er én søknad", () => {
-                component = mount(<DineOppgaver visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{id: 1}]} />);
+                component = mount(<DineOppgaver sykmeldingerHentet visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{id: 1}]} />);
                 expect(component.find(Link).at(0).prop("to")).to.equal("/sykefravaer/sykmeldinger/1");
                 expect(component.find(Link).at(0).text()).to.equal("Du har 1 ny sykmelding");
             });
 
             it("Skal vise en lenke til dine sykmeldinger hvis det er flere sykmeldinger", () => {
-                component = mount(<DineOppgaver visOppgaver={true} sykepengesoknader={[{id: "1"}, {}]} sykmeldinger={[{}, {}]} />);
+                component = mount(<DineOppgaver sykmeldingerHentet visOppgaver={true} sykepengesoknader={[{id: "1"}, {}]} sykmeldinger={[{}, {}]} />);
                 expect(component.find(Link).at(0).prop("to")).to.equal("/sykefravaer/sykmeldinger");
                 expect(component.find(Link).at(0).text()).to.equal("Du har 2 nye sykmeldinger");
             });
 
             it("Skal vise en lenke til møte hvis møte = TRENGER_SVAR", () => {
-                component = mount(<DineOppgaver visOppgaver={true} mote="TRENGER_SVAR" />);
+                component = mount(<DineOppgaver sykmeldingerHentet visOppgaver={true} mote="TRENGER_SVAR" />);
                 expect(component.find(Link).at(0).prop("to")).to.equal("/sykefravaer/dialogmote");
                 expect(component.find(Link).at(0).text()).to.equal("Svar på NAVs spørsmål om dialogmøte");
             });

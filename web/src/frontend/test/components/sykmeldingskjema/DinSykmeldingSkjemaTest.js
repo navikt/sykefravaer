@@ -1,3 +1,4 @@
+
 import chai from 'chai';
 import React from 'react'
 import { mount, shallow } from 'enzyme';
@@ -17,6 +18,7 @@ import { Varselstripe } from "digisyfo-npm";
 import ErLederRiktig from "../../../js/components/sykmeldingskjema/ErLederRiktig";
 import { Provider } from 'react-redux';
 import feilaktigeOpplysninger from "../../../js/enums/feilaktigeOpplysninger";
+import { hentAktuelleArbeidsgivere } from '../../../js/actions/dineArbeidsgivere_actions';
 import deepFreeze from 'deep-freeze';
 import { setLedetekster } from 'digisyfo-npm';
 
@@ -33,6 +35,7 @@ describe("DinSykmeldingSkjema -", () => {
     let store;
     let brukerinfo;
     let skjemaData;
+    let dispatch;
 
     beforeEach(() => {
         setLedetekster(ledetekster);
@@ -67,24 +70,26 @@ describe("DinSykmeldingSkjema -", () => {
             fields: {},
             values: {}
         }
+
+        dispatch = sinon.spy();
     });
 
     it("Skal vise VelgArbeidssituasjon", () => {
         component = mount(<Provider store={store}>
-            <DinSykmeldingSkjema />
+            <DinSykmeldingSkjema dispatch={dispatch} sykmelding={getSykmelding()} />
         </Provider>);
         expect(component.find(VelgArbeidssituasjon)).to.have.length(1);
     });
 
     it("Skal ikke vise VelgArbeidsgiver dersom arbeidssituasjon === undefined", () => {
-        component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} />);
+        component = shallow(<DinSykmeldingSkjema dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} />);
         expect(component.find(VelgArbeidsgiver)).to.have.length(0);
         expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(0);
     });
 
     it("Skal ikke vise VelgArbeidsgiver arbeidssituasjon === 'ARBEIDSLEDIG'", () => {
         skjemaData.values.valgtArbeidssituasjon = 'ARBEIDSLEDIG';
-        component = shallow(<DinSykmeldingSkjema sykmelding={getSykmelding({
+        component = shallow(<DinSykmeldingSkjema dispatch={dispatch} sykmelding={getSykmelding({
                     'arbeidssituasjon': 'ARBEIDSLEDIG',
                 })} skjemaData={skjemaData} />);
         expect(component.find(VelgArbeidsgiver)).to.have.length(0);
@@ -94,7 +99,7 @@ describe("DinSykmeldingSkjema -", () => {
     it("Skal vise ArbeidsgiversSykmeldingContainer dersom arbeidssituasjon === 'ARBEIDSTAKER'", () => {
         skjemaData.values.valgtArbeidssituasjon = 'ARBEIDSTAKER';
         component = mount(<Provider store={store}>
-            <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={[]} />
+            <DinSykmeldingSkjema dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={[]} />
         </Provider>);
         expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(1);
     });
@@ -102,7 +107,7 @@ describe("DinSykmeldingSkjema -", () => {
     it("Skal vise info om utskrift dersom harStrengtFortroligAdresse = true", () => {
         skjemaData.values.valgtArbeidssituasjon = 'ARBEIDSTAKER';
         component = mount(<Provider store={store}>
-            <DinSykmeldingSkjema sykmelding={getSykmelding()} arbeidsgivere={[]} harStrengtFortroligAdresse={true} skjemaData={skjemaData}  />
+            <DinSykmeldingSkjema dispatch={dispatch} sykmelding={getSykmelding()} arbeidsgivere={[]} harStrengtFortroligAdresse={true} skjemaData={skjemaData}  />
         </Provider>);
         expect(component.find(StrengtFortroligInfo)).to.have.length(1);
     });
@@ -110,7 +115,15 @@ describe("DinSykmeldingSkjema -", () => {
     it("Skal ikke vise info om utskrift dersom harStrengtFortroligAdresse = false", () => {
         skjemaData.values.valgtArbeidssituasjon = 'ARBEIDSTAKER';
         component = mount(<Provider store={store}>
-            <DinSykmeldingSkjema sykmelding={getSykmelding()}  harStrengtFortroligAdresse={false} skjemaData={skjemaData} arbeidsgivere={[]} />
+            <DinSykmeldingSkjema dispatch={dispatch} sykmelding={getSykmelding()}  harStrengtFortroligAdresse={false} skjemaData={skjemaData} arbeidsgivere={[]} />
+        </Provider>);
+        expect(component.find(StrengtFortroligInfo)).to.have.length(0);
+    });
+
+    it("Skal hente aktuelle arbeidsgivere", () => {
+        const dispatch = sinon.spy();
+        component = mount(<Provider store={store}>
+            <DinSykmeldingSkjema dispatch={dispatch} sykmelding={getSykmelding()} harStrengtFortroligAdresse={false} skjemaData={skjemaData} arbeidsgivere={[]} />
         </Provider>);
         expect(component.find(StrengtFortroligInfo)).to.have.length(0);
     });
@@ -120,7 +133,8 @@ describe("DinSykmeldingSkjema -", () => {
         let component;
 
         it("Skal være GA_VIDERE by default", () => {
-            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />);
+            component = shallow(<DinSykmeldingSkjemaComponent
+            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />);
             const modus = component.instance().getSkjemaModus({}, false);
             expect(modus).to.equal("GA_VIDERE")
         })
@@ -133,7 +147,8 @@ describe("DinSykmeldingSkjema -", () => {
                 }],
                 opplysningeneErRiktige: false,
             }
-            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
+            component = shallow(<DinSykmeldingSkjemaComponent
+            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus = component.instance().getSkjemaModus(values, false);
             expect(modus).to.equal("AVBRYT")
 
@@ -141,7 +156,8 @@ describe("DinSykmeldingSkjema -", () => {
                 opplysning: "sykmeldingsgrad",
                 avkrysset: true,
             }]
-            let component2 = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
+            let component2 = shallow(<DinSykmeldingSkjemaComponent
+            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus2 = component2.instance().getSkjemaModus(values, false);
             expect(modus2).to.equal("AVBRYT")
         });
@@ -150,7 +166,8 @@ describe("DinSykmeldingSkjema -", () => {
             let values = {
                 valgtArbeidssituasjon: 'ARBEIDSTAKER'
             }
-            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
+            component = shallow(<DinSykmeldingSkjemaComponent
+            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus = component.instance().getSkjemaModus(values, false);
             expect(modus).to.equal("SEND")
         });
@@ -163,7 +180,8 @@ describe("DinSykmeldingSkjema -", () => {
                     orgnummer: '0'
                 }
             }
-            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
+            component = shallow(<DinSykmeldingSkjemaComponent
+            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus = component.instance().getSkjemaModus(values, false);
             expect(modus).to.equal("BEKREFT")
         });
@@ -172,7 +190,8 @@ describe("DinSykmeldingSkjema -", () => {
             let values = {
                 valgtArbeidssituasjon: 'ARBEIDSTAKER'
             }
-            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
+            component = shallow(<DinSykmeldingSkjemaComponent
+            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
             const modus = component.instance().getSkjemaModus(values, true);
             expect(modus).to.equal("BEKREFT")
         });
@@ -191,7 +210,8 @@ describe("DinSykmeldingSkjema -", () => {
                 feilaktigeOpplysninger: [...feilaktigeOpplysninger],
                 opplysningeneErRiktige: true
             };
-            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />);
+            component = shallow(<DinSykmeldingSkjemaComponent
+            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />);
             expect(component.instance().getFeilaktigeOpplysninger()).to.deep.equal({})
         });
 
@@ -210,7 +230,8 @@ describe("DinSykmeldingSkjema -", () => {
                 feilaktigeOpplysninger: f,
                 opplysningeneErRiktige: false,
             };
-            component = shallow(<DinSykmeldingSkjemaComponent sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />);
+            component = shallow(<DinSykmeldingSkjemaComponent
+            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />);
             expect(component.instance().getFeilaktigeOpplysninger()).to.deep.equal({
                 periode: true,
                 sykmeldingsgrad: true,
@@ -237,6 +258,7 @@ describe("DinSykmeldingSkjema -", () => {
             const setArbeidsgiverSpy = sinon.spy()
             const setFeilaktigOpplysningSpy = sinon.spy();
             component = shallow(<DinSykmeldingSkjemaComponent
+                dispatch={dispatch}
                 setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
                 setArbeidssituasjon={setArbeidssituasjonSpy}
                 setArbeidsgiver={setArbeidsgiverSpy}
@@ -261,6 +283,7 @@ describe("DinSykmeldingSkjema -", () => {
             const setArbeidsgiverSpy = sinon.spy();
 
             component = shallow(<DinSykmeldingSkjemaComponent
+                dispatch={dispatch}
                 setFeilaktigOpplysning={setFeilaktigOpplysningSpy}
                 setArbeidssituasjon={setArbeidssituasjonSpy}
                 setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
@@ -300,6 +323,7 @@ describe("DinSykmeldingSkjema -", () => {
             })
 
             component = shallow(<DinSykmeldingSkjemaComponent
+                dispatch={dispatch}
                 setFeilaktigOpplysning={setFeilaktigOpplysningSpy}
                 setArbeidssituasjon={setArbeidssituasjonSpy}
                 setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
@@ -336,6 +360,7 @@ describe("DinSykmeldingSkjema -", () => {
             });
 
             component = shallow(<DinSykmeldingSkjemaComponent
+                dispatch={dispatch}
                 setFeilaktigOpplysning={setFeilaktigOpplysningSpy}
                 setArbeidssituasjon={setArbeidssituasjonSpy}
                 setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
@@ -363,6 +388,7 @@ describe("DinSykmeldingSkjema -", () => {
             const setArbeidsgiverSpy = sinon.spy()
 
             component = shallow(<DinSykmeldingSkjemaComponent
+                dispatch={dispatch}
                 setFeilaktigOpplysning={setFeilaktigOpplysningSpy}
                 setArbeidssituasjon={setArbeidssituasjonSpy}
                 setOpplysningeneErRiktige={setOpplysningeneErRiktigeSpy}
@@ -398,7 +424,7 @@ describe("DinSykmeldingSkjema -", () => {
             skjemaData.values = {};
 
             component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} />
+                <DinSykmeldingSkjema dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} />
             </Provider>);
         });
 
@@ -432,7 +458,7 @@ describe("DinSykmeldingSkjema -", () => {
             }];
 
             component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
+                <DinSykmeldingSkjema dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
             </Provider>);
         });
 
@@ -462,7 +488,7 @@ describe("DinSykmeldingSkjema -", () => {
             setLedetekster(ledetekster);
 
             const component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
+                <DinSykmeldingSkjema dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
             </Provider>);
 
             expect(component.text()).to.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.')
@@ -497,7 +523,7 @@ describe("DinSykmeldingSkjema -", () => {
             setLedetekster(ledetekster);
 
             const component = mount(<Provider store={store}>
-                <DinSykmeldingSkjema sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
+                <DinSykmeldingSkjema dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} arbeidsgivere={arbeidsgivere} />
             </Provider>);
 
             expect(component.text()).to.not.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.')

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Varselstripe, SykmeldingNokkelOpplysning } from 'digisyfo-npm';
 import { toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import { SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
@@ -111,6 +111,7 @@ export const Statuspanel = ({ sykepengesoknad, children }) => {
 
 Statuspanel.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
+    children: PropTypes.array,
 };
 
 export default Statuspanel;

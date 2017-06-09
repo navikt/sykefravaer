@@ -10,7 +10,7 @@ export function* hentPilotSykepenger(action) {
     try {
         const sykmeldingId = action.sykmeldingId;
         const erPilot = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/informasjon/sykepengepilot?sykmeldingId=${sykmeldingId}`);
-        yield put(actions.pilotSykepengerHentet(erPilot));
+        yield put(actions.pilotSykepengerHentet(erPilot, sykmeldingId));
     } catch (e) {
         log(e);
         yield put(actions.hentPilotSykepengerFeilet());

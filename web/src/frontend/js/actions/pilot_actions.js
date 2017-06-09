@@ -13,11 +13,12 @@ export const henterPilotSykepenger = () => {
     };
 };
 
-export const pilotSykepengerHentet = (erPilot) => {
+export const pilotSykepengerHentet = (erPilot, sykmeldingId) => {
     return {
         type: actiontyper.PILOT_SYKEPENGER_HENTET,
         data: {
             pilotSykepenger: erPilot,
+            sykmeldingId,
         },
     };
 };

@@ -26,12 +26,14 @@ describe('dineSykmeldingerReducer', () => {
                 tally: {Trainspotting: 1}
             }],
             henter: false,
-            hentingFeilet: false
+            hentingFeilet: false,
+            hentet: true,
         });
     });
 
     it('håndterer SET_DINE_SYKMELDINGER når man har sykmeldinger fra før, ved å kun overskrive properties som finnes', () => {
         const initialState = deepFreeze({
+            hentet: false,
             data: [{
                 id: 44, 
                 fornavn: "Harald",
@@ -66,7 +68,8 @@ describe('dineSykmeldingerReducer', () => {
                 etternavn: "Haraldsen"
             }],
             henter: false,
-            hentingFeilet: false
+            hentingFeilet: false,
+            hentet: true,
         });
     });
 
@@ -80,6 +83,7 @@ describe('dineSykmeldingerReducer', () => {
             data: [],
             henter: true,
             hentingFeilet: false,
+            hentet: false,
         });
     });
 
@@ -100,18 +104,22 @@ describe('dineSykmeldingerReducer', () => {
                 id: 6789
             }],
             henter: true,
+            hentet: false,
             hentingFeilet: false,
         });
     });
 
     it("Håndterer HENT_DINE_SYKMELDINGER_FEILET", () => {
-        const initialState = deepFreeze({});
+        const initialState = deepFreeze({
+            hentet: true,
+        });
         const action = actions.hentDineSykmeldingerFeilet();
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [],
             henter: false,
             hentingFeilet: true,
+            hentet: false,
         });
     });
 

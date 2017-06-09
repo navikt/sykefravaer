@@ -25,7 +25,7 @@ describe("pilotSykepengerSagas", () => {
     });
 
     it("Skal deretter dispatche PILOT_SYKEPENGER_HENTET", () => {
-        const nextPut = put(actions.pilotSykepengerHentet(true));
+        const nextPut = put(actions.pilotSykepengerHentet(true, "sykmeldingId"));
         expect(generator.next(true).value).to.deep.equal(nextPut);
     }); 
 

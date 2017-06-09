@@ -82,7 +82,8 @@ describe('brukerinfo', () => {
             bruker: {
                 data: {},
                 hentingFeilet: true,
-                henter: false
+                henter: false,
+                hentet: false,
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: false
@@ -106,6 +107,7 @@ describe('brukerinfo', () => {
                 data: {},
                 hentingFeilet: true,
                 henter: false,
+                hentet: false,
             },
             innlogging: {}
         });  
@@ -123,7 +125,8 @@ describe('brukerinfo', () => {
             bruker: {
                 henter: true,
                 hentingFeilet: false,
-                data: {}
+                data: {},
+                hentet: false,
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
@@ -144,6 +147,7 @@ describe('brukerinfo', () => {
                 data: {},
                 henter: true,
                 hentingFeilet: false,
+                hentet: false,
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: false
@@ -164,7 +168,8 @@ describe('brukerinfo', () => {
                 data: {
                     navn: "Helge",
                     alder: 32,
-                }
+                },
+                hentet: true,
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: false
@@ -180,7 +185,8 @@ describe('brukerinfo', () => {
                     navn: "Christian",
                     alder: 35,
                     hoyde: 185
-                }
+                },
+                hentet: true,
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
@@ -199,7 +205,8 @@ describe('brukerinfo', () => {
                     navn: "Helge",
                     alder: 32,
                     hoyde: 185
-                }
+                },
+                hentet: true,
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: true
@@ -214,7 +221,8 @@ describe('brukerinfo', () => {
             bruker: {
                 data: {},
                 hentingFeilet: true,
-                henter: false
+                henter: false,
+                hentet: true,
             }
         });
         const nextState2 = brukerinfo(initiellState, brukerinfoActions.setBrukerinfo({
@@ -228,7 +236,8 @@ describe('brukerinfo', () => {
                 data: {
                     navn: "Helge",
                     alder: 32,
-                }
+                },
+                hentet: true,
             },
             innstillinger: {
                 skjulUnderUtviklingVarsel: false

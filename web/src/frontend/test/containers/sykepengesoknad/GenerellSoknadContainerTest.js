@@ -12,12 +12,15 @@ import Feilmelding from '../../../js/components/Feilmelding';
 import FoerDuBegynner from '../../../js/components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import { GenerellSoknad, mapStateToProps } from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 import { soknader } from '../../mockSoknader';
+import sinon from 'sinon';
 
 describe("GenerellSoknadContainer", () => {
 
     let state;
     let ownProps;
     let minSoknad; 
+    let hentSykepengesoknader;
+    let actions;
 
     beforeEach(() => {
         minSoknad = {
@@ -64,41 +67,53 @@ describe("GenerellSoknadContainer", () => {
                 data: ledetekster,
             }
         }
+        hentSykepengesoknader = sinon.spy();
+        actions = { hentSykepengesoknader };
     });
 
     describe("GenerellSoknad", () => {
         it("Skal vise spinner hvis det hentes", () => {
-            const component = shallow(<GenerellSoknad henter />);
+            const component = shallow(<GenerellSoknad actions={actions} henter />);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
         it("Skal ikke vise spinner hvis det ikke hentes", () => {
-            const component = shallow(<GenerellSoknad />);
+            const component = shallow(<GenerellSoknad actions={actions} />);
             expect(component.find(AppSpinner)).to.have.length(0);
         });
 
         it("Skal vise feilmelding hvis henting feiler", () => {
-            const component = shallow(<GenerellSoknad hentingFeilet />);
+            const component = shallow(<GenerellSoknad actions={actions} hentingFeilet />);
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
         it("Skal ikke vise feilmelding hvis henting ikke feiler", () => {
-            const component = shallow(<GenerellSoknad sykepengesoknad={minSoknad} />);
+            const component = shallow(<GenerellSoknad actions={actions} sykepengesoknad={minSoknad} />);
             expect(component.find(Feilmelding)).to.have.length(0);
         }); 
 
         it("Skal vise feilmelding hvis søknaden ikke finnes", () => {
-            const component = shallow(<GenerellSoknad sykepengesoknad={undefined} />);
+            const component = shallow(<GenerellSoknad actions={actions} sykepengesoknad={undefined} />);
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
         it("Skal vise innsendt komponent hvis alt er OK", () => {
-            const component = shallow(<GenerellSoknad Component={FoerDuBegynner} sykepengesoknad={minSoknad} />);
+            const component = shallow(<GenerellSoknad actions={actions} Component={FoerDuBegynner} sykepengesoknad={minSoknad} />);
             expect(component.find(FoerDuBegynner)).to.have.length(1);
             expect(component.find(FoerDuBegynner).prop("sykepengesoknad")).to.deep.equal(minSoknad);
             expect(component.find(AppSpinner)).to.have.length(0);
             expect(component.find(Feilmelding)).to.have.length(0);
         }); 
+
+        it("Skal hente sykepengesoknader hvis de ikke er hentet", () => {
+            const component = shallow(<GenerellSoknad actions={actions} Component={FoerDuBegynner} sykepengesoknad={minSoknad} />);
+            expect(hentSykepengesoknader.called).to.be.true;
+        });
+
+        it("Skal hente sykepengesoknader hvis de ikke er hentet", () => {
+            const component = shallow(<GenerellSoknad sykepengesoknaderHentet actions={actions} Component={FoerDuBegynner} sykepengesoknad={minSoknad} />);
+            expect(hentSykepengesoknader.called).to.be.false;
+        });
 
     })
 
@@ -160,6 +175,17 @@ describe("GenerellSoknadContainer", () => {
             state.sykepengesoknader.sender = false;
             const props = mapStateToProps(state, ownProps);
             expect(props.sender).to.be.false;
+        });
+
+        it("Skal returnere sykepengesoknaderHentet hvis søknader er hentet", () => {
+            state.sykepengesoknader.hentet = true;
+            const props = mapStateToProps(state, ownProps);
+            expect(props.sykepengesoknaderHentet).to.be.true; 
+        });
+
+        it("Skal returnere sykepengesoknaderHentet = false hvis søknader ikke er hentet", () => {
+            const props = mapStateToProps(state, ownProps);
+            expect(props.sykepengesoknaderHentet).to.be.false; 
         });
 
         it("Skal returnere skjemasoknad hvis det finnes skjemasoknad med values", () => {

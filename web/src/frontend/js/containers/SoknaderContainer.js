@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import Soknader from '../components/sykepengesoknader/Soknader';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
@@ -9,25 +9,35 @@ import { destroy } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { SYKEPENGER_SKJEMANAVN } from '../components/sykepengesoknad/setup';
 import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt } from '../propTypes';
+import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 
-export const SoknaderSide = ({ brodsmuler, henter, hentingFeilet, sykepengesoknader, actions }) => {
-    actions.destroy(SYKEPENGER_SKJEMANAVN);
-    return (
-        <Side tittel={getLedetekst('soknader.sidetittel')} brodsmuler={brodsmuler}>
-            {
-                (() => {
-                    if (henter) {
-                        return <AppSpinner />;
-                    }
-                    if (hentingFeilet) {
-                        return <Feilmelding />;
-                    }
-                    return (<Soknader soknader={sykepengesoknader} />);
-                })()
-            }
-        </Side>
-    );
-};
+export class SoknaderSide extends Component {
+    componentWillMount() {
+        if (!this.props.soknaderHentet) {
+            this.props.actions.hentSykepengesoknader();
+        }
+    }
+
+    render() {
+        const { brodsmuler, henter, hentingFeilet, sykepengesoknader, actions } = this.props;
+        actions.destroy(SYKEPENGER_SKJEMANAVN);
+        return (
+            <Side tittel={getLedetekst('soknader.sidetittel')} brodsmuler={brodsmuler}>
+                {
+                    (() => {
+                        if (henter) {
+                            return <AppSpinner />;
+                        }
+                        if (hentingFeilet) {
+                            return <Feilmelding />;
+                        }
+                        return (<Soknader soknader={sykepengesoknader} />);
+                    })()
+                }
+            </Side>
+        );
+    }
+}
 
 SoknaderSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
@@ -35,11 +45,12 @@ SoknaderSide.propTypes = {
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     actions: PropTypes.object.isRequired,
+    soknaderHentet: PropTypes.bool,
 };
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ destroy }, dispatch),
+        actions: bindActionCreators({ destroy, hentSykepengesoknader }, dispatch),
     };
 }
 
@@ -48,6 +59,7 @@ export function mapStateToProps(state) {
 
     return {
         sykepengesoknader,
+        soknaderHentet: state.sykepengesoknader.hentet === true,
         henter: state.ledetekster.henter || state.sykepengesoknader.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet,
         brodsmuler: [{

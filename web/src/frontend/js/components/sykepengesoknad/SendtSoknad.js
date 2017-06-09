@@ -43,7 +43,6 @@ class SendtSoknad extends Component {
             <div className="bekreftet-container">
                 <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label')} />
             </div>
-            
         </div>);
     }
 }

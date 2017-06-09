@@ -24,11 +24,10 @@ export function henterBrukerinfo() {
 }
 
 export function setBrukerinfo(brukerinfo = {}) {
-    return Object.assign({}, {
+    return {
         type: actiontyper.SET_BRUKERINFO,
-    }, {
         data: brukerinfo,
-    });
+    };
 }
 
 export function setArbeidssituasjon(arbeidssituasjon) {

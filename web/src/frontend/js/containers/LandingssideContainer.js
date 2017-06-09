@@ -1,45 +1,61 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Landingsside from '../components/landingsside/Landingsside';
 import { connect } from 'react-redux';
 import StrippetSide from '../sider/StrippetSide';
 import Side from '../sider/Side';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, hentToggles } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt } from '../propTypes';
 import { proptypes as motePropTypes } from 'moter-npm';
+import { moteActions } from 'moter-npm';
+import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
+import { hentLedere } from '../actions/ledere_actions';
 
-export const LandingssideSide = (props) => {
-    const {
-        brodsmuler,
-        skjulVarsel,
-        henter,
-        hentingFeilet,
-        sykepengesoknader,
-        visOppfoelgingsdialog,
-        harDialogmote } = props;
-
-    if (henter || hentingFeilet) {
-        return (<Side tittel={getLedetekst('landingsside.sidetittel')} brodsmuler={brodsmuler}>
-        {
-            (() => {
-                if (henter) {
-                    return <AppSpinner />;
-                }
-                return <Feilmelding />;
-            })()
+export class LandingssideSide extends Component {
+    componentWillMount() {
+        this.props.hentMote();
+        this.props.hentToggles();
+        if (!this.props.sykepengesoknaderHentet) {
+            this.props.hentSykepengesoknader();
         }
-        </Side>);
+        if (!this.props.ledereHentet) {
+            this.props.hentLedere();
+        }
     }
-    return (<StrippetSide tittel={getLedetekst('landingsside.sidetittel')}>
-        <Landingsside
-            visOppfoelgingsdialog={visOppfoelgingsdialog}
-            brodsmuler={brodsmuler}
-            skjulVarsel={skjulVarsel}
-            sykepengesoknader={sykepengesoknader}
-            harDialogmote={harDialogmote} />
-    </StrippetSide>);
-};
+
+    render() {
+        const {
+            brodsmuler,
+            skjulVarsel,
+            henter,
+            hentingFeilet,
+            sykepengesoknader,
+            visOppfoelgingsdialog,
+            harDialogmote } = this.props;
+
+        if (henter || hentingFeilet) {
+            return (<Side tittel={getLedetekst('landingsside.sidetittel')} brodsmuler={brodsmuler}>
+            {
+                (() => {
+                    if (henter) {
+                        return <AppSpinner />;
+                    }
+                    return <Feilmelding />;
+                })()
+            }
+            </Side>);
+        }
+        return (<StrippetSide tittel={getLedetekst('landingsside.sidetittel')}>
+            <Landingsside
+                visOppfoelgingsdialog={visOppfoelgingsdialog}
+                brodsmuler={brodsmuler}
+                skjulVarsel={skjulVarsel}
+                sykepengesoknader={sykepengesoknader}
+                harDialogmote={harDialogmote} />
+        </StrippetSide>);
+    }
+}
 
 LandingssideSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
@@ -50,6 +66,12 @@ LandingssideSide.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     dialogmoter: PropTypes.arrayOf(motePropTypes.mote),
     harDialogmote: PropTypes.bool,
+    hentMote: PropTypes.func,
+    hentToggles: PropTypes.func,
+    sykepengesoknaderHentet: PropTypes.bool,
+    ledereHentet: PropTypes.bool,
+    hentLedere: PropTypes.func,
+    hentSykepengesoknader: PropTypes.func,
 };
 
 export function mapStateToProps(state) {
@@ -65,11 +87,18 @@ export function mapStateToProps(state) {
             sti: '/',
         }],
         sykepengesoknader,
+        sykepengesoknaderHentet: state.sykepengesoknader.hentet === true,
+        ledereHentet: state.ledere.hentet === true,
         visOppfoelgingsdialog,
         harDialogmote: state.mote.data !== null,
     };
 }
 
-const LandingssideContainer = connect(mapStateToProps)(LandingssideSide);
+const LandingssideContainer = connect(mapStateToProps, {
+    hentMote: moteActions.hentMote,
+    hentSykepengesoknader,
+    hentLedere,
+    hentToggles,
+})(LandingssideSide);
 
 export default LandingssideContainer;

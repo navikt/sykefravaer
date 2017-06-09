@@ -74,21 +74,21 @@ describe("sykmeldingUtils", () => {
 
     describe("finnArbeidsgivereForAktiveSykmeldinger", () => {
 
-        xit("skal ikke returnere arbeidsgivere", () => {
+        xit("skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt", () => {
             const sykmeldinger = [sykmeldingUtgaatt];
             expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
         });
 
-        xit("skal returnere 1 arbeidsgiver", () => {
+        xit("skal returnere 1 arbeidsgiver, når 1 sykmelding er utgaatt", () => {
             const sykmeldinger = [sykmeldingUtgaatt, sykmeldingAktiv];
             expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });
 
-        xit("skal returnere 2 arbeidsgivere", () => {
+        xit("skal returnere 2 arbeidsgivere, når 2 sykmeldinger er aktive", () => {
             expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(2);
         });
 
-        xit("skal returnere 1 arbeidsgiver", () => {
+        xit("skal returnere 1 arbeidsgiver, når det er duplikat av arbeidsgiver", () => {
             const sykmeldinger = [sykmeldingAktiv, sykmeldingAktiv];
             expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });

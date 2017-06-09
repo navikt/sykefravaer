@@ -105,7 +105,7 @@ export class Arbeidsoppgaver extends Component {
                                     <LagreArbeidsoppgaveSkjema
                                         avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
                                         onSubmit={sendArbeidsoppgave}
-                                        cancel={this.toggleArbeidsoppgaveSkjema}
+                                        avbryt={this.toggleArbeidsoppgaveSkjema}
                                     /> :
                                     <RenderKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
                             }

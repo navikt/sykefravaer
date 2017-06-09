@@ -1,24 +1,26 @@
+import * as actiontyper from '../actions/actiontyper';
+
 const defaultState = {
     data: {},
 };
 
 const pilot = (state = defaultState, action = {}) => {
     switch (action.type) {
-        case 'PILOT_SYKEPENGER_HENTET': {
+        case actiontyper.PILOT_SYKEPENGER_HENTET: {
             return {
                 data: action.data,
                 henter: false,
                 hentingFeilet: false,
             };
         }
-        case 'HENTER_PILOT_SYKEPENGER': {
+        case actiontyper.HENTER_PILOT_SYKEPENGER: {
             return {
                 henter: true,
                 hentingFeilet: false,
                 data: {},
             };
         }
-        case 'HENT_PILOT_SYKEPENGER_FEILET': {
+        case actiontyper.HENT_PILOT_SYKEPENGER_FEILET: {
             return {
                 henter: false,
                 hentingFeilet: true,

@@ -12,17 +12,31 @@ import Feilmelding from '../components/Feilmelding';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
 import { hentPilotSykepenger } from '../actions/pilot_actions';
+import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
+import { hentBrukerinfo } from '../actions/brukerinfo_actions';
 import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst } from 'digisyfo-npm';
 import { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } from '../enums/sykmeldingstatuser';
 import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes';
 
 export class DinSykmldSide extends Component {
-
     componentWillMount() {
-        const { sykmeldingId } = this.props;
-        this.props.hentArbeidsgiversSykmeldinger();
-        this.props.hentAktuelleArbeidsgivere(sykmeldingId);
-        this.props.hentPilotSykepenger(sykmeldingId);
+        const { sykmeldingId,
+            dineSykmeldingerHentet,
+            arbeidsgiversSykmeldingerHentet,
+            pilotSykepengerHentet,
+            brukerinfoHentet } = this.props;
+        if (!pilotSykepengerHentet) {
+            this.props.hentPilotSykepenger(sykmeldingId);
+        }
+        if (!dineSykmeldingerHentet) {
+            this.props.hentDineSykmeldinger();
+        }
+        if (!arbeidsgiversSykmeldingerHentet) {
+            this.props.hentArbeidsgiversSykmeldinger();
+        }
+        if (!brukerinfoHentet) {
+            this.props.hentBrukerinfo();
+        }
     }
 
     render() {
@@ -95,11 +109,17 @@ DinSykmldSide.propTypes = {
     hentAktuelleArbeidsgivere: PropTypes.func,
     hentArbeidsgiversSykmeldinger: PropTypes.func,
     pilotSykepenger: PropTypes.bool,
+    dineSykmeldingerHentet: PropTypes.bool,
+    arbeidsgiversSykmeldingerHentet: PropTypes.bool,
+    pilotSykepengerHentet: PropTypes.bool,
+    brukerinfoHentet: PropTypes.bool,
+    hentDineSykmeldinger: PropTypes.func,
+    hentBrukerinfo: PropTypes.func,
 };
 
 const getEldsteNyeSykmelding = (sykmeldinger) => {
     const nyeSykmeldinger = sykmeldinger.filter((_sykmelding) => {
-        return _sykmelding.status === 'NY';
+        return _sykmelding.status === NY;
     });
     return sorterSykmeldingerEldsteFoerst(nyeSykmeldinger)[0];
 };
@@ -158,6 +178,8 @@ export function mapStateToProps(state, ownProps) {
         hentingFeilet: state.dineSykmeldinger.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet,
         dinSykmelding,
         arbeidsgiversSykmelding,
+        dineSykmeldingerHentet: state.dineSykmeldinger.hentet,
+        arbeidsgiversSykmeldingerHentet: state.arbeidsgiversSykmeldinger.hentet,
         visEldreSykmeldingVarsel: visEldreSykmeldingVarsel(state.dineSykmeldinger.data, sykmeldingId),
         eldsteSykmeldingId: eldsteNyeSykmelding ? eldsteNyeSykmelding.id : '',
         brodsmuler: [{
@@ -172,9 +194,11 @@ export function mapStateToProps(state, ownProps) {
             tittel: getLedetekst('din-sykmelding.sidetittel'),
         }],
         pilotSykepenger: state.pilot.data.pilotSykepenger,
+        pilotSykepengerHentet: state.pilot.data.sykmeldingId === sykmeldingId,
+        brukerinfoHentet: state.brukerinfo.bruker.hentet === true,
     };
 }
 
 export const DinSykmeldingContainer = connect(mapStateToProps, {
-    hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger, hentPilotSykepenger,
+    hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger, hentPilotSykepenger, hentDineSykmeldinger, hentBrukerinfo,
 })(DinSykmldSide);

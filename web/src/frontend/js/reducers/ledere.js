@@ -21,6 +21,7 @@ const ledere = (state = defaultState, action = {}) => {
                 data: action.data,
                 henter: false,
                 hentingFeilet: false,
+                hentet: true,
             };
         }
         case actiontyper.HENTER_LEDERE: {
@@ -28,6 +29,7 @@ const ledere = (state = defaultState, action = {}) => {
                 henter: true,
                 hentingFeilet: false,
                 data: [],
+                hentet: false,
             };
         }
         case actiontyper.HENT_LEDERE_FEILET: {
@@ -35,6 +37,7 @@ const ledere = (state = defaultState, action = {}) => {
                 henter: false,
                 hentingFeilet: true,
                 data: [],
+                hentet: false,
             };
         }
         case actiontyper.LEDER_AVKREFTET: {

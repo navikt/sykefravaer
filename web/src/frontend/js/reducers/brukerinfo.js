@@ -73,6 +73,7 @@ function bruker(state = {}, action) {
                 data: {},
                 henter: false,
                 hentingFeilet: true,
+                hentet: false,
             });
         }
         case actiontyper.HENTER_BRUKERINFO: {
@@ -80,6 +81,7 @@ function bruker(state = {}, action) {
                 data: {},
                 henter: true,
                 hentingFeilet: false,
+                hentet: false,
             };
         }
         case actiontyper.SET_BRUKERINFO: {
@@ -87,7 +89,7 @@ function bruker(state = {}, action) {
             return Object.assign({}, state, {
                 henter: false,
                 hentingFeilet: false,
-            }, {
+                hentet: true,
                 data,
             });
         }

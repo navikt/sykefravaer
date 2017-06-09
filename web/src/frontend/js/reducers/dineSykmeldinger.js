@@ -4,8 +4,8 @@ import { SENDT, BEKREFTET, AVBRUTT } from '../enums/sykmeldingstatuser';
 const initiellState = {
     henter: false,
     hentingFeilet: false,
+    hentet: false,
     data: [],
-    erFeil: false,
 };
 
 const setSykmeldingProps = (_sykmeldinger, sykmeldingId, props) => {
@@ -26,6 +26,7 @@ export default function sykmeldinger(state = initiellState, action) {
                     data: action.sykmeldinger,
                     henter: false,
                     hentingFeilet: false,
+                    hentet: true,
                 };
             }
             return {
@@ -37,6 +38,7 @@ export default function sykmeldinger(state = initiellState, action) {
                 }),
                 henter: false,
                 hentingFeilet: false,
+                hentet: true,
             };
         }
         case actiontyper.HENTER_DINE_SYKMELDINGER: {
@@ -44,6 +46,7 @@ export default function sykmeldinger(state = initiellState, action) {
                 data: state.data,
                 henter: true,
                 hentingFeilet: false,
+                hentet: false,
             };
         }
         case actiontyper.AVBRYTER_SYKMELDING: {
@@ -72,6 +75,7 @@ export default function sykmeldinger(state = initiellState, action) {
                 data: [],
                 henter: false,
                 hentingFeilet: true,
+                hentet: false,
             };
         }
         case actiontyper.SET_ARBEIDSSITUASJON: {

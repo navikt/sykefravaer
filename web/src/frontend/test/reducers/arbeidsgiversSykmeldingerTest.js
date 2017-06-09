@@ -22,7 +22,8 @@ describe('arbeidsgiversSykmeldinger', () => {
                 tally: {Trainspotting: 1}
             }],
             henter: false,
-            hentingFeilet: false
+            hentingFeilet: false,
+            hentet: true,
         });
     });
 
@@ -34,6 +35,7 @@ describe('arbeidsgiversSykmeldinger', () => {
             data: [],
             henter: true,
             hentingFeilet: false,
+            hentet: false,
         });
     });
 
@@ -45,6 +47,7 @@ describe('arbeidsgiversSykmeldinger', () => {
             data: [],
             henter: false,
             hentingFeilet: true,
+            hentet: false,
         });
     });
 

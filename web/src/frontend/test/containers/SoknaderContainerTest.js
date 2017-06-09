@@ -22,7 +22,7 @@ describe("SoknaderContainer", () => {
                 ledetekster: {
                     data: {},
                     henter: false,
-                    hentingFeilet: false
+                    hentingFeilet: false,
                 },
                 sykepengesoknader: {
                     data: [{
@@ -30,12 +30,34 @@ describe("SoknaderContainer", () => {
                     }],
                     henter: false,
                     hentingFeilet: false,
+                    hentet: true,
                 },
             });
             expect(res.sykepengesoknader).to.deep.equal([
                 {id: 1}
             ]);
+            expect(res.soknaderHentet).to.be.true;
         });
+
+        it("skal returnere soknaderHentet når søknader ikke er hente", function () {
+            const res = mapStateToProps({
+                ledetekster: {
+                    data: {},
+                    henter: false,
+                    hentingFeilet: false,
+                },
+                sykepengesoknader: {
+                    data: [{
+                        id: 1,
+                    }],
+                    henter: false,
+                    hentingFeilet: false,
+                    hentet: false,
+                },
+            });
+            expect(res.soknaderHentet).to.be.false;
+        });
+
     });
 
     describe("SoknaderSide", () => {
@@ -44,12 +66,15 @@ describe("SoknaderContainer", () => {
         let destroy; 
         let actions;
         let ledetekster;
+        let hentSykepengesoknader;
 
         beforeEach(() => {
             dispatch = sinon.spy();
             destroy = sinon.spy();
-            actions = { destroy };
+            hentSykepengesoknader = sinon.spy();
+            actions = { destroy, hentSykepengesoknader };
             ledetekster = {"nokkel": "verdi"};
+            
         });
 
         it("Skal kalle på destroy", () => {
@@ -76,6 +101,16 @@ describe("SoknaderContainer", () => {
             expect(component.find(Soknader)).to.have.length(1);
             expect(component.find(Feilmelding)).to.have.length(0);
             expect(component.find(AppSpinner)).to.have.length(0);
+        });
+
+        it("Skal hente søknader hvis søknader ikke er hentet", () => {
+            let component = shallow(<SoknaderSide actions={actions} soknader={[]} henter={false} hentingFeilet={false} dispatch={dispatch} />);
+            expect(hentSykepengesoknader.called).to.be.true;
+        });
+
+        it("Skal ikke hente søknader hvis søknader er hentet", () => {
+            let component = shallow(<SoknaderSide soknaderHentet actions={actions} soknader={[]} henter={false} hentingFeilet={false} dispatch={dispatch} />);
+            expect(hentSykepengesoknader.called).to.be.false;
         });
     })
 

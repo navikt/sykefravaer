@@ -25,11 +25,12 @@ describe("pilot_actions", () => {
     });
 
     it("SKal ha en pilotSykepengerHentet()-funksjon", () => {
-        const t = actions.pilotSykepengerHentet(false);
+        const t = actions.pilotSykepengerHentet(false, "123");
         expect(t).to.deep.equal({
             type: "PILOT_SYKEPENGER_HENTET",
             data: {
-                pilotSykepenger: false
+                pilotSykepenger: false,
+                sykmeldingId: "123"
             }
         })
     });

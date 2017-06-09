@@ -111,7 +111,7 @@ export const Statuspanel = ({ sykepengesoknad, children }) => {
 
 Statuspanel.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
-    children: PropTypes.object,
+    children: PropTypes.array,
 };
 
 export default Statuspanel;

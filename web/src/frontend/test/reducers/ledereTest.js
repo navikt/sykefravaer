@@ -29,6 +29,7 @@ describe('ledere', () => {
         expect(nextState).to.deep.equal({
             henter: false,
             hentingFeilet: false,
+            hentet: true,
             data: [{
                 navn: "Kurt Nilsen"
             }, {
@@ -51,6 +52,7 @@ describe('ledere', () => {
         expect(nextState).to.deep.equal({
             data: [],
             henter: true,
+            hentet: false,
             hentingFeilet: false,
         })
     });
@@ -66,6 +68,7 @@ describe('ledere', () => {
         expect(nextState).to.deep.equal({
             henter: false,
             hentingFeilet: true,
+            hentet: false,
             data: []
         })
     });

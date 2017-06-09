@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component as Komponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Side from '../../sider/Side';
@@ -8,27 +8,35 @@ import Feilmelding from '../../components/Feilmelding';
 import { SYKEPENGER_SKJEMANAVN } from '../../components/sykepengesoknad/setup';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
-export const GenerellSoknad = (props) => {
-    const { Component, brodsmuler, sykepengesoknad, henter, hentingFeilet } = props;
-    return (<Side tittel="Søknad om sykepenger" brodsmuler={brodsmuler}>
-    {
-        (() => {
-            if (henter) {
-                return <AppSpinner />;
-            }
-            if (hentingFeilet) {
-                return <Feilmelding />;
-            }
-            if (sykepengesoknad === undefined) {
-                return (<Feilmelding
-                    tittel="Beklager, vi finner ikke søknaden du ser etter"
-                    melding="Er du sikker på at du er på riktig adresse?" />);
-            }
-            return <Component {...props} />;
-        })()
+export class GenerellSoknad extends Komponent {
+    componentWillMount() {
+        if (!this.props.sykepengesoknaderHentet) {
+            this.props.actions.hentSykepengesoknader();
+        }
     }
-    </Side>);
-};
+
+    render() {
+        const { Component, brodsmuler, sykepengesoknad, henter, hentingFeilet } = this.props;
+        return (<Side tittel="Søknad om sykepenger" brodsmuler={brodsmuler}>
+        {
+            (() => {
+                if (henter) {
+                    return <AppSpinner />;
+                }
+                if (hentingFeilet) {
+                    return <Feilmelding />;
+                }
+                if (sykepengesoknad === undefined) {
+                    return (<Feilmelding
+                        tittel="Beklager, vi finner ikke søknaden du ser etter"
+                        melding="Er du sikker på at du er på riktig adresse?" />);
+                }
+                return <Component {...this.props} />;
+            })()
+        }
+        </Side>);
+    }
+}
 
 GenerellSoknad.propTypes = {
     brodsmuler: PropTypes.array,
@@ -36,6 +44,8 @@ GenerellSoknad.propTypes = {
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     Component: PropTypes.func.isRequired,
+    sykepengesoknaderHentet: PropTypes.bool,
+    actions: PropTypes.object,
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -52,6 +62,7 @@ export const mapStateToProps = (state, ownProps) => {
         })[0],
         henter: state.sykepengesoknader.henter || state.ledetekster.henter,
         hentingFeilet: state.sykepengesoknader.hentingFeilet || state.sykepengesoknader.hentingFeilet,
+        sykepengesoknaderHentet: state.sykepengesoknader.hentet === true,
         skjemasoknad,
         sender: state.sykepengesoknader.sender,
         sendingFeilet: state.sykepengesoknader.sendingFeilet,

@@ -41,6 +41,7 @@ describe('sykepengesoknader', () => {
                 hentingFeilet: false,
                 sender: false,
                 sendingFeilet: false,
+                hentet: true,
             });
         });
 
@@ -53,6 +54,7 @@ describe('sykepengesoknader', () => {
                 hentingFeilet: false,
                 sender: false,
                 sendingFeilet: false,
+                hentet: false,
             });
         });
 
@@ -77,6 +79,7 @@ describe('sykepengesoknader', () => {
                 hentingFeilet: true,
                 sender: false,
                 sendingFeilet: false,
+                hentet: false,
             });
         });
     });

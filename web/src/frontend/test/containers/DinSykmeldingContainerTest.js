@@ -89,7 +89,8 @@ describe("DinSykmeldingContainer", () => {
             dineSykmeldinger: {
                 data: sykmeldinger,
                 hentingFeilet: false,
-                henter: false
+                henter: false,
+                hentet: true
             },
             arbeidsgiversSykmeldinger: {
                 data: [],
@@ -114,7 +115,8 @@ describe("DinSykmeldingContainer", () => {
             },
             pilot: {
                 data: {
-                    pilotSykepenger: false
+                    pilotSykepenger: false,
+                    sykmeldingId: 3
                 }
             }
         };
@@ -123,6 +125,17 @@ describe("DinSykmeldingContainer", () => {
     })
 
     describe("mapStateToProps", () => {
+
+        it("Skal returnere dineSykmeldingerHentet når sykmeldinger er hentet", () => {
+            const res = mapStateToProps(state, ownProps);
+            expect(res.dineSykmeldingerHentet).to.be.true;
+        });
+
+        it("Skal returnere dineSykmeldingerHentet når sykmeldinger er hentet", () => {
+            state.dineSykmeldinger.hentet = false;
+            const res = mapStateToProps(state, ownProps);
+            expect(res.dineSykmeldingerHentet).to.be.false;
+        });
 
         it("Skal returnere sykmelding basert på ownProps.params.sykmeldingId", () => {
             const res = mapStateToProps(state, ownProps);
@@ -144,6 +157,33 @@ describe("DinSykmeldingContainer", () => {
             state.dineSykmeldinger.hentingFeilet = true; 
             const res = mapStateToProps(state, ownProps);
             expect(res.hentingFeilet).to.equal(true);
+        });
+
+        it("Skal returnere pilotSykepenger", () => {
+            const res = mapStateToProps(state, ownProps);
+            expect(res.pilotSykepenger).to.be.false;
+        });
+
+        it("Skal returnere pilotSykepengerHentet === true hvis det er hentet for den aktuelle sykmeldingen", () => {
+            const res = mapStateToProps(state, ownProps);
+            expect(res.pilotSykepengerHentet).to.be.true;
+        });
+
+        it("Skal returnere pilotSykepengerHentet hvis det ikke er hentet for den aktuelle sykmeldingen", () => {
+            ownProps.params.sykmeldingId = 12345;
+            const res = mapStateToProps(state, ownProps);
+            expect(res.pilotSykepengerHentet).to.be.false;
+        });
+
+        it("Skal returnere brukerinfoHentet = true hvis brukerinfo er hentet", () => {
+            state.brukerinfo.bruker.hentet = true;
+            const res = mapStateToProps(state, ownProps);
+            expect(res.brukerinfoHentet).to.be.true;
+        });
+
+        it("Skal returnere brukerinfoHentet = false hvis brukerinfo ikke er hentet", () => {
+            const res = mapStateToProps(state, ownProps);
+            expect(res.brukerinfoHentet).to.be.false;
         });
 
         describe("Dersom dinSykmelding.status === 'SENDT'", () => {
@@ -387,6 +427,8 @@ describe("DinSykmeldingContainer", () => {
         let hentArbeidsgiversSykmeldinger;
         let hentAktuelleArbeidsgivere;
         let hentPilotSykepenger;
+        let hentDineSykmeldinger;
+        let hentBrukerinfo;
 
         beforeEach(() => {
             sykmelding = {
@@ -397,34 +439,36 @@ describe("DinSykmeldingContainer", () => {
             hentArbeidsgiversSykmeldinger = sinon.spy();
             hentAktuelleArbeidsgivere = sinon.spy();
             hentPilotSykepenger = sinon.spy();
+            hentDineSykmeldinger = sinon.spy();
+            hentBrukerinfo = sinon.spy();
         });
 
         it("Skal vise AppSpinner når siden laster", () => {
-            let component = shallow(<DinSykmldSide henter={true} dinSykmelding={sykmelding}
-                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
+            let component = shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} henter={true} dinSykmelding={sykmelding}
+                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.find(AppSpinner)).to.have.length(1);
         }); 
 
         it("Skal vise Feilmelding hvis noe feiler", () => {
-            let component = shallow(<DinSykmldSide hentingFeilet={true} dinSykmelding={sykmelding}
-                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
+            let component = shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} hentingFeilet={true} dinSykmelding={sykmelding}
+                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
 
         it("Skal vise feilmelding dersom sykmeldingen ikke finnes", () => {
             let sykmelding = undefined;
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding}
-                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
+            let component = shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding}
+                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.find(Feilmelding)).to.have.length(1);
         }); 
 
         it("Skal vise sykmelding dersom den finnes", () => {
             let sykmelding = sykmeldinger[1];
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding}
-                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
+            let component = shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding}
+                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.find(DinSykmelding)).to.have.length(1);
         });
@@ -437,8 +481,8 @@ describe("DinSykmeldingContainer", () => {
             let arbeidsgiversSykmelding = {
                 id: "arbeidsgivers-syk"
             }
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}
-                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
+            let component = shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}
+                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.find(DinSendteSykmelding)).to.have.length(1);
         });
@@ -451,8 +495,8 @@ describe("DinSykmeldingContainer", () => {
             let arbeidsgiversSykmelding = {
                 id: "arbeidsgivers-sykmelding-id",
             }
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}
-                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
+            let component = shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}
+                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.find(DinAvbrutteSykmelding)).to.have.length(1);
         });
@@ -465,8 +509,8 @@ describe("DinSykmeldingContainer", () => {
             let arbeidsgiversSykmelding = {
                 id: "arbeidsgivers-sykmelding-id"
             }
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}
-                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
+            let component = shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}
+                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.find(DinBekreftedeSykmelding)).to.have.length(1);
         });
@@ -480,24 +524,82 @@ describe("DinSykmeldingContainer", () => {
             let arbeidsgiversSykmelding = {
                 id: "arbeidsgivers-sykmelding-id"
             }
-            let component = shallow(<DinSykmldSide dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}
-                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
+            let component = shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}
+                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
                                                    hentPilotSykepenger={hentPilotSykepenger} />)
             expect(component.contains(<DinBekreftedeSykmelding dinSykmelding={sykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} />)).to.be.true;
         }); 
 
-        it("Skal hente aktuelle arbeidsgivere, arbeidsgivers sykmeldinger og sykepengepilot", () => {
+        it("Skal hente arbeidsgivers sykmeldinger og sykepengepilot", () => {
             let sykmelding = sykmeldinger[1];
-            shallow(<DinSykmldSide dinSykmelding={sykmelding}
-                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentAktuelleArbeidsgivere={hentAktuelleArbeidsgivere}
+            shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding}
+                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
                                                    hentPilotSykepenger={hentPilotSykepenger} sykmeldingId={"1"} />)
-            expect(hentAktuelleArbeidsgivere.calledWith("1")).to.be.true;
             expect(hentArbeidsgiversSykmeldinger.calledOnce).to.be.true;
             expect(hentPilotSykepenger.calledWith("1")).to.be.true;
         });
 
+        it("Skal hente dine sykmeldinger hvis dette ikke er hentet fra før", () => {
+           let sykmelding = sykmeldinger[1];
+           shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding}
+                                                  hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
+                                                  hentPilotSykepenger={hentPilotSykepenger} sykmeldingId={"1"} />)
+           expect(hentDineSykmeldinger.calledOnce).to.be.true;
+        });
 
+        it("Skal ikke hente dine sykmeldinger hvis dette er hentet fra før", () => {
+           let sykmelding = sykmeldinger[1];
+           shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dineSykmeldingerHentet dinSykmelding={sykmelding}
+                                                  hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
+                                                  hentPilotSykepenger={hentPilotSykepenger} sykmeldingId={"1"} />)
+           expect(hentDineSykmeldinger.calledOnce).to.be.false;
+        });
 
+        it("Skal hente arbeidsgivers sykmeldinger hvis dette ikke er hentet fra før", () => {
+           let sykmelding = sykmeldinger[1];
+           shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding}
+                                                  hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
+                                                  hentPilotSykepenger={hentPilotSykepenger} sykmeldingId={"1"} />)
+           expect(hentArbeidsgiversSykmeldinger.calledOnce).to.be.true;
+        });
+
+        it("Skal ikke hente arbeidsgivers sykmeldinger hvis dette er hentet fra før", () => {
+           let sykmelding = sykmeldinger[1];
+           shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} arbeidsgiversSykmeldingerHentet dinSykmelding={sykmelding}
+                                                  hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
+                                                  hentPilotSykepenger={hentPilotSykepenger} sykmeldingId={"1"} />)
+           expect(hentArbeidsgiversSykmeldinger.calledOnce).to.be.false;
+        });
+
+        it("Skal hente pilotSykepenger hvis dette ikke er hentet fra før", () => {
+            let sykmelding = sykmeldinger[1];
+            shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding}
+                hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
+                hentPilotSykepenger={hentPilotSykepenger} sykmeldingId={"1"} />)
+            expect(hentPilotSykepenger.calledOnce).to.be.true;
+        });
+
+        it("Skal ikke hente pilotSykepenger hvis dette er hentet fra før", () => {
+            let sykmelding = sykmeldinger[1];
+            shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} pilotSykepengerHentet dinSykmelding={sykmelding}
+                hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
+                hentPilotSykepenger={hentPilotSykepenger} sykmeldingId={"1"} />)
+            expect(hentPilotSykepenger.calledOnce).to.be.false;
+        });
+
+        it("Skal hente brukerinfo hvis brukerinfo ikke er hentet", () => {
+            shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} pilotSykepengerHentet dinSykmelding={sykmelding}
+                hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
+                hentPilotSykepenger={hentPilotSykepenger} sykmeldingId={"1"} />)
+            expect(hentBrukerinfo.calledOnce).to.be.true;
+        });
+
+        it("Skal ikke hente brukerinfo hvis brukerinfo er hentet", () => {
+            shallow(<DinSykmldSide brukerinfoHentet hentBrukerinfo={hentBrukerinfo} pilotSykepengerHentet dinSykmelding={sykmelding}
+                hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger}
+                hentPilotSykepenger={hentPilotSykepenger} sykmeldingId={"1"} />)
+            expect(hentBrukerinfo.calledOnce).to.be.false;
+        });
 
 
     });

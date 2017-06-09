@@ -5,6 +5,7 @@ const initiellState = {
     henter: false,
     hentingFeilet: false,
     data: [],
+    hentet: false,
 };
 
 const setSykmeldingProps = (sykmeldinger, sykmeldingId, props) => {
@@ -24,6 +25,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
                 data: action.sykmeldinger,
                 henter: false,
                 hentingFeilet: false,
+                hentet: true,
             };
         }
         case actiontyper.HENTER_ARBEIDSGIVERS_SYKMELDINGER: {
@@ -31,6 +33,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
                 data: [],
                 henter: true,
                 hentingFeilet: false,
+                hentet: false,
             };
         }
         case actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET: {
@@ -38,6 +41,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
                 data: [],
                 henter: false,
                 hentingFeilet: true,
+                hentet: false,
             };
         }
         case actiontyper.SET_ARBEIDSGIVER: {

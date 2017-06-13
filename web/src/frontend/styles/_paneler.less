@@ -23,6 +23,35 @@
     border: 1px solid @ikonGraa;
 }
 
+.panel--feiloppsummering {
+    background-color: @advarselRoed;
+    color: @hvit;
+
+    a:visited {
+        color: @hvit;
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px @bakgrunnGraa, 0 0 0 6px @fokusOrange;
+    }
+
+    a {
+        color: @hvit;
+        border-bottom: 1px solid @advarselRoedBakgrunn;
+    }
+
+    a:hover, a:active {
+        border-bottom-color: @hvit;
+    }
+
+    a:focus {
+        color: @navTekst;
+        border-bottom-color: @fokusOrange;
+        background-color: @fokusOrange;
+    }
+}
+
 @media (min-width: @skjermMini) {
     .panel {
         padding: 2em 2em 2.25em 2em;

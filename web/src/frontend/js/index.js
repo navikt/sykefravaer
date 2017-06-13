@@ -60,7 +60,6 @@ sagaMiddleware.run(rootSaga);
 // <OBS>: Minimer antall kall som gjøres her!
 store.dispatch(hentLedetekster());
 store.dispatch(hentVedlikehold());
-store.dispatch(hentOppfolgingsdialoger());
 // </OBS>
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {

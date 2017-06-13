@@ -15,7 +15,6 @@ import ledere from './reducers/ledere';
 import { oppfolgingsdialogerAt as oppfolgingsdialoger, arbeidsoppgaver, samtykke } from 'oppfolgingsdialog-npm';
 import { hentLedetekster, ledetekster, tidslinjer, toggles } from 'digisyfo-npm';
 import { hentVedlikehold } from './actions/vedlikehold_actions';
-import { hentOppfolgingsdialogerAt as hentOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
 import history from './history';
 import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';

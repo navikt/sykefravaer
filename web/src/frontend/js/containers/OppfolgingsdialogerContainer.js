@@ -17,7 +17,7 @@ export class OppfolgingsdialogerSide extends Component {
     }
 
     render() {
-        const {brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet, brukerHarTilgang} = this.props;
+        const { brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet, brukerHarTilgang } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
@@ -33,23 +33,23 @@ export class OppfolgingsdialogerSide extends Component {
                         />);
                     }
                     return (<OppfolgingsdialogInfoboks
-                            svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
-                            svgAlt="ikkeTilgang"
-                            tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-                            tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
-                        />
+                        svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                        svgAlt="ikkeTilgang"
+                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                        tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
+                    />
                     );
                 })()
             }
         </Side>);
     }
-};
+}
 
 OppfolgingsdialogerSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     oppfolgingsdialoger: PropTypes.array,
     hentOppfolgingsdialoger: PropTypes.func,
-    oppfolgingsdialogerHenter: PropTypes.bool,
+    oppfolgingsdialogerHentet: PropTypes.bool,
     ledetekster: PropTypes.object,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
@@ -62,7 +62,7 @@ export const mapStateToProps = (state) => {
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
-        oppfolgingsdialogerHenter: state.oppfolgingsdialoger.henter,
+        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.henter,
         henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet,
         brodsmuler: [{

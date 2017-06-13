@@ -66,38 +66,59 @@
 
 .arbeidsgivertabell {
     width: 100%;
-
-    tr {
-        border-bottom: 0.5em solid #efefef;
-    }
-    tbody tr:last-child {
+    color: @navTekst;
+}
+.arbeidsgivertabell__rad {
+    display: table;
+    width: 100%;
+    background: #fff;
+}
+.arbeidsgivertabell__rad:before,
+.arbeidsgivertabell__rad:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.arbeidsgivertabell__rad--hode {
+    padding: 2em;
+    border-bottom: 0.5em solid #efefef;
+    font-weight: bold;
+}
+.arbeidsgivertabell__rad--arbeidsgiver {
+    padding: 2em;
+    border-bottom: 0.5em solid #efefef;
+    &:last-of-type {
         border-bottom: none;
     }
-
-    th {
-        color: @navTekst;
-        background: #fff;
-        text-align: left;
-        padding: 1em;
+}
+.arbeidsgivertabell__rad__celle {
+    float: left;
+    min-height: 1px;
+    padding-right: 1em;
+    &:nth-child(1){
+        width: 35%;
     }
-
-    td {
-        padding: 1.5em 1em;
-        background: #fff;
-        &:last-child {
-            padding-left: 0;
-            cursor: pointer;
-        }
+    &:nth-child(2) {
+        width: 25%;
     }
-
-    td, th {
-        &:nth-child(1) {
-            width: 40%
-        }
+    &:nth-child(3){
+        width: 30%;
+    }
+    &:nth-child(4) {
+        width: 10%;
+        padding-right: 0;
+        cursor: pointer;
     }
 }
-.arbeidsgivertabell__advarsel__ikon {
+.arbeidsgivertabell__rad__pil {
+    float: right;
+    width: 1.5em;
+}
+.arbeidsgivertabell__rad__advarsel {
     margin-right: 1em;
+}
+.arbeidsgivertabell__rad__utvidbar {
+    margin-top: 3em;
 }
 
 .navigasjonsLenkeListe {

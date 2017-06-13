@@ -7,17 +7,7 @@ import Checkbox from '../skjema/Checkbox';
 import Tekstfelt from '../skjema/Tekstfelt';
 import Tekstomraade from '../skjema/Tekstomraade';
 import Radioknapper from '../skjema/Radioknapper';
-
-export const KANGJENNOMFOERES = {
-    KAN: 'KAN',
-    KAN_IKKE: 'KAN_IKKE',
-    TILRETTELEGGING: 'TILRETTELEGGING',
-};
-export const TILRETTELEGGING = {
-    PAA_ANNET_STED: 'PAA_ANNET_STED',
-    MED_MER_TID: 'MED_MER_TID',
-    MED_HJELP: 'MED_HJELP',
-};
+import { KANGJENNOMFOERES, TILRETTELEGGING } from '../../enums/arbeidsoppgavesvar';
 
 const LAGRE_ARBEIDSOPPGAVE_SKJEMANAVN = 'lagreArbeidsgiver';
 export const FELTER = {
@@ -101,7 +91,7 @@ ArbeidsoppgaveBeskrivelse.propTypes = {
     felt: PropTypes.object,
 };
 
-export const ArbeidsoppgaveKnapper = ({ avbrytHref, avbryt, gjennomfoeringSvarValgt, tilretteleggingerValgt }) => {
+export const ArbeidsoppgaveKnapper = ({ arbeidsoppgave, sendSlettArbeidsoppgave, avbrytHref, avbryt, gjennomfoeringSvarValgt, tilretteleggingerValgt }) => {
     const avbrytKnapp = avbryt ?
         <Link className="lenke lenke--avbryt" onClick={avbryt}>
             {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
@@ -111,6 +101,23 @@ export const ArbeidsoppgaveKnapper = ({ avbrytHref, avbryt, gjennomfoeringSvarVa
             {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
         </Link>;
 
+    if (arbeidsoppgave) {
+        return (
+            <div className="knapperad">
+                <button
+                    type="submit"
+                    className="rammeknapp knapperad__element"
+                    disabled={gjennomfoeringSvarValgt === KANGJENNOMFOERES.TILRETTELEGGING && tilretteleggingerValgt.size === 0}>
+                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.lagre-arbeidsoppgave')}
+                </button>
+                <Link
+                    onClick={() => {sendSlettArbeidsoppgave(arbeidsoppgave.arbeidsoppgaveId);}}
+                    className="rammeknapp knapperad__element">
+                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.slett-arbeidsoppgave')}
+                </Link>
+            </div>
+        );
+    }
     return (
         <div className="knapperad">
             <button
@@ -124,27 +131,32 @@ export const ArbeidsoppgaveKnapper = ({ avbrytHref, avbryt, gjennomfoeringSvarVa
     );
 };
 ArbeidsoppgaveKnapper.propTypes = {
+    arbeidsoppgave: PropTypes.object,
+    sendSlettArbeidsoppgave: PropTypes.func,
     avbrytHref: PropTypes.string,
     avbryt: PropTypes.func,
     gjennomfoeringSvarValgt: PropTypes.string,
     tilretteleggingerValgt: PropTypes.any,
 };
 
-export const ArbeidsoppgaveGjennomfoeringSvar = ({ handleOptionChange }) => {
+export const ArbeidsoppgaveGjennomfoeringSvar = ({ handleOptionChange, arbeidsoppgave }) => {
+    const feltId = arbeidsoppgave ? `kanGjennomfoeres-${arbeidsoppgave.arbeidsoppgaveId}` : 'kanGjennomfoeres';
+
     return (
         <div className="inputgruppe">
             <h4 className="skjema__sporsmal">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.gjennomfoering')}</h4>
             <Field
-                name={ FELTER.kanGjennomfoeres.navn}
+                name={FELTER.kanGjennomfoeres.navn}
                 component={Radioknapper}
                 onChange={handleOptionChange}>
                 {
                     FELTER.kanGjennomfoeres.svar.map((svar, index) => {
                         return (
                             <input
-                                key={index}
+                                key={`kanGjennomfoeres-${index}`}
                                 value={svar.verdi}
                                 label={svar.tekst}
+                                id={`${feltId}-${index}`}
                             />
                         );
                     })
@@ -155,9 +167,12 @@ export const ArbeidsoppgaveGjennomfoeringSvar = ({ handleOptionChange }) => {
 };
 ArbeidsoppgaveGjennomfoeringSvar.propTypes = {
     handleOptionChange: PropTypes.func,
+    arbeidsoppgave: PropTypes.object,
 };
 
-export const ArbeidsoppgaveTilrettelegging = ({ toggleCheckbox }) => {
+export const ArbeidsoppgaveTilrettelegging = ({ toggleCheckbox, arbeidsoppgave }) => {
+    const feltId = arbeidsoppgave ? `tilrettelegging-${arbeidsoppgave.arbeidsoppgaveId}` : 'tilrettelegging';
+
     return (
         <div className="inputgruppe">
             <h4 className="skjema__sporsmal">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.tilrettelegging')}</h4>
@@ -169,7 +184,7 @@ export const ArbeidsoppgaveTilrettelegging = ({ toggleCheckbox }) => {
                             name={svar.navn}
                             component={Checkbox}
                             label={svar.tekst}
-                            id={`checkbox-${index}`}
+                            id={`${feltId}-${index}`}
                             value={svar.tekst}
                             onChange={toggleCheckbox}
                         />
@@ -181,6 +196,7 @@ export const ArbeidsoppgaveTilrettelegging = ({ toggleCheckbox }) => {
 };
 ArbeidsoppgaveTilrettelegging.propTypes = {
     toggleCheckbox: PropTypes.func,
+    arbeidsoppgave: PropTypes.object,
 };
 
 export class LagreArbeidsoppgaveSkjema extends Component {
@@ -193,14 +209,54 @@ export class LagreArbeidsoppgaveSkjema extends Component {
         };
         this.handleOptionChange = this.handleOptionChange.bind(this);
         this.toggleCheckbox = this.toggleCheckbox.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
         this.handleInitialize();
     }
     handleInitialize() {
-        const initData = {
-            gjennomfoeringSvar: KANGJENNOMFOERES.KAN,
-        };
+        const arbeidsoppgave = this.props.arbeidsoppgave;
+        const initData = {};
+
+        if (arbeidsoppgave) {
+            initData.gjennomfoeringSvar = arbeidsoppgave.gjennomfoering.kanGjennomfoeres;
+
+            switch (arbeidsoppgave.gjennomfoering.kanGjennomfoeres) {
+                case KANGJENNOMFOERES.TILRETTELEGGING: {
+                    const set = new Set();
+                    if (arbeidsoppgave.gjennomfoering.paaAnnetSted) {
+                        initData.PAA_ANNET_STED = arbeidsoppgave.gjennomfoering.paaAnnetSted;
+                        set.add(TILRETTELEGGING.PAA_ANNET_STED);
+                    }
+                    if (arbeidsoppgave.gjennomfoering.medMerTid) {
+                        initData.MED_MER_TID = arbeidsoppgave.gjennomfoering.medMerTid;
+                        set.add(TILRETTELEGGING.MED_MER_TID);
+                    }
+                    if (arbeidsoppgave.gjennomfoering.medHjelp) {
+                        initData.MED_HJELP = arbeidsoppgave.gjennomfoering.medHjelp;
+                        set.add(TILRETTELEGGING.MED_HJELP);
+                    }
+                    initData.beskrivelse = arbeidsoppgave.gjennomfoering.kanBeskrivelse;
+                    this.setState({
+                        gjennomfoeringSvarValgt: KANGJENNOMFOERES.TILRETTELEGGING,
+                        tilretteleggingerValgt: set,
+                    });
+                    break;
+                }
+                case KANGJENNOMFOERES.KAN_IKKE: {
+                    initData.beskrivelse = arbeidsoppgave.gjennomfoering.kanIkkeBeskrivelse;
+                    this.setState({
+                        gjennomfoeringSvarValgt: KANGJENNOMFOERES.KAN_IKKE,
+                    });
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+        } else {
+            initData.gjennomfoeringSvar = KANGJENNOMFOERES.KAN;
+        }
         this.props.initialize(initData);
     }
 
@@ -222,23 +278,39 @@ export class LagreArbeidsoppgaveSkjema extends Component {
         });
     }
 
+    hentSkjemaClassName() {
+        return this.props.arbeidsoppgave ? 'arbeidsgivertabell__rad__utvidbar' : 'panel panel--lysblaa';
+    }
+    handleSubmit(values) {
+        const nyeVerdier = Object.assign(values);
+        if (this.props.arbeidsoppgave) {
+            nyeVerdier.arbeidsoppgavenavn = this.props.arbeidsoppgave.arbeidsoppgavenavn;
+            nyeVerdier.arbeidsoppgaveId = this.props.arbeidsoppgave.arbeidsoppgaveId;
+        }
+        this.props.sendArbeidsoppgave(nyeVerdier);
+    }
+
     render() {
-        const { avbrytHref, handleSubmit, avbryt } = this.props;
+        const { arbeidsoppgave, avbrytHref, handleSubmit, avbryt, sendSlettArbeidsoppgave } = this.props;
 
         return (
-            <form onSubmit={handleSubmit} className="panel panel--lysblaa">
+            <form onSubmit={handleSubmit(this.handleSubmit)} className={this.hentSkjemaClassName()}>
 
-                <ArbeidsoppgaveNavn felt={FELTER.arbeidsoppgavenavn} />
+                {
+                    !arbeidsoppgave && <ArbeidsoppgaveNavn felt={FELTER.arbeidsoppgavenavn} />
+                }
 
                 <ArbeidsoppgaveGjennomfoeringSvar
                     handleOptionChange={this.handleOptionChange}
                     gjennomfoeringSvarValgt={this.state.gjennomfoeringSvarValgt}
+                    arbeidsoppgave={arbeidsoppgave}
                 />
 
                 {
                     this.state.gjennomfoeringSvarValgt === KANGJENNOMFOERES.TILRETTELEGGING &&
                     <ArbeidsoppgaveTilrettelegging
                         toggleCheckbox={this.toggleCheckbox}
+                        arbeidsoppgave={arbeidsoppgave}
                     />
                 }
 
@@ -257,6 +329,8 @@ export class LagreArbeidsoppgaveSkjema extends Component {
                     avbryt={avbryt}
                     gjennomfoeringSvarValgt={this.state.gjennomfoeringSvarValgt}
                     tilretteleggingerValgt={this.state.tilretteleggingerValgt}
+                    arbeidsoppgave={arbeidsoppgave}
+                    sendSlettArbeidsoppgave={sendSlettArbeidsoppgave}
                 />
             </form>
         );
@@ -264,10 +338,12 @@ export class LagreArbeidsoppgaveSkjema extends Component {
 }
 
 LagreArbeidsoppgaveSkjema.propTypes = {
+    arbeidsoppgave: PropTypes.object,
     avbrytHref: PropTypes.string,
     handleOptionChange: PropTypes.func,
     handleSubmit: PropTypes.func,
     sendArbeidsoppgave: PropTypes.func,
+    sendSlettArbeidsoppgave: PropTypes.func,
     avbryt: PropTypes.func,
     initialize: PropTypes.func,
 };

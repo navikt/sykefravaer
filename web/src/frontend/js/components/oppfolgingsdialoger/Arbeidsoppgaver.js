@@ -2,12 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
 import {
     OppfolgingsdialogSide,
-    OppfolgingsdialogOppgaveTabell,
     finnArbeidsoppgaverIkkeVurdertAvSykmeldt,
     NotifikasjonBoks,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import LagreArbeidsoppgaveSkjema from './LagreArbeidsoppgaveSkjema';
+import OppfolgingsdialogOppgaveTabell from './OppfolgingsdialogOppgaveTabell';
 
 export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver }) => {
     return (<NotifikasjonBoks
@@ -24,17 +24,21 @@ RenderNotifikasjonBoks.propTypes = {
     antallIkkeVurderteArbeidsoppgaver: PropTypes.number,
 };
 
-export const RenderOppfolgingsdialogOppgaveTabell = ({ arbeidsoppgaveListe }) => {
+export const RenderOppfolgingsdialogOppgaveTabell = ({ arbeidsoppgaveListe, sendArbeidsoppgave, sendSlettArbeidsoppgave }) => {
     return (
         <OppfolgingsdialogOppgaveTabell
             arbeidsoppgaveListe={arbeidsoppgaveListe}
             urlImgArrow="/sykefravaer/img/svg/arrow-down.svg"
             urlImgVarsel="/sykefravaer/img/svg/varseltrekant.svg"
+            sendArbeidsoppgave={sendArbeidsoppgave}
+            sendSlettArbeidsoppgave={sendSlettArbeidsoppgave}
         />
     );
 };
 RenderOppfolgingsdialogOppgaveTabell.propTypes = {
     arbeidsoppgaveListe: PropTypes.array,
+    sendArbeidsoppgave: PropTypes.func,
+    sendSlettArbeidsoppgave: PropTypes.func,
 };
 
 export const RenderKnapper = ({ toggleArbeidsoppgaveSkjema }) => {
@@ -69,7 +73,7 @@ export class Arbeidsoppgaver extends Component {
     }
 
     render() {
-        const { ledetekster, oppfolgingsdialog, oppfolgingsdialogId, sendArbeidsoppgave } = this.props;
+        const { ledetekster, oppfolgingsdialog, oppfolgingsdialogId, sendArbeidsoppgave, sendSlettArbeidsoppgave } = this.props;
 
         const antallIkkeVurderteArbeidsoppgaver = oppfolgingsdialog ? finnArbeidsoppgaverIkkeVurdertAvSykmeldt(oppfolgingsdialog.arbeidsoppgaveListe).length : 0;
 
@@ -84,7 +88,7 @@ export class Arbeidsoppgaver extends Component {
                             <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
                             <LagreArbeidsoppgaveSkjema
                                 avbrytHref={'/sykefravaer/oppfolgingsplaner'}
-                                onSubmit={sendArbeidsoppgave}
+                                sendArbeidsoppgave={sendArbeidsoppgave}
                             />
                         </div>
                         :
@@ -98,13 +102,16 @@ export class Arbeidsoppgaver extends Component {
                             }
                             {
                                 <RenderOppfolgingsdialogOppgaveTabell
-                                    arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />
+                                    arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe}
+                                    sendArbeidsoppgave={sendArbeidsoppgave}
+                                    sendSlettArbeidsoppgave={sendSlettArbeidsoppgave}
+                                />
                             }
                             {
                                 this.state.visArbeidsoppgaveSkjema ?
                                     <LagreArbeidsoppgaveSkjema
                                         avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
-                                        onSubmit={sendArbeidsoppgave}
+                                        sendArbeidsoppgave={sendArbeidsoppgave}
                                         avbryt={this.toggleArbeidsoppgaveSkjema}
                                     /> :
                                     <RenderKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
@@ -121,6 +128,7 @@ Arbeidsoppgaver.propTypes = {
     oppfolgingsdialog: PropTypes.object,
     oppfolgingsdialogId: PropTypes.string,
     sendArbeidsoppgave: PropTypes.func,
+    sendSlettArbeidsoppgave: PropTypes.func,
 };
 
 export default Arbeidsoppgaver;

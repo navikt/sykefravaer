@@ -21,8 +21,15 @@ export class ArbeidsoppgaverSide extends Component {
         this.sendSlettArbeidsoppgave = this.sendSlettArbeidsoppgave.bind(this);
     }
 
+    componentWillMount() {
+        const { oppfolgingsdialogerHentet } = this.props;
+        if (!oppfolgingsdialogerHentet) {
+            this.props.hentOppfolgingsdialoger();
+        }
+    }
+
     componentDidUpdate(prevProps) {
-        if ((prevProps.lagrer && this.props.lagret) || (prevProps.sletter && this.props.lagret)) {
+        if ((prevProps.lagrer && this.props.lagret) || (prevProps.sletter && this.props.slettet)) {
             this.props.hentOppfolgingsdialoger();
         }
     }
@@ -35,7 +42,7 @@ export class ArbeidsoppgaverSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, lagrer, lagringFeilet, sletter, slettingFeilet } = this.props;
+        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, lagrer, lagringFeilet, lagret, sletter, slettingFeilet } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
@@ -51,6 +58,7 @@ export class ArbeidsoppgaverSide extends Component {
                         oppfolgingsdialogId={oppfolgingsdialogId}
                         sendArbeidsoppgave={this.sendArbeidsoppgave}
                         sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
+                        arbeidsoppgaveLagret={lagret}
                     />
                 );
             })()
@@ -76,6 +84,7 @@ ArbeidsoppgaverSide.propTypes = {
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
     hentOppfolgingsdialoger: PropTypes.func,
+    oppfolgingsdialogerHentet: PropTypes.bool,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -85,6 +94,7 @@ export function mapStateToProps(state, ownProps) {
 
     return {
         ledetekster: state.ledetekster.data,
+        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.henter,
         henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter,
         hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet,
         lagrer: state.arbeidsoppgaver.lagrer,

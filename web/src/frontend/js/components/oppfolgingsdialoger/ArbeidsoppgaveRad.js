@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { erSynligIViewport } from 'digisyfo-npm';
 import { KANGJENNOMFOERES } from '../../enums/arbeidsoppgavesvar';
 import LagreArbeidsoppgaveSkjema from './LagreArbeidsoppgaveSkjema';
+import VisArbeidsoppgave from './VisArbeidsoppgave';
 
 const kanGjennomfoeresTekst = (arbeidsoppgave, urlImgVarsel) => {
     const kanGjennomfoeres = arbeidsoppgave.gjennomfoering.kanGjennomfoeres;
@@ -34,7 +35,9 @@ export class ArbeidsoppgaveRad extends Component {
             hoyde: !props.erApen ? '0' : 'auto',
             visInnhold: props.erApen,
             harTransisjon: false,
+            visLagreSkjema: false,
         };
+        this.visLagreSkjema = this.visLagreSkjema.bind(this);
     }
 
 
@@ -94,6 +97,7 @@ export class ArbeidsoppgaveRad extends Component {
             containerClassName: ' utvidbar__innholdContainer--medAnimasjon',
             visInnhold: true,
             harTransisjon: true,
+            visLagreSkjema: false,
         });
         setTimeout(() => {
             const hoyde = this.refs.innhold.offsetHeight;
@@ -134,6 +138,12 @@ export class ArbeidsoppgaveRad extends Component {
         }
     }
 
+    visLagreSkjema() {
+        this.setState({
+            visLagreSkjema: true,
+        });
+    }
+
     render() {
         const { arbeidsoppgave, sendArbeidsoppgave, sendSlettArbeidsoppgave, urlImgVarsel, urlImgArrow } = this.props;
 
@@ -158,10 +168,17 @@ export class ArbeidsoppgaveRad extends Component {
                 }}>
                      <div ref="innhold">
                          {
-                             this.state.visInnhold &&
+                             this.state.visInnhold && !this.state.visLagreSkjema &&
+                             <VisArbeidsoppgave
+                                 arbeidsoppgave={arbeidsoppgave}
+                                 visLagreSkjema={this.visLagreSkjema}
+                                 sendSlettArbeidsoppgave={sendSlettArbeidsoppgave}
+                             />
+                         }
+                         {
+                             this.state.visInnhold && this.state.visLagreSkjema &&
                              <LagreArbeidsoppgaveSkjema
                                  sendArbeidsoppgave={sendArbeidsoppgave}
-                                 sendSlettArbeidsoppgave={sendSlettArbeidsoppgave}
                                  arbeidsoppgave={arbeidsoppgave}
                                  form={arbeidsoppgave.arbeidsoppgaveId}
                              />

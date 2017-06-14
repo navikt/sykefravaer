@@ -1,6 +1,7 @@
 @lenkeGraa: #c8c8c8;
 @panelLysblaa: #cfe2f3;
-@panelOransje: #fdbc6d;
+@fargeAdvarsel: #fdbc6d;
+@fargeSuksess: #9bd0b0;
 
 .lenke {
     cursor: pointer;
@@ -15,9 +16,12 @@
 .panel--lysblaa {
     background: @panelLysblaa;
 }
-.panel--oransje {
-    background: @panelOransje;
-};
+.panel--advarsel {
+    background: @fargeAdvarsel;
+}
+.panel--suksess {
+    background: @fargeSuksess;
+}
 .panel_informasjon {
     padding: 1em 2em;
 }
@@ -63,7 +67,17 @@
         display: inline-block;
     }
 }
+.lagrearbeidsoppgaveskjema__inputgruppe {
+    margin-bottom: 2em;
+}
 
+.visarbeidsoppgave__innhold {
+    padding: 2em;
+    border: 0.1em solid @lenkeGraa;
+}
+.varselstripe {
+    margin-bottom: 2em;
+}
 .arbeidsgivertabell {
     width: 100%;
     color: @navTekst;
@@ -156,4 +170,8 @@
         color: @lenkeBlaa;
     }
     border-bottom: 4px @lenkeBlaa solid;
+}
+
+.knapperad--justervenstre {
+    text-align: left;
 }

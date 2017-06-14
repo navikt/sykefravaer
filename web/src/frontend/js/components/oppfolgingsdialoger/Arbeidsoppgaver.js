@@ -12,16 +12,23 @@ import OppfolgingsdialogOppgaveTabell from './OppfolgingsdialogOppgaveTabell';
 export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver }) => {
     return (<NotifikasjonBoks
         imgUrl={"/sykefravaer/img/svg/notifikasjon-illustrasjon.svg"}
-        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
+        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst', {
             '%VIRKSOMHETSNAVN%': virksomhetsnavn,
             '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver.toString(),
         })}
-        classNames={'panel--oransje'}
+        classNames={'panel--advarsel'}
     />);
 };
 RenderNotifikasjonBoks.propTypes = {
     virksomhetsnavn: PropTypes.string,
     antallIkkeVurderteArbeidsoppgaver: PropTypes.number,
+};
+export const RenderNotifikasjonBoksSuksess = () => {
+    return (<NotifikasjonBoks
+        imgUrl={"/sykefravaer/img/svg/notifikasjon-illustrasjon.svg"}
+        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
+        classNames={'panel--suksess'}
+    />);
 };
 
 export const RenderOppfolgingsdialogOppgaveTabell = ({ arbeidsoppgaveListe, sendArbeidsoppgave, sendSlettArbeidsoppgave }) => {
@@ -73,7 +80,7 @@ export class Arbeidsoppgaver extends Component {
     }
 
     render() {
-        const { ledetekster, oppfolgingsdialog, oppfolgingsdialogId, sendArbeidsoppgave, sendSlettArbeidsoppgave } = this.props;
+        const { ledetekster, oppfolgingsdialog, oppfolgingsdialogId, sendArbeidsoppgave, sendSlettArbeidsoppgave, arbeidsoppgaveLagret } = this.props;
 
         const antallIkkeVurderteArbeidsoppgaver = oppfolgingsdialog ? finnArbeidsoppgaverIkkeVurdertAvSykmeldt(oppfolgingsdialog.arbeidsoppgaveListe).length : 0;
 
@@ -94,6 +101,9 @@ export class Arbeidsoppgaver extends Component {
                         :
                         <div>
                             <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
+                            {
+                                arbeidsoppgaveLagret && <RenderNotifikasjonBoksSuksess />
+                            }
                             {
                                 antallIkkeVurderteArbeidsoppgaver > 0 &&
                                 <RenderNotifikasjonBoks
@@ -129,6 +139,7 @@ Arbeidsoppgaver.propTypes = {
     oppfolgingsdialogId: PropTypes.string,
     sendArbeidsoppgave: PropTypes.func,
     sendSlettArbeidsoppgave: PropTypes.func,
+    arbeidsoppgaveLagret: PropTypes.bool,
 };
 
 export default Arbeidsoppgaver;

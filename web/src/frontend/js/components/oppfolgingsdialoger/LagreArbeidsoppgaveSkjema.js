@@ -13,54 +13,54 @@ const LAGRE_ARBEIDSOPPGAVE_SKJEMANAVN = 'lagreArbeidsgiver';
 export const FELTER = {
     arbeidsoppgavenavn: {
         navn: 'arbeidsoppgavenavn',
-        tekst: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.navn',
+        spoersmaal: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.navn',
     },
     kanGjennomfoeres: {
         navn: 'gjennomfoeringSvar',
-        tekst: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.gjennomfoering',
+        spoersmaal: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.gjennomfoering.sporsmal',
         svar: [
             {
-                tekst: 'Ja, den kan gjennomføres som normalt',
+                tekst: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.gjennomfoering.kan',
                 verdi: KANGJENNOMFOERES.KAN,
             },
             {
-                tekst: 'Ja, den kan gjennomføres med tilrettelegging',
+                tekst: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.gjennomfoering.tilrettelegging',
                 verdi: KANGJENNOMFOERES.TILRETTELEGGING,
             },
             {
-                tekst: 'Nei, den kan ikke gjennomføres',
+                tekst: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.gjennomfoering.kanikke',
                 verdi: KANGJENNOMFOERES.KAN_IKKE,
             },
         ],
     },
     tilrettelegging: {
         navn: 'tilrettelegging',
-        tekst: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.tilrettelegging',
+        spoersmaal: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.tilrettelegging.sporsmal',
         svar: [
             {
-                tekst: 'Arbeide fra annet sted',
+                tekst: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.tilrettelegging.paaAnnetSted',
                 navn: TILRETTELEGGING.PAA_ANNET_STED,
             },
             {
-                tekst: 'Mer gitt tid',
+                tekst: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.tilrettelegging.medMerTid',
                 navn: TILRETTELEGGING.MED_MER_TID,
             },
             {
-                tekst: 'Med hjelp/hjelpemidler',
+                tekst: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.tilrettelegging.medHjelp',
                 navn: TILRETTELEGGING.MED_HJELP,
             },
         ],
     },
     beskrivelse: {
         navn: 'beskrivelse',
-        tekst: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel.skjema.forklaring',
+        spoersmaal: 'oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel.skjema.forklaring',
     },
 };
 
 export const ArbeidsoppgaveNavn = ({ felt }) => {
     return (
-        <div className="skjema__input">
-            <h4 className="skjema__sporsmal">{getLedetekst(felt.tekst)}</h4>
+        <div className="lagrearbeidsoppgaveskjema__inputgruppe">
+            <h4 className="skjema__sporsmal">{getLedetekst(felt.spoersmaal)}</h4>
             <Field
                 className="input--l"
                 name={felt.navn}
@@ -76,8 +76,8 @@ ArbeidsoppgaveNavn.propTypes = {
 
 export const ArbeidsoppgaveBeskrivelse = ({ felt }) => {
     return (
-        <div className="skjema__input">
-            <h4 className="skjema__sporsmal">{getLedetekst(felt.tekst)}</h4>
+        <div className="lagrearbeidsoppgaveskjema__inputgruppe">
+            <h4 className="skjema__sporsmal">{getLedetekst(felt.spoersmaal)}</h4>
             <Field
                 className="input--l"
                 name={felt.navn}
@@ -91,60 +91,12 @@ ArbeidsoppgaveBeskrivelse.propTypes = {
     felt: PropTypes.object,
 };
 
-export const ArbeidsoppgaveKnapper = ({ arbeidsoppgave, sendSlettArbeidsoppgave, avbrytHref, avbryt, gjennomfoeringSvarValgt, tilretteleggingerValgt }) => {
-    const avbrytKnapp = avbryt ?
-        <Link className="lenke lenke--avbryt" onClick={avbryt}>
-            {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
-        </Link>
-        :
-        <Link className="lenke lenke--avbryt" to={avbrytHref}>
-            {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
-        </Link>;
-
-    if (arbeidsoppgave) {
-        return (
-            <div className="knapperad">
-                <button
-                    type="submit"
-                    className="rammeknapp knapperad__element"
-                    disabled={gjennomfoeringSvarValgt === KANGJENNOMFOERES.TILRETTELEGGING && tilretteleggingerValgt.size === 0}>
-                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.lagre-arbeidsoppgave')}
-                </button>
-                <Link
-                    onClick={() => {sendSlettArbeidsoppgave(arbeidsoppgave.arbeidsoppgaveId);}}
-                    className="rammeknapp knapperad__element">
-                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.slett-arbeidsoppgave')}
-                </Link>
-            </div>
-        );
-    }
-    return (
-        <div className="knapperad">
-            <button
-                type="submit"
-                className="knapp knapperad__element"
-                disabled={gjennomfoeringSvarValgt === KANGJENNOMFOERES.TILRETTELEGGING && tilretteleggingerValgt.size === 0}>
-                {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.ny-arbeidsoppgave')}
-            </button>
-            { avbrytKnapp }
-        </div>
-    );
-};
-ArbeidsoppgaveKnapper.propTypes = {
-    arbeidsoppgave: PropTypes.object,
-    sendSlettArbeidsoppgave: PropTypes.func,
-    avbrytHref: PropTypes.string,
-    avbryt: PropTypes.func,
-    gjennomfoeringSvarValgt: PropTypes.string,
-    tilretteleggingerValgt: PropTypes.any,
-};
-
 export const ArbeidsoppgaveGjennomfoeringSvar = ({ handleOptionChange, arbeidsoppgave }) => {
     const feltId = arbeidsoppgave ? `kanGjennomfoeres-${arbeidsoppgave.arbeidsoppgaveId}` : 'kanGjennomfoeres';
 
     return (
-        <div className="inputgruppe">
-            <h4 className="skjema__sporsmal">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.gjennomfoering')}</h4>
+        <div className="lagrearbeidsoppgaveskjema__inputgruppe">
+            <h4 className="skjema__sporsmal">{getLedetekst(FELTER.kanGjennomfoeres.spoersmaal)}</h4>
             <Field
                 name={FELTER.kanGjennomfoeres.navn}
                 component={Radioknapper}
@@ -155,7 +107,7 @@ export const ArbeidsoppgaveGjennomfoeringSvar = ({ handleOptionChange, arbeidsop
                             <input
                                 key={`kanGjennomfoeres-${index}`}
                                 value={svar.verdi}
-                                label={svar.tekst}
+                                label={getLedetekst(svar.tekst)}
                                 id={`${feltId}-${index}`}
                             />
                         );
@@ -174,8 +126,8 @@ export const ArbeidsoppgaveTilrettelegging = ({ toggleCheckbox, arbeidsoppgave }
     const feltId = arbeidsoppgave ? `tilrettelegging-${arbeidsoppgave.arbeidsoppgaveId}` : 'tilrettelegging';
 
     return (
-        <div className="inputgruppe">
-            <h4 className="skjema__sporsmal">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.skjema.tilrettelegging')}</h4>
+        <div className="lagrearbeidsoppgaveskjema__inputgruppe">
+            <h4 className="skjema__sporsmal">{getLedetekst(FELTER.tilrettelegging.spoersmaal)}</h4>
             {
                 FELTER.tilrettelegging.svar.map((svar, index) => {
                     return (
@@ -183,7 +135,7 @@ export const ArbeidsoppgaveTilrettelegging = ({ toggleCheckbox, arbeidsoppgave }
                             key={`tilrettelegging-${index}`}
                             name={svar.navn}
                             component={Checkbox}
-                            label={svar.tekst}
+                            label={getLedetekst(svar.tekst)}
                             id={`${feltId}-${index}`}
                             value={svar.tekst}
                             onChange={toggleCheckbox}
@@ -197,6 +149,49 @@ export const ArbeidsoppgaveTilrettelegging = ({ toggleCheckbox, arbeidsoppgave }
 ArbeidsoppgaveTilrettelegging.propTypes = {
     toggleCheckbox: PropTypes.func,
     arbeidsoppgave: PropTypes.object,
+};
+
+
+export const ArbeidsoppgaveKnapper = ({ arbeidsoppgave, avbrytHref, avbryt, gjennomfoeringSvarValgt, tilretteleggingerValgt }) => {
+    const avbrytKnapp = avbryt ?
+        <Link className="lenke lenke--avbryt" onClick={avbryt}>
+            {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
+        </Link>
+        :
+        <Link className="lenke lenke--avbryt" to={avbrytHref}>
+            {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
+        </Link>;
+
+    if (arbeidsoppgave) {
+        return (
+            <div className="knapperad knapperad--justervenstre">
+                <button
+                    type="submit"
+                    className="rammeknapp knapperad__element"
+                    disabled={gjennomfoeringSvarValgt === KANGJENNOMFOERES.TILRETTELEGGING && tilretteleggingerValgt.size === 0}>
+                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.lagre-arbeidsoppgave')}
+                </button>
+            </div>
+        );
+    }
+    return (
+        <div className="knapperad">
+            <button
+                type="submit"
+                className="knapp knapperad__element"
+                disabled={gjennomfoeringSvarValgt === KANGJENNOMFOERES.TILRETTELEGGING && tilretteleggingerValgt.size === 0}>
+                {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.ny-arbeidsoppgave')}
+            </button>
+            { avbrytKnapp }
+        </div>
+    );
+};
+ArbeidsoppgaveKnapper.propTypes = {
+    arbeidsoppgave: PropTypes.object,
+    avbrytHref: PropTypes.string,
+    avbryt: PropTypes.func,
+    gjennomfoeringSvarValgt: PropTypes.string,
+    tilretteleggingerValgt: PropTypes.any,
 };
 
 export class LagreArbeidsoppgaveSkjema extends Component {
@@ -291,7 +286,7 @@ export class LagreArbeidsoppgaveSkjema extends Component {
     }
 
     render() {
-        const { arbeidsoppgave, avbrytHref, handleSubmit, avbryt, sendSlettArbeidsoppgave } = this.props;
+        const { arbeidsoppgave, avbrytHref, handleSubmit, avbryt } = this.props;
 
         return (
             <form onSubmit={handleSubmit(this.handleSubmit)} className={this.hentSkjemaClassName()}>
@@ -319,7 +314,7 @@ export class LagreArbeidsoppgaveSkjema extends Component {
                 }
 
                 {
-                    this.state.gjennomfoeringSvarValgt === KANGJENNOMFOERES.TILRETTELEGGING && <Varselstripe>
+                    !arbeidsoppgave && this.state.gjennomfoeringSvarValgt !== KANGJENNOMFOERES.KAN && <Varselstripe>
                         <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.varselstripe.tekst')}</p>
                     </Varselstripe>
                 }
@@ -330,7 +325,6 @@ export class LagreArbeidsoppgaveSkjema extends Component {
                     gjennomfoeringSvarValgt={this.state.gjennomfoeringSvarValgt}
                     tilretteleggingerValgt={this.state.tilretteleggingerValgt}
                     arbeidsoppgave={arbeidsoppgave}
-                    sendSlettArbeidsoppgave={sendSlettArbeidsoppgave}
                 />
             </form>
         );
@@ -343,7 +337,6 @@ LagreArbeidsoppgaveSkjema.propTypes = {
     handleOptionChange: PropTypes.func,
     handleSubmit: PropTypes.func,
     sendArbeidsoppgave: PropTypes.func,
-    sendSlettArbeidsoppgave: PropTypes.func,
     avbryt: PropTypes.func,
     initialize: PropTypes.func,
 };

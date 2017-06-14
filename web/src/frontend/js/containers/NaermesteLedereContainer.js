@@ -26,6 +26,7 @@ Container.propTypes = {
     hentingFeilet: PropTypes.bool,
     ledere: PropTypes.arrayOf(naermesteLederPt),
     hentLedere: PropTypes.func,
+    forsoktHentet: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {

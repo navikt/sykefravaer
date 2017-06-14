@@ -10,7 +10,7 @@ const expect = chai.expect;
 
 import { Container, mapStateToProps, DinSituasjon } from "../../js/containers/DinSituasjonContainer";
 
-describe.only("DinSituasjonContainer", () => {
+describe("DinSituasjonContainer", () => {
 
 	describe("mapStateToProps", () => {
 
@@ -18,25 +18,21 @@ describe.only("DinSituasjonContainer", () => {
 
 		beforeEach(() => {
 			state = {
-				tidslinjer: {
-					data: [{
-						startdato: "2017-12-15"
-					}, {
-						startdato: "2017-05-01"
-					}]
+				ledere: {
+					data: []
 				}
 			}
 		});
 
-		it("Skal returnere sykefravaerStartdato hvis det finnes data", () => {
+		it("Skal returnere visDinSituasjon === false hvis det ikke finnes ledere", () => {
 			const res = mapStateToProps(state);
-			expect(res.sykefravaerStartdato).to.equal("2017-12-15");
+			expect(res.visDinSituasjon).to.be.false;
 		});
 
-		it("Skal returnere sykefravaerStartdato === undefined hvis det ikke finnes data", () => {
-			state.tidslinjer.data = undefined;
+		it("Skal returnere visDinSituasjon === true hvis det finnes ledere", () => {
+			state.ledere.data = [{}]
 			const res = mapStateToProps(state);
-			expect(res.sykefravaerStartdato).to.be.undefined;
+			expect(res.visDinSituasjon).to.be.true;
 		});
 
 	});

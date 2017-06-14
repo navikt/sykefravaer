@@ -31,7 +31,10 @@ export default class NaermesteLedere extends Component {
 
     render() {
         const { ledere } = this.props;
-        return (<div>
+        return (<div className="situasjon">
+            <div className="situasjon__ikon">
+                <img src="/sykefravaer/img/svg/arbeidsgiver.svg" alt="Arbeidsgiver" />
+            </div>
             {this.state.visLightbox && <Lightbox onClose={() => {
                 this.lukkLightbox();
             }}>
@@ -39,20 +42,22 @@ export default class NaermesteLedere extends Component {
                     this.lukkLightbox();
                 }} />
             </Lightbox>}
-            {
-                ledere.map((leder, index) => {
-                    return (<div className={`leder ${leder.avkreftet ? ' leder--avkreftet' : ''}`} key={index}>
-                        <p className="leder__informasjon">Din nærmeste leder i {leder.organisasjonsnavn} er {leder.navn}</p>
-                        <div className="leder__handlinger">
-                            {
-                                !leder.avkreftet && <button ref={`js-leder-${leder.orgnummer}`} type="button" className="lenke leder__meldFeil js-feil" onClick={() => {
-                                    this.apneLightbox(leder);
-                                }}>Meld feil</button>
-                            }
-                        </div>
-                    </div>);
-                })
-            }
+            <div className="situasjon__innhold">
+                {
+                    ledere.map((leder, index) => {
+                        return (<div className={`leder ${leder.avkreftet ? ' leder--avkreftet' : ''}`} key={index}>
+                            <p className="leder__informasjon">Din nærmeste leder i {leder.organisasjonsnavn} er {leder.navn}</p>
+                            <div className="leder__handlinger">
+                                {
+                                    !leder.avkreftet && <button ref={`js-leder-${leder.orgnummer}`} type="button" className="lenke leder__meldFeil js-feil" onClick={() => {
+                                        this.apneLightbox(leder);
+                                    }}>Meld feil</button>
+                                }
+                            </div>
+                        </div>);
+                    })
+                }
+            </div>
         </div>);
     }
 }

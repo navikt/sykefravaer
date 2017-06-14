@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import UnderUtviklingVarselContainer from '../../containers/UnderUtviklingVarselContainer';
-import NaermesteLedereContainer from '../../containers/NaermesteLedereContainer';
 import LandingssideLenke from './LandingssideLenke';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Brodsmuler from '../Brodsmuler';

@@ -1,0 +1,30 @@
+.situasjon {
+  display: flex;
+  border-bottom: 1px solid @ikonGraa;
+}
+
+.situasjon:last-child {
+  border-bottom: 0;
+}
+
+.situasjon__ikon {
+  margin-right: 1em;
+}
+
+.leder {
+  margin-bottom: 1em;
+}
+
+.leder:last-child {
+  margin-bottom: 0;
+}
+
+.leder__informasjon {
+  margin-bottom: .25em;
+}
+
+@media (min-width: @skjermLiten) {
+  .landingspanel--dinSituasjon {
+    margin-bottom: 2em;
+  } 
+}

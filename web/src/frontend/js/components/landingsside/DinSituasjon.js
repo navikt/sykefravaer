@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import NaermesteLedereContainer from '../../containers/NaermesteLedereContainer';
 
 const DinSituasjon = () => {

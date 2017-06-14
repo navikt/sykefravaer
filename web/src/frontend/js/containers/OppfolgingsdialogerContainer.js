@@ -6,18 +6,21 @@ import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Oppfolgingsdialoger from '../components/oppfolgingsdialoger/Oppfolgingsdialoger';
-import { OppfolgingsdialogInfoboks, hentOppfolgingsdialogerAt as hentOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
+import { OppfolgingsdialogInfoboks, hentOppfolgingsdialogerAt as hentOppfolgingsdialoger, sjekkTilgang } from 'oppfolgingsdialog-npm';
 
 export class OppfolgingsdialogerSide extends Component {
     componentWillMount() {
-        const { oppfolgingsdialogerHentet } = this.props;
+        const { oppfolgingsdialogerHentet, tilgangSjekket } = this.props;
+        if (!tilgangSjekket) {
+            this.props.sjekkTilgang();
+        }
         if (!oppfolgingsdialogerHentet) {
             this.props.hentOppfolgingsdialoger();
         }
     }
 
     render() {
-        const { brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet, brukerHarTilgang } = this.props;
+        const { brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet, tilgang } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
@@ -26,7 +29,7 @@ export class OppfolgingsdialogerSide extends Component {
                         return <AppSpinner />;
                     } else if (hentingFeilet) {
                         return (<Feilmelding />);
-                    } else if (brukerHarTilgang) {
+                    } else if (tilgang.harTilgang) {
                         return (<Oppfolgingsdialoger
                             oppfolgingsdialoger={oppfolgingsdialoger}
                             ledetekster={ledetekster}
@@ -46,6 +49,7 @@ export class OppfolgingsdialogerSide extends Component {
 }
 
 OppfolgingsdialogerSide.propTypes = {
+    dispatch: PropTypes.func,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     oppfolgingsdialoger: PropTypes.array,
     hentOppfolgingsdialoger: PropTypes.func,
@@ -53,16 +57,16 @@ OppfolgingsdialogerSide.propTypes = {
     ledetekster: PropTypes.object,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    brukerHarTilgang: PropTypes.bool,
+    tilgang: PropTypes.object,
+    tilgangSjekket: PropTypes.bool,
+    sjekkTilgang: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
-    const kodebegrensning = false;
-
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
-        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.henter,
+        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
         henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet,
         brodsmuler: [{
@@ -73,10 +77,11 @@ export const mapStateToProps = (state) => {
             tittel: getLedetekst('oppfolgingsdialoger.sidetittel'),
             sti: '/oppfolgingsplaner',
         }],
-        brukerHarTilgang: !kodebegrensning,
+        tilgang: state.tilgang.data,
+        tilgangSjekket: state.tilgang.hentet,
     };
 };
 
-const OppfolgingsdialogerContainer = connect(mapStateToProps, { hentOppfolgingsdialoger })(OppfolgingsdialogerSide);
+const OppfolgingsdialogerContainer = connect(mapStateToProps, { hentOppfolgingsdialoger, sjekkTilgang })(OppfolgingsdialogerSide);
 
 export default OppfolgingsdialogerContainer;

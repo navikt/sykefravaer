@@ -8,6 +8,8 @@ import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     lagreArbeidsoppgave,
     slettArbeidsoppgave,
+    sjekkTilgang,
+    OppfolgingsdialogInfoboks,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
@@ -22,7 +24,10 @@ export class ArbeidsoppgaverSide extends Component {
     }
 
     componentWillMount() {
-        const { oppfolgingsdialogerHentet } = this.props;
+        const { oppfolgingsdialogerHentet, tilgangSjekket } = this.props;
+        if (!tilgangSjekket) {
+            this.props.sjekkTilgang();
+        }
         if (!oppfolgingsdialogerHentet) {
             this.props.hentOppfolgingsdialoger();
         }
@@ -42,7 +47,7 @@ export class ArbeidsoppgaverSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, lagrer, lagringFeilet, lagret, sletter, slettingFeilet } = this.props;
+        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, lagrer, lagringFeilet, lagret, sletter, slettingFeilet, tilgang } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
@@ -50,17 +55,22 @@ export class ArbeidsoppgaverSide extends Component {
                     return <AppSpinner />;
                 } else if (hentingFeilet || lagringFeilet || slettingFeilet) {
                     return (<Feilmelding />);
+                } else if (!tilgang.harTilgang) {
+                    return (<OppfolgingsdialogInfoboks
+                        svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                        svgAlt="ikkeTilgang"
+                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                        tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
+                    />);
                 }
-                return (
-                    <Arbeidsoppgaver
-                        oppfolgingsdialog={oppfolgingsdialog}
-                        ledetekster={ledetekster}
-                        oppfolgingsdialogId={oppfolgingsdialogId}
-                        sendArbeidsoppgave={this.sendArbeidsoppgave}
-                        sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
-                        arbeidsoppgaveLagret={lagret}
-                    />
-                );
+                return (<Arbeidsoppgaver
+                    oppfolgingsdialog={oppfolgingsdialog}
+                    ledetekster={ledetekster}
+                    oppfolgingsdialogId={oppfolgingsdialogId}
+                    sendArbeidsoppgave={this.sendArbeidsoppgave}
+                    sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
+                    arbeidsoppgaveLagret={lagret}
+                />);
             })()
             }
         </Side>);
@@ -85,6 +95,9 @@ ArbeidsoppgaverSide.propTypes = {
     slettArbeidsoppgave: PropTypes.func,
     hentOppfolgingsdialoger: PropTypes.func,
     oppfolgingsdialogerHentet: PropTypes.bool,
+    tilgang: PropTypes.object,
+    tilgangSjekket: PropTypes.bool,
+    sjekkTilgang: PropTypes.func,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -105,6 +118,8 @@ export function mapStateToProps(state, ownProps) {
         slettingFeilet: state.arbeidsoppgaver.slettingFeilet,
         oppfolgingsdialog,
         oppfolgingsdialogId,
+        tilgang: state.tilgang.data,
+        tilgangSjekket: state.tilgang.hentet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -119,6 +134,6 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-const ArbeidsoppgaverContainer = connect(mapStateToProps, { lagreArbeidsoppgave, slettArbeidsoppgave, hentOppfolgingsdialoger })(ArbeidsoppgaverSide);
+const ArbeidsoppgaverContainer = connect(mapStateToProps, { lagreArbeidsoppgave, slettArbeidsoppgave, hentOppfolgingsdialoger, sjekkTilgang })(ArbeidsoppgaverSide);
 
 export default ArbeidsoppgaverContainer;

@@ -29,19 +29,18 @@ export class OppfolgingsdialogerSide extends Component {
                         return <AppSpinner />;
                     } else if (hentingFeilet) {
                         return (<Feilmelding />);
-                    } else if (tilgang.harTilgang) {
-                        return (<Oppfolgingsdialoger
-                            oppfolgingsdialoger={oppfolgingsdialoger}
-                            ledetekster={ledetekster}
+                    } else if (!tilgang.harTilgang) {
+                        return (<OppfolgingsdialogInfoboks
+                            svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                            svgAlt="ikkeTilgang"
+                            tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                            tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
                         />);
                     }
-                    return (<OppfolgingsdialogInfoboks
-                        svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
-                        svgAlt="ikkeTilgang"
-                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-                        tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
-                    />
-                    );
+                    return (<Oppfolgingsdialoger
+                        oppfolgingsdialoger={oppfolgingsdialoger}
+                        ledetekster={ledetekster}
+                    />);
                 })()
             }
         </Side>);

@@ -57,7 +57,7 @@ export class DineOppgaver extends Component {
         if (!visOppgaver) {
             return null;
         }
-        return (<div className="dineOppgaver blokk">
+        return (<div className="landingspanel dineOppgaver">
             <div className="dineOppgaver__container">
                 <div className="dineOppgaver__illustrasjon">
                     <img src="/sykefravaer/img/svg/landingsside/oppgaver.svg" alt="Oppgaver" />
@@ -79,7 +79,7 @@ DineOppgaver.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     visOppgaver: PropTypes.bool,
-    mote: PropTypes.oneOf([PropTypes.string, PropTypes.object]),
+    mote: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     sykmeldingerHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
 };

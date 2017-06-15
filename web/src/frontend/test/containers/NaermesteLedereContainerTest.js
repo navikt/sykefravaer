@@ -4,6 +4,7 @@ import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../mockLedetekster";
 import sinon from 'sinon';
+import { setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -19,6 +20,10 @@ describe("NaermesteLedereContainer", () => {
 
         beforeEach(() => {
             hentLedere = sinon.spy();
+            setLedetekster({
+                'din-situasjon.naermeste-leder.om': "Din nærmeste leder i %ORGANISASJONSNAVN% er %LEDER%",
+                'din-situasjon.naermeste-leder.meld-feil': "Meld feil",
+            });
         })
 
         it("Viser ingenting dersom det hentes ledere", () => {

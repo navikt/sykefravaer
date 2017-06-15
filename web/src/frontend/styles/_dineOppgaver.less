@@ -13,6 +13,11 @@
 	text-align:  center;
 }
 
+.dineOppgaver__illustrasjon img {
+	width: 4em;
+	height: 4em;
+}
+
 .dineOppgaver__tittel {
 	.mixin-typo-systemtittel();
 	margin: 0 0 1em 0;
@@ -45,7 +50,7 @@
 		color: @navTekst;
 	}
 
-	a:hover {
+	a:hover, a:focus {
 		color: @lenkeBlaa;
 		background-image: data-uri("../img/png/pilNeste--blaa.png");
 	}
@@ -59,6 +64,11 @@
 
 	.dineOppgaver__illustrasjon {
 		margin-right: 2em;
+	}
+
+	.dineOppgaver__illustrasjon img {
+		width: 100px;
+		height: 100px;
 	}
 
 	.dineOppgaver__tekst {

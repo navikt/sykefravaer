@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Lightbox from '../Lightbox';
 import BekreftFeilLederContainer from '../../containers/BekreftFeilLederContainer';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
+import { getLedetekst } from 'digisyfo-npm';
 
 export default class NaermesteLedere extends Component {
     constructor(props) {
@@ -31,7 +32,10 @@ export default class NaermesteLedere extends Component {
 
     render() {
         const { ledere } = this.props;
-        return (<div className="panel blokk">
+        return (<div className="situasjon">
+            <div className="situasjon__ikon">
+                <img src="/sykefravaer/img/svg/arbeidsgiver.svg" alt="Arbeidsgiver" />
+            </div>
             {this.state.visLightbox && <Lightbox onClose={() => {
                 this.lukkLightbox();
             }}>
@@ -39,25 +43,27 @@ export default class NaermesteLedere extends Component {
                     this.lukkLightbox();
                 }} />
             </Lightbox>}
-            <h2 className="typo-undertittel">Din nærmeste leder</h2>
-            <p>Din nærmeste leder med personalansvar vil få se sykmeldinger du sender inn fra nav.no.</p>
-            {
-                ledere.map((leder, index) => {
-                    return (<div className={`leder ${leder.avkreftet ? ' leder--avkreftet' : ''}`} key={index}>
-                        <div className="leder__data">
-                            <h3>{leder.navn}</h3>
-                            <p>{leder.organisasjonsnavn}</p>
-                        </div>
-                        <div className="leder__handlinger">
-                            {
-                                !leder.avkreftet && <button ref={`js-leder-${leder.orgnummer}`} type="button" className="lenke leder__meldFeil js-feil" onClick={() => {
-                                    this.apneLightbox(leder);
-                                }}>Meld feil</button>
-                            }
-                        </div>
-                    </div>);
-                })
-            }
+            <div className="situasjon__innhold">
+                {
+                    ledere.map((leder, index) => {
+                        return (<div className={`leder ${leder.avkreftet ? ' leder--avkreftet' : ''}`} key={index}>
+                            <p className="leder__informasjon">
+                                {getLedetekst('din-situasjon.naermeste-leder.om', {
+                                    '%ORGANISASJONSNAVN%': leder.organisasjonsnavn,
+                                    '%LEDER%': leder.navn,
+                                })}
+                            </p>
+                            <div className="leder__handlinger">
+                                {
+                                    !leder.avkreftet && <button ref={`js-leder-${leder.orgnummer}`} type="button" className="lenke leder__meldFeil js-feil" onClick={() => {
+                                        this.apneLightbox(leder);
+                                    }}>{getLedetekst('din-situasjon.naermeste-leder.meld-feil')}</button>
+                                }
+                            </div>
+                        </div>);
+                    })
+                }
+            </div>
         </div>);
     }
 }

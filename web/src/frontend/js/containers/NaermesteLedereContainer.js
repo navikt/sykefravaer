@@ -6,8 +6,10 @@ import { naermesteLeder as naermesteLederPt } from '../propTypes';
 
 export class Container extends Component {
     componentWillMount() {
-        const { hentLedere } = this.props;
-        hentLedere();
+        const { hentLedere, forsoktHentet } = this.props;
+        if (!forsoktHentet) {
+            hentLedere();
+        }
     }
 
     render() {
@@ -24,6 +26,7 @@ Container.propTypes = {
     hentingFeilet: PropTypes.bool,
     ledere: PropTypes.arrayOf(naermesteLederPt),
     hentLedere: PropTypes.func,
+    forsoktHentet: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {
@@ -31,6 +34,7 @@ export function mapStateToProps(state) {
         ledere: state.ledere.data,
         henter: state.ledere.henter,
         hentingFeilet: state.ledere.hentingFeilet,
+        forsoktHentet: state.ledere.hentet === true,
     };
 }
 

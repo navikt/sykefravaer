@@ -8,6 +8,7 @@ import ledetekster from "../../mockLedetekster";
 import NaermesteLedere from '../../../js/components/landingsside/NaermesteLedere';
 import BekreftFeilLederContainer from '../../../js/containers/BekreftFeilLederContainer';
 import Lightbox from '../../../js/components/Lightbox';
+import { setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -17,6 +18,10 @@ describe("NaermesteLedere", () => {
     let ledere;
 
     beforeEach(() => {
+        setLedetekster({
+            'din-situasjon.naermeste-leder.om': "Din nærmeste leder i %ORGANISASJONSNAVN% er %LEDER%",
+            'din-situasjon.naermeste-leder.meld-feil': "Meld feil",
+        });
         ledere = [{
             navn: "Ole Olsen",
             orgnummer: "123456789",
@@ -57,6 +62,10 @@ describe("NaermesteLedere", () => {
        expect(compo.find(BekreftFeilLederContainer)).to.have.length(1); 
     });
 
-
+    it("Skal vise tekst om lederen", () => {
+        const compo = shallow(<NaermesteLedere ledere={ledere} />);
+        expect(compo.text()).to.contain("Din nærmeste leder i Solstrålen Barnehage er Ole Olsen");
+        expect(compo.text()).to.contain("Meld feil");
+    })
 
 });

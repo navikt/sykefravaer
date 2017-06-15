@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Lightbox from '../Lightbox';
 import BekreftFeilLederContainer from '../../containers/BekreftFeilLederContainer';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
+import { getLedetekst } from 'digisyfo-npm';
 
 export default class NaermesteLedere extends Component {
     constructor(props) {
@@ -46,12 +47,17 @@ export default class NaermesteLedere extends Component {
                 {
                     ledere.map((leder, index) => {
                         return (<div className={`leder ${leder.avkreftet ? ' leder--avkreftet' : ''}`} key={index}>
-                            <p className="leder__informasjon">Din nærmeste leder i {leder.organisasjonsnavn} er {leder.navn}</p>
+                            <p className="leder__informasjon">
+                                {getLedetekst('din-situasjon.naermeste-leder.om', {
+                                    '%ORGANISASJONSNAVN%': leder.organisasjonsnavn,
+                                    '%LEDER%': leder.navn,
+                                })}
+                            </p>
                             <div className="leder__handlinger">
                                 {
                                     !leder.avkreftet && <button ref={`js-leder-${leder.orgnummer}`} type="button" className="lenke leder__meldFeil js-feil" onClick={() => {
                                         this.apneLightbox(leder);
-                                    }}>Meld feil</button>
+                                    }}>{getLedetekst('din-situasjon.naermeste-leder.meld-feil')}</button>
                                 }
                             </div>
                         </div>);

@@ -4,10 +4,10 @@ import {
     OppfolgingsdialogSide,
     finnArbeidsoppgaverIkkeVurdertAvSykmeldt,
     NotifikasjonBoks,
+    ArbeidsoppgaverTabell,
+    LagreArbeidsoppgaveSkjema,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
-import LagreArbeidsoppgaveSkjema from './LagreArbeidsoppgaveSkjema';
-import OppfolgingsdialogOppgaveTabell from './OppfolgingsdialogOppgaveTabell';
 
 export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver }) => {
     return (<NotifikasjonBoks
@@ -31,9 +31,10 @@ export const RenderNotifikasjonBoksSuksess = () => {
     />);
 };
 
-export const RenderOppfolgingsdialogOppgaveTabell = ({ arbeidsoppgaveListe, sendArbeidsoppgave, sendSlettArbeidsoppgave }) => {
+export const RenderOppfolgingsdialogOppgaveTabell = ({ ledetekster, arbeidsoppgaveListe, sendArbeidsoppgave, sendSlettArbeidsoppgave }) => {
     return (
-        <OppfolgingsdialogOppgaveTabell
+        <ArbeidsoppgaverTabell
+            ledetekster={ledetekster}
             arbeidsoppgaveListe={arbeidsoppgaveListe}
             urlImgArrow="/sykefravaer/img/svg/arrow-down.svg"
             urlImgVarsel="/sykefravaer/img/svg/varseltrekant.svg"
@@ -43,6 +44,7 @@ export const RenderOppfolgingsdialogOppgaveTabell = ({ arbeidsoppgaveListe, send
     );
 };
 RenderOppfolgingsdialogOppgaveTabell.propTypes = {
+    ledetekster: PropTypes.object,
     arbeidsoppgaveListe: PropTypes.array,
     sendArbeidsoppgave: PropTypes.func,
     sendSlettArbeidsoppgave: PropTypes.func,
@@ -94,6 +96,7 @@ export class Arbeidsoppgaver extends Component {
                         <div>
                             <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
                             <LagreArbeidsoppgaveSkjema
+                                ledetekster={ledetekster}
                                 avbrytHref={'/sykefravaer/oppfolgingsplaner'}
                                 sendArbeidsoppgave={sendArbeidsoppgave}
                             />
@@ -112,6 +115,7 @@ export class Arbeidsoppgaver extends Component {
                             }
                             {
                                 <RenderOppfolgingsdialogOppgaveTabell
+                                    ledetekster={ledetekster}
                                     arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe}
                                     sendArbeidsoppgave={sendArbeidsoppgave}
                                     sendSlettArbeidsoppgave={sendSlettArbeidsoppgave}
@@ -120,6 +124,7 @@ export class Arbeidsoppgaver extends Component {
                             {
                                 this.state.visArbeidsoppgaveSkjema ?
                                     <LagreArbeidsoppgaveSkjema
+                                        ledetekster={ledetekster}
                                         avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
                                         sendArbeidsoppgave={sendArbeidsoppgave}
                                         avbryt={this.toggleArbeidsoppgaveSkjema}

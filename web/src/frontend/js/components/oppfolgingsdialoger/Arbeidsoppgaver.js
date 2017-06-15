@@ -3,6 +3,7 @@ import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
 import {
     OppfolgingsdialogSide,
     finnArbeidsoppgaverIkkeVurdertAvSykmeldt,
+    OppfolgingsdialogInfoboks,
     NotifikasjonBoks,
     ArbeidsoppgaverTabell,
     LagreArbeidsoppgaveSkjema,
@@ -65,6 +66,24 @@ RenderKnapper.propTypes = {
     toggleArbeidsoppgaveSkjema: PropTypes.func,
 };
 
+export const RenderOpprettArbeidsoppgave = ({ ledetekster, oppfolgingsdialogId, sendArbeidsoppgave, toggleArbeidsoppgaveSkjema }) => {
+    return (<div>
+        <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
+        <LagreArbeidsoppgaveSkjema
+            ledetekster={ledetekster}
+            avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
+            sendArbeidsoppgave={sendArbeidsoppgave}
+            avbryt={toggleArbeidsoppgaveSkjema}
+        />
+    </div>);
+};
+RenderOpprettArbeidsoppgave.propTypes = {
+    ledetekster: PropTypes.object,
+    oppfolgingsdialogId: PropTypes.string,
+    sendArbeidsoppgave: PropTypes.func,
+    toggleArbeidsoppgaveSkjema: PropTypes.func,
+};
+
 export class Arbeidsoppgaver extends Component {
 
     constructor(props) {
@@ -93,45 +112,58 @@ export class Arbeidsoppgaver extends Component {
                 rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}>
                 {
                     isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
-                        <div>
-                            <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
-                            <LagreArbeidsoppgaveSkjema
-                                ledetekster={ledetekster}
-                                avbrytHref={'/sykefravaer/oppfolgingsplaner'}
-                                sendArbeidsoppgave={sendArbeidsoppgave}
-                            />
-                        </div>
-                        :
-                        <div>
-                            <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
-                            {
-                                arbeidsoppgaveLagret && <RenderNotifikasjonBoksSuksess />
-                            }
-                            {
-                                antallIkkeVurderteArbeidsoppgaver > 0 &&
-                                <RenderNotifikasjonBoks
-                                    virksomhetsnavn={oppfolgingsdialog.virksomhetsnavn}
-                                    antallIkkeVurderteArbeidsoppgaver={antallIkkeVurderteArbeidsoppgaver} />
-                            }
-                            {
-                                <RenderOppfolgingsdialogOppgaveTabell
-                                    ledetekster={ledetekster}
-                                    arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe}
-                                    sendArbeidsoppgave={sendArbeidsoppgave}
-                                    sendSlettArbeidsoppgave={sendSlettArbeidsoppgave}
-                                />
-                            }
-                            {
-                                this.state.visArbeidsoppgaveSkjema ?
-                                    <LagreArbeidsoppgaveSkjema
-                                        ledetekster={ledetekster}
-                                        avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
-                                        sendArbeidsoppgave={sendArbeidsoppgave}
-                                        avbryt={this.toggleArbeidsoppgaveSkjema}
-                                    /> :
+                    <div>
+                        {
+                            !this.state.visArbeidsoppgaveSkjema ?
+                                <OppfolgingsdialogInfoboks
+                                    svgUrl="/sykefravaer/img/svg/arbeidsoppgave-onboarding.svg"
+                                    svgAlt="nyArbeidsoppgave"
+                                    tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tittel')}
+                                    tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tekst')}
+                                >
                                     <RenderKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
-                            }
-                        </div>
+                                </OppfolgingsdialogInfoboks> :
+                                <RenderOpprettArbeidsoppgave
+                                    ledetekster={ledetekster}
+                                    oppfolgingsdialogId={oppfolgingsdialogId}
+                                    sendArbeidsoppgave={sendArbeidsoppgave}
+                                    toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema}
+                                />
+                        }
+
+                    </div>
+                    :
+                    <div>
+                        <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
+                        {
+                            arbeidsoppgaveLagret && <RenderNotifikasjonBoksSuksess />
+                        }
+                        {
+                            antallIkkeVurderteArbeidsoppgaver > 0 &&
+                            <RenderNotifikasjonBoks
+                                virksomhetsnavn={oppfolgingsdialog.virksomhetsnavn}
+                                antallIkkeVurderteArbeidsoppgaver={antallIkkeVurderteArbeidsoppgaver}
+                            />
+                        }
+                        {
+                            <RenderOppfolgingsdialogOppgaveTabell
+                                ledetekster={ledetekster}
+                                arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe}
+                                sendArbeidsoppgave={sendArbeidsoppgave}
+                                sendSlettArbeidsoppgave={sendSlettArbeidsoppgave}
+                            />
+                        }
+                        {
+                            this.state.visArbeidsoppgaveSkjema ?
+                                <LagreArbeidsoppgaveSkjema
+                                    ledetekster={ledetekster}
+                                    avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
+                                    sendArbeidsoppgave={sendArbeidsoppgave}
+                                    avbryt={this.toggleArbeidsoppgaveSkjema}
+                                /> :
+                                <RenderKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
+                        }
+                    </div>
                 }
             </OppfolgingsdialogSide>
         );

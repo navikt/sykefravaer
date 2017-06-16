@@ -105,5 +105,5 @@ export function endringStartet(sykepengesoknad) {
 export function startEndringFeilet() {
     return {
         type: actiontyper.START_ENDRING_FEILET,
-    }
+    };
 }

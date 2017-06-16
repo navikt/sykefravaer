@@ -7,7 +7,6 @@ import { getLedetekst } from 'digisyfo-npm';
 class AngiTid extends Component {
     constructor(props) {
         super(props);
-        
         let valgtEnhet = 'prosent';
         try {
             const timerName = this.props.names[1];

@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import history from '../../history';
 import Feiloppsummering, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
 import mapBackendsoknadToSkjemasoknad from './mapBackendsoknadToSkjemasoknad';
-import inntektskildetyper from '../../enums/inntektskildetyper'; 
+import inntektskildetyper from '../../enums/inntektskildetyper';
 import { UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {

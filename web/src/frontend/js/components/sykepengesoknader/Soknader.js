@@ -2,12 +2,12 @@ import React, { PropTypes } from 'react';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';
-import { SENDT, TIL_SENDING, UTGAATT, NY } from '../../enums/sykepengesoknadstatuser';
+import { SENDT, TIL_SENDING, UTGAATT, NY, UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 const Soknader = ({ soknader = [] }) => {
     const nyeSoknader = soknader.filter((soknad) => {
-        return soknad.status === NY;
+        return soknad.status === NY || soknad.status === UTKAST_TIL_KORRIGERING;
     });
     const sendteSoknader = soknader.filter((soknad) => {
         return soknad.status === SENDT || soknad.status === TIL_SENDING || soknad.status === UTGAATT;

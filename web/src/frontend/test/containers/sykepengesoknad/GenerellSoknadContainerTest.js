@@ -52,6 +52,36 @@ describe("GenerellSoknadContainer", () => {
           "andreInntektskilder": [],
           "utdanning": null
         }
+        minKorreksjon = {
+          "id": "min-korreksjon",
+          "status": "SENDT",
+          "korrigerer": "min-soknad-id",
+          "opprettetDato": new Date("2017-06-19"),
+          "arbeidsgiver": {
+            "navn": "BYGGMESTER BLOM AS",
+            "orgnummer": "***REMOVED***",
+            "naermesteLeder": null
+          },
+          "identdato": new Date("2016-07-15"),
+          "ansvarBekreftet": false,
+          "bekreftetKorrektInformasjon": false,
+          "arbeidsgiverUtbetalerLoenn": false,
+          "egenmeldingsperioder": [],
+          "gjenopptattArbeidFulltUtDato": null,
+          "ferie": [],
+          "permisjon": [],
+          "utenlandsOpphold": [],
+          "aktiviteter": [{
+            "periode": {
+              "fom": new Date("2016-07-15"),
+              "tom": new Date("2017-01-19")
+            },
+            "grad": 100,
+            "avvik": null
+          }],
+          "andreInntektskilder": [],
+          "utdanning": null
+        };
         ownProps = {
             params: {
                 sykepengesoknadId: "min-soknad-id"
@@ -127,6 +157,14 @@ describe("GenerellSoknadContainer", () => {
             ownProps.params.sykepengesoknadId = "ukjent-soknad"
             const props = mapStateToProps(state, ownProps);
             expect(props.sykepengesoknad).to.be.undefined;
+        });
+
+        it("Skal returnere korrigert søknad hvis den finnes", () => {
+            ownProps.params.sykepengesoknadId = "min-korreksjon";
+            state.sykepengesoknader.data = [...state.sykepengesoknader.data, minKorreksjon];
+            const props = mapStateToProps(state, ownProps);
+            expect(props.sykepengesoknad).to.deep.equal(minKorreksjon);
+            expect(props.korrigertSoknad).to.deep.equal(minSoknad);
         });
 
         it("Skal returnere henter hvis søknader hentes", () => {

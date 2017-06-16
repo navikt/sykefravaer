@@ -6,14 +6,14 @@ import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
 import UtgaattSoknad from '../../components/sykepengesoknad/UtgaattSoknad';
 import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
-import { getLedetekst, scrollTo } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export class Controller extends Component {
     render() {
-        const { sykepengesoknad, vedlikehold, korrigerendeSoknad } = this.props;
+        const { sykepengesoknad, vedlikehold, korrigertSoknad } = this.props;
         if (vedlikehold.datospennMedTid) {
             return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel')} melding={getLedetekst('under-vedlikehold.varsel.tekst', {
                 '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
@@ -27,10 +27,10 @@ export class Controller extends Component {
             </div>);
         }
         if (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) {
-            return <SendtSoknad sykepengesoknad={sykepengesoknad} />;
+            return <SendtSoknad sykepengesoknad={sykepengesoknad} korrigertSoknad={korrigertSoknad} />;
         }
         if (sykepengesoknad.status === UTGAATT) {
-            return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
+            return <UtgaattSoknad sykepengesoknad={sykepengesoknad} korrigertSoknad={korrigertSoknad} />;
         }
         return <Feilmelding tittel="Søknaden har ukjent status" />;
     }
@@ -38,6 +38,7 @@ export class Controller extends Component {
 
 Controller.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
+    korrigertSoknad: sykepengesoknadPt,
     skjemasoknad: PropTypes.object,
     vedlikehold: PropTypes.shape({
         datospennMedTid: PropTypes.object,

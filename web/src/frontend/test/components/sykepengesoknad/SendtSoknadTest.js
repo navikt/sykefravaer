@@ -57,6 +57,12 @@ describe("SendtSoknad", () => {
         expect(component.find(ConnectedKnapperad)).to.have.length(1);
     });
 
+    it("Skal ikke inneholde en ConnectedKnapperad hvis søknaden har status KORRIGERT", () => {
+        sykepengesoknad.status = "KORRIGERT";
+        component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
+        expect(component.find(ConnectedKnapperad)).to.have.length(0);
+    });
+
     describe("Knapperad", () => {
 
         let clock;
@@ -115,20 +121,14 @@ describe("SendtSoknad", () => {
         });
 
         it("Skal starte endring når man klikker på endre", () => {
-            const dispatch = sinon.spy();
+            const startEndringForespurt = sinon.spy();
             const preventDefault = sinon.spy();
-            const action = startEndringForespurt("88");
-            const component = shallow(<Knapperad sykepengesoknad={getSoknad({id: "88", sendtTilNAVDato: new Date("2016-10-16")})} dispatch={dispatch} />);
+            const component = shallow(<Knapperad sykepengesoknad={getSoknad({id: "88", sendtTilNAVDato: new Date("2016-10-16")})} startEndringForespurt={startEndringForespurt} />);
             component.find(".js-endre").simulate("click", { preventDefault });
-            expect(preventDefault.called).to.be.true;
-            expect(dispatch.calledWith(action)).to.be.true;
+            expect(startEndringForespurt.called).to.be.true;
+            expect(startEndringForespurt.calledWith("88")).to.be.true;
         });
 
-    });
-
-    it("Skal returnere null dersom sykepengesoknaden har status KORRIGERT", () => {
-        const component = shallow(<Knapperad sykepengesoknad={getSoknad({status: "KORRIGERT"})} />);
-        expect(component.html()).to.be.null;
     });
 
 });

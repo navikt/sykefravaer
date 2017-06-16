@@ -8,17 +8,17 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { connect } from 'react-redux';
 import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
 import * as actions from '../../actions/forskutteringssporsmal_actions';
+import AppSpinner from '../../components/AppSpinner';
 
 export class Oppsummering extends Component {
-    constructor(props) {
-        super(props);
+    componentWillMount() {
         const { sjekkSkalViseForskutteringssporsmal, backendsoknad } = this.props;
         sjekkSkalViseForskutteringssporsmal(backendsoknad);
     }
 
     render() {
         if (this.props.henterForskutteringssporsmal) {
-            return null;
+            return <AppSpinner />;
         }
         return <OppsummeringSkjema {...this.props} />;
     }
@@ -41,9 +41,6 @@ export const mapStateToProps = (state, ownProps) => {
 export const ConnectedOppsummering = connect(mapStateToProps, actions)(Oppsummering);
 
 export const Controller = (props) => {
-    if (props.korrigerendeSoknad) {
-        return <ConnectedOppsummering {...props} />;
-    }
     if (props.sykepengesoknad.status === SENDT || props.sykepengesoknad.status === TIL_SENDING) {
         return <Kvittering sykepengesoknad={props.sykepengesoknad} />;
     }

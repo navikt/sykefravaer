@@ -65,7 +65,6 @@ const map = (sykepengesoknad) => {
         harAndreInntektskilder: sykepengesoknad.andreInntektskilder.length > 0,
         bruktEgenmeldingsdagerFoerLegemeldtFravaer: sykepengesoknad.egenmeldingsperioder.length > 0,
         utdanning,
-        underUtdanningISykmeldingsperioden: sykepengesoknad.utdanning !== null,
         aktiviteter: sykepengesoknad.aktiviteter.map((aktivitet) => {
             if (aktivitet.avvik === null) {
                 return Object.assign({}, aktivitet, {

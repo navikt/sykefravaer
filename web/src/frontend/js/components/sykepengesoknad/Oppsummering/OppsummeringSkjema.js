@@ -26,12 +26,9 @@ export const OppsummeringForm = (props) => {
         const soknad = mapSkjemasoknadToBackendsoknad(values, {
             visForskutteringssporsmal: visForskutteringssporsmal === true,
         });
+        console.log(soknad);
         const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
-        if (!values.korrigerer) {
-            actions.sendSykepengesoknad(soknadObjekt);
-        } else {
-            console.log("Send korrigering!");
-        }
+        actions.sendSykepengesoknad(soknadObjekt);
     };
     return (<form onSubmit={handleSubmit(onSubmit)}>
         <Soknad apentUtdrag={false} sykepengesoknad={backendsoknad} tittel="Oppsummering" />

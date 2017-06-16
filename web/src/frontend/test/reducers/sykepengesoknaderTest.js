@@ -214,7 +214,7 @@ describe('sykepengesoknader', () => {
 
     describe("Endring", () => {
 
-        it("Håndterer ENDRING_SYKEPENGESOKNAD_STARTET", () => {
+        it("Håndterer START_ENDRING_SYKEPENGESOKNAD_FORESPURT", () => {
             let initialState = deepFreeze({
                 data: [{id: '1'},{id: '2'}],
                 henter: false,
@@ -222,10 +222,57 @@ describe('sykepengesoknader', () => {
                 sender: false,
                 sendingFeilet: false,
             });
+            const action = actions.startEndringForespurt("2");
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState.starterEndring).to.be.true;
+            expect(nextState.startEndringFeilet).to.be.false;
+        }); 
+
+        it("Håndterer ENDRING_SYKEPENGESOKNAD_STARTET hvis søknaden ikke finnes i listen fra før", () => {
+            let initialState = deepFreeze({
+                data: [{id: '88'},{id: '99'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
             const action = actions.endringStartet(getSoknad());
             const nextState = sykepengesoknader(initialState, action);
-            expect(nextState.data).to.deep.equal([{id: '1'},{id: '2'},getParsetSoknad()])
-        });
+            expect(nextState.starterEndring).to.be.false;
+            expect(nextState.startEndringFeilet).to.be.false;
+            expect(nextState.data.length).to.equal(3);
+            expect(nextState.data[2]).to.deep.equal(getParsetSoknad());
+        }); 
+
+        it("Håndterer ENDRING_SYKEPENGESOKNAD_STARTET hvis søknaden finnes i listen fra før", () => {
+            let initialState = deepFreeze({
+                data: [{id: '88'},{id: '99'}, getParsetSoknad()],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const action = actions.endringStartet(getSoknad());
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState.starterEndring).to.be.false;
+            expect(nextState.startEndringFeilet).to.be.false;
+            expect(nextState.data.length).to.equal(3);
+        }); 
+
+        it("Håndterer startEndringFeilet", () => {
+            let initialState = deepFreeze({
+                data: [{id: '1'},{id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                starterEndring: true,
+            });
+            const action = actions.startEndringFeilet();
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState.starterEndring).to.be.false;
+            expect(nextState.startEndringFeilet).to.be.true;
+        })
 
     });
 

@@ -19,7 +19,7 @@ export class ArbeidsoppgaverSide extends Component {
 
     constructor(props) {
         super(props);
-        this.sendArbeidsoppgave = this.sendArbeidsoppgave.bind(this);
+        this.sendLagreArbeidsoppgave = this.sendLagreArbeidsoppgave.bind(this);
         this.sendSlettArbeidsoppgave = this.sendSlettArbeidsoppgave.bind(this);
     }
 
@@ -39,7 +39,7 @@ export class ArbeidsoppgaverSide extends Component {
         }
     }
 
-    sendArbeidsoppgave(values) {
+    sendLagreArbeidsoppgave(values) {
         this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialogId, values);
     }
     sendSlettArbeidsoppgave(arbeidsoppgaveId) {
@@ -67,7 +67,7 @@ export class ArbeidsoppgaverSide extends Component {
                     oppfolgingsdialog={oppfolgingsdialog}
                     ledetekster={ledetekster}
                     oppfolgingsdialogId={oppfolgingsdialogId}
-                    sendArbeidsoppgave={this.sendArbeidsoppgave}
+                    sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
                     sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
                     arbeidsoppgaveLagret={lagret}
                 />);

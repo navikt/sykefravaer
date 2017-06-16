@@ -8,7 +8,10 @@ import AppSpinner from '../components/AppSpinner';
 import history from '../history';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import OpprettOppfolgingsdialog from '../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
-import { OppfolgingsdialogSamtykke, opprettOppfolgingsdialogAt as opprettOppfolgingsdialog } from 'oppfolgingsdialog-npm';
+import {
+    opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
+    hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
+} from 'oppfolgingsdialog-npm';
 import { finnArbeidsgivereForAktiveSykmeldinger } from '../utils/sykmeldingUtils';
 
 export class OpprettOppfolgingsdialogSide extends Component {
@@ -16,15 +19,15 @@ export class OpprettOppfolgingsdialogSide extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            side: 1,
+            arbeidsgiver: '',
         };
-        this.nesteSide = this.nesteSide.bind(this);
-        this.samtykk = this.samtykk.bind(this);
+        this.opprett = this.opprett.bind(this);
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.oppretter && this.props.opprettet) {
             history.push('/sykefravaer/oppfolgingsplaner/');
+            this.props.hentOppfolgingsdialoger();
         }
     }
 
@@ -39,13 +42,12 @@ export class OpprettOppfolgingsdialogSide extends Component {
             side: this.state.side + 1,
         });
     }
-
-    samtykk(values) {
+    opprett(values) {
         this.props.opprettOppfolgingsdialog(values.arbeidsgiver);
     }
 
     render() {
-        const { brodsmuler, ledetekster, henter, hentingFeilet, arbeidsgivere, oppretter, opprettingFeilet } = this.props;
+        const { brodsmuler, henter, hentingFeilet, arbeidsgivere, oppretter, opprettingFeilet } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialoger.opprett.tittel')} brodsmuler={brodsmuler}>
             {
@@ -54,19 +56,6 @@ export class OpprettOppfolgingsdialogSide extends Component {
                         return <AppSpinner />;
                     } else if (hentingFeilet || opprettingFeilet) {
                         return (<Feilmelding />);
-                    } else if (this.state.side === 2) {
-                        return (
-                            <div>
-                                <Sidetopp
-                                    tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
-                            <OppfolgingsdialogSamtykke
-                                ledetekster={ledetekster}
-                                avbrytHref="/sykefravaer/oppfolgingsplaner"
-                                svgUrl="/sykefravaer/img/svg/samtykke.svg"
-                                svgAlt="samtykke"
-                                samtykk={this.samtykk}
-                            />
-                            </div>);
                     }
                     return (
                         <div>
@@ -75,7 +64,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
                             <OpprettOppfolgingsdialog
                                 arbeidsgivere={arbeidsgivere}
                                 avbrytHref="/sykefravaer/oppfolgingsplaner"
-                                velgArbeidsgiver={this.nesteSide}
+                                velgArbeidsgiver={this.opprett}
                             />
                         </div>);
                 })()
@@ -94,6 +83,7 @@ OpprettOppfolgingsdialogSide.propTypes = {
     opprettet: PropTypes.bool,
     opprettingFeilet: PropTypes.bool,
     opprettOppfolgingsdialog: PropTypes.func,
+    hentOppfolgingsdialoger: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
@@ -119,6 +109,6 @@ export const mapStateToProps = (state) => {
     };
 };
 
-const OppfolgingsdialogContainer = connect(mapStateToProps, { opprettOppfolgingsdialog })(OpprettOppfolgingsdialogSide);
+const OppfolgingsdialogContainer = connect(mapStateToProps, { opprettOppfolgingsdialog, hentOppfolgingsdialoger })(OpprettOppfolgingsdialogSide);
 
 export default OppfolgingsdialogContainer;

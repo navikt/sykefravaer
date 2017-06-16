@@ -75,7 +75,6 @@ function validate(values) {
 ArbeidsgiverSkjema = reduxForm({
     form: OPPFOLGINGSKJEMANAVN,
     validate,
-    destroyOnUnmount: false,
 })(ArbeidsgiverSkjema);
 
 export default ArbeidsgiverSkjema;

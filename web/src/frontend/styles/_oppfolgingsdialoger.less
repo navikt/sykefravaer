@@ -22,13 +22,13 @@
 .panel--suksess {
     background: @fargeSuksess;
 }
-.panel_informasjon {
+.notifikasjonboks {
     padding: 1em 2em;
 }
-.panel_informasjon_img {
+.notifikasjonboks__img {
     margin-right: 1em;
 }
-.panel_informasjon_tekst {
+.notifikasjonboks__tekst {
 
 }
 
@@ -78,34 +78,34 @@
 .varselstripe {
     margin-bottom: 2em;
 }
-.arbeidsgivertabell {
+.arbeidsoppgavertabell {
     width: 100%;
     color: @navTekst;
 }
-.arbeidsgivertabell__rad {
+.arbeidsoppgavertabell__rad {
     display: table;
     width: 100%;
     background: #fff;
 }
-.arbeidsgivertabell__rad:before,
-.arbeidsgivertabell__rad:after {
+.arbeidsoppgavertabell__rad:before,
+.arbeidsoppgavertabell__rad:after {
     content: "";
     display: table;
     clear: both;
 }
-.arbeidsgivertabell__rad--hode {
+.arbeidsoppgavertabell__rad--hode {
     padding: 2em;
     border-bottom: 0.5em solid #efefef;
     font-weight: bold;
 }
-.arbeidsgivertabell__rad--arbeidsgiver {
+.arbeidsoppgavertabell__rad--arbeidsoppgave {
     padding: 2em;
     border-bottom: 0.5em solid #efefef;
     &:last-of-type {
         border-bottom: none;
     }
 }
-.arbeidsgivertabell__rad__celle {
+.arbeidsoppgavertabell__rad__celle {
     float: left;
     min-height: 1px;
     padding-right: 1em;
@@ -124,14 +124,14 @@
         cursor: pointer;
     }
 }
-.arbeidsgivertabell__rad__pil {
+.arbeidsoppgavertabell__rad__pil {
     float: right;
     width: 1.5em;
 }
-.arbeidsgivertabell__rad__advarsel {
+.arbeidsoppgavertabell__rad__advarsel {
     margin-right: 1em;
 }
-.arbeidsgivertabell__rad__utvidbar {
+.arbeidsoppgavertabell__rad__utvidbar {
     margin-top: 3em;
 }
 

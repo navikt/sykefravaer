@@ -127,7 +127,7 @@ export class Ettersending extends Component {
         if (sykepengesoknad[manglendeDato] && !this.state.visKvittering) {
             return null;
         }
-        return (<div className="knapperad__element">
+        return (<div className="verktoylinje__element">
             {
                 !sykepengesoknad[manglendeDato] && <button
                     ref="triggEttersending"

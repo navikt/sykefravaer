@@ -1,4 +1,5 @@
 import Statuspanel from '../../../js/components/sykepengesoknad/Soknadstatuspanel';
+import KorrigertAvContainer from '../../../js/containers/sykepengesoknad/KorrigertAvContainer';
 import * as statuser from '../../../js/enums/sykepengesoknadstatuser';
 import { Hjelpetekst, setLedetekster, Varselstripe } from 'digisyfo-npm';
 import chai from 'chai';
@@ -9,7 +10,7 @@ import { getSoknad } from '../../mockSoknader';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("Sykepengesoknad - Statuspanel", () => {
+describe("Soknadstatuspanel", () => {
 
     beforeEach(() => {
         setLedetekster({
@@ -165,6 +166,5 @@ describe("Sykepengesoknad - Statuspanel", () => {
         });
         
     });
-
 
 });

@@ -6,6 +6,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 import { sendSykepengesoknadTilArbeidsgiver, sendSykepengesoknadTilNAV } from '../../../js/actions/sykepengesoknader_actions';
 import SendtSoknad, { getNokkelopplysninger, Knapperad, ConnectedKnapperad } from '../../../js/components/sykepengesoknad/SendtSoknad';
+import KorrigertAvContainer from '../../../js/containers/sykepengesoknad/KorrigertAvContainer';
 import { Soknad } from 'digisyfo-npm';
 import Sidetopp from '../../../js/components/Sidetopp';
 import SykmeldingUtdrag from '../../../js/components/sykepengesoknad/SykmeldingUtdrag';
@@ -26,7 +27,8 @@ describe("SendtSoknad", () => {
     beforeEach(() => {
         setLedetekster(Object.assign({}, ledetekster, {
             'sykepengesoknad.oppsummering.status.label': "Status",
-            'sykepengesoknad.status.TIL_SENDING': 'Sendes...'
+            'sykepengesoknad.status.TIL_SENDING': 'Sendes...',
+            'sykepengesoknad.status.KORRIGERT': 'Korrigert',
         }));
         component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />)
     });
@@ -61,6 +63,30 @@ describe("SendtSoknad", () => {
         sykepengesoknad.status = "KORRIGERT";
         component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
         expect(component.find(ConnectedKnapperad)).to.have.length(0);
+    });
+
+    it("Skal inneholde riktig statustekst hvis søknaden har status KORRIGERT", () => {
+        sykepengesoknad.status = "KORRIGERT";
+        component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
+        expect(component.text()).to.contain("Korrigert");
+    });
+
+    describe("Når søknaden er korrigert", () => {
+
+        let component;
+        let sykepengesoknad;
+
+        beforeEach(() => {
+            sykepengesoknad = getSoknad({
+                status: "KORRIGERT",
+            });
+            component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
+        });
+
+        it("Skal inneholde KorrigertAvContainer", () => {
+            expect(component.find(KorrigertAvContainer)).to.have.length(1);
+        });
+
     });
 
     describe("Knapperad", () => {

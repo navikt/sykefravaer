@@ -8,7 +8,7 @@ import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
-import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
+import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export class Controller extends Component {
@@ -26,7 +26,7 @@ export class Controller extends Component {
                 <FoerDuBegynner {...this.props} />
             </div>);
         }
-        if (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) {
+        if (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING || sykepengesoknad.status === KORRIGERT) {
             return <SendtSoknad sykepengesoknad={sykepengesoknad} korrigertSoknad={korrigertSoknad} />;
         }
         if (sykepengesoknad.status === UTGAATT) {

@@ -145,6 +145,34 @@ describe('sykepengesoknader', () => {
             });
         });
 
+        it("håndterer SYKEPENGESOKNAD_SENDT når den sendte søknaden korrigerer en annen", () => {
+            let initialState = deepFreeze({
+                data: [getParsetSoknad(), {id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const soknad = getSoknad();
+            soknad.id = "1";
+            soknad.korrigerer = "2";
+            const action = actions.sykepengesoknadSendt("1", soknad);
+            const nextState = sykepengesoknader(initialState, action);
+
+            const parsetSoknad = getParsetSoknad();
+            parsetSoknad.korrigerer = "2";
+            expect(nextState).to.deep.equal({
+                data: [parsetSoknad, {
+                    id: '2',
+                    status: "KORRIGERT"
+                }],
+                sender: false,
+                sendingFeilet: false,
+                henter: false,
+                hentingFeilet: false,
+            });
+        });        
+
         it("håndterer SYKEPENGESOKNAD_SENDT_TIL_NAV", () => {
             let initialState = deepFreeze({
                 data: [{id: '1'},{id: '2'}],

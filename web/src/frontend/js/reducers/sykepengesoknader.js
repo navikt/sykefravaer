@@ -1,5 +1,6 @@
 import * as actiontyper from '../actions/actiontyper';
 import { tilDato, parseDatoerPeriodeListe, parseDatoerPeriode } from '../utils/serialisering/dato';
+import { KORRIGERT } from '../enums/sykepengesoknadstatuser';
 
 const initiellState = {
     henter: false,
@@ -143,7 +144,12 @@ export default function sykepengesoknader(state = initiellState, action) {
         case actiontyper.SYKEPENGESOKNAD_SENDT:
         case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV:
         case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER: {
-            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, parseDatofelter(action.sykepengesoknad));
+            let data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, parseDatofelter(action.sykepengesoknad));
+            if (action.sykepengesoknad.korrigerer) {
+                data = setSykepengesoknaderProps(data, action.sykepengesoknad.korrigerer, {
+                    status: KORRIGERT,
+                });
+            }
             return Object.assign({}, state, { data }, {
                 sender: false,
                 sendingFeilet: false,

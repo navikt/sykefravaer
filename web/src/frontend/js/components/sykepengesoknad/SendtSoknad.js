@@ -1,14 +1,15 @@
 import React, { PropTypes, Component } from 'react';
 import Sidetopp from '../Sidetopp';
-import { Soknad, getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { Soknad, getLedetekst } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Soknadstatuspanel from './Soknadstatuspanel';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/sykepengesoknader_actions';
 import Ettersending from './Ettersending';
-import { KORRIGERT } from '../../enums/sykepengesoknadstatuser';
-import { Link } from 'react-router';
+import { KORRIGERT, SENDT } from '../../enums/sykepengesoknadstatuser';
+import RelaterteSoknaderContainer from '../../containers/sykepengesoknad/RelaterteSoknaderContainer';
+import KorrigertAvContainer from '../../containers/sykepengesoknad/KorrigertAvContainer';
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">
@@ -41,9 +42,9 @@ export const Knapperad = (props) => {
     frist.setMonth(frist.getMonth() - ANTALL_MAANEDER_KORRIGERING_ER_MULIG);
     const sendtDato = getSistSendtDato(sykepengesoknad);
     return (<div>
-        <div className="knapperad">
+        <div className="verktoylinje">
             {
-                sendtDato.getTime() >= frist.getTime() && <div className="knapperad__element">
+                sendtDato.getTime() >= frist.getTime() && <div className="verktoylinje__element">
                     <button onClick={(e) => {
                         e.preventDefault();
                         startEndringForespurt(sykepengesoknad.id);
@@ -81,9 +82,10 @@ class SendtSoknad extends Component {
     }
 
     render() {
-        const { sykepengesoknad, korrigertSoknad } = this.props;
+        const { sykepengesoknad } = this.props;
         return (<div ref="sendtSoknad">
             <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
+            { sykepengesoknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={sykepengesoknad} /> }
             <Soknadstatuspanel sykepengesoknad={sykepengesoknad}>
             {
                 sykepengesoknad.status !== KORRIGERT && <ConnectedKnapperad sykepengesoknad={sykepengesoknad} scrollTilTopp={() => {
@@ -96,14 +98,13 @@ class SendtSoknad extends Component {
             <div className="bekreftet-container blokk">
                 <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label')} />
             </div>
-            { korrigertSoknad ? <Link className="lenke" to={`/sykefravaer/soknader/${korrigertSoknad.id}`}>Korrigerer søknad du sendte {toDatePrettyPrint(korrigertSoknad.sendtTilNAVDato || korrigertSoknad.sendtTilArbeidsgiverDato)}</Link> : null }
+            { sykepengesoknad.status === SENDT && <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} /> }
         </div>);
     }
 }
 
 SendtSoknad.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
-    korrigertSoknad: sykepengesoknadPt,
 };
 
 export default SendtSoknad;

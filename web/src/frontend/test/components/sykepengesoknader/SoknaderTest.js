@@ -43,26 +43,38 @@ describe("Soknader", () => {
         component = shallow(<Soknader soknader={[
             {
                 id: "1", 
-                status: 'SENDT'
+                status: 'SENDT',
+                sendtTilNAVDato: new Date(),
+                sendtTilArbeidsgiverDato: null,
             },
             {
                 id: "2", 
-                status: 'NY'
+                status: 'NY',
+                sendtTilNAVDato: new Date(),
+                sendtTilArbeidsgiverDato: null,
             },
             {
                 id: "3", 
-                status: 'NY'
+                status: 'NY',
+                sendtTilNAVDato: new Date(),
+                sendtTilArbeidsgiverDato: null,
             },
             {
                 id: "4", 
-                status: 'UTGAATT'
+                status: 'UTGAATT',
+                sendtTilNAVDato: new Date(),
+                sendtTilArbeidsgiverDato: null,
             },
             {
                 id: "5", 
-                status: 'LAGRET'
+                status: 'LAGRET',
+                sendtTilNAVDato: new Date(),
+                sendtTilArbeidsgiverDato: null,
             }, {
                 id: "6", 
-                status: 'UTKAST_TIL_KORRIGERING'
+                status: 'UTKAST_TIL_KORRIGERING',
+                sendtTilNAVDato: null,
+                sendtTilArbeidsgiverDato: null,
             }]} />);
         expect(component.find('.js-til-behandling').props().soknader).to.have.length(3);
     });
@@ -75,7 +87,12 @@ describe("Soknader", () => {
     });
 
     it('Sender søknader videre til SoknaderTeasere', () => {
-        component = shallow(<Soknader soknader={[{id: "1", status: 'SENDT' }, {id: "2", status: 'NY' }, {id: "3", status: 'NY' }, {id: "4", status: 'UTGAATT' }, {id: "5", status: 'LAGRET' }]} />);
+        component = shallow(<Soknader soknader={[
+            {id: "1", status: 'SENDT', sendtTilNAVDato: new Date(), sendtTilArbeidsgiverDato: null },
+            {id: "2", status: 'NY', sendtTilNAVDato: null, sendtTilArbeidsgiverDato: null },
+            {id: "3", status: 'NY', sendtTilNAVDato: null, sendtTilArbeidsgiverDato: null },
+            {id: "4", status: 'UTGAATT', sendtTilNAVDato: new Date(), sendtTilArbeidsgiverDato: null },
+            {id: "5", status: 'LAGRET', sendtTilNAVDato: new Date() }]} />);
         expect(component.find('.js-til-behandling').props().soknader).to.have.length(2);
         expect(component.find('.js-sendt').props().soknader).to.have.length(2);
     });

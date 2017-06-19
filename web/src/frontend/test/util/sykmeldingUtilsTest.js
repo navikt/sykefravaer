@@ -1,6 +1,6 @@
 import {
     erBrukerSykmeldtPdd,
-    finnArbeidsgivereForAktiveSykmeldinger,
+    finnArbeidsgivereForGyldigeSykmeldinger,
     sykmeldtHarManglendeNaermesteLeder,
     sykmeldtHarNaermestelederHosArbeidsgiver,
     sykmeldtHarNaermestelederHosArbeidsgivere,
@@ -8,14 +8,25 @@ import {
 import getSykmelding from '../mockSykmeldinger';
 import { getSykmeldinger, getArbeidsgivere, getArbeidsgiver } from '../mockSykmeldinger';
 import { getLedere } from '../mockLedere.js';
-import { trekkDagerFraDato, leggTilDagerPaaDato } from '../../js/utils/datoUtils';
+import { trekkDagerFraDato, trekkMnderFraDato, leggTilDagerPaaDato, trekkMnderOgDagerFraDato } from '../../js/utils/datoUtils';
 
+import sinon from 'sinon';
 import chai from "chai";
 const expect = chai.expect;
 
 describe("sykmeldingUtils", () => {
 
+    let clock;
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    beforeEach(() => {
+        clock = sinon.useFakeTimers(today.getTime());
+    });
+
+    afterEach(() => {
+        clock.restore();
+    });
 
     const sykmeldinger = getSykmeldinger;
     const naermesteLedere = getLedere;
@@ -27,16 +38,30 @@ describe("sykmeldingUtils", () => {
         harNaermesteLeder: true,
     });
 
+    const sykmeldingUtgaattOver3mnd = getSykmelding({
+        mulighetForArbeid: {
+            perioder: [
+                {
+                    fom: trekkMnderFraDato(today, 6).toISOString(),
+                    tom: trekkMnderFraDato(today, 5).toISOString(),
+                },
+                {
+                    fom: trekkMnderFraDato(today, 5).toISOString(),
+                    tom: trekkMnderOgDagerFraDato(today, 3, 1).toISOString(),
+                }
+            ]
+        }
+    });
     const sykmeldingUtgaatt = getSykmelding({
         mulighetForArbeid: {
             perioder: [
                 {
-                    fom: trekkDagerFraDato(today, 60),
-                    tom: trekkDagerFraDato(today, 30),
+                    fom: trekkMnderFraDato(today, 6).toISOString(),
+                    tom: trekkMnderFraDato(today, 5).toISOString(),
                 },
                 {
-                    fom: trekkDagerFraDato(today, 20),
-                    tom: trekkDagerFraDato(today, 5),
+                    fom: trekkMnderFraDato(today, 4).toISOString(),
+                    tom: trekkMnderFraDato(today, 3).toISOString(),
                 }
             ]
         }
@@ -45,12 +70,12 @@ describe("sykmeldingUtils", () => {
         mulighetForArbeid: {
             perioder: [
                 {
-                    fom: trekkDagerFraDato(today, 35),
-                    tom: trekkDagerFraDato(today, 5),
+                    fom: trekkDagerFraDato(today, 35).toISOString(),
+                    tom: trekkDagerFraDato(today, 5).toISOString(),
                 },
                 {
-                    fom: trekkDagerFraDato(today, 5),
-                    tom: leggTilDagerPaaDato(today, 35),
+                    fom: trekkDagerFraDato(today, 5).toISOString(),
+                    tom: leggTilDagerPaaDato(today, 35).toISOString(),
                 }
             ]
         }
@@ -58,39 +83,44 @@ describe("sykmeldingUtils", () => {
 
     describe("erBrukerSykmeldtPdd", () => {
 
-        xit("skal returnere false med 1 utgaatt sykmelding", () => {
+        it("skal returnere false med 1 utgaatt sykmelding", () => {
             expect(erBrukerSykmeldtPdd([sykmeldingUtgaatt])).to.be.false;
         });
 
-        xit("skal returnere true med 1 aktiv og 1 utgaatt sykemelding", () => {
+        it("skal returnere true med 1 aktiv og 1 utgaatt sykemelding", () => {
             expect(erBrukerSykmeldtPdd([sykmeldingUtgaatt, sykmeldingAktiv])).to.be.true;
         });
 
-        xit("skal returnere true med 1 aktiv sykemelding", () => {
+        it("skal returnere true med 1 aktiv sykemelding", () => {
             expect(erBrukerSykmeldtPdd(sykmeldinger)).to.be.true;
         });
 
     });
 
-    describe("finnArbeidsgivereForAktiveSykmeldinger", () => {
+    describe("finnArbeidsgivereForGyldigeSykmeldinger", () => {
 
-        xit("skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt", () => {
+        it("skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt over 3 maaneder", () => {
+            const sykmeldinger = [sykmeldingUtgaattOver3mnd];
+            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
+        });
+
+        it("skal returnere 1 arbeidsgiver, naar sykmelding er utgaatt", () => {
             const sykmeldinger = [sykmeldingUtgaatt];
-            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
+            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });
 
-        xit("skal returnere 1 arbeidsgiver, når 1 sykmelding er utgaatt", () => {
+        it("skal returnere 1 arbeidsgiver, når 1 sykmelding er utgaatt", () => {
             const sykmeldinger = [sykmeldingUtgaatt, sykmeldingAktiv];
-            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
+            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });
 
-        xit("skal returnere 2 arbeidsgivere, når 2 sykmeldinger er aktive", () => {
-            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(2);
+        it("skal returnere 2 arbeidsgivere, når 2 sykmeldinger er aktive", () => {
+            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(2);
         });
 
-        xit("skal returnere 1 arbeidsgiver, når det er duplikat av arbeidsgiver", () => {
+        it("skal returnere 1 arbeidsgiver, når det er duplikat av arbeidsgiver", () => {
             const sykmeldinger = [sykmeldingAktiv, sykmeldingAktiv];
-            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
+            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });
 
     });

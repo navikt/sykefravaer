@@ -12,8 +12,23 @@ export const datoMedKlokkeslett = (dato) => {
 };
 
 export const trekkDagerFraDato = (dato, dager) => {
-    return new Date().setTime(dato.getTime() - (dager * 86400000));
+    const nyDato = new Date(dato);
+    nyDato.setTime(nyDato.getTime() - (dager * 86400000));
+    return new Date(nyDato);
 };
 export const leggTilDagerPaaDato = (dato, dager) => {
-    return new Date().setTime(dato.getTime() + (dager * 86400000));
+    const nyDato = new Date(dato);
+    nyDato.setTime(nyDato.getTime() + (dager * 86400000));
+    return new Date(nyDato);
+};
+export const trekkMnderFraDato = (dato, mnder) => {
+    const nyDato = new Date(dato);
+    nyDato.setMonth(nyDato.getMonth() - mnder);
+    return new Date(nyDato);
+};
+export const trekkMnderOgDagerFraDato = (dato, mnder, dager) => {
+    let nyDato = new Date(dato);
+    nyDato = trekkMnderFraDato(nyDato, mnder);
+    nyDato = trekkDagerFraDato(nyDato, dager);
+    return new Date(nyDato);
 };

@@ -14,12 +14,13 @@ export const sykmeldtHarNaermestelederHosArbeidsgiver = (virksomhetsnummer, naer
     }).length > 0;
 };
 
-export const finnArbeidsgivereForAktiveSykmeldinger = (sykmeldinger, naermesteLedere) => {
+export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteLedere) => {
     return sykmeldinger.filter(sykmelding => {
         return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
-            const tom = new Date(periode.tom);
-            tom.setDate(tom.getDate() + 1);
-            return new Date(periode.fom) < new Date() && new Date(periode.tom) > new Date();
+            const tomGrenseDato = new Date();
+            tomGrenseDato.setHours(0, 0, 0, 0);
+            tomGrenseDato.setMonth(tomGrenseDato.getMonth() - 3);
+            return new Date(periode.tom) >= new Date(tomGrenseDato);
         }).length > 0;
     }).map((sykmelding) => {
         return {

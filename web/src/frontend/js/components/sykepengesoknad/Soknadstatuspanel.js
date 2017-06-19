@@ -96,22 +96,24 @@ export const Statuspanel = ({ sykepengesoknad, children }) => {
     const sendtTilBeggeMenIkkeSamtidig = sykepengesoknad.sendtTilNAVDato && sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato.getTime() !== sykepengesoknad.sendtTilArbeidsgiverDato.getTime();
     return (<div className="panel panel--komprimert blokk">
         <Varselstripe type="suksess">
-            {
-                (() => {
-                    if (sendtTilBeggeMenIkkeSamtidig) {
-                        return <SendtUlikt sykepengesoknad={sykepengesoknad} />;
-                    }
-                    return <SendtLikt sykepengesoknad={sykepengesoknad} />;
-                })()
-            }
-            {children}
+            <div>
+                {
+                    (() => {
+                        if (sendtTilBeggeMenIkkeSamtidig) {
+                            return <SendtUlikt sykepengesoknad={sykepengesoknad} />;
+                        }
+                        return <SendtLikt sykepengesoknad={sykepengesoknad} />;
+                    })()
+                }
+                {children}
+            </div>
         </Varselstripe>
     </div>);
 };
 
 Statuspanel.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
-    children: PropTypes.array,
+    children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 export default Statuspanel;

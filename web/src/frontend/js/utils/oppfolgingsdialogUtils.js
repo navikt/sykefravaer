@@ -1,6 +1,6 @@
 export function getOppfolgingsdialog(oppfolgingsdialoger, oppfolgingsdialogId) {
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
-        return oppfolgingsdialog.oppfoelgingsdialogId === oppfolgingsdialogId.toString();
+        return oppfolgingsdialog.oppfoelgingsdialogId.toString() === oppfolgingsdialogId.toString();
     })[0];
 }
 

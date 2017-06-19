@@ -12,7 +12,7 @@ import {
     opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
 } from 'oppfolgingsdialog-npm';
-import { finnArbeidsgivereForAktiveSykmeldinger } from '../utils/sykmeldingUtils';
+import { finnArbeidsgivereForGyldigeSykmeldinger } from '../utils/sykmeldingUtils';
 
 export class OpprettOppfolgingsdialogSide extends Component {
 
@@ -92,7 +92,7 @@ export const mapStateToProps = (state) => {
 
     return {
         ledetekster: state.ledetekster.data,
-        arbeidsgivere: finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere),
+        arbeidsgivere: finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere),
         henter: state.ledetekster.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
         oppretter: state.oppfolgingsdialoger.oppretter,

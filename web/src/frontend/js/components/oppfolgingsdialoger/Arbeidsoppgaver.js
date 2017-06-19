@@ -32,7 +32,7 @@ export const RenderNotifikasjonBoksSuksess = () => {
     />);
 };
 
-export const RenderOppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave }) => {
+export const RenderOppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, aktoerId }) => {
     return (
         <OppfolgingsdialogTabell
             ledetekster={ledetekster}
@@ -42,6 +42,7 @@ export const RenderOppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbe
             urlImgVarsel="/sykefravaer/img/svg/varseltrekant.svg"
             sendLagre={sendLagreArbeidsoppgave}
             sendSlett={sendSlettArbeidsoppgave}
+            aktoerId={aktoerId}
         />
     );
 };
@@ -50,6 +51,7 @@ RenderOppfolgingsdialogArbeidsoppgaverTabell.propTypes = {
     arbeidsoppgaveListe: PropTypes.array,
     sendLagreArbeidsoppgave: PropTypes.func,
     sendSlettArbeidsoppgave: PropTypes.func,
+    aktoerId: PropTypes.string,
 };
 
 export const RenderKnapper = ({ toggleArbeidsoppgaveSkjema }) => {
@@ -152,6 +154,7 @@ export class Arbeidsoppgaver extends Component {
                                 arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe}
                                 sendLagreArbeidsoppgave={sendLagreArbeidsoppgave}
                                 sendSlettArbeidsoppgave={sendSlettArbeidsoppgave}
+                                aktoerId={oppfolgingsdialog.sykmeldtAktoerId}
                             />
                         }
                         {

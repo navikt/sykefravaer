@@ -6,8 +6,24 @@ import {
     NotifikasjonBoks,
     OppfolgingsdialogTabell,
     LagreTiltakSkjema,
+    finnTiltakLagtTilAvAktoer,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
+
+export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallTiltakLagtTilAvArbeidsgiver }) => {
+    return (<NotifikasjonBoks
+        imgUrl={"/sykefravaer/img/svg/notifikasjon-illustrasjon.svg"}
+        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.tiltak-lagt-til-av-arbeidsgiver.tekst', {
+            '%VIRKSOMHETSNAVN%': virksomhetsnavn,
+            '%ANTALLTILTAK%': antallTiltakLagtTilAvArbeidsgiver.toString(),
+        })}
+        classNames={'panel--advarsel'}
+    />);
+};
+RenderNotifikasjonBoks.propTypes = {
+    virksomhetsnavn: PropTypes.string,
+    antallTiltakLagtTilAvArbeidsgiver: PropTypes.number,
+};
 
 export const RenderNotifikasjonBoksSuksess = () => {
     return (<NotifikasjonBoks
@@ -91,6 +107,8 @@ export class Tiltak extends Component {
     render() {
         const { ledetekster, oppfolgingsdialog, oppfolgingsdialogId, sendLagreTiltak, sendSlettTiltak, tiltakLagret } = this.props;
 
+        const antallTiltakLagtTilAvArbeidsgiver = finnTiltakLagtTilAvAktoer(oppfolgingsdialog.sykmeldtAktoerId, oppfolgingsdialog.tiltakListe);
+
         return (
             <OppfolgingsdialogSide
                 brukernavn={oppfolgingsdialog.virksomhetsnavn}
@@ -123,6 +141,13 @@ export class Tiltak extends Component {
                         <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
                         {
                             tiltakLagret && <RenderNotifikasjonBoksSuksess />
+                        }
+                        {
+                            antallTiltakLagtTilAvArbeidsgiver > 0 &&
+                            <RenderNotifikasjonBoks
+                                virksomhetsnavn={oppfolgingsdialog.virksomhetsnavn}
+                                antallTiltakLagtTilAvArbeidsgiver={antallTiltakLagtTilAvArbeidsgiver}
+                            />
                         }
                         {
                             <RenderOppfolgingsdialogTiltakTabell

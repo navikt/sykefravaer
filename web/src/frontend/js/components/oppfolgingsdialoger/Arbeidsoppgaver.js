@@ -13,7 +13,7 @@ import { getLedetekst } from 'digisyfo-npm';
 export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver }) => {
     return (<NotifikasjonBoks
         imgUrl={"/sykefravaer/img/svg/notifikasjon-illustrasjon.svg"}
-        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst', {
+        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
             '%VIRKSOMHETSNAVN%': virksomhetsnavn,
             '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver.toString(),
         })}

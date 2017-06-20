@@ -1,3 +1,5 @@
+const MILLISEKUNDER_PER_DAG = 86400000;
+
 export const datoMedKlokkeslett = (dato) => {
     if (dato === undefined || dato === null) {
         return '';
@@ -13,12 +15,12 @@ export const datoMedKlokkeslett = (dato) => {
 
 export const trekkDagerFraDato = (dato, dager) => {
     const nyDato = new Date(dato);
-    nyDato.setTime(nyDato.getTime() - (dager * 86400000));
+    nyDato.setTime(nyDato.getTime() - (dager * MILLISEKUNDER_PER_DAG));
     return new Date(nyDato);
 };
 export const leggTilDagerPaaDato = (dato, dager) => {
     const nyDato = new Date(dato);
-    nyDato.setTime(nyDato.getTime() + (dager * 86400000));
+    nyDato.setTime(nyDato.getTime() + (dager * MILLISEKUNDER_PER_DAG));
     return new Date(nyDato);
 };
 export const trekkMnderFraDato = (dato, mnder) => {

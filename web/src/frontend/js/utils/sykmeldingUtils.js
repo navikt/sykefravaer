@@ -1,3 +1,5 @@
+const MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING = 3;
+
 export const erBrukerSykmeldtPdd = (sykmeldinger) => {
     return sykmeldinger.filter(sykmelding => {
         return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
@@ -19,7 +21,7 @@ export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteL
         return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
             const tomGrenseDato = new Date();
             tomGrenseDato.setHours(0, 0, 0, 0);
-            tomGrenseDato.setMonth(tomGrenseDato.getMonth() - 3);
+            tomGrenseDato.setMonth(tomGrenseDato.getMonth() - MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING);
             return new Date(periode.tom) >= new Date(tomGrenseDato);
         }).length > 0;
     }).map((sykmelding) => {

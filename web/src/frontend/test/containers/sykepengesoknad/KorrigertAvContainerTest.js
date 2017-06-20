@@ -1,13 +1,14 @@
 import chai from 'chai';
 import React from 'react'
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
+import { setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { mapStateToProps } from '../../../js/containers/sykepengesoknad/KorrigertAvContainer';
+import { mapStateToProps, KorrigertAv } from '../../../js/containers/sykepengesoknad/KorrigertAvContainer';
 
 describe("KorrigertAvContainer", () => {
 
@@ -77,7 +78,24 @@ describe("KorrigertAvContainer", () => {
 
 		});
 
-	})
+	});
+
+	describe("KorrigertAv", () => {
+
+		beforeEach(() => {
+			setLedetekster({
+				'sykepengesoknad.korrigert.tekst': 'Du sendte inn en endring av denne søknaden den %DATO%.',
+				'sykepengesoknad.korrigert.lenketekst': "Se siste versjon av søknaden"
+			});
+		});
+
+		it("Skal vise informasjon om den nye utgaven", () => {
+			const comp = mount(<KorrigertAv korrigertAvSoknad={soknad2} />);
+			expect(comp.text()).to.contain("Du sendte inn en endring av denne søknaden den 06.02.2017.");
+			expect(comp.text()).to.contain("Se siste versjon av søknaden");
+		});
+
+	});
 
 
 })

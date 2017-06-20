@@ -65,12 +65,6 @@ describe("SendtSoknad", () => {
         expect(component.find(ConnectedKnapperad)).to.have.length(0);
     });
 
-    it("Skal inneholde riktig statustekst hvis søknaden har status KORRIGERT", () => {
-        sykepengesoknad.status = "KORRIGERT";
-        component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
-        expect(component.text()).to.contain("Korrigert");
-    });
-
     describe("Når søknaden er korrigert", () => {
 
         let component;

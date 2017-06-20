@@ -7,7 +7,7 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/sykepengesoknader_actions';
 import Ettersending from './Ettersending';
-import { KORRIGERT, SENDT } from '../../enums/sykepengesoknadstatuser';
+import { KORRIGERT, SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 import RelaterteSoknaderContainer from '../../containers/sykepengesoknad/RelaterteSoknaderContainer';
 import KorrigertAvContainer from '../../containers/sykepengesoknad/KorrigertAvContainer';
 
@@ -98,7 +98,7 @@ class SendtSoknad extends Component {
             <div className="bekreftet-container blokk">
                 <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label')} />
             </div>
-            { sykepengesoknad.status === SENDT && <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} /> }
+            { (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) && <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} /> }
         </div>);
     }
 }

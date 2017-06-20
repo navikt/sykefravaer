@@ -159,14 +159,6 @@ describe("GenerellSoknadContainer", () => {
             expect(props.sykepengesoknad).to.be.undefined;
         });
 
-        it("Skal returnere korrigert søknad hvis den finnes", () => {
-            ownProps.params.sykepengesoknadId = "min-korreksjon";
-            state.sykepengesoknader.data = [...state.sykepengesoknader.data, minKorreksjon];
-            const props = mapStateToProps(state, ownProps);
-            expect(props.sykepengesoknad).to.deep.equal(minKorreksjon);
-            expect(props.korrigertSoknad).to.deep.equal(minSoknad);
-        });
-
         it("Skal returnere henter hvis søknader hentes", () => {
             state.sykepengesoknader.henter = true;
             const props = mapStateToProps(state, ownProps);

@@ -59,12 +59,8 @@ export const mapStateToProps = (state, ownProps) => {
     const sykepengesoknad = state.sykepengesoknader.data.filter((soknad) => {
         return soknad.id === ownProps.params.sykepengesoknadId;
     })[0];
-    const korrigertSoknad = state.sykepengesoknader.data.filter((soknad) => {
-        return sykepengesoknad ? sykepengesoknad.korrigerer === soknad.id : false;
-    })[0];
     return {
         sykepengesoknad,
-        korrigertSoknad,
         henter: state.sykepengesoknader.henter || state.ledetekster.henter,
         hentingFeilet: state.sykepengesoknader.hentingFeilet || state.sykepengesoknader.hentingFeilet,
         sykepengesoknaderHentet: state.sykepengesoknader.hentet === true,

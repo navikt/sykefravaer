@@ -13,24 +13,23 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export class Controller extends Component {
     render() {
-        const { sykepengesoknad, vedlikehold, korrigertSoknad } = this.props;
+        const { sykepengesoknad, vedlikehold } = this.props;
         if (vedlikehold.datospennMedTid) {
             return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel')} melding={getLedetekst('under-vedlikehold.varsel.tekst', {
                 '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
                 '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
             })} />);
         }
-
         if (sykepengesoknad.status === NY || sykepengesoknad.status === UTKAST_TIL_KORRIGERING) {
             return (<div ref="foerDuBegynner">
                 <FoerDuBegynner {...this.props} />
             </div>);
         }
         if (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING || sykepengesoknad.status === KORRIGERT) {
-            return <SendtSoknad sykepengesoknad={sykepengesoknad} korrigertSoknad={korrigertSoknad} />;
+            return <SendtSoknad sykepengesoknad={sykepengesoknad} />;
         }
         if (sykepengesoknad.status === UTGAATT) {
-            return <UtgaattSoknad sykepengesoknad={sykepengesoknad} korrigertSoknad={korrigertSoknad} />;
+            return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
         }
         return <Feilmelding tittel="Søknaden har ukjent status" />;
     }
@@ -38,7 +37,6 @@ export class Controller extends Component {
 
 Controller.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
-    korrigertSoknad: sykepengesoknadPt,
     skjemasoknad: PropTypes.object,
     vedlikehold: PropTypes.shape({
         datospennMedTid: PropTypes.object,

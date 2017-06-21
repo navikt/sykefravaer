@@ -8,6 +8,7 @@ import AppSpinner from '../components/AppSpinner';
 import history from '../history';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import OpprettOppfolgingsdialog from '../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
+import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import {
     opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
@@ -22,6 +23,12 @@ export class OpprettOppfolgingsdialogSide extends Component {
             arbeidsgiver: '',
         };
         this.opprett = this.opprett.bind(this);
+    }
+
+    componentWillMount() {
+        if (!this.props.sykmeldingerHentet) {
+            this.props.hentDineSykmeldinger();
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -84,6 +91,8 @@ OpprettOppfolgingsdialogSide.propTypes = {
     opprettingFeilet: PropTypes.bool,
     opprettOppfolgingsdialog: PropTypes.func,
     hentOppfolgingsdialoger: PropTypes.func,
+    sykmeldingerHentet: PropTypes.bool,
+    hentDineSykmeldinger: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
@@ -98,6 +107,7 @@ export const mapStateToProps = (state) => {
         oppretter: state.oppfolgingsdialoger.oppretter,
         opprettet: state.oppfolgingsdialoger.opprettet,
         opprettingFeilet: state.oppfolgingsdialoger.opprettingFeilet,
+        sykmeldingerHentet: state.dineSykmeldinger.hentet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -109,6 +119,6 @@ export const mapStateToProps = (state) => {
     };
 };
 
-const OppfolgingsdialogContainer = connect(mapStateToProps, { opprettOppfolgingsdialog, hentOppfolgingsdialoger })(OpprettOppfolgingsdialogSide);
+const OppfolgingsdialogContainer = connect(mapStateToProps, { opprettOppfolgingsdialog, hentOppfolgingsdialoger, hentDineSykmeldinger })(OpprettOppfolgingsdialogSide);
 
 export default OppfolgingsdialogContainer;

@@ -17,28 +17,36 @@ describe("OpprettOppfolgingsdialogContainer", () => {
     describe("OpprettOppfolgingsdialogSide", () => {
 
         let dispatch;
+        let hentDineSykmeldinger;
 
         beforeEach(() => {
             dispatch = sinon.spy();
+            hentDineSykmeldinger = sinon.spy();
         });
 
         it("Skal vise spinner dersom data hentes", () => {
-            let component = shallow(<OpprettOppfolgingsdialogSide arbeidsgivere={[]} henter dispatch={dispatch} />);
+            let component = shallow(<OpprettOppfolgingsdialogSide arbeidsgivere={[]}
+                                                                  henter
+                                                                  hentDineSykmeldinger={hentDineSykmeldinger} />);
             expect(component.contains(<AppSpinner />)).to.equal(true);
         });
 
         it("Skal ikke vise spinner dersom data ikke hentes", () => {
-            let component = shallow(<OpprettOppfolgingsdialogSide arbeidsgivere={[]} dispatch={dispatch} />);
+            let component = shallow(<OpprettOppfolgingsdialogSide arbeidsgivere={[]}
+                                                                  hentDineSykmeldinger={hentDineSykmeldinger} />);
             expect(component.contains(<AppSpinner />)).to.equal(false);
         });
 
         it("Skal vise feilmelding dersom henting feilet", () => {
-            let component = shallow(<OpprettOppfolgingsdialogSide arbeidsgivere={[]} dispatch={dispatch} hentingFeilet />);
+            let component = shallow(<OpprettOppfolgingsdialogSide arbeidsgivere={[]}
+                                                                  hentingFeilet
+                                                                  hentDineSykmeldinger={hentDineSykmeldinger} />);
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
 
         it("Skal vise OpprettOppfolgingsdialog dersom henting er OK", () => {
-            let component = shallow(<OpprettOppfolgingsdialogSide arbeidsgivere={[]} dispatch={dispatch} />);
+            let component = shallow(<OpprettOppfolgingsdialogSide arbeidsgivere={[]}
+                                                                  hentDineSykmeldinger={hentDineSykmeldinger} />);
             expect(component.find(OpprettOppfolgingsdialog)).to.have.length(1);
         });
 

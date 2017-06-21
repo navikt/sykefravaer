@@ -9,11 +9,11 @@ import history from '../history';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import OpprettOppfolgingsdialog from '../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
+import { hentLedere } from '../actions/ledere_actions';
 import {
     opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
 } from 'oppfolgingsdialog-npm';
-import { finnArbeidsgivereForGyldigeSykmeldinger } from '../utils/sykmeldingUtils';
 
 export class OpprettOppfolgingsdialogSide extends Component {
 
@@ -26,8 +26,12 @@ export class OpprettOppfolgingsdialogSide extends Component {
     }
 
     componentWillMount() {
-        if (!this.props.sykmeldingerHentet) {
+        const { sykmeldingerHentet, ledereHentet } = this.props;
+        if (!sykmeldingerHentet) {
             this.props.hentDineSykmeldinger();
+        }
+        if (!ledereHentet) {
+            this.props.hentLedere();
         }
     }
 
@@ -54,7 +58,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
     }
 
     render() {
-        const { brodsmuler, henter, hentingFeilet, arbeidsgivere, oppretter, opprettingFeilet } = this.props;
+        const { brodsmuler, sykmeldinger, naermesteLedere, henter, hentingFeilet, oppretter, opprettingFeilet } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialoger.opprett.tittel')} brodsmuler={brodsmuler}>
             {
@@ -69,7 +73,8 @@ export class OpprettOppfolgingsdialogSide extends Component {
                             <Sidetopp
                                 tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
                             <OpprettOppfolgingsdialog
-                                arbeidsgivere={arbeidsgivere}
+                                sykmeldinger={sykmeldinger}
+                                naermesteLedere={naermesteLedere}
                                 avbrytHref="/sykefravaer/oppfolgingsplaner"
                                 velgArbeidsgiver={this.opprett}
                             />
@@ -82,7 +87,6 @@ export class OpprettOppfolgingsdialogSide extends Component {
 
 OpprettOppfolgingsdialogSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    arbeidsgivere: PropTypes.array,
     ledetekster: PropTypes.object,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
@@ -91,23 +95,26 @@ OpprettOppfolgingsdialogSide.propTypes = {
     opprettingFeilet: PropTypes.bool,
     opprettOppfolgingsdialog: PropTypes.func,
     hentOppfolgingsdialoger: PropTypes.func,
+    sykmeldinger: PropTypes.array,
     sykmeldingerHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
+    naermesteLedere: PropTypes.array,
+    ledereHentet: PropTypes.bool,
+    hentLedere: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
-    const sykmeldinger = state.dineSykmeldinger.data;
-    const naermesteLedere = state.ledere.data;
-
     return {
         ledetekster: state.ledetekster.data,
-        arbeidsgivere: finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere),
-        henter: state.ledetekster.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet,
+        sykmeldinger: state.dineSykmeldinger.data,
+        naermesteLedere: state.ledere.data,
+        henter: state.ledetekster.henter || state.dineSykmeldinger.henter || state.ledere.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.henter || state.ledere.henter,
         oppretter: state.oppfolgingsdialoger.oppretter,
         opprettet: state.oppfolgingsdialoger.opprettet,
         opprettingFeilet: state.oppfolgingsdialoger.opprettingFeilet,
         sykmeldingerHentet: state.dineSykmeldinger.hentet,
+        ledereHentet: state.ledere.hentet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -119,6 +126,6 @@ export const mapStateToProps = (state) => {
     };
 };
 
-const OppfolgingsdialogContainer = connect(mapStateToProps, { opprettOppfolgingsdialog, hentOppfolgingsdialoger, hentDineSykmeldinger })(OpprettOppfolgingsdialogSide);
+const OppfolgingsdialogContainer = connect(mapStateToProps, { opprettOppfolgingsdialog, hentOppfolgingsdialoger, hentDineSykmeldinger, hentLedere })(OpprettOppfolgingsdialogSide);
 
 export default OppfolgingsdialogContainer;

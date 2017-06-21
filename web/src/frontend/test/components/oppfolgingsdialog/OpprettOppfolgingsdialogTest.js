@@ -19,7 +19,10 @@ describe("Oppfolgingsdialoger", () => {
     });
 
     it("Skal vise et ArbeidsgiverSkjema", () => {
-        component = shallow(<OpprettOppfolgingsdialog />);
+        component = shallow(<OpprettOppfolgingsdialog
+            sykmeldinger={[]}
+            naermesteLedere={[]}
+        />);
         expect(component.find(ArbeidsgiverSkjema)).to.have.length(1);
     });
 

@@ -1,8 +1,11 @@
 import React, { PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import ArbeidsgiverSkjema from './ArbeidsgiverSkjema';
+import { finnArbeidsgivereForGyldigeSykmeldinger } from '../../utils/sykmeldingUtils';
 
-const OpprettOppfolgingsdialog = ({ arbeidsgivere, avbrytHref, velgArbeidsgiver }) => {
+const OpprettOppfolgingsdialog = ({ sykmeldinger, naermesteLedere, avbrytHref, velgArbeidsgiver }) => {
+    const arbeidsgivere = finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere);
+
     return (
         <div className="panel blokk velgarbeidsgiver__blokk">
             <div className="illustrertTittel">
@@ -19,7 +22,8 @@ const OpprettOppfolgingsdialog = ({ arbeidsgivere, avbrytHref, velgArbeidsgiver 
 };
 
 OpprettOppfolgingsdialog.propTypes = {
-    arbeidsgivere: PropTypes.array,
+    sykmeldinger: PropTypes.array,
+    naermesteLedere: PropTypes.array,
     avbrytHref: PropTypes.string,
     velgArbeidsgiver: PropTypes.func,
 };

@@ -18,35 +18,41 @@ describe("OpprettOppfolgingsdialogContainer", () => {
 
         let dispatch;
         let hentDineSykmeldinger;
+        let hentLedere;
 
         beforeEach(() => {
             dispatch = sinon.spy();
             hentDineSykmeldinger = sinon.spy();
+            hentLedere = sinon.spy();
         });
 
         it("Skal vise spinner dersom data hentes", () => {
             let component = shallow(<OpprettOppfolgingsdialogSide arbeidsgivere={[]}
                                                                   henter
-                                                                  hentDineSykmeldinger={hentDineSykmeldinger} />);
+                                                                  hentDineSykmeldinger={hentDineSykmeldinger}
+                                                                  hentLedere={hentLedere} />);
             expect(component.contains(<AppSpinner />)).to.equal(true);
         });
 
         it("Skal ikke vise spinner dersom data ikke hentes", () => {
             let component = shallow(<OpprettOppfolgingsdialogSide arbeidsgivere={[]}
-                                                                  hentDineSykmeldinger={hentDineSykmeldinger} />);
+                                                                  hentDineSykmeldinger={hentDineSykmeldinger}
+                                                                  hentLedere={hentLedere} />);
             expect(component.contains(<AppSpinner />)).to.equal(false);
         });
 
         it("Skal vise feilmelding dersom henting feilet", () => {
             let component = shallow(<OpprettOppfolgingsdialogSide arbeidsgivere={[]}
                                                                   hentingFeilet
-                                                                  hentDineSykmeldinger={hentDineSykmeldinger} />);
+                                                                  hentDineSykmeldinger={hentDineSykmeldinger}
+                                                                  hentLedere={hentLedere} />);
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
 
         it("Skal vise OpprettOppfolgingsdialog dersom henting er OK", () => {
             let component = shallow(<OpprettOppfolgingsdialogSide arbeidsgivere={[]}
-                                                                  hentDineSykmeldinger={hentDineSykmeldinger} />);
+                                                                  hentDineSykmeldinger={hentDineSykmeldinger}
+                                                                  hentLedere={hentLedere} />);
             expect(component.find(OpprettOppfolgingsdialog)).to.have.length(1);
         });
 

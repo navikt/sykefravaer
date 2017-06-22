@@ -6,7 +6,7 @@ import {
     NotifikasjonBoks,
     OppfolgingsdialogTabell,
     LagreTiltakSkjema,
-    finnTiltakLagtTilAvAktoer,
+    finnTiltakIkkeLagtTilAvAktoer,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 
@@ -55,7 +55,7 @@ RenderOppfolgingsdialogTiltakTabell.propTypes = {
     aktoerId: PropTypes.string,
 };
 
-export const RenderKnapper = ({ toggleTiltakSkjema }) => {
+export const RenderTiltakKnapper = ({ toggleTiltakSkjema }) => {
     return (
         <div className="knapperad">
             <button
@@ -66,7 +66,7 @@ export const RenderKnapper = ({ toggleTiltakSkjema }) => {
         </div>
     );
 };
-RenderKnapper.propTypes = {
+RenderTiltakKnapper.propTypes = {
     toggleTiltakSkjema: PropTypes.func,
 };
 
@@ -107,7 +107,7 @@ export class Tiltak extends Component {
     render() {
         const { ledetekster, oppfolgingsdialog, oppfolgingsdialogId, sendLagreTiltak, sendSlettTiltak, tiltakLagret } = this.props;
 
-        const antallTiltakLagtTilAvArbeidsgiver = finnTiltakLagtTilAvAktoer(oppfolgingsdialog.sykmeldtAktoerId, oppfolgingsdialog.tiltakListe);
+        const antallTiltakLagtTilAvArbeidsgiver = finnTiltakIkkeLagtTilAvAktoer(oppfolgingsdialog.sykmeldtAktoerId, oppfolgingsdialog.tiltakListe).length;
 
         return (
             <OppfolgingsdialogSide
@@ -125,7 +125,7 @@ export class Tiltak extends Component {
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tittel')}
                                     tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}
                                 >
-                                    <RenderKnapper toggleTiltakSkjema={this.toggleTiltakSkjema} />
+                                    <RenderTiltakKnapper toggleTiltakSkjema={this.toggleTiltakSkjema} />
                                 </OppfolgingsdialogInfoboks> :
                                 <RenderOpprettTiltak
                                     ledetekster={ledetekster}
@@ -166,7 +166,7 @@ export class Tiltak extends Component {
                                     sendLagre={sendLagreTiltak}
                                     avbryt={this.toggleTiltakSkjema}
                                 /> :
-                                <RenderKnapper toggleTiltakSkjema={this.toggleTiltakSkjema} />
+                                <RenderTiltakKnapper toggleTiltakSkjema={this.toggleTiltakSkjema} />
                         }
                     </div>
                 }

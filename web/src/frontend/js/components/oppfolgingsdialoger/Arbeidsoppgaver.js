@@ -54,7 +54,7 @@ RenderOppfolgingsdialogArbeidsoppgaverTabell.propTypes = {
     aktoerId: PropTypes.string,
 };
 
-export const RenderKnapper = ({ toggleArbeidsoppgaveSkjema }) => {
+export const RenderArbeidsoppgaverKnapper = ({ toggleArbeidsoppgaveSkjema }) => {
     return (
         <div className="knapperad">
             <button
@@ -65,7 +65,7 @@ export const RenderKnapper = ({ toggleArbeidsoppgaveSkjema }) => {
         </div>
     );
 };
-RenderKnapper.propTypes = {
+RenderArbeidsoppgaverKnapper.propTypes = {
     toggleArbeidsoppgaveSkjema: PropTypes.func,
 };
 
@@ -124,7 +124,7 @@ export class Arbeidsoppgaver extends Component {
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tittel')}
                                     tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tekst')}
                                 >
-                                    <RenderKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
+                                    <RenderArbeidsoppgaverKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
                                 </OppfolgingsdialogInfoboks> :
                                 <RenderOpprettArbeidsoppgave
                                     ledetekster={ledetekster}
@@ -165,7 +165,7 @@ export class Arbeidsoppgaver extends Component {
                                     sendLagre={sendLagreArbeidsoppgave}
                                     avbryt={this.toggleArbeidsoppgaveSkjema}
                                 /> :
-                                <RenderKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
+                                <RenderArbeidsoppgaverKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
                         }
                     </div>
                 }

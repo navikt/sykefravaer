@@ -186,52 +186,75 @@ export const getOppfolgingsdialoger = [
 ];
 
 const oppfolgingsdialog = {
-    oppfoelgingsdialogId: "1",
+    opprettetAvAktoerId: "***REMOVED***",
+    opprettetDato: "2017-06-12",
+    sistEndretAvAktoerId: "***REMOVED***",
+    sistEndretDato: "2017-06-13",
+    arbeidstakerNavn: "Test Testesen",
+    arbeidsgiverNavn: "Test Testesen",
+    virksomhetsnavn: "Fant ikke navn",
+    godkjentAvArbeidsgiver: null,
+    godkjentAvArbeidstaker: null,
+    samtykkeArbeidsgiver: null,
+    samtykkeArbeidstaker: true,
+    oppfoelgingsdialogId: "163",
     sykmeldtAktoerId: "***REMOVED***",
-    naermesteLederAktoerId: "1000058278305",
-    virksomhetsnummer: "***REMOVED***",
+    naermesteLederAktoerId: null,
+    virksomhetsnummer: "123456789",
     versjon: 1,
     oppfoelgingsdialogstatus: "OPPRETTET",
     arbeidsoppgaveListe: [
         {
-            arbeidsoppgaveId: "1",
-            arbeidsoppgavenavn: "Luft hunden",
-            delAvArbeidsuke: "50",
-            kanGjennomfoeres: true,
+            arbeidsoppgaveId: 1458,
+            arbeidsoppgavenavn: "Arbeidsoppave",
+            delAvArbeidsuke: null,
+            godkjentAvArbeidsgiver: false,
+            godkjentAvArbeidstaker: false,
+            erVurdertAvSykmeldt: true,
             gjennomfoering: {
-                paaAnnetSted: true,
-                medMerTid: false,
-                medHjelp: false,
-                beskrivelse: "Må luftes i skogen",
-                kanIkkeGjennomfoeresFoer: null,
-                tilretteleggingArbeidsgiver: null
-            }
-        },
-        {
-            arbeidsoppgaveId: "2",
-            arbeidsoppgavenavn: "Luft katta",
-            delAvArbeidsuke: "20",
-            kanGjennomfoeres: false,
-            gjennomfoering: {
+                kanGjennomfoeres: "KAN",
                 paaAnnetSted: null,
                 medMerTid: null,
                 medHjelp: null,
-                beskrivelse: null,
-                kanIkkeGjennomfoeresFoer: "Katter lufter seg selv",
-                tilretteleggingArbeidsgiver: "Kan heller lufte en hund"
+                kanBeskrivelse: null,
+                kanIkkeGjennomfoeresFoer: null,
+                tilretteleggingArbeidsgiver: null,
+                kanIkkeBeskrivelse: null
+            },
+            opprettetAvAktoerId: "***REMOVED***",
+            opprettetDato: "2017-06-21",
+            sistEndretAvAktoerId: "***REMOVED***",
+            sistEndretDato: "2017-06-21",
+            opprettetAv: {
+                navn: "Test Testesen",
+                aktoerId: "***REMOVED***",
+                samtykke: null,
+                godkjent: null
             }
         }
     ],
     tiltakListe: [
         {
-            tiltakId: "1",
-            tiltaknavn: "Gå tur",
-            knyttetTilArbeidsoppgaveId: "1",
-            fom: "2017-05-07",
-            tom: "2017-05-09",
-            beskrivelse: "Gå tur med hunden på fredag kl 16.00",
-            ansvarlig: "1000058278305",
-            maal: "Kom i form"
+            tiltakId: 1461,
+            tiltaknavn: "Tiltak",
+            knyttetTilArbeidsoppgaveId: null,
+            fom: null,
+            tom: null,
+            beskrivelse: "Dette er et tiltak",
+            ansvarlig: null,
+            maal: null,
+            godkjentAvArbeidsgiver: false,
+            godkjentAvArbeidstaker: false,
+            opprettetAvAktoerId: "***REMOVED***",
+            opprettetDato: "2017-06-21",
+            sistEndretAvAktoerId: "***REMOVED***",
+            sistEndretDato: "2017-06-21",
+            opprettetAv: {
+                navn: "Test Testesen",
+                aktoerId: "***REMOVED***",
+                samtykke: null,
+                godkjent: null
+            }
         }
     ]
 };

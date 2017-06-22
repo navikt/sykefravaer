@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../../mockLedetekster";
 import Sidetopp from "../../../js/components/Sidetopp";
 import Oppfolgingsdialoger from "../../../js/components/oppfolgingsdialoger/Oppfolgingsdialoger";
-import { OppfolgingsdialogerTeasere } from "oppfolgingsdialog-npm";
+import { OppfolgingsdialogTeasere } from "oppfolgingsdialog-npm";
 import { setLedetekster } from 'digisyfo-npm';
 import { getOppfolgingsdialoger } from '../../mockOppfolgingsdialoger';
 
@@ -32,9 +32,9 @@ describe("Oppfolgingsdialoger", () => {
         expect(component.find('.rammeknapp')).to.have.length(1);
     });
 
-    xit("Skal ikke vise OppfolgingsdialogerTeasere dersom man ikke har oppfolgingsdialoger", () => {
+    it("Skal ikke vise OppfolgingsdialogerTeasere dersom man ikke har oppfolgingsdialoger", () => {
         component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={[]} />);
-        expect(component.find(OppfolgingsdialogerTeasere)).to.have.length(0);
+        expect(component.find(OppfolgingsdialogTeasere)).to.have.length(0);
     });
 
     it("Skal vise en Pil dersom man ikke har oppfolgingsdialoger", () => {
@@ -42,9 +42,9 @@ describe("Oppfolgingsdialoger", () => {
         expect(component.find('img.oppfolgingsdialoger__pil')).to.have.length(1);
     });
 
-    xit("Skal rendre én OppfolgingsdialogerTeasere dersom man har oppfolgingsdialoger", () => {
+    it("Skal rendre én OppfolgingsdialogerTeasere dersom man har oppfolgingsdialoger", () => {
         component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
-        expect(component.find(OppfolgingsdialogerTeasere)).to.have.length(1);
+        expect(component.find(OppfolgingsdialogTeasere)).to.have.length(1);
     });
 
     it("Skal ikke vise en Pil dersom man har oppfolgingsdialoger", () => {

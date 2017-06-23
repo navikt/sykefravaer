@@ -145,6 +145,34 @@ describe('sykepengesoknader', () => {
             });
         });
 
+        it("håndterer SYKEPENGESOKNAD_SENDT når den sendte søknaden korrigerer en annen", () => {
+            let initialState = deepFreeze({
+                data: [getParsetSoknad(), {id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const soknad = getSoknad();
+            soknad.id = "1";
+            soknad.korrigerer = "2";
+            const action = actions.sykepengesoknadSendt("1", soknad);
+            const nextState = sykepengesoknader(initialState, action);
+
+            const parsetSoknad = getParsetSoknad();
+            parsetSoknad.korrigerer = "2";
+            expect(nextState).to.deep.equal({
+                data: [parsetSoknad, {
+                    id: '2',
+                    status: "KORRIGERT"
+                }],
+                sender: false,
+                sendingFeilet: false,
+                henter: false,
+                hentingFeilet: false,
+            });
+        });        
+
         it("håndterer SYKEPENGESOKNAD_SENDT_TIL_NAV", () => {
             let initialState = deepFreeze({
                 data: [{id: '1'},{id: '2'}],
@@ -209,6 +237,70 @@ describe('sykepengesoknader', () => {
                 hentingFeilet: false,
             });
         });
+
+    });
+
+    describe("Endring", () => {
+
+        it("Håndterer START_ENDRING_SYKEPENGESOKNAD_FORESPURT", () => {
+            let initialState = deepFreeze({
+                data: [{id: '1'},{id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const action = actions.startEndringForespurt("2");
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState.starterEndring).to.be.true;
+            expect(nextState.startEndringFeilet).to.be.false;
+        }); 
+
+        it("Håndterer ENDRING_SYKEPENGESOKNAD_STARTET hvis søknaden ikke finnes i listen fra før", () => {
+            let initialState = deepFreeze({
+                data: [{id: '88'},{id: '99'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const action = actions.endringStartet(getSoknad());
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState.starterEndring).to.be.false;
+            expect(nextState.startEndringFeilet).to.be.false;
+            expect(nextState.data.length).to.equal(3);
+            expect(nextState.data[2]).to.deep.equal(getParsetSoknad());
+        }); 
+
+        it("Håndterer ENDRING_SYKEPENGESOKNAD_STARTET hvis søknaden finnes i listen fra før", () => {
+            let initialState = deepFreeze({
+                data: [{id: '88'},{id: '99'}, getParsetSoknad()],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const action = actions.endringStartet(getSoknad());
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState.starterEndring).to.be.false;
+            expect(nextState.startEndringFeilet).to.be.false;
+            expect(nextState.data.length).to.equal(3);
+        }); 
+
+        it("Håndterer startEndringFeilet", () => {
+            let initialState = deepFreeze({
+                data: [{id: '1'},{id: '2'}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                starterEndring: true,
+            });
+            const action = actions.startEndringFeilet();
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState.starterEndring).to.be.false;
+            expect(nextState.startEndringFeilet).to.be.true;
+        })
 
     });
 

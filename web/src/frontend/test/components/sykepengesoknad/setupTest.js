@@ -1,5 +1,8 @@
-import { mapToInitialValues } from '../../../js/components/sykepengesoknad/setup';
+import { mapStateToProps, mapToInitialValues } from '../../../js/components/sykepengesoknad/setup';
 import andreInntektskilder from '../../../js/enums/inntektskildetyper';
+import mapBackendsoknadToSkjemasoknad from '../../../js/components/sykepengesoknad/mapBackendsoknadToSkjemasoknad';
+import sinon from 'sinon';
+import { getSoknad } from '../../mockSoknader';
 
 import chai from 'chai';
 import React from 'react'
@@ -11,6 +14,34 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe("setup", () => {
+
+    let state;
+    let ownProps;
+
+    beforeEach(() => {
+        state = {};
+        ownProps = {};
+    });
+
+    describe("mapStateToProps", () => {
+        
+        it("Skal mappe til initielle verdier hvis det er en NY søknad", () => {
+            ownProps.sykepengesoknad = getSoknad({
+                status: 'NY',
+            });
+            const props = mapStateToProps(state, ownProps);
+            expect(props.initialValues.harHattFerie).to.be.undefined;
+        });
+
+        it("Skal mappe til skjemasøknad hvis søknaden har status === 'UTKAST_TIL_KORRIGERING'", () => {
+            ownProps.sykepengesoknad = getSoknad({
+                status: 'UTKAST_TIL_KORRIGERING',
+            });
+            const props = mapStateToProps(state, ownProps);
+            expect(props.initialValues.harHattFerie).to.be.false;
+        });
+
+    });
 
     describe("mapToInitialValues", () => {
 

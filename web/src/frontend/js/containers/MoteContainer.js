@@ -12,9 +12,8 @@ import { brodsmule as brodsmulePt } from '../propTypes';
 const { BEKREFTET, MOTESTATUS, BRUKER, AVBRUTT } = konstanter;
 
 export class Container extends Component {
-    constructor(props) {
-        super(props);
-        props.actions.hentMote();
+    componentWillMount() {
+        this.props.actions.hentMote();
     }
 
     render() {

@@ -1,19 +1,30 @@
 import React, { PropTypes, Component } from 'react';
 import { Field } from 'redux-form';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
-import { lagDesimaltall } from '../../../utils';
+import { lagDesimaltall, getObjectValueByString } from '../../../utils';
 import { getLedetekst } from 'digisyfo-npm';
 
 class AngiTid extends Component {
     constructor(props) {
         super(props);
+        let valgtEnhet = 'prosent';
+        try {
+            const timerName = this.props.names[1];
+            const timer = getObjectValueByString(this.props, timerName).input.value;
+            if (timer && timer !== '') {
+                valgtEnhet = 'timer';
+            }
+        } catch (e) {
+            valgtEnhet = 'prosent';
+        }
+
         this.state = {
-            valgtEnhet: 'prosent',
+            valgtEnhet,
         };
     }
 
     componentDidMount() {
-        this.setEnhet('prosent');
+        this.setEnhet(this.getValgtEnhet());
     }
 
     setEnhet(enhet) {

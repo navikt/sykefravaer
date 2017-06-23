@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Varselstripe, SykmeldingNokkelOpplysning } from 'digisyfo-npm';
 import { toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
-import { SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
+import { SENDT, TIL_SENDING, KORRIGERT } from '../../enums/sykepengesoknadstatuser';
 import { getSendtTilSuffix } from './Kvittering';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
@@ -12,6 +12,9 @@ const getStatusTittel = (sykepengesoknad) => {
         }
         case TIL_SENDING: {
             return getLedetekst('sykepengesoknad.status.TIL_SENDING');
+        }
+        case KORRIGERT: {
+            return getLedetekst('sykepengesoknad.status.KORRIGERT');
         }
         default: {
             return 'Ukjent status';
@@ -96,22 +99,24 @@ export const Statuspanel = ({ sykepengesoknad, children }) => {
     const sendtTilBeggeMenIkkeSamtidig = sykepengesoknad.sendtTilNAVDato && sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato.getTime() !== sykepengesoknad.sendtTilArbeidsgiverDato.getTime();
     return (<div className="panel panel--komprimert blokk">
         <Varselstripe type="suksess">
-            {
-                (() => {
-                    if (sendtTilBeggeMenIkkeSamtidig) {
-                        return <SendtUlikt sykepengesoknad={sykepengesoknad} />;
-                    }
-                    return <SendtLikt sykepengesoknad={sykepengesoknad} />;
-                })()
-            }
-            {children}
+            <div>
+                {
+                    (() => {
+                        if (sendtTilBeggeMenIkkeSamtidig) {
+                            return <SendtUlikt sykepengesoknad={sykepengesoknad} />;
+                        }
+                        return <SendtLikt sykepengesoknad={sykepengesoknad} />;
+                    })()
+                }
+                {children}
+            </div>
         </Varselstripe>
     </div>);
 };
 
 Statuspanel.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
-    children: PropTypes.array,
+    children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 export default Statuspanel;

@@ -1,10 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import Sidetopp from '../Sidetopp';
 import { Soknad, getLedetekst } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Soknadstatuspanel from './Soknadstatuspanel';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { connect } from 'react-redux';
+import * as actions from '../../actions/sykepengesoknader_actions';
 import Ettersending from './Ettersending';
+import { KORRIGERT, SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
+import RelaterteSoknaderContainer from '../../containers/sykepengesoknad/RelaterteSoknaderContainer';
+import KorrigertAvContainer from '../../containers/sykepengesoknad/KorrigertAvContainer';
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">
@@ -17,12 +22,59 @@ Avkrysset.propTypes = {
     tekst: PropTypes.string,
 };
 
+const getSistSendtDato = (s) => {
+    if (s.sendtTilNAVDato && s.sendtTilArbeidsgiverDato) {
+        if (s.sendtTilNAVDato.getTime() > s.sendtTilArbeidsgiverDato.getTime()) {
+            return s.sendtTilNAVDato;
+        }
+        return s.sendtTilArbeidsgiverDato;
+    }
+    if (s.sendtTilNAVDato) {
+        return s.sendtTilNAVDato;
+    }
+    return s.sendtTilArbeidsgiverDato;
+};
+
 export const Knapperad = (props) => {
-    return (<div className="knapperad knapperad--sendtSoknad">
-        <Ettersending {...props} manglendeDato="sendtTilNAVDato" ledetekstKeySuffix="send-til-nav" />
-        <Ettersending {...props} manglendeDato="sendtTilArbeidsgiverDato" ledetekstKeySuffix="send-til-arbeidsgiver" />
+    const { sykepengesoknad, startEndringForespurt, starterEndring, startEndringFeilet } = props;
+    const frist = new Date();
+    const ANTALL_MAANEDER_KORRIGERING_ER_MULIG = 3;
+    frist.setMonth(frist.getMonth() - ANTALL_MAANEDER_KORRIGERING_ER_MULIG);
+    const sendtDato = getSistSendtDato(sykepengesoknad);
+    return (<div>
+        <div className="verktoylinje">
+            {
+                sendtDato.getTime() >= frist.getTime() && <div className="verktoylinje__element">
+                    <button onClick={(e) => {
+                        e.preventDefault();
+                        startEndringForespurt(sykepengesoknad.id);
+                    }} disabled={starterEndring}
+                        className="rammeknapp rammeknapp--mini js-endre">
+                        { starterEndring ? <span className="knapp__spinner" /> : null } Endre søknad</button>
+                </div>
+            }
+            <Ettersending {...props} manglendeDato="sendtTilNAVDato" ledetekstKeySuffix="send-til-nav" />
+            <Ettersending {...props} manglendeDato="sendtTilArbeidsgiverDato" ledetekstKeySuffix="send-til-arbeidsgiver" />
+        </div>
+        { startEndringFeilet ? <p className="skjema__feilmelding">Beklager, det oppstod en feil. Prøv igjen litt senere</p> : null }
     </div>);
 };
+
+Knapperad.propTypes = {
+    sykepengesoknad: sykepengesoknadPt,
+    startEndringForespurt: PropTypes.func,
+    startEndringFeilet: PropTypes.bool,
+    starterEndring: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => {
+    return {
+        starterEndring: state.sykepengesoknader.starterEndring,
+        startEndringFeilet: state.sykepengesoknader.startEndringFeilet,
+    };
+};
+
+export const ConnectedKnapperad = connect(mapStateToProps, { startEndringForespurt: actions.startEndringForespurt })(Knapperad);
 
 class SendtSoknad extends Component {
     scrollTilTopp() {
@@ -33,16 +85,20 @@ class SendtSoknad extends Component {
         const { sykepengesoknad } = this.props;
         return (<div ref="sendtSoknad">
             <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
+            { sykepengesoknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={sykepengesoknad} /> }
             <Soknadstatuspanel sykepengesoknad={sykepengesoknad}>
-                <Knapperad sykepengesoknad={sykepengesoknad} scrollTilTopp={() => {
+            {
+                sykepengesoknad.status !== KORRIGERT && <ConnectedKnapperad sykepengesoknad={sykepengesoknad} scrollTilTopp={() => {
                     this.scrollTilTopp();
                 }} />
+            }
             </Soknadstatuspanel>
             <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />
             <Soknad sykepengesoknad={sykepengesoknad} tittel="Oppsummering" />
-            <div className="bekreftet-container">
+            <div className="bekreftet-container blokk">
                 <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label')} />
             </div>
+            { (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) && <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} /> }
         </div>);
     }
 }

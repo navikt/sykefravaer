@@ -1,5 +1,6 @@
 import * as actiontyper from '../actions/actiontyper';
 import { tilDato, parseDatoerPeriodeListe, parseDatoerPeriode } from '../utils/serialisering/dato';
+import { KORRIGERT } from '../enums/sykepengesoknadstatuser';
 
 const initiellState = {
     henter: false,
@@ -114,10 +115,41 @@ export default function sykepengesoknader(state = initiellState, action) {
                 sender: false,
             });
         }
+        case actiontyper.START_ENDRING_SYKEPENGESOKNAD_FORESPURT: {
+            return Object.assign({}, state, {
+                starterEndring: true,
+                startEndringFeilet: false,
+            });
+        }
+        case actiontyper.ENDRING_SYKEPENGESOKNAD_STARTET: {
+            let data = state.data;
+            const soknad = parseDatofelter(action.sykepengesoknad);
+            if (state.data.filter((s) => {
+                return s.id === soknad.id;
+            }).length === 0) {
+                data = [...state.data, soknad];
+            }
+            return Object.assign({}, state, {
+                data,
+                starterEndring: false,
+                startEndringFeilet: false,
+            });
+        }
+        case actiontyper.START_ENDRING_FEILET: {
+            return Object.assign({}, state, {
+                starterEndring: false,
+                startEndringFeilet: true,
+            });
+        }
         case actiontyper.SYKEPENGESOKNAD_SENDT:
         case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV:
         case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER: {
-            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, parseDatofelter(action.sykepengesoknad));
+            let data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, parseDatofelter(action.sykepengesoknad));
+            if (action.sykepengesoknad.korrigerer) {
+                data = setSykepengesoknaderProps(data, action.sykepengesoknad.korrigerer, {
+                    status: KORRIGERT,
+                });
+            }
             return Object.assign({}, state, { data }, {
                 sender: false,
                 sendingFeilet: false,

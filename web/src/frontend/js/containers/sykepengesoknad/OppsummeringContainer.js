@@ -8,17 +8,17 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { connect } from 'react-redux';
 import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
 import * as actions from '../../actions/forskutteringssporsmal_actions';
+import AppSpinner from '../../components/AppSpinner';
 
 export class Oppsummering extends Component {
-    constructor(props) {
-        super(props);
+    componentWillMount() {
         const { sjekkSkalViseForskutteringssporsmal, backendsoknad } = this.props;
         sjekkSkalViseForskutteringssporsmal(backendsoknad);
     }
 
     render() {
         if (this.props.henterForskutteringssporsmal) {
-            return null;
+            return <AppSpinner />;
         }
         return <OppsummeringSkjema {...this.props} />;
     }

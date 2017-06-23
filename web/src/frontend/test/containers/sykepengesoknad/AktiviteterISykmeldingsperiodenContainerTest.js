@@ -57,6 +57,7 @@ describe("AktiviteterISykmeldingsperiodenContainer", () => {
             expect(containerComponent.find(Kvittering)).to.have.length(0);
             expect(containerComponent.find(AktiviteterISykmeldingsperioden)).to.have.length(1);
         });
+
         
     });
 

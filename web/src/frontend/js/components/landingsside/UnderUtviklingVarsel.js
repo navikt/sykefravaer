@@ -7,6 +7,9 @@ class UnderUtviklingVarsel extends Component {
         this.state = {
             synlig: false,
         };
+    }
+
+    componentWillMount() {
         const that = this;
         window.setTimeout(() => {
             that.setState({

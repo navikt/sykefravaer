@@ -139,6 +139,7 @@
 @media(min-width: @skjermMini) {
 
     .knapperad__element {
+        display: inline-block;
         margin-right: 2em;
     }
 
@@ -158,10 +159,42 @@
     .mixin-panel-padding();
 }
 
-.knapperad--sendtSoknad {
-    text-align: left;
+.verktoylinje {
+    padding-top: 2em;
+    display: flex;
 }
 
-.knapperad--sendtSoknad:empty {
+.verktoylinje__element {
+    margin-right: 2em;
+}
+
+.verktoylinje:empty {
     display: none;
+}
+
+.tidligereVersjoner__tittel {
+    .mixin-typo-undertittel();
+    margin: 0;
+}
+
+.tidligereVersjoner a {
+    color: @lenkeBlaa;          
+    border-bottom: 1px solid @ikonGraa;
+
+    &:hover, &:focus {
+        border-bottom-color: @lenkeBlaa;
+    }
+}
+
+.tidligereVersjoner__liste {
+
+    margin-bottom: 0;
+
+    li {
+        margin-bottom: .5em;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
 }

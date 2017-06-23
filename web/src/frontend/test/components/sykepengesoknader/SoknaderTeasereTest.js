@@ -18,7 +18,16 @@ describe("SoknadTeasere", () => {
         'soknader.sidetittel': 'tittel',
     };
 
-    const soknader = [ getSoknad(), getSoknad(), getSoknad() ];
+    const soknader = [ getSoknad({
+        sendtTilNAVDato: new Date(),
+        sendtTilArbeidsgiverDato: new Date(),
+    }), getSoknad({
+        sendtTilNAVDato: new Date(),
+        sendtTilArbeidsgiverDato: new Date(),
+    }), getSoknad({
+        sendtTilNAVDato: new Date(),
+        sendtTilArbeidsgiverDato: new Date(),
+    }) ];
 
     beforeEach(() => {
         setLedetekster(ledetekster);

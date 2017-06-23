@@ -7,6 +7,19 @@ import Sidetopp from '../../Sidetopp';
 import validate from '../validering/validerFoerDuBegynner';
 import { getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
+import { Varselstripe } from 'digisyfo-npm';
+import { UTKAST_TIL_KORRIGERING } from '../../../enums/sykepengesoknadstatuser';
+
+const KorrigerVarsel = () => {
+    return (<div className="panel panel--komprimert blokk">
+        <Varselstripe ikon="/sykefravaer/img/svg/soknader.svg" ikonAlt="Endre søknad">
+            <div>
+                <h2 className="varselstripe__tittel">Endre søknaden</h2>
+                <p>Rediger det som er feil i søknaden, og send den inn på nytt.</p>
+            </div>
+        </Varselstripe>
+    </div>);
+};
 
 let FoerDuBegynnerSkjema = (props) => {
     const { handleSubmit, sykepengesoknad } = props;
@@ -37,6 +50,7 @@ const FoerDuBegynner = (props) => {
     const { sykepengesoknad } = props;
     return (<div>
         <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
+        { sykepengesoknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel /> }
         <SykmeldingUtdrag erApen sykepengesoknad={sykepengesoknad} />
         <h2 className="sykepenger__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
         <FoerDuBegynnerSkjema sykepengesoknad={sykepengesoknad} />

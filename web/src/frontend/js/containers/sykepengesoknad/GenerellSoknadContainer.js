@@ -56,10 +56,11 @@ export function mapDispatchToProps(dispatch) {
 
 export const mapStateToProps = (state, ownProps) => {
     const skjemasoknad = state.form && state.form[SYKEPENGER_SKJEMANAVN] ? state.form[SYKEPENGER_SKJEMANAVN].values : undefined;
+    const sykepengesoknad = state.sykepengesoknader.data.filter((soknad) => {
+        return soknad.id === ownProps.params.sykepengesoknadId;
+    })[0];
     return {
-        sykepengesoknad: state.sykepengesoknader.data.filter((soknad) => {
-            return soknad.id === ownProps.params.sykepengesoknadId;
-        })[0],
+        sykepengesoknad,
         henter: state.sykepengesoknader.henter || state.ledetekster.henter,
         hentingFeilet: state.sykepengesoknader.hentingFeilet || state.sykepengesoknader.hentingFeilet,
         sykepengesoknaderHentet: state.sykepengesoknader.hentet === true,

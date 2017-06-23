@@ -14,6 +14,7 @@ import Kvittering from '../../../js/components/sykepengesoknad/Kvittering';
 import StartIgjen from '../../../js/components/sykepengesoknad/StartIgjen';
 import { getSoknad } from '../../mockSoknader';
 import * as mapping from '../../../js/components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
+import AppSpinner from '../../../js/components/AppSpinner';
 
 describe("OppsummeringContainer", () => {
 
@@ -40,7 +41,7 @@ describe("OppsummeringContainer", () => {
         it("Skal vise StartIgjen hvis skjemasoknad ikke finnes", () => {
             const containerComponent = shallow(<Controller sykepengesoknad={getSoknad({})} />)
             expect(containerComponent.find(StartIgjen)).to.have.length(1);
-        })
+        });
 
         it("Skal vise Kvittering hvis søknad har status SENDT", () => {
             const sykepengesoknad = getSoknad({
@@ -59,6 +60,7 @@ describe("OppsummeringContainer", () => {
             expect(containerComponent.find(Kvittering)).to.have.length(0);
             expect(containerComponent.find(ConnectedOppsummering)).to.have.length(1);
         });
+
 
     });
 
@@ -135,12 +137,12 @@ describe("OppsummeringContainer", () => {
             expect(sjekkSkalViseForskutteringssporsmal.calledWith(backendsoknad)).to.be.true;
         });
 
-        it("Skal rendre null hvis henterForskutteringssporsmal = true", () => {
+        it("Skal rendre AppSpinner hvis henterForskutteringssporsmal = true", () => {
             const component = shallow(<Oppsummering
                 henterForskutteringssporsmal={true}
                 sjekkSkalViseForskutteringssporsmal={sjekkSkalViseForskutteringssporsmal}
                 backendsoknad={backendsoknad} />);
-            expect(component.html()).to.be.null;
+            expect(component.find(AppSpinner)).to.have.length(1);
         });
 
         it("Skal rendre OppsummeringSkjema hvis henterForskutteringssporsmal = false", () => {

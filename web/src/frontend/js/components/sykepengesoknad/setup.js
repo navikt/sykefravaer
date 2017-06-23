@@ -2,12 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import history from '../../history';
-import inntektskildetyper from '../../enums/inntektskildetyper';
 import Feiloppsummering, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
+import mapBackendsoknadToSkjemasoknad from './mapBackendsoknadToSkjemasoknad';
+import inntektskildetyper from '../../enums/inntektskildetyper';
+import { UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
 };
+
+export const SYKEPENGER_SKJEMANAVN = 'SYKEPENGERSKJEMA';
 
 export const mapToInitialValues = (soknad) => {
     return Object.assign({}, soknad, {
@@ -24,11 +28,10 @@ export const mapToInitialValues = (soknad) => {
     });
 };
 
-export const SYKEPENGER_SKJEMANAVN = 'SYKEPENGERSKJEMA';
-
-const mapStateToProps = (state, ownProps) => {
+export const mapStateToProps = (state, ownProps) => {
+    const { sykepengesoknad } = ownProps;
     return {
-        initialValues: mapToInitialValues(ownProps.sykepengesoknad),
+        initialValues: sykepengesoknad.status === UTKAST_TIL_KORRIGERING ? mapBackendsoknadToSkjemasoknad(sykepengesoknad) : mapToInitialValues(sykepengesoknad),
     };
 };
 

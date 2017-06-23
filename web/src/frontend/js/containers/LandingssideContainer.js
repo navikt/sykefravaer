@@ -32,7 +32,9 @@ export class LandingssideSide extends Component {
             hentingFeilet,
             sykepengesoknader,
             visOppfoelgingsdialog,
-            harDialogmote } = this.props;
+            harDialogmote,
+            dineSykmeldinger,
+        } = this.props;
 
         if (henter || hentingFeilet) {
             return (<Side tittel={getLedetekst('landingsside.sidetittel')} brodsmuler={brodsmuler}>
@@ -52,7 +54,8 @@ export class LandingssideSide extends Component {
                 brodsmuler={brodsmuler}
                 skjulVarsel={skjulVarsel}
                 sykepengesoknader={sykepengesoknader}
-                harDialogmote={harDialogmote} />
+                harDialogmote={harDialogmote}
+                dineSykmeldinger={dineSykmeldinger} />
         </StrippetSide>);
     }
 }
@@ -72,6 +75,7 @@ LandingssideSide.propTypes = {
     ledereHentet: PropTypes.bool,
     hentLedere: PropTypes.func,
     hentSykepengesoknader: PropTypes.func,
+    dineSykmeldinger: PropTypes.array,
 };
 
 export function mapStateToProps(state) {
@@ -91,6 +95,7 @@ export function mapStateToProps(state) {
         ledereHentet: state.ledere.hentet === true,
         visOppfoelgingsdialog,
         harDialogmote: state.mote.data !== null,
+        dineSykmeldinger: state.dineSykmeldinger.data,
     };
 }
 

@@ -36,8 +36,13 @@ describe("Landingsside", () => {
         expect(component.find(LandingssideLenke)).to.have.length(3);
     });
 
-    it("Skal vise lenkeboks til oppfølgingsdialog om vi har oppfolgingsdialog togglet pa", () => {
-        component = shallow(<Landingsside skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true}/>);
+    it("Skal ikke vise lenkeboks til oppfølgingsdialog om vi har oppfolgingsdialog togglet pa og ikke eksisterer sykmelding", () => {
+        component = shallow(<Landingsside skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={[]} />);
+        expect(component.find(LandingssideLenke)).to.have.length(2);
+    });
+
+    it("Skal vise lenkeboks til oppfølgingsdialog om vi har oppfolgingsdialog togglet pa og det eksisterer minst 1 sykmelding", () => {
+        component = shallow(<Landingsside skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={[{}]} />);
         expect(component.find(LandingssideLenke)).to.have.length(3);
     });
 

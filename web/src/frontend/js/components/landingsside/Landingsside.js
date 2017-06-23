@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import UnderUtviklingVarselContainer from '../../containers/UnderUtviklingVarselContainer';
 import LandingssideLenke from './LandingssideLenke';
-import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
 import Brodsmuler from '../Brodsmuler';
 import DineOppgaverContainer from '../../containers/DineOppgaverContainer';
 import DinSituasjonContainer from '../../containers/DinSituasjonContainer';
@@ -33,7 +33,7 @@ export class GenerellInfo extends Component {
     }
 }
 
-const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmote = false, brodsmuler, visOppfoelgingsdialog = false }) => {
+const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmote = false, brodsmuler, visOppfoelgingsdialog = false, dineSykmeldinger = [] }) => {
     return (<div>
         <div className="sidebanner">
             <div className="sidebanner__innhold">
@@ -64,7 +64,7 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
                         <LandingssideLenke to="/sykefravaer/dialogmote" ikon="dialogmoter" ikonAlt="Dialogmøter" tittel="Dialogmøter" variant="ceil" />
                 }
                 {
-                    visOppfoelgingsdialog &&
+                    dineSykmeldinger.length > 0 && visOppfoelgingsdialog &&
                     <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
                 }
             </nav>
@@ -77,6 +77,7 @@ Landingsside.propTypes = {
     visOppfoelgingsdialog: PropTypes.bool.isRequired,
     skjulVarsel: PropTypes.bool.isRequired,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    dineSykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     harDialogmote: PropTypes.bool,
     brodsmuler: PropTypes.array,
 };

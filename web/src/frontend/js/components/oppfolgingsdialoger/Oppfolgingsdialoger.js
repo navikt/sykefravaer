@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import { OppfolgingsdialogInfoboks, OppfolgingsdialogTeasere } from 'oppfolgingsdialog-npm';
 import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
@@ -14,7 +14,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
             svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks.svg"
             altUrl="Oppfølgingsplan"
             tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.infoboks.tittel')}
-            tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.infoboks.tekst')} />
+            tekst={getHtmlLedetekst('oppfolgingsdialog.arbeidstaker.infoboks.tekst')} />
 
         { isEmpty(oppfolgingsdialoger) &&
             <img className="oppfolgingsdialoger__pil" src="/sykefravaer/img/svg/oppfolgingsdialog-opprett-pil.svg" alt="pil" />

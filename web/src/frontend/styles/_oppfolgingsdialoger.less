@@ -172,3 +172,56 @@
 .knapperad--justervenstre {
     text-align: left;
 }
+
+.godkjennPlanOversiktInformasjon {
+    h3 {
+        margin-bottom: 0.2em;
+    }
+}
+
+.godkjennPlanOversiktInformasjon__panel {
+    border-bottom: 0.1em solid #efefef;
+    &:last-of-type {
+        border-bottom: none;
+    }
+    margin-bottom: 0;
+}
+.godkjennPlanOversiktInformasjon__panel__header {
+    border-bottom: 0.1em solid #efefef;
+    margin-bottom: 1em;
+}
+.godkjennPlanOversiktInformasjon__panel__element {
+    padding: 0.2em;
+    margin-bottom: 1em;
+    span {
+        display: block;
+        &:first-child {
+            text-transform: uppercase;
+        }
+    }
+}
+.godkjennPlanOversiktInformasjon__panel__element__tiltak, .godkjennPlanOversiktInformasjon__panel__element__arbeidsoppgave {
+    margin-bottom: 1em;
+    h4 {
+        margin: 0;
+    }
+    span {
+        display: block;
+        margin-top: 1em;
+        &:first-of-type {
+            text-transform: uppercase;
+        }
+    }
+}
+.godkjennPlanOversiktInformasjon__panel__element__arbeidsoppgave--groenn {
+    padding-left: 1em ;
+    border-left: 0.5em solid @fargeSuksess;
+}
+.godkjennPlanOversiktInformasjon__panel__element__arbeidsoppgave--gul {
+    padding-left: 1em;
+    border-left: 0.5em solid @fargeAdvarsel;
+}
+.godkjennPlanOversiktInformasjon__panel__element__arbeidsoppgave--roed {
+    padding-left: 1em;
+    border-left: 0.5em solid #e47c68;
+}

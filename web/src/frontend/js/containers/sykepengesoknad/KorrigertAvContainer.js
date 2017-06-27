@@ -11,8 +11,8 @@ export const KorrigertAv = ({ korrigertAvSoknad }) => {
             <div>
                 <p className="sist">
                     {getLedetekst('sykepengesoknad.korrigert.tekst', {
-                    '%DATO%': toDatePrettyPrint(getTidligsteSendtDato(korrigertAvSoknad)),
-                })}
+                        '%DATO%': toDatePrettyPrint(getTidligsteSendtDato(korrigertAvSoknad)),
+                    })}
                 </p>
                 <p className="sist">
                     <Link className="lenke" to={`/sykefravaer/soknader/${korrigertAvSoknad.id}`}>{getLedetekst('sykepengesoknad.korrigert.lenketekst')}</Link>

@@ -49,7 +49,7 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
 
             <DineOppgaverContainer />
             <DinSituasjonContainer />
-            <nav role="navigation">
+            <nav role="navigation" className="js-navigasjon">
                 <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
                     undertittel="Informasjon og oversikt over aktiviteter" variant="fersken" />
                 <LandingssideLenke to="/sykefravaer/sykmeldinger" ikon="sykmeldinger" ikonAlt="Sykmelding" tittel="Sykmeldinger"

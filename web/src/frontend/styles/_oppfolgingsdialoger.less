@@ -61,7 +61,7 @@
 .samtykke__tekst {
     margin-bottom: 4em;
 }
-.samtykke__inputgruppe {
+.samtykke__inputgruppe, .godkjennPlan__inputgruppe {
     text-align: center;
     & > div {
         display: inline-block;
@@ -188,40 +188,99 @@
 }
 .godkjennPlanOversiktInformasjon__panel__header {
     border-bottom: 0.1em solid #efefef;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
+    .typo-undertekst {
+        margin-bottom: 0.5em;
+    }
 }
 .godkjennPlanOversiktInformasjon__panel__element {
-    padding: 0.2em;
     margin-bottom: 1em;
     span {
         display: block;
-        &:first-child {
-            text-transform: uppercase;
-        }
     }
 }
 .godkjennPlanOversiktInformasjon__panel__element__tiltak, .godkjennPlanOversiktInformasjon__panel__element__arbeidsoppgave {
-    margin-bottom: 1em;
-    h4 {
-        margin: 0;
-    }
+    margin-bottom: 2em;
     span {
         display: block;
-        margin-top: 1em;
-        &:first-of-type {
-            text-transform: uppercase;
+        margin-bottom: 0.5em;
+        &.typo-etikettLiten {
+            font-weight: 600;
+            &::after {
+                content: ":";
+            }
         }
     }
 }
-.godkjennPlanOversiktInformasjon__panel__element__arbeidsoppgave--groenn {
-    padding-left: 1em ;
-    border-left: 0.5em solid @fargeSuksess;
+@oppfolgingsplanLappTekstPadding: 1em;
+@oppfolgingsplanLappFargeTykkelse: 0.3em;
+@oppfolgingsplanLappIkonBredde: 1.2em;
+@oppfolgingsplanLappIkonTekstPadding: (@oppfolgingsplanLappIkonBredde - @oppfolgingsplanLappFargeTykkelse)/2;
+
+.godkjennPlanOversiktInformasjon__panel__element__arbeidsoppgave {
+    margin-left: @oppfolgingsplanLappIkonTekstPadding;
 }
-.godkjennPlanOversiktInformasjon__panel__element__arbeidsoppgave--gul {
-    padding-left: 1em;
-    border-left: 0.5em solid @fargeAdvarsel;
+.godkjennPlanOversiktInformasjon__panel__element__gjennomfoering {
+    margin-bottom: 1em;
+    img {
+        width: @oppfolgingsplanLappIkonBredde;
+        margin-right: calc(@oppfolgingsplanLappTekstPadding - @oppfolgingsplanLappIkonTekstPadding);
+    }
+    span.typo-etikettLiten {
+        display: inline-block;
+    }
 }
-.godkjennPlanOversiktInformasjon__panel__element__arbeidsoppgave--roed {
-    padding-left: 1em;
-    border-left: 0.5em solid #e47c68;
+.oppfolgingsplanLapp--groenn {
+    padding-left: @oppfolgingsplanLappTekstPadding ;
+    border-left: @oppfolgingsplanLappFargeTykkelse solid @suksessGroenn;
+}
+.oppfolgingsplanLapp--gul {
+    padding-left: @oppfolgingsplanLappTekstPadding;
+    border-left: @oppfolgingsplanLappFargeTykkelse solid @fargeAdvarsel;
+}
+.oppfolgingsplanLapp--roed {
+    padding-left: @oppfolgingsplanLappTekstPadding;
+    border-left: @oppfolgingsplanLappFargeTykkelse solid @navRoed;
+}
+.godkjennPlanSkjema {
+
+}
+.godkjennPlanSkjema__datovelger__rad {
+  display: table;
+  width: 100%;
+  margin-bottom: 2em;
+  &::before,
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+.godkjennPlanSkjema__datovelger {
+    margin-bottom: 2em;
+}
+.godkjennPlanSkjema__datovelger__input {
+    float: left;
+    width: 50%;
+    padding-right: 2em;
+}
+
+.typo-sitat {
+    .mixin-typo-normal();
+    font-style: italic;
+    q {
+        quotes: "\201C" "\201D";
+    }
+}
+.typo-etikett-liten {
+    margin: 0;
+    text-transform: uppercase;
+    font-family: Source Sans Pro,Arial,sans-serif;
+    font-size: 0.93rem;
+    font-weight: 400;
+}
+@media all and (min-width:30em) {
+    .typo-etikett-liten {
+        font-size: 0.87rem;
+    }
 }

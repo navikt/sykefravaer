@@ -14,6 +14,7 @@ import {
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Plan from '../components/oppfolgingsdialoger/Plan';
+import { fraInputdatoTilJSDato } from '../utils';
 
 export class PlanSide extends Component {
 
@@ -36,14 +37,14 @@ export class PlanSide extends Component {
         if (values.samtykkeGitt === 'true') {
             this.props.giSamtykke(this.props.oppfolgingsdialogId);
         }
-        this.godkjennPlan();
+        this.godkjennPlan(values);
     }
 
-    godkjennPlan() {
+    godkjennPlan(values) {
         const gyldighetstidspunkt = {
-            fom: new Date(),
-            tom: new Date(),
-            evalueres: new Date(),
+            fom: new Date(fraInputdatoTilJSDato(values.startdato)),
+            tom: new Date(fraInputdatoTilJSDato(values.sluttdato)),
+            evalueres: new Date(fraInputdatoTilJSDato(values.evalueringsdato)),
         };
         this.props.godkjennDialog(this.props.oppfolgingsdialogId, gyldighetstidspunkt);
     }

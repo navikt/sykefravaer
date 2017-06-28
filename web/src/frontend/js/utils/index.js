@@ -54,6 +54,9 @@ export const newDate = () => {
 };
 
 export const erMotePassert = (mote) => {
+    if (!mote) {
+        return false;
+    }
     if (mote.bekreftetAlternativ && mote.bekreftetAlternativ.tid <= newDate()) {
         return true;
     }

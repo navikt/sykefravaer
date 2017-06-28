@@ -65,6 +65,12 @@ describe("SendtSoknad", () => {
         expect(component.find(ConnectedKnapperad)).to.have.length(0);
     });
 
+    it("Skal ikke inneholde en ConnectedKnapperad hvis søknaden har status TIL_SENDING", () => {
+        sykepengesoknad.status = "TIL_SENDING";
+        component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />);
+        expect(component.find(ConnectedKnapperad)).to.have.length(0);
+    });
+
     describe("Når søknaden er korrigert", () => {
 
         let component;

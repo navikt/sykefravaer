@@ -88,7 +88,7 @@ class SendtSoknad extends Component {
             { sykepengesoknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={sykepengesoknad} /> }
             <Soknadstatuspanel sykepengesoknad={sykepengesoknad}>
             {
-                sykepengesoknad.status !== KORRIGERT && <ConnectedKnapperad sykepengesoknad={sykepengesoknad} scrollTilTopp={() => {
+                [KORRIGERT, TIL_SENDING].indexOf(sykepengesoknad.status) === -1 && <ConnectedKnapperad sykepengesoknad={sykepengesoknad} scrollTilTopp={() => {
                     this.scrollTilTopp();
                 }} />
             }

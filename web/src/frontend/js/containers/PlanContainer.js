@@ -46,7 +46,7 @@ export class PlanSide extends Component {
             tom: new Date(fraInputdatoTilJSDato(values.sluttdato)),
             evalueres: new Date(fraInputdatoTilJSDato(values.evalueringsdato)),
         };
-        this.props.godkjennDialog(this.props.oppfolgingsdialogId, gyldighetstidspunkt);
+        this.props.godkjennDialog(this.props.oppfolgingsdialogId, gyldighetstidspunkt, 'true');
     }
 
     render() {

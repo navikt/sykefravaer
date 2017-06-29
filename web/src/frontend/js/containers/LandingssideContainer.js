@@ -10,6 +10,7 @@ import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt } from '
 import { proptypes as motePropTypes } from 'moter-npm';
 import { moteActions } from 'moter-npm';
 import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
+import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
 
 export class LandingssideSide extends Component {
@@ -21,6 +22,9 @@ export class LandingssideSide extends Component {
         }
         if (!this.props.ledereHentet) {
             this.props.hentLedere();
+        }
+        if (!this.props.dineSykmeldingerHentet) {
+            this.props.hentDineSykmeldinger();
         }
     }
 
@@ -55,7 +59,8 @@ export class LandingssideSide extends Component {
                 skjulVarsel={skjulVarsel}
                 sykepengesoknader={sykepengesoknader}
                 harDialogmote={harDialogmote}
-                dineSykmeldinger={dineSykmeldinger} />
+                dineSykmeldinger={dineSykmeldinger}
+            />
         </StrippetSide>);
     }
 }
@@ -76,6 +81,8 @@ LandingssideSide.propTypes = {
     hentLedere: PropTypes.func,
     hentSykepengesoknader: PropTypes.func,
     dineSykmeldinger: PropTypes.array,
+    dineSykmeldingerHentet: PropTypes.bool,
+    hentDineSykmeldinger: PropTypes.func,
 };
 
 export function mapStateToProps(state) {
@@ -96,6 +103,7 @@ export function mapStateToProps(state) {
         visOppfoelgingsdialog,
         harDialogmote: state.mote.data !== null,
         dineSykmeldinger: state.dineSykmeldinger.data,
+        dineSykmeldingerHentet: state.dineSykmeldinger.hentet === true,
     };
 }
 
@@ -104,6 +112,7 @@ const LandingssideContainer = connect(mapStateToProps, {
     hentSykepengesoknader,
     hentLedere,
     hentToggles,
+    hentDineSykmeldinger,
 })(LandingssideSide);
 
 export default LandingssideContainer;

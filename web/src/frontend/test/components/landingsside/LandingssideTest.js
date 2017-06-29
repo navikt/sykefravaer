@@ -2,6 +2,7 @@ import chai from 'chai';
 import React from 'react'
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
+import sinon from 'sinon';
 import ledetekster from "../../mockLedetekster";
 
 chai.use(chaiEnzyme());
@@ -12,13 +13,51 @@ import LandingssideLenke from "../../../js/components/landingsside/LandingssideL
 import UnderUtviklingVarselContainer from "../../../js/containers/UnderUtviklingVarselContainer"
 import { getSoknad } from '../../mockSoknader';
 import { setLedetekster } from 'digisyfo-npm';
+import { trekkDagerFraDato, trekkMnderFraDato, leggTilDagerPaaDato, trekkMnderOgDagerFraDato } from '../../../js/utils/datoUtils';
+import getSykmelding from '../../mockSykmeldinger';
 
 describe("Landingsside", () => {
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     let component;
 
     beforeEach(() => {
         setLedetekster(ledetekster);
+        clock = sinon.useFakeTimers(today.getTime());
+    });
+
+    afterEach(() => {
+        clock.restore();
+    });
+
+    const sykmeldingUtgaattOver3mnd = getSykmelding({
+        mulighetForArbeid: {
+            perioder: [
+                {
+                    fom: trekkMnderFraDato(today, 6).toISOString(),
+                    tom: trekkMnderFraDato(today, 5).toISOString(),
+                },
+                {
+                    fom: trekkMnderFraDato(today, 5).toISOString(),
+                    tom: trekkMnderOgDagerFraDato(today, 3, 1).toISOString(),
+                }
+            ]
+        }
+    });
+    const sykmeldingAktiv = getSykmelding({
+        mulighetForArbeid: {
+            perioder: [
+                {
+                    fom: trekkDagerFraDato(today, 35).toISOString(),
+                    tom: trekkDagerFraDato(today, 5).toISOString(),
+                },
+                {
+                    fom: trekkDagerFraDato(today, 5).toISOString(),
+                    tom: leggTilDagerPaaDato(today, 35).toISOString(),
+                }
+            ]
+        }
     });
 
     it("Skal vise overskrift for 'Ditt sykefravær'", () => {
@@ -37,12 +76,14 @@ describe("Landingsside", () => {
     });
 
     it("Skal ikke vise lenkeboks til oppfølgingsdialog om vi har oppfolgingsdialog togglet pa og ikke eksisterer sykmelding", () => {
-        component = shallow(<Landingsside skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={[]} />);
+        const dineSykemeldinger = [sykmeldingUtgaattOver3mnd];
+        component = shallow(<Landingsside skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={dineSykemeldinger} />);
         expect(component.find(LandingssideLenke)).to.have.length(2);
     });
 
     it("Skal vise lenkeboks til oppfølgingsdialog om vi har oppfolgingsdialog togglet pa og det eksisterer minst 1 sykmelding", () => {
-        component = shallow(<Landingsside skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={[{}]} />);
+        const dineSykemeldinger = [sykmeldingAktiv];
+        component = shallow(<Landingsside skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={dineSykemeldinger} />);
         expect(component.find(LandingssideLenke)).to.have.length(3);
     });
 

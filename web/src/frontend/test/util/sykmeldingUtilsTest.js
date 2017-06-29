@@ -1,10 +1,10 @@
 import {
-    erBrukerSykmeldtPdd,
+    harSykmeldtHattAktivSykmeldingSiste3mnd,
     finnArbeidsgivereForGyldigeSykmeldinger,
     sykmeldtHarManglendeNaermesteLeder,
     sykmeldtHarNaermestelederHosArbeidsgiver,
     sykmeldtHarNaermestelederHosArbeidsgivere,
-} from "../../js/utils/sykmeldingUtils";
+} from '../../js/utils/sykmeldingUtils';
 import getSykmelding from '../mockSykmeldinger';
 import { getSykmeldinger, getArbeidsgivere, getArbeidsgiver } from '../mockSykmeldinger';
 import { getLedere } from '../mockLedere.js';
@@ -79,6 +79,25 @@ describe("sykmeldingUtils", () => {
                 }
             ]
         }
+    });
+
+
+    describe("harSykmeldtHattAktivSykmeldingSiste3mnd", () => {
+
+        it("skal returnere false med 1 sykmelding utgaatt over 3mnd", () => {
+            const sykmeldinger = [sykmeldingUtgaattOver3mnd];
+            expect(harSykmeldtHattAktivSykmeldingSiste3mnd(sykmeldinger)).to.be.false;
+        });
+
+        it("skal returnere true med 1 aktiv og 1 sykmelding utgaatt over 3mnd", () => {
+            const sykmeldinger = [sykmeldingUtgaattOver3mnd, sykmeldingAktiv];
+            expect(harSykmeldtHattAktivSykmeldingSiste3mnd(sykmeldinger)).to.be.true;
+        });
+
+        it("skal returnere true med 1 aktiv sykemelding", () => {
+            expect(harSykmeldtHattAktivSykmeldingSiste3mnd(sykmeldinger)).to.be.true;
+        });
+
     });
 
     describe("finnArbeidsgivereForGyldigeSykmeldinger", () => {

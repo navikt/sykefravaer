@@ -7,6 +7,7 @@ import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from
 import Brodsmuler from '../Brodsmuler';
 import DineOppgaverContainer from '../../containers/DineOppgaverContainer';
 import DinSituasjonContainer from '../../containers/DinSituasjonContainer';
+import { harSykmeldtHattAktivSykmeldingSiste3mnd } from '../../utils/sykmeldingUtils';
 
 export class GenerellInfo extends Component {
     componentDidMount() {
@@ -64,7 +65,7 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
                         <LandingssideLenke to="/sykefravaer/dialogmote" ikon="dialogmoter" ikonAlt="Dialogmøter" tittel="Dialogmøter" variant="ceil" />
                 }
                 {
-                    dineSykmeldinger.length > 0 && visOppfoelgingsdialog &&
+                    visOppfoelgingsdialog && harSykmeldtHattAktivSykmeldingSiste3mnd(dineSykmeldinger) &&
                     <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
                 }
             </nav>

@@ -16,7 +16,7 @@ export const renderArbeidsgiverFeilomrade = (arbeidsgiver) => {
         </div>;
 };
 
-let ArbeidsgiverSkjema = ({ arbeidsgivere, handleSubmit, avbrytHref }) => {
+const ArbeidsgiverSkjema = ({ arbeidsgivere, handleSubmit, avbrytHref }) => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="inputgruppe velgarbeidsgiver__inputgruppe">
@@ -72,9 +72,7 @@ function validate(values) {
     return feilmeldinger;
 }
 
-ArbeidsgiverSkjema = reduxForm({
+export default reduxForm({
     form: OPPFOLGINGSKJEMANAVN,
     validate,
 })(ArbeidsgiverSkjema);
-
-export default ArbeidsgiverSkjema;

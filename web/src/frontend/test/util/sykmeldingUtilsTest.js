@@ -81,22 +81,6 @@ describe("sykmeldingUtils", () => {
         }
     });
 
-    describe("erBrukerSykmeldtPdd", () => {
-
-        it("skal returnere false med 1 utgaatt sykmelding", () => {
-            expect(erBrukerSykmeldtPdd([sykmeldingUtgaatt])).to.be.false;
-        });
-
-        it("skal returnere true med 1 aktiv og 1 utgaatt sykemelding", () => {
-            expect(erBrukerSykmeldtPdd([sykmeldingUtgaatt, sykmeldingAktiv])).to.be.true;
-        });
-
-        xit("skal returnere true med 1 aktiv sykemelding", () => {
-            expect(erBrukerSykmeldtPdd(sykmeldinger)).to.be.true;
-        });
-
-    });
-
     describe("finnArbeidsgivereForGyldigeSykmeldinger", () => {
 
         it("skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt over 3 maaneder", () => {

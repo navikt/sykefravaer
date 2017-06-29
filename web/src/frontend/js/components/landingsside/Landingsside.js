@@ -7,7 +7,7 @@ import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from
 import Brodsmuler from '../Brodsmuler';
 import DineOppgaverContainer from '../../containers/DineOppgaverContainer';
 import DinSituasjonContainer from '../../containers/DinSituasjonContainer';
-import { harSykmeldtHattAktivSykmeldingSiste3mnd } from '../../utils/sykmeldingUtils';
+import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 
 export class GenerellInfo extends Component {
     componentDidMount() {
@@ -34,7 +34,7 @@ export class GenerellInfo extends Component {
     }
 }
 
-const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmote = false, brodsmuler, visOppfoelgingsdialog = false, dineSykmeldinger = [] }) => {
+const Landingsside = ({ toggles, skjulVarsel = false, sykepengesoknader = [], harDialogmote = false, brodsmuler, dineSykmeldinger = [] }) => {
     return (<div>
         <div className="sidebanner">
             <div className="sidebanner__innhold">
@@ -65,7 +65,7 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
                         <LandingssideLenke to="/sykefravaer/dialogmote" ikon="dialogmoter" ikonAlt="Dialogmøter" tittel="Dialogmøter" variant="ceil" />
                 }
                 {
-                    visOppfoelgingsdialog && harSykmeldtHattAktivSykmeldingSiste3mnd(dineSykmeldinger) &&
+                    skalViseOppfoelgingsdialogLenke(dineSykmeldinger, toggles) &&
                     <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
                 }
             </nav>
@@ -75,11 +75,11 @@ const Landingsside = ({ skjulVarsel = false, sykepengesoknader = [], harDialogmo
 };
 
 Landingsside.propTypes = {
-    visOppfoelgingsdialog: PropTypes.bool.isRequired,
     skjulVarsel: PropTypes.bool.isRequired,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     dineSykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     harDialogmote: PropTypes.bool,
+    toggles: PropTypes.object,
     brodsmuler: PropTypes.array,
 };
 

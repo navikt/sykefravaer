@@ -263,10 +263,6 @@ export const validate = (values, props = {}) => {
         if (values.valgtArbeidsgiver.naermesteLeder && values.beOmNyNaermesteLeder === undefined) {
             feilmeldinger.beOmNyNaermesteLeder = `Vennligst svar på om ${values.valgtArbeidsgiver.naermesteLeder.navn} er din nærmeste leder med personalansvar`;
         }
-
-        if (props.pilotSykepenger && values.arbeidsgiverForskutterer === undefined) {
-            feilmeldinger.arbeidsgiverForskutterer = `Vennligst svar på om ${values.valgtArbeidsgiver.navn} betaler lønnen din hvis du er syk lenger enn 16 dager`;
-        }
     }
 
     return feilmeldinger;

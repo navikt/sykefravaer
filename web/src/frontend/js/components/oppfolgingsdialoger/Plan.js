@@ -4,6 +4,7 @@ import {
     OppfolgingsdialogSide,
     OppfolgingsdialogSamtykke,
     GodkjennPlanOversikt,
+    GodkjennPlanSendt,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 
@@ -75,14 +76,23 @@ export class Plan extends Component {
                 }
                 {
                     oppfolgingsdialog.godkjentAvArbeidstaker && !oppfolgingsdialog.godkjentAvArbeidsgiver &&
-                        <div>
-                            Se din plan, venter paa godkjenning fra arbeidsgiver
-                        </div>
+                    <GodkjennPlanSendt
+                        ledetekster={ledetekster}
+                        oppfolgingsdialog={oppfolgingsdialog}
+                        brukerType="SYKMELDT"
+                        rootUrl={`${getContextRoot()}`}
+                    />
                 }
                 {
                     oppfolgingsdialog.godkjentAvArbeidsgiver &&
                     <div>
-                        Din arbeidsgiver har godkjent plan, du maa godkjenne
+                        TODO: Din arbeidsgiver har godkjent plan, du maa godkjenne
+                    </div>
+                }
+                {
+                    oppfolgingsdialog.godkjentAvArbeidstaker && oppfolgingsdialog.godkjentAvArbeidsgiver &&
+                    <div>
+                        TODO: Dere har begge godkjent planen
                     </div>
                 }
             </OppfolgingsdialogSide>

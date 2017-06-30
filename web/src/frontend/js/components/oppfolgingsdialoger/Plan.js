@@ -77,7 +77,7 @@ export class Plan extends Component {
                     />
                 }
                 {
-                    (!oppfolgingsdialog.godkjentAvArbeidstaker || (!oppfolgingsdialog.godkjentAvArbeidstaker && oppfolgingsdialog.godkjentAvArbeidsgiver) ) && this.state.side === 1 &&
+                    (!oppfolgingsdialog.godkjentAvArbeidstaker || (!oppfolgingsdialog.godkjentAvArbeidstaker && oppfolgingsdialog.godkjentAvArbeidsgiver)) && this.state.side === 1 &&
                         <OppfolgingsdialogSamtykke
                             ledetekster={ledetekster}
                             avbryt={this.forrigeSide}

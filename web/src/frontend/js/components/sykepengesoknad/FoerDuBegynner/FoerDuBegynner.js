@@ -26,7 +26,7 @@ let FoerDuBegynnerSkjema = (props) => {
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`);
     };
-    return (<form onSubmit={handleSubmit(onSubmit)}>
+    return (<form id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
         <div className="panel">
             <div className="redaksjonelt">
                 <BekreftAnsvar sykepengesoknad={sykepengesoknad} />

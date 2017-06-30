@@ -41,7 +41,7 @@ export const AktiviteterISykmeldingsperiodenSkjema = (props) => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
     };
 
-    return (<form onSubmit={handleSubmit(onSubmit)}>
+    return (<form id="aktiviteter-i-sykmeldingsperioden-skjema" onSubmit={handleSubmit(onSubmit)}>
         <FieldArray
             component={Aktiviteter}
             fields={sykepengesoknad.aktiviteter}

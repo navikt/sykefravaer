@@ -1,13 +1,21 @@
 import React, { PropTypes } from 'react';
 import Feilomrade from './Feilomrade';
 
+export const getLabelId = (id) => {
+    const nyId = id
+        .split('.').join('-')
+        .split('[').join('-')
+        .split(']').join('-');
+    return `label-${nyId}`;
+};
+
 export const Radioknapp = ({ input, value, children, id, label, checked, labelSekundaer, disabled }) => {
     return (<div className={disabled && 'skjema__input--inaktiv'}>
         <div className="skjema__input">
             <input id={id} className="radioknapp" type="radio" {...input} disabled={disabled} checked={checked || input.value.toString() === value.toString()} value={value} onBlur={() => {
                 input.onBlur();
             }} />
-            <label htmlFor={id}>{label} {labelSekundaer ? <span className="sekundaerLabel">{labelSekundaer}</span> : null}</label>
+            <label id={getLabelId(id)} htmlFor={id}>{label} {labelSekundaer ? <span className="sekundaerLabel">{labelSekundaer}</span> : null}</label>
         </div>
         {input.value === value || disabled && children}
     </div>);

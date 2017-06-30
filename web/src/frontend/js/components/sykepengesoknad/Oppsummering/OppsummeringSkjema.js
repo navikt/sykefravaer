@@ -29,7 +29,7 @@ export const OppsummeringForm = (props) => {
         const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
         actions.sendSykepengesoknad(soknadObjekt);
     };
-    return (<form onSubmit={handleSubmit(onSubmit)}>
+    return (<form id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Soknad apentUtdrag={false} sykepengesoknad={backendsoknad} tittel="Oppsummering" />
         <div className={sendingFeilet || visForskutteringssporsmal ? 'bekreftet-container blokk' : 'bekreftet-container'}>
             <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />

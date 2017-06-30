@@ -16,7 +16,7 @@ let FravaerOgFriskmeldingSkjema = (props) => {
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`);
     };
-    return (<form onSubmit={handleSubmit(onSubmit)}>
+    return (<form id="fravaer-og-friskmelding-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Egenmeldingsdager sykepengesoknad={sykepengesoknad} />
         <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
         <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />

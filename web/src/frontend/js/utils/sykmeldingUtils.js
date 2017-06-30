@@ -27,13 +27,18 @@ export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteL
     });
 };
 
-export const harSykmeldtHattAktivSykmeldingSiste3mnd = (sykmeldinger) => {
+export const skalViseOppfoelgingsdialogLenke = (sykmeldinger, toggles) => {
+    if (toggles['syfotoggles.oppfoelgingsdialog'] !== 'true') {
+        return false;
+    }
+
+    const piloter = toggles['syfotoggles.oppfoelgingsdialog.piloter'] ? toggles['syfotoggles.oppfoelgingsdialog.piloter'].split(',') : [];
     return sykmeldinger.filter(sykmelding => {
         return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
             const tomGrenseDato = new Date();
             tomGrenseDato.setHours(0, 0, 0, 0);
             tomGrenseDato.setMonth(tomGrenseDato.getMonth() - MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING);
-            return new Date(periode.tom) >= new Date(tomGrenseDato);
+            return new Date(periode.tom) >= new Date(tomGrenseDato) && piloter.includes(sykmelding.orgnummer);
         }).length > 0;
     }).filter((sykmelding, idx, self) => {
         return self.findIndex(t => {

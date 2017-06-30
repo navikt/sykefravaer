@@ -35,9 +35,9 @@ export class LandingssideSide extends Component {
             henter,
             hentingFeilet,
             sykepengesoknader,
-            visOppfoelgingsdialog,
             harDialogmote,
             dineSykmeldinger,
+            toggles,
         } = this.props;
 
         if (henter || hentingFeilet) {
@@ -54,10 +54,10 @@ export class LandingssideSide extends Component {
         }
         return (<StrippetSide tittel={getLedetekst('landingsside.sidetittel')}>
             <Landingsside
-                visOppfoelgingsdialog={visOppfoelgingsdialog}
                 brodsmuler={brodsmuler}
                 skjulVarsel={skjulVarsel}
                 sykepengesoknader={sykepengesoknader}
+                toggles={toggles}
                 harDialogmote={harDialogmote}
                 dineSykmeldinger={dineSykmeldinger}
             />
@@ -69,7 +69,7 @@ LandingssideSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     skjulVarsel: PropTypes.bool,
     henter: PropTypes.bool,
-    visOppfoelgingsdialog: PropTypes.bool,
+    toggles: PropTypes.object,
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     dialogmoter: PropTypes.arrayOf(motePropTypes.mote),
@@ -86,9 +86,6 @@ LandingssideSide.propTypes = {
 };
 
 export function mapStateToProps(state) {
-    const sykepengesoknader = state.sykepengesoknader.data;
-    const visOppfoelgingsdialog = state.toggles.data['syfotoggles.oppfoelgingsdialog'] === 'true';
-
     return {
         henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.toggles.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet,
@@ -97,10 +94,10 @@ export function mapStateToProps(state) {
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
         }],
-        sykepengesoknader,
+        sykepengesoknader: state.sykepengesoknader.data,
         sykepengesoknaderHentet: state.sykepengesoknader.hentet === true,
         ledereHentet: state.ledere.hentet === true,
-        visOppfoelgingsdialog,
+        toggles: state.toggles.data,
         harDialogmote: state.mote.data !== null,
         dineSykmeldinger: state.dineSykmeldinger.data,
         dineSykmeldingerHentet: state.dineSykmeldinger.hentet === true,

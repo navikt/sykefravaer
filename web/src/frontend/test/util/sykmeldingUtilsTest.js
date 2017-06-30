@@ -1,5 +1,5 @@
 import {
-    harSykmeldtHattAktivSykmeldingSiste3mnd,
+    skalViseOppfoelgingsdialogLenke,
     finnArbeidsgivereForGyldigeSykmeldinger,
     sykmeldtHarManglendeNaermesteLeder,
     sykmeldtHarNaermestelederHosArbeidsgiver,
@@ -82,22 +82,30 @@ describe("sykmeldingUtils", () => {
     });
 
 
-    describe("harSykmeldtHattAktivSykmeldingSiste3mnd", () => {
+    describe("skalViseOppfoelgingsdialogLenke", () => {
 
         it("skal returnere false med 1 sykmelding utgaatt over 3mnd", () => {
             const sykmeldinger = [sykmeldingUtgaattOver3mnd];
-            expect(harSykmeldtHattAktivSykmeldingSiste3mnd(sykmeldinger)).to.be.false;
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, {})).to.be.false;
         });
 
         it("skal returnere true med 1 aktiv og 1 sykmelding utgaatt over 3mnd", () => {
             const sykmeldinger = [sykmeldingUtgaattOver3mnd, sykmeldingAktiv];
-            expect(harSykmeldtHattAktivSykmeldingSiste3mnd(sykmeldinger)).to.be.true;
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, {})).to.be.false;
         });
 
-        it("skal returnere true med 1 aktiv sykemelding", () => {
-            expect(harSykmeldtHattAktivSykmeldingSiste3mnd(sykmeldinger)).to.be.true;
+        it("skal returnere false med 1 aktiv sykemelding, men ikke toggle", () => {
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, {})).to.be.false;
         });
-
+        it("skal returnere false med 1 aktiv sykemelding og toggle, men ikke pilot oppgitt", () => {
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, {"syfotoggles.oppfoelgingsdialog": "true"})).to.be.false;
+        });
+        it("skal returnere false med 1 aktiv sykemelding og toggle, men ikke pilotbedrift", () => {
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, {"syfotoggles.oppfoelgingsdialog": "true", "syfotoggles.oppfoelgingsdialog.piloter" : "***REMOVED***"})).to.be.false;
+        });
+        it("skal returnere true med 1 aktiv sykemelding, toggle og pilotbedrift", () => {
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, {"syfotoggles.oppfoelgingsdialog": "true", "syfotoggles.oppfoelgingsdialog.piloter" : "123456789"})).to.be.true;
+        });
     });
 
     describe("finnArbeidsgivereForGyldigeSykmeldinger", () => {

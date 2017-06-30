@@ -4,6 +4,7 @@ import {
     OppfolgingsdialogSide,
     OppfolgingsdialogSamtykke,
     GodkjennPlanOversikt,
+    GodkjennPlanMottatt,
     GodkjennPlanSendt,
     GodkjentPlan,
 } from 'oppfolgingsdialog-npm';
@@ -56,7 +57,7 @@ export class Plan extends Component {
                 ledetekster={ledetekster}
                 rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}>
                 {
-                    !oppfolgingsdialog.godkjentAvArbeidstaker && this.state.side === 0 &&
+                    !oppfolgingsdialog.godkjentAvArbeidstaker && !oppfolgingsdialog.godkjentAvArbeidsgiver && this.state.side === 0 &&
                     <GodkjennPlanOversikt
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
@@ -66,7 +67,17 @@ export class Plan extends Component {
                     />
                 }
                 {
-                    !oppfolgingsdialog.godkjentAvArbeidstaker && this.state.side === 1 &&
+                    !oppfolgingsdialog.godkjentAvArbeidstaker && oppfolgingsdialog.godkjentAvArbeidsgiver && this.state.side === 0 &&
+                    <GodkjennPlanMottatt
+                        ledetekster={ledetekster}
+                        oppfolgingsdialog={oppfolgingsdialog}
+                        nesteSide={this.nesteSide}
+                        brukerType="SYKMELDT"
+                        rootUrl={`${getContextRoot()}`}
+                    />
+                }
+                {
+                    (!oppfolgingsdialog.godkjentAvArbeidstaker || (!oppfolgingsdialog.godkjentAvArbeidstaker && oppfolgingsdialog.godkjentAvArbeidsgiver) ) && this.state.side === 1 &&
                         <OppfolgingsdialogSamtykke
                             ledetekster={ledetekster}
                             avbryt={this.forrigeSide}
@@ -74,12 +85,6 @@ export class Plan extends Component {
                             svgAlt="samtykkeIllustrasjon"
                             giSamtykkeSvar={giSamtykkeSvar}
                         />
-                }
-                {
-                    !oppfolgingsdialog.godkjentAvArbeidstaker && oppfolgingsdialog.godkjentAvArbeidsgiver &&
-                    <div>
-                        TODO: Din arbeidsgiver har godkjent plan, du maa godkjenne
-                    </div>
                 }
                 {
                     oppfolgingsdialog.godkjentAvArbeidstaker && !oppfolgingsdialog.godkjentAvArbeidsgiver &&

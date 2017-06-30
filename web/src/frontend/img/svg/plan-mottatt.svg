@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="151px" height="144px" viewBox="0 0 151 144" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Mottatt illustrasjon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <ellipse id="path-1" cx="75.3816429" cy="71.9705897" rx="75.3816429" ry="71.9705897"></ellipse>
+        <polygon id="path-3" points="0 84.4630833 77.9489455 84.4630833 77.9489455 0 0 0"></polygon>
+    </defs>
+    <g id="VOL-4-(pilot)" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Motatt-for-godkjenning_kommentar" transform="translate(-438.000000, -539.000000)">
+            <g id="Mottatt-illustrasjon" transform="translate(438.000000, 539.000000)">
+                <g id="Page-1">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Mask" fill="#C2EAF7" xlink:href="#path-1"></use>
+                </g>
+                <g id="Page-1" transform="translate(37.000000, 30.000000)">
+                    <path d="M6.22057091,42.8826417 C5.23918909,41.899475 0.594643636,38.529225 1.57744364,37.5488917 L0.00184363636,32.570725 L37.1964982,0.735391667 C38.1792982,-0.244941667 39.7704982,-0.244941667 40.7547164,0.735391667 L77.9465345,32.570725 L69.5211164,50.7848083 C70.5024982,51.7651417 38.7196255,68.0171417 37.7382436,68.9988917 L6.22057091,42.8826417 Z" id="Fill-1" fill="#0C576F"></path>
+                    <path d="M70.33884,66.5076833 L7.61124,66.5076833 C7.18011273,66.5076833 6.83124,66.15635 6.83124,65.7285167 L6.83124,23.4721833 C6.83124,23.0415167 7.18011273,22.6916 7.61124,22.6916 L70.33884,22.6916 C70.7685491,22.6916 71.1174218,23.0415167 71.1174218,23.4721833 L71.1174218,65.7285167 C71.1174218,66.15635 70.7685491,66.5076833 70.33884,66.5076833" id="Fill-3" fill="#DCDCD2"></path>
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <g id="Clip-6"></g>
+                    <polygon id="Fill-5" fill="#8F9395" mask="url(#mask-4)" points="19.3227273 42.12175 58.6276364 42.12175 58.6276364 39.032 19.3227273 39.032"></polygon>
+                    <polygon id="Fill-7" fill="#8F9395" mask="url(#mask-4)" points="19.3227273 49.1115833 58.6276364 49.1115833 58.6276364 46.0218333 19.3227273 46.0218333"></polygon>
+                    <polygon id="Fill-8" fill="#8F9395" mask="url(#mask-4)" points="19.3227273 56.10425 58.6276364 56.10425 58.6276364 53.0130833 19.3227273 53.0130833"></polygon>
+                    <polygon id="Fill-9" fill="#8F9395" mask="url(#mask-4)" points="19.3227273 63.0940833 58.6276364 63.0940833 58.6276364 60.00575 19.3227273 60.00575"></polygon>
+                    <path d="M2.94386182,84.4630833 L66.3975709,84.4630833 C68.0228073,84.4630833 -0.000283636364,32.5705833 -0.000283636364,32.5705833 L-0.000283636364,81.5235 C-0.000283636364,83.1455833 1.31862545,84.4630833 2.94386182,84.4630833" id="Fill-10" fill="#FFFFFF" mask="url(#mask-4)"></path>
+                    <path d="M75.0067855,84.4630833 L11.5530764,84.4630833 C9.92784,84.4630833 77.9495127,32.5705833 77.9495127,32.5705833 L77.9495127,81.5235 C77.9495127,83.1455833 76.6320218,84.4630833 75.0067855,84.4630833" id="Fill-11" fill="#E7E9E9" mask="url(#mask-4)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

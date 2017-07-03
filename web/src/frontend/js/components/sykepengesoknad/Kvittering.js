@@ -28,7 +28,7 @@ class Kvittering extends Component {
         const { sykepengesoknad } = this.props;
         return (<div ref="kvittering">
             <Sidetopp tittel="Kvittering" />
-            <div className="panel">
+            <div className="panel js-kvittering">
                 <div className="hode hode--suksess">
                     <h2 className="hode__tittel">{getLedetekst(`sykepengesoknad.kvittering${getSendtTilSuffix(sykepengesoknad)}.tittel`)}</h2>
                     <div dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.kvittering${getSendtTilSuffix(sykepengesoknad)}.tekst`, {

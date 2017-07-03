@@ -728,62 +728,6 @@ describe("DinSykmeldingSkjema -", () => {
             });
         })
 
-        describe("arbeidsgiverForskutterer", () => {
-            it("Skal returnere arbeidsgiverForskutterer dersom arbeidssituasjon = ARBEIDSTAKER og det er valgt en arbeidsgiver", () => {
-                fields.opplysningeneErRiktige = true;
-                fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
-                fields.valgtArbeidsgiver = {
-                    orgnummer: "***REMOVED***",
-                    navn: "Alna Frisør"
-                };
-                fields.beOmNyNaermesteLeder = false;
-                const res = validate(fields, {
-                    pilotSykepenger: true,
-                });
-                expect(Object.keys(res)).to.deep.equal(["arbeidsgiverForskutterer"]);
-            });
-
-            it("Skal ikke returnere arbeidsgiverForskutterer dersom arbeidssituasjon = ARBEIDSTAKER og det er valgt en arbeidsgiver og pilotSykepenger = false", () => {
-                fields.opplysningeneErRiktige = true;
-                fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
-                fields.valgtArbeidsgiver = {
-                    orgnummer: "***REMOVED***",
-                    navn: "Alna Frisør"
-                };
-                fields.beOmNyNaermesteLeder = false;
-                const res = validate(fields, {
-                    pilotSykepenger: false,
-                });
-                expect(Object.keys(res)).to.deep.equal([]);
-            });
-
-            it("Skal ikke returnere arbeidsgiverForskutterer dersom arbeidssituasjon = ARBEIDSTAKER og det er valgt 'annen arbeidsgiver' og pilotSykepenger = true", () => {
-                fields.opplysningeneErRiktige = true;
-                fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
-                fields.valgtArbeidsgiver = {
-                    orgnummer: "0",
-                    navn: "Annen arbeidsgiver"
-                };
-                fields.beOmNyNaermesteLeder = false;
-                const res = validate(fields, {
-                    pilotSykepenger: true,
-                });
-                expect(Object.keys(res)).to.deep.equal([]);
-            });
-
-            it("Skal ikke returnere arbeidsgiverForskutterer dersom arbeidssituasjon = ARBEIDSTAKER og det ikke er valgt arbeidsgiver og pilotSykepenger = true", () => {
-                fields.opplysningeneErRiktige = true;
-                fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
-                fields.beOmNyNaermesteLeder = false;
-                const res = validate(fields, {
-                    pilotSykepenger: true,
-                });
-                expect(Object.keys(res)).to.deep.equal(['valgtArbeidsgiver']);
-            });
-        })
-
-
-
     });
 
 });

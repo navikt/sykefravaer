@@ -10,6 +10,7 @@ import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt } from '
 import { proptypes as motePropTypes } from 'moter-npm';
 import { moteActions } from 'moter-npm';
 import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
+import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
 
 export class LandingssideSide extends Component {
@@ -22,6 +23,9 @@ export class LandingssideSide extends Component {
         if (!this.props.ledereHentet) {
             this.props.hentLedere();
         }
+        if (!this.props.dineSykmeldingerHentet) {
+            this.props.hentDineSykmeldinger();
+        }
     }
 
     render() {
@@ -31,9 +35,9 @@ export class LandingssideSide extends Component {
             henter,
             hentingFeilet,
             sykepengesoknader,
-            visOppfoelgingsdialog,
             harDialogmote,
             dineSykmeldinger,
+            toggles,
         } = this.props;
 
         if (henter || hentingFeilet) {
@@ -50,12 +54,13 @@ export class LandingssideSide extends Component {
         }
         return (<StrippetSide tittel={getLedetekst('landingsside.sidetittel')}>
             <Landingsside
-                visOppfoelgingsdialog={visOppfoelgingsdialog}
                 brodsmuler={brodsmuler}
                 skjulVarsel={skjulVarsel}
                 sykepengesoknader={sykepengesoknader}
+                toggles={toggles}
                 harDialogmote={harDialogmote}
-                dineSykmeldinger={dineSykmeldinger} />
+                dineSykmeldinger={dineSykmeldinger}
+            />
         </StrippetSide>);
     }
 }
@@ -64,7 +69,7 @@ LandingssideSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     skjulVarsel: PropTypes.bool,
     henter: PropTypes.bool,
-    visOppfoelgingsdialog: PropTypes.bool,
+    toggles: PropTypes.object,
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     dialogmoter: PropTypes.arrayOf(motePropTypes.mote),
@@ -76,12 +81,11 @@ LandingssideSide.propTypes = {
     hentLedere: PropTypes.func,
     hentSykepengesoknader: PropTypes.func,
     dineSykmeldinger: PropTypes.array,
+    dineSykmeldingerHentet: PropTypes.bool,
+    hentDineSykmeldinger: PropTypes.func,
 };
 
 export function mapStateToProps(state) {
-    const sykepengesoknader = state.sykepengesoknader.data;
-    const visOppfoelgingsdialog = state.toggles.data['syfotoggles.oppfoelgingsdialog'] === 'true';
-
     return {
         henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.toggles.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet,
@@ -90,12 +94,13 @@ export function mapStateToProps(state) {
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
         }],
-        sykepengesoknader,
+        sykepengesoknader: state.sykepengesoknader.data,
         sykepengesoknaderHentet: state.sykepengesoknader.hentet === true,
         ledereHentet: state.ledere.hentet === true,
-        visOppfoelgingsdialog,
+        toggles: state.toggles.data,
         harDialogmote: state.mote.data !== null,
         dineSykmeldinger: state.dineSykmeldinger.data,
+        dineSykmeldingerHentet: state.dineSykmeldinger.hentet === true,
     };
 }
 
@@ -104,6 +109,7 @@ const LandingssideContainer = connect(mapStateToProps, {
     hentSykepengesoknader,
     hentLedere,
     hentToggles,
+    hentDineSykmeldinger,
 })(LandingssideSide);
 
 export default LandingssideContainer;

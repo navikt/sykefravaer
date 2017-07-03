@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
+import { getLabelId } from './Radioknapper';
 
 const Checkbox = ({ input, label, id, children }) => {
     return (<div className="checkboksContainer" id={`cb-${id}`}>
         <div className="skjema__input">
             <input id={id} type="checkbox" className="checkboks" checked={input.value} {...input} />
-            <label htmlFor={id}>{label}</label>
+            <label id={getLabelId(id)} htmlFor={id}>{label}</label>
         </div>
         {
             input.value === true && children && <div className="ekstrasporsmal">{children}</div>

@@ -1,15 +1,5 @@
 const MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING = 3;
 
-export const erBrukerSykmeldtPdd = (sykmeldinger) => {
-    return sykmeldinger.filter(sykmelding => {
-        return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
-            const tom = new Date(periode.tom);
-            tom.setDate(tom.getDate() + 1);
-            return new Date(periode.fom) < new Date() && new Date(periode.tom) > new Date();
-        }).length > 0;
-    }).length > 0;
-};
-
 export const sykmeldtHarNaermestelederHosArbeidsgiver = (virksomhetsnummer, naermesteLedere) => {
     return naermesteLedere.filter(leder => {
         return virksomhetsnummer === leder.orgnummer;
@@ -32,9 +22,29 @@ export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteL
         };
     }).filter((sykmelding, idx, self) => {
         return self.findIndex(t => {
-            return t.virksomhetsnummer === sykmelding.virksomhetsnummer;
+            return t.virksomhetsnummer === sykmelding.virksomhetsnummer && sykmelding.virksomhetsnummer !== null;
         }) === idx;
     });
+};
+
+export const skalViseOppfoelgingsdialogLenke = (sykmeldinger, toggles) => {
+    if (toggles['syfotoggles.oppfoelgingsdialog'] !== 'true') {
+        return false;
+    }
+
+    const piloter = toggles['syfotoggles.oppfoelgingsdialog.piloter'] ? toggles['syfotoggles.oppfoelgingsdialog.piloter'].split(',') : [];
+    return sykmeldinger.filter(sykmelding => {
+        return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
+            const tomGrenseDato = new Date();
+            tomGrenseDato.setHours(0, 0, 0, 0);
+            tomGrenseDato.setMonth(tomGrenseDato.getMonth() - MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING);
+            return new Date(periode.tom) >= new Date(tomGrenseDato) && piloter.includes(sykmelding.orgnummer);
+        }).length > 0;
+    }).filter((sykmelding, idx, self) => {
+        return self.findIndex(t => {
+            return t.orgnummer === sykmelding.orgnummer && sykmelding.orgnummer !== null;
+        }) === idx;
+    }).length > 0;
 };
 
 export const sykmeldtHarManglendeNaermesteLeder = (arbeidsgivere) => {

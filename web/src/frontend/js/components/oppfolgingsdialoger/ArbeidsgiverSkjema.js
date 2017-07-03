@@ -1,22 +1,33 @@
 import React, { PropTypes } from 'react';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { sykmeldtHarManglendeNaermesteLeder } from '../../utils/sykmeldingUtils';
-import { Varselstripe } from 'digisyfo-npm';
+import { erOppfolgingsdialogOpprettetMedArbeidsgiver } from '../../utils/oppfolgingsdialogUtils';
 import Radioknapper from '../skjema/Radioknapper';
 
 const OPPFOLGINGSKJEMANAVN = 'OPPRETT_DIALOG';
 
-export const renderArbeidsgiverFeilomrade = (arbeidsgiver) => {
-    return !arbeidsgiver.harNaermesteLeder &&
-        <div className="arbeidsgiverskjema__feilomrade">
-            <img className="arbeidsgiverskjema__feilomrade__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
-            <span className="arbeidsgiverskjema__feilomrade__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.tekst')}</span>
-        </div>;
+export const VelgArbeidsgiverFeilmelding = ({ oppfolgingsdialoger, arbeidsgiver }) => {
+    if (erOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer)) {
+        return (<div className="velgArbeidsgiverFeilmelding">
+            <img className="velgArbeidsgiverFeilmelding__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
+            <span className="velgArbeidsgiverFeilmelding__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.allerede-oppretettet.tekst')}</span>
+        </div>);
+    } else if (!arbeidsgiver.harNaermesteLeder) {
+        return (<div className="velgArbeidsgiverFeilmelding">
+            <img className="velgArbeidsgiverFeilmelding__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
+            <span className="velgArbeidsgiverFeilmelding__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.ingen-naermesteleder.tekst')}</span>
+        </div>);
+    }
+    return (null);
+};
+VelgArbeidsgiverFeilmelding.propTypes = {
+    oppfolgingsdialoger: PropTypes.array,
+    arbeidsgiver: PropTypes.object,
 };
 
-let ArbeidsgiverSkjema = ({ arbeidsgivere, handleSubmit, avbrytHref }) => {
+export const ArbeidsgiverSkjema = ({ arbeidsgivere, oppfolgingsdialoger, handleSubmit, avbrytHref }) => {
     return (
         <form onSubmit={handleSubmit}>
             <div className="inputgruppe velgarbeidsgiver__inputgruppe">
@@ -30,18 +41,24 @@ let ArbeidsgiverSkjema = ({ arbeidsgivere, handleSubmit, avbrytHref }) => {
                                     key={index}
                                     value={arbeidsgiver.virksomhetsnummer}
                                     label={arbeidsgiver.navn}
-                                    children={renderArbeidsgiverFeilomrade(arbeidsgiver)}
-                                    disabled={!arbeidsgiver.harNaermesteLeder} />
+                                    disabled={!arbeidsgiver.harNaermesteLeder || erOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer)}>
+                                    <VelgArbeidsgiverFeilmelding
+                                        oppfolgingsdialoger={oppfolgingsdialoger}
+                                        arbeidsgiver={arbeidsgiver}
+                                    />
+                                </input>
                             );
                         })
                     }
                 </Field>
             </div>
 
-            {sykmeldtHarManglendeNaermesteLeder(arbeidsgivere) &&
-            <Varselstripe>
-                <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varselstripe.tekst')}</p>
-            </Varselstripe>}
+            {
+                sykmeldtHarManglendeNaermesteLeder(arbeidsgivere) &&
+                <Varselstripe>
+                    <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varselstripe.tekst')}</p>
+                </Varselstripe>
+            }
 
             <div className="knapperad">
                 <button
@@ -58,6 +75,7 @@ let ArbeidsgiverSkjema = ({ arbeidsgivere, handleSubmit, avbrytHref }) => {
 
 ArbeidsgiverSkjema.propTypes = {
     arbeidsgivere: PropTypes.array,
+    oppfolgingsdialoger: PropTypes.array,
     avbrytHref: PropTypes.string,
     handleSubmit: PropTypes.func,
 };
@@ -72,9 +90,7 @@ function validate(values) {
     return feilmeldinger;
 }
 
-ArbeidsgiverSkjema = reduxForm({
+export default reduxForm({
     form: OPPFOLGINGSKJEMANAVN,
     validate,
 })(ArbeidsgiverSkjema);
-
-export default ArbeidsgiverSkjema;

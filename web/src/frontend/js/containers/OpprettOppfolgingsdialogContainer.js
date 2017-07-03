@@ -11,8 +11,10 @@ import OpprettOppfolgingsdialog from '../components/oppfolgingsdialoger/OpprettO
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
 import {
+    OppfolgingsdialogInfoboks,
     opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
+    sjekkTilgang,
 } from 'oppfolgingsdialog-npm';
 
 export class OpprettOppfolgingsdialogSide extends Component {
@@ -26,12 +28,18 @@ export class OpprettOppfolgingsdialogSide extends Component {
     }
 
     componentWillMount() {
-        const { sykmeldingerHentet, ledereHentet } = this.props;
+        const { tilgangSjekket, sykmeldingerHentet, ledereHentet, oppfolgingsdialogerHentet } = this.props;
+        if (!tilgangSjekket) {
+            this.props.sjekkTilgang();
+        }
         if (!sykmeldingerHentet) {
             this.props.hentDineSykmeldinger();
         }
         if (!ledereHentet) {
             this.props.hentLedere();
+        }
+        if (!oppfolgingsdialogerHentet) {
+            this.props.hentOppfolgingsdialoger();
         }
     }
 
@@ -58,7 +66,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
     }
 
     render() {
-        const { brodsmuler, sykmeldinger, naermesteLedere, henter, hentingFeilet, oppretter, opprettingFeilet } = this.props;
+        const { brodsmuler, sykmeldinger, naermesteLedere, oppfolgingsdialoger, henter, hentingFeilet, oppretter, opprettingFeilet, tilgang } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialoger.opprett.tittel')} brodsmuler={brodsmuler}>
             {
@@ -67,6 +75,13 @@ export class OpprettOppfolgingsdialogSide extends Component {
                         return <AppSpinner />;
                     } else if (hentingFeilet || opprettingFeilet) {
                         return (<Feilmelding />);
+                    } else if (!tilgang.harTilgang) {
+                        return (<OppfolgingsdialogInfoboks
+                            svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                            svgAlt="ikkeTilgang"
+                            tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                            tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
+                        />);
                     }
                     return (
                         <div>
@@ -75,6 +90,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
                             <OpprettOppfolgingsdialog
                                 sykmeldinger={sykmeldinger}
                                 naermesteLedere={naermesteLedere}
+                                oppfolgingsdialoger={oppfolgingsdialoger}
                                 avbrytHref="/sykefravaer/oppfolgingsplaner"
                                 velgArbeidsgiver={this.opprett}
                             />
@@ -94,13 +110,18 @@ OpprettOppfolgingsdialogSide.propTypes = {
     opprettet: PropTypes.bool,
     opprettingFeilet: PropTypes.bool,
     opprettOppfolgingsdialog: PropTypes.func,
+    oppfolgingsdialoger: PropTypes.array,
     hentOppfolgingsdialoger: PropTypes.func,
+    oppfolgingsdialogerHentet: PropTypes.bool,
     sykmeldinger: PropTypes.array,
     sykmeldingerHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
     naermesteLedere: PropTypes.array,
     ledereHentet: PropTypes.bool,
     hentLedere: PropTypes.func,
+    tilgang: PropTypes.object,
+    tilgangSjekket: PropTypes.bool,
+    sjekkTilgang: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
@@ -108,13 +129,17 @@ export const mapStateToProps = (state) => {
         ledetekster: state.ledetekster.data,
         sykmeldinger: state.dineSykmeldinger.data,
         naermesteLedere: state.ledere.data,
-        henter: state.ledetekster.henter || state.dineSykmeldinger.henter || state.ledere.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.henter || state.ledere.henter,
+        henter: state.ledetekster.henter || state.dineSykmeldinger.henter || state.ledere.henter || state.oppfolgingsdialoger.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet || state.ledere.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet,
         oppretter: state.oppfolgingsdialoger.oppretter,
         opprettet: state.oppfolgingsdialoger.opprettet,
         opprettingFeilet: state.oppfolgingsdialoger.opprettingFeilet,
         sykmeldingerHentet: state.dineSykmeldinger.hentet,
         ledereHentet: state.ledere.hentet,
+        oppfolgingsdialoger: state.oppfolgingsdialoger.data,
+        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
+        tilgang: state.tilgang.data,
+        tilgangSjekket: state.tilgang.hentet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -126,6 +151,6 @@ export const mapStateToProps = (state) => {
     };
 };
 
-const OppfolgingsdialogContainer = connect(mapStateToProps, { opprettOppfolgingsdialog, hentOppfolgingsdialoger, hentDineSykmeldinger, hentLedere })(OpprettOppfolgingsdialogSide);
+const OppfolgingsdialogContainer = connect(mapStateToProps, { opprettOppfolgingsdialog, hentOppfolgingsdialoger, hentDineSykmeldinger, hentLedere, sjekkTilgang })(OpprettOppfolgingsdialogSide);
 
 export default OppfolgingsdialogContainer;

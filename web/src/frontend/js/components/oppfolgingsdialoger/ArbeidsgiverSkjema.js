@@ -11,8 +11,8 @@ const OPPFOLGINGSKJEMANAVN = 'OPPRETT_DIALOG';
 export const VelgArbeidsgiverFeilmelding = ({ oppfolgingsdialoger, arbeidsgiver }) => {
     if (erOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer)) {
         return (<div className="velgArbeidsgiverFeilmelding">
-            <img className="VelgArbeidsgiverFeilmelding__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
-            <span className="VelgArbeidsgiverFeilmelding__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.allerede-oppretettet.tekst')}</span>
+            <img className="velgArbeidsgiverFeilmelding__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
+            <span className="velgArbeidsgiverFeilmelding__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.allerede-oppretettet.tekst')}</span>
         </div>);
     } else if (!arbeidsgiver.harNaermesteLeder) {
         return (<div className="velgArbeidsgiverFeilmelding">

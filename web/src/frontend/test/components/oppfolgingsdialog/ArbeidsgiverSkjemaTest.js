@@ -84,7 +84,7 @@ describe("ArbeidsoppgaverContainer", () => {
                 oppfolgingsdialoger={oppfolgingsdialoger}
                 arbeidsgiver={arbeidsgivere[0]}
             />);
-            expect(komponent.find('velgArbeidsgiverFeilmelding')).to.have.length(0);
+            expect(komponent.find('div.velgArbeidsgiverFeilmelding')).to.have.length(0);
         });
 
         it('Skal vise en feilmelding, om det allerede er opprettet en plan med arbeidsgiver', () => {

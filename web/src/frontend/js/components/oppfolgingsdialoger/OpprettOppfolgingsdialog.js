@@ -3,8 +3,9 @@ import { getLedetekst } from 'digisyfo-npm';
 import ArbeidsgiverSkjema from './ArbeidsgiverSkjema';
 import { finnArbeidsgivereForGyldigeSykmeldinger } from '../../utils/sykmeldingUtils';
 
-const OpprettOppfolgingsdialog = ({ sykmeldinger, naermesteLedere, avbrytHref, velgArbeidsgiver }) => {
+const OpprettOppfolgingsdialog = ({ sykmeldinger, naermesteLedere, oppfolgingsdialoger, avbrytHref, velgArbeidsgiver }) => {
     const arbeidsgivere = finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere);
+
 
     return (
         <div className="panel blokk velgarbeidsgiver__blokk">
@@ -14,6 +15,7 @@ const OpprettOppfolgingsdialog = ({ sykmeldinger, naermesteLedere, avbrytHref, v
             </div>
             <ArbeidsgiverSkjema
                 arbeidsgivere={arbeidsgivere}
+                oppfolgingsdialoger={oppfolgingsdialoger}
                 onSubmit={velgArbeidsgiver}
                 avbrytHref={avbrytHref}
             />
@@ -24,6 +26,7 @@ const OpprettOppfolgingsdialog = ({ sykmeldinger, naermesteLedere, avbrytHref, v
 OpprettOppfolgingsdialog.propTypes = {
     sykmeldinger: PropTypes.array,
     naermesteLedere: PropTypes.array,
+    oppfolgingsdialoger: PropTypes.array,
     avbrytHref: PropTypes.string,
     velgArbeidsgiver: PropTypes.func,
 };

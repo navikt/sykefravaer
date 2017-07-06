@@ -10,21 +10,6 @@ import {
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 
-export const RenderGodkjennPlanKnapper = ({ toggleTiltakSkjema }) => {
-    return (
-        <div className="knapperad">
-            <button
-                className="knapp knapperad__element"
-                onClick={toggleTiltakSkjema}>
-                {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-tiltak')}
-            </button>
-        </div>
-    );
-};
-RenderGodkjennPlanKnapper.propTypes = {
-    toggleTiltakSkjema: PropTypes.func,
-};
-
 export class Plan extends Component {
 
     constructor(props) {

@@ -107,7 +107,7 @@ export function mapStateToProps(state, ownProps) {
 
     return {
         ledetekster: state.ledetekster.data,
-        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.henter,
+        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
         henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter,
         hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet,
         lagrer: state.arbeidsoppgaver.lagrer,

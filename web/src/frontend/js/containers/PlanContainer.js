@@ -8,6 +8,7 @@ import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     giSamtykke,
     godkjennDialog,
+    hentPdfurler,
     sjekkTilgang,
     OppfolgingsdialogInfoboks,
 } from 'oppfolgingsdialog-npm';
@@ -33,6 +34,13 @@ export class PlanSide extends Component {
             this.props.hentOppfolgingsdialoger();
         }
     }
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.oppfolgingsdialogerHentet && this.props.oppfolgingsdialogerHentet) {
+            this.props.hentPdfurler(this.props.oppfolgingsdialogId, this.props.oppfolgingsdialog.versjon);
+        }
+    }
+
     giSamtykkeSvar(values) {
         if (values.samtykkeGitt === 'true') {
             this.props.giSamtykke(this.props.oppfolgingsdialogId);
@@ -50,7 +58,7 @@ export class PlanSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, tilgang } = this.props;
+        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, pdfUrler, henter, hentingFeilet, tilgang } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
@@ -71,6 +79,7 @@ export class PlanSide extends Component {
                     oppfolgingsdialog={oppfolgingsdialog}
                     oppfolgingsdialogId={oppfolgingsdialogId}
                     giSamtykkeSvar={this.giSamtykkeSvar}
+                    pdfUrler={pdfUrler}
                 />);
             })()
             }
@@ -93,6 +102,9 @@ PlanSide.propTypes = {
     sjekkTilgang: PropTypes.func,
     giSamtykke: PropTypes.func,
     godkjennDialog: PropTypes.func,
+    hentPdfurler: PropTypes.func,
+    pdfUrlerHentet: PropTypes.bool,
+    pdfUrler: PropTypes.array,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -102,13 +114,15 @@ export function mapStateToProps(state, ownProps) {
 
     return {
         ledetekster: state.ledetekster.data,
-        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.henter,
-        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter,
-        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet,
+        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
+        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.dokument.henter,
+        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.dokument.hentingFeilet,
         oppfolgingsdialog,
         oppfolgingsdialogId,
         tilgang: state.tilgang.data,
         tilgangSjekket: state.tilgang.hentet,
+        pdfUrlerHentet: state.dokument.hentet,
+        pdfUrler: state.dokument.data,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -123,6 +137,6 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-const PlanContainer = connect(mapStateToProps, { giSamtykke, godkjennDialog, hentOppfolgingsdialoger, sjekkTilgang })(PlanSide);
+const PlanContainer = connect(mapStateToProps, { giSamtykke, godkjennDialog, hentOppfolgingsdialoger, hentPdfurler, sjekkTilgang })(PlanSide);
 
 export default PlanContainer;

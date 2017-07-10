@@ -12,7 +12,7 @@ import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger';
 import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
 import ledere from './reducers/ledere';
-import { oppfolgingsdialogerAt as oppfolgingsdialoger, arbeidsoppgaver, samtykke, tilgang, tiltak } from 'oppfolgingsdialog-npm';
+import { oppfolgingsdialogerAt as oppfolgingsdialoger, arbeidsoppgaver, dokument, samtykke, tilgang, tiltak } from 'oppfolgingsdialog-npm';
 import { hentLedetekster, ledetekster, tidslinjer, toggles } from 'digisyfo-npm';
 import { hentVedlikehold } from './actions/vedlikehold_actions';
 import history from './history';
@@ -48,6 +48,7 @@ const rootReducer = combineReducers({
     form: formReducer,
     formMeta: reduxFormMeta,
     forskutteringssporsmal,
+    dokument,
 });
 
 const sagaMiddleware = createSagaMiddleware();

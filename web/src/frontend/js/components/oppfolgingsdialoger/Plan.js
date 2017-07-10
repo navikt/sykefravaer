@@ -7,7 +7,7 @@ import {
 import GodkjennPlan from './GodkjennPlan';
 import { getContextRoot } from '../../routers/paths';
 
-export const Plan = ({ ledetekster, oppfolgingsdialog, oppfolgingsdialogId, giSamtykkeSvar }) => {
+export const Plan = ({ ledetekster, oppfolgingsdialog, oppfolgingsdialogId, pdfUrler, giSamtykkeSvar }) => {
     return (
         <OppfolgingsdialogSide
             brukernavn={oppfolgingsdialog.virksomhetsnavn}
@@ -38,8 +38,10 @@ export const Plan = ({ ledetekster, oppfolgingsdialog, oppfolgingsdialogId, giSa
                 <GodkjentPlan
                     ledetekster={ledetekster}
                     oppfolgingsdialog={oppfolgingsdialog}
+                    oppfolgingsdialogId={oppfolgingsdialogId}
                     brukerType="SYKMELDT"
                     rootUrl={`${getContextRoot()}`}
+                    pdfUrler={pdfUrler}
                 />
             }
         </OppfolgingsdialogSide>
@@ -51,6 +53,7 @@ Plan.propTypes = {
     oppfolgingsdialog: PropTypes.object,
     oppfolgingsdialogId: PropTypes.string,
     giSamtykkeSvar: PropTypes.func,
+    pdfUrler: PropTypes.array,
 };
 
 export default Plan;

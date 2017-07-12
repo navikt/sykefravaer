@@ -75,26 +75,26 @@ export class OpprettOppfolgingsdialogSide extends Component {
                         return <AppSpinner />;
                     } else if (hentingFeilet || opprettingFeilet) {
                         return (<Feilmelding />);
-                    } else if (!tilgang.harTilgang) {
-                        return (<OppfolgingsdialogInfoboks
-                            svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
-                            svgAlt="ikkeTilgang"
-                            tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-                            tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
-                        />);
+                    } else if (tilgang.harTilgang) {
+                        return (
+                            <div>
+                                <Sidetopp
+                                    tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
+                                <OpprettOppfolgingsdialog
+                                    sykmeldinger={sykmeldinger}
+                                    naermesteLedere={naermesteLedere}
+                                    oppfolgingsdialoger={oppfolgingsdialoger}
+                                    avbrytHref="/sykefravaer/oppfolgingsplaner"
+                                    velgArbeidsgiver={this.opprett}
+                                />
+                            </div>);
                     }
-                    return (
-                        <div>
-                            <Sidetopp
-                                tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
-                            <OpprettOppfolgingsdialog
-                                sykmeldinger={sykmeldinger}
-                                naermesteLedere={naermesteLedere}
-                                oppfolgingsdialoger={oppfolgingsdialoger}
-                                avbrytHref="/sykefravaer/oppfolgingsplaner"
-                                velgArbeidsgiver={this.opprett}
-                            />
-                        </div>);
+                    return (<OppfolgingsdialogInfoboks
+                        svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                        svgAlt="ikkeTilgang"
+                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                        tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
+                    />);
                 })()
             }
         </Side>);

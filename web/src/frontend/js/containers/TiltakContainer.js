@@ -55,21 +55,21 @@ export class TiltakSide extends Component {
                     return <AppSpinner />;
                 } else if (hentingFeilet || lagringFeilet || slettingFeilet) {
                     return (<Feilmelding />);
-                } else if (!tilgang.harTilgang) {
-                    return (<OppfolgingsdialogInfoboks
-                        svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
-                        svgAlt="ikkeTilgang"
-                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-                        tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
+                } else if (tilgang.harTilgang) {
+                    return (<Tiltak
+                        oppfolgingsdialog={oppfolgingsdialog}
+                        ledetekster={ledetekster}
+                        oppfolgingsdialogId={oppfolgingsdialogId}
+                        sendLagreTiltak={this.sendLagreTiltak}
+                        sendSlettTiltak={this.sendSlettTiltak}
+                        tiltakLagret={lagret}
                     />);
                 }
-                return (<Tiltak
-                    oppfolgingsdialog={oppfolgingsdialog}
-                    ledetekster={ledetekster}
-                    oppfolgingsdialogId={oppfolgingsdialogId}
-                    sendLagreTiltak={this.sendLagreTiltak}
-                    sendSlettTiltak={this.sendSlettTiltak}
-                    tiltakLagret={lagret}
+                return (<OppfolgingsdialogInfoboks
+                    svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                    svgAlt="ikkeTilgang"
+                    tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                    tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
                 />);
             })()
             }

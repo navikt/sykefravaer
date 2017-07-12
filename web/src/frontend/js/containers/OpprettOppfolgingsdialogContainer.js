@@ -75,26 +75,26 @@ export class OpprettOppfolgingsdialogSide extends Component {
                         return <AppSpinner />;
                     } else if (hentingFeilet || opprettingFeilet) {
                         return (<Feilmelding />);
-                    } else if (tilgang.harTilgang) {
-                        return (
-                            <div>
-                                <Sidetopp
-                                    tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
-                                <OpprettOppfolgingsdialog
-                                    sykmeldinger={sykmeldinger}
-                                    naermesteLedere={naermesteLedere}
-                                    oppfolgingsdialoger={oppfolgingsdialoger}
-                                    avbrytHref="/sykefravaer/oppfolgingsplaner"
-                                    velgArbeidsgiver={this.opprett}
-                                />
-                            </div>);
+                    } else if (!tilgang.harTilgang) {
+                        return (<OppfolgingsdialogInfoboks
+                            svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                            svgAlt="ikkeTilgang"
+                            tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                            tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
+                        />);
                     }
-                    return (<OppfolgingsdialogInfoboks
-                        svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
-                        svgAlt="ikkeTilgang"
-                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-                        tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
-                    />);
+                    return (
+                        <div>
+                            <Sidetopp
+                                tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
+                            <OpprettOppfolgingsdialog
+                                sykmeldinger={sykmeldinger}
+                                naermesteLedere={naermesteLedere}
+                                oppfolgingsdialoger={oppfolgingsdialoger}
+                                avbrytHref="/sykefravaer/oppfolgingsplaner"
+                                velgArbeidsgiver={this.opprett}
+                            />
+                        </div>);
                 })()
             }
         </Side>);
@@ -129,8 +129,8 @@ export const mapStateToProps = (state) => {
         ledetekster: state.ledetekster.data,
         sykmeldinger: state.dineSykmeldinger.data,
         naermesteLedere: state.ledere.data,
-        henter: state.ledetekster.henter || state.dineSykmeldinger.henter || state.ledere.henter || state.oppfolgingsdialoger.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet || state.ledere.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet,
+        henter: state.ledetekster.henter || state.dineSykmeldinger.henter || state.ledere.henter || state.oppfolgingsdialoger.henter || state.tilgang.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet || state.ledere.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet || state.tilgang.hentingFeilet,
         oppretter: state.oppfolgingsdialoger.oppretter,
         opprettet: state.oppfolgingsdialoger.opprettet,
         opprettingFeilet: state.oppfolgingsdialoger.opprettingFeilet,

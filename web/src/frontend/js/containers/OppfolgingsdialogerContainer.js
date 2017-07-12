@@ -29,17 +29,17 @@ export class OppfolgingsdialogerSide extends Component {
                         return <AppSpinner />;
                     } else if (hentingFeilet) {
                         return (<Feilmelding />);
-                    } else if (tilgang.harTilgang) {
-                        return (<Oppfolgingsdialoger
-                            oppfolgingsdialoger={oppfolgingsdialoger}
-                            ledetekster={ledetekster}
+                    } else if (!tilgang.harTilgang) {
+                        return (<OppfolgingsdialogInfoboks
+                            svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                            svgAlt="ikkeTilgang"
+                            tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                            tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
                         />);
                     }
-                    return (<OppfolgingsdialogInfoboks
-                        svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
-                        svgAlt="ikkeTilgang"
-                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-                        tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
+                    return (<Oppfolgingsdialoger
+                        oppfolgingsdialoger={oppfolgingsdialoger}
+                        ledetekster={ledetekster}
                     />);
                 })()
             }
@@ -66,8 +66,8 @@ export const mapStateToProps = (state) => {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
-        henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet,
+        henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter || state.tilgang.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet || state.tilgang.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

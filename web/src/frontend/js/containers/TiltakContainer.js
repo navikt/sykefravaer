@@ -55,21 +55,21 @@ export class TiltakSide extends Component {
                     return <AppSpinner />;
                 } else if (hentingFeilet || lagringFeilet || slettingFeilet) {
                     return (<Feilmelding />);
-                } else if (tilgang.harTilgang) {
-                    return (<Tiltak
-                        oppfolgingsdialog={oppfolgingsdialog}
-                        ledetekster={ledetekster}
-                        oppfolgingsdialogId={oppfolgingsdialogId}
-                        sendLagreTiltak={this.sendLagreTiltak}
-                        sendSlettTiltak={this.sendSlettTiltak}
-                        tiltakLagret={lagret}
+                } else if (!tilgang.harTilgang) {
+                    return (<OppfolgingsdialogInfoboks
+                        svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                        svgAlt="ikkeTilgang"
+                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                        tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
                     />);
                 }
-                return (<OppfolgingsdialogInfoboks
-                    svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
-                    svgAlt="ikkeTilgang"
-                    tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-                    tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
+                return (<Tiltak
+                    oppfolgingsdialog={oppfolgingsdialog}
+                    ledetekster={ledetekster}
+                    oppfolgingsdialogId={oppfolgingsdialogId}
+                    sendLagreTiltak={this.sendLagreTiltak}
+                    sendSlettTiltak={this.sendSlettTiltak}
+                    tiltakLagret={lagret}
                 />);
             })()
             }
@@ -108,8 +108,8 @@ export function mapStateToProps(state, ownProps) {
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.henter,
-        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter,
-        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet,
+        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter,
+        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet,
         lagrer: state.tiltak.lagrer,
         lagret: state.tiltak.lagret,
         lagringFeilet: state.tiltak.lagringFeilet,

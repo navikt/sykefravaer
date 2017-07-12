@@ -55,21 +55,21 @@ export class ArbeidsoppgaverSide extends Component {
                     return <AppSpinner />;
                 } else if (hentingFeilet || lagringFeilet || slettingFeilet) {
                     return (<Feilmelding />);
-                } else if (tilgang.harTilgang) {
-                    return (<Arbeidsoppgaver
-                        oppfolgingsdialog={oppfolgingsdialog}
-                        ledetekster={ledetekster}
-                        oppfolgingsdialogId={oppfolgingsdialogId}
-                        sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
-                        sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
-                        arbeidsoppgaveLagret={lagret}
+                } else if (!tilgang.harTilgang) {
+                    return (<OppfolgingsdialogInfoboks
+                        svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                        svgAlt="ikkeTilgang"
+                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                        tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
                     />);
                 }
-                return (<OppfolgingsdialogInfoboks
-                    svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
-                    svgAlt="ikkeTilgang"
-                    tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-                    tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
+                return (<Arbeidsoppgaver
+                    oppfolgingsdialog={oppfolgingsdialog}
+                    ledetekster={ledetekster}
+                    oppfolgingsdialogId={oppfolgingsdialogId}
+                    sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
+                    sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
+                    arbeidsoppgaveLagret={lagret}
                 />);
             })()
             }
@@ -108,8 +108,8 @@ export function mapStateToProps(state, ownProps) {
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.henter,
-        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter,
-        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet,
+        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter  || state.tilgang.henter,
+        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet,
         lagrer: state.arbeidsoppgaver.lagrer,
         lagret: state.arbeidsoppgaver.lagret,
         lagringFeilet: state.arbeidsoppgaver.lagringFeilet,

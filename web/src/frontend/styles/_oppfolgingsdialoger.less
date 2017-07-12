@@ -1,4 +1,3 @@
-@lenkeGraa: #c8c8c8;
 @panelLysblaa: #cfe2f3;
 @fargeAdvarsel: #fdbc6d;
 @fargeSuksess: #9bd0b0;
@@ -9,9 +8,8 @@
 .lenke--avbryt {
     text-transform: uppercase;
 }
-.oppfolgingsdialoger__pil {
-    display: block;
-    margin: 0 auto 2em auto;
+.knapperad--justervenstre {
+    text-align: left;
 }
 .panel--lysblaa {
     background: @panelLysblaa;
@@ -20,16 +18,7 @@
     background: @fargeAdvarsel;
 }
 .panel--suksess {
-    background: @fargeSuksess;
-}
-.notifikasjonboks {
-    padding: 1em 2em;
-}
-.notifikasjonboks__img {
-    margin-right: 1em;
-}
-.notifikasjonboks__tekst {
-
+    background: @suksessGroenn;
 }
 
 .velgarbeidsgiver__blokk {
@@ -38,10 +27,6 @@
 }
 .velgarbeidsgiver__inputgruppe {
     margin-bottom: 2em;
-}
-
-.oppfolgingsdialoger__rammeknapp {
-    margin-bottom: 3em;
 }
 .velgArbeidsgiverFeilmelding {
     margin-left: 2em;
@@ -57,118 +42,4 @@
 }
 .skjema__input--inaktiv {
     opacity: 0.5;
-}
-.samtykke__tekst {
-    margin-bottom: 4em;
-}
-.samtykke__inputgruppe {
-    text-align: center;
-    & > div {
-        display: inline-block;
-    }
-}
-.lagrearbeidsoppgaveskjema__inputgruppe {
-    margin-bottom: 2em;
-}
-
-.tabellelementinformasjon__innhold {
-    padding: 2em;
-    border: 0.1em solid @lenkeGraa;
-}
-.oppfolgingsdialogtabell {
-    width: 100%;
-    color: @navTekst;
-}
-.oppfolgingsdialogtabell__rad {
-    display: table;
-    width: 100%;
-    background: #fff;
-}
-.oppfolgingsdialogtabell__rad:before,
-.oppfolgingsdialogtabell__rad:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-.oppfolgingsdialogtabell__rad--overskrift {
-    padding: 2em;
-    border-bottom: 0.5em solid #efefef;
-    font-weight: bold;
-}
-.oppfolgingsdialogtabell__rad--element {
-    padding: 2em;
-    border-bottom: 0.5em solid #efefef;
-    &:last-of-type {
-        border-bottom: none;
-    }
-}
-.oppfolgingsdialogtabell__rad__celle {
-    float: left;
-    min-height: 1px;
-    padding-right: 1em;
-    &:nth-child(1){
-        width: 35%;
-    }
-    &:nth-child(2) {
-        width: 25%;
-    }
-    &:nth-child(3){
-        width: 30%;
-    }
-    &:nth-child(4) {
-        width: 10%;
-        padding-right: 0;
-        cursor: pointer;
-    }
-}
-.oppfolgingsdialogtabell__rad__pil {
-    float: right;
-    width: 1.5em;
-}
-.oppfolgingsdialogtabell__rad__advarsel {
-    margin-right: 1em;
-}
-.oppfolgingsdialogtabell__rad__utvidbar {
-    margin-top: 3em;
-}
-
-.navigasjonsLenkeListe {
-    padding: 0;
-}
-.navigasjon__element {
-    display: inline-block;
-    padding: .5em 0;
-    .mixin-typo-element();
-    text-transform: uppercase;
-    &:not(:last-child):after {
-        content: "";
-        background-image: data-uri("../img/svg/pil-videre-graa.svg");
-        background-repeat: no-repeat;
-        padding: 0 .5em;
-        margin-left: 1em;
-        margin-right: 0.5em;
-    }
-}
-.navigasjon__element__inner {
-    align-items: center;
-    cursor: pointer;
-    color: @lenkeGraa;
-    a {
-        color: @lenkeGraa;
-    }
-    &:hover {
-        border-bottom: 4px @lenkeBlaa solid;
-    }
-    border-bottom: none;
-}
-.navigasjon__element__inner--active {
-    color: @lenkeBlaa;
-    a {
-        color: @lenkeBlaa;
-    }
-    border-bottom: 4px @lenkeBlaa solid;
-}
-
-.knapperad--justervenstre {
-    text-align: left;
 }

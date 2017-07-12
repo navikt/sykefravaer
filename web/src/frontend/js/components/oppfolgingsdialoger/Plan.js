@@ -3,6 +3,7 @@ import {
     OppfolgingsdialogSide,
     GodkjennPlanSendt,
     GodkjentPlan,
+    BRUKERTYPE,
 } from 'oppfolgingsdialog-npm';
 import GodkjennPlan from './GodkjennPlan';
 import { getContextRoot } from '../../routers/paths';
@@ -19,7 +20,7 @@ export const Plan = ({ ledetekster, oppfolgingsdialog, oppfolgingsdialogId, pdfU
                 <GodkjennPlan
                     ledetekster={ledetekster}
                     oppfolgingsdialog={oppfolgingsdialog}
-                    brukerType="SYKMELDT"
+                    brukerType={BRUKERTYPE.ARBEIDSTAKER}
                     giSamtykkeSvar={giSamtykkeSvar}
                 />
             }
@@ -29,7 +30,7 @@ export const Plan = ({ ledetekster, oppfolgingsdialog, oppfolgingsdialogId, pdfU
                 <GodkjennPlanSendt
                     ledetekster={ledetekster}
                     oppfolgingsdialog={oppfolgingsdialog}
-                    brukerType="SYKMELDT"
+                    brukerType={BRUKERTYPE.ARBEIDSTAKER}
                     rootUrl={`${getContextRoot()}`}
                 />
             }
@@ -39,7 +40,7 @@ export const Plan = ({ ledetekster, oppfolgingsdialog, oppfolgingsdialogId, pdfU
                     ledetekster={ledetekster}
                     oppfolgingsdialog={oppfolgingsdialog}
                     oppfolgingsdialogId={oppfolgingsdialogId}
-                    brukerType="SYKMELDT"
+                    brukerType={BRUKERTYPE.ARBEIDSTAKER}
                     rootUrl={`${getContextRoot()}`}
                     pdfUrler={pdfUrler}
                 />

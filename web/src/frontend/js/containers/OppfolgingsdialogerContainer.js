@@ -66,8 +66,8 @@ export const mapStateToProps = (state) => {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
-        henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet,
+        henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter || state.tilgang.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet || state.tilgang.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

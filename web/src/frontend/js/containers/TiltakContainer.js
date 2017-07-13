@@ -107,9 +107,9 @@ export function mapStateToProps(state, ownProps) {
 
     return {
         ledetekster: state.ledetekster.data,
-        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
-        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter,
-        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet,
+        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.henter,
+        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter,
+        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet,
         lagrer: state.tiltak.lagrer,
         lagret: state.tiltak.lagret,
         lagringFeilet: state.tiltak.lagringFeilet,

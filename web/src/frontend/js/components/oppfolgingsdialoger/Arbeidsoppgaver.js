@@ -111,6 +111,7 @@ export class Arbeidsoppgaver extends Component {
         return (
             <OppfolgingsdialogSide
                 brukernavn={oppfolgingsdialog.virksomhetsnavn}
+                oppfolgingsdialog={oppfolgingsdialog}
                 ledetekster={ledetekster}
                 rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}>
                 {

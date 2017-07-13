@@ -12,6 +12,7 @@ export const Plan = ({ ledetekster, oppfolgingsdialog, oppfolgingsdialogId, pdfU
     return (
         <OppfolgingsdialogSide
             brukernavn={oppfolgingsdialog.virksomhetsnavn}
+            oppfolgingsdialog={oppfolgingsdialog}
             ledetekster={ledetekster}
             rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}>
 

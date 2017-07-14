@@ -3,7 +3,11 @@ import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { sykmeldtHarManglendeNaermesteLeder } from '../../utils/sykmeldingUtils';
-import { erOppfolgingsdialogOpprettetMedArbeidsgiver } from '../../utils/oppfolgingsdialogUtils';
+import {
+    erOppfolgingsdialogOpprettetMedArbeidsgiver,
+    erOppfolgingsdialogOpprettbarMedArbeidsgiver,
+    erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver,
+} from '../../utils/oppfolgingsdialogUtils';
 import Radioknapper from '../skjema/Radioknapper';
 
 const OPPFOLGINGSKJEMANAVN = 'OPPRETT_DIALOG';
@@ -41,7 +45,7 @@ export const ArbeidsgiverSkjema = ({ arbeidsgivere, oppfolgingsdialoger, handleS
                                     key={index}
                                     value={arbeidsgiver.virksomhetsnummer}
                                     label={arbeidsgiver.navn}
-                                    disabled={!arbeidsgiver.harNaermesteLeder || erOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer)}>
+                                    disabled={!erOppfolgingsdialogOpprettbarMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver)}>
                                     <VelgArbeidsgiverFeilmelding
                                         oppfolgingsdialoger={oppfolgingsdialoger}
                                         arbeidsgiver={arbeidsgiver}
@@ -63,7 +67,8 @@ export const ArbeidsgiverSkjema = ({ arbeidsgivere, oppfolgingsdialoger, handleS
             <div className="knapperad">
                 <button
                     type="submit"
-                    className="knapp knapperad__element">
+                    className="knapp knapperad__element"
+                    disabled={!erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver(oppfolgingsdialoger, arbeidsgivere)}>
                     {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.velg-arbeidsgiver')}
                 </button>
                 <Link className="lenke lenke--avbryt" to={avbrytHref}>

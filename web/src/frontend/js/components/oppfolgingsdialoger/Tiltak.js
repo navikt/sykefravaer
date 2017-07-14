@@ -9,6 +9,7 @@ import {
     finnTiltakIkkeLagtTilAvAktoer,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
+import history from '../../history';
 
 export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallTiltakLagtTilAvArbeidsgiver }) => {
     return (<NotifikasjonBoks
@@ -113,6 +114,7 @@ export class Tiltak extends Component {
             <OppfolgingsdialogSide
                 brukernavn={oppfolgingsdialog.virksomhetsnavn}
                 oppfolgingsdialog={oppfolgingsdialog}
+                aktivUrl={history.getCurrentLocation().pathname}
                 ledetekster={ledetekster}
                 rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}>
                 {

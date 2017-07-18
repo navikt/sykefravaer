@@ -100,8 +100,8 @@ export class Tiltak extends Component {
         this.toggleTiltakSkjema = this.toggleTiltakSkjema.bind(this);
     }
 
-    componentDidUpdate() {
-        if (this.state.visTiltakSkjema && this.lagreSkjema) {
+    componentDidUpdate(prevProps, prevState) {
+        if (!prevState.visTiltakSkjema && this.state.visTiltakSkjema && this.lagreSkjema) {
             const form = findDOMNode(this.lagreSkjema);
             scrollTo(form, form.getBoundingClientRect().bottom);
         }

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
 import {
     OppfolgingsdialogSide,
@@ -99,6 +100,13 @@ export class Tiltak extends Component {
         this.toggleTiltakSkjema = this.toggleTiltakSkjema.bind(this);
     }
 
+    componentDidUpdate() {
+        if (this.state.visTiltakSkjema && this.lagreSkjema) {
+            const form = findDOMNode(this.lagreSkjema);
+            scrollTo(form, form.getBoundingClientRect().bottom);
+        }
+    }
+
     toggleTiltakSkjema() {
         this.setState({
             visTiltakSkjema: !this.state.visTiltakSkjema,
@@ -168,6 +176,7 @@ export class Tiltak extends Component {
                                     avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/tiltak`}
                                     sendLagre={sendLagreTiltak}
                                     avbryt={this.toggleTiltakSkjema}
+                                    ref={(lagreSkjema) => { this.lagreSkjema = lagreSkjema; }}
                                 /> :
                                 <RenderTiltakKnapper toggleTiltakSkjema={this.toggleTiltakSkjema} />
                         }

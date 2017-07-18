@@ -50,7 +50,7 @@ RendreForskuttererArbeidsgiver.propTypes = {
     }),
 };
 
-const ForskuttererArbeidsgiver = () => {
+export const ForskuttererArbeidsgiver = () => {
     return (<Field
         component={RendreForskuttererArbeidsgiver}
         name="arbeidsgiverForskutterer" />);

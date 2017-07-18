@@ -40,7 +40,7 @@ Oppsummering.propTypes = {
 
 };
 
-const utledForskuttering = (ledere, soknad, arbeidsgiverperiodeberegning) => {
+const utledSkalViseForskuttering = (ledere, soknad, arbeidsgiverperiodeberegning) => {
     if (ledere && soknad && arbeidsgiverperiodeberegning) {
         const ledersSvar = ledere.filter(l => { return l.orgnummer === soknad.arbeidsgiver.orgnummer; }).map(l => { return l.arbeidsgiverForskuttererLoenn; })[0];
         if (ledersSvar !== undefined && ledersSvar !== null) {
@@ -73,7 +73,7 @@ export const mapStateToProps = (state, ownProps) => {
     return {
         henterArbeidsgiverperiodeberegning: state.arbeidsgiverperiodeberegning.henter === true,
         henterLedere: state.ledere.henter,
-        visForskutteringssporsmal: utledForskuttering(state.ledere.data, ownProps.skjemasoknad, state.arbeidsgiverperiodeberegning.data),
+        visForskutteringssporsmal: utledSkalViseForskuttering(state.ledere.data, ownProps.skjemasoknad, state.arbeidsgiverperiodeberegning.data),
         sendesTil: utledMottaker(state.ledere.data, ownProps.skjemasoknad, state.arbeidsgiverperiodeberegning.data),
         backendsoknad: mapSkjemasoknadToBackendsoknad(ownProps.skjemasoknad),
     };

@@ -19,6 +19,15 @@ export const SendingFeilet = () => {
     </div>);
 };
 
+const mottaker = (sendesTil, sykepengesoknad) => {
+    switch (sendesTil) {
+        case 'NAV': return getLedetekst('sykepengesoknad.oppsummering.nav-som-mottaker');
+        case 'ARBEIDSGIVER': return getLedetekst('sykepengesoknad.oppsummering.arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn });
+        case 'NAV_OG_ARBEIDSGIVER': return getLedetekst('sykepengesoknad.oppsummering.nav-og-arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn });
+        default: return undefined;
+    }
+};
+
 export const OppsummeringForm = (props) => {
     const { sykepengesoknad, backendsoknad, handleSubmit, actions, sender, sendingFeilet, visForskutteringssporsmal, sendesTil } = props;
     const label = getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label');
@@ -34,9 +43,9 @@ export const OppsummeringForm = (props) => {
         <div className={sendingFeilet || visForskutteringssporsmal ? 'bekreftet-container blokk' : 'bekreftet-container'}>
             <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
         </div>
-        <div><p>Sendes til: {sendesTil}</p></div>
         { visForskutteringssporsmal && <ForskuttererArbeidsgiver /> }
         { sendingFeilet && <SendingFeilet /> }
+        { !visForskutteringssporsmal && <p className="js-mottaker">{mottaker(sendesTil, sykepengesoknad)}</p> }
         <Knapperad variant="knapperad--forrigeNeste">
             <Link
                 to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}

@@ -98,8 +98,8 @@ export class Arbeidsoppgaver extends Component {
         };
         this.toggleArbeidsoppgaveSkjema = this.toggleArbeidsoppgaveSkjema.bind(this);
     }
-    componentDidUpdate() {
-        if (this.state.visArbeidsoppgaveSkjema && this.lagreSkjema) {
+    componentDidUpdate(prevProps, prevState) {
+        if (!prevState.visArbeidsoppgaveSkjema && this.state.visArbeidsoppgaveSkjema && this.lagreSkjema) {
             const form = findDOMNode(this.lagreSkjema);
             scrollTo(form, form.getBoundingClientRect().bottom);
         }

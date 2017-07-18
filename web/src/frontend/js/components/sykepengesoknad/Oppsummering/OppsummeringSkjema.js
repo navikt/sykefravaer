@@ -20,7 +20,7 @@ export const SendingFeilet = () => {
 };
 
 export const OppsummeringForm = (props) => {
-    const { sykepengesoknad, backendsoknad, handleSubmit, actions, sender, sendingFeilet, visForskutteringssporsmal } = props;
+    const { sykepengesoknad, backendsoknad, handleSubmit, actions, sender, sendingFeilet, visForskutteringssporsmal, sendesTil } = props;
     const label = getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label');
     const onSubmit = (values) => {
         const soknad = mapSkjemasoknadToBackendsoknad(values, {
@@ -34,6 +34,7 @@ export const OppsummeringForm = (props) => {
         <div className={sendingFeilet || visForskutteringssporsmal ? 'bekreftet-container blokk' : 'bekreftet-container'}>
             <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
         </div>
+        <div><p>Sendes til: {sendesTil}</p></div>
         { visForskutteringssporsmal && <ForskuttererArbeidsgiver /> }
         { sendingFeilet && <SendingFeilet /> }
         <Knapperad variant="knapperad--forrigeNeste">
@@ -58,6 +59,7 @@ OppsummeringForm.propTypes = {
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
     visForskutteringssporsmal: PropTypes.bool,
+    sendesTil: PropTypes.string,
 };
 
 export const OppsummeringSkjema = setup(validate, OppsummeringForm);

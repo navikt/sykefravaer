@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
 import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
 import {
     OppfolgingsdialogSide,
@@ -97,6 +98,12 @@ export class Arbeidsoppgaver extends Component {
         };
         this.toggleArbeidsoppgaveSkjema = this.toggleArbeidsoppgaveSkjema.bind(this);
     }
+    componentDidUpdate() {
+        if (this.state.visArbeidsoppgaveSkjema && this.lagreSkjema) {
+            const form = findDOMNode(this.lagreSkjema);
+            scrollTo(form, form.getBoundingClientRect().bottom);
+        }
+    }
 
     toggleArbeidsoppgaveSkjema() {
         this.setState({
@@ -167,6 +174,7 @@ export class Arbeidsoppgaver extends Component {
                                     avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
                                     sendLagre={sendLagreArbeidsoppgave}
                                     avbryt={this.toggleArbeidsoppgaveSkjema}
+                                    ref={(lagreSkjema) => { this.lagreSkjema = lagreSkjema; }}
                                 /> :
                                 <RenderArbeidsoppgaverKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
                         }

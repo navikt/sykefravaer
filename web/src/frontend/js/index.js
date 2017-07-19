@@ -24,6 +24,7 @@ import vedlikehold from './reducers/vedlikehold';
 import reduxFormMeta from './reducers/reduxFormMeta';
 import '../styles/styles.less';
 import forskutteringssporsmal from './reducers/forskutteringssporsmal';
+import arbeidsgiverperiodeberegning from './reducers/arbeidsgiverperiodeberegning';
 
 const rootReducer = combineReducers({
     dineSykmeldinger,
@@ -48,6 +49,7 @@ const rootReducer = combineReducers({
     form: formReducer,
     formMeta: reduxFormMeta,
     forskutteringssporsmal,
+    arbeidsgiverperiodeberegning,
 });
 
 const sagaMiddleware = createSagaMiddleware();

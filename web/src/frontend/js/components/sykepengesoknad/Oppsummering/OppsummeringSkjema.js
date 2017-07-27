@@ -64,7 +64,9 @@ OppsummeringForm.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
     handleSubmit: PropTypes.func,
     backendsoknad: sykepengesoknadPt,
-    actions: PropTypes.object,
+    actions: PropTypes.shape({
+        sendSykepengesoknad: PropTypes.func,
+    }),
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
     visForskutteringssporsmal: PropTypes.bool,

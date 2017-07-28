@@ -4,6 +4,7 @@ import {
     GodkjennPlanSendt,
     GodkjentPlan,
     BRUKERTYPE,
+    OppfolgingsdialogFooter,
 } from 'oppfolgingsdialog-npm';
 import GodkjennPlan from './GodkjennPlan';
 import { getContextRoot } from '../../routers/paths';
@@ -46,6 +47,14 @@ export const Plan = ({ ledetekster, oppfolgingsdialog, oppfolgingsdialogId, pdfU
                     brukerType={BRUKERTYPE.ARBEIDSTAKER}
                     rootUrl={`${getContextRoot()}`}
                     pdfUrler={pdfUrler}
+                />
+            }
+            {
+                <OppfolgingsdialogFooter
+                    sideNr="3"
+                    ledetekster={ledetekster}
+                    oppfolgingsdialog={oppfolgingsdialog}
+                    rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}
                 />
             }
         </OppfolgingsdialogSide>

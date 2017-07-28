@@ -8,6 +8,7 @@ import {
     OppfolgingsdialogTabell,
     LagreTiltakSkjema,
     finnTiltakIkkeLagtTilAvAktoer,
+    OppfolgingsdialogFooter,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import history from '../../history';
@@ -35,7 +36,7 @@ export const RenderNotifikasjonBoksSuksess = () => {
     />);
 };
 
-export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, sendLagreTiltak, sendSlettTiltak, aktoerId }) => {
+export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, sendLagreTiltak, sendSlettTiltak, aktoerId, arbeidstaker }) => {
     return (
         <OppfolgingsdialogTabell
             ledetekster={ledetekster}
@@ -43,9 +44,11 @@ export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, 
             tabellType="tiltak"
             urlImgArrow="/sykefravaer/img/svg/arrow-down.svg"
             urlImgVarsel="/sykefravaer/img/svg/varseltrekant.svg"
+            urlImgCheckboks="/sykefravaer/img/svg/oppfolgingdialog-checkbox.svg"
             sendLagre={sendLagreTiltak}
             sendSlett={sendSlettTiltak}
             aktoerId={aktoerId}
+            arbeidstaker={arbeidstaker}
         />
     );
 };
@@ -55,6 +58,7 @@ RenderOppfolgingsdialogTiltakTabell.propTypes = {
     sendLagreTiltak: PropTypes.func,
     sendSlettTiltak: PropTypes.func,
     aktoerId: PropTypes.string,
+    arbeidstaker: PropTypes.object,
 };
 
 export const RenderTiltakKnapper = ({ toggleTiltakSkjema }) => {
@@ -74,7 +78,7 @@ RenderTiltakKnapper.propTypes = {
 
 export const RenderOpprettTiltak = ({ ledetekster, oppfolgingsdialogId, sendLagreTiltak, toggleTiltakSkjema }) => {
     return (<div>
-        <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
+        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
         <LagreTiltakSkjema
             ledetekster={ledetekster}
             avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/tiltak`}
@@ -149,7 +153,7 @@ export class Tiltak extends Component {
                     </div>
                     :
                     <div>
-                        <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
+                        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
                         {
                             tiltakLagret && <RenderNotifikasjonBoksSuksess />
                         }
@@ -167,6 +171,7 @@ export class Tiltak extends Component {
                                 sendLagreTiltak={sendLagreTiltak}
                                 sendSlettTiltak={sendSlettTiltak}
                                 aktoerId={oppfolgingsdialog.sykmeldtAktoerId}
+                                arbeidstaker={oppfolgingsdialog.arbeidstaker}
                             />
                         }
                         {
@@ -181,6 +186,14 @@ export class Tiltak extends Component {
                                 <RenderTiltakKnapper toggleTiltakSkjema={this.toggleTiltakSkjema} />
                         }
                     </div>
+                }
+                {
+                    <OppfolgingsdialogFooter
+                        sideNr="2"
+                        ledetekster={ledetekster}
+                        oppfolgingsdialog={oppfolgingsdialog}
+                        rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}
+                    />
                 }
             </OppfolgingsdialogSide>
         );

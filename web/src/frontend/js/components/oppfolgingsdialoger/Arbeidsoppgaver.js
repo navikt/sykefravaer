@@ -8,6 +8,7 @@ import {
     NotifikasjonBoks,
     OppfolgingsdialogTabell,
     LagreArbeidsoppgaveSkjema,
+    OppfolgingsdialogFooter,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import history from '../../history';
@@ -42,6 +43,7 @@ export const RenderOppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbe
             tabellType="arbeidsoppgaver"
             urlImgArrow="/sykefravaer/img/svg/arrow-down.svg"
             urlImgVarsel="/sykefravaer/img/svg/varseltrekant.svg"
+            urlImgCheckboks="/sykefravaer/img/svg/oppfolgingdialog-checkbox.svg"
             sendLagre={sendLagreArbeidsoppgave}
             sendSlett={sendSlettArbeidsoppgave}
             aktoerId={aktoerId}
@@ -73,7 +75,7 @@ RenderArbeidsoppgaverKnapper.propTypes = {
 
 export const RenderOpprettArbeidsoppgave = ({ ledetekster, oppfolgingsdialogId, sendLagreArbeidsoppgave, toggleArbeidsoppgaveSkjema }) => {
     return (<div>
-        <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
+        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
         <LagreArbeidsoppgaveSkjema
             ledetekster={ledetekster}
             avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
@@ -147,7 +149,7 @@ export class Arbeidsoppgaver extends Component {
                     </div>
                     :
                     <div>
-                        <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
+                        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
                         {
                             arbeidsoppgaveLagret && <RenderNotifikasjonBoksSuksess />
                         }
@@ -179,6 +181,14 @@ export class Arbeidsoppgaver extends Component {
                                 <RenderArbeidsoppgaverKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
                         }
                     </div>
+                }
+                {
+                    <OppfolgingsdialogFooter
+                        sideNr="1"
+                        ledetekster={ledetekster}
+                        oppfolgingsdialog={oppfolgingsdialog}
+                        rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}
+                    />
                 }
             </OppfolgingsdialogSide>
         );

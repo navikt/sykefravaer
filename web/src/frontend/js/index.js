@@ -25,8 +25,6 @@ import reduxFormMeta from './reducers/reduxFormMeta';
 import '../styles/styles.less';
 import forskutteringssporsmal from './reducers/forskutteringssporsmal';
 import arbeidsgiverperiodeberegning from './reducers/arbeidsgiverperiodeberegning';
-import './logging';
-
 
 const rootReducer = combineReducers({
     dineSykmeldinger,

@@ -45,7 +45,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.oppretter && this.props.opprettet) {
-            history.push('/sykefravaer/oppfolgingsplaner/');
+            history.push(`/sykefravaer/oppfolgingsplaner/${this.props.opprettetId}/arbeidsoppgaver`);
             this.props.hentOppfolgingsdialoger();
         }
     }
@@ -108,6 +108,7 @@ OpprettOppfolgingsdialogSide.propTypes = {
     hentingFeilet: PropTypes.bool,
     oppretter: PropTypes.bool,
     opprettet: PropTypes.bool,
+    opprettetId: PropTypes.number,
     opprettingFeilet: PropTypes.bool,
     opprettOppfolgingsdialog: PropTypes.func,
     oppfolgingsdialoger: PropTypes.array,
@@ -148,6 +149,7 @@ export const mapStateToProps = (state) => {
             tittel: getLedetekst('oppfolgingsdialoger.sidetittel'),
             sti: '/oppfolgingsplaner',
         }],
+        opprettetId: state.oppfolgingsdialoger.opprettetId,
     };
 };
 

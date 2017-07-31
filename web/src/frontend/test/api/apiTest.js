@@ -49,7 +49,7 @@ describe("api", () => {
 
             fetchMock.get("*", 500);
             get("/ingen-url").catch((e) => {
-                expect(e.message).to.equal("Det oppstod en feil")
+                expect(e.message).to.equal("Det har oppstått en 500-feil ved GET fra '/ingen-url'");
                 done();
             });
 
@@ -144,7 +144,7 @@ describe("api", () => {
             fetchMock.post("*", 500);
 
             post("/posturl").catch((err) => {
-                expect(err.message).to.equal("Forespørsel feilet");
+                expect(err.message).to.equal("Det har oppstått en 500-feil ved POST til '/posturl'");
                 done();
             });
      

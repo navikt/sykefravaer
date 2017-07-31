@@ -1,3 +1,4 @@
+
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { get, post } from '../api';
@@ -5,6 +6,7 @@ import * as actions from '../actions/sykepengesoknader_actions';
 import { log } from 'digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
 import history from '../history';
+import logger from '../logging';
 
 export function* hentSykepengesoknader() {
     yield put(actions.henterSykepengesoknader());
@@ -13,6 +15,7 @@ export function* hentSykepengesoknader() {
         yield put(actions.sykepengesoknaderHentet(data));
     } catch (e) {
         log(e);
+        logger.error(`Kunne ikke hente sykepengesoknader. ${e.message}`);
         yield put(actions.hentSykepengesoknaderFeilet());
     }
 }
@@ -35,6 +38,7 @@ export function* sendSykepengesoknadTilArbeidsgiver(action) {
         yield put(actions.sykepengesoknadSendtTilArbeidsgiver(action.sykepengesoknadsId, sykepengesoknad));
     } catch (e) {
         log(e);
+        logger.error(`Kunne ikke sende sykepengesøknad til arbeidsgiver. ${e.message}`);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }
@@ -46,6 +50,7 @@ export function* sendSykepengesoknadTilNAV(action) {
         yield put(actions.sykepengesoknadSendtTilNAV(action.sykepengesoknadsId, sykepengesoknad));
     } catch (e) {
         log(e);
+        logger.error(`Kunne ikke sende sykepengesøknad til NAV. ${e.message}`);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }

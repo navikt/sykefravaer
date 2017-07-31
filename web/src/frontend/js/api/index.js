@@ -16,7 +16,7 @@ export function get(url) {
             }
             if (res.status > 400) {
                 log(res);
-                throw new Error('Det oppstod en feil');
+                throw new Error(`Det har oppstått en ${res.status}-feil ved GET fra '${url}'`);
             }
             return res.json();
         })
@@ -52,7 +52,7 @@ export function post(url, body) {
     })
         .then((res) => {
             if (res.status > 400) {
-                throw new Error('Forespørsel feilet');
+                throw new Error(`Det har oppstått en ${res.status}-feil ved POST til '${url}'`);
             } else {
                 const contentType = res.headers.get('Content-Type') || '';
                 if (contentType.includes('json')) {

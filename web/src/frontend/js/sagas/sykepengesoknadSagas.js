@@ -6,6 +6,7 @@ import { log } from 'digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
 import history from '../history';
 import { finnSoknad } from '../reducers/sykepengesoknader';
+import logger from '../logging';
 
 export function* hentSykepengesoknader() {
     yield put(actions.henterSykepengesoknader());
@@ -14,6 +15,7 @@ export function* hentSykepengesoknader() {
         yield put(actions.sykepengesoknaderHentet(data));
     } catch (e) {
         log(e);
+        logger.error(`Kunne ikke hente sykepengesoknader. ${e.message}`);
         yield put(actions.hentSykepengesoknaderFeilet());
     }
 }
@@ -36,6 +38,7 @@ export function* sendSykepengesoknadTilArbeidsgiver(action) {
         yield put(actions.sykepengesoknadSendtTilArbeidsgiver(action.sykepengesoknadsId, sykepengesoknad));
     } catch (e) {
         log(e);
+        logger.error(`Kunne ikke sende sykepengesøknad til arbeidsgiver. ${e.message}`);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }
@@ -47,6 +50,7 @@ export function* sendSykepengesoknadTilNAV(action) {
         yield put(actions.sykepengesoknadSendtTilNAV(action.sykepengesoknadsId, sykepengesoknad));
     } catch (e) {
         log(e);
+        logger.error(`Kunne ikke sende sykepengesøknad til NAV. ${e.message}`);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }
@@ -74,6 +78,7 @@ export function* hentBerikelse(action) {
         yield put(actions.berikelseHentet(data, action.sykepengesoknadsId));
     } catch (e) {
         log(e);
+        logger.error(`Kunne ikke hente berikelse av søknaden. ${e.message}`);
         yield put(actions.hentBerikelseFeilet());
     }
 }

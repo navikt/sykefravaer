@@ -1,10 +1,18 @@
-import { expect } from 'chai';
-import { hentSykepengesoknader, sendSykepengesoknad, sendSykepengesoknadTilArbeidsgiver, sendSykepengesoknadTilNAV, startEndring } from '../../js/sagas/sykepengesoknadSagas';
-import { get, post } from '../../js/api';
-import { put, call } from 'redux-saga/effects';
-import * as actiontyper from '../../js/actions/actiontyper';
-import * as actions from '../../js/actions/sykepengesoknader_actions';
-import sinon from 'sinon';
+import {expect} from "chai";
+import {
+    hentBerikelse,
+    hentSykepengesoknader,
+    sendSykepengesoknad,
+    sendSykepengesoknadTilArbeidsgiver,
+    sendSykepengesoknadTilNAV,
+    startEndring
+} from "../../js/sagas/sykepengesoknadSagas";
+import {finnSoknad} from "../../js/reducers/sykepengesoknader";
+import {get, post} from "../../js/api";
+import {call, put, select} from "redux-saga/effects";
+import * as actiontyper from "../../js/actions/actiontyper";
+import * as actions from "../../js/actions/sykepengesoknader_actions";
+import sinon from "sinon";
 
 describe("sykepengersoknadSagas", () => {
 
@@ -53,7 +61,7 @@ describe("sykepengersoknadSagas", () => {
         // GAMMELT RESTSVAR
         const generator = sendSykepengesoknad({
             type: actiontyper.SEND_SYKEPENGESOKNAD_FORESPURT,
-            sykepengesoknad: { id: '1' },
+            sykepengesoknad: {id: '1'},
         });
 
         it("skal dispatche SENDER_SYKEPENGESOKNAD", () => {
@@ -140,13 +148,13 @@ describe("sykepengersoknadSagas", () => {
                 testdata: 'testdata',
             }).value).to.deep.equal(nextPut);
         });
-    });    
+    });
 
     describe('innsending der REST-tjeneste ikke svarer med søknad', () => {
         // GAMMELT RESTSVAR
         const generator = sendSykepengesoknad({
             type: actiontyper.SEND_SYKEPENGESOKNAD_FORESPURT,
-            sykepengesoknad: { id: '1' },
+            sykepengesoknad: {id: '1'},
         });
 
         it("skal dispatche SENDER_SYKEPENGESOKNAD", () => {
@@ -189,4 +197,84 @@ describe("sykepengersoknadSagas", () => {
 
     });
 
+    describe("berikelse", () => {
+
+        const berikelseAction = actions.hentBerikelse("123");
+
+        describe("berike og hente søknader", () => {
+
+            const generator = hentBerikelse(berikelseAction);
+
+            it("skal sjekke state etter søknader", () => {
+                expect(generator.next().value).to.deep.equal(select(finnSoknad, "123"));
+            });
+
+            it("Skal dernest dispatche hentSykepengesoknader", () => {
+                const nextCall = call(hentSykepengesoknader);
+                expect(generator.next({}).value).to.deep.equal(nextCall);
+            });
+
+            it("Skal dernest dispatche henterBerikelse", () => {
+                const nextPut = put({
+                    type: actiontyper.HENTER_SYKEPENGESOKNAD_BERIKELSE,
+                });
+                expect(generator.next().value).to.deep.equal(nextPut);
+            });
+
+            it("Skal dernest hente sykepengesoknader", () => {
+                const nextCall = call(get, "http://tjenester.nav.no/syforest/soknader/123/berik");
+                expect(generator.next().value).to.deep.equal(nextCall);
+            });
+
+            it("Skal dispatche SYKEPENGESOKNAD_BERIKELSE_HENTET", () => {
+                const nextPut = put(
+                    {
+                        type: actiontyper.SYKEPENGESOKNAD_BERIKELSE_HENTET,
+                        data: {
+                            forrigeSykeforloepTom: '2017-06-12'
+                        },
+                        sykepengesoknadsId: '123',
+                    });
+
+                expect(generator.next({
+                    forrigeSykeforloepTom: '2017-06-12',
+                }).value).to.deep.equal(nextPut);
+            });
+        });
+
+        describe("berike allerede hentet", () => {
+            const generator = hentBerikelse(berikelseAction);
+
+            it("skal sjekke state etter søknader", () => {
+                expect(generator.next().value).to.deep.equal(select(finnSoknad, "123"));
+            });
+
+            it("Skal dernest dispatche henterBerikelse", () => {
+                const nextPut = put({
+                    type: actiontyper.HENTER_SYKEPENGESOKNAD_BERIKELSE,
+                });
+                expect(generator.next({id: '123'}).value).to.deep.equal(nextPut);
+            });
+
+            it("Skal dernest hente sykepengesoknader", () => {
+                const nextCall = call(get, "http://tjenester.nav.no/syforest/soknader/123/berik");
+                expect(generator.next().value).to.deep.equal(nextCall);
+            });
+
+            it("Skal dispatche SYKEPENGESOKNAD_BERIKELSE_HENTET", () => {
+                const nextPut = put(
+                    {
+                        type: actiontyper.SYKEPENGESOKNAD_BERIKELSE_HENTET,
+                        data: {
+                            forrigeSykeforloepTom: '2017-06-12'
+                        },
+                        sykepengesoknadsId: '123',
+                    });
+
+                expect(generator.next({
+                    forrigeSykeforloepTom: '2017-06-12',
+                }).value).to.deep.equal(nextPut);
+            });
+        })
+    });
 });

@@ -4,6 +4,7 @@ import * as actiontyper from '../../js/actions/actiontyper';
 import { parseDatofelter, sorterAktiviteterEldsteFoerst } from '../../js/reducers/sykepengesoknader';
 import sykepengesoknader from '../../js/reducers/sykepengesoknader';
 import * as actions from '../../js/actions/sykepengesoknader_actions';
+import * as berikelses_actions from '../../js/actions/sykepengesoknader_actions';
 import sinon from 'sinon';
 
 describe('sykepengesoknader', () => {
@@ -476,6 +477,8 @@ describe('sykepengesoknader', () => {
             expect(_soknad.forrigeSykeforloepTom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
 
+
+
     });
 
     describe("sorterAktiviteterEldsteFoerst", () => {
@@ -529,6 +532,53 @@ describe('sykepengesoknader', () => {
             }])
         });
 
+    })
+
+    describe("berikelse", () => {
+
+        let initialState = deepFreeze({
+            data: [],
+            henterBerikelse: false,
+            henterBerikelseFeilet: false,
+        });
+
+        it("håndterer henter berikelse", () => {
+            const action = berikelses_actions.henterBerikelse();
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState).to.deep.equal({
+                data: [],
+                henterBerikelse: true,
+                henterBerikelseFeilet: false,
+            });
+        });
+
+        it("håndterer berikelse hentet", () => {
+
+            let state = deepFreeze({
+                data: [{
+                    id: '1',
+
+                }]
+            });
+
+            const action = berikelses_actions.berikelseHentet({ forrigeSykeforloepTom: '2017-07-31' }, '1');
+            const nextState = sykepengesoknader(state, action);
+            expect(nextState).to.deep.equal({
+                data: [{id: '1', forrigeSykeforloepTom: '2017-07-31'}],
+                henterBerikelse: false,
+                henterBerikelseFeilet: false,
+            });
+        });
+
+        it("håndterer hent berikelse feilet", () => {
+            const action = berikelses_actions.hentBerikelseFeilet();
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState).to.deep.equal({
+                data: [],
+                henterBerikelse: false,
+                henterBerikelseFeilet: true,
+            });
+        });
     })
 });
 

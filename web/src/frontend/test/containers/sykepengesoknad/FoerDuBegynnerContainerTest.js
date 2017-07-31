@@ -53,5 +53,4 @@ describe("FoerDuBegynnerContainer", () => {
         expect(component.find(FoerDuBegynner)).to.have.length(1);
         expect(component.find(SendtSoknad)).to.have.length(0);
     });
-    
 });

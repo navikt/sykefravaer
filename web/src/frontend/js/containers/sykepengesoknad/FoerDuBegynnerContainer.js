@@ -10,6 +10,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
 
 export class Controller extends Component {
     render() {
@@ -36,6 +37,7 @@ export class Controller extends Component {
 }
 
 Controller.propTypes = {
+    hentBerikelse: PropTypes.func,
     sykepengesoknad: sykepengesoknadPt,
     skjemasoknad: PropTypes.object,
     vedlikehold: PropTypes.shape({
@@ -43,25 +45,36 @@ Controller.propTypes = {
     }),
 };
 
-export const FoerDuBegynnerContainer = ({ params, vedlikehold, brodsmuler, henter }) => {
-    if (henter) {
-        return <AppSpinner />;
+export class FoerDuBegynnerContainer extends Component {
+
+    componentDidMount() {
+        this.props.hentBerikelse(this.props.sykepengesoknadId);
     }
-    return <GenerellSoknadContainer Component={Controller} brodsmuler={brodsmuler} params={params} vedlikehold={vedlikehold} />;
-};
+
+    render() {
+        const { params, vedlikehold, brodsmuler, henter } = this.props;
+        if (henter) {
+            return <AppSpinner />;
+        }
+        return <GenerellSoknadContainer Component={Controller} brodsmuler={brodsmuler} params={params} vedlikehold={vedlikehold} />;
+    }
+}
 
 
 FoerDuBegynnerContainer.propTypes = {
     params: PropTypes.shape({
         sykepengesoknadId: PropTypes.string,
     }),
+    sykepengesoknadId: PropTypes.string,
     brodsmuler: PropTypes.array,
     henter: PropTypes.bool,
     vedlikehold: PropTypes.object,
+    hentBerikelse: PropTypes.func,
 };
 
-export const mapStateToProps = (state) => {
-    const henter = state.vedlikehold.henter;
+export const mapStateToProps = (state, ownProps) => {
+    const henter = state.vedlikehold.henter || state.sykepengesoknader.henterBerikelse;
+    const sykepengesoknadId = ownProps.params.sykepengesoknadId;
 
     const brodsmuler = [{
         tittel: 'Ditt sykefravær',
@@ -78,10 +91,13 @@ export const mapStateToProps = (state) => {
     return {
         henter,
         brodsmuler,
+        sykepengesoknadId,
         vedlikehold: state.vedlikehold.data.vedlikehold,
     };
 };
 
-const foerDuBegynnerContainer = connect(mapStateToProps)(FoerDuBegynnerContainer);
+const foerDuBegynnerContainer = connect(mapStateToProps, {
+    hentBerikelse,
+})(FoerDuBegynnerContainer);
 
 export default foerDuBegynnerContainer;

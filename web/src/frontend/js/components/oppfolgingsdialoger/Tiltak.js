@@ -8,6 +8,7 @@ import {
     OppfolgingsdialogTabell,
     LagreTiltakSkjema,
     finnTiltakIkkeLagtTilAvAktoer,
+    BRUKERTYPE,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import history from '../../history';
@@ -46,6 +47,7 @@ export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, 
             sendLagre={sendLagreTiltak}
             sendSlett={sendSlettTiltak}
             aktoerId={aktoerId}
+            brukerType={BRUKERTYPE.ARBEIDSTAKER}
         />
     );
 };

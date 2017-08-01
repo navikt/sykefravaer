@@ -42,6 +42,7 @@ export const RenderOppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbe
             tabellType="arbeidsoppgaver"
             urlImgArrow="/sykefravaer/img/svg/arrow-down.svg"
             urlImgVarsel="/sykefravaer/img/svg/varseltrekant.svg"
+            urlImgCheckboks="/sykefravaer/img/svg/oppfolgingdialog-checkbox.svg"
             sendLagre={sendLagreArbeidsoppgave}
             sendSlett={sendSlettArbeidsoppgave}
             aktoerId={aktoerId}

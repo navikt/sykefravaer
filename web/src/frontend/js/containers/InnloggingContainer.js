@@ -4,8 +4,7 @@ import * as actions from '../actions/brukerinfo_actions';
 import Feilmelding from '../components/Feilmelding';
 
 export class Innlogging extends Component {
-    constructor(props) {
-        super(props);
+    componentWillMount() {
         this.props.sjekkInnlogging();
     }
 

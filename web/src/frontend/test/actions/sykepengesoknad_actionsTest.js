@@ -164,4 +164,43 @@ describe("sykepengesoknader_actions", () => {
         });
     });
 
+    describe("Berikelse", () => {
+        it("skal ha nødvendige actiontyper", () => {
+            expect(actiontyper.SYKEPENGESOKNAD_BERIKELSE_FORESPURT).to.equal("SYKEPENGESOKNAD_BERIKELSE_FORESPURT");
+            expect(actiontyper.HENTER_SYKEPENGESOKNAD_BERIKELSE).to.equal("HENTER_SYKEPENGESOKNAD_BERIKELSE");
+            expect(actiontyper.SYKEPENGESOKNAD_BERIKELSE_HENTET).to.equal("SYKEPENGESOKNAD_BERIKELSE_HENTET");
+            expect(actiontyper.SYKEPENGESOKNAD_BERIKELSE_FEILET).to.equal("SYKEPENGESOKNAD_BERIKELSE_FEILET");
+        });
+
+        it("skal ha en hentBerikelse()-funksjon som returnerer riktig action", () => {
+            expect(actions.hentBerikelse('55')).to.deep.equal({
+                type: actiontyper.SYKEPENGESOKNAD_BERIKELSE_FORESPURT,
+                sykepengesoknadsId: "55"
+            });
+        });
+
+        it("SKal ha en henterBerikelse()-funksjon", () => {
+            const t = actions.henterBerikelse();
+            expect(t).to.deep.equal({
+                type: actiontyper.HENTER_SYKEPENGESOKNAD_BERIKELSE,
+            });
+        });
+
+        it("skal ha en berikelseHentet()-funksjon som returnerer riktig action", () => {
+            expect(actions.berikelseHentet({ forrigeSykeforloepTom: '2017-07-15'}, '44')).to.deep.equal({
+                type: actiontyper.SYKEPENGESOKNAD_BERIKELSE_HENTET,
+                data: {
+                    forrigeSykeforloepTom: '2017-07-15',
+                },
+                sykepengesoknadsId: '44',
+            });
+        });
+
+        it("skal ha en hentBerikelseFeilet()-funksjon som returnerer riktig action", () => {
+            expect(actions.hentBerikelseFeilet()).to.deep.equal({
+                type: actiontyper.SYKEPENGESOKNAD_BERIKELSE_FEILET,
+            });
+        });
+    })
+
 });

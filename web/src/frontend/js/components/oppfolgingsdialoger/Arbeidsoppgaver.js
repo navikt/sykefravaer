@@ -28,7 +28,7 @@ RenderNotifikasjonBoks.propTypes = {
 };
 export const RenderNotifikasjonBoksSuksess = () => {
     return (<NotifikasjonBoks
-        imgUrl={"/sykefravaer/img/svg/notifikasjon-illustrasjon.svg"}
+        imgUrl={"/sykefravaer/img/svg/notifikasjon-suksess-illustrasjon.svg"}
         tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
         classNames={'panel--suksess'}
     />);

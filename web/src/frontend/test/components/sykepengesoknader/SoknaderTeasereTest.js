@@ -6,7 +6,7 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import SoknaderTeaser from '../../../js/components/sykepengesoknader/SoknaderTeaser';
+import SoknadTeaser from '../../../js/components/sykepengesoknader/SoknadTeaser';
 import SoknaderTeasere from '../../../js/components/sykepengesoknader/SoknaderTeasere';
 import { getSoknad } from '../../mockSoknader';
 import { setLedetekster } from 'digisyfo-npm';
@@ -41,12 +41,12 @@ describe("SoknadTeasere", () => {
 
     it("Viser en SoknadTeaser per Soknad", function () {
         const component = shallow(<SoknaderTeasere tittel="Søknader som venter din behandling" soknader={soknader}/>);
-        expect(component.find(SoknaderTeaser)).to.have.length(3);
+        expect(component.find(SoknadTeaser)).to.have.length(3);
     });
 
     it("Viser en melding når det ikke er sykmeldinger", () => {
         const component = shallow(<SoknaderTeasere tittel="Søknader som venter din behandling" soknader={[]} tomListeTekst={'tomlisteTekst'}/>);
-        expect(component.find(SoknaderTeaser)).to.have.length(0);
+        expect(component.find(SoknadTeaser)).to.have.length(0);
         expect(component.text()).to.contain('tomlisteTekst')
     })
 }); 

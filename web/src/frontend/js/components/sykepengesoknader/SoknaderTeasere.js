@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import SoknaderTeaser from './SoknaderTeaser';
+import SoknadTeaser from './SoknadTeaser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 const SoknaderTeasere = ({ soknader, className, tittel = '', tomListeTekst, id }) => {
@@ -11,7 +11,7 @@ const SoknaderTeasere = ({ soknader, className, tittel = '', tomListeTekst, id }
             {
                 (soknader.length ? [...soknader]
                     .map((soknad, idx) => {
-                        return <SoknaderTeaser key={idx} soknad={soknad} />;
+                        return <SoknadTeaser key={idx} soknad={soknad} />;
                     }) : <p className="panel typo-infotekst">{tomListeTekst}</p>)
             }
         </div>

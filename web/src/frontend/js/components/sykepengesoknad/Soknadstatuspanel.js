@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import { Varselstripe, SykmeldingNokkelOpplysning } from 'digisyfo-npm';
 import { toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import { SENDT, TIL_SENDING, KORRIGERT } from '../../enums/sykepengesoknadstatuser';
-import { getSendtTilSuffix } from './Kvittering';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { erSendtTilBeggeMenIkkeSamtidig, getSendtTilSuffix } from '../../utils/sykepengesoknadUtils';
 
 const getStatusTittel = (sykepengesoknad) => {
     switch (sykepengesoknad.status) {
@@ -96,13 +96,12 @@ SendtUlikt.propTypes = {
 };
 
 export const Statuspanel = ({ sykepengesoknad, children }) => {
-    const sendtTilBeggeMenIkkeSamtidig = sykepengesoknad.sendtTilNAVDato && sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato.getTime() !== sykepengesoknad.sendtTilArbeidsgiverDato.getTime();
     return (<div className="panel panel--komprimert blokk">
         <Varselstripe type="suksess">
             <div>
                 {
                     (() => {
-                        if (sendtTilBeggeMenIkkeSamtidig) {
+                        if (erSendtTilBeggeMenIkkeSamtidig(sykepengesoknad)) {
                             return <SendtUlikt sykepengesoknad={sykepengesoknad} />;
                         }
                         return <SendtLikt sykepengesoknad={sykepengesoknad} />;

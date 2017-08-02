@@ -3,8 +3,30 @@ import { Link } from 'react-router';
 import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import { tidligsteFom, senesteTom } from '../../utils/periodeUtils';
-import { NY } from '../../enums/sykepengesoknadstatuser';
+import { NY, SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { getSendtTilSuffix, erSendtTilBeggeMenIkkeSamtidig } from '../../utils/sykepengesoknadUtils';
+
+export const SendtUlikt = ({ soknad }) => {
+    return (<span>
+        {
+            getLedetekst('soknad.teaser.status.SENDT.til-arbeidsgiver', {
+                '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato),
+                '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn,
+            })
+        }
+        <br />
+        {
+            getLedetekst('soknad.teaser.status.SENDT.til-nav', {
+                '%DATO%': toDatePrettyPrint(soknad.sendtTilNAVDato),
+            })
+        }
+    </span>);
+};
+
+SendtUlikt.propTypes = {
+    soknad: sykepengesoknadPt.isRequired,
+};
 
 class SoknadTeaser extends Component {
 
@@ -31,7 +53,8 @@ class SoknadTeaser extends Component {
         const { soknad } = this.props;
 
         const perioder = soknad.aktiviteter.map(a => { return a.periode; });
-        const visStatus = soknad.status !== NY;
+        const visStatus = soknad.status !== NY && soknad.status !== SENDT;
+        const sendtTilBeggeMenIkkeSamtidig = erSendtTilBeggeMenIkkeSamtidig(soknad);
 
         return (<article aria-labelledby={`soknader-header-${soknad.id}`}>
             <Link className="inngangspanel js-panel" to={`${getContextRoot()}/soknader/${soknad.id}`}
@@ -54,18 +77,35 @@ class SoknadTeaser extends Component {
                         {
                             visStatus &&
                                 <p className="inngangspanel__status js-status">
-                                { getLedetekst(`soknad.teaser.status.${soknad.status}`, { '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato) }) }
+                                    {
+                                        getLedetekst(`soknad.teaser.status.${soknad.status}`, {
+                                            '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
+                                        })
+                                    }
                                 </p>
                         }
                     </header>
-                    <p className="inngangspanel__tekst js-tekst">{getLedetekst('soknad.teaser.tekst',
+                    <p className="inngangspanel__tekst js-tekst">
                         {
-                            '%FRA%': toDatePrettyPrint(tidligsteFom(perioder)),
-                            '%TIL%': toDatePrettyPrint(senesteTom(perioder)) }
-                        )
-                    }</p>
+                            getLedetekst('soknad.teaser.tekst', {
+                                '%FRA%': toDatePrettyPrint(tidligsteFom(perioder)),
+                                '%TIL%': toDatePrettyPrint(senesteTom(perioder)),
+                            })
+                        }
+                    </p>
                     <p className="inngangspanel__undertekst js-undertekst mute">
-                        {getLedetekst('soknad.teaser.undertekst', { '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn }) }
+                        {
+                            soknad.status !== SENDT && soknad.status !== TIL_SENDING && getLedetekst('soknad.teaser.undertekst', { '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn })
+                        }
+                        {
+                            sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY && <SendtUlikt soknad={soknad} />
+                        }
+                        {
+                            !sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY && getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
+                                '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
+                                '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn,
+                            })
+                        }
                     </p>
                 </div>
             </Link>

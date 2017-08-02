@@ -4,6 +4,7 @@ import {
     sykmeldtHarManglendeNaermesteLeder,
     sykmeldtHarNaermestelederHosArbeidsgiver,
     sykmeldtHarNaermestelederHosArbeidsgivere,
+    finnSykmeldtSinNaermestelederNavnHosArbeidsgiver,
 } from '../../js/utils/sykmeldingUtils';
 import getSykmelding from '../mockSykmeldinger';
 import { getSykmeldinger, getArbeidsgivere, getArbeidsgiver } from '../mockSykmeldinger';
@@ -149,6 +150,22 @@ describe("sykmeldingUtils", () => {
             virksomhetsnummer = "***REMOVED***";
             expect(sykmeldtHarNaermestelederHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.be.true;
         });
+    });
+
+    describe("finnSykmeldtSinNaermestelederNavnHosArbeidsgiver", () => {
+
+        let virksomhetsnummer;
+
+        it("skal ikke returnerere en naermeste leder", () => {
+            virksomhetsnummer = "***REMOVED***";
+            expect(finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.be.undefined;
+        });
+
+        it("skal returnerere en naermeste leder", () => {
+            virksomhetsnummer = "***REMOVED***";
+            expect(finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.equal("Geir-Espen Fygle");
+        });
+
     });
 
     describe("sykmeldtHarManglendeNaermesteLeder", () => {

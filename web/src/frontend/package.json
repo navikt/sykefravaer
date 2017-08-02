@@ -30,7 +30,7 @@
   "license": "ISC",
   "dependencies": {
     "digisyfo-npm": "1.11.4",
-    "oppfolgingsdialog-npm": "0.0.90",
+    "oppfolgingsdialog-npm": "0.0.92",
     "fetch": "1.0.1",
     "isomorphic-fetch": "2.2.1",
     "moter-npm": "3.1.35",

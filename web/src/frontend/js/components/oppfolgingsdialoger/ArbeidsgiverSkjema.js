@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
-import { getLedetekst, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
-import { sykmeldtHarManglendeNaermesteLeder } from '../../utils/sykmeldingUtils';
 import {
     erOppfolgingsdialogOpprettetMedArbeidsgiver,
     erOppfolgingsdialogOpprettbarMedArbeidsgiver,
@@ -12,23 +11,64 @@ import Radioknapper from '../skjema/Radioknapper';
 
 const OPPFOLGINGSKJEMANAVN = 'OPPRETT_DIALOG';
 
-export const VelgArbeidsgiverFeilmelding = ({ oppfolgingsdialoger, arbeidsgiver }) => {
+export const VelgArbeidsgiverUndertekst = ({ oppfolgingsdialoger, arbeidsgiver }) => {
     if (erOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer)) {
-        return (<div className="velgArbeidsgiverFeilmelding">
-            <img className="velgArbeidsgiverFeilmelding__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
-            <span className="velgArbeidsgiverFeilmelding__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.allerede-oppretettet.tekst')}</span>
+        return (<div className="velgArbeidsgiverUndertekst">
+            <img className="velgArbeidsgiverUndertekst__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
+            <span className="velgArbeidsgiverUndertekst__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.allerede-oppretettet.tekst')}</span>
         </div>);
     } else if (!arbeidsgiver.harNaermesteLeder) {
-        return (<div className="velgArbeidsgiverFeilmelding">
-            <img className="velgArbeidsgiverFeilmelding__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
-            <span className="velgArbeidsgiverFeilmelding__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.ingen-naermesteleder.tekst')}</span>
+        return (<div className="velgArbeidsgiverUndertekst">
+            <img className="velgArbeidsgiverUndertekst__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
+            <span className="velgArbeidsgiverUndertekst__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.ingen-naermesteleder.tekst')}</span>
         </div>);
+    } else if (arbeidsgiver.naermesteLeder) {
+        return (<div className="velgArbeidsgiverUndertekst">
+            <span className="velgArbeidsgiverUndertekst__tekst">
+                {getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.naermeste-leder-navn', {
+                    '%NAVN%': arbeidsgiver.naermesteLeder,
+                })}
+            </span>
+            </div>
+        );
     }
     return (null);
 };
-VelgArbeidsgiverFeilmelding.propTypes = {
+VelgArbeidsgiverUndertekst.propTypes = {
     oppfolgingsdialoger: PropTypes.array,
     arbeidsgiver: PropTypes.object,
+};
+export const VelgArbeidsgiverRadioKnapper = ({ input, meta, oppfolgingsdialoger, arbeidsgivere }) => {
+    return (
+        <Radioknapper
+            input={input}
+            meta={meta}
+            visUndertekst
+        >
+        {
+            arbeidsgivere.map((arbeidsgiver, index) => {
+                return (
+                    <input
+                        key={index}
+                        value={arbeidsgiver.virksomhetsnummer}
+                        label={arbeidsgiver.navn}
+                        disabled={!erOppfolgingsdialogOpprettbarMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver)}>
+                        <VelgArbeidsgiverUndertekst
+                            oppfolgingsdialoger={oppfolgingsdialoger}
+                            arbeidsgiver={arbeidsgiver}
+                        />
+                    </input>
+                );
+            })
+        }
+        </Radioknapper>
+  );
+};
+VelgArbeidsgiverRadioKnapper.propTypes = {
+    input: PropTypes.object,
+    meta: PropTypes.object,
+    oppfolgingsdialoger: PropTypes.array,
+    arbeidsgivere: PropTypes.array,
 };
 
 export const ArbeidsgiverSkjema = ({ arbeidsgivere, oppfolgingsdialoger, handleSubmit, avbrytHref }) => {
@@ -37,32 +77,11 @@ export const ArbeidsgiverSkjema = ({ arbeidsgivere, oppfolgingsdialoger, handleS
             <div className="inputgruppe velgarbeidsgiver__inputgruppe">
                 <Field
                     name="arbeidsgiver"
-                    component={Radioknapper}>
-                    {
-                        arbeidsgivere.map((arbeidsgiver, index) => {
-                            return (
-                                <input
-                                    key={index}
-                                    value={arbeidsgiver.virksomhetsnummer}
-                                    label={arbeidsgiver.navn}
-                                    disabled={!erOppfolgingsdialogOpprettbarMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver)}>
-                                    <VelgArbeidsgiverFeilmelding
-                                        oppfolgingsdialoger={oppfolgingsdialoger}
-                                        arbeidsgiver={arbeidsgiver}
-                                    />
-                                </input>
-                            );
-                        })
-                    }
-                </Field>
+                    component={VelgArbeidsgiverRadioKnapper}
+                    oppfolgingsdialoger={oppfolgingsdialoger}
+                    arbeidsgivere={arbeidsgivere}
+                />
             </div>
-
-            {
-                sykmeldtHarManglendeNaermesteLeder(arbeidsgivere) &&
-                <Varselstripe>
-                    <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varselstripe.tekst')}</p>
-                </Varselstripe>
-            }
 
             <div className="knapperad">
                 <button

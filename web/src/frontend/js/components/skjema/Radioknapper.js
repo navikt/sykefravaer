@@ -9,7 +9,7 @@ export const getLabelId = (id) => {
     return `label-${nyId}`;
 };
 
-export const Radioknapp = ({ input, value, children, id, label, checked, labelSekundaer, disabled }) => {
+export const Radioknapp = ({ input, value, children, id, label, checked, labelSekundaer, disabled, visUndertekst }) => {
     return (<div className={disabled && 'skjema__input--inaktiv'}>
         <div className="skjema__input">
             <input id={id} className="radioknapp" type="radio" {...input} disabled={disabled} checked={checked || input.value.toString() === value.toString()} value={value} onBlur={() => {
@@ -18,6 +18,7 @@ export const Radioknapp = ({ input, value, children, id, label, checked, labelSe
             <label id={getLabelId(id)} htmlFor={id}>{label} {labelSekundaer ? <span className="sekundaerLabel">{labelSekundaer}</span> : null}</label>
         </div>
         {input.value === value || disabled && children}
+        {visUndertekst && !disabled && children}
     </div>);
 };
 
@@ -33,9 +34,10 @@ Radioknapp.propTypes = {
     checked: PropTypes.bool,
     labelSekundaer: PropTypes.string,
     disabled: PropTypes.bool,
+    visUndertekst: PropTypes.bool,
 };
 
-const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children, horisontal = false, hjelpetekst, hjelpelinje }) => {
+const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children, horisontal = false, hjelpetekst, hjelpelinje, visUndertekst }) => {
     return (<Feilomrade {...meta} id={input.name}>
         <div className={`${hjelpetekst ? 'medHjelpetekst' : ''}`}>
             <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>
@@ -45,7 +47,7 @@ const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children, hor
         <div className={horisontal ? 'inputgruppe inputgruppe--horisontal' : 'inputgruppe'}>
             {
                 children.map((radioknapp, index) => {
-                    return <Radioknapp key={index} input={input} id={`${input.name}-${index}`} {...radioknapp.props} />;
+                    return <Radioknapp key={index} input={input} id={`${input.name}-${index}`} visUndertekst={visUndertekst} {...radioknapp.props} />;
                 })
             }
         </div>
@@ -61,6 +63,7 @@ Radioknapper.propTypes = {
     horisontal: PropTypes.bool,
     hjelpetekst: PropTypes.object,
     hjelpelinje: PropTypes.object,
+    visUndertekst: PropTypes.bool,
 };
 
 export default Radioknapper;

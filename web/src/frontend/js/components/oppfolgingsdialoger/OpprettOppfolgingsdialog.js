@@ -6,7 +6,6 @@ import { finnArbeidsgivereForGyldigeSykmeldinger } from '../../utils/sykmeldingU
 const OpprettOppfolgingsdialog = ({ sykmeldinger, naermesteLedere, oppfolgingsdialoger, avbrytHref, velgArbeidsgiver }) => {
     const arbeidsgivere = finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere);
 
-
     return (
         <div className="panel blokk velgarbeidsgiver__blokk">
             <div className="illustrertTittel">

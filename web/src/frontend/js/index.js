@@ -50,7 +50,6 @@ const rootReducer = combineReducers({
     vedlikehold,
     form: formReducer,
     formMeta: reduxFormMeta,
-    forskutteringssporsmal,
     dokument,
 });
 

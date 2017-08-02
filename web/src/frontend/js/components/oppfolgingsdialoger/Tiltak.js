@@ -38,7 +38,7 @@ export const RenderNotifikasjonBoksSuksess = () => {
     />);
 };
 
-export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, sendLagreTiltak, sendSlettTiltak, aktoerId, arbeidstaker }) => {
+export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, sendLagreTiltak, sendSlettTiltak, aktoerId }) => {
     return (
         <OppfolgingsdialogTabell
             ledetekster={ledetekster}
@@ -60,7 +60,6 @@ RenderOppfolgingsdialogTiltakTabell.propTypes = {
     sendLagreTiltak: PropTypes.func,
     sendSlettTiltak: PropTypes.func,
     aktoerId: PropTypes.string,
-    arbeidstaker: PropTypes.object,
 };
 
 export const RenderTiltakKnapper = ({ toggleTiltakSkjema }) => {

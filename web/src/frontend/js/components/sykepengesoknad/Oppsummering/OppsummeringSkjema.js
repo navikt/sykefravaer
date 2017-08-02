@@ -19,8 +19,17 @@ export const SendingFeilet = () => {
     </div>);
 };
 
+const mottaker = (sendesTil, sykepengesoknad) => {
+    switch (sendesTil) {
+        case 'NAV': return getLedetekst('sykepengesoknad.oppsummering.nav-som-mottaker');
+        case 'ARBEIDSGIVER': return getLedetekst('sykepengesoknad.oppsummering.arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn });
+        case 'NAV_OG_ARBEIDSGIVER': return getLedetekst('sykepengesoknad.oppsummering.nav-og-arbeidsgiver-som-mottaker', { '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn });
+        default: return undefined;
+    }
+};
+
 export const OppsummeringForm = (props) => {
-    const { sykepengesoknad, backendsoknad, handleSubmit, actions, sender, sendingFeilet, visForskutteringssporsmal } = props;
+    const { sykepengesoknad, backendsoknad, handleSubmit, actions, sender, sendingFeilet, visForskutteringssporsmal, sendesTil } = props;
     const label = getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label');
     const onSubmit = (values) => {
         const soknad = mapSkjemasoknadToBackendsoknad(values, {
@@ -36,6 +45,7 @@ export const OppsummeringForm = (props) => {
         </div>
         { visForskutteringssporsmal && <ForskuttererArbeidsgiver /> }
         { sendingFeilet && <SendingFeilet /> }
+        { !visForskutteringssporsmal && <p className="js-mottaker">{mottaker(sendesTil, sykepengesoknad)}</p> }
         <Knapperad variant="knapperad--forrigeNeste">
             <Link
                 to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}
@@ -54,10 +64,13 @@ OppsummeringForm.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
     handleSubmit: PropTypes.func,
     backendsoknad: sykepengesoknadPt,
-    actions: PropTypes.object,
+    actions: PropTypes.shape({
+        sendSykepengesoknad: PropTypes.func,
+    }),
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
     visForskutteringssporsmal: PropTypes.bool,
+    sendesTil: PropTypes.string,
 };
 
 export const OppsummeringSkjema = setup(validate, OppsummeringForm);

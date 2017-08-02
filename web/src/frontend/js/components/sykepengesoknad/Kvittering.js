@@ -2,19 +2,7 @@ import React, { Component } from 'react';
 import Sidetopp from '../Sidetopp';
 import { getLedetekst, getHtmlLedetekst, scrollTo, erSynligIViewport } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
-
-export const getSendtTilSuffix = (sykepengesoknad) => {
-    if (sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato) {
-        return '.til-arbeidsgiver-og-nav';
-    }
-    if (sykepengesoknad.sendtTilArbeidsgiverDato) {
-        return '.til-arbeidsgiver';
-    }
-    if (sykepengesoknad.sendtTilNAVDato) {
-        return '.til-nav';
-    }
-    return '';
-};
+import { getSendtTilSuffix } from '../../utils/sykepengesoknadUtils';
 
 class Kvittering extends Component {
     componentDidMount() {

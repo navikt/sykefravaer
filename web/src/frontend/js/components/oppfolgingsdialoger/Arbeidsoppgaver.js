@@ -9,6 +9,7 @@ import {
     OppfolgingsdialogTabell,
     LagreArbeidsoppgaveSkjema,
     OppfolgingsdialogFooter,
+    SIDETYPE,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import history from '../../history';
@@ -29,7 +30,7 @@ RenderNotifikasjonBoks.propTypes = {
 };
 export const RenderNotifikasjonBoksSuksess = () => {
     return (<NotifikasjonBoks
-        imgUrl={"/sykefravaer/img/svg/notifikasjon-illustrasjon.svg"}
+        imgUrl={"/sykefravaer/img/svg/notifikasjon-suksess-illustrasjon.svg"}
         tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
         classNames={'panel--suksess'}
     />);
@@ -182,14 +183,12 @@ export class Arbeidsoppgaver extends Component {
                         }
                     </div>
                 }
-                {
-                    <OppfolgingsdialogFooter
-                        sideNr="1"
-                        ledetekster={ledetekster}
-                        oppfolgingsdialog={oppfolgingsdialog}
-                        rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}
-                    />
-                }
+                <OppfolgingsdialogFooter
+                    ledetekster={ledetekster}
+                    oppfolgingsdialog={oppfolgingsdialog}
+                    sideType={SIDETYPE.ARBEIDSOPPGAVER}
+                    rootUrl={`${window.APP_SETTINGS.APP_ROOT}/oppfolgingsplaner/${oppfolgingsdialogId}`}
+                />
             </OppfolgingsdialogSide>
         );
     }

@@ -7,12 +7,14 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { sorterEtterDato } from '../../utils/sykepengesoknadUtils';
 
 const Soknader = ({ soknader = [] }) => {
-    const nyeSoknader = soknader.filter((soknad) => {
+    const nyeSoknader = [...soknader].filter((soknad) => {
         return soknad.status === NY || soknad.status === UTKAST_TIL_KORRIGERING;
     });
-    const sendteSoknader = soknader.filter((soknad) => {
-        return soknad.status === SENDT || soknad.status === TIL_SENDING || soknad.status === UTGAATT;
-    }).sort(sorterEtterDato);
+    const sendteSoknader = [...soknader]
+        .filter((soknad) => {
+            return soknad.status === SENDT || soknad.status === TIL_SENDING || soknad.status === UTGAATT;
+        })
+        .sort(sorterEtterDato);
 
     return (<div>
         <Sidetopp

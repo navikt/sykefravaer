@@ -9,6 +9,8 @@ const initiellState = {
     sendingFeilet: false,
     data: [],
     hentet: false,
+    henterBerikelse: false,
+    henterBerikelseFeilet: false,
 };
 
 export function sorterAktiviteterEldsteFoerst(soknad) {
@@ -67,6 +69,11 @@ export const parseDatofelter = (soknad) => {
         sykmeldingSkrevetDato: tilDato(soknad.sykmeldingSkrevetDato),
         forrigeSykeforloepTom: tilDato(soknad.forrigeSykeforloepTom),
     });
+};
+
+export const finnSoknad = (state, id) => {
+    const soknad = state.sykepengesoknader.data.filter((s) => { return `${s.id}` === id; });
+    return soknad[0] || {};
 };
 
 export default function sykepengesoknader(state = initiellState, action) {
@@ -153,6 +160,27 @@ export default function sykepengesoknader(state = initiellState, action) {
             return Object.assign({}, state, { data }, {
                 sender: false,
                 sendingFeilet: false,
+            });
+        }
+        case actiontyper.SYKEPENGESOKNAD_BERIKELSE_HENTET: {
+            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, action.data);
+
+            return Object.assign({}, state, {
+                data,
+                henterBerikelse: false,
+                henterBerikelseFeilet: false,
+            });
+        }
+        case actiontyper.HENTER_SYKEPENGESOKNAD_BERIKELSE: {
+            return Object.assign({}, state, {
+                henterBerikelse: true,
+                henterBerikelseFeilet: false,
+            });
+        }
+        case actiontyper.SYKEPENGESOKNAD_BERIKELSE_FEILET: {
+            return Object.assign({}, state, {
+                henterBerikelse: false,
+                henterBerikelseFeilet: true,
             });
         }
         default:

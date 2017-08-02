@@ -24,27 +24,30 @@ import vedlikehold from './reducers/vedlikehold';
 import reduxFormMeta from './reducers/reduxFormMeta';
 import '../styles/styles.less';
 import forskutteringssporsmal from './reducers/forskutteringssporsmal';
+import arbeidsgiverperiodeberegning from './reducers/arbeidsgiverperiodeberegning';
 
 const rootReducer = combineReducers({
-    dineSykmeldinger,
-    sykepengesoknader,
     arbeidsgivere,
+    arbeidsgiverperiodeberegning,
     arbeidsgiversSykmeldinger,
     arbeidsoppgaver,
-    ledetekster,
-    tidslinjer,
     brukerinfo,
+    dineSykmeldinger,
+    forskutteringssporsmal,
     history,
     ledere,
+    ledetekster,
+    mote,
     oppfolgingsdialoger,
+    pilot,
     samtykke,
     svar,
-    pilot,
-    vedlikehold,
-    mote,
+    sykepengesoknader,
+    toggles,
+    tidslinjer,
     tilgang,
     tiltak,
-    toggles,
+    vedlikehold,
     form: formReducer,
     formMeta: reduxFormMeta,
     forskutteringssporsmal,

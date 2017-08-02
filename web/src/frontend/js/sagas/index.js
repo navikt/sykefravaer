@@ -18,6 +18,7 @@ import {
     tilgangSagas,
     tiltakSagas,
 } from 'oppfolgingsdialog-npm';
+import beregnArbeidsgiverperiodeSagas from './beregnArbeidsgiverperiodeSagas';
 import { ledeteksterSagas, togglesSagas } from 'digisyfo-npm';
 import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
 
@@ -25,6 +26,7 @@ export default function * rootSaga() {
     yield [
         arbeidsgiversSykmeldingerSagas(),
         brukerinfoSagas(),
+        beregnArbeidsgiverperiodeSagas(),
         dineArbeidsgivereSagas(),
         dineSykmeldingerSagas(),
         dinSykmeldingSagas(),

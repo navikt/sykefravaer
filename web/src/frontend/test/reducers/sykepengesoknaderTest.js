@@ -1,10 +1,14 @@
-import deepFreeze from 'deep-freeze';
-import {expect} from 'chai';
-import * as actiontyper from '../../js/actions/actiontyper';
-import { parseDatofelter, sorterAktiviteterEldsteFoerst } from '../../js/reducers/sykepengesoknader';
-import sykepengesoknader from '../../js/reducers/sykepengesoknader';
-import * as actions from '../../js/actions/sykepengesoknader_actions';
-import sinon from 'sinon';
+import deepFreeze from "deep-freeze";
+import {expect} from "chai";
+import * as actiontyper from "../../js/actions/actiontyper";
+import sykepengesoknader, {
+    finnSoknad,
+    parseDatofelter,
+    sorterAktiviteterEldsteFoerst
+} from "../../js/reducers/sykepengesoknader";
+import * as actions from "../../js/actions/sykepengesoknader_actions";
+import * as berikelses_actions from "../../js/actions/sykepengesoknader_actions";
+import sinon from "sinon";
 
 describe('sykepengesoknader', () => {
 
@@ -126,7 +130,7 @@ describe('sykepengesoknader', () => {
 
         it("håndterer SYKEPENGESOKNAD_SENDT", () => {
             let initialState = deepFreeze({
-                data: [{id: '1'},{id: '2'}],
+                data: [{id: '1'}, {id: '2'}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -171,11 +175,11 @@ describe('sykepengesoknader', () => {
                 henter: false,
                 hentingFeilet: false,
             });
-        });        
+        });
 
         it("håndterer SYKEPENGESOKNAD_SENDT_TIL_NAV", () => {
             let initialState = deepFreeze({
-                data: [{id: '1'},{id: '2'}],
+                data: [{id: '1'}, {id: '2'}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -196,7 +200,7 @@ describe('sykepengesoknader', () => {
 
         it("håndterer SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER", () => {
             let initialState = deepFreeze({
-                data: [{id: '1'},{id: '2'}],
+                data: [{id: '1'}, {id: '2'}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -217,7 +221,7 @@ describe('sykepengesoknader', () => {
 
         it("håndterer SEND_SYKEPENGESOKNAD_HAR_IKKE_FEILET", () => {
             let initialState = deepFreeze({
-                data: [{id: '1'},{id: '2'}],
+                data: [{id: '1'}, {id: '2'}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -244,7 +248,7 @@ describe('sykepengesoknader', () => {
 
         it("Håndterer START_ENDRING_SYKEPENGESOKNAD_FORESPURT", () => {
             let initialState = deepFreeze({
-                data: [{id: '1'},{id: '2'}],
+                data: [{id: '1'}, {id: '2'}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -254,11 +258,11 @@ describe('sykepengesoknader', () => {
             const nextState = sykepengesoknader(initialState, action);
             expect(nextState.starterEndring).to.be.true;
             expect(nextState.startEndringFeilet).to.be.false;
-        }); 
+        });
 
         it("Håndterer ENDRING_SYKEPENGESOKNAD_STARTET hvis søknaden ikke finnes i listen fra før", () => {
             let initialState = deepFreeze({
-                data: [{id: '88'},{id: '99'}],
+                data: [{id: '88'}, {id: '99'}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -270,11 +274,11 @@ describe('sykepengesoknader', () => {
             expect(nextState.startEndringFeilet).to.be.false;
             expect(nextState.data.length).to.equal(3);
             expect(nextState.data[2]).to.deep.equal(getParsetSoknad());
-        }); 
+        });
 
         it("Håndterer ENDRING_SYKEPENGESOKNAD_STARTET hvis søknaden finnes i listen fra før", () => {
             let initialState = deepFreeze({
-                data: [{id: '88'},{id: '99'}, getParsetSoknad()],
+                data: [{id: '88'}, {id: '99'}, getParsetSoknad()],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -285,11 +289,11 @@ describe('sykepengesoknader', () => {
             expect(nextState.starterEndring).to.be.false;
             expect(nextState.startEndringFeilet).to.be.false;
             expect(nextState.data.length).to.equal(3);
-        }); 
+        });
 
         it("Håndterer startEndringFeilet", () => {
             let initialState = deepFreeze({
-                data: [{id: '1'},{id: '2'}],
+                data: [{id: '1'}, {id: '2'}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -313,30 +317,34 @@ describe('sykepengesoknader', () => {
         });
 
         it("parser datofelter i egenmeldingsperioder", () => {
-            const soknad = Object.assign({},getSoknad(), { egenmeldingsperioder: [
-                {
-                    fom: "2016-07-15",
-                    tom: "2017-01-19",
-                }, {
-                    fom: "2016-07-15",
-                    tom: "2017-01-19",
-                },
-            ]});
+            const soknad = Object.assign({}, getSoknad(), {
+                egenmeldingsperioder: [
+                    {
+                        fom: "2016-07-15",
+                        tom: "2017-01-19",
+                    }, {
+                        fom: "2016-07-15",
+                        tom: "2017-01-19",
+                    },
+                ]
+            });
             const _soknad = parseDatofelter(soknad);
             expect(_soknad.egenmeldingsperioder[0].fom.getTime()).to.be.equal(new Date("2016-07-15").getTime());
             expect(_soknad.egenmeldingsperioder[0].tom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
 
         it("parser datofelter i ferie", () => {
-            const soknad = Object.assign({},getSoknad(), { ferie: [
-                {
-                    fom: "2016-07-15",
-                    tom: "2017-01-19",
-                }, {
-                    fom: "2016-07-15",
-                    tom: "2017-01-19",
-                },
-            ]});
+            const soknad = Object.assign({}, getSoknad(), {
+                ferie: [
+                    {
+                        fom: "2016-07-15",
+                        tom: "2017-01-19",
+                    }, {
+                        fom: "2016-07-15",
+                        tom: "2017-01-19",
+                    },
+                ]
+            });
 
             const _soknad = parseDatofelter(soknad);
             expect(_soknad.ferie[1].fom.getTime()).to.be.equal(new Date("2016-07-15").getTime());
@@ -344,7 +352,7 @@ describe('sykepengesoknader', () => {
         });
 
         it("parser datofelter i permisjon", () => {
-            const soknad = Object.assign({},getSoknad(),
+            const soknad = Object.assign({}, getSoknad(),
                 {
                     permisjon: [
                         {
@@ -362,20 +370,20 @@ describe('sykepengesoknader', () => {
         });
 
         it("parser datofelter i utenlandsopphold", () => {
-            const soknad = Object.assign({},getSoknad(),
+            const soknad = Object.assign({}, getSoknad(),
                 {
                     utenlandsopphold: {
                         soektOmSykepengerIPerioden: false,
                         perioder: [
-                        {
-                            fom: "2016-07-15",
-                            tom: "2017-01-19",
-                        }, {
-                            fom: "2016-07-15",
-                            tom: "2017-01-19",
-                        },
-                    ]
-                    } 
+                            {
+                                fom: "2016-07-15",
+                                tom: "2017-01-19",
+                            }, {
+                                fom: "2016-07-15",
+                                tom: "2017-01-19",
+                            },
+                        ]
+                    }
                 });
             const _soknad = parseDatofelter(soknad);
             expect(_soknad.utenlandsopphold.soektOmSykepengerIPerioden).to.be.equal(false);
@@ -476,6 +484,7 @@ describe('sykepengesoknader', () => {
             expect(_soknad.forrigeSykeforloepTom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
 
+
     });
 
     describe("sorterAktiviteterEldsteFoerst", () => {
@@ -530,6 +539,71 @@ describe('sykepengesoknader', () => {
         });
 
     })
+
+    describe("berikelse", () => {
+
+        let initialState = deepFreeze({
+            data: [],
+            henterBerikelse: false,
+            henterBerikelseFeilet: false,
+        });
+
+        it("håndterer henter berikelse", () => {
+            const action = berikelses_actions.henterBerikelse();
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState).to.deep.equal({
+                data: [],
+                henterBerikelse: true,
+                henterBerikelseFeilet: false,
+            });
+        });
+
+        it("håndterer berikelse hentet", () => {
+
+            let state = deepFreeze({
+                data: [{
+                    id: '1',
+
+                }]
+            });
+
+            const action = berikelses_actions.berikelseHentet({forrigeSykeforloepTom: '2017-07-31'}, '1');
+            const nextState = sykepengesoknader(state, action);
+            expect(nextState).to.deep.equal({
+                data: [{id: '1', forrigeSykeforloepTom: '2017-07-31'}],
+                henterBerikelse: false,
+                henterBerikelseFeilet: false,
+            });
+        });
+
+        it("håndterer hent berikelse feilet", () => {
+            const action = berikelses_actions.hentBerikelseFeilet();
+            const nextState = sykepengesoknader(initialState, action);
+            expect(nextState).to.deep.equal({
+                data: [],
+                henterBerikelse: false,
+                henterBerikelseFeilet: true,
+            });
+        });
+    });
+
+    describe("finnSoknad", () => {
+        const state = {
+            sykepengesoknader: {
+                data: [{ id: '1', en: 'en' }, { id: '2', innhold: 'innhold i soknad 2' }, { id: '3', tre: 'tre' }]
+            }
+        };
+
+        it("finner soknad", () => {
+            const s = finnSoknad(state, '2');
+            expect(s.innhold).to.be.equal('innhold i soknad 2')
+        });
+
+        it("returnerer tomt om søknaden ikke finnes", () => {
+            const s = finnSoknad(state, '4');
+            expect(s).to.deep.equal({})
+        });
+    });
 });
 
 const getSoknad = () => {

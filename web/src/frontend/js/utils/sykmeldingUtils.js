@@ -6,6 +6,13 @@ export const sykmeldtHarNaermestelederHosArbeidsgiver = (virksomhetsnummer, naer
     }).length > 0;
 };
 
+export const finnSykmeldtSinNaermestelederNavnHosArbeidsgiver = (virksomhetsnummer, naermesteLedere) => {
+    const naermesteLeder = naermesteLedere.filter(leder => {
+        return virksomhetsnummer === leder.orgnummer;
+    })[0];
+    return naermesteLeder ? naermesteLeder.navn : undefined;
+};
+
 export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteLedere) => {
     return sykmeldinger.filter(sykmelding => {
         return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
@@ -19,6 +26,7 @@ export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteL
             virksomhetsnummer: sykmelding.orgnummer,
             navn: sykmelding.arbeidsgiver,
             harNaermesteLeder: sykmeldtHarNaermestelederHosArbeidsgiver(sykmelding.orgnummer, naermesteLedere),
+            naermesteLeder: finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(sykmelding.orgnummer, naermesteLedere),
         };
     }).filter((sykmelding, idx, self) => {
         return self.findIndex(t => {

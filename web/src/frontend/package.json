@@ -30,7 +30,7 @@
   "license": "ISC",
   "dependencies": {
     "digisyfo-npm": "1.11.4",
-    "oppfolgingsdialog-npm": "0.0.88",
+    "oppfolgingsdialog-npm": "0.0.95",
     "fetch": "1.0.1",
     "isomorphic-fetch": "2.2.1",
     "moter-npm": "3.1.35",
@@ -42,6 +42,7 @@
     "nav-frontend-skjema-design": "1.1.0",
     "nav-frontend-stegindikator-design": "0.0.1",
     "nav-frontend-typografi-design": "2.1.1",
+    "nav-logger": "2.0.0",
     "promise-polyfill": "6.0.2",
     "react": "15.3.2",
     "react-day-picker": "4.0.0",

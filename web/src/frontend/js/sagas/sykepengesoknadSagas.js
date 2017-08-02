@@ -1,10 +1,12 @@
-import { call, put, fork } from 'redux-saga/effects';
+import { call, put, fork, select } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { get, post } from '../api';
 import * as actions from '../actions/sykepengesoknader_actions';
 import { log } from 'digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
 import history from '../history';
+import { finnSoknad } from '../reducers/sykepengesoknader';
+import logger from '../logging';
 
 export function* hentSykepengesoknader() {
     yield put(actions.henterSykepengesoknader());
@@ -13,6 +15,7 @@ export function* hentSykepengesoknader() {
         yield put(actions.sykepengesoknaderHentet(data));
     } catch (e) {
         log(e);
+        logger.error(`Kunne ikke hente sykepengesoknader. ${e.message}`);
         yield put(actions.hentSykepengesoknaderFeilet());
     }
 }
@@ -35,6 +38,7 @@ export function* sendSykepengesoknadTilArbeidsgiver(action) {
         yield put(actions.sykepengesoknadSendtTilArbeidsgiver(action.sykepengesoknadsId, sykepengesoknad));
     } catch (e) {
         log(e);
+        logger.error(`Kunne ikke sende sykepengesøknad til arbeidsgiver. ${e.message}`);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }
@@ -46,6 +50,7 @@ export function* sendSykepengesoknadTilNAV(action) {
         yield put(actions.sykepengesoknadSendtTilNAV(action.sykepengesoknadsId, sykepengesoknad));
     } catch (e) {
         log(e);
+        logger.error(`Kunne ikke sende sykepengesøknad til NAV. ${e.message}`);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }
@@ -59,6 +64,27 @@ export function* startEndring(action) {
         log(e);
         yield put(actions.startEndringFeilet());
     }
+}
+
+export function* hentBerikelse(action) {
+    const soknad = yield select(finnSoknad, action.sykepengesoknadsId);
+    if (!soknad.id) {
+        yield call(hentSykepengesoknader);
+    }
+
+    yield put(actions.henterBerikelse());
+    try {
+        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/berik`);
+        yield put(actions.berikelseHentet(data, action.sykepengesoknadsId));
+    } catch (e) {
+        log(e);
+        logger.error(`Kunne ikke hente berikelse av søknaden. ${e.message}`);
+        yield put(actions.hentBerikelseFeilet());
+    }
+}
+
+function* watchHentBerikelse() {
+    yield* takeEvery(actiontyper.SYKEPENGESOKNAD_BERIKELSE_FORESPURT, hentBerikelse);
 }
 
 function* watchHentSykepengesoknader() {
@@ -93,5 +119,6 @@ export default function* sykepengesoknadSagas() {
         fork(watchSendSykepengesoknadTilNAV),
         fork(watchSendSykepengesoknadTilArbeidsgiver),
         fork(watchEndreSykepengesoknad),
+        fork(watchHentBerikelse),
     ];
 }

@@ -17,3 +17,20 @@ export const sorterEtterDato = (soknad1, soknad2) => {
     }
     return 0;
 };
+
+export const erSendtTilBeggeMenIkkeSamtidig = (sykepengesoknad) => {
+    return sykepengesoknad.sendtTilNAVDato && sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato.getTime() !== sykepengesoknad.sendtTilArbeidsgiverDato.getTime();
+};
+
+export const getSendtTilSuffix = (sykepengesoknad) => {
+    if (sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato) {
+        return '.til-arbeidsgiver-og-nav';
+    }
+    if (sykepengesoknad.sendtTilArbeidsgiverDato) {
+        return '.til-arbeidsgiver';
+    }
+    if (sykepengesoknad.sendtTilNAVDato) {
+        return '.til-nav';
+    }
+    return '';
+};

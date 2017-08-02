@@ -31,8 +31,8 @@ export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftF
     let knappClassName = 'knapp knapp--fare blokk--s js-bekreft';
     return (<div>
         <div className={avkreftFeilet ? 'blokk' : ''}>
-            <h3 className="typo-undertittel">Feil nærmeste leder</h3>
-            <p>Er du sikker på at det er feil at <strong>{leder.navn}</strong> er din nærmeste leder i <strong>{leder.organisasjonsnavn}</strong>?</p>
+            <h3 className="typo-undertittel">Endre nærmeste leder</h3>
+            <p>Er du sikker på at du vil fjerne <strong>{leder.navn}</strong> som din nærmeste leder i <strong>{leder.organisasjonsnavn}</strong>?</p>
         </div>
         <div aria-live="polite" role="alert" className={avkreftFeilet ? 'panel panel--ramme panel--komprimert' : ''}>
             {
@@ -44,7 +44,7 @@ export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftF
         <div className="knapperad">
             <button type="button" disabled={avkrefter} className={knappClassName} onClick={() => {
                 avkreftLeder(leder.orgnummer);
-            }}>Ja, dette er feil
+            }}>Ja, jeg er sikker
                 {avkrefter && <span className="knapp__spinner" />}
             </button>
             <p><a className="lenke js-avbryt" href="#" role="button" onClick={(e) => {

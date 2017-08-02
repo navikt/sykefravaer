@@ -82,4 +82,45 @@ describe("sykepengesoknadUtils", () => {
 
     });
 
+    describe("erSendtTilBeggeMenIkkeSamtidig", () => {
+
+        let soknadSendtTilNAV;
+        let soknadSendtTilArbeidsgiver;
+        let soknadSendtTilBeggeSamtidig;
+        let soknadSendtTilBeggeMenIkkeSamtidig;
+
+        beforeEach(() => {
+            soknadSendtTilNAV = {
+                sendtTilArbeidsgiverDato: null,
+                sendtTilNAVDato: new Date("2017-02-10"),
+            };
+
+            soknadSendtTilArbeidsgiver = {
+                sendtTilNAVDato: null,
+                sendtTilArbeidsgiverDato: new Date("2017-02-10"),
+            };
+
+            soknadSendtTilBeggeSamtidig = {
+                sendtTilArbeidsgiverDato: new Date("2017-02-10"),  
+                sendtTilNAVDato: new Date("2017-02-10"),
+            };
+
+            soknadSendtTilBeggeMenIkkeSamtidig = {
+                sendtTilArbeidsgiverDato: new Date("2017-02-10"),  
+                sendtTilNAVDato: new Date("2017-02-12"),
+            }
+        });
+
+        it("Skal returnere true hvis søknad er sendt til begge men ikke samtidig", () => {
+            expect(utils.erSendtTilBeggeMenIkkeSamtidig(soknadSendtTilBeggeMenIkkeSamtidig)).to.be.true;
+        });
+
+        it("Skal returnere false i alle andre tilfeller", () => {
+            expect(utils.erSendtTilBeggeMenIkkeSamtidig(soknadSendtTilNAV));
+            expect(utils.erSendtTilBeggeMenIkkeSamtidig(soknadSendtTilArbeidsgiver));
+            expect(utils.erSendtTilBeggeMenIkkeSamtidig(soknadSendtTilBeggeSamtidig));
+        });
+
+    });
+
 })

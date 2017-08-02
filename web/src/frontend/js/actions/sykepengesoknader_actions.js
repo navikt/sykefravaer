@@ -107,3 +107,30 @@ export function startEndringFeilet() {
         type: actiontyper.START_ENDRING_FEILET,
     };
 }
+
+export const berikelseHentet = (data, sykepengesoknadsId) => {
+    return {
+        type: actiontyper.SYKEPENGESOKNAD_BERIKELSE_HENTET,
+        sykepengesoknadsId,
+        data,
+    };
+};
+
+export function hentBerikelse(sykepengesoknadsId) {
+    return {
+        type: actiontyper.SYKEPENGESOKNAD_BERIKELSE_FORESPURT,
+        sykepengesoknadsId,
+    };
+}
+
+export function henterBerikelse() {
+    return {
+        type: actiontyper.HENTER_SYKEPENGESOKNAD_BERIKELSE,
+    };
+}
+
+export function hentBerikelseFeilet() {
+    return {
+        type: actiontyper.SYKEPENGESOKNAD_BERIKELSE_FEILET,
+    };
+}

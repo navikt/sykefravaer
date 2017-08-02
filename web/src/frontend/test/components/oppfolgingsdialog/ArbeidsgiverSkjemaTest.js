@@ -5,8 +5,7 @@ import { Field } from 'redux-form';
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { Varselstripe } from 'digisyfo-npm';
-import { ArbeidsgiverSkjema, VelgArbeidsgiverFeilmelding } from '../../../js/components/oppfolgingsdialoger/ArbeidsgiverSkjema';
+import { ArbeidsgiverSkjema, VelgArbeidsgiverUndertekst } from '../../../js/components/oppfolgingsdialoger/ArbeidsgiverSkjema';
 import { getOppfolgingsdialoger } from '../../mockOppfolgingsdialoger';
 
 chai.use(chaiEnzyme());
@@ -37,6 +36,14 @@ describe("ArbeidsoppgaverContainer", () => {
             virksomhetsnummer: "123456782",
             navn: "Arbeidsgiver 3",
             harNaermesteLeder: false,
+        },
+        {
+            virksomhetsnummer: "123456782",
+            navn: "Arbeidsgiver 3",
+            harNaermesteLeder: true,
+            naermesteLeder: {
+                navn: "Test Testesen",
+            },
         }
     ];
 
@@ -66,41 +73,44 @@ describe("ArbeidsoppgaverContainer", () => {
         expect(komponent.find(Field)).to.have.length(1);
     });
 
-    it('Skal vise Varselstripe, om det eksisterer en arbeidsgiver uten innmeldt naermeste leder', () => {
-        let komponent = shallow(<ArbeidsgiverSkjema
-            arbeidsgivere={[{harNaermesteLeder: false}]}
-            oppfolgingsdialoger={[]}
-            handleSubmit={handleSubmit}
-            avbrytHref=""
-        />);
-        expect(komponent.find(Varselstripe)).to.have.length(1);
-    });
-
-
     describe('VelgArbeidsgiverFeilmelding', () => {
 
         it('Skal vise ikke vise en feilmelding', () => {
-            let komponent = shallow(<VelgArbeidsgiverFeilmelding
+            let komponent = shallow(<VelgArbeidsgiverUndertekst
                 oppfolgingsdialoger={oppfolgingsdialoger}
                 arbeidsgiver={arbeidsgivere[0]}
             />);
-            expect(komponent.find('div.velgArbeidsgiverFeilmelding')).to.have.length(0);
+            expect(komponent.find('div.velgArbeidsgiverUndertekst')).to.have.length(0);
         });
 
         it('Skal vise en feilmelding, om det allerede er opprettet en plan med arbeidsgiver', () => {
-            let komponent = shallow(<VelgArbeidsgiverFeilmelding
+            let komponent = shallow(<VelgArbeidsgiverUndertekst
                 oppfolgingsdialoger={oppfolgingsdialoger}
                 arbeidsgiver={arbeidsgivere[1]}
             />);
-            expect(komponent.find('div.velgArbeidsgiverFeilmelding')).to.have.length(1);
+            expect(komponent.find('div.velgArbeidsgiverUndertekst')).to.have.length(1);
+            expect(komponent.find('img.velgArbeidsgiverUndertekst__ikon')).to.have.length(1);
+            expect(komponent.find('span.velgArbeidsgiverUndertekst__tekst')).to.have.length(1);
         });
 
         it('Skal vise en feilmelding, om naermeste leder ikke er innmeldt', () => {
-            let komponent = shallow(<VelgArbeidsgiverFeilmelding
+            let komponent = shallow(<VelgArbeidsgiverUndertekst
                 oppfolgingsdialoger={oppfolgingsdialoger}
                 arbeidsgiver={arbeidsgivere[2]}
             />);
-            expect(komponent.find('div.velgArbeidsgiverFeilmelding')).to.have.length(1);
+            expect(komponent.find('div.velgArbeidsgiverUndertekst')).to.have.length(1);
+            expect(komponent.find('img.velgArbeidsgiverUndertekst__ikon')).to.have.length(1);
+            expect(komponent.find('span.velgArbeidsgiverUndertekst__tekst')).to.have.length(1);
+        });
+
+        it('Skal vise en melding med naermesteLeders navn, om naermeste leder er innmeldt', () => {
+            let komponent = shallow(<VelgArbeidsgiverUndertekst
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                arbeidsgiver={arbeidsgivere[3]}
+            />);
+            expect(komponent.find('div.velgArbeidsgiverUndertekst')).to.have.length(1);
+            expect(komponent.find('img.velgArbeidsgiverUndertekst__ikon')).to.have.length(0);
+            expect(komponent.find('span.velgArbeidsgiverUndertekst__tekst')).to.have.length(1);
         });
 
     });

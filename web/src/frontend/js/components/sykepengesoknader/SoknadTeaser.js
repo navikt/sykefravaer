@@ -101,7 +101,7 @@ class SoknadTeaser extends Component {
                             sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY && <SendtUlikt soknad={soknad} />
                         }
                         {
-                            !sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY  && soknad.status !== UTKAST_TIL_KORRIGERING && getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
+                            !sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY && soknad.status !== UTKAST_TIL_KORRIGERING && getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
                                 '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
                                 '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn,
                             })

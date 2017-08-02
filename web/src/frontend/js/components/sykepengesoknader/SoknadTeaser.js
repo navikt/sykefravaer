@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import { tidligsteFom, senesteTom } from '../../utils/periodeUtils';
-import { NY, SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
+import { NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { getSendtTilSuffix, erSendtTilBeggeMenIkkeSamtidig } from '../../utils/sykepengesoknadUtils';
 
@@ -101,7 +101,7 @@ class SoknadTeaser extends Component {
                             sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY && <SendtUlikt soknad={soknad} />
                         }
                         {
-                            !sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY && getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
+                            !sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY  && soknad.status !== UTKAST_TIL_KORRIGERING && getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
                                 '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
                                 '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn,
                             })

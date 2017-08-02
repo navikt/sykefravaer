@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46 (44423) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 4</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <ellipse id="path-1" cx="49.9216178" cy="49.9795762" rx="49.9216178" ry="49.9795762"></ellipse>
+        <polygon id="path-3" points="0 0.305131852 0 28.4740741 29.6178202 28.4740741 29.6178202 0.305131852 1.24669242e-20 0.305131852"></polygon>
+    </defs>
+    <g id="Landingssiden" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Ditt_Sykefravær_ingen-sykmelding" transform="translate(-462.000000, -459.000000)">
+            <g id="Group-4" transform="translate(462.000000, 459.000000)">
+                <g id="Group-2">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Mask" fill="#C2EAF7" xlink:href="#path-1"></use>
+                    <g id="Group-10" mask="url(#mask-2)">
+                        <g transform="translate(20.000000, 41.333333)">
+                            <mask id="mask-4" fill="white">
+                                <use xlink:href="#path-3"></use>
+                            </mask>
+                            <g id="Clip-9" stroke="none" fill="none"></g>
+                        </g>
+                    </g>
+                </g>
+                <g id="Brev" transform="translate(22.000000, 20.000000)">
+                    <path d="M4.9053,30.3474 C4.2133,29.6544 0.9383,27.2754 1.6313,26.5824 L0.5203,23.0684 L26.7473,0.5974 C27.4403,-0.0956 28.5623,-0.0956 29.2563,0.5974 L55.4813,23.0684 L49.5413,35.9254 C50.2323,36.6174 27.8213,48.0894 27.1293,48.7834 L4.9053,30.3474 Z" id="Fill-169" fill="#0C576F"></path>
+                    <path d="M50.1172,47.0242 L5.8872,47.0242 C5.5822,47.0242 5.3362,46.7752 5.3362,46.4742 L5.3362,16.6462 C5.3362,16.3422 5.5822,16.0952 5.8872,16.0952 L50.1172,16.0952 C50.4202,16.0952 50.6662,16.3422 50.6662,16.6462 L50.6662,46.4742 C50.6662,46.7752 50.4202,47.0242 50.1172,47.0242" id="Fill-170" fill="#DCDCD2"></path>
+                    <polygon id="Fill-171" fill="#8F9395" points="14.143 29.811 41.859 29.811 41.859 27.63 14.143 27.63"></polygon>
+                    <polygon id="Fill-172" fill="#8F9395" points="14.143 34.745 41.859 34.745 41.859 32.564 14.143 32.564"></polygon>
+                    <polygon id="Fill-173" fill="#8F9395" points="14.143 39.68 41.859 39.68 41.859 37.498 14.143 37.498"></polygon>
+                    <polygon id="Fill-174" fill="#8F9395" points="14.143 44.614 41.859 44.614 41.859 42.434 14.143 42.434"></polygon>
+                    <path d="M2.5947,59.6985 L47.3377,59.6985 C48.4847,59.6985 0.5197,23.0685 0.5197,23.0685 L0.5197,57.6235 C0.5197,58.7685 1.4487,59.6985 2.5947,59.6985" id="Fill-175" fill="#D94C56"></path>
+                    <path d="M53.4082,59.6985 L8.6652,59.6985 C7.5192,59.6985 55.4832,23.0685 55.4832,23.0685 L55.4832,57.6235 C55.4832,58.7685 54.5542,59.6985 53.4082,59.6985" id="Fill-176" fill="#C52C35"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

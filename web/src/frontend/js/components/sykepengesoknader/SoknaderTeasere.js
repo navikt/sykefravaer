@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import SoknaderTeaser from './SoknaderTeaser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
-import { sorterEtterDato } from '../../utils/sykepengesoknadUtils';
 
 const SoknaderTeasere = ({ soknader, className, tittel = '', tomListeTekst, id }) => {
     return (<div className="blokk--l">
@@ -11,7 +10,6 @@ const SoknaderTeasere = ({ soknader, className, tittel = '', tomListeTekst, id }
         <div id={id} className={className || 'js-content'}>
             {
                 (soknader.length ? [...soknader]
-                    .sort(sorterEtterDato)
                     .map((soknad, idx) => {
                         return <SoknaderTeaser key={idx} soknad={soknad} />;
                     }) : <p className="panel typo-infotekst">{tomListeTekst}</p>)

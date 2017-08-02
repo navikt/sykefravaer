@@ -9,6 +9,8 @@ import {
     LagreTiltakSkjema,
     finnTiltakIkkeLagtTilAvAktoer,
     BRUKERTYPE,
+    OppfolgingsdialogFooter,
+    SIDETYPE,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import history from '../../history';
@@ -184,6 +186,12 @@ export class Tiltak extends Component {
                         }
                     </div>
                 }
+                <OppfolgingsdialogFooter
+                    ledetekster={ledetekster}
+                    oppfolgingsdialog={oppfolgingsdialog}
+                    sideType={SIDETYPE.TILTAK}
+                    rootUrl={`${window.APP_SETTINGS.APP_ROOT}/oppfolgingsplaner/${oppfolgingsdialogId}`}
+                />
             </OppfolgingsdialogSide>
         );
     }

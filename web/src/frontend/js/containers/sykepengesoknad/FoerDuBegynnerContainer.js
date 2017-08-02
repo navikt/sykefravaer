@@ -12,41 +12,34 @@ import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT } fr
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
 
-export class Controller extends Component {
-    render() {
-        const { sykepengesoknad, vedlikehold } = this.props;
-        if (vedlikehold.datospennMedTid) {
-            return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel')} melding={getLedetekst('under-vedlikehold.varsel.tekst', {
-                '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
-                '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
-            })} />);
-        }
-        if (sykepengesoknad.status === NY || sykepengesoknad.status === UTKAST_TIL_KORRIGERING) {
-            return (<div ref="foerDuBegynner">
-                <FoerDuBegynner {...this.props} />
-            </div>);
-        }
-        if (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING || sykepengesoknad.status === KORRIGERT) {
-            return <SendtSoknad sykepengesoknad={sykepengesoknad} />;
-        }
-        if (sykepengesoknad.status === UTGAATT) {
-            return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
-        }
-        return <Feilmelding tittel="Søknaden har ukjent status" />;
+export const Controller = (props) => {
+    const { sykepengesoknad, vedlikehold } = props;
+    if (vedlikehold.datospennMedTid) {
+        return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel')} melding={getLedetekst('under-vedlikehold.varsel.tekst', {
+            '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
+            '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
+        })} />);
     }
-}
+    if (sykepengesoknad.status === NY || sykepengesoknad.status === UTKAST_TIL_KORRIGERING) {
+        return <FoerDuBegynner {...props} />;
+    }
+    if (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING || sykepengesoknad.status === KORRIGERT) {
+        return <SendtSoknad sykepengesoknad={sykepengesoknad} />;
+    }
+    if (sykepengesoknad.status === UTGAATT) {
+        return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
+    }
+    return <Feilmelding tittel="Søknaden har ukjent status" />;
+};
 
 Controller.propTypes = {
-    hentBerikelse: PropTypes.func,
     sykepengesoknad: sykepengesoknadPt,
-    skjemasoknad: PropTypes.object,
     vedlikehold: PropTypes.shape({
         datospennMedTid: PropTypes.object,
     }),
 };
 
 export class FoerDuBegynnerContainer extends Component {
-
     componentDidMount() {
         this.props.hentBerikelse(this.props.sykepengesoknadId);
     }

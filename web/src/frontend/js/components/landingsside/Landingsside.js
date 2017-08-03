@@ -37,7 +37,7 @@ export class GenerellInfo extends Component {
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger">
         <div className="ingenSykmelding__illustrasjon">
-            <img src="/sykefravaer/img/svg/landingsside/konvolutt.svg" alt="Konvolutt" />
+            <img src="/sykefravaer/img/svg/landingsside/veileder.svg" alt="NAV-veileder" />
         </div>
         <p className="sist">{getLedetekst('landingsside.ingen-sykmelding')}</p>
     </div>);

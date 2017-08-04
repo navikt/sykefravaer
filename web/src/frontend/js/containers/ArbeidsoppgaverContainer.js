@@ -12,6 +12,7 @@ import {
     OppfolgingsdialogInfoboks,
     input2RSArbeidsoppgave,
     erArbeidsoppgavenOpprettet,
+    sorterArbeidsoppgaverEtterOpprettet,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
@@ -35,21 +36,15 @@ export class ArbeidsoppgaverSide extends Component {
         this.toggleArbeidsoppgaveSkjema = this.toggleArbeidsoppgaveSkjema.bind(this);
     }
 
-    componentWillMount() {
-        const { oppfolgingsdialogerHentet, tilgangSjekket } = this.props;
-        if (!tilgangSjekket) {
-            this.props.sjekkTilgang();
-        }
-        if (!oppfolgingsdialogerHentet) {
-            this.props.hentOppfolgingsdialoger();
-        }
+    componentDidMount() {
+        this.props.sjekkTilgang();
+        this.props.hentOppfolgingsdialoger();
     }
 
     componentWillReceiveProps(nextProps) {
         if (!this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet) {
             this.setState({
-                arbeidsoppgaver: nextProps.oppfolgingsdialog.arbeidsoppgaveListe,
-                visArbeidsoppgaveSkjema: true,
+                arbeidsoppgaver: sorterArbeidsoppgaverEtterOpprettet([...nextProps.oppfolgingsdialog.arbeidsoppgaveListe]),
             });
         }
 
@@ -63,21 +58,21 @@ export class ArbeidsoppgaverSide extends Component {
     lagreArbeidsoppgave(lagretId) {
         const nyArbeidsoppgave = Object.assign({}, this.state.lagretArbeidsoppgave);
         nyArbeidsoppgave.arbeidsoppgaveId = lagretId;
-        const arbeidsoppgaveListe = [...this.state.arbeidsoppgaver];
+        const nyArbeidsoppgaveListe = [...this.state.arbeidsoppgaver];
 
         if (erArbeidsoppgavenOpprettet(this.state.arbeidsoppgaver, nyArbeidsoppgave)) {
-            const index = arbeidsoppgaveListe.findIndex((arbeidsoppgave) => {
+            const index = nyArbeidsoppgaveListe.findIndex((arbeidsoppgave) => {
                 return arbeidsoppgave.arbeidsoppgaveId === lagretId;
             });
-            arbeidsoppgaveListe[index] = nyArbeidsoppgave;
+            nyArbeidsoppgaveListe[index] = nyArbeidsoppgave;
             this.setState({
-                arbeidsoppgaver: arbeidsoppgaveListe,
+                arbeidsoppgaver: sorterArbeidsoppgaverEtterOpprettet(nyArbeidsoppgaveListe),
                 visArbeidsoppgaveSkjema: false,
                 arbeidsoppgaveOpprettet: false,
             });
         } else {
             this.setState({
-                arbeidsoppgaver: [nyArbeidsoppgave].concat(arbeidsoppgaveListe),
+                arbeidsoppgaver: sorterArbeidsoppgaverEtterOpprettet(nyArbeidsoppgaveListe.concat([nyArbeidsoppgave])),
                 visArbeidsoppgaveSkjema: true,
                 arbeidsoppgaveOpprettet: true,
             });

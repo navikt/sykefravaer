@@ -1,6 +1,7 @@
 import chai from 'chai';
 import React from 'react'
-import {mount, shallow} from 'enzyme';
+import { mount, shallow } from 'enzyme';
+import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../../mockLedetekster";
 import Tiltak from "../../../js/components/oppfolgingsdialoger/Tiltak";
@@ -29,31 +30,36 @@ describe("Tiltak", () => {
     let component;
 
     beforeEach(() => {
+        toggleTiltakSkjema = sinon.spy();
+        sendLagreTiltak = sinon.spy();
+        sendSlettTiltak = sinon.spy();
         setLedetekster(ledetekster);
     });
 
     it("Skal vise en OppfolgingsdialogSide", () => {
-        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog} />);
+        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
+                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
         expect(component.find(OppfolgingsdialogSide)).to.have.length(1);
     });
 
     it("Skal vise en OppfolgingsdialogInfoboks, om det ikke er tiltak", () => {
         const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {tiltakListe: []});
-        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog} />);
+        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
+                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
         expect(component.find(OppfolgingsdialogInfoboks)).to.have.length(1);
     });
 
     it("Skal vise RenderOpprettTiltak, om det ikke er tiltak og visTiltakSkjema er true", () => {
         const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {tiltakListe: []});
-        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog} />);
-        component.setState({
-            visTiltakSkjema: true,
-        });
+        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
+                                    visTiltakSkjema={true}
+                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
         expect(component.find(RenderOpprettTiltak)).to.have.length(1);
     });
 
     it("Skal vise en overskrift, om det er tiltak", () => {
-        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog} />);
+        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
+                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
         expect(component.find('h2')).to.have.length(1);
     });
 
@@ -62,26 +68,28 @@ describe("Tiltak", () => {
             sykmeldtAktoerId: '***REMOVED***',
             tiltakListe: [{opprettetAv: {aktoerId: "***REMOVED***"}}]
         });
-        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog} />);
+        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
+                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
         expect(component.find(RenderNotifikasjonBoks)).to.have.length(1);
     });
 
     it("Skal vise RenderNotifikasjonBoksSuksess, om det er tiltak og en tiltak er lagret", () => {
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                    tiltakLagret={true} />);
+                                    tiltakLagret={true}
+                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
         expect(component.find(RenderNotifikasjonBoksSuksess)).to.have.length(1);
     });
 
     it("Skal vise RenderOppfolgingsdialogTiltakTabell, om det er tiltak", () => {
-        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog} />);
+        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
+                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
         expect(component.find(RenderOppfolgingsdialogTiltakTabell)).to.have.length(1);
     });
 
     it("Skal vise LagreTiltakSkjema, om det er tiltak og visTiltakSkjema er true", () => {
-        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog} />);
-        component.setState({
-            visTiltakSkjema: true,
-        });
+        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
+                                    visTiltakSkjema={true}
+                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
         expect(component.find(LagreTiltakSkjema)).to.have.length(1);
     });
 

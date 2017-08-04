@@ -30,12 +30,15 @@ RenderNotifikasjonBoks.propTypes = {
     antallTiltakLagtTilAvArbeidsgiver: PropTypes.number,
 };
 
-export const RenderNotifikasjonBoksSuksess = () => {
+export const RenderNotifikasjonBoksSuksess = ({ tekst }) => {
     return (<NotifikasjonBoks
         imgUrl={"/sykefravaer/img/svg/notifikasjon-suksess-illustrasjon.svg"}
-        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-tiltak.tekst')}
+        tekst={tekst}
         classNames={'panel--suksess'}
     />);
+};
+RenderNotifikasjonBoksSuksess.propTypes = {
+    tekst: PropTypes.string,
 };
 
 export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, sendLagreTiltak, sendSlettTiltak, aktoerId }) => {
@@ -97,29 +100,26 @@ RenderOpprettTiltak.propTypes = {
 
 export class Tiltak extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            visTiltakSkjema: false,
-        };
-        this.toggleTiltakSkjema = this.toggleTiltakSkjema.bind(this);
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (!prevState.visTiltakSkjema && this.state.visTiltakSkjema && this.lagreSkjema) {
+    componentDidUpdate(prevProps) {
+        if (!prevProps.visTiltakSkjema && this.props.visTiltakSkjema && this.lagreSkjema) {
             const form = findDOMNode(this.lagreSkjema);
             scrollTo(form, form.getBoundingClientRect().bottom);
         }
     }
 
-    toggleTiltakSkjema() {
-        this.setState({
-            visTiltakSkjema: !this.state.visTiltakSkjema,
-        });
-    }
-
     render() {
-        const { ledetekster, oppfolgingsdialog, oppfolgingsdialogId, sendLagreTiltak, sendSlettTiltak, tiltakLagret } = this.props;
+        const {
+            ledetekster,
+            tiltakListe,
+            oppfolgingsdialog,
+            oppfolgingsdialogId,
+            sendLagreTiltak,
+            sendSlettTiltak,
+            tiltakLagret,
+            toggleTiltakSkjema,
+            visTiltakSkjema,
+            tiltakOpprettet,
+        } = this.props;
 
         const antallTiltakLagtTilAvArbeidsgiver = finnTiltakIkkeLagtTilAvAktoer(oppfolgingsdialog.sykmeldtAktoerId, oppfolgingsdialog.tiltakListe).length;
 
@@ -131,23 +131,23 @@ export class Tiltak extends Component {
                 ledetekster={ledetekster}
                 rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}>
                 {
-                    isEmpty(oppfolgingsdialog.tiltakListe) ?
+                    isEmpty(tiltakListe) ?
                     <div>
                         {
-                            !this.state.visTiltakSkjema ?
+                            !visTiltakSkjema ?
                                 <OppfolgingsdialogInfoboks
                                     svgUrl="/sykefravaer/img/svg/tiltak-onboarding.svg"
                                     svgAlt="nyttTiltak"
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tittel')}
                                     tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}
                                 >
-                                    <RenderTiltakKnapper toggleTiltakSkjema={this.toggleTiltakSkjema} />
+                                    <RenderTiltakKnapper toggleTiltakSkjema={toggleTiltakSkjema} />
                                 </OppfolgingsdialogInfoboks> :
                                 <RenderOpprettTiltak
                                     ledetekster={ledetekster}
                                     oppfolgingsdialogId={oppfolgingsdialogId}
                                     sendLagreTiltak={sendLagreTiltak}
-                                    toggleTiltakSkjema={this.toggleTiltakSkjema}
+                                    toggleTiltakSkjema={toggleTiltakSkjema}
                                 />
                         }
 
@@ -156,7 +156,14 @@ export class Tiltak extends Component {
                     <div>
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
                         {
-                            tiltakLagret && <RenderNotifikasjonBoksSuksess />
+                            tiltakLagret && !tiltakOpprettet && <RenderNotifikasjonBoksSuksess
+                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-tiltak.tekst')}
+                            />
+                        }
+                        {
+                            tiltakLagret && tiltakOpprettet && <RenderNotifikasjonBoksSuksess
+                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-tiltak.tekst')}
+                            />
                         }
                         {
                             antallTiltakLagtTilAvArbeidsgiver > 0 &&
@@ -168,7 +175,7 @@ export class Tiltak extends Component {
                         {
                             <RenderOppfolgingsdialogTiltakTabell
                                 ledetekster={ledetekster}
-                                tiltakListe={oppfolgingsdialog.tiltakListe}
+                                tiltakListe={tiltakListe}
                                 sendLagreTiltak={sendLagreTiltak}
                                 sendSlettTiltak={sendSlettTiltak}
                                 aktoerId={oppfolgingsdialog.sykmeldtAktoerId}
@@ -176,15 +183,15 @@ export class Tiltak extends Component {
                             />
                         }
                         {
-                            this.state.visTiltakSkjema ?
+                            visTiltakSkjema ?
                                 <LagreTiltakSkjema
                                     ledetekster={ledetekster}
                                     avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/tiltak`}
                                     sendLagre={sendLagreTiltak}
-                                    avbryt={this.toggleTiltakSkjema}
+                                    avbryt={toggleTiltakSkjema}
                                     ref={(lagreSkjema) => { this.lagreSkjema = lagreSkjema; }}
                                 /> :
-                                <RenderTiltakKnapper toggleTiltakSkjema={this.toggleTiltakSkjema} />
+                                <RenderTiltakKnapper toggleTiltakSkjema={toggleTiltakSkjema} />
                         }
                     </div>
                 }
@@ -201,11 +208,15 @@ export class Tiltak extends Component {
 
 Tiltak.propTypes = {
     ledetekster: PropTypes.object,
+    tiltakListe: PropTypes.array,
     oppfolgingsdialog: PropTypes.object,
     oppfolgingsdialogId: PropTypes.string,
+    toggleTiltakSkjema: PropTypes.func,
+    visTiltakSkjema: PropTypes.bool,
     sendLagreTiltak: PropTypes.func,
     sendSlettTiltak: PropTypes.func,
     tiltakLagret: PropTypes.bool,
+    tiltakOpprettet: PropTypes.bool,
 };
 
 export default Tiltak;

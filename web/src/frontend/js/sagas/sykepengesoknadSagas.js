@@ -27,6 +27,7 @@ export function* sendSykepengesoknad(action) {
         yield put(actions.sykepengesoknadSendt(action.sykepengesoknad.id, sykepengesoknad));
     } catch (e) {
         log(e);
+        logger.error(`Kunne ikke sende sykepengesøknad. ${e.message}`);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }

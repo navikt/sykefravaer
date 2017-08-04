@@ -153,6 +153,26 @@
   margin-right: 1em;
 }
 
+.ingenSykmelding__illustrasjon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2em;
+
+  img {
+    width: 4em;
+    height: 4em;
+
+    @media (min-width: @skjermLiten) { 
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+
+.ingenSykmeldinger {
+  margin-bottom: .5em;
+}
+
 @media (min-width: @skjermLiten) {
 
   .peker__ikon {
@@ -166,7 +186,7 @@
     }
   }
 
-  .peker, .landingspanel {
+  .peker, .landingspanel, .ingenSykmeldinger {
     margin-bottom: 1em;
   }
 

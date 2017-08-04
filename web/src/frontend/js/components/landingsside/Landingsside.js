@@ -34,6 +34,15 @@ export class GenerellInfo extends Component {
     }
 }
 
+const IngenSykmeldinger = () => {
+    return (<div className="panel ingenSykmeldinger">
+        <div className="ingenSykmelding__illustrasjon">
+            <img src="/sykefravaer/img/svg/landingsside/veileder.svg" alt="NAV-veileder" />
+        </div>
+        <p className="sist">{getLedetekst('landingsside.ingen-sykmelding')}</p>
+    </div>);
+};
+
 const Landingsside = ({ toggles, skjulVarsel = false, sykepengesoknader = [], harDialogmote = false, brodsmuler, dineSykmeldinger = [] }) => {
     return (<div>
         <div className="sidebanner">
@@ -47,14 +56,17 @@ const Landingsside = ({ toggles, skjulVarsel = false, sykepengesoknader = [], ha
             {
                 (!skjulVarsel ? <UnderUtviklingVarselContainer /> : null)
             }
-
+            {
+                dineSykmeldinger.length === 0 && <IngenSykmeldinger />
+            }
             <DineOppgaverContainer />
             <DinSituasjonContainer />
             <nav role="navigation" className="js-navigasjon">
                 <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
                     undertittel="Informasjon og oversikt over aktiviteter" variant="fersken" />
-                <LandingssideLenke to="/sykefravaer/sykmeldinger" ikon="sykmeldinger" ikonAlt="Sykmelding" tittel="Sykmeldinger"
-                    variant="lysblaa" />
+                {
+                    dineSykmeldinger.length > 0 && <LandingssideLenke to="/sykefravaer/sykmeldinger" ikon="sykmeldinger" ikonAlt="Sykmelding" tittel="Sykmeldinger" variant="lysblaa" />
+                }
                 {
                     sykepengesoknader.length > 0 &&
                         <LandingssideLenke to="/sykefravaer/soknader" ikon="soknader" ikonAlt="Søknader" tittel="Søknader om sykepenger" variant="lysgronn" />

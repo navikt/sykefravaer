@@ -28,12 +28,15 @@ RenderNotifikasjonBoks.propTypes = {
     virksomhetsnavn: PropTypes.string,
     antallIkkeVurderteArbeidsoppgaver: PropTypes.number,
 };
-export const RenderNotifikasjonBoksSuksess = () => {
+export const RenderNotifikasjonBoksSuksess = ({ tekst }) => {
     return (<NotifikasjonBoks
         imgUrl={"/sykefravaer/img/svg/notifikasjon-suksess-illustrasjon.svg"}
-        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
+        tekst={tekst}
         classNames={'panel--suksess'}
     />);
+};
+RenderNotifikasjonBoksSuksess.propTypes = {
+    tekst: PropTypes.string,
 };
 
 export const RenderOppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, aktoerId }) => {
@@ -93,29 +96,42 @@ RenderOpprettArbeidsoppgave.propTypes = {
 };
 
 export class Arbeidsoppgaver extends Component {
-
     constructor(props) {
         super(props);
-        this.state = {
-            visArbeidsoppgaveSkjema: false,
-        };
-        this.toggleArbeidsoppgaveSkjema = this.toggleArbeidsoppgaveSkjema.bind(this);
+        this.scrollToForm = this.scrollToForm.bind(this);
     }
-    componentDidUpdate(prevProps, prevState) {
-        if (!prevState.visArbeidsoppgaveSkjema && this.state.visArbeidsoppgaveSkjema && this.lagreSkjema) {
+
+    componentDidMount() {
+        if (this.props.visArbeidsoppgaveSkjema && this.lagreSkjema) {
+            this.scrollToForm();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.visArbeidsoppgaveSkjema && this.props.visArbeidsoppgaveSkjema && this.lagreSkjema) {
             const form = findDOMNode(this.lagreSkjema);
             scrollTo(form, form.getBoundingClientRect().bottom);
         }
     }
 
-    toggleArbeidsoppgaveSkjema() {
-        this.setState({
-            visArbeidsoppgaveSkjema: !this.state.visArbeidsoppgaveSkjema,
-        });
+    scrollToForm() {
+        const form = findDOMNode(this.lagreSkjema);
+        scrollTo(form, form.getBoundingClientRect().bottom);
     }
 
     render() {
-        const { ledetekster, oppfolgingsdialog, oppfolgingsdialogId, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, arbeidsoppgaveLagret } = this.props;
+        const {
+            ledetekster,
+            arbeidsoppgaveListe,
+            oppfolgingsdialog,
+            oppfolgingsdialogId,
+            sendLagreArbeidsoppgave,
+            toggleArbeidsoppgaveSkjema,
+            visArbeidsoppgaveSkjema,
+            sendSlettArbeidsoppgave,
+            arbeidsoppgaveLagret,
+            arbeidsoppgaveOpprettet,
+        } = this.props;
 
         const antallIkkeVurderteArbeidsoppgaver = oppfolgingsdialog ? finnArbeidsoppgaverIkkeVurdertAvSykmeldt(oppfolgingsdialog.arbeidsoppgaveListe).length : 0;
 
@@ -127,61 +143,73 @@ export class Arbeidsoppgaver extends Component {
                 ledetekster={ledetekster}
                 rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}>
                 {
-                    isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
-                    <div>
-                        {
-                            !this.state.visArbeidsoppgaveSkjema ?
-                                <OppfolgingsdialogInfoboks
-                                    svgUrl="/sykefravaer/img/svg/arbeidsoppgave-onboarding.svg"
-                                    svgAlt="nyArbeidsoppgave"
-                                    tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tittel')}
-                                    tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tekst')}
-                                >
-                                    <RenderArbeidsoppgaverKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
-                                </OppfolgingsdialogInfoboks> :
-                                <RenderOpprettArbeidsoppgave
-                                    ledetekster={ledetekster}
-                                    oppfolgingsdialogId={oppfolgingsdialogId}
-                                    sendLagreArbeidsoppgave={sendLagreArbeidsoppgave}
-                                    toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema}
-                                />
-                        }
+                    isEmpty(arbeidsoppgaveListe) ?
+                        <div>
+                            {
+                                !visArbeidsoppgaveSkjema ?
+                                    <OppfolgingsdialogInfoboks
+                                        svgUrl="/sykefravaer/img/svg/arbeidsoppgave-onboarding.svg"
+                                        svgAlt="nyArbeidsoppgave"
+                                        tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tittel')}
+                                        tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tekst')}
+                                    >
+                                        <RenderArbeidsoppgaverKnapper
+                                            toggleArbeidsoppgaveSkjema={toggleArbeidsoppgaveSkjema} />
+                                    </OppfolgingsdialogInfoboks> :
+                                    <RenderOpprettArbeidsoppgave
+                                        ledetekster={ledetekster}
+                                        oppfolgingsdialogId={oppfolgingsdialogId}
+                                        sendLagreArbeidsoppgave={sendLagreArbeidsoppgave}
+                                        toggleArbeidsoppgaveSkjema={toggleArbeidsoppgaveSkjema}
+                                    />
+                            }
 
-                    </div>
-                    :
-                    <div>
-                        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
-                        {
-                            arbeidsoppgaveLagret && <RenderNotifikasjonBoksSuksess />
-                        }
-                        {
-                            antallIkkeVurderteArbeidsoppgaver > 0 &&
-                            <RenderNotifikasjonBoks
-                                virksomhetsnavn={oppfolgingsdialog.virksomhetsnavn}
-                                antallIkkeVurderteArbeidsoppgaver={antallIkkeVurderteArbeidsoppgaver}
-                            />
-                        }
-                        {
-                            <RenderOppfolgingsdialogArbeidsoppgaverTabell
-                                ledetekster={ledetekster}
-                                arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe}
-                                sendLagreArbeidsoppgave={sendLagreArbeidsoppgave}
-                                sendSlettArbeidsoppgave={sendSlettArbeidsoppgave}
-                                aktoerId={oppfolgingsdialog.sykmeldtAktoerId}
-                            />
-                        }
-                        {
-                            this.state.visArbeidsoppgaveSkjema ?
-                                <LagreArbeidsoppgaveSkjema
+                        </div>
+                        :
+                        <div>
+                            <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
+                            {
+                                arbeidsoppgaveLagret && !arbeidsoppgaveOpprettet &&
+                                <RenderNotifikasjonBoksSuksess
+                                    tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
+                                />
+                            }
+                            {
+                                arbeidsoppgaveLagret && arbeidsoppgaveOpprettet &&
+                                <RenderNotifikasjonBoksSuksess
+                                    tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
+                                />
+                            }
+                            {
+                                antallIkkeVurderteArbeidsoppgaver > 0 &&
+                                <RenderNotifikasjonBoks
+                                    virksomhetsnavn={oppfolgingsdialog.virksomhetsnavn}
+                                    antallIkkeVurderteArbeidsoppgaver={antallIkkeVurderteArbeidsoppgaver}
+                                />
+                            }
+                            {
+                                <RenderOppfolgingsdialogArbeidsoppgaverTabell
                                     ledetekster={ledetekster}
-                                    avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
-                                    sendLagre={sendLagreArbeidsoppgave}
-                                    avbryt={this.toggleArbeidsoppgaveSkjema}
-                                    ref={(lagreSkjema) => { this.lagreSkjema = lagreSkjema; }}
-                                /> :
-                                <RenderArbeidsoppgaverKnapper toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
-                        }
-                    </div>
+                                    arbeidsoppgaveListe={arbeidsoppgaveListe}
+                                    sendLagreArbeidsoppgave={sendLagreArbeidsoppgave}
+                                    sendSlettArbeidsoppgave={sendSlettArbeidsoppgave}
+                                    aktoerId={oppfolgingsdialog.sykmeldtAktoerId}
+                                />
+                            }
+                            {
+                                visArbeidsoppgaveSkjema ?
+                                    <LagreArbeidsoppgaveSkjema
+                                        ledetekster={ledetekster}
+                                        avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
+                                        sendLagre={sendLagreArbeidsoppgave}
+                                        avbryt={toggleArbeidsoppgaveSkjema}
+                                        ref={(lagreSkjema) => {
+                                            this.lagreSkjema = lagreSkjema;
+                                        }}
+                                    /> :
+                                    <RenderArbeidsoppgaverKnapper toggleArbeidsoppgaveSkjema={toggleArbeidsoppgaveSkjema} />
+                            }
+                        </div>
                 }
                 <OppfolgingsdialogFooter
                     ledetekster={ledetekster}
@@ -196,11 +224,15 @@ export class Arbeidsoppgaver extends Component {
 
 Arbeidsoppgaver.propTypes = {
     ledetekster: PropTypes.object,
+    arbeidsoppgaveListe: PropTypes.array,
     oppfolgingsdialog: PropTypes.object,
     oppfolgingsdialogId: PropTypes.string,
+    toggleArbeidsoppgaveSkjema: PropTypes.func,
+    visArbeidsoppgaveSkjema: PropTypes.bool,
     sendLagreArbeidsoppgave: PropTypes.func,
     sendSlettArbeidsoppgave: PropTypes.func,
     arbeidsoppgaveLagret: PropTypes.bool,
+    arbeidsoppgaveOpprettet: PropTypes.bool,
 };
 
 export default Arbeidsoppgaver;

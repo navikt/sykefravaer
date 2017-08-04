@@ -4,7 +4,7 @@ import * as proptypes from '../../propTypes';
 import Sidetopp from '../Sidetopp';
 
 const SykepengesoknadHeader = ({ sykepengesoknad }) => {
-    if (false) {
+    if (!sykepengesoknad._erOppdelt) {
         return <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />;
     }
     return (<header className="sidetopp">

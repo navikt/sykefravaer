@@ -79,6 +79,23 @@ export const parseDatofelter = (soknad) => {
     });
 };
 
+export const settErOppdelt = (soknad) => {
+    const perioder = soknad.aktiviteter.map((a) => {
+        return a.periode;
+    });
+    const _senesteTom = senesteTom(perioder);
+    const _tidligsteFom = tidligsteFom(perioder);
+    const _erOppdelt = (() => {
+        if (!soknad.fom || !soknad.tom) {
+            return false;
+        }
+        return !(soknad.fom.getTime() === _tidligsteFom.getTime() && soknad.tom.getTime() === _senesteTom.getTime());
+    })();
+    return Object.assign({}, soknad, {
+        _erOppdelt,
+    });
+};
+
 export const finnSoknad = (state, id) => {
     const soknad = state.sykepengesoknader.data.filter((s) => { return `${s.id}` === id; });
     return soknad[0] || {};
@@ -88,7 +105,7 @@ export default function sykepengesoknader(state = initiellState, action) {
     switch (action.type) {
         case actiontyper.SYKEPENGESOKNADER_HENTET: {
             const soknader = action.sykepengesoknader.map((s) => {
-                const soknad = parseDatofelter(s);
+                const soknad = settErOppdelt(parseDatofelter(s));
                 return sorterAktiviteterEldsteFoerst(soknad);
             });
             return Object.assign({}, state, {
@@ -138,7 +155,7 @@ export default function sykepengesoknader(state = initiellState, action) {
         }
         case actiontyper.ENDRING_SYKEPENGESOKNAD_STARTET: {
             let data = state.data;
-            const soknad = parseDatofelter(action.sykepengesoknad);
+            const soknad = settErOppdelt(parseDatofelter(action.sykepengesoknad));
             if (state.data.filter((s) => {
                 return s.id === soknad.id;
             }).length === 0) {
@@ -159,7 +176,7 @@ export default function sykepengesoknader(state = initiellState, action) {
         case actiontyper.SYKEPENGESOKNAD_SENDT:
         case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV:
         case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER: {
-            let data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, parseDatofelter(action.sykepengesoknad));
+            let data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, settErOppdelt(parseDatofelter(action.sykepengesoknad)));
             if (action.sykepengesoknad.korrigerer) {
                 data = setSykepengesoknaderProps(data, action.sykepengesoknad.korrigerer, {
                     status: KORRIGERT,

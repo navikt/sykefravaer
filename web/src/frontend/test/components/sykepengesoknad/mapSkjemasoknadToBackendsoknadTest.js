@@ -80,7 +80,8 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
             "harHattPermisjon": true,
             "harHattUtenlandsopphold": true,
             "utenlandsoppholdSoktOmSykepenger": true,
-            "harAndreInntektskilder": true
+            "harAndreInntektskilder": true,
+            "erOppdelt": true,
         });
     });
 
@@ -369,6 +370,10 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
 
         it("Skal fjerne harAndreInntektskilder", () => {
             expect(soknad.hasOwnProperty("harAndreInntektskilder")).to.be.false;
+        });
+
+        it("Skal fjerne __erOppdelt__", () => {
+            expect(soknad.hasOwnProperty("__erOppdelt__")).to.be.false;
         });
     });
 

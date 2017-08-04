@@ -4,7 +4,8 @@ import * as actiontyper from "../../js/actions/actiontyper";
 import sykepengesoknader, {
     finnSoknad,
     parseDatofelter,
-    sorterAktiviteterEldsteFoerst
+    sorterAktiviteterEldsteFoerst,
+    settErOppdelt,
 } from "../../js/reducers/sykepengesoknader";
 import * as actions from "../../js/actions/sykepengesoknader_actions";
 import * as berikelses_actions from "../../js/actions/sykepengesoknader_actions";
@@ -520,6 +521,146 @@ describe('sykepengesoknader', () => {
 
     });
 
+    describe("settErOppdelt", () => {
+        it("Setter _erOppdelt til false hvis vi ikke vet om søknaden er oppdelt", () => {
+            const soknad = Object.assign({}, getSoknad(), {
+                fom: null,
+                tom: null,
+            })
+            const _soknad = settErOppdelt(soknad);
+            expect(_soknad._erOppdelt).to.be.false;
+        });
+
+        it("Setter _erOppdelt til false hvis søknaden ikke er oppdelt", () => {
+            const soknad = Object.assign({}, getSoknad(), {
+                fom: new Date("2017-01-15"),
+                tom: new Date("2017-01-30"),
+                aktiviteter: [
+                    {
+                        avvik: null,
+                        grad: 100,
+                        periode: {
+                            fom: new Date("2017-01-15"),
+                            tom: new Date("2017-01-20"),
+                        }
+                    },
+                    {
+                        avvik: null,
+                        grad: 100,
+                        periode: {
+                            fom: new Date("2017-01-21"),
+                            tom: new Date("2017-01-30"),
+                        }
+                    },
+                ],
+            })
+            const _soknad = settErOppdelt(soknad);
+            expect(_soknad._erOppdelt).to.be.false;
+        });
+
+        it("Setter _erOppdelt til true hvis søknaden er oppdelt", () => {
+            const soknad = Object.assign({}, getSoknad(), {
+                fom: new Date("2017-01-15"),
+                tom: new Date("2017-01-25"),
+                aktiviteter: [
+                    {
+                        avvik: null,
+                        grad: 100,
+                        periode: {
+                            fom: new Date("2017-01-15"),
+                            tom: new Date("2017-01-20"),
+                        }
+                    },
+                    {
+                        avvik: null,
+                        grad: 100,
+                        periode: {
+                            fom: new Date("2017-01-21"),
+                            tom: new Date("2017-01-30"),
+                        }
+                    },
+                ],
+            });
+            const _soknad = settErOppdelt(soknad);
+            expect(_soknad._erOppdelt).to.be.true;
+        });
+
+        it("Setter _erOppdelt hvis vi har skikkelig mange perioder", () => {
+            const soknad = parseDatofelter({
+              "id": "35134708-930e-43dc-a850-38ed33adc1d9",
+              "status": "NY",
+              "opprettetDato": "2017-08-04",
+              "arbeidsgiver": {
+                "navn": "ARBEIDS- OG VELFERDSDIREKTORATET, AVD SANNERGATA",
+                "orgnummer": "***REMOVED***",
+                "naermesteLeder": null
+              },
+              "identdato": "2017-07-26",
+              "ansvarBekreftet": false,
+              "bekreftetKorrektInformasjon": false,
+              "arbeidsgiverForskutterer": null,
+              "egenmeldingsperioder": [],
+              "gjenopptattArbeidFulltUtDato": null,
+              "ferie": [],
+              "permisjon": [],
+              "utenlandsopphold": null,
+              "aktiviteter": [
+                {
+                  "periode": {
+                    "fom": "2017-06-20",
+                    "tom": "2017-06-28"
+                  },
+                  "grad": 100,
+                  "avvik": null
+                },
+                {
+                  "periode": {
+                    "fom": "2017-06-29",
+                    "tom": "2017-07-07"
+                  },
+                  "grad": 100,
+                  "avvik": null
+                },
+                {
+                  "periode": {
+                    "fom": "2017-07-08",
+                    "tom": "2017-07-16"
+                  },
+                  "grad": 100,
+                  "avvik": null
+                },
+                {
+                  "periode": {
+                    "fom": "2017-07-17",
+                    "tom": "2017-07-25"
+                  },
+                  "grad": 100,
+                  "avvik": null
+                },
+                {
+                  "periode": {
+                    "fom": "2017-07-26",
+                    "tom": "2017-08-03"
+                  },
+                  "grad": 100,
+                  "avvik": null
+                }
+              ],
+              "andreInntektskilder": [],
+              "utdanning": null,
+              "sykmeldingSkrevetDato": "2017-07-26",
+              "sendtTilArbeidsgiverDato": null,
+              "sendtTilNAVDato": null,
+              "forrigeSykeforloepTom": null,
+              "korrigerer": null,
+              "fom": "2017-07-13",
+              "tom": "2017-08-03"
+            });
+            const _soknad = settErOppdelt(soknad);
+            expect(_soknad._erOppdelt).to.be.true;
+        })
+    })
+
     describe("sorterAktiviteterEldsteFoerst", () => {
 
         it("Sorterer aktiviteter", () => {
@@ -639,7 +780,7 @@ describe('sykepengesoknader', () => {
     });
 });
 
-const getSoknad = () => {
+const getSoknad = (s = {}) => {
     return soknad = {
         aktiviteter: [
             {
@@ -701,7 +842,8 @@ const getParsetSoknad = () => {
         sendtTilNAVDato: null,
         sykmeldingSkrevetDato: new Date("2017-02-15"),
         forrigeSykeforloepTom: new Date("2017-01-18"),
-        id: "1"
+        id: "1",
+        _erOppdelt: false,
     };
 };
 

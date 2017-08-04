@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
-import { tidligsteFom, senesteTom } from '../../utils/periodeUtils';
 import { NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { getSendtTilSuffix, erSendtTilBeggeMenIkkeSamtidig } from '../../utils/sykepengesoknadUtils';
@@ -52,7 +51,6 @@ class SoknadTeaser extends Component {
     render() {
         const { soknad } = this.props;
 
-        const perioder = soknad.aktiviteter.map(a => { return a.periode; });
         const visStatus = soknad.status !== NY && soknad.status !== SENDT;
         const sendtTilBeggeMenIkkeSamtidig = erSendtTilBeggeMenIkkeSamtidig(soknad);
 
@@ -88,8 +86,8 @@ class SoknadTeaser extends Component {
                     <p className="inngangspanel__tekst js-tekst">
                         {
                             getLedetekst('soknad.teaser.tekst', {
-                                '%FRA%': toDatePrettyPrint(tidligsteFom(perioder)),
-                                '%TIL%': toDatePrettyPrint(senesteTom(perioder)),
+                                '%FRA%': toDatePrettyPrint(soknad.fom),
+                                '%TIL%': toDatePrettyPrint(soknad.tom),
                             })
                         }
                     </p>

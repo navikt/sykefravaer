@@ -14,16 +14,8 @@ describe("SoknadTeaser", () => {
     const soknad = {
         id: "1",
         opprettetDato: new Date("2016-01-20"),
-        aktiviteter: [
-            {
-                avvik: {},
-                grad: 100,
-                periode: {
-                    fom: new Date("2016-01-01"),
-                    tom: new Date("2016-01-20"),
-                }
-            },
-        ],
+        fom: new Date("2016-01-01"),
+        tom: new Date("2016-01-20"),
         arbeidsgiver: {
             navn: 'BEKK Consulting AS',
         }

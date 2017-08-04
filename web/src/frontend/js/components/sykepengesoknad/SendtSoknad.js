@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import Sidetopp from '../Sidetopp';
 import { Soknad, getLedetekst } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Soknadstatuspanel from './Soknadstatuspanel';
@@ -10,6 +9,7 @@ import Ettersending from './Ettersending';
 import { KORRIGERT, SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 import RelaterteSoknaderContainer from '../../containers/sykepengesoknad/RelaterteSoknaderContainer';
 import KorrigertAvContainer from '../../containers/sykepengesoknad/KorrigertAvContainer';
+import SykepengesoknadHeader from './SykepengesoknadHeader';
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">
@@ -84,7 +84,7 @@ class SendtSoknad extends Component {
     render() {
         const { sykepengesoknad } = this.props;
         return (<div ref="sendtSoknad">
-            <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
+            <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
             { sykepengesoknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={sykepengesoknad} /> }
             <Soknadstatuspanel sykepengesoknad={sykepengesoknad}>
             {

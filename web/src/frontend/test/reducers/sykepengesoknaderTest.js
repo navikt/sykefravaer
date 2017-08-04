@@ -484,6 +484,39 @@ describe('sykepengesoknader', () => {
             expect(_soknad.forrigeSykeforloepTom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
         });
 
+        it("parser fom", () => {
+            const soknad = Object.assign({}, getSoknad(), {
+                fom: "2017-01-19"
+            });
+            const _soknad = parseDatofelter(soknad);
+            expect(_soknad.fom).to.deep.equal(new Date("2017-01-19"));
+        });
+
+        it("parser tom", () => {
+            const soknad = Object.assign({}, getSoknad(), {
+                tom: "2017-01-19"
+            });
+            const _soknad = parseDatofelter(soknad);
+            expect(_soknad.tom).to.deep.equal(new Date("2017-01-19"));
+        });
+
+        it("Henter fom fra tidligsteFom dersom det ikke finnes fom", () => {
+            const soknad = Object.assign({}, getSoknad(), {
+                fom: null
+            });
+            const _soknad = parseDatofelter(soknad);
+            expect(_soknad.fom).to.deep.equal(new Date("2016-07-15"));
+        });
+
+
+        it("Henter tom fra senesteTom dersom det ikke finnes tom", () => {
+            const soknad = Object.assign({}, getSoknad(), {
+                tom: null
+            });
+            const _soknad = parseDatofelter(soknad);
+            expect(_soknad.tom).to.deep.equal(new Date("2017-01-19"));
+        });
+
 
     });
 
@@ -618,6 +651,8 @@ const getSoknad = () => {
                 }
             },
         ],
+        fom: "2016-07-15",
+        tom: "2017-01-19",
         egenmeldingsperioder: [],
         ferie: [],
         gjenopptattArbeidFulltUtDato: null,
@@ -649,6 +684,8 @@ const getParsetSoknad = () => {
                 }
             },
         ],
+        fom: new Date("2016-07-15"),
+        tom: new Date("2017-01-19"),
         egenmeldingsperioder: [],
         ferie: [],
         gjenopptattArbeidFulltUtDato: null,

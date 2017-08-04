@@ -1,5 +1,6 @@
 import * as actiontyper from '../actions/actiontyper';
 import { tilDato, parseDatoerPeriodeListe, parseDatoerPeriode } from '../utils/serialisering/dato';
+import { tidligsteFom, senesteTom } from '../utils/periodeUtils';
 import { KORRIGERT } from '../enums/sykepengesoknadstatuser';
 
 const initiellState = {
@@ -54,6 +55,11 @@ const parseUtenlandsopphold = (utenlandsopphold) => {
 };
 
 export const parseDatofelter = (soknad) => {
+    const perioder = soknad.aktiviteter.map((aktivitet) => {
+        return aktivitet.periode;
+    });
+    const fom = soknad.fom ? soknad.fom : tidligsteFom(perioder);
+    const tom = soknad.tom ? soknad.tom : senesteTom(perioder);
     return Object.assign({}, soknad, {
         aktiviteter: parseAktivitetsdatoer(soknad.aktiviteter),
         egenmeldingsperioder: soknad.egenmeldingsperioder && parseDatoerPeriodeListe(soknad.egenmeldingsperioder),
@@ -68,6 +74,8 @@ export const parseDatofelter = (soknad) => {
         opprettetDato: tilDato(soknad.opprettetDato),
         sykmeldingSkrevetDato: tilDato(soknad.sykmeldingSkrevetDato),
         forrigeSykeforloepTom: tilDato(soknad.forrigeSykeforloepTom),
+        fom: tilDato(fom),
+        tom: tilDato(tom),
     });
 };
 

@@ -1,5 +1,6 @@
 import chai from "chai";
 const expect = chai.expect;
+import deepFreeze from 'deep-freeze';
 
 import * as utils from '../../js/utils/sykepengesoknadUtils';
 
@@ -119,6 +120,163 @@ describe("sykepengesoknadUtils", () => {
             expect(utils.erSendtTilBeggeMenIkkeSamtidig(soknadSendtTilNAV));
             expect(utils.erSendtTilBeggeMenIkkeSamtidig(soknadSendtTilArbeidsgiver));
             expect(utils.erSendtTilBeggeMenIkkeSamtidig(soknadSendtTilBeggeSamtidig));
+        });
+
+    });
+
+
+    describe("mapAktiviteter", () => {
+
+        it("Returnerer bare de periodene som er aktuelle for denne søknaden", () => {
+            const soknad = {
+                fom: new Date("2016-05-10"),
+                tom: new Date("2016-05-20"),
+                aktiviteter: [{
+                    periode: {
+                        fom: new Date("2016-05-01"),
+                        tom: new Date("2016-05-09")
+                    },
+                    grad: 100,
+                    avvik: null,
+                }, {
+                    periode: {
+                        fom: new Date("2016-05-10"),
+                        tom: new Date("2016-05-20")
+                    },
+                    grad: 100,
+                    avvik: null,
+                }, {
+                    periode: {
+                        fom: new Date("2016-05-21"),
+                        tom: new Date("2016-05-25")
+                    },
+                    grad: 100,
+                    avvik: null,
+                }]
+            };
+
+            const a = utils.mapAktiviteter(deepFreeze(soknad));
+            expect(a.aktiviteter).to.deep.equal([{
+                periode: {
+                    fom: new Date("2016-05-10"),
+                    tom: new Date("2016-05-20")
+                },
+                grad: 100,
+                avvik: null,
+            }])
+        })
+
+        it("Deler de andre periodene opp slik at bare den aktuelle delen av perioden tas med", () => {
+            const soknad = {
+                fom: new Date("2016-05-10"),
+                tom: new Date("2016-05-20"),
+                aktiviteter: [{
+                    periode: {
+                        fom: new Date("2016-05-01"),
+                        tom: new Date("2016-05-05")
+                    },
+                    grad: 100,
+                    avvik: null,
+                }, {
+                    periode: {
+                        fom: new Date("2016-05-06"),
+                        tom: new Date("2016-05-12")
+                    },
+                    grad: 100,
+                    avvik: null,
+                }, {
+                    periode: {
+                        fom: new Date("2016-05-13"),
+                        tom: new Date("2016-05-25")
+                    },
+                    grad: 100,
+                    avvik: null,
+                }]
+            };
+
+            const a = utils.mapAktiviteter(deepFreeze(soknad));
+            expect(a.aktiviteter).to.deep.equal([{
+                periode: {
+                    fom: new Date("2016-05-10"),
+                    tom: new Date("2016-05-12")
+                },
+                grad: 100,
+                avvik: null,
+            }, {
+                periode: {
+                    fom: new Date("2016-05-13"),
+                    tom: new Date("2016-05-20")
+                },
+                grad: 100,
+                avvik: null,
+            }])
+        });
+
+        it("Testeksempel mapAktiviteter 1", () => {
+            const aktiviteter = [
+                {
+                  "periode": {
+                    "fom": new Date("2017-06-22"),
+                    "tom": new Date("2017-08-02")
+                  },
+                  "grad": 100,
+                  "avvik": null
+                }
+              ];
+            const fom = new Date("2017-06-22");
+            const tom = new Date("2017-07-12");
+            const soknad = deepFreeze({ fom, tom, aktiviteter });
+            const a = utils.mapAktiviteter(soknad);
+
+            expect(a.aktiviteter).to.deep.equal([{
+                "periode": {
+                    "fom": new Date("2017-06-22"),
+                    "tom": new Date("2017-07-12")
+                },
+                "grad": 100,
+                "avvik": null
+            }])
+        });
+
+        it("Testeksempel mapAktiviteter 2", () => {
+            const aktiviteter = [
+              {
+                "periode": {
+                  "fom": new Date("2016-07-15"),
+                  "tom": new Date("2016-07-20")
+                },
+              },
+              {
+                "periode": {
+                  "fom": new Date("2016-07-21"),
+                  "tom": new Date("2016-07-25")
+                },
+              },
+              {
+                "periode": {
+                  "fom": new Date("2016-07-26"),
+                  "tom": new Date("2016-07-30")
+                },
+              }
+            ];
+            const fom = new Date("2016-07-18");
+            const tom = new Date("2016-07-24");
+            const soknad = { aktiviteter, fom, tom };
+            const a = utils.mapAktiviteter(deepFreeze(soknad));
+            expect(a.aktiviteter).to.deep.equal([
+                {
+                    periode: {
+                        fom: new Date("2016-07-18"),
+                        tom: new Date("2016-07-20")
+                    },
+                },
+                {
+                    periode: {
+                        fom: new Date("2016-07-21"),
+                        tom: new Date("2016-07-24")
+                    },
+                }
+            ]);
         });
 
     });

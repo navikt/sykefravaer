@@ -1,5 +1,6 @@
 import { toDatePrettyPrint } from 'digisyfo-npm';
 import inntektskilder from '../../enums/inntektskildetyper';
+import { mapAktiviteter } from '../../utils/sykepengesoknadUtils';
 
 const parsePeriode = (periode) => {
     return {
@@ -65,7 +66,7 @@ const map = (sykepengesoknad) => {
         harAndreInntektskilder: sykepengesoknad.andreInntektskilder.length > 0,
         bruktEgenmeldingsdagerFoerLegemeldtFravaer: sykepengesoknad.egenmeldingsperioder.length > 0,
         utdanning,
-        aktiviteter: sykepengesoknad.aktiviteter.map((aktivitet) => {
+        aktiviteter: mapAktiviteter(sykepengesoknad).aktiviteter.map((aktivitet) => {
             if (aktivitet.avvik === null) {
                 return Object.assign({}, aktivitet, {
                     avvik: {},

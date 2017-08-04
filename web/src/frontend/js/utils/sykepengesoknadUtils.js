@@ -1,3 +1,5 @@
+import { periodeOverlapperMedPeriode } from './periodeUtils';
+
 export const getTidligsteSendtDato = (soknad) => {
     if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {
         return soknad.sendtTilNAVDato > soknad.sendtTilArbeidsgiverDato ? soknad.sendtTilArbeidsgiverDato : soknad.sendtTilNAVDato;
@@ -33,4 +35,22 @@ export const getSendtTilSuffix = (sykepengesoknad) => {
         return '.til-nav';
     }
     return '';
+};
+
+export const mapAktiviteter = (soknad) => {
+    const aktiviteter = soknad.aktiviteter
+        .filter((aktivitet) => {
+            return periodeOverlapperMedPeriode(aktivitet.periode, {
+                fom: soknad.fom,
+                tom: soknad.tom,
+            });
+        })
+        .map((aktivitet) => {
+            const fom = aktivitet.periode.fom.getTime() < soknad.fom.getTime() ? soknad.fom : aktivitet.periode.fom;
+            const tom = aktivitet.periode.tom.getTime() > soknad.tom.getTime() ? soknad.tom : aktivitet.periode.tom;
+            return Object.assign({}, aktivitet, {
+                periode: { fom, tom },
+            });
+        });
+    return Object.assign({}, soknad, { aktiviteter });
 };

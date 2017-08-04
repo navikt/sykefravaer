@@ -17,6 +17,7 @@ import { startEndringForespurt } from '../../../js/actions/sykepengesoknader_act
 import  { getSoknad } from '../../mockSoknader';
 import ledetekster from '../../mockLedetekster';
 import { Varselstripe, setLedetekster } from 'digisyfo-npm';
+import SykepengesoknadHeader from '../../../js/components/sykepengesoknad/SykepengesoknadHeader';
 import sinon from 'sinon';
 
 describe("SendtSoknad", () => {
@@ -33,8 +34,8 @@ describe("SendtSoknad", () => {
         component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />)
     });
 
-    it("Skal inneholde en Sidetopp", () => {
-        expect(component.contains(<Sidetopp tittel="Søknad om sykepenger" />)).to.be.true;
+    it("Skal inneholde en SykepengesoknadHeader", () => {
+        expect(component.contains(<SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />)).to.be.true;
     });
 
     it("Skal inneholde et SykmeldingUtdrag", () => {

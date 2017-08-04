@@ -10,6 +10,9 @@ import {
     slettTiltak,
     sjekkTilgang,
     OppfolgingsdialogInfoboks,
+    input2RSTiltak,
+    erTiltaketOpprettet,
+    sorterTiltakEtterOpprettet,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
@@ -19,35 +22,115 @@ export class TiltakSide extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            tiltak: [],
+            lagretTiltak: {},
+            slettetId: 0,
+            visTiltakSkjema: false,
+            tiltakOpprettet: false,
+        };
+        this.lagreTiltak = this.lagreTiltak.bind(this);
+        this.slettTiltak = this.slettTiltak.bind(this);
         this.sendLagreTiltak = this.sendLagreTiltak.bind(this);
         this.sendSlettTiltak = this.sendSlettTiltak.bind(this);
+        this.toggleTiltakSkjema = this.toggleTiltakSkjema.bind(this);
     }
 
-    componentWillMount() {
-        const { oppfolgingsdialogerHentet, tilgangSjekket } = this.props;
-        if (!tilgangSjekket) {
-            this.props.sjekkTilgang();
+    componentDidMount() {
+        this.props.sjekkTilgang();
+        this.props.hentOppfolgingsdialoger();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet) {
+            this.setState({
+                tiltak: sorterTiltakEtterOpprettet(nextProps.oppfolgingsdialog.tiltakListe),
+            });
         }
-        if (!oppfolgingsdialogerHentet) {
-            this.props.hentOppfolgingsdialoger();
+
+        if (this.props.lagrer && nextProps.lagret) {
+            this.lagreTiltak(nextProps.lagretId);
+        } else if (this.props.sletter && nextProps.slettet) {
+            this.slettTiltak();
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if ((prevProps.lagrer && this.props.lagret) || (prevProps.sletter && this.props.slettet)) {
-            this.props.hentOppfolgingsdialoger();
+    lagreTiltak(lagretId) {
+        const nyttTiltak = Object.assign({}, this.state.lagretTiltak);
+        nyttTiltak.tiltakId = lagretId;
+        const nyTiltakListe = [...this.state.tiltak];
+
+        if (erTiltaketOpprettet(this.state.tiltak, nyttTiltak)) {
+            const index = nyTiltakListe.findIndex((tiltak) => {
+                return tiltak.tiltakId === lagretId;
+            });
+            nyTiltakListe[index] = nyttTiltak;
+            this.setState({
+                tiltak: sorterTiltakEtterOpprettet(nyTiltakListe),
+                visTiltakSkjema: false,
+                tiltakOpprettet: false,
+            });
+        } else {
+            this.setState({
+                tiltak: sorterTiltakEtterOpprettet(nyTiltakListe.concat([nyttTiltak])),
+                tiltakOpprettet: true,
+            });
+        }
+    }
+
+    slettTiltak() {
+        if (this.state.slettetId > 0) {
+            const nyTiltakListe = this.state.tiltak.filter((tiltak) => {
+                return tiltak.tiltakId !== this.state.slettetId;
+            });
+            this.setState({
+                tiltak: nyTiltakListe,
+                visTiltakSkjema: false,
+            });
         }
     }
 
     sendLagreTiltak(values) {
         this.props.lagreTiltak(this.props.oppfolgingsdialogId, values);
+        const tiltak = input2RSTiltak(values);
+        tiltak.opprettetAvAktoerId = this.props.oppfolgingsdialog.sykmeldtAktoerId;
+        tiltak.opprettetDato = Date.now();
+        tiltak.opprettetAv = {
+            aktoerId: this.props.oppfolgingsdialog.sykmeldtAktoerId,
+            navn: this.props.oppfolgingsdialog.arbeidstakerNavn,
+        };
+        this.setState({
+            lagretTiltak: tiltak,
+        });
     }
     sendSlettTiltak(tiltakId) {
         this.props.slettTiltak(tiltakId);
+        this.setState({
+            slettetId: tiltakId,
+        });
+    }
+
+    toggleTiltakSkjema() {
+        this.setState({
+            visTiltakSkjema: !this.state.visTiltakSkjema,
+        });
     }
 
     render() {
-        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, lagrer, lagringFeilet, lagret, sletter, slettingFeilet, tilgang } = this.props;
+        const {
+            brodsmuler,
+            ledetekster,
+            oppfolgingsdialog,
+            oppfolgingsdialogId,
+            henter,
+            hentingFeilet,
+            lagrer,
+            lagringFeilet,
+            lagret,
+            sletter,
+            slettingFeilet,
+            tilgang,
+        } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
@@ -66,10 +149,14 @@ export class TiltakSide extends Component {
                 return (<Tiltak
                     oppfolgingsdialog={oppfolgingsdialog}
                     ledetekster={ledetekster}
+                    tiltakListe={this.state.tiltak}
                     oppfolgingsdialogId={oppfolgingsdialogId}
+                    toggleTiltakSkjema={this.toggleTiltakSkjema}
+                    visTiltakSkjema={this.state.visTiltakSkjema}
                     sendLagreTiltak={this.sendLagreTiltak}
                     sendSlettTiltak={this.sendSlettTiltak}
                     tiltakLagret={lagret}
+                    tiltakOpprettet={this.state.tiltakOpprettet}
                 />);
             })()
             }
@@ -88,6 +175,7 @@ TiltakSide.propTypes = {
     lagrer: PropTypes.bool,
     lagret: PropTypes.bool,
     lagringFeilet: PropTypes.bool,
+    lagretId: PropTypes.number,
     sletter: PropTypes.bool,
     slettet: PropTypes.bool,
     slettingFeilet: PropTypes.bool,
@@ -113,6 +201,7 @@ export function mapStateToProps(state, ownProps) {
         lagrer: state.tiltak.lagrer,
         lagret: state.tiltak.lagret,
         lagringFeilet: state.tiltak.lagringFeilet,
+        lagretId: state.tiltak.lagretId,
         sletter: state.tiltak.sletter,
         slettet: state.tiltak.slettet,
         slettingFeilet: state.tiltak.slettingFeilet,

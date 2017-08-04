@@ -107,6 +107,13 @@ export class Arbeidsoppgaver extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (!prevProps.visArbeidsoppgaveSkjema && this.props.visArbeidsoppgaveSkjema && this.lagreSkjema) {
+            const form = findDOMNode(this.lagreSkjema);
+            scrollTo(form, form.getBoundingClientRect().bottom);
+        }
+    }
+
     scrollToForm() {
         const form = findDOMNode(this.lagreSkjema);
         scrollTo(form, form.getBoundingClientRect().bottom);

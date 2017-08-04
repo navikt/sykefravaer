@@ -10,6 +10,8 @@ import {
     slettArbeidsoppgave,
     sjekkTilgang,
     OppfolgingsdialogInfoboks,
+    input2RSArbeidsoppgave,
+    erArbeidsoppgavenOpprettet,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
@@ -19,8 +21,18 @@ export class ArbeidsoppgaverSide extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            arbeidsoppgaver: [],
+            lagretArbeidsoppgave: {},
+            slettetId: 0,
+            visArbeidsoppgaveSkjema: false,
+            arbeidsoppgaveOpprettet: false,
+        };
+        this.lagreArbeidsoppgave = this.lagreArbeidsoppgave.bind(this);
+        this.slettArbeidsoppgave = this.slettArbeidsoppgave.bind(this);
         this.sendLagreArbeidsoppgave = this.sendLagreArbeidsoppgave.bind(this);
         this.sendSlettArbeidsoppgave = this.sendSlettArbeidsoppgave.bind(this);
+        this.toggleArbeidsoppgaveSkjema = this.toggleArbeidsoppgaveSkjema.bind(this);
     }
 
     componentWillMount() {
@@ -33,21 +45,97 @@ export class ArbeidsoppgaverSide extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if ((prevProps.lagrer && this.props.lagret) || (prevProps.sletter && this.props.slettet)) {
-            this.props.hentOppfolgingsdialoger();
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet) {
+            this.setState({
+                arbeidsoppgaver: nextProps.oppfolgingsdialog.arbeidsoppgaveListe,
+                visArbeidsoppgaveSkjema: true,
+            });
+        }
+
+        if (this.props.lagrer && nextProps.lagret) {
+            this.lagreArbeidsoppgave(nextProps.lagretId);
+        } else if (this.props.sletter && nextProps.slettet) {
+            this.slettArbeidsoppgave();
+        }
+    }
+
+    lagreArbeidsoppgave(lagretId) {
+        const nyArbeidsoppgave = Object.assign({}, this.state.lagretArbeidsoppgave);
+        nyArbeidsoppgave.arbeidsoppgaveId = lagretId;
+        const arbeidsoppgaveListe = [...this.state.arbeidsoppgaver];
+
+        if (erArbeidsoppgavenOpprettet(this.state.arbeidsoppgaver, nyArbeidsoppgave)) {
+            const index = arbeidsoppgaveListe.findIndex((arbeidsoppgave) => {
+                return arbeidsoppgave.arbeidsoppgaveId === lagretId;
+            });
+            arbeidsoppgaveListe[index] = nyArbeidsoppgave;
+            this.setState({
+                arbeidsoppgaver: arbeidsoppgaveListe,
+                visArbeidsoppgaveSkjema: false,
+                arbeidsoppgaveOpprettet: false,
+            });
+        } else {
+            this.setState({
+                arbeidsoppgaver: [nyArbeidsoppgave].concat(arbeidsoppgaveListe),
+                visArbeidsoppgaveSkjema: true,
+                arbeidsoppgaveOpprettet: true,
+            });
+        }
+    }
+
+    slettArbeidsoppgave() {
+        if (this.state.slettetId > 0) {
+            const nyArbeidsoppgaveListe = this.state.arbeidsoppgaver.filter((arbeidsoppgave) => {
+                return arbeidsoppgave.arbeidsoppgaveId !== this.state.slettetId;
+            });
+            this.setState({
+                arbeidsoppgaver: nyArbeidsoppgaveListe,
+                visArbeidsoppgaveSkjema: false,
+            });
         }
     }
 
     sendLagreArbeidsoppgave(values) {
         this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialogId, values);
+        const arbeidsoppgave = input2RSArbeidsoppgave(values);
+        arbeidsoppgave.opprettetAvAktoerId = this.props.oppfolgingsdialog.sykmeldtAktoerId;
+        arbeidsoppgave.opprettetAv = {
+            aktoerId: this.props.oppfolgingsdialog.sykmeldtAktoerId,
+            navn: this.props.oppfolgingsdialog.arbeidstakerNavn,
+        };
+        this.setState({
+            lagretArbeidsoppgave: arbeidsoppgave,
+        });
     }
     sendSlettArbeidsoppgave(arbeidsoppgaveId) {
         this.props.slettArbeidsoppgave(arbeidsoppgaveId);
+        this.setState({
+            slettetId: arbeidsoppgaveId,
+        });
+    }
+
+    toggleArbeidsoppgaveSkjema() {
+        this.setState({
+            visArbeidsoppgaveSkjema: !this.state.visArbeidsoppgaveSkjema,
+        });
     }
 
     render() {
-        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, henter, hentingFeilet, lagrer, lagringFeilet, lagret, sletter, slettingFeilet, tilgang } = this.props;
+        const {
+            brodsmuler,
+            ledetekster,
+            oppfolgingsdialog,
+            oppfolgingsdialogId,
+            henter,
+            hentingFeilet,
+            lagrer,
+            lagringFeilet,
+            lagret,
+            sletter,
+            slettingFeilet,
+            tilgang,
+        } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
@@ -65,11 +153,15 @@ export class ArbeidsoppgaverSide extends Component {
                 }
                 return (<Arbeidsoppgaver
                     oppfolgingsdialog={oppfolgingsdialog}
+                    arbeidsoppgaveListe={this.state.arbeidsoppgaver}
                     ledetekster={ledetekster}
                     oppfolgingsdialogId={oppfolgingsdialogId}
+                    toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema}
+                    visArbeidsoppgaveSkjema={this.state.visArbeidsoppgaveSkjema}
                     sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
                     sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
                     arbeidsoppgaveLagret={lagret}
+                    arbeidsoppgaveOpprettet={this.state.arbeidsoppgaveOpprettet}
                 />);
             })()
             }
@@ -88,6 +180,7 @@ ArbeidsoppgaverSide.propTypes = {
     lagrer: PropTypes.bool,
     lagret: PropTypes.bool,
     lagringFeilet: PropTypes.bool,
+    lagretId: PropTypes.number,
     sletter: PropTypes.bool,
     slettet: PropTypes.bool,
     slettingFeilet: PropTypes.bool,
@@ -113,6 +206,7 @@ export function mapStateToProps(state, ownProps) {
         lagrer: state.arbeidsoppgaver.lagrer,
         lagret: state.arbeidsoppgaver.lagret,
         lagringFeilet: state.arbeidsoppgaver.lagringFeilet,
+        lagretId: state.arbeidsoppgaver.lagretId,
         sletter: state.arbeidsoppgaver.sletter,
         slettet: state.arbeidsoppgaver.slettet,
         slettingFeilet: state.arbeidsoppgaver.slettingFeilet,

@@ -79,6 +79,9 @@ export const sykepengesoknad = PropTypes.shape({
     }),
     sykmeldingSkrevetDato: PropTypes.instanceOf(Date),
     erUnderEndring: PropTypes.bool,
+    del: PropTypes.numer,
+    fom: PropTypes.instanceOf(Date),
+    tom: PropTypes.instanceOf(Date),
 });
 
 export const sykmeldingdiagnose = PropTypes.shape({

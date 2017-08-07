@@ -15,7 +15,7 @@ export const validate = (values, props) => {
             const perioder = sykepengesoknad.aktiviteter.map((a) => {
                 return a.periode;
             });
-            periodealternativer.fra = sykepengesoknad.forrigeSykeforloepTom || tidligsteFom(perioder);
+            periodealternativer.fra = sykepengesoknad.del === 1 && sykepengesoknad.forrigeSykeforloepTom ? sykepengesoknad.forrigeSykeforloepTom : tidligsteFom(perioder);
             periodealternativer.til = getTomDato(Object.assign({}, sykepengesoknad, {
                 gjenopptattArbeidFulltUtDato,
             }));

@@ -83,7 +83,7 @@ export const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, gjenoppta
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });
-    const tidligsteFom = sykepengesoknad.forrigeSykeforloepTom || periodeUtils.tidligsteFom(perioder);
+    const tidligsteFom = sykepengesoknad.del === 1 && sykepengesoknad.forrigeSykeforloepTom ? sykepengesoknad.forrigeSykeforloepTom : periodeUtils.tidligsteFom(perioder);
     const senesteTom = getTomDato(_soknad);
 
     return (<JaEllerNei

@@ -28,12 +28,22 @@ const oppfolgingsdialog = getOppfolgingsdialog();
 describe("Arbeidsoppgaver", () => {
 
     let component;
+    let arbeidsgiver;
+    let arbeidstaker;
 
     beforeEach(() => {
         toggleArbeidsoppgaveSkjema = sinon.spy();
         sendLagreArbeidsoppgave = sinon.spy();
         sendSlettArbeidsoppgave = sinon.spy();
         setLedetekster(ledetekster);
+        arbeidsgiver = {
+            navn: 'Arbeidsgiver',
+            aktoerId: '***REMOVED***',
+        };
+        arbeidstaker = {
+            navn: 'Arbeidstaker',
+            aktoerId: '1234567891234',
+        };
     });
 
     it("Skal vise en OppfolgingsdialogSide", () => {
@@ -43,14 +53,22 @@ describe("Arbeidsoppgaver", () => {
     });
 
     it("Skal vise en OppfolgingsdialogInfoboks, om det ikke er arbeidsoppgaver", () => {
-        const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {arbeidsoppgaveListe: []});
+        const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {
+            arbeidstaker: arbeidstaker,
+            arbeidsgiver: arbeidsgiver,
+            arbeidsoppgaveListe: [],
+        });
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
                                              arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />);
         expect(component.find(OppfolgingsdialogInfoboks)).to.have.length(1);
     });
 
     it("Skal vise RenderOpprettArbeidsoppgave, om det ikke er arbeidsoppgaver og visArbeidsoppgaveSkjema er true", () => {
-        const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {arbeidsoppgaveListe: []});
+        const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {
+            arbeidstaker: arbeidstaker,
+            arbeidsgiver: arbeidsgiver,
+            arbeidsoppgaveListe: [],
+        });
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
                                              arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe}
                                              visArbeidsoppgaveSkjema={true} />);
@@ -64,7 +82,11 @@ describe("Arbeidsoppgaver", () => {
     });
 
     it("Skal vise RenderNotifikasjonBoks, om det er arbeidsoppgaver som ikke er vurdert av sykmeldt ", () => {
-        const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {arbeidsoppgaveListe: [{erVurdertAvSykmeldt: false}]});
+        const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {
+            arbeidstaker: arbeidstaker,
+            arbeidsgiver: arbeidsgiver,
+            arbeidsoppgaveListe: [{erVurdertAvSykmeldt: false}]
+        });
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
                                              arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />);
         expect(component.find(RenderNotifikasjonBoks)).to.have.length(1);

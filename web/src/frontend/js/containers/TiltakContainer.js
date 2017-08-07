@@ -93,11 +93,11 @@ export class TiltakSide extends Component {
     sendLagreTiltak(values) {
         this.props.lagreTiltak(this.props.oppfolgingsdialogId, values);
         const tiltak = input2RSTiltak(values);
-        tiltak.opprettetAvAktoerId = this.props.oppfolgingsdialog.sykmeldtAktoerId;
+        tiltak.opprettetAvAktoerId = this.props.oppfolgingsdialog.arbeidstaker.aktoerId;
         tiltak.opprettetDato = Date.now();
         tiltak.opprettetAv = {
-            aktoerId: this.props.oppfolgingsdialog.sykmeldtAktoerId,
-            navn: this.props.oppfolgingsdialog.arbeidstakerNavn,
+            aktoerId: this.props.oppfolgingsdialog.arbeidstaker.aktoerId,
+            navn: this.props.oppfolgingsdialog.arbeidstaker.navn,
         };
         this.setState({
             lagretTiltak: tiltak,
@@ -140,7 +140,7 @@ export class TiltakSide extends Component {
                     return (<Feilmelding />);
                 } else if (!tilgang.harTilgang) {
                     return (<OppfolgingsdialogInfoboks
-                        svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                        svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
                         svgAlt="ikkeTilgang"
                         tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
                         tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}

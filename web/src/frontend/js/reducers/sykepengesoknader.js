@@ -188,8 +188,10 @@ export default function sykepengesoknader(state = initiellState, action) {
             });
         }
         case actiontyper.SYKEPENGESOKNAD_BERIKELSE_HENTET: {
-            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, action.data);
-
+            const berikelse = Object.assign({}, action.data, {
+                forrigeSykeforloepTom: action.data.forrigeSykeforloepTom ? new Date(action.data.forrigeSykeforloepTom) : action.data.forrigeSykeforloepTom,
+            });
+            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, berikelse);
             return Object.assign({}, state, {
                 data,
                 henterBerikelse: false,

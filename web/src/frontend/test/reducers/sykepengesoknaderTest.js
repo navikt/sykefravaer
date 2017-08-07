@@ -732,8 +732,7 @@ describe('sykepengesoknader', () => {
             });
         });
 
-        it("håndterer berikelse hentet", () => {
-
+        it("håndterer berikelse hentet når berikelse inneholder forrigeSykeforloepTom", () => {
             let state = deepFreeze({
                 data: [{
                     id: '1',
@@ -744,7 +743,24 @@ describe('sykepengesoknader', () => {
             const action = berikelses_actions.berikelseHentet({forrigeSykeforloepTom: '2017-07-31'}, '1');
             const nextState = sykepengesoknader(state, action);
             expect(nextState).to.deep.equal({
-                data: [{id: '1', forrigeSykeforloepTom: '2017-07-31'}],
+                data: [{id: '1', forrigeSykeforloepTom: new Date('2017-07-31')}],
+                henterBerikelse: false,
+                henterBerikelseFeilet: false,
+            });
+        });
+
+        it("håndterer berikelse hentet når berikelse inneholder forrigeSykeforloepTom === null", () => {
+            let state = deepFreeze({
+                data: [{
+                    id: '1',
+
+                }]
+            });
+
+            const action = berikelses_actions.berikelseHentet({forrigeSykeforloepTom: null}, '1');
+            const nextState = sykepengesoknader(state, action);
+            expect(nextState).to.deep.equal({
+                data: [{id: '1', forrigeSykeforloepTom: null}],
                 henterBerikelse: false,
                 henterBerikelseFeilet: false,
             });

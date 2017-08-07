@@ -256,7 +256,19 @@ const oppfolgingsdialog = {
                 godkjent: null
             }
         }
-    ]
+    ],
+    arbeidsgiver: {
+        navn: "Test Testesen",
+        aktoerId: "***REMOVED***",
+        samtykke: null,
+        godkjent: null
+    },
+    arbeidstaker: {
+        navn: "Test Testesen",
+        aktoerId: "***REMOVED***",
+        samtykke: true,
+        godkjent: null
+    }
 };
 
 const getOppfolgingsdialog = (oppfolgingsdialogId = {}) => {

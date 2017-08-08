@@ -305,6 +305,12 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
             expect(soknad.aktiviteter[1].hasOwnProperty("jobbetMerEnnPlanlagt")).to.be.false;
         });
 
+        it("Skal beholde aktivitetens ID", () => {
+            const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad));
+            expect(soknad.aktiviteter[0].id).to.equal(sykepengesoknad.aktiviteter[0].id);
+            expect(soknad.aktiviteter[1].id).to.equal(sykepengesoknad.aktiviteter[1].id);
+        })
+
     });
 
     describe("utdanning", () => {

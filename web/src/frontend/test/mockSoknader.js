@@ -28,7 +28,8 @@ export const soknader = [{
       "tom": "2017-01-19"
     },
     "grad": 100,
-    "avvik": null
+    "avvik": null,
+    "id": 1
   }],
   "andreInntektskilder": [],
   "utdanning": null
@@ -59,7 +60,8 @@ export const soknader = [{
       "tom": "2016-07-20"
     },
     "grad": 100,
-    "avvik": null
+    "avvik": null,
+    "id": 2
   }],
   "andreInntektskilder": [],
   "utdanning": null
@@ -90,7 +92,8 @@ export const soknader = [{
       "tom": "2016-07-20"
     },
     "grad": 100,
-    "avvik": null
+    "avvik": null,
+    "id": 3
   }],
   "andreInntektskilder": [],
   "utdanning": null
@@ -121,7 +124,8 @@ export const soknader = [{
       "tom": "2016-07-20"
     },
     "grad": 100,
-    "avvik": null
+    "avvik": null,
+    "id": 4
   }],
   "andreInntektskilder": [],
   "utdanning": null
@@ -156,14 +160,16 @@ export const getSoknad = (soknad = {}) => {
         "tom": "2017-01-15"
       },
       "grad": 100,
-      "avvik": null
+      "avvik": null,
+      "id": 1
     }, {
       "periode": {
         "fom": "2017-01-01",
         "tom": "2017-01-25"
       },
       "grad": 50,
-      "avvik": null
+      "avvik": null,
+      "id": 2
     }],
     "andreInntektskilder": [],
     "utdanning": null

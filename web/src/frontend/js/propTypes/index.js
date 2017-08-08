@@ -71,6 +71,7 @@ export const sykepengesoknad = PropTypes.shape({
             arbeidsgrad: PropTypes.number,
             timer: PropTypes.number,
         }),
+        id: PropTypes.number,
     })).isRequired,
     andreInntektskilder: PropTypes.arrayOf(annenInntektskilde),
     utdanning: PropTypes.shape({

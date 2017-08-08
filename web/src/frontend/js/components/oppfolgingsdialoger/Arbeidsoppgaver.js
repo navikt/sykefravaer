@@ -137,7 +137,7 @@ export class Arbeidsoppgaver extends Component {
 
         return (
             <OppfolgingsdialogSide
-                brukernavn={oppfolgingsdialog.arbeidsgiver.navn}
+                brukernavn={oppfolgingsdialog.virksomhetsnavn}
                 oppfolgingsdialog={oppfolgingsdialog}
                 aktivUrl={history.getCurrentLocation().pathname}
                 ledetekster={ledetekster}

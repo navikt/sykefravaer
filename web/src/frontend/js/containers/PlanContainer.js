@@ -25,7 +25,7 @@ export class PlanSide extends Component {
         this.godkjennPlan = this.godkjennPlan.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { oppfolgingsdialogerHentet, tilgangSjekket } = this.props;
         if (!tilgangSjekket) {
             this.props.sjekkTilgang();
@@ -35,9 +35,9 @@ export class PlanSide extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if (!prevProps.oppfolgingsdialogerHentet && this.props.oppfolgingsdialogerHentet) {
-            this.props.hentPdfurler(this.props.oppfolgingsdialogId, this.props.oppfolgingsdialog.versjon);
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialog.godkjenninger.length > 0) {
+            this.props.hentPdfurler(this.props.oppfolgingsdialogId, nextProps.oppfolgingsdialog.versjon);
         }
     }
 

@@ -19,7 +19,7 @@ export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallIkkeVurderteArbe
     return (<NotifikasjonBoks
         imgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/notifikasjon-illustrasjon.svg`}
         tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
-            '%VIRKSOMHETSNAVN%': virksomhetsnavn,
+            '%ARBEIDSGIVER%': virksomhetsnavn,
             '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver.toString(),
         })}
         classNames={'panel--advarsel'}
@@ -183,7 +183,7 @@ export class Arbeidsoppgaver extends Component {
                             {
                                 antallIkkeVurderteArbeidsoppgaver > 0 &&
                                 <RenderNotifikasjonBoks
-                                    virksomhetsnavn={oppfolgingsdialog.virksomhetsnavn}
+                                    virksomhetsnavn={oppfolgingsdialog.arbeidsgiver.navn}
                                     antallIkkeVurderteArbeidsoppgaver={antallIkkeVurderteArbeidsoppgaver}
                                 />
                             }

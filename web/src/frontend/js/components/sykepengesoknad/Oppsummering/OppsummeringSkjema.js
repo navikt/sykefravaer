@@ -40,7 +40,7 @@ export const OppsummeringForm = (props) => {
     };
     return (<form id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Soknad apentUtdrag={false} sykepengesoknad={backendsoknad} tittel="Oppsummering" />
-        <div className={sendingFeilet || visForskutteringssporsmal ? 'bekreftet-container blokk' : 'bekreftet-container'}>
+        <div className="bekreftet-container blokk">
             <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
         </div>
         { visForskutteringssporsmal && <ForskuttererArbeidsgiver /> }

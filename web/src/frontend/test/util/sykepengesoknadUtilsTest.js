@@ -4,7 +4,7 @@ import deepFreeze from 'deep-freeze';
 
 import * as utils from '../../js/utils/sykepengesoknadUtils';
 
-describe("sykepengesoknadUtils", () => {
+describe.only("sykepengesoknadUtils", () => {
     let soknad1;
     let soknad2;
     let soknad3;
@@ -17,6 +17,13 @@ describe("sykepengesoknadUtils", () => {
             id: "1",
             status: "KORRIGERT",
             sendtTilNAVDato: new Date("2017-02-04"),
+            opprettetDato: new Date("2017-04-01"),
+            aktiviteter: [{
+                periode: {
+                    fom: new Date("2017-05-01"),
+                    tom: new Date("2017-06-01"),
+                }
+            }]
         };
 
         soknad2 = {
@@ -24,6 +31,13 @@ describe("sykepengesoknadUtils", () => {
             status: "SENDT",
             sendtTilNAVDato: new Date("2017-02-06"),
             sendtTilArbeidsgiverDato: new Date("2017-02-08"),
+            opprettetDato: new Date("2017-03-01"),
+            aktiviteter: [{
+                periode: {
+                    fom: new Date("2017-04-01"),
+                    tom: new Date("2017-04-20"),
+                }
+            }]
         };
 
         soknad3 = {
@@ -31,7 +45,14 @@ describe("sykepengesoknadUtils", () => {
             korrigerer: "1",
             status: "KORRIGERT",
             sendtTilNAVDato: new Date("2017-02-05"),
-            sendtTilArbeidsgiverDato: new Date("2017-02-10")
+            sendtTilArbeidsgiverDato: new Date("2017-02-10"),
+            opprettetDato: new Date("2017-07-01"),
+            aktiviteter: [{
+                periode: {
+                    fom: new Date("2017-10-01"),
+                    tom: new Date("2017-10-12"),
+                }
+            }]
         };
 
         soknad4 = {
@@ -39,13 +60,32 @@ describe("sykepengesoknadUtils", () => {
             korrigerer: "3",
             status: "SENDT",
             sendtTilNAVDato: new Date("2017-02-08"),
-            sendtTilArbeidsgiverDato: new Date("2017-02-11")
+            sendtTilArbeidsgiverDato: new Date("2017-02-11"),
+            opprettetDato: new Date("2017-02-01"),
+            aktiviteter: [{
+                periode: {
+                    fom: new Date("2016-08-01"),
+                    tom: new Date("2016-08-12"),
+                }
+            }, {
+                periode: {
+                    fom: new Date("2016-08-13"),
+                    tom: new Date("2016-08-19"),
+                }
+            }]
         };
 
         soknad5 = {
             id: "5",
             status: "NY",
-            sendtTilArbeidsgiverDato: new Date("2017-02-01")
+            sendtTilArbeidsgiverDato: new Date("2017-02-01"),
+            opprettetDato: new Date("2017-10-01"),
+            aktiviteter: [{
+                periode: {
+                    fom: new Date("2017-05-01"),
+                    tom: new Date("2017-06-10"),
+                }
+            }]
         };
     });
 
@@ -70,18 +110,45 @@ describe("sykepengesoknadUtils", () => {
     });
 
 
-    describe("sorterEtterDato", () => {
+    describe("sorterEtterSendtDato", () => {
 
         beforeEach(() => {
             data = [soknad1, soknad2, soknad3, soknad4, soknad5];
         })
 
         it("Skal sortere etter tidligste datoer", () => {
-            const res = data.sort(utils.sorterEtterDato);
+            const res = data.sort(utils.sorterEtterSendtDato);
             expect(res).to.deep.equal([soknad4, soknad2, soknad3, soknad1, soknad5])
-        })
+        });
 
     });
+
+    describe("sorterEtterOpprettetDato", () => {
+
+        beforeEach(() => {
+            data = [soknad1, soknad2, soknad3, soknad4, soknad5];
+        });
+
+        it("Skal sortere etter opprettetDato, med den tidligst opprettede søknaden først", () => {
+            const res = data.sort(utils.sorterEtterOpprettetDato);
+            expect(res).to.deep.equal([soknad4, soknad2, soknad1, soknad3, soknad5]);
+        });
+
+    });
+
+    describe("sorterEtterPerioder", () => {
+
+        beforeEach(() => {
+            data = [soknad1, soknad2, soknad3, soknad4, soknad5];
+        });
+
+        it("Skal sortere etter periodene med perioden lengst frem i tid først", () => {
+            const res = data.sort(utils.sorterEtterPerioder);
+            expect(res).to.deep.equal([soknad3, soknad1, soknad5, soknad2, soknad4]);
+        });
+
+    });
+
 
     describe("erSendtTilBeggeMenIkkeSamtidig", () => {
 

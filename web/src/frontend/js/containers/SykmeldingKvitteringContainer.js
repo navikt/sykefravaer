@@ -74,8 +74,8 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
     }
 };
 
-export const getKvitteringtype = (sykmelding, erPilot) => {
-    if (!sykmelding || !erPilot || (sykmelding.status !== SENDT && sykmelding.status !== TIL_SENDING)) {
+export const getKvitteringtype = (sykmelding, erPilot, erPilotarbeidsgiver) => {
+    if (!erPilotarbeidsgiver || !sykmelding || !erPilot || (sykmelding.status !== SENDT && sykmelding.status !== TIL_SENDING)) {
         return kvitteringtyper.STANDARDKVITTERING;
     }
     if (erPeriodePassert(sykmelding)) {
@@ -87,6 +87,7 @@ export const getKvitteringtype = (sykmelding, erPilot) => {
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
     const sykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId);
+    const arbeidsgiversSykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId);
     const henter = state.dineSykmeldinger.henter || state.ledetekster.henter;
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
     const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
@@ -98,6 +99,7 @@ export function mapStateToProps(state, ownProps) {
     const brodtekst = kvitteringBrodtekstKey ? getHtmlLedetekst(kvitteringBrodtekstKey, {
         '%TOM%': toDatePrettyPrint(senesteTom(sykmelding.mulighetForArbeid.perioder)),
     }) : null;
+    const erPilotarbeidsgiver = arbeidsgiversSykmelding && arbeidsgiversSykmelding.valgtArbeidsgiver ? arbeidsgiversSykmelding.valgtArbeidsgiver.erPilotarbeidsgiver : false;
 
     return {
         henter,
@@ -105,7 +107,7 @@ export function mapStateToProps(state, ownProps) {
         sykmelding,
         sykmeldingStatus: sykmelding ? sykmelding.status : undefined,
         tittel,
-        kvitteringtype: getKvitteringtype(sykmelding, pilotSykepenger),
+        kvitteringtype: getKvitteringtype(sykmelding, pilotSykepenger, erPilotarbeidsgiver),
         brodtekst,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),

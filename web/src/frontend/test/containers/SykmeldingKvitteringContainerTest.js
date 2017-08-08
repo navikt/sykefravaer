@@ -118,7 +118,13 @@ describe("SykmeldingKvitteringContainer", () => {
             data: sykmeldinger
         };
         state.arbeidsgiversSykmeldinger = {
-            data: sykmeldinger
+            data: sykmeldinger.map((s) => {
+                return Object.assign({}, s, {
+                    valgtArbeidsgiver: {
+                        erPilotarbeidsgiver: true,
+                    }
+                })
+            })
         };
         state.ledetekster = {
             data: ledetekster
@@ -154,97 +160,207 @@ describe("SykmeldingKvitteringContainer", () => {
             clock.restore();
         });
 
-        it("Skal returnere true hvis det ikke finness sykmelding", () => {
+        it("Skal returnere STANDARDKVITTERING hvis det ikke finness sykmelding", () => {
             expect(getKvitteringtype(undefined, true)).to.equal("STANDARDKVITTERING")
         });
 
-        describe("Hvis dagens dato er etter siste dag i sykmeldingsperioden", () => {
+        describe("Hvis arbeidsgiveren ikke er en del av piloten", () => {
+
+            let erPilotarbeidsgiver;
 
             beforeEach(() => {
-                sykmelding = {
-                    mulighetForArbeid: {
-                        perioder: [{
-                            fom: "2017-01-10",
-                            tom: "2017-01-15",
-                        }]
-                    },
-                    status: "SENDT"
-                }
-            })
-
-            it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_NÅ hvis brukeren er pilot og søknaden er SENDT", () => {
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_NÅ");
+                erPilotarbeidsgiver = false;
             });
 
-            it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er SENDT", () => {
-                const res = getKvitteringtype(sykmelding, false);
-                expect(res).to.equal("STANDARDKVITTERING");
+            describe("Hvis dagens dato er etter siste dag i sykmeldingsperioden", () => {
+
+                beforeEach(() => {
+                    sykmelding = {
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: "2017-01-10",
+                                tom: "2017-01-15",
+                            }]
+                        },
+                        status: "SENDT"
+                    }
+                })
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren er pilot og søknaden er SENDT", () => {
+                    const res = getKvitteringtype(sykmelding, true, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er SENDT", () => {
+                    const res = getKvitteringtype(sykmelding, false, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
+                it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_NÅ hvis brukeren er pilot og søknaden er TIL_SENDING", () => {
+                    sykmelding.status = "TIL_SENDING";
+                    const res = getKvitteringtype(sykmelding, true, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er TIL_SENDING", () => {
+                    sykmelding.status = "TIL_SENDING";
+                    const res = getKvitteringtype(sykmelding, false, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren er pilot, men søknaden ikke er SENDT eller TIL_SENDING", () => {
+                    sykmelding.status = 'BEKREFTET';
+                    const res = getKvitteringtype(sykmelding, true, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
             });
 
-            it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_NÅ hvis brukeren er pilot og søknaden er TIL_SENDING", () => {
-                sykmelding.status = "TIL_SENDING";
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_NÅ");
-            });
+            describe("Hvis dagens dato er før siste dag i sykmeldingsperioden", () => {
 
-            it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er TIL_SENDING", () => {
-                sykmelding.status = "TIL_SENDING";
-                const res = getKvitteringtype(sykmelding, false);
-                expect(res).to.equal("STANDARDKVITTERING");
-            });
+                beforeEach(() => {
+                    sykmelding = {
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: "2017-01-10",
+                                tom: "2017-01-17",
+                            }]
+                        },
+                        status: "SENDT"
+                    }
+                })
 
-            it("Skal returnere STANDARDKVITTERING hvis brukeren er pilot, men søknaden ikke er SENDT eller TIL_SENDING", () => {
-                sykmelding.status = 'BEKREFTET';
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("STANDARDKVITTERING");
+                it("Skal returnere STANDARDKVITTERING hvis brukeren er pilot og søknaden er SENDT", () => {
+                    const res = getKvitteringtype(sykmelding, true, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er SENDT", () => {
+                    const res = getKvitteringtype(sykmelding, false, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren er pilot og søknaden er TIL_SENDING", () => {
+                    sykmelding.status = "TIL_SENDING";
+                    const res = getKvitteringtype(sykmelding, true, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er TIL_SENDING", () => {
+                    sykmelding.status = "TIL_SENDING";
+                    const res = getKvitteringtype(sykmelding, false, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren er pilot, men søknaden ikke er SENDT eller TIL_SENDING", () => {
+                    sykmelding.status = 'BEKREFTET';
+                    const res = getKvitteringtype(sykmelding, true, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
             });
 
         });
 
-        describe("Hvis dagens dato er før siste dag i sykmeldingsperioden", () => {
+        describe("Hvis arbeidsgiveren er en del av piloten", () => {
+
+            let erPilotarbeidsgiver;
 
             beforeEach(() => {
-                sykmelding = {
-                    mulighetForArbeid: {
-                        perioder: [{
-                            fom: "2017-01-10",
-                            tom: "2017-01-17",
-                        }]
-                    },
-                    status: "SENDT"
-                }
+                erPilotarbeidsgiver = true;
             })
 
-            it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_SENERE hvis brukeren er pilot og søknaden er SENDT", () => {
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_SENERE");
+            describe("Hvis dagens dato er etter siste dag i sykmeldingsperioden", () => {
+
+                beforeEach(() => {
+                    sykmelding = {
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: "2017-01-10",
+                                tom: "2017-01-15",
+                            }]
+                        },
+                        status: "SENDT"
+                    }
+                })
+
+                it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_NÅ hvis brukeren er pilot og søknaden er SENDT", () => {
+                    const res = getKvitteringtype(sykmelding, true, erPilotarbeidsgiver);
+                    expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_NÅ");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er SENDT", () => {
+                    const res = getKvitteringtype(sykmelding, false, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
+                it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_NÅ hvis brukeren er pilot og søknaden er TIL_SENDING", () => {
+                    sykmelding.status = "TIL_SENDING";
+                    const res = getKvitteringtype(sykmelding, true, erPilotarbeidsgiver);
+                    expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_NÅ");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er TIL_SENDING", () => {
+                    sykmelding.status = "TIL_SENDING";
+                    const res = getKvitteringtype(sykmelding, false, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren er pilot, men søknaden ikke er SENDT eller TIL_SENDING", () => {
+                    sykmelding.status = 'BEKREFTET';
+                    const res = getKvitteringtype(sykmelding, true, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
             });
 
-            it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er SENDT", () => {
-                const res = getKvitteringtype(sykmelding, false);
-                expect(res).to.equal("STANDARDKVITTERING");
+            describe("Hvis dagens dato er før siste dag i sykmeldingsperioden", () => {
+
+                beforeEach(() => {
+                    sykmelding = {
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom: "2017-01-10",
+                                tom: "2017-01-17",
+                            }]
+                        },
+                        status: "SENDT"
+                    }
+                })
+
+                it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_SENERE hvis brukeren er pilot og søknaden er SENDT", () => {
+                    const res = getKvitteringtype(sykmelding, true, erPilotarbeidsgiver);
+                    expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_SENERE");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er SENDT", () => {
+                    const res = getKvitteringtype(sykmelding, false, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
+                it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_SENERE hvis brukeren er pilot og søknaden er TIL_SENDING", () => {
+                    sykmelding.status = "TIL_SENDING";
+                    const res = getKvitteringtype(sykmelding, true, erPilotarbeidsgiver);
+                    expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_SENERE");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er TIL_SENDING", () => {
+                    sykmelding.status = "TIL_SENDING";
+                    const res = getKvitteringtype(sykmelding, false, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
+                it("Skal returnere STANDARDKVITTERING hvis brukeren er pilot, men søknaden ikke er SENDT eller TIL_SENDING", () => {
+                    sykmelding.status = 'BEKREFTET';
+                    const res = getKvitteringtype(sykmelding, true, erPilotarbeidsgiver);
+                    expect(res).to.equal("STANDARDKVITTERING");
+                });
+
             });
 
-            it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_SENERE hvis brukeren er pilot og søknaden er TIL_SENDING", () => {
-                sykmelding.status = "TIL_SENDING";
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_SENERE");
-            });
+        })
 
-            it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er TIL_SENDING", () => {
-                sykmelding.status = "TIL_SENDING";
-                const res = getKvitteringtype(sykmelding, false);
-                expect(res).to.equal("STANDARDKVITTERING");
-            });
 
-            it("Skal returnere STANDARDKVITTERING hvis brukeren er pilot, men søknaden ikke er SENDT eller TIL_SENDING", () => {
-                sykmelding.status = 'BEKREFTET';
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("STANDARDKVITTERING");
-            });
-
-        });
 
     })
 

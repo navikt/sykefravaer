@@ -1,5 +1,4 @@
-import { periodeOverlapperMedPeriode } from './periodeUtils';
-import { tidligsteFom, senesteTom } from './periodeUtils';
+import { tidligsteFom, senesteTom, periodeOverlapperMedPeriode } from './periodeUtils';
 
 export const getTidligsteSendtDato = (soknad) => {
     if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {
@@ -36,6 +35,44 @@ export const getSendtTilSuffix = (sykepengesoknad) => {
         return '.til-nav';
     }
     return '';
+};
+
+
+export const sorterEtterOpprettetDato = (soknad1, soknad2) => {
+    if (soknad1.opprettetDato.getTime() > soknad2.opprettetDato.getTime()) {
+        return 1;
+    }
+    if (soknad1.opprettetDato.getTime() < soknad2.opprettetDato.getTime()) {
+        return -1;
+    }
+    return 0;
+};
+
+export const sorterEtterPerioder = (soknad1, soknad2) => {
+    const soknad1Perioder = soknad1.aktiviteter.map((a) => {
+        return a.periode;
+    });
+    const soknad2Perioder = soknad2.aktiviteter.map((a) => {
+        return a.periode;
+    });
+    const soknad1TidligsteFom = tidligsteFom(soknad1Perioder);
+    const soknad2TidligsteFom = tidligsteFom(soknad2Perioder);
+    const soknad1SenesteTom = senesteTom(soknad1Perioder);
+    const soknad2Senestetom = senesteTom(soknad2Perioder);
+
+    if (soknad1TidligsteFom.getTime() > soknad2TidligsteFom.getTime()) {
+        return -1;
+    }
+    if (soknad1TidligsteFom.getTime() < soknad2TidligsteFom.getTime()) {
+        return 1;
+    }
+    if (soknad1SenesteTom.getTime() > soknad2Senestetom.getTime()) {
+        return 1;
+    }
+    if (soknad1SenesteTom.getTime() < soknad2Senestetom.getTime()) {
+        return -1;
+    }
+    return 0;
 };
 
 export const mapAktiviteter = (soknad) => {

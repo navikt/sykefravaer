@@ -140,7 +140,7 @@ export class ArbeidsoppgaverSide extends Component {
                     return (<Feilmelding />);
                 } else if (!tilgang.harTilgang) {
                     return (<OppfolgingsdialogInfoboks
-                        svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                        svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
                         svgAlt="ikkeTilgang"
                         tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
                         tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}

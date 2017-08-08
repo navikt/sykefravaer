@@ -14,7 +14,7 @@ import history from '../../history';
 export const Plan = ({ ledetekster, oppfolgingsdialog, oppfolgingsdialogId, pdfUrler, giSamtykkeSvar }) => {
     return (
         <OppfolgingsdialogSide
-            brukernavn={oppfolgingsdialog.virksomhetsnavn}
+            brukernavn={oppfolgingsdialog.arbeidsgiver.navn}
             oppfolgingsdialog={oppfolgingsdialog}
             aktivUrl={history.getCurrentLocation().pathname}
             ledetekster={ledetekster}

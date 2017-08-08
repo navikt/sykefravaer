@@ -15,24 +15,24 @@ import {
 import { getLedetekst } from 'digisyfo-npm';
 import history from '../../history';
 
-export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallTiltakLagtTilAvArbeidsgiver }) => {
+export const RenderNotifikasjonBoks = ({ motpartnavn, antallTiltakLagtTilAvArbeidsgiver }) => {
     return (<NotifikasjonBoks
-        imgUrl={"/sykefravaer/img/svg/notifikasjon-illustrasjon.svg"}
-        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.tiltak-lagt-til-av-arbeidsgiver.tekst', {
-            '%VIRKSOMHETSNAVN%': virksomhetsnavn,
+        imgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/notifikasjon-illustrasjon.svg`}
+        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.tiltak-lagt-til-av-motpart.tekst', {
+            '%MOTPARTNAVN%': motpartnavn,
             '%ANTALLTILTAK%': antallTiltakLagtTilAvArbeidsgiver.toString(),
         })}
         classNames={'panel--advarsel'}
     />);
 };
 RenderNotifikasjonBoks.propTypes = {
-    virksomhetsnavn: PropTypes.string,
+    motpartnavn: PropTypes.string,
     antallTiltakLagtTilAvArbeidsgiver: PropTypes.number,
 };
 
 export const RenderNotifikasjonBoksSuksess = ({ tekst }) => {
     return (<NotifikasjonBoks
-        imgUrl={"/sykefravaer/img/svg/notifikasjon-suksess-illustrasjon.svg"}
+        imgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/notifikasjon-suksess-illustrasjon.svg`}
         tekst={tekst}
         classNames={'panel--suksess'}
     />);
@@ -47,9 +47,8 @@ export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, 
             ledetekster={ledetekster}
             liste={tiltakListe}
             tabellType="tiltak"
-            urlImgArrow="/sykefravaer/img/svg/arrow-down.svg"
-            urlImgVarsel="/sykefravaer/img/svg/varseltrekant.svg"
-            urlImgCheckboks="/sykefravaer/img/svg/oppfolgingdialog-checkbox.svg"
+            urlImgArrow={`${window.APP_SETTINGS.APP_ROOT}/img/svg/arrow-down.svg`}
+            urlImgVarsel={`${window.APP_SETTINGS.APP_ROOT}/img/svg/varseltrekant.svg`}
             sendLagre={sendLagreTiltak}
             sendSlett={sendSlettTiltak}
             aktoerId={aktoerId}
@@ -80,12 +79,11 @@ RenderTiltakKnapper.propTypes = {
     toggleTiltakSkjema: PropTypes.func,
 };
 
-export const RenderOpprettTiltak = ({ ledetekster, oppfolgingsdialogId, sendLagreTiltak, toggleTiltakSkjema }) => {
+export const RenderOpprettTiltak = ({ ledetekster, sendLagreTiltak, toggleTiltakSkjema }) => {
     return (<div>
         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
         <LagreTiltakSkjema
             ledetekster={ledetekster}
-            avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/tiltak`}
             sendLagre={sendLagreTiltak}
             avbryt={toggleTiltakSkjema}
         />
@@ -93,7 +91,6 @@ export const RenderOpprettTiltak = ({ ledetekster, oppfolgingsdialogId, sendLagr
 };
 RenderOpprettTiltak.propTypes = {
     ledetekster: PropTypes.object,
-    oppfolgingsdialogId: PropTypes.string,
     sendLagreTiltak: PropTypes.func,
     toggleTiltakSkjema: PropTypes.func,
 };
@@ -121,22 +118,22 @@ export class Tiltak extends Component {
             tiltakOpprettet,
         } = this.props;
 
-        const antallTiltakLagtTilAvArbeidsgiver = finnTiltakIkkeLagtTilAvAktoer(oppfolgingsdialog.sykmeldtAktoerId, oppfolgingsdialog.tiltakListe).length;
+        const antallTiltakLagtTilAvArbeidsgiver = finnTiltakIkkeLagtTilAvAktoer(oppfolgingsdialog.arbeidstaker.aktoerId, oppfolgingsdialog.tiltakListe).length;
 
         return (
             <OppfolgingsdialogSide
-                brukernavn={oppfolgingsdialog.virksomhetsnavn}
+                brukernavn={oppfolgingsdialog.arbeidsgiver.navn}
                 oppfolgingsdialog={oppfolgingsdialog}
                 aktivUrl={history.getCurrentLocation().pathname}
                 ledetekster={ledetekster}
-                rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}>
+                rootUrl={`${window.APP_SETTINGS.APP_ROOT}/oppfolgingsplaner/${oppfolgingsdialogId}`}>
                 {
                     isEmpty(tiltakListe) ?
                     <div>
                         {
                             !visTiltakSkjema ?
                                 <OppfolgingsdialogInfoboks
-                                    svgUrl="/sykefravaer/img/svg/tiltak-onboarding.svg"
+                                    svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/tiltak-onboarding.svg`}
                                     svgAlt="nyttTiltak"
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tittel')}
                                     tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}
@@ -168,7 +165,7 @@ export class Tiltak extends Component {
                         {
                             antallTiltakLagtTilAvArbeidsgiver > 0 &&
                             <RenderNotifikasjonBoks
-                                virksomhetsnavn={oppfolgingsdialog.virksomhetsnavn}
+                                motpartnavn={oppfolgingsdialog.virksomhetsnavn}
                                 antallTiltakLagtTilAvArbeidsgiver={antallTiltakLagtTilAvArbeidsgiver}
                             />
                         }
@@ -186,7 +183,6 @@ export class Tiltak extends Component {
                             visTiltakSkjema ?
                                 <LagreTiltakSkjema
                                     ledetekster={ledetekster}
-                                    avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/tiltak`}
                                     sendLagre={sendLagreTiltak}
                                     avbryt={toggleTiltakSkjema}
                                     ref={(lagreSkjema) => { this.lagreSkjema = lagreSkjema; }}

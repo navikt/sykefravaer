@@ -8,6 +8,7 @@ import {
     NotifikasjonBoks,
     OppfolgingsdialogTabell,
     LagreArbeidsoppgaveSkjema,
+    BRUKERTYPE,
     OppfolgingsdialogFooter,
     SIDETYPE,
 } from 'oppfolgingsdialog-npm';
@@ -16,7 +17,7 @@ import history from '../../history';
 
 export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver }) => {
     return (<NotifikasjonBoks
-        imgUrl={"/sykefravaer/img/svg/notifikasjon-illustrasjon.svg"}
+        imgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/notifikasjon-illustrasjon.svg`}
         tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
             '%VIRKSOMHETSNAVN%': virksomhetsnavn,
             '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver.toString(),
@@ -30,7 +31,7 @@ RenderNotifikasjonBoks.propTypes = {
 };
 export const RenderNotifikasjonBoksSuksess = ({ tekst }) => {
     return (<NotifikasjonBoks
-        imgUrl={"/sykefravaer/img/svg/notifikasjon-suksess-illustrasjon.svg"}
+        imgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/notifikasjon-suksess-illustrasjon.svg`}
         tekst={tekst}
         classNames={'panel--suksess'}
     />);
@@ -45,12 +46,13 @@ export const RenderOppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbe
             ledetekster={ledetekster}
             liste={arbeidsoppgaveListe}
             tabellType="arbeidsoppgaver"
-            urlImgArrow="/sykefravaer/img/svg/arrow-down.svg"
-            urlImgVarsel="/sykefravaer/img/svg/varseltrekant.svg"
-            urlImgCheckboks="/sykefravaer/img/svg/oppfolgingdialog-checkbox.svg"
+            urlImgArrow={`${window.APP_SETTINGS.APP_ROOT}/img/svg/arrow-down.svg`}
+            urlImgVarsel={`${window.APP_SETTINGS.APP_ROOT}/img/svg/varseltrekant.svg`}
+            urlImgCheckboks={`${window.APP_SETTINGS.APP_ROOT}/img/svg/oppfolgingdialog-checkbox.svg`}
             sendLagre={sendLagreArbeidsoppgave}
             sendSlett={sendSlettArbeidsoppgave}
             aktoerId={aktoerId}
+            brukerType={BRUKERTYPE.ARBEIDSTAKER}
         />
     );
 };
@@ -77,12 +79,11 @@ RenderArbeidsoppgaverKnapper.propTypes = {
     toggleArbeidsoppgaveSkjema: PropTypes.func,
 };
 
-export const RenderOpprettArbeidsoppgave = ({ ledetekster, oppfolgingsdialogId, sendLagreArbeidsoppgave, toggleArbeidsoppgaveSkjema }) => {
+export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppgave, toggleArbeidsoppgaveSkjema }) => {
     return (<div>
         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
         <LagreArbeidsoppgaveSkjema
             ledetekster={ledetekster}
-            avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
             sendLagre={sendLagreArbeidsoppgave}
             avbryt={toggleArbeidsoppgaveSkjema}
         />
@@ -90,7 +91,6 @@ export const RenderOpprettArbeidsoppgave = ({ ledetekster, oppfolgingsdialogId, 
 };
 RenderOpprettArbeidsoppgave.propTypes = {
     ledetekster: PropTypes.object,
-    oppfolgingsdialogId: PropTypes.string,
     sendLagreArbeidsoppgave: PropTypes.func,
     toggleArbeidsoppgaveSkjema: PropTypes.func,
 };
@@ -137,18 +137,18 @@ export class Arbeidsoppgaver extends Component {
 
         return (
             <OppfolgingsdialogSide
-                brukernavn={oppfolgingsdialog.virksomhetsnavn}
+                brukernavn={oppfolgingsdialog.arbeidsgiver.navn}
                 oppfolgingsdialog={oppfolgingsdialog}
                 aktivUrl={history.getCurrentLocation().pathname}
                 ledetekster={ledetekster}
-                rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}>
+                rootUrl={`${window.APP_SETTINGS.APP_ROOT}/oppfolgingsplaner/${oppfolgingsdialogId}`}>
                 {
                     isEmpty(arbeidsoppgaveListe) ?
                         <div>
                             {
                                 !visArbeidsoppgaveSkjema ?
                                     <OppfolgingsdialogInfoboks
-                                        svgUrl="/sykefravaer/img/svg/arbeidsoppgave-onboarding.svg"
+                                        svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/arbeidsoppgave-onboarding.svg`}
                                         svgAlt="nyArbeidsoppgave"
                                         tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tittel')}
                                         tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tekst')}
@@ -200,7 +200,6 @@ export class Arbeidsoppgaver extends Component {
                                 visArbeidsoppgaveSkjema ?
                                     <LagreArbeidsoppgaveSkjema
                                         ledetekster={ledetekster}
-                                        avbrytHref={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}/arbeidsoppgaver`}
                                         sendLagre={sendLagreArbeidsoppgave}
                                         avbryt={toggleArbeidsoppgaveSkjema}
                                         ref={(lagreSkjema) => {

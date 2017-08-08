@@ -28,12 +28,22 @@ const oppfolgingsdialog = getOppfolgingsdialog();
 describe("Tiltak", () => {
 
     let component;
+    let arbeidsgiver;
+    let arbeidstaker;
 
     beforeEach(() => {
         toggleTiltakSkjema = sinon.spy();
         sendLagreTiltak = sinon.spy();
         sendSlettTiltak = sinon.spy();
         setLedetekster(ledetekster);
+        arbeidsgiver = {
+            navn: 'Arbeidsgiver',
+            aktoerId: '***REMOVED***',
+        };
+        arbeidstaker = {
+            navn: 'Arbeidstaker',
+            aktoerId: '1234567891234',
+        };
     });
 
     it("Skal vise en OppfolgingsdialogSide", () => {
@@ -43,14 +53,22 @@ describe("Tiltak", () => {
     });
 
     it("Skal vise en OppfolgingsdialogInfoboks, om det ikke er tiltak", () => {
-        const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {tiltakListe: []});
+        const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {
+            arbeidstaker: arbeidstaker,
+            arbeidsgiver: arbeidsgiver,
+            tiltakListe: [],
+        });
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
                                     tiltakListe={oppfolgingsdialog.tiltakListe} />);
         expect(component.find(OppfolgingsdialogInfoboks)).to.have.length(1);
     });
 
     it("Skal vise RenderOpprettTiltak, om det ikke er tiltak og visTiltakSkjema er true", () => {
-        const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {tiltakListe: []});
+        const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {
+            arbeidstaker: arbeidstaker,
+            arbeidsgiver: arbeidsgiver,
+            tiltakListe: [],
+        });
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
                                     visTiltakSkjema={true}
                                     tiltakListe={oppfolgingsdialog.tiltakListe} />);
@@ -65,8 +83,9 @@ describe("Tiltak", () => {
 
     it("Skal vise RenderNotifikasjonBoks, om det er tiltak som er lagt til av arbeidsgiver ", () => {
         const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {
-            sykmeldtAktoerId: '***REMOVED***',
-            tiltakListe: [{opprettetAv: {aktoerId: "***REMOVED***"}}]
+            arbeidstaker: arbeidstaker,
+            arbeidsgiver: arbeidsgiver,
+            tiltakListe: [{opprettetAv: {aktoerId: arbeidsgiver.aktoerId}}]
         });
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
                                     tiltakListe={oppfolgingsdialog.tiltakListe} />);

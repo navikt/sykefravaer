@@ -3,7 +3,7 @@ const expect = chai.expect;
 
 import * as utils from '../../js/utils/sykepengesoknadUtils';
 
-describe.only("sykepengesoknadUtils", () => {
+describe("sykepengesoknadUtils", () => {
     let soknad1;
     let soknad2;
     let soknad3;

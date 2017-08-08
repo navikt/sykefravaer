@@ -19,9 +19,89 @@ describe("Soknader", () => {
     };
 
     let component;
+    let soknad1;
+    let soknad2;
+    let soknad3;
+    let soknad4;
+    let soknad5;
 
     beforeEach(() => {
         setLedetekster(ledetekster);
+
+        soknad1 = {
+            id: "1",
+            status: "KORRIGERT",
+            sendtTilNAVDato: new Date("2017-02-04"),
+            opprettetDato: new Date("2017-04-01"),
+            aktiviteter: [{
+                periode: {
+                    fom: new Date("2017-05-01"),
+                    tom: new Date("2017-06-01"),
+                }
+            }]
+        };
+
+        soknad2 = {
+            id: "2",
+            status: "SENDT",
+            sendtTilNAVDato: new Date("2017-02-06"),
+            sendtTilArbeidsgiverDato: new Date("2017-02-08"),
+            opprettetDato: new Date("2017-03-01"),
+            aktiviteter: [{
+                periode: {
+                    fom: new Date("2017-04-01"),
+                    tom: new Date("2017-04-20"),
+                }
+            }]
+        };
+
+        soknad3 = {
+            id: "3",
+            korrigerer: "1",
+            status: "KORRIGERT",
+            sendtTilNAVDato: new Date("2017-02-05"),
+            sendtTilArbeidsgiverDato: new Date("2017-02-10"),
+            opprettetDato: new Date("2017-07-01"),
+            aktiviteter: [{
+                periode: {
+                    fom: new Date("2017-10-01"),
+                    tom: new Date("2017-10-12"),
+                }
+            }]
+        };
+
+        soknad4 = {
+            id: "4",
+            korrigerer: "3",
+            status: "SENDT",
+            sendtTilNAVDato: new Date("2017-02-08"),
+            sendtTilArbeidsgiverDato: new Date("2017-02-11"),
+            opprettetDato: new Date("2017-02-01"),
+            aktiviteter: [{
+                periode: {
+                    fom: new Date("2016-08-01"),
+                    tom: new Date("2016-08-12"),
+                }
+            }, {
+                periode: {
+                    fom: new Date("2016-08-13"),
+                    tom: new Date("2016-08-19"),
+                }
+            }]
+        };
+
+        soknad5 = {
+            id: "5",
+            status: "NY",
+            sendtTilArbeidsgiverDato: new Date("2017-02-01"),
+            opprettetDato: new Date("2017-10-01"),
+            aktiviteter: [{
+                periode: {
+                    fom: new Date("2017-05-01"),
+                    tom: new Date("2017-06-10"),
+                }
+            }]
+        };
     });
 
     it('skal vise tittel', () => {
@@ -40,43 +120,8 @@ describe("Soknader", () => {
     });
 
     it('Bare nye soknader og utkast sendes videre til SoknaderTeasere', () => {
-        component = shallow(<Soknader soknader={[
-            {
-                id: "1", 
-                status: 'SENDT',
-                sendtTilNAVDato: new Date(),
-                sendtTilArbeidsgiverDato: null,
-            },
-            {
-                id: "2", 
-                status: 'NY',
-                sendtTilNAVDato: new Date(),
-                sendtTilArbeidsgiverDato: null,
-            },
-            {
-                id: "3", 
-                status: 'NY',
-                sendtTilNAVDato: new Date(),
-                sendtTilArbeidsgiverDato: null,
-            },
-            {
-                id: "4", 
-                status: 'UTGAATT',
-                sendtTilNAVDato: new Date(),
-                sendtTilArbeidsgiverDato: null,
-            },
-            {
-                id: "5", 
-                status: 'LAGRET',
-                sendtTilNAVDato: new Date(),
-                sendtTilArbeidsgiverDato: null,
-            }, {
-                id: "6", 
-                status: 'UTKAST_TIL_KORRIGERING',
-                sendtTilNAVDato: null,
-                sendtTilArbeidsgiverDato: null,
-            }]} />);
-        expect(component.find('.js-til-behandling').props().soknader).to.have.length(3);
+        component = shallow(<Soknader soknader={[soknad1, soknad2, soknad3, soknad4, soknad5]} />);
+        expect(component.find('.js-til-behandling').props().soknader).to.have.length(1);
     });
 
     it('Viser innsendte søknader om vi har noen', () => {
@@ -87,13 +132,8 @@ describe("Soknader", () => {
     });
 
     it('Sender søknader videre til SoknaderTeasere', () => {
-        component = shallow(<Soknader soknader={[
-            {id: "1", status: 'SENDT', sendtTilNAVDato: new Date(), sendtTilArbeidsgiverDato: null },
-            {id: "2", status: 'NY', sendtTilNAVDato: null, sendtTilArbeidsgiverDato: null },
-            {id: "3", status: 'NY', sendtTilNAVDato: null, sendtTilArbeidsgiverDato: null },
-            {id: "4", status: 'UTGAATT', sendtTilNAVDato: new Date(), sendtTilArbeidsgiverDato: null },
-            {id: "5", status: 'LAGRET', sendtTilNAVDato: new Date() }]} />);
-        expect(component.find('.js-til-behandling').props().soknader).to.have.length(2);
+        component = shallow(<Soknader soknader={[soknad1, soknad2, soknad3, soknad4, soknad5]} />);
+        expect(component.find('.js-til-behandling').props().soknader).to.have.length(1);
         expect(component.find('.js-sendt').props().soknader).to.have.length(2);
     });
 

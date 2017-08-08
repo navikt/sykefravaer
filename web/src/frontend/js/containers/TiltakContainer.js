@@ -73,6 +73,7 @@ export class TiltakSide extends Component {
         } else {
             this.setState({
                 tiltak: sorterTiltakEtterOpprettet(nyTiltakListe.concat([nyttTiltak])),
+                visTiltakSkjema: false,
                 tiltakOpprettet: true,
             });
         }

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
-import { OppfolgingsdialogInfoboks, OppfolgingsdialogTeasere } from 'oppfolgingsdialog-npm';
+import { OppfolgingsdialogInfoboks, OppfolgingsdialogTeasere, BRUKERTYPE } from 'oppfolgingsdialog-npm';
 import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
 import { getContextRoot } from '../../routers/paths';
 import { Link } from 'react-router';
@@ -31,7 +31,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
                 ingenOppfolgingsdialogerMelding={getLedetekst('oppfolgingsdialoger.nye-oppfolgingsdialoger.ingen-oppfolgingsdialoger.melding')}
                 rootUrl={`${getContextRoot()}`}
                 ledetekster={ledetekster}
-                brukertype="SYKMELDT"
+                brukerType={BRUKERTYPE.ARBEIDSTAKER}
             />
         }
     </div>);

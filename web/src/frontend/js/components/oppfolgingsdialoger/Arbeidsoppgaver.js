@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
+import AppSpinner from '../../components/AppSpinner';
+import Feilmelding from '../../components/Feilmelding';
 import {
     OppfolgingsdialogSide,
     finnArbeidsoppgaverIkkeVurdertAvSykmeldt,
@@ -81,7 +83,7 @@ RenderArbeidsoppgaverKnapper.propTypes = {
 
 export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppgave, toggleArbeidsoppgaveSkjema }) => {
     return (<div>
-        <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
+        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
         <LagreArbeidsoppgaveSkjema
             ledetekster={ledetekster}
             sendLagre={sendLagreArbeidsoppgave}
@@ -121,6 +123,10 @@ export class Arbeidsoppgaver extends Component {
 
     render() {
         const {
+            lagrer,
+            sletter,
+            lagringFeilet,
+            slettingFeilet,
             ledetekster,
             arbeidsoppgaveListe,
             oppfolgingsdialog,
@@ -142,8 +148,13 @@ export class Arbeidsoppgaver extends Component {
                 aktivUrl={history.getCurrentLocation().pathname}
                 ledetekster={ledetekster}
                 rootUrl={`${window.APP_SETTINGS.APP_ROOT}/oppfolgingsplaner/${oppfolgingsdialogId}`}>
-                {
-                    isEmpty(arbeidsoppgaveListe) ?
+                { (() => {
+                    if (lagrer || sletter) {
+                        return <AppSpinner />;
+                    } else if (lagringFeilet || slettingFeilet) {
+                        return (<Feilmelding />);
+                    }
+                    return isEmpty(arbeidsoppgaveListe) ?
                         <div>
                             {
                                 !visArbeidsoppgaveSkjema ?
@@ -208,7 +219,8 @@ export class Arbeidsoppgaver extends Component {
                                     /> :
                                     <RenderArbeidsoppgaverKnapper toggleArbeidsoppgaveSkjema={toggleArbeidsoppgaveSkjema} />
                             }
-                        </div>
+                        </div>;
+                })()
                 }
                 <OppfolgingsdialogFooter
                     ledetekster={ledetekster}
@@ -222,6 +234,10 @@ export class Arbeidsoppgaver extends Component {
 }
 
 Arbeidsoppgaver.propTypes = {
+    lagrer: PropTypes.bool,
+    sletter: PropTypes.bool,
+    lagringFeilet: PropTypes.bool,
+    slettingFeilet: PropTypes.bool,
     ledetekster: PropTypes.object,
     arbeidsoppgaveListe: PropTypes.array,
     oppfolgingsdialog: PropTypes.object,

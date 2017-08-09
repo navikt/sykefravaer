@@ -134,9 +134,9 @@ export class ArbeidsoppgaverSide extends Component {
 
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
-                if (henter || lagrer || sletter) {
+                if (henter) {
                     return <AppSpinner />;
-                } else if (hentingFeilet || lagringFeilet || slettingFeilet) {
+                } else if (hentingFeilet) {
                     return (<Feilmelding />);
                 } else if (!tilgang.harTilgang) {
                     return (<OppfolgingsdialogInfoboks
@@ -147,6 +147,10 @@ export class ArbeidsoppgaverSide extends Component {
                     />);
                 }
                 return (<Arbeidsoppgaver
+                    lagrer={lagrer}
+                    sletter={sletter}
+                    lagringFeilet={lagringFeilet}
+                    slettingFeilet={slettingFeilet}
                     oppfolgingsdialog={oppfolgingsdialog}
                     arbeidsoppgaveListe={this.state.arbeidsoppgaver}
                     ledetekster={ledetekster}

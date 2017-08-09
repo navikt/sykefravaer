@@ -18,7 +18,7 @@ export const Plan = ({ ledetekster, oppfolgingsdialog, oppfolgingsdialogId, pdfU
             oppfolgingsdialog={oppfolgingsdialog}
             aktivUrl={history.getCurrentLocation().pathname}
             ledetekster={ledetekster}
-            rootUrl={`/sykefravaer/oppfolgingsplaner/${oppfolgingsdialogId}`}>
+            rootUrl={`${window.APP_SETTINGS.APP_ROOT}/oppfolgingsplaner/${oppfolgingsdialogId}`}>
 
             {
                 !oppfolgingsdialog.godkjentAvArbeidstaker &&

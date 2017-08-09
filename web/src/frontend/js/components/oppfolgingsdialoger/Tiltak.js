@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
+import AppSpinner from '../../components/AppSpinner';
+import Feilmelding from '../../components/Feilmelding';
 import {
     OppfolgingsdialogSide,
     OppfolgingsdialogInfoboks,
@@ -106,6 +108,10 @@ export class Tiltak extends Component {
 
     render() {
         const {
+            lagrer,
+            sletter,
+            lagringFeilet,
+            slettingFeilet,
             ledetekster,
             tiltakListe,
             oppfolgingsdialog,
@@ -127,69 +133,75 @@ export class Tiltak extends Component {
                 aktivUrl={history.getCurrentLocation().pathname}
                 ledetekster={ledetekster}
                 rootUrl={`${window.APP_SETTINGS.APP_ROOT}/oppfolgingsplaner/${oppfolgingsdialogId}`}>
-                {
-                    isEmpty(tiltakListe) ?
-                    <div>
-                        {
-                            !visTiltakSkjema ?
-                                <OppfolgingsdialogInfoboks
-                                    svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/tiltak-onboarding.svg`}
-                                    svgAlt="nyttTiltak"
-                                    tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tittel')}
-                                    tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}
-                                >
-                                    <RenderTiltakKnapper toggleTiltakSkjema={toggleTiltakSkjema} />
-                                </OppfolgingsdialogInfoboks> :
-                                <RenderOpprettTiltak
-                                    ledetekster={ledetekster}
-                                    oppfolgingsdialogId={oppfolgingsdialogId}
-                                    sendLagreTiltak={sendLagreTiltak}
-                                    toggleTiltakSkjema={toggleTiltakSkjema}
-                                />
-                        }
+                { (() => {
+                    if (lagrer || sletter) {
+                        return <AppSpinner />;
+                    } else if (lagringFeilet || slettingFeilet) {
+                        return (<Feilmelding />);
+                    }
+                    return isEmpty(tiltakListe) ?
+                        <div>
+                            {
+                                !visTiltakSkjema ?
+                                    <OppfolgingsdialogInfoboks
+                                        svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/tiltak-onboarding.svg`}
+                                        svgAlt="nyttTiltak"
+                                        tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tittel')}
+                                        tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}
+                                    >
+                                        <RenderTiltakKnapper toggleTiltakSkjema={toggleTiltakSkjema} />
+                                    </OppfolgingsdialogInfoboks> :
+                                    <RenderOpprettTiltak
+                                        ledetekster={ledetekster}
+                                        oppfolgingsdialogId={oppfolgingsdialogId}
+                                        sendLagreTiltak={sendLagreTiltak}
+                                        toggleTiltakSkjema={toggleTiltakSkjema}
+                                    />
+                            }
 
-                    </div>
-                    :
-                    <div>
-                        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
-                        {
-                            tiltakLagret && !tiltakOpprettet && <RenderNotifikasjonBoksSuksess
-                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-tiltak.tekst')}
-                            />
-                        }
-                        {
-                            tiltakLagret && tiltakOpprettet && <RenderNotifikasjonBoksSuksess
-                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-tiltak.tekst')}
-                            />
-                        }
-                        {
-                            antallTiltakLagtTilAvArbeidsgiver > 0 &&
-                            <RenderNotifikasjonBoks
-                                motpartnavn={oppfolgingsdialog.virksomhetsnavn}
-                                antallTiltakLagtTilAvArbeidsgiver={antallTiltakLagtTilAvArbeidsgiver}
-                            />
-                        }
-                        {
-                            <RenderOppfolgingsdialogTiltakTabell
-                                ledetekster={ledetekster}
-                                tiltakListe={tiltakListe}
-                                sendLagreTiltak={sendLagreTiltak}
-                                sendSlettTiltak={sendSlettTiltak}
-                                aktoerId={oppfolgingsdialog.sykmeldtAktoerId}
-                                arbeidstaker={oppfolgingsdialog.arbeidstaker}
-                            />
-                        }
-                        {
-                            visTiltakSkjema ?
-                                <LagreTiltakSkjema
+                        </div>
+                        :
+                        <div>
+                            <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
+                            {
+                                tiltakLagret && !tiltakOpprettet && <RenderNotifikasjonBoksSuksess
+                                    tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-tiltak.tekst')}
+                                />
+                            }
+                            {
+                                tiltakLagret && tiltakOpprettet && <RenderNotifikasjonBoksSuksess
+                                    tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-tiltak.tekst')}
+                                />
+                            }
+                            {
+                                antallTiltakLagtTilAvArbeidsgiver > 0 &&
+                                <RenderNotifikasjonBoks
+                                    motpartnavn={oppfolgingsdialog.virksomhetsnavn}
+                                    antallTiltakLagtTilAvArbeidsgiver={antallTiltakLagtTilAvArbeidsgiver}
+                                />
+                            }
+                            {
+                                <RenderOppfolgingsdialogTiltakTabell
                                     ledetekster={ledetekster}
-                                    sendLagre={sendLagreTiltak}
-                                    avbryt={toggleTiltakSkjema}
-                                    ref={(lagreSkjema) => { this.lagreSkjema = lagreSkjema; }}
-                                /> :
-                                <RenderTiltakKnapper toggleTiltakSkjema={toggleTiltakSkjema} />
-                        }
-                    </div>
+                                    tiltakListe={tiltakListe}
+                                    sendLagreTiltak={sendLagreTiltak}
+                                    sendSlettTiltak={sendSlettTiltak}
+                                    aktoerId={oppfolgingsdialog.sykmeldtAktoerId}
+                                    arbeidstaker={oppfolgingsdialog.arbeidstaker}
+                                />
+                            }
+                            {
+                                visTiltakSkjema ?
+                                    <LagreTiltakSkjema
+                                        ledetekster={ledetekster}
+                                        sendLagre={sendLagreTiltak}
+                                        avbryt={toggleTiltakSkjema}
+                                        ref={(lagreSkjema) => { this.lagreSkjema = lagreSkjema; }}
+                                    /> :
+                                    <RenderTiltakKnapper toggleTiltakSkjema={toggleTiltakSkjema} />
+                            }
+                        </div>;
+                })()
                 }
                 <OppfolgingsdialogFooter
                     ledetekster={ledetekster}
@@ -203,6 +215,10 @@ export class Tiltak extends Component {
 }
 
 Tiltak.propTypes = {
+    lagrer: PropTypes.bool,
+    sletter: PropTypes.bool,
+    lagringFeilet: PropTypes.bool,
+    slettingFeilet: PropTypes.bool,
     ledetekster: PropTypes.object,
     tiltakListe: PropTypes.array,
     oppfolgingsdialog: PropTypes.object,

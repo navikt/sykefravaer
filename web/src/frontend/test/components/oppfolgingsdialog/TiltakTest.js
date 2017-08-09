@@ -4,6 +4,8 @@ import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../../mockLedetekster";
+import AppSpinner from '../../../js/components/AppSpinner';
+import Feilmelding from '../../../js/components/Feilmelding';
 import Tiltak from "../../../js/components/oppfolgingsdialoger/Tiltak";
 import {
     RenderNotifikasjonBoksSuksess,
@@ -110,6 +112,30 @@ describe("Tiltak", () => {
                                     visTiltakSkjema={true}
                                     tiltakListe={oppfolgingsdialog.tiltakListe} />);
         expect(component.find(LagreTiltakSkjema)).to.have.length(1);
+    });
+
+    it("Skal vise spinner dersom data lagres", () => {
+        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
+                                            lagrer />);
+        expect(component.contains(<AppSpinner />)).to.equal(true);
+    });
+
+    it("Skal vise spinner dersom data slettes", () => {
+        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
+                                        sletter />);
+        expect(component.contains(<AppSpinner />)).to.equal(true);
+    });
+
+    it("Skal vise feilmelding dersom lagring feilet", () => {
+        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
+                                            lagringFeilet />);
+        expect(component.contains(<Feilmelding />)).to.equal(true);
+    });
+
+    it("Skal vise feilmelding dersom sletting feilet", () => {
+        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
+                                        slettingFeilet />);
+        expect(component.contains(<Feilmelding />)).to.equal(true);
     });
 
 

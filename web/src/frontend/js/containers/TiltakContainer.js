@@ -135,7 +135,7 @@ export class TiltakSide extends Component {
 
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
-                if (henter || lagrer || sletter) {
+                if (henter) {
                     return <AppSpinner />;
                 } else if (hentingFeilet || lagringFeilet || slettingFeilet) {
                     return (<Feilmelding />);
@@ -148,6 +148,10 @@ export class TiltakSide extends Component {
                     />);
                 }
                 return (<Tiltak
+                    lagrer={lagrer}
+                    sletter={sletter}
+                    lagringFeilet={lagringFeilet}
+                    slettingFeilet={slettingFeilet}
                     oppfolgingsdialog={oppfolgingsdialog}
                     ledetekster={ledetekster}
                     tiltakListe={this.state.tiltak}

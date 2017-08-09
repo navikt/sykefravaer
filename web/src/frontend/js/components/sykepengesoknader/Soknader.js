@@ -11,9 +11,9 @@ const Soknader = ({ soknader = [] }) => {
     const nyeSoknader = [...soknader].filter((soknad) => {
         return soknad.status === NY || soknad.status === UTKAST_TIL_KORRIGERING;
     }).sort(sorterEtterOpprettetDato);
-    const sendteSoknader = [...soknader]
+    const tidligereSoknader = [...soknader]
         .filter((soknad) => {
-            return soknad.status === SENDT || soknad.status === TIL_SENDING || soknad.status === UTGAATT;
+            return soknad.status === SENDT || soknad.status === TIL_SENDING || soknad.status === UTGAATT || soknad.status === AVBRUTT;
         })
         .sort(sorterEtterPerioder);
     const fremtidigeSoknader = [...soknader]
@@ -43,8 +43,8 @@ const Soknader = ({ soknader = [] }) => {
             />
         }
         {
-            sendteSoknader.length > 0 && (<SoknadTeasere
-                soknader={sendteSoknader}
+            tidligereSoknader.length > 0 && (<SoknadTeasere
+                soknader={tidligereSoknader}
                 tittel={getLedetekst('soknader.sendt.tittel')}
                 tomListeTekst={getLedetekst('soknader.sendt.ingen-soknader')}
                 className="js-sendt"

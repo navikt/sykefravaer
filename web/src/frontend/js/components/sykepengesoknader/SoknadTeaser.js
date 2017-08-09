@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
-import { NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
+import { NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING, AVBRUTT } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { getSendtTilSuffix, erSendtTilBeggeMenIkkeSamtidig } from '../../utils/sykepengesoknadUtils';
 
@@ -51,7 +51,7 @@ class SoknadTeaser extends Component {
     render() {
         const { soknad } = this.props;
 
-        const visStatus = soknad.status !== NY && soknad.status !== SENDT;
+        const visStatus = [NY, SENDT, AVBRUTT].indexOf(soknad.status) === -1;
         const sendtTilBeggeMenIkkeSamtidig = erSendtTilBeggeMenIkkeSamtidig(soknad);
 
         return (<article aria-labelledby={`soknader-header-${soknad.id}`}>
@@ -93,16 +93,24 @@ class SoknadTeaser extends Component {
                     </p>
                     <p className="inngangspanel__undertekst js-undertekst mute">
                         {
-                            soknad.status !== SENDT && soknad.status !== TIL_SENDING && getLedetekst('soknad.teaser.undertekst', { '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn })
-                        }
-                        {
-                            sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY && <SendtUlikt soknad={soknad} />
-                        }
-                        {
-                            !sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY && soknad.status !== UTKAST_TIL_KORRIGERING && getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
-                                '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
-                                '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn,
-                            })
+                            (() => {
+                                if (soknad.status === AVBRUTT) {
+                                    return getLedetekst('soknad.teaser.status.AVBRUTT');
+                                }
+                                if (soknad.status !== SENDT && soknad.status !== TIL_SENDING) {
+                                    return getLedetekst('soknad.teaser.undertekst', { '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn });
+                                }
+                                if (sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY) {
+                                    return <SendtUlikt soknad={soknad} />;
+                                }
+                                if (soknad.status !== NY && soknad.status !== UTKAST_TIL_KORRIGERING) {
+                                    return getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
+                                        '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
+                                        '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn,
+                                    });
+                                }
+                                return null;
+                            })()
                         }
                     </p>
                 </div>

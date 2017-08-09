@@ -134,3 +134,29 @@ export function hentBerikelseFeilet() {
         type: actiontyper.SYKEPENGESOKNAD_BERIKELSE_FEILET,
     };
 }
+
+export function avbrytSoknad(sykepengesoknadsId) {
+    return {
+        type: actiontyper.AVBRYT_SOKNAD_FORESPURT,
+        sykepengesoknadsId,
+    };
+}
+
+export function avbryterSoknad() {
+    return {
+        type: actiontyper.AVBRYTER_SOKNAD,
+    };
+}
+
+export function soknadAvbrutt(sykepengesoknadsId) {
+    return {
+        type: actiontyper.SOKNAD_AVBRUTT,
+        sykepengesoknadsId,
+    };
+}
+
+export function avbrytSoknadFeilet() {
+    return {
+        type: actiontyper.AVBRYT_SOKNAD_FEILET,
+    };
+}

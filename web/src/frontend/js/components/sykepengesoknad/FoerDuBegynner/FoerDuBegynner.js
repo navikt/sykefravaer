@@ -9,6 +9,7 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import { Varselstripe } from 'digisyfo-npm';
 import { UTKAST_TIL_KORRIGERING } from '../../../enums/sykepengesoknadstatuser';
 import SykepengesoknadHeader from '../SykepengesoknadHeader';
+import AvbrytSoknadContainer from '../../../containers/sykepengesoknad/AvbrytSoknadContainer';
 
 const KorrigerVarsel = () => {
     return (<div className="panel panel--komprimert blokk">
@@ -21,7 +22,7 @@ const KorrigerVarsel = () => {
     </div>);
 };
 
-let FoerDuBegynnerSkjema = (props) => {
+export const FoerDuBegynnerSkjema = (props) => {
     const { handleSubmit, sykepengesoknad } = props;
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`);
@@ -33,7 +34,10 @@ let FoerDuBegynnerSkjema = (props) => {
             </div>
         </div>
         <div className="knapperad">
-            <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre')}</button>
+            <p className="blokk--s">
+                <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre')}</button>
+            </p>
+            <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </div>
     </form>);
 };
@@ -44,7 +48,7 @@ FoerDuBegynnerSkjema.propTypes = {
 };
 
 const initialize = true;
-FoerDuBegynnerSkjema = setup(validate, FoerDuBegynnerSkjema, initialize);
+const FoerDuBegynnerSkjemaSetup = setup(validate, FoerDuBegynnerSkjema, initialize);
 
 const FoerDuBegynner = (props) => {
     const { sykepengesoknad } = props;
@@ -53,7 +57,7 @@ const FoerDuBegynner = (props) => {
         { sykepengesoknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel /> }
         <SykmeldingUtdrag erApen sykepengesoknad={sykepengesoknad} />
         <h2 className="sykepenger__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
-        <FoerDuBegynnerSkjema sykepengesoknad={sykepengesoknad} />
+        <FoerDuBegynnerSkjemaSetup sykepengesoknad={sykepengesoknad} />
     </div>);
 };
 

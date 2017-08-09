@@ -13,11 +13,11 @@ const AvbrytDialog = ({ avbryter, avbrytHandler, bekreftHandler }) => {
             </button>
         </div>
         <p className="sist">
-            <a href="#" role="button" className="lenke js-avbryt" onClick={(e) => {
+            <button className="lenke js-avbryt" onClick={(e) => {
                 e.preventDefault();
                 avbrytHandler();
             }}>{getLedetekst('din-sykmelding.avbryt.angre')}
-            </a>
+            </button>
         </p>
     </div>);
 };

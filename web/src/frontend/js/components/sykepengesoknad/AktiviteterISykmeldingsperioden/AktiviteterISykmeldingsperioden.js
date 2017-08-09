@@ -14,6 +14,7 @@ import * as periodeUtils from '../../../utils/periodeUtils';
 import validate from '../validering/validerAktiviteterISykmeldingsperioden';
 import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
+import AvbrytSoknadContainer from '../../../containers/sykepengesoknad/AvbrytSoknadContainer';
 
 export const UtdanningStartDato = ({ senesteTom }) => {
     return (<div className="blokk">
@@ -73,10 +74,11 @@ export const AktiviteterISykmeldingsperiodenSkjema = (props) => {
                 Overskrift="h4" />
         </JaEllerNei>
 
-        <Knapperad variant="knapperad--forrigeNeste">
+        <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
             <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} className="rammeknapp">Tilbake</Link>
             <button type="submit" className="knapp">Gå videre</button>
         </Knapperad>
+        <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
     </form>);
 };
 

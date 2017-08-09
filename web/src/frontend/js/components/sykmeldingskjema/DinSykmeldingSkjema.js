@@ -172,7 +172,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 {
                     modus !== modi.GA_VIDERE && <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>
                 }
-                <div className="knapperad knapperad-adskilt">
+                <div className="knapperad">
                     <p className="blokk--s">
                         <button disabled={sender} ref={modus === modi.AVBRYT ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
                             className={`js-submit knapp ${modus === modi.AVBRYT ? 'knapp--fare' : ''} ${(sender) ? 'js-spinner' : ''}`}>
@@ -180,15 +180,15 @@ export class DinSykmeldingSkjemaComponent extends Component {
                             { sender && <span className="knapp__spinner" /> }
                         </button>
                     </p>
-                    <div className="dinSykmeldingSkjema__avbrytSykmeldingDialog">
+                    <div className="avbrytDialog">
                         {
                             modus !== modi.AVBRYT && <p className="blokk">
-                                <a className="lenke" href="#" role="button" ref="js-trigger-avbryt-sykmelding" onClick={(e) => {
+                                <button className="lenke" ref="js-trigger-avbryt-sykmelding" onClick={(e) => {
                                     e.preventDefault();
                                     this.setState({
                                         visAvbrytDialog: !this.state.visAvbrytDialog,
                                     });
-                                }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</a>
+                                }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</button>
                             </p>
                         }
                         {

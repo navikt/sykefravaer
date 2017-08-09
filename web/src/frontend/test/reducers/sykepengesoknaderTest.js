@@ -309,6 +309,60 @@ describe('sykepengesoknader', () => {
 
     });
 
+    describe("Avbryt søknad", () => {
+
+        let state = deepFreeze({
+            data: [{id: "1", status: "NY", id: "2", status: "SENDT"}],
+            henter: false,
+            hentingFeilet: false,
+            sender: false,
+            sendingFeilet: false,
+        });
+
+        it("Håndterer avbryterSoknad()", () => {
+            const action = actions.avbryterSoknad();
+            state = sykepengesoknader(state, action);
+            expect(state).to.deep.equal({
+                data: [{id: "1", status: "NY", id: "2", status: "SENDT"}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: true,
+            });
+        });
+
+        it("Håndterer avbrytSoknadFeilet()", () => {
+            state = deepFreeze(state);
+            const action = actions.avbrytSoknadFeilet();
+            state = sykepengesoknader(state, action);
+            expect(state).to.deep.equal({
+                data: [{id: "1", status: "NY", id: "2", status: "SENDT"}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: false,
+                avbrytFeilet: true,
+            });
+        });
+
+        it("Håndterer soknadAvbrutt()", () => {
+            state = deepFreeze(state);
+            const action = actions.soknadAvbrutt("1");
+            state = sykepengesoknader(state, action);
+            expect(state).to.deep.equal({
+                data: [{id: "1", status: "AVBRUTT", id: "2", status: "SENDT"}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: false,
+                avbrytFeilet: false,
+            });
+        })
+    })
+
     describe("parsing", () => {
         it("parser datofelter i aktivitet og beholder resten av feltene", () => {
             const _soknad = parseDatofelter(getSoknad());

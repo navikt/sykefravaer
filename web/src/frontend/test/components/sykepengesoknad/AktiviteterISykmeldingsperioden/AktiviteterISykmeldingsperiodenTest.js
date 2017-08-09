@@ -15,7 +15,7 @@ import AndreInntektskilder from '../../../../js/components/sykepengesoknad/Aktiv
 import Datovelger from '../../../../js/components/skjema/Datovelger';
 import { Link } from 'react-router';
 import ledetekster from '../../../mockLedetekster';
-
+import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad/AvbrytSoknadContainer';
 import { getSoknad } from '../../../mockSoknader';
 import { setLedetekster } from 'digisyfo-npm';
 
@@ -134,6 +134,10 @@ describe("AktiviteterISykmeldingsperioden", () => {
     it("Skal inneholde en Link til forrige side", () => {
         expect(component.find(Link).prop("to")).to.equal("/sykefravaer/soknader/min-soknad/fravaer-og-friskmelding")
     });
+
+    it("Skal inneholde en AvbrytSoknadContainer", () => {
+        expect(component.contains(<AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />)).to.be.true;
+    })
 
     describe("UtdanningStartDato", () => {
 

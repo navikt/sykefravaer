@@ -1,7 +1,7 @@
 import * as actiontyper from '../actions/actiontyper';
 import { tilDato, parseDatoerPeriodeListe, parseDatoerPeriode } from '../utils/serialisering/dato';
 import { tidligsteFom, senesteTom } from '../utils/periodeUtils';
-import { KORRIGERT } from '../enums/sykepengesoknadstatuser';
+import { KORRIGERT, AVBRUTT } from '../enums/sykepengesoknadstatuser';
 
 const initiellState = {
     henter: false,
@@ -208,6 +208,27 @@ export default function sykepengesoknader(state = initiellState, action) {
             return Object.assign({}, state, {
                 henterBerikelse: false,
                 henterBerikelseFeilet: true,
+            });
+        }
+        case actiontyper.AVBRYTER_SOKNAD: {
+            return Object.assign({}, state, {
+                avbryter: true,
+            });
+        }
+        case actiontyper.AVBRYT_SOKNAD_FEILET: {
+            return Object.assign({}, state, {
+                avbryter: false,
+                avbrytFeilet: true,
+            });
+        }
+        case actiontyper.SOKNAD_AVBRUTT: {
+            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
+                status: AVBRUTT,
+            });
+            return Object.assign({}, state, {
+                data,
+                avbryter: false,
+                avbrytFeilet: false,
             });
         }
         default:

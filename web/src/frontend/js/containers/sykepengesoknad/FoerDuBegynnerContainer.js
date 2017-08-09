@@ -4,11 +4,12 @@ import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/Foer
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
 import UtgaattSoknad from '../../components/sykepengesoknad/UtgaattSoknad';
+import AvbruttSoknad from '../../components/sykepengesoknad/AvbruttSoknad';
 import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
-import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT } from '../../enums/sykepengesoknadstatuser';
+import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
 
@@ -28,6 +29,9 @@ export const Controller = (props) => {
     }
     if (sykepengesoknad.status === UTGAATT) {
         return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
+    }
+    if (sykepengesoknad.status === AVBRUTT) {
+        return <AvbruttSoknad sykepengesoknad={sykepengesoknad} />;
     }
     return <Feilmelding tittel="Søknaden har ukjent status" />;
 };

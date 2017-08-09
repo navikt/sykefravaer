@@ -46,7 +46,7 @@ export const arbeidsgiver = PropTypes.shape({
 
 export const sykepengesoknad = PropTypes.shape({
     id: PropTypes.string,
-    status: PropTypes.oneOf([soknadstatuser.SENDT, soknadstatuser.NY, soknadstatuser.TIL_SENDING, soknadstatuser.UTGAATT, soknadstatuser.UTKAST_TIL_KORRIGERING, soknadstatuser.KORRIGERT, soknadstatuser.FREMTIDIG]),
+    status: PropTypes.oneOf([soknadstatuser.SENDT, soknadstatuser.NY, soknadstatuser.TIL_SENDING, soknadstatuser.UTGAATT, soknadstatuser.UTKAST_TIL_KORRIGERING, soknadstatuser.KORRIGERT, soknadstatuser.AVBRUTT, soknadstatuser.FREMTIDIG]),
     sendtTilArbeidsgiverDato: PropTypes.instanceOf(Date),
     sendtTilNAVDato: PropTypes.instanceOf(Date),
     opprettetDato: PropTypes.instanceOf(Date),

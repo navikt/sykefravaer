@@ -201,6 +201,43 @@ describe("sykepengesoknader_actions", () => {
                 type: actiontyper.SYKEPENGESOKNAD_BERIKELSE_FEILET,
             });
         });
+    });
+
+    describe("Avbryte søknad", () => {
+
+        it("Skal ha nødvendige actiontyper", () => {
+            expect(actiontyper.AVBRYT_SOKNAD_FORESPURT).to.equal("AVBRYT_SOKNAD_FORESPURT");
+            expect(actiontyper.AVBRYTER_SOKNAD).to.equal("AVBRYTER_SOKNAD");
+            expect(actiontyper.SOKNAD_AVBRUTT).to.equal("SOKNAD_AVBRUTT");
+            expect(actiontyper.AVBRYT_SOKNAD_FEILET).to.equal("AVBRYT_SOKNAD_FEILET");
+        });
+
+        it("Skal ha en avbrytSoknad()-funksjon som returnerer riktig action", () => {
+            expect(actions.avbrytSoknad("55")).to.deep.equal({
+                type: actiontyper.AVBRYT_SOKNAD_FORESPURT,
+                sykepengesoknadsId: "55"
+            });
+        });
+
+        it("Skal ha en avbryterSoknad()-funksjon som returnerer riktig action", () => {
+            expect(actions.avbryterSoknad()).to.deep.equal({
+                type: actiontyper.AVBRYTER_SOKNAD,
+            });
+        });
+
+        it("Skal ha en soknadAvbrutt()-funksjon som returnerer rikig action", () => {
+            expect(actions.soknadAvbrutt("55")).to.deep.equal({
+                type: actiontyper.SOKNAD_AVBRUTT,
+                sykepengesoknadsId: "55"
+            });
+        });
+
+        it("Skal ha en avbrytSoknadFeilet()-funksjon som returnerer riktig action", () => {
+            expect(actions.avbrytSoknadFeilet()).to.deep.equal({
+                type: actiontyper.AVBRYT_SOKNAD_FEILET,
+            });
+        });
+
     })
 
 });

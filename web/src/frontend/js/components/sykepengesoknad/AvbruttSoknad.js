@@ -4,7 +4,7 @@ import SykmeldingUtdrag from './SykmeldingUtdrag';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
 
-const UtgaattSoknad = ({ sykepengesoknad }) => {
+const AvbruttSoknad = ({ sykepengesoknad }) => {
     return (<div>
         <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
         <div className="panel panel--komprimert">
@@ -22,8 +22,8 @@ const UtgaattSoknad = ({ sykepengesoknad }) => {
     </div>);
 };
 
-UtgaattSoknad.propTypes = {
+AvbruttSoknad.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
 };
 
-export default UtgaattSoknad;
+export default AvbruttSoknad;

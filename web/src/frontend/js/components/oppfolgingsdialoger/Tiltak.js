@@ -66,11 +66,12 @@ RenderOppfolgingsdialogTiltakTabell.propTypes = {
     aktoerId: PropTypes.string,
 };
 
-export const RenderTiltakKnapper = ({ toggleTiltakSkjema }) => {
+export const RenderTiltakKnapper = ({ visTiltakSkjema, toggleTiltakSkjema }) => {
     return (
         <div className="knapperad">
             <button
                 className="knapp knapperad__element"
+                aria-pressed={visTiltakSkjema}
                 onClick={toggleTiltakSkjema}>
                 {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-tiltak')}
             </button>
@@ -78,6 +79,7 @@ export const RenderTiltakKnapper = ({ toggleTiltakSkjema }) => {
     );
 };
 RenderTiltakKnapper.propTypes = {
+    visTiltakSkjema: PropTypes.bool,
     toggleTiltakSkjema: PropTypes.func,
 };
 
@@ -198,7 +200,10 @@ export class Tiltak extends Component {
                                         avbryt={toggleTiltakSkjema}
                                         ref={(lagreSkjema) => { this.lagreSkjema = lagreSkjema; }}
                                     /> :
-                                    <RenderTiltakKnapper toggleTiltakSkjema={toggleTiltakSkjema} />
+                                    <RenderTiltakKnapper
+                                        visTiltakSkjema={visTiltakSkjema}
+                                        toggleTiltakSkjema={toggleTiltakSkjema}
+                                    />
                             }
                         </div>;
                 })()

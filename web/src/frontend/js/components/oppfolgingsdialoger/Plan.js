@@ -40,6 +40,7 @@ export const Plan = ({ ledetekster, oppfolgingsdialog, oppfolgingsdialogId, pdfU
                 />
             }
             {
+
                 oppfolgingsdialog.godkjentAvArbeidstaker && oppfolgingsdialog.godkjentAvArbeidsgiver &&
                 <GodkjentPlan
                     ledetekster={ledetekster}

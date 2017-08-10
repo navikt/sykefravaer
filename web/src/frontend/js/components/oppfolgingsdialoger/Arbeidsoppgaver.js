@@ -66,11 +66,12 @@ RenderOppfolgingsdialogArbeidsoppgaverTabell.propTypes = {
     aktoerId: PropTypes.string,
 };
 
-export const RenderArbeidsoppgaverKnapper = ({ toggleArbeidsoppgaveSkjema }) => {
+export const RenderArbeidsoppgaverKnapper = ({ visArbeidsoppgaveSkjema, toggleArbeidsoppgaveSkjema }) => {
     return (
         <div className="knapperad">
             <button
                 className="knapp knapperad__element"
+                aria-pressed={visArbeidsoppgaveSkjema}
                 onClick={toggleArbeidsoppgaveSkjema}>
                 {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-arbeidsoppgave')}
             </button>
@@ -78,6 +79,7 @@ export const RenderArbeidsoppgaverKnapper = ({ toggleArbeidsoppgaveSkjema }) => 
     );
 };
 RenderArbeidsoppgaverKnapper.propTypes = {
+    visArbeidsoppgaveSkjema: PropTypes.bool,
     toggleArbeidsoppgaveSkjema: PropTypes.func,
 };
 
@@ -217,7 +219,10 @@ export class Arbeidsoppgaver extends Component {
                                             this.lagreSkjema = lagreSkjema;
                                         }}
                                     /> :
-                                    <RenderArbeidsoppgaverKnapper toggleArbeidsoppgaveSkjema={toggleArbeidsoppgaveSkjema} />
+                                    <RenderArbeidsoppgaverKnapper
+                                        visArbeidsoppgaveSkjema={visArbeidsoppgaveSkjema}
+                                        toggleArbeidsoppgaveSkjema={toggleArbeidsoppgaveSkjema}
+                                    />
                             }
                         </div>;
                 })()

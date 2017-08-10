@@ -4,7 +4,7 @@ import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';
 import { SENDT, TIL_SENDING, UTGAATT, NY, UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
-import { sorterEtterDato, sorterEtterOpprettetDato } from '../../utils/sykepengesoknadUtils';
+import { sorterEtterPerioder, sorterEtterOpprettetDato } from '../../utils/sykepengesoknadUtils';
 
 const Soknader = ({ soknader = [] }) => {
     const nyeSoknader = [...soknader].filter((soknad) => {
@@ -14,7 +14,7 @@ const Soknader = ({ soknader = [] }) => {
         .filter((soknad) => {
             return soknad.status === SENDT || soknad.status === TIL_SENDING || soknad.status === UTGAATT;
         })
-        .sort(sorterEtterDato);
+        .sort(sorterEtterPerioder);
 
     return (<div>
         <Sidetopp

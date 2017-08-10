@@ -6,7 +6,8 @@ import {
     sendSykepengesoknadTilArbeidsgiver,
     sendSykepengesoknadTilNAV,
     startEndring,
-    avbrytSoknad
+    avbrytSoknad,
+    gjenapneSoknad
 } from "../../js/sagas/sykepengesoknadSagas";
 import {finnSoknad} from "../../js/reducers/sykepengesoknader";
 import {get, post} from "../../js/api";
@@ -219,6 +220,30 @@ describe("sykepengersoknadSagas", () => {
             const nextPut = put(action)
             expect(generator.next().value).to.deep.equal(nextPut);
         })
+    });
+
+    describe("Gjenåpning av avbrutt søknad", () => {
+
+        const action = actions.gjenapneSoknad("45668");
+        const generator = gjenapneSoknad(action);
+
+        it("Skal dispatche gjenapnerSoknad()", () => {
+            const action = actions.gjenapnerSoknad();
+            const nextPut = put(action);
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
+
+        it("Skal sende forespørsel til server", () => {
+            const nextCall = call(post, "http://tjenester.nav.no/syforest/soknader/45668/actions/gjenapne");
+            expect(generator.next().value).to.deep.equal(nextCall); 
+        });
+
+        it("Skal dispatche soknadGjenapnet('45668')", () => {
+            const action = actions.soknadGjenapnet("45668");
+            const nextPut = put(action);
+            expect(generator.next().value).to.deep.equal(nextPut);
+        })
+
     })
 
     describe("berikelse", () => {

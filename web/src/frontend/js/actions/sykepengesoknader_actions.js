@@ -160,3 +160,29 @@ export function avbrytSoknadFeilet() {
         type: actiontyper.AVBRYT_SOKNAD_FEILET,
     };
 }
+
+export function gjenapneSoknad(sykepengesoknadsId) {
+    return {
+        sykepengesoknadsId,
+        type: actiontyper.GJENAPNE_SOKNAD_FORESPURT,
+    };
+}
+
+export function gjenapnerSoknad() {
+    return {
+        type: actiontyper.GJENAPNER_SOKNAD,
+    };
+}
+
+export function soknadGjenapnet(sykepengesoknadsId) {
+    return {
+        sykepengesoknadsId,
+        type: actiontyper.SOKNAD_GJENAPNET,
+    };
+}
+
+export function gjenapneSoknadFeilet() {
+    return {
+        type: actiontyper.GJENAPNE_SOKNAD_FEILET,
+    };
+}

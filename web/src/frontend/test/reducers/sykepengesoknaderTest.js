@@ -360,8 +360,59 @@ describe('sykepengesoknader', () => {
                 avbryter: false,
                 avbrytFeilet: false,
             });
-        })
-    })
+        });
+
+        it("Håndterer gjenapnerSoknad", () => {
+            state = deepFreeze(state);
+            const action = actions.gjenapnerSoknad();
+            state = sykepengesoknader(state, action);
+            expect(state).to.deep.equal({
+                data: [{id: "1", status: "AVBRUTT", id: "2", status: "SENDT"}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: false,
+                avbrytFeilet: false,
+                gjenapner: true,
+            });
+        });
+
+        it("Håndterer gjenapneSoknadFeilet()", () => {
+            state = deepFreeze(state);
+            const action = actions.gjenapneSoknadFeilet();
+            state = sykepengesoknader(state, action);
+            expect(state).to.deep.equal({
+                data: [{id: "1", status: "AVBRUTT", id: "2", status: "SENDT"}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: false,
+                avbrytFeilet: false,
+                gjenapner: false,
+                gjenapneFeilet: true,
+            });
+        });
+
+        it("Håndterer soknadGjenapnet", () => {
+            state = deepFreeze(state);
+            const action = actions.soknadGjenapnet("1");
+            state = sykepengesoknader(state, action);
+            expect(state).to.deep.equal({
+                data: [{id: "1", status: "NY", id: "2", status: "SENDT"}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: false,
+                avbrytFeilet: false,
+                gjenapner: false,
+                gjenapneFeilet: false,
+            });
+        });
+
+    });
 
     describe("parsing", () => {
         it("parser datofelter i aktivitet og beholder resten av feltene", () => {

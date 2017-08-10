@@ -102,6 +102,18 @@ export function* avbrytSoknad(action) {
     }
 }
 
+export function* gjenapneSoknad(action) {
+    yield put(actions.gjenapnerSoknad());
+    try {
+        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/gjenapne`);
+        yield put(actions.soknadGjenapnet(action.sykepengesoknadsId));
+    } catch (e) {
+        log(e);
+        logger.error(`Kunne ikke gjenåpne søknad. ${e.message}`);
+        yield put(actions.gjenapneSoknadFeilet());
+    }
+}
+
 function* watchHentBerikelse() {
     yield* takeEvery(actiontyper.SYKEPENGESOKNAD_BERIKELSE_FORESPURT, hentBerikelse);
 }
@@ -134,6 +146,11 @@ function* watchAvbrytSoknad() {
     yield* takeEvery(actiontyper.AVBRYT_SOKNAD_FORESPURT, avbrytSoknad);
 }
 
+function* watchGjenapneSoknad() {
+    yield* takeEvery(actiontyper.GJENAPNE_SOKNAD_FORESPURT, gjenapneSoknad);
+}
+
+
 export default function* sykepengesoknadSagas() {
     yield [
         fork(watchHentSykepengesoknader),
@@ -144,5 +161,6 @@ export default function* sykepengesoknadSagas() {
         fork(watchEndreSykepengesoknad),
         fork(watchHentBerikelse),
         fork(watchAvbrytSoknad),
+        fork(watchGjenapneSoknad),
     ];
 }

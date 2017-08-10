@@ -238,6 +238,44 @@ describe("sykepengesoknader_actions", () => {
             });
         });
 
-    })
+    });
+
+    describe("Gjenåpne avbrutt søknad", () => {
+        
+        it("Skal ha nødvendige actiontyper", () => {
+            expect(actiontyper.GJENAPNE_SOKNAD_FORESPURT).to.equal("GJENAPNE_SOKNAD_FORESPURT");
+            expect(actiontyper.GJENAPNER_SOKNAD).to.equal("GJENAPNER_SOKNAD");
+            expect(actiontyper.SOKNAD_GJENAPNET).to.equal("SOKNAD_GJENAPNET");
+            expect(actiontyper.GJENAPNE_SOKNAD_FEILET).to.equal("GJENAPNE_SOKNAD_FEILET");
+        });
+
+        it("Skal ha en gjenapneSoknad('123')-funksjon som returnerer riktig action", () => {
+            expect(actions.gjenapneSoknad("123")).to.deep.equal({
+                type: actiontyper.GJENAPNE_SOKNAD_FORESPURT,
+                sykepengesoknadsId: "123"
+            });
+        });
+
+        it("Skal ha en gjenapnerSoknad()-funksjon som returnerer riktig action", () => {
+            expect(actions.gjenapnerSoknad()).to.deep.equal({
+                type: actiontyper.GJENAPNER_SOKNAD
+            });
+        });
+
+        it("Skal ha en soknadGjenapnet('123')-funksjon som returnerer riktig action", () => {
+            expect(actions.soknadGjenapnet("123")).to.deep.equal({
+                type: actiontyper.SOKNAD_GJENAPNET,
+                sykepengesoknadsId: "123"
+            });
+        });
+
+        it("Skal ha en gjenapneSoknadFeilet()-funksjon som returnerer riktig action", () => {
+            expect(actions.gjenapneSoknadFeilet()).to.deep.equal({
+                type: actiontyper.GJENAPNE_SOKNAD_FEILET,
+            });
+        });
+
+    });
+
 
 });

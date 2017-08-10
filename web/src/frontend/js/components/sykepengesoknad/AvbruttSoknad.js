@@ -1,25 +1,40 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { getLedetekst, Varselstripe, SykmeldingNokkelOpplysning, toDatePrettyPrint } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
 
-const AvbruttSoknad = ({ sykepengesoknad }) => {
+const AvbruttSoknad = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFeilet }) => {
     return (<div>
         <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
         <div className="panel panel--komprimert">
             <Varselstripe ikon="/sykefravaer/img/svg/avbryt-sykmelding.svg">
-                <div className="statusopplysninger">
-                    <SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel="Status">
-                        <p>
-                            {getLedetekst('sykepengesoknad.status.AVBRUTT')}
-                        </p>
-                    </SykmeldingNokkelOpplysning>
-                    <SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel="Dato">
-                        <p>
-                            {toDatePrettyPrint(sykepengesoknad.avbruttDato)}
-                        </p>
-                    </SykmeldingNokkelOpplysning>
+                <div>
+                    <div>
+                        <div className="statusopplysninger">
+                            <SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel="Status">
+                                <p>
+                                    {getLedetekst('sykepengesoknad.status.AVBRUTT')}
+                                </p>
+                            </SykmeldingNokkelOpplysning>
+                            <SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel="Dato">
+                                <p>
+                                    {toDatePrettyPrint(sykepengesoknad.avbruttDato)}
+                                </p>
+                            </SykmeldingNokkelOpplysning>
+                        </div>
+                    </div>
+                    <div className={`verktoylinje ${gjenapneFeilet ? 'blokk--mini' : ''}`}>
+                        <div className="verktoylinje__element">
+                            <button onClick={(e) => {
+                                e.preventDefault();
+                                gjenapneSoknad(sykepengesoknad.id);
+                            }} className="rammeknapp rammeknapp--mini js-gjenapne">{getLedetekst('sykepengesoknad.gjenapne.knapp')} { gjenapner ? <span className="knapp__spinner" /> : null }</button>
+                        </div>
+                    </div>
+                    <div aria-live="polite">
+                        { gjenapneFeilet && <p className="skjema__feilmelding">Beklager, søknaden kunne ikke gjenåpnes</p> }
+                    </div>
                 </div>
             </Varselstripe>
         </div>
@@ -29,6 +44,9 @@ const AvbruttSoknad = ({ sykepengesoknad }) => {
 
 AvbruttSoknad.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
+    gjenapneSoknad: PropTypes.func,
+    gjenapner: PropTypes.bool,
+    gjenapneFeilet: PropTypes.bool,
 };
 
 export default AvbruttSoknad;

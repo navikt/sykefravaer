@@ -4,7 +4,7 @@ import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/Foer
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
 import UtgaattSoknad from '../../components/sykepengesoknad/UtgaattSoknad';
-import AvbruttSoknad from '../../components/sykepengesoknad/AvbruttSoknad';
+import AvbruttSoknadContainer from './AvbruttSoknadContainer';
 import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
@@ -31,7 +31,7 @@ export const Controller = (props) => {
         return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
     }
     if (sykepengesoknad.status === AVBRUTT) {
-        return <AvbruttSoknad sykepengesoknad={sykepengesoknad} />;
+        return <AvbruttSoknadContainer sykepengesoknad={sykepengesoknad} />;
     }
     return <Feilmelding tittel="Søknaden har ukjent status" />;
 };

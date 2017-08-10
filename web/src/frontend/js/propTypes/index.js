@@ -88,8 +88,8 @@ export const sykmeldingdiagnose = PropTypes.shape({
 });
 
 export const sykmeldingperiode = PropTypes.shape({
-    fom: PropTypes.string,
-    tom: PropTypes.string,
+    fom: PropTypes.instanceOf(Date),
+    tom: PropTypes.instanceOf(Date),
     grad: PropTypes.number,
     behandlingsdager: PropTypes.number,
     reisetilskudd: PropTypes.bool,
@@ -98,15 +98,15 @@ export const sykmeldingperiode = PropTypes.shape({
 
 export const sykmelding = PropTypes.shape({
     id: PropTypes.string,
-    startLegemeldtFravaer: PropTypes.string,
+    startLegemeldtFravaer: PropTypes.instanceOf(Date),
     skalViseSkravertFelt: PropTypes.bool,
-    identdato: PropTypes.string,
+    identdato: PropTypes.instanceOf(Date),
     status: PropTypes.oneOf([sykmldstatuser.NY, sykmldstatuser.SENDT, sykmldstatuser.UTGAATT, sykmldstatuser.AVBRUTT, sykmldstatuser.BEKREFTET, sykmldstatuser.TIL_SENDING]),
     naermesteLederStatus: PropTypes.string,
     innsendtArbeidsgivernavn: PropTypes.string,
     valgtArbeidssituasjon: arbeidssituasjon,
     orgnummer: PropTypes.string,
-    sendtDato: PropTypes.string,
+    sendtDato: PropTypes.instanceOf(Date),
     pasient: PropTypes.shape({
         fnr: PropTypes.string,
         fornavn: PropTypes.string,
@@ -120,7 +120,7 @@ export const sykmelding = PropTypes.shape({
         fravaerBeskrivelse: PropTypes.string,
         svangerskap: PropTypes.bool,
         yrkesskade: PropTypes.bool,
-        yrkesskadeDato: PropTypes.string,
+        yrkesskadeDato: PropTypes.instanceOf(Date),
     }),
     mulighetForArbeid: PropTypes.shape({
         perioder: PropTypes.arrayOf(sykmeldingperiode),
@@ -133,11 +133,11 @@ export const sykmelding = PropTypes.shape({
         arbeidsfoerEtterPerioden: PropTypes.bool,
         hensynPaaArbeidsplassen: PropTypes.string,
         antarReturSammeArbeidsgiver: PropTypes.bool,
-        antattDatoReturSammeArbeidsgiver: PropTypes.string,
+        antattDatoReturSammeArbeidsgiver: PropTypes.instanceOf(Date),
         antarReturAnnenArbeidsgiver: PropTypes.bool,
-        tilbakemeldingReturArbeid: PropTypes.string,
+        tilbakemeldingReturArbeid: PropTypes.instanceOf(Date),
         utenArbeidsgiverAntarTilbakeIArbeid: PropTypes.bool,
-        utenArbeidsgiverAntarTilbakeIArbeidDato: PropTypes.string,
+        utenArbeidsgiverAntarTilbakeIArbeidDato: PropTypes.instanceOf(Date),
         utenArbeidsgiverTilbakemelding: PropTypes.string,
     }),
     utdypendeOpplysninger: PropTypes.shape({
@@ -161,7 +161,7 @@ export const sykmelding = PropTypes.shape({
         tilbakedatertBegrunnelse: PropTypes.string,
     }),
     bekreftelse: PropTypes.shape({
-        utstedelsesdato: PropTypes.string,
+        utstedelsesdato: PropTypes.instanceOf(Date),
         sykmelder: PropTypes.string,
         sykmelderTlf: PropTypes.string,
     }),

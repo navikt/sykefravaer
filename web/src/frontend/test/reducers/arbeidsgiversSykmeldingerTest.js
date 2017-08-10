@@ -5,22 +5,17 @@ import arbeidsgiversSykmeldinger from '../../js/reducers/arbeidsgiversSykmelding
 import * as arbActions from '../../js/actions/arbeidsgiversSykmeldinger_actions';
 import * as dsActions from '../../js/actions/dinSykmelding_actions';
 import * as brukerActions from '../../js/actions/brukerinfo_actions';
+import { getSykmelding, getParsetSykmelding } from './dineSykmeldingerReducerTest';
 
 describe('arbeidsgiversSykmeldinger', () => {
 
     it('håndterer SET_ARBEIDSGIVERS_SYKMELDINGER', () => {
         const initialState = deepFreeze({});
-        const action = arbActions.setArbeidsgiversSykmeldinger([{
-            pair: ['Trainspotting', '28 Days Later'],
-            tally: {Trainspotting: 1}
-        }]);
+        const action = arbActions.setArbeidsgiversSykmeldinger([getSykmelding()]);
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
-            data: [{
-                pair: ['Trainspotting', '28 Days Later'],
-                tally: {Trainspotting: 1}
-            }],
+            data: [getParsetSykmelding()],
             henter: false,
             hentingFeilet: false,
             hentet: true,
@@ -53,13 +48,7 @@ describe('arbeidsgiversSykmeldinger', () => {
 
     it("Håndterer SET_ARBEIDSGIVER", () => {
         const initialState = deepFreeze({
-            data: [{
-                id: 1
-            }, {
-                id: 2
-            }, {
-                id: 69
-            }],
+            data: [getParsetSykmelding({id: 1}), getParsetSykmelding({id: 2}), getParsetSykmelding({id: 69})],
             hentingFeilet: false,
             henter: false
         });
@@ -71,17 +60,13 @@ describe('arbeidsgiversSykmeldinger', () => {
         expect(nextState).to.deep.equal({
             hentingFeilet: false,
             henter: false,
-            data: [{
-                id: 1
-            }, {
-                id: 2
-            }, {
+            data: [getParsetSykmelding({id: 1}), getParsetSykmelding({id: 2}), getParsetSykmelding({
                 id: 69,
                 valgtArbeidsgiver: {
                     orgnummer: 12345678,
                     navn: "Mosveens Verktøyutleie D/A"
                 }
-            }]
+            })],
         })
     });           
 

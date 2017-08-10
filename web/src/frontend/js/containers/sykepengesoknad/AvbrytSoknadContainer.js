@@ -35,7 +35,7 @@ class AvbrytSoknadContainer extends Component {
         return (<div>
             <div className="avbrytDialog">
                 <p className="avbrytDialog__trigger">
-                    <button ref="js-btn" className="lenke" onClick={(e) => {
+                    <button aria-pressed={this.state.erApen} ref="js-btn" className="lenke" onClick={(e) => {
                         e.preventDefault();
                         this.toggleAvbrytdialog();
                     }}>{getLedetekst('sykepengesoknad.avbryt.trigger')}</button>

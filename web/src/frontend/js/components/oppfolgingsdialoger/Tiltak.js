@@ -178,7 +178,7 @@ export class Tiltak extends Component {
                             {
                                 antallTiltakLagtTilAvArbeidsgiver > 0 &&
                                 <RenderNotifikasjonBoks
-                                    motpartnavn={oppfolgingsdialog.virksomhetsnavn}
+                                    motpartnavn={oppfolgingsdialog.arbeidsgiver.navn}
                                     antallTiltakLagtTilAvArbeidsgiver={antallTiltakLagtTilAvArbeidsgiver}
                                 />
                             }

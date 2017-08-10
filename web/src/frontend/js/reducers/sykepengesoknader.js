@@ -76,6 +76,7 @@ export const parseDatofelter = (soknad) => {
         forrigeSykeforloepTom: tilDato(soknad.forrigeSykeforloepTom),
         fom: tilDato(fom),
         tom: tilDato(tom),
+        avbruttDato: tilDato(soknad.avbruttDato),
     });
 };
 

@@ -572,6 +572,14 @@ describe('sykepengesoknader', () => {
             expect(_soknad.tom).to.deep.equal(new Date("2017-01-19"));
         });
 
+        it("Parser avbruttDato", () => {
+            const soknad = Object.assign({}, getSoknad(), {
+                avbruttDato: "2017-01-04",
+            });
+            const _soknad = parseDatofelter(soknad);
+            expect(_soknad.avbruttDato).to.deep.equal(new Date("2017-01-04"));
+        });
+
 
     });
 
@@ -879,7 +887,8 @@ const getSoknad = (s = {}) => {
         sendtTilNAVDato: null,
         sykmeldingSkrevetDato: "2017-02-15",
         forrigeSykeforloepTom: "2017-01-18",
-        id: "1"
+        id: "1",
+        avbruttDato: null,
     };
 };
 
@@ -913,6 +922,7 @@ const getParsetSoknad = () => {
         sykmeldingSkrevetDato: new Date("2017-02-15"),
         forrigeSykeforloepTom: new Date("2017-01-18"),
         id: "1",
+        avbruttDato: null,
         _erOppdelt: false,
     };
 };

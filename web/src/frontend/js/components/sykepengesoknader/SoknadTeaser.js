@@ -95,7 +95,9 @@ class SoknadTeaser extends Component {
                         {
                             (() => {
                                 if (soknad.status === AVBRUTT) {
-                                    return getLedetekst('soknad.teaser.status.AVBRUTT');
+                                    return getLedetekst('soknad.teaser.status.AVBRUTT', {
+                                        '%DATO%': toDatePrettyPrint(soknad.avbruttDato),
+                                    });
                                 }
                                 if (soknad.status !== SENDT && soknad.status !== TIL_SENDING) {
                                     return getLedetekst('soknad.teaser.undertekst', { '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn });

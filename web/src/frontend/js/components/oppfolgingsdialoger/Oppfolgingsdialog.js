@@ -22,14 +22,20 @@ const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
 };
 
 const Oppfolgingsdialog = ({
-                            lagrer,
-                            lagret,
-                            lagringFeilet,
+                            lagrerArbeidsoppgave,
+                            lagrerTiltak,
+                            lagretArbeidsoppgave,
+                            lagretTiltak,
+                            lagringFeiletArbeidsoppgave,
+                            lagringFeiletTiltak,
                             lagretArbeidsoppgaveId,
                             lagretTiltakId,
-                            sletter,
-                            slettet,
-                            slettingFeilet,
+                            sletterArbeidsoppgave,
+                            sletterTiltak,
+                            slettetArbeidsoppgave,
+                            slettetTiltak,
+                            slettingFeiletArbeidsoppgave,
+                            slettingFeiletTiltak,
                             oppfolgingsdialogerHentet,
                             oppfolgingsdialog,
                             oppfolgingsdialogId,
@@ -73,13 +79,13 @@ const Oppfolgingsdialog = ({
         (() => {
             if (navigasjontoggles.steg === 1) {
                 panel = (<Arbeidsoppgaver
-                    lagrer={lagrer}
-                    lagret={lagret}
+                    lagrer={lagrerArbeidsoppgave}
+                    lagret={lagretArbeidsoppgave}
                     lagretId={lagretArbeidsoppgaveId}
-                    sletter={sletter}
-                    slettet={slettet}
-                    lagringFeilet={lagringFeilet}
-                    slettingFeilet={slettingFeilet}
+                    sletter={sletterArbeidsoppgave}
+                    slettet={slettetArbeidsoppgave}
+                    lagringFeilet={lagringFeiletArbeidsoppgave}
+                    slettingFeilet={slettingFeiletArbeidsoppgave}
                     oppfolgingsdialogerHentet={oppfolgingsdialogerHentet}
                     ledetekster={ledetekster}
                     oppfolgingsdialog={oppfolgingsdialog}
@@ -89,13 +95,13 @@ const Oppfolgingsdialog = ({
                 />);
             } else if (navigasjontoggles.steg === 2) {
                 panel = (<Tiltak
-                    lagrer={lagrer}
-                    lagret={lagret}
+                    lagrer={lagrerTiltak}
+                    lagret={lagretTiltak}
                     lagretId={lagretTiltakId}
-                    sletter={sletter}
-                    slettet={slettet}
-                    lagringFeilet={lagringFeilet}
-                    slettingFeilet={slettingFeilet}
+                    sletter={sletterTiltak}
+                    slettet={slettetTiltak}
+                    lagringFeilet={lagringFeiletTiltak}
+                    slettingFeilet={slettingFeiletTiltak}
                     oppfolgingsdialogerHentet={oppfolgingsdialogerHentet}
                     ledetekster={ledetekster}
                     oppfolgingsdialog={oppfolgingsdialog}
@@ -132,14 +138,20 @@ const Oppfolgingsdialog = ({
 };
 
 Oppfolgingsdialog.propTypes = {
-    lagrer: PropTypes.bool,
-    lagret: PropTypes.bool,
-    lagringFeilet: PropTypes.bool,
+    lagrerArbeidsoppgave: PropTypes.bool,
+    lagrerTiltak: PropTypes.bool,
+    lagretArbeidsoppgave: PropTypes.bool,
+    lagretTiltak: PropTypes.bool,
+    lagringFeiletArbeidsoppgave: PropTypes.bool,
+    lagringFeiletTiltak: PropTypes.bool,
     lagretArbeidsoppgaveId: PropTypes.number,
     lagretTiltakId: PropTypes.number,
-    sletter: PropTypes.bool,
-    slettet: PropTypes.bool,
-    slettingFeilet: PropTypes.bool,
+    sletterArbeidsoppgave: PropTypes.bool,
+    sletterTiltak: PropTypes.bool,
+    slettetArbeidsoppgave: PropTypes.bool,
+    slettetTiltak: PropTypes.bool,
+    slettingFeiletArbeidsoppgave: PropTypes.bool,
+    slettingFeiletTiltak: PropTypes.bool,
     oppfolgingsdialogerHentet: PropTypes.bool,
     oppfolgingsdialog: PropTypes.object,
     oppfolgingsdialogId: PropTypes.string,

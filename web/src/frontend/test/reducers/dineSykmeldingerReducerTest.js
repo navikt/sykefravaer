@@ -14,17 +14,26 @@ describe('dineSykmeldingerReducer', () => {
         const initialState = deepFreeze({
             data: []
         });
-        const action = actions.setDineSykmeldinger([{
-            pair: ['Trainspotting', '28 Days Later'],
-            tally: {Trainspotting: 1}
-        }])
+        const action = actions.setDineSykmeldinger([getSykmelding()])
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
-            data: [{
-                pair: ['Trainspotting', '28 Days Later'],
-                tally: {Trainspotting: 1}
-            }],
+            data: [getParsetSykmelding()],
+            henter: false,
+            hentingFeilet: false,
+            hentet: true,
+        });
+    });
+
+    it('håndterer SET_DINE_SYKMELDINGER når datofelter er null', () => {
+        const initialState = deepFreeze({
+            data: []
+        });
+        const action = actions.setDineSykmeldinger([getSykmelding({identdato: null})])
+        const nextState = dineSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [getParsetSykmelding({identdato: null})],
             henter: false,
             hentingFeilet: false,
             hentet: true,
@@ -34,44 +43,28 @@ describe('dineSykmeldingerReducer', () => {
     it('håndterer SET_DINE_SYKMELDINGER når man har sykmeldinger fra før, ved å kun overskrive properties som finnes', () => {
         const initialState = deepFreeze({
             hentet: false,
-            data: [{
-                id: 44, 
-                fornavn: "Harald",
-                etternavn: "R.",
-            }, {
-                id: 55,
-                fornavn: "Sonja",
-                etternavn: "Haraldsen"
-            }]
+            data: [getParsetSykmelding({id: "55"}), getParsetSykmelding({id: "44"})]
         });
-        const action = actions.setDineSykmeldinger([{
-            id: 44,
-            fornavn: "Harald",
-            etternavn: "R",
-            diagnose: "Forkjølet"
-        }, {
-            id: 55,
-            fornavn: "Sonja",
-            etternavn: "Haraldsen"
-        }])
+        const action = actions.setDineSykmeldinger([getSykmelding({id: "55", navn: "Harald"}), getSykmelding({id: "44"})])
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
-            data: [{
-                id: 44,
-                fornavn: "Harald",
-                etternavn: "R",
-                diagnose: "Forkjølet",
-            }, {
-                id: 55, 
-                fornavn: "Sonja",
-                etternavn: "Haraldsen"
-            }],
+            data: [getParsetSykmelding({id: "55", navn: "Harald"}), getParsetSykmelding({id: "44"})],
             henter: false,
             hentingFeilet: false,
             hentet: true,
         });
     });
+
+    it("Parser datofelter", () => {
+        const initialState = deepFreeze({
+            hentet: false,
+            data: []
+        });
+        const action = actions.setDineSykmeldinger([getSykmelding()]);
+        const nextState = dineSykmeldinger(initialState, action);
+        expect(nextState.data).to.deep.equal([getParsetSykmelding()]);
+    })
 
     it("Håndterer HENTER_DINE_SYKMELDINGER når man ikke har data fra før", () => {
         const initialState = deepFreeze({
@@ -508,4 +501,197 @@ describe('dineSykmeldingerReducer', () => {
             sendingFeilet: false
         });
     });
+
 }); 
+
+export const getSykmelding = (soknad = {}) => {
+    return Object.assign({}, {
+        "id": "73970c89-1173-4d73-b1cb-e8445c2840e2",
+        "startLegemeldtFravaer": "2017-07-07",
+        "skalViseSkravertFelt": true,
+        "identdato": "2017-07-07",
+        "status": "SENDT",
+        "naermesteLederStatus": null,
+        "innsendtArbeidsgivernavn": "ARBEIDS- OG VELFERDSDIREKTORATET, AVD SANNERGATA",
+        "valgtArbeidssituasjon": null,
+        "orgnummer": "***REMOVED***",
+        "sendtdato": "2017-07-24T10:19:15",
+        "pasient": {
+          "fnr": "***REMOVED***",
+          "fornavn": "Frida",
+          "etternavn": "Frost"
+        },
+        "arbeidsgiver": "LOMMEN BARNEHAVE",
+        "diagnose": {
+          "hoveddiagnose": {
+            "diagnose": "TENDINITT INA",
+            "diagnosekode": "L87",
+            "diagnosesystem": "ICPC-2"
+          },
+          "bidiagnoser": [
+            {
+              "diagnose": "GANGLION SENE",
+              "diagnosekode": "L87",
+              "diagnosesystem": "ICPC-2"
+            }
+          ],
+          "fravaersgrunnLovfestet": null,
+          "fravaerBeskrivelse": "Medising årsak i kategorien annet",
+          "svangerskap": true,
+          "yrkesskade": true,
+          "yrkesskadeDato": "2017-07-07"
+        },
+        "mulighetForArbeid": {
+          "perioder": [
+            {
+              "fom": "2017-07-07",
+              "tom": "2017-07-23",
+              "grad": 100,
+              "behandlingsdager": null,
+              "reisetilskudd": null,
+              "avventende": null
+            }
+          ],
+          "aktivitetIkkeMulig433": [
+            "Annet"
+          ],
+          "aktivitetIkkeMulig434": [
+            "Annet"
+          ],
+          "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+          "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+        },
+        "friskmelding": {
+          "arbeidsfoerEtterPerioden": true,
+          "hensynPaaArbeidsplassen": "Må ta det pent",
+          "antarReturSammeArbeidsgiver": true,
+          "antattDatoReturSammeArbeidsgiver": "2017-07-07",
+          "antarReturAnnenArbeidsgiver": true,
+          "tilbakemeldingReturArbeid": "2017-07-07",
+          "utenArbeidsgiverAntarTilbakeIArbeid": false,
+          "utenArbeidsgiverAntarTilbakeIArbeidDato": "2017-03-10",
+          "utenArbeidsgiverTilbakemelding": "2017-03-10"
+        },
+        "utdypendeOpplysninger": {
+          "sykehistorie": null,
+          "paavirkningArbeidsevne": null,
+          "resultatAvBehandling": null,
+          "henvisningUtredningBehandling": null
+        },
+        "arbeidsevne": {
+          "tilretteleggingArbeidsplass": "Fortsett som sist.",
+          "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+          "tiltakAndre": null
+        },
+        "meldingTilNav": {
+          "navBoerTaTakISaken": false,
+          "navBoerTaTakISakenBegrunnelse": null
+        },
+        "innspillTilArbeidsgiver": null,
+        "tilbakedatering": {
+          "dokumenterbarPasientkontakt": "2017-03-12",
+          "tilbakedatertBegrunnelse": null
+        },
+        "bekreftelse": {
+          "utstedelsesdato": "2017-07-24",
+          "sykmelder": "Frida Frost",
+          "sykmelderTlf": "94431152"
+        }
+      }, soknad);
+};
+
+export const getParsetSykmelding = (soknad = {}) => {
+    return Object.assign({}, {
+        "id": "73970c89-1173-4d73-b1cb-e8445c2840e2",
+        "startLegemeldtFravaer": new Date("2017-07-07"),
+        "skalViseSkravertFelt": true,
+        "identdato": new Date("2017-07-07"),
+        "status": "SENDT",
+        "naermesteLederStatus": null,
+        "innsendtArbeidsgivernavn": "ARBEIDS- OG VELFERDSDIREKTORATET, AVD SANNERGATA",
+        "valgtArbeidssituasjon": null,
+        "orgnummer": "***REMOVED***",
+        "sendtdato": new Date("2017-07-24T10:19:15"),
+        "pasient": {
+          "fnr": "***REMOVED***",
+          "fornavn": "Frida",
+          "etternavn": "Frost"
+        },
+        "arbeidsgiver": "LOMMEN BARNEHAVE",
+        "diagnose": {
+          "hoveddiagnose": {
+            "diagnose": "TENDINITT INA",
+            "diagnosekode": "L87",
+            "diagnosesystem": "ICPC-2"
+          },
+          "bidiagnoser": [
+            {
+              "diagnose": "GANGLION SENE",
+              "diagnosekode": "L87",
+              "diagnosesystem": "ICPC-2"
+            }
+          ],
+          "fravaersgrunnLovfestet": null,
+          "fravaerBeskrivelse": "Medising årsak i kategorien annet",
+          "svangerskap": true,
+          "yrkesskade": true,
+          "yrkesskadeDato": new Date("2017-07-07")
+        },
+        "mulighetForArbeid": {
+          "perioder": [
+            {
+              "fom": new Date("2017-07-07"),
+              "tom": new Date("2017-07-23"),
+              "grad": 100,
+              "behandlingsdager": null,
+              "reisetilskudd": null,
+              "avventende": null
+            }
+          ],
+          "aktivitetIkkeMulig433": [
+            "Annet"
+          ],
+          "aktivitetIkkeMulig434": [
+            "Annet"
+          ],
+          "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
+          "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
+        },
+        "friskmelding": {
+          "arbeidsfoerEtterPerioden": true,
+          "hensynPaaArbeidsplassen": "Må ta det pent",
+          "antarReturSammeArbeidsgiver": true,
+          "antattDatoReturSammeArbeidsgiver": new Date("2017-07-07"),
+          "antarReturAnnenArbeidsgiver": true,
+          "tilbakemeldingReturArbeid": new Date("2017-07-07"),
+          "utenArbeidsgiverAntarTilbakeIArbeid": false,
+          "utenArbeidsgiverAntarTilbakeIArbeidDato": new Date("2017-03-10"),
+          "utenArbeidsgiverTilbakemelding": new Date("2017-03-10")
+        },
+        "utdypendeOpplysninger": {
+          "sykehistorie": null,
+          "paavirkningArbeidsevne": null,
+          "resultatAvBehandling": null,
+          "henvisningUtredningBehandling": null
+        },
+        "arbeidsevne": {
+          "tilretteleggingArbeidsplass": "Fortsett som sist.",
+          "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
+          "tiltakAndre": null
+        },
+        "meldingTilNav": {
+          "navBoerTaTakISaken": false,
+          "navBoerTaTakISakenBegrunnelse": null
+        },
+        "innspillTilArbeidsgiver": null,
+        "tilbakedatering": {
+          "dokumenterbarPasientkontakt": new Date("2017-03-12"),
+          "tilbakedatertBegrunnelse": null
+        },
+        "bekreftelse": {
+          "utstedelsesdato": new Date("2017-07-24"),
+          "sykmelder": "Frida Frost",
+          "sykmelderTlf": "94431152"
+        }
+      }, soknad);
+};

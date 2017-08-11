@@ -24,9 +24,9 @@ export const getArbeidsgiver = (ag) => {
 export const getSykmeldinger = [
     {
         id: "31ac2ac8-aa31-4f5f-8bda-fd199aa7d8f4",
-        startLegemeldtFravaer: "2017-02-15",
+        startLegemeldtFravaer: new Date("2017-02-15"),
         skalViseSkravertFelt: true,
-        identdato: "2017-02-15",
+        identdato: new Date("2017-02-15"),
         status: "NY",
         naermesteLederStatus: null,
         innsendtArbeidsgivernavn: null,
@@ -56,21 +56,21 @@ export const getSykmeldinger = [
             fravaerBeskrivelse: "Medising årsak i kategorien annet",
             svangerskap: true,
             yrkesskade: true,
-            yrkesskadeDato: "2017-02-15"
+            yrkesskadeDato: new Date("2017-02-15")
         },
         mulighetForArbeid: {
             perioder: [
                 {
-                    fom: "2017-02-15",
-                    tom: "2017-02-25",
+                    fom: new Date("2017-02-15"),
+                    tom: new Date("2017-02-25"),
                     grad: 100,
                     behandlingsdager: null,
                     reisetilskudd: null,
                     avventende: null
                 },
                 {
-                    fom: "2017-02-26",
-                    tom: "2017-07-26",
+                    fom: new Date("2017-02-26"),
+                    tom: new Date("2017-07-26"),
                     grad: 60,
                     behandlingsdager: null,
                     reisetilskudd: false,
@@ -90,9 +90,9 @@ export const getSykmeldinger = [
             arbeidsfoerEtterPerioden: true,
             hensynPaaArbeidsplassen: "Må ta det pent",
             antarReturSammeArbeidsgiver: true,
-            antattDatoReturSammeArbeidsgiver: "2017-02-15",
+            antattDatoReturSammeArbeidsgiver: new Date("2017-02-15"),
             antarReturAnnenArbeidsgiver: true,
-            tilbakemeldingReturArbeid: "2017-02-15",
+            tilbakemeldingReturArbeid: new Date("2017-02-15"),
             utenArbeidsgiverAntarTilbakeIArbeid: false,
             utenArbeidsgiverAntarTilbakeIArbeidDato: null,
             utenArbeidsgiverTilbakemelding: null
@@ -118,16 +118,16 @@ export const getSykmeldinger = [
             tilbakedatertBegrunnelse: null
         },
         bekreftelse: {
-            utstedelsesdato: "2017-02-10",
+            utstedelsesdato: new Date("2017-02-10"),
             sykmelder: "Frida Frost",
             sykmelderTlf: "94431152"
         }
     },
     {
         id: "31ac2ac8-aa31-4f5f-8bda-fd199aa7d8f4",
-        startLegemeldtFravaer: "2017-02-15",
+        startLegemeldtFravaer: new Date("2017-02-15"),
         skalViseSkravertFelt: true,
-        identdato: "2017-02-15",
+        identdato: new Date("2017-02-15"),
         status: "NY",
         naermesteLederStatus: null,
         innsendtArbeidsgivernavn: null,
@@ -157,21 +157,21 @@ export const getSykmeldinger = [
             fravaerBeskrivelse: "Medising årsak i kategorien annet",
             svangerskap: true,
             yrkesskade: true,
-            yrkesskadeDato: "2017-02-15"
+            yrkesskadeDato: new Date("2017-02-15")
         },
         mulighetForArbeid: {
             perioder: [
                 {
-                    fom: "2017-02-15",
-                    tom: "2017-02-25",
+                    fom: new Date("2017-02-15"),
+                    tom: new Date("2017-02-25"),
                     grad: 100,
                     behandlingsdager: null,
                     reisetilskudd: null,
                     avventende: null
                 },
                 {
-                    fom: "2017-02-26",
-                    tom: "2017-07-26",
+                    fom: new Date("2017-02-26"),
+                    tom: new Date("2017-07-26"),
                     grad: 60,
                     behandlingsdager: null,
                     reisetilskudd: false,
@@ -191,9 +191,9 @@ export const getSykmeldinger = [
             arbeidsfoerEtterPerioden: true,
             hensynPaaArbeidsplassen: "Må ta det pent",
             antarReturSammeArbeidsgiver: true,
-            antattDatoReturSammeArbeidsgiver: "2017-02-15",
+            antattDatoReturSammeArbeidsgiver: new Date("2017-02-15"),
             antarReturAnnenArbeidsgiver: true,
-            tilbakemeldingReturArbeid: "2017-02-15",
+            tilbakemeldingReturArbeid: new Date("2017-02-15"),
             utenArbeidsgiverAntarTilbakeIArbeid: false,
             utenArbeidsgiverAntarTilbakeIArbeidDato: null,
             utenArbeidsgiverTilbakemelding: null
@@ -219,7 +219,7 @@ export const getSykmeldinger = [
             tilbakedatertBegrunnelse: null
         },
         bekreftelse: {
-            utstedelsesdato: "2017-02-10",
+            utstedelsesdato: new Date("2017-02-10"),
             sykmelder: "Frida Frost",
             sykmelderTlf: "94431152"
         }
@@ -236,7 +236,7 @@ const sykmelding = {
     arbeidsgiver: "Selskapet AS",
     orgnummer: "123456789",
     status: 'NY',
-    identdato: "2015-12-31",
+    identdato: new Date("2015-12-31"),
     diagnose: {
         hoveddiagnose: {
             diagnose: "Influensa",
@@ -246,8 +246,8 @@ const sykmelding = {
     },
     mulighetForArbeid: {
         perioder: [{
-            fom: "2015-12-31",
-            tom: "2016-01-06",
+            fom: new Date("2015-12-31"),
+            tom: new Date("2016-01-06"),
             grad: 67
         }],
     },
@@ -260,7 +260,7 @@ const sykmelding = {
     tilbakedatering: {},
     bekreftelse: {
         sykmelder: "Ove Olsen",
-        utstedelsesdato: "2016-05-02"
+        utstedelsesdato: new Date("2016-05-02")
     },
 };
 

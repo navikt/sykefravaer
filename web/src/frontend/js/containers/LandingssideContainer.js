@@ -17,13 +17,13 @@ export class LandingssideSide extends Component {
     componentWillMount() {
         this.props.hentMote();
         this.props.hentToggles();
-        if (!this.props.sykepengesoknaderHentet) {
+        if (!this.props.sykepengesoknaderHentet && !this.props.hentingFeiletSykepengesoknader) {
             this.props.hentSykepengesoknader();
         }
-        if (!this.props.ledereHentet) {
+        if (!this.props.ledereHentet && !this.props.hentingFeiletLedere) {
             this.props.hentLedere();
         }
-        if (!this.props.dineSykmeldingerHentet) {
+        if (!this.props.dineSykmeldingerHentet && !this.props.hentingFeiletSykmeldinger) {
             this.props.hentDineSykmeldinger();
         }
     }
@@ -83,6 +83,9 @@ LandingssideSide.propTypes = {
     dineSykmeldinger: PropTypes.array,
     dineSykmeldingerHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
+    hentingFeiletSykepengesoknader: PropTypes.bool,
+    hentingFeiletSykmeldinger: PropTypes.bool,
+    hentingFeiletLedere: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {
@@ -101,6 +104,9 @@ export function mapStateToProps(state) {
         harDialogmote: state.mote.data !== null,
         dineSykmeldinger: state.dineSykmeldinger.data,
         dineSykmeldingerHentet: state.dineSykmeldinger.hentet === true,
+        hentingFeiletSykepengesoknader: state.sykepengesoknader.hentingFeilet,
+        hentingFeiletSykmeldinger: state.dineSykmeldinger.hentingFeilet,
+        hentingFeiletLedere: state.ledere.hentingFeilet,
     };
 }
 

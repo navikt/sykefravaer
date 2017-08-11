@@ -35,6 +35,12 @@ export class OppfolgingsdialogSide extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.navigasjontoggles.steg !== nextProps.navigasjontoggles.steg) {
+            this.props.hentOppfolgingsdialoger();
+        }
+    }
+
     render() {
         const {
             brodsmuler,

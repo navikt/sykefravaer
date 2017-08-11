@@ -50,7 +50,7 @@ const Oppfolgingsdialog = ({
                            }) => {
     let panel;
     let disableNavigation = false;
-    if (inneholderGodkjenninger(oppfolgingsdialog) && !erAvvistAvArbeidstaker(oppfolgingsdialog)) {
+    if (!inneholderGodkjenninger(oppfolgingsdialog) && !erAvvistAvArbeidstaker(oppfolgingsdialog)) {
         disableNavigation = true;
         panel = (<Godkjenninger
             avvisDialog={avvisDialog}

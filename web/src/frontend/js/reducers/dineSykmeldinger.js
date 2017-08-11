@@ -18,12 +18,49 @@ const setSykmeldingProps = (_sykmeldinger, sykmeldingId, props) => {
     });
 };
 
+const tilDato = (dato) => {
+    return dato === null ? null : new Date(dato);
+};
+
+export const parseDatofelter = (soknad) => {
+    return Object.assign({}, soknad, {
+        startLegemeldtFravaer: tilDato(soknad.startLegemeldtFravaer),
+        identdato: tilDato(soknad.identdato),
+        sendtdato: tilDato(soknad.sendtdato),
+        diagnose: Object.assign({}, soknad.diagnose, {
+            yrkesskadeDato: tilDato(soknad.diagnose.yrkesskadeDato),
+        }),
+        mulighetForArbeid: Object.assign({}, soknad.mulighetForArbeid, {
+            perioder: soknad.mulighetForArbeid.perioder.map((p) => {
+                return Object.assign({}, p, {
+                    fom: tilDato(p.fom),
+                    tom: tilDato(p.tom),
+                });
+            }),
+        }),
+        friskmelding: Object.assign({}, soknad.friskmelding, {
+            antattDatoReturSammeArbeidsgiver: tilDato(soknad.friskmelding.antattDatoReturSammeArbeidsgiver),
+            tilbakemeldingReturArbeid: tilDato(soknad.friskmelding.tilbakemeldingReturArbeid),
+            utenArbeidsgiverAntarTilbakeIArbeidDato: tilDato(soknad.friskmelding.utenArbeidsgiverAntarTilbakeIArbeidDato),
+            utenArbeidsgiverTilbakemelding: tilDato(soknad.friskmelding.utenArbeidsgiverTilbakemelding),
+        }),
+        bekreftelse: Object.assign({}, soknad.bekreftelse, {
+            utstedelsesdato: tilDato(soknad.bekreftelse.utstedelsesdato),
+        }),
+        tilbakedatering: Object.assign({}, soknad.tilbakedatering, {
+            dokumenterbarPasientkontakt: tilDato(soknad.tilbakedatering.dokumenterbarPasientkontakt),
+        }),
+    });
+};
+
 export default function sykmeldinger(state = initiellState, action) {
     switch (action.type) {
         case actiontyper.SET_DINE_SYKMELDINGER: {
             if (!state.data || state.data.length === 0) {
                 return {
-                    data: action.sykmeldinger,
+                    data: action.sykmeldinger.map((s) => {
+                        return parseDatofelter(s);
+                    }),
                     henter: false,
                     hentingFeilet: false,
                     hentet: true,
@@ -34,7 +71,7 @@ export default function sykmeldinger(state = initiellState, action) {
                     const nySykmelding = action.sykmeldinger.filter((sykmld) => {
                         return sykmld.id === gammelSykmelding.id;
                     })[0];
-                    return Object.assign({}, gammelSykmelding, nySykmelding);
+                    return Object.assign({}, gammelSykmelding, parseDatofelter(nySykmelding));
                 }),
                 henter: false,
                 hentingFeilet: false,

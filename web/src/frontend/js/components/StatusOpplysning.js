@@ -40,7 +40,7 @@ const InnsendtDato = ({ sendtdato, status }) => {
 };
 
 InnsendtDato.propTypes = {
-    sendtdato: PropTypes.string,
+    sendtdato: PropTypes.instanceOf(Date),
     status: PropTypes.string,
 };
 

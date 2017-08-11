@@ -1,5 +1,6 @@
 import * as actiontyper from '../actions/actiontyper';
 import { SENDT, BEKREFTET } from '../enums/sykmeldingstatuser';
+import { parseDatofelter } from './dineSykmeldinger';
 
 const initiellState = {
     henter: false,
@@ -22,7 +23,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
     switch (action.type) {
         case actiontyper.SET_ARBEIDSGIVERS_SYKMELDINGER: {
             return {
-                data: action.sykmeldinger,
+                data: action.sykmeldinger.map(parseDatofelter),
                 henter: false,
                 hentingFeilet: false,
                 hentet: true,

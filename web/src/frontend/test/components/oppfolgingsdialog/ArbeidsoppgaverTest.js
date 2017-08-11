@@ -6,18 +6,17 @@ import sinon from 'sinon';
 import ledetekster from "../../mockLedetekster";
 import AppSpinner from '../../../js/components/AppSpinner';
 import Feilmelding from '../../../js/components/Feilmelding';
-import Arbeidsoppgaver from "../../../js/components/oppfolgingsdialoger/Arbeidsoppgaver";
+import Arbeidsoppgaver from "../../../js/components/oppfolgingsdialoger/utfylling/Arbeidsoppgaver";
 import {
     RenderNotifikasjonBoksSuksess,
     RenderNotifikasjonBoks,
     RenderArbeidsoppgaverKnapper,
     RenderOpprettArbeidsoppgave,
     RenderOppfolgingsdialogArbeidsoppgaverTabell,
-} from "../../../js/components/oppfolgingsdialoger/Arbeidsoppgaver";
+} from "../../../js/components/oppfolgingsdialoger/utfylling/Arbeidsoppgaver";
 import {
     OppfolgingsdialogInfoboks,
     LagreArbeidsoppgaveSkjema,
-    OppfolgingsdialogSide,
 } from "oppfolgingsdialog-npm";
 import { setLedetekster } from 'digisyfo-npm';
 import getOppfolgingsdialog from '../../mockOppfolgingsdialoger';
@@ -32,11 +31,12 @@ describe("Arbeidsoppgaver", () => {
     let component;
     let arbeidsgiver;
     let arbeidstaker;
+    let lagreArbeidsoppgave;
+    let slettArbeidsoppgave;
 
     beforeEach(() => {
-        toggleArbeidsoppgaveSkjema = sinon.spy();
-        sendLagreArbeidsoppgave = sinon.spy();
-        sendSlettArbeidsoppgave = sinon.spy();
+        lagreArbeidsoppgave = sinon.spy();
+        slettArbeidsoppgave = sinon.spy();
         setLedetekster(ledetekster);
         arbeidsgiver = {
             navn: 'Arbeidsgiver',
@@ -48,12 +48,6 @@ describe("Arbeidsoppgaver", () => {
         };
     });
 
-    it("Skal vise en OppfolgingsdialogSide", () => {
-        component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
-                                             arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />);
-        expect(component.find(OppfolgingsdialogSide)).to.have.length(1);
-    });
-
     it("Skal vise en OppfolgingsdialogInfoboks, om det ikke er arbeidsoppgaver", () => {
         const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {
             arbeidstaker: arbeidstaker,
@@ -61,6 +55,9 @@ describe("Arbeidsoppgaver", () => {
             arbeidsoppgaveListe: [],
         });
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
+                                             oppfolgingsdialogerHentet
+                                             lagreArbeidsoppgave={lagreArbeidsoppgave}
+                                             slettArbeidsoppgave={slettArbeidsoppgave}
                                              arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />);
         expect(component.find(OppfolgingsdialogInfoboks)).to.have.length(1);
     });
@@ -72,14 +69,22 @@ describe("Arbeidsoppgaver", () => {
             arbeidsoppgaveListe: [],
         });
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
-                                             arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe}
-                                             visArbeidsoppgaveSkjema={true} />);
+                                             oppfolgingsdialogerHentet
+                                             lagreArbeidsoppgave={lagreArbeidsoppgave}
+                                             slettArbeidsoppgave={slettArbeidsoppgave}
+                            />);
+        component.setState({
+            visArbeidsoppgaveSkjema: true,
+        });
         expect(component.find(RenderOpprettArbeidsoppgave)).to.have.length(1);
     });
 
     it("Skal vise en overskrift, om det er arbeidsoppgaver", () => {
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
-                                             arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />);
+                                             oppfolgingsdialogerHentet
+                                             lagreArbeidsoppgave={lagreArbeidsoppgave}
+                                             slettArbeidsoppgave={slettArbeidsoppgave}
+                            />);
         expect(component.find('h2')).to.have.length(1);
     });
 
@@ -90,27 +95,41 @@ describe("Arbeidsoppgaver", () => {
             arbeidsoppgaveListe: [{erVurdertAvSykmeldt: false}]
         });
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
-                                             arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />);
+                                             oppfolgingsdialogerHentet
+                                             lagreArbeidsoppgave={lagreArbeidsoppgave}
+                                             slettArbeidsoppgave={slettArbeidsoppgave}
+                            />);
         expect(component.find(RenderNotifikasjonBoks)).to.have.length(1);
     });
 
     it("Skal vise RenderNotifikasjonBoksSuksess, om det er arbeidsoppgaver og en arbeidsoppgave er lagret", () => {
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
-                                             arbeidsoppgaveLagret={true}
-                                             arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />);
+                                             oppfolgingsdialogerHentet
+                                             lagreArbeidsoppgave={lagreArbeidsoppgave}
+                                             slettArbeidsoppgave={slettArbeidsoppgave}
+                                             lagret
+                            />);
         expect(component.find(RenderNotifikasjonBoksSuksess)).to.have.length(1);
     });
 
     it("Skal vise RenderOppfolgingsdialogArbeidsoppgaverTabell, om det er arbeidsoppgaver", () => {
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
-                                             arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />);
+                                             oppfolgingsdialogerHentet
+                                             lagreArbeidsoppgave={lagreArbeidsoppgave}
+                                             slettArbeidsoppgave={slettArbeidsoppgave}
+                            />);
         expect(component.find(RenderOppfolgingsdialogArbeidsoppgaverTabell)).to.have.length(1);
     });
 
     it("Skal vise LagreArbeidsoppgaveSkjema, om det er arbeidsoppgaver og visArbeidsoppgaveSkjema er true", () => {
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
-                                             arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe}
-                                             visArbeidsoppgaveSkjema={true} />);
+                                             oppfolgingsdialogerHentet
+                                             lagreArbeidsoppgave={lagreArbeidsoppgave}
+                                             slettArbeidsoppgave={slettArbeidsoppgave}
+                            />);
+        component.setState({
+           visArbeidsoppgaveSkjema: true,
+        });
         expect(component.find(LagreArbeidsoppgaveSkjema)).to.have.length(1);
     });
 

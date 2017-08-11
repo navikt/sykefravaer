@@ -14,11 +14,8 @@ import FravaerOgFriskmeldingContainer from '../containers/sykepengesoknad/Fravae
 import AktiviteterISykmeldingsperiodenContainer from '../containers/sykepengesoknad/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringContainer from '../containers/sykepengesoknad/OppsummeringContainer';
 import OppfolgingsdialogerContainer from '../containers/OppfolgingsdialogerContainer';
+import OppfolgingsdialogContainer from '../containers/OppfolgingsdialogContainer';
 import OpprettOppfolgingsdialogContainer from '../containers/OpprettOppfolgingsdialogContainer';
-import ArbeidsoppgaverContainer from '../containers/ArbeidsoppgaverContainer';
-import TiltakContainer from '../containers/TiltakContainer';
-import PlanContainer from '../containers/PlanContainer';
-import OppfolgingsdialogSamtykkeContainer from '../containers/OppfolgingsdialogSamtykkeContainer';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
@@ -38,11 +35,7 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/dialogmote" component={MoteContainer} />
         <Route path="/sykefravaer/oppfolgingsplaner" component={OppfolgingsdialogerContainer} />
         <Route path="/sykefravaer/oppfolgingsplaner/opprett" component={OpprettOppfolgingsdialogContainer} />
-        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId" component={ArbeidsoppgaverContainer} />
-        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId/arbeidsoppgaver" component={ArbeidsoppgaverContainer} />
-        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId/tiltak" component={TiltakContainer} />
-        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId/planer" component={PlanContainer} />
-        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId/samtykk" component={OppfolgingsdialogSamtykkeContainer} />
+        <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId" component={OppfolgingsdialogContainer} />
         <Route path="*" component={LandingssideContainer} />
     </Router>);
 };

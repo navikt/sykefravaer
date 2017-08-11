@@ -6,18 +6,17 @@ import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../../mockLedetekster";
 import AppSpinner from '../../../js/components/AppSpinner';
 import Feilmelding from '../../../js/components/Feilmelding';
-import Tiltak from "../../../js/components/oppfolgingsdialoger/Tiltak";
+import Tiltak from "../../../js/components/oppfolgingsdialoger/utfylling/Tiltak";
 import {
     RenderNotifikasjonBoksSuksess,
     RenderNotifikasjonBoks,
     RenderTiltakKnapper,
     RenderOpprettTiltak,
     RenderOppfolgingsdialogTiltakTabell,
-} from "../../../js/components/oppfolgingsdialoger/Tiltak";
+} from "../../../js/components/oppfolgingsdialoger/utfylling/Tiltak";
 import {
     OppfolgingsdialogInfoboks,
     LagreTiltakSkjema,
-    OppfolgingsdialogSide,
 } from "oppfolgingsdialog-npm";
 import { setLedetekster } from 'digisyfo-npm';
 import getOppfolgingsdialog from '../../mockOppfolgingsdialoger';
@@ -32,11 +31,12 @@ describe("Tiltak", () => {
     let component;
     let arbeidsgiver;
     let arbeidstaker;
+    let lagreTiltak;
+    let slettTiltak;
 
     beforeEach(() => {
-        toggleTiltakSkjema = sinon.spy();
-        sendLagreTiltak = sinon.spy();
-        sendSlettTiltak = sinon.spy();
+        lagreTiltak = sinon.spy();
+        slettTiltak = sinon.spy();
         setLedetekster(ledetekster);
         arbeidsgiver = {
             navn: 'Arbeidsgiver',
@@ -48,12 +48,6 @@ describe("Tiltak", () => {
         };
     });
 
-    it("Skal vise en OppfolgingsdialogSide", () => {
-        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
-        expect(component.find(OppfolgingsdialogSide)).to.have.length(1);
-    });
-
     it("Skal vise en OppfolgingsdialogInfoboks, om det ikke er tiltak", () => {
         const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {
             arbeidstaker: arbeidstaker,
@@ -61,7 +55,10 @@ describe("Tiltak", () => {
             tiltakListe: [],
         });
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
+                                    oppfolgingsdialogerHentet
+                                    lagreTiltak={lagreTiltak}
+                                    slettTiltak={slettTiltak}
+                             />);
         expect(component.find(OppfolgingsdialogInfoboks)).to.have.length(1);
     });
 
@@ -72,14 +69,22 @@ describe("Tiltak", () => {
             tiltakListe: [],
         });
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                    visTiltakSkjema={true}
-                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
+                                    oppfolgingsdialogerHentet
+                                    lagreTiltak={lagreTiltak}
+                                    slettTiltak={slettTiltak}
+                             />);
+        component.setState({
+           visTiltakSkjema: true,
+        });
         expect(component.find(RenderOpprettTiltak)).to.have.length(1);
     });
 
     it("Skal vise en overskrift, om det er tiltak", () => {
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
+                                    oppfolgingsdialogerHentet
+                                    lagreTiltak={lagreTiltak}
+                                    slettTiltak={slettTiltak}
+                             />);
         expect(component.find('h2')).to.have.length(1);
     });
 
@@ -90,27 +95,41 @@ describe("Tiltak", () => {
             tiltakListe: [{opprettetAv: {aktoerId: arbeidsgiver.aktoerId}}]
         });
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
+                                    oppfolgingsdialogerHentet
+                                    lagreTiltak={lagreTiltak}
+                                    slettTiltak={slettTiltak}
+                             />);
         expect(component.find(RenderNotifikasjonBoks)).to.have.length(1);
     });
 
     it("Skal vise RenderNotifikasjonBoksSuksess, om det er tiltak og en tiltak er lagret", () => {
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                    tiltakLagret={true}
-                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
+                                    oppfolgingsdialogerHentet
+                                    lagreTiltak={lagreTiltak}
+                                    slettTiltak={slettTiltak}
+                                    lagret
+                            />);
         expect(component.find(RenderNotifikasjonBoksSuksess)).to.have.length(1);
     });
 
     it("Skal vise RenderOppfolgingsdialogTiltakTabell, om det er tiltak", () => {
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
+                                    oppfolgingsdialogerHentet
+                                    lagreTiltak={lagreTiltak}
+                                    slettTiltak={slettTiltak}
+                            />);
         expect(component.find(RenderOppfolgingsdialogTiltakTabell)).to.have.length(1);
     });
 
     it("Skal vise LagreTiltakSkjema, om det er tiltak og visTiltakSkjema er true", () => {
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                    visTiltakSkjema={true}
-                                    tiltakListe={oppfolgingsdialog.tiltakListe} />);
+                                    oppfolgingsdialogerHentet
+                                    lagreTiltak={lagreTiltak}
+                                    slettTiltak={slettTiltak}
+                            />);
+        component.setState({
+            visTiltakSkjema: true,
+        });
         expect(component.find(LagreTiltakSkjema)).to.have.length(1);
     });
 
@@ -122,19 +141,25 @@ describe("Tiltak", () => {
 
     it("Skal vise spinner dersom data slettes", () => {
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                        sletter />);
+                                    lagreTiltak={lagreTiltak}
+                                    slettTiltak={slettTiltak}
+                                    sletter />);
         expect(component.contains(<AppSpinner />)).to.equal(true);
     });
 
     it("Skal vise feilmelding dersom lagring feilet", () => {
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                            lagringFeilet />);
+                                    lagreTiltak={lagreTiltak}
+                                    slettTiltak={slettTiltak}
+                                    lagringFeilet />);
         expect(component.contains(<Feilmelding />)).to.equal(true);
     });
 
     it("Skal vise feilmelding dersom sletting feilet", () => {
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                        slettingFeilet />);
+                                    lagreTiltak={lagreTiltak}
+                                    slettTiltak={slettTiltak}
+                                    slettingFeilet />);
         expect(component.contains(<Feilmelding />)).to.equal(true);
     });
 

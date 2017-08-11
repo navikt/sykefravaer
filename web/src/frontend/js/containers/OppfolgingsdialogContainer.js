@@ -4,61 +4,45 @@ import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { getOppfolgingsdialog } from '../utils/oppfolgingsdialogUtils';
+import Oppfolgingsdialog from '../components/oppfolgingsdialoger/Oppfolgingsdialog';
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
-    giSamtykke,
-    godkjennDialog,
-    hentPdfurler,
+    lagreArbeidsoppgave,
+    slettArbeidsoppgave,
+    lagreTiltak,
+    slettTiltak,
     sjekkTilgang,
+    godkjennDialogAt as godkjennDialog,
+    avvisDialogAt as avvisDialog,
+    nullstillGodkjenning,
+    settAktivtSteg,
+    hentPdfurler,
+    giSamtykke,
     OppfolgingsdialogInfoboks,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
-import Plan from '../components/oppfolgingsdialoger/Plan';
-import { fraInputdatoTilJSDato } from '../utils';
 
-export class PlanSide extends Component {
 
-    constructor(props) {
-        super(props);
-        this.giSamtykkeSvar = this.giSamtykkeSvar.bind(this);
-        this.godkjennPlan = this.godkjennPlan.bind(this);
-    }
+export class OppfolgingsdialogSide extends Component {
 
     componentDidMount() {
-        const { oppfolgingsdialogerHentet, tilgangSjekket } = this.props;
-        if (!tilgangSjekket) {
-            this.props.sjekkTilgang();
-        }
-        if (!oppfolgingsdialogerHentet) {
+        if (!this.props.oppfolgingsdialogerHentet) {
             this.props.hentOppfolgingsdialoger();
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (!this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialog.godkjenninger.length > 0) {
-            this.props.hentPdfurler(this.props.oppfolgingsdialogId, nextProps.oppfolgingsdialog.versjon);
+        if (!this.props.sjekkTilgangHentet) {
+            this.props.sjekkTilgang();
         }
-    }
-
-    giSamtykkeSvar(values) {
-        if (values.samtykkeGitt === 'true') {
-            this.props.giSamtykke(this.props.oppfolgingsdialogId);
-        }
-        this.godkjennPlan(values);
-    }
-
-    godkjennPlan(values) {
-        const gyldighetstidspunkt = {
-            fom: new Date(fraInputdatoTilJSDato(values.startdato)),
-            tom: new Date(fraInputdatoTilJSDato(values.sluttdato)),
-            evalueres: new Date(fraInputdatoTilJSDato(values.evalueringsdato)),
-        };
-        this.props.godkjennDialog(this.props.oppfolgingsdialogId, gyldighetstidspunkt, 'TRUE');
     }
 
     render() {
-        const { brodsmuler, ledetekster, oppfolgingsdialog, oppfolgingsdialogId, pdfUrler, henter, hentingFeilet, tilgang } = this.props;
+        const {
+            brodsmuler,
+            henter,
+            hentingFeilet,
+            tilgang,
+            navigasjontoggles,
+        } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
@@ -74,20 +58,16 @@ export class PlanSide extends Component {
                         tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
                     />);
                 }
-                return (<Plan
-                    ledetekster={ledetekster}
-                    oppfolgingsdialog={oppfolgingsdialog}
-                    oppfolgingsdialogId={oppfolgingsdialogId}
-                    giSamtykkeSvar={this.giSamtykkeSvar}
-                    pdfUrler={pdfUrler}
-                />);
+                return (
+                    <Oppfolgingsdialog {...this.props} steg={navigasjontoggles.steg} />
+                );
             })()
             }
         </Side>);
     }
 }
 
-PlanSide.propTypes = {
+OppfolgingsdialogSide.propTypes = {
     dispatch: PropTypes.func,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     ledetekster: PropTypes.object,
@@ -95,16 +75,31 @@ PlanSide.propTypes = {
     oppfolgingsdialogId: PropTypes.string,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
+    lagrer: PropTypes.bool,
+    lagret: PropTypes.bool,
+    lagringFeilet: PropTypes.bool,
+    lagretArbeidsoppgaveId: PropTypes.number,
+    lagretTiltakId: PropTypes.number,
+    sletter: PropTypes.bool,
+    slettet: PropTypes.bool,
+    slettingFeilet: PropTypes.bool,
+    lagreArbeidsoppgave: PropTypes.func,
+    slettArbeidsoppgave: PropTypes.func,
+    lagreTiltak: PropTypes.func,
+    slettTiltak: PropTypes.func,
     hentOppfolgingsdialoger: PropTypes.func,
     oppfolgingsdialogerHentet: PropTypes.bool,
+    sjekkTilgangHentet: PropTypes.bool,
     tilgang: PropTypes.object,
     tilgangSjekket: PropTypes.bool,
     sjekkTilgang: PropTypes.func,
-    giSamtykke: PropTypes.func,
-    godkjennDialog: PropTypes.func,
     hentPdfurler: PropTypes.func,
-    pdfUrlerHentet: PropTypes.bool,
-    pdfUrler: PropTypes.array,
+    nullstillGodkjenning: PropTypes.func,
+    godkjennDialog: PropTypes.func,
+    avvisDialog: PropTypes.func,
+    settAktivtSteg: PropTypes.func,
+    dokument: PropTypes.object,
+    navigasjontoggles: PropTypes.object,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -115,14 +110,22 @@ export function mapStateToProps(state, ownProps) {
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
-        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter || state.dokument.henter,
-        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet || state.dokument.hentingFeilet,
+        sjekkTilgangHentet: state.tilgang.hentet,
+        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter,
+        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet,
+        lagrer: state.arbeidsoppgaver.lagrer || state.tiltak.lagrer,
+        lagret: state.arbeidsoppgaver.lagret || state.tiltak.lagret,
+        lagringFeilet: state.arbeidsoppgaver.lagringFeilet || state.arbeidsoppgaver.lagringFeilet,
+        lagretArbeidsoppgaveId: state.arbeidsoppgaver.lagretId,
+        lagretTiltakId: state.tiltak.lagretId,
+        sletter: state.arbeidsoppgaver.sletter || state.tiltak.sletter,
+        slettet: state.arbeidsoppgaver.slettet || state.tiltak.slettet,
+        slettingFeilet: state.arbeidsoppgaver.slettingFeilet || state.tiltak.slettingFeilet,
         oppfolgingsdialog,
         oppfolgingsdialogId,
         tilgang: state.tilgang.data,
         tilgangSjekket: state.tilgang.hentet,
-        pdfUrlerHentet: state.dokument.hentet,
-        pdfUrler: state.dokument.data,
+        navigasjontoggles: state.navigasjontoggles,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -137,6 +140,19 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-const PlanContainer = connect(mapStateToProps, { giSamtykke, godkjennDialog, hentOppfolgingsdialoger, hentPdfurler, sjekkTilgang })(PlanSide);
+const OppfolgingsdialogContainer = connect(mapStateToProps, {
+    lagreArbeidsoppgave,
+    slettArbeidsoppgave,
+    lagreTiltak,
+    slettTiltak,
+    hentOppfolgingsdialoger,
+    sjekkTilgang,
+    godkjennDialog,
+    avvisDialog,
+    nullstillGodkjenning,
+    settAktivtSteg,
+    hentPdfurler,
+    giSamtykke,
+})(OppfolgingsdialogSide);
 
-export default PlanContainer;
+export default OppfolgingsdialogContainer;

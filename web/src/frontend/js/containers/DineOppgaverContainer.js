@@ -46,8 +46,8 @@ NySykepengesoknad.propTypes = {
 
 export class DineOppgaver extends Component {
     componentWillMount() {
-        const { sykmeldingerHentet } = this.props;
-        if (!sykmeldingerHentet) {
+        const { sykmeldingerHentet, sykmeldingerHentingFeilet } = this.props;
+        if (!sykmeldingerHentet && !sykmeldingerHentingFeilet) {
             this.props.hentDineSykmeldinger();
         }
     }
@@ -81,6 +81,7 @@ DineOppgaver.propTypes = {
     visOppgaver: PropTypes.bool,
     mote: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     sykmeldingerHentet: PropTypes.bool,
+    sykmeldingerHentingFeilet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
 };
 
@@ -105,6 +106,7 @@ export const mapStateToProps = (state) => {
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
         sykmeldinger,
+        sykmeldingerHentingFeilet: state.dineSykmeldinger.hentingFeilet,
         sykepengesoknader,
         visOppgaver,
         mote: moteRes,

@@ -21,19 +21,26 @@ export const Controller = (props) => {
             '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
         })} />);
     }
-    if (sykepengesoknad.status === NY || sykepengesoknad.status === UTKAST_TIL_KORRIGERING) {
-        return <FoerDuBegynner {...props} />;
+    switch (sykepengesoknad.status) {
+        case NY:
+        case UTKAST_TIL_KORRIGERING: {
+            return <FoerDuBegynner {...props} />;
+        }
+        case SENDT:
+        case TIL_SENDING:
+        case KORRIGERT: {
+            return <SendtSoknad sykepengesoknad={sykepengesoknad} />;
+        }
+        case UTGAATT: {
+            return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
+        }
+        case AVBRUTT: {
+            return <AvbruttSoknadContainer sykepengesoknad={sykepengesoknad} />;
+        }
+        default: {
+            return <Feilmelding tittel="Søknaden har ukjent status" />;
+        }
     }
-    if (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING || sykepengesoknad.status === KORRIGERT) {
-        return <SendtSoknad sykepengesoknad={sykepengesoknad} />;
-    }
-    if (sykepengesoknad.status === UTGAATT) {
-        return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
-    }
-    if (sykepengesoknad.status === AVBRUTT) {
-        return <AvbruttSoknadContainer sykepengesoknad={sykepengesoknad} />;
-    }
-    return <Feilmelding tittel="Søknaden har ukjent status" />;
 };
 
 Controller.propTypes = {

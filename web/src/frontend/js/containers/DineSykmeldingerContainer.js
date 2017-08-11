@@ -39,7 +39,7 @@ DineSykmldSide.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    sortering: PropTypes.string,
+    sortering: PropTypes.object,
     sykmeldingerHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
 };

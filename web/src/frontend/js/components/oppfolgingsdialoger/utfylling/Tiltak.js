@@ -270,7 +270,7 @@ export class Tiltak extends Component {
                                 tiltakListe={this.state.tiltak}
                                 sendLagreTiltak={this.sendLagreTiltak}
                                 sendSlettTiltak={this.sendSlettTiltak}
-                                aktoerId={oppfolgingsdialog.sykmeldtAktoerId}
+                                aktoerId={oppfolgingsdialog.arbeidstaker.aktoerId}
                                 arbeidstaker={oppfolgingsdialog.arbeidstaker}
                             />
                         }

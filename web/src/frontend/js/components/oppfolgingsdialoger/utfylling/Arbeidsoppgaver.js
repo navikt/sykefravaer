@@ -184,10 +184,10 @@ export class Arbeidsoppgaver extends Component {
     sendLagreArbeidsoppgave(values) {
         this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialogId, values);
         const arbeidsoppgave = input2RSArbeidsoppgave(values);
-        arbeidsoppgave.opprettetAvAktoerId = this.props.oppfolgingsdialog.sykmeldtAktoerId;
+        arbeidsoppgave.opprettetAvAktoerId = this.props.oppfolgingsdialog.arbeidstaker.aktoerId;
         arbeidsoppgave.opprettetAv = {
-            aktoerId: this.props.oppfolgingsdialog.sykmeldtAktoerId,
-            navn: this.props.oppfolgingsdialog.arbeidstakerNavn,
+            aktoerId: this.props.oppfolgingsdialog.arbeidstaker.aktoerId,
+            navn: this.props.oppfolgingsdialog.arbeidstaker.navn,
         };
         this.setState({
             lagretArbeidsoppgave: arbeidsoppgave,
@@ -282,7 +282,7 @@ export class Arbeidsoppgaver extends Component {
                                 arbeidsoppgaveListe={this.state.arbeidsoppgaver}
                                 sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
                                 sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
-                                aktoerId={oppfolgingsdialog.sykmeldtAktoerId}
+                                aktoerId={oppfolgingsdialog.arbeidstaker.aktoerId}
                             />
                         }
                         {

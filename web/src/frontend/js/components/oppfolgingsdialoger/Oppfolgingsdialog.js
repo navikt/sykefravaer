@@ -18,7 +18,7 @@ const inneholderReleasetVersjon = (oppfolgingsdialog) => {
 };
 
 const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
-    return !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.aktoerId === oppfolgingsdialog.godkjenninger[0].godkjentAvAktoerId;
+    return oppfolgingsdialog.godkjenninger.length === 1 && !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.aktoerId === oppfolgingsdialog.godkjenninger[0].godkjentAvAktoerId;
 };
 
 const Oppfolgingsdialog = ({

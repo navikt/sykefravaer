@@ -36,6 +36,7 @@ const rootReducer = combineReducers({
     forskutteringssporsmal,
     history,
     ledere,
+    dokument,
     ledetekster,
     mote,
     navigasjontoggles,
@@ -52,7 +53,6 @@ const rootReducer = combineReducers({
     vedlikehold,
     form: formReducer,
     formMeta: reduxFormMeta,
-    dokument,
 });
 
 const sagaMiddleware = createSagaMiddleware();

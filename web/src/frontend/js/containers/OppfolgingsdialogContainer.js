@@ -129,6 +129,7 @@ export function mapStateToProps(state, ownProps) {
         lagrerTiltak: state.tiltak.lagrer,
         lagretArbeidsoppgave: state.arbeidsoppgaver.lagret,
         lagretTiltak: state.tiltak.lagret,
+        dokument: state.dokument,
         lagringFeiletArbeidsoppgave: state.arbeidsoppgaver.lagringFeilet,
         lagringFeiletTiltak: state.tiltak.lagringFeilet,
         lagretArbeidsoppgaveId: state.arbeidsoppgaver.lagretId,

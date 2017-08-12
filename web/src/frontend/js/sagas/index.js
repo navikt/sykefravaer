@@ -15,6 +15,7 @@ import {
     arbeidsoppgaveSagas,
     dokumentSagas,
     samtykkeSagas,
+    nullstillGodkjenningSagas,
     tilgangSagas,
     tiltakSagas,
 } from 'oppfolgingsdialog-npm';
@@ -40,6 +41,7 @@ export default function * rootSaga() {
         samtykkeSagas(),
         svarSagas(),
         oppfolgingsdialogerSagas(),
+        nullstillGodkjenningSagas(),
         arbeidsoppgaveSagas(),
         dokumentSagas(),
         tilgangSagas(),

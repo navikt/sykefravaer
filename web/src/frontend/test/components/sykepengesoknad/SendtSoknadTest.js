@@ -18,6 +18,7 @@ import  { getSoknad } from '../../mockSoknader';
 import ledetekster from '../../mockLedetekster';
 import { Varselstripe, setLedetekster } from 'digisyfo-npm';
 import SykepengesoknadHeader from '../../../js/components/sykepengesoknad/SykepengesoknadHeader';
+import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
 import sinon from 'sinon';
 
 describe("SendtSoknad", () => {
@@ -43,7 +44,7 @@ describe("SendtSoknad", () => {
     });
 
     it("Skal inneholde en Soknad", () => {
-        expect(component.contains(<Soknad sykepengesoknad={sykepengesoknad} tittel={'Oppsummering'}/>)).to.be.true;
+        expect(component.contains(<Soknad sykepengesoknad={mapAktiviteter(sykepengesoknad)} tittel={'Oppsummering'}/>)).to.be.true;
     });
 
     it("Skal inneholde en Avkrysset", () => {

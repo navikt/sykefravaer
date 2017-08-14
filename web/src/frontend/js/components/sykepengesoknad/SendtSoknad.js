@@ -10,6 +10,7 @@ import { KORRIGERT, SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatus
 import RelaterteSoknaderContainer from '../../containers/sykepengesoknad/RelaterteSoknaderContainer';
 import KorrigertAvContainer from '../../containers/sykepengesoknad/KorrigertAvContainer';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
+import { mapAktiviteter } from '../../utils/sykepengesoknadUtils';
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">
@@ -94,7 +95,7 @@ class SendtSoknad extends Component {
             }
             </Soknadstatuspanel>
             <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />
-            <Soknad sykepengesoknad={sykepengesoknad} tittel="Oppsummering" />
+            <Soknad sykepengesoknad={mapAktiviteter(sykepengesoknad)} tittel="Oppsummering" />
             <div className="bekreftet-container blokk">
                 <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label')} />
             </div>

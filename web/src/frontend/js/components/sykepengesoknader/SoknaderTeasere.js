@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import SoknadTeaser from './SoknadTeaser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
-const SoknaderTeasere = ({ soknader, className, tittel = '', tomListeTekst, id }) => {
+const SoknaderTeasere = ({ soknader, className, tittel = '', tomListeTekst, id, Child = SoknadTeaser }) => {
     return (<div className="blokk--l">
         <header className="inngangspanelerHeader">
             <h2 className="inngangspanelerHeader__tittel">{tittel}</h2>
@@ -11,7 +11,7 @@ const SoknaderTeasere = ({ soknader, className, tittel = '', tomListeTekst, id }
             {
                 (soknader.length ? [...soknader]
                     .map((soknad, idx) => {
-                        return <SoknadTeaser key={idx} soknad={soknad} />;
+                        return <Child key={idx} soknad={soknad} />;
                     }) : <p className="panel typo-infotekst">{tomListeTekst}</p>)
             }
         </div>
@@ -24,6 +24,7 @@ SoknaderTeasere.propTypes = {
     tittel: PropTypes.string,
     tomListeTekst: PropTypes.string,
     id: PropTypes.string,
+    Child: PropTypes.component,
 };
 
 export default SoknaderTeasere;

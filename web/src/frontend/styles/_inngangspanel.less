@@ -68,6 +68,21 @@
     }
 }
 
+.inaktivtInngangspanel:extend(.panel) {
+    margin-bottom: 1px;
+    padding-right: 3rem; 
+}
+
+.inaktivtInngangspanel__inner {
+    color: @inaktivGraa;
+    display: flex;
+    width: 100%;
+
+    .inngangspanel__status {
+        color: @navTekst;
+    }
+}
+
 .inngangspanel__innhold .mute {
     color: @inaktivGraa;
 }

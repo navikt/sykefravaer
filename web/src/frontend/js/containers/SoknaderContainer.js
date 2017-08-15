@@ -13,14 +13,15 @@ import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 
 export class SoknaderSide extends Component {
     componentWillMount() {
+        this.props.actions.destroy(SYKEPENGER_SKJEMANAVN);
         if (!this.props.soknaderHentet) {
             this.props.actions.hentSykepengesoknader();
         }
     }
 
     render() {
-        const { brodsmuler, henter, hentingFeilet, sykepengesoknader, actions } = this.props;
-        actions.destroy(SYKEPENGER_SKJEMANAVN);
+        const { brodsmuler, henter, hentingFeilet, sykepengesoknader } = this.props;
+
         return (
             <Side tittel={getLedetekst('soknader.sidetittel')} brodsmuler={brodsmuler}>
                 {

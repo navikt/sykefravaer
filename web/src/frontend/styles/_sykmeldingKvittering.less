@@ -21,6 +21,12 @@
 .kvitteringsteg__innhold {
     text-align: center;
     margin-bottom: 1em;
+
+    ul {
+        text-align: left;
+        display: inline-block;
+        padding-left: 1em;
+    } 
 }
 
 .kvitteringsteg__tekst {
@@ -108,6 +114,13 @@
         &:before {
             height: ~"calc(100% - 4em)";
         }
+    }
+
+    .kvitteringsteg__tittel:only-child {
+        min-height: 4em;
+        margin: 0;
+        display: flex;
+        align-items: center;
     }
 
     .kvitteringsteg__innhold {

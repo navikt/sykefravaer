@@ -19,7 +19,7 @@ export const Kvitteringsteg = ({ ikon, alt, tittel, children }) => {
         </div>
         <div className="kvitteringsteg__innhold">
             <h2 className="kvitteringsteg__tittel js-tittel">{tittel}</h2>
-            <div className="js-tekst">{children}</div>
+            { children && <div className="js-tekst">{children}</div> }
         </div>
     </div>);
 };
@@ -68,9 +68,7 @@ export const KvitteringSokNa = ({ hentSykepengesoknader }) => {
     const sokUrl = `${window.APP_SETTINGS.APP_ROOT}/soknader`;
     return (<div className="panel blokk">
         <div className="stegvisKvittering">
-            <Kvitteringsteg ikon="kvitteringhake.svg" alt="Grønn hake" tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-1.tittel')}>
-                <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-na.steg-1.tekst" />
-            </Kvitteringsteg>
+            <Kvitteringsteg ikon="kvitteringhake.svg" alt="Grønn hake" tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-1.tittel')} />
             <Kvitteringsteg ikon="kvitteringSokSykepenger.svg" alt="Søk om sykepenger" tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-2.tittel')}>
                 <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-na.steg-2.tekst" />
                 <p className="kvitteringsteg__handling">
@@ -100,7 +98,7 @@ export const Soknadsdatoliste = ({ sykepengesoknader }) => {
                 return -1;
             })
             .map((s, index) => {
-                return <li key={index}>{toDatePrettyPrint(s.tom)}</li>;
+                return <li key={index}><strong>{toDatePrettyPrint(s.tom)}</strong></li>;
             })
         }
     </ul>);
@@ -114,9 +112,7 @@ export const KvitteringSokSenere = ({ sykepengesoknader }) => {
     return (<div>
         <div className="panel blokk">
             <div className="stegvisKvittering">
-                <Kvitteringsteg ikon="kvitteringhake.svg" alt="Grønn hake" tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-1.tittel')}>
-                    <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-senere.steg-1.tekst" />
-                </Kvitteringsteg>
+                <Kvitteringsteg ikon="kvitteringhake.svg" alt="Grønn hake" tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-1.tittel')} />
                 <Kvitteringsteg ikon="kvitteringVent.svg" alt="Timeglass" tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-2.tittel')}>
                     <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-senere.steg-2.tekst" />
                 </Kvitteringsteg>

@@ -1,4 +1,4 @@
-import { tidligsteFom, senesteTom, periodeOverlapperMedPeriode } from './periodeUtils';
+import { periodeOverlapperMedPeriode } from './periodeUtils';
 
 export const getTidligsteSendtDato = (soknad) => {
     if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {

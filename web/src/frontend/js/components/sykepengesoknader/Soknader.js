@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';
 import { SENDT, TIL_SENDING, UTGAATT, NY, UTKAST_TIL_KORRIGERING, FREMTIDIG } from '../../enums/sykepengesoknadstatuser';

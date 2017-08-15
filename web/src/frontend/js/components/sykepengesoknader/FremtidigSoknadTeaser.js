@@ -46,7 +46,7 @@ class FremtidigSoknadTeaser extends Component {
                     <header className="inngangspanel__header">
                         <h3 className="js-title" id={`soknad-header-${soknad.id}`}>
                             <small className="inngangspanel__meta js-meta">
-                                {getLedetekst('soknad.teaser.dato', { '%DATO%': toDatePrettyPrint(soknad.opprettetDato) }) }
+                                {getLedetekst('soknad.teaser.dato.fremtidig', { '%DATO%': toDatePrettyPrint(soknad.opprettetDato) }) }
                             </small>
                             <span className="inngangspanel__tittel">
                                 {getLedetekst('soknad.teaser.tittel')}

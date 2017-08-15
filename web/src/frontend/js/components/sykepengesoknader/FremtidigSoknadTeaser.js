@@ -1,11 +1,44 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import Lightbox from '../Lightbox';
 
-const FremtidigSoknadTeaser = ({ soknad }) => {
-    return (<article aria-labelledby={`soknader-header-${soknad.id}`}>
-        <div className="inaktivtInngangspanel">
-            <div className="inaktivtInngangspanel__inner">
+const SoknadLightbox = ({ soknad, onClose }) => {
+    return (<Lightbox onClose={onClose}>
+        <p className="lightbox__p">{
+            getLedetekst('soknader.teaser.fremtidig.dato-info', {
+                '%DATO%': toDatePrettyPrint(soknad.tom),
+            })
+        }</p>
+        <div className="knapperad">
+            <button className="rammeknapp" onClick={onClose}>Lukk</button>
+        </div>
+    </Lightbox>);
+};
+
+SoknadLightbox.propTypes = {
+    soknad: sykepengesoknadPt,
+    onClose: PropTypes.func,
+};
+
+class FremtidigSoknadTeaser extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            vis: false,
+        };
+    }
+
+    render() {
+        const { soknad } = this.props;
+
+        return (<article aria-labelledby={`soknader-header-${soknad.id}`}>
+            <button className="inngangspanel inngangspanel--inaktivt" onClick={(e) => {
+                e.preventDefault();
+                this.setState({
+                    vis: true,
+                });
+            }}>
                 <span className="inngangspanel__ikon">
                     <img className="js-ikon" src="/sykefravaer/img/svg/soknader.svg" />
                 </span>
@@ -21,11 +54,7 @@ const FremtidigSoknadTeaser = ({ soknad }) => {
                         </h3>
                         {
                                 <p className="inngangspanel__status js-status">
-                                    {
-                                        getLedetekst(`soknad.teaser.status.${soknad.status}`, {
-                                            '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
-                                        })
-                                    }
+                                    {getLedetekst(`soknad.teaser.status.${soknad.status}`)}
                                 </p>
                         }
                     </header>
@@ -41,10 +70,15 @@ const FremtidigSoknadTeaser = ({ soknad }) => {
                         {soknad.arbeidsgiver.navn}
                     </p>
                 </div>
-            </div>
-        </div>
-    </article>);
-};
+            </button>
+            { this.state.vis && <SoknadLightbox soknad={soknad} onClose={() => {
+                this.setState({
+                    vis: false,
+                });
+            }} /> }
+        </article>);
+    }
+}
 
 FremtidigSoknadTeaser.propTypes = {
     soknad: sykepengesoknadPt,

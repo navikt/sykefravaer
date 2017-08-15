@@ -34,6 +34,9 @@
     width: 100%;
     color: @navTekst;
     border-bottom-width: 0;
+    font-size: 1em;
+    text-align: left;
+    border: 0;
 
     &:hover, &:focus {
         position: relative; 
@@ -54,6 +57,12 @@
         box-shadow: #ccc 0 0 4px 2px; /* hentet fra saksoversikt */
     }
 
+    @media(min-width: @skjermLiten) {
+        background-position: 97% 35px; 
+    }
+}
+
+.inngangspanel {
     .inngangspanel__undertekst {
         .mixin-typo-normal();
         margin-bottom: 0;
@@ -62,15 +71,15 @@
     .inngangspanel__tekst {
         margin-bottom: 1.25rem;
     }
-
-    @media(min-width: @skjermLiten) {
-        background-position: 97% 35px; 
-    }
 }
 
-.inaktivtInngangspanel:extend(.panel) {
-    margin-bottom: 1px;
-    padding-right: 3rem; 
+.inngangspanel--inaktivt, .inngangspanel--inaktivt:hover {
+    background-image: none;
+    color: @inaktivGraa;
+
+    .inngangspanel__status {
+        color: @navTekst;
+    }
 }
 
 .inaktivtInngangspanel__inner {

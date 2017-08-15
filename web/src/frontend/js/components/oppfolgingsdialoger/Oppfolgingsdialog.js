@@ -28,8 +28,6 @@ const Oppfolgingsdialog = ({
                             lagretTiltak,
                             lagringFeiletArbeidsoppgave,
                             lagringFeiletTiltak,
-                            lagretArbeidsoppgaveId,
-                            lagretTiltakId,
                             sletterArbeidsoppgave,
                             sletterTiltak,
                             slettetArbeidsoppgave,
@@ -81,7 +79,6 @@ const Oppfolgingsdialog = ({
                 panel = (<Arbeidsoppgaver
                     lagrer={lagrerArbeidsoppgave}
                     lagret={lagretArbeidsoppgave}
-                    lagretId={lagretArbeidsoppgaveId}
                     sletter={sletterArbeidsoppgave}
                     slettet={slettetArbeidsoppgave}
                     lagringFeilet={lagringFeiletArbeidsoppgave}
@@ -97,7 +94,6 @@ const Oppfolgingsdialog = ({
                 panel = (<Tiltak
                     lagrer={lagrerTiltak}
                     lagret={lagretTiltak}
-                    lagretId={lagretTiltakId}
                     sletter={sletterTiltak}
                     slettet={slettetTiltak}
                     lagringFeilet={lagringFeiletTiltak}
@@ -144,8 +140,6 @@ Oppfolgingsdialog.propTypes = {
     lagretTiltak: PropTypes.bool,
     lagringFeiletArbeidsoppgave: PropTypes.bool,
     lagringFeiletTiltak: PropTypes.bool,
-    lagretArbeidsoppgaveId: PropTypes.number,
-    lagretTiltakId: PropTypes.number,
     sletterArbeidsoppgave: PropTypes.bool,
     sletterTiltak: PropTypes.bool,
     slettetArbeidsoppgave: PropTypes.bool,

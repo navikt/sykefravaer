@@ -19,6 +19,7 @@ import {
     hentPdfurler,
     giSamtykke,
     OppfolgingsdialogInfoboks,
+    settDialog,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
@@ -26,18 +27,16 @@ import { brodsmule as brodsmulePt } from '../propTypes';
 
 export class OppfolgingsdialogSide extends Component {
 
-    componentDidMount() {
-        if (!this.props.oppfolgingsdialogerHentet) {
-            this.props.hentOppfolgingsdialoger();
-        }
-        if (!this.props.sjekkTilgangHentet) {
-            this.props.sjekkTilgang();
-        }
+    componentWillMount() {
+        this.props.settDialog(this.props.oppfolgingsdialogId);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.navigasjontoggles.steg !== nextProps.navigasjontoggles.steg) {
+    componentDidMount() {
+        if (!this.props.oppfolgingsdialogerHentet && !this.props.oppfolgingsdialogerHenter) {
             this.props.hentOppfolgingsdialoger();
+        }
+        if (!this.props.sjekkTilgangHentet && !this.props.sjekkTilgangHenter) {
+            this.props.sjekkTilgang();
         }
     }
 
@@ -109,7 +108,10 @@ OppfolgingsdialogSide.propTypes = {
     nullstillGodkjenning: PropTypes.func,
     godkjennDialog: PropTypes.func,
     avvisDialog: PropTypes.func,
+    sjekkTilgangHenter: PropTypes.func,
     settAktivtSteg: PropTypes.func,
+    oppfolgingsdialogerHenter: PropTypes.func,
+    settDialog: PropTypes.func,
     dokument: PropTypes.object,
     navigasjontoggles: PropTypes.object,
 };
@@ -122,7 +124,9 @@ export function mapStateToProps(state, ownProps) {
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
+        oppfolgingsdialogerHenter: state.oppfolgingsdialoger.henter,
         sjekkTilgangHentet: state.tilgang.hentet,
+        sjekkTilgangHenter: state.tilgang.henter,
         henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter,
         hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet,
         lagrerArbeidsoppgave: state.arbeidsoppgaver.lagrer,
@@ -172,6 +176,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     settAktivtSteg,
     hentPdfurler,
     giSamtykke,
+    settDialog,
 })(OppfolgingsdialogSide);
 
 export default OppfolgingsdialogContainer;

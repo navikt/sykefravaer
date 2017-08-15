@@ -4,14 +4,11 @@ import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
 import {
-    finnArbeidsoppgaverIkkeVurdertAvSykmeldt,
     OppfolgingsdialogInfoboks,
     NotifikasjonBoks,
     OppfolgingsdialogTabell,
     LagreArbeidsoppgaveSkjema,
     BRUKERTYPE,
-    input2RSArbeidsoppgave,
-    erArbeidsoppgavenOpprettet,
     sorterArbeidsoppgaverEtterOpprettet,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
@@ -102,39 +99,18 @@ export class Arbeidsoppgaver extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arbeidsoppgaver: [],
-            lagretArbeidsoppgave: {},
-            slettetId: 0,
-            visArbeidsoppgaveSkjema: false,
-            arbeidsoppgaveOpprettet: false,
+            nyArbeidsoppgave: false,
+            oppdatertArbeidsoppgave: false,
         };
-        this.lagreArbeidsoppgave = this.lagreArbeidsoppgave.bind(this);
-        this.slettArbeidsoppgave = this.slettArbeidsoppgave.bind(this);
         this.sendLagreArbeidsoppgave = this.sendLagreArbeidsoppgave.bind(this);
         this.sendSlettArbeidsoppgave = this.sendSlettArbeidsoppgave.bind(this);
         this.toggleArbeidsoppgaveSkjema = this.toggleArbeidsoppgaveSkjema.bind(this);
         this.scrollToForm = this.scrollToForm.bind(this);
     }
 
-    componentWillMount() {
-        if (this.props.oppfolgingsdialogerHentet) {
-            this.setState({
-                arbeidsoppgaver: sorterArbeidsoppgaverEtterOpprettet(this.props.oppfolgingsdialog.arbeidsoppgaveListe),
-            });
-        }
-    }
-
     componentDidMount() {
         if (this.state.visArbeidsoppgaveSkjema && this.lagreSkjema) {
             this.scrollToForm();
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.lagrer && nextProps.lagret) {
-            this.lagreArbeidsoppgave(nextProps.lagretId);
-        } else if (this.props.sletter && nextProps.slettet) {
-            this.slettArbeidsoppgave();
         }
     }
 
@@ -145,59 +121,19 @@ export class Arbeidsoppgaver extends Component {
         }
     }
 
-    lagreArbeidsoppgave(lagretId) {
-        const nyArbeidsoppgave = Object.assign({}, this.state.lagretArbeidsoppgave);
-        nyArbeidsoppgave.arbeidsoppgaveId = lagretId;
-        const nyArbeidsoppgaveListe = [...this.state.arbeidsoppgaver];
-
-        if (erArbeidsoppgavenOpprettet(this.state.arbeidsoppgaver, nyArbeidsoppgave)) {
-            const index = nyArbeidsoppgaveListe.findIndex((arbeidsoppgave) => {
-                return arbeidsoppgave.arbeidsoppgaveId === lagretId;
-            });
-            nyArbeidsoppgaveListe[index] = nyArbeidsoppgave;
-            this.setState({
-                arbeidsoppgaver: sorterArbeidsoppgaverEtterOpprettet(nyArbeidsoppgaveListe),
-                visArbeidsoppgaveSkjema: false,
-                arbeidsoppgaveOpprettet: false,
-            });
-        } else {
-            this.setState({
-                arbeidsoppgaver: sorterArbeidsoppgaverEtterOpprettet(nyArbeidsoppgaveListe.concat([nyArbeidsoppgave])),
-                visArbeidsoppgaveSkjema: true,
-                arbeidsoppgaveOpprettet: true,
-            });
-        }
-    }
-
-    slettArbeidsoppgave() {
-        if (this.state.slettetId > 0) {
-            const nyArbeidsoppgaveListe = this.state.arbeidsoppgaver.filter((arbeidsoppgave) => {
-                return arbeidsoppgave.arbeidsoppgaveId !== this.state.slettetId;
-            });
-            this.setState({
-                arbeidsoppgaver: nyArbeidsoppgaveListe,
-                visArbeidsoppgaveSkjema: false,
-            });
-        }
-    }
-
     sendLagreArbeidsoppgave(values) {
+        if (!values.arbeidsoppgaveId) {
+            this.state.nyArbeidsoppgave = true;
+            this.state.oppdatertArbeidsoppgave = false;
+        } else {
+            this.state.nyArbeidsoppgave = false;
+            this.state.oppdatertArbeidsoppgave = true;
+        }
         this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialogId, values);
-        const arbeidsoppgave = input2RSArbeidsoppgave(values);
-        arbeidsoppgave.opprettetAvAktoerId = this.props.oppfolgingsdialog.arbeidstaker.aktoerId;
-        arbeidsoppgave.opprettetAv = {
-            aktoerId: this.props.oppfolgingsdialog.arbeidstaker.aktoerId,
-            navn: this.props.oppfolgingsdialog.arbeidstaker.navn,
-        };
-        this.setState({
-            lagretArbeidsoppgave: arbeidsoppgave,
-        });
     }
+
     sendSlettArbeidsoppgave(arbeidsoppgaveId) {
-        this.props.slettArbeidsoppgave(arbeidsoppgaveId);
-        this.setState({
-            slettetId: arbeidsoppgaveId,
-        });
+        this.props.slettArbeidsoppgave(this.props.oppfolgingsdialogId, arbeidsoppgaveId);
     }
 
     toggleArbeidsoppgaveSkjema() {
@@ -223,7 +159,9 @@ export class Arbeidsoppgaver extends Component {
             oppfolgingsdialogId,
         } = this.props;
 
-        const antallIkkeVurderteArbeidsoppgaver = oppfolgingsdialog ? finnArbeidsoppgaverIkkeVurdertAvSykmeldt(oppfolgingsdialog.arbeidsoppgaveListe).length : 0;
+        const antallNyeArbeidsoppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
+            return arbeidsoppgave.opprettetAv.aktoerId !== oppfolgingsdialog.arbeidstaker.aktoerId && (!oppfolgingsdialog.arbeidstaker.sistInnlogget || new Date(arbeidsoppgave.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget));
+        }).length;
 
         return (
             (() => {
@@ -232,7 +170,7 @@ export class Arbeidsoppgaver extends Component {
                 } else if (lagringFeilet || slettingFeilet) {
                     return (<Feilmelding />);
                 }
-                return isEmpty(this.state.arbeidsoppgaver) ?
+                return isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                     <div>
                         {
                             !this.state.visArbeidsoppgaveSkjema ?
@@ -258,28 +196,28 @@ export class Arbeidsoppgaver extends Component {
                     <div>
                         <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
                         {
-                            lagret && !this.state.arbeidsoppgaveOpprettet &&
+                            lagret && this.state.oppdatertArbeidsoppgave &&
                             <RenderNotifikasjonBoksSuksess
                                 tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
                             />
                         }
                         {
-                            lagret && this.state.arbeidsoppgaveOpprettet &&
+                            lagret && this.state.nyArbeidsoppgave &&
                             <RenderNotifikasjonBoksSuksess
                                 tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
                             />
                         }
                         {
-                            antallIkkeVurderteArbeidsoppgaver > 0 &&
+                            antallNyeArbeidsoppgaver > 0 &&
                             <RenderNotifikasjonBoks
                                 virksomhetsnavn={oppfolgingsdialog.arbeidsgiver.navn}
-                                antallIkkeVurderteArbeidsoppgaver={antallIkkeVurderteArbeidsoppgaver}
+                                antallIkkeVurderteArbeidsoppgaver={antallNyeArbeidsoppgaver}
                             />
                         }
                         {
                             <RenderOppfolgingsdialogArbeidsoppgaverTabell
                                 ledetekster={ledetekster}
-                                arbeidsoppgaveListe={this.state.arbeidsoppgaver}
+                                arbeidsoppgaveListe={sorterArbeidsoppgaverEtterOpprettet(oppfolgingsdialog.arbeidsoppgaveListe)}
                                 sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
                                 sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
                                 aktoerId={oppfolgingsdialog.arbeidstaker.aktoerId}
@@ -309,7 +247,6 @@ export class Arbeidsoppgaver extends Component {
 Arbeidsoppgaver.propTypes = {
     lagrer: PropTypes.bool,
     lagret: PropTypes.bool,
-    lagretId: PropTypes.number,
     sletter: PropTypes.bool,
     slettet: PropTypes.bool,
     lagringFeilet: PropTypes.bool,

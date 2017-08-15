@@ -45,7 +45,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.oppretter && this.props.opprettet) {
-            history.push(`/sykefravaer/oppfolgingsplaner/${this.props.opprettetId}/arbeidsoppgaver`);
+            history.push(`/sykefravaer/oppfolgingsplaner/${this.props.opprettetId}`);
             this.props.hentOppfolgingsdialoger();
         }
     }
@@ -56,11 +56,6 @@ export class OpprettOppfolgingsdialogSide extends Component {
         });
     }
 
-    nesteSide() {
-        this.setState({
-            side: this.state.side + 1,
-        });
-    }
     opprett(values) {
         this.props.opprettOppfolgingsdialog(values.arbeidsgiver);
     }

@@ -8,7 +8,7 @@ export const Godkjenn = ({ ledetekster, oppfolgingsdialog, godkjennPlan }) => {
             <GodkjennPlanOversikt
                 ledetekster={ledetekster}
                 oppfolgingsdialog={oppfolgingsdialog}
-                varselstripeTekst={getLedetekst('oppfolgingsdialog.arbeidsgiver.godkjennplanskjema.varselstripe.tekst')}
+                varselstripeTekst={getLedetekst('oppfolgingsdialog.arbeidstaker.godkjennplanskjema.varselstripe.tekst')}
                 godkjennPlan={godkjennPlan}
                 rootUrl={`${getContextRoot()}`}
             />

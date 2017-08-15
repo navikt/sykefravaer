@@ -25,7 +25,6 @@ const Soknader = ({ soknader = [] }) => {
     return (<div>
         <Sidetopp
             tittel={getLedetekst('soknader.sidetittel')}
-            htmlTekst={getHtmlLedetekst('soknader.introduksjonstekst')}
         />
         <SoknadTeasere
             soknader={nyeSoknader}

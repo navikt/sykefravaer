@@ -88,30 +88,6 @@ describe("Tiltak", () => {
         expect(component.find('h2')).to.have.length(1);
     });
 
-    it("Skal vise RenderNotifikasjonBoks, om det er tiltak som er lagt til av arbeidsgiver ", () => {
-        const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {
-            arbeidstaker: arbeidstaker,
-            arbeidsgiver: arbeidsgiver,
-            tiltakListe: [{opprettetAv: {aktoerId: arbeidsgiver.aktoerId}}]
-        });
-        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                    oppfolgingsdialogerHentet
-                                    lagreTiltak={lagreTiltak}
-                                    slettTiltak={slettTiltak}
-                             />);
-        expect(component.find(RenderNotifikasjonBoks)).to.have.length(1);
-    });
-
-    it("Skal vise RenderNotifikasjonBoksSuksess, om det er tiltak og en tiltak er lagret", () => {
-        component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
-                                    oppfolgingsdialogerHentet
-                                    lagreTiltak={lagreTiltak}
-                                    slettTiltak={slettTiltak}
-                                    lagret
-                            />);
-        expect(component.find(RenderNotifikasjonBoksSuksess)).to.have.length(1);
-    });
-
     it("Skal vise RenderOppfolgingsdialogTiltakTabell, om det er tiltak", () => {
         component = shallow(<Tiltak oppfolgingsdialog={oppfolgingsdialog}
                                     oppfolgingsdialogerHentet

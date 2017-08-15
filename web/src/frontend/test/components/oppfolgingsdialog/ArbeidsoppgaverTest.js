@@ -69,7 +69,7 @@ describe("Arbeidsoppgaver", () => {
             arbeidsoppgaveListe: [],
         });
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
-                                             oppfolgingsdialogerHentet
+                                             nyArbeidsoppgave
                                              lagreArbeidsoppgave={lagreArbeidsoppgave}
                                              slettArbeidsoppgave={slettArbeidsoppgave}
                             />);
@@ -81,35 +81,11 @@ describe("Arbeidsoppgaver", () => {
 
     it("Skal vise en overskrift, om det er arbeidsoppgaver", () => {
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
-                                             oppfolgingsdialogerHentet
+                                             nyArbeidsoppgave
                                              lagreArbeidsoppgave={lagreArbeidsoppgave}
                                              slettArbeidsoppgave={slettArbeidsoppgave}
                             />);
         expect(component.find('h2')).to.have.length(1);
-    });
-
-    it("Skal vise RenderNotifikasjonBoks, om det er arbeidsoppgaver som ikke er vurdert av sykmeldt ", () => {
-        const oppfolgingsdialog = Object.assign({}, oppfolgingsdialog, {
-            arbeidstaker: arbeidstaker,
-            arbeidsgiver: arbeidsgiver,
-            arbeidsoppgaveListe: [{erVurdertAvSykmeldt: false}]
-        });
-        component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
-                                             oppfolgingsdialogerHentet
-                                             lagreArbeidsoppgave={lagreArbeidsoppgave}
-                                             slettArbeidsoppgave={slettArbeidsoppgave}
-                            />);
-        expect(component.find(RenderNotifikasjonBoks)).to.have.length(1);
-    });
-
-    it("Skal vise RenderNotifikasjonBoksSuksess, om det er arbeidsoppgaver og en arbeidsoppgave er lagret", () => {
-        component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
-                                             oppfolgingsdialogerHentet
-                                             lagreArbeidsoppgave={lagreArbeidsoppgave}
-                                             slettArbeidsoppgave={slettArbeidsoppgave}
-                                             lagret
-                            />);
-        expect(component.find(RenderNotifikasjonBoksSuksess)).to.have.length(1);
     });
 
     it("Skal vise RenderOppfolgingsdialogArbeidsoppgaverTabell, om det er arbeidsoppgaver", () => {

@@ -18,6 +18,7 @@ import {
     nullstillGodkjenningSagas,
     tilgangSagas,
     tiltakSagas,
+    settDialogSagas,
 } from 'oppfolgingsdialog-npm';
 import beregnArbeidsgiverperiodeSagas from './beregnArbeidsgiverperiodeSagas';
 import { ledeteksterSagas, togglesSagas } from 'digisyfo-npm';
@@ -47,6 +48,7 @@ export default function * rootSaga() {
         tilgangSagas(),
         tiltakSagas(),
         togglesSagas(),
+        settDialogSagas(),
         forskutteringssporsmalSagas(),
     ];
 }

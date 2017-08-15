@@ -8,11 +8,7 @@ import {
     NotifikasjonBoks,
     OppfolgingsdialogTabell,
     LagreTiltakSkjema,
-    finnTiltakIkkeLagtTilAvAktoer,
     BRUKERTYPE,
-    input2RSTiltak,
-    erTiltaketOpprettet,
-    sorterTiltakEtterOpprettet,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 
@@ -103,35 +99,14 @@ export class Tiltak extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tiltak: [],
-            lagretTiltak: {},
-            slettetId: 0,
             visTiltakSkjema: false,
-            tiltakOpprettet: false,
+            oppdatertTiltak: false,
+            nyttTiltak: false,
         };
-        this.lagreTiltak = this.lagreTiltak.bind(this);
-        this.slettTiltak = this.slettTiltak.bind(this);
         this.sendLagreTiltak = this.sendLagreTiltak.bind(this);
         this.sendSlettTiltak = this.sendSlettTiltak.bind(this);
         this.toggleTiltakSkjema = this.toggleTiltakSkjema.bind(this);
     }
-
-    componentWillMount() {
-        if (this.props.oppfolgingsdialogerHentet) {
-            this.setState({
-                tiltak: sorterTiltakEtterOpprettet(this.props.oppfolgingsdialog.tiltakListe),
-            });
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.lagrer && nextProps.lagret) {
-            this.lagreTiltak(nextProps.lagretId);
-        } else if (this.props.sletter && nextProps.slettet) {
-            this.slettTiltak();
-        }
-    }
-
 
     componentDidUpdate(prevProps, prevState) {
         if (!prevState.visTiltakSkjema && this.state.visTiltakSkjema && this.lagreSkjema) {
@@ -140,60 +115,19 @@ export class Tiltak extends Component {
         }
     }
 
-    lagreTiltak(lagretId) {
-        const nyttTiltak = Object.assign({}, this.state.lagretTiltak);
-        nyttTiltak.tiltakId = lagretId;
-        const nyTiltakListe = [...this.state.tiltak];
-
-        if (erTiltaketOpprettet(this.state.tiltak, nyttTiltak)) {
-            const index = nyTiltakListe.findIndex((tiltak) => {
-                return tiltak.tiltakId === lagretId;
-            });
-            nyTiltakListe[index] = nyttTiltak;
-            this.setState({
-                tiltak: sorterTiltakEtterOpprettet(nyTiltakListe),
-                visTiltakSkjema: false,
-                tiltakOpprettet: false,
-            });
-        } else {
-            this.setState({
-                tiltak: sorterTiltakEtterOpprettet(nyTiltakListe.concat([nyttTiltak])),
-                visTiltakSkjema: false,
-                tiltakOpprettet: true,
-            });
-        }
-    }
-
-    slettTiltak() {
-        if (this.state.slettetId > 0) {
-            const nyTiltakListe = this.state.tiltak.filter((tiltak) => {
-                return tiltak.tiltakId !== this.state.slettetId;
-            });
-            this.setState({
-                tiltak: nyTiltakListe,
-                visTiltakSkjema: false,
-            });
-        }
-    }
-
     sendLagreTiltak(values) {
+        if (!values.tiltakId) {
+            this.state.nyttTiltak = true;
+            this.state.oppdatertTiltak = false;
+        } else {
+            this.state.nyttTiltak = false;
+            this.state.oppdatertTiltak = true;
+        }
         this.props.lagreTiltak(this.props.oppfolgingsdialogId, values);
-        const tiltak = input2RSTiltak(values);
-        tiltak.opprettetAvAktoerId = this.props.oppfolgingsdialog.arbeidstaker.aktoerId;
-        tiltak.opprettetDato = Date.now();
-        tiltak.opprettetAv = {
-            aktoerId: this.props.oppfolgingsdialog.arbeidstaker.aktoerId,
-            navn: this.props.oppfolgingsdialog.arbeidstaker.navn,
-        };
-        this.setState({
-            lagretTiltak: tiltak,
-        });
     }
+
     sendSlettTiltak(tiltakId) {
-        this.props.slettTiltak(tiltakId);
-        this.setState({
-            slettetId: tiltakId,
-        });
+        this.props.slettTiltak(this.props.oppfolgingsdialogId, tiltakId);
     }
 
     toggleTiltakSkjema() {
@@ -214,7 +148,9 @@ export class Tiltak extends Component {
             oppfolgingsdialogId,
         } = this.props;
 
-        const antallTiltakLagtTilAvArbeidsgiver = finnTiltakIkkeLagtTilAvAktoer(oppfolgingsdialog.arbeidstaker.aktoerId, oppfolgingsdialog.tiltakListe).length;
+        const antallNyeTiltak = oppfolgingsdialog.tiltakListe.filter((tiltak) => {
+            return tiltak.opprettetAv.aktoerId !== oppfolgingsdialog.arbeidstaker.aktoerId && new Date(tiltak.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget);
+        }).length;
 
         return (
             (() => {
@@ -223,7 +159,7 @@ export class Tiltak extends Component {
                 } else if (lagringFeilet || slettingFeilet) {
                     return (<Feilmelding />);
                 }
-                return isEmpty(this.state.tiltak) ?
+                return isEmpty(oppfolgingsdialog.tiltakListe) ?
                     <div>
                         {
                             !this.state.visTiltakSkjema ?
@@ -248,32 +184,30 @@ export class Tiltak extends Component {
                     <div>
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
                         {
-                            lagret && !this.state.tiltakOpprettet && <RenderNotifikasjonBoksSuksess
+                            lagret && this.state.oppdatertTiltak && <RenderNotifikasjonBoksSuksess
                                 tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-tiltak.tekst')}
                             />
                         }
                         {
-                            lagret && this.state.tiltakOpprettet && <RenderNotifikasjonBoksSuksess
+                            lagret && this.state.nyttTiltak && <RenderNotifikasjonBoksSuksess
                                 tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-tiltak.tekst')}
                             />
                         }
                         {
-                            antallTiltakLagtTilAvArbeidsgiver > 0 &&
+                            antallNyeTiltak > 0 &&
                             <RenderNotifikasjonBoks
                                 motpartnavn={oppfolgingsdialog.arbeidsgiver.navn}
-                                antallTiltakLagtTilAvArbeidsgiver={antallTiltakLagtTilAvArbeidsgiver}
+                                antallTiltakLagtTilAvArbeidsgiver={antallNyeTiltak}
                             />
                         }
-                        {
-                            <RenderOppfolgingsdialogTiltakTabell
-                                ledetekster={ledetekster}
-                                tiltakListe={this.state.tiltak}
-                                sendLagreTiltak={this.sendLagreTiltak}
-                                sendSlettTiltak={this.sendSlettTiltak}
-                                aktoerId={oppfolgingsdialog.arbeidstaker.aktoerId}
-                                arbeidstaker={oppfolgingsdialog.arbeidstaker}
-                            />
-                        }
+                        <RenderOppfolgingsdialogTiltakTabell
+                            ledetekster={ledetekster}
+                            tiltakListe={oppfolgingsdialog.tiltakListe}
+                            sendLagreTiltak={this.sendLagreTiltak}
+                            sendSlettTiltak={this.sendSlettTiltak}
+                            aktoerId={oppfolgingsdialog.arbeidstaker.aktoerId}
+                            arbeidstaker={oppfolgingsdialog.arbeidstaker}
+                        />
                         {
                             this.state.visTiltakSkjema ?
                                 <LagreTiltakSkjema

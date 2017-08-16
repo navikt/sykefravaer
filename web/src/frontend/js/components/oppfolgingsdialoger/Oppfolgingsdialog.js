@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import Godkjenninger from './godkjenninger/Godkjenninger';
 import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
 import ReleasetPlan from './releasetplan/ReleasetPlan';
@@ -7,6 +7,7 @@ import Godkjenn from './utfylling/Godkjenn';
 import {
     NavigasjonsTopp,
     NavigasjonsBunn,
+    AvvistPlanKvittering,
 } from 'oppfolgingsdialog-npm';
 
 const inneholderGodkjenninger = (oppfolgingsdialog) => {
@@ -21,117 +22,143 @@ const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
     return oppfolgingsdialog.godkjenninger.length === 1 && !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.aktoerId === oppfolgingsdialog.godkjenninger[0].godkjentAvAktoerId;
 };
 
-const Oppfolgingsdialog = ({
-                            lagrerArbeidsoppgave,
-                            lagrerTiltak,
-                            lagretArbeidsoppgave,
-                            lagretTiltak,
-                            lagringFeiletArbeidsoppgave,
-                            lagringFeiletTiltak,
-                            sletterArbeidsoppgave,
-                            sletterTiltak,
-                            slettetArbeidsoppgave,
-                            slettetTiltak,
-                            slettingFeiletArbeidsoppgave,
-                            slettingFeiletTiltak,
-                            oppfolgingsdialogerHentet,
-                            oppfolgingsdialog,
-                            oppfolgingsdialogId,
-                            ledetekster,
-                            settAktivtSteg,
-                            avvisDialog,
-                            dokument,
-                            godkjennDialog,
-                            hentPdfurler,
-                            giSamtykke,
-                            navigasjontoggles,
-                            toggleAvvisPlan,
-                            nullstillGodkjenning,
-                            lagreTiltak,
-                            slettTiltak,
-                            lagreArbeidsoppgave,
-                            slettArbeidsoppgave,
-                           }) => {
-    let panel;
-    let disableNavigation = false;
-    if (inneholderGodkjenninger(oppfolgingsdialog) && !erAvvistAvArbeidstaker(oppfolgingsdialog)) {
-        disableNavigation = true;
-        panel = (<Godkjenninger
-            avvisDialog={avvisDialog}
-            oppfolgingsdialog={oppfolgingsdialog}
-            godkjennPlan={godkjennDialog}
-            ledetekster={ledetekster}
-            toggleAvvisPlan={toggleAvvisPlan}
-            nullstillGodkjenning={nullstillGodkjenning}
-        />);
-    } else if (inneholderReleasetVersjon(oppfolgingsdialog)) {
-        disableNavigation = true;
-        panel = (<ReleasetPlan
-            ledetekster={ledetekster}
-            oppfolgingsdialog={oppfolgingsdialog}
-            hentPdfurler={hentPdfurler}
-            dokument={dokument}
-            giSamtykke={giSamtykke}
-        />);
-    } else {
-        (() => {
-            if (navigasjontoggles.steg === 1) {
-                panel = (<Arbeidsoppgaver
-                    lagrer={lagrerArbeidsoppgave}
-                    lagret={lagretArbeidsoppgave}
-                    sletter={sletterArbeidsoppgave}
-                    slettet={slettetArbeidsoppgave}
-                    lagringFeilet={lagringFeiletArbeidsoppgave}
-                    slettingFeilet={slettingFeiletArbeidsoppgave}
-                    oppfolgingsdialogerHentet={oppfolgingsdialogerHentet}
-                    ledetekster={ledetekster}
-                    oppfolgingsdialog={oppfolgingsdialog}
-                    oppfolgingsdialogId={oppfolgingsdialogId}
-                    lagreArbeidsoppgave={lagreArbeidsoppgave}
-                    slettArbeidsoppgave={slettArbeidsoppgave}
-                />);
-            } else if (navigasjontoggles.steg === 2) {
-                panel = (<Tiltak
-                    lagrer={lagrerTiltak}
-                    lagret={lagretTiltak}
-                    sletter={sletterTiltak}
-                    slettet={slettetTiltak}
-                    lagringFeilet={lagringFeiletTiltak}
-                    slettingFeilet={slettingFeiletTiltak}
-                    oppfolgingsdialogerHentet={oppfolgingsdialogerHentet}
-                    ledetekster={ledetekster}
-                    oppfolgingsdialog={oppfolgingsdialog}
-                    oppfolgingsdialogId={oppfolgingsdialogId}
-                    lagreTiltak={lagreTiltak}
-                    slettTiltak={slettTiltak}
-                />);
-            } else {
-                panel = (<Godkjenn
-                    ledetekster={ledetekster}
-                    oppfolgingsdialog={oppfolgingsdialog}
-                    godkjennPlan={godkjennDialog}
-                />);
-            }
-        })();
+export class Oppfolgingsdialog extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            visAvvisPlanKvittering: false,
+            begrunnelse: null,
+        };
+        this.visAvvisPlanKvittering = this.visAvvisPlanKvittering.bind(this);
     }
 
-    return (
-        <div>
-            <NavigasjonsTopp
-                disabled={disableNavigation}
-                navn={oppfolgingsdialog.virksomhetsnavn}
-                settAktivtSteg={settAktivtSteg}
-                steg={navigasjontoggles.steg}
-            />
-            { panel }
-            <NavigasjonsBunn
-                disabled={disableNavigation}
-                settAktivtSteg={settAktivtSteg}
-                steg={navigasjontoggles.steg}
-            />
-        </div>
-    );
-};
+    visAvvisPlanKvittering(vis, begrunnelse) {
+        this.setState({
+            visAvvisPlanKvittering: vis,
+            begrunnelse,
+        });
+    }
+
+    render() {
+        const {
+            lagrerArbeidsoppgave,
+            lagrerTiltak,
+            lagretArbeidsoppgave,
+            lagretTiltak,
+            lagringFeiletArbeidsoppgave,
+            lagringFeiletTiltak,
+            sletterArbeidsoppgave,
+            sletterTiltak,
+            slettetArbeidsoppgave,
+            slettetTiltak,
+            slettingFeiletArbeidsoppgave,
+            slettingFeiletTiltak,
+            oppfolgingsdialogerHentet,
+            oppfolgingsdialog,
+            oppfolgingsdialogId,
+            ledetekster,
+            settAktivtSteg,
+            avvisDialog,
+            dokument,
+            godkjennDialog,
+            hentPdfurler,
+            giSamtykke,
+            navigasjontoggles,
+            toggleAvvisPlan,
+            nullstillGodkjenning,
+            lagreTiltak,
+            slettTiltak,
+            lagreArbeidsoppgave,
+            slettArbeidsoppgave,
+        } = this.props;
+        let panel;
+        let disableNavigation = false;
+        if (this.state.visAvvisPlanKvittering) {
+            disableNavigation = true;
+            panel = <AvvistPlanKvittering rootUrl={`${window.APP_SETTINGS.APP_ROOT}`} begrunnelse={this.state.begrunnelse} visAvvisPlanKvittering={this.visAvvisPlanKvittering} />;
+        } else if (inneholderGodkjenninger(oppfolgingsdialog) && !erAvvistAvArbeidstaker(oppfolgingsdialog)) {
+            disableNavigation = true;
+            panel = (<Godkjenninger
+                avvisDialog={avvisDialog}
+                oppfolgingsdialog={oppfolgingsdialog}
+                godkjennPlan={godkjennDialog}
+                ledetekster={ledetekster}
+                toggleAvvisPlan={toggleAvvisPlan}
+                visAvvisPlanKvittering={this.visAvvisPlanKvittering}
+                nullstillGodkjenning={nullstillGodkjenning}
+            />);
+        } else if (inneholderReleasetVersjon(oppfolgingsdialog)) {
+            disableNavigation = true;
+            panel = (<ReleasetPlan
+                ledetekster={ledetekster}
+                oppfolgingsdialog={oppfolgingsdialog}
+                hentPdfurler={hentPdfurler}
+                dokument={dokument}
+                giSamtykke={giSamtykke}
+            />);
+        } else {
+            (() => {
+                if (navigasjontoggles.steg === 1) {
+                    panel = (<Arbeidsoppgaver
+                        lagrer={lagrerArbeidsoppgave}
+                        lagret={lagretArbeidsoppgave}
+                        sletter={sletterArbeidsoppgave}
+                        slettet={slettetArbeidsoppgave}
+                        lagringFeilet={lagringFeiletArbeidsoppgave}
+                        slettingFeilet={slettingFeiletArbeidsoppgave}
+                        oppfolgingsdialogerHentet={oppfolgingsdialogerHentet}
+                        ledetekster={ledetekster}
+                        oppfolgingsdialog={oppfolgingsdialog}
+                        oppfolgingsdialogId={oppfolgingsdialogId}
+                        lagreArbeidsoppgave={lagreArbeidsoppgave}
+                        slettArbeidsoppgave={slettArbeidsoppgave}
+                    />);
+                } else if (navigasjontoggles.steg === 2) {
+                    panel = (<Tiltak
+                        lagrer={lagrerTiltak}
+                        lagret={lagretTiltak}
+                        sletter={sletterTiltak}
+                        slettet={slettetTiltak}
+                        lagringFeilet={lagringFeiletTiltak}
+                        slettingFeilet={slettingFeiletTiltak}
+                        oppfolgingsdialogerHentet={oppfolgingsdialogerHentet}
+                        ledetekster={ledetekster}
+                        oppfolgingsdialog={oppfolgingsdialog}
+                        oppfolgingsdialogId={oppfolgingsdialogId}
+                        lagreTiltak={lagreTiltak}
+                        slettTiltak={slettTiltak}
+                    />);
+                } else {
+                    panel = (<Godkjenn
+                        ledetekster={ledetekster}
+                        oppfolgingsdialog={oppfolgingsdialog}
+                        godkjennPlan={godkjennDialog}
+                    />);
+                }
+            })();
+        }
+
+        return (
+            <div>
+                <NavigasjonsTopp
+                    disabled={disableNavigation}
+                    navn={oppfolgingsdialog.virksomhetsnavn}
+                    settAktivtSteg={settAktivtSteg}
+                    steg={navigasjontoggles.steg}
+                />
+                <div id="oppfolgingsdialogpanel">
+                    { panel }
+                </div>
+                <NavigasjonsBunn
+                    disabled={disableNavigation}
+                    settAktivtSteg={settAktivtSteg}
+                    steg={navigasjontoggles.steg}
+                />
+            </div>
+        );
+    }
+}
 
 Oppfolgingsdialog.propTypes = {
     lagrerArbeidsoppgave: PropTypes.bool,

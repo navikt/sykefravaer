@@ -30,7 +30,6 @@
   "license": "ISC",
   "dependencies": {
     "digisyfo-npm": "1.11.4",
-    "oppfolgingsdialog-npm": "0.0.126",
     "fetch": "1.0.1",
     "isomorphic-fetch": "2.2.1",
     "moter-npm": "3.1.35",
@@ -99,6 +98,7 @@
     "ncp": "2.0.0",
     "nodemon": "1.8.1",
     "nyc": "10.3.2",
+    "oppfolgingsdialog-npm": "0.0.128",
     "parallelshell": "2.0.0",
     "path": "0.12.7",
     "postcss-loader": "2.0.5",

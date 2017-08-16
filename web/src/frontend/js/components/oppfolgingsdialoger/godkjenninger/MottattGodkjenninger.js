@@ -11,7 +11,7 @@ const harMangeGodkjenninger = (godkjenninger) => {
     return godkjenninger.length > 1;
 };
 
-const MottattGodkjenninger = ({ oppfolgingsdialog, godkjennPlan, ledetekster, nullstillGodkjenning, avvisDialog }) => {
+const MottattGodkjenninger = ({ oppfolgingsdialog, godkjennPlan, ledetekster, nullstillGodkjenning, avvisDialog, visAvvisPlanKvittering }) => {
     if (harMangeGodkjenninger(oppfolgingsdialog.godkjenninger)) {
         return (<GodkjennPlanAvslaattOgGodkjent
             avvisDialog={avvisDialog}
@@ -26,6 +26,7 @@ const MottattGodkjenninger = ({ oppfolgingsdialog, godkjennPlan, ledetekster, nu
     const godkjenning = oppfolgingsdialog.godkjenninger[0];
     if (godkjenning.godkjent) {
         return (<GodkjennPlanMottatt
+            visAvvisPlanKvittering={visAvvisPlanKvittering}
             avvisDialog={avvisDialog}
             godkjennPlan={godkjennPlan}
             ledetekster={ledetekster}
@@ -48,6 +49,7 @@ MottattGodkjenninger.propTypes = {
     ledetekster: PropTypes.object,
     godkjennPlan: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,
+    visAvvisPlanKvittering: PropTypes.func,
     avvisDialog: PropTypes.func,
 };
 

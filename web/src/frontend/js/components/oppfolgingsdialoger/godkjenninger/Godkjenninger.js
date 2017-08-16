@@ -6,9 +6,10 @@ const harMottattGodkjenninger = (godkjenninger, arbeidsgiver) => {
     return godkjenninger.length > 0 && godkjenninger[0].godkjentAvAktoerId === arbeidsgiver.aktoerId;
 };
 
-const Godkjenninger = ({ oppfolgingsdialog, godkjennPlan, ledetekster, nullstillGodkjenning, avvisDialog }) => {
+const Godkjenninger = ({ oppfolgingsdialog, godkjennPlan, ledetekster, nullstillGodkjenning, avvisDialog, visAvvisPlanKvittering }) => {
     if (harMottattGodkjenninger(oppfolgingsdialog.godkjenninger, oppfolgingsdialog.arbeidsgiver)) {
         return (<MottattGodkjenninger
+            visAvvisPlanKvittering={visAvvisPlanKvittering}
             oppfolgingsdialog={oppfolgingsdialog}
             godkjennPlan={godkjennPlan}
             ledetekster={ledetekster}
@@ -28,6 +29,7 @@ Godkjenninger.propTypes = {
     oppfolgingsdialog: PropTypes.object,
     avvisDialog: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,
+    visAvvisPlanKvittering: PropTypes.func,
     godkjennPlan: PropTypes.func,
 };
 

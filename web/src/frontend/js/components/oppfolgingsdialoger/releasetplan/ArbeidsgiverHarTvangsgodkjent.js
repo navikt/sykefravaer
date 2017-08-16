@@ -29,6 +29,7 @@ export class ArbeidsgiverHarTvangsgodkjent extends Component {
         }
         return (<div>
             <OppfolgingsdialogInnholdboks
+                liteikon
                 svgUrl="/sykefravaer/img/svg/varseltrekant.svg"
                 svgAlt="godkjent"
                 tittel="Lederen din har opprettet en versjon av oppfølgingsplanen"

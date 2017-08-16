@@ -7,6 +7,7 @@ import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from
 import Brodsmuler from '../Brodsmuler';
 import DineOppgaverContainer from '../../containers/DineOppgaverContainer';
 import DinSituasjonContainer from '../../containers/DinSituasjonContainer';
+import ServerfeilContainer from '../../containers/ServerfeilContainer';
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 
 export class GenerellInfo extends Component {
@@ -35,7 +36,7 @@ export class GenerellInfo extends Component {
 }
 
 const IngenSykmeldinger = () => {
-    return (<div className="panel ingenSykmeldinger">
+    return (<div className="panel ingenSykmeldinger landingspanel">
         <div className="ingenSykmelding__illustrasjon">
             <img src="/sykefravaer/img/svg/landingsside/veileder.svg" alt="NAV-veileder" />
         </div>
@@ -53,6 +54,7 @@ const Landingsside = ({ toggles, skjulVarsel = false, sykepengesoknader = [], ha
             </div>
         </div>
         <div className="begrensning">
+            <ServerfeilContainer />
             {
                 (!skjulVarsel ? <UnderUtviklingVarselContainer /> : null)
             }

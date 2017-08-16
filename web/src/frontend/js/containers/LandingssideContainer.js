@@ -90,8 +90,8 @@ LandingssideSide.propTypes = {
 
 export function mapStateToProps(state) {
     return {
-        henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.toggles.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet,
+        henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.toggles.henter || state.mote.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet,
         skjulVarsel: (state.brukerinfo && state.brukerinfo.innstillinger) ? (state.brukerinfo.innstillinger.skjulUnderUtviklingVarsel === true) : false,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),

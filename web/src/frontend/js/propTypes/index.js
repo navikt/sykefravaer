@@ -80,7 +80,7 @@ export const sykepengesoknad = PropTypes.shape({
     }),
     sykmeldingSkrevetDato: PropTypes.instanceOf(Date),
     erUnderEndring: PropTypes.bool,
-    del: PropTypes.numer,
+    del: PropTypes.number,
     fom: PropTypes.instanceOf(Date),
     tom: PropTypes.instanceOf(Date),
     sykmeldingId: PropTypes.string,

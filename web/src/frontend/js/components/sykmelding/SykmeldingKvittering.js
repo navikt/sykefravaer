@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
-import { senesteTom } from '../../utils/periodeUtils';
 import history from '../../history';
 import { sykmelding as sykmeldingPt, sykepengesoknad as sykepengesoknadPt, sykmeldingstatus } from '../../propTypes';
 import { AVBRUTT } from '../../enums/sykmeldingstatuser';

@@ -16,9 +16,6 @@ import OppsummeringContainer from '../containers/sykepengesoknad/OppsummeringCon
 import OppfolgingsdialogerContainer from '../containers/OppfolgingsdialogerContainer';
 import OppfolgingsdialogContainer from '../containers/OppfolgingsdialogContainer';
 import OpprettOppfolgingsdialogContainer from '../containers/OpprettOppfolgingsdialogContainer';
-import ArbeidsoppgaverContainer from '../containers/ArbeidsoppgaverContainer';
-import TiltakContainer from '../containers/TiltakContainer';
-import OppfolgingsdialogSamtykkeContainer from '../containers/OppfolgingsdialogSamtykkeContainer';
 import SykepengesoknadKvitteringContainer from '../containers/sykepengesoknad/SykepengesoknadKvitteringContainer';
 
 const AppRouter = ({ history }) => {

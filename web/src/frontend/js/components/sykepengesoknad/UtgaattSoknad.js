@@ -1,12 +1,12 @@
 import React from 'react';
-import Sidetopp from '../Sidetopp';
 import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import SykepengesoknadHeader from './SykepengesoknadHeader';
 
 const UtgaattSoknad = ({ sykepengesoknad }) => {
     return (<div>
-        <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
+        <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
         <div className="panel panel--komprimert">
             <Varselstripe type="info" fylt>
                 <p className="sist">{getLedetekst('sykepengesoknad.utgaatt.info.tekst')}</p>

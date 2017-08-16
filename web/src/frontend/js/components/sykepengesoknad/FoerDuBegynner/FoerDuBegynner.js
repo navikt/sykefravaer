@@ -3,12 +3,12 @@ import history from '../../../history';
 import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';
 import SykmeldingUtdrag from '../SykmeldingUtdrag';
-import Sidetopp from '../../Sidetopp';
 import validate from '../validering/validerFoerDuBegynner';
 import { getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import { Varselstripe } from 'digisyfo-npm';
 import { UTKAST_TIL_KORRIGERING } from '../../../enums/sykepengesoknadstatuser';
+import SykepengesoknadHeader from '../SykepengesoknadHeader';
 
 const KorrigerVarsel = () => {
     return (<div className="panel panel--komprimert blokk">
@@ -49,7 +49,7 @@ FoerDuBegynnerSkjema = setup(validate, FoerDuBegynnerSkjema, initialize);
 const FoerDuBegynner = (props) => {
     const { sykepengesoknad } = props;
     return (<div>
-        <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
+        <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
         { sykepengesoknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel /> }
         <SykmeldingUtdrag erApen sykepengesoknad={sykepengesoknad} />
         <h2 className="sykepenger__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>

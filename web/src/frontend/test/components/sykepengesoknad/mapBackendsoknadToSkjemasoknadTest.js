@@ -7,7 +7,7 @@ const expect = chai.expect;
 import deepFreeze from 'deep-freeze';
 
 import { getSoknad } from '../../mockSoknader';
-import mapBackendsoknadToSkjemasoknad from '../../../js/components/sykepengesoknad/mapBackendsoknadToSkjemasoknad';
+import mapBackendsoknadToSkjemasoknad, { getAktiviteter } from '../../../js/components/sykepengesoknad/mapBackendsoknadToSkjemasoknad';
 import inntektskildetyper from '../../../js/enums/inntektskildetyper';
 
 describe("mapBackendsoknadToSkjemasoknad", () => {
@@ -356,7 +356,6 @@ describe("mapBackendsoknadToSkjemasoknad", () => {
             }]);
         });
 
-    })
-
+    });
 
 });

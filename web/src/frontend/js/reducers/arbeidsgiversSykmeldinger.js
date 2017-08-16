@@ -22,20 +22,34 @@ const setSykmeldingProps = (sykmeldinger, sykmeldingId, props) => {
 export default function arbeidsgiversSykmeldinger(state = initiellState, action) {
     switch (action.type) {
         case actiontyper.SET_ARBEIDSGIVERS_SYKMELDINGER: {
+            if (!state.data || state.data.length === 0) {
+                return {
+                    data: action.sykmeldinger.map((s) => {
+                        return parseDatofelter(s);
+                    }),
+                    henter: false,
+                    hentingFeilet: false,
+                    hentet: true,
+                };
+            }
             return {
-                data: action.sykmeldinger.map(parseDatofelter),
+                data: state.data.map((gammelSykmelding) => {
+                    const nySykmelding = action.sykmeldinger.filter((sykmld) => {
+                        return sykmld.id === gammelSykmelding.id;
+                    })[0];
+                    return Object.assign({}, gammelSykmelding, parseDatofelter(nySykmelding));
+                }),
                 henter: false,
                 hentingFeilet: false,
                 hentet: true,
             };
         }
         case actiontyper.HENTER_ARBEIDSGIVERS_SYKMELDINGER: {
-            return {
-                data: [],
+            return Object.assign({}, state, {
                 henter: true,
                 hentingFeilet: false,
                 hentet: false,
-            };
+            });
         }
         case actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FEILET: {
             return {

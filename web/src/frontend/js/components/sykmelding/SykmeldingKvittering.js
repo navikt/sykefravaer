@@ -3,9 +3,8 @@ import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint } from 'digisyfo-npm'
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
 import { AVBRUTT } from '../../enums/sykmeldingstatuser';
-import { senesteTom } from '../../utils/periodeUtils';
 import history from '../../history';
-import { sykmelding as sykmeldingPt } from '../../propTypes';
+import { sykmelding as sykmeldingPt, sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export const kvitteringtyper = {
     STANDARDKVITTERING: 'STANDARDKVITTERING',
@@ -20,7 +19,7 @@ export const Kvitteringsteg = ({ ikon, alt, tittel, children }) => {
         </div>
         <div className="kvitteringsteg__innhold">
             <h2 className="kvitteringsteg__tittel js-tittel">{tittel}</h2>
-            <div className="js-tekst">{children}</div>
+            { children && <div className="js-tekst">{children}</div> }
         </div>
     </div>);
 };
@@ -69,9 +68,7 @@ export const KvitteringSokNa = ({ hentSykepengesoknader }) => {
     const sokUrl = `${window.APP_SETTINGS.APP_ROOT}/soknader`;
     return (<div className="panel blokk">
         <div className="stegvisKvittering">
-            <Kvitteringsteg ikon="kvitteringhake.svg" alt="Grønn hake" tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-1.tittel')}>
-                <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-na.steg-1.tekst" />
-            </Kvitteringsteg>
+            <Kvitteringsteg ikon="kvitteringhake.svg" alt="Grønn hake" tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-1.tittel')} />
             <Kvitteringsteg ikon="kvitteringSokSykepenger.svg" alt="Søk om sykepenger" tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-2.tittel')}>
                 <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-na.steg-2.tekst" />
                 <p className="kvitteringsteg__handling">
@@ -90,19 +87,38 @@ KvitteringSokNa.propTypes = {
     hentSykepengesoknader: PropTypes.func,
 };
 
-export const KvitteringSokSenere = ({ sykmelding }) => {
-    const tom = senesteTom(sykmelding.mulighetForArbeid.perioder);
+export const Soknadsdatoliste = ({ sykepengesoknader }) => {
+    return (<ul>
+        {
+            [...sykepengesoknader]
+            .sort((a, b) => {
+                if (a.tom.getTime() > b.tom.getTime()) {
+                    return 1;
+                }
+                return -1;
+            })
+            .map((s, index) => {
+                return <li key={index}><strong>{toDatePrettyPrint(s.tom)}</strong></li>;
+            })
+        }
+    </ul>);
+};
+
+Soknadsdatoliste.propTypes = {
+    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+};
+
+export const KvitteringSokSenere = ({ sykepengesoknader }) => {
     return (<div>
         <div className="panel blokk">
             <div className="stegvisKvittering">
-                <Kvitteringsteg ikon="kvitteringhake.svg" alt="Grønn hake" tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-1.tittel')}>
-                    <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-senere.steg-1.tekst" />
-                </Kvitteringsteg>
+                <Kvitteringsteg ikon="kvitteringhake.svg" alt="Grønn hake" tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-1.tittel')} />
                 <Kvitteringsteg ikon="kvitteringVent.svg" alt="Timeglass" tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-2.tittel')}>
                     <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-senere.steg-2.tekst" />
                 </Kvitteringsteg>
                 <Kvitteringsteg ikon="kvitteringSokSykepenger.svg" alt="Søk om sykepenger" tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-3.tittel')}>
-                    <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-senere.steg-3.tekst" replacements={{ '%DATO%': toDatePrettyPrint(tom) }} />
+                    <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-senere.steg-3.tekst-med-liste" />
+                    <Soknadsdatoliste sykepengesoknader={sykepengesoknader} />
                 </Kvitteringsteg>
             </div>
         </div>
@@ -115,6 +131,7 @@ export const KvitteringSokSenere = ({ sykmelding }) => {
 
 KvitteringSokSenere.propTypes = {
     sykmelding: sykmeldingPt,
+    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
 };
 
 const SykmeldingKvittering = (props) => {

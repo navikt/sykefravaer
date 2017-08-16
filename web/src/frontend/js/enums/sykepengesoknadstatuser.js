@@ -4,3 +4,4 @@ export const TIL_SENDING = 'TIL_SENDING';
 export const UTGAATT = 'UTGAATT';
 export const UTKAST_TIL_KORRIGERING = 'UTKAST_TIL_KORRIGERING';
 export const KORRIGERT = 'KORRIGERT';
+export const FREMTIDIG = 'FREMTIDIG';

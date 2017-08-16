@@ -22,12 +22,37 @@ describe('arbeidsgiversSykmeldinger', () => {
         });
     });
 
+    it('håndterer SET_ARBEIDSGIVERS_SYKMELDINGER når det finnes data fra før', () => {
+        const initialState = deepFreeze({
+            data: [getParsetSykmelding({
+                valgtArbeidsgiver: {
+                    navn: "Olsens sykkelverksted"
+                }
+            })]
+        });
+        const action = arbActions.setArbeidsgiversSykmeldinger([getSykmelding({
+            status: "TESTSTATUS"
+        })]);
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [getParsetSykmelding({
+                status: "TESTSTATUS",
+                valgtArbeidsgiver: {
+                    navn: "Olsens sykkelverksted"
+                }
+            })],
+            henter: false,
+            hentingFeilet: false,
+            hentet: true,
+        });
+    });
+
     it("Håndterer HENTER_ARBEIDSGIVERS_SYKMELDINGER", () => {
         const initialState = deepFreeze({});
         const action = arbActions.henterArbeidsgiversSykmeldinger();
         const nextState = arbeidsgiversSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
-            data: [],
             henter: true,
             hentingFeilet: false,
             hentet: false,

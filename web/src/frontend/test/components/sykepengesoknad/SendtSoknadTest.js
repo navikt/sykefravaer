@@ -17,6 +17,8 @@ import { startEndringForespurt } from '../../../js/actions/sykepengesoknader_act
 import  { getSoknad } from '../../mockSoknader';
 import ledetekster from '../../mockLedetekster';
 import { Varselstripe, setLedetekster } from 'digisyfo-npm';
+import SykepengesoknadHeader from '../../../js/components/sykepengesoknad/SykepengesoknadHeader';
+import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
 import sinon from 'sinon';
 
 describe("SendtSoknad", () => {
@@ -33,8 +35,8 @@ describe("SendtSoknad", () => {
         component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />)
     });
 
-    it("Skal inneholde en Sidetopp", () => {
-        expect(component.contains(<Sidetopp tittel="Søknad om sykepenger" />)).to.be.true;
+    it("Skal inneholde en SykepengesoknadHeader", () => {
+        expect(component.contains(<SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />)).to.be.true;
     });
 
     it("Skal inneholde et SykmeldingUtdrag", () => {
@@ -42,7 +44,7 @@ describe("SendtSoknad", () => {
     });
 
     it("Skal inneholde en Soknad", () => {
-        expect(component.contains(<Soknad sykepengesoknad={sykepengesoknad} tittel={'Oppsummering'}/>)).to.be.true;
+        expect(component.contains(<Soknad sykepengesoknad={mapAktiviteter(sykepengesoknad)} tittel={'Oppsummering'}/>)).to.be.true;
     });
 
     it("Skal inneholde en Avkrysset", () => {

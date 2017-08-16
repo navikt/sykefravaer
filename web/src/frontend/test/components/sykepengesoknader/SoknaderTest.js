@@ -33,12 +33,8 @@ describe("Soknader", () => {
             status: "KORRIGERT",
             sendtTilNAVDato: new Date("2017-02-04"),
             opprettetDato: new Date("2017-04-01"),
-            aktiviteter: [{
-                periode: {
-                    fom: new Date("2017-05-01"),
-                    tom: new Date("2017-06-01"),
-                }
-            }]
+            fom: new Date("2017-05-01"),
+            tom: new Date("2017-06-01"),
         };
 
         soknad2 = {
@@ -47,12 +43,8 @@ describe("Soknader", () => {
             sendtTilNAVDato: new Date("2017-02-06"),
             sendtTilArbeidsgiverDato: new Date("2017-02-08"),
             opprettetDato: new Date("2017-03-01"),
-            aktiviteter: [{
-                periode: {
-                    fom: new Date("2017-04-01"),
-                    tom: new Date("2017-04-20"),
-                }
-            }]
+            fom: new Date("2017-04-01"),
+            tom: new Date("2017-04-20"),
         };
 
         soknad3 = {
@@ -62,12 +54,8 @@ describe("Soknader", () => {
             sendtTilNAVDato: new Date("2017-02-05"),
             sendtTilArbeidsgiverDato: new Date("2017-02-10"),
             opprettetDato: new Date("2017-07-01"),
-            aktiviteter: [{
-                periode: {
-                    fom: new Date("2017-10-01"),
-                    tom: new Date("2017-10-12"),
-                }
-            }]
+            fom: new Date("2017-10-01"),
+            tom: new Date("2017-10-12"),
         };
 
         soknad4 = {
@@ -77,17 +65,8 @@ describe("Soknader", () => {
             sendtTilNAVDato: new Date("2017-02-08"),
             sendtTilArbeidsgiverDato: new Date("2017-02-11"),
             opprettetDato: new Date("2017-02-01"),
-            aktiviteter: [{
-                periode: {
-                    fom: new Date("2016-08-01"),
-                    tom: new Date("2016-08-12"),
-                }
-            }, {
-                periode: {
-                    fom: new Date("2016-08-13"),
-                    tom: new Date("2016-08-19"),
-                }
-            }]
+            fom: new Date("2016-08-13"),
+            tom: new Date("2016-08-19"),
         };
 
         soknad5 = {
@@ -95,12 +74,8 @@ describe("Soknader", () => {
             status: "NY",
             sendtTilArbeidsgiverDato: new Date("2017-02-01"),
             opprettetDato: new Date("2017-10-01"),
-            aktiviteter: [{
-                periode: {
-                    fom: new Date("2017-05-01"),
-                    tom: new Date("2017-06-10"),
-                }
-            }]
+            fom: new Date("2017-05-01"),
+            tom: new Date("2017-06-10"),
         };
     });
 

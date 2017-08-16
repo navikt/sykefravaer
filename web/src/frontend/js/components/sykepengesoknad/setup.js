@@ -6,6 +6,7 @@ import Feiloppsummering, { onSubmitFail } from '../../containers/Feiloppsummerin
 import mapBackendsoknadToSkjemasoknad from './mapBackendsoknadToSkjemasoknad';
 import inntektskildetyper from '../../enums/inntektskildetyper';
 import { UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
+import { mapAktiviteter } from '../../utils/sykepengesoknadUtils';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
@@ -14,8 +15,9 @@ const sendTilFoerDuBegynner = (sykepengesoknad) => {
 export const SYKEPENGER_SKJEMANAVN = 'SYKEPENGERSKJEMA';
 
 export const mapToInitialValues = (soknad) => {
+    const aktiviteter = mapAktiviteter(soknad).aktiviteter;
     return Object.assign({}, soknad, {
-        aktiviteter: soknad.aktiviteter.map((aktivitet) => {
+        aktiviteter: aktiviteter.map((aktivitet) => {
             return Object.assign({}, aktivitet, {
                 avvik: {},
             });
@@ -28,10 +30,19 @@ export const mapToInitialValues = (soknad) => {
     });
 };
 
+export const mapStateToPropsMedInitialValues = (state, ownProps) => {
+    const { sykepengesoknad } = ownProps;
+    const initialValues = sykepengesoknad.status === UTKAST_TIL_KORRIGERING ? mapBackendsoknadToSkjemasoknad(sykepengesoknad) : mapToInitialValues(sykepengesoknad);
+    return {
+        initialValues,
+        sykepengesoknad: mapAktiviteter(sykepengesoknad),
+    };
+};
+
 export const mapStateToProps = (state, ownProps) => {
     const { sykepengesoknad } = ownProps;
     return {
-        initialValues: sykepengesoknad.status === UTKAST_TIL_KORRIGERING ? mapBackendsoknadToSkjemasoknad(sykepengesoknad) : mapToInitialValues(sykepengesoknad),
+        sykepengesoknad: mapAktiviteter(sykepengesoknad),
     };
 };
 
@@ -53,9 +64,9 @@ const setup = (validate, Component, initialize = false) => {
         },
     })(ComponentMedOppsummering);
     if (initialize) {
-        return connect(mapStateToProps)(form);
+        return connect(mapStateToPropsMedInitialValues)(form);
     }
-    return form;
+    return connect(mapStateToProps)(form);
 };
 
 export default setup;

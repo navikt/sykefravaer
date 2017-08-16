@@ -46,7 +46,7 @@ export const RendreForskuttererArbeidsgiver = (props) => {
 
 RendreForskuttererArbeidsgiver.propTypes = {
     input: PropTypes.shape({
-        value: PropTypes.oneOf([JA, NEI, VET_IKKE]),
+        value: PropTypes.oneOf([JA, NEI, VET_IKKE, '']),
     }),
 };
 

@@ -3,7 +3,7 @@ import React from 'react'
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import getSykmelding from "../../mockSykmeldinger";
-import SykmeldingKvittering, { Kvitteringsteg, Standardkvittering, HtmlAvsnitt, KvitteringSokNa, KvitteringSokSenere } from "../../../js/components/sykmelding/SykmeldingKvittering";
+import SykmeldingKvittering, { Kvitteringsteg, Standardkvittering, HtmlAvsnitt, KvitteringSokNa, KvitteringSokSenere, Soknadsdatoliste } from "../../../js/components/sykmelding/SykmeldingKvittering";
 import Sidetopp from "../../../js/components/Sidetopp";
 import history from "../../../js/history";
 import sinon from 'sinon';
@@ -94,6 +94,35 @@ describe("SykmeldingKvittering", () => {
         it("Skal vise children", () => {
             expect(comp.find(".js-tekst")).to.contain(<p>Hei på deg</p>);
         });
+
+    });
+
+    describe("Soknadsdatoliste", () => {
+        let comp;
+
+        let soknad1 = {
+            tom: new Date("2017-10-14"),
+        };
+
+        let soknad2 = {
+            tom: new Date("2017-10-12"),
+        };
+
+        let soknad3 = {
+            tom: new Date("2017-10-13"),
+        }
+
+        beforeEach(() => {
+            
+        });
+
+        it("Skal sortere etter tom", () => {
+            comp = shallow(<Soknadsdatoliste sykepengesoknader={[soknad1, soknad2, soknad3]} />)
+            expect(comp.find("li").at(0).text()).to.equal("12.10.2017");
+            expect(comp.find("li").at(1).text()).to.equal("13.10.2017");
+            expect(comp.find("li").at(2).text()).to.equal("14.10.2017");
+        })
+
 
     })
 

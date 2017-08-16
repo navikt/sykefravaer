@@ -1,6 +1,7 @@
-import { mapStateToProps, mapToInitialValues } from '../../../js/components/sykepengesoknad/setup';
+import { mapStateToPropsMedInitialValues, mapStateToProps, mapToInitialValues } from '../../../js/components/sykepengesoknad/setup';
 import andreInntektskilder from '../../../js/enums/inntektskildetyper';
 import mapBackendsoknadToSkjemasoknad from '../../../js/components/sykepengesoknad/mapBackendsoknadToSkjemasoknad';
+import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
 import sinon from 'sinon';
 import { getSoknad } from '../../mockSoknader';
 
@@ -23,13 +24,13 @@ describe("setup", () => {
         ownProps = {};
     });
 
-    describe("mapStateToProps", () => {
+    describe("mapStateToPropsMedInitialValues", () => {
         
         it("Skal mappe til initielle verdier hvis det er en NY søknad", () => {
             ownProps.sykepengesoknad = getSoknad({
                 status: 'NY',
             });
-            const props = mapStateToProps(state, ownProps);
+            const props = mapStateToPropsMedInitialValues(state, ownProps);
             expect(props.initialValues.harHattFerie).to.be.undefined;
         });
 
@@ -37,8 +38,84 @@ describe("setup", () => {
             ownProps.sykepengesoknad = getSoknad({
                 status: 'UTKAST_TIL_KORRIGERING',
             });
-            const props = mapStateToProps(state, ownProps);
+            const props = mapStateToPropsMedInitialValues(state, ownProps);
             expect(props.initialValues.harHattFerie).to.be.false;
+        });
+
+        it("Skal mappe aktiviteter", () => {
+            ownProps.sykepengesoknad = deepFreeze(getSoknad({
+                fom: new Date("2016-07-18"),
+                tom: new Date("2016-07-24"),
+                aktiviteter:  [
+                    {
+                        periode: {
+                            fom: new Date("2016-07-15"),
+                            tom: new Date("2016-07-20")
+                        },
+                        grad: 100,
+                        avvik: null
+                    },
+                    {
+                        periode: {
+                            fom: new Date("2016-07-21"),
+                            tom: new Date("2016-07-25")
+                        },
+                        grad: 60,
+                        avvik: null
+                    },
+                    {
+                        periode: {
+                            fom: new Date("2016-07-26"),
+                            tom: new Date("2016-07-30")
+                        },
+                        grad: 60,
+                        avvik: null
+                    }
+                ]
+            }));
+            const props = mapStateToPropsMedInitialValues(state, ownProps);
+            const mappetSoknad = mapAktiviteter(ownProps.sykepengesoknad);
+            expect(props.sykepengesoknad).to.deep.equal(mappetSoknad);
+        })
+
+    });
+
+    describe("mapStateToProps", () => {
+
+        it("Skal mappe aktiviteter", () => {
+            ownProps.sykepengesoknad = deepFreeze(getSoknad({
+                fom: new Date("2016-07-18"),
+                tom: new Date("2016-07-24"),
+                aktiviteter:  [
+                    {
+                        periode: {
+                            fom: new Date("2016-07-15"),
+                            tom: new Date("2016-07-20")
+                        },
+                        grad: 100,
+                        avvik: null
+                    },
+                    {
+                        periode: {
+                            fom: new Date("2016-07-21"),
+                            tom: new Date("2016-07-25")
+                        },
+                        grad: 60,
+                        avvik: null
+                    },
+                    {
+                        periode: {
+                            fom: new Date("2016-07-26"),
+                            tom: new Date("2016-07-30")
+                        },
+                        grad: 60,
+                        avvik: null
+                    }
+                ]
+            }));
+            const props = mapStateToProps(state, ownProps);
+            const mappetSoknad = mapAktiviteter(ownProps.sykepengesoknad);
+            expect(props.sykepengesoknad).to.deep.equal(mappetSoknad);
         });
 
     });
@@ -50,27 +127,29 @@ describe("setup", () => {
         beforeEach(() => {
             values = deepFreeze({
                 andreInntektskilder: [],
+                fom: new Date("2016-07-18"),
+                tom: new Date("2016-07-24"),
                 aktiviteter:  [
                     {
                         periode: {
-                            fom: "2016-07-15",
-                            tom: "2016-07-20"
+                            fom: new Date("2016-07-15"),
+                            tom: new Date("2016-07-20")
                         },
                         grad: 100,
                         avvik: null
                     },
                     {
                         periode: {
-                            fom: "2016-07-15",
-                            tom: "2016-07-20"
+                            fom: new Date("2016-07-21"),
+                            tom: new Date("2016-07-25")
                         },
                         grad: 60,
                         avvik: null
                     },
                     {
                         periode: {
-                            fom: "2016-07-15",
-                            tom: "2016-07-20"
+                            fom: new Date("2016-07-26"),
+                            tom: new Date("2016-07-30")
                         },
                         grad: 60,
                         avvik: null
@@ -83,7 +162,6 @@ describe("setup", () => {
             const res = mapToInitialValues(values);
             expect(res.aktiviteter[0].avvik).to.deep.equal({});
             expect(res.aktiviteter[1].avvik).to.deep.equal({});
-            expect(res.aktiviteter[2].avvik).to.deep.equal({});
         });
 
         it("Skal sette utdanning til tomt objekt", () => {
@@ -102,6 +180,29 @@ describe("setup", () => {
                 perioder: [],
             });
         });
+
+        it("Skal hente ut aktiviteter basert på fom/tom", () => {
+            const res = mapToInitialValues(values);
+            expect(res.aktiviteter.length).to.equal(2);
+            expect(res.aktiviteter).to.deep.equal([
+                {
+                    periode: {
+                        fom: new Date("2016-07-18"),
+                        tom: new Date("2016-07-20")
+                    },
+                    grad: 100,
+                    avvik: {}
+                },
+                {
+                    periode: {
+                        fom: new Date("2016-07-21"),
+                        tom: new Date("2016-07-24")
+                    },
+                    grad: 60,
+                    avvik: {}
+                }
+            ]);
+        }); 
 
     });
 

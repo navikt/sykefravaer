@@ -80,7 +80,8 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
             "harHattPermisjon": true,
             "harHattUtenlandsopphold": true,
             "utenlandsoppholdSoktOmSykepenger": true,
-            "harAndreInntektskilder": true
+            "harAndreInntektskilder": true,
+            "_erOppdelt": true,
         });
     });
 
@@ -304,6 +305,12 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
             expect(soknad.aktiviteter[1].hasOwnProperty("jobbetMerEnnPlanlagt")).to.be.false;
         });
 
+        it("Skal beholde aktivitetens ID", () => {
+            const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad));
+            expect(soknad.aktiviteter[0].id).to.equal(sykepengesoknad.aktiviteter[0].id);
+            expect(soknad.aktiviteter[1].id).to.equal(sykepengesoknad.aktiviteter[1].id);
+        })
+
     });
 
     describe("utdanning", () => {
@@ -369,6 +376,10 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
 
         it("Skal fjerne harAndreInntektskilder", () => {
             expect(soknad.hasOwnProperty("harAndreInntektskilder")).to.be.false;
+        });
+
+        it("Skal fjerne _erOppdelt", () => {
+            expect(soknad.hasOwnProperty("_erOppdelt")).to.be.false;
         });
     });
 

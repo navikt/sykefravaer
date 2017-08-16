@@ -14,7 +14,7 @@ import getSykmelding from '../mockSykmeldinger';
 import { setLedetekster } from 'digisyfo-npm';
 
 const sykmeldinger = [{
-    id: 2,
+    id: "2",
     fnr: "12",
     fornavn: "Per",
     etternavn: "Person",
@@ -34,7 +34,7 @@ const sykmeldinger = [{
     },
     arbeidsfoerEtterPerioden: true
 }, {
-    id: 1,
+    id: "1",
     fnr: "12",
     fornavn: "Per",
     etternavn: "Person",
@@ -52,7 +52,7 @@ const sykmeldinger = [{
     },
     arbeidsfoerEtterPerioden: true
 }, {
-    id: 3,
+    id: "3",
     fnr: "12",
     fornavn: "Per",
     etternavn: "Person",
@@ -72,7 +72,7 @@ const sykmeldinger = [{
     },
     arbeidsfoerEtterPerioden: true
 }, {
-    id: 4,
+    id: "4",
     status: 'BEKREFTET',
     fnr: "12",
     fornavn: "Per",
@@ -93,7 +93,7 @@ const sykmeldinger = [{
         }],
     }
 }, {
-    "id": 5,
+    "id": "5",
     "status": "BEKREFTET",
     "innsendtArbeidsgivernavn": null,
     "orgnummer": null,
@@ -112,13 +112,56 @@ describe("SykmeldingKvitteringContainer", () => {
 
     let ownProps = {};
     let state = {};
+    let soknad1;
+    let soknad2;
+    let soknad3; 
+    let soknad4;
+    let soknad5;
+    let soknad6;
 
     beforeEach(() => {
+
+        soknad1 = {
+            sykmeldingId: "1",
+            status: 'NY',
+        };
+
+        soknad2 = {
+            sykmeldingId: "2",
+            status: 'NY',
+        };
+
+        soknad3 = {
+            sykmeldingId: "1",
+            status: 'NY',
+        };
+
+        soknad4 = {
+            sykmeldingId: "1",
+            status: 'NY',
+        };
+
+        soknad5 = {
+            sykmeldingId: "1",
+            status: 'FREMTIDIG',
+        };
+
+        soknad6 = {
+            sykmeldingId: "3",
+            status: 'FREMTIDIG',
+        };
+
         state.dineSykmeldinger = {
             data: sykmeldinger
         };
         state.arbeidsgiversSykmeldinger = {
-            data: sykmeldinger
+            data: sykmeldinger.map((s) => {
+                return Object.assign({}, s, {
+                    valgtArbeidsgiver: {
+                        erPilotarbeidsgiver: true,
+                    }
+                })
+            })
         };
         state.ledetekster = {
             data: ledetekster
@@ -130,8 +173,11 @@ describe("SykmeldingKvitteringContainer", () => {
                 }
             }
         };
+        state.sykepengesoknader = {
+            data: [soknad1, soknad2, soknad3, soknad4, soknad5]
+        };
         ownProps.params = {
-            sykmeldingId: 1,
+            sykmeldingId: "1",
         };
         state.pilot = {
             data: {
@@ -146,6 +192,7 @@ describe("SykmeldingKvitteringContainer", () => {
         let erPilot;
         let clock;
 
+
         beforeEach(() => {
             clock = sinon.useFakeTimers(1484524800000); // 16. januar 2017
         });
@@ -154,97 +201,54 @@ describe("SykmeldingKvitteringContainer", () => {
             clock.restore();
         });
 
-        it("Skal returnere true hvis det ikke finness sykmelding", () => {
-            expect(getKvitteringtype(undefined, true)).to.equal("STANDARDKVITTERING")
+        beforeEach(() => {
+            sykmelding = {
+                id: "1",
+            };
         });
 
-        describe("Hvis dagens dato er etter siste dag i sykmeldingsperioden", () => {
-
-            beforeEach(() => {
-                sykmelding = {
-                    mulighetForArbeid: {
-                        perioder: [{
-                            fom: "2017-01-10",
-                            tom: "2017-01-15",
-                        }]
-                    },
-                    status: "SENDT"
-                }
-            })
-
-            it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_NÅ hvis brukeren er pilot og søknaden er SENDT", () => {
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_NÅ");
-            });
-
-            it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er SENDT", () => {
-                const res = getKvitteringtype(sykmelding, false);
-                expect(res).to.equal("STANDARDKVITTERING");
-            });
-
-            it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_NÅ hvis brukeren er pilot og søknaden er TIL_SENDING", () => {
-                sykmelding.status = "TIL_SENDING";
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_NÅ");
-            });
-
-            it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er TIL_SENDING", () => {
-                sykmelding.status = "TIL_SENDING";
-                const res = getKvitteringtype(sykmelding, false);
-                expect(res).to.equal("STANDARDKVITTERING");
-            });
-
-            it("Skal returnere STANDARDKVITTERING hvis brukeren er pilot, men søknaden ikke er SENDT eller TIL_SENDING", () => {
-                sykmelding.status = 'BEKREFTET';
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("STANDARDKVITTERING");
-            });
-
+        it("Skal returnere STANDARDKVITTERING hvis det ikke finnes soknader", () => {
+            const sykepengesoknader = [];
+            const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("STANDARDKVITTERING");
         });
 
-        describe("Hvis dagens dato er før siste dag i sykmeldingsperioden", () => {
-
-            beforeEach(() => {
-                sykmelding = {
-                    mulighetForArbeid: {
-                        perioder: [{
-                            fom: "2017-01-10",
-                            tom: "2017-01-17",
-                        }]
-                    },
-                    status: "SENDT"
-                }
-            })
-
-            it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_SENERE hvis brukeren er pilot og søknaden er SENDT", () => {
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_SENERE");
-            });
-
-            it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er SENDT", () => {
-                const res = getKvitteringtype(sykmelding, false);
-                expect(res).to.equal("STANDARDKVITTERING");
-            });
-
-            it("Skal returnere KVITTERING_MED_SYKEPENGER_SØK_SENERE hvis brukeren er pilot og søknaden er TIL_SENDING", () => {
-                sykmelding.status = "TIL_SENDING";
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("KVITTERING_MED_SYKEPENGER_SØK_SENERE");
-            });
-
-            it("Skal returnere STANDARDKVITTERING hvis brukeren ikke er pilot og søknaden er TIL_SENDING", () => {
-                sykmelding.status = "TIL_SENDING";
-                const res = getKvitteringtype(sykmelding, false);
-                expect(res).to.equal("STANDARDKVITTERING");
-            });
-
-            it("Skal returnere STANDARDKVITTERING hvis brukeren er pilot, men søknaden ikke er SENDT eller TIL_SENDING", () => {
-                sykmelding.status = 'BEKREFTET';
-                const res = getKvitteringtype(sykmelding, true);
-                expect(res).to.equal("STANDARDKVITTERING");
-            });
-
+        it("Skal returnere STANDARDKVITTERING hvis det finnes søknad som ikke er tilknyttet denne sykmeldingen", () => {
+            const sykepengesoknader = [soknad1, soknad2, soknad3];
+            const sykmelding = {
+                id: "3"
+            };
+            const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("STANDARDKVITTERING"); 
         });
+
+        it("Skal returnere 'KVITTERING_MED_SYKEPENGER_SOK_SENERE' dersom søknaden gjelder for en periode som går ut i fremtiden", () => {
+            const sykepengesoknader = [soknad5];
+            const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_SØK_SENERE");
+        });
+
+        it("Skal returnere 'KVITTERING_MED_SYKEPENGER_SOK_SENERE' dersom det finnes fremtidige søknader men ikke for denne sykmeldingen", () => {
+            sykmelding.id = "3";
+            const sykepengesoknader = [soknad1, soknad2, soknad3, soknad4, soknad5, soknad6];
+            const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_SØK_SENERE");
+        });
+
+
+        it("Skal returnere 'KVITTERING_MED_SYKEPENGER_SØK_NÅ' dersom søknaden gjelder for en periode som går ut i dag", () => {
+            const sykepengesoknader = [soknad4, soknad5, soknad2];
+            const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_SØK_NÅ");
+        });
+
+
+        it("Skal returnere 'KVITTERING_MED_SYKEPENGER_SØK_NÅ' dersom søknaden gjelder for en periode som er gått ut", () => {
+            const sykepengesoknader = [soknad1, soknad2, soknad3];
+            const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_SØK_NÅ");
+        });
+
 
     })
 
@@ -302,16 +306,21 @@ describe("SykmeldingKvitteringContainer", () => {
     });
 
 
-    describe("mapStateToProps", () => {      
+    describe("mapStateToProps", () => {
 
         it("Skal returnere sykmelding", () => {
             const res = mapStateToProps(state, ownProps);
             expect(res.sykmelding).to.deep.equal(sykmeldinger[1]);
         });
 
+        it("Skal returnere fremtidige soknader", () => {
+            const res = mapStateToProps(state, ownProps);
+            expect(res.sykepengesoknader).to.deep.equal([soknad5]);
+        });
+
         it("Skal returnere kvitteringtype", () => {
             const res = mapStateToProps(state, ownProps);
-            expect(res.kvitteringtype).to.equal("STANDARDKVITTERING")
+            expect(res.kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_SØK_NÅ")
         });
 
         it("Skal returnere henter === true dersom sykmeldinger hentes", () => {
@@ -323,6 +332,12 @@ describe("SykmeldingKvitteringContainer", () => {
 
         it("Skal returnere henter === true dersom ledetekster hentes", () => {
             state.ledetekster.henter = true; 
+            const res = mapStateToProps(state, ownProps);
+            expect(res.henter).to.be.true;
+        });
+
+        it("Skal returnere henter === true dersom sykepengesoknader hentes", () => {
+            state.sykepengesoknader.henter = true;
             const res = mapStateToProps(state, ownProps);
             expect(res.henter).to.be.true;
         });

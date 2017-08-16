@@ -9,6 +9,7 @@ import { senesteTom } from '../utils/periodeUtils';
 import * as actions from '../actions/sykepengesoknader_actions';
 import { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } from '../enums/sykmeldingstatuser';
 import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes';
+import { FREMTIDIG, NY } from '../enums/sykepengesoknadstatuser';
 
 export const KvitteringSide = (props) => {
     const { sykmelding, henter, hentingFeilet, brodsmuler } = props;
@@ -44,10 +45,6 @@ KvitteringSide.propTypes = {
     hentingFeilet: PropTypes.bool,
 };
 
-const erPeriodePassert = (sykmelding) => {
-    return Date.now() > Date.parse(senesteTom(sykmelding.mulighetForArbeid.perioder));
-};
-
 export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
     if (!sykmelding) {
         return null;
@@ -74,23 +71,43 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
     }
 };
 
-export const getKvitteringtype = (sykmelding, erPilot) => {
-    if (!sykmelding || !erPilot || (sykmelding.status !== SENDT && sykmelding.status !== TIL_SENDING)) {
+export const getKvitteringtype = (sykmelding, sykepengesoknader) => {
+    if (!sykmelding) {
         return kvitteringtyper.STANDARDKVITTERING;
     }
-    if (erPeriodePassert(sykmelding)) {
+
+    const sykmeldingId = sykmelding.id;
+    const denneSykmeldingensSoknader = sykepengesoknader.filter((s) => {
+        return s.sykmeldingId === sykmeldingId;
+    });
+
+    if (denneSykmeldingensSoknader.length === 0) {
+        return kvitteringtyper.STANDARDKVITTERING;
+    }
+
+    const sokbareSoknader = denneSykmeldingensSoknader.filter((s) => {
+        return s.status === NY;
+    });
+
+    if (sokbareSoknader.length > 0) {
         return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA;
     }
+
     return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE;
 };
 
 export function mapStateToProps(state, ownProps) {
     const sykmeldingId = ownProps.params.sykmeldingId;
     const sykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId);
-    const henter = state.dineSykmeldinger.henter || state.ledetekster.henter;
+    const henter = state.dineSykmeldinger.henter || state.ledetekster.henter || state.sykepengesoknader.henter;
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
-    const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
-    const pilotSykepenger = state.pilot.data.pilotSykepenger;
+    const harStrengtFortroligAdresse = (() => {
+        try {
+            return state.brukerinfo.bruker.data.strengtFortroligAdresse;
+        } catch (e) {
+            return false;
+        }
+    })();
 
     const kvitteringTittelKey = getLedetekstNokkel(sykmelding, 'kvittering.tittel');
     const kvitteringBrodtekstKey = getLedetekstNokkel(sykmelding, 'kvittering.undertekst', { harStrengtFortroligAdresse });
@@ -98,14 +115,18 @@ export function mapStateToProps(state, ownProps) {
     const brodtekst = kvitteringBrodtekstKey ? getHtmlLedetekst(kvitteringBrodtekstKey, {
         '%TOM%': toDatePrettyPrint(senesteTom(sykmelding.mulighetForArbeid.perioder)),
     }) : null;
+    const sykepengesoknader = state.sykepengesoknader.data;
 
     return {
         henter,
         hentingFeilet,
         sykmelding,
         sykmeldingStatus: sykmelding ? sykmelding.status : undefined,
+        sykepengesoknader: state.sykepengesoknader.data.filter((s) => {
+            return s.sykmeldingId === sykmeldingId && s.status === FREMTIDIG;
+        }),
         tittel,
-        kvitteringtype: getKvitteringtype(sykmelding, pilotSykepenger),
+        kvitteringtype: getKvitteringtype(sykmelding, sykepengesoknader),
         brodtekst,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),

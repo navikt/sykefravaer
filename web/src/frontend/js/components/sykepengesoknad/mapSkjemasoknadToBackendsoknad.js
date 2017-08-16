@@ -42,6 +42,7 @@ const getAktiviteter = (aktiviteter) => {
         const _a = {
             periode: aktivitet.periode,
             grad: aktivitet.grad,
+            id: aktivitet.id,
         };
         if (aktivitet.jobbetMerEnnPlanlagt) {
             _a.avvik = {
@@ -68,6 +69,7 @@ const frontendProps = [
     'harHattUtenlandsopphold',
     'utenlandsoppholdSoktOmSykepenger',
     'harAndreInntektskilder',
+    '_erOppdelt',
 ];
 
 const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {

@@ -46,7 +46,7 @@ export const arbeidsgiver = PropTypes.shape({
 
 export const sykepengesoknad = PropTypes.shape({
     id: PropTypes.string,
-    status: PropTypes.oneOf([soknadstatuser.SENDT, soknadstatuser.NY, soknadstatuser.TIL_SENDING, soknadstatuser.UTGAATT, soknadstatuser.UTKAST_TIL_KORRIGERING, soknadstatuser.KORRIGERT]),
+    status: PropTypes.oneOf([soknadstatuser.SENDT, soknadstatuser.NY, soknadstatuser.TIL_SENDING, soknadstatuser.UTGAATT, soknadstatuser.UTKAST_TIL_KORRIGERING, soknadstatuser.KORRIGERT, soknadstatuser.FREMTIDIG]),
     sendtTilArbeidsgiverDato: PropTypes.instanceOf(Date),
     sendtTilNAVDato: PropTypes.instanceOf(Date),
     opprettetDato: PropTypes.instanceOf(Date),
@@ -71,6 +71,7 @@ export const sykepengesoknad = PropTypes.shape({
             arbeidsgrad: PropTypes.number,
             timer: PropTypes.number,
         }),
+        id: PropTypes.number,
     })).isRequired,
     andreInntektskilder: PropTypes.arrayOf(annenInntektskilde),
     utdanning: PropTypes.shape({
@@ -79,6 +80,10 @@ export const sykepengesoknad = PropTypes.shape({
     }),
     sykmeldingSkrevetDato: PropTypes.instanceOf(Date),
     erUnderEndring: PropTypes.bool,
+    del: PropTypes.number,
+    fom: PropTypes.instanceOf(Date),
+    tom: PropTypes.instanceOf(Date),
+    sykmeldingId: PropTypes.string,
 });
 
 export const sykmeldingdiagnose = PropTypes.shape({

@@ -14,7 +14,7 @@ import FoerDuBegynner from '../../../js/components/sykepengesoknad/FoerDuBegynne
 import { FoerDuBegynnerContainer, Controller } from '../../../js/containers/sykepengesoknad/FoerDuBegynnerContainer';
 import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 import SendtSoknad from '../../../js/components/sykepengesoknad/SendtSoknad';
-import AvbruttSoknad from '../../../js/components/sykepengesoknad/AvbruttSoknad';
+import AvbruttSoknadContainer from '../../../js/containers/sykepengesoknad/AvbruttSoknadContainer';
 import UtgaattSoknad from '../../../js/components/sykepengesoknad/UtgaattSoknad';
 import Feilmelding from '../../../js/components/Feilmelding';
 
@@ -81,12 +81,12 @@ describe("FoerDuBegynnerContainer", () => {
         expect(component.find(FoerDuBegynner)).to.have.length(0);
     });
 
-    it("Skal vise AvbruttSoknad hvis søknaden er AVBRUTT", () =>  {
+    it("Skal vise AvbruttSoknadContainer hvis søknaden er AVBRUTT", () =>  {
         const sykepengesoknad = getSoknad({
             status: "AVBRUTT"
         });
         const component = shallow(<Controller sykepengesoknad={sykepengesoknad} vedlikehold={{datospennMedTid: null}} />);
-        expect(component.find(AvbruttSoknad)).to.have.length(1);
+        expect(component.find(AvbruttSoknadContainer)).to.have.length(1);
         expect(component.find(FoerDuBegynner)).to.have.length(0);
     });
 

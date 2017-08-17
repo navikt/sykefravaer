@@ -21,11 +21,6 @@ describe("LandingssideContainer", () => {
 
         beforeEach(() => {
             state = {
-                brukerinfo: {
-                    innstillinger: {
-                        skjulUnderUtviklingVarsel: true
-                    }
-                },
                 ledetekster: {
                     data: {}
                 },
@@ -46,11 +41,6 @@ describe("LandingssideContainer", () => {
                     data: []
                 }
             }
-        });
-
-        it("Skal returnere skjulUnderUtviklingVarsel", function() {
-            const res = mapStateToProps(state);
-            expect(res.skjulVarsel).to.equal(true)
         });
 
         it("Skal returnere harDialogmote === false", () => {

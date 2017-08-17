@@ -31,7 +31,6 @@ export class LandingssideSide extends Component {
     render() {
         const {
             brodsmuler,
-            skjulVarsel,
             henter,
             hentingFeilet,
             sykepengesoknader,
@@ -55,7 +54,6 @@ export class LandingssideSide extends Component {
         return (<StrippetSide tittel={getLedetekst('landingsside.sidetittel')}>
             <Landingsside
                 brodsmuler={brodsmuler}
-                skjulVarsel={skjulVarsel}
                 sykepengesoknader={sykepengesoknader}
                 toggles={toggles}
                 harDialogmote={harDialogmote}
@@ -67,7 +65,6 @@ export class LandingssideSide extends Component {
 
 LandingssideSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    skjulVarsel: PropTypes.bool,
     henter: PropTypes.bool,
     toggles: PropTypes.object,
     hentingFeilet: PropTypes.bool,
@@ -92,7 +89,6 @@ export function mapStateToProps(state) {
     return {
         henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.toggles.henter || state.mote.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
-        skjulVarsel: (state.brukerinfo && state.brukerinfo.innstillinger) ? (state.brukerinfo.innstillinger.skjulUnderUtviklingVarsel === true) : false,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
-import UnderUtviklingVarselContainer from '../../containers/UnderUtviklingVarselContainer';
 import LandingssideLenke from './LandingssideLenke';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
 import Brodsmuler from '../Brodsmuler';
@@ -44,7 +43,7 @@ const IngenSykmeldinger = () => {
     </div>);
 };
 
-const Landingsside = ({ toggles, skjulVarsel = false, sykepengesoknader = [], harDialogmote = false, brodsmuler, dineSykmeldinger = [] }) => {
+const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, brodsmuler, dineSykmeldinger = [] }) => {
     return (<div>
         <div className="sidebanner">
             <div className="sidebanner__innhold">
@@ -55,9 +54,6 @@ const Landingsside = ({ toggles, skjulVarsel = false, sykepengesoknader = [], ha
         </div>
         <div className="begrensning">
             <ServerfeilContainer />
-            {
-                (!skjulVarsel ? <UnderUtviklingVarselContainer /> : null)
-            }
             {
                 dineSykmeldinger.length === 0 && <IngenSykmeldinger />
             }

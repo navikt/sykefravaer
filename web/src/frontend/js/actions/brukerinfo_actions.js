@@ -1,15 +1,4 @@
-import { harLocalStorageStotte } from 'digisyfo-npm';
 import * as actiontyper from './actiontyper';
-
-
-export function skjulUnderUtviklingVarsel() {
-    if (harLocalStorageStotte()) {
-        window.localStorage.setItem('skjulUnderUtviklingVarsel', true);
-    }
-    return {
-        type: actiontyper.SKJUL_UNDER_UTVIKLING_VARSEL,
-    };
-}
 
 export function hentBrukerinfoFeilet() {
     return {

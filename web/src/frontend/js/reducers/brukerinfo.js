@@ -1,25 +1,8 @@
 import { combineReducers } from 'redux';
 import * as actiontyper from '../actions/actiontyper';
 
-let innstillingerInitState;
-
-try {
-    innstillingerInitState = {
-        skjulUnderUtviklingVarsel: window.localStorage.getItem('skjulUnderUtviklingVarsel') === 'true',
-    };
-} catch (e) {
-    innstillingerInitState = {
-        skjulUnderUtviklingVarsel: false,
-    };
-}
-
-function innstillinger(state = innstillingerInitState, action) {
+function innstillinger(state = {}, action) {
     switch (action.type) {
-        case actiontyper.SKJUL_UNDER_UTVIKLING_VARSEL: {
-            return {
-                skjulUnderUtviklingVarsel: true,
-            };
-        }
         case actiontyper.SET_TIDSLINJE_ARBEIDSSITUASJON: {
             return Object.assign({}, state, {
                 arbeidssituasjon: action.arbeidssituasjon,

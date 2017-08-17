@@ -21,22 +21,6 @@ describe("brukerinfo_actions", () => {
 		sinon.spy(window.localStorage, "setItem")
 	});
 
-	describe("skjulUnderUtviklingVarsel", () => {
-
-		it("SKal ha en skjulUnderUtviklingVarsel()-funksjon som returnerer riktig action", () => {
-			expect(actions.skjulUnderUtviklingVarsel()).to.deep.equal({
-				type: actiontyper.SKJUL_UNDER_UTVIKLING_VARSEL
-			});
-		});
-
-		it("Skal kalle på window.localStorage.setItem med riktige parametre", () => {
-			actions.skjulUnderUtviklingVarsel(); 
-			expect(window.localStorage.setItem.getCall(0).args[0]).to.equal("skjulUnderUtviklingVarsel");
-			expect(window.localStorage.setItem.getCall(0).args[1]).to.equal(true);
-		});
-
-	});
-
 	it("Skal ha en hentBrukerinfo()-funksjon som returnerer riktig action", () => {
 		expect(actions.henterBrukerinfo()).to.deep.equal({
 			type: actiontyper.HENTER_BRUKERINFO

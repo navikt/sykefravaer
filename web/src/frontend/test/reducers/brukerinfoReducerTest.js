@@ -21,61 +21,11 @@ describe('brukerinfo', () => {
 
     beforeEach(() => {
         initiellState = {};
-    })
+    }) 
 
-    it("Håndterer skjulUnderUtviklingVarsel dersom state ikke er tom", () => {
+    it("Håndterer hentBrukerinfoFeilet", () => {
         initiellState = deepFreeze({
-            bruker: {
-                data: {
-                    navn: "Helge"
-                }
-            }
-        });
-        const nextState = brukerinfo(initiellState, brukerinfoActions.skjulUnderUtviklingVarsel());
-        expect(nextState).to.deep.equal({
-            bruker: {
-                data: {
-                    navn: "Helge"
-                }
-            },
-            innstillinger: {
-                skjulUnderUtviklingVarsel: true,
-            },
-            innlogging: {}
-        });
-
-        initiellState2 = deepFreeze({
-            innstillinger: {
-                skjulUnderUtviklingVarsel: true
-            }
-        });
-        const nextState2 = brukerinfo(initiellState2, brukerinfoActions.skjulUnderUtviklingVarsel());
-        expect(nextState2).to.deep.equal({
-            innstillinger: {
-                skjulUnderUtviklingVarsel: true
-            },
-            bruker: {},
-            innlogging: {}
-        })
-    });
-
-    it("Håndterer skjulUnderUtviklingVarsel dersom state er tom", () => {
-        initiellState = deepFreeze({});
-        const nextState = brukerinfo(initiellState, brukerinfoActions.skjulUnderUtviklingVarsel());
-        expect(nextState).to.deep.equal({
-            innstillinger: {
-                skjulUnderUtviklingVarsel: true
-            },
-            bruker: {},
-            innlogging: {}
-        })
-    });    
-
-    it("Håndterer hentBrukerinfoFeilet når skjulUnderUtviklingVarsel === false", () => {
-        initiellState = deepFreeze({
-            innstillinger: {
-                skjulUnderUtviklingVarsel: false
-            }
+            innstillinger: {}
         });
         const nextState = brukerinfo(initiellState, brukerinfoActions.hentBrukerinfoFeilet());
         expect(nextState).to.deep.equal({
@@ -85,39 +35,14 @@ describe('brukerinfo', () => {
                 henter: false,
                 hentet: false,
             },
-            innstillinger: {
-                skjulUnderUtviklingVarsel: false
-            },
+            innstillinger: {},
             innlogging: {}
         });      
     });
 
-    it("Håndterer hentBrukerinfoFeilet når skjulUnderUtviklingVarsel === true", () => {
+    it("Håndterer henterBrukerinfo", () => {
         initiellState = deepFreeze({
-            innstillinger: {
-                skjulUnderUtviklingVarsel: true
-            }
-        });
-        const nextState = brukerinfo(initiellState, brukerinfoActions.hentBrukerinfoFeilet());
-        expect(nextState).to.deep.equal({
-            innstillinger: {
-                skjulUnderUtviklingVarsel: true
-            },
-            bruker: {
-                data: {},
-                hentingFeilet: true,
-                henter: false,
-                hentet: false,
-            },
-            innlogging: {}
-        });  
-    })
-
-    it("Håndterer henterBrukerinfo når skjulUnderUtviklingVarsel === true", () => {
-        initiellState = deepFreeze({
-            innstillinger: {
-                skjulUnderUtviklingVarsel : true
-            },
+            innstillinger: {},
             innlogging: {}
         });
         const nextState = brukerinfo(initiellState, brukerinfoActions.henterBrukerinfo());
@@ -128,33 +53,10 @@ describe('brukerinfo', () => {
                 data: {},
                 hentet: false,
             },
-            innstillinger: {
-                skjulUnderUtviklingVarsel: true
-            },
+            innstillinger: {},
             innlogging: {}
         });
-    });   
-
-    it("Håndterer henterBrukerinfo når skjulUnderUtviklingVarsel === false", () => {
-        initiellState = deepFreeze({
-            innstillinger: {
-                skjulUnderUtviklingVarsel : false
-            }
-        });
-        const nextState = brukerinfo(initiellState, brukerinfoActions.henterBrukerinfo());
-        expect(nextState).to.deep.equal({
-            bruker: {
-                data: {},
-                henter: true,
-                hentingFeilet: false,
-                hentet: false,
-            },
-            innstillinger: {
-                skjulUnderUtviklingVarsel: false
-            },
-            innlogging: {}
-        });
-    });       
+    });        
 
     it("Håndterer setBrukerinfo når brukerinfo ikke finnes fra før", () => {
         const nextState = brukerinfo(initiellState, brukerinfoActions.setBrukerinfo({
@@ -171,9 +73,7 @@ describe('brukerinfo', () => {
                 },
                 hentet: true,
             },
-            innstillinger: {
-                skjulUnderUtviklingVarsel: false
-            },
+            innstillinger: {},
             innlogging: {}
         })
     });
@@ -188,9 +88,7 @@ describe('brukerinfo', () => {
                 },
                 hentet: true,
             },
-            innstillinger: {
-                skjulUnderUtviklingVarsel: true
-            },
+            innstillinger: {},
             innlogging: {}
         });
         const nextState1 = brukerinfo(initiellState, brukerinfoActions.setBrukerinfo({
@@ -208,9 +106,7 @@ describe('brukerinfo', () => {
                 },
                 hentet: true,
             },
-            innstillinger: {
-                skjulUnderUtviklingVarsel: true
-            },
+            innstillinger: {},
             innlogging: {}
         });
               
@@ -239,9 +135,7 @@ describe('brukerinfo', () => {
                 },
                 hentet: true,
             },
-            innstillinger: {
-                skjulUnderUtviklingVarsel: false
-            },
+            innstillinger: {},
             innlogging: {}
         })  
     });

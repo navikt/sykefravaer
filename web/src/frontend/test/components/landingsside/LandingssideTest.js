@@ -10,7 +10,6 @@ const expect = chai.expect;
 
 import Landingsside, { GenerellInfo } from "../../../js/components/landingsside/Landingsside";
 import LandingssideLenke from "../../../js/components/landingsside/LandingssideLenke";
-import UnderUtviklingVarselContainer from "../../../js/containers/UnderUtviklingVarselContainer"
 import { getSoknad } from '../../mockSoknader';
 import { setLedetekster } from 'digisyfo-npm';
 import { trekkDagerFraDato, trekkMnderFraDato, leggTilDagerPaaDato, trekkMnderOgDagerFraDato } from '../../../js/utils/datoUtils';
@@ -107,16 +106,6 @@ describe("Landingsside", () => {
     it("Skal vise generell informasjon", () => {
         component = shallow(<Landingsside toggles={{}} skjulVarsel={true} />);
         expect(component.find(GenerellInfo)).to.have.length(1);
-    });
-
-    it("Skal vise varsel dersom skjulVarsel === false", () => {
-        component = shallow(<Landingsside toggles={{}} skjulVarsel={false}/>);
-        expect(component.find(UnderUtviklingVarselContainer)).to.have.length(1);
-    });
-
-    it("Skal ikke vise varsel dersom skjulVarsel ==== true", () => {
-        component = shallow(<Landingsside toggles={{}} skjulVarsel={true}/>);
-        expect(component.find(UnderUtviklingVarselContainer)).to.have.length(0);
     });
 
     describe("GenerellInfo", () => {

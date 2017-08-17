@@ -20,7 +20,8 @@ const Soknader = ({ soknader = [] }) => {
         .filter((soknad) => {
             return soknad.status === FREMTIDIG;
         })
-        .sort(sorterEtterOpprettetDato);
+        .sort(sorterEtterPerioder)
+        .reverse();
 
     return (<div>
         <Sidetopp

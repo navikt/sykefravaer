@@ -14,6 +14,7 @@ const harMangeGodkjenninger = (godkjenninger) => {
 const MottattGodkjenninger = ({ oppfolgingsdialog, godkjennPlan, ledetekster, nullstillGodkjenning, avvisDialog, visAvvisPlanKvittering }) => {
     if (harMangeGodkjenninger(oppfolgingsdialog.godkjenninger)) {
         return (<GodkjennPlanAvslaattOgGodkjent
+            visAvvisPlanKvittering={visAvvisPlanKvittering}
             avvisDialog={avvisDialog}
             godkjennPlan={godkjennPlan}
             ledetekster={ledetekster}

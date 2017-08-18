@@ -12,7 +12,7 @@ import {
     RenderNotifikasjonBoks,
     RenderArbeidsoppgaverKnapper,
     RenderOpprettArbeidsoppgave,
-    RenderOppfolgingsdialogArbeidsoppgaverTabell,
+    OppfolgingsdialogArbeidsoppgaverTabell,
 } from "../../../js/components/oppfolgingsdialoger/utfylling/Arbeidsoppgaver";
 import {
     OppfolgingsdialogInfoboks,
@@ -88,13 +88,13 @@ describe("Arbeidsoppgaver", () => {
         expect(component.find('h2')).to.have.length(1);
     });
 
-    it("Skal vise RenderOppfolgingsdialogArbeidsoppgaverTabell, om det er arbeidsoppgaver", () => {
+    it("Skal vise OppfolgingsdialogArbeidsoppgaverTabell, om det er arbeidsoppgaver", () => {
         component = shallow(<Arbeidsoppgaver oppfolgingsdialog={oppfolgingsdialog}
                                              oppfolgingsdialogerHentet
                                              lagreArbeidsoppgave={lagreArbeidsoppgave}
                                              slettArbeidsoppgave={slettArbeidsoppgave}
                             />);
-        expect(component.find(RenderOppfolgingsdialogArbeidsoppgaverTabell)).to.have.length(1);
+        expect(component.find(OppfolgingsdialogArbeidsoppgaverTabell)).to.have.length(1);
     });
 
     it("Skal vise LagreArbeidsoppgaveSkjema, om det er arbeidsoppgaver og visArbeidsoppgaveSkjema er true", () => {

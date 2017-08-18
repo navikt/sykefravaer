@@ -39,7 +39,7 @@ RenderNotifikasjonBoksSuksess.propTypes = {
     tekst: PropTypes.string,
 };
 
-export const RenderOppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, aktoerId }) => {
+export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, aktoerId, oppfolgingsdialog }) => {
     return (
         <OppfolgingsdialogTabell
             ledetekster={ledetekster}
@@ -52,11 +52,13 @@ export const RenderOppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbe
             sendSlett={sendSlettArbeidsoppgave}
             aktoerId={aktoerId}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
+            oppfolgingsdialog={oppfolgingsdialog}
         />
     );
 };
-RenderOppfolgingsdialogArbeidsoppgaverTabell.propTypes = {
+OppfolgingsdialogArbeidsoppgaverTabell.propTypes = {
     ledetekster: PropTypes.object,
+    oppfolgingsdialog: PropTypes.object,
     arbeidsoppgaveListe: PropTypes.array,
     sendLagreArbeidsoppgave: PropTypes.func,
     sendSlettArbeidsoppgave: PropTypes.func,
@@ -219,8 +221,9 @@ export class Arbeidsoppgaver extends Component {
                             />
                         }
                         {
-                            <RenderOppfolgingsdialogArbeidsoppgaverTabell
+                            <OppfolgingsdialogArbeidsoppgaverTabell
                                 ledetekster={ledetekster}
+                                oppfolgingsdialog={oppfolgingsdialog}
                                 arbeidsoppgaveListe={sorterArbeidsoppgaverEtterOpprettet(oppfolgingsdialog.arbeidsoppgaveListe)}
                                 sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
                                 sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}

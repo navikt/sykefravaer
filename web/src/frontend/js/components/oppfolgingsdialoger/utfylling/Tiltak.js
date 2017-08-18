@@ -9,6 +9,7 @@ import {
     OppfolgingsdialogTabell,
     LagreTiltakSkjema,
     BRUKERTYPE,
+    captitalizeFirstLetter,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 
@@ -123,7 +124,10 @@ export class Tiltak extends Component {
             this.state.nyttTiltak = false;
             this.state.oppdatertTiltak = true;
         }
-        this.props.lagreTiltak(this.props.oppfolgingsdialogId, values);
+        const nyeValues = Object.assign({}, values, {
+            tiltaknavn: captitalizeFirstLetter(values.tiltaknavn),
+        });
+        this.props.lagreTiltak(this.props.oppfolgingsdialogId, nyeValues);
     }
 
     sendSlettTiltak(tiltakId) {

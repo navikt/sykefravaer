@@ -9,6 +9,7 @@ import {
     OppfolgingsdialogTabell,
     LagreArbeidsoppgaveSkjema,
     BRUKERTYPE,
+    captitalizeFirstLetter,
     sorterArbeidsoppgaverEtterOpprettet,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
@@ -129,7 +130,10 @@ export class Arbeidsoppgaver extends Component {
             this.state.nyArbeidsoppgave = false;
             this.state.oppdatertArbeidsoppgave = true;
         }
-        this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialogId, values);
+        const nyeValues = Object.assign({}, values, {
+            arbeidsoppgavenavn: captitalizeFirstLetter(values.arbeidsoppgavenavn),
+        });
+        this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialogId, nyeValues);
     }
 
     sendSlettArbeidsoppgave(arbeidsoppgaveId) {

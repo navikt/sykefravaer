@@ -85,7 +85,6 @@ const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, 
 };
 
 Landingsside.propTypes = {
-    skjulVarsel: PropTypes.bool.isRequired,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     dineSykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     harDialogmote: PropTypes.bool,

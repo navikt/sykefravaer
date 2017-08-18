@@ -24,7 +24,7 @@ SoknaderTeasere.propTypes = {
     tittel: PropTypes.string,
     tomListeTekst: PropTypes.string,
     id: PropTypes.string,
-    Child: PropTypes.component,
+    Child: PropTypes.func,
 };
 
 export default SoknaderTeasere;

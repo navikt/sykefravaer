@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { GodkjennPlanSendt, BRUKERTYPE } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../../routers/paths';
+import history from '../../../history'
 
 const SendtGodkjenninger = ({ oppfolgingsdialog, ledetekster, koblingId }) => {
     return (<div>

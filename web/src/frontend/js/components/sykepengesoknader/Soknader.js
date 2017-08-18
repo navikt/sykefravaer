@@ -35,7 +35,7 @@ const Soknader = ({ soknader = [] }) => {
             id="soknader-list-til-behandling"
         />
         {
-            fremtidigeSoknader.length && <SoknadTeasere
+            fremtidigeSoknader.length > 0 && <SoknadTeasere
                 Child={FremtidigSoknadTeaser}
                 soknader={fremtidigeSoknader}
                 tittel={getLedetekst('soknader.planlagt.tittel')}

@@ -37,7 +37,7 @@ export class Samtykke extends Component {
                             <div className="inputgruppe">
                                 <div>
                                     <div className="skjema__input">
-                                        <input type="radio" id="giSamtykke" checked={this.state.samtykke === true ? 'checked' : null } className="radioknapp" name="samtykkeGitt" value="true" onChange={(e) => { this.settSamtykke(e.target.value); }} />
+                                        <input autoFocus type="radio" id="giSamtykke" checked={this.state.samtykke === true ? 'checked' : null } className="radioknapp" name="samtykkeGitt" value="true" onChange={(e) => { this.settSamtykke(e.target.value); }} />
                                             <label htmlFor="giSamtykke">Ja, jeg samtykker i at NAV kan bruke anonymisert data fra min oppfølgingsplan til å utvikle></label>
                                     </div>
                                 </div>

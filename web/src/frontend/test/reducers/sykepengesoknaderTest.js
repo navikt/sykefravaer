@@ -312,7 +312,7 @@ describe('sykepengesoknader', () => {
     describe("Avbryt søknad", () => {
 
         let state = deepFreeze({
-            data: [{id: "1", status: "NY", id: "2", status: "SENDT"}],
+            data: [{id: "1", status: "NY", avbruttDato: null}, { id: "2", status: "SENDT", avbruttDato: null}],
             henter: false,
             hentingFeilet: false,
             sender: false,
@@ -323,7 +323,7 @@ describe('sykepengesoknader', () => {
             const action = actions.avbryterSoknad();
             state = sykepengesoknader(state, action);
             expect(state).to.deep.equal({
-                data: [{id: "1", status: "NY", id: "2", status: "SENDT"}],
+                data: [{id: "1", status: "NY", avbruttDato: null }, { id: "2", status: "SENDT", avbruttDato: null}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -337,7 +337,7 @@ describe('sykepengesoknader', () => {
             const action = actions.avbrytSoknadFeilet();
             state = sykepengesoknader(state, action);
             expect(state).to.deep.equal({
-                data: [{id: "1", status: "NY", id: "2", status: "SENDT"}],
+                data: [{id: "1", status: "NY", avbruttDato: null }, { id: "2", status: "SENDT", avbruttDato: null}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -352,7 +352,7 @@ describe('sykepengesoknader', () => {
             const action = actions.soknadAvbrutt("1");
             state = sykepengesoknader(state, action);
             expect(state).to.deep.equal({
-                data: [{id: "1", status: "AVBRUTT", id: "2", status: "SENDT"}],
+                data: [{id: "1", status: "AVBRUTT", avbruttDato: new Date() }, { id: "2", status: "SENDT", avbruttDato: null}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -363,11 +363,13 @@ describe('sykepengesoknader', () => {
         });
 
         it("Håndterer gjenapnerSoknad", () => {
-            state = deepFreeze(state);
+            state = deepFreeze(Object.assign({}, state, {
+                data: [{id: "1", status: "AVBRUTT", avbruttDato: new Date("2017-06-06")}, { id: "2", status: "SENDT", avbruttDato: null}]
+            }));
             const action = actions.gjenapnerSoknad();
             state = sykepengesoknader(state, action);
             expect(state).to.deep.equal({
-                data: [{id: "1", status: "AVBRUTT", id: "2", status: "SENDT"}],
+                data: [{id: "1", status: "AVBRUTT", avbruttDato: new Date("2017-06-06")}, { id: "2", status: "SENDT", avbruttDato: null}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -379,11 +381,13 @@ describe('sykepengesoknader', () => {
         });
 
         it("Håndterer gjenapneSoknadFeilet()", () => {
-            state = deepFreeze(state);
+            state = deepFreeze(Object.assign({}, state, {
+                data: [{id: "1", status: "AVBRUTT", avbruttDato: new Date("2017-06-06")}, { id: "2", status: "SENDT", avbruttDato: null}]
+            }));
             const action = actions.gjenapneSoknadFeilet();
             state = sykepengesoknader(state, action);
             expect(state).to.deep.equal({
-                data: [{id: "1", status: "AVBRUTT", id: "2", status: "SENDT"}],
+                data: [{id: "1", status: "AVBRUTT", avbruttDato: new Date("2017-06-06")}, { id: "2", status: "SENDT", avbruttDato: null}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,
@@ -400,7 +404,7 @@ describe('sykepengesoknader', () => {
             const action = actions.soknadGjenapnet("1");
             state = sykepengesoknader(state, action);
             expect(state).to.deep.equal({
-                data: [{id: "1", status: "NY", id: "2", status: "SENDT"}],
+                data: [{id: "1", status: "NY", avbruttDato: null}, { id: "2", status: "SENDT", avbruttDato: null}],
                 henter: false,
                 hentingFeilet: false,
                 sender: false,

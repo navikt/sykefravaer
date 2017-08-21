@@ -225,6 +225,7 @@ export default function sykepengesoknader(state = initiellState, action) {
         case actiontyper.SOKNAD_AVBRUTT: {
             const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
                 status: AVBRUTT,
+                avbruttDato: new Date(),
             });
             return Object.assign({}, state, {
                 data,
@@ -246,6 +247,7 @@ export default function sykepengesoknader(state = initiellState, action) {
         case actiontyper.SOKNAD_GJENAPNET: {
             const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
                 status: NY,
+                avbruttDato: null,
             });
             return Object.assign({}, state, {
                 data,

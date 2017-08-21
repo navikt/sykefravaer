@@ -13,6 +13,7 @@ import validate, {
     ikkeJobbetMerEnnGraderingTimerFeil,
     normaltAntallFeil,
     overHundreFeil,
+    overHundreogfemtiFeil,
     jobbetMerEnnPlanlagtFeil,
     sammeNormalAntallFeil } from '../../../../js/components/sykepengesoknad/validering/validerAktiviteterISykmeldingsperioden';
 import { getSoknad } from '../../../mockSoknader';
@@ -346,7 +347,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             values.aktiviteter = [{
                 jobbetMerEnnPlanlagt: true,
                 avvik: {
-                    timer: "101",
+                    timer: "151",
                     enhet: "timer",
                     arbeidstimerNormalUke: "37,5"
                 },
@@ -356,10 +357,10 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             }];
 
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-
+            console.log(res.aktiviteter)
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    timer: overHundreFeil,
+                    timer: overHundreogfemtiFeil,
                 }
             }, {}])
         });
@@ -417,7 +418,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             }])
         });
 
-        it("Skal gi valideringsfeil på timer selv om normal arbeidstid ikke er oppgitt", ()=> {
+        it("Skal gi valideringsfeil på timer selv om normal arbeidstid ikke er oppgitt", () => {
             let _soknad = getSoknad({
                 "aktiviteter": [{
                     "periode": {
@@ -442,11 +443,41 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
 
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    timer: overHundreFeil,
+                    timer: overHundreogfemtiFeil,
                     arbeidstimerNormalUke: normaltAntallFeil,
                 }
             }])
         });
+
+        it("Skal gi valideringsfeil på timer dersom antall oppgitt timer tilsvarer over 100 %", () => {
+            let _soknad = getSoknad({
+                "aktiviteter": [{
+                    "periode": {
+                        "fom": new Date("2017-07-31"),
+                        "tom": new Date("2017-08-08")
+                    },
+                    "grad": 60,
+                    "avvik": null
+                }]
+            });
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    arbeidstimerNormalUke: "50",
+                    timer: "71",
+                    enhet: "timer"
+                },
+                grad: 50
+            }];
+
+            const res = validate(values, { sykepengesoknad:_soknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.deep.equal([{
+                avvik: {
+                    timer: "Antall timer tilsvarer over 100 % av din stilling",
+                }
+            }])
+        })
 
         describe("Samme normale arbeidstid", () => {
             it("Skal kreve at man har oppgitt samme normalarbeidstid for hver periode", () => {

@@ -37,6 +37,16 @@ const getUtdanning = (utdanning) => {
     return null;
 };
 
+const tilInt = (streng) => {
+    if (!streng) {
+        return undefined;
+    }
+    if (typeof streng === 'number') {
+        return streng;
+    }
+    return parseFloat(streng.replace(',', '.'));
+};
+
 const getAktiviteter = (aktiviteter) => {
     return aktiviteter.map((aktivitet) => {
         const _a = {
@@ -46,12 +56,13 @@ const getAktiviteter = (aktiviteter) => {
         };
         if (aktivitet.jobbetMerEnnPlanlagt) {
             _a.avvik = {
-                arbeidstimerNormalUke: parseFloat(aktivitet.avvik.arbeidstimerNormalUke.replace(',', '.')),
+                arbeidstimerNormalUke: tilInt(aktivitet.avvik.arbeidstimerNormalUke),
             };
             if (aktivitet.avvik.enhet === 'timer') {
-                _a.avvik.timer = parseFloat(aktivitet.avvik.timer.replace(',', '.'));
+                _a.avvik.timer = tilInt(aktivitet.avvik.timer);
+                _a.avvik.arbeidsgrad = tilInt(aktivitet.avvik.arbeidsgrad);
             } else {
-                _a.avvik.arbeidsgrad = parseFloat(aktivitet.avvik.arbeidsgrad.replace(',', '.'));
+                _a.avvik.arbeidsgrad = tilInt(aktivitet.avvik.arbeidsgrad);
             }
         } else {
             _a.avvik = null;

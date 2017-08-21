@@ -13,27 +13,21 @@ export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => 
 
     return (<JaEllerNei
         name={`aktiviteter[${index}].jobbetMerEnnPlanlagt`}
-        intro={getLedetekst(`${ledetekstPrefix}.intro`, {
+        spoersmal={getLedetekst(`${ledetekstPrefix}.spoersmal-2`, {
             '%FOM%': toDatePrettyPrint(field.periode.fom),
             '%TOM%': toDatePrettyPrint(tomDato),
             '%ARBEIDSGIVER%': arbeidsgiver,
             '%ARBEIDSGRAD%': 100 - field.grad,
         })}
-        spoersmal={getLedetekst(`${ledetekstPrefix}.sporsmal`)}
         hjelpetekst={hjelpetekst}>
         <div>
-            <h4 className="skjema__sporsmal">
-                {
-                    getLedetekst('sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet', {
-                        '%ARBEIDSGIVER%': arbeidsgiver,
-                    })
-                }
-            </h4>
             <Fields
                 autofill={autofill}
                 untouch={untouch}
                 component={AngiTid}
                 aktivitetIndex={index}
+                arbeidsgiver={arbeidsgiver}
+                periode={field.periode}
                 names={[
                     `aktiviteter[${index}].avvik.arbeidsgrad`,
                     `aktiviteter[${index}].avvik.timer`,

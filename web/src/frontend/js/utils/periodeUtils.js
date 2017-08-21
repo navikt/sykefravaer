@@ -129,3 +129,18 @@ export const harOverlappendePerioder = (perioder) => {
         return acc || bool;
     }, false);
 };
+
+export const antallVirkedagerIPeriode = (periode) => {
+    const start = periode.fom.getTime();
+    const slutt = periode.tom.getTime();
+    const DOGN = 1000 * 60 * 60 * 24;
+    let antallVirkedager = 0;
+
+    for (let i = start; i <= slutt; i = i + DOGN) {
+        const d = new Date(i);
+        if (!datoErHelgedag(d)) {
+            antallVirkedager = antallVirkedager + 1;
+        }
+    }
+    return antallVirkedager;
+};

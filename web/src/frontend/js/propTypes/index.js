@@ -44,6 +44,17 @@ export const arbeidsgiver = PropTypes.shape({
     naermesteLeder,
 });
 
+export const soknadaktiviteter = PropTypes.arrayOf(PropTypes.shape({
+    periode: soknadperiode,
+    grad: PropTypes.number,
+    avvik: PropTypes.shape({
+        arbeidstimerNormalUke: PropTypes.number,
+        arbeidsgrad: PropTypes.number,
+        timer: PropTypes.number,
+    }),
+    id: PropTypes.number,
+}));
+
 export const sykepengesoknad = PropTypes.shape({
     id: PropTypes.string,
     status: PropTypes.oneOf([soknadstatuser.SENDT, soknadstatuser.NY, soknadstatuser.TIL_SENDING, soknadstatuser.UTGAATT, soknadstatuser.UTKAST_TIL_KORRIGERING, soknadstatuser.KORRIGERT, soknadstatuser.FREMTIDIG]),
@@ -63,16 +74,7 @@ export const sykepengesoknad = PropTypes.shape({
         perioder: PropTypes.arrayOf(soknadperiode),
         soektOmSykepengerIPerioden: PropTypes.bool,
     }),
-    aktiviteter: PropTypes.arrayOf(PropTypes.shape({
-        periode: soknadperiode,
-        grad: PropTypes.number,
-        avvik: PropTypes.shape({
-            arbeidstimerNormalUke: PropTypes.number,
-            arbeidsgrad: PropTypes.number,
-            timer: PropTypes.number,
-        }),
-        id: PropTypes.number,
-    })).isRequired,
+    aktiviteter: soknadaktiviteter.isRequired,
     andreInntektskilder: PropTypes.arrayOf(annenInntektskilde),
     utdanning: PropTypes.shape({
         utdanningStartdato: PropTypes.instanceOf(Date),

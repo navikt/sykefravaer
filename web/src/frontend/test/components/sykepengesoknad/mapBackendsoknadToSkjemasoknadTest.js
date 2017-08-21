@@ -356,6 +356,39 @@ describe("mapBackendsoknadToSkjemasoknad", () => {
             }]);
         });
 
+        it("Mapper aktiviteter med avvik der enhet er timer og prosent også er oppgitt (som følge av automatisk utregning)", () => {
+            const soknad = getSoknad({
+                aktiviteter: [{
+                    periode: {
+                        fom: new Date("2016-07-15"),
+                        tom: new Date("2016-07-20")
+                    },
+                    grad: 60,
+                    avvik: {
+                        arbeidstimerNormalUke: 37.5,
+                        timer: 27.5,
+                        arbeidsgrad: 15
+                    },
+                    jobbetMerEnnPlanlagt: true,
+                }]
+            });
+            const s = mapBackendsoknadToSkjemasoknad(deepFreeze(soknad));
+            expect(s.aktiviteter).to.deep.equal([{
+                periode: {
+                    fom: new Date("2016-07-15"),
+                    tom: new Date("2016-07-20")
+                },
+                grad: 60,
+                avvik: {
+                    arbeidstimerNormalUke: "37,5",
+                    enhet: "timer",
+                    timer: "27,5",
+                    arbeidsgrad: "15",
+                },
+                jobbetMerEnnPlanlagt: true,
+            }]);
+        });
+
     });
 
 });

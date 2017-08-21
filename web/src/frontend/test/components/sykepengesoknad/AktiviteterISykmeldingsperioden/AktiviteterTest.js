@@ -42,11 +42,9 @@ describe("Aktiviteter", () => {
         }]
 
         ledetekster = {
-            'sykepengesoknad.aktiviteter.gradert.sporsmal': 'Har du jobbet mer enn dette?',
-            'sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet': "Hvor mye har du jobbet i gjennomsnitt per uke i denne perioden hos %ARBEIDSGIVER%?",
-            'sykepengesoknad.aktiviteter.ugradert.intro': "I perioden %FOM% - %TOM% skulle du ikke jobbe hos %ARBEIDSGIVER%.",
-            'sykepengesoknad.aktiviteter.gradert.intro': "I perioden %FOM% - %TOM% skulle du jobbe %ARBEIDSGRAD% % av din normale arbeidstid hos %ARBEIDSGIVER%.",
-            'sykepengesoknad.aktiviteter.ugradert.sporsmal': "Har du jobbet?",
+            'sykepengesoknad.aktiviteter.gradert.spoersmal-2': 'I perioden %FOM%–%TOM% skulle du ifølge sykmeldingen jobbe %ARBEIDSGRAD% % av din normale arbeidstid hos %ARBEIDSGIVER%. Jobbet du mer enn dette?',
+            'sykepengesoknad.aktiviteter.ugradert.spoersmal-2': 'I perioden %FOM%–%TOM% var du 100 % sykmeldt fra %ARBEIDSGIVER%. Jobbet du noe i denne perioden?',
+            'sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet': "Hvor hvor mye jobbet du totalt i denne perioden hos %ARBEIDSGIVER%?",
         };
 
         setLedetekster(ledetekster);
@@ -106,9 +104,7 @@ describe("Aktiviteter", () => {
         it("Skal inneholde en JaEllerNei", () => {
             expect(ja).to.have.length(1);
             expect(ja.prop("name")).to.equal("aktiviteter[1].jobbetMerEnnPlanlagt");
-            expect(ja.prop("intro")).to.equal("I perioden 16.01.2017 - 25.01.2017 skulle du jobbe 65 % av din normale arbeidstid hos MORTENS GRØNNSAKER.")
-            expect(ja.prop("spoersmal")).to.equal("Har du jobbet mer enn dette?");
-            expect(ja).to.contain("Hvor mye har du jobbet i gjennomsnitt per uke i denne perioden hos MORTENS GRØNNSAKER?")
+            expect(ja.prop("spoersmal")).to.equal("I perioden 16.01.2017–25.01.2017 skulle du ifølge sykmeldingen jobbe 65 % av din normale arbeidstid hos MORTENS GRØNNSAKER. Jobbet du mer enn dette?");
         });
 
         it("Skal inneholde en Hjelpetekst", () => {
@@ -144,9 +140,7 @@ describe("Aktiviteter", () => {
         it("Skal inneholde en JaEllerNei", () => {
             expect(ja).to.have.length(1);
             expect(ja.prop("name")).to.equal("aktiviteter[0].jobbetMerEnnPlanlagt");
-            expect(ja.prop("intro")).to.equal("I perioden 01.01.2017 - 15.01.2017 skulle du ikke jobbe hos MORTENS GRØNNSAKER.")
-            expect(ja.prop("spoersmal")).to.equal("Har du jobbet?");
-            expect(ja).to.contain("Hvor mye har du jobbet i gjennomsnitt per uke i denne perioden hos MORTENS GRØNNSAKER?")
+            expect(ja.prop("spoersmal")).to.equal("I perioden 01.01.2017–15.01.2017 var du 100 % sykmeldt fra MORTENS GRØNNSAKER. Jobbet du noe i denne perioden?");
         });
 
         it("Skal ikke inneholde en Hjelpetekst", () => {

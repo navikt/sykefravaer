@@ -3,6 +3,7 @@ import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 import { ANNET } from '../../../enums/inntektskildetyper';
 import { fraInputdatoTilJSDato } from '../../../utils';
 import { toDatePrettyPrint, getTomDato } from 'digisyfo-npm';
+import { getStillingsprosent } from '../AktiviteterISykmeldingsperioden/DetteTilsvarer';
 
 const parseString = (str) => {
     if (str) {
@@ -17,7 +18,9 @@ export const ikkeJobbetMerEnnGraderingProsentFeil = 'Prosenten du har oppgitt er
 export const ikkeJobbetMerEnnGraderingTimerFeil = 'Antall timer du har oppgitt er lavere enn sykmeldingen tilsier. Husk å oppgi hvor mye du har jobbet totalt';
 export const overHundreFeil = 'Du må oppgi et tall fra 1 til 100';
 export const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer enn planlagt';
+export const overHundreogfemtiFeil = 'Du må oppgi et tall fra 1 til 150';
 export const sammeNormalAntallFeil = 'Vennligst oppi samme antall timer for alle periodene';
+export const antallTimerErMerEnn100ProsentFeil = 'Antall timer tilsvarer over 100 % av din stilling';
 
 const validerAktiviteter = (values, aktiviteter) => {
     const harSammeNormalAntall = values.aktiviteter && values.aktiviteter.filter((a) => {
@@ -44,36 +47,41 @@ const validerAktiviteter = (values, aktiviteter) => {
             const res = {};
 
             if (values && values.aktiviteter[index] && values.aktiviteter[index].jobbetMerEnnPlanlagt) {
-                if (values.aktiviteter[index].avvik) {
-                    if (values.aktiviteter[index].avvik.enhet === 'prosent') {
-                        if (values.aktiviteter[index].avvik.arbeidsgrad > 100) {
+                const _avvik = values.aktiviteter[index].avvik;
+
+                if (_avvik) {
+                    const { enhet, arbeidstimerNormalUke, arbeidsgrad, timer } = _avvik;
+                    if (enhet === 'prosent') {
+                        if (arbeidsgrad > 100) {
                             res.arbeidsgrad = overHundreFeil;
                         }
-                        if (values.aktiviteter[index].avvik.arbeidsgrad <= (100 - values.aktiviteter[index].grad)) {
+                        if (arbeidsgrad <= (100 - values.aktiviteter[index].grad)) {
                             res.arbeidsgrad = ikkeJobbetMerEnnGraderingProsentFeil;
                         }
-                        if (!values.aktiviteter[index].avvik.arbeidsgrad || values.aktiviteter[index].avvik.arbeidsgrad === '') {
+                        if (!arbeidsgrad || arbeidsgrad === '') {
                             res.arbeidsgrad = antallFeil;
                         }
-                    } else if (values.aktiviteter[index].avvik.enhet === 'timer') {
-                        if (parseString(values.aktiviteter[index].avvik.timer) > 100) {
-                            res.timer = overHundreFeil;
+                    } else if (enhet === 'timer') {
+                        if (parseString(timer) > 150) {
+                            res.timer = overHundreogfemtiFeil;
+                        } else if (getStillingsprosent(timer, arbeidstimerNormalUke, aktivitet.periode) > 100) {
+                            res.timer = antallTimerErMerEnn100ProsentFeil;
                         }
 
-                        if (values.aktiviteter[index].avvik.arbeidstimerNormalUke && parseString(values.aktiviteter[index].avvik.arbeidstimerNormalUke) > 0) {
-                            if ((parseString(values.aktiviteter[index].avvik.timer) / parseString(values.aktiviteter[index].avvik.arbeidstimerNormalUke)) * 100
+                        if (arbeidstimerNormalUke && parseString(arbeidstimerNormalUke) > 0) {
+                            if ((parseString(timer) / parseString(arbeidstimerNormalUke)) * 100
                                 <= (100 - values.aktiviteter[index].grad)) {
                                 res.timer = ikkeJobbetMerEnnGraderingTimerFeil;
                             }
                         }
 
-                        if (!values.aktiviteter[index].avvik.timer || values.aktiviteter[index].avvik.timer === '') {
+                        if (!timer || timer === '') {
                             res.timer = antallFeil;
                         }
                     }
-                    if (!values.aktiviteter[index].avvik.arbeidstimerNormalUke || values.aktiviteter[index].avvik.arbeidstimerNormalUke === '') {
+                    if (!arbeidstimerNormalUke || arbeidstimerNormalUke === '') {
                         res.arbeidstimerNormalUke = normaltAntallFeil;
-                    } else if (values.aktiviteter[index].avvik.arbeidstimerNormalUke > 100) {
+                    } else if (arbeidstimerNormalUke > 100) {
                         res.arbeidstimerNormalUke = overHundreFeil;
                     } else if (!harSammeNormalAntall) {
                         res.arbeidstimerNormalUke = sammeNormalAntallFeil;

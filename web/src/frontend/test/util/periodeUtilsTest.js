@@ -6,7 +6,8 @@ import {
     periodeOverlapperMedPeriode,
     periodeOverlapperMedPerioder,
     perioderOverlapperMedPerioder,
-    harOverlappendePerioder
+    harOverlappendePerioder,
+    antallVirkedagerIPeriode
 } from "../../js/utils/periodeUtils";
 import chai from "chai";
 const expect = chai.expect;
@@ -412,6 +413,48 @@ describe("periodeUtils", () => {
             };
             const perioder = [a, b];
             expect(harOverlappendePerioder(perioder)).to.be.true;
+        });
+
+    });
+
+    describe("antallVirkedagerIPeriode()", () => {
+
+        let mandag1;
+        let mandag2;
+        let mandag3;
+        let fredag1;
+        let sondag1;
+
+        beforeEach(() => {
+            mandag1 = new Date("2017-08-14");
+            fredag1 = new Date("2017-08-18");
+            sondag1 = new Date("2017-08-20");
+            mandag2 = new Date("2017-08-21");
+            mandag3 = new Date("2017-08-28");
+        })
+
+        it("Skal returnere antall virkedager fra og med startdato til og med sluttdato", () => {
+            const periode = {
+                fom: mandag1,
+                tom: fredag1,
+            };
+            expect(antallVirkedagerIPeriode(periode)).to.equal(5);
+        });
+
+        it("Skal returnere antall virkedager fra og med startdato til og med sluttdato når perioden inkluderer 1 helg", () => {
+            const periode = {
+                fom: mandag1,
+                tom: sondag1,
+            };
+            expect(antallVirkedagerIPeriode(periode)).to.equal(5);
+        });
+
+        it("Skal returnere antall virkedager fra og med startdato til og med sluttdato når perioden inkluderer 2 helger", () => {
+            const periode = {
+                fom: mandag1,
+                tom: mandag3,
+            };
+            expect(antallVirkedagerIPeriode(periode)).to.equal(11);
         });
 
     });

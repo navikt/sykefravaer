@@ -3,6 +3,8 @@ import { Field } from 'redux-form';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
 import { lagDesimaltall, getObjectValueByString } from '../../../utils';
 import { getLedetekst } from 'digisyfo-npm';
+import DetteTilsvarer, { getStillingsprosent } from './DetteTilsvarer';
+import { soknadperiode, soknadaktiviteter } from '../../../propTypes';
 
 class AngiTid extends Component {
     constructor(props) {
@@ -37,7 +39,7 @@ class AngiTid extends Component {
     }
 
     getEnhetLabel() {
-        return getLedetekst(`sykepengesoknad.angi-tid.antall.label.${this.getValgtEnhet()}`);
+        return getLedetekst(`sykepengesoknad.angi-tid.antall.label-totalt.${this.getValgtEnhet()}`);
     }
 
     getNormalSporsmal() {
@@ -60,7 +62,14 @@ class AngiTid extends Component {
     }
 
     render() {
-        const { input, autofill, untouch } = this.props;
+        const { input, autofill, untouch, arbeidsgiver, periode, aktiviteter, aktivitetIndex } = this.props;
+
+        const avvik = aktiviteter[aktivitetIndex].avvik;
+        const timer = avvik.timer.input.value;
+        const arbeidstimerNormalUke = avvik.arbeidstimerNormalUke.input.value;
+        const stillingsprosent = getStillingsprosent(timer, arbeidstimerNormalUke, periode);
+        const visTilsvarendeIProsent = timer !== '' && stillingsprosent !== undefined;
+
         const enheter = [{
             value: 'prosent',
         }, {
@@ -68,6 +77,22 @@ class AngiTid extends Component {
         }];
 
         return (<div>
+            <div className="skjema__input blokk">
+                <label htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`} className="skjema__sporsmal">{this.getNormalSporsmal()}</label>
+                <Field
+                    name={this.props.names[2]}
+                    id={this.props.names[2]}
+                    component={TekstfeltMedEnhet}
+                    parse={lagDesimaltall}
+                    label={getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label')} />
+            </div>
+            <h4 className="skjema__sporsmal">
+                {
+                    getLedetekst('sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet-totalt', {
+                        '%ARBEIDSGIVER%': arbeidsgiver,
+                    })
+                }
+            </h4>
             <div className="inputgruppe inputgruppe--horisontal">
                 {
                     enheter.map((enhet, index) => {
@@ -95,18 +120,12 @@ class AngiTid extends Component {
                     })
                 }
             </div>
-            <div className="blokk">
-                <Field id={this.getAntallName()} component={TekstfeltMedEnhet} parse={lagDesimaltall} label={this.getEnhetLabel()} name={this.getAntallName()} />
-            </div>
-            <div className="skjema__input">
-                <label htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`} className="skjema__sporsmal">{this.getNormalSporsmal()}</label>
-                <Field
-                    name={this.props.names[2]}
-                    id={this.props.names[2]}
-                    component={TekstfeltMedEnhet}
-                    parse={lagDesimaltall}
-                    label={getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label')} />
-            </div>
+            <Field onBlur={() => {
+                if (this.getValgtEnhet() === 'timer' && visTilsvarendeIProsent) {
+                    autofill(this.props.names[0], stillingsprosent);
+                }
+            }} id={this.getAntallName()} component={TekstfeltMedEnhet} parse={lagDesimaltall} label={this.getEnhetLabel()} name={this.getAntallName()} />
+            { visTilsvarendeIProsent && <DetteTilsvarer stillingsprosent={stillingsprosent} /> }
         </div>);
     }
 }
@@ -117,6 +136,9 @@ AngiTid.propTypes = {
     names: PropTypes.array,
     autofill: PropTypes.func,
     untouch: PropTypes.func,
+    arbeidsgiver: PropTypes.string,
+    periode: soknadperiode,
+    aktiviteter: soknadaktiviteter,
 };
 
 export default AngiTid;

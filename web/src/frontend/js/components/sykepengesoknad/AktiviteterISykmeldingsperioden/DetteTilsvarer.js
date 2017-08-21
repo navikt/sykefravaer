@@ -12,7 +12,7 @@ export const getStillingsprosent = (antallTimerIArbeid, normalArbeidstid, period
     const _antallTimerIArbeid = tilInt(antallTimerIArbeid);
     const _normalArbeidstid = tilInt(normalArbeidstid);
     const desimaltall = _antallTimerIArbeid / ((_normalArbeidstid / ANTALL_VIRKEDAGER_I_EN_UKE) * virkerdager);
-    if (!_antallTimerIArbeid || !_normalArbeidstid) {
+    if (!_antallTimerIArbeid || !_normalArbeidstid || virkerdager === 0) {
         return undefined;
     }
     return Math.round(desimaltall * 100);

@@ -61,6 +61,16 @@ describe("DetteTilsvarer", () => {
             expect(getStillingsprosent(antallTimerIArbeid, normalArbeidstid, periode)).to.equal(undefined); 
         });
 
+        it("Skal returnere stilingsprosent === undefined dersom sykmeldingsperioden varer i bare en helg", () => {
+            const antallTimerIArbeid = "10";
+            const normalArbeidstid = '37,5';
+            const periode = {
+                fom: new Date("2017-08-19"),
+                tom: new Date("2017-08-20"),
+            };
+            expect(getStillingsprosent(antallTimerIArbeid, normalArbeidstid, periode)).to.equal(undefined); 
+        });
+
     })
 
 })

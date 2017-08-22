@@ -42,6 +42,7 @@ export const arbeidsgiver = PropTypes.shape({
     navn: PropTypes.string,
     orgnummer: PropTypes.string,
     naermesteLeder,
+    erPilotarbeidsgiver: PropTypes.bool,
 });
 
 export const soknadaktiviteter = PropTypes.arrayOf(PropTypes.shape({

@@ -1,6 +1,4 @@
 import {
-    tidligsteFom,
-    senesteTom,
     periodeErHelg,
     perioderErHelg,
     periodeOverlapperMedPeriode,
@@ -13,37 +11,6 @@ import chai from "chai";
 const expect = chai.expect;
 
 describe("periodeUtils", () => {
-
-    describe("tidligsteFom og senesteTom", () => {
-
-        it("Regner ut tidligsteFom og senesteTom", () => {
-            const perioder = [
-                {
-                    fom: '2017-05-10',
-                    tom: '2017-05-15',
-                }, {
-                    fom: '2017-05-01',
-                    tom: '2017-05-09',
-                }, {
-                    fom: '2017-04-10',
-                    tom: '2017-04-30',
-                }, {
-                    fom: '2017-05-16',
-                    tom: '2017-05-20',
-                }, {
-                    fom: '2017-05-21',
-                    tom: '2017-05-22',
-                }, {}
-            ];
-
-            const fom = tidligsteFom(perioder);
-            const tom = senesteTom(perioder);
-
-            expect(fom).to.equal('2017-04-10');
-            expect(tom).to.equal('2017-05-22');
-        });
-
-    });
 
     describe("periodeErHelg", () => {
 

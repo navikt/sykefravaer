@@ -9,8 +9,7 @@ import Aktiviteter from './Aktiviteter';
 import AndreInntektskilder from './AndreInntektskilder';
 import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
-import { toDatePrettyPrint, getLedetekst, getTomDato } from 'digisyfo-npm';
-import * as periodeUtils from '../../../utils/periodeUtils';
+import { toDatePrettyPrint, getLedetekst, getTomDato, tidligsteFom } from 'digisyfo-npm';
 import validate from '../validering/validerAktiviteterISykmeldingsperioden';
 import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
@@ -32,7 +31,7 @@ export const AktiviteterISykmeldingsperiodenSkjema = (props) => {
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });
-    const _tidligsteFom = periodeUtils.tidligsteFom(perioder);
+    const _tidligsteFom = tidligsteFom(perioder);
     const _soknad = Object.assign({}, sykepengesoknad, {
         gjenopptattArbeidFulltUtDato,
     });

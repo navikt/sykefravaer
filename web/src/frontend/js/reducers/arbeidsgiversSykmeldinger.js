@@ -1,6 +1,6 @@
 import * as actiontyper from '../actions/actiontyper';
 import { SENDT, BEKREFTET } from '../enums/sykmeldingstatuser';
-import { parseDatofelter } from './dineSykmeldinger';
+import { parseSykmelding } from 'digisyfo-npm';
 
 const initiellState = {
     henter: false,
@@ -25,7 +25,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
             if (!state.data || state.data.length === 0) {
                 return {
                     data: action.sykmeldinger.map((s) => {
-                        return parseDatofelter(s);
+                        return parseSykmelding(s);
                     }),
                     henter: false,
                     hentingFeilet: false,
@@ -37,7 +37,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
                     const nySykmelding = action.sykmeldinger.filter((sykmld) => {
                         return sykmld.id === gammelSykmelding.id;
                     })[0];
-                    return Object.assign({}, gammelSykmelding, parseDatofelter(nySykmelding));
+                    return Object.assign({}, gammelSykmelding, parseSykmelding(nySykmelding));
                 }),
                 henter: false,
                 hentingFeilet: false,

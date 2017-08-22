@@ -1,7 +1,6 @@
 import * as actiontyper from '../actions/actiontyper';
-import { tilDato, parseDatoerPeriodeListe, parseDatoerPeriode } from '../utils/serialisering/dato';
-import { tidligsteFom, senesteTom } from '../utils/periodeUtils';
 import { KORRIGERT, AVBRUTT, NY } from '../enums/sykepengesoknadstatuser';
+import { parseSykepengesoknad, tidligsteFom, senesteTom } from 'digisyfo-npm';
 
 const initiellState = {
     henter: false,
@@ -36,50 +35,6 @@ const setSykepengesoknaderProps = (_sykepengesoknader, soknadsId, props) => {
     });
 };
 
-const parseAktivitetsdatoer = (aktiviteter) => {
-    return aktiviteter.map((aktivitet) => {
-        return Object.assign({}, aktivitet,
-            {
-                periode: parseDatoerPeriode(aktivitet.periode),
-            }
-        );
-    });
-};
-
-const parseUtdanningsDato = (utdanning) => {
-    return utdanning && Object.assign({}, utdanning, { utdanningStartdato: tilDato(utdanning.utdanningStartdato) });
-};
-
-const parseUtenlandsopphold = (utenlandsopphold) => {
-    return utenlandsopphold && Object.assign({}, utenlandsopphold, { perioder: parseDatoerPeriodeListe(utenlandsopphold.perioder) });
-};
-
-export const parseDatofelter = (soknad) => {
-    const perioder = soknad.aktiviteter.map((aktivitet) => {
-        return aktivitet.periode;
-    });
-    const fom = soknad.fom ? soknad.fom : tidligsteFom(perioder);
-    const tom = soknad.tom ? soknad.tom : senesteTom(perioder);
-    return Object.assign({}, soknad, {
-        aktiviteter: parseAktivitetsdatoer(soknad.aktiviteter),
-        egenmeldingsperioder: soknad.egenmeldingsperioder && parseDatoerPeriodeListe(soknad.egenmeldingsperioder),
-        ferie: soknad.ferie && parseDatoerPeriodeListe(soknad.ferie),
-        permisjon: soknad.permisjon && parseDatoerPeriodeListe(soknad.permisjon),
-        utenlandsopphold: parseUtenlandsopphold(soknad.utenlandsopphold),
-        utdanning: parseUtdanningsDato(soknad.utdanning),
-        gjenopptattArbeidFulltUtDato: tilDato(soknad.gjenopptattArbeidFulltUtDato),
-        identdato: tilDato(soknad.identdato),
-        sendtTilArbeidsgiverDato: tilDato(soknad.sendtTilArbeidsgiverDato),
-        sendtTilNAVDato: tilDato(soknad.sendtTilNAVDato),
-        opprettetDato: tilDato(soknad.opprettetDato),
-        sykmeldingSkrevetDato: tilDato(soknad.sykmeldingSkrevetDato),
-        forrigeSykeforloepTom: tilDato(soknad.forrigeSykeforloepTom),
-        fom: tilDato(fom),
-        tom: tilDato(tom),
-        avbruttDato: tilDato(soknad.avbruttDato),
-    });
-};
-
 export const settErOppdelt = (soknad) => {
     const perioder = soknad.aktiviteter.map((a) => {
         return a.periode;
@@ -106,7 +61,7 @@ export default function sykepengesoknader(state = initiellState, action) {
     switch (action.type) {
         case actiontyper.SYKEPENGESOKNADER_HENTET: {
             const soknader = action.sykepengesoknader.map((s) => {
-                const soknad = settErOppdelt(parseDatofelter(s));
+                const soknad = settErOppdelt(parseSykepengesoknad(s));
                 return sorterAktiviteterEldsteFoerst(soknad);
             });
             return Object.assign({}, state, {
@@ -156,7 +111,7 @@ export default function sykepengesoknader(state = initiellState, action) {
         }
         case actiontyper.ENDRING_SYKEPENGESOKNAD_STARTET: {
             let data = state.data;
-            const soknad = settErOppdelt(parseDatofelter(action.sykepengesoknad));
+            const soknad = settErOppdelt(parseSykepengesoknad(action.sykepengesoknad));
             if (state.data.filter((s) => {
                 return s.id === soknad.id;
             }).length === 0) {
@@ -177,7 +132,7 @@ export default function sykepengesoknader(state = initiellState, action) {
         case actiontyper.SYKEPENGESOKNAD_SENDT:
         case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV:
         case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_ARBEIDSGIVER: {
-            let data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, settErOppdelt(parseDatofelter(action.sykepengesoknad)));
+            let data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, settErOppdelt(parseSykepengesoknad(action.sykepengesoknad)));
             if (action.sykepengesoknad.korrigerer) {
                 data = setSykepengesoknaderProps(data, action.sykepengesoknad.korrigerer, {
                     status: KORRIGERT,

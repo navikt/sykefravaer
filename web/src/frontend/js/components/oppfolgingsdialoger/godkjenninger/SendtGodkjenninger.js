@@ -3,11 +3,11 @@ import { GodkjennPlanSendt, BRUKERTYPE } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../../routers/paths';
 import history from '../../../history';
 
-const SendtGodkjenninger = ({ oppfolgingsdialog, ledetekster, koblingId }) => {
+const SendtGodkjenninger = ({ oppfolgingsdialog, ledetekster }) => {
     return (<div>
         <GodkjennPlanSendt brukerType={BRUKERTYPE.ARBEIDSTAKER} ledetekster={ledetekster} oppfolgingsdialog={oppfolgingsdialog} rootUrl={`${getContextRoot()}`} />
         <div className="knapperad">
-            <button className="knapp knapperad__element" onClick={() => { history.push(`${getContextRoot()}/${koblingId}`); }}>TILBAKE TIL OVERSIKT</button>
+            <button className="knapp knapperad__element" onClick={() => { history.push(`${getContextRoot()}`); }}>TILBAKE TIL OVERSIKT</button>
         </div>
     </div>);
 };
@@ -15,7 +15,6 @@ const SendtGodkjenninger = ({ oppfolgingsdialog, ledetekster, koblingId }) => {
 SendtGodkjenninger.propTypes = {
     oppfolgingsdialog: PropTypes.object,
     ledetekster: PropTypes.object,
-    koblingId: PropTypes.number,
 };
 
 export default SendtGodkjenninger;

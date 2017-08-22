@@ -71,7 +71,6 @@ export class Oppfolgingsdialog extends Component {
             slettTiltak,
             lagreArbeidsoppgave,
             slettArbeidsoppgave,
-            koblingId,
         } = this.props;
         let panel;
         let disableNavigation = false;
@@ -82,7 +81,6 @@ export class Oppfolgingsdialog extends Component {
             disableNavigation = true;
             panel = (<Godkjenninger
                 avvisDialog={avvisDialog}
-                koblingId={koblingId}
                 oppfolgingsdialog={oppfolgingsdialog}
                 godkjennPlan={godkjennDialog}
                 ledetekster={ledetekster}
@@ -179,7 +177,6 @@ Oppfolgingsdialog.propTypes = {
     oppfolgingsdialog: PropTypes.object,
     oppfolgingsdialogId: PropTypes.string,
     steg: PropTypes.number,
-    koblingId: PropTypes.number,
     ledetekster: PropTypes.object,
     godkjennDialog: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,

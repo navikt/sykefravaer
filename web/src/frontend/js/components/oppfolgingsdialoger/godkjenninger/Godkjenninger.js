@@ -6,7 +6,7 @@ const harMottattGodkjenninger = (godkjenninger, arbeidsgiver) => {
     return godkjenninger.length > 0 && godkjenninger[0].godkjentAvAktoerId === arbeidsgiver.aktoerId;
 };
 
-const Godkjenninger = ({ oppfolgingsdialog, godkjennPlan, ledetekster, nullstillGodkjenning, avvisDialog, visAvvisPlanKvittering, koblingId }) => {
+const Godkjenninger = ({ oppfolgingsdialog, godkjennPlan, ledetekster, nullstillGodkjenning, avvisDialog, visAvvisPlanKvittering }) => {
     if (harMottattGodkjenninger(oppfolgingsdialog.godkjenninger, oppfolgingsdialog.arbeidsgiver)) {
         return (<MottattGodkjenninger
             visAvvisPlanKvittering={visAvvisPlanKvittering}
@@ -18,7 +18,6 @@ const Godkjenninger = ({ oppfolgingsdialog, godkjennPlan, ledetekster, nullstill
         />);
     }
     return (<SendtGodkjenninger
-        koblingId={koblingId}
         ledetekster={ledetekster}
         oppfolgingsdialog={oppfolgingsdialog}
     />);
@@ -32,7 +31,6 @@ Godkjenninger.propTypes = {
     nullstillGodkjenning: PropTypes.func,
     visAvvisPlanKvittering: PropTypes.func,
     godkjennPlan: PropTypes.func,
-    koblingId: PropTypes.number,
 };
 
 export default Godkjenninger;

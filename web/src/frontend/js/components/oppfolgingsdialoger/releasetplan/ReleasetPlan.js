@@ -1,6 +1,10 @@
 import React, { PropTypes, Component } from 'react';
-import { BRUKERTYPE, GodkjentPlan } from 'oppfolgingsdialog-npm';
-import Samtykke from '../samtykke/Samtykke';
+import {
+    BRUKERTYPE,
+    GodkjentPlan,
+    Samtykke,
+} from 'oppfolgingsdialog-npm';
+import { getContextRoot } from '../../../routers/paths';
 import ArbeidsgiverHarTvangsgodkjent from './ArbeidsgiverHarTvangsgodkjent';
 
 const manglerSamtykke = (oppfolgingsdialog) => {
@@ -37,6 +41,8 @@ export class ReleasetPlan extends Component {
             return (<Samtykke
                 sendSamtykke={giSamtykke}
                 oppfolgingsdialog={oppfolgingsdialog}
+                ledetekster={ledetekster}
+                rootUrl={getContextRoot()}
             />);
         }
 

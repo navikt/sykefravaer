@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
+import { getContextRoot } from '../../routers/paths';
 import {
     erOppfolgingsdialogOpprettetMedArbeidsgiver,
     erOppfolgingsdialogOpprettbarMedArbeidsgiver,
@@ -14,12 +15,12 @@ const OPPFOLGINGSKJEMANAVN = 'OPPRETT_DIALOG';
 export const VelgArbeidsgiverUndertekst = ({ oppfolgingsdialoger, arbeidsgiver }) => {
     if (erOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer)) {
         return (<div className="velgArbeidsgiverUndertekst">
-            <img className="velgArbeidsgiverUndertekst__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
+            <img className="velgArbeidsgiverUndertekst__ikon" src={`${getContextRoot()}/img/svg/varseltrekant.svg`} alt="varsel" />
             <span className="velgArbeidsgiverUndertekst__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.allerede-oppretettet.tekst')}</span>
         </div>);
     } else if (!arbeidsgiver.harNaermesteLeder) {
         return (<div className="velgArbeidsgiverUndertekst">
-            <img className="velgArbeidsgiverUndertekst__ikon" src="/sykefravaer/img/svg/varseltrekant.svg" alt="varsel" />
+            <img className="velgArbeidsgiverUndertekst__ikon" src={`${getContextRoot()}/img/svg/varseltrekant.svg`} alt="varsel" />
             <span className="velgArbeidsgiverUndertekst__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.ingen-naermesteleder.tekst')}</span>
         </div>);
     } else if (arbeidsgiver.naermesteLeder) {

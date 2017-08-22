@@ -35,14 +35,20 @@ export class ReleasetPlan extends Component {
     render() {
         const { ledetekster, oppfolgingsdialog, hentPdfurler, dokument, giSamtykke } = this.props;
         if (!this.state.settTvungenGodkjenning && foersteInnloggingSidenGodkjenning(oppfolgingsdialog) && planBleTvangsgodkjent(oppfolgingsdialog)) {
-            return <ArbeidsgiverHarTvangsgodkjent ledetekster={ledetekster} oppfolgingsdialog={oppfolgingsdialog} hentPdfurler={hentPdfurler} dokument={dokument} markerMottattTvungenGodkjenning={this.markerMottattTvungenGodkjenning} />;
+            return (<ArbeidsgiverHarTvangsgodkjent
+                ledetekster={ledetekster}
+                oppfolgingsdialog={oppfolgingsdialog}
+                hentPdfurler={hentPdfurler}
+                dokument={dokument}
+                markerMottattTvungenGodkjenning={this.markerMottattTvungenGodkjenning}
+            />);
         }
         if (manglerSamtykke(oppfolgingsdialog)) {
             return (<Samtykke
                 sendSamtykke={giSamtykke}
                 oppfolgingsdialog={oppfolgingsdialog}
                 ledetekster={ledetekster}
-                rootUrl={getContextRoot()}
+                rootUrl={`${getContextRoot()}`}
             />);
         }
 
@@ -52,7 +58,7 @@ export class ReleasetPlan extends Component {
             hentPdfurler={hentPdfurler}
             dokument={dokument}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
-            rootUrl={`${window.APP_SETTINGS.APP_ROOT}`}
+            rootUrl={`${getContextRoot()}`}
         />);
     }
 }

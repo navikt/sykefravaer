@@ -11,16 +11,16 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
         <Sidetopp
             tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
         <OppfolgingsdialogInfoboks
-            svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks.svg"
+            svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks.svg`}
             altUrl="Oppfølgingsplan"
             tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.infoboks.tittel')}
             tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.infoboks.tekst')} />
 
         { isEmpty(oppfolgingsdialoger) &&
-            <img className="oppfolgingsdialoger__pil" src="/sykefravaer/img/svg/oppfolgingsdialog-opprett-pil.svg" alt="pil" />
+            <img className="oppfolgingsdialoger__pil" src={`${getContextRoot()}/img/svg/oppfolgingsdialog-opprett-pil.svg`} alt="pil" />
         }
         <div className="knapperad">
-            <Link role="button" className="rammeknapp oppfolgingsdialoger__rammeknapp" to={"/sykefravaer/oppfolgingsplaner/opprett"}>
+            <Link role="button" className="rammeknapp oppfolgingsdialoger__rammeknapp" to={`${getContextRoot()}/oppfolgingsplaner/opprett`}>
                 {getLedetekst('oppfolgingsdialog.knapp.ny-oppfolgingsdialog')}
             </Link>
         </div>

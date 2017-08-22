@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import ArbeidsgiverSkjema from './ArbeidsgiverSkjema';
+import { getContextRoot } from '../../routers/paths';
 import { finnArbeidsgivereForGyldigeSykmeldinger } from '../../utils/sykmeldingUtils';
 
 const OpprettOppfolgingsdialog = ({ sykmeldinger, naermesteLedere, oppfolgingsdialoger, avbrytHref, velgArbeidsgiver }) => {
@@ -9,7 +10,7 @@ const OpprettOppfolgingsdialog = ({ sykmeldinger, naermesteLedere, oppfolgingsdi
     return (
         <div className="panel blokk velgarbeidsgiver__blokk">
             <div className="illustrertTittel">
-                <img className="illustrertTittel__img" src="/sykefravaer/img/svg/leder.svg" alt="leder" />
+                <img className="illustrertTittel__img" src={`${getContextRoot()}/img/svg/leder.svg`} alt="leder" />
                 <h2 className="illustrertTittel__tittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.tittel')}</h2>
             </div>
             <ArbeidsgiverSkjema

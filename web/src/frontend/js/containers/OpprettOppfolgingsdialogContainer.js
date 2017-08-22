@@ -10,6 +10,7 @@ import { brodsmule as brodsmulePt } from '../propTypes';
 import OpprettOppfolgingsdialog from '../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
+import { getContextRoot } from '../routers/paths';
 import {
     OppfolgingsdialogInfoboks,
     opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
@@ -72,7 +73,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
                         return (<Feilmelding />);
                     } else if (!tilgang.harTilgang) {
                         return (<OppfolgingsdialogInfoboks
-                            svgUrl="/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg"
+                            svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
                             svgAlt="ikkeTilgang"
                             tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
                             tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
@@ -86,7 +87,7 @@ export class OpprettOppfolgingsdialogSide extends Component {
                                 sykmeldinger={sykmeldinger}
                                 naermesteLedere={naermesteLedere}
                                 oppfolgingsdialoger={oppfolgingsdialoger}
-                                avbrytHref="/sykefravaer/oppfolgingsplaner"
+                                avbrytHref={`${getContextRoot()}/oppfolgingsplaner`}
                                 velgArbeidsgiver={this.opprett}
                             />
                         </div>);

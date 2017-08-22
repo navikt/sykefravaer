@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
+import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
@@ -16,7 +17,7 @@ import { getLedetekst } from 'digisyfo-npm';
 
 export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver }) => {
     return (<NotifikasjonBoks
-        imgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/notifikasjon-illustrasjon.svg`}
+        imgUrl={`${getContextRoot()}/img/svg/notifikasjon-illustrasjon.svg`}
         tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
             '%ARBEIDSGIVER%': virksomhetsnavn,
             '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver.toString(),
@@ -30,7 +31,7 @@ RenderNotifikasjonBoks.propTypes = {
 };
 export const RenderNotifikasjonBoksSuksess = ({ tekst }) => {
     return (<NotifikasjonBoks
-        imgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/notifikasjon-suksess-illustrasjon.svg`}
+        imgUrl={`${getContextRoot()}/img/svg/notifikasjon-suksess-illustrasjon.svg`}
         tekst={tekst}
         classNames={'panel--suksess'}
     />);
@@ -45,9 +46,9 @@ export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsopp
             ledetekster={ledetekster}
             liste={arbeidsoppgaveListe}
             tabellType="arbeidsoppgaver"
-            urlImgArrow={`${window.APP_SETTINGS.APP_ROOT}/img/svg/arrow-down.svg`}
-            urlImgVarsel={`${window.APP_SETTINGS.APP_ROOT}/img/svg/varseltrekant.svg`}
-            urlImgCheckboks={`${window.APP_SETTINGS.APP_ROOT}/img/svg/oppfolgingdialog-checkbox.svg`}
+            urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
+            urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
+            urlImgCheckboks={`${getContextRoot()}/img/svg/oppfolgingdialog-checkbox.svg`}
             sendLagre={sendLagreArbeidsoppgave}
             sendSlett={sendSlettArbeidsoppgave}
             aktoerId={aktoerId}
@@ -181,7 +182,7 @@ export class Arbeidsoppgaver extends Component {
                         {
                             !this.state.visArbeidsoppgaveSkjema ?
                                 <OppfolgingsdialogInfoboks
-                                    svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/arbeidsoppgave-onboarding.svg`}
+                                    svgUrl={`${getContextRoot()}/img/svg/arbeidsoppgave-onboarding.svg`}
                                     svgAlt="nyArbeidsoppgave"
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tittel')}
                                     tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tekst')}

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
+import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
@@ -15,7 +16,7 @@ import { getLedetekst } from 'digisyfo-npm';
 
 export const RenderNotifikasjonBoks = ({ motpartnavn, antallTiltakLagtTilAvArbeidsgiver }) => {
     return (<NotifikasjonBoks
-        imgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/notifikasjon-illustrasjon.svg`}
+        imgUrl={`${getContextRoot()}/img/svg/notifikasjon-illustrasjon.svg`}
         tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.tiltak-lagt-til-av-motpart.tekst', {
             '%MOTPARTNAVN%': motpartnavn,
             '%ANTALLTILTAK%': antallTiltakLagtTilAvArbeidsgiver.toString(),
@@ -30,7 +31,7 @@ RenderNotifikasjonBoks.propTypes = {
 
 export const RenderNotifikasjonBoksSuksess = ({ tekst }) => {
     return (<NotifikasjonBoks
-        imgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/notifikasjon-suksess-illustrasjon.svg`}
+        imgUrl={`${getContextRoot()}/img/svg/notifikasjon-suksess-illustrasjon.svg`}
         tekst={tekst}
         classNames={'panel--suksess'}
     />);
@@ -45,8 +46,8 @@ export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, 
             ledetekster={ledetekster}
             liste={tiltakListe}
             tabellType="tiltak"
-            urlImgArrow={`${window.APP_SETTINGS.APP_ROOT}/img/svg/arrow-down.svg`}
-            urlImgVarsel={`${window.APP_SETTINGS.APP_ROOT}/img/svg/varseltrekant.svg`}
+            urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
+            urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
             sendLagre={sendLagreTiltak}
             sendSlett={sendSlettTiltak}
             aktoerId={aktoerId}
@@ -168,7 +169,7 @@ export class Tiltak extends Component {
                         {
                             !this.state.visTiltakSkjema ?
                                 <OppfolgingsdialogInfoboks
-                                    svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/tiltak-onboarding.svg`}
+                                    svgUrl={`${getContextRoot()}/img/svg/tiltak-onboarding.svg`}
                                     svgAlt="nyttTiltak"
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tittel')}
                                     tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}

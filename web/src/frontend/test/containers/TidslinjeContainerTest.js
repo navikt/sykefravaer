@@ -247,9 +247,9 @@ describe("TidslinjeContainer", () => {
                 key: 4
             }];
             const component = shallow(<TidslinjeSide dispatch={dispatch} ledetekster={ledetekster} hendelser={hendelser}
-                                                     tidslinjer={tidslinjer} arbeidssituasjon={arbeidssituasjon}
-                                                     apneHendelser={apneHendelserSpy} 
-                                                     arbeidssituasjon='MED_ARBEIDSGIVER' />);
+                                                     tidslinjer={tidslinjer}
+                                                     arbeidssituasjon={arbeidssituasjon}
+                                                     apneHendelser={apneHendelserSpy}  />);
             const tidslinjeComp = component.find(Tidslinje);
             expect(tidslinjeComp.prop("arbeidssituasjon")).to.equal("MED_ARBEIDSGIVER");
         });

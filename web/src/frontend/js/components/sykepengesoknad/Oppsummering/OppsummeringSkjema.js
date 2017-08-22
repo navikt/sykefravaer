@@ -10,6 +10,7 @@ import { Field } from 'redux-form';
 import validate from '../validering/validerOppsummering';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import ForskuttererArbeidsgiver from './ForskuttererArbeidsgiver';
+import AvbrytSoknadContainer from '../../../containers/sykepengesoknad/AvbrytSoknadContainer';
 
 export const SendingFeilet = () => {
     return (<div className="panel panel--komprimert">
@@ -46,7 +47,7 @@ export const OppsummeringForm = (props) => {
         { visForskutteringssporsmal && <ForskuttererArbeidsgiver /> }
         { sendingFeilet && <SendingFeilet /> }
         { !visForskutteringssporsmal && <p className="js-mottaker">{mottaker(sendesTil, sykepengesoknad)}</p> }
-        <Knapperad variant="knapperad--forrigeNeste">
+        <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
             <Link
                 to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}
                 className="rammeknapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake')}
@@ -57,6 +58,7 @@ export const OppsummeringForm = (props) => {
                 disabled={sender}>{getLedetekst('sykepengesoknad.send')}{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}
             </button>
         </Knapperad>
+        <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
     </form>);
 };
 

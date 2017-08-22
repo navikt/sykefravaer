@@ -55,11 +55,14 @@ export const soknadaktiviteter = PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
 }));
 
+export const sykepengesoknadstatus = PropTypes.oneOf([soknadstatuser.SENDT, soknadstatuser.NY, soknadstatuser.TIL_SENDING, soknadstatuser.UTGAATT, soknadstatuser.UTKAST_TIL_KORRIGERING, soknadstatuser.KORRIGERT, soknadstatuser.AVBRUTT, soknadstatuser.FREMTIDIG]);
+
 export const sykepengesoknad = PropTypes.shape({
     id: PropTypes.string,
-    status: PropTypes.oneOf([soknadstatuser.SENDT, soknadstatuser.NY, soknadstatuser.TIL_SENDING, soknadstatuser.UTGAATT, soknadstatuser.UTKAST_TIL_KORRIGERING, soknadstatuser.KORRIGERT, soknadstatuser.FREMTIDIG]),
+    status: sykepengesoknadstatus,
     sendtTilArbeidsgiverDato: PropTypes.instanceOf(Date),
     sendtTilNAVDato: PropTypes.instanceOf(Date),
+    avbruttDato: PropTypes.instanceOf(Date),
     opprettetDato: PropTypes.instanceOf(Date),
     arbeidsgiver,
     identdato: PropTypes.instanceOf(Date),
@@ -103,12 +106,14 @@ export const sykmeldingperiode = PropTypes.shape({
     avventende: PropTypes.string,
 });
 
+export const sykmeldingstatus = PropTypes.oneOf([sykmldstatuser.NY, sykmldstatuser.SENDT, sykmldstatuser.UTGAATT, sykmldstatuser.AVBRUTT, sykmldstatuser.BEKREFTET, sykmldstatuser.TIL_SENDING]);
+
 export const sykmelding = PropTypes.shape({
     id: PropTypes.string,
     startLegemeldtFravaer: PropTypes.instanceOf(Date),
     skalViseSkravertFelt: PropTypes.bool,
     identdato: PropTypes.instanceOf(Date),
-    status: PropTypes.oneOf([sykmldstatuser.NY, sykmldstatuser.SENDT, sykmldstatuser.UTGAATT, sykmldstatuser.AVBRUTT, sykmldstatuser.BEKREFTET, sykmldstatuser.TIL_SENDING]),
+    status: sykmeldingstatus,
     naermesteLederStatus: PropTypes.string,
     innsendtArbeidsgivernavn: PropTypes.string,
     valgtArbeidssituasjon: arbeidssituasjon,

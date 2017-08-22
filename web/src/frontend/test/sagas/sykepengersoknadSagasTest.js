@@ -5,7 +5,9 @@ import {
     sendSykepengesoknad,
     sendSykepengesoknadTilArbeidsgiver,
     sendSykepengesoknadTilNAV,
-    startEndring
+    startEndring,
+    avbrytSoknad,
+    gjenapneSoknad
 } from "../../js/sagas/sykepengesoknadSagas";
 import {finnSoknad} from "../../js/reducers/sykepengesoknader";
 import {get, post} from "../../js/api";
@@ -196,6 +198,53 @@ describe("sykepengersoknadSagas", () => {
         });
 
     });
+
+
+    describe("Avbryt", () => {
+        const action = actions.avbrytSoknad("123");
+        const generator = avbrytSoknad(action);
+
+        it("Skal dispatche avbyterSoknad()", () => {
+            const action = actions.avbryterSoknad();
+            const nextPut = put(action);
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
+
+        it("Skal sende forespørsel til server", () => {
+            const nextCall = call(post, "http://tjenester.nav.no/syforest/soknader/123/actions/avbryt");
+            expect(generator.next().value).to.deep.equal(nextCall);
+        });
+
+        it("Skal dispatche soknadAvbrutt()", () => {
+            const action = actions.soknadAvbrutt("123");
+            const nextPut = put(action)
+            expect(generator.next().value).to.deep.equal(nextPut);
+        })
+    });
+
+    describe("Gjenåpning av avbrutt søknad", () => {
+
+        const action = actions.gjenapneSoknad("45668");
+        const generator = gjenapneSoknad(action);
+
+        it("Skal dispatche gjenapnerSoknad()", () => {
+            const action = actions.gjenapnerSoknad();
+            const nextPut = put(action);
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
+
+        it("Skal sende forespørsel til server", () => {
+            const nextCall = call(post, "http://tjenester.nav.no/syforest/soknader/45668/actions/gjenapne");
+            expect(generator.next().value).to.deep.equal(nextCall); 
+        });
+
+        it("Skal dispatche soknadGjenapnet('45668')", () => {
+            const action = actions.soknadGjenapnet("45668");
+            const nextPut = put(action);
+            expect(generator.next().value).to.deep.equal(nextPut);
+        })
+
+    })
 
     describe("berikelse", () => {
 

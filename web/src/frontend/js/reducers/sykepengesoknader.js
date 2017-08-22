@@ -1,7 +1,7 @@
 import * as actiontyper from '../actions/actiontyper';
 import { tilDato, parseDatoerPeriodeListe, parseDatoerPeriode } from '../utils/serialisering/dato';
 import { tidligsteFom, senesteTom } from '../utils/periodeUtils';
-import { KORRIGERT } from '../enums/sykepengesoknadstatuser';
+import { KORRIGERT, AVBRUTT, NY } from '../enums/sykepengesoknadstatuser';
 
 const initiellState = {
     henter: false,
@@ -76,6 +76,7 @@ export const parseDatofelter = (soknad) => {
         forrigeSykeforloepTom: tilDato(soknad.forrigeSykeforloepTom),
         fom: tilDato(fom),
         tom: tilDato(tom),
+        avbruttDato: tilDato(soknad.avbruttDato),
     });
 };
 
@@ -208,6 +209,50 @@ export default function sykepengesoknader(state = initiellState, action) {
             return Object.assign({}, state, {
                 henterBerikelse: false,
                 henterBerikelseFeilet: true,
+            });
+        }
+        case actiontyper.AVBRYTER_SOKNAD: {
+            return Object.assign({}, state, {
+                avbryter: true,
+            });
+        }
+        case actiontyper.AVBRYT_SOKNAD_FEILET: {
+            return Object.assign({}, state, {
+                avbryter: false,
+                avbrytFeilet: true,
+            });
+        }
+        case actiontyper.SOKNAD_AVBRUTT: {
+            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
+                status: AVBRUTT,
+                avbruttDato: new Date(),
+            });
+            return Object.assign({}, state, {
+                data,
+                avbryter: false,
+                avbrytFeilet: false,
+            });
+        }
+        case actiontyper.GJENAPNER_SOKNAD: {
+            return Object.assign({}, state, {
+                gjenapner: true,
+            });
+        }
+        case actiontyper.GJENAPNE_SOKNAD_FEILET: {
+            return Object.assign({}, state, {
+                gjenapner: false,
+                gjenapneFeilet: true,
+            });
+        }
+        case actiontyper.SOKNAD_GJENAPNET: {
+            const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
+                status: NY,
+                avbruttDato: null,
+            });
+            return Object.assign({}, state, {
+                data,
+                gjenapner: false,
+                gjenapneFeilet: false,
             });
         }
         default:

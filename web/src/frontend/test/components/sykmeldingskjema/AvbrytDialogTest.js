@@ -22,9 +22,10 @@ describe("AvbrytDialog", () => {
         setLedetekster(ledetekster);
     });
 
-    it("Skal vise en knapp", () => {
+    it("Skal vise to knapper", () => {
         const component = mount(<AvbrytDialog avbrytHandler={avbrytHandler} bekreftHandler={bekreftHandler} />);
-        expect(component.find("button")).to.have.length(1);
+        expect(component.find(".js-avbryt")).to.have.length(1);
+        expect(component.find(".js-bekreft")).to.have.length(1);
     });
 
     it("Skal kalle bekreftHandler når man klikker på knappen", () => {

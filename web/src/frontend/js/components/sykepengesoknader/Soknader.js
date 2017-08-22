@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';
-import { SENDT, TIL_SENDING, UTGAATT, NY, UTKAST_TIL_KORRIGERING, FREMTIDIG } from '../../enums/sykepengesoknadstatuser';
+import { SENDT, TIL_SENDING, UTGAATT, NY, UTKAST_TIL_KORRIGERING, FREMTIDIG, AVBRUTT } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { sorterEtterPerioder, sorterEtterOpprettetDato } from '../../utils/sykepengesoknadUtils';
 import FremtidigSoknadTeaser from './FremtidigSoknadTeaser';
@@ -11,9 +11,9 @@ const Soknader = ({ soknader = [] }) => {
     const nyeSoknader = [...soknader].filter((soknad) => {
         return soknad.status === NY || soknad.status === UTKAST_TIL_KORRIGERING;
     }).sort(sorterEtterOpprettetDato);
-    const sendteSoknader = [...soknader]
+    const tidligereSoknader = [...soknader]
         .filter((soknad) => {
-            return soknad.status === SENDT || soknad.status === TIL_SENDING || soknad.status === UTGAATT;
+            return soknad.status === SENDT || soknad.status === TIL_SENDING || soknad.status === UTGAATT || soknad.status === AVBRUTT;
         })
         .sort(sorterEtterPerioder);
     const fremtidigeSoknader = [...soknader]
@@ -44,8 +44,8 @@ const Soknader = ({ soknader = [] }) => {
             />
         }
         {
-            sendteSoknader.length > 0 && (<SoknadTeasere
-                soknader={sendteSoknader}
+            tidligereSoknader.length > 0 && (<SoknadTeasere
+                soknader={tidligereSoknader}
                 tittel={getLedetekst('soknader.sendt.tittel')}
                 tomListeTekst={getLedetekst('soknader.sendt.ingen-soknader')}
                 className="js-sendt"

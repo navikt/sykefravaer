@@ -7,6 +7,11 @@ import * as actiontyper from '../actions/actiontyper';
 import history from '../history';
 import { finnSoknad } from '../reducers/sykepengesoknader';
 import logger from '../logging';
+import { browserHistory } from 'react-router';
+
+const gaTilKvittering = (sykepengesoknadsId) => {
+    browserHistory.push(`/sykefravaer/soknader/${sykepengesoknadsId}/kvittering`);
+};
 
 export function* hentSykepengesoknader() {
     yield put(actions.henterSykepengesoknader());
@@ -84,6 +89,31 @@ export function* hentBerikelse(action) {
     }
 }
 
+export function* avbrytSoknad(action) {
+    yield put(actions.avbryterSoknad());
+    try {
+        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/avbryt`);
+        yield put(actions.soknadAvbrutt(action.sykepengesoknadsId));
+        gaTilKvittering(action.sykepengesoknadsId);
+    } catch (e) {
+        log(e);
+        logger.error(`Kunne ikke avbryte søknad. ${e.message}`);
+        yield put(actions.avbrytSoknadFeilet());
+    }
+}
+
+export function* gjenapneSoknad(action) {
+    yield put(actions.gjenapnerSoknad());
+    try {
+        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/gjenapne`);
+        yield put(actions.soknadGjenapnet(action.sykepengesoknadsId));
+    } catch (e) {
+        log(e);
+        logger.error(`Kunne ikke gjenåpne søknad. ${e.message}`);
+        yield put(actions.gjenapneSoknadFeilet());
+    }
+}
+
 function* watchHentBerikelse() {
     yield* takeEvery(actiontyper.SYKEPENGESOKNAD_BERIKELSE_FORESPURT, hentBerikelse);
 }
@@ -112,6 +142,15 @@ function* watchEndreSykepengesoknad() {
     yield* takeEvery(actiontyper.START_ENDRING_SYKEPENGESOKNAD_FORESPURT, startEndring);
 }
 
+function* watchAvbrytSoknad() {
+    yield* takeEvery(actiontyper.AVBRYT_SOKNAD_FORESPURT, avbrytSoknad);
+}
+
+function* watchGjenapneSoknad() {
+    yield* takeEvery(actiontyper.GJENAPNE_SOKNAD_FORESPURT, gjenapneSoknad);
+}
+
+
 export default function* sykepengesoknadSagas() {
     yield [
         fork(watchHentSykepengesoknader),
@@ -121,5 +160,7 @@ export default function* sykepengesoknadSagas() {
         fork(watchSendSykepengesoknadTilArbeidsgiver),
         fork(watchEndreSykepengesoknad),
         fork(watchHentBerikelse),
+        fork(watchAvbrytSoknad),
+        fork(watchGjenapneSoknad),
     ];
 }

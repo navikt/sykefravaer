@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
-import { AVBRUTT } from '../../enums/sykmeldingstatuser';
 import history from '../../history';
-import { sykmelding as sykmeldingPt, sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { sykmelding as sykmeldingPt, sykepengesoknad as sykepengesoknadPt, sykmeldingstatus } from '../../propTypes';
+import { AVBRUTT } from '../../enums/sykmeldingstatuser';
 
 export const kvitteringtyper = {
     STANDARDKVITTERING: 'STANDARDKVITTERING',
@@ -35,9 +35,9 @@ Kvitteringsteg.propTypes = {
 };
 
 export const Standardkvittering = (props) => {
-    const { tittel, brodtekst, sykmeldingStatus } = props;
-    const ikon = sykmeldingStatus === AVBRUTT ? 'avbryt-sykmelding.svg' : 'digital-til-papir.svg';
-    const ikonKlasse = sykmeldingStatus === AVBRUTT ? 'illustrertTittel__img--mikro' : '';
+    const { tittel, brodtekst, status } = props;
+    const ikon = status === AVBRUTT ? 'avbryt-sykmelding.svg' : 'digital-til-papir.svg';
+    const ikonKlasse = status === AVBRUTT ? 'illustrertTittel__img--mikro' : '';
     return (<div className="panel blokk">
         <div className="illustrertTittel">
             <img className={`illustrertTittel__img ${ikonKlasse}`} src={`/sykefravaer/img/svg/${ikon}`} alt="" />
@@ -52,7 +52,7 @@ export const Standardkvittering = (props) => {
 Standardkvittering.propTypes = {
     tittel: PropTypes.string,
     brodtekst: PropTypes.object,
-    sykmeldingStatus: PropTypes.string,
+    status: PropTypes.string,
 };
 
 export const HtmlAvsnitt = ({ nokkel, replacements = null }) => {
@@ -146,7 +146,7 @@ const SykmeldingKvittering = (props) => {
                 if (kvitteringtype === kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA) {
                     return <KvitteringSokNa {...props} />;
                 }
-                return <Standardkvittering {...props} />;
+                return <Standardkvittering {...props} status={props.sykmeldingStatus} />;
             })()
         }
         <LenkeTilDineSykmeldinger />
@@ -161,6 +161,7 @@ const SykmeldingKvittering = (props) => {
 };
 
 SykmeldingKvittering.propTypes = {
+    sykmeldingStatus: sykmeldingstatus,
     kvitteringtype: PropTypes.oneOf([
         kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE,
         kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA,

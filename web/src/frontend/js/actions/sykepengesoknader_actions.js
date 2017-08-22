@@ -134,3 +134,55 @@ export function hentBerikelseFeilet() {
         type: actiontyper.SYKEPENGESOKNAD_BERIKELSE_FEILET,
     };
 }
+
+export function avbrytSoknad(sykepengesoknadsId) {
+    return {
+        type: actiontyper.AVBRYT_SOKNAD_FORESPURT,
+        sykepengesoknadsId,
+    };
+}
+
+export function avbryterSoknad() {
+    return {
+        type: actiontyper.AVBRYTER_SOKNAD,
+    };
+}
+
+export function soknadAvbrutt(sykepengesoknadsId) {
+    return {
+        type: actiontyper.SOKNAD_AVBRUTT,
+        sykepengesoknadsId,
+    };
+}
+
+export function avbrytSoknadFeilet() {
+    return {
+        type: actiontyper.AVBRYT_SOKNAD_FEILET,
+    };
+}
+
+export function gjenapneSoknad(sykepengesoknadsId) {
+    return {
+        sykepengesoknadsId,
+        type: actiontyper.GJENAPNE_SOKNAD_FORESPURT,
+    };
+}
+
+export function gjenapnerSoknad() {
+    return {
+        type: actiontyper.GJENAPNER_SOKNAD,
+    };
+}
+
+export function soknadGjenapnet(sykepengesoknadsId) {
+    return {
+        sykepengesoknadsId,
+        type: actiontyper.SOKNAD_GJENAPNET,
+    };
+}
+
+export function gjenapneSoknadFeilet() {
+    return {
+        type: actiontyper.GJENAPNE_SOKNAD_FEILET,
+    };
+}

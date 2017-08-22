@@ -4,11 +4,12 @@ import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/Foer
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
 import UtgaattSoknad from '../../components/sykepengesoknad/UtgaattSoknad';
+import AvbruttSoknadContainer from './AvbruttSoknadContainer';
 import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
-import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT } from '../../enums/sykepengesoknadstatuser';
+import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
 
@@ -20,16 +21,26 @@ export const Controller = (props) => {
             '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
         })} />);
     }
-    if (sykepengesoknad.status === NY || sykepengesoknad.status === UTKAST_TIL_KORRIGERING) {
-        return <FoerDuBegynner {...props} />;
+    switch (sykepengesoknad.status) {
+        case NY:
+        case UTKAST_TIL_KORRIGERING: {
+            return <FoerDuBegynner {...props} />;
+        }
+        case SENDT:
+        case TIL_SENDING:
+        case KORRIGERT: {
+            return <SendtSoknad sykepengesoknad={sykepengesoknad} />;
+        }
+        case UTGAATT: {
+            return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
+        }
+        case AVBRUTT: {
+            return <AvbruttSoknadContainer sykepengesoknad={sykepengesoknad} />;
+        }
+        default: {
+            return <Feilmelding tittel="Søknaden har ukjent status" />;
+        }
     }
-    if (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING || sykepengesoknad.status === KORRIGERT) {
-        return <SendtSoknad sykepengesoknad={sykepengesoknad} />;
-    }
-    if (sykepengesoknad.status === UTGAATT) {
-        return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
-    }
-    return <Feilmelding tittel="Søknaden har ukjent status" />;
 };
 
 Controller.propTypes = {

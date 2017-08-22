@@ -10,8 +10,9 @@ import Knapperad from '../../skjema/Knapperad';
 import validerFravaerOgFriskmelding from '../validering/validerFravaerOgFriskmelding';
 import { getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
+import AvbrytSoknadContainer from '../../../containers/sykepengesoknad/AvbrytSoknadContainer';
 
-let FravaerOgFriskmeldingSkjema = (props) => {
+export const FravaerOgFriskmeldingSkjema = (props) => {
     const { handleSubmit, sykepengesoknad } = props;
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`);
@@ -21,10 +22,11 @@ let FravaerOgFriskmeldingSkjema = (props) => {
         <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
         <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />
 
-        <Knapperad variant="knapperad--forrigeNeste">
+        <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
             <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/`} className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
             <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre')}</button>
         </Knapperad>
+        <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
     </form>);
 };
 
@@ -33,7 +35,7 @@ FravaerOgFriskmeldingSkjema.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
 };
 
-FravaerOgFriskmeldingSkjema = setup(validerFravaerOgFriskmelding, FravaerOgFriskmeldingSkjema);
+const FravaerOgFriskmeldingSkjemaSetup = setup(validerFravaerOgFriskmelding, FravaerOgFriskmeldingSkjema);
 
 const FravaerOgFriskmelding = ({ sykepengesoknad }) => {
     return (
@@ -41,7 +43,7 @@ const FravaerOgFriskmelding = ({ sykepengesoknad }) => {
             aktivtSteg="1"
             tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel')}
             sykepengesoknad={sykepengesoknad}>
-                <FravaerOgFriskmeldingSkjema sykepengesoknad={sykepengesoknad} />
+                <FravaerOgFriskmeldingSkjemaSetup sykepengesoknad={sykepengesoknad} />
         </SykepengerSkjema>);
 };
 

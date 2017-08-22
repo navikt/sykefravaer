@@ -12,6 +12,8 @@ import { setLedetekster, Soknad } from "digisyfo-npm";
 import { Link } from "react-router";
 
 import CheckboxSelvstendig from "../../../../js/components/skjema/CheckboxSelvstendig";
+import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad/AvbrytSoknadContainer';
+
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
@@ -86,5 +88,9 @@ describe("OppsummeringSkjema", () => {
             expect(component2.find('.js-mottaker')).to.have.length(0);
             expect(component2.find(ForskuttererArbeidsgiver)).to.have.length(1);
         });
+
+        it("Inneholder AvbrytSoknadContainer", () => {
+            expect(component.contains(<AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />)).to.be.true;
+        })
     });
 });

@@ -42,6 +42,7 @@ describe("SoknadTeaser", () => {
             'soknad.teaser.status.TIL_SENDING.til-nav': 'Sender til NAV...',
             'soknad.teaser.status.TIL_SENDING.til-arbeidsgiver': 'Sender til %ARBEIDSGIVER%...',
             'soknad.teaser.status.TIL_SENDING.til-arbeidsgiver-og-nav': 'Sender til %ARBEIDSGIVER% og NAV...',
+            'soknad.teaser.status.AVBRUTT': 'Avbrutt av deg %DATO%',
         });
     });
 
@@ -187,6 +188,16 @@ describe("SoknadTeaser", () => {
         });
         const component = shallow(<SoknadTeaser soknad={_soknad} />);
         expect(component.find(".js-undertekst").text()).to.contain("Sender til BEKK Consulting AS og NAV...");
+    });
+
+
+    it("Viser statustekst hvis søknaden er avbrutt", () => {
+        const _soknad = Object.assign({}, soknad, {
+            status: 'AVBRUTT',
+            avbruttDato: new Date("2017-05-18")
+        });
+        const component = shallow(<SoknadTeaser soknad={_soknad} />);
+        expect(component.find(".js-undertekst").text()).to.contain("Avbrutt av deg 18.05.2017");
     });
 
 }); 

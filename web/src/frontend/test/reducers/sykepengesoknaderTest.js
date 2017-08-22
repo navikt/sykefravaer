@@ -309,6 +309,115 @@ describe('sykepengesoknader', () => {
 
     });
 
+    describe("Avbryt søknad", () => {
+
+        let state = deepFreeze({
+            data: [{id: "1", status: "NY", avbruttDato: null}, { id: "2", status: "SENDT", avbruttDato: null}],
+            henter: false,
+            hentingFeilet: false,
+            sender: false,
+            sendingFeilet: false,
+        });
+
+        it("Håndterer avbryterSoknad()", () => {
+            const action = actions.avbryterSoknad();
+            state = sykepengesoknader(state, action);
+            expect(state).to.deep.equal({
+                data: [{id: "1", status: "NY", avbruttDato: null }, { id: "2", status: "SENDT", avbruttDato: null}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: true,
+            });
+        });
+
+        it("Håndterer avbrytSoknadFeilet()", () => {
+            state = deepFreeze(state);
+            const action = actions.avbrytSoknadFeilet();
+            state = sykepengesoknader(state, action);
+            expect(state).to.deep.equal({
+                data: [{id: "1", status: "NY", avbruttDato: null }, { id: "2", status: "SENDT", avbruttDato: null}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: false,
+                avbrytFeilet: true,
+            });
+        });
+
+        it("Håndterer soknadAvbrutt()", () => {
+            state = deepFreeze(state);
+            const action = actions.soknadAvbrutt("1");
+            state = sykepengesoknader(state, action);
+            expect(state).to.deep.equal({
+                data: [{id: "1", status: "AVBRUTT", avbruttDato: new Date() }, { id: "2", status: "SENDT", avbruttDato: null}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: false,
+                avbrytFeilet: false,
+            });
+        });
+
+        it("Håndterer gjenapnerSoknad", () => {
+            state = deepFreeze(Object.assign({}, state, {
+                data: [{id: "1", status: "AVBRUTT", avbruttDato: new Date("2017-06-06")}, { id: "2", status: "SENDT", avbruttDato: null}]
+            }));
+            const action = actions.gjenapnerSoknad();
+            state = sykepengesoknader(state, action);
+            expect(state).to.deep.equal({
+                data: [{id: "1", status: "AVBRUTT", avbruttDato: new Date("2017-06-06")}, { id: "2", status: "SENDT", avbruttDato: null}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: false,
+                avbrytFeilet: false,
+                gjenapner: true,
+            });
+        });
+
+        it("Håndterer gjenapneSoknadFeilet()", () => {
+            state = deepFreeze(Object.assign({}, state, {
+                data: [{id: "1", status: "AVBRUTT", avbruttDato: new Date("2017-06-06")}, { id: "2", status: "SENDT", avbruttDato: null}]
+            }));
+            const action = actions.gjenapneSoknadFeilet();
+            state = sykepengesoknader(state, action);
+            expect(state).to.deep.equal({
+                data: [{id: "1", status: "AVBRUTT", avbruttDato: new Date("2017-06-06")}, { id: "2", status: "SENDT", avbruttDato: null}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: false,
+                avbrytFeilet: false,
+                gjenapner: false,
+                gjenapneFeilet: true,
+            });
+        });
+
+        it("Håndterer soknadGjenapnet", () => {
+            state = deepFreeze(state);
+            const action = actions.soknadGjenapnet("1");
+            state = sykepengesoknader(state, action);
+            expect(state).to.deep.equal({
+                data: [{id: "1", status: "NY", avbruttDato: null}, { id: "2", status: "SENDT", avbruttDato: null}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: false,
+                avbrytFeilet: false,
+                gjenapner: false,
+                gjenapneFeilet: false,
+            });
+        });
+
+    });
+
     describe("parsing", () => {
         it("parser datofelter i aktivitet og beholder resten av feltene", () => {
             const _soknad = parseDatofelter(getSoknad());
@@ -516,6 +625,14 @@ describe('sykepengesoknader', () => {
             });
             const _soknad = parseDatofelter(soknad);
             expect(_soknad.tom).to.deep.equal(new Date("2017-01-19"));
+        });
+
+        it("Parser avbruttDato", () => {
+            const soknad = Object.assign({}, getSoknad(), {
+                avbruttDato: "2017-01-04",
+            });
+            const _soknad = parseDatofelter(soknad);
+            expect(_soknad.avbruttDato).to.deep.equal(new Date("2017-01-04"));
         });
 
 
@@ -825,7 +942,8 @@ const getSoknad = (s = {}) => {
         sendtTilNAVDato: null,
         sykmeldingSkrevetDato: "2017-02-15",
         forrigeSykeforloepTom: "2017-01-18",
-        id: "1"
+        id: "1",
+        avbruttDato: null,
     };
 };
 
@@ -859,6 +977,7 @@ const getParsetSoknad = () => {
         sykmeldingSkrevetDato: new Date("2017-02-15"),
         forrigeSykeforloepTom: new Date("2017-01-18"),
         id: "1",
+        avbruttDato: null,
         _erOppdelt: false,
     };
 };

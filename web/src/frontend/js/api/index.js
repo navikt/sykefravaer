@@ -48,6 +48,7 @@ export function post(url, body) {
             'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
             'X-XSRF-TOKEN-MOTEREST': getCookie('XSRF-TOKEN-MOTEREST'),
             'X-XSRF-TOKEN-OPPFOELGINGSDIALOGREST': getCookie('XSRF-TOKEN-OPPFOELGINGSDIALOGREST'),
+            'NAV_CSRF_PROTECTION': getCookie('NAV_CSRF_PROTECTION'),
         }),
     })
         .then((res) => {

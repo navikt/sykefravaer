@@ -3,13 +3,13 @@ import {expect} from "chai";
 import * as actiontyper from "../../js/actions/actiontyper";
 import sykepengesoknader, {
     finnSoknad,
-    parseDatofelter,
     sorterAktiviteterEldsteFoerst,
     settErOppdelt,
 } from "../../js/reducers/sykepengesoknader";
 import * as actions from "../../js/actions/sykepengesoknader_actions";
 import * as berikelses_actions from "../../js/actions/sykepengesoknader_actions";
 import sinon from "sinon";
+import { parseSykepengesoknad } from 'digisyfo-npm';
 
 describe('sykepengesoknader', () => {
 
@@ -309,218 +309,6 @@ describe('sykepengesoknader', () => {
 
     });
 
-    describe("parsing", () => {
-        it("parser datofelter i aktivitet og beholder resten av feltene", () => {
-            const _soknad = parseDatofelter(getSoknad());
-            expect(_soknad.aktiviteter[0].periode.fom.getTime()).to.be.equal(new Date("2016-07-15").getTime());
-            expect(_soknad.aktiviteter[0].periode.tom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-            expect(_soknad.aktiviteter[0].grad).to.be.equal(100);
-        });
-
-        it("parser datofelter i egenmeldingsperioder", () => {
-            const soknad = Object.assign({}, getSoknad(), {
-                egenmeldingsperioder: [
-                    {
-                        fom: "2016-07-15",
-                        tom: "2017-01-19",
-                    }, {
-                        fom: "2016-07-15",
-                        tom: "2017-01-19",
-                    },
-                ]
-            });
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.egenmeldingsperioder[0].fom.getTime()).to.be.equal(new Date("2016-07-15").getTime());
-            expect(_soknad.egenmeldingsperioder[0].tom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-        });
-
-        it("parser datofelter i ferie", () => {
-            const soknad = Object.assign({}, getSoknad(), {
-                ferie: [
-                    {
-                        fom: "2016-07-15",
-                        tom: "2017-01-19",
-                    }, {
-                        fom: "2016-07-15",
-                        tom: "2017-01-19",
-                    },
-                ]
-            });
-
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.ferie[1].fom.getTime()).to.be.equal(new Date("2016-07-15").getTime());
-            expect(_soknad.ferie[1].tom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-        });
-
-        it("parser datofelter i permisjon", () => {
-            const soknad = Object.assign({}, getSoknad(),
-                {
-                    permisjon: [
-                        {
-                            fom: "2016-07-15",
-                            tom: "2017-01-19",
-                        }, {
-                            fom: "2016-07-15",
-                            tom: "2017-01-19",
-                        },
-                    ]
-                });
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.permisjon[1].fom.getTime()).to.be.equal(new Date("2016-07-15").getTime());
-            expect(_soknad.permisjon[1].tom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-        });
-
-        it("parser datofelter i utenlandsopphold", () => {
-            const soknad = Object.assign({}, getSoknad(),
-                {
-                    utenlandsopphold: {
-                        soektOmSykepengerIPerioden: false,
-                        perioder: [
-                            {
-                                fom: "2016-07-15",
-                                tom: "2017-01-19",
-                            }, {
-                                fom: "2016-07-15",
-                                tom: "2017-01-19",
-                            },
-                        ]
-                    }
-                });
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.utenlandsopphold.soektOmSykepengerIPerioden).to.be.equal(false);
-            expect(_soknad.utenlandsopphold.perioder[1].fom.getTime()).to.be.equal(new Date("2016-07-15").getTime());
-            expect(_soknad.utenlandsopphold.perioder[1].tom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-        });
-
-        it("parser datofelter i utdanning", () => {
-            const soknad = Object.assign({}, getSoknad(),
-                {
-                    utdanning: {
-                        utdanningStartdato: "2017-01-01",
-                        erUtdanningFulltidsstudium: true,
-                    }
-                }
-            );
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.utdanning.utdanningStartdato.getTime()).to.be.equal(new Date("2017-01-01").getTime());
-            expect(_soknad.utdanning.erUtdanningFulltidsstudium).to.be.equal(true);
-        });
-
-        it("parser gjenopptattArbeidFulltUtDato", () => {
-            const soknad = Object.assign({}, getSoknad(),
-                {
-                    gjenopptattArbeidFulltUtDato: "2017-01-19"
-                }
-            );
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.gjenopptattArbeidFulltUtDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-        });
-
-        it("parser identdato", () => {
-            const soknad = Object.assign({}, getSoknad(),
-                {
-                    identdato: "2017-01-19"
-                }
-            );
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.identdato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-        });
-
-        it("parser sendtTilArbeidsgiverDato", () => {
-            const soknad = Object.assign({}, getSoknad(),
-                {
-                    sendtTilArbeidsgiverDato: "2017-01-19"
-                }
-            );
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.sendtTilArbeidsgiverDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-        });
-
-        it("parser sendtTilNAVDato", () => {
-            const soknad = Object.assign({}, getSoknad(),
-                {
-                    sendtTilNAVDato: "2017-01-19"
-                }
-            );
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.sendtTilNAVDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-        });
-
-        it("parser opprettetDato", () => {
-            const soknad = Object.assign({}, getSoknad(),
-                {
-                    opprettetDato: "2017-01-19"
-                }
-            );
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.opprettetDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-        });
-
-        it("parser sykmeldingSkrevetDato", () => {
-            const soknad = Object.assign({}, getSoknad(),
-                {
-                    sykmeldingSkrevetDato: "2017-01-19"
-                }
-            );
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.sykmeldingSkrevetDato.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-        });
-
-        it("Funker hvis sendtTilNAVDato og/eller sendtTilArbeidsgiverDato ikke finnes på søknaden", () => {
-            const soknad = getSoknad();
-            delete(soknad.sendtTilNAVDato);
-            delete(soknad.sendtTilArbeidsgiverDato);
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.sendtTilNAVDato).to.be.undefined;
-            expect(_soknad.sendtTilArbeidsgiverDato).to.be.undefined;
-        });
-
-        it("parser forrigeSykeforloepTom", () => {
-            const soknad = Object.assign({}, getSoknad(),
-                {
-                    forrigeSykeforloepTom: "2017-01-19"
-                }
-            );
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.forrigeSykeforloepTom.getTime()).to.be.equal(new Date("2017-01-19").getTime());
-        });
-
-        it("parser fom", () => {
-            const soknad = Object.assign({}, getSoknad(), {
-                fom: "2017-01-19"
-            });
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.fom).to.deep.equal(new Date("2017-01-19"));
-        });
-
-        it("parser tom", () => {
-            const soknad = Object.assign({}, getSoknad(), {
-                tom: "2017-01-19"
-            });
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.tom).to.deep.equal(new Date("2017-01-19"));
-        });
-
-        it("Henter fom fra tidligsteFom dersom det ikke finnes fom", () => {
-            const soknad = Object.assign({}, getSoknad(), {
-                fom: null
-            });
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.fom).to.deep.equal(new Date("2016-07-15"));
-        });
-
-
-        it("Henter tom fra senesteTom dersom det ikke finnes tom", () => {
-            const soknad = Object.assign({}, getSoknad(), {
-                tom: null
-            });
-            const _soknad = parseDatofelter(soknad);
-            expect(_soknad.tom).to.deep.equal(new Date("2017-01-19"));
-        });
-
-
-    });
-
     describe("settErOppdelt", () => {
         it("Setter _erOppdelt til false hvis vi ikke vet om søknaden er oppdelt", () => {
             const soknad = Object.assign({}, getSoknad(), {
@@ -586,7 +374,7 @@ describe('sykepengesoknader', () => {
         });
 
         it("Setter _erOppdelt hvis vi har skikkelig mange perioder", () => {
-            const soknad = parseDatofelter({
+            const soknad = parseSykepengesoknad({
               "id": "35134708-930e-43dc-a850-38ed33adc1d9",
               "status": "NY",
               "opprettetDato": "2017-08-04",

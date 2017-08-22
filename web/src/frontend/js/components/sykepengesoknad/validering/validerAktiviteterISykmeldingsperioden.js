@@ -70,8 +70,8 @@ const validerAktiviteter = (values, aktiviteter) => {
                         }
 
                         if (arbeidstimerNormalUke && parseString(arbeidstimerNormalUke) > 0) {
-                            const arbeidsgrad = 100 - values.aktiviteter[index].grad;
-                            if (stillingsprosent <= arbeidsgrad) {
+                            const arbeidsgradISykmeldingen = 100 - values.aktiviteter[index].grad;
+                            if (stillingsprosent <= arbeidsgradISykmeldingen) {
                                 res.timer = ikkeJobbetMerEnnGraderingTimerFeil;
                             }
                         }

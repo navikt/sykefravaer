@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths';
-import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, tidligsteFom, senesteTom } from 'digisyfo-npm';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
-import { tidligsteFom, senesteTom } from '../../utils/periodeUtils';
 import { NY } from '../../enums/sykmeldingstatuser';
 import { sykmelding as sykmeldingPt, sykmeldingperiode } from '../../propTypes';
 

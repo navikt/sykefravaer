@@ -5,8 +5,7 @@ import Checkbox from '../../skjema/Checkbox';
 import Radioknapper from '../../skjema/Radioknapper';
 import { FieldArray, Field } from 'redux-form';
 import Feilomrade from '../../skjema/Feilomrade';
-import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, getTomDato } from 'digisyfo-npm';
-import * as periodeUtils from '../../../utils/periodeUtils';
+import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, getTomDato, tidligsteFom as _tidligsteFom } from 'digisyfo-npm';
 import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
@@ -83,7 +82,7 @@ export const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, gjenoppta
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });
-    const tidligsteFom = sykepengesoknad.del === 1 && sykepengesoknad.forrigeSykeforloepTom ? sykepengesoknad.forrigeSykeforloepTom : periodeUtils.tidligsteFom(perioder);
+    const tidligsteFom = sykepengesoknad.del === 1 && sykepengesoknad.forrigeSykeforloepTom ? sykepengesoknad.forrigeSykeforloepTom : _tidligsteFom(perioder);
     const senesteTom = getTomDato(_soknad);
 
     return (<JaEllerNei

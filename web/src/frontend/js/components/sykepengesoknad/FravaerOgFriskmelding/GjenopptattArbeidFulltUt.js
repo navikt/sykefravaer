@@ -1,8 +1,7 @@
 import React from 'react';
 import JaEllerNei from '../JaEllerNei';
 import Datovelger from '../../skjema/Datovelger';
-import { getLedetekst } from 'digisyfo-npm';
-import { tidligsteFom, senesteTom } from '../../../utils/periodeUtils';
+import { getLedetekst, tidligsteFom, senesteTom } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 const GjenopptattArbeidFulltUt = ({ sykepengesoknad }) => {

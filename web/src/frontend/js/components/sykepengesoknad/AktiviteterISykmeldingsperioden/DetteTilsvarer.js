@@ -8,11 +8,11 @@ const tilInt = (streng) => {
 
 export const getStillingsprosent = (antallTimerIArbeid, normalArbeidstid, periode) => {
     const ANTALL_VIRKEDAGER_I_EN_UKE = 5;
-    const virkerdager = antallVirkedagerIPeriode(periode);
+    const virkedager = antallVirkedagerIPeriode(periode);
     const _antallTimerIArbeid = tilInt(antallTimerIArbeid);
     const _normalArbeidstid = tilInt(normalArbeidstid);
-    const desimaltall = _antallTimerIArbeid / ((_normalArbeidstid / ANTALL_VIRKEDAGER_I_EN_UKE) * virkerdager);
-    if (!_antallTimerIArbeid || !_normalArbeidstid || virkerdager === 0) {
+    const desimaltall = _antallTimerIArbeid / ((_normalArbeidstid / ANTALL_VIRKEDAGER_I_EN_UKE) * virkedager);
+    if (!_antallTimerIArbeid || !_normalArbeidstid || virkedager === 0) {
         return undefined;
     }
     return Math.round(desimaltall * 100);

@@ -254,9 +254,6 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             }, {}])
         });
 
-
-
-
         it("Skal ikke validere dersom oppgitt arbeidsgrad er laver enn (100 - sykmeldt grad)", () => {
 
             let _soknad = getSoknad({
@@ -285,38 +282,6 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
                     arbeidsgrad: ikkeJobbetMerEnnGraderingProsentFeil,
-                }
-            }])
-        });
-
-        it("Skal ikke validere dersom oppgitt timer gir lavere arbeidsgrad enn gradering", () => {
-
-            let _soknad = getSoknad({
-                "aktiviteter": [{
-                    "periode": {
-                        "fom": "2017-16-01",
-                        "tom": "2017-16-25"
-                    },
-                    "grad": 50,
-                    "avvik": null
-                }]
-            });
-
-            values.aktiviteter = [{
-                jobbetMerEnnPlanlagt: true,
-                avvik: {
-                    timer: "10",
-                    enhet: "timer",
-                    arbeidstimerNormalUke: "37,5"
-                },
-                grad: 50,
-            }];
-
-            const res = validate(values, { sykepengesoknad:_soknad, sendTilFoerDuBegynner });
-
-            expect(res.aktiviteter).to.deep.equal([{
-                avvik: {
-                    timer: ikkeJobbetMerEnnGraderingTimerFeil,
                 }
             }])
         });
@@ -357,7 +322,6 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             }];
 
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-            console.log(res.aktiviteter)
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
                     timer: overHundreogfemtiFeil,
@@ -387,26 +351,125 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             }])
         });
 
-        it("Skal ikke validere dersom oppgitt (arbeidstimer / normalArbeidstidUke) er lavere enn arbeidsgrad", () => {
+        it("Skal ikke validere dersom oppgitt antall timer gir stillingsprosent lavere enn arbeidsgrad", () => {
+            const sykmeldingsgrad = 22;
             let _soknad = getSoknad({
                 "aktiviteter": [{
                     "periode": {
-                        "fom": "2017-16-01",
-                        "tom": "2017-16-25"
+                        "fom": new Date("2017-08-01"),
+                        "tom": new Date("2017-08-02")
                     },
-                    "grad": 50,
+                    "grad": sykmeldingsgrad,
                     "avvik": null
                 }]
             });
-
+            // Sykmeldt i 2 dager, skulle da ha jobbet 15 timer
+            // Jobbet 3 timer
+            // Faktisk arbeidsgrad === 3 / 15 === 0,2 (< 22 %)
             values.aktiviteter = [{
                 jobbetMerEnnPlanlagt: true,
                 avvik: {
-                    timer: "10",
+                    timer: "3",
                     enhet: "timer",
                     arbeidstimerNormalUke: "37,5"
                 },
-                grad: 50,
+                grad: sykmeldingsgrad,
+            }];
+
+            const res = validate(values, { sykepengesoknad:_soknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.deep.equal([{
+                avvik: {
+                    timer: ikkeJobbetMerEnnGraderingTimerFeil,
+                }
+            }])
+        });
+
+        it("Skal validere dersom oppgitt antall timer gir stillingsprosent høyere enn arbeidsgrad", () => {
+            const sykmeldingsgrad = 75;
+            let _soknad = getSoknad({
+                "aktiviteter": [{
+                    "periode": {
+                        "fom": new Date("2017-08-01"),
+                        "tom": new Date("2017-08-02")
+                    },
+                    "grad": sykmeldingsgrad,
+                    "avvik": null
+                }]
+            });
+            // Sykmeldt i 2 dager, skulle da ha jobbet 15 timer
+            // Jobbet 12 timer
+            // Faktisk arbeidsgrad === 12 / 15 === 0,8 (> 75 %)
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    timer: "12",
+                    enhet: "timer",
+                    arbeidstimerNormalUke: "37,5"
+                },
+                grad: sykmeldingsgrad,
+            }];
+
+            const res = validate(values, { sykepengesoknad:_soknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.be.undefined;
+        });
+
+        it("Skal validere dersom oppgitt antall timer gir stillingsprosent høyere enn arbeidsgrad", () => {
+            const sykmeldingsgrad = 60;
+            let _soknad = getSoknad({
+                "aktiviteter": [{
+                    "periode": {
+                        "fom": new Date("2017-08-18"),
+                        "tom": new Date("2017-08-19")
+                    },
+                    "grad": sykmeldingsgrad,
+                    "avvik": null
+                }]
+            });
+            // Sykmeldt i 1 dag (perioden går fra fredag til lørdag), skulle da ha jobbet 7,5 timer
+            // Jobbet 4 timer
+            // Faktisk arbeidsgrad === 4 / 7,5 === 0,53 (> 40 %)
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    timer: "4",
+                    arbeidsgrad: "53",
+                    enhet: "timer",
+                    arbeidstimerNormalUke: "37,5"
+                },
+                grad: sykmeldingsgrad,
+            }];
+
+            const res = validate(values, { sykepengesoknad:_soknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.be.undefined;
+        });
+
+        it("Skal ikke validere dersom oppgitt antall timer gir stillingsprosent helt lik arbeidsgrad", () => {
+            const sykmeldingsgrad = 60;
+            let _soknad = getSoknad({
+                "aktiviteter": [{
+                    "periode": {
+                        "fom": new Date("2017-08-18"),
+                        "tom": new Date("2017-08-19")
+                    },
+                    "grad": sykmeldingsgrad,
+                    "avvik": null
+                }]
+            });
+            // Sykmeldt i 1 dag (perioden går fra fredag til lørdag), skulle da ha jobbet 7,5 timer
+            // Jobbet 3 timer
+            // Faktisk arbeidsgrad === 3 / 7,5 === 0,40 (=== 40 %)
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    timer: "3",
+                    arbeidsgrad: "40",
+                    enhet: "timer",
+                    arbeidstimerNormalUke: "37,5"
+                },
+                grad: sykmeldingsgrad,
             }];
 
             const res = validate(values, { sykepengesoknad:_soknad, sendTilFoerDuBegynner });

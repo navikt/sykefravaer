@@ -62,15 +62,16 @@ const validerAktiviteter = (values, aktiviteter) => {
                             res.arbeidsgrad = antallFeil;
                         }
                     } else if (enhet === 'timer') {
+                        const stillingsprosent = getStillingsprosent(timer, arbeidstimerNormalUke, aktivitet.periode);
                         if (parseString(timer) > 150) {
                             res.timer = overHundreogfemtiFeil;
-                        } else if (getStillingsprosent(timer, arbeidstimerNormalUke, aktivitet.periode) > 100) {
+                        } else if (stillingsprosent > 100) {
                             res.timer = antallTimerErMerEnn100ProsentFeil;
                         }
 
                         if (arbeidstimerNormalUke && parseString(arbeidstimerNormalUke) > 0) {
-                            if ((parseString(timer) / parseString(arbeidstimerNormalUke)) * 100
-                                <= (100 - values.aktiviteter[index].grad)) {
+                            const arbeidsgrad = 100 - values.aktiviteter[index].grad;
+                            if (stillingsprosent <= arbeidsgrad) {
                                 res.timer = ikkeJobbetMerEnnGraderingTimerFeil;
                             }
                         }

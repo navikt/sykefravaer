@@ -1,13 +1,15 @@
 import React, { PropTypes, Component } from 'react';
+import { getContextRoot } from '../../routers/paths';
 import Godkjenninger from './godkjenninger/Godkjenninger';
 import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
 import ReleasetPlan from './releasetplan/ReleasetPlan';
 import Tiltak from './utfylling/Tiltak';
-import Godkjenn from './utfylling/Godkjenn';
 import {
     NavigasjonsTopp,
     NavigasjonsBunn,
     AvvistPlanKvittering,
+    BRUKERTYPE,
+    Godkjenn,
 } from 'oppfolgingsdialog-npm';
 
 const inneholderGodkjenninger = (oppfolgingsdialog) => {
@@ -134,6 +136,8 @@ export class Oppfolgingsdialog extends Component {
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
                         godkjennPlan={godkjennDialog}
+                        brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                        rootUrl={`${getContextRoot()}`}
                     />);
                 }
             })();

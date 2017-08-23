@@ -54,7 +54,7 @@ class Serverfeilmelding extends Component {
         if (!noeErFeil) {
             return null;
         }
-        return (<div className="panel panel--komprimert landingspanel" role="alert">
+        return (<div className="panel landingspanel" role="alert">
             <Varselstripe type="feil" fylt>
                 <p className="sist">
                     <strong>Ai ai ai!</strong><span> Vi har problemer med noen av baksystemene nå. </span>

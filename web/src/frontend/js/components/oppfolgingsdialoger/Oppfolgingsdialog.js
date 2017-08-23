@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { getContextRoot } from '../../routers/paths';
-import Godkjenninger from './godkjenninger/Godkjenninger';
 import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
 import ReleasetPlan from './releasetplan/ReleasetPlan';
 import Tiltak from './utfylling/Tiltak';
@@ -9,6 +8,7 @@ import {
     NavigasjonsBunn,
     AvvistPlanKvittering,
     BRUKERTYPE,
+    Godkjenninger,
     Godkjenn,
 } from 'oppfolgingsdialog-npm';
 
@@ -89,6 +89,8 @@ export class Oppfolgingsdialog extends Component {
                 toggleAvvisPlan={toggleAvvisPlan}
                 visAvvisPlanKvittering={this.visAvvisPlanKvittering}
                 nullstillGodkjenning={nullstillGodkjenning}
+                brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                rootUrl={`${getContextRoot()}`}
             />);
         } else if (inneholderReleasetVersjon(oppfolgingsdialog)) {
             disableNavigation = true;

@@ -16,7 +16,7 @@
     "images:copy:nav-frontend": "cp -R node_modules/nav-frontend-grafikk img",
     "images:install": "cp -R img ../main/webapp",
     "deploy": "node deploy.js",
-    "scripts:watch": "webpack-dev-server --inline",
+    "scripts:watch": "webpack-dev-server --inline --port 9090",
     "lint": "eslint js/. --ext .js"
   },
   "nyc": {

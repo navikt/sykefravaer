@@ -6,7 +6,7 @@ var timestamp = process.argv[3] || Date.now().toString();
 
 var dev = {
     'timestamp': `${timestamp}`,
-    "buildRoot": "http://localhost:8080/assets",
+    "buildRoot": "http://localhost:9090/assets",
     "restRoot": "http://localhost:8182/syforest",
     "moterestRoot": "http://localhost:8184/moterest/api",
     "oppfoelgingsdialogrestRoot": "http://localhost:8580/oppfoelgingsdialogrest/api",

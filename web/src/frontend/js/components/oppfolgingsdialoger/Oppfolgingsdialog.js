@@ -148,6 +148,7 @@ export class Oppfolgingsdialog extends Component {
         return (
             <div>
                 <NavigasjonsTopp
+                    ledetekster={ledetekster}
                     disabled={disableNavigation}
                     navn={oppfolgingsdialog.virksomhetsnavn}
                     settAktivtSteg={settAktivtSteg}

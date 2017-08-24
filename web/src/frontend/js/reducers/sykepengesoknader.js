@@ -1,5 +1,5 @@
 import * as actiontyper from '../actions/actiontyper';
-import { KORRIGERT, AVBRUTT, NY } from '../enums/sykepengesoknadstatuser';
+import { KORRIGERT, AVBRUTT, NY, UTKAST_TIL_KORRIGERING, SLETTET_UTKAST } from '../enums/sykepengesoknadstatuser';
 import { parseSykepengesoknad, tidligsteFom, senesteTom } from 'digisyfo-npm';
 
 const initiellState = {
@@ -178,8 +178,13 @@ export default function sykepengesoknader(state = initiellState, action) {
             });
         }
         case actiontyper.SOKNAD_AVBRUTT: {
+            const soknad = finnSoknad({ sykepengesoknader: state }, action.sykepengesoknadsId);
+            let status = AVBRUTT;
+            if (soknad.status === UTKAST_TIL_KORRIGERING) {
+                status = SLETTET_UTKAST;
+            }
             const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
-                status: AVBRUTT,
+                status,
                 avbruttDato: new Date(),
             });
             return Object.assign({}, state, {

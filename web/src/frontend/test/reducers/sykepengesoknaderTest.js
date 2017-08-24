@@ -362,6 +362,27 @@ describe('sykepengesoknader', () => {
             });
         });
 
+        it("Håndterer soknadAvbrutt() når det er et utkast som er avbrutt", () => {
+            const state = deepFreeze({
+                data: [{id: "1", status: "UTKAST_TIL_KORRIGERING", avbruttDato: null}, { id: "2", status: "SENDT", avbruttDato: null}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+            });
+            const action = actions.soknadAvbrutt("1");
+            const nyState = sykepengesoknader(state, action);
+            expect(nyState).to.deep.equal({
+                data: [{id: "1", status: "SLETTET_UTKAST", avbruttDato: new Date() }, { id: "2", status: "SENDT", avbruttDato: null}],
+                henter: false,
+                hentingFeilet: false,
+                sender: false,
+                sendingFeilet: false,
+                avbryter: false,
+                avbrytFeilet: false,
+            });
+        });
+
         it("Håndterer gjenapnerSoknad", () => {
             state = deepFreeze(Object.assign({}, state, {
                 data: [{id: "1", status: "AVBRUTT", avbruttDato: new Date("2017-06-06")}, { id: "2", status: "SENDT", avbruttDato: null}]

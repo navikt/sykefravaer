@@ -56,7 +56,7 @@ export const soknadaktiviteter = PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
 }));
 
-export const sykepengesoknadstatus = PropTypes.oneOf([soknadstatuser.SENDT, soknadstatuser.NY, soknadstatuser.TIL_SENDING, soknadstatuser.UTGAATT, soknadstatuser.UTKAST_TIL_KORRIGERING, soknadstatuser.KORRIGERT, soknadstatuser.AVBRUTT, soknadstatuser.FREMTIDIG]);
+export const sykepengesoknadstatus = PropTypes.oneOf([soknadstatuser.SENDT, soknadstatuser.NY, soknadstatuser.TIL_SENDING, soknadstatuser.UTGAATT, soknadstatuser.UTKAST_TIL_KORRIGERING, soknadstatuser.KORRIGERT, soknadstatuser.AVBRUTT, soknadstatuser.FREMTIDIG, soknadstatuser.SLETTET_UTKAST]);
 
 export const sykepengesoknad = PropTypes.shape({
     id: PropTypes.string,

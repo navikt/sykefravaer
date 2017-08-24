@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
-import { AVBRUTT } from '../../enums/sykepengesoknadstatuser';
+import { AVBRUTT, SLETTET_UTKAST } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Feilmelding from '../../components/Feilmelding';
 import { Standardkvittering } from '../../components/sykmelding/SykmeldingKvittering';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 
 export const Controller = (props) => {
-    if (props.sykepengesoknad.status === AVBRUTT) {
+    if (props.sykepengesoknad.status === AVBRUTT || props.sykepengesoknad.status === SLETTET_UTKAST) {
         return (<Standardkvittering
             tittel={getLedetekst('sykepengesoknad.avbryt.kvittering.tittel')}
             status={AVBRUTT}

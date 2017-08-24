@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import setup from '../setup';
 import SykepengerSkjema from '../SykepengerSkjema';
 import { Link } from 'react-router';
@@ -29,38 +29,44 @@ const mottaker = (sendesTil, sykepengesoknad) => {
     }
 };
 
-export const OppsummeringForm = (props) => {
-    const { sykepengesoknad, backendsoknad, handleSubmit, actions, sender, sendingFeilet, visForskutteringssporsmal, sendesTil } = props;
-    const label = getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label');
-    const onSubmit = (values) => {
-        const soknad = mapSkjemasoknadToBackendsoknad(values, {
-            visForskutteringssporsmal: visForskutteringssporsmal === true,
-        });
-        const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
-        actions.sendSykepengesoknad(soknadObjekt);
-    };
-    return (<form id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
-        <Soknad apentUtdrag={false} sykepengesoknad={backendsoknad} tittel="Oppsummering" />
-        <div className="bekreftet-container blokk">
-            <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
-        </div>
-        { visForskutteringssporsmal && <ForskuttererArbeidsgiver /> }
-        { sendingFeilet && <SendingFeilet /> }
-        { !visForskutteringssporsmal && <p className="js-mottaker">{mottaker(sendesTil, sykepengesoknad)}</p> }
-        <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
-            <Link
-                to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}
-                className="rammeknapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake')}
-            </Link>
-            <button
-                className="knapp"
-                type="submit"
-                disabled={sender}>{getLedetekst('sykepengesoknad.send')}{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}
-            </button>
-        </Knapperad>
-        <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
-    </form>);
-};
+export class OppsummeringForm extends Component {
+    componentDidMount() {
+        this.refs.form.focus();
+    }
+
+    render() {
+        const { sykepengesoknad, backendsoknad, handleSubmit, actions, sender, sendingFeilet, visForskutteringssporsmal, sendesTil } = this.props;
+        const label = getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label');
+        const onSubmit = (values) => {
+            const soknad = mapSkjemasoknadToBackendsoknad(values, {
+                visForskutteringssporsmal: visForskutteringssporsmal === true,
+            });
+            const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
+            actions.sendSykepengesoknad(soknadObjekt);
+        };
+        return (<form className="sykepengerskjema" ref="form" tabIndex="-1" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
+            <Soknad apentUtdrag={false} sykepengesoknad={backendsoknad} tittel="Oppsummering" />
+            <div className="bekreftet-container blokk">
+                <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
+            </div>
+            { visForskutteringssporsmal && <ForskuttererArbeidsgiver /> }
+            { sendingFeilet && <SendingFeilet /> }
+            { !visForskutteringssporsmal && <p className="js-mottaker">{mottaker(sendesTil, sykepengesoknad)}</p> }
+            <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
+                <Link
+                    to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}
+                    className="rammeknapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake')}
+                </Link>
+                <button
+                    className="knapp"
+                    type="submit"
+                    disabled={sender}>{getLedetekst('sykepengesoknad.send')}{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}
+                </button>
+            </Knapperad>
+            <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
+        </form>);
+    }
+}
 
 OppsummeringForm.propTypes = {
     sykepengesoknad: sykepengesoknadPt,

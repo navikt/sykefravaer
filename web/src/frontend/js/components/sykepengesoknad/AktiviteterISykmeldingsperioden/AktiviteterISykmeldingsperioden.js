@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import SykepengerSkjema from '../SykepengerSkjema';
 import { Field, FieldArray } from 'redux-form';
 import history from '../../../history';
@@ -26,60 +26,66 @@ UtdanningStartDato.propTypes = {
     senesteTom: PropTypes.instanceOf(Date),
 };
 
-export const AktiviteterISykmeldingsperiodenSkjema = (props) => {
-    const { handleSubmit, sykepengesoknad, autofill, untouch, gjenopptattArbeidFulltUtDato } = props;
-    const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
-        return aktivitet.periode;
-    });
-    const _tidligsteFom = tidligsteFom(perioder);
-    const _soknad = Object.assign({}, sykepengesoknad, {
-        gjenopptattArbeidFulltUtDato,
-    });
-    const _senesteTom = getTomDato(_soknad);
+export class AktiviteterISykmeldingsperiodenSkjema extends Component {
+    componentDidMount() {
+        this.refs.form.focus();
+    }
 
-    const onSubmit = () => {
-        history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
-    };
+    render() {
+        const { handleSubmit, sykepengesoknad, autofill, untouch, gjenopptattArbeidFulltUtDato } = this.props;
+        const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
+            return aktivitet.periode;
+        });
+        const _tidligsteFom = tidligsteFom(perioder);
+        const _soknad = Object.assign({}, sykepengesoknad, {
+            gjenopptattArbeidFulltUtDato,
+        });
+        const _senesteTom = getTomDato(_soknad);
 
-    return (<form id="aktiviteter-i-sykmeldingsperioden-skjema" onSubmit={handleSubmit(onSubmit)}>
-        <FieldArray
-            component={Aktiviteter}
-            fields={sykepengesoknad.aktiviteter}
-            autofill={autofill}
-            untouch={untouch}
-            name="aktiviteter"
-            arbeidsgiver={sykepengesoknad.arbeidsgiver.navn} />
+        const onSubmit = () => {
+            history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
+        };
 
-        <JaEllerNei
-            name="harAndreInntektskilder"
-            spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', {
-                '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
-            })}>
-            <AndreInntektskilder />
-        </JaEllerNei>
+        return (<form className="sykepengerskjema" ref="form" tabIndex="-1" id="aktiviteter-i-sykmeldingsperioden-skjema" onSubmit={handleSubmit(onSubmit)}>
+            <FieldArray
+                component={Aktiviteter}
+                fields={sykepengesoknad.aktiviteter}
+                autofill={autofill}
+                untouch={untouch}
+                name="aktiviteter"
+                arbeidsgiver={sykepengesoknad.arbeidsgiver.navn} />
 
-        <JaEllerNei
-            name="utdanning.underUtdanningISykmeldingsperioden"
-            spoersmal={getLedetekst('sykepengesoknad.utdanning.ja-nei.sporsmal', {
-                '%STARTDATO%': toDatePrettyPrint(_tidligsteFom),
-                '%SLUTTDATO%': toDatePrettyPrint(_senesteTom),
-            })}>
-            <UtdanningStartDato senesteTom={_senesteTom} />
-            <Field
-                component={JaEllerNeiRadioknapper}
-                name="utdanning.erUtdanningFulltidsstudium"
-                parse={parseJaEllerNei}
-                spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal')}
-                Overskrift="h4" />
-        </JaEllerNei>
+            <JaEllerNei
+                name="harAndreInntektskilder"
+                spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', {
+                    '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
+                })}>
+                <AndreInntektskilder />
+            </JaEllerNei>
 
-        <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
-            <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} className="rammeknapp">Tilbake</Link>
-            <button type="submit" className="knapp">Gå videre</button>
-        </Knapperad>
-        <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
-    </form>);
-};
+            <JaEllerNei
+                name="utdanning.underUtdanningISykmeldingsperioden"
+                spoersmal={getLedetekst('sykepengesoknad.utdanning.ja-nei.sporsmal', {
+                    '%STARTDATO%': toDatePrettyPrint(_tidligsteFom),
+                    '%SLUTTDATO%': toDatePrettyPrint(_senesteTom),
+                })}>
+                <UtdanningStartDato senesteTom={_senesteTom} />
+                <Field
+                    component={JaEllerNeiRadioknapper}
+                    name="utdanning.erUtdanningFulltidsstudium"
+                    parse={parseJaEllerNei}
+                    spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal')}
+                    Overskrift="h4" />
+            </JaEllerNei>
+
+            <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
+                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} className="rammeknapp">Tilbake</Link>
+                <button type="submit" className="knapp">Gå videre</button>
+            </Knapperad>
+            <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
+        </form>);
+    }
+}
 
 AktiviteterISykmeldingsperiodenSkjema.propTypes = {
     handleSubmit: PropTypes.func,

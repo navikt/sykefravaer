@@ -1,25 +1,13 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
-import { getLedetekst, getHtmlLedetekst, DineSykmeldingOpplysninger, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 
-const DinSykmelding = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, pilotSykepenger = false }) => {
+const DinSykmelding = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId }) => {
     return (<div>
         <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
-        <div className="panel blokk">
-            <div className="media">
-                <img src="/sykefravaer/img/svg/nav-ansatt.svg" className="media__img media__img--desktop" alt="Ansatt i NAV" />
-                <img src="/sykefravaer/img/svg/nav-ansatt-mobil.svg" className="media__img media__img--mobil" alt="Ansatt i NAV" />
-                <h2 className="typo-syfotittel">{getLedetekst('din-sykmelding.ny-tjeneste.tittel')}</h2>
-            </div>
-            {
-                pilotSykepenger
-                    ? <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.ny-tjeneste.pilot.tekst')} />
-                    : <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.ny-tjeneste.tekst')} />
-            }
-        </div>
         {
             visEldreSykmeldingVarsel && <div className="panel blokk">
                 <Varselstripe type="info">
@@ -47,7 +35,6 @@ DinSykmelding.propTypes = {
     sykmelding: sykmeldingPt,
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
-    pilotSykepenger: PropTypes.bool,
 };
 
 export default DinSykmelding;

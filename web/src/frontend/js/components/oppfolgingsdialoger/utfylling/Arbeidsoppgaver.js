@@ -15,18 +15,18 @@ import {
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 
-export const RenderNotifikasjonBoks = ({ virksomhetsnavn, antallIkkeVurderteArbeidsoppgaver }) => {
+export const RenderNotifikasjonBoks = ({ motpartnavn, antallIkkeVurderteArbeidsoppgaver }) => {
     return (<NotifikasjonBoks
         imgUrl={`${getContextRoot()}/img/svg/notifikasjon-illustrasjon.svg`}
         tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
-            '%ARBEIDSGIVER%': virksomhetsnavn,
+            '%ARBEIDSGIVER%': motpartnavn,
             '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver.toString(),
         })}
         classNames={'panel--advarsel'}
     />);
 };
 RenderNotifikasjonBoks.propTypes = {
-    virksomhetsnavn: PropTypes.string,
+    motpartnavn: PropTypes.string,
     antallIkkeVurderteArbeidsoppgaver: PropTypes.number,
 };
 export const RenderNotifikasjonBoksSuksess = ({ tekst }) => {
@@ -217,7 +217,7 @@ export class Arbeidsoppgaver extends Component {
                         {
                             antallNyeArbeidsoppgaver > 0 &&
                             <RenderNotifikasjonBoks
-                                virksomhetsnavn={oppfolgingsdialog.arbeidsgiver.navn}
+                                motpartnavn={oppfolgingsdialog.arbeidsgiver.navn}
                                 antallIkkeVurderteArbeidsoppgaver={antallNyeArbeidsoppgaver}
                             />
                         }

@@ -9,7 +9,7 @@ import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
-import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT } from '../../enums/sykepengesoknadstatuser';
+import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
 
@@ -34,7 +34,8 @@ export const Controller = (props) => {
         case UTGAATT: {
             return <UtgaattSoknad sykepengesoknad={sykepengesoknad} />;
         }
-        case AVBRUTT: {
+        case AVBRUTT:
+        case SLETTET_UTKAST: {
             return <AvbruttSoknadContainer sykepengesoknad={sykepengesoknad} />;
         }
         default: {

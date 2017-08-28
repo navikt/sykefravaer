@@ -3,8 +3,33 @@ import { getLedetekst, Varselstripe, SykmeldingNokkelOpplysning, toDatePrettyPri
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
+import { AVBRUTT } from '../../enums/sykepengesoknadstatuser';
 
-const AvbruttSoknad = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFeilet }) => {
+const Verktoylinje = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFeilet }) => {
+    return (<div>
+        <div className={`verktoylinje ${gjenapneFeilet ? 'blokk--mini' : ''}`}>
+            <div className="verktoylinje__element">
+                <button onClick={(e) => {
+                    e.preventDefault();
+                    gjenapneSoknad(sykepengesoknad.id);
+                }} className="rammeknapp rammeknapp--mini js-gjenapne">{getLedetekst('sykepengesoknad.gjenapne.knapp')} { gjenapner ? <span className="knapp__spinner" /> : null }</button>
+            </div>
+        </div>
+        <div aria-live="polite">
+            { gjenapneFeilet && <p className="skjema__feilmelding">Beklager, søknaden kunne ikke gjenåpnes</p> }
+        </div>
+    </div>);
+};
+
+Verktoylinje.propTypes = {
+    gjenapneSoknad: PropTypes.func,
+    gjenapner: PropTypes.bool,
+    gjenapneFeilet: PropTypes.bool,
+    sykepengesoknad: sykepengesoknadPt,
+};
+
+const AvbruttSoknad = (props) => {
+    const { sykepengesoknad } = props;
     return (<div>
         <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
         <div className="panel panel--komprimert">
@@ -14,27 +39,17 @@ const AvbruttSoknad = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFei
                         <div className="statusopplysninger">
                             <SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel="Status">
                                 <p>
-                                    {getLedetekst('sykepengesoknad.status.AVBRUTT')}
+                                    {getLedetekst(`sykepengesoknad.status.${sykepengesoknad.status}`)}
                                 </p>
                             </SykmeldingNokkelOpplysning>
-                            <SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel="Dato">
+                            <SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel="Dato avbrutt">
                                 <p>
                                     {toDatePrettyPrint(sykepengesoknad.avbruttDato)}
                                 </p>
                             </SykmeldingNokkelOpplysning>
                         </div>
                     </div>
-                    <div className={`verktoylinje ${gjenapneFeilet ? 'blokk--mini' : ''}`}>
-                        <div className="verktoylinje__element">
-                            <button onClick={(e) => {
-                                e.preventDefault();
-                                gjenapneSoknad(sykepengesoknad.id);
-                            }} className="rammeknapp rammeknapp--mini js-gjenapne">{getLedetekst('sykepengesoknad.gjenapne.knapp')} { gjenapner ? <span className="knapp__spinner" /> : null }</button>
-                        </div>
-                    </div>
-                    <div aria-live="polite">
-                        { gjenapneFeilet && <p className="skjema__feilmelding">Beklager, søknaden kunne ikke gjenåpnes</p> }
-                    </div>
+                    { sykepengesoknad.status === AVBRUTT && <Verktoylinje {...props} /> }
                 </div>
             </Varselstripe>
         </div>
@@ -44,9 +59,6 @@ const AvbruttSoknad = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFei
 
 AvbruttSoknad.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
-    gjenapneSoknad: PropTypes.func,
-    gjenapner: PropTypes.bool,
-    gjenapneFeilet: PropTypes.bool,
 };
 
 export default AvbruttSoknad;

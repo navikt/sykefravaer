@@ -5,9 +5,8 @@ import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe } from 'digisyfo
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 
-const DinSykmelding = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId }) => {
+const Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId }) => {
     return (<div>
-        <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
         {
             visEldreSykmeldingVarsel && <div className="panel blokk">
                 <Varselstripe type="info">
@@ -28,6 +27,13 @@ const DinSykmelding = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingI
             <DineSykmeldingOpplysninger sykmelding={sykmelding} />
         </div>
         <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
+    </div>);
+}
+
+const DinSykmelding = (props) => {
+    return (<div>
+        <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
+        <Skjema {...props} />
     </div>);
 };
 

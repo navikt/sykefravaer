@@ -5,13 +5,21 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Feilmelding from '../../components/Feilmelding';
 import { Standardkvittering } from '../../components/sykmelding/SykmeldingKvittering';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { Link } from 'react-router';
 
 export const Controller = (props) => {
     if (props.sykepengesoknad.status === AVBRUTT || props.sykepengesoknad.status === SLETTET_UTKAST) {
-        return (<Standardkvittering
-            tittel={getLedetekst('sykepengesoknad.avbryt.kvittering.tittel')}
-            status={AVBRUTT}
-            brodtekst={getHtmlLedetekst('sykepengesoknad.avbryt.kvittering.tekst')} />);
+        return (<div>
+            <Standardkvittering
+                tittel={getLedetekst('sykepengesoknad.avbryt.kvittering.tittel')}
+                status={AVBRUTT}
+                brodtekst={getHtmlLedetekst('sykepengesoknad.avbryt.kvittering.tekst')} />
+                <p className="ikke-print blokk navigasjonsstripe">
+                    <Link to="/sykefravaer/soknader">
+                        {getLedetekst('sykepengesoknader.tilbake')}
+                    </Link>
+                </p>
+            </div>);
     }
     return <Feilmelding melding="Er du sikker på at du er på riktig side?" />;
 };

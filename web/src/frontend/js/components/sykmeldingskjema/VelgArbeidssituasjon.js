@@ -59,11 +59,10 @@ RendreVelgArbeidssituasjon.propTypes = {
 };
 
 const VelgArbeidssituasjon = (props) => {
-    const { untouch, arbeidsgivere, sykmelding, pilotSykepenger } = props;
+    const { untouch, arbeidsgivere, sykmelding } = props;
 
     return (<Field
         arbeidsgivere={arbeidsgivere}
-        pilotSykepenger={pilotSykepenger}
         sykmelding={sykmelding}
         component={Velg}
         name="valgtArbeidssituasjon"
@@ -76,7 +75,6 @@ VelgArbeidssituasjon.propTypes = {
     untouch: PropTypes.func,
     arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
     sykmelding: sykmeldingPt,
-    pilotSykepenger: PropTypes.bool,
 };
 
 export default VelgArbeidssituasjon;

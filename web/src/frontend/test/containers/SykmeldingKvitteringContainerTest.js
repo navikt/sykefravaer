@@ -157,9 +157,7 @@ describe("SykmeldingKvitteringContainer", () => {
         state.arbeidsgiversSykmeldinger = {
             data: sykmeldinger.map((s) => {
                 return Object.assign({}, s, {
-                    valgtArbeidsgiver: {
-                        erPilotarbeidsgiver: true,
-                    }
+                    valgtArbeidsgiver: {}
                 })
             })
         };
@@ -179,17 +177,11 @@ describe("SykmeldingKvitteringContainer", () => {
         ownProps.params = {
             sykmeldingId: "1",
         };
-        state.pilot = {
-            data: {
-                pilotSykepenger: false
-            }
-        };
     });
 
     describe("getKvitteringtype", () => {
 
         let sykmelding;
-        let erPilot;
         let clock;
 
 
@@ -286,13 +278,6 @@ describe("SykmeldingKvitteringContainer", () => {
             const _sykmelding = Object.assign({}, sykmelding, { status: 'SENDT', arbeidsgiverForskutterer: false });
             const alternativer = {};
             const nokkel = getLedetekstNokkel(_sykmelding, 'ostepop', alternativer);
-            expect(nokkel).to.equal('send-til-arbeidsgiver.ostepop');
-        });
-
-        it("Skal returnere send-til-arbeidsgiver om bruker ikke er i piloten", () => {
-            const _sykmelding = Object.assign({}, sykmelding, { status: 'SENDT', arbeidsgiverForskutterer: true });
-            const alternativer = {};
-            const nokkel = getLedetekstNokkel(_sykmelding, 'ostepop', alternativer, false);
             expect(nokkel).to.equal('send-til-arbeidsgiver.ostepop');
         });
 

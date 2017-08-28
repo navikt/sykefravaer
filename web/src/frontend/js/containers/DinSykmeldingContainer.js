@@ -11,7 +11,6 @@ import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions';
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
-import { hentPilotSykepenger } from '../actions/pilot_actions';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentBrukerinfo } from '../actions/brukerinfo_actions';
 import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst } from 'digisyfo-npm';
@@ -23,11 +22,7 @@ export class DinSykmldSide extends Component {
         const { sykmeldingId,
             dineSykmeldingerHentet,
             arbeidsgiversSykmeldingerHentet,
-            pilotSykepengerHentet,
             brukerinfoHentet } = this.props;
-        if (!pilotSykepengerHentet) {
-            this.props.hentPilotSykepenger(sykmeldingId);
-        }
         if (!dineSykmeldingerHentet) {
             this.props.hentDineSykmeldinger();
         }
@@ -41,7 +36,7 @@ export class DinSykmldSide extends Component {
 
     render() {
         const { brodsmuler, dinSykmelding, arbeidsgiversSykmelding, henter, hentingFeilet,
-            visEldreSykmeldingVarsel, eldsteSykmeldingId, pilotSykepenger } = this.props;
+            visEldreSykmeldingVarsel, eldsteSykmeldingId } = this.props;
 
         return (<Side tittel={getLedetekst('din-sykmelding.sidetittel')} brodsmuler={brodsmuler}>
                 { (() => {
@@ -78,8 +73,7 @@ export class DinSykmldSide extends Component {
                         return (<DinSykmelding
                             sykmelding={dinSykmelding}
                             visEldreSykmeldingVarsel={visEldreSykmeldingVarsel}
-                            eldsteSykmeldingId={eldsteSykmeldingId}
-                            pilotSykepenger={pilotSykepenger} />);
+                            eldsteSykmeldingId={eldsteSykmeldingId} />);
                     } else if (dinSykmelding.status === AVBRUTT) {
                         return (<div>
                             <DinAvbrutteSykmelding
@@ -105,13 +99,10 @@ DinSykmldSide.propTypes = {
     hentingFeilet: PropTypes.bool,
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
-    hentPilotSykepenger: PropTypes.func,
     hentAktuelleArbeidsgivere: PropTypes.func,
     hentArbeidsgiversSykmeldinger: PropTypes.func,
-    pilotSykepenger: PropTypes.bool,
     dineSykmeldingerHentet: PropTypes.bool,
     arbeidsgiversSykmeldingerHentet: PropTypes.bool,
-    pilotSykepengerHentet: PropTypes.bool,
     brukerinfoHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
     hentBrukerinfo: PropTypes.func,
@@ -174,7 +165,7 @@ export function mapStateToProps(state, ownProps) {
 
     return {
         sykmeldingId,
-        henter: state.dineSykmeldinger.henter || state.arbeidsgiversSykmeldinger.henter || state.ledetekster.henter || state.pilot.henter,
+        henter: state.dineSykmeldinger.henter || state.arbeidsgiversSykmeldinger.henter || state.ledetekster.henter,
         hentingFeilet: state.dineSykmeldinger.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet,
         dinSykmelding,
         arbeidsgiversSykmelding,
@@ -193,12 +184,10 @@ export function mapStateToProps(state, ownProps) {
         }, {
             tittel: getLedetekst('din-sykmelding.sidetittel'),
         }],
-        pilotSykepenger: state.pilot.data.pilotSykepenger,
-        pilotSykepengerHentet: state.pilot.data.sykmeldingId === sykmeldingId,
         brukerinfoHentet: state.brukerinfo.bruker.hentet === true,
     };
 }
 
 export const DinSykmeldingContainer = connect(mapStateToProps, {
-    hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger, hentPilotSykepenger, hentDineSykmeldinger, hentBrukerinfo,
+    hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger, hentDineSykmeldinger, hentBrukerinfo,
 })(DinSykmldSide);

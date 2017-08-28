@@ -33,6 +33,7 @@ export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => 
                     `aktiviteter[${index}].avvik.timer`,
                     `aktiviteter[${index}].avvik.arbeidstimerNormalUke`,
                     `aktiviteter[${index}].avvik.enhet`,
+                    `aktiviteter[${index}].avvik.beregnetArbeidsgrad`,
                 ]} />
         </div>
     </JaEllerNei>);

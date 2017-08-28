@@ -52,6 +52,7 @@ export const soknadaktiviteter = PropTypes.arrayOf(PropTypes.shape({
         arbeidstimerNormalUke: PropTypes.number,
         arbeidsgrad: PropTypes.number,
         timer: PropTypes.number,
+        beregnetArbeidsgrad: PropTypes.number,
     }),
     id: PropTypes.number,
 }));

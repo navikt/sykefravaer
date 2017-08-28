@@ -122,7 +122,7 @@ class AngiTid extends Component {
             </div>
             <Field onBlur={() => {
                 if (this.getValgtEnhet() === 'timer' && visTilsvarendeIProsent) {
-                    autofill(this.props.names[0], stillingsprosent);
+                    autofill(this.props.names[4], stillingsprosent);
                 }
             }} id={this.getAntallName()} component={TekstfeltMedEnhet} parse={lagDesimaltall} label={this.getEnhetLabel()} name={this.getAntallName()} />
             { visTilsvarendeIProsent && <DetteTilsvarer stillingsprosent={stillingsprosent} /> }

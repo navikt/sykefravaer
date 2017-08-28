@@ -60,7 +60,7 @@ const getAktiviteter = (aktiviteter) => {
             };
             if (aktivitet.avvik.enhet === 'timer') {
                 _a.avvik.timer = tilInt(aktivitet.avvik.timer);
-                _a.avvik.arbeidsgrad = tilInt(aktivitet.avvik.arbeidsgrad);
+                _a.avvik.beregnetArbeidsgrad = tilInt(aktivitet.avvik.beregnetArbeidsgrad);
             } else {
                 _a.avvik.arbeidsgrad = tilInt(aktivitet.avvik.arbeidsgrad);
             }

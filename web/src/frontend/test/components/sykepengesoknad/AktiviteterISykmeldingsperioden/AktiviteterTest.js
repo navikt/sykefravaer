@@ -118,7 +118,7 @@ describe("Aktiviteter", () => {
             expect(fields.prop("untouch")).to.deep.equal(untouch);
             expect(fields.prop("component")).to.deep.equal(AngiTid);
             expect(fields.prop("aktivitetIndex")).to.equal(1);
-            expect(fields.prop("names")).to.deep.equal([`aktiviteter[1].avvik.arbeidsgrad`, `aktiviteter[1].avvik.timer`, `aktiviteter[1].avvik.arbeidstimerNormalUke`, `aktiviteter[1].avvik.enhet`])
+            expect(fields.prop("names")).to.deep.equal(['aktiviteter[1].avvik.arbeidsgrad', 'aktiviteter[1].avvik.timer', 'aktiviteter[1].avvik.arbeidstimerNormalUke', 'aktiviteter[1].avvik.enhet', 'aktiviteter[1].avvik.beregnetArbeidsgrad'])
         })
 
     });
@@ -154,7 +154,7 @@ describe("Aktiviteter", () => {
             expect(fields.prop("untouch")).to.deep.equal(untouch);
             expect(fields.prop("component")).to.deep.equal(AngiTid);
             expect(fields.prop("aktivitetIndex")).to.equal(0);
-            expect(fields.prop("names")).to.deep.equal([`aktiviteter[0].avvik.arbeidsgrad`, `aktiviteter[0].avvik.timer`, `aktiviteter[0].avvik.arbeidstimerNormalUke`, `aktiviteter[0].avvik.enhet`])
+            expect(fields.prop("names")).to.deep.equal(['aktiviteter[0].avvik.arbeidsgrad', 'aktiviteter[0].avvik.timer', 'aktiviteter[0].avvik.arbeidstimerNormalUke', 'aktiviteter[0].avvik.enhet', 'aktiviteter[0].avvik.beregnetArbeidsgrad'])
         })
 
     });

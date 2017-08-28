@@ -44,6 +44,7 @@ export class OppsummeringForm extends Component {
             const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
             actions.sendSykepengesoknad(soknadObjekt);
         };
+        console.log(backendsoknad);
         return (<form className="sykepengerskjema" ref="form" tabIndex="-1" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
             <Soknad apentUtdrag={false} sykepengesoknad={backendsoknad} tittel="Oppsummering" />
             <div className="bekreftet-container blokk">

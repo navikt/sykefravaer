@@ -288,14 +288,14 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
                 "enhet": "timer",
                 "timer": "55",
                 "arbeidstimerNormalUke": "37,5",
-                "arbeidsgrad": "40"
+                "beregnetArbeidsgrad": "12"
             };
             sykepengesoknad.aktiviteter[0].jobbetMerEnnPlanlagt = true;
             const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad));
             expect(soknad.aktiviteter[0].avvik).to.deep.equal({
                 "timer": 55,
                 "arbeidstimerNormalUke": 37.5,
-                "arbeidsgrad": 40
+                "beregnetArbeidsgrad": 12
             });
         });
 
@@ -414,7 +414,8 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
                         "enhet": "timer",
                         "arbeidsgrad": null,
                         "timer": "11",
-                        "arbeidstimerNormalUke": "12,5"
+                        "arbeidstimerNormalUke": "12,5",
+                        "beregnetArbeidsgrad": "12"
                     },
                     "jobbetMerEnnPlanlagt": true,
                 }
@@ -424,7 +425,7 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
             expect(_soknad.aktiviteter[0].avvik).to.deep.equal({
                 timer: 11,
                 arbeidstimerNormalUke: 12.5,
-                arbeidsgrad: undefined,
+                beregnetArbeidsgrad: 12
             });
         });
 

@@ -201,7 +201,7 @@ export class Arbeidsoppgaver extends Component {
                     </div>
                     :
                     <div>
-                        <h2 className="typo-undertittel">{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
+                        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
                         {
                             lagret && this.state.oppdatertArbeidsoppgave &&
                             <RenderNotifikasjonBoksSuksess

@@ -44,7 +44,6 @@ export class OppsummeringForm extends Component {
             const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
             actions.sendSykepengesoknad(soknadObjekt);
         };
-        console.log(backendsoknad);
         return (<form className="sykepengerskjema" ref="form" tabIndex="-1" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
             <Soknad apentUtdrag={false} sykepengesoknad={backendsoknad} tittel="Oppsummering" />
             <div className="bekreftet-container blokk">
@@ -52,7 +51,7 @@ export class OppsummeringForm extends Component {
             </div>
             { visForskutteringssporsmal && <ForskuttererArbeidsgiver /> }
             { sendingFeilet && <SendingFeilet /> }
-            { !visForskutteringssporsmal && <p className="js-mottaker">{mottaker(sendesTil, sykepengesoknad)}</p> }
+            { !visForskutteringssporsmal && <p className="js-mottaker sykepengerskjema__sendesTil">{mottaker(sendesTil, sykepengesoknad)}</p> }
             <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
                 <Link
                     to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}

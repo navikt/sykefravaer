@@ -171,7 +171,7 @@ export const sykmelding = PropTypes.shape({
     }),
     innspillTilArbeidsgiver: PropTypes.string,
     tilbakedatering: PropTypes.shape({
-        dokumenterbarPasientkontakt: PropTypes.string,
+        dokumenterbarPasientkontakt: PropTypes.instanceOf(Date),
         tilbakedatertBegrunnelse: PropTypes.string,
     }),
     bekreftelse: PropTypes.shape({

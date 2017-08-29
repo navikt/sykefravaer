@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
-import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe, log } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import { Experiment, Variant } from 'react-ab';
@@ -53,8 +53,8 @@ const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, resulta
 }
 
 const pushDatalayerData = (data) => {
-    console.log("push", data)
-    // window.dataLayer.push(data);
+    window.dataLayer.push(data);
+    log(data);
 }
 
 class DinSykmelding extends Component {

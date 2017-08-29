@@ -53,7 +53,8 @@ const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, resulta
 }
 
 const pushDatalayerData = (data) => {
-    window.dataLayer.push(data);
+    console.log("push", data)
+    // window.dataLayer.push(data);
 }
 
 class DinSykmelding extends Component {
@@ -62,18 +63,17 @@ class DinSykmelding extends Component {
         this.state = {};
     }
 
-    registrerVisning(experiment, variant, harSendtSykmeldingerFoer) {
-        pushDatalayerData(getDatalayerData(experiment, variant, harSendtSykmeldingerFoer, 'SYKMELDING_VIST'));
+    registrerVisning(experiment, variant) {
+        pushDatalayerData(getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, 'SYKMELDING_VIST'));
         this.setState({
             experiment,
             variant,
-            harSendtSykmeldingerFoer,
         });
     }
 
     registrerInnsending() {
-        const { experiment, variant, harSendtSykmeldingerFoer } = this.state;
-        const datalayerData = getDatalayerData(experiment, variant, harSendtSykmeldingerFoer, 'SYKMELDING_BEHANDLET');
+        const { experiment, variant } = this.state;
+        const datalayerData = getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, 'SYKMELDING_BEHANDLET');
         pushDatalayerData(datalayerData);
     }
 

@@ -90,7 +90,7 @@ class DinSykmelding extends Component {
                 </Variant>
                 <Variant name={MED_INTROTEKST}>
                     <div className="panel blokk--s">
-                        <p className="sist">Du har fått en sykmelding. Det er du som bestemmer om den skal brukes. Gå gjennom sykmeldingen og følg retningslinjene videre.</p>
+                        <p className="sist">{getLedetekst('din-sykmelding.introtekst.abtest')}</p>
                     </div>
                     <Skjema {...this.props} registrerInnsending={() => {
                         this.registrerInnsending();

@@ -8,7 +8,7 @@ import { Experiment, Variant } from 'react-ab';
 import { connect } from 'react-redux';
 import { SENDT, BEKREFTET, TIL_SENDING, AVBRUTT } from '../../enums/sykmeldingstatuser';
 
-const Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId }) => {
+const Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending }) => {
     return (<div>
         {
             visEldreSykmeldingVarsel && <div className="panel blokk">
@@ -29,7 +29,7 @@ const Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId }) =>
         <div className="panel blokk">
             <DineSykmeldingOpplysninger sykmelding={sykmelding} />
         </div>
-        <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
+        <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} registrerInnsending={registrerInnsending} />
     </div>);
 };
 
@@ -43,6 +43,19 @@ const EKSPERIMENTNAVN = 'VISNING_INTROTEKST_DIN_SYKMELDING';
 const UTEN_INTROTEKST = 'UTEN_INTROTEKST';
 const MED_INTROTEKST = 'MED_INTROTEKST';
 
+const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, resultat) => {
+    return {
+        digisyfoEksperimentnavn: experiment,
+        digisyfoBrukersegment: harSendtSykmeldingerFoer ? 'HAR_BEHANDLET_SYKMELDING_FØR' : 'HAR_IKKE_BEHANDLET_SYKMELDING_FØR',
+        digisyfoABVariant: variant,
+        digisyfoABResultat: resultat,
+    };
+}
+
+const pushDatalayerData = (data) => {
+    window.dataLayer.push(data);
+}
+
 class DinSykmelding extends Component {
     constructor(props) {
         super(props);
@@ -50,11 +63,18 @@ class DinSykmelding extends Component {
     }
 
     registrerVisning(experiment, variant, harSendtSykmeldingerFoer) {
+        pushDatalayerData(getDatalayerData(experiment, variant, harSendtSykmeldingerFoer, 'SYKMELDING_VIST'));
         this.setState({
             experiment,
             variant,
             harSendtSykmeldingerFoer,
         });
+    }
+
+    registrerInnsending() {
+        const { experiment, variant, harSendtSykmeldingerFoer } = this.state;
+        const datalayerData = getDatalayerData(experiment, variant, harSendtSykmeldingerFoer, 'SYKMELDING_BEHANDLET');
+        pushDatalayerData(datalayerData);
     }
 
     render() {
@@ -64,13 +84,17 @@ class DinSykmelding extends Component {
                 this.registrerVisning(experiment, variant);
             }} name={EKSPERIMENTNAVN}>
                 <Variant name={UTEN_INTROTEKST}>
-                    <Skjema {...this.props} />
+                    <Skjema {...this.props} registrerInnsending={() => {
+                        this.registrerInnsending();
+                    }} />
                 </Variant>
                 <Variant name={MED_INTROTEKST}>
                     <div className="panel blokk--s">
                         <p className="sist">Du har fått en sykmelding. Det er du som bestemmer om den skal brukes. Gå gjennom sykmeldingen og følg retningslinjene videre.</p>
                     </div>
-                    <Skjema {...this.props} />
+                    <Skjema {...this.props} registrerInnsending={() => {
+                        this.registrerInnsending();
+                    }} />
                 </Variant>
             </Experiment>
         </div>);

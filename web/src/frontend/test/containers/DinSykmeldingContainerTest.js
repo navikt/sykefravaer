@@ -11,7 +11,7 @@ import getSykmelding from "../mockSykmeldinger";
 import { DinSykmldSide, mapStateToProps } from "../../js/containers/DinSykmeldingContainer";
 import AppSpinner from '../../js/components/AppSpinner';
 import Feilmelding from '../../js/components/Feilmelding';
-import DinSykmelding from '../../js/components/sykmelding/DinSykmelding';
+import DinSykmeldingABTest from '../../js/components/sykmelding/DinSykmeldingABTest';
 import SykmeldingKvittering from '../../js/components/sykmelding/SykmeldingKvittering';
 import DinSendteSykmelding from '../../js/components/sykmelding/DinSendteSykmelding';
 import DinAvbrutteSykmelding from '../../js/components/sykmelding/DinAvbrutteSykmelding';
@@ -442,7 +442,7 @@ describe("DinSykmeldingContainer", () => {
             let sykmelding = sykmeldinger[1];
             let component = shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding}
                                                    hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger} />)
-            expect(component.find(DinSykmelding)).to.have.length(1);
+            expect(component.find(DinSykmeldingABTest)).to.have.length(1);
         });
 
         it("Skal vise DinSendteSykmelding dersom sykmeldingen har status === 'SENDT'", () => {

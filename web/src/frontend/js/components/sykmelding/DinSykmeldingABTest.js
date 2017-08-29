@@ -8,7 +8,7 @@ import { Experiment, Variant } from 'react-ab';
 import { connect } from 'react-redux';
 import { SENDT, BEKREFTET, TIL_SENDING, AVBRUTT } from '../../enums/sykmeldingstatuser';
 
-const Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending }) => {
+const Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId }) => {
     return (<div>
         {
             visEldreSykmeldingVarsel && <div className="panel blokk">
@@ -29,9 +29,15 @@ const Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, regi
         <div className="panel blokk">
             <DineSykmeldingOpplysninger sykmelding={sykmelding} />
         </div>
-        <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} registrerInnsending={registrerInnsending} />
-    </div>)
-}
+        <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} />
+    </div>);
+};
+
+Skjema.propTypes = {
+    sykmelding: sykmeldingPt,
+    visEldreSykmeldingVarsel: PropTypes.bool,
+    eldsteSykmeldingId: PropTypes.string,
+};
 
 const EKSPERIMENTNAVN = 'VISNING_INTROTEKST_DIN_SYKMELDING';
 const UTEN_INTROTEKST = 'UTEN_INTROTEKST';
@@ -55,20 +61,16 @@ class DinSykmelding extends Component {
         return (<div id="din-sykmelding" data-variant={this.state.variant} data-erfaren-bruker={this.props.harSendtSykmeldingerFoer}>
             <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
             <Experiment onChoice={(experiment, variant) => {
-                this.registrerVisning(experiment, variant)
+                this.registrerVisning(experiment, variant);
             }} name={EKSPERIMENTNAVN}>
                 <Variant name={UTEN_INTROTEKST}>
-                    <Skjema {...this.props} registrerInnsending={() => {
-                        this.registrerInnsending();
-                    }} />
+                    <Skjema {...this.props} />
                 </Variant>
                 <Variant name={MED_INTROTEKST}>
                     <div className="panel blokk--s">
                         <p className="sist">Du har fått en sykmelding. Det er du som bestemmer om den skal brukes. Gå gjennom sykmeldingen og følg retningslinjene videre.</p>
                     </div>
-                    <Skjema {...this.props} registrerInnsending={() => {
-                        this.registrerInnsending();
-                    }} />
+                    <Skjema {...this.props} />
                 </Variant>
             </Experiment>
         </div>);
@@ -85,12 +87,12 @@ DinSykmelding.propTypes = {
 
 const mapStateToProps = (state) => {
     const harSendtSykmeldingerFoer = state.dineSykmeldinger.data.filter((s) => {
-        return [SENDT, BEKREFTET, TIL_SENDING, AVBRUTT].indexOf(s.status) > -1
+        return [SENDT, BEKREFTET, TIL_SENDING, AVBRUTT].indexOf(s.status) > -1;
     }).length > 0;
     return {
         harSendtSykmeldingerFoer,
-    }
-}
+    };
+};
 
 const DinSykmeldingConnected = connect(mapStateToProps)(DinSykmelding);
 

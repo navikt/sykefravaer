@@ -109,31 +109,29 @@ export class DinSykmeldingSkjemaComponent extends Component {
         setArbeidssituasjon(values.valgtArbeidssituasjon, sykmelding.id);
         setArbeidsgiver(sykmelding.id, values.valgtArbeidsgiver);
 
-        this.props.registrerInnsending();
-
-        // switch (modus) {
-        //     case modi.SEND_MED_NAERMESTE_LEDER:
-        //     case modi.SEND: {
-        //         const feilaktigeOpplysningerParam = this.getFeilaktigeOpplysninger(values);
-        //         this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id,
-        //             values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysningerParam, values.beOmNyNaermesteLeder);
-        //         return;
-        //     }
-        //     case modi.BEKREFT: {
-        //         const feilaktigeOpplysningerParam = this.getFeilaktigeOpplysninger(values);
-        //         this.props.bekreftSykmelding(sykmelding.id, values.valgtArbeidssituasjon, feilaktigeOpplysningerParam);
-        //         return;
-        //     }
-        //     case modi.AVBRYT: {
-        //         this.setState({
-        //             visAvbrytDialog: !this.state.visAvbrytDialog,
-        //         });
-        //         return;
-        //     }
-        //     default: {
-        //         return;
-        //     }
-        // }
+        switch (modus) {
+            case modi.SEND_MED_NAERMESTE_LEDER:
+            case modi.SEND: {
+                const feilaktigeOpplysningerParam = this.getFeilaktigeOpplysninger(values);
+                this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id,
+                    values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysningerParam, values.beOmNyNaermesteLeder);
+                return;
+            }
+            case modi.BEKREFT: {
+                const feilaktigeOpplysningerParam = this.getFeilaktigeOpplysninger(values);
+                this.props.bekreftSykmelding(sykmelding.id, values.valgtArbeidssituasjon, feilaktigeOpplysningerParam);
+                return;
+            }
+            case modi.AVBRYT: {
+                this.setState({
+                    visAvbrytDialog: !this.state.visAvbrytDialog,
+                });
+                return;
+            }
+            default: {
+                return;
+            }
+        }
     }
 
     render() {

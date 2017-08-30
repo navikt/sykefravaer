@@ -6,39 +6,16 @@ import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
 import {
     OppfolgingsdialogInfoboks,
-    NotifikasjonBoks,
+    ArbeidsoppgaverNotifikasjonBoksAdvarsel,
+    NotifikasjonBoksLagretElement,
     OppfolgingsdialogTabell,
+    LeggTilElementKnapper,
     LagreArbeidsoppgaveSkjema,
     BRUKERTYPE,
     captitalizeFirstLetter,
     sorterArbeidsoppgaverEtterOpprettet,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
-
-export const RenderNotifikasjonBoks = ({ motpartnavn, antallIkkeVurderteArbeidsoppgaver }) => {
-    return (<NotifikasjonBoks
-        imgUrl={`${getContextRoot()}/img/svg/notifikasjon-illustrasjon.svg`}
-        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.ikke-vurderte-arbeidsoppgaver.tekst', {
-            '%ARBEIDSGIVER%': motpartnavn,
-            '%ANTALLARBEIDSOPPGAVER%': antallIkkeVurderteArbeidsoppgaver.toString(),
-        })}
-        classNames={'panel--advarsel'}
-    />);
-};
-RenderNotifikasjonBoks.propTypes = {
-    motpartnavn: PropTypes.string,
-    antallIkkeVurderteArbeidsoppgaver: PropTypes.number,
-};
-export const RenderNotifikasjonBoksSuksess = ({ tekst }) => {
-    return (<NotifikasjonBoks
-        imgUrl={`${getContextRoot()}/img/svg/notifikasjon-suksess-illustrasjon.svg`}
-        tekst={tekst}
-        classNames={'panel--suksess'}
-    />);
-};
-RenderNotifikasjonBoksSuksess.propTypes = {
-    tekst: PropTypes.string,
-};
 
 export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, aktoerId, oppfolgingsdialog }) => {
     return (
@@ -64,23 +41,6 @@ OppfolgingsdialogArbeidsoppgaverTabell.propTypes = {
     sendLagreArbeidsoppgave: PropTypes.func,
     sendSlettArbeidsoppgave: PropTypes.func,
     aktoerId: PropTypes.string,
-};
-
-export const RenderArbeidsoppgaverKnapper = ({ visArbeidsoppgaveSkjema, toggleArbeidsoppgaveSkjema }) => {
-    return (
-        <div className="knapperad">
-            <button
-                className="knapp knapperad__element"
-                aria-pressed={visArbeidsoppgaveSkjema}
-                onClick={toggleArbeidsoppgaveSkjema}>
-                {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-arbeidsoppgave')}
-            </button>
-        </div>
-    );
-};
-RenderArbeidsoppgaverKnapper.propTypes = {
-    visArbeidsoppgaveSkjema: PropTypes.bool,
-    toggleArbeidsoppgaveSkjema: PropTypes.func,
 };
 
 export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppgave, toggleArbeidsoppgaveSkjema }) => {
@@ -187,8 +147,11 @@ export class Arbeidsoppgaver extends Component {
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tittel')}
                                     tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tekst')}
                                 >
-                                    <RenderArbeidsoppgaverKnapper
-                                        toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema} />
+                                    <LeggTilElementKnapper
+                                        ledetekster={ledetekster}
+                                        visSkjema={this.state.visArbeidsoppgaveSkjema}
+                                        toggleSkjema={this.toggleArbeidsoppgaveSkjema}
+                                    />
                                 </OppfolgingsdialogInfoboks> :
                                 <RenderOpprettArbeidsoppgave
                                     ledetekster={ledetekster}
@@ -197,40 +160,40 @@ export class Arbeidsoppgaver extends Component {
                                     toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema}
                                 />
                         }
-
                     </div>
                     :
                     <div>
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
                         {
                             lagret && this.state.oppdatertArbeidsoppgave &&
-                            <RenderNotifikasjonBoksSuksess
+                            <NotifikasjonBoksLagretElement
                                 tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
+                                rootUrl={`${getContextRoot()}`}
                             />
                         }
                         {
                             lagret && this.state.nyArbeidsoppgave &&
-                            <RenderNotifikasjonBoksSuksess
+                            <NotifikasjonBoksLagretElement
                                 tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
+                                rootUrl={`${getContextRoot()}`}
                             />
                         }
                         {
-                            antallNyeArbeidsoppgaver > 0 &&
-                            <RenderNotifikasjonBoks
+                            antallNyeArbeidsoppgaver > 0 && <ArbeidsoppgaverNotifikasjonBoksAdvarsel
+                                ledetekster={ledetekster}
                                 motpartnavn={oppfolgingsdialog.arbeidsgiver.navn}
                                 antallIkkeVurderteArbeidsoppgaver={antallNyeArbeidsoppgaver}
+                                rootUrl={`${getContextRoot()}`}
                             />
                         }
-                        {
-                            <OppfolgingsdialogArbeidsoppgaverTabell
-                                ledetekster={ledetekster}
-                                oppfolgingsdialog={oppfolgingsdialog}
-                                arbeidsoppgaveListe={sorterArbeidsoppgaverEtterOpprettet(oppfolgingsdialog.arbeidsoppgaveListe)}
-                                sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
-                                sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
-                                aktoerId={oppfolgingsdialog.arbeidstaker.aktoerId}
-                            />
-                        }
+                        <OppfolgingsdialogArbeidsoppgaverTabell
+                            ledetekster={ledetekster}
+                            oppfolgingsdialog={oppfolgingsdialog}
+                            arbeidsoppgaveListe={sorterArbeidsoppgaverEtterOpprettet(oppfolgingsdialog.arbeidsoppgaveListe)}
+                            sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
+                            sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
+                            aktoerId={oppfolgingsdialog.arbeidstaker.aktoerId}
+                        />
                         {
                             this.state.visArbeidsoppgaveSkjema ?
                                 <LagreArbeidsoppgaveSkjema
@@ -241,9 +204,10 @@ export class Arbeidsoppgaver extends Component {
                                         this.lagreSkjema = lagreSkjema;
                                     }}
                                 /> :
-                                <RenderArbeidsoppgaverKnapper
-                                    visArbeidsoppgaveSkjema={this.state.visArbeidsoppgaveSkjema}
-                                    toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema}
+                                <LeggTilElementKnapper
+                                    ledetekster={ledetekster}
+                                    visSkjema={this.state.visArbeidsoppgaveSkjema}
+                                    toggleSkjema={this.toggleArbeidsoppgaveSkjema}
                                 />
                         }
                     </div>;

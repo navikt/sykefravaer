@@ -10,13 +10,13 @@ import Tiltak from "../../../js/components/oppfolgingsdialoger/utfylling/Tiltak"
 import {
     RenderNotifikasjonBoksSuksess,
     RenderNotifikasjonBoks,
-    RenderTiltakKnapper,
     RenderOpprettTiltak,
     RenderOppfolgingsdialogTiltakTabell,
 } from "../../../js/components/oppfolgingsdialoger/utfylling/Tiltak";
 import {
     OppfolgingsdialogInfoboks,
     LagreTiltakSkjema,
+    LeggTilElementKnapper,
 } from "oppfolgingsdialog-npm";
 import { setLedetekster } from 'digisyfo-npm';
 import getOppfolgingsdialog from '../../mockOppfolgingsdialoger';
@@ -154,10 +154,10 @@ describe("Tiltak", () => {
 
     });
 
-    describe("RenderTiltakKnapper", () => {
+    describe("LeggTilElementKnapper", () => {
 
         it("Skal vise 1 knapp", () => {
-            component = shallow(<RenderTiltakKnapper />);
+            component = shallow(<LeggTilElementKnapper />);
             expect(component.find('button')).to.have.length(1);
         });
 

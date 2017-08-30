@@ -6,39 +6,15 @@ import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
 import {
     OppfolgingsdialogInfoboks,
-    NotifikasjonBoks,
+    TiltakNotifikasjonBoksAdvarsel,
+    NotifikasjonBoksLagretElement,
     OppfolgingsdialogTabell,
+    LeggTilElementKnapper,
     LagreTiltakSkjema,
     BRUKERTYPE,
     captitalizeFirstLetter,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
-
-export const RenderNotifikasjonBoks = ({ motpartnavn, antallTiltakLagtTilAvArbeidsgiver }) => {
-    return (<NotifikasjonBoks
-        imgUrl={`${getContextRoot()}/img/svg/notifikasjon-illustrasjon.svg`}
-        tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.tiltak-lagt-til-av-motpart.tekst', {
-            '%MOTPARTNAVN%': motpartnavn,
-            '%ANTALLTILTAK%': antallTiltakLagtTilAvArbeidsgiver.toString(),
-        })}
-        classNames={'panel--advarsel'}
-    />);
-};
-RenderNotifikasjonBoks.propTypes = {
-    motpartnavn: PropTypes.string,
-    antallTiltakLagtTilAvArbeidsgiver: PropTypes.number,
-};
-
-export const RenderNotifikasjonBoksSuksess = ({ tekst }) => {
-    return (<NotifikasjonBoks
-        imgUrl={`${getContextRoot()}/img/svg/notifikasjon-suksess-illustrasjon.svg`}
-        tekst={tekst}
-        classNames={'panel--suksess'}
-    />);
-};
-RenderNotifikasjonBoksSuksess.propTypes = {
-    tekst: PropTypes.string,
-};
 
 export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, sendLagreTiltak, sendSlettTiltak, aktoerId }) => {
     return (
@@ -61,23 +37,6 @@ RenderOppfolgingsdialogTiltakTabell.propTypes = {
     sendLagreTiltak: PropTypes.func,
     sendSlettTiltak: PropTypes.func,
     aktoerId: PropTypes.string,
-};
-
-export const RenderTiltakKnapper = ({ visTiltakSkjema, toggleTiltakSkjema }) => {
-    return (
-        <div className="knapperad">
-            <button
-                className="knapp knapperad__element"
-                aria-pressed={visTiltakSkjema}
-                onClick={toggleTiltakSkjema}>
-                {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.leggtil-tiltak')}
-            </button>
-        </div>
-    );
-};
-RenderTiltakKnapper.propTypes = {
-    visTiltakSkjema: PropTypes.bool,
-    toggleTiltakSkjema: PropTypes.func,
 };
 
 export const RenderOpprettTiltak = ({ ledetekster, sendLagreTiltak, toggleTiltakSkjema }) => {
@@ -174,7 +133,11 @@ export class Tiltak extends Component {
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tittel')}
                                     tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}
                                 >
-                                    <RenderTiltakKnapper toggleTiltakSkjema={this.toggleTiltakSkjema} />
+                                    <LeggTilElementKnapper
+                                        ledetekster={ledetekster}
+                                        visSkjema={this.state.visTiltakSkjema}
+                                        toggleSkjema={this.toggleTiltakSkjema}
+                                    />
                                 </OppfolgingsdialogInfoboks> :
                                 <RenderOpprettTiltak
                                     ledetekster={ledetekster}
@@ -183,26 +146,28 @@ export class Tiltak extends Component {
                                     toggleTiltakSkjema={this.toggleTiltakSkjema}
                                 />
                         }
-
                     </div>
                     :
                     <div>
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
                         {
-                            lagret && this.state.oppdatertTiltak && <RenderNotifikasjonBoksSuksess
+                            lagret && this.state.oppdatertTiltak && <NotifikasjonBoksLagretElement
                                 tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-tiltak.tekst')}
+                                rootUrl={`${getContextRoot()}`}
                             />
                         }
                         {
-                            lagret && this.state.nyttTiltak && <RenderNotifikasjonBoksSuksess
+                            lagret && this.state.nyttTiltak && <NotifikasjonBoksLagretElement
                                 tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-tiltak.tekst')}
+                                rootUrl={`${getContextRoot()}`}
                             />
                         }
                         {
-                            antallNyeTiltak > 0 &&
-                            <RenderNotifikasjonBoks
+                            antallNyeTiltak > 0 && <TiltakNotifikasjonBoksAdvarsel
+                                ledetekster={ledetekster}
                                 motpartnavn={oppfolgingsdialog.arbeidsgiver.navn}
-                                antallTiltakLagtTilAvArbeidsgiver={antallNyeTiltak}
+                                antallTiltakLagtTilAvMotpart={antallNyeTiltak}
+                                rootUrl={`${getContextRoot()}`}
                             />
                         }
                         <RenderOppfolgingsdialogTiltakTabell
@@ -221,9 +186,10 @@ export class Tiltak extends Component {
                                     avbryt={this.toggleTiltakSkjema}
                                     ref={(lagreSkjema) => { this.lagreSkjema = lagreSkjema; }}
                                 /> :
-                                <RenderTiltakKnapper
-                                    visTiltakSkjema={this.state.visTiltakSkjema}
-                                    toggleTiltakSkjema={this.toggleTiltakSkjema}
+                                <LeggTilElementKnapper
+                                    ledetekster={ledetekster}
+                                    visSkjema={this.state.visTiltakSkjema}
+                                    toggleSkjema={this.toggleTiltakSkjema}
                                 />
                         }
                     </div>;

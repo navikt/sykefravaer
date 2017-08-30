@@ -10,13 +10,13 @@ import Arbeidsoppgaver from "../../../js/components/oppfolgingsdialoger/utfyllin
 import {
     RenderNotifikasjonBoksSuksess,
     RenderNotifikasjonBoks,
-    RenderArbeidsoppgaverKnapper,
     RenderOpprettArbeidsoppgave,
     OppfolgingsdialogArbeidsoppgaverTabell,
 } from "../../../js/components/oppfolgingsdialoger/utfylling/Arbeidsoppgaver";
 import {
     OppfolgingsdialogInfoboks,
     LagreArbeidsoppgaveSkjema,
+    LeggTilElementKnapper,
 } from "oppfolgingsdialog-npm";
 import { setLedetekster } from 'digisyfo-npm';
 import getOppfolgingsdialog from '../../mockOppfolgingsdialoger';
@@ -148,10 +148,10 @@ describe("Arbeidsoppgaver", () => {
 
     });
 
-    describe("RenderArbeidsoppgaverKnapper", () => {
+    describe("LeggTilElementKnapper", () => {
 
         it("Skal vise 1 knapp", () => {
-            component = shallow(<RenderArbeidsoppgaverKnapper />);
+            component = shallow(<LeggTilElementKnapper />);
             expect(component.find('button')).to.have.length(1);
         });
 

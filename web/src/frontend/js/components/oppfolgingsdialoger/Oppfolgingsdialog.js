@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { getContextRoot } from '../../routers/paths';
 import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
-import ReleasetPlan from './releasetplan/ReleasetPlan';
+import ReleasetPlanAT from './releasetplan/ReleasetPlanAT';
 import Tiltak from './utfylling/Tiltak';
 import {
     NavigasjonsTopp,
@@ -94,7 +94,7 @@ export class Oppfolgingsdialog extends Component {
             />);
         } else if (inneholderReleasetVersjon(oppfolgingsdialog)) {
             disableNavigation = true;
-            panel = (<ReleasetPlan
+            panel = (<ReleasetPlanAT
                 ledetekster={ledetekster}
                 oppfolgingsdialog={oppfolgingsdialog}
                 hentPdfurler={hentPdfurler}

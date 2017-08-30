@@ -1,15 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import {
     BRUKERTYPE,
-    GodkjentPlan,
-    Samtykke,
+    ReleasetPlan,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../../routers/paths';
 import ArbeidsgiverHarTvangsgodkjent from './ArbeidsgiverHarTvangsgodkjent';
-
-const manglerSamtykke = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.arbeidstaker.samtykke === null;
-};
 
 const foersteInnloggingSidenGodkjenning = (oppfolgingsdialog) => {
     return new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget) < new Date(oppfolgingsdialog.versjoner[0].opprettetTidspunkt);
@@ -19,7 +14,7 @@ const planBleTvangsgodkjent = (oppfolgingsdialog) => {
     return oppfolgingsdialog.versjoner[0].tvungenGodkjenning;
 };
 
-export class ReleasetPlan extends Component {
+export class ReleasetPlanAT extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,27 +38,19 @@ export class ReleasetPlan extends Component {
                 markerMottattTvungenGodkjenning={this.markerMottattTvungenGodkjenning}
             />);
         }
-        if (manglerSamtykke(oppfolgingsdialog)) {
-            return (<Samtykke
-                sendSamtykke={giSamtykke}
-                oppfolgingsdialog={oppfolgingsdialog}
-                ledetekster={ledetekster}
-                rootUrl={`${getContextRoot()}`}
-            />);
-        }
-
-        return (<GodkjentPlan
+        return (<ReleasetPlan
             ledetekster={ledetekster}
             oppfolgingsdialog={oppfolgingsdialog}
             hentPdfurler={hentPdfurler}
             dokument={dokument}
+            giSamtykke={giSamtykke}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
             rootUrl={`${getContextRoot()}`}
         />);
     }
 }
 
-ReleasetPlan.propTypes = {
+ReleasetPlanAT.propTypes = {
     manglerSamtykke: PropTypes.func,
     hentPdfurler: PropTypes.func,
     giSamtykke: PropTypes.func,
@@ -73,5 +60,5 @@ ReleasetPlan.propTypes = {
     ledetekster: PropTypes.object,
 };
 
-export default ReleasetPlan;
+export default ReleasetPlanAT;
 

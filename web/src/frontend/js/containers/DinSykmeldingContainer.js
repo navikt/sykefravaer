@@ -19,7 +19,7 @@ import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTyp
 
 export class DinSykmldSide extends Component {
     componentWillMount() {
-        const { sykmeldingId,
+        const {
             dineSykmeldingerHentet,
             arbeidsgiversSykmeldingerHentet,
             brukerinfoHentet } = this.props;

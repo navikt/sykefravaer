@@ -7,7 +7,7 @@ import { sykmelding as sykmeldingPt } from '../../propTypes';
 import { Experiment, Variant } from 'react-ab';
 import { connect } from 'react-redux';
 import { SENDT, BEKREFTET, TIL_SENDING, AVBRUTT } from '../../enums/sykmeldingstatuser';
-import IllustrertInnhold from '../IllustrertInnhold'
+import IllustrertInnhold from '../IllustrertInnhold';
 
 const Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending }) => {
     return (<div>
@@ -38,6 +38,7 @@ Skjema.propTypes = {
     sykmelding: sykmeldingPt,
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
+    registrerInnsending: PropTypes.func,
 };
 
 const EKSPERIMENTNAVN = 'VISNING_INTROTEKST_DIN_SYKMELDING';
@@ -46,18 +47,21 @@ const MED_INTROTEKST = 'MED_INTROTEKST';
 
 const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, resultat) => {
     return {
-        event: `EKSPERIMENT_${experiment}`,
-        digisyfoEksperimentnavn: experiment,
-        digisyfoBrukersegment: harSendtSykmeldingerFoer ? 'HAR_BEHANDLET_SYKMELDING_FØR' : 'HAR_IKKE_BEHANDLET_SYKMELDING_FØR',
-        digisyfoABVariant: variant,
-        digisyfoABResultat: resultat,
+        /* eslint-disable */
+        'event': `EKSPERIMENT_${experiment}`,
+        'digisyfoEksperimentnavn': experiment,
+        'digisyfoBrukersegment': harSendtSykmeldingerFoer ? 'HAR_BEHANDLET_SYKMELDING_FØR' : 'HAR_IKKE_BEHANDLET_SYKMELDING_FØR',
+        'digisyfoABVariant': variant,
+        'digisyfoABResultat': resultat,
+        /* eslint-enable */
+
     };
-}
+};
 
 const pushDatalayerData = (data) => {
     window.dataLayer.push(data);
     log(data);
-}
+};
 
 class DinSykmelding extends Component {
     constructor(props) {

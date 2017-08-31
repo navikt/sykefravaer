@@ -7,9 +7,9 @@ import { sykmelding as sykmeldingPt } from '../../propTypes';
 import { Experiment, Variant } from 'react-ab';
 import { connect } from 'react-redux';
 import { SENDT, BEKREFTET, TIL_SENDING, AVBRUTT } from '../../enums/sykmeldingstatuser';
-import IllustrertInnhold from '../IllustrertInnhold';
-
-const Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending }) => {
+import IllustrertInnhold from '../IllustrertInnhold'
+;kib
+aconst Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending }) => {
     return (<div>
         {
             visEldreSykmeldingVarsel && <div className="panel blokk">
@@ -46,6 +46,7 @@ const MED_INTROTEKST = 'MED_INTROTEKST';
 
 const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, resultat) => {
     return {
+        event: `EKSPERIMENT_${experiment}`,
         digisyfoEksperimentnavn: experiment,
         digisyfoBrukersegment: harSendtSykmeldingerFoer ? 'HAR_BEHANDLET_SYKMELDING_FØR' : 'HAR_IKKE_BEHANDLET_SYKMELDING_FØR',
         digisyfoABVariant: variant,

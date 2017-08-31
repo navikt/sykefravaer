@@ -94,7 +94,6 @@ export const RendreVelgArbeidsgiver = (props) => {
 
 RendreVelgArbeidsgiver.propTypes = {
     skjemaData: PropTypes.object,
-    pilotSykepenger: PropTypes.bool,
 };
 
 const VelgArbeidsgiver = (props) => {

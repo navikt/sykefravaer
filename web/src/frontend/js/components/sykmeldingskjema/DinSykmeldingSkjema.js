@@ -228,7 +228,6 @@ DinSykmeldingSkjemaComponent.propTypes = {
     erEldsteNyeSykmelding: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     reset: PropTypes.func,
-    pilotSykepenger: PropTypes.bool,
 };
 
 export const validate = (values, props = {}) => {

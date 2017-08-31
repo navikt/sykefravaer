@@ -19,7 +19,6 @@ import history from './history';
 import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';
 import { svar, mote } from 'moter-npm';
-import pilot from './reducers/pilot';
 import vedlikehold from './reducers/vedlikehold';
 import reduxFormMeta from './reducers/reduxFormMeta';
 import '../styles/styles.less';
@@ -43,7 +42,6 @@ const rootReducer = combineReducers({
     navigasjontoggles,
     nullstillGodkjenning,
     oppfolgingsdialoger,
-    pilot,
     samtykke,
     svar,
     sykepengesoknader,

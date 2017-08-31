@@ -149,7 +149,6 @@ describe("VelgArbeidsgiver", () => {
 
         beforeEach(() => {
             props = {
-                pilotSykepenger: false,
                 input: {
                     value: {}
                 }

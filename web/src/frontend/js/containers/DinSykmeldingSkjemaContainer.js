@@ -80,7 +80,6 @@ export const mapStateToProps = (state, ownProps) => {
         arbeidsgivere: arbeidsgivere.data,
         hentingFeilet: state.arbeidsgivere.hentingFeilet,
         henter: state.arbeidsgivere.henter || state.vedlikehold.henter,
-        pilotSykepenger: state.pilot.data.pilotSykepenger,
         vedlikehold: state.vedlikehold.data.vedlikehold,
         skalHenteArbeidsgivere: state.arbeidsgivere.sykmeldingId !== sykmeldingId,
     };

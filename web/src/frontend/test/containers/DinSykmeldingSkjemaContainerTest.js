@@ -105,11 +105,6 @@ describe("DinSykmeldingSkjemaContainer", () => {
                     }
                 }
             },
-            pilot: {
-                data: {
-                    pilotSykepenger: false
-                }
-            },
             vedlikehold: {
                 data: {
                     vedlikehold: false

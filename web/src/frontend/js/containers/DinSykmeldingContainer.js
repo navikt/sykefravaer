@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
-import DinSykmelding from '../components/sykmelding/DinSykmelding';
+import DinSykmelding from '../components/sykmelding/DinSykmeldingABTest';
 import DinSendteSykmelding from '../components/sykmelding/DinSendteSykmelding';
 import DinBekreftedeSykmelding from '../components/sykmelding/DinBekreftedeSykmelding';
 import DinAvbrutteSykmelding from '../components/sykmelding/DinAvbrutteSykmelding';

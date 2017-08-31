@@ -8,8 +8,8 @@ import { Experiment, Variant } from 'react-ab';
 import { connect } from 'react-redux';
 import { SENDT, BEKREFTET, TIL_SENDING, AVBRUTT } from '../../enums/sykmeldingstatuser';
 import IllustrertInnhold from '../IllustrertInnhold'
-;kib
-aconst Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending }) => {
+
+const Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending }) => {
     return (<div>
         {
             visEldreSykmeldingVarsel && <div className="panel blokk">

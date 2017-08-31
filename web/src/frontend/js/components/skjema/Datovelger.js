@@ -43,7 +43,9 @@ export class DatoField extends Component {
         this.setState({
             erApen: false,
         });
-        this.refs.toggle.focus();
+        if (this.refs.toggle) {
+            this.refs.toggle.focus();
+        }
     }
 
     render() {

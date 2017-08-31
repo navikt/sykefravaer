@@ -78,7 +78,12 @@ export class Oppfolgingsdialog extends Component {
         let disableNavigation = false;
         if (this.state.visAvvisPlanKvittering) {
             disableNavigation = true;
-            panel = <AvvistPlanKvittering rootUrl={`${window.APP_SETTINGS.APP_ROOT}`} begrunnelse={this.state.begrunnelse} visAvvisPlanKvittering={this.visAvvisPlanKvittering} />;
+            panel = (<AvvistPlanKvittering
+                ledetekster={ledetekster}
+                rootUrl={`${window.APP_SETTINGS.APP_ROOT}`}
+                begrunnelse={this.state.begrunnelse}
+                visAvvisPlanKvittering={this.visAvvisPlanKvittering}
+            />);
         } else if (inneholderGodkjenninger(oppfolgingsdialog) && !erAvvistAvArbeidstaker(oppfolgingsdialog)) {
             disableNavigation = true;
             panel = (<Godkjenninger

@@ -1,28 +1,32 @@
+.illustrertInnhold {
+	display: flex;
+	flex-direction: column;
+}
+
 .illustrertInnhold__ikon {
-	width: 3.125em;
-	margin-left: auto;
-	margin-right: auto;
+	display: flex;
+	justify-content: center;
 	margin-bottom: 1em;
 
 	img {
-		width: 100%;
+		width: 3.125em;
+		height: 3.125em;
 	}
 }
 
-@media (min-width: 40em) {
-	.illustrertInnhold {
-		display: flex;
+@media (min-width: 30em) {
+	.illustrertInnhold  {
+		flex-direction: row;
 	}
 
 	.illustrertInnhold__ikon {
 		margin: 0 2em 0 0;
-		width: 4.5em;
-		height: 4.5em;
-	}
+		display: block;
 
-	.illustrertInnhold__ikon img {
-		width: 4.5em;
-		height: 4.5em;
+		img {
+			width: 4.5em;
+			height: 4.5em;
+		}
 	}
 
 	.illustrertInnhold__innhold {

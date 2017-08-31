@@ -7,6 +7,7 @@ import { sykmelding as sykmeldingPt } from '../../propTypes';
 import { Experiment, Variant } from 'react-ab';
 import { connect } from 'react-redux';
 import { SENDT, BEKREFTET, TIL_SENDING, AVBRUTT } from '../../enums/sykmeldingstatuser';
+import IllustrertInnhold from '../IllustrertInnhold';
 
 const Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending }) => {
     return (<div>
@@ -90,7 +91,9 @@ class DinSykmelding extends Component {
                 </Variant>
                 <Variant name={MED_INTROTEKST}>
                     <div className="panel blokk--s">
-                        <p className="sist">{getLedetekst('din-sykmelding.introtekst.abtest')}</p>
+                        <IllustrertInnhold ikon="/sykefravaer/img/svg/sykmelding-illustrasjon.svg" ikonAlt="Sykmelding">
+                            <p className="sist">{getLedetekst('din-sykmelding.introtekst.abtest')}</p>
+                        </IllustrertInnhold>
                     </div>
                     <Skjema {...this.props} registrerInnsending={() => {
                         this.registrerInnsending();

@@ -21,7 +21,7 @@ export const RendreVelgArbeidssituasjon = (props) => {
     return (
         <div>
             <div className="medHjelpetekst">
-                <label htmlFor="select-arbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
+                <label htmlFor="valgtArbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
                     {getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}
                 </label>
                 <Hjelpetekst

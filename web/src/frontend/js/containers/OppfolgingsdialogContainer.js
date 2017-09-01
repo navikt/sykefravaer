@@ -24,7 +24,19 @@ import {
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
+import history from '../history';
 
+const oppdaterUrlMedHash = (steg, hash, pathname) => {
+    if (steg === 1 && hash !== '#arbeidsoppgave') {
+        history.push(`${pathname}#arbeidsoppgave`);
+    }
+    if (steg === 2 && hash !== '#tiltak') {
+        history.push(`${pathname}#tiltak`);
+    }
+    if (steg === 3 && hash !== '#plan') {
+        history.push(`${pathname}#plan`);
+    }
+};
 
 export class OppfolgingsdialogSide extends Component {
 
@@ -39,8 +51,26 @@ export class OppfolgingsdialogSide extends Component {
         if (!this.props.sjekkTilgangHentet && !this.props.sjekkTilgangHenter) {
             this.props.sjekkTilgang();
         }
+
+        switch (this.props.location.hash) {
+            case '#arbeidsoppgave':
+                this.props.navigasjontoggles.steg = 1;
+                break;
+            case '#tiltak':
+                this.props.navigasjontoggles.steg = 2;
+                break;
+            case '#plan':
+                this.props.navigasjontoggles.steg = 3;
+                break;
+            default:
+                this.props.navigasjontoggles.steg = 1;
+        }
     }
 
+    componentDidUpdate(){
+        oppdaterUrlMedHash(this.props.navigasjontoggles.steg, this.props.location.hash, this.props.location.pathname);
+    }
+    
     render() {
         const {
             brodsmuler,
@@ -115,6 +145,7 @@ OppfolgingsdialogSide.propTypes = {
     settDialog: PropTypes.func,
     dokument: PropTypes.object,
     navigasjontoggles: PropTypes.object,
+    location: PropTypes.object,
 };
 
 export function mapStateToProps(state, ownProps) {

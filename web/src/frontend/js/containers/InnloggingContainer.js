@@ -2,6 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/brukerinfo_actions';
 import Feilmelding from '../components/Feilmelding';
+import Side from '../sider/Side';
+
+const Utlogget = () => {
+    return (<Feilmelding
+        tittel="Du er logget ut!"
+        melding="Hvis du vil fortsette å bruke denne tjenesten, må du logge deg inn på nytt." />);
+};
 
 export class Innlogging extends Component {
     componentWillMount() {
@@ -9,17 +16,26 @@ export class Innlogging extends Component {
     }
 
     render() {
-        const { hentingFeilet, erInnlogget, children = null } = this.props;
-        if (hentingFeilet) {
+        const { hentingFeilet, erInnlogget, children = null, visSmuler = false } = this.props;
+        if (hentingFeilet && !visSmuler) {
             return <Feilmelding />;
-        } else if (erInnlogget === false) {
-            return (<Feilmelding
-                tittel="Du er logget ut!"
-                melding="Hvis du vil fortsette å bruke denne tjenesten, må du logge deg inn på nytt." />);
+        } 
+        if (hentingFeilet && visSmuler) {
+            return (<Side tittel="Det oppstod en feil">
+                <Feilmelding />;
+            </Side>);
+        } 
+        if (erInnlogget === false && !visSmuler) {
+            return <Utlogget />;
+        }
+        if (erInnlogget === false && visSmuler) {
+            return (<Side tittel="Du er logget ut!">
+                <Utlogget />;
+            </Side>);
         }
         return children;
     }
-}
+};
 
 Innlogging.propTypes = {
     sjekkInnlogging: PropTypes.func,

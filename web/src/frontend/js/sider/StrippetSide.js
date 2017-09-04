@@ -4,7 +4,7 @@ import InnloggingContainer from '../containers/InnloggingContainer';
 
 const StrippetSide = ({ children, tittel }) => {
     return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
-        <InnloggingContainer>
+        <InnloggingContainer visSmuler>
             {children}
         </InnloggingContainer>
     </DocumentTitle>);

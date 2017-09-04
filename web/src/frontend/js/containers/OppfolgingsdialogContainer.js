@@ -67,10 +67,10 @@ export class OppfolgingsdialogSide extends Component {
         }
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         oppdaterUrlMedHash(this.props.navigasjontoggles.steg, this.props.location.hash, this.props.location.pathname);
     }
-    
+
     render() {
         const {
             brodsmuler,
@@ -111,6 +111,9 @@ OppfolgingsdialogSide.propTypes = {
     oppfolgingsdialogId: PropTypes.string,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
+    godkjenner: PropTypes.bool,
+    godkjent: PropTypes.bool,
+    godkjenningFeilet: PropTypes.bool,
     lagrerArbeidsoppgave: PropTypes.bool,
     lagrerTiltak: PropTypes.bool,
     lagretArbeidsoppgave: PropTypes.bool,
@@ -161,6 +164,9 @@ export function mapStateToProps(state, ownProps) {
         sjekkTilgangHenter: state.tilgang.henter,
         henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter,
         hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet,
+        godkjenner: state.oppfolgingsdialoger.godkjenner,
+        godkjent: state.oppfolgingsdialoger.godkjent,
+        godkjenningFeilet: state.oppfolgingsdialoger.godkjenningFeilet,
         lagrerArbeidsoppgave: state.arbeidsoppgaver.lagrer,
         lagrerTiltak: state.tiltak.lagrer,
         lagretArbeidsoppgave: state.arbeidsoppgaver.lagret,

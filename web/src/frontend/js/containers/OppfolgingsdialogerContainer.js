@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
-import { getContextRoot } from '../routers/paths';
 import Side from '../sider/Side';
 import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
@@ -36,7 +35,7 @@ export class OppfolgingsdialogerSide extends Component {
                         return (<Feilmelding />);
                     } else if (!tilgang.harTilgang) {
                         return (<OppfolgingsdialogInfoboks
-                            svgUrl={`${getContextRoot()}img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
+                            svgUrl={`/sykefravaer/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
                             svgAlt="ikkeTilgang"
                             tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
                             tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}

@@ -127,7 +127,7 @@ export class Arbeidsoppgaver extends Component {
         } = this.props;
 
         const antallNyeArbeidsoppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
-            return arbeidsoppgave.opprettetAv.aktoerId !== oppfolgingsdialog.arbeidstaker.aktoerId && (!oppfolgingsdialog.arbeidstaker.sistInnlogget || new Date(arbeidsoppgave.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget));
+            return !arbeidsoppgave.erVurdertAvSykmeldt && (!oppfolgingsdialog.arbeidstaker.sistInnlogget || new Date(arbeidsoppgave.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget));
         }).length;
 
         return (

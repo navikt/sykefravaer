@@ -162,6 +162,7 @@ export class Oppfolgingsdialog extends Component {
                         oppfolgingsdialog={oppfolgingsdialog}
                         godkjennPlan={godkjennDialog}
                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                        settAktivtSteg={settAktivtSteg}
                         rootUrl={`${getContextRoot()}`}
                     />);
                 }

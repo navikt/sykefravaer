@@ -3,6 +3,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import { OppfolgingsdialogInfoboks, OppfolgingsdialogTeasere, BRUKERTYPE } from 'oppfolgingsdialog-npm';
 import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
+import UnderUtviklingVarsel from './UnderUtviklingVarsel';
 import { getContextRoot } from '../../routers/paths';
 import { Link } from 'react-router';
 
@@ -10,6 +11,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
     return (<div>
         <Sidetopp
             tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
+        <UnderUtviklingVarsel />
         <OppfolgingsdialogInfoboks
             svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks.svg`}
             altUrl="Oppfølgingsplan"

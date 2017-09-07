@@ -7,6 +7,7 @@ import {
     erOppfolgingsdialogOpprettetMedArbeidsgiver,
     erOppfolgingsdialogOpprettbarMedArbeidsgiver,
     erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver,
+    hentOppfolgingsdialogOpprettetMedArbeidsgiver,
 } from '../../utils/oppfolgingsdialogUtils';
 import Radioknapper from '../skjema/Radioknapper';
 
@@ -14,14 +15,21 @@ const OPPFOLGINGSKJEMANAVN = 'OPPRETT_DIALOG';
 
 export const VelgArbeidsgiverUndertekst = ({ oppfolgingsdialoger, arbeidsgiver }) => {
     if (erOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer)) {
+        const oppfolgingsdialog = hentOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer);
         return (<div className="velgArbeidsgiverUndertekst">
-            <img className="velgArbeidsgiverUndertekst__ikon" src={`${getContextRoot()}/img/svg/varseltrekant.svg`} alt="varsel" />
-            <span className="velgArbeidsgiverUndertekst__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.allerede-oppretettet.tekst')}</span>
+            <span className="velgArbeidsgiverUndertekst__tekst">
+                {getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.allerede-oppretettet.tekst')}
+            </span>
+            <div className="velgArbeidsgiverUndertekst__lenke">
+                <Link className="lenke" to={`${getContextRoot()}/oppfolgingsplaner/${oppfolgingsdialog.oppfoelgingsdialogId}`}>Gå til planen</Link>
+            </div>
         </div>);
     } else if (!arbeidsgiver.harNaermesteLeder) {
         return (<div className="velgArbeidsgiverUndertekst">
             <img className="velgArbeidsgiverUndertekst__ikon" src={`${getContextRoot()}/img/svg/varseltrekant.svg`} alt="varsel" />
-            <span className="velgArbeidsgiverUndertekst__tekst">{getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.ingen-naermesteleder.tekst')}</span>
+            <span className="velgArbeidsgiverUndertekst__tekst">
+                {getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.ingen-naermesteleder.tekst')}
+            </span>
         </div>);
     } else if (arbeidsgiver.naermesteLeder) {
         return (<div className="velgArbeidsgiverUndertekst">
@@ -30,8 +38,7 @@ export const VelgArbeidsgiverUndertekst = ({ oppfolgingsdialoger, arbeidsgiver }
                     '%NAVN%': arbeidsgiver.naermesteLeder,
                 })}
             </span>
-            </div>
-        );
+        </div>);
     }
     return (null);
 };

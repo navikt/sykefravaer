@@ -7,7 +7,7 @@
     <name>syfofront</name>
 
     <selftest>
-        <path>sykefravaer/internal/selftest</path> <!-- TODO: Dette skal være JSON-versjonen -->
+        <path>sykefravaer/internal/selftest</path>
         <humanReadablePath>sykefravaer/internal/selftest</humanReadablePath>
     </selftest>
 

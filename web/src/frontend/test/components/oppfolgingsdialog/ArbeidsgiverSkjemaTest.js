@@ -64,7 +64,7 @@ describe("ArbeidsoppgaverContainer", () => {
     });
 
     it('Skal vise 2 radioknapper med 2 arbeidsgivere uten opprettet plan', () => {
-        let komponent = shallow(<ArbeidsgiverSkjema
+        komponent = shallow(<ArbeidsgiverSkjema
             arbeidsgivere={arbeidsgivere}
             oppfolgingsdialoger={oppfolgingsdialoger}
             handleSubmit={handleSubmit}
@@ -76,7 +76,7 @@ describe("ArbeidsoppgaverContainer", () => {
     describe('VelgArbeidsgiverFeilmelding', () => {
 
         it('Skal vise ikke vise en feilmelding', () => {
-            let komponent = shallow(<VelgArbeidsgiverUndertekst
+            komponent = shallow(<VelgArbeidsgiverUndertekst
                 oppfolgingsdialoger={oppfolgingsdialoger}
                 arbeidsgiver={arbeidsgivere[0]}
             />);
@@ -84,17 +84,20 @@ describe("ArbeidsoppgaverContainer", () => {
         });
 
         it('Skal vise en feilmelding, om det allerede er opprettet en plan med arbeidsgiver', () => {
-            let komponent = shallow(<VelgArbeidsgiverUndertekst
+            komponent = shallow(<VelgArbeidsgiverUndertekst
                 oppfolgingsdialoger={oppfolgingsdialoger}
                 arbeidsgiver={arbeidsgivere[1]}
             />);
             expect(komponent.find('div.velgArbeidsgiverUndertekst')).to.have.length(1);
-            expect(komponent.find('img.velgArbeidsgiverUndertekst__ikon')).to.have.length(1);
+            expect(komponent.find('img.velgArbeidsgiverUndertekst__ikon')).to.have.length(0);
             expect(komponent.find('span.velgArbeidsgiverUndertekst__tekst')).to.have.length(1);
+            expect(komponent.find('div.velgArbeidsgiverUndertekst__lenke')).to.have.length(1);
+            expect(komponent.find(Link)).to.have.length(1);
+            expect(komponent.find(Link).hasClass('lenke')).to.equal(true);
         });
 
         it('Skal vise en feilmelding, om naermeste leder ikke er innmeldt', () => {
-            let komponent = shallow(<VelgArbeidsgiverUndertekst
+            komponent = shallow(<VelgArbeidsgiverUndertekst
                 oppfolgingsdialoger={oppfolgingsdialoger}
                 arbeidsgiver={arbeidsgivere[2]}
             />);
@@ -104,7 +107,7 @@ describe("ArbeidsoppgaverContainer", () => {
         });
 
         it('Skal vise en melding med naermesteLeders navn, om naermeste leder er innmeldt', () => {
-            let komponent = shallow(<VelgArbeidsgiverUndertekst
+            komponent = shallow(<VelgArbeidsgiverUndertekst
                 oppfolgingsdialoger={oppfolgingsdialoger}
                 arbeidsgiver={arbeidsgivere[3]}
             />);

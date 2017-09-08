@@ -17,6 +17,15 @@
     </session-config>
 
     <filter>
+        <filter-name>doubleSumbitCookieCsrfProtection</filter-name>
+        <filter-class>no.nav.sbl.dialogarena.common.web.security.CsrfDoubleSubmitCookieFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>doubleSumbitCookieCsrfProtection</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>disableCacheHeadersFilter</filter-name>
         <filter-class>no.nav.sbl.dialogarena.common.web.security.DisableCacheHeadersFilter</filter-class>
     </filter>
@@ -49,27 +58,15 @@
         <servlet-name>selftest</servlet-name>
         <servlet-class>no.nav.syfo.selftest.SelftestServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>selftest</servlet-name>
         <url-pattern>/internal/selftest</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>selftest-json</servlet-name>
-        <servlet-class>no.nav.syfo.selftest.SelftestJsonServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>selftest-json</servlet-name>
-        <url-pattern>/internal/selftest.json</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>isAlive</servlet-name>
         <servlet-class>no.nav.syfo.IsAliveServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>isAlive</servlet-name>
         <url-pattern>/internal/isAlive</url-pattern>

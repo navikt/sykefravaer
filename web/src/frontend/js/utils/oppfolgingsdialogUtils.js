@@ -4,10 +4,17 @@ export function getOppfolgingsdialog(oppfolgingsdialoger, oppfolgingsdialogId) {
     })[0];
 }
 
+
 export const erOppfolgingsdialogOpprettetMedArbeidsgiver = (oppfolgingsdialoger, virksomhetsnummer) => {
     return oppfolgingsdialoger.filter((dialog) => {
         return dialog.virksomhetsnummer === virksomhetsnummer;
     }).length > 0;
+};
+
+export const hentOppfolgingsdialogOpprettetMedArbeidsgiver = (oppfolgingsdialoger, virksomhetsnummer) => {
+    return oppfolgingsdialoger.filter((dialog) => {
+        return dialog.virksomhetsnummer === virksomhetsnummer;
+    })[0];
 };
 
 export const erOppfolgingsdialogOpprettbarMedArbeidsgiver = (oppfolgingsdialoger, arbeidsgiver) => {

@@ -10,6 +10,7 @@ import {
     BRUKERTYPE,
     Godkjenninger,
     Godkjenn,
+    Samtykke,
 } from 'oppfolgingsdialog-npm';
 
 const inneholderGodkjenninger = (oppfolgingsdialog) => {
@@ -29,10 +30,19 @@ export class Oppfolgingsdialog extends Component {
     constructor() {
         super();
         this.state = {
+            visSamtykke: false,
             visAvvisPlanKvittering: false,
             begrunnelse: null,
         };
         this.visAvvisPlanKvittering = this.visAvvisPlanKvittering.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.godkjenner && nextProps.godkjent) {
+            this.setState({
+                visSamtykke: true,
+            });
+        }
     }
 
     visAvvisPlanKvittering(vis, begrunnelse) {
@@ -83,6 +93,14 @@ export class Oppfolgingsdialog extends Component {
                 rootUrl={`${window.APP_SETTINGS.APP_ROOT}`}
                 begrunnelse={this.state.begrunnelse}
                 visAvvisPlanKvittering={this.visAvvisPlanKvittering}
+            />);
+        } else if (this.state.visSamtykke && oppfolgingsdialog.arbeidstaker.samtykke === null) {
+            disableNavigation = true;
+            panel = (<Samtykke
+                sendSamtykke={giSamtykke}
+                oppfolgingsdialog={oppfolgingsdialog}
+                ledetekster={ledetekster}
+                rootUrl={`${getContextRoot()}`}
             />);
         } else if (inneholderGodkjenninger(oppfolgingsdialog) && !erAvvistAvArbeidstaker(oppfolgingsdialog)) {
             disableNavigation = true;
@@ -144,6 +162,7 @@ export class Oppfolgingsdialog extends Component {
                         oppfolgingsdialog={oppfolgingsdialog}
                         godkjennPlan={godkjennDialog}
                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                        settAktivtSteg={settAktivtSteg}
                         rootUrl={`${getContextRoot()}`}
                     />);
                 }
@@ -173,6 +192,8 @@ export class Oppfolgingsdialog extends Component {
 }
 
 Oppfolgingsdialog.propTypes = {
+    godkjenner: PropTypes.bool,
+    godkjent: PropTypes.bool,
     lagrerArbeidsoppgave: PropTypes.bool,
     lagrerTiltak: PropTypes.bool,
     lagretArbeidsoppgave: PropTypes.bool,

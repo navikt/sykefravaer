@@ -22,14 +22,15 @@ describe("Oppfolgingsdialoger", () => {
         setLedetekster(ledetekster);
     });
 
+
     it("Skal vise overskrift for 'Oppfolgingsdialoger'", () => {
         component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
         expect(component.find(Sidetopp).prop("tittel")).to.equal("Oppfølgingsdialoger");
     });
 
-    it("Skal vise knapp for å opprette oppfolgingsdialog", () => {
+    it("Skal vise tekst for 'Oppfolgingsdialoger'", () => {
         component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
-        expect(component.find('.rammeknapp')).to.have.length(1);
+        expect(component.find('p.oppfolgingsdialoger_tekst')).to.have.length(1);
     });
 
     it("Skal ikke vise OppfolgingsdialogerTeasere dersom man ikke har oppfolgingsdialoger", () => {
@@ -37,19 +38,20 @@ describe("Oppfolgingsdialoger", () => {
         expect(component.find(OppfolgingsdialogTeasere)).to.have.length(0);
     });
 
-    it("Skal vise en Pil dersom man ikke har oppfolgingsdialoger", () => {
-        component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={[]} />);
-        expect(component.find('img.oppfolgingsdialoger__pil')).to.have.length(1);
-    });
-
     it("Skal rendre én OppfolgingsdialogerTeasere dersom man har oppfolgingsdialoger", () => {
         component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
         expect(component.find(OppfolgingsdialogTeasere)).to.have.length(1);
     });
 
-    it("Skal ikke vise en Pil dersom man har oppfolgingsdialoger", () => {
+    it("Skal vise tekst for panel for start ny plan'", () => {
         component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
-        expect(component.find('img.pil')).to.have.length(0);
+        expect(component.find('p.oppfolgingsdialoger__start_tekst')).to.have.length(1);
     });
+
+    it("Skal vise knapp for å opprette oppfolgingsdialog", () => {
+        component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
+        expect(component.find('.knapp')).to.have.length(1);
+    });
+
 
 });

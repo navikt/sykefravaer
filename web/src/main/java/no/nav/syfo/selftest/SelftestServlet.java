@@ -30,6 +30,7 @@ public class SelftestServlet extends SelfTestBaseServlet {
     }
 
     private Pingable pingUrl(final String name, final String url, final String expectedResponseType) {
+        final Pingable.Ping.PingMetadata pingMetadata = new Pingable.Ping.PingMetadata(url, name, true);
         return new Pingable() {
             @Override
             public Ping ping() {
@@ -38,13 +39,13 @@ public class SelftestServlet extends SelfTestBaseServlet {
                     connection = (HttpURLConnection) new URL(url).openConnection();
                     connection.setConnectTimeout(10000);
                     if (!(connection.getResponseCode() == HTTP_OK && expectedResponseType != null) || connection.getContentType().startsWith(expectedResponseType)) {
-                        return Ping.lyktes(name);
+                        return Ping.lyktes(pingMetadata);
                     } else {
-                        return Ping.feilet(name, new RuntimeException(connection.getResponseCode() + " " + connection.getResponseMessage()));
+                        return Ping.feilet(pingMetadata, new RuntimeException(connection.getResponseCode() + " " + connection.getResponseMessage()));
                     }
                 } catch (Exception e) {
                     logger.warn("<<<<<< Could not connect to {} on {}", name, url, e);
-                    return Ping.feilet(name, e);
+                    return Ping.feilet(pingMetadata, e);
                 }
             }
         };

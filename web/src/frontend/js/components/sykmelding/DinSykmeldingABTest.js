@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
-import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe, log } from 'digisyfo-npm';
+import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe, log, scrollTo } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import { Experiment, Variant } from 'react-ab';
@@ -9,43 +9,65 @@ import { connect } from 'react-redux';
 import { SENDT, BEKREFTET, TIL_SENDING, AVBRUTT } from '../../enums/sykmeldingstatuser';
 import IllustrertInnhold from '../IllustrertInnhold';
 
-const Skjema = ({ sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending }) => {
-    return (<div>
-        {
-            visEldreSykmeldingVarsel && <div className="panel blokk">
-                <Varselstripe type="info">
-                    <p className="sist">
-                        <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')} </span>
-                        <Link className="lenke" to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}</Link>
-                    </p>
-                </Varselstripe>
+class Skjema extends Component {
+    render() {
+        const { sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending, visKnapp } = this.props;
+        return (<div>
+            <div className="panel blokk--s">
+                <IllustrertInnhold ikon="/sykefravaer/img/svg/din-sykmelding-veileder.svg" ikonAlt="NAV-veileder">
+                    <div>
+                    { !visKnapp ? <p className="sist">{getLedetekst('din-sykmelding.introtekst.abtest')}</p> : null }
+                    { visKnapp && (<div>
+                            <p>{getLedetekst('din-sykmelding.introtekst.abtest')}</p>
+                            <p className="sist introtekst__knapperad">
+                                <button className="rammeknapp rammeknapp--mini" type="button" onClick={(e) => {
+                                    e.preventDefault();
+                                    scrollTo(this.refs.skjema, 300);
+                                }}>Gå til utfylling</button>
+                            </p>
+                        </div>)}
+                    </div>
+                </IllustrertInnhold>
             </div>
-        }
-        <header className="panelHeader panelHeader--lysebla">
-            <img className="panelHeader__ikon" src="/sykefravaer/img/svg/person.svg" alt="Du" />
-            <img className="panelHeader__ikon panelHeader__ikon--hoykontrast"
-                src="/sykefravaer/img/svg/person-highcontrast.svg" alt="Du" />
-            <h2 className="panelHeader__tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h2>
-        </header>
-        <div className="panel blokk">
-            <DineSykmeldingOpplysninger sykmelding={sykmelding} />
-        </div>
-        <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} registrerInnsending={registrerInnsending} />
-    </div>);
-};
+            {
+                visEldreSykmeldingVarsel && <div className="panel blokk--s">
+                    <Varselstripe type="info">
+                        <p className="sist">
+                            <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')} </span>
+                            <Link className="lenke" to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}</Link>
+                        </p>
+                    </Varselstripe>
+                </div>
+            }
+            <header className="panelHeader panelHeader--lysebla">
+                <img className="panelHeader__ikon" src="/sykefravaer/img/svg/person.svg" alt="Du" />
+                <img className="panelHeader__ikon panelHeader__ikon--hoykontrast"
+                    src="/sykefravaer/img/svg/person-highcontrast.svg" alt="Du" />
+                <h2 className="panelHeader__tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h2>
+            </header>
+            <div className="panel blokk">
+                <DineSykmeldingOpplysninger sykmelding={sykmelding} />
+            </div>
+            <div ref="skjema">
+                <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} registrerInnsending={registrerInnsending} />
+            </div>
+        </div>);
+    }
+}
 
 Skjema.propTypes = {
     sykmelding: sykmeldingPt,
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     registrerInnsending: PropTypes.func,
+    visKnapp: PropTypes.bool,
 };
 
-const EKSPERIMENTNAVN = 'VISNING_INTROTEKST_DIN_SYKMELDING';
-const UTEN_INTROTEKST = 'UTEN_INTROTEKST';
-const MED_INTROTEKST = 'MED_INTROTEKST';
+const EKSPERIMENTNAVN = 'INTROTEKST_SYKMELDING_KNAPP';
+const UTEN_KNAPP = 'UTEN_KNAPP';
+const MED_KNAPP = 'MED_KNAPP';
 
-const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, resultat) => {
+const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, antallSykmeldinger, resultat) => {
     return {
         /* eslint-disable */
         'event': `EKSPERIMENT_${experiment}`,
@@ -53,6 +75,7 @@ const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, resulta
         'digisyfoBrukersegment': harSendtSykmeldingerFoer ? 'HAR_BEHANDLET_SYKMELDING_FØR' : 'HAR_IKKE_BEHANDLET_SYKMELDING_FØR',
         'digisyfoABVariant': variant,
         'digisyfoABResultat': resultat,
+        'digisyfoAntallSendteSykmeldinger': antallSykmeldinger,
         /* eslint-enable */
 
     };
@@ -70,7 +93,7 @@ class DinSykmelding extends Component {
     }
 
     registrerVisning(experiment, variant) {
-        pushDatalayerData(getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, 'SYKMELDING_VIST'));
+        pushDatalayerData(getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, this.props.antallSykmeldinger, 'SYKMELDING_VIST'));
         this.setState({
             experiment,
             variant,
@@ -79,7 +102,7 @@ class DinSykmelding extends Component {
 
     registrerInnsending() {
         const { experiment, variant } = this.state;
-        const datalayerData = getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, 'SYKMELDING_BEHANDLET');
+        const datalayerData = getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, this.props.antallSykmeldinger, 'SYKMELDING_BEHANDLET');
         pushDatalayerData(datalayerData);
     }
 
@@ -89,18 +112,13 @@ class DinSykmelding extends Component {
             <Experiment onChoice={(experiment, variant) => {
                 this.registrerVisning(experiment, variant);
             }} name={EKSPERIMENTNAVN}>
-                <Variant name={UTEN_INTROTEKST}>
+                <Variant name={UTEN_KNAPP}>
                     <Skjema {...this.props} registrerInnsending={() => {
                         this.registrerInnsending();
                     }} />
                 </Variant>
-                <Variant name={MED_INTROTEKST}>
-                    <div className="panel blokk--s">
-                        <IllustrertInnhold ikon="/sykefravaer/img/svg/sykmelding-illustrasjon.svg" ikonAlt="Sykmelding">
-                            <p className="sist">{getLedetekst('din-sykmelding.introtekst.abtest')}</p>
-                        </IllustrertInnhold>
-                    </div>
-                    <Skjema {...this.props} registrerInnsending={() => {
+                <Variant name={MED_KNAPP}>
+                    <Skjema {...this.props} visKnapp registrerInnsending={() => {
                         this.registrerInnsending();
                     }} />
                 </Variant>
@@ -114,14 +132,17 @@ DinSykmelding.propTypes = {
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     harSendtSykmeldingerFoer: PropTypes.bool,
+    antallSykmeldinger: PropTypes.number,
 };
 
 
 const mapStateToProps = (state) => {
-    const harSendtSykmeldingerFoer = state.dineSykmeldinger.data.filter((s) => {
+    const sykmeldinger = state.dineSykmeldinger.data.filter((s) => {
         return [SENDT, BEKREFTET, TIL_SENDING, AVBRUTT].indexOf(s.status) > -1;
-    }).length > 0;
+    });
+    const harSendtSykmeldingerFoer = sykmeldinger.length > 0;
     return {
+        antallSykmeldinger: sykmeldinger.length,
         harSendtSykmeldingerFoer,
     };
 };

@@ -4,7 +4,7 @@ import * as actions from '../actions/brukerinfo_actions';
 import Feilmelding from '../components/Feilmelding';
 import Side from '../sider/Side';
 
-const Utlogget = () => {
+export const Utlogget = () => {
     return (<Feilmelding
         tittel="Du er logget ut!"
         melding="Hvis du vil fortsette å bruke denne tjenesten, må du logge deg inn på nytt." />);
@@ -19,12 +19,12 @@ export class Innlogging extends Component {
         const { hentingFeilet, erInnlogget, children = null, visSmuler = false } = this.props;
         if (hentingFeilet && !visSmuler) {
             return <Feilmelding />;
-        } 
+        }
         if (hentingFeilet && visSmuler) {
             return (<Side tittel="Det oppstod en feil">
                 <Feilmelding />;
             </Side>);
-        } 
+        }
         if (erInnlogget === false && !visSmuler) {
             return <Utlogget />;
         }
@@ -35,13 +35,14 @@ export class Innlogging extends Component {
         }
         return children;
     }
-};
+}
 
 Innlogging.propTypes = {
     sjekkInnlogging: PropTypes.func,
     hentingFeilet: PropTypes.bool,
     erInnlogget: PropTypes.bool,
     children: PropTypes.object,
+    visSmuler: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {

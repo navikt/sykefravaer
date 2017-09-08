@@ -8,6 +8,8 @@ import { getLedetekst } from 'digisyfo-npm';
 import { getSvarsideModus } from 'moter-npm';
 import { erMotePassert } from '../utils';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
+import { hentHendelser } from '../actions/hendelser_actions';
+import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from './AktivitetskravvarselContainer';
 
 const Li = ({ tekst, url }) => {
     return (<li>
@@ -40,20 +42,27 @@ export const NySykepengesoknad = ({ sykepengesoknader }) => {
     return (<Li url={url} tekst={tekst} />);
 };
 
+export const NyttAktivitetskravvarsel = () => {
+    return (<Li url="/sykefravaer/aktivitetsplikt/" tekst={getLedetekst('dine-oppgaver.aktivitetskrav')} />);
+};
+
 NySykepengesoknad.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
 };
 
 export class DineOppgaver extends Component {
     componentWillMount() {
-        const { sykmeldingerHentet, sykmeldingerHentingFeilet } = this.props;
+        const { sykmeldingerHentet, sykmeldingerHentingFeilet, hendelserHentet, hentingFeiletHendelser } = this.props;
         if (!sykmeldingerHentet && !sykmeldingerHentingFeilet) {
             this.props.hentDineSykmeldinger();
+        }
+        if (!hendelserHentet && !hentingFeiletHendelser) {
+            this.props.hentHendelser();
         }
     }
 
     render() {
-        const { sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote } = this.props;
+        const { sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, visAktivitetskrav } = this.props;
         if (!visOppgaver) {
             return null;
         }
@@ -68,6 +77,7 @@ export class DineOppgaver extends Component {
                         { sykmeldinger.length > 0 ? <NySykmelding sykmeldinger={sykmeldinger} /> : null }
                         { sykepengesoknader.length > 0 ? <NySykepengesoknad sykepengesoknader={sykepengesoknader} /> : null }
                         { mote !== null ? <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> : null }
+                        { visAktivitetskrav && <NyttAktivitetskravvarsel /> }
                     </ul>
                 </div>
             </div>
@@ -83,6 +93,10 @@ DineOppgaver.propTypes = {
     sykmeldingerHentet: PropTypes.bool,
     sykmeldingerHentingFeilet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
+    hentHendelser: PropTypes.func,
+    hentingFeiletHendelser: PropTypes.bool,
+    hendelserHentet: PropTypes.bool,
+    visAktivitetskrav: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {
@@ -110,9 +124,14 @@ export const mapStateToProps = (state) => {
         sykepengesoknader,
         visOppgaver,
         mote: moteRes,
+        hentingFeiletHendelser: state.hendelser.hentingFeilet,
+        hendelserHentet: state.hendelser.hendelserHentet,
+        visAktivitetskrav: getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL,
     };
 };
 
-const DineOppgaverContainer = connect(mapStateToProps, { hentDineSykmeldinger })(DineOppgaver);
+const DineOppgaverContainer = connect(mapStateToProps, {
+    hentDineSykmeldinger, hentHendelser,
+})(DineOppgaver);
 
 export default DineOppgaverContainer;

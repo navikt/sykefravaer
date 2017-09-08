@@ -39,7 +39,8 @@ describe("LandingssideContainer", () => {
                 ledere: {
                     hentet: false,
                     data: []
-                }
+                },
+                hendelser: {}
             }
         });
 

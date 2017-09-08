@@ -9,7 +9,7 @@ import sinon from 'sinon';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { Innlogging, mapStateToProps } from "../../js/containers/InnloggingContainer";
+import { Innlogging, mapStateToProps, Utlogget } from "../../js/containers/InnloggingContainer";
 
 describe("InnloggingContainer", () => {
 
@@ -59,10 +59,10 @@ describe("InnloggingContainer", () => {
             expect(comp.contains(<Feilmelding />)).to.be.true;
         });
 
-        it("Skal vise Feilmelding dersom erInnlogget === false", () => {
+        it("Skal vise Utlogget dersom erInnlogget === false", () => {
             let sjekkInnloggingSpy = sinon.spy();
             let comp = shallow(<Innlogging erInnlogget={false} sjekkInnlogging={sjekkInnloggingSpy} />);
-            expect(comp.find(Feilmelding)).to.have.length(1);
+            expect(comp.find(Utlogget)).to.have.length(1);
         });
 
         it("Skal vise children dersom erInnlogget === true og alt er OK", () => {

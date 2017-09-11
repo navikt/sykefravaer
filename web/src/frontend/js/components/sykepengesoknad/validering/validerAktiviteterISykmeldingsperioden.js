@@ -128,7 +128,7 @@ const validate = (values, props) => {
     }
 
     const _sykepengesoknad = Object.assign({}, props.sykepengesoknad, {
-        gjenopptattArbeidFulltUtDato: fraInputdatoTilJSDato(values.gjenopptattArbeidFulltUtDato),
+        gjenopptattArbeidFulltUtDato: values.gjenopptattArbeidFulltUtDato ? fraInputdatoTilJSDato(values.gjenopptattArbeidFulltUtDato) : null,
     });
     const tomDato = getTomDato(_sykepengesoknad);
 

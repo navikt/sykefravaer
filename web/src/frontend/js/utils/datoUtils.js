@@ -1,5 +1,3 @@
-const MILLISEKUNDER_PER_DAG = 86400000;
-
 export const datoMedKlokkeslett = (dato) => {
     if (dato === undefined || dato === null) {
         return '';
@@ -13,24 +11,40 @@ export const datoMedKlokkeslett = (dato) => {
     return `${days}/${months} klokken ${time}`;
 };
 
-export const trekkDagerFraDato = (dato, dager) => {
-    const nyDato = new Date(dato);
-    nyDato.setTime(nyDato.getTime() - (dager * MILLISEKUNDER_PER_DAG));
-    return new Date(nyDato);
+export const fraInputdatoTilJSDato = (inputDato) => {
+    const datoSplit = inputDato.split('.');
+    let ar = datoSplit[2];
+    if (ar.length === 2) {
+        ar = `20${ar}`;
+    }
+    const s = `${ar}-${datoSplit[1]}-${datoSplit[0]}`;
+    return new Date(s);
 };
-export const leggTilDagerPaaDato = (dato, dager) => {
-    const nyDato = new Date(dato);
-    nyDato.setTime(nyDato.getTime() + (dager * MILLISEKUNDER_PER_DAG));
-    return new Date(nyDato);
+
+export const newDate = () => {
+    const now = new Date();
+    return new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getHours(), now.getUTCMinutes(), now.getUTCSeconds());
 };
-export const trekkMnderFraDato = (dato, mnder) => {
-    const nyDato = new Date(dato);
-    nyDato.setMonth(nyDato.getMonth() - mnder);
-    return new Date(nyDato);
+
+export const erGyldigDatoformat = (dato) => {
+    const d = dato.replace(/\./g, '');
+    let s = `${parseInt(d, 10)}`;
+    if (dato.startsWith('0')) {
+        s = `0${s}`;
+    }
+    if (dato.trim().length !== 10) {
+        return false;
+    }
+    if (s.length !== 8) {
+        return false;
+    }
+    return true;
 };
-export const trekkMnderOgDagerFraDato = (dato, mnder, dager) => {
-    let nyDato = new Date(dato);
-    nyDato = trekkMnderFraDato(nyDato, mnder);
-    nyDato = trekkDagerFraDato(nyDato, dager);
-    return new Date(nyDato);
+
+export const erGyldigDato = (dato) => {
+    const re = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+    if (!re.test(dato)) {
+        return false;
+    }
+    return erGyldigDatoformat(dato);
 };

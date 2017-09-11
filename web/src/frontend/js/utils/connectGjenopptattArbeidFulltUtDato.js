@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { SYKEPENGER_SKJEMANAVN } from '../components/sykepengesoknad/setup';
-import { fraInputdatoTilJSDato } from './index';
+import { fraInputdatoTilJSDato } from './datoUtils';
 
 export const mapStateToProps = (state) => {
     const values = state.form[SYKEPENGER_SKJEMANAVN].values;

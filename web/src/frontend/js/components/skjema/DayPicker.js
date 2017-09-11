@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { erGyldigDato, erGyldigDatoformat } from '../../utils';
+import { erGyldigDato, erGyldigDatoformat } from '../../utils/datoUtils';
 import DayPicker, { DateUtils, LocaleUtils } from 'react-day-picker';
 
 export const MONTHS = ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember'];

@@ -5,7 +5,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import Side from '../sider/Side';
-import { erMotePassert } from '../utils';
+import { erMotePassert } from '../utils/moteUtils';
 import { bindActionCreators } from 'redux';
 import { brodsmule as brodsmulePt } from '../propTypes';
 

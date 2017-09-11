@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { erGyldigDato, erGyldigDatoformat } from '../../utils';
+import { erGyldigDato, erGyldigDatoformat, fraInputdatoTilJSDato } from '../../utils/datoUtils';
 import { Field } from 'redux-form';
 import Feilmelding from './Feilmelding';
 import { connect } from 'react-redux';
@@ -8,7 +8,6 @@ import MaskedInput from 'react-maskedinput';
 import { toDatePrettyPrint } from 'digisyfo-npm';
 import DayPickerComponent from './DayPicker';
 import { autofill, touch, formValueSelector } from 'redux-form';
-import { fraInputdatoTilJSDato } from '../../utils';
 
 export class DatoField extends Component {
     constructor(props) {

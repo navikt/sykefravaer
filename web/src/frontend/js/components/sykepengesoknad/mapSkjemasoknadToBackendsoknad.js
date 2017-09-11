@@ -1,4 +1,4 @@
-import { fraInputdatoTilJSDato } from '../../utils';
+import { fraInputdatoTilJSDato } from '../../utils/datoUtils';
 
 const parsePerioder = (perioder) => {
     return perioder.map((periode) => {

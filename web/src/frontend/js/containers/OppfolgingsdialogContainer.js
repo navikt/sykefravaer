@@ -24,18 +24,22 @@ import {
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
-import history from '../history';
+import { hashHistory } from 'react-router';
 
-const oppdaterUrlMedSteg = (steg, hash, pathname) => {
-    if (steg === 1 && hash !== '#arbeidsoppgave') {
-        history.push(`${pathname}#arbeidsoppgave`);
+const oppdaterUrlMedSteg = (steg, hash) => {
+    if (steg === 1 && hash !== '#/arbeidsoppgave') {
+        hashHistory.push('arbeidsoppgave');
     }
-    if (steg === 2 && hash !== '#tiltak') {
-        history.push(`${pathname}#tiltak`);
+    if (steg === 2 && hash !== '#/tiltak') {
+        hashHistory.push('tiltak');
     }
-    if (steg === 3 && hash !== '#plan') {
-        history.push(`${pathname}#plan`);
+    if (steg === 3 && hash !== '#/plan') {
+        hashHistory.push('plan');
     }
+};
+
+const replaceHashHistoryForst = () => {
+    hashHistory.replace('arbeidsoppgave');
 };
 
 export class OppfolgingsdialogSide extends Component {
@@ -65,8 +69,11 @@ export class OppfolgingsdialogSide extends Component {
         const steg = this.props.navigasjontoggles.steg;
         const hash = this.props.location.hash;
 
+        if (!nextProps.location.hash) {
+            replaceHashHistoryForst();
+        }
         if (hash === nextProps.location.hash && steg !== nextProps.navigasjontoggles.steg) {
-            oppdaterUrlMedSteg(nextProps.navigasjontoggles.steg, hash, this.props.location.pathname);
+            oppdaterUrlMedSteg(nextProps.navigasjontoggles.steg, hash);
         }
         if (hash !== nextProps.location.hash && steg === nextProps.navigasjontoggles.steg) {
             this.oppdaterUrlMedHash(nextProps.navigasjontoggles.steg, nextProps.location.hash);
@@ -74,26 +81,26 @@ export class OppfolgingsdialogSide extends Component {
     }
 
     oppdaterUrlMedHash(steg, hash) {
-        if (steg !== 1 && hash === '#arbeidsoppgave') {
+        if (steg !== 1 && hash === '#/arbeidsoppgave') {
             this.props.navigasjontoggles.steg = 1;
         }
-        if (steg !== 2 && hash === '#tiltak') {
+        if (steg !== 2 && hash === '#/tiltak') {
             this.props.navigasjontoggles.steg = 2;
         }
-        if (steg !== 3 && hash === '#plan') {
+        if (steg !== 3 && hash === '#/plan') {
             this.props.navigasjontoggles.steg = 3;
         }
     }
 
     oppdaterEtterRefresh() {
         switch (this.props.location.hash) {
-            case '#arbeidsoppgave':
+            case '#/arbeidsoppgave':
                 this.props.navigasjontoggles.steg = 1;
                 break;
-            case '#tiltak':
+            case '#/tiltak':
                 this.props.navigasjontoggles.steg = 2;
                 break;
-            case '#plan':
+            case '#/plan':
                 this.props.navigasjontoggles.steg = 3;
                 break;
             default:

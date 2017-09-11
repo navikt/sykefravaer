@@ -38,8 +38,16 @@ const oppdaterUrlMedSteg = (steg, hash) => {
     }
 };
 
-const replaceHashHistoryForst = () => {
-    hashHistory.replace('arbeidsoppgave');
+const replaceHashHistoryForst = (steg) => {
+    if (steg === 1) {
+        hashHistory.replace('arbeidsoppgave');
+    }
+    if (steg === 2) {
+        hashHistory.replace('tiltak');
+    }
+    if (steg === 3) {
+        hashHistory.replace('plan');
+    }
 };
 
 export class OppfolgingsdialogSide extends Component {
@@ -61,7 +69,9 @@ export class OppfolgingsdialogSide extends Component {
         if (!this.props.sjekkTilgangHentet && !this.props.sjekkTilgangHenter) {
             this.props.sjekkTilgang();
         }
-
+        if (!this.props.location.hash) {
+            replaceHashHistoryForst(this.props.navigasjontoggles.steg);
+        }
         this.oppdaterEtterRefresh();
     }
 
@@ -69,7 +79,7 @@ export class OppfolgingsdialogSide extends Component {
         const steg = this.props.navigasjontoggles.steg;
         const hash = this.props.location.hash;
 
-        if (!nextProps.location.hash) {
+        if (!nextProps.location.hash && steg === 1) {
             replaceHashHistoryForst();
         }
         if (hash === nextProps.location.hash && steg !== nextProps.navigasjontoggles.steg) {

@@ -24,39 +24,8 @@ import {
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
-import { hashHistory } from 'react-router';
-
-const oppdaterUrlMedSteg = (steg, hash) => {
-    if (steg === 1 && hash !== '#/arbeidsoppgave') {
-        hashHistory.push('arbeidsoppgave');
-    }
-    if (steg === 2 && hash !== '#/tiltak') {
-        hashHistory.push('tiltak');
-    }
-    if (steg === 3 && hash !== '#/plan') {
-        hashHistory.push('plan');
-    }
-};
-
-const replaceHashHistoryForst = (steg) => {
-    if (steg === 1) {
-        hashHistory.replace('arbeidsoppgave');
-    }
-    if (steg === 2) {
-        hashHistory.replace('tiltak');
-    }
-    if (steg === 3) {
-        hashHistory.replace('plan');
-    }
-};
 
 export class OppfolgingsdialogSide extends Component {
-
-    constructor() {
-        super();
-        this.oppdaterEtterRefresh = this.oppdaterEtterRefresh.bind(this);
-        this.oppdaterUrlMedHash = this.oppdaterUrlMedHash.bind(this);
-    }
 
     componentWillMount() {
         this.props.settDialog(this.props.oppfolgingsdialogId);
@@ -68,53 +37,6 @@ export class OppfolgingsdialogSide extends Component {
         }
         if (!this.props.sjekkTilgangHentet && !this.props.sjekkTilgangHenter) {
             this.props.sjekkTilgang();
-        }
-        if (!this.props.location.hash) {
-            replaceHashHistoryForst(this.props.navigasjontoggles.steg);
-        }
-        this.oppdaterEtterRefresh();
-    }
-
-    componentWillUpdate(nextProps) {
-        const steg = this.props.navigasjontoggles.steg;
-        const hash = this.props.location.hash;
-
-        if (!nextProps.location.hash && steg === 1) {
-            replaceHashHistoryForst();
-        }
-        if (hash === nextProps.location.hash && steg !== nextProps.navigasjontoggles.steg) {
-            oppdaterUrlMedSteg(nextProps.navigasjontoggles.steg, hash);
-        }
-        if (hash !== nextProps.location.hash && steg === nextProps.navigasjontoggles.steg) {
-            this.oppdaterUrlMedHash(nextProps.navigasjontoggles.steg, nextProps.location.hash);
-        }
-    }
-
-    oppdaterUrlMedHash(steg, hash) {
-        if (steg !== 1 && hash === '#/arbeidsoppgave') {
-            this.props.navigasjontoggles.steg = 1;
-        }
-        if (steg !== 2 && hash === '#/tiltak') {
-            this.props.navigasjontoggles.steg = 2;
-        }
-        if (steg !== 3 && hash === '#/plan') {
-            this.props.navigasjontoggles.steg = 3;
-        }
-    }
-
-    oppdaterEtterRefresh() {
-        switch (this.props.location.hash) {
-            case '#/arbeidsoppgave':
-                this.props.navigasjontoggles.steg = 1;
-                break;
-            case '#/tiltak':
-                this.props.navigasjontoggles.steg = 2;
-                break;
-            case '#/plan':
-                this.props.navigasjontoggles.steg = 3;
-                break;
-            default:
-                this.props.navigasjontoggles.steg = 1;
         }
     }
 

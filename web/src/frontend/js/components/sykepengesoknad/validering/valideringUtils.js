@@ -1,4 +1,4 @@
-import { fraInputdatoTilJSDato } from '../../../utils/index';
+import { fraInputdatoTilJSDato } from '../../../utils/datoUtils';
 import { validerPeriode } from '../../../components/skjema/Datovelger';
 
 export const erIFortiden = (dato) => {

@@ -8,7 +8,7 @@ import MaskedInput from 'react-maskedinput';
 import { toDatePrettyPrint } from 'digisyfo-npm';
 import DayPickerComponent from './DayPicker';
 import { autofill, touch, formValueSelector } from 'redux-form';
-import { fraInputdatoTilJSDato } from '../../utils';
+import { fraInputdatoTilJSDato } from '../../utils/datoUtils';
 
 export class DatoField extends Component {
     constructor(props) {

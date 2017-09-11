@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../propTypes';
 import { getLedetekst } from 'digisyfo-npm';
 import { getSvarsideModus } from 'moter-npm';
-import { erMotePassert } from '../utils';
+import { erMotePassert } from '../utils/moteUtils';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 
 const Li = ({ tekst, url }) => {

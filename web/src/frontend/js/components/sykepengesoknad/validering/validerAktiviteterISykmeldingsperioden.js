@@ -1,7 +1,7 @@
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 import { ANNET } from '../../../enums/inntektskildetyper';
-import { fraInputdatoTilJSDato } from '../../../utils';
+import { fraInputdatoTilJSDato } from '../../../utils/datoUtils';
 import { toDatePrettyPrint, getTomDato } from 'digisyfo-npm';
 import { getStillingsprosent } from '../AktiviteterISykmeldingsperioden/DetteTilsvarer';
 

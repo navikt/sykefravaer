@@ -1,4 +1,4 @@
-import { fraInputdatoTilJSDato } from './index';
+import { fraInputdatoTilJSDato } from './datoUtils';
 
 const erPafolgendeDager = (a, b) => {
     return b.getTime() - a.getTime() === 86400000;

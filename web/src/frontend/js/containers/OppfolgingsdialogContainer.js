@@ -26,7 +26,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import history from '../history';
 
-const oppdaterUrlMedHash = (steg, hash, pathname) => {
+const oppdaterUrlMedSteg = (steg, hash, pathname) => {
     if (steg === 1 && hash !== '#arbeidsoppgave') {
         history.push(`${pathname}#arbeidsoppgave`);
     }
@@ -40,6 +40,12 @@ const oppdaterUrlMedHash = (steg, hash, pathname) => {
 
 export class OppfolgingsdialogSide extends Component {
 
+    constructor() {
+        super();
+        this.oppdaterEtterRefresh = this.oppdaterEtterRefresh.bind(this);
+        this.oppdaterUrlMedHash = this.oppdaterUrlMedHash.bind(this);
+    }
+
     componentWillMount() {
         this.props.settDialog(this.props.oppfolgingsdialogId);
     }
@@ -52,6 +58,34 @@ export class OppfolgingsdialogSide extends Component {
             this.props.sjekkTilgang();
         }
 
+        this.oppdaterEtterRefresh();
+    }
+
+    componentWillUpdate(nextProps) {
+        const steg = this.props.navigasjontoggles.steg;
+        const hash = this.props.location.hash;
+
+        if (hash === nextProps.location.hash && steg !== nextProps.navigasjontoggles.steg) {
+            oppdaterUrlMedSteg(nextProps.navigasjontoggles.steg, hash, this.props.location.pathname);
+        }
+        if (hash !== nextProps.location.hash && steg === nextProps.navigasjontoggles.steg) {
+            this.oppdaterUrlMedHash(nextProps.navigasjontoggles.steg, nextProps.location.hash);
+        }
+    }
+
+    oppdaterUrlMedHash(steg, hash) {
+        if (steg !== 1 && hash === '#arbeidsoppgave') {
+            this.props.navigasjontoggles.steg = 1;
+        }
+        if (steg !== 2 && hash === '#tiltak') {
+            this.props.navigasjontoggles.steg = 2;
+        }
+        if (steg !== 3 && hash === '#plan') {
+            this.props.navigasjontoggles.steg = 3;
+        }
+    }
+
+    oppdaterEtterRefresh() {
         switch (this.props.location.hash) {
             case '#arbeidsoppgave':
                 this.props.navigasjontoggles.steg = 1;
@@ -65,10 +99,6 @@ export class OppfolgingsdialogSide extends Component {
             default:
                 this.props.navigasjontoggles.steg = 1;
         }
-    }
-
-    componentDidUpdate() {
-        oppdaterUrlMedHash(this.props.navigasjontoggles.steg, this.props.location.hash, this.props.location.pathname);
     }
 
     render() {

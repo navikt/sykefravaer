@@ -1,3 +1,62 @@
 .artikkel__tittel {
   .mixin-typo-innholdstittel();
+  margin-top: 0;
+  margin-bottom: .5em;
+  text-align: center;
 }
+
+.artikkel__ingress {
+	.mixin-typo-ingress();
+}
+
+.artikkel__innhold {
+	.redaksjonelt-innhold();
+	margin-bottom: 2em;
+}
+
+.artikkel__bilde {
+	max-width: 24em;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 1em;
+
+	img {
+		width: 100%;
+	}
+}
+
+.artikkel__tilbake {
+	color: @lenkeBlaa;
+	position: relative;
+	padding-left: 1.5em;
+
+	&:before {
+		content: "";
+		display: block;
+		width: 1em;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		background: data-uri('../img/png/pilForrige--blaa.png') left center no-repeat;
+		background-size: 1em 1em;
+		.mixin-transition(.2s, left);
+	}
+
+	&:hover:before,
+	&:focus:before {
+		left: -.25em;
+	}
+}
+
+.artikkel__meta {
+	margin-bottom: 2em;
+	display: flex;
+}
+
+.artikkel__meta__dato {
+	flex: 1;
+	text-align: right;
+	margin: 0;
+}
+

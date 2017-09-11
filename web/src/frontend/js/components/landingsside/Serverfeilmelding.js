@@ -6,6 +6,7 @@ const ledetekster = {
     dineSykmeldinger: 'Kunne ikke hente dine sykmeldinger',
     sykepengesoknader: 'Kunne ikke hente sykepengesoknader',
     ledere: 'Kunne ikke hente din(e) nærmeste leder(e)',
+    hendelser: 'Kunne ikke hente alle hendelser',
 };
 
 const Feiliste = ({ feilliste }) => {

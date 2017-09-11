@@ -9,6 +9,9 @@ import ledereSagas from './ledereSagas';
 import vedlikeholdSagas from './vedlikeholdSagas';
 import moteSagas from './moteSagas';
 import svarSagas from './svarSagas';
+import hendelserSagas from './hendelserSagas';
+import aktivitetskravSagas from './aktivitetskravSagas';
+
 import {
     oppfolgingsdialogerAtSagas as oppfolgingsdialogerSagas,
     arbeidsoppgaveSagas,
@@ -48,5 +51,7 @@ export default function * rootSaga() {
         togglesSagas(),
         settDialogSagas(),
         forskutteringssporsmalSagas(),
+        hendelserSagas(),
+        aktivitetskravSagas(),
     ];
 }

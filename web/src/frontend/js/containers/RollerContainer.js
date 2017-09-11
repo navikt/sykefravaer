@@ -5,42 +5,42 @@ import AppSpinner from '../components/AppSpinner';
 import { connect } from 'react-redux';
 import { Feilmelding } from '../components/Feilmelding';
 import { getLedetekst } from 'digisyfo-npm';
-import { brodsmuler as brodsmulePt } from '../propTypes';
 
-export const RollerSide = ({ brodsmuler, henter, hentingFeilet }) => {
-    return (<Side brodsmuler={brodsmuler} tittel={getLedetekst('roller.sidetittel')}>
-        {
-            (() => {
-                if (henter) {
-                    return <AppSpinner />;
-                }
-                if (hentingFeilet) {
-                    return <Feilmelding />;
-                }
-                return (<Artikkel tittel={getLedetekst('roller.tittel')}
-                    innhold={getLedetekst('roller.innhold')} />);
-            })()
-        }
+export const RollerSide = ({ henter, hentingFeilet, ledetekster }) => {
+    const brodsmuler = [{
+        tittel: getLedetekst('landingsside.sidetittel', ledetekster),
+        sti: '/',
+        erKlikkbar: true,
+    }, {
+        tittel: getLedetekst('roller.sidetittel', ledetekster),
+    }];
+    if (henter) {
+        return (<Side tittel="Siden laster...">
+            <AppSpinner />
+        </Side>);
+    }
+    if (hentingFeilet) {
+        return (<Side tittel="Det oppstod en feil!">
+            <Feilmelding />
+        </Side>);
+    }
+    return (<Side brodsmuler={brodsmuler} tittel={getLedetekst('roller.sidetittel', ledetekster)}>
+        <Artikkel tittel={getLedetekst('roller.tittel', ledetekster)}
+            innhold={getLedetekst('roller.innhold', ledetekster)} />
     </Side>);
 };
 
 RollerSide.propTypes = {
-    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     hentingFeilet: PropTypes.bool,
     henter: PropTypes.bool,
+    ledetekster: PropTypes.object,
 };
 
 export function mapStateToProps(state) {
     return {
         hentingFeilet: state.ledetekster.hentingFeilet,
         henter: state.ledetekster.henter,
-        brodsmuler: [{
-            tittel: getLedetekst('landingsside.sidetittel'),
-            sti: '/',
-            erKlikkbar: true,
-        }, {
-            tittel: getLedetekst('roller.sidetittel'),
-        }],
+        ledetekster: state.ledetekster.data,
     };
 }
 

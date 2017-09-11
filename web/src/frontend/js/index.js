@@ -24,6 +24,8 @@ import reduxFormMeta from './reducers/reduxFormMeta';
 import '../styles/styles.less';
 import forskutteringssporsmal from './reducers/forskutteringssporsmal';
 import arbeidsgiverperiodeberegning from './reducers/arbeidsgiverperiodeberegning';
+import hendelser from './reducers/hendelser';
+import aktivitetskrav from './reducers/aktivitetskrav';
 import './logging';
 
 const rootReducer = combineReducers({
@@ -50,6 +52,8 @@ const rootReducer = combineReducers({
     tilgang,
     tiltak,
     vedlikehold,
+    hendelser,
+    aktivitetskrav,
     form: formReducer,
     formMeta: reduxFormMeta,
 });

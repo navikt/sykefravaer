@@ -17,6 +17,7 @@ import OppfolgingsdialogerContainer from '../containers/OppfolgingsdialogerConta
 import OppfolgingsdialogContainer from '../containers/OppfolgingsdialogContainer';
 import OpprettOppfolgingsdialogContainer from '../containers/OpprettOppfolgingsdialogContainer';
 import SykepengesoknadKvitteringContainer from '../containers/sykepengesoknad/SykepengesoknadKvitteringContainer';
+import AktivitetskravvarselContainer from '../containers/AktivitetskravvarselContainer';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
@@ -38,6 +39,7 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/oppfolgingsplaner" component={OppfolgingsdialogerContainer} />
         <Route path="/sykefravaer/oppfolgingsplaner/opprett" component={OpprettOppfolgingsdialogContainer} />
         <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId" component={OppfolgingsdialogContainer} />
+        <Route path="/sykefravaer/aktivitetsplikt" component={AktivitetskravvarselContainer} />
         <Route path="*" component={LandingssideContainer} />
     </Router>);
 };

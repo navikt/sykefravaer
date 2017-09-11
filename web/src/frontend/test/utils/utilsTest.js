@@ -1,27 +1,10 @@
 import chai from 'chai';
 const expect = chai.expect;
 
-import { parseDato, lagHeltall, lagDesimaltall, erGyldigDato, fraInputdatoTilJSDato, erGyldigDatoformat, getObjectValueByString } from '../../js/utils';
+import { lagDesimaltall, getObjectValueByString } from '../../js/utils';
 
 describe("utils", () => {
-
-    describe("lagHeltall", () => {
-        it("Skal fjerne bokstaver", () => {
-            const n = lagHeltall("12f");
-            expect(n).to.equal("12");
-        });
-
-        it("Skal fjerne bindestrek", () => {
-            const n = lagHeltall("12f-");
-            expect(n).to.equal("12");
-        });
-
-        it("Skal fjerne komma", () => {
-            const n = lagHeltall("12,4");
-            expect(n).to.equal("124");
-        });
-    });
-
+    
     describe("lagDesimaltall", () => {
         it("Skal fjerne bokstaver", () => {
             const n = lagDesimaltall("12f");

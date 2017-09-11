@@ -1,5 +1,3 @@
-import { lagHeltall } from './index';
-
 export const datoMedKlokkeslett = (dato) => {
     if (dato === undefined || dato === null) {
         return '';

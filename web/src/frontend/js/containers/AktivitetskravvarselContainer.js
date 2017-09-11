@@ -66,8 +66,8 @@ class AktivitetskravvarselContainer extends Component {
                 }
                 if (visning === INGEN_AKTIVITETSKRAVVARSEL) {
                     return (<Feilmelding
-                        tittel="Du har ingen varsel om aktivitetsplikt"
-                        melding="Hvis du får et slikt varsel, får du mer informasjon om aktivitetsplikten på denne siden." />);
+                        tittel={getLedetekst('aktivitetskrav-varsel.ingen-varsel.tittel')}
+                        melding={getLedetekst('aktivitetskrav-varsel.ingen-varsel.melding')} />);
                 }
                 return (<div>
                     <div aria-live="polite" role="alert" ref="kvittering">

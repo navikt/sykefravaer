@@ -846,6 +846,23 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                     expect(res.utdanning.utdanningStartdato).to.equal("Datoen kan ikke være etter sykmeldingsperioden gikk ut den 20.07.2016");
                 });
 
+                it("Skal klage sin nød hvis oppgitt dato er etter gjenopptattArbeidFulltUtDato", () => {
+                    const sykepengesoknad = getSoknad({
+                        "aktiviteter": [{
+                          "periode": {
+                            "fom": "2016-07-15T00:00:00.000Z",
+                            "tom": "2016-07-20T00:00:00.000Z"
+                          },
+                          "grad": 100,
+                          "avvik": null
+                        }],
+                    })
+                    values.utdanning.utdanningStartdato = "21.07.2016";
+                    values.gjenopptattArbeidFulltUtDato = "18.07.2016";
+                    const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                    expect(res.utdanning.utdanningStartdato).to.equal("Datoen kan ikke være etter sykmeldingsperioden gikk ut den 17.07.2016");
+                });
+
                 it("Skal være happy-go-lucky hvis oppgitt dato er samme dag som tom-dato i siste periode i sykmeldingen", () => {
                     const sykepengesoknad = getSoknad({
                         "aktiviteter": [{

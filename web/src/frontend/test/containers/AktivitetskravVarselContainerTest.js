@@ -46,26 +46,20 @@ describe("AktivitetskravVarselContainer", () => {
 
         let hendelser;
 
-        it("Skal returnere visning === 'NYTT_AKTIVITETSKRAVVARSEL' dersom det er kommet et nytt varsel", () => {
+        it("Skal returnere 'NYTT_AKTIVITETSKRAVVARSEL' dersom det er kommet et nytt varsel", () => {
             hendelser = [ukjentHendelse, varselHendelse1, bekreftetHendelse1, varselHendelse2]
             const visning = getAktivitetskravvisning(hendelser);
             expect(visning).to.equal(NYTT_AKTIVITETSKRAVVARSEL);
         });
 
-        it("Skal returnere visning === 'INGEN_AKTIVITETSKRAVVARSEL' dersom det ikke finnes noe som helst", () => {
+        it("Skal returnere 'INGEN_AKTIVITETSKRAVVARSEL' dersom det ikke finnes noe som helst", () => {
             hendelser = [ukjentHendelse]
             const visning = getAktivitetskravvisning(hendelser);
             expect(visning).to.equal(INGEN_AKTIVITETSKRAVVARSEL);
         });
 
-        it("Skal returnere visning === 'AKTIVITETSVARSELKVITTERING' dersom sist inntrufne varsel er av typen AKTIVITETSKRAV_BEKREFTET ", () => {
+        it("Skal returnere 'AKTIVITETSVARSELKVITTERING' dersom sist inntrufne varsel er av typen AKTIVITETSKRAV_BEKREFTET ", () => {
             hendelser = [ukjentHendelse, varselHendelse1, bekreftetHendelse1, varselHendelse2, bekreftetHendelse2, bekreftetHendelse3]
-            const visning = getAktivitetskravvisning(hendelser);
-            expect(visning).to.equal(AKTIVITETSVARSELKVITTERING);
-        });
-
-        it("Skal returnere visning === 'AKTIVITETSVARSELKVITTERING' dersom sist inntrufne varsel er av typen AKTIVITETSKRAV_BEKREFTET ", () => {
-            hendelser = [ukjentHendelse, varselHendelse1, bekreftetHendelse1, varselHendelse2, varselHendelse2, bekreftetHendelse3, bekreftetHendelse2]
             const visning = getAktivitetskravvisning(hendelser);
             expect(visning).to.equal(AKTIVITETSVARSELKVITTERING);
         });

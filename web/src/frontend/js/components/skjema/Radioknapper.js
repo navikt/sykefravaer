@@ -10,8 +10,8 @@ export const getLabelId = (id) => {
 };
 
 export const Radioknapp = ({ input, value, children, id, label, checked, labelSekundaer, disabled, visUndertekst }) => {
-    return (<div className={disabled && 'skjema__input--inaktiv'}>
-        <div className="skjema__input">
+    return (<div>
+        <div className={`skjema__input ${disabled ? 'skjema__input--inaktiv' : ''}`}>
             <input id={id} className="radioknapp" type="radio" {...input} disabled={disabled} checked={checked || input.value.toString() === value.toString()} value={value} onBlur={() => {
                 input.onBlur();
             }} />

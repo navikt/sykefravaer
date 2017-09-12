@@ -40,6 +40,20 @@ export class OppfolgingsdialogSide extends Component {
         }
     }
 
+    componentDidUpdate() {
+        if (window.location.hash === '#arbeidsoppgaver' && this.props.navigasjontoggles.steg !== 1) {
+            this.props.settAktivtSteg(1);
+        }
+
+        if (window.location.hash === '#tiltak' && this.props.navigasjontoggles.steg !== 2) {
+            this.props.settAktivtSteg(2);
+        }
+
+        if (window.location.hash === '#godkjenn' && this.props.navigasjontoggles.steg !== 3) {
+            this.props.settAktivtSteg(3);
+        }
+    }
+
     render() {
         const {
             brodsmuler,

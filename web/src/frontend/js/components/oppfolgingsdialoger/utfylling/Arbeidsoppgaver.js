@@ -72,6 +72,10 @@ export class Arbeidsoppgaver extends Component {
         this.scrollToForm = this.scrollToForm.bind(this);
     }
 
+    componentWillMount() {
+        window.location.hash = 'arbeidsoppgaver';
+    }
+
     componentDidMount() {
         if (this.state.visArbeidsoppgaveSkjema && this.lagreSkjema) {
             this.scrollToForm();

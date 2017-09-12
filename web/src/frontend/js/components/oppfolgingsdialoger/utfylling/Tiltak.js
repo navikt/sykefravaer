@@ -69,6 +69,10 @@ export class Tiltak extends Component {
         this.toggleTiltakSkjema = this.toggleTiltakSkjema.bind(this);
     }
 
+    componentWillMount() {
+        window.location.hash = 'tiltak';
+    }
+
     componentDidUpdate(prevProps, prevState) {
         if (!prevState.visTiltakSkjema && this.state.visTiltakSkjema && this.lagreSkjema) {
             const form = findDOMNode(this.lagreSkjema);

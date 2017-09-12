@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import Feilmelding from '../skjema/Feilmelding';
-import VelgArbeidsgiver from './VelgArbeidsgiver';
+import VelgArbeidsgiverContainer from '../../containers/VelgArbeidsgiverContainer';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import arbeidssituasjoner, { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
@@ -49,7 +49,7 @@ export const Velg = (props) => {
         const { input } = _props;
         return input.value === ARBEIDSTAKER;
     }}>
-        <VelgArbeidsgiver {...props} />
+        <VelgArbeidsgiverContainer {...props} />
     </SporsmalMedTillegg>);
 };
 

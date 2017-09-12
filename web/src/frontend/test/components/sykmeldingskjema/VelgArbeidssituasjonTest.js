@@ -7,7 +7,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import VelgArbeidssituasjon, { RendreVelgArbeidssituasjon, Velg } from '../../../js/components/sykmeldingskjema/VelgArbeidssituasjon';
-import VelgArbeidsgiver from '../../../js/components/sykmeldingskjema/VelgArbeidsgiver';
+import VelgArbeidsgiverContainer from '../../../js/containers/VelgArbeidsgiverContainer';
 import SporsmalMedTillegg from '../../../js/components/skjema/SporsmalMedTillegg';
 import { FieldArray, Field } from 'redux-form';
 
@@ -34,7 +34,7 @@ describe('VelgArbeidssituasjon', () => {
         });
 
         it("Skal inneholde SporsmalMedTillegg med riktig children", () => {
-            expect(component.find(SporsmalMedTillegg).contains(<VelgArbeidsgiver {...props} />)).to.be.true;
+            expect(component.find(SporsmalMedTillegg).contains(<VelgArbeidsgiverContainer {...props} />)).to.be.true;
         });
 
         it("Skal vise tillegg hvis arbeidssituasjon === 'ARBEIDSTAKER'", () => {

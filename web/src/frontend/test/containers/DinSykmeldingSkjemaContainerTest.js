@@ -148,23 +148,6 @@ describe("DinSykmeldingSkjemaContainer", () => {
             expect(props.harStrengtFortroligAdresse).to.be.true;
         });
 
-        it("Skal returnere arbeidsgivere", () => {
-            const state = getState();
-            const props = mapStateToProps(state, {
-                sykmeldingId: 123
-            });
-            expect(props.arbeidsgivere).to.deep.equal([{
-                navn: "Oles pizza",
-                orgnummer: "123456789"
-            }, {
-                navn: "Doles pizza",
-                orgnummer: "***REMOVED***"
-            }, {
-                navn: "Annen arbeidsgiver",
-                orgnummer: "0"
-            }])
-        });
-
         it("Skal returnere hentingFeilet dersom arbeidsgivere feiler", () => {
             const state = getState();
             state.arbeidsgivere.hentingFeilet = true;
@@ -174,31 +157,13 @@ describe("DinSykmeldingSkjemaContainer", () => {
             expect(props.hentingFeilet).to.be.true;
         });
 
-        it("Skal returnere hentingFeilet === false dersom arbeidsgivere feiler", () => {
+        it("Skal returnere hentingFeilet === false dersom arbeidsgivere ikke feiler", () => {
             const state = getState();
             state.arbeidsgivere.hentingFeilet = false;
             const props = mapStateToProps(state, {
                 sykmeldingId: 123
             });
             expect(props.hentingFeilet).to.be.false;
-        });
-
-        it("Skal returnere henter dersom arbeidsgivere hentes", () => {
-            const state = getState();
-            state.arbeidsgivere.henter = true;
-            const props = mapStateToProps(state, {
-                sykmeldingId: 123
-            });
-            expect(props.henter).to.be.true;
-        });
-
-        it("Skal returnere henter === false dersom arbeidsgivere ikke hentes", () => {
-            const state = getState();
-            state.arbeidsgivere.henter = false;
-            const props = mapStateToProps(state, {
-                sykmeldingId: 123
-            });
-            expect(props.henter).to.be.false;
         });
 
         it("Skal returnere skjemadata", () => {

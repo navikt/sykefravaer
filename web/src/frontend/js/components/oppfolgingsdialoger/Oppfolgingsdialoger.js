@@ -43,7 +43,8 @@ export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) =
             <OppfolgingsdialogTeasere
                 ledetekster={ledetekster}
                 oppfolgingsdialoger={oppfolgingsdialoger}
-                tittel={getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.header.tittel')}
+                tittel={oppfolgingsdialoger.length > 1 ? getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.fler.header.tittel') :
+                    getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.header.tittel')}
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrl={getContextRoot()}
                 rootUrlPlaner={getContextRoot()}

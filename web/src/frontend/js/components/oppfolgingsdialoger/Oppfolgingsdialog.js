@@ -30,12 +30,17 @@ export class Oppfolgingsdialog extends Component {
 
     constructor() {
         super();
+
         this.state = {
             visSamtykke: false,
             visAvvisPlanKvittering: false,
             begrunnelse: null,
         };
         this.visAvvisPlanKvittering = this.visAvvisPlanKvittering.bind(this);
+    }
+
+    componentWillMount() {
+        this.props.settAktivtSteg(1);
     }
 
     componentWillReceiveProps(nextProps) {

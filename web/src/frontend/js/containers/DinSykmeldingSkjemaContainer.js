@@ -55,14 +55,6 @@ export const mapStateToProps = (state, ownProps) => {
         }
     }
 
-    const arbeidsgivereData = state.arbeidsgivere.data.concat([{
-        orgnummer: '0',
-        navn: getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.label'),
-    }]);
-
-    const arbeidsgivere = Object.assign({}, state.arbeidsgivere, {
-        data: arbeidsgivereData,
-    });
     const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
 
     return {
@@ -77,9 +69,8 @@ export const mapStateToProps = (state, ownProps) => {
         avbryter: state.dineSykmeldinger.avbryter,
         avbrytFeilet: state.dineSykmeldinger.avbrytFeilet,
         harStrengtFortroligAdresse,
-        arbeidsgivere: arbeidsgivere.data,
         hentingFeilet: state.arbeidsgivere.hentingFeilet,
-        henter: state.arbeidsgivere.henter || state.vedlikehold.henter,
+        henter: state.vedlikehold.henter,
         vedlikehold: state.vedlikehold.data.vedlikehold,
         skalHenteArbeidsgivere: state.arbeidsgivere.sykmeldingId !== sykmeldingId,
     };

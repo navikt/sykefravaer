@@ -11,21 +11,20 @@ import IllustrertInnhold from '../IllustrertInnhold';
 
 class Skjema extends Component {
     render() {
-        const { sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending, visKnapp } = this.props;
+        const { sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending, blaKnapp, onClick } = this.props;
+        const className = blaKnapp ? 'knapp knapp--mini' : 'rammeknapp rammeknapp--mini';
         return (<div>
             <div className="panel blokk--s">
                 <IllustrertInnhold ikon="/sykefravaer/img/svg/din-sykmelding-veileder.svg" ikonAlt="NAV-veileder">
                     <div>
-                    { !visKnapp ? <p className="sist">{getLedetekst('din-sykmelding.introtekst.abtest')}</p> : null }
-                    { visKnapp && (<div>
-                            <p>{getLedetekst('din-sykmelding.introtekst.abtest')}</p>
-                            <p className="sist introtekst__knapperad">
-                                <button className="rammeknapp rammeknapp--mini" type="button" onClick={(e) => {
-                                    e.preventDefault();
-                                    scrollTo(this.refs.skjema, 300);
-                                }}>Gå til utfylling</button>
-                            </p>
-                        </div>)}
+                        <p>{getLedetekst('din-sykmelding.introtekst.abtest')}</p>
+                        <p className="sist introtekst__knapperad">
+                            <button className={className} type="button" onClick={(e) => {
+                                onClick();
+                                e.preventDefault();
+                                scrollTo(this.refs.skjema, 300);
+                            }}>Gå til utfylling</button>
+                        </p>
                     </div>
                 </IllustrertInnhold>
             </div>
@@ -60,14 +59,14 @@ Skjema.propTypes = {
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     registrerInnsending: PropTypes.func,
-    visKnapp: PropTypes.bool,
+    blaKnapp: PropTypes.bool,
 };
 
-const EKSPERIMENTNAVN = 'INTROTEKST_SYKMELDING_KNAPP';
-const UTEN_KNAPP = 'UTEN_KNAPP';
-const MED_KNAPP = 'MED_KNAPP';
+const EKSPERIMENTNAVN = 'INTROTEKST_SYKMELDING_KNAPP_FARGE';
+const BLAA_KNAPP = 'BLAA_KNAPP';
+const HVIT_KNAPP = 'HVIT_KNAPP';
 
-const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, antallSykmeldinger, resultat) => {
+const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, resultat) => {
     return {
         /* eslint-disable */
         'event': `EKSPERIMENT_${experiment}`,
@@ -75,9 +74,7 @@ const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, antallS
         'digisyfoBrukersegment': harSendtSykmeldingerFoer ? 'HAR_BEHANDLET_SYKMELDING_FØR' : 'HAR_IKKE_BEHANDLET_SYKMELDING_FØR',
         'digisyfoABVariant': variant,
         'digisyfoABResultat': resultat,
-        'digisyfoAntallSendteSykmeldinger': antallSykmeldinger,
         /* eslint-enable */
-
     };
 };
 
@@ -89,11 +86,13 @@ const pushDatalayerData = (data) => {
 class DinSykmelding extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            harKlikket: false
+        };
     }
 
     registrerVisning(experiment, variant) {
-        pushDatalayerData(getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, this.props.antallSykmeldinger, 'SYKMELDING_VIST'));
+        pushDatalayerData(getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, 'SYKMELDING_VIST_UTEN_KLIKK'));
         this.setState({
             experiment,
             variant,
@@ -101,8 +100,21 @@ class DinSykmelding extends Component {
     }
 
     registrerInnsending() {
+        const { experiment, variant, harKlikket } = this.state;
+        let resultat = 'SYKMELDING_BEHANDLET';
+        if (harKlikket) {
+            resultat = 'KLIKK_OG_SYKMELDING_BEHANDLET';
+        }
+        const datalayerData = getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, resultat);
+        pushDatalayerData(datalayerData);
+    }
+
+    registrerKlikk() {
         const { experiment, variant } = this.state;
-        const datalayerData = getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, this.props.antallSykmeldinger, 'SYKMELDING_BEHANDLET');
+        this.setState({
+            harKlikket: true,
+        });
+        const datalayerData = getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, 'KLIKK_UTEN_INNSENDING');
         pushDatalayerData(datalayerData);
     }
 
@@ -112,13 +124,17 @@ class DinSykmelding extends Component {
             <Experiment onChoice={(experiment, variant) => {
                 this.registrerVisning(experiment, variant);
             }} name={EKSPERIMENTNAVN}>
-                <Variant name={UTEN_KNAPP}>
-                    <Skjema {...this.props} registrerInnsending={() => {
+                <Variant name={BLAA_KNAPP}>
+                    <Skjema {...this.props} onClick={() => {
+                        this.registrerKlikk()
+                    }} registrerInnsending={() => {
                         this.registrerInnsending();
                     }} />
                 </Variant>
-                <Variant name={MED_KNAPP}>
-                    <Skjema {...this.props} visKnapp registrerInnsending={() => {
+                <Variant name={HVIT_KNAPP}>
+                    <Skjema {...this.props} onClick={() => {
+                        this.registrerKlikk()
+                    }} blaKnapp registrerInnsending={() => {
                         this.registrerInnsending();
                     }} />
                 </Variant>

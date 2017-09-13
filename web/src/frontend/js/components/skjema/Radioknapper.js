@@ -17,8 +17,7 @@ export const Radioknapp = ({ input, value, children, id, label, checked, labelSe
             }} />
             <label id={getLabelId(id)} htmlFor={id}>{label} {labelSekundaer ? <span className="sekundaerLabel">{labelSekundaer}</span> : null}</label>
         </div>
-        {input.value === value || disabled && children}
-        {visUndertekst && !disabled && children}
+        {(input.value === value || disabled || visUndertekst) && children}
     </div>);
 };
 

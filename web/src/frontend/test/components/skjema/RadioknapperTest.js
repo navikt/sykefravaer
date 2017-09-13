@@ -18,7 +18,7 @@ describe("Radioknapper", () => {
 
     it("Viser ikke hjelpetekst om ikke satt", () => {
         const comp = shallow(<Radioknapper children={[]} meta={{}} input={{}} spoersmal='spoersmaal' />)
-        expect(comp.find(Hjelpetekst)).to.have.length(1);
+        expect(comp.find(Hjelpetekst)).to.have.length(0);
     });
 
     describe("Radioknapp", () => {

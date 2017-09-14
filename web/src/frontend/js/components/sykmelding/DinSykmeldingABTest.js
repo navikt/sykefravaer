@@ -60,6 +60,7 @@ Skjema.propTypes = {
     eldsteSykmeldingId: PropTypes.string,
     registrerInnsending: PropTypes.func,
     blaKnapp: PropTypes.bool,
+    onClick: PropTypes.func,
 };
 
 const EKSPERIMENTNAVN = 'INTROTEKST_SYKMELDING_KNAPP_FARGE';
@@ -87,7 +88,7 @@ class DinSykmelding extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            harKlikket: false
+            harKlikket: false,
         };
     }
 
@@ -126,14 +127,14 @@ class DinSykmelding extends Component {
             }} name={EKSPERIMENTNAVN}>
                 <Variant name={BLAA_KNAPP}>
                     <Skjema {...this.props} onClick={() => {
-                        this.registrerKlikk()
+                        this.registrerKlikk();
                     }} registrerInnsending={() => {
                         this.registrerInnsending();
                     }} />
                 </Variant>
                 <Variant name={HVIT_KNAPP}>
                     <Skjema {...this.props} onClick={() => {
-                        this.registrerKlikk()
+                        this.registrerKlikk();
                     }} blaKnapp registrerInnsending={() => {
                         this.registrerInnsending();
                     }} />

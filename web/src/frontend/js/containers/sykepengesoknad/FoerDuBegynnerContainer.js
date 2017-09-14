@@ -58,10 +58,7 @@ export class FoerDuBegynnerContainer extends Component {
 
     render() {
         const { params, vedlikehold, brodsmuler, henter } = this.props;
-        if (henter) {
-            return <AppSpinner />;
-        }
-        return <GenerellSoknadContainer Component={Controller} brodsmuler={brodsmuler} params={params} vedlikehold={vedlikehold} />;
+        return <GenerellSoknadContainer henter={henter} Component={Controller} brodsmuler={brodsmuler} params={params} vedlikehold={vedlikehold} />;
     }
 }
 

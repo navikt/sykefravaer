@@ -77,7 +77,7 @@ Skjema.propTypes = {
 };
 
 const EKSPERIMENTNAVN = 'RESPONSTID_I_SYKMELDINGSKJEMA';
-const VARIANTER = [0, 2, 4, 6];
+const VARIANTER = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4];
 
 const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, resultat) => {
     return {

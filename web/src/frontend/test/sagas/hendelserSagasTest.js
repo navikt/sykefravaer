@@ -3,7 +3,6 @@ import { hentHendelser } from '../../js/sagas/hendelserSagas.js';
 import * as actions from '../../js/actions/hendelser_actions';
 import { get, post } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
-import * as actiontyper from '../../js/actions/actiontyper';
 
 describe("hendelserSagas", () => {
 
@@ -22,7 +21,7 @@ describe("hendelserSagas", () => {
         });
 
         it("Skal dernest hente hendelser", () => {
-            const nextCall = call(get, "http://tjenester.nav.no/syforest/sykefravaersoppfoelging/hendelser");
+            const nextCall = call(get, "http://tjenester.nav.no/syforest/informasjon/hendelser");
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

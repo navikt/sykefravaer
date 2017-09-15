@@ -8,7 +8,7 @@ import * as actiontyper from '../actions/actiontyper';
 export function* hentHendelser() {
     yield put(actions.henterHendelser());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/sykefravaersoppfoelging/hendelser`);
+        const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/informasjon/hendelser`);
         yield put(actions.hendelserHentet(data));
     } catch (e) {
         log(e);

@@ -57,7 +57,7 @@ export class DineOppgaver extends Component {
             this.props.hentDineSykmeldinger();
         }
         if (!hendelserHentet && !hentingFeiletHendelser) {
-            // this.props.hentHendelser();
+            this.props.hentHendelser();
         }
     }
 

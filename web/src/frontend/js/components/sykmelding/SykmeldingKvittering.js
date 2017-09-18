@@ -5,6 +5,7 @@ import Sidetopp from '../Sidetopp';
 import history from '../../history';
 import { sykmelding as sykmeldingPt, sykepengesoknad as sykepengesoknadPt, sykmeldingstatus } from '../../propTypes';
 import { AVBRUTT } from '../../enums/sykmeldingstatuser';
+import Video from '../Video';
 
 export const kvitteringtyper = {
     STANDARDKVITTERING: 'STANDARDKVITTERING',
@@ -125,6 +126,9 @@ export const KvitteringSokSenere = ({ sykepengesoknader }) => {
         <div className="panel blokk">
             <h2 className="kvitteringsteg__tittel">{getLedetekst('sykmelding.kvittering.sok-senere.utenlandsopphold.tittel')}</h2>
             <div className="kvittering__utenlandsopphold" dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding.kvittering.sok-senere.utenlandsopphold.tekst')} />
+        </div>
+        <div className="blokk">
+            <Video width="640" height="360" src="https://video.qbrick.com/play2/embed/player?accountId=763558&mediaId=B248D6CB" />
         </div>
     </div>);
 };

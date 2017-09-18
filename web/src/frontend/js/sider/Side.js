@@ -6,7 +6,7 @@ import { brodsmule as brodsmulePt } from '../propTypes';
 
 const Side = ({ children, tittel, brodsmuler = [] }) => {
     return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
-        <div className="begrensning side">
+        <div className="begrensning side js-begrensning">
             <Brodsmuler brodsmuler={brodsmuler} />
             <InnloggingContainer>
                 {children}

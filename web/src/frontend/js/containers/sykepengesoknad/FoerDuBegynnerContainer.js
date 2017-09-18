@@ -6,7 +6,6 @@ import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
 import UtgaattSoknad from '../../components/sykepengesoknad/UtgaattSoknad';
 import AvbruttSoknadContainer from './AvbruttSoknadContainer';
 import Feilmelding from '../../components/Feilmelding';
-import AppSpinner from '../../components/AppSpinner';
 import { getLedetekst } from 'digisyfo-npm';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST } from '../../enums/sykepengesoknadstatuser';

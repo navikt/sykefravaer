@@ -79,14 +79,13 @@ Skjema.propTypes = {
 const EKSPERIMENTNAVN = 'RESPONSTID_I_SYKMELDINGSKJEMA';
 const VARIANTER = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4];
 
-const getDatalayerData = (experiment, variant, harSendtSykmeldingerFoer, resultat) => {
+const getDatalayerData = (variant, harSendtSykmeldingerFoer, resultat) => {
     return {
         /* eslint-disable */
-        'event': `EKSPERIMENT_${experiment}`,
-        'digisyfoEksperimentnavn': experiment,
+        'event': resultat,
+        'digisyfoEksperimentnavn': EKSPERIMENTNAVN,
         'digisyfoBrukersegment': harSendtSykmeldingerFoer ? 'HAR_BEHANDLET_SYKMELDING_FØR' : 'HAR_IKKE_BEHANDLET_SYKMELDING_FØR',
         'digisyfoABVariant': variant,
-        'digisyfoABResultat': resultat,
         /* eslint-enable */
     };
 };
@@ -99,13 +98,11 @@ const pushDatalayerData = (data) => {
 class DinSykmelding extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            harKlikket: false,
-        };
+        this.state = {};
     }
 
     registrerVisning(experiment, variant) {
-        pushDatalayerData(getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, 'SYKMELDING_VIST_UTEN_KLIKK'));
+        pushDatalayerData(getDatalayerData(variant, this.props.harSendtSykmeldingerFoer, 'SYKMELDING_VIST'));
         this.setState({
             experiment,
             variant,
@@ -113,21 +110,14 @@ class DinSykmelding extends Component {
     }
 
     registrerInnsending() {
-        const { experiment, variant, harKlikket } = this.state;
-        let resultat = 'SYKMELDING_BEHANDLET';
-        if (harKlikket) {
-            resultat = 'KLIKK_OG_SYKMELDING_BEHANDLET';
-        }
-        const datalayerData = getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, resultat);
+        const { variant } = this.state;
+        const datalayerData = getDatalayerData(variant, this.props.harSendtSykmeldingerFoer, 'SYKMELDING_BEHANDLET');
         pushDatalayerData(datalayerData);
     }
 
     registrerKlikk() {
-        const { experiment, variant } = this.state;
-        this.setState({
-            harKlikket: true,
-        });
-        const datalayerData = getDatalayerData(experiment, variant, this.props.harSendtSykmeldingerFoer, 'KLIKK_UTEN_INNSENDING');
+        const { variant } = this.state;
+        const datalayerData = getDatalayerData(variant, this.props.harSendtSykmeldingerFoer, 'SYKMELDING_KLIKK_HVIT_KNAPP');
         pushDatalayerData(datalayerData);
     }
 

@@ -5,9 +5,10 @@ import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import { bekreftAktivitetskrav } from '../../actions/aktivitetskrav_actions';
 import { connect } from 'react-redux';
 
-const Aktivitetskrav = ({ handleSubmit, ledetekster, actions, bekrefter, bekreftFeilet }) => {
+const Aktivitetskrav = (props) => {
+    const { handleSubmit, ledetekster, dispatch, bekrefter, bekreftFeilet } = props;
     return (<form onSubmit={handleSubmit(() => {
-        actions.bekreftAktivitetskrav();
+        dispatch(bekreftAktivitetskrav());
     })}>
         <div role="alert" aria-live="polite">
             { bekreftFeilet && (<div className="panel panel--komprimert blokk">
@@ -31,7 +32,7 @@ const Aktivitetskrav = ({ handleSubmit, ledetekster, actions, bekrefter, bekreft
 Aktivitetskrav.propTypes = {
     handleSubmit: PropTypes.func,
     ledetekster: PropTypes.object,
-    actions: PropTypes.object,
+    dispatch: PropTypes.func,
     bekrefter: PropTypes.bool,
     bekreftFeilet: PropTypes.bool,
 };

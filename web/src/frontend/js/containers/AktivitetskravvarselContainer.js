@@ -90,8 +90,8 @@ AktivitetskravvarselContainer.propTypes = {
     varseldato: PropTypes.instanceOf(Date),
     bekreftetdato: PropTypes.instanceOf(Date),
     hentHendelser: PropTypes.func,
-    henter: PropTypes.func,
-    hentingFeilet: PropTypes.func,
+    henter: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
 };
 
 const sorterHendelser = (a, b) => {
@@ -103,43 +103,49 @@ const sorterHendelser = (a, b) => {
     return 0;
 };
 
-const erAktivitetskravhendelse = (hendelse) => {
-    return hendelse.type === AKTIVITETSKRAV_VARSEL || hendelse.type === AKTIVITETSKRAV_BEKREFTET;
+const getSisteAktivitetskrav = (hendelser) => {
+    return [...hendelser]
+        .sort(sorterHendelser)
+        .filter((h) => {
+            return h.type === AKTIVITETSKRAV_VARSEL;
+        })[0];
 };
 
-const getSorterteAktivitetskravHendelser = (hendelser) => {
-    return [...hendelser]
-        .filter(erAktivitetskravhendelse)
-        .sort(sorterHendelser);
+const getBekreftelseAvAktivitetskrav = (hendelser, aktivitetskrav) => {
+    return hendelser
+        .filter((h) => {
+            return h.type === AKTIVITETSKRAV_BEKREFTET;
+        })
+        .filter((h) => {
+            return parseInt(h.ressursId, 10) === aktivitetskrav.id;
+        })[0];
 };
 
 export const getAktivitetskravvisning = (hendelser) => {
-    const _hendelser = getSorterteAktivitetskravHendelser(hendelser);
-    if (_hendelser.length === 0) {
+    const sisteAktivitetskrav = getSisteAktivitetskrav(hendelser);
+    const bekreftelseAvSisteAktivitetskrav = getBekreftelseAvAktivitetskrav(hendelser, sisteAktivitetskrav);
+
+    if (!sisteAktivitetskrav) {
         return INGEN_AKTIVITETSKRAVVARSEL;
     }
-    if (_hendelser[0].type === AKTIVITETSKRAV_VARSEL) {
-        return NYTT_AKTIVITETSKRAVVARSEL;
+    if (bekreftelseAvSisteAktivitetskrav) {
+        return AKTIVITETSVARSELKVITTERING;
     }
-    return AKTIVITETSVARSELKVITTERING;
+    return NYTT_AKTIVITETSKRAVVARSEL;
 };
 
 export function mapStateToProps(state) {
     const visning = getAktivitetskravvisning(state.hendelser.data);
-    const varselhendelser = [...state.hendelser.data].filter((h) => {
-        return h.type === AKTIVITETSKRAV_VARSEL;
-    }).sort(sorterHendelser);
-    const bekreftetHendelser = [...state.hendelser.data].filter((h) => {
-        return h.type === AKTIVITETSKRAV_BEKREFTET;
-    }).sort(sorterHendelser);
+    const sisteAktivitetskrav = getSisteAktivitetskrav(state.hendelser.data);
+    const bekreftelseAvSisteAktivitetskrav = getBekreftelseAvAktivitetskrav(state.hendelser.data, sisteAktivitetskrav);
 
     return {
         hentingFeilet: state.ledetekster.hentingFeilet,
         henter: state.ledetekster.henter,
         ledetekster: state.ledetekster.data,
         visning,
-        varseldato: varselhendelser.length > 0 ? varselhendelser[0].inntruffetdato : null,
-        bekreftetdato: bekreftetHendelser.length > 0 ? bekreftetHendelser[0].inntruffetdato : null,
+        varseldato: sisteAktivitetskrav ? sisteAktivitetskrav.inntruffetdato : null,
+        bekreftetdato: bekreftelseAvSisteAktivitetskrav ? bekreftelseAvSisteAktivitetskrav.inntruffetdato : null,
         hentingFeiletHendelser: state.hendelser.hentingFeilet,
         hendelserHentet: state.hendelser.hendelserHentet,
     };

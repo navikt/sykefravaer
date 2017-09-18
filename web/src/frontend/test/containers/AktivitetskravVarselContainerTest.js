@@ -11,31 +11,40 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 export const varselHendelse1 = {
+    id: 1,
     type: hendelsetyper.AKTIVITETSKRAV_VARSEL,
     inntruffetdato: new Date("2017-09-06")
 };
 
 export const varselHendelse2 = {
+    id: 2,
     type: hendelsetyper.AKTIVITETSKRAV_VARSEL,
     inntruffetdato: new Date("2017-09-10")
 };
 
 export const bekreftetHendelse1 = {
+    id: 3,
     type: hendelsetyper.AKTIVITETSKRAV_BEKREFTET,
-    inntruffetdato: new Date("2017-09-08")
+    inntruffetdato: new Date("2017-09-08"),
+    ressursId: "1",
 };
 
 export const bekreftetHendelse2 = {
+    id: 4,
     type: hendelsetyper.AKTIVITETSKRAV_BEKREFTET,
-    inntruffetdato: new Date("2017-09-10")
+    inntruffetdato: new Date("2017-09-10"),
+    ressursId: "1"
 };
 
 export const bekreftetHendelse3 = {
+    id: 5,
     type: hendelsetyper.AKTIVITETSKRAV_BEKREFTET,
-    inntruffetdato: new Date("2017-09-12")
+    inntruffetdato: new Date("2017-09-12"),
+    ressursId: "2"
 };
 
 export const ukjentHendelse = {
+    id: 6,
     type: "UKJENT_RANDOM_HENDELSE",
     inntruffetdato: new Date("2017-09-08")  
 }
@@ -63,6 +72,25 @@ describe("AktivitetskravVarselContainer", () => {
             const visning = getAktivitetskravvisning(hendelser);
             expect(visning).to.equal(AKTIVITETSVARSELKVITTERING);
         });
+
+        it("Skal returnere 'AKTIVITETSVARSELKVITTERING' dersom et varsel er bekreftet samme dag som det har blitt opprettet", () => {
+            const hendelser = [
+                {"id":1,"inntruffetdato":new Date("2017-08-02"),"type":"NY_NAERMESTE_LEDER"},
+                {"id":2,"inntruffetdato":new Date("2017-09-18"),"type":"AKTIVITETSKRAV_VARSEL", "ressursId": ""},
+                {"id":3,"inntruffetdato":new Date("2017-09-18"),"type":"AKTIVITETSKRAV_BEKREFTET","ressursId": "2"}];
+            const visning = getAktivitetskravvisning(hendelser);
+            expect(visning).to.equal(AKTIVITETSVARSELKVITTERING);
+        });
+
+        it("Skal returnere 'NYTT_AKTIVITETSKRAVVARSEL' dersom et varsel opprettes samme dag som brukeren har bekreftet et tidligere varsel", () => {
+            const hendelser = [
+                {"id":1,"inntruffetdato":new Date("2017-08-02"),"type":"NY_NAERMESTE_LEDER"},
+                {"id":2,"inntruffetdato":new Date("2017-09-17"),"type":"AKTIVITETSKRAV_VARSEL", "ressursId": ""},
+                {"id":3,"inntruffetdato":new Date("2017-09-18"),"type":"AKTIVITETSKRAV_BEKREFTET", "ressursId": "2"},
+                {"id":4,"inntruffetdato":new Date("2017-09-18"),"type":"AKTIVITETSKRAV_VARSEL", "ressursId": ""}];
+            const visning = getAktivitetskravvisning(hendelser);
+            expect(visning).to.equal(NYTT_AKTIVITETSKRAVVARSEL);
+        })
 
     });
 

@@ -8,6 +8,7 @@ import DineOppgaverContainer from '../../containers/DineOppgaverContainer';
 import DinSituasjonContainer from '../../containers/DinSituasjonContainer';
 import ServerfeilContainer from '../../containers/ServerfeilContainer';
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
+import DetteHarSkjeddContainer from '../../containers/DetteHarSkjeddContainer';
 
 export class GenerellInfo extends Component {
     componentDidMount() {
@@ -59,6 +60,7 @@ const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, 
             }
             <DineOppgaverContainer />
             <DinSituasjonContainer />
+            <DetteHarSkjeddContainer />
             <nav role="navigation" className="js-navigasjon">
                 <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
                     undertittel="Informasjon og oversikt over aktiviteter" variant="fersken" />

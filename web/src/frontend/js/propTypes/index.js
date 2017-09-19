@@ -4,6 +4,7 @@ import * as arbeidssituasjoner from '../enums/arbeidssituasjoner';
 import * as soknadstatuser from '../enums/sykepengesoknadstatuser';
 import { fields as inntektskildetyper } from '../enums/inntektskildetyper';
 import { JA, NEI, VET_IKKE } from '../enums/forskutterersvar';
+import * as hendelsetyper from '../enums/hendelsetyper';
 
 export const arbeidssituasjon = PropTypes.oneOf([
     arbeidssituasjoner.ARBEIDSTAKER,
@@ -17,6 +18,13 @@ export const brodsmule = PropTypes.shape({
     tittel: PropTypes.string,
     sisteSmule: PropTypes.bool,
     erKlikkbar: PropTypes.bool,
+});
+
+export const hendelse = PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    inntruffetdato: PropTypes.instanceOf(Date),
+    type: PropTypes.oneOf([hendelsetyper.AKTIVITETSKRAV_VARSEL, hendelsetyper.NY_NAERMESTE_LEDER, hendelsetyper.AKTIVITETSKRAV_BEKREFTET]),
+    ressursId: PropTypes.string,
 });
 
 export const soknadperiode = PropTypes.shape({

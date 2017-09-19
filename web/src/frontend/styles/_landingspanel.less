@@ -1,0 +1,30 @@
+.landingspanel {
+  margin-bottom: .5em;
+}
+
+.landingspanel__header {
+  display: flex;
+  background: @hvit;
+  .mixin-panel-padding();
+  margin-bottom: 2px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.landingspanel__tittel {
+  .mixin-typo-undertittel();
+  margin: 0;
+  align-self: center;
+}
+
+.landingspanel__ikon {
+  margin-right: 1em;
+}
+
+@media (min-width: @skjermLiten) {
+
+  .landingspanel {
+    margin-bottom: 1em;
+  }
+
+}

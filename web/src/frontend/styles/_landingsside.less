@@ -53,25 +53,6 @@
   .mixin-typo-normal();
 }
 
-@media (min-width: @skjermLiten) {
-
-  .peker__ikon {
-    width: 4.5em;
-    margin-right: 1.5em;
-
-    img {
-      width: 2em;
-      height: 2em;
-      display: flex;
-    }
-  }
-
-  .peker {
-    margin-bottom: 1em;
-  }
-
-}
-
 .peker__ikon--fersken {
   background-color: #FFE5C2;
 }
@@ -129,30 +110,6 @@
   }
 }
 
-.dineOppgaver:extend(.panel) {
-    box-shadow: 0 0 0 5px #C2EAF7 inset;
-    margin-bottom: .5em;
-}
-
-.landingspanel__header {
-  display: flex;
-  background: @hvit;
-  .mixin-panel-padding();
-  margin-bottom: 2px;
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
-
-.landingspanel__tittel {
-  .mixin-typo-undertittel();
-  margin: 0;
-  align-self: center;
-}
-
-.landingspanel__ikon {
-  margin-right: 1em;
-}
-
 .ingenSykmelding__illustrasjon {
   display: flex;
   justify-content: center;
@@ -169,10 +126,6 @@
   }
 }
 
-.landingspanel {
-  margin-bottom: .5em;
-}
-
 @media (min-width: @skjermLiten) {
 
   .peker__ikon {
@@ -186,11 +139,8 @@
     }
   }
 
-  .peker, .landingspanel {
+  .peker {
     margin-bottom: 1em;
   }
-
-  .landingspanel--dinSituasjon {
-    margin-bottom: 2em;
-  } 
+  
 }

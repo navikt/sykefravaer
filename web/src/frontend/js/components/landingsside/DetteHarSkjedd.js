@@ -9,7 +9,7 @@ const DetteHarSkjedd = ({ hendelser }) => {
         <ol className="inngangsliste">
             {
                 hendelser.map((h, index) => {
-                    return (<li key={index}>
+                    return (<li className="js-hendelse" key={index}>
                         <strong className="inngangsliste__meta">{toDatePrettyPrint(h.inntruffetdato)} </strong>
                         <Link to="/sykefravaer/aktivitetsplikt">
                             {getLedetekst(`sykefravaer.dette-har-skjedd.${h.type}`)}

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import { getTidligsteSendtDato, sorterEtterDato } from '../../utils/sykepengesoknadUtils';
+import { getTidligsteSendtDato, sorterEtterSendtDato } from '../../utils/sykepengesoknadUtils';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 const RelaterteSoknader = ({ relaterteSoknader }) => {
@@ -14,7 +14,7 @@ const RelaterteSoknader = ({ relaterteSoknader }) => {
         <ul className="tidligereVersjoner__liste">
             {
                 relaterteSoknader
-                    .sort(sorterEtterDato)
+                    .sort(sorterEtterSendtDato)
                     .map((s, index) => {
                         return (<li key={index}>
                             <Link to={`/sykefravaer/soknader/${s.id}`}>{getLedetekst('relaterte-soknader.sendt')} {toDatePrettyPrint(getTidligsteSendtDato(s))}</Link>

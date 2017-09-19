@@ -60,7 +60,6 @@ const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, 
             }
             <DineOppgaverContainer />
             <DinSituasjonContainer />
-            <DetteHarSkjeddContainer />
             <nav role="navigation" className="js-navigasjon">
                 <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
                     undertittel="Informasjon og oversikt over aktiviteter" variant="fersken" />
@@ -81,6 +80,7 @@ const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, 
                     <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
                 }
             </nav>
+            <DetteHarSkjeddContainer />
             <GenerellInfo />
         </div>
     </div>);

@@ -24,39 +24,6 @@
 	padding-top: .5em;
 }
 
-.dineOppgaver__liste {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-
-	li {
-		position: relative;
-		padding-left: 0;
-		position: relative;
-		margin-bottom: 1em;
-	}
-
-	li:last-child {
-		margin-bottom: 0;
-	}
-
-	a {
-		.mixin-typo-ingress();
-		background-image: data-uri("../img/png/pilNeste--graa.png");
-		background-repeat: no-repeat;
-		background-position: right center;
-		background-size: .75em;
-		padding-right: 1.25em;
-		color: @navTekst;
-	}
-
-	a:hover, a:focus {
-		color: @lenkeBlaa;
-		background-image: data-uri("../img/png/pilNeste--blaa.png");
-	}
-
-}
-
 @media (min-width: @skjermLiten) {
 	.dineOppgaver__container {
 		display: flex;

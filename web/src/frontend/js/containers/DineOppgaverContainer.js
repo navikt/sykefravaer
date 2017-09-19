@@ -73,7 +73,7 @@ export class DineOppgaver extends Component {
                 </div>
                 <div className="dineOppgaver__tekst">
                     <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
-                    <ul className="dineOppgaver__liste">
+                    <ul className="inngangsliste">
                         { sykmeldinger.length > 0 ? <NySykmelding sykmeldinger={sykmeldinger} /> : null }
                         { sykepengesoknader.length > 0 ? <NySykepengesoknad sykepengesoknader={sykepengesoknader} /> : null }
                         { mote !== null ? <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> : null }

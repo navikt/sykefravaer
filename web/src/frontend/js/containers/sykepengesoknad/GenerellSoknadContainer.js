@@ -55,10 +55,15 @@ export function mapDispatchToProps(dispatch) {
 }
 
 export const mapStateToProps = (state, ownProps) => {
-    const skjemasoknad = state.form && state.form[SYKEPENGER_SKJEMANAVN] ? state.form[SYKEPENGER_SKJEMANAVN].values : undefined;
     const sykepengesoknad = state.sykepengesoknader.data.filter((soknad) => {
         return soknad.id === ownProps.params.sykepengesoknadId;
     })[0];
+    let skjemasoknad = state.form && state.form[SYKEPENGER_SKJEMANAVN] ? state.form[SYKEPENGER_SKJEMANAVN].values : undefined;
+    if (skjemasoknad && sykepengesoknad.forrigeSykeforloepTom) {
+        skjemasoknad = Object.assign({}, skjemasoknad, {
+            forrigeSykeforloepTom: sykepengesoknad.forrigeSykeforloepTom,
+        });
+    }
     return {
         sykepengesoknad,
         henter: state.sykepengesoknader.henter || state.ledetekster.henter,

@@ -232,6 +232,27 @@ describe("GenerellSoknadContainer", () => {
             });
         });
 
+        it("Skal returnere skjemasoknad med forrigeSykeforloepTom hvis forrigeSykeforloepTom er satt på den korresponderende søknaden i sykepengesoknader-reduceren", () => {
+            state.form = {
+                SYKEPENGERSKJEMA: {
+                    values: {
+                        random: "random"
+                    }
+                }
+            };
+            state.sykepengesoknader = {
+              data: [{
+                "id": "min-soknad-id",
+                "forrigeSykeforloepTom": new Date("2017-05-17")
+              }]
+            }
+            const props = mapStateToProps(state, ownProps);
+            expect(props.skjemasoknad).to.deep.equal({
+                random: "random",
+                forrigeSykeforloepTom: new Date("2017-05-17")
+            });
+        });
+
     });
 
 });

@@ -23,6 +23,7 @@ class Skjema extends Component {
                                 onClick();
                                 e.preventDefault();
                                 scrollTo(this.refs.skjema, 300);
+                                this.refs.skjema.focus();
                             }}>Gå til utfylling</button>
                         </p>
                     </div>
@@ -47,7 +48,7 @@ class Skjema extends Component {
             <div className="panel blokk">
                 <DineSykmeldingOpplysninger sykmelding={sykmelding} />
             </div>
-            <div ref="skjema">
+            <div ref="skjema" tabIndex="-1" className="sykmeldingskjemaRef">
                 <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} registrerInnsending={registrerInnsending} />
             </div>
         </div>);

@@ -6,7 +6,7 @@ export function getOppfolgingsdialog(oppfolgingsdialoger, oppfolgingsdialogId) {
 
 export const erOppfolgingsdialogOpprettetMedArbeidsgiver = (oppfolgingsdialoger, virksomhetsnummer) => {
     return oppfolgingsdialoger.filter((dialog) => {
-        return dialog.virksomhetsnummer === virksomhetsnummer;
+        return dialog.virksomhetsnummer === virksomhetsnummer && !dialog.godkjentPlan;
     }).length > 0;
 };
 

@@ -31,7 +31,6 @@ export const OppfolgingsdialogNyDialog = () => {
 };
 
 const tidligereOppfolgingsdialoger = (oppfolgingsdialoger) => {
-    console.log("opp", oppfolgingsdialoger);
     sortEtterEvalueringsDato(oppfolgingsdialoger);
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
         return oppfolgingsdialog.godkjentPlan && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom &&
@@ -42,7 +41,7 @@ const tidligereOppfolgingsdialoger = (oppfolgingsdialoger) => {
 const aktivOppfolgingsdialog = (oppfolgingsdialoger) => {
     sortEtterEvalueringsDato(oppfolgingsdialoger);
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
-        return !oppfolgingsdialog.godkjentPlan || (oppfolgingsdialog.godkjentPlan && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom &&
+        return !oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt || (oppfolgingsdialog.godkjentPlan && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom &&
             !erDatoIFortiden(oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom));
     });
 };
@@ -71,7 +70,7 @@ export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) =
         </div>
         }
 
-        { isEmpty(oppfolgingsdialoger) &&
+        { (isEmpty(oppfolgingsdialoger) || aktivOppfolgingsdialog(oppfolgingsdialoger).length === 0) &&
         <div className="blokk--l">
             <OppfolgingsdialogerIngenplan
                 ledetekster={ledetekster}

@@ -88,12 +88,12 @@ describe("ArbeidsoppgaverContainer", () => {
                 oppfolgingsdialoger={oppfolgingsdialoger}
                 arbeidsgiver={arbeidsgivere[1]}
             />);
-            expect(komponent.find('div.velgArbeidsgiverUndertekst')).to.have.length(1);
+            expect(komponent.find('div.velgArbeidsgiverUndertekst')).to.have.length(0);
             expect(komponent.find('img.velgArbeidsgiverUndertekst__ikon')).to.have.length(0);
-            expect(komponent.find('span.velgArbeidsgiverUndertekst__tekst')).to.have.length(1);
-            expect(komponent.find('div.velgArbeidsgiverUndertekst__lenke')).to.have.length(1);
-            expect(komponent.find(Link)).to.have.length(1);
-            expect(komponent.find(Link).hasClass('lenke')).to.equal(true);
+            expect(komponent.find('span.velgArbeidsgiverUndertekst__tekst')).to.have.length(0);
+            expect(komponent.find('div.velgArbeidsgiverUndertekst__lenke')).to.have.length(0);
+            expect(komponent.find(Link)).to.have.length(0);
+          //  expect(komponent.find(Link).hasClass('lenke')).to.equal(false);
         });
 
         it('Skal vise en feilmelding, om naermeste leder ikke er innmeldt', () => {

@@ -6,7 +6,7 @@ const Landingspanel = ({ className, ikon, ikonAlt, tittel, children }) => {
             <img className="landingspanel__ikon" src={ikon} alt={ikonAlt} />
             <h2 className="landingspanel__tittel">{tittel}</h2>
         </header>
-        <div className="panel">
+        <div className="panel sist">
             {children}
         </div>
     </div>);

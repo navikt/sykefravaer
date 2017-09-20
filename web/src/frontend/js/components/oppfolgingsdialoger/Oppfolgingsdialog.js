@@ -3,13 +3,13 @@ import { getContextRoot } from '../../routers/paths';
 import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
 import ReleasetPlanAT from './releasetplan/ReleasetPlanAT';
 import Tiltak from './utfylling/Tiltak';
-import Godkjenn from './utfylling/Godkjenn';
 
 import {
     NavigasjonsTopp,
     NavigasjonsBunn,
     AvvistPlanKvittering,
     BRUKERTYPE,
+    Godkjenn,
     Godkjenninger,
     Samtykke,
 } from 'oppfolgingsdialog-npm';
@@ -167,7 +167,9 @@ export class Oppfolgingsdialog extends Component {
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
                         settAktivtSteg={settAktivtSteg}
-                        godkjennDialog={godkjennDialog}
+                        godkjennPlan={godkjennDialog}
+                        brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                        rootUrl={`${getContextRoot()}`}
                     />);
                 }
             })();

@@ -8,40 +8,15 @@
 	padding-top: 1.5
 }
 
-.dineOppgaver__illustrasjon,
-.dineOppgaver__tittel {
-	text-align:  center;
-}
-
-.dineOppgaver__illustrasjon img {
-	width: 4em;
-	height: 4em;
-}
-
 .dineOppgaver__tittel {
 	.mixin-typo-systemtittel();
 	margin: 0 0 1em 0;
 	padding-top: .5em;
+	text-align:  center;
 }
 
+
 @media (min-width: @skjermLiten) {
-	.dineOppgaver__container {
-		display: flex;
-	}
-
-	.dineOppgaver__illustrasjon {
-		margin-right: 2em;
-	}
-
-	.dineOppgaver__illustrasjon img {
-		width: 100px;
-		height: 100px;
-	}
-
-	.dineOppgaver__tekst {
-		width: 100%;
-	}
-
 	.dineOppgaver__tittel {
 		width: 100%;
 		text-align: left;

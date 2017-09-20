@@ -10,6 +10,7 @@ import { erMotePassert } from '../utils/moteUtils';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentHendelser } from '../actions/hendelser_actions';
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from './AktivitetskravvarselContainer';
+import IllustrertInnhold from '../components/IllustrertInnhold';
 
 const Li = ({ tekst, url }) => {
     return (<li>
@@ -67,11 +68,8 @@ export class DineOppgaver extends Component {
             return null;
         }
         return (<div className="landingspanel dineOppgaver">
-            <div className="dineOppgaver__container">
-                <div className="dineOppgaver__illustrasjon">
-                    <img src="/sykefravaer/img/svg/landingsside/oppgaver.svg" alt="Oppgaver" />
-                </div>
-                <div className="dineOppgaver__tekst">
+            <IllustrertInnhold ikon="/sykefravaer/img/svg/landingsside/oppgaver.svg" ikonAlt="Oppgaver">
+                <div>
                     <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
                     <ul className="inngangsliste">
                         { sykmeldinger.length > 0 ? <NySykmelding sykmeldinger={sykmeldinger} /> : null }
@@ -80,7 +78,7 @@ export class DineOppgaver extends Component {
                         { visAktivitetskrav && <NyttAktivitetskravvarsel /> }
                     </ul>
                 </div>
-            </div>
+            </IllustrertInnhold>
         </div>);
     }
 }

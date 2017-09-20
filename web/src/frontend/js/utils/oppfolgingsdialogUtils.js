@@ -29,3 +29,7 @@ export const erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver = (oppfolgingsd
 export const isEmpty = (array) => {
     return array.length === 0;
 };
+
+export const erDatoIFortiden = (dato) => {
+    return dato < new Date().toISOString().substring(0, 10);
+};

@@ -2,13 +2,14 @@ import React, { PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import Sidetopp from '../Sidetopp';
-import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
+import { isEmpty, erDatoIFortiden } from '../../utils/oppfolgingsdialogUtils';
 import UnderUtviklingVarsel from './UnderUtviklingVarsel';
 import { getContextRoot } from '../../routers/paths';
 import {
     OppfolgingsdialogTeasere,
     BRUKERTYPE,
     OppfolgingsdialogerIngenplan,
+    sortEtterEvalueringsDato,
 } from 'oppfolgingsdialog-npm';
 
 export const OppfolgingsdialogNyDialog = () => {
@@ -29,6 +30,23 @@ export const OppfolgingsdialogNyDialog = () => {
     );
 };
 
+const tidligereOppfolgingsdialoger = (oppfolgingsdialoger) => {
+    console.log("opp", oppfolgingsdialoger);
+    sortEtterEvalueringsDato(oppfolgingsdialoger);
+    return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
+        return oppfolgingsdialog.godkjentPlan && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom &&
+            erDatoIFortiden(oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom);
+    });
+};
+
+const aktivOppfolgingsdialog = (oppfolgingsdialoger) => {
+    sortEtterEvalueringsDato(oppfolgingsdialoger);
+    return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
+        return !oppfolgingsdialog.godkjentPlan || (oppfolgingsdialog.godkjentPlan && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom &&
+            !erDatoIFortiden(oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom));
+    });
+};
+
 export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
     return (<div>
         <UnderUtviklingVarsel />
@@ -38,28 +56,48 @@ export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) =
             {getLedetekst('oppfolgingsdialog.oppfolgingsdialoger.arbeidstaker.tekst')}
         </p>
 
-        { !isEmpty(oppfolgingsdialoger) &&
+        { !isEmpty(oppfolgingsdialoger) && aktivOppfolgingsdialog(oppfolgingsdialoger).length > 0 &&
         <div>
             <OppfolgingsdialogTeasere
                 ledetekster={ledetekster}
-                oppfolgingsdialoger={oppfolgingsdialoger}
+                oppfolgingsdialoger={aktivOppfolgingsdialog(oppfolgingsdialoger)}
                 tittel={oppfolgingsdialoger.length > 1 ? getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.fler.header.tittel') :
                     getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.header.tittel')}
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrl={getContextRoot()}
                 rootUrlPlaner={getContextRoot()}
             />
-           <OppfolgingsdialogNyDialog ledetekster={ledetekster} />
+            <OppfolgingsdialogNyDialog ledetekster={ledetekster} />
         </div>
         }
 
         { isEmpty(oppfolgingsdialoger) &&
-        <OppfolgingsdialogerIngenplan
-            ledetekster={ledetekster}
-            brukerType={BRUKERTYPE.ARBEIDSTAKER}
-            rootUrl={getContextRoot()}
-        />
+        <div className="blokk--l">
+            <OppfolgingsdialogerIngenplan
+                ledetekster={ledetekster}
+                brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                rootUrl={getContextRoot()}
+            />
+        </div>
         }
+
+        { !isEmpty(Oppfolgingsdialoger) && tidligereOppfolgingsdialoger(oppfolgingsdialoger).length > 0 &&
+        <div>
+            <OppfolgingsdialogTeasere
+                ledetekster={ledetekster}
+                oppfolgingsdialoger={tidligereOppfolgingsdialoger(oppfolgingsdialoger)}
+                harTidligerOppfolgingsdialoger
+                tittel={getLedetekst('oppfolgingsdialoger.tidligereplaner.tittel')}
+                id="OppfolgingsdialogTeasereAT"
+                brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                rootUrl={getContextRoot()}
+                rootUrlPlaner={getContextRoot()}
+                svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/plan-godkjent.svg`}
+                svgAlt="OppfølgingsdialogTidligere"
+            />
+        </div>
+        }
+
     </div>);
 };
 

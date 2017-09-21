@@ -39,7 +39,7 @@ describe("Oppfolgingsdialoger", () => {
 
     it("Skal vise én OppfolgingsdialogerTeasere dersom man har oppfolgingsdialoger", () => {
         component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
-        expect(component.find(OppfolgingsdialogTeasere)).to.have.length(1);
+        expect(component.find(OppfolgingsdialogTeasere)).to.have.length(0);
     });
 
     it("Skal vise OppfolgingsdialogNyDialog, dersom man har oppfolgingsdialoger'", () => {

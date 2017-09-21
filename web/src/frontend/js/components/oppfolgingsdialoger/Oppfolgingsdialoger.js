@@ -32,7 +32,7 @@ export const OppfolgingsdialogNyDialog = () => {
 };
 
 const tidligereOppfolgingsdialoger = (oppfolgingsdialoger) => {
-    if(harGyldighetstidspunktMedFom(oppfolgingsdialoger)) {
+    if (harGyldighetstidspunktMedFom(oppfolgingsdialoger)) {
         sortEtterEvalueringsDato(oppfolgingsdialoger);
     }
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
@@ -41,7 +41,7 @@ const tidligereOppfolgingsdialoger = (oppfolgingsdialoger) => {
 };
 
 const aktivOppfolgingsdialog = (oppfolgingsdialoger) => {
-    if(harGyldighetstidspunktMedFom(oppfolgingsdialoger)) {
+    if (harGyldighetstidspunktMedFom(oppfolgingsdialoger)) {
         sortEtterEvalueringsDato(oppfolgingsdialoger);
     }
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
@@ -51,6 +51,7 @@ const aktivOppfolgingsdialog = (oppfolgingsdialoger) => {
 };
 
 export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
+    console.log("oppfolgingsdialoger", oppfolgingsdialoger);
     return (<div>
         <UnderUtviklingVarsel />
         <Sidetopp

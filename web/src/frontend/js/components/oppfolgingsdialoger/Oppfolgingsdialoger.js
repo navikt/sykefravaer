@@ -10,6 +10,7 @@ import {
     BRUKERTYPE,
     OppfolgingsdialogerIngenplan,
     sortEtterEvalueringsDato,
+    harGyldighetstidspunktMedFom,
 } from 'oppfolgingsdialog-npm';
 
 export const OppfolgingsdialogNyDialog = () => {
@@ -31,17 +32,20 @@ export const OppfolgingsdialogNyDialog = () => {
 };
 
 const tidligereOppfolgingsdialoger = (oppfolgingsdialoger) => {
-    sortEtterEvalueringsDato(oppfolgingsdialoger);
+    if(harGyldighetstidspunktMedFom(oppfolgingsdialoger)) {
+        sortEtterEvalueringsDato(oppfolgingsdialoger);
+    }
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
-        return oppfolgingsdialog.godkjentPlan && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom &&
-            erDatoIFortiden(oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom);
+        return harGyldighetstidspunktMedFom(oppfolgingsdialoger) && erDatoIFortiden(oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom);
     });
 };
 
 const aktivOppfolgingsdialog = (oppfolgingsdialoger) => {
-    sortEtterEvalueringsDato(oppfolgingsdialoger);
+    if(harGyldighetstidspunktMedFom(oppfolgingsdialoger)) {
+        sortEtterEvalueringsDato(oppfolgingsdialoger);
+    }
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
-        return !oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt || (oppfolgingsdialog.godkjentPlan && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt && oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom &&
+        return !oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt || (harGyldighetstidspunktMedFom(oppfolgingsdialoger) &&
             !erDatoIFortiden(oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom));
     });
 };

@@ -59,15 +59,17 @@ export class OppfolgingsdialogSide extends Component {
             brodsmuler,
             henter,
             hentingFeilet,
+            avviser,
+            avvisFeilet,
             tilgang,
             navigasjontoggles,
         } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
-                if (henter) {
+                if (henter || avviser) {
                     return <AppSpinner />;
-                } else if (hentingFeilet) {
+                } else if (hentingFeilet || avvisFeilet) {
                     return (<Feilmelding />);
                 } else if (!tilgang.harTilgang) {
                     return (<OppfolgingsdialogInfoboks
@@ -94,6 +96,8 @@ OppfolgingsdialogSide.propTypes = {
     oppfolgingsdialogId: PropTypes.string,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
+    avviser: PropTypes.bool,
+    avvisFeilet: PropTypes.bool,
     godkjenner: PropTypes.bool,
     godkjent: PropTypes.bool,
     godkjenningFeilet: PropTypes.bool,
@@ -147,6 +151,8 @@ export function mapStateToProps(state, ownProps) {
         sjekkTilgangHenter: state.tilgang.henter,
         henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter,
         hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet,
+        avviser: state.oppfolgingsdialoger.avviser,
+        avvisFeilet: state.oppfolgingsdialoger.avvisFeilet,
         godkjenner: state.oppfolgingsdialoger.godkjenner,
         godkjent: state.oppfolgingsdialoger.godkjent,
         godkjenningFeilet: state.oppfolgingsdialoger.godkjenningFeilet,

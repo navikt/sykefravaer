@@ -19,7 +19,7 @@ const inneholderGodkjenninger = (oppfolgingsdialog) => {
 };
 
 const inneholderGodkjentPlan = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.godkjentPlan;
+    return oppfolgingsdialog.godkjentPlan.opprettetTidspunkt;
 };
 
 const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {

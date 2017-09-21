@@ -2,15 +2,17 @@ import React, { PropTypes } from 'react';
 import { getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import Sidetopp from '../Sidetopp';
-import { isEmpty, erDatoIFortiden } from '../../utils/oppfolgingsdialogUtils';
+import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
 import UnderUtviklingVarsel from './UnderUtviklingVarsel';
 import { getContextRoot } from '../../routers/paths';
 import {
     OppfolgingsdialogTeasere,
     BRUKERTYPE,
     OppfolgingsdialogerIngenplan,
-    sortEtterEvalueringsDato,
-    harGyldighetstidspunktMedFom,
+    finnTidligereOppfolgingsdialoger,
+    harTidligereOppfolgingsdialoger,
+    finnAktiveOppfolgingsdialoger,
+    harAktivOppfolgingsdialog,
 } from 'oppfolgingsdialog-npm';
 
 export const OppfolgingsdialogNyDialog = () => {
@@ -31,27 +33,7 @@ export const OppfolgingsdialogNyDialog = () => {
     );
 };
 
-const tidligereOppfolgingsdialoger = (oppfolgingsdialoger) => {
-    if (harGyldighetstidspunktMedFom(oppfolgingsdialoger)) {
-        sortEtterEvalueringsDato(oppfolgingsdialoger);
-    }
-    return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
-        return harGyldighetstidspunktMedFom(oppfolgingsdialoger) && erDatoIFortiden(oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom);
-    });
-};
-
-const aktivOppfolgingsdialog = (oppfolgingsdialoger) => {
-    if (harGyldighetstidspunktMedFom(oppfolgingsdialoger)) {
-        sortEtterEvalueringsDato(oppfolgingsdialoger);
-    }
-    return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
-        return !oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt || (harGyldighetstidspunktMedFom(oppfolgingsdialoger) &&
-            !erDatoIFortiden(oppfolgingsdialog.godkjentPlan.gyldighetstidspunkt.tom));
-    });
-};
-
 export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
-    console.log("oppfolgingsdialoger", oppfolgingsdialoger);
     return (<div>
         <UnderUtviklingVarsel />
         <Sidetopp
@@ -60,11 +42,11 @@ export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) =
             {getLedetekst('oppfolgingsdialog.oppfolgingsdialoger.arbeidstaker.tekst')}
         </p>
 
-        { !isEmpty(oppfolgingsdialoger) && aktivOppfolgingsdialog(oppfolgingsdialoger).length > 0 &&
+        { !isEmpty(oppfolgingsdialoger) && harAktivOppfolgingsdialog(oppfolgingsdialoger) &&
         <div>
             <OppfolgingsdialogTeasere
                 ledetekster={ledetekster}
-                oppfolgingsdialoger={aktivOppfolgingsdialog(oppfolgingsdialoger)}
+                oppfolgingsdialoger={finnAktiveOppfolgingsdialoger(oppfolgingsdialoger)}
                 tittel={oppfolgingsdialoger.length > 1 ? getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.fler.header.tittel') :
                     getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.header.tittel')}
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
@@ -75,7 +57,7 @@ export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) =
         </div>
         }
 
-        { (isEmpty(oppfolgingsdialoger) || aktivOppfolgingsdialog(oppfolgingsdialoger).length === 0) &&
+        { (isEmpty(oppfolgingsdialoger) || !harAktivOppfolgingsdialog(oppfolgingsdialoger)) &&
         <div className="blokk--l">
             <OppfolgingsdialogerIngenplan
                 ledetekster={ledetekster}
@@ -85,11 +67,11 @@ export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) =
         </div>
         }
 
-        { !isEmpty(Oppfolgingsdialoger) && tidligereOppfolgingsdialoger(oppfolgingsdialoger).length > 0 &&
+        { !isEmpty(Oppfolgingsdialoger) && harTidligereOppfolgingsdialoger(oppfolgingsdialoger) &&
         <div>
             <OppfolgingsdialogTeasere
                 ledetekster={ledetekster}
-                oppfolgingsdialoger={tidligereOppfolgingsdialoger(oppfolgingsdialoger)}
+                oppfolgingsdialoger={finnTidligereOppfolgingsdialoger(oppfolgingsdialoger)}
                 harTidligerOppfolgingsdialoger
                 tittel={getLedetekst('oppfolgingsdialoger.tidligereplaner.tittel')}
                 id="OppfolgingsdialogTeasereAT"

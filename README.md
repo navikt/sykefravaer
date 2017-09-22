@@ -16,10 +16,6 @@ Du må ha Node installert.
 * Kjør tester med `npm test` 
 * Lint JS-kode med `npm run lint`
 
-For å skru på pre-commit-hook og dermed kjøre tester før commit, kjør følgende fra ROOT: 
-
-`sh git-hooks-symlink.sh`
-
 ### Logge på i T-miljø
 
 Se denne siden for [testdata](http://confluence.adeo.no/display/Digisyfo/Testdata+Barken).

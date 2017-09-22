@@ -10,4 +10,4 @@ node {
     def pipeline = load 'pipeline.groovy'
     pipeline.setup(application, common)
     pipeline()
-}()
+}

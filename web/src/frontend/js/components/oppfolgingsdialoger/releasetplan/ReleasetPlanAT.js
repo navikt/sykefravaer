@@ -11,7 +11,7 @@ const foersteInnloggingSidenGodkjenning = (oppfolgingsdialog) => {
 };
 
 const planBleTvangsgodkjent = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.godkjentPlan.tvungenGodkjenning;
+    return oppfolgingsdialog.godkjentPlan && oppfolgingsdialog.godkjentPlan.tvungenGodkjenning;
 };
 
 export class ReleasetPlanAT extends Component {

@@ -19,7 +19,7 @@ const inneholderGodkjenninger = (oppfolgingsdialog) => {
 };
 
 const inneholderGodkjentPlan = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.godkjentPlan;
+    return oppfolgingsdialog.godkjentPlan && oppfolgingsdialog.godkjentPlan.opprettetTidspunkt;
 };
 
 const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
@@ -92,6 +92,8 @@ export class Oppfolgingsdialog extends Component {
         } = this.props;
         let panel;
         let disableNavigation = false;
+        console.log('opp-1 ', oppfolgingsdialog);
+
         if (this.state.visAvvisPlanKvittering) {
             disableNavigation = true;
             panel = (<AvvistPlanKvittering

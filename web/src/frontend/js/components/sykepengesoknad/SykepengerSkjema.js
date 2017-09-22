@@ -7,7 +7,7 @@ import SykepengesoknadHeader from './SykepengesoknadHeader';
 const SykepengerSkjema = ({ children, aktivtSteg, tittel, sykepengesoknad }) => {
     return (<div>
         <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
-        <Stegindikator aktivtSteg={aktivtSteg} />
+        <Stegindikator aktivtSteg={aktivtSteg} sykepengesoknad={sykepengesoknad} />
         <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />
         <h2 className="sykepenger__stegtittel">{tittel}</h2>
         {children}

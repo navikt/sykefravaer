@@ -39,7 +39,7 @@ export const Standardkvittering = (props) => {
     const { tittel, brodtekst, status } = props;
     const ikon = status === AVBRUTT ? 'avbryt-sykmelding.svg' : 'digital-til-papir.svg';
     const ikonKlasse = status === AVBRUTT ? 'illustrertTittel__img--mikro' : '';
-    return (<div className="panel blokk">
+    return (<div className="panel blokk js-kvittering--standard">
         <div className="illustrertTittel">
             <img className={`illustrertTittel__img ${ikonKlasse}`} src={`/sykefravaer/img/svg/${ikon}`} alt="" />
             <h2 className="illustrertTittel__tittel">
@@ -67,7 +67,7 @@ HtmlAvsnitt.propTypes = {
 
 export const KvitteringSokNa = ({ hentSykepengesoknader }) => {
     const sokUrl = `${window.APP_SETTINGS.APP_ROOT}/soknader`;
-    return (<div className="panel blokk">
+    return (<div className="panel blokk js-kvittering--sok-naa">
         <div className="stegvisKvittering">
             <Kvitteringsteg ikon="kvitteringhake.svg" alt="Grønn hake" tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-1.tittel')} />
             <Kvitteringsteg ikon="kvitteringSokSykepenger.svg" alt="Søk om sykepenger" tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-2.tittel')}>
@@ -110,7 +110,7 @@ Soknadsdatoliste.propTypes = {
 };
 
 export const KvitteringSokSenere = ({ sykepengesoknader }) => {
-    return (<div>
+    return (<div className="js-kvittering--sok-senere">
         <div className="panel blokk">
             <div className="stegvisKvittering">
                 <Kvitteringsteg ikon="kvitteringhake.svg" alt="Grønn hake" tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-1.tittel')} />

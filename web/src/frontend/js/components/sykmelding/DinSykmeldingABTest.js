@@ -8,32 +8,18 @@ import { Experiment, Variant } from 'react-ab';
 import { connect } from 'react-redux';
 import { SENDT, BEKREFTET, TIL_SENDING, AVBRUTT } from '../../enums/sykmeldingstatuser';
 import IllustrertInnhold from '../IllustrertInnhold';
-import AppSpinner from '../AppSpinner';
 
 class Skjema extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            visSkjema: false,
-        };
-        const that = this;
-        const treghet = this.props.treghet * 1000;
-        window.setTimeout(() => {
-            that.setState({
-                visSkjema: true,
-            });
-        }, treghet);
-    }
-
     render() {
-        const { sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending, onClick } = this.props;
+        const { sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId, registrerInnsending, onClick, blaKnapp } = this.props;
+        const cn = blaKnapp ? 'knapp knapp--mini' : 'rammeknapp rammeknapp--mini';
         return (<div>
             <div className="panel blokk--s">
                 <IllustrertInnhold ikon="/sykefravaer/img/svg/din-sykmelding-veileder.svg" ikonAlt="NAV-veileder">
                     <div>
                         <p>{getLedetekst('din-sykmelding.introtekst.abtest')}</p>
                         <p className="sist introtekst__knapperad">
-                            <button className="rammeknapp rammeknapp--mini" type="button" onClick={(e) => {
+                            <button className={cn} type="button" onClick={(e) => {
                                 onClick();
                                 e.preventDefault();
                                 scrollTo(this.refs.skjema, 300);
@@ -61,8 +47,7 @@ class Skjema extends Component {
                 <DineSykmeldingOpplysninger sykmelding={sykmelding} />
             </div>
             <div ref="skjema" tabIndex="-1" className="sykmeldingskjemaRef">
-                { this.state.visSkjema && <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} registrerInnsending={registrerInnsending} /> }
-                { !this.state.visSkjema && <AppSpinner /> }
+                <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} registrerInnsending={registrerInnsending} />
             </div>
         </div>);
     }
@@ -77,8 +62,8 @@ Skjema.propTypes = {
     onClick: PropTypes.func,
 };
 
-const EKSPERIMENTNAVN = 'RESPONSTID_I_SYKMELDINGSKJEMA';
-const VARIANTER = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4];
+const EKSPERIMENTNAVN = 'SYKMELDINGSKJEMA_KNAPP_FARGE_2';
+const VARIANTER = ['BLÅ', 'GHOST'];
 
 const getDatalayerData = (variant, harSendtSykmeldingerFoer, resultat) => {
     return {
@@ -118,7 +103,7 @@ class DinSykmelding extends Component {
 
     registrerKlikk() {
         const { variant } = this.state;
-        const datalayerData = getDatalayerData(variant, this.props.harSendtSykmeldingerFoer, 'SYKMELDING_KLIKK_HVIT_KNAPP');
+        const datalayerData = getDatalayerData(variant, this.props.harSendtSykmeldingerFoer, 'SYKMELDING_KLIKK_KNAPP');
         pushDatalayerData(datalayerData);
     }
 
@@ -129,8 +114,8 @@ class DinSykmelding extends Component {
                 this.registrerVisning(experiment, variant);
             }} name={EKSPERIMENTNAVN}>
                 {VARIANTER.map((variant, index) => {
-                    return (<Variant key={index} name={`${variant}_SEKUNDER`}>
-                        <Skjema treghet={variant} {...this.props} onClick={() => {
+                    return (<Variant key={index} name={variant}>
+                        <Skjema blaKnapp={variant === 'BLÅ'} {...this.props} onClick={() => {
                             this.registrerKlikk();
                         }} registrerInnsending={() => {
                             this.registrerInnsending();

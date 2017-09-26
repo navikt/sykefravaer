@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { getLedetekst } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
 import ReleasetPlanAT from './releasetplan/ReleasetPlanAT';
@@ -12,6 +13,7 @@ import {
     Godkjenn,
     Godkjenninger,
     Samtykke,
+    AvbruttGodkjentPlanVarsel,
 } from 'oppfolgingsdialog-npm';
 
 const inneholderGodkjenninger = (oppfolgingsdialog) => {
@@ -89,10 +91,12 @@ export class Oppfolgingsdialog extends Component {
             navigasjontoggles,
             toggleAvvisPlan,
             nullstillGodkjenning,
+            avbrytDialog,
             lagreTiltak,
             slettTiltak,
             lagreArbeidsoppgave,
             slettArbeidsoppgave,
+            oppfolgingsdialogAvbrutt,
         } = this.props;
 
         let panel;
@@ -134,6 +138,7 @@ export class Oppfolgingsdialog extends Component {
                 hentPdfurler={hentPdfurler}
                 dokument={dokument}
                 giSamtykke={giSamtykke}
+                avbrytDialog={avbrytDialog}
             />);
         } else {
             (() => {
@@ -182,6 +187,12 @@ export class Oppfolgingsdialog extends Component {
 
         return (
             <div>
+                { oppfolgingsdialogAvbrutt &&
+                    <AvbruttGodkjentPlanVarsel
+                        tekst={getLedetekst('oppfolgingdialog.avbruttGodkjentPlanVarsel.opprettet-plan')}
+                        rootUrl={`${getContextRoot()}`}
+                    />
+                }
                 <NavigasjonsTopp
                     ledetekster={ledetekster}
                     disabled={disableNavigation}
@@ -233,8 +244,10 @@ Oppfolgingsdialog.propTypes = {
     slettTiltak: PropTypes.func,
     settAktivtSteg: PropTypes.func,
     avvisDialog: PropTypes.func,
+    avbrytDialog: PropTypes.func,
     navigasjontoggles: PropTypes.object,
     dokument: PropTypes.object,
+    oppfolgingsdialogAvbrutt: PropTypes.bool,
 };
 
 export default Oppfolgingsdialog;

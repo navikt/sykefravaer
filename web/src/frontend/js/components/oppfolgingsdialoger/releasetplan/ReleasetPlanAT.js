@@ -28,7 +28,7 @@ export class ReleasetPlanAT extends Component {
     }
 
     render() {
-        const { ledetekster, oppfolgingsdialog, hentPdfurler, dokument, giSamtykke } = this.props;
+        const { ledetekster, oppfolgingsdialog, hentPdfurler, dokument, giSamtykke, avbrytDialog } = this.props;
         if (!this.state.settTvungenGodkjenning && foersteInnloggingSidenGodkjenning(oppfolgingsdialog) && planBleTvangsgodkjent(oppfolgingsdialog)) {
             return (<ArbeidsgiverHarTvangsgodkjent
                 ledetekster={ledetekster}
@@ -44,6 +44,7 @@ export class ReleasetPlanAT extends Component {
             hentPdfurler={hentPdfurler}
             dokument={dokument}
             giSamtykke={giSamtykke}
+            avbrytDialog={avbrytDialog}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
             rootUrl={`${getContextRoot()}`}
         />);
@@ -54,6 +55,7 @@ ReleasetPlanAT.propTypes = {
     manglerSamtykke: PropTypes.func,
     hentPdfurler: PropTypes.func,
     giSamtykke: PropTypes.func,
+    avbrytDialog: PropTypes.func,
     markerMottattTvungenGodkjenning: PropTypes.func,
     dokument: PropTypes.object,
     oppfolgingsdialog: PropTypes.object,

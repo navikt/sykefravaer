@@ -13,6 +13,8 @@ import {
     harTidligereOppfolgingsdialoger,
     finnAktiveOppfolgingsdialoger,
     harAktivOppfolgingsdialog,
+    AvbruttPlanNotifikasjonBoksAdvarsel,
+    finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging,
 } from 'oppfolgingsdialog-npm';
 
 export const OppfolgingsdialogNyDialog = () => {
@@ -34,6 +36,7 @@ export const OppfolgingsdialogNyDialog = () => {
 };
 
 export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
+    const dialogerAvbruttAvMotpartSidenSistInnlogging = finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
     return (<div>
         <UnderUtviklingVarsel />
         <Sidetopp
@@ -41,6 +44,14 @@ export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) =
         <p className="oppfolgingsdialoger__tekst">
             {getLedetekst('oppfolgingsdialog.oppfolgingsdialoger.arbeidstaker.tekst')}
         </p>
+
+        {
+            dialogerAvbruttAvMotpartSidenSistInnlogging.length > 0 && <AvbruttPlanNotifikasjonBoksAdvarsel
+                ledetekster={ledetekster}
+                motpartnavn={dialogerAvbruttAvMotpartSidenSistInnlogging[0].arbeidsgiver.navn}
+                rootUrl={getContextRoot()}
+            />
+        }
 
         { !isEmpty(oppfolgingsdialoger) && harAktivOppfolgingsdialog(oppfolgingsdialoger) &&
         <div>

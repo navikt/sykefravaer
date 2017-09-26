@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>pencil 2_hover</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Lag-en-ny-plan-i-planperioden" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="AG_Avbryt-godkjent-før-Copy-7" transform="translate(-207.000000, -870.000000)" fill-rule="nonzero" fill="#0067C5">
+            <g id="pencil-2_hover" transform="translate(207.000000, 870.000000)">
+                <path d="M0.188,23.212 C0.148,23.38 0.199,23.557 0.321,23.68 C0.44,23.799 0.613,23.854 0.789,23.813 L7.256,22.297 C7.299,22.287 7.339,22.27 7.378,22.25 L1.753,16.624 C1.732,16.663 1.716,16.704 1.706,16.747 L0.188,23.212 Z" id="Shape"></path>
+                <rect id="Rectangle-path" transform="translate(18.850460, 5.149383) rotate(135.020256) translate(-18.850460, -5.149383) " x="18.3504291" y="1.14913837" width="1.00006118" height="8.00048947"></rect>
+                <rect id="Rectangle-path" transform="translate(11.531346, 12.469480) rotate(135.000000) translate(-11.531346, -12.469480) " x="2.67793136" y="8.46951791" width="17.7068302" height="7.99992328"></rect>
+                <path d="M22.741,6.916 L23.095,6.562 C24.07,5.588 24.07,4.002 23.095,3.027 L20.974,0.907 C20.502,0.433 19.874,0.174 19.206,0.174 C18.538,0.174 17.91,0.434 17.438,0.907 L17.084,1.26 L22.741,6.916 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

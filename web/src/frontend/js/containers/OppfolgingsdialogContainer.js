@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getContextRoot } from '../routers/paths';
+import history from '../history';
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
@@ -21,6 +22,8 @@ import {
     giSamtykke,
     OppfolgingsdialogInfoboks,
     settDialog,
+    avbrytDialog,
+    finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
@@ -37,6 +40,18 @@ export class OppfolgingsdialogSide extends Component {
         }
         if (!this.props.sjekkTilgangHentet && !this.props.sjekkTilgangHenter) {
             this.props.sjekkTilgang();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!this.props.oppfolgingsdialogAvbrutt && nextProps.oppfolgingsdialogAvbrutt) {
+            this.props.hentOppfolgingsdialoger();
+        }
+        if (this.props.oppfolgingsdialogAvbrutt && !this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet) {
+            const nyOpprettetDialog = finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt(nextProps.oppfolgingsdialoger, nextProps.oppfolgingsdialog.virksomhetsnummer);
+            if (nyOpprettetDialog) {
+                history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.oppfoelgingsdialogId}/`);
+            }
         }
     }
 
@@ -93,6 +108,7 @@ OppfolgingsdialogSide.propTypes = {
     dispatch: PropTypes.func,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     ledetekster: PropTypes.object,
+    oppfolgingsdialoger: PropTypes.array,
     oppfolgingsdialog: PropTypes.object,
     oppfolgingsdialogId: PropTypes.string,
     henter: PropTypes.bool,
@@ -122,6 +138,7 @@ OppfolgingsdialogSide.propTypes = {
     slettTiltak: PropTypes.func,
     hentOppfolgingsdialoger: PropTypes.func,
     oppfolgingsdialogerHentet: PropTypes.bool,
+    oppfolgingsdialogAvbrutt: PropTypes.bool,
     sjekkTilgangHentet: PropTypes.bool,
     tilgang: PropTypes.object,
     tilgangSjekket: PropTypes.bool,
@@ -134,6 +151,7 @@ OppfolgingsdialogSide.propTypes = {
     settAktivtSteg: PropTypes.func,
     oppfolgingsdialogerHenter: PropTypes.bool,
     settDialog: PropTypes.func,
+    avbrytDialog: PropTypes.func,
     dokument: PropTypes.object,
     navigasjontoggles: PropTypes.object,
     location: PropTypes.object,
@@ -147,8 +165,10 @@ export function mapStateToProps(state, ownProps) {
 
     return {
         ledetekster: state.ledetekster.data,
+        oppfolgingsdialoger: state.oppfolgingsdialoger.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
         oppfolgingsdialogerHenter: state.oppfolgingsdialoger.henter,
+        oppfolgingsdialogAvbrutt: state.avbrytdialogReducer.sendt,
         sjekkTilgangHentet: state.tilgang.hentet,
         sjekkTilgangHenter: state.tilgang.henter,
         henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter,
@@ -207,6 +227,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     hentPdfurler,
     giSamtykke,
     settDialog,
+    avbrytDialog,
 })(OppfolgingsdialogSide);
 
 export default OppfolgingsdialogContainer;

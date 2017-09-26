@@ -9,6 +9,10 @@ import {
     OppfolgingsdialogTeasere,
     BRUKERTYPE,
     OppfolgingsdialogerIngenplan,
+    finnTidligereOppfolgingsdialoger,
+    harTidligereOppfolgingsdialoger,
+    finnAktiveOppfolgingsdialoger,
+    harAktivOppfolgingsdialog,
 } from 'oppfolgingsdialog-npm';
 
 export const OppfolgingsdialogNyDialog = () => {
@@ -38,28 +42,48 @@ export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) =
             {getLedetekst('oppfolgingsdialog.oppfolgingsdialoger.arbeidstaker.tekst')}
         </p>
 
-        { !isEmpty(oppfolgingsdialoger) &&
+        { !isEmpty(oppfolgingsdialoger) && harAktivOppfolgingsdialog(oppfolgingsdialoger) &&
         <div>
             <OppfolgingsdialogTeasere
                 ledetekster={ledetekster}
-                oppfolgingsdialoger={oppfolgingsdialoger}
+                oppfolgingsdialoger={finnAktiveOppfolgingsdialoger(oppfolgingsdialoger)}
                 tittel={oppfolgingsdialoger.length > 1 ? getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.fler.header.tittel') :
                     getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.header.tittel')}
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrl={getContextRoot()}
                 rootUrlPlaner={getContextRoot()}
             />
-           <OppfolgingsdialogNyDialog ledetekster={ledetekster} />
+            <OppfolgingsdialogNyDialog ledetekster={ledetekster} />
         </div>
         }
 
-        { isEmpty(oppfolgingsdialoger) &&
-        <OppfolgingsdialogerIngenplan
-            ledetekster={ledetekster}
-            brukerType={BRUKERTYPE.ARBEIDSTAKER}
-            rootUrl={getContextRoot()}
-        />
+        { (isEmpty(oppfolgingsdialoger) || !harAktivOppfolgingsdialog(oppfolgingsdialoger)) &&
+        <div className="blokk--l">
+            <OppfolgingsdialogerIngenplan
+                ledetekster={ledetekster}
+                brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                rootUrl={getContextRoot()}
+            />
+        </div>
         }
+
+        { !isEmpty(Oppfolgingsdialoger) && harTidligereOppfolgingsdialoger(oppfolgingsdialoger) &&
+        <div>
+            <OppfolgingsdialogTeasere
+                ledetekster={ledetekster}
+                oppfolgingsdialoger={finnTidligereOppfolgingsdialoger(oppfolgingsdialoger)}
+                harTidligerOppfolgingsdialoger
+                tittel={getLedetekst('oppfolgingsdialoger.tidligereplaner.tittel')}
+                id="OppfolgingsdialogTeasereAT"
+                brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                rootUrl={getContextRoot()}
+                rootUrlPlaner={getContextRoot()}
+                svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/plan-godkjent.svg`}
+                svgAlt="OppfølgingsdialogTidligere"
+            />
+        </div>
+        }
+
     </div>);
 };
 

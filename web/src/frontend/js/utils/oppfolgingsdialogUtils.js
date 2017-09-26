@@ -6,7 +6,7 @@ export function getOppfolgingsdialog(oppfolgingsdialoger, oppfolgingsdialogId) {
 
 export const erOppfolgingsdialogOpprettetMedArbeidsgiver = (oppfolgingsdialoger, virksomhetsnummer) => {
     return oppfolgingsdialoger.filter((dialog) => {
-        return dialog.virksomhetsnummer === virksomhetsnummer;
+        return dialog.virksomhetsnummer === virksomhetsnummer && !dialog.godkjentPlan;
     }).length > 0;
 };
 
@@ -28,4 +28,8 @@ export const erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver = (oppfolgingsd
 
 export const isEmpty = (array) => {
     return array.length === 0;
+};
+
+export const erDatoIFortiden = (dato) => {
+    return dato < new Date().toISOString().substring(0, 10);
 };

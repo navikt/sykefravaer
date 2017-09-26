@@ -7,11 +7,11 @@ import { getContextRoot } from '../../../routers/paths';
 import ArbeidsgiverHarTvangsgodkjent from './ArbeidsgiverHarTvangsgodkjent';
 
 const foersteInnloggingSidenGodkjenning = (oppfolgingsdialog) => {
-    return new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget) < new Date(oppfolgingsdialog.versjoner[0].opprettetTidspunkt);
+    return new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget) < new Date(oppfolgingsdialog.godkjentPlan.opprettetTidspunkt);
 };
 
 const planBleTvangsgodkjent = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.versjoner[0].tvungenGodkjenning;
+    return oppfolgingsdialog.godkjentPlan.tvungenGodkjenning;
 };
 
 export class ReleasetPlanAT extends Component {

@@ -18,8 +18,8 @@ const inneholderGodkjenninger = (oppfolgingsdialog) => {
     return oppfolgingsdialog.godkjenninger.length > 0;
 };
 
-const inneholderReleasetVersjon = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.versjoner.length > 0;
+const inneholderGodkjentPlan = (oppfolgingsdialog) => {
+    return oppfolgingsdialog.godkjentPlan;
 };
 
 const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
@@ -121,7 +121,7 @@ export class Oppfolgingsdialog extends Component {
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrl={`${getContextRoot()}`}
             />);
-        } else if (inneholderReleasetVersjon(oppfolgingsdialog)) {
+        } else if (inneholderGodkjentPlan(oppfolgingsdialog)) {
             disableNavigation = true;
             panel = (<ReleasetPlanAT
                 ledetekster={ledetekster}

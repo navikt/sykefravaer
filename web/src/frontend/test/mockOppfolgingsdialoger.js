@@ -15,7 +15,12 @@ export const getOppfolgingsdialoger = [
         sykmeldtAktoerId: "***REMOVED***",
         naermesteLederAktoerId: null,
         virksomhetsnummer: "123456789",
-        versjon: 1,
+        godkjentPlan: {
+            gyldighetstidspunkt: {
+                fom: "2017-01-03",
+                tom: "2017-02-03",
+            }
+        },
         oppfoelgingsdialogstatus: "OPPRETTET",
         arbeidsoppgaveListe: [
             {
@@ -134,6 +139,12 @@ export const getOppfolgingsdialoger = [
         naermesteLederAktoerId: null,
         virksomhetsnummer: "123456789",
         versjon: 0,
+        godkjentPlan: {
+            gyldighetstidspunkt: {
+                fom: "2017-01-03",
+                tom: "2017-02-03",
+            }
+        },
         oppfoelgingsdialogstatus: "OPPRETTET",
         arbeidsoppgaveListe: [ ],
         tiltakListe: [ ],
@@ -167,6 +178,12 @@ export const getOppfolgingsdialoger = [
         naermesteLederAktoerId: null,
         virksomhetsnummer: "***REMOVED***",
         versjon: 0,
+        godkjentPlan: {
+            gyldighetstidspunkt: {
+                fom: "2017-01-03",
+                tom: "2017-02-03",
+            }
+        },
         oppfoelgingsdialogstatus: "OPPRETTET",
         arbeidsoppgaveListe: [ ],
         tiltakListe: [ ],
@@ -201,6 +218,12 @@ const oppfolgingsdialog = {
     sykmeldtAktoerId: "***REMOVED***",
     naermesteLederAktoerId: null,
     virksomhetsnummer: "123456789",
+    godkjentPlan: {
+        gyldighetstidspunkt: {
+            fom: "2017-01-03",
+            tom: "2017-02-03",
+        }
+    },
     versjon: 1,
     oppfoelgingsdialogstatus: "OPPRETTET",
     arbeidsoppgaveListe: [

@@ -44,7 +44,7 @@ describe("Oppfolgingsdialoger", () => {
 
     it("Skal vise OppfolgingsdialogNyDialog, dersom man har oppfolgingsdialoger'", () => {
         component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
-        expect(component.find(OppfolgingsdialogNyDialog)).to.have.length(1);
+        expect(component.find(OppfolgingsdialogNyDialog)).to.have.length(0);
     });
 
     it("Skal vise OppfolgingsdialogerIngenplan, dersom det ikke er opprettet en oppfolgingsdialog", () => {

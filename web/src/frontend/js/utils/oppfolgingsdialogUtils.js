@@ -1,23 +1,25 @@
+import { finnAktiveOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
+
 export function getOppfolgingsdialog(oppfolgingsdialoger, oppfolgingsdialogId) {
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
         return oppfolgingsdialog.oppfoelgingsdialogId.toString() === oppfolgingsdialogId.toString();
     })[0];
 }
 
-export const erOppfolgingsdialogOpprettetMedArbeidsgiver = (oppfolgingsdialoger, virksomhetsnummer) => {
-    return oppfolgingsdialoger.filter((dialog) => {
-        return dialog.virksomhetsnummer === virksomhetsnummer && !dialog.godkjentPlan;
+export const erAktivOppfolgingsdialogOpprettetMedArbeidsgiver = (oppfolgingsdialoger, virksomhetsnummer) => {
+    return finnAktiveOppfolgingsdialoger(oppfolgingsdialoger).filter((dialog) => {
+        return dialog.virksomhetsnummer === virksomhetsnummer;
     }).length > 0;
 };
 
-export const hentOppfolgingsdialogOpprettetMedArbeidsgiver = (oppfolgingsdialoger, virksomhetsnummer) => {
-    return oppfolgingsdialoger.filter((dialog) => {
+export const hentAktivOppfolgingsdialogOpprettetMedArbeidsgiver = (oppfolgingsdialoger, virksomhetsnummer) => {
+    return finnAktiveOppfolgingsdialoger(oppfolgingsdialoger).filter((dialog) => {
         return dialog.virksomhetsnummer === virksomhetsnummer;
     })[0];
 };
 
 export const erOppfolgingsdialogOpprettbarMedArbeidsgiver = (oppfolgingsdialoger, arbeidsgiver) => {
-    return arbeidsgiver.harNaermesteLeder && !erOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer);
+    return arbeidsgiver.harNaermesteLeder && !erAktivOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer);
 };
 
 export const erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver = (oppfolgingsdialoger, arbeidsgivere) => {

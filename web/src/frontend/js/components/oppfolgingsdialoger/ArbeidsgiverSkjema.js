@@ -4,18 +4,18 @@ import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { getContextRoot } from '../../routers/paths';
 import {
-    erOppfolgingsdialogOpprettetMedArbeidsgiver,
+    erAktivOppfolgingsdialogOpprettetMedArbeidsgiver,
     erOppfolgingsdialogOpprettbarMedArbeidsgiver,
     erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver,
-    hentOppfolgingsdialogOpprettetMedArbeidsgiver,
+    hentAktivOppfolgingsdialogOpprettetMedArbeidsgiver,
 } from '../../utils/oppfolgingsdialogUtils';
 import Radioknapper from '../skjema/Radioknapper';
 
 const OPPFOLGINGSKJEMANAVN = 'OPPRETT_DIALOG';
 
 export const VelgArbeidsgiverUndertekst = ({ oppfolgingsdialoger, arbeidsgiver }) => {
-    if (erOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer)) {
-        const oppfolgingsdialog = hentOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer);
+    if (erAktivOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer)) {
+        const oppfolgingsdialog = hentAktivOppfolgingsdialogOpprettetMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver.virksomhetsnummer);
         return (<div className="velgArbeidsgiverUndertekst">
             <span className="velgArbeidsgiverUndertekst__tekst">
                 {getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.allerede-oppretettet.tekst')}

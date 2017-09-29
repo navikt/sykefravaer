@@ -35,7 +35,7 @@ export const FoerDuBegynnerSkjema = (props) => {
         </div>
         <div className="knapperad">
             <p className="blokk--s">
-                <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre')}</button>
+                <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
             </p>
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </div>

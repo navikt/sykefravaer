@@ -4,7 +4,7 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 const Stegindikator = ({ aktivtSteg, sykepengesoknad }) => {
     const steg = [1, 2, 3];
-    const urler = ['fravaer-og-friskmelding', 'aktiviteter-i-sykmeldingsperioden', '']
+    const urler = ['fravaer-og-friskmelding', 'aktiviteter-i-sykmeldingsperioden', ''];
     return (<div className="blokk--l" role="progressbar" aria-valuenow={aktivtSteg} aria-valuemin="1" aria-valuemax="3">
         <ul className="stegindikator">
             {steg.map((s, index) => {

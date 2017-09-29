@@ -63,9 +63,10 @@ export class OppfolgingsdialogSide extends Component {
             avvisFeilet,
             tilgang,
             navigasjontoggles,
+            hentet,
         } = this.props;
 
-        return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
+        return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler} laster={henter || avviser || !hentet}>
             { (() => {
                 if (henter || avviser) {
                     return <AppSpinner />;
@@ -136,6 +137,7 @@ OppfolgingsdialogSide.propTypes = {
     dokument: PropTypes.object,
     navigasjontoggles: PropTypes.object,
     location: PropTypes.object,
+    hentet: PropTypes.object,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -176,6 +178,7 @@ export function mapStateToProps(state, ownProps) {
         tilgang: state.tilgang.data,
         tilgangSjekket: state.tilgang.hentet,
         navigasjontoggles: state.navigasjontoggles,
+        hentet: state.oppfolgingsdialoger.hentet === true && !state.tilgang.hentet === true,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

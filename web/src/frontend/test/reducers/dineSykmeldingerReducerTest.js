@@ -112,7 +112,7 @@ describe('dineSykmeldingerReducer', () => {
             data: [],
             henter: false,
             hentingFeilet: true,
-            hentet: false,
+            hentet: true,
         });
     });
 

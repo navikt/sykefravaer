@@ -78,7 +78,7 @@ export default function sykmeldinger(state = initiellState, action) {
                 data: [],
                 henter: false,
                 hentingFeilet: true,
-                hentet: false,
+                hentet: true,
             };
         }
         case actiontyper.SET_ARBEIDSSITUASJON: {

@@ -33,7 +33,7 @@ describe('brukerinfo', () => {
                 data: {},
                 hentingFeilet: true,
                 henter: false,
-                hentet: false,
+                hentet: true,
             },
             innstillinger: {},
             innlogging: {}

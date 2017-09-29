@@ -62,9 +62,8 @@ export class OpprettOppfolgingsdialogSide extends Component {
     }
 
     render() {
-        const { brodsmuler, sykmeldinger, naermesteLedere, oppfolgingsdialoger, henter, hentingFeilet, oppretter, opprettingFeilet, tilgang } = this.props;
-
-        return (<Side tittel={getLedetekst('oppfolgingsdialoger.opprett.tittel')} brodsmuler={brodsmuler}>
+        const { brodsmuler, sykmeldinger, naermesteLedere, oppfolgingsdialoger, henter, hentingFeilet, oppretter, opprettingFeilet, tilgang, hentet } = this.props;
+        return (<Side tittel={getLedetekst('oppfolgingsdialoger.opprett.tittel')} brodsmuler={brodsmuler} henter={henter || oppretter || !hentet}>
             {
                 (() => {
                     if (henter || oppretter) {
@@ -119,6 +118,7 @@ OpprettOppfolgingsdialogSide.propTypes = {
     tilgang: PropTypes.object,
     tilgangSjekket: PropTypes.bool,
     sjekkTilgang: PropTypes.func,
+    hentet: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {
@@ -146,6 +146,7 @@ export const mapStateToProps = (state) => {
             sti: '/oppfolgingsplaner',
         }],
         opprettetId: state.oppfolgingsdialoger.opprettetId,
+        hentet: state.tilgang.hentet === true && state.dineSykmeldinger.hentet === true && state.ledere.hentet === true && state.oppfolgingsdialoger.hentet === true,
     };
 };
 

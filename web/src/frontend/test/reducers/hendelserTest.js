@@ -14,7 +14,7 @@ describe("hendelser", () => {
             henter: false,
             hentingFeilet: false,
             data: [],
-            hendelserHentet: false,
+            hentet: false,
         };
         state = hendelser();
         expect(state).to.deep.equal(expectedState);
@@ -26,7 +26,7 @@ describe("hendelser", () => {
         expect(state).to.deep.equal({
             henter: true,
             hentingFeilet: false,
-            hendelserHentet: false,
+            hentet: false,
             data: []
         })
     });
@@ -38,7 +38,7 @@ describe("hendelser", () => {
             henter: false,
             hentingFeilet: true,
             data: [],
-            hendelserHentet: true,
+            hentet: true,
         });
     });
 
@@ -58,7 +58,7 @@ describe("hendelser", () => {
                 id: "123",
                 inntruffetdato: new Date("2017-08-14"),
             }],
-            hendelserHentet: true,
+            hentet: true,
         });
     });
 

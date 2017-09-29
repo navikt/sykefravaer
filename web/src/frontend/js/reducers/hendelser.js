@@ -4,7 +4,7 @@ const initiellState = {
     henter: false,
     hentingFeilet: false,
     data: [],
-    hendelserHentet: false,
+    hentet: false,
 };
 
 const hendelser = (state = initiellState, action = {}) => {
@@ -13,14 +13,14 @@ const hendelser = (state = initiellState, action = {}) => {
             return Object.assign({}, state, {
                 hentingFeilet: true,
                 henter: false,
-                hendelserHentet: true,
+                hentet: true,
             });
         }
         case actiontyper.HENTER_HENDELSER: {
             return Object.assign({}, state, {
                 henter: true,
                 hentingFeilet: false,
-                hendelserHentet: false,
+                hentet: false,
             });
         }
         case actiontyper.HENDELSER_HENTET: {
@@ -32,7 +32,7 @@ const hendelser = (state = initiellState, action = {}) => {
                         inntruffetdato: new Date(h.inntruffetdato),
                     });
                 }),
-                hendelserHentet: true,
+                hentet: true,
             });
         }
         default: {

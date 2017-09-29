@@ -110,10 +110,12 @@ export const getOppfolgingsdialoger = [
         ],
         tiltakListe: [ ],
         arbeidsgiver: {
-            navn: "Test Testesen",
-            aktoerId: "***REMOVED***",
-            samtykke: null,
-            godkjent: null
+            naermesteLeder : {
+                navn: "Test Testesen",
+                aktoerId: "***REMOVED***",
+                samtykke: null,
+                godkjent: null
+            }
         },
         arbeidstaker: {
             navn: "Test Testesen",

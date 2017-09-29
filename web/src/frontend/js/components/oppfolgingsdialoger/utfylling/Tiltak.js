@@ -170,7 +170,7 @@ class Tiltak extends Component {
                         {
                             antallNyeTiltak > 0 && <TiltakNotifikasjonBoksAdvarsel
                                 ledetekster={ledetekster}
-                                motpartnavn={oppfolgingsdialog.arbeidsgiver.navn}
+                                motpartnavn={oppfolgingsdialog.arbeidsgiver.naermesteLeder.navn}
                                 antallTiltakLagtTilAvMotpart={antallNyeTiltak}
                                 rootUrl={`${getContextRoot()}`}
                             />

@@ -94,6 +94,7 @@ describe('ledere', () => {
         const nextState = ledere(initialState, action);
         expect(nextState).to.deep.equal({
             avkrefter: true,
+            avkreftet: false,
             avkreftFeilet: false,
             data: initialState.data
         })
@@ -125,7 +126,7 @@ describe('ledere', () => {
         })
     });
 
-    it("Avkreft leder avkrefter leder", () => {
+    it("håndterer LEDER_AVKREFTET", () => {
         const initialState = deepFreeze({
             avkrefter: true,
             avkreftFeilet: false,
@@ -147,6 +148,7 @@ describe('ledere', () => {
 
         expect(nextState).to.deep.equal({
             avkrefter: false,
+            avkreftet: true,
             avkreftFeilet: false,
             data: [{
                     navn: 'Ole Brum',

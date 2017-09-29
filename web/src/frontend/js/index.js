@@ -19,6 +19,7 @@ import {
     nullstill,
     avbrytdialogReducer,
     arbeidsforhold,
+    nyNaermesteLeder,
 } from 'oppfolgingsdialog-npm';
 import AppRouter from './routers/AppRouter';
 import dineSykmeldinger from './reducers/dineSykmeldinger';
@@ -56,6 +57,7 @@ const rootReducer = combineReducers({
     mote,
     navigasjontoggles,
     nullstill,
+    nyNaermesteLeder,
     oppfolgingsdialoger,
     samtykke,
     svar,

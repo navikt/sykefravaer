@@ -45,6 +45,7 @@ const ledere = (state = defaultState, action = {}) => {
 
             return Object.assign({}, state, {
                 avkrefter: false,
+                avkreftet: true,
                 avkreftFeilet: false,
                 data: _ledere,
             });
@@ -60,6 +61,7 @@ const ledere = (state = defaultState, action = {}) => {
             return Object.assign({}, state,
                 {
                     avkrefter: true,
+                    avkreftet: false,
                     avkreftFeilet: false,
                 });
         }

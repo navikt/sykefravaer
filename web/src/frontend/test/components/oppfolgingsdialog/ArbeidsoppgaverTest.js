@@ -40,8 +40,10 @@ describe("Arbeidsoppgaver", () => {
         slettArbeidsoppgave = sinon.spy();
         setLedetekster(ledetekster);
         arbeidsgiver = {
-            navn: 'Arbeidsgiver',
-            aktoerId: '***REMOVED***',
+            naermesteLeder: {
+                navn: 'Arbeidsgiver',
+                aktoerId: '***REMOVED***',
+            },
         };
         arbeidstaker = {
             navn: 'Arbeidstaker',

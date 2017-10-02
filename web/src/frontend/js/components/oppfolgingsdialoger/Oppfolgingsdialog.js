@@ -48,6 +48,10 @@ export class Oppfolgingsdialog extends Component {
             this.setState({
                 visSamtykke: true,
             });
+        } else {
+            this.setState({
+                visSamtykke: false,
+            });
         }
     }
 
@@ -90,6 +94,9 @@ export class Oppfolgingsdialog extends Component {
             lagreArbeidsoppgave,
             slettArbeidsoppgave,
         } = this.props;
+
+        console.log('oppfolgingsdialog', oppfolgingsdialog);
+        console.log('this.state.visSamtykke', this.state.visSamtykke);
         let panel;
         let disableNavigation = false;
         if (this.state.visAvvisPlanKvittering) {

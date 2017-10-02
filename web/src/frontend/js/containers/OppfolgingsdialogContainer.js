@@ -137,7 +137,7 @@ OppfolgingsdialogSide.propTypes = {
     dokument: PropTypes.object,
     navigasjontoggles: PropTypes.object,
     location: PropTypes.object,
-    hentet: PropTypes.object,
+    hentet: PropTypes.bool,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -178,7 +178,7 @@ export function mapStateToProps(state, ownProps) {
         tilgang: state.tilgang.data,
         tilgangSjekket: state.tilgang.hentet,
         navigasjontoggles: state.navigasjontoggles,
-        hentet: state.oppfolgingsdialoger.hentet === true && !state.tilgang.hentet === true,
+        hentet: state.oppfolgingsdialoger.hentet === true && state.tilgang.hentet === true,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

@@ -58,7 +58,7 @@ export class OppsummeringForm extends Component {
                     className="rammeknapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake')}
                 </Link>
                 <button
-                    className="knapp"
+                    className="knapp js-send"
                     type="submit"
                     disabled={sender}>{getLedetekst('sykepengesoknad.send')}{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}
                 </button>

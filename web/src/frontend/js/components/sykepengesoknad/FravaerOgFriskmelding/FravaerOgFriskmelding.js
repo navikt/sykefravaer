@@ -29,7 +29,7 @@ export class FravaerOgFriskmeldingSkjema extends Component {
 
             <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
                 <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/`} className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
-                <button type="submit" className="knapp">{getLedetekst('sykepengesoknad.ga-videre')}</button>
+                <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
             </Knapperad>
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);

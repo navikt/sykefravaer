@@ -80,7 +80,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
 
             <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
                 <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} className="rammeknapp">Tilbake</Link>
-                <button type="submit" className="knapp">Gå videre</button>
+                <button type="submit" className="knapp js-ga-videre">Gå videre</button>
             </Knapperad>
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);

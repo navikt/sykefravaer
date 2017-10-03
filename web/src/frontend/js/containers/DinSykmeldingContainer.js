@@ -36,9 +36,9 @@ export class DinSykmldSide extends Component {
 
     render() {
         const { brodsmuler, dinSykmelding, arbeidsgiversSykmelding, henter, hentingFeilet,
-            visEldreSykmeldingVarsel, eldsteSykmeldingId } = this.props;
+            visEldreSykmeldingVarsel, eldsteSykmeldingId, hentet } = this.props;
 
-        return (<Side tittel={getLedetekst('din-sykmelding.sidetittel')} brodsmuler={brodsmuler}>
+        return (<Side tittel={getLedetekst('din-sykmelding.sidetittel')} brodsmuler={brodsmuler} laster={henter || !hentet}>
                 { (() => {
                     if (henter) {
                         return <AppSpinner />;
@@ -106,6 +106,7 @@ DinSykmldSide.propTypes = {
     brukerinfoHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
     hentBrukerinfo: PropTypes.func,
+    hentet: PropTypes.bool,
 };
 
 const getEldsteNyeSykmelding = (sykmeldinger) => {
@@ -166,6 +167,7 @@ export function mapStateToProps(state, ownProps) {
     return {
         sykmeldingId,
         henter: state.dineSykmeldinger.henter || state.arbeidsgiversSykmeldinger.henter || state.ledetekster.henter,
+        hentet: state.brukerinfo.bruker.hentet === true && state.dineSykmeldinger.hentet === true && state.arbeidsgiversSykmeldinger.hentet === true,
         hentingFeilet: state.dineSykmeldinger.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet,
         dinSykmelding,
         arbeidsgiversSykmelding,

@@ -37,7 +37,7 @@ const ledere = (state = defaultState, action = {}) => {
                 henter: false,
                 hentingFeilet: true,
                 data: [],
-                hentet: false,
+                hentet: true,
             };
         }
         case actiontyper.LEDER_AVKREFTET: {

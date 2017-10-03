@@ -10,10 +10,11 @@ import { hentTidslinjer } from '../actions/tidslinjer_actions';
 import { brodsmule as brodsmulePt } from '../propTypes';
 
 export class TidslinjeSide extends Component {
-
     componentWillMount() {
-        const { dispatch, hashHendelser, arbeidssituasjon } = this.props;
-        dispatch(hentTidslinjer(hashHendelser, arbeidssituasjon));
+        const { dispatch, hashHendelser, arbeidssituasjon, forsoktHentet } = this.props;
+        if (!forsoktHentet) {
+            dispatch(hentTidslinjer(hashHendelser, arbeidssituasjon));
+        }
     }
 
     setHendelseData(id, data) {
@@ -22,11 +23,11 @@ export class TidslinjeSide extends Component {
     }
 
     render() {
-        const { brodsmuler, hendelser, arbeidssituasjon, tidslinjer, henter, hentingFeilet } = this.props;
+        const { brodsmuler, hendelser, arbeidssituasjon, tidslinjer, henter, forsoktHentet, hentingFeilet } = this.props;
         const htmlIntro = {
             __html: `<p>${getLedetekst('tidslinje.introtekst')}</p>`,
         };
-        return (<Side tittel={getLedetekst('tidslinje.sidetittel')} brodsmuler={brodsmuler}>
+        return (<Side tittel={getLedetekst('tidslinje.sidetittel')} brodsmuler={brodsmuler} laster={henter || !forsoktHentet}>
             {
                 (() => {
                     if (henter) {
@@ -61,6 +62,7 @@ TidslinjeSide.propTypes = {
     tidslinjer: PropTypes.array,
     hentingFeilet: PropTypes.bool,
     henter: PropTypes.bool,
+    forsoktHentet: PropTypes.bool,
 };
 
 export const mapArbeidssituasjonParam = (param) => {
@@ -108,6 +110,7 @@ export function mapStateToProps(state, ownProps) {
         hashHendelser,
         tidslinjer: state.tidslinjer.data,
         henter: state.ledetekster.henter || state.tidslinjer.henter,
+        forsoktHentet: state.tidslinjer.data.length > 0,
         hentingFeilet: state.ledetekster.hentingFeilet || state.tidslinjer.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),

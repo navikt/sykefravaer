@@ -14,19 +14,19 @@ export const RollerSide = ({ henter, hentingFeilet, ledetekster }) => {
     }, {
         tittel: getLedetekst('roller.sidetittel', ledetekster),
     }];
-    if (henter) {
-        return (<Side tittel="Siden laster...">
-            <AppSpinner />
-        </Side>);
-    }
-    if (hentingFeilet) {
-        return (<Side tittel="Det oppstod en feil!">
-            <Feilmelding />
-        </Side>);
-    }
-    return (<Side brodsmuler={brodsmuler} tittel={getLedetekst('roller.sidetittel', ledetekster)}>
-        <Artikkel tittel={getLedetekst('roller.tittel', ledetekster)}
-            innhold={getLedetekst('roller.innhold', ledetekster)} />
+    return (<Side brodsmuler={brodsmuler} tittel={getLedetekst('roller.sidetittel', ledetekster)} laster={henter}>
+        {
+            (() => {
+                if (henter) {
+                    return <AppSpinner />;
+                }
+                if (hentingFeilet) {
+                    return <Feilmelding />;
+                }
+                return (<Artikkel tittel={getLedetekst('roller.tittel', ledetekster)}
+                    innhold={getLedetekst('roller.innhold', ledetekster)} />);
+            })()
+        }
     </Side>);
 };
 

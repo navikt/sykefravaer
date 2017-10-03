@@ -28,9 +28,9 @@ class SkrivUt extends Component {
     }
 
     render() {
-        const { sykmelding, brodsmuler, henter, hentingFeilet } = this.props;
+        const { sykmelding, brodsmuler, henter, hentingFeilet, hentet } = this.props;
 
-        return (<Side tittel={getLedetekst('skriv-ut-sykmelding.sidetittel')} brodsmuler={brodsmuler}>
+        return (<Side tittel={getLedetekst('skriv-ut-sykmelding.sidetittel')} brodsmuler={brodsmuler} laster={henter || !hentet}>
             {
                 (() => {
                     if (henter) {
@@ -54,6 +54,7 @@ SkrivUt.propTypes = {
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     dispatch: PropTypes.func,
+    hentet: PropTypes.bool,
 };
 
 export const mapStateToProps = (state, ownProps) => {
@@ -63,6 +64,7 @@ export const mapStateToProps = (state, ownProps) => {
     return {
         sykmelding,
         henter: state.ledetekster.henter || state.arbeidsgiversSykmeldinger.henter,
+        hentet: state.arbeidsgiversSykmeldinger.hentet,
         hentingFeilet: state.ledetekster.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),

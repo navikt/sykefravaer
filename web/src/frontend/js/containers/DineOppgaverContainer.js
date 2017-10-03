@@ -123,7 +123,7 @@ export const mapStateToProps = (state) => {
         visOppgaver,
         mote: moteRes,
         hentingFeiletHendelser: state.hendelser.hentingFeilet,
-        hendelserHentet: state.hendelser.hendelserHentet,
+        hendelserHentet: state.hendelser.hentet,
         visAktivitetskrav: getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL,
     };
 };

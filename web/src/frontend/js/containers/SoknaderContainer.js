@@ -20,10 +20,10 @@ export class SoknaderSide extends Component {
     }
 
     render() {
-        const { brodsmuler, henter, hentingFeilet, sykepengesoknader } = this.props;
+        const { brodsmuler, henter, hentingFeilet, sykepengesoknader, soknaderHentet } = this.props;
 
         return (
-            <Side tittel={getLedetekst('soknader.sidetittel')} brodsmuler={brodsmuler}>
+            <Side tittel={getLedetekst('soknader.sidetittel')} brodsmuler={brodsmuler} laster={henter || !soknaderHentet}>
                 {
                     (() => {
                         if (henter) {

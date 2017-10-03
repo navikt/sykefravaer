@@ -16,8 +16,8 @@ export class GenerellSoknad extends Komponent {
     }
 
     render() {
-        const { Component, brodsmuler, sykepengesoknad, henter, hentingFeilet } = this.props;
-        return (<Side tittel="Søknad om sykepenger" brodsmuler={brodsmuler}>
+        const { Component, brodsmuler, sykepengesoknad, henter, hentingFeilet, sykepengesoknaderHentet } = this.props;
+        return (<Side tittel="Søknad om sykepenger" brodsmuler={brodsmuler} laster={henter || !sykepengesoknaderHentet}>
         {
             (() => {
                 if (henter) {

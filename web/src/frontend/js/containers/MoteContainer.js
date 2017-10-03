@@ -17,9 +17,9 @@ export class Container extends Component {
     }
 
     render() {
-        const { henter, mote, brodsmuler, hentingFeilet, moteIkkeFunnet, actions } = this.props;
+        const { henter, hentet, mote, brodsmuler, hentingFeilet, moteIkkeFunnet, actions } = this.props;
         const modus = getSvarsideModus(mote);
-        return (<Side tittel={getLedetekst('mote.sidetittel')} brodsmuler={brodsmuler}>
+        return (<Side tittel={getLedetekst('mote.sidetittel')} brodsmuler={brodsmuler} laster={henter || !hentet}>
         {
             (() => {
                 if (henter) {
@@ -66,6 +66,7 @@ Container.propTypes = {
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
     mote: moterPropTypes.mote,
+    hentet: PropTypes.bool,
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -81,6 +82,7 @@ export function mapStateToProps(state) {
         mote: state.mote.data,
         moteIkkeFunnet: state.mote.moteIkkeFunnet === true,
         henter: state.mote.henter,
+        hentet: state.mote.hentet === true,
         hentingFeilet: state.mote.hentingFeilet || state.ledetekster.hentingFeilet || false,
         sender: state.svar.sender,
         sendingFeilet: state.svar.sendingFeilet,

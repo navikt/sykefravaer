@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { SYKEPENGER_SKJEMANAVN } from '../components/sykepengesoknad/setup';
-import { fraInputdatoTilJSDato } from './datoUtils';
+import { fraInputdatoTilJSDato, erGyldigDatoformat } from './datoUtils';
 
 export const mapStateToProps = (state) => {
     const values = state.form[SYKEPENGER_SKJEMANAVN].values;
     let gjenopptattArbeidFulltUtDato = values.gjenopptattArbeidFulltUtDato;
-    if (!values.harGjenopptattArbeidFulltUt) {
+    if (!values.harGjenopptattArbeidFulltUt || !gjenopptattArbeidFulltUtDato || !erGyldigDatoformat(gjenopptattArbeidFulltUtDato)) {
         gjenopptattArbeidFulltUtDato = null;
     } else {
         try {

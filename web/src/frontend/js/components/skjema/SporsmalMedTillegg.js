@@ -32,6 +32,9 @@ export class SporsmalMedTillegg extends Component {
         if (!this.state.harAnimasjon) {
             return;
         }
+        this.setState({
+            containerClassName: this.state.containerClassName.replace(' animerer', ''),
+        });
         if (this.state.erApen) {
             this.setState({
                 hindreToggle: false,
@@ -110,6 +113,7 @@ export class SporsmalMedTillegg extends Component {
             that.setState({
                 erApen: true,
                 hoyde,
+                containerClassName: `${this.state.containerClassName} animerer`,
             });
         }, 0);
     }
@@ -124,7 +128,7 @@ export class SporsmalMedTillegg extends Component {
         setTimeout(() => {
             this.setState({
                 harAnimasjon: true,
-                containerClassName: ' tilleggssporsmal__innholdContainer--medAnimasjon',
+                containerClassName: ' tilleggssporsmal__innholdContainer--medAnimasjon animerer',
                 hoyde: '0',
                 erApen: false,
             });

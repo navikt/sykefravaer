@@ -139,6 +139,7 @@ OppfolgingsdialogSide.propTypes = {
     navigasjontoggles: PropTypes.object,
     location: PropTypes.object,
     arbeidsforhold: PropTypes.array,
+    hentet: PropTypes.bool,
 };
 
 export function mapStateToProps(state, ownProps) {

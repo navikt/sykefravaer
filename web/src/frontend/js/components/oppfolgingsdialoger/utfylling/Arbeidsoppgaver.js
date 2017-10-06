@@ -1,9 +1,9 @@
-import React, {Component, PropTypes} from "react";
-import {findDOMNode} from "react-dom";
-import {getContextRoot} from "../../../routers/paths";
-import {isEmpty} from "../../../utils/oppfolgingsdialogUtils";
-import AppSpinner from "../../AppSpinner";
-import Feilmelding from "../../Feilmelding";
+import React, { Component, PropTypes } from 'react';
+import { findDOMNode } from 'react-dom';
+import { getContextRoot } from '../../../routers/paths';
+import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
+import AppSpinner from '../../AppSpinner';
+import Feilmelding from '../../Feilmelding';
 import {
     ArbeidsoppgaverNotifikasjonBoksAdvarsel,
     BRUKERTYPE,
@@ -13,9 +13,9 @@ import {
     NotifikasjonBoksLagretElement,
     OppfolgingsdialogInfoboks,
     OppfolgingsdialogTabell,
-    sorterArbeidsoppgaverEtterOpprettet
-} from "oppfolgingsdialog-npm";
-import {getLedetekst} from "digisyfo-npm";
+    sorterArbeidsoppgaverEtterOpprettet,
+} from 'oppfolgingsdialog-npm';
+import { getLedetekst } from 'digisyfo-npm';
 
 export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, aktoerId, oppfolgingsdialog }) => {
     return (

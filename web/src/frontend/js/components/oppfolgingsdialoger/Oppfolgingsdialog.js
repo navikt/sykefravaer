@@ -243,6 +243,7 @@ Oppfolgingsdialog.propTypes = {
     navigasjontoggles: PropTypes.object,
     dokument: PropTypes.object,
     arbeidsforhold: PropTypes.array,
+    hentArbeidsforhold: PropTypes.func,
 };
 
 export default Oppfolgingsdialog;

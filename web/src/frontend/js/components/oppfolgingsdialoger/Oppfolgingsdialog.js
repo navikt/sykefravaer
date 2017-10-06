@@ -41,6 +41,7 @@ export class Oppfolgingsdialog extends Component {
 
     componentWillMount() {
         this.props.settAktivtSteg(1);
+        this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.fnr);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -93,6 +94,7 @@ export class Oppfolgingsdialog extends Component {
             slettTiltak,
             lagreArbeidsoppgave,
             slettArbeidsoppgave,
+            arbeidsforhold,
         } = this.props;
 
         let panel;
@@ -104,6 +106,7 @@ export class Oppfolgingsdialog extends Component {
                 rootUrl={`${window.APP_SETTINGS.APP_ROOT}`}
                 begrunnelse={this.state.begrunnelse}
                 visAvvisPlanKvittering={this.visAvvisPlanKvittering}
+                arbeidsforhold={arbeidsforhold}
             />);
         } else if (this.state.visSamtykke && oppfolgingsdialog.arbeidstaker.samtykke === null) {
             disableNavigation = true;
@@ -125,6 +128,7 @@ export class Oppfolgingsdialog extends Component {
                 nullstillGodkjenning={nullstillGodkjenning}
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrl={`${getContextRoot()}`}
+                arbeidsforhold={arbeidsforhold}
             />);
         } else if (inneholderGodkjentPlan(oppfolgingsdialog)) {
             disableNavigation = true;
@@ -134,6 +138,7 @@ export class Oppfolgingsdialog extends Component {
                 hentPdfurler={hentPdfurler}
                 dokument={dokument}
                 giSamtykke={giSamtykke}
+                arbeidsforhold={arbeidsforhold}
             />);
         } else {
             (() => {
@@ -151,6 +156,7 @@ export class Oppfolgingsdialog extends Component {
                         oppfolgingsdialogId={oppfolgingsdialogId}
                         lagreArbeidsoppgave={lagreArbeidsoppgave}
                         slettArbeidsoppgave={slettArbeidsoppgave}
+                        arbeidsforhold={arbeidsforhold}
                     />);
                 } else if (navigasjontoggles.steg === 2) {
                     panel = (<Tiltak
@@ -175,6 +181,7 @@ export class Oppfolgingsdialog extends Component {
                         godkjennPlan={godkjennDialog}
                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
                         rootUrl={`${getContextRoot()}`}
+                        arbeidsforhold={arbeidsforhold}
                     />);
                 }
             })();
@@ -235,6 +242,7 @@ Oppfolgingsdialog.propTypes = {
     avvisDialog: PropTypes.func,
     navigasjontoggles: PropTypes.object,
     dokument: PropTypes.object,
+    arbeidsforhold: PropTypes.array,
 };
 
 export default Oppfolgingsdialog;

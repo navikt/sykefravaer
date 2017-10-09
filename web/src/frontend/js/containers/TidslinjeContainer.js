@@ -110,7 +110,7 @@ export function mapStateToProps(state, ownProps) {
         hashHendelser,
         tidslinjer: state.tidslinjer.data,
         henter: state.ledetekster.henter || state.tidslinjer.henter,
-        forsoktHentet: state.tidslinjer.data.length > 0,
+        forsoktHentet: state.tidslinjer.hentet === true,
         hentingFeilet: state.ledetekster.hentingFeilet || state.tidslinjer.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),

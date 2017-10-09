@@ -68,7 +68,7 @@ describe('ledere', () => {
         expect(nextState).to.deep.equal({
             henter: false,
             hentingFeilet: true,
-            hentet: false,
+            hentet: true,
             data: []
         })
     });

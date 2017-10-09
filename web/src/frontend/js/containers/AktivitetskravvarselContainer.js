@@ -55,7 +55,7 @@ class AktivitetskravvarselContainer extends Component {
         }, {
             tittel: getLedetekst('aktivitetskrav-varsel.tittel', ledetekster),
         }];
-        return (<Side tittel="Aktivitetskrav" brodsmuler={brodsmuler}>
+        return (<Side tittel="Aktivitetskrav" brodsmuler={brodsmuler} laster={henter || !hendelserHentet}>
         {
             (() => {
                 if (hentingFeilet) {
@@ -147,7 +147,7 @@ export function mapStateToProps(state) {
         varseldato: sisteAktivitetskrav ? sisteAktivitetskrav.inntruffetdato : null,
         bekreftetdato: bekreftelseAvSisteAktivitetskrav ? bekreftelseAvSisteAktivitetskrav.inntruffetdato : null,
         hentingFeiletHendelser: state.hendelser.hentingFeilet,
-        hendelserHentet: state.hendelser.hendelserHentet,
+        hendelserHentet: state.hendelser.hentet,
     };
 }
 

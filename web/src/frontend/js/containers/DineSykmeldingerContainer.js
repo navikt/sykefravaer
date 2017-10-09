@@ -16,8 +16,8 @@ export class DineSykmldSide extends Component {
     }
 
     render() {
-        const { brodsmuler, sykmeldinger, henter, hentingFeilet, sortering } = this.props;
-        return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')} brodsmuler={brodsmuler}>
+        const { brodsmuler, sykmeldinger, henter, hentingFeilet, sortering, sykmeldingerHentet } = this.props;
+        return (<Side tittel={getLedetekst('dine-sykmeldinger.sidetittel')} brodsmuler={brodsmuler} laster={henter || !sykmeldingerHentet}>
             {
                 (() => {
                     if (henter) {

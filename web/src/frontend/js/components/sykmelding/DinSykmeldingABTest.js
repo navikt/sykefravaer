@@ -60,6 +60,7 @@ Skjema.propTypes = {
     registrerInnsending: PropTypes.func,
     treghet: PropTypes.number,
     onClick: PropTypes.func,
+    blaKnapp: PropTypes.bool,
 };
 
 const EKSPERIMENTNAVN = 'SYKMELDINGSKJEMA_KNAPP_FARGE_2';

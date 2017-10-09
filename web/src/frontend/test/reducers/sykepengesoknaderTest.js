@@ -84,7 +84,7 @@ describe('sykepengesoknader', () => {
                 hentingFeilet: true,
                 sender: false,
                 sendingFeilet: false,
-                hentet: false,
+                hentet: true,
             });
         });
     });

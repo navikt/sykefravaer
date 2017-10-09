@@ -95,8 +95,6 @@ export class Oppfolgingsdialog extends Component {
             slettArbeidsoppgave,
         } = this.props;
 
-        console.log('oppfolgingsdialog', oppfolgingsdialog);
-        console.log('this.state.visSamtykke', this.state.visSamtykke);
         let panel;
         let disableNavigation = false;
         if (this.state.visAvvisPlanKvittering) {

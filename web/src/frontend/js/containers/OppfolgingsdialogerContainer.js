@@ -25,9 +25,9 @@ export class OppfolgingsdialogerSide extends Component {
     }
 
     render() {
-        const { brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet, tilgang } = this.props;
+        const { brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet, tilgang, hentet } = this.props;
 
-        return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
+        return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler} laster={henter || !hentet}>
             {
                 (() => {
                     if (henter) {
@@ -64,6 +64,7 @@ OppfolgingsdialogerSide.propTypes = {
     tilgang: PropTypes.object,
     tilgangSjekket: PropTypes.bool,
     sjekkTilgang: PropTypes.func,
+    hentet: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {
@@ -83,6 +84,7 @@ export const mapStateToProps = (state) => {
         }],
         tilgang: state.tilgang.data,
         tilgangSjekket: state.tilgang.hentet,
+        hentet: state.tilgang.hentet === true && state.oppfolgingsdialoger.hentet === true,
     };
 };
 

@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import Landingsside from '../components/landingsside/Landingsside';
 import { connect } from 'react-redux';
 import StrippetSide from '../sider/StrippetSide';
-import Side from '../sider/Side';
 import { getLedetekst, hentToggles } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
@@ -15,15 +14,20 @@ import { hentLedere } from '../actions/ledere_actions';
 
 export class LandingssideSide extends Component {
     componentWillMount() {
-        this.props.hentMote();
-        this.props.hentToggles();
-        if (!this.props.sykepengesoknaderHentet && !this.props.hentingFeiletSykepengesoknader) {
+        const { mote, ledere, dineSykmeldinger, toggles, sykepengesoknader } = this.props.hentet;
+        if (!mote) {
+            this.props.hentMote();
+        }
+        if (!toggles) {
+            this.props.hentToggles();
+        }
+        if (!sykepengesoknader && !this.props.hentingFeiletSykepengesoknader) {
             this.props.hentSykepengesoknader();
         }
-        if (!this.props.ledereHentet && !this.props.hentingFeiletLedere) {
+        if (!ledere && !this.props.hentingFeiletLedere) {
             this.props.hentLedere();
         }
-        if (!this.props.dineSykmeldingerHentet && !this.props.hentingFeiletSykmeldinger) {
+        if (!dineSykmeldinger && !this.props.hentingFeiletSykmeldinger) {
             this.props.hentDineSykmeldinger();
         }
     }
@@ -37,28 +41,25 @@ export class LandingssideSide extends Component {
             harDialogmote,
             dineSykmeldinger,
             toggles,
+            altHentet,
         } = this.props;
-
-        if (henter || hentingFeilet) {
-            return (<Side tittel={getLedetekst('landingsside.sidetittel')} brodsmuler={brodsmuler}>
+        return (<StrippetSide tittel={getLedetekst('landingsside.sidetittel')} laster={henter || !altHentet}>
             {
                 (() => {
                     if (henter) {
                         return <AppSpinner />;
+                    } else if (hentingFeilet) {
+                        return <Feilmelding />;
                     }
-                    return <Feilmelding />;
+                    return (<Landingsside
+                        brodsmuler={brodsmuler}
+                        sykepengesoknader={sykepengesoknader}
+                        toggles={toggles}
+                        harDialogmote={harDialogmote}
+                        dineSykmeldinger={dineSykmeldinger}
+                    />);
                 })()
             }
-            </Side>);
-        }
-        return (<StrippetSide tittel={getLedetekst('landingsside.sidetittel')}>
-            <Landingsside
-                brodsmuler={brodsmuler}
-                sykepengesoknader={sykepengesoknader}
-                toggles={toggles}
-                harDialogmote={harDialogmote}
-                dineSykmeldinger={dineSykmeldinger}
-            />
         </StrippetSide>);
     }
 }
@@ -83,9 +84,27 @@ LandingssideSide.propTypes = {
     hentingFeiletSykepengesoknader: PropTypes.bool,
     hentingFeiletSykmeldinger: PropTypes.bool,
     hentingFeiletLedere: PropTypes.bool,
+    hentet: PropTypes.object,
+    altHentet: PropTypes.bool,
 };
 
 export function mapStateToProps(state) {
+    const hentet = {
+        ledere: state.ledere.hentet === true,
+        mote: state.mote.hentet === true,
+        dineSykmeldinger: state.dineSykmeldinger.hentet === true,
+        toggles: state.toggles.hentet === true,
+        sykepengesoknader: state.sykepengesoknader.hentet === true,
+    };
+    const altHentet = (() => {
+        for (const i in hentet) {
+            if (!hentet[i]) {
+                return false;
+            }
+        }
+        return true;
+    })();
+
     return {
         henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.toggles.henter || state.mote.henter || state.hendelser.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
@@ -94,15 +113,14 @@ export function mapStateToProps(state) {
             sti: '/',
         }],
         sykepengesoknader: state.sykepengesoknader.data,
-        sykepengesoknaderHentet: state.sykepengesoknader.hentet === true,
-        ledereHentet: state.ledere.hentet === true,
         toggles: state.toggles.data,
         harDialogmote: state.mote.data !== null,
         dineSykmeldinger: state.dineSykmeldinger.data,
-        dineSykmeldingerHentet: state.dineSykmeldinger.hentet === true,
         hentingFeiletSykepengesoknader: state.sykepengesoknader.hentingFeilet,
         hentingFeiletSykmeldinger: state.dineSykmeldinger.hentingFeilet,
         hentingFeiletLedere: state.ledere.hentingFeilet,
+        hentet,
+        altHentet,
     };
 }
 

@@ -56,7 +56,7 @@ export default function arbeidsgiversSykmeldinger(state = initiellState, action)
                 data: [],
                 henter: false,
                 hentingFeilet: true,
-                hentet: false,
+                hentet: true,
             };
         }
         case actiontyper.SET_ARBEIDSGIVER: {

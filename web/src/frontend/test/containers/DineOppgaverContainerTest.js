@@ -36,7 +36,7 @@ describe("DineOppgaverContainer", () => {
                 },
                 hendelser: {
                     data: [],
-                    hendelserHentet: true,
+                    hentet: true,
                 },
                 sykepengesoknader: {
                     data: [{
@@ -105,7 +105,7 @@ describe("DineOppgaverContainer", () => {
         });
 
         it("Skal returnere hendelserHentet når hendelser er hentet", () => {
-            state.hendelser.hendelserHentet = false;
+            state.hendelser.hentet = false;
             const res = mapStateToProps(state);
             expect(res.hendelserHentet).to.be.false;
         });

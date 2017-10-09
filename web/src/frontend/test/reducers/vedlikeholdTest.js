@@ -20,6 +20,7 @@ describe('vedlikehold', () => {
                 data: { vedlikehold: true },
                 henter: false,
                 hentingFeilet: false,
+                hentet: true,
             });
         });
 
@@ -30,6 +31,7 @@ describe('vedlikehold', () => {
                 data: {},
                 henter: true,
                 hentingFeilet: false,
+                hentet: false,
             });
         });
 
@@ -39,6 +41,7 @@ describe('vedlikehold', () => {
                 data: { vedlikehold: false },
                 henter: false,
                 hentingFeilet: false,
+                hentet: true,
             });
 
             const action = actions.hentVedlikeholdFeilet();
@@ -47,6 +50,7 @@ describe('vedlikehold', () => {
                 data: { vedlikehold: false },
                 henter: false,
                 hentingFeilet: true,
+                hentet: true,
             });
         });
     })

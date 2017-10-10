@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { scrollTo, erSynligIViewport } from 'digisyfo-npm';
 
 export class SporsmalMedTillegg extends Component {

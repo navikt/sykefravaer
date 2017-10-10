@@ -1,11 +1,19 @@
-require("babel-core/register");
-//disable
-var jsdom = require('jsdom');
-var document = jsdom.jsdom('<!doctype html><html><body></body></html>');
-var window = document.defaultView;
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
-global.document = document;
-global.window = window;
+Enzyme.configure({ adapter: new Adapter() });
+
+const { JSDOM } = require('jsdom');
+
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+const { window } = jsdom;
+
+function copyProps(src, target) {
+  const props = Object.getOwnPropertyNames(src)
+    .filter(prop => typeof target[prop] === 'undefined')
+    .map(prop => Object.getOwnPropertyDescriptor(src, prop));
+  Object.defineProperties(target, props);
+}
 
 let temp = null;
 const localS = {
@@ -17,19 +25,13 @@ const localS = {
     }
 };
 
+global.HTMLElement = window.HTMLElement;
 global.localStorage = localS;
+global.XMLHttpRequest = window.XMLHttpRequest;
 
-propagateToGlobal(window);
-
-function propagateToGlobal (window) {
-    for(let key in window) {
-        if(!window.hasOwnProperty(key)) {
-            continue;
-        }
-
-        if(key in global) {
-            continue;
-        }
-        global[key] = window[key];
-    }
-}
+global.window = window;
+global.document = window.document;
+global.navigator = {
+  userAgent: 'node.js',
+};
+copyProps(window, global);

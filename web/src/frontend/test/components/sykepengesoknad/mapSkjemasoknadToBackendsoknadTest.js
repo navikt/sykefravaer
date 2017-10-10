@@ -12,6 +12,8 @@ import inntektskildetyper from '../../../js/enums/inntektskildetyper';
 
 describe("mapSkjemasoknadToBackendsoknad", () => {
 
+    let sykepengesoknad;
+
     beforeEach(() => {
         sykepengesoknad = getSoknad();
         sykepengesoknad.aktiviteter[0] = Object.assign({}, sykepengesoknad.aktiviteter[0], {

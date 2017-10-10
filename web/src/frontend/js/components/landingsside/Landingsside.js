@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import LandingssideLenke from './LandingssideLenke';

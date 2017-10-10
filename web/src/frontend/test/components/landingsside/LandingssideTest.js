@@ -57,6 +57,7 @@ export const trekkMnderOgDagerFraDato = (dato, mnder, dager) => {
 describe("Landingsside", () => {
 
     const today = new Date();
+    let clock;
     today.setHours(0, 0, 0, 0);
     let component;
 

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths';
 import { toDatePrettyPrint, getLedetekst, tidligsteFom, senesteTom } from 'digisyfo-npm';

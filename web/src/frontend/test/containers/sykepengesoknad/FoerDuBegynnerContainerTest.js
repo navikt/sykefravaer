@@ -26,15 +26,18 @@ describe("FoerDuBegynnerContainer", () => {
     const sagaMiddleware = createSagaMiddleware();
     const middlewares = [sagaMiddleware];
     const mockStore = configureMockStore(middlewares);
+    let hentBerikelse;
+    let getState;
 
     beforeEach(() => {
-        component = shallow(<FoerDuBegynnerContainer />);
+        hentBerikelse = sinon.spy();
+        component = shallow(<FoerDuBegynnerContainer hentBerikelse={hentBerikelse} />);
     });
 
     it("Skal inneholde en Controller med riktige props", () => {
         expect(component.find(GenerellSoknadContainer)).to.have.length(1);
         expect(component.find(GenerellSoknadContainer).prop("Component")).to.deep.equal(Controller);
-        expect(component.find(GenerellSoknadContainer).prop("Brodsmuler")).to.be.defined;
+        expect(component.find(GenerellSoknadContainer).prop("brodsmuler")).not.to.be.undefined;
     });
 
     it("Skal vise planlagt vedlikehold ved vedlikehold", () => {
@@ -122,7 +125,7 @@ describe("FoerDuBegynnerContainer", () => {
 
         };
 
-        store = mockStore(getState);
+        let store = mockStore(getState);
 
         mount(<Provider store={store}><FoerDuBegynnerContainer hentBerikelse={berikelse} brodsmuler={[]} henter={false} params={{sykepengesoknadId: 'id'}} sykepengesoknadId={'id'} vedlikehold={{datospennMedTid: null}} /></Provider>);
         expect(berikelse.calledOnce).to.be.true;

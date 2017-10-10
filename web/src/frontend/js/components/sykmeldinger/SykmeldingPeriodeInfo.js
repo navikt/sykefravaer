@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { getDuration, getLedetekst, toDate } from 'digisyfo-npm';
 import { sykmeldingperiode } from '../../propTypes';
 

@@ -1,10 +1,11 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
 import { lagDesimaltall, getObjectValueByString } from '../../../utils';
 import { getLedetekst } from 'digisyfo-npm';
 import DetteTilsvarer, { getStillingsprosent } from './DetteTilsvarer';
-import { soknadperiode, soknadaktiviteter } from '../../../propTypes';
+import { soknadperiode } from '../../../propTypes';
 
 class AngiTid extends Component {
     constructor(props) {
@@ -80,7 +81,7 @@ class AngiTid extends Component {
             if (this.getValgtEnhet() === 'timer' && visTilsvarendeIProsent) {
                 autofill(this.props.names[4], stillingsprosent);
             }
-        }
+        };
 
         return (<div>
             <div className="skjema__input blokk">

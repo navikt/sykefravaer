@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import SykepengerSkjema from '../SykepengerSkjema';
 import { Link } from 'react-router';
 import history from '../../../history';
@@ -14,7 +15,9 @@ import AvbrytSoknadContainer from '../../../containers/sykepengesoknad/AvbrytSok
 
 export class FravaerOgFriskmeldingSkjema extends Component {
     componentDidMount() {
-        this.refs.form.focus();
+        if (this.form) {
+            this.form.focus();
+        }
     }
 
     render() {
@@ -22,7 +25,13 @@ export class FravaerOgFriskmeldingSkjema extends Component {
         const onSubmit = () => {
             history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`);
         };
-        return (<form className="sykepengerskjema" ref="form" tabIndex="-1" id="fravaer-og-friskmelding-skjema" onSubmit={handleSubmit(onSubmit)}>
+        return (<form
+            className="sykepengerskjema"
+            ref={(c) => {
+                this.form = c;
+            }}
+            tabIndex="-1"
+            id="fravaer-og-friskmelding-skjema" onSubmit={handleSubmit(onSubmit)}>
             <Egenmeldingsdager sykepengesoknad={sykepengesoknad} />
             <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
             <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />

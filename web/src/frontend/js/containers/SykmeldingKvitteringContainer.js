@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import SykmeldingKvittering, { kvitteringtyper } from '../components/sykmelding/SykmeldingKvittering';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';

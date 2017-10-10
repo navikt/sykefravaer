@@ -90,8 +90,8 @@ describe("VelgArbeidsgiver", () => {
             expect(component.find(Radioknapper).prop("name")).to.equal("valgtArbeidsgiver");
         });
 
-        it("Skal inneholde Radioknapper med hjelpetekst", () => {
-            expect(component.find(Radioknapper).prop("hjelpetekst")).to.be.defined;
+        it("Skal inneholde Radioknapper med hjelpelinje", () => {
+            expect(component.find(Radioknapper).prop("hjelpelinje")).not.to.be.undefined;
         });
 
         it("Skal inneholde en input for hver arbeidsgiver", () => {

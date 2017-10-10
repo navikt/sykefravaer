@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Soknader from '../components/sykepengesoknader/Soknader';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';

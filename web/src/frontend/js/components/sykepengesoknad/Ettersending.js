@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Varselstripe, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Lightbox from '../Lightbox';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';

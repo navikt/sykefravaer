@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FieldArray } from 'redux-form';
 import Datovelger from './Datovelger';
 import Feilomrade from './Feilomrade';
@@ -79,8 +80,8 @@ export class Periodevelger extends Component {
 
 Periodevelger.propTypes = {
     fields: PropTypes.oneOfType([
-        React.PropTypes.array,
-        React.PropTypes.object,
+        PropTypes.array,
+        PropTypes.object,
     ]),
     namePrefix: PropTypes.string,
     spoersmal: PropTypes.string,

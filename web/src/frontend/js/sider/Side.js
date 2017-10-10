@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Brodsmuler from '../components/Brodsmuler.js';
 const DocumentTitle = require('react-document-title');
 import AppSpinner from '../components/AppSpinner';

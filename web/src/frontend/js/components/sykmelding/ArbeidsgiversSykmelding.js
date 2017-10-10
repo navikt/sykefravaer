@@ -1,8 +1,9 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { ArbeidsgiversSykmeldingOpplysninger, Utvidbar } from 'digisyfo-npm';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 
-const ArbeidsgiversSykmelding = ({ sykmelding, Overskrift = 'H2', erApen = false }) => {
+const ArbeidsgiversSykmelding = ({ sykmelding, Overskrift = 'h2', erApen = false }) => {
     return (<Utvidbar
         tittel="Dette får arbeidsgiveren din se"
         ikon="svg/arbeidsgiver.svg"

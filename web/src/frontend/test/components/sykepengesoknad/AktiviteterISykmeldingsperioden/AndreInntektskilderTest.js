@@ -28,6 +28,7 @@ describe("AndreInntektskilder", () => {
     describe("VelgInntektskilder", () => {
 
         let component; 
+        let checkboxField;
 
         beforeEach(() => {
             const meta = { error: "Feil", touched: false };

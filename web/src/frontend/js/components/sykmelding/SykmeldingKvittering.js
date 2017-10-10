@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
@@ -159,7 +160,7 @@ const SykmeldingKvittering = (props) => {
             <h2 className="kvitteringsteg__tittel">Hjelp oss å bli bedre</h2>
             <p>Dette er en tjeneste som fortsatt er under utvikling. Gi oss tilbakemelding slik at vi kan bli bedre!</p>
             <p className="knapperad">
-                <a href="https://www.survey-xact.no/LinkCollector?key=5U5KSNH43P9K" className="rammeknapp rammeknapp--mini" target="_blank">Gi tilbakemelding</a>
+                <a href="https://www.survey-xact.no/LinkCollector?key=5U5KSNh43P9K" className="rammeknapp rammeknapp--mini" target="_blank">Gi tilbakemelding</a>
             </p>
         </div>
     </div>);

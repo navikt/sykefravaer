@@ -14,7 +14,7 @@ const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding }) => 
             type="suksess"
             nokkelopplysninger={[[STATUS, INNSENDT_DATO]]} />
         <Utvidbar erApen tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}
-            ikon="svg/person.svg" ikonHover="svg/person_hover.svg" ikonAltTekst="Du" className="blokk" variant="lysebla" Overskrift="H2">
+            ikon="svg/person.svg" ikonHover="svg/person_hover.svg" ikonAltTekst="Du" className="blokk" variant="lysebla" Overskrift="h2">
             <DineSykmeldingOpplysninger sykmelding={dinSykmelding} />
         </Utvidbar>
         {

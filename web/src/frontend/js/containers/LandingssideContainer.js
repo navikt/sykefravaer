@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Landingsside from '../components/landingsside/Landingsside';
 import { connect } from 'react-redux';
 import StrippetSide from '../sider/StrippetSide';

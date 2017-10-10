@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Varselstripe } from 'digisyfo-npm';
 
 const ledetekster = {
@@ -63,7 +64,7 @@ class Serverfeilmelding extends Component {
                         visKnapp && <button onClick={(e) => {
                             e.preventDefault();
                             this.toggleVisFeil();
-                        }} className="lenke" aria-toggle={this.state.visFeil}>Se hva som er feil</button>
+                        }} className="lenke" aria-pressed={this.state.visFeil}>Se hva som er feil</button>
                     }
                 </p>
             </Varselstripe>

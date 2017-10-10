@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Varselstripe, SykmeldingNokkelOpplysning } from 'digisyfo-npm';
 import { toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import { SENDT, TIL_SENDING, KORRIGERT } from '../../enums/sykepengesoknadstatuser';

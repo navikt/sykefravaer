@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import SykepengerSkjema from '../SykepengerSkjema';
 import { Field, FieldArray } from 'redux-form';
 import history from '../../../history';
@@ -28,7 +29,9 @@ UtdanningStartDato.propTypes = {
 
 export class AktiviteterISykmeldingsperiodenSkjema extends Component {
     componentDidMount() {
-        this.refs.form.focus();
+        if (this.form) {
+            this.form.focus();
+        }
     }
 
     render() {
@@ -46,7 +49,13 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
             history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
         };
 
-        return (<form className="sykepengerskjema" ref="form" tabIndex="-1" id="aktiviteter-i-sykmeldingsperioden-skjema" onSubmit={handleSubmit(onSubmit)}>
+        return (<form
+            className="sykepengerskjema" ref={(c) => {
+                this.form = c;
+            }}
+            tabIndex="-1"
+            id="aktiviteter-i-sykmeldingsperioden-skjema"
+            onSubmit={handleSubmit(onSubmit)}>
             <FieldArray
                 component={Aktiviteter}
                 fields={sykepengesoknad.aktiviteter}

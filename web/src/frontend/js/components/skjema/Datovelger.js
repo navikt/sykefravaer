@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { erGyldigDato, erGyldigDatoformat, fraInputdatoTilJSDato } from '../../utils/datoUtils';
 import { Field } from 'redux-form';
 import Feilmelding from './Feilmelding';
@@ -83,7 +84,6 @@ export class DatoField extends Component {
                 </div>
                 { this.state.erApen && <DayPickerComponent
                     {...this.props}
-                    ariaControlledBy={`toggle-${id}`}
                     tidligsteFom={tidligsteFom}
                     senesteTom={senesteTom}
                     onDayClick={(event, jsDato) => {

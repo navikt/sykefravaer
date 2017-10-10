@@ -1,4 +1,4 @@
-import { PropTypes } from 'react';
+import PropTypes from 'prop-types';
 import * as sykmldstatuser from '../enums/sykmeldingstatuser';
 import * as arbeidssituasjoner from '../enums/arbeidssituasjoner';
 import * as soknadstatuser from '../enums/sykepengesoknadstatuser';

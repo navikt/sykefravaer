@@ -24,7 +24,7 @@ describe("AktiviteterISykmeldingsperiodenContainer", () => {
     it("Skal inneholde en GenerellSoknadContainer med riktige props", () => {
         expect(component.find(GenerellSoknadContainer)).to.have.length(1);
         expect(component.find(GenerellSoknadContainer).prop("Component")).to.deep.equal(Controller);
-        expect(component.find(GenerellSoknadContainer).prop("Brodsmuler")).to.be.defined;
+        expect(component.find(GenerellSoknadContainer).prop("brodsmuler")).not.to.be.undefined;
     });
 
     describe("Controller", () => {

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { getLedetekst, Utvidbar } from 'digisyfo-npm';
 import { OppfolgingsdialogInnholdboks } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../../routers/paths';

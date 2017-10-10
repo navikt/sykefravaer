@@ -262,7 +262,6 @@ describe("TidslinjeContainer", () => {
 
         beforeEach(() => {
             replaceState = sinon.spy();
-            window.history = window.history || {};
             window.history.replaceState = replaceState;
         });
 

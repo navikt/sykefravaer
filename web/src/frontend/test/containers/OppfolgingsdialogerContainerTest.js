@@ -38,6 +38,7 @@ describe("OppfolgingsdialogerContainer", () => {
         const ikkeTilgang = {
             harTilgang: false,
         };
+        let dispatch;
 
         beforeEach(() => {
             dispatch = sinon.spy();

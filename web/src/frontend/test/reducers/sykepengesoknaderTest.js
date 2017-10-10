@@ -715,7 +715,7 @@ describe('sykepengesoknader', () => {
 });
 
 const getSoknad = (s = {}) => {
-    return soknad = {
+    return {
         aktiviteter: [
             {
                 avvik: null,

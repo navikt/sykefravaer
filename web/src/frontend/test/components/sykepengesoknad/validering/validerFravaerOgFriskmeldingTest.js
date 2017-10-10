@@ -15,6 +15,7 @@ describe("validerFravaerOgFriskmelding", () => {
     let values;
     let sykepengesoknad;
     let clock;
+    let sendTilFoerDuBegynner;
 
     beforeEach(() => {
         values = {

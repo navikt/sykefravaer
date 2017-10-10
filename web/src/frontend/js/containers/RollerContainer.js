@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Artikkel from '../components/Artikkel';
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';

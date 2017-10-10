@@ -24,6 +24,7 @@ import {
     settDialog,
     avbrytDialog,
     finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt,
+    hentArbeidsforhold,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
 import { brodsmule as brodsmulePt } from '../propTypes';
@@ -155,6 +156,7 @@ OppfolgingsdialogSide.propTypes = {
     dokument: PropTypes.object,
     navigasjontoggles: PropTypes.object,
     location: PropTypes.object,
+    arbeidsforhold: PropTypes.array,
     hentet: PropTypes.bool,
 };
 
@@ -194,6 +196,7 @@ export function mapStateToProps(state, ownProps) {
         slettingFeiletArbeidsoppgave: state.arbeidsoppgaver.slettingFeilet,
         slettingFeiletTiltak: state.tiltak.slettingFeilet,
         oppfolgingsdialog,
+        arbeidsforhold: state.arbeidsforhold.data,
         oppfolgingsdialogId,
         tilgang: state.tilgang.data,
         tilgangSjekket: state.tilgang.hentet,
@@ -227,6 +230,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     hentPdfurler,
     giSamtykke,
     settDialog,
+    hentArbeidsforhold,
     avbrytDialog,
 })(OppfolgingsdialogSide);
 

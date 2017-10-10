@@ -41,11 +41,24 @@ describe("mapStateToProps", () => {
     expect(props.gjenopptattArbeidFulltUtDato).to.be.null;
   });
 
-  it("Skal returnere gjenopptattArbeidFulltUtDato = null hvis gjenopptattArbeidFulltUtDato er en ugyldig streng", () => {
+  it("Skal returnere gjenopptattArbeidFulltUtDato = null hvis gjenopptattArbeidFulltUtDato er en ugyldig streng (1)", () => {
     state.form.SYKEPENGERSKJEMA.values.gjenopptattArbeidFulltUtDato = "0_.__.____"
     const props = mapStateToProps(state);
     expect(props.gjenopptattArbeidFulltUtDato).to.be.null;
   });
+
+  it("Skal returnere gjenopptattArbeidFulltUtDato = null hvis gjenopptattArbeidFulltUtDato er en ugyldig streng (2)", () => {
+    state.form.SYKEPENGERSKJEMA.values.gjenopptattArbeidFulltUtDato = "10.__.____"
+    const props = mapStateToProps(state);
+    expect(props.gjenopptattArbeidFulltUtDato).to.be.null;
+  });
+
+  it("Skal returnere gjenopptattArbeidFulltUtDato = null hvis gjenopptattArbeidFulltUtDato er en ugyldig streng (3)", () => {
+    state.form.SYKEPENGERSKJEMA.values.gjenopptattArbeidFulltUtDato = "10.05.____"
+    const props = mapStateToProps(state);
+    expect(props.gjenopptattArbeidFulltUtDato).to.be.null;
+  });
+
 
   it("Skal returnere gjenopptattArbeidFulltUtDato = null hvis gjenopptattArbeidFulltUtDato er noe gyldig", () => {
     state.form.SYKEPENGERSKJEMA.values.gjenopptattArbeidFulltUtDato = "23.12.2017";

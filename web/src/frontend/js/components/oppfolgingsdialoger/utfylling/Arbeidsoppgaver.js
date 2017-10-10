@@ -5,14 +5,14 @@ import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
 import {
-    OppfolgingsdialogInfoboks,
     ArbeidsoppgaverNotifikasjonBoksAdvarsel,
-    NotifikasjonBoksLagretElement,
-    OppfolgingsdialogTabell,
-    LeggTilElementKnapper,
-    LagreArbeidsoppgaveSkjema,
     BRUKERTYPE,
     captitalizeFirstLetter,
+    LagreArbeidsoppgaveSkjema,
+    LeggTilElementKnapper,
+    NotifikasjonBoksLagretElement,
+    OppfolgingsdialogInfoboks,
+    OppfolgingsdialogTabell,
     sorterArbeidsoppgaverEtterOpprettet,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst } from 'digisyfo-npm';
@@ -53,10 +53,19 @@ export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppga
         />
     </div>);
 };
+
 RenderOpprettArbeidsoppgave.propTypes = {
     ledetekster: PropTypes.object,
     sendLagreArbeidsoppgave: PropTypes.func,
     toggleArbeidsoppgaveSkjema: PropTypes.func,
+};
+
+export const RenderArbeidsforhold = ({ arbeidsforhold }) => {
+    return (<div>{arbeidsforhold.stilling.toLowerCase()}: {arbeidsforhold.stillingsprosent}%</div>);
+};
+
+RenderArbeidsforhold.propTypes = {
+    arbeidsforhold: PropTypes.object,
 };
 
 export class Arbeidsoppgaver extends Component {
@@ -128,12 +137,11 @@ export class Arbeidsoppgaver extends Component {
             ledetekster,
             oppfolgingsdialog,
             oppfolgingsdialogId,
+            arbeidsforhold,
         } = this.props;
-
         const antallNyeArbeidsoppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
             return !arbeidsoppgave.erVurdertAvSykmeldt && (!oppfolgingsdialog.arbeidstaker.sistInnlogget || new Date(arbeidsoppgave.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget));
         }).length;
-
         return (
             (() => {
                 if (lagrer || sletter) {
@@ -167,7 +175,22 @@ export class Arbeidsoppgaver extends Component {
                     </div>
                     :
                     <div>
+
+                        { arbeidsforhold.length > 0 &&
+                        <div className="panel oppfolgingsdialogStilling notifikasjonboks" role="alert">
+                            <img src="/sykefravaer/img/svg/oppfolgingsdialog-stilling.svg" alt="ikon" className="oppfolgingsdialogStilling__img" />
+                            <span className="oppfolgingsdialogStilling__tekst">
+                                <h3>Din jobb hos denne arbeidsgiveren:</h3>
+                                { arbeidsforhold.map((forhold, idx) => {
+                                    return (<RenderArbeidsforhold arbeidsforhold={forhold} key={idx} />);
+                                })
+                                }
+                            </span>
+                        </div>
+                        }
+
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
+
                         {
                             lagret && this.state.oppdatertArbeidsoppgave &&
                             <NotifikasjonBoksLagretElement
@@ -234,6 +257,7 @@ Arbeidsoppgaver.propTypes = {
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
     arbeidsoppgaveOpprettet: PropTypes.bool,
+    arbeidsforhold: PropTypes.array,
 };
 
 export default Arbeidsoppgaver;

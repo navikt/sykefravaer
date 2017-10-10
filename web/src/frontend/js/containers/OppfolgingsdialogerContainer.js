@@ -64,6 +64,7 @@ OppfolgingsdialogerSide.propTypes = {
     tilgang: PropTypes.object,
     tilgangSjekket: PropTypes.bool,
     sjekkTilgang: PropTypes.func,
+    arbeidsforhold: PropTypes.array,
     hentet: PropTypes.bool,
 };
 
@@ -71,6 +72,7 @@ export const mapStateToProps = (state) => {
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
+        arbeidsforhold: state.arbeidsforhold.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
         henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter || state.tilgang.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet || state.tilgang.hentingFeilet,

@@ -15,6 +15,7 @@ import aktivitetskravSagas from './aktivitetskravSagas';
 import {
     oppfolgingsdialogerAtSagas as oppfolgingsdialogerSagas,
     arbeidsoppgaveSagas,
+    arbeidsforholdSagas,
     dokumentSagas,
     samtykkeSagas,
     nullstillGodkjenningSagas,
@@ -30,6 +31,7 @@ import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
 export default function * rootSaga() {
     yield [
         arbeidsgiversSykmeldingerSagas(),
+        arbeidsforholdSagas(),
         brukerinfoSagas(),
         beregnArbeidsgiverperiodeSagas(),
         dineArbeidsgivereSagas(),

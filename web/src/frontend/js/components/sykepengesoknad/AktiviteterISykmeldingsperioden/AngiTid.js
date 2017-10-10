@@ -76,10 +76,17 @@ class AngiTid extends Component {
             value: 'timer',
         }];
 
+        const lagreStillingsprosent = () => {
+            if (this.getValgtEnhet() === 'timer' && visTilsvarendeIProsent) {
+                autofill(this.props.names[4], stillingsprosent);
+            }
+        }
+
         return (<div>
             <div className="skjema__input blokk">
                 <label htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`} className="skjema__sporsmal">{this.getNormalSporsmal()}</label>
                 <Field
+                    onBlur={lagreStillingsprosent}
                     name={this.props.names[2]}
                     id={this.props.names[2]}
                     component={TekstfeltMedEnhet}
@@ -120,11 +127,7 @@ class AngiTid extends Component {
                     })
                 }
             </div>
-            <Field onBlur={() => {
-                if (this.getValgtEnhet() === 'timer' && visTilsvarendeIProsent) {
-                    autofill(this.props.names[4], stillingsprosent);
-                }
-            }} id={this.getAntallName()} component={TekstfeltMedEnhet} parse={lagDesimaltall} label={this.getEnhetLabel()} name={this.getAntallName()} />
+            <Field onBlur={lagreStillingsprosent} id={this.getAntallName()} component={TekstfeltMedEnhet} parse={lagDesimaltall} label={this.getEnhetLabel()} name={this.getAntallName()} />
             { visTilsvarendeIProsent && <DetteTilsvarer stillingsprosent={stillingsprosent} /> }
         </div>);
     }
@@ -138,7 +141,13 @@ AngiTid.propTypes = {
     untouch: PropTypes.func,
     arbeidsgiver: PropTypes.string,
     periode: soknadperiode,
-    aktiviteter: soknadaktiviteter,
+    aktiviteter: PropTypes.arrayOf(PropTypes.shape({
+        avvik: PropTypes.object,
+        arbeidsgrad: PropTypes.object,
+        beregnetArbeidsgrad: PropTypes.object,
+        enhet: PropTypes.object,
+        timer: PropTypes.object,
+    })),
 };
 
 export default AngiTid;

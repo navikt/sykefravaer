@@ -35,13 +35,13 @@ export const VelgInntektskilder = ({ fields, meta }) => {
                                 spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.er-du-sykmeldt-fra-dette.sporsmal')}
                                 parse={parseJaEllerNei}
                                 name={`andreInntektskilder[${index}].sykmeldt`}>
-                                    <input label={getLedetekst('sykepengesoknad.ja')} value>
-                                        <div className="presisering blokk">
-                                            <p className="sist">{getPresisering(field.annenInntektskildeType)}</p>
-                                        </div>
-                                    </input>
-                                    <input label={getLedetekst('sykepengesoknad.nei')} value={false} />
-                                </Field>
+                                <input label={getLedetekst('sykepengesoknad.ja')} value>
+                                    <div className="presisering blokk">
+                                        <p className="sist">{getPresisering(field.annenInntektskildeType)}</p>
+                                    </div>
+                                </input>
+                                <input label={getLedetekst('sykepengesoknad.nei')} value={false} />
+                            </Field>
                         }
                     </Field>);
             })

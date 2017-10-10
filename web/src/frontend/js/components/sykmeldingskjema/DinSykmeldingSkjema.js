@@ -151,62 +151,62 @@ export class DinSykmeldingSkjemaComponent extends Component {
             }
             {
                 modus !== modi.AVBRYT && (<div className="blokk">
-                <VelgArbeidssituasjon {...this.props} />
-                {
-                    values.valgtArbeidssituasjon === ARBEIDSTAKER &&
-                        <div className="blokk">
-                            {
-                                harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} />
-                            }
-                        </div>
-                }
-            </div>)
+                    <VelgArbeidssituasjon {...this.props} />
+                    {
+                        values.valgtArbeidssituasjon === ARBEIDSTAKER &&
+                            <div className="blokk">
+                                {
+                                    harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} />
+                                }
+                            </div>
+                    }
+                </div>)
             }
             { values.valgtArbeidssituasjon === ARBEIDSTAKER && <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" /> }
-                <div aria-live="polite" role="alert">
-                    {
-                        (sendingFeilet || avbrytFeilet) &&
+            <div aria-live="polite" role="alert">
+                {
+                    (sendingFeilet || avbrytFeilet) &&
                         <div className="panel panel-ramme js-varsel">
                             <Varselstripe type="feil">
                                 <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
                             </Varselstripe>
                         </div>
+                }
+            </div>
+            {
+                modus !== modi.GA_VIDERE && <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>
+            }
+            <div className="knapperad">
+                <p className="blokk--s">
+                    <button disabled={sender} ref={modus === modi.AVBRYT ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
+                        className={`js-submit knapp ${modus === modi.AVBRYT ? 'knapp--fare' : ''} ${(sender) ? 'js-spinner' : ''}`}>
+                        {getLedetekst(`starte-sykmelding.knapp.${modus}`)}
+                        { sender && <span className="knapp__spinner" /> }
+                    </button>
+                </p>
+                <div className="avbrytDialog">
+                    {
+                        modus !== modi.AVBRYT && <p className="blokk">
+                            <button aria-pressed={this.state.visAvbrytDialog} className="lenke" ref="js-trigger-avbryt-sykmelding" onClick={(e) => {
+                                e.preventDefault();
+                                this.setState({
+                                    visAvbrytDialog: !this.state.visAvbrytDialog,
+                                });
+                            }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</button>
+                        </p>
+                    }
+                    {
+                        this.state.visAvbrytDialog && <AvbrytDialog avbryter={avbryter} avbrytHandler={() => {
+                            this.setState({
+                                visAvbrytDialog: false,
+                            });
+                            this.refs['js-trigger-avbryt-sykmelding'].focus();
+                        }} bekreftHandler={() => {
+                            this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
+                        }} />
                     }
                 </div>
-                {
-                    modus !== modi.GA_VIDERE && <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>
-                }
-                <div className="knapperad">
-                    <p className="blokk--s">
-                        <button disabled={sender} ref={modus === modi.AVBRYT ? 'js-trigger-avbryt-sykmelding' : 'js-submit'} type="submit" id="dinSykmeldingSkjemaSubmit"
-                            className={`js-submit knapp ${modus === modi.AVBRYT ? 'knapp--fare' : ''} ${(sender) ? 'js-spinner' : ''}`}>
-                            {getLedetekst(`starte-sykmelding.knapp.${modus}`)}
-                            { sender && <span className="knapp__spinner" /> }
-                        </button>
-                    </p>
-                    <div className="avbrytDialog">
-                        {
-                            modus !== modi.AVBRYT && <p className="blokk">
-                                <button aria-pressed={this.state.visAvbrytDialog} className="lenke" ref="js-trigger-avbryt-sykmelding" onClick={(e) => {
-                                    e.preventDefault();
-                                    this.setState({
-                                        visAvbrytDialog: !this.state.visAvbrytDialog,
-                                    });
-                                }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</button>
-                            </p>
-                        }
-                        {
-                            this.state.visAvbrytDialog && <AvbrytDialog avbryter={avbryter} avbrytHandler={() => {
-                                this.setState({
-                                    visAvbrytDialog: false,
-                                });
-                                this.refs['js-trigger-avbryt-sykmelding'].focus();
-                            }} bekreftHandler={() => {
-                                this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
-                            }} />
-                        }
-                    </div>
-                </div>
+            </div>
         </form>);
     }
 }

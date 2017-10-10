@@ -171,17 +171,17 @@ export class Arbeidsoppgaver extends Component {
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
                         {
                             lagret && this.state.oppdatertArbeidsoppgave &&
-                            <NotifikasjonBoksLagretElement
-                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
-                                rootUrl={`${getContextRoot()}`}
-                            />
+                                <NotifikasjonBoksLagretElement
+                                    tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
+                                    rootUrl={`${getContextRoot()}`}
+                                />
                         }
                         {
                             lagret && this.state.nyArbeidsoppgave &&
-                            <NotifikasjonBoksLagretElement
-                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
-                                rootUrl={`${getContextRoot()}`}
-                            />
+                                <NotifikasjonBoksLagretElement
+                                    tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
+                                    rootUrl={`${getContextRoot()}`}
+                                />
                         }
                         {
                             antallNyeArbeidsoppgaver > 0 && <ArbeidsoppgaverNotifikasjonBoksAdvarsel

@@ -53,11 +53,9 @@ class FremtidigSoknadTeaser extends Component {
                                 {getLedetekst('soknad.teaser.tittel')}
                             </span>
                         </h3>
-                        {
-                                <p className="inngangspanel__status js-status">
-                                    {getLedetekst(`soknad.teaser.status.${soknad.status}`)}
-                                </p>
-                        }
+                        <p className="inngangspanel__status js-status">
+                            {getLedetekst(`soknad.teaser.status.${soknad.status}`)}
+                        </p>
                     </header>
                     <p className="inngangspanel__tekst js-tekst">
                         {

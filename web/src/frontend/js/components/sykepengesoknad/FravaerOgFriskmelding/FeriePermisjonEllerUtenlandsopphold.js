@@ -30,7 +30,7 @@ export const SoktOmSykepenger = () => {
                     </input>);
                 })
             }
-        </Field>);
+    </Field>);
 };
 
 export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, tidligsteFom, senesteTom }) => {
@@ -92,12 +92,12 @@ export const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, gjenoppta
             '%TOM%': toDatePrettyPrint(senesteTom),
         })}
         name="harHattFeriePermisjonEllerUtenlandsopphold">
-            <FieldArray
-                component={RendreFeriePermisjonEllerUtenlandsopphold}
-                name="feriePermisjonEllerUtenlandsopphold"
-                fields={['ferie', 'permisjon', 'utenlandsopphold']}
-                tidligsteFom={tidligsteFom}
-                senesteTom={senesteTom} />
+        <FieldArray
+            component={RendreFeriePermisjonEllerUtenlandsopphold}
+            name="feriePermisjonEllerUtenlandsopphold"
+            fields={['ferie', 'permisjon', 'utenlandsopphold']}
+            tidligsteFom={tidligsteFom}
+            senesteTom={senesteTom} />
     </JaEllerNei>);
 };
 

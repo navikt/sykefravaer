@@ -38,21 +38,21 @@ export class ArbeidsgiverHarTvangsgodkjent extends Component {
                 svgAlt="godkjent"
                 tittel={getLedetekst('oppfolgingsdialog.arbeidsgiverhartvangsgodkjent.tittel')}
             >
-            <div className="arbeidsgiverHarTvangsgodkjent">
-                <p>{getLedetekst('oppfolgingsdialog.arbeidsgiverhartvangsgodkjent.tekst')}</p>
-                <Utvidbar className="utvidbar--oppfolgingsplan" tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.godkjennplan.godkjent.utvidbar.tittel', ledetekster)}>
-                    <div className="godkjentPlanPdf">
-                        { panel }
-                    </div>
-                </Utvidbar>
+                <div className="arbeidsgiverHarTvangsgodkjent">
+                    <p>{getLedetekst('oppfolgingsdialog.arbeidsgiverhartvangsgodkjent.tekst')}</p>
+                    <Utvidbar className="utvidbar--oppfolgingsplan" tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.godkjennplan.godkjent.utvidbar.tittel', ledetekster)}>
+                        <div className="godkjentPlanPdf">
+                            { panel }
+                        </div>
+                    </Utvidbar>
 
-                <div className="knapperad">
-                    <button className="knapp knapperad__element" type="button" onClick={markerMottattTvungenGodkjenning}>
-                        {getLedetekst('oppfolgingsdialog.knapp.videre')}
-                    </button>
+                    <div className="knapperad">
+                        <button className="knapp knapperad__element" type="button" onClick={markerMottattTvungenGodkjenning}>
+                            {getLedetekst('oppfolgingsdialog.knapp.videre')}
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </OppfolgingsdialogInnholdboks>);
+            </OppfolgingsdialogInnholdboks>);
     }
 }
 

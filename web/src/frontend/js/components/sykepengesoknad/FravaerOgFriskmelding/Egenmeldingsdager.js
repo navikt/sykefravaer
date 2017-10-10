@@ -30,7 +30,7 @@ const EgenmeldingsDager = ({ sykepengesoknad }) => {
                 spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal')}
                 tidligsteFom={tidligsteFom}
                 senesteTom={senesteTom} />
-    </JaEllerNei>);
+        </JaEllerNei>);
 };
 
 EgenmeldingsDager.propTypes = {

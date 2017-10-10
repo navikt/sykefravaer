@@ -58,7 +58,7 @@ const FravaerOgFriskmelding = ({ sykepengesoknad }) => {
             aktivtSteg="1"
             tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel')}
             sykepengesoknad={sykepengesoknad}>
-                <FravaerOgFriskmeldingSkjemaSetup sykepengesoknad={sykepengesoknad} />
+            <FravaerOgFriskmeldingSkjemaSetup sykepengesoknad={sykepengesoknad} />
         </SykepengerSkjema>);
 };
 

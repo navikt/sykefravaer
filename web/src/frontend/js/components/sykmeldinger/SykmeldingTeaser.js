@@ -50,36 +50,37 @@ class SykmeldingTeaser extends Component {
                 onMouseEnter={() => {this.onMouseEnter();}}
                 onMouseLeave={() => {this.onMouseLeave();}}
             >
-            <span className="inngangspanel__ikon">
-                <img src={`/sykefravaer/img/svg/${this.state.ikon}`} />
-            </span>
-            <div className="inngangspanel__innhold">
-                <header className="inngangspanel__header">
-                    <h3 className="js-title" id={`sykmelding-header-${this.props.sykmelding.id}`}>
-                        <small className="inngangspanel__meta">{getLedetekst('sykmelding.teaser.dato', {
-                            '%FOM%': toDatePrettyPrint(tidligsteFom(sykmelding.mulighetForArbeid.perioder)),
-                            '%TOM%': toDatePrettyPrint(senesteTom(sykmelding.mulighetForArbeid.perioder)),
-                        })} </small>
-                        <span className="inngangspanel__tittel">
-                            {getLedetekst('sykmelding.teaser.tittel')}
-                        </span>
-                    </h3>
-                    {
-                        visStatus && <p className="inngangspanel__status">{getLedetekst(`sykmelding.teaser.status.${sykmelding.status}`)}</p>
-                    }
-                </header>
-                <div className="inngangspanel__tekst">
-                    {antallPerioder === 1 ?
-                        (<SykmeldingPeriodeInfo
-                            periode={sykmelding.mulighetForArbeid.perioder[0]}
-                            arbeidsgiver={sykmelding.arbeidsgiver} />)
-                        : (<PeriodeListe
-                            perioder={sykmelding.mulighetForArbeid.perioder}
-                            arbeidsgiver={sykmelding.arbeidsgiver} />)
-                    }
+                <span className="inngangspanel__ikon">
+                    <img src={`/sykefravaer/img/svg/${this.state.ikon}`} />
+                </span>
+                <div className="inngangspanel__innhold">
+                    <header className="inngangspanel__header">
+                        <h3 className="js-title" id={`sykmelding-header-${this.props.sykmelding.id}`}>
+                            <small className="inngangspanel__meta">{getLedetekst('sykmelding.teaser.dato', {
+                                '%FOM%': toDatePrettyPrint(tidligsteFom(sykmelding.mulighetForArbeid.perioder)),
+                                '%TOM%': toDatePrettyPrint(senesteTom(sykmelding.mulighetForArbeid.perioder)),
+                            })} </small>
+                            <span className="inngangspanel__tittel">
+                                {getLedetekst('sykmelding.teaser.tittel')}
+                            </span>
+                        </h3>
+                        {
+                            visStatus && <p className="inngangspanel__status">{getLedetekst(`sykmelding.teaser.status.${sykmelding.status}`)}</p>
+                        }
+                    </header>
+                    <div className="inngangspanel__tekst">
+                        {antallPerioder === 1 ?
+                            (<SykmeldingPeriodeInfo
+                                periode={sykmelding.mulighetForArbeid.perioder[0]}
+                                arbeidsgiver={sykmelding.arbeidsgiver} />)
+                            : (<PeriodeListe
+                                perioder={sykmelding.mulighetForArbeid.perioder}
+                                arbeidsgiver={sykmelding.arbeidsgiver} />)
+                        }
+                    </div>
                 </div>
-            </div>
-        </Link></article>);
+            </Link>
+        </article>);
     }
 }
 

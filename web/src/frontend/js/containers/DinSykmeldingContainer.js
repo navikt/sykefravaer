@@ -85,7 +85,7 @@ export class DinSykmldSide extends Component {
                     return <Feilmelding tittel="Sykmeldingen har ukjent status" />;
                 })()
                 }
-            </Side>);
+        </Side>);
     }
 }
 

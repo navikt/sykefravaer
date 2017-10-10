@@ -12,7 +12,7 @@ const ArbeidsgiversSykmelding = ({ sykmelding, Overskrift = 'h2', erApen = false
         erApen={erApen}
         variant="lilla"
         Overskrift={Overskrift}>
-            <ArbeidsgiversSykmeldingOpplysninger sykmelding={sykmelding} />
+        <ArbeidsgiversSykmeldingOpplysninger sykmelding={sykmelding} />
     </Utvidbar>);
 };
 

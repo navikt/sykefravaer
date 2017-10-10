@@ -78,7 +78,7 @@ const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, 
                 }
                 {
                     skalViseOppfoelgingsdialogLenke(dineSykmeldinger, toggles) &&
-                    <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
+                        <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
                 }
             </nav>
             <DetteHarSkjeddContainer />

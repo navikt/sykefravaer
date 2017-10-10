@@ -14,12 +14,12 @@ const SykmeldingUtdrag = ({ erApen, sykepengesoknad }) => {
     });
 
     return (<div className="blokk">
-            <Utvidbar
-                Overskrift="h2"
-                erApen={erApen}
-                visLukklenke={!erApen}
-                tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.tittel')}
-                variant="lysebla" ikon="svg/plaster.svg" ikonHover="svg/plaster--hover.svg" ikonAltTekst="Plaster-ikon">
+        <Utvidbar
+            Overskrift="h2"
+            erApen={erApen}
+            visLukklenke={!erApen}
+            tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.tittel')}
+            variant="lysebla" ikon="svg/plaster.svg" ikonHover="svg/plaster--hover.svg" ikonAltTekst="Plaster-ikon">
             <div>
                 <SykmeldingPerioder perioder={perioder} />
                 <SykmeldingNokkelOpplysning

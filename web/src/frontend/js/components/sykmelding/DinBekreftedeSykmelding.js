@@ -19,9 +19,9 @@ const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding }) => 
         </Utvidbar>
         {
             dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER' &&
-            <div className="blokk">
-                <ArbeidsgiversSykmelding sykmelding={arbeidsgiversSykmelding} />
-            </div>
+                <div className="blokk">
+                    <ArbeidsgiversSykmelding sykmelding={arbeidsgiversSykmelding} />
+                </div>
         }
     </div>);
 };

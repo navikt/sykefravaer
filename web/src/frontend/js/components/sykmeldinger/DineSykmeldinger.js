@@ -34,8 +34,8 @@ const DineSykmeldinger = ({ sykmeldinger = [], sortering }) => {
                 ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.ingen-sykmeldinger.melding')}
                 className="js-tidligere-sykmeldinger"
                 id="sykmelding-liste-tidligere">
-                    <SykmeldingerSorteringContainer status="tidligere" />
-                </SykmeldingTeasere>
+                <SykmeldingerSorteringContainer status="tidligere" />
+            </SykmeldingTeasere>
         }
     </div>);
 };

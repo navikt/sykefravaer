@@ -12,6 +12,7 @@ import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger';
 import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
 import ledere from './reducers/ledere';
+import { oppfolgingsdialogerAt as oppfolgingsdialoger, arbeidsoppgaver, dokument, samtykke, tilgang, tiltak, navigasjontoggles, nullstillGodkjenning, avbrytdialogReducer } from 'oppfolgingsdialog-npm';
 import { oppfolgingsdialogerAt as oppfolgingsdialoger, arbeidsoppgaver, dokument, samtykke, tilgang, tiltak, navigasjontoggles, nullstillGodkjenning, arbeidsforhold } from 'oppfolgingsdialog-npm';
 import { hentLedetekster, ledetekster, tidslinjer, toggles } from 'digisyfo-npm';
 import { hentVedlikehold } from './actions/vedlikehold_actions';
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
     arbeidsgiverperiodeberegning,
     arbeidsgiversSykmeldinger,
     arbeidsoppgaver,
+    avbrytdialogReducer,
     brukerinfo,
     dineSykmeldinger,
     forskutteringssporsmal,

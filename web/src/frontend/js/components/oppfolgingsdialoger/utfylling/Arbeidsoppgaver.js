@@ -61,7 +61,7 @@ RenderOpprettArbeidsoppgave.propTypes = {
 };
 
 export const RenderArbeidsforhold = ({ arbeidsforhold }) => {
-    return (<div>{arbeidsforhold.stilling.toLowerCase()}: {arbeidsforhold.stillingsprosent}%</div>);
+    return (<div>{captitalizeFirstLetter(arbeidsforhold.stilling.toLowerCase())}: {arbeidsforhold.stillingsprosent}%</div>);
 };
 
 RenderArbeidsforhold.propTypes = {

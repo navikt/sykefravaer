@@ -182,7 +182,9 @@ export class Arbeidsoppgaver extends Component {
                             <span className="oppfolgingsdialogStilling__tekst">
                                 <h3>Din jobb hos denne arbeidsgiveren:</h3>
                                 { arbeidsforhold.map((forhold, idx) => {
-                                    return (<RenderArbeidsforhold arbeidsforhold={forhold} key={idx} />);
+                                    if (forhold.stillingsprosent > 0) {
+                                        return (<RenderArbeidsforhold arbeidsforhold={forhold} key={idx} />);
+                                    } return (null);
                                 })
                                 }
                             </span>

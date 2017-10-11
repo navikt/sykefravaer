@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StatusOpplysning from './StatusOpplysning';
 import { Varselstripe } from 'digisyfo-npm';
+import StatusOpplysning from './StatusOpplysning';
 import { sykmelding as sykmeldingPt } from '../propTypes';
 
 const StatusPanel = ({ sykmelding, nokkelopplysninger, type }) => {
@@ -31,7 +31,7 @@ const StatusPanel = ({ sykmelding, nokkelopplysninger, type }) => {
 StatusPanel.propTypes = {
     sykmelding: sykmeldingPt,
     type: PropTypes.string,
-    nokkelopplysninger: PropTypes.array,
+    nokkelopplysninger: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
 };
 
 export default StatusPanel;

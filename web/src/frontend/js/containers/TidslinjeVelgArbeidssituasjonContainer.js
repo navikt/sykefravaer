@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import history from '../history';
 import { getLedetekst, Radiofaner } from 'digisyfo-npm';
 import { hentTidslinjer } from '../actions/tidslinjer_actions';
+import history from '../history';
 
-const verdier = {
-    MED_ARBEIDSGIVER: 'med-arbeidsgiver',
-    UTEN_ARBEIDSGIVER: 'uten-arbeidsgiver',
-};
+const MED_ARBEIDSGIVER = 'MED_ARBEIDSGIVER';
+const UTEN_ARBEIDSGIVER = 'UTEN_ARBEIDSGIVER';
+
+const verdier = {};
+verdier[MED_ARBEIDSGIVER] = 'med-arbeidsgiver';
+verdier[UTEN_ARBEIDSGIVER] = 'uten-arbeidsgiver';
 
 export class VelgArbeidssituasjon extends Component {
-    redirect(verdi) {
-        history.replace(`/sykefravaer/tidslinjen/${verdi}`);
-    }
-
     changeHandler(verdi) {
-        this.redirect(verdier[verdi]);
+        history.replace(`/sykefravaer/tidslinjen/${verdier[verdi]}`);
         this.props.hentTidslinjer([], verdi);
     }
 
@@ -31,20 +29,23 @@ export class VelgArbeidssituasjon extends Component {
 }
 
 VelgArbeidssituasjon.propTypes = {
-    arbeidssituasjoner: PropTypes.array,
+    arbeidssituasjoner: PropTypes.arrayOf(PropTypes.shape({
+        tittel: PropTypes.string,
+        verdi: PropTypes.oneOf([MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER]),
+    })),
     valgtArbeidssituasjon: PropTypes.string,
     hentTidslinjer: PropTypes.func,
 };
 
 export function mapStateToProps(state, ownProps) {
     return {
-        valgtArbeidssituasjon: state.brukerinfo.innstillinger.arbeidssituasjon || ownProps.arbeidssituasjon || 'MED_ARBEIDSGIVER',
+        valgtArbeidssituasjon: state.brukerinfo.innstillinger.arbeidssituasjon || ownProps.arbeidssituasjon || MED_ARBEIDSGIVER,
         arbeidssituasjoner: [{
             tittel: getLedetekst('tidslinje.filter.med-arbeidsgiver'),
-            verdi: 'MED_ARBEIDSGIVER',
+            verdi: MED_ARBEIDSGIVER,
         }, {
             tittel: getLedetekst('tidslinje.filter.uten-arbeidsgiver'),
-            verdi: 'UTEN_ARBEIDSGIVER',
+            verdi: UTEN_ARBEIDSGIVER,
             hjelpetekst: {
                 tittel: getLedetekst('tidslinje.filter.med-arbeidsgiver.hjelpetekst.tittel'),
                 tekst: getLedetekst('tidslinje.filter.med-arbeidsgiver.hjelpetekst.tekst'),

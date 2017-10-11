@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getLedetekst, Tidslinje, setHendelseData } from 'digisyfo-npm';
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { getLedetekst, Tidslinje, setHendelseData } from 'digisyfo-npm';
 import Sidetopp from '../components/Sidetopp';
 import TidslinjeVelgArbeidssituasjonContainer from './TidslinjeVelgArbeidssituasjonContainer';
 import { hentTidslinjer } from '../actions/tidslinjer_actions';
-import { brodsmule as brodsmulePt } from '../propTypes';
+import { brodsmule as brodsmulePt, tidslinjehendelse } from '../propTypes';
 
 export class TidslinjeSide extends Component {
     componentWillMount() {
@@ -55,12 +55,13 @@ export class TidslinjeSide extends Component {
 TidslinjeSide.propTypes = {
     dispatch: PropTypes.func,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    hendelser: PropTypes.array,
+    hendelser: PropTypes.arrayOf(tidslinjehendelse),
     arbeidssituasjon: PropTypes.string,
-    hashMilepaeler: PropTypes.array,
-    apneHendelser: PropTypes.func,
-    hashHendelser: PropTypes.array,
-    tidslinjer: PropTypes.array,
+    hashHendelser: PropTypes.arrayOf(PropTypes.string),
+    tidslinjer: PropTypes.arrayOf(PropTypes.shape({
+        startdato: PropTypes.string,
+        hendelser: PropTypes.arrayOf(tidslinjehendelse),
+    })),
     hentingFeilet: PropTypes.bool,
     henter: PropTypes.bool,
     forsoktHentet: PropTypes.bool,

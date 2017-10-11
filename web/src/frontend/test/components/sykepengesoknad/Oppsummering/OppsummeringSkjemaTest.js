@@ -6,7 +6,7 @@ import sinon from "sinon";
 import { Field } from "redux-form";
 
 import { OppsummeringForm, SendingFeilet } from "../../../../js/components/sykepengesoknad/Oppsummering/OppsummeringSkjema";
-import { ForskuttererArbeidsgiver } from "../../../../js/components/sykepengesoknad/Oppsummering/ForskuttererArbeidsgiver";
+import ForskuttererArbeidsgiver from "../../../../js/components/sykepengesoknad/Oppsummering/ForskuttererArbeidsgiver";
 import { getSoknad } from "../../../mockSoknader";
 import { setLedetekster, Soknad } from "digisyfo-npm";
 import { Link } from "react-router";
@@ -67,11 +67,11 @@ describe("OppsummeringSkjema", () => {
             expect(component2.find(SendingFeilet)).to.have.length(1);
         });
 
-        it("SKal ikke vise en SendingFeilet hvis sending ikke feilet", () => {
+        it("Skal ikke vise en SendingFeilet hvis sending ikke feilet", () => {
             expect(component.find(SendingFeilet)).to.have.length(0);
         });
 
-        it("Innholder mottakertekst om vi ikke spør om forskuttering", () => {
+        it("Inneholder mottakertekst om vi ikke spør om forskuttering", () => {
             const component2 = shallow(<OppsummeringForm handleSubmit={handleSubmit}
                                                          skjemasoknad={skjemasoknad}
                                                          sykepengesoknad={sykepengesoknad}
@@ -80,7 +80,7 @@ describe("OppsummeringSkjema", () => {
             expect(component2.find(ForskuttererArbeidsgiver)).to.have.length(0);
         });
 
-        it("Innholder forskuttering og ikke mottaker", () => {
+        it("Inneholder forskuttering og ikke mottaker", () => {
             const component2 = shallow(<OppsummeringForm handleSubmit={handleSubmit}
                                                          skjemasoknad={skjemasoknad}
                                                          sykepengesoknad={sykepengesoknad}

@@ -5,14 +5,14 @@ import { AKTIVITETSKRAV_BEKREFTET } from '../enums/hendelsetyper';
 import DetteHarSkjedd from '../components/landingsside/DetteHarSkjedd';
 import { hendelse } from '../propTypes';
 
-export const DetteHarSkjeddContainer = ({ visDetteHarSkjedd, hendelser }) => {
+export const Container = ({ visDetteHarSkjedd, hendelser }) => {
     if (!visDetteHarSkjedd) {
         return null;
     }
     return <DetteHarSkjedd hendelser={hendelser} />;
 };
 
-DetteHarSkjeddContainer.propTypes = {
+Container.propTypes = {
     visDetteHarSkjedd: PropTypes.bool,
     hendelser: PropTypes.arrayOf(hendelse),
 };
@@ -27,6 +27,6 @@ export const mapStateToProps = (state) => {
     };
 };
 
-const Container = connect(mapStateToProps)(DetteHarSkjeddContainer);
+const DetteHarSkjeddContainer = connect(mapStateToProps)(Container);
 
-export default Container;
+export default DetteHarSkjeddContainer;

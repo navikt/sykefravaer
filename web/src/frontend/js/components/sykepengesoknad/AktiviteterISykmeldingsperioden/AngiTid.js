@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
+import { getLedetekst } from 'digisyfo-npm';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
 import { lagDesimaltall, getObjectValueByString } from '../../../utils';
-import { getLedetekst } from 'digisyfo-npm';
 import DetteTilsvarer, { getStillingsprosent } from './DetteTilsvarer';
-import { soknadperiode } from '../../../propTypes';
+import { soknadperiode, fieldPropTypes } from '../../../propTypes';
 
 class AngiTid extends Component {
     constructor(props) {
@@ -41,10 +41,6 @@ class AngiTid extends Component {
 
     getEnhetLabel() {
         return getLedetekst(`sykepengesoknad.angi-tid.antall.label-totalt.${this.getValgtEnhet()}`);
-    }
-
-    getNormalSporsmal() {
-        return getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal');
     }
 
     getAntallName() {
@@ -85,7 +81,7 @@ class AngiTid extends Component {
 
         return (<div>
             <div className="skjema__input blokk">
-                <label htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`} className="skjema__sporsmal">{this.getNormalSporsmal()}</label>
+                <label htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`} className="skjema__sporsmal">{getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal')}</label>
                 <Field
                     onBlur={lagreStillingsprosent}
                     name={this.props.names[2]}
@@ -136,18 +132,18 @@ class AngiTid extends Component {
 
 AngiTid.propTypes = {
     aktivitetIndex: PropTypes.number,
-    input: PropTypes.object,
-    names: PropTypes.array,
+    input: fieldPropTypes.input,
+    names: PropTypes.arrayOf(PropTypes.string),
     autofill: PropTypes.func,
     untouch: PropTypes.func,
     arbeidsgiver: PropTypes.string,
     periode: soknadperiode,
     aktiviteter: PropTypes.arrayOf(PropTypes.shape({
-        avvik: PropTypes.object,
-        arbeidsgrad: PropTypes.object,
-        beregnetArbeidsgrad: PropTypes.object,
-        enhet: PropTypes.object,
-        timer: PropTypes.object,
+        avvik: PropTypes.shape(fieldPropTypes),
+        arbeidsgrad: PropTypes.shape(fieldPropTypes),
+        beregnetArbeidsgrad: PropTypes.shape(fieldPropTypes),
+        enhet: PropTypes.shape(fieldPropTypes),
+        timer: PropTypes.shape(fieldPropTypes),
     })),
 };
 

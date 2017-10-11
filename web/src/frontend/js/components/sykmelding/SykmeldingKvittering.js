@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint, keyValue } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
 import history from '../../history';
-import { sykmelding as sykmeldingPt, sykepengesoknad as sykepengesoknadPt, sykmeldingstatus } from '../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, sykmeldingstatus } from '../../propTypes';
 import { AVBRUTT } from '../../enums/sykmeldingstatuser';
 import Video from '../Video';
 
@@ -53,17 +53,19 @@ export const Standardkvittering = (props) => {
 
 Standardkvittering.propTypes = {
     tittel: PropTypes.string,
-    brodtekst: PropTypes.object,
+    brodtekst: PropTypes.shape({
+        ___html: PropTypes.string,
+    }),
     status: PropTypes.string,
 };
 
 export const HtmlAvsnitt = ({ nokkel, replacements = null }) => {
-    return <p className="kvitteringsteg__tekst" dangerouslySetInnerHTML={{ __html: getLedetekst(nokkel, replacements) }}></p>;
+    return <p className="kvitteringsteg__tekst" dangerouslySetInnerHTML={{ __html: getLedetekst(nokkel, replacements) }} />;
 };
 
 HtmlAvsnitt.propTypes = {
     nokkel: PropTypes.string.isRequired,
-    replacements: PropTypes.object,
+    replacements: keyValue,
 };
 
 export const KvitteringSokNa = ({ hentSykepengesoknader }) => {
@@ -74,11 +76,14 @@ export const KvitteringSokNa = ({ hentSykepengesoknader }) => {
             <Kvitteringsteg ikon="kvitteringSokSykepenger.svg" alt="Søk om sykepenger" tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-2.tittel')}>
                 <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-na.steg-2.tekst" />
                 <p className="kvitteringsteg__handling">
-                    <a onClick={(e) => {
-                        e.preventDefault();
-                        hentSykepengesoknader();
-                        history.push(sokUrl);
-                    }} href={sokUrl} className="js-sok knapp">{getLedetekst('sykmelding.kvittering.sok-na.steg-2.knapp')}</a>
+                    <a
+                        onClick={(e) => {
+                            e.preventDefault();
+                            hentSykepengesoknader();
+                            history.push(sokUrl);
+                        }}
+                        href={sokUrl}
+                        className="js-sok knapp">{getLedetekst('sykmelding.kvittering.sok-na.steg-2.knapp')}</a>
                 </p>
             </Kvitteringsteg>
         </div>
@@ -93,15 +98,15 @@ export const Soknadsdatoliste = ({ sykepengesoknader }) => {
     return (<ul className="js-soknadsdatoliste">
         {
             [...sykepengesoknader]
-            .sort((a, b) => {
-                if (a.tom.getTime() > b.tom.getTime()) {
-                    return 1;
-                }
-                return -1;
-            })
-            .map((s, index) => {
-                return <li key={index}><strong>{toDatePrettyPrint(s.tom)}</strong></li>;
-            })
+                .sort((a, b) => {
+                    if (a.tom.getTime() > b.tom.getTime()) {
+                        return 1;
+                    }
+                    return -1;
+                })
+                .map((s, index) => {
+                    return <li key={index}><strong>{toDatePrettyPrint(s.tom)}</strong></li>;
+                })
         }
     </ul>);
 };
@@ -130,13 +135,15 @@ export const KvitteringSokSenere = ({ sykepengesoknader }) => {
         </div>
         <div className="blokk">
             <h2 className="typo-undertittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
-            <Video width="640" height="360" src="https://video.qbrick.com/play2/embed/player?accountId=763558&mediaId=B248D6CB&pageStyling=adaptive&autoplay=false&repeat=false&sharing=false" />
+            <Video
+                width="640"
+                height="360"
+                src="https://video.qbrick.com/play2/embed/player?accountId=763558&mediaId=B248D6CB&pageStyling=adaptive&autoplay=false&repeat=false&sharing=false" />
         </div>
     </div>);
 };
 
 KvitteringSokSenere.propTypes = {
-    sykmelding: sykmeldingPt,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
 };
 
@@ -160,7 +167,11 @@ const SykmeldingKvittering = (props) => {
             <h2 className="kvitteringsteg__tittel">Hjelp oss å bli bedre</h2>
             <p>Dette er en tjeneste som fortsatt er under utvikling. Gi oss tilbakemelding slik at vi kan bli bedre!</p>
             <p className="knapperad">
-                <a href="https://www.survey-xact.no/LinkCollector?key=5U5KSNh43P9K" className="rammeknapp rammeknapp--mini" target="_blank">Gi tilbakemelding</a>
+                <a
+                    href="https://www.survey-xact.no/LinkCollector?key=5U5KSNh43P9K"
+                    className="rammeknapp rammeknapp--mini"
+                    target="_blank"
+                    rel="noopener noreferrer">Gi tilbakemelding</a>
             </p>
         </div>
     </div>);

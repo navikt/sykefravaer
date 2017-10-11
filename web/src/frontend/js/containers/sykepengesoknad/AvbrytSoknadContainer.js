@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getLedetekst } from 'digisyfo-npm';
 import AvbrytSoknad from '../../components/sykepengesoknad/AvbrytSoknad';
 import { avbrytSoknad } from '../../actions/sykepengesoknader_actions';
-import { getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 class AvbrytSoknadContainer extends Component {
@@ -36,17 +36,23 @@ class AvbrytSoknadContainer extends Component {
         return (<div>
             <div className="avbrytDialog">
                 <p className="avbrytDialog__trigger">
-                    <button aria-pressed={this.state.erApen} ref="js-btn" className="lenke" onClick={(e) => {
-                        e.preventDefault();
-                        this.toggleAvbrytdialog();
-                    }}>{getLedetekst('sykepengesoknad.avbryt.trigger')}</button>
+                    <button
+                        aria-pressed={this.state.erApen}
+                        ref={(c) => {
+                            this.knapp = c;
+                        }}
+                        className="lenke"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            this.toggleAvbrytdialog();
+                        }}>{getLedetekst('sykepengesoknad.avbryt.trigger')}</button>
                 </p>
                 { this.state.erApen && <AvbrytSoknad
                     avbrytFeilet={this.props.avbrytFeilet}
                     avbryter={this.props.avbryter}
                     avbrytHandler={() => {
                         this.skjulAvbrytdialog();
-                        this.refs['js-btn'].focus();
+                        this.knapp.focus();
                     }}
                     bekreftHandler={() => {
                         this.props.avbrytSoknad(this.props.sykepengesoknad.id);

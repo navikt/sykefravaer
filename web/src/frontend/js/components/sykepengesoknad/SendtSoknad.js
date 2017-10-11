@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Soknad, getLedetekst } from 'digisyfo-npm';
+import { Soknad, getLedetekst, scrollTo } from 'digisyfo-npm';
+import { connect } from 'react-redux';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Soknadstatuspanel from './Soknadstatuspanel';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
-import { connect } from 'react-redux';
 import * as actions from '../../actions/sykepengesoknader_actions';
-import Ettersending from './Ettersending';
+import ConnectedEttersending from './Ettersending';
 import { KORRIGERT, SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 import RelaterteSoknaderContainer from '../../containers/sykepengesoknad/RelaterteSoknaderContainer';
 import KorrigertAvContainer from '../../containers/sykepengesoknad/KorrigertAvContainer';
@@ -47,16 +47,18 @@ export const Knapperad = (props) => {
         <div className="verktoylinje">
             {
                 sendtDato.getTime() >= frist.getTime() && <div className="verktoylinje__element">
-                    <button onClick={(e) => {
-                        e.preventDefault();
-                        startEndringForespurt(sykepengesoknad.id);
-                    }} disabled={starterEndring}
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            startEndringForespurt(sykepengesoknad.id);
+                        }}
+                        disabled={starterEndring}
                         className="rammeknapp rammeknapp--mini js-endre">
                         { starterEndring ? <span className="knapp__spinner" /> : null } Endre søknad</button>
                 </div>
             }
-            <Ettersending {...props} manglendeDato="sendtTilNAVDato" ledetekstKeySuffix="send-til-nav" />
-            <Ettersending {...props} manglendeDato="sendtTilArbeidsgiverDato" ledetekstKeySuffix="send-til-arbeidsgiver" />
+            <ConnectedEttersending {...props} manglendeDato="sendtTilNAVDato" ledetekstKeySuffix="send-til-nav" />
+            <ConnectedEttersending {...props} manglendeDato="sendtTilArbeidsgiverDato" ledetekstKeySuffix="send-til-arbeidsgiver" />
         </div>
         { startEndringFeilet ? <p className="skjema__feilmelding">Beklager, det oppstod en feil. Prøv igjen litt senere</p> : null }
     </div>);
@@ -80,20 +82,24 @@ export const ConnectedKnapperad = connect(mapStateToProps, { startEndringForespu
 
 class SendtSoknad extends Component {
     scrollTilTopp() {
-        scrollTo(this.refs.sendtSoknad, 300);
+        scrollTo(this.sendtSoknad, 300);
     }
 
     render() {
         const { sykepengesoknad } = this.props;
-        return (<div ref="sendtSoknad">
+        return (<div ref={(c) => {
+            this.sendtSoknad = c;
+        }}>
             <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
             { sykepengesoknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={sykepengesoknad} /> }
             <Soknadstatuspanel sykepengesoknad={sykepengesoknad}>
-            {
-                [KORRIGERT, TIL_SENDING].indexOf(sykepengesoknad.status) === -1 && <ConnectedKnapperad sykepengesoknad={sykepengesoknad} scrollTilTopp={() => {
-                    this.scrollTilTopp();
-                }} />
-            }
+                {
+                    [KORRIGERT, TIL_SENDING].indexOf(sykepengesoknad.status) === -1 && <ConnectedKnapperad
+                        sykepengesoknad={sykepengesoknad}
+                        scrollTilTopp={() => {
+                            this.scrollTilTopp();
+                        }} />
+                }
             </Soknadstatuspanel>
             <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />
             <Soknad sykepengesoknad={mapAktiviteter(sykepengesoknad)} tittel="Oppsummering" />

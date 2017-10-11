@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Soknader from '../components/sykepengesoknader/Soknader';
 import { connect } from 'react-redux';
-import Side from '../sider/Side';
 import { getLedetekst } from 'digisyfo-npm';
-import AppSpinner from '../components/AppSpinner';
-import Feilmelding from '../components/Feilmelding';
 import { destroy } from 'redux-form';
 import { bindActionCreators } from 'redux';
+import Soknader from '../components/sykepengesoknader/Soknader';
+import Side from '../sider/Side';
+import AppSpinner from '../components/AppSpinner';
+import Feilmelding from '../components/Feilmelding';
 import { SYKEPENGER_SKJEMANAVN } from '../components/sykepengesoknad/setup';
 import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt } from '../propTypes';
 import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
@@ -46,7 +46,10 @@ SoknaderSide.propTypes = {
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
-    actions: PropTypes.object.isRequired,
+    actions: PropTypes.shape({
+        destroy: PropTypes.func,
+        hentSykepengesoknader: PropTypes.func,
+    }),
     soknaderHentet: PropTypes.bool,
 };
 

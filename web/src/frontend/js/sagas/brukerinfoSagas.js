@@ -1,7 +1,7 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
-import { get, getAjax } from '../api';
 import { log } from 'digisyfo-npm';
+import { get, getAjax } from '../api';
 import * as actions from '../actions/brukerinfo_actions';
 import * as actiontyper from '../actions/actiontyper';
 

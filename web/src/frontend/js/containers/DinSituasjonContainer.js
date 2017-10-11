@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DinSituasjon from '../components/landingsside/DinSituasjon';
 import { connect } from 'react-redux';
+import DinSituasjon from '../components/landingsside/DinSituasjon';
 
-let DinSituasjonContainer = ({ visDinSituasjon }) => {
+const Container = ({ visDinSituasjon }) => {
     if (!visDinSituasjon) {
         return null;
     }
     return <DinSituasjon />;
 };
 
-DinSituasjonContainer.propTypes = {
+Container.propTypes = {
     visDinSituasjon: PropTypes.bool.isRequired,
 };
 
@@ -20,6 +20,5 @@ export const mapStateToProps = (state) => {
     };
 };
 
-DinSituasjonContainer = connect(mapStateToProps)(DinSituasjonContainer);
-
+const DinSituasjonContainer = connect(mapStateToProps)(Container);
 export default DinSituasjonContainer;

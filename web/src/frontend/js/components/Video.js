@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 
 let settStorrelse;
 
+const getSidebredde = () => {
+    const s = document.getElementsByClassName('js-begrensning')[0];
+    const style = window.getComputedStyle(s);
+    return parseInt(style.width, 10) - parseInt(style.paddingLeft, 10) - parseInt(style.paddingRight, 10);
+};
+
 class Video extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +31,7 @@ class Video extends Component {
     }
 
     settStorrelse() {
-        const width = this.getSidebredde();
+        const width = getSidebredde();
         const forhold = parseInt(this.props.width, 10) / width;
         const height = parseInt(this.props.height / forhold, 10);
         this.setState({
@@ -33,14 +39,8 @@ class Video extends Component {
         });
     }
 
-    getSidebredde() {
-        const s = document.getElementsByClassName('js-begrensning')[0];
-        const style = window.getComputedStyle(s);
-        return parseInt(style.width, 10) - parseInt(style.paddingLeft, 10) - parseInt(style.paddingRight, 10);
-    }
-
     render() {
-        return <iframe className="iframeVideo" src={`${this.props.src}&width=${this.state.width}&height=${this.state.height}`} width={this.state.width} height={this.state.height} scrolling="no" frameBorder="0" />;
+        return <iframe title="Video" className="iframeVideo" src={`${this.props.src}&width=${this.state.width}&height=${this.state.height}`} width={this.state.width} height={this.state.height} scrolling="no" frameBorder="0" />;
     }
 }
 

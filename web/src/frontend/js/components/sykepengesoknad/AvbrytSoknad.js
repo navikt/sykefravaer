@@ -16,18 +16,24 @@ const AvbrytSoknad = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler })
             <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.avbryt.sporsmal')} />
             <div role="alert" aria-live="polite">{ avbrytFeilet && <Feilmelding /> }</div>
             <div className="blokk--xs">
-                <button disabled={avbryter} className="js-bekreft knapp knapp--fare" type="button" onClick={(e) => {
-                    e.preventDefault();
-                    bekreftHandler();
-                }}>{getLedetekst('sykepengesoknad.avbryt.ja')}
+                <button
+                    disabled={avbryter}
+                    className="js-bekreft knapp knapp--fare"
+                    type="button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        bekreftHandler();
+                    }}>{getLedetekst('sykepengesoknad.avbryt.ja')}
                     { avbryter && <span className="knapp__spinner" /> }
                 </button>
             </div>
             <p className="sist">
-                <button className="lenke js-avbryt" onClick={(e) => {
-                    e.preventDefault();
-                    avbrytHandler();
-                }}>{getLedetekst('sykepengesoknad.avbryt.angre')}
+                <button
+                    className="lenke js-avbryt"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        avbrytHandler();
+                    }}>{getLedetekst('sykepengesoknad.avbryt.angre')}
                 </button>
             </p>
         </div>

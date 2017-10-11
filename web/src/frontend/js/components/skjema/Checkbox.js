@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLabelId } from './Radioknapper';
+import { fieldPropTypes } from '../../propTypes';
 
 const Checkbox = ({ input, label, id, children }) => {
     return (<div className="checkboksContainer" id={`cb-${id}`}>
@@ -15,13 +16,10 @@ const Checkbox = ({ input, label, id, children }) => {
 };
 
 Checkbox.propTypes = {
-    input: PropTypes.object,
+    input: fieldPropTypes.input,
     label: PropTypes.string,
     id: PropTypes.string,
-    children: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.object,
-    ]),
+    children: PropTypes.element,
 };
 
 export default Checkbox;

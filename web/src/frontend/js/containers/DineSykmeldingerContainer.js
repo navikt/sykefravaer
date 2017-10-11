@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getLedetekst } from 'digisyfo-npm';
 import DineSykmeldinger from '../components/sykmeldinger/DineSykmeldinger';
+import Feilmelding from '../components/Feilmelding';
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
-import { getLedetekst } from 'digisyfo-npm';
-import Feilmelding from '../components/Feilmelding';
 import { brodsmule as brodsmulePt, sykmelding as sykmeldingPt } from '../propTypes';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 
@@ -40,7 +40,9 @@ DineSykmldSide.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    sortering: PropTypes.object,
+    sortering: PropTypes.shape({
+        tidligere: PropTypes.string,
+    }),
     sykmeldingerHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
 };

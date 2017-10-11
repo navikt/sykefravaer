@@ -16,7 +16,9 @@ const Sidetopp = ({ tittel, htmlTekst }) => {
 
 Sidetopp.propTypes = {
     tittel: PropTypes.string.isRequired,
-    htmlTekst: PropTypes.object,
+    htmlTekst: PropTypes.shape({
+        __html: PropTypes.string,
+    }),
 };
 
 export default Sidetopp;

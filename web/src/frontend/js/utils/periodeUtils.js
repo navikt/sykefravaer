@@ -116,10 +116,10 @@ export const antallVirkedagerIPeriode = (periode) => {
     const DOGN = 1000 * 60 * 60 * 24;
     let antallVirkedager = 0;
 
-    for (let i = start; i <= slutt; i = i + DOGN) {
+    for (let i = start; i <= slutt; i += DOGN) {
         const d = new Date(i);
         if (!datoErHelgedag(d)) {
-            antallVirkedager = antallVirkedager + 1;
+            antallVirkedager = antallVirkedager += 1;
         }
     }
     return antallVirkedager;

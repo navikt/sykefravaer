@@ -11,7 +11,7 @@ import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
 
 import FoerDuBegynner from '../../../js/components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
-import { FoerDuBegynnerContainer, Controller } from '../../../js/containers/sykepengesoknad/FoerDuBegynnerContainer';
+import { Container, Controller } from '../../../js/containers/sykepengesoknad/FoerDuBegynnerContainer';
 import GenerellSoknadContainer from '../../../js/containers/sykepengesoknad/GenerellSoknadContainer';
 import SendtSoknad from '../../../js/components/sykepengesoknad/SendtSoknad';
 import AvbruttSoknadContainer from '../../../js/containers/sykepengesoknad/AvbruttSoknadContainer';
@@ -31,7 +31,7 @@ describe("FoerDuBegynnerContainer", () => {
 
     beforeEach(() => {
         hentBerikelse = sinon.spy();
-        component = shallow(<FoerDuBegynnerContainer hentBerikelse={hentBerikelse} />);
+        component = shallow(<Container hentBerikelse={hentBerikelse} />);
     });
 
     it("Skal inneholde en Controller med riktige props", () => {
@@ -127,7 +127,7 @@ describe("FoerDuBegynnerContainer", () => {
 
         let store = mockStore(getState);
 
-        mount(<Provider store={store}><FoerDuBegynnerContainer hentBerikelse={berikelse} brodsmuler={[]} henter={false} params={{sykepengesoknadId: 'id'}} sykepengesoknadId={'id'} vedlikehold={{datospennMedTid: null}} /></Provider>);
+        mount(<Provider store={store}><Container hentBerikelse={berikelse} brodsmuler={[]} henter={false} params={{sykepengesoknadId: 'id'}} sykepengesoknadId={'id'} vedlikehold={{datospennMedTid: null}} /></Provider>);
         expect(berikelse.calledOnce).to.be.true;
     });
 });

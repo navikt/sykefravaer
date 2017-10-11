@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { getSvarsideModus } from 'moter-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import { NY as NY_SYKMELDING } from '../enums/sykmeldingstatuser';
 import { NY as NY_SYKEPENGESOKNAD } from '../enums/sykepengesoknadstatuser';
-import { Link } from 'react-router';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../propTypes';
-import { getLedetekst } from 'digisyfo-npm';
-import { getSvarsideModus } from 'moter-npm';
 import { erMotePassert } from '../utils/moteUtils';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentHendelser } from '../actions/hendelser_actions';

@@ -13,7 +13,7 @@ const IllustrertInnhold = ({ ikon, ikonAlt, children }) => {
 IllustrertInnhold.propTypes = {
     ikon: PropTypes.string,
     ikonAlt: PropTypes.string,
-    children: PropTypes.object,
+    children: PropTypes.element,
 };
 
 export default IllustrertInnhold;

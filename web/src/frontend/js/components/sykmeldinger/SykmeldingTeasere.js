@@ -10,11 +10,11 @@ const SykmeldingTeasere = ({ sykmeldinger, className, tittel = '', ingenSykmeldi
             {children}
         </header>
         <div id={id} className={className || 'js-content'}>
-        {
-            (sykmeldinger.length ? sykmeldinger.map((sykmelding, idx) => {
-                return <SykmeldingTeaser key={idx} sykmelding={sykmelding} />;
-            }) : <p className="panel typo-infotekst">{ingenSykmeldingerMelding}</p>)
-        }
+            {
+                (sykmeldinger.length ? sykmeldinger.map((sykmelding, idx) => {
+                    return <SykmeldingTeaser key={idx} sykmelding={sykmelding} />;
+                }) : <p className="panel typo-infotekst">{ingenSykmeldingerMelding}</p>)
+            }
         </div>
     </div>);
 };
@@ -25,7 +25,7 @@ SykmeldingTeasere.propTypes = {
     tittel: PropTypes.string,
     ingenSykmeldingerMelding: PropTypes.string,
     id: PropTypes.string,
-    children: PropTypes.object,
+    children: PropTypes.element,
 };
 
 export default SykmeldingTeasere;

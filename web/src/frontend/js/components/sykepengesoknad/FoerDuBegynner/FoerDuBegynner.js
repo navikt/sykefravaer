@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import history from '../../../history';
 import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';
 import SykmeldingUtdrag from '../SykmeldingUtdrag';
 import validate from '../validering/validerFoerDuBegynner';
-import { getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
-import { Varselstripe } from 'digisyfo-npm';
 import { UTKAST_TIL_KORRIGERING } from '../../../enums/sykepengesoknadstatuser';
 import SykepengesoknadHeader from '../SykepengesoknadHeader';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad/AvbrytSoknadContainer';
@@ -63,7 +62,6 @@ const FoerDuBegynner = (props) => {
 };
 
 FoerDuBegynner.propTypes = {
-    handleSubmit: PropTypes.func,
     sykepengesoknad: sykepengesoknadPt,
 };
 

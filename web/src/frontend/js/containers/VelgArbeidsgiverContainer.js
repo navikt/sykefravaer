@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import VelgArbeidsgiver from '../components/sykmeldingskjema/VelgArbeidsgiver';
 import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
+import VelgArbeidsgiver from '../components/sykmeldingskjema/VelgArbeidsgiver';
 
 export const VelgArbeidsgiverWrapper = (props) => {
     const { henter } = props;

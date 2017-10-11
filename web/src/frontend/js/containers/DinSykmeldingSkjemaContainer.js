@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { getSykmelding, getLedetekst } from 'digisyfo-npm';
 import * as actionCreators from '../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../components/sykmeldingskjema/DinSykmeldingSkjema';
-import { connect } from 'react-redux';
 import { datoMedKlokkeslett } from '../utils/datoUtils';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
@@ -25,10 +25,12 @@ export class Skjema extends Component {
         } else if (hentingFeilet) {
             return <Feilmelding />;
         } else if (vedlikehold.datospennMedTid) {
-            return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel')} melding={getLedetekst('under-vedlikehold.varsel.tekst', {
-                '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
-                '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
-            })} />);
+            return (<Feilmelding
+                tittel={getLedetekst('under-vedlikehold.varsel.tittel')}
+                melding={getLedetekst('under-vedlikehold.varsel.tekst', {
+                    '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
+                    '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
+                })} />);
         }
         return <DinSykmeldingSkjema {...this.props} />;
     }

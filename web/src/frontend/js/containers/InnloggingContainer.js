@@ -42,7 +42,7 @@ Innlogging.propTypes = {
     sjekkInnlogging: PropTypes.func,
     hentingFeilet: PropTypes.bool,
     erInnlogget: PropTypes.bool,
-    children: PropTypes.object,
+    children: PropTypes.element,
     visSmuler: PropTypes.bool,
 };
 

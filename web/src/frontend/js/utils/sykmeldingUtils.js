@@ -1,20 +1,20 @@
 const MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING = 3;
 
 export const sykmeldtHarNaermestelederHosArbeidsgiver = (virksomhetsnummer, naermesteLedere) => {
-    return naermesteLedere.filter(leder => {
+    return naermesteLedere.filter((leder) => {
         return virksomhetsnummer === leder.orgnummer;
     }).length > 0;
 };
 
 export const finnSykmeldtSinNaermestelederNavnHosArbeidsgiver = (virksomhetsnummer, naermesteLedere) => {
-    const naermesteLeder = naermesteLedere.filter(leder => {
+    const naermesteLeder = naermesteLedere.filter((leder) => {
         return virksomhetsnummer === leder.orgnummer;
     })[0];
     return naermesteLeder ? naermesteLeder.navn : undefined;
 };
 
 export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteLedere) => {
-    return sykmeldinger.filter(sykmelding => {
+    return sykmeldinger.filter((sykmelding) => {
         return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
             const tomGrenseDato = new Date();
             tomGrenseDato.setHours(0, 0, 0, 0);
@@ -29,7 +29,7 @@ export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteL
             naermesteLeder: finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(sykmelding.orgnummer, naermesteLedere),
         };
     }).filter((sykmelding, idx, self) => {
-        return self.findIndex(t => {
+        return self.findIndex((t) => {
             return t.virksomhetsnummer === sykmelding.virksomhetsnummer && sykmelding.virksomhetsnummer !== null;
         }) === idx;
     });
@@ -41,7 +41,7 @@ export const skalViseOppfoelgingsdialogLenke = (sykmeldinger, toggles) => {
     }
 
     const piloter = toggles['syfotoggles.oppfoelgingsdialog.piloter'] ? toggles['syfotoggles.oppfoelgingsdialog.piloter'].split(',') : [];
-    return sykmeldinger.filter(sykmelding => {
+    return sykmeldinger.filter((sykmelding) => {
         return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
             const tomGrenseDato = new Date();
             tomGrenseDato.setHours(0, 0, 0, 0);
@@ -49,20 +49,20 @@ export const skalViseOppfoelgingsdialogLenke = (sykmeldinger, toggles) => {
             return new Date(periode.tom) >= new Date(tomGrenseDato) && piloter.includes(sykmelding.orgnummer);
         }).length > 0;
     }).filter((sykmelding, idx, self) => {
-        return self.findIndex(t => {
+        return self.findIndex((t) => {
             return t.orgnummer === sykmelding.orgnummer && sykmelding.orgnummer !== null;
         }) === idx;
     }).length > 0;
 };
 
 export const sykmeldtHarManglendeNaermesteLeder = (arbeidsgivere) => {
-    return arbeidsgivere.filter(arbeidsgiver => {
+    return arbeidsgivere.filter((arbeidsgiver) => {
         return !arbeidsgiver.harNaermesteLeder;
     }).length > 0;
 };
 
 export const sykmeldtHarNaermestelederHosArbeidsgivere = (arbeidsgivere) => {
-    return arbeidsgivere.filter(arbeidsgiver => {
+    return arbeidsgivere.filter((arbeidsgiver) => {
         return arbeidsgiver.harNaermesteLeder;
     }).length > 0;
 };

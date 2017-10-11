@@ -46,7 +46,10 @@ const AppRouter = ({ history }) => {
 };
 
 AppRouter.propTypes = {
-    history: PropTypes.object.isRequired,
+    history: PropTypes.shape({
+        replace: PropTypes.func,
+        push: PropTypes.func,
+    }),
 };
 
 export default AppRouter;

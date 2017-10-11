@@ -3,11 +3,11 @@ import Serverfeilmelding from '../components/landingsside/Serverfeilmelding';
 
 const mapStateToProps = (state) => {
     const feilliste = [];
-    for (const reducer in state) {
+    Object.keys(state).forEach((reducer) => {
         if (state[reducer].hentingFeilet) {
             feilliste.push(reducer);
         }
-    }
+    });
     return {
         feilliste,
         noeErFeil: feilliste.length > 0,

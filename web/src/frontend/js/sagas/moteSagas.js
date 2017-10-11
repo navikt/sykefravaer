@@ -1,8 +1,8 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
-import { get } from '../api';
 import { log } from 'digisyfo-npm';
 import { moteActions, actiontyper } from 'moter-npm';
+import { get } from '../api';
 
 export function* hentMote() {
     yield put(moteActions.henterMote());

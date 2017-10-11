@@ -1,7 +1,7 @@
 import React from 'react';
+import { Hjelpetekst, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
-import { Hjelpetekst, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 const EgenmeldingsDager = ({ sykepengesoknad }) => {

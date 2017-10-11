@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray } from 'redux-form';
+import { connect } from 'react-redux';
+import { getLedetekst } from 'digisyfo-npm';
 import Datovelger from './Datovelger';
 import Feilomrade from './Feilomrade';
-import { getLedetekst } from 'digisyfo-npm';
-import { connect } from 'react-redux';
 import { harOverlappendePerioder } from '../../utils/periodeUtils';
+import { fieldPropTypes, fields as fieldsPt } from '../../propTypes';
 
 export const Periode = (props) => {
     const { name, index, onRemoveHandler, tidligsteFom, senesteTom } = props;
@@ -21,18 +22,21 @@ export const Periode = (props) => {
             <Datovelger name={tomName} id={tomName} tidligsteFom={tidligsteFom} senesteTom={senesteTom} />
         </div>
         <div className="periodevelger__verktoy">
-        {
-            index > 0 && <a role="button" className="lenke" href="#" onClick={(e) => {
-                e.preventDefault();
-                onRemoveHandler();
-            }}>{getLedetekst('sykepengesoknad.periodevelger.slett')}</a>
-        }
+            {
+                index > 0 && <a
+                    role="button"
+                    className="lenke"
+                    href="#"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onRemoveHandler();
+                    }}>{getLedetekst('sykepengesoknad.periodevelger.slett')}</a>
+            }
         </div>
     </div>);
 };
 
 Periode.propTypes = {
-    fields: PropTypes.object,
     index: PropTypes.number,
     onRemoveHandler: PropTypes.func,
     tidligsteFom: PropTypes.instanceOf(Date),
@@ -40,7 +44,7 @@ Periode.propTypes = {
     name: PropTypes.string.isRequired,
 };
 
-export class Periodevelger extends Component {
+export class PeriodevelgerComponent extends Component {
     componentWillMount() {
         if (this.props.fields.length === 0) {
             this.props.fields.push({});
@@ -49,6 +53,7 @@ export class Periodevelger extends Component {
 
     render() {
         const { fields, namePrefix, spoersmal, meta, Overskrift, tidligsteFom, senesteTom } = this.props;
+
         return (<div className="periodevelger">
             <div className={meta && meta.touched && meta.error ? 'blokk' : ''}>
                 <Feilomrade {...meta} id={namePrefix}>
@@ -70,32 +75,32 @@ export class Periodevelger extends Component {
                     </div>
                 </Feilomrade>
             </div>
-            <button className="lenke" type="button" onClick={(e) => {
-                e.preventDefault();
-                fields.push({});
-            }}>+ {getLedetekst('sykepengesoknad.periodevelger.legg-til-ekstra')}</button>
+            <button
+                className="lenke"
+                type="button"
+                onClick={(e) => {
+                    e.preventDefault();
+                    fields.push({});
+                }}>+ {getLedetekst('sykepengesoknad.periodevelger.legg-til-ekstra')}</button>
         </div>);
     }
 }
 
-Periodevelger.propTypes = {
-    fields: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.object,
-    ]),
+PeriodevelgerComponent.propTypes = {
+    fields: fieldsPt,
     namePrefix: PropTypes.string,
     spoersmal: PropTypes.string,
-    meta: PropTypes.object,
+    meta: fieldPropTypes.meta,
     Overskrift: PropTypes.string,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
 };
 
-Periodevelger.defaultProps = {
+PeriodevelgerComponent.defaultProps = {
     Overskrift: 'h4',
 };
 
-export const StateConnectedPeriodevelger = connect()(Periodevelger);
+export const StateConnectedPeriodevelger = connect()(PeriodevelgerComponent);
 
 const PeriodevelgerField = ({ name, spoersmal, tidligsteFom, senesteTom }) => {
     return (<FieldArray

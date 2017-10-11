@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
+import { touch } from 'redux-form';
 import * as actions from '../actions/reduxFormMeta_actions';
 import Feiloppsummering from '../components/skjema/Feiloppsummering';
-import { touch } from 'redux-form';
 import { SEND_SKJEMA_FEILET } from '../enums/reduxFormMetaEnums';
 import { getObjectValueByString } from '../utils';
 
@@ -21,11 +21,11 @@ const getKeys = (key, errors, prefix) => {
             newPrefix = `${prefix}[${key}]`;
         }
     }
-    for (const nKey in errors[key]) {
+    Object.keys(errors[key]).forEach((nKey) => {
         if (errors[key][nKey]) {
             keys = [...getKeys(nKey, errors[key], newPrefix), ...keys];
         }
-    }
+    });
     keys = keys.map((k) => {
         if (k.indexOf('_error') > -1) {
             return k.replace('._error', '');
@@ -36,15 +36,18 @@ const getKeys = (key, errors, prefix) => {
 };
 
 export const getNestedKeys = (errors) => {
+    if (!errors) {
+        return [];
+    }
     let keys = [];
-    for (const key in errors) {
+    Object.keys(errors).forEach((key) => {
         if (errors[key]) {
             const keysToAdd = getKeys(key, errors);
             if (keysToAdd) {
                 keys = [...keysToAdd, ...keys];
             }
         }
-    }
+    });
     return keys.reverse();
 };
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SykmeldingKvittering, { kvitteringtyper } from '../components/sykmelding/SykmeldingKvittering';
+import { getLedetekst, getHtmlLedetekst, getSykmelding, toDatePrettyPrint, senesteTom } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
-import { getLedetekst, getHtmlLedetekst, getSykmelding, toDatePrettyPrint, senesteTom } from 'digisyfo-npm';
+import SykmeldingKvittering, { kvitteringtyper } from '../components/sykmelding/SykmeldingKvittering';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import * as actions from '../actions/sykepengesoknader_actions';

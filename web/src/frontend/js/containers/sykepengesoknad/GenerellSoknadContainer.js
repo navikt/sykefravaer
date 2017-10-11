@@ -7,7 +7,7 @@ import * as soknadActions from '../../actions/sykepengesoknader_actions';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { SYKEPENGER_SKJEMANAVN } from '../../components/sykepengesoknad/setup';
-import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt } from '../../propTypes';
 
 export class GenerellSoknad extends Komponent {
     componentWillMount() {
@@ -19,34 +19,36 @@ export class GenerellSoknad extends Komponent {
     render() {
         const { Component, brodsmuler, sykepengesoknad, henter, hentingFeilet, sykepengesoknaderHentet } = this.props;
         return (<Side tittel="Søknad om sykepenger" brodsmuler={brodsmuler} laster={henter || !sykepengesoknaderHentet}>
-        {
-            (() => {
-                if (henter) {
-                    return <AppSpinner />;
-                }
-                if (hentingFeilet) {
-                    return <Feilmelding />;
-                }
-                if (sykepengesoknad === undefined) {
-                    return (<Feilmelding
-                        tittel="Beklager, vi finner ikke søknaden du ser etter"
-                        melding="Er du sikker på at du er på riktig adresse?" />);
-                }
-                return <Component {...this.props} />;
-            })()
-        }
+            {
+                (() => {
+                    if (henter) {
+                        return <AppSpinner />;
+                    }
+                    if (hentingFeilet) {
+                        return <Feilmelding />;
+                    }
+                    if (sykepengesoknad === undefined) {
+                        return (<Feilmelding
+                            tittel="Beklager, vi finner ikke søknaden du ser etter"
+                            melding="Er du sikker på at du er på riktig adresse?" />);
+                    }
+                    return <Component {...this.props} />;
+                })()
+            }
         </Side>);
     }
 }
 
 GenerellSoknad.propTypes = {
-    brodsmuler: PropTypes.array,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     sykepengesoknad: sykepengesoknadPt,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     Component: PropTypes.func.isRequired,
     sykepengesoknaderHentet: PropTypes.bool,
-    actions: PropTypes.object,
+    actions: PropTypes.shape({
+        hentSykepengesoknader: PropTypes.func,
+    }),
 };
 
 export function mapDispatchToProps(dispatch) {

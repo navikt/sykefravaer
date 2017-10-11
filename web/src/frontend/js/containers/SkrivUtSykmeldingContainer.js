@@ -12,7 +12,6 @@ import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTyp
 let printTrigget = false;
 
 class SkrivUt extends Component {
-
     componentWillMount() {
         const { dispatch } = this.props;
         dispatch(hentArbeidsgiversSykmeldinger());
@@ -46,7 +45,6 @@ class SkrivUt extends Component {
             }
         </Side>);
     }
-
 }
 
 SkrivUt.propTypes = {

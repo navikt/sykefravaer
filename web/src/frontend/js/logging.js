@@ -6,6 +6,6 @@ export default new Logger({
     fetchConfig: (config) => {
         config.headers.append('X-XSRF-TOKEN', getCookie('XSRF-TOKEN-SYFOREST'));
         config.headers.append('NAV_CSRF_PROTECTION', getCookie('NAV_CSRF_PROTECTION'));
-        return { ...config, credentials: 'include'};
-    }
+        return { ...config, credentials: 'include' };
+    },
 });

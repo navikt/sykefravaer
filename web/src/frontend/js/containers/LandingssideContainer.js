@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Landingsside from '../components/landingsside/Landingsside';
+import { moteActions } from 'moter-npm';
 import { connect } from 'react-redux';
+import { getLedetekst, hentToggles, keyValue } from 'digisyfo-npm';
+import Landingsside from '../components/landingsside/Landingsside';
 import StrippetSide from '../sider/StrippetSide';
-import { getLedetekst, hentToggles } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
-import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt } from '../propTypes';
-import { proptypes as motePropTypes } from 'moter-npm';
-import { moteActions } from 'moter-npm';
+import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../propTypes';
 import { hentSykepengesoknader } from '../actions/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
@@ -68,24 +67,26 @@ export class LandingssideSide extends Component {
 LandingssideSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     henter: PropTypes.bool,
-    toggles: PropTypes.object,
+    toggles: keyValue,
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
-    dialogmoter: PropTypes.arrayOf(motePropTypes.mote),
     harDialogmote: PropTypes.bool,
     hentMote: PropTypes.func,
     hentToggles: PropTypes.func,
-    sykepengesoknaderHentet: PropTypes.bool,
-    ledereHentet: PropTypes.bool,
     hentLedere: PropTypes.func,
     hentSykepengesoknader: PropTypes.func,
-    dineSykmeldinger: PropTypes.array,
-    dineSykmeldingerHentet: PropTypes.bool,
+    dineSykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     hentDineSykmeldinger: PropTypes.func,
     hentingFeiletSykepengesoknader: PropTypes.bool,
     hentingFeiletSykmeldinger: PropTypes.bool,
     hentingFeiletLedere: PropTypes.bool,
-    hentet: PropTypes.object,
+    hentet: PropTypes.shape({
+        ledere: PropTypes.bool,
+        mote: PropTypes.bool,
+        dineSykmeldinger: PropTypes.bool,
+        toggles: PropTypes.bool,
+        sykepengesoknader: PropTypes.bool,
+    }),
     altHentet: PropTypes.bool,
 };
 
@@ -97,14 +98,9 @@ export function mapStateToProps(state) {
         toggles: state.toggles.hentet === true,
         sykepengesoknader: state.sykepengesoknader.hentet === true,
     };
-    const altHentet = (() => {
-        for (const i in hentet) {
-            if (!hentet[i]) {
-                return false;
-            }
-        }
-        return true;
-    })();
+    const altHentet = Object.values(hentet).reduce((acc, bool) => {
+        return bool && acc;
+    });
 
     return {
         henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.toggles.henter || state.mote.henter || state.hendelser.henter,

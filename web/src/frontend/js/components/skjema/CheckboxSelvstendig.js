@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { fieldPropTypes } from '../../propTypes';
 import Feilomrade from './Feilomrade';
 import Checkbox from './Checkbox';
 
@@ -10,8 +11,8 @@ const CheckboxSelvstendig = ({ input, meta, label, id }) => {
 };
 
 CheckboxSelvstendig.propTypes = {
-    input: PropTypes.object,
-    meta: PropTypes.object,
+    input: fieldPropTypes.input,
+    meta: fieldPropTypes.meta,
     label: PropTypes.string,
     id: PropTypes.string,
 };

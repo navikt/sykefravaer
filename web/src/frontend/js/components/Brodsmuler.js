@@ -40,7 +40,6 @@ ToggleLink.propTypes = {
 };
 
 class Brodsmuler extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -72,7 +71,7 @@ class Brodsmuler extends Component {
     render() {
         const { brodsmuler } = this.props;
         const synligeBrodsmuler = this.getSynligeBrodsmuler();
-        return (<nav role="navigation" className="brodsmuler" aria-label="Du er her: ">
+        return (<nav className="brodsmuler" aria-label="Du er her: ">
             <img src="/sykefravaer/img/svg/person.svg" alt="Du" className="brodsmuler__ikon" />
             <div className="brodsmuler__smuler">
                 <a href="/dittnav" className="js-smule brodsmuler__smule">Ditt NAV</a>

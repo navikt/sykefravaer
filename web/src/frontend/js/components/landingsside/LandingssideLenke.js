@@ -24,9 +24,15 @@ export default class LandingssideLenke extends Component {
     }
 
     render() {
-        return (<Link className="peker" to={this.props.to}
-            onMouseEnter={() => {this.onMouseEnter();}}
-            onMouseLeave={() => {this.onMouseLeave();}}>
+        return (<Link
+            className="peker"
+            to={this.props.to}
+            onMouseEnter={() => {
+                this.onMouseEnter();
+            }}
+            onMouseLeave={() => {
+                this.onMouseLeave();
+            }}>
             <div className={`peker__ikon ${this.state.variant}`}>
                 <img src={`/sykefravaer/img/svg/${this.state.ikon}`} alt={this.props.ikonAlt} />
             </div>

@@ -81,12 +81,12 @@ describe("TidslinjeVelgArbeidssituasjonContainer", () => {
 
         it("Skal kalle på innsendt funksjon + redirect når man velger", () => {
             let hentTidslinjerSpy = sinon.spy(); 
-            let redirStub = sinon.stub(VelgArbeidssituasjon.prototype, "redirect");
+            let redirStub = sinon.spy(history, "replace");
             let component = mount(<VelgArbeidssituasjon arbeidssituasjoner={initState.arbeidssituasjoner} hentTidslinjer={hentTidslinjerSpy} valgtArbeidssituasjon="UTEN_ARBEIDSGIVER" />)
             let faner = component.find(Radiofaner);
             faner.find(".js-MED_ARBEIDSGIVER").simulate("change");
             expect(redirStub.calledOnce).to.be.true;
-            expect(redirStub.getCall(0).args[0]).to.equal("med-arbeidsgiver");
+            expect(redirStub.getCall(0).args[0]).to.equal("/sykefravaer/tidslinjen/med-arbeidsgiver");
             expect(hentTidslinjerSpy.calledOnce).to.be.true;
             expect(hentTidslinjerSpy.getCall(0).args[1]).to.equal("MED_ARBEIDSGIVER")
         })

@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { Link } from 'react-router';
 import { Varselstripe, getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { getTidligsteSendtDato } from '../../utils/sykepengesoknadUtils';
 
 export const KorrigertAv = ({ korrigertAvSoknad }) => {

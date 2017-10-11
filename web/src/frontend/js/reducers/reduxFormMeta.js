@@ -1,6 +1,6 @@
+import { combineReducers } from 'redux';
 import * as actiontyper from '../actions/actiontyper';
 import { SEND_SKJEMA_FEILET, SEND_SKJEMA_FEILET_HANDTERT } from '../enums/reduxFormMetaEnums';
-import { combineReducers } from 'redux';
 import { SYKEPENGER_SKJEMANAVN } from '../components/sykepengesoknad/setup';
 import { DIN_SYKMELDING_SKJEMANAVN } from '../components/sykmeldingskjema/DinSykmeldingSkjema';
 

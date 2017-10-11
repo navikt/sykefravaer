@@ -1,6 +1,6 @@
 import React from 'react';
-import StatusPanel from '../StatusPanel';
 import { getLedetekst, DineSykmeldingOpplysninger, Utvidbar } from 'digisyfo-npm';
+import StatusPanel from '../StatusPanel';
 import { STATUS, INNSENDT_DATO } from '../../enums/nokkelopplysninger';
 import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
 import Sidetopp from '../Sidetopp';
@@ -13,8 +13,15 @@ const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding }) => 
             sykmelding={dinSykmelding}
             type="suksess"
             nokkelopplysninger={[[STATUS, INNSENDT_DATO]]} />
-        <Utvidbar erApen tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}
-            ikon="svg/person.svg" ikonHover="svg/person_hover.svg" ikonAltTekst="Du" className="blokk" variant="lysebla" Overskrift="h2">
+        <Utvidbar
+            erApen
+            tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}
+            ikon="svg/person.svg"
+            ikonHover="svg/person_hover.svg"
+            ikonAltTekst="Du"
+            className="blokk"
+            variant="lysebla"
+            Overskrift="h2">
             <DineSykmeldingOpplysninger sykmelding={dinSykmelding} />
         </Utvidbar>
         {

@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Varselstripe, toDatePrettyPrint, scrollTo, getLedetekst, keyValue } from 'digisyfo-npm';
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import Artikkel from '../components/aktivitetskrav/AktivitetskravArtikkel';
 import BekreftAktivitetskravSkjema from '../components/aktivitetskrav/BekreftAktivitetskravSkjema';
 import { AKTIVITETSKRAV_VARSEL, AKTIVITETSKRAV_BEKREFTET } from '../enums/hendelsetyper';
-import { Varselstripe } from 'digisyfo-npm';
 import { hentHendelser } from '../actions/hendelser_actions';
-import { toDatePrettyPrint, scrollTo, getLedetekst } from 'digisyfo-npm';
 
 export const INGEN_AKTIVITETSKRAVVARSEL = 'INGEN_AKTIVITETSKRAVVARSEL';
 export const NYTT_AKTIVITETSKRAVVARSEL = 'NYTT_AKTIVITETSKRAVVARSEL';
@@ -27,10 +26,10 @@ const Kvittering = ({ bekreftetdato, ledetekster }) => {
 
 Kvittering.propTypes = {
     bekreftetdato: PropTypes.instanceOf(Date),
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
 };
 
-class AktivitetskravvarselContainer extends Component {
+class Container extends Component {
     componentDidMount() {
         const { hendelserHentet, hentingFeiletHendelser } = this.props;
         if (!hendelserHentet && !hentingFeiletHendelser) {
@@ -43,7 +42,7 @@ class AktivitetskravvarselContainer extends Component {
         const forrigeVisning = prevProps.visning;
 
         if (visning === AKTIVITETSVARSELKVITTERING && forrigeVisning === NYTT_AKTIVITETSKRAVVARSEL) {
-            scrollTo(this.refs.kvittering, 200);
+            scrollTo(this.kvittering, 200);
         }
     }
 
@@ -57,37 +56,42 @@ class AktivitetskravvarselContainer extends Component {
             tittel: getLedetekst('aktivitetskrav-varsel.tittel', ledetekster),
         }];
         return (<Side tittel="Aktivitetskrav" brodsmuler={brodsmuler} laster={henter || !hendelserHentet}>
-        {
-            (() => {
-                if (hentingFeilet) {
-                    return <Feilmelding />;
-                }
-                if (henter || !hendelserHentet) {
-                    return <AppSpinner />;
-                }
-                if (visning === INGEN_AKTIVITETSKRAVVARSEL) {
-                    return (<Feilmelding
-                        tittel={getLedetekst('aktivitetskrav-varsel.ingen-varsel.tittel')}
-                        melding={getLedetekst('aktivitetskrav-varsel.ingen-varsel.melding')} />);
-                }
-                return (<div>
-                    <div aria-live="polite" role="alert" ref="kvittering">
-                        { visning === AKTIVITETSVARSELKVITTERING && <Kvittering ledetekster={ledetekster} bekreftetdato={bekreftetdato} /> }
-                    </div>
-                    <Artikkel ledetekster={ledetekster} inntruffetdato={varseldato} />
-                    { visning !== AKTIVITETSVARSELKVITTERING && <BekreftAktivitetskravSkjema /> }
-                </div>);
-            })()
-        }
+            {
+                (() => {
+                    if (hentingFeilet) {
+                        return <Feilmelding />;
+                    }
+                    if (henter || !hendelserHentet) {
+                        return <AppSpinner />;
+                    }
+                    if (visning === INGEN_AKTIVITETSKRAVVARSEL) {
+                        return (<Feilmelding
+                            tittel={getLedetekst('aktivitetskrav-varsel.ingen-varsel.tittel')}
+                            melding={getLedetekst('aktivitetskrav-varsel.ingen-varsel.melding')} />);
+                    }
+                    return (<div>
+                        <div
+                            aria-live="polite"
+                            role="alert"
+                            ref={(c) => {
+                                this.kvittering = c;
+                            }}>
+                            { visning === AKTIVITETSVARSELKVITTERING && <Kvittering ledetekster={ledetekster} bekreftetdato={bekreftetdato} /> }
+                        </div>
+                        <Artikkel ledetekster={ledetekster} inntruffetdato={varseldato} />
+                        { visning !== AKTIVITETSVARSELKVITTERING && <BekreftAktivitetskravSkjema /> }
+                    </div>);
+                })()
+            }
         </Side>);
     }
 }
 
-AktivitetskravvarselContainer.propTypes = {
+Container.propTypes = {
     hendelserHentet: PropTypes.bool,
     hentingFeiletHendelser: PropTypes.bool,
     visning: PropTypes.oneOf([INGEN_AKTIVITETSKRAVVARSEL, NYTT_AKTIVITETSKRAVVARSEL, AKTIVITETSVARSELKVITTERING]),
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     varseldato: PropTypes.instanceOf(Date),
     bekreftetdato: PropTypes.instanceOf(Date),
     hentHendelser: PropTypes.func,
@@ -152,6 +156,6 @@ export function mapStateToProps(state) {
     };
 }
 
-AktivitetskravvarselContainer = connect(mapStateToProps, { hentHendelser })(AktivitetskravvarselContainer);
+const AktivitetskravvarselContainer = connect(mapStateToProps, { hentHendelser })(Container);
 
 export default AktivitetskravvarselContainer;

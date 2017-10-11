@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Sidetopp from '../Sidetopp';
 import { getLedetekst, getHtmlLedetekst, scrollTo, erSynligIViewport } from 'digisyfo-npm';
+import Sidetopp from '../Sidetopp';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { getSendtTilSuffix } from '../../utils/sykepengesoknadUtils';
 
 class Kvittering extends Component {
     componentDidMount() {
-        const el = this.refs.kvittering;
+        const el = this.kvittering;
         if (!erSynligIViewport(el)) {
             scrollTo(el, 200);
         }
@@ -14,7 +14,9 @@ class Kvittering extends Component {
 
     render() {
         const { sykepengesoknad } = this.props;
-        return (<div ref="kvittering">
+        return (<div ref={(c) => {
+            this.kvittering = c;
+        }}>
             <Sidetopp tittel="Kvittering" />
             <div className="panel js-kvittering">
                 <div className="hode hode--suksess">
@@ -28,7 +30,7 @@ class Kvittering extends Component {
                 <h2 className="typo-undertittel">Hjelp oss å bli bedre</h2>
                 <p className="typo-infotekst sist">Dette er en tjeneste som fortsatt er under utvikling. Gi oss tilbakemelding slik at vi kan bli bedre!</p>
                 <div className="knapperad">
-                    <a target="_blank" href="https://www.survey-xact.no/LinkCollector?key=Z6ML2MRQC5CJ" className="rammeknapp rammeknapp--mini">Gi tilbakemelding</a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.survey-xact.no/LinkCollector?key=Z6ML2MRQC5CJ" className="rammeknapp rammeknapp--mini">Gi tilbakemelding</a>
                 </div>
             </article>
         </div>);

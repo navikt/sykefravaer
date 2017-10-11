@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fields } from 'redux-form';
-import JaEllerNei from '../JaEllerNei';
 import { toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';
+import { soknadaktivitet } from '../../../propTypes';
 
 export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
     const ledetekstPrefix = field.grad === 100 ? 'sykepengesoknad.aktiviteter.ugradert' : 'sykepengesoknad.aktiviteter.gradert';
     const tomDato = field.periode.tom;
-    const hjelpetekst = field.grad !== 100 ? <Hjelpetekst
+    const hjelpetekst = field.grad !== 100 ? (<Hjelpetekst
         tittel={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tittel')}
-        tekst={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tekst')} /> : null;
+        tekst={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tekst')} />) : null;
 
     return (<JaEllerNei
         name={`aktiviteter[${index}].jobbetMerEnnPlanlagt`}
@@ -41,7 +42,7 @@ export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => 
 };
 
 Aktivitet.propTypes = {
-    field: PropTypes.object,
+    field: soknadaktivitet,
     index: PropTypes.number,
     arbeidsgiver: PropTypes.string,
     autofill: PropTypes.func,
@@ -65,7 +66,7 @@ const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch }) => {
 };
 
 Aktiviteter.propTypes = {
-    fields: PropTypes.array,
+    fields: PropTypes.arrayOf(soknadaktivitet),
     autofill: PropTypes.func,
     untouch: PropTypes.func,
     arbeidsgiver: PropTypes.string,

@@ -55,7 +55,7 @@ var config = function (opts) {
                 use: [{
                     loader: 'babel-loader',
                     options: {
-                        presets: ["react", "es2015", "babel-preset-stage-1"]
+                        presets: ["react", "env", "babel-preset-stage-0"]
                     }
                 }]
             },

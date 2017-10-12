@@ -15,7 +15,7 @@ const planBleTvangsgodkjent = (oppfolgingsdialog) => {
     return oppfolgingsdialog.godkjentPlan.tvungenGodkjenning;
 };
 
-export class ReleasetPlanAT extends Component {
+class ReleasetPlanAT extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -52,10 +52,8 @@ export class ReleasetPlanAT extends Component {
 }
 
 ReleasetPlanAT.propTypes = {
-    manglerSamtykke: PropTypes.func,
     hentPdfurler: PropTypes.func,
     giSamtykke: PropTypes.func,
-    markerMottattTvungenGodkjenning: PropTypes.func,
     dokument: PropTypes.object,
     oppfolgingsdialog: PropTypes.object,
     ledetekster: PropTypes.object,

@@ -138,6 +138,10 @@ describe("FeiloppsummeringContainer", () => {
             }
         };
 
+        it("Skal retutnere tomt array hvis argument er undefined", () => {
+            expect(getNestedKeys(undefined)).to.deep.equal([]);
+        })
+
         it("Skal returnere nøkler for unøstet objekt", () => {
             expect(getNestedKeys(objekt)).to.deep.equal(["ferie"]);
         });

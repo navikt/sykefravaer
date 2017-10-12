@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, keyValue } from 'digisyfo-npm';
+import {
+    OppfolgingsdialogInfoboks,
+    opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
+    hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
+    sjekkTilgang,
+} from 'oppfolgingsdialog-npm';
 import Side from '../sider/Side';
 import Sidetopp from '../components/Sidetopp';
 import Feilmelding from '../components/Feilmelding';
@@ -12,15 +18,8 @@ import OpprettOppfolgingsdialog from '../components/oppfolgingsdialoger/OpprettO
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../actions/ledere_actions';
 import { getContextRoot } from '../routers/paths';
-import {
-    OppfolgingsdialogInfoboks,
-    opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
-    hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
-    sjekkTilgang,
-} from 'oppfolgingsdialog-npm';
 
 export class OpprettOppfolgingsdialogSide extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -99,7 +98,6 @@ export class OpprettOppfolgingsdialogSide extends Component {
 
 OpprettOppfolgingsdialogSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    ledetekster: PropTypes.object,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     oppretter: PropTypes.bool,

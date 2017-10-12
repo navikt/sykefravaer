@@ -1,7 +1,7 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
-import { post } from '../api';
 import { log } from 'digisyfo-npm';
+import { post } from '../api';
 import * as actions from '../actions/arbeidsgiverperiodeberegning_actions';
 import { HENT_ARBEIDSGIVERPERIODEBEREGNING_FORESPURT } from '../actions/actiontyper';
 

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getLedetekst } from 'digisyfo-npm';
 import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
 import UtgaattSoknad from '../../components/sykepengesoknad/UtgaattSoknad';
 import AvbruttSoknadContainer from './AvbruttSoknadContainer';
 import Feilmelding from '../../components/Feilmelding';
-import { getLedetekst } from 'digisyfo-npm';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
@@ -16,10 +16,12 @@ import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
 export const Controller = (props) => {
     const { sykepengesoknad, vedlikehold } = props;
     if (vedlikehold.datospennMedTid) {
-        return (<Feilmelding tittel={getLedetekst('under-vedlikehold.varsel.tittel')} melding={getLedetekst('under-vedlikehold.varsel.tekst', {
-            '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
-            '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
-        })} />);
+        return (<Feilmelding
+            tittel={getLedetekst('under-vedlikehold.varsel.tittel')}
+            melding={getLedetekst('under-vedlikehold.varsel.tekst', {
+                '%FRA%': datoMedKlokkeslett(vedlikehold.datospennMedTid.fom),
+                '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
+            })} />);
     }
     switch (sykepengesoknad.status) {
         case NY:
@@ -51,7 +53,7 @@ Controller.propTypes = {
     }),
 };
 
-export class FoerDuBegynnerContainer extends Component {
+export class Container extends Component {
     componentDidMount() {
         this.props.hentBerikelse(this.props.sykepengesoknadId);
     }
@@ -74,14 +76,17 @@ export class FoerDuBegynnerContainer extends Component {
 }
 
 
-FoerDuBegynnerContainer.propTypes = {
+Container.propTypes = {
     params: PropTypes.shape({
         sykepengesoknadId: PropTypes.string,
     }),
     sykepengesoknadId: PropTypes.string,
-    brodsmuler: PropTypes.array,
     henter: PropTypes.bool,
-    vedlikehold: PropTypes.object,
+    vedlikehold: PropTypes.shape({
+        data: PropTypes.shape({
+            vedlikehold: PropTypes.bool,
+        }),
+    }),
     hentBerikelse: PropTypes.func,
 };
 
@@ -96,8 +101,8 @@ export const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const foerDuBegynnerContainer = connect(mapStateToProps, {
+const FoerDuBegynnerContainer = connect(mapStateToProps, {
     hentBerikelse,
-})(FoerDuBegynnerContainer);
+})(Container);
 
-export default foerDuBegynnerContainer;
+export default FoerDuBegynnerContainer;

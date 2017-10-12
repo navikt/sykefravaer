@@ -7,7 +7,7 @@ import sinon from 'sinon';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { mapStateToProps, DetteHarSkjeddContainer } from "../../js/containers/DetteHarSkjeddContainer";
+import { mapStateToProps, Container } from "../../js/containers/DetteHarSkjeddContainer";
 import DetteHarSkjedd from '../../js/components/landingsside/DetteHarSkjedd';
 
 describe("DetteHarSkjeddContainer", () => {
@@ -49,15 +49,15 @@ describe("DetteHarSkjeddContainer", () => {
 
 	});
 
-	describe("DetteHarSkjeddContainer", () => {
+	describe("Container", () => {
 
 		it("Skal returnere null dersom visDetteHarSkjedd === false", () => {
-			const component = mount(<DetteHarSkjeddContainer visDetteHarSkjedd={false} />);
+			const component = mount(<Container visDetteHarSkjedd={false} />);
 			expect(component.html()).to.be.null;
 		});
 
 		it("Skal returnere null dersom visDetteHarSkjedd === false", () => {
-			const component = mount(<DetteHarSkjeddContainer visDetteHarSkjedd={true} hendelser={[]} />);
+			const component = mount(<Container visDetteHarSkjedd={true} hendelser={[]} />);
 			expect(component.contains(<DetteHarSkjedd hendelser={[]} />)).to.be.true;
 		})	
 

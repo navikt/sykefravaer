@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
+import {
+    OppfolgingsdialogInfoboks,
+    hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
+    sjekkTilgang,
+} from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../routers/paths';
 import Side from '../sider/Side';
 import Feilmelding from '../components/Feilmelding';
 import AppSpinner from '../components/AppSpinner';
 import { brodsmule as brodsmulePt } from '../propTypes';
 import Oppfolgingsdialoger from '../components/oppfolgingsdialoger/Oppfolgingsdialoger';
-import {
-    OppfolgingsdialogInfoboks,
-    hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
-    sjekkTilgang,
-} from 'oppfolgingsdialog-npm';
 
 export class OppfolgingsdialogerSide extends Component {
     componentWillMount() {
@@ -54,7 +54,6 @@ export class OppfolgingsdialogerSide extends Component {
 }
 
 OppfolgingsdialogerSide.propTypes = {
-    dispatch: PropTypes.func,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     oppfolgingsdialoger: PropTypes.array,
     hentOppfolgingsdialoger: PropTypes.func,

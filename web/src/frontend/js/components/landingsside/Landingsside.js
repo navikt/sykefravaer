@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, keyValue } from 'digisyfo-npm';
 import LandingssideLenke from './LandingssideLenke';
-import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../../propTypes';
 import Brodsmuler from '../Brodsmuler';
 import DineOppgaverContainer from '../../containers/DineOppgaverContainer';
 import DinSituasjonContainer from '../../containers/DinSituasjonContainer';
@@ -61,9 +61,14 @@ const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, 
             }
             <DineOppgaverContainer />
             <DinSituasjonContainer />
-            <nav role="navigation" className="js-navigasjon">
-                <LandingssideLenke to="/sykefravaer/tidslinjen" ikon="tidslinje" ikonAlt="Tidslinjen" tittel="Tidslinjen"
-                    undertittel="Informasjon og oversikt over aktiviteter" variant="fersken" />
+            <nav className="js-navigasjon">
+                <LandingssideLenke
+                    to="/sykefravaer/tidslinjen"
+                    ikon="tidslinje"
+                    ikonAlt="Tidslinjen"
+                    tittel="Tidslinjen"
+                    undertittel="Informasjon og oversikt over aktiviteter"
+                    variant="fersken" />
                 {
                     dineSykmeldinger.length > 0 && <LandingssideLenke to="/sykefravaer/sykmeldinger" ikon="sykmeldinger" ikonAlt="Sykmelding" tittel="Sykmeldinger" variant="lysblaa" />
                 }
@@ -91,8 +96,8 @@ Landingsside.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     dineSykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     harDialogmote: PropTypes.bool,
-    toggles: PropTypes.object,
-    brodsmuler: PropTypes.array,
+    toggles: keyValue,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
 };
 
 export default Landingsside;

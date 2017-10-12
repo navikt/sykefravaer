@@ -1,8 +1,8 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
+import { log } from 'digisyfo-npm';
 import { post } from '../api';
 import * as actions from '../actions/aktivitetskrav_actions';
-import { log } from 'digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
 
 export function* bekreftAktivitetskrav() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { antallVirkedagerIPeriode } from '../../../utils/periodeUtils';
 import { getHtmlLedetekst } from 'digisyfo-npm';
+import { antallVirkedagerIPeriode } from '../../../utils/periodeUtils';
 
 const tilInt = (streng) => {
     return !streng ? undefined : parseFloat(streng.replace(',', '.'));

@@ -18,7 +18,7 @@ Landingspanel.propTypes = {
     ikon: PropTypes.string,
     ikonAlt: PropTypes.string,
     tittel: PropTypes.string,
-    children: PropTypes.object,
+    children: PropTypes.element,
 };
 
 export default Landingspanel;

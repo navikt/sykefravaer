@@ -30,11 +30,14 @@ class Lightbox extends Component {
         }
         return (<div className="lightbox">
             <div className="lightbox__innhold">
-                <button onClick={() => {
-                    this.lukk();
-                }} className="lightbox__lukk js-lukk" ref={(c) => {
-                    this.lukknapp = c;
-                }}>Lukk</button>
+                <button
+                    onClick={() => {
+                        this.lukk();
+                    }}
+                    className="lightbox__lukk js-lukk"
+                    ref={(c) => {
+                        this.lukknapp = c;
+                    }}>Lukk</button>
                 {children}
             </div>
         </div>);

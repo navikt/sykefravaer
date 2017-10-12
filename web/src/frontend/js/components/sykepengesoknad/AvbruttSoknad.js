@@ -10,10 +10,12 @@ const Verktoylinje = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFeil
     return (<div>
         <div className={`verktoylinje ${gjenapneFeilet ? 'blokk--mini' : ''}`}>
             <div className="verktoylinje__element">
-                <button onClick={(e) => {
-                    e.preventDefault();
-                    gjenapneSoknad(sykepengesoknad.id);
-                }} className="rammeknapp rammeknapp--mini js-gjenapne">{getLedetekst('sykepengesoknad.gjenapne.knapp')} { gjenapner ? <span className="knapp__spinner" /> : null }</button>
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        gjenapneSoknad(sykepengesoknad.id);
+                    }}
+                    className="rammeknapp rammeknapp--mini js-gjenapne">{getLedetekst('sykepengesoknad.gjenapne.knapp')} { gjenapner ? <span className="knapp__spinner" /> : null }</button>
             </div>
         </div>
         <div aria-live="polite">

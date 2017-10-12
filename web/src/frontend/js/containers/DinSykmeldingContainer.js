@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst } from 'digisyfo-npm';
 import Side from '../sider/Side';
 import DinSykmelding from '../components/sykmelding/DinSykmeldingABTest';
 import DinSendteSykmelding from '../components/sykmelding/DinSendteSykmelding';
@@ -14,7 +15,6 @@ import { hentAktuelleArbeidsgivere } from '../actions/dineArbeidsgivere_actions'
 import { hentArbeidsgiversSykmeldinger } from '../actions/arbeidsgiversSykmeldinger_actions';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { hentBrukerinfo } from '../actions/brukerinfo_actions';
-import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst } from 'digisyfo-npm';
 import { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } from '../enums/sykmeldingstatuser';
 import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes';
 
@@ -40,67 +40,63 @@ export class DinSykmldSide extends Component {
             visEldreSykmeldingVarsel, eldsteSykmeldingId, hentet } = this.props;
 
         return (<Side tittel={getLedetekst('din-sykmelding.sidetittel')} brodsmuler={brodsmuler} laster={henter || !hentet}>
-                { (() => {
-                    if (henter) {
-                        return <AppSpinner />;
-                    } else if (hentingFeilet) {
-                        return (<Feilmelding />);
-                    } else if (!dinSykmelding) {
-                        return (<Feilmelding
-                            tittel={getLedetekst('din-sykmelding.fant-ikke-sykmelding.tittel')}
-                            melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding')} />);
-                    } else if ((dinSykmelding.status === SENDT || dinSykmelding.status === TIL_SENDING) && dinSykmelding && arbeidsgiversSykmelding) {
-                        return (<div>
-                            <DinSendteSykmelding
-                                dinSykmelding={dinSykmelding}
-                                arbeidsgiversSykmelding={arbeidsgiversSykmelding}
-                                />
-                            <LenkeTilDineSykmeldinger />
-                        </div>);
-                    } else if (dinSykmelding.status === BEKREFTET) {
-                        return (<div>
-                            <DinBekreftedeSykmelding
-                                dinSykmelding={dinSykmelding}
-                                arbeidsgiversSykmelding={arbeidsgiversSykmelding}
-                                />
-                            <LenkeTilDineSykmeldinger />
-                        </div>);
-                    } else if (dinSykmelding.status === UTGAATT) {
-                        return (<div>
-                            <DinUtgaatteSykmelding sykmelding={dinSykmelding} />
-                            <LenkeTilDineSykmeldinger />
-                        </div>);
-                    } else if (dinSykmelding.status === NY) {
-                        return (<DinSykmelding
-                            sykmelding={dinSykmelding}
-                            visEldreSykmeldingVarsel={visEldreSykmeldingVarsel}
-                            eldsteSykmeldingId={eldsteSykmeldingId} />);
-                    } else if (dinSykmelding.status === AVBRUTT) {
-                        return (<div>
-                            <DinAvbrutteSykmelding
-                                sykmelding={dinSykmelding} />
-                            <LenkeTilDineSykmeldinger />
-                        </div>);
-                    }
-                    return <Feilmelding tittel="Sykmeldingen har ukjent status" />;
-                })()
+            { (() => {
+                if (henter) {
+                    return <AppSpinner />;
+                } else if (hentingFeilet) {
+                    return (<Feilmelding />);
+                } else if (!dinSykmelding) {
+                    return (<Feilmelding
+                        tittel={getLedetekst('din-sykmelding.fant-ikke-sykmelding.tittel')}
+                        melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding')} />);
+                } else if ((dinSykmelding.status === SENDT || dinSykmelding.status === TIL_SENDING) && dinSykmelding && arbeidsgiversSykmelding) {
+                    return (<div>
+                        <DinSendteSykmelding
+                            dinSykmelding={dinSykmelding}
+                            arbeidsgiversSykmelding={arbeidsgiversSykmelding}
+                        />
+                        <LenkeTilDineSykmeldinger />
+                    </div>);
+                } else if (dinSykmelding.status === BEKREFTET) {
+                    return (<div>
+                        <DinBekreftedeSykmelding
+                            dinSykmelding={dinSykmelding}
+                            arbeidsgiversSykmelding={arbeidsgiversSykmelding}
+                        />
+                        <LenkeTilDineSykmeldinger />
+                    </div>);
+                } else if (dinSykmelding.status === UTGAATT) {
+                    return (<div>
+                        <DinUtgaatteSykmelding sykmelding={dinSykmelding} />
+                        <LenkeTilDineSykmeldinger />
+                    </div>);
+                } else if (dinSykmelding.status === NY) {
+                    return (<DinSykmelding
+                        sykmelding={dinSykmelding}
+                        visEldreSykmeldingVarsel={visEldreSykmeldingVarsel}
+                        eldsteSykmeldingId={eldsteSykmeldingId} />);
+                } else if (dinSykmelding.status === AVBRUTT) {
+                    return (<div>
+                        <DinAvbrutteSykmelding
+                            sykmelding={dinSykmelding} />
+                        <LenkeTilDineSykmeldinger />
+                    </div>);
                 }
+                return <Feilmelding tittel="Sykmeldingen har ukjent status" />;
+            })()
+            }
         </Side>);
     }
 }
 
 DinSykmldSide.propTypes = {
-    dispatch: PropTypes.func,
-    arbeidsgivere: PropTypes.object,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    sykmeldingId: PropTypes.string,
     dinSykmelding: sykmeldingPt,
     arbeidsgiversSykmelding: sykmeldingPt,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
-    hentAktuelleArbeidsgivere: PropTypes.func,
     hentArbeidsgiversSykmeldinger: PropTypes.func,
     dineSykmeldingerHentet: PropTypes.bool,
     arbeidsgiversSykmeldingerHentet: PropTypes.bool,

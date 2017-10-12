@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { erGyldigDato, erGyldigDatoformat, fraInputdatoTilJSDato } from '../../utils/datoUtils';
-import { Field } from 'redux-form';
-import Feilmelding from './Feilmelding';
+import { Field, autofill, touch, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
-import { SYKEPENGER_SKJEMANAVN } from '../sykepengesoknad/setup';
-import MaskedInput from 'react-maskedinput';
 import { toDatePrettyPrint } from 'digisyfo-npm';
+import MaskedInput from 'react-maskedinput';
+import { erGyldigDato, erGyldigDatoformat, fraInputdatoTilJSDato } from '../../utils/datoUtils';
+import Feilmelding from './Feilmelding';
+import { SYKEPENGER_SKJEMANAVN } from '../sykepengesoknad/setup';
 import DayPickerComponent from './DayPicker';
-import { autofill, touch, formValueSelector } from 'redux-form';
+import { fieldPropTypes } from '../../propTypes';
 
 export class DatoField extends Component {
     constructor(props) {
@@ -25,7 +25,7 @@ export class DatoField extends Component {
         }
     }
 
-    toggle() {
+    toggleApen() {
         if (this.state.erApen) {
             this.lukk();
         } else {
@@ -43,8 +43,8 @@ export class DatoField extends Component {
         this.setState({
             erApen: false,
         });
-        if (this.refs.toggle) {
-            this.refs.toggle.focus();
+        if (this.toggle) {
+            this.toggle.focus();
         }
     }
 
@@ -52,13 +52,15 @@ export class DatoField extends Component {
         const { meta, input, id, tidligsteFom, senesteTom } = this.props;
 
         return (<div className="datovelger">
-            <div className="datovelger__inner" onClick={(event) => {
-                try {
-                    event.nativeEvent.stopImmediatePropagation();
-                } catch (e) {
-                    event.stopPropagation();
-                }
-            }}>
+            <div
+                className="datovelger__inner"
+                onClick={(event) => {
+                    try {
+                        event.nativeEvent.stopImmediatePropagation();
+                    } catch (e) {
+                        event.stopPropagation();
+                    }
+                }}>
                 <div className="datovelger__inputContainer">
                     <MaskedInput
                         type="tel"
@@ -66,17 +68,20 @@ export class DatoField extends Component {
                         autoComplete="off"
                         placeholder="dd.mm.åååå"
                         id={id}
-                        className={`datovelger__input${meta.touched && meta.error ? ' input--feil' : ''}`} {...input} />
+                        className={`datovelger__input${meta.touched && meta.error ? ' input--feil' : ''}`}
+                        {...input} />
                     <button
                         className="js-toggle datovelger__toggleDayPicker"
-                        ref="toggle"
+                        ref={(c) => {
+                            this.toggle = c;
+                        }}
                         id={`toggle-${id}`}
                         onKeyUp={(e) => {
                             this.onKeyUp(e);
                         }}
                         onClick={(e) => {
                             e.preventDefault();
-                            this.toggle();
+                            this.toggleApen();
                         }}
                         aria-pressed={this.erApen}>
                         {this.state.erApen ? 'Skjul datovelger' : 'Vis datovelger'}
@@ -106,9 +111,9 @@ export class DatoField extends Component {
 }
 
 DatoField.propTypes = {
-    meta: PropTypes.object.isRequired,
+    meta: fieldPropTypes.meta,
     id: PropTypes.string.isRequired,
-    input: PropTypes.object.isRequired,
+    input: fieldPropTypes.input,
     dispatch: PropTypes.func.isRequired,
     skjemanavn: PropTypes.string.isRequired,
     tidligsteFom: PropTypes.instanceOf(Date),
@@ -149,7 +154,7 @@ export const validerDatoField = (input, alternativer) => {
         return 'Datoen må være på formatet dd.mm.åååå';
     } else if (!erGyldigDato(input)) {
         return 'Datoen er ikke gyldig';
-    } else if (alternativer && alternativer.fra || alternativer.til) {
+    } else if (alternativer && (alternativer.fra || alternativer.til)) {
         return validerPeriode(input, alternativer);
     }
     return undefined;

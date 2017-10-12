@@ -61,6 +61,11 @@ describe("LandingssideContainer", () => {
         });
 
         it("Skal returnere altHentet = false når sykepengesoknader ikke er hentet", () => {
+            state.ledere.hentet = true;
+            state.mote.hentet = true;
+            state.dineSykmeldinger.hentet = true;
+            state.toggles.hentet = true;
+            state.sykepengesoknader.hentet = false;
             const res = mapStateToProps(state);
             expect(res.altHentet).to.be.false;
             expect(res.hentet.sykepengesoknader).to.be.false;
@@ -68,10 +73,10 @@ describe("LandingssideContainer", () => {
 
         it("Skal returnere altHentet = true når alt nødvendig er hentet", () => {
             state.ledere.hentet = true;
-            state.sykepengesoknader.hentet = true;
             state.mote.hentet = true;
             state.dineSykmeldinger.hentet = true;
             state.toggles.hentet = true;
+            state.sykepengesoknader.hentet = true;
             const res = mapStateToProps(state);
             expect(res.altHentet).to.be.true;
         });

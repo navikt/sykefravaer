@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as actions from '../actions/ledere_actions';
 import { Varselstripe } from 'digisyfo-npm';
+import * as actions from '../actions/ledere_actions';
 import { naermesteLeder as naermesteLederPt } from '../propTypes';
 
 export class LederAvkreftet extends Component {
     componentDidMount() {
-        this.refs.lukk.focus();
+        this.lukk.focus();
     }
 
     render() {
@@ -15,10 +15,16 @@ export class LederAvkreftet extends Component {
         return (<div>
             <p className="hode hode--suksess">Lederen er avkreftet!</p>
             <div className="knapperad">
-                <button ref="lukk" className="rammeknapp js-lukk" href="#" onClick={(e) => {
-                    e.preventDefault();
-                    onLukk();
-                }}>Lukk</button>
+                <button
+                    ref={(c) => {
+                        this.lukk = c;
+                    }}
+                    className="rammeknapp js-lukk"
+                    href="#"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onLukk();
+                    }}>Lukk</button>
             </div>
         </div>);
     }
@@ -29,7 +35,7 @@ LederAvkreftet.propTypes = {
 };
 
 export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftFeilet }) => {
-    let knappClassName = 'knapp knapp--fare blokk--s js-bekreft';
+    const knappClassName = 'knapp knapp--fare blokk--s js-bekreft';
     return (<div>
         <div className={avkreftFeilet ? 'blokk' : ''}>
             <h3 className="typo-undertittel">Endre nærmeste leder</h3>
@@ -43,15 +49,23 @@ export const BekreftFeil = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftF
             }
         </div>
         <div className="knapperad">
-            <button type="button" disabled={avkrefter} className={knappClassName} onClick={() => {
-                avkreftLeder(leder.orgnummer);
-            }}>Ja, jeg er sikker
+            <button
+                type="button"
+                disabled={avkrefter}
+                className={knappClassName}
+                onClick={() => {
+                    avkreftLeder(leder.orgnummer);
+                }}>Ja, jeg er sikker
                 {avkrefter && <span className="knapp__spinner" />}
             </button>
-            <p><a className="lenke js-avbryt" href="#" role="button" onClick={(e) => {
-                e.preventDefault();
-                onAvbryt();
-            }}>Avbryt</a></p>
+            <p><a
+                className="lenke js-avbryt"
+                href="#"
+                role="button"
+                onClick={(e) => {
+                    e.preventDefault();
+                    onAvbryt();
+                }}>Avbryt</a></p>
         </div>
     </div>);
 };
@@ -72,7 +86,7 @@ export const Container = (props) => {
 };
 
 Container.propTypes = {
-    leder: PropTypes.object,
+    leder: naermesteLederPt,
     onAvbryt: PropTypes.func,
 };
 

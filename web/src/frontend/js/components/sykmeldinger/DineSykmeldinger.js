@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SykmeldingTeasere from './SykmeldingTeasere';
 import { getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerEldsteFoerst } from 'digisyfo-npm';
+import SykmeldingTeasere from './SykmeldingTeasere';
 import SykmeldingerSorteringContainer from '../../containers/SykmeldingerSorteringContainer';
 import Sidetopp from '../Sidetopp';
 import { NY } from '../../enums/sykmeldingstatuser';
@@ -20,7 +20,7 @@ const DineSykmeldinger = ({ sykmeldinger = [], sortering }) => {
         <Sidetopp
             tittel={getLedetekst('dine-sykmeldinger.tittel')}
             htmlTekst={getHtmlLedetekst('dine-sykmeldinger.introduksjonstekst')}
-            />
+        />
         <SykmeldingTeasere
             sykmeldinger={sorterSykmeldingerEldsteFoerst(nyeSykmeldinger)}
             tittel={getLedetekst('dine-sykmeldinger.nye-sykmeldinger.tittel')}
@@ -42,7 +42,9 @@ const DineSykmeldinger = ({ sykmeldinger = [], sortering }) => {
 
 DineSykmeldinger.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
-    sortering: PropTypes.object,
+    sortering: PropTypes.shape({
+        tidligere: PropTypes.string,
+    }),
 };
 
 export default DineSykmeldinger;

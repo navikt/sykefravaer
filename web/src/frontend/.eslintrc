@@ -5,6 +5,8 @@
         "window": true,
         "document": true,
         "localStorage": true,
+        'Headers': true,
+        'fetch': true
     },
     "rules": {
         "indent": ["error", 4, {"SwitchCase": 1}],

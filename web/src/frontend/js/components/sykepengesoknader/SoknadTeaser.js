@@ -28,7 +28,6 @@ SendtUlikt.propTypes = {
 };
 
 class SoknadTeaser extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -55,12 +54,17 @@ class SoknadTeaser extends Component {
         const sendtTilBeggeMenIkkeSamtidig = erSendtTilBeggeMenIkkeSamtidig(soknad);
 
         return (<article aria-labelledby={`soknader-header-${soknad.id}`}>
-            <Link className="inngangspanel js-panel" to={`${getContextRoot()}/soknader/${soknad.id}`}
-                onMouseEnter={() => {this.onMouseEnter();}}
-                onMouseLeave={() => {this.onMouseLeave();}}
-            >
+            <Link
+                className="inngangspanel js-panel"
+                to={`${getContextRoot()}/soknader/${soknad.id}`}
+                onMouseEnter={() => {
+                    this.onMouseEnter();
+                }}
+                onMouseLeave={() => {
+                    this.onMouseLeave();
+                }}>
                 <span className="inngangspanel__ikon">
-                    <img className="js-ikon" src={`/sykefravaer/img/svg/${this.state.ikon}`} />
+                    <img alt="" className="js-ikon" src={`/sykefravaer/img/svg/${this.state.ikon}`} />
                 </span>
                 <div className="inngangspanel__innhold">
                     <header className="inngangspanel__header">

@@ -1,8 +1,8 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
+import { apneHendelser, log } from 'digisyfo-npm';
 import { get } from '../api';
 import * as actions from '../actions/tidslinjer_actions';
-import { apneHendelser, log } from 'digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
 
 export function* hentTidslinjer(action) {

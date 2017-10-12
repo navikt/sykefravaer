@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getLedetekst, keyValue } from 'digisyfo-npm';
 import Artikkel from '../components/Artikkel';
 import Side from '../sider/Side';
 import AppSpinner from '../components/AppSpinner';
-import { connect } from 'react-redux';
 import { Feilmelding } from '../components/Feilmelding';
-import { getLedetekst } from 'digisyfo-npm';
 
 export const RollerSide = ({ henter, hentingFeilet, ledetekster }) => {
     const brodsmuler = [{
@@ -24,7 +24,8 @@ export const RollerSide = ({ henter, hentingFeilet, ledetekster }) => {
                 if (hentingFeilet) {
                     return <Feilmelding />;
                 }
-                return (<Artikkel tittel={getLedetekst('roller.tittel', ledetekster)}
+                return (<Artikkel
+                    tittel={getLedetekst('roller.tittel', ledetekster)}
                     innhold={getLedetekst('roller.innhold', ledetekster)} />);
             })()
         }
@@ -34,7 +35,7 @@ export const RollerSide = ({ henter, hentingFeilet, ledetekster }) => {
 RollerSide.propTypes = {
     hentingFeilet: PropTypes.bool,
     henter: PropTypes.bool,
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
 };
 
 export function mapStateToProps(state) {

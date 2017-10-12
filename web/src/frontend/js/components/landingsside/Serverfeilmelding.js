@@ -21,7 +21,7 @@ const Feiliste = ({ feilliste }) => {
 };
 
 Feiliste.propTypes = {
-    feilliste: PropTypes.array,
+    feilliste: PropTypes.arrayOf(PropTypes.string),
 };
 
 class Serverfeilmelding extends Component {
@@ -41,7 +41,7 @@ class Serverfeilmelding extends Component {
     visFeillisteknapp() {
         const { feilliste } = this.props;
         const keys = Object.keys(ledetekster);
-        for (let i = 0; i < keys.length; i++) {
+        for (let i = 0; i < keys.length; i += 1) {
             if (feilliste.indexOf(keys[i]) > -1) {
                 return true;
             }
@@ -61,10 +61,13 @@ class Serverfeilmelding extends Component {
                 <p className="sist">
                     <strong>Ai ai ai!</strong><span> Vi har problemer med noen av baksystemene nå. </span>
                     {
-                        visKnapp && <button onClick={(e) => {
-                            e.preventDefault();
-                            this.toggleVisFeil();
-                        }} className="lenke" aria-pressed={this.state.visFeil}>Se hva som er feil</button>
+                        visKnapp && <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                this.toggleVisFeil();
+                            }}
+                            className="lenke"
+                            aria-pressed={this.state.visFeil}>Se hva som er feil</button>
                     }
                 </p>
             </Varselstripe>
@@ -76,7 +79,7 @@ class Serverfeilmelding extends Component {
 }
 
 Serverfeilmelding.propTypes = {
-    feilliste: PropTypes.array,
+    feilliste: PropTypes.arrayOf(PropTypes.string),
     noeErFeil: PropTypes.bool,
 };
 

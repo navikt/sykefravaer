@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getContextRoot } from '../routers/paths';
-import Side from '../sider/Side';
-import AppSpinner from '../components/AppSpinner';
-import Feilmelding from '../components/Feilmelding';
-import { getOppfolgingsdialog } from '../utils/oppfolgingsdialogUtils';
-import Oppfolgingsdialog from '../components/oppfolgingsdialoger/Oppfolgingsdialog';
+import { getLedetekst, keyValue } from 'digisyfo-npm';
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     lagreArbeidsoppgave,
@@ -23,11 +18,15 @@ import {
     OppfolgingsdialogInfoboks,
     settDialog,
 } from 'oppfolgingsdialog-npm';
-import { getLedetekst } from 'digisyfo-npm';
+import { getContextRoot } from '../routers/paths';
+import Side from '../sider/Side';
+import AppSpinner from '../components/AppSpinner';
+import Feilmelding from '../components/Feilmelding';
+import { getOppfolgingsdialog } from '../utils/oppfolgingsdialogUtils';
+import { Oppfolgingsdialog } from '../components/oppfolgingsdialoger/Oppfolgingsdialog';
 import { brodsmule as brodsmulePt } from '../propTypes';
 
 export class OppfolgingsdialogSide extends Component {
-
     componentWillMount() {
         this.props.settDialog(this.props.oppfolgingsdialogId);
     }
@@ -93,7 +92,7 @@ export class OppfolgingsdialogSide extends Component {
 OppfolgingsdialogSide.propTypes = {
     dispatch: PropTypes.func,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     oppfolgingsdialog: PropTypes.object,
     oppfolgingsdialogId: PropTypes.string,
     henter: PropTypes.bool,

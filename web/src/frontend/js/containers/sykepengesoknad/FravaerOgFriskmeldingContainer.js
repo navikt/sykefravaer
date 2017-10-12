@@ -19,7 +19,7 @@ export const Controller = (props) => {
 
 Controller.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
-    skjemasoknad: PropTypes.object,
+    skjemasoknad: PropTypes.shape(),
 };
 
 const FravaerOgFriskmeldingContainer = ({ params }) => {

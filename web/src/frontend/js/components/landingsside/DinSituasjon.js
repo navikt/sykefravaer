@@ -1,6 +1,6 @@
 import React from 'react';
 import { getLedetekst } from 'digisyfo-npm';
-import NaermesteLedereContainer from '../../containers/NaermesteLedereContainer';
+import NaermesteLedereContainer from '../../containers/landingsside/NaermesteLedereContainer';
 import Landingspanel from './Landingspanel';
 
 const DinSituasjon = () => {

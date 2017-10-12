@@ -6,7 +6,7 @@ import sinon from 'sinon';
 
 import ledetekster from "../../mockLedetekster";
 import NaermesteLedere from '../../../js/components/landingsside/NaermesteLedere';
-import BekreftFeilLederContainer from '../../../js/containers/BekreftFeilLederContainer';
+import BekreftFeilLederContainer from '../../../js/containers/landingsside/BekreftFeilLederContainer';
 import Lightbox from '../../../js/components/Lightbox';
 import { setLedetekster } from 'digisyfo-npm';
 

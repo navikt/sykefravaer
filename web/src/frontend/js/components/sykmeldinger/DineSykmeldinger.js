@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerEldsteFoerst } from 'digisyfo-npm';
 import SykmeldingTeasere from './SykmeldingTeasere';
-import SykmeldingerSorteringContainer from '../../containers/SykmeldingerSorteringContainer';
+import SykmeldingerSorteringContainer from '../../containers/sykmeldinger/SykmeldingerSorteringContainer';
 import Sidetopp from '../Sidetopp';
 import { NY } from '../../enums/sykmeldingstatuser';
 import { sykmelding as sykmeldingPt } from '../../propTypes';

@@ -5,11 +5,11 @@ import { getLedetekst, getHtmlLedetekst, keyValue } from 'digisyfo-npm';
 import LandingssideLenke from './LandingssideLenke';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../../propTypes';
 import Brodsmuler from '../Brodsmuler';
-import DineOppgaverContainer from '../../containers/DineOppgaverContainer';
-import DinSituasjonContainer from '../../containers/DinSituasjonContainer';
-import ServerfeilContainer from '../../containers/ServerfeilContainer';
+import DineOppgaverContainer from '../../containers/landingsside/DineOppgaverContainer';
+import DinSituasjonContainer from '../../containers/landingsside/DinSituasjonContainer';
+import ServerfeilContainer from '../../containers/landingsside/ServerfeilContainer';
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
-import DetteHarSkjeddContainer from '../../containers/DetteHarSkjeddContainer';
+import DetteHarSkjeddContainer from '../../containers/landingsside/DetteHarSkjeddContainer';
 
 export class GenerellInfo extends Component {
     componentDidMount() {

@@ -13,7 +13,7 @@ import StrengtFortroligInfo from "../../../js/components/sykmeldingskjema/Streng
 import VelgArbeidssituasjon from "../../../js/components/sykmeldingskjema/VelgArbeidssituasjon";
 import { DineSykmeldingOpplysninger } from "digisyfo-npm";
 import VelgArbeidsgiver from "../../../js/components/sykmeldingskjema/VelgArbeidsgiver";
-import ArbeidsgiversSykmeldingContainer from "../../../js/containers/ArbeidsgiversSykmeldingContainer";
+import ArbeidsgiversSykmeldingContainer from "../../../js/containers/sykmelding/ArbeidsgiversSykmeldingContainer";
 import { Varselstripe } from "digisyfo-npm";
 import ErLederRiktig from "../../../js/components/sykmeldingskjema/ErLederRiktig";
 import { Provider } from 'react-redux';

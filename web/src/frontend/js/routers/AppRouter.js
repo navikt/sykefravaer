@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Router, Route } from 'react-router';
-import DineSykmeldingerContainer from '../containers/DineSykmeldingerContainer';
-import LandingssideContainer from '../containers/LandingssideContainer';
-import { DinSykmeldingContainer } from '../containers/DinSykmeldingContainer';
-import SkrivUtSykmeldingContainer from '../containers/SkrivUtSykmeldingContainer';
-import TidslinjeContainer from '../containers/TidslinjeContainer';
-import SykmeldingKvitteringContainer from '../containers/SykmeldingKvitteringContainer';
+import DineSykmeldingerContainer from '../containers/sykmeldinger/DineSykmeldingerContainer';
+import LandingssideContainer from '../containers/landingsside/LandingssideContainer';
+import { DinSykmeldingContainer } from '../containers/sykmelding/DinSykmeldingContainer';
+import SkrivUtSykmeldingContainer from '../containers/sykmelding/SkrivUtSykmeldingContainer';
+import TidslinjeContainer from '../containers/tidslinje/TidslinjeContainer';
+import SykmeldingKvitteringContainer from '../containers/sykmelding/SykmeldingKvitteringContainer';
 import RollerContainer from '../containers/RollerContainer';
-import MoteContainer from '../containers/MoteContainer';
-import SoknaderContainer from '../containers/SoknaderContainer';
+import MoteContainer from '../containers/mote/MoteContainer';
+import SoknaderContainer from '../containers/sykepengesoknader/SoknaderContainer';
 import FoerDuBegynnerContainer from '../containers/sykepengesoknad/FoerDuBegynnerContainer';
 import FravaerOgFriskmeldingContainer from '../containers/sykepengesoknad/FravaerOgFriskmeldingContainer';
 import AktiviteterISykmeldingsperiodenContainer from '../containers/sykepengesoknad/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringContainer from '../containers/sykepengesoknad/OppsummeringContainer';
-import OppfolgingsdialogerContainer from '../containers/OppfolgingsdialogerContainer';
-import OppfolgingsdialogContainer from '../containers/OppfolgingsdialogContainer';
-import OpprettOppfolgingsdialogContainer from '../containers/OpprettOppfolgingsdialogContainer';
+import OppfolgingsdialogerContainer from '../containers/oppfolgingsdialoger/OppfolgingsdialogerContainer';
+import OppfolgingsdialogContainer from '../containers/oppfolgingsdialog/OppfolgingsdialogContainer';
+import OpprettOppfolgingsdialogContainer from '../containers/oppfolgingsdialog/OpprettOppfolgingsdialogContainer';
 import SykepengesoknadKvitteringContainer from '../containers/sykepengesoknad/SykepengesoknadKvitteringContainer';
-import AktivitetskravvarselContainer from '../containers/AktivitetskravvarselContainer';
+import AktivitetskravvarselContainer from '../containers/aktivitetskrav/AktivitetskravvarselContainer';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst } from 'digisyfo-npm';
 import Lightbox from '../Lightbox';
-import BekreftFeilLederContainer from '../../containers/BekreftFeilLederContainer';
+import BekreftFeilLederContainer from '../../containers/landingsside/BekreftFeilLederContainer';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 
 export default class NaermesteLedere extends Component {

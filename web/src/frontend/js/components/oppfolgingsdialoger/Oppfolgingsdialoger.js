@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst } from 'digisyfo-npm';
-import { Link } from 'react-router';
-import Sidetopp from '../Sidetopp';
-import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
-import UnderUtviklingVarsel from './UnderUtviklingVarsel';
-import { getContextRoot } from '../../routers/paths';
+import { getLedetekst, keyValue } from 'digisyfo-npm';
 import {
     OppfolgingsdialogTeasere,
     BRUKERTYPE,
@@ -15,6 +10,11 @@ import {
     finnAktiveOppfolgingsdialoger,
     harAktivOppfolgingsdialog,
 } from 'oppfolgingsdialog-npm';
+import { Link } from 'react-router';
+import Sidetopp from '../Sidetopp';
+import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
+import UnderUtviklingVarsel from './UnderUtviklingVarsel';
+import { getContextRoot } from '../../routers/paths';
 
 export const OppfolgingsdialogNyDialog = () => {
     return (
@@ -34,7 +34,7 @@ export const OppfolgingsdialogNyDialog = () => {
     );
 };
 
-export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
+const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
     return (<div>
         <UnderUtviklingVarsel />
         <Sidetopp
@@ -90,7 +90,7 @@ export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) =
 
 Oppfolgingsdialoger.propTypes = {
     oppfolgingsdialoger: PropTypes.array,
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
 };
 
 export default Oppfolgingsdialoger;

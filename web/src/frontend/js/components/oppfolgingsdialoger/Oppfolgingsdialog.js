@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getContextRoot } from '../../routers/paths';
-import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
-import ReleasetPlanAT from './releasetplan/ReleasetPlanAT';
-import Tiltak from './utfylling/Tiltak';
-
 import {
     NavigasjonsTopp,
     NavigasjonsBunn,
@@ -14,6 +9,10 @@ import {
     Godkjenninger,
     Samtykke,
 } from 'oppfolgingsdialog-npm';
+import { getContextRoot } from '../../routers/paths';
+import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
+import ReleasetPlanAT from './releasetplan/ReleasetPlanAT';
+import Tiltak from './utfylling/Tiltak';
 
 const inneholderGodkjenninger = (oppfolgingsdialog) => {
     return oppfolgingsdialog.godkjenninger.length > 0;
@@ -28,7 +27,6 @@ const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
 };
 
 export class Oppfolgingsdialog extends Component {
-
     constructor() {
         super();
 
@@ -221,7 +219,6 @@ Oppfolgingsdialog.propTypes = {
     oppfolgingsdialogerHentet: PropTypes.bool,
     oppfolgingsdialog: PropTypes.object,
     oppfolgingsdialogId: PropTypes.string,
-    steg: PropTypes.number,
     ledetekster: PropTypes.object,
     godkjennDialog: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,

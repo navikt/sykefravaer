@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
-import { getContextRoot } from '../../../routers/paths';
-import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
-import AppSpinner from '../../AppSpinner';
-import Feilmelding from '../../Feilmelding';
 import {
     OppfolgingsdialogInfoboks,
     ArbeidsoppgaverNotifikasjonBoksAdvarsel,
@@ -16,7 +12,11 @@ import {
     captitalizeFirstLetter,
     sorterArbeidsoppgaverEtterOpprettet,
 } from 'oppfolgingsdialog-npm';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, keyValue } from 'digisyfo-npm';
+import { getContextRoot } from '../../../routers/paths';
+import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
+import AppSpinner from '../../AppSpinner';
+import Feilmelding from '../../Feilmelding';
 
 export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, aktoerId, oppfolgingsdialog }) => {
     return (
@@ -36,7 +36,7 @@ export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsopp
     );
 };
 OppfolgingsdialogArbeidsoppgaverTabell.propTypes = {
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     oppfolgingsdialog: PropTypes.object,
     arbeidsoppgaveListe: PropTypes.array,
     sendLagreArbeidsoppgave: PropTypes.func,
@@ -55,12 +55,12 @@ export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppga
     </div>);
 };
 RenderOpprettArbeidsoppgave.propTypes = {
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     sendLagreArbeidsoppgave: PropTypes.func,
     toggleArbeidsoppgaveSkjema: PropTypes.func,
 };
 
-export class Arbeidsoppgaver extends Component {
+class Arbeidsoppgaver extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -86,7 +86,7 @@ export class Arbeidsoppgaver extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (!prevState.visArbeidsoppgaveSkjema && this.state.visArbeidsoppgaveSkjema && this.lagreSkjema) {
             const form = findDOMNode(this.lagreSkjema);
-            scrollTo(form, form.getBoundingClientRect().bottom);
+            window.scrollTo(form, form.getBoundingClientRect().bottom);
         }
     }
 
@@ -116,7 +116,7 @@ export class Arbeidsoppgaver extends Component {
 
     scrollToForm() {
         const form = findDOMNode(this.lagreSkjema);
-        scrollTo(form, form.getBoundingClientRect().bottom);
+        window.scrollTo(form, form.getBoundingClientRect().bottom);
     }
 
     render() {
@@ -225,16 +225,13 @@ Arbeidsoppgaver.propTypes = {
     lagrer: PropTypes.bool,
     lagret: PropTypes.bool,
     sletter: PropTypes.bool,
-    slettet: PropTypes.bool,
     lagringFeilet: PropTypes.bool,
     slettingFeilet: PropTypes.bool,
-    oppfolgingsdialogerHentet: PropTypes.bool,
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     oppfolgingsdialog: PropTypes.object,
     oppfolgingsdialogId: PropTypes.string,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
-    arbeidsoppgaveOpprettet: PropTypes.bool,
 };
 
 export default Arbeidsoppgaver;

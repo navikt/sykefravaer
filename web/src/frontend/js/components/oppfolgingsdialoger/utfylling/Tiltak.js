@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
-import { getContextRoot } from '../../../routers/paths';
-import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
-import AppSpinner from '../../AppSpinner';
-import Feilmelding from '../../Feilmelding';
 import {
     OppfolgingsdialogInfoboks,
     TiltakNotifikasjonBoksAdvarsel,
@@ -15,7 +11,11 @@ import {
     BRUKERTYPE,
     captitalizeFirstLetter,
 } from 'oppfolgingsdialog-npm';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, keyValue } from 'digisyfo-npm';
+import { getContextRoot } from '../../../routers/paths';
+import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
+import AppSpinner from '../../AppSpinner';
+import Feilmelding from '../../Feilmelding';
 
 export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, sendLagreTiltak, sendSlettTiltak, aktoerId }) => {
     return (
@@ -33,7 +33,7 @@ export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, 
     );
 };
 RenderOppfolgingsdialogTiltakTabell.propTypes = {
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     tiltakListe: PropTypes.array,
     sendLagreTiltak: PropTypes.func,
     sendSlettTiltak: PropTypes.func,
@@ -51,13 +51,12 @@ export const RenderOpprettTiltak = ({ ledetekster, sendLagreTiltak, toggleTiltak
     </div>);
 };
 RenderOpprettTiltak.propTypes = {
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     sendLagreTiltak: PropTypes.func,
     toggleTiltakSkjema: PropTypes.func,
 };
 
-export class Tiltak extends Component {
-
+class Tiltak extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -77,7 +76,7 @@ export class Tiltak extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (!prevState.visTiltakSkjema && this.state.visTiltakSkjema && this.lagreSkjema) {
             const form = findDOMNode(this.lagreSkjema);
-            scrollTo(form, form.getBoundingClientRect().bottom);
+            window.scrollTo(form, form.getBoundingClientRect().bottom);
         }
     }
 
@@ -206,18 +205,14 @@ export class Tiltak extends Component {
 Tiltak.propTypes = {
     lagrer: PropTypes.bool,
     lagret: PropTypes.bool,
-    lagretId: PropTypes.number,
     sletter: PropTypes.bool,
-    slettet: PropTypes.bool,
     lagringFeilet: PropTypes.bool,
     slettingFeilet: PropTypes.bool,
-    oppfolgingsdialogerHentet: PropTypes.bool,
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     oppfolgingsdialog: PropTypes.object,
     oppfolgingsdialogId: PropTypes.string,
     lagreTiltak: PropTypes.func,
     slettTiltak: PropTypes.func,
-    tiltakOpprettet: PropTypes.bool,
 };
 
 export default Tiltak;

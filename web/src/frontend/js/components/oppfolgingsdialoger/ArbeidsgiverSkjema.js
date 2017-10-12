@@ -10,6 +10,7 @@ import {
     erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver,
     hentAktivOppfolgingsdialogOpprettetMedArbeidsgiver,
 } from '../../utils/oppfolgingsdialogUtils';
+import { fieldPropTypes } from '../../propTypes';
 import Radioknapper from '../skjema/Radioknapper';
 
 const OPPFOLGINGSKJEMANAVN = 'OPPRETT_DIALOG';
@@ -54,28 +55,28 @@ export const VelgArbeidsgiverRadioKnapper = ({ input, meta, oppfolgingsdialoger,
             meta={meta}
             visUndertekst
         >
-        {
-            arbeidsgivere.map((arbeidsgiver, index) => {
-                return (
-                    <input
-                        key={index}
-                        value={arbeidsgiver.virksomhetsnummer}
-                        label={arbeidsgiver.navn}
-                        disabled={!erOppfolgingsdialogOpprettbarMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver)}>
-                        <VelgArbeidsgiverUndertekst
-                            oppfolgingsdialoger={oppfolgingsdialoger}
-                            arbeidsgiver={arbeidsgiver}
-                        />
-                    </input>
-                );
-            })
-        }
+            {
+                arbeidsgivere.map((arbeidsgiver, index) => {
+                    return (
+                        <input
+                            key={index}
+                            value={arbeidsgiver.virksomhetsnummer}
+                            label={arbeidsgiver.navn}
+                            disabled={!erOppfolgingsdialogOpprettbarMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver)}>
+                            <VelgArbeidsgiverUndertekst
+                                oppfolgingsdialoger={oppfolgingsdialoger}
+                                arbeidsgiver={arbeidsgiver}
+                            />
+                        </input>
+                    );
+                })
+            }
         </Radioknapper>
-  );
+    );
 };
 VelgArbeidsgiverRadioKnapper.propTypes = {
-    input: PropTypes.object,
-    meta: PropTypes.object,
+    input: fieldPropTypes.input,
+    meta: fieldPropTypes.meta,
     oppfolgingsdialoger: PropTypes.array,
     arbeidsgivere: PropTypes.array,
 };

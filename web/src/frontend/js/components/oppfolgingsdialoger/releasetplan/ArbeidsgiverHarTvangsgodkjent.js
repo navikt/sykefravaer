@@ -4,8 +4,7 @@ import { getLedetekst, Utvidbar } from 'digisyfo-npm';
 import { OppfolgingsdialogInnholdboks } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../../routers/paths';
 
-export class ArbeidsgiverHarTvangsgodkjent extends Component {
-
+class ArbeidsgiverHarTvangsgodkjent extends Component {
     componentWillMount() {
         if (!this.props.dokument.hentet && !this.props.dokument.henter && this.props.dokument.oppfoelgingsdialogId !== this.props.oppfolgingsdialog.oppfoelgingsdialogId) {
             this.props.hentPdfurler(this.props.oppfolgingsdialog.oppfoelgingsdialogId, 1);

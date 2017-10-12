@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getLedetekst, hentToggles, keyValue } from 'digisyfo-npm';
 import Landingsside from '../../components/landingsside/Landingsside';
 import StrippetSide from '../../sider/StrippetSide';
+import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
@@ -43,7 +44,9 @@ export class LandingssideSide extends Component {
             toggles,
             altHentet,
         } = this.props;
-        return (<StrippetSide tittel={getLedetekst('landingsside.sidetittel')} laster={henter || !altHentet}>
+        const Sidetype = hentingFeilet ? Side : StrippetSide;
+        const brodsmulerArg = hentingFeilet ? brodsmuler : [];
+        return (<Sidetype brodsmuler={brodsmulerArg} tittel={getLedetekst('landingsside.sidetittel')} laster={henter || !altHentet}>
             {
                 (() => {
                     if (henter) {
@@ -60,7 +63,7 @@ export class LandingssideSide extends Component {
                     />);
                 })()
             }
-        </StrippetSide>);
+        </Sidetype>);
     }
 }
 

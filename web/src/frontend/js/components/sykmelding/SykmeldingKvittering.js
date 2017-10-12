@@ -130,11 +130,11 @@ export const KvitteringSokSenere = ({ sykepengesoknader }) => {
             </div>
         </div>
         <div className="panel blokk">
-            <h2 className="kvitteringsteg__tittel">{getLedetekst('sykmelding.kvittering.sok-senere.utenlandsopphold.tittel')}</h2>
+            <h2 className="panel__tittel">{getLedetekst('sykmelding.kvittering.sok-senere.utenlandsopphold.tittel')}</h2>
             <div className="kvittering__utenlandsopphold" dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding.kvittering.sok-senere.utenlandsopphold.tekst')} />
         </div>
         <div className="blokk">
-            <h2 className="typo-undertittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
+            <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
             <Video
                 width="640"
                 height="360"
@@ -164,7 +164,7 @@ const SykmeldingKvittering = (props) => {
         }
         <LenkeTilDineSykmeldinger />
         <div className="panel">
-            <h2 className="kvitteringsteg__tittel">Hjelp oss å bli bedre</h2>
+            <h2 className="panel__tittel">Hjelp oss å bli bedre</h2>
             <p>Dette er en tjeneste som fortsatt er under utvikling. Gi oss tilbakemelding slik at vi kan bli bedre!</p>
             <p className="knapperad">
                 <a

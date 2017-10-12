@@ -37,7 +37,7 @@ export default class LandingssideLenke extends Component {
                 <img src={`/sykefravaer/img/svg/${this.state.ikon}`} alt={this.props.ikonAlt} />
             </div>
             <div className="peker__innhold">
-                <h2 className="typo-undertittel">{this.props.tittel}</h2>
+                <h2>{this.props.tittel}</h2>
                 { this.props.undertittel ? <p className="peker__undertittel">{this.props.undertittel}</p> : null }
             </div>
         </Link>);

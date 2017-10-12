@@ -20,7 +20,7 @@ export class GenerellInfo extends Component {
 
     render() {
         return (<article className="panel blokk js-generell-informasjon">
-            <h2 className="typo-undertittel">Sykmeldt &mdash; hva nå?</h2>
+            <h2 className="panel__tittel">Sykmeldt &mdash; hva nå?</h2>
             <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('landingsside.generell.informasjon.tekst')} />
             <p>
                 <a className="lenke" href={getLedetekst('landingsside.generell.informasjon.lenke1.url')}>

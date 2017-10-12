@@ -62,7 +62,7 @@ RenderOpprettArbeidsoppgave.propTypes = {
 };
 
 export const RenderArbeidsforhold = ({ arbeidsforhold }) => {
-    return (<div>{captitalizeFirstLetter(arbeidsforhold.stilling.toLowerCase())}: {arbeidsforhold.stillingsprosent}%</div>);
+    return (<div>{arbeidsforhold.stilling.toLowerCase()}: {arbeidsforhold.stillingsprosent}%</div>);
 };
 
 RenderArbeidsforhold.propTypes = {
@@ -181,7 +181,7 @@ export class Arbeidsoppgaver extends Component {
                         <div className="panel oppfolgingsdialogStilling notifikasjonboks" role="alert">
                             <img src="/sykefravaer/img/svg/oppfolgingsdialog-stilling.svg" alt="ikon" className="oppfolgingsdialogStilling__img" />
                             <span className="oppfolgingsdialogStilling__tekst">
-                                <h3>Din jobb hos denne arbeidsgiveren:</h3>
+                                <h3>getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')</h3>
                                 { arbeidsforhold.map((forhold, idx) => {
                                     if (forhold.stillingsprosent > 0) {
                                         return (<RenderArbeidsforhold arbeidsforhold={forhold} key={idx} />);

@@ -44,7 +44,7 @@ export class Oppfolgingsdialog extends Component {
 
     componentWillMount() {
         this.props.settAktivtSteg(1);
-        this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.fnr);
+        this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId);
     }
 
     componentWillReceiveProps(nextProps) {

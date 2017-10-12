@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { getSykmelding, getLedetekst } from 'digisyfo-npm';
 import * as actionCreators from '../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../components/sykmeldingskjema/DinSykmeldingSkjema';

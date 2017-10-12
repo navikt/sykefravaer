@@ -99,19 +99,19 @@ describe("DaypickerComponent", () => {
         })
 
         it("Skal kalle på innsendt onDayClick hvis dag er aktiv", () => {
-            dp.prop("onDayClick")({}, new Date("2017-01-12"));
+            dp.prop("onDayClick")(new Date("2017-01-12"));
             expect(onDayClick.called).to.be.true;
         });
 
         it("Skal kalle på innsendt onDayClick hvis dag er aktiv og det ikke finnes tidligsteFom/senesteTom", () => {
             component = shallow(<DaypickerComponent input={input} meta={meta} onKeyUp={onKeyUp} onDayClick={onDayClick} />)
             dp = component.find(DayPicker);
-            dp.prop("onDayClick")({}, new Date("2017-01-12"));
+            dp.prop("onDayClick")(new Date("2017-01-12"));
             expect(onDayClick.called).to.be.true;
         });
 
         it("Skal ikke kalle på innsendt onDayClick hvis dag er deaktivert", () => {
-            dp.prop("onDayClick")({}, new Date("2017-01-09"));
+            dp.prop("onDayClick")(new Date("2017-01-09"));
             expect(onDayClick.called).to.be.false;
         });
 

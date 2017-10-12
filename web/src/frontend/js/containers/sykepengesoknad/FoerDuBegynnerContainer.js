@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
@@ -56,7 +57,18 @@ export class FoerDuBegynnerContainer extends Component {
     }
 
     render() {
-        const { params, vedlikehold, brodsmuler, henter } = this.props;
+        const { params, vedlikehold, henter } = this.props;
+        const brodsmuler = [{
+            tittel: 'Ditt sykefravær',
+            sti: '/',
+            erKlikkbar: true,
+        }, {
+            tittel: 'Søknader om sykepenger',
+            sti: '/soknader/',
+            erKlikkbar: true,
+        }, {
+            tittel: 'Søknad',
+        }];
         return <GenerellSoknadContainer henter={henter} Component={Controller} brodsmuler={brodsmuler} params={params} vedlikehold={vedlikehold} />;
     }
 }
@@ -77,21 +89,8 @@ export const mapStateToProps = (state, ownProps) => {
     const henter = state.vedlikehold.henter || state.sykepengesoknader.henterBerikelse;
     const sykepengesoknadId = ownProps.params.sykepengesoknadId;
 
-    const brodsmuler = [{
-        tittel: 'Ditt sykefravær',
-        sti: '/',
-        erKlikkbar: true,
-    }, {
-        tittel: 'Søknader om sykepenger',
-        sti: '/soknader/',
-        erKlikkbar: true,
-    }, {
-        tittel: 'Søknad',
-    }];
-
     return {
         henter,
-        brodsmuler,
         sykepengesoknadId,
         vedlikehold: state.vedlikehold.data.vedlikehold,
     };

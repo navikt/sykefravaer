@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import SykmeldingTeasere from './SykmeldingTeasere';
 import { getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerEldsteFoerst } from 'digisyfo-npm';
 import SykmeldingerSorteringContainer from '../../containers/SykmeldingerSorteringContainer';
@@ -33,8 +34,8 @@ const DineSykmeldinger = ({ sykmeldinger = [], sortering }) => {
                 ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.ingen-sykmeldinger.melding')}
                 className="js-tidligere-sykmeldinger"
                 id="sykmelding-liste-tidligere">
-                    <SykmeldingerSorteringContainer status="tidligere" />
-                </SykmeldingTeasere>
+                <SykmeldingerSorteringContainer status="tidligere" />
+            </SykmeldingTeasere>
         }
     </div>);
 };

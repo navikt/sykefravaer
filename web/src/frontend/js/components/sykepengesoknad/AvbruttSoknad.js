@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { getLedetekst, Varselstripe, SykmeldingNokkelOpplysning, toDatePrettyPrint } from 'digisyfo-npm';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';

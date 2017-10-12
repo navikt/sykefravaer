@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { getLabelId } from './Radioknapper';
 
 const Checkbox = ({ input, label, id, children }) => {
@@ -18,8 +19,8 @@ Checkbox.propTypes = {
     label: PropTypes.string,
     id: PropTypes.string,
     children: PropTypes.oneOfType([
-        React.PropTypes.array,
-        React.PropTypes.object,
+        PropTypes.array,
+        PropTypes.object,
     ]),
 };
 

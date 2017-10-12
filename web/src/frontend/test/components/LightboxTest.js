@@ -17,12 +17,12 @@ describe("Lightbox", () => {
 
     beforeEach(() => {
         onClose = sinon.spy();
-        component = shallow(<Lightbox onClose={onClose}><p>Innhold</p></Lightbox>)
+        component = mount(<Lightbox onClose={onClose}><p>Innhold</p></Lightbox>)
     });
 
     it("Skal sette fokus på Lukk-knapp", () => {
         component = mount(<Lightbox onClose={onClose} />)
-        expect(component.find(".js-lukk").node).to.equal(document.activeElement)
+        expect(document.activeElement.className).to.contain("js-lukk");
     });
 
     it("Skal sette erApen til true", () => {

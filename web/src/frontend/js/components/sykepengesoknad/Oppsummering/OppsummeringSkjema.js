@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import setup from '../setup';
 import SykepengerSkjema from '../SykepengerSkjema';
 import { Link } from 'react-router';
@@ -31,7 +32,9 @@ const mottaker = (sendesTil, sykepengesoknad) => {
 
 export class OppsummeringForm extends Component {
     componentDidMount() {
-        this.refs.form.focus();
+        if (this.form) {
+            this.form.focus();
+        }
     }
 
     render() {
@@ -44,7 +47,14 @@ export class OppsummeringForm extends Component {
             const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
             actions.sendSykepengesoknad(soknadObjekt);
         };
-        return (<form className="sykepengerskjema" ref="form" tabIndex="-1" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
+        return (<form
+            className="sykepengerskjema"
+            ref={(c) => {
+                this.form = c;
+            }}
+            tabIndex="-1"
+            id="oppsummering-skjema"
+            onSubmit={handleSubmit(onSubmit)}>
             <Soknad apentUtdrag={false} sykepengesoknad={backendsoknad} tittel="Oppsummering" />
             <div className="bekreftet-container blokk">
                 <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />

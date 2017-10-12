@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Lightbox from '../Lightbox';
 import BekreftFeilLederContainer from '../../containers/BekreftFeilLederContainer';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';

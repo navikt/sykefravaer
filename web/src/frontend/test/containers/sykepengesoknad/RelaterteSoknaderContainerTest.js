@@ -16,6 +16,7 @@ describe("Relaterte søknader", () => {
     let soknad3;
     let soknad4;
     let soknad5;
+    let data;
 
     beforeEach(() => {
         soknad1 = {

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import LandingssideLenke from './LandingssideLenke';
@@ -77,7 +78,7 @@ const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, 
                 }
                 {
                     skalViseOppfoelgingsdialogLenke(dineSykmeldinger, toggles) &&
-                    <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
+                        <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
                 }
             </nav>
             <DetteHarSkjeddContainer />

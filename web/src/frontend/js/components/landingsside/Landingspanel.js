@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const Landingspanel = ({ className, ikon, ikonAlt, tittel, children }) => {
     return (<div className={`landingspanel ${className}`}>

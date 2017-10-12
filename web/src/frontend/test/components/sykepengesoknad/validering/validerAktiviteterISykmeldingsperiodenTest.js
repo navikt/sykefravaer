@@ -23,6 +23,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
 
     let values; 
     let sykepengesoknad;
+    let sendTilFoerDuBegynner;
 
     beforeEach(() => {
         values = {
@@ -725,8 +726,8 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             });
 
             it("Brukeren må velge hvilken inntektskilde hvis alt er utfylt", () => {
-                values.andreInntektskilder[4].avkrysset = false;
-                values.andreInntektskilder[3].avkrysset = false;
+                values.andreInntektskilder[4] = Object.assign({}, values.andreInntektskilder[4], { avkrysset: false });
+                values.andreInntektskilder[3] = Object.assign({}, values.andreInntektskilder[3], { avkrysset: false });
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.andreInntektskilder).to.deep.equal({
                     _error: "Vennligst oppgi hvilke andre inntektskilder du har"

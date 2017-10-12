@@ -19,6 +19,7 @@ describe("KorrigertAvContainer", () => {
 	let soknad5;
 	let ownProps;
 	let state;
+	let data;
 
 	beforeEach(() => {
 	    soknad1 = {

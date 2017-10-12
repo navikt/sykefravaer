@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Lightbox extends Component {
     constructor(props) {
@@ -9,7 +10,7 @@ class Lightbox extends Component {
     }
 
     componentDidMount() {
-        this.refs.lukk.focus();
+        this.lukknapp.focus();
     }
 
     lukk() {
@@ -31,7 +32,9 @@ class Lightbox extends Component {
             <div className="lightbox__innhold">
                 <button onClick={() => {
                     this.lukk();
-                }} className="lightbox__lukk js-lukk" ref="lukk">Lukk</button>
+                }} className="lightbox__lukk js-lukk" ref={(c) => {
+                    this.lukknapp = c;
+                }}>Lukk</button>
                 {children}
             </div>
         </div>);

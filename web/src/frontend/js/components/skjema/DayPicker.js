@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { erGyldigDato, erGyldigDatoformat } from '../../utils/datoUtils';
 import DayPicker, { DateUtils, LocaleUtils } from 'react-day-picker';
 
@@ -105,9 +106,8 @@ class DayPickerComponent extends Component {
     }
 
     render() {
-        const { ariaControlledBy, onKeyUp } = this.props;
+        const { onKeyUp } = this.props;
         return (<div className="datovelger__DayPicker"
-            aria-controlledby={ariaControlledBy}
             onKeyUp={(e) => {
                 onKeyUp(e);
             }}>
@@ -127,7 +127,7 @@ class DayPickerComponent extends Component {
                 selectedDays={(day) => {
                     return this.selectedDays(day);
                 }}
-                onDayClick={(event, jsDato) => {
+                onDayClick={(jsDato, modifiers, event) => {
                     if (!this.erDeaktivertDag(jsDato)) {
                         this.props.onDayClick(event, jsDato);
                     }
@@ -141,7 +141,6 @@ DayPickerComponent.propTypes = {
     input: PropTypes.object.isRequired,
     onKeyUp: PropTypes.func.isRequired,
     lukk: PropTypes.func.isRequired,
-    ariaControlledBy: PropTypes.string,
     onDayClick: PropTypes.func.isRequired,
     senesteTom: PropTypes.instanceOf(Date),
     tidligsteFom: PropTypes.instanceOf(Date),

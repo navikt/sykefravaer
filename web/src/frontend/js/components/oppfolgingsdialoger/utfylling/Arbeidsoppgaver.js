@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
@@ -195,17 +196,17 @@ export class Arbeidsoppgaver extends Component {
 
                         {
                             lagret && this.state.oppdatertArbeidsoppgave &&
-                            <NotifikasjonBoksLagretElement
-                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
-                                rootUrl={`${getContextRoot()}`}
-                            />
+                                <NotifikasjonBoksLagretElement
+                                    tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
+                                    rootUrl={`${getContextRoot()}`}
+                                />
                         }
                         {
                             lagret && this.state.nyArbeidsoppgave &&
-                            <NotifikasjonBoksLagretElement
-                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
-                                rootUrl={`${getContextRoot()}`}
-                            />
+                                <NotifikasjonBoksLagretElement
+                                    tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
+                                    rootUrl={`${getContextRoot()}`}
+                                />
                         }
                         {
                             antallNyeArbeidsoppgaver > 0 && <ArbeidsoppgaverNotifikasjonBoksAdvarsel

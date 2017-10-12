@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import { AVBRUTT, SLETTET_UTKAST } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
@@ -14,12 +15,12 @@ export const Controller = (props) => {
                 tittel={getLedetekst('sykepengesoknad.avbryt.kvittering.tittel')}
                 status={AVBRUTT}
                 brodtekst={getHtmlLedetekst('sykepengesoknad.avbryt.kvittering.tekst')} />
-                <p className="ikke-print blokk navigasjonsstripe">
-                    <Link to="/sykefravaer/soknader">
-                        {getLedetekst('sykepengesoknader.tilbake')}
-                    </Link>
-                </p>
-            </div>);
+            <p className="ikke-print blokk navigasjonsstripe">
+                <Link to="/sykefravaer/soknader">
+                    {getLedetekst('sykepengesoknader.tilbake')}
+                </Link>
+            </p>
+        </div>);
     }
     return <Feilmelding melding="Er du sikker på at du er på riktig side?" />;
 };

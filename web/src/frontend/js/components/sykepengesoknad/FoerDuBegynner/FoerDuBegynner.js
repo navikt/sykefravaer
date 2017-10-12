@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import history from '../../../history';
 import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';

@@ -37,6 +37,7 @@ describe("DinSykmeldingSkjema -", () => {
     let skjemaData;
     let dispatch;
     let registrerInnsending;
+    let getState;
 
     beforeEach(() => {
         setLedetekster(ledetekster);
@@ -611,7 +612,7 @@ describe("DinSykmeldingSkjema -", () => {
         it("Skal returnere valgtArbeidssituasjon dersom valgtArbeidssituasjon = 'ARBEIDSTAKER'", () => {
             fields.valgtArbeidssituasjon = undefined;
             const res = validate(fields);
-            expect(res.valgtArbeidssituasjon).to.be.defined;
+            expect(res.valgtArbeidssituasjon).not.to.be.undefined;
         });
 
         it("Skal ikke returnere valgtArbeidssituasjon dersom valgtArbeidssituasjon === 'ARBEIDSTAKER'", () => {
@@ -623,7 +624,7 @@ describe("DinSykmeldingSkjema -", () => {
         it("Skal returnere valgtArbeidsgiver dersom valgtArbeidssituasjon === 'ARBEIDSTAKER' og valgtArbeidsgiver === undefined", () => {
             fields.valgtArbeidssituasjon = 'ARBEIDSTAKER';
             const res = validate(fields);
-            expect(res.valgtArbeidsgiver).to.be.defined;
+            expect(res.valgtArbeidsgiver).not.to.be.undefined;
         });
 
         it("Skal ikke returnere valgtArbeidsgiver dersom valgtArbeidssituasjon === 'ARBEIDSTAKER' og valgtArbeidsgiver === {}", () => {

@@ -135,7 +135,10 @@ describe("periodeUtils", () => {
 
     describe("periodeOverlapperMedPeriode", () => {
 
-        let periodeA, periodeB, periodeC, periodeD;
+        let periodeA;
+        let periodeB;
+        let periodeC;
+        let periodeD;
 
         beforeEach(() => {
             periodeA = {
@@ -179,7 +182,12 @@ describe("periodeUtils", () => {
     });
 
     describe("periodeOverlapperMedPerioder", () => {
-        let periodeA, periodeB, periodeC, periodeD;
+        let periodeA;
+        let periodeB;
+        let periodeC;
+        let periodeD;
+        let periodeTom;
+        let periodeFom;
 
         beforeEach(() => {
             periodeA = {
@@ -259,7 +267,10 @@ describe("periodeUtils", () => {
     });
 
     describe("perioderOverlapperMedPerioder", () => {
-        let periodeA, periodeB, periodeC, periodeD;
+        let periodeA;
+        let periodeB;
+        let periodeC;
+        let periodeD;
 
         beforeEach(() => {
             periodeA = {
@@ -311,7 +322,12 @@ describe("periodeUtils", () => {
     });
 
     describe("harOverlappendePerioder", () => {
-        let periodeA, periodeB, periodeC, periodeD, periodeTom, periodeFom;
+        let periodeA;
+        let periodeB;
+        let periodeC;
+        let periodeD;
+        let periodeTom;
+        let periodeFom;
 
         beforeEach(() => {
             periodeA = {

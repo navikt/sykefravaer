@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import CheckboxSelvstendig from '../skjema/CheckboxSelvstendig';
 import { getLedetekst, Varselstripe } from 'digisyfo-npm';

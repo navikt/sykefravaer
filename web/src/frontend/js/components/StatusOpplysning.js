@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../enums/nokkelopplysninger';
 import { Hjelpetekst, SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import { BEKREFTET, AVBRUTT, TIL_SENDING } from '../enums/sykmeldingstatuser';
@@ -11,7 +12,7 @@ const tilSendingHjelpetekst = () => {
 };
 
 const Status = ({ status }) => {
-    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="H2" tittel={getLedetekst('statuspanel.status')}>
+    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel={getLedetekst('statuspanel.status')}>
         {status === TIL_SENDING ?
             <div className="medHjelpetekst">
                 <span>{getLedetekst(`statuspanel.status.${status}`)}</span>
@@ -34,7 +35,7 @@ const InnsendtDato = ({ sendtdato, status }) => {
     } else if (status === AVBRUTT) {
         nokkel = 'statuspanel.dato.avbrutt';
     }
-    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="H2" tittel={getLedetekst(nokkel)}>
+    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel={getLedetekst(nokkel)}>
         <p className="js-dato">{toDatePrettyPrint(sendtdato)}</p>
     </SykmeldingNokkelOpplysning>);
 };
@@ -45,7 +46,7 @@ InnsendtDato.propTypes = {
 };
 
 const Arbeidsgiver = ({ arbeidsgiver }) => {
-    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="H2" tittel={getLedetekst('statuspanel.arbeidsgiver')}>
+    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel={getLedetekst('statuspanel.arbeidsgiver')}>
         <p className="js-arbeidsgiver">{arbeidsgiver}</p>
     </SykmeldingNokkelOpplysning>);
 };
@@ -59,7 +60,7 @@ const Orgnummer = ({ orgnummer }) => {
     if (_orgnummer) {
         _orgnummer = _orgnummer.replace(/(...)(...)(...)/g, '$1 $2 $3');
     }
-    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="H2" tittel={getLedetekst('statuspanel.organisasjonsnummer')}>
+    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel={getLedetekst('statuspanel.organisasjonsnummer')}>
         <p className="js-organisasjonsnummer">{_orgnummer}</p>
     </SykmeldingNokkelOpplysning>);
 };

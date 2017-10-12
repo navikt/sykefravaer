@@ -89,12 +89,12 @@ describe("Brodsmuler", () => {
         });
 
         it("Skal vise de to siste brødsmulene", () => {
-            expect(component.find(".js-smule")).to.have.length(2);
+            expect(component.find("a.js-smule")).to.have.length(2);
         });
 
         it("Skal vise alle dersom man klikker på ...", () => {
             component.find(".js-toggle").simulate("click");
-            expect(component.find(".js-smule")).to.have.length(5);
+            expect(component.find("a.js-smule")).to.have.length(5);
             expect(component.find(".js-toggle")).to.have.length(0);
         })
 

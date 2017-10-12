@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import StatusOpplysning from './StatusOpplysning';
 import { Varselstripe } from 'digisyfo-npm';
 import { sykmelding as sykmeldingPt } from '../propTypes';
@@ -22,9 +23,7 @@ const StatusPanel = ({ sykmelding, nokkelopplysninger, type }) => {
     return (
         <div className="panel panel--komprimert blokk">
             <Varselstripe {...varselprops}>
-                <div>
-                   {html}
-               </div>
+                <div>{html}</div>
             </Varselstripe>
         </div>);
 };

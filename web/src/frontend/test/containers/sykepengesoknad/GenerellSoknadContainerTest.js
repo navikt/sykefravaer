@@ -19,6 +19,7 @@ describe("GenerellSoknadContainer", () => {
     let state;
     let ownProps;
     let minSoknad; 
+    let minKorreksjon;
     let hentSykepengesoknader;
     let actions;
 

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { getLedetekst } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';

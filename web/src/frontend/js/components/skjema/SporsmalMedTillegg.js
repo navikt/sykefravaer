@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { scrollTo, erSynligIViewport } from 'digisyfo-npm';
 
 export class SporsmalMedTillegg extends Component {
@@ -31,6 +32,9 @@ export class SporsmalMedTillegg extends Component {
         if (!this.state.harAnimasjon) {
             return;
         }
+        this.setState({
+            containerClassName: this.state.containerClassName.replace(' animerer', ''),
+        });
         if (this.state.erApen) {
             this.setState({
                 hindreToggle: false,
@@ -109,6 +113,7 @@ export class SporsmalMedTillegg extends Component {
             that.setState({
                 erApen: true,
                 hoyde,
+                containerClassName: `${this.state.containerClassName} animerer`,
             });
         }, 0);
     }
@@ -123,7 +128,7 @@ export class SporsmalMedTillegg extends Component {
         setTimeout(() => {
             this.setState({
                 harAnimasjon: true,
-                containerClassName: ' tilleggssporsmal__innholdContainer--medAnimasjon',
+                containerClassName: ' tilleggssporsmal__innholdContainer--medAnimasjon animerer',
                 hoyde: '0',
                 erApen: false,
             });

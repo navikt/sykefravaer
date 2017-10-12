@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Feilmelding from './Feilmelding';
 
 const Feilomrade = ({ touched, error, children, id }) => {
@@ -12,8 +13,8 @@ Feilomrade.propTypes = {
     touched: PropTypes.bool,
     error: PropTypes.string,
     children: PropTypes.oneOfType([
-        React.PropTypes.array,
-        React.PropTypes.object,
+        PropTypes.array,
+        PropTypes.object,
     ]),
     id: PropTypes.string,
 };

@@ -21,6 +21,7 @@ describe("Aktiviteter", () => {
     let untouch;
     let autofill;
     let sykepengesoknad;
+    let aktiviteter;
 
     beforeEach(() => {
         autofill = sinon.spy();
@@ -108,7 +109,7 @@ describe("Aktiviteter", () => {
         });
 
         it("Skal inneholde en Hjelpetekst", () => {
-            expect(ja.prop("hjelpetekst")).to.be.defined;
+            expect(ja.prop("hjelpetekst")).not.to.be.undefined;
         });
 
         it("Skal inneholde Fields", () => {

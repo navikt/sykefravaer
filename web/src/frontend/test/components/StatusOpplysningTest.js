@@ -24,12 +24,12 @@ describe("StatusOpplysning", () => {
     });
 
     it("En nøkkelopplysning som finnes i mappingen blir til et SykmeldingNokkelOpplysning - element", () => {
-        component = mount(<StatusOpplysning sykmelding={getSykmelding()} nokkelopplysning={STATUS} />);
+        const component = mount(<StatusOpplysning sykmelding={getSykmelding()} nokkelopplysning={STATUS} />);
         expect(component.find(SykmeldingNokkelOpplysning)).to.have.length(1)
     });
 
     it("Ukjent nøkkelattributt vises ikke", () => {
-        component = mount(<StatusOpplysning sykmelding={getSykmelding()} nokkelopplysning={'noe'} />);
+        const component = mount(<StatusOpplysning sykmelding={getSykmelding()} nokkelopplysning={'noe'} />);
         expect(component.find(SykmeldingNokkelOpplysning)).to.have.length(0)
     });
 

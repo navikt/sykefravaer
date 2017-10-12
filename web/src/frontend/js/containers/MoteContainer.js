@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { moteActions, svarActions, Kvittering, MotePassert, AvbruttMote, BekreftetKvittering, getSvarsideModus, Svarside, konstanter, proptypes as moterPropTypes } from 'moter-npm';
 import { getLedetekst } from 'digisyfo-npm';

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Side from '../sider/Side';
 import DinSykmelding from '../components/sykmelding/DinSykmeldingABTest';
@@ -84,7 +85,7 @@ export class DinSykmldSide extends Component {
                     return <Feilmelding tittel="Sykmeldingen har ukjent status" />;
                 })()
                 }
-            </Side>);
+        </Side>);
     }
 }
 

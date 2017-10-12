@@ -63,7 +63,7 @@ describe("MoteContainer", () => {
 
             it("Skal vise Kvittering", () => {
                 mote = moteBesvartAlleAlternativer;
-                component = shallow(<Container actions={actions} mote={mote} />);
+                const component = shallow(<Container actions={actions} mote={mote} />);
                 expect(component.find(Kvittering)).to.have.length(1);
             });
 

@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, keyValue } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import {
     OppfolgingsdialogInfoboks,
     opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     sjekkTilgang,
+    proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import Side from '../../sider/Side';
 import Sidetopp from '../../components/Sidetopp';
 import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
 import history from '../../history';
-import { brodsmule as brodsmulePt } from '../../propTypes';
+import {
+    brodsmule as brodsmulePt,
+    sykmelding as sykmeldingPt,
+    naermesteLeder as naermesteLederPt,
+} from '../../propTypes';
 import OpprettOppfolgingsdialog from '../../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../../actions/ledere_actions';
@@ -105,16 +110,16 @@ OpprettOppfolgingsdialogSide.propTypes = {
     opprettetId: PropTypes.number,
     opprettingFeilet: PropTypes.bool,
     opprettOppfolgingsdialog: PropTypes.func,
-    oppfolgingsdialoger: PropTypes.array,
+    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     hentOppfolgingsdialoger: PropTypes.func,
     oppfolgingsdialogerHentet: PropTypes.bool,
-    sykmeldinger: PropTypes.array,
+    sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     sykmeldingerHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
-    naermesteLedere: PropTypes.array,
+    naermesteLedere: PropTypes.arrayOf(naermesteLederPt),
     ledereHentet: PropTypes.bool,
     hentLedere: PropTypes.func,
-    tilgang: PropTypes.object,
+    tilgang: oppfolgingProptypes.tilgangPt,
     tilgangSjekket: PropTypes.bool,
     sjekkTilgang: PropTypes.func,
     hentet: PropTypes.bool,

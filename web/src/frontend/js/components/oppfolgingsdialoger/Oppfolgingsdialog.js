@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { keyValue } from 'digisyfo-npm';
 import {
     NavigasjonsTopp,
     NavigasjonsBunn,
@@ -8,6 +9,7 @@ import {
     Godkjenn,
     Godkjenninger,
     Samtykke,
+    proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
@@ -217,9 +219,9 @@ Oppfolgingsdialog.propTypes = {
     slettingFeiletArbeidsoppgave: PropTypes.bool,
     slettingFeiletTiltak: PropTypes.bool,
     oppfolgingsdialogerHentet: PropTypes.bool,
-    oppfolgingsdialog: PropTypes.object,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogId: PropTypes.string,
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     godkjennDialog: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,
     toggleAvvisPlan: PropTypes.func,
@@ -231,8 +233,8 @@ Oppfolgingsdialog.propTypes = {
     slettTiltak: PropTypes.func,
     settAktivtSteg: PropTypes.func,
     avvisDialog: PropTypes.func,
-    navigasjontoggles: PropTypes.object,
-    dokument: PropTypes.object,
+    navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
+    dokument: oppfolgingProptypes.dokumentReducerPt,
 };
 
 export default Oppfolgingsdialog;

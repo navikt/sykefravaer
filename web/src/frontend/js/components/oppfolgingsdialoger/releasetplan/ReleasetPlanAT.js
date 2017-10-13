@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { keyValue } from 'digisyfo-npm';
 import {
     BRUKERTYPE,
     ReleasetPlan,
+    proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../../routers/paths';
 import ArbeidsgiverHarTvangsgodkjent from './ArbeidsgiverHarTvangsgodkjent';
@@ -54,9 +56,9 @@ class ReleasetPlanAT extends Component {
 ReleasetPlanAT.propTypes = {
     hentPdfurler: PropTypes.func,
     giSamtykke: PropTypes.func,
-    dokument: PropTypes.object,
-    oppfolgingsdialog: PropTypes.object,
-    ledetekster: PropTypes.object,
+    dokument: oppfolgingProptypes.dokumentReducerPt,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
+    ledetekster: keyValue,
 };
 
 export default ReleasetPlanAT;

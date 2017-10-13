@@ -119,7 +119,7 @@ export const antallVirkedagerIPeriode = (periode) => {
     for (let i = start; i <= slutt; i += DOGN) {
         const d = new Date(i);
         if (!datoErHelgedag(d)) {
-            antallVirkedager = antallVirkedager += 1;
+            antallVirkedager += 1;
         }
     }
     return antallVirkedager;

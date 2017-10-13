@@ -10,6 +10,7 @@ import {
     LagreTiltakSkjema,
     BRUKERTYPE,
     captitalizeFirstLetter,
+    proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
@@ -34,7 +35,7 @@ export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, 
 };
 RenderOppfolgingsdialogTiltakTabell.propTypes = {
     ledetekster: keyValue,
-    tiltakListe: PropTypes.array,
+    tiltakListe: PropTypes.arrayOf(oppfolgingProptypes.tiltakPt),
     sendLagreTiltak: PropTypes.func,
     sendSlettTiltak: PropTypes.func,
     aktoerId: PropTypes.string,
@@ -209,7 +210,7 @@ Tiltak.propTypes = {
     lagringFeilet: PropTypes.bool,
     slettingFeilet: PropTypes.bool,
     ledetekster: keyValue,
-    oppfolgingsdialog: PropTypes.object,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogId: PropTypes.string,
     lagreTiltak: PropTypes.func,
     slettTiltak: PropTypes.func,

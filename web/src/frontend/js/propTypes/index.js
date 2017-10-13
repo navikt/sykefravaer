@@ -56,3 +56,10 @@ export const childEllerChildren = PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.arrayOf(PropTypes.element),
 ]);
+
+export const opprettOppfolgingArbeidsgiverPt = PropTypes.shape({
+    virksomhetsnummer: PropTypes.string,
+    navn: PropTypes.string,
+    harNaermesteLeder: PropTypes.bool,
+    naermesteLeder: PropTypes.string,
+});

@@ -17,6 +17,7 @@ import {
     giSamtykke,
     OppfolgingsdialogInfoboks,
     settDialog,
+    proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 import Side from '../../sider/Side';
@@ -93,7 +94,7 @@ OppfolgingsdialogSide.propTypes = {
     dispatch: PropTypes.func,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     ledetekster: keyValue,
-    oppfolgingsdialog: PropTypes.object,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogId: PropTypes.string,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
@@ -123,7 +124,7 @@ OppfolgingsdialogSide.propTypes = {
     hentOppfolgingsdialoger: PropTypes.func,
     oppfolgingsdialogerHentet: PropTypes.bool,
     sjekkTilgangHentet: PropTypes.bool,
-    tilgang: PropTypes.object,
+    tilgang: oppfolgingProptypes.tilgangPt,
     tilgangSjekket: PropTypes.bool,
     sjekkTilgang: PropTypes.func,
     hentPdfurler: PropTypes.func,
@@ -134,9 +135,8 @@ OppfolgingsdialogSide.propTypes = {
     settAktivtSteg: PropTypes.func,
     oppfolgingsdialogerHenter: PropTypes.bool,
     settDialog: PropTypes.func,
-    dokument: PropTypes.object,
-    navigasjontoggles: PropTypes.object,
-    location: PropTypes.object,
+    dokument: oppfolgingProptypes.dokumentReducerPt,
+    navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     hentet: PropTypes.bool,
 };
 

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, keyValue } from 'digisyfo-npm';
 import {
     OppfolgingsdialogInfoboks,
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     sjekkTilgang,
+    proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 import Side from '../../sider/Side';
@@ -55,13 +56,13 @@ export class OppfolgingsdialogerSide extends Component {
 
 OppfolgingsdialogerSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    oppfolgingsdialoger: PropTypes.array,
+    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     hentOppfolgingsdialoger: PropTypes.func,
     oppfolgingsdialogerHentet: PropTypes.bool,
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    tilgang: PropTypes.object,
+    tilgang: oppfolgingProptypes.tilgangPt,
     tilgangSjekket: PropTypes.bool,
     sjekkTilgang: PropTypes.func,
     hentet: PropTypes.bool,

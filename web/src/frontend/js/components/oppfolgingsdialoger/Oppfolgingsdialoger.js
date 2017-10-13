@@ -9,6 +9,7 @@ import {
     harTidligereOppfolgingsdialoger,
     finnAktiveOppfolgingsdialoger,
     harAktivOppfolgingsdialog,
+    proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { Link } from 'react-router';
 import Sidetopp from '../Sidetopp';
@@ -89,7 +90,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
 };
 
 Oppfolgingsdialoger.propTypes = {
-    oppfolgingsdialoger: PropTypes.array,
+    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     ledetekster: keyValue,
 };
 

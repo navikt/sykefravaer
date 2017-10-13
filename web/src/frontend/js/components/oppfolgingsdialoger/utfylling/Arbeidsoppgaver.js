@@ -11,6 +11,7 @@ import {
     BRUKERTYPE,
     captitalizeFirstLetter,
     sorterArbeidsoppgaverEtterOpprettet,
+    proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
@@ -37,8 +38,8 @@ export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsopp
 };
 OppfolgingsdialogArbeidsoppgaverTabell.propTypes = {
     ledetekster: keyValue,
-    oppfolgingsdialog: PropTypes.object,
-    arbeidsoppgaveListe: PropTypes.array,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
+    arbeidsoppgaveListe: PropTypes.arrayOf(oppfolgingProptypes.arbeidsoppgavePt),
     sendLagreArbeidsoppgave: PropTypes.func,
     sendSlettArbeidsoppgave: PropTypes.func,
     aktoerId: PropTypes.string,
@@ -228,7 +229,7 @@ Arbeidsoppgaver.propTypes = {
     lagringFeilet: PropTypes.bool,
     slettingFeilet: PropTypes.bool,
     ledetekster: keyValue,
-    oppfolgingsdialog: PropTypes.object,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogId: PropTypes.string,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,

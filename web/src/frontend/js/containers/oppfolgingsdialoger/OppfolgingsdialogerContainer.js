@@ -12,8 +12,12 @@ import { getContextRoot } from '../../routers/paths';
 import Side from '../../sider/Side';
 import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
-import { brodsmule as brodsmulePt } from '../../propTypes';
+import {
+    brodsmule as brodsmulePt,
+    arbeidsforhold as arbeidsforholdPt,
+} from '../../propTypes';
 import Oppfolgingsdialoger from '../../components/oppfolgingsdialoger/Oppfolgingsdialoger';
+
 
 export class OppfolgingsdialogerSide extends Component {
     componentWillMount() {
@@ -65,7 +69,7 @@ OppfolgingsdialogerSide.propTypes = {
     tilgang: oppfolgingProptypes.tilgangPt,
     tilgangSjekket: PropTypes.bool,
     sjekkTilgang: PropTypes.func,
-    arbeidsforhold: PropTypes.array,
+    arbeidsforhold: PropTypes.arrayOf(arbeidsforholdPt),
     hentet: PropTypes.bool,
 };
 

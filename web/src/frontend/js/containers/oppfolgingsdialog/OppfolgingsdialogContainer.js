@@ -29,7 +29,10 @@ import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { getOppfolgingsdialog } from '../../utils/oppfolgingsdialogUtils';
 import Oppfolgingsdialog from '../../components/oppfolgingsdialoger/Oppfolgingsdialog';
-import { brodsmule as brodsmulePt } from '../../propTypes';
+import {
+    brodsmule as brodsmulePt,
+    arbeidsforhold as arbeidsforholdPt,
+} from '../../propTypes';
 
 export class OppfolgingsdialogSide extends Component {
     componentWillMount() {
@@ -153,7 +156,7 @@ OppfolgingsdialogSide.propTypes = {
     oppfolgingsdialogerHenter: PropTypes.bool,
     settDialog: PropTypes.func,
     avbrytDialog: PropTypes.func,
-    arbeidsforhold: PropTypes.array,
+    arbeidsforhold: PropTypes.arrayOf(arbeidsforholdPt),
     dokument: oppfolgingProptypes.dokumentReducerPt,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     hentet: PropTypes.bool,

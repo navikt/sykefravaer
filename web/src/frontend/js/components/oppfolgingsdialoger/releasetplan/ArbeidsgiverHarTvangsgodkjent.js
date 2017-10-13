@@ -25,7 +25,7 @@ class ArbeidsgiverHarTvangsgodkjent extends Component {
                 {getLedetekst('oppfolgingsdialog.arbeidsgiverhartvangsgodkjent.feilmelding.hentdokument')}
             </div>);
         } else {
-            panel = dokument.data.map((url, idx) => {
+            panel = dokument.data && dokument.data.map((url, idx) => {
                 return (
                     <div className="godkjentPlanPdf__dokument" key={idx}>
                         <img className="godkjentPlanPdf__side" src={url} alt="godkjentplan" type="application/pdf" />

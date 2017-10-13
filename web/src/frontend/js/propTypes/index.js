@@ -63,3 +63,8 @@ export const opprettOppfolgingArbeidsgiverPt = PropTypes.shape({
     harNaermesteLeder: PropTypes.bool,
     naermesteLeder: PropTypes.string,
 });
+
+export const arbeidsforhold = PropTypes.shape({
+    yrke: PropTypes.string,
+    prosent: PropTypes.number,
+});

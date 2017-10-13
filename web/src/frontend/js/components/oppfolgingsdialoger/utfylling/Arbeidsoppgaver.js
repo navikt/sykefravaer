@@ -18,6 +18,10 @@ import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
+import {
+    arbeidsforhold as arbeidsforholdPt,
+} from '../../../propTypes/index';
+
 
 export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, aktoerId, oppfolgingsdialog }) => {
     return (
@@ -66,7 +70,7 @@ export const RenderArbeidsforhold = ({ arbeidsforhold }) => {
     return (<div>{arbeidsforhold.yrke.toLowerCase()}: {arbeidsforhold.prosent}%</div>);
 };
 RenderArbeidsforhold.propTypes = {
-    arbeidsforhold: PropTypes.object,
+    arbeidsforhold: arbeidsforholdPt,
 };
 
 class Arbeidsoppgaver extends Component {
@@ -257,7 +261,7 @@ Arbeidsoppgaver.propTypes = {
     oppfolgingsdialogId: PropTypes.string,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
-    arbeidsforhold: PropTypes.array,
+    arbeidsforhold: PropTypes.arrayOf(arbeidsforholdPt),
 };
 
 export default Arbeidsoppgaver;

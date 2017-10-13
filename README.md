@@ -11,6 +11,10 @@ Konsumerer REST-APIet til [SyfoREST](http://stash.devillo.no/projects/SYFO/repos
 
 Du må ha Node installert. 
 
+Du må også konfigurere npm som følger:
+
+`npm config set @types:registry "http://a34apvl062.devillo.no:8082/repository/npm-all"`
+
 * Kjør java-klassen StartJetty
 * I web/src/frontend: Kjør `npm install`, dernest `npm run dev`
 * Kjør tester med `npm test` 

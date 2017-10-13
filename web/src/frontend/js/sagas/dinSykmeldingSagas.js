@@ -1,11 +1,11 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
+import { browserHistory } from 'react-router';
+import { log } from 'digisyfo-npm';
 import { post } from '../api';
 import * as actions from '../actions/dinSykmelding_actions';
 import * as dineSykmeldingerActions from '../actions/dineSykmeldinger_actions';
 import * as arbeidsgiversSykmeldingerActions from '../actions/arbeidsgiversSykmeldinger_actions';
-import { browserHistory } from 'react-router';
-import { log } from 'digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
 
 const gaTilKvittering = (sykmeldingId) => {

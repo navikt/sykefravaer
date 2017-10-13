@@ -1,6 +1,6 @@
+import { parseSykmelding } from 'digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
 import { SENDT, BEKREFTET } from '../enums/sykmeldingstatuser';
-import { parseSykmelding } from 'digisyfo-npm';
 
 const initiellState = {
     henter: false,

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Varselstripe, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { connect } from 'react-redux';
 import Lightbox from '../Lightbox';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
-import { connect } from 'react-redux';
 import * as actions from '../../actions/sykepengesoknader_actions';
 
 const sendtTilNAVDato = 'sendtTilNAVDato';
@@ -24,19 +24,25 @@ export const EttersendingDialog = (props) => {
             }
         </div>
         <div className="knapperad">
-            <button disabled={sender} className="knapp blokk--s" onClick={(e) => {
-                e.preventDefault();
-                if (manglendeDato === sendtTilNAVDato) {
-                    sendSykepengesoknadTilNAV(sykepengesoknad.id);
-                } else {
-                    sendSykepengesoknadTilArbeidsgiver(sykepengesoknad.id);
-                }
-            }}>{getLedetekst(`sykepengesoknad.ettersending.knapp.bekreft.${ledetekstKeySuffix}`)} { sender ? <span className="knapp__spinner" /> : null}</button>
-            <p>
-                <a onClick={(e) => {
+            <button
+                disabled={sender}
+                className="knapp blokk--s"
+                onClick={(e) => {
                     e.preventDefault();
-                    onClose();
-                }} href="#" className="lenke">Avbryt</a>
+                    if (manglendeDato === sendtTilNAVDato) {
+                        sendSykepengesoknadTilNAV(sykepengesoknad.id);
+                    } else {
+                        sendSykepengesoknadTilArbeidsgiver(sykepengesoknad.id);
+                    }
+                }}>{getLedetekst(`sykepengesoknad.ettersending.knapp.bekreft.${ledetekstKeySuffix}`)} { sender ? <span className="knapp__spinner" /> : null}</button>
+            <p>
+                <a
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onClose();
+                    }}
+                    href="#"
+                    className="lenke">Avbryt</a>
             </p>
         </div>
     </div>);
@@ -66,10 +72,13 @@ export const EttersendKvittering = ({ onClose, ledetekstKeySuffix }) => {
     return (<div>
         <p className="hode hode--suksess">{getLedetekst(`sykepengesoknad.ettersending.kvittering.${ledetekstKeySuffix}`)}</p>
         <div className="knapperad">
-            <button className="rammeknapp js-lukk" href="#" onClick={(e) => {
-                e.preventDefault();
-                onClose();
-            }}>Lukk</button>
+            <button
+                className="rammeknapp js-lukk"
+                href="#"
+                onClick={(e) => {
+                    e.preventDefault();
+                    onClose();
+                }}>Lukk</button>
         </div>
     </div>);
 };
@@ -117,10 +126,10 @@ export class Ettersending extends Component {
                     visKvittering: true,
                 });
             }
-            return;
         } catch (e) {
-            return;
+            return false;
         }
+        return true;
     }
 
     render() {
@@ -131,7 +140,9 @@ export class Ettersending extends Component {
         return (<div className="verktoylinje__element">
             {
                 !sykepengesoknad[manglendeDato] && <button
-                    ref="triggEttersending"
+                    ref={(c) => {
+                        this.triggEttersending = c;
+                    }}
                     onClick={(e) => {
                         e.preventDefault();
                         this.setState({
@@ -146,8 +157,8 @@ export class Ettersending extends Component {
                     scrollTilTopp={scrollTilTopp}
                     visKvittering={this.state.visKvittering}
                     onClose={() => {
-                        if (this.refs.triggEttersending) {
-                            this.refs.triggEttersending.focus();
+                        if (this.triggEttersending) {
+                            this.triggEttersending.focus();
                         }
                         this.setState({
                             visLightbox: false,

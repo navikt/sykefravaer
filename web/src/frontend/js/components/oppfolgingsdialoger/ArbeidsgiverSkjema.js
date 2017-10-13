@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
+import { getLedetekst } from 'digisyfo-npm';
+import {
+    proptypes as oppfolgingProptypes,
+} from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 import {
     erAktivOppfolgingsdialogOpprettetMedArbeidsgiver,
@@ -10,6 +13,10 @@ import {
     erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver,
     hentAktivOppfolgingsdialogOpprettetMedArbeidsgiver,
 } from '../../utils/oppfolgingsdialogUtils';
+import {
+    fieldPropTypes,
+    opprettOppfolgingArbeidsgiverPt,
+} from '../../propTypes';
 import Radioknapper from '../skjema/Radioknapper';
 
 const OPPFOLGINGSKJEMANAVN = 'OPPRETT_DIALOG';
@@ -44,8 +51,8 @@ export const VelgArbeidsgiverUndertekst = ({ oppfolgingsdialoger, arbeidsgiver }
     return (null);
 };
 VelgArbeidsgiverUndertekst.propTypes = {
-    oppfolgingsdialoger: PropTypes.array,
-    arbeidsgiver: PropTypes.object,
+    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
+    arbeidsgiver: opprettOppfolgingArbeidsgiverPt,
 };
 export const VelgArbeidsgiverRadioKnapper = ({ input, meta, oppfolgingsdialoger, arbeidsgivere }) => {
     return (
@@ -54,30 +61,30 @@ export const VelgArbeidsgiverRadioKnapper = ({ input, meta, oppfolgingsdialoger,
             meta={meta}
             visUndertekst
         >
-        {
-            arbeidsgivere.map((arbeidsgiver, index) => {
-                return (
-                    <input
-                        key={index}
-                        value={arbeidsgiver.virksomhetsnummer}
-                        label={arbeidsgiver.navn}
-                        disabled={!erOppfolgingsdialogOpprettbarMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver)}>
-                        <VelgArbeidsgiverUndertekst
-                            oppfolgingsdialoger={oppfolgingsdialoger}
-                            arbeidsgiver={arbeidsgiver}
-                        />
-                    </input>
-                );
-            })
-        }
+            {
+                arbeidsgivere.map((arbeidsgiver, index) => {
+                    return (
+                        <input
+                            key={index}
+                            value={arbeidsgiver.virksomhetsnummer}
+                            label={arbeidsgiver.navn}
+                            disabled={!erOppfolgingsdialogOpprettbarMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver)}>
+                            <VelgArbeidsgiverUndertekst
+                                oppfolgingsdialoger={oppfolgingsdialoger}
+                                arbeidsgiver={arbeidsgiver}
+                            />
+                        </input>
+                    );
+                })
+            }
         </Radioknapper>
-  );
+    );
 };
 VelgArbeidsgiverRadioKnapper.propTypes = {
-    input: PropTypes.object,
-    meta: PropTypes.object,
-    oppfolgingsdialoger: PropTypes.array,
-    arbeidsgivere: PropTypes.array,
+    input: fieldPropTypes.input,
+    meta: fieldPropTypes.meta,
+    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
+    arbeidsgivere: PropTypes.arrayOf(opprettOppfolgingArbeidsgiverPt),
 };
 
 export const ArbeidsgiverSkjema = ({ arbeidsgivere, oppfolgingsdialoger, handleSubmit, avbrytHref }) => {
@@ -107,8 +114,8 @@ export const ArbeidsgiverSkjema = ({ arbeidsgivere, oppfolgingsdialoger, handleS
 };
 
 ArbeidsgiverSkjema.propTypes = {
-    arbeidsgivere: PropTypes.array,
-    oppfolgingsdialoger: PropTypes.array,
+    arbeidsgivere: PropTypes.arrayOf(opprettOppfolgingArbeidsgiverPt),
+    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     avbrytHref: PropTypes.string,
     handleSubmit: PropTypes.func,
 };
@@ -122,8 +129,9 @@ function validate(values) {
 
     return feilmeldinger;
 }
-
-export default reduxForm({
+const ArbeidsgiverSkjemaForm = reduxForm({
     form: OPPFOLGINGSKJEMANAVN,
     validate,
 })(ArbeidsgiverSkjema);
+
+export default ArbeidsgiverSkjemaForm;

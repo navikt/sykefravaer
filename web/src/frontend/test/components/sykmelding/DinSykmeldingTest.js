@@ -9,7 +9,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import DinSykmelding from "../../../js/components/sykmelding/DinSykmelding";
-import DinSykmeldingSkjemaContainer from "../../../js/containers/DinSykmeldingSkjemaContainer";
+import DinSykmeldingSkjemaContainer from "../../../js/containers/sykmelding/DinSykmeldingSkjemaContainer";
 import { DineSykmeldingOpplysninger, setLedetekster } from "digisyfo-npm";
 
 import { Provider } from 'react-redux';

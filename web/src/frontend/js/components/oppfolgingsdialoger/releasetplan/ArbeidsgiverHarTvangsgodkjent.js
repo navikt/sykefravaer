@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, Utvidbar } from 'digisyfo-npm';
-import { OppfolgingsdialogInnholdboks } from 'oppfolgingsdialog-npm';
+import { getLedetekst, Utvidbar, keyValue } from 'digisyfo-npm';
+import {
+    OppfolgingsdialogInnholdboks,
+    proptypes as oppfolgingProptypes,
+} from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../../routers/paths';
 
-export class ArbeidsgiverHarTvangsgodkjent extends Component {
-
+class ArbeidsgiverHarTvangsgodkjent extends Component {
     componentWillMount() {
         if (!this.props.dokument.hentet && !this.props.dokument.henter && this.props.dokument.oppfoelgingsdialogId !== this.props.oppfolgingsdialog.oppfoelgingsdialogId) {
             this.props.hentPdfurler(this.props.oppfolgingsdialog.oppfoelgingsdialogId, 1);
@@ -57,10 +59,10 @@ export class ArbeidsgiverHarTvangsgodkjent extends Component {
 }
 
 ArbeidsgiverHarTvangsgodkjent.propTypes = {
-    oppfolgingsdialog: PropTypes.object,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     markerMottattTvungenGodkjenning: PropTypes.func,
-    dokument: PropTypes.object,
-    ledetekster: PropTypes.object,
+    dokument: oppfolgingProptypes.dokumentReducerPt,
+    ledetekster: keyValue,
     hentPdfurler: PropTypes.func,
 };
 

@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst } from 'digisyfo-npm';
-import { Link } from 'react-router';
-import Sidetopp from '../Sidetopp';
-import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
-import UnderUtviklingVarsel from './UnderUtviklingVarsel';
-import { getContextRoot } from '../../routers/paths';
+import { getLedetekst, keyValue } from 'digisyfo-npm';
 import {
     OppfolgingsdialogTeasere,
     BRUKERTYPE,
@@ -16,7 +11,13 @@ import {
     harAktivOppfolgingsdialog,
     AvbruttPlanNotifikasjonBoksAdvarsel,
     finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging,
+    proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
+import { Link } from 'react-router';
+import Sidetopp from '../Sidetopp';
+import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
+import UnderUtviklingVarsel from './UnderUtviklingVarsel';
+import { getContextRoot } from '../../routers/paths';
 
 export const OppfolgingsdialogNyDialog = () => {
     return (
@@ -36,7 +37,7 @@ export const OppfolgingsdialogNyDialog = () => {
     );
 };
 
-export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
+const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
     const dialogerAvbruttAvMotpartSidenSistInnlogging = finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
     return (<div>
         <UnderUtviklingVarsel />
@@ -100,8 +101,8 @@ export const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) =
 };
 
 Oppfolgingsdialoger.propTypes = {
-    oppfolgingsdialoger: PropTypes.array,
-    ledetekster: PropTypes.object,
+    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
+    ledetekster: keyValue,
 };
 
 export default Oppfolgingsdialoger;

@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
-import { getContextRoot } from '../../../routers/paths';
-import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
-import AppSpinner from '../../AppSpinner';
-import Feilmelding from '../../Feilmelding';
 import {
     ArbeidsoppgaverNotifikasjonBoksAdvarsel,
     BRUKERTYPE,
@@ -15,8 +11,13 @@ import {
     OppfolgingsdialogInfoboks,
     OppfolgingsdialogTabell,
     sorterArbeidsoppgaverEtterOpprettet,
+    proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, keyValue } from 'digisyfo-npm';
+import { getContextRoot } from '../../../routers/paths';
+import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
+import AppSpinner from '../../AppSpinner';
+import Feilmelding from '../../Feilmelding';
 
 export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, aktoerId, oppfolgingsdialog }) => {
     return (
@@ -36,9 +37,9 @@ export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsopp
     );
 };
 OppfolgingsdialogArbeidsoppgaverTabell.propTypes = {
-    ledetekster: PropTypes.object,
-    oppfolgingsdialog: PropTypes.object,
-    arbeidsoppgaveListe: PropTypes.array,
+    ledetekster: keyValue,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
+    arbeidsoppgaveListe: PropTypes.arrayOf(oppfolgingProptypes.arbeidsoppgavePt),
     sendLagreArbeidsoppgave: PropTypes.func,
     sendSlettArbeidsoppgave: PropTypes.func,
     aktoerId: PropTypes.string,
@@ -56,7 +57,7 @@ export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppga
 };
 
 RenderOpprettArbeidsoppgave.propTypes = {
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     sendLagreArbeidsoppgave: PropTypes.func,
     toggleArbeidsoppgaveSkjema: PropTypes.func,
 };
@@ -64,12 +65,11 @@ RenderOpprettArbeidsoppgave.propTypes = {
 export const RenderArbeidsforhold = ({ arbeidsforhold }) => {
     return (<div>{arbeidsforhold.yrke.toLowerCase()}: {arbeidsforhold.prosent}%</div>);
 };
-
 RenderArbeidsforhold.propTypes = {
     arbeidsforhold: PropTypes.object,
 };
 
-export class Arbeidsoppgaver extends Component {
+class Arbeidsoppgaver extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -95,7 +95,7 @@ export class Arbeidsoppgaver extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (!prevState.visArbeidsoppgaveSkjema && this.state.visArbeidsoppgaveSkjema && this.lagreSkjema) {
             const form = findDOMNode(this.lagreSkjema);
-            scrollTo(form, form.getBoundingClientRect().bottom);
+            window.scrollTo(form, form.getBoundingClientRect().bottom);
         }
     }
 
@@ -125,7 +125,7 @@ export class Arbeidsoppgaver extends Component {
 
     scrollToForm() {
         const form = findDOMNode(this.lagreSkjema);
-        scrollTo(form, form.getBoundingClientRect().bottom);
+        window.scrollTo(form, form.getBoundingClientRect().bottom);
     }
 
     render() {
@@ -181,7 +181,7 @@ export class Arbeidsoppgaver extends Component {
                         <div className="panel oppfolgingsdialogStilling notifikasjonboks" role="alert">
                             <img src="/sykefravaer/img/svg/oppfolgingsdialog-stilling.svg" alt="ikon" className="oppfolgingsdialogStilling__img" />
                             <span className="oppfolgingsdialogStilling__tekst">
-                                <h3>getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')</h3>
+                                <h3>{getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}</h3>
                                 { arbeidsforhold.map((forhold, idx) => {
                                     if (forhold.prosent > 0) {
                                         return (<RenderArbeidsforhold arbeidsforhold={forhold} key={idx} />);
@@ -250,16 +250,13 @@ Arbeidsoppgaver.propTypes = {
     lagrer: PropTypes.bool,
     lagret: PropTypes.bool,
     sletter: PropTypes.bool,
-    slettet: PropTypes.bool,
     lagringFeilet: PropTypes.bool,
     slettingFeilet: PropTypes.bool,
-    oppfolgingsdialogerHentet: PropTypes.bool,
-    ledetekster: PropTypes.object,
-    oppfolgingsdialog: PropTypes.object,
+    ledetekster: keyValue,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogId: PropTypes.string,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
-    arbeidsoppgaveOpprettet: PropTypes.bool,
     arbeidsforhold: PropTypes.array,
 };
 

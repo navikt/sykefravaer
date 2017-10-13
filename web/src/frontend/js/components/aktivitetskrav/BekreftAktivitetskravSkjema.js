@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
-import CheckboxSelvstendig from '../skjema/CheckboxSelvstendig';
-import { getLedetekst, Varselstripe } from 'digisyfo-npm';
-import { bekreftAktivitetskrav } from '../../actions/aktivitetskrav_actions';
+import { getLedetekst, Varselstripe, keyValue } from 'digisyfo-npm';
 import { connect } from 'react-redux';
+import CheckboxSelvstendig from '../skjema/CheckboxSelvstendig';
+import { bekreftAktivitetskrav } from '../../actions/aktivitetskrav_actions';
 
 const Aktivitetskrav = (props) => {
     const { handleSubmit, ledetekster, dispatch, bekrefter, bekreftFeilet } = props;
@@ -22,7 +22,7 @@ const Aktivitetskrav = (props) => {
             <Field name="bekreftAktivitetskrav" component={CheckboxSelvstendig} id="bekreftAktivitetskrav" label={getLedetekst('aktivitetskrav-varsel.bekreft-label', ledetekster)} />
         </div>
         <div className="knapperad">
-            <button className="submit" type="submit" className={`knapp${bekrefter ? ' knapp--spinner' : ''}`}>
+            <button type="submit" className={`knapp${bekrefter ? ' knapp--spinner' : ''}`}>
                 Bekreft
                 { bekrefter && <span className="knapp__spinner" /> }
             </button>
@@ -32,7 +32,7 @@ const Aktivitetskrav = (props) => {
 
 Aktivitetskrav.propTypes = {
     handleSubmit: PropTypes.func,
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     dispatch: PropTypes.func,
     bekrefter: PropTypes.bool,
     bekreftFeilet: PropTypes.bool,

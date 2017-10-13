@@ -4,7 +4,7 @@ import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../../mockLedetekster";
 import Sidetopp from "../../../js/components/Sidetopp";
-import { Oppfolgingsdialoger, OppfolgingsdialogNyDialog} from "../../../js/components/oppfolgingsdialoger/Oppfolgingsdialoger";
+import Oppfolgingsdialoger, { OppfolgingsdialogNyDialog } from "../../../js/components/oppfolgingsdialoger/Oppfolgingsdialoger";
 import { OppfolgingsdialogTeasere, OppfolgingsdialogerIngenplan } from "oppfolgingsdialog-npm";
 import { setLedetekster } from 'digisyfo-npm';
 import { getOppfolgingsdialoger } from '../../mockOppfolgingsdialoger';

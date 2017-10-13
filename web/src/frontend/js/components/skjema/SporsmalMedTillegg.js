@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { scrollTo, erSynligIViewport } from 'digisyfo-npm';
 
-export class SporsmalMedTillegg extends Component {
+class SporsmalMedTillegg extends Component {
     constructor(props) {
         super(props);
         const erApen = this.getErApen(props);
@@ -54,7 +54,6 @@ export class SporsmalMedTillegg extends Component {
             opacity: '0',
         });
         this.scrollToHovedsporsmal();
-        return;
     }
 
     getContainerClass() {
@@ -82,8 +81,8 @@ export class SporsmalMedTillegg extends Component {
     }
 
     scrollToHovedsporsmal() {
-        if (!erSynligIViewport(this.refs.hovedsporsmal)) {
-            scrollTo(this.refs.hovedsporsmal, 600);
+        if (!erSynligIViewport(this.hovedsporsmal)) {
+            scrollTo(this.hovedsporsmal, 600);
         }
     }
 
@@ -109,7 +108,7 @@ export class SporsmalMedTillegg extends Component {
         });
         const that = this;
         setTimeout(() => {
-            const hoyde = that.refs.tilleggsinnhold.offsetHeight;
+            const hoyde = that.tilleggsinnhold.offsetHeight;
             that.setState({
                 erApen: true,
                 hoyde,
@@ -119,7 +118,7 @@ export class SporsmalMedTillegg extends Component {
     }
 
     lukk() {
-        const hoyde = this.refs.tilleggsinnhold.offsetHeight || this.state.gammelHoyde;
+        const hoyde = this.tilleggsinnhold.offsetHeight || this.state.gammelHoyde;
         this.setState({
             hoyde,
             hindreToggle: true,
@@ -138,14 +137,26 @@ export class SporsmalMedTillegg extends Component {
     render() {
         const { children, Sporsmal, className } = this.props;
         return (<div className={className}>
-            <div ref="hovedsporsmal">
+            <div ref={(c) => {
+                this.hovedsporsmal = c;
+            }}>
                 {Sporsmal}
             </div>
-            <div ref="container" style={{ height: this.state.hoyde }} className={this.getContainerClass()} onTransitionEnd={() => {
-                this.onHoydeTransitionEnd();
-            }}>
+            <div
+                ref={(c) => {
+                    this.container = c;
+                }}
+                style={{ height: this.state.hoyde }}
+                className={this.getContainerClass()}
+                onTransitionEnd={() => {
+                    this.onHoydeTransitionEnd();
+                }}>
                 {
-                    this.state.visInnhold ? <div className="js-tillegg" ref="tilleggsinnhold">
+                    this.state.visInnhold ? <div
+                        className="js-tillegg"
+                        ref={(c) => {
+                            this.tilleggsinnhold = c;
+                        }}>
                         <div className="tilleggsinnhold__innhold" style={{ opacity: this.state.opacity }}>
                             {children}
                         </div>
@@ -158,8 +169,8 @@ export class SporsmalMedTillegg extends Component {
 
 SporsmalMedTillegg.propTypes = {
     children: PropTypes.oneOfType([
-        PropTypes.array,
-        PropTypes.object,
+        PropTypes.arrayOf(PropTypes.element),
+        PropTypes.element,
     ]),
     Sporsmal: PropTypes.element,
     visTillegg: PropTypes.func,

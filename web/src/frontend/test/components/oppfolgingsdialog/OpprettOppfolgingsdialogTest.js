@@ -4,7 +4,7 @@ import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../../mockLedetekster";
 import OpprettOppfolgingsdialog from "../../../js/components/oppfolgingsdialoger/OpprettOppfolgingsdialog";
-import ArbeidsgiverSkjema from "../../../js/components/oppfolgingsdialoger/ArbeidsgiverSkjema";
+import ArbeidsgiverSkjemaForm from "../../../js/components/oppfolgingsdialoger/ArbeidsgiverSkjema";
 import { setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
@@ -23,7 +23,7 @@ describe("Oppfolgingsdialoger", () => {
             sykmeldinger={[]}
             naermesteLedere={[]}
         />);
-        expect(component.find(ArbeidsgiverSkjema)).to.have.length(1);
+        expect(component.find(ArbeidsgiverSkjemaForm)).to.have.length(1);
     });
 
 });

@@ -1,13 +1,13 @@
 import { call, put, fork, select } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
+import { log } from 'digisyfo-npm';
+import { browserHistory } from 'react-router';
 import { get, post } from '../api';
 import * as actions from '../actions/sykepengesoknader_actions';
-import { log } from 'digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
 import history from '../history';
 import { finnSoknad } from '../reducers/sykepengesoknader';
 import logger from '../logging';
-import { browserHistory } from 'react-router';
 
 const gaTilKvittering = (sykepengesoknadsId) => {
     browserHistory.push(`/sykefravaer/soknader/${sykepengesoknadsId}/kvittering`);

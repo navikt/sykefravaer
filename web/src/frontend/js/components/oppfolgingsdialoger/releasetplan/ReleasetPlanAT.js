@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { keyValue } from 'digisyfo-npm';
 import {
     BRUKERTYPE,
     ReleasetPlan,
+    proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../../routers/paths';
 import ArbeidsgiverHarTvangsgodkjent from './ArbeidsgiverHarTvangsgodkjent';
@@ -15,7 +17,7 @@ const planBleTvangsgodkjent = (oppfolgingsdialog) => {
     return oppfolgingsdialog.godkjentPlan.tvungenGodkjenning;
 };
 
-export class ReleasetPlanAT extends Component {
+class ReleasetPlanAT extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -53,14 +55,12 @@ export class ReleasetPlanAT extends Component {
 }
 
 ReleasetPlanAT.propTypes = {
-    manglerSamtykke: PropTypes.func,
     hentPdfurler: PropTypes.func,
     giSamtykke: PropTypes.func,
     avbrytDialog: PropTypes.func,
-    markerMottattTvungenGodkjenning: PropTypes.func,
-    dokument: PropTypes.object,
-    oppfolgingsdialog: PropTypes.object,
-    ledetekster: PropTypes.object,
+    dokument: oppfolgingProptypes.dokumentReducerPt,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
+    ledetekster: keyValue,
 };
 
 export default ReleasetPlanAT;

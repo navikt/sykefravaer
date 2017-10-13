@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SykepengerSkjema from '../SykepengerSkjema';
 import { Link } from 'react-router';
+import { getLedetekst } from 'digisyfo-npm';
+import SykepengerSkjema from '../SykepengerSkjema';
 import history from '../../../history';
 import setup from '../setup';
 import Egenmeldingsdager from './Egenmeldingsdager';
@@ -9,7 +10,6 @@ import GjenopptattArbeidFulltUt from './GjenopptattArbeidFulltUt';
 import FeriePermisjonEllerUtenlandsopphold from './FeriePermisjonEllerUtenlandsopphold';
 import Knapperad from '../../skjema/Knapperad';
 import validerFravaerOgFriskmelding from '../validering/validerFravaerOgFriskmelding';
-import { getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad/AvbrytSoknadContainer';
 
@@ -31,7 +31,8 @@ export class FravaerOgFriskmeldingSkjema extends Component {
                 this.form = c;
             }}
             tabIndex="-1"
-            id="fravaer-og-friskmelding-skjema" onSubmit={handleSubmit(onSubmit)}>
+            id="fravaer-og-friskmelding-skjema"
+            onSubmit={handleSubmit(onSubmit)}>
             <Egenmeldingsdager sykepengesoknad={sykepengesoknad} />
             <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
             <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />

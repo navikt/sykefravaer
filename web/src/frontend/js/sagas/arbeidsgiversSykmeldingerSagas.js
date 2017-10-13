@@ -1,9 +1,9 @@
-import { call, put, fork } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
-import { get } from '../api';
-import * as actions from '../actions/arbeidsgiversSykmeldinger_actions';
 import { log } from 'digisyfo-npm';
+import { takeEvery } from 'redux-saga';
+import { call, put, fork } from 'redux-saga/effects';
+import { get } from '../api';
 import * as actiontyper from '../actions/actiontyper';
+import * as actions from '../actions/arbeidsgiversSykmeldinger_actions';
 
 export function* hentArbeidsgiversSykmeldinger() {
     yield put(actions.henterArbeidsgiversSykmeldinger());

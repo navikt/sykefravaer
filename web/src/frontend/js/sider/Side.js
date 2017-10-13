@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Brodsmuler from '../components/Brodsmuler.js';
-const DocumentTitle = require('react-document-title');
-import AppSpinner from '../components/AppSpinner';
 import InnloggingContainer from '../containers/InnloggingContainer';
+import AppSpinner from '../components/AppSpinner';
+import Brodsmuler from '../components/Brodsmuler';
+import { brodsmule as brodsmulePt } from '../propTypes';
+
+const DocumentTitle = require('react-document-title');
 
 export const setAppClass = (laster) => {
     const el = document.getElementById('maincontent');
@@ -68,9 +70,9 @@ Side.defaultProps = {
 };
 
 Side.propTypes = {
-    children: PropTypes.object,
+    children: PropTypes.element,
     tittel: PropTypes.string,
-    brodsmuler: PropTypes.array,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
     laster: PropTypes.bool,
     begrenset: PropTypes.bool,
 };

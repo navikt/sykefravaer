@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import Feilmelding from '../skjema/Feilmelding';
-import VelgArbeidsgiverContainer from '../../containers/VelgArbeidsgiverContainer';
+import VelgArbeidsgiverContainer from '../../containers/sykmelding/VelgArbeidsgiverContainer';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import arbeidssituasjoner, { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
-import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
+import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt, fieldPropTypes } from '../../propTypes';
 
 const getArbeidssituasjoner = (arbeidssituasjon) => {
     if (!arbeidssituasjon || arbeidssituasjon === DEFAULT) {
@@ -46,17 +46,21 @@ export const RendreVelgArbeidssituasjon = (props) => {
 
 export const Velg = (props) => {
     const Sporsmal = <RendreVelgArbeidssituasjon {...props} />;
-    return (<SporsmalMedTillegg className="hovedsporsmal" {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
-        const { input } = _props;
-        return input.value === ARBEIDSTAKER;
-    }}>
+    return (<SporsmalMedTillegg
+        className="hovedsporsmal"
+        {...props}
+        Sporsmal={Sporsmal}
+        visTillegg={(_props) => {
+            const { input } = _props;
+            return input.value === ARBEIDSTAKER;
+        }}>
         <VelgArbeidsgiverContainer {...props} />
     </SporsmalMedTillegg>);
 };
 
 RendreVelgArbeidssituasjon.propTypes = {
-    input: PropTypes.object,
-    meta: PropTypes.object,
+    input: fieldPropTypes.input,
+    meta: fieldPropTypes.meta,
 };
 
 const VelgArbeidssituasjon = (props) => {

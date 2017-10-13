@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
+import { connect } from 'react-redux';
+import { Experiment, Variant } from 'react-ab';
 import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe, log, scrollTo } from 'digisyfo-npm';
+import DinSykmeldingSkjemaContainer from '../../containers/sykmelding/DinSykmeldingSkjemaContainer';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
-import { Experiment, Variant } from 'react-ab';
-import { connect } from 'react-redux';
 import { SENDT, BEKREFTET, TIL_SENDING, AVBRUTT } from '../../enums/sykmeldingstatuser';
 import IllustrertInnhold from '../IllustrertInnhold';
 
@@ -20,12 +20,15 @@ class Skjema extends Component {
                     <div>
                         <p>{getLedetekst('din-sykmelding.introtekst.abtest')}</p>
                         <p className="sist introtekst__knapperad">
-                            <button className={cn} type="button" onClick={(e) => {
-                                onClick();
-                                e.preventDefault();
-                                scrollTo(this.refs.skjema, 300);
-                                this.refs.skjema.focus();
-                            }}>Gå til utfylling</button>
+                            <button
+                                className={cn}
+                                type="button"
+                                onClick={(e) => {
+                                    onClick();
+                                    e.preventDefault();
+                                    scrollTo(this.skjema, 300);
+                                    this.skjema.focus();
+                                }}>Gå til utfylling</button>
                         </p>
                     </div>
                 </IllustrertInnhold>
@@ -47,7 +50,12 @@ class Skjema extends Component {
             <div className="panel blokk">
                 <DineSykmeldingOpplysninger sykmelding={sykmelding} />
             </div>
-            <div ref="skjema" tabIndex="-1" className="sykmeldingskjemaRef">
+            <div
+                ref={(c) => {
+                    this.skjema = c;
+                }}
+                tabIndex="-1"
+                className="sykmeldingskjemaRef">
                 <DinSykmeldingSkjemaContainer sykmeldingId={sykmelding.id} registrerInnsending={registrerInnsending} />
             </div>
         </div>);
@@ -59,7 +67,6 @@ Skjema.propTypes = {
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     registrerInnsending: PropTypes.func,
-    treghet: PropTypes.number,
     onClick: PropTypes.func,
     blaKnapp: PropTypes.bool,
 };
@@ -112,16 +119,22 @@ class DinSykmelding extends Component {
     render() {
         return (<div id="din-sykmelding" data-variant={this.state.variant} data-erfaren-bruker={this.props.harSendtSykmeldingerFoer}>
             <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
-            <Experiment onChoice={(experiment, variant) => {
-                this.registrerVisning(experiment, variant);
-            }} name={EKSPERIMENTNAVN}>
+            <Experiment
+                onChoice={(experiment, variant) => {
+                    this.registrerVisning(experiment, variant);
+                }}
+                name={EKSPERIMENTNAVN}>
                 {VARIANTER.map((variant, index) => {
                     return (<Variant key={index} name={variant}>
-                        <Skjema blaKnapp={variant === 'BLÅ'} {...this.props} onClick={() => {
-                            this.registrerKlikk();
-                        }} registrerInnsending={() => {
-                            this.registrerInnsending();
-                        }} />
+                        <Skjema
+                            blaKnapp={variant === 'BLÅ'}
+                            {...this.props}
+                            onClick={() => {
+                                this.registrerKlikk();
+                            }}
+                            registrerInnsending={() => {
+                                this.registrerInnsending();
+                            }} />
                     </Variant>);
                 })}
             </Experiment>

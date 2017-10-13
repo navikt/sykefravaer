@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import SykepengerSkjema from '../SykepengerSkjema';
+import { Link } from 'react-router';
 import { Field, FieldArray } from 'redux-form';
+import { toDatePrettyPrint, getLedetekst, getTomDato, tidligsteFom } from 'digisyfo-npm';
+import SykepengerSkjema from '../SykepengerSkjema';
 import history from '../../../history';
 import setup from '../setup';
 import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../JaEllerNei';
 import Datovelger from '../../skjema/Datovelger';
 import Aktiviteter from './Aktiviteter';
 import AndreInntektskilder from './AndreInntektskilder';
-import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
-import { toDatePrettyPrint, getLedetekst, getTomDato, tidligsteFom } from 'digisyfo-npm';
 import validate from '../validering/validerAktiviteterISykmeldingsperioden';
 import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
@@ -50,7 +50,8 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
         };
 
         return (<form
-            className="sykepengerskjema" ref={(c) => {
+            className="sykepengerskjema"
+            ref={(c) => {
                 this.form = c;
             }}
             tabIndex="-1"
@@ -108,7 +109,7 @@ const AktiviteterISykmeldingsperiodenSkjemaConnected = connectGjenopptattArbeidF
 
 const AktiviteterISykmeldingsperiodenReduxSkjema = setup(validate, AktiviteterISykmeldingsperiodenSkjemaConnected);
 
-export const AktiviteterISykmeldingsperioden = (props) => {
+const AktiviteterISykmeldingsperioden = (props) => {
     const { sykepengesoknad } = props;
 
     return (

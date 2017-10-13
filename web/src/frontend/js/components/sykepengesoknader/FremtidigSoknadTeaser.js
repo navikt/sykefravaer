@@ -34,14 +34,16 @@ class FremtidigSoknadTeaser extends Component {
         const { soknad } = this.props;
 
         return (<article aria-labelledby={`soknader-header-${soknad.id}`}>
-            <button className="inngangspanel inngangspanel--inaktivt" onClick={(e) => {
-                e.preventDefault();
-                this.setState({
-                    vis: true,
-                });
-            }}>
+            <button
+                className="inngangspanel inngangspanel--inaktivt"
+                onClick={(e) => {
+                    e.preventDefault();
+                    this.setState({
+                        vis: true,
+                    });
+                }}>
                 <span className="inngangspanel__ikon">
-                    <img className="js-ikon" src="/sykefravaer/img/svg/soknader.svg" />
+                    <img alt="" className="js-ikon" src="/sykefravaer/img/svg/soknader.svg" />
                 </span>
                 <div className="inngangspanel__innhold">
                     <header className="inngangspanel__header">
@@ -70,11 +72,15 @@ class FremtidigSoknadTeaser extends Component {
                     </p>
                 </div>
             </button>
-            { this.state.vis && <SoknadLightbox soknad={soknad} onClose={() => {
-                this.setState({
-                    vis: false,
-                });
-            }} /> }
+            {
+                this.state.vis && <SoknadLightbox
+                    soknad={soknad}
+                    onClose={() => {
+                        this.setState({
+                            vis: false,
+                        });
+                    }} />
+            }
         </article>);
     }
 }

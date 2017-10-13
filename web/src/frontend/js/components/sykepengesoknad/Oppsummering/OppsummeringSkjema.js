@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Field } from 'redux-form';
+import { Link } from 'react-router';
+import { Soknad, Varselstripe, getLedetekst } from 'digisyfo-npm';
 import setup from '../setup';
 import SykepengerSkjema from '../SykepengerSkjema';
-import { Link } from 'react-router';
 import Knapperad from '../../skjema/Knapperad';
 import mapSkjemasoknadToBackendsoknad from '../mapSkjemasoknadToBackendsoknad';
-import { Soknad, Varselstripe, getLedetekst } from 'digisyfo-npm';
 import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
-import { Field } from 'redux-form';
 import validate from '../validering/validerOppsummering';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import ForskuttererArbeidsgiver from './ForskuttererArbeidsgiver';
@@ -91,7 +91,7 @@ OppsummeringForm.propTypes = {
     sendesTil: PropTypes.string,
 };
 
-export const OppsummeringSkjema = setup(validate, OppsummeringForm);
+const OppsummeringSkjema = setup(validate, OppsummeringForm);
 
 const OppsummeringSide = (props) => {
     const { sykepengesoknad } = props;

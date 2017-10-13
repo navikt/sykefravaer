@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { fieldPropTypes } from '../../propTypes';
 import Feilmelding from './Feilmelding';
 
 const TekstfeltMedEnhet = ({ label, id, input, meta }) => {
@@ -15,8 +16,8 @@ const TekstfeltMedEnhet = ({ label, id, input, meta }) => {
 TekstfeltMedEnhet.propTypes = {
     label: PropTypes.string,
     id: PropTypes.string,
-    input: PropTypes.object,
-    meta: PropTypes.object,
+    input: fieldPropTypes.input,
+    meta: fieldPropTypes.meta,
 };
 
 export default TekstfeltMedEnhet;

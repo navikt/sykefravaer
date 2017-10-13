@@ -2,23 +2,34 @@ import 'whatwg-fetch';
 import 'babel-polyfill';
 import { render } from 'react-dom';
 import React from 'react';
-import AppRouter from './routers/AppRouter';
+import { reducer as formReducer } from 'redux-form';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
+import { hentLedetekster, ledetekster, tidslinjer, toggles } from 'digisyfo-npm';
+import { svar, mote } from 'moter-npm';
+import {
+    oppfolgingsdialogerAt as oppfolgingsdialoger,
+    arbeidsoppgaver,
+    dokument,
+    samtykke,
+    tilgang,
+    tiltak,
+    navigasjontoggles,
+    nullstillGodkjenning,
+    avbrytdialogReducer,
+    arbeidsforhold,
+} from 'oppfolgingsdialog-npm';
+import AppRouter from './routers/AppRouter';
 import dineSykmeldinger from './reducers/dineSykmeldinger';
 import sykepengesoknader from './reducers/sykepengesoknader';
 import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger';
 import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
 import ledere from './reducers/ledere';
-import { oppfolgingsdialogerAt as oppfolgingsdialoger, arbeidsoppgaver, dokument, samtykke, tilgang, tiltak, navigasjontoggles, nullstillGodkjenning, avbrytdialogReducer, arbeidsforhold } from 'oppfolgingsdialog-npm';
-import { hentLedetekster, ledetekster, tidslinjer, toggles } from 'digisyfo-npm';
 import { hentVedlikehold } from './actions/vedlikehold_actions';
 import history from './history';
-import { reducer as formReducer } from 'redux-form';
 import rootSaga from './sagas';
-import { svar, mote } from 'moter-npm';
 import vedlikehold from './reducers/vedlikehold';
 import reduxFormMeta from './reducers/reduxFormMeta';
 import '../styles/styles.less';
@@ -63,7 +74,7 @@ const rootReducer = combineReducers({
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer,
-    applyMiddleware(sagaMiddleware)
+    applyMiddleware(sagaMiddleware),
 );
 
 sagaMiddleware.run(rootSaga);
@@ -81,7 +92,7 @@ if (window.location.href.indexOf('visLedetekster=true') > -1) {
 
 render(<Provider store={store}>
     <AppRouter history={history} /></Provider>,
-    document.getElementById('maincontent'));
+document.getElementById('maincontent'));
 
 export {
     store,

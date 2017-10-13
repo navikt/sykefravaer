@@ -8,7 +8,7 @@ const expect = chai.expect;
 import ledetekster from "../../mockLedetekster";
 import SykmeldingTeaser from "../../../js/components/sykmeldinger/SykmeldingTeaser";
 import SykmeldingTeasere from "../../../js/components/sykmeldinger/SykmeldingTeasere";
-import SykmeldingerSorteringContainer from "../../../js/containers/SykmeldingerSorteringContainer";
+import SykmeldingerSorteringContainer from "../../../js/containers/sykmeldinger/SykmeldingerSorteringContainer";
 import { setLedetekster } from 'digisyfo-npm';
 
 const sykmeldinger = [{

@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst } from 'digisyfo-npm';
+import { FieldArray, Field } from 'redux-form';
 import Checkbox from '../skjema/Checkbox';
 import Feilomrade from '../skjema/Feilomrade';
 import JaEllerNei from '../../components/sykepengesoknad/JaEllerNei';
-import { FieldArray, Field } from 'redux-form';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import feilaktigeOpplysningerFields, { PERIODE, SYKMELDINGSGRAD, ARBEIDSGIVER, DIAGNOSE, ANDRE } from '../../enums/feilaktigeOpplysninger';
+import { fieldPropTypes } from '../../propTypes';
 
 const Tilleggsinfo = ({ children }) => {
     return (<div className="ekstrasporsmal ekstrasporsmal--sist">{children}</div>);
 };
 
 Tilleggsinfo.propTypes = {
-    children: PropTypes.object,
+    children: PropTypes.element,
 };
 
 export const DuTrengerNySykmelding = () => {
@@ -78,7 +79,10 @@ export const SykmeldingFeilaktigeOpplysningerInfo = ({ feilaktigeOpplysninger = 
 };
 
 SykmeldingFeilaktigeOpplysningerInfo.propTypes = {
-    feilaktigeOpplysninger: PropTypes.array,
+    feilaktigeOpplysninger: PropTypes.arrayOf(PropTypes.shape({
+        avkrysset: PropTypes.bool,
+        opplysning: PropTypes.string,
+    })),
 };
 
 export const HvilkeOpplysninger = ({ fields, meta }) => {
@@ -106,35 +110,39 @@ export const HvilkeOpplysninger = ({ fields, meta }) => {
 };
 
 HvilkeOpplysninger.propTypes = {
-    fields: PropTypes.array,
-    meta: PropTypes.object,
+    fields: PropTypes.arrayOf(PropTypes.shape({
+        opplysning: PropTypes.string,
+    })),
+    meta: fieldPropTypes.meta,
 };
 
 export const RenderFeilaktigeOpplysninger = (props) => {
     const { skjemaData } = props;
     const Sporsmal = <HvilkeOpplysninger {...props} />;
 
-    return (<SporsmalMedTillegg {...props} Sporsmal={Sporsmal} visTillegg={(_props) => {
-        try {
-            const feilaktigeOpplysninger = _props.skjemaData.values.feilaktigeOpplysninger;
-            return feilaktigeOpplysninger.filter((o) => {
-                return o.avkrysset;
-            }).length > 0;
-        } catch (e) {
-            return false;
-        }
-    }}>
+    return (<SporsmalMedTillegg
+        {...props}
+        Sporsmal={Sporsmal}
+        visTillegg={(_props) => {
+            try {
+                const feilaktigeOpplysninger = _props.skjemaData.values.feilaktigeOpplysninger;
+                return feilaktigeOpplysninger.filter((o) => {
+                    return o.avkrysset;
+                }).length > 0;
+            } catch (e) {
+                return false;
+            }
+        }}>
         <SykmeldingFeilaktigeOpplysningerInfo feilaktigeOpplysninger={skjemaData.values.feilaktigeOpplysninger} />
     </SporsmalMedTillegg>);
 };
 
 RenderFeilaktigeOpplysninger.propTypes = {
-    fields: PropTypes.array,
-    meta: PropTypes.object,
-    skjemaData: PropTypes.object,
+    meta: fieldPropTypes.meta,
+    skjemaData: PropTypes.shape(),
 };
 
-export const ErOpplysningeneRiktige = (props) => {
+const ErOpplysningeneRiktige = (props) => {
     return (<JaEllerNei
         verdiMedTilleggssporsmal={false}
         spoersmal="Er opplysningene i sykmeldingen riktige?"
@@ -148,7 +156,7 @@ export const ErOpplysningeneRiktige = (props) => {
 };
 
 ErOpplysningeneRiktige.propTypes = {
-    skjemaData: PropTypes.object,
+    skjemaData: PropTypes.shape(),
 };
 
 export default ErOpplysningeneRiktige;

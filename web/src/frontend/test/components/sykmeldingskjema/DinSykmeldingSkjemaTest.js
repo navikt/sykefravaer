@@ -8,12 +8,12 @@ import ledetekster from "../../mockLedetekster";
 import getSykmelding from "../../mockSykmeldinger";
 import configureMockStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
-import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, validate } from "../../../js/components/sykmeldingskjema/DinSykmeldingSkjema";
+import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, validate, getSkjemaModus } from "../../../js/components/sykmeldingskjema/DinSykmeldingSkjema";
 import StrengtFortroligInfo from "../../../js/components/sykmeldingskjema/StrengtFortroligInfo";
 import VelgArbeidssituasjon from "../../../js/components/sykmeldingskjema/VelgArbeidssituasjon";
 import { DineSykmeldingOpplysninger } from "digisyfo-npm";
 import VelgArbeidsgiver from "../../../js/components/sykmeldingskjema/VelgArbeidsgiver";
-import ArbeidsgiversSykmeldingContainer from "../../../js/containers/ArbeidsgiversSykmeldingContainer";
+import ArbeidsgiversSykmeldingContainer from "../../../js/containers/sykmelding/ArbeidsgiversSykmeldingContainer";
 import { Varselstripe } from "digisyfo-npm";
 import ErLederRiktig from "../../../js/components/sykmeldingskjema/ErLederRiktig";
 import { Provider } from 'react-redux';
@@ -135,9 +135,7 @@ describe("DinSykmeldingSkjema -", () => {
         let component;
 
         it("Skal være GA_VIDERE by default", () => {
-            component = shallow(<DinSykmeldingSkjemaComponent
-            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />);
-            const modus = component.instance().getSkjemaModus({}, false);
+            const modus = getSkjemaModus({}, false);
             expect(modus).to.equal("GA_VIDERE")
         })
 
@@ -149,18 +147,14 @@ describe("DinSykmeldingSkjema -", () => {
                 }],
                 opplysningeneErRiktige: false,
             }
-            component = shallow(<DinSykmeldingSkjemaComponent
-            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
-            const modus = component.instance().getSkjemaModus(values, false);
+            const modus = getSkjemaModus(values, false);
             expect(modus).to.equal("AVBRYT")
 
             values.feilaktigeOpplysninger = [{
                 opplysning: "sykmeldingsgrad",
                 avkrysset: true,
             }]
-            let component2 = shallow(<DinSykmeldingSkjemaComponent
-            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
-            const modus2 = component2.instance().getSkjemaModus(values, false);
+            const modus2 = getSkjemaModus(values, false);
             expect(modus2).to.equal("AVBRYT")
         });
 
@@ -168,9 +162,7 @@ describe("DinSykmeldingSkjema -", () => {
             let values = {
                 valgtArbeidssituasjon: 'ARBEIDSTAKER'
             }
-            component = shallow(<DinSykmeldingSkjemaComponent
-            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
-            const modus = component.instance().getSkjemaModus(values, false);
+            const modus = getSkjemaModus(values, false);
             expect(modus).to.equal("SEND")
         });
 
@@ -182,9 +174,7 @@ describe("DinSykmeldingSkjema -", () => {
                     orgnummer: '0'
                 }
             }
-            component = shallow(<DinSykmeldingSkjemaComponent
-            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
-            const modus = component.instance().getSkjemaModus(values, false);
+            const modus = getSkjemaModus(values, false);
             expect(modus).to.equal("BEKREFT")
         });
 
@@ -192,9 +182,7 @@ describe("DinSykmeldingSkjema -", () => {
             let values = {
                 valgtArbeidssituasjon: 'ARBEIDSTAKER'
             }
-            component = shallow(<DinSykmeldingSkjemaComponent
-            dispatch={dispatch} sykmelding={getSykmelding()} skjemaData={skjemaData} handleSubmit={sinon.spy()} />); 
-            const modus = component.instance().getSkjemaModus(values, true);
+            const modus = getSkjemaModus(values, true);
             expect(modus).to.equal("BEKREFT")
         });
 

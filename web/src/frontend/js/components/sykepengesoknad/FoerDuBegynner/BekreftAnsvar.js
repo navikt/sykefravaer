@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
 import { getLedetekst } from 'digisyfo-npm';
+import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
 
 const BekreftAnsvar = () => {
     const label = getLedetekst('sykepengesoknad.bekreft-ansvar.label');

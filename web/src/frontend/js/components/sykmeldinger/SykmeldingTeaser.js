@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getContextRoot } from '../../routers/paths';
 import { toDatePrettyPrint, getLedetekst, tidligsteFom, senesteTom } from 'digisyfo-npm';
+import { getContextRoot } from '../../routers/paths';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
 import { NY } from '../../enums/sykmeldingstatuser';
 import { sykmelding as sykmeldingPt, sykmeldingperiode } from '../../propTypes';
@@ -46,12 +46,17 @@ class SykmeldingTeaser extends Component {
         const visStatus = sykmelding.status !== NY;
 
         return (<article aria-labelledby={`sykmelding-header-${this.props.sykmelding.id}`}>
-            <Link className="inngangspanel inngangspanel--sykmelding" to={`${getContextRoot()}/sykmeldinger/${this.props.sykmelding.id}`}
-                onMouseEnter={() => {this.onMouseEnter();}}
-                onMouseLeave={() => {this.onMouseLeave();}}
-            >
+            <Link
+                className="inngangspanel inngangspanel--sykmelding"
+                to={`${getContextRoot()}/sykmeldinger/${this.props.sykmelding.id}`}
+                onMouseEnter={() => {
+                    this.onMouseEnter();
+                }}
+                onMouseLeave={() => {
+                    this.onMouseLeave();
+                }}>
                 <span className="inngangspanel__ikon">
-                    <img src={`/sykefravaer/img/svg/${this.state.ikon}`} />
+                    <img alt="" src={`/sykefravaer/img/svg/${this.state.ikon}`} />
                 </span>
                 <div className="inngangspanel__innhold">
                     <header className="inngangspanel__header">

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Lightbox from '../Lightbox';
-import BekreftFeilLederContainer from '../../containers/BekreftFeilLederContainer';
-import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 import { getLedetekst } from 'digisyfo-npm';
+import Lightbox from '../Lightbox';
+import BekreftFeilLederContainer from '../../containers/landingsside/BekreftFeilLederContainer';
+import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 
 export default class NaermesteLedere extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ export default class NaermesteLedere extends Component {
     }
 
     lukkLightbox() {
-        const knapp = this.refs[`js-leder-${this.state.leder.orgnummer}`];
+        const knapp = this[`leder-${this.state.leder.orgnummer}`];
         if (knapp) {
             knapp.focus();
         }
@@ -40,9 +40,11 @@ export default class NaermesteLedere extends Component {
             {this.state.visLightbox && <Lightbox onClose={() => {
                 this.lukkLightbox();
             }}>
-                <BekreftFeilLederContainer orgnummer={this.state.leder.orgnummer} onAvbryt={() => {
-                    this.lukkLightbox();
-                }} />
+                <BekreftFeilLederContainer
+                    orgnummer={this.state.leder.orgnummer}
+                    onAvbryt={() => {
+                        this.lukkLightbox();
+                    }} />
             </Lightbox>}
             <div className="situasjon__innhold">
                 {
@@ -56,9 +58,15 @@ export default class NaermesteLedere extends Component {
                             </p>
                             <div className="leder__handlinger">
                                 {
-                                    !leder.avkreftet && <button ref={`js-leder-${leder.orgnummer}`} type="button" className="lenke leder__meldFeil js-feil" onClick={() => {
-                                        this.apneLightbox(leder);
-                                    }}>{getLedetekst('din-situasjon.naermeste-leder.meld-feil')}</button>
+                                    !leder.avkreftet && <button
+                                        ref={(c) => {
+                                            this[`leder-${leder.orgnummer}`] = c;
+                                        }}
+                                        type="button"
+                                        className="lenke leder__meldFeil js-feil"
+                                        onClick={() => {
+                                            this.apneLightbox(leder);
+                                        }}>{getLedetekst('din-situasjon.naermeste-leder.meld-feil')}</button>
                                 }
                             </div>
                         </div>);

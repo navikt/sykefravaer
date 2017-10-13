@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint, Radiofaner } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint, Radiofaner, keyValue } from 'digisyfo-npm';
 
 const MED_ARBEIDSGIVER = 'MED_ARBEIDSGIVER';
 const UTEN_ARBEIDSGIVER = 'UTEN_ARBEIDSGIVER';
@@ -48,14 +48,15 @@ class Artikkel extends Component {
             <div className="artikkel__bilde">
                 <img src={`/sykefravaer/img/svg/aktivitetsvarsel_${this.state.arbeidssituasjon}.svg`} alt={`aktivitetskrav-varsel.alt.${this.state.arbeidssituasjon}`} />
             </div>
-            <div className="artikkel__innhold"
+            <div
+                className="artikkel__innhold"
                 dangerouslySetInnerHTML={getHtmlLedetekst(`aktivitetskrav-varsel.innhold.${this.state.arbeidssituasjon}`, ledetekster)} />
         </article>);
     }
 }
 
 Artikkel.propTypes = {
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     inntruffetdato: PropTypes.instanceOf(Date),
 };
 

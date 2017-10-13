@@ -7,7 +7,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import VelgArbeidssituasjon, { RendreVelgArbeidssituasjon, Velg } from '../../../js/components/sykmeldingskjema/VelgArbeidssituasjon';
-import VelgArbeidsgiverContainer from '../../../js/containers/VelgArbeidsgiverContainer';
+import VelgArbeidsgiverContainer from '../../../js/containers/sykmelding/VelgArbeidsgiverContainer';
 import SporsmalMedTillegg from '../../../js/components/skjema/SporsmalMedTillegg';
 import { FieldArray, Field } from 'redux-form';
 

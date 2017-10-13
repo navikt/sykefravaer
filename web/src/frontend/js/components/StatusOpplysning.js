@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../enums/nokkelopplysninger';
 import { Hjelpetekst, SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../enums/nokkelopplysninger';
 import { BEKREFTET, AVBRUTT, TIL_SENDING } from '../enums/sykmeldingstatuser';
 import { sykmelding as sykmeldingPt } from '../propTypes';
 

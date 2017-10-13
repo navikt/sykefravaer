@@ -1,8 +1,8 @@
 import React from 'react';
+import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import DinSykmeldingSkjemaContainer from '../../containers/DinSykmeldingSkjemaContainer';
-import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe } from 'digisyfo-npm';
+import DinSykmeldingSkjemaContainer from '../../containers/sykmelding/DinSykmeldingSkjemaContainer';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 

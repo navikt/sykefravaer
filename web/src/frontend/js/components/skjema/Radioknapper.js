@@ -1,21 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { fieldPropTypes } from '../../propTypes';
 import Feilomrade from './Feilomrade';
+
 
 export const getLabelId = (id) => {
     const nyId = id
-        .split('.').join('-')
-        .split('[').join('-')
-        .split(']').join('-');
+        .split('.')
+        .join('-')
+        .split('[')
+        .join('-')
+        .split(']')
+        .join('-');
     return `label-${nyId}`;
 };
 
 export const Radioknapp = ({ input, value, children, id, label, checked, labelSekundaer, disabled, visUndertekst }) => {
     return (<div>
         <div className={`skjema__input ${disabled ? 'skjema__input--inaktiv' : ''}`}>
-            <input id={id} className="radioknapp" type="radio" {...input} disabled={disabled} checked={checked || input.value.toString() === value.toString()} value={value} onBlur={() => {
-                input.onBlur();
-            }} />
+            <input
+                id={id}
+                className="radioknapp"
+                type="radio"
+                {...input}
+                disabled={disabled}
+                checked={checked || input.value.toString() === value.toString()}
+                value={value}
+                onBlur={() => {
+                    input.onBlur();
+                }} />
             <label id={getLabelId(id)} htmlFor={id}>{label} {labelSekundaer ? <span className="sekundaerLabel">{labelSekundaer}</span> : null}</label>
         </div>
         {(input.value === value || disabled || visUndertekst) && children}
@@ -23,12 +36,12 @@ export const Radioknapp = ({ input, value, children, id, label, checked, labelSe
 };
 
 Radioknapp.propTypes = {
-    input: PropTypes.object,
+    input: fieldPropTypes.input,
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.bool,
     ]),
-    children: PropTypes.object,
+    children: PropTypes.element,
     id: PropTypes.string,
     label: PropTypes.string,
     checked: PropTypes.bool,
@@ -55,14 +68,14 @@ const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children, hor
 };
 
 Radioknapper.propTypes = {
-    input: PropTypes.object,
-    meta: PropTypes.object,
+    input: fieldPropTypes.input,
+    meta: fieldPropTypes.meta,
     spoersmal: PropTypes.string,
     Overskrift: PropTypes.string,
-    children: PropTypes.array,
+    children: PropTypes.arrayOf(PropTypes.element),
     horisontal: PropTypes.bool,
-    hjelpetekst: PropTypes.object,
-    hjelpelinje: PropTypes.object,
+    hjelpetekst: PropTypes.element,
+    hjelpelinje: PropTypes.element,
     visUndertekst: PropTypes.bool,
 };
 

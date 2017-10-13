@@ -7,7 +7,7 @@ import { getContextRoot } from '../../routers/paths';
 import ErLederRiktig from './ErLederRiktig';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import Radioknapper from '../skjema/Radioknapper';
-import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt } from '../../propTypes';
+import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt, fieldPropTypes } from '../../propTypes';
 
 export const ArbeidsgiverRadioknapper = (props) => {
     const { input, arbeidsgivere } = props;
@@ -35,14 +35,15 @@ export const ArbeidsgiverRadioknapper = (props) => {
 };
 
 ArbeidsgiverRadioknapper.propTypes = {
-    input: PropTypes.object.isRequired,
+    input: fieldPropTypes.input,
     arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt).isRequired,
 };
 
 export const SkrivUt = (props) => {
     const { sykmelding } = props;
     return (<div className="ekstrasporsmal ekstrasporsmal--sist">
-        <div className="hode hode--advarsel redaksjonelt-innhold"
+        <div
+            className="hode hode--advarsel redaksjonelt-innhold"
             dangerouslySetInnerHTML={getHtmlLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.infotekst')} />
         <div className="knapperad">
             <p>
@@ -73,7 +74,7 @@ export const Tilleggsinfo = (props) => {
 };
 
 Tilleggsinfo.propTypes = {
-    input: PropTypes.object.isRequired,
+    input: fieldPropTypes.input,
 };
 
 export const visTilleggssporsmal = (_props) => {
@@ -94,7 +95,7 @@ export const RendreVelgArbeidsgiver = (props) => {
 };
 
 RendreVelgArbeidsgiver.propTypes = {
-    skjemaData: PropTypes.object,
+    skjemaData: PropTypes.shape({}),
 };
 
 const VelgArbeidsgiver = (props) => {
@@ -117,7 +118,7 @@ const VelgArbeidsgiver = (props) => {
 VelgArbeidsgiver.propTypes = {
     arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
     sykmelding: sykmeldingPt,
-    skjemaData: PropTypes.object,
+    skjemaData: PropTypes.shape({}),
 };
 
 export default VelgArbeidsgiver;

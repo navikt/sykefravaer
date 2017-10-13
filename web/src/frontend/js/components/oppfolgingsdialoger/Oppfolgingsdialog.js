@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst } from 'digisyfo-npm';
-import { getContextRoot } from '../../routers/paths';
-import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
-import ReleasetPlanAT from './releasetplan/ReleasetPlanAT';
-import Tiltak from './utfylling/Tiltak';
-
+import { getLedetekst, keyValue } from 'digisyfo-npm';
 import {
     NavigasjonsTopp,
     NavigasjonsBunn,
@@ -15,7 +10,12 @@ import {
     Godkjenninger,
     Samtykke,
     AvbruttGodkjentPlanVarsel,
+    proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
+import { getContextRoot } from '../../routers/paths';
+import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
+import ReleasetPlanAT from './releasetplan/ReleasetPlanAT';
+import Tiltak from './utfylling/Tiltak';
 
 const inneholderGodkjenninger = (oppfolgingsdialog) => {
     return oppfolgingsdialog.godkjenninger.length > 0;
@@ -29,8 +29,7 @@ const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
     return oppfolgingsdialog.godkjenninger.length === 1 && !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.aktoerId === oppfolgingsdialog.godkjenninger[0].godkjentAvAktoerId;
 };
 
-export class Oppfolgingsdialog extends Component {
-
+class Oppfolgingsdialog extends Component {
     constructor() {
         super();
 
@@ -237,10 +236,9 @@ Oppfolgingsdialog.propTypes = {
     slettingFeiletArbeidsoppgave: PropTypes.bool,
     slettingFeiletTiltak: PropTypes.bool,
     oppfolgingsdialogerHentet: PropTypes.bool,
-    oppfolgingsdialog: PropTypes.object,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogId: PropTypes.string,
-    steg: PropTypes.number,
-    ledetekster: PropTypes.object,
+    ledetekster: keyValue,
     godkjennDialog: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,
     toggleAvvisPlan: PropTypes.func,
@@ -253,11 +251,11 @@ Oppfolgingsdialog.propTypes = {
     settAktivtSteg: PropTypes.func,
     avvisDialog: PropTypes.func,
     avbrytDialog: PropTypes.func,
-    navigasjontoggles: PropTypes.object,
-    dokument: PropTypes.object,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     arbeidsforhold: PropTypes.array,
     hentArbeidsforhold: PropTypes.func,
+    navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
+    dokument: oppfolgingProptypes.dokumentReducerPt,
 };
 
 export default Oppfolgingsdialog;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { erGyldigDato, erGyldigDatoformat } from '../../utils/datoUtils';
 import DayPicker, { DateUtils, LocaleUtils } from 'react-day-picker';
+import { fieldPropTypes } from '../../propTypes';
+import { erGyldigDato, erGyldigDatoformat } from '../../utils/datoUtils';
 
 export const MONTHS = ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember'];
 export const WEEKDAYS_LONG = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
@@ -37,7 +38,8 @@ export const NavBar = ({ onNextClick, onPreviousClick, showPreviousButton, showN
             tabIndex="-1"
             className={`${className} DayPicker-NavButton--prev`}
             disabled={!showPreviousButton}
-            type="button" onClick={(e) => {
+            type="button"
+            onClick={(e) => {
                 e.preventDefault();
                 onPreviousClick();
             }}>Forrige måned</button>
@@ -107,7 +109,9 @@ class DayPickerComponent extends Component {
 
     render() {
         const { onKeyUp } = this.props;
-        return (<div className="datovelger__DayPicker"
+        return (<div
+            className="datovelger__DayPicker"
+            role="application"
             onKeyUp={(e) => {
                 onKeyUp(e);
             }}>
@@ -138,7 +142,7 @@ class DayPickerComponent extends Component {
 }
 
 DayPickerComponent.propTypes = {
-    input: PropTypes.object.isRequired,
+    input: fieldPropTypes.input,
     onKeyUp: PropTypes.func.isRequired,
     lukk: PropTypes.func.isRequired,
     onDayClick: PropTypes.func.isRequired,

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
 import { SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
-import { connect } from 'react-redux';
 import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
 import { hentArbeidsgiverperiodeberegning } from '../../actions/arbeidsgiverperiodeberegning_actions';
 import { hentLedere } from '../../actions/ledere_actions';
@@ -43,7 +43,13 @@ Oppsummering.propTypes = {
 
 const utledSkalViseForskuttering = (ledere, soknad, arbeidsgiverperiodeberegning) => {
     if (ledere && soknad && arbeidsgiverperiodeberegning) {
-        const ledersSvar = ledere.filter(l => { return l.orgnummer === soknad.arbeidsgiver.orgnummer; }).map(l => { return l.arbeidsgiverForskuttererLoenn; })[0];
+        const ledersSvar = ledere
+            .filter((l) => {
+                return l.orgnummer === soknad.arbeidsgiver.orgnummer;
+            })
+            .map((l) => {
+                return l.arbeidsgiverForskuttererLoenn;
+            })[0];
         if (ledersSvar !== undefined && ledersSvar !== null) {
             return false;
         }
@@ -54,7 +60,13 @@ const utledSkalViseForskuttering = (ledere, soknad, arbeidsgiverperiodeberegning
 
 const utledMottaker = (ledere, soknad, arbeidsgiverperiodeberegning) => {
     if (ledere && soknad && arbeidsgiverperiodeberegning) {
-        const svarFraLeder = ledere.filter(l => { return l.orgnummer === soknad.arbeidsgiver.orgnummer; }).map(l => { return l.arbeidsgiverForskuttererLoenn; })[0];
+        const svarFraLeder = ledere
+            .filter((l) => {
+                return l.orgnummer === soknad.arbeidsgiver.orgnummer;
+            })
+            .map((l) => {
+                return l.arbeidsgiverForskuttererLoenn;
+            })[0];
 
         const skalTilNAV = arbeidsgiverperiodeberegning.erUtenforArbeidsgiverperiode;
         const skalTilArbeidsgiver = !skalTilNAV || svarFraLeder || soknad.arbeidsgiverForskutterer === 'JA' || soknad.arbeidsgiverForskutterer === 'VET_IKKE';
@@ -97,7 +109,7 @@ export const Controller = (props) => {
 
 Controller.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
-    skjemasoknad: PropTypes.object,
+    skjemasoknad: PropTypes.shape(),
 };
 
 const OppsummeringContainer = ({ params }) => {

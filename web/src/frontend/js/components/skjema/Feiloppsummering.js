@@ -13,12 +13,16 @@ FeillisteMelding.propTypes = {
     feilmelding: PropTypes.string,
 };
 
+const getFeilmeldinger = (props) => {
+    return props.feilmeldinger || [];
+};
+
 class Feiloppsummering extends Component {
     componentDidUpdate(prevProps) {
         const { settFokus, skjemaErGyldig, skjemanavn } = this.props;
         if (settFokus) {
-            if (!erSynligIViewport(this.refs.oppsummering)) {
-                scrollTo(this.refs.oppsummering, 300);
+            if (!erSynligIViewport(this.oppsummering)) {
+                scrollTo(this.oppsummering, 300);
                 setTimeout(() => {
                     this.fokuserOppsummering();
                 }, 300);
@@ -26,41 +30,42 @@ class Feiloppsummering extends Component {
                 this.fokuserOppsummering();
             }
         }
-        if (this.getFeilmeldinger(this.props).length === 0 && this.getFeilmeldinger(prevProps).length > 0) {
+        if (getFeilmeldinger(this.props).length === 0 && getFeilmeldinger(prevProps).length > 0) {
             skjemaErGyldig(skjemanavn);
         }
     }
 
-    getFeilmeldinger(props) {
-        return props.feilmeldinger || [];
-    }
-
     fokuserOppsummering() {
         const { sendSkjemaFeiletHandtert, skjemanavn } = this.props;
-        this.refs.oppsummering.focus();
+        this.oppsummering.focus();
         sendSkjemaFeiletHandtert(skjemanavn);
     }
 
     render() {
-        const feilmeldinger = this.getFeilmeldinger(this.props);
+        const feilmeldinger = getFeilmeldinger(this.props);
         return (<div aria-live="polite" role="alert">
-        {
-            (() => {
-                if (feilmeldinger.length > 0 && this.props.visFeilliste) {
-                    return (<div className="panel panel--feiloppsummering blokk--xs" ref="oppsummering" tabIndex="-1">
-                        <h3 className="feiloppsummering__tittel">Det er {feilmeldinger.length} feil i skjemaet</h3>
-                        <ul className="feiloppsummering__liste">
-                        {
-                            feilmeldinger.map((feilmld, index) => {
-                                return <FeillisteMelding key={index} {...feilmld} />;
-                            })
-                        }
-                        </ul>
-                    </div>);
-                }
-                return null;
-            })()
-        }
+            {
+                (() => {
+                    if (feilmeldinger.length > 0 && this.props.visFeilliste) {
+                        return (<div
+                            className="panel panel--feiloppsummering blokk--xs"
+                            ref={(c) => {
+                                this.oppsummering = c;
+                            }}
+                            tabIndex="-1">
+                            <h3 className="feiloppsummering__tittel">Det er {feilmeldinger.length} feil i skjemaet</h3>
+                            <ul className="feiloppsummering__liste">
+                                {
+                                    feilmeldinger.map((feilmld, index) => {
+                                        return <FeillisteMelding key={index} {...feilmld} />;
+                                    })
+                                }
+                            </ul>
+                        </div>);
+                    }
+                    return null;
+                })()
+            }
         </div>);
     }
 }

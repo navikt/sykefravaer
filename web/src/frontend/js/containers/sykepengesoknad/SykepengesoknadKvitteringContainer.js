@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
+import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import { AVBRUTT, SLETTET_UTKAST } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Feilmelding from '../../components/Feilmelding';
 import { Standardkvittering } from '../../components/sykmelding/SykmeldingKvittering';
-import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
-import { Link } from 'react-router';
 
 export const Controller = (props) => {
     if (props.sykepengesoknad.status === AVBRUTT || props.sykepengesoknad.status === SLETTET_UTKAST) {
@@ -27,7 +27,6 @@ export const Controller = (props) => {
 
 Controller.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
-    skjemasoknad: PropTypes.object,
 };
 
 const SykepengesoknadKvitteringContainer = ({ params }) => {

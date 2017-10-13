@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { FeriePermisjonEllerUtenlandsopphold, RendreFeriePermisjonEllerUtenlandsopphold, SoktOmSykepenger, mapStateToProps } from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FeriePermisjonEllerUtenlandsopphold';
+import { FeriePermisjonEllerUtenlandsoppholdComp, RendreFeriePermisjonEllerUtenlandsopphold, SoktOmSykepenger, mapStateToProps } from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FeriePermisjonEllerUtenlandsopphold';
 import JaEllerNei, { parseJaEllerNei } from '../../../../js/components/sykepengesoknad/JaEllerNei';
 import { getSoknad } from '../../../mockSoknader';
 import { ledetekster } from '../../../mockLedetekster';
@@ -34,17 +34,17 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
     });
     setLedetekster(_ledetekster);
 
-    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} />);
+    compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={getSoknad()} />);
   });
 
   it("Skal inneholde en JaEllerNei med riktig name", () => {
-    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} />);
+    compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={getSoknad()} />);
     expect(compo.find(JaEllerNei)).to.have.length(1);
     expect(compo.find(JaEllerNei).prop("name")).to.equal("harHattFeriePermisjonEllerUtenlandsopphold")
   });
 
   it("Skal vise riktig spørsmål", () => {
-    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad({
+    compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={getSoknad({
       aktiviteter: [{
         "periode": {
           "fom": "2017-01-01",
@@ -84,7 +84,7 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
         "avvik": null
       }]
     });
-    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={soknad} />);
+    compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={soknad} />);
     expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 22.12.2016 – 30.01.2017?");
   });
 
@@ -108,7 +108,7 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
         "avvik": null
       }]
     });
-    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={soknad} />);
+    compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={soknad} />);
     expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 30.01.2017?");
   });
 
@@ -123,13 +123,13 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
 
   it("Skal inneholde et FieldArray med senesteTom === gjenopptattArbeidFulltUtDato - 1 dag hvis gjenopptattArbeidFulltUtDato er en dato", () => {
     const gjenopptattArbeidFulltUtDato = new Date("2017-12-23");
-    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} ledetekster={_ledetekster} gjenopptattArbeidFulltUtDato={gjenopptattArbeidFulltUtDato} />);
+    compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={getSoknad()} ledetekster={_ledetekster} gjenopptattArbeidFulltUtDato={gjenopptattArbeidFulltUtDato} />);
     expect(compo.find(FieldArray).prop("senesteTom")).to.deep.equal(new Date("2017-12-22"));
   });
 
   it("Skal inneholde et FieldArray med senesteTom === gjenopptattArbeidFulltUtDato hvis gjenopptattArbeidFulltUtDato er en dato som er samme dag som tidligsteFom", () => {
     const gjenopptattArbeidFulltUtDato = new Date("2017-01-01");
-    compo = shallow(<FeriePermisjonEllerUtenlandsopphold sykepengesoknad={getSoknad()} ledetekster={_ledetekster} gjenopptattArbeidFulltUtDato={gjenopptattArbeidFulltUtDato} />);
+    compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={getSoknad()} ledetekster={_ledetekster} gjenopptattArbeidFulltUtDato={gjenopptattArbeidFulltUtDato} />);
     expect(compo.find(FieldArray).prop("senesteTom")).to.deep.equal(new Date("2017-01-01"));
   });
 
@@ -202,17 +202,17 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
         expect(f.prop("parse")).to.deep.equal(parseJaEllerNei);
       });
 
-      it("Skal inneholde to input", () => {
-        expect(f.find("input")).to.have.length(2);
-        const ja = f.find("input").at(0);
-        const nei = f.find("input").at(1);
+      it("Skal inneholde to i", () => {
+        expect(f.find("i")).to.have.length(2);
+        const ja = f.find("i").at(0);
+        const nei = f.find("i").at(1);
         expect(ja.prop("value")).to.equal(true);
         expect(nei.prop("value")).to.equal(false)
       });
 
       it("Skal inneholde ja uten presisering og nei med presisering", () => {
-        const ja = f.find("input").at(0);
-        const nei = f.find("input").at(1);
+        const ja = f.find("i").at(0);
+        const nei = f.find("i").at(1);
         expect(ja.find(".js-presisering")).to.have.length(0);
         expect(nei.find(".js-presisering")).to.have.length(1);
       });

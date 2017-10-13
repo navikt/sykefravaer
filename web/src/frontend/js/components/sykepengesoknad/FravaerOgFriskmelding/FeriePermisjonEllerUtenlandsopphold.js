@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FieldArray, Field } from 'redux-form';
+import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, getTomDato, tidligsteFom as _tidligsteFom } from 'digisyfo-npm';
 import JaEllerNei, { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import Checkbox from '../../skjema/Checkbox';
 import Radioknapper from '../../skjema/Radioknapper';
-import { FieldArray, Field } from 'redux-form';
 import Feilomrade from '../../skjema/Feilomrade';
-import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, getTomDato, tidligsteFom as _tidligsteFom } from 'digisyfo-npm';
 import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';
-import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, fieldPropTypes } from '../../../propTypes';
 
 export const SoktOmSykepenger = () => {
     return (<Field
@@ -17,19 +17,19 @@ export const SoktOmSykepenger = () => {
         component={Radioknapper}
         Overskrift="h5"
         parse={parseJaEllerNei}>
-            {
-                jaEllerNeiAlternativer.map((alt, index) => {
-                    return (<input {...alt} key={index}>
-                        {
-                            alt.value === true ? null : (<div className="presisering js-presisering">
-                                <div
-                                    className="redaksjonelt-innhold"
-                                    dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet')} />
-                            </div>)
-                        }
-                    </input>);
-                })
-            }
+        {
+            jaEllerNeiAlternativer.map((alt, index) => {
+                return (<i {...alt} key={index}>
+                    {
+                        alt.value === true ? null : (<div className="presisering js-presisering">
+                            <div
+                                className="redaksjonelt-innhold"
+                                dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet')} />
+                        </div>)
+                    }
+                </i>);
+            })
+        }
     </Field>);
 };
 
@@ -50,19 +50,19 @@ export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, tidlig
             fields.map((field, index) => {
                 const name = `${getName(field)}`;
                 return (<Field key={index} component={Checkbox} name={name} label={labels[field]} id={`checkbox-${field}`}>
-                {
-                    (() => {
-                        if (field === 'utenlandsopphold') {
-                            return (<div>
-                                <div className="blokk">
-                                    <Periodevelger name="utenlandsopphold.perioder" tidligsteFom={tidligsteFom} senesteTom={senesteTom} />
-                                </div>
-                                <SoktOmSykepenger />
-                            </div>);
-                        }
-                        return <Periodevelger name={field} tidligsteFom={tidligsteFom} senesteTom={senesteTom} />;
-                    })()
-                }
+                    {
+                        (() => {
+                            if (field === 'utenlandsopphold') {
+                                return (<div>
+                                    <div className="blokk">
+                                        <Periodevelger name="utenlandsopphold.perioder" tidligsteFom={tidligsteFom} senesteTom={senesteTom} />
+                                    </div>
+                                    <SoktOmSykepenger />
+                                </div>);
+                            }
+                            return <Periodevelger name={field} tidligsteFom={tidligsteFom} senesteTom={senesteTom} />;
+                        })()
+                    }
                 </Field>);
             })
         }
@@ -70,13 +70,13 @@ export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, tidlig
 };
 
 RendreFeriePermisjonEllerUtenlandsopphold.propTypes = {
-    fields: PropTypes.array,
-    meta: PropTypes.object,
+    fields: PropTypes.arrayOf(PropTypes.string),
+    meta: fieldPropTypes.meta,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
 };
 
-export const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, gjenopptattArbeidFulltUtDato }) => {
+export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjenopptattArbeidFulltUtDato }) => {
     const _soknad = Object.assign({}, sykepengesoknad, {
         gjenopptattArbeidFulltUtDato,
     });
@@ -101,11 +101,11 @@ export const FeriePermisjonEllerUtenlandsopphold = ({ sykepengesoknad, gjenoppta
     </JaEllerNei>);
 };
 
-FeriePermisjonEllerUtenlandsopphold.propTypes = {
+FeriePermisjonEllerUtenlandsoppholdComp.propTypes = {
     gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
     sykepengesoknad: sykepengesoknadPt,
 };
 
-const FeriePermisjonEllerUtenlandsoppholdConnected = connectGjenopptattArbeidFulltUtDato(FeriePermisjonEllerUtenlandsopphold);
+const FeriePermisjonEllerUtenlandsopphold = connectGjenopptattArbeidFulltUtDato(FeriePermisjonEllerUtenlandsoppholdComp);
 
-export default FeriePermisjonEllerUtenlandsoppholdConnected;
+export default FeriePermisjonEllerUtenlandsopphold;

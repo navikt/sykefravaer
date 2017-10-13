@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { moteActions, svarActions, Kvittering, MotePassert, AvbruttMote, BekreftetKvittering, getSvarsideModus, Svarside, konstanter, proptypes as moterPropTypes } from 'moter-npm';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, keyValue } from 'digisyfo-npm';
 import { bindActionCreators } from 'redux';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
@@ -18,7 +18,7 @@ export class Container extends Component {
     }
 
     render() {
-        const { henter, hentet, mote, brodsmuler, hentingFeilet, moteIkkeFunnet, actions } = this.props;
+        const { henter, hentet, mote, brodsmuler, hentingFeilet, moteIkkeFunnet, actions, ledetekster } = this.props;
         const modus = getSvarsideModus(mote);
         return (<Side tittel={getLedetekst('mote.sidetittel')} brodsmuler={brodsmuler} laster={henter || !hentet}>
             {
@@ -35,21 +35,21 @@ export class Container extends Component {
                             melding="Er du sikker på at du er på riktig side?" />);
                     }
                     if (erMotePassert(mote)) {
-                        return <MotePassert deltakertype={BRUKER} />;
+                        return <MotePassert deltakertype={BRUKER} ledetekster={ledetekster} />;
                     }
                     if (modus === BEKREFTET) {
-                        return <BekreftetKvittering mote={mote} deltakertype={BRUKER} />;
+                        return <BekreftetKvittering mote={mote} deltakertype={BRUKER} ledetekster={ledetekster} />;
                     }
                     if (modus === MOTESTATUS) {
-                        return <Kvittering mote={mote} deltakertype={BRUKER} />;
+                        return <Kvittering mote={mote} deltakertype={BRUKER} ledetekster={ledetekster} />;
                     }
                     if (modus === AVBRUTT) {
                         return (<AvbruttMote mote={mote} deltakertype={BRUKER} />);
                     }
                     if (mote) {
-                        return <Svarside {...this.props} deltakertype={BRUKER} sendSvar={actions.sendSvar} />;
+                        return <Svarside {...this.props} deltakertype={BRUKER} sendSvar={actions.sendSvar} ledetekster={ledetekster} />;
                     }
-                    return <Feilmelding />;
+                    return <Feilmelding ledetekster={ledetekster} />;
                 })()
             }
         </Side>);
@@ -57,6 +57,7 @@ export class Container extends Component {
 }
 
 Container.propTypes = {
+    ledetekster: keyValue,
     henter: PropTypes.bool,
     fantIkkeDeltaker: PropTypes.bool,
     deltaker: moterPropTypes.deltaker,
@@ -83,6 +84,7 @@ export function mapDispatchToProps(dispatch) {
 
 export function mapStateToProps(state) {
     return {
+        ledetekster: state.ledetekster.data,
         mote: state.mote.data,
         moteIkkeFunnet: state.mote.moteIkkeFunnet === true,
         henter: state.mote.henter,

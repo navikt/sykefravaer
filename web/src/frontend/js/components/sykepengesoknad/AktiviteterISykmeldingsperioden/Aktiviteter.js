@@ -4,7 +4,7 @@ import { Fields } from 'redux-form';
 import { toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';
-import { soknadaktivitet } from '../../../propTypes';
+import { soknadsaktivitet } from '../../../propTypes';
 
 export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
     const ledetekstPrefix = field.grad === 100 ? 'sykepengesoknad.aktiviteter.ugradert' : 'sykepengesoknad.aktiviteter.gradert';
@@ -42,7 +42,7 @@ export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => 
 };
 
 Aktivitet.propTypes = {
-    field: soknadaktivitet,
+    field: soknadsaktivitet,
     index: PropTypes.number,
     arbeidsgiver: PropTypes.string,
     autofill: PropTypes.func,
@@ -66,7 +66,7 @@ const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch }) => {
 };
 
 Aktiviteter.propTypes = {
-    fields: PropTypes.arrayOf(soknadaktivitet),
+    fields: PropTypes.arrayOf(soknadsaktivitet),
     autofill: PropTypes.func,
     untouch: PropTypes.func,
     arbeidsgiver: PropTypes.string,

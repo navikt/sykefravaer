@@ -46,6 +46,7 @@ class Oppfolgingsdialog extends Component {
 
     componentWillMount() {
         this.props.settAktivtSteg(1);
+        this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId, this.props.oppfolgingsdialog.oppfoelgingsdialogId, "ARBEIDSGIVER");
     }
 
     componentWillReceiveProps(nextProps) {
@@ -255,6 +256,7 @@ Oppfolgingsdialog.propTypes = {
     avbrytDialog: PropTypes.func,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     arbeidsforhold: PropTypes.arrayOf(arbeidsforholdPt),
+    hentArbeidsforhold: PropTypes.func,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
 };

@@ -84,7 +84,7 @@ export function mapDispatchToProps(dispatch) {
 
 export function mapStateToProps(state) {
     return {
-        ledetekster: state.ledetekster.data,
+        ledetekster: state.ledetekster.henter ? {} : state.ledetekster.data,
         mote: state.mote.data,
         moteIkkeFunnet: state.mote.moteIkkeFunnet === true,
         henter: state.mote.henter,

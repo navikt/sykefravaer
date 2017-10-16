@@ -47,7 +47,7 @@ export class OppfolgingsdialogSide extends Component {
             this.props.sjekkTilgang();
         }
         if (this.props.oppfolgingsdialogerHentet && !this.props.arbeidsforholdHentet && !this.props.arbeidsforholdHenter) {
-            this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId);
+            this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId, this.props.oppfolgingsdialog.oppfoelgingsdialogId, "ARBEIDSGIVER");
         }
     }
 

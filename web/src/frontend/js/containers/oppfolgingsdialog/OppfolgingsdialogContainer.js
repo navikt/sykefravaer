@@ -46,6 +46,9 @@ export class OppfolgingsdialogSide extends Component {
         if (!this.props.sjekkTilgangHentet && !this.props.sjekkTilgangHenter) {
             this.props.sjekkTilgang();
         }
+        if (this.props.oppfolgingsdialogerHentet && !this.props.arbeidsforholdHentet && !this.props.arbeidsforholdHenter) {
+            this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -79,18 +82,18 @@ export class OppfolgingsdialogSide extends Component {
             brodsmuler,
             henter,
             hentingFeilet,
-            avviser,
-            avvisFeilet,
+            sender,
+            sendingFeilet,
             tilgang,
             navigasjontoggles,
             hentet,
         } = this.props;
 
-        return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler} laster={henter || avviser || !hentet}>
+        return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler} laster={henter || sender || !hentet}>
             { (() => {
-                if (henter || avviser) {
+                if (henter || sender) {
                     return <AppSpinner />;
-                } else if (hentingFeilet || avvisFeilet) {
+                } else if (hentingFeilet || sendingFeilet) {
                     return (<Feilmelding />);
                 } else if (!tilgang.harTilgang) {
                     return (<OppfolgingsdialogInfoboks
@@ -117,8 +120,8 @@ OppfolgingsdialogSide.propTypes = {
     oppfolgingsdialogId: PropTypes.string,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    avviser: PropTypes.bool,
-    avvisFeilet: PropTypes.bool,
+    sender: PropTypes.bool,
+    sendingFeilet: PropTypes.bool,
     godkjenner: PropTypes.bool,
     godkjent: PropTypes.bool,
     godkjenningFeilet: PropTypes.bool,
@@ -143,6 +146,9 @@ OppfolgingsdialogSide.propTypes = {
     hentOppfolgingsdialoger: PropTypes.func,
     oppfolgingsdialogerHentet: PropTypes.bool,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
+    hentArbeidsforhold: PropTypes.func,
+    arbeidsforholdHenter: PropTypes.bool,
+    arbeidsforholdHentet: PropTypes.bool,
     sjekkTilgangHentet: PropTypes.bool,
     tilgang: oppfolgingProptypes.tilgangPt,
     tilgangSjekket: PropTypes.bool,
@@ -173,12 +179,22 @@ export function mapStateToProps(state, ownProps) {
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
         oppfolgingsdialogerHenter: state.oppfolgingsdialoger.henter,
         oppfolgingsdialogAvbrutt: state.avbrytdialogReducer.sendt,
+        arbeidsforholdHenter: state.arbeidsforhold.henter,
+        arbeidsforholdHentet: state.arbeidsforhold.hentet,
         sjekkTilgangHentet: state.tilgang.hentet,
         sjekkTilgangHenter: state.tilgang.henter,
-        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter,
-        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet,
-        avviser: state.oppfolgingsdialoger.avviser,
-        avvisFeilet: state.oppfolgingsdialoger.avvisFeilet,
+        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter || state.arbeidsforhold.henter,
+        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet || state.arbeidsforhold.hentingFeilet,
+        sender: state.oppfolgingsdialoger.avviser
+        || state.oppfolgingsdialoger.godkjenner
+        || state.avbrytdialogReducer.sender
+        || state.nullstill.sender
+        || state.samtykke.sender,
+        sendingFeilet: state.oppfolgingsdialoger.avvisFeilet
+        || state.oppfolgingsdialoger.godkjenningFeilet
+        || state.avbrytdialogReducer.sendingFeilet
+        || state.nullstill.sendingFeilet
+        || state.samtykke.sendingFeilet,
         godkjenner: state.oppfolgingsdialoger.godkjenner,
         godkjent: state.oppfolgingsdialoger.godkjent,
         godkjenningFeilet: state.oppfolgingsdialoger.godkjenningFeilet,

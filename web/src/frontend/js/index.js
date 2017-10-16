@@ -16,7 +16,7 @@ import {
     tilgang,
     tiltak,
     navigasjontoggles,
-    nullstillGodkjenning,
+    nullstill,
     avbrytdialogReducer,
     arbeidsforhold,
 } from 'oppfolgingsdialog-npm';
@@ -55,7 +55,7 @@ const rootReducer = combineReducers({
     ledetekster,
     mote,
     navigasjontoggles,
-    nullstillGodkjenning,
+    nullstill,
     oppfolgingsdialoger,
     samtykke,
     svar,

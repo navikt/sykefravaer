@@ -14,7 +14,6 @@ import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
 import {
     brodsmule as brodsmulePt,
-    arbeidsforhold as arbeidsforholdPt,
 } from '../../propTypes';
 import Oppfolgingsdialoger from '../../components/oppfolgingsdialoger/Oppfolgingsdialoger';
 
@@ -69,7 +68,6 @@ OppfolgingsdialogerSide.propTypes = {
     tilgang: oppfolgingProptypes.tilgangPt,
     tilgangSjekket: PropTypes.bool,
     sjekkTilgang: PropTypes.func,
-    arbeidsforhold: PropTypes.arrayOf(arbeidsforholdPt),
     hentet: PropTypes.bool,
 };
 
@@ -77,7 +75,6 @@ export const mapStateToProps = (state) => {
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
-        arbeidsforhold: state.arbeidsforhold.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
         henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter || state.tilgang.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet || state.tilgang.hentingFeilet,

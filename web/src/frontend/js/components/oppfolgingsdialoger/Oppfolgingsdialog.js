@@ -16,9 +16,6 @@ import { getContextRoot } from '../../routers/paths';
 import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
 import ReleasetPlanAT from './releasetplan/ReleasetPlanAT';
 import Tiltak from './utfylling/Tiltak';
-import {
-    arbeidsforhold as arbeidsforholdPt,
-} from '../../propTypes/index';
 
 const inneholderGodkjenninger = (oppfolgingsdialog) => {
     return oppfolgingsdialog.godkjenninger.length > 0;
@@ -260,7 +257,7 @@ Oppfolgingsdialog.propTypes = {
     avbrytDialog: PropTypes.func,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     hentArbeidsforhold: PropTypes.func,
-    arbeidsforhold: PropTypes.arrayOf(arbeidsforholdPt),
+    arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
     arbeidsforholdHenter: PropTypes.bool,
     arbeidsforholdHentet: PropTypes.bool,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,

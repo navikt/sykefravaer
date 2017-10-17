@@ -31,7 +31,6 @@ import { getOppfolgingsdialog } from '../../utils/oppfolgingsdialogUtils';
 import Oppfolgingsdialog from '../../components/oppfolgingsdialoger/Oppfolgingsdialog';
 import {
     brodsmule as brodsmulePt,
-    arbeidsforhold as arbeidsforholdPt,
 } from '../../propTypes';
 
 export class OppfolgingsdialogSide extends Component {
@@ -162,7 +161,7 @@ OppfolgingsdialogSide.propTypes = {
     oppfolgingsdialogerHenter: PropTypes.bool,
     settDialog: PropTypes.func,
     avbrytDialog: PropTypes.func,
-    arbeidsforhold: PropTypes.arrayOf(arbeidsforholdPt),
+    arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
     dokument: oppfolgingProptypes.dokumentReducerPt,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     hentet: PropTypes.bool,

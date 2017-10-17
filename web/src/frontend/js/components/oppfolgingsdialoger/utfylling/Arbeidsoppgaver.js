@@ -18,10 +18,7 @@ import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
-import {
-    arbeidsforhold as arbeidsforholdPt,
-} from '../../../propTypes/index';
-
+import Arbeidsforhold from './Arbeidsforhold';
 
 export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, aktoerId, oppfolgingsdialog }) => {
     return (
@@ -64,13 +61,6 @@ RenderOpprettArbeidsoppgave.propTypes = {
     ledetekster: keyValue,
     sendLagreArbeidsoppgave: PropTypes.func,
     toggleArbeidsoppgaveSkjema: PropTypes.func,
-};
-
-export const RenderArbeidsforhold = ({ arbeidsforhold }) => {
-    return (<div>{arbeidsforhold.yrke.toLowerCase()}: {arbeidsforhold.prosent}%</div>);
-};
-RenderArbeidsforhold.propTypes = {
-    arbeidsforhold: arbeidsforholdPt,
 };
 
 class Arbeidsoppgaver extends Component {
@@ -157,18 +147,9 @@ class Arbeidsoppgaver extends Component {
                 return isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                     <div>
                         { arbeidsforhold.length > 0 &&
-                        <div className="panel oppfolgingsdialogStilling notifikasjonboks" role="alert">
-                            <img src="/sykefravaer/img/svg/oppfolgingsdialog-stilling.svg" alt="ikon" className="oppfolgingsdialogStilling__img" />
-                            <span className="oppfolgingsdialogStilling__tekst">
-                                <h3>{getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}</h3>
-                                { arbeidsforhold.map((forhold, idx) => {
-                                    if (forhold.prosent > 0) {
-                                        return (<RenderArbeidsforhold arbeidsforhold={forhold} key={idx} />);
-                                    } return (null);
-                                })
-                                }
-                            </span>
-                        </div>
+                            <Arbeidsforhold
+                                arbeidsforhold={arbeidsforhold}
+                            />
                         }
 
                         {
@@ -197,18 +178,9 @@ class Arbeidsoppgaver extends Component {
                     <div>
 
                         { arbeidsforhold.length > 0 &&
-                        <div className="panel oppfolgingsdialogStilling notifikasjonboks" role="alert">
-                            <img src="/sykefravaer/img/svg/oppfolgingsdialog-stilling.svg" alt="ikon" className="oppfolgingsdialogStilling__img" />
-                            <span className="oppfolgingsdialogStilling__tekst">
-                                <h3>{getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}</h3>
-                                { arbeidsforhold.map((forhold, idx) => {
-                                    if (forhold.prosent > 0) {
-                                        return (<RenderArbeidsforhold arbeidsforhold={forhold} key={idx} />);
-                                    } return (null);
-                                })
-                                }
-                            </span>
-                        </div>
+                            <Arbeidsforhold
+                                arbeidsforhold={arbeidsforhold}
+                            />
                         }
 
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
@@ -276,7 +248,7 @@ Arbeidsoppgaver.propTypes = {
     oppfolgingsdialogId: PropTypes.string,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
-    arbeidsforhold: PropTypes.arrayOf(arbeidsforholdPt),
+    arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
 };
 
 export default Arbeidsoppgaver;

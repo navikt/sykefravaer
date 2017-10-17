@@ -262,6 +262,6 @@ Arbeidsoppgaver.propTypes = {
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
     arbeidsforhold: PropTypes.arrayOf(arbeidsforholdPt),
-};
+  };
 
 export default Arbeidsoppgaver;

@@ -88,6 +88,7 @@ export class OppfolgingsdialogSide extends Component {
             tilgang,
             navigasjontoggles,
             hentet,
+            hentArbeidsforhold,
         } = this.props;
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler} laster={henter || sender || !hentet}>
             { (() => {

@@ -60,6 +60,12 @@ class Oppfolgingsdialog extends Component {
         }
     }
 
+    componentDidMount() {
+        if (this.props.oppfolgingsdialogerHentet && !this.props.arbeidsforholdHentet && !this.props.arbeidsforholdHenter) {
+            this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId, this.props.oppfolgingsdialog.oppfoelgingsdialogId, "arbeidstaker");
+        }
+    }
+
     visAvvisPlanKvittering(vis, begrunnelse) {
         this.setState({
             visAvvisPlanKvittering: vis,
@@ -102,7 +108,6 @@ class Oppfolgingsdialog extends Component {
             oppfolgingsdialogAvbrutt,
             arbeidsforhold,
         } = this.props;
-
         let panel;
         let disableNavigation = false;
         if (this.state.visAvvisPlanKvittering) {

@@ -47,7 +47,7 @@ export class OppfolgingsdialogSide extends Component {
             this.props.sjekkTilgang();
         }
         if (this.props.oppfolgingsdialogerHentet && !this.props.arbeidsforholdHentet && !this.props.arbeidsforholdHenter) {
-            this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId, this.props.oppfolgingsdialog.oppfoelgingsdialogId, "arbeidstaker");
+            this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId, this.props.oppfolgingsdialog.oppfoelgingsdialogId, 'arbeidstaker');
         }
     }
 
@@ -88,7 +88,6 @@ export class OppfolgingsdialogSide extends Component {
             tilgang,
             navigasjontoggles,
             hentet,
-            hentArbeidsforhold,
         } = this.props;
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler} laster={henter || sender || !hentet}>
             { (() => {

@@ -62,7 +62,7 @@ class Oppfolgingsdialog extends Component {
 
     componentDidMount() {
         if (this.props.oppfolgingsdialogerHentet && !this.props.arbeidsforholdHentet && !this.props.arbeidsforholdHenter) {
-            this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId, this.props.oppfolgingsdialog.oppfoelgingsdialogId, "arbeidstaker");
+            this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId, this.props.oppfolgingsdialog.oppfoelgingsdialogId, 'arbeidstaker');
         }
     }
 
@@ -259,7 +259,10 @@ Oppfolgingsdialog.propTypes = {
     avvisDialog: PropTypes.func,
     avbrytDialog: PropTypes.func,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
+    hentArbeidsforhold: PropTypes.func,
     arbeidsforhold: PropTypes.arrayOf(arbeidsforholdPt),
+    arbeidsforholdHenter: PropTypes.bool,
+    arbeidsforholdHentet: PropTypes.bool,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
 };

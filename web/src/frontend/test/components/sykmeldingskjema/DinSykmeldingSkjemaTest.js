@@ -36,7 +36,6 @@ describe("DinSykmeldingSkjema -", () => {
     let brukerinfo;
     let skjemaData;
     let dispatch;
-    let registrerInnsending;
     let getState;
 
     beforeEach(() => {
@@ -72,7 +71,6 @@ describe("DinSykmeldingSkjema -", () => {
             fields: {},
             values: {}
         }
-        registrerInnsending = sinon.spy();
         dispatch = sinon.spy();
     });
 
@@ -322,7 +320,6 @@ describe("DinSykmeldingSkjema -", () => {
                     id: "olsen"
                 })}
                 skjemaData={skjemaData}
-                registrerInnsending={registrerInnsending}
                 sendSykmeldingTilArbeidsgiver={sendSykmeldingTilArbeidsgiverSpy}
                 handleSubmit={handleSubmitSpy} />);
             component.instance().handleSubmit({
@@ -358,7 +355,6 @@ describe("DinSykmeldingSkjema -", () => {
                 setArbeidsgiver={setArbeidsgiverSpy}
                 sendSykmeldingTilArbeidsgiver={sendSykmeldingTilArbeidsgiverStub}
                 skjemaData={skjemaData}
-                registrerInnsending={registrerInnsending}
                 sykmelding={getSykmelding({
                     id: "olsen"
                 })}

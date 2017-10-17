@@ -94,13 +94,12 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     avbryt(sykmeldingId, feilaktigeOpplysninger) {
-        this.props.registrerInnsending();
         this.props.avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger);
     }
 
     handleSubmit(values) {
         const modus = getSkjemaModus(values, this.props.harStrengtFortroligAdresse);
-        const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding, registrerInnsending } = this.props;
+        const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding } = this.props;
 
         const feilaktigeOpplysninger = values.feilaktigeOpplysninger;
         feilaktigeOpplysninger.forEach((o, i) => {
@@ -113,14 +112,12 @@ export class DinSykmeldingSkjemaComponent extends Component {
         switch (modus) {
             case modi.SEND_MED_NAERMESTE_LEDER:
             case modi.SEND: {
-                registrerInnsending();
                 const feilaktigeOpplysningerParam = this.getFeilaktigeOpplysninger(values);
                 this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id,
                     values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysningerParam, values.beOmNyNaermesteLeder);
                 return;
             }
             case modi.BEKREFT: {
-                registrerInnsending();
                 const feilaktigeOpplysningerParam = this.getFeilaktigeOpplysninger(values);
                 this.props.bekreftSykmelding(sykmelding.id, values.valgtArbeidssituasjon, feilaktigeOpplysningerParam);
                 return;
@@ -258,7 +255,6 @@ DinSykmeldingSkjemaComponent.propTypes = {
     erEldsteNyeSykmelding: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     reset: PropTypes.func,
-    registrerInnsending: PropTypes.func,
 };
 
 export const validate = (values, props = {}) => {

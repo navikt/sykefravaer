@@ -156,6 +156,21 @@ class Arbeidsoppgaver extends Component {
                 }
                 return isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                     <div>
+                        { arbeidsforhold.length > 0 &&
+                        <div className="panel oppfolgingsdialogStilling notifikasjonboks" role="alert">
+                            <img src="/sykefravaer/img/svg/oppfolgingsdialog-stilling.svg" alt="ikon" className="oppfolgingsdialogStilling__img" />
+                            <span className="oppfolgingsdialogStilling__tekst">
+                                <h3>{getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}</h3>
+                                { arbeidsforhold.map((forhold, idx) => {
+                                    if (forhold.prosent > 0) {
+                                        return (<RenderArbeidsforhold arbeidsforhold={forhold} key={idx} />);
+                                    } return (null);
+                                })
+                                }
+                            </span>
+                        </div>
+                        }
+
                         {
                             !this.state.visArbeidsoppgaveSkjema ?
                                 <OppfolgingsdialogInfoboks

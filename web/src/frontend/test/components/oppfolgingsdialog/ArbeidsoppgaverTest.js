@@ -64,6 +64,7 @@ describe("Arbeidsoppgaver", () => {
                                              oppfolgingsdialogerHentet
                                              lagreArbeidsoppgave={lagreArbeidsoppgave}
                                              slettArbeidsoppgave={slettArbeidsoppgave}
+                                             arbeidsforhold={arbeidsforhold}
                                              arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />);
         expect(component.find(OppfolgingsdialogInfoboks)).to.have.length(1);
     });

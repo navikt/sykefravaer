@@ -114,7 +114,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster, avkreftLed
         {
             dialogerAvbruttAvMotpartSidenSistInnlogging.length > 0 && <AvbruttPlanNotifikasjonBoksAdvarsel
                 ledetekster={ledetekster}
-                motpartnavn={dialogerAvbruttAvMotpartSidenSistInnlogging[0].arbeidsgiver.navn}
+                motpartnavn={dialogerAvbruttAvMotpartSidenSistInnlogging[0].arbeidsgiver.naermesteLeder.navn}
                 rootUrl={getContextRoot()}
             />
         }

@@ -13,7 +13,7 @@ import {
     sorterArbeidsoppgaverEtterOpprettet,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
-import { getLedetekst, keyValue } from 'digisyfo-npm';
+import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
@@ -88,8 +88,7 @@ class Arbeidsoppgaver extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (!prevState.visArbeidsoppgaveSkjema && this.state.visArbeidsoppgaveSkjema && this.lagreSkjema) {
-            const form = findDOMNode(this.lagreSkjema);
-            window.scrollTo(form, form.getBoundingClientRect().bottom);
+            this.scrollToForm();
         }
     }
 
@@ -119,7 +118,7 @@ class Arbeidsoppgaver extends Component {
 
     scrollToForm() {
         const form = findDOMNode(this.lagreSkjema);
-        window.scrollTo(form, form.getBoundingClientRect().bottom);
+        scrollTo(form, 300);
     }
 
     render() {

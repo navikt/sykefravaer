@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst } from 'digisyfo-npm';
 import Side from '../../sider/Side';
-import DinSykmelding from '../../components/sykmelding/DinSykmeldingABTest';
+import DinSykmelding from '../../components/sykmelding/DinSykmelding';
 import DinSendteSykmelding from '../../components/sykmelding/DinSendteSykmelding';
 import DinBekreftedeSykmelding from '../../components/sykmelding/DinBekreftedeSykmelding';
 import DinAvbrutteSykmelding from '../../components/sykmelding/DinAvbrutteSykmelding';

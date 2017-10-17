@@ -56,7 +56,7 @@ class DinSykmelding extends Component {
             </div>
         </div>);
     }
-};
+}
 
 DinSykmelding.propTypes = {
     sykmelding: sykmeldingPt,

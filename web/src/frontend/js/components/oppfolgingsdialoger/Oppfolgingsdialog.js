@@ -48,6 +48,12 @@ class Oppfolgingsdialog extends Component {
         this.props.settAktivtSteg(1);
     }
 
+    componentDidMount() {
+        if (this.props.oppfolgingsdialogerHentet && !this.props.arbeidsforholdHentet && !this.props.arbeidsforholdHenter) {
+            this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId, this.props.oppfolgingsdialog.oppfoelgingsdialogId, 'arbeidstaker');
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         if (this.props.godkjenner && nextProps.godkjent) {
             this.setState({
@@ -57,12 +63,6 @@ class Oppfolgingsdialog extends Component {
             this.setState({
                 visSamtykke: false,
             });
-        }
-    }
-
-    componentDidMount() {
-        if (this.props.oppfolgingsdialogerHentet && !this.props.arbeidsforholdHentet && !this.props.arbeidsforholdHenter) {
-            this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId, this.props.oppfolgingsdialog.oppfoelgingsdialogId, 'arbeidstaker');
         }
     }
 

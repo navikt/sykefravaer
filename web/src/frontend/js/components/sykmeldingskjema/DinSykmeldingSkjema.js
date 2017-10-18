@@ -79,8 +79,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     getFeilaktigeOpplysninger(_values) {
-        const { skjemaData } = this.props;
-        const values = _values || skjemaData.values;
+        const values = _values || this.props.skjemaData.values;
         const returverdi = {};
         if (values.opplysningeneErRiktige) {
             return returverdi;
@@ -146,19 +145,12 @@ export class DinSykmeldingSkjemaComponent extends Component {
             })}>
             <FeiloppsummeringContainer skjemanavn={DIN_SYKMELDING_SKJEMANAVN} />
             <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel')}</h3>
-            {
-                skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} untouch={untouch} />
-            }
+            <ErOpplysningeneRiktige untouch={untouch} />
             {
                 modus !== modi.AVBRYT && (<div className="blokk">
                     <VelgArbeidssituasjon {...this.props} />
                     {
-                        values.valgtArbeidssituasjon === ARBEIDSTAKER &&
-                            <div className="blokk">
-                                {
-                                    harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} />
-                                }
-                            </div>
+                        values.valgtArbeidssituasjon === ARBEIDSTAKER && harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} />
                     }
                 </div>)
             }

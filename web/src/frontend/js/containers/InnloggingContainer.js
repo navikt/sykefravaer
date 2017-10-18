@@ -26,10 +26,7 @@ export class Innlogging extends Component {
                 <Feilmelding />;
             </Side>);
         }
-        if (erInnlogget === false && !visSmuler) {
-            return <Utlogget />;
-        }
-        if (erInnlogget === false && visSmuler) {
+        if (erInnlogget === false) {
             return (<Side tittel="Du er logget ut!">
                 <Utlogget />;
             </Side>);

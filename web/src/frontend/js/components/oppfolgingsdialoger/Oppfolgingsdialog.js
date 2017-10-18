@@ -15,6 +15,7 @@ import {
 import { getContextRoot } from '../../routers/paths';
 import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
 import ReleasetPlanAT from './releasetplan/ReleasetPlanAT';
+import IngenlederInfoboks from './IngenlederInfoboks';
 import Tiltak from './utfylling/Tiltak';
 
 const inneholderGodkjenninger = (oppfolgingsdialog) => {
@@ -182,6 +183,8 @@ class Oppfolgingsdialog extends Component {
                         lagreTiltak={lagreTiltak}
                         slettTiltak={slettTiltak}
                     />);
+                } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder === null) {
+                    panel = (<IngenlederInfoboks />);
                 } else {
                     panel = (<Godkjenn
                         ledetekster={ledetekster}

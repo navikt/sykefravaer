@@ -1,4 +1,5 @@
 import { finnAktiveOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
+import { finnArbeidsgivereForGyldigeSykmeldinger } from './sykmeldingUtils';
 
 export function getOppfolgingsdialog(oppfolgingsdialoger, oppfolgingsdialogId) {
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
@@ -26,6 +27,12 @@ export const erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver = (oppfolgingsd
     return arbeidsgivere.filter((arbeidsgiver) => {
         return erOppfolgingsdialogOpprettbarMedArbeidsgiver(oppfolgingsdialoger, arbeidsgiver);
     }).length > 0;
+};
+
+export const erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere = (oppfolgingsdialoger, sykmeldinger, naermesteLedere) => {
+    return oppfolgingsdialoger.length === 0 && finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere).filter((arbeidsgiver) => {
+        return arbeidsgiver.harNaermesteLeder;
+    }).length === 0;
 };
 
 export const isEmpty = (array) => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
 import {
     OppfolgingsdialogTeasere,
@@ -14,10 +15,17 @@ import {
     proptypes as oppfolgingProptypes,
     NyNaermestelederInfoboks,
 } from 'oppfolgingsdialog-npm';
-import { Link } from 'react-router';
+import {
+    sykmelding as sykmeldingPt,
+    naermesteLeder as naermesteLederPt,
+} from '../../propTypes';
 import Sidetopp from '../Sidetopp';
-import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
+import {
+    isEmpty,
+    erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere,
+} from '../../utils/oppfolgingsdialogUtils';
 import UnderUtviklingVarsel from './UnderUtviklingVarsel';
+import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
 
 export const OppfolgingsdialogNyDialog = () => {
@@ -41,15 +49,18 @@ export const OppfolgingsdialogNyDialog = () => {
 const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgingsdialoger) => {
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
         return oppfolgingsdialog.arbeidsgiver.forrigeNaermesteLeder &&
+            oppfolgingsdialog.arbeidsgiver.naermesteLeder &&
             new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget).toISOString().split('T')[0] < new Date(oppfolgingsdialog.arbeidsgiver.naermesteLeder.aktivFom).toISOString().split('T')[0];
     })[0];
 };
 
-const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster, avkreftLeder, bekreftetNyNaermesteLeder, bekreftNyNaermesteLeder }) => {
+const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster, avkreftLeder, bekreftetNyNaermesteLeder, bekreftNyNaermesteLeder, sykmeldinger, naermesteLedere }) => {
     let panel;
     const dialogerAvbruttAvMotpartSidenSistInnlogging = finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
     const oppfolgingsdialogMedNyNaermesteLeder = finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder(oppfolgingsdialoger);
-    if (!bekreftetNyNaermesteLeder && oppfolgingsdialogMedNyNaermesteLeder) {
+    if (erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere(oppfolgingsdialoger, sykmeldinger, naermesteLedere)) {
+        panel = (<IngenledereInfoboks />);
+    } else if (!bekreftetNyNaermesteLeder && oppfolgingsdialogMedNyNaermesteLeder) {
         panel = (<NyNaermestelederInfoboks
             ledetekster={ledetekster}
             oppfolgingsdialog={oppfolgingsdialogMedNyNaermesteLeder}
@@ -125,6 +136,8 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster, avkreftLed
 
 Oppfolgingsdialoger.propTypes = {
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
+    sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
+    naermesteLedere: PropTypes.arrayOf(naermesteLederPt),
     ledetekster: keyValue,
     bekreftetNyNaermesteLeder: PropTypes.bool,
     bekreftNyNaermesteLeder: PropTypes.func,

@@ -5,6 +5,8 @@
 @standardfont: 'Source Sans Pro', Arial, Sans-serif;
 @profilfont: @standardfont;
 
+@import "_mixins.less";
+
 @import "@{nodeModulesPath}nav-frontend-skjema-design/less/styles";
 @import "@{nodeModulesPath}nav-frontend-typografi-design/less/styles";
 @import "@{nodeModulesPath}nav-frontend-knapper-design/less/styles";
@@ -50,7 +52,6 @@
 @import "_Daypicker.less";
 @import "_overstyringer-dekorator.less";
 @import "_lenker.less";
-@import "_utils.less";
 @import "_avstander.less";
 @import "_oppfolgingsdialoger.less";
 @import "_dekoratorVarsler.less";
@@ -59,7 +60,8 @@
 @import "_dinSituasjon.less";
 @import "_avbrytDialog.less";
 @import "_illustrertInnhold.less";
-@import "_underUtviklingVarsel.less";
+@import "_video.less";
+@import "_print.less";
 
 @greenLight: #63b282;
 @blueLight: #c3ddf4;
@@ -67,60 +69,12 @@
 @skjermLiten: 30em;
 @skjermMedium: 35em;
 
-.mixin-panel-padding() {
-	padding-left: 1rem; 
-	padding-right: 1rem; 
-
-	@media(min-width: @skjermMini) {
-		padding-left: 2rem; 
-		padding-right: 2rem; 
-	}
-}
-
 .medHjelpetekst {
 	display: flex;
 	position: relative;
 	align-items: flex-start;
 }
 
-.start-container {
-	margin-bottom: 1rem; 
-
-	@media(min-width: 29rem) {
-		display: inline-block;
-		margin-right: 1rem; 	
-	}
-}
-
-@media print { 
-
-	.ikke-print, .hodefot {
-		display: none; 	
-	}
-
-    .panel {
-        border: 1px solid @ikonGraa;
-	}
-
-    .sykmelding-nokkelopplysning, .sykmelding-opplysning {
-        page-break-inside: avoid;
-    }
-
-    .utvidbar[aria-expanded="false"] {
-        display: none;
-    }
-}
-
 p {
 	margin-top: 0;
-}
-
-.typo-syfotittel {
-    font-family: @standardfont;
-    font-size: 1.25em;
-    font-weight: normal;
-}
-
-.iframeVideo {
-	border: 0;
 }

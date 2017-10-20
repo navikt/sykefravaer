@@ -182,6 +182,7 @@ class Arbeidsoppgaver extends Component {
                             <Arbeidsforhold
                                 ledetekster={ledetekster}
                                 arbeidsforhold={arbeidsforhold}
+                                rootUrl={getContextRoot()}
                             />
                         }
 

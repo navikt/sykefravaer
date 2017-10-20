@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import {
     ArbeidsoppgaverNotifikasjonBoksAdvarsel,
+    Arbeidsforhold,
     BRUKERTYPE,
     captitalizeFirstLetter,
     LagreArbeidsoppgaveSkjema,
@@ -18,7 +19,6 @@ import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
-import Arbeidsforhold from './Arbeidsforhold';
 
 export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, aktoerId, oppfolgingsdialog }) => {
     return (
@@ -147,7 +147,9 @@ class Arbeidsoppgaver extends Component {
                     <div>
                         { arbeidsforhold.length > 0 &&
                             <Arbeidsforhold
+                                ledetekster={ledetekster}
                                 arbeidsforhold={arbeidsforhold}
+                                rootUrl={getContextRoot()}
                             />
                         }
 
@@ -178,6 +180,7 @@ class Arbeidsoppgaver extends Component {
 
                         { arbeidsforhold.length > 0 &&
                             <Arbeidsforhold
+                                ledetekster={ledetekster}
                                 arbeidsforhold={arbeidsforhold}
                             />
                         }

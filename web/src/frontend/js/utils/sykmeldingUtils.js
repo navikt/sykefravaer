@@ -36,10 +36,6 @@ export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteL
 };
 
 export const skalViseOppfoelgingsdialogLenke = (sykmeldinger, toggles) => {
-    if (toggles['syfotoggles.oppfoelgingsdialog'] !== 'true') {
-        return false;
-    }
-
     const piloter = toggles['syfotoggles.oppfoelgingsdialog.piloter'] ? toggles['syfotoggles.oppfoelgingsdialog.piloter'].split(',') : [];
     return sykmeldinger.filter((sykmelding) => {
         return sykmelding.mulighetForArbeid.perioder.filter((periode) => {

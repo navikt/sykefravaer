@@ -40,14 +40,6 @@ describe("InnloggingContainer", () => {
             })
         });
 
-        it("Skal returnere hentingFeilet === true hvis bruker.hentingFeilet === true", () => {
-            state.brukerinfo.bruker.hentingFeilet = true,
-            expect(mapStateToProps(state)).to.deep.equal({
-                erInnlogget: true,
-                henter: false,
-                hentingFeilet: true
-            });
-        });
 
     });
 

@@ -15,6 +15,7 @@ import {
     settAktivtSteg,
     hentPdfurler,
     giSamtykke,
+    visSamtykke,
     OppfolgingsdialogInfoboks,
     settDialog,
     avbrytDialog,
@@ -60,6 +61,9 @@ export class OppfolgingsdialogSide extends Component {
                 history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.oppfoelgingsdialogId}/`);
                 window.location.hash = 'arbeidsoppgaver';
             }
+        }
+        if (this.props.godkjenner && nextProps.godkjent) {
+            this.props.visSamtykke(true);
         }
     }
 
@@ -124,6 +128,8 @@ OppfolgingsdialogSide.propTypes = {
     godkjenner: PropTypes.bool,
     godkjent: PropTypes.bool,
     godkjenningFeilet: PropTypes.bool,
+    visSamtykke: PropTypes.func,
+    visSamtykkeSkjema: PropTypes.bool,
     lagrerArbeidsoppgave: PropTypes.bool,
     lagrerTiltak: PropTypes.bool,
     lagretArbeidsoppgave: PropTypes.bool,
@@ -197,6 +203,7 @@ export function mapStateToProps(state, ownProps) {
         godkjenner: state.oppfolgingsdialoger.godkjenner,
         godkjent: state.oppfolgingsdialoger.godkjent,
         godkjenningFeilet: state.oppfolgingsdialoger.godkjenningFeilet,
+        visSamtykkeSkjema: state.samtykke.vis,
         lagrerArbeidsoppgave: state.arbeidsoppgaver.lagrer,
         lagrerTiltak: state.tiltak.lagrer,
         lagretArbeidsoppgave: state.arbeidsoppgaver.lagret,
@@ -246,6 +253,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     settAktivtSteg,
     hentPdfurler,
     giSamtykke,
+    visSamtykke,
     settDialog,
     hentArbeidsforhold,
     avbrytDialog,

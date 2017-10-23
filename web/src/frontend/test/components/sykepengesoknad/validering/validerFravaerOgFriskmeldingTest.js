@@ -130,9 +130,13 @@ describe("validerFravaerOgFriskmelding", () => {
         it("Testcase som feiler i UI", () => {
           values = {"bruktEgenmeldingsdagerFoerLegemeldtFravaer":true,"egenmeldingsperioder":[{},{}]};
           const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-          expect(res.egenmeldingsperioder).to.deep.equal({
-            _error: "Vennligst oppgi minst én periode"
-          })
+          expect(res.egenmeldingsperioder).to.deep.equal([{
+            fom: "Vennligst fyll ut dato",
+            tom: "Vennligst fyll ut dato"
+          }, {
+            fom: "Vennligst fyll ut dato",
+            tom: "Vennligst fyll ut dato"
+          }])
         })
 
         describe("Når values.bruktEgenmeldingsdagerFoerLegemeldtFravaer = true", () => {
@@ -141,18 +145,12 @@ describe("validerFravaerOgFriskmelding", () => {
             });
 
             it("Skal validere egenmeldingsperioder", () => {
-                const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-                expect(res.egenmeldingsperioder).to.deep.equal({
-                    _error: "Vennligst oppgi minst én periode"
-                })
-            });
-
-            it("Skal validere egenmeldingsperioder", () => {
                 values.egenmeldingsperioder = [{}];
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-                expect(res.egenmeldingsperioder).to.deep.equal({
-                    _error: "Vennligst oppgi minst én periode"
-                })
+                expect(res.egenmeldingsperioder).to.deep.equal([{
+                  fom: "Vennligst fyll ut dato",
+                  tom: "Vennligst fyll ut dato"
+                }])
             });
 
             it("Skal validere egenmeldingsperioder dersom man har begynt å fylle ut en egenmeldingsperiode", () => {
@@ -243,13 +241,6 @@ describe("validerFravaerOgFriskmelding", () => {
           expect(res.feriePermisjonEllerUtenlandsopphold).to.be.undefined;
         });
 
-        it("Skal validere at man har lagt til perioder", () => {
-          const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-          expect(res.ferie).to.deep.equal({
-            _error: "Vennligst oppgi minst én periode"
-          })
-        });
-
       });
 
       describe("Dersom svaret er ja og man har krysset av for ferie og fylt ut gjenopptattArbeidFulltUtDato", () => {
@@ -335,6 +326,7 @@ describe("validerFravaerOgFriskmelding", () => {
         beforeEach(() => {
           values.harHattFeriePermisjonEllerUtenlandsopphold = true;
           values.harHattPermisjon = true;
+          values.permisjon = [{}]
         });
 
         it("Skal ikke validere at ferie, permisjon eller utenlandsopphold er avkrysset", () => {
@@ -344,9 +336,10 @@ describe("validerFravaerOgFriskmelding", () => {
 
         it("Skal validere at man har lagt til perioder", () => {
           const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-          expect(res.permisjon).to.deep.equal({
-            _error: "Vennligst oppgi minst én periode"
-          })
+          expect(res.permisjon).to.deep.equal([{
+            fom: "Vennligst fyll ut dato",
+            tom: "Vennligst fyll ut dato"
+          }])
         });
 
         describe("Dersom man har fylt ut gjenopptattArbeidFulltUtDato", () => {
@@ -380,7 +373,7 @@ describe("validerFravaerOgFriskmelding", () => {
       describe("Dersom svaret er ja og man har krysset av for utenlandsopphold", () => {
         beforeEach(() => {
           values.utenlandsopphold = {
-            perioder: [],
+            perioder: [{}],
             soektOmSykepengerIPerioden: null,
           };
           values.harHattFeriePermisjonEllerUtenlandsopphold = true;
@@ -394,9 +387,10 @@ describe("validerFravaerOgFriskmelding", () => {
 
         it("Skal validere at man har lagt til perioder", () => {
           const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-          expect(res.utenlandsopphold.perioder).to.deep.equal({
-            _error: "Vennligst oppgi minst én periode"
-          })
+          expect(res.utenlandsopphold.perioder).to.deep.equal([{
+            fom: "Vennligst fyll ut dato",
+            tom: "Vennligst fyll ut dato"
+          }])
         });
 
         it("Skal validere at man har svart på soektOmSykepengerIPerioden", () => {
@@ -407,6 +401,7 @@ describe("validerFravaerOgFriskmelding", () => {
         it("Skal validere at man har svart på soektOmSykepengerIPerioden når dette spørsmålet er besvart med ja", () => {
           values.utenlandsopphold = {
             soektOmSykepengerIPerioden: true,
+            perioder: [{}],
           };
           const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
           expect(res.utenlandsopphold.soektOmSykepengerIPerioden).to.be.undefined;
@@ -424,6 +419,7 @@ describe("validerFravaerOgFriskmelding", () => {
         it("Skal validere at man har svart på soektOmSykepengerIPerioden når dette spørsmålet er besvart med nei", () => {
           values.utenlandsopphold = {
             soektOmSykepengerIPerioden: false,
+            perioder: [{}],
           };
           const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
           expect(res.utenlandsopphold.soektOmSykepengerIPerioden).to.be.undefined;
@@ -484,8 +480,9 @@ describe("validerFravaerOgFriskmelding", () => {
           values.harHattFeriePermisjonEllerUtenlandsopphold = true;
           values.harHattUtenlandsopphold = true;
           values.harHattFerie = true;
+          values.ferie = [{}]
           values.utenlandsopphold = {
-            perioder: [],
+            perioder: [{}],
             soektOmSykepengerIPerioden: null,
           }
         });
@@ -497,12 +494,14 @@ describe("validerFravaerOgFriskmelding", () => {
 
         it("Skal validere at man har lagt til perioder", () => {
           const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
-          expect(res.ferie).to.deep.equal({
-            _error: "Vennligst oppgi minst én periode"
-          });
-          expect(res.utenlandsopphold.perioder).to.deep.equal({
-            _error: "Vennligst oppgi minst én periode"
-          });
+          expect(res.ferie).to.deep.equal([{
+            fom: "Vennligst fyll ut dato",
+            tom: "Vennligst fyll ut dato"
+          }]);
+          expect(res.utenlandsopphold.perioder).to.deep.equal([{
+            fom: "Vennligst fyll ut dato",
+            tom: "Vennligst fyll ut dato"
+          }]);
         });
 
       });

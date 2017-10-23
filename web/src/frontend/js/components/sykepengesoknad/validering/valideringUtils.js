@@ -55,10 +55,8 @@ export const validerDatoerIPerioder = (perioder, alternativer) => {
 };
 
 export const validerPerioder = (perioder, alternativer) => {
-    if (!harMinstEnPeriode(perioder)) {
-        return {
-            _error: 'Vennligst oppgi minst én periode',
-        };
+    if (!perioder) {
+        return null;
     }
     const datofeil = validerDatoerIPerioder(perioder, alternativer);
     const faktiskeDatofeil = datofeil.filter((feil) => {

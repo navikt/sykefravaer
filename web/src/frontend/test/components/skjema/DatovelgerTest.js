@@ -52,9 +52,9 @@ describe("Datovelger", () => {
     });
 
     describe("validerDatoField", () => {
-        it("Skal returnere undefined hvis dato ikke er sendt inn", () => {
+        it("Skal returnere feilmelding hvis dato ikke er sendt inn", () => {
             const res = validerDatoField();
-            expect(res).to.be.undefined;
+            expect(res).to.equal("Vennligst fyll ut dato")
         });
 
         it("Skal returnere Datoen må være på formatet dd.mm.åååå hvis dato er på feil format", () => {

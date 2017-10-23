@@ -122,7 +122,7 @@ describe("Landingsside", () => {
 
     it("Skal ikke vise lenkeboks til oppfølgingsdialog om det eksisterer minst 1 sykmelding, men pilotbedrifter er ikke oppgitt", () => {
         const dineSykemeldinger = [sykmeldingAktiv];
-        component = shallow(<Landingsside skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={dineSykemeldinger} />);
+        component = shallow(<Landingsside toggles={} skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={dineSykemeldinger} />);
         expect(component.find(LandingssideLenke)).to.have.length(2);
     });
 

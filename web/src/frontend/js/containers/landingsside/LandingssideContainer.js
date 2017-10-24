@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { moteActions } from 'moter-npm';
 import { connect } from 'react-redux';
-import { getLedetekst, hentToggles, togglesPt } from 'digisyfo-npm';
+import { getLedetekst, hentToggles, keyValue } from 'digisyfo-npm';
 import Landingsside from '../../components/landingsside/Landingsside';
 import StrippetSide from '../../sider/StrippetSide';
 import Side from '../../sider/Side';
@@ -70,7 +70,7 @@ export class LandingssideSide extends Component {
 LandingssideSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     henter: PropTypes.bool,
-    toggles: togglesPt,
+    toggles: keyValue,
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     harDialogmote: PropTypes.bool,

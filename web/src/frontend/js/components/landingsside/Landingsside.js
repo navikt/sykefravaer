@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst, togglesPt } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, keyValue } from 'digisyfo-npm';
 import LandingssideLenke from './LandingssideLenke';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../../propTypes';
 import Brodsmuler from '../Brodsmuler';
@@ -96,7 +96,7 @@ Landingsside.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     dineSykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     harDialogmote: PropTypes.bool,
-    toggles: togglesPt,
+    toggles: keyValue,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
 };
 

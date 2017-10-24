@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, keyValue } from 'digisyfo-npm';
+import { getLedetekst, keyValue, hentToggles, togglesPt } from 'digisyfo-npm';
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     lagreArbeidsoppgave,
@@ -21,6 +21,7 @@ import {
     avbrytDialog,
     finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt,
     hentArbeidsforhold,
+    delMedNav as delMedNavFunc,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
@@ -36,7 +37,11 @@ import {
 
 export class OppfolgingsdialogSide extends Component {
     componentWillMount() {
-        this.props.settDialog(this.props.oppfolgingsdialogId);
+        const { oppfolgingsdialogId, toggles } = this.props;
+        this.props.settDialog(oppfolgingsdialogId);
+        if (!toggles.hentet && !toggles.henter) {
+            this.props.hentToggles();
+        }
     }
 
     componentDidMount() {
@@ -117,6 +122,7 @@ export class OppfolgingsdialogSide extends Component {
 
 OppfolgingsdialogSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
+    toggles: togglesPt,
     ledetekster: keyValue,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
@@ -160,24 +166,25 @@ OppfolgingsdialogSide.propTypes = {
     sjekkTilgang: PropTypes.func,
     hentPdfurler: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,
+    delMedNav: PropTypes.func,
     godkjennDialog: PropTypes.func,
     avvisDialog: PropTypes.func,
     sjekkTilgangHenter: PropTypes.bool,
     settAktivtSteg: PropTypes.func,
     oppfolgingsdialogerHenter: PropTypes.bool,
-    settDialog: PropTypes.func,
     avbrytDialog: PropTypes.func,
     arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
     dokument: oppfolgingProptypes.dokumentReducerPt,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     hentet: PropTypes.bool,
+    settDialog: PropTypes.func,
+    hentToggles: PropTypes.func,
 };
 
 export function mapStateToProps(state, ownProps) {
     const oppfolgingsdialogId = ownProps.params.oppfolgingsdialogId;
     const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, oppfolgingsdialogId);
     const virksomhetsnavn = oppfolgingsdialog ? oppfolgingsdialog.virksomhetsnavn : '';
-
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
@@ -217,6 +224,7 @@ export function mapStateToProps(state, ownProps) {
         sletterTiltak: state.tiltak.sletter,
         slettetArbeidsoppgave: state.arbeidsoppgaver.slettet,
         slettetTiltak: state.tiltak.slettet,
+        toggles: state.toggles,
         slettingFeiletArbeidsoppgave: state.arbeidsoppgaver.slettingFeilet,
         slettingFeiletTiltak: state.tiltak.slettingFeilet,
         oppfolgingsdialog,
@@ -226,6 +234,7 @@ export function mapStateToProps(state, ownProps) {
         tilgangSjekket: state.tilgang.hentet,
         navigasjontoggles: state.navigasjontoggles,
         hentet: state.oppfolgingsdialoger.hentet === true && state.tilgang.hentet === true,
+        delmednav: state.delmednav,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -257,6 +266,8 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     settDialog,
     hentArbeidsforhold,
     avbrytDialog,
+    hentToggles,
+    delMedNavFunc,
 })(OppfolgingsdialogSide);
 
 export default OppfolgingsdialogContainer;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, keyValue } from 'digisyfo-npm';
+import { getLedetekst, keyValue, togglesPt } from 'digisyfo-npm';
 import {
     NavigasjonsTopp,
     NavigasjonsBunn,
@@ -85,6 +85,9 @@ class Oppfolgingsdialog extends Component {
             slettArbeidsoppgave,
             oppfolgingsdialogAvbrutt,
             arbeidsforhold,
+            toggles,
+            delMedNavFunc,
+            delmednav,
         } = this.props;
         let panel;
         let disableNavigation = false;
@@ -123,12 +126,15 @@ class Oppfolgingsdialog extends Component {
             disableNavigation = true;
             panel = (<ReleasetPlanAT
                 ledetekster={ledetekster}
+                toggles={toggles}
                 oppfolgingsdialog={oppfolgingsdialog}
                 hentPdfurler={hentPdfurler}
                 dokument={dokument}
                 giSamtykke={giSamtykke}
                 arbeidsforhold={arbeidsforhold}
                 avbrytDialog={avbrytDialog}
+                delMedNavFunc={delMedNavFunc}
+                delmednav={delmednav}
             />);
         } else {
             (() => {
@@ -221,6 +227,9 @@ Oppfolgingsdialog.propTypes = {
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogId: PropTypes.string,
     ledetekster: keyValue,
+    toggles: togglesPt,
+    delMedNavFunc: PropTypes.func,
+    delmednav: oppfolgingProptypes.delmednavPt,
     godkjennDialog: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,
     toggleAvvisPlan: PropTypes.func,

@@ -10,6 +10,7 @@ import {
     tiltakSagas,
     settDialogSagas,
     avbrytdialogSagas,
+    delMedNavSagas,
 } from 'oppfolgingsdialog-npm';
 import arbeidsgiversSykmeldingerSagas from './arbeidsgiversSykmeldingerSagas';
 import brukerinfoSagas from './brukerinfoSagas';
@@ -46,6 +47,7 @@ export default function* rootSaga() {
         svarSagas(),
         avbrytdialogSagas(),
         oppfolgingsdialogerSagas(),
+        delMedNavSagas(),
         nullstillGodkjenningSagas(),
         arbeidsoppgaveSagas(),
         dokumentSagas(),

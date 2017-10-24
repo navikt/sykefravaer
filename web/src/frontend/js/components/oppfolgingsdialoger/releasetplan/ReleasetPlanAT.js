@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { keyValue } from 'digisyfo-npm';
+import { keyValue, togglesPt } from 'digisyfo-npm';
 import {
     BRUKERTYPE,
     ReleasetPlan,
@@ -31,7 +31,7 @@ class ReleasetPlanAT extends Component {
     }
 
     render() {
-        const { ledetekster, oppfolgingsdialog, hentPdfurler, dokument, giSamtykke, avbrytDialog } = this.props;
+        const { ledetekster, oppfolgingsdialog, hentPdfurler, dokument, giSamtykke, avbrytDialog, toggles, delMedNavFunc, delmednav } = this.props;
         if (!this.state.settTvungenGodkjenning && foersteInnloggingSidenGodkjenning(oppfolgingsdialog) && planBleTvangsgodkjent(oppfolgingsdialog)) {
             return (<ArbeidsgiverHarTvangsgodkjent
                 ledetekster={ledetekster}
@@ -43,12 +43,15 @@ class ReleasetPlanAT extends Component {
         }
         return (<ReleasetPlan
             ledetekster={ledetekster}
+            toggles={toggles}
             oppfolgingsdialog={oppfolgingsdialog}
             hentPdfurler={hentPdfurler}
             dokument={dokument}
             giSamtykke={giSamtykke}
             avbrytDialog={avbrytDialog}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
+            delMedNavFunc={delMedNavFunc}
+            delmednav={delmednav}
             rootUrl={`${getContextRoot()}`}
         />);
     }
@@ -58,9 +61,12 @@ ReleasetPlanAT.propTypes = {
     hentPdfurler: PropTypes.func,
     giSamtykke: PropTypes.func,
     avbrytDialog: PropTypes.func,
+    delMedNavFunc: PropTypes.func,
     dokument: oppfolgingProptypes.dokumentReducerPt,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     ledetekster: keyValue,
+    toggles: togglesPt,
+    delmednav: oppfolgingProptypes.delmednavPt,
 };
 
 export default ReleasetPlanAT;

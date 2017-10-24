@@ -144,7 +144,6 @@ class Oppfolgingsdialog extends Component {
             />);
         } else if (inneholderGodkjentPlan(oppfolgingsdialog)) {
             disableNavigation = true;
-            console.log("toggles", toggles);
             panel = (<ReleasetPlanAT
                 ledetekster={ledetekster}
                 toggles={toggles}

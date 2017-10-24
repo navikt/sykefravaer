@@ -49,7 +49,7 @@ function innlogging(state = {}, action) {
     }
 }
 
-function bruker(state = {}, action) {
+function bruker(state = { data: {} }, action) {
     switch (action.type) {
         case actiontyper.HENT_BRUKERINFO_FEILET: {
             return Object.assign({}, state, {

@@ -62,13 +62,7 @@ export const mapStateToProps = (state, ownProps) => {
         }
     }
 
-    let harStrengtFortroligAdresse;
-
-    try {
-        harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
-    } catch (e) {
-        harStrengtFortroligAdresse = false;
-    }
+    const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse
 
     return {
         skjemaData: state.form.dinSykmeldingSkjema,

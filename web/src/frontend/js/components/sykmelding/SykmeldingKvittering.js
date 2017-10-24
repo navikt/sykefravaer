@@ -163,17 +163,6 @@ const SykmeldingKvittering = (props) => {
             })()
         }
         <LenkeTilDineSykmeldinger />
-        <div className="panel">
-            <h2 className="panel__tittel">Hjelp oss å bli bedre</h2>
-            <p>Dette er en tjeneste som fortsatt er under utvikling. Gi oss tilbakemelding slik at vi kan bli bedre!</p>
-            <p className="knapperad">
-                <a
-                    href="https://www.survey-xact.no/LinkCollector?key=5U5KSNh43P9K"
-                    className="rammeknapp rammeknapp--mini"
-                    target="_blank"
-                    rel="noopener noreferrer">Gi tilbakemelding</a>
-            </p>
-        </div>
     </div>);
 };
 

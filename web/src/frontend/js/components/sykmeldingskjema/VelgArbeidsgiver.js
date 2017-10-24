@@ -94,12 +94,8 @@ export const RendreVelgArbeidsgiver = (props) => {
     </div>);
 };
 
-RendreVelgArbeidsgiver.propTypes = {
-    skjemaData: PropTypes.shape({}),
-};
-
 const VelgArbeidsgiver = (props) => {
-    const { arbeidsgivere, sykmelding, skjemaData } = props;
+    const { arbeidsgivere, sykmelding } = props;
 
     return (<Field
         spoersmal={getLedetekst('send-til-arbeidsgiver.velg-arbeidsgiver.spoersmaal')}
@@ -111,14 +107,12 @@ const VelgArbeidsgiver = (props) => {
             })[0];
         }}
         sykmelding={sykmelding}
-        component={RendreVelgArbeidsgiver}
-        skjemaData={skjemaData} />);
+        component={RendreVelgArbeidsgiver} />);
 };
 
 VelgArbeidsgiver.propTypes = {
     arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
     sykmelding: sykmeldingPt,
-    skjemaData: PropTypes.shape({}),
 };
 
 export default VelgArbeidsgiver;

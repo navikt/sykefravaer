@@ -52,7 +52,7 @@ class Side extends Component {
                 { this.state.visSpinnerIDom && <div className="side__spinner">
                     <AppSpinner />
                 </div> }
-                <div className={begrenset ? 'side__innhold side__innhold--begrenset' : 'side__innhold'}>
+                <div className={begrenset ? 'side__innhold side__innhold--begrenset js-begrensning' : 'side__innhold'}>
                     { begrenset && <Brodsmuler brodsmuler={brodsmuler} /> }
                     <InnloggingContainer>
                         {children}

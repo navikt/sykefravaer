@@ -23,6 +23,9 @@ describe("DineOppgaverContainer", () => {
 
         beforeEach(() => {
             clock = sinon.useFakeTimers(1485524800000); // in a distant future in a galaxy far, far away
+            window.dataLayer = {
+                push: () => {}
+            }
             state = {
                 dineSykmeldinger: {
                     data: [{
@@ -208,12 +211,12 @@ describe("DineOppgaverContainer", () => {
 
         it("Skal vise null hvis visOppgaver === false", () => {
             let component = shallow(<DineOppgaver sykmeldingerHentet hendelserHentet visOppgaver={false}  />);
-            expect(component.html()).to.be.null;
+            expect(component.html()).to.equal('');
         });
 
         describe("Hvis du har oppgaver", () => {
             beforeEach(() => {
-                component = shallow(<DineOppgaver sykmeldingerHentet hendelserHentet visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{}, {}]} />);
+                component = mount(<DineOppgaver sykmeldingerHentet hendelserHentet visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{}, {}]} />);
             });
 
             it("Skal vise tittel", () => {

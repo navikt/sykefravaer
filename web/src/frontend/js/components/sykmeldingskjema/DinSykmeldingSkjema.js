@@ -79,8 +79,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     getFeilaktigeOpplysninger(_values) {
-        const { skjemaData } = this.props;
-        const values = _values || skjemaData.values;
+        const values = _values || this.props.skjemaData.values;
         const returverdi = {};
         if (values.opplysningeneErRiktige) {
             return returverdi;
@@ -94,13 +93,12 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     avbryt(sykmeldingId, feilaktigeOpplysninger) {
-        this.props.registrerInnsending();
         this.props.avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger);
     }
 
     handleSubmit(values) {
         const modus = getSkjemaModus(values, this.props.harStrengtFortroligAdresse);
-        const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding, registrerInnsending } = this.props;
+        const { setOpplysningeneErRiktige, setFeilaktigOpplysning, setArbeidssituasjon, setArbeidsgiver, sykmelding } = this.props;
 
         const feilaktigeOpplysninger = values.feilaktigeOpplysninger;
         feilaktigeOpplysninger.forEach((o, i) => {
@@ -113,14 +111,12 @@ export class DinSykmeldingSkjemaComponent extends Component {
         switch (modus) {
             case modi.SEND_MED_NAERMESTE_LEDER:
             case modi.SEND: {
-                registrerInnsending();
                 const feilaktigeOpplysningerParam = this.getFeilaktigeOpplysninger(values);
                 this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id,
                     values.valgtArbeidsgiver.orgnummer, feilaktigeOpplysningerParam, values.beOmNyNaermesteLeder);
                 return;
             }
             case modi.BEKREFT: {
-                registrerInnsending();
                 const feilaktigeOpplysningerParam = this.getFeilaktigeOpplysninger(values);
                 this.props.bekreftSykmelding(sykmelding.id, values.valgtArbeidssituasjon, feilaktigeOpplysningerParam);
                 return;
@@ -149,19 +145,12 @@ export class DinSykmeldingSkjemaComponent extends Component {
             })}>
             <FeiloppsummeringContainer skjemanavn={DIN_SYKMELDING_SKJEMANAVN} />
             <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel')}</h3>
-            {
-                skjemaData && <ErOpplysningeneRiktige skjemaData={skjemaData} untouch={untouch} />
-            }
+            <ErOpplysningeneRiktige untouch={untouch} />
             {
                 modus !== modi.AVBRYT && (<div className="blokk">
                     <VelgArbeidssituasjon {...this.props} />
                     {
-                        values.valgtArbeidssituasjon === ARBEIDSTAKER &&
-                            <div className="blokk">
-                                {
-                                    harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} />
-                                }
-                            </div>
+                        values.valgtArbeidssituasjon === ARBEIDSTAKER && harStrengtFortroligAdresse && <StrengtFortroligInfo sykmeldingId={sykmelding.id} />
                     }
                 </div>)
             }
@@ -258,7 +247,6 @@ DinSykmeldingSkjemaComponent.propTypes = {
     erEldsteNyeSykmelding: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     reset: PropTypes.func,
-    registrerInnsending: PropTypes.func,
 };
 
 export const validate = (values, props = {}) => {

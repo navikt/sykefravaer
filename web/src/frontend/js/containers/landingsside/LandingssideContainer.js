@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { moteActions } from 'moter-npm';
 import { connect } from 'react-redux';
-import { getLedetekst, hentToggles, keyValue } from 'digisyfo-npm';
+import { getLedetekst, hentToggles, togglesPt } from 'digisyfo-npm';
 import Landingsside from '../../components/landingsside/Landingsside';
 import StrippetSide from '../../sider/StrippetSide';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
+import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, } from '../../propTypes';
 import { hentSykepengesoknader } from '../../actions/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../../actions/ledere_actions';
@@ -70,7 +70,7 @@ export class LandingssideSide extends Component {
 LandingssideSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     henter: PropTypes.bool,
-    toggles: keyValue,
+    toggles: togglesPt,
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     harDialogmote: PropTypes.bool,

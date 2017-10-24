@@ -20,6 +20,7 @@ import {
     avbrytdialogReducer,
     arbeidsforhold,
     nyNaermesteLeder,
+    delmednav,
 } from 'oppfolgingsdialog-npm';
 import AppRouter from './routers/AppRouter';
 import dineSykmeldinger from './reducers/dineSykmeldinger';
@@ -63,6 +64,7 @@ const rootReducer = combineReducers({
     svar,
     sykepengesoknader,
     toggles,
+    delmednav,
     tidslinjer,
     tilgang,
     tiltak,

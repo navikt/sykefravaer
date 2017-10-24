@@ -120,21 +120,21 @@ describe("Landingsside", () => {
         expect(component.find(LandingssideLenke)).to.have.length(2);
     });
 
-    it("Skal ikke vise lenkeboks til oppfølgingsdialog om vi har oppfolgingsdialog togglet pa og det eksisterer minst 1 sykmelding, men pilotbedrifter er ikke oppgitt", () => {
+    it("Skal ikke vise lenkeboks til oppfølgingsdialog om det eksisterer minst 1 sykmelding, men pilotbedrifter er ikke oppgitt", () => {
         const dineSykemeldinger = [sykmeldingAktiv];
-        component = shallow(<Landingsside toggles={{"syfotoggles.oppfoelgingsdialog": "true"}} skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={dineSykemeldinger} />);
+        component = shallow(<Landingsside toggles={{}} skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={dineSykemeldinger} />);
         expect(component.find(LandingssideLenke)).to.have.length(2);
     });
 
-    it("Skal ikke vise lenkeboks til oppfølgingsdialog om vi har oppfolgingsdialog togglet pa og det eksisterer minst 1 sykmelding, men virksomhet er ikke pilot", () => {
+    it("Skal ikke vise lenkeboks til oppfølgingsdialog om det eksisterer minst 1 sykmelding, men virksomhet er ikke pilot", () => {
         const dineSykemeldinger = [sykmeldingAktiv];
-        component = shallow(<Landingsside toggles={{"syfotoggles.oppfoelgingsdialog": "true", "syfotoggles.oppfoelgingsdialog.piloter" : "***REMOVED***"}} skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={dineSykemeldinger} />);
+        component = shallow(<Landingsside toggles={{"syfotoggles.oppfoelgingsdialog.piloter" : "***REMOVED***"}} skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={dineSykemeldinger} />);
         expect(component.find(LandingssideLenke)).to.have.length(2);
     });
 
-    it("Skal vise lenkeboks til oppfølgingsdialog om vi har oppfolgingsdialog togglet pa og det eksisterer minst 1 sykmelding og virksomhet er pilot", () => {
+    it("Skal vise lenkeboks til oppfølgingsdialog om det eksisterer minst 1 sykmelding og virksomhet er pilot", () => {
         const dineSykemeldinger = [sykmeldingAktiv];
-        component = shallow(<Landingsside toggles={{"syfotoggles.oppfoelgingsdialog": "true", "syfotoggles.oppfoelgingsdialog.piloter" : "123456789"}} skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={dineSykemeldinger} />);
+        component = shallow(<Landingsside toggles={{"syfotoggles.oppfoelgingsdialog.piloter" : "123456789"}} skjulVarsel={true} harDialogmote={false} visOppfoelgingsdialog={true} dineSykmeldinger={dineSykemeldinger} />);
         expect(component.find(LandingssideLenke)).to.have.length(3);
     });
 

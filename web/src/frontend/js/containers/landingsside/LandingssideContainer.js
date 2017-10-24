@@ -8,7 +8,7 @@ import StrippetSide from '../../sider/StrippetSide';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, } from '../../propTypes';
+import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
 import { hentSykepengesoknader } from '../../actions/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../../actions/ledere_actions';

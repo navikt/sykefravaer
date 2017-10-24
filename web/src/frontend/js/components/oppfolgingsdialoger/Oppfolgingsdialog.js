@@ -88,6 +88,7 @@ class Oppfolgingsdialog extends Component {
             toggles,
             delMedNavFunc,
             delmednav,
+            oppfolgingsdialoger,
         } = this.props;
         let panel;
         let disableNavigation = false;
@@ -135,6 +136,7 @@ class Oppfolgingsdialog extends Component {
                 avbrytDialog={avbrytDialog}
                 delMedNavFunc={delMedNavFunc}
                 delmednav={delmednav}
+                oppfolgingsdialoger={oppfolgingsdialoger}
             />);
         } else {
             (() => {
@@ -247,6 +249,7 @@ Oppfolgingsdialog.propTypes = {
     arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
+    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
 };
 
 export default Oppfolgingsdialog;

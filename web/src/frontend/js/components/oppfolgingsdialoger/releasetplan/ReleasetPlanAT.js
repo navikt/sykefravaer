@@ -31,7 +31,7 @@ class ReleasetPlanAT extends Component {
     }
 
     render() {
-        const { ledetekster, oppfolgingsdialog, hentPdfurler, dokument, giSamtykke, avbrytDialog, toggles, delMedNavFunc, delmednav } = this.props;
+        const { ledetekster, oppfolgingsdialog, hentPdfurler, dokument, giSamtykke, avbrytDialog, toggles, delMedNavFunc, delmednav, oppfolgingsdialoger } = this.props;
         if (!this.state.settTvungenGodkjenning && foersteInnloggingSidenGodkjenning(oppfolgingsdialog) && planBleTvangsgodkjent(oppfolgingsdialog)) {
             return (<ArbeidsgiverHarTvangsgodkjent
                 ledetekster={ledetekster}
@@ -52,6 +52,7 @@ class ReleasetPlanAT extends Component {
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
             delMedNavFunc={delMedNavFunc}
             delmednav={delmednav}
+            oppfolgingsdialoger={oppfolgingsdialoger}
             rootUrl={`${getContextRoot()}`}
         />);
     }
@@ -67,6 +68,7 @@ ReleasetPlanAT.propTypes = {
     ledetekster: keyValue,
     toggles: togglesPt,
     delmednav: oppfolgingProptypes.delmednavPt,
+    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
 };
 
 export default ReleasetPlanAT;

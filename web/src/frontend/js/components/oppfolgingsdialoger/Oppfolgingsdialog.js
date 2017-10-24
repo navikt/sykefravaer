@@ -33,9 +33,7 @@ const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
 class Oppfolgingsdialog extends Component {
     constructor() {
         super();
-
         this.state = {
-            visSamtykke: false,
             visAvvisPlanKvittering: false,
             begrunnelse: null,
         };
@@ -44,24 +42,6 @@ class Oppfolgingsdialog extends Component {
 
     componentWillMount() {
         this.props.settAktivtSteg(1);
-    }
-
-    componentDidMount() {
-        if (this.props.oppfolgingsdialogerHentet && !this.props.arbeidsforholdHentet && !this.props.arbeidsforholdHenter) {
-            this.props.hentArbeidsforhold(this.props.oppfolgingsdialog.arbeidstaker.aktoerId, this.props.oppfolgingsdialog.oppfoelgingsdialogId, 'arbeidstaker');
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.godkjenner && nextProps.godkjent) {
-            this.setState({
-                visSamtykke: true,
-            });
-        } else {
-            this.setState({
-                visSamtykke: false,
-            });
-        }
     }
 
     visAvvisPlanKvittering(vis, begrunnelse) {
@@ -85,7 +65,6 @@ class Oppfolgingsdialog extends Component {
             slettetTiltak,
             slettingFeiletArbeidsoppgave,
             slettingFeiletTiltak,
-            oppfolgingsdialogerHentet,
             oppfolgingsdialog,
             oppfolgingsdialogId,
             ledetekster,
@@ -95,6 +74,7 @@ class Oppfolgingsdialog extends Component {
             godkjennDialog,
             hentPdfurler,
             giSamtykke,
+            visSamtykkeSkjema,
             navigasjontoggles,
             toggleAvvisPlan,
             nullstillGodkjenning,
@@ -120,7 +100,7 @@ class Oppfolgingsdialog extends Component {
                 visAvvisPlanKvittering={this.visAvvisPlanKvittering}
                 arbeidsforhold={arbeidsforhold}
             />);
-        } else if (this.state.visSamtykke && oppfolgingsdialog.arbeidstaker.samtykke === null) {
+        } else if (visSamtykkeSkjema && oppfolgingsdialog.arbeidstaker.samtykke === null) {
             disableNavigation = true;
             panel = (<Samtykke
                 sendSamtykke={giSamtykke}
@@ -166,7 +146,6 @@ class Oppfolgingsdialog extends Component {
                         slettet={slettetArbeidsoppgave}
                         lagringFeilet={lagringFeiletArbeidsoppgave}
                         slettingFeilet={slettingFeiletArbeidsoppgave}
-                        oppfolgingsdialogerHentet={oppfolgingsdialogerHentet}
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
                         oppfolgingsdialogId={oppfolgingsdialogId}
@@ -182,7 +161,6 @@ class Oppfolgingsdialog extends Component {
                         slettet={slettetTiltak}
                         lagringFeilet={lagringFeiletTiltak}
                         slettingFeilet={slettingFeiletTiltak}
-                        oppfolgingsdialogerHentet={oppfolgingsdialogerHentet}
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
                         oppfolgingsdialogId={oppfolgingsdialogId}
@@ -234,8 +212,6 @@ class Oppfolgingsdialog extends Component {
 }
 
 Oppfolgingsdialog.propTypes = {
-    godkjenner: PropTypes.bool,
-    godkjent: PropTypes.bool,
     lagrerArbeidsoppgave: PropTypes.bool,
     lagrerTiltak: PropTypes.bool,
     lagretArbeidsoppgave: PropTypes.bool,
@@ -248,7 +224,6 @@ Oppfolgingsdialog.propTypes = {
     slettetTiltak: PropTypes.bool,
     slettingFeiletArbeidsoppgave: PropTypes.bool,
     slettingFeiletTiltak: PropTypes.bool,
-    oppfolgingsdialogerHentet: PropTypes.bool,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogId: PropTypes.string,
     ledetekster: keyValue,
@@ -260,6 +235,7 @@ Oppfolgingsdialog.propTypes = {
     toggleAvvisPlan: PropTypes.func,
     hentPdfurler: PropTypes.func,
     giSamtykke: PropTypes.func,
+    visSamtykkeSkjema: PropTypes.bool,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
     lagreTiltak: PropTypes.func,
@@ -268,10 +244,7 @@ Oppfolgingsdialog.propTypes = {
     avvisDialog: PropTypes.func,
     avbrytDialog: PropTypes.func,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
-    hentArbeidsforhold: PropTypes.func,
     arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
-    arbeidsforholdHenter: PropTypes.bool,
-    arbeidsforholdHentet: PropTypes.bool,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
 };

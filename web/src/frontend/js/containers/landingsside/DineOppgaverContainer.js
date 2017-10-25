@@ -8,6 +8,7 @@ import { Experiment, Variant } from 'react-ab';
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     proptypes as oppfolgingProptypes,
+    finnNyesteGodkjenning
 }
     from 'oppfolgingsdialog-npm';
 import { NY as NY_SYKMELDING } from '../../enums/sykmeldingstatuser';
@@ -187,11 +188,11 @@ export const mapStateToProps = (state) => {
 
     const avventendeGodkjenninger = state.oppfolgingsdialoger.data
         .filter((plan) => {
-            return plan.godkjenninger.length > 0 && plan.aktoerId !== plan.godkjenninger.godkjentAvAktoerId;
+            return plan.godkjenninger.length > 0 && plan.aktoerId !== finnNyesteGodkjenning(plan.godkjenninger).godkjentAvAktoerId && finnNyesteGodkjenning(plan.godkjenninger).godkjent;
         });
     const nyePlaner = state.oppfolgingsdialoger.data
         .filter((plan) => {
-            return plan.arbeidstaker.sistInnlogget !== null;
+            return plan.arbeidstaker.sistInnlogget === null;
         });
 
     const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null || avventendeGodkjenninger.length > 0 || nyePlaner.length > 0;

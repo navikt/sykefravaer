@@ -49,6 +49,8 @@ Skjema.propTypes = {
     sykmeldingId: PropTypes.string,
     skalHenteArbeidsgivere: PropTypes.bool,
     hentAktuelleArbeidsgivere: PropTypes.func,
+    brukerinfoHentet: PropTypes.bool,
+    hentBrukerinfo: PropTypes.func,
 };
 
 export const mapStateToProps = (state, ownProps) => {
@@ -62,7 +64,7 @@ export const mapStateToProps = (state, ownProps) => {
         }
     }
 
-    const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse
+    const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
 
     return {
         skjemaData: state.form.dinSykmeldingSkjema,
@@ -79,7 +81,7 @@ export const mapStateToProps = (state, ownProps) => {
         hentingFeilet: state.arbeidsgivere.hentingFeilet || state.brukerinfo.bruker.hentingFeilet || false,
         henter: state.vedlikehold.henter,
         vedlikehold: state.vedlikehold.data.vedlikehold,
-        skalHenteArbeidsgivere: state.arbeidsgivere.sykmeldingId !== sykmeldingId,
+        skalHenteArbeidsgivere: state.arbeidsgivere.sykmeldingId !== sykmeldingId && !harStrengtFortroligAdresse,
         brukerinfoHentet: state.brukerinfo.bruker.hentet === true,
     };
 };

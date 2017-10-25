@@ -5,7 +5,10 @@ import { getLedetekst } from 'digisyfo-npm';
 import VelgArbeidsgiver from '../../components/sykmeldingskjema/VelgArbeidsgiver';
 
 export const VelgArbeidsgiverWrapper = (props) => {
-    const { henter } = props;
+    const { henter, vis } = props;
+    if (!vis) {
+        return null;
+    }
     if (henter) {
         return <p className="hovedsporsmal__tilleggssporsmal">Vent litt mens vi henter dine arbeidsgivere...</p>;
     }
@@ -14,6 +17,7 @@ export const VelgArbeidsgiverWrapper = (props) => {
 
 VelgArbeidsgiverWrapper.propTypes = {
     henter: PropTypes.bool,
+    vis: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {
@@ -25,6 +29,7 @@ export const mapStateToProps = (state) => {
     return {
         arbeidsgivere,
         henter: state.arbeidsgivere.henter,
+        vis: !state.brukerinfo.bruker.data.strengtFortroligAdresse,
     };
 };
 

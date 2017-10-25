@@ -25,7 +25,6 @@ describe("LandingssideContainer", () => {
                 },
                 toggles: {
                     data: {
-                        'syfotoggles.oppfoelgingsdialog': 'true',
                     }
                 },
                 sykepengesoknader: {

@@ -10,18 +10,17 @@ describe("valideringUtils", () => {
 
     describe("validerPerioder", () => {
 
-        it("Skal klage hvis det ikke finnes perioder", () => {
+        it("Skal returnere null hvis det ikke finnes perioder", () => {
             const res = utils.validerPerioder();
-            expect(res).to.deep.equal({
-                _error: 'Vennligst oppgi minst én periode'
-            })
+            expect(res).to.be.null;
         });
 
         it("Skal klage hvis det finnes tomme perioder", () => {
             const res = utils.validerPerioder([{}]);
-            expect(res).to.deep.equal({
-                _error: 'Vennligst oppgi minst én periode'
-            }) 
+            expect(res).to.deep.equal([{
+                fom: 'Vennligst fyll ut dato',
+                tom: 'Vennligst fyll ut dato'
+            }]) 
         });
 
         it("Skal klage hvis det er oppgitt kun én dato", () => {

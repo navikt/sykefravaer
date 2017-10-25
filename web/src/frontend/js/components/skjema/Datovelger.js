@@ -149,7 +149,7 @@ export const validerPeriode = (input, alternativer) => {
 
 export const validerDatoField = (input, alternativer) => {
     if (!input) {
-        return undefined;
+        return 'Vennligst fyll ut dato';
     } else if (!erGyldigDatoformat(input)) {
         return 'Datoen må være på formatet dd.mm.åååå';
     } else if (!erGyldigDato(input)) {

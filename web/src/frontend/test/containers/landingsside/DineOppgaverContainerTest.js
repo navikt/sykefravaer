@@ -52,7 +52,11 @@ describe("DineOppgaverContainer", () => {
                 }, 
                 mote: {
                     data: null
-                }
+                },
+                oppfolgingsdialoger: {
+                    data: [],
+                    hentet: true,
+                },
             };
         }); 
 
@@ -204,19 +208,18 @@ describe("DineOppgaverContainer", () => {
                 'dine-oppgaver.sykmeldinger.en-sykmelding': "Du har 1 ny sykmelding",
                 'dine-oppgaver.sykmeldinger.flere-sykmeldinger': "Du har %ANTALL% nye sykmeldinger",
                 'dine-oppgaver.mote.svar': "Svar på NAVs spørsmål om dialogmøte",
-                'dine-oppgaver.mote.svar': "Svar på NAVs spørsmål om dialogmøte",
                 'dine-oppgaver.aktivitetskrav': "Les hva du må gjøre for å innfri aktivitetskravet"
             });
         });
 
         it("Skal vise null hvis visOppgaver === false", () => {
-            let component = shallow(<DineOppgaver sykmeldingerHentet hendelserHentet visOppgaver={false}  />);
+            let component = shallow(<DineOppgaver oppfolgingsdialogerHentet sykmeldingerHentet hendelserHentet visOppgaver={false}  />);
             expect(component.html()).to.equal('');
         });
 
         describe("Hvis du har oppgaver", () => {
             beforeEach(() => {
-                component = mount(<DineOppgaver sykmeldingerHentet hendelserHentet visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{}, {}]} />);
+                component = mount(<DineOppgaver oppfolgingsdialogerHentet sykmeldingerHentet hendelserHentet visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{}, {}]} avventendeGodkjenninger={[]} nyePlaner={[]} />);
             });
 
             it("Skal vise tittel", () => {
@@ -224,43 +227,43 @@ describe("DineOppgaverContainer", () => {
             });
 
             it("Skal vise en lenke til din sykepengesoknad hvis det er én søknad", () => {
-                component = mount(<DineOppgaver sykmeldingerHentet hendelserHentet visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{}, {}]} />);
+                component = mount(<DineOppgaver sykmeldingerHentet oppfolgingsdialogerHentet hendelserHentet visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{}, {}]} avventendeGodkjenninger={[]} nyePlaner={[]} />);
                 expect(component.find(Link).at(1).prop("to")).to.equal("/sykefravaer/soknader/1");
                 expect(component.find(Link).at(1).text()).to.equal("Du har 1 ny søknad");
             });
 
             it("Skal vise en lenke til dine sykepengesoknader hvis det er flere søknader", () => {
-                component = mount(<DineOppgaver sykmeldingerHentet hendelserHentet visOppgaver={true} sykepengesoknader={[{id: "1"}, {}]} sykmeldinger={[{}, {}]} />);
+                component = mount(<DineOppgaver sykmeldingerHentet oppfolgingsdialogerHentet hendelserHentet visOppgaver={true} sykepengesoknader={[{id: "1"}, {}]} sykmeldinger={[{}, {}]} avventendeGodkjenninger={[]} nyePlaner={[]} />);
                 expect(component.find(Link).at(1).prop("to")).to.equal("/sykefravaer/soknader");
                 expect(component.find(Link).at(1).text()).to.equal("Du har 2 nye søknader");
             });
 
             it("Skal vise en lenke til din sykmelding hvis det er én søknad", () => {
-                component = mount(<DineOppgaver sykmeldingerHentet hendelserHentet visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{id: 1}]} />);
+                component = mount(<DineOppgaver sykmeldingerHentet oppfolgingsdialogerHentet hendelserHentet visOppgaver={true} sykepengesoknader={[{id: "1"}]} sykmeldinger={[{id: 1}]} avventendeGodkjenninger={[]} nyePlaner={[]} />);
                 expect(component.find(Link).at(0).prop("to")).to.equal("/sykefravaer/sykmeldinger/1");
                 expect(component.find(Link).at(0).text()).to.equal("Du har 1 ny sykmelding");
             });
 
             it("Skal vise en lenke til dine sykmeldinger hvis det er flere sykmeldinger", () => {
-                component = mount(<DineOppgaver sykmeldingerHentet hendelserHentet visOppgaver={true} sykepengesoknader={[{id: "1"}, {}]} sykmeldinger={[{}, {}]} />);
+                component = mount(<DineOppgaver sykmeldingerHentet oppfolgingsdialogerHentet hendelserHentet visOppgaver={true} sykepengesoknader={[{id: "1"}, {}]} sykmeldinger={[{}, {}]} avventendeGodkjenninger={[]} nyePlaner={[]} />);
                 expect(component.find(Link).at(0).prop("to")).to.equal("/sykefravaer/sykmeldinger");
                 expect(component.find(Link).at(0).text()).to.equal("Du har 2 nye sykmeldinger");
             });
 
             it("Skal vise en lenke til møte hvis møte = TRENGER_SVAR", () => {
-                component = mount(<DineOppgaver sykmeldingerHentet hendelserHentet visOppgaver={true} mote="TRENGER_SVAR" />);
+                component = mount(<DineOppgaver sykmeldingerHentet oppfolgingsdialogerHentet hendelserHentet visOppgaver={true} mote="TRENGER_SVAR" avventendeGodkjenninger={[]} nyePlaner={[]} />);
                 expect(component.find(Link).at(0).prop("to")).to.equal("/sykefravaer/dialogmote");
                 expect(component.find(Link).at(0).text()).to.equal("Svar på NAVs spørsmål om dialogmøte");
             });
 
             it("Skal vise lenke til aktivitetskrav hvis det er kommet et nytt varsel'", () => {
-                component = mount(<DineOppgaver sykmeldingerHentet hendelserHentet visOppgaver={true} visAktivitetskrav mote={null} />);
+                component = mount(<DineOppgaver sykmeldingerHentet oppfolgingsdialogerHentet hendelserHentet visOppgaver={true} visAktivitetskrav mote={null} avventendeGodkjenninger={[]} nyePlaner={[]} />);
                 expect(component.find(Link).at(0).prop("to")).to.equal('/sykefravaer/aktivitetsplikt/');
                 expect(component.find(Link).at(0).text()).to.equal("Les hva du må gjøre for å innfri aktivitetskravet");
             });
 
             it("Skal ikke vise lenke til aktivitetskrav hvis det er kommet et nytt varsel'", () => {
-                component = mount(<DineOppgaver sykmeldingerHentet hendelserHentet visOppgaver={true} mote={null} />);
+                component = mount(<DineOppgaver sykmeldingerHentet oppfolgingsdialogerHentet hendelserHentet visOppgaver={true} mote={null} avventendeGodkjenninger={[]} nyePlaner={[]} />);
                 expect(component.find(Link)).to.have.length(0);
             });
 

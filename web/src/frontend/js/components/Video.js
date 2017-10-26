@@ -6,7 +6,7 @@ let settStorrelse;
 const getSidebredde = () => {
     const s = document.getElementsByClassName('js-begrensning')[0];
     const style = window.getComputedStyle(s);
-    return parseInt(style.width, 10) - parseInt(style.paddingLeft, 10) - parseInt(style.paddingRight, 20);
+    return parseInt(style.width, 10) - parseInt(style.paddingLeft, 10) - parseInt(style.paddingRight, 10);
 };
 
 class Video extends Component {

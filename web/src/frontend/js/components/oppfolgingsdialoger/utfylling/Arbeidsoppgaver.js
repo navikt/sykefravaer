@@ -69,6 +69,7 @@ class Arbeidsoppgaver extends Component {
         this.state = {
             nyArbeidsoppgave: false,
             oppdatertArbeidsoppgave: false,
+            visArbeidsforhold: false,
         };
         this.sendLagreArbeidsoppgave = this.sendLagreArbeidsoppgave.bind(this);
         this.sendSlettArbeidsoppgave = this.sendSlettArbeidsoppgave.bind(this);
@@ -113,6 +114,7 @@ class Arbeidsoppgaver extends Component {
     toggleArbeidsoppgaveSkjema() {
         this.setState({
             visArbeidsoppgaveSkjema: !this.state.visArbeidsoppgaveSkjema,
+            visArbeidsforhold: !this.state.visArbeidsforhold,
         });
     }
 
@@ -145,7 +147,7 @@ class Arbeidsoppgaver extends Component {
                 }
                 return isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                     <div>
-                        { arbeidsforhold.length > 0 &&
+                        { arbeidsforhold.length > 0 && this.state.visArbeidsforhold &&
                             <Arbeidsforhold
                                 tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
                                 ledetekster={ledetekster}
@@ -153,7 +155,6 @@ class Arbeidsoppgaver extends Component {
                                 rootUrl={getContextRoot()}
                             />
                         }
-
                         {
                             !this.state.visArbeidsoppgaveSkjema ?
                                 <OppfolgingsdialogInfoboks

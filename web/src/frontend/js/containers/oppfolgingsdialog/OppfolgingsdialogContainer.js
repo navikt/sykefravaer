@@ -54,7 +54,7 @@ export class OppfolgingsdialogSide extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet && !this.props.arbeidsforholdHentet && !this.props.arbeidsforholdHenter) {
+        if ((this.props.oppfolgingsdialoger || (!this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet)) && !this.props.arbeidsforholdHentet && !this.props.arbeidsforholdHenter && nextProps.oppfolgingsdialog) {
             this.props.hentArbeidsforhold(nextProps.oppfolgingsdialog.arbeidstaker.aktoerId, nextProps.oppfolgingsdialog.oppfoelgingsdialogId, 'arbeidstaker');
         }
         if (!this.props.oppfolgingsdialogAvbrutt && nextProps.oppfolgingsdialogAvbrutt) {

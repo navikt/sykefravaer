@@ -147,6 +147,7 @@ class Arbeidsoppgaver extends Component {
                     <div>
                         { arbeidsforhold.length > 0 &&
                             <Arbeidsforhold
+                                tekst={getLedetekst('oppfolgingsdialog.arbeidsgiver.stilling.tekst')}
                                 ledetekster={ledetekster}
                                 arbeidsforhold={arbeidsforhold}
                                 rootUrl={getContextRoot()}
@@ -180,6 +181,7 @@ class Arbeidsoppgaver extends Component {
 
                         { arbeidsforhold.length > 0 &&
                             <Arbeidsforhold
+                                tekst={getLedetekst('oppfolgingsdialog.arbeidsgiver.stilling.tekst')}
                                 ledetekster={ledetekster}
                                 arbeidsforhold={arbeidsforhold}
                                 rootUrl={getContextRoot()}

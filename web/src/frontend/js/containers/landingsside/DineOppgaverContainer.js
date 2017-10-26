@@ -80,6 +80,12 @@ const avventendeGodkjenningerTekst = (antall) => {
         });
 };
 
+const idAlleredeFunnet = (planer, id) => {
+    return planer.filter((plan) => {
+            return plan.id === id;
+        }).length > 0;
+};
+
 const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, avventendeGodkjenninger, nyePlaner, visAktivitetskrav, svg, variant, className }) => {
     if (!visOppgaver) {
         return null;
@@ -192,7 +198,7 @@ export const mapStateToProps = (state) => {
         });
     const nyePlaner = state.oppfolgingsdialoger.data
         .filter((plan) => {
-            return plan.arbeidstaker.sistInnlogget === null && plan.status === 'UNDER_ARBEID';
+            return plan.arbeidstaker.sistInnlogget === null && plan.status === 'UNDER_ARBEID' && !idAlleredeFunnet(avventendeGodkjenninger, plan.id) ;
         });
 
     const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null || avventendeGodkjenninger.length > 0 || nyePlaner.length > 0;

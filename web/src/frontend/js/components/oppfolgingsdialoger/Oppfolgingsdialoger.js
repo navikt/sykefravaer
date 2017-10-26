@@ -51,7 +51,7 @@ const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgi
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
         return oppfolgingsdialog.arbeidsgiver.forrigeNaermesteLeder &&
             oppfolgingsdialog.arbeidsgiver.naermesteLeder &&
-            new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget).toISOString().split('T')[0] < new Date(oppfolgingsdialog.arbeidsgiver.naermesteLeder.aktivFom).toISOString().split('T')[0];
+            new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget).toISOString().split('T')[0] <= new Date(oppfolgingsdialog.arbeidsgiver.naermesteLeder.aktivFom).toISOString().split('T')[0];
     })[0];
 };
 

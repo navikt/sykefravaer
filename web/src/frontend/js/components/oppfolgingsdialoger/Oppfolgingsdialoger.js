@@ -27,7 +27,7 @@ import {
 import UnderUtviklingVarsel from './UnderUtviklingVarsel';
 import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
-import Video from '../Video';
+import OppfolgingsdialogFilm from './OppfolgingsdialogFilm';
 
 export const OppfolgingsdialogNyDialog = () => {
     return (
@@ -113,13 +113,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster, avkreftLed
                 />
             </div>
             }
-            {
-                <div className="panel">
-                    <h2 className="js-begrensning lite-film typo-undertittel blokk--xxs">{getLedetekst('oppfolgingsdialog.filmsnutt.tittel')}</h2>
-                    <Video width="476" height="360" src="https://video.qbrick.com/play2/embed/player?accountId=763558&mediaId=25edfd35-00015227-b68553ad&configId=default&pageStyling=adaptive&&autoplay=false&repeat=false&sharing=false" />
-                    <p dangerouslySetInnerHTML={{ __html: getLedetekst('oppfolgingsdialog.filmsnutt.tekst', ledetekster) }} />
-                </div>
-            }
+            <OppfolgingsdialogFilm />
         </div>);
     }
     return (<div>

@@ -115,6 +115,7 @@ class Tiltak extends Component {
             ledetekster,
             oppfolgingsdialog,
             oppfolgingsdialogId,
+            oppfolgingsdialogAvbrutt,
         } = this.props;
 
         const antallNyeTiltak = oppfolgingsdialog.tiltakListe.filter((tiltak) => {
@@ -168,9 +169,9 @@ class Tiltak extends Component {
                             />
                         }
                         {
-                            antallNyeTiltak > 0 && <TiltakNotifikasjonBoksAdvarsel
+                            antallNyeTiltak > 0 && !oppfolgingsdialogAvbrutt && <TiltakNotifikasjonBoksAdvarsel
                                 ledetekster={ledetekster}
-                                motpartnavn={oppfolgingsdialog.arbeidsgiver.naermesteLeder.navn}
+                                motpartnavn={oppfolgingsdialog.arbeidsgiver.naermesteLeder ? oppfolgingsdialog.arbeidsgiver.naermesteLeder.navn : oppfolgingsdialog.arbeidsgiver.forrigeNaermesteLeder.navn}
                                 antallTiltakLagtTilAvMotpart={antallNyeTiltak}
                                 rootUrl={`${getContextRoot()}`}
                             />
@@ -212,6 +213,7 @@ Tiltak.propTypes = {
     ledetekster: keyValue,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogId: PropTypes.string,
+    oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreTiltak: PropTypes.func,
     slettTiltak: PropTypes.func,
 };

@@ -134,6 +134,7 @@ class Arbeidsoppgaver extends Component {
             oppfolgingsdialog,
             oppfolgingsdialogId,
             arbeidsforhold,
+            oppfolgingsdialogAvbrutt,
         } = this.props;
         const antallNyeArbeidsoppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
             return !arbeidsoppgave.erVurdertAvSykmeldt && (!oppfolgingsdialog.arbeidstaker.sistInnlogget || new Date(arbeidsoppgave.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget));
@@ -206,7 +207,7 @@ class Arbeidsoppgaver extends Component {
                                 />
                         }
                         {
-                            antallNyeArbeidsoppgaver > 0 && <ArbeidsoppgaverNotifikasjonBoksAdvarsel
+                            antallNyeArbeidsoppgaver > 0 && !oppfolgingsdialogAvbrutt && <ArbeidsoppgaverNotifikasjonBoksAdvarsel
                                 ledetekster={ledetekster}
                                 motpartnavn={oppfolgingsdialog.arbeidsgiver.naermesteLeder ? oppfolgingsdialog.arbeidsgiver.naermesteLeder.navn : oppfolgingsdialog.arbeidsgiver.forrigeNaermesteLeder.navn}
                                 antallIkkeVurderteArbeidsoppgaver={antallNyeArbeidsoppgaver}
@@ -252,6 +253,7 @@ Arbeidsoppgaver.propTypes = {
     ledetekster: keyValue,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogId: PropTypes.string,
+    oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
     arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),

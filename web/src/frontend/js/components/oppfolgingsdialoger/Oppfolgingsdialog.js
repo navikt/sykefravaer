@@ -151,6 +151,7 @@ class Oppfolgingsdialog extends Component {
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
                         oppfolgingsdialogId={oppfolgingsdialogId}
+                        oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
                         lagreArbeidsoppgave={lagreArbeidsoppgave}
                         slettArbeidsoppgave={slettArbeidsoppgave}
                         arbeidsforhold={arbeidsforhold}
@@ -166,6 +167,7 @@ class Oppfolgingsdialog extends Component {
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
                         oppfolgingsdialogId={oppfolgingsdialogId}
+                        oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
                         lagreTiltak={lagreTiltak}
                         slettTiltak={slettTiltak}
                     />);

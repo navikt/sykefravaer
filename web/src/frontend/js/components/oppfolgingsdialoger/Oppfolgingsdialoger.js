@@ -12,6 +12,7 @@ import {
     harAktivOppfolgingsdialog,
     AvbruttPlanNotifikasjonBoksAdvarsel,
     finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging,
+    finnBrukersSisteInnlogging,
     proptypes as oppfolgingProptypes,
     NyNaermestelederInfoboks,
 } from 'oppfolgingsdialog-npm';
@@ -48,10 +49,11 @@ export const OppfolgingsdialogNyDialog = () => {
 };
 
 const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgingsdialoger) => {
+    const sisteInnlogging = finnBrukersSisteInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
         return oppfolgingsdialog.arbeidsgiver.forrigeNaermesteLeder &&
             oppfolgingsdialog.arbeidsgiver.naermesteLeder &&
-            new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget).toISOString().split('T')[0] <= new Date(oppfolgingsdialog.arbeidsgiver.naermesteLeder.aktivFom).toISOString().split('T')[0];
+            new Date(sisteInnlogging).toISOString().split('T')[0] <= new Date(oppfolgingsdialog.arbeidsgiver.naermesteLeder.aktivFom).toISOString().split('T')[0];
     })[0];
 };
 

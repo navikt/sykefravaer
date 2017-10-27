@@ -92,7 +92,7 @@ class Oppfolgingsdialog extends Component {
         } = this.props;
         let panel;
         let disableNavigation = false;
-        if (this.state.visAvvisPlanKvittering) {
+        if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && this.state.visAvvisPlanKvittering) {
             disableNavigation = true;
             panel = (<AvvistPlanKvittering
                 ledetekster={ledetekster}
@@ -101,7 +101,7 @@ class Oppfolgingsdialog extends Component {
                 visAvvisPlanKvittering={this.visAvvisPlanKvittering}
                 arbeidsforhold={arbeidsforhold}
             />);
-        } else if (visSamtykkeSkjema && oppfolgingsdialog.arbeidstaker.samtykke === null) {
+        } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && visSamtykkeSkjema && oppfolgingsdialog.arbeidstaker.samtykke === null) {
             disableNavigation = true;
             panel = (<Samtykke
                 sendSamtykke={giSamtykke}
@@ -109,7 +109,7 @@ class Oppfolgingsdialog extends Component {
                 ledetekster={ledetekster}
                 rootUrl={`${getContextRoot()}`}
             />);
-        } else if (inneholderGodkjenninger(oppfolgingsdialog) && !erAvvistAvArbeidstaker(oppfolgingsdialog)) {
+        } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && inneholderGodkjenninger(oppfolgingsdialog) && !erAvvistAvArbeidstaker(oppfolgingsdialog)) {
             disableNavigation = true;
             panel = (<Godkjenninger
                 avvisDialog={avvisDialog}
@@ -123,7 +123,7 @@ class Oppfolgingsdialog extends Component {
                 rootUrl={`${getContextRoot()}`}
                 arbeidsforhold={arbeidsforhold}
             />);
-        } else if (inneholderGodkjentPlan(oppfolgingsdialog)) {
+        } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && inneholderGodkjentPlan(oppfolgingsdialog)) {
             disableNavigation = true;
             panel = (<ReleasetPlanAT
                 ledetekster={ledetekster}

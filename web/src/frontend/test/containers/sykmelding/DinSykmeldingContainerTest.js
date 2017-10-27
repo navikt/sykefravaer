@@ -153,16 +153,7 @@ describe("DinSykmeldingContainer", () => {
             expect(res.hentingFeilet).to.equal(true);
         });
 
-        it("Skal returnere brukerinfoHentet = true hvis brukerinfo er hentet", () => {
-            state.brukerinfo.bruker.hentet = true;
-            const res = mapStateToProps(state, ownProps);
-            expect(res.brukerinfoHentet).to.be.true;
-        });
 
-        it("Skal returnere brukerinfoHentet = false hvis brukerinfo ikke er hentet", () => {
-            const res = mapStateToProps(state, ownProps);
-            expect(res.brukerinfoHentet).to.be.false;
-        });
 
         describe("Dersom dinSykmelding.status === 'SENDT'", () => {
 
@@ -532,19 +523,6 @@ describe("DinSykmeldingContainer", () => {
                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger} sykmeldingId={"1"} />)
            expect(hentArbeidsgiversSykmeldinger.calledOnce).to.be.false;
         });
-
-        it("Skal hente brukerinfo hvis brukerinfo ikke er hentet", () => {
-            shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding}
-                hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger} sykmeldingId={"1"} />)
-            expect(hentBrukerinfo.calledOnce).to.be.true;
-        });
-
-        it("Skal ikke hente brukerinfo hvis brukerinfo er hentet", () => {
-            shallow(<DinSykmldSide brukerinfoHentet hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding}
-                hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger} sykmeldingId={"1"} />)
-            expect(hentBrukerinfo.calledOnce).to.be.false;
-        });
-
 
     });
 

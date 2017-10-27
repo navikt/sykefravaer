@@ -14,6 +14,7 @@ import {
     finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging,
     proptypes as oppfolgingProptypes,
     NyNaermestelederInfoboks,
+    OppfolgingsdialogFilm,
 } from 'oppfolgingsdialog-npm';
 import {
     sykmelding as sykmeldingPt,
@@ -27,7 +28,6 @@ import {
 import UnderUtviklingVarsel from './UnderUtviklingVarsel';
 import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
-import OppfolgingsdialogFilm from './OppfolgingsdialogFilm';
 
 export const OppfolgingsdialogNyDialog = () => {
     return (
@@ -113,7 +113,7 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster, avkreftLed
                 />
             </div>
             }
-            <OppfolgingsdialogFilm />
+            <OppfolgingsdialogFilm ledetekster={ledetekster} />
         </div>);
     }
     return (<div>

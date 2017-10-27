@@ -11,7 +11,7 @@ import { getOppfolgingsdialoger } from '../../mockOppfolgingsdialoger';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("ArbeidsoppgaverContainer", () => {
+describe("ArbeidsgiverSkjema", () => {
 
     let komponent;
     let oppfolgingsdialoger;
@@ -73,7 +73,7 @@ describe("ArbeidsoppgaverContainer", () => {
         expect(komponent.find(Field)).to.have.length(1);
     });
 
-    describe('VelgArbeidsgiverFeilmelding', () => {
+    describe('VelgArbeidsgiverUndertekst', () => {
 
         it('Skal vise ikke vise en feilmelding', () => {
             komponent = shallow(<VelgArbeidsgiverUndertekst
@@ -84,16 +84,15 @@ describe("ArbeidsoppgaverContainer", () => {
         });
 
         it('Skal vise en feilmelding, om det allerede er opprettet en plan med arbeidsgiver', () => {
+            const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
+                godkjentPlan: null,
+            })];
             komponent = shallow(<VelgArbeidsgiverUndertekst
-                oppfolgingsdialoger={oppfolgingsdialoger}
+                oppfolgingsdialoger={oppfolgingsdialogListe}
                 arbeidsgiver={arbeidsgivere[1]}
             />);
-            expect(komponent.find('div.velgArbeidsgiverUndertekst')).to.have.length(0);
-            expect(komponent.find('img.velgArbeidsgiverUndertekst__ikon')).to.have.length(0);
-            expect(komponent.find('span.velgArbeidsgiverUndertekst__tekst')).to.have.length(0);
-            expect(komponent.find('div.velgArbeidsgiverUndertekst__lenke')).to.have.length(0);
-            expect(komponent.find(Link)).to.have.length(0);
-          //  expect(komponent.find(Link).hasClass('lenke')).to.equal(false);
+            expect(komponent.find('div.velgArbeidsgiverUndertekst__lenke')).to.have.length(1);
+            expect(komponent.find(Link)).to.have.length(1);
         });
 
         it('Skal vise en feilmelding, om naermeste leder ikke er innmeldt', () => {

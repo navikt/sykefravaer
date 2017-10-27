@@ -47,14 +47,20 @@ describe("Oppfolgingsdialoger", () => {
         expect(component.find(OppfolgingsdialogTeasere)).to.have.length(0);
     });
 
-    it("Skal vise én OppfolgingsdialogerTeasere dersom man har oppfolgingsdialoger", () => {
-        component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
+    it("Skal vise en OppfolgingsdialogerTeasere dersom man har oppfolgingsdialoger", () => {
+        const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
+            godkjentPlan: null,
+        })];
+        component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialogListe} />);
         expect(component.find(OppfolgingsdialogTeasere)).to.have.length(1);
     });
 
     it("Skal vise OppfolgingsdialogNyDialog, dersom man har oppfolgingsdialoger'", () => {
-        component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} />);
-        expect(component.find(OppfolgingsdialogNyDialog)).to.have.length(0);
+        const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
+            godkjentPlan: null,
+        })];
+        component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialogListe} />);
+        expect(component.find(OppfolgingsdialogNyDialog)).to.have.length(1);
     });
 
     it("Skal vise OppfolgingsdialogerIngenplan, dersom det ikke er opprettet en oppfolgingsdialog, men man har en naermeste leder hos virksomhet", () => {

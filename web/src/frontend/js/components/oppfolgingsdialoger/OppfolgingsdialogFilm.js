@@ -8,6 +8,7 @@ const OppfolgingsdialogFilm = () => {
         </h2>
         <video width="100%" height="360px" controls>
             <source src="videoer/Film_06_288p.mp4" type="video/mp4" />
+            <p>Nettleseren din støtter ikke denne videoavspillingen. Gå direkte til videoklippet <a href="videoer/Film_06_288p.mp4">her</a></p>
         </video>
         <p dangerouslySetInnerHTML={{ __html: getLedetekst('oppfolgingsdialog.filmsnutt.tekst') }} />
     </div>);

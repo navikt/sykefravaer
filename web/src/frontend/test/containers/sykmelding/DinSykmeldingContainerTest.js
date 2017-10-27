@@ -153,15 +153,49 @@ describe("DinSykmeldingContainer", () => {
             expect(res.hentingFeilet).to.equal(true);
         });
 
+        describe("Dersom dinSykmelding.status === 'NY'", () => {
 
+            beforeEach(() => {
+                state.dineSykmeldinger.data.push(getSykmelding({
+                    id: "44",
+                    status: "NY"
+                }));
+                state.dineSykmeldinger.hentet = true;
+                state.arbeidsgiversSykmeldinger.hentet = true;
+                ownProps = {
+                    params: {
+                        sykmeldingId: 44
+                    }
+                };
+            })
+
+            it("Skal returnere hentet === false dersom arbeidsgiversSykmeldinger og dineSykmeldinger er hentet, og brukerinfo ikke er hentet", () => {
+                state.brukerinfo.bruker.hentet = false;
+                const res = mapStateToProps(state, ownProps);
+                expect(res.hentet).to.be.false;
+            });
+
+            it("Skal returnere hentet === true dersom arbeidsgiversSykmeldinger og dineSykmeldinger er hentet, og brukerinfo er hentet", () => {
+                state.brukerinfo.bruker.hentet = true;
+                const res = mapStateToProps(state, ownProps);
+                expect(res.hentet).to.be.true;
+            });
+
+        })
 
         describe("Dersom dinSykmelding.status === 'SENDT'", () => {
 
             beforeEach(() => {
-                state.dineSykmeldinger.data.push({
+                state.dineSykmeldinger.data.push(getSykmelding({
                     id: "44",
                     status: "SENDT"
-                });
+                }));
+                state.arbeidsgiversSykmeldinger.data.push(getSykmelding({
+                    id: "44",
+                    status: "SENDT"
+                }));
+                state.dineSykmeldinger.hentet = true;
+                state.arbeidsgiversSykmeldinger.hentet = true;
                 ownProps = {
                     params: {
                         sykmeldingId: 44
@@ -195,7 +229,25 @@ describe("DinSykmeldingContainer", () => {
                     fornavn: "Hans",
                     etternavn: "Olsen"
                 });
-            });            
+            });
+
+            it("Skal returnere hentet === true dersom arbeidsgiversSykmeldinger og dineSykmeldinger er hentet, selv om brukerinfo ikke er hentet", () => {
+                state.arbeidsgiversSykmeldinger = {
+                    hentet: true,
+                    data: [{
+                        id: "44"
+                    }]
+                };
+                state.dineSykmeldinger = {
+                    hentet: true,
+                    data: [{
+                        id: "44"
+                    }]
+                };
+                state.brukerinfo.bruker.hentet = false;
+                const res = mapStateToProps(state, ownProps);
+                expect(res.hentet).to.be.true;
+            });
 
         });
 

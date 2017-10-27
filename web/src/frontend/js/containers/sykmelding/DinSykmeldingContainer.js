@@ -153,10 +153,18 @@ export function mapStateToProps(state, ownProps) {
 
     const eldsteNyeSykmelding = getEldsteNyeSykmelding(state.dineSykmeldinger.data, sykmeldingId);
 
+    const hentet = (() => {
+        const sykmeldingerHentet = state.dineSykmeldinger.hentet === true && state.arbeidsgiversSykmeldinger.hentet === true;
+        if (dinSykmelding && dinSykmelding.status === NY) {
+            return state.brukerinfo.bruker.hentet === true && sykmeldingerHentet;
+        }
+        return sykmeldingerHentet;
+    })();
+
     return {
         sykmeldingId,
         henter: state.dineSykmeldinger.henter || state.arbeidsgiversSykmeldinger.henter || state.ledetekster.henter,
-        hentet: state.brukerinfo.bruker.hentet === true && state.dineSykmeldinger.hentet === true && state.arbeidsgiversSykmeldinger.hentet === true,
+        hentet,
         hentingFeilet: state.dineSykmeldinger.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet,
         dinSykmelding,
         arbeidsgiversSykmelding,

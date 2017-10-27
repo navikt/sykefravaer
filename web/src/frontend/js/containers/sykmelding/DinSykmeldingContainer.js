@@ -93,7 +93,6 @@ DinSykmldSide.propTypes = {
     hentArbeidsgiversSykmeldinger: PropTypes.func,
     dineSykmeldingerHentet: PropTypes.bool,
     arbeidsgiversSykmeldingerHentet: PropTypes.bool,
-    brukerinfoHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
     hentet: PropTypes.bool,
 };
@@ -153,13 +152,7 @@ export function mapStateToProps(state, ownProps) {
 
     const eldsteNyeSykmelding = getEldsteNyeSykmelding(state.dineSykmeldinger.data, sykmeldingId);
 
-    const hentet = (() => {
-        const sykmeldingerHentet = state.dineSykmeldinger.hentet === true && state.arbeidsgiversSykmeldinger.hentet === true;
-        if (dinSykmelding && dinSykmelding.status === NY) {
-            return state.brukerinfo.bruker.hentet === true && sykmeldingerHentet;
-        }
-        return sykmeldingerHentet;
-    })();
+    const hentet = state.dineSykmeldinger.hentet === true && state.arbeidsgiversSykmeldinger.hentet === true;
 
     return {
         sykmeldingId,

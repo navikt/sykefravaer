@@ -41,7 +41,7 @@ class Video extends Component {
     }
 
     render() {
-        return <iframe title="Video" className="iframeVideo" src={`${this.props.src}&width=${this.state.width}&height=${this.state.height}`} width={this.state.width} height={this.state.height} scrolling="no" frameBorder="0" />;
+        return <iframe allowfullscreen title="Video" className="iframeVideo" src={`${this.props.src}&width=${this.state.width}&height=${this.state.height}`} width={this.state.width} height={this.state.height} scrolling="no" frameBorder="0" />;
     }
 }
 

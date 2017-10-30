@@ -2,9 +2,11 @@ import chai from 'chai';
 import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
+import sinon from 'sinon';
 import ledetekster from "../../mockLedetekster";
 import getSykmelding from '../../mockSykmeldinger';
 import Feilmelding from '../../../js/components/Feilmelding';
+
 
 import { DinSykmldSkjema, mapStateToProps, validate, Skjema } from "../../../js/containers/sykmelding/DinSykmeldingSkjemaContainer";
 import { setLedetekster } from 'digisyfo-npm';
@@ -175,12 +177,43 @@ describe("DinSykmeldingSkjemaContainer", () => {
                 "test": "OK"
             })
         });
+
+        it("Skal returnere brukerinfoHentet = true hvis brukerinfo er hentet", () => {
+            const state = getState();
+            state.brukerinfo.bruker.hentet = true;
+            const res = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(res.brukerinfoHentet).to.be.true;
+        });
+
+        it("Skal returnere brukerinfoHentet = false hvis brukerinfo ikke er hentet", () => {
+            const state = getState();
+            const res = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(res.brukerinfoHentet).to.be.false;
+        });
     });
 
     describe("Render", () => {
         it("Skal vise planlagt-vedlikehold ved vedlikehold", () => {
-            const comp = shallow(<Skjema vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+            const hentBrukerinfo = sinon.spy();
+            const comp = shallow(<Skjema hentBrukerinfo={hentBrukerinfo} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
             expect(comp.find(Feilmelding)).to.have.length(1);
         });
+
+        it("Skal hente brukerinfo hvis brukerinfo ikke er hentet", () => {
+            const hentBrukerinfo = sinon.spy();
+            shallow(<Skjema hentBrukerinfo={hentBrukerinfo} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+            expect(hentBrukerinfo.calledOnce).to.be.true;
+        });
+
+        it("Skal ikke hente brukerinfo hvis brukerinfo er hentet", () => {
+            const hentBrukerinfo = sinon.spy();
+            shallow(<Skjema brukerinfoHentet hentBrukerinfo={hentBrukerinfo} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+            expect(hentBrukerinfo.calledOnce).to.be.false;
+        });
+
     });
 });

@@ -30,6 +30,11 @@ describe("VelgArbeidsgiverContainer", () => {
             };
             state.ledetekster = {
                 data: ledetekster
+            };
+            state.brukerinfo = {
+                bruker: {
+                    data: {}
+                }
             }
         });
 
@@ -66,6 +71,18 @@ describe("VelgArbeidsgiverContainer", () => {
                 navn: "Annen arbeidsgiver",
                 orgnummer: "0"
             }]);
+        });
+
+        it("Skal returnere vis === false dersom bruker har strengt fortrolig adresse", () => {
+            state.brukerinfo.bruker.data.strengtFortroligAdresse = true;
+            const props = mapStateToProps(state);
+            expect(props.vis).to.be.false;
+        });
+
+        it("Skal returnere vis === false dersom bruker ikke har strengt fortrolig adresse", () => {
+            state.brukerinfo.bruker.data.strengtFortroligAdresse = false;
+            const props = mapStateToProps(state);
+            expect(props.vis).to.be.true;
         });
 
     });

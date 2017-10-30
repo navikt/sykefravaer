@@ -153,24 +153,49 @@ describe("DinSykmeldingContainer", () => {
             expect(res.hentingFeilet).to.equal(true);
         });
 
-        it("Skal returnere brukerinfoHentet = true hvis brukerinfo er hentet", () => {
-            state.brukerinfo.bruker.hentet = true;
-            const res = mapStateToProps(state, ownProps);
-            expect(res.brukerinfoHentet).to.be.true;
-        });
+        describe("Dersom dinSykmelding.status === 'NY'", () => {
 
-        it("Skal returnere brukerinfoHentet = false hvis brukerinfo ikke er hentet", () => {
-            const res = mapStateToProps(state, ownProps);
-            expect(res.brukerinfoHentet).to.be.false;
-        });
+            beforeEach(() => {
+                state.dineSykmeldinger.data.push(getSykmelding({
+                    id: "44",
+                    status: "NY"
+                }));
+                state.dineSykmeldinger.hentet = true;
+                state.arbeidsgiversSykmeldinger.hentet = true;
+                ownProps = {
+                    params: {
+                        sykmeldingId: 44
+                    }
+                };
+            })
+
+            it("Skal returnere hentet === false dersom arbeidsgiversSykmeldinger og dineSykmeldinger er hentet, og brukerinfo ikke er hentet", () => {
+                state.brukerinfo.bruker.hentet = false;
+                const res = mapStateToProps(state, ownProps);
+                expect(res.hentet).to.be.false;
+            });
+
+            it("Skal returnere hentet === true dersom arbeidsgiversSykmeldinger og dineSykmeldinger er hentet, og brukerinfo er hentet", () => {
+                state.brukerinfo.bruker.hentet = true;
+                const res = mapStateToProps(state, ownProps);
+                expect(res.hentet).to.be.true;
+            });
+
+        })
 
         describe("Dersom dinSykmelding.status === 'SENDT'", () => {
 
             beforeEach(() => {
-                state.dineSykmeldinger.data.push({
+                state.dineSykmeldinger.data.push(getSykmelding({
                     id: "44",
                     status: "SENDT"
-                });
+                }));
+                state.arbeidsgiversSykmeldinger.data.push(getSykmelding({
+                    id: "44",
+                    status: "SENDT"
+                }));
+                state.dineSykmeldinger.hentet = true;
+                state.arbeidsgiversSykmeldinger.hentet = true;
                 ownProps = {
                     params: {
                         sykmeldingId: 44
@@ -204,7 +229,25 @@ describe("DinSykmeldingContainer", () => {
                     fornavn: "Hans",
                     etternavn: "Olsen"
                 });
-            });            
+            });
+
+            it("Skal returnere hentet === true dersom arbeidsgiversSykmeldinger og dineSykmeldinger er hentet, selv om brukerinfo ikke er hentet", () => {
+                state.arbeidsgiversSykmeldinger = {
+                    hentet: true,
+                    data: [{
+                        id: "44"
+                    }]
+                };
+                state.dineSykmeldinger = {
+                    hentet: true,
+                    data: [{
+                        id: "44"
+                    }]
+                };
+                state.brukerinfo.bruker.hentet = false;
+                const res = mapStateToProps(state, ownProps);
+                expect(res.hentet).to.be.true;
+            });
 
         });
 
@@ -532,19 +575,6 @@ describe("DinSykmeldingContainer", () => {
                                                   hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger} sykmeldingId={"1"} />)
            expect(hentArbeidsgiversSykmeldinger.calledOnce).to.be.false;
         });
-
-        it("Skal hente brukerinfo hvis brukerinfo ikke er hentet", () => {
-            shallow(<DinSykmldSide hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding}
-                hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger} sykmeldingId={"1"} />)
-            expect(hentBrukerinfo.calledOnce).to.be.true;
-        });
-
-        it("Skal ikke hente brukerinfo hvis brukerinfo er hentet", () => {
-            shallow(<DinSykmldSide brukerinfoHentet hentBrukerinfo={hentBrukerinfo} dinSykmelding={sykmelding}
-                hentArbeidsgiversSykmeldinger={hentArbeidsgiversSykmeldinger} hentDineSykmeldinger={hentDineSykmeldinger} sykmeldingId={"1"} />)
-            expect(hentBrukerinfo.calledOnce).to.be.false;
-        });
-
 
     });
 

@@ -57,7 +57,7 @@ export const trekkMnderOgDagerFraDato = (dato, mnder, dager) => {
 describe("sykmeldingUtils", () => {
 
     let clock;
-    const today = new Date();
+    const today = new Date("2017-10-01");
     today.setHours(0, 0, 0, 0);
 
     beforeEach(() => {

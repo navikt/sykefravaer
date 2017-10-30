@@ -14,24 +14,17 @@ import Feilmelding from '../../components/Feilmelding';
 import { hentAktuelleArbeidsgivere } from '../../actions/dineArbeidsgivere_actions';
 import { hentArbeidsgiversSykmeldinger } from '../../actions/arbeidsgiversSykmeldinger_actions';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
-import { hentBrukerinfo } from '../../actions/brukerinfo_actions';
 import { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } from '../../enums/sykmeldingstatuser';
 import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../../propTypes';
 
 export class DinSykmldSide extends Component {
     componentWillMount() {
-        const {
-            dineSykmeldingerHentet,
-            arbeidsgiversSykmeldingerHentet,
-            brukerinfoHentet } = this.props;
+        const { dineSykmeldingerHentet, arbeidsgiversSykmeldingerHentet } = this.props;
         if (!dineSykmeldingerHentet) {
             this.props.hentDineSykmeldinger();
         }
         if (!arbeidsgiversSykmeldingerHentet) {
             this.props.hentArbeidsgiversSykmeldinger();
-        }
-        if (!brukerinfoHentet) {
-            this.props.hentBrukerinfo();
         }
     }
 
@@ -102,7 +95,6 @@ DinSykmldSide.propTypes = {
     arbeidsgiversSykmeldingerHentet: PropTypes.bool,
     brukerinfoHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
-    hentBrukerinfo: PropTypes.func,
     hentet: PropTypes.bool,
 };
 
@@ -161,10 +153,18 @@ export function mapStateToProps(state, ownProps) {
 
     const eldsteNyeSykmelding = getEldsteNyeSykmelding(state.dineSykmeldinger.data, sykmeldingId);
 
+    const hentet = (() => {
+        const sykmeldingerHentet = state.dineSykmeldinger.hentet === true && state.arbeidsgiversSykmeldinger.hentet === true;
+        if (dinSykmelding && dinSykmelding.status === NY) {
+            return state.brukerinfo.bruker.hentet === true && sykmeldingerHentet;
+        }
+        return sykmeldingerHentet;
+    })();
+
     return {
         sykmeldingId,
         henter: state.dineSykmeldinger.henter || state.arbeidsgiversSykmeldinger.henter || state.ledetekster.henter,
-        hentet: state.brukerinfo.bruker.hentet === true && state.dineSykmeldinger.hentet === true && state.arbeidsgiversSykmeldinger.hentet === true,
+        hentet,
         hentingFeilet: state.dineSykmeldinger.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet,
         dinSykmelding,
         arbeidsgiversSykmelding,
@@ -183,10 +183,11 @@ export function mapStateToProps(state, ownProps) {
         }, {
             tittel: getLedetekst('din-sykmelding.sidetittel'),
         }],
-        brukerinfoHentet: state.brukerinfo.bruker.hentet === true,
     };
 }
 
 export const DinSykmeldingContainer = connect(mapStateToProps, {
-    hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger, hentDineSykmeldinger, hentBrukerinfo,
+    hentAktuelleArbeidsgivere,
+    hentArbeidsgiversSykmeldinger,
+    hentDineSykmeldinger,
 })(DinSykmldSide);

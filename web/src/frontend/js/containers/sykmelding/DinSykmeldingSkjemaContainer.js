@@ -9,12 +9,16 @@ import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import feilaktigeOpplysninger from '../../enums/feilaktigeOpplysninger';
 import { hentAktuelleArbeidsgivere } from '../../actions/dineArbeidsgivere_actions';
+import { hentBrukerinfo } from '../../actions/brukerinfo_actions';
 
 export class Skjema extends Component {
     componentWillMount() {
-        const { sykmeldingId, skalHenteArbeidsgivere } = this.props;
+        const { sykmeldingId, skalHenteArbeidsgivere, brukerinfoHentet } = this.props;
         if (sykmeldingId && skalHenteArbeidsgivere) {
             this.props.hentAktuelleArbeidsgivere(sykmeldingId);
+        }
+        if (!brukerinfoHentet) {
+            this.props.hentBrukerinfo();
         }
     }
 
@@ -23,7 +27,7 @@ export class Skjema extends Component {
         if (henter) {
             return <AppSpinner />;
         } else if (hentingFeilet) {
-            return <Feilmelding />;
+            return <Feilmelding tittel="Beklager, det oppstod en feil" melding="Du kan dessverre ikke ta i bruk sykmeldingen akkurat nå. Prøv igjen senere!" />;
         } else if (vedlikehold.datospennMedTid) {
             return (<Feilmelding
                 tittel={getLedetekst('under-vedlikehold.varsel.tittel')}
@@ -45,6 +49,8 @@ Skjema.propTypes = {
     sykmeldingId: PropTypes.string,
     skalHenteArbeidsgivere: PropTypes.bool,
     hentAktuelleArbeidsgivere: PropTypes.func,
+    brukerinfoHentet: PropTypes.bool,
+    hentBrukerinfo: PropTypes.func,
 };
 
 export const mapStateToProps = (state, ownProps) => {
@@ -72,15 +78,17 @@ export const mapStateToProps = (state, ownProps) => {
         avbryter: state.dineSykmeldinger.avbryter,
         avbrytFeilet: state.dineSykmeldinger.avbrytFeilet,
         harStrengtFortroligAdresse,
-        hentingFeilet: state.arbeidsgivere.hentingFeilet,
+        hentingFeilet: state.arbeidsgivere.hentingFeilet || state.brukerinfo.bruker.hentingFeilet || false,
         henter: state.vedlikehold.henter,
         vedlikehold: state.vedlikehold.data.vedlikehold,
-        skalHenteArbeidsgivere: state.arbeidsgivere.sykmeldingId !== sykmeldingId,
+        skalHenteArbeidsgivere: state.arbeidsgivere.sykmeldingId !== sykmeldingId && !harStrengtFortroligAdresse,
+        brukerinfoHentet: state.brukerinfo.bruker.hentet === true,
     };
 };
 
 const DinSykmeldingSkjemaContainer = connect(mapStateToProps, Object.assign({}, actionCreators, {
     hentAktuelleArbeidsgivere,
+    hentBrukerinfo,
 }))(Skjema);
 
 export default DinSykmeldingSkjemaContainer;

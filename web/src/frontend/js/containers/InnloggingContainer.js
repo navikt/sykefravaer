@@ -45,7 +45,7 @@ Innlogging.propTypes = {
 
 export const mapStateToProps = (state) => {
     return Object.assign({}, state.brukerinfo.innlogging, {
-        hentingFeilet: state.brukerinfo.innlogging.hentingFeilet || state.brukerinfo.bruker.hentingFeilet,
+        hentingFeilet: state.brukerinfo.innlogging.hentingFeilet,
     });
 };
 

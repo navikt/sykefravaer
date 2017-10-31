@@ -194,6 +194,37 @@ describe("DinSykmeldingSkjemaContainer", () => {
             });
             expect(res.brukerinfoHentet).to.be.false;
         });
+
+        it("Skal returnere henter dersom det hentes vedlikehold men ikke brukerinfo", () => {
+            const state = getState();
+            state.vedlikehold.henter = true;
+            state.brukerinfo.bruker.henter = false;
+            const res = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(res.henter).to.be.true;
+        });
+
+        it("Skal returnere henter dersom det hentes brukerinfo men ikke vedlikehold", () => {
+            const state = getState();
+            state.vedlikehold.henter = false;
+            state.brukerinfo.bruker.henter = true;
+            const res = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(res.henter).to.be.true;
+        });
+
+        it("Skal returnere henter dersom det ikke hentes brukerinfo og ikke vedlikehold", () => {
+            const state = getState();
+            state.vedlikehold.henter = false;
+            state.brukerinfo.bruker.henter = false;
+            const res = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(res.henter).to.be.false;
+        });
+
     });
 
     describe("Render", () => {

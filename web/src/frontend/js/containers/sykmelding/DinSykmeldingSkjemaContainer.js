@@ -79,7 +79,7 @@ export const mapStateToProps = (state, ownProps) => {
         avbrytFeilet: state.dineSykmeldinger.avbrytFeilet,
         harStrengtFortroligAdresse,
         hentingFeilet: state.arbeidsgivere.hentingFeilet || state.brukerinfo.bruker.hentingFeilet || false,
-        henter: state.vedlikehold.henter,
+        henter: state.vedlikehold.henter || state.brukerinfo.bruker.henter,
         vedlikehold: state.vedlikehold.data.vedlikehold,
         skalHenteArbeidsgivere: state.arbeidsgivere.sykmeldingId !== sykmeldingId && !harStrengtFortroligAdresse,
         brukerinfoHentet: state.brukerinfo.bruker.hentet === true,

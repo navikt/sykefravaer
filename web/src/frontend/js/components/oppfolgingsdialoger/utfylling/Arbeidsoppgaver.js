@@ -209,7 +209,7 @@ class Arbeidsoppgaver extends Component {
                         {
                             antallNyeArbeidsoppgaver > 0 && !oppfolgingsdialogAvbrutt && <ArbeidsoppgaverNotifikasjonBoksAdvarsel
                                 ledetekster={ledetekster}
-                                motpartnavn={oppfolgingsdialog.arbeidsgiver.naermesteLeder ? oppfolgingsdialog.arbeidsgiver.naermesteLeder.navn : oppfolgingsdialog.arbeidsgiver.forrigeNaermesteLeder.navn}
+                                motpartnavn={'Lederen din'}
                                 antallIkkeVurderteArbeidsoppgaver={antallNyeArbeidsoppgaver}
                                 rootUrl={`${getContextRoot()}`}
                             />

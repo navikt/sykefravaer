@@ -8,9 +8,8 @@ import { Experiment, Variant } from 'react-ab';
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     proptypes as oppfolgingProptypes,
-    finnNyesteGodkjenning
-}
-    from 'oppfolgingsdialog-npm';
+    finnNyesteGodkjenning,
+} from 'oppfolgingsdialog-npm';
 import { NY as NY_SYKMELDING } from '../../enums/sykmeldingstatuser';
 import { NY as NY_SYKEPENGESOKNAD } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
@@ -82,8 +81,8 @@ const avventendeGodkjenningerTekst = (antall) => {
 
 const idAlleredeFunnet = (planer, id) => {
     return planer.filter((plan) => {
-            return plan.id === id;
-        }).length > 0;
+        return plan.id === id;
+    }).length > 0;
 };
 
 const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, avventendeGodkjenninger, nyePlaner, visAktivitetskrav, svg, variant, className }) => {

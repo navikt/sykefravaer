@@ -44,7 +44,7 @@ export class Container extends Component {
                         return <Kvittering mote={mote} deltakertype={BRUKER} ledetekster={ledetekster} />;
                     }
                     if (modus === AVBRUTT) {
-                        return (<AvbruttMote mote={mote} deltakertype={BRUKER} />);
+                        return (<AvbruttMote mote={mote} deltakertype={BRUKER} ledetekster={ledetekster} />);
                     }
                     if (mote) {
                         return <Svarside {...this.props} deltakertype={BRUKER} sendSvar={actions.sendSvar} ledetekster={ledetekster} />;

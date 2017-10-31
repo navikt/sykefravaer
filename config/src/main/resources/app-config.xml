@@ -18,9 +18,12 @@
     <resources>
         <baseUrl mapToProperty="dialogarena.cms" alias="appres.cms"/>
         <rest mapToProperty="sykefravaerapi" alias="sykefravaerapi"/>
+
+        <credential alias="suspender" />
     </resources>
 
     <loadBalancer isAlive="sykefravaer/internal/isAlive" />
+    <!--<suspend url="sykefravaer/mgmt/suspend" credential="suspender" timeoutSeconds="25" /> TODO: DENNE MÅ VÆRE AV VED FØRSTE DEPLOY TIL PROD -->
 
     <serverOptions>
         <memoryParameters resourceAlias="syfo-memparams"/>

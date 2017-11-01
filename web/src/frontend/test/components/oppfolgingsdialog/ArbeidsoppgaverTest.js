@@ -51,8 +51,11 @@ describe("Arbeidsoppgaver", () => {
         };
 
         arbeidsforhold = {
-            stilling: 'Test',
-            stillingsprosent: '80',
+            stillinger : {
+                yrke: 'Test',
+                prosent: '80',
+            },
+            aktoerId: 1,
         }
     });
 

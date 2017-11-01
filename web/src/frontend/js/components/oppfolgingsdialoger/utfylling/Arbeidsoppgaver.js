@@ -148,7 +148,7 @@ class Arbeidsoppgaver extends Component {
                 }
                 return isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                     <div>
-                        { arbeidsforhold && arbeidsforhold.stillinger.length > 0 && this.state.visArbeidsforhold &&
+                        { arbeidsforhold && arbeidsforhold.stillinger && this.state.visArbeidsforhold &&
                             <Arbeidsforhold
                                 tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
                                 ledetekster={ledetekster}
@@ -181,7 +181,7 @@ class Arbeidsoppgaver extends Component {
                     :
                     <div>
 
-                        { arbeidsforhold && arbeidsforhold.stillinger.length > 0 &&
+                        { arbeidsforhold && arbeidsforhold.stillinger &&
                             <Arbeidsforhold
                                 tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
                                 ledetekster={ledetekster}

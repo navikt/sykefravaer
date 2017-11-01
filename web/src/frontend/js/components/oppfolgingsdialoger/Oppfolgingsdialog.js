@@ -99,7 +99,7 @@ class Oppfolgingsdialog extends Component {
                 rootUrl={`${window.APP_SETTINGS.APP_ROOT}`}
                 begrunnelse={this.state.begrunnelse}
                 visAvvisPlanKvittering={this.visAvvisPlanKvittering}
-                arbeidsforhold={arbeidsforhold.stillinger}
+                arbeidsforhold={arbeidsforhold}
             />);
         } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && visSamtykkeSkjema && oppfolgingsdialog.arbeidstaker.samtykke === null) {
             disableNavigation = true;
@@ -121,7 +121,7 @@ class Oppfolgingsdialog extends Component {
                 nullstillGodkjenning={nullstillGodkjenning}
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrl={`${getContextRoot()}`}
-                arbeidsforhold={arbeidsforhold.stillinger}
+                arbeidsforhold={arbeidsforhold}
             />);
         } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && inneholderGodkjentPlan(oppfolgingsdialog)) {
             disableNavigation = true;
@@ -132,7 +132,7 @@ class Oppfolgingsdialog extends Component {
                 hentPdfurler={hentPdfurler}
                 dokument={dokument}
                 giSamtykke={giSamtykke}
-                arbeidsforhold={arbeidsforhold.stillinger}
+                arbeidsforhold={arbeidsforhold}
                 avbrytDialog={avbrytDialog}
                 delMedNavFunc={delMedNavFunc}
                 delmednav={delmednav}
@@ -154,7 +154,7 @@ class Oppfolgingsdialog extends Component {
                         oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
                         lagreArbeidsoppgave={lagreArbeidsoppgave}
                         slettArbeidsoppgave={slettArbeidsoppgave}
-                        arbeidsforhold={arbeidsforhold.stillinger}
+                        arbeidsforhold={arbeidsforhold}
                     />);
                 } else if (navigasjontoggles.steg === 2) {
                     panel = (<Tiltak
@@ -181,7 +181,7 @@ class Oppfolgingsdialog extends Component {
                         godkjennPlan={godkjennDialog}
                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
                         rootUrl={`${getContextRoot()}`}
-                        arbeidsforhold={arbeidsforhold.stillinger}
+                        arbeidsforhold={arbeidsforhold}
                     />);
                 }
             })();
@@ -248,7 +248,7 @@ Oppfolgingsdialog.propTypes = {
     avvisDialog: PropTypes.func,
     avbrytDialog: PropTypes.func,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
-    arbeidsforhold: oppfolgingProptypes.stillingPt,
+    arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),

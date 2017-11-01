@@ -29,7 +29,7 @@ import history from '../../history';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { getOppfolgingsdialog } from '../../utils/oppfolgingsdialogUtils';
+import { getOppfolgingsdialog, isEmpty } from '../../utils/oppfolgingsdialogUtils';
 import Oppfolgingsdialog from '../../components/oppfolgingsdialoger/Oppfolgingsdialog';
 import {
     brodsmule as brodsmulePt,
@@ -55,7 +55,7 @@ export class OppfolgingsdialogSide extends Component {
 
     componentWillReceiveProps(nextProps) {
         if ((this.props.oppfolgingsdialoger || (!this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet)) &&
-            ((this.props.arbeidsforhold && this.props.arbeidsforhold.aktoerId !== nextProps.oppfolgingsdialog.arbeidstaker.aktoerId) || !this.props.arbeidsforholdHentet)
+            (!this.props.arbeidsforholdHentet || (this.props.arbeidsforholdAktoerId !== nextProps.oppfolgingsdialog.arbeidstaker.aktoerId))
             && !this.props.arbeidsforholdHenter && nextProps.oppfolgingsdialog) {
             this.props.hentArbeidsforhold(nextProps.oppfolgingsdialog.arbeidstaker.aktoerId, nextProps.oppfolgingsdialog.oppfoelgingsdialogId, 'arbeidstaker');
         }
@@ -175,18 +175,20 @@ OppfolgingsdialogSide.propTypes = {
     settAktivtSteg: PropTypes.func,
     oppfolgingsdialogerHenter: PropTypes.bool,
     avbrytDialog: PropTypes.func,
-    arbeidsforhold: oppfolgingProptypes.stillingPt,
+    arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
     dokument: oppfolgingProptypes.dokumentReducerPt,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     hentet: PropTypes.bool,
     settDialog: PropTypes.func,
     hentToggles: PropTypes.func,
+    arbeidsforholdAktoerId: PropTypes.string,
 };
 
 export function mapStateToProps(state, ownProps) {
     const oppfolgingsdialogId = ownProps.params.oppfolgingsdialogId;
     const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, oppfolgingsdialogId);
     const virksomhetsnavn = oppfolgingsdialog ? oppfolgingsdialog.virksomhetsnavn : '';
+    const arbeidsforholdAktoerId = isEmpty(state.arbeidsforhold.data) ? '' : state.arbeidsforhold.data.aktoerId;
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
@@ -230,7 +232,8 @@ export function mapStateToProps(state, ownProps) {
         slettingFeiletArbeidsoppgave: state.arbeidsoppgaver.slettingFeilet,
         slettingFeiletTiltak: state.tiltak.slettingFeilet,
         oppfolgingsdialog,
-        arbeidsforhold: state.arbeidsforhold.data,
+        arbeidsforhold: state.arbeidsforhold.data.stillinger,
+        arbeidsforholdAktoerId,
         oppfolgingsdialogId,
         tilgang: state.tilgang.data,
         tilgangSjekket: state.tilgang.hentet,

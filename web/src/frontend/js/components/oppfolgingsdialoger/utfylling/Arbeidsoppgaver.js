@@ -148,11 +148,11 @@ class Arbeidsoppgaver extends Component {
                 }
                 return isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                     <div>
-                        { arbeidsforhold && arbeidsforhold.stillinger && this.state.visArbeidsforhold &&
+                        { arbeidsforhold && this.state.visArbeidsforhold &&
                             <Arbeidsforhold
                                 tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
                                 ledetekster={ledetekster}
-                                arbeidsforhold={arbeidsforhold.stillinger}
+                                arbeidsforhold={arbeidsforhold}
                                 rootUrl={getContextRoot()}
                             />
                         }
@@ -181,11 +181,11 @@ class Arbeidsoppgaver extends Component {
                     :
                     <div>
 
-                        { arbeidsforhold && arbeidsforhold.stillinger &&
+                        { arbeidsforhold &&
                             <Arbeidsforhold
                                 tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
                                 ledetekster={ledetekster}
-                                arbeidsforhold={arbeidsforhold.stillinger}
+                                arbeidsforhold={arbeidsforhold}
                                 rootUrl={getContextRoot()}
                             />
                         }
@@ -256,7 +256,7 @@ Arbeidsoppgaver.propTypes = {
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
-    arbeidsforhold: oppfolgingProptypes.stillingPt,
+    arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
 };
 
 export default Arbeidsoppgaver;

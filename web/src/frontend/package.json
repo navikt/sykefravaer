@@ -32,6 +32,7 @@
     "babel-polyfill": "6.26.0",
     "digisyfo-npm": "2.0.1",
     "fetch": "1.0.1",
+    "fetch-ponyfill": "^4.1.0",
     "isomorphic-fetch": "2.2.1",
     "moter-npm": "4.2.1",
     "nav-frontend-brodsmuler-design": "1.2.1",

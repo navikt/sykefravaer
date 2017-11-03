@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import {
-    OppfolgingsdialogInfoboks,
     ArbeidsoppgaverNotifikasjonBoksAdvarsel,
-    NotifikasjonBoksLagretElement,
-    OppfolgingsdialogTabell,
-    LeggTilElementKnapper,
-    LagreArbeidsoppgaveSkjema,
+    Arbeidsforhold,
     BRUKERTYPE,
     captitalizeFirstLetter,
+    LagreArbeidsoppgaveSkjema,
+    LeggTilElementKnapper,
+    NotifikasjonBoksLagretElement,
+    OppfolgingsdialogInfoboks,
+    OppfolgingsdialogTabell,
     sorterArbeidsoppgaverEtterOpprettet,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
-import { getLedetekst, keyValue } from 'digisyfo-npm';
+import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
@@ -55,6 +56,7 @@ export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppga
         />
     </div>);
 };
+
 RenderOpprettArbeidsoppgave.propTypes = {
     ledetekster: keyValue,
     sendLagreArbeidsoppgave: PropTypes.func,
@@ -67,6 +69,7 @@ class Arbeidsoppgaver extends Component {
         this.state = {
             nyArbeidsoppgave: false,
             oppdatertArbeidsoppgave: false,
+            visArbeidsforhold: false,
         };
         this.sendLagreArbeidsoppgave = this.sendLagreArbeidsoppgave.bind(this);
         this.sendSlettArbeidsoppgave = this.sendSlettArbeidsoppgave.bind(this);
@@ -86,8 +89,7 @@ class Arbeidsoppgaver extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (!prevState.visArbeidsoppgaveSkjema && this.state.visArbeidsoppgaveSkjema && this.lagreSkjema) {
-            const form = findDOMNode(this.lagreSkjema);
-            window.scrollTo(form, form.getBoundingClientRect().bottom);
+            this.scrollToForm();
         }
     }
 
@@ -112,12 +114,13 @@ class Arbeidsoppgaver extends Component {
     toggleArbeidsoppgaveSkjema() {
         this.setState({
             visArbeidsoppgaveSkjema: !this.state.visArbeidsoppgaveSkjema,
+            visArbeidsforhold: !this.state.visArbeidsforhold,
         });
     }
 
     scrollToForm() {
         const form = findDOMNode(this.lagreSkjema);
-        window.scrollTo(form, form.getBoundingClientRect().bottom);
+        scrollTo(form, 300);
     }
 
     render() {
@@ -130,12 +133,12 @@ class Arbeidsoppgaver extends Component {
             ledetekster,
             oppfolgingsdialog,
             oppfolgingsdialogId,
+            arbeidsforhold,
+            oppfolgingsdialogAvbrutt,
         } = this.props;
-
         const antallNyeArbeidsoppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
             return !arbeidsoppgave.erVurdertAvSykmeldt && (!oppfolgingsdialog.arbeidstaker.sistInnlogget || new Date(arbeidsoppgave.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget));
         }).length;
-
         return (
             (() => {
                 if (lagrer || sletter) {
@@ -145,6 +148,14 @@ class Arbeidsoppgaver extends Component {
                 }
                 return isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                     <div>
+                        { arbeidsforhold.length > 0 && this.state.visArbeidsforhold &&
+                            <Arbeidsforhold
+                                tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
+                                ledetekster={ledetekster}
+                                arbeidsforhold={arbeidsforhold}
+                                rootUrl={getContextRoot()}
+                            />
+                        }
                         {
                             !this.state.visArbeidsoppgaveSkjema ?
                                 <OppfolgingsdialogInfoboks
@@ -169,7 +180,18 @@ class Arbeidsoppgaver extends Component {
                     </div>
                     :
                     <div>
+
+                        { arbeidsforhold.length > 0 &&
+                            <Arbeidsforhold
+                                tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
+                                ledetekster={ledetekster}
+                                arbeidsforhold={arbeidsforhold}
+                                rootUrl={getContextRoot()}
+                            />
+                        }
+
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
+
                         {
                             lagret && this.state.oppdatertArbeidsoppgave &&
                                 <NotifikasjonBoksLagretElement
@@ -185,9 +207,9 @@ class Arbeidsoppgaver extends Component {
                                 />
                         }
                         {
-                            antallNyeArbeidsoppgaver > 0 && <ArbeidsoppgaverNotifikasjonBoksAdvarsel
+                            antallNyeArbeidsoppgaver > 0 && !oppfolgingsdialogAvbrutt && <ArbeidsoppgaverNotifikasjonBoksAdvarsel
                                 ledetekster={ledetekster}
-                                motpartnavn={oppfolgingsdialog.arbeidsgiver.navn}
+                                motpartnavn={'Lederen din'}
                                 antallIkkeVurderteArbeidsoppgaver={antallNyeArbeidsoppgaver}
                                 rootUrl={`${getContextRoot()}`}
                             />
@@ -231,8 +253,10 @@ Arbeidsoppgaver.propTypes = {
     ledetekster: keyValue,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogId: PropTypes.string,
+    oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
+    arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
 };
 
 export default Arbeidsoppgaver;

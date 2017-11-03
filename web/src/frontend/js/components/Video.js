@@ -31,7 +31,8 @@ class Video extends Component {
     }
 
     settStorrelse() {
-        const width = getSidebredde();
+        const lite = document.getElementsByClassName('lite-film')[0] ? 60 : 0;
+        const width = getSidebredde() - lite;
         const forhold = parseInt(this.props.width, 10) / width;
         const height = parseInt(this.props.height / forhold, 10);
         this.setState({

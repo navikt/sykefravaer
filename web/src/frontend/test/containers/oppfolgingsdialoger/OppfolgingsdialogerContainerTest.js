@@ -21,6 +21,8 @@ describe("OppfolgingsdialogerContainer", () => {
 
     let sjekkTilgang;
     let hentOppfolgingsdialoger;
+    let hentDineSykmeldinger;
+    let hentLedere;
 
     beforeEach(() => {
         const oppfolgingsdialogerArray = getOppfolgingsdialoger;
@@ -44,12 +46,16 @@ describe("OppfolgingsdialogerContainer", () => {
             dispatch = sinon.spy();
             sjekkTilgang = sinon.spy();
             hentOppfolgingsdialoger = sinon.spy();
+            hentDineSykmeldinger = sinon.spy();
+            hentLedere = sinon.spy();
         });
 
         it("Skal vise spinner dersom data hentes", () => {
             let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]}
                                                              henter
                                                              hentOppfolgingsdialoger={hentOppfolgingsdialoger}
+                                                             hentDineSykmeldinger={hentDineSykmeldinger}
+                                                             hentLedere={hentLedere}
                                                              sjekkTilgang={sjekkTilgang} />);
             expect(component.contains(<AppSpinner />)).to.equal(true);
         });
@@ -57,6 +63,8 @@ describe("OppfolgingsdialogerContainer", () => {
         it("Skal ikke vise spinner dersom data ikke hentes", () => {
             let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]}
                                                              hentOppfolgingsdialoger={hentOppfolgingsdialoger}
+                                                             hentDineSykmeldinger={hentDineSykmeldinger}
+                                                             hentLedere={hentLedere}
                                                              tilgang={tilgang}
                                                              sjekkTilgang={sjekkTilgang} />);
             expect(component.contains(<AppSpinner />)).to.equal(false);
@@ -66,6 +74,8 @@ describe("OppfolgingsdialogerContainer", () => {
             let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]}
                                                              hentingFeilet
                                                              hentOppfolgingsdialoger={hentOppfolgingsdialoger}
+                                                             hentDineSykmeldinger={hentDineSykmeldinger}
+                                                             hentLedere={hentLedere}
                                                              sjekkTilgang={sjekkTilgang} />);
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
@@ -74,6 +84,8 @@ describe("OppfolgingsdialogerContainer", () => {
             let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]}
                                                              hentingFeilet
                                                              hentOppfolgingsdialoger={hentOppfolgingsdialoger}
+                                                             hentDineSykmeldinger={hentDineSykmeldinger}
+                                                             hentLedere={hentLedere}
                                                              sjekkTilgang={sjekkTilgang}
                                                              tilgang={ikkeTilgang} />);
             expect(component.contains(<OppfolgingsdialogInfoboks />)).to.equal(true);
@@ -83,6 +95,8 @@ describe("OppfolgingsdialogerContainer", () => {
             let component = shallow(<OppfolgingsdialogerSide oppfolgingsdialoger={[]}
                                                              tilgang={tilgang}
                                                              hentOppfolgingsdialoger={hentOppfolgingsdialoger}
+                                                             hentDineSykmeldinger={hentDineSykmeldinger}
+                                                             hentLedere={hentLedere}
                                                              sjekkTilgang={sjekkTilgang} />);
             expect(component.find(Oppfolgingsdialoger)).to.have.length(1);
         });

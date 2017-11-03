@@ -7,12 +7,19 @@ import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     sjekkTilgang,
     proptypes as oppfolgingProptypes,
+    bekreftNyNaermesteLeder,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 import Side from '../../sider/Side';
 import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
-import { brodsmule as brodsmulePt } from '../../propTypes';
+import {
+    brodsmule as brodsmulePt,
+    sykmelding as sykmeldingPt,
+    naermesteLeder as naermesteLederPt,
+} from '../../propTypes';
+import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
+import { avkreftLeder, hentLedere } from '../../actions/ledere_actions';
 import Oppfolgingsdialoger from '../../components/oppfolgingsdialoger/Oppfolgingsdialoger';
 
 export class OppfolgingsdialogerSide extends Component {
@@ -24,17 +31,30 @@ export class OppfolgingsdialogerSide extends Component {
         if (!oppfolgingsdialogerHentet) {
             this.props.hentOppfolgingsdialoger();
         }
+        if (!this.props.sykmeldingerHentet) {
+            this.props.hentDineSykmeldinger();
+        }
+        if (!this.props.ledereHentet) {
+            this.props.hentLedere();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.avkrefterLeder && nextProps.avkreftetLeder) {
+            this.props.hentLedere();
+            this.props.hentOppfolgingsdialoger();
+        }
     }
 
     render() {
-        const { brodsmuler, oppfolgingsdialoger, ledetekster, henter, hentingFeilet, tilgang, hentet } = this.props;
+        const { brodsmuler, ledetekster, henter, hentingFeilet, tilgang, hentet, avkrefterLeder, avkrefterLederFeilet } = this.props;
 
         return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler} laster={henter || !hentet}>
             {
                 (() => {
-                    if (henter) {
+                    if (henter || avkrefterLeder) {
                         return <AppSpinner />;
-                    } else if (hentingFeilet) {
+                    } else if (hentingFeilet || avkrefterLederFeilet) {
                         return (<Feilmelding />);
                     } else if (!tilgang.harTilgang) {
                         return (<OppfolgingsdialogInfoboks
@@ -44,10 +64,7 @@ export class OppfolgingsdialogerSide extends Component {
                             tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
                         />);
                     }
-                    return (<Oppfolgingsdialoger
-                        oppfolgingsdialoger={oppfolgingsdialoger}
-                        ledetekster={ledetekster}
-                    />);
+                    return (<Oppfolgingsdialoger {...this.props} />);
                 })()
             }
         </Side>);
@@ -66,15 +83,29 @@ OppfolgingsdialogerSide.propTypes = {
     tilgangSjekket: PropTypes.bool,
     sjekkTilgang: PropTypes.func,
     hentet: PropTypes.bool,
+    bekreftetNyNaermesteLeder: PropTypes.bool,
+    bekreftNyNaermesteLeder: PropTypes.func,
+    avkreftLeder: PropTypes.func,
+    avkrefterLeder: PropTypes.bool,
+    avkreftetLeder: PropTypes.bool,
+    avkrefterLederFeilet: PropTypes.bool,
+    sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
+    sykmeldingerHentet: PropTypes.bool,
+    hentDineSykmeldinger: PropTypes.func,
+    naermesteLedere: PropTypes.arrayOf(naermesteLederPt),
+    ledereHentet: PropTypes.bool,
+    hentLedere: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
     return {
         ledetekster: state.ledetekster.data,
+        sykmeldinger: state.dineSykmeldinger.data,
+        naermesteLedere: state.ledere.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
-        henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter || state.tilgang.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet || state.tilgang.hentingFeilet,
+        henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter || state.tilgang.henter || state.dineSykmeldinger.henter || state.ledere.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet || state.tilgang.hentingFeilet || state.dineSykmeldinger.hentingFeilet || state.ledere.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -85,10 +116,23 @@ export const mapStateToProps = (state) => {
         }],
         tilgang: state.tilgang.data,
         tilgangSjekket: state.tilgang.hentet,
+        sykmeldingerHentet: state.dineSykmeldinger.hentet,
+        ledereHentet: state.ledere.hentet,
         hentet: state.tilgang.hentet === true && state.oppfolgingsdialoger.hentet === true,
+        bekreftetNyNaermesteLeder: state.nyNaermesteLeder.bekreftet,
+        avkrefterLeder: state.ledere.avkrefter,
+        avkreftetLeder: state.ledere.avkreftet,
+        avkrefterLederFeilet: state.ledere.avkreftFeilet,
     };
 };
 
-const OppfolgingsdialogerContainer = connect(mapStateToProps, { hentOppfolgingsdialoger, sjekkTilgang })(OppfolgingsdialogerSide);
+const OppfolgingsdialogerContainer = connect(mapStateToProps, {
+    hentOppfolgingsdialoger,
+    sjekkTilgang,
+    bekreftNyNaermesteLeder,
+    avkreftLeder,
+    hentDineSykmeldinger,
+    hentLedere,
+})(OppfolgingsdialogerSide);
 
 export default OppfolgingsdialogerContainer;

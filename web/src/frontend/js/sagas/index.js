@@ -2,12 +2,15 @@ import { ledeteksterSagas, togglesSagas } from 'digisyfo-npm';
 import {
     oppfolgingsdialogerAtSagas as oppfolgingsdialogerSagas,
     arbeidsoppgaveSagas,
+    arbeidsforholdSagas,
     dokumentSagas,
     samtykkeSagas,
     nullstillGodkjenningSagas,
     tilgangSagas,
     tiltakSagas,
     settDialogSagas,
+    avbrytdialogSagas,
+    delMedNavSagas,
 } from 'oppfolgingsdialog-npm';
 import arbeidsgiversSykmeldingerSagas from './arbeidsgiversSykmeldingerSagas';
 import brukerinfoSagas from './brukerinfoSagas';
@@ -28,6 +31,7 @@ import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
 export default function* rootSaga() {
     yield [
         arbeidsgiversSykmeldingerSagas(),
+        arbeidsforholdSagas(),
         brukerinfoSagas(),
         beregnArbeidsgiverperiodeSagas(),
         dineArbeidsgivereSagas(),
@@ -41,7 +45,9 @@ export default function* rootSaga() {
         moteSagas(),
         samtykkeSagas(),
         svarSagas(),
+        avbrytdialogSagas(),
         oppfolgingsdialogerSagas(),
+        delMedNavSagas(),
         nullstillGodkjenningSagas(),
         arbeidsoppgaveSagas(),
         dokumentSagas(),

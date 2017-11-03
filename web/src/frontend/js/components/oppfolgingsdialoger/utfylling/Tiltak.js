@@ -12,7 +12,7 @@ import {
     captitalizeFirstLetter,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
-import { getLedetekst, keyValue } from 'digisyfo-npm';
+import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
@@ -77,7 +77,7 @@ class Tiltak extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (!prevState.visTiltakSkjema && this.state.visTiltakSkjema && this.lagreSkjema) {
             const form = findDOMNode(this.lagreSkjema);
-            window.scrollTo(form, form.getBoundingClientRect().bottom);
+            scrollTo(form, 300);
         }
     }
 
@@ -115,6 +115,7 @@ class Tiltak extends Component {
             ledetekster,
             oppfolgingsdialog,
             oppfolgingsdialogId,
+            oppfolgingsdialogAvbrutt,
         } = this.props;
 
         const antallNyeTiltak = oppfolgingsdialog.tiltakListe.filter((tiltak) => {
@@ -168,9 +169,9 @@ class Tiltak extends Component {
                             />
                         }
                         {
-                            antallNyeTiltak > 0 && <TiltakNotifikasjonBoksAdvarsel
+                            antallNyeTiltak > 0 && !oppfolgingsdialogAvbrutt && <TiltakNotifikasjonBoksAdvarsel
                                 ledetekster={ledetekster}
-                                motpartnavn={oppfolgingsdialog.arbeidsgiver.navn}
+                                motpartnavn={'Lederen din'}
                                 antallTiltakLagtTilAvMotpart={antallNyeTiltak}
                                 rootUrl={`${getContextRoot()}`}
                             />
@@ -212,6 +213,7 @@ Tiltak.propTypes = {
     ledetekster: keyValue,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogId: PropTypes.string,
+    oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreTiltak: PropTypes.func,
     slettTiltak: PropTypes.func,
 };

@@ -5,6 +5,12 @@ import { Link } from 'react-router';
 import { getSvarsideModus } from 'moter-npm';
 import { getLedetekst, log } from 'digisyfo-npm';
 import { Experiment, Variant } from 'react-ab';
+import {
+    hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
+    proptypes as oppfolgingProptypes,
+    finnNyesteGodkjenning
+}
+    from 'oppfolgingsdialog-npm';
 import { NY as NY_SYKMELDING } from '../../enums/sykmeldingstatuser';
 import { NY as NY_SYKEPENGESOKNAD } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
@@ -60,7 +66,27 @@ NySykepengesoknad.propTypes = {
     onClick: PropTypes.func,
 };
 
-const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, visAktivitetskrav, svg, variant, className }) => {
+const nyePlanerTekst = (antall) => {
+    return antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.entall') :
+        getLedetekst('dine-oppgaver.oppfoelgingsdialog.sykmeldt.nyeplaner.flertall', {
+            '%ANTALL%': antall,
+        });
+};
+
+const avventendeGodkjenningerTekst = (antall) => {
+    return antall === 1 ? getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.entall') :
+        getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.flertall', {
+            '%ANTALL%': antall,
+        });
+};
+
+const idAlleredeFunnet = (planer, id) => {
+    return planer.filter((plan) => {
+            return plan.id === id;
+        }).length > 0;
+};
+
+const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, avventendeGodkjenninger, nyePlaner, visAktivitetskrav, svg, variant, className }) => {
     if (!visOppgaver) {
         return null;
     }
@@ -79,6 +105,8 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
                     { sykmeldinger.length > 0 ? <NySykmelding onClick={onClick} sykmeldinger={sykmeldinger} /> : null }
                     { sykepengesoknader.length > 0 ? <NySykepengesoknad onClick={onClick} sykepengesoknader={sykepengesoknader} /> : null }
                     { mote !== null ? <Li onClick={onClick} url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> : null }
+                    { avventendeGodkjenninger.length > 0 ? <Li onClick={onClick} url="/sykefravaer/oppfolgingsplaner" tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} /> : null }
+                    { nyePlaner.length > 0 ? <Li onClick={onClick} url="/sykefravaer/oppfolgingsplaner" tekst={nyePlanerTekst(nyePlaner.length)} /> : null }
                     { visAktivitetskrav && <NyttAktivitetskravvarsel onClick={onClick} /> }
                 </ul>
             </div>
@@ -87,6 +115,8 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
 };
 
 RendreOppgaver.propTypes = {
+    avventendeGodkjenninger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
+    nyePlaner: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     visOppgaver: PropTypes.bool,
@@ -103,12 +133,15 @@ const ROED = 'RØD';
 
 export class DineOppgaver extends Component {
     componentWillMount() {
-        const { sykmeldingerHentet, sykmeldingerHentingFeilet, hendelserHentet, hentingFeiletHendelser } = this.props;
+        const { sykmeldingerHentet, sykmeldingerHentingFeilet, hendelserHentet, hentingFeiletHendelser, oppfolgingsdialogerHentet } = this.props;
         if (!sykmeldingerHentet && !sykmeldingerHentingFeilet) {
             this.props.hentDineSykmeldinger();
         }
         if (!hendelserHentet && !hentingFeiletHendelser) {
             this.props.hentHendelser();
+        }
+        if (!oppfolgingsdialogerHentet) {
+            this.props.hentOppfolgingsdialoger();
         }
     }
 
@@ -136,9 +169,11 @@ DineOppgaver.propTypes = {
     sykmeldingerHentet: PropTypes.bool,
     sykmeldingerHentingFeilet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
+    hentOppfolgingsdialoger: PropTypes.func,
     hentHendelser: PropTypes.func,
     hentingFeiletHendelser: PropTypes.bool,
     hendelserHentet: PropTypes.bool,
+    oppfolgingsdialogerHentet: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {
@@ -148,24 +183,36 @@ export const mapStateToProps = (state) => {
     const sykepengesoknader = state.sykepengesoknader.data.filter((s) => {
         return s.status === NY_SYKEPENGESOKNAD;
     });
+
     const mote = state.mote.data;
     let moteRes = null;
-
     if (mote && !erMotePassert(mote)) {
         if (getSvarsideModus(mote) === 'SKJEMA') {
             moteRes = 'TRENGER_SVAR';
         }
     }
 
-    const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null;
+    const avventendeGodkjenninger = state.oppfolgingsdialoger.data
+        .filter((plan) => {
+            return plan.godkjenninger.length > 0 && plan.arbeidstaker.aktoerId !== finnNyesteGodkjenning(plan.godkjenninger).godkjentAvAktoerId && finnNyesteGodkjenning(plan.godkjenninger).godkjent;
+        });
+    const nyePlaner = state.oppfolgingsdialoger.data
+        .filter((plan) => {
+            return plan.arbeidstaker.sistInnlogget === null && plan.status === 'UNDER_ARBEID' && !idAlleredeFunnet(avventendeGodkjenninger, plan.id);
+        });
+
+    const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null || avventendeGodkjenninger.length > 0 || nyePlaner.length > 0;
 
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
         sykmeldinger,
         sykmeldingerHentingFeilet: state.dineSykmeldinger.hentingFeilet,
+        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
         sykepengesoknader,
         visOppgaver,
         mote: moteRes,
+        avventendeGodkjenninger,
+        nyePlaner,
         hentingFeiletHendelser: state.hendelser.hentingFeilet,
         hendelserHentet: state.hendelser.hentet,
         visAktivitetskrav: getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL,
@@ -173,7 +220,7 @@ export const mapStateToProps = (state) => {
 };
 
 const DineOppgaverContainer = connect(mapStateToProps, {
-    hentDineSykmeldinger, hentHendelser,
+    hentDineSykmeldinger, hentHendelser, hentOppfolgingsdialoger,
 })(DineOppgaver);
 
 export default DineOppgaverContainer;

@@ -6,9 +6,22 @@ import { reducer as formReducer } from 'redux-form';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import { oppfolgingsdialogerAt as oppfolgingsdialoger, arbeidsoppgaver, dokument, samtykke, tilgang, tiltak, navigasjontoggles, nullstillGodkjenning } from 'oppfolgingsdialog-npm';
 import { hentLedetekster, ledetekster, tidslinjer, toggles } from 'digisyfo-npm';
 import { svar, mote } from 'moter-npm';
+import {
+    oppfolgingsdialogerAt as oppfolgingsdialoger,
+    arbeidsoppgaver,
+    dokument,
+    samtykke,
+    tilgang,
+    tiltak,
+    navigasjontoggles,
+    nullstill,
+    avbrytdialogReducer,
+    arbeidsforhold,
+    nyNaermesteLeder,
+    delmednav,
+} from 'oppfolgingsdialog-npm';
 import AppRouter from './routers/AppRouter';
 import dineSykmeldinger from './reducers/dineSykmeldinger';
 import sykepengesoknader from './reducers/sykepengesoknader';
@@ -29,10 +42,12 @@ import aktivitetskrav from './reducers/aktivitetskrav';
 import './logging';
 
 const rootReducer = combineReducers({
+    arbeidsforhold,
     arbeidsgivere,
     arbeidsgiverperiodeberegning,
     arbeidsgiversSykmeldinger,
     arbeidsoppgaver,
+    avbrytdialogReducer,
     brukerinfo,
     dineSykmeldinger,
     forskutteringssporsmal,
@@ -42,12 +57,14 @@ const rootReducer = combineReducers({
     ledetekster,
     mote,
     navigasjontoggles,
-    nullstillGodkjenning,
+    nullstill,
+    nyNaermesteLeder,
     oppfolgingsdialoger,
     samtykke,
     svar,
     sykepengesoknader,
     toggles,
+    delmednav,
     tidslinjer,
     tilgang,
     tiltak,

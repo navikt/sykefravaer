@@ -33,19 +33,27 @@ describe("Arbeidsoppgaver", () => {
     let arbeidstaker;
     let lagreArbeidsoppgave;
     let slettArbeidsoppgave;
+    let arbeidsforhold;
 
     beforeEach(() => {
         lagreArbeidsoppgave = sinon.spy();
         slettArbeidsoppgave = sinon.spy();
         setLedetekster(ledetekster);
         arbeidsgiver = {
-            navn: 'Arbeidsgiver',
-            aktoerId: '***REMOVED***',
+            naermesteLeder: {
+                navn: 'Arbeidsgiver',
+                aktoerId: '***REMOVED***',
+            },
         };
         arbeidstaker = {
             navn: 'Arbeidstaker',
             aktoerId: '1234567891234',
         };
+
+        arbeidsforhold = {
+            stilling: 'Test',
+            stillingsprosent: '80',
+        }
     });
 
     it("Skal vise en OppfolgingsdialogInfoboks, om det ikke er arbeidsoppgaver", () => {
@@ -58,6 +66,7 @@ describe("Arbeidsoppgaver", () => {
                                              oppfolgingsdialogerHentet
                                              lagreArbeidsoppgave={lagreArbeidsoppgave}
                                              slettArbeidsoppgave={slettArbeidsoppgave}
+                                             arbeidsforhold={arbeidsforhold}
                                              arbeidsoppgaveListe={oppfolgingsdialog.arbeidsoppgaveListe} />);
         expect(component.find(OppfolgingsdialogInfoboks)).to.have.length(1);
     });
@@ -72,6 +81,7 @@ describe("Arbeidsoppgaver", () => {
                                              nyArbeidsoppgave
                                              lagreArbeidsoppgave={lagreArbeidsoppgave}
                                              slettArbeidsoppgave={slettArbeidsoppgave}
+                                             arbeidsforhold={arbeidsforhold}
                             />);
         component.setState({
             visArbeidsoppgaveSkjema: true,
@@ -84,6 +94,7 @@ describe("Arbeidsoppgaver", () => {
                                              nyArbeidsoppgave
                                              lagreArbeidsoppgave={lagreArbeidsoppgave}
                                              slettArbeidsoppgave={slettArbeidsoppgave}
+                                             arbeidsforhold={arbeidsforhold}
                             />);
         expect(component.find('h2')).to.have.length(1);
     });
@@ -93,6 +104,7 @@ describe("Arbeidsoppgaver", () => {
                                              oppfolgingsdialogerHentet
                                              lagreArbeidsoppgave={lagreArbeidsoppgave}
                                              slettArbeidsoppgave={slettArbeidsoppgave}
+                                             arbeidsforhold={arbeidsforhold}
                             />);
         expect(component.find(OppfolgingsdialogArbeidsoppgaverTabell)).to.have.length(1);
     });
@@ -102,6 +114,7 @@ describe("Arbeidsoppgaver", () => {
                                              oppfolgingsdialogerHentet
                                              lagreArbeidsoppgave={lagreArbeidsoppgave}
                                              slettArbeidsoppgave={slettArbeidsoppgave}
+                                             arbeidsforhold={arbeidsforhold}
                             />);
         component.setState({
            visArbeidsoppgaveSkjema: true,

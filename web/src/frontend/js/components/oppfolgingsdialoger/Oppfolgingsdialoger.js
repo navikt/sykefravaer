@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
 import {
     OppfolgingsdialogTeasere,
@@ -9,13 +10,25 @@ import {
     harTidligereOppfolgingsdialoger,
     finnAktiveOppfolgingsdialoger,
     harAktivOppfolgingsdialog,
+    AvbruttPlanNotifikasjonBoksAdvarsel,
+    finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging,
+    finnBrukersSisteInnlogging,
     proptypes as oppfolgingProptypes,
+    NyNaermestelederInfoboks,
 } from 'oppfolgingsdialog-npm';
-import { Link } from 'react-router';
+import {
+    sykmelding as sykmeldingPt,
+    naermesteLeder as naermesteLederPt,
+} from '../../propTypes';
 import Sidetopp from '../Sidetopp';
-import { isEmpty } from '../../utils/oppfolgingsdialogUtils';
+import {
+    isEmpty,
+    erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere,
+} from '../../utils/oppfolgingsdialogUtils';
 import UnderUtviklingVarsel from './UnderUtviklingVarsel';
+import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
+import OppfolgingsdialogFilm from './OppfolgingsdialogFilm';
 
 export const OppfolgingsdialogNyDialog = () => {
     return (
@@ -35,16 +48,33 @@ export const OppfolgingsdialogNyDialog = () => {
     );
 };
 
-const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
-    return (<div>
-        <UnderUtviklingVarsel />
-        <Sidetopp
-            tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
-        <p className="oppfolgingsdialoger__tekst">
-            {getLedetekst('oppfolgingsdialog.oppfolgingsdialoger.arbeidstaker.tekst')}
-        </p>
+const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgingsdialoger) => {
+    const sisteInnlogging = finnBrukersSisteInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
+    return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
+        return oppfolgingsdialog.arbeidsgiver.forrigeNaermesteLeder &&
+            oppfolgingsdialog.arbeidsgiver.naermesteLeder &&
+            new Date(sisteInnlogging).toISOString().split('T')[0] <= new Date(oppfolgingsdialog.arbeidsgiver.naermesteLeder.aktivFom).toISOString().split('T')[0];
+    })[0];
+};
 
-        { !isEmpty(oppfolgingsdialoger) && harAktivOppfolgingsdialog(oppfolgingsdialoger) &&
+const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster, avkreftLeder, bekreftetNyNaermesteLeder, bekreftNyNaermesteLeder, sykmeldinger, naermesteLedere }) => {
+    let panel;
+    const dialogerAvbruttAvMotpartSidenSistInnlogging = finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
+    const oppfolgingsdialogMedNyNaermesteLeder = finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder(oppfolgingsdialoger);
+    if (erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere(oppfolgingsdialoger, sykmeldinger, naermesteLedere)) {
+        panel = (<IngenledereInfoboks />);
+    } else if (!bekreftetNyNaermesteLeder && oppfolgingsdialogMedNyNaermesteLeder) {
+        panel = (<NyNaermestelederInfoboks
+            ledetekster={ledetekster}
+            oppfolgingsdialog={oppfolgingsdialogMedNyNaermesteLeder}
+            avkreftNyNaermesteleder={avkreftLeder}
+            bekreftNyNaermesteLeder={bekreftNyNaermesteLeder}
+            brukerType={BRUKERTYPE.ARBEIDSTAKER}
+            rootUrlImg={getContextRoot()}
+        />);
+    } else {
+        panel = (<div>
+            { !isEmpty(oppfolgingsdialoger) && harAktivOppfolgingsdialog(oppfolgingsdialoger) &&
             <div>
                 <OppfolgingsdialogTeasere
                     ledetekster={ledetekster}
@@ -57,9 +87,9 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
                 />
                 <OppfolgingsdialogNyDialog ledetekster={ledetekster} />
             </div>
-        }
+            }
 
-        { (isEmpty(oppfolgingsdialoger) || !harAktivOppfolgingsdialog(oppfolgingsdialoger)) &&
+            { (isEmpty(oppfolgingsdialoger) || !harAktivOppfolgingsdialog(oppfolgingsdialoger)) &&
             <div className="blokk--l">
                 <OppfolgingsdialogerIngenplan
                     ledetekster={ledetekster}
@@ -67,9 +97,9 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
                     rootUrl={getContextRoot()}
                 />
             </div>
-        }
+            }
 
-        { !isEmpty(Oppfolgingsdialoger) && harTidligereOppfolgingsdialoger(oppfolgingsdialoger) &&
+            { !isEmpty(Oppfolgingsdialoger) && harTidligereOppfolgingsdialoger(oppfolgingsdialoger) &&
             <div>
                 <OppfolgingsdialogTeasere
                     ledetekster={ledetekster}
@@ -84,14 +114,38 @@ const Oppfolgingsdialoger = ({ oppfolgingsdialoger = [], ledetekster }) => {
                     svgAlt="OppfølgingsdialogTidligere"
                 />
             </div>
+            }
+            <OppfolgingsdialogFilm ledetekster={ledetekster} />
+        </div>);
+    }
+    return (<div>
+        <UnderUtviklingVarsel />
+        <Sidetopp
+            tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
+        <p className="oppfolgingsdialoger__tekst">
+            {getLedetekst('oppfolgingsdialog.oppfolgingsdialoger.arbeidstaker.tekst')}
+        </p>
+
+        {
+            dialogerAvbruttAvMotpartSidenSistInnlogging.length > 0 && <AvbruttPlanNotifikasjonBoksAdvarsel
+                ledetekster={ledetekster}
+                motpartnavn={dialogerAvbruttAvMotpartSidenSistInnlogging[0].arbeidsgiver.naermesteLeder.navn}
+                rootUrl={getContextRoot()}
+            />
         }
 
+        { panel }
     </div>);
 };
 
 Oppfolgingsdialoger.propTypes = {
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
+    sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
+    naermesteLedere: PropTypes.arrayOf(naermesteLederPt),
     ledetekster: keyValue,
+    bekreftetNyNaermesteLeder: PropTypes.bool,
+    bekreftNyNaermesteLeder: PropTypes.func,
+    avkreftLeder: PropTypes.func,
 };
 
 export default Oppfolgingsdialoger;

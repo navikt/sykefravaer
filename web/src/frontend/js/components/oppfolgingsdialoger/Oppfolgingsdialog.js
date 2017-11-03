@@ -206,9 +206,11 @@ class Oppfolgingsdialog extends Component {
                     { panel }
                 </div>
                 <NavigasjonsBunn
+                    ledetekster={ledetekster}
                     disabled={disableNavigation}
                     settAktivtSteg={settAktivtSteg}
                     steg={navigasjontoggles.steg}
+                    rootUrlPlaner={getContextRoot()}
                 />
             </div>
         );

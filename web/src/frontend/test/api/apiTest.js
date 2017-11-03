@@ -3,8 +3,6 @@ import { get, post, getAjax } from '../../js/api';
 import fetchMock from 'fetch-mock';
 import sinon from 'sinon';
 
-
-
 describe("api", () => {
     describe("get", () => {
 

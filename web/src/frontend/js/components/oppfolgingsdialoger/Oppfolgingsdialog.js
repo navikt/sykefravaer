@@ -27,7 +27,7 @@ const inneholderGodkjentPlan = (oppfolgingsdialog) => {
 };
 
 const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.godkjenninger.length === 1 && !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.aktoerId === oppfolgingsdialog.godkjenninger[0].godkjentAvAktoerId;
+    return oppfolgingsdialog.godkjenninger.length === 1 && !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.fnr === oppfolgingsdialog.godkjenninger[0].godkjentAvFnr;
 };
 
 class Oppfolgingsdialog extends Component {
@@ -66,7 +66,6 @@ class Oppfolgingsdialog extends Component {
             slettingFeiletArbeidsoppgave,
             slettingFeiletTiltak,
             oppfolgingsdialog,
-            oppfolgingsdialogId,
             ledetekster,
             settAktivtSteg,
             avvisDialog,
@@ -150,7 +149,6 @@ class Oppfolgingsdialog extends Component {
                         slettingFeilet={slettingFeiletArbeidsoppgave}
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
-                        oppfolgingsdialogId={oppfolgingsdialogId}
                         oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
                         lagreArbeidsoppgave={lagreArbeidsoppgave}
                         slettArbeidsoppgave={slettArbeidsoppgave}
@@ -166,7 +164,6 @@ class Oppfolgingsdialog extends Component {
                         slettingFeilet={slettingFeiletTiltak}
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
-                        oppfolgingsdialogId={oppfolgingsdialogId}
                         oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
                         lagreTiltak={lagreTiltak}
                         slettTiltak={slettTiltak}
@@ -231,7 +228,6 @@ Oppfolgingsdialog.propTypes = {
     slettingFeiletArbeidsoppgave: PropTypes.bool,
     slettingFeiletTiltak: PropTypes.bool,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
-    oppfolgingsdialogId: PropTypes.string,
     ledetekster: keyValue,
     toggles: togglesPt,
     delMedNavFunc: PropTypes.func,

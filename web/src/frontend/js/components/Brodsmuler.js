@@ -2,21 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { getContextRoot } from '../routers/paths';
+import MiniSpinner from './MiniSpinner';
 import { brodsmule as brodsmuleProptype } from '../propTypes';
 
 const Brodsmule = ({ sti, tittel, sisteSmule, erKlikkbar }) => {
     if (sisteSmule) {
         return (<span className="js-smuletekst">
-            <span className="vekk">Du er her:</span> <span className="brodsmule">{tittel}</span>
+            <span className="vekk">Du er her:</span> <span className="brodsmule">{tittel ? tittel : <MiniSpinner />}</span>
         </span>);
     } else if (erKlikkbar) {
         return (<span className="js-smuletekst">
-            <Link className="js-smule brodsmuler__smule" to={getContextRoot() + sti}>{tittel}</Link>
+            <Link className="js-smule brodsmuler__smule" to={getContextRoot() + sti}>{tittel ? tittel : <MiniSpinner />}</Link>
             <span className="brodsmule__skille"> / </span>
         </span>);
     }
     return (<span>
-        <span className="brodsmuler__smule">{tittel}</span>
+        <span className="brodsmuler__smule">{tittel ? tittel : <MiniSpinner />}</span>
         <span className="brodsmule__skille"> / </span>
     </span>);
 };

@@ -6,6 +6,7 @@ import {
     OppfolgingsdialogInfoboks,
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     sjekkTilgang,
+    hentVirksomhet,
     proptypes as oppfolgingProptypes,
     bekreftNyNaermesteLeder,
 } from 'oppfolgingsdialog-npm';
@@ -48,7 +49,6 @@ export class OppfolgingsdialogerSide extends Component {
 
     render() {
         const { brodsmuler, ledetekster, henter, hentingFeilet, tilgang, hentet, avkrefterLeder, avkrefterLederFeilet } = this.props;
-
         return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler} laster={henter || !hentet}>
             {
                 (() => {
@@ -95,6 +95,7 @@ OppfolgingsdialogerSide.propTypes = {
     naermesteLedere: PropTypes.arrayOf(naermesteLederPt),
     ledereHentet: PropTypes.bool,
     hentLedere: PropTypes.func,
+    hentVirksomhet: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
@@ -133,6 +134,7 @@ const OppfolgingsdialogerContainer = connect(mapStateToProps, {
     avkreftLeder,
     hentDineSykmeldinger,
     hentLedere,
+    hentVirksomhet,
 })(OppfolgingsdialogerSide);
 
 export default OppfolgingsdialogerContainer;

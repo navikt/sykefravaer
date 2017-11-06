@@ -10,6 +10,7 @@ import {
     Godkjenninger,
     Samtykke,
     AvbruttGodkjentPlanVarsel,
+    virksomhetsnavn,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
@@ -195,7 +196,7 @@ class Oppfolgingsdialog extends Component {
                 <NavigasjonsTopp
                     ledetekster={ledetekster}
                     disabled={disableNavigation}
-                    navn={oppfolgingsdialog.virksomhetsnavn}
+                    navn={virksomhetsnavn(oppfolgingsdialog.virksomhet)}
                     settAktivtSteg={settAktivtSteg}
                     steg={navigasjontoggles.steg}
                 />

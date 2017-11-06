@@ -21,6 +21,8 @@ import {
     avbrytDialog,
     finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt,
     hentArbeidsforhold,
+    virksomhetsnavn,
+    hentVirksomhet,
     delMedNav as delMedNavFunc,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
@@ -36,18 +38,32 @@ import {
 } from '../../propTypes';
 
 export class OppfolgingsdialogSide extends Component {
+    constructor() {
+        super();
+        if (!this.props.oppfolgingsdialogerHentet && !this.props.oppfolgingsdialogerHenter) {
+            this.props.hentOppfolgingsdialoger();
+        }
+
+        if (!this.props.sjekkTilgangHentet && !this.props.sjekkTilgangHenter) {
+            this.props.sjekkTilgang();
+        }
+    }
+
     componentWillMount() {
-        const { oppfolgingsdialogId, toggles } = this.props;
-        this.props.settDialog(oppfolgingsdialogId);
+        const { oppfolgingsdialog, toggles,  } = this.props;
         if (!toggles.hentet && !toggles.henter) {
             this.props.hentToggles();
+        }
+
+        if (!oppfolgingsdialog.virksomhet.hentet && !oppfolgingsdialog.virksomhet.henter) {
+            this.props.hentVirksomhet(oppfolgingsdialog.virksomhet.virksomhetsnummer);
         }
     }
 
     componentDidMount() {
-        if (!this.props.oppfolgingsdialogerHentet && !this.props.oppfolgingsdialogerHenter) {
-            this.props.hentOppfolgingsdialoger();
-        }
+        const { oppfolgingsdialog, } = this.props;
+        this.props.settDialog(oppfolgingsdialog.id);
+
         if (!this.props.sjekkTilgangHentet && !this.props.sjekkTilgangHenter) {
             this.props.sjekkTilgang();
         }
@@ -180,6 +196,7 @@ OppfolgingsdialogSide.propTypes = {
     hentet: PropTypes.bool,
     settDialog: PropTypes.func,
     hentToggles: PropTypes.func,
+    hentVirksomhet: PropTypes.func,
     arbeidsforholdFnr: PropTypes.string,
     oppfolgingsdialogId: PropTypes.string,
 };
@@ -187,7 +204,6 @@ OppfolgingsdialogSide.propTypes = {
 export function mapStateToProps(state, ownProps) {
     const id = ownProps.params.oppfolgingsdialogId;
     const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
-    const virksomhetsnavn = oppfolgingsdialog ? oppfolgingsdialog.virksomhetsnavn : '';
     const arbeidsforholdFnr = isEmpty(state.arbeidsforhold.data) ? '' : state.arbeidsforhold.data.fnr;
     return {
         ledetekster: state.ledetekster.data,
@@ -249,7 +265,7 @@ export function mapStateToProps(state, ownProps) {
             sti: '/oppfolgingsplaner',
             erKlikkbar: true,
         }, {
-            tittel: virksomhetsnavn,
+            tittel: oppfolgingsdialog.virksomhet.navn,
         }],
     };
 }
@@ -272,6 +288,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     hentArbeidsforhold,
     avbrytDialog,
     hentToggles,
+    hentVirksomhet,
     delMedNavFunc,
 })(OppfolgingsdialogSide);
 

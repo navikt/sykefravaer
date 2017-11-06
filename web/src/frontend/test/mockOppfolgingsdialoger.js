@@ -3,15 +3,11 @@ export const getOppfolgingsdialoger = [
         opprettetDato: "2017-06-12",
         sistEndretAvFnr: "***REMOVED***",
         sistEndretDato: "2017-06-13",
-        arbeidstakerNavn: "Test Testesen",
-        arbeidsgiverNavn: "Test Testesen",
-        virksomhetsnavn: "Fant ikke navn",
-        godkjentAvArbeidsgiver: null,
-        godkjentAvArbeidstaker: null,
-        samtykkeArbeidsgiver: null,
-        samtykkeArbeidstaker: true,
+        virksomhet: {
+            navn: "Fant ikke navn",
+            virksomhetsnummer: "123456789",
+        },
         id: 163,
-        virksomhetsnummer: "123456789",
         godkjentPlan: {
             gyldighetstidspunkt: {
                 fom: "2017-01-03",
@@ -129,22 +125,18 @@ export const getOppfolgingsdialoger = [
         opprettetDato: "2017-06-12",
         sistEndretAvFnr: "***REMOVED***",
         sistEndretDato: "2017-06-12",
-        arbeidstakerNavn: "Test Testesen",
-        arbeidsgiverNavn: "Test Testesen",
-        virksomhetsnavn: "Fant ikke navn",
-        godkjentAvArbeidsgiver: null,
-        godkjentAvArbeidstaker: null,
-        samtykkeArbeidsgiver: null,
-        samtykkeArbeidstaker: null,
+        virksomhet: {
+            navn: "Fant ikke navn",
+            virksomhetsnummer: "123456789",
+        },
         id: 164,
-        virksomhetsnummer: "123456789",
         godkjentPlan: {
             gyldighetstidspunkt: {
                 fom: "2017-01-03",
                 tom: "2017-02-03",
             }
         },
-        oppfoelgingsdialogstatus: "OPPRETTET",
+        status: "OPPRETTET",
         arbeidsoppgaveListe: [],
         tiltakListe: [],
         arbeidsgiver: {
@@ -169,15 +161,11 @@ export const getOppfolgingsdialoger = [
         opprettetDato: "2017-06-12",
         sistEndretAvFnr: "***REMOVED***",
         sistEndretDato: "2017-06-12",
-        arbeidstakerNavn: "Test Testesen",
-        arbeidsgiverNavn: "Test Testesen",
-        virksomhetsnavn: "Fant ikke navn",
-        godkjentAvArbeidsgiver: null,
-        godkjentAvArbeidstaker: null,
-        samtykkeArbeidsgiver: null,
-        samtykkeArbeidstaker: null,
+        virksomhet: {
+            navn: "Fant ikke navn",
+            virksomhetsnummer: "***REMOVED***",
+        },
         id: 162,
-        virksomhetsnummer: "***REMOVED***",
         godkjentPlan: {
             gyldighetstidspunkt: {
                 fom: "2017-01-03",
@@ -213,15 +201,11 @@ const oppfolgingsdialog = {
     opprettetDato: "2017-06-12",
     sistEndretAvFnr: "***REMOVED***",
     sistEndretDato: "2017-06-13",
-    arbeidstakerNavn: "Test Testesen",
-    arbeidsgiverNavn: "Test Testesen",
-    virksomhetsnavn: "Fant ikke navn",
-    godkjentAvArbeidsgiver: null,
-    godkjentAvArbeidstaker: null,
-    samtykkeArbeidsgiver: null,
-    samtykkeArbeidstaker: true,
+    virksomhet: {
+        navn: "Fant ikke navn",
+        virksomhetsnummer: "123456789",
+    },
     id: 163,
-    virksomhetsnummer: "123456789",
     godkjentPlan: {
         gyldighetstidspunkt: {
             fom: "2017-01-03",

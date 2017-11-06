@@ -20,7 +20,7 @@ import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
 
-export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, aktoerId, oppfolgingsdialog }) => {
+export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, fnr, oppfolgingsdialog }) => {
     return (
         <OppfolgingsdialogTabell
             ledetekster={ledetekster}
@@ -31,7 +31,7 @@ export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsopp
             urlImgCheckboks={`${getContextRoot()}/img/svg/oppfolgingdialog-checkbox.svg`}
             sendLagre={sendLagreArbeidsoppgave}
             sendSlett={sendSlettArbeidsoppgave}
-            aktoerId={aktoerId}
+            fnr={fnr}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
             oppfolgingsdialog={oppfolgingsdialog}
         />
@@ -43,7 +43,7 @@ OppfolgingsdialogArbeidsoppgaverTabell.propTypes = {
     arbeidsoppgaveListe: PropTypes.arrayOf(oppfolgingProptypes.arbeidsoppgavePt),
     sendLagreArbeidsoppgave: PropTypes.func,
     sendSlettArbeidsoppgave: PropTypes.func,
-    aktoerId: PropTypes.string,
+    fnr: PropTypes.string,
 };
 
 export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppgave, toggleArbeidsoppgaveSkjema }) => {
@@ -104,11 +104,11 @@ class Arbeidsoppgaver extends Component {
         const nyeValues = Object.assign({}, values, {
             arbeidsoppgavenavn: captitalizeFirstLetter(values.arbeidsoppgavenavn),
         });
-        this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialogId, nyeValues);
+        this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialog.id, nyeValues);
     }
 
     sendSlettArbeidsoppgave(arbeidsoppgaveId) {
-        this.props.slettArbeidsoppgave(this.props.oppfolgingsdialogId, arbeidsoppgaveId);
+        this.props.slettArbeidsoppgave(this.props.oppfolgingsdialog.id, arbeidsoppgaveId);
     }
 
     toggleArbeidsoppgaveSkjema() {
@@ -132,7 +132,6 @@ class Arbeidsoppgaver extends Component {
             slettingFeilet,
             ledetekster,
             oppfolgingsdialog,
-            oppfolgingsdialogId,
             arbeidsforhold,
             oppfolgingsdialogAvbrutt,
         } = this.props;
@@ -172,7 +171,6 @@ class Arbeidsoppgaver extends Component {
                                 </OppfolgingsdialogInfoboks> :
                                 <RenderOpprettArbeidsoppgave
                                     ledetekster={ledetekster}
-                                    oppfolgingsdialogId={oppfolgingsdialogId}
                                     sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
                                     toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema}
                                 />
@@ -220,7 +218,7 @@ class Arbeidsoppgaver extends Component {
                             arbeidsoppgaveListe={sorterArbeidsoppgaverEtterOpprettet(oppfolgingsdialog.arbeidsoppgaveListe)}
                             sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
                             sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
-                            aktoerId={oppfolgingsdialog.arbeidstaker.aktoerId}
+                            fnr={oppfolgingsdialog.arbeidstaker.fnr}
                         />
                         {
                             this.state.visArbeidsoppgaveSkjema ?
@@ -252,7 +250,6 @@ Arbeidsoppgaver.propTypes = {
     slettingFeilet: PropTypes.bool,
     ledetekster: keyValue,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
-    oppfolgingsdialogId: PropTypes.string,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,

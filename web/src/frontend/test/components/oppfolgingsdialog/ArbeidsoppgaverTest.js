@@ -40,12 +40,12 @@ describe('Arbeidsoppgaver', () => {
         arbeidsgiver = {
             naermesteLeder: {
                 navn: 'Arbeidsgiver',
-                aktoerId: '***REMOVED***',
+                fnr: '***REMOVED***',
             },
         };
         arbeidstaker = {
             navn: 'Arbeidstaker',
-            aktoerId: '1234567891234',
+            fnr: '1234567891234',
             sistInnlogget: '2017-01-01T00:00:00.000',
         };
         arbeidsforhold = {
@@ -53,7 +53,7 @@ describe('Arbeidsoppgaver', () => {
                 yrke: 'Test',
                 prosent: '80',
             }],
-            aktoerId: '1234567891234',
+            fnr: '1234567891234',
         };
     });
 

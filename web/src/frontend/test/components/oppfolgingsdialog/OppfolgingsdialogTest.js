@@ -83,14 +83,14 @@ describe('Oppfolgingsdialog', () => {
     });
 
     it('Skal vise Godkjenninger, om oppfolgingsdialoger inneholder Godkjenninger og ikke er avvist av arbeidstaker', () => {
-        const sykmeldtAktoerId = '123456789';
+        const sykmeldtFnr = '123456789';
         oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
             godkjenninger: [{
                 godkjent: true,
-                godkjentAvAktoerId: sykmeldtAktoerId,
+                godkjentAvFnr: sykmeldtFnr,
             }],
             arbeidstaker: {
-                aktoerId: sykmeldtAktoerId,
+                fnr: sykmeldtFnr,
             },
         });
         component = shallow(<Oppfolgingsdialog

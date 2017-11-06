@@ -29,7 +29,7 @@
   "author": "DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
   "dependencies": {
-    "babel-loader": "7.1.2",
+    "babel-loader": "^7.1.2",
     "babel-polyfill": "6.26.0",
     "digisyfo-npm": "2.0.2",
     "fetch": "1.0.1",
@@ -44,7 +44,7 @@
     "nav-frontend-stegindikator-design": "0.0.3",
     "nav-frontend-typografi-design": "2.1.1",
     "nav-logger": "2.0.1",
-    "oppfolgingsdialog-npm": "1.1.41",
+    "oppfolgingsdialog-npm": "1.1.38.2",
     "promise-polyfill": "6.0.2",
     "prop-types": "15.6.0",
     "react": "16.0.0",

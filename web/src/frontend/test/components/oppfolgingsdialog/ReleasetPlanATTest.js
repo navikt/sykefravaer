@@ -52,7 +52,7 @@ describe('ReleasetPlanAT', () => {
             },
             arbeidstaker: {
                 navn: 'Arbeidstaker',
-                aktoerId: '1234567891234',
+                fnr: '1234567891234',
                 sistInnlogget: '2017-01-01T00:00:00.000',
             },
         });

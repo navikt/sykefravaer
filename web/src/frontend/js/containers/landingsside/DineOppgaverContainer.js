@@ -193,7 +193,7 @@ export const mapStateToProps = (state) => {
 
     const avventendeGodkjenninger = state.oppfolgingsdialoger.data
         .filter((plan) => {
-            return plan.godkjenninger.length > 0 && plan.arbeidstaker.aktoerId !== finnNyesteGodkjenning(plan.godkjenninger).godkjentAvAktoerId && finnNyesteGodkjenning(plan.godkjenninger).godkjent;
+            return plan.godkjenninger.length > 0 && plan.arbeidstaker.fnr !== finnNyesteGodkjenning(plan.godkjenninger).godkjentAvFnr && finnNyesteGodkjenning(plan.godkjenninger).godkjent;
         });
     const nyePlaner = state.oppfolgingsdialoger.data
         .filter((plan) => {

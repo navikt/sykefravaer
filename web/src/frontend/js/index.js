@@ -24,6 +24,7 @@ import {
     person,
     virksomhet,
     kontaktinfo,
+    forrigenaermesteleder,
 } from 'oppfolgingsdialog-npm';
 import AppRouter from './routers/AppRouter';
 import dineSykmeldinger from './reducers/dineSykmeldinger';
@@ -77,6 +78,7 @@ const rootReducer = combineReducers({
     person,
     virksomhet,
     kontaktinfo,
+    forrigenaermesteleder,
     form: formReducer,
     formMeta: reduxFormMeta,
 });

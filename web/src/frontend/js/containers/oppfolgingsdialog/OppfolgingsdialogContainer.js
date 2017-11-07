@@ -22,9 +22,9 @@ import {
     finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt,
     hentArbeidsforhold,
     hentVirksomhet,
-    henterEllerHarHentetVirksomhet,
     hentPerson,
     hentKontaktinfo,
+    hentForrigeNaermesteLeder,
     delMedNav as delMedNavFunc,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
@@ -70,7 +70,7 @@ export class OppfolgingsdialogSide extends Component {
             this.props.hentOppfolgingsdialoger();
         }
         if (this.props.oppfolgingsdialogAvbrutt && !this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet) {
-            const nyOpprettetDialog = finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt(nextProps.oppfolgingsdialoger, nextProps.oppfolgingsdialog.virksomhetsnummer);
+            const nyOpprettetDialog = finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt(nextProps.oppfolgingsdialoger, nextProps.oppfolgingsdialog.virksomhet.virksomhetsnummer);
             if (nyOpprettetDialog) {
                 history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.id}/`);
                 window.location.hash = 'arbeidsoppgaver';
@@ -190,10 +190,12 @@ OppfolgingsdialogSide.propTypes = {
     hentVirksomhet: PropTypes.func,
     hentPerson: PropTypes.func,
     hentKontaktinfo: PropTypes.func,
+    hentForrigeNaermesteLeder: PropTypes.func,
     arbeidsforholdFnr: PropTypes.string,
     oppfolgingsdialogId: PropTypes.string,
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
     person: oppfolgingProptypes.personReducerPt,
+    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -202,6 +204,7 @@ export function mapStateToProps(state, ownProps) {
     const arbeidsforholdFnr = isEmpty(state.arbeidsforhold.data) ? '' : state.arbeidsforhold.data.fnr;
     const brodsmuletittel = oppfolgingsdialog && oppfolgingsdialog.virksomhet.navn;
     return {
+        forrigenaermesteleder: state.forrigenaermesteleder,
         virksomhet: state.virksomhet,
         kontaktinfo: state.kontaktinfo,
         person: state.person,
@@ -290,6 +293,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     hentVirksomhet,
     hentPerson,
     hentKontaktinfo,
+    hentForrigeNaermesteLeder,
     delMedNavFunc,
 })(OppfolgingsdialogSide);
 

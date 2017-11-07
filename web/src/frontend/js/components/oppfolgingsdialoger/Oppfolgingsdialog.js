@@ -14,6 +14,7 @@ import {
     henterEllerHarHentetPerson,
     henterEllerHarHentetKontaktinfo,
     finnFodselsnumreKnyttetTilDialog,
+    henterEllerHarHentetForrigeNaermesteLeder,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
@@ -45,7 +46,7 @@ class Oppfolgingsdialog extends Component {
     }
 
     componentWillMount() {
-        const { oppfolgingsdialog, virksomhet, person, kontaktinfo } = this.props;
+        const { oppfolgingsdialog, virksomhet, person, kontaktinfo, forrigenaermesteleder } = this.props;
         this.props.settAktivtSteg(1);
         this.props.settDialog(oppfolgingsdialog.id);
 
@@ -60,6 +61,10 @@ class Oppfolgingsdialog extends Component {
 
         if (!henterEllerHarHentetKontaktinfo(oppfolgingsdialog.arbeidstaker.fnr, kontaktinfo)) {
             this.props.hentKontaktinfo(oppfolgingsdialog.arbeidstaker.fnr);
+        }
+
+        if (!henterEllerHarHentetForrigeNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer, forrigenaermesteleder)) {
+            this.props.hentForrigeNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer);
         }
     }
 
@@ -264,10 +269,19 @@ Oppfolgingsdialog.propTypes = {
     settAktivtSteg: PropTypes.func,
     avvisDialog: PropTypes.func,
     avbrytDialog: PropTypes.func,
+    settDialog: PropTypes.func,
+    hentVirksomhet: PropTypes.func,
+    hentKontaktinfo: PropTypes.func,
+    hentPerson: PropTypes.func,
+    hentForrigeNaermesteLeder: PropTypes.func,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
+    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
+    person: oppfolgingProptypes.personReducerPt,
+    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
+    kontaktinfo: oppfolgingProptypes.kontaktinfoReducerPt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
 };
 

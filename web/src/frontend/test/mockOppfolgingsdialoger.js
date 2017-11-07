@@ -66,7 +66,6 @@ export const getOppfolgingsdialoger = [
                     tilretteleggingArbeidsgiver: null,
                     kanIkkeBeskrivelse: null
                 },
-                opprettetAvFnr: "***REMOVED***",
                 opprettetDato: "2017-06-12",
                 sistEndretAv: {
                     fnr: '***REMOVED***',
@@ -96,7 +95,6 @@ export const getOppfolgingsdialoger = [
                     tilretteleggingArbeidsgiver: null,
                     kanIkkeBeskrivelse: null
                 },
-                opprettetAvFnr: "***REMOVED***",
                 opprettetDato: "2017-06-13",
                 sistEndretAv: {
                     fnr: '***REMOVED***',
@@ -148,7 +146,9 @@ export const getOppfolgingsdialoger = [
         },
         status: "OPPRETTET",
         arbeidsoppgaveListe: [],
+        godkjenninger: [],
         tiltakListe: [],
+        avbruttPlanListe: [],
         arbeidsgiver: {
             naermesteLeder : {
                 navn: "Test Testesen",

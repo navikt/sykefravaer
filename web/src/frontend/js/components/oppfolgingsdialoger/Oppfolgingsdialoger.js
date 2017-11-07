@@ -18,6 +18,7 @@ import {
     henterEllerHarHentetVirksomhet,
     henterEllerHarHentetPerson,
     finnFodselsnumreKnyttetTilDialog,
+    henterEllerHarHentetForrigeNaermesteLeder,
 } from 'oppfolgingsdialog-npm';
 import {
     sykmelding as sykmeldingPt,
@@ -60,10 +61,9 @@ const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgi
     })[0];
 };
 
-export class Oppfolgingsdialoger  extends Component {
-
+export class Oppfolgingsdialoger extends Component {
     componentWillMount() {
-        const { oppfolgingsdialoger, virksomhet, person } = this.props;
+        const { oppfolgingsdialoger, virksomhet, person, forrigenaermesteleder } = this.props;
         const virksomhetsnummerSet = new Set();
         oppfolgingsdialoger.forEach((oppfolgingsdialog) => {
             virksomhetsnummerSet.add(oppfolgingsdialog.virksomhet.virksomhetsnummer);
@@ -75,23 +75,26 @@ export class Oppfolgingsdialoger  extends Component {
             }
         });
 
-
         oppfolgingsdialoger.forEach((oppfolgingsdialog) => {
             finnFodselsnumreKnyttetTilDialog(oppfolgingsdialog).forEach((fnr) => {
                 if (!henterEllerHarHentetPerson(fnr, person)) {
                     this.props.hentPerson(fnr);
                 }
             });
+
+            if (!henterEllerHarHentetForrigeNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer, forrigenaermesteleder)) {
+                this.props.hentForrigeNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer);
+            }
         });
     }
 
     render() {
-        const {oppfolgingsdialoger = [], ledetekster, avkreftLeder, bekreftetNyNaermesteLeder, bekreftNyNaermesteLeder, sykmeldinger, naermesteLedere} = this.props;
+        const { oppfolgingsdialoger = [], ledetekster, avkreftLeder, bekreftetNyNaermesteLeder, bekreftNyNaermesteLeder, sykmeldinger, naermesteLedere } = this.props;
         let panel;
         const dialogerAvbruttAvMotpartSidenSistInnlogging = finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
         const oppfolgingsdialogMedNyNaermesteLeder = finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder(oppfolgingsdialoger);
         if (erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere(oppfolgingsdialoger, sykmeldinger, naermesteLedere)) {
-            panel = (<IngenledereInfoboks/>);
+            panel = (<IngenledereInfoboks />);
         } else if (!bekreftetNyNaermesteLeder && oppfolgingsdialogMedNyNaermesteLeder) {
             panel = (<NyNaermestelederInfoboks
                 ledetekster={ledetekster}
@@ -114,7 +117,7 @@ export class Oppfolgingsdialoger  extends Component {
                         rootUrl={getContextRoot()}
                         rootUrlPlaner={getContextRoot()}
                     />
-                    <OppfolgingsdialogNyDialog ledetekster={ledetekster}/>
+                    <OppfolgingsdialogNyDialog ledetekster={ledetekster} />
                 </div>
                 }
 
@@ -128,7 +131,7 @@ export class Oppfolgingsdialoger  extends Component {
                 </div>
                 }
 
-                {!isEmpty(Oppfolgingsdialoger) && harTidligereOppfolgingsdialoger(oppfolgingsdialoger) &&
+                {!isEmpty(oppfolgingsdialoger) && harTidligereOppfolgingsdialoger(oppfolgingsdialoger) &&
                 <div>
                     <OppfolgingsdialogTeasere
                         ledetekster={ledetekster}
@@ -144,13 +147,13 @@ export class Oppfolgingsdialoger  extends Component {
                     />
                 </div>
                 }
-                <OppfolgingsdialogFilm ledetekster={ledetekster}/>
+                <OppfolgingsdialogFilm ledetekster={ledetekster} />
             </div>);
         }
         return (<div>
-            <UnderUtviklingVarsel/>
+            <UnderUtviklingVarsel />
             <Sidetopp
-                tittel={getLedetekst('oppfolgingsdialoger.sidetittel')}/>
+                tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
             <p className="oppfolgingsdialoger__tekst">
                 {getLedetekst('oppfolgingsdialog.oppfolgingsdialoger.arbeidstaker.tekst')}
             </p>
@@ -165,7 +168,7 @@ export class Oppfolgingsdialoger  extends Component {
 
             {panel}
         </div>);
-    };
+    }
 }
 Oppfolgingsdialoger.propTypes = {
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
@@ -175,6 +178,12 @@ Oppfolgingsdialoger.propTypes = {
     bekreftetNyNaermesteLeder: PropTypes.bool,
     bekreftNyNaermesteLeder: PropTypes.func,
     avkreftLeder: PropTypes.func,
+    hentVirksomhet: PropTypes.func,
+    hentPerson: PropTypes.func,
+    hentForrigeNaermesteLeder: PropTypes.func,
+    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
+    person: oppfolgingProptypes.personReducerPt,
+    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
 };
 
 export default Oppfolgingsdialoger;

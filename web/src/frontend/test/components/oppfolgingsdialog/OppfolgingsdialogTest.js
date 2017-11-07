@@ -87,7 +87,9 @@ describe('Oppfolgingsdialog', () => {
         oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
             godkjenninger: [{
                 godkjent: true,
-                godkjentAvFnr: sykmeldtFnr,
+                godkjentAv: {
+                    fnr: sykmeldtFnr,
+                },
             }],
             arbeidstaker: {
                 fnr: sykmeldtFnr,

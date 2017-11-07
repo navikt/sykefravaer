@@ -21,6 +21,8 @@ import {
     arbeidsforhold,
     nyNaermesteLeder,
     delmednav,
+    person,
+    virksomhet,
 } from 'oppfolgingsdialog-npm';
 import AppRouter from './routers/AppRouter';
 import dineSykmeldinger from './reducers/dineSykmeldinger';
@@ -71,6 +73,8 @@ const rootReducer = combineReducers({
     vedlikehold,
     hendelser,
     aktivitetskrav,
+    person,
+    virksomhet,
     form: formReducer,
     formMeta: reduxFormMeta,
 });

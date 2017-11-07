@@ -10,7 +10,9 @@ import {
     Godkjenninger,
     Samtykke,
     AvbruttGodkjentPlanVarsel,
-    virksomhetsnavn,
+    henterEllerHarHentetVirksomhet,
+    henterEllerHarHentetPerson,
+    finnFodselsnumreKnyttetTilDialog,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
@@ -28,7 +30,7 @@ const inneholderGodkjentPlan = (oppfolgingsdialog) => {
 };
 
 const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.godkjenninger.length === 1 && !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.fnr === oppfolgingsdialog.godkjenninger[0].godkjentAvFnr;
+    return oppfolgingsdialog.godkjenninger.length === 1 && !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.fnr === oppfolgingsdialog.godkjenninger[0].godkjentAv.fnr;
 };
 
 class Oppfolgingsdialog extends Component {
@@ -42,7 +44,18 @@ class Oppfolgingsdialog extends Component {
     }
 
     componentWillMount() {
+        const { oppfolgingsdialog, virksomhet, person } = this.props;
         this.props.settAktivtSteg(1);
+        this.props.settDialog(oppfolgingsdialog.id);
+
+        if (!henterEllerHarHentetVirksomhet(oppfolgingsdialog.virksomhet.virksomhetsnummer, virksomhet)) {
+            this.props.hentVirksomhet(oppfolgingsdialog.virksomhet.virksomhetsnummer);
+        }
+        finnFodselsnumreKnyttetTilDialog(oppfolgingsdialog).forEach((fnr) => {
+            if (!henterEllerHarHentetPerson(fnr, person)) {
+                this.props.hentPerson(fnr);
+            }
+        });
     }
 
     visAvvisPlanKvittering(vis, begrunnelse) {
@@ -196,7 +209,7 @@ class Oppfolgingsdialog extends Component {
                 <NavigasjonsTopp
                     ledetekster={ledetekster}
                     disabled={disableNavigation}
-                    navn={virksomhetsnavn(oppfolgingsdialog.virksomhet)}
+                    navn={oppfolgingsdialog.virksomhet.navn}
                     settAktivtSteg={settAktivtSteg}
                     steg={navigasjontoggles.steg}
                 />

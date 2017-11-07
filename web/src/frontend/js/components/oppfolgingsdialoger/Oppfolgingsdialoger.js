@@ -15,6 +15,9 @@ import {
     finnBrukersSisteInnlogging,
     proptypes as oppfolgingProptypes,
     NyNaermestelederInfoboks,
+    henterEllerHarHentetVirksomhet,
+    henterEllerHarHentetPerson,
+    finnFodselsnumreKnyttetTilDialog,
 } from 'oppfolgingsdialog-npm';
 import {
     sykmelding as sykmeldingPt,
@@ -60,14 +63,25 @@ const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgi
 export class Oppfolgingsdialoger  extends Component {
 
     componentWillMount() {
-        const { oppfolgingsdialoger } = this.props;
+        const { oppfolgingsdialoger, virksomhet, person } = this.props;
         const virksomhetsnummerSet = new Set();
         oppfolgingsdialoger.forEach((oppfolgingsdialog) => {
             virksomhetsnummerSet.add(oppfolgingsdialog.virksomhet.virksomhetsnummer);
         });
 
         virksomhetsnummerSet.forEach((virksomhetsnummer) => {
-            this.props.hentVirksomhet(virksomhetsnummer);
+            if (!henterEllerHarHentetVirksomhet(virksomhetsnummer, virksomhet)) {
+                this.props.hentVirksomhet(virksomhetsnummer);
+            }
+        });
+
+
+        oppfolgingsdialoger.forEach((oppfolgingsdialog) => {
+            finnFodselsnumreKnyttetTilDialog(oppfolgingsdialog).forEach((fnr) => {
+                if (!henterEllerHarHentetPerson(fnr, person)) {
+                    this.props.hentPerson(fnr);
+                }
+            });
         });
     }
 

@@ -1,7 +1,9 @@
 export const getOppfolgingsdialoger = [
     {
         opprettetDato: "2017-06-12",
-        sistEndretAvFnr: "***REMOVED***",
+        sistEndretAv: {
+          fnr: '***REMOVED***',
+        },
         sistEndretDato: "2017-06-13",
         virksomhet: {
             navn: "Fant ikke navn",
@@ -36,7 +38,9 @@ export const getOppfolgingsdialoger = [
                     kanIkkeBeskrivelse: null
                 },
                 opprettetDato: "2017-06-12",
-                sistEndretAvFnr: "***REMOVED***",
+                sistEndretAv: {
+                    fnr: '***REMOVED***',
+                },
                 sistEndretDato: "2017-06-13",
                 opprettetAv: {
                     navn: "Test Testesen",
@@ -64,7 +68,9 @@ export const getOppfolgingsdialoger = [
                 },
                 opprettetAvFnr: "***REMOVED***",
                 opprettetDato: "2017-06-12",
-                sistEndretAvFnr: "***REMOVED***",
+                sistEndretAv: {
+                    fnr: '***REMOVED***',
+                },
                 sistEndretDato: "2017-06-12",
                 opprettetAv: {
                     navn: "Test Testesen",
@@ -92,7 +98,9 @@ export const getOppfolgingsdialoger = [
                 },
                 opprettetAvFnr: "***REMOVED***",
                 opprettetDato: "2017-06-13",
-                sistEndretAvFnr: "***REMOVED***",
+                sistEndretAv: {
+                    fnr: '***REMOVED***',
+                },
                 sistEndretDato: "2017-06-13",
                 opprettetAv: {
                     navn: "Test Testesen",
@@ -123,7 +131,9 @@ export const getOppfolgingsdialoger = [
     {
         opprettetAvFnr: "***REMOVED***",
         opprettetDato: "2017-06-12",
-        sistEndretAvFnr: "***REMOVED***",
+        sistEndretAv: {
+            fnr: '***REMOVED***',
+        },
         sistEndretDato: "2017-06-12",
         virksomhet: {
             navn: "Fant ikke navn",
@@ -159,7 +169,9 @@ export const getOppfolgingsdialoger = [
     {
         opprettetAvFnr: "***REMOVED***",
         opprettetDato: "2017-06-12",
-        sistEndretAvFnr: "***REMOVED***",
+        sistEndretAv: {
+            fnr: '***REMOVED***',
+        },
         sistEndretDato: "2017-06-12",
         virksomhet: {
             navn: "Fant ikke navn",
@@ -199,7 +211,9 @@ export const getOppfolgingsdialoger = [
 const oppfolgingsdialog = {
     opprettetAvFnr: "***REMOVED***",
     opprettetDato: "2017-06-12",
-    sistEndretAvFnr: "***REMOVED***",
+    sistEndretAv: {
+        fnr: '***REMOVED***',
+    },
     sistEndretDato: "2017-06-13",
     virksomhet: {
         navn: "Fant ikke navn",
@@ -235,7 +249,9 @@ const oppfolgingsdialog = {
             },
             opprettetAvFnr: "***REMOVED***",
             opprettetDato: "2017-06-21",
-            sistEndretAvFnr: "***REMOVED***",
+            sistEndretAv: {
+                fnr: '***REMOVED***',
+            },
             sistEndretDato: "2017-06-21",
             opprettetAv: {
                 navn: "Test Testesen",
@@ -259,7 +275,9 @@ const oppfolgingsdialog = {
             godkjentAvArbeidstaker: false,
             opprettetAvFnr: "***REMOVED***",
             opprettetDato: "2017-06-21",
-            sistEndretAvFnr: "***REMOVED***",
+            sistEndretAv: {
+                fnr: '***REMOVED***',
+            },
             sistEndretDato: "2017-06-21",
             opprettetAv: {
                 navn: "Test Testesen",

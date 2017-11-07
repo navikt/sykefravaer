@@ -7,6 +7,7 @@ import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     sjekkTilgang,
     hentVirksomhet,
+    hentPerson,
     proptypes as oppfolgingProptypes,
     bekreftNyNaermesteLeder,
 } from 'oppfolgingsdialog-npm';
@@ -96,6 +97,9 @@ OppfolgingsdialogerSide.propTypes = {
     ledereHentet: PropTypes.bool,
     hentLedere: PropTypes.func,
     hentVirksomhet: PropTypes.func,
+    hentPerson: PropTypes.func,
+    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
+    person: oppfolgingProptypes.personReducerPt,
 };
 
 export const mapStateToProps = (state) => {
@@ -124,6 +128,8 @@ export const mapStateToProps = (state) => {
         avkrefterLeder: state.ledere.avkrefter,
         avkreftetLeder: state.ledere.avkreftet,
         avkrefterLederFeilet: state.ledere.avkreftFeilet,
+        virksomhet: state.virksomhet,
+        person: state.person,
     };
 };
 
@@ -135,6 +141,7 @@ const OppfolgingsdialogerContainer = connect(mapStateToProps, {
     hentDineSykmeldinger,
     hentLedere,
     hentVirksomhet,
+    hentPerson,
 })(OppfolgingsdialogerSide);
 
 export default OppfolgingsdialogerContainer;

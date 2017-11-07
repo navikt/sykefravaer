@@ -13,6 +13,7 @@ import {
     delMedNavSagas,
     virksomhetSagas,
     personSagas,
+    kontaktinfoSagas,
 } from 'oppfolgingsdialog-npm';
 import arbeidsgiversSykmeldingerSagas from './arbeidsgiversSykmeldingerSagas';
 import brukerinfoSagas from './brukerinfoSagas';
@@ -62,5 +63,6 @@ export default function* rootSaga() {
         aktivitetskravSagas(),
         virksomhetSagas(),
         personSagas(),
+        kontaktinfoSagas(),
     ];
 }

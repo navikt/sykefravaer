@@ -12,6 +12,7 @@ import {
     AvbruttGodkjentPlanVarsel,
     henterEllerHarHentetVirksomhet,
     henterEllerHarHentetPerson,
+    henterEllerHarHentetKontaktinfo,
     finnFodselsnumreKnyttetTilDialog,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
@@ -44,7 +45,7 @@ class Oppfolgingsdialog extends Component {
     }
 
     componentWillMount() {
-        const { oppfolgingsdialog, virksomhet, person } = this.props;
+        const { oppfolgingsdialog, virksomhet, person, kontaktinfo } = this.props;
         this.props.settAktivtSteg(1);
         this.props.settDialog(oppfolgingsdialog.id);
 
@@ -56,6 +57,10 @@ class Oppfolgingsdialog extends Component {
                 this.props.hentPerson(fnr);
             }
         });
+
+        if (!henterEllerHarHentetKontaktinfo(oppfolgingsdialog.arbeidstaker.fnr, kontaktinfo)) {
+            this.props.hentKontaktinfo(oppfolgingsdialog.arbeidstaker.fnr);
+        }
     }
 
     visAvvisPlanKvittering(vis, begrunnelse) {

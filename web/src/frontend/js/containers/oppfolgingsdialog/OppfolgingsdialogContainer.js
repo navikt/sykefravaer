@@ -24,6 +24,7 @@ import {
     hentVirksomhet,
     henterEllerHarHentetVirksomhet,
     hentPerson,
+    hentKontaktinfo,
     delMedNav as delMedNavFunc,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
@@ -188,6 +189,7 @@ OppfolgingsdialogSide.propTypes = {
     hentToggles: PropTypes.func,
     hentVirksomhet: PropTypes.func,
     hentPerson: PropTypes.func,
+    hentKontaktinfo: PropTypes.func,
     arbeidsforholdFnr: PropTypes.string,
     oppfolgingsdialogId: PropTypes.string,
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
@@ -201,6 +203,7 @@ export function mapStateToProps(state, ownProps) {
     const brodsmuletittel = oppfolgingsdialog && oppfolgingsdialog.virksomhet.navn;
     return {
         virksomhet: state.virksomhet,
+        kontaktinfo: state.kontaktinfo,
         person: state.person,
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
@@ -286,6 +289,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     hentToggles,
     hentVirksomhet,
     hentPerson,
+    hentKontaktinfo,
     delMedNavFunc,
 })(OppfolgingsdialogSide);
 

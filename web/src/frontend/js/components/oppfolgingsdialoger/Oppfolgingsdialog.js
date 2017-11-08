@@ -53,7 +53,11 @@ class Oppfolgingsdialog extends Component {
         if (!henterEllerHarHentetVirksomhet(oppfolgingsdialog.virksomhet.virksomhetsnummer, virksomhet)) {
             this.props.hentVirksomhet(oppfolgingsdialog.virksomhet.virksomhetsnummer);
         }
+        const fnrSet = new Set();
         finnFodselsnumreKnyttetTilDialog(oppfolgingsdialog).forEach((fnr) => {
+            fnrSet.add(fnr);
+        });
+        fnrSet.forEach((fnr) => {
             if (!henterEllerHarHentetPerson(fnr, person)) {
                 this.props.hentPerson(fnr);
             }

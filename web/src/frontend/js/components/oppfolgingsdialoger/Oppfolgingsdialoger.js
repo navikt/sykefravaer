@@ -75,15 +75,24 @@ export class Oppfolgingsdialoger extends Component {
             }
         });
 
+        const fnrSet = new Set();
+        const forrigeNaermesteLederListe = [];
         oppfolgingsdialoger.forEach((oppfolgingsdialog) => {
             finnFodselsnumreKnyttetTilDialog(oppfolgingsdialog).forEach((fnr) => {
-                if (!henterEllerHarHentetPerson(fnr, person)) {
-                    this.props.hentPerson(fnr);
-                }
+                fnrSet.add(fnr);
             });
+            forrigeNaermesteLederListe.push({fnr: oppfolgingsdialog.arbeidstaker.fnr, virksomhetsnummer: oppfolgingsdialog.virksomhet.virksomhetsnummer})
+        });
 
-            if (!henterEllerHarHentetForrigeNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer, forrigenaermesteleder)) {
-                this.props.hentForrigeNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer);
+        fnrSet.forEach((fnr) => {
+            if (!henterEllerHarHentetPerson(fnr, person)) {
+                this.props.hentPerson(fnr);
+            }
+        });
+        const forrigeNaermesteLederSet = Array.from(new Set(forrigeNaermesteLederListe.map(JSON.stringify))).map(JSON.parse);
+        forrigeNaermesteLederSet.forEach((forrigeNaermesteLeder) => {
+            if (!henterEllerHarHentetForrigeNaermesteLeder(forrigeNaermesteLeder.fnr, forrigeNaermesteLeder.virksomhetsnummer, forrigenaermesteleder)) {
+                this.props.hentForrigeNaermesteLeder(forrigeNaermesteLeder.fnr, forrigeNaermesteLeder.virksomhetsnummer);
             }
         });
     }

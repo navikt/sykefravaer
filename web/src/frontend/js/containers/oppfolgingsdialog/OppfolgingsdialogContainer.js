@@ -39,7 +39,7 @@ import {
     brodsmule as brodsmulePt,
 } from '../../propTypes';
 
-class OppfolgingsdialogSide extends Component {
+export class OppfolgingsdialogSide extends Component {
     componentWillMount() {
         const { toggles, sjekkTilgangHentet, sjekkTilgangHenter } = this.props;
         if (!toggles.hentet && !toggles.henter) {

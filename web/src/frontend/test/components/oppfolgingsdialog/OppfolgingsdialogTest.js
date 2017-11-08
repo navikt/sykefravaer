@@ -30,32 +30,20 @@ describe('Oppfolgingsdialog', () => {
 
     let hentVirksomhet;
     let hentPerson;
+    let hentNaermesteLeder;
     let hentForrigeNaermesteLeder;
     let hentKontaktinfo;
-    const virksomhet = {
+    const data = {
         henter: [],
         hentet: [],
         hentingFeilet: [],
         data: [],
     };
-    const person = {
-        henter: [],
-        hentet: [],
-        hentingFeilet: [],
-        data: [],
-    };
-    const kontaktinfo = {
-        henter: [],
-        hentet: [],
-        hentingFeilet: [],
-        data: [],
-    };
-    const forrigenaermesteleder = {
-        henter: [],
-        hentet: [],
-        hentingFeilet: [],
-        data: [],
-    };
+    const virksomhet = data;
+    const person = data;
+    const kontaktinfo = data;
+    const forrigenaermesteleder = data;
+    const naermesteleder = data;
 
     let oppfolgingsdialog;
     beforeEach(() => {
@@ -65,6 +53,7 @@ describe('Oppfolgingsdialog', () => {
         settDialog = sinon.spy();
         hentForrigeNaermesteLeder = sinon.spy();
         hentPerson = sinon.spy();
+        hentNaermesteLeder = sinon.spy();
         hentKontaktinfo = sinon.spy();
         hentVirksomhet = sinon.spy();
         component = shallow(<Oppfolgingsdialog
@@ -72,11 +61,13 @@ describe('Oppfolgingsdialog', () => {
             oppfolgingsdialog={oppfolgingsdialog}
             settDialog={settDialog}
             hentVirksomhet={hentVirksomhet}
+            hentNaermesteLeder={hentNaermesteLeder}
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
             forrigenaermesteleder={forrigenaermesteleder}
             virksomhet={virksomhet}
+            naermesteleder={naermesteleder}
             person={person}
             kontaktinfo={kontaktinfo}
             navigasjontoggles={navigasjontoggles}
@@ -102,11 +93,13 @@ describe('Oppfolgingsdialog', () => {
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
             hentVirksomhet={hentVirksomhet}
+            hentNaermesteLeder={hentNaermesteLeder}
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
             forrigenaermesteleder={forrigenaermesteleder}
             virksomhet={virksomhet}
+            naermesteleder={naermesteleder}
             person={person}
             kontaktinfo={kontaktinfo}
             oppfolgingsdialogAvbrutt
@@ -136,7 +129,9 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
             forrigenaermesteleder={forrigenaermesteleder}
+            naermesteleder={naermesteleder}
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
@@ -167,7 +162,9 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
             forrigenaermesteleder={forrigenaermesteleder}
+            naermesteleder={naermesteleder}
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
@@ -188,7 +185,9 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
             forrigenaermesteleder={forrigenaermesteleder}
+            naermesteleder={naermesteleder}
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
@@ -212,6 +211,8 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
+            naermesteleder={naermesteleder}
             forrigenaermesteleder={forrigenaermesteleder}
             virksomhet={virksomhet}
             person={person}
@@ -236,7 +237,9 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
             forrigenaermesteleder={forrigenaermesteleder}
+            naermesteleder={naermesteleder}
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
@@ -260,7 +263,9 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
             forrigenaermesteleder={forrigenaermesteleder}
+            naermesteleder={naermesteleder}
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
@@ -284,7 +289,9 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
             forrigenaermesteleder={forrigenaermesteleder}
+            naermesteleder={naermesteleder}
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}

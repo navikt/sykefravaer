@@ -1,8 +1,32 @@
 import { getCookie, log } from 'digisyfo-npm';
 import Ajax from 'simple-ajax';
+import ponyfill from 'fetch-ponyfill';
+
+const ponyfills = ponyfill();
+
+const isEdge = () => {
+    return navigator.userAgent.indexOf('Edge') > -1;
+}
+
+const getFetch = () => {
+    // Gjør dette slik fordi enhetstester vil feile dersom fetch overskrives
+    if (isEdge()) {
+        return ponyfills.fetch;
+    }
+    return fetch;
+}
+
+const getHeaders = () => {
+    // Gjør dette slik fordi enhetstester vil feile dersom Headers overskrives
+    if (isEdge()) {
+        return ponyfills.Headers;
+    }
+    return Headers;   
+}
 
 export function get(url) {
-    return fetch(url, {
+    const fetchX = getFetch();
+    return fetchX(url, {
         credentials: 'include',
     })
         .then((res) => {
@@ -39,11 +63,13 @@ export function getAjax(url) {
 }
 
 export function post(url, body) {
-    return fetch(url, {
+    const fetchX = getFetch();
+    const HeadersX = getHeaders();
+    return fetchX(url, {
         credentials: 'include',
         method: 'POST',
         body: JSON.stringify(body),
-        headers: new Headers({
+        headers: new HeadersX({
             'Content-Type': 'application/json',
             'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
             'X-XSRF-TOKEN-MOTEREST': getCookie('XSRF-TOKEN-MOTEREST'),

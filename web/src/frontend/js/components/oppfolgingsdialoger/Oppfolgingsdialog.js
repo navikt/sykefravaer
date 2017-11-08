@@ -26,7 +26,7 @@ const inneholderGodkjentPlan = (oppfolgingsdialog) => {
     return oppfolgingsdialog.godkjentPlan;
 };
 
-const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
+export const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
     return oppfolgingsdialog.godkjenninger.length === 1 && !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.fnr === oppfolgingsdialog.godkjenninger[0].godkjentAvFnr;
 };
 

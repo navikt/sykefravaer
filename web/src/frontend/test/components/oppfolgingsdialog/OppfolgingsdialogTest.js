@@ -12,7 +12,7 @@ import {
     Samtykke,
     AvbruttGodkjentPlanVarsel,
 } from 'oppfolgingsdialog-npm';
-import Oppfolgingsdialog from '../../../js/components/oppfolgingsdialoger/Oppfolgingsdialog';
+import Oppfolgingsdialog, { erAvvistAvArbeidstaker } from '../../../js/components/oppfolgingsdialoger/Oppfolgingsdialog';
 import IngenlederInfoboks from '../../../js/components/oppfolgingsdialoger/IngenlederInfoboks';
 import Arbeidsoppgaver from '../../../js/components/oppfolgingsdialoger/utfylling/Arbeidsoppgaver';
 import Tiltak from '../../../js/components/oppfolgingsdialoger/utfylling/Tiltak';
@@ -171,5 +171,58 @@ describe('Oppfolgingsdialog', () => {
             navigasjontoggles={navigasjontoggles}
         />);
         expect(component.find(Godkjenn)).to.have.length(1);
+    });
+
+    describe('erAvvistAvArbeidstaker', () => {
+        const arbeidstaker = { fnr: '123456789' };
+        const naermesteLeder = { fnr: '123456788' };
+        it('Skal returnere false, om plan er avvist og saa godkjent', () => {
+            oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
+                godkjenninger: [
+                    {
+                        godkjent: true,
+                        godkjentAvFnr: naermesteLeder.fnr,
+                    },
+                    {
+                        godkjent: false,
+                        godkjentAvFnr: arbeidstaker.fnr,
+                    },
+                ],
+                arbeidstaker,
+            });
+            expect(erAvvistAvArbeidstaker(oppfolgingsdialog)).to.equal(false);
+        });
+        it('Skal returnere false, om plan er godkjent', () => {
+            oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
+                godkjenninger: [{
+                    godkjent: true,
+                    godkjentAvFnr: arbeidstaker.fnr,
+                }],
+                arbeidstaker,
+            });
+            expect(erAvvistAvArbeidstaker(oppfolgingsdialog)).to.equal(false);
+        });
+
+        it('Skal returnere false, om plan er avvist av en annen enn Arbeidstaker', () => {
+            oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
+                godkjenninger: [{
+                    godkjent: false,
+                    godkjentAvFnr: naermesteLeder.fnr,
+                }],
+                arbeidstaker,
+            });
+            expect(erAvvistAvArbeidstaker(oppfolgingsdialog)).to.equal(false);
+        });
+
+        it('Skal returnere true, om plan er avvist av Arbeidstaker', () => {
+            oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
+                godkjenninger: [{
+                    godkjent: false,
+                    godkjentAvFnr: arbeidstaker.fnr,
+                }],
+                arbeidstaker,
+            });
+            expect(erAvvistAvArbeidstaker(oppfolgingsdialog)).to.equal(true);
+        });
     });
 });

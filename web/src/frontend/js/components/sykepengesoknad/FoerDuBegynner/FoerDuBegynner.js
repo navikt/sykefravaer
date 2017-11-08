@@ -7,9 +7,10 @@ import BekreftAnsvar from './BekreftAnsvar';
 import SykmeldingUtdrag from '../SykmeldingUtdrag';
 import validate from '../validering/validerFoerDuBegynner';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
-import { UTKAST_TIL_KORRIGERING } from '../../../enums/sykepengesoknadstatuser';
+import { NY, UTKAST_TIL_KORRIGERING } from '../../../enums/sykepengesoknadstatuser';
 import SykepengesoknadHeader from '../SykepengesoknadHeader';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad/AvbrytSoknadContainer';
+import IllustrertInnhold from "../../IllustrertInnhold";
 
 const KorrigerVarsel = () => {
     return (<div className="panel panel--komprimert blokk">
@@ -47,14 +48,24 @@ FoerDuBegynnerSkjema.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
 };
 
+const TidligSoknad = () => {
+    return (<div className="panel panel--komprimert blokk">
+        <IllustrertInnhold ikon={`/sykefravaer/img/svg/snomannen.svg`} ikonAlt="Tidlig søknad">
+            <p className="sykepenger__tidligSoknad">{getLedetekst('sykepengesoknad.tidlig-soknad')}</p>
+        </IllustrertInnhold>
+    </div>);
+};
+
 const initialize = true;
 const FoerDuBegynnerSkjemaSetup = setup(validate, FoerDuBegynnerSkjema, initialize);
 
 const FoerDuBegynner = (props) => {
     const { sykepengesoknad } = props;
+    const now = new Date();
     return (<div>
         <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
         { sykepengesoknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel /> }
+        { (sykepengesoknad.status === NY && sykepengesoknad.tom > now) && <TidligSoknad /> }
         <SykmeldingUtdrag erApen sykepengesoknad={sykepengesoknad} />
         <h2 className="sykepenger__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
         <FoerDuBegynnerSkjemaSetup sykepengesoknad={sykepengesoknad} />

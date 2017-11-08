@@ -25,6 +25,7 @@ import {
     hentPerson,
     hentKontaktinfo,
     hentForrigeNaermesteLeder,
+    hentNaermesteLeder,
     delMedNav as delMedNavFunc,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
@@ -191,11 +192,13 @@ OppfolgingsdialogSide.propTypes = {
     hentPerson: PropTypes.func,
     hentKontaktinfo: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
+    hentNaermesteLeder: PropTypes.func,
     arbeidsforholdFnr: PropTypes.string,
     oppfolgingsdialogId: PropTypes.string,
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
     person: oppfolgingProptypes.personReducerPt,
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -204,6 +207,7 @@ export function mapStateToProps(state, ownProps) {
     const arbeidsforholdFnr = isEmpty(state.arbeidsforhold.data) ? '' : state.arbeidsforhold.data.fnr;
     const brodsmuletittel = oppfolgingsdialog && oppfolgingsdialog.virksomhet.navn;
     return {
+        naermesteleder: state.naermesteleder,
         forrigenaermesteleder: state.forrigenaermesteleder,
         virksomhet: state.virksomhet,
         kontaktinfo: state.kontaktinfo,
@@ -294,6 +298,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     hentPerson,
     hentKontaktinfo,
     hentForrigeNaermesteLeder,
+    hentNaermesteLeder,
     delMedNavFunc,
 })(OppfolgingsdialogSide);
 

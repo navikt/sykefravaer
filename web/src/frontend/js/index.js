@@ -25,6 +25,7 @@ import {
     virksomhet,
     kontaktinfo,
     forrigenaermesteleder,
+    naermesteleder,
 } from 'oppfolgingsdialog-npm';
 import AppRouter from './routers/AppRouter';
 import dineSykmeldinger from './reducers/dineSykmeldinger';
@@ -79,6 +80,7 @@ const rootReducer = combineReducers({
     virksomhet,
     kontaktinfo,
     forrigenaermesteleder,
+    naermesteleder,
     form: formReducer,
     formMeta: reduxFormMeta,
 });

@@ -15,6 +15,7 @@ import {
     henterEllerHarHentetKontaktinfo,
     finnFodselsnumreKnyttetTilDialog,
     henterEllerHarHentetForrigeNaermesteLeder,
+    henterEllerHarHentetNaermesteLeder,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
@@ -46,7 +47,7 @@ class Oppfolgingsdialog extends Component {
     }
 
     componentWillMount() {
-        const { oppfolgingsdialog, virksomhet, person, kontaktinfo, forrigenaermesteleder } = this.props;
+        const { oppfolgingsdialog, virksomhet, person, kontaktinfo, forrigenaermesteleder, naermesteleder } = this.props;
         this.props.settAktivtSteg(1);
         this.props.settDialog(oppfolgingsdialog.id);
 
@@ -62,6 +63,11 @@ class Oppfolgingsdialog extends Component {
                 this.props.hentPerson(fnr);
             }
         });
+
+        if (!henterEllerHarHentetNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer, naermesteleder)) {
+            console.log("hent");
+            this.props.hentNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer);
+        }
 
         if (!henterEllerHarHentetKontaktinfo(oppfolgingsdialog.arbeidstaker.fnr, kontaktinfo)) {
             this.props.hentKontaktinfo(oppfolgingsdialog.arbeidstaker.fnr);
@@ -278,6 +284,7 @@ Oppfolgingsdialog.propTypes = {
     hentKontaktinfo: PropTypes.func,
     hentPerson: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
+    hentNaermesteLeder: PropTypes.func,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
@@ -285,6 +292,7 @@ Oppfolgingsdialog.propTypes = {
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
     person: oppfolgingProptypes.personReducerPt,
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
     kontaktinfo: oppfolgingProptypes.kontaktinfoReducerPt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
 };

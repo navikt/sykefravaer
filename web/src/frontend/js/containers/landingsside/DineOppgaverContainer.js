@@ -197,7 +197,10 @@ export const mapStateToProps = (state) => {
         });
     const nyePlaner = state.oppfolgingsdialoger.data
         .filter((plan) => {
-            return plan.arbeidstaker.sistInnlogget === null && plan.status === 'UNDER_ARBEID' && !idAlleredeFunnet(avventendeGodkjenninger, plan.id);
+            return plan.arbeidstaker.sistInnlogget === null
+                && plan.status === 'UNDER_ARBEID'
+                && plan.sistEndretAv.fnr !== plan.arbeidstaker.fnr
+                && !idAlleredeFunnet(avventendeGodkjenninger, plan.id);
         });
 
     const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null || avventendeGodkjenninger.length > 0 || nyePlaner.length > 0;

@@ -33,7 +33,7 @@ class Artikkel extends Component {
         return (<article className="panel blokk">
             <header className="artikkel__header">
                 <div className="artikkel__meta">
-                    <Link to="/sykefravaer" className="artikkel__tilbake">Tilbake</Link>
+                    <Link to="/sykefravaer" className="tilbakelenke">Tilbake</Link>
                     <p className="artikkel__meta__dato">{toDatePrettyPrint(inntruffetdato)}</p>
                 </div>
                 <h1 className="artikkel__tittel">{getLedetekst('aktivitetskrav-varsel.tittel', ledetekster)}</h1>

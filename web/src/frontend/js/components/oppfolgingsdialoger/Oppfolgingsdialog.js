@@ -65,7 +65,6 @@ class Oppfolgingsdialog extends Component {
         });
 
         if (!henterEllerHarHentetNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer, naermesteleder)) {
-            console.log("hent");
             this.props.hentNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer);
         }
 

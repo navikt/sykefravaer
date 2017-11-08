@@ -127,7 +127,9 @@ export const getOppfolgingsdialoger = [
         }
     },
     {
-        opprettetAvFnr: "***REMOVED***",
+        opprettetAv: {
+            fnr: "***REMOVED***",
+        },
         opprettetDato: "2017-06-12",
         sistEndretAv: {
             fnr: '***REMOVED***',
@@ -167,7 +169,9 @@ export const getOppfolgingsdialoger = [
         }
     },
     {
-        opprettetAvFnr: "***REMOVED***",
+        opprettetAv: {
+            fnr: "***REMOVED***",
+        },
         opprettetDato: "2017-06-12",
         sistEndretAv: {
             fnr: '***REMOVED***',
@@ -209,7 +213,9 @@ export const getOppfolgingsdialoger = [
 ];
 
 const oppfolgingsdialog = {
-    opprettetAvFnr: "***REMOVED***",
+    opprettetAv: {
+        fnr: "***REMOVED***",
+    },
     opprettetDato: "2017-06-12",
     sistEndretAv: {
         fnr: '***REMOVED***',
@@ -247,7 +253,6 @@ const oppfolgingsdialog = {
                 tilretteleggingArbeidsgiver: null,
                 kanIkkeBeskrivelse: null
             },
-            opprettetAvFnr: "***REMOVED***",
             opprettetDato: "2017-06-21",
             sistEndretAv: {
                 fnr: '***REMOVED***',
@@ -273,7 +278,6 @@ const oppfolgingsdialog = {
             maal: null,
             godkjentAvArbeidsgiver: false,
             godkjentAvArbeidstaker: false,
-            opprettetAvFnr: "***REMOVED***",
             opprettetDato: "2017-06-21",
             sistEndretAv: {
                 fnr: '***REMOVED***',

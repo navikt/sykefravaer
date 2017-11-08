@@ -307,11 +307,15 @@ describe('Oppfolgingsdialog', () => {
                 godkjenninger: [
                     {
                         godkjent: true,
-                        godkjentAvFnr: naermesteLeder.fnr,
+                        godkjentAv: {
+                            fnr: naermesteLeder.fnr,
+                        },
                     },
                     {
                         godkjent: false,
-                        godkjentAvFnr: arbeidstaker.fnr,
+                        godkjentAv: {
+                            fnr: arbeidstaker.fnr,
+                        },
                     },
                 ],
                 arbeidstaker,
@@ -322,7 +326,9 @@ describe('Oppfolgingsdialog', () => {
             oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
                 godkjenninger: [{
                     godkjent: true,
-                    godkjentAvFnr: arbeidstaker.fnr,
+                    godkjentAv: {
+                        fnr: arbeidstaker.fnr,
+                    },
                 }],
                 arbeidstaker,
             });
@@ -333,7 +339,9 @@ describe('Oppfolgingsdialog', () => {
             oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
                 godkjenninger: [{
                     godkjent: false,
-                    godkjentAvFnr: naermesteLeder.fnr,
+                    godkjentAv: {
+                        fnr: naermesteLeder.fnr,
+                    },
                 }],
                 arbeidstaker,
             });
@@ -344,7 +352,9 @@ describe('Oppfolgingsdialog', () => {
             oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
                 godkjenninger: [{
                     godkjent: false,
-                    godkjentAvFnr: arbeidstaker.fnr,
+                    godkjentAv: {
+                        fnr: arbeidstaker.fnr,
+                    },
                 }],
                 arbeidstaker,
             });

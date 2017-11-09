@@ -8,6 +8,7 @@ import {
     sjekkTilgang,
     hentVirksomhet,
     hentPerson,
+    hentNaermesteLeder,
     hentForrigeNaermesteLeder,
     proptypes as oppfolgingProptypes,
     bekreftNyNaermesteLeder,
@@ -99,6 +100,8 @@ OppfolgingsdialogerSide.propTypes = {
     hentLedere: PropTypes.func,
     hentVirksomhet: PropTypes.func,
     hentPerson: PropTypes.func,
+    hentNaermesteLeder: PropTypes.func,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
     hentForrigeNaermesteLeder: PropTypes.func,
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
     person: oppfolgingProptypes.personReducerPt,
@@ -147,6 +150,7 @@ const OppfolgingsdialogerContainer = connect(mapStateToProps, {
     hentVirksomhet,
     hentPerson,
     hentForrigeNaermesteLeder,
+    hentNaermesteLeder,
 })(OppfolgingsdialogerSide);
 
 export default OppfolgingsdialogerContainer;

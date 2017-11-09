@@ -19,6 +19,7 @@ import {
     henterEllerHarHentetPerson,
     finnFodselsnumreKnyttetTilDialog,
     henterEllerHarHentetForrigeNaermesteLeder,
+    henterEllerHarHentetNaermesteLeder,
 } from 'oppfolgingsdialog-npm';
 import {
     sykmelding as sykmeldingPt,
@@ -63,7 +64,7 @@ const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgi
 
 export class Oppfolgingsdialoger extends Component {
     componentWillMount() {
-        const { oppfolgingsdialoger, virksomhet, person, forrigenaermesteleder } = this.props;
+        const { oppfolgingsdialoger, virksomhet, person, forrigenaermesteleder, naermesteleder } = this.props;
         const virksomhetsnummerSet = new Set();
         oppfolgingsdialoger.forEach((oppfolgingsdialog) => {
             virksomhetsnummerSet.add(oppfolgingsdialog.virksomhet.virksomhetsnummer);
@@ -81,7 +82,7 @@ export class Oppfolgingsdialoger extends Component {
             finnFodselsnumreKnyttetTilDialog(oppfolgingsdialog).forEach((fnr) => {
                 fnrSet.add(fnr);
             });
-            forrigeNaermesteLederListe.push({fnr: oppfolgingsdialog.arbeidstaker.fnr, virksomhetsnummer: oppfolgingsdialog.virksomhet.virksomhetsnummer})
+            forrigeNaermesteLederListe.push({ fnr: oppfolgingsdialog.arbeidstaker.fnr, virksomhetsnummer: oppfolgingsdialog.virksomhet.virksomhetsnummer });
         });
 
         fnrSet.forEach((fnr) => {
@@ -93,6 +94,18 @@ export class Oppfolgingsdialoger extends Component {
         forrigeNaermesteLederSet.forEach((forrigeNaermesteLeder) => {
             if (!henterEllerHarHentetForrigeNaermesteLeder(forrigeNaermesteLeder.fnr, forrigeNaermesteLeder.virksomhetsnummer, forrigenaermesteleder)) {
                 this.props.hentForrigeNaermesteLeder(forrigeNaermesteLeder.fnr, forrigeNaermesteLeder.virksomhetsnummer);
+            }
+        });
+
+        const naermesteLederListe = new Set();
+        oppfolgingsdialoger.forEach((oppfolgingsdialog) => {
+            naermesteLederListe.push({ fnr: oppfolgingsdialog.arbeidstaker.fnr, virksomhetsnummer: oppfolgingsdialog.virksomhet.virksomhetsnummer });
+        });
+
+        const naermesteLederSet = Array.from(new Set(naermesteLederListe.map(JSON.stringify))).map(JSON.parse);
+        naermesteLederSet.forEach((naermesteLeder) => {
+            if (!henterEllerHarHentetNaermesteLeder(naermesteLeder.fnr, naermesteLeder.virksomhetsnummer, naermesteleder)) {
+                this.props.hentNaermesteLeder(naermesteLeder.fnr, naermesteLeder.virksomhetsnummer);
             }
         });
     }
@@ -190,7 +203,9 @@ Oppfolgingsdialoger.propTypes = {
     hentVirksomhet: PropTypes.func,
     hentPerson: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
+    hentNaermesteLeder: PropTypes.func,
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
     person: oppfolgingProptypes.personReducerPt,
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
 };

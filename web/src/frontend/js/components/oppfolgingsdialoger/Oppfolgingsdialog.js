@@ -10,12 +10,11 @@ import {
     Godkjenninger,
     Samtykke,
     AvbruttGodkjentPlanVarsel,
-    henterEllerHarHentetVirksomhet,
-    henterEllerHarHentetPerson,
-    henterEllerHarHentetKontaktinfo,
-    finnFodselsnumreKnyttetTilDialog,
-    henterEllerHarHentetForrigeNaermesteLeder,
-    henterEllerHarHentetNaermesteLeder,
+    finnOgHentVirksomheterSomMangler,
+    finnOgHentPersonerSomMangler,
+    finnOgHentKontaktinfoSomMangler,
+    finnOgHentNaermesteLedereSomMangler,
+    finnOgHentForrigeNaermesteLedereSomMangler,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
@@ -47,34 +46,14 @@ class Oppfolgingsdialog extends Component {
     }
 
     componentWillMount() {
-        const { oppfolgingsdialog, virksomhet, person, kontaktinfo, forrigenaermesteleder, naermesteleder } = this.props;
+        const { oppfolgingsdialog, virksomhet, person, kontaktinfo, forrigenaermesteleder, naermesteleder, hentForrigeNaermesteLeder, hentVirksomhet, hentPerson, hentNaermesteLeder, hentKontaktinfo } = this.props;
         this.props.settAktivtSteg(1);
         this.props.settDialog(oppfolgingsdialog.id);
-
-        if (!henterEllerHarHentetVirksomhet(oppfolgingsdialog.virksomhet.virksomhetsnummer, virksomhet)) {
-            this.props.hentVirksomhet(oppfolgingsdialog.virksomhet.virksomhetsnummer);
-        }
-        const fnrSet = new Set();
-        finnFodselsnumreKnyttetTilDialog(oppfolgingsdialog).forEach((fnr) => {
-            fnrSet.add(fnr);
-        });
-        fnrSet.forEach((fnr) => {
-            if (!henterEllerHarHentetPerson(fnr, person)) {
-                this.props.hentPerson(fnr);
-            }
-        });
-
-        if (!henterEllerHarHentetNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer, naermesteleder)) {
-            this.props.hentNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer);
-        }
-
-        if (!henterEllerHarHentetKontaktinfo(oppfolgingsdialog.arbeidstaker.fnr, kontaktinfo)) {
-            this.props.hentKontaktinfo(oppfolgingsdialog.arbeidstaker.fnr);
-        }
-
-        if (!henterEllerHarHentetForrigeNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer, forrigenaermesteleder)) {
-            this.props.hentForrigeNaermesteLeder(oppfolgingsdialog.arbeidstaker.fnr, oppfolgingsdialog.virksomhet.virksomhetsnummer);
-        }
+        finnOgHentVirksomheterSomMangler([oppfolgingsdialog], virksomhet, hentVirksomhet);
+        finnOgHentPersonerSomMangler([oppfolgingsdialog], person, hentPerson);
+        finnOgHentForrigeNaermesteLedereSomMangler([oppfolgingsdialog], forrigenaermesteleder, hentForrigeNaermesteLeder);
+        finnOgHentNaermesteLedereSomMangler([oppfolgingsdialog], naermesteleder, hentNaermesteLeder);
+        finnOgHentKontaktinfoSomMangler([oppfolgingsdialog], kontaktinfo, hentKontaktinfo);
     }
 
     visAvvisPlanKvittering(vis, begrunnelse) {

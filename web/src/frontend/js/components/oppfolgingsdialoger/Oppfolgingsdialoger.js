@@ -15,10 +15,9 @@ import {
     finnBrukersSisteInnlogging,
     proptypes as oppfolgingProptypes,
     NyNaermestelederInfoboks,
-    henterEllerHarHentetVirksomhet,
-    henterEllerHarHentetPerson,
-    finnFodselsnumreKnyttetTilDialog,
-    henterEllerHarHentetForrigeNaermesteLeder,
+    finnOgHentVirksomheterSomMangler,
+    finnOgHentPersonerSomMangler,
+    finnOgHentForrigeNaermesteLedereSomMangler,
 } from 'oppfolgingsdialog-npm';
 import {
     sykmelding as sykmeldingPt,
@@ -63,38 +62,10 @@ const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgi
 
 export class Oppfolgingsdialoger extends Component {
     componentWillMount() {
-        const { oppfolgingsdialoger, virksomhet, person, forrigenaermesteleder } = this.props;
-        const virksomhetsnummerSet = new Set();
-        oppfolgingsdialoger.forEach((oppfolgingsdialog) => {
-            virksomhetsnummerSet.add(oppfolgingsdialog.virksomhet.virksomhetsnummer);
-        });
-
-        virksomhetsnummerSet.forEach((virksomhetsnummer) => {
-            if (!henterEllerHarHentetVirksomhet(virksomhetsnummer, virksomhet)) {
-                this.props.hentVirksomhet(virksomhetsnummer);
-            }
-        });
-
-        const fnrSet = new Set();
-        const forrigeNaermesteLederListe = [];
-        oppfolgingsdialoger.forEach((oppfolgingsdialog) => {
-            finnFodselsnumreKnyttetTilDialog(oppfolgingsdialog).forEach((fnr) => {
-                fnrSet.add(fnr);
-            });
-            forrigeNaermesteLederListe.push({ fnr: oppfolgingsdialog.arbeidstaker.fnr, virksomhetsnummer: oppfolgingsdialog.virksomhet.virksomhetsnummer });
-        });
-
-        fnrSet.forEach((fnr) => {
-            if (!henterEllerHarHentetPerson(fnr, person)) {
-                this.props.hentPerson(fnr);
-            }
-        });
-        const forrigeNaermesteLederSet = Array.from(new Set(forrigeNaermesteLederListe.map(JSON.stringify))).map(JSON.parse);
-        forrigeNaermesteLederSet.forEach((forrigeNaermesteLeder) => {
-            if (!henterEllerHarHentetForrigeNaermesteLeder(forrigeNaermesteLeder.fnr, forrigeNaermesteLeder.virksomhetsnummer, forrigenaermesteleder)) {
-                this.props.hentForrigeNaermesteLeder(forrigeNaermesteLeder.fnr, forrigeNaermesteLeder.virksomhetsnummer);
-            }
-        });
+        const { oppfolgingsdialoger, virksomhet, person, forrigenaermesteleder, hentPerson, hentVirksomhet, hentForrigeNaermesteLeder } = this.props;
+        finnOgHentVirksomheterSomMangler(oppfolgingsdialoger, virksomhet, hentVirksomhet);
+        finnOgHentPersonerSomMangler(oppfolgingsdialoger, person, hentPerson);
+        finnOgHentForrigeNaermesteLedereSomMangler(oppfolgingsdialoger, forrigenaermesteleder, hentForrigeNaermesteLeder);
     }
 
     render() {

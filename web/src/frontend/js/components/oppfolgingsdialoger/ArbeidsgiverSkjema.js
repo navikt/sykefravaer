@@ -29,7 +29,7 @@ export const VelgArbeidsgiverUndertekst = ({ oppfolgingsdialoger, arbeidsgiver }
                 {getLedetekst('oppfolgingsdialog.arbeidstaker.opprett.varsel.allerede-oppretettet.tekst')}
             </span>
             <div className="velgArbeidsgiverUndertekst__lenke">
-                <Link className="lenke" to={`${getContextRoot()}/oppfolgingsplaner/${oppfolgingsdialog.oppfoelgingsdialogId}`}>Gå til planen</Link>
+                <Link className="lenke" to={`${getContextRoot()}/oppfolgingsplaner/${oppfolgingsdialog.id}`}>Gå til planen</Link>
             </div>
         </div>);
     } else if (!arbeidsgiver.harNaermesteLeder) {

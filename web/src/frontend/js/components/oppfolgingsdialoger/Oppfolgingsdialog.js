@@ -26,8 +26,8 @@ const inneholderGodkjentPlan = (oppfolgingsdialog) => {
     return oppfolgingsdialog.godkjentPlan;
 };
 
-const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.godkjenninger.length === 1 && !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.aktoerId === oppfolgingsdialog.godkjenninger[0].godkjentAvAktoerId;
+export const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
+    return oppfolgingsdialog.godkjenninger.length === 1 && !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.fnr === oppfolgingsdialog.godkjenninger[0].godkjentAvFnr;
 };
 
 class Oppfolgingsdialog extends Component {
@@ -66,7 +66,6 @@ class Oppfolgingsdialog extends Component {
             slettingFeiletArbeidsoppgave,
             slettingFeiletTiltak,
             oppfolgingsdialog,
-            oppfolgingsdialogId,
             ledetekster,
             settAktivtSteg,
             avvisDialog,
@@ -150,7 +149,6 @@ class Oppfolgingsdialog extends Component {
                         slettingFeilet={slettingFeiletArbeidsoppgave}
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
-                        oppfolgingsdialogId={oppfolgingsdialogId}
                         oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
                         lagreArbeidsoppgave={lagreArbeidsoppgave}
                         slettArbeidsoppgave={slettArbeidsoppgave}
@@ -166,7 +164,6 @@ class Oppfolgingsdialog extends Component {
                         slettingFeilet={slettingFeiletTiltak}
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
-                        oppfolgingsdialogId={oppfolgingsdialogId}
                         oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
                         lagreTiltak={lagreTiltak}
                         slettTiltak={slettTiltak}
@@ -206,9 +203,11 @@ class Oppfolgingsdialog extends Component {
                     { panel }
                 </div>
                 <NavigasjonsBunn
+                    ledetekster={ledetekster}
                     disabled={disableNavigation}
                     settAktivtSteg={settAktivtSteg}
                     steg={navigasjontoggles.steg}
+                    rootUrlPlaner={getContextRoot()}
                 />
             </div>
         );
@@ -229,7 +228,6 @@ Oppfolgingsdialog.propTypes = {
     slettingFeiletArbeidsoppgave: PropTypes.bool,
     slettingFeiletTiltak: PropTypes.bool,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
-    oppfolgingsdialogId: PropTypes.string,
     ledetekster: keyValue,
     toggles: togglesPt,
     delMedNavFunc: PropTypes.func,

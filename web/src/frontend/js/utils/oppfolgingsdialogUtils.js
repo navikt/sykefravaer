@@ -1,9 +1,9 @@
 import { finnAktiveOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
 import { finnArbeidsgivereForGyldigeSykmeldinger } from './sykmeldingUtils';
 
-export function getOppfolgingsdialog(oppfolgingsdialoger, oppfolgingsdialogId) {
+export function getOppfolgingsdialog(oppfolgingsdialoger, id) {
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
-        return oppfolgingsdialog.oppfoelgingsdialogId.toString() === oppfolgingsdialogId.toString();
+        return oppfolgingsdialog.id.toString() === id.toString();
     })[0];
 }
 

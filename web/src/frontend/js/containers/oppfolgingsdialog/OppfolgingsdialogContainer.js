@@ -29,7 +29,7 @@ import history from '../../history';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { getOppfolgingsdialog } from '../../utils/oppfolgingsdialogUtils';
+import { getOppfolgingsdialog, isEmpty } from '../../utils/oppfolgingsdialogUtils';
 import Oppfolgingsdialog from '../../components/oppfolgingsdialoger/Oppfolgingsdialog';
 import {
     brodsmule as brodsmulePt,
@@ -54,8 +54,10 @@ export class OppfolgingsdialogSide extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if ((this.props.oppfolgingsdialoger || (!this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet)) && !this.props.arbeidsforholdHentet && !this.props.arbeidsforholdHenter && nextProps.oppfolgingsdialog) {
-            this.props.hentArbeidsforhold(nextProps.oppfolgingsdialog.arbeidstaker.aktoerId, nextProps.oppfolgingsdialog.oppfoelgingsdialogId, 'arbeidstaker');
+        if ((this.props.oppfolgingsdialoger || (!this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet)) &&
+            (!this.props.arbeidsforholdHentet || (this.props.arbeidsforholdFnr !== nextProps.oppfolgingsdialog.arbeidstaker.fnr))
+            && !this.props.arbeidsforholdHenter && nextProps.oppfolgingsdialog) {
+            this.props.hentArbeidsforhold(nextProps.oppfolgingsdialog.arbeidstaker.fnr, nextProps.oppfolgingsdialog.id, 'arbeidstaker');
         }
         if (!this.props.oppfolgingsdialogAvbrutt && nextProps.oppfolgingsdialogAvbrutt) {
             this.props.hentOppfolgingsdialoger();
@@ -63,7 +65,7 @@ export class OppfolgingsdialogSide extends Component {
         if (this.props.oppfolgingsdialogAvbrutt && !this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet) {
             const nyOpprettetDialog = finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt(nextProps.oppfolgingsdialoger, nextProps.oppfolgingsdialog.virksomhetsnummer);
             if (nyOpprettetDialog) {
-                history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.oppfoelgingsdialogId}/`);
+                history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.id}/`);
                 window.location.hash = 'arbeidsoppgaver';
             }
         }
@@ -126,7 +128,6 @@ OppfolgingsdialogSide.propTypes = {
     ledetekster: keyValue,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
-    oppfolgingsdialogId: PropTypes.string,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     sender: PropTypes.bool,
@@ -179,12 +180,15 @@ OppfolgingsdialogSide.propTypes = {
     hentet: PropTypes.bool,
     settDialog: PropTypes.func,
     hentToggles: PropTypes.func,
+    arbeidsforholdFnr: PropTypes.string,
+    oppfolgingsdialogId: PropTypes.string,
 };
 
 export function mapStateToProps(state, ownProps) {
-    const oppfolgingsdialogId = ownProps.params.oppfolgingsdialogId;
-    const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, oppfolgingsdialogId);
+    const id = ownProps.params.oppfolgingsdialogId;
+    const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
     const virksomhetsnavn = oppfolgingsdialog ? oppfolgingsdialog.virksomhetsnavn : '';
+    const arbeidsforholdFnr = isEmpty(state.arbeidsforhold.data) ? '' : state.arbeidsforhold.data.fnr;
     return {
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
@@ -228,8 +232,9 @@ export function mapStateToProps(state, ownProps) {
         slettingFeiletArbeidsoppgave: state.arbeidsoppgaver.slettingFeilet,
         slettingFeiletTiltak: state.tiltak.slettingFeilet,
         oppfolgingsdialog,
-        arbeidsforhold: state.arbeidsforhold.data,
-        oppfolgingsdialogId,
+        arbeidsforhold: state.arbeidsforhold.data.stillinger,
+        arbeidsforholdFnr,
+        oppfolgingsdialogId: id,
         tilgang: state.tilgang.data,
         tilgangSjekket: state.tilgang.hentet,
         navigasjontoggles: state.navigasjontoggles,

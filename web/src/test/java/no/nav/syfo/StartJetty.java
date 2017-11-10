@@ -20,6 +20,7 @@ public class StartJetty {
         Jetty jetty = usingWar(WEBAPP_SOURCE)
                 .at("/sykefravaer")
                 .port(PORT)
+                .disableAnnotationScanning()
                 .buildJetty();
         logger.info("http://127.0.0.1:" + PORT + "/sykefravaer");
         jetty.startAnd(first(waitFor(gotKeypress())).then(jetty.stop));

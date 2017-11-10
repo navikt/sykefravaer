@@ -21,6 +21,11 @@ import {
     avbrytDialog,
     finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt,
     hentArbeidsforhold,
+    hentVirksomhet,
+    hentPerson,
+    hentKontaktinfo,
+    hentForrigeNaermesteLeder,
+    hentNaermesteLeder,
     delMedNav as delMedNavFunc,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
@@ -37,10 +42,12 @@ import {
 
 export class OppfolgingsdialogSide extends Component {
     componentWillMount() {
-        const { oppfolgingsdialogId, toggles } = this.props;
-        this.props.settDialog(oppfolgingsdialogId);
+        const { toggles, sjekkTilgangHentet, sjekkTilgangHenter } = this.props;
         if (!toggles.hentet && !toggles.henter) {
             this.props.hentToggles();
+        }
+        if (!sjekkTilgangHentet && !sjekkTilgangHenter) {
+            this.props.sjekkTilgang();
         }
     }
 
@@ -48,6 +55,7 @@ export class OppfolgingsdialogSide extends Component {
         if (!this.props.oppfolgingsdialogerHentet && !this.props.oppfolgingsdialogerHenter) {
             this.props.hentOppfolgingsdialoger();
         }
+
         if (!this.props.sjekkTilgangHentet && !this.props.sjekkTilgangHenter) {
             this.props.sjekkTilgang();
         }
@@ -63,7 +71,7 @@ export class OppfolgingsdialogSide extends Component {
             this.props.hentOppfolgingsdialoger();
         }
         if (this.props.oppfolgingsdialogAvbrutt && !this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet) {
-            const nyOpprettetDialog = finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt(nextProps.oppfolgingsdialoger, nextProps.oppfolgingsdialog.virksomhetsnummer);
+            const nyOpprettetDialog = finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt(nextProps.oppfolgingsdialoger, nextProps.oppfolgingsdialog.virksomhet.virksomhetsnummer);
             if (nyOpprettetDialog) {
                 history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.id}/`);
                 window.location.hash = 'arbeidsoppgaver';
@@ -180,16 +188,30 @@ OppfolgingsdialogSide.propTypes = {
     hentet: PropTypes.bool,
     settDialog: PropTypes.func,
     hentToggles: PropTypes.func,
+    hentVirksomhet: PropTypes.func,
+    hentPerson: PropTypes.func,
+    hentKontaktinfo: PropTypes.func,
+    hentForrigeNaermesteLeder: PropTypes.func,
+    hentNaermesteLeder: PropTypes.func,
     arbeidsforholdFnr: PropTypes.string,
     oppfolgingsdialogId: PropTypes.string,
+    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
+    person: oppfolgingProptypes.personReducerPt,
+    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
 };
 
 export function mapStateToProps(state, ownProps) {
     const id = ownProps.params.oppfolgingsdialogId;
     const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
-    const virksomhetsnavn = oppfolgingsdialog ? oppfolgingsdialog.virksomhetsnavn : '';
     const arbeidsforholdFnr = isEmpty(state.arbeidsforhold.data) ? '' : state.arbeidsforhold.data.fnr;
+    const brodsmuletittel = oppfolgingsdialog && oppfolgingsdialog.virksomhet.navn;
     return {
+        naermesteleder: state.naermesteleder,
+        forrigenaermesteleder: state.forrigenaermesteleder,
+        virksomhet: state.virksomhet,
+        kontaktinfo: state.kontaktinfo,
+        person: state.person,
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
@@ -249,7 +271,7 @@ export function mapStateToProps(state, ownProps) {
             sti: '/oppfolgingsplaner',
             erKlikkbar: true,
         }, {
-            tittel: virksomhetsnavn,
+            tittel: brodsmuletittel,
         }],
     };
 }
@@ -272,6 +294,11 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     hentArbeidsforhold,
     avbrytDialog,
     hentToggles,
+    hentVirksomhet,
+    hentPerson,
+    hentKontaktinfo,
+    hentForrigeNaermesteLeder,
+    hentNaermesteLeder,
     delMedNavFunc,
 })(OppfolgingsdialogSide);
 

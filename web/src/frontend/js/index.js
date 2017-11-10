@@ -21,6 +21,11 @@ import {
     arbeidsforhold,
     nyNaermesteLeder,
     delmednav,
+    person,
+    virksomhet,
+    kontaktinfo,
+    forrigenaermesteleder,
+    naermesteleder,
 } from 'oppfolgingsdialog-npm';
 import AppRouter from './routers/AppRouter';
 import dineSykmeldinger from './reducers/dineSykmeldinger';
@@ -71,6 +76,11 @@ const rootReducer = combineReducers({
     vedlikehold,
     hendelser,
     aktivitetskrav,
+    person,
+    virksomhet,
+    kontaktinfo,
+    forrigenaermesteleder,
+    naermesteleder,
     form: formReducer,
     formMeta: reduxFormMeta,
 });

@@ -11,6 +11,11 @@ import {
     settDialogSagas,
     avbrytdialogSagas,
     delMedNavSagas,
+    virksomhetSagas,
+    personSagas,
+    kontaktinfoSagas,
+    forrigeNaermesteLederSagas,
+    naermesteLederSagas,
 } from 'oppfolgingsdialog-npm';
 import arbeidsgiversSykmeldingerSagas from './arbeidsgiversSykmeldingerSagas';
 import brukerinfoSagas from './brukerinfoSagas';
@@ -58,5 +63,10 @@ export default function* rootSaga() {
         forskutteringssporsmalSagas(),
         hendelserSagas(),
         aktivitetskravSagas(),
+        virksomhetSagas(),
+        personSagas(),
+        kontaktinfoSagas(),
+        forrigeNaermesteLederSagas(),
+        naermesteLederSagas(),
     ];
 }

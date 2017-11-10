@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
 import {
     OppfolgingsdialogInfoboks,
+    opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     sjekkTilgang,
     hentVirksomhet,
@@ -17,6 +18,7 @@ import { getContextRoot } from '../../routers/paths';
 import Side from '../../sider/Side';
 import Feilmelding from '../../components/Feilmelding';
 import AppSpinner from '../../components/AppSpinner';
+import history from '../../history';
 import {
     brodsmule as brodsmulePt,
     sykmelding as sykmeldingPt,
@@ -48,16 +50,20 @@ export class OppfolgingsdialogerSide extends Component {
             this.props.hentLedere();
             this.props.hentOppfolgingsdialoger();
         }
+        if (this.props.oppretter && nextProps.opprettet) {
+            history.push(`/sykefravaer/oppfolgingsplaner/${nextProps.opprettetId}`);
+            this.props.hentOppfolgingsdialoger();
+        }
     }
 
     render() {
-        const { brodsmuler, ledetekster, henter, hentingFeilet, tilgang, hentet, avkrefterLeder, avkrefterLederFeilet } = this.props;
+        const { brodsmuler, ledetekster, henter, hentingFeilet, tilgang, hentet, avkrefterLeder, avkrefterLederFeilet, oppretter, opprettingFeilet } = this.props;
         return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler} laster={henter || !hentet}>
             {
                 (() => {
-                    if (henter || avkrefterLeder) {
+                    if (henter || avkrefterLeder || oppretter) {
                         return <AppSpinner />;
-                    } else if (hentingFeilet || avkrefterLederFeilet) {
+                    } else if (hentingFeilet || avkrefterLederFeilet || opprettingFeilet) {
                         return (<Feilmelding />);
                     } else if (!tilgang.harTilgang) {
                         return (<OppfolgingsdialogInfoboks
@@ -103,6 +109,11 @@ OppfolgingsdialogerSide.propTypes = {
     hentNaermesteLeder: PropTypes.func,
     naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
     hentForrigeNaermesteLeder: PropTypes.func,
+    oppretter: PropTypes.bool,
+    opprettet: PropTypes.bool,
+    opprettetId: PropTypes.number,
+    opprettingFeilet: PropTypes.bool,
+    opprettOppfolgingsdialog: PropTypes.func,
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
     person: oppfolgingProptypes.personReducerPt,
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
@@ -117,6 +128,10 @@ export const mapStateToProps = (state) => {
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
         henter: state.ledetekster.henter || state.oppfolgingsdialoger.henter || state.tilgang.henter || state.dineSykmeldinger.henter || state.ledere.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet || state.tilgang.hentingFeilet || state.dineSykmeldinger.hentingFeilet || state.ledere.hentingFeilet,
+        oppretter: state.oppfolgingsdialoger.oppretter,
+        opprettet: state.oppfolgingsdialoger.opprettet,
+        opprettingFeilet: state.oppfolgingsdialoger.opprettingFeilet,
+        opprettetId: state.oppfolgingsdialoger.opprettetId,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -151,6 +166,7 @@ const OppfolgingsdialogerContainer = connect(mapStateToProps, {
     hentPerson,
     hentForrigeNaermesteLeder,
     hentNaermesteLeder,
+    opprettOppfolgingsdialog,
 })(OppfolgingsdialogerSide);
 
 export default OppfolgingsdialogerContainer;

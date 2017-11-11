@@ -15,6 +15,7 @@ import {
     finnOgHentKontaktinfoSomMangler,
     finnOgHentNaermesteLedereSomMangler,
     finnOgHentForrigeNaermesteLedereSomMangler,
+    finnOgHentArbeidsforholdSomMangler,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
@@ -46,7 +47,7 @@ class Oppfolgingsdialog extends Component {
     }
 
     componentWillMount() {
-        const { oppfolgingsdialog, virksomhet, person, kontaktinfo, forrigenaermesteleder, naermesteleder, hentForrigeNaermesteLeder, hentVirksomhet, hentPerson, hentNaermesteLeder, hentKontaktinfo } = this.props;
+        const { oppfolgingsdialog, virksomhet, person, kontaktinfo, forrigenaermesteleder, naermesteleder, hentForrigeNaermesteLeder, hentVirksomhet, hentPerson, hentNaermesteLeder, hentKontaktinfo, arbeidsforhold, hentArbeidsforhold } = this.props;
         this.props.settAktivtSteg(1);
         this.props.settDialog(oppfolgingsdialog.id);
         finnOgHentVirksomheterSomMangler([oppfolgingsdialog], virksomhet, hentVirksomhet);
@@ -54,6 +55,7 @@ class Oppfolgingsdialog extends Component {
         finnOgHentForrigeNaermesteLedereSomMangler([oppfolgingsdialog], forrigenaermesteleder, hentForrigeNaermesteLeder);
         finnOgHentNaermesteLedereSomMangler([oppfolgingsdialog], naermesteleder, hentNaermesteLeder);
         finnOgHentKontaktinfoSomMangler([oppfolgingsdialog], kontaktinfo, hentKontaktinfo);
+        finnOgHentArbeidsforholdSomMangler([oppfolgingsdialog], arbeidsforhold, hentArbeidsforhold);
     }
 
     visAvvisPlanKvittering(vis, begrunnelse) {
@@ -95,7 +97,6 @@ class Oppfolgingsdialog extends Component {
             lagreArbeidsoppgave,
             slettArbeidsoppgave,
             oppfolgingsdialogAvbrutt,
-            arbeidsforhold,
             toggles,
             delMedNavFunc,
             delmednav,
@@ -110,7 +111,6 @@ class Oppfolgingsdialog extends Component {
                 rootUrl={`${window.APP_SETTINGS.APP_ROOT}`}
                 begrunnelse={this.state.begrunnelse}
                 visAvvisPlanKvittering={this.visAvvisPlanKvittering}
-                arbeidsforhold={arbeidsforhold}
             />);
         } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && visSamtykkeSkjema && oppfolgingsdialog.arbeidstaker.samtykke === null) {
             disableNavigation = true;
@@ -132,7 +132,6 @@ class Oppfolgingsdialog extends Component {
                 nullstillGodkjenning={nullstillGodkjenning}
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrl={`${getContextRoot()}`}
-                arbeidsforhold={arbeidsforhold}
             />);
         } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && inneholderGodkjentPlan(oppfolgingsdialog)) {
             disableNavigation = true;
@@ -143,7 +142,6 @@ class Oppfolgingsdialog extends Component {
                 hentPdfurler={hentPdfurler}
                 dokument={dokument}
                 giSamtykke={giSamtykke}
-                arbeidsforhold={arbeidsforhold}
                 avbrytDialog={avbrytDialog}
                 delMedNavFunc={delMedNavFunc}
                 delmednav={delmednav}
@@ -164,7 +162,6 @@ class Oppfolgingsdialog extends Component {
                         oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
                         lagreArbeidsoppgave={lagreArbeidsoppgave}
                         slettArbeidsoppgave={slettArbeidsoppgave}
-                        arbeidsforhold={arbeidsforhold}
                     />);
                 } else if (navigasjontoggles.steg === 2) {
                     panel = (<Tiltak
@@ -190,7 +187,6 @@ class Oppfolgingsdialog extends Component {
                         godkjennPlan={godkjennDialog}
                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
                         rootUrl={`${getContextRoot()}`}
-                        arbeidsforhold={arbeidsforhold}
                     />);
                 }
             })();
@@ -263,8 +259,8 @@ Oppfolgingsdialog.propTypes = {
     hentPerson: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
     hentNaermesteLeder: PropTypes.func,
+    hentArbeidsforhold: PropTypes.func,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
-    arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
@@ -272,6 +268,7 @@ Oppfolgingsdialog.propTypes = {
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
     naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
     kontaktinfo: oppfolgingProptypes.kontaktinfoReducerPt,
+    arbeidsforhold: oppfolgingProptypes.arbeidsforholdReducerPt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
 };
 

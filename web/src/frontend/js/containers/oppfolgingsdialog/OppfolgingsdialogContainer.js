@@ -62,11 +62,6 @@ export class OppfolgingsdialogSide extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if ((this.props.oppfolgingsdialoger || (!this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet)) &&
-            (!this.props.arbeidsforholdHentet || (this.props.arbeidsforholdFnr !== nextProps.oppfolgingsdialog.arbeidstaker.fnr))
-            && !this.props.arbeidsforholdHenter && nextProps.oppfolgingsdialog) {
-            this.props.hentArbeidsforhold(nextProps.oppfolgingsdialog.arbeidstaker.fnr, nextProps.oppfolgingsdialog.id, 'arbeidstaker');
-        }
         if (!this.props.oppfolgingsdialogAvbrutt && nextProps.oppfolgingsdialogAvbrutt) {
             this.props.hentOppfolgingsdialoger();
         }
@@ -167,8 +162,6 @@ OppfolgingsdialogSide.propTypes = {
     oppfolgingsdialogerHentet: PropTypes.bool,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     hentArbeidsforhold: PropTypes.func,
-    arbeidsforholdHenter: PropTypes.bool,
-    arbeidsforholdHentet: PropTypes.bool,
     sjekkTilgangHentet: PropTypes.bool,
     tilgang: oppfolgingProptypes.tilgangPt,
     tilgangSjekket: PropTypes.bool,
@@ -182,7 +175,7 @@ OppfolgingsdialogSide.propTypes = {
     settAktivtSteg: PropTypes.func,
     oppfolgingsdialogerHenter: PropTypes.bool,
     avbrytDialog: PropTypes.func,
-    arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
+    arbeidsforhold: oppfolgingProptypes.arbeidsforholdReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     hentet: PropTypes.bool,
@@ -193,7 +186,6 @@ OppfolgingsdialogSide.propTypes = {
     hentKontaktinfo: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
     hentNaermesteLeder: PropTypes.func,
-    arbeidsforholdFnr: PropTypes.string,
     oppfolgingsdialogId: PropTypes.string,
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
     person: oppfolgingProptypes.personReducerPt,
@@ -204,25 +196,23 @@ OppfolgingsdialogSide.propTypes = {
 export function mapStateToProps(state, ownProps) {
     const id = ownProps.params.oppfolgingsdialogId;
     const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
-    const arbeidsforholdFnr = isEmpty(state.arbeidsforhold.data) ? '' : state.arbeidsforhold.data.fnr;
     const brodsmuletittel = oppfolgingsdialog && oppfolgingsdialog.virksomhet.navn;
     return {
         naermesteleder: state.naermesteleder,
         forrigenaermesteleder: state.forrigenaermesteleder,
         virksomhet: state.virksomhet,
         kontaktinfo: state.kontaktinfo,
+        arbeidsforhold: state.arbeidsforhold,
         person: state.person,
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
         oppfolgingsdialogerHenter: state.oppfolgingsdialoger.henter,
         oppfolgingsdialogAvbrutt: state.avbrytdialogReducer.sendt,
-        arbeidsforholdHenter: state.arbeidsforhold.henter,
-        arbeidsforholdHentet: state.arbeidsforhold.hentet,
         sjekkTilgangHentet: state.tilgang.hentet,
         sjekkTilgangHenter: state.tilgang.henter,
-        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter || state.arbeidsforhold.henter,
-        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet || state.arbeidsforhold.hentingFeilet,
+        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter,
+        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet,
         sender: state.oppfolgingsdialoger.avviser
         || state.oppfolgingsdialoger.godkjenner
         || state.avbrytdialogReducer.sender
@@ -254,8 +244,6 @@ export function mapStateToProps(state, ownProps) {
         slettingFeiletArbeidsoppgave: state.arbeidsoppgaver.slettingFeilet,
         slettingFeiletTiltak: state.tiltak.slettingFeilet,
         oppfolgingsdialog,
-        arbeidsforhold: state.arbeidsforhold.data.stillinger,
-        arbeidsforholdFnr,
         oppfolgingsdialogId: id,
         tilgang: state.tilgang.data,
         tilgangSjekket: state.tilgang.hentet,

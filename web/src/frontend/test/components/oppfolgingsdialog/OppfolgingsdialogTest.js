@@ -33,6 +33,7 @@ describe('Oppfolgingsdialog', () => {
     let hentNaermesteLeder;
     let hentForrigeNaermesteLeder;
     let hentKontaktinfo;
+    let hentArbeidsforhold;
     const data = {
         henter: [],
         hentet: [],
@@ -44,6 +45,7 @@ describe('Oppfolgingsdialog', () => {
     const kontaktinfo = data;
     const forrigenaermesteleder = data;
     const naermesteleder = data;
+    const arbeidsforhold = data;
 
     let oppfolgingsdialog;
     beforeEach(() => {
@@ -52,6 +54,7 @@ describe('Oppfolgingsdialog', () => {
         oppfolgingsdialog = getOppfolgingsdialog();
         settDialog = sinon.spy();
         hentForrigeNaermesteLeder = sinon.spy();
+        hentArbeidsforhold = sinon.spy();
         hentPerson = sinon.spy();
         hentNaermesteLeder = sinon.spy();
         hentKontaktinfo = sinon.spy();
@@ -71,6 +74,8 @@ describe('Oppfolgingsdialog', () => {
             person={person}
             kontaktinfo={kontaktinfo}
             navigasjontoggles={navigasjontoggles}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
     });
 
@@ -103,6 +108,8 @@ describe('Oppfolgingsdialog', () => {
             person={person}
             kontaktinfo={kontaktinfo}
             oppfolgingsdialogAvbrutt
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(AvbruttGodkjentPlanVarsel)).to.have.length(1);
     });
@@ -136,6 +143,8 @@ describe('Oppfolgingsdialog', () => {
             person={person}
             kontaktinfo={kontaktinfo}
             visSamtykkeSkjema
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(Samtykke)).to.have.length(1);
     });
@@ -168,6 +177,8 @@ describe('Oppfolgingsdialog', () => {
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(Godkjenninger)).to.have.length(1);
     });
@@ -191,6 +202,8 @@ describe('Oppfolgingsdialog', () => {
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(ReleasetPlanAT)).to.have.length(1);
     });
@@ -217,6 +230,8 @@ describe('Oppfolgingsdialog', () => {
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(Arbeidsoppgaver)).to.have.length(1);
     });
@@ -243,6 +258,8 @@ describe('Oppfolgingsdialog', () => {
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(Tiltak)).to.have.length(1);
     });
@@ -269,6 +286,8 @@ describe('Oppfolgingsdialog', () => {
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(IngenlederInfoboks)).to.have.length(1);
     });
@@ -295,6 +314,8 @@ describe('Oppfolgingsdialog', () => {
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(Godkjenn)).to.have.length(1);
     });

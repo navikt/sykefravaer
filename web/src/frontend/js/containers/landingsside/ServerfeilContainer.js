@@ -4,7 +4,7 @@ import Serverfeilmelding from '../../components/landingsside/Serverfeilmelding';
 const mapStateToProps = (state) => {
     const feilliste = [];
     Object.keys(state).forEach((reducer) => {
-        if (state[reducer].hentingFeilet) {
+        if (state[reducer].hentingFeilet && (!Array.isArray(state[reducer].hentingFeilet) || state[reducer].hentingFeilet.length > 0)) {
             feilliste.push(reducer);
         }
     });

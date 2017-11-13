@@ -136,9 +136,9 @@ export const KvitteringSokSenere = ({ sykepengesoknader }) => {
         <div className="blokk">
             <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
             <Video
-                width="640"
-                height="360"
-                src="https://video.qbrick.com/play2/embed/player?accountId=763558&mediaId=B248D6CB&pageStyling=adaptive&autoplay=false&repeat=false&sharing=false" />
+                src="/sykefravaer/filmer/soknadsykepenger.mp4"
+                captionSrc="/sykefravaer/filmer/soknadsykepenger.vtt"
+                img="/sykefravaer/img/filmer/soknadsykepenger.jpg" />
         </div>
     </div>);
 };

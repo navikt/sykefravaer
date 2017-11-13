@@ -1,54 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-let settStorrelse;
-
-const getSidebredde = () => {
-    const s = document.getElementsByClassName('js-begrensning')[0];
-    const style = window.getComputedStyle(s);
-    return parseInt(style.width, 10) - parseInt(style.paddingLeft, 10) - parseInt(style.paddingRight, 10);
+const Video = ({ src, img, captionSrc }) => {
+    return (<video width="100%" height="auto" controls poster={img}>
+        <source src={src} type="video/mp4" />
+        { captionSrc && <track label="Norsk bokmål" kind="subtitles" srcLang="nb_no" src={captionSrc} default /> }
+        <p>Nettleseren din støtter ikke denne videoavspillingen. <a href={src}>Gå direkte til videoklippet</a></p>
+    </video>);
 };
 
-class Video extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            width: props.width,
-            height: props.height,
-        };
-    }
-
-    componentDidMount() {
-        settStorrelse = () => {
-            this.settStorrelse();
-        };
-        window.addEventListener('resize', settStorrelse);
-        this.settStorrelse();
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', settStorrelse);
-    }
-
-    settStorrelse() {
-        const lite = document.getElementsByClassName('lite-film')[0] ? 60 : 0;
-        const width = getSidebredde() - lite;
-        const forhold = parseInt(this.props.width, 10) / width;
-        const height = parseInt(this.props.height / forhold, 10);
-        this.setState({
-            width, height,
-        });
-    }
-
-    render() {
-        return <iframe allowfullscreen title="Video" className="iframeVideo" src={`${this.props.src}&width=${this.state.width}&height=${this.state.height}`} width={this.state.width} height={this.state.height} scrolling="no" frameBorder="0" />;
-    }
-}
-
 Video.propTypes = {
-    src: PropTypes.string,
-    width: PropTypes.string,
-    height: PropTypes.string,
+    src: PropTypes.string.isRequired,
+    img: PropTypes.string,
+    captionSrc: PropTypes.string,
 };
 
 export default Video;

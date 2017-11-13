@@ -11,7 +11,6 @@ import DinUtgaatteSykmelding from '../../components/sykmelding/DinUtgaatteSykmel
 import LenkeTilDineSykmeldinger from '../../components/LenkeTilDineSykmeldinger';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { hentAktuelleArbeidsgivere } from '../../actions/dineArbeidsgivere_actions';
 import { hentArbeidsgiversSykmeldinger } from '../../actions/arbeidsgiversSykmeldinger_actions';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } from '../../enums/sykmeldingstatuser';
@@ -19,11 +18,11 @@ import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../../prop
 
 export class DinSykmldSide extends Component {
     componentWillMount() {
-        const { dineSykmeldingerHentet, arbeidsgiversSykmeldingerHentet } = this.props;
-        if (!dineSykmeldingerHentet) {
+        const { skalHenteDineSykmeldinger, skalHenteArbeidsgiversSykmeldinger } = this.props;
+        if (skalHenteDineSykmeldinger) {
             this.props.hentDineSykmeldinger();
         }
-        if (!arbeidsgiversSykmeldingerHentet) {
+        if (skalHenteArbeidsgiversSykmeldinger) {
             this.props.hentArbeidsgiversSykmeldinger();
         }
     }
@@ -31,10 +30,9 @@ export class DinSykmldSide extends Component {
     render() {
         const { brodsmuler, dinSykmelding, arbeidsgiversSykmelding, henter, hentingFeilet,
             visEldreSykmeldingVarsel, eldsteSykmeldingId, hentet } = this.props;
-
         return (<Side tittel={getLedetekst('din-sykmelding.sidetittel')} brodsmuler={brodsmuler} laster={henter || !hentet}>
             { (() => {
-                if (henter) {
+                if (henter || !hentet) {
                     return <AppSpinner />;
                 } else if (hentingFeilet) {
                     return (<Feilmelding />);
@@ -91,10 +89,10 @@ DinSykmldSide.propTypes = {
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     hentArbeidsgiversSykmeldinger: PropTypes.func,
-    dineSykmeldingerHentet: PropTypes.bool,
-    arbeidsgiversSykmeldingerHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
     hentet: PropTypes.bool,
+    skalHenteArbeidsgiversSykmeldinger: PropTypes.bool,
+    skalHenteDineSykmeldinger: PropTypes.bool,
 };
 
 const getEldsteNyeSykmelding = (sykmeldinger) => {
@@ -151,8 +149,9 @@ export function mapStateToProps(state, ownProps) {
     }
 
     const eldsteNyeSykmelding = getEldsteNyeSykmelding(state.dineSykmeldinger.data, sykmeldingId);
-
-    const hentet = state.dineSykmeldinger.hentet === true && state.arbeidsgiversSykmeldinger.hentet === true;
+    const skalHenteDineSykmeldinger = !state.dineSykmeldinger.hentet && !state.dineSykmeldinger.henter;
+    const skalHenteArbeidsgiversSykmeldinger = !state.arbeidsgiversSykmeldinger.hentet && !state.arbeidsgiversSykmeldinger.henter;
+    const hentet = state.dineSykmeldinger.hentet === true && state.arbeidsgiversSykmeldinger.hentet === true && !skalHenteArbeidsgiversSykmeldinger && !skalHenteArbeidsgiversSykmeldinger;
 
     return {
         sykmeldingId,
@@ -161,8 +160,8 @@ export function mapStateToProps(state, ownProps) {
         hentingFeilet: state.dineSykmeldinger.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet,
         dinSykmelding,
         arbeidsgiversSykmelding,
-        dineSykmeldingerHentet: state.dineSykmeldinger.hentet,
-        arbeidsgiversSykmeldingerHentet: state.arbeidsgiversSykmeldinger.hentet,
+        skalHenteDineSykmeldinger,
+        skalHenteArbeidsgiversSykmeldinger,
         visEldreSykmeldingVarsel: visEldreSykmeldingVarsel(state.dineSykmeldinger.data, sykmeldingId),
         eldsteSykmeldingId: eldsteNyeSykmelding ? eldsteNyeSykmelding.id : '',
         brodsmuler: [{
@@ -180,7 +179,6 @@ export function mapStateToProps(state, ownProps) {
 }
 
 export const DinSykmeldingContainer = connect(mapStateToProps, {
-    hentAktuelleArbeidsgivere,
     hentArbeidsgiversSykmeldinger,
     hentDineSykmeldinger,
 })(DinSykmldSide);

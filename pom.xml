@@ -24,6 +24,7 @@
     <properties>
         <modig.security.version>1.0.24</modig.security.version>
         <common-web.version>5.0.26</common-web.version>
+        <common-jetty.version>2.0.22</common-jetty.version>
     </properties>
 
     <dependencyManagement>
@@ -68,7 +69,7 @@
             <dependency>
                 <groupId>no.nav.sbl.dialogarena</groupId>
                 <artifactId>common-jetty</artifactId>
-                <version>1.0.26</version>
+                <version>${common-jetty.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>

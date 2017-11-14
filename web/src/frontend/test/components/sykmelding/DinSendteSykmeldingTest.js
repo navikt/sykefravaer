@@ -25,7 +25,7 @@ describe("DinSendteSykmelding", () => {
     it("Skal vise kvittering ", () => {
         let dinSykmelding = getSykmelding();
         dinSykmelding.status = 'SENDT';
-        component = shallow(<DinSendteSykmelding sykmelding={dinSykmelding} />);
+        component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} />);
         expect(component.find(StatusPanel)).to.have.length(1)
     });
 
@@ -47,7 +47,7 @@ describe("DinSendteSykmelding", () => {
             id: "arbeidsgivers-sykmelding-id",
             test: "olsen"
         };
-        component = shallow(<DinSendteSykmelding sykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}/>);
+        component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}/>);
         expect(component.contains(<ArbeidsgiversSykmelding sykmelding={arbeidsgiversSykmelding} />)).to.be.true;
     }); 
 

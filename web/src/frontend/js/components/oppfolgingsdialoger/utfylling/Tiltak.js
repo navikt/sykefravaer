@@ -5,12 +5,16 @@ import {
     OppfolgingsdialogInfoboks,
     TiltakNotifikasjonBoksAdvarsel,
     NotifikasjonBoksLagretElement,
-    OppfolgingsdialogTabell,
+    TiltakTabell,
     LeggTilElementKnapper,
     LagreTiltakSkjema,
     BRUKERTYPE,
     captitalizeFirstLetter,
     proptypes as oppfolgingProptypes,
+    TiltakSkjema,
+    TiltakLeggtilKnapp,
+    TiltakInfoboks,
+    sorterTiltakEtterOpprettet,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
@@ -27,20 +31,20 @@ export const RenderOppfolgingsdialogTiltakTabell = (
         sendLagreKommentar,
         sendSlettKommentar,
         fnr,
+        rootUrl,
     }) => {
     return (
-        <OppfolgingsdialogTabell
+        <TiltakTabell
             ledetekster={ledetekster}
             liste={tiltakListe}
-            tabellType="tiltak"
             urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
-            urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
             sendLagre={sendLagreTiltak}
             sendSlett={sendSlettTiltak}
             sendLagreKommentar={sendLagreKommentar}
             sendSlettKommentar={sendSlettKommentar}
             fnr={fnr}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
+            rootUrl={rootUrl}
         />
     );
 };
@@ -52,6 +56,7 @@ RenderOppfolgingsdialogTiltakTabell.propTypes = {
     sendLagreKommentar: PropTypes.func,
     sendSlettKommentar: PropTypes.func,
     fnr: PropTypes.string,
+    rootUrl: PropTypes.string,
 };
 
 export const RenderOpprettTiltak = ({ ledetekster, sendLagreTiltak, toggleTiltakSkjema }) => {
@@ -167,16 +172,18 @@ class Tiltak extends Component {
                                         toggleSkjema={this.toggleTiltakSkjema}
                                     />
                                 </OppfolgingsdialogInfoboks> :
-                                <RenderOpprettTiltak
+                                <TiltakSkjema
                                     ledetekster={ledetekster}
-                                    sendLagreTiltak={this.sendLagreTiltak}
-                                    toggleTiltakSkjema={this.toggleTiltakSkjema}
+                                    sendLagre={this.sendLagreTiltak}
+                                    avbryt={this.toggleTiltakSkjema}
+                                    brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                                    fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                                    rootUrl={`${getContextRoot()}`}
                                 />
                         }
                     </div>
                     :
                     <div>
-                        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
                         {
                             lagret && this.state.oppdatertTiltak && <NotifikasjonBoksLagretElement
                                 tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-tiltak.tekst')}
@@ -197,7 +204,7 @@ class Tiltak extends Component {
                                 rootUrl={`${getContextRoot()}`}
                             />
                         }
-                        <RenderOppfolgingsdialogTiltakTabell
+                        <TiltakInfoboks
                             ledetekster={ledetekster}
                             tiltakListe={oppfolgingsdialog.tiltakListe}
                             sendLagreTiltak={this.sendLagreTiltak}
@@ -206,19 +213,31 @@ class Tiltak extends Component {
                             sendSlettKommentar={this.sendSlettKommentar}
                             fnr={oppfolgingsdialog.arbeidstaker.fnr}
                             arbeidstaker={oppfolgingsdialog.arbeidstaker}
+                            visTiltakSkjema={this.state.visTiltakSkjema}
+                            toggleSkjema={this.toggleTiltakSkjema}
                         />
                         {
-                            this.state.visTiltakSkjema ?
-                                <LagreTiltakSkjema
+                            this.state.visTiltakSkjema &&
+                                <TiltakSkjema
                                     ledetekster={ledetekster}
                                     sendLagre={this.sendLagreTiltak}
                                     avbryt={this.toggleTiltakSkjema}
-                                    ref={(lagreSkjema) => { this.lagreSkjema = lagreSkjema; }}
-                                /> :
-                                <LeggTilElementKnapper
+                                    fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                                    rootUrl={`${getContextRoot()}`}
+                                    ref={(lagreSkjema) => {
+                                        this.lagreSkjema = lagreSkjema;
+                                    }}
+                                    brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                                />
+                        }
+                        {
+                                <RenderOppfolgingsdialogTiltakTabell
                                     ledetekster={ledetekster}
-                                    visSkjema={this.state.visTiltakSkjema}
-                                    toggleSkjema={this.toggleTiltakSkjema}
+                                    tiltakListe={sorterTiltakEtterOpprettet(oppfolgingsdialog.tiltakListe)}
+                                    sendLagreTiltak={this.sendLagreTiltak}
+                                    sendSlettTiltak={this.sendSlettTiltak}
+                                    fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                                    rootUrl={`${getContextRoot()}`}
                                 />
                         }
                     </div>;

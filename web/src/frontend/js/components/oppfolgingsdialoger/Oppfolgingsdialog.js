@@ -79,6 +79,8 @@ class Oppfolgingsdialog extends Component {
             slettetTiltak,
             slettingFeiletArbeidsoppgave,
             slettingFeiletTiltak,
+            lagreKommentar,
+            slettKommentar,
             oppfolgingsdialog,
             ledetekster,
             settAktivtSteg,
@@ -176,6 +178,8 @@ class Oppfolgingsdialog extends Component {
                         oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
                         lagreTiltak={lagreTiltak}
                         slettTiltak={slettTiltak}
+                        lagreKommentar={lagreKommentar}
+                        slettKommentar={slettKommentar}
                     />);
                 } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder === null) {
                     panel = (<IngenlederInfoboks />);
@@ -235,6 +239,8 @@ Oppfolgingsdialog.propTypes = {
     slettetTiltak: PropTypes.bool,
     slettingFeiletArbeidsoppgave: PropTypes.bool,
     slettingFeiletTiltak: PropTypes.bool,
+    lagreKommentar: PropTypes.func,
+    slettKommentar: PropTypes.func,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     ledetekster: keyValue,
     toggles: togglesPt,

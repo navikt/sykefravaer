@@ -18,7 +18,16 @@ import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
 
-export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, sendLagreTiltak, sendSlettTiltak, fnr }) => {
+export const RenderOppfolgingsdialogTiltakTabell = (
+    {
+        ledetekster,
+        tiltakListe,
+        sendLagreTiltak,
+        sendSlettTiltak,
+        sendLagreKommentar,
+        sendSlettKommentar,
+        fnr,
+    }) => {
     return (
         <OppfolgingsdialogTabell
             ledetekster={ledetekster}
@@ -28,6 +37,8 @@ export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, 
             urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
             sendLagre={sendLagreTiltak}
             sendSlett={sendSlettTiltak}
+            sendLagreKommentar={sendLagreKommentar}
+            sendSlettKommentar={sendSlettKommentar}
             fnr={fnr}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
         />
@@ -38,6 +49,8 @@ RenderOppfolgingsdialogTiltakTabell.propTypes = {
     tiltakListe: PropTypes.arrayOf(oppfolgingProptypes.tiltakPt),
     sendLagreTiltak: PropTypes.func,
     sendSlettTiltak: PropTypes.func,
+    sendLagreKommentar: PropTypes.func,
+    sendSlettKommentar: PropTypes.func,
     fnr: PropTypes.string,
 };
 
@@ -67,6 +80,8 @@ class Tiltak extends Component {
         };
         this.sendLagreTiltak = this.sendLagreTiltak.bind(this);
         this.sendSlettTiltak = this.sendSlettTiltak.bind(this);
+        this.sendLagreKommentar = this.sendLagreKommentar.bind(this);
+        this.sendSlettKommentar = this.sendSlettKommentar.bind(this);
         this.toggleTiltakSkjema = this.toggleTiltakSkjema.bind(this);
     }
 
@@ -97,6 +112,14 @@ class Tiltak extends Component {
 
     sendSlettTiltak(tiltakId) {
         this.props.slettTiltak(this.props.oppfolgingsdialog.id, tiltakId);
+    }
+
+    sendLagreKommentar(tiltakId, values) {
+        this.props.lagreKommentar(this.props.oppfolgingsdialog.id, tiltakId, values);
+    }
+
+    sendSlettKommentar(tiltakId, kommentarId) {
+        this.props.slettKommentar(this.props.oppfolgingsdialog.id, tiltakId, kommentarId);
     }
 
     toggleTiltakSkjema() {
@@ -179,6 +202,8 @@ class Tiltak extends Component {
                             tiltakListe={oppfolgingsdialog.tiltakListe}
                             sendLagreTiltak={this.sendLagreTiltak}
                             sendSlettTiltak={this.sendSlettTiltak}
+                            sendLagreKommentar={this.sendLagreKommentar}
+                            sendSlettKommentar={this.sendSlettKommentar}
                             fnr={oppfolgingsdialog.arbeidstaker.fnr}
                             arbeidstaker={oppfolgingsdialog.arbeidstaker}
                         />
@@ -213,6 +238,8 @@ Tiltak.propTypes = {
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreTiltak: PropTypes.func,
     slettTiltak: PropTypes.func,
+    lagreKommentar: PropTypes.func,
+    slettKommentar: PropTypes.func,
 };
 
 export default Tiltak;

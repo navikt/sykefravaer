@@ -4,7 +4,8 @@ import StatusPanel from '../StatusPanel';
 import { STATUS, INNSENDT_DATO } from '../../enums/nokkelopplysninger';
 import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
 import Sidetopp from '../Sidetopp';
-import { sykmelding as sykmeldingPt } from '../../propTypes/index';
+import { sykmelding as sykmeldingPt } from '../../propTypes';
+import SykepengesoknadstatusContainer from '../../containers/sykmelding/SykepengesoknadstatusContainer';
 
 const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding }) => {
     return (<div>
@@ -30,6 +31,7 @@ const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding }) => 
                     <ArbeidsgiversSykmelding sykmelding={arbeidsgiversSykmelding} />
                 </div>
         }
+        <SykepengesoknadstatusContainer sykmeldingId={dinSykmelding.id} />
     </div>);
 };
 

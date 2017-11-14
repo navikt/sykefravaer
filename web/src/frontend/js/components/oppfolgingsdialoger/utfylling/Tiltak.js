@@ -18,7 +18,7 @@ import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
 
-export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, sendLagreTiltak, sendSlettTiltak, aktoerId }) => {
+export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, sendLagreTiltak, sendSlettTiltak, fnr }) => {
     return (
         <OppfolgingsdialogTabell
             ledetekster={ledetekster}
@@ -28,7 +28,7 @@ export const RenderOppfolgingsdialogTiltakTabell = ({ ledetekster, tiltakListe, 
             urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
             sendLagre={sendLagreTiltak}
             sendSlett={sendSlettTiltak}
-            aktoerId={aktoerId}
+            fnr={fnr}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
         />
     );
@@ -38,7 +38,7 @@ RenderOppfolgingsdialogTiltakTabell.propTypes = {
     tiltakListe: PropTypes.arrayOf(oppfolgingProptypes.tiltakPt),
     sendLagreTiltak: PropTypes.func,
     sendSlettTiltak: PropTypes.func,
-    aktoerId: PropTypes.string,
+    fnr: PropTypes.string,
 };
 
 export const RenderOpprettTiltak = ({ ledetekster, sendLagreTiltak, toggleTiltakSkjema }) => {
@@ -92,11 +92,11 @@ class Tiltak extends Component {
         const nyeValues = Object.assign({}, values, {
             tiltaknavn: captitalizeFirstLetter(values.tiltaknavn),
         });
-        this.props.lagreTiltak(this.props.oppfolgingsdialogId, nyeValues);
+        this.props.lagreTiltak(this.props.oppfolgingsdialog.id, nyeValues);
     }
 
     sendSlettTiltak(tiltakId) {
-        this.props.slettTiltak(this.props.oppfolgingsdialogId, tiltakId);
+        this.props.slettTiltak(this.props.oppfolgingsdialog.id, tiltakId);
     }
 
     toggleTiltakSkjema() {
@@ -114,12 +114,11 @@ class Tiltak extends Component {
             slettingFeilet,
             ledetekster,
             oppfolgingsdialog,
-            oppfolgingsdialogId,
             oppfolgingsdialogAvbrutt,
         } = this.props;
 
         const antallNyeTiltak = oppfolgingsdialog.tiltakListe.filter((tiltak) => {
-            return tiltak.opprettetAv.aktoerId !== oppfolgingsdialog.arbeidstaker.aktoerId && new Date(tiltak.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget);
+            return tiltak.opprettetAv.fnr !== oppfolgingsdialog.arbeidstaker.fnr && new Date(tiltak.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget);
         }).length;
 
         return (
@@ -147,7 +146,6 @@ class Tiltak extends Component {
                                 </OppfolgingsdialogInfoboks> :
                                 <RenderOpprettTiltak
                                     ledetekster={ledetekster}
-                                    oppfolgingsdialogId={oppfolgingsdialogId}
                                     sendLagreTiltak={this.sendLagreTiltak}
                                     toggleTiltakSkjema={this.toggleTiltakSkjema}
                                 />
@@ -181,7 +179,7 @@ class Tiltak extends Component {
                             tiltakListe={oppfolgingsdialog.tiltakListe}
                             sendLagreTiltak={this.sendLagreTiltak}
                             sendSlettTiltak={this.sendSlettTiltak}
-                            aktoerId={oppfolgingsdialog.arbeidstaker.aktoerId}
+                            fnr={oppfolgingsdialog.arbeidstaker.fnr}
                             arbeidstaker={oppfolgingsdialog.arbeidstaker}
                         />
                         {
@@ -212,7 +210,6 @@ Tiltak.propTypes = {
     slettingFeilet: PropTypes.bool,
     ledetekster: keyValue,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
-    oppfolgingsdialogId: PropTypes.string,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreTiltak: PropTypes.func,
     slettTiltak: PropTypes.func,

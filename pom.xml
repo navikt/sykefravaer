@@ -78,6 +78,7 @@
                 <version>1.7.12</version>
                 <scope>test</scope>
             </dependency>
+
             <dependency>
                 <groupId>no.nav.modig</groupId>
                 <artifactId>modig-security-core</artifactId>

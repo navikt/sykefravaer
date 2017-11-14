@@ -21,6 +21,11 @@ import {
     avbrytDialog,
     finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt,
     hentArbeidsforhold,
+    hentVirksomhet,
+    hentPerson,
+    hentKontaktinfo,
+    hentForrigeNaermesteLeder,
+    hentNaermesteLeder,
     delMedNav as delMedNavFunc,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
@@ -29,7 +34,7 @@ import history from '../../history';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { getOppfolgingsdialog } from '../../utils/oppfolgingsdialogUtils';
+import { getOppfolgingsdialog, isEmpty } from '../../utils/oppfolgingsdialogUtils';
 import Oppfolgingsdialog from '../../components/oppfolgingsdialoger/Oppfolgingsdialog';
 import {
     brodsmule as brodsmulePt,
@@ -37,10 +42,12 @@ import {
 
 export class OppfolgingsdialogSide extends Component {
     componentWillMount() {
-        const { oppfolgingsdialogId, toggles } = this.props;
-        this.props.settDialog(oppfolgingsdialogId);
+        const { toggles, sjekkTilgangHentet, sjekkTilgangHenter } = this.props;
         if (!toggles.hentet && !toggles.henter) {
             this.props.hentToggles();
+        }
+        if (!sjekkTilgangHentet && !sjekkTilgangHenter) {
+            this.props.sjekkTilgang();
         }
     }
 
@@ -48,22 +55,20 @@ export class OppfolgingsdialogSide extends Component {
         if (!this.props.oppfolgingsdialogerHentet && !this.props.oppfolgingsdialogerHenter) {
             this.props.hentOppfolgingsdialoger();
         }
+
         if (!this.props.sjekkTilgangHentet && !this.props.sjekkTilgangHenter) {
             this.props.sjekkTilgang();
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if ((this.props.oppfolgingsdialoger || (!this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet)) && !this.props.arbeidsforholdHentet && !this.props.arbeidsforholdHenter && nextProps.oppfolgingsdialog) {
-            this.props.hentArbeidsforhold(nextProps.oppfolgingsdialog.arbeidstaker.aktoerId, nextProps.oppfolgingsdialog.oppfoelgingsdialogId, 'arbeidstaker');
-        }
         if (!this.props.oppfolgingsdialogAvbrutt && nextProps.oppfolgingsdialogAvbrutt) {
             this.props.hentOppfolgingsdialoger();
         }
         if (this.props.oppfolgingsdialogAvbrutt && !this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet) {
-            const nyOpprettetDialog = finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt(nextProps.oppfolgingsdialoger, nextProps.oppfolgingsdialog.virksomhetsnummer);
+            const nyOpprettetDialog = finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt(nextProps.oppfolgingsdialoger, nextProps.oppfolgingsdialog.virksomhet.virksomhetsnummer);
             if (nyOpprettetDialog) {
-                history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.oppfoelgingsdialogId}/`);
+                history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.id}/`);
                 window.location.hash = 'arbeidsoppgaver';
             }
         }
@@ -126,7 +131,6 @@ OppfolgingsdialogSide.propTypes = {
     ledetekster: keyValue,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
-    oppfolgingsdialogId: PropTypes.string,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     sender: PropTypes.bool,
@@ -158,8 +162,6 @@ OppfolgingsdialogSide.propTypes = {
     oppfolgingsdialogerHentet: PropTypes.bool,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     hentArbeidsforhold: PropTypes.func,
-    arbeidsforholdHenter: PropTypes.bool,
-    arbeidsforholdHentet: PropTypes.bool,
     sjekkTilgangHentet: PropTypes.bool,
     tilgang: oppfolgingProptypes.tilgangPt,
     tilgangSjekket: PropTypes.bool,
@@ -173,30 +175,44 @@ OppfolgingsdialogSide.propTypes = {
     settAktivtSteg: PropTypes.func,
     oppfolgingsdialogerHenter: PropTypes.bool,
     avbrytDialog: PropTypes.func,
-    arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
+    arbeidsforhold: oppfolgingProptypes.arbeidsforholdReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     hentet: PropTypes.bool,
     settDialog: PropTypes.func,
     hentToggles: PropTypes.func,
+    hentVirksomhet: PropTypes.func,
+    hentPerson: PropTypes.func,
+    hentKontaktinfo: PropTypes.func,
+    hentForrigeNaermesteLeder: PropTypes.func,
+    hentNaermesteLeder: PropTypes.func,
+    oppfolgingsdialogId: PropTypes.string,
+    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
+    person: oppfolgingProptypes.personReducerPt,
+    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
 };
 
 export function mapStateToProps(state, ownProps) {
-    const oppfolgingsdialogId = ownProps.params.oppfolgingsdialogId;
-    const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, oppfolgingsdialogId);
-    const virksomhetsnavn = oppfolgingsdialog ? oppfolgingsdialog.virksomhetsnavn : '';
+    const id = ownProps.params.oppfolgingsdialogId;
+    const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
+    const brodsmuletittel = oppfolgingsdialog && oppfolgingsdialog.virksomhet.navn;
     return {
+        naermesteleder: state.naermesteleder,
+        forrigenaermesteleder: state.forrigenaermesteleder,
+        virksomhet: state.virksomhet,
+        kontaktinfo: state.kontaktinfo,
+        arbeidsforhold: state.arbeidsforhold,
+        person: state.person,
         ledetekster: state.ledetekster.data,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
         oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
         oppfolgingsdialogerHenter: state.oppfolgingsdialoger.henter,
         oppfolgingsdialogAvbrutt: state.avbrytdialogReducer.sendt,
-        arbeidsforholdHenter: state.arbeidsforhold.henter,
-        arbeidsforholdHentet: state.arbeidsforhold.hentet,
         sjekkTilgangHentet: state.tilgang.hentet,
         sjekkTilgangHenter: state.tilgang.henter,
-        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter || state.arbeidsforhold.henter,
-        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet || state.arbeidsforhold.hentingFeilet,
+        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter,
+        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet,
         sender: state.oppfolgingsdialoger.avviser
         || state.oppfolgingsdialoger.godkjenner
         || state.avbrytdialogReducer.sender
@@ -228,8 +244,7 @@ export function mapStateToProps(state, ownProps) {
         slettingFeiletArbeidsoppgave: state.arbeidsoppgaver.slettingFeilet,
         slettingFeiletTiltak: state.tiltak.slettingFeilet,
         oppfolgingsdialog,
-        arbeidsforhold: state.arbeidsforhold.data,
-        oppfolgingsdialogId,
+        oppfolgingsdialogId: id,
         tilgang: state.tilgang.data,
         tilgangSjekket: state.tilgang.hentet,
         navigasjontoggles: state.navigasjontoggles,
@@ -244,7 +259,7 @@ export function mapStateToProps(state, ownProps) {
             sti: '/oppfolgingsplaner',
             erKlikkbar: true,
         }, {
-            tittel: virksomhetsnavn,
+            tittel: brodsmuletittel,
         }],
     };
 }
@@ -267,6 +282,11 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     hentArbeidsforhold,
     avbrytDialog,
     hentToggles,
+    hentVirksomhet,
+    hentPerson,
+    hentKontaktinfo,
+    hentForrigeNaermesteLeder,
+    hentNaermesteLeder,
     delMedNavFunc,
 })(OppfolgingsdialogSide);
 

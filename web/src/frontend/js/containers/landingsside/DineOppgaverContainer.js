@@ -8,9 +8,8 @@ import { Experiment, Variant } from 'react-ab';
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     proptypes as oppfolgingProptypes,
-    finnNyesteGodkjenning
-}
-    from 'oppfolgingsdialog-npm';
+    finnNyesteGodkjenning,
+} from 'oppfolgingsdialog-npm';
 import { NY as NY_SYKMELDING } from '../../enums/sykmeldingstatuser';
 import { NY as NY_SYKEPENGESOKNAD } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
@@ -82,8 +81,8 @@ const avventendeGodkjenningerTekst = (antall) => {
 
 const idAlleredeFunnet = (planer, id) => {
     return planer.filter((plan) => {
-            return plan.id === id;
-        }).length > 0;
+        return plan.id === id;
+    }).length > 0;
 };
 
 const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, avventendeGodkjenninger, nyePlaner, visAktivitetskrav, svg, variant, className }) => {
@@ -194,11 +193,14 @@ export const mapStateToProps = (state) => {
 
     const avventendeGodkjenninger = state.oppfolgingsdialoger.data
         .filter((plan) => {
-            return plan.godkjenninger.length > 0 && plan.arbeidstaker.aktoerId !== finnNyesteGodkjenning(plan.godkjenninger).godkjentAvAktoerId && finnNyesteGodkjenning(plan.godkjenninger).godkjent;
+            return plan.godkjenninger.length > 0 && plan.arbeidstaker.fnr !== finnNyesteGodkjenning(plan.godkjenninger).godkjentAv.fnr && finnNyesteGodkjenning(plan.godkjenninger).godkjent;
         });
     const nyePlaner = state.oppfolgingsdialoger.data
         .filter((plan) => {
-            return plan.arbeidstaker.sistInnlogget === null && plan.status === 'UNDER_ARBEID' && !idAlleredeFunnet(avventendeGodkjenninger, plan.id);
+            return plan.arbeidstaker.sistInnlogget === null
+                && plan.status === 'UNDER_ARBEID'
+                && plan.sistEndretAv.fnr !== plan.arbeidstaker.fnr
+                && !idAlleredeFunnet(avventendeGodkjenninger, plan.id);
         });
 
     const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null || avventendeGodkjenninger.length > 0 || nyePlaner.length > 0;

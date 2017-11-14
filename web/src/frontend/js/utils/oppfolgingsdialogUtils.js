@@ -1,21 +1,21 @@
 import { finnAktiveOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
 import { finnArbeidsgivereForGyldigeSykmeldinger } from './sykmeldingUtils';
 
-export function getOppfolgingsdialog(oppfolgingsdialoger, oppfolgingsdialogId) {
+export function getOppfolgingsdialog(oppfolgingsdialoger, id) {
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
-        return oppfolgingsdialog.oppfoelgingsdialogId.toString() === oppfolgingsdialogId.toString();
+        return oppfolgingsdialog.id.toString() === id.toString();
     })[0];
 }
 
 export const erAktivOppfolgingsdialogOpprettetMedArbeidsgiver = (oppfolgingsdialoger, virksomhetsnummer) => {
     return finnAktiveOppfolgingsdialoger(oppfolgingsdialoger).filter((dialog) => {
-        return dialog.virksomhetsnummer === virksomhetsnummer;
+        return dialog.virksomhet.virksomhetsnummer === virksomhetsnummer;
     }).length > 0;
 };
 
 export const hentAktivOppfolgingsdialogOpprettetMedArbeidsgiver = (oppfolgingsdialoger, virksomhetsnummer) => {
     return finnAktiveOppfolgingsdialoger(oppfolgingsdialoger).filter((dialog) => {
-        return dialog.virksomhetsnummer === virksomhetsnummer;
+        return dialog.virksomhet.virksomhetsnummer === virksomhetsnummer;
     })[0];
 };
 

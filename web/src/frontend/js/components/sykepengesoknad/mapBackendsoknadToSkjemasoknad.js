@@ -80,6 +80,7 @@ const map = (sykepengesoknad) => {
                     arbeidstimerNormalUke: aktivitet.avvik.arbeidstimerNormalUke.toString().replace('.', ','),
                     timer: aktivitet.avvik.timer ? aktivitet.avvik.timer.toString().replace('.', ',') : '',
                     arbeidsgrad: aktivitet.avvik.arbeidsgrad ? aktivitet.avvik.arbeidsgrad.toString().replace('.', ',') : '',
+                 //   beregnetArbeidsgrad: aktivitet.avvik.beregnetArbeidsgrad ? aktivitet.avvik.beregnetArbeidsgrad.toString().replace('.', ',') : '',
                 },
             });
         }),

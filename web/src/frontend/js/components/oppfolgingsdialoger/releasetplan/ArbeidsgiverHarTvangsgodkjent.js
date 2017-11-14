@@ -9,8 +9,8 @@ import { getContextRoot } from '../../../routers/paths';
 
 class ArbeidsgiverHarTvangsgodkjent extends Component {
     componentWillMount() {
-        if (!this.props.dokument.hentet && !this.props.dokument.henter && this.props.dokument.oppfoelgingsdialogId !== this.props.oppfolgingsdialog.oppfoelgingsdialogId) {
-            this.props.hentPdfurler(this.props.oppfolgingsdialog.oppfoelgingsdialogId, 1);
+        if (!this.props.dokument.hentet && !this.props.dokument.henter && this.props.dokument.id !== this.props.oppfolgingsdialog.id) {
+            this.props.hentPdfurler(this.props.oppfolgingsdialog.id, 1);
         }
     }
 

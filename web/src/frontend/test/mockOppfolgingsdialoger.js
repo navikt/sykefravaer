@@ -1,27 +1,24 @@
 export const getOppfolgingsdialoger = [
     {
-        opprettetAvAktoerId: "***REMOVED***",
         opprettetDato: "2017-06-12",
-        sistEndretAvAktoerId: "***REMOVED***",
+        sistEndretAv: {
+          fnr: '***REMOVED***',
+        },
         sistEndretDato: "2017-06-13",
-        arbeidstakerNavn: "Test Testesen",
-        arbeidsgiverNavn: "Test Testesen",
-        virksomhetsnavn: "Fant ikke navn",
-        godkjentAvArbeidsgiver: null,
-        godkjentAvArbeidstaker: null,
-        samtykkeArbeidsgiver: null,
-        samtykkeArbeidstaker: true,
-        oppfoelgingsdialogId: "163",
-        sykmeldtAktoerId: "***REMOVED***",
-        naermesteLederAktoerId: null,
-        virksomhetsnummer: "123456789",
+        virksomhet: {
+            navn: "Fant ikke navn",
+            virksomhetsnummer: "123456789",
+        },
+        id: 163,
         godkjentPlan: {
             gyldighetstidspunkt: {
                 fom: "2017-01-03",
                 tom: "2017-02-03",
             }
         },
-        oppfoelgingsdialogstatus: "OPPRETTET",
+        godkjenninger: [],
+        avbruttPlanListe: [],
+        status: 'UNDER_ARBEID',
         arbeidsoppgaveListe: [
             {
                 arbeidsoppgaveId: "1084",
@@ -40,13 +37,14 @@ export const getOppfolgingsdialoger = [
                     tilretteleggingArbeidsgiver: null,
                     kanIkkeBeskrivelse: null
                 },
-                opprettetAvAktoerId: "***REMOVED***",
                 opprettetDato: "2017-06-12",
-                sistEndretAvAktoerId: "***REMOVED***",
+                sistEndretAv: {
+                    fnr: '***REMOVED***',
+                },
                 sistEndretDato: "2017-06-13",
                 opprettetAv: {
                     navn: "Test Testesen",
-                    aktoerId: "***REMOVED***",
+                    fnr: "***REMOVED***",
                     samtykke: null,
                     godkjent: null
                 }
@@ -68,13 +66,14 @@ export const getOppfolgingsdialoger = [
                     tilretteleggingArbeidsgiver: null,
                     kanIkkeBeskrivelse: null
                 },
-                opprettetAvAktoerId: "***REMOVED***",
                 opprettetDato: "2017-06-12",
-                sistEndretAvAktoerId: "***REMOVED***",
+                sistEndretAv: {
+                    fnr: '***REMOVED***',
+                },
                 sistEndretDato: "2017-06-12",
                 opprettetAv: {
                     navn: "Test Testesen",
-                    aktoerId: "***REMOVED***",
+                    fnr: "***REMOVED***",
                     samtykke: null,
                     godkjent: null
                 }
@@ -96,13 +95,14 @@ export const getOppfolgingsdialoger = [
                     tilretteleggingArbeidsgiver: null,
                     kanIkkeBeskrivelse: null
                 },
-                opprettetAvAktoerId: "***REMOVED***",
                 opprettetDato: "2017-06-13",
-                sistEndretAvAktoerId: "***REMOVED***",
+                sistEndretAv: {
+                    fnr: '***REMOVED***',
+                },
                 sistEndretDato: "2017-06-13",
                 opprettetAv: {
                     navn: "Test Testesen",
-                    aktoerId: "***REMOVED***",
+                    fnr: "***REMOVED***",
                     samtykke: null,
                     godkjent: null
                 }
@@ -112,92 +112,100 @@ export const getOppfolgingsdialoger = [
         arbeidsgiver: {
             naermesteLeder : {
                 navn: "Test Testesen",
-                aktoerId: "***REMOVED***",
+                fnr: "***REMOVED***",
+                sistInnlogget: "2017-01-01T00:00:00.000",
                 samtykke: null,
                 godkjent: null
             }
         },
         arbeidstaker: {
             navn: "Test Testesen",
-            aktoerId: "***REMOVED***",
+            fnr: "***REMOVED***",
+            sistInnlogget: "2017-01-01T00:00:00.000",
             samtykke: true,
             godkjent: null
         }
     },
     {
-        opprettetAvAktoerId: "***REMOVED***",
+        opprettetAv: {
+            fnr: "***REMOVED***",
+        },
         opprettetDato: "2017-06-12",
-        sistEndretAvAktoerId: "***REMOVED***",
+        sistEndretAv: {
+            fnr: '***REMOVED***',
+        },
         sistEndretDato: "2017-06-12",
-        arbeidstakerNavn: "Test Testesen",
-        arbeidsgiverNavn: "Test Testesen",
-        virksomhetsnavn: "Fant ikke navn",
-        godkjentAvArbeidsgiver: null,
-        godkjentAvArbeidstaker: null,
-        samtykkeArbeidsgiver: null,
-        samtykkeArbeidstaker: null,
-        oppfoelgingsdialogId: "164",
-        sykmeldtAktoerId: "***REMOVED***",
-        naermesteLederAktoerId: null,
-        virksomhetsnummer: "123456789",
-        versjon: 0,
+        virksomhet: {
+            navn: "Fant ikke navn",
+            virksomhetsnummer: "123456789",
+        },
+        id: 164,
         godkjentPlan: {
             gyldighetstidspunkt: {
                 fom: "2017-01-03",
                 tom: "2017-02-03",
             }
         },
-        oppfoelgingsdialogstatus: "OPPRETTET",
-        arbeidsoppgaveListe: [ ],
-        tiltakListe: [ ],
+        status: "OPPRETTET",
+        arbeidsoppgaveListe: [],
+        godkjenninger: [],
+        tiltakListe: [],
+        avbruttPlanListe: [],
         arbeidsgiver: {
-            navn: "Test Testesen",
-            aktoerId: "***REMOVED***",
-            samtykke: null,
-            godkjent: null
+            naermesteLeder : {
+                navn: "Test Testesen",
+                fnr: "***REMOVED***",
+                sistInnlogget: "2017-01-01T00:00:00.000",
+                samtykke: null,
+                godkjent: null
+            }
         },
         arbeidstaker: {
             navn: "Test Testesen",
-            aktoerId: "***REMOVED***",
+            fnr: "***REMOVED***",
+            sistInnlogget: "2017-01-01T00:00:00.000",
             samtykke: null,
             godkjent: null
         }
     },
     {
-        opprettetAvAktoerId: "***REMOVED***",
+        opprettetAv: {
+            fnr: "***REMOVED***",
+        },
         opprettetDato: "2017-06-12",
-        sistEndretAvAktoerId: "***REMOVED***",
+        sistEndretAv: {
+            fnr: '***REMOVED***',
+        },
         sistEndretDato: "2017-06-12",
-        arbeidstakerNavn: "Test Testesen",
-        arbeidsgiverNavn: "Test Testesen",
-        virksomhetsnavn: "Fant ikke navn",
-        godkjentAvArbeidsgiver: null,
-        godkjentAvArbeidstaker: null,
-        samtykkeArbeidsgiver: null,
-        samtykkeArbeidstaker: null,
-        oppfoelgingsdialogId: "162",
-        sykmeldtAktoerId: "***REMOVED***",
-        naermesteLederAktoerId: null,
-        virksomhetsnummer: "***REMOVED***",
-        versjon: 0,
+        virksomhet: {
+            navn: "Fant ikke navn",
+            virksomhetsnummer: "***REMOVED***",
+        },
+        id: 162,
         godkjentPlan: {
             gyldighetstidspunkt: {
                 fom: "2017-01-03",
                 tom: "2017-02-03",
             }
         },
-        oppfoelgingsdialogstatus: "OPPRETTET",
+        godkjenninger: [],
+        avbruttPlanListe: [],
+        status: 'UNDER_ARBEID',
         arbeidsoppgaveListe: [ ],
         tiltakListe: [ ],
         arbeidsgiver: {
-            navn: "Test Testesen",
-            aktoerId: "***REMOVED***",
-            samtykke: null,
-            godkjent: null
+            naermesteLeder : {
+                navn: "Test Testesen",
+                fnr: "***REMOVED***",
+                sistInnlogget: "2017-01-01T00:00:00.000",
+                samtykke: null,
+                godkjent: null
+            }
         },
         arbeidstaker: {
             navn: "Test Testesen",
-            aktoerId: "***REMOVED***",
+            fnr: "***REMOVED***",
+            sistInnlogget: "2017-01-01T00:00:00.000",
             samtykke: null,
             godkjent: null
         }
@@ -205,29 +213,28 @@ export const getOppfolgingsdialoger = [
 ];
 
 const oppfolgingsdialog = {
-    opprettetAvAktoerId: "***REMOVED***",
+    opprettetAv: {
+        fnr: "***REMOVED***",
+    },
     opprettetDato: "2017-06-12",
-    sistEndretAvAktoerId: "***REMOVED***",
+    sistEndretAv: {
+        fnr: '***REMOVED***',
+    },
     sistEndretDato: "2017-06-13",
-    arbeidstakerNavn: "Test Testesen",
-    arbeidsgiverNavn: "Test Testesen",
-    virksomhetsnavn: "Fant ikke navn",
-    godkjentAvArbeidsgiver: null,
-    godkjentAvArbeidstaker: null,
-    samtykkeArbeidsgiver: null,
-    samtykkeArbeidstaker: true,
-    oppfoelgingsdialogId: "163",
-    sykmeldtAktoerId: "***REMOVED***",
-    naermesteLederAktoerId: null,
-    virksomhetsnummer: "123456789",
+    virksomhet: {
+        navn: "Fant ikke navn",
+        virksomhetsnummer: "123456789",
+    },
+    id: 163,
     godkjentPlan: {
         gyldighetstidspunkt: {
             fom: "2017-01-03",
             tom: "2017-02-03",
         }
     },
-    versjon: 1,
-    oppfoelgingsdialogstatus: "OPPRETTET",
+    godkjenninger: [],
+    avbruttPlanListe: [],
+    status: 'UNDER_ARBEID',
     arbeidsoppgaveListe: [
         {
             arbeidsoppgaveId: 1458,
@@ -246,13 +253,14 @@ const oppfolgingsdialog = {
                 tilretteleggingArbeidsgiver: null,
                 kanIkkeBeskrivelse: null
             },
-            opprettetAvAktoerId: "***REMOVED***",
             opprettetDato: "2017-06-21",
-            sistEndretAvAktoerId: "***REMOVED***",
+            sistEndretAv: {
+                fnr: '***REMOVED***',
+            },
             sistEndretDato: "2017-06-21",
             opprettetAv: {
                 navn: "Test Testesen",
-                aktoerId: "***REMOVED***",
+                fnr: "***REMOVED***",
                 samtykke: null,
                 godkjent: null
             }
@@ -270,34 +278,39 @@ const oppfolgingsdialog = {
             maal: null,
             godkjentAvArbeidsgiver: false,
             godkjentAvArbeidstaker: false,
-            opprettetAvAktoerId: "***REMOVED***",
             opprettetDato: "2017-06-21",
-            sistEndretAvAktoerId: "***REMOVED***",
+            sistEndretAv: {
+                fnr: '***REMOVED***',
+            },
             sistEndretDato: "2017-06-21",
             opprettetAv: {
                 navn: "Test Testesen",
-                aktoerId: "***REMOVED***",
+                fnr: "***REMOVED***",
                 samtykke: null,
                 godkjent: null
             }
         }
     ],
     arbeidsgiver: {
-        navn: "Test Testesen",
-        aktoerId: "***REMOVED***",
-        samtykke: null,
-        godkjent: null
+        naermesteLeder: {
+            navn: "Test Testesen",
+            fnr: "***REMOVED***",
+            samtykke: null,
+            sistInnlogget: "2017-01-01T00:00:00.000",
+            godkjent: null
+        }
     },
     arbeidstaker: {
         navn: "Test Testesen",
-        aktoerId: "***REMOVED***",
+        fnr: "***REMOVED***",
+        sistInnlogget: "2017-01-01T00:00:00.000",
         samtykke: true,
         godkjent: null
     }
 };
 
-const getOppfolgingsdialog = (oppfolgingsdialogId = {}) => {
-    return Object.assign({}, oppfolgingsdialog, oppfolgingsdialogId);
+const getOppfolgingsdialog = (id = {}) => {
+    return Object.assign({}, oppfolgingsdialog, id);
 };
 
 export default getOppfolgingsdialog;

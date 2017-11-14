@@ -1,59 +1,61 @@
 import chai from 'chai';
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router';
 import { Field } from 'redux-form';
-import {mount, shallow} from 'enzyme';
+import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { ArbeidsgiverSkjema, VelgArbeidsgiverUndertekst } from '../../../js/components/oppfolgingsdialoger/ArbeidsgiverSkjema';
+import {
+    ArbeidsgiverSkjema,
+    VelgArbeidsgiverUndertekst,
+} from '../../../js/components/oppfolgingsdialoger/ArbeidsgiverSkjema';
 import { getOppfolgingsdialoger } from '../../mockOppfolgingsdialoger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("ArbeidsgiverSkjema", () => {
+describe('ArbeidsgiverSkjema', () => {
 
     let komponent;
     let oppfolgingsdialoger;
     let arbeidsgivere;
     let handleSubmit;
 
-    oppfolgingsdialoger = getOppfolgingsdialoger;
-    handleSubmit = sinon.spy();
-
-    arbeidsgivere = [
-        {
-            virksomhetsnummer: "123456781",
-            navn: "Arbeidsgiver 1",
-            harNaermesteLeder: true,
-        },
-        {
-            virksomhetsnummer: "123456789",
-            navn: "Arbeidsgiver 2",
-            harNaermesteLeder: true,
-        },
-        {
-            virksomhetsnummer: "123456782",
-            navn: "Arbeidsgiver 3",
-            harNaermesteLeder: false,
-        },
-        {
-            virksomhetsnummer: "123456782",
-            navn: "Arbeidsgiver 3",
-            harNaermesteLeder: true,
-            naermesteLeder: {
-                navn: "Test Testesen",
+    beforeEach(() => {
+        oppfolgingsdialoger = getOppfolgingsdialoger;
+        handleSubmit = sinon.spy();
+        arbeidsgivere = [
+            {
+                virksomhetsnummer: '123456781',
+                navn: 'Arbeidsgiver 1',
+                harNaermesteLeder: true,
             },
-        }
-    ];
-
-    komponent = shallow(<ArbeidsgiverSkjema
-        arbeidsgivere={[]}
-        oppfolgingsdialoger={[]}
-        handleSubmit={handleSubmit}
-        avbrytHref=""
-    />);
-
+            {
+                virksomhetsnummer: '123456789',
+                navn: 'Arbeidsgiver 2',
+                harNaermesteLeder: true,
+            },
+            {
+                virksomhetsnummer: '123456782',
+                navn: 'Arbeidsgiver 3',
+                harNaermesteLeder: false,
+            },
+            {
+                virksomhetsnummer: '123456782',
+                navn: 'Arbeidsgiver 3',
+                harNaermesteLeder: true,
+                naermesteLeder: {
+                    navn: 'Test Testesen',
+                },
+            },
+        ];
+        komponent = shallow(<ArbeidsgiverSkjema
+            arbeidsgivere={[]}
+            oppfolgingsdialoger={[]}
+            handleSubmit={handleSubmit}
+            avbrytHref=""
+        />);
+    });
 
     it('Skal vise rett submit knapp', () => {
         expect(komponent.find('button.knapp')).to.have.length(1);
@@ -114,7 +116,5 @@ describe("ArbeidsgiverSkjema", () => {
             expect(komponent.find('img.velgArbeidsgiverUndertekst__ikon')).to.have.length(0);
             expect(komponent.find('span.velgArbeidsgiverUndertekst__tekst')).to.have.length(1);
         });
-
     });
-
 });

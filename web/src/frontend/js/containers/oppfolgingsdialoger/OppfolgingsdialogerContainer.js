@@ -6,6 +6,10 @@ import {
     OppfolgingsdialogInfoboks,
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     sjekkTilgang,
+    hentVirksomhet,
+    hentPerson,
+    hentNaermesteLeder,
+    hentForrigeNaermesteLeder,
     proptypes as oppfolgingProptypes,
     bekreftNyNaermesteLeder,
 } from 'oppfolgingsdialog-npm';
@@ -48,7 +52,6 @@ export class OppfolgingsdialogerSide extends Component {
 
     render() {
         const { brodsmuler, ledetekster, henter, hentingFeilet, tilgang, hentet, avkrefterLeder, avkrefterLederFeilet } = this.props;
-
         return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler} laster={henter || !hentet}>
             {
                 (() => {
@@ -95,6 +98,14 @@ OppfolgingsdialogerSide.propTypes = {
     naermesteLedere: PropTypes.arrayOf(naermesteLederPt),
     ledereHentet: PropTypes.bool,
     hentLedere: PropTypes.func,
+    hentVirksomhet: PropTypes.func,
+    hentPerson: PropTypes.func,
+    hentNaermesteLeder: PropTypes.func,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
+    hentForrigeNaermesteLeder: PropTypes.func,
+    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
+    person: oppfolgingProptypes.personReducerPt,
+    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
 };
 
 export const mapStateToProps = (state) => {
@@ -123,6 +134,9 @@ export const mapStateToProps = (state) => {
         avkrefterLeder: state.ledere.avkrefter,
         avkreftetLeder: state.ledere.avkreftet,
         avkrefterLederFeilet: state.ledere.avkreftFeilet,
+        virksomhet: state.virksomhet,
+        person: state.person,
+        forrigenaermesteleder: state.forrigenaermesteleder,
     };
 };
 
@@ -133,6 +147,10 @@ const OppfolgingsdialogerContainer = connect(mapStateToProps, {
     avkreftLeder,
     hentDineSykmeldinger,
     hentLedere,
+    hentVirksomhet,
+    hentPerson,
+    hentForrigeNaermesteLeder,
+    hentNaermesteLeder,
 })(OppfolgingsdialogerSide);
 
 export default OppfolgingsdialogerContainer;

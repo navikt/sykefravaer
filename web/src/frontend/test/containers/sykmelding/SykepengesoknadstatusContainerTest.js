@@ -13,7 +13,7 @@ import AppSpinner from '../../../js/components/AppSpinner';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe.only("SykepengerstatusContainer", () => {
+describe("SykepengerstatusContainer", () => {
 
     let state;
 

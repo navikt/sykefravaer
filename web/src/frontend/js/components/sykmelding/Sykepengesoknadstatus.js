@@ -130,7 +130,7 @@ const Sykepengesoknadstatus = ({ sykepengesoknader }) => {
                         return <UtgaattSoknadBekreftelse />;
                     }
                     case AVBRUTT: {
-                        return <SoknadAvbruttBekreftelse />;
+                        return <SoknadAvbruttBekreftelse sykepengesoknad={soknad} />;
                     }
                     default: {
                         return null;

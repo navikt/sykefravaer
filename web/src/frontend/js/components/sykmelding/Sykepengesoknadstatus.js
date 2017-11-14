@@ -64,7 +64,7 @@ const Sykepengesoknadstatus = ({ sykepengesoknader }) => {
         return s.status === FREMTIDIG;
     });
 
-    return (<div className="panel blokk">
+    return (<div className="panel panel--komprimert blokk">
         {
             (() => {
                 if (nyeSoknader.length > 0) {

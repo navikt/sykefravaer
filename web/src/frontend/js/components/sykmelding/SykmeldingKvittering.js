@@ -95,7 +95,7 @@ KvitteringSokNa.propTypes = {
 };
 
 export const Soknadsdatoliste = ({ sykepengesoknader }) => {
-    return (<ul className="js-soknadsdatoliste">
+    return (<ul className="js-soknadsdatoliste sist">
         {
             [...sykepengesoknader]
                 .sort((a, b) => {

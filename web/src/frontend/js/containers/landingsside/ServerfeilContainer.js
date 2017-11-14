@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { log } from 'digisyfo-npm';
 import Serverfeilmelding from '../../components/landingsside/Serverfeilmelding';
 
 const mapStateToProps = (state) => {
@@ -8,9 +9,15 @@ const mapStateToProps = (state) => {
             feilliste.push(reducer);
         }
     });
+    const noeErFeil = feilliste.length > 0;
+
+    if (noeErFeil) {
+        log(`Det er feil i følgende reducere: ${feilliste.join(', ')}`);
+    }
+
     return {
         feilliste,
-        noeErFeil: feilliste.length > 0,
+        noeErFeil,
     };
 };
 

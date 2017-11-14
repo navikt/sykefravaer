@@ -71,7 +71,7 @@ const Sykepengesoknadstatus = ({ sykepengesoknader }) => {
                     return <SokOmSykepengerNaa sykepengesoknad={sykepengesoknader[0]} />;
                 }
                 if (fremtidigeSoknader.length > 0) {
-                    return <KommendeSoknader sykepengesoknader={sykepengesoknader} />;
+                    return <KommendeSoknader sykepengesoknader={fremtidigeSoknader} />;
                 }
                 if (sendteSoknader.length > 0) {
                     return <SoknadSendtBekreftelse />;

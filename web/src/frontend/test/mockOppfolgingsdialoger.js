@@ -1,17 +1,15 @@
 export const getOppfolgingsdialoger = [
     {
         opprettetDato: "2017-06-12",
-        sistEndretAvFnr: "***REMOVED***",
+        sistEndretAv: {
+          fnr: '***REMOVED***',
+        },
         sistEndretDato: "2017-06-13",
-        arbeidstakerNavn: "Test Testesen",
-        arbeidsgiverNavn: "Test Testesen",
-        virksomhetsnavn: "Fant ikke navn",
-        godkjentAvArbeidsgiver: null,
-        godkjentAvArbeidstaker: null,
-        samtykkeArbeidsgiver: null,
-        samtykkeArbeidstaker: true,
+        virksomhet: {
+            navn: "Fant ikke navn",
+            virksomhetsnummer: "123456789",
+        },
         id: 163,
-        virksomhetsnummer: "123456789",
         godkjentPlan: {
             gyldighetstidspunkt: {
                 fom: "2017-01-03",
@@ -40,7 +38,9 @@ export const getOppfolgingsdialoger = [
                     kanIkkeBeskrivelse: null
                 },
                 opprettetDato: "2017-06-12",
-                sistEndretAvFnr: "***REMOVED***",
+                sistEndretAv: {
+                    fnr: '***REMOVED***',
+                },
                 sistEndretDato: "2017-06-13",
                 opprettetAv: {
                     navn: "Test Testesen",
@@ -66,9 +66,10 @@ export const getOppfolgingsdialoger = [
                     tilretteleggingArbeidsgiver: null,
                     kanIkkeBeskrivelse: null
                 },
-                opprettetAvFnr: "***REMOVED***",
                 opprettetDato: "2017-06-12",
-                sistEndretAvFnr: "***REMOVED***",
+                sistEndretAv: {
+                    fnr: '***REMOVED***',
+                },
                 sistEndretDato: "2017-06-12",
                 opprettetAv: {
                     navn: "Test Testesen",
@@ -94,9 +95,10 @@ export const getOppfolgingsdialoger = [
                     tilretteleggingArbeidsgiver: null,
                     kanIkkeBeskrivelse: null
                 },
-                opprettetAvFnr: "***REMOVED***",
                 opprettetDato: "2017-06-13",
-                sistEndretAvFnr: "***REMOVED***",
+                sistEndretAv: {
+                    fnr: '***REMOVED***',
+                },
                 sistEndretDato: "2017-06-13",
                 opprettetAv: {
                     navn: "Test Testesen",
@@ -125,28 +127,30 @@ export const getOppfolgingsdialoger = [
         }
     },
     {
-        opprettetAvFnr: "***REMOVED***",
+        opprettetAv: {
+            fnr: "***REMOVED***",
+        },
         opprettetDato: "2017-06-12",
-        sistEndretAvFnr: "***REMOVED***",
+        sistEndretAv: {
+            fnr: '***REMOVED***',
+        },
         sistEndretDato: "2017-06-12",
-        arbeidstakerNavn: "Test Testesen",
-        arbeidsgiverNavn: "Test Testesen",
-        virksomhetsnavn: "Fant ikke navn",
-        godkjentAvArbeidsgiver: null,
-        godkjentAvArbeidstaker: null,
-        samtykkeArbeidsgiver: null,
-        samtykkeArbeidstaker: null,
+        virksomhet: {
+            navn: "Fant ikke navn",
+            virksomhetsnummer: "123456789",
+        },
         id: 164,
-        virksomhetsnummer: "123456789",
         godkjentPlan: {
             gyldighetstidspunkt: {
                 fom: "2017-01-03",
                 tom: "2017-02-03",
             }
         },
-        oppfoelgingsdialogstatus: "OPPRETTET",
+        status: "OPPRETTET",
         arbeidsoppgaveListe: [],
+        godkjenninger: [],
         tiltakListe: [],
+        avbruttPlanListe: [],
         arbeidsgiver: {
             naermesteLeder : {
                 navn: "Test Testesen",
@@ -165,19 +169,19 @@ export const getOppfolgingsdialoger = [
         }
     },
     {
-        opprettetAvFnr: "***REMOVED***",
+        opprettetAv: {
+            fnr: "***REMOVED***",
+        },
         opprettetDato: "2017-06-12",
-        sistEndretAvFnr: "***REMOVED***",
+        sistEndretAv: {
+            fnr: '***REMOVED***',
+        },
         sistEndretDato: "2017-06-12",
-        arbeidstakerNavn: "Test Testesen",
-        arbeidsgiverNavn: "Test Testesen",
-        virksomhetsnavn: "Fant ikke navn",
-        godkjentAvArbeidsgiver: null,
-        godkjentAvArbeidstaker: null,
-        samtykkeArbeidsgiver: null,
-        samtykkeArbeidstaker: null,
+        virksomhet: {
+            navn: "Fant ikke navn",
+            virksomhetsnummer: "***REMOVED***",
+        },
         id: 162,
-        virksomhetsnummer: "***REMOVED***",
         godkjentPlan: {
             gyldighetstidspunkt: {
                 fom: "2017-01-03",
@@ -209,19 +213,19 @@ export const getOppfolgingsdialoger = [
 ];
 
 const oppfolgingsdialog = {
-    opprettetAvFnr: "***REMOVED***",
+    opprettetAv: {
+        fnr: "***REMOVED***",
+    },
     opprettetDato: "2017-06-12",
-    sistEndretAvFnr: "***REMOVED***",
+    sistEndretAv: {
+        fnr: '***REMOVED***',
+    },
     sistEndretDato: "2017-06-13",
-    arbeidstakerNavn: "Test Testesen",
-    arbeidsgiverNavn: "Test Testesen",
-    virksomhetsnavn: "Fant ikke navn",
-    godkjentAvArbeidsgiver: null,
-    godkjentAvArbeidstaker: null,
-    samtykkeArbeidsgiver: null,
-    samtykkeArbeidstaker: true,
+    virksomhet: {
+        navn: "Fant ikke navn",
+        virksomhetsnummer: "123456789",
+    },
     id: 163,
-    virksomhetsnummer: "123456789",
     godkjentPlan: {
         gyldighetstidspunkt: {
             fom: "2017-01-03",
@@ -249,9 +253,10 @@ const oppfolgingsdialog = {
                 tilretteleggingArbeidsgiver: null,
                 kanIkkeBeskrivelse: null
             },
-            opprettetAvFnr: "***REMOVED***",
             opprettetDato: "2017-06-21",
-            sistEndretAvFnr: "***REMOVED***",
+            sistEndretAv: {
+                fnr: '***REMOVED***',
+            },
             sistEndretDato: "2017-06-21",
             opprettetAv: {
                 navn: "Test Testesen",
@@ -273,9 +278,10 @@ const oppfolgingsdialog = {
             maal: null,
             godkjentAvArbeidsgiver: false,
             godkjentAvArbeidstaker: false,
-            opprettetAvFnr: "***REMOVED***",
             opprettetDato: "2017-06-21",
-            sistEndretAvFnr: "***REMOVED***",
+            sistEndretAv: {
+                fnr: '***REMOVED***',
+            },
             sistEndretDato: "2017-06-21",
             opprettetAv: {
                 navn: "Test Testesen",

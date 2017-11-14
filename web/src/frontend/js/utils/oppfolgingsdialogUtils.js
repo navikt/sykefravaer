@@ -9,13 +9,13 @@ export function getOppfolgingsdialog(oppfolgingsdialoger, id) {
 
 export const erAktivOppfolgingsdialogOpprettetMedArbeidsgiver = (oppfolgingsdialoger, virksomhetsnummer) => {
     return finnAktiveOppfolgingsdialoger(oppfolgingsdialoger).filter((dialog) => {
-        return dialog.virksomhetsnummer === virksomhetsnummer;
+        return dialog.virksomhet.virksomhetsnummer === virksomhetsnummer;
     }).length > 0;
 };
 
 export const hentAktivOppfolgingsdialogOpprettetMedArbeidsgiver = (oppfolgingsdialoger, virksomhetsnummer) => {
     return finnAktiveOppfolgingsdialoger(oppfolgingsdialoger).filter((dialog) => {
-        return dialog.virksomhetsnummer === virksomhetsnummer;
+        return dialog.virksomhet.virksomhetsnummer === virksomhetsnummer;
     })[0];
 };
 

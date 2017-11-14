@@ -10,6 +10,12 @@ import {
     Godkjenninger,
     Samtykke,
     AvbruttGodkjentPlanVarsel,
+    finnOgHentVirksomheterSomMangler,
+    finnOgHentPersonerSomMangler,
+    finnOgHentKontaktinfoSomMangler,
+    finnOgHentNaermesteLedereSomMangler,
+    finnOgHentForrigeNaermesteLedereSomMangler,
+    finnOgHentArbeidsforholdSomMangler,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
@@ -27,7 +33,7 @@ const inneholderGodkjentPlan = (oppfolgingsdialog) => {
 };
 
 export const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.godkjenninger.length === 1 && !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.fnr === oppfolgingsdialog.godkjenninger[0].godkjentAvFnr;
+    return oppfolgingsdialog.godkjenninger.length === 1 && !oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.arbeidstaker.fnr === oppfolgingsdialog.godkjenninger[0].godkjentAv.fnr;
 };
 
 class Oppfolgingsdialog extends Component {
@@ -41,7 +47,15 @@ class Oppfolgingsdialog extends Component {
     }
 
     componentWillMount() {
+        const { oppfolgingsdialog, virksomhet, person, kontaktinfo, forrigenaermesteleder, naermesteleder, hentForrigeNaermesteLeder, hentVirksomhet, hentPerson, hentNaermesteLeder, hentKontaktinfo, arbeidsforhold, hentArbeidsforhold } = this.props;
         this.props.settAktivtSteg(1);
+        this.props.settDialog(oppfolgingsdialog.id);
+        finnOgHentVirksomheterSomMangler([oppfolgingsdialog], virksomhet, hentVirksomhet);
+        finnOgHentPersonerSomMangler([oppfolgingsdialog], person, hentPerson);
+        finnOgHentForrigeNaermesteLedereSomMangler([oppfolgingsdialog], forrigenaermesteleder, hentForrigeNaermesteLeder);
+        finnOgHentNaermesteLedereSomMangler([oppfolgingsdialog], naermesteleder, hentNaermesteLeder);
+        finnOgHentKontaktinfoSomMangler([oppfolgingsdialog], kontaktinfo, hentKontaktinfo);
+        finnOgHentArbeidsforholdSomMangler([oppfolgingsdialog], arbeidsforhold, hentArbeidsforhold);
     }
 
     visAvvisPlanKvittering(vis, begrunnelse) {
@@ -83,7 +97,6 @@ class Oppfolgingsdialog extends Component {
             lagreArbeidsoppgave,
             slettArbeidsoppgave,
             oppfolgingsdialogAvbrutt,
-            arbeidsforhold,
             toggles,
             delMedNavFunc,
             delmednav,
@@ -98,7 +111,6 @@ class Oppfolgingsdialog extends Component {
                 rootUrl={`${window.APP_SETTINGS.APP_ROOT}`}
                 begrunnelse={this.state.begrunnelse}
                 visAvvisPlanKvittering={this.visAvvisPlanKvittering}
-                arbeidsforhold={arbeidsforhold}
             />);
         } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && visSamtykkeSkjema && oppfolgingsdialog.arbeidstaker.samtykke === null) {
             disableNavigation = true;
@@ -120,7 +132,6 @@ class Oppfolgingsdialog extends Component {
                 nullstillGodkjenning={nullstillGodkjenning}
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrl={`${getContextRoot()}`}
-                arbeidsforhold={arbeidsforhold}
             />);
         } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && inneholderGodkjentPlan(oppfolgingsdialog)) {
             disableNavigation = true;
@@ -131,7 +142,6 @@ class Oppfolgingsdialog extends Component {
                 hentPdfurler={hentPdfurler}
                 dokument={dokument}
                 giSamtykke={giSamtykke}
-                arbeidsforhold={arbeidsforhold}
                 avbrytDialog={avbrytDialog}
                 delMedNavFunc={delMedNavFunc}
                 delmednav={delmednav}
@@ -152,7 +162,6 @@ class Oppfolgingsdialog extends Component {
                         oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
                         lagreArbeidsoppgave={lagreArbeidsoppgave}
                         slettArbeidsoppgave={slettArbeidsoppgave}
-                        arbeidsforhold={arbeidsforhold}
                     />);
                 } else if (navigasjontoggles.steg === 2) {
                     panel = (<Tiltak
@@ -178,7 +187,6 @@ class Oppfolgingsdialog extends Component {
                         godkjennPlan={godkjennDialog}
                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
                         rootUrl={`${getContextRoot()}`}
-                        arbeidsforhold={arbeidsforhold}
                     />);
                 }
             })();
@@ -195,7 +203,7 @@ class Oppfolgingsdialog extends Component {
                 <NavigasjonsTopp
                     ledetekster={ledetekster}
                     disabled={disableNavigation}
-                    navn={oppfolgingsdialog.virksomhetsnavn}
+                    navn={oppfolgingsdialog.virksomhet.navn}
                     settAktivtSteg={settAktivtSteg}
                     steg={navigasjontoggles.steg}
                 />
@@ -245,10 +253,22 @@ Oppfolgingsdialog.propTypes = {
     settAktivtSteg: PropTypes.func,
     avvisDialog: PropTypes.func,
     avbrytDialog: PropTypes.func,
+    settDialog: PropTypes.func,
+    hentVirksomhet: PropTypes.func,
+    hentKontaktinfo: PropTypes.func,
+    hentPerson: PropTypes.func,
+    hentForrigeNaermesteLeder: PropTypes.func,
+    hentNaermesteLeder: PropTypes.func,
+    hentArbeidsforhold: PropTypes.func,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
-    arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
+    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
+    person: oppfolgingProptypes.personReducerPt,
+    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
+    kontaktinfo: oppfolgingProptypes.kontaktinfoReducerPt,
+    arbeidsforhold: oppfolgingProptypes.arbeidsforholdReducerPt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
 };
 

@@ -6,6 +6,7 @@ const ledetekster = {
     mote: 'Kunne ikke hente dialogmøter',
     dineSykmeldinger: 'Kunne ikke hente dine sykmeldinger',
     sykepengesoknader: 'Kunne ikke hente sykepengesoknader',
+    oppfolgingsdialoger: 'Kunne ikke hente oppfølgingsplaner',
     ledere: 'Kunne ikke hente din(e) nærmeste leder(e)',
     hendelser: 'Kunne ikke hente alle hendelser',
 };
@@ -14,7 +15,11 @@ const Feiliste = ({ feilliste }) => {
     return (<ul className="sist">
         {
             feilliste.map((feil, idx) => {
-                return <li key={idx}>{ledetekster[feil]}</li>;
+                const melding = ledetekster[feil];
+                if (melding) {
+                    return <li key={idx}>{melding}</li>;
+                }
+                return null;
             })
         }
     </ul>);

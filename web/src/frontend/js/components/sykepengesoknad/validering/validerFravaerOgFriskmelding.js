@@ -36,8 +36,6 @@ export const validate = (values, props) => {
     } else if (values.harGjenopptattArbeidFulltUt) {
         if (!values.gjenopptattArbeidFulltUtDato) {
             feilmeldinger.gjenopptattArbeidFulltUtDato = 'Vennligst oppgi når du gjenopptok arbeidet';
-        } else if (!valideringUtils.erIFortiden(values.gjenopptattArbeidFulltUtDato)) {
-            feilmeldinger.gjenopptattArbeidFulltUtDato = 'Datoen må være bakover i tid';
         } else if (!valideringUtils.datoErFoersteSykmeldingsdagEllerSenere(values.gjenopptattArbeidFulltUtDato, sykepengesoknad)) {
             feilmeldinger.gjenopptattArbeidFulltUtDato = `Datoen kan ikke være før du ble sykmeldt ${toDatePrettyPrint(sykepengesoknad.identdato)}`;
         }

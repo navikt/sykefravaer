@@ -24,17 +24,58 @@ const expect = chai.expect;
 
 describe('Oppfolgingsdialog', () => {
     let component;
+    let settDialog;
     let settAktivtSteg;
     let navigasjontoggles;
+
+    let hentVirksomhet;
+    let hentPerson;
+    let hentNaermesteLeder;
+    let hentForrigeNaermesteLeder;
+    let hentKontaktinfo;
+    let hentArbeidsforhold;
+    const data = {
+        henter: [],
+        hentet: [],
+        hentingFeilet: [],
+        data: [],
+    };
+    const virksomhet = data;
+    const person = data;
+    const kontaktinfo = data;
+    const forrigenaermesteleder = data;
+    const naermesteleder = data;
+    const arbeidsforhold = data;
+
     let oppfolgingsdialog;
     beforeEach(() => {
         settAktivtSteg = sinon.spy();
         navigasjontoggles = { steg: 1 };
         oppfolgingsdialog = getOppfolgingsdialog();
+        settDialog = sinon.spy();
+        hentForrigeNaermesteLeder = sinon.spy();
+        hentArbeidsforhold = sinon.spy();
+        hentPerson = sinon.spy();
+        hentNaermesteLeder = sinon.spy();
+        hentKontaktinfo = sinon.spy();
+        hentVirksomhet = sinon.spy();
         component = shallow(<Oppfolgingsdialog
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
+            settDialog={settDialog}
+            hentVirksomhet={hentVirksomhet}
+            hentNaermesteLeder={hentNaermesteLeder}
+            hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+            hentPerson={hentPerson}
+            hentKontaktinfo={hentKontaktinfo}
+            forrigenaermesteleder={forrigenaermesteleder}
+            virksomhet={virksomhet}
+            naermesteleder={naermesteleder}
+            person={person}
+            kontaktinfo={kontaktinfo}
             navigasjontoggles={navigasjontoggles}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
     });
 
@@ -53,9 +94,22 @@ describe('Oppfolgingsdialog', () => {
     it('Skal vise AvbruttGodkjentPlanVarsel, om oppfolgingsdialogAvbrutt er true', () => {
         component = shallow(<Oppfolgingsdialog
             settAktivtSteg={settAktivtSteg}
+            settDialog={settDialog}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
+            hentVirksomhet={hentVirksomhet}
+            hentNaermesteLeder={hentNaermesteLeder}
+            hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+            hentPerson={hentPerson}
+            hentKontaktinfo={hentKontaktinfo}
+            forrigenaermesteleder={forrigenaermesteleder}
+            virksomhet={virksomhet}
+            naermesteleder={naermesteleder}
+            person={person}
+            kontaktinfo={kontaktinfo}
             oppfolgingsdialogAvbrutt
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(AvbruttGodkjentPlanVarsel)).to.have.length(1);
     });
@@ -77,7 +131,20 @@ describe('Oppfolgingsdialog', () => {
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
+            settDialog={settDialog}
+            hentVirksomhet={hentVirksomhet}
+            hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+            hentPerson={hentPerson}
+            hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
+            forrigenaermesteleder={forrigenaermesteleder}
+            naermesteleder={naermesteleder}
+            virksomhet={virksomhet}
+            person={person}
+            kontaktinfo={kontaktinfo}
             visSamtykkeSkjema
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(Samtykke)).to.have.length(1);
     });
@@ -87,7 +154,9 @@ describe('Oppfolgingsdialog', () => {
         oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
             godkjenninger: [{
                 godkjent: true,
-                godkjentAvFnr: sykmeldtFnr,
+                godkjentAv: {
+                    fnr: sykmeldtFnr,
+                },
             }],
             arbeidstaker: {
                 fnr: sykmeldtFnr,
@@ -97,6 +166,19 @@ describe('Oppfolgingsdialog', () => {
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
+            settDialog={settDialog}
+            hentVirksomhet={hentVirksomhet}
+            hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+            hentPerson={hentPerson}
+            hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
+            forrigenaermesteleder={forrigenaermesteleder}
+            naermesteleder={naermesteleder}
+            virksomhet={virksomhet}
+            person={person}
+            kontaktinfo={kontaktinfo}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(Godkjenninger)).to.have.length(1);
     });
@@ -109,6 +191,19 @@ describe('Oppfolgingsdialog', () => {
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
+            settDialog={settDialog}
+            hentVirksomhet={hentVirksomhet}
+            hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+            hentPerson={hentPerson}
+            hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
+            forrigenaermesteleder={forrigenaermesteleder}
+            naermesteleder={naermesteleder}
+            virksomhet={virksomhet}
+            person={person}
+            kontaktinfo={kontaktinfo}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(ReleasetPlanAT)).to.have.length(1);
     });
@@ -124,6 +219,19 @@ describe('Oppfolgingsdialog', () => {
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
+            settDialog={settDialog}
+            hentVirksomhet={hentVirksomhet}
+            hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+            hentPerson={hentPerson}
+            hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
+            naermesteleder={naermesteleder}
+            forrigenaermesteleder={forrigenaermesteleder}
+            virksomhet={virksomhet}
+            person={person}
+            kontaktinfo={kontaktinfo}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(Arbeidsoppgaver)).to.have.length(1);
     });
@@ -139,6 +247,19 @@ describe('Oppfolgingsdialog', () => {
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
+            settDialog={settDialog}
+            hentVirksomhet={hentVirksomhet}
+            hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+            hentPerson={hentPerson}
+            hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
+            forrigenaermesteleder={forrigenaermesteleder}
+            naermesteleder={naermesteleder}
+            virksomhet={virksomhet}
+            person={person}
+            kontaktinfo={kontaktinfo}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(Tiltak)).to.have.length(1);
     });
@@ -154,6 +275,19 @@ describe('Oppfolgingsdialog', () => {
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
+            settDialog={settDialog}
+            hentVirksomhet={hentVirksomhet}
+            hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+            hentPerson={hentPerson}
+            hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
+            forrigenaermesteleder={forrigenaermesteleder}
+            naermesteleder={naermesteleder}
+            virksomhet={virksomhet}
+            person={person}
+            kontaktinfo={kontaktinfo}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(IngenlederInfoboks)).to.have.length(1);
     });
@@ -169,6 +303,19 @@ describe('Oppfolgingsdialog', () => {
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
+            settDialog={settDialog}
+            hentVirksomhet={hentVirksomhet}
+            hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+            hentPerson={hentPerson}
+            hentKontaktinfo={hentKontaktinfo}
+            hentNaermesteLeder={hentNaermesteLeder}
+            forrigenaermesteleder={forrigenaermesteleder}
+            naermesteleder={naermesteleder}
+            virksomhet={virksomhet}
+            person={person}
+            kontaktinfo={kontaktinfo}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(Godkjenn)).to.have.length(1);
     });
@@ -181,11 +328,15 @@ describe('Oppfolgingsdialog', () => {
                 godkjenninger: [
                     {
                         godkjent: true,
-                        godkjentAvFnr: naermesteLeder.fnr,
+                        godkjentAv: {
+                            fnr: naermesteLeder.fnr,
+                        },
                     },
                     {
                         godkjent: false,
-                        godkjentAvFnr: arbeidstaker.fnr,
+                        godkjentAv: {
+                            fnr: arbeidstaker.fnr,
+                        },
                     },
                 ],
                 arbeidstaker,
@@ -196,7 +347,9 @@ describe('Oppfolgingsdialog', () => {
             oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
                 godkjenninger: [{
                     godkjent: true,
-                    godkjentAvFnr: arbeidstaker.fnr,
+                    godkjentAv: {
+                        fnr: arbeidstaker.fnr,
+                    },
                 }],
                 arbeidstaker,
             });
@@ -207,7 +360,9 @@ describe('Oppfolgingsdialog', () => {
             oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
                 godkjenninger: [{
                     godkjent: false,
-                    godkjentAvFnr: naermesteLeder.fnr,
+                    godkjentAv: {
+                        fnr: naermesteLeder.fnr,
+                    },
                 }],
                 arbeidstaker,
             });
@@ -218,7 +373,9 @@ describe('Oppfolgingsdialog', () => {
             oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
                 godkjenninger: [{
                     godkjent: false,
-                    godkjentAvFnr: arbeidstaker.fnr,
+                    godkjentAv: {
+                        fnr: arbeidstaker.fnr,
+                    },
                 }],
                 arbeidstaker,
             });

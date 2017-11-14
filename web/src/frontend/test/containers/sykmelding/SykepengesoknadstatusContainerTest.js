@@ -7,13 +7,13 @@ import getSykmelding from "../../mockSykmeldinger";
 import { getSoknad } from '../../mockSoknader';
 
 import { Container, mapStateToProps } from '../../../js/containers/sykmelding/SykepengesoknadstatusContainer';
-import Sykepengesoknadstatus, { PapirsoknadMelding, SokOmSykepengerNaa, KommendeSoknader, SoknadSendtBekreftelse } from '../../../js/components/sykmelding/Sykepengesoknadstatus';
+import Sykepengesoknadstatus, { FlereSoknader, UtgaattSoknadBekreftelse, PapirsoknadMelding, SokOmSykepengerNaa, KommendeSoknad, SoknadSendtBekreftelse, SoknadAvbruttBekreftelse } from '../../../js/components/sykmelding/Sykepengesoknadstatus';
 import AppSpinner from '../../../js/components/AppSpinner';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("SykepengerstatusContainer", () => {
+describe.only("SykepengerstatusContainer", () => {
 
     let state;
 
@@ -132,7 +132,7 @@ describe("SykepengerstatusContainer", () => {
             expect(component.find(SokOmSykepengerNaa)).to.have.length(1);
         });
 
-        it("Skal vise SokOmSykepengerNaa hvis det finnes søknad som kan søkes på nå og en fremtidig søknad", () => {
+        it("Skal vise FlereSoknader hvis det finnes søknad som kan søkes på nå og en fremtidig søknad", () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: "NY",
                 sykmeldingId: "1",
@@ -144,7 +144,7 @@ describe("SykepengerstatusContainer", () => {
             })]
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
-            expect(component.find(SokOmSykepengerNaa)).to.have.length(1);
+            expect(component.find(FlereSoknader)).to.have.length(1);
         });
 
         it("Skal vise SoknadSendtBekreftelse hvis tilknyttet søknad er sendt inn", () => {
@@ -158,7 +158,7 @@ describe("SykepengerstatusContainer", () => {
             expect(component.find(SoknadSendtBekreftelse)).to.have.length(1);
         });
 
-        it("Skal vise KommendeSoknader hvis tilknyttet søknad er planlagt", () => {
+        it("Skal vise KommendeSoknad hvis tilknyttet søknad er planlagt", () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: "FREMTIDIG",
                 sykmeldingId: "1",
@@ -166,10 +166,10 @@ describe("SykepengerstatusContainer", () => {
             })]
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
-            expect(component.find(KommendeSoknader)).to.have.length(1);
+            expect(component.find(KommendeSoknad)).to.have.length(1);
         });
 
-        it("Skal vise KommendeSoknader hvis det finnes både en planlagt søknad og en sendt søknad tilknyttet denne sykmeldingen", () => {
+        it("Skal vise FlereSoknader hvis det finnes både en planlagt søknad og en sendt søknad tilknyttet denne sykmeldingen", () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: "FREMTIDIG",
                 sykmeldingId: "1",
@@ -181,7 +181,44 @@ describe("SykepengerstatusContainer", () => {
             })]
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
-            expect(component.find(KommendeSoknader)).to.have.length(1);
+            expect(component.find(FlereSoknader)).to.have.length(1);
+        });
+
+        it("Skal vise SoknadAvbruttBekreftelse dersom en søknad er avbrutt", () => {
+            state.sykepengesoknader.data = [getSoknad({
+                status: "AVBRUTT",
+                sykmeldingId: "1",
+                id: "min-soknad-id"
+            })]
+            const props = mapStateToProps(state, ownProps);
+            const component = mount(<Container {...props} {...actions} />);
+            expect(component.find(SoknadAvbruttBekreftelse)).to.have.length(1);
+        });
+
+        it("Skal vise UtgaattSoknadBekreftelse dersom en søknad er utgått", () => {
+            state.sykepengesoknader.data = [getSoknad({
+                status: "UTGAATT",
+                sykmeldingId: "1",
+                id: "min-soknad-id"
+            })]
+            const props = mapStateToProps(state, ownProps);
+            const component = mount(<Container {...props} {...actions} />);
+            expect(component.find(UtgaattSoknadBekreftelse)).to.have.length(1);
+        });
+
+        it("Skal vise FlereSoknader dersom en søknad er avbrutt - selv om det også finnes en sendt søknad", () => {
+            state.sykepengesoknader.data = [getSoknad({
+                status: "AVBRUTT",
+                sykmeldingId: "1",
+                id: "min-soknad-id"
+            }), getSoknad({
+                status: "SENDT",
+                sykmeldingId: "1",
+                id: "min-nye-soknad-id"
+            })]
+            const props = mapStateToProps(state, ownProps);
+            const component = mount(<Container {...props} {...actions} />);
+            expect(component.find(FlereSoknader)).to.have.length(1);
         });
 
 

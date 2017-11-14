@@ -1,15 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sykepengesoknad as sykepengesoknadPt, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt, getLedetekst, getHtmlLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import { NY, SENDT, FREMTIDIG } from '../../enums/sykepengesoknadstatuser';
+import { NY, SENDT, FREMTIDIG, AVBRUTT, UTGAATT } from '../../enums/sykepengesoknadstatuser';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { Soknadsdatoliste } from './SykmeldingKvittering';
+
+const LenkeTilSoknader = () => {
+    return (<p className="sist">
+        <Link to="/sykefravaer/soknader/" className="lenke">
+            {getLedetekst('sykmelding.sykepengesoknadstatus.soknader.lenke')}
+        </Link>
+    </p>);
+};
 
 export const PapirsoknadMelding = () => {
     return (<IllustrertInnhold ikon="/sykefravaer/img/svg/digital-til-papir.svg" ikonAlt="">
         <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding.sykepengesoknadstatus.papir.melding')} />
     </IllustrertInnhold>);
+};
+
+export const FlereSoknader = ({ sykepengesoknader }) => {
+    return (<IllustrertInnhold ikon="/sykefravaer/img/svg/digital-til-papir.svg" ikonAlt="">
+        <div>
+            <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.flere.tittel')}</h2>
+            <Soknadsdatoliste sykepengesoknader={sykepengesoknader} visStatus />
+            <LenkeTilSoknader />
+        </div>
+    </IllustrertInnhold>);
+};
+
+FlereSoknader.propTypes = {
+    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
 };
 
 export const SokOmSykepengerNaa = ({ sykepengesoknad }) => {
@@ -31,52 +53,89 @@ SokOmSykepengerNaa.propTypes = {
 };
 
 export const SoknadSendtBekreftelse = () => {
-    return (<IllustrertInnhold ikon="/sykefravaer/img/svg/kvitteringhake.svg" ikonAlt="Hake">
+    return (<IllustrertInnhold ikon="/sykefravaer/img/svg/sykepengesoknad--sendt.svg" ikonAlt="Dataskjerm med hake">
         <div>
             <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.sokt.tittel')}</h2>
-            <p className="sist">{getLedetekst('sykmelding.sykepengesoknadstatus.sokt.melding')}</p>
+            <p>{getLedetekst('sykmelding.sykepengesoknadstatus.sokt.melding')}</p>
+            <LenkeTilSoknader />
         </div>
     </IllustrertInnhold>);
 };
 
-export const KommendeSoknader = ({ sykepengesoknader }) => {
+export const KommendeSoknad = ({ sykepengesoknad }) => {
     return (<IllustrertInnhold ikon="/sykefravaer/img/svg/kvitteringSokSykepenger.svg" ikonAlt="Søk om sykepenger">
         <div>
             <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.sok-senere.tittel')}</h2>
-            <p>{getLedetekst('sykmelding.sykepengesoknadstatus.sok-senere.melding')}</p>
-            <Soknadsdatoliste sykepengesoknader={sykepengesoknader} />
+            <p dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding.sykepengesoknadstatus.sok-senere.melding', {
+                '%DATO%': toDatePrettyPrint(sykepengesoknad.tom),
+            })} />
         </div>
     </IllustrertInnhold>);
 };
 
-KommendeSoknader.propTypes = {
-    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+KommendeSoknad.propTypes = {
+    sykepengesoknad: sykepengesoknadPt,
+};
+
+export const SoknadAvbruttBekreftelse = ({ sykepengesoknad }) => {
+    return (<IllustrertInnhold ikon="/sykefravaer/img/svg/sykepengesoknad--avbrutt.svg" ikonAlt="Dataskjerm med utropstegn">
+        <div>
+            <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.avbrutt.tittel')}</h2>
+            <p>{getLedetekst('sykmelding.sykepengesoknadstatus.avbrutt.melding')}</p>
+            <p className="sist">
+                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}`}>
+                    {getLedetekst('sykmelding.sykepengesoknadstatus.avbrutt.lenke')}
+                </Link>
+            </p>
+        </div>
+    </IllustrertInnhold>);
+};
+
+SoknadAvbruttBekreftelse.propTypes = {
+    sykepengesoknad: sykepengesoknadPt,
+};
+
+export const UtgaattSoknadBekreftelse = () => {
+    return (<IllustrertInnhold ikon="/sykefravaer/img/svg/sykepengesoknad--utgaatt.svg" ikonAlt="Dataskjerm med utropstegn">
+        <div>
+            <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.utgaatt.tittel')}</h2>
+            <p>{getLedetekst('sykmelding.sykepengesoknadstatus.utgaatt.melding')}</p>
+            <LenkeTilSoknader />
+        </div>
+    </IllustrertInnhold>);
 };
 
 const Sykepengesoknadstatus = ({ sykepengesoknader }) => {
-    const nyeSoknader = sykepengesoknader.filter((s) => {
-        return s.status === NY;
-    });
-    const sendteSoknader = sykepengesoknader.filter((s) => {
-        return s.status === SENDT;
-    });
-    const fremtidigeSoknader = sykepengesoknader.filter((s) => {
-        return s.status === FREMTIDIG;
-    });
-
     return (<div className="panel panel--komprimert blokk">
         {
             (() => {
-                if (nyeSoknader.length > 0) {
-                    return <SokOmSykepengerNaa sykepengesoknad={nyeSoknader[0]} />;
+                if (sykepengesoknader.length === 0) {
+                    return <PapirsoknadMelding />;
                 }
-                if (fremtidigeSoknader.length > 0) {
-                    return <KommendeSoknader sykepengesoknader={fremtidigeSoknader} />;
+                if (sykepengesoknader.length > 1) {
+                    return <FlereSoknader sykepengesoknader={sykepengesoknader} />;
                 }
-                if (sendteSoknader.length > 0) {
-                    return <SoknadSendtBekreftelse />;
+                const soknad = sykepengesoknader[0];
+                switch (soknad.status) {
+                    case NY: {
+                        return <SokOmSykepengerNaa sykepengesoknad={soknad} />;
+                    }
+                    case FREMTIDIG: {
+                        return <KommendeSoknad sykepengesoknad={soknad} />;
+                    }
+                    case SENDT: {
+                        return <SoknadSendtBekreftelse sykepengesoknad={soknad} />;
+                    }
+                    case UTGAATT: {
+                        return <UtgaattSoknadBekreftelse />;
+                    }
+                    case AVBRUTT: {
+                        return <SoknadAvbruttBekreftelse />;
+                    }
+                    default: {
+                        return null;
+                    }
                 }
-                return <PapirsoknadMelding />;
             })()
         }
     </div>);

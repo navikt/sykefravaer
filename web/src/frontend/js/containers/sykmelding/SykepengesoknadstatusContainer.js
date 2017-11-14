@@ -47,7 +47,7 @@ export const mapStateToProps = (state, ownProps) => {
 };
 
 const SykepengesoknadstatusContainer = connect(mapStateToProps, {
-    hentSykepengesoknader: actions.hentSykepengesoknader
+    hentSykepengesoknader: actions.hentSykepengesoknader,
 })(Container);
 
 export default SykepengesoknadstatusContainer;

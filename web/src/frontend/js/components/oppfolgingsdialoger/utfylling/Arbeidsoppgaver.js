@@ -69,7 +69,6 @@ class Arbeidsoppgaver extends Component {
         this.state = {
             nyArbeidsoppgave: false,
             oppdatertArbeidsoppgave: false,
-            visArbeidsforhold: false,
         };
         this.sendLagreArbeidsoppgave = this.sendLagreArbeidsoppgave.bind(this);
         this.sendSlettArbeidsoppgave = this.sendSlettArbeidsoppgave.bind(this);
@@ -114,7 +113,6 @@ class Arbeidsoppgaver extends Component {
     toggleArbeidsoppgaveSkjema() {
         this.setState({
             visArbeidsoppgaveSkjema: !this.state.visArbeidsoppgaveSkjema,
-            visArbeidsforhold: !this.state.visArbeidsforhold,
         });
     }
 
@@ -132,7 +130,6 @@ class Arbeidsoppgaver extends Component {
             slettingFeilet,
             ledetekster,
             oppfolgingsdialog,
-            arbeidsforhold,
             oppfolgingsdialogAvbrutt,
         } = this.props;
         const antallNyeArbeidsoppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
@@ -147,14 +144,12 @@ class Arbeidsoppgaver extends Component {
                 }
                 return isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                     <div>
-                        { arbeidsforhold && this.state.visArbeidsforhold &&
-                            <Arbeidsforhold
-                                tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
-                                ledetekster={ledetekster}
-                                arbeidsforhold={arbeidsforhold}
-                                rootUrl={getContextRoot()}
-                            />
-                        }
+                        <Arbeidsforhold
+                            tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
+                            ledetekster={ledetekster}
+                            arbeidsforhold={oppfolgingsdialog.arbeidstaker.stillinger}
+                            rootUrl={getContextRoot()}
+                        />
                         {
                             !this.state.visArbeidsoppgaveSkjema ?
                                 <OppfolgingsdialogInfoboks
@@ -178,31 +173,28 @@ class Arbeidsoppgaver extends Component {
                     </div>
                     :
                     <div>
-
-                        { arbeidsforhold &&
-                            <Arbeidsforhold
-                                tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
-                                ledetekster={ledetekster}
-                                arbeidsforhold={arbeidsforhold}
-                                rootUrl={getContextRoot()}
-                            />
-                        }
+                        <Arbeidsforhold
+                            tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
+                            ledetekster={ledetekster}
+                            arbeidsforhold={oppfolgingsdialog.arbeidstaker.stillinger}
+                            rootUrl={getContextRoot()}
+                        />
 
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
 
                         {
                             lagret && this.state.oppdatertArbeidsoppgave &&
-                                <NotifikasjonBoksLagretElement
-                                    tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
-                                    rootUrl={`${getContextRoot()}`}
-                                />
+                            <NotifikasjonBoksLagretElement
+                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
+                                rootUrl={`${getContextRoot()}`}
+                            />
                         }
                         {
                             lagret && this.state.nyArbeidsoppgave &&
-                                <NotifikasjonBoksLagretElement
-                                    tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
-                                    rootUrl={`${getContextRoot()}`}
-                                />
+                            <NotifikasjonBoksLagretElement
+                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
+                                rootUrl={`${getContextRoot()}`}
+                            />
                         }
                         {
                             antallNyeArbeidsoppgaver > 0 && !oppfolgingsdialogAvbrutt && <ArbeidsoppgaverNotifikasjonBoksAdvarsel
@@ -253,7 +245,6 @@ Arbeidsoppgaver.propTypes = {
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
-    arbeidsforhold: PropTypes.arrayOf(oppfolgingProptypes.stillingPt),
 };
 
 export default Arbeidsoppgaver;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { sykepengesoknad as sykepengesoknadPt, getLedetekst, getHtmlLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import { NY, SENDT, FREMTIDIG, AVBRUTT, UTGAATT } from '../../enums/sykepengesoknadstatuser';
+import { NY, SENDT, FREMTIDIG, AVBRUTT, UTGAATT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { Soknadsdatoliste } from './SykmeldingKvittering';
 
@@ -106,38 +106,41 @@ export const UtgaattSoknadBekreftelse = () => {
 };
 
 const Sykepengesoknadstatus = ({ sykepengesoknader }) => {
-    return (<div className="panel panel--komprimert blokk">
-        {
-            (() => {
-                if (sykepengesoknader.length === 0) {
-                    return <PapirsoknadMelding />;
-                }
-                if (sykepengesoknader.length > 1) {
-                    return <FlereSoknader sykepengesoknader={sykepengesoknader} />;
-                }
-                const soknad = sykepengesoknader[0];
-                switch (soknad.status) {
-                    case NY: {
-                        return <SokOmSykepengerNaa sykepengesoknad={soknad} />;
-                    }
-                    case FREMTIDIG: {
-                        return <KommendeSoknad sykepengesoknad={soknad} />;
-                    }
-                    case SENDT: {
-                        return <SoknadSendtBekreftelse sykepengesoknad={soknad} />;
-                    }
-                    case UTGAATT: {
-                        return <UtgaattSoknadBekreftelse />;
-                    }
-                    case AVBRUTT: {
-                        return <SoknadAvbruttBekreftelse sykepengesoknad={soknad} />;
-                    }
-                    default: {
-                        return null;
-                    }
-                }
-            })()
+    const el = (() => {
+        if (sykepengesoknader.length === 0) {
+            return <PapirsoknadMelding />;
         }
+        if (sykepengesoknader.length > 1) {
+            return <FlereSoknader sykepengesoknader={sykepengesoknader} />;
+        }
+        const soknad = sykepengesoknader[0];
+        switch (soknad.status) {
+            case NY: {
+                return <SokOmSykepengerNaa sykepengesoknad={soknad} />;
+            }
+            case FREMTIDIG: {
+                return <KommendeSoknad sykepengesoknad={soknad} />;
+            }
+            case SENDT:
+            case TIL_SENDING: {
+                return <SoknadSendtBekreftelse sykepengesoknad={soknad} />;
+            }
+            case UTGAATT: {
+                return <UtgaattSoknadBekreftelse />;
+            }
+            case AVBRUTT: {
+                return <SoknadAvbruttBekreftelse sykepengesoknad={soknad} />;
+            }
+            default: {
+                return null;
+            }
+        }
+    })();
+    if (!el) {
+        return null;
+    }
+    return (<div className="panel panel--komprimert blokk">
+        {el}
     </div>);
 };
 

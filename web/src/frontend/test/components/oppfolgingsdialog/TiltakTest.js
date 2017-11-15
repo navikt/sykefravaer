@@ -6,6 +6,7 @@ import chaiEnzyme from 'chai-enzyme';
 import {
     OppfolgingsdialogInfoboks,
     LagreTiltakSkjema,
+    TiltakSkjema,
     LeggTilElementKnapper,
     NotifikasjonBoksLagretElement,
     TiltakNotifikasjonBoksAdvarsel,
@@ -15,7 +16,6 @@ import ledetekster from '../../mockLedetekster';
 import AppSpinner from '../../../js/components/AppSpinner';
 import Feilmelding from '../../../js/components/Feilmelding';
 import Tiltak, {
-    RenderOpprettTiltak,
     RenderOppfolgingsdialogTiltakTabell,
 } from '../../../js/components/oppfolgingsdialoger/utfylling/Tiltak';
 import getOppfolgingsdialog from '../../mockOppfolgingsdialoger';
@@ -110,11 +110,11 @@ describe('Tiltak', () => {
             expect(componentUtenTiltak.find(LeggTilElementKnapper)).to.have.length(1);
         });
 
-        it('Skal vise RenderOpprettTiltak, om det ikke er tiltak og visTiltakSkjema er true', () => {
+        it('Skal vise TiltakSkjema, om det ikke er tiltak og visTiltakSkjema er true', () => {
             componentUtenTiltak.setState({
                 visTiltakSkjema: true,
             });
-            expect(componentUtenTiltak.find(RenderOpprettTiltak)).to.have.length(1);
+            expect(componentUtenTiltak.find(TiltakSkjema)).to.have.length(1);
         });
     });
 
@@ -128,9 +128,6 @@ describe('Tiltak', () => {
                 slettTiltak={slettTiltak}
                 lagret
             />);
-        });
-        it('Skal vise en overskrift, om det er tiltak', () => {
-            expect(componentMedTiltak.find('h2')).to.have.length(1);
         });
 
         it('Skal vise NotifikasjonBoksLagretElement, om et Tiltak er lagret og oppdatertTiltak er true', () => {
@@ -189,27 +186,15 @@ describe('Tiltak', () => {
             expect(componentMedTiltak.find(RenderOppfolgingsdialogTiltakTabell)).to.have.length(1);
         });
 
-        it('Skal vise LagreTiltakSkjema, om det er tiltak og visTiltakSkjema er true', () => {
+        it('Skal vise RenderOppfolgingsdialogTiltakTabell, om det er tiltak og visTiltakSkjema er true', () => {
             componentMedTiltak.setState({
                 visTiltakSkjema: true,
             });
-            expect(componentMedTiltak.find(LagreTiltakSkjema)).to.have.length(1);
+            expect(componentMedTiltak.find(RenderOppfolgingsdialogTiltakTabell)).to.have.length(1);
         });
 
-        it('Skal vise LeggTilElementKnapper, om det er tiltak og visTiltakSkjema er false', () => {
-            expect(componentMedTiltak.find(LeggTilElementKnapper)).to.have.length(1);
-        });
-    });
-
-    describe('RenderOpprettTiltak', () => {
-        it('Skal vise en overskrift', () => {
-            component = shallow(<RenderOpprettTiltak />);
-            expect(component.find('h2')).to.have.length(1);
-        });
-
-        it('Skal vise et LagreTiltakSkjema', () => {
-            component = shallow(<RenderOpprettTiltak />);
-            expect(component.find(LagreTiltakSkjema)).to.have.length(1);
+        it('Skal vise RenderOppfolgingsdialogTiltakTabell, om det er tiltak og visTiltakSkjema er false', () => {
+            expect(componentMedTiltak.find(RenderOppfolgingsdialogTiltakTabell)).to.have.length(1);
         });
     });
 });

@@ -238,6 +238,8 @@ class Tiltak extends Component {
                                     sendSlettTiltak={this.sendSlettTiltak}
                                     fnr={oppfolgingsdialog.arbeidstaker.fnr}
                                     rootUrl={`${getContextRoot()}`}
+                                    sendLagreKommentar={this.sendLagreKommentar}
+                                    sendSlettKommentar={this.sendSlettKommentar}
                                 />
                         }
                     </div>;

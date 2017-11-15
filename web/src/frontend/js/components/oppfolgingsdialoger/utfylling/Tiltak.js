@@ -206,13 +206,6 @@ class Tiltak extends Component {
                         }
                         <TiltakInfoboks
                             ledetekster={ledetekster}
-                            tiltakListe={oppfolgingsdialog.tiltakListe}
-                            sendLagreTiltak={this.sendLagreTiltak}
-                            sendSlettTiltak={this.sendSlettTiltak}
-                            sendLagreKommentar={this.sendLagreKommentar}
-                            sendSlettKommentar={this.sendSlettKommentar}
-                            fnr={oppfolgingsdialog.arbeidstaker.fnr}
-                            arbeidstaker={oppfolgingsdialog.arbeidstaker}
                             visTiltakSkjema={this.state.visTiltakSkjema}
                             toggleSkjema={this.toggleTiltakSkjema}
                             brukerType={BRUKERTYPE.ARBEIDSTAKER}

@@ -215,6 +215,7 @@ class Tiltak extends Component {
                             arbeidstaker={oppfolgingsdialog.arbeidstaker}
                             visTiltakSkjema={this.state.visTiltakSkjema}
                             toggleSkjema={this.toggleTiltakSkjema}
+                            brukerType={BRUKERTYPE.ARBEIDSTAKER}
                         />
                         {
                             this.state.visTiltakSkjema &&

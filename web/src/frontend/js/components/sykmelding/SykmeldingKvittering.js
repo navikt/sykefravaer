@@ -7,6 +7,7 @@ import history from '../../history';
 import { sykepengesoknad as sykepengesoknadPt, sykmeldingstatus } from '../../propTypes';
 import { AVBRUTT } from '../../enums/sykmeldingstatuser';
 import Video from '../Video';
+import { filmtyper } from '../../enums/filmer';
 
 export const kvitteringtyper = {
     STANDARDKVITTERING: 'STANDARDKVITTERING',
@@ -136,8 +137,7 @@ export const KvitteringSokSenere = ({ sykepengesoknader }) => {
         <div className="blokk">
             <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
             <Video
-                src="/sykefravaer/filmer/soknadsykepenger.mp4"
-                captionSrc="/sykefravaer/filmer/soknadsykepenger.vtt"
+                type={filmtyper.SOKNAD_SYKEPENGER}
                 img="/sykefravaer/img/filmer/soknadsykepenger.jpg" />
         </div>
     </div>);

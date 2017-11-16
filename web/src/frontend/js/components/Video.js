@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as filmer from '../enums/filmer';
 
-const Video = ({ src, img, captionSrc }) => {
-    return (<video width="100%" height="auto" controls poster={img}>
-        <source src={src} type="video/mp4" />
-        { captionSrc && <track label="Norsk bokmål" kind="subtitles" srcLang="nb_no" src={captionSrc} default /> }
-        <p>Nettleseren din støtter ikke denne videoavspillingen. <a href={src}>Gå direkte til videoklippet</a></p>
+const Video = ({ type }) => {
+    const film = filmer[type];
+    if (!film) {
+        return null;
+    }   
+    return (<video width="100%" height="auto" controls poster={film.poster}>
+        <source src={film.src} type="video/mp4" />
+        { film.captionSrc && <track label="Norsk bokmål" kind="subtitles" srcLang="nb_no" src={film.captionSrc} default /> }
+        <p>Nettleseren din støtter ikke denne videoavspillingen. <a href={film.src}>Gå direkte til videoklippet</a></p>
     </video>);
 };
 
 Video.propTypes = {
-    src: PropTypes.string.isRequired,
-    img: PropTypes.string,
-    captionSrc: PropTypes.string,
+    type: PropTypes.oneOf(Object.keys(filmer.filmtyper)),
 };
 
 export default Video;

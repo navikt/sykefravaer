@@ -3,18 +3,20 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../mockLedetekster";
-import InnloggingContainer from "../../js/containers/InnloggingContainer";
+import sinon from 'sinon';
+import Feilmelding from '../../js/components/Feilmelding';
+
 const DocumentTitle = require('react-document-title');
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Side from "../../js/sider/Side";
+import { SideComponent } from "../../js/sider/Side";
 import Brodsmuler from '../../js/components/Brodsmuler';
 
 let component;
 
-describe("Side", () => {
+describe("SideComponent", () => {
 
     let component; 
     let brodsmuler = [{
@@ -23,17 +25,26 @@ describe("Side", () => {
         erKlikkbar: true,
     }, {
         tittel: 'Sykmelding',
-    }]; 
+    }];
+    let props;
+    let erInnlogget;
+    let sjekkInnlogging;
 
     beforeEach(() => {
-        
-        component = shallow(<Side tittel="Min side" brodsmuler={brodsmuler}>
+        sjekkInnlogging = sinon.spy();
+        props = {
+            erInnlogget: true,
+            sjekkInnlogging,
+            brodsmuler,
+            tittel: "Min side"
+        }
+        component = mount(<SideComponent {...props}>
             <article>Mitt innhold</article>
-        </Side>);
-    })
+        </SideComponent>);
+    });
 
     it("Skal rendre brødsmuler", () => {
-        expect(component.contains(<Brodsmuler brodsmuler={brodsmuler} />)).to.equal(true);
+        expect(component.contains(<Brodsmuler brodsmuler={brodsmuler} />)).to.be.true;
     }); 
 
     it("Skal rendre DocumentTitle", () => {
@@ -41,12 +52,16 @@ describe("Side", () => {
     })
 
     it("Skal rendre innhold som sendes inn", () => {
-        expect(component.contains(<article>Mitt innhold</article>)).to.equal(true);
+        expect(component.contains(<article>Mitt innhold</article>)).to.be.true;
+        expect(component.find(Feilmelding)).to.have.length(0);
     });
 
-    it("Skal wrappe children i en InnloggingContainer", () => {
-       expect(component.find(InnloggingContainer)).to.have.length(1);
-       expect(component.contains(<InnloggingContainer><article>Mitt innhold</article></InnloggingContainer>)).to.equal(true);
+    it("Skal rendre feilmelding hvis bruker er utlogget", () => {
+        props.erInnlogget = false;
+        const c = mount(<SideComponent {...props}>
+            <article>Mitt innhold</article>
+        </SideComponent>); 
+        expect(c.find(Feilmelding)).to.have.length(1);
     });
 
 }); 

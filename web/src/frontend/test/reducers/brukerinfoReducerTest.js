@@ -25,7 +25,8 @@ describe('brukerinfo', () => {
 
     it("Håndterer hentBrukerinfoFeilet", () => {
         initiellState = deepFreeze({
-            innstillinger: {}
+            innstillinger: {},
+            innlogging: {}
         });
         const nextState = brukerinfo(initiellState, brukerinfoActions.hentBrukerinfoFeilet());
         expect(nextState).to.deep.equal({
@@ -63,7 +64,7 @@ describe('brukerinfo', () => {
             navn: "Helge",
             alder: 32
         }));
-        expect(nextState).to.deep.equal({
+        expect(nextState).to.deep.include({
             bruker: {
                 henter: false,
                 hentingFeilet: false,
@@ -73,8 +74,6 @@ describe('brukerinfo', () => {
                 },
                 hentet: true,
             },
-            innstillinger: {},
-            innlogging: {}
         })
     });
 
@@ -88,14 +87,12 @@ describe('brukerinfo', () => {
                 },
                 hentet: true,
             },
-            innstillinger: {},
-            innlogging: {}
         });
         const nextState1 = brukerinfo(initiellState, brukerinfoActions.setBrukerinfo({
             navn: "Helge",
             alder: 32
         }));
-        expect(nextState1).to.deep.equal({
+        expect(nextState1).to.deep.include({
             bruker: {
                 henter: false,
                 hentingFeilet: false,
@@ -106,8 +103,6 @@ describe('brukerinfo', () => {
                 },
                 hentet: true,
             },
-            innstillinger: {},
-            innlogging: {}
         });
               
     });    
@@ -125,7 +120,7 @@ describe('brukerinfo', () => {
             navn: "Helge",
             alder: 32
         })); 
-        expect(nextState2).to.deep.equal({
+        expect(nextState2).to.deep.include({
             bruker: {
                 henter: false,
                 hentingFeilet: false,
@@ -135,8 +130,6 @@ describe('brukerinfo', () => {
                 },
                 hentet: true,
             },
-            innstillinger: {},
-            innlogging: {}
         })  
     });
 
@@ -146,12 +139,10 @@ describe('brukerinfo', () => {
             bruker: {}
         });
         const nyState = brukerinfo(initiellState, brukerinfoActions.setArbeidssituasjon("MED_ARBEIDSGIVER"));
-        expect(nyState).to.deep.equal({
-            bruker: {},
+        expect(nyState).to.deep.include({
             innstillinger: {
                 arbeidssituasjon: "MED_ARBEIDSGIVER"
             },
-            innlogging: {}
         })  
     });
 

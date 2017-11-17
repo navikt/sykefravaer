@@ -12,7 +12,6 @@ import {
     captitalizeFirstLetter,
     proptypes as oppfolgingProptypes,
     TiltakSkjema,
-    TiltakLeggtilKnapp,
     TiltakInfoboks,
     sorterTiltakEtterOpprettet,
 } from 'oppfolgingsdialog-npm';
@@ -211,29 +210,29 @@ class Tiltak extends Component {
                         />
                         {
                             this.state.visTiltakSkjema &&
-                                <TiltakSkjema
-                                    ledetekster={ledetekster}
-                                    sendLagre={this.sendLagreTiltak}
-                                    avbryt={this.toggleTiltakSkjema}
-                                    fnr={oppfolgingsdialog.arbeidstaker.fnr}
-                                    rootUrl={`${getContextRoot()}`}
-                                    ref={(lagreSkjema) => {
-                                        this.lagreSkjema = lagreSkjema;
-                                    }}
-                                    brukerType={BRUKERTYPE.ARBEIDSTAKER}
-                                />
+                            <TiltakSkjema
+                                ledetekster={ledetekster}
+                                sendLagre={this.sendLagreTiltak}
+                                avbryt={this.toggleTiltakSkjema}
+                                fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                                rootUrl={`${getContextRoot()}`}
+                                ref={(lagreSkjema) => {
+                                    this.lagreSkjema = lagreSkjema;
+                                }}
+                                brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                            />
                         }
                         {
-                                <RenderOppfolgingsdialogTiltakTabell
-                                    ledetekster={ledetekster}
-                                    tiltakListe={sorterTiltakEtterOpprettet(oppfolgingsdialog.tiltakListe)}
-                                    sendLagreTiltak={this.sendLagreTiltak}
-                                    sendSlettTiltak={this.sendSlettTiltak}
-                                    fnr={oppfolgingsdialog.arbeidstaker.fnr}
-                                    rootUrl={`${getContextRoot()}`}
-                                    sendLagreKommentar={this.sendLagreKommentar}
-                                    sendSlettKommentar={this.sendSlettKommentar}
-                                />
+                            <RenderOppfolgingsdialogTiltakTabell
+                                ledetekster={ledetekster}
+                                tiltakListe={sorterTiltakEtterOpprettet(oppfolgingsdialog.tiltakListe)}
+                                sendLagreTiltak={this.sendLagreTiltak}
+                                sendSlettTiltak={this.sendSlettTiltak}
+                                fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                                rootUrl={`${getContextRoot()}`}
+                                sendLagreKommentar={this.sendLagreKommentar}
+                                sendSlettKommentar={this.sendSlettKommentar}
+                            />
                         }
                     </div>;
             })()

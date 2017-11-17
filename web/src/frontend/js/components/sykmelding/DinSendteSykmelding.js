@@ -5,6 +5,7 @@ import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/Arbeid
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../enums/nokkelopplysninger';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
+import SykepengesoknadstatusContainer from '../../containers/sykmelding/SykepengesoknadstatusContainer';
 
 const DinSendteSykmelding = ({ dinSykmelding }) => {
     return (<div>
@@ -29,6 +30,7 @@ const DinSendteSykmelding = ({ dinSykmelding }) => {
         <div className="blokk--l">
             <ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />
         </div>
+        <SykepengesoknadstatusContainer sykmeldingId={dinSykmelding.id} />
     </div>);
 };
 

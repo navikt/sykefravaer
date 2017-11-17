@@ -5,9 +5,9 @@ import {
     OppfolgingsdialogInfoboks,
     TiltakNotifikasjonBoksAdvarsel,
     NotifikasjonBoksLagretElement,
-    TiltakTabell,
     LeggTilElementKnapper,
     LagreTiltakSkjema,
+    OppfolgingsdialogTabell,
     BRUKERTYPE,
     captitalizeFirstLetter,
     proptypes as oppfolgingProptypes,
@@ -31,20 +31,20 @@ export const RenderOppfolgingsdialogTiltakTabell = (
         sendLagreKommentar,
         sendSlettKommentar,
         fnr,
-        rootUrl,
     }) => {
     return (
-        <TiltakTabell
+        <OppfolgingsdialogTabell
             ledetekster={ledetekster}
             liste={tiltakListe}
+            tabellType="tiltak"
             urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
+            urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
             sendLagre={sendLagreTiltak}
             sendSlett={sendSlettTiltak}
             sendLagreKommentar={sendLagreKommentar}
             sendSlettKommentar={sendSlettKommentar}
             fnr={fnr}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
-            rootUrl={rootUrl}
         />
     );
 };
@@ -56,7 +56,6 @@ RenderOppfolgingsdialogTiltakTabell.propTypes = {
     sendLagreKommentar: PropTypes.func,
     sendSlettKommentar: PropTypes.func,
     fnr: PropTypes.string,
-    rootUrl: PropTypes.string,
 };
 
 export const RenderOpprettTiltak = ({ ledetekster, sendLagreTiltak, toggleTiltakSkjema }) => {

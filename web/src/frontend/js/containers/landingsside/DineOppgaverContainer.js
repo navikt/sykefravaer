@@ -203,7 +203,8 @@ export const mapStateToProps = (state) => {
                 && !idAlleredeFunnet(avventendeGodkjenninger, plan.id);
         });
 
-    const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null || avventendeGodkjenninger.length > 0 || nyePlaner.length > 0;
+    const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
+    const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null || avventendeGodkjenninger.length > 0 || nyePlaner.length > 0 || visAktivitetskrav;
 
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
@@ -217,7 +218,7 @@ export const mapStateToProps = (state) => {
         nyePlaner,
         hentingFeiletHendelser: state.hendelser.hentingFeilet,
         hendelserHentet: state.hendelser.hentet,
-        visAktivitetskrav: getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL,
+        visAktivitetskrav,
     };
 };
 

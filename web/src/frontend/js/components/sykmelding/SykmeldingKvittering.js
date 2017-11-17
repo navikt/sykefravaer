@@ -94,7 +94,7 @@ KvitteringSokNa.propTypes = {
     hentSykepengesoknader: PropTypes.func,
 };
 
-export const Soknadsdatoliste = ({ sykepengesoknader }) => {
+export const Soknadsdatoliste = ({ sykepengesoknader, visStatus = false }) => {
     return (<ul className="js-soknadsdatoliste">
         {
             [...sykepengesoknader]
@@ -105,7 +105,11 @@ export const Soknadsdatoliste = ({ sykepengesoknader }) => {
                     return -1;
                 })
                 .map((s, index) => {
-                    return <li key={index}><strong>{toDatePrettyPrint(s.tom)}</strong></li>;
+                    const nokkel = `sykepengesoknader.datoliste.status.${s.status}`;
+                    return (<li key={index}>
+                        <strong>{toDatePrettyPrint(s.tom)}</strong>
+                        { visStatus ? ` – ${getLedetekst(nokkel)}` : null }
+                    </li>);
                 })
         }
     </ul>);
@@ -113,6 +117,7 @@ export const Soknadsdatoliste = ({ sykepengesoknader }) => {
 
 Soknadsdatoliste.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    visStatus: PropTypes.bool,
 };
 
 export const KvitteringSokSenere = ({ sykepengesoknader }) => {

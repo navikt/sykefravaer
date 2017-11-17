@@ -10,7 +10,7 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import { NY, UTKAST_TIL_KORRIGERING } from '../../../enums/sykepengesoknadstatuser';
 import SykepengesoknadHeader from '../SykepengesoknadHeader';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad/AvbrytSoknadContainer';
-import IllustrertInnhold from "../../IllustrertInnhold";
+import IllustrertInnhold from '../../IllustrertInnhold';
 
 const KorrigerVarsel = () => {
     return (<div className="panel panel--komprimert blokk">

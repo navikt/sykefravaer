@@ -135,6 +135,35 @@ describe("DineOppgaverContainer", () => {
             expect(res.visAktivitetskrav).to.be.false;
         });
 
+        it("Skal returnere visAktivitetskrav === true dersom det kun finnes aktivitetskrav (dvs. ingen sykmeldinger/søknader)", () => {
+            const hendelser = [
+              {
+                "id": 71529,
+                "inntruffetdato": new Date("2017-10-31"),
+                "ressursId": null,
+                "type": "NY_NAERMESTE_LEDER"
+              },
+              {
+                "id": 71840,
+                "inntruffetdato": new Date("2017-11-13"),
+                "ressursId": null,
+                "type": "NY_NAERMESTE_LEDER"
+              },
+              {
+                "id": 71749,
+                "inntruffetdato": new Date("2017-11-08"),
+                "ressursId": "c54a472e-836f-4f51-b56e-643f4b5167a7",
+                "type": "AKTIVITETSKRAV_VARSEL"
+              }
+            ];
+            state.hendelser.data =  hendelser;
+            state.dineSykmeldinger.data = [];
+            state.sykepengesoknader.data = [];
+            state.mote.data = null;
+            const res = mapStateToProps(state);
+            expect(res.visOppgaver).to.be.true;
+        })
+
         describe("Møte", () => {
 
             beforeEach(() => {

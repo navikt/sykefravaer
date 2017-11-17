@@ -1,5 +1,6 @@
 import chai from 'chai';
 import React from 'react';
+import { Link } from 'react-router';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import {
@@ -259,15 +260,30 @@ describe('Oppfolgingsdialoger', () => {
     });
 
     describe('OppfolgingsdialogNyDialog', () => {
-        it('Skal vise tekster', () => {
-            component = shallow(<OppfolgingsdialogNyDialog />);
-            expect(component.find('h3')).to.have.length(1);
-            expect(component.find('p')).to.have.length(1);
+        let opprettOppfolgingsdialog;
+        const virksomhet1 = '991651365';
+        const virksomhet2 = '991651366';
+
+        beforeEach(() => {
+            opprettOppfolgingsdialog = sinon.spy();
         });
 
-        it('Skal vise knapp for å opprette oppfolgingsdialog', () => {
-            component = shallow(<OppfolgingsdialogNyDialog />);
-            expect(component.find('.knapp')).to.have.length(1);
+        it('Skal vise en Knapp for aa opprette, dersom arbeidstaker kun har 1 arbeidsgiver', () => {
+            component = shallow(<OppfolgingsdialogNyDialog
+                virksomheter={[virksomhet1]}
+                opprettOppfolgingsdialog={opprettOppfolgingsdialog}
+
+            />);
+            expect(component.find('button')).to.have.length(1);
+        });
+
+        it('Skal vise en Link til OpprettOppfolgingsdialog, dersom arbeidstaker har flere arbeidsgivere', () => {
+            component = shallow(<OppfolgingsdialogNyDialog
+                virksomheter={[virksomhet1, virksomhet2]}
+                opprettOppfolgingsdialog={opprettOppfolgingsdialog}
+
+            />);
+            expect(component.find(Link)).to.have.length(1);
         });
     });
 });

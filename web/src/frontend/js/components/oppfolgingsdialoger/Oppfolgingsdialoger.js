@@ -33,22 +33,25 @@ import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
 import OppfolgingsdialogFilm from './OppfolgingsdialogFilm';
 
-export const OppfolgingsdialogNyDialog = () => {
+export const OppfolgingsdialogNyDialog = ({ virksomheter, opprettOppfolgingsdialog }) => {
     return (
-        <div className="panel oppfolgingsdialogNyDialog">
-            <h3>
-                {getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.oppfolgingsdialogNyDialog.arbeidstaker.tittel')}
-            </h3>
-            <p>
-                {getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.oppfolgingsdialogNyDialog.arbeidstaker.tekst')}
-            </p>
-            <div className="knapperad">
-                <Link role="button" className="knapp" to={`${getContextRoot()}/oppfolgingsplaner/opprett`}>
-                    {getLedetekst('oppfolgingsdialog.knapp.ny-oppfolgingsdialog')}
-                </Link>
-            </div>
+        <div className="oppfolgingsdialogNyDialog">
+            {
+                virksomheter.length === 1 ?
+                    <button className="rammeknapp" onClick={() => { opprettOppfolgingsdialog(virksomheter[0]); }}>
+                        {getLedetekst('oppfolgingsdialog.oppfolgingsdialogNyDialog.knapp')}
+                    </button>
+                    :
+                    <Link role="button" className="rammeknapp" to={`${getContextRoot()}/oppfolgingsplaner/opprett`}>
+                        {getLedetekst('oppfolgingsdialog.oppfolgingsdialogNyDialog.knapp')}
+                    </Link>
+            }
         </div>
     );
+};
+OppfolgingsdialogNyDialog.propTypes = {
+    virksomheter: PropTypes.arrayOf(PropTypes.string),
+    opprettOppfolgingsdialog: PropTypes.func,
 };
 
 const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgingsdialoger) => {
@@ -69,7 +72,7 @@ export class Oppfolgingsdialoger extends Component {
     }
 
     render() {
-        const { oppfolgingsdialoger = [], ledetekster, avkreftLeder, bekreftetNyNaermesteLeder, bekreftNyNaermesteLeder, sykmeldinger, naermesteLedere } = this.props;
+        const { oppfolgingsdialoger = [], ledetekster, avkreftLeder, bekreftetNyNaermesteLeder, bekreftNyNaermesteLeder, sykmeldinger, naermesteLedere, opprettOppfolgingsdialog, virksomhet } = this.props;
         let panel;
         const dialogerAvbruttAvMotpartSidenSistInnlogging = finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
         const oppfolgingsdialogMedNyNaermesteLeder = finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder(oppfolgingsdialoger);
@@ -88,6 +91,10 @@ export class Oppfolgingsdialoger extends Component {
             panel = (<div>
                 {!isEmpty(oppfolgingsdialoger) && harAktivOppfolgingsdialog(oppfolgingsdialoger) &&
                 <div>
+                    <OppfolgingsdialogNyDialog
+                        virksomheter={virksomhet.hentet}
+                        opprettOppfolgingsdialog={opprettOppfolgingsdialog}
+                    />
                     <OppfolgingsdialogTeasere
                         ledetekster={ledetekster}
                         oppfolgingsdialoger={finnAktiveOppfolgingsdialoger(oppfolgingsdialoger)}
@@ -97,7 +104,6 @@ export class Oppfolgingsdialoger extends Component {
                         rootUrl={getContextRoot()}
                         rootUrlPlaner={getContextRoot()}
                     />
-                    <OppfolgingsdialogNyDialog ledetekster={ledetekster} />
                 </div>
                 }
 
@@ -161,6 +167,7 @@ Oppfolgingsdialoger.propTypes = {
     hentVirksomhet: PropTypes.func,
     hentPerson: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
+    opprettOppfolgingsdialog: PropTypes.func,
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
     person: oppfolgingProptypes.personReducerPt,
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,

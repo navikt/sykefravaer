@@ -1,12 +1,12 @@
 import React from 'react';
 import { getLedetekst, Utvidbar, DineSykmeldingOpplysninger } from 'digisyfo-npm';
 import StatusPanel from '../StatusPanel';
-import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
+import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../enums/nokkelopplysninger';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 
-const DinSendteSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding }) => {
+const DinSendteSykmelding = ({ dinSykmelding }) => {
     return (<div>
         <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
         <StatusPanel
@@ -27,14 +27,13 @@ const DinSendteSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding }) => {
             <DineSykmeldingOpplysninger sykmelding={dinSykmelding} />
         </Utvidbar>
         <div className="blokk--l">
-            <ArbeidsgiversSykmelding sykmelding={arbeidsgiversSykmelding} />
+            <ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />
         </div>
     </div>);
 };
 
 DinSendteSykmelding.propTypes = {
     dinSykmelding: sykmeldingPt,
-    arbeidsgiversSykmelding: sykmeldingPt,
 };
 
 export default DinSendteSykmelding;

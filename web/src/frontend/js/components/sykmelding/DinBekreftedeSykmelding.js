@@ -2,11 +2,11 @@ import React from 'react';
 import { getLedetekst, DineSykmeldingOpplysninger, Utvidbar } from 'digisyfo-npm';
 import StatusPanel from '../StatusPanel';
 import { STATUS, INNSENDT_DATO } from '../../enums/nokkelopplysninger';
-import ArbeidsgiversSykmelding from './ArbeidsgiversSykmelding';
+import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes/index';
 
-const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding }) => {
+const DinBekreftedeSykmelding = ({ dinSykmelding }) => {
     return (<div>
         <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
         <StatusPanel
@@ -27,7 +27,7 @@ const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding }) => 
         {
             dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER' &&
                 <div className="blokk">
-                    <ArbeidsgiversSykmelding sykmelding={arbeidsgiversSykmelding} />
+                    <ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />
                 </div>
         }
     </div>);
@@ -35,7 +35,6 @@ const DinBekreftedeSykmelding = ({ dinSykmelding, arbeidsgiversSykmelding }) => 
 
 DinBekreftedeSykmelding.propTypes = {
     dinSykmelding: sykmeldingPt,
-    arbeidsgiversSykmelding: sykmeldingPt,
 };
 
 export default DinBekreftedeSykmelding;

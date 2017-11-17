@@ -7,7 +7,6 @@ import ledetekster from "../../mockLedetekster";
 import getSykmelding from '../../mockSykmeldinger';
 import Feilmelding from '../../../js/components/Feilmelding';
 
-
 import { DinSykmldSkjema, mapStateToProps, validate, Skjema } from "../../../js/containers/sykmelding/DinSykmeldingSkjemaContainer";
 import { setLedetekster } from 'digisyfo-npm';
 
@@ -215,8 +214,10 @@ describe("DinSykmeldingSkjemaContainer", () => {
             expect(res.henter).to.be.true;
         });
 
-        it("Skal returnere henter dersom det ikke hentes brukerinfo og ikke vedlikehold", () => {
+        it("Skal returnere henter dersom det ikke hentes brukerinfo og ikke vedlikehold og ikke arbeidsgivers sykmeldinger", () => {
             const state = getState();
+            state.arbeidsgiversSykmeldinger.henter = false;
+            state.arbeidsgiversSykmeldinger.hentet = true;
             state.vedlikehold.henter = false;
             state.brukerinfo.bruker.henter = false;
             const res = mapStateToProps(state, {
@@ -225,24 +226,67 @@ describe("DinSykmeldingSkjemaContainer", () => {
             expect(res.henter).to.be.false;
         });
 
+        it("Skal returnere henter === true dersom det hentes arbeidsgiversSykmeldinger", () => {
+            const state = getState();
+            state.arbeidsgiversSykmeldinger.henter = true;
+            state.arbeidsgiversSykmeldinger.hentet = false;
+            const res = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(res.henter).to.be.true;
+            expect(res.skalHenteArbeidsgiversSykmeldinger).to.be.false;
+        });
+
+        it("Skal returnere henter === true dersom arbeidsgiversSykmeldinger ikke er hentet", () => {
+            const state = getState();
+            state.arbeidsgiversSykmeldinger.hentet = false;
+            state.arbeidsgiversSykmeldinger.henter = false;
+            const res = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(res.henter).to.be.true;
+            expect(res.skalHenteArbeidsgiversSykmeldinger).to.be.true;
+        });
+
+        it("Skal returnere henter === false dersom arbeidsgiversSykmeldinger er hentet", () => {
+            const state = getState();
+            state.arbeidsgiversSykmeldinger.henter = false;
+            state.arbeidsgiversSykmeldinger.hentet = true;
+            const res = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(res.henter).to.be.false;
+            expect(res.skalHenteArbeidsgiversSykmeldinger).to.be.false;
+        });
+
     });
 
     describe("Render", () => {
+
+        let actions;
+        let hentAktuelleArbeidsgivere;
+        let hentArbeidsgiversSykmeldinger;
+        let hentBrukerinfo;
+
+        beforeEach(() => {
+            hentBrukerinfo = sinon.spy();
+            hentAktuelleArbeidsgivere = sinon.spy();
+            hentArbeidsgiversSykmeldinger = sinon.spy();
+            actions = { hentBrukerinfo, hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger }; 
+        })
+
         it("Skal vise planlagt-vedlikehold ved vedlikehold", () => {
-            const hentBrukerinfo = sinon.spy();
-            const comp = shallow(<Skjema hentBrukerinfo={hentBrukerinfo} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+            const comp = shallow(<Skjema {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
             expect(comp.find(Feilmelding)).to.have.length(1);
         });
 
         it("Skal hente brukerinfo hvis brukerinfo ikke er hentet", () => {
-            const hentBrukerinfo = sinon.spy();
-            shallow(<Skjema hentBrukerinfo={hentBrukerinfo} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+            shallow(<Skjema {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
             expect(hentBrukerinfo.calledOnce).to.be.true;
         });
 
         it("Skal ikke hente brukerinfo hvis brukerinfo er hentet", () => {
-            const hentBrukerinfo = sinon.spy();
-            shallow(<Skjema brukerinfoHentet hentBrukerinfo={hentBrukerinfo} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+            shallow(<Skjema brukerinfoHentet {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
             expect(hentBrukerinfo.calledOnce).to.be.false;
         });
 

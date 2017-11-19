@@ -16,6 +16,7 @@ import {
     kontaktinfoSagas,
     forrigeNaermesteLederSagas,
     naermesteLederSagas,
+    kommentarSagas,
 } from 'oppfolgingsdialog-npm';
 import arbeidsgiversSykmeldingerSagas from './arbeidsgiversSykmeldingerSagas';
 import brukerinfoSagas from './brukerinfoSagas';
@@ -56,6 +57,7 @@ export default function* rootSaga() {
         nullstillGodkjenningSagas(),
         arbeidsoppgaveSagas(),
         dokumentSagas(),
+        kommentarSagas(),
         tilgangSagas(),
         tiltakSagas(),
         togglesSagas(),

@@ -9,6 +9,8 @@ import {
     lagreTiltak,
     slettTiltak,
     sjekkTilgang,
+    lagreKommentar,
+    slettKommentar,
     godkjennDialogAt as godkjennDialog,
     avvisDialogAt as avvisDialog,
     nullstillGodkjenning,
@@ -34,7 +36,7 @@ import history from '../../history';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { getOppfolgingsdialog, isEmpty } from '../../utils/oppfolgingsdialogUtils';
+import { getOppfolgingsdialog } from '../../utils/oppfolgingsdialogUtils';
 import Oppfolgingsdialog from '../../components/oppfolgingsdialoger/Oppfolgingsdialog';
 import {
     brodsmule as brodsmulePt,
@@ -158,6 +160,8 @@ OppfolgingsdialogSide.propTypes = {
     lagreTiltak: PropTypes.func,
     slettTiltak: PropTypes.func,
     hentOppfolgingsdialoger: PropTypes.func,
+    lagreKommentar: PropTypes.func,
+    slettKommentar: PropTypes.func,
     oppfolgingsdialogerHentet: PropTypes.bool,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     hentArbeidsforhold: PropTypes.func,
@@ -268,6 +272,8 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     slettArbeidsoppgave,
     lagreTiltak,
     slettTiltak,
+    lagreKommentar,
+    slettKommentar,
     hentOppfolgingsdialoger,
     sjekkTilgang,
     godkjennDialog,

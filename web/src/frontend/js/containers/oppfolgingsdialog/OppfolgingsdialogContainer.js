@@ -100,9 +100,8 @@ export class OppfolgingsdialogSide extends Component {
             sendingFeilet,
             tilgang,
             navigasjontoggles,
-            hentet,
         } = this.props;
-        return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler} laster={henter || sender || !hentet}>
+        return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler}>
             { (() => {
                 if (henter || sender) {
                     return <AppSpinner />;

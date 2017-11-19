@@ -51,8 +51,8 @@ export class OppfolgingsdialogerSide extends Component {
     }
 
     render() {
-        const { brodsmuler, ledetekster, henter, hentingFeilet, tilgang, hentet, avkrefterLeder, avkrefterLederFeilet } = this.props;
-        return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler} laster={henter || !hentet}>
+        const { brodsmuler, ledetekster, henter, hentingFeilet, tilgang, avkrefterLeder, avkrefterLederFeilet } = this.props;
+        return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler}>
             {
                 (() => {
                     if (henter || avkrefterLeder) {

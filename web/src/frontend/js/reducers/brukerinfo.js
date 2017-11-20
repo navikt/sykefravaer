@@ -14,7 +14,13 @@ function innstillinger(state = {}, action) {
     }
 }
 
-function innlogging(state = {}, action) {
+const defaultState = {
+    erInnlogget: true,
+    henter: false,
+    hentingFeilet: false,
+};
+
+function innlogging(state = defaultState, action) {
     switch (action.type) {
         case actiontyper.BRUKER_ER_UTLOGGET: {
             return {

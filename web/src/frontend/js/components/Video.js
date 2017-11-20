@@ -1,54 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import * as filmer from '../enums/filmer';
 
-let settStorrelse;
-
-const getSidebredde = () => {
-    const s = document.getElementsByClassName('js-begrensning')[0];
-    const style = window.getComputedStyle(s);
-    return parseInt(style.width, 10) - parseInt(style.paddingLeft, 10) - parseInt(style.paddingRight, 10);
+const Video = ({ type }) => {
+    const film = filmer[type];
+    if (!film) {
+        return null;
+    }   
+    return (<video width="100%" height="auto" controls poster={film.poster}>
+        <source src={film.src} type="video/mp4" />
+        { film.captionSrc && <track label="Norsk bokmål" kind="subtitles" srcLang="nb_no" src={film.captionSrc} default /> }
+        <p>Nettleseren din støtter ikke denne videoavspillingen. <a href={film.src}>Gå direkte til videoklippet</a></p>
+    </video>);
 };
 
-class Video extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            width: props.width,
-            height: props.height,
-        };
-    }
-
-    componentDidMount() {
-        settStorrelse = () => {
-            this.settStorrelse();
-        };
-        window.addEventListener('resize', settStorrelse);
-        this.settStorrelse();
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', settStorrelse);
-    }
-
-    settStorrelse() {
-        const lite = document.getElementsByClassName('lite-film')[0] ? 60 : 0;
-        const width = getSidebredde() - lite;
-        const forhold = parseInt(this.props.width, 10) / width;
-        const height = parseInt(this.props.height / forhold, 10);
-        this.setState({
-            width, height,
-        });
-    }
-
-    render() {
-        return <iframe allowfullscreen title="Video" className="iframeVideo" src={`${this.props.src}&width=${this.state.width}&height=${this.state.height}`} width={this.state.width} height={this.state.height} scrolling="no" frameBorder="0" />;
-    }
-}
-
 Video.propTypes = {
-    src: PropTypes.string,
-    width: PropTypes.string,
-    height: PropTypes.string,
+    type: PropTypes.oneOf(Object.keys(filmer.filmtyper)),
 };
 
 export default Video;

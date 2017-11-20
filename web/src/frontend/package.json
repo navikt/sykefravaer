@@ -30,9 +30,9 @@
   "author": "DigiSyfo <digisyfo@nav.no>",
   "license": "ISC",
   "dependencies": {
-    "babel-loader": "^7.1.2",
+    "babel-loader": "7.1.2",
     "babel-polyfill": "6.26.0",
-    "digisyfo-npm": "2.0.2",
+    "digisyfo-npm": "2.3.0",
     "fetch": "1.0.1",
     "fetch-ponyfill": "4.1.0",
     "isomorphic-fetch": "2.2.1",

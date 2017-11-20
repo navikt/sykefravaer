@@ -1,7 +1,5 @@
 import React from 'react';
-import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
-import Video from '../Video';
-import { filmtyper } from '../../enums/filmer';
+import { getLedetekst, getHtmlLedetekst, Video, filmer } from 'digisyfo-npm';
 
 const OppfolgingsdialogFilm = () => {
     return (<div className="panel">
@@ -9,7 +7,7 @@ const OppfolgingsdialogFilm = () => {
             {getLedetekst('oppfolgingsdialog.filmsnutt.tittel')}
         </h2>
         <Video
-            type={filmtyper.OPPFOLGINGSDIALOG} />
+            film={filmer.OPPFOLGINGSDIALOG} />
         <p dangerouslySetInnerHTML={getHtmlLedetekst('oppfolgingsdialog.filmsnutt.tekst')} />
     </div>);
 };

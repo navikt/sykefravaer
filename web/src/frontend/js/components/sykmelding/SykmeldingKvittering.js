@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint, keyValue } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint, keyValue, Video, filmer } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
 import history from '../../history';
 import { sykepengesoknad as sykepengesoknadPt, sykmeldingstatus } from '../../propTypes';
 import { AVBRUTT } from '../../enums/sykmeldingstatuser';
-import Video from '../Video';
-import { filmtyper } from '../../enums/filmer';
 
 export const kvitteringtyper = {
     STANDARDKVITTERING: 'STANDARDKVITTERING',
@@ -142,8 +140,7 @@ export const KvitteringSokSenere = ({ sykepengesoknader }) => {
         <div className="blokk">
             <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
             <Video
-                type={filmtyper.SOKNAD_SYKEPENGER}
-                img="/sykefravaer/img/filmer/soknadsykepenger.jpg" />
+                film={filmer.SOKNAD_SYKEPENGER} />
         </div>
     </div>);
 };

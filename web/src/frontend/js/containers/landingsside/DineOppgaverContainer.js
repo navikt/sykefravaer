@@ -126,7 +126,7 @@ RendreOppgaver.propTypes = {
 
 export class DineOppgaver extends Component {
     componentWillMount() {
-        const { sykmeldingerHentet, sykmeldingerHentingFeilet, hendelserHentet, hentingFeiletHendelser, oppfolgingsdialogerHentet } = this.props;
+        const { sykmeldingerHentet, sykmeldingerHentingFeilet, hendelserHentet, hentingFeiletHendelser, oppfolgingsdialogerHentet, visOppgaver } = this.props;
         if (!sykmeldingerHentet && !sykmeldingerHentingFeilet) {
             this.props.hentDineSykmeldinger();
         }
@@ -136,11 +136,13 @@ export class DineOppgaver extends Component {
         if (!oppfolgingsdialogerHentet) {
             this.props.hentOppfolgingsdialoger();
         }
-        log('Registrerer visning', GRONN);
-        window.dataLayer.push({
-            'event': 'DINE_OPPGAVER_VIST',
-            'variant': GRONN,
-        });
+        if (visOppgaver) {
+            log('Registrerer visning', GRONN);
+            window.dataLayer.push({
+                'event': 'DINE_OPPGAVER_VIST',
+                'variant': GRONN,
+            });
+        }
     }
 
     render() {
@@ -157,6 +159,7 @@ DineOppgaver.propTypes = {
     hentingFeiletHendelser: PropTypes.bool,
     hendelserHentet: PropTypes.bool,
     oppfolgingsdialogerHentet: PropTypes.bool,
+    visOppgaver: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {

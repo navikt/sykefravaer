@@ -13,6 +13,7 @@ import {
     OppfolgingsdialogTabell,
     sorterArbeidsoppgaverEtterOpprettet,
     proptypes as oppfolgingProptypes,
+    NotifikasjonBoksVurdering,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
@@ -135,6 +136,9 @@ class Arbeidsoppgaver extends Component {
         const antallNyeArbeidsoppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
             return !arbeidsoppgave.erVurdertAvSykmeldt && (!oppfolgingsdialog.arbeidstaker.sistInnlogget || new Date(arbeidsoppgave.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget));
         }).length;
+        const antalOppgaveSkalVurderes = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
+            return !arbeidsoppgave.erVurdertAvSykmeldt;
+        }).length;
         return (
             (() => {
                 if (lagrer || sletter) {
@@ -195,6 +199,15 @@ class Arbeidsoppgaver extends Component {
                                     tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
                                     rootUrl={`${getContextRoot()}`}
                                 />
+                        }
+                        {
+                            antalOppgaveSkalVurderes > 0 && <NotifikasjonBoksVurdering
+                                ledetekster={ledetekster}
+                                navn={oppfolgingsdialog.arbeidstaker.navn}
+                                antalVuderinger={antalOppgaveSkalVurderes}
+                                rootUrl={`${getContextRoot()}`}
+                                tekst="oppfolgingsdialog.notifikasjonboks.arbeidsoppgave.vurderes.tekst"
+                            />
                         }
                         {
                             antallNyeArbeidsoppgaver > 0 && !oppfolgingsdialogAvbrutt && <ArbeidsoppgaverNotifikasjonBoksAdvarsel

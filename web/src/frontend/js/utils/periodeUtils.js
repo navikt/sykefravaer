@@ -126,21 +126,17 @@ export const antallVirkedagerIPeriode = (periode) => {
 };
 
 export const antallVirkedagerIPerioder = (perioder) => {
-    const talteVirkedager = []; // For å unngå at samme virkedag telles to ganger
     const DOGN = 1000 * 60 * 60 * 24;
-
-    return perioder.reduce((acc, periode) => {
+    const virkedager = new Set();
+    perioder.forEach((periode) => {
         const start = periode.fom.getTime();
         const slutt = periode.tom.getTime();
-        let antallVirkedager = acc;
         for (let i = start; i <= slutt; i += DOGN) {
             const d = new Date(i);
-            const timestamp = d.getTime();
-            if (!datoErHelgedag(d) && talteVirkedager.indexOf(timestamp) === -1) {
-                antallVirkedager += 1;
-                talteVirkedager.push(timestamp);
+            if (!datoErHelgedag(d)) {
+                virkedager.add(d.getTime());
             }
         }
-        return antallVirkedager;
-    }, 0);
+    });
+    return virkedager.size;
 };

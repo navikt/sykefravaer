@@ -454,7 +454,7 @@ describe("periodeUtils", () => {
 
         beforeEach(() => {
             mandag1 = new Date("2017-08-14");
-            tirsdag1 = new Date("2017-08-15");
+            tirsdag1 = new Date("2017-08-15"); 
             fredag1 = new Date("2017-08-18");
             sondag1 = new Date("2017-08-20");
             mandag2 = new Date("2017-08-21");

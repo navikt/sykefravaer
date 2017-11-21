@@ -171,6 +171,6 @@ const mapStateToProps = (state) => {
     return {
         ferieOgPermisjonPerioder: ferieOgPermisjonPerioder.map(tilDatePeriode),
     };
-}
+};
 
 export default connect(mapStateToProps)(AngiTid);

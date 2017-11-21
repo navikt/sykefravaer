@@ -4,9 +4,10 @@ import * as actiontyper from '../actions/actiontyper';
 function innstillinger(state = {}, action) {
     switch (action.type) {
         case actiontyper.SET_TIDSLINJE_ARBEIDSSITUASJON: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 arbeidssituasjon: action.arbeidssituasjon,
-            });
+            };
         }
         default: {
             return state;
@@ -30,17 +31,19 @@ function innlogging(state = defaultState, action) {
             };
         }
         case actiontyper.BRUKER_ER_INNLOGGET: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 erInnlogget: true,
                 henter: false,
                 hentingFeilet: false,
-            });
+            };
         }
         case actiontyper.SJEKKER_INNLOGGING: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 henter: true,
                 hentingFeilet: false,
-            });
+            };
         }
         case actiontyper.SJEKK_INNLOGGING_FEILET: {
             return {
@@ -58,12 +61,13 @@ function innlogging(state = defaultState, action) {
 function bruker(state = { data: {} }, action) {
     switch (action.type) {
         case actiontyper.HENT_BRUKERINFO_FEILET: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 data: {},
                 henter: false,
                 hentingFeilet: true,
                 hentet: true,
-            });
+            };
         }
         case actiontyper.HENTER_BRUKERINFO: {
             return {
@@ -74,13 +78,14 @@ function bruker(state = { data: {} }, action) {
             };
         }
         case actiontyper.SET_BRUKERINFO: {
-            const data = Object.assign({}, state.data, action.data);
-            return Object.assign({}, state, {
+            const data = { ...state.data, ...action.data };
+            return {
+                ...state,
                 henter: false,
                 hentingFeilet: false,
                 hentet: true,
                 data,
-            });
+            };
         }
         default: {
             return state;

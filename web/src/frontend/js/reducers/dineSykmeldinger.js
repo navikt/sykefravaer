@@ -11,11 +11,13 @@ const initiellState = {
 
 const setSykmeldingProps = (_sykmeldinger, sykmeldingId, props) => {
     return _sykmeldinger.map((sykmelding) => {
-        let _sykmelding = Object.assign({}, sykmelding);
-        if (_sykmelding.id === sykmeldingId) {
-            _sykmelding = Object.assign({}, _sykmelding, props);
+        if (sykmelding.id === sykmeldingId) {
+            return {
+                ...sykmelding,
+                ...props,
+            };
         }
-        return _sykmelding;
+        return { ...sykmelding };
     });
 };
 
@@ -37,7 +39,10 @@ export default function sykmeldinger(state = initiellState, action) {
                     const nySykmelding = action.sykmeldinger.filter((sykmld) => {
                         return sykmld.id === gammelSykmelding.id;
                     })[0];
-                    return Object.assign({}, gammelSykmelding, parseSykmelding(nySykmelding));
+                    return {
+                        ...gammelSykmelding,
+                        ...parseSykmelding(nySykmelding),
+                    };
                 }),
                 henter: false,
                 hentingFeilet: false,
@@ -53,25 +58,29 @@ export default function sykmeldinger(state = initiellState, action) {
             };
         }
         case actiontyper.AVBRYTER_SYKMELDING: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 avbryter: true,
                 avbrytFeilet: false,
-            });
+            };
         }
         case actiontyper.AVBRYT_SYKMELDING_FEILET: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 avbryter: false,
                 avbrytFeilet: true,
-            });
+            };
         }
         case actiontyper.SYKMELDING_AVBRUTT: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: AVBRUTT,
             });
-            return Object.assign({}, state, { data }, {
+            return {
+                ...state,
+                data,
                 avbryter: false,
                 avbrytFeilet: false,
-            });
+            };
         }
         case actiontyper.HENT_DINE_SYKMELDINGER_FEILET: {
             return {
@@ -85,69 +94,82 @@ export default function sykmeldinger(state = initiellState, action) {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 valgtArbeidssituasjon: action.arbeidssituasjon,
             });
-            return Object.assign({}, state, { data });
+            return {
+                ...state,
+                data,
+            };
         }
         case actiontyper.SYKMELDING_BEKREFTET: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: BEKREFTET,
             });
-            return Object.assign({}, state, { data }, {
+            return {
+                ...state,
+                data,
                 sender: false,
                 sendingFeilet: false,
-            });
+            };
         }
         case actiontyper.SET_SORTERING: {
             let sortering = {};
             sortering[action.status] = action.kriterium;
-            sortering = Object.assign({}, state.sortering, sortering);
-            return Object.assign({}, state, {
+            sortering = {
+                ...state.sortering,
+                ...sortering,
+            };
+            return {
+                ...state,
                 sortering,
-            });
+            };
         }
         case actiontyper.SET_FEILAKTIG_OPPLYSNING: {
             const data = state.data.map((sykmelding) => {
-                const _sykmelding = Object.assign({}, sykmelding);
+                const _sykmelding = { ...sykmelding };
                 if (_sykmelding.id === action.sykmeldingId) {
                     const s = {};
                     s[action.opplysning] = action.erFeilaktig;
-                    _sykmelding.feilaktigeOpplysninger = Object.assign({}, _sykmelding.feilaktigeOpplysninger, s);
+                    _sykmelding.feilaktigeOpplysninger = { ..._sykmelding.feilaktigeOpplysninger, ...s };
                 }
                 return _sykmelding;
             });
-            return Object.assign({}, state, { data });
+            return { ...state, data };
         }
         case actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 opplysningeneErRiktige: action.erRiktige,
             });
-            return Object.assign({}, state, { data });
+            return { ...state, data };
         }
         case actiontyper.SENDER_SYKMELDING:
         case actiontyper.BEKREFTER_SYKMELDING: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 sender: true,
                 sendingFeilet: false,
                 henter: false,
                 hentingFeilet: false,
-            });
+            };
         }
         case actiontyper.SEND_SYKMELDING_FEILET:
         case actiontyper.BEKREFT_SYKMELDING_FEILET: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 sender: false,
                 sendingFeilet: true,
                 henter: false,
                 hentingFeilet: false,
-            });
+            };
         }
         case actiontyper.SYKMELDING_SENDT: {
             const data = setSykmeldingProps(state.data, action.sykmeldingId, {
                 status: SENDT,
             });
-            return Object.assign({}, state, { data }, {
+            return {
+                ...state,
+                data,
                 sender: false,
                 sendingFeilet: false,
-            });
+            };
         }
         case actiontyper.BRUKER_ER_UTLOGGET: {
             return {

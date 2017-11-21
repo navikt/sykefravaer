@@ -92,7 +92,8 @@ const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {
     const ferie = harHattFerie ? soknad.ferie : [];
     const utenlandsopphold = harHattUtenlandsopphold ? getUtenlandsopphold(soknad.utenlandsopphold) : null;
 
-    const backendSoknad = Object.assign({}, soknad, {
+    const backendSoknad = {
+        ...soknad,
         permisjon: parsePerioder(permisjon),
         ferie: parsePerioder(ferie),
         utenlandsopphold,
@@ -101,7 +102,7 @@ const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {
         egenmeldingsperioder: soknad.bruktEgenmeldingsdagerFoerLegemeldtFravaer ? parsePerioder(soknad.egenmeldingsperioder) : [],
         aktiviteter: getAktiviteter(soknad.aktiviteter),
         utdanning: getUtdanning(soknad.utdanning),
-    });
+    };
 
     if (!alternativer.visForskutteringssporsmal) {
         delete backendSoknad.arbeidsgiverForskutterer;

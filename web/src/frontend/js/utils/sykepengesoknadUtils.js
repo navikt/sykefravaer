@@ -58,11 +58,15 @@ export const mapAktiviteter = (soknad) => {
         .map((aktivitet) => {
             const fom = aktivitet.periode.fom.getTime() < soknad.fom.getTime() ? soknad.fom : aktivitet.periode.fom;
             const tom = aktivitet.periode.tom.getTime() > soknad.tom.getTime() ? soknad.tom : aktivitet.periode.tom;
-            return Object.assign({}, aktivitet, {
+            return {
+                ...aktivitet,
                 periode: { fom, tom },
-            });
+            };
         });
-    return Object.assign({}, soknad, { aktiviteter });
+    return {
+        ...soknad,
+        aktiviteter,
+    };
 };
 
 export const sorterEtterOpprettetDato = (soknad1, soknad2) => {

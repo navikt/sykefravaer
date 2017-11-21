@@ -77,9 +77,10 @@ RendreFeriePermisjonEllerUtenlandsopphold.propTypes = {
 };
 
 export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjenopptattArbeidFulltUtDato }) => {
-    const _soknad = Object.assign({}, sykepengesoknad, {
+    const _soknad = {
+        ...sykepengesoknad,
         gjenopptattArbeidFulltUtDato,
-    });
+    };
     const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
         return aktivitet.periode;
     });

@@ -78,7 +78,7 @@ export function mapDispatchToProps(dispatch) {
     const mActions = bindActionCreators(moteActions, dispatch);
     const sActions = bindActionCreators(svarActions, dispatch);
     return {
-        actions: Object.assign({}, mActions, sActions),
+        actions: { ...mActions, ...sActions },
     };
 }
 

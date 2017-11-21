@@ -20,18 +20,21 @@ export function sorterAktiviteterEldsteFoerst(soknad) {
         }
         return a.periode.tom - b.periode.tom;
     });
-    return Object.assign({}, soknad, {
+    return {
+        ...soknad,
         aktiviteter,
-    });
+    };
 }
 
 const setSykepengesoknaderProps = (_sykepengesoknader, soknadsId, props) => {
     return _sykepengesoknader.map((soknad) => {
-        let _soknad = Object.assign({}, soknad);
-        if (_soknad.id === soknadsId) {
-            _soknad = Object.assign({}, _soknad, props);
+        if (soknad.id === soknadsId) {
+            return {
+                ...soknad,
+                ...props,
+            };
         }
-        return _soknad;
+        return soknad;
     });
 };
 
@@ -47,14 +50,16 @@ export const settErOppdelt = (soknad) => {
         }
         return !(soknad.fom.getTime() === _tidligsteFom.getTime() && soknad.tom.getTime() === _senesteTom.getTime());
     })();
-    return Object.assign({}, soknad, {
+    return {
+        ...soknad,
         _erOppdelt,
-    });
+    };
 };
 
 export const finnSoknad = (state, id) => {
-    const soknad = state.sykepengesoknader.data.filter((s) => { return `${s.id}` === id; });
-    return soknad[0] || {};
+    return state.sykepengesoknader.data.filter((s) => {
+        return `${s.id}` === id;
+    })[0] || {};
 };
 
 export default function sykepengesoknader(state = initiellState, action) {
@@ -64,50 +69,57 @@ export default function sykepengesoknader(state = initiellState, action) {
                 const soknad = settErOppdelt(parseSykepengesoknad(s));
                 return sorterAktiviteterEldsteFoerst(soknad);
             });
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 data: soknader,
                 henter: false,
                 hentingFeilet: false,
                 hentet: true,
-            });
+            };
         }
         case actiontyper.HENTER_SYKEPENGESOKNADER: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 henter: true,
                 hentingFeilet: false,
                 hentet: false,
-            });
+            };
         }
         case actiontyper.HENT_SYKEPENGESOKNADER_FEILET: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 henter: false,
                 hentingFeilet: true,
                 hentet: true,
-            });
+            };
         }
         case actiontyper.SENDER_SYKEPENGESOKNAD: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 sender: true,
                 sendingFeilet: false,
-            });
+            };
         }
         case actiontyper.SEND_SYKEPENGESOKNAD_FEILET: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 sender: false,
                 sendingFeilet: true,
-            });
+            };
         }
         case actiontyper.SEND_SYKEPENGESOKNAD_HAR_IKKE_FEILET: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 sendingFeilet: false,
                 sender: false,
-            });
+            };
         }
         case actiontyper.START_ENDRING_SYKEPENGESOKNAD_FORESPURT: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 starterEndring: true,
                 startEndringFeilet: false,
-            });
+            };
         }
         case actiontyper.ENDRING_SYKEPENGESOKNAD_STARTET: {
             let data = state.data;
@@ -117,17 +129,19 @@ export default function sykepengesoknader(state = initiellState, action) {
             }).length === 0) {
                 data = [...state.data, soknad];
             }
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 data,
                 starterEndring: false,
                 startEndringFeilet: false,
-            });
+            };
         }
         case actiontyper.START_ENDRING_FEILET: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 starterEndring: false,
                 startEndringFeilet: true,
-            });
+            };
         }
         case actiontyper.SYKEPENGESOKNAD_SENDT:
         case actiontyper.SYKEPENGESOKNAD_SENDT_TIL_NAV:
@@ -138,44 +152,52 @@ export default function sykepengesoknader(state = initiellState, action) {
                     status: KORRIGERT,
                 });
             }
-            return Object.assign({}, state, { data }, {
+            return {
+                ...state,
+                data,
                 sender: false,
                 sendingFeilet: false,
-            });
+            };
         }
         case actiontyper.SYKEPENGESOKNAD_BERIKELSE_HENTET: {
-            const berikelse = Object.assign({}, action.data, {
+            const berikelse = {
+                ...action.data,
                 forrigeSykeforloepTom: action.data.forrigeSykeforloepTom ? new Date(action.data.forrigeSykeforloepTom) : action.data.forrigeSykeforloepTom,
-            });
+            };
             const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, berikelse);
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 data,
                 henterBerikelse: false,
                 henterBerikelseFeilet: false,
-            });
+            };
         }
         case actiontyper.HENTER_SYKEPENGESOKNAD_BERIKELSE: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 henterBerikelse: true,
                 henterBerikelseFeilet: false,
-            });
+            };
         }
         case actiontyper.SYKEPENGESOKNAD_BERIKELSE_FEILET: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 henterBerikelse: false,
                 henterBerikelseFeilet: true,
-            });
+            };
         }
         case actiontyper.AVBRYTER_SOKNAD: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 avbryter: true,
-            });
+            };
         }
         case actiontyper.AVBRYT_SOKNAD_FEILET: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 avbryter: false,
                 avbrytFeilet: true,
-            });
+            };
         }
         case actiontyper.SOKNAD_AVBRUTT: {
             const soknad = finnSoknad({ sykepengesoknader: state }, action.sykepengesoknadsId);
@@ -187,33 +209,37 @@ export default function sykepengesoknader(state = initiellState, action) {
                 status,
                 avbruttDato: new Date(),
             });
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 data,
                 avbryter: false,
                 avbrytFeilet: false,
-            });
+            };
         }
         case actiontyper.GJENAPNER_SOKNAD: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 gjenapner: true,
-            });
+            };
         }
         case actiontyper.GJENAPNE_SOKNAD_FEILET: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 gjenapner: false,
                 gjenapneFeilet: true,
-            });
+            };
         }
         case actiontyper.SOKNAD_GJENAPNET: {
             const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, {
                 status: NY,
                 avbruttDato: null,
             });
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 data,
                 gjenapner: false,
                 gjenapneFeilet: false,
-            });
+            };
         }
         default:
             return state;

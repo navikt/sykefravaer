@@ -92,9 +92,10 @@ SideComponent.propTypes = {
 };
 
 export const mapStateToProps = (state) => {
-    return Object.assign({}, state.brukerinfo.innlogging, {
+    return {
+        ...state.brukerinfo.innlogging,
         hentingFeilet: state.brukerinfo.innlogging.hentingFeilet,
-    });
+    };
 };
 
 export default connect(mapStateToProps, actions)(SideComponent);

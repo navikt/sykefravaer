@@ -34,7 +34,7 @@ import history from '../../history';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { getOppfolgingsdialog, isEmpty } from '../../utils/oppfolgingsdialogUtils';
+import { getOppfolgingsdialog } from '../../utils/oppfolgingsdialogUtils';
 import Oppfolgingsdialog from '../../components/oppfolgingsdialoger/Oppfolgingsdialog';
 import {
     brodsmule as brodsmulePt,

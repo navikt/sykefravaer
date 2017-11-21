@@ -63,9 +63,10 @@ export const mapStateToProps = (state, ownProps) => {
     })[0];
     let skjemasoknad = state.form && state.form[SYKEPENGER_SKJEMANAVN] ? state.form[SYKEPENGER_SKJEMANAVN].values : undefined;
     if (skjemasoknad && sykepengesoknad.forrigeSykeforloepTom) {
-        skjemasoknad = Object.assign({}, skjemasoknad, {
+        skjemasoknad = {
+            ...skjemasoknad,
             forrigeSykeforloepTom: sykepengesoknad.forrigeSykeforloepTom,
-        });
+        };
     }
     return {
         sykepengesoknad,

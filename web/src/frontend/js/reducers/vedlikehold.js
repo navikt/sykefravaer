@@ -20,18 +20,20 @@ const vedlikehold = (state = defaultState, action = {}) => {
             };
         }
         case actiontyper.HENTER_VEDLIKEHOLD: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 henter: true,
                 hentingFeilet: false,
                 hentet: false,
-            });
+            };
         }
         case actiontyper.HENT_VEDLIKEHOLD_FEILET: {
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 henter: false,
                 hentingFeilet: true,
                 hentet: true,
-            });
+            };
         }
         default: {
             return state;

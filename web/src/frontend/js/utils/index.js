@@ -24,7 +24,7 @@ export const getObjectValueByString = (o, s) => {
     let string = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
     string = string.replace(/^\./, ''); // strip a leading dot
     const keys = string.split('.');
-    let obj = Object.assign({}, o);
+    let obj = { ...o };
     for (let i = 0, n = keys.length; i < n; i += 1) {
         const key = keys[i];
         if (key in obj) {

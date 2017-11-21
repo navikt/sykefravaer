@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
+import { Field, getFormValues } from 'redux-form';
 import { getLedetekst } from 'digisyfo-npm';
+import { connect } from 'react-redux';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
 import { lagDesimaltall, getObjectValueByString } from '../../../utils';
+import { tilDatePeriode } from '../../../utils/periodeUtils';
 import DetteTilsvarer, { getStillingsprosent } from './DetteTilsvarer';
 import { soknadperiode, fieldPropTypes } from '../../../propTypes';
+import { SYKEPENGER_SKJEMANAVN } from '../setup';
 
 class AngiTid extends Component {
     constructor(props) {
@@ -59,12 +62,12 @@ class AngiTid extends Component {
     }
 
     render() {
-        const { input, autofill, untouch, arbeidsgiver, periode, aktiviteter, aktivitetIndex } = this.props;
+        const { input, autofill, untouch, arbeidsgiver, periode, ferieOgPermisjonPerioder, aktiviteter, aktivitetIndex } = this.props;
 
         const avvik = aktiviteter[aktivitetIndex].avvik;
         const timer = avvik.timer.input.value;
         const arbeidstimerNormalUke = avvik.arbeidstimerNormalUke.input.value;
-        const stillingsprosent = getStillingsprosent(timer, arbeidstimerNormalUke, periode);
+        const stillingsprosent = getStillingsprosent(timer, arbeidstimerNormalUke, periode, ferieOgPermisjonPerioder);
         const visTilsvarendeIProsent = timer !== '' && stillingsprosent !== undefined;
 
         const enheter = [{
@@ -124,7 +127,13 @@ class AngiTid extends Component {
                     })
                 }
             </div>
-            <Field onBlur={lagreStillingsprosent} id={this.getAntallName()} component={TekstfeltMedEnhet} parse={lagDesimaltall} label={this.getEnhetLabel()} name={this.getAntallName()} />
+            <Field
+                onBlur={lagreStillingsprosent}
+                id={this.getAntallName()}
+                component={TekstfeltMedEnhet}
+                parse={lagDesimaltall}
+                label={this.getEnhetLabel()}
+                name={this.getAntallName()} />
             { visTilsvarendeIProsent && <DetteTilsvarer stillingsprosent={stillingsprosent} /> }
         </div>);
     }
@@ -138,6 +147,7 @@ AngiTid.propTypes = {
     untouch: PropTypes.func,
     arbeidsgiver: PropTypes.string,
     periode: soknadperiode,
+    ferieOgPermisjonPerioder: PropTypes.arrayOf(soknadperiode),
     aktiviteter: PropTypes.arrayOf(PropTypes.shape({
         avvik: PropTypes.shape(fieldPropTypes),
         arbeidsgrad: PropTypes.shape(fieldPropTypes),
@@ -147,4 +157,20 @@ AngiTid.propTypes = {
     })),
 };
 
-export default AngiTid;
+const mapStateToProps = (state) => {
+    const values = getFormValues(SYKEPENGER_SKJEMANAVN)(state);
+    let ferieOgPermisjonPerioder = [];
+    if (values.harHattFeriePermisjonEllerUtenlandsopphold) {
+        if (values.harHattFerie) {
+            ferieOgPermisjonPerioder = [...ferieOgPermisjonPerioder, ...values.ferie];
+        }
+        if (values.harHattPermisjon) {
+            ferieOgPermisjonPerioder = [...ferieOgPermisjonPerioder, ...values.permisjon];
+        }
+    }
+    return {
+        ferieOgPermisjonPerioder: ferieOgPermisjonPerioder.map(tilDatePeriode),
+    };
+}
+
+export default connect(mapStateToProps)(AngiTid);

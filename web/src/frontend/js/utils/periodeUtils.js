@@ -10,7 +10,7 @@ const datoErHelgedag = (dato) => {
     return dato.getDay() === LORDAG || dato.getDay() === SONDAG;
 };
 
-const tilDatePeriode = (periode) => {
+export const tilDatePeriode = (periode) => {
     let fom;
     let tom;
     try {
@@ -123,4 +123,24 @@ export const antallVirkedagerIPeriode = (periode) => {
         }
     }
     return antallVirkedager;
+};
+
+export const antallVirkedagerIPerioder = (perioder) => {
+    const talteVirkedager = []; // For å unngå at samme virkedag telles to ganger
+    const DOGN = 1000 * 60 * 60 * 24;
+
+    return perioder.reduce((acc, periode) => {
+        const start = periode.fom.getTime();
+        const slutt = periode.tom.getTime();
+        let antallVirkedager = acc;
+        for (let i = start; i <= slutt; i += DOGN) {
+            const d = new Date(i);
+            const timestamp = d.getTime();
+            if (!datoErHelgedag(d) && talteVirkedager.indexOf(timestamp) === -1) {
+                antallVirkedager += 1;
+                talteVirkedager.push(timestamp);
+            }
+        }
+        return antallVirkedager;
+    }, 0);
 };

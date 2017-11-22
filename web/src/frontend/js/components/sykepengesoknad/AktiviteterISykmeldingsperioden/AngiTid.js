@@ -31,6 +31,7 @@ class AngiTid extends Component {
 
     componentDidMount() {
         this.setEnhet(this.getValgtEnhet());
+        this.lagreStillingsprosent();
     }
 
     setEnhet(enhet) {
@@ -61,14 +62,35 @@ class AngiTid extends Component {
         return `angiTid-${this.props.aktivitetIndex}`;
     }
 
-    render() {
-        const { input, autofill, untouch, arbeidsgiver, periode, ferieOgPermisjonPerioder, aktiviteter, aktivitetIndex } = this.props;
-
-        const avvik = aktiviteter[aktivitetIndex].avvik;
+    getStillingsprosent() {
+        const { periode, ferieOgPermisjonPerioder } = this.props;
+        const avvik = this.getAvvik();
         const timer = avvik.timer.input.value;
         const arbeidstimerNormalUke = avvik.arbeidstimerNormalUke.input.value;
-        const stillingsprosent = getStillingsprosent(timer, arbeidstimerNormalUke, periode, ferieOgPermisjonPerioder);
-        const visTilsvarendeIProsent = timer !== '' && stillingsprosent !== undefined;
+        return getStillingsprosent(timer, arbeidstimerNormalUke, periode, ferieOgPermisjonPerioder);
+    }
+
+    getAvvik() {
+        const { aktiviteter, aktivitetIndex } = this.props;
+        return aktiviteter[aktivitetIndex].avvik;
+    }
+
+    lagreStillingsprosent() {
+        const stillingsprosent = this.getStillingsprosent();
+        if (this.getValgtEnhet() === 'timer' && this.visTilsvarendeIProsent()) {
+            this.props.autofill(this.props.names[4], stillingsprosent);
+        }
+    }
+
+    visTilsvarendeIProsent() {
+        const avvik = this.getAvvik();
+        const timer = avvik.timer.input.value;
+        const stillingsprosent = this.getStillingsprosent();
+        return timer !== '' && stillingsprosent !== undefined;
+    }
+
+    render() {
+        const { autofill, untouch, arbeidsgiver } = this.props;
 
         const enheter = [{
             value: 'prosent',
@@ -76,17 +98,17 @@ class AngiTid extends Component {
             value: 'timer',
         }];
 
-        const lagreStillingsprosent = () => {
-            if (this.getValgtEnhet() === 'timer' && visTilsvarendeIProsent) {
-                autofill(this.props.names[4], stillingsprosent);
-            }
-        };
-
         return (<div>
             <div className="skjema__input blokk">
-                <label htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`} className="skjema__sporsmal">{getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal')}</label>
+                <label
+                    htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`}
+                    className="skjema__sporsmal">
+                        {getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal')}
+                    </label>
                 <Field
-                    onBlur={lagreStillingsprosent}
+                    onBlur={() => {
+                        this.lagreStillingsprosent();
+                    }}
                     name={this.props.names[2]}
                     id={this.props.names[2]}
                     component={TekstfeltMedEnhet}
@@ -128,20 +150,21 @@ class AngiTid extends Component {
                 }
             </div>
             <Field
-                onBlur={lagreStillingsprosent}
+                onBlur={() => {
+                    this.lagreStillingsprosent();
+                }}
                 id={this.getAntallName()}
                 component={TekstfeltMedEnhet}
                 parse={lagDesimaltall}
                 label={this.getEnhetLabel()}
                 name={this.getAntallName()} />
-            { visTilsvarendeIProsent && <DetteTilsvarer stillingsprosent={stillingsprosent} /> }
+            { this.visTilsvarendeIProsent() && <DetteTilsvarer stillingsprosent={this.getStillingsprosent()} /> }
         </div>);
     }
 }
 
 AngiTid.propTypes = {
     aktivitetIndex: PropTypes.number,
-    input: fieldPropTypes.input,
     names: PropTypes.arrayOf(PropTypes.string),
     autofill: PropTypes.func,
     untouch: PropTypes.func,

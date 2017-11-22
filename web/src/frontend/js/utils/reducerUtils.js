@@ -13,3 +13,9 @@ export const lederHarBlittAvkreftet = (ledere, nesteLedere) => {
 export const henterEllerHarHentetToggles = (toggles) => {
     return toggles.henter || toggles.hentet;
 };
+
+export const hentetEllerHentingFeilet = (reducere) => {
+    return reducere.filter((reducer) => {
+        return reducer.hentet || reducer.hentingFeilet;
+    }).length === reducere.length;
+};

@@ -96,7 +96,7 @@ describe('Oppfolgingsdialog', () => {
 
     it('Skal vise AvbruttGodkjentPlanVarsel, om oppfolgingsdialogAvbrutt er true', () => {
         component = shallow(<Oppfolgingsdialog
-            avbrytdialogReducer={{ oppfolgingsdialogAvbrutt: true }}
+            avbrytdialogReducer={{ sendt: true }}
             settAktivtSteg={settAktivtSteg}
             settDialog={settDialog}
             oppfolgingsdialog={oppfolgingsdialog}

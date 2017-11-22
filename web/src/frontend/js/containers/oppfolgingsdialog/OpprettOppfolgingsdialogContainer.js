@@ -27,6 +27,7 @@ import {
 import {
     henterEllerHarHentetLedere,
     henterEllerHarHentetSykmeldinger,
+    hentetEllerHentingFeilet,
 } from '../../utils/reducerUtils';
 import OpprettOppfolgingsdialog from '../../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
@@ -154,10 +155,10 @@ export const mapStateToProps = (state) => {
         || state.ledere.hentingFeilet
         || state.oppfolgingsdialoger.hentingFeilet
         || state.tilgang.hentingFeilet,
-        hentet: state.tilgang.hentet
-        && state.dineSykmeldinger.hentet
-        && state.ledere.hentet
-        && state.oppfolgingsdialoger.hentet,
+        hentet: hentetEllerHentingFeilet([state.tilgang,
+            state.dineSykmeldinger,
+            state.ledere,
+            state.oppfolgingsdialoger.hentet]),
         sender: state.oppfolgingsdialoger.opprettet,
         sendingFeilet: state.oppfolgingsdialoger.opprettingFeilet,
         brodsmuler: [{

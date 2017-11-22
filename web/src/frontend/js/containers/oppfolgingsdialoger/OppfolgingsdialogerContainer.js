@@ -33,6 +33,7 @@ import {
     henterEllerHarHentetLedere,
     henterEllerHarHentetSykmeldinger,
     lederHarBlittAvkreftet,
+    hentetEllerHentingFeilet,
 } from '../../utils/reducerUtils';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { avkreftLeder, hentLedere } from '../../actions/ledere_actions';
@@ -139,10 +140,11 @@ export const mapStateToProps = (state) => {
         || state.tilgang.hentingFeilet
         || state.dineSykmeldinger.hentingFeilet
         || state.ledere.hentingFeilet,
-        hentet: state.tilgang.hentet
-        && state.oppfolgingsdialoger.hentet
-        && state.dineSykmeldinger.hentet
-        && state.ledere.hentet,
+        hentet: hentetEllerHentingFeilet([
+            state.tilgang,
+            state.dineSykmeldinger,
+            state.ledere,
+            state.oppfolgingsdialoger]),
         sender: state.oppfolgingsdialoger.oppretter
         || state.ledere.avkrefter,
         sendingFeilet: state.oppfolgingsdialoger.hentingFeilet

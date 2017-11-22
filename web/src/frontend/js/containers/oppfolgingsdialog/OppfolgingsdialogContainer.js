@@ -44,6 +44,7 @@ import { getOppfolgingsdialog } from '../../utils/oppfolgingsdialogUtils';
 import Oppfolgingsdialog from '../../components/oppfolgingsdialoger/Oppfolgingsdialog';
 import {
     henterEllerHarHentetToggles,
+    hentetEllerHentingFeilet,
 } from '../../utils/reducerUtils';
 import {
     brodsmule as brodsmulePt,
@@ -200,6 +201,9 @@ export function mapStateToProps(state, ownProps) {
         hentingFeilet: state.oppfolgingsdialoger.hentingFeilet
         || state.ledetekster.hentingFeilet
         || state.tilgang.hentingFeilet,
+        hentet: hentetEllerHentingFeilet([
+            state.tilgang,
+            state.oppfolgingsdialoger]),
         sender: state.oppfolgingsdialoger.avviser
         || state.oppfolgingsdialoger.godkjenner
         || state.avbrytdialogReducer.sender
@@ -219,8 +223,6 @@ export function mapStateToProps(state, ownProps) {
         tilgang: state.tilgang.data,
         tilgangReducer: state.tilgang,
         navigasjontoggles: state.navigasjontoggles,
-        hentet: state.oppfolgingsdialoger.hentet
-        && state.tilgang.hentet,
         delmednav: state.delmednav,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),

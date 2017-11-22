@@ -93,7 +93,7 @@ class Oppfolgingsdialog extends Component {
             delmednav,
             oppfolgingsdialoger,
         } = this.props;
-        const { oppfolgingsdialogAvbrutt } = this.props.avbrytdialogReducer;
+        const oppfolgingsdialogAvbrutt = this.props.avbrytdialogReducer.sendt;
         let panel;
         let disableNavigation = false;
         if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && this.state.visAvvisPlanKvittering) {

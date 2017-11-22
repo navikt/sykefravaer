@@ -21,6 +21,10 @@ describe('OpprettOppfolgingsdialogContainer', () => {
     let hentLedere;
     let hentOppfolgingsdialoger;
     let component;
+    let sykmeldingerReducer;
+    let tilgangReducer;
+    let ledereReducer;
+    let oppfolgingsdialogerReducer;
     const ikkeTilgang = {
         harTilgang: false,
     };
@@ -29,6 +33,10 @@ describe('OpprettOppfolgingsdialogContainer', () => {
     };
 
     beforeEach(() => {
+        sykmeldingerReducer = {};
+        tilgangReducer = {};
+        ledereReducer = {};
+        oppfolgingsdialogerReducer = {};
         sjekkTilgang = sinon.spy();
         hentDineSykmeldinger = sinon.spy();
         hentLedere = sinon.spy();
@@ -37,6 +45,10 @@ describe('OpprettOppfolgingsdialogContainer', () => {
 
     it('Skal vise spinner dersom data hentes', () => {
         component = shallow(<OpprettOppfolgingsdialogSide
+            sykmeldingerReducer={sykmeldingerReducer}
+            tilgangReducer={tilgangReducer}
+            ledereReducer={ledereReducer}
+            oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
             hentDineSykmeldinger={hentDineSykmeldinger}
             hentLedere={hentLedere}
             hentOppfolgingsdialoger={hentOppfolgingsdialoger}
@@ -48,17 +60,25 @@ describe('OpprettOppfolgingsdialogContainer', () => {
 
     it('Skal vise spinner dersom dialog opprettes', () => {
         component = shallow(<OpprettOppfolgingsdialogSide
+            sykmeldingerReducer={sykmeldingerReducer}
+            tilgangReducer={tilgangReducer}
+            ledereReducer={ledereReducer}
+            oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
             hentDineSykmeldinger={hentDineSykmeldinger}
             hentLedere={hentLedere}
             hentOppfolgingsdialoger={hentOppfolgingsdialoger}
             sjekkTilgang={sjekkTilgang}
-            oppretter
+            sender
         />);
         expect(component.find(AppSpinner)).to.have.length(1);
     });
 
     it('Skal vise feilmelding dersom hentingFeilet', () => {
         component = shallow(<OpprettOppfolgingsdialogSide
+            sykmeldingerReducer={sykmeldingerReducer}
+            tilgangReducer={tilgangReducer}
+            ledereReducer={ledereReducer}
+            oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
             hentDineSykmeldinger={hentDineSykmeldinger}
             hentLedere={hentLedere}
             hentOppfolgingsdialoger={hentOppfolgingsdialoger}
@@ -70,17 +90,25 @@ describe('OpprettOppfolgingsdialogContainer', () => {
 
     it('Skal vise feilmelding dersom opprettingFeilet', () => {
         component = shallow(<OpprettOppfolgingsdialogSide
+            sykmeldingerReducer={sykmeldingerReducer}
+            tilgangReducer={tilgangReducer}
+            ledereReducer={ledereReducer}
+            oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
             hentDineSykmeldinger={hentDineSykmeldinger}
             hentLedere={hentLedere}
             hentOppfolgingsdialoger={hentOppfolgingsdialoger}
             sjekkTilgang={sjekkTilgang}
-            opprettingFeilet
+            sendingFeilet
         />);
         expect(component.find(Feilmelding)).to.have.length(1);
     });
 
     it('Skal vise OppfolgingsdialogInfoboks dersom sykmeldt ikke har tilgang', () => {
         component = shallow(<OpprettOppfolgingsdialogSide
+            sykmeldingerReducer={sykmeldingerReducer}
+            tilgangReducer={tilgangReducer}
+            ledereReducer={ledereReducer}
+            oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
             hentDineSykmeldinger={hentDineSykmeldinger}
             hentLedere={hentLedere}
             hentOppfolgingsdialoger={hentOppfolgingsdialoger}
@@ -92,6 +120,10 @@ describe('OpprettOppfolgingsdialogContainer', () => {
 
     it('Skal vise Sidetopp dersom henting er OK', () => {
         component = shallow(<OpprettOppfolgingsdialogSide
+            sykmeldingerReducer={sykmeldingerReducer}
+            tilgangReducer={tilgangReducer}
+            ledereReducer={ledereReducer}
+            oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
             hentDineSykmeldinger={hentDineSykmeldinger}
             hentLedere={hentLedere}
             hentOppfolgingsdialoger={hentOppfolgingsdialoger}
@@ -103,6 +135,10 @@ describe('OpprettOppfolgingsdialogContainer', () => {
 
     it('Skal vise OpprettOppfolgingsdialog dersom henting er OK', () => {
         component = shallow(<OpprettOppfolgingsdialogSide
+            sykmeldingerReducer={sykmeldingerReducer}
+            tilgangReducer={tilgangReducer}
+            ledereReducer={ledereReducer}
+            oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
             hentDineSykmeldinger={hentDineSykmeldinger}
             hentLedere={hentLedere}
             hentOppfolgingsdialoger={hentOppfolgingsdialoger}

@@ -31,12 +31,14 @@ describe('Arbeidsoppgaver', () => {
     let lagreArbeidsoppgave;
     let slettArbeidsoppgave;
     let arbeidsforhold;
+    let arbeidsoppgaverReducer;
     const oppfolgingsdialog = getOppfolgingsdialog();
 
     beforeEach(() => {
         lagreArbeidsoppgave = sinon.spy();
         slettArbeidsoppgave = sinon.spy();
         setLedetekster(ledetekster);
+        arbeidsoppgaverReducer = {};
         arbeidsgiver = {
             naermesteLeder: {
                 navn: 'Arbeidsgiver',
@@ -60,7 +62,7 @@ describe('Arbeidsoppgaver', () => {
     it('Skal vise spinner dersom data lagres', () => {
         component = shallow(<Arbeidsoppgaver
             oppfolgingsdialog={oppfolgingsdialog}
-            lagrer
+            arbeidsoppgaverReducer={{ lagrer: true }}
         />);
         expect(component.contains(<AppSpinner />)).to.equal(true);
     });
@@ -68,7 +70,7 @@ describe('Arbeidsoppgaver', () => {
     it('Skal vise spinner dersom data slettes', () => {
         component = shallow(<Arbeidsoppgaver
             oppfolgingsdialog={oppfolgingsdialog}
-            sletter
+            arbeidsoppgaverReducer={{ sletter: true }}
         />);
         expect(component.contains(<AppSpinner />)).to.equal(true);
     });
@@ -76,7 +78,7 @@ describe('Arbeidsoppgaver', () => {
     it('Skal vise feilmelding dersom lagring feilet', () => {
         component = shallow(<Arbeidsoppgaver
             oppfolgingsdialog={oppfolgingsdialog}
-            lagringFeilet
+            arbeidsoppgaverReducer={{ lagringFeilet: true }}
         />);
         expect(component.contains(<Feilmelding />)).to.equal(true);
     });
@@ -84,7 +86,7 @@ describe('Arbeidsoppgaver', () => {
     it('Skal vise feilmelding dersom sletting feilet', () => {
         component = shallow(<Arbeidsoppgaver
             oppfolgingsdialog={oppfolgingsdialog}
-            slettingFeilet
+            arbeidsoppgaverReducer={{ slettingFeilet: true }}
         />);
         expect(component.contains(<Feilmelding />)).to.equal(true);
     });
@@ -99,8 +101,8 @@ describe('Arbeidsoppgaver', () => {
                 arbeidsoppgaveListe: [],
             });
             componentUtenArbeidsoppgaver = shallow(<Arbeidsoppgaver
+                arbeidsoppgaverReducer={arbeidsoppgaverReducer}
                 oppfolgingsdialog={oppfolgingsdialogUtenArbeidsoppgaver}
-                oppfolgingsdialogerHentet
                 lagreArbeidsoppgave={lagreArbeidsoppgave}
                 slettArbeidsoppgave={slettArbeidsoppgave}
                 arbeidsforhold={arbeidsforhold}
@@ -135,11 +137,10 @@ describe('Arbeidsoppgaver', () => {
         beforeEach(() => {
             componentMedArbeidsoppgaver = shallow(<Arbeidsoppgaver
                 oppfolgingsdialog={oppfolgingsdialog}
-                oppfolgingsdialogerHentet
                 lagreArbeidsoppgave={lagreArbeidsoppgave}
                 slettArbeidsoppgave={slettArbeidsoppgave}
                 arbeidsforhold={arbeidsforhold}
-                lagret
+                arbeidsoppgaverReducer={{ lagret: true }}
             />);
         });
 
@@ -175,8 +176,8 @@ describe('Arbeidsoppgaver', () => {
                 }],
             });
             const componentMedNyeArbeidsoppgaver = shallow(<Arbeidsoppgaver
+                arbeidsoppgaverReducer={arbeidsoppgaverReducer}
                 oppfolgingsdialog={oppfolgingsdialogMedNyeArbeidsoppgaver}
-                oppfolgingsdialogerHentet
                 lagreArbeidsoppgave={lagreArbeidsoppgave}
                 slettArbeidsoppgave={slettArbeidsoppgave}
                 arbeidsforhold={arbeidsforhold}
@@ -194,8 +195,8 @@ describe('Arbeidsoppgaver', () => {
                 }],
             });
             const componentAvbruttMedNyeArbeidsoppgaver = shallow(<Arbeidsoppgaver
+                arbeidsoppgaverReducer={arbeidsoppgaverReducer}
                 oppfolgingsdialog={oppfolgingsdialogMedNyeArbeidsoppgaver}
-                oppfolgingsdialogerHentet
                 lagreArbeidsoppgave={lagreArbeidsoppgave}
                 slettArbeidsoppgave={slettArbeidsoppgave}
                 arbeidsforhold={arbeidsforhold}

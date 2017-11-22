@@ -34,6 +34,7 @@ describe('Oppfolgingsdialog', () => {
     let hentForrigeNaermesteLeder;
     let hentKontaktinfo;
     let hentArbeidsforhold;
+    let avbrytdialogReducer;
     const data = {
         henter: [],
         hentet: [],
@@ -51,6 +52,7 @@ describe('Oppfolgingsdialog', () => {
     beforeEach(() => {
         settAktivtSteg = sinon.spy();
         navigasjontoggles = { steg: 1 };
+        avbrytdialogReducer = {};
         oppfolgingsdialog = getOppfolgingsdialog();
         settDialog = sinon.spy();
         hentForrigeNaermesteLeder = sinon.spy();
@@ -60,6 +62,7 @@ describe('Oppfolgingsdialog', () => {
         hentKontaktinfo = sinon.spy();
         hentVirksomhet = sinon.spy();
         component = shallow(<Oppfolgingsdialog
+            avbrytdialogReducer={avbrytdialogReducer}
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             settDialog={settDialog}
@@ -93,6 +96,7 @@ describe('Oppfolgingsdialog', () => {
 
     it('Skal vise AvbruttGodkjentPlanVarsel, om oppfolgingsdialogAvbrutt er true', () => {
         component = shallow(<Oppfolgingsdialog
+            avbrytdialogReducer={{ oppfolgingsdialogAvbrutt: true }}
             settAktivtSteg={settAktivtSteg}
             settDialog={settDialog}
             oppfolgingsdialog={oppfolgingsdialog}
@@ -128,6 +132,7 @@ describe('Oppfolgingsdialog', () => {
             },
         });
         component = shallow(<Oppfolgingsdialog
+            avbrytdialogReducer={avbrytdialogReducer}
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
@@ -163,6 +168,7 @@ describe('Oppfolgingsdialog', () => {
             },
         });
         component = shallow(<Oppfolgingsdialog
+            avbrytdialogReducer={avbrytdialogReducer}
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
@@ -188,6 +194,7 @@ describe('Oppfolgingsdialog', () => {
             godkjentPlan: {},
         });
         component = shallow(<Oppfolgingsdialog
+            avbrytdialogReducer={avbrytdialogReducer}
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
@@ -216,6 +223,7 @@ describe('Oppfolgingsdialog', () => {
         });
         navigasjontoggles = { steg: 1 };
         component = shallow(<Oppfolgingsdialog
+            avbrytdialogReducer={avbrytdialogReducer}
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
@@ -244,6 +252,7 @@ describe('Oppfolgingsdialog', () => {
         });
         navigasjontoggles = { steg: 2 };
         component = shallow(<Oppfolgingsdialog
+            avbrytdialogReducer={avbrytdialogReducer}
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
@@ -272,6 +281,7 @@ describe('Oppfolgingsdialog', () => {
         });
         navigasjontoggles = { steg: 3 };
         component = shallow(<Oppfolgingsdialog
+            avbrytdialogReducer={avbrytdialogReducer}
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}
@@ -300,6 +310,7 @@ describe('Oppfolgingsdialog', () => {
         });
         navigasjontoggles = { steg: 3 };
         component = shallow(<Oppfolgingsdialog
+            avbrytdialogReducer={avbrytdialogReducer}
             settAktivtSteg={settAktivtSteg}
             oppfolgingsdialog={oppfolgingsdialog}
             navigasjontoggles={navigasjontoggles}

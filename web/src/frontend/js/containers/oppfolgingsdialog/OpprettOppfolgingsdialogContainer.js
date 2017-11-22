@@ -8,6 +8,9 @@ import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     sjekkTilgang,
     proptypes as oppfolgingProptypes,
+    henterEllerHarHentetTilgang,
+    henterEllerHarHentetOppfolgingsdialoger,
+    oppfolgingsdialogHarBlittOpprettet,
 } from 'oppfolgingsdialog-npm';
 import Side from '../../sider/Side';
 import Sidetopp from '../../components/Sidetopp';
@@ -18,7 +21,13 @@ import {
     brodsmule as brodsmulePt,
     sykmelding as sykmeldingPt,
     naermesteLeder as naermesteLederPt,
+    dinesykmeldingerReducerPt,
+    ledereReducerPt,
 } from '../../propTypes';
+import {
+    henterEllerHarHentetLedere,
+    henterEllerHarHentetSykmeldinger,
+} from '../../utils/reducerUtils';
 import OpprettOppfolgingsdialog from '../../components/oppfolgingsdialoger/OpprettOppfolgingsdialog';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../../actions/ledere_actions';
@@ -34,24 +43,25 @@ export class OpprettOppfolgingsdialogSide extends Component {
     }
 
     componentWillMount() {
-        const { tilgangSjekket, sykmeldingerHentet, ledereHentet, oppfolgingsdialogerHentet } = this.props;
-        if (!tilgangSjekket) {
+        const { tilgangReducer, sykmeldingerReducer, ledereReducer, oppfolgingsdialogerReducer } = this.props;
+        if (!henterEllerHarHentetTilgang(tilgangReducer)) {
             this.props.sjekkTilgang();
         }
-        if (!sykmeldingerHentet) {
+        if (!henterEllerHarHentetSykmeldinger(sykmeldingerReducer)) {
             this.props.hentDineSykmeldinger();
         }
-        if (!ledereHentet) {
+        if (!henterEllerHarHentetLedere(ledereReducer)) {
             this.props.hentLedere();
         }
-        if (!oppfolgingsdialogerHentet) {
+        if (!henterEllerHarHentetOppfolgingsdialoger(oppfolgingsdialogerReducer)) {
             this.props.hentOppfolgingsdialoger();
         }
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.oppretter && this.props.opprettet) {
-            history.push(`/sykefravaer/oppfolgingsplaner/${this.props.opprettetId}`);
+    componentWillReceiveProps(nextProps) {
+        const { oppfolgingsdialogerReducer } = this.props;
+        if (oppfolgingsdialogHarBlittOpprettet(oppfolgingsdialogerReducer, nextProps.oppfolgingsdialogerReducer)) {
+            history.push(`/sykefravaer/oppfolgingsplaner/${nextProps.oppfolgingsdialogerReducer.opprettetId}`);
             this.props.hentOppfolgingsdialoger();
         }
     }
@@ -67,13 +77,13 @@ export class OpprettOppfolgingsdialogSide extends Component {
     }
 
     render() {
-        const { brodsmuler, sykmeldinger, naermesteLedere, oppfolgingsdialoger, henter, hentingFeilet, oppretter, opprettingFeilet, tilgang, hentet } = this.props;
-        return (<Side tittel={getLedetekst('oppfolgingsdialoger.opprett.tittel')} brodsmuler={brodsmuler} henter={henter || oppretter || !hentet}>
+        const { brodsmuler, sykmeldinger, naermesteLedere, oppfolgingsdialoger, henter, hentingFeilet, sender, sendingFeilet, tilgang, hentet } = this.props;
+        return (<Side tittel={getLedetekst('oppfolgingsdialoger.opprett.tittel')} brodsmuler={brodsmuler} henter={henter || sender || !hentet}>
             {
                 (() => {
-                    if (henter || oppretter) {
+                    if (henter || sender) {
                         return <AppSpinner />;
-                    } else if (hentingFeilet || opprettingFeilet) {
+                    } else if (hentingFeilet || sendingFeilet) {
                         return (<Feilmelding />);
                     } else if (!tilgang.harTilgang) {
                         return (<OppfolgingsdialogInfoboks
@@ -105,24 +115,22 @@ OpprettOppfolgingsdialogSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    oppretter: PropTypes.bool,
-    opprettet: PropTypes.bool,
-    opprettetId: PropTypes.number,
-    opprettingFeilet: PropTypes.bool,
+    hentet: PropTypes.bool,
+    sender: PropTypes.bool,
+    sendingFeilet: PropTypes.bool,
     opprettOppfolgingsdialog: PropTypes.func,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     hentOppfolgingsdialoger: PropTypes.func,
-    oppfolgingsdialogerHentet: PropTypes.bool,
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
-    sykmeldingerHentet: PropTypes.bool,
     hentDineSykmeldinger: PropTypes.func,
     naermesteLedere: PropTypes.arrayOf(naermesteLederPt),
-    ledereHentet: PropTypes.bool,
     hentLedere: PropTypes.func,
     tilgang: oppfolgingProptypes.tilgangPt,
-    tilgangSjekket: PropTypes.bool,
     sjekkTilgang: PropTypes.func,
-    hentet: PropTypes.bool,
+    ledereReducer: ledereReducerPt,
+    sykmeldingerReducer: dinesykmeldingerReducerPt,
+    oppfolgingsdialogerReducer: oppfolgingProptypes.oppfolgingsdialogerAtPt,
+    tilgangReducer: oppfolgingProptypes.tilgangReducerPt,
 };
 
 export const mapStateToProps = (state) => {
@@ -130,17 +138,28 @@ export const mapStateToProps = (state) => {
         ledetekster: state.ledetekster.data,
         sykmeldinger: state.dineSykmeldinger.data,
         naermesteLedere: state.ledere.data,
-        henter: state.ledetekster.henter || state.dineSykmeldinger.henter || state.ledere.henter || state.oppfolgingsdialoger.henter || state.tilgang.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet || state.dineSykmeldinger.hentingFeilet || state.ledere.hentingFeilet || state.oppfolgingsdialoger.hentingFeilet || state.tilgang.hentingFeilet,
-        oppretter: state.oppfolgingsdialoger.oppretter,
-        opprettet: state.oppfolgingsdialoger.opprettet,
-        opprettingFeilet: state.oppfolgingsdialoger.opprettingFeilet,
-        sykmeldingerHentet: state.dineSykmeldinger.hentet,
-        ledereHentet: state.ledere.hentet,
-        oppfolgingsdialoger: state.oppfolgingsdialoger.data,
-        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
         tilgang: state.tilgang.data,
-        tilgangSjekket: state.tilgang.hentet,
+        oppfolgingsdialoger: state.oppfolgingsdialoger.data,
+        ledereReducer: state.ledere,
+        sykmeldingerReducer: state.dineSykmeldinger,
+        oppfolgingsdialogerReducer: state.oppfolgingsdialoger,
+        tilgangReducer: state.tilgang,
+        henter: state.ledetekster.henter
+        || state.dineSykmeldinger.henter
+        || state.ledere.henter
+        || state.oppfolgingsdialoger.henter
+        || state.tilgang.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet
+        || state.dineSykmeldinger.hentingFeilet
+        || state.ledere.hentingFeilet
+        || state.oppfolgingsdialoger.hentingFeilet
+        || state.tilgang.hentingFeilet,
+        hentet: state.tilgang.hentet
+        && state.dineSykmeldinger.hentet
+        && state.ledere.hentet
+        && state.oppfolgingsdialoger.hentet,
+        sender: state.oppfolgingsdialoger.opprettet,
+        sendingFeilet: state.oppfolgingsdialoger.opprettingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -149,11 +168,15 @@ export const mapStateToProps = (state) => {
             tittel: getLedetekst('oppfolgingsdialoger.sidetittel'),
             sti: '/oppfolgingsplaner',
         }],
-        opprettetId: state.oppfolgingsdialoger.opprettetId,
-        hentet: state.tilgang.hentet === true && state.dineSykmeldinger.hentet === true && state.ledere.hentet === true && state.oppfolgingsdialoger.hentet === true,
     };
 };
 
-const OppfolgingsdialogContainer = connect(mapStateToProps, { opprettOppfolgingsdialog, hentOppfolgingsdialoger, hentDineSykmeldinger, hentLedere, sjekkTilgang })(OpprettOppfolgingsdialogSide);
+const OppfolgingsdialogContainer = connect(mapStateToProps, {
+    opprettOppfolgingsdialog,
+    hentOppfolgingsdialoger,
+    hentDineSykmeldinger,
+    hentLedere,
+    sjekkTilgang,
+})(OpprettOppfolgingsdialogSide);
 
 export default OppfolgingsdialogContainer;

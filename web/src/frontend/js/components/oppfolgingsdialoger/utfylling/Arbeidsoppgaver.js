@@ -124,15 +124,17 @@ class Arbeidsoppgaver extends Component {
 
     render() {
         const {
-            lagrer,
-            lagret,
-            sletter,
-            lagringFeilet,
-            slettingFeilet,
             ledetekster,
             oppfolgingsdialog,
             oppfolgingsdialogAvbrutt,
         } = this.props;
+        const {
+            lagrer,
+            lagret,
+            lagringFeilet,
+            sletter,
+            slettingFeilet,
+        } = this.props.arbeidsoppgaverReducer;
         const antallNyeArbeidsoppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
             return !arbeidsoppgave.erVurdertAvSykmeldt && (!oppfolgingsdialog.arbeidstaker.sistInnlogget || new Date(arbeidsoppgave.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget));
         }).length;
@@ -236,12 +238,8 @@ class Arbeidsoppgaver extends Component {
 }
 
 Arbeidsoppgaver.propTypes = {
-    lagrer: PropTypes.bool,
-    lagret: PropTypes.bool,
-    sletter: PropTypes.bool,
-    lagringFeilet: PropTypes.bool,
-    slettingFeilet: PropTypes.bool,
     ledetekster: keyValue,
+    arbeidsoppgaverReducer: oppfolgingProptypes.arbeidsoppgaverReducerPt,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreArbeidsoppgave: PropTypes.func,

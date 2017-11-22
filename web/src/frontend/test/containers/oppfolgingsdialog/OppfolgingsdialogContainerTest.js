@@ -22,6 +22,8 @@ describe('OppfolgingsdialogContainer', () => {
     let hentArbeidsforhold;
     let hentToggles;
     let toggles;
+    let tilgangReducer;
+    let oppfolgingsdialogerReducer;
     let navigasjontoggles;
 
     describe('OppfolgingsdialogSide', () => {
@@ -38,6 +40,8 @@ describe('OppfolgingsdialogContainer', () => {
         navigasjontoggles = {
             steg: 1,
         };
+        tilgangReducer = {};
+        oppfolgingsdialogerReducer = {};
 
         beforeEach(() => {
             sjekkTilgang = sinon.spy();
@@ -49,6 +53,8 @@ describe('OppfolgingsdialogContainer', () => {
 
         it('Skal vise spinner dersom data hentes', () => {
             const component = shallow(<OppfolgingsdialogSide
+                tilgangReducer={tilgangReducer}
+                oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 henter
                 hentet={false}
@@ -64,6 +70,8 @@ describe('OppfolgingsdialogContainer', () => {
 
         it('Skal vise spinner dersom sender', () => {
             const component = shallow(<OppfolgingsdialogSide
+                tilgangReducer={tilgangReducer}
+                oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 sender
                 hentet={false}
@@ -79,6 +87,8 @@ describe('OppfolgingsdialogContainer', () => {
 
         it('Skal vise feilmelding dersom hentingFeilet', () => {
             const component = shallow(<OppfolgingsdialogSide
+                tilgangReducer={tilgangReducer}
+                oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 hentet={false}
                 hentingFeilet
@@ -94,6 +104,8 @@ describe('OppfolgingsdialogContainer', () => {
 
         it('Skal vise feilmelding dersom sendingFeilet', () => {
             const component = shallow(<OppfolgingsdialogSide
+                tilgangReducer={tilgangReducer}
+                oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 hentet={false}
                 sendingFeilet
@@ -109,6 +121,8 @@ describe('OppfolgingsdialogContainer', () => {
 
         it('Skal vise OppfolgingsdialogInfoboks dersom sykmeldt ikke har tilgang', () => {
             const component = shallow(<OppfolgingsdialogSide
+                tilgangReducer={tilgangReducer}
+                oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 tilgang={ikkeTilgang}
                 toggles={toggles}
@@ -123,6 +137,8 @@ describe('OppfolgingsdialogContainer', () => {
 
         it('Skal vise Oppfolgingsdialog dersom henting er OK', () => {
             const component = shallow(<OppfolgingsdialogSide
+                tilgangReducer={tilgangReducer}
+                oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 tilgang={tilgang}
                 toggles={toggles}
@@ -136,5 +152,4 @@ describe('OppfolgingsdialogContainer', () => {
             expect(component.find(Oppfolgingsdialog)).to.have.length(1);
         });
     });
-
 });

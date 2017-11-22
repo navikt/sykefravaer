@@ -100,9 +100,10 @@ class Arbeidsoppgaver extends Component {
             this.state.nyArbeidsoppgave = false;
             this.state.oppdatertArbeidsoppgave = true;
         }
-        const nyeValues = Object.assign({}, values, {
+        const nyeValues = {
+            ...values,
             arbeidsoppgavenavn: captitalizeFirstLetter(values.arbeidsoppgavenavn),
-        });
+        };
         this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialog.id, nyeValues);
     }
 

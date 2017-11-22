@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { getSvarsideModus } from 'moter-npm';
 import { getLedetekst, log } from 'digisyfo-npm';
-import { Experiment, Variant } from 'react-ab';
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     proptypes as oppfolgingProptypes,
@@ -18,6 +17,8 @@ import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentHendelser } from '../../actions/hendelser_actions';
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../aktivitetskrav/AktivitetskravvarselContainer';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
+
+const GRONN = 'GRØNN';
 
 const Li = ({ tekst, url, onClick }) => {
     return (<li>
@@ -85,19 +86,19 @@ const idAlleredeFunnet = (planer, id) => {
     }).length > 0;
 };
 
-const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, avventendeGodkjenninger, nyePlaner, visAktivitetskrav, svg, variant, className }) => {
+const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, avventendeGodkjenninger, nyePlaner, visAktivitetskrav }) => {
     if (!visOppgaver) {
         return null;
     }
     const onClick = () => {
-        log('Registrerer klikk', variant);
+        log('Registrerer klikk', GRONN);
         window.dataLayer.push({
             'event': 'DINE_OPPGAVER_KLIKK',
-            'variant': variant,
+            'variant': GRONN,
         });
     };
-    return (<div className={`landingspanel dineOppgaver ${className}`}>
-        <IllustrertInnhold ikon={`/sykefravaer/img/svg/landingsside/${svg}`} ikonAlt="Oppgaver">
+    return (<div className="landingspanel dineOppgaver">
+        <IllustrertInnhold ikon="/sykefravaer/img/svg/landingsside/oppgaver.svg" ikonAlt="Oppgaver">
             <div>
                 <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
                 <ul className="inngangsliste">
@@ -121,18 +122,11 @@ RendreOppgaver.propTypes = {
     visOppgaver: PropTypes.bool,
     mote: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     visAktivitetskrav: PropTypes.bool,
-    svg: PropTypes.string,
-    variant: PropTypes.string,
-    className: PropTypes.string,
 };
-
-const EKSPERIMENTNAVN = 'DINE_OPPGAVER_FARGE';
-const BLAA = 'BLÅ';
-const ROED = 'RØD';
 
 export class DineOppgaver extends Component {
     componentWillMount() {
-        const { sykmeldingerHentet, sykmeldingerHentingFeilet, hendelserHentet, hentingFeiletHendelser, oppfolgingsdialogerHentet } = this.props;
+        const { sykmeldingerHentet, sykmeldingerHentingFeilet, hendelserHentet, hentingFeiletHendelser, oppfolgingsdialogerHentet, visOppgaver } = this.props;
         if (!sykmeldingerHentet && !sykmeldingerHentingFeilet) {
             this.props.hentDineSykmeldinger();
         }
@@ -142,25 +136,17 @@ export class DineOppgaver extends Component {
         if (!oppfolgingsdialogerHentet) {
             this.props.hentOppfolgingsdialoger();
         }
+        if (visOppgaver) {
+            log('Registrerer visning', GRONN);
+            window.dataLayer.push({
+                'event': 'DINE_OPPGAVER_VIST',
+                'variant': GRONN,
+            });
+        }
     }
 
     render() {
-        return (<Experiment
-            name={EKSPERIMENTNAVN}
-            onChoice={(experiment, variant) => {
-                log('Registrerer visning', variant);
-                window.dataLayer.push({
-                    'event': 'DINE_OPPGAVER_VIST',
-                    'variant': variant,
-                });
-            }}>
-            <Variant name={BLAA}>
-                <RendreOppgaver {...this.props} className="dineOppgaver--bla" svg="oppgaver.svg" variant={BLAA} />
-            </Variant>
-            <Variant name={ROED}>
-                <RendreOppgaver {...this.props} className="dineOppgaver--roed" svg="oppgaver--roed.svg" variant={ROED} />
-            </Variant>
-        </Experiment>);
+        return <RendreOppgaver {...this.props} />;
     }
 }
 
@@ -173,6 +159,7 @@ DineOppgaver.propTypes = {
     hentingFeiletHendelser: PropTypes.bool,
     hendelserHentet: PropTypes.bool,
     oppfolgingsdialogerHentet: PropTypes.bool,
+    visOppgaver: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {

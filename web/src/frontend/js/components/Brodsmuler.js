@@ -85,9 +85,10 @@ class Brodsmuler extends Component {
                 {
                     synligeBrodsmuler
                         .map((smule, index) => {
-                            return Object.assign({}, smule, {
+                            return {
+                                ...smule,
                                 sisteSmule: synligeBrodsmuler.length === index + 1,
-                            });
+                            };
                         })
                         .map((smule, index) => {
                             return <Brodsmule key={index} {...smule} />;

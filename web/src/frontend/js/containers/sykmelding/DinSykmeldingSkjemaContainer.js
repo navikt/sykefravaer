@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getSykmelding, getLedetekst } from 'digisyfo-npm';
-import * as actionCreators from '../../actions/dinSykmelding_actions';
+import * as sykmeldingActions from '../../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../../components/sykmeldingskjema/DinSykmeldingSkjema';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import AppSpinner from '../../components/AppSpinner';
@@ -74,9 +74,10 @@ export const mapStateToProps = (state, ownProps) => {
 
     return {
         skjemaData: state.form.dinSykmeldingSkjema,
-        initialValues: Object.assign({}, sykmelding, {
+        initialValues: {
+            ...sykmelding,
             feilaktigeOpplysninger,
-        }),
+        },
         sykmelding,
         sykmeldingId,
         sender: state.arbeidsgiversSykmeldinger.sender,
@@ -93,10 +94,11 @@ export const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const DinSykmeldingSkjemaContainer = connect(mapStateToProps, Object.assign({}, actionCreators, {
+const DinSykmeldingSkjemaContainer = connect(mapStateToProps, {
+    ...sykmeldingActions,
     hentAktuelleArbeidsgivere,
     hentArbeidsgiversSykmeldinger,
     hentBrukerinfo,
-}))(Skjema);
+})(Skjema);
 
 export default DinSykmeldingSkjemaContainer;

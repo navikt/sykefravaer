@@ -6,7 +6,11 @@ const validate = (values, props) => {
     const foerDuBegynnerFeil = validerFoerDuBegynner(values, props);
     const fravaerOgFriskmeldingFeil = validerFravaerOgFriskmelding(values, props);
     const aktiviteterISykmeldingsperiodenFeil = validerAktiviteterISykmeldingsperioden(values, props);
-    const feilmeldinger = Object.assign({}, foerDuBegynnerFeil, fravaerOgFriskmeldingFeil, aktiviteterISykmeldingsperiodenFeil);
+    const feilmeldinger = {
+        ...foerDuBegynnerFeil,
+        ...fravaerOgFriskmeldingFeil,
+        ...aktiviteterISykmeldingsperiodenFeil,
+    };
 
     if (Object.keys(feilmeldinger).length > 0) {
         props.sendTilFoerDuBegynner(props.sykepengesoknad);

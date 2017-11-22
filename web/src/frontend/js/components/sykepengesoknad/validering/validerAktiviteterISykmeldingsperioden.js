@@ -3,6 +3,7 @@ import validerFoerDuBegynner from './validerFoerDuBegynner';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 import { ANNET } from '../../../enums/inntektskildetyper';
 import { fraInputdatoTilJSDato } from '../../../utils/datoUtils';
+import { getFeriePermisjonPerioder } from '../../../utils/sykepengesoknadUtils';
 import { getStillingsprosent } from '../AktiviteterISykmeldingsperioden/DetteTilsvarer';
 
 const parseString = (str) => {
@@ -22,7 +23,7 @@ export const overHundreogfemtiFeil = 'Du må oppgi et tall fra 1 til 150';
 export const sammeNormalAntallFeil = 'Vennligst oppi samme antall timer for alle periodene';
 export const antallTimerErMerEnn100ProsentFeil = 'Antall timer tilsvarer over 100 % av din stilling';
 
-const validerAktiviteter = (values, aktiviteter) => {
+const validerAktiviteter = (values, aktiviteter, feriePermisjonPerioder) => {
     const harSammeNormalAntall = values.aktiviteter && values.aktiviteter.filter((a) => {
         return a.jobbetMerEnnPlanlagt && a.avvik;
     }).map((a) => {
@@ -62,7 +63,7 @@ const validerAktiviteter = (values, aktiviteter) => {
                             res.arbeidsgrad = antallFeil;
                         }
                     } else if (enhet === 'timer') {
-                        const stillingsprosent = getStillingsprosent(timer, arbeidstimerNormalUke, aktivitet.periode);
+                        const stillingsprosent = getStillingsprosent(timer, arbeidstimerNormalUke, aktivitet.periode, feriePermisjonPerioder);
                         if (parseString(timer) > 150) {
                             res.timer = overHundreogfemtiFeil;
                         } else if (stillingsprosent > 100) {
@@ -176,7 +177,8 @@ const validate = (values, props) => {
         feilmeldinger.utdanning = utdanningsfeilmelding;
     }
 
-    const aktivitetFeil = validerAktiviteter(values, props.sykepengesoknad.aktiviteter);
+    const feriePermisjonPerioder = getFeriePermisjonPerioder(_sykepengesoknad);
+    const aktivitetFeil = validerAktiviteter(values, props.sykepengesoknad.aktiviteter, feriePermisjonPerioder);
     if (aktivitetFeil) {
         feilmeldinger.aktiviteter = aktivitetFeil;
     }

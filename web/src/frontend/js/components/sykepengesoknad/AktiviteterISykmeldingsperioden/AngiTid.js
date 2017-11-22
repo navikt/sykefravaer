@@ -5,10 +5,10 @@ import { getLedetekst } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
 import { lagDesimaltall, getObjectValueByString } from '../../../utils';
-import { tilDatePeriode } from '../../../utils/periodeUtils';
 import DetteTilsvarer, { getStillingsprosent } from './DetteTilsvarer';
 import { soknadperiode, fieldPropTypes } from '../../../propTypes';
 import { SYKEPENGER_SKJEMANAVN } from '../setup';
+import { getFeriePermisjonPerioder } from '../../../utils/sykepengesoknadUtils';
 
 class AngiTid extends Component {
     constructor(props) {
@@ -103,8 +103,8 @@ class AngiTid extends Component {
                 <label
                     htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`}
                     className="skjema__sporsmal">
-                        {getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal')}
-                    </label>
+                    {getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal')}
+                </label>
                 <Field
                     onBlur={() => {
                         this.lagreStillingsprosent();
@@ -182,17 +182,9 @@ AngiTid.propTypes = {
 
 const mapStateToProps = (state) => {
     const values = getFormValues(SYKEPENGER_SKJEMANAVN)(state);
-    let ferieOgPermisjonPerioder = [];
-    if (values.harHattFeriePermisjonEllerUtenlandsopphold) {
-        if (values.harHattFerie) {
-            ferieOgPermisjonPerioder = [...ferieOgPermisjonPerioder, ...values.ferie];
-        }
-        if (values.harHattPermisjon) {
-            ferieOgPermisjonPerioder = [...ferieOgPermisjonPerioder, ...values.permisjon];
-        }
-    }
+    const ferieOgPermisjonPerioder = getFeriePermisjonPerioder(values);
     return {
-        ferieOgPermisjonPerioder: ferieOgPermisjonPerioder.map(tilDatePeriode),
+        ferieOgPermisjonPerioder,
     };
 };
 

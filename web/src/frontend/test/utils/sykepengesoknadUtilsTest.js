@@ -112,7 +112,7 @@ describe("sykepengesoknadUtils", () => {
 
     });
 
-    describe("sorterEtterOpprettetDato", () => {
+    describe.only("sorterEtterOpprettetDato", () => {
 
         beforeEach(() => {
             data = [soknad1, soknad2, soknad3, soknad4, soknad5];
@@ -121,6 +121,36 @@ describe("sykepengesoknadUtils", () => {
         it("Skal sortere etter opprettetDato, med den tidligst opprettede søknaden først", () => {
             const res = data.sort(utils.sorterEtterOpprettetDato);
             expect(res).to.deep.equal([soknad4, soknad2, soknad1, soknad3, soknad5]);
+        });
+
+        it("Hvis to søknader har samme opprettetDato, skal det sorteres etter tidligste periode FOM", () => {
+            const soknad6 = {
+                ...soknad2,
+                aktiviteter: [{
+                    periode: {
+                        fom: new Date("2017-01-18")
+                    }
+                }, {
+                    periode: {
+                        fom: new Date("2017-01-12")
+                    }
+                }]
+            }
+            const soknad7 = {
+                ...soknad2,
+                aktiviteter: [{
+                    periode: {
+                        fom: new Date("2017-01-15")
+                    }
+                }, {
+                    periode: {
+                        fom: new Date("2017-01-10")
+                    }
+                }]
+            }
+            data = [soknad1, soknad3, soknad4, soknad5, soknad6, soknad7]
+            const res = data.sort(utils.sorterEtterOpprettetDato);
+            expect(res).to.deep.equal([soknad4, soknad7, soknad6, soknad1, soknad3, soknad5]);
         });
 
     });

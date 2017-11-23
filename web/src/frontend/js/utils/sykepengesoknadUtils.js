@@ -1,4 +1,4 @@
-import { periodeOverlapperMedPeriode } from './periodeUtils';
+import { periodeOverlapperMedPeriode, tilDatePeriode } from './periodeUtils';
 import { tidligsteFom } from 'digisyfo-npm';
 
 export const getTidligsteSendtDato = (soknad) => {
@@ -80,4 +80,17 @@ export const sorterEtterOpprettetDato = (soknad1, soknad2) => {
     const perioder1 = soknad1.aktiviteter.map(tilPerioder);
     const perioder2 = soknad2.aktiviteter.map(tilPerioder);
     return tidligsteFom(perioder1).getTime() - tidligsteFom(perioder2).getTime();
+};
+
+export const getFeriePermisjonPerioder = (values) => {
+    let ferieOgPermisjonPerioder = [];
+    if (values.harHattFeriePermisjonEllerUtenlandsopphold) {
+        if (values.harHattFerie) {
+            ferieOgPermisjonPerioder = [...ferieOgPermisjonPerioder, ...values.ferie];
+        }
+        if (values.harHattPermisjon) {
+            ferieOgPermisjonPerioder = [...ferieOgPermisjonPerioder, ...values.permisjon];
+        }
+    }
+    return ferieOgPermisjonPerioder.map(tilDatePeriode);
 };

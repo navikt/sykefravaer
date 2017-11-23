@@ -11,6 +11,7 @@ import validate, {
     antallFeil,
     ikkeJobbetMerEnnGraderingProsentFeil,
     ikkeJobbetMerEnnGraderingTimerFeil,
+    antallTimerErMerEnn100ProsentFeil,
     normaltAntallFeil,
     overHundreFeil,
     overHundreogfemtiFeil,
@@ -46,7 +47,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                     "tom": "2017-16-25"
               },
               "grad": 50,
-              "avvik": null
+              "avvik": null,
             }]
         });
         sendTilFoerDuBegynner = sinon.spy();
@@ -382,6 +383,84 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
                     timer: ikkeJobbetMerEnnGraderingTimerFeil,
+                }
+            }])
+        });
+
+        it("Skal ta med ferie/permisjon når arbeidsgrad valideres", () => {
+            const sykmeldingsgrad = 22;
+            let _soknad = getSoknad({
+                "aktiviteter": [{
+                    "periode": {
+                        "fom": new Date("2017-08-01"),
+                        "tom": new Date("2017-08-10")
+                    },
+                    "grad": sykmeldingsgrad,
+                    "avvik": null
+                }]
+            });
+            // Sykmeldt i 8 virkedager, men ferie i 4 dag, skulle da ha jobbet 4 x 7.5 = 30 timer
+            // Jobbet 33 timer
+            // Faktisk arbeidsgrad === 33 / 30 === 1.1; dvs mer enn 100 %
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    timer: "33",
+                    enhet: "timer",
+                    arbeidstimerNormalUke: "37,5"
+                },
+                grad: sykmeldingsgrad,
+            }];
+            values.harHattFeriePermisjonEllerUtenlandsopphold = true;
+            values.harHattFerie = true;
+            values.ferie = [{
+                fom: "01.08.2017",
+                tom: "04.08.2017"
+            }];
+            const res = validate(values, { sykepengesoknad: _soknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.deep.equal([{
+                avvik: {
+                    timer: antallTimerErMerEnn100ProsentFeil,
+                }
+            }])
+        });
+
+        it("Skal bare ta med ferie/permisjon som er innenfor perioden når arbeidsgrad valideres", () => {
+            const sykmeldingsgrad = 22;
+            let _soknad = getSoknad({
+                "aktiviteter": [{
+                    "periode": {
+                        "fom": new Date("2017-08-01"),
+                        "tom": new Date("2017-08-10")
+                    },
+                    "grad": sykmeldingsgrad,
+                    "avvik": null
+                }]
+            });
+            // Sykmeldt i 8 virkedager, men ferie i 4 dag, skulle da ha jobbet 4 x 7.5 = 30 timer
+            // Jobbet 33 timer
+            // Faktisk arbeidsgrad === 33 / 30 === 1.1; dvs mer enn 100 %
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    timer: "33",
+                    enhet: "timer",
+                    arbeidstimerNormalUke: "37,5"
+                },
+                grad: sykmeldingsgrad,
+            }];
+            values.harHattFeriePermisjonEllerUtenlandsopphold = true;
+            values.harHattFerie = true;
+            values.ferie = [{
+                fom: "20.07.2017",
+                tom: "04.08.2017"
+            }];
+            const res = validate(values, { sykepengesoknad: _soknad, sendTilFoerDuBegynner });
+
+            expect(res.aktiviteter).to.deep.equal([{
+                avvik: {
+                    timer: antallTimerErMerEnn100ProsentFeil,
                 }
             }])
         });

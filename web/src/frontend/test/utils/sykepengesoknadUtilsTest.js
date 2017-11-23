@@ -112,7 +112,7 @@ describe("sykepengesoknadUtils", () => {
 
     });
 
-    describe.only("sorterEtterOpprettetDato", () => {
+    describe("sorterEtterOpprettetDato", () => {
 
         beforeEach(() => {
             data = [soknad1, soknad2, soknad3, soknad4, soknad5];

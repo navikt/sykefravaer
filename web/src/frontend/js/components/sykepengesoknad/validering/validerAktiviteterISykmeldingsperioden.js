@@ -177,7 +177,7 @@ const validate = (values, props) => {
         feilmeldinger.utdanning = utdanningsfeilmelding;
     }
 
-    const feriePermisjonPerioder = getFeriePermisjonPerioder(_sykepengesoknad);
+    const feriePermisjonPerioder = getFeriePermisjonPerioder(values);
     const aktivitetFeil = validerAktiviteter(values, props.sykepengesoknad.aktiviteter, feriePermisjonPerioder);
     if (aktivitetFeil) {
         feilmeldinger.aktiviteter = aktivitetFeil;

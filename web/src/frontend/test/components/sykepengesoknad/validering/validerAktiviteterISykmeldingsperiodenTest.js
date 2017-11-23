@@ -390,12 +390,6 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
         it("Skal ta med ferie/permisjon når arbeidsgrad valideres", () => {
             const sykmeldingsgrad = 22;
             let _soknad = getSoknad({
-                "harHattFeriePermisjonEllerUtenlandsopphold": true,
-                "harHattFerie": true,
-                "ferie": [{
-                    fom: new Date("2017-08-01"),
-                    tom: new Date("2017-08-04")
-                }],
                 "aktiviteter": [{
                     "periode": {
                         "fom": new Date("2017-08-01"),
@@ -417,7 +411,12 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 },
                 grad: sykmeldingsgrad,
             }];
-
+            values.harHattFeriePermisjonEllerUtenlandsopphold = true;
+            values.harHattFerie = true;
+            values.ferie = [{
+                fom: "01.08.2017",
+                tom: "04.08.2017"
+            }];
             const res = validate(values, { sykepengesoknad: _soknad, sendTilFoerDuBegynner });
 
             expect(res.aktiviteter).to.deep.equal([{

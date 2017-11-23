@@ -68,7 +68,6 @@ export class OppfolgingsdialogerSide extends Component {
     render() {
         const {
             brodsmuler,
-            ledetekster,
             henter,
             hentingFeilet,
             tilgang,
@@ -76,7 +75,7 @@ export class OppfolgingsdialogerSide extends Component {
             sender,
             sendingFeilet,
         } = this.props;
-        return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel', ledetekster)} brodsmuler={brodsmuler} laster={(henter || sender || !hentet) && !(sendingFeilet || hentingFeilet)}>
+        return (<Side tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} brodsmuler={brodsmuler} laster={(henter || sender || !hentet) && !(sendingFeilet || hentingFeilet)}>
             {
                 (() => {
                     if (henter || sender) {

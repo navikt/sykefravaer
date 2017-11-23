@@ -125,7 +125,7 @@ export const antallVirkedagerIPeriode = (periode) => {
     return antallVirkedager;
 };
 
-export const antallVirkedagerIPerioder = (perioder) => {
+export const antallVirkedagerIPerioder = (perioder, startdato) => {
     const DOGN = 1000 * 60 * 60 * 24;
     const virkedager = new Set();
     perioder.forEach((periode) => {
@@ -133,7 +133,7 @@ export const antallVirkedagerIPerioder = (perioder) => {
         const slutt = periode.tom.getTime();
         for (let i = start; i <= slutt; i += DOGN) {
             const d = new Date(i);
-            if (!datoErHelgedag(d)) {
+            if (!datoErHelgedag(d) && (!startdato || d.getTime() >= startdato.getTime())) {
                 virkedager.add(d.getTime());
             }
         }

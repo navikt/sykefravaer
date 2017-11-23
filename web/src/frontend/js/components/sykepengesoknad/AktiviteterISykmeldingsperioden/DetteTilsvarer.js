@@ -9,7 +9,7 @@ const tilInt = (streng) => {
 
 export const getStillingsprosent = (antallTimerIArbeid, normalArbeidstid, periode, ferieOgPermisjonPerioder = []) => {
     const ANTALL_VIRKEDAGER_I_EN_UKE = 5;
-    const virkedager = antallVirkedagerIPeriode(periode) - antallVirkedagerIPerioder(ferieOgPermisjonPerioder);
+    const virkedager = antallVirkedagerIPeriode(periode) - antallVirkedagerIPerioder(ferieOgPermisjonPerioder, periode.fom);
     const _antallTimerIArbeid = tilInt(antallTimerIArbeid);
     const _normalArbeidstid = tilInt(normalArbeidstid);
     const desimaltall = _antallTimerIArbeid / ((_normalArbeidstid / ANTALL_VIRKEDAGER_I_EN_UKE) * virkedager);

@@ -534,6 +534,41 @@ describe("periodeUtils", () => {
             expect(antallVirkedagerIPerioder(perioder)).to.equal(11);
         });
 
+        it("Skal kun telle dager som er etter innsendt startdato", () => {
+            const startdato = new Date("2017-08-15")
+
+            // 4 virkedager er fom startdato
+            const periode1 = {
+                fom: new Date("2017-08-14"), // mandag1
+                tom: new Date("2017-08-18"), // fredag1
+                name: "periode1"
+            };
+
+            // 11 virkedager, men 5 av dem overlapper
+            const periode2 = {
+                fom: new Date("2017-08-14"), // mandag1
+                tom: new Date("2017-08-28"), // mandag3
+                name: "periode2"
+            };
+
+            // 4 virkedager, men alle overlapper med periode1
+            const periode3 = {
+                fom: new Date("2017-08-15"), // tirsdag1
+                tom: new Date("2017-08-18"), // fredag1
+                name: "periode3"
+            }
+
+            // 6 virkedager, alle overlapper med periode 2
+            const periode4 = {
+                fom: new Date("2017-08-21"), // mandag2
+                tom: new Date("2017-08-28"), // mandag3
+                name: "periode4"
+            }
+
+            const perioder = [periode4, periode2, periode1, periode3];
+            expect(antallVirkedagerIPerioder(perioder, startdato)).to.equal(10); 
+        });
+
 
     })
 

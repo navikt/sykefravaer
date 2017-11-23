@@ -5,8 +5,8 @@ import ponyfill from 'fetch-ponyfill';
 const ponyfills = ponyfill();
 
 const isEdge = () => {
-    return navigator.userAgent.indexOf('Edge') > -1;
-}
+    return window.navigator.userAgent.indexOf('Edge') > -1;
+};
 
 const getFetch = () => {
     // Gjør dette slik fordi enhetstester vil feile dersom fetch overskrives
@@ -14,15 +14,15 @@ const getFetch = () => {
         return ponyfills.fetch;
     }
     return fetch;
-}
+};
 
 const getHeaders = () => {
     // Gjør dette slik fordi enhetstester vil feile dersom Headers overskrives
     if (isEdge()) {
         return ponyfills.Headers;
     }
-    return Headers;   
-}
+    return Headers;
+};
 
 export function get(url) {
     const fetchX = getFetch();

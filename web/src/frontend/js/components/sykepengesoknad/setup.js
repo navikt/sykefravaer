@@ -16,18 +16,20 @@ export const SYKEPENGER_SKJEMANAVN = 'SYKEPENGERSKJEMA';
 
 export const mapToInitialValues = (soknad) => {
     const aktiviteter = mapAktiviteter(soknad).aktiviteter;
-    return Object.assign({}, soknad, {
+    return {
+        ...soknad,
         aktiviteter: aktiviteter.map((aktivitet) => {
-            return Object.assign({}, aktivitet, {
+            return {
+                ...aktivitet,
                 avvik: {},
-            });
+            };
         }),
         utdanning: {},
         andreInntektskilder: inntektskildetyper,
         utenlandsopphold: {
             perioder: [],
         },
-    });
+    };
 };
 
 export const mapStateToPropsMedInitialValues = (state, ownProps) => {

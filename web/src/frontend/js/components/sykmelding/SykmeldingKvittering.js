@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint, keyValue } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint, keyValue, Video, filmer } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
 import history from '../../history';
 import { sykepengesoknad as sykepengesoknadPt, sykmeldingstatus } from '../../propTypes';
 import { AVBRUTT } from '../../enums/sykmeldingstatuser';
-import Video from '../Video';
 
 export const kvitteringtyper = {
     STANDARDKVITTERING: 'STANDARDKVITTERING',
@@ -94,7 +93,7 @@ KvitteringSokNa.propTypes = {
     hentSykepengesoknader: PropTypes.func,
 };
 
-export const Soknadsdatoliste = ({ sykepengesoknader }) => {
+export const Soknadsdatoliste = ({ sykepengesoknader, visStatus = false }) => {
     return (<ul className="js-soknadsdatoliste">
         {
             [...sykepengesoknader]
@@ -105,7 +104,11 @@ export const Soknadsdatoliste = ({ sykepengesoknader }) => {
                     return -1;
                 })
                 .map((s, index) => {
-                    return <li key={index}><strong>{toDatePrettyPrint(s.tom)}</strong></li>;
+                    const nokkel = `sykepengesoknader.datoliste.status.${s.status}`;
+                    return (<li key={index}>
+                        <strong>{toDatePrettyPrint(s.tom)}</strong>
+                        { visStatus ? ` – ${getLedetekst(nokkel)}` : null }
+                    </li>);
                 })
         }
     </ul>);
@@ -113,6 +116,7 @@ export const Soknadsdatoliste = ({ sykepengesoknader }) => {
 
 Soknadsdatoliste.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    visStatus: PropTypes.bool,
 };
 
 export const KvitteringSokSenere = ({ sykepengesoknader }) => {
@@ -136,9 +140,7 @@ export const KvitteringSokSenere = ({ sykepengesoknader }) => {
         <div className="blokk">
             <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
             <Video
-                width="640"
-                height="360"
-                src="https://video.qbrick.com/play2/embed/player?accountId=763558&mediaId=B248D6CB&pageStyling=adaptive&autoplay=false&repeat=false&sharing=false" />
+                film={filmer.SOKNAD_SYKEPENGER} />
         </div>
     </div>);
 };

@@ -40,9 +40,10 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
             return aktivitet.periode;
         });
         const _tidligsteFom = tidligsteFom(perioder);
-        const _soknad = Object.assign({}, sykepengesoknad, {
+        const _soknad = {
+            ...sykepengesoknad,
             gjenopptattArbeidFulltUtDato,
-        });
+        };
         const _senesteTom = getTomDato(_soknad);
 
         const onSubmit = () => {

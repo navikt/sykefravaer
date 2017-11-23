@@ -101,9 +101,10 @@ class Arbeidsoppgaver extends Component {
             this.state.nyArbeidsoppgave = false;
             this.state.oppdatertArbeidsoppgave = true;
         }
-        const nyeValues = Object.assign({}, values, {
+        const nyeValues = {
+            ...values,
             arbeidsoppgavenavn: captitalizeFirstLetter(values.arbeidsoppgavenavn),
-        });
+        };
         this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialog.id, nyeValues);
     }
 
@@ -188,17 +189,17 @@ class Arbeidsoppgaver extends Component {
 
                         {
                             lagret && this.state.oppdatertArbeidsoppgave &&
-                                <NotifikasjonBoksLagretElement
-                                    tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
-                                    rootUrl={`${getContextRoot()}`}
-                                />
+                            <NotifikasjonBoksLagretElement
+                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
+                                rootUrl={`${getContextRoot()}`}
+                            />
                         }
                         {
                             lagret && this.state.nyArbeidsoppgave &&
-                                <NotifikasjonBoksLagretElement
-                                    tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
-                                    rootUrl={`${getContextRoot()}`}
-                                />
+                            <NotifikasjonBoksLagretElement
+                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
+                                rootUrl={`${getContextRoot()}`}
+                            />
                         }
                         {
                             antalOppgaveSkalVurderes > 0 && <NotifikasjonBoksVurdering

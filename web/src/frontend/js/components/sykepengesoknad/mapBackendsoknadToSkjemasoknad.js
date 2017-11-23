@@ -13,9 +13,10 @@ const map = (sykepengesoknad) => {
     let utenlandsopphold = sykepengesoknad.utenlandsopphold;
     let utdanning = sykepengesoknad.utdanning;
     if (utenlandsopphold) {
-        utenlandsopphold = Object.assign({}, sykepengesoknad.utenlandsopphold, {
+        utenlandsopphold = {
+            ...sykepengesoknad.utenlandsopphold,
             perioder: utenlandsopphold.perioder.map(parsePeriode),
-        });
+        };
     } else {
         utenlandsopphold = {
             perioder: [],
@@ -38,7 +39,8 @@ const map = (sykepengesoknad) => {
     const harHattUtenlandsopphold = sykepengesoknad.utenlandsopphold !== null;
     const harHattPermisjon = sykepengesoknad.permisjon.length > 0;
 
-    return Object.assign({}, sykepengesoknad, {
+    return {
+        ...sykepengesoknad,
         bekreftetKorrektInformasjon: false,
         ferie: sykepengesoknad.ferie.map(parsePeriode),
         permisjon: sykepengesoknad.permisjon.map(parsePeriode),
@@ -68,23 +70,24 @@ const map = (sykepengesoknad) => {
         utdanning,
         aktiviteter: mapAktiviteter(sykepengesoknad).aktiviteter.map((aktivitet) => {
             if (aktivitet.avvik === null) {
-                return Object.assign({}, aktivitet, {
+                return {
+                    ...aktivitet,
                     avvik: {},
                     jobbetMerEnnPlanlagt: false,
-                });
+                };
             }
-            return Object.assign({}, aktivitet, {
+            return {
+                ...aktivitet,
                 jobbetMerEnnPlanlagt: true,
                 avvik: {
                     enhet: aktivitet.avvik.timer ? 'timer' : 'prosent',
                     arbeidstimerNormalUke: aktivitet.avvik.arbeidstimerNormalUke.toString().replace('.', ','),
                     timer: aktivitet.avvik.timer ? aktivitet.avvik.timer.toString().replace('.', ',') : '',
                     arbeidsgrad: aktivitet.avvik.arbeidsgrad ? aktivitet.avvik.arbeidsgrad.toString().replace('.', ',') : '',
-                 //   beregnetArbeidsgrad: aktivitet.avvik.beregnetArbeidsgrad ? aktivitet.avvik.beregnetArbeidsgrad.toString().replace('.', ',') : '',
                 },
-            });
+            };
         }),
-    });
+    };
 };
 
 export default map;

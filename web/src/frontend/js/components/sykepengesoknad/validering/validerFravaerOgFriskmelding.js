@@ -15,9 +15,10 @@ export const validate = (values, props) => {
                 return a.periode;
             });
             periodealternativer.fra = sykepengesoknad.del === 1 && sykepengesoknad.forrigeSykeforloepTom ? sykepengesoknad.forrigeSykeforloepTom : tidligsteFom(perioder);
-            periodealternativer.til = getTomDato(Object.assign({}, sykepengesoknad, {
+            periodealternativer.til = getTomDato({
+                ...sykepengesoknad,
                 gjenopptattArbeidFulltUtDato,
-            }));
+            });
         } catch (e) {
             gjenopptattArbeidFulltUtDato = null;
         }

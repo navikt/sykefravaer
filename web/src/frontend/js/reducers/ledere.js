@@ -6,11 +6,13 @@ const defaultState = {
 
 const setLederProps = (_ledere, orgnummer, props) => {
     return _ledere.map((leder) => {
-        let _leder = Object.assign({}, leder);
-        if (_leder.orgnummer === orgnummer) {
-            _leder = Object.assign({}, _leder, props);
+        if (leder.orgnummer === orgnummer) {
+            return {
+                ...leder,
+                ...props,
+            };
         }
-        return _leder;
+        return leder;
     });
 };
 
@@ -43,27 +45,28 @@ const ledere = (state = defaultState, action = {}) => {
         case actiontyper.LEDER_AVKREFTET: {
             const _ledere = setLederProps(state.data, action.orgnummer, { avkreftet: true });
 
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 avkrefter: false,
                 avkreftet: true,
                 avkreftFeilet: false,
                 data: _ledere,
-            });
+            };
         }
         case actiontyper.LEDER_AVKREFTET_FEILET: {
-            return Object.assign({}, state,
-                {
-                    avkrefter: false,
-                    avkreftFeilet: true,
-                });
+            return {
+                ...state,
+                avkrefter: false,
+                avkreftFeilet: true,
+            };
         }
         case actiontyper.AVKREFTER_LEDER: {
-            return Object.assign({}, state,
-                {
-                    avkrefter: true,
-                    avkreftet: false,
-                    avkreftFeilet: false,
-                });
+            return {
+                ...state,
+                avkrefter: true,
+                avkreftet: false,
+                avkreftFeilet: false,
+            };
         }
         default: {
             return state;

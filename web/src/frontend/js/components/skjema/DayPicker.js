@@ -13,9 +13,10 @@ export const formatDay = (date) => {
     return `${WEEKDAYS_LONG[date.getDay()]} ${date.getDate()}. ${MONTHS[date.getMonth()]} ${date.getFullYear()}`;
 };
 
-const localeUtils = Object.assign({}, LocaleUtils, {
+const localeUtils = {
+    ...LocaleUtils,
     formatDay,
-});
+};
 
 const pad = (nr) => {
     return nr > 9 || nr.length > 1 ? nr : `0${nr}`;

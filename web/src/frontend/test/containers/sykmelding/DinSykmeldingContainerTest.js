@@ -31,7 +31,6 @@ describe("DinSykmeldingContainer", () => {
     let sykmeldinger;
     let actions;
     let hentDineSykmeldinger;
-    let hentArbeidsgiversSykmeldinger;
 
     beforeEach(() => {
 
@@ -112,37 +111,10 @@ describe("DinSykmeldingContainer", () => {
         ownProps.params.sykmeldingId = "3"
 
         hentDineSykmeldinger = sinon.spy();
-        hentArbeidsgiversSykmeldinger = sinon.spy();
-        actions = { hentDineSykmeldinger, hentArbeidsgiversSykmeldinger };
+        actions = { hentDineSykmeldinger };
     });
 
     describe("Henting av data", () => {
-
-        describe("Arbeidsgivers sykmeldinger", () => {
-            it("Skal hente arbeidsgivers sykmeldinger dersom de ikke er hentet", () => {
-                state.arbeidsgiversSykmeldinger.hentet = false;
-                state.arbeidsgiversSykmeldinger.henter = false;
-                const props = mapStateToProps(state, ownProps);
-                const component = shallow(<DinSykmldSide {...props} {...actions} />)
-                expect(hentArbeidsgiversSykmeldinger.called).to.be.true;
-            });
-
-            it("Skal ikke hente arbeidsgivers sykmeldinger dersom de hentes", () => {
-                state.arbeidsgiversSykmeldinger.hentet = false;
-                state.arbeidsgiversSykmeldinger.henter = true;
-                const props = mapStateToProps(state, ownProps);
-                const component = shallow(<DinSykmldSide {...props} {...actions} />)
-                expect(hentArbeidsgiversSykmeldinger.called).to.be.false;
-            });
-
-            it("Skal ikke hente arbeidsgivers sykmeldinger dersom de er hentet", () => {
-                state.arbeidsgiversSykmeldinger.hentet = true;
-                state.arbeidsgiversSykmeldinger.henter = false;
-                const props = mapStateToProps(state, ownProps);
-                const component = shallow(<DinSykmldSide {...props} {...actions} />)
-                expect(hentArbeidsgiversSykmeldinger.called).to.be.false;
-            });
-        });
 
         describe("Dine sykmeldinger", () => {
             it("Skal hente dine sykmeldinger dersom de ikke er hentet", () => {
@@ -185,13 +157,6 @@ describe("DinSykmeldingContainer", () => {
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
-        it("Skal vise spinner dersom det hentes arbeidsgivers sykmeldinger", () => {
-            state.arbeidsgiversSykmeldinger.henter = true;
-            const props = mapStateToProps(state, ownProps);
-            const component = shallow(<DinSykmldSide {...props} {...actions} />)
-            expect(component.find(AppSpinner)).to.have.length(1);
-        });
-
         it("Skal vise spinner dersom dine sykmeldinger ikke er hentet", () => {
             state.dineSykmeldinger.hentet = false;
             const props = mapStateToProps(state, ownProps);
@@ -199,12 +164,6 @@ describe("DinSykmeldingContainer", () => {
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 
-        it("Skal vise spinner dersom det hentes arbeidsgivers sykmeldinger", () => {
-            state.arbeidsgiversSykmeldinger.hentet = false;
-            const props = mapStateToProps(state, ownProps);
-            const component = shallow(<DinSykmldSide {...props} {...actions} />)
-            expect(component.find(AppSpinner)).to.have.length(1);
-        });
     });
 
     describe("Visning av feilmelding", () => {
@@ -347,7 +306,6 @@ describe("DinSykmeldingContainer", () => {
             const component = shallow(<DinSykmldSide {...props} {...actions} />)
             expect(component.find(DinSendteSykmelding)).to.have.length(1);
             expect(component.find(DinSendteSykmelding).prop("dinSykmelding")).to.deep.equal(sendtSykmelding);
-            expect(component.find(DinSendteSykmelding).prop("arbeidsgiversSykmelding")).to.deep.equal(sendtSykmeldingArbeidsgiver);
         });
 
 
@@ -357,7 +315,6 @@ describe("DinSykmeldingContainer", () => {
             const component = shallow(<DinSykmldSide {...props} {...actions} />)
             expect(component.find(DinSendteSykmelding)).to.have.length(1);
             expect(component.find(DinSendteSykmelding).prop("dinSykmelding")).to.deep.equal(tilSendingSykmelding);
-            expect(component.find(DinSendteSykmelding).prop("arbeidsgiversSykmelding")).to.deep.equal(tilSendingSykmeldingArbeidsgiver);
         });     
 
 
@@ -383,7 +340,6 @@ describe("DinSykmeldingContainer", () => {
             const component = shallow(<DinSykmldSide {...props} {...actions} />)
             expect(component.find(DinBekreftedeSykmelding)).to.have.length(1);
             expect(component.find(DinBekreftedeSykmelding).prop("dinSykmelding")).to.deep.equal(bekreftetSykmelding);
-            expect(component.find(DinBekreftedeSykmelding).prop("arbeidsgiversSykmelding")).to.deep.equal(bekreftetSykmeldingArbeidsgiver);
         });
 
 
@@ -566,7 +522,6 @@ describe("DinSykmeldingContainer", () => {
 
         beforeEach(() => {
             state.dineSykmeldinger.data = sykmeldinger;
-            state.arbeidsgiversSykmeldinger.data = sykmeldinger;
         })
 
         it("Skal returnere sykmelding basert på ownProps.params.sykmeldingId", () => {

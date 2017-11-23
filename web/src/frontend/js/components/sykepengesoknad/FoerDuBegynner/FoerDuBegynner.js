@@ -10,7 +10,7 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import { NY, UTKAST_TIL_KORRIGERING } from '../../../enums/sykepengesoknadstatuser';
 import SykepengesoknadHeader from '../SykepengesoknadHeader';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad/AvbrytSoknadContainer';
-import IllustrertInnhold from "../../IllustrertInnhold";
+import IllustrertInnhold from '../../IllustrertInnhold';
 
 const KorrigerVarsel = () => {
     return (<div className="panel panel--komprimert blokk">
@@ -50,7 +50,7 @@ FoerDuBegynnerSkjema.propTypes = {
 
 export const TidligSoknad = () => {
     return (<div className="panel panel--komprimert blokk">
-        <IllustrertInnhold ikon={`/sykefravaer/img/svg/snomannen.svg`} ikonAlt="Tidlig søknad">
+        <IllustrertInnhold ikon="/sykefravaer/img/svg/snomannen.svg" ikonAlt="Tidlig søknad">
             <p className="sykepenger__tidligSoknad">{getLedetekst('sykepengesoknad.tidlig-soknad')}</p>
         </IllustrertInnhold>
     </div>);

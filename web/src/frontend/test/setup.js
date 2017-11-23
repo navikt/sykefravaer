@@ -34,4 +34,7 @@ global.document = window.document;
 global.navigator = {
   userAgent: 'node.js',
 };
+global.window.APP_SETTINGS = {
+  APP_ROOT: '/sykefravaer',
+};
 copyProps(window, global);

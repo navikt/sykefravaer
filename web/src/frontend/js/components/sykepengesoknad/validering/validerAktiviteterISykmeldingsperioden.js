@@ -127,9 +127,10 @@ const validate = (values, props) => {
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
 
-    const _sykepengesoknad = Object.assign({}, props.sykepengesoknad, {
+    const _sykepengesoknad = {
+        ...props.sykepengesoknad,
         gjenopptattArbeidFulltUtDato: values.gjenopptattArbeidFulltUtDato ? fraInputdatoTilJSDato(values.gjenopptattArbeidFulltUtDato) : null,
-    });
+    };
     const tomDato = getTomDato(_sykepengesoknad);
 
     if (values.harAndreInntektskilder === undefined) {

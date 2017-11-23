@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getSykmelding, getLedetekst } from 'digisyfo-npm';
-import * as actionCreators from '../../actions/dinSykmelding_actions';
+import * as sykmeldingActions from '../../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../../components/sykmeldingskjema/DinSykmeldingSkjema';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import AppSpinner from '../../components/AppSpinner';
@@ -10,15 +10,19 @@ import Feilmelding from '../../components/Feilmelding';
 import feilaktigeOpplysninger from '../../enums/feilaktigeOpplysninger';
 import { hentAktuelleArbeidsgivere } from '../../actions/dineArbeidsgivere_actions';
 import { hentBrukerinfo } from '../../actions/brukerinfo_actions';
+import { hentArbeidsgiversSykmeldinger } from '../../actions/arbeidsgiversSykmeldinger_actions';
 
 export class Skjema extends Component {
     componentWillMount() {
-        const { sykmeldingId, skalHenteArbeidsgivere, brukerinfoHentet } = this.props;
+        const { sykmeldingId, skalHenteArbeidsgivere, brukerinfoHentet, skalHenteArbeidsgiversSykmeldinger } = this.props;
         if (sykmeldingId && skalHenteArbeidsgivere) {
             this.props.hentAktuelleArbeidsgivere(sykmeldingId);
         }
         if (!brukerinfoHentet) {
             this.props.hentBrukerinfo();
+        }
+        if (skalHenteArbeidsgiversSykmeldinger) {
+            this.props.hentArbeidsgiversSykmeldinger();
         }
     }
 
@@ -48,9 +52,11 @@ Skjema.propTypes = {
     }),
     sykmeldingId: PropTypes.string,
     skalHenteArbeidsgivere: PropTypes.bool,
+    skalHenteArbeidsgiversSykmeldinger: PropTypes.bool,
     hentAktuelleArbeidsgivere: PropTypes.func,
     brukerinfoHentet: PropTypes.bool,
     hentBrukerinfo: PropTypes.func,
+    hentArbeidsgiversSykmeldinger: PropTypes.func,
 };
 
 export const mapStateToProps = (state, ownProps) => {
@@ -68,9 +74,10 @@ export const mapStateToProps = (state, ownProps) => {
 
     return {
         skjemaData: state.form.dinSykmeldingSkjema,
-        initialValues: Object.assign({}, sykmelding, {
+        initialValues: {
+            ...sykmelding,
             feilaktigeOpplysninger,
-        }),
+        },
         sykmelding,
         sykmeldingId,
         sender: state.arbeidsgiversSykmeldinger.sender,
@@ -79,16 +86,19 @@ export const mapStateToProps = (state, ownProps) => {
         avbrytFeilet: state.dineSykmeldinger.avbrytFeilet,
         harStrengtFortroligAdresse,
         hentingFeilet: state.arbeidsgivere.hentingFeilet || state.brukerinfo.bruker.hentingFeilet || false,
-        henter: state.vedlikehold.henter || state.brukerinfo.bruker.henter,
+        henter: state.vedlikehold.henter || state.brukerinfo.bruker.henter || !state.arbeidsgiversSykmeldinger.hentet || state.arbeidsgiversSykmeldinger.henter,
         vedlikehold: state.vedlikehold.data.vedlikehold,
         skalHenteArbeidsgivere: state.arbeidsgivere.sykmeldingId !== sykmeldingId && !harStrengtFortroligAdresse,
         brukerinfoHentet: state.brukerinfo.bruker.hentet === true,
+        skalHenteArbeidsgiversSykmeldinger: !state.arbeidsgiversSykmeldinger.henter && !state.arbeidsgiversSykmeldinger.hentet,
     };
 };
 
-const DinSykmeldingSkjemaContainer = connect(mapStateToProps, Object.assign({}, actionCreators, {
+const DinSykmeldingSkjemaContainer = connect(mapStateToProps, {
+    ...sykmeldingActions,
     hentAktuelleArbeidsgivere,
+    hentArbeidsgiversSykmeldinger,
     hentBrukerinfo,
-}))(Skjema);
+})(Skjema);
 
 export default DinSykmeldingSkjemaContainer;

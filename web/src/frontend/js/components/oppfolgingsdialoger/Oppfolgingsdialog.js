@@ -67,8 +67,8 @@ class Oppfolgingsdialog extends Component {
 
     render() {
         const {
-            arbeidsoppgaverReducer,
-            tiltakReducer,
+            arbeidsoppgaver,
+            tiltak,
             lagreKommentar,
             slettKommentar,
             oppfolgingsdialog,
@@ -143,7 +143,7 @@ class Oppfolgingsdialog extends Component {
             (() => {
                 if (navigasjontoggles.steg === 1) {
                     panel = (<Arbeidsoppgaver
-                        arbeidsoppgaverReducer={arbeidsoppgaverReducer}
+                        arbeidsoppgaver={arbeidsoppgaver}
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
                         oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
@@ -152,7 +152,7 @@ class Oppfolgingsdialog extends Component {
                     />);
                 } else if (navigasjontoggles.steg === 2) {
                     panel = (<Tiltak
-                        tiltakReducer={tiltakReducer}
+                        tiltak={tiltak}
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
                         oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
@@ -209,8 +209,8 @@ class Oppfolgingsdialog extends Component {
 Oppfolgingsdialog.propTypes = {
     ledetekster: keyValue,
     avbrytdialogReducer: oppfolgingProptypes.avbrytdialogReducerPt,
-    arbeidsoppgaverReducer: oppfolgingProptypes.arbeidsoppgaverReducerPt,
-    tiltakReducer: oppfolgingProptypes.tiltakReducerPt,
+    arbeidsoppgaver: oppfolgingProptypes.arbeidsoppgaverReducerPt,
+    tiltak: oppfolgingProptypes.tiltakReducerPt,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,

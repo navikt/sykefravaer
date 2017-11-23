@@ -113,7 +113,6 @@ OppfolgingsdialogerSide.propTypes = {
     bekreftetNyNaermesteLeder: PropTypes.bool,
     ledetekster: keyValue,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
-    tilgangSjekket: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     avkreftLeder: PropTypes.func,
     bekreftNyNaermesteLeder: PropTypes.func,

@@ -141,7 +141,7 @@ class Tiltak extends Component {
             lagringFeilet,
             sletter,
             slettingFeilet,
-        } = this.props.tiltakReducer;
+        } = this.props.tiltak;
 
         const antallNyeTiltak = oppfolgingsdialog.tiltakListe.filter((tiltak) => {
             return tiltak.opprettetAv.fnr !== oppfolgingsdialog.arbeidstaker.fnr && new Date(tiltak.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget);
@@ -232,7 +232,7 @@ class Tiltak extends Component {
 
 Tiltak.propTypes = {
     ledetekster: keyValue,
-    tiltakReducer: oppfolgingProptypes.tiltakReducerPt,
+    tiltak: oppfolgingProptypes.tiltakReducerPt,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreTiltak: PropTypes.func,

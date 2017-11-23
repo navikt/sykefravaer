@@ -136,6 +136,7 @@ OppfolgingsdialogSide.propTypes = {
     sendingFeilet: PropTypes.bool,
     avbrytdialogReducer: oppfolgingProptypes.avbrytdialogReducerPt,
     arbeidsforhold: oppfolgingProptypes.arbeidsforholdReducerPt,
+    arbeidsoppgaver: oppfolgingProptypes.arbeidsoppgaverReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
@@ -143,6 +144,7 @@ OppfolgingsdialogSide.propTypes = {
     oppfolgingsdialogerReducer: oppfolgingProptypes.oppfolgingsdialogerAtPt,
     person: oppfolgingProptypes.personReducerPt,
     tilgang: oppfolgingProptypes.tilgangReducerPt,
+    tiltak: oppfolgingProptypes.tiltakReducerPt,
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     ledetekster: keyValue,
@@ -187,8 +189,10 @@ export function mapStateToProps(state, ownProps) {
         hentingFeilet: state.oppfolgingsdialoger.hentingFeilet
         || state.ledetekster.hentingFeilet
         || state.tilgang.hentingFeilet,
-        hentet: state.tilgang.hentet
-        || state.oppfolgingsdialoger.hentet
+        hentet: state.oppfolgingsdialoger.hentet
+        || state.ledetekster.hentet
+        || state.tilgang.hentet
+        || state.oppfolgingsdialoger.avviser
         || state.oppfolgingsdialoger.godkjent
         || state.avbrytdialogReducer.sendt
         || state.nullstill.sendt
@@ -205,9 +209,9 @@ export function mapStateToProps(state, ownProps) {
         || state.samtykke.sendingFeilet,
         ledetekster: state.ledetekster.data,
         arbeidsforhold: state.arbeidsforhold,
-        arbeidsoppgaverReducer: state.arbeidsoppgaver,
+        arbeidsoppgaver: state.arbeidsoppgaver,
         avbrytdialogReducer: state.avbrytdialogReducer,
-        tiltakReducer: state.tiltak,
+        tiltak: state.tiltak,
         delmednav: state.delmednav,
         dokument: state.dokument,
         forrigenaermesteleder: state.forrigenaermesteleder,

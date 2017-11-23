@@ -30,6 +30,10 @@ import {
     hentNaermesteLeder,
     delMedNav as delMedNavFunc,
     proptypes as oppfolgingProptypes,
+    henterEllerHarHentetTilgang,
+    henterEllerHarHentetOppfolgingsdialoger,
+    oppfolgingsdialogHarBlittAvbrutt,
+    oppfolgingsdialogHarBlittGodkjent,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 import history from '../../history';
@@ -39,42 +43,39 @@ import Feilmelding from '../../components/Feilmelding';
 import { getOppfolgingsdialog } from '../../utils/oppfolgingsdialogUtils';
 import Oppfolgingsdialog from '../../components/oppfolgingsdialoger/Oppfolgingsdialog';
 import {
+    henterEllerHarHentetToggles,
+} from '../../utils/reducerUtils';
+import {
     brodsmule as brodsmulePt,
 } from '../../propTypes';
 
 export class OppfolgingsdialogSide extends Component {
     componentWillMount() {
-        const { toggles, sjekkTilgangHentet, sjekkTilgangHenter } = this.props;
-        if (!toggles.hentet && !toggles.henter) {
+        const { toggles, tilgang, oppfolgingsdialogerReducer } = this.props;
+        if (!henterEllerHarHentetToggles(toggles)) {
             this.props.hentToggles();
         }
-        if (!sjekkTilgangHentet && !sjekkTilgangHenter) {
+        if (!henterEllerHarHentetTilgang(tilgang)) {
             this.props.sjekkTilgang();
         }
-    }
-
-    componentDidMount() {
-        if (!this.props.oppfolgingsdialogerHentet && !this.props.oppfolgingsdialogerHenter) {
+        if (!henterEllerHarHentetOppfolgingsdialoger(oppfolgingsdialogerReducer)) {
             this.props.hentOppfolgingsdialoger();
-        }
-
-        if (!this.props.sjekkTilgangHentet && !this.props.sjekkTilgangHenter) {
-            this.props.sjekkTilgang();
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!this.props.oppfolgingsdialogAvbrutt && nextProps.oppfolgingsdialogAvbrutt) {
+        const { oppfolgingsdialogerReducer, avbrytdialogReducer } = this.props;
+        if (oppfolgingsdialogHarBlittAvbrutt(avbrytdialogReducer, nextProps.avbrytdialogReducer)) {
             this.props.hentOppfolgingsdialoger();
         }
-        if (this.props.oppfolgingsdialogAvbrutt && !this.props.oppfolgingsdialogerHentet && nextProps.oppfolgingsdialogerHentet) {
+        if (avbrytdialogReducer.sendt && oppfolgingsdialogerReducer.henter && nextProps.oppfolgingsdialogerReducer.hentet) {
             const nyOpprettetDialog = finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt(nextProps.oppfolgingsdialoger, nextProps.oppfolgingsdialog.virksomhet.virksomhetsnummer);
             if (nyOpprettetDialog) {
                 history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.id}/`);
                 window.location.hash = 'arbeidsoppgaver';
             }
         }
-        if (this.props.godkjenner && nextProps.godkjent) {
+        if (oppfolgingsdialogHarBlittGodkjent(oppfolgingsdialogerReducer, nextProps.oppfolgingsdialogerReducer)) {
             this.props.visSamtykke(true);
         }
     }
@@ -110,7 +111,7 @@ export class OppfolgingsdialogSide extends Component {
                     return <AppSpinner />;
                 } else if (hentingFeilet || sendingFeilet) {
                     return (<Feilmelding />);
-                } else if (!tilgang.harTilgang) {
+                } else if (!tilgang.data.harTilgang) {
                     return (<OppfolgingsdialogInfoboks
                         svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
                         svgAlt="ikkeTilgang"
@@ -128,34 +129,28 @@ export class OppfolgingsdialogSide extends Component {
 }
 
 OppfolgingsdialogSide.propTypes = {
-    brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    toggles: togglesPt,
-    ledetekster: keyValue,
-    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
-    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
+    hentet: PropTypes.bool,
     sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
-    godkjenner: PropTypes.bool,
-    godkjent: PropTypes.bool,
-    godkjenningFeilet: PropTypes.bool,
-    visSamtykke: PropTypes.func,
+    avbrytdialogReducer: oppfolgingProptypes.avbrytdialogReducerPt,
+    arbeidsforhold: oppfolgingProptypes.arbeidsforholdReducerPt,
+    dokument: oppfolgingProptypes.dokumentReducerPt,
+    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
+    navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
+    oppfolgingsdialogerReducer: oppfolgingProptypes.oppfolgingsdialogerAtPt,
+    person: oppfolgingProptypes.personReducerPt,
+    tilgang: oppfolgingProptypes.tilgangReducerPt,
+    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
+    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
+    ledetekster: keyValue,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
+    toggles: togglesPt,
     visSamtykkeSkjema: PropTypes.bool,
-    lagrerArbeidsoppgave: PropTypes.bool,
-    lagrerTiltak: PropTypes.bool,
-    lagretArbeidsoppgave: PropTypes.bool,
-    lagretTiltak: PropTypes.bool,
-    lagringFeiletArbeidsoppgave: PropTypes.bool,
-    lagringFeiletTiltak: PropTypes.bool,
-    lagretArbeidsoppgaveId: PropTypes.number,
-    lagretTiltakId: PropTypes.number,
-    sletterArbeidsoppgave: PropTypes.bool,
-    sletterTiltak: PropTypes.bool,
-    slettetArbeidsoppgave: PropTypes.bool,
-    slettetTiltak: PropTypes.bool,
-    slettingFeiletArbeidsoppgave: PropTypes.bool,
-    slettingFeiletTiltak: PropTypes.bool,
+    brodsmuler: PropTypes.arrayOf(brodsmulePt),
+    visSamtykke: PropTypes.func,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
     lagreTiltak: PropTypes.func,
@@ -163,26 +158,15 @@ OppfolgingsdialogSide.propTypes = {
     hentOppfolgingsdialoger: PropTypes.func,
     lagreKommentar: PropTypes.func,
     slettKommentar: PropTypes.func,
-    oppfolgingsdialogerHentet: PropTypes.bool,
-    oppfolgingsdialogAvbrutt: PropTypes.bool,
     hentArbeidsforhold: PropTypes.func,
-    sjekkTilgangHentet: PropTypes.bool,
-    tilgang: oppfolgingProptypes.tilgangPt,
-    tilgangSjekket: PropTypes.bool,
     sjekkTilgang: PropTypes.func,
     hentPdfurler: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,
     delMedNav: PropTypes.func,
     godkjennDialog: PropTypes.func,
     avvisDialog: PropTypes.func,
-    sjekkTilgangHenter: PropTypes.bool,
     settAktivtSteg: PropTypes.func,
-    oppfolgingsdialogerHenter: PropTypes.bool,
     avbrytDialog: PropTypes.func,
-    arbeidsforhold: oppfolgingProptypes.arbeidsforholdReducerPt,
-    dokument: oppfolgingProptypes.dokumentReducerPt,
-    navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
-    hentet: PropTypes.bool,
     settDialog: PropTypes.func,
     hentToggles: PropTypes.func,
     hentVirksomhet: PropTypes.func,
@@ -190,11 +174,6 @@ OppfolgingsdialogSide.propTypes = {
     hentKontaktinfo: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
     hentNaermesteLeder: PropTypes.func,
-    oppfolgingsdialogId: PropTypes.string,
-    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
-    person: oppfolgingProptypes.personReducerPt,
-    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
-    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -202,21 +181,18 @@ export function mapStateToProps(state, ownProps) {
     const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
     const brodsmuletittel = oppfolgingsdialog && oppfolgingsdialog.virksomhet.navn;
     return {
-        naermesteleder: state.naermesteleder,
-        forrigenaermesteleder: state.forrigenaermesteleder,
-        virksomhet: state.virksomhet,
-        kontaktinfo: state.kontaktinfo,
-        arbeidsforhold: state.arbeidsforhold,
-        person: state.person,
-        ledetekster: state.ledetekster.data,
-        oppfolgingsdialoger: state.oppfolgingsdialoger.data,
-        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
-        oppfolgingsdialogerHenter: state.oppfolgingsdialoger.henter,
-        oppfolgingsdialogAvbrutt: state.avbrytdialogReducer.sendt,
-        sjekkTilgangHentet: state.tilgang.hentet,
-        sjekkTilgangHenter: state.tilgang.henter,
-        henter: state.oppfolgingsdialoger.henter || state.ledetekster.henter || state.tilgang.henter,
-        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet || state.ledetekster.hentingFeilet || state.tilgang.hentingFeilet,
+        henter: state.oppfolgingsdialoger.henter
+        || state.ledetekster.henter
+        || state.tilgang.henter,
+        hentingFeilet: state.oppfolgingsdialoger.hentingFeilet
+        || state.ledetekster.hentingFeilet
+        || state.tilgang.hentingFeilet,
+        hentet: state.tilgang.hentet
+        || state.oppfolgingsdialoger.hentet
+        || state.oppfolgingsdialoger.godkjent
+        || state.avbrytdialogReducer.sendt
+        || state.nullstill.sendt
+        || state.samtykke.sendt,
         sender: state.oppfolgingsdialoger.avviser
         || state.oppfolgingsdialoger.godkjenner
         || state.avbrytdialogReducer.sender
@@ -227,33 +203,25 @@ export function mapStateToProps(state, ownProps) {
         || state.avbrytdialogReducer.sendingFeilet
         || state.nullstill.sendingFeilet
         || state.samtykke.sendingFeilet,
-        godkjenner: state.oppfolgingsdialoger.godkjenner,
-        godkjent: state.oppfolgingsdialoger.godkjent,
-        godkjenningFeilet: state.oppfolgingsdialoger.godkjenningFeilet,
-        visSamtykkeSkjema: state.samtykke.vis,
-        lagrerArbeidsoppgave: state.arbeidsoppgaver.lagrer,
-        lagrerTiltak: state.tiltak.lagrer,
-        lagretArbeidsoppgave: state.arbeidsoppgaver.lagret,
-        lagretTiltak: state.tiltak.lagret,
-        dokument: state.dokument,
-        lagringFeiletArbeidsoppgave: state.arbeidsoppgaver.lagringFeilet,
-        lagringFeiletTiltak: state.tiltak.lagringFeilet,
-        lagretArbeidsoppgaveId: state.arbeidsoppgaver.lagretId,
-        lagretTiltakId: state.tiltak.lagretId,
-        sletterArbeidsoppgave: state.arbeidsoppgaver.sletter,
-        sletterTiltak: state.tiltak.sletter,
-        slettetArbeidsoppgave: state.arbeidsoppgaver.slettet,
-        slettetTiltak: state.tiltak.slettet,
-        toggles: state.toggles,
-        slettingFeiletArbeidsoppgave: state.arbeidsoppgaver.slettingFeilet,
-        slettingFeiletTiltak: state.tiltak.slettingFeilet,
-        oppfolgingsdialog,
-        oppfolgingsdialogId: id,
-        tilgang: state.tilgang.data,
-        tilgangSjekket: state.tilgang.hentet,
-        navigasjontoggles: state.navigasjontoggles,
-        hentet: state.oppfolgingsdialoger.hentet === true && state.tilgang.hentet === true,
+        ledetekster: state.ledetekster.data,
+        arbeidsforhold: state.arbeidsforhold,
+        arbeidsoppgaverReducer: state.arbeidsoppgaver,
+        avbrytdialogReducer: state.avbrytdialogReducer,
+        tiltakReducer: state.tiltak,
         delmednav: state.delmednav,
+        dokument: state.dokument,
+        forrigenaermesteleder: state.forrigenaermesteleder,
+        kontaktinfo: state.kontaktinfo,
+        naermesteleder: state.naermesteleder,
+        navigasjontoggles: state.navigasjontoggles,
+        oppfolgingsdialogerReducer: state.oppfolgingsdialoger,
+        person: state.person,
+        tilgang: state.tilgang,
+        toggles: state.toggles,
+        oppfolgingsdialog,
+        oppfolgingsdialoger: state.oppfolgingsdialoger.data,
+        virksomhet: state.virksomhet,
+        visSamtykkeSkjema: state.samtykke.vis,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

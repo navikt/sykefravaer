@@ -1,4 +1,8 @@
 import PropTypes from 'prop-types';
+import {
+    naermesteLeder,
+    sykmelding,
+} from 'digisyfo-npm';
 import * as hendelsetyper from '../enums/hendelsetyper';
 
 export { arbeidssituasjon,
@@ -62,4 +66,25 @@ export const opprettOppfolgingArbeidsgiverPt = PropTypes.shape({
     navn: PropTypes.string,
     harNaermesteLeder: PropTypes.bool,
     naermesteLeder: PropTypes.string,
+});
+
+export const dinesykmeldingerReducerPt = PropTypes.shape({
+    data: PropTypes.arrayOf(naermesteLeder),
+    henter: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
+    hentet: PropTypes.bool,
+    sender: PropTypes.bool,
+    sendingFeilet: PropTypes.bool,
+    avbryter: PropTypes.bool,
+    avbrytFeilet: PropTypes.bool,
+});
+
+export const ledereReducerPt = PropTypes.shape({
+    data: PropTypes.arrayOf(sykmelding),
+    henter: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
+    hentet: PropTypes.bool,
+    avkrefter: PropTypes.bool,
+    avkreftet: PropTypes.bool,
+    avkreftFeilet: PropTypes.bool,
 });

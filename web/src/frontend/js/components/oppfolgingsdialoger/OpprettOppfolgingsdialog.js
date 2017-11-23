@@ -5,15 +5,15 @@ import {
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import {
-    naermesteLeder as naermesteLederPt,
-    sykmelding as sykmeldingPt,
+    dinesykmeldingerReducerPt,
+    ledereReducerPt,
 } from '../../propTypes';
 import ArbeidsgiverSkjemaForm from './ArbeidsgiverSkjema';
 import { getContextRoot } from '../../routers/paths';
 import { finnArbeidsgivereForGyldigeSykmeldinger } from '../../utils/sykmeldingUtils';
 
-const OpprettOppfolgingsdialog = ({ sykmeldinger, naermesteLedere, oppfolgingsdialoger, avbrytHref, velgArbeidsgiver }) => {
-    const arbeidsgivere = finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere);
+const OpprettOppfolgingsdialog = ({ dinesykmeldinger, naermesteLedere, oppfolgingsdialoger, avbrytHref, velgArbeidsgiver }) => {
+    const arbeidsgivere = finnArbeidsgivereForGyldigeSykmeldinger(dinesykmeldinger.data, naermesteLedere.data);
 
     return (
         <div className="panel blokk velgarbeidsgiver__blokk">
@@ -32,8 +32,8 @@ const OpprettOppfolgingsdialog = ({ sykmeldinger, naermesteLedere, oppfolgingsdi
 };
 
 OpprettOppfolgingsdialog.propTypes = {
-    sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
-    naermesteLedere: PropTypes.arrayOf(naermesteLederPt),
+    naermesteLedere: ledereReducerPt,
+    dinesykmeldinger: dinesykmeldingerReducerPt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     avbrytHref: PropTypes.string,
     velgArbeidsgiver: PropTypes.func,

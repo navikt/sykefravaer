@@ -67,18 +67,8 @@ class Oppfolgingsdialog extends Component {
 
     render() {
         const {
-            lagrerArbeidsoppgave,
-            lagrerTiltak,
-            lagretArbeidsoppgave,
-            lagretTiltak,
-            lagringFeiletArbeidsoppgave,
-            lagringFeiletTiltak,
-            sletterArbeidsoppgave,
-            sletterTiltak,
-            slettetArbeidsoppgave,
-            slettetTiltak,
-            slettingFeiletArbeidsoppgave,
-            slettingFeiletTiltak,
+            arbeidsoppgaverReducer,
+            tiltakReducer,
             lagreKommentar,
             slettKommentar,
             oppfolgingsdialog,
@@ -98,12 +88,12 @@ class Oppfolgingsdialog extends Component {
             slettTiltak,
             lagreArbeidsoppgave,
             slettArbeidsoppgave,
-            oppfolgingsdialogAvbrutt,
             toggles,
             delMedNavFunc,
             delmednav,
             oppfolgingsdialoger,
         } = this.props;
+        const oppfolgingsdialogAvbrutt = this.props.avbrytdialogReducer.sendt;
         let panel;
         let disableNavigation = false;
         if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && this.state.visAvvisPlanKvittering) {
@@ -153,12 +143,7 @@ class Oppfolgingsdialog extends Component {
             (() => {
                 if (navigasjontoggles.steg === 1) {
                     panel = (<Arbeidsoppgaver
-                        lagrer={lagrerArbeidsoppgave}
-                        lagret={lagretArbeidsoppgave}
-                        sletter={sletterArbeidsoppgave}
-                        slettet={slettetArbeidsoppgave}
-                        lagringFeilet={lagringFeiletArbeidsoppgave}
-                        slettingFeilet={slettingFeiletArbeidsoppgave}
+                        arbeidsoppgaverReducer={arbeidsoppgaverReducer}
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
                         oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
@@ -167,12 +152,7 @@ class Oppfolgingsdialog extends Component {
                     />);
                 } else if (navigasjontoggles.steg === 2) {
                     panel = (<Tiltak
-                        lagrer={lagrerTiltak}
-                        lagret={lagretTiltak}
-                        sletter={sletterTiltak}
-                        slettet={slettetTiltak}
-                        lagringFeilet={lagringFeiletTiltak}
-                        slettingFeilet={slettingFeiletTiltak}
+                        tiltakReducer={tiltakReducer}
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
                         oppfolgingsdialogAvbrutt={oppfolgingsdialogAvbrutt}
@@ -227,23 +207,23 @@ class Oppfolgingsdialog extends Component {
 }
 
 Oppfolgingsdialog.propTypes = {
-    lagrerArbeidsoppgave: PropTypes.bool,
-    lagrerTiltak: PropTypes.bool,
-    lagretArbeidsoppgave: PropTypes.bool,
-    lagretTiltak: PropTypes.bool,
-    lagringFeiletArbeidsoppgave: PropTypes.bool,
-    lagringFeiletTiltak: PropTypes.bool,
-    sletterArbeidsoppgave: PropTypes.bool,
-    sletterTiltak: PropTypes.bool,
-    slettetArbeidsoppgave: PropTypes.bool,
-    slettetTiltak: PropTypes.bool,
-    slettingFeiletArbeidsoppgave: PropTypes.bool,
-    slettingFeiletTiltak: PropTypes.bool,
+    ledetekster: keyValue,
+    avbrytdialogReducer: oppfolgingProptypes.avbrytdialogReducerPt,
+    arbeidsoppgaverReducer: oppfolgingProptypes.arbeidsoppgaverReducerPt,
+    tiltakReducer: oppfolgingProptypes.tiltakReducerPt,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
+    navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
+    dokument: oppfolgingProptypes.dokumentReducerPt,
+    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
+    person: oppfolgingProptypes.personReducerPt,
+    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
+    kontaktinfo: oppfolgingProptypes.kontaktinfoReducerPt,
+    arbeidsforhold: oppfolgingProptypes.arbeidsforholdReducerPt,
+    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
+    toggles: togglesPt,
     lagreKommentar: PropTypes.func,
     slettKommentar: PropTypes.func,
-    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
-    ledetekster: keyValue,
-    toggles: togglesPt,
     delMedNavFunc: PropTypes.func,
     delmednav: oppfolgingProptypes.delmednavPt,
     godkjennDialog: PropTypes.func,
@@ -266,16 +246,6 @@ Oppfolgingsdialog.propTypes = {
     hentForrigeNaermesteLeder: PropTypes.func,
     hentNaermesteLeder: PropTypes.func,
     hentArbeidsforhold: PropTypes.func,
-    oppfolgingsdialogAvbrutt: PropTypes.bool,
-    navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
-    dokument: oppfolgingProptypes.dokumentReducerPt,
-    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
-    person: oppfolgingProptypes.personReducerPt,
-    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
-    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
-    kontaktinfo: oppfolgingProptypes.kontaktinfoReducerPt,
-    arbeidsforhold: oppfolgingProptypes.arbeidsforholdReducerPt,
-    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
 };
 
 export default Oppfolgingsdialog;

@@ -140,6 +140,7 @@ describe('Tiltak', () => {
         it('Skal vise NotifikasjonBoksLagretElement, om et Tiltak er lagret og nyttTiltak er true', () => {
             componentMedTiltak.setState({
                 nyttTiltak: true,
+                oppdatertTiltak: true,
             });
             expect(componentMedTiltak.find(NotifikasjonBoksLagretElement)).to.have.length(1);
         });

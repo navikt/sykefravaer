@@ -1,5 +1,4 @@
 import { periodeOverlapperMedPeriode, tilDatePeriode } from './periodeUtils';
-import { tidligsteFom } from 'digisyfo-npm';
 
 export const getTidligsteSendtDato = (soknad) => {
     if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {
@@ -74,12 +73,7 @@ export const sorterEtterOpprettetDato = (soknad1, soknad2) => {
     if (soknad1.opprettetDato.getTime() - soknad2.opprettetDato.getTime() !== 0) {
         return soknad1.opprettetDato.getTime() - soknad2.opprettetDato.getTime();
     }
-    const tilPerioder = (a) => {
-        return a.periode;
-    };
-    const perioder1 = soknad1.aktiviteter.map(tilPerioder);
-    const perioder2 = soknad2.aktiviteter.map(tilPerioder);
-    return tidligsteFom(perioder1).getTime() - tidligsteFom(perioder2).getTime();
+    return soknad1.fom.getTime() - soknad2.fom.getTime();
 };
 
 export const getFeriePermisjonPerioder = (values) => {

@@ -5,7 +5,8 @@ import {
     periodeOverlapperMedPerioder,
     perioderOverlapperMedPerioder,
     harOverlappendePerioder,
-    antallVirkedagerIPeriode
+    antallVirkedagerIPeriode,
+    antallVirkedagerIPerioder,
 } from "../../js/utils/periodeUtils";
 import chai from "chai";
 const expect = chai.expect;
@@ -441,5 +442,134 @@ describe("periodeUtils", () => {
         });
 
     });
+
+    describe("antallVirkedagerIPerioder", () => {
+
+        let mandag1;
+        let mandag2;
+        let mandag3;
+        let fredag1;
+        let sondag1;
+        let tirsdag1;
+
+        beforeEach(() => {
+            mandag1 = new Date("2017-08-14");
+            tirsdag1 = new Date("2017-08-15"); 
+            fredag1 = new Date("2017-08-18");
+            sondag1 = new Date("2017-08-20");
+            mandag2 = new Date("2017-08-21");
+            mandag3 = new Date("2017-08-28");
+        });
+
+        it("Skal returnere antall virkerdager i perioder som ikke overlapper", () => {
+            // 5 dager
+            const periode1 = {
+                fom: mandag1,
+                tom: fredag1,
+            };
+
+            // 6 dager
+            const periode2 = {
+                fom: sondag1,
+                tom: mandag3,
+            };
+
+            const perioder = [periode1, periode2];
+            expect(antallVirkedagerIPerioder(perioder)).to.equal(11);
+        });
+
+        it("Skal returnere antall virkedager i perioder som overlapper", () => {
+            // 5 dager
+            const periode1 = {
+                fom: mandag1,
+                tom: fredag1,
+            };
+
+            // 11 dager, men 5 av dem overlapper
+            const periode2 = {
+                fom: mandag1,
+                tom: mandag3,
+            };
+
+            // 4 dager, men alle overlappoer med periode1
+            const periode3 = {
+                fom: tirsdag1,
+                tom: fredag1,
+            }
+
+            const perioder = [periode1, periode2, periode3];
+            expect(antallVirkedagerIPerioder(perioder)).to.equal(11);
+        });
+
+        it("Skal returnere antall virkedager i perioder som overlapper - uavhengig av rekkefølgen periodene sendes inn i", () => {
+            // 5 virkedager
+            const periode1 = {
+                fom: new Date("2017-08-14"), // mandag1
+                tom: new Date("2017-08-18"), // fredag1
+                name: "periode1"
+            };
+
+            // 11 virkedager, men 5 av dem overlapper
+            const periode2 = {
+                fom: new Date("2017-08-14"), // mandag1
+                tom: new Date("2017-08-28"), // mandag3
+                name: "periode2"
+            };
+
+            // 4 virkedager, men alle overlapper med periode1
+            const periode3 = {
+                fom: new Date("2017-08-15"), // tirsdag1
+                tom: new Date("2017-08-18"), // fredag1
+                name: "periode3"
+            }
+
+            // 6 virkedager, alle overlapper med periode 2
+            const periode4 = {
+                fom: new Date("2017-08-21"), // mandag2
+                tom: new Date("2017-08-28"), // mandag3
+                name: "periode4"
+            }
+
+            const perioder = [periode4, periode2, periode1, periode3];
+            expect(antallVirkedagerIPerioder(perioder)).to.equal(11);
+        });
+
+        it("Skal kun telle dager som er etter innsendt startdato", () => {
+            const startdato = new Date("2017-08-15")
+
+            // 4 virkedager er fom startdato
+            const periode1 = {
+                fom: new Date("2017-08-14"), // mandag1
+                tom: new Date("2017-08-18"), // fredag1
+                name: "periode1"
+            };
+
+            // 11 virkedager, men 5 av dem overlapper
+            const periode2 = {
+                fom: new Date("2017-08-14"), // mandag1
+                tom: new Date("2017-08-28"), // mandag3
+                name: "periode2"
+            };
+
+            // 4 virkedager, men alle overlapper med periode1
+            const periode3 = {
+                fom: new Date("2017-08-15"), // tirsdag1
+                tom: new Date("2017-08-18"), // fredag1
+                name: "periode3"
+            }
+
+            // 6 virkedager, alle overlapper med periode 2
+            const periode4 = {
+                fom: new Date("2017-08-21"), // mandag2
+                tom: new Date("2017-08-28"), // mandag3
+                name: "periode4"
+            }
+
+            const perioder = [periode4, periode2, periode1, periode3];
+            expect(antallVirkedagerIPerioder(perioder, startdato)).to.equal(10); 
+        });
+
+
+    })
 
 });

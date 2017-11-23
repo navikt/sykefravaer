@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getHtmlLedetekst } from 'digisyfo-npm';
-import { antallVirkedagerIPeriode } from '../../../utils/periodeUtils';
+import { antallVirkedagerIPeriode, antallVirkedagerIPerioder } from '../../../utils/periodeUtils';
 
 const tilInt = (streng) => {
     return !streng ? undefined : parseFloat(streng.replace(',', '.'));
 };
 
-export const getStillingsprosent = (antallTimerIArbeid, normalArbeidstid, periode) => {
+export const getStillingsprosent = (antallTimerIArbeid, normalArbeidstid, periode, ferieOgPermisjonPerioder = []) => {
     const ANTALL_VIRKEDAGER_I_EN_UKE = 5;
-    const virkedager = antallVirkedagerIPeriode(periode);
+    const virkedager = antallVirkedagerIPeriode(periode) - antallVirkedagerIPerioder(ferieOgPermisjonPerioder, periode.fom);
     const _antallTimerIArbeid = tilInt(antallTimerIArbeid);
     const _normalArbeidstid = tilInt(normalArbeidstid);
     const desimaltall = _antallTimerIArbeid / ((_normalArbeidstid / ANTALL_VIRKEDAGER_I_EN_UKE) * virkedager);

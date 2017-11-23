@@ -1,4 +1,4 @@
-import { periodeOverlapperMedPeriode } from './periodeUtils';
+import { periodeOverlapperMedPeriode, tilDatePeriode } from './periodeUtils';
 
 export const getTidligsteSendtDato = (soknad) => {
     if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {
@@ -77,4 +77,17 @@ export const sorterEtterOpprettetDato = (soknad1, soknad2) => {
         return -1;
     }
     return 0;
+};
+
+export const getFeriePermisjonPerioder = (values) => {
+    let ferieOgPermisjonPerioder = [];
+    if (values.harHattFeriePermisjonEllerUtenlandsopphold) {
+        if (values.harHattFerie) {
+            ferieOgPermisjonPerioder = [...ferieOgPermisjonPerioder, ...values.ferie];
+        }
+        if (values.harHattPermisjon) {
+            ferieOgPermisjonPerioder = [...ferieOgPermisjonPerioder, ...values.permisjon];
+        }
+    }
+    return ferieOgPermisjonPerioder.map(tilDatePeriode);
 };

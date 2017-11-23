@@ -15,16 +15,16 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe('OppfolgingsdialogerContainer', () => {
-    let sykmeldingerReducer;
-    let tilgangReducer;
-    let ledereReducer;
+    let dinesykmeldinger;
+    let tilgang;
+    let naermesteLedere;
     let oppfolgingsdialogerReducer;
     let sjekkTilgang;
     let hentOppfolgingsdialoger;
     let hentDineSykmeldinger;
     let hentLedere;
     describe('OppfolgingsdialogerSide', () => {
-        const tilgang = {
+        const harTilgang = {
             harTilgang: true,
         };
         const ikkeTilgang = {
@@ -32,9 +32,9 @@ describe('OppfolgingsdialogerContainer', () => {
         };
 
         beforeEach(() => {
-            sykmeldingerReducer = {};
-            tilgangReducer = {};
-            ledereReducer = {};
+            dinesykmeldinger = {};
+            tilgang = {};
+            naermesteLedere = {};
             oppfolgingsdialogerReducer = {};
             sjekkTilgang = sinon.spy();
             hentOppfolgingsdialoger = sinon.spy();
@@ -44,9 +44,9 @@ describe('OppfolgingsdialogerContainer', () => {
 
         it('Skal vise spinner dersom data hentes', () => {
             const component = shallow(<OppfolgingsdialogerSide
-                sykmeldingerReducer={sykmeldingerReducer}
-                tilgangReducer={tilgangReducer}
-                ledereReducer={ledereReducer}
+                dinesykmeldinger={dinesykmeldinger}
+                tilgang={tilgang}
+                naermesteLedere={naermesteLedere}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 henter
@@ -60,9 +60,9 @@ describe('OppfolgingsdialogerContainer', () => {
 
         it('Skal vise spinner dersom leder avkreftes', () => {
             const component = shallow(<OppfolgingsdialogerSide
-                sykmeldingerReducer={sykmeldingerReducer}
-                tilgangReducer={tilgangReducer}
-                ledereReducer={ledereReducer}
+                dinesykmeldinger={dinesykmeldinger}
+                tilgang={tilgang}
+                naermesteLedere={naermesteLedere}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 sender
@@ -76,9 +76,9 @@ describe('OppfolgingsdialogerContainer', () => {
 
         it('Skal vise feilmelding dersom henting feilet', () => {
             const component = shallow(<OppfolgingsdialogerSide
-                sykmeldingerReducer={sykmeldingerReducer}
-                tilgangReducer={tilgangReducer}
-                ledereReducer={ledereReducer}
+                dinesykmeldinger={dinesykmeldinger}
+                tilgang={tilgang}
+                naermesteLedere={naermesteLedere}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 hentingFeilet
@@ -92,9 +92,9 @@ describe('OppfolgingsdialogerContainer', () => {
 
         it('Skal vise feilmelding dersom avkrefterLederFeilet', () => {
             const component = shallow(<OppfolgingsdialogerSide
-                sykmeldingerReducer={sykmeldingerReducer}
-                tilgangReducer={tilgangReducer}
-                ledereReducer={ledereReducer}
+                dinesykmeldinger={dinesykmeldinger}
+                tilgang={tilgang}
+                naermesteLedere={naermesteLedere}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 sendingFeilet
@@ -108,12 +108,11 @@ describe('OppfolgingsdialogerContainer', () => {
 
         it('Skal vise OppfolgingsdialogInfoboks dersom sykmeldt ikke har tilgang', () => {
             const component = shallow(<OppfolgingsdialogerSide
-                sykmeldingerReducer={sykmeldingerReducer}
-                tilgangReducer={tilgangReducer}
-                ledereReducer={ledereReducer}
+                dinesykmeldinger={dinesykmeldinger}
+                naermesteLedere={naermesteLedere}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
-                tilgang={ikkeTilgang}
+                tilgang={{ data: ikkeTilgang }}
                 hentOppfolgingsdialoger={hentOppfolgingsdialoger}
                 hentDineSykmeldinger={hentDineSykmeldinger}
                 hentLedere={hentLedere}
@@ -124,12 +123,11 @@ describe('OppfolgingsdialogerContainer', () => {
 
         it('Skal vise Oppfolgingsdialoger dersom henting er OK', () => {
             const component = shallow(<OppfolgingsdialogerSide
-                sykmeldingerReducer={sykmeldingerReducer}
-                tilgangReducer={tilgangReducer}
-                ledereReducer={ledereReducer}
+                dinesykmeldinger={dinesykmeldinger}
+                naermesteLedere={naermesteLedere}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
-                tilgang={tilgang}
+                tilgang={{ data: harTilgang }}
                 hentOppfolgingsdialoger={hentOppfolgingsdialoger}
                 hentDineSykmeldinger={hentDineSykmeldinger}
                 hentLedere={hentLedere}

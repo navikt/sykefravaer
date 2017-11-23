@@ -22,12 +22,12 @@ describe('OppfolgingsdialogContainer', () => {
     let hentArbeidsforhold;
     let hentToggles;
     let toggles;
-    let tilgangReducer;
+    let tilgang;
     let oppfolgingsdialogerReducer;
     let navigasjontoggles;
 
     describe('OppfolgingsdialogSide', () => {
-        const tilgang = {
+        const harTilgang = {
             harTilgang: true,
         };
         const ikkeTilgang = {
@@ -40,7 +40,7 @@ describe('OppfolgingsdialogContainer', () => {
         navigasjontoggles = {
             steg: 1,
         };
-        tilgangReducer = {};
+        tilgang = {};
         oppfolgingsdialogerReducer = {};
 
         beforeEach(() => {
@@ -53,7 +53,7 @@ describe('OppfolgingsdialogContainer', () => {
 
         it('Skal vise spinner dersom data hentes', () => {
             const component = shallow(<OppfolgingsdialogSide
-                tilgangReducer={tilgangReducer}
+                tilgang={tilgang}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 henter
@@ -70,7 +70,7 @@ describe('OppfolgingsdialogContainer', () => {
 
         it('Skal vise spinner dersom sender', () => {
             const component = shallow(<OppfolgingsdialogSide
-                tilgangReducer={tilgangReducer}
+                tilgang={tilgang}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 sender
@@ -87,7 +87,7 @@ describe('OppfolgingsdialogContainer', () => {
 
         it('Skal vise feilmelding dersom hentingFeilet', () => {
             const component = shallow(<OppfolgingsdialogSide
-                tilgangReducer={tilgangReducer}
+                tilgang={tilgang}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 hentet={false}
@@ -104,7 +104,7 @@ describe('OppfolgingsdialogContainer', () => {
 
         it('Skal vise feilmelding dersom sendingFeilet', () => {
             const component = shallow(<OppfolgingsdialogSide
-                tilgangReducer={tilgangReducer}
+                tilgang={tilgang}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 hentet={false}
@@ -121,10 +121,9 @@ describe('OppfolgingsdialogContainer', () => {
 
         it('Skal vise OppfolgingsdialogInfoboks dersom sykmeldt ikke har tilgang', () => {
             const component = shallow(<OppfolgingsdialogSide
-                tilgangReducer={tilgangReducer}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
-                tilgang={ikkeTilgang}
+                tilgang={{ data: ikkeTilgang }}
                 toggles={toggles}
                 hentOppfolgingsdialoger={hentOppfolgingsdialoger}
                 sjekkTilgang={sjekkTilgang}
@@ -137,10 +136,9 @@ describe('OppfolgingsdialogContainer', () => {
 
         it('Skal vise Oppfolgingsdialog dersom henting er OK', () => {
             const component = shallow(<OppfolgingsdialogSide
-                tilgangReducer={tilgangReducer}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
-                tilgang={tilgang}
+                tilgang={{ data: harTilgang }}
                 toggles={toggles}
                 hentOppfolgingsdialoger={hentOppfolgingsdialoger}
                 sjekkTilgang={sjekkTilgang}

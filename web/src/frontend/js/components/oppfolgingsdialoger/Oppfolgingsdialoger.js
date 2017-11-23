@@ -20,8 +20,8 @@ import {
     finnOgHentForrigeNaermesteLedereSomMangler,
 } from 'oppfolgingsdialog-npm';
 import {
-    sykmelding as sykmeldingPt,
-    naermesteLeder as naermesteLederPt,
+    dinesykmeldingerReducerPt,
+    ledereReducerPt,
 } from '../../propTypes';
 import Sidetopp from '../Sidetopp';
 import {
@@ -72,11 +72,21 @@ export class Oppfolgingsdialoger extends Component {
     }
 
     render() {
-        const { oppfolgingsdialoger = [], ledetekster, avkreftLeder, bekreftetNyNaermesteLeder, bekreftNyNaermesteLeder, sykmeldinger, naermesteLedere, opprettOppfolgingsdialog, virksomhet } = this.props;
+        const {
+            oppfolgingsdialoger = [],
+            ledetekster,
+            avkreftLeder,
+            bekreftetNyNaermesteLeder,
+            bekreftNyNaermesteLeder,
+            dinesykmeldinger,
+            naermesteLedere,
+            opprettOppfolgingsdialog,
+            virksomhet,
+        } = this.props;
         let panel;
         const dialogerAvbruttAvMotpartSidenSistInnlogging = finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
         const oppfolgingsdialogMedNyNaermesteLeder = finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder(oppfolgingsdialoger);
-        if (erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere(oppfolgingsdialoger, sykmeldinger, naermesteLedere)) {
+        if (erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere(oppfolgingsdialoger, dinesykmeldinger.data, naermesteLedere.data)) {
             panel = (<IngenledereInfoboks />);
         } else if (!bekreftetNyNaermesteLeder && oppfolgingsdialogMedNyNaermesteLeder) {
             panel = (<NyNaermestelederInfoboks
@@ -157,9 +167,12 @@ export class Oppfolgingsdialoger extends Component {
     }
 }
 Oppfolgingsdialoger.propTypes = {
+    dinesykmeldinger: dinesykmeldingerReducerPt,
+    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
+    naermesteLedere: ledereReducerPt,
+    person: oppfolgingProptypes.personReducerPt,
+    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
-    sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
-    naermesteLedere: PropTypes.arrayOf(naermesteLederPt),
     ledetekster: keyValue,
     bekreftetNyNaermesteLeder: PropTypes.bool,
     bekreftNyNaermesteLeder: PropTypes.func,
@@ -168,9 +181,6 @@ Oppfolgingsdialoger.propTypes = {
     hentPerson: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
     opprettOppfolgingsdialog: PropTypes.func,
-    virksomhet: oppfolgingProptypes.virksomhetReducerPt,
-    person: oppfolgingProptypes.personReducerPt,
-    forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
 };
 
 export default Oppfolgingsdialoger;

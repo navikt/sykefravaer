@@ -21,7 +21,7 @@ import sinon from 'sinon';
 
 describe('Oppfolgingsdialoger', () => {
     let component;
-    let sykmeldinger;
+    let dinesykmeldinger;
     let naermesteLedere;
     const oppfolgingsdialoger = getOppfolgingsdialoger;
     let hentVirksomhet;
@@ -53,8 +53,8 @@ describe('Oppfolgingsdialoger', () => {
         data: [],
     };
     beforeEach(() => {
-        sykmeldinger = [];
-        naermesteLedere = [];
+        dinesykmeldinger = { data: [] };
+        naermesteLedere = { data: [] };
         hentForrigeNaermesteLeder = sinon.spy();
         hentPerson = sinon.spy();
         hentKontaktinfo = sinon.spy();
@@ -62,7 +62,7 @@ describe('Oppfolgingsdialoger', () => {
 
         component = shallow(<Oppfolgingsdialoger
             oppfolgingsdialoger={[]}
-            sykmeldinger={sykmeldinger}
+            dinesykmeldinger={dinesykmeldinger}
             naermesteLedere={naermesteLedere}
             hentVirksomhet={hentVirksomhet}
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
@@ -76,38 +76,27 @@ describe('Oppfolgingsdialoger', () => {
     });
 
     it('Skal vise overskrift for Oppfolgingsdialoger', () => {
-        component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} hentVirksomhet={hentVirksomhet}
-                                                 hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                                                 hentPerson={hentPerson}
-                                                 hentKontaktinfo={hentKontaktinfo}
-                                                 forrigenaermesteleder={forrigenaermesteleder}
-                                                 virksomhet={virksomhet}
-                                                 person={person}
-                                                 kontaktinfo={kontaktinfo} />);
         expect(component.find(Sidetopp)).to.have.length(1);
     });
 
     it('Skal vise tekst for Oppfolgingsdialoger', () => {
-        component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} hentVirksomhet={hentVirksomhet}
-                                                 hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                                                 hentPerson={hentPerson}
-                                                 hentKontaktinfo={hentKontaktinfo}
-                                                 forrigenaermesteleder={forrigenaermesteleder}
-                                                 virksomhet={virksomhet}
-                                                 person={person}
-                                                 kontaktinfo={kontaktinfo} />);
         expect(component.find('p.oppfolgingsdialoger__tekst')).to.have.length(1);
     });
 
     it('Skal vise OppfolgingsdialogFilm', () => {
-        component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialoger} hentVirksomhet={hentVirksomhet}
-                                                 hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                                                 hentPerson={hentPerson}
-                                                 hentKontaktinfo={hentKontaktinfo}
-                                                 forrigenaermesteleder={forrigenaermesteleder}
-                                                 virksomhet={virksomhet}
-                                                 person={person}
-                                                 kontaktinfo={kontaktinfo} />);
+        component = shallow(<Oppfolgingsdialoger
+            oppfolgingsdialoger={oppfolgingsdialoger}
+            dinesykmeldinger={dinesykmeldinger}
+            naermesteLedere={naermesteLedere}
+            hentVirksomhet={hentVirksomhet}
+            hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+            hentPerson={hentPerson}
+            hentKontaktinfo={hentKontaktinfo}
+            forrigenaermesteleder={forrigenaermesteleder}
+            virksomhet={virksomhet}
+            person={person}
+            kontaktinfo={kontaktinfo}
+        />);
         expect(component.find(OppfolgingsdialogFilm)).to.have.length(1);
     });
 
@@ -126,7 +115,7 @@ describe('Oppfolgingsdialoger', () => {
             })];
             component = shallow(<Oppfolgingsdialoger
                 oppfolgingsdialoger={oppfolgingsdialogListe}
-                sykmeldinger={sykmeldinger}
+                dinesykmeldinger={dinesykmeldinger}
                 hentVirksomhet={hentVirksomhet}
                 hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
                 hentPerson={hentPerson}
@@ -156,7 +145,7 @@ describe('Oppfolgingsdialoger', () => {
             })];
             component = shallow(<Oppfolgingsdialoger
                 oppfolgingsdialoger={[]}
-                sykmeldinger={sykmeldingListe}
+                dinesykmeldinger={{ data: sykmeldingListe }}
                 hentVirksomhet={hentVirksomhet}
                 hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
                 hentPerson={hentPerson}
@@ -165,7 +154,7 @@ describe('Oppfolgingsdialoger', () => {
                 virksomhet={virksomhet}
                 person={person}
                 kontaktinfo={kontaktinfo}
-                naermesteLedere={[{ orgnummer: sykmeldingListe[0].orgnummer }]}
+                naermesteLedere={{ data: [{ orgnummer: sykmeldingListe[0].orgnummer }] }}
             />);
             expect(component.find(OppfolgingsdialogerIngenplan)).to.have.length(1);
         });
@@ -195,8 +184,8 @@ describe('Oppfolgingsdialoger', () => {
                 person={person}
                 kontaktinfo={kontaktinfo}
                 oppfolgingsdialoger={oppfolgingsdialogListe}
-                sykmeldinger={sykmeldingListe}
-                naermesteLedere={[{ orgnummer: sykmeldingListe[0].orgnummer }]}
+                dinesykmeldinger={{ data: sykmeldingListe }}
+                naermesteLedere={{ data: [{ orgnummer: sykmeldingListe[0].orgnummer }] }}
             />);
             expect(component.find(OppfolgingsdialogerIngenplan)).to.have.length(1);
         });
@@ -208,14 +197,19 @@ describe('Oppfolgingsdialoger', () => {
                 const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
                     godkjentPlan: null,
                 })];
-                component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialogListe} hentVirksomhet={hentVirksomhet}
-                                                         hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                                                         hentPerson={hentPerson}
-                                                         hentKontaktinfo={hentKontaktinfo}
-                                                         forrigenaermesteleder={forrigenaermesteleder}
-                                                         virksomhet={virksomhet}
-                                                         person={person}
-                                                         kontaktinfo={kontaktinfo} />);
+                component = shallow(<Oppfolgingsdialoger
+                    dinesykmeldinger={dinesykmeldinger}
+                    naermesteLedere={naermesteLedere}
+                    oppfolgingsdialoger={oppfolgingsdialogListe}
+                    hentVirksomhet={hentVirksomhet}
+                    hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+                    hentPerson={hentPerson}
+                    hentKontaktinfo={hentKontaktinfo}
+                    forrigenaermesteleder={forrigenaermesteleder}
+                    virksomhet={virksomhet}
+                    person={person}
+                    kontaktinfo={kontaktinfo}
+                />);
                 expect(component.find(OppfolgingsdialogTeasere)).to.have.length(1);
             });
 
@@ -223,14 +217,19 @@ describe('Oppfolgingsdialoger', () => {
                 const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
                     godkjentPlan: null,
                 })];
-                component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialogListe} hentVirksomhet={hentVirksomhet}
-                                                         hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                                                         hentPerson={hentPerson}
-                                                         hentKontaktinfo={hentKontaktinfo}
-                                                         forrigenaermesteleder={forrigenaermesteleder}
-                                                         virksomhet={virksomhet}
-                                                         person={person}
-                                                         kontaktinfo={kontaktinfo} />);
+                component = shallow(<Oppfolgingsdialoger
+                    dinesykmeldinger={dinesykmeldinger}
+                    naermesteLedere={naermesteLedere}
+                    oppfolgingsdialoger={oppfolgingsdialogListe}
+                    hentVirksomhet={hentVirksomhet}
+                    hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+                    hentPerson={hentPerson}
+                    hentKontaktinfo={hentKontaktinfo}
+                    forrigenaermesteleder={forrigenaermesteleder}
+                    virksomhet={virksomhet}
+                    person={person}
+                    kontaktinfo={kontaktinfo}
+                />);
                 expect(component.find(OppfolgingsdialogNyDialog)).to.have.length(1);
             });
         });
@@ -245,15 +244,19 @@ describe('Oppfolgingsdialoger', () => {
                         },
                     },
                 })];
-                component = shallow(<Oppfolgingsdialoger oppfolgingsdialoger={oppfolgingsdialogListe}
-                                                         hentVirksomhet={hentVirksomhet}
-                                                         hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                                                         hentPerson={hentPerson}
-                                                         hentKontaktinfo={hentKontaktinfo}
-                                                         forrigenaermesteleder={forrigenaermesteleder}
-                                                         virksomhet={virksomhet}
-                                                         person={person}
-                                                         kontaktinfo={kontaktinfo} />);
+                component = shallow(<Oppfolgingsdialoger
+                    dinesykmeldinger={dinesykmeldinger}
+                    naermesteLedere={naermesteLedere}
+                    oppfolgingsdialoger={oppfolgingsdialogListe}
+                    hentVirksomhet={hentVirksomhet}
+                    hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+                    hentPerson={hentPerson}
+                    hentKontaktinfo={hentKontaktinfo}
+                    forrigenaermesteleder={forrigenaermesteleder}
+                    virksomhet={virksomhet}
+                    person={person}
+                    kontaktinfo={kontaktinfo}
+                />);
                 expect(component.find(OppfolgingsdialogTeasere)).to.have.length(1);
             });
         });

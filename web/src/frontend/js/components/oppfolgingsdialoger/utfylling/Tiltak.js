@@ -13,7 +13,7 @@ import {
     proptypes as oppfolgingProptypes,
     TiltakSkjema,
     TiltakInfoboks,
-    sorterTiltakEtterOpprettet,
+    sorterTiltakEtterNyeste,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
@@ -189,12 +189,6 @@ class Tiltak extends Component {
                             />
                         }
                         {
-                            lagret && this.state.nyttTiltak && <NotifikasjonBoksLagretElement
-                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-tiltak.tekst')}
-                                rootUrl={`${getContextRoot()}`}
-                            />
-                        }
-                        {
                             antallNyeTiltak > 0 && !oppfolgingsdialogAvbrutt && <TiltakNotifikasjonBoksAdvarsel
                                 ledetekster={ledetekster}
                                 motpartnavn={'Lederen din'}
@@ -225,7 +219,7 @@ class Tiltak extends Component {
                         {
                             <RenderOppfolgingsdialogTiltakTabell
                                 ledetekster={ledetekster}
-                                tiltakListe={sorterTiltakEtterOpprettet(oppfolgingsdialog.tiltakListe)}
+                                tiltakListe={sorterTiltakEtterNyeste(oppfolgingsdialog.tiltakListe)}
                                 sendLagreTiltak={this.sendLagreTiltak}
                                 sendSlettTiltak={this.sendSlettTiltak}
                                 fnr={oppfolgingsdialog.arbeidstaker.fnr}

@@ -134,15 +134,17 @@ class Tiltak extends Component {
 
     render() {
         const {
-            lagrer,
-            lagret,
-            sletter,
-            lagringFeilet,
-            slettingFeilet,
             ledetekster,
             oppfolgingsdialog,
             oppfolgingsdialogAvbrutt,
         } = this.props;
+        const {
+            lagrer,
+            lagret,
+            lagringFeilet,
+            sletter,
+            slettingFeilet,
+        } = this.props.tiltak;
 
         const antallNyeTiltak = oppfolgingsdialog.tiltakListe.filter((tiltak) => {
             return tiltak.opprettetAv.fnr !== oppfolgingsdialog.arbeidstaker.fnr && new Date(tiltak.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget);
@@ -236,12 +238,8 @@ class Tiltak extends Component {
 }
 
 Tiltak.propTypes = {
-    lagrer: PropTypes.bool,
-    lagret: PropTypes.bool,
-    sletter: PropTypes.bool,
-    lagringFeilet: PropTypes.bool,
-    slettingFeilet: PropTypes.bool,
     ledetekster: keyValue,
+    tiltak: oppfolgingProptypes.tiltakReducerPt,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreTiltak: PropTypes.func,

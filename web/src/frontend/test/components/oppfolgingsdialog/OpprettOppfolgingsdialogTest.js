@@ -10,7 +10,7 @@ import ArbeidsgiverSkjemaForm from '../../../js/components/oppfolgingsdialoger/A
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe('Oppfolgingsdialoger', () => {
+describe('OpprettOppfolgingsdialoger', () => {
     let component;
 
     beforeEach(() => {
@@ -19,8 +19,8 @@ describe('Oppfolgingsdialoger', () => {
 
     it('Skal vise et ArbeidsgiverSkjema', () => {
         component = shallow(<OpprettOppfolgingsdialog
-            sykmeldinger={[]}
-            naermesteLedere={[]}
+            dinesykmeldinger={{ data: [] }}
+            naermesteLedere={{ data: [] }}
         />);
         expect(component.find(ArbeidsgiverSkjemaForm)).to.have.length(1);
     });

@@ -133,41 +133,6 @@ describe('Tiltak', () => {
             />);
         });
 
-        it('Skal vise NotifikasjonBoksLagretElement, om et Tiltak er lagret og oppdatertTiltak er true', () => {
-            componentMedTiltak.setState({
-                oppdatertTiltak: true,
-            });
-            expect(componentMedTiltak.find(NotifikasjonBoksLagretElement)).to.have.length(1);
-        });
-
-        it('Skal vise NotifikasjonBoksLagretElement, om et Tiltak er lagret og nyttTiltak er true', () => {
-            componentMedTiltak.setState({
-                nyttTiltak: true,
-                oppdatertTiltak: true,
-            });
-            expect(componentMedTiltak.find(NotifikasjonBoksLagretElement)).to.have.length(1);
-        });
-
-        it('Skal vise TiltakNotifikasjonBoksAdvarsel, om nye Tiltak er lagt til av motpart', () => {
-            const oppfolgingsdialogMedNyeTiltak = Object.assign({}, oppfolgingsdialog, {
-                arbeidstaker,
-                arbeidsgiver,
-                tiltakListe: [{
-                    opprettetDato: '2017-01-02T00:00:00.000',
-                    opprettetAv: arbeidsgiver.naermesteLeder,
-                }],
-            });
-            const componentMedNyeTiltak = shallow(<Tiltak
-                tiltak={tiltak}
-                oppfolgingsdialog={oppfolgingsdialogMedNyeTiltak}
-                oppfolgingsdialogerHentet
-                lagreTiltak={lagreTiltak}
-                slettTiltak={slettTiltak}
-                oppfolgingsdialogAvbrutt={false}
-            />);
-            expect(componentMedNyeTiltak.find(TiltakNotifikasjonBoksAdvarsel)).to.have.length(1);
-        });
-
         it('Skal ikke vise TiltakNotifikasjonBoksAdvarsel, om nye Tiltak er lagt til av motpart, og oppfolgingsdialogAvbrutt er true', () => {
             const oppfolgingsdialogMedNyeTiltak = Object.assign({}, oppfolgingsdialog, {
                 arbeidstaker,

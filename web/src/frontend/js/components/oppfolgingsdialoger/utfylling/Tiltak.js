@@ -183,20 +183,6 @@ class Tiltak extends Component {
                     </div>
                     :
                     <div>
-                        {
-                            lagret && this.state.oppdatertTiltak && <NotifikasjonBoksLagretElement
-                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-tiltak.tekst')}
-                                rootUrl={`${getContextRoot()}`}
-                            />
-                        }
-                        {
-                            antallNyeTiltak > 0 && !oppfolgingsdialogAvbrutt && <TiltakNotifikasjonBoksAdvarsel
-                                ledetekster={ledetekster}
-                                motpartnavn={'Lederen din'}
-                                antallTiltakLagtTilAvMotpart={antallNyeTiltak}
-                                rootUrl={`${getContextRoot()}`}
-                            />
-                        }
                         <TiltakInfoboks
                             ledetekster={ledetekster}
                             visTiltakSkjema={this.state.visTiltakSkjema}

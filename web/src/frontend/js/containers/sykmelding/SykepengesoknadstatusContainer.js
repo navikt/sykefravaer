@@ -35,7 +35,7 @@ Container.propTypes = {
 export const mapStateToProps = (state, ownProps) => {
     const skalHenteSykepengesoknader = !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter;
     const sykepengesoknader = state.sykepengesoknader.data.filter((s) => {
-        return s.sykmeldingId === ownProps.sykmeldingId;
+        return !s.korrigerer && s.sykmeldingId === ownProps.sykmeldingId;
     });
     const henter = !state.sykepengesoknader.hentet || state.sykepengesoknader.henter;
 

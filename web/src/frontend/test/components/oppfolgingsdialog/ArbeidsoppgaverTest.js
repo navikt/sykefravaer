@@ -31,14 +31,14 @@ describe('Arbeidsoppgaver', () => {
     let lagreArbeidsoppgave;
     let slettArbeidsoppgave;
     let arbeidsforhold;
-    let arbeidsoppgaverReducer;
+    let arbeidsoppgaver;
     const oppfolgingsdialog = getOppfolgingsdialog();
 
     beforeEach(() => {
         lagreArbeidsoppgave = sinon.spy();
         slettArbeidsoppgave = sinon.spy();
         setLedetekster(ledetekster);
-        arbeidsoppgaverReducer = {};
+        arbeidsoppgaver = {};
         arbeidsgiver = {
             naermesteLeder: {
                 navn: 'Arbeidsgiver',
@@ -62,7 +62,7 @@ describe('Arbeidsoppgaver', () => {
     it('Skal vise spinner dersom data lagres', () => {
         component = shallow(<Arbeidsoppgaver
             oppfolgingsdialog={oppfolgingsdialog}
-            arbeidsoppgaverReducer={{ lagrer: true }}
+            arbeidsoppgaver={{ lagrer: true }}
         />);
         expect(component.contains(<AppSpinner />)).to.equal(true);
     });
@@ -70,7 +70,7 @@ describe('Arbeidsoppgaver', () => {
     it('Skal vise spinner dersom data slettes', () => {
         component = shallow(<Arbeidsoppgaver
             oppfolgingsdialog={oppfolgingsdialog}
-            arbeidsoppgaverReducer={{ sletter: true }}
+            arbeidsoppgaver={{ sletter: true }}
         />);
         expect(component.contains(<AppSpinner />)).to.equal(true);
     });
@@ -78,7 +78,7 @@ describe('Arbeidsoppgaver', () => {
     it('Skal vise feilmelding dersom lagring feilet', () => {
         component = shallow(<Arbeidsoppgaver
             oppfolgingsdialog={oppfolgingsdialog}
-            arbeidsoppgaverReducer={{ lagringFeilet: true }}
+            arbeidsoppgaver={{ lagringFeilet: true }}
         />);
         expect(component.contains(<Feilmelding />)).to.equal(true);
     });
@@ -86,7 +86,7 @@ describe('Arbeidsoppgaver', () => {
     it('Skal vise feilmelding dersom sletting feilet', () => {
         component = shallow(<Arbeidsoppgaver
             oppfolgingsdialog={oppfolgingsdialog}
-            arbeidsoppgaverReducer={{ slettingFeilet: true }}
+            arbeidsoppgaver={{ slettingFeilet: true }}
         />);
         expect(component.contains(<Feilmelding />)).to.equal(true);
     });
@@ -101,7 +101,7 @@ describe('Arbeidsoppgaver', () => {
                 arbeidsoppgaveListe: [],
             });
             componentUtenArbeidsoppgaver = shallow(<Arbeidsoppgaver
-                arbeidsoppgaverReducer={arbeidsoppgaverReducer}
+                arbeidsoppgaver={arbeidsoppgaver}
                 oppfolgingsdialog={oppfolgingsdialogUtenArbeidsoppgaver}
                 lagreArbeidsoppgave={lagreArbeidsoppgave}
                 slettArbeidsoppgave={slettArbeidsoppgave}
@@ -140,7 +140,7 @@ describe('Arbeidsoppgaver', () => {
                 lagreArbeidsoppgave={lagreArbeidsoppgave}
                 slettArbeidsoppgave={slettArbeidsoppgave}
                 arbeidsforhold={arbeidsforhold}
-                arbeidsoppgaverReducer={{ lagret: true }}
+                arbeidsoppgaver={{ lagret: true }}
             />);
         });
 
@@ -176,7 +176,7 @@ describe('Arbeidsoppgaver', () => {
                 }],
             });
             const componentMedNyeArbeidsoppgaver = shallow(<Arbeidsoppgaver
-                arbeidsoppgaverReducer={arbeidsoppgaverReducer}
+                arbeidsoppgaver={arbeidsoppgaver}
                 oppfolgingsdialog={oppfolgingsdialogMedNyeArbeidsoppgaver}
                 lagreArbeidsoppgave={lagreArbeidsoppgave}
                 slettArbeidsoppgave={slettArbeidsoppgave}
@@ -195,7 +195,7 @@ describe('Arbeidsoppgaver', () => {
                 }],
             });
             const componentAvbruttMedNyeArbeidsoppgaver = shallow(<Arbeidsoppgaver
-                arbeidsoppgaverReducer={arbeidsoppgaverReducer}
+                arbeidsoppgaver={arbeidsoppgaver}
                 oppfolgingsdialog={oppfolgingsdialogMedNyeArbeidsoppgaver}
                 lagreArbeidsoppgave={lagreArbeidsoppgave}
                 slettArbeidsoppgave={slettArbeidsoppgave}

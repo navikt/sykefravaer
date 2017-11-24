@@ -29,14 +29,14 @@ describe('Tiltak', () => {
     let arbeidstaker;
     let lagreTiltak;
     let slettTiltak;
-    let tiltakReducer;
+    let tiltak;
     const oppfolgingsdialog = getOppfolgingsdialog();
 
     beforeEach(() => {
         lagreTiltak = sinon.spy();
         slettTiltak = sinon.spy();
         setLedetekster(ledetekster);
-        tiltakReducer = {};
+        tiltak = {};
         arbeidsgiver = {
             naermesteLeder: {
                 navn: 'Arbeidsgiver',
@@ -53,7 +53,7 @@ describe('Tiltak', () => {
     it('Skal vise spinner dersom data lagres', () => {
         component = shallow(<Tiltak
             oppfolgingsdialog={oppfolgingsdialog}
-            tiltakReducer={{ lagrer: true }}
+            tiltak={{ lagrer: true }}
         />);
         expect(component.contains(<AppSpinner />)).to.equal(true);
     });
@@ -63,7 +63,7 @@ describe('Tiltak', () => {
             oppfolgingsdialog={oppfolgingsdialog}
             lagreTiltak={lagreTiltak}
             slettTiltak={slettTiltak}
-            tiltakReducer={{ sletter: true }}
+            tiltak={{ sletter: true }}
         />);
         expect(component.contains(<AppSpinner />)).to.equal(true);
     });
@@ -73,7 +73,7 @@ describe('Tiltak', () => {
             oppfolgingsdialog={oppfolgingsdialog}
             lagreTiltak={lagreTiltak}
             slettTiltak={slettTiltak}
-            tiltakReducer={{ lagringFeilet: true }}
+            tiltak={{ lagringFeilet: true }}
         />);
         expect(component.contains(<Feilmelding />)).to.equal(true);
     });
@@ -83,7 +83,7 @@ describe('Tiltak', () => {
             oppfolgingsdialog={oppfolgingsdialog}
             lagreTiltak={lagreTiltak}
             slettTiltak={slettTiltak}
-            tiltakReducer={{ slettingFeilet: true }}
+            tiltak={{ slettingFeilet: true }}
         />);
         expect(component.contains(<Feilmelding />)).to.equal(true);
     });
@@ -98,7 +98,7 @@ describe('Tiltak', () => {
                 tiltakListe: [],
             });
             componentUtenTiltak = shallow(<Tiltak
-                tiltakReducer={tiltakReducer}
+                tiltak={tiltak}
                 oppfolgingsdialog={oppfolgingsdialogUtenTiltak}
                 oppfolgingsdialogerHentet
                 lagreTiltak={lagreTiltak}
@@ -129,7 +129,7 @@ describe('Tiltak', () => {
                 oppfolgingsdialogerHentet
                 lagreTiltak={lagreTiltak}
                 slettTiltak={slettTiltak}
-                tiltakReducer={{ lagret: true }}
+                tiltak={{ lagret: true }}
             />);
         });
         it('Skal vise en overskrift, om det er tiltak', () => {
@@ -160,7 +160,7 @@ describe('Tiltak', () => {
                 }],
             });
             const componentMedNyeTiltak = shallow(<Tiltak
-                tiltakReducer={tiltakReducer}
+                tiltak={tiltak}
                 oppfolgingsdialog={oppfolgingsdialogMedNyeTiltak}
                 oppfolgingsdialogerHentet
                 lagreTiltak={lagreTiltak}
@@ -180,7 +180,7 @@ describe('Tiltak', () => {
                 }],
             });
             const componentAvbrutt = shallow(<Tiltak
-                tiltakReducer={tiltakReducer}
+                tiltak={tiltak}
                 oppfolgingsdialog={oppfolgingsdialogMedNyeTiltak}
                 oppfolgingsdialogerHentet
                 lagreTiltak={lagreTiltak}

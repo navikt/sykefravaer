@@ -165,7 +165,7 @@ export const mapStateToProps = (state) => {
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('oppfolgingsdialoger.sidetittel'),
+            tittel: getLedetekst('oppfolgingsdialoger.sidetittel.arbeidstaker'),
             sti: '/oppfolgingsplaner',
         }],
     };

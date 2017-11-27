@@ -28,7 +28,7 @@ const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, 
                 <img className="sidebanner__illustrasjon" src="/sykefravaer/img/svg/landingsside/konsultasjon.svg" alt="Konsultasjon" />
             </div>
         </div>
-        <div className="begrensning">
+        <div className="begrensning blokk">
             <ServerfeilContainer />
             {
                 dineSykmeldinger.length === 0 && <IngenSykmeldinger />

@@ -181,7 +181,6 @@ OppfolgingsdialogSide.propTypes = {
 export function mapStateToProps(state, ownProps) {
     const id = ownProps.params.oppfolgingsdialogId;
     const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
-    const brodsmuletittel = oppfolgingsdialog && oppfolgingsdialog.virksomhet.navn;
     return {
         henter: state.oppfolgingsdialoger.henter
         || state.ledetekster.henter
@@ -231,11 +230,11 @@ export function mapStateToProps(state, ownProps) {
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('oppfolgingsdialoger.sidetittel'),
+            tittel: getLedetekst('oppfolgingsdialoger.sidetittel.arbeidstaker'),
             sti: '/oppfolgingsplaner',
             erKlikkbar: true,
         }, {
-            tittel: brodsmuletittel,
+            tittel: getLedetekst('oppfolgingsdialog.sidetittel.arbeidstaker'),
         }],
     };
 }

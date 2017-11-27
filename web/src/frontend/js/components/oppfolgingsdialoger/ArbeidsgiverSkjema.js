@@ -106,7 +106,7 @@ export const ArbeidsgiverSkjema = ({ arbeidsgivere, oppfolgingsdialoger, handleS
                     disabled={!erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver(oppfolgingsdialoger, arbeidsgivere)}>
                     {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.velg-arbeidsgiver')}
                 </button>
-                <Link className="lenke lenke--avbryt" to={avbrytHref}>
+                <Link className="lenke lenke--avbryt knapperad__element" to={avbrytHref}>
                     {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
                 </Link>
             </div>

@@ -121,43 +121,6 @@
     }
 }
 
-.knapperad--forrigeNeste {
-    display: flex;
-    justify-content: center;
-}
-
-.knapperad--medAvbryt {
-    margin-bottom: 2em;
-}
-
-@media (max-width: @skjermMini) {
-    .knapperad--forrigeNeste {
-        flex-direction: column-reverse;
-    }
-
-    .knapperad__element {
-        margin-bottom: 2em;
-    }
-
-    .knapperad__element:first-child {
-        margin-bottom: 0;
-    }
-}
-
-@media(min-width: @skjermMini) {
-
-    .knapperad__element {
-        display: inline-block;
-        margin-right: 2em;
-    }
-
-    .knapperad__element:last-child {
-        margin-right: 0;
-    }
-
-}
-
-
 .sykepenger__stegtittel {
     .mixin-typo-innholdstittel();
     margin-top: 0;

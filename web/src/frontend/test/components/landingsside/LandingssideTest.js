@@ -8,7 +8,7 @@ import ledetekster from "../../mockLedetekster";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Landingsside, { GenerellInfo } from "../../../js/components/landingsside/Landingsside";
+import Landingsside from "../../../js/components/landingsside/Landingsside";
 import LandingssideLenke from "../../../js/components/landingsside/LandingssideLenke";
 import { getSoknad } from '../../mockSoknader';
 import { setLedetekster } from 'digisyfo-npm';
@@ -142,24 +142,5 @@ describe("Landingsside", () => {
         component = shallow(<Landingsside toggles={{}} skjulVarsel={true} sykepengesoknader={[getSoknad()]} />);
         expect(component.find(LandingssideLenke)).to.have.length(2);
     });
-
-    it("Skal vise generell informasjon", () => {
-        component = shallow(<Landingsside toggles={{}} skjulVarsel={true} />);
-        expect(component.find(GenerellInfo)).to.have.length(1);
-    });
-
-    describe("GenerellInfo", () => {
-
-        it("Skal vise en overskrift", () => {
-            component = shallow(<GenerellInfo />);
-            expect(component.find("h2")).to.have.length(1);
-        });
-
-        it("Skal vise to lenker", () => {
-           component = mount(<GenerellInfo />);
-           expect(component.find("a")).to.have.length(2); 
-        })
-
-    })
 
 }); 

@@ -275,6 +275,7 @@ describe('Oppfolgingsdialoger', () => {
             component = shallow(<OppfolgingsdialogNyDialog
                 virksomheter={[virksomhet1]}
                 opprettOppfolgingsdialog={opprettOppfolgingsdialog}
+                oppfolgingsdialoger={[]}
 
             />);
             expect(component.find('button')).to.have.length(1);

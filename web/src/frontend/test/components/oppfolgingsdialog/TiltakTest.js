@@ -5,10 +5,8 @@ import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
 import {
     OppfolgingsdialogInfoboks,
-    LagreTiltakSkjema,
     TiltakSkjema,
     LeggTilElementKnapper,
-    NotifikasjonBoksLagretElement,
     TiltakNotifikasjonBoksAdvarsel,
 } from 'oppfolgingsdialog-npm';
 import { setLedetekster } from 'digisyfo-npm';

@@ -133,10 +133,6 @@ export const KvitteringSokSenere = ({ sykepengesoknader }) => {
                 </Kvitteringsteg>
             </div>
         </div>
-        <div className="panel blokk">
-            <h2 className="panel__tittel">{getLedetekst('sykmelding.kvittering.sok-senere.utenlandsopphold.tittel')}</h2>
-            <div className="kvittering__utenlandsopphold" dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding.kvittering.sok-senere.utenlandsopphold.tekst')} />
-        </div>
         <div className="blokk">
             <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
             <Video

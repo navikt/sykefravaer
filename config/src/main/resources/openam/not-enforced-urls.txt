@@ -4,3 +4,9 @@ https://${DomainName}/sykefravaer/styles/*
 https://${DomainName}/sykefravaer/img/*
 https://${DomainName}/sykefravaer/js/*
 https://${DomainName}/sykefravaer/font/*
+https://${DomainName}/sykefravaerarbeidsgiver/internal/isAlive*
+https://${DomainName}/sykefravaerarbeidsgiver/internal/selftest*
+https://${DomainName}/sykefravaerarbeidsgiver/styles/*
+https://${DomainName}/sykefravaerarbeidsgiver/img/*
+https://${DomainName}/sykefravaerarbeidsgiver/js/*
+https://${DomainName}/sykefravaerarbeidsgiver/font/*

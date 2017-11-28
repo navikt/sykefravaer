@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getLedetekst } from 'digisyfo-npm';
 import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
-import { SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
+import { SENDT, TIL_SENDING, NY } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
 import { hentArbeidsgiverperiodeberegning } from '../../actions/arbeidsgiverperiodeberegning_actions';
@@ -16,11 +17,38 @@ const NAV_OG_ARBEIDSGIVER = 'NAV_OG_ARBEIDSGIVER';
 const NAV = 'NAV';
 const ARBEIDSGIVER = 'ARBEIDSGIVER';
 
+const beforeunload = 'beforeunload';
+
+const onBeforeUnload = (e) => {
+    (e || window.event).returnValue = getLedetekst('sykepengesoknad.navigeringsvarsel');
+    return getLedetekst('sykepengesoknad.navigeringsvarsel');
+};
+
 export class Oppsummering extends Component {
     componentWillMount() {
-        const { backendsoknad } = this.props;
+        const { backendsoknad, router, route } = this.props;
         this.props.hentArbeidsgiverperiodeberegning(backendsoknad);
         this.props.hentLedere();
+        router.setRouteLeaveHook(route, this.routerWillLeave.bind(this));
+        window.addEventListener(beforeunload, onBeforeUnload);
+    }
+
+    componentDidMount() {
+        this._mounted = true;
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener(beforeunload, onBeforeUnload);
+        this._mounted = false;
+    }
+
+    routerWillLeave(nextLocation) {
+        const { pathname } = nextLocation;
+        const { sykepengesoknad } = this.props;
+        if (sykepengesoknad.status !== NY || !this._mounted || pathname.indexOf(sykepengesoknad.id) > -1) {
+            return null;
+        }
+        return getLedetekst('sykepengesoknad.navigeringsvarsel');
     }
 
     render() {
@@ -38,7 +66,9 @@ Oppsummering.propTypes = {
     henterArbeidsgiverperiodeberegning: PropTypes.bool,
     henterLedere: PropTypes.bool,
     sendesTil: PropTypes.string,
-
+    router: PropTypes.shape(),
+    route: PropTypes.shape(),
+    sykepengesoknad: sykepengesoknadPt,
 };
 
 const utledSkalViseForskuttering = (ledere, soknad, arbeidsgiverperiodeberegning) => {
@@ -112,7 +142,8 @@ Controller.propTypes = {
     skjemasoknad: PropTypes.shape(),
 };
 
-const OppsummeringContainer = ({ params }) => {
+const OppsummeringContainer = (props) => {
+    const { params, router, route } = props;
     const brodsmuler = [{
         tittel: 'Ditt sykefravær',
         sti: '/',
@@ -126,6 +157,8 @@ const OppsummeringContainer = ({ params }) => {
     }];
     return (<GenerellSoknadContainer
         Component={Controller}
+        router={router}
+        route={route}
         brodsmuler={brodsmuler}
         params={params} />);
 };
@@ -134,6 +167,8 @@ OppsummeringContainer.propTypes = {
     params: PropTypes.shape({
         sykepengesoknadId: PropTypes.string,
     }),
+    router: PropTypes.shape(),
+    route: PropTypes.shape(),
 };
 
 export default OppsummeringContainer;

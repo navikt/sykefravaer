@@ -10,7 +10,7 @@ import { Oppsummering, navigeringsvarsel } from '../../../js/containers/sykepeng
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe.only("OppsummeringContainer", () => {
+describe("OppsummeringContainer", () => {
 
     let props;
     let route;

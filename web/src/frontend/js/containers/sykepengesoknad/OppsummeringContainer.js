@@ -6,7 +6,7 @@ import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/Op
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
-import { SENDT, TIL_SENDING, NY } from '../../enums/sykepengesoknadstatuser';
+import { SENDT, TIL_SENDING, NY, UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
 import { hentArbeidsgiverperiodeberegning } from '../../actions/arbeidsgiverperiodeberegning_actions';
@@ -45,7 +45,7 @@ export class Oppsummering extends Component {
     routerWillLeave(nextLocation) {
         const { pathname } = nextLocation;
         const { sykepengesoknad } = this.props;
-        if (sykepengesoknad.status !== NY || !this._mounted || pathname.indexOf(sykepengesoknad.id) > -1) {
+        if ([NY, UTKAST_TIL_KORRIGERING].indexOf(sykepengesoknad.status) === -1 || !this._mounted || pathname.indexOf(sykepengesoknad.id) > -1) {
             return null;
         }
         return getLedetekst('sykepengesoknad.navigeringsvarsel');

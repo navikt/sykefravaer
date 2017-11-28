@@ -106,6 +106,15 @@ describe("OppsummeringContainer", () => {
                 expect(res).to.be.null;
             });
 
+            it("Skal returnere streng hvis sykepengesoknad er UTKAST_TIL_KORRIGERING", () => {
+                thisArg.props.sykepengesoknad.status = 'UTKAST_TIL_KORRIGERING';
+                const nextRoute = {
+                    pathname: '/sykefravaer/soknader',
+                };
+                const res = Oppsummering.prototype.routerWillLeave.call(thisArg, nextRoute);
+                expect(res).to.equal(navigeringsvarsel);
+            });
+
             it("Skal returnere null hvis komponent ikke er mounted", () => {
                 thisArg._mounted = false;
                 const nextRoute = {

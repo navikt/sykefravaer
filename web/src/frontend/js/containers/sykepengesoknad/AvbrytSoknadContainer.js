@@ -50,6 +50,7 @@ class AvbrytSoknadContainer extends Component {
                 { this.state.erApen && <AvbrytSoknad
                     avbrytFeilet={this.props.avbrytFeilet}
                     avbryter={this.props.avbryter}
+                    sender={this.props.sender}
                     avbrytHandler={() => {
                         this.skjulAvbrytdialog();
                         this.knapp.focus();
@@ -65,12 +66,14 @@ class AvbrytSoknadContainer extends Component {
 AvbrytSoknadContainer.propTypes = {
     avbrytFeilet: PropTypes.bool,
     avbryter: PropTypes.bool,
+    sender: PropTypes.bool,
     avbrytSoknad: PropTypes.func,
     sykepengesoknad: sykepengesoknadPt,
 };
 
 const mapStateToProps = (state) => {
     return {
+        sender: state.sykepengesoknader.sender,
         avbryter: state.sykepengesoknader.avbryter,
         avbrytFeilet: state.sykepengesoknader.avbrytFeilet,
     };

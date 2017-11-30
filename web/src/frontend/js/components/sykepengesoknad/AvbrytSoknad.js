@@ -10,14 +10,14 @@ const Feilmelding = () => {
     </div>);
 };
 
-const AvbrytSoknad = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler }) => {
+const AvbrytSoknad = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler, sender }) => {
     return (<div className="avbrytDialog__dialog">
         <div className="snakkeboble">
             <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.avbryt.sporsmal')} />
             <div role="alert" aria-live="polite">{ avbrytFeilet && <Feilmelding /> }</div>
             <div className="blokk--xs">
                 <button
-                    disabled={avbryter}
+                    disabled={avbryter || sender}
                     className="js-bekreft knapp knapp--fare"
                     type="button"
                     onClick={(e) => {
@@ -45,6 +45,7 @@ AvbrytSoknad.propTypes = {
     avbrytHandler: PropTypes.func,
     bekreftHandler: PropTypes.func,
     avbrytFeilet: PropTypes.bool,
+    sender: PropTypes.bool,
 };
 
 export default AvbrytSoknad;

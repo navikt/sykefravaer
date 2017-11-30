@@ -44,6 +44,7 @@ import forskutteringssporsmal from './reducers/forskutteringssporsmal';
 import arbeidsgiverperiodeberegning from './reducers/arbeidsgiverperiodeberegning';
 import hendelser from './reducers/hendelser';
 import aktivitetskrav from './reducers/aktivitetskrav';
+import sykeforloep from './reducers/sykeforloep';
 import './logging';
 
 const rootReducer = combineReducers({
@@ -83,6 +84,7 @@ const rootReducer = combineReducers({
     naermesteleder,
     form: formReducer,
     formMeta: reduxFormMeta,
+    sykeforloep,
 });
 
 const sagaMiddleware = createSagaMiddleware();

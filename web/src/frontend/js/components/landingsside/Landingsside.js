@@ -9,6 +9,7 @@ import DinSituasjonContainer from '../../containers/landingsside/DinSituasjonCon
 import ServerfeilContainer from '../../containers/landingsside/ServerfeilContainer';
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 import DetteHarSkjeddContainer from '../../containers/landingsside/DetteHarSkjeddContainer';
+import Utdrag from '../../containers/landingsside/TidslinjeutdragContainer';
 
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
@@ -34,6 +35,7 @@ const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, 
                 dineSykmeldinger.length === 0 && <IngenSykmeldinger />
             }
             <DineOppgaverContainer />
+            <Utdrag />
             <DinSituasjonContainer />
             <nav className="js-navigasjon">
                 <LandingssideLenke

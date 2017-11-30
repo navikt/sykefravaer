@@ -8,9 +8,8 @@ import {
     captitalizeFirstLetter,
     LagreArbeidsoppgaveSkjema,
     LeggTilElementKnapper,
-    NotifikasjonBoksLagretElement,
     OppfolgingsdialogInfoboks,
-    OppfolgingsdialogTabell,
+    ArbeidsoppgaveTabell,
     sorterArbeidsoppgaverEtterOpprettet,
     proptypes as oppfolgingProptypes,
     NotifikasjonBoksVurdering,
@@ -23,10 +22,9 @@ import Feilmelding from '../../Feilmelding';
 
 export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, fnr, oppfolgingsdialog }) => {
     return (
-        <OppfolgingsdialogTabell
+        <ArbeidsoppgaveTabell
             ledetekster={ledetekster}
             liste={arbeidsoppgaveListe}
-            tabellType="arbeidsoppgaver"
             urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
             urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
             urlImgCheckboks={`${getContextRoot()}/img/svg/oppfolgingdialog-checkbox.svg`}
@@ -131,7 +129,6 @@ class Arbeidsoppgaver extends Component {
         } = this.props;
         const {
             lagrer,
-            lagret,
             lagringFeilet,
             sletter,
             slettingFeilet,

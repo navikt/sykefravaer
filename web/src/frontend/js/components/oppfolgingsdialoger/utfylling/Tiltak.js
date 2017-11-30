@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import {
     OppfolgingsdialogInfoboks,
-    TiltakNotifikasjonBoksAdvarsel,
-    NotifikasjonBoksLagretElement,
     LeggTilElementKnapper,
     LagreTiltakSkjema,
-    OppfolgingsdialogTabell,
+    TiltakTabell,
     BRUKERTYPE,
     captitalizeFirstLetter,
     proptypes as oppfolgingProptypes,
@@ -32,10 +30,9 @@ export const RenderOppfolgingsdialogTiltakTabell = (
         fnr,
     }) => {
     return (
-        <OppfolgingsdialogTabell
+        <TiltakTabell
             ledetekster={ledetekster}
             liste={tiltakListe}
-            tabellType="tiltak"
             urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
             urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
             sendLagre={sendLagreTiltak}
@@ -136,19 +133,13 @@ class Tiltak extends Component {
         const {
             ledetekster,
             oppfolgingsdialog,
-            oppfolgingsdialogAvbrutt,
         } = this.props;
         const {
             lagrer,
-            lagret,
             lagringFeilet,
             sletter,
             slettingFeilet,
         } = this.props.tiltak;
-
-        const antallNyeTiltak = oppfolgingsdialog.tiltakListe.filter((tiltak) => {
-            return tiltak.opprettetAv.fnr !== oppfolgingsdialog.arbeidstaker.fnr && new Date(tiltak.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget);
-        }).length;
 
         return (
             (() => {
@@ -189,7 +180,7 @@ class Tiltak extends Component {
                             ledetekster={ledetekster}
                             visTiltakSkjema={this.state.visTiltakSkjema}
                             toggleSkjema={this.toggleTiltakSkjema}
-                            brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                            tittel={getLedetekst('oppfolgingsdialog.tiltak.arbeidstaker.tittel')}
                         />
                         {
                             this.state.visTiltakSkjema &&
@@ -227,7 +218,6 @@ Tiltak.propTypes = {
     ledetekster: keyValue,
     tiltak: oppfolgingProptypes.tiltakReducerPt,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
-    oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreTiltak: PropTypes.func,
     slettTiltak: PropTypes.func,
     lagreKommentar: PropTypes.func,

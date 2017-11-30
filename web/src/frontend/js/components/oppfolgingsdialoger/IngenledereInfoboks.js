@@ -10,7 +10,7 @@ const IngenledereInfoboks = () => {
         svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-ingenleder.svg`}
         svgAlt="Ingen Leder"
         tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.ingenledereInfoboks.tittel')}
-        tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.ingenledereInfoboks.tekst')}
+        tekst={<p>{getLedetekst('oppfolgingsdialog.arbeidstaker.ingenledereInfoboks.tekst')}</p>}
     />);
 };
 

@@ -5,7 +5,7 @@ import {
     OppfolgingsdialogInfoboks,
     LeggTilElementKnapper,
     LagreTiltakSkjema,
-    TiltakTabell,
+    TiltakTabellArbeidstaker,
     BRUKERTYPE,
     captitalizeFirstLetter,
     proptypes as oppfolgingProptypes,
@@ -30,7 +30,7 @@ export const RenderOppfolgingsdialogTiltakTabell = (
         fnr,
     }) => {
     return (
-        <TiltakTabell
+        <TiltakTabellArbeidstaker
             ledetekster={ledetekster}
             liste={tiltakListe}
             urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
@@ -40,7 +40,6 @@ export const RenderOppfolgingsdialogTiltakTabell = (
             sendLagreKommentar={sendLagreKommentar}
             sendSlettKommentar={sendSlettKommentar}
             fnr={fnr}
-            brukerType={BRUKERTYPE.ARBEIDSTAKER}
         />
     );
 };

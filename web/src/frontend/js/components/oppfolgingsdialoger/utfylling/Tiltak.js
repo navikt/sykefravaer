@@ -6,10 +6,9 @@ import {
     LeggTilElementKnapper,
     LagreTiltakSkjema,
     TiltakTabellArbeidstaker,
-    BRUKERTYPE,
     captitalizeFirstLetter,
     proptypes as oppfolgingProptypes,
-    TiltakSkjema,
+    TiltakSkjemaArbeidstaker,
     TiltakInfoboks,
     sorterTiltakEtterNyeste,
 } from 'oppfolgingsdialog-npm';
@@ -155,22 +154,31 @@ class Tiltak extends Component {
                                     svgUrl={`${getContextRoot()}/img/svg/tiltak-onboarding.svg`}
                                     svgAlt="nyttTiltak"
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tittel')}
-                                    tekst={<p>{getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}</p>}
+                                    tekst={
+                                        <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}</p>}
                                 >
                                     <LeggTilElementKnapper
                                         ledetekster={ledetekster}
                                         visSkjema={this.state.visTiltakSkjema}
                                         toggleSkjema={this.toggleTiltakSkjema}
                                     />
-                                </OppfolgingsdialogInfoboks> :
-                                <TiltakSkjema
-                                    ledetekster={ledetekster}
-                                    sendLagre={this.sendLagreTiltak}
-                                    avbryt={this.toggleTiltakSkjema}
-                                    brukerType={BRUKERTYPE.ARBEIDSTAKER}
-                                    fnr={oppfolgingsdialog.arbeidstaker.fnr}
-                                    rootUrl={`${getContextRoot()}`}
-                                />
+                                </OppfolgingsdialogInfoboks>
+                                :
+                                <div>
+                                    <TiltakInfoboks
+                                        ledetekster={ledetekster}
+                                        visTiltakSkjema={this.state.visTiltakSkjema}
+                                        toggleSkjema={this.toggleTiltakSkjema}
+                                        tittel={getLedetekst('oppfolgingsdialog.tiltak.arbeidstaker.tittel')}
+                                    />
+                                    <TiltakSkjemaArbeidstaker
+                                        ledetekster={ledetekster}
+                                        sendLagre={this.sendLagreTiltak}
+                                        avbryt={this.toggleTiltakSkjema}
+                                        fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                                    />
+                                </div>
+
                         }
                     </div>
                     :
@@ -183,16 +191,14 @@ class Tiltak extends Component {
                         />
                         {
                             this.state.visTiltakSkjema &&
-                            <TiltakSkjema
+                            <TiltakSkjemaArbeidstaker
                                 ledetekster={ledetekster}
                                 sendLagre={this.sendLagreTiltak}
                                 avbryt={this.toggleTiltakSkjema}
                                 fnr={oppfolgingsdialog.arbeidstaker.fnr}
-                                rootUrl={`${getContextRoot()}`}
                                 ref={(lagreSkjema) => {
                                     this.lagreSkjema = lagreSkjema;
                                 }}
-                                brukerType={BRUKERTYPE.ARBEIDSTAKER}
                             />
                         }
                         {

@@ -25,6 +25,7 @@
     </resources>
 
     <loadBalancer isAlive="sykefravaer/internal/isAlive" />
+    <suspend url="sykefravaer/mgmt/suspend" credential="suspender" timeoutSeconds="25" />
 
     <serverOptions>
         <memoryParameters resourceAlias="syfo-memparams"/>

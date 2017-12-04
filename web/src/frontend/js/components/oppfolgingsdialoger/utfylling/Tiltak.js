@@ -5,10 +5,11 @@ import {
     OppfolgingsdialogInfoboks,
     LeggTilElementKnapper,
     LagreTiltakSkjema,
-    TiltakTabellArbeidstaker,
+    TiltakTabell,
+    BRUKERTYPE,
     captitalizeFirstLetter,
     proptypes as oppfolgingProptypes,
-    TiltakSkjemaArbeidstaker,
+    TiltakSkjema,
     TiltakInfoboks,
     sorterTiltakEtterNyeste,
 } from 'oppfolgingsdialog-npm';
@@ -29,7 +30,7 @@ export const RenderOppfolgingsdialogTiltakTabell = (
         fnr,
     }) => {
     return (
-        <TiltakTabellArbeidstaker
+        <TiltakTabell
             ledetekster={ledetekster}
             liste={tiltakListe}
             urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
@@ -39,6 +40,7 @@ export const RenderOppfolgingsdialogTiltakTabell = (
             sendLagreKommentar={sendLagreKommentar}
             sendSlettKommentar={sendSlettKommentar}
             fnr={fnr}
+            brukerType={BRUKERTYPE.ARBEIDSTAKER}
         />
     );
 };
@@ -171,11 +173,12 @@ class Tiltak extends Component {
                                         toggleSkjema={this.toggleTiltakSkjema}
                                         tittel={getLedetekst('oppfolgingsdialog.tiltak.arbeidstaker.tittel')}
                                     />
-                                    <TiltakSkjemaArbeidstaker
+                                    <TiltakSkjema
                                         ledetekster={ledetekster}
                                         sendLagre={this.sendLagreTiltak}
                                         avbryt={this.toggleTiltakSkjema}
                                         fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                                        brukerType={BRUKERTYPE.ARBEIDSTAKER}
                                     />
                                 </div>
 
@@ -191,11 +194,12 @@ class Tiltak extends Component {
                         />
                         {
                             this.state.visTiltakSkjema &&
-                            <TiltakSkjemaArbeidstaker
+                            <TiltakSkjema
                                 ledetekster={ledetekster}
                                 sendLagre={this.sendLagreTiltak}
                                 avbryt={this.toggleTiltakSkjema}
                                 fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                                brukerType={BRUKERTYPE.ARBEIDSTAKER}
                                 ref={(lagreSkjema) => {
                                     this.lagreSkjema = lagreSkjema;
                                 }}

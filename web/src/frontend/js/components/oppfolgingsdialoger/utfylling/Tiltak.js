@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import {
     OppfolgingsdialogInfoboks,
-    TiltakNotifikasjonBoksAdvarsel,
-    NotifikasjonBoksLagretElement,
-    OppfolgingsdialogTabell,
     LeggTilElementKnapper,
     LagreTiltakSkjema,
+    TiltakTabell,
     BRUKERTYPE,
     captitalizeFirstLetter,
     proptypes as oppfolgingProptypes,
+    TiltakSkjema,
+    TiltakInfoboks,
+    sorterTiltakEtterNyeste,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
@@ -29,10 +30,9 @@ export const RenderOppfolgingsdialogTiltakTabell = (
         fnr,
     }) => {
     return (
-        <OppfolgingsdialogTabell
+        <TiltakTabell
             ledetekster={ledetekster}
             liste={tiltakListe}
-            tabellType="tiltak"
             urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
             urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
             sendLagre={sendLagreTiltak}
@@ -133,19 +133,13 @@ class Tiltak extends Component {
         const {
             ledetekster,
             oppfolgingsdialog,
-            oppfolgingsdialogAvbrutt,
         } = this.props;
         const {
             lagrer,
-            lagret,
             lagringFeilet,
             sletter,
             slettingFeilet,
         } = this.props.tiltak;
-
-        const antallNyeTiltak = oppfolgingsdialog.tiltakListe.filter((tiltak) => {
-            return tiltak.opprettetAv.fnr !== oppfolgingsdialog.arbeidstaker.fnr && new Date(tiltak.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget);
-        }).length;
 
         return (
             (() => {
@@ -162,67 +156,66 @@ class Tiltak extends Component {
                                     svgUrl={`${getContextRoot()}/img/svg/tiltak-onboarding.svg`}
                                     svgAlt="nyttTiltak"
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tittel')}
-                                    tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}
+                                    tekst={
+                                        <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}</p>}
                                 >
                                     <LeggTilElementKnapper
                                         ledetekster={ledetekster}
                                         visSkjema={this.state.visTiltakSkjema}
                                         toggleSkjema={this.toggleTiltakSkjema}
                                     />
-                                </OppfolgingsdialogInfoboks> :
-                                <RenderOpprettTiltak
-                                    ledetekster={ledetekster}
-                                    sendLagreTiltak={this.sendLagreTiltak}
-                                    toggleTiltakSkjema={this.toggleTiltakSkjema}
-                                />
+                                </OppfolgingsdialogInfoboks>
+                                :
+                                <div>
+                                    <TiltakInfoboks
+                                        ledetekster={ledetekster}
+                                        visTiltakSkjema={this.state.visTiltakSkjema}
+                                        toggleSkjema={this.toggleTiltakSkjema}
+                                        tittel={getLedetekst('oppfolgingsdialog.tiltak.arbeidstaker.tittel')}
+                                    />
+                                    <TiltakSkjema
+                                        ledetekster={ledetekster}
+                                        sendLagre={this.sendLagreTiltak}
+                                        avbryt={this.toggleTiltakSkjema}
+                                        fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                                        brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                                    />
+                                </div>
+
                         }
                     </div>
                     :
                     <div>
-                        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
-                        {
-                            lagret && this.state.oppdatertTiltak && <NotifikasjonBoksLagretElement
-                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-tiltak.tekst')}
-                                rootUrl={`${getContextRoot()}`}
-                            />
-                        }
-                        {
-                            lagret && this.state.nyttTiltak && <NotifikasjonBoksLagretElement
-                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-tiltak.tekst')}
-                                rootUrl={`${getContextRoot()}`}
-                            />
-                        }
-                        {
-                            antallNyeTiltak > 0 && !oppfolgingsdialogAvbrutt && <TiltakNotifikasjonBoksAdvarsel
-                                ledetekster={ledetekster}
-                                motpartnavn={'Lederen din'}
-                                antallTiltakLagtTilAvMotpart={antallNyeTiltak}
-                                rootUrl={`${getContextRoot()}`}
-                            />
-                        }
-                        <RenderOppfolgingsdialogTiltakTabell
+                        <TiltakInfoboks
                             ledetekster={ledetekster}
-                            tiltakListe={oppfolgingsdialog.tiltakListe}
-                            sendLagreTiltak={this.sendLagreTiltak}
-                            sendSlettTiltak={this.sendSlettTiltak}
-                            sendLagreKommentar={this.sendLagreKommentar}
-                            sendSlettKommentar={this.sendSlettKommentar}
-                            fnr={oppfolgingsdialog.arbeidstaker.fnr}
-                            arbeidstaker={oppfolgingsdialog.arbeidstaker}
+                            visTiltakSkjema={this.state.visTiltakSkjema}
+                            toggleSkjema={this.toggleTiltakSkjema}
+                            tittel={getLedetekst('oppfolgingsdialog.tiltak.arbeidstaker.tittel')}
                         />
                         {
-                            this.state.visTiltakSkjema ?
-                                <LagreTiltakSkjema
-                                    ledetekster={ledetekster}
-                                    sendLagre={this.sendLagreTiltak}
-                                    avbryt={this.toggleTiltakSkjema}
-                                    ref={(lagreSkjema) => { this.lagreSkjema = lagreSkjema; }}
-                                /> :
-                                <LeggTilElementKnapper
-                                    ledetekster={ledetekster}
-                                    visSkjema={this.state.visTiltakSkjema}
-                                    toggleSkjema={this.toggleTiltakSkjema}
-                                />
+                            this.state.visTiltakSkjema &&
+                            <TiltakSkjema
+                                ledetekster={ledetekster}
+                                sendLagre={this.sendLagreTiltak}
+                                avbryt={this.toggleTiltakSkjema}
+                                fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                                brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                                ref={(lagreSkjema) => {
+                                    this.lagreSkjema = lagreSkjema;
+                                }}
+                            />
+                        }
+                        {
+                            <RenderOppfolgingsdialogTiltakTabell
+                                ledetekster={ledetekster}
+                                tiltakListe={sorterTiltakEtterNyeste(oppfolgingsdialog.tiltakListe)}
+                                sendLagreTiltak={this.sendLagreTiltak}
+                                sendSlettTiltak={this.sendSlettTiltak}
+                                fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                                rootUrl={`${getContextRoot()}`}
+                                sendLagreKommentar={this.sendLagreKommentar}
+                                sendSlettKommentar={this.sendSlettKommentar}
+                            />
                         }
                     </div>;
             })()
@@ -234,7 +227,6 @@ Tiltak.propTypes = {
     ledetekster: keyValue,
     tiltak: oppfolgingProptypes.tiltakReducerPt,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
-    oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreTiltak: PropTypes.func,
     slettTiltak: PropTypes.func,
     lagreKommentar: PropTypes.func,

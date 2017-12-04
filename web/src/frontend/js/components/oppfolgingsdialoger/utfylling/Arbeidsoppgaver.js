@@ -8,11 +8,11 @@ import {
     captitalizeFirstLetter,
     LagreArbeidsoppgaveSkjema,
     LeggTilElementKnapper,
-    NotifikasjonBoksLagretElement,
     OppfolgingsdialogInfoboks,
-    OppfolgingsdialogTabell,
+    ArbeidsoppgaveTabell,
     sorterArbeidsoppgaverEtterOpprettet,
     proptypes as oppfolgingProptypes,
+    NotifikasjonBoksVurdering,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
@@ -22,10 +22,9 @@ import Feilmelding from '../../Feilmelding';
 
 export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, fnr, oppfolgingsdialog }) => {
     return (
-        <OppfolgingsdialogTabell
+        <ArbeidsoppgaveTabell
             ledetekster={ledetekster}
             liste={arbeidsoppgaveListe}
-            tabellType="arbeidsoppgaver"
             urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
             urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
             urlImgCheckboks={`${getContextRoot()}/img/svg/oppfolgingdialog-checkbox.svg`}
@@ -130,13 +129,15 @@ class Arbeidsoppgaver extends Component {
         } = this.props;
         const {
             lagrer,
-            lagret,
             lagringFeilet,
             sletter,
             slettingFeilet,
         } = this.props.arbeidsoppgaver;
         const antallNyeArbeidsoppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
             return !arbeidsoppgave.erVurdertAvSykmeldt && (!oppfolgingsdialog.arbeidstaker.sistInnlogget || new Date(arbeidsoppgave.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget));
+        }).length;
+        const antalOppgaveSkalVurderes = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
+            return !arbeidsoppgave.erVurdertAvSykmeldt;
         }).length;
         return (
             (() => {
@@ -159,7 +160,7 @@ class Arbeidsoppgaver extends Component {
                                     svgUrl={`${getContextRoot()}/img/svg/arbeidsoppgave-onboarding.svg`}
                                     svgAlt="nyArbeidsoppgave"
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tittel')}
-                                    tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tekst')}
+                                    tekst={<p>{getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tekst')}</p>}
                                 >
                                     <LeggTilElementKnapper
                                         ledetekster={ledetekster}
@@ -186,17 +187,12 @@ class Arbeidsoppgaver extends Component {
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
 
                         {
-                            lagret && this.state.oppdatertArbeidsoppgave &&
-                            <NotifikasjonBoksLagretElement
-                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.lagret-arbeidsoppgave.tekst')}
+                            antalOppgaveSkalVurderes > 0 && <NotifikasjonBoksVurdering
+                                ledetekster={ledetekster}
+                                navn={oppfolgingsdialog.arbeidstaker.navn}
+                                antalVuderinger={antalOppgaveSkalVurderes}
                                 rootUrl={`${getContextRoot()}`}
-                            />
-                        }
-                        {
-                            lagret && this.state.nyArbeidsoppgave &&
-                            <NotifikasjonBoksLagretElement
-                                tekst={getLedetekst('oppfolgingsdialog.notifikasjonboks.opprettet-arbeidsoppgave.tekst')}
-                                rootUrl={`${getContextRoot()}`}
+                                tekst="oppfolgingsdialog.notifikasjonboks.arbeidsoppgave.vurderes.tekst"
                             />
                         }
                         {

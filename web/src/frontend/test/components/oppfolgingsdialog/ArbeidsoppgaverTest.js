@@ -152,20 +152,6 @@ describe('Arbeidsoppgaver', () => {
             expect(componentMedArbeidsoppgaver.find('h2')).to.have.length(1);
         });
 
-        it('Skal vise NotifikasjonBoksLagretElement, om et Arbeidsoppgaver er lagret og oppdatertArbeidsoppgave er true', () => {
-            componentMedArbeidsoppgaver.setState({
-                oppdatertArbeidsoppgave: true,
-            });
-            expect(componentMedArbeidsoppgaver.find(NotifikasjonBoksLagretElement)).to.have.length(1);
-        });
-
-        it('Skal vise NotifikasjonBoksLagretElement, om en Arbeidsoppgave er lagret og nyArbeidsoppgave er true', () => {
-            componentMedArbeidsoppgaver.setState({
-                nyArbeidsoppgave: true,
-            });
-            expect(componentMedArbeidsoppgaver.find(NotifikasjonBoksLagretElement)).to.have.length(1);
-        });
-
         it('Skal vise ArbeidsoppgaverNotifikasjonBoksAdvarsel, om nye Arbeidsoppgaver er lagt til av motpart', () => {
             const oppfolgingsdialogMedNyeArbeidsoppgaver = Object.assign({}, oppfolgingsdialog, {
                 arbeidstaker,

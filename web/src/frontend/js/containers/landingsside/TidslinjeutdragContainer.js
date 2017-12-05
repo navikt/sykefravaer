@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import TidslinjeUtdrag, { MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI } from '../../components/landingsside/TidslinjeUtdrag';
 import { ARBEIDSTAKER } from '../../enums/arbeidssituasjoner';
 
-const { SENDT, NY, BEKREFTET } = sykmeldingstatuser;
+const { SENDT, NY, BEKREFTET, TIL_SENDING } = sykmeldingstatuser;
 
 export const Container = ({ visUtdrag, startdato, antallDager, visning }) => {
     if (!visUtdrag) {
@@ -34,7 +34,7 @@ export const skalViseUtdrag = (sykmeldinger) => {
             return new Date().getTime() - tom.getTime() < SJU_DAGER;
         })
         .filter((s) => {
-            return [SENDT, NY, BEKREFTET].indexOf(s.status) > -1;
+            return [SENDT, TIL_SENDING, NY, BEKREFTET].indexOf(s.status) > -1;
         }).length > 0;
 };
 
@@ -56,8 +56,10 @@ export const getVisning = (dineSykmeldinger, startdato) => {
     }
 
     const harBareSendteSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter((s) => {
-        return s.status === SENDT || (s.status === BEKREFTET && s.valgtArbeidssituasjon === ARBEIDSTAKER)
+        return s.status === SENDT || s.status === TIL_SENDING || (s.status === BEKREFTET && s.valgtArbeidssituasjon === ARBEIDSTAKER)
     }).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length;
+
+    console.log("harBareSendteSykmeldinger", harBareSendteSykmeldinger);
 
     const harBareBekreftedeSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter((s) => {
         return s.status === BEKREFTET && s.valgtArbeidssituasjon !== ARBEIDSTAKER;

@@ -15,6 +15,7 @@ describe("TidslinjeutdragContainer", () => {
     let sykmeldinger;
     let passertSykmelding;
     let aktivSykmelding;
+    let senderSykmelding;
     let sykeforloep;
     let state;
     let clock;
@@ -40,6 +41,17 @@ describe("TidslinjeutdragContainer", () => {
 
         aktivSykmelding = {
             status: 'SENDT',
+            identdato: new Date("2017-07-15"),
+            mulighetForArbeid: {
+                perioder: [{
+                    fom: new Date("2017-08-01"),
+                    tom: new Date("2017-08-14")
+                }]
+            }
+        }
+
+        senderSykmelding = {
+            status: 'TIL_SENDING',
             identdato: new Date("2017-07-15"),
             mulighetForArbeid: {
                 perioder: [{
@@ -95,6 +107,13 @@ describe("TidslinjeutdragContainer", () => {
         expect(component.html()).not.to.be.null; 
     });
 
+    it("Skal vise noe dersom siste sykmeldings tom-dato ikke er passert", () => {
+        state.dineSykmeldinger.data = [passertSykmelding, aktivSykmelding];
+        const props = mapStateToProps(state);
+        const component = shallow(<Container {...props} {...actions} />)
+        expect(component.html()).not.to.be.null; 
+    });
+
     it("SKal beregne antallDager", () => {
         const props = mapStateToProps(state);
         expect(props.antallDager).to.equal(11)
@@ -141,6 +160,32 @@ describe("TidslinjeutdragContainer", () => {
             };
             const sykmelding2 = {
                 status: "SENDT",
+                identdato: new Date("2017-08-10"),
+                mulighetForArbeid: {
+                    perioder: [{
+                        fom: new Date(),
+                        tom: new Date(),
+                    }]
+                }
+            };
+            state.dineSykmeldinger.data = [sykmelding1, sykmelding2];
+            const res = mapStateToProps(state);
+            expect(res.visning).to.equal("MED_ARBEIDSGIVER");
+        });
+
+        it("Skal returnere MED_ARBEIDSGIVER hvis sykmeldinger i dette sykefraværstilfellet er SENDT eller TIL_SENDING", () => {
+            const sykmelding1 = {
+                status: "SENDT",
+                identdato: new Date("2017-08-10"),
+                mulighetForArbeid: {
+                    perioder: [{
+                        fom: new Date(),
+                        tom: new Date(),
+                    }]
+                }
+            };
+            const sykmelding2 = {
+                status: "TIL_SENDING",
                 identdato: new Date("2017-08-10"),
                 mulighetForArbeid: {
                     perioder: [{

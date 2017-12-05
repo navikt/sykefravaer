@@ -5,7 +5,7 @@ const initState = {
     hentingFeilet: false,
     startdato: null,
     hentet: false,
-}
+};
 
 export default (state = initState, action = {}) => {
     switch (action.type) {
@@ -35,4 +35,4 @@ export default (state = initState, action = {}) => {
             return state;
         }
     }
-}
+};

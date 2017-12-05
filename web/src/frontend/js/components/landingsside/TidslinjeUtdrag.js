@@ -143,7 +143,6 @@ export default class TidslinjeUtdrag extends Utvidbar {
 
     getTekstObjekt() {
         const { antallDager } = this.props;
-        return tekster[this.state.visning][3];
         return tekster[this.state.visning].filter((t) => {
             return t.fom <= antallDager && t.tom >= antallDager;
         })[0];

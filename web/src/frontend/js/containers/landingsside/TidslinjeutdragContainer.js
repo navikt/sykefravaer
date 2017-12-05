@@ -19,6 +19,7 @@ Container.propTypes = {
     startdato: PropTypes.instanceOf(Date),
     antallDager: PropTypes.number,
     visning: PropTypes.oneOf([MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI]),
+    hentingFeilet: PropTypes.bool,
 };
 
 const ETT_DOGN = 1000 * 60 * 60 * 24;
@@ -56,13 +57,13 @@ export const getVisning = (dineSykmeldinger, startdato) => {
     }
 
     const harBareSendteSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter((s) => {
-        return s.status === SENDT || s.status === TIL_SENDING || (s.status === BEKREFTET && s.valgtArbeidssituasjon === ARBEIDSTAKER)
+        return s.status === SENDT || s.status === TIL_SENDING || (s.status === BEKREFTET && s.valgtArbeidssituasjon === ARBEIDSTAKER);
     }).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length;
 
     const harBareBekreftedeSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter((s) => {
         return s.status === BEKREFTET && s.valgtArbeidssituasjon !== ARBEIDSTAKER;
     }).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length;
-    
+
     if (harBareSendteSykmeldinger) {
         return MED_ARBEIDSGIVER;
     }
@@ -80,7 +81,7 @@ export const mapStateToProps = (state) => {
     if (hentingFeilet) {
         return {
             hentingFeilet,
-        }
+        };
     }
     const startdato = state.sykeforloep.startdato;
     const dagensDato = new Date();

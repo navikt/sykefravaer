@@ -46,7 +46,7 @@ const teksterUtenArbeidsgiver = [{
     nokkel: 'tidslinje.utdrag.sykmeldt-hva-naa.uten-arbeidsgiver',
     bilde: 'sykmeldt-hva-naa.svg',
 }, {
-    fom: 43,
+    fom: 17,
     tom: 56,
     nokkel: 'tidslinje.utdrag.mulighet-for-aktivitet-uten-arbeidsgiver',
     bilde: 'vurdert-aktivitet.svg',

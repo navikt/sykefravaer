@@ -95,6 +95,7 @@ TittelIngress.propTypes = {
 export const VelgArbeidssituasjon = (props) => {
     return (<Radiofaner
         {...props}
+        className="radiofaner__valg--tidslinjeutdrag"
         radioName="tidslinjeutdragvisning"
         alternativer={[{
             verdi: MED_ARBEIDSGIVER,

@@ -7,8 +7,8 @@ import { ARBEIDSTAKER } from '../../enums/arbeidssituasjoner';
 
 const { SENDT, NY, BEKREFTET, TIL_SENDING } = sykmeldingstatuser;
 
-export const Container = ({ visUtdrag, startdato, antallDager, visning }) => {
-    if (!visUtdrag) {
+export const Container = ({ visUtdrag, startdato, antallDager, visning, hentingFeilet }) => {
+    if (!visUtdrag || hentingFeilet) {
         return null;
     }
     return <TidslinjeUtdrag startdato={startdato} antallDager={antallDager} visning={visning} />;
@@ -59,8 +59,6 @@ export const getVisning = (dineSykmeldinger, startdato) => {
         return s.status === SENDT || s.status === TIL_SENDING || (s.status === BEKREFTET && s.valgtArbeidssituasjon === ARBEIDSTAKER)
     }).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length;
 
-    console.log("harBareSendteSykmeldinger", harBareSendteSykmeldinger);
-
     const harBareBekreftedeSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter((s) => {
         return s.status === BEKREFTET && s.valgtArbeidssituasjon !== ARBEIDSTAKER;
     }).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length;
@@ -77,6 +75,13 @@ export const getVisning = (dineSykmeldinger, startdato) => {
 };
 
 export const mapStateToProps = (state) => {
+    const hentingFeilet = state.sykeforloep.hentingFeilet;
+
+    if (hentingFeilet) {
+        return {
+            hentingFeilet,
+        }
+    }
     const startdato = state.sykeforloep.startdato;
     const dagensDato = new Date();
     dagensDato.setHours('0');
@@ -90,6 +95,7 @@ export const mapStateToProps = (state) => {
     }
 
     return {
+        hentingFeilet: false,
         visUtdrag: skalViseUtdrag(state.dineSykmeldinger.data),
         startdato,
         antallDager,

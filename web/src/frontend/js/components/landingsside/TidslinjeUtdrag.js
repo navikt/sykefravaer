@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getHtmlLedetekst, getLedetekst, Radiofaner, Utvidbar } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst, Radiofaner, Utvidbar, log } from 'digisyfo-npm';
 import { Link } from 'react-router';
 
 const teksterMedArbeidsgiver = [{
@@ -119,7 +119,14 @@ export default class TidslinjeUtdrag extends Utvidbar {
             visInnhold: props.erApen,
             harTransisjon: false,
             visning: props.visning === VALGFRI ? MED_ARBEIDSGIVER : props.visning,
+            klikket: false,
         };
+    }
+
+    componentDidMount() {
+        if (this.props.antallDager <= 500) {
+            this.trackVisning();
+        }
     }
 
     onTransitionEnd() {
@@ -155,6 +162,24 @@ export default class TidslinjeUtdrag extends Utvidbar {
 
     getBilde() {
         return this.getTekstObjekt().bilde;
+    }
+
+    trackVisning() {
+        window.dataLayer.push({
+            'event': 'TIDSLINJEUTDRAG_VIST',
+        });
+    }
+
+    trackKlikk() {
+        if (!this.state.klikket) {
+            log('Tracker klikk i tidslinjeutdrag');
+            window.dataLayer.push({
+                'event': 'TIDSLINJEUTDRAG_KLIKK_LES_MER',
+            });
+            this.setState({
+                klikket: true,
+            });
+        }
     }
 
     render() {
@@ -207,6 +232,7 @@ export default class TidslinjeUtdrag extends Utvidbar {
                         this['js-toggle'] = c;
                     }}
                     onClick={(e) => {
+                        this.trackKlikk();
                         this.toggle(e);
                     }}
                     className={`tidslinjeutdrag__togglelink ${this.state.erApen ? 'tidslinjeutdrag__togglelink--erApen' : ''}`}>{this.state.erApen ? 'Skjul' : 'Les mer'}</button>

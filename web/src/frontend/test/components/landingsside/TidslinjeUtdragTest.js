@@ -10,7 +10,11 @@ import { Radiofaner } from 'digisyfo-npm';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("TidslinjeUtdrag", () => {
+describe.only("TidslinjeUtdrag", () => {
+
+    beforeEach(() => {
+        window.dataLayer = [];
+    })
 
     it("Skal vise VelgArbeidssituasjon dersom visning === VALGFRI", () => {
         const component = shallow(<TidslinjeUtdrag antallDager={5} visning="VALGFRI" />);
@@ -35,6 +39,11 @@ describe("TidslinjeUtdrag", () => {
     it("Uthenting av tekst", () => {
         const component = shallow(<TidslinjeUtdrag antallDager={16} visning="MED_ARBEIDSGIVER" />);
         expect(component.instance().getTekstObjekt().tom).to.equal(16);
+    });
+
+    it("Uthenting av tekst skal funke når antallDager ikke er satt", () => {
+        const component = shallow(<TidslinjeUtdrag visning="MED_ARBEIDSGIVER" />);
+        expect(component.html()).to.be.null;
     });
 
 })

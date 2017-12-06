@@ -184,7 +184,7 @@ export default class TidslinjeUtdrag extends Utvidbar {
 
     render() {
         const { visning, antallDager } = this.props;
-        if (antallDager > 500) {
+        if (antallDager > 500 || !this.getTekstObjekt()) {
             return null;
         }
         const nokkelbase = this.getNokkelbase();

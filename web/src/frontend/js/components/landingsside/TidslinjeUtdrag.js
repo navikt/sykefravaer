@@ -209,7 +209,7 @@ export default class TidslinjeUtdrag extends Utvidbar {
                     onClick={(e) => {
                         this.toggle(e);
                     }}
-                    className={`tidslinjeutdrag__togglelink ${this.state.erApen ? 'tidslinjeutdrag__togglelink--erApen' : ''}`}>{this.state.erApen ? 'Lukk' : 'Åpne'}</button>
+                    className={`tidslinjeutdrag__togglelink ${this.state.erApen ? 'tidslinjeutdrag__togglelink--erApen' : ''}`}>{this.state.erApen ? 'Skjul' : 'Les mer'}</button>
             </div>
         </article>);
     }

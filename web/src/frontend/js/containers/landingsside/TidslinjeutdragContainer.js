@@ -77,26 +77,20 @@ export const getVisning = (dineSykmeldinger, startdato) => {
 
 export const mapStateToProps = (state) => {
     const hentingFeilet = state.sykeforloep.hentingFeilet;
-
-    if (hentingFeilet) {
-        return {
-            hentingFeilet,
-        };
-    }
     const startdato = state.sykeforloep.startdato;
     const dagensDato = new Date();
-    dagensDato.setHours('0');
-    dagensDato.setMinutes('0');
-    dagensDato.setSeconds('0');
-    dagensDato.setMilliseconds('0');
+    dagensDato.setHours(0);
+    dagensDato.setMinutes(0);
+    dagensDato.setSeconds(0);
+    dagensDato.setMilliseconds(0);
     let antallDager;
 
     if (startdato) {
-        antallDager = parseInt(1 + ((new Date().getTime() - startdato.getTime()) / ETT_DOGN), 10);
+        antallDager = 1 + parseInt(((dagensDato.getTime() - startdato.getTime()) / ETT_DOGN), 10);
     }
 
     return {
-        hentingFeilet: false,
+        hentingFeilet,
         visUtdrag: skalViseUtdrag(state.dineSykmeldinger.data),
         startdato,
         antallDager,

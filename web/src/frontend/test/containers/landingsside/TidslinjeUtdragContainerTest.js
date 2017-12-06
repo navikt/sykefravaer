@@ -114,9 +114,23 @@ describe("TidslinjeutdragContainer", () => {
         expect(component.html()).not.to.be.null; 
     });
 
-    it("SKal beregne antallDager", () => {
+    it("SKal beregne antallDager 1", () => {
         const props = mapStateToProps(state);
-        expect(props.antallDager).to.equal(11)
+        expect(props.antallDager).to.equal(10)
+    });
+
+    it("Skal beregne antallDager 2", () => {
+        clock = sinon.useFakeTimers(new Date("2017-12-05").getTime() + 156655);
+        state.sykeforloep.startdato = new Date("2017-03-07");
+        const props = mapStateToProps(state);
+        expect(props.antallDager).to.equal(273)
+    });
+
+    it("Skal beregne antallDager 3", () => {
+        clock = sinon.useFakeTimers(new Date("2017-12-05").getTime() + 45058);
+        state.sykeforloep.startdato = new Date("2017-12-04");
+        const props = mapStateToProps(state);
+        expect(props.antallDager).to.equal(1)
     });
 
     describe("Med eller uten arbeidsgiver?", () => {

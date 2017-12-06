@@ -10,7 +10,7 @@ import { Radiofaner } from 'digisyfo-npm';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe.only("TidslinjeUtdrag", () => {
+describe("TidslinjeUtdrag", () => {
 
     beforeEach(() => {
         window.dataLayer = [];

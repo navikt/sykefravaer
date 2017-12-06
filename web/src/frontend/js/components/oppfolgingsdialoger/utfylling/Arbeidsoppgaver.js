@@ -189,20 +189,13 @@ class Arbeidsoppgaver extends Component {
                         {
                             antalOppgaveSkalVurderes > 0 && <NotifikasjonBoksVurdering
                                 ledetekster={ledetekster}
-                                navn={oppfolgingsdialog.arbeidstaker.navn}
+                                navn={oppfolgingsdialog.arbeidsgiver.navn}
                                 antalVuderinger={antalOppgaveSkalVurderes}
                                 rootUrl={`${getContextRoot()}`}
                                 tekst="oppfolgingsdialog.notifikasjonboks.arbeidsoppgave.vurderes.tekst"
                             />
                         }
-                        {
-                            antallNyeArbeidsoppgaver > 0 && !oppfolgingsdialogAvbrutt && <ArbeidsoppgaverNotifikasjonBoksAdvarsel
-                                ledetekster={ledetekster}
-                                motpartnavn={'Lederen din'}
-                                antallIkkeVurderteArbeidsoppgaver={antallNyeArbeidsoppgaver}
-                                rootUrl={`${getContextRoot()}`}
-                            />
-                        }
+
                         <OppfolgingsdialogArbeidsoppgaverTabell
                             ledetekster={ledetekster}
                             oppfolgingsdialog={oppfolgingsdialog}

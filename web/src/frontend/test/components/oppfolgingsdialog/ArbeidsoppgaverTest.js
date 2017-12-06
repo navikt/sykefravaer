@@ -168,7 +168,7 @@ describe('Arbeidsoppgaver', () => {
                 slettArbeidsoppgave={slettArbeidsoppgave}
                 arbeidsforhold={arbeidsforhold}
             />);
-            expect(componentMedNyeArbeidsoppgaver.find(ArbeidsoppgaverNotifikasjonBoksAdvarsel)).to.have.length(1);
+            expect(componentMedNyeArbeidsoppgaver.find(ArbeidsoppgaverNotifikasjonBoksAdvarsel)).to.have.length(0);
         });
 
         it('Skal ikke vise ArbeidsoppgaverNotifikasjonBoksAdvarsel, om  nye Arbeidsoppgaver er lagt til av motpart, og oppfolgingsdialogAvbrutt er true', () => {

@@ -101,10 +101,12 @@ export class Oppfolgingsdialoger extends Component {
             panel = (<div>
                 {!isEmpty(oppfolgingsdialoger) && harAktivOppfolgingsdialog(oppfolgingsdialoger) &&
                 <div>
-                    <OppfolgingsdialogNyDialog
-                        virksomheter={virksomhet.hentet}
-                        opprettOppfolgingsdialog={opprettOppfolgingsdialog}
-                    />
+                    { finnAktiveOppfolgingsdialoger(oppfolgingsdialoger).length < virksomhet.hentet.length &&
+                        <OppfolgingsdialogNyDialog
+                            virksomheter={virksomhet.hentet}
+                            opprettOppfolgingsdialog={opprettOppfolgingsdialog}
+                        />
+                    }
                     <OppfolgingsdialogTeasere
                         ledetekster={ledetekster}
                         oppfolgingsdialoger={finnAktiveOppfolgingsdialoger(oppfolgingsdialoger)}

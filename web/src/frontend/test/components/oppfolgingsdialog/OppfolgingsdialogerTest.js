@@ -213,7 +213,7 @@ describe('Oppfolgingsdialoger', () => {
                 expect(component.find(OppfolgingsdialogTeasere)).to.have.length(1);
             });
 
-            it('Skal vise OppfolgingsdialogNyDialog, dersom man har oppfolgingsdialoger', () => {
+            it('Skal ikke vise OppfolgingsdialogNyDialog, dersom man har antall aktive oppfolgingsdialoger lik antall virksomheter', () => {
                 const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
                     godkjentPlan: null,
                 })];
@@ -227,6 +227,28 @@ describe('Oppfolgingsdialoger', () => {
                     hentKontaktinfo={hentKontaktinfo}
                     forrigenaermesteleder={forrigenaermesteleder}
                     virksomhet={virksomhet}
+                    person={person}
+                    kontaktinfo={kontaktinfo}
+                />);
+                expect(component.find(OppfolgingsdialogNyDialog)).to.have.length(0);
+            });
+
+            it('Skal vise OppfolgingsdialogNyDialog, dersom man ikke har antall aktive oppfolgingsdialoger lik antall virksomheter', () => {
+                const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
+                    godkjentPlan: null,
+                })];
+                component = shallow(<Oppfolgingsdialoger
+                    dinesykmeldinger={dinesykmeldinger}
+                    naermesteLedere={naermesteLedere}
+                    oppfolgingsdialoger={oppfolgingsdialogListe}
+                    hentVirksomhet={hentVirksomhet}
+                    hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+                    hentPerson={hentPerson}
+                    hentKontaktinfo={hentKontaktinfo}
+                    forrigenaermesteleder={forrigenaermesteleder}
+                    virksomhet={Object.assign(virksomhet, {
+                        hentet: [{}, {}],
+                    })}
                     person={person}
                     kontaktinfo={kontaktinfo}
                 />);

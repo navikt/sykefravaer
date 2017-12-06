@@ -116,21 +116,28 @@ describe("TidslinjeutdragContainer", () => {
 
     it("SKal beregne antallDager 1", () => {
         const props = mapStateToProps(state);
-        expect(props.antallDager).to.equal(10)
+        expect(props.antallDager).to.equal(11)
     });
 
     it("Skal beregne antallDager 2", () => {
         clock = sinon.useFakeTimers(new Date("2017-12-05").getTime() + 156655);
         state.sykeforloep.startdato = new Date("2017-03-07");
         const props = mapStateToProps(state);
-        expect(props.antallDager).to.equal(273)
+        expect(props.antallDager).to.equal(274)
     });
 
-    it("Skal beregne antallDager 3", () => {
-        clock = sinon.useFakeTimers(new Date("2017-12-05").getTime() + 45058);
+    it("Skal beregne antallDager når sykefraværet startet i går", () => {
+        clock = sinon.useFakeTimers(new Date("2017-12-05").getTime() + 156655);
         state.sykeforloep.startdato = new Date("2017-12-04");
         const props = mapStateToProps(state);
-        expect(props.antallDager).to.equal(1)
+        expect(props.antallDager).to.equal(2)
+    });
+
+    it("Skal beregne antallDager når sykefraværet startet for 14 dager siden", () => {
+        clock = sinon.useFakeTimers(new Date("2017-12-20").getTime() + 156655);
+        state.sykeforloep.startdato = new Date("2017-12-06");
+        const props = mapStateToProps(state);
+        expect(props.antallDager).to.equal(15)
     });
 
     describe("Med eller uten arbeidsgiver?", () => {

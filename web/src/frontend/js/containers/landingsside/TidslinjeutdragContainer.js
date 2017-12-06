@@ -78,7 +78,7 @@ export const getVisning = (dineSykmeldinger, startdato) => {
 export const mapStateToProps = (state) => {
     const hentingFeilet = state.sykeforloep.hentingFeilet;
     const startdato = state.sykeforloep.startdato;
-    const dagensDato = new Date();
+    let dagensDato = new Date();
     dagensDato.setHours(0);
     dagensDato.setMinutes(0);
     dagensDato.setSeconds(0);
@@ -86,7 +86,8 @@ export const mapStateToProps = (state) => {
     let antallDager;
 
     if (startdato) {
-        antallDager = 1 + parseInt(((dagensDato.getTime() - startdato.getTime()) / ETT_DOGN), 10);
+        antallDager = (dagensDato.getTime() - startdato.getTime()) / ETT_DOGN;
+        antallDager = Math.round(antallDager) + 1;
     }
 
     return {

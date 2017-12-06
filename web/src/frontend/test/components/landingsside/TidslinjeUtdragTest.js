@@ -32,4 +32,9 @@ describe("TidslinjeUtdrag", () => {
         expect(component.find(VelgArbeidssituasjon)).to.have.length(0);
     });
 
+    it("Uthenting av tekst", () => {
+        const component = shallow(<TidslinjeUtdrag antallDager={16} visning="MED_ARBEIDSGIVER" />);
+        expect(component.instance().getTekstObjekt().tom).to.equal(16);
+    });
+
 })

@@ -275,7 +275,7 @@ describe('Oppfolgingsdialoger', () => {
             component = shallow(<OppfolgingsdialogNyDialog
                 virksomheter={[virksomhet1]}
             />);
-            expect(component.find('button')).to.have.length(0);
+            expect(component.find('button')).to.have.length(1);
         });
 
         it('Skal vise en Link til OpprettOppfolgingsdialog, dersom arbeidstaker har flere arbeidsgivere', () => {

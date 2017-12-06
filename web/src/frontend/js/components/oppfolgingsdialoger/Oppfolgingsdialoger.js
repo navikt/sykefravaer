@@ -33,11 +33,15 @@ import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
 import OppfolgingsdialogFilm from './OppfolgingsdialogFilm';
 
-export const OppfolgingsdialogNyDialog = ({ virksomheter }) => {
+export const OppfolgingsdialogNyDialog = ({ virksomheter, opprettOppfolgingsdialog }) => {
     return (
         <div className="oppfolgingsdialogNyDialog">
             {
-                virksomheter.length > 1 &&
+                virksomheter.length === 1 ?
+                    <button className="rammeknapp" onClick={() => { opprettOppfolgingsdialog(virksomheter[0]); }}>
+                        {getLedetekst('oppfolgingsdialog.oppfolgingsdialogNyDialog.knapp')}
+                    </button>
+                    :
                     <Link role="button" className="rammeknapp" to={`${getContextRoot()}/oppfolgingsplaner/opprett`}>
                         {getLedetekst('oppfolgingsdialog.oppfolgingsdialogNyDialog.knapp')}
                     </Link>
@@ -47,6 +51,7 @@ export const OppfolgingsdialogNyDialog = ({ virksomheter }) => {
 };
 OppfolgingsdialogNyDialog.propTypes = {
     virksomheter: PropTypes.arrayOf(PropTypes.string),
+    opprettOppfolgingsdialog: PropTypes.func,
 };
 
 const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgingsdialoger) => {
@@ -98,6 +103,7 @@ export class Oppfolgingsdialoger extends Component {
                 <div>
                     <OppfolgingsdialogNyDialog
                         virksomheter={virksomhet.hentet}
+                        opprettOppfolgingsdialog={opprettOppfolgingsdialog}
                     />
                     <OppfolgingsdialogTeasere
                         ledetekster={ledetekster}

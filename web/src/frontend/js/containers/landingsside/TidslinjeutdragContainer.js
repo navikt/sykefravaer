@@ -40,6 +40,10 @@ export const skalViseUtdrag = (sykmeldinger) => {
 };
 
 export const getVisning = (dineSykmeldinger, startdato) => {
+    if (!startdato) {
+        return VALGFRI;
+    }
+    
     const sykmeldingerForDetteSykeforloepet = dineSykmeldinger.filter((s) => {
         return s.identdato.getTime() >= startdato.getTime();
     });

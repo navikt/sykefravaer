@@ -48,7 +48,6 @@ class Oppfolgingsdialog extends Component {
 
     componentWillMount() {
         const { oppfolgingsdialog, virksomhet, person, kontaktinfo, forrigenaermesteleder, naermesteleder, hentForrigeNaermesteLeder, hentVirksomhet, hentPerson, hentNaermesteLeder, hentKontaktinfo, arbeidsforhold, hentArbeidsforhold } = this.props;
-        this.props.settAktivtSteg(1);
         this.props.settDialog(oppfolgingsdialog.id);
         finnOgHentVirksomheterSomMangler([oppfolgingsdialog], virksomhet, hentVirksomhet);
         finnOgHentPersonerSomMangler([oppfolgingsdialog], person, hentPerson);

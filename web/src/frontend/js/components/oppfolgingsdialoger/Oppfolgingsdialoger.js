@@ -33,26 +33,14 @@ import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
 import OppfolgingsdialogFilm from './OppfolgingsdialogFilm';
 
-export const OppfolgingsdialogNyDialog = ({ oppfolgingsdialoger, virksomheter, opprettOppfolgingsdialog }) => {
+export const OppfolgingsdialogNyDialog = () => {
     return (
         <div className="oppfolgingsdialogNyDialog">
-            {
-                virksomheter.length === 1 && finnAktiveOppfolgingsdialoger(oppfolgingsdialoger).length === 0 ?
-                    <button className="rammeknapp" onClick={() => { opprettOppfolgingsdialog(virksomheter[0]); }}>
-                        {getLedetekst('oppfolgingsdialog.oppfolgingsdialogNyDialog.knapp')}
-                    </button>
-                    :
-                    <Link role="button" className="rammeknapp" to={`${getContextRoot()}/oppfolgingsplaner/opprett`}>
-                        {getLedetekst('oppfolgingsdialog.oppfolgingsdialogNyDialog.knapp')}
-                    </Link>
-            }
+            <Link role="button" className="rammeknapp" to={`${getContextRoot()}/oppfolgingsplaner/opprett`}>
+                {getLedetekst('oppfolgingsdialog.oppfolgingsdialogNyDialog.knapp')}
+            </Link>
         </div>
     );
-};
-OppfolgingsdialogNyDialog.propTypes = {
-    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
-    virksomheter: PropTypes.arrayOf(PropTypes.string),
-    opprettOppfolgingsdialog: PropTypes.func,
 };
 
 const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgingsdialoger) => {
@@ -102,11 +90,8 @@ export class Oppfolgingsdialoger extends Component {
             panel = (<div>
                 {!isEmpty(oppfolgingsdialoger) && harAktivOppfolgingsdialog(oppfolgingsdialoger) &&
                 <div>
-                    { finnAktiveOppfolgingsdialoger(oppfolgingsdialoger).length < virksomhet.hentet.length &&
-                        <OppfolgingsdialogNyDialog
-                            virksomheter={virksomhet.hentet}
-                            opprettOppfolgingsdialog={opprettOppfolgingsdialog}
-                        />
+                    { virksomhet.hentet.length > 1 &&
+                        <OppfolgingsdialogNyDialog />
                     }
                     <OppfolgingsdialogTeasere
                         ledetekster={ledetekster}

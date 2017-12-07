@@ -213,27 +213,7 @@ describe('Oppfolgingsdialoger', () => {
                 expect(component.find(OppfolgingsdialogTeasere)).to.have.length(1);
             });
 
-            it('Skal ikke vise OppfolgingsdialogNyDialog, dersom man har antall aktive oppfolgingsdialoger lik antall virksomheter', () => {
-                const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
-                    godkjentPlan: null,
-                })];
-                component = shallow(<Oppfolgingsdialoger
-                    dinesykmeldinger={dinesykmeldinger}
-                    naermesteLedere={naermesteLedere}
-                    oppfolgingsdialoger={oppfolgingsdialogListe}
-                    hentVirksomhet={hentVirksomhet}
-                    hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                    hentPerson={hentPerson}
-                    hentKontaktinfo={hentKontaktinfo}
-                    forrigenaermesteleder={forrigenaermesteleder}
-                    virksomhet={virksomhet}
-                    person={person}
-                    kontaktinfo={kontaktinfo}
-                />);
-                expect(component.find(OppfolgingsdialogNyDialog)).to.have.length(0);
-            });
-
-            it('Skal vise OppfolgingsdialogNyDialog, dersom man ikke har antall aktive oppfolgingsdialoger lik antall virksomheter', () => {
+            it('Skal vise OppfolgingsdialogNyDialog, dersom man har oppfolgingsdialog og har flere arbeidsgiverer', () => {
                 const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
                     godkjentPlan: null,
                 })];
@@ -253,6 +233,28 @@ describe('Oppfolgingsdialoger', () => {
                     kontaktinfo={kontaktinfo}
                 />);
                 expect(component.find(OppfolgingsdialogNyDialog)).to.have.length(1);
+            });
+
+            it('Skal ikke vise OppfolgingsdialogNyDialog, dersom man har oppfolgingsdialog og kun 1 arbeidsgiver', () => {
+                const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
+                    godkjentPlan: null,
+                })];
+                component = shallow(<Oppfolgingsdialoger
+                    dinesykmeldinger={dinesykmeldinger}
+                    naermesteLedere={naermesteLedere}
+                    oppfolgingsdialoger={oppfolgingsdialogListe}
+                    hentVirksomhet={hentVirksomhet}
+                    hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+                    hentPerson={hentPerson}
+                    hentKontaktinfo={hentKontaktinfo}
+                    forrigenaermesteleder={forrigenaermesteleder}
+                    virksomhet={Object.assign(virksomhet, {
+                        hentet: [{}],
+                    })}
+                    person={person}
+                    kontaktinfo={kontaktinfo}
+                />);
+                expect(component.find(OppfolgingsdialogNyDialog)).to.have.length(0);
             });
         });
 
@@ -285,41 +287,8 @@ describe('Oppfolgingsdialoger', () => {
     });
 
     describe('OppfolgingsdialogNyDialog', () => {
-        let opprettOppfolgingsdialog;
-        const virksomhet1 = '991651365';
-        const virksomhet2 = '991651366';
-        const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
-            godkjentPlan: null,
-        })];
-
-        beforeEach(() => {
-            opprettOppfolgingsdialog = sinon.spy();
-        });
-
-        it('Skal vise en Knapp for aa opprette, dersom arbeidstaker kun har 1 arbeidsgiver', () => {
+        it('Skal vise en Link til OpprettOppfolgingsdialog', () => {
             component = shallow(<OppfolgingsdialogNyDialog
-                oppfolgingsdialoger={oppfolgingsdialogListe}
-                virksomheter={[virksomhet1]}
-            />);
-            expect(component.find('button')).to.have.length(1);
-        });
-
-        it('Skal vise en Link til OpprettOppfolgingsdialog, dersom arbeidstaker kun har 1 arbeidsgiver og har aktiv dialog', () => {
-            component = shallow(<OppfolgingsdialogNyDialog
-                oppfolgingsdialoger={[{}]}
-                virksomheter={[virksomhet1]}
-                opprettOppfolgingsdialog={opprettOppfolgingsdialog}
-
-            />);
-            expect(component.find(Link)).to.have.length(1);
-        });
-
-        it('Skal vise en Link til OpprettOppfolgingsdialog, dersom arbeidstaker har flere arbeidsgivere', () => {
-            component = shallow(<OppfolgingsdialogNyDialog
-                oppfolgingsdialoger={oppfolgingsdialogListe}
-                virksomheter={[virksomhet1, virksomhet2]}
-                opprettOppfolgingsdialog={opprettOppfolgingsdialog}
-
             />);
             expect(component.find(Link)).to.have.length(1);
         });

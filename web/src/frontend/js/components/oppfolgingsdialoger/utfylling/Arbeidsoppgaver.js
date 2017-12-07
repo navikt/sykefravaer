@@ -12,7 +12,7 @@ import {
     ArbeidsoppgaveTabell,
     sorterArbeidsoppgaverEtterOpprettet,
     proptypes as oppfolgingProptypes,
-    NotifikasjonBoksVurdering,
+    NotifikasjonBoksVurderingOppgave,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
@@ -187,7 +187,7 @@ class Arbeidsoppgaver extends Component {
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
 
                         {
-                            antalOppgaveSkalVurderes > 0 && <NotifikasjonBoksVurdering
+                           <NotifikasjonBoksVurderingOppgave
                                 ledetekster={ledetekster}
                                 navn={oppfolgingsdialog.arbeidsgiver.naermesteLeder.navn}
                                 antalVuderinger={antalOppgaveSkalVurderes}

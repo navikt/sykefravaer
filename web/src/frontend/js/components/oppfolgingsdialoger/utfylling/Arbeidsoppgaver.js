@@ -187,7 +187,7 @@ class Arbeidsoppgaver extends Component {
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
 
                         {
-                           <NotifikasjonBoksVurderingOppgave
+                            antalOppgaveSkalVurderes > 0 && <NotifikasjonBoksVurdering
                                 ledetekster={ledetekster}
                                 navn={oppfolgingsdialog.arbeidsgiver.naermesteLeder.navn}
                                 antalVuderinger={antalOppgaveSkalVurderes}

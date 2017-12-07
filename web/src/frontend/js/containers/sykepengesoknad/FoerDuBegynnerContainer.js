@@ -57,10 +57,13 @@ Controller.propTypes = {
 };
 
 export class Container extends Component {
-    componentDidMount() {
+    componentWillMount() {
         if (this.props.brukerHarNavigertTilAnnenSoknad) {
             this.props.destroy(SYKEPENGER_SKJEMANAVN);
         }
+    }
+    
+    componentDidMount() {
         this.props.hentBerikelse(this.props.sykepengesoknadId);
     }
 
@@ -94,7 +97,7 @@ Container.propTypes = {
         }),
     }),
     hentBerikelse: PropTypes.func,
-    brukerHarNavigertTilAnnenSoknad: PropTypes.func,
+    brukerHarNavigertTilAnnenSoknad: PropTypes.bool,
     destroy: PropTypes.func,
 };
 

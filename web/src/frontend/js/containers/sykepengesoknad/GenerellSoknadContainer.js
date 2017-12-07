@@ -68,6 +68,7 @@ export const mapStateToProps = (state, ownProps) => {
             forrigeSykeforloepTom: sykepengesoknad.forrigeSykeforloepTom,
         };
     }
+
     return {
         sykepengesoknad,
         henter: state.sykepengesoknader.henter || state.ledetekster.henter,

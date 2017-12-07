@@ -12,6 +12,7 @@ import {
     TiltakSkjema,
     TiltakInfoboks,
     sorterTiltakEtterNyeste,
+    STATUS_TILTAK,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
@@ -104,6 +105,7 @@ class Tiltak extends Component {
             this.state.nyttTiltak = false;
             this.state.oppdatertTiltak = true;
         }
+        values.status = STATUS_TILTAK.FORSLAG;
         const nyeValues = {
             ...values,
             tiltaknavn: captitalizeFirstLetter(values.tiltaknavn),

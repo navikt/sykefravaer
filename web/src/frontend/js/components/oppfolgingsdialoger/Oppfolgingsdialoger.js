@@ -33,11 +33,11 @@ import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
 import OppfolgingsdialogFilm from './OppfolgingsdialogFilm';
 
-export const OppfolgingsdialogNyDialog = ({ virksomheter, opprettOppfolgingsdialog }) => {
+export const OppfolgingsdialogNyDialog = ({ oppfolgingsdialoger, virksomheter, opprettOppfolgingsdialog }) => {
     return (
         <div className="oppfolgingsdialogNyDialog">
             {
-                virksomheter.length === 1 ?
+                virksomheter.length === 1 && finnAktiveOppfolgingsdialoger(oppfolgingsdialoger).length === 0 ?
                     <button className="rammeknapp" onClick={() => { opprettOppfolgingsdialog(virksomheter[0]); }}>
                         {getLedetekst('oppfolgingsdialog.oppfolgingsdialogNyDialog.knapp')}
                     </button>
@@ -50,6 +50,7 @@ export const OppfolgingsdialogNyDialog = ({ virksomheter, opprettOppfolgingsdial
     );
 };
 OppfolgingsdialogNyDialog.propTypes = {
+    oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     virksomheter: PropTypes.arrayOf(PropTypes.string),
     opprettOppfolgingsdialog: PropTypes.func,
 };

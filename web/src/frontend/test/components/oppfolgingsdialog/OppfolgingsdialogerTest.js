@@ -288,6 +288,9 @@ describe('Oppfolgingsdialoger', () => {
         let opprettOppfolgingsdialog;
         const virksomhet1 = '991651365';
         const virksomhet2 = '991651366';
+        const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
+            godkjentPlan: null,
+        })];
 
         beforeEach(() => {
             opprettOppfolgingsdialog = sinon.spy();
@@ -295,13 +298,25 @@ describe('Oppfolgingsdialoger', () => {
 
         it('Skal vise en Knapp for aa opprette, dersom arbeidstaker kun har 1 arbeidsgiver', () => {
             component = shallow(<OppfolgingsdialogNyDialog
+                oppfolgingsdialoger={oppfolgingsdialogListe}
                 virksomheter={[virksomhet1]}
             />);
             expect(component.find('button')).to.have.length(1);
         });
 
+        it('Skal vise en Link til OpprettOppfolgingsdialog, dersom arbeidstaker kun har 1 arbeidsgiver og har aktiv dialog', () => {
+            component = shallow(<OppfolgingsdialogNyDialog
+                oppfolgingsdialoger={[{}]}
+                virksomheter={[virksomhet1]}
+                opprettOppfolgingsdialog={opprettOppfolgingsdialog}
+
+            />);
+            expect(component.find(Link)).to.have.length(1);
+        });
+
         it('Skal vise en Link til OpprettOppfolgingsdialog, dersom arbeidstaker har flere arbeidsgivere', () => {
             component = shallow(<OppfolgingsdialogNyDialog
+                oppfolgingsdialoger={oppfolgingsdialogListe}
                 virksomheter={[virksomhet1, virksomhet2]}
                 opprettOppfolgingsdialog={opprettOppfolgingsdialog}
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import {
-    ArbeidsoppgaverNotifikasjonBoksAdvarsel,
     Arbeidsforhold,
     BRUKERTYPE,
     captitalizeFirstLetter,
@@ -125,7 +124,6 @@ class Arbeidsoppgaver extends Component {
         const {
             ledetekster,
             oppfolgingsdialog,
-            oppfolgingsdialogAvbrutt,
         } = this.props;
         const {
             lagrer,
@@ -133,10 +131,7 @@ class Arbeidsoppgaver extends Component {
             sletter,
             slettingFeilet,
         } = this.props.arbeidsoppgaver;
-        const antallNyeArbeidsoppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
-            return !arbeidsoppgave.erVurdertAvSykmeldt && (!oppfolgingsdialog.arbeidstaker.sistInnlogget || new Date(arbeidsoppgave.opprettetDato) > new Date(oppfolgingsdialog.arbeidstaker.sistInnlogget));
-        }).length;
-        const antalOppgaveSkalVurderes = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
+        const antallIkkeVurdererteArbOppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
             return !arbeidsoppgave.erVurdertAvSykmeldt;
         }).length;
         return (
@@ -187,10 +182,10 @@ class Arbeidsoppgaver extends Component {
                         <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
 
                         {
-                            antalOppgaveSkalVurderes > 0 && <NotifikasjonBoksVurderingOppgave
+                            antallIkkeVurdererteArbOppgaver > 0 && <NotifikasjonBoksVurderingOppgave
                                 ledetekster={ledetekster}
                                 navn={oppfolgingsdialog.arbeidsgiver.naermesteLeder.navn}
-                                antalVuderinger={antalOppgaveSkalVurderes}
+                                antallIkkeVurderte={antallIkkeVurdererteArbOppgaver}
                                 rootUrl={`${getContextRoot()}`}
                                 tekst="oppfolgingsdialog.notifikasjonboks.arbeidsoppgave.vurderes.tekst"
                             />

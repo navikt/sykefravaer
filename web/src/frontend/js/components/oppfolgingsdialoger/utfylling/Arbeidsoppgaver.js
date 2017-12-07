@@ -132,7 +132,7 @@ class Arbeidsoppgaver extends Component {
             slettingFeilet,
         } = this.props.arbeidsoppgaver;
         const antallIkkeVurdererteArbOppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
-            return !arbeidsoppgave.erVurdertAvSykmeldt;
+            return !arbeidsoppgave.gjennomfoering;
         }).length;
         return (
             (() => {

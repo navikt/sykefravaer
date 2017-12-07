@@ -63,23 +63,16 @@ describe("SoknaderContainer", () => {
     describe("SoknaderSide", () => {
 
         let dispatch;
-        let destroy; 
         let actions;
         let ledetekster;
         let hentSykepengesoknader;
 
         beforeEach(() => {
             dispatch = sinon.spy();
-            destroy = sinon.spy();
             hentSykepengesoknader = sinon.spy();
-            actions = { destroy, hentSykepengesoknader };
+            actions = { hentSykepengesoknader };
             ledetekster = {"nokkel": "verdi"};
             
-        });
-
-        it("Skal kalle på destroy", () => {
-            let component = shallow(<SoknaderSide actions={actions} soknader={[]} henter={false} hentingFeilet={true} dispatch={dispatch} />);
-            expect(destroy.calledWith(SYKEPENGER_SKJEMANAVN)).to.be.true;
         });
 
         it("Skal vise feilmelding om henting feilet", () => {

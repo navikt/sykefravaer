@@ -8,13 +8,11 @@ import Soknader from '../../components/sykepengesoknader/Soknader';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { SYKEPENGER_SKJEMANAVN } from '../../components/sykepengesoknad/setup';
 import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt } from '../../propTypes';
 import { hentSykepengesoknader } from '../../actions/sykepengesoknader_actions';
 
 export class SoknaderSide extends Component {
     componentWillMount() {
-        this.props.actions.destroy(SYKEPENGER_SKJEMANAVN);
         if (!this.props.soknaderHentet) {
             this.props.actions.hentSykepengesoknader();
         }

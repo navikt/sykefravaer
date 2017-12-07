@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form';
-import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, getTomDato, tidligsteFom as _tidligsteFom, Hjelpetekst } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, getTomDato, finnFomForFeriesporsmal, Hjelpetekst } from 'digisyfo-npm';
 import JaEllerNei, { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import Checkbox from '../../skjema/Checkbox';
@@ -81,10 +81,8 @@ export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjeno
         ...sykepengesoknad,
         gjenopptattArbeidFulltUtDato,
     };
-    const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
-        return aktivitet.periode;
-    });
-    const tidligsteFom = sykepengesoknad.del === 1 && sykepengesoknad.forrigeSykeforloepTom ? sykepengesoknad.forrigeSykeforloepTom : _tidligsteFom(perioder);
+
+    const tidligsteFom = finnFomForFeriesporsmal(sykepengesoknad);
     const senesteTom = getTomDato(_soknad);
     const hjelpetekst = (<Hjelpetekst
         id="ferie-permisjon-hjelpetekst"

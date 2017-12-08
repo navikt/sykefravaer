@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, scrollTo } from 'digisyfo-npm';
 import AvbrytSoknad from '../../components/sykepengesoknad/AvbrytSoknad';
 import { avbrytSoknad } from '../../actions/sykepengesoknader_actions';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
@@ -12,6 +12,12 @@ class AvbrytSoknadContainer extends Component {
         this.state = {
             erApen: false,
         };
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (!prevState.erApen && this.state.erApen) {
+            scrollTo(this.dialog);
+        }
     }
 
     visAvbrytdialog() {
@@ -47,17 +53,24 @@ class AvbrytSoknadContainer extends Component {
                             this.toggleAvbrytdialog();
                         }}>{getLedetekst('sykepengesoknad.avbryt.trigger')}</button>
                 </p>
-                { this.state.erApen && <AvbrytSoknad
-                    avbrytFeilet={this.props.avbrytFeilet}
-                    avbryter={this.props.avbryter}
-                    sender={this.props.sender}
-                    avbrytHandler={() => {
-                        this.skjulAvbrytdialog();
-                        this.knapp.focus();
-                    }}
-                    bekreftHandler={() => {
-                        this.props.avbrytSoknad(this.props.sykepengesoknad.id);
-                    }} /> }
+                <div
+                    ref={(c) => {
+                        this.dialog = c;
+                    }}>
+                    {
+                        this.state.erApen && <AvbrytSoknad
+                            avbrytFeilet={this.props.avbrytFeilet}
+                            avbryter={this.props.avbryter}
+                            sender={this.props.sender}
+                            avbrytHandler={() => {
+                                this.skjulAvbrytdialog();
+                                this.knapp.focus();
+                            }}
+                            bekreftHandler={() => {
+                                this.props.avbrytSoknad(this.props.sykepengesoknad.id);
+                            }} />
+                    }
+                </div>
             </div>
         </div>);
     }

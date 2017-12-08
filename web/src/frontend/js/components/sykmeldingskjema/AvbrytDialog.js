@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, scrollTo } from 'digisyfo-npm';
 
-const AvbrytDialog = ({ avbryter, avbrytHandler, bekreftHandler }) => {
-    return (<div className="snakkeboble">
+export const AvbrytSykmeldingDialog = ({ avbryter, avbrytHandler, bekreftHandler }) => {
+    return (<div
+        className="snakkeboble">
         <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.avbryt.spoersmal')} />
         <div className="blokk--xs">
             <button
@@ -29,10 +30,35 @@ const AvbrytDialog = ({ avbryter, avbrytHandler, bekreftHandler }) => {
     </div>);
 };
 
-AvbrytDialog.propTypes = {
+AvbrytSykmeldingDialog.propTypes = {
     avbryter: PropTypes.bool,
     avbrytHandler: PropTypes.func,
     bekreftHandler: PropTypes.func,
 };
+
+class AvbrytDialog extends Component {
+    componentDidUpdate(prevProps) {
+        if (!prevProps.vis && this.props.vis) {
+            scrollTo(this.dialog);
+        }
+    }
+
+    render() {
+        const { vis } = this.props;
+        return (<div
+            ref={(c) => {
+                this.dialog = c;
+            }}>
+            {
+                (() => {
+                    if (!vis) {
+                        return null;
+                    }
+                    return <AvbrytSykmeldingDialog {...this.props} />
+                })()
+            }
+        </div>);
+    }
+}
 
 export default AvbrytDialog;

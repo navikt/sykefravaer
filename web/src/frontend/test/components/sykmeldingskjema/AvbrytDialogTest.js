@@ -9,9 +9,9 @@ import { setLedetekster } from 'digisyfo-npm';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import AvbrytDialog from "../../../js/components/sykmeldingskjema/AvbrytDialog";
+import { AvbrytSykmeldingDialog } from "../../../js/components/sykmeldingskjema/AvbrytDialog";
 
-describe("AvbrytDialog", () => { 
+describe("AvbrytSykmeldingDialog", () => { 
 
     let avbrytHandler;
     let bekreftHandler;
@@ -23,20 +23,20 @@ describe("AvbrytDialog", () => {
     });
 
     it("Skal vise to knapper", () => {
-        const component = mount(<AvbrytDialog avbrytHandler={avbrytHandler} bekreftHandler={bekreftHandler} />);
+        const component = mount(<AvbrytSykmeldingDialog avbrytHandler={avbrytHandler} bekreftHandler={bekreftHandler} />);
         expect(component.find(".js-avbryt")).to.have.length(1);
         expect(component.find(".js-bekreft")).to.have.length(1);
     });
 
     it("Skal kalle bekreftHandler når man klikker på knappen", () => {
-        const component = mount(<AvbrytDialog avbrytHandler={avbrytHandler} bekreftHandler={bekreftHandler} />);
+        const component = mount(<AvbrytSykmeldingDialog avbrytHandler={avbrytHandler} bekreftHandler={bekreftHandler} />);
         component.find(".js-bekreft").simulate("click");
         expect(bekreftHandler.calledOnce).to.equal(true);
         expect(avbrytHandler.calledOnce).to.equal(false);
     });
 
     it("Skal kalle avbrytHandler når man klikker på avbryt", () => {
-        const component = mount(<AvbrytDialog avbrytHandler={avbrytHandler} bekreftHandler={bekreftHandler} />);
+        const component = mount(<AvbrytSykmeldingDialog avbrytHandler={avbrytHandler} bekreftHandler={bekreftHandler} />);
         component.find(".js-avbryt").simulate("click");
         expect(bekreftHandler.calledOnce).to.equal(false);
         expect(avbrytHandler.calledOnce).to.equal(true);

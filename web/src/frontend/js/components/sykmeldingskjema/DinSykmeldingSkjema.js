@@ -198,24 +198,23 @@ export class DinSykmeldingSkjemaComponent extends Component {
                                     });
                                 }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</button>
                         </p>
-                    }
-                    {
-                        this.state.visAvbrytDialog && <AvbrytDialog
-                            avbryter={avbryter}
-                            avbrytHandler={() => {
-                                this.setState({
-                                    visAvbrytDialog: false,
-                                });
-                                if (this.triggAvbrytdialogKnapp) {
-                                    this.triggAvbrytdialogKnapp.focus();
-                                } else if (this.submitknapp) {
-                                    this.submitknapp.focus();
-                                }
-                            }}
-                            bekreftHandler={() => {
-                                this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
-                            }} />
-                    }
+                    }    
+                    <AvbrytDialog
+                        vis={this.state.visAvbrytDialog}
+                        avbryter={avbryter}
+                        avbrytHandler={() => {
+                            this.setState({
+                                visAvbrytDialog: false,
+                            });
+                            if (this.triggAvbrytdialogKnapp) {
+                                this.triggAvbrytdialogKnapp.focus();
+                            } else if (this.submitknapp) {
+                                this.submitknapp.focus();
+                            }
+                        }}
+                        bekreftHandler={() => {
+                            this.avbryt(sykmelding.id, this.getFeilaktigeOpplysninger());
+                        }} />
                 </div>
             </div>
         </form>);

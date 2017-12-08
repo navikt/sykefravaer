@@ -111,6 +111,9 @@ class Tiltak extends Component {
             tiltaknavn: captitalizeFirstLetter(values.tiltaknavn),
         };
         this.props.lagreTiltak(this.props.oppfolgingsdialog.id, nyeValues);
+        this.setState({
+            visTiltakSkjema: false,
+        });
     }
 
     sendSlettTiltak(tiltakId) {

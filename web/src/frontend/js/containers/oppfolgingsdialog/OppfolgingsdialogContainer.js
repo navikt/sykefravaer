@@ -71,7 +71,7 @@ export class OppfolgingsdialogSide extends Component {
         if (avbrytdialogReducer.sendt && oppfolgingsdialogerReducer.henter && nextProps.oppfolgingsdialogerReducer.hentet) {
             const nyOpprettetDialog = finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt(nextProps.oppfolgingsdialoger, nextProps.oppfolgingsdialog.virksomhet.virksomhetsnummer);
             if (nyOpprettetDialog) {
-                history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.id}/`);
+                history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.id}`);
                 window.location.hash = 'arbeidsoppgaver';
             }
         }

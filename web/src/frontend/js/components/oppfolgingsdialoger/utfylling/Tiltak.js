@@ -161,8 +161,7 @@ class Tiltak extends Component {
                                     svgUrl={`${getContextRoot()}/img/svg/tiltak-onboarding.svg`}
                                     svgAlt="nyttTiltak"
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tittel')}
-                                    tekst={
-                                        <p>{getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}</p>}
+                                    tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}
                                 >
                                     <LeggTilElementKnapper
                                         ledetekster={ledetekster}

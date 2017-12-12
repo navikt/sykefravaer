@@ -213,28 +213,6 @@ describe('Oppfolgingsdialoger', () => {
                 expect(component.find(OppfolgingsdialogTeasere)).to.have.length(1);
             });
 
-            it('Skal vise OppfolgingsdialogNyDialog, dersom man har oppfolgingsdialog og har flere arbeidsgiverer', () => {
-                const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
-                    godkjentPlan: null,
-                })];
-                component = shallow(<Oppfolgingsdialoger
-                    dinesykmeldinger={dinesykmeldinger}
-                    naermesteLedere={naermesteLedere}
-                    oppfolgingsdialoger={oppfolgingsdialogListe}
-                    hentVirksomhet={hentVirksomhet}
-                    hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                    hentPerson={hentPerson}
-                    hentKontaktinfo={hentKontaktinfo}
-                    forrigenaermesteleder={forrigenaermesteleder}
-                    virksomhet={Object.assign(virksomhet, {
-                        hentet: [{}, {}],
-                    })}
-                    person={person}
-                    kontaktinfo={kontaktinfo}
-                />);
-                expect(component.find(OppfolgingsdialogNyDialog)).to.have.length(1);
-            });
-
             it('Skal ikke vise OppfolgingsdialogNyDialog, dersom man har oppfolgingsdialog og kun 1 arbeidsgiver', () => {
                 const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
                     godkjentPlan: null,
@@ -248,9 +226,7 @@ describe('Oppfolgingsdialoger', () => {
                     hentPerson={hentPerson}
                     hentKontaktinfo={hentKontaktinfo}
                     forrigenaermesteleder={forrigenaermesteleder}
-                    virksomhet={Object.assign(virksomhet, {
-                        hentet: [{}],
-                    })}
+                    virksomhet={virksomhet}
                     person={person}
                     kontaktinfo={kontaktinfo}
                 />);

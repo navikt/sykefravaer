@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint, keyValue, Video, filmer } from 'digisyfo-npm';
+import { getLedetekst, toDatePrettyPrint, keyValue, Video, filmer } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
 import history from '../../history';

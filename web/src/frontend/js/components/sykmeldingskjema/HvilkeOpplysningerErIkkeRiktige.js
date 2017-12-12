@@ -122,9 +122,9 @@ VelgFeilaktigeOpplysninger.propTypes = {
 export const HvilkeOpplysninger = (props) => {
     const { feilaktigeOpplysninger } = props;
     const Sporsmal = <VelgFeilaktigeOpplysninger {...props} />;
-    const visTillegg = (props) => {
+    const visTillegg = (propsarg) => {
         try {
-            return props.feilaktigeOpplysninger.filter((o) => {
+            return propsarg.feilaktigeOpplysninger.filter((o) => {
                 return o.avkrysset;
             }).length > 0;
         } catch (e) {

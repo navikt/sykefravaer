@@ -84,7 +84,8 @@ export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjeno
 
     const tidligsteFom = finnFomForFeriesporsmal(sykepengesoknad);
     const senesteTom = getTomDato(_soknad);
-    const hjelpetekst = (<Hjelpetekst id="ferie-permisjon-hjelpetekst"
+    const hjelpetekst = (<Hjelpetekst
+        id="ferie-permisjon-hjelpetekst"
         tittel={getLedetekst('sykepengesoknad.ferie.hjelpetekst.tittel')}
         tekst={getLedetekst('sykepengesoknad.ferie.hjelpetekst.tekst')} />);
 

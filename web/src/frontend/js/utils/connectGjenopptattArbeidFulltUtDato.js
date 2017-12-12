@@ -2,10 +2,9 @@ import { connect } from 'react-redux';
 import { SYKEPENGER_SKJEMANAVN } from '../components/sykepengesoknad/setup';
 import { fraInputdatoTilJSDato, erGyldigDatoformat } from './datoUtils';
 
-export const mapStateToProps = (state) => {
-    const values = state.form[SYKEPENGER_SKJEMANAVN].values;
-    let gjenopptattArbeidFulltUtDato = values.gjenopptattArbeidFulltUtDato;
-    if (!values.harGjenopptattArbeidFulltUt || !gjenopptattArbeidFulltUtDato || !erGyldigDatoformat(gjenopptattArbeidFulltUtDato)) {
+export const getGjenopptattArbeidFulltUtDato = (skjemasoknad) => {
+    let gjenopptattArbeidFulltUtDato = skjemasoknad.gjenopptattArbeidFulltUtDato;
+    if (!skjemasoknad.harGjenopptattArbeidFulltUt || !gjenopptattArbeidFulltUtDato || !erGyldigDatoformat(gjenopptattArbeidFulltUtDato)) {
         gjenopptattArbeidFulltUtDato = null;
     } else {
         try {
@@ -17,6 +16,12 @@ export const mapStateToProps = (state) => {
             gjenopptattArbeidFulltUtDato = null;
         }
     }
+    return gjenopptattArbeidFulltUtDato;
+};
+
+export const mapStateToProps = (state) => {
+    const values = state.form[SYKEPENGER_SKJEMANAVN].values;
+    const gjenopptattArbeidFulltUtDato = getGjenopptattArbeidFulltUtDato(values);
     return {
         gjenopptattArbeidFulltUtDato,
     };

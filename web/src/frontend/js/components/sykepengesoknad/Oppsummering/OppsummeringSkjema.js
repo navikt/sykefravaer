@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { Link } from 'react-router';
-import { Soknad, Varselstripe, getLedetekst } from 'digisyfo-npm';
+import { Varselstripe, getLedetekst } from 'digisyfo-npm';
+import { SoknadOppsummering } from '../OppsummeringSoknad/OppsummeringSoknad';
 import setup from '../setup';
 import SykepengerSkjema from '../SykepengerSkjema';
 import Knapperad from '../../skjema/Knapperad';
 import mapSkjemasoknadToBackendsoknad from '../mapSkjemasoknadToBackendsoknad';
 import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
 import validate from '../validering/validerOppsummering';
-import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, oppsummeringsoknad as oppsummeringsoknadPt } from '../../../propTypes';
 import ForskuttererArbeidsgiver from './ForskuttererArbeidsgiver';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad/AvbrytSoknadContainer';
 
@@ -38,7 +39,7 @@ export class OppsummeringForm extends Component {
     }
 
     render() {
-        const { sykepengesoknad, backendsoknad, handleSubmit, actions, sender, sendingFeilet, visForskutteringssporsmal, sendesTil } = this.props;
+        const { sykepengesoknad, oppsummeringsoknad, handleSubmit, actions, sender, sendingFeilet, visForskutteringssporsmal, sendesTil } = this.props;
         const label = getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label');
         const onSubmit = (values) => {
             const soknad = mapSkjemasoknadToBackendsoknad(values, {
@@ -47,6 +48,7 @@ export class OppsummeringForm extends Component {
             const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
             actions.sendSykepengesoknad(soknadObjekt);
         };
+                
         return (<form
             className="sykepengerskjema"
             ref={(c) => {
@@ -55,7 +57,7 @@ export class OppsummeringForm extends Component {
             tabIndex="-1"
             id="oppsummering-skjema"
             onSubmit={handleSubmit(onSubmit)}>
-            <Soknad apentUtdrag={false} sykepengesoknad={backendsoknad} tittel="Oppsummering" />
+            <SoknadOppsummering apentUtdrag={false} oppsummeringsoknad={oppsummeringsoknad} tittel="Oppsummering" />
             <div className="bekreftet-container blokk">
                 <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             </div>
@@ -81,7 +83,7 @@ export class OppsummeringForm extends Component {
 OppsummeringForm.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
     handleSubmit: PropTypes.func,
-    backendsoknad: sykepengesoknadPt,
+    oppsummeringsoknad: oppsummeringsoknadPt,
     actions: PropTypes.shape({
         sendSykepengesoknad: PropTypes.func,
     }),

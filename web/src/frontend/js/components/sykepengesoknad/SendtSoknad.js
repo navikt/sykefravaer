@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Soknad, getLedetekst, scrollTo } from 'digisyfo-npm';
+import { scrollTo } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Soknadstatuspanel from './Soknadstatuspanel';
@@ -11,7 +11,9 @@ import { KORRIGERT, SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatus
 import RelaterteSoknaderContainer from '../../containers/sykepengesoknad/RelaterteSoknaderContainer';
 import KorrigertAvContainer from '../../containers/sykepengesoknad/KorrigertAvContainer';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
-import { mapAktiviteter } from '../../utils/sykepengesoknadUtils';
+import OppsummeringSoknad from './OppsummeringSoknad/OppsummeringSoknad';
+import mapBackendsoknadToSkjemasoknad from './mapBackendsoknadToSkjemasoknad';
+import mapSkjemasoknadToOppsummeringSoknad from '../../utils/mapSkjemasoknadToOppsummeringSoknad';
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">
@@ -87,6 +89,8 @@ class SendtSoknad extends Component {
 
     render() {
         const { sykepengesoknad } = this.props;
+        const skjemasoknad = mapBackendsoknadToSkjemasoknad(sykepengesoknad);
+        const oppsummeringsoknad = mapSkjemasoknadToOppsummeringSoknad(skjemasoknad, sykepengesoknad);
         return (<div ref={(c) => {
             this.sendtSoknad = c;
         }}>
@@ -102,10 +106,7 @@ class SendtSoknad extends Component {
                 }
             </Soknadstatuspanel>
             <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />
-            <Soknad sykepengesoknad={mapAktiviteter(sykepengesoknad)} tittel="Oppsummering" />
-            <div className="bekreftet-container blokk">
-                <Avkrysset tekst={getLedetekst('sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label')} />
-            </div>
+            <OppsummeringSoknad oppsummeringsoknad={oppsummeringsoknad} tittel="Oppsummering" />
             { (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) && <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} /> }
         </div>);
     }

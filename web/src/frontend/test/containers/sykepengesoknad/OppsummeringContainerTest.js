@@ -5,7 +5,10 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { setLedetekster } from 'digisyfo-npm';
 import { getSoknad } from '../../mockSoknader';
-import { Oppsummering, navigeringsvarsel } from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
+import { Oppsummering, navigeringsvarsel, mapStateToProps } from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
+import mapSkjemasoknadToOppsummeringSoknad from '../../../js/utils/mapSkjemasoknadToOppsummeringSoknad';
+import mapBackendsoknadToSkjemasoknad from '../../../js/components/sykepengesoknad/mapBackendsoknadToSkjemasoknad';
+import mapSkjemasoknadToBackendsoknad from '../../../js/components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -50,6 +53,44 @@ describe("OppsummeringContainer", () => {
             backendsoknad,
             sykepengesoknad,
         }
+    })
+
+    describe("Oppsummering", () => {
+        let state;
+        let skjemasoknad;
+        let sykepengesoknad;
+        let ownProps;
+        let oppsummeringsoknad;
+
+        beforeEach(() => {
+            sykepengesoknad = getSoknad();
+            skjemasoknad = mapBackendsoknadToSkjemasoknad(sykepengesoknad)
+            oppsummeringsoknad = mapSkjemasoknadToOppsummeringSoknad(skjemasoknad, sykepengesoknad);
+            ownProps = {
+                skjemasoknad,
+                sykepengesoknad,
+            };
+
+            state = {
+                arbeidsgiverperiodeberegning: {
+                    data: {}
+                },
+                ledere: {
+                    data: []
+                },
+            }
+        });
+
+        it("Skal returnere oppsummeringsoknad", () => {
+            const props = mapStateToProps(state, ownProps);
+            expect(props.oppsummeringsoknad).to.deep.equal(oppsummeringsoknad);
+        });
+
+        it("Skal returnere backendsoknad", () => {
+           const props = mapStateToProps(state, ownProps); 
+           expect(props.backendsoknad).to.deep.equal(mapSkjemasoknadToBackendsoknad(skjemasoknad))
+        });
+
     })
 
     describe("Oppsummering", () => {

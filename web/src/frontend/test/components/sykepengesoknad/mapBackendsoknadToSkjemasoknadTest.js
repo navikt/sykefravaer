@@ -302,7 +302,8 @@ describe("mapBackendsoknadToSkjemasoknad", () => {
                     grad: 60,
                     avvik: {
                         arbeidstimerNormalUke: 37.5,
-                        timer: 27.5
+                        timer: 27.5,
+                        beregnetArbeidsgrad: 20,
                     },
                     jobbetMerEnnPlanlagt: true,
                 }]
@@ -319,6 +320,7 @@ describe("mapBackendsoknadToSkjemasoknad", () => {
                     enhet: "timer",
                     timer: "27,5",
                     arbeidsgrad: '',
+                    beregnetArbeidsgrad: 20,
                 },
                 jobbetMerEnnPlanlagt: true,
             }]);

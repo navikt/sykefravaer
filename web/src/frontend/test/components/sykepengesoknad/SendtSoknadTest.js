@@ -6,6 +6,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 import { sendSykepengesoknadTilArbeidsgiver, sendSykepengesoknadTilNAV } from '../../../js/actions/sykepengesoknader_actions';
 import SendtSoknad, { getNokkelopplysninger, Knapperad, ConnectedKnapperad } from '../../../js/components/sykepengesoknad/SendtSoknad';
+import OppsummeringSoknad from '../../../js/components/sykepengesoknad/OppsummeringSoknad/OppsummeringSoknad';
 import KorrigertAvContainer from '../../../js/containers/sykepengesoknad/KorrigertAvContainer';
 import { Soknad } from 'digisyfo-npm';
 import Sidetopp from '../../../js/components/Sidetopp';
@@ -43,12 +44,8 @@ describe("SendtSoknad", () => {
         expect(component.contains(<SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />)).to.be.true;
     });
 
-    it("Skal inneholde en Soknad", () => {
-        expect(component.contains(<Soknad sykepengesoknad={mapAktiviteter(sykepengesoknad)} tittel={'Oppsummering'}/>)).to.be.true;
-    });
-
-    it("Skal inneholde en Avkrysset", () => {
-        expect(component.contains(<Avkrysset tekst="Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte" />)).to.be.true;
+    it("Skal inneholde en OppsummeringSoknad", () => {
+        expect(component.find(OppsummeringSoknad)).to.have.length(1);
     });
 
     it("Skal inneholde Soknadstatuspanel", () => {

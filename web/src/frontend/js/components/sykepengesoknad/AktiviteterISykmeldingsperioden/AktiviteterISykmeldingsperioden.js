@@ -27,6 +27,23 @@ UtdanningStartDato.propTypes = {
     senesteTom: PropTypes.instanceOf(Date),
 };
 
+export const getUtdanningssporsmal = (sykepengesoknad, gjenopptattArbeidFulltUtDato, callback = getLedetekst) => {
+    const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
+        return aktivitet.periode;
+    });
+    const _tidligsteFom = tidligsteFom(perioder);
+    const _soknad = {
+        ...sykepengesoknad,
+        gjenopptattArbeidFulltUtDato,
+    };
+    const _senesteTom = getTomDato(_soknad);
+
+    return callback('sykepengesoknad.utdanning.ja-nei.sporsmal', {
+        '%STARTDATO%': toDatePrettyPrint(_tidligsteFom),
+        '%SLUTTDATO%': toDatePrettyPrint(_senesteTom),
+    });
+};
+
 export class AktiviteterISykmeldingsperiodenSkjema extends Component {
     componentDidMount() {
         if (this.form) {
@@ -76,10 +93,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
 
             <JaEllerNei
                 name="utdanning.underUtdanningISykmeldingsperioden"
-                spoersmal={getLedetekst('sykepengesoknad.utdanning.ja-nei.sporsmal', {
-                    '%STARTDATO%': toDatePrettyPrint(_tidligsteFom),
-                    '%SLUTTDATO%': toDatePrettyPrint(_senesteTom),
-                })}>
+                spoersmal={getUtdanningssporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}>
                 <UtdanningStartDato senesteTom={_senesteTom} />
                 <Field
                     component={JaEllerNeiRadioknapper}

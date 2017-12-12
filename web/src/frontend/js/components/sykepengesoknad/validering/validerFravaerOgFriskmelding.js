@@ -4,7 +4,7 @@ import * as valideringUtils from './valideringUtils';
 import { fraInputdatoTilJSDato } from '../../../utils/datoUtils';
 
 export const validate = (values, props) => {
-    const { sykepengesoknad } = props;
+    const { sykepengesoknad } = props;    
     const feilmeldinger = {};
     let gjenopptattArbeidFulltUtDato;
     const periodealternativer = {};

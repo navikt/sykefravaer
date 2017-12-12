@@ -8,8 +8,8 @@ import { get } from '../api';
 export function* hentStartdato() {
     yield put(actions.henterStartdato());
     try {
-        const dato = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/tidslinje/startdato`);
-        yield put(actions.startdatoHentet(dato));
+        const respons = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/tidslinje/startdato`);
+        yield put(actions.startdatoHentet(respons.startdato));
     } catch (e) {
         log(e);
         yield put(actions.hentStartdatoFeilet());

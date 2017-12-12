@@ -40,6 +40,18 @@ describe("sykeforloep", () => {
         });
     });
 
+
+    it("Håndterer STARTDATO_HENTET når det returneres null", () => {
+        const action = actions.startdatoHentet(null);
+        const state = sykeforloep(state, action);
+        expect(state).to.deep.equal({
+            hentet: true,
+            hentingFeilet: false,
+            henter: false,
+            startdato: null
+        });
+    });
+
     it("Håndterer HENT_STARTDATO_FEILET", () => {
         const action = actions.hentStartdatoFeilet();
         const state = sykeforloep(state, action);

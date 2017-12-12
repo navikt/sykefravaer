@@ -62,7 +62,7 @@ export class Container extends Component {
             this.props.destroy(SYKEPENGER_SKJEMANAVN);
         }
     }
-    
+
     componentDidMount() {
         this.props.hentBerikelse(this.props.sykepengesoknadId);
     }

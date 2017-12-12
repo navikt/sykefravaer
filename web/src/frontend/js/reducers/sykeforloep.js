@@ -16,11 +16,13 @@ export default (state = initState, action = {}) => {
             };
         }
         case SYKEFORLOEP_STARTDATO_HENTET: {
+            const startdato = action.startdato ? new Date(action.startdato) : null;
+
             return {
                 ...state,
                 henter: false,
                 hentet: true,
-                startdato: new Date(action.startdato),
+                startdato,
             };
         }
         case HENT_SYKEFORLOEP_STARTDATO_FEILET: {

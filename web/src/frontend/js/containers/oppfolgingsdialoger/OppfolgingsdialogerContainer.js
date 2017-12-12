@@ -87,7 +87,7 @@ export class OppfolgingsdialogerSide extends Component {
                             svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
                             svgAlt="ikkeTilgang"
                             tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-                            tekst={<p>{getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}</p>}
+                            tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
                         />);
                     }
                     return (<Oppfolgingsdialoger {...this.props} />);

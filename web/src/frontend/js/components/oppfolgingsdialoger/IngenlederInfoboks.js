@@ -17,7 +17,7 @@ class IngenledereInfoboks extends Component {
                 svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-ingenleder.svg`}
                 svgAlt="Ingen Leder"
                 tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.ingenlederInfoboks.tittel')}
-                tekst={<p>{getLedetekst('oppfolgingsdialog.arbeidstaker.ingenlederInfoboks.tekst')}</p>}
+                tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.ingenlederInfoboks.tekst')}
             />
             <div className="knapperad">
                 <Link className="rammeknapp" to={`${getContextRoot()}/oppfolgingsplaner`}>

@@ -177,7 +177,7 @@ class Oppfolgingsdialog extends Component {
             <div>
                 { oppfolgingsdialogAvbrutt &&
                     <AvbruttGodkjentPlanVarsel
-                        tekst={<p>{getLedetekst('oppfolgingdialog.avbruttGodkjentPlanVarsel.opprettet-plan')}</p>}
+                        tekst={getLedetekst('oppfolgingdialog.avbruttGodkjentPlanVarsel.opprettet-plan')}
                         rootUrl={`${getContextRoot()}`}
                     />
                 }

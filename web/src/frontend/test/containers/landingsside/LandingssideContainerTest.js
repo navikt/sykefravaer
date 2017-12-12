@@ -33,6 +33,10 @@ describe("LandingssideContainer", () => {
                 dineSykmeldinger: {
                     data: [{}]
                 },
+                sykeforloep: {
+                    hentet: true,
+                    henter: false,
+                },
                 mote: {},
                 ledere: {
                     hentet: false,
@@ -101,7 +105,8 @@ describe("LandingssideContainer", () => {
         let hentLedere;
         let hentToggles;
         let hentDineSykmeldinger;
-        let hent
+        let hentStartdato;
+        let hent;
 
         beforeEach(() => {
             hentMote = sinon.spy();
@@ -109,8 +114,9 @@ describe("LandingssideContainer", () => {
             hentDineSykmeldinger = sinon.spy();
             hentLedere = sinon.spy();
             hentToggles = sinon.spy();
+            hentStartdato = sinon.spy();
             hent = {
-                hentMote, hentSykepengesoknader, hentDineSykmeldinger, hentLedere, hentToggles
+                hentMote, hentSykepengesoknader, hentDineSykmeldinger, hentLedere, hentToggles, hentStartdato,
             }
         });
 

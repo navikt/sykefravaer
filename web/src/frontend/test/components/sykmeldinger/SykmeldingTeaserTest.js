@@ -34,7 +34,7 @@ describe("SykmeldingTeaser", () => {
                     grad: 100,
                 }],
             },
-            arbeidsgiver: "Bekk Consulting AS",
+            innsendtArbeidsgivernavn: "Bekk Consulting AS",
         })} />);
 
         expect(teaser.find(".js-periode").text()).to.contain("Bekk Consulting AS")
@@ -42,7 +42,7 @@ describe("SykmeldingTeaser", () => {
 
     it("Viser ikke arbeidsgiver dersom arbeidsgiver ikke finnes", function() {
         const teaser = mount(<SykmeldingTeaser sykmelding={getSykmelding({
-            arbeidsgiver: null
+            innsendtArbeidsgivernavn: null
         })}  />);
         expect(teaser.text()).to.not.contain("fra null")
     });
@@ -62,7 +62,7 @@ describe("SykmeldingTeaser", () => {
 
     it("Skal være et <article />-element", function () {
         const teaser = shallow(<SykmeldingTeaser sykmelding={getSykmelding({
-			arbeidsgiver: "Bekk Consulting AS",
+			innsendtArbeidsgivernavn: "Bekk Consulting AS",
 			mulighetForArbeid: {
 			    perioder: [{
                     fom: "2016-02-02",

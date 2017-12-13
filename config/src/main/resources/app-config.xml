@@ -18,6 +18,8 @@
     <resources>
         <baseUrl mapToProperty="dialogarena.cms" alias="appres.cms"/>
         <rest mapToProperty="sykefravaerapi" alias="sykefravaerapi"/>
+        <rest mapToProperty="oppfoelgingsdialogapi" alias="oppfoelgingsdialogapi"/>
+        <rest mapToProperty="moteapi" alias="moteapi"/>
 
         <credential alias="suspender" />
     </resources>

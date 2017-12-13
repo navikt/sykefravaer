@@ -16,7 +16,7 @@ export const Controller = (props) => {
                 status={AVBRUTT}
                 brodtekst={getHtmlLedetekst('sykepengesoknad.avbryt.kvittering.tekst')} />
             <p className="ikke-print blokk navigasjonsstripe">
-                <Link to="/sykefravaer/soknader">
+                <Link to="/sykefravaer/soknader" className="tilbakelenke">
                     {getLedetekst('sykepengesoknader.tilbake')}
                 </Link>
             </p>

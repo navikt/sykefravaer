@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint, keyValue, Video, filmer } from 'digisyfo-npm';
+import { getLedetekst, toDatePrettyPrint, keyValue, Video, filmer } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
 import history from '../../history';
@@ -132,10 +132,6 @@ export const KvitteringSokSenere = ({ sykepengesoknader }) => {
                     <Soknadsdatoliste sykepengesoknader={sykepengesoknader} />
                 </Kvitteringsteg>
             </div>
-        </div>
-        <div className="panel blokk">
-            <h2 className="panel__tittel">{getLedetekst('sykmelding.kvittering.sok-senere.utenlandsopphold.tittel')}</h2>
-            <div className="kvittering__utenlandsopphold" dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding.kvittering.sok-senere.utenlandsopphold.tekst')} />
         </div>
         <div className="blokk">
             <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>

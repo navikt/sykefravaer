@@ -76,6 +76,7 @@ class Arbeidsoppgaver extends Component {
 
     componentWillMount() {
         window.location.hash = 'arbeidsoppgaver';
+        window.sessionStorage.setItem('hash', 'arbeidsoppgaver');
     }
 
     componentDidMount() {

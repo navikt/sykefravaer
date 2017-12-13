@@ -88,6 +88,7 @@ class Tiltak extends Component {
 
     componentWillMount() {
         window.location.hash = 'tiltak';
+        window.sessionStorage.setItem('hash', 'tiltak');
     }
 
     componentDidUpdate(prevProps, prevState) {

@@ -56,7 +56,6 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
         const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
             return aktivitet.periode;
         });
-        const _tidligsteFom = tidligsteFom(perioder);
         const _soknad = {
             ...sykepengesoknad,
             gjenopptattArbeidFulltUtDato,

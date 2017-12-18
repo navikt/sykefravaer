@@ -43,7 +43,7 @@ export const getVisning = (dineSykmeldinger, startdato) => {
     if (!startdato) {
         return VALGFRI;
     }
-    
+
     const sykmeldingerForDetteSykeforloepet = dineSykmeldinger.filter((s) => {
         return s.identdato.getTime() >= startdato.getTime();
     });
@@ -82,7 +82,7 @@ export const getVisning = (dineSykmeldinger, startdato) => {
 export const mapStateToProps = (state) => {
     const hentingFeilet = state.sykeforloep.hentingFeilet;
     const startdato = state.sykeforloep.startdato;
-    let dagensDato = new Date();
+    const dagensDato = new Date();
     dagensDato.setHours(0);
     dagensDato.setMinutes(0);
     dagensDato.setSeconds(0);

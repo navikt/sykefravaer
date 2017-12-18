@@ -76,7 +76,6 @@ const map = (sykepengesoknad) => {
                     jobbetMerEnnPlanlagt: false,
                 };
             }
-            
             const avvik = {
                 enhet: aktivitet.avvik.timer ? 'timer' : 'prosent',
                 arbeidstimerNormalUke: aktivitet.avvik.arbeidstimerNormalUke.toString().replace('.', ','),

@@ -198,7 +198,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                                     });
                                 }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</button>
                         </p>
-                    }    
+                    }
                     <AvbrytDialog
                         vis={this.state.visAvbrytDialog}
                         avbryter={avbryter}

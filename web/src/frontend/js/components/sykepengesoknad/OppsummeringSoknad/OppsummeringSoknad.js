@@ -127,7 +127,7 @@ SoknadOppsummering.propTypes = {
 
 const OppsummeringSoknad = ({ oppsummeringsoknad, tittel, visVaerKlarOverAt = true }) => {
     return (<div>
-        <SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} visVaerKlarOverAt={visVaerKlarOverAt} />
+        <SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} visVaerKlarOverAt={visVaerKlarOverAt} tittel={tittel} />
         <div className="bekreftet-container blokk">
             <Sporsmal sporsmal={oppsummeringsoknad.bekreftetKorrektInformasjon} />
         </div>

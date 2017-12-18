@@ -41,7 +41,7 @@ class DinSykmelding extends Component {
             </div>
             <header className="panelHeader panelHeader--lysebla">
                 <img className="panelHeader__ikon" src="/sykefravaer/img/svg/person.svg" alt="Du" />
-                <h2 className="panelHeader__tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.etternavn}</h2>
+                <h2 className="panelHeader__tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.mellomnavn} {sykmelding.pasient.etternavn}</h2>
             </header>
             <div className="panel blokk">
                 <DineSykmeldingOpplysninger sykmelding={sykmelding} />

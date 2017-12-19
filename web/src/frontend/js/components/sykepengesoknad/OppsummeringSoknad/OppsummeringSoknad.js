@@ -15,13 +15,13 @@ Avkrysset.propTypes = {
     tekst: PropTypes.string,
 };
 
-const Svarliste = ({ svarliste }) => {
+const Svarliste = ({ svarliste, nivaa }) => {
     if (!svarliste) {
         return null;
     }
 
     return svarliste.map((svar, index) => {
-        const sporsmalsliste = <Undersporsmalsliste undersporsmalsliste={svar.undersporsmal} />;
+        const sporsmalsliste = <Undersporsmalsliste undersporsmalsliste={svar.undersporsmal} nivaa={nivaa} />;
         switch (svar.type) {
             case CHECKBOX:
             case RADIOKNAPPER: {
@@ -56,17 +56,17 @@ Svarliste.propTypes = {
     svarliste: PropTypes.arrayOf(sykepengesoknadoppsummeringsvar),
 };
 
-const Undersporsmalsliste = ({ undersporsmalsliste }) => {
+const Undersporsmalsliste = ({ undersporsmalsliste, nivaa }) => {
     if (!undersporsmalsliste) {
         return null;
     }
     if (undersporsmalsliste.length === 1 && !undersporsmalsliste[0].sporsmalstekst) {
-        return <Svarliste svarliste={undersporsmalsliste[0].svar} />;
+        return <Svarliste svarliste={undersporsmalsliste[0].svar} nivaa={nivaa} />;
     }
     return (<div className="oppsummering__undersporsmalsliste">
         {
             undersporsmalsliste.map((sporsmal, i) => {
-                return <Sporsmal sporsmal={sporsmal} key={i} />;
+                return <Sporsmal sporsmal={sporsmal} key={i} nivaa={nivaa} />;
             })
         }
     </div>);
@@ -76,12 +76,13 @@ Undersporsmalsliste.propTypes = {
     undersporsmalsliste: PropTypes.arrayOf(sykepengesoknadoppsummeringsporsmal),
 };
 
-const Sporsmal = ({ sporsmal }) => {
+const Sporsmal = ({ sporsmal, nivaa = 1 }) => {
+    const Tag = `h${nivaa + 2}`;
     if (sporsmal.sporsmalstekst) {
         return (<div className="oppsummering__sporsmalscontainer">
-            <h3 className="oppsummering__sporsmal">{sporsmal.sporsmalstekst.tekst}</h3>
-            <Svarliste svarliste={sporsmal.svar} />
-            <Undersporsmalsliste undersporsmalsliste={sporsmal.undersporsmal} />
+            <Tag className="oppsummering__sporsmal">{sporsmal.sporsmalstekst.tekst}</Tag>
+            <Svarliste svarliste={sporsmal.svar} nivaa={nivaa + 1} />
+            <Undersporsmalsliste undersporsmalsliste={sporsmal.undersporsmal} nivaa={nivaa + 1} />
         </div>);
     }
     return <Svarliste svarliste={sporsmal.svar} />;

@@ -59,7 +59,8 @@ export class Oppfolgingsdialoger extends Component {
         finnOgHentVirksomheterSomMangler(oppfolgingsdialoger, virksomhet, hentVirksomhet);
         finnOgHentPersonerSomMangler(oppfolgingsdialoger, person, hentPerson);
         finnOgHentForrigeNaermesteLedereSomMangler(oppfolgingsdialoger, forrigenaermesteleder, hentForrigeNaermesteLeder);
-        window.sessionStorage.removeItem('hash');
+
+        window.sessionStorage.setItem('hash', 'arbeidsoppgaver');
     }
 
     render() {

@@ -12,6 +12,7 @@ import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad/map
 import { hentArbeidsgiverperiodeberegning } from '../../actions/arbeidsgiverperiodeberegning_actions';
 import { hentLedere } from '../../actions/ledere_actions';
 import AppSpinner from '../../components/AppSpinner';
+import mapSkjemasoknadToOppsummeringSoknad from '../../utils/mapSkjemasoknadToOppsummeringSoknad';
 
 const NAV_OG_ARBEIDSGIVER = 'NAV_OG_ARBEIDSGIVER';
 const NAV = 'NAV';
@@ -119,6 +120,7 @@ export const mapStateToProps = (state, ownProps) => {
         visForskutteringssporsmal: utledSkalViseForskuttering(state.ledere.data, ownProps.skjemasoknad, state.arbeidsgiverperiodeberegning.data),
         sendesTil: utledMottaker(state.ledere.data, ownProps.skjemasoknad, state.arbeidsgiverperiodeberegning.data),
         backendsoknad: mapSkjemasoknadToBackendsoknad(ownProps.skjemasoknad),
+        oppsummeringsoknad: mapSkjemasoknadToOppsummeringSoknad(ownProps.skjemasoknad, ownProps.sykepengesoknad),
     };
 };
 

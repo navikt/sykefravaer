@@ -76,15 +76,21 @@ const map = (sykepengesoknad) => {
                     jobbetMerEnnPlanlagt: false,
                 };
             }
+            const avvik = {
+                enhet: aktivitet.avvik.timer ? 'timer' : 'prosent',
+                arbeidstimerNormalUke: aktivitet.avvik.arbeidstimerNormalUke.toString().replace('.', ','),
+                timer: aktivitet.avvik.timer ? aktivitet.avvik.timer.toString().replace('.', ',') : '',
+                arbeidsgrad: aktivitet.avvik.arbeidsgrad ? aktivitet.avvik.arbeidsgrad.toString().replace('.', ',') : '',
+            };
+
+            if (aktivitet.avvik.beregnetArbeidsgrad) {
+                avvik.beregnetArbeidsgrad = aktivitet.avvik.beregnetArbeidsgrad;
+            }
+
             return {
                 ...aktivitet,
                 jobbetMerEnnPlanlagt: true,
-                avvik: {
-                    enhet: aktivitet.avvik.timer ? 'timer' : 'prosent',
-                    arbeidstimerNormalUke: aktivitet.avvik.arbeidstimerNormalUke.toString().replace('.', ','),
-                    timer: aktivitet.avvik.timer ? aktivitet.avvik.timer.toString().replace('.', ',') : '',
-                    arbeidsgrad: aktivitet.avvik.arbeidsgrad ? aktivitet.avvik.arbeidsgrad.toString().replace('.', ',') : '',
-                },
+                avvik,
             };
         }),
     };

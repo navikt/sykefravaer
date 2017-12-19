@@ -76,6 +76,19 @@ RendreFeriePermisjonEllerUtenlandsopphold.propTypes = {
     senesteTom: PropTypes.instanceOf(Date),
 };
 
+export const getFeriePermisjonEllerUtenlandsoppholdSporsmal = (sykepengesoknad, gjenopptattArbeidFulltUtDato, callback = getLedetekst) => {
+    const _soknad = {
+        ...sykepengesoknad,
+        gjenopptattArbeidFulltUtDato,
+    };
+    const tidligsteFom = finnFomForFeriesporsmal(sykepengesoknad);
+    const senesteTom = getTomDato(_soknad);
+    return callback('sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal', {
+        '%FOM%': toDatePrettyPrint(tidligsteFom),
+        '%TOM%': toDatePrettyPrint(senesteTom),
+    });
+};
+
 export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjenopptattArbeidFulltUtDato }) => {
     const _soknad = {
         ...sykepengesoknad,
@@ -90,10 +103,7 @@ export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjeno
         tekst={getLedetekst('sykepengesoknad.ferie.hjelpetekst.tekst')} />);
 
     return (<JaEllerNei
-        spoersmal={getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal', {
-            '%FOM%': toDatePrettyPrint(tidligsteFom),
-            '%TOM%': toDatePrettyPrint(senesteTom),
-        })}
+        spoersmal={getFeriePermisjonEllerUtenlandsoppholdSporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}
         name="harHattFeriePermisjonEllerUtenlandsopphold"
         hjelpetekst={hjelpetekst}>
         <FieldArray

@@ -10,6 +10,12 @@ import { soknadperiode, fieldPropTypes } from '../../../propTypes';
 import { SYKEPENGER_SKJEMANAVN } from '../setup';
 import { getFeriePermisjonPerioder } from '../../../utils/sykepengesoknadUtils';
 
+export const getTotalJobbingSporsmal = (arbeidsgiver, callback = getLedetekst) => {
+    return callback('sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet-totalt', {
+        '%ARBEIDSGIVER%': arbeidsgiver,
+    });
+};
+
 class AngiTid extends Component {
     constructor(props) {
         super(props);
@@ -116,11 +122,7 @@ class AngiTid extends Component {
                     label={getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label')} />
             </div>
             <h4 className="skjema__sporsmal">
-                {
-                    getLedetekst('sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet-totalt', {
-                        '%ARBEIDSGIVER%': arbeidsgiver,
-                    })
-                }
+                {getTotalJobbingSporsmal(arbeidsgiver)}
             </h4>
             <div className="inputgruppe inputgruppe--horisontal">
                 {

@@ -6,21 +6,29 @@ import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';
 import { soknadsaktivitet } from '../../../propTypes';
 
+export const getAktivitetssporsmal = (aktivitet, arbeidsgiver, callback = getLedetekst) => {
+    const ledetekstUgradert = 'sykepengesoknad.aktiviteter.ugradert.spoersmal-2';
+    const ledetekstGradert = 'sykepengesoknad.aktiviteter.gradert.spoersmal-2';
+
+    const nokkel = aktivitet.grad === 100 ? ledetekstUgradert : ledetekstGradert;
+    const tomDato = aktivitet.periode.tom;
+
+    return callback(nokkel, {
+        '%FOM%': toDatePrettyPrint(aktivitet.periode.fom),
+        '%TOM%': toDatePrettyPrint(tomDato),
+        '%ARBEIDSGIVER%': arbeidsgiver,
+        '%ARBEIDSGRAD%': 100 - aktivitet.grad,
+    });
+};
+
 export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
-    const ledetekstPrefix = field.grad === 100 ? 'sykepengesoknad.aktiviteter.ugradert' : 'sykepengesoknad.aktiviteter.gradert';
-    const tomDato = field.periode.tom;
     const hjelpetekst = field.grad !== 100 ? (<Hjelpetekst
         tittel={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tittel')}
         tekst={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tekst')} />) : null;
 
     return (<JaEllerNei
         name={`aktiviteter[${index}].jobbetMerEnnPlanlagt`}
-        spoersmal={getLedetekst(`${ledetekstPrefix}.spoersmal-2`, {
-            '%FOM%': toDatePrettyPrint(field.periode.fom),
-            '%TOM%': toDatePrettyPrint(tomDato),
-            '%ARBEIDSGIVER%': arbeidsgiver,
-            '%ARBEIDSGRAD%': 100 - field.grad,
-        })}
+        spoersmal={getAktivitetssporsmal(field, arbeidsgiver)}
         hjelpetekst={hjelpetekst}>
         <div>
             <Fields

@@ -9,8 +9,8 @@ import Radioknapper from '../../skjema/Radioknapper';
 import inntektskildetyper, { ANNET } from '../../../enums/inntektskildetyper';
 import { annenInntektskilde, fieldPropTypes } from '../../../propTypes';
 
-export const getInntektskildeLabel = (annenInntektskildeType) => {
-    return getLedetekst(`sykepengesoknad.andre-inntektskilder.${annenInntektskildeType}.label`);
+export const getInntektskildeLabel = (annenInntektskildeType, callback = getLedetekst) => {
+    return callback(`sykepengesoknad.andre-inntektskilder.${annenInntektskildeType}.label`);
 };
 
 const getPresisering = (annenInntektskildeType) => {

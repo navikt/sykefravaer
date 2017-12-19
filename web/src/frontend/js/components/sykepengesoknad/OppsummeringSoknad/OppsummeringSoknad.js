@@ -15,13 +15,13 @@ Avkrysset.propTypes = {
     tekst: PropTypes.string,
 };
 
-const Svarliste = ({ svarliste, nivaa }) => {
+const Svarliste = ({ svarliste, overskriftsnivaa }) => {
     if (!svarliste) {
         return null;
     }
 
     return svarliste.map((svar, index) => {
-        const sporsmalsliste = <Undersporsmalsliste undersporsmalsliste={svar.undersporsmal} nivaa={nivaa} />;
+        const sporsmalsliste = <Undersporsmalsliste undersporsmalsliste={svar.undersporsmal} overskriftsnivaa={overskriftsnivaa} />;
         switch (svar.type) {
             case CHECKBOX:
             case RADIOKNAPPER: {
@@ -54,19 +54,20 @@ const Svarliste = ({ svarliste, nivaa }) => {
 
 Svarliste.propTypes = {
     svarliste: PropTypes.arrayOf(sykepengesoknadoppsummeringsvar),
+    overskriftsnivaa: PropTypes.number,
 };
 
-const Undersporsmalsliste = ({ undersporsmalsliste, nivaa }) => {
+const Undersporsmalsliste = ({ undersporsmalsliste, overskriftsnivaa }) => {
     if (!undersporsmalsliste) {
         return null;
     }
     if (undersporsmalsliste.length === 1 && !undersporsmalsliste[0].sporsmalstekst) {
-        return <Svarliste svarliste={undersporsmalsliste[0].svar} nivaa={nivaa} />;
+        return <Svarliste svarliste={undersporsmalsliste[0].svar} overskriftsnivaa={overskriftsnivaa} />;
     }
     return (<div className="oppsummering__undersporsmalsliste">
         {
             undersporsmalsliste.map((sporsmal, i) => {
-                return <Sporsmal sporsmal={sporsmal} key={i} nivaa={nivaa} />;
+                return <Sporsmal sporsmal={sporsmal} key={i} overskriftsnivaa={overskriftsnivaa} />;
             })
         }
     </div>);
@@ -74,15 +75,16 @@ const Undersporsmalsliste = ({ undersporsmalsliste, nivaa }) => {
 
 Undersporsmalsliste.propTypes = {
     undersporsmalsliste: PropTypes.arrayOf(sykepengesoknadoppsummeringsporsmal),
+    overskriftsnivaa: PropTypes.number,
 };
 
-const Sporsmal = ({ sporsmal, nivaa = 1 }) => {
-    const Tag = `h${nivaa + 2}`;
+const Sporsmal = ({ sporsmal, overskriftsnivaa = 1 }) => {
+    const Overskriftstag = `h${overskriftsnivaa}`;
     if (sporsmal.sporsmalstekst) {
         return (<div className="oppsummering__sporsmalscontainer">
-            <Tag className="oppsummering__sporsmal">{sporsmal.sporsmalstekst.tekst}</Tag>
-            <Svarliste svarliste={sporsmal.svar} nivaa={nivaa + 1} />
-            <Undersporsmalsliste undersporsmalsliste={sporsmal.undersporsmal} nivaa={nivaa + 1} />
+            <Overskriftstag className="oppsummering__sporsmal">{sporsmal.sporsmalstekst.tekst}</Overskriftstag>
+            <Svarliste svarliste={sporsmal.svar} overskriftsnivaa={overskriftsnivaa + 1} />
+            <Undersporsmalsliste undersporsmalsliste={sporsmal.undersporsmal} overskriftsnivaa={overskriftsnivaa + 1} />
         </div>);
     }
     return <Svarliste svarliste={sporsmal.svar} />;
@@ -90,6 +92,7 @@ const Sporsmal = ({ sporsmal, nivaa = 1 }) => {
 
 Sporsmal.propTypes = {
     sporsmal: sykepengesoknadoppsummeringsporsmal,
+    overskriftsnivaa: PropTypes.number,
 };
 
 const VaerKlarOverAt = ({ tekst }) => {
@@ -107,7 +110,7 @@ export const SoknadOppsummering = ({ oppsummeringsoknad, tittel = 'Oppsummering'
                 {
                     oppsummeringsoknad.oppsummering.map((hovedsporsmal, i) => {
                         return (<div className="oppsummering__seksjon" key={`seksjon-${i}`}>
-                            <Sporsmal sporsmal={hovedsporsmal} nivaa={1} />
+                            <Sporsmal sporsmal={hovedsporsmal} overskriftsnivaa={3} />
                         </div>);
                     })
                 }

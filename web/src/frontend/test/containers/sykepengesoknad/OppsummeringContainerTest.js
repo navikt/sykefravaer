@@ -7,8 +7,8 @@ import { setLedetekster } from 'digisyfo-npm';
 import { getSoknad } from '../../mockSoknader';
 import { Oppsummering, navigeringsvarsel, mapStateToProps } from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
 import mapSkjemasoknadToOppsummeringSoknad from '../../../js/utils/mapSkjemasoknadToOppsummeringSoknad';
-import mapBackendsoknadToSkjemasoknad from '../../../js/components/sykepengesoknad/mapBackendsoknadToSkjemasoknad';
-import mapSkjemasoknadToBackendsoknad from '../../../js/components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
+import mapBackendsoknadToSkjemasoknad from '../../../js/utils/mapBackendsoknadToSkjemasoknad';
+import mapSkjemasoknadToBackendsoknad from '../../../js/utils/mapSkjemasoknadToBackendsoknad';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

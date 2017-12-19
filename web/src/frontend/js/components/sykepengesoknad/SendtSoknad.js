@@ -12,7 +12,7 @@ import RelaterteSoknaderContainer from '../../containers/sykepengesoknad/Relater
 import KorrigertAvContainer from '../../containers/sykepengesoknad/KorrigertAvContainer';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
 import OppsummeringSoknad from './OppsummeringSoknad/OppsummeringSoknad';
-import mapBackendsoknadToSkjemasoknad from './mapBackendsoknadToSkjemasoknad';
+import mapBackendsoknadToSkjemasoknad from '../../utils/mapBackendsoknadToSkjemasoknad';
 import mapSkjemasoknadToOppsummeringSoknad from '../../utils/mapSkjemasoknadToOppsummeringSoknad';
 
 export const Avkrysset = ({ tekst }) => {

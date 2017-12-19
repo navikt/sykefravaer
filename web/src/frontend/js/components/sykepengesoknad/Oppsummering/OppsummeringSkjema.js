@@ -7,7 +7,7 @@ import { SoknadOppsummering } from '../OppsummeringSoknad/OppsummeringSoknad';
 import setup from '../setup';
 import SykepengerSkjema from '../SykepengerSkjema';
 import Knapperad from '../../skjema/Knapperad';
-import mapSkjemasoknadToBackendsoknad from '../mapSkjemasoknadToBackendsoknad';
+import mapSkjemasoknadToBackendsoknad from '../../../utils/mapSkjemasoknadToBackendsoknad';
 import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
 import validate from '../validering/validerOppsummering';
 import { sykepengesoknad as sykepengesoknadPt, oppsummeringsoknad as oppsummeringsoknadPt } from '../../../propTypes';

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import history from '../../history';
 import Feiloppsummering, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
-import mapBackendsoknadToSkjemasoknad from './mapBackendsoknadToSkjemasoknad';
+import mapBackendsoknadToSkjemasoknad from '../../utils/mapBackendsoknadToSkjemasoknad';
 import inntektskildetyper from '../../enums/inntektskildetyper';
 import { UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 import { mapAktiviteter } from '../../utils/sykepengesoknadUtils';

@@ -1,6 +1,6 @@
 import { toDatePrettyPrint } from 'digisyfo-npm';
-import inntektskilder from '../../enums/inntektskildetyper';
-import { mapAktiviteter } from '../../utils/sykepengesoknadUtils';
+import inntektskilder from '../enums/inntektskildetyper';
+import { mapAktiviteter } from './sykepengesoknadUtils';
 
 const parsePeriode = (periode) => {
     return {

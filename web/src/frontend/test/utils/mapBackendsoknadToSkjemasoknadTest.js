@@ -6,9 +6,9 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 import deepFreeze from 'deep-freeze';
 
-import { getSoknad } from '../../mockSoknader';
-import mapBackendsoknadToSkjemasoknad, { getAktiviteter } from '../../../js/components/sykepengesoknad/mapBackendsoknadToSkjemasoknad';
-import inntektskildetyper from '../../../js/enums/inntektskildetyper';
+import { getSoknad } from '../mockSoknader';
+import mapBackendsoknadToSkjemasoknad, { getAktiviteter } from '../../js/utils/mapBackendsoknadToSkjemasoknad';
+import inntektskildetyper from '../../js/enums/inntektskildetyper';
 
 describe("mapBackendsoknadToSkjemasoknad", () => {
 

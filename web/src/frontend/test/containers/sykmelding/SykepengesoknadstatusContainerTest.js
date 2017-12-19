@@ -13,7 +13,7 @@ import AppSpinner from '../../../js/components/AppSpinner';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("SykepengerstatusContainer", () => {
+describe("SykepengesoknadstatusContainer", () => {
 
     let state;
 
@@ -136,11 +136,11 @@ describe("SykepengerstatusContainer", () => {
             state.sykepengesoknader.data = [getSoknad({
                 status: "NY",
                 sykmeldingId: "1",
-                id: "min-soknad-id"
+                id: "min-soknad-id",
             }), getSoknad({
                 status: "FREMTIDIG",
                 sykmeldingId: "1",
-                id: "min-fremtidige-soknad-id"
+                id: "min-fremtidige-soknad-id",
             })]
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
@@ -219,6 +219,24 @@ describe("SykepengerstatusContainer", () => {
             const props = mapStateToProps(state, ownProps);
             const component = mount(<Container {...props} {...actions} />);
             expect(component.find(FlereSoknader)).to.have.length(1);
+        });
+
+        it("Skal ikke vise KommendeSoknad hvis den nye søknaden korrigerer en annen", () => {
+            state.sykepengesoknader.data = [getSoknad({
+                status: "NY",
+                sykmeldingId: "1",
+                id: "min-nye-soknad-id",
+                korrigerer: "123"
+            }), getSoknad({
+                status: "SENDT",
+                sykmeldingId: "1",
+                id: "min-nye-soknad-id"
+            })]
+            const props = mapStateToProps(state, ownProps);
+            const component = mount(<Container {...props} {...actions} />);
+            expect(component.find(KommendeSoknad)).to.have.length(0);
+            expect(component.find(KommendeSoknad)).to.have.length(0);
+            expect(component.find(SoknadSendtBekreftelse)).to.have.length(1);
         });
 
 

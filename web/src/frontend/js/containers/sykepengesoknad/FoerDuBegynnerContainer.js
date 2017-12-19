@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
+import { destroy } from 'redux-form';
 import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
@@ -11,10 +12,12 @@ import Feilmelding from '../../components/Feilmelding';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { SYKEPENGER_SKJEMANAVN } from '../../components/sykepengesoknad/setup';
 import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
 
 export const Controller = (props) => {
     const { sykepengesoknad, vedlikehold } = props;
+
     if (vedlikehold.datospennMedTid) {
         return (<Feilmelding
             tittel={getLedetekst('under-vedlikehold.varsel.tittel')}
@@ -54,6 +57,12 @@ Controller.propTypes = {
 };
 
 export class Container extends Component {
+    componentWillMount() {
+        if (this.props.brukerHarNavigertTilAnnenSoknad) {
+            this.props.destroy(SYKEPENGER_SKJEMANAVN);
+        }
+    }
+
     componentDidMount() {
         this.props.hentBerikelse(this.props.sykepengesoknadId);
     }
@@ -88,13 +97,25 @@ Container.propTypes = {
         }),
     }),
     hentBerikelse: PropTypes.func,
+    brukerHarNavigertTilAnnenSoknad: PropTypes.bool,
+    destroy: PropTypes.func,
 };
 
 export const mapStateToProps = (state, ownProps) => {
     const henter = state.vedlikehold.henter || state.sykepengesoknader.henterBerikelse;
     const sykepengesoknadId = ownProps.params.sykepengesoknadId;
 
+    let brukerHarNavigertTilAnnenSoknad;
+
+    try {
+        const forrigeId = state.form[SYKEPENGER_SKJEMANAVN].values.id;
+        brukerHarNavigertTilAnnenSoknad = forrigeId && forrigeId !== sykepengesoknadId;
+    } catch (e) {
+        brukerHarNavigertTilAnnenSoknad = false;
+    }
+
     return {
+        brukerHarNavigertTilAnnenSoknad,
         henter,
         sykepengesoknadId,
         vedlikehold: state.vedlikehold.data.vedlikehold,
@@ -103,6 +124,7 @@ export const mapStateToProps = (state, ownProps) => {
 
 const FoerDuBegynnerContainer = connect(mapStateToProps, {
     hentBerikelse,
+    destroy,
 })(Container);
 
 export default FoerDuBegynnerContainer;

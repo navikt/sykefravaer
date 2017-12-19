@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst, keyValue } from 'digisyfo-npm';
+import { getLedetekst, keyValue } from 'digisyfo-npm';
 import LandingssideLenke from './LandingssideLenke';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../../propTypes';
 import Brodsmuler from '../Brodsmuler';
@@ -10,31 +9,7 @@ import DinSituasjonContainer from '../../containers/landingsside/DinSituasjonCon
 import ServerfeilContainer from '../../containers/landingsside/ServerfeilContainer';
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 import DetteHarSkjeddContainer from '../../containers/landingsside/DetteHarSkjeddContainer';
-
-export class GenerellInfo extends Component {
-    componentDidMount() {
-        window.setTimeout(() => {
-            document.body.focus();
-        }, 200);
-    }
-
-    render() {
-        return (<article className="panel blokk js-generell-informasjon">
-            <h2 className="panel__tittel">Sykmeldt &mdash; hva nå?</h2>
-            <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('landingsside.generell.informasjon.tekst')} />
-            <p>
-                <a className="lenke" href={getLedetekst('landingsside.generell.informasjon.lenke1.url')}>
-                    {getLedetekst('landingsside.generell.informasjon.lenke1.tittel')}
-                </a>
-            </p>
-            <p>
-                <Link className="lenke" to={getLedetekst('landingsside.generell.informasjon.lenke2.url')}>
-                    {getLedetekst('landingsside.generell.informasjon.lenke2.tittel')}
-                </Link>
-            </p>
-        </article>);
-    }
-}
+import Utdrag from '../../containers/landingsside/TidslinjeutdragContainer';
 
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
@@ -54,12 +29,13 @@ const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, 
                 <img className="sidebanner__illustrasjon" src="/sykefravaer/img/svg/landingsside/konsultasjon.svg" alt="Konsultasjon" />
             </div>
         </div>
-        <div className="begrensning">
+        <div className="begrensning blokk">
             <ServerfeilContainer />
             {
                 dineSykmeldinger.length === 0 && <IngenSykmeldinger />
             }
             <DineOppgaverContainer />
+            <Utdrag />
             <DinSituasjonContainer />
             <nav className="js-navigasjon">
                 <LandingssideLenke
@@ -87,7 +63,6 @@ const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, 
                 }
             </nav>
             <DetteHarSkjeddContainer />
-            <GenerellInfo />
         </div>
     </div>);
 };

@@ -7,7 +7,6 @@ import {
     OppfolgingsdialogInfoboks,
     TiltakSkjema,
     LeggTilElementKnapper,
-    TiltakNotifikasjonBoksAdvarsel,
 } from 'oppfolgingsdialog-npm';
 import { setLedetekster } from 'digisyfo-npm';
 import ledetekster from '../../mockLedetekster';
@@ -151,26 +150,6 @@ describe('Tiltak', () => {
                 slettTiltak={slettTiltak}
                 tiltak={{ lagret: true }}
             />);
-        });
-
-        it('Skal ikke vise TiltakNotifikasjonBoksAdvarsel, om nye Tiltak er lagt til av motpart, og oppfolgingsdialogAvbrutt er true', () => {
-            const oppfolgingsdialogMedNyeTiltak = Object.assign({}, oppfolgingsdialog, {
-                arbeidstaker,
-                arbeidsgiver,
-                tiltakListe: [{
-                    opprettetDato: '2017-01-02T00:00:00.000',
-                    opprettetAv: arbeidsgiver.naermesteLeder,
-                }],
-            });
-            const componentAvbrutt = shallow(<Tiltak
-                tiltak={tiltak}
-                oppfolgingsdialog={oppfolgingsdialogMedNyeTiltak}
-                oppfolgingsdialogerHentet
-                lagreTiltak={lagreTiltak}
-                slettTiltak={slettTiltak}
-                oppfolgingsdialogAvbrutt
-            />);
-            expect(componentAvbrutt.find(TiltakNotifikasjonBoksAdvarsel)).to.have.length(0);
         });
 
         it('Skal vise RenderOppfolgingsdialogTiltakTabell, om det er tiltak', () => {

@@ -1,4 +1,4 @@
-import { periodeOverlapperMedPeriode } from './periodeUtils';
+import { periodeOverlapperMedPeriode, tilDatePeriode } from './periodeUtils';
 
 export const getTidligsteSendtDato = (soknad) => {
     if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {
@@ -70,11 +70,21 @@ export const mapAktiviteter = (soknad) => {
 };
 
 export const sorterEtterOpprettetDato = (soknad1, soknad2) => {
-    if (soknad1.opprettetDato.getTime() > soknad2.opprettetDato.getTime()) {
-        return 1;
+    if (soknad1.opprettetDato.getTime() - soknad2.opprettetDato.getTime() !== 0) {
+        return soknad1.opprettetDato.getTime() - soknad2.opprettetDato.getTime();
     }
-    if (soknad1.opprettetDato.getTime() < soknad2.opprettetDato.getTime()) {
-        return -1;
+    return soknad1.fom.getTime() - soknad2.fom.getTime();
+};
+
+export const getFeriePermisjonPerioder = (values) => {
+    let ferieOgPermisjonPerioder = [];
+    if (values.harHattFeriePermisjonEllerUtenlandsopphold) {
+        if (values.harHattFerie) {
+            ferieOgPermisjonPerioder = [...ferieOgPermisjonPerioder, ...values.ferie];
+        }
+        if (values.harHattPermisjon) {
+            ferieOgPermisjonPerioder = [...ferieOgPermisjonPerioder, ...values.permisjon];
+        }
     }
-    return 0;
+    return ferieOgPermisjonPerioder.map(tilDatePeriode);
 };

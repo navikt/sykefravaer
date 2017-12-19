@@ -1,4 +1,4 @@
-import { finnAktiveOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
+import { finnAktiveOppfolgingsdialoger, finnNyesteGodkjenning } from 'oppfolgingsdialog-npm';
 import { finnArbeidsgivereForGyldigeSykmeldinger } from './sykmeldingUtils';
 
 export function getOppfolgingsdialog(oppfolgingsdialoger, id) {
@@ -39,6 +39,29 @@ export const isEmpty = (array) => {
     return array.length === 0;
 };
 
-export const erDatoIFortiden = (dato) => {
-    return dato < new Date().toISOString().substring(0, 10);
+const idAlleredeFunnet = (planer, id) => {
+    return planer.filter((plan) => {
+        return plan.id === id;
+    }).length > 0;
+};
+
+export const oppgaverOppfoelgingsdialoger = (oppfolgingsdialoger) => {
+    const avventendeGodkjenninger = oppfolgingsdialoger
+        .filter((plan) => {
+            return plan.godkjenninger.length > 0 &&
+                plan.arbeidstaker.fnr !== finnNyesteGodkjenning(plan.godkjenninger).godkjentAv.fnr &&
+                finnNyesteGodkjenning(plan.godkjenninger).godkjent;
+        });
+    const nyePlaner = oppfolgingsdialoger
+        .filter((plan) => {
+            return plan.arbeidstaker.sistInnlogget === null
+                && plan.status === 'UNDER_ARBEID'
+                && plan.sistEndretAv.fnr !== plan.arbeidstaker.fnr
+                && !idAlleredeFunnet(avventendeGodkjenninger, plan.id);
+        });
+
+    return {
+        nyePlaner,
+        avventendeGodkjenninger,
+    };
 };

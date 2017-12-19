@@ -8,8 +8,7 @@ import {
     OppfolgingsdialogInfoboks,
     LagreArbeidsoppgaveSkjema,
     LeggTilElementKnapper,
-    NotifikasjonBoksLagretElement,
-    ArbeidsoppgaverNotifikasjonBoksAdvarsel,
+    NotifikasjonBoksVurderingOppgave,
     Arbeidsforhold,
 } from 'oppfolgingsdialog-npm';
 import ledetekster from '../../mockLedetekster';
@@ -174,7 +173,7 @@ describe('Arbeidsoppgaver', () => {
             expect(componentMedArbeidsoppgaver.find('h2')).to.have.length(1);
         });
 
-        it('Skal vise ArbeidsoppgaverNotifikasjonBoksAdvarsel, om nye Arbeidsoppgaver er lagt til av motpart', () => {
+        it('Skal vise NotifikasjonBoksVurderingOppgave, om nye Arbeidsoppgaver er lagt til av motpart', () => {
             const oppfolgingsdialogMedNyeArbeidsoppgaver = Object.assign({}, oppfolgingsdialog, {
                 arbeidstaker,
                 arbeidsgiver,
@@ -190,27 +189,7 @@ describe('Arbeidsoppgaver', () => {
                 slettArbeidsoppgave={slettArbeidsoppgave}
                 arbeidsforhold={arbeidsforhold}
             />);
-            expect(componentMedNyeArbeidsoppgaver.find(ArbeidsoppgaverNotifikasjonBoksAdvarsel)).to.have.length(0);
-        });
-
-        it('Skal ikke vise ArbeidsoppgaverNotifikasjonBoksAdvarsel, om  nye Arbeidsoppgaver er lagt til av motpart, og oppfolgingsdialogAvbrutt er true', () => {
-            const oppfolgingsdialogMedNyeArbeidsoppgaver = Object.assign({}, oppfolgingsdialog, {
-                arbeidstaker,
-                arbeidsgiver,
-                arbeidsoppgaveListe: [{
-                    opprettetDato: '2017-01-02T00:00:00.000',
-                    opprettetAv: arbeidsgiver.naermesteLeder,
-                }],
-            });
-            const componentAvbruttMedNyeArbeidsoppgaver = shallow(<Arbeidsoppgaver
-                arbeidsoppgaver={arbeidsoppgaver}
-                oppfolgingsdialog={oppfolgingsdialogMedNyeArbeidsoppgaver}
-                lagreArbeidsoppgave={lagreArbeidsoppgave}
-                slettArbeidsoppgave={slettArbeidsoppgave}
-                arbeidsforhold={arbeidsforhold}
-                oppfolgingsdialogAvbrutt
-            />);
-            expect(componentAvbruttMedNyeArbeidsoppgaver.find(ArbeidsoppgaverNotifikasjonBoksAdvarsel)).to.have.length(0);
+            expect(componentMedNyeArbeidsoppgaver.find(NotifikasjonBoksVurderingOppgave)).to.have.length(1);
         });
 
         it('Skal vise OppfolgingsdialogArbeidsoppgaverTabell, om det er arbeidsoppgaver', () => {

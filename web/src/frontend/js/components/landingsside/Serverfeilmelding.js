@@ -5,10 +5,11 @@ import { Varselstripe } from 'digisyfo-npm';
 const ledetekster = {
     mote: 'Kunne ikke hente dialogmøter',
     dineSykmeldinger: 'Kunne ikke hente dine sykmeldinger',
-    sykepengesoknader: 'Kunne ikke hente sykepengesoknader',
+    sykepengesoknader: 'Kunne ikke hente sykepengesøknader',
     oppfolgingsdialoger: 'Kunne ikke hente oppfølgingsplaner',
     ledere: 'Kunne ikke hente din(e) nærmeste leder(e)',
     hendelser: 'Kunne ikke hente alle hendelser',
+    sykeforloep: 'Kunne ikke hente ditt siste sykeforløp',
 };
 
 const Feiliste = ({ feilliste }) => {

@@ -1,0 +1,108 @@
+.tidslinjeutdrag {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.tidslinjeutdrag__bilde {
+	margin-bottom: 1em;
+	width: 66%;
+}
+
+.tidslinjeutdrag__tittel {
+	.mixin-typo-systemtittel();
+	margin: 0 0 .25em 0;
+}
+
+.tidslinjeutdrag__toggle {
+	text-align: center;
+}
+
+.tidslinjeutdrag__togglelink {
+	background: transparent;
+	border: 0;
+	padding: 0;
+	color: @lenkeBlaa;
+	position: relative;
+	padding: 0 0 1em 0;
+
+	&:focus {
+		box-shadow: 0 0 0 3px @fokusOrange;
+		outline: none;
+	}
+
+	&:after {
+		display: block;
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 2em;
+		height: .75em;
+		background: url('/sykefravaer/img/svg/arrow-down_hover.svg') no-repeat center center;
+		background-size: 1em 1em;
+		.mixin-transition(.2s, bottom);
+	}
+
+	&:hover:after {
+		bottom: -.25em;
+		.mixin-transition(.1s, bottom);
+	}
+}
+
+.tidslinjeutdrag__togglelink--erApen {
+	padding: 1.25em 0 0 0;
+
+	&:after {
+		top: 0;
+		bottom: auto;
+		transform: translateX(-50%) rotate(180deg);
+		.mixin-transition(.2s, top);
+	}
+
+	&:hover:after {
+		top: -.25em;
+		.mixin-transition(.1s, top);
+	}
+}
+
+@media (min-width: 30em) {
+	.tidslinjeutdrag {
+		flex-direction: row-reverse;
+		align-items: flex-start;
+	}
+
+	.tidslinjeutdrag__bilde {
+		margin-left: 2em;
+		width: 35%;
+	}
+
+	.tidslinjeutdrag__intro {
+		flex: 1;
+	}
+}
+
+.lenkeTilTidslinje {
+	color: @lenkeBlaa;
+	border-bottom: 1px solid @ikonGraa;
+	text-decoration: none;
+	position: relative;
+	margin-left: 1.5em;
+
+	&:hover {
+		border-bottom-color: @lenkeBlaa;
+	}
+
+	&:before {
+		content: '';
+		display: block;
+		width: 1em;
+		height: 100%;
+		background: url('/sykefravaer/img/svg/punktliste--blaa.svg') no-repeat center center;
+		background-size: 1em 1em;
+		position: absolute;
+		left: -1.5em;
+		top: 0;
+	}
+}

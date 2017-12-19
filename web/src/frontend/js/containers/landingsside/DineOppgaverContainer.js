@@ -7,8 +7,8 @@ import { getLedetekst, log } from 'digisyfo-npm';
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     proptypes as oppfolgingProptypes,
-    finnNyesteGodkjenning,
 } from 'oppfolgingsdialog-npm';
+import { oppgaverOppfoelgingsdialoger } from '../../utils/oppfolgingsdialogUtils';
 import { NY as NY_SYKMELDING } from '../../enums/sykmeldingstatuser';
 import { NY as NY_SYKEPENGESOKNAD } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
@@ -78,12 +78,6 @@ const avventendeGodkjenningerTekst = (antall) => {
         getLedetekst('dine-oppgaver.oppfoelgingsdialog.avventendegodkjenninger.flertall', {
             '%ANTALL%': antall,
         });
-};
-
-const idAlleredeFunnet = (planer, id) => {
-    return planer.filter((plan) => {
-        return plan.id === id;
-    }).length > 0;
 };
 
 const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, avventendeGodkjenninger, nyePlaner, visAktivitetskrav }) => {
@@ -177,21 +171,9 @@ export const mapStateToProps = (state) => {
             moteRes = 'TRENGER_SVAR';
         }
     }
-
-    const avventendeGodkjenninger = state.oppfolgingsdialoger.data
-        .filter((plan) => {
-            return plan.godkjenninger.length > 0 && plan.arbeidstaker.fnr !== finnNyesteGodkjenning(plan.godkjenninger).godkjentAv.fnr && finnNyesteGodkjenning(plan.godkjenninger).godkjent;
-        });
-    const nyePlaner = state.oppfolgingsdialoger.data
-        .filter((plan) => {
-            return plan.arbeidstaker.sistInnlogget === null
-                && plan.status === 'UNDER_ARBEID'
-                && plan.sistEndretAv.fnr !== plan.arbeidstaker.fnr
-                && !idAlleredeFunnet(avventendeGodkjenninger, plan.id);
-        });
-
+    const _oppgaverOppfoelgingsdialoger = oppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data);
     const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
-    const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null || avventendeGodkjenninger.length > 0 || nyePlaner.length > 0 || visAktivitetskrav;
+    const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null || _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0 || _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0 || visAktivitetskrav;
 
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
@@ -201,8 +183,8 @@ export const mapStateToProps = (state) => {
         sykepengesoknader,
         visOppgaver,
         mote: moteRes,
-        avventendeGodkjenninger,
-        nyePlaner,
+        avventendeGodkjenninger: _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,
+        nyePlaner: _oppgaverOppfoelgingsdialoger.nyePlaner,
         hentingFeiletHendelser: state.hendelser.hentingFeilet,
         hendelserHentet: state.hendelser.hentet,
         visAktivitetskrav,

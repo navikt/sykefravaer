@@ -33,6 +33,7 @@ import hendelserSagas from './hendelserSagas';
 import aktivitetskravSagas from './aktivitetskravSagas';
 import beregnArbeidsgiverperiodeSagas from './beregnArbeidsgiverperiodeSagas';
 import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
+import sykeforloepSagas from './sykeforloepSagas';
 
 export default function* rootSaga() {
     yield [
@@ -70,5 +71,6 @@ export default function* rootSaga() {
         kontaktinfoSagas(),
         forrigeNaermesteLederSagas(),
         naermesteLederSagas(),
+        sykeforloepSagas(),
     ];
 }

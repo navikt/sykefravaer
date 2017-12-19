@@ -12,10 +12,12 @@ import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt, sykmeld
 import { hentSykepengesoknader } from '../../actions/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../../actions/ledere_actions';
+import { hentStartdato } from '../../actions/sykeforloep_actions';
 
 export class LandingssideSide extends Component {
     componentWillMount() {
         const { mote, ledere, dineSykmeldinger, toggles, sykepengesoknader } = this.props.hentet;
+        const { skalHenteStartdato } = this.props;
         if (!mote) {
             this.props.hentMote();
         }
@@ -30,6 +32,9 @@ export class LandingssideSide extends Component {
         }
         if (!dineSykmeldinger && !this.props.hentingFeiletSykmeldinger) {
             this.props.hentDineSykmeldinger();
+        }
+        if (skalHenteStartdato) {
+            this.props.hentStartdato();
         }
     }
 
@@ -46,6 +51,7 @@ export class LandingssideSide extends Component {
         } = this.props;
         const Sidetype = hentingFeilet ? Side : StrippetSide;
         const brodsmulerArg = hentingFeilet ? brodsmuler : [];
+
         return (<Sidetype brodsmuler={brodsmulerArg} tittel={getLedetekst('landingsside.sidetittel')} laster={henter || !altHentet}>
             {
                 (() => {
@@ -91,6 +97,8 @@ LandingssideSide.propTypes = {
         sykepengesoknader: PropTypes.bool,
     }),
     altHentet: PropTypes.bool,
+    skalHenteStartdato: PropTypes.bool,
+    hentStartdato: PropTypes.func,
 };
 
 export function mapStateToProps(state) {
@@ -100,13 +108,14 @@ export function mapStateToProps(state) {
         dineSykmeldinger: state.dineSykmeldinger.hentet === true,
         toggles: state.toggles.hentet === true,
         sykepengesoknader: state.sykepengesoknader.hentet === true,
+        sykeforloep: state.sykeforloep.hentet === true,
     };
     const altHentet = Object.values(hentet).reduce((acc, bool) => {
         return bool && acc;
     });
 
     return {
-        henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.toggles.henter || state.mote.henter || state.hendelser.henter,
+        henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.toggles.henter || state.mote.henter || state.hendelser.henter || state.sykeforloep.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
@@ -119,6 +128,7 @@ export function mapStateToProps(state) {
         hentingFeiletSykepengesoknader: state.sykepengesoknader.hentingFeilet,
         hentingFeiletSykmeldinger: state.dineSykmeldinger.hentingFeilet,
         hentingFeiletLedere: state.ledere.hentingFeilet,
+        skalHenteStartdato: !state.sykeforloep.hentet && !state.sykeforloep.henter,
         hentet,
         altHentet,
     };
@@ -130,6 +140,7 @@ const LandingssideContainer = connect(mapStateToProps, {
     hentLedere,
     hentToggles,
     hentDineSykmeldinger,
+    hentStartdato,
 })(LandingssideSide);
 
 export default LandingssideContainer;

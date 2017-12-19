@@ -17,11 +17,11 @@ describe('sykepengesoknader', () => {
 
     beforeEach(() => {
         clock = sinon.useFakeTimers(1484524800000); // 16. januar 2017
-    })
+    });
 
     afterEach(() => {
         clock.restore();
-    })
+    });
 
     describe('henter', () => {
 
@@ -743,6 +743,7 @@ const getSoknad = (s = {}) => {
         sendtTilNAVDato: null,
         sykmeldingSkrevetDato: "2017-02-15",
         forrigeSykeforloepTom: "2017-01-18",
+        forrigeSendteSoknadTom: null,
         id: "1",
         avbruttDato: null,
     };
@@ -776,7 +777,9 @@ const getParsetSoknad = () => {
         sendtTilArbeidsgiverDato: null,
         sendtTilNAVDato: null,
         sykmeldingSkrevetDato: new Date("2017-02-15"),
+        forrigeSendteSoknadTom: null,
         forrigeSykeforloepTom: new Date("2017-01-18"),
+        forrigeSendteSoknadTom: null,
         id: "1",
         avbruttDato: null,
         _erOppdelt: false,

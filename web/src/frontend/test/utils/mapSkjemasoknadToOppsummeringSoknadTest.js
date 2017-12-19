@@ -374,6 +374,9 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                     perioder: [{
                         fom: '02.01.2017',
                         tom: '08.01.2017'
+                    }, {
+                        fom: '09.01.2017',
+                        tom: '11.01.2017'
                     }]
                 };
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
@@ -416,6 +419,16 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                             '%TOM%': '08.01.2017'
                                         },
                                         tekst: 'Fra 02.01.2017 til 08.01.2017'
+                                    }
+                                }, {
+                                    type: "DATOSPENN",
+                                    svartekst: {
+                                        nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
+                                        verdier: {
+                                            '%FOM%': '09.01.2017',
+                                            '%TOM%': '11.01.2017'
+                                        },
+                                        tekst: 'Fra 09.01.2017 til 11.01.2017'
                                     }
                                 }],
                             }, {
@@ -811,6 +824,10 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 avkrysset: false,
             });
 
+            andreInntektskilder[andreInntektskilder.length - 1] = Object.assign({}, inntektskildetyper[5], {
+                avkrysset: true,
+            }); // ANNET
+
             skjemasoknad.harAndreInntektskilder = true;
             skjemasoknad.andreInntektskilder = andreInntektskilder;
         });
@@ -852,6 +869,12 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         },
                         type: 'CHECKBOX',
                         undersporsmal: erDuSykmeldt(false)
+                    }, {
+                        svartekst: {
+                            nokkel: 'sykepengesoknad.andre-inntektskilder.ANNET.label',
+                            tekst: 'Annet',
+                        },
+                        type: 'CHECKBOX',
                     }],
                 }]
             });

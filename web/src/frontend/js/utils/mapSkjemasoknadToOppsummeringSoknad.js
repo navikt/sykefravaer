@@ -7,6 +7,7 @@ import { getInntektskildeLabel } from '../components/sykepengesoknad/Aktiviteter
 import { getUtdanningssporsmal } from '../components/sykepengesoknad/AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
 import { getObjectValueByString } from './index';
 import { CHECKBOX, RADIOKNAPPER, TEKSTSVAR, DATO, DATOSPENN } from '../enums/sykepengesoknadsvartyper';
+import { ANNET } from '../enums/inntektskildetyper';
 import * as skjemafelter from '../enums/sykepengesoknadskjemafelter';
 
 const {
@@ -262,8 +263,12 @@ export default (skjemasoknad, sykepengesoknad) => {
                 case harAndreInntektskilder: {
                     const svar = skjemasoknad.andreInntektskilder.map((inntektskilde) => {
                         if (inntektskilde.avkrysset) {
-                            const undersporsmal = new Sporsmal(getNokkelOgVerdier(nokler.erDuSykmeldtFraInntektskilde), getJaEllerNeiSvar(inntektskilde.sykmeldt));
-                            return new Svar(getInntektskildeLabel(inntektskilde.annenInntektskildeType, getNokkelOgVerdier), CHECKBOX, [undersporsmal]);
+                            const label = getInntektskildeLabel(inntektskilde.annenInntektskildeType, getNokkelOgVerdier);
+                            if (inntektskilde.annenInntektskildeType !== ANNET) {
+                                const undersporsmal = new Sporsmal(getNokkelOgVerdier(nokler.erDuSykmeldtFraInntektskilde), getJaEllerNeiSvar(inntektskilde.sykmeldt));
+                                return new Svar(label, CHECKBOX, [undersporsmal]);
+                            }
+                            return new Svar(label, CHECKBOX);
                         }
                         return null;
                     }).filter((i) => {
@@ -305,6 +310,10 @@ export default (skjemasoknad, sykepengesoknad) => {
 
         return sporsmal;
     });
+    
+    /* Arbeidsspørsmålet er et array av Sporsmal, mens de andre spørsmålene er Sporsmal-instanser. 
+    Vi må derfor pakke arbeidsspørsmålet ut slik at det ligger på samme nivå som de andre spørsmålene */
+    
     const indeksForArbeidssporsmal = 4;
     const oppsummering = [...returverdi.slice(0, indeksForArbeidssporsmal),
         ...returverdi[indeksForArbeidssporsmal],

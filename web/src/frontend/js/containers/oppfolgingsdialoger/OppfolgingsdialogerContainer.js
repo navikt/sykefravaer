@@ -51,6 +51,7 @@ export class OppfolgingsdialogerSide extends Component {
         if (!henterEllerHarHentetOppfolgingsdialoger(oppfolgingsdialogerReducer)) {
             this.props.hentOppfolgingsdialoger();
         }
+        window.sessionStorage.setItem('hash', 'arbeidsoppgaver');
     }
 
     componentWillReceiveProps(nextProps) {

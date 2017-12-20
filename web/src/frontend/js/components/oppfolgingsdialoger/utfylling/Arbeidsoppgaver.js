@@ -76,6 +76,7 @@ class Arbeidsoppgaver extends Component {
 
     componentWillMount() {
         window.location.hash = 'arbeidsoppgaver';
+        window.sessionStorage.setItem('hash', 'arbeidsoppgaver');
     }
 
     componentDidMount() {
@@ -225,7 +226,6 @@ Arbeidsoppgaver.propTypes = {
     ledetekster: keyValue,
     arbeidsoppgaver: oppfolgingProptypes.arbeidsoppgaverReducerPt,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
-    oppfolgingsdialogAvbrutt: PropTypes.bool,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
 };

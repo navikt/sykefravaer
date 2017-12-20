@@ -73,6 +73,7 @@ export class OppfolgingsdialogSide extends Component {
             if (nyOpprettetDialog) {
                 history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.id}`);
                 window.location.hash = 'arbeidsoppgaver';
+                window.sessionStorage.setItem('hash', 'arbeidsoppgaver');
             }
         }
         if (oppfolgingsdialogHarBlittGodkjent(oppfolgingsdialogerReducer, nextProps.oppfolgingsdialogerReducer)) {
@@ -81,6 +82,10 @@ export class OppfolgingsdialogSide extends Component {
     }
 
     componentDidUpdate() {
+        if (window.location.hash === '' && window.sessionStorage.getItem('hash')) {
+            window.location.hash = window.sessionStorage.getItem('hash');
+        }
+
         if (window.location.hash === '#arbeidsoppgaver' && this.props.navigasjontoggles.steg !== 1) {
             this.props.settAktivtSteg(1);
         }

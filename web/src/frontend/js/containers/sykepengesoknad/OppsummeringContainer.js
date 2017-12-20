@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, mapSkjemasoknadToOppsummeringsoknad } from 'digisyfo-npm';
 import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
@@ -12,7 +12,6 @@ import mapSkjemasoknadToBackendsoknad from '../../utils/mapSkjemasoknadToBackend
 import { hentArbeidsgiverperiodeberegning } from '../../actions/arbeidsgiverperiodeberegning_actions';
 import { hentLedere } from '../../actions/ledere_actions';
 import AppSpinner from '../../components/AppSpinner';
-import mapSkjemasoknadToOppsummeringSoknad from '../../utils/mapSkjemasoknadToOppsummeringSoknad';
 
 const NAV_OG_ARBEIDSGIVER = 'NAV_OG_ARBEIDSGIVER';
 const NAV = 'NAV';
@@ -120,7 +119,7 @@ export const mapStateToProps = (state, ownProps) => {
         visForskutteringssporsmal: utledSkalViseForskuttering(state.ledere.data, ownProps.skjemasoknad, state.arbeidsgiverperiodeberegning.data),
         sendesTil: utledMottaker(state.ledere.data, ownProps.skjemasoknad, state.arbeidsgiverperiodeberegning.data),
         backendsoknad: mapSkjemasoknadToBackendsoknad(ownProps.skjemasoknad),
-        oppsummeringsoknad: mapSkjemasoknadToOppsummeringSoknad(ownProps.skjemasoknad, ownProps.sykepengesoknad),
+        oppsummeringsoknad: mapSkjemasoknadToOppsummeringsoknad(ownProps.skjemasoknad, ownProps.sykepengesoknad),
     };
 };
 

@@ -1,4 +1,4 @@
-import { fraInputdatoTilJSDato } from './datoUtils';
+import { fraInputdatoTilJSDato } from 'digisyfo-npm';
 
 const parsePerioder = (perioder) => {
     return perioder.map((periode) => {

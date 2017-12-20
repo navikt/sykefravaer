@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, FieldArray } from 'redux-form';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getInntektskildeLabel } from 'digisyfo-npm';
 import Checkbox from '../../skjema/Checkbox';
 import { parseJaEllerNei } from '../JaEllerNei';
 import Feilomrade from '../../skjema/Feilomrade';
 import Radioknapper from '../../skjema/Radioknapper';
 import inntektskildetyper, { ANNET } from '../../../enums/inntektskildetyper';
 import { annenInntektskilde, fieldPropTypes } from '../../../propTypes';
-
-export const getInntektskildeLabel = (annenInntektskildeType, callback = getLedetekst) => {
-    return callback(`sykepengesoknad.andre-inntektskilder.${annenInntektskildeType}.label`);
-};
 
 const getPresisering = (annenInntektskildeType) => {
     return getLedetekst(`sykepengesoknad.andre-inntektskilder.${annenInntektskildeType}.presisering`);

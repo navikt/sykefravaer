@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import DayPicker, { DateUtils, LocaleUtils } from 'react-day-picker';
+import { erGyldigDatoformat } from 'digisyfo-npm';
 import { fieldPropTypes } from '../../propTypes';
-import { erGyldigDato, erGyldigDatoformat } from '../../utils/datoUtils';
+import { erGyldigDato } from '../../utils/datoUtils';
 
 export const MONTHS = ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember'];
 export const WEEKDAYS_LONG = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];

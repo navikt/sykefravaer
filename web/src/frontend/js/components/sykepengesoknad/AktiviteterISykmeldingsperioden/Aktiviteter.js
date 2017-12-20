@@ -1,25 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fields } from 'redux-form';
-import { toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, Hjelpetekst, getAktivitetssporsmal } from 'digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';
 import { soknadsaktivitet } from '../../../propTypes';
-
-export const getAktivitetssporsmal = (aktivitet, arbeidsgiver, callback = getLedetekst) => {
-    const ledetekstUgradert = 'sykepengesoknad.aktiviteter.ugradert.spoersmal-2';
-    const ledetekstGradert = 'sykepengesoknad.aktiviteter.gradert.spoersmal-2';
-
-    const nokkel = aktivitet.grad === 100 ? ledetekstUgradert : ledetekstGradert;
-    const tomDato = aktivitet.periode.tom;
-
-    return callback(nokkel, {
-        '%FOM%': toDatePrettyPrint(aktivitet.periode.fom),
-        '%TOM%': toDatePrettyPrint(tomDato),
-        '%ARBEIDSGIVER%': arbeidsgiver,
-        '%ARBEIDSGRAD%': 100 - aktivitet.grad,
-    });
-};
 
 export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
     const hjelpetekst = field.grad !== 100 ? (<Hjelpetekst

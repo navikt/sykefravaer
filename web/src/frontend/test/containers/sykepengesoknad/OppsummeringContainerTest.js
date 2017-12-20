@@ -3,11 +3,9 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster, mapSkjemasoknadToOppsummeringsoknad, mapBackendsoknadToSkjemasoknad } from 'digisyfo-npm';
 import { getSoknad } from '../../mockSoknader';
 import { Oppsummering, navigeringsvarsel, mapStateToProps } from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
-import mapSkjemasoknadToOppsummeringSoknad from '../../../js/utils/mapSkjemasoknadToOppsummeringSoknad';
-import mapBackendsoknadToSkjemasoknad from '../../../js/utils/mapBackendsoknadToSkjemasoknad';
 import mapSkjemasoknadToBackendsoknad from '../../../js/utils/mapSkjemasoknadToBackendsoknad';
 
 chai.use(chaiEnzyme());
@@ -65,7 +63,7 @@ describe("OppsummeringContainer", () => {
         beforeEach(() => {
             sykepengesoknad = getSoknad();
             skjemasoknad = mapBackendsoknadToSkjemasoknad(sykepengesoknad)
-            oppsummeringsoknad = mapSkjemasoknadToOppsummeringSoknad(skjemasoknad, sykepengesoknad);
+            oppsummeringsoknad = mapSkjemasoknadToOppsummeringsoknad(skjemasoknad, sykepengesoknad);
             ownProps = {
                 skjemasoknad,
                 sykepengesoknad,

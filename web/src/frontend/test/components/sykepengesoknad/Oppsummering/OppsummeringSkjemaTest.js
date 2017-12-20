@@ -8,8 +8,7 @@ import { Field } from "redux-form";
 import { OppsummeringForm, SendingFeilet } from "../../../../js/components/sykepengesoknad/Oppsummering/OppsummeringSkjema";
 import ForskuttererArbeidsgiver from "../../../../js/components/sykepengesoknad/Oppsummering/ForskuttererArbeidsgiver";
 import { getSoknad } from "../../../mockSoknader";
-import { setLedetekster } from "digisyfo-npm";
-import { SoknadOppsummering } from '../../../../js/components/sykepengesoknad/OppsummeringSoknad/OppsummeringSoknad'
+import { setLedetekster, SoknadOppsummering, VaerKlarOverAt } from "digisyfo-npm";
 import { Link } from "react-router";
 
 import CheckboxSelvstendig from "../../../../js/components/skjema/CheckboxSelvstendig";
@@ -65,6 +64,7 @@ describe("OppsummeringSkjema", () => {
 
         it("Skal inneholde en SoknadOppsummering med riktige props", () => {
             expect(component.find(SoknadOppsummering).prop("oppsummeringsoknad")).to.deep.equal(oppsummeringsoknad)
+            expect(component.find(VaerKlarOverAt)).to.have.length(1);
         });
 
         it("Skal inneholde en Link til forrige side", () => {

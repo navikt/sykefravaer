@@ -1,7 +1,6 @@
 import { mapStateToPropsMedInitialValues, mapStateToProps, mapToInitialValues } from '../../../js/components/sykepengesoknad/setup';
 import andreInntektskilder from '../../../js/enums/inntektskildetyper';
-import mapBackendsoknadToSkjemasoknad from '../../../js/utils/mapBackendsoknadToSkjemasoknad';
-import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
+import { mapBackendsoknadToSkjemasoknad, mapAktiviteter } from 'digisyfo-npm';
 import sinon from 'sinon';
 import { getSoknad } from '../../mockSoknader';
 

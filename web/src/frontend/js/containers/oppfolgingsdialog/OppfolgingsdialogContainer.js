@@ -73,7 +73,6 @@ export class OppfolgingsdialogSide extends Component {
             if (nyOpprettetDialog) {
                 history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.id}`);
                 window.location.hash = 'arbeidsoppgaver';
-                window.sessionStorage.setItem('hash', 'arbeidsoppgaver');
             }
         }
         if (oppfolgingsdialogHarBlittGodkjent(oppfolgingsdialogerReducer, nextProps.oppfolgingsdialogerReducer)) {

@@ -60,7 +60,7 @@ export class Oppfolgingsdialoger extends Component {
         finnOgHentPersonerSomMangler(oppfolgingsdialoger, person, hentPerson);
         finnOgHentForrigeNaermesteLedereSomMangler(oppfolgingsdialoger, forrigenaermesteleder, hentForrigeNaermesteLeder);
 
-        window.sessionStorage.setItem('hash', 'arbeidsoppgaver');
+        window.sessionStorage.removeItem('hash');
     }
 
     render() {

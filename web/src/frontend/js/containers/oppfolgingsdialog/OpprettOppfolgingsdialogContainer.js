@@ -61,6 +61,8 @@ export class OpprettOppfolgingsdialogSide extends Component {
         if (oppfolgingsdialogHarBlittOpprettet(oppfolgingsdialogerReducer, nextProps.oppfolgingsdialogerReducer)) {
             history.push(`/sykefravaer/oppfolgingsplaner/${nextProps.oppfolgingsdialogerReducer.opprettetId}`);
             this.props.hentOppfolgingsdialoger();
+            window.location.hash = 'arbeidsoppgaver';
+            window.sessionStorage.setItem('hash', 'arbeidsoppgaver');
         }
     }
 

@@ -31,7 +31,9 @@ const Landingsside = ({ toggles, sykepengesoknader = [], harDialogmote = false, 
         </div>
         <div className="begrensning blokk">
             <ServerfeilContainer />
-            <IngenSykmeldinger />
+            {
+                dineSykmeldinger.length === 0 && <IngenSykmeldinger />
+            }
             <DineOppgaverContainer />
             <Utdrag />
             <DinSituasjonContainer />

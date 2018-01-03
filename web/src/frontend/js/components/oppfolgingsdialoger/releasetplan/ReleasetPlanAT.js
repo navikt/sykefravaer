@@ -54,6 +54,7 @@ class ReleasetPlanAT extends Component {
             delmednav={delmednav}
             oppfolgingsdialoger={oppfolgingsdialoger}
             rootUrl={`${getContextRoot()}`}
+            rootUrlPlaner={`${getContextRoot()}`}
         />);
     }
 }

@@ -123,6 +123,7 @@ class Oppfolgingsdialog extends Component {
                 nullstillGodkjenning={nullstillGodkjenning}
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrl={`${getContextRoot()}`}
+                rootUrlPlaner={`${getContextRoot()}`}
             />);
         } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && inneholderGodkjentPlan(oppfolgingsdialog)) {
             disableNavigation = true;

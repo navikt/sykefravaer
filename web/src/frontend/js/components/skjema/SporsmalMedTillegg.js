@@ -108,7 +108,7 @@ class SporsmalMedTillegg extends Component {
         });
         const that = this;
         setTimeout(() => {
-            const hoyde = that.tilleggsinnhold.offsetHeight;
+            const hoyde = that.tilleggsinnhold ? that.tilleggsinnhold.offsetHeight : 'auto';
             that.setState({
                 erApen: true,
                 hoyde,
@@ -118,7 +118,7 @@ class SporsmalMedTillegg extends Component {
     }
 
     lukk() {
-        const hoyde = this.tilleggsinnhold.offsetHeight || this.state.gammelHoyde;
+        const hoyde = this.tilleggsinnhold && this.tilleggsinnhold.offsetHeight ? this.tilleggsinnhold.offsetHeight : this.state.gammelHoyde;
         this.setState({
             hoyde,
             hindreToggle: true,

@@ -103,9 +103,9 @@ store.dispatch(hentVedlikehold());
 // </OBS>
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {
-    window.localStorage.setItem('visLedetekster', true);
+    window.APP_SETTINGS.VIS_LEDETEKSTNOKLER = true;
 } else if (window.location.href.indexOf('visLedetekster=false') > -1) {
-    window.localStorage.removeItem('visLedetekster');
+    window.APP_SETTINGS.VIS_LEDETEKSTNOKLER = false;
 }
 
 render(<Provider store={store}>

@@ -1,7 +1,6 @@
 import {
     periodeErHelg,
     perioderErHelg,
-    periodeOverlapperMedPeriode,
     periodeOverlapperMedPerioder,
     perioderOverlapperMedPerioder,
     harOverlappendePerioder,
@@ -134,54 +133,6 @@ describe("periodeUtils", () => {
 
     });
 
-    describe("periodeOverlapperMedPeriode", () => {
-
-        let periodeA;
-        let periodeB;
-        let periodeC;
-        let periodeD;
-
-        beforeEach(() => {
-            periodeA = {
-                fom: "12.12.2012",
-                tom: "15.12.2012"
-            };
-            periodeB = {
-                fom: "16.12.2012",
-                tom: "20.12.2012"
-            };
-            periodeC = {
-                fom: "21.12.2012",
-                tom: "25.12.2012"
-            };
-            periodeD = {
-                fom: "13.12.2012",
-                tom: "23.12.2012",
-            };
-        });
-
-        it("Returnerer true hvis periodene overlapper fullstendig", () => {
-            expect(periodeOverlapperMedPeriode(periodeA, periodeA)).to.be.true;
-        });
-
-        it("Returnerer false hvis periodene ikke overlapper i det hele tatt", () => {
-            expect(periodeOverlapperMedPeriode(periodeA, periodeB)).to.be.false;
-        });
-
-        it("Returnerer true hvis periodene overlapper delvis", () => {
-            expect(periodeOverlapperMedPeriode(periodeA, periodeD)).to.be.true;
-        });
-
-        it("Returnerer true hvis periodeA er innenfor periodeB", () => {
-            expect(periodeOverlapperMedPeriode(periodeB, periodeD)).to.be.true;
-        });
-
-        it("Returnerer true hvis periodeB er innenfor periodeA", () => {
-            expect(periodeOverlapperMedPeriode(periodeD, periodeB)).to.be.true;
-        });
-
-    });
-
     describe("periodeOverlapperMedPerioder", () => {
         let periodeA;
         let periodeB;
@@ -232,12 +183,12 @@ describe("periodeUtils", () => {
 
         it("Returnerer false hvis perioden er ugyldig", () => {
             const perioder = [periodeC, periodeD];
-            expect(periodeOverlapperMedPeriode(periodeFom, perioder)).to.be.false;
+            expect(periodeOverlapperMedPerioder(periodeFom, perioder)).to.be.false;
         });
 
         it("Returnerer false hvis en av periodene er ugyldig", () => {
             const perioder = [periodeTom, periodeD];
-            expect(periodeOverlapperMedPeriode(periodeC, perioder)).to.be.false;
+            expect(periodeOverlapperMedPerioder(periodeC, perioder)).to.be.false;
         });
 
         it("Returnerer true hvis senesteTom i ene perioden er samme dag som tidligsteFom i første perioden", () => {
@@ -249,7 +200,7 @@ describe("periodeUtils", () => {
                 fom: "22.02.2017",
                 tom: "25.02.2017"
             }
-            expect(periodeOverlapperMedPeriode(a, b)).to.be.true;
+            expect(periodeOverlapperMedPerioder(a, [b])).to.be.true;
         });
 
         it("Hjelpetest 1", () => {

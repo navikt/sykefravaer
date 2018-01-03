@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { Field, FieldArray } from 'redux-form';
-import { toDatePrettyPrint, getLedetekst, getTomDato, tidligsteFom } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, getTomDato, tidligsteFom, getUtdanningssporsmal } from 'digisyfo-npm';
 import SykepengerSkjema from '../SykepengerSkjema';
 import history from '../../../history';
 import setup from '../setup';
@@ -27,23 +27,6 @@ UtdanningStartDato.propTypes = {
     senesteTom: PropTypes.instanceOf(Date),
 };
 
-export const getUtdanningssporsmal = (sykepengesoknad, gjenopptattArbeidFulltUtDato, callback = getLedetekst) => {
-    const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
-        return aktivitet.periode;
-    });
-    const _tidligsteFom = tidligsteFom(perioder);
-    const _soknad = {
-        ...sykepengesoknad,
-        gjenopptattArbeidFulltUtDato,
-    };
-    const _senesteTom = getTomDato(_soknad);
-
-    return callback('sykepengesoknad.utdanning.ja-nei.sporsmal', {
-        '%STARTDATO%': toDatePrettyPrint(_tidligsteFom),
-        '%SLUTTDATO%': toDatePrettyPrint(_senesteTom),
-    });
-};
-
 export class AktiviteterISykmeldingsperiodenSkjema extends Component {
     componentDidMount() {
         if (this.form) {
@@ -53,9 +36,6 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
 
     render() {
         const { handleSubmit, sykepengesoknad, autofill, untouch, gjenopptattArbeidFulltUtDato } = this.props;
-        const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
-            return aktivitet.periode;
-        });
         const _soknad = {
             ...sykepengesoknad,
             gjenopptattArbeidFulltUtDato,

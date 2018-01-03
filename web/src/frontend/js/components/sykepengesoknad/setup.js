@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { mapAktiviteter, mapBackendsoknadToSkjemasoknad } from 'digisyfo-npm';
 import history from '../../history';
 import Feiloppsummering, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
-import mapBackendsoknadToSkjemasoknad from '../../utils/mapBackendsoknadToSkjemasoknad';
 import inntektskildetyper from '../../enums/inntektskildetyper';
 import { UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
-import { mapAktiviteter } from '../../utils/sykepengesoknadUtils';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);

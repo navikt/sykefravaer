@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form';
-import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, getTomDato, finnFomForFeriesporsmal, Hjelpetekst } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, getTomDato, finnFomForFeriesporsmal, Hjelpetekst, getFeriePermisjonEllerUtenlandsoppholdSporsmal } from 'digisyfo-npm';
 import JaEllerNei, { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import Checkbox from '../../skjema/Checkbox';
@@ -74,19 +74,6 @@ RendreFeriePermisjonEllerUtenlandsopphold.propTypes = {
     meta: fieldPropTypes.meta,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
-};
-
-export const getFeriePermisjonEllerUtenlandsoppholdSporsmal = (sykepengesoknad, gjenopptattArbeidFulltUtDato, callback = getLedetekst) => {
-    const _soknad = {
-        ...sykepengesoknad,
-        gjenopptattArbeidFulltUtDato,
-    };
-    const tidligsteFom = finnFomForFeriesporsmal(sykepengesoknad);
-    const senesteTom = getTomDato(_soknad);
-    return callback('sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal', {
-        '%FOM%': toDatePrettyPrint(tidligsteFom),
-        '%TOM%': toDatePrettyPrint(senesteTom),
-    });
 };
 
 export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjenopptattArbeidFulltUtDato }) => {

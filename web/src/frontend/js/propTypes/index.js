@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types';
-import {
-    naermesteLeder,
-    sykmelding,
-} from 'digisyfo-npm';
+import { naermesteLeder, sykmelding } from 'digisyfo-npm';
 import * as hendelsetyper from '../enums/hendelsetyper';
-import * as sykepengesoknadsvartyper from '../enums/sykepengesoknadsvartyper';
 
 export { arbeidssituasjon,
     soknadperiode,
@@ -19,7 +15,8 @@ export { arbeidssituasjon,
     sykmeldingperiode,
     sykmeldingstatus,
     sykmelding,
-    tidslinjehendelse } from 'digisyfo-npm';
+    tidslinjehendelse,
+    oppsummeringsoknad } from 'digisyfo-npm';
 
 export const brodsmule = PropTypes.shape({
     sti: PropTypes.string,
@@ -67,31 +64,6 @@ export const opprettOppfolgingArbeidsgiverPt = PropTypes.shape({
     navn: PropTypes.string,
     harNaermesteLeder: PropTypes.bool,
     naermesteLeder: PropTypes.string,
-});
-
-export const sykepengesoknadoppsummeringtekst = PropTypes.shape({
-    nokkel: PropTypes.string,
-    tekst: PropTypes.string,
-    verdier: PropTypes.shape(),
-});
-
-export const sykepengesoknadoppsummeringsvar = PropTypes.shape({
-    svartekst: sykepengesoknadoppsummeringtekst,
-    type: PropTypes.oneOf(Object.keys(sykepengesoknadsvartyper)),
-    beskrivelse: sykepengesoknadoppsummeringtekst,
-});
-
-export const sykepengesoknadoppsummeringsporsmal = PropTypes.shape({
-    sporsmalstekst: sykepengesoknadoppsummeringtekst,
-    svar: PropTypes.arrayOf(sykepengesoknadoppsummeringsvar),
-});
-
-export const oppsummeringsoknad = PropTypes.shape({
-    bekreftetKorrektInformasjon: sykepengesoknadoppsummeringsporsmal,
-    oppsummering: PropTypes.arrayOf(sykepengesoknadoppsummeringsporsmal),
-    ansvarserklaring: PropTypes.shape({
-        beskrivelse: sykepengesoknadoppsummeringtekst,
-    }),
 });
 
 export const dinesykmeldingerReducerPt = PropTypes.shape({

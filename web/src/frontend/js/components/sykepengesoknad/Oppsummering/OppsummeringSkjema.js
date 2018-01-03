@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { Link } from 'react-router';
-import { Varselstripe, getLedetekst } from 'digisyfo-npm';
-import { SoknadOppsummering } from '../OppsummeringSoknad/OppsummeringSoknad';
+import { Varselstripe, getLedetekst, Utvidbar, SoknadOppsummering, VaerKlarOverAt } from 'digisyfo-npm';
 import setup from '../setup';
 import SykepengerSkjema from '../SykepengerSkjema';
 import Knapperad from '../../skjema/Knapperad';
@@ -57,7 +56,10 @@ export class OppsummeringForm extends Component {
             tabIndex="-1"
             id="oppsummering-skjema"
             onSubmit={handleSubmit(onSubmit)}>
-            <SoknadOppsummering apentUtdrag={false} oppsummeringsoknad={oppsummeringsoknad} tittel="Oppsummering" />
+            <Utvidbar tittel="Oppsummering" erApen={false} className="blokk">
+                <SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} />
+            </Utvidbar>
+            <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
             <div className="bekreftet-container blokk">
                 <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             </div>

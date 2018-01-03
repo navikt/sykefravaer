@@ -6,7 +6,6 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 import { sendSykepengesoknadTilArbeidsgiver, sendSykepengesoknadTilNAV } from '../../../js/actions/sykepengesoknader_actions';
 import SendtSoknad, { getNokkelopplysninger, Knapperad, ConnectedKnapperad } from '../../../js/components/sykepengesoknad/SendtSoknad';
-import OppsummeringSoknad from '../../../js/components/sykepengesoknad/OppsummeringSoknad/OppsummeringSoknad';
 import KorrigertAvContainer from '../../../js/containers/sykepengesoknad/KorrigertAvContainer';
 import { Soknad } from 'digisyfo-npm';
 import Sidetopp from '../../../js/components/Sidetopp';
@@ -21,6 +20,7 @@ import { Varselstripe, setLedetekster } from 'digisyfo-npm';
 import SykepengesoknadHeader from '../../../js/components/sykepengesoknad/SykepengesoknadHeader';
 import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
 import sinon from 'sinon';
+import { SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon } from 'digisyfo-npm';
 
 describe("SendtSoknad", () => {
 
@@ -44,8 +44,10 @@ describe("SendtSoknad", () => {
         expect(component.contains(<SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />)).to.be.true;
     });
 
-    it("Skal inneholde en OppsummeringSoknad", () => {
-        expect(component.find(OppsummeringSoknad)).to.have.length(1);
+    it("Skal inneholde en SoknadOppsummering, VaerKlarOverAt og BekreftetKorrektInformasjon", () => {
+        expect(component.find(SoknadOppsummering)).to.have.length(1);
+        expect(component.find(VaerKlarOverAt)).to.have.length(1);
+        expect(component.find(BekreftetKorrektInformasjon)).to.have.length(1);
     });
 
     it("Skal inneholde Soknadstatuspanel", () => {

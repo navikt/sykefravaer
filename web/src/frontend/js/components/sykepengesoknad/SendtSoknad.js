@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { scrollTo } from 'digisyfo-npm';
+import { scrollTo, mapBackendsoknadToSkjemasoknad, mapSkjemasoknadToOppsummeringsoknad, SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon, Utvidbar } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Soknadstatuspanel from './Soknadstatuspanel';
@@ -11,9 +11,6 @@ import { KORRIGERT, SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatus
 import RelaterteSoknaderContainer from '../../containers/sykepengesoknad/RelaterteSoknaderContainer';
 import KorrigertAvContainer from '../../containers/sykepengesoknad/KorrigertAvContainer';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
-import OppsummeringSoknad from './OppsummeringSoknad/OppsummeringSoknad';
-import mapBackendsoknadToSkjemasoknad from '../../utils/mapBackendsoknadToSkjemasoknad';
-import mapSkjemasoknadToOppsummeringSoknad from '../../utils/mapSkjemasoknadToOppsummeringSoknad';
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">
@@ -90,7 +87,7 @@ class SendtSoknad extends Component {
     render() {
         const { sykepengesoknad } = this.props;
         const skjemasoknad = mapBackendsoknadToSkjemasoknad(sykepengesoknad);
-        const oppsummeringsoknad = mapSkjemasoknadToOppsummeringSoknad(skjemasoknad, sykepengesoknad);
+        const oppsummeringsoknad = mapSkjemasoknadToOppsummeringsoknad(skjemasoknad, sykepengesoknad);
         return (<div ref={(c) => {
             this.sendtSoknad = c;
         }}>
@@ -106,7 +103,13 @@ class SendtSoknad extends Component {
                 }
             </Soknadstatuspanel>
             <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />
-            <OppsummeringSoknad oppsummeringsoknad={oppsummeringsoknad} tittel="Oppsummering" />
+            <Utvidbar tittel="Oppsummering" className="blokk">
+                <SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} />
+            </Utvidbar>
+            <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
+            <div className="bekreftet-container">
+                <BekreftetKorrektInformasjon oppsummeringsoknad={oppsummeringsoknad} />
+            </div>
             { (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) && <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} /> }
         </div>);
     }

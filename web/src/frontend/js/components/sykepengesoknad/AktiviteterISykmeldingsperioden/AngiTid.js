@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, getFormValues } from 'redux-form';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getTotalJobbingSporsmal } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
 import { lagDesimaltall, getObjectValueByString } from '../../../utils';
@@ -116,11 +116,7 @@ class AngiTid extends Component {
                     label={getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label')} />
             </div>
             <h4 className="skjema__sporsmal">
-                {
-                    getLedetekst('sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet-totalt', {
-                        '%ARBEIDSGIVER%': arbeidsgiver,
-                    })
-                }
+                {getTotalJobbingSporsmal(arbeidsgiver)}
             </h4>
             <div className="inputgruppe inputgruppe--horisontal">
                 {

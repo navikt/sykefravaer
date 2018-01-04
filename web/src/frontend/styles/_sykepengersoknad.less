@@ -23,56 +23,30 @@
     align-self: center;
 }
 
-.oppsummering__sporsmal {
-    .mixin-typo-element();
-    margin-top: 1em;
-    margin-bottom: .5em;
-}
-
-.oppsummering__bolk,
 .oppsummering__seksjon {
     border-bottom: 1px solid @ikonGraa;
     margin-bottom: 2em;
     padding-bottom: 2em;
 }
 
-.oppsummering__bolk:last-child,
 .oppsummering__seksjon:last-child {
     border-bottom-width: 0;
     margin-bottom: 0;
     padding-bottom: 0;
 }
 
-.oppsummering__tilleggssvar {
-    padding-left: 1.5em;
+.oppsummering__sporsmalscontainer {
     margin-bottom: 2em;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
-.oppsummering__perioder {
-    margin-left: 1.5em;
+.oppsummering__sporsmal {
+    .mixin-typo-element();
     margin-top: 0;
-    padding: 0;
-
-    li {
-        list-style-type: none;
-    }
-}
-
-.oppsummering__fom {
-    margin-right: 1em;
-}
-
-.oppsummering__dato {
-    padding-left: 1.5em;
-}
-
-.oppsummering__dato, .oppsummering__perioder li {
-    &:before {
-        content: "\2022";
-        display: inline-block;
-        width: .5em;
-        margin-right: .5em;
-    }
+    margin-bottom: .5em;
 }
 
 .oppsummering__avkrysset {
@@ -88,6 +62,67 @@
 
     span {
         flex: 1;
+    }
+}
+
+.oppsummering__undersporsmal .oppsummering__undersporsmal {
+    padding-left: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.oppsummering__undersporsmal + .oppsummering__undersporsmal {
+    margin-top: 1.5em;
+}
+
+.oppsummering__tekst,
+.oppsummering__dato {
+    margin-bottom: .5em;
+}
+
+.oppsummering__avkrysset + .oppsummering__tekstsvar,
+.oppsummering__svarliste + .oppsummering__tekstsvar,
+.oppsummering__avkrysset + .oppsummering__undersporsmalsliste,
+.oppsummering__tekstsvar + .oppsummering__tekstsvar {
+    padding-left: 1.5em;
+}
+
+.oppsummering__svarliste:last-child .oppsummering__undersporsmalsliste {
+    margin-bottom: 0;
+}
+
+.oppsummering__svarliste + .oppsummering__svarliste {
+    margin-top: 1em;
+}
+
+.oppsummering__undersporsmalsliste {
+    margin-top: 2em;
+}
+
+.oppsummering__avkrysset + .oppsummering__undersporsmalsliste {
+    margin-bottom: 1em;
+    margin-top: 1em;
+
+    > .oppsummering__tekstsvar:first-child {
+        margin-top: -1em;
+    }
+
+    > .oppsummering__tekstsvar {
+        padding-left: 0;
+    }
+
+    .oppsummering__tekstsvar + .oppsummering__sporsmalscontainer {
+        margin-top: 1em;
+    }
+}
+
+.oppsummering__dato {
+    margin-bottom: 0;
+
+    &:before {
+        content: "\2022";
+        display: inline-block;
+        width: .5em;
+        margin-right: .5em;
     }
 }
 

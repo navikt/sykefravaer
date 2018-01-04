@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, mapSkjemasoknadToOppsummeringsoknad } from 'digisyfo-npm';
 import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
 import { SENDT, TIL_SENDING, NY, UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
-import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
+import mapSkjemasoknadToBackendsoknad from '../../utils/mapSkjemasoknadToBackendsoknad';
 import { hentArbeidsgiverperiodeberegning } from '../../actions/arbeidsgiverperiodeberegning_actions';
 import { hentLedere } from '../../actions/ledere_actions';
 import AppSpinner from '../../components/AppSpinner';
@@ -119,6 +119,7 @@ export const mapStateToProps = (state, ownProps) => {
         visForskutteringssporsmal: utledSkalViseForskuttering(state.ledere.data, ownProps.skjemasoknad, state.arbeidsgiverperiodeberegning.data),
         sendesTil: utledMottaker(state.ledere.data, ownProps.skjemasoknad, state.arbeidsgiverperiodeberegning.data),
         backendsoknad: mapSkjemasoknadToBackendsoknad(ownProps.skjemasoknad),
+        oppsummeringsoknad: mapSkjemasoknadToOppsummeringsoknad(ownProps.skjemasoknad, ownProps.sykepengesoknad),
     };
 };
 

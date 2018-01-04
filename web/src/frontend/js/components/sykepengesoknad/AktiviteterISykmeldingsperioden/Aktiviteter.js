@@ -1,26 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fields } from 'redux-form';
-import { toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, Hjelpetekst, getAktivitetssporsmal } from 'digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';
 import { soknadsaktivitet } from '../../../propTypes';
 
 export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
-    const ledetekstPrefix = field.grad === 100 ? 'sykepengesoknad.aktiviteter.ugradert' : 'sykepengesoknad.aktiviteter.gradert';
-    const tomDato = field.periode.tom;
     const hjelpetekst = field.grad !== 100 ? (<Hjelpetekst
         tittel={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tittel')}
         tekst={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tekst')} />) : null;
 
     return (<JaEllerNei
         name={`aktiviteter[${index}].jobbetMerEnnPlanlagt`}
-        spoersmal={getLedetekst(`${ledetekstPrefix}.spoersmal-2`, {
-            '%FOM%': toDatePrettyPrint(field.periode.fom),
-            '%TOM%': toDatePrettyPrint(tomDato),
-            '%ARBEIDSGIVER%': arbeidsgiver,
-            '%ARBEIDSGRAD%': 100 - field.grad,
-        })}
+        spoersmal={getAktivitetssporsmal(field, arbeidsgiver)}
         hjelpetekst={hjelpetekst}>
         <div>
             <Fields

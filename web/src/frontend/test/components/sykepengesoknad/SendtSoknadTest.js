@@ -20,6 +20,7 @@ import { Varselstripe, setLedetekster } from 'digisyfo-npm';
 import SykepengesoknadHeader from '../../../js/components/sykepengesoknad/SykepengesoknadHeader';
 import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
 import sinon from 'sinon';
+import { SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon } from 'digisyfo-npm';
 
 describe("SendtSoknad", () => {
 
@@ -43,12 +44,10 @@ describe("SendtSoknad", () => {
         expect(component.contains(<SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />)).to.be.true;
     });
 
-    it("Skal inneholde en Soknad", () => {
-        expect(component.contains(<Soknad sykepengesoknad={mapAktiviteter(sykepengesoknad)} tittel={'Oppsummering'}/>)).to.be.true;
-    });
-
-    it("Skal inneholde en Avkrysset", () => {
-        expect(component.contains(<Avkrysset tekst="Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte" />)).to.be.true;
+    it("Skal inneholde en SoknadOppsummering, VaerKlarOverAt og BekreftetKorrektInformasjon", () => {
+        expect(component.find(SoknadOppsummering)).to.have.length(1);
+        expect(component.find(VaerKlarOverAt)).to.have.length(1);
+        expect(component.find(BekreftetKorrektInformasjon)).to.have.length(1);
     });
 
     it("Skal inneholde Soknadstatuspanel", () => {

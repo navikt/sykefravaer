@@ -10,13 +10,13 @@ import ServerfeilContainer from '../../containers/landingsside/ServerfeilContain
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 import DetteHarSkjeddContainer from '../../containers/landingsside/DetteHarSkjeddContainer';
 import Utdrag from '../../containers/landingsside/TidslinjeutdragContainer';
+import IllustrertInnhold from '../IllustrertInnhold';
 
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
-        <div className="ingenSykmelding__illustrasjon">
-            <img src="/sykefravaer/img/svg/landingsside/veileder.svg" alt="NAV-veileder" />
-        </div>
-        <p className="sist">{getLedetekst('landingsside.ingen-sykmelding')}</p>
+        <IllustrertInnhold ikon="/sykefravaer/img/svg/landingsside/veileder.svg" ikonAlt="NAV-veileder">
+            <p className="sist">{getLedetekst('landingsside.ingen-sykmelding')}</p>
+        </IllustrertInnhold>
     </div>);
 };
 

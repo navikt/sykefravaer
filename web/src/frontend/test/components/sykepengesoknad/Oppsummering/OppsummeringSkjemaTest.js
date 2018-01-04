@@ -8,7 +8,7 @@ import { Field } from "redux-form";
 import { OppsummeringForm, SendingFeilet } from "../../../../js/components/sykepengesoknad/Oppsummering/OppsummeringSkjema";
 import ForskuttererArbeidsgiver from "../../../../js/components/sykepengesoknad/Oppsummering/ForskuttererArbeidsgiver";
 import { getSoknad } from "../../../mockSoknader";
-import { setLedetekster, Soknad } from "digisyfo-npm";
+import { setLedetekster, SoknadOppsummering, VaerKlarOverAt } from "digisyfo-npm";
 import { Link } from "react-router";
 
 import CheckboxSelvstendig from "../../../../js/components/skjema/CheckboxSelvstendig";
@@ -29,6 +29,9 @@ describe("OppsummeringSkjema", () => {
         let sykepengesoknad;
         let ledetekster;
         let handleSubmit;
+        let oppsummeringsoknad;
+        let backendsoknad;
+        let props;
 
         beforeEach(() => {
             skjemasoknad = getSoknad({
@@ -37,14 +40,20 @@ describe("OppsummeringSkjema", () => {
             sykepengesoknad = getSoknad({
                 id: "olsen"
             });
+            oppsummeringsoknad = {};
             setLedetekster({tekst: "test"});
             handleSubmit = sinon.spy();
+            backendsoknad = {"backendsoknad": "backendsoknad"};
 
-            component = shallow(<OppsummeringForm
-                backendsoknad={{"backendsoknad": "backendsoknad"}}
-                handleSubmit={handleSubmit}
-                skjemasoknad={skjemasoknad}
-                sykepengesoknad={sykepengesoknad}/>);
+            props = {
+                backendsoknad,
+                handleSubmit,
+                skjemasoknad,
+                oppsummeringsoknad,
+                sykepengesoknad,
+            }
+
+            component = shallow(<OppsummeringForm {...props} />);
         });
 
         it("Skal inneholde et Field med riktig name", () => {
@@ -53,8 +62,9 @@ describe("OppsummeringSkjema", () => {
             expect(component.find(Field).prop("name")).to.equal("bekreftetKorrektInformasjon");
         });
 
-        it("Skal inneholde en Soknad med riktige props", () => {
-            expect(component.find(Soknad).prop("sykepengesoknad")).to.deep.equal({"backendsoknad": "backendsoknad"})
+        it("Skal inneholde en SoknadOppsummering med riktige props", () => {
+            expect(component.find(SoknadOppsummering).prop("oppsummeringsoknad")).to.deep.equal(oppsummeringsoknad)
+            expect(component.find(VaerKlarOverAt)).to.have.length(1);
         });
 
         it("Skal inneholde en Link til forrige side", () => {

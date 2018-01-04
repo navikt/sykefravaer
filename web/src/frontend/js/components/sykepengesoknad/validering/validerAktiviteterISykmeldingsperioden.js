@@ -1,8 +1,7 @@
-import { toDatePrettyPrint, getTomDato } from 'digisyfo-npm';
+import { toDatePrettyPrint, getTomDato, fraInputdatoTilJSDato } from 'digisyfo-npm';
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 import { ANNET } from '../../../enums/inntektskildetyper';
-import { fraInputdatoTilJSDato } from '../../../utils/datoUtils';
 import { getFeriePermisjonPerioder } from '../../../utils/sykepengesoknadUtils';
 import { getStillingsprosent } from '../AktiviteterISykmeldingsperioden/DetteTilsvarer';
 

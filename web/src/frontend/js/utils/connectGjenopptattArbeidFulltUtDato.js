@@ -1,22 +1,10 @@
 import { connect } from 'react-redux';
+import { getGjenopptattArbeidFulltUtDato } from 'digisyfo-npm';
 import { SYKEPENGER_SKJEMANAVN } from '../components/sykepengesoknad/setup';
-import { fraInputdatoTilJSDato, erGyldigDatoformat } from './datoUtils';
 
 export const mapStateToProps = (state) => {
     const values = state.form[SYKEPENGER_SKJEMANAVN].values;
-    let gjenopptattArbeidFulltUtDato = values.gjenopptattArbeidFulltUtDato;
-    if (!values.harGjenopptattArbeidFulltUt || !gjenopptattArbeidFulltUtDato || !erGyldigDatoformat(gjenopptattArbeidFulltUtDato)) {
-        gjenopptattArbeidFulltUtDato = null;
-    } else {
-        try {
-            gjenopptattArbeidFulltUtDato = fraInputdatoTilJSDato(gjenopptattArbeidFulltUtDato);
-        } catch (e) {
-            gjenopptattArbeidFulltUtDato = null;
-        }
-        if (gjenopptattArbeidFulltUtDato && isNaN(gjenopptattArbeidFulltUtDato.getTime())) {
-            gjenopptattArbeidFulltUtDato = null;
-        }
-    }
+    const gjenopptattArbeidFulltUtDato = getGjenopptattArbeidFulltUtDato(values);
     return {
         gjenopptattArbeidFulltUtDato,
     };

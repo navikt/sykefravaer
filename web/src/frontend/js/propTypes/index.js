@@ -1,8 +1,5 @@
 import PropTypes from 'prop-types';
-import {
-    naermesteLeder,
-    sykmelding,
-} from 'digisyfo-npm';
+import { naermesteLeder, sykmelding } from 'digisyfo-npm';
 import * as hendelsetyper from '../enums/hendelsetyper';
 
 export { arbeidssituasjon,
@@ -18,7 +15,8 @@ export { arbeidssituasjon,
     sykmeldingperiode,
     sykmeldingstatus,
     sykmelding,
-    tidslinjehendelse } from 'digisyfo-npm';
+    tidslinjehendelse,
+    oppsummeringsoknad } from 'digisyfo-npm';
 
 export const brodsmule = PropTypes.shape({
     sti: PropTypes.string,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form';
-import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, getTomDato, finnFomForFeriesporsmal, Hjelpetekst } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, getTomDato, finnFomForFeriesporsmal, Hjelpetekst, getFeriePermisjonEllerUtenlandsoppholdSporsmal } from 'digisyfo-npm';
 import JaEllerNei, { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import Checkbox from '../../skjema/Checkbox';
@@ -90,10 +90,7 @@ export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjeno
         tekst={getLedetekst('sykepengesoknad.ferie.hjelpetekst.tekst')} />);
 
     return (<JaEllerNei
-        spoersmal={getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal', {
-            '%FOM%': toDatePrettyPrint(tidligsteFom),
-            '%TOM%': toDatePrettyPrint(senesteTom),
-        })}
+        spoersmal={getFeriePermisjonEllerUtenlandsoppholdSporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}
         name="harHattFeriePermisjonEllerUtenlandsopphold"
         hjelpetekst={hjelpetekst}>
         <FieldArray

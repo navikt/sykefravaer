@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { Field, FieldArray } from 'redux-form';
-import { toDatePrettyPrint, getLedetekst, getTomDato, tidligsteFom } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, getTomDato, tidligsteFom, getUtdanningssporsmal } from 'digisyfo-npm';
 import SykepengerSkjema from '../SykepengerSkjema';
 import history from '../../../history';
 import setup from '../setup';
@@ -36,10 +36,6 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
 
     render() {
         const { handleSubmit, sykepengesoknad, autofill, untouch, gjenopptattArbeidFulltUtDato } = this.props;
-        const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
-            return aktivitet.periode;
-        });
-        const _tidligsteFom = tidligsteFom(perioder);
         const _soknad = {
             ...sykepengesoknad,
             gjenopptattArbeidFulltUtDato,
@@ -76,10 +72,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
 
             <JaEllerNei
                 name="utdanning.underUtdanningISykmeldingsperioden"
-                spoersmal={getLedetekst('sykepengesoknad.utdanning.ja-nei.sporsmal', {
-                    '%STARTDATO%': toDatePrettyPrint(_tidligsteFom),
-                    '%SLUTTDATO%': toDatePrettyPrint(_senesteTom),
-                })}>
+                spoersmal={getUtdanningssporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}>
                 <UtdanningStartDato senesteTom={_senesteTom} />
                 <Field
                     component={JaEllerNeiRadioknapper}

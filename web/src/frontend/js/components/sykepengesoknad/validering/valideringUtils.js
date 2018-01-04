@@ -1,4 +1,4 @@
-import { fraInputdatoTilJSDato } from '../../../utils/datoUtils';
+import { fraInputdatoTilJSDato } from 'digisyfo-npm';
 import { validerPeriode } from '../../../components/skjema/Datovelger';
 
 export const erIFortiden = (dato) => {

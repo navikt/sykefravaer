@@ -54,11 +54,15 @@ class AvbrytDialog extends Component {
                     if (!vis) {
                         return null;
                     }
-                    return <AvbrytSykmeldingDialog {...this.props} />
+                    return <AvbrytSykmeldingDialog {...this.props} />;
                 })()
             }
         </div>);
     }
 }
+
+AvbrytDialog.propTypes = {
+    vis: PropTypes.bool,
+};
 
 export default AvbrytDialog;

@@ -9,7 +9,7 @@ import { Field } from 'redux-form';
 
 import validate from '../../../../js/components/sykepengesoknad/validering/validerOppsummering';
 import { getSoknad } from '../../../mockSoknader';
-import mapSkjemasoknadToBackendsoknad from '../../../../js/components/sykepengesoknad/mapSkjemasoknadToBackendsoknad';
+import mapSkjemasoknadToBackendsoknad from '../../../../js/utils/mapSkjemasoknadToBackendsoknad';
 
 import CheckboxSelvstendig from '../../../../js/components/skjema/CheckboxSelvstendig';
 

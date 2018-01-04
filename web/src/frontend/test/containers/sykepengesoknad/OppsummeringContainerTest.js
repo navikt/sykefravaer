@@ -3,9 +3,10 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster, mapSkjemasoknadToOppsummeringsoknad, mapBackendsoknadToSkjemasoknad } from 'digisyfo-npm';
 import { getSoknad } from '../../mockSoknader';
-import { Oppsummering, navigeringsvarsel } from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
+import { Oppsummering, navigeringsvarsel, mapStateToProps } from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
+import mapSkjemasoknadToBackendsoknad from '../../../js/utils/mapSkjemasoknadToBackendsoknad';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -50,6 +51,44 @@ describe("OppsummeringContainer", () => {
             backendsoknad,
             sykepengesoknad,
         }
+    })
+
+    describe("Oppsummering", () => {
+        let state;
+        let skjemasoknad;
+        let sykepengesoknad;
+        let ownProps;
+        let oppsummeringsoknad;
+
+        beforeEach(() => {
+            sykepengesoknad = getSoknad();
+            skjemasoknad = mapBackendsoknadToSkjemasoknad(sykepengesoknad)
+            oppsummeringsoknad = mapSkjemasoknadToOppsummeringsoknad(skjemasoknad, sykepengesoknad);
+            ownProps = {
+                skjemasoknad,
+                sykepengesoknad,
+            };
+
+            state = {
+                arbeidsgiverperiodeberegning: {
+                    data: {}
+                },
+                ledere: {
+                    data: []
+                },
+            }
+        });
+
+        it("Skal returnere oppsummeringsoknad", () => {
+            const props = mapStateToProps(state, ownProps);
+            expect(props.oppsummeringsoknad).to.deep.equal(oppsummeringsoknad);
+        });
+
+        it("Skal returnere backendsoknad", () => {
+           const props = mapStateToProps(state, ownProps); 
+           expect(props.backendsoknad).to.deep.equal(mapSkjemasoknadToBackendsoknad(skjemasoknad))
+        });
+
     })
 
     describe("Oppsummering", () => {

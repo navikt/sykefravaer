@@ -1,4 +1,4 @@
-import { fraInputdatoTilJSDato } from './datoUtils';
+import { fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tilDatePeriode } from 'digisyfo-npm';
 
 const erPafolgendeDager = (a, b) => {
     return b.getTime() - a.getTime() === 86400000;
@@ -10,20 +10,20 @@ const datoErHelgedag = (dato) => {
     return dato.getDay() === LORDAG || dato.getDay() === SONDAG;
 };
 
-export const tilDatePeriode = (periode) => {
-    let fom;
-    let tom;
+export const erGyldigPeriode = (periode) => {
     try {
-        fom = fraInputdatoTilJSDato(periode.fom);
+        fraInputdatoTilJSDato(periode.fom);
+        fraInputdatoTilJSDato(periode.tom);
     } catch (e) {
-        fom = periode.fom;
+        return false;
     }
-    try {
-        tom = fraInputdatoTilJSDato(periode.tom);
-    } catch (e) {
-        tom = periode.tom;
-    }
-    return { fom, tom };
+    return true;
+};
+
+export const erGyldigePerioder = (perioder) => {
+    return perioder.reduce((acc, p) => {
+        return erGyldigPeriode(p) && acc;
+    }, true);
 };
 
 export const periodeErHelg = (periode) => {
@@ -51,21 +51,14 @@ export const perioderErHelg = (perioder) => {
     }, true);
 };
 
-export const periodeOverlapperMedPeriode = (periodeA_, periodeB_) => {
-    const periodeA = tilDatePeriode(periodeA_);
-    const periodeB = tilDatePeriode(periodeB_);
-    try {
-        const forstePeriode = periodeA.fom.getTime() < periodeB.fom.getTime() ? periodeA : periodeB;
-        const andrePeriode = periodeA.fom.getTime() < periodeB.fom.getTime() ? periodeB : periodeA;
-        return forstePeriode.tom.getTime() >= andrePeriode.fom.getTime();
-    } catch (e) {
+export const periodeOverlapperMedPerioder = (periode_, perioder_) => {
+    if (!erGyldigePerioder(perioder_) || !erGyldigPeriode(periode_)) {
         return false;
     }
-};
 
-export const periodeOverlapperMedPerioder = (periode_, perioder_) => {
     const periode = tilDatePeriode(periode_);
     const perioder = perioder_.map(tilDatePeriode);
+
     return perioder.reduce((acc, p) => {
         return periodeOverlapperMedPeriode(periode, p) || acc;
     }, false);
@@ -82,16 +75,6 @@ export const perioderOverlapperMedPerioder = (perioderA, perioderB) => {
     return bools.reduce((acc, bool) => {
         return acc && bool;
     }, true);
-};
-
-export const erGyldigPeriode = (periode) => {
-    try {
-        fraInputdatoTilJSDato(periode.fom);
-        fraInputdatoTilJSDato(periode.tom);
-    } catch (e) {
-        return false;
-    }
-    return true;
 };
 
 export const harOverlappendePerioder = (perioder) => {

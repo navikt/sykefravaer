@@ -71,7 +71,7 @@ export const mapStateToProps = (state, ownProps) => {
 
     return {
         sykepengesoknad,
-        henter: state.sykepengesoknader.henter || state.ledetekster.henter || state.sykepengesoknader.henterBerikelse,
+        henter: state.sykepengesoknader.henter || state.ledetekster.henter,
         hentingFeilet: state.sykepengesoknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.sykepengesoknader.henterBerikelseFeilet,
         sykepengesoknaderHentet: state.sykepengesoknader.hentet === true,
         skjemasoknad,

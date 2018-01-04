@@ -7,7 +7,6 @@ import {
     SideOverskrift,
     NavigasjonsTopp,
     NavigasjonsBunn,
-    AvvistPlanKvittering,
     Godkjenn,
     Godkjenninger,
     Samtykke,
@@ -121,13 +120,6 @@ describe('Oppfolgingsdialog', () => {
             hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(AvbruttGodkjentPlanVarsel)).to.have.length(1);
-    });
-
-    it('Skal vise AvvistPlanKvittering, om visAvvisPlanKvittering er true', () => {
-        component.setState({
-            visAvvisPlanKvittering: true,
-        });
-        expect(component.find(AvvistPlanKvittering)).to.have.length(1);
     });
 
     it('Skal vise Samtykke, om arbeidstaker ikke har svart paa samtykke og visSamtykke er true', () => {

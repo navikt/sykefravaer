@@ -7,7 +7,7 @@ import sinon from 'sinon';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import {FoerDuBegynnerSkjema, TidligSoknad} from '../../../../js/components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
+import { FoerDuBegynnerSkjema, TidligSoknad, ForsteSoknad } from '../../../../js/components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad/AvbrytSoknadContainer';
 import { getSoknad } from '../../../mockSoknader'
 import FoerDuBegynner from "../../../../js/components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner";
@@ -57,4 +57,26 @@ describe("TidligSoknad", () => {
         component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} />);
         expect(component.contains(<TidligSoknad />)).to.be.false;
     });
+
+});
+
+describe("ForsteSoknad", () => {
+
+    let component;
+    let sykepengesoknad;
+
+    beforeEach(() => {
+        sykepengesoknad = getSoknad();
+    });
+
+    it("Skal inneholde en ForsteSoknad hvis erForsteSoknad === true", () => {
+        component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} erForsteSoknad={true} />);
+        expect(component.contains(<ForsteSoknad />)).to.be.true;
+    });
+
+    it("Skal ikke inneholde en ForsteSoknad hvis erForsteSoknad === false", () => {
+        component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} erForsteSoknad={false} />);
+        expect(component.contains(<ForsteSoknad />)).to.be.false;
+    });
+    
 });

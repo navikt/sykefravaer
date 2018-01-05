@@ -105,9 +105,9 @@ class Tiltak extends Component {
             this.state.nyttTiltak = false;
             this.state.oppdatertTiltak = true;
         }
-        values.status = STATUS_TILTAK.FORSLAG;
         const nyeValues = {
             ...values,
+            status: STATUS_TILTAK.FORSLAG,
             tiltaknavn: captitalizeFirstLetter(values.tiltaknavn),
         };
         this.props.lagreTiltak(this.props.oppfolgingsdialog.id, nyeValues);

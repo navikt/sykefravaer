@@ -53,7 +53,7 @@ const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgi
     })[0];
 };
 
-export class Oppfolgingsdialoger extends Component {
+class Oppfolgingsdialoger extends Component {
     componentWillMount() {
         const { oppfolgingsdialoger, virksomhet, person, forrigenaermesteleder, hentPerson, hentVirksomhet, hentForrigeNaermesteLeder } = this.props;
         finnOgHentVirksomheterSomMangler(oppfolgingsdialoger, virksomhet, hentVirksomhet);
@@ -167,7 +167,6 @@ Oppfolgingsdialoger.propTypes = {
     hentVirksomhet: PropTypes.func,
     hentPerson: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
-    opprettOppfolgingsdialog: PropTypes.func,
 };
 
 export default Oppfolgingsdialoger;

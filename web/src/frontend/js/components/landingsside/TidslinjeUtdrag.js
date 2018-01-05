@@ -107,6 +107,14 @@ export const VelgArbeidssituasjon = (props) => {
     />);
 };
 
+const track = (event) => {
+    /* eslint-disable quote-props */
+    window.dataLayer.push({
+        'event': event,
+    });
+    /* eslint-enable quote-props */
+};
+
 export default class TidslinjeUtdrag extends Utvidbar {
     constructor(props) {
         super(props);
@@ -125,7 +133,7 @@ export default class TidslinjeUtdrag extends Utvidbar {
 
     componentDidMount() {
         if (this.props.antallDager <= 500) {
-            this.trackVisning();
+            track('TIDSLINJEUTDRAG_VIST');
         }
     }
 
@@ -164,18 +172,10 @@ export default class TidslinjeUtdrag extends Utvidbar {
         return this.getTekstObjekt().bilde;
     }
 
-    trackVisning() {
-        window.dataLayer.push({
-            'event': 'TIDSLINJEUTDRAG_VIST',
-        });
-    }
-
     trackKlikk() {
         if (!this.state.klikket) {
             log('Tracker klikk i tidslinjeutdrag');
-            window.dataLayer.push({
-                'event': 'TIDSLINJEUTDRAG_KLIKK_LES_MER',
-            });
+            track('TIDSLINJEUTDRAG_KLIKK_LES_MER');
             this.setState({
                 klikket: true,
             });

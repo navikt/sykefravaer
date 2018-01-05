@@ -111,6 +111,7 @@ class DayPickerComponent extends Component {
 
     render() {
         const { onKeyUp } = this.props;
+        /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
         return (<div
             className="datovelger__DayPicker"
             role="application"
@@ -140,6 +141,7 @@ class DayPickerComponent extends Component {
                 }}
             />
         </div>);
+        /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
     }
 }
 

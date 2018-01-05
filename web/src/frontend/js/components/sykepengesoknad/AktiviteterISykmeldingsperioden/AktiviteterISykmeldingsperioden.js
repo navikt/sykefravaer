@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { Field, FieldArray } from 'redux-form';
-import { toDatePrettyPrint, getLedetekst, getTomDato, tidligsteFom, getUtdanningssporsmal } from 'digisyfo-npm';
+import { getLedetekst, getTomDato, getUtdanningssporsmal } from 'digisyfo-npm';
 import SykepengerSkjema from '../SykepengerSkjema';
 import history from '../../../history';
 import setup from '../setup';

@@ -64,7 +64,7 @@ export const VelgArbeidsgiverRadioKnapper = ({ input, meta, oppfolgingsdialoger,
             {
                 arbeidsgivere.map((arbeidsgiver, index) => {
                     return (
-                        <input
+                        <i
                             key={index}
                             value={arbeidsgiver.virksomhetsnummer}
                             label={arbeidsgiver.navn}
@@ -73,7 +73,7 @@ export const VelgArbeidsgiverRadioKnapper = ({ input, meta, oppfolgingsdialoger,
                                 oppfolgingsdialoger={oppfolgingsdialoger}
                                 arbeidsgiver={arbeidsgiver}
                             />
-                        </input>
+                        </i>
                     );
                 })
             }

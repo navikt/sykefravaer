@@ -50,7 +50,7 @@ export class DatoField extends Component {
 
     render() {
         const { meta, input, id, tidligsteFom, senesteTom } = this.props;
-
+        /* eslint-disable jsx-a11y/no-static-element-interactions */
         return (<div className="datovelger">
             <div
                 className="datovelger__inner"
@@ -107,6 +107,7 @@ export class DatoField extends Component {
                 <Feilmelding {...meta} />
             </div>
         </div>);
+        /* eslint-enable jsx-a11y/no-static-element-interactions */
     }
 }
 

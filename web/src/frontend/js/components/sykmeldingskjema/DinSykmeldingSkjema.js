@@ -63,13 +63,11 @@ export class DinSykmeldingSkjemaComponent extends Component {
         this.state = {};
     }
 
-    componentWillUpdate(prevProps) {
-        if (this.props.skjemaData && prevProps.skjemaData && this.props.skjemaData.values.opplysningeneErRiktige !== prevProps.skjemaData.values.opplysningeneErRiktige) {
-            /* eslint-disable react/no-will-update-set-state */
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.skjemaData && this.props.skjemaData && nextProps.skjemaData.values.opplysningeneErRiktige !== this.props.skjemaData.values.opplysningeneErRiktige) {
             this.setState({
                 visAvbrytDialog: false,
             });
-            /* eslint-enable react/no-will-update-set-state */
         }
     }
 

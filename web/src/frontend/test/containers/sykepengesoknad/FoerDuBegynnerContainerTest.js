@@ -71,4 +71,45 @@ describe("FoerDuBegynnerContainer", () => {
         expect(hentBerikelse.called).to.be.true;
     });
 
+    it("Skal returnere erForsteSoknad dersom man har én NY søknad", () => {
+        state.sykepengesoknader.data = [{
+            status: "NY"
+        }]
+        const props = mapStateToProps(state, ownProps);
+        expect(props.erForsteSoknad).to.be.true;
+    });
+
+    it("Skal returnere erForsteSoknad === true dersom alle søknader er enten NY eller FREMTIDIG", () => {
+        state.sykepengesoknader.data = [{
+            status: "NY"
+        }, {
+            status: "FREMTIDIG"
+        }]
+        const props = mapStateToProps(state, ownProps);
+        expect(props.erForsteSoknad).to.be.true;
+    });
+
+    it("Skal returnere erForsteSoknad === false dersom det finnes søknader som ikke er NY eller FREMTIDIG", () => {
+        state.sykepengesoknader.data = [{
+            status: "NY"
+        }, {
+            status: "SENDT"
+        }]
+        const props = mapStateToProps(state, ownProps);
+        expect(props.erForsteSoknad).to.be.false;
+    });
+
+    it("Skal returnere erForsteSoknad === false hvis ikke alle søknader er NY eller FREMTIDIG", () => {
+        state.sykepengesoknader.data = [{
+            status: "NY"
+        }, {
+            status: "SENDT"
+        }, {
+            status: "FREMTIDIG"
+        }]
+        const props = mapStateToProps(state, ownProps);
+        expect(props.erForsteSoknad).to.be.false;
+    });
+
+
 });

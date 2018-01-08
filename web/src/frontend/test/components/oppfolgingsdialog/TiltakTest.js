@@ -7,14 +7,13 @@ import {
     OppfolgingsdialogInfoboks,
     TiltakSkjema,
     LeggTilElementKnapper,
+    TiltakTabell,
 } from 'oppfolgingsdialog-npm';
 import { setLedetekster } from 'digisyfo-npm';
 import ledetekster from '../../mockLedetekster';
 import AppSpinner from '../../../js/components/AppSpinner';
 import Feilmelding from '../../../js/components/Feilmelding';
-import Tiltak, {
-    RenderOppfolgingsdialogTiltakTabell,
-} from '../../../js/components/oppfolgingsdialoger/utfylling/Tiltak';
+import Tiltak from '../../../js/components/oppfolgingsdialoger/utfylling/Tiltak';
 import getOppfolgingsdialog from '../../mockOppfolgingsdialoger';
 
 chai.use(chaiEnzyme());
@@ -152,19 +151,19 @@ describe('Tiltak', () => {
             />);
         });
 
-        it('Skal vise RenderOppfolgingsdialogTiltakTabell, om det er tiltak', () => {
-            expect(componentMedTiltak.find(RenderOppfolgingsdialogTiltakTabell)).to.have.length(1);
+        it('Skal vise TiltakTabell, om det er tiltak', () => {
+            expect(componentMedTiltak.find(TiltakTabell)).to.have.length(1);
         });
 
-        it('Skal vise RenderOppfolgingsdialogTiltakTabell, om det er tiltak og visTiltakSkjema er true', () => {
+        it('Skal vise TiltakTabell, om det er tiltak og visTiltakSkjema er true', () => {
             componentMedTiltak.setState({
                 visTiltakSkjema: true,
             });
-            expect(componentMedTiltak.find(RenderOppfolgingsdialogTiltakTabell)).to.have.length(1);
+            expect(componentMedTiltak.find(TiltakTabell)).to.have.length(1);
         });
 
-        it('Skal vise RenderOppfolgingsdialogTiltakTabell, om det er tiltak og visTiltakSkjema er false', () => {
-            expect(componentMedTiltak.find(RenderOppfolgingsdialogTiltakTabell)).to.have.length(1);
+        it('Skal vise TiltakTabell, om det er tiltak og visTiltakSkjema er false', () => {
+            expect(componentMedTiltak.find(TiltakTabell)).to.have.length(1);
         });
     });
 });

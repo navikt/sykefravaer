@@ -1,11 +1,12 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { getLedetekst, getHtmlLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, Hjelpetekst, forskutterersvar } from 'digisyfo-npm';
 import Feilomrade from '../../skjema/Feilomrade';
 import SporsmalMedTillegg from '../../skjema/SporsmalMedTillegg';
 import { Radioknapp } from '../../skjema/Radioknapper';
-import { JA, NEI, VET_IKKE } from '../../../enums/forskutterersvar';
 import { fieldPropTypes, arbeidsgiver as arbeidsgiverPt } from '../../../propTypes';
+
+const { JA, NEI, VET_IKKE } = forskutterersvar;
 
 export const ForskuttererSporsmal = ({ input, meta }) => {
     return (<Feilomrade {...meta} id="arbeidsgiverForskutterer">

@@ -17,8 +17,8 @@ import validate, {
     overHundreogfemtiFeil,
     jobbetMerEnnPlanlagtFeil,
     sammeNormalAntallFeil } from '../../../../js/components/sykepengesoknad/validering/validerAktiviteterISykmeldingsperioden';
+import { inntektskildetyper } from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AndreInntektskilder';
 import { getSoknad } from '../../../mockSoknader';
-import inntektskildetyper from '../../../../js/enums/inntektskildetyper';
 
 describe("validerAktiviteterISykmeldingsperioden", () => {
 

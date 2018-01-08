@@ -3,12 +3,11 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import AndreInntektskilderComponent, { VelgInntektskilder } from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AndreInntektskilder';
+import AndreInntektskilderComponent, { VelgInntektskilder, inntektskildetyper } from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AndreInntektskilder';
 import { FieldArray, Field } from 'redux-form';
 import Checkbox from '../../../../js/components/skjema/Checkbox';
 import Radioknapper from '../../../../js/components/skjema/Radioknapper';
 import ledetekster from '../../../mockLedetekster';
-import inntektskildetyper from '../../../../js/enums/inntektskildetyper';
 import { setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
-import { getLedetekst, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst, Varselstripe, arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
 import VelgArbeidssituasjon from './VelgArbeidssituasjon';
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
 import AvbrytDialog from './AvbrytDialog';
-import { PERIODE, SYKMELDINGSGRAD } from '../../enums/feilaktigeOpplysninger';
-import { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
+
+const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;
 
 const modi = {
     GA_VIDERE: 'GA_VIDERE',
@@ -21,6 +21,8 @@ const modi = {
 };
 
 export const DIN_SYKMELDING_SKJEMANAVN = 'dinSykmeldingSkjema';
+
+const { ARBEIDSTAKER, DEFAULT } = arbeidssituasjoner;
 
 const harValgtAnnenArbeidsgiver = (values) => {
     return values.valgtArbeidsgiver && values.valgtArbeidsgiver.orgnummer === '0';

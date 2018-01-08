@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { sykepengesoknadstatuser } from 'digisyfo-npm';
 import FravaerOgFriskmelding from '../../components/sykepengesoknad/FravaerOgFriskmelding/FravaerOgFriskmelding';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
-import { SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
 export const Controller = (props) => {
-    if (props.sykepengesoknad.status === SENDT || props.sykepengesoknad.status === TIL_SENDING) {
+    if (props.sykepengesoknad.status === sykepengesoknadstatuser.SENDT || props.sykepengesoknad.status === sykepengesoknadstatuser.TIL_SENDING) {
         return <Kvittering sykepengesoknad={props.sykepengesoknad} />;
     }
     if (props.skjemasoknad) {

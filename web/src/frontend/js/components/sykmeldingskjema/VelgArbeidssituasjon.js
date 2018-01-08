@@ -1,12 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import { getLedetekst, Hjelpetekst, arbeidssituasjoner as arbeidssituasjonerEnums } from 'digisyfo-npm';
 import Feilmelding from '../skjema/Feilmelding';
 import VelgArbeidsgiverContainer from '../../containers/sykmelding/VelgArbeidsgiverContainer';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
-import arbeidssituasjoner, { ARBEIDSTAKER, DEFAULT } from '../../enums/arbeidssituasjoner';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt, fieldPropTypes } from '../../propTypes';
+
+const { ARBEIDSTAKER, DEFAULT } = arbeidssituasjonerEnums;
+
+const arbeidssituasjoner = Object.keys(arbeidssituasjonerEnums).map((key) => {
+    return {
+        verdi: arbeidssituasjonerEnums[key],
+    };
+});
 
 const getArbeidssituasjoner = (arbeidssituasjon) => {
     if (!arbeidssituasjon || arbeidssituasjon === DEFAULT) {

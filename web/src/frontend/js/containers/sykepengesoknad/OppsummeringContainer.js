@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, mapSkjemasoknadToOppsummeringsoknad } from 'digisyfo-npm';
+import { getLedetekst, mapSkjemasoknadToOppsummeringsoknad, sykepengesoknadstatuser } from 'digisyfo-npm';
 import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
-import { SENDT, TIL_SENDING, NY, UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import mapSkjemasoknadToBackendsoknad from '../../utils/mapSkjemasoknadToBackendsoknad';
 import { hentArbeidsgiverperiodeberegning } from '../../actions/arbeidsgiverperiodeberegning_actions';
@@ -18,6 +17,8 @@ const NAV = 'NAV';
 const ARBEIDSGIVER = 'ARBEIDSGIVER';
 
 const beforeunload = 'beforeunload';
+
+const { SENDT, TIL_SENDING, NY, UTKAST_TIL_KORRIGERING } = sykepengesoknadstatuser;
 
 const onBeforeUnload = (e) => {
     (e || window.event).returnValue = getLedetekst('sykepengesoknad.navigeringsvarsel');

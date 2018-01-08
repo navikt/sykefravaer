@@ -1,7 +1,6 @@
 import React from 'react';
-import { Utvidbar, getLedetekst, DineSykmeldingOpplysninger } from 'digisyfo-npm';
+import { Utvidbar, getLedetekst, DineSykmeldingOpplysninger, nokkelopplysninger } from 'digisyfo-npm';
 import StatusPanel from '../StatusPanel';
-import { STATUS } from '../../enums/nokkelopplysninger';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 
 const DinBekreftedeSykmelding = ({ sykmelding }) => {
@@ -10,7 +9,7 @@ const DinBekreftedeSykmelding = ({ sykmelding }) => {
             sykmelding={sykmelding}
             type="info"
             nokkelopplysninger={[
-                [STATUS],
+                [nokkelopplysninger.STATUS],
             ]} />
         <Utvidbar
             erApen

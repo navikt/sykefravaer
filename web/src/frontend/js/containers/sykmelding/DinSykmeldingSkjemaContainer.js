@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getSykmelding, getLedetekst } from 'digisyfo-npm';
+import { getSykmelding, getLedetekst, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
 import * as sykmeldingActions from '../../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../../components/sykmeldingskjema/DinSykmeldingSkjema';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import feilaktigeOpplysninger from '../../enums/feilaktigeOpplysninger';
 import { hentAktuelleArbeidsgivere } from '../../actions/dineArbeidsgivere_actions';
 import { hentBrukerinfo } from '../../actions/brukerinfo_actions';
 import { hentArbeidsgiversSykmeldinger } from '../../actions/arbeidsgiversSykmeldinger_actions';
@@ -71,6 +70,12 @@ export const mapStateToProps = (state, ownProps) => {
     }
 
     const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
+
+    const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map((key) => {
+        return {
+            opplysning: feilaktigeOpplysningerEnums[key],
+        };
+    });
 
     return {
         skjemaData: state.form.dinSykmeldingSkjema,

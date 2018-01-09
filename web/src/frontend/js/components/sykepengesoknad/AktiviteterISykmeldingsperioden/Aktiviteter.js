@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fields } from 'redux-form';
-import { toDatePrettyPrint, getLedetekst, Hjelpetekst, getAktivitetssporsmal } from 'digisyfo-npm';
+import { getLedetekst, Hjelpetekst, getAktivitetssporsmal } from 'digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';
 import { soknadsaktivitet } from '../../../propTypes';

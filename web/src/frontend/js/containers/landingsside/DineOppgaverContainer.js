@@ -80,16 +80,22 @@ const avventendeGodkjenningerTekst = (antall) => {
         });
 };
 
+const sendTilDataLayer = (event, variant) => {
+    /* eslint-disable quote-props */
+    window.dataLayer.push({
+        'event': event,
+        'variant': variant,
+    });
+    /* eslint-enable quote-props */
+};
+
 const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, avventendeGodkjenninger, nyePlaner, visAktivitetskrav }) => {
     if (!visOppgaver) {
         return null;
     }
     const onClick = () => {
         log('Registrerer klikk', GRONN);
-        window.dataLayer.push({
-            'event': 'DINE_OPPGAVER_KLIKK',
-            'variant': GRONN,
-        });
+        sendTilDataLayer('DINE_OPPGAVER_KLIKK', GRONN);
     };
     return (<div className="landingspanel dineOppgaver">
         <IllustrertInnhold ikon="/sykefravaer/img/svg/landingsside/oppgaver.svg" ikonAlt="Oppgaver">
@@ -132,10 +138,7 @@ export class DineOppgaver extends Component {
         }
         if (visOppgaver) {
             log('Registrerer visning', GRONN);
-            window.dataLayer.push({
-                'event': 'DINE_OPPGAVER_VIST',
-                'variant': GRONN,
-            });
+            sendTilDataLayer('DINE_OPPGAVER_VIST', GRONN);
         }
     }
 

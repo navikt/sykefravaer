@@ -63,8 +63,8 @@ export class DinSykmeldingSkjemaComponent extends Component {
         this.state = {};
     }
 
-    componentWillUpdate(prevProps) {
-        if (this.props.skjemaData && prevProps.skjemaData && this.props.skjemaData.values.opplysningeneErRiktige !== prevProps.skjemaData.values.opplysningeneErRiktige) {
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.skjemaData && this.props.skjemaData && nextProps.skjemaData.values.opplysningeneErRiktige !== this.props.skjemaData.values.opplysningeneErRiktige) {
             this.setState({
                 visAvbrytDialog: false,
             });

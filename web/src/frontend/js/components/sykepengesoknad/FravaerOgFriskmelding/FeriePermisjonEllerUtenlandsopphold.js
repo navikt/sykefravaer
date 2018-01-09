@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form';
-import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, getTomDato, finnFomForFeriesporsmal, Hjelpetekst, getFeriePermisjonEllerUtenlandsoppholdSporsmal } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, getTomDato, finnFomForFeriesporsmal, Hjelpetekst, getFeriePermisjonEllerUtenlandsoppholdSporsmal } from 'digisyfo-npm';
 import JaEllerNei, { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import Checkbox from '../../skjema/Checkbox';

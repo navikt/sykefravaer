@@ -10,7 +10,7 @@ import UtgaattSoknad from '../../components/sykepengesoknad/UtgaattSoknad';
 import AvbruttSoknadContainer from './AvbruttSoknadContainer';
 import Feilmelding from '../../components/Feilmelding';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
-import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST } from '../../enums/sykepengesoknadstatuser';
+import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST, FREMTIDIG } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { SYKEPENGER_SKJEMANAVN } from '../../components/sykepengesoknad/setup';
 import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
@@ -68,7 +68,7 @@ export class Container extends Component {
     }
 
     render() {
-        const { params, vedlikehold, henter } = this.props;
+        const { params, vedlikehold, henter, erForsteSoknad } = this.props;
         const brodsmuler = [{
             tittel: 'Ditt sykefravær',
             sti: '/',
@@ -80,7 +80,7 @@ export class Container extends Component {
         }, {
             tittel: 'Søknad',
         }];
-        return <GenerellSoknadContainer henter={henter} Component={Controller} brodsmuler={brodsmuler} params={params} vedlikehold={vedlikehold} />;
+        return <GenerellSoknadContainer erForsteSoknad={erForsteSoknad} henter={henter} Component={Controller} brodsmuler={brodsmuler} params={params} vedlikehold={vedlikehold} />;
     }
 }
 
@@ -114,11 +114,16 @@ export const mapStateToProps = (state, ownProps) => {
         brukerHarNavigertTilAnnenSoknad = false;
     }
 
+    const erForsteSoknad = state.sykepengesoknader.data && state.sykepengesoknader.data.filter((s) => {
+        return s.status === NY || s.status === FREMTIDIG;
+    }).length === state.sykepengesoknader.data.length;
+
     return {
         brukerHarNavigertTilAnnenSoknad,
         henter,
         sykepengesoknadId,
         vedlikehold: state.vedlikehold.data.vedlikehold,
+        erForsteSoknad,
     };
 };
 

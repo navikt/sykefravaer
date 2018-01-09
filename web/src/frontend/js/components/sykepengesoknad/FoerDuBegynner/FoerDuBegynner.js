@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst, Varselstripe, getHtmlLedetekst } from 'digisyfo-npm';
 import history from '../../../history';
 import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';
@@ -23,6 +23,18 @@ const KorrigerVarsel = () => {
     </div>);
 };
 
+export const ForsteSoknad = () => {
+    return (<div className="panel blokk">
+        <div className="blokk--s">
+            <IllustrertInnhold ikon="/sykefravaer/img/svg/foerste-soknad.svg" ikonAlt="Din første digitale søknad om sykepenger">
+                <h2 className="panel__tittel">{getLedetekst('sykepengesoknad.foerste-soknad.tittel')}</h2>
+                <p className="sist redaksjonelt-innhold">{getLedetekst('sykepengesoknad.foerste-soknad.intro')}</p>
+            </IllustrertInnhold>
+        </div>
+        <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.foerste-soknad.mer')} />
+    </div>);
+};
+
 export const FoerDuBegynnerSkjema = (props) => {
     const { handleSubmit, sykepengesoknad } = props;
     const onSubmit = () => {
@@ -30,7 +42,7 @@ export const FoerDuBegynnerSkjema = (props) => {
     };
     return (<form className="sykepengerskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
         <div className="panel">
-            <div className="redaksjonelt">
+            <div className="redaksjonelt-innhold">
                 <BekreftAnsvar sykepengesoknad={sykepengesoknad} />
             </div>
         </div>
@@ -60,12 +72,15 @@ const initialize = true;
 const FoerDuBegynnerSkjemaSetup = setup(validate, FoerDuBegynnerSkjema, initialize);
 
 const FoerDuBegynner = (props) => {
-    const { sykepengesoknad } = props;
+    const { sykepengesoknad, erForsteSoknad } = props;
     const now = new Date();
+
     return (<div>
         <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
         { sykepengesoknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel /> }
         { (sykepengesoknad.status === NY && sykepengesoknad.tom > now) && <TidligSoknad /> }
+
+        { erForsteSoknad && <ForsteSoknad /> }
         <SykmeldingUtdrag erApen sykepengesoknad={sykepengesoknad} />
         <h2 className="sykepenger__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
         <FoerDuBegynnerSkjemaSetup sykepengesoknad={sykepengesoknad} />
@@ -74,6 +89,7 @@ const FoerDuBegynner = (props) => {
 
 FoerDuBegynner.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
+    erForsteSoknad: PropTypes.bool,
 };
 
 export default FoerDuBegynner;

@@ -5,12 +5,13 @@ import chaiEnzyme from 'chai-enzyme';
 import getSykmelding from "../mockSykmeldinger";
 import StatusOpplysning from '../../js/components/StatusOpplysning';
 import { Hjelpetekst } from 'digisyfo-npm'
-import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../js/enums/nokkelopplysninger';
 import ledetekster from '../mockLedetekster';
-import { SykmeldingNokkelOpplysning } from 'digisyfo-npm';
+import { SykmeldingNokkelOpplysning, nokkelopplysninger } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
+
+const { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } = nokkelopplysninger;
 
 describe("StatusOpplysning", () => {
    it("Skal vise hjelpetekst for status === TIL_SENDING", () => {

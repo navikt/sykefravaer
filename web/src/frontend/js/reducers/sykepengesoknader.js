@@ -1,6 +1,7 @@
-import { parseSykepengesoknad, tidligsteFom, senesteTom } from 'digisyfo-npm';
+import { parseSykepengesoknad, tidligsteFom, senesteTom, sykepengesoknadstatuser } from 'digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
-import { KORRIGERT, AVBRUTT, NY, UTKAST_TIL_KORRIGERING, SLETTET_UTKAST } from '../enums/sykepengesoknadstatuser';
+
+const { KORRIGERT, AVBRUTT, NY, UTKAST_TIL_KORRIGERING, SLETTET_UTKAST } = sykepengesoknadstatuser;
 
 const initiellState = {
     henter: false,

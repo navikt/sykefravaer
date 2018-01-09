@@ -5,10 +5,10 @@ import chaiEnzyme from 'chai-enzyme';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 import deepFreeze from 'deep-freeze';
+import { inntektskildetyper } from '../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AndreInntektskilder';
 
 import { getSoknad } from '../mockSoknader';
 import mapSkjemasoknadToBackendsoknad from '../../js/utils/mapSkjemasoknadToBackendsoknad';
-import inntektskildetyper from '../../js/enums/inntektskildetyper';
 
 describe("mapSkjemasoknadToBackendsoknad", () => {
 

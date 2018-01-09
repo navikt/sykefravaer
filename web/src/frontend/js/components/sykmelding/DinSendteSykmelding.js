@@ -1,11 +1,12 @@
 import React from 'react';
-import { getLedetekst, Utvidbar, DineSykmeldingOpplysninger } from 'digisyfo-npm';
+import { getLedetekst, Utvidbar, DineSykmeldingOpplysninger, nokkelopplysninger } from 'digisyfo-npm';
 import StatusPanel from '../StatusPanel';
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
-import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../enums/nokkelopplysninger';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import SykepengesoknadstatusContainer from '../../containers/sykmelding/SykepengesoknadstatusContainer';
+
+const { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } = nokkelopplysninger;
 
 const DinSendteSykmelding = ({ dinSykmelding }) => {
     return (<div>

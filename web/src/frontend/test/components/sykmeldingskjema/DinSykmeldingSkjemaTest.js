@@ -17,10 +17,9 @@ import ArbeidsgiversSykmeldingContainer from "../../../js/containers/sykmelding/
 import { Varselstripe } from "digisyfo-npm";
 import ErLederRiktig from "../../../js/components/sykmeldingskjema/ErLederRiktig";
 import { Provider } from 'react-redux';
-import feilaktigeOpplysninger from "../../../js/enums/feilaktigeOpplysninger";
 import { hentAktuelleArbeidsgivere } from '../../../js/actions/dineArbeidsgivere_actions';
 import deepFreeze from 'deep-freeze';
-import { setLedetekster } from 'digisyfo-npm';
+import { setLedetekster, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -37,6 +36,11 @@ describe("DinSykmeldingSkjema -", () => {
     let skjemaData;
     let dispatch;
     let getState;
+    let feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map((key) => {
+        return {
+            opplysning: feilaktigeOpplysningerEnums[key],
+        };
+    });
 
     beforeEach(() => {
         setLedetekster(ledetekster);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst } from 'digisyfo-npm';
+import { getSykmelding, sorterSykmeldingerEldsteFoerst, getLedetekst, sykmeldingstatuser } from 'digisyfo-npm';
 import Side from '../../sider/Side';
 import DinSykmelding from '../../components/sykmelding/DinSykmelding';
 import DinSendteSykmelding from '../../components/sykmelding/DinSendteSykmelding';
@@ -12,8 +12,9 @@ import LenkeTilDineSykmeldinger from '../../components/LenkeTilDineSykmeldinger'
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
-import { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } from '../../enums/sykmeldingstatuser';
 import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../../propTypes';
+
+const { SENDT, TIL_SENDING, BEKREFTET, UTGAATT, NY, AVBRUTT } = sykmeldingstatuser;
 
 export class DinSykmldSide extends Component {
     componentWillMount() {

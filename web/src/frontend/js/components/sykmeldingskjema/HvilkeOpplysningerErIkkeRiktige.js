@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
 import { Field, getFormValues } from 'redux-form';
 import { connect } from 'react-redux';
 import Checkbox from '../skjema/Checkbox';
 import Feilomrade from '../skjema/Feilomrade';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
-import { PERIODE, SYKMELDINGSGRAD, ARBEIDSGIVER, DIAGNOSE, ANDRE } from '../../enums/feilaktigeOpplysninger';
 import { fieldPropTypes } from '../../propTypes';
 import { DIN_SYKMELDING_SKJEMANAVN } from './DinSykmeldingSkjema';
+
+const { PERIODE, SYKMELDINGSGRAD, ARBEIDSGIVER, DIAGNOSE, ANDRE } = feilaktigeOpplysningerEnums;
 
 const feilaktigeOpplysningerProp = PropTypes.arrayOf(PropTypes.shape({
     avkrysset: PropTypes.bool,

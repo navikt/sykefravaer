@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { senesteTom, sykmeldingstatuser, log } from 'digisyfo-npm';
+import { senesteTom, sykmeldingstatuser, log, arbeidssituasjoner } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TidslinjeUtdrag, { MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI } from '../../components/landingsside/TidslinjeUtdrag';
-import { ARBEIDSTAKER } from '../../enums/arbeidssituasjoner';
 
 const { SENDT, NY, BEKREFTET, TIL_SENDING } = sykmeldingstatuser;
 
@@ -99,11 +98,11 @@ export const getVisning = (dineSykmeldinger, startdato) => {
     }
 
     const harBareSendteSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter((s) => {
-        return s.status === SENDT || s.status === TIL_SENDING || (s.status === BEKREFTET && s.valgtArbeidssituasjon === ARBEIDSTAKER);
+        return s.status === SENDT || s.status === TIL_SENDING || (s.status === BEKREFTET && s.valgtArbeidssituasjon === arbeidssituasjoner.ARBEIDSTAKER);
     }).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length;
 
     const harBareBekreftedeSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter((s) => {
-        return s.status === BEKREFTET && s.valgtArbeidssituasjon !== ARBEIDSTAKER;
+        return s.status === BEKREFTET && s.valgtArbeidssituasjon !== arbeidssituasjoner.ARBEIDSTAKER;
     }).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length;
 
     if (harBareSendteSykmeldinger) {

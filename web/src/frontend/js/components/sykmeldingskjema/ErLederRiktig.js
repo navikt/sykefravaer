@@ -7,12 +7,26 @@ import { naermesteLeder as naermesteLederPt, fieldPropTypes } from '../../propTy
 
 export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
     const alternativer = [{
-        label: 'Ja',
+        label: getLedetekst('radioknapp.ja'),
         value: false,
     }, {
-        label: 'Nei – NAV ber arbeidsgiveren din oppgi ny leder',
+        label: getLedetekst('radioknapp.nei'),
         value: true,
     }];
+
+    const infoOmSykemeldingmottaker = (navn) => {
+        if (input.value === true) {
+            return <p>{getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.nei')}</p>;
+        }
+        if (input.value === false) {
+            return (<p>
+                {getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.ja', {
+                    '%NAERMESTELEDER%': navn,
+                })}
+            </p>);
+        }
+        return null;
+    };
 
     const hjelpetekst = (<Hjelpetekst
         id="velg-beOmNyNaermesteLeder-hjelpetekst"
@@ -23,7 +37,7 @@ export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
         <Radioknapper
             input={input}
             meta={meta}
-            spoersmal={getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal', {
+            spoersmal={getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.v2', {
                 '%NAERMESTELEDER%': naermesteLeder.navn,
             })}
             hjelpetekst={hjelpetekst}>
@@ -33,6 +47,7 @@ export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
                 })
             }
         </Radioknapper>
+        {infoOmSykemeldingmottaker(naermesteLeder.navn)}
     </div>);
 };
 

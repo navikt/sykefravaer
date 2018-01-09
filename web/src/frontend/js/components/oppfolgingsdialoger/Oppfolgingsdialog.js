@@ -55,6 +55,7 @@ class Oppfolgingsdialog extends Component {
         finnOgHentNaermesteLedereSomMangler([oppfolgingsdialog], naermesteleder, hentNaermesteLeder);
         finnOgHentKontaktinfoSomMangler([oppfolgingsdialog], kontaktinfo, hentKontaktinfo);
         finnOgHentArbeidsforholdSomMangler([oppfolgingsdialog], arbeidsforhold, hentArbeidsforhold);
+
     }
 
     visAvvisPlanKvittering(vis, begrunnelse) {
@@ -95,6 +96,8 @@ class Oppfolgingsdialog extends Component {
         const oppfolgingsdialogAvbrutt = this.props.avbrytdialogReducer.sendt;
         let panel;
         let disableNavigation = false;
+        console.log("session", window.sessionStorage.getItem('startdato'));
+     //   console.log("main", this);
         if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && this.state.visAvvisPlanKvittering) {
             disableNavigation = true;
             panel = (<AvvistPlanKvittering

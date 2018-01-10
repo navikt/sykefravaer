@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SykmeldingUtdrag from 'digisyfo-npm';
+import { SykmeldingUtdrag } from 'digisyfo-npm';
 import Stegindikator from './Stegindikator';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from './SykepengesoknadHeader';

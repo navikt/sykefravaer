@@ -11,7 +11,7 @@ const expect = chai.expect;
 import { HvilkeOpplysninger, VelgFeilaktigeOpplysninger, FeilaktigeOpplysningerInfo, DuTrengerNySykmelding, DuKanBrukeSykmeldingenDinArbeidsgiver, DuKanBrukeSykmeldingenDinDiagnoseAndre } from '../../../js/components/sykmeldingskjema/HvilkeOpplysningerErIkkeRiktige'
 import JaEllerNei from '../../../js/components/sykepengesoknad/JaEllerNei';
 import Feilomrade from '../../../js/components/skjema/Feilomrade';
-import feilaktigeOpplysninger from '../../../js/enums/feilaktigeOpplysninger';
+import { feilaktigeOpplysninger } from '../../../js/components/sykmeldingskjema/ErOpplysningeneRiktige';
 
 describe("HvilkeOpplysningerErIkkeRiktige", () => {
 

@@ -1,7 +1,6 @@
-import { toDatePrettyPrint, getTomDato, fraInputdatoTilJSDato } from 'digisyfo-npm';
+import { toDatePrettyPrint, getTomDato, fraInputdatoTilJSDato, inntektskildetyper } from 'digisyfo-npm';
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
-import { ANNET } from '../../../enums/inntektskildetyper';
 import { getFeriePermisjonPerioder } from '../../../utils/sykepengesoknadUtils';
 import { getStillingsprosent } from '../AktiviteterISykmeldingsperioden/DetteTilsvarer';
 
@@ -142,7 +141,7 @@ const validate = (values, props) => {
             };
         } else {
             const andreInntektskilderFeilmeldinger = values.andreInntektskilder.map((i) => {
-                if (i.avkrysset && i.sykmeldt === undefined && i.annenInntektskildeType !== ANNET) {
+                if (i.avkrysset && i.sykmeldt === undefined && i.annenInntektskildeType !== inntektskildetyper.ANNET) {
                     return {
                         sykmeldt: 'Vennligst svar på om du er sykmeldt',
                     };

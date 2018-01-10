@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { scrollTo, mapBackendsoknadToSkjemasoknad, mapSkjemasoknadToOppsummeringsoknad, SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon, Utvidbar } from 'digisyfo-npm';
+import { scrollTo, mapBackendsoknadToSkjemasoknad, mapSkjemasoknadToOppsummeringsoknad, SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon, Utvidbar, SykmeldingUtdrag, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { connect } from 'react-redux';
-import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Soknadstatuspanel from './Soknadstatuspanel';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import * as actions from '../../actions/sykepengesoknader_actions';
 import ConnectedEttersending from './Ettersending';
-import { KORRIGERT, SENDT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 import RelaterteSoknaderContainer from '../../containers/sykepengesoknad/RelaterteSoknaderContainer';
 import KorrigertAvContainer from '../../containers/sykepengesoknad/KorrigertAvContainer';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
+
+const { KORRIGERT, SENDT, TIL_SENDING } = sykepengesoknadstatuser;
 
 export const Avkrysset = ({ tekst }) => {
     return (<div className="oppsummering__avkrysset">

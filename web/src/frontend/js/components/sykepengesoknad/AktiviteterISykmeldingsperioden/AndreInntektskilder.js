@@ -1,17 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, FieldArray } from 'redux-form';
-import { getLedetekst, getInntektskildeLabel } from 'digisyfo-npm';
+import { getLedetekst, getInntektskildeLabel, inntektskildetyper as inntektskildetypeEnums } from 'digisyfo-npm';
 import Checkbox from '../../skjema/Checkbox';
 import { parseJaEllerNei } from '../JaEllerNei';
 import Feilomrade from '../../skjema/Feilomrade';
 import Radioknapper from '../../skjema/Radioknapper';
-import inntektskildetyper, { ANNET } from '../../../enums/inntektskildetyper';
 import { annenInntektskilde, fieldPropTypes } from '../../../propTypes';
 
 const getPresisering = (annenInntektskildeType) => {
     return getLedetekst(`sykepengesoknad.andre-inntektskilder.${annenInntektskildeType}.presisering`);
 };
+
+export const inntektskildetyper = Object.keys(inntektskildetypeEnums).map((key) => {
+    return {
+        annenInntektskildeType: inntektskildetypeEnums[key],
+    };
+});
 
 export const VelgInntektskilder = ({ fields, meta }) => {
     return (<Feilomrade {...meta} id="andreInntektskilder">
@@ -27,7 +32,7 @@ export const VelgInntektskilder = ({ fields, meta }) => {
                         key={index}
                         component={Checkbox}>
                         {
-                            field.annenInntektskildeType === ANNET ? null : <Field
+                            field.annenInntektskildeType === inntektskildetypeEnums.ANNET ? null : <Field
                                 component={Radioknapper}
                                 spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.er-du-sykmeldt-fra-dette.sporsmal')}
                                 parse={parseJaEllerNei}

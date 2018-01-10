@@ -9,7 +9,6 @@ import SendtSoknad, { getNokkelopplysninger, Knapperad, ConnectedKnapperad } fro
 import KorrigertAvContainer from '../../../js/containers/sykepengesoknad/KorrigertAvContainer';
 import { Soknad } from 'digisyfo-npm';
 import Sidetopp from '../../../js/components/Sidetopp';
-import SykmeldingUtdrag from '../../../js/components/sykepengesoknad/SykmeldingUtdrag';
 import Soknadstatuspanel from '../../../js/components/sykepengesoknad/Soknadstatuspanel';
 import Lightbox from '../../../js/components/Lightbox';
 import { Avkrysset } from '../../../js/components/sykepengesoknad/SendtSoknad';
@@ -20,7 +19,7 @@ import { Varselstripe, setLedetekster } from 'digisyfo-npm';
 import SykepengesoknadHeader from '../../../js/components/sykepengesoknad/SykepengesoknadHeader';
 import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
 import sinon from 'sinon';
-import { SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon } from 'digisyfo-npm';
+import { SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon, SykmeldingUtdrag } from 'digisyfo-npm';
 
 describe("SendtSoknad", () => {
 

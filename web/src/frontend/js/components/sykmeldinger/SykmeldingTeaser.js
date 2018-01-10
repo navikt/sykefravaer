@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { toDatePrettyPrint, getLedetekst, tidligsteFom, senesteTom } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, tidligsteFom, senesteTom, sykmeldingstatuser } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
-import { NY } from '../../enums/sykmeldingstatuser';
 import { sykmelding as sykmeldingPt, sykmeldingperiode } from '../../propTypes';
 
 const PeriodeListe = ({ perioder, arbeidsgiver }) => {
@@ -43,7 +42,7 @@ class SykmeldingTeaser extends Component {
     render() {
         const { sykmelding } = this.props;
         const antallPerioder = sykmelding.mulighetForArbeid.perioder.length;
-        const visStatus = sykmelding.status !== NY;
+        const visStatus = sykmelding.status !== sykmeldingstatuser.NY;
 
         return (<article aria-labelledby={`sykmelding-header-${this.props.sykmelding.id}`}>
             <Link

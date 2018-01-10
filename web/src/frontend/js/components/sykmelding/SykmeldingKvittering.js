@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, toDatePrettyPrint, keyValue, Video, filmer } from 'digisyfo-npm';
+import { getLedetekst, toDatePrettyPrint, keyValue, Video, filmer, sykmeldingstatuser } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
 import history from '../../history';
 import { sykepengesoknad as sykepengesoknadPt, sykmeldingstatus } from '../../propTypes';
-import { AVBRUTT } from '../../enums/sykmeldingstatuser';
 
 export const kvitteringtyper = {
     STANDARDKVITTERING: 'STANDARDKVITTERING',
@@ -37,8 +36,8 @@ Kvitteringsteg.propTypes = {
 
 export const Standardkvittering = (props) => {
     const { tittel, brodtekst, status } = props;
-    const ikon = status === AVBRUTT ? 'avbryt-sykmelding.svg' : 'digital-til-papir.svg';
-    const ikonKlasse = status === AVBRUTT ? 'illustrertTittel__img--mikro' : '';
+    const ikon = status === sykmeldingstatuser.AVBRUTT ? 'avbryt-sykmelding.svg' : 'digital-til-papir.svg';
+    const ikonKlasse = status === sykmeldingstatuser.AVBRUTT ? 'illustrertTittel__img--mikro' : '';
     return (<div className="panel blokk js-kvittering--standard">
         <div className="illustrertTittel">
             <img className={`illustrertTittel__img ${ikonKlasse}`} src={`/sykefravaer/img/svg/${ikon}`} alt="" />

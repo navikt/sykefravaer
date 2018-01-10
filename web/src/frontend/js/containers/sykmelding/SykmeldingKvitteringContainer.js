@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, getSykmelding, toDatePrettyPrint, senesteTom } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, getSykmelding, toDatePrettyPrint, senesteTom, sykepengesoknadstatuser, sykmeldingstatuser } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import Side from '../../sider/Side';
 import SykmeldingKvittering, { kvitteringtyper } from '../../components/sykmelding/SykmeldingKvittering';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import * as actions from '../../actions/sykepengesoknader_actions';
-import { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } from '../../enums/sykmeldingstatuser';
 import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../../propTypes';
-import { FREMTIDIG, NY } from '../../enums/sykepengesoknadstatuser';
+
+const { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } = sykmeldingstatuser;
+const { FREMTIDIG, NY } = sykepengesoknadstatuser;
 
 export const KvitteringSide = (props) => {
     const { sykmelding, henter, hentingFeilet, brodsmuler } = props;

@@ -1,9 +1,10 @@
 import React from 'react';
-import { DineSykmeldingOpplysninger, Utvidbar, getLedetekst } from 'digisyfo-npm';
+import { DineSykmeldingOpplysninger, Utvidbar, getLedetekst, nokkelopplysninger } from 'digisyfo-npm';
 import StatusPanel from '../StatusPanel';
-import { STATUS, INNSENDT_DATO } from '../../enums/nokkelopplysninger';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
+
+const { STATUS, INNSENDT_DATO } = nokkelopplysninger;
 
 const DinAvbrutteSykmelding = ({ sykmelding }) => {
     return (<div>

@@ -2,13 +2,15 @@ import chai from 'chai';
 import React from 'react'
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
+import { nokkelopplysninger } from 'digisyfo-npm';
 import ledetekster from "../mockLedetekster";
 import getSykmelding from "../mockSykmeldinger";
-import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../../js/enums/nokkelopplysninger';
 import StatusPanel from '../../js/components/StatusPanel';
 import StatusOpplysning from "../../js/components/StatusOpplysning";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
+
+const { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } = nokkelopplysninger;
 
 describe("StatusPanelTest", () => {
     let component;

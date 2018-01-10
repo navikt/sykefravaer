@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
-import { AVBRUTT, SLETTET_UTKAST } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Feilmelding from '../../components/Feilmelding';
 import { Standardkvittering } from '../../components/sykmelding/SykmeldingKvittering';
+
+const { AVBRUTT, SLETTET_UTKAST } = sykepengesoknadstatuser;
 
 export const Controller = (props) => {
     if (props.sykepengesoknad.status === AVBRUTT || props.sykepengesoknad.status === SLETTET_UTKAST) {

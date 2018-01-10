@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, Varselstripe, SykmeldingNokkelOpplysning, toDatePrettyPrint } from 'digisyfo-npm';
-import SykmeldingUtdrag from './SykmeldingUtdrag';
+import { getLedetekst, Varselstripe, SykmeldingNokkelOpplysning, toDatePrettyPrint, SykmeldingUtdrag, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
-import { AVBRUTT } from '../../enums/sykepengesoknadstatuser';
 
 const Verktoylinje = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFeilet }) => {
     return (<div>
@@ -52,7 +50,7 @@ const AvbruttSoknad = (props) => {
                             </SykmeldingNokkelOpplysning>
                         </div>
                     </div>
-                    { sykepengesoknad.status === AVBRUTT && <Verktoylinje {...props} /> }
+                    { sykepengesoknad.status === sykepengesoknadstatuser.AVBRUTT && <Verktoylinje {...props} /> }
                 </div>
             </Varselstripe>
         </div>

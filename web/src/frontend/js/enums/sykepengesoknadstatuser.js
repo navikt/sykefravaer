@@ -1,9 +1,0 @@
-export const SENDT = 'SENDT';
-export const NY = 'NY';
-export const TIL_SENDING = 'TIL_SENDING';
-export const UTGAATT = 'UTGAATT';
-export const UTKAST_TIL_KORRIGERING = 'UTKAST_TIL_KORRIGERING';
-export const KORRIGERT = 'KORRIGERT';
-export const FREMTIDIG = 'FREMTIDIG';
-export const AVBRUTT = 'AVBRUTT';
-export const SLETTET_UTKAST = 'SLETTET_UTKAST';

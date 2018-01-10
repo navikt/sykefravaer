@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerEldsteFoerst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, sorterSykmeldinger, sorterSykmeldingerEldsteFoerst, sykmeldingstatuser } from 'digisyfo-npm';
 import SykmeldingTeasere from './SykmeldingTeasere';
 import SykmeldingerSorteringContainer from '../../containers/sykmeldinger/SykmeldingerSorteringContainer';
 import Sidetopp from '../Sidetopp';
-import { NY } from '../../enums/sykmeldingstatuser';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 
 const DineSykmeldinger = ({ sykmeldinger = [], sortering }) => {
     const nyeSykmeldinger = sykmeldinger.filter((sykmld) => {
-        return sykmld.status === NY;
+        return sykmld.status === sykmeldingstatuser.NY;
     });
     const tidligereSykmeldinger = sykmeldinger.filter((sykmld) => {
-        return sykmld.status !== NY;
+        return sykmld.status !== sykmeldingstatuser.NY;
     });
     const tidligereSortering = sortering && sortering.tidligere ? sortering.tidligere : undefined;
 

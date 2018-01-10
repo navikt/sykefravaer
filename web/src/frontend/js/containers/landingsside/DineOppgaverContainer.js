@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { getSvarsideModus } from 'moter-npm';
-import { getLedetekst, log } from 'digisyfo-npm';
+import { getLedetekst, log, sykepengesoknadstatuser, sykmeldingstatuser } from 'digisyfo-npm';
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import { oppgaverOppfoelgingsdialoger } from '../../utils/oppfolgingsdialogUtils';
-import { NY as NY_SYKMELDING } from '../../enums/sykmeldingstatuser';
-import { NY as NY_SYKEPENGESOKNAD } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
 import { erMotePassert } from '../../utils/moteUtils';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
@@ -161,10 +159,10 @@ DineOppgaver.propTypes = {
 
 export const mapStateToProps = (state) => {
     const sykmeldinger = state.dineSykmeldinger.data.filter((s) => {
-        return s.status === NY_SYKMELDING;
+        return s.status === sykmeldingstatuser.NY;
     });
     const sykepengesoknader = state.sykepengesoknader.data.filter((s) => {
-        return s.status === NY_SYKEPENGESOKNAD;
+        return s.status === sykepengesoknadstatuser.NY;
     });
 
     const mote = state.mote.data;

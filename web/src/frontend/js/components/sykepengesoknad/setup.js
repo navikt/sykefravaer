@@ -1,15 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { mapAktiviteter, mapBackendsoknadToSkjemasoknad } from 'digisyfo-npm';
+import { mapAktiviteter, mapBackendsoknadToSkjemasoknad, inntektskildetyper as inntektskildetypeEnums, sykepengesoknadstatuser } from 'digisyfo-npm';
 import history from '../../history';
 import Feiloppsummering, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
-import inntektskildetyper from '../../enums/inntektskildetyper';
-import { UTKAST_TIL_KORRIGERING } from '../../enums/sykepengesoknadstatuser';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
 };
+
+export const andreInntektskilder = Object.keys(inntektskildetypeEnums).map((key) => {
+    return {
+        annenInntektskildeType: inntektskildetypeEnums[key],
+    };
+});
+
 
 export const SYKEPENGER_SKJEMANAVN = 'SYKEPENGERSKJEMA';
 
@@ -24,7 +29,7 @@ export const mapToInitialValues = (soknad) => {
             };
         }),
         utdanning: {},
-        andreInntektskilder: inntektskildetyper,
+        andreInntektskilder,
         utenlandsopphold: {
             perioder: [],
         },
@@ -33,7 +38,7 @@ export const mapToInitialValues = (soknad) => {
 
 export const mapStateToPropsMedInitialValues = (state, ownProps) => {
     const { sykepengesoknad } = ownProps;
-    const initialValues = sykepengesoknad.status === UTKAST_TIL_KORRIGERING ? mapBackendsoknadToSkjemasoknad(sykepengesoknad) : mapToInitialValues(sykepengesoknad);
+    const initialValues = sykepengesoknad.status === sykepengesoknadstatuser.UTKAST_TIL_KORRIGERING ? mapBackendsoknadToSkjemasoknad(sykepengesoknad) : mapToInitialValues(sykepengesoknad);
     return {
         initialValues,
         sykepengesoknad: mapAktiviteter(sykepengesoknad),

@@ -122,25 +122,17 @@ describe("sykmeldingUtils", () => {
     });
 
 
-    describe("skalViseOppfoelgingsdialogLenke", () => {
-
-        it("skal returnere false med 1 sykmelding utgaatt over 3mnd", () => {
-            const sykmeldinger = [sykmeldingUtgaattOver3mnd];
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, {})).to.be.false;
+    describe('skalViseOppfoelgingsdialogLenke', () => {
+        it('skal returnere false med 1 sykmelding uten orgnummer', () => {
+            const sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
+                orgnummer: null,
+            })];
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger)).to.be.false;
         });
 
-        it("skal returnere true med 1 aktiv og 1 sykmelding utgaatt over 3mnd", () => {
-            const sykmeldinger = [sykmeldingUtgaattOver3mnd, sykmeldingAktiv];
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, {})).to.be.false;
-        });
-        it("skal returnere false med 1 aktiv sykemelding, men ikke pilot oppgitt", () => {
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, {})).to.be.false;
-        });
-        it("skal returnere false med 1 aktiv sykemelding, men bedrift er ikke pilotbedrift", () => {
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, {"syfotoggles.oppfoelgingsdialog.piloter" : "***REMOVED***"})).to.be.false;
-        });
-        it("skal returnere true med 1 aktiv sykemelding og pilotbedrift", () => {
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, {"syfotoggles.oppfoelgingsdialog.piloter" : "123456789"})).to.be.true;
+        it('skal returnere true med 1 sykmelding med orgnummer', () => {
+            const sykmeldinger = [sykmeldingAktiv];
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger)).to.be.true;
         });
     });
 

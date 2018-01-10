@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { moteActions } from 'moter-npm';
 import { connect } from 'react-redux';
-import { getLedetekst, hentToggles, keyValue } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import Landingsside from '../../components/landingsside/Landingsside';
 import StrippetSide from '../../sider/StrippetSide';
 import Side from '../../sider/Side';
@@ -16,13 +16,10 @@ import { hentStartdato } from '../../actions/sykeforloep_actions';
 
 export class LandingssideSide extends Component {
     componentWillMount() {
-        const { mote, ledere, dineSykmeldinger, toggles, sykepengesoknader } = this.props.hentet;
+        const { mote, ledere, dineSykmeldinger, sykepengesoknader } = this.props.hentet;
         const { skalHenteStartdato } = this.props;
         if (!mote) {
             this.props.hentMote();
-        }
-        if (!toggles) {
-            this.props.hentToggles();
         }
         if (!sykepengesoknader && !this.props.hentingFeiletSykepengesoknader) {
             this.props.hentSykepengesoknader();
@@ -46,7 +43,6 @@ export class LandingssideSide extends Component {
             sykepengesoknader,
             harDialogmote,
             dineSykmeldinger,
-            toggles,
             altHentet,
         } = this.props;
         const Sidetype = hentingFeilet ? Side : StrippetSide;
@@ -63,7 +59,6 @@ export class LandingssideSide extends Component {
                     return (<Landingsside
                         brodsmuler={brodsmuler}
                         sykepengesoknader={sykepengesoknader}
-                        toggles={toggles}
                         harDialogmote={harDialogmote}
                         dineSykmeldinger={dineSykmeldinger}
                     />);
@@ -76,12 +71,10 @@ export class LandingssideSide extends Component {
 LandingssideSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     henter: PropTypes.bool,
-    toggles: keyValue,
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     harDialogmote: PropTypes.bool,
     hentMote: PropTypes.func,
-    hentToggles: PropTypes.func,
     hentLedere: PropTypes.func,
     hentSykepengesoknader: PropTypes.func,
     dineSykmeldinger: PropTypes.arrayOf(sykmeldingPt),
@@ -93,7 +86,6 @@ LandingssideSide.propTypes = {
         ledere: PropTypes.bool,
         mote: PropTypes.bool,
         dineSykmeldinger: PropTypes.bool,
-        toggles: PropTypes.bool,
         sykepengesoknader: PropTypes.bool,
     }),
     altHentet: PropTypes.bool,
@@ -106,7 +98,6 @@ export function mapStateToProps(state) {
         ledere: state.ledere.hentet === true,
         mote: state.mote.hentet === true,
         dineSykmeldinger: state.dineSykmeldinger.hentet === true,
-        toggles: state.toggles.hentet === true,
         sykepengesoknader: state.sykepengesoknader.hentet === true,
         sykeforloep: state.sykeforloep.hentet === true,
     };
@@ -115,14 +106,13 @@ export function mapStateToProps(state) {
     });
 
     return {
-        henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.toggles.henter || state.mote.henter || state.hendelser.henter || state.sykeforloep.henter,
+        henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.mote.henter || state.hendelser.henter || state.sykeforloep.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
         }],
         sykepengesoknader: state.sykepengesoknader.data,
-        toggles: state.toggles.data,
         harDialogmote: state.mote.data !== null,
         dineSykmeldinger: state.dineSykmeldinger.data,
         hentingFeiletSykepengesoknader: state.sykepengesoknader.hentingFeilet,
@@ -138,7 +128,6 @@ const LandingssideContainer = connect(mapStateToProps, {
     hentMote: moteActions.hentMote,
     hentSykepengesoknader,
     hentLedere,
-    hentToggles,
     hentDineSykmeldinger,
     hentStartdato,
 })(LandingssideSide);

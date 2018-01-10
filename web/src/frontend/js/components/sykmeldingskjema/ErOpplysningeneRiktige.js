@@ -4,7 +4,7 @@ import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-
 import JaEllerNei from '../../components/sykepengesoknad/JaEllerNei';
 import HvilkeOpplysningerErIkkeRiktige from './HvilkeOpplysningerErIkkeRiktige';
 
-const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map((key) => {
+export const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map((key) => {
     return {
         opplysning: feilaktigeOpplysningerEnums[key],
     };

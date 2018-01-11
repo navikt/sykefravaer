@@ -1,8 +1,14 @@
 import React from 'react';
 import { FieldArray } from 'redux-form';
+import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
 import JaEllerNei from '../../components/sykepengesoknad/JaEllerNei';
-import feilaktigeOpplysningerFields from '../../enums/feilaktigeOpplysninger';
 import HvilkeOpplysningerErIkkeRiktige from './HvilkeOpplysningerErIkkeRiktige';
+
+export const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map((key) => {
+    return {
+        opplysning: feilaktigeOpplysningerEnums[key],
+    };
+});
 
 const ErOpplysningeneRiktige = (props) => {
     return (<JaEllerNei
@@ -13,7 +19,7 @@ const ErOpplysningeneRiktige = (props) => {
             {...props}
             component={HvilkeOpplysningerErIkkeRiktige}
             name="feilaktigeOpplysninger"
-            fields={feilaktigeOpplysningerFields} />
+            fields={feilaktigeOpplysninger} />
     </JaEllerNei>);
 };
 

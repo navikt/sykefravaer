@@ -35,11 +35,10 @@ export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteL
     });
 };
 
-export const skalViseOppfoelgingsdialogLenke = (sykmeldinger, toggles) => {
-    const piloter = toggles['syfotoggles.oppfoelgingsdialog.piloter'] ? toggles['syfotoggles.oppfoelgingsdialog.piloter'].split(',') : [];
+export const skalViseOppfoelgingsdialogLenke = (sykmeldinger) => {
     return sykmeldinger.filter((sykmelding, idx, self) => {
         return self.findIndex((t) => {
-            return t.orgnummer === sykmelding.orgnummer && sykmelding.orgnummer !== null && piloter.includes(sykmelding.orgnummer);
+            return t.orgnummer === sykmelding.orgnummer && sykmelding.orgnummer !== null;
         }) === idx;
     }).length > 0;
 };

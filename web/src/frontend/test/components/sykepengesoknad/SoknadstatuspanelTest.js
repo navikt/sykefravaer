@@ -1,7 +1,6 @@
 import Statuspanel from '../../../js/components/sykepengesoknad/Soknadstatuspanel';
 import KorrigertAvContainer from '../../../js/containers/sykepengesoknad/KorrigertAvContainer';
-import * as statuser from '../../../js/enums/sykepengesoknadstatuser';
-import { Hjelpetekst, setLedetekster, Varselstripe } from 'digisyfo-npm';
+import { Hjelpetekst, setLedetekster, Varselstripe, sykepengesoknadstatuser as statuser } from 'digisyfo-npm';
 import chai from 'chai';
 import React from 'react';
 import {mount, render, shallow} from 'enzyme';

@@ -7,10 +7,9 @@ import { FieldArray } from 'redux-form';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import ErOpplysningeneRiktige from '../../../js/components/sykmeldingskjema/ErOpplysningeneRiktige';
+import ErOpplysningeneRiktige, { feilaktigeOpplysninger } from '../../../js/components/sykmeldingskjema/ErOpplysningeneRiktige';
 import HvilkeOpplysningerErIkkeRiktige from '../../../js/components/sykmeldingskjema/HvilkeOpplysningerErIkkeRiktige'
 import JaEllerNei from '../../../js/components/sykepengesoknad/JaEllerNei';
-import feilaktigeOpplysninger from '../../../js/enums/feilaktigeOpplysninger';
 
 describe("ErOpplysningeneRiktige -", () => {
 

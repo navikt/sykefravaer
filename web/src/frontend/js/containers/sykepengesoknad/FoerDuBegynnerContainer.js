@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { destroy } from 'redux-form';
 import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
@@ -10,10 +10,11 @@ import UtgaattSoknad from '../../components/sykepengesoknad/UtgaattSoknad';
 import AvbruttSoknadContainer from './AvbruttSoknadContainer';
 import Feilmelding from '../../components/Feilmelding';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
-import { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST, FREMTIDIG } from '../../enums/sykepengesoknadstatuser';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { SYKEPENGER_SKJEMANAVN } from '../../components/sykepengesoknad/setup';
 import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
+
+const { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST, FREMTIDIG } = sykepengesoknadstatuser;
 
 export const Controller = (props) => {
     const { sykepengesoknad, vedlikehold } = props;
@@ -99,6 +100,7 @@ Container.propTypes = {
     hentBerikelse: PropTypes.func,
     brukerHarNavigertTilAnnenSoknad: PropTypes.bool,
     destroy: PropTypes.func,
+    erForsteSoknad: PropTypes.bool,
 };
 
 export const mapStateToProps = (state, ownProps) => {

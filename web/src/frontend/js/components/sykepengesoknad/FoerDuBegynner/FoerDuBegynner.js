@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, Varselstripe, getHtmlLedetekst } from 'digisyfo-npm';
+import { getLedetekst, Varselstripe, getHtmlLedetekst, SykmeldingUtdrag, sykepengesoknadstatuser } from 'digisyfo-npm';
 import history from '../../../history';
 import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';
-import SykmeldingUtdrag from '../SykmeldingUtdrag';
 import validate from '../validering/validerFoerDuBegynner';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
-import { NY, UTKAST_TIL_KORRIGERING } from '../../../enums/sykepengesoknadstatuser';
 import SykepengesoknadHeader from '../SykepengesoknadHeader';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad/AvbrytSoknadContainer';
 import IllustrertInnhold from '../../IllustrertInnhold';
+
+const { NY, UTKAST_TIL_KORRIGERING } = sykepengesoknadstatuser;
 
 const KorrigerVarsel = () => {
     return (<div className="panel panel--komprimert blokk">

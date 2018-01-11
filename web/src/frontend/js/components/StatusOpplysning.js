@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Hjelpetekst, SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
-import { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } from '../enums/nokkelopplysninger';
-import { BEKREFTET, AVBRUTT, TIL_SENDING } from '../enums/sykmeldingstatuser';
+import { Hjelpetekst, SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst, nokkelopplysninger, sykmeldingstatuser } from 'digisyfo-npm';
 import { sykmelding as sykmeldingPt } from '../propTypes';
+
+const { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } = nokkelopplysninger;
+const { BEKREFTET, AVBRUTT, TIL_SENDING } = sykmeldingstatuser;
 
 const tilSendingHjelpetekst = () => {
     return (<Hjelpetekst

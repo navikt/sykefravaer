@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Varselstripe, SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
-import { SENDT, TIL_SENDING, KORRIGERT } from '../../enums/sykepengesoknadstatuser';
+import { Varselstripe, SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst, Hjelpetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { erSendtTilBeggeMenIkkeSamtidig, getSendtTilSuffix } from '../../utils/sykepengesoknadUtils';
+
+const { SENDT, TIL_SENDING, KORRIGERT } = sykepengesoknadstatuser;
 
 const getStatusTittel = (sykepengesoknad) => {
     switch (sykepengesoknad.status) {

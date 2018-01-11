@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sykepengesoknad as sykepengesoknadPt, getLedetekst, getHtmlLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt, getLedetekst, getHtmlLedetekst, toDatePrettyPrint, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import { NY, SENDT, FREMTIDIG, AVBRUTT, UTGAATT, TIL_SENDING } from '../../enums/sykepengesoknadstatuser';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { Soknadsdatoliste } from './SykmeldingKvittering';
+
+const { NY, SENDT, FREMTIDIG, AVBRUTT, UTGAATT, TIL_SENDING } = sykepengesoknadstatuser;
 
 const LenkeTilSoknader = () => {
     return (<p className="sist">

@@ -1,6 +1,5 @@
 import React from 'react';
-import { getLedetekst, Varselstripe } from 'digisyfo-npm';
-import SykmeldingUtdrag from './SykmeldingUtdrag';
+import { getLedetekst, Varselstripe, SykmeldingUtdrag } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
 

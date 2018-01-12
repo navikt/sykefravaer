@@ -29,7 +29,7 @@ describe("ErOpplysningeneRiktige -", () => {
     });
 
     it("skal vise riktig spoersmal", () => {
-        const comp = shallow(<ErOpplysningeneRiktige />)
+        const comp = shallow(<ErOpplysningeneRiktige />);
         expect(comp.find(JaEllerNei).prop("spoersmal")).to.equal("Er opplysningene i sykmeldingen riktige?");
     });
 

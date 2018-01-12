@@ -83,6 +83,31 @@ export default function sykmeldinger(state = initiellState, action) {
                 avbrytFeilet: false,
             };
         }
+        case actiontyper.GJENAAPNER_SYKMELDING: {
+            return {
+                ...state,
+                gjenaapner: true,
+                gjenaapneFeilet: false,
+            };
+        }
+        case actiontyper.GJENAAPNE_SYKMELDING_FEILET: {
+            return {
+                ...state,
+                gjenaapner: false,
+                gjenaapneFeilet: true,
+            };
+        }
+        case actiontyper.SYKMELDING_GJENAAPNET: {
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                status: AVBRUTT,
+            });
+            return {
+                ...state,
+                data,
+                gjenaapner: false,
+                gjenaapneFeilet: false,
+            };
+        }
         case actiontyper.HENT_DINE_SYKMELDINGER_FEILET: {
             return {
                 data: [],

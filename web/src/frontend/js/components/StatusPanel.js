@@ -4,7 +4,7 @@ import { Varselstripe } from 'digisyfo-npm';
 import StatusOpplysning from './StatusOpplysning';
 import { sykmelding as sykmeldingPt } from '../propTypes';
 
-const StatusPanel = ({ sykmelding, nokkelopplysninger, type }) => {
+const StatusPanel = ({ sykmelding, nokkelopplysninger, type, children }) => {
     const varselprops = {
         type,
     };
@@ -25,6 +25,7 @@ const StatusPanel = ({ sykmelding, nokkelopplysninger, type }) => {
             <Varselstripe {...varselprops}>
                 <div>{html}</div>
             </Varselstripe>
+            {children}
         </div>);
 };
 
@@ -32,6 +33,7 @@ StatusPanel.propTypes = {
     sykmelding: sykmeldingPt,
     type: PropTypes.string,
     nokkelopplysninger: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+    children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 
 export default StatusPanel;

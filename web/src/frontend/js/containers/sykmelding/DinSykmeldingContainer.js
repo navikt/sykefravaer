@@ -63,8 +63,7 @@ export class DinSykmldSide extends Component {
                         eldsteSykmeldingId={eldsteSykmeldingId} />);
                 } else if (dinSykmelding.status === AVBRUTT) {
                     return (<div>
-                        <DinAvbrutteSykmelding
-                            sykmelding={dinSykmelding} />
+                        <DinAvbrutteSykmelding sykmelding={dinSykmelding} />
                         <LenkeTilDineSykmeldinger />
                     </div>);
                 }

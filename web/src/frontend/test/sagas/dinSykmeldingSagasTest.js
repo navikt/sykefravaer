@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { bekreftSykmelding, sendSykmeldingTilArbeidsgiver, avbrytSykmelding } from '../../js/sagas/dinSykmeldingSagas';
+import { bekreftSykmelding, sendSykmeldingTilArbeidsgiver, avbrytSykmelding, gjenaapneSykmelding } from '../../js/sagas/dinSykmeldingSagas';
 import * as actions from '../../js/actions/dinSykmelding_actions';
 import { post } from '../../js/api';
 import { put, call } from 'redux-saga/effects';
@@ -11,7 +11,7 @@ describe("dinSykmeldingSagas", () => {
         window.APP_SETTINGS = {
             REST_ROOT: "http://tjenester.nav.no/syforest"
         }
-    })
+    });
 
     describe("bekreftSykmelding", () => {
 
@@ -149,4 +149,45 @@ describe("dinSykmeldingSagas", () => {
 
     });
 
+
+    describe("gjenaapneSykmelding", () => {
+
+        const action = actions.gjenaapneSykmelding("minAndreSykmeldingId", {
+            periode: true,
+        });
+        const generator = gjenaapneSykmelding(action);
+
+        it("Skal dispatche GJENAAPNER_SYKMELDING", () => {
+            const nextPut = put({type: actiontyper.GJENAAPNER_SYKMELDING});
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
+
+        it("Skal dernest gjeaapne sykmeldingen", () => {
+            const nextCall = call(post, 'http://tjenester.nav.no/syforest/sykmeldinger/minAndreSykmeldingId/actions/gjenaapne');
+            expect(generator.next().value).to.deep.equal(nextCall);
+        });
+
+        it("Skal dernest dispatche SYKMELDING_GJENAAPNET", () => {
+            const nextPut = put({
+                type: actiontyper.SYKMELDING_GJENAAPNET,
+                sykmeldingId: "minAndreSykmeldingId"
+            });
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
+
+        it("Skal dernest hente dine sykmeldinger", () => {
+            const nextPut = put({
+                type: actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT,
+            });
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
+
+        it("Skal dernest hente arbeidsgivers sykmeldinger", () => {
+            const nextPut = put({
+                type: actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT,
+            });
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
+
+    });
 });

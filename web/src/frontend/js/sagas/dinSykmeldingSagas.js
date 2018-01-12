@@ -64,8 +64,25 @@ export function* avbrytSykmelding(action) {
     }
 }
 
+export function* gjenaapneSykmelding(action) {
+    yield put({ type: actiontyper.GJENAAPNER_SYKMELDING });
+    try {
+        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/gjenaapne`);
+        yield put(actions.sykmeldingGjenaapnet(action.sykmeldingId));
+        yield put(dineSykmeldingerActions.hentDineSykmeldinger());
+        yield put(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
+    } catch (e) {
+        log(e);
+        yield put(actions.gjenaapneSykmeldingFeilet());
+    }
+}
+
 function* watchAvbrytSykmelding() {
     yield* takeEvery(actiontyper.AVBRYT_SYKMELDING_FORESPURT, avbrytSykmelding);
+}
+
+function* watchGjenaapneSykmelding() {
+    yield* takeEvery(actiontyper.GJENAAPNE_SYKMELDING_FORESPURT, gjenaapneSykmelding);
 }
 
 function* watchSendSykmelding() {
@@ -79,6 +96,7 @@ function* watchBekreftSykmelding() {
 export default function* dinSykmeldingSagas() {
     yield [
         fork(watchAvbrytSykmelding),
+        fork(watchGjenaapneSykmelding),
         fork(watchSendSykmelding),
         fork(watchBekreftSykmelding),
     ];

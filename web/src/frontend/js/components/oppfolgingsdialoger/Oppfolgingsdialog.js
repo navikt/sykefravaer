@@ -55,7 +55,6 @@ class Oppfolgingsdialog extends Component {
         finnOgHentNaermesteLedereSomMangler([oppfolgingsdialog], naermesteleder, hentNaermesteLeder);
         finnOgHentKontaktinfoSomMangler([oppfolgingsdialog], kontaktinfo, hentKontaktinfo);
         finnOgHentArbeidsforholdSomMangler([oppfolgingsdialog], arbeidsforhold, hentArbeidsforhold);
-
     }
 
     visAvvisPlanKvittering(vis, begrunnelse) {

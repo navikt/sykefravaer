@@ -75,6 +75,14 @@ export function sykmeldingAvbrutt(sykmeldingId) {
     };
 }
 
+export function avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger = {}) {
+    return {
+        type: actiontyper.AVBRYT_SYKMELDING_FORESPURT,
+        sykmeldingId,
+        feilaktigeOpplysninger,
+    };
+}
+
 export function gjenaapnerSykmelding() {
     return {
         type: actiontyper.GJENAAPNER_SYKMELDING,
@@ -90,6 +98,13 @@ export function gjenaapneSykmeldingFeilet() {
 export function sykmeldingGjenaapnet(sykmeldingId) {
     return {
         type: actiontyper.SYKMELDING_GJENAAPNET,
+        sykmeldingId,
+    };
+}
+
+export function gjenaapneSykmelding(sykmeldingId) {
+    return {
+        type: actiontyper.GJENAAPNE_SYKMELDING_FORESPURT,
         sykmeldingId,
     };
 }
@@ -127,20 +142,5 @@ export function sendSykmeldingTilArbeidsgiver(sykmeldingId, orgnummer, feilaktig
         orgnummer,
         feilaktigeOpplysninger,
         beOmNyNaermesteLeder,
-    };
-}
-
-export function avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger = {}) {
-    return {
-        type: actiontyper.AVBRYT_SYKMELDING_FORESPURT,
-        sykmeldingId,
-        feilaktigeOpplysninger,
-    };
-}
-
-export function gjenaapneSykmelding(sykmeldingId) {
-    return {
-        type: actiontyper.GJENAAPNE_SYKMELDING_FORESPURT,
-        sykmeldingId,
     };
 }

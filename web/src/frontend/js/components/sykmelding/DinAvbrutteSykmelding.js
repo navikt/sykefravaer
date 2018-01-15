@@ -3,6 +3,7 @@ import { DineSykmeldingOpplysninger, Utvidbar, getLedetekst, nokkelopplysninger 
 import StatusPanel from '../StatusPanel';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
+import GjenaapneSykmeldingContainer from '../../containers/sykmelding/GjenaapneSykmeldingContainer';
 
 const { STATUS, INNSENDT_DATO } = nokkelopplysninger;
 
@@ -12,7 +13,9 @@ const DinAvbrutteSykmelding = ({ sykmelding }) => {
         <StatusPanel
             sykmelding={sykmelding}
             type="avbrutt"
-            nokkelopplysninger={[[STATUS, INNSENDT_DATO]]} />
+            nokkelopplysninger={[[STATUS, INNSENDT_DATO]]}>
+            <GjenaapneSykmeldingContainer sykmeldingId={sykmelding.id} />
+        </StatusPanel>
         <Utvidbar
             erApen
             tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}

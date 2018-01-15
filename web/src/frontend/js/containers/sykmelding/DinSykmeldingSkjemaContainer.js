@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getSykmelding, getLedetekst, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
+import { getSykmelding, getLedetekst, feilaktigeOpplysninger as feilaktigeOpplysningerEnums, arbeidssituasjoner } from 'digisyfo-npm';
 import * as sykmeldingActions from '../../actions/dinSykmelding_actions';
 import DinSykmeldingSkjema from '../../components/sykmeldingskjema/DinSykmeldingSkjema';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
@@ -81,6 +81,7 @@ export const mapStateToProps = (state, ownProps) => {
         skjemaData: state.form.dinSykmeldingSkjema,
         initialValues: {
             ...sykmelding,
+            valgtArbeidssituasjon: arbeidssituasjoner.DEFAULT,
             feilaktigeOpplysninger,
         },
         sykmelding,

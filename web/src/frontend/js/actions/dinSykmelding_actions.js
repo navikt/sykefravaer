@@ -75,6 +75,25 @@ export function sykmeldingAvbrutt(sykmeldingId) {
     };
 }
 
+export function gjenaapnerSykmelding() {
+    return {
+        type: actiontyper.GJENAAPNER_SYKMELDING,
+    };
+}
+
+export function gjenaapneSykmeldingFeilet() {
+    return {
+        type: actiontyper.GJENAAPNE_SYKMELDING_FEILET,
+    };
+}
+
+export function sykmeldingGjenaapnet(sykmeldingId) {
+    return {
+        type: actiontyper.SYKMELDING_GJENAAPNET,
+        sykmeldingId,
+    };
+}
+
 export function setOpplysningeneErRiktige(sykmeldingId, erRiktige) {
     return {
         type: actiontyper.SET_OPPLYSNINGENE_ER_RIKTIGE,
@@ -116,5 +135,12 @@ export function avbrytSykmelding(sykmeldingId, feilaktigeOpplysninger = {}) {
         type: actiontyper.AVBRYT_SYKMELDING_FORESPURT,
         sykmeldingId,
         feilaktigeOpplysninger,
+    };
+}
+
+export function gjenaapneSykmelding(sykmeldingId) {
+    return {
+        type: actiontyper.GJENAAPNE_SYKMELDING_FORESPURT,
+        sykmeldingId,
     };
 }

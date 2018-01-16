@@ -18,6 +18,7 @@ import {
     finnOgHentVirksomheterSomMangler,
     finnOgHentPersonerSomMangler,
     finnOgHentForrigeNaermesteLedereSomMangler,
+    UnderUtviklingVarsel,
     OppfolgingsdialogUtenSykmelding,
     OppfolgingsdialogerUtenAktivSykmelding,
 } from 'oppfolgingsdialog-npm';
@@ -32,6 +33,7 @@ import {
 } from '../../utils/oppfolgingsdialogUtils';
 import { finnArbeidsgivereForGyldigeSykmeldinger, HarAktivSykmelding } from '../../utils/sykmeldingUtils';
 import UnderUtviklingVarsel from './UnderUtviklingVarsel';
+import { finnArbeidsgivereForGyldigeSykmeldinger } from '../../utils/sykmeldingUtils';
 import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
 import OppfolgingsdialogFilm from './OppfolgingsdialogFilm';
@@ -115,7 +117,7 @@ class Oppfolgingsdialoger extends Component {
                 {!isEmpty(oppfolgingsdialoger) && harAktivOppfolgingsdialog(oppfolgingsdialoger) &&
                 <div>
                     { finnArbeidsgivereForGyldigeSykmeldinger(dinesykmeldinger.data, naermesteLedere.data).length > 1 &&
-                    <OppfolgingsdialogNyDialog />
+                        <OppfolgingsdialogNyDialog />
                     }
                     <OppfolgingsdialogTeasere
                         ledetekster={ledetekster}
@@ -159,7 +161,10 @@ class Oppfolgingsdialoger extends Component {
             </div>);
         }
         return (<div>
-            <UnderUtviklingVarsel />
+            <UnderUtviklingVarsel
+                ledetekster={ledetekster}
+                rootUrl={getContextRoot()}
+            />
             <Sidetopp
                 tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
             <p className="oppfolgingsdialoger__tekst">

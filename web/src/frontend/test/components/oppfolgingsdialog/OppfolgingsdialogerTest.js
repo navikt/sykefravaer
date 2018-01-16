@@ -7,6 +7,7 @@ import {
     OppfolgingsdialogTeasere,
     OppfolgingsdialogerIngenplan,
     NyNaermestelederInfoboks,
+    UnderUtviklingVarsel,
 } from 'oppfolgingsdialog-npm';
 import Sidetopp from '../../../js/components/Sidetopp';
 import Oppfolgingsdialoger, { OppfolgingsdialogNyDialog } from '../../../js/components/oppfolgingsdialoger/Oppfolgingsdialoger';
@@ -73,6 +74,10 @@ describe('Oppfolgingsdialoger', () => {
             person={person}
             kontaktinfo={kontaktinfo}
         />);
+    });
+
+    it('Skal vise UnderUtviklingVarsel', () => {
+        expect(component.find(UnderUtviklingVarsel)).to.have.length(1);
     });
 
     it('Skal vise overskrift for Oppfolgingsdialoger', () => {

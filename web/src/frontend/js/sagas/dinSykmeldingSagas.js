@@ -77,6 +77,23 @@ export function* gjenaapneSykmelding(action) {
     }
 }
 
+export function* angreBekreftSykmelding(action) {
+    yield put(actions.angrerBekreftSykmelding());
+    try {
+        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/gjenaapne`);
+        yield put(actions.bekreftSykmeldingAngret(action.sykmeldingId));
+        yield put(dineSykmeldingerActions.hentDineSykmeldinger());
+        yield put(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
+    } catch (e) {
+        log(e);
+        yield put(actions.angreBekreftSykmeldingFeilet());
+    }
+}
+
+function* watchAngreBekreftSykmelding() {
+    yield* takeEvery(actiontyper.ANGRE_BEKREFT_SYKMELDING_FORESPURT, angreBekreftSykmelding);
+}
+
 function* watchAvbrytSykmelding() {
     yield* takeEvery(actiontyper.AVBRYT_SYKMELDING_FORESPURT, avbrytSykmelding);
 }
@@ -99,5 +116,6 @@ export default function* dinSykmeldingSagas() {
         fork(watchGjenaapneSykmelding),
         fork(watchSendSykmelding),
         fork(watchBekreftSykmelding),
+        fork(watchAngreBekreftSykmelding),
     ];
 }

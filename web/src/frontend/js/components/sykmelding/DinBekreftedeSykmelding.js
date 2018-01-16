@@ -5,6 +5,7 @@ import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/Arbeid
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import SykepengesoknadstatusContainer from '../../containers/sykmelding/SykepengesoknadstatusContainer';
+import AngreBekreftSykmeldingContainer from '../../containers/sykmelding/AngreBekreftSykmeldingContainer';
 
 const { STATUS, INNSENDT_DATO } = nokkelopplysninger;
 
@@ -14,7 +15,9 @@ const DinBekreftedeSykmelding = ({ dinSykmelding }) => {
         <StatusPanel
             sykmelding={dinSykmelding}
             type="suksess"
-            nokkelopplysninger={[[STATUS, INNSENDT_DATO]]} />
+            nokkelopplysninger={[[STATUS, INNSENDT_DATO]]}>
+            <AngreBekreftSykmeldingContainer sykmeldingId={dinSykmelding.id} />
+        </StatusPanel>
         <Utvidbar
             erApen
             tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}
@@ -23,7 +26,8 @@ const DinBekreftedeSykmelding = ({ dinSykmelding }) => {
             ikonAltTekst="Du"
             className="blokk"
             variant="lysebla"
-            Overskrift="h2">
+            Overskrift="h2"
+        >
             <DineSykmeldingOpplysninger sykmelding={dinSykmelding} />
         </Utvidbar>
         {

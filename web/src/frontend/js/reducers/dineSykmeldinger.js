@@ -1,7 +1,7 @@
 import { parseSykmelding, sykmeldingstatuser } from 'digisyfo-npm';
 import * as actiontyper from '../actions/actiontyper';
 
-const { SENDT, BEKREFTET, AVBRUTT } = sykmeldingstatuser;
+const { SENDT, BEKREFTET, AVBRUTT, NY } = sykmeldingstatuser;
 
 const initiellState = {
     henter: false,
@@ -108,6 +108,35 @@ export default function sykmeldinger(state = initiellState, action) {
                 gjenaapneFeilet: false,
             };
         }
+
+
+        case actiontyper.ANGRER_BEKREFT_SYKMELDING: {
+            return {
+                ...state,
+                angreBekreftSykmelding: true,
+                angreBekreftSykmeldingFeilet: false,
+            };
+        }
+        case actiontyper.ANGRE_BEKREFT_SYKMELDING_FEILET: {
+            return {
+                ...state,
+                angreBekreftSykmelding: false,
+                angreBekreftSykmeldingFeilet: true,
+            };
+        }
+        case actiontyper.BEKREFT_SYKMELDING_ANGRET: {
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                status: NY,
+            });
+            return {
+                ...state,
+                data,
+                angreBekreftSykmelding: false,
+                angreBekreftSykmeldingFeilet: false,
+            };
+        }
+
+
         case actiontyper.HENT_DINE_SYKMELDINGER_FEILET: {
             return {
                 data: [],

@@ -32,7 +32,6 @@ import {
     erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere,
 } from '../../utils/oppfolgingsdialogUtils';
 import { finnArbeidsgivereForGyldigeSykmeldinger, HarAktivSykmelding } from '../../utils/sykmeldingUtils';
-import UnderUtviklingVarsel from './UnderUtviklingVarsel';
 import { finnArbeidsgivereForGyldigeSykmeldinger } from '../../utils/sykmeldingUtils';
 import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';

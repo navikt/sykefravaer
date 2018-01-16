@@ -50,7 +50,7 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
 }
 
 export function* avbrytSykmelding(action) {
-    yield put({ type: actiontyper.AVBRYTER_SYKMELDING });
+    yield put(actions.avbryterSykmelding());
     const body = action.feilaktigeOpplysninger;
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/avbryt`, body);
@@ -65,7 +65,7 @@ export function* avbrytSykmelding(action) {
 }
 
 export function* gjenaapneSykmelding(action) {
-    yield put({ type: actiontyper.GJENAAPNER_SYKMELDING });
+    yield put(actions.gjenaapnerSykmelding());
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/gjenaapne`);
         yield put(actions.sykmeldingGjenaapnet(action.sykmeldingId));

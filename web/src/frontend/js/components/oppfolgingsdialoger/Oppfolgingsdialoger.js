@@ -18,6 +18,8 @@ import {
     finnOgHentVirksomheterSomMangler,
     finnOgHentPersonerSomMangler,
     finnOgHentForrigeNaermesteLedereSomMangler,
+    OppfolgingsdialogUtenSykmelding,
+    OppfolgingsdialogerUtenAktivSykmelding,
 } from 'oppfolgingsdialog-npm';
 import {
     dinesykmeldingerReducerPt,
@@ -28,7 +30,7 @@ import {
     isEmpty,
     erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere,
 } from '../../utils/oppfolgingsdialogUtils';
-import { finnArbeidsgivereForGyldigeSykmeldinger } from '../../utils/sykmeldingUtils';
+import { finnArbeidsgivereForGyldigeSykmeldinger, HarAktivSykmelding } from '../../utils/sykmeldingUtils';
 import UnderUtviklingVarsel from './UnderUtviklingVarsel';
 import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
@@ -87,12 +89,33 @@ class Oppfolgingsdialoger extends Component {
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrlImg={getContextRoot()}
             />);
+        } else if (!HarAktivSykmelding(dinesykmeldinger.data)) {
+            panel = (
+                <div>
+                    <div className="blokk--l">
+                        <OppfolgingsdialogUtenSykmelding
+                            ledetekster={ledetekster}
+                            rootUrl={getContextRoot()}
+                        />
+                    </div>
+
+                    { !isEmpty(oppfolgingsdialoger) &&
+                    <div>
+                        <OppfolgingsdialogerUtenAktivSykmelding
+                            ledetekster={ledetekster}
+                            oppfolgingsdialoger={oppfolgingsdialoger}
+                            tittel={getLedetekst('oppfolgingsdialoger.tidligereplaner.tittel')}
+                            rootUrl={getContextRoot()}
+                        />
+                    </div>
+                    }
+                </div>);
         } else {
             panel = (<div>
                 {!isEmpty(oppfolgingsdialoger) && harAktivOppfolgingsdialog(oppfolgingsdialoger) &&
                 <div>
                     { finnArbeidsgivereForGyldigeSykmeldinger(dinesykmeldinger.data, naermesteLedere.data).length > 1 &&
-                        <OppfolgingsdialogNyDialog />
+                    <OppfolgingsdialogNyDialog />
                     }
                     <OppfolgingsdialogTeasere
                         ledetekster={ledetekster}

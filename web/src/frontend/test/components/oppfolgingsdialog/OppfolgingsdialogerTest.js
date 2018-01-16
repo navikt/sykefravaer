@@ -19,6 +19,19 @@ import getSykmelding from '../../mockSykmeldinger';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 import sinon from 'sinon';
+const MILLISEKUNDER_PER_DAG = 86400000;
+
+export const trekkDagerFraDato = (dato, dager) => {
+    const nyDato = new Date(dato);
+    nyDato.setTime(nyDato.getTime() - (dager * MILLISEKUNDER_PER_DAG));
+    return new Date(nyDato);
+};
+
+export const leggTilDagerPaaDato = (dato, dager) => {
+    const nyDato = new Date(dato);
+    nyDato.setTime(nyDato.getTime() + (dager * MILLISEKUNDER_PER_DAG));
+    return new Date(nyDato);
+};
 
 describe('Oppfolgingsdialoger', () => {
     let component;
@@ -29,6 +42,8 @@ describe('Oppfolgingsdialoger', () => {
     let hentPerson;
     let hentForrigeNaermesteLeder;
     let hentKontaktinfo;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const virksomhet = {
         henter: [],
         hentet: [],
@@ -54,7 +69,20 @@ describe('Oppfolgingsdialoger', () => {
         data: [],
     };
     beforeEach(() => {
-        dinesykmeldinger = { data: [] };
+        dinesykmeldinger = {data: [getSykmelding({
+            mulighetForArbeid: {
+                perioder: [
+                    {
+                        fom: trekkDagerFraDato(today, 35).toISOString(),
+                        tom: trekkDagerFraDato(today, 5).toISOString(),
+                    },
+                    {
+                        fom: trekkDagerFraDato(today, 5).toISOString(),
+                        tom: leggTilDagerPaaDato(today, 35).toISOString(),
+                    },
+                ],
+            },
+        })] };
         naermesteLedere = { data: [] };
         hentForrigeNaermesteLeder = sinon.spy();
         hentPerson = sinon.spy();

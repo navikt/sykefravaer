@@ -52,6 +52,9 @@ export class OppfolgingsdialogerSide extends Component {
             this.props.hentOppfolgingsdialoger();
         }
         window.sessionStorage.setItem('hash', 'arbeidsoppgaver');
+        window.sessionStorage.removeItem('startdato');
+        window.sessionStorage.removeItem('sluttdato');
+        window.sessionStorage.removeItem('evalueringsdato');
     }
 
     componentWillReceiveProps(nextProps) {

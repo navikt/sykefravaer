@@ -1,16 +1,15 @@
 import chai from 'chai';
 import React from 'react'
-import { mount, shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { nokkelopplysninger } from 'digisyfo-npm';
-import ledetekster from "../mockLedetekster";
 import getSykmelding from "../mockSykmeldinger";
 import StatusPanel from '../../js/components/StatusPanel';
 import StatusOpplysning from "../../js/components/StatusOpplysning";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-const { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } = nokkelopplysninger;
+const { ARBEIDSGIVER, INNSENDT_DATO, STATUS } = nokkelopplysninger;
 
 describe("StatusPanelTest", () => {
     let component;
@@ -26,7 +25,7 @@ describe("StatusPanelTest", () => {
     it("En enkelt rad, med et element gir en container og et element", () => {
         const nokkelopplysninger = [[STATUS]];
 
-        component = shallow(<StatusPanel sykmelding={getSykmelding()} nokkelopplysninger={nokkelopplysninger} />);
+        component = mount(<StatusPanel sykmelding={getSykmelding()} nokkelopplysninger={nokkelopplysninger} />);
         expect(component.find(StatusOpplysning)).to.have.length(1);
         expect(component.find(".js-rad")).to.have.length(1);
     });
@@ -34,7 +33,7 @@ describe("StatusPanelTest", () => {
     it("En enkelt rad, med to elementer gir en container og to elementer", () => {
         const nokkelopplysninger = [[STATUS, INNSENDT_DATO]];
 
-        component = shallow(<StatusPanel sykmelding={getSykmelding()} nokkelopplysninger={nokkelopplysninger} />);
+        component = mount(<StatusPanel sykmelding={getSykmelding()} nokkelopplysninger={nokkelopplysninger} />);
         expect(component.find(StatusOpplysning)).to.have.length(2);
         expect(component.find(".js-rad")).to.have.length(1);
     });
@@ -42,7 +41,7 @@ describe("StatusPanelTest", () => {
     it("To rader, med et element hver gir to containere og to elementer", () => {
         const nokkelopplysninger = [[STATUS], [INNSENDT_DATO]];
 
-        component = shallow(<StatusPanel sykmelding={getSykmelding()} nokkelopplysninger={nokkelopplysninger} />);
+        component = mount(<StatusPanel sykmelding={getSykmelding()} nokkelopplysninger={nokkelopplysninger} />);
         expect(component.find(StatusOpplysning)).to.have.length(2);
         expect(component.find(".js-rad")).to.have.length(2);
     });
@@ -50,7 +49,7 @@ describe("StatusPanelTest", () => {
     it("To rader, med tre elementer hver gir tre containere og 9 elementer", () => {
         const nokkelopplysninger = [[STATUS, INNSENDT_DATO, ARBEIDSGIVER], [STATUS, INNSENDT_DATO, ARBEIDSGIVER], [STATUS, INNSENDT_DATO, ARBEIDSGIVER]];
 
-        component = shallow(<StatusPanel sykmelding={getSykmelding()} nokkelopplysninger={nokkelopplysninger} />);
+        component = mount(<StatusPanel sykmelding={getSykmelding()} nokkelopplysninger={nokkelopplysninger} />);
         expect(component.find(StatusOpplysning)).to.have.length(9);
         expect(component.find(".js-rad")).to.have.length(3);
     });
@@ -58,9 +57,17 @@ describe("StatusPanelTest", () => {
     it("To rader, med 3/2/1 elementer hver gir tre containere og 6 elementer", () => {
         const nokkelopplysninger = [[STATUS, INNSENDT_DATO, ARBEIDSGIVER], [STATUS, INNSENDT_DATO], [STATUS]];
 
-        component = shallow(<StatusPanel sykmelding={getSykmelding()} nokkelopplysninger={nokkelopplysninger} />);
+        component = mount(<StatusPanel sykmelding={getSykmelding()} nokkelopplysninger={nokkelopplysninger} />);
         expect(component.find(StatusOpplysning)).to.have.length(6);
         expect(component.find(".js-rad")).to.have.length(3);
     });
 
+    it("Skal ha med children", () => {
+        const nokkelopplysninger = [[STATUS]];
+
+        component = mount(<StatusPanel sykmelding={getSykmelding()} nokkelopplysninger={nokkelopplysninger}><button>Children</button></StatusPanel>);
+        expect(component.find(StatusOpplysning)).to.have.length(1);
+        expect(component.find('button')).to.have.length(1);
+        expect(component.find(".js-rad")).to.have.length(1);
+    });
 });

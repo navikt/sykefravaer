@@ -10,34 +10,37 @@ import AngreBekreftSykmeldingContainer from '../../containers/sykmelding/AngreBe
 const { STATUS, INNSENDT_DATO } = nokkelopplysninger;
 
 const DinBekreftedeSykmelding = ({ dinSykmelding }) => {
-    return (<div>
-        <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
-        <StatusPanel
-            sykmelding={dinSykmelding}
-            type="suksess"
-            nokkelopplysninger={[[STATUS, INNSENDT_DATO]]}>
-            <AngreBekreftSykmeldingContainer sykmeldingId={dinSykmelding.id} />
-        </StatusPanel>
-        <Utvidbar
-            erApen
-            tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}
-            ikon="svg/person.svg"
-            ikonHover="svg/person_hover.svg"
-            ikonAltTekst="Du"
-            className="blokk"
-            variant="lysebla"
-            Overskrift="h2"
-        >
-            <DineSykmeldingOpplysninger sykmelding={dinSykmelding} />
-        </Utvidbar>
-        {
-            dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER' &&
+    return (
+        <div>
+            <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
+            <StatusPanel
+                sykmelding={dinSykmelding}
+                type="suksess"
+                nokkelopplysninger={[[STATUS, INNSENDT_DATO]]}
+            >
+                <AngreBekreftSykmeldingContainer sykmeldingId={dinSykmelding.id} />
+            </StatusPanel>
+            <Utvidbar
+                erApen
+                tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}
+                ikon="svg/person.svg"
+                ikonHover="svg/person_hover.svg"
+                ikonAltTekst="Du"
+                className="blokk"
+                variant="lysebla"
+                Overskrift="h2"
+            >
+                <DineSykmeldingOpplysninger sykmelding={dinSykmelding} />
+            </Utvidbar>
+            {
+                dinSykmelding.valgtArbeidssituasjon === 'ARBEIDSTAKER' &&
                 <div className="blokk">
                     <ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />
                 </div>
-        }
-        <SykepengesoknadstatusContainer sykmeldingId={dinSykmelding.id} />
-    </div>);
+            }
+            <SykepengesoknadstatusContainer sykmeldingId={dinSykmelding.id} />
+        </div>
+    );
 };
 
 DinBekreftedeSykmelding.propTypes = {

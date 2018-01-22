@@ -4,6 +4,33 @@ import { Varselstripe } from 'digisyfo-npm';
 import StatusOpplysning from './StatusOpplysning';
 import { sykmelding as sykmeldingPt } from '../propTypes';
 
+const Nokkelopplysninger = ({ nokkelopplysninger, sykmelding }) => {
+    return (
+        nokkelopplysninger.map((rad, index1) => {
+            return (
+                <div className="" key={index1}>
+                    <div className="statusopplysninger js-rad">
+                        {
+                            rad.map((nokkelopplysning, index2) => {
+                                return (<StatusOpplysning
+                                    key={index2}
+                                    sykmelding={sykmelding}
+                                    nokkelopplysning={nokkelopplysning} />);
+                            })
+                        }
+                    </div>
+                </div>
+            );
+        },
+        )
+    );
+};
+
+Nokkelopplysninger.propTypes = {
+    nokkelopplysninger: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+    sykmelding: sykmeldingPt,
+};
+
 const StatusPanel = ({ sykmelding, nokkelopplysninger, type, children }) => {
     const varselprops = {
         type,
@@ -11,21 +38,13 @@ const StatusPanel = ({ sykmelding, nokkelopplysninger, type, children }) => {
     if (type === 'avbrutt') {
         varselprops.ikon = `${window.APP_SETTINGS.APP_ROOT}/img/svg/avbryt-sykmelding-roed.svg`;
     }
-    const html = nokkelopplysninger.map((rad, index1) => {
-        return (<div className="statusopplysninger js-rad" key={index1}>
-            {
-                rad.map((nokkelopplysning, index2) => {
-                    return <StatusOpplysning key={index2} sykmelding={sykmelding} nokkelopplysning={nokkelopplysning} />;
-                })
-            }
-        </div>);
-    });
+
     return (
         <div className="panel panel--komprimert blokk">
             <Varselstripe {...varselprops}>
-                <div>{html}</div>
+                <Nokkelopplysninger nokkelopplysninger={nokkelopplysninger} sykmelding={sykmelding} />
+                {children}
             </Varselstripe>
-            {children}
         </div>);
 };
 

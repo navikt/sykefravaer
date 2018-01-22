@@ -7,22 +7,20 @@ import { angreBekreftSykmelding } from '../../actions/dinSykmelding_actions';
 // eslint-disable-next-line no-shadow
 function AngreBekreftSykmeldingContainer({ sykmeldingId, angreBekreftSykmelding, angreBekreftSykmeldingFeilet }) {
     return (
-        <div>
-            <div className="verktoylinje">
+        [
+            <div className="verktoylinje verktoylinje--liten">
                 <button
                     className="rammeknapp rammeknapp--mini"
-                    onClick={() => {
-                        return angreBekreftSykmelding(sykmeldingId);
-                    }}
+                    onClick={() => { return angreBekreftSykmelding(sykmeldingId); }}
                 >
                     {getLedetekst('din-sykmelding.godkjennt.angre')}
                 </button>
-            </div>
+            </div>,
             <div aria-live="polite">
                 {angreBekreftSykmeldingFeilet &&
                 <p className="skjema__feilmelding">{getLedetekst('din-sykmelding.godkjennt.angre.feilet')}</p>}
-            </div>
-        </div>
+            </div>,
+        ]
     );
 }
 

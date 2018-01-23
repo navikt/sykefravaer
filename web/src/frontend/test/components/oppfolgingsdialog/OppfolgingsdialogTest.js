@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import {
+    SideOverskrift,
     NavigasjonsTopp,
     NavigasjonsBunn,
     AvvistPlanKvittering,
@@ -80,6 +81,10 @@ describe('Oppfolgingsdialog', () => {
             arbeidsforhold={arbeidsforhold}
             hentArbeidsforhold={hentArbeidsforhold}
         />);
+    });
+
+    it('Skal vise SideOverskrift', () => {
+        expect(component.find(SideOverskrift)).to.have.length(1);
     });
 
     it('Skal vise NavigasjonsTopp', () => {

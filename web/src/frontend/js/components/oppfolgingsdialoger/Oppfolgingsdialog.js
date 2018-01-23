@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, keyValue, togglesPt } from 'digisyfo-npm';
 import {
+    SideOverskrift,
     NavigasjonsTopp,
     NavigasjonsBunn,
     AvvistPlanKvittering,
@@ -182,6 +183,9 @@ class Oppfolgingsdialog extends Component {
                         rootUrl={`${getContextRoot()}`}
                     />
                 }
+                <SideOverskrift
+                    tittel={oppfolgingsdialog.virksomhet.navn}
+                />
                 <NavigasjonsTopp
                     ledetekster={ledetekster}
                     disabled={disableNavigation}

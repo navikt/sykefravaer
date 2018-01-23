@@ -86,8 +86,35 @@ describe('Oppfolgingsdialog', () => {
         expect(component.find(SideOverskrift)).to.have.length(1);
     });
 
-    it('Skal vise NavigasjonsTopp', () => {
-        expect(component.find(NavigasjonsTopp)).to.have.length(1);
+    it('Skal ikke vise NavigasjonsTopp, dersom dialog ikke er under arbeid(disabledNavigation er true)', () => {
+        expect(component.find(NavigasjonsTopp)).to.have.length(0);
+    });
+
+    it('Skal ikke vise NavigasjonsTopp, dersom dialog er under arbeid(disabledNavigation er false)', () => {
+        const oppfolgingsdialogUnderArbeid = Object.assign({}, getOppfolgingsdialog(), {
+            godkjentPlan: null,
+            godkjenninger: [],
+        });
+        const componentUnderArbeid = shallow(<Oppfolgingsdialog
+            avbrytdialogReducer={avbrytdialogReducer}
+            settAktivtSteg={settAktivtSteg}
+            oppfolgingsdialog={oppfolgingsdialogUnderArbeid}
+            settDialog={settDialog}
+            hentVirksomhet={hentVirksomhet}
+            hentNaermesteLeder={hentNaermesteLeder}
+            hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
+            hentPerson={hentPerson}
+            hentKontaktinfo={hentKontaktinfo}
+            forrigenaermesteleder={forrigenaermesteleder}
+            virksomhet={virksomhet}
+            naermesteleder={naermesteleder}
+            person={person}
+            kontaktinfo={kontaktinfo}
+            navigasjontoggles={navigasjontoggles}
+            arbeidsforhold={arbeidsforhold}
+            hentArbeidsforhold={hentArbeidsforhold}
+        />);
+        expect(componentUnderArbeid.find(NavigasjonsTopp)).to.have.length(1);
     });
 
     it('Skal vise NavigasjonsBunn', () => {

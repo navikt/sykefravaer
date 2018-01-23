@@ -8,15 +8,14 @@ import { angreBekreftSykmelding } from '../../actions/dinSykmelding_actions';
 function AngreBekreftSykmeldingContainer({ sykmeldingId, angreBekreftSykmelding, angreBekreftSykmeldingFeilet }) {
     return (
         [
-            <div className="verktoylinje verktoylinje--liten">
-                <button
-                    className="rammeknapp rammeknapp--mini"
-                    onClick={() => { return angreBekreftSykmelding(sykmeldingId); }}
-                >
-                    {getLedetekst('din-sykmelding.godkjennt.angre')}
-                </button>
-            </div>,
-            <div aria-live="polite">
+            <button
+                className="rammeknapp rammeknapp--mini"
+                onClick={() => { return angreBekreftSykmelding(sykmeldingId); }}
+                key={1}
+            >
+                {getLedetekst('din-sykmelding.godkjennt.angre')}
+            </button>,
+            <div aria-live="polite" key={2}>
                 {angreBekreftSykmeldingFeilet &&
                 <p className="skjema__feilmelding">{getLedetekst('din-sykmelding.godkjennt.angre.feilet')}</p>}
             </div>,

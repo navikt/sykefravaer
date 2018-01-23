@@ -8,17 +8,15 @@ const Nokkelopplysninger = ({ nokkelopplysninger, sykmelding }) => {
     return (
         nokkelopplysninger.map((rad, index1) => {
             return (
-                <div className="" key={index1}>
-                    <div className="statusopplysninger js-rad">
-                        {
-                            rad.map((nokkelopplysning, index2) => {
-                                return (<StatusOpplysning
-                                    key={index2}
-                                    sykmelding={sykmelding}
-                                    nokkelopplysning={nokkelopplysning} />);
-                            })
-                        }
-                    </div>
+                <div className="statusopplysninger js-rad" key={index1}>
+                    {
+                        rad.map((nokkelopplysning, index2) => {
+                            return (<StatusOpplysning
+                                key={index2}
+                                sykmelding={sykmelding}
+                                nokkelopplysning={nokkelopplysning} />);
+                        })
+                    }
                 </div>
             );
         },
@@ -42,8 +40,10 @@ const StatusPanel = ({ sykmelding, nokkelopplysninger, type, children }) => {
     return (
         <div className="panel panel--komprimert blokk">
             <Varselstripe {...varselprops}>
-                <Nokkelopplysninger nokkelopplysninger={nokkelopplysninger} sykmelding={sykmelding} />
-                {children}
+                <div>
+                    <Nokkelopplysninger nokkelopplysninger={nokkelopplysninger} sykmelding={sykmelding} />
+                    {children}
+                </div>
             </Varselstripe>
         </div>);
 };

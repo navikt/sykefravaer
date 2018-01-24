@@ -31,7 +31,7 @@ import {
     isEmpty,
     erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere,
 } from '../../utils/oppfolgingsdialogUtils';
-import { finnArbeidsgivereForGyldigeSykmeldinger, HarAktivSykmelding } from '../../utils/sykmeldingUtils';
+import { finnArbeidsgivereForGyldigeSykmeldinger, sykmeldtHarAktivSykmelding } from '../../utils/sykmeldingUtils';
 import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
 import OppfolgingsdialogFilm from './OppfolgingsdialogFilm';
@@ -89,7 +89,7 @@ class Oppfolgingsdialoger extends Component {
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrlImg={getContextRoot()}
             />);
-        } else if (!HarAktivSykmelding(dinesykmeldinger.data)) {
+        } else if (!sykmeldtHarAktivSykmelding(dinesykmeldinger.data)) {
             panel = (
                 <div>
                     <div className="blokk--l">
@@ -99,15 +99,12 @@ class Oppfolgingsdialoger extends Component {
                         />
                     </div>
 
-                    { !isEmpty(oppfolgingsdialoger) &&
-                    <div>
-                        <OppfolgingsdialogerUtenAktivSykmelding
-                            ledetekster={ledetekster}
-                            oppfolgingsdialoger={oppfolgingsdialoger}
-                            tittel={getLedetekst('oppfolgingsdialoger.tidligereplaner.tittel')}
-                            rootUrl={getContextRoot()}
-                        />
-                    </div>
+                    {!isEmpty(oppfolgingsdialoger) && harTidligereOppfolgingsdialoger(oppfolgingsdialoger) &&
+                    <OppfolgingsdialogerUtenAktivSykmelding
+                        oppfolgingsdialoger={finnTidligereOppfolgingsdialoger(oppfolgingsdialoger)}
+                        tittel={getLedetekst('oppfolgingsdialoger.tidligereplaner.tittel')}
+                        rootUrl={getContextRoot()}
+                    />
                     }
                 </div>);
         } else {
@@ -140,20 +137,18 @@ class Oppfolgingsdialoger extends Component {
                 }
 
                 {!isEmpty(oppfolgingsdialoger) && harTidligereOppfolgingsdialoger(oppfolgingsdialoger) &&
-                <div>
-                    <OppfolgingsdialogTeasere
-                        ledetekster={ledetekster}
-                        oppfolgingsdialoger={finnTidligereOppfolgingsdialoger(oppfolgingsdialoger)}
-                        harTidligerOppfolgingsdialoger
-                        tittel={getLedetekst('oppfolgingsdialoger.tidligereplaner.tittel')}
-                        id="OppfolgingsdialogTeasereAT"
-                        brukerType={BRUKERTYPE.ARBEIDSTAKER}
-                        rootUrl={getContextRoot()}
-                        rootUrlPlaner={getContextRoot()}
-                        svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/plan-godkjent.svg`}
-                        svgAlt="OppfølgingsdialogTidligere"
-                    />
-                </div>
+                <OppfolgingsdialogTeasere
+                    ledetekster={ledetekster}
+                    oppfolgingsdialoger={finnTidligereOppfolgingsdialoger(oppfolgingsdialoger)}
+                    harTidligerOppfolgingsdialoger
+                    tittel={getLedetekst('oppfolgingsdialoger.tidligereplaner.tittel')}
+                    id="OppfolgingsdialogTeasereAT"
+                    brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                    rootUrl={getContextRoot()}
+                    rootUrlPlaner={getContextRoot()}
+                    svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/plan-godkjent.svg`}
+                    svgAlt="OppfølgingsdialogTidligere"
+                />
                 }
                 <OppfolgingsdialogFilm ledetekster={ledetekster} />
             </div>);

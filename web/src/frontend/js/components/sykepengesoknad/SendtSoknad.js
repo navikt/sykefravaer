@@ -135,7 +135,7 @@ class SendtSoknad extends Component {
                 <BekreftetKorrektInformasjon
                     bekreftetKorrektInformasjon={oppsummeringsoknad.bekreftetKorrektInformasjon} />
             </div>
-            <VaerKlarOverAt ansvarserklaring={oppsummeringsoknad.vaerKlarOverAt} />
+            <VaerKlarOverAt vaerKlarOverAt={oppsummeringsoknad.vaerKlarOverAt} />
 
             {(sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) &&
             <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} />}

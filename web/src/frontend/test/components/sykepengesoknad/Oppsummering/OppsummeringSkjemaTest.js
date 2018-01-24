@@ -40,7 +40,9 @@ describe("OppsummeringSkjema", () => {
             sykepengesoknad = getSoknad({
                 id: "olsen"
             });
-            oppsummeringsoknad = {};
+            oppsummeringsoknad = {
+                ansvarserklaring: {},
+            };
             setLedetekster({tekst: "test"});
             handleSubmit = sinon.spy();
             backendsoknad = {"backendsoknad": "backendsoknad"};
@@ -51,7 +53,7 @@ describe("OppsummeringSkjema", () => {
                 skjemasoknad,
                 oppsummeringsoknad,
                 sykepengesoknad,
-            }
+            };
 
             component = shallow(<OppsummeringForm {...props} />);
         });
@@ -63,7 +65,7 @@ describe("OppsummeringSkjema", () => {
         });
 
         it("Skal inneholde en SoknadOppsummering med riktige props", () => {
-            expect(component.find(SoknadOppsummering).prop("oppsummeringsoknad")).to.deep.equal(oppsummeringsoknad)
+            expect(component.find(SoknadOppsummering).prop("oppsummeringsoknad")).to.deep.equal(oppsummeringsoknad);
             expect(component.find(VaerKlarOverAt)).to.have.length(1);
         });
 
@@ -71,8 +73,8 @@ describe("OppsummeringSkjema", () => {
             expect(component.find(Link).prop("to")).to.equal("/sykefravaer/soknader/olsen/aktiviteter-i-sykmeldingsperioden")
         });
 
-        it("SKal inneholde en SendingFeilet hvis sendingFeilet", () => {
-            const component2 = shallow(<OppsummeringForm handleSubmit={handleSubmit} skjemasoknad={skjemasoknad}
+        it("Skal inneholde en SendingFeilet hvis sendingFeilet", () => {
+            const component2 = shallow(<OppsummeringForm handleSubmit={handleSubmit} oppsummeringsoknad={oppsummeringsoknad} skjemasoknad={skjemasoknad}
                                                          sykepengesoknad={sykepengesoknad} sendingFeilet={true}/>);
             expect(component2.find(SendingFeilet)).to.have.length(1);
         });
@@ -84,6 +86,7 @@ describe("OppsummeringSkjema", () => {
         it("Inneholder mottakertekst om vi ikke spør om forskuttering", () => {
             const component2 = shallow(<OppsummeringForm handleSubmit={handleSubmit}
                                                          skjemasoknad={skjemasoknad}
+                                                         oppsummeringsoknad={oppsummeringsoknad}
                                                          sykepengesoknad={sykepengesoknad}
                                                          visForskutteringssporsmal={false}/>);
             expect(component2.find('.js-mottaker')).to.have.length(1);
@@ -93,6 +96,7 @@ describe("OppsummeringSkjema", () => {
         it("Inneholder forskuttering og ikke mottaker", () => {
             const component2 = shallow(<OppsummeringForm handleSubmit={handleSubmit}
                                                          skjemasoknad={skjemasoknad}
+                                                         oppsummeringsoknad={oppsummeringsoknad}
                                                          sykepengesoknad={sykepengesoknad}
                                                          visForskutteringssporsmal={true}/>);
             expect(component2.find('.js-mottaker')).to.have.length(0);

@@ -44,9 +44,11 @@ export class OppsummeringForm extends Component {
             const soknad = mapSkjemasoknadToBackendsoknad(values, {
                 visForskutteringssporsmal: visForskutteringssporsmal === true,
             });
+            soknad.oppsummering = oppsummeringsoknad;
             const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
             actions.sendSykepengesoknad(soknadObjekt);
         };
+
         return (<form
             className="sykepengerskjema"
             ref={(c) => {
@@ -58,7 +60,7 @@ export class OppsummeringForm extends Component {
             <Utvidbar tittel="Oppsummering" erApen={false} className="blokk">
                 <SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} />
             </Utvidbar>
-            <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
+            <VaerKlarOverAt ansvarserklaring={oppsummeringsoknad.ansvarserklaring} />
             <div className="bekreftet-container blokk">
                 <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             </div>

@@ -154,7 +154,5 @@ describe("SendtSoknad", () => {
             expect(startEndringForespurt.called).to.be.true;
             expect(startEndringForespurt.calledWith("88")).to.be.true;
         });
-
     });
-
 });

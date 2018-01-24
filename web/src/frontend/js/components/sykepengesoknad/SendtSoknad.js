@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { scrollTo, mapBackendsoknadToSkjemasoknad, mapSkjemasoknadToOppsummeringsoknad, SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon, Utvidbar, SykmeldingUtdrag, sykepengesoknadstatuser } from 'digisyfo-npm';
+import {
+    BekreftetKorrektInformasjon,
+    mapBackendsoknadToSkjemasoknad,
+    scrollTo,
+    SoknadOppsummering,
+    sykepengesoknadstatuser,
+    SykmeldingUtdrag,
+    Utvidbar,
+    VaerKlarOverAt,
+    mapSkjemasoknadToOppsummeringsoknad,
+} from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import Soknadstatuspanel from './Soknadstatuspanel';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
@@ -53,13 +63,21 @@ export const Knapperad = (props) => {
                         }}
                         disabled={starterEndring}
                         className="rammeknapp rammeknapp--mini js-endre">
-                        { starterEndring ? <span className="knapp__spinner" /> : null } Endre søknad</button>
+                        {starterEndring ? <span className="knapp__spinner" /> : null} Endre søknad
+                    </button>
                 </div>
             }
-            <ConnectedEttersending {...props} manglendeDato="sendtTilNAVDato" ledetekstKeySuffix="send-til-nav" />
-            <ConnectedEttersending {...props} manglendeDato="sendtTilArbeidsgiverDato" ledetekstKeySuffix="send-til-arbeidsgiver" />
+            <ConnectedEttersending
+                {...props}
+                manglendeDato="sendtTilNAVDato"
+                ledetekstKeySuffix="send-til-nav" />
+            <ConnectedEttersending
+                {...props}
+                manglendeDato="sendtTilArbeidsgiverDato"
+                ledetekstKeySuffix="send-til-arbeidsgiver" />
         </div>
-        { startEndringFeilet ? <p className="skjema__feilmelding">Beklager, det oppstod en feil. Prøv igjen litt senere</p> : null }
+        {startEndringFeilet ?
+            <p className="skjema__feilmelding">Beklager, det oppstod en feil. Prøv igjen litt senere</p> : null}
     </div>);
 };
 
@@ -87,12 +105,19 @@ class SendtSoknad extends Component {
     render() {
         const { sykepengesoknad } = this.props;
         const skjemasoknad = mapBackendsoknadToSkjemasoknad(sykepengesoknad);
-        const oppsummeringsoknad = mapSkjemasoknadToOppsummeringsoknad(skjemasoknad, sykepengesoknad);
+        let oppsummeringsoknad;
+
+        if (sykepengesoknad.oppsummeringsoknad) {
+            oppsummeringsoknad = sykepengesoknad.oppsummeringsoknad;
+        } else {
+            oppsummeringsoknad = mapSkjemasoknadToOppsummeringsoknad(skjemasoknad, sykepengesoknad);
+        }
+
         return (<div ref={(c) => {
             this.sendtSoknad = c;
         }}>
             <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
-            { sykepengesoknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={sykepengesoknad} /> }
+            {sykepengesoknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={sykepengesoknad} />}
             <Soknadstatuspanel sykepengesoknad={sykepengesoknad}>
                 {
                     [KORRIGERT, TIL_SENDING].indexOf(sykepengesoknad.status) === -1 && <ConnectedKnapperad
@@ -106,11 +131,14 @@ class SendtSoknad extends Component {
             <Utvidbar tittel="Oppsummering" className="blokk">
                 <SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} />
             </Utvidbar>
-            <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
-            <div className="bekreftet-container">
-                <BekreftetKorrektInformasjon oppsummeringsoknad={oppsummeringsoknad} />
+            <div className="blokk bekreftet-container">
+                <BekreftetKorrektInformasjon
+                    bekreftetKorrektInformasjon={oppsummeringsoknad.bekreftetKorrektInformasjon} />
             </div>
-            { (sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) && <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} /> }
+            <VaerKlarOverAt ansvarserklaring={oppsummeringsoknad.vaerKlarOverAt} />
+
+            {(sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) &&
+            <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} />}
         </div>);
     }
 }

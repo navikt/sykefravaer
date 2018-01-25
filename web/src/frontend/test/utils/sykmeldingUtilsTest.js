@@ -1,13 +1,12 @@
 import {
     skalViseOppfoelgingsdialogLenke,
-    finnArbeidsgivereForGyldigeSykmeldinger,
+    finnArbeidsgivereForAktiveSykmeldinger,
     sykmeldtHarManglendeNaermesteLeder,
     sykmeldtHarNaermestelederHosArbeidsgiver,
     sykmeldtHarNaermestelederHosArbeidsgivere,
     finnSykmeldtSinNaermestelederNavnHosArbeidsgiver,
 } from '../../js/utils/sykmeldingUtils';
-import getSykmelding from '../mockSykmeldinger';
-import { getSykmeldinger, getArbeidsgivere, getArbeidsgiver } from '../mockSykmeldinger';
+import getSykmelding, { getSykmeldinger, getArbeidsgivere, getArbeidsgiver } from '../mockSykmeldinger';
 import { getLedere } from '../mockLedere.js';
 import sinon from 'sinon';
 import chai from "chai";
@@ -57,7 +56,7 @@ export const trekkMnderOgDagerFraDato = (dato, mnder, dager) => {
 describe("sykmeldingUtils", () => {
 
     let clock;
-    const today = new Date("2017-10-01");
+    const today = new Date('2017-01-01');
     today.setHours(0, 0, 0, 0);
 
     beforeEach(() => {
@@ -136,30 +135,30 @@ describe("sykmeldingUtils", () => {
         });
     });
 
-    describe("finnArbeidsgivereForGyldigeSykmeldinger", () => {
+    describe("finnArbeidsgivereForAktiveSykmeldinger", () => {
 
         it("skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt over 3 maaneder", () => {
             const sykmeldinger = [sykmeldingUtgaattOver3mnd];
-            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
+            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
         });
 
-        it("skal returnere 1 arbeidsgiver, naar sykmelding er utgaatt", () => {
+        it("skal returnere ikke arbeidsgivere, naar sykmelding er utgaatt", () => {
             const sykmeldinger = [sykmeldingUtgaatt];
-            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
+            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
         });
 
         it("skal returnere 1 arbeidsgiver, når 1 sykmelding er utgaatt", () => {
             const sykmeldinger = [sykmeldingUtgaatt, sykmeldingAktiv];
-            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
+            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });
 
         it("skal returnere 2 arbeidsgivere, når 2 sykmeldinger er aktive", () => {
-            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(2);
+            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(2);
         });
 
         it("skal returnere 1 arbeidsgiver, når det er duplikat av arbeidsgiver", () => {
             const sykmeldinger = [sykmeldingAktiv, sykmeldingAktiv];
-            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
+            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });
 
     });
@@ -219,5 +218,4 @@ describe("sykmeldingUtils", () => {
         });
 
     });
-
 });

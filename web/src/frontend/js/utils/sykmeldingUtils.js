@@ -1,5 +1,3 @@
-const MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING = 3;
-
 export const sykmeldtHarNaermestelederHosArbeidsgiver = (virksomhetsnummer, naermesteLedere) => {
     return naermesteLedere.filter((leder) => {
         return virksomhetsnummer === leder.orgnummer;
@@ -13,13 +11,12 @@ export const finnSykmeldtSinNaermestelederNavnHosArbeidsgiver = (virksomhetsnumm
     return naermesteLeder ? naermesteLeder.navn : undefined;
 };
 
-export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteLedere) => {
+export const finnArbeidsgivereForAktiveSykmeldinger = (sykmeldinger, naermesteLedere) => {
+    const dagensDato = new Date();
+    dagensDato.setHours(0, 0, 0, 0);
     return sykmeldinger.filter((sykmelding) => {
         return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
-            const tomGrenseDato = new Date();
-            tomGrenseDato.setHours(0, 0, 0, 0);
-            tomGrenseDato.setMonth(tomGrenseDato.getMonth() - MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING);
-            return new Date(periode.tom) >= new Date(tomGrenseDato);
+            return new Date(periode.tom) >= dagensDato;
         }).length > 0;
     }).map((sykmelding) => {
         return {
@@ -55,13 +52,12 @@ export const sykmeldtHarNaermestelederHosArbeidsgivere = (arbeidsgivere) => {
     }).length > 0;
 };
 
-export const sykmeldtHarGyldigSykmelding = (sykmeldinger) => {
+export const sykmeldtHarAktivSykmelding = (sykmeldinger) => {
+    const dagensDato = new Date();
+    dagensDato.setHours(0, 0, 0, 0);
     return sykmeldinger.filter((sykmelding) => {
         return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
-            const tomGrenseDato = new Date();
-            tomGrenseDato.setHours(0, 0, 0, 0);
-            tomGrenseDato.setMonth(tomGrenseDato.getMonth() - MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING);
-            return new Date(periode.tom) >= new Date(tomGrenseDato);
+            return new Date(periode.tom) >= dagensDato;
         }).length > 0;
     }).length > 0;
 };

@@ -55,7 +55,7 @@ export const sykmeldtHarNaermestelederHosArbeidsgivere = (arbeidsgivere) => {
     }).length > 0;
 };
 
-export const sykmeldtHarAktivSykmelding = (sykmeldinger) => {
+export const sykmeldtHarGyldigSykmelding = (sykmeldinger) => {
     return sykmeldinger.filter((sykmelding) => {
         return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
             const tomGrenseDato = new Date();

@@ -37,17 +37,17 @@ export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteL
 
 export const skalViseOppfoelgingsdialogLenke = (sykmeldinger) => {
     return sykmeldinger.filter((sykmelding) => {
-            return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
-                    const tomGrenseDato = new Date();
-                    tomGrenseDato.setHours(0, 0, 0, 0);
-                    tomGrenseDato.setMonth(tomGrenseDato.getMonth() - MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING);
-                    return new Date(periode.tom) >= new Date(tomGrenseDato);
-                }).length > 0;
-        }).filter((sykmelding, idx, self) => {
-            return self.findIndex((t) => {
-                    return t.orgnummer === sykmelding.orgnummer && sykmelding.orgnummer !== null;
-                }) === idx;
+        return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
+            const tomGrenseDato = new Date();
+            tomGrenseDato.setHours(0, 0, 0, 0);
+            tomGrenseDato.setMonth(tomGrenseDato.getMonth() - MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING);
+            return new Date(periode.tom) >= new Date(tomGrenseDato);
         }).length > 0;
+    }).filter((sykmelding, idx, self) => {
+        return self.findIndex((t) => {
+            return t.orgnummer === sykmelding.orgnummer && sykmelding.orgnummer !== null;
+        }) === idx;
+    }).length > 0;
 };
 
 export const sykmeldtHarManglendeNaermesteLeder = (arbeidsgivere) => {

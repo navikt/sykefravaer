@@ -117,7 +117,7 @@ class SendtSoknad extends Component {
             this.sendtSoknad = c;
         }}>
             <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
-            {sykepengesoknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={sykepengesoknad} />}
+            { sykepengesoknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={sykepengesoknad} /> }
             <Soknadstatuspanel sykepengesoknad={sykepengesoknad}>
                 {
                     [KORRIGERT, TIL_SENDING].indexOf(sykepengesoknad.status) === -1 && <ConnectedKnapperad
@@ -133,9 +133,9 @@ class SendtSoknad extends Component {
             </Utvidbar>
             <div className="blokk bekreftet-container">
                 <BekreftetKorrektInformasjon
-                    bekreftetKorrektInformasjon={oppsummeringsoknad.bekreftetKorrektInformasjon} />
+                    oppsummeringsoknad={oppsummeringsoknad} />
             </div>
-            <VaerKlarOverAt vaerKlarOverAt={oppsummeringsoknad.vaerKlarOverAt} />
+            <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
 
             {(sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) &&
             <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} />}

@@ -21,7 +21,7 @@ import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
 import sinon from 'sinon';
 import { SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon, SykmeldingUtdrag } from 'digisyfo-npm';
 
-describe("SendtSoknad", () => {
+describe.only("SendtSoknad", () => {
 
     let component; 
     let sykepengesoknad = getSoknad();
@@ -44,9 +44,14 @@ describe("SendtSoknad", () => {
     });
 
     it("Skal inneholde en SoknadOppsummering, VaerKlarOverAt og BekreftetKorrektInformasjon", () => {
-        expect(component.find(SoknadOppsummering)).to.have.length(1);
-        expect(component.find(VaerKlarOverAt)).to.have.length(1);
-        expect(component.find(BekreftetKorrektInformasjon)).to.have.length(1);
+        const oppsummeringsoknad = {
+            test: "test",
+        };
+        sykepengesoknad.oppsummeringsoknad = oppsummeringsoknad;
+        component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />)
+        expect(component.contains(<SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} />)).to.be.true;
+        expect(component.contains(<VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />)).to.be.true;
+        expect(component.contains(<BekreftetKorrektInformasjon oppsummeringsoknad={oppsummeringsoknad} />)).to.be.true;
     });
 
     it("Skal inneholde Soknadstatuspanel", () => {

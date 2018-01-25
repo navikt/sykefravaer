@@ -64,9 +64,9 @@ describe("OppsummeringSkjema", () => {
             expect(component.find(Field).prop("name")).to.equal("bekreftetKorrektInformasjon");
         });
 
-        it("Skal inneholde en SoknadOppsummering med riktige props", () => {
-            expect(component.find(SoknadOppsummering).prop("oppsummeringsoknad")).to.deep.equal(oppsummeringsoknad);
-            expect(component.find(VaerKlarOverAt)).to.have.length(1);
+        it.only("Skal inneholde en SoknadOppsummering med riktige props", () => {
+            expect(component.contains(<SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} />)).to.be.true;
+            expect(component.contains(<VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />)).to.be.true;
         });
 
         it("Skal inneholde en Link til forrige side", () => {

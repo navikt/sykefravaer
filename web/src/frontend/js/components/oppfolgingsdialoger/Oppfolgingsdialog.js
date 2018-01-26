@@ -148,7 +148,7 @@ class Oppfolgingsdialog extends Component {
         }
 
         return (
-            <div>
+            <div className="oppfolgingsdialog">
                 { oppfolgingsdialogAvbrutt &&
                     <AvbruttGodkjentPlanVarsel
                         tekst={getLedetekst('oppfolgingdialog.avbruttGodkjentPlanVarsel.opprettet-plan')}
@@ -158,13 +158,14 @@ class Oppfolgingsdialog extends Component {
                 <SideOverskrift
                     tittel={oppfolgingsdialog.virksomhet.navn}
                 />
-                <NavigasjonsTopp
+                { !disableNavigation && <NavigasjonsTopp
                     ledetekster={ledetekster}
                     disabled={disableNavigation}
                     navn={oppfolgingsdialog.virksomhet.navn}
                     settAktivtSteg={settAktivtSteg}
                     steg={navigasjontoggles.steg}
                 />
+                }
                 <div id="oppfolgingsdialogpanel">
                     { panel }
                 </div>

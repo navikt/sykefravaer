@@ -9,7 +9,6 @@ import {
     finnTidligereOppfolgingsdialoger,
     harTidligereOppfolgingsdialoger,
     finnAktiveOppfolgingsdialoger,
-    harAktivOppfolgingsdialog,
     AvbruttPlanNotifikasjonBoksAdvarsel,
     finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging,
     finnBrukersSisteInnlogging,
@@ -108,16 +107,17 @@ class Oppfolgingsdialoger extends Component {
                     }
                 </div>);
         } else {
+            const aktivOppfolgingsdialoger = finnAktiveOppfolgingsdialoger(oppfolgingsdialoger, dinesykmeldinger.data);
             panel = (<div>
-                {!isEmpty(oppfolgingsdialoger) && harAktivOppfolgingsdialog(oppfolgingsdialoger) &&
+                {!isEmpty(oppfolgingsdialoger) && aktivOppfolgingsdialoger.length > 0 &&
                 <div>
                     { finnArbeidsgivereForAktiveSykmeldinger(dinesykmeldinger.data, naermesteLedere.data).length > 1 &&
                         <OppfolgingsdialogNyDialog />
                     }
                     <OppfolgingsdialogTeasere
                         ledetekster={ledetekster}
-                        oppfolgingsdialoger={finnAktiveOppfolgingsdialoger(oppfolgingsdialoger)}
-                        tittel={finnAktiveOppfolgingsdialoger(oppfolgingsdialoger).length > 1 ? getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.fler.header.tittel') :
+                        oppfolgingsdialoger={aktivOppfolgingsdialoger}
+                        tittel={aktivOppfolgingsdialoger.length > 1 ? getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.fler.header.tittel') :
                             getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.header.tittel')}
                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
                         rootUrl={getContextRoot()}
@@ -126,7 +126,7 @@ class Oppfolgingsdialoger extends Component {
                 </div>
                 }
 
-                {(isEmpty(oppfolgingsdialoger) || !harAktivOppfolgingsdialog(oppfolgingsdialoger)) &&
+                {(isEmpty(oppfolgingsdialoger) || !aktivOppfolgingsdialoger.length > 0) &&
                 <div className="blokk--l">
                     <OppfolgingsdialogerIngenplan
                         ledetekster={ledetekster}

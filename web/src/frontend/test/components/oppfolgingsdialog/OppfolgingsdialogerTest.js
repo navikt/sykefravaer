@@ -3,11 +3,14 @@ import React from 'react';
 import { Link } from 'react-router';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
+import sinon from 'sinon';
 import {
     OppfolgingsdialogTeasere,
     OppfolgingsdialogerIngenplan,
     NyNaermestelederInfoboks,
     UnderUtviklingVarsel,
+    OppfolgingsdialogUtenSykmelding,
+    OppfolgingsdialogerUtenAktivSykmelding,
 } from 'oppfolgingsdialog-npm';
 import Sidetopp from '../../../js/components/Sidetopp';
 import Oppfolgingsdialoger, { OppfolgingsdialogNyDialog } from '../../../js/components/oppfolgingsdialoger/Oppfolgingsdialoger';
@@ -18,7 +21,6 @@ import getSykmelding from '../../mockSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import sinon from 'sinon';
 const MILLISEKUNDER_PER_DAG = 86400000;
 
 export const trekkDagerFraDato = (dato, dager) => {
@@ -42,8 +44,9 @@ describe('Oppfolgingsdialoger', () => {
     let hentPerson;
     let hentForrigeNaermesteLeder;
     let hentKontaktinfo;
-    const today = new Date();
+    const today = new Date('2017-01-01');
     today.setHours(0, 0, 0, 0);
+    let clock;
     const virksomhet = {
         henter: [],
         hentet: [],
@@ -69,20 +72,23 @@ describe('Oppfolgingsdialoger', () => {
         data: [],
     };
     beforeEach(() => {
-        dinesykmeldinger = {data: [getSykmelding({
-            mulighetForArbeid: {
-                perioder: [
-                    {
-                        fom: trekkDagerFraDato(today, 35).toISOString(),
-                        tom: trekkDagerFraDato(today, 5).toISOString(),
-                    },
-                    {
-                        fom: trekkDagerFraDato(today, 5).toISOString(),
-                        tom: leggTilDagerPaaDato(today, 35).toISOString(),
-                    },
-                ],
-            },
-        })] };
+        clock = sinon.useFakeTimers(today.getTime());
+        dinesykmeldinger = {
+            data: [getSykmelding({
+                mulighetForArbeid: {
+                    perioder: [
+                        {
+                            fom: trekkDagerFraDato(today, 35).toISOString(),
+                            tom: trekkDagerFraDato(today, 5).toISOString(),
+                        },
+                        {
+                            fom: trekkDagerFraDato(today, 5).toISOString(),
+                            tom: leggTilDagerPaaDato(today, 35).toISOString(),
+                        },
+                    ],
+                },
+            })],
+        };
         naermesteLedere = { data: [] };
         hentForrigeNaermesteLeder = sinon.spy();
         hentPerson = sinon.spy();
@@ -163,6 +169,96 @@ describe('Oppfolgingsdialoger', () => {
         });
     });
 
+    describe('Uten aktiv sykmelding', () => {
+        let component1;
+        let sykmeldingListe;
+
+        beforeEach(() => {
+            sykmeldingListe = {
+                data: [getSykmelding({
+                    mulighetForArbeid: {
+                        perioder: [
+                            {
+                                fom: trekkDagerFraDato(today, 35).toISOString(),
+                                tom: trekkDagerFraDato(today, 10).toISOString(),
+                            },
+                            {
+                                fom: trekkDagerFraDato(today, 5).toISOString(),
+                                tom: trekkDagerFraDato(today, 1).toISOString(),
+                            },
+                        ],
+                    },
+                })],
+            };
+            component1 = shallow(<Oppfolgingsdialoger
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                dinesykmeldinger={sykmeldingListe}
+                naermesteLedere={naermesteLedere}
+                hentVirksomhet={sinon.spy()}
+                hentForrigeNaermesteLeder={sinon.spy()}
+                hentPerson={sinon.spy()}
+                hentKontaktinfo={sinon.spy()}
+                forrigenaermesteleder={forrigenaermesteleder}
+                virksomhet={virksomhet}
+                person={person}
+                kontaktinfo={kontaktinfo}
+            />);
+        });
+        it('Skal vise OppfolgingsdialogUtenSykmelding', () => {
+            expect(component1.find(OppfolgingsdialogUtenSykmelding)).to.have.length(1);
+        });
+
+        it('Skal vise ikke OppfolgingsdialogerUtenAktivSykmelding, dersom det ikke er tidligere planer', () => {
+            const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
+                godkjentPlan: {
+                    gyldighetstidspunkt: {
+                        fom: trekkDagerFraDato(today, 5).toISOString(),
+                        tom: leggTilDagerPaaDato(today, 1).toISOString(),
+                    },
+                },
+            })];
+            component1 = shallow(<Oppfolgingsdialoger
+                oppfolgingsdialoger={oppfolgingsdialogListe}
+                dinesykmeldinger={sykmeldingListe}
+                naermesteLedere={naermesteLedere}
+                hentVirksomhet={sinon.spy()}
+                hentForrigeNaermesteLeder={sinon.spy()}
+                hentPerson={sinon.spy()}
+                hentKontaktinfo={sinon.spy()}
+                forrigenaermesteleder={forrigenaermesteleder}
+                virksomhet={virksomhet}
+                person={person}
+                kontaktinfo={kontaktinfo}
+            />);
+            expect(component1.find(OppfolgingsdialogerUtenAktivSykmelding)).to.have.length(0);
+        });
+
+        it('Skal vise ikke OppfolgingsdialogerUtenAktivSykmelding, dersom det er tidligere planer', () => {
+            const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
+                godkjentPlan: {
+                    gyldighetstidspunkt: {
+                        fom: trekkDagerFraDato(today, 5).toISOString(),
+                        tom: trekkDagerFraDato(today, 1).toISOString(),
+                    },
+                },
+            })];
+            const component2 = shallow(<Oppfolgingsdialoger
+                oppfolgingsdialoger={oppfolgingsdialogListe}
+                dinesykmeldinger={sykmeldingListe}
+                naermesteLedere={naermesteLedere}
+                hentVirksomhet={sinon.spy()}
+                hentForrigeNaermesteLeder={sinon.spy()}
+                hentPerson={sinon.spy()}
+                hentKontaktinfo={sinon.spy()}
+                forrigenaermesteleder={forrigenaermesteleder}
+                virksomhet={virksomhet}
+                person={person}
+                kontaktinfo={kontaktinfo}
+            />);
+            expect(component2.find(OppfolgingsdialogerUtenAktivSykmelding)).to.have.length(1);
+        });
+    });
+
     describe('Uten Aktiv(e) Oppfolgingsdialog(er)', () => {
         it('Skal ikke vise OppfolgingsdialogerTeasere dersom man ikke har oppfolgingsdialoger', () => {
             expect(component.find(OppfolgingsdialogTeasere)).to.have.length(0);
@@ -203,7 +299,7 @@ describe('Oppfolgingsdialoger', () => {
             const oppfolgingsdialogListe = [Object.assign({}, getOppfolgingsdialog(), {
                 godkjentPlan: {
                     gyldighetstidspunkt: {
-                        tom: '2017-01-01T00:00:00.000',
+                        tom: trekkDagerFraDato(new Date(), 1).toISOString(),
                     },
                 },
             })];

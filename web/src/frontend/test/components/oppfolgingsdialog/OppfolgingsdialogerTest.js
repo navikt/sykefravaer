@@ -35,6 +35,19 @@ export const leggTilDagerPaaDato = (dato, dager) => {
     return new Date(nyDato);
 };
 
+export const trekkMnderFraDato = (dato, mnder) => {
+    const nyDato = new Date(dato);
+    nyDato.setMonth(nyDato.getMonth() - mnder);
+    return new Date(nyDato);
+};
+
+export const trekkMnderOgDagerFraDato = (dato, mnder, dager) => {
+    let nyDato = new Date(dato);
+    nyDato = trekkMnderFraDato(nyDato, mnder);
+    nyDato = trekkDagerFraDato(nyDato, dager);
+    return new Date(nyDato);
+};
+
 describe('Oppfolgingsdialoger', () => {
     let component;
     let dinesykmeldinger;
@@ -179,12 +192,12 @@ describe('Oppfolgingsdialoger', () => {
                     mulighetForArbeid: {
                         perioder: [
                             {
-                                fom: trekkDagerFraDato(today, 35).toISOString(),
-                                tom: trekkDagerFraDato(today, 10).toISOString(),
+                                fom: trekkMnderOgDagerFraDato(today, 4, 1).toISOString(),
+                                tom: trekkMnderOgDagerFraDato(today, 4, 0).toISOString(),
                             },
                             {
-                                fom: trekkDagerFraDato(today, 5).toISOString(),
-                                tom: trekkDagerFraDato(today, 1).toISOString(),
+                                fom: trekkMnderOgDagerFraDato(today, 3, 10).toISOString(),
+                                tom: trekkMnderOgDagerFraDato(today, 3, 1).toISOString(),
                             },
                         ],
                     },

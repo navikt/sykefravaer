@@ -30,7 +30,7 @@ import {
     isEmpty,
     erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere,
 } from '../../utils/oppfolgingsdialogUtils';
-import { finnArbeidsgivereForAktiveSykmeldinger, sykmeldtHarAktivSykmelding } from '../../utils/sykmeldingUtils';
+import { finnArbeidsgivereForGyldigeSykmeldinger, sykmeldtHarGyldigSykmelding } from '../../utils/sykmeldingUtils';
 import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
 import OppfolgingsdialogFilm from './OppfolgingsdialogFilm';
@@ -88,7 +88,7 @@ class Oppfolgingsdialoger extends Component {
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrlImg={getContextRoot()}
             />);
-        } else if (!sykmeldtHarAktivSykmelding(dinesykmeldinger.data)) {
+        } else if (!sykmeldtHarGyldigSykmelding(dinesykmeldinger.data)) {
             panel = (
                 <div>
                     <div className="blokk--l">
@@ -111,7 +111,7 @@ class Oppfolgingsdialoger extends Component {
             panel = (<div>
                 {!isEmpty(oppfolgingsdialoger) && aktivOppfolgingsdialoger.length > 0 &&
                 <div>
-                    { finnArbeidsgivereForAktiveSykmeldinger(dinesykmeldinger.data, naermesteLedere.data).length > 1 &&
+                    { finnArbeidsgivereForGyldigeSykmeldinger(dinesykmeldinger.data, naermesteLedere.data).length > 1 &&
                         <OppfolgingsdialogNyDialog />
                     }
                     <OppfolgingsdialogTeasere

@@ -69,6 +69,7 @@ describe('Landingsside', () => {
         clock.restore();
     });
     const sykmeldingAktiv = getSykmelding({
+        sendtdato: new Date(),
         mulighetForArbeid: {
             perioder: [
                 {
@@ -106,7 +107,7 @@ describe('Landingsside', () => {
         expect(component.find(LandingssideLenke)).to.have.length(2);
     });
 
-    it('Skal ikke vise lenkeboks til oppfølgingsdialog om det eksisterer 1 sykmelding med orgnummer', () => {
+    it('Skal ikke vise lenkeboks til oppfølgingsdialog om det eksisterer 1 sykmelding med orgnummer og sendtdato', () => {
         const dineSykemeldinger = [sykmeldingAktiv];
         component = shallow(<Landingsside skjulVarsel harDialogmote={false} dineSykmeldinger={dineSykemeldinger} />);
         expect(component.find(LandingssideLenke)).to.have.length(3);

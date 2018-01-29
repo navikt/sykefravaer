@@ -1,3 +1,7 @@
+import {
+    erSykmeldingGyldigForOppfolgingMedGrensedato,
+} from 'oppfolgingsdialog-npm';
+
 export const sykmeldtHarNaermestelederHosArbeidsgiver = (virksomhetsnummer, naermesteLedere) => {
     return naermesteLedere.filter((leder) => {
         return virksomhetsnummer === leder.orgnummer;
@@ -11,13 +15,10 @@ export const finnSykmeldtSinNaermestelederNavnHosArbeidsgiver = (virksomhetsnumm
     return naermesteLeder ? naermesteLeder.navn : undefined;
 };
 
-export const finnArbeidsgivereForAktiveSykmeldinger = (sykmeldinger, naermesteLedere) => {
+export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteLedere) => {
     const dagensDato = new Date();
-    dagensDato.setHours(0, 0, 0, 0);
     return sykmeldinger.filter((sykmelding) => {
-        return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
-            return new Date(periode.tom) >= dagensDato;
-        }).length > 0;
+        return erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, dagensDato);
     }).map((sykmelding) => {
         return {
             virksomhetsnummer: sykmelding.orgnummer,
@@ -37,6 +38,8 @@ export const skalViseOppfoelgingsdialogLenke = (sykmeldinger) => {
         return self.findIndex((t) => {
             return t.orgnummer === sykmelding.orgnummer && sykmelding.orgnummer !== null;
         }) === idx;
+    }).filter((sykmelding) => {
+        return sykmelding.sendtdato !== null && erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, sykmelding.sendtdato);
     }).length > 0;
 };
 
@@ -52,12 +55,9 @@ export const sykmeldtHarNaermestelederHosArbeidsgivere = (arbeidsgivere) => {
     }).length > 0;
 };
 
-export const sykmeldtHarAktivSykmelding = (sykmeldinger) => {
-    const dagensDato = new Date();
-    dagensDato.setHours(0, 0, 0, 0);
+export const sykmeldtHarGyldigSykmelding = (sykmeldinger) => {
+    const tomGrenseDato = new Date();
     return sykmeldinger.filter((sykmelding) => {
-        return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
-            return new Date(periode.tom) >= dagensDato;
-        }).length > 0;
+        return erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, tomGrenseDato);
     }).length > 0;
 };

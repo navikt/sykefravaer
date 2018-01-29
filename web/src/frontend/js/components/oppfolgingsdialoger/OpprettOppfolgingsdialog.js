@@ -10,10 +10,10 @@ import {
 } from '../../propTypes';
 import ArbeidsgiverSkjemaForm from './ArbeidsgiverSkjema';
 import { getContextRoot } from '../../routers/paths';
-import { finnArbeidsgivereForAktiveSykmeldinger } from '../../utils/sykmeldingUtils';
+import { finnArbeidsgivereForGyldigeSykmeldinger } from '../../utils/sykmeldingUtils';
 
 const OpprettOppfolgingsdialog = ({ dinesykmeldinger, naermesteLedere, oppfolgingsdialoger, avbrytHref, velgArbeidsgiver }) => {
-    const arbeidsgivere = finnArbeidsgivereForAktiveSykmeldinger(dinesykmeldinger.data, naermesteLedere.data);
+    const arbeidsgivere = finnArbeidsgivereForGyldigeSykmeldinger(dinesykmeldinger.data, naermesteLedere.data);
 
     return (
         <div className="panel blokk velgarbeidsgiver__blokk">

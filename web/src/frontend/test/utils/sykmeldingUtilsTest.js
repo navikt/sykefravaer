@@ -1,6 +1,6 @@
 import {
     skalViseOppfoelgingsdialogLenke,
-    finnArbeidsgivereForAktiveSykmeldinger,
+    finnArbeidsgivereForGyldigeSykmeldinger,
     sykmeldtHarManglendeNaermesteLeder,
     sykmeldtHarNaermestelederHosArbeidsgiver,
     sykmeldtHarNaermestelederHosArbeidsgivere,
@@ -45,10 +45,23 @@ export const trekkMnderFraDato = (dato, mnder) => {
     return new Date(nyDato);
 };
 
+export const leggTilMnderFraDato = (dato, mnder) => {
+    const nyDato = new Date(dato);
+    nyDato.setMonth(nyDato.getMonth() + mnder);
+    return new Date(nyDato);
+};
+
 export const trekkMnderOgDagerFraDato = (dato, mnder, dager) => {
     let nyDato = new Date(dato);
     nyDato = trekkMnderFraDato(nyDato, mnder);
     nyDato = trekkDagerFraDato(nyDato, dager);
+    return new Date(nyDato);
+};
+
+export const leggTilMnderOgDagerFraDato = (dato, mnder, dager) => {
+    let nyDato = new Date(dato);
+    nyDato = leggTilDagerPaaDato(nyDato, mnder);
+    nyDato = leggTilMnderFraDato(nyDato, dager);
     return new Date(nyDato);
 };
 
@@ -129,36 +142,51 @@ describe("sykmeldingUtils", () => {
             expect(skalViseOppfoelgingsdialogLenke(sykmeldinger)).to.be.false;
         });
 
-        it('skal returnere true med 1 sykmelding med orgnummer', () => {
-            const sykmeldinger = [sykmeldingAktiv];
+        it('skal returnere false med 1 sykmelding, med sendtdato som er mindre eller likt 3mnd etter siste gyldige sykmeldingsdato', () => {
+            const sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
+                orgnummer: null,
+                sendtdato: leggTilMnderOgDagerFraDato(sykmeldingAktiv.mulighetForArbeid.perioder[1].tom, 3, 1).toISOString(),
+            })];
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger)).to.be.false;
+        });
+
+        it('skal returnere false med 1 sykmelding, med sendtdato som er mer enn 3mnd etter siste gyldige sykmeldingsdato ', () => {
+            const sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
+                sendtdato: leggTilMnderOgDagerFraDato(sykmeldingAktiv.mulighetForArbeid.perioder[1].tom, 3, 0).toISOString(),
+            })];
             expect(skalViseOppfoelgingsdialogLenke(sykmeldinger)).to.be.true;
         });
     });
 
-    describe("finnArbeidsgivereForAktiveSykmeldinger", () => {
+    describe("finnArbeidsgivereForGyldigeSykmeldinger", () => {
 
         it("skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt over 3 maaneder", () => {
             const sykmeldinger = [sykmeldingUtgaattOver3mnd];
-            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
+            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
         });
 
-        it("skal returnere ikke arbeidsgivere, naar sykmelding er utgaatt", () => {
-            const sykmeldinger = [sykmeldingUtgaatt];
-            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
+        it("skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt", () => {
+            const sykmeldinger = [sykmeldingUtgaattOver3mnd];
+            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
         });
 
-        it("skal returnere 1 arbeidsgiver, når 1 sykmelding er utgaatt", () => {
+        it("skal returnere 1 arbeidsgiver, når 1 sykmelding er utgaatt over 3mnd og 1  er utgaat under 3 mnd", () => {
+            const sykmeldinger = [sykmeldingUtgaatt, sykmeldingUtgaattOver3mnd];
+            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
+        });
+
+        it("skal returnere 1 arbeidsgiver, når 1 sykmelding er utgaatt og 1 er aktiv", () => {
             const sykmeldinger = [sykmeldingUtgaatt, sykmeldingAktiv];
-            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
+            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });
 
         it("skal returnere 2 arbeidsgivere, når 2 sykmeldinger er aktive", () => {
-            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(2);
+            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(2);
         });
 
         it("skal returnere 1 arbeidsgiver, når det er duplikat av arbeidsgiver", () => {
             const sykmeldinger = [sykmeldingAktiv, sykmeldingAktiv];
-            expect(finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
+            expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });
 
     });

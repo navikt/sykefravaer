@@ -1,5 +1,5 @@
 import { finnAktiveOppfolgingsdialoger, finnNyesteGodkjenning } from 'oppfolgingsdialog-npm';
-import { finnArbeidsgivereForAktiveSykmeldinger } from './sykmeldingUtils';
+import { finnArbeidsgivereForGyldigeSykmeldinger } from './sykmeldingUtils';
 
 export function getOppfolgingsdialog(oppfolgingsdialoger, id) {
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
@@ -30,7 +30,7 @@ export const erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver = (oppfolgingsd
 };
 
 export const erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere = (oppfolgingsdialoger, sykmeldinger, naermesteLedere) => {
-    return oppfolgingsdialoger.length === 0 && finnArbeidsgivereForAktiveSykmeldinger(sykmeldinger, naermesteLedere).filter((arbeidsgiver) => {
+    return oppfolgingsdialoger.length === 0 && finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere).filter((arbeidsgiver) => {
         return arbeidsgiver.harNaermesteLeder;
     }).length === 0;
 };

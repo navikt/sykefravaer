@@ -21,7 +21,7 @@ import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
 import sinon from 'sinon';
 import { SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon, SykmeldingUtdrag } from 'digisyfo-npm';
 
-describe.only("SendtSoknad", () => {
+describe("SendtSoknad", () => {
 
     let component; 
     let sykepengesoknad = getSoknad();

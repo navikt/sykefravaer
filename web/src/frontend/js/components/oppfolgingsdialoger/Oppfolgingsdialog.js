@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, keyValue, togglesPt } from 'digisyfo-npm';
 import {
+    SideOverskrift,
     NavigasjonsTopp,
     NavigasjonsBunn,
-    AvvistPlanKvittering,
     BRUKERTYPE,
     Godkjenn,
     Godkjenninger,
@@ -37,15 +37,6 @@ export const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {
 };
 
 class Oppfolgingsdialog extends Component {
-    constructor() {
-        super();
-        this.state = {
-            visAvvisPlanKvittering: false,
-            begrunnelse: null,
-        };
-        this.visAvvisPlanKvittering = this.visAvvisPlanKvittering.bind(this);
-    }
-
     componentWillMount() {
         const { oppfolgingsdialog, virksomhet, person, kontaktinfo, forrigenaermesteleder, naermesteleder, hentForrigeNaermesteLeder, hentVirksomhet, hentPerson, hentNaermesteLeder, hentKontaktinfo, arbeidsforhold, hentArbeidsforhold } = this.props;
         this.props.settDialog(oppfolgingsdialog.id);
@@ -55,13 +46,6 @@ class Oppfolgingsdialog extends Component {
         finnOgHentNaermesteLedereSomMangler([oppfolgingsdialog], naermesteleder, hentNaermesteLeder);
         finnOgHentKontaktinfoSomMangler([oppfolgingsdialog], kontaktinfo, hentKontaktinfo);
         finnOgHentArbeidsforholdSomMangler([oppfolgingsdialog], arbeidsforhold, hentArbeidsforhold);
-    }
-
-    visAvvisPlanKvittering(vis, begrunnelse) {
-        this.setState({
-            visAvvisPlanKvittering: vis,
-            begrunnelse,
-        });
     }
 
     render() {
@@ -80,7 +64,6 @@ class Oppfolgingsdialog extends Component {
             giSamtykke,
             visSamtykkeSkjema,
             navigasjontoggles,
-            toggleAvvisPlan,
             nullstillGodkjenning,
             avbrytDialog,
             lagreTiltak,
@@ -95,15 +78,7 @@ class Oppfolgingsdialog extends Component {
         const oppfolgingsdialogAvbrutt = this.props.avbrytdialogReducer.sendt;
         let panel;
         let disableNavigation = false;
-        if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && this.state.visAvvisPlanKvittering) {
-            disableNavigation = true;
-            panel = (<AvvistPlanKvittering
-                ledetekster={ledetekster}
-                rootUrl={`${window.APP_SETTINGS.APP_ROOT}`}
-                begrunnelse={this.state.begrunnelse}
-                visAvvisPlanKvittering={this.visAvvisPlanKvittering}
-            />);
-        } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && visSamtykkeSkjema && oppfolgingsdialog.arbeidstaker.samtykke === null) {
+        if (oppfolgingsdialog.arbeidsgiver.naermesteLeder && visSamtykkeSkjema && oppfolgingsdialog.arbeidstaker.samtykke === null) {
             disableNavigation = true;
             panel = (<Samtykke
                 sendSamtykke={giSamtykke}
@@ -118,8 +93,6 @@ class Oppfolgingsdialog extends Component {
                 oppfolgingsdialog={oppfolgingsdialog}
                 godkjennPlan={godkjennDialog}
                 ledetekster={ledetekster}
-                toggleAvvisPlan={toggleAvvisPlan}
-                visAvvisPlanKvittering={this.visAvvisPlanKvittering}
                 nullstillGodkjenning={nullstillGodkjenning}
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrl={`${getContextRoot()}`}
@@ -182,6 +155,9 @@ class Oppfolgingsdialog extends Component {
                         rootUrl={`${getContextRoot()}`}
                     />
                 }
+                <SideOverskrift
+                    tittel={oppfolgingsdialog.virksomhet.navn}
+                />
                 <NavigasjonsTopp
                     ledetekster={ledetekster}
                     disabled={disableNavigation}
@@ -226,7 +202,6 @@ Oppfolgingsdialog.propTypes = {
     delmednav: oppfolgingProptypes.delmednavPt,
     godkjennDialog: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,
-    toggleAvvisPlan: PropTypes.func,
     hentPdfurler: PropTypes.func,
     giSamtykke: PropTypes.func,
     visSamtykkeSkjema: PropTypes.bool,

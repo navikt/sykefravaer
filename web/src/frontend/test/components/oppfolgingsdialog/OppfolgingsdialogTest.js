@@ -4,9 +4,9 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import {
+    SideOverskrift,
     NavigasjonsTopp,
     NavigasjonsBunn,
-    AvvistPlanKvittering,
     Godkjenn,
     Godkjenninger,
     Samtykke,
@@ -82,6 +82,10 @@ describe('Oppfolgingsdialog', () => {
         />);
     });
 
+    it('Skal vise SideOverskrift', () => {
+        expect(component.find(SideOverskrift)).to.have.length(1);
+    });
+
     it('Skal vise NavigasjonsTopp', () => {
         expect(component.find(NavigasjonsTopp)).to.have.length(1);
     });
@@ -116,13 +120,6 @@ describe('Oppfolgingsdialog', () => {
             hentArbeidsforhold={hentArbeidsforhold}
         />);
         expect(component.find(AvbruttGodkjentPlanVarsel)).to.have.length(1);
-    });
-
-    it('Skal vise AvvistPlanKvittering, om visAvvisPlanKvittering er true', () => {
-        component.setState({
-            visAvvisPlanKvittering: true,
-        });
-        expect(component.find(AvvistPlanKvittering)).to.have.length(1);
     });
 
     it('Skal vise Samtykke, om arbeidstaker ikke har svart paa samtykke og visSamtykke er true', () => {

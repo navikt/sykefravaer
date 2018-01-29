@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getHtmlLedetekst, getLedetekst, Radiofaner, Utvidbar, log } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst, Radiofaner, Utvidbar, log, scrollTo } from 'digisyfo-npm';
 import { Link } from 'react-router';
 
 const teksterMedArbeidsgiver = [{
@@ -205,10 +205,15 @@ export default class TidslinjeUtdrag extends Utvidbar {
             }
             <TittelIngress nokkelbase={nokkelbase} bilde={this.getBilde()} />
             <div
+                tabIndex="-1"
                 style={{ height: this.state.hoyde }}
                 className={`utvidbar__innholdContainer${this.state.containerClassName}`}
                 onTransitionEnd={() => {
                     this.onTransitionEnd();
+                    scrollTo(this.utvidbar, 300);
+                    if (this.state.erApen) {
+                        this.container.focus();
+                    }
                 }}
                 ref={(c) => {
                     this.container = c;

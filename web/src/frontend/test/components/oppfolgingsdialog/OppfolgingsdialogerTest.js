@@ -11,6 +11,7 @@ import {
     UnderUtviklingVarsel,
     OppfolgingsdialogUtenSykmelding,
     OppfolgingsdialogerUtenAktivSykmelding,
+    MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING,
 } from 'oppfolgingsdialog-npm';
 import Sidetopp from '../../../js/components/Sidetopp';
 import Oppfolgingsdialoger, { OppfolgingsdialogNyDialog } from '../../../js/components/oppfolgingsdialoger/Oppfolgingsdialoger';
@@ -182,7 +183,7 @@ describe('Oppfolgingsdialoger', () => {
         });
     });
 
-    describe('Uten aktiv sykmelding', () => {
+    describe('Uten gyldig sykmelding', () => {
         let component1;
         let sykmeldingListe;
 
@@ -192,12 +193,12 @@ describe('Oppfolgingsdialoger', () => {
                     mulighetForArbeid: {
                         perioder: [
                             {
-                                fom: trekkMnderOgDagerFraDato(today, 4, 1).toISOString(),
-                                tom: trekkMnderOgDagerFraDato(today, 4, 0).toISOString(),
+                                fom: trekkMnderOgDagerFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 1, 1).toISOString(),
+                                tom: trekkMnderOgDagerFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 1, 0).toISOString(),
                             },
                             {
-                                fom: trekkMnderOgDagerFraDato(today, 3, 10).toISOString(),
-                                tom: trekkMnderOgDagerFraDato(today, 3, 1).toISOString(),
+                                fom: trekkMnderOgDagerFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING, 10).toISOString(),
+                                tom: trekkMnderOgDagerFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING, 1).toISOString(),
                             },
                         ],
                     },

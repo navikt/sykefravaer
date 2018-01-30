@@ -1,4 +1,7 @@
 import {
+    MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING,
+} from 'oppfolgingsdialog-npm';
+import {
     skalViseOppfoelgingsdialogLenke,
     finnArbeidsgivereForGyldigeSykmeldinger,
     sykmeldtHarManglendeNaermesteLeder,
@@ -90,16 +93,16 @@ describe("sykmeldingUtils", () => {
         harNaermesteLeder: true,
     });
 
-    const sykmeldingUtgaattOver3mnd = getSykmelding({
+    const sykmeldingUtgaattOver4mnd = getSykmelding({
         mulighetForArbeid: {
             perioder: [
                 {
-                    fom: trekkMnderFraDato(today, 6).toISOString(),
-                    tom: trekkMnderFraDato(today, 5).toISOString(),
+                    fom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 3).toISOString(),
+                    tom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 2).toISOString(),
                 },
                 {
-                    fom: trekkMnderFraDato(today, 5).toISOString(),
-                    tom: trekkMnderOgDagerFraDato(today, 3, 1).toISOString(),
+                    fom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 1).toISOString(),
+                    tom: trekkMnderOgDagerFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING, 1).toISOString(),
                 }
             ]
         }
@@ -108,12 +111,12 @@ describe("sykmeldingUtils", () => {
         mulighetForArbeid: {
             perioder: [
                 {
-                    fom: trekkMnderFraDato(today, 6).toISOString(),
-                    tom: trekkMnderFraDato(today, 5).toISOString(),
+                    fom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 3).toISOString(),
+                    tom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 2).toISOString(),
                 },
                 {
-                    fom: trekkMnderFraDato(today, 4).toISOString(),
-                    tom: trekkMnderFraDato(today, 3).toISOString(),
+                    fom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 1).toISOString(),
+                    tom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING).toISOString(),
                 }
             ]
         }
@@ -161,17 +164,17 @@ describe("sykmeldingUtils", () => {
     describe("finnArbeidsgivereForGyldigeSykmeldinger", () => {
 
         it("skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt over 3 maaneder", () => {
-            const sykmeldinger = [sykmeldingUtgaattOver3mnd];
+            const sykmeldinger = [sykmeldingUtgaattOver4mnd];
             expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
         });
 
         it("skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt", () => {
-            const sykmeldinger = [sykmeldingUtgaattOver3mnd];
+            const sykmeldinger = [sykmeldingUtgaattOver4mnd];
             expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
         });
 
         it("skal returnere 1 arbeidsgiver, når 1 sykmelding er utgaatt over 3mnd og 1  er utgaat under 3 mnd", () => {
-            const sykmeldinger = [sykmeldingUtgaatt, sykmeldingUtgaattOver3mnd];
+            const sykmeldinger = [sykmeldingUtgaatt, sykmeldingUtgaattOver4mnd];
             expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });
 

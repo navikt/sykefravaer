@@ -44,9 +44,11 @@ export class OppsummeringForm extends Component {
             const soknad = mapSkjemasoknadToBackendsoknad(values, {
                 visForskutteringssporsmal: visForskutteringssporsmal === true,
             });
+            soknad.oppsummering = oppsummeringsoknad;
             const soknadObjekt = JSON.parse(JSON.stringify(soknad)); // Hack for å sikre riktig datoformat
             actions.sendSykepengesoknad(soknadObjekt);
         };
+
         return (<form
             className="sykepengerskjema"
             ref={(c) => {

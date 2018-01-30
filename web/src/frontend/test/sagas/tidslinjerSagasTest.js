@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { hentTidslinjer } from '../../js/sagas/tidslinjerSagas.js';
-import { get } from '../../js/api';
+import { get } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import * as actiontyper from '../../js/actions/actiontyper';
 

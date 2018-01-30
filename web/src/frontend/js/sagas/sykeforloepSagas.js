@@ -1,9 +1,8 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
-import { log } from 'digisyfo-npm';
+import { get, log } from 'digisyfo-npm';
 import * as actions from '../actions/sykeforloep_actions';
 import * as actiontyper from '../actions/actiontyper';
-import { get } from '../api';
 
 export function* hentStartdato() {
     yield put(actions.henterStartdato());

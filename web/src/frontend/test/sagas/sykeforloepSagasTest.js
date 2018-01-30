@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { hentStartdato } from '../../js/sagas/sykeforloepSagas.js';
-import { get } from '../../js/api';
+import { get } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import * as actions from '../../js/actions/sykeforloep_actions';
 

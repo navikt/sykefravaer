@@ -1,8 +1,7 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
-import { log } from 'digisyfo-npm';
+import { post, log } from 'digisyfo-npm';
 import { svarActions, actiontyper, lagJsDate } from 'moter-npm';
-import { post } from '../api';
 
 export function* sendSvar(action) {
     yield put(svarActions.senderSvar());

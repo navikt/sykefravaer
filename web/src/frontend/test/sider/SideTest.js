@@ -48,7 +48,7 @@ describe("SideComponent", () => {
         expect(component.contains(<Brodsmuler brodsmuler={brodsmuler} />)).to.be.true;
     });
 
-    it("Skal rendre brødsmuler", () => {
+    it("Skal rendre TimeoutBox", () => {
         expect(component.contains(<TimeoutBox />)).to.be.true;
     });
 

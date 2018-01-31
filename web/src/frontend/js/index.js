@@ -27,6 +27,7 @@ import {
     kontaktinfo,
     forrigenaermesteleder,
     naermesteleder,
+    setPerformOnOppDialogHttpCalls,
 } from 'oppfolgingsdialog-npm';
 import AppRouter from './routers/AppRouter';
 import dineSykmeldinger from './reducers/dineSykmeldinger';
@@ -105,6 +106,7 @@ store.dispatch(forlengInnloggetSesjon());
 // </OBS>
 
 setPerformOnHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()) });
+setPerformOnOppDialogHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()) });
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {
     window.APP_SETTINGS.VIS_LEDETEKSTNOKLER = true;

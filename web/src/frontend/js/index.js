@@ -6,7 +6,7 @@ import { reducer as formReducer } from 'redux-form';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import { hentLedetekster, ledetekster, tidslinjer, toggles, setPerformOnHttpCalls, timeout, forlengInnloggetSesjon } from 'digisyfo-npm';
+import { hentLedetekster, ledetekster, tidslinjer, toggles, setPerformOnHttpCalls, timeout, forlengInnloggetSesjon, sjekkInnloggingssesjon } from 'digisyfo-npm';
 import { svar, mote } from 'moter-npm';
 import {
     oppfolgingsdialogerAt as oppfolgingsdialoger,
@@ -107,6 +107,10 @@ store.dispatch(forlengInnloggetSesjon());
 
 setPerformOnHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()) });
 setPerformOnOppDialogHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()) });
+
+setInterval(() => {
+    store.dispatch(sjekkInnloggingssesjon());
+}, 5000);
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {
     window.APP_SETTINGS.VIS_LEDETEKSTNOKLER = true;

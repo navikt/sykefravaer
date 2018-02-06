@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { sendSvar } from '../../js/sagas/svarSagas.js';
 import { svarActions, lagJsDate } from 'moter-npm';
-import { post } from '../../js/api';
+import { post } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 
 describe("svarSagas", () => {

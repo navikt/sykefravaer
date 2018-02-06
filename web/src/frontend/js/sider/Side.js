@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { TimeoutBox } from 'digisyfo-npm';
 import AppSpinner from '../components/AppSpinner';
 import Brodsmuler from '../components/Brodsmuler';
 import Feilmelding from '../components/Feilmelding';
@@ -61,6 +62,7 @@ export class SideComponent extends Component {
         setAppClass(laster, erInnlogget);
         return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
             <div className={classNames} aria-busy={laster}>
+                <TimeoutBox />
                 { this.state.visSpinnerIDom && <div className="side__spinner">
                     <AppSpinner />
                 </div> }

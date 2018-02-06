@@ -1,7 +1,6 @@
 import { call, put, fork } from 'redux-saga/effects';
-import { log } from 'digisyfo-npm';
+import { get, log } from 'digisyfo-npm';
 import { takeEvery } from 'redux-saga';
-import { get } from '../api';
 import * as actions from '../actions/dineSykmeldinger_actions';
 import * as actiontyper from '../actions/actiontyper';
 

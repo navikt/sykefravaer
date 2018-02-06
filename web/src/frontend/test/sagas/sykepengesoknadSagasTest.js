@@ -10,7 +10,7 @@ import {
     gjenapneSoknad
 } from "../../js/sagas/sykepengesoknadSagas";
 import {finnSoknad} from "../../js/reducers/sykepengesoknader";
-import {get, post} from "../../js/api";
+import {get, post} from "digisyfo-npm";
 import {call, put, select} from "redux-saga/effects";
 import * as actiontyper from "../../js/actions/actiontyper";
 import * as actions from "../../js/actions/sykepengesoknader_actions";

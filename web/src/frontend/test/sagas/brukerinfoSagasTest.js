@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { hentBrukerinfo, sjekkInnlogging } from '../../js/sagas/brukerinfoSagas';
-import { get, getAjax } from '../../js/api';
+import { get, getAjax } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import * as actiontyper from '../../js/actions/actiontyper';
 

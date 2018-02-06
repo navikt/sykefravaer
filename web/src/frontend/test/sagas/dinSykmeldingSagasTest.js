@@ -8,7 +8,7 @@ import {
 import * as actions from '../../js/actions/dinSykmelding_actions';
 import { hentDineSykmeldinger } from "../../js/actions/dineSykmeldinger_actions";
 import { hentArbeidsgiversSykmeldinger } from "../../js/actions/arbeidsgiversSykmeldinger_actions";
-import { post } from '../../js/api';
+import { post } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import * as actiontyper from '../../js/actions/actiontyper';
 

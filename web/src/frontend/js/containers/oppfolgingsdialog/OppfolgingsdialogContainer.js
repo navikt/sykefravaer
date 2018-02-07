@@ -33,6 +33,7 @@ import {
     henterEllerHarHentetOppfolgingsdialoger,
     oppfolgingsdialogHarBlittAvbrutt,
     oppfolgingsdialogHarBlittGodkjent,
+    populerDialogFraState,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 import history from '../../history';
@@ -178,7 +179,8 @@ OppfolgingsdialogSide.propTypes = {
 
 export function mapStateToProps(state, ownProps) {
     const id = ownProps.params.oppfolgingsdialogId;
-    const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
+    let oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
+    oppfolgingsdialog = oppfolgingsdialog && populerDialogFraState(oppfolgingsdialog, state);
     return {
         henter: state.oppfolgingsdialoger.henter
         || state.ledetekster.henter

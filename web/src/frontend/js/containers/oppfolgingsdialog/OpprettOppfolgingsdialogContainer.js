@@ -11,6 +11,7 @@ import {
     henterEllerHarHentetTilgang,
     henterEllerHarHentetOppfolgingsdialoger,
     oppfolgingsdialogHarBlittOpprettet,
+    populerDialogFraState,
 } from 'oppfolgingsdialog-npm';
 import Side from '../../sider/Side';
 import Sidetopp from '../../components/Sidetopp';
@@ -142,6 +143,10 @@ OpprettOppfolgingsdialogSide.propTypes = {
 };
 
 export const mapStateToProps = (state) => {
+    const oppfolgingsdialoger = state.oppfolgingsdialoger.data
+        .map((oppfolgingsdialog) => {
+            return populerDialogFraState(oppfolgingsdialog, state);
+        });
     return {
         henter: state.ledetekster.henter
         || state.dineSykmeldinger.henter
@@ -165,7 +170,7 @@ export const mapStateToProps = (state) => {
         dinesykmeldinger: state.dineSykmeldinger,
         tilgang: state.tilgang,
         ledetekster: state.ledetekster.data,
-        oppfolgingsdialoger: state.oppfolgingsdialoger.data,
+        oppfolgingsdialoger,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

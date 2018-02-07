@@ -17,7 +17,6 @@ import {
     settAktivtSteg,
     hentPdfurler,
     giSamtykke,
-    visSamtykke,
     OppfolgingsdialogInfoboks,
     settDialog,
     avbrytDialog,
@@ -74,9 +73,6 @@ export class OppfolgingsdialogSide extends Component {
                 history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.id}`);
                 window.location.hash = 'arbeidsoppgaver';
             }
-        }
-        if (oppfolgingsdialogHarBlittGodkjent(oppfolgingsdialogerReducer, nextProps.oppfolgingsdialogerReducer)) {
-            this.props.visSamtykke(true);
         }
     }
 
@@ -154,9 +150,7 @@ OppfolgingsdialogSide.propTypes = {
     ledetekster: keyValue,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     toggles: togglesPt,
-    visSamtykkeSkjema: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
-    visSamtykke: PropTypes.func,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
     lagreTiltak: PropTypes.func,
@@ -198,8 +192,7 @@ export function mapStateToProps(state, ownProps) {
         || state.oppfolgingsdialoger.avviser
         || state.oppfolgingsdialoger.godkjent
         || state.avbrytdialogReducer.sendt
-        || state.nullstill.sendt
-        || state.samtykke.sendt,
+        || state.nullstill.sendt,
         sender: state.oppfolgingsdialoger.avviser
         || state.oppfolgingsdialoger.godkjenner
         || state.avbrytdialogReducer.sender
@@ -228,7 +221,6 @@ export function mapStateToProps(state, ownProps) {
         oppfolgingsdialog,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
         virksomhet: state.virksomhet,
-        visSamtykkeSkjema: state.samtykke.vis,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -258,7 +250,6 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     settAktivtSteg,
     hentPdfurler,
     giSamtykke,
-    visSamtykke,
     settDialog,
     hentArbeidsforhold,
     avbrytDialog,

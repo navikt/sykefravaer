@@ -6,7 +6,7 @@ import { reducer as formReducer } from 'redux-form';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import { hentLedetekster, ledetekster, tidslinjer, toggles } from 'digisyfo-npm';
+import { hentLedetekster, ledetekster, tidslinjer, toggles, setPerformOnHttpCalls, timeout, forlengInnloggetSesjon, sjekkInnloggingssesjon } from 'digisyfo-npm';
 import { svar, mote } from 'moter-npm';
 import {
     oppfolgingsdialogerAt as oppfolgingsdialoger,
@@ -27,6 +27,7 @@ import {
     kontaktinfo,
     forrigenaermesteleder,
     naermesteleder,
+    setPerformOnOppDialogHttpCalls,
 } from 'oppfolgingsdialog-npm';
 import AppRouter from './routers/AppRouter';
 import dineSykmeldinger from './reducers/dineSykmeldinger';
@@ -84,6 +85,7 @@ const rootReducer = combineReducers({
     kontaktinfo,
     forrigenaermesteleder,
     naermesteleder,
+    timeout,
     form: formReducer,
     formMeta: reduxFormMeta,
     sykeforloep,
@@ -100,7 +102,15 @@ sagaMiddleware.run(rootSaga);
 // <OBS>: Minimer antall kall som gjøres her!
 store.dispatch(hentLedetekster());
 store.dispatch(hentVedlikehold());
+store.dispatch(forlengInnloggetSesjon());
 // </OBS>
+
+setPerformOnHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()) });
+setPerformOnOppDialogHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()) });
+
+setInterval(() => {
+    store.dispatch(sjekkInnloggingssesjon());
+}, 5000);
 
 if (window.location.href.indexOf('visLedetekster=true') > -1) {
     window.APP_SETTINGS.VIS_LEDETEKSTNOKLER = true;
@@ -109,7 +119,7 @@ if (window.location.href.indexOf('visLedetekster=true') > -1) {
 }
 
 render(<Provider store={store}>
-    <AppRouter history={history} /></Provider>,
+        <AppRouter history={history} /></Provider>,
 document.getElementById('maincontent'));
 
 export {

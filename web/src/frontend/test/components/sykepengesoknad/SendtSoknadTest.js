@@ -47,7 +47,7 @@ describe("SendtSoknad", () => {
         const oppsummeringsoknad = {
             test: "test",
         };
-        sykepengesoknad.oppsummeringsoknad = oppsummeringsoknad;
+        sykepengesoknad.oppsummering = oppsummeringsoknad;
         component = shallow(<SendtSoknad sykepengesoknad={sykepengesoknad} />)
         expect(component.contains(<SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} />)).to.be.true;
         expect(component.contains(<VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />)).to.be.true;

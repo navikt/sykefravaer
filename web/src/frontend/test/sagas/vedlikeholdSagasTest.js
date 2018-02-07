@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { hentVedlikehold } from '../../js/sagas/vedlikeholdSagas';
-import { get } from '../../js/api';
+import { get } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import * as actiontyper from '../../js/actions/actiontyper';
 import * as actions from '../../js/actions/vedlikehold_actions'

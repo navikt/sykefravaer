@@ -106,7 +106,8 @@ export function mapStateToProps(state) {
     });
 
     return {
-        henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.mote.henter || state.hendelser.henter || state.sykeforloep.henter,
+        henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter ||
+        state.mote.henter || state.hendelser.henter || state.sykeforloep.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),

@@ -46,20 +46,39 @@ const Landingsside = ({ sykepengesoknader = [], harDialogmote = false, brodsmule
                     undertittel="Informasjon og oversikt over aktiviteter"
                     variant="fersken" />
                 {
-                    dineSykmeldinger.length > 0 && <LandingssideLenke to="/sykefravaer/sykmeldinger" ikon="sykmeldinger" ikonAlt="Sykmelding" tittel="Sykmeldinger" variant="lysblaa" />
+                    dineSykmeldinger.length > 0 && <LandingssideLenke
+                        to="/sykefravaer/sykmeldinger"
+                        ikon="sykmeldinger"
+                        ikonAlt="Sykmelding"
+                        tittel="Sykmeldinger"
+                        variant="lysblaa" />
                 }
                 {
                     sykepengesoknader.length > 0 &&
-                        <LandingssideLenke to="/sykefravaer/soknader" ikon="soknader" ikonAlt="Søknader" tittel="Søknader om sykepenger" variant="lysgronn" />
-
+                        <LandingssideLenke
+                            to="/sykefravaer/soknader"
+                            ikon="soknader"
+                            ikonAlt="Søknader"
+                            tittel="Søknader om sykepenger"
+                            variant="lysgronn" />
                 }
                 {
                     harDialogmote &&
-                        <LandingssideLenke to="/sykefravaer/dialogmote" ikon="dialogmoter" ikonAlt="Dialogmøter" tittel="Dialogmøter" variant="ceil" />
+                        <LandingssideLenke
+                            to="/sykefravaer/dialogmote"
+                            ikon="dialogmoter"
+                            ikonAlt="Dialogmøter"
+                            tittel="Dialogmøter"
+                            variant="ceil" />
                 }
                 {
                     skalViseOppfoelgingsdialogLenke(dineSykmeldinger) &&
-                        <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
+                        <LandingssideLenke
+                            to="/sykefravaer/oppfolgingsplaner"
+                            ikon="oppfolgingsplaner"
+                            ikonAlt="Oppfølgingsplaner"
+                            tittel="Oppfølgingsplaner"
+                            variant="koromiko" />
                 }
             </nav>
             <DetteHarSkjeddContainer />

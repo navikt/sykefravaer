@@ -8,7 +8,9 @@ import { HENT_ARBEIDSGIVERPERIODEBEREGNING_FORESPURT } from '../actions/actionty
 export function* hentArbeidsgiverperiodeberegning(action) {
     yield put(actions.henterArbeidsgiverperiodeberegning());
     try {
-        const arbeidsgiverperiodeberegning = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/beregn-arbeidsgiverperiode`, action.sykepengesoknad);
+        const arbeidsgiverperiodeberegning = yield call(post,
+            `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/beregn-arbeidsgiverperiode`,
+            action.sykepengesoknad);
         const a = actions.arbeidsgiverperiodeberegningHentet(arbeidsgiverperiodeberegning);
         yield put(a);
     } catch (e) {

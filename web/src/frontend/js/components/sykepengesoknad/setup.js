@@ -38,7 +38,8 @@ export const mapToInitialValues = (soknad) => {
 
 export const mapStateToPropsMedInitialValues = (state, ownProps) => {
     const { sykepengesoknad } = ownProps;
-    const initialValues = sykepengesoknad.status === sykepengesoknadstatuser.UTKAST_TIL_KORRIGERING ? mapBackendsoknadToSkjemasoknad(sykepengesoknad) : mapToInitialValues(sykepengesoknad);
+    const initialValues = sykepengesoknad.status === sykepengesoknadstatuser.UTKAST_TIL_KORRIGERING
+        ? mapBackendsoknadToSkjemasoknad(sykepengesoknad) : mapToInitialValues(sykepengesoknad);
     return {
         initialValues,
         sykepengesoknad: mapAktiviteter(sykepengesoknad),

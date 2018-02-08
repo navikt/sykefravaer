@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst } from 'digisyfo-npm';
+import {
+    proptypes as oppfolgingProptypes,
+} from 'oppfolgingsdialog-npm';
 import LandingssideLenke from './LandingssideLenke';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../../propTypes';
 import Brodsmuler from '../Brodsmuler';
@@ -20,7 +23,7 @@ const IngenSykmeldinger = () => {
     </div>);
 };
 
-const Landingsside = ({ sykepengesoknader = [], harDialogmote = false, brodsmuler, dineSykmeldinger = [] }) => {
+const Landingsside = ({ sykepengesoknader = [], harDialogmote = false, brodsmuler, dineSykmeldinger = [], oppfolgingsdialoger }) => {
     return (<div>
         <div className="sidebanner">
             <div className="sidebanner__innhold">
@@ -58,7 +61,7 @@ const Landingsside = ({ sykepengesoknader = [], harDialogmote = false, brodsmule
                         <LandingssideLenke to="/sykefravaer/dialogmote" ikon="dialogmoter" ikonAlt="Dialogmøter" tittel="Dialogmøter" variant="ceil" />
                 }
                 {
-                    skalViseOppfoelgingsdialogLenke(dineSykmeldinger) &&
+                    skalViseOppfoelgingsdialogLenke(dineSykmeldinger, oppfolgingsdialoger) &&
                         <LandingssideLenke to="/sykefravaer/oppfolgingsplaner" ikon="oppfolgingsplaner" ikonAlt="Oppfølgingsplaner" tittel="Oppfølgingsplaner" variant="koromiko" />
                 }
             </nav>
@@ -72,6 +75,7 @@ Landingsside.propTypes = {
     dineSykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     harDialogmote: PropTypes.bool,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
+    oppfolgingsdialoger: oppfolgingProptypes.oppfolgingsdialogerAtPt,
 };
 
 export default Landingsside;

@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import { moteActions } from 'moter-npm';
 import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
+import {
+    hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
+    henterEllerHarHentetOppfolgingsdialoger,
+    proptypes as oppfolgingProptypes,
+} from 'oppfolgingsdialog-npm';
 import Landingsside from '../../components/landingsside/Landingsside';
 import StrippetSide from '../../sider/StrippetSide';
 import Side from '../../sider/Side';
@@ -17,7 +22,7 @@ import { hentStartdato } from '../../actions/sykeforloep_actions';
 export class LandingssideSide extends Component {
     componentWillMount() {
         const { mote, ledere, dineSykmeldinger, sykepengesoknader } = this.props.hentet;
-        const { skalHenteStartdato } = this.props;
+        const { skalHenteStartdato, oppfolgingsdialoger } = this.props;
         if (!mote) {
             this.props.hentMote();
         }
@@ -33,6 +38,9 @@ export class LandingssideSide extends Component {
         if (skalHenteStartdato) {
             this.props.hentStartdato();
         }
+        if (!henterEllerHarHentetOppfolgingsdialoger(oppfolgingsdialoger)) {
+            this.props.hentOppfolgingsdialoger();
+        }
     }
 
     render() {
@@ -44,6 +52,7 @@ export class LandingssideSide extends Component {
             harDialogmote,
             dineSykmeldinger,
             altHentet,
+            oppfolgingsdialoger,
         } = this.props;
         const Sidetype = hentingFeilet ? Side : StrippetSide;
         const brodsmulerArg = hentingFeilet ? brodsmuler : [];
@@ -61,6 +70,7 @@ export class LandingssideSide extends Component {
                         sykepengesoknader={sykepengesoknader}
                         harDialogmote={harDialogmote}
                         dineSykmeldinger={dineSykmeldinger}
+                        oppfolgingsdialoger={oppfolgingsdialoger}
                     />);
                 })()
             }
@@ -87,10 +97,13 @@ LandingssideSide.propTypes = {
         mote: PropTypes.bool,
         dineSykmeldinger: PropTypes.bool,
         sykepengesoknader: PropTypes.bool,
+        oppfolgingsdialoger: PropTypes.bool,
     }),
     altHentet: PropTypes.bool,
     skalHenteStartdato: PropTypes.bool,
     hentStartdato: PropTypes.func,
+    hentOppfolgingsdialoger: PropTypes.func,
+    oppfolgingsdialoger: oppfolgingProptypes.oppfolgingsdialogerAtPt,
 };
 
 export function mapStateToProps(state) {
@@ -98,6 +111,7 @@ export function mapStateToProps(state) {
         ledere: state.ledere.hentet === true,
         mote: state.mote.hentet === true,
         dineSykmeldinger: state.dineSykmeldinger.hentet === true,
+        oppfolgingsdialoger: state.oppfolgingsdialoger.hentet === true,
         sykepengesoknader: state.sykepengesoknader.hentet === true,
         sykeforloep: state.sykeforloep.hentet === true,
     };
@@ -106,13 +120,20 @@ export function mapStateToProps(state) {
     });
 
     return {
-        henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.dineSykmeldinger.henter || state.mote.henter || state.hendelser.henter || state.sykeforloep.henter,
+        henter: state.ledetekster.henter
+        || state.sykepengesoknader.henter
+        || state.dineSykmeldinger.henter
+        || state.mote.henter
+        || state.hendelser.henter
+        || state.sykeforloep.henter
+        || state.oppfolgingsdialoger.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
         }],
         sykepengesoknader: state.sykepengesoknader.data,
+        oppfolgingsdialoger: state.oppfolgingsdialoger,
         harDialogmote: state.mote.data !== null,
         dineSykmeldinger: state.dineSykmeldinger.data,
         hentingFeiletSykepengesoknader: state.sykepengesoknader.hentingFeilet,
@@ -130,6 +151,7 @@ const LandingssideContainer = connect(mapStateToProps, {
     hentLedere,
     hentDineSykmeldinger,
     hentStartdato,
+    hentOppfolgingsdialoger,
 })(LandingssideSide);
 
 export default LandingssideContainer;

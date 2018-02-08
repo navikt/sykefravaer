@@ -172,7 +172,7 @@ export const mapStateToProps = (state) => {
             moteRes = 'TRENGER_SVAR';
         }
     }
-    const _oppgaverOppfoelgingsdialoger = oppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data);
+    const _oppgaverOppfoelgingsdialoger = oppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
     const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
     const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null || _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0 || _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0 || visAktivitetskrav;
 

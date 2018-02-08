@@ -33,14 +33,14 @@ export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteL
     });
 };
 
-export const skalViseOppfoelgingsdialogLenke = (sykmeldinger) => {
+export const skalViseOppfoelgingsdialogLenke = (sykmeldinger, oppfolgingsdialoger) => {
     return sykmeldinger.filter((sykmelding, idx, self) => {
         return self.findIndex((t) => {
             return t.orgnummer === sykmelding.orgnummer && sykmelding.orgnummer !== null;
         }) === idx;
     }).filter((sykmelding) => {
         return sykmelding.sendtdato !== null && erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, sykmelding.sendtdato);
-    }).length > 0;
+    }).length > 0 || oppfolgingsdialoger.data.length > 0;
 };
 
 export const sykmeldtHarManglendeNaermesteLeder = (arbeidsgivere) => {

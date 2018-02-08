@@ -68,22 +68,77 @@ export const leggTilMnderOgDagerFraDato = (dato, mnder, dager) => {
     return new Date(nyDato);
 };
 
+export const hentsykmeldingUtgaattOver4mnd = (dagensDato) => {
+    return getSykmelding({
+        mulighetForArbeid: {
+            perioder: [
+                {
+                    fom: trekkMnderFraDato(dagensDato, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 3).toISOString(),
+                    tom: trekkMnderFraDato(dagensDato, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 2).toISOString(),
+                },
+                {
+                    fom: trekkMnderFraDato(dagensDato, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 1).toISOString(),
+                    tom: trekkMnderOgDagerFraDato(dagensDato, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING, 1).toISOString(),
+                },
+            ],
+        },
+    });
+};
 
-describe("sykmeldingUtils", () => {
+export const hentSykmeldingUtgaatt = (dagensDato) => {
+    return getSykmelding({
+        mulighetForArbeid: {
+            perioder: [
+                {
+                    fom: trekkMnderFraDato(dagensDato, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 3).toISOString(),
+                    tom: trekkMnderFraDato(dagensDato, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 2).toISOString(),
+                },
+                {
+                    fom: trekkMnderFraDato(dagensDato, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 1).toISOString(),
+                    tom: trekkMnderFraDato(dagensDato, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING).toISOString(),
+                },
+            ],
+        },
+    });
+};
 
+export const hentSykmeldingAktiv = (dagensDato) => {
+    return getSykmelding({
+        mulighetForArbeid: {
+            perioder: [
+                {
+                    fom: trekkDagerFraDato(dagensDato, 35).toISOString(),
+                    tom: trekkDagerFraDato(dagensDato, 5).toISOString(),
+                },
+                {
+                    fom: trekkDagerFraDato(dagensDato, 5).toISOString(),
+                    tom: leggTilDagerPaaDato(dagensDato, 35).toISOString(),
+                },
+            ],
+        },
+    });
+};
+
+describe('sykmeldingUtils', () => {
     let clock;
+    let sykmeldinger;
+    let sykmeldingUtgaattOver4mnd;
+    let sykmeldingUtgaatt;
+    let sykmeldingAktiv;
     const today = new Date('2017-01-01');
     today.setHours(0, 0, 0, 0);
 
     beforeEach(() => {
+        sykmeldinger = getSykmeldinger;
         clock = sinon.useFakeTimers(today.getTime());
+        sykmeldingUtgaattOver4mnd = hentsykmeldingUtgaattOver4mnd(today);
+        sykmeldingUtgaatt = hentSykmeldingUtgaatt(today);
+        sykmeldingAktiv = hentSykmeldingAktiv(today);
     });
 
     afterEach(() => {
         clock.restore();
     });
-
-    const sykmeldinger = getSykmeldinger;
     const naermesteLedere = getLedere;
     const arbeidsgivere = getArbeidsgivere;
     const arbeidsgivereUtenNaermesteLeder = getArbeidsgiver({
@@ -93,71 +148,63 @@ describe("sykmeldingUtils", () => {
         harNaermesteLeder: true,
     });
 
-    const sykmeldingUtgaattOver4mnd = getSykmelding({
-        mulighetForArbeid: {
-            perioder: [
-                {
-                    fom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 3).toISOString(),
-                    tom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 2).toISOString(),
-                },
-                {
-                    fom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 1).toISOString(),
-                    tom: trekkMnderOgDagerFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING, 1).toISOString(),
-                }
-            ]
-        }
-    });
-    const sykmeldingUtgaatt = getSykmelding({
-        mulighetForArbeid: {
-            perioder: [
-                {
-                    fom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 3).toISOString(),
-                    tom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 2).toISOString(),
-                },
-                {
-                    fom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING + 1).toISOString(),
-                    tom: trekkMnderFraDato(today, MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING).toISOString(),
-                }
-            ]
-        }
-    });
-    const sykmeldingAktiv = getSykmelding({
-        mulighetForArbeid: {
-            perioder: [
-                {
-                    fom: trekkDagerFraDato(today, 35).toISOString(),
-                    tom: trekkDagerFraDato(today, 5).toISOString(),
-                },
-                {
-                    fom: trekkDagerFraDato(today, 5).toISOString(),
-                    tom: leggTilDagerPaaDato(today, 35).toISOString(),
-                }
-            ]
-        }
-    });
-
-
     describe('skalViseOppfoelgingsdialogLenke', () => {
-        it('skal returnere false med 1 sykmelding uten orgnummer', () => {
-            const sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
+        let oppfolgingsdialoger;
+
+        it('skal returnere false med 1 sykmelding uten orgnummer, uten oppfolgingsdialoger', () => {
+            oppfolgingsdialoger = {
+                data: [],
+            };
+            sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
                 orgnummer: null,
             })];
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger)).to.be.false;
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.be.false;
         });
 
-        it('skal returnere false med 1 sykmelding, med sendtdato som er mindre eller likt 3mnd etter siste gyldige sykmeldingsdato', () => {
-            const sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
+        it('skal returnere true med 1 sykmelding uten orgnummer, med oppfolgingsdialog', () => {
+            oppfolgingsdialoger = {
+                data: [{
+                    virksomhetsnummer: '12345678',
+                }],
+            };
+            sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
+                orgnummer: null,
+            })];
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.be.true;
+        });
+
+        it('skal returnere false med 1 sykmelding, med sendtdato som er mindre eller likt 4mnd etter siste gyldige sykmeldingsdato, uten oppfolgingsdialoger', () => {
+            oppfolgingsdialoger = {
+                data: [],
+            };
+            sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
                 orgnummer: null,
                 sendtdato: leggTilMnderOgDagerFraDato(sykmeldingAktiv.mulighetForArbeid.perioder[1].tom, 3, 1).toISOString(),
             })];
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger)).to.be.false;
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.be.false;
         });
 
-        it('skal returnere false med 1 sykmelding, med sendtdato som er mer enn 3mnd etter siste gyldige sykmeldingsdato ', () => {
-            const sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
+        it('skal returnere true med 1 sykmelding, med sendtdato som er mindre eller likt 4mnd etter siste gyldige sykmeldingsdato, med oppfolgingsdialoger', () => {
+            oppfolgingsdialoger = {
+                data: [{
+                    virksomhetsnummer: '12345678',
+                }],
+            };
+            sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
+                orgnummer: null,
+                sendtdato: leggTilMnderOgDagerFraDato(sykmeldingAktiv.mulighetForArbeid.perioder[1].tom, 3, 1).toISOString(),
+            })];
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.be.true;
+        });
+
+        it('skal returnere false med 1 sykmelding, med sendtdato som er mer enn 4mnd etter siste gyldige sykmeldingsdato ', () => {
+            oppfolgingsdialoger = {
+                data: [],
+            };
+            sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
                 sendtdato: leggTilMnderOgDagerFraDato(sykmeldingAktiv.mulighetForArbeid.perioder[1].tom, 3, 0).toISOString(),
             })];
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger)).to.be.true;
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.be.true;
         });
     });
 

@@ -59,10 +59,14 @@ describe('Landingsside', () => {
     let clock;
     today.setHours(0, 0, 0, 0);
     let component;
+    let oppfolgingsdialoger;
 
     beforeEach(() => {
         setLedetekster(ledetekster);
         clock = sinon.useFakeTimers(today.getTime());
+        oppfolgingsdialoger = {
+            data: [],
+        };
     });
 
     afterEach(() => {
@@ -85,17 +89,27 @@ describe('Landingsside', () => {
     });
 
     it('Skal vise overskrift for "Ditt sykefravær"', () => {
-        component = shallow(<Landingsside skjulVarsel={false} />);
+        component = shallow(<Landingsside
+            skjulVarsel={false}
+            oppfolgingsdialoger={oppfolgingsdialoger}
+        />);
         expect(component.find('.js-sidetittel').text()).to.equal('Ditt sykefravær');
     });
 
-    it('Skal vise 1 lenkeboks om vi ikke har dialogmoter, soknader eller sykmeldinger', () => {
-        component = shallow(<Landingsside skjulVarsel />);
+    it('Skal vise 1 lenkeboks om vi ikke har dialogmoter, soknader, sykmeldinger, eller oppfoelgingsdialoger for ugyldige sykmeldinger', () => {
+        component = shallow(<Landingsside
+            skjulVarsel
+            oppfolgingsdialoger={oppfolgingsdialoger}
+        />);
         expect(component.find(LandingssideLenke)).to.have.length(1);
     });
 
     it('Skal vise lenkeboks til dialogmoter om vi har et dialogmote', () => {
-        component = shallow(<Landingsside skjulVarsel harDialogmote />);
+        component = shallow(<Landingsside
+            skjulVarsel
+            harDialogmote
+            oppfolgingsdialoger={oppfolgingsdialoger}
+        />);
         expect(component.find(LandingssideLenke)).to.have.length(2);
     });
 
@@ -103,18 +117,44 @@ describe('Landingsside', () => {
         const dineSykemeldinger = [Object.assign({}, sykmeldingAktiv, {
             orgnummer: null,
         })];
-        component = shallow(<Landingsside skjulVarsel harDialogmote={false} dineSykmeldinger={dineSykemeldinger} />);
+        component = shallow(<Landingsside
+            skjulVarsel
+            harDialogmote={false}
+            dineSykmeldinger={dineSykemeldinger}
+            oppfolgingsdialoger={oppfolgingsdialoger}
+        />);
+        expect(component.find(LandingssideLenke)).to.have.length(2);
+    });
+
+
+    it('Skal vise lenkeboks til soknader om vi har en soknad', () => {
+        component = shallow(<Landingsside
+            skjulVarsel
+            sykepengesoknader={[getSoknad()]}
+            oppfolgingsdialoger={oppfolgingsdialoger}
+        />);
+        expect(component.find(LandingssideLenke)).to.have.length(2);
+    });
+
+    it('Skal vise lenkeboks til oppfolgingsdialoger om vi har en oppfolgingsdialog, men ingen gyldig sykmelding', () => {
+        component = shallow(<Landingsside
+            skjulVarsel
+            oppfolgingsdialoger={{
+                ...oppfolgingsdialoger,
+                data: [{}],
+            }}
+        />);
         expect(component.find(LandingssideLenke)).to.have.length(2);
     });
 
     it('Skal ikke vise lenkeboks til oppfølgingsdialog om det eksisterer 1 sykmelding med orgnummer og sendtdato', () => {
         const dineSykemeldinger = [sykmeldingAktiv];
-        component = shallow(<Landingsside skjulVarsel harDialogmote={false} dineSykmeldinger={dineSykemeldinger} />);
+        component = shallow(<Landingsside
+            skjulVarsel
+            harDialogmote={false}
+            dineSykmeldinger={dineSykemeldinger}
+            oppfolgingsdialoger={oppfolgingsdialoger}
+        />);
         expect(component.find(LandingssideLenke)).to.have.length(3);
-    });
-
-    it('Skal vise lenkeboks til soknader om vi har en soknad', () => {
-        component = shallow(<Landingsside skjulVarsel sykepengesoknader={[getSoknad()]} />);
-        expect(component.find(LandingssideLenke)).to.have.length(2);
     });
 });

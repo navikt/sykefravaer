@@ -40,12 +40,12 @@ const utenSamtykke = (oppfoelgingsdialog) => {
     return oppfoelgingsdialog.arbeidstaker.samtykke === null;
 };
 
-const skalViseSamtykke = (oppfolgingsdialog) => {
-    return harNaermesteLeder(oppfolgingsdialog) && utenSamtykke(oppfolgingsdialog) && (inneholderGodkjentPlan(oppfolgingsdialog) || inneholderGodkjenningerAvArbeidstaker(oppfolgingsdialog));
-};
-
 const inneholderGodkjentPlan = (oppfolgingsdialog) => {
     return oppfolgingsdialog.godkjentPlan;
+};
+
+const skalViseSamtykke = (oppfolgingsdialog) => {
+    return harNaermesteLeder(oppfolgingsdialog) && utenSamtykke(oppfolgingsdialog) && (inneholderGodkjentPlan(oppfolgingsdialog) || inneholderGodkjenningerAvArbeidstaker(oppfolgingsdialog));
 };
 
 export const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLedetekst, senesteTom } from 'digisyfo-npm';
-import * as actions from '../../actions/ledere_actions';
-import { naermesteLeder as naermesteLederPt, sykmelding as sykmeldingPt } from '../../propTypes';
+import { sykmelding as sykmeldingPt } from '../../propTypes';
 import Arbeidssituasjon from '../../components/landingsside/Arbeidssituasjon';
 import NaermesteLederContainer from './NaermesteLederContainer';
 
@@ -61,16 +60,9 @@ function filtrerArbeidsgivere(sykmeldinger) {
 }
 
 export class Container extends Component {
-    componentWillMount() {
-        const { hentLedere, forsoktHentet } = this.props;
-        if (!forsoktHentet) {
-            hentLedere();
-        }
-    }
-
     render() {
-        const { henter, ledere, hentingFeilet, dineSykmeldinger } = this.props;
-        if (henter || !ledere || ledere.length === 0 || hentingFeilet) {
+        const { dineSykmeldinger } = this.props;
+        if (!dineSykmeldinger) {
             return null;
         }
 
@@ -116,24 +108,15 @@ export class Container extends Component {
 }
 
 Container.propTypes = {
-    henter: PropTypes.bool,
-    hentingFeilet: PropTypes.bool,
-    ledere: PropTypes.arrayOf(naermesteLederPt),
-    hentLedere: PropTypes.func,
-    forsoktHentet: PropTypes.bool,
     dineSykmeldinger: PropTypes.arrayOf(sykmeldingPt),
 };
 
 export function mapStateToProps(state) {
     return {
-        ledere: state.ledere.data,
-        henter: state.ledere.henter,
-        hentingFeilet: state.ledere.hentingFeilet,
-        forsoktHentet: state.ledere.hentet === true,
         dineSykmeldinger: state.dineSykmeldinger.data,
     };
 }
 
-const ArbeidssituasjonerContainer = connect(mapStateToProps, actions)(Container);
+const ArbeidssituasjonerContainer = connect(mapStateToProps)(Container);
 
 export default ArbeidssituasjonerContainer;

@@ -6,7 +6,7 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import {
     OppfolgingsdialogTeasere,
-    OppfolgingsdialogerIngenplan,
+    OppfolgingsdialogerIngenplanAT,
     NyNaermestelederInfoboks,
     UnderUtviklingVarsel,
     OppfolgingsdialogUtenSykmelding,
@@ -278,7 +278,7 @@ describe('Oppfolgingsdialoger', () => {
             expect(component.find(OppfolgingsdialogTeasere)).to.have.length(0);
         });
 
-        it('Skal vise OppfolgingsdialogerIngenplan, dersom det ikke er oppfolgingsdialoger', () => {
+        it('Skal vise OppfolgingsdialogerIngenplanAT, dersom det ikke er oppfolgingsdialoger', () => {
             const sykmeldingListe = [getSykmelding({
                 mulighetForArbeid: {
                     perioder: [{
@@ -299,10 +299,10 @@ describe('Oppfolgingsdialoger', () => {
                 kontaktinfo={kontaktinfo}
                 naermesteLedere={{ data: [{ orgnummer: sykmeldingListe[0].orgnummer }] }}
             />);
-            expect(component.find(OppfolgingsdialogerIngenplan)).to.have.length(1);
+            expect(component.find(OppfolgingsdialogerIngenplanAT)).to.have.length(1);
         });
 
-        it('Skal vise OppfolgingsdialogerIngenplan, dersom det ikke er aktive oppfolgingsdialoger', () => {
+        it('Skal vise OppfolgingsdialogerIngenplanAT, dersom det ikke er aktive oppfolgingsdialoger', () => {
             const sykmeldingListe = [getSykmelding({
                 mulighetForArbeid: {
                     perioder: [{
@@ -330,7 +330,7 @@ describe('Oppfolgingsdialoger', () => {
                 dinesykmeldinger={{ data: sykmeldingListe }}
                 naermesteLedere={{ data: [{ orgnummer: sykmeldingListe[0].orgnummer }] }}
             />);
-            expect(component.find(OppfolgingsdialogerIngenplan)).to.have.length(1);
+            expect(component.find(OppfolgingsdialogerIngenplanAT)).to.have.length(1);
         });
     });
 

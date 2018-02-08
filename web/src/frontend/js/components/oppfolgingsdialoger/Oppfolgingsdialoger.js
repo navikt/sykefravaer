@@ -5,7 +5,7 @@ import { getLedetekst, keyValue } from 'digisyfo-npm';
 import {
     OppfolgingsdialogTeasere,
     BRUKERTYPE,
-    OppfolgingsdialogerIngenplan,
+    OppfolgingsdialogerIngenplanAT,
     finnTidligereOppfolgingsdialoger,
     harTidligereOppfolgingsdialoger,
     finnAktiveOppfolgingsdialoger,
@@ -71,12 +71,14 @@ class Oppfolgingsdialoger extends Component {
             avkreftLeder,
             bekreftetNyNaermesteLeder,
             bekreftNyNaermesteLeder,
+            opprettOppfolgingsdialog,
             dinesykmeldinger,
             naermesteLedere,
         } = this.props;
         let panel;
         const dialogerAvbruttAvMotpartSidenSistInnlogging = finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
         const oppfolgingsdialogMedNyNaermesteLeder = finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder(oppfolgingsdialoger);
+        const arbeidsgivereForSykmeldinger = finnArbeidsgivereForGyldigeSykmeldinger(dinesykmeldinger.data, naermesteLedere.data);
         if (erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere(oppfolgingsdialoger, dinesykmeldinger.data, naermesteLedere.data)) {
             panel = (<IngenledereInfoboks />);
         } else if (!bekreftetNyNaermesteLeder && oppfolgingsdialogMedNyNaermesteLeder) {
@@ -111,7 +113,7 @@ class Oppfolgingsdialoger extends Component {
             panel = (<div>
                 {!isEmpty(oppfolgingsdialoger) && aktivOppfolgingsdialoger.length > 0 &&
                 <div>
-                    { finnArbeidsgivereForGyldigeSykmeldinger(dinesykmeldinger.data, naermesteLedere.data).length > 1 &&
+                    { arbeidsgivereForSykmeldinger.length > 1 &&
                         <OppfolgingsdialogNyDialog />
                     }
                     <OppfolgingsdialogTeasere
@@ -128,9 +130,10 @@ class Oppfolgingsdialoger extends Component {
 
                 {(isEmpty(oppfolgingsdialoger) || !aktivOppfolgingsdialoger.length > 0) &&
                 <div className="blokk--l">
-                    <OppfolgingsdialogerIngenplan
+                    <OppfolgingsdialogerIngenplanAT
                         ledetekster={ledetekster}
-                        brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                        arbeidsgivere={arbeidsgivereForSykmeldinger}
+                        opprettdialog={opprettOppfolgingsdialog}
                         rootUrl={getContextRoot()}
                     />
                 </div>
@@ -190,6 +193,7 @@ Oppfolgingsdialoger.propTypes = {
     hentVirksomhet: PropTypes.func,
     hentPerson: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
+    opprettOppfolgingsdialog: PropTypes.func,
 };
 
 export default Oppfolgingsdialoger;

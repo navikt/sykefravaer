@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import NaermesteLeder from '../../components/landingsside/NaermesteLeder';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 
-const Container = ({ leder }) => {
+export const Container = ({ leder }) => {
     if (!leder) {
         return null;
     }

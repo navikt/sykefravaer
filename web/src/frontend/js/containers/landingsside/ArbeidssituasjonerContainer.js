@@ -26,12 +26,12 @@ function mapArbeidssituasjonTilIkonSrc(arbeidssituasjon) {
     const base = '/sykefravaer/img/svg/landingsside/';
     switch (arbeidssituasjon) {
         case 'Arbeidstaker':
-            return `${base} arbeidsgiver.svg`;
+            return `${base}arbeidsgiver.svg`;
         case 'Selvstendig næringsdrivende':
         case 'Frilanser':
-            return `${base} id card 1.svg`;
+            return `${base}id-kort.svg`;
         default:
-            return `${base} direction sign.svg`;
+            return `${base}skilt.svg`;
     }
 }
 

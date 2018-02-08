@@ -170,7 +170,7 @@ class Arbeidsoppgaver extends Component {
                                     { oppfolgingsdialog.arbeidstaker.stillinger.map((stilling, idx) => {
                                         return (<p key={idx}>
                                             {getLedetekst('oppfolgingsdialog.arbeidsoppgaverInfoboks.arbeidstaker.stilling', {
-                                                '%STILLING%': stilling.yrke.toLowerCase(),
+                                                '%YRKE%': stilling.yrke.toLowerCase(),
                                                 '%PROSENT%': stilling.prosent,
                                             })}
                                         </p>);

@@ -43,10 +43,11 @@ export default class NaermesteLeder extends Component {
                             this.lukkLightbox();
                         }} />
                 </Lightbox>}
-                <p className="leder__informasjon"
-                   dangerouslySetInnerHTML={getHtmlLedetekst('din-situasjon.naermeste-leder', {
-                       '%LEDER%': leder.navn,
-                   })} />
+                <p
+                    className="leder__informasjon"
+                    dangerouslySetInnerHTML={getHtmlLedetekst('din-situasjon.naermeste-leder', {
+                        '%LEDER%': leder.navn,
+                    })} />
                 <div className="leder__handlinger">
                     {
                         !leder.avkreftet && <button

@@ -1,25 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { getLedetekst, senesteTom } from 'digisyfo-npm';
-import { sykmelding as sykmeldingPt } from '../../propTypes';
 import Arbeidssituasjon from '../../components/landingsside/Arbeidssituasjon';
-import NaermesteLederContainer from './NaermesteLederContainer';
-
-function mapArbeidssituasjonString(arbeidssituasjon) {
-    switch (arbeidssituasjon) {
-        case 'ARBEIDSTAKER':
-            return 'Arbeidstaker';
-        case 'NAERINGSDRIVENDE':
-            return 'Selvstendig næringsdrivende';
-        case 'FRILANSER':
-            return 'Frilanser';
-        case 'ARBEIDSLEDIG':
-            return 'Arbeidsledig';
-        default:
-            return 'Annet';
-    }
-}
+import NaermesteLederContainer from '../../containers/landingsside/NaermesteLederContainer';
 
 function mapArbeidssituasjonTilIkonSrc(arbeidssituasjon) {
     const base = '/sykefravaer/img/svg/landingsside/';
@@ -34,42 +17,7 @@ function mapArbeidssituasjonTilIkonSrc(arbeidssituasjon) {
     }
 }
 
-function gyldigeSykmeldinger(dineSykmeldinger) {
-    const treMndSiden = new Date();
-    treMndSiden.setMonth(treMndSiden.getMonth() - 3);
-
-    return dineSykmeldinger.filter((sykmelding) => {
-        return senesteTom(sykmelding.mulighetForArbeid.perioder) > treMndSiden;
-    });
-}
-
-function filtrerArbeidssituasjoner(sykmeldinger) {
-    return [...new Set(sykmeldinger.filter((sykmelding) => {
-        return sykmelding.status === 'BEKREFTET';
-    }).map((sykmelding) => {
-        return mapArbeidssituasjonString(sykmelding.valgtArbeidssituasjon);
-    }))];
-}
-
-function filtrerArbeidsgivere(sykmeldinger) {
-    return [...new Set(sykmeldinger.filter((sykmelding) => {
-        return sykmelding.status === 'SENDT';
-    }).map((sykmelding) => {
-        return sykmelding.innsendtArbeidsgivernavn;
-    }))];
-}
-
-export class Container extends Component {
-    render() {
-        const { dineSykmeldinger } = this.props;
-        if (!dineSykmeldinger) {
-            return null;
-        }
-
-        const sykmeldinger = gyldigeSykmeldinger(dineSykmeldinger);
-        const arbeidssituasjoner = filtrerArbeidssituasjoner(sykmeldinger);
-        const arbeidsgivere = filtrerArbeidsgivere(sykmeldinger);
-
+const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
         return (
             <div className="arbeidssituasjon-panel">
                 {arbeidsgivere.map((arbeidsgiver, index) => {
@@ -104,19 +52,11 @@ export class Container extends Component {
                 })}
             </div>
         );
-    }
-}
-
-Container.propTypes = {
-    dineSykmeldinger: PropTypes.arrayOf(sykmeldingPt),
 };
 
-export function mapStateToProps(state) {
-    return {
-        dineSykmeldinger: state.dineSykmeldinger.data,
-    };
-}
+Arbeidssituasjoner.propTypes = {
+    arbeidsgivere: PropTypes.arrayOf(PropTypes.string),
+    arbeidssituasjoner: PropTypes.arrayOf(PropTypes.string),
+};
 
-const ArbeidssituasjonerContainer = connect(mapStateToProps)(Container);
-
-export default ArbeidssituasjonerContainer;
+export default Arbeidssituasjoner;

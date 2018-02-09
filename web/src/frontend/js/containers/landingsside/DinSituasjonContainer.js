@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {senesteTom} from "digisyfo-npm";
+import { senesteTom } from 'digisyfo-npm';
 import DinSituasjon from '../../components/landingsside/DinSituasjon';
 
 export function filtrerSykemeldingerPaaPeriode(sykmeldinger) {
@@ -11,6 +11,21 @@ export function filtrerSykemeldingerPaaPeriode(sykmeldinger) {
     return sykmeldinger.filter((sykmelding) => {
         return senesteTom(sykmelding.mulighetForArbeid.perioder) > treMndSiden;
     });
+}
+
+export function mapArbeidssituasjonString(arbeidssituasjon) {
+    switch (arbeidssituasjon) {
+        case 'ARBEIDSTAKER':
+            return 'Arbeidstaker';
+        case 'NAERINGSDRIVENDE':
+            return 'Selvstendig næringsdrivende';
+        case 'FRILANSER':
+            return 'Frilanser';
+        case 'ARBEIDSLEDIG':
+            return 'Arbeidsledig';
+        default:
+            return 'Annet';
+    }
 }
 
 export function filtrerArbeidssituasjoner(sykmeldinger) {
@@ -27,21 +42,6 @@ export function filtrerArbeidsgivere(sykmeldinger) {
     }).map((sykmelding) => {
         return sykmelding.innsendtArbeidsgivernavn;
     }))];
-}
-
-export function mapArbeidssituasjonString(arbeidssituasjon) {
-    switch (arbeidssituasjon) {
-        case 'ARBEIDSTAKER':
-            return 'Arbeidstaker';
-        case 'NAERINGSDRIVENDE':
-            return 'Selvstendig næringsdrivende';
-        case 'FRILANSER':
-            return 'Frilanser';
-        case 'ARBEIDSLEDIG':
-            return 'Arbeidsledig';
-        default:
-            return 'Annet';
-    }
 }
 
 export const Container = ({ arbeidsgivere, arbeidssituasjoner }) => {

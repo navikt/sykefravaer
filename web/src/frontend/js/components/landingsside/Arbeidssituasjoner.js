@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, senesteTom } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import Arbeidssituasjon from '../../components/landingsside/Arbeidssituasjon';
 import NaermesteLederContainer from '../../containers/landingsside/NaermesteLederContainer';
 
@@ -28,33 +28,33 @@ export const Arbeidsgiver = ({ arbeidsgiver }) => {
     </div>);
 };
 
-export const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
-        return (
-            <div className="arbeidssituasjon-panel">
-                {arbeidsgivere.map((arbeidsgiver, index) => {
-                    return (
-                        <Arbeidssituasjon
-                            key={arbeidsgiver}
-                            className={index > 0 ? 'situasjon__arbeidsgiver__border' : ''}
-                            ikonSrc={mapArbeidssituasjonTilIkonSrc('Arbeidstaker')}
-                            ikonAlt="Arbeidstaker"
-                            situasjon={<Arbeidsgiver arbeidsgiver={arbeidsgiver} />}
-                        />);
-                })}
-                {arbeidssituasjoner.filter((arbeidssituasjon) => {
-                    return !(arbeidssituasjon === 'Arbeidstaker' && (Array.isArray(arbeidsgivere) && arbeidsgivere.length));
-                }).map((arbeidssituasjon) => {
-                    return (
-                        <Arbeidssituasjon
-                            key={arbeidssituasjon}
-                            className="situasjon__margin"
-                            ikonSrc={mapArbeidssituasjonTilIkonSrc(arbeidssituasjon)}
-                            ikonAlt={arbeidssituasjon}
-                            situasjon={<p className="situasjon__tittel">{arbeidssituasjon}</p>} />
-                    );
-                })}
-            </div>
-        );
+const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
+    return (
+        <div className="arbeidssituasjon-panel">
+            {arbeidsgivere.map((arbeidsgiver, index) => {
+                return (
+                    <Arbeidssituasjon
+                        key={arbeidsgiver}
+                        className={index > 0 ? 'situasjon__arbeidsgiver__border' : ''}
+                        ikonSrc={mapArbeidssituasjonTilIkonSrc('Arbeidstaker')}
+                        ikonAlt="Arbeidstaker"
+                        situasjon={<Arbeidsgiver arbeidsgiver={arbeidsgiver} />}
+                    />);
+            })}
+            {arbeidssituasjoner.filter((arbeidssituasjon) => {
+                return !(arbeidssituasjon === 'Arbeidstaker' && (Array.isArray(arbeidsgivere) && arbeidsgivere.length));
+            }).map((arbeidssituasjon) => {
+                return (
+                    <Arbeidssituasjon
+                        key={arbeidssituasjon}
+                        className="situasjon__margin"
+                        ikonSrc={mapArbeidssituasjonTilIkonSrc(arbeidssituasjon)}
+                        ikonAlt={arbeidssituasjon}
+                        situasjon={<p className="situasjon__tittel">{arbeidssituasjon}</p>} />
+                );
+            })}
+        </div>
+    );
 };
 
 Arbeidsgiver.propTypes = {

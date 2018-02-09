@@ -4,7 +4,7 @@ import { getLedetekst, senesteTom } from 'digisyfo-npm';
 import Arbeidssituasjon from '../../components/landingsside/Arbeidssituasjon';
 import NaermesteLederContainer from '../../containers/landingsside/NaermesteLederContainer';
 
-function mapArbeidssituasjonTilIkonSrc(arbeidssituasjon) {
+export function mapArbeidssituasjonTilIkonSrc(arbeidssituasjon) {
     const base = '/sykefravaer/img/svg/landingsside/';
     switch (arbeidssituasjon) {
         case 'Arbeidstaker':
@@ -17,7 +17,18 @@ function mapArbeidssituasjonTilIkonSrc(arbeidssituasjon) {
     }
 }
 
-const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
+export const Arbeidsgiver = ({ arbeidsgiver }) => {
+    return (<div className="situasjon__innhold">
+        <p className="situasjon__tittel">
+            {getLedetekst('din-situasjon.ansatt', {
+                '%ORGANISASJONSNAVN%': arbeidsgiver,
+            })}
+        </p>
+        <NaermesteLederContainer organisasjonsnavn={arbeidsgiver} />
+    </div>);
+};
+
+export const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
         return (
             <div className="arbeidssituasjon-panel">
                 {arbeidsgivere.map((arbeidsgiver, index) => {
@@ -27,19 +38,11 @@ const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
                             className={index > 0 ? 'situasjon__arbeidsgiver__border' : ''}
                             ikonSrc={mapArbeidssituasjonTilIkonSrc('Arbeidstaker')}
                             ikonAlt="Arbeidstaker"
-                            situasjon={
-                                <div className="situasjon__innhold">
-                                    <p className="situasjon__tittel">
-                                        {getLedetekst('din-situasjon.ansatt', {
-                                            '%ORGANISASJONSNAVN%': arbeidsgiver,
-                                        })}
-                                    </p>
-                                    <NaermesteLederContainer organisasjonsnavn={arbeidsgiver} />
-                                </div>}
+                            situasjon={<Arbeidsgiver arbeidsgiver={arbeidsgiver} />}
                         />);
                 })}
                 {arbeidssituasjoner.filter((arbeidssituasjon) => {
-                    return !(arbeidssituasjon === 'Arbeidstaker' && (Array.isArray(arbeidsgivere) || arbeidsgivere.length));
+                    return !(arbeidssituasjon === 'Arbeidstaker' && (Array.isArray(arbeidsgivere) && arbeidsgivere.length));
                 }).map((arbeidssituasjon) => {
                     return (
                         <Arbeidssituasjon
@@ -52,6 +55,10 @@ const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
                 })}
             </div>
         );
+};
+
+Arbeidsgiver.propTypes = {
+    arbeidsgiver: PropTypes.string,
 };
 
 Arbeidssituasjoner.propTypes = {

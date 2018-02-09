@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {senesteTom} from "digisyfo-npm";
 import DinSituasjon from '../../components/landingsside/DinSituasjon';
 
-function filtrerSykemeldingerPaaPeriode(sykmeldinger) {
+export function filtrerSykemeldingerPaaPeriode(sykmeldinger) {
     const treMndSiden = new Date();
     treMndSiden.setMonth(treMndSiden.getMonth() - 3);
 
@@ -13,7 +13,7 @@ function filtrerSykemeldingerPaaPeriode(sykmeldinger) {
     });
 }
 
-function filtrerArbeidssituasjoner(sykmeldinger) {
+export function filtrerArbeidssituasjoner(sykmeldinger) {
     return [...new Set(sykmeldinger.filter((sykmelding) => {
         return sykmelding.status === 'BEKREFTET';
     }).map((sykmelding) => {
@@ -21,7 +21,7 @@ function filtrerArbeidssituasjoner(sykmeldinger) {
     }))];
 }
 
-function filtrerArbeidsgivere(sykmeldinger) {
+export function filtrerArbeidsgivere(sykmeldinger) {
     return [...new Set(sykmeldinger.filter((sykmelding) => {
         return sykmelding.status === 'SENDT';
     }).map((sykmelding) => {
@@ -29,7 +29,7 @@ function filtrerArbeidsgivere(sykmeldinger) {
     }))];
 }
 
-function mapArbeidssituasjonString(arbeidssituasjon) {
+export function mapArbeidssituasjonString(arbeidssituasjon) {
     switch (arbeidssituasjon) {
         case 'ARBEIDSTAKER':
             return 'Arbeidstaker';
@@ -44,7 +44,7 @@ function mapArbeidssituasjonString(arbeidssituasjon) {
     }
 }
 
-const Container = ({ arbeidsgivere, arbeidssituasjoner }) => {
+export const Container = ({ arbeidsgivere, arbeidssituasjoner }) => {
     if ((!arbeidsgivere || arbeidsgivere.length === 0) && (!arbeidssituasjoner || arbeidssituasjoner.length === 0)) {
         return null;
     }

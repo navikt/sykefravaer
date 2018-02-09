@@ -17,7 +17,8 @@ import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt, sykmeld
 import { hentSykepengesoknader } from '../../actions/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../../actions/ledere_actions';
-import { hentStartdato } from '../../actions/sykeforloep_actions';
+import { hentSykeforloep } from '../../actions/sykeforloep_actions';
+import { henterEllerHarHentetSykeforloep } from '../../utils/reducerUtils';
 
 export class LandingssideSide extends Component {
     componentWillMount() {
@@ -36,7 +37,7 @@ export class LandingssideSide extends Component {
             this.props.hentDineSykmeldinger();
         }
         if (skalHenteStartdato) {
-            this.props.hentStartdato();
+            this.props.hentSykeforloep();
         }
         if (!henterEllerHarHentetOppfolgingsdialoger(oppfolgingsdialoger)) {
             this.props.hentOppfolgingsdialoger();
@@ -101,9 +102,9 @@ LandingssideSide.propTypes = {
     }),
     altHentet: PropTypes.bool,
     skalHenteStartdato: PropTypes.bool,
-    hentStartdato: PropTypes.func,
     hentOppfolgingsdialoger: PropTypes.func,
     oppfolgingsdialoger: oppfolgingProptypes.oppfolgingsdialogerAtPt,
+    hentSykeforloep: PropTypes.func,
 };
 
 export function mapStateToProps(state) {
@@ -140,7 +141,7 @@ export function mapStateToProps(state) {
         hentingFeiletSykepengesoknader: state.sykepengesoknader.hentingFeilet,
         hentingFeiletSykmeldinger: state.dineSykmeldinger.hentingFeilet,
         hentingFeiletLedere: state.ledere.hentingFeilet,
-        skalHenteStartdato: !state.sykeforloep.hentet && !state.sykeforloep.henter,
+        skalHenteStartdato: !henterEllerHarHentetSykeforloep(state.sykeforloep.hentet),
         hentet,
         altHentet,
     };
@@ -151,8 +152,8 @@ const LandingssideContainer = connect(mapStateToProps, {
     hentSykepengesoknader,
     hentLedere,
     hentDineSykmeldinger,
-    hentStartdato,
     hentOppfolgingsdialoger,
+    hentSykeforloep,
 })(LandingssideSide);
 
 export default LandingssideContainer;

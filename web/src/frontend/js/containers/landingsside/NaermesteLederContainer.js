@@ -4,10 +4,8 @@ import NaermesteLeder from '../../components/landingsside/NaermesteLeder';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 
 export const Container = ({ leder }) => {
-    if (!leder) {
-        return null;
-    }
-    return <NaermesteLeder leder={leder} />;
+    return leder
+        && <NaermesteLeder leder={leder} />;
 };
 
 Container.propTypes = {

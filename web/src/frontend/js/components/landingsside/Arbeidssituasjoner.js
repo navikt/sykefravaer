@@ -41,9 +41,7 @@ const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
                         situasjon={<Arbeidsgiver arbeidsgiver={arbeidsgiver} />}
                     />);
             })}
-            {arbeidssituasjoner.filter((arbeidssituasjon) => {
-                return !(arbeidssituasjon === 'Arbeidstaker' && (Array.isArray(arbeidsgivere) && arbeidsgivere.length));
-            }).map((arbeidssituasjon) => {
+            {arbeidssituasjoner.map((arbeidssituasjon) => {
                 return (
                     <Arbeidssituasjon
                         key={arbeidssituasjon}

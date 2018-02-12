@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getHtmlLedetekst, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import classNames from 'classnames';
 import Lightbox from '../Lightbox';
 import BekreftFeilLederContainer from '../../containers/landingsside/BekreftFeilLederContainer';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
@@ -32,8 +33,9 @@ export default class NaermesteLeder extends Component {
 
     render() {
         const { leder } = this.props;
+        const classNameLeder = classNames('leder', {'leder--avkreftet': leder.avkreftet});
         return (
-            <div className={`leder ${leder.avkreftet ? ' leder--avkreftet' : ''}`}>
+            <div className={classNameLeder}>
                 {this.state.visLightbox && <Lightbox onClose={() => {
                     this.lukkLightbox();
                 }}>

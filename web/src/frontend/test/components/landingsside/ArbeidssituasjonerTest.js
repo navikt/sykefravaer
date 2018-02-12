@@ -49,10 +49,9 @@ describe('Arbeidssituasjoner', () => {
             expect(component.find(Arbeidssituasjon)).to.have.length(1);
         });
 
-        it(`Skal ikke vise arbeidssituasjonen 'Arbeidstaker' hvis det også finnes arbeidsgiver`, () => {
-            const component = shallow(<Arbeidssituasjoner arbeidsgivere={['SOLSTRÅLEN PIZZA']} arbeidssituasjoner={['Arbeidstaker']} />);
-            expect(component.find(Arbeidssituasjon)).to.have.length(1);
-            expect(component.find('.situasjon__margin')).to.have.length(0);
+        it('Skal ha margin mellom arbeidssituasjoner', () => {
+            const component = shallow(<Arbeidssituasjoner arbeidsgivere={[]} arbeidssituasjoner={['Arbeidstaker']} />);
+            expect(component.find('.situasjon__margin')).to.have.length(1);
         });
 
         it('Skal vise border mellom arbeidsgivere', () => {

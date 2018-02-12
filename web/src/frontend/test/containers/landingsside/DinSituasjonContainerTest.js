@@ -21,7 +21,7 @@ describe('DinSituasjonContainer', () => {
     let clock;
     let sykmeldinger;
 
-    before(() => {
+    beforeEach(() => {
 
         clock = sinon.useFakeTimers(new Date('2018-01-01').getTime());
 
@@ -89,7 +89,7 @@ describe('DinSituasjonContainer', () => {
 
         let filtrertPaaPeriode;
 
-        before(() => {
+        beforeEach(() => {
            filtrertPaaPeriode = filtrerSykemeldingerPaaPeriode(sykmeldinger);
         });
 
@@ -109,7 +109,7 @@ describe('DinSituasjonContainer', () => {
 
         let filtrertPaaPeriode;
 
-        before(() => {
+        beforeEach(() => {
             filtrertPaaPeriode = filtrerSykemeldingerPaaPeriode(sykmeldinger);
         });
 
@@ -152,7 +152,7 @@ describe('DinSituasjonContainer', () => {
 
         let state;
 
-        before(() => {
+        beforeEach(() => {
             state = {
                 dineSykmeldinger: {
                     data: sykmeldinger
@@ -168,6 +168,23 @@ describe('DinSituasjonContainer', () => {
         it('Skal returnere filtrerte arbeidsgivere', () => {
             const props = mapStateToProps(state);
             expect(props.arbeidsgivere[0]).to.equal('SOLSTRÅLEN PIZZA');
+        });
+        it(`Skal returnere arbeidssituasjonen 'Arbeidstaker' dersom det ikke finnes info om arbeidsgiver`, () => {
+            state.dineSykmeldinger.data[1].valgtArbeidssituasjon = "ARBEIDSTAKER";
+            state.dineSykmeldinger.data.pop();
+            const props = mapStateToProps(state);
+            expect(props.arbeidssituasjoner).to.have.length(1);
+        });
+
+        it(`Skal filtrere vekk arbeidssituasjonen 'Arbeidstaker' dersom det finnes info om arbeidsgiver`, () => {
+            state.dineSykmeldinger.data[1].valgtArbeidssituasjon = "ARBEIDSTAKER";
+            const props = mapStateToProps(state);
+            expect(props.arbeidssituasjoner).to.have.length(0);
+        });
+
+        it('Skal returnere andre arbeidssituasjoner selv om det finnes info om arbeidsgiver', () => {
+            const props = mapStateToProps(state);
+            expect(props.arbeidssituasjoner).to.have.length(1);
         });
 
     });

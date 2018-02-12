@@ -33,7 +33,7 @@ export default class NaermesteLeder extends Component {
 
     render() {
         const { leder } = this.props;
-        const classNameLeder = classNames('leder', {'leder--avkreftet': leder.avkreftet});
+        const classNameLeder = classNames('leder', { 'leder--avkreftet': leder.avkreftet });
         return (
             <div className={classNameLeder}>
                 {this.state.visLightbox && <Lightbox onClose={() => {

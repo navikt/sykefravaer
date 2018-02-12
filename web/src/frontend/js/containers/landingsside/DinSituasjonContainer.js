@@ -46,7 +46,7 @@ export function filtrerArbeidsgivere(sykmeldinger) {
 
 export const Container = ({ arbeidsgivere, arbeidssituasjoner }) => {
     return ((arbeidsgivere && arbeidsgivere.length) || (arbeidssituasjoner && arbeidssituasjoner.length))
-        && <DinSituasjon arbeidsgivere={arbeidsgivere} arbeidssituasjoner={arbeidssituasjoner}/>
+        && <DinSituasjon arbeidsgivere={arbeidsgivere} arbeidssituasjoner={arbeidssituasjoner} />;
 };
 
 Container.propTypes = {
@@ -58,12 +58,12 @@ export const mapStateToProps = (state) => {
     const sykmeldingerFiltrertPaaPeriode = filtrerSykemeldingerPaaPeriode(state.dineSykmeldinger.data);
     const arbeidsgivere = filtrerArbeidsgivere(sykmeldingerFiltrertPaaPeriode);
     const arbeidssituasjoner = filtrerArbeidssituasjoner(sykmeldingerFiltrertPaaPeriode)
-            .filter((arbeidssituasjon) => {
-                return !(arbeidssituasjon === 'Arbeidstaker' && arbeidsgivere.length);
-            });
+        .filter((arbeidssituasjon) => {
+            return !(arbeidssituasjon === 'Arbeidstaker' && arbeidsgivere.length);
+        });
     return {
-        arbeidsgivere: arbeidsgivere,
-        arbeidssituasjoner: arbeidssituasjoner,
+        arbeidsgivere,
+        arbeidssituasjoner,
     };
 };
 

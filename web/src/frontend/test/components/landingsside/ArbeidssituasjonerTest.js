@@ -3,9 +3,8 @@ import React from 'react'
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import Arbeidssituasjon from "../../../js/components/landingsside/Arbeidssituasjon";
-import {
+import Arbeidssituasjoner, {
     Arbeidsgiver,
-    Arbeidssituasjoner,
     mapArbeidssituasjonTilIkonSrc
 } from '../../../js/components/landingsside/Arbeidssituasjoner'
 

@@ -171,7 +171,6 @@ describe('Oppfolgingsdialog', () => {
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
-            visSamtykkeSkjema
             arbeidsforhold={arbeidsforhold}
             hentArbeidsforhold={hentArbeidsforhold}
         />);

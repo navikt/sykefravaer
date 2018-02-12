@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { hentHendelser } from '../../js/sagas/hendelserSagas.js';
 import * as actions from '../../js/actions/hendelser_actions';
-import { get, post } from '../../js/api';
+import { get, post } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 
 describe("hendelserSagas", () => {

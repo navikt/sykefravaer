@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { hentLedere, avkreftLeder } from '../../js/sagas/ledereSagas.js';
 import * as actions from '../../js/actions/ledere_actions';
-import { get, post } from '../../js/api';
+import { get, post } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import * as actiontyper from '../../js/actions/actiontyper';
 

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { hentArbeidsgiverperiodeberegning } from '../../js/sagas/beregnArbeidsgiverperiodeSagas.js';
-import { post } from '../../js/api';
+import { post } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 import * as actions from '../../js/actions/arbeidsgiverperiodeberegning_actions';
 

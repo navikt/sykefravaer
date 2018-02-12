@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { hentMote } from '../../js/sagas/moteSagas.js';
 import { moteActions, actiontyper } from 'moter-npm';
-import { get, post } from '../../js/api';
+import { get, post } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
 
 describe("moteSagas", () => {

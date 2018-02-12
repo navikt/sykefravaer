@@ -56,7 +56,7 @@ describe('Arbeidssituasjoner', () => {
 
         it('Skal vise border mellom arbeidsgivere', () => {
             const component = shallow(<Arbeidssituasjoner arbeidsgivere={['SOLSTRÅLEN PIZZA', 'SOLSTRÅLEN BARNEHAGE']} arbeidssituasjoner={[]} />);
-            expect(component.find('.situasjon__arbeidsgiver__border')).to.have.length(1);
+            expect(component.find('.situasjon__arbeidsgiver-border')).to.have.length(1);
         });
 
         it('Skal vise Arbeidsgiver for arbeidsgivere', () => {

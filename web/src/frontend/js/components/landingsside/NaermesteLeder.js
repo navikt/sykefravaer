@@ -64,7 +64,7 @@ export default class NaermesteLeder extends Component {
                     }
                 </div>
                 <div className="leder__forskuttering">
-                    <p className="leder__forskuttering__tekst">{getLedetekst(`din-situasjon.arbeidsgiver-forskutterer${leder.arbeidsgiverForskuttererLoenn ? '' : '-ikke'}`)}</p>
+                    <p className="leder__forskuttering-tekst">{getLedetekst(`din-situasjon.arbeidsgiver-forskutterer${leder.arbeidsgiverForskuttererLoenn ? '' : '-ikke'}`)}</p>
                     <Hjelpetekst
                         tittel={getLedetekst('din-situasjon.forskuttering.hjelpetekst.tittel')}
                         tekst={getLedetekst('din-situasjon.forskuttering.hjelpetekst.tekst')} />

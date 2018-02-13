@@ -105,8 +105,8 @@ store.dispatch(hentVedlikehold());
 store.dispatch(forlengInnloggetSesjon());
 // </OBS>
 
-setPerformOnHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()) });
-setPerformOnOppDialogHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()) });
+setPerformOnHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()); });
+setPerformOnOppDialogHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()); });
 
 setInterval(() => {
     store.dispatch(sjekkInnloggingssesjon());
@@ -119,7 +119,7 @@ if (window.location.href.indexOf('visLedetekster=true') > -1) {
 }
 
 render(<Provider store={store}>
-        <AppRouter history={history} /></Provider>,
+    <AppRouter history={history} /></Provider>,
 document.getElementById('maincontent'));
 
 export {

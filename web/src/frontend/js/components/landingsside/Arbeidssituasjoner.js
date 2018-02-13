@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, arbeidssituasjoner as situasjoner } from 'digisyfo-npm';
+import classNames from 'classnames';
 import Arbeidssituasjon from '../../components/landingsside/Arbeidssituasjon';
 import NaermesteLederContainer from '../../containers/landingsside/NaermesteLederContainer';
+
+const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = situasjoner;
 
 export function mapArbeidssituasjonTilIkonSrc(arbeidssituasjon) {
     const base = '/sykefravaer/img/svg/landingsside/';
     switch (arbeidssituasjon) {
-        case 'Arbeidstaker':
+        case ARBEIDSTAKER:
             return `${base}arbeidsgiver.svg`;
-        case 'Selvstendig næringsdrivende':
-        case 'Frilanser':
+        case NAERINGSDRIVENDE:
+        case FRILANSER:
             return `${base}id-kort.svg`;
         default:
             return `${base}skilt.svg`;
@@ -35,20 +38,21 @@ const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
                 return (
                     <Arbeidssituasjon
                         key={arbeidsgiver}
-                        className={index > 0 ? 'situasjon__arbeidsgiver-border' : ''}
-                        ikonSrc={mapArbeidssituasjonTilIkonSrc('Arbeidstaker')}
-                        ikonAlt="Arbeidstaker"
+                        className={classNames({ 'situasjon__arbeidsgiver': index > 0 })}
+                        ikonSrc={mapArbeidssituasjonTilIkonSrc(ARBEIDSTAKER)}
+                        ikonAlt={getLedetekst(`din-situasjon.${ARBEIDSTAKER}`)}
                         situasjon={<Arbeidsgiver arbeidsgiver={arbeidsgiver} />}
                     />);
             })}
             {arbeidssituasjoner.map((arbeidssituasjon) => {
+                const arbeidssituasjonLedetekst = getLedetekst(`din-situasjon.${arbeidssituasjon}`);
                 return (
                     <Arbeidssituasjon
                         key={arbeidssituasjon}
-                        className="situasjon__margin"
+                        className="situasjon__arbeidssituasjon"
                         ikonSrc={mapArbeidssituasjonTilIkonSrc(arbeidssituasjon)}
-                        ikonAlt={arbeidssituasjon}
-                        situasjon={<p className="situasjon__tittel">{arbeidssituasjon}</p>} />
+                        ikonAlt={arbeidssituasjonLedetekst}
+                        situasjon={<p className="situasjon__tittel">{arbeidssituasjonLedetekst}</p>} />
                 );
             })}
         </div>

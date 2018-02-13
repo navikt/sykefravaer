@@ -3,6 +3,7 @@ import React from 'react'
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
+import { arbeidssituasjoner as situasjoner, sykmeldingstatuser as statuser } from 'digisyfo-npm';
 import DinSituasjon from '../../../js/components/landingsside/DinSituasjon';
 import {
     Container,
@@ -12,6 +13,9 @@ import {
     filtrerArbeidssituasjoner,
     filtrerArbeidsgivere
 } from '../../../js/containers/landingsside/DinSituasjonContainer';
+
+const { ARBEIDSTAKER, FRILANSER } = situasjoner;
+const { BEKREFTET, SENDT } = statuser;
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -27,7 +31,7 @@ describe('DinSituasjonContainer', () => {
 
         sykmeldinger = [{
             id: 'fireMndSiden',
-            status: 'BEKREFTET',
+            status: BEKREFTET,
             mulighetForArbeid: {
                 perioder: [{
                     fom: new Date('2017-08-01'),
@@ -36,8 +40,8 @@ describe('DinSituasjonContainer', () => {
             }
         }, {
             id: 'toMndSiden',
-            status: 'BEKREFTET',
-            valgtArbeidssituasjon: 'FRILANSER',
+            status: BEKREFTET,
+            valgtArbeidssituasjon: FRILANSER,
             mulighetForArbeid: {
                 perioder: [{
                     fom: new Date('2017-10-01'),
@@ -46,7 +50,7 @@ describe('DinSituasjonContainer', () => {
             }
         },{
             id: 'omTiMnd',
-            status: 'SENDT',
+            status: SENDT,
             innsendtArbeidsgivernavn: 'SOLSTRÅLEN PIZZA',
             mulighetForArbeid: {
                 perioder: [{
@@ -100,7 +104,7 @@ describe('DinSituasjonContainer', () => {
 
         it('Skal returnere arbeidssituasjon', () => {
             const filtrert = filtrerArbeidssituasjoner(filtrertPaaPeriode);
-            expect(filtrert[0]).to.equal('Frilanser');
+            expect(filtrert[0]).to.equal(FRILANSER);
         });
 
     });
@@ -125,29 +129,6 @@ describe('DinSituasjonContainer', () => {
 
     });
 
-    describe('mapArbeidssituasjonString', () => {
-
-        it('Skal mappe ARBEIDSTAKER til Arbeidstaker', () => {
-            expect(mapArbeidssituasjonString('ARBEIDSTAKER')).to.equal('Arbeidstaker');
-        });
-
-        it('Skal mappe NAERINGSDRIVENDE til Selvstendig næringsdrivende', () => {
-            expect(mapArbeidssituasjonString('NAERINGSDRIVENDE')).to.equal('Selvstendig næringsdrivende');
-        });
-
-        it('Skal mappe FRILANSER til Frilanser', () => {
-            expect(mapArbeidssituasjonString('FRILANSER')).to.equal('Frilanser');
-        });
-
-        it('Skal mappe ARBEIDSLEDIG til Arbeidsledig', () => {
-            expect(mapArbeidssituasjonString('ARBEIDSLEDIG')).to.equal('Arbeidsledig');
-        });
-
-        it('Skal mappe ANNET til Annet', () => {
-            expect(mapArbeidssituasjonString('ANNET')).to.equal('Annet');
-        });
-    });
-
     describe('mapStateToProps', () => {
 
         let state;
@@ -162,7 +143,7 @@ describe('DinSituasjonContainer', () => {
 
         it('Skal returnere filtrerte arbeidssituasjoner', () => {
             const props = mapStateToProps(state);
-            expect(props.arbeidssituasjoner[0]).to.equal('Frilanser');
+            expect(props.arbeidssituasjoner[0]).to.equal(FRILANSER);
         });
 
         it('Skal returnere filtrerte arbeidsgivere', () => {
@@ -170,14 +151,14 @@ describe('DinSituasjonContainer', () => {
             expect(props.arbeidsgivere[0]).to.equal('SOLSTRÅLEN PIZZA');
         });
         it(`Skal returnere arbeidssituasjonen 'Arbeidstaker' dersom det ikke finnes info om arbeidsgiver`, () => {
-            state.dineSykmeldinger.data[1].valgtArbeidssituasjon = "ARBEIDSTAKER";
+            state.dineSykmeldinger.data[1].valgtArbeidssituasjon = ARBEIDSTAKER;
             state.dineSykmeldinger.data.pop();
             const props = mapStateToProps(state);
             expect(props.arbeidssituasjoner).to.have.length(1);
         });
 
         it(`Skal filtrere vekk arbeidssituasjonen 'Arbeidstaker' dersom det finnes info om arbeidsgiver`, () => {
-            state.dineSykmeldinger.data[1].valgtArbeidssituasjon = "ARBEIDSTAKER";
+            state.dineSykmeldinger.data[1].valgtArbeidssituasjon = ARBEIDSTAKER;
             const props = mapStateToProps(state);
             expect(props.arbeidssituasjoner).to.have.length(0);
         });
@@ -197,7 +178,7 @@ describe('DinSituasjonContainer', () => {
         });
 
         it('Viser DinSituasjon hvis det finnes arbeidssituasjoner', () => {
-            const container = shallow(<Container arbeidssituasjoner={['Frilanser']} arbeidsgivere={[]} />);
+            const container = shallow(<Container arbeidssituasjoner={[FRILANSER]} arbeidsgivere={[]} />);
             expect(container.find(DinSituasjon)).to.have.length(1);
         });
 

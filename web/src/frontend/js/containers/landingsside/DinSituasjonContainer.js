@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { senesteTom } from 'digisyfo-npm';
+import { senesteTom, sykmeldingstatuser as statuser, arbeidssituasjoner as situasjoner } from 'digisyfo-npm';
 import DinSituasjon from '../../components/landingsside/DinSituasjon';
+
+const { BEKREFTET, SENDT } = statuser;
+const { ARBEIDSTAKER } = situasjoner;
 
 export function filtrerSykemeldingerPaaPeriode(sykmeldinger) {
     const treMndSiden = new Date();
@@ -13,32 +16,17 @@ export function filtrerSykemeldingerPaaPeriode(sykmeldinger) {
     });
 }
 
-export function mapArbeidssituasjonString(arbeidssituasjon) {
-    switch (arbeidssituasjon) {
-        case 'ARBEIDSTAKER':
-            return 'Arbeidstaker';
-        case 'NAERINGSDRIVENDE':
-            return 'Selvstendig næringsdrivende';
-        case 'FRILANSER':
-            return 'Frilanser';
-        case 'ARBEIDSLEDIG':
-            return 'Arbeidsledig';
-        default:
-            return 'Annet';
-    }
-}
-
 export function filtrerArbeidssituasjoner(sykmeldinger) {
     return [...new Set(sykmeldinger.filter((sykmelding) => {
-        return sykmelding.status === 'BEKREFTET';
+        return sykmelding.status === BEKREFTET;
     }).map((sykmelding) => {
-        return mapArbeidssituasjonString(sykmelding.valgtArbeidssituasjon);
+        return sykmelding.valgtArbeidssituasjon;
     }))];
 }
 
 export function filtrerArbeidsgivere(sykmeldinger) {
     return [...new Set(sykmeldinger.filter((sykmelding) => {
-        return sykmelding.status === 'SENDT';
+        return sykmelding.status === SENDT;
     }).map((sykmelding) => {
         return sykmelding.innsendtArbeidsgivernavn;
     }))];
@@ -46,7 +34,8 @@ export function filtrerArbeidsgivere(sykmeldinger) {
 
 export const Container = ({ arbeidsgivere, arbeidssituasjoner }) => {
     return ((arbeidsgivere && arbeidsgivere.length) || (arbeidssituasjoner && arbeidssituasjoner.length))
-        && <DinSituasjon arbeidsgivere={arbeidsgivere} arbeidssituasjoner={arbeidssituasjoner} />;
+        ? <DinSituasjon arbeidsgivere={arbeidsgivere} arbeidssituasjoner={arbeidssituasjoner} />
+        : null;
 };
 
 Container.propTypes = {
@@ -59,7 +48,7 @@ export const mapStateToProps = (state) => {
     const arbeidsgivere = filtrerArbeidsgivere(sykmeldingerFiltrertPaaPeriode);
     const arbeidssituasjoner = filtrerArbeidssituasjoner(sykmeldingerFiltrertPaaPeriode)
         .filter((arbeidssituasjon) => {
-            return !(arbeidssituasjon === 'Arbeidstaker' && arbeidsgivere.length);
+            return !(arbeidssituasjon === ARBEIDSTAKER && arbeidsgivere.length);
         });
     return {
         arbeidsgivere,

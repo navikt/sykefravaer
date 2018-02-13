@@ -27,7 +27,7 @@ const EgenmeldingsDager = ({ sykepengesoknad }) => {
             hjelpetekst={hjelpetekst}>
             <Periodevelger
                 name="egenmeldingsperioder"
-                spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal', {
+                spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal-2', {
                     '%DATO%': toDatePrettyPrint(identdato),     
                 })}
                 tidligsteFom={tidligsteFom}

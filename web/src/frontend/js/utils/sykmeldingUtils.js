@@ -15,6 +15,17 @@ export const finnSykmeldtSinNaermestelederNavnHosArbeidsgiver = (virksomhetsnumm
     return naermesteLeder ? naermesteLeder.navn : undefined;
 };
 
+export const sykmeldtHarGyldigSykmelding = (sykmeldinger) => {
+    const tomGrenseDato = new Date();
+    return sykmeldinger.filter((sykmelding, idx, self) => {
+        return self.findIndex((t) => {
+            return t.orgnummer === sykmelding.orgnummer && sykmelding.orgnummer !== null;
+        }) === idx;
+    }).filter((sykmelding) => {
+        return erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, tomGrenseDato);
+    }).length > 0;
+};
+
 export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteLedere) => {
     const dagensDato = new Date();
     return sykmeldinger.filter((sykmelding) => {
@@ -34,13 +45,7 @@ export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteL
 };
 
 export const skalViseOppfoelgingsdialogLenke = (sykmeldinger, oppfolgingsdialoger) => {
-    return sykmeldinger.filter((sykmelding, idx, self) => {
-        return self.findIndex((t) => {
-            return t.orgnummer === sykmelding.orgnummer && sykmelding.orgnummer !== null;
-        }) === idx;
-    }).filter((sykmelding) => {
-        return sykmelding.sendtdato !== null && erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, sykmelding.sendtdato);
-    }).length > 0 || oppfolgingsdialoger.data.length > 0;
+    return sykmeldtHarGyldigSykmelding(sykmeldinger) || oppfolgingsdialoger.data.length > 0;
 };
 
 export const sykmeldtHarManglendeNaermesteLeder = (arbeidsgivere) => {
@@ -52,12 +57,5 @@ export const sykmeldtHarManglendeNaermesteLeder = (arbeidsgivere) => {
 export const sykmeldtHarNaermestelederHosArbeidsgivere = (arbeidsgivere) => {
     return arbeidsgivere.filter((arbeidsgiver) => {
         return arbeidsgiver.harNaermesteLeder;
-    }).length > 0;
-};
-
-export const sykmeldtHarGyldigSykmelding = (sykmeldinger) => {
-    const tomGrenseDato = new Date();
-    return sykmeldinger.filter((sykmelding) => {
-        return erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, tomGrenseDato);
     }).length > 0;
 };

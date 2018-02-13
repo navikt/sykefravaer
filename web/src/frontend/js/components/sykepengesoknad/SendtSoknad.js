@@ -107,8 +107,8 @@ class SendtSoknad extends Component {
         const skjemasoknad = mapBackendsoknadToSkjemasoknad(sykepengesoknad);
         let oppsummeringsoknad;
 
-        if (sykepengesoknad.oppsummeringsoknad) {
-            oppsummeringsoknad = sykepengesoknad.oppsummeringsoknad;
+        if (sykepengesoknad.oppsummering) {
+            oppsummeringsoknad = sykepengesoknad.oppsummering;
         } else {
             oppsummeringsoknad = mapSkjemasoknadToOppsummeringsoknad(skjemasoknad, sykepengesoknad);
         }

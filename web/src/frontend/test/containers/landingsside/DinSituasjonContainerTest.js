@@ -15,7 +15,7 @@ import {
 } from '../../../js/containers/landingsside/DinSituasjonContainer';
 
 const { ARBEIDSTAKER, FRILANSER } = situasjoner;
-const { BEKREFTET, SENDT } = statuser;
+const { BEKREFTET, SENDT, TIL_SENDING } = statuser;
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -118,6 +118,12 @@ describe('DinSituasjonContainer', () => {
         });
 
         it('Skal filtrere sykemeldinger med status SENDT', () => {
+            const filtrert = filtrerArbeidsgivere(filtrertPaaPeriode);
+            expect(filtrert).to.have.length(1);
+        });
+
+        it('Skal filtrere sykemeldinger med status TIL_SENDING', () => {
+            filtrertPaaPeriode[1].status = TIL_SENDING;
             const filtrert = filtrerArbeidsgivere(filtrertPaaPeriode);
             expect(filtrert).to.have.length(1);
         });

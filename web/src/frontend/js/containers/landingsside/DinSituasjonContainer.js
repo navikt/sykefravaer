@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { senesteTom, sykmeldingstatuser as statuser, arbeidssituasjoner as situasjoner } from 'digisyfo-npm';
 import DinSituasjon from '../../components/landingsside/DinSituasjon';
 
-const { BEKREFTET, SENDT } = statuser;
+const { BEKREFTET, SENDT, TIL_SENDING } = statuser;
 const { ARBEIDSTAKER } = situasjoner;
 
 export function filtrerSykemeldingerPaaPeriode(sykmeldinger) {
@@ -26,7 +26,7 @@ export function filtrerArbeidssituasjoner(sykmeldinger) {
 
 export function filtrerArbeidsgivere(sykmeldinger) {
     return [...new Set(sykmeldinger.filter((sykmelding) => {
-        return sykmelding.status === SENDT;
+        return sykmelding.status === SENDT || sykmelding.status === TIL_SENDING;
     }).map((sykmelding) => {
         return sykmelding.innsendtArbeidsgivernavn;
     }))];

@@ -10,13 +10,14 @@ import {
     LeggTilElementKnapper,
     NotifikasjonBoksVurderingOppgave,
     Arbeidsforhold,
+    ArbeidsoppgaverInfoboks,
+    ArbeidsoppgaverListe,
 } from 'oppfolgingsdialog-npm';
 import ledetekster from '../../mockLedetekster';
 import AppSpinner from '../../../js/components/AppSpinner';
 import Feilmelding from '../../../js/components/Feilmelding';
 import Arbeidsoppgaver, {
     RenderOpprettArbeidsoppgave,
-    OppfolgingsdialogArbeidsoppgaverTabell,
 } from '../../../js/components/oppfolgingsdialoger/utfylling/Arbeidsoppgaver';
 import getOppfolgingsdialog from '../../mockOppfolgingsdialoger';
 
@@ -60,6 +61,13 @@ describe('Arbeidsoppgaver', () => {
         setLedetekster(ledetekster);
         arbeidsoppgaver = {};
         window.sessionStorage = storageMock();
+        arbeidsforhold = {
+            stillinger: [{
+                yrke: 'Test',
+                prosent: '80',
+            }],
+            fnr: '1234567891234',
+        };
         arbeidsgiver = {
             naermesteLeder: {
                 navn: 'Arbeidsgiver',
@@ -70,13 +78,7 @@ describe('Arbeidsoppgaver', () => {
             navn: 'Arbeidstaker',
             fnr: '1234567891234',
             sistInnlogget: '2017-01-01T00:00:00.000',
-        };
-        arbeidsforhold = {
-            stillinger: [{
-                yrke: 'Test',
-                prosent: '80',
-            }],
-            fnr: '1234567891234',
+            stillinger: arbeidsforhold,
         };
     });
 
@@ -130,10 +132,7 @@ describe('Arbeidsoppgaver', () => {
             />);
         });
 
-        it('Skal vise Arbeidsforhold, om det er Arbeidsforhold og visArbeidsforhold er true', () => {
-            componentUtenArbeidsoppgaver.setState({
-                visArbeidsforhold: true,
-            });
+        it('Skal vise Arbeidsforhold', () => {
             expect(componentUtenArbeidsoppgaver.find(Arbeidsforhold)).to.have.length(1);
         });
 
@@ -141,7 +140,7 @@ describe('Arbeidsoppgaver', () => {
             expect(componentUtenArbeidsoppgaver.find(OppfolgingsdialogInfoboks)).to.have.length(1);
         });
 
-        it('Skal vise LeggTilElementKnapper, om det ikke er tiltak', () => {
+        it('Skal vise LeggTilElementKnapper, om det ikke er arbeidsoppgaver', () => {
             expect(componentUtenArbeidsoppgaver.find(LeggTilElementKnapper)).to.have.length(1);
         });
 
@@ -153,11 +152,16 @@ describe('Arbeidsoppgaver', () => {
         });
     });
 
-    describe('Oppfolgingsdialog med Tiltak', () => {
+    describe('Oppfolgingsdialog med Arbeidsoppgaver', () => {
         let componentMedArbeidsoppgaver;
+        let oppfolgingsdialogMedArbeidsoppgaver;
         beforeEach(() => {
+            oppfolgingsdialogMedArbeidsoppgaver = Object.assign({}, oppfolgingsdialog, {
+                arbeidstaker,
+                arbeidsgiver,
+            });
             componentMedArbeidsoppgaver = shallow(<Arbeidsoppgaver
-                oppfolgingsdialog={oppfolgingsdialog}
+                oppfolgingsdialog={oppfolgingsdialogMedArbeidsoppgaver}
                 lagreArbeidsoppgave={lagreArbeidsoppgave}
                 slettArbeidsoppgave={slettArbeidsoppgave}
                 arbeidsforhold={arbeidsforhold}
@@ -165,12 +169,8 @@ describe('Arbeidsoppgaver', () => {
             />);
         });
 
-        it('Skal vise Arbeidsforhold, om det er Arbeidsforhold', () => {
-            expect(componentMedArbeidsoppgaver.find(Arbeidsforhold)).to.have.length(1);
-        });
-
-        it('Skal vise en overskrift, om det er arbeidsoppgaver', () => {
-            expect(componentMedArbeidsoppgaver.find('h2')).to.have.length(1);
+        it('Skal vise ArbeidsoppgaverInfoboks', () => {
+            expect(componentMedArbeidsoppgaver.find(ArbeidsoppgaverInfoboks)).to.have.length(1);
         });
 
         it('Skal vise NotifikasjonBoksVurderingOppgave, om nye Arbeidsoppgaver er lagt til av motpart', () => {
@@ -192,8 +192,8 @@ describe('Arbeidsoppgaver', () => {
             expect(componentMedNyeArbeidsoppgaver.find(NotifikasjonBoksVurderingOppgave)).to.have.length(1);
         });
 
-        it('Skal vise OppfolgingsdialogArbeidsoppgaverTabell, om det er arbeidsoppgaver', () => {
-            expect(componentMedArbeidsoppgaver.find(OppfolgingsdialogArbeidsoppgaverTabell)).to.have.length(1);
+        it('Skal vise ArbeidsoppgaverListe, om det er arbeidsoppgaver', () => {
+            expect(componentMedArbeidsoppgaver.find(ArbeidsoppgaverListe)).to.have.length(1);
         });
 
         it('Skal vise LagreArbeidsoppgaveSkjema, om det er arbeidsoppgaver og visArbeidsoppgaveSkjema er true', () => {
@@ -202,14 +202,9 @@ describe('Arbeidsoppgaver', () => {
             });
             expect(componentMedArbeidsoppgaver.find(LagreArbeidsoppgaveSkjema)).to.have.length(1);
         });
-
-        it('Skal vise LeggTilElementKnapper, om det er tiltak og visTiltakSkjema er false', () => {
-            expect(componentMedArbeidsoppgaver.find(LeggTilElementKnapper)).to.have.length(1);
-        });
     });
 
     describe('RenderOpprettArbeidsoppgave', () => {
-
         it('Skal vise en overskrift', () => {
             component = shallow(<RenderOpprettArbeidsoppgave />);
             expect(component.find('h2')).to.have.length(1);

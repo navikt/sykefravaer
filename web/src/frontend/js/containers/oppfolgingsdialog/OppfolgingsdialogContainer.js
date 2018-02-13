@@ -32,7 +32,6 @@ import {
     henterEllerHarHentetTilgang,
     henterEllerHarHentetOppfolgingsdialoger,
     oppfolgingsdialogHarBlittAvbrutt,
-    oppfolgingsdialogHarBlittGodkjent,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 import history from '../../history';

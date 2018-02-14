@@ -63,12 +63,15 @@ export default class NaermesteLeder extends Component {
                             }}>{getLedetekst('din-situasjon.naermeste-leder.meld-feil')}</button>
                     }
                 </div>
-                <div className="leder__forskuttering">
-                    <p className="leder__forskuttering-tekst">{getLedetekst(`din-situasjon.arbeidsgiver-forskutterer${leder.arbeidsgiverForskuttererLoenn ? '' : '-ikke'}`)}</p>
-                    <Hjelpetekst
-                        tittel={getLedetekst('din-situasjon.forskuttering.hjelpetekst.tittel')}
-                        tekst={getLedetekst('din-situasjon.forskuttering.hjelpetekst.tekst')} />
-                </div>
+                {
+                    leder.arbeidsgiverForskuttererLoenn != null &&
+                    <div className="leder__forskuttering">
+                        <p className="leder__forskuttering-tekst">{getLedetekst(`din-situasjon.arbeidsgiver-forskutterer${leder.arbeidsgiverForskuttererLoenn ? '' : '-ikke'}`)}</p>
+                        <Hjelpetekst
+                            tittel={getLedetekst('din-situasjon.forskuttering.hjelpetekst.tittel')}
+                            tekst={getLedetekst('din-situasjon.forskuttering.hjelpetekst.tekst')} />
+                    </div>
+                }
             </div>);
     }
 }

@@ -173,6 +173,7 @@ OppfolgingsdialogSide.propTypes = {
     hentKontaktinfo: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
     hentNaermesteLeder: PropTypes.func,
+    kommentar: oppfolgingProptypes.kommentarReducerPt,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -218,6 +219,7 @@ export function mapStateToProps(state, ownProps) {
         tilgang: state.tilgang,
         toggles: state.toggles,
         oppfolgingsdialog,
+        kommentar: state.kommentar,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
         virksomhet: state.virksomhet,
         brodsmuler: [{

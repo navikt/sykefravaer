@@ -13,6 +13,7 @@ import {
     TiltakInfoboks,
     sorterTiltakEtterNyeste,
     STATUS_TILTAK,
+    STATUS_FEIL,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
@@ -29,6 +30,10 @@ export const RenderOppfolgingsdialogTiltakTabell = (
         sendLagreKommentar,
         sendSlettKommentar,
         fnr,
+        oppfolgingsdialog,
+        skjulFeilmelding,
+        feilType,
+        feilTekst,
     }) => {
     return (
         <TiltakTabell
@@ -42,6 +47,10 @@ export const RenderOppfolgingsdialogTiltakTabell = (
             sendSlettKommentar={sendSlettKommentar}
             fnr={fnr}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
+            oppfolgingsdialog={oppfolgingsdialog}
+            skjulFeilmelding={skjulFeilmelding}
+            feilType={feilType}
+            feilTekst={feilTekst}
         />
     );
 };
@@ -53,6 +62,10 @@ RenderOppfolgingsdialogTiltakTabell.propTypes = {
     sendLagreKommentar: PropTypes.func,
     sendSlettKommentar: PropTypes.func,
     fnr: PropTypes.string,
+    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
+    skjulFeilmelding: PropTypes.func,
+    feilType: PropTypes.string,
+    feilTekst: PropTypes.string,
 };
 
 export const RenderOpprettTiltak = ({ ledetekster, sendLagreTiltak, toggleTiltakSkjema }) => {
@@ -84,11 +97,81 @@ class Tiltak extends Component {
         this.sendLagreKommentar = this.sendLagreKommentar.bind(this);
         this.sendSlettKommentar = this.sendSlettKommentar.bind(this);
         this.toggleTiltakSkjema = this.toggleTiltakSkjema.bind(this);
+        this.resetFeilmelding = this.resetFeilmelding.bind(this);
+        this.setOppdateringStatus = this.setOppdateringStatus.bind(this);
     }
 
     componentWillMount() {
         window.location.hash = 'tiltak';
         window.sessionStorage.setItem('hash', 'tiltak');
+    }
+
+    setOppdateringStatus(type, tekst) {
+        this.setState({
+            feilType: type,
+            feilTekst: tekst,
+        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+         /* console.log("------------------this.props---", this.props);
+         console.log("------------------nextProps---", nextProps);*/
+        if((nextProps.tiltak.lagringFeilet && nextProps.tiltak.lagringFeilet != this.props.tiltak.lagringFeilet) ||
+            (nextProps.tiltak.slettingFeilet && nextProps.tiltak.slettingFeilet != this.props.tiltak.slettingFeilet) ||
+            (nextProps.kommentar.lagringFeilet && nextProps.kommentar.lagringFeilet != this.props.kommentar.lagringFeilet) ||
+            (nextProps.kommentar.slettingFeilet && nextProps.kommentar.slettingFeilet != this.props.kommentar.slettingFeilet)) {
+            console.log("------------------found---");
+
+            const oppdatereTiltakFeilet = nextProps.tiltak.lagringFeilet && nextProps.tiltak.lagringFeilet != this.props.tiltak.lagringFeilet &&
+                 nextProps.tiltak.feiletTiltakId > 0;
+
+            const slettTiltakFeilet =  nextProps.tiltak.slettingFeilet && nextProps.tiltak.slettingFeilet != this.props.tiltak.slettingFeilet &&
+                nextProps.tiltak.feiletTiltakId > 0;
+
+            const lagNyTiltakFeilet =  nextProps.tiltak.lagringFeilet && nextProps.tiltak.lagringFeilet != this.props.tiltak.lagringFeilet && !nextProps.tiltak.feiletTiltakId;
+
+            const slettKommentarFeilet =  nextProps.kommentar.slettingFeilet && nextProps.kommentar.slettingFeilet != this.props.kommentar.slettingFeilet &&
+                nextProps.kommentar.feiletTiltakId > 0;
+
+            const lageNyKommentarFeilet =  nextProps.kommentar.lagringFeilet && nextProps.kommentar.lagringFeilet != this.props.kommentar.lagringFeilet && nextProps.kommentar.feiletTiltakId > 0;
+
+            let feilTekst;
+            let feilType;
+            switch (true) {
+            case oppdatereTiltakFeilet:
+                // feilTekst = getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.vis.gjennomfoering.kan', ledetekster);
+                feilTekst = "oppdatere Tiltak Feilet--";
+                feilType = STATUS_FEIL.OPPDATERE_TILTAK_FEILET;
+                this.setOppdateringStatus(feilType, feilTekst);
+                break;
+           case lagNyTiltakFeilet:
+                feilTekst = "lagre ny Tiltak Feilet--";
+                feilType = STATUS_FEIL.LAGRE_NY_TILTAK_FEILET;
+                this.setOppdateringStatus(feilType, feilTekst);
+                break;
+            case slettTiltakFeilet:
+                feilTekst = "Sletting tiltak feilet--";
+                feilType = STATUS_FEIL.SLETT_TILTAK_FEILET;
+                this.setOppdateringStatus(feilType, feilTekst);
+                break;
+            case lageNyKommentarFeilet:
+                feilTekst = "lagre kommentar feilet--";
+                feilType = STATUS_FEIL.LAGRE_KOMMENTAR_FEILET;
+                this.setOppdateringStatus(feilType, feilTekst);
+                break;
+
+            case slettKommentarFeilet:
+                feilTekst = "Sletting kommentar feilet--";
+                feilType = STATUS_FEIL.SLETT_KOMMENTAR_FEILET;
+                this.setOppdateringStatus(feilType, feilTekst);
+                break;
+            default:
+                this.setOppdateringStatus("", "");
+                break;
+            }
+          /*  console.log("tekst---------------------", feilTekst);
+            console.log("feiltype", feilType);*/
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -135,6 +218,11 @@ class Tiltak extends Component {
         });
     }
 
+    resetFeilmelding() {
+      this.setOppdateringStatus("", "");
+    }
+
+
     render() {
         const {
             ledetekster,
@@ -151,9 +239,9 @@ class Tiltak extends Component {
             (() => {
                 if (lagrer || sletter) {
                     return <AppSpinner />;
-                } else if (lagringFeilet || slettingFeilet) {
+                } /*else if (lagringFeilet || slettingFeilet) {
                     return (<Feilmelding />);
-                }
+                }*/
                 return isEmpty(oppfolgingsdialog.tiltakListe) ?
                     <div>
                         {
@@ -163,6 +251,8 @@ class Tiltak extends Component {
                                     svgAlt="nyttTiltak"
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tittel')}
                                     tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}
+                                    feilType={this.state.feilType}
+                                    feilTekst={this.state.feilTekst}
                                 >
                                     <LeggTilElementKnapper
                                         ledetekster={ledetekster}
@@ -177,6 +267,7 @@ class Tiltak extends Component {
                                         visTiltakSkjema={this.state.visTiltakSkjema}
                                         toggleSkjema={this.toggleTiltakSkjema}
                                         tittel={getLedetekst('oppfolgingsdialog.tiltak.arbeidstaker.tittel')}
+                                        feilTekst={this.state.feilTekst}
                                     />
                                     <TiltakSkjema
                                         ledetekster={ledetekster}
@@ -196,6 +287,8 @@ class Tiltak extends Component {
                             visTiltakSkjema={this.state.visTiltakSkjema}
                             toggleSkjema={this.toggleTiltakSkjema}
                             tittel={getLedetekst('oppfolgingsdialog.tiltak.arbeidstaker.tittel')}
+                            feilTekst={this.state.feilTekst}
+                            feilType={this.state.feilType}
                         />
                         {
                             this.state.visTiltakSkjema &&
@@ -220,6 +313,10 @@ class Tiltak extends Component {
                                 rootUrl={`${getContextRoot()}`}
                                 sendLagreKommentar={this.sendLagreKommentar}
                                 sendSlettKommentar={this.sendSlettKommentar}
+                                oppfolgingsdialog={oppfolgingsdialog}
+                                feilType={this.state.feilType}
+                                feilTekst={this.state.feilTekst}
+                                skjulFeilmelding={this.resetFeilmelding}
                             />
                         }
                     </div>;
@@ -232,6 +329,7 @@ Tiltak.propTypes = {
     ledetekster: keyValue,
     tiltak: oppfolgingProptypes.tiltakReducerPt,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
+    kommentar: oppfolgingProptypes.kommentarReducerPt,
     lagreTiltak: PropTypes.func,
     slettTiltak: PropTypes.func,
     lagreKommentar: PropTypes.func,

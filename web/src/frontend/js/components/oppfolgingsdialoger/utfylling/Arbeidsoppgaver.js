@@ -12,6 +12,7 @@ import {
     sorterArbeidsoppgaverEtterOpprettet,
     proptypes as oppfolgingProptypes,
     NotifikasjonBoksVurderingOppgave,
+    STATUS_FEIL,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
@@ -19,7 +20,10 @@ import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
 
-export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, fnr, oppfolgingsdialog }) => {
+export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, fnr, oppfolgingsdialog, skjulFeilmelding,
+                                                           feilType,
+                                                           feilTekst,
+                                                       }) => {
     return (
         <ArbeidsoppgaveTabell
             ledetekster={ledetekster}
@@ -32,6 +36,10 @@ export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsopp
             fnr={fnr}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
             oppfolgingsdialog={oppfolgingsdialog}
+            skjulFeilmelding={skjulFeilmelding}
+            feilType={feilType}
+            feilTekst={feilTekst}
+
         />
     );
 };
@@ -42,6 +50,9 @@ OppfolgingsdialogArbeidsoppgaverTabell.propTypes = {
     sendLagreArbeidsoppgave: PropTypes.func,
     sendSlettArbeidsoppgave: PropTypes.func,
     fnr: PropTypes.string,
+    skjulFeilmelding: PropTypes.func,
+    feilType: PropTypes.string,
+    feilTekst: PropTypes.string,
 };
 
 export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppgave, toggleArbeidsoppgaveSkjema }) => {
@@ -72,6 +83,65 @@ class Arbeidsoppgaver extends Component {
         this.sendSlettArbeidsoppgave = this.sendSlettArbeidsoppgave.bind(this);
         this.toggleArbeidsoppgaveSkjema = this.toggleArbeidsoppgaveSkjema.bind(this);
         this.scrollToForm = this.scrollToForm.bind(this);
+        this.resetFeilmelding = this.resetFeilmelding.bind(this);
+        this.setOppdateringStatus = this.setOppdateringStatus.bind(this);
+    }
+
+    setOppdateringStatus(type, tekst) {
+        this.setState({
+            feilType: type,
+            feilTekst: tekst,
+        });
+    }
+
+    componentWillReceiveProps(nextProps) {
+      /*  console.log("------------------this.props---", this.props);
+        console.log("------------------nextProps---", nextProps);*/
+        if((nextProps.arbeidsoppgaver.lagringFeilet && nextProps.arbeidsoppgaver.lagringFeilet != this.props.arbeidsoppgaver.lagringFeilet) ||
+            (nextProps.arbeidsoppgaver.slettingFeilet && nextProps.arbeidsoppgaver.slettingFeilet != this.props.arbeidsoppgaver.slettingFeilet)) {
+            console.log("------------------found---");
+            console.log("nextProps", nextProps.arbeidsoppgaver);
+            //  console.log("props", this.props.kommentar);
+            const oppdatereArbeidsoppgaveFeilet = nextProps.arbeidsoppgaver.lagringFeilet && nextProps.arbeidsoppgaver.lagringFeilet != this.props.arbeidsoppgaver.lagringFeilet
+                && nextProps.arbeidsoppgaver.feiletArbeidsoppgaveId > 0;
+
+            const slettArbeidsoppgaveFeilet =  nextProps.arbeidsoppgaver.slettingFeilet && nextProps.arbeidsoppgaver.slettingFeilet != this.props.arbeidsoppgaver.slettingFeilet
+                && nextProps.arbeidsoppgaver.feiletArbeidsoppgaveId > 0;
+
+            const lagNyArbeidsoppgaveFeilet =  nextProps.arbeidsoppgaver.lagringFeilet && nextProps.arbeidsoppgaver.lagringFeilet != this.props.arbeidsoppgaver.lagringFeilet
+                && !nextProps.arbeidsoppgaver.feiletArbeidsoppgaveId;
+
+            let feilTekst;
+            let feilType;
+            switch (true) {
+            case oppdatereArbeidsoppgaveFeilet:
+                // feilTekst = getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.vis.gjennomfoering.kan', ledetekster);
+                feilTekst = "oppdatere arbeidsoppgave Feilet--";
+                feilType = STATUS_FEIL.OPPDATERE_ARBEIDSOPPGAVE_FEILET;
+                this.setOppdateringStatus(feilType, feilTekst);
+                break;
+            case lagNyArbeidsoppgaveFeilet:
+                feilTekst = "lagre ny arbeidsoppgave Feilet--";
+                feilType = STATUS_FEIL.LAGRE_NY_ARBEIDSOPPGAVE_FEILET;
+                this.setOppdateringStatus(feilType, feilTekst);
+                break;
+            case slettArbeidsoppgaveFeilet:
+                feilTekst = "Sletting arbeidsoppgave feilet--";
+                feilType = STATUS_FEIL.SLETT_ARBEIDSOPPGAVE_FEILET;
+                this.setOppdateringStatus(feilType, feilTekst);
+                break;
+            default:
+                this.setOppdateringStatus("", "");
+                break;
+            }
+            console.log("tekst---------------------", feilTekst);
+            console.log("feiltype", feilType);
+
+        }
+    }
+
+    resetFeilmelding() {
+        this.setOppdateringStatus("", "");
     }
 
     componentWillMount() {
@@ -135,13 +205,15 @@ class Arbeidsoppgaver extends Component {
         const antallIkkeVurdererteArbOppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
             return !arbeidsoppgave.gjennomfoering;
         }).length;
+        /*console.log("visOppdateringFeilet", this.state.visOppdateringFeilet);
+        console.log("feilType", this.state.feilType);*/
         return (
             (() => {
                 if (lagrer || sletter) {
                     return <AppSpinner />;
-                } else if (lagringFeilet || slettingFeilet) {
+                } /*else if (lagringFeilet || slettingFeilet) {
                     return (<Feilmelding />);
-                }
+                }*/
                 return isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                     <div>
                         <Arbeidsforhold
@@ -157,6 +229,8 @@ class Arbeidsoppgaver extends Component {
                                     svgAlt="nyArbeidsoppgave"
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tittel')}
                                     tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tekst')}
+                                    feilType={this.state.feilType}
+                                    feilTekst={this.state.feilTekst}
                                 >
                                     <LeggTilElementKnapper
                                         ledetekster={ledetekster}
@@ -199,6 +273,10 @@ class Arbeidsoppgaver extends Component {
                             sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
                             sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
                             fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                            feilType={this.state.feilType}
+                            feilTekst={this.state.feilTekst}
+                            skjulFeilmelding={this.resetFeilmelding}
+
                         />
                         {
                             this.state.visArbeidsoppgaveSkjema ?
@@ -209,6 +287,8 @@ class Arbeidsoppgaver extends Component {
                                     ref={(lagreSkjema) => {
                                         this.lagreSkjema = lagreSkjema;
                                     }}
+                                    feilType={this.state.feilType}
+                                    feilTekst={this.state.feilTekst}
                                 /> :
                                 <LeggTilElementKnapper
                                     ledetekster={ledetekster}

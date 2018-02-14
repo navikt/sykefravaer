@@ -17,10 +17,8 @@ export const finnSykmeldtSinNaermestelederNavnHosArbeidsgiver = (virksomhetsnumm
 
 export const sykmeldtHarGyldigSykmelding = (sykmeldinger) => {
     const tomGrenseDato = new Date();
-    return sykmeldinger.filter((sykmelding, idx, self) => {
-        return self.findIndex((t) => {
-            return t.orgnummer === sykmelding.orgnummer && sykmelding.orgnummer !== null;
-        }) === idx;
+    return sykmeldinger.filter((sykmelding) => {
+        return sykmelding.orgnummer && sykmelding.orgnummer !== null;
     }).filter((sykmelding) => {
         return erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, tomGrenseDato);
     }).length > 0;

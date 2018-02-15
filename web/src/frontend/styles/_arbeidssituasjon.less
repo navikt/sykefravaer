@@ -1,0 +1,57 @@
+.situasjon {
+  display: flex;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+}
+
+.situasjon__arbeidssituasjon {
+  margin-top: 2px;
+}
+
+.situasjon__arbeidsgiver {
+  border-top: 1px solid @ikonGraa;
+}
+
+.situasjon__panel {
+  background: @hvit;
+  .mixin-panel-padding();
+}
+
+.situasjon__tittel {
+  margin-bottom: 0;
+}
+
+.situasjon:last-child {
+  border-bottom: 0;
+}
+
+.situasjon__ikon {
+  width: 1.5em;
+  margin-right: 1em;
+}
+
+.leder {
+  margin-bottom: 1em;
+}
+
+.leder:last-child {
+  margin-bottom: 0;
+}
+
+.leder__informasjon {
+  margin-top: 0.5em;
+  margin-bottom: .25em;
+}
+
+.leder__forskuttering-tekst {
+  margin-bottom: 0;
+}
+
+.leder__forskuttering {
+  display: flex;
+  margin-top: 1em;
+}
+
+.leder--avkreftet {
+  text-decoration: line-through;
+}

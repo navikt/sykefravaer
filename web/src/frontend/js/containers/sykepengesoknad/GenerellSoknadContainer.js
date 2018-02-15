@@ -57,17 +57,27 @@ export function mapDispatchToProps(dispatch) {
     };
 }
 
+const dekorerSkjemasoknad = (skjemasoknad, sykepengesoknad) => {
+    if (!skjemasoknad) {
+        return skjemasoknad;
+    }
+    let s = { ...skjemasoknad };
+    if (skjemasoknad && sykepengesoknad.forrigeSykeforloepTom) {
+        s = {
+            ...skjemasoknad,
+            forrigeSykeforloepTom: sykepengesoknad.forrigeSykeforloepTom,
+        };
+    }
+    return s;
+};
+
 export const mapStateToProps = (state, ownProps) => {
     const sykepengesoknad = state.sykepengesoknader.data.filter((soknad) => {
         return soknad.id === ownProps.params.sykepengesoknadId;
     })[0];
     let skjemasoknad = state.form && state.form[SYKEPENGER_SKJEMANAVN] ? state.form[SYKEPENGER_SKJEMANAVN].values : undefined;
-    if (skjemasoknad && sykepengesoknad.forrigeSykeforloepTom) {
-        skjemasoknad = {
-            ...skjemasoknad,
-            forrigeSykeforloepTom: sykepengesoknad.forrigeSykeforloepTom,
-        };
-    }
+
+    skjemasoknad = dekorerSkjemasoknad(skjemasoknad, sykepengesoknad);
 
     return {
         sykepengesoknad,

@@ -78,7 +78,7 @@ describe('Arbeidsoppgaver', () => {
             navn: 'Arbeidstaker',
             fnr: '1234567891234',
             sistInnlogget: '2017-01-01T00:00:00.000',
-            stillinger: arbeidsforhold,
+            stillinger: arbeidsforhold.stillinger,
         };
     });
 
@@ -132,8 +132,11 @@ describe('Arbeidsoppgaver', () => {
             />);
         });
 
-        it('Skal vise Arbeidsforhold', () => {
-            expect(componentUtenArbeidsoppgaver.find(Arbeidsforhold)).to.have.length(1);
+        it('Skal vise ArbeidsoppgaverInfoboks', () => {
+            componentUtenArbeidsoppgaver.setState({
+                visArbeidsoppgaveSkjema: true,
+            });
+            expect(componentUtenArbeidsoppgaver.find(ArbeidsoppgaverInfoboks)).to.have.length(1);
         });
 
         it('Skal vise OppfolgingsdialogInfoboks, om det ikke er arbeidsoppgaver', () => {
@@ -205,11 +208,6 @@ describe('Arbeidsoppgaver', () => {
     });
 
     describe('RenderOpprettArbeidsoppgave', () => {
-        it('Skal vise en overskrift', () => {
-            component = shallow(<RenderOpprettArbeidsoppgave />);
-            expect(component.find('h2')).to.have.length(1);
-        });
-
         it('Skal vise et LagreArbeidsoppgaveSkjema', () => {
             component = shallow(<RenderOpprettArbeidsoppgave />);
             expect(component.find(LagreArbeidsoppgaveSkjema)).to.have.length(1);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import {
-    Arbeidsforhold,
+
     BRUKERTYPE,
     captitalizeFirstLetter,
     LagreArbeidsoppgaveSkjema,
@@ -22,7 +22,6 @@ import Feilmelding from '../../Feilmelding';
 
 export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppgave, toggleArbeidsoppgaveSkjema }) => {
     return (<div>
-        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
         <LagreArbeidsoppgaveSkjema
             ledetekster={ledetekster}
             sendLagre={sendLagreArbeidsoppgave}
@@ -121,12 +120,28 @@ class Arbeidsoppgaver extends Component {
                 }
                 return isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                     <div>
-                        <Arbeidsforhold
-                            tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
+                        { this.state.visArbeidsoppgaveSkjema &&
+                        <ArbeidsoppgaverInfoboks
                             ledetekster={ledetekster}
-                            arbeidsforhold={oppfolgingsdialog.arbeidstaker.stillinger}
-                            rootUrl={getContextRoot()}
-                        />
+                            tittel={getLedetekst('oppfolgingsdialog.arbeidsoppgaverInfoboks.tittel.arbeidstaker')}
+                            visSkjema={this.state.visArbeidsoppgaveSkjema}
+                            toggleSkjema={this.toggleArbeidsoppgaveSkjema}
+                        >
+                            { oppfolgingsdialog.arbeidstaker.stillinger.length > 0 &&
+                            <div>
+                                { oppfolgingsdialog.arbeidstaker.stillinger.map((stilling, idx) => {
+                                    return (<p key={idx}>
+                                        {getLedetekst('oppfolgingsdialog.arbeidsoppgaverInfoboks.arbeidstaker.stilling', {
+                                            '%YRKE%': stilling.yrke.toLowerCase(),
+                                            '%PROSENT%': stilling.prosent,
+                                        })}
+                                    </p>);
+                                })
+                                }
+                            </div>
+                            }
+                        </ArbeidsoppgaverInfoboks>
+                        }
                         {
                             !this.state.visArbeidsoppgaveSkjema ?
                                 <OppfolgingsdialogInfoboks

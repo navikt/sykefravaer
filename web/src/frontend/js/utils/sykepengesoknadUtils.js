@@ -21,7 +21,9 @@ export const sorterEtterSendtDato = (soknad1, soknad2) => {
 };
 
 export const erSendtTilBeggeMenIkkeSamtidig = (sykepengesoknad) => {
-    return sykepengesoknad.sendtTilNAVDato && sykepengesoknad.sendtTilArbeidsgiverDato && sykepengesoknad.sendtTilNAVDato.getTime() !== sykepengesoknad.sendtTilArbeidsgiverDato.getTime();
+    return sykepengesoknad.sendtTilNAVDato
+            && sykepengesoknad.sendtTilArbeidsgiverDato
+            && sykepengesoknad.sendtTilNAVDato.getTime() !== sykepengesoknad.sendtTilArbeidsgiverDato.getTime();
 };
 
 export const getSendtTilSuffix = (sykepengesoknad) => {

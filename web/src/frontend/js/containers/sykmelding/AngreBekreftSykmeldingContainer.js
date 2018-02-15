@@ -11,8 +11,7 @@ function AngreBekreftSykmeldingContainer({ sykmeldingId, angreBekreftSykmelding,
             <button
                 className="rammeknapp rammeknapp--mini"
                 onClick={() => { return angreBekreftSykmelding(sykmeldingId); }}
-                key={1}
-            >
+                key={1}>
                 {getLedetekst('din-sykmelding.godkjennt.angre')}
             </button>,
             <div aria-live="polite" key={2}>

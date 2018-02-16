@@ -38,38 +38,34 @@ const getSisteSoknadISammeSykeforloep = (soknad, soknader) => {
 };
 
 const preutfyllEgenmeldingsperioder = (soknad, soknader) => {
-    if (soknad.status === sykepengesoknadstatuser.UTKAST_TIL_KORRIGERING) {
+    const sisteSoknadISammeSykeforlop = getSisteSoknadISammeSykeforloep({ ...soknad }, soknader);
+    if (!sisteSoknadISammeSykeforlop || soknad.status === sykepengesoknadstatuser.UTKAST_TIL_KORRIGERING) {
         return soknad;
     }
 
-    let preutfyltSoknad = { ...soknad };
-    const sisteSoknadISammeSykeforlop = getSisteSoknadISammeSykeforloep(preutfyltSoknad, soknader);
+    const bruktEgenmeldingsdagerFoerLegemeldtFravaer = sisteSoknadISammeSykeforlop.egenmeldingsperioder.length > 0;
+    const egenmeldingsperioder = [...sisteSoknadISammeSykeforlop.egenmeldingsperioder]
+        .sort((periodeA, periodeB) => {
+            return periodeA.fom - periodeB.fom;
+        })
+        .map((periode) => {
+            return {
+                fom: toDatePrettyPrint(periode.fom),
+                tom: toDatePrettyPrint(periode.tom),
+            };
+        });
 
-    if (sisteSoknadISammeSykeforlop) {
-        const bruktEgenmeldingsdagerFoerLegemeldtFravaer = sisteSoknadISammeSykeforlop.egenmeldingsperioder.length > 0;
-        preutfyltSoknad = {
-            ...preutfyltSoknad,
+
+    return bruktEgenmeldingsdagerFoerLegemeldtFravaer
+        ? {
+            ...soknad,
+            bruktEgenmeldingsdagerFoerLegemeldtFravaer,
+            egenmeldingsperioder,
+        }
+        : {
+            ...soknad,
             bruktEgenmeldingsdagerFoerLegemeldtFravaer,
         };
-
-        if (bruktEgenmeldingsdagerFoerLegemeldtFravaer) {
-            preutfyltSoknad = {
-                ...preutfyltSoknad,
-                egenmeldingsperioder: [...sisteSoknadISammeSykeforlop.egenmeldingsperioder]
-                    .sort((periodeA, periodeB) => {
-                        return periodeA.fom - periodeB.fom;
-                    })
-                    .map((periode) => {
-                        return {
-                            fom: toDatePrettyPrint(periode.fom),
-                            tom: toDatePrettyPrint(periode.tom),
-                        };
-                    }),
-            };
-        }
-    }
-
-    return preutfyltSoknad;
 };
 
 export const mapToInitialValues = (soknad, soknader = []) => {

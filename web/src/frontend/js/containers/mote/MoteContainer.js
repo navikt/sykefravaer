@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { moteActions, svarActions, Kvittering, MotePassert, AvbruttMote, BekreftetKvittering, getSvarsideModus, Svarside, konstanter, proptypes as moterPropTypes } from 'moter-npm';
+import { moteActions, svarActions, Kvittering, MotePassert, AvbruttMote, BekreftetKvittering, getSvarsideModus,
+    Svarside, konstanter, proptypes as moterPropTypes } from 'moter-npm';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
 import { bindActionCreators } from 'redux';
 import AppSpinner from '../../components/AppSpinner';

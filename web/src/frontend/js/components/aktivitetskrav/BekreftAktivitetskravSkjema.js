@@ -19,7 +19,11 @@ const Aktivitetskrav = (props) => {
             </div>) }
         </div>
         <div className="bekreftAktivitetskrav">
-            <Field name="bekreftAktivitetskrav" component={CheckboxSelvstendig} id="bekreftAktivitetskrav" label={getLedetekst('aktivitetskrav-varsel.bekreft-label', ledetekster)} />
+            <Field
+                name="bekreftAktivitetskrav"
+                component={CheckboxSelvstendig}
+                id="bekreftAktivitetskrav"
+                label={getLedetekst('aktivitetskrav-varsel.bekreft-label', ledetekster)} />
         </div>
         <div className="knapperad">
             <button type="submit" className={`knapp${bekrefter ? ' knapp--spinner' : ''}`}>

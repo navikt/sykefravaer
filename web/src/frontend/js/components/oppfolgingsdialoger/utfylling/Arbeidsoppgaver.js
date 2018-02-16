@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import {
-    Arbeidsforhold,
+
     BRUKERTYPE,
     captitalizeFirstLetter,
     LagreArbeidsoppgaveSkjema,
     LeggTilElementKnapper,
     OppfolgingsdialogInfoboks,
-    ArbeidsoppgaveTabell,
+    ArbeidsoppgaverListe,
     sorterArbeidsoppgaverEtterOpprettet,
     proptypes as oppfolgingProptypes,
     NotifikasjonBoksVurderingOppgave,
+    ArbeidsoppgaverInfoboks,
     STATUS_FEIL,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
@@ -20,44 +21,8 @@ import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
 
-export const OppfolgingsdialogArbeidsoppgaverTabell = ({ ledetekster, arbeidsoppgaveListe, sendLagreArbeidsoppgave, sendSlettArbeidsoppgave, fnr, oppfolgingsdialog, skjulFeilmelding,
-                                                           feilType,
-                                                           feilTekst,
-                                                       }) => {
-    return (
-        <ArbeidsoppgaveTabell
-            ledetekster={ledetekster}
-            liste={arbeidsoppgaveListe}
-            urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
-            urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
-            urlImgCheckboks={`${getContextRoot()}/img/svg/oppfolgingdialog-checkbox.svg`}
-            sendLagre={sendLagreArbeidsoppgave}
-            sendSlett={sendSlettArbeidsoppgave}
-            fnr={fnr}
-            brukerType={BRUKERTYPE.ARBEIDSTAKER}
-            oppfolgingsdialog={oppfolgingsdialog}
-            skjulFeilmelding={skjulFeilmelding}
-            feilType={feilType}
-            feilTekst={feilTekst}
-
-        />
-    );
-};
-OppfolgingsdialogArbeidsoppgaverTabell.propTypes = {
-    ledetekster: keyValue,
-    oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
-    arbeidsoppgaveListe: PropTypes.arrayOf(oppfolgingProptypes.arbeidsoppgavePt),
-    sendLagreArbeidsoppgave: PropTypes.func,
-    sendSlettArbeidsoppgave: PropTypes.func,
-    fnr: PropTypes.string,
-    skjulFeilmelding: PropTypes.func,
-    feilType: PropTypes.string,
-    feilTekst: PropTypes.string,
-};
-
 export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppgave, toggleArbeidsoppgaveSkjema }) => {
     return (<div>
-        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
         <LagreArbeidsoppgaveSkjema
             ledetekster={ledetekster}
             sendLagre={sendLagreArbeidsoppgave}
@@ -78,6 +43,7 @@ class Arbeidsoppgaver extends Component {
         this.state = {
             nyArbeidsoppgave: false,
             oppdatertArbeidsoppgave: false,
+            visArbeidsoppgaveSkjema: false,
         };
         this.sendLagreArbeidsoppgave = this.sendLagreArbeidsoppgave.bind(this);
         this.sendSlettArbeidsoppgave = this.sendSlettArbeidsoppgave.bind(this);
@@ -205,8 +171,6 @@ class Arbeidsoppgaver extends Component {
         const antallIkkeVurdererteArbOppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
             return !arbeidsoppgave.gjennomfoering;
         }).length;
-        /*console.log("visOppdateringFeilet", this.state.visOppdateringFeilet);
-        console.log("feilType", this.state.feilType);*/
         return (
             (() => {
                 if (lagrer || sletter) {
@@ -216,12 +180,30 @@ class Arbeidsoppgaver extends Component {
                 }*/
                 return isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                     <div>
-                        <Arbeidsforhold
-                            tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
+                        { this.state.visArbeidsoppgaveSkjema &&
+                        <ArbeidsoppgaverInfoboks
                             ledetekster={ledetekster}
-                            arbeidsforhold={oppfolgingsdialog.arbeidstaker.stillinger}
-                            rootUrl={getContextRoot()}
-                        />
+                            tittel={getLedetekst('oppfolgingsdialog.arbeidsoppgaverInfoboks.tittel.arbeidstaker')}
+                            visSkjema={this.state.visArbeidsoppgaveSkjema}
+                            toggleSkjema={this.toggleArbeidsoppgaveSkjema}
+                            feilType={this.state.feilType}
+                            feilTekst={this.state.feilTekst}
+                        >
+                            { oppfolgingsdialog.arbeidstaker.stillinger.length > 0 &&
+                            <div>
+                                { oppfolgingsdialog.arbeidstaker.stillinger.map((stilling, idx) => {
+                                    return (<p key={idx}>
+                                        {getLedetekst('oppfolgingsdialog.arbeidsoppgaverInfoboks.arbeidstaker.stilling', {
+                                            '%YRKE%': stilling.yrke.toLowerCase(),
+                                            '%PROSENT%': stilling.prosent,
+                                        })}
+                                    </p>);
+                                })
+                                }
+                            </div>
+                            }
+                        </ArbeidsoppgaverInfoboks>
+                        }
                         {
                             !this.state.visArbeidsoppgaveSkjema ?
                                 <OppfolgingsdialogInfoboks
@@ -229,8 +211,6 @@ class Arbeidsoppgaver extends Component {
                                     svgAlt="nyArbeidsoppgave"
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tittel')}
                                     tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.arbeidsoppgave.tekst')}
-                                    feilType={this.state.feilType}
-                                    feilTekst={this.state.feilTekst}
                                 >
                                     <LeggTilElementKnapper
                                         ledetekster={ledetekster}
@@ -247,15 +227,6 @@ class Arbeidsoppgaver extends Component {
                     </div>
                     :
                     <div>
-                        <Arbeidsforhold
-                            tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.stilling.tekst')}
-                            ledetekster={ledetekster}
-                            arbeidsforhold={oppfolgingsdialog.arbeidstaker.stillinger}
-                            rootUrl={getContextRoot()}
-                        />
-
-                        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.opprett.tittel')}</h2>
-
                         {
                             antallIkkeVurdererteArbOppgaver > 0 && <NotifikasjonBoksVurderingOppgave
                                 ledetekster={ledetekster}
@@ -265,37 +236,51 @@ class Arbeidsoppgaver extends Component {
                                 tekst="oppfolgingsdialog.notifikasjonboks.arbeidsoppgave.vurderes.tekst"
                             />
                         }
-
-                        <OppfolgingsdialogArbeidsoppgaverTabell
+                        <ArbeidsoppgaverInfoboks
                             ledetekster={ledetekster}
-                            oppfolgingsdialog={oppfolgingsdialog}
-                            arbeidsoppgaveListe={sorterArbeidsoppgaverEtterOpprettet(oppfolgingsdialog.arbeidsoppgaveListe)}
-                            sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
-                            sendSlettArbeidsoppgave={this.sendSlettArbeidsoppgave}
-                            fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                            tittel={getLedetekst('oppfolgingsdialog.arbeidsoppgaverInfoboks.tittel.arbeidstaker')}
+                            visSkjema={this.state.visArbeidsoppgaveSkjema}
+                            toggleSkjema={this.toggleArbeidsoppgaveSkjema}
                             feilType={this.state.feilType}
                             feilTekst={this.state.feilTekst}
                             skjulFeilmelding={this.resetFeilmelding}
-
-                        />
+                        >
+                            { oppfolgingsdialog.arbeidstaker.stillinger.length > 0 &&
+                                <div>
+                                    { oppfolgingsdialog.arbeidstaker.stillinger.map((stilling, idx) => {
+                                        return (<p key={idx}>
+                                            {getLedetekst('oppfolgingsdialog.arbeidsoppgaverInfoboks.arbeidstaker.stilling', {
+                                                '%YRKE%': stilling.yrke.toLowerCase(),
+                                                '%PROSENT%': stilling.prosent,
+                                            })}
+                                        </p>);
+                                    })
+                                    }
+                                </div>
+                            }
+                        </ArbeidsoppgaverInfoboks>
                         {
-                            this.state.visArbeidsoppgaveSkjema ?
-                                <LagreArbeidsoppgaveSkjema
-                                    ledetekster={ledetekster}
-                                    sendLagre={this.sendLagreArbeidsoppgave}
-                                    avbryt={this.toggleArbeidsoppgaveSkjema}
-                                    ref={(lagreSkjema) => {
-                                        this.lagreSkjema = lagreSkjema;
-                                    }}
-                                    feilType={this.state.feilType}
-                                    feilTekst={this.state.feilTekst}
-                                /> :
-                                <LeggTilElementKnapper
-                                    ledetekster={ledetekster}
-                                    visSkjema={this.state.visArbeidsoppgaveSkjema}
-                                    toggleSkjema={this.toggleArbeidsoppgaveSkjema}
-                                />
+                            this.state.visArbeidsoppgaveSkjema && <LagreArbeidsoppgaveSkjema
+                                ledetekster={ledetekster}
+                                sendLagre={this.sendLagreArbeidsoppgave}
+                                avbryt={this.toggleArbeidsoppgaveSkjema}
+                                ref={(lagreSkjema) => {
+                                    this.lagreSkjema = lagreSkjema;
+                                }}
+                            />
                         }
+                        <ArbeidsoppgaverListe
+                            ledetekster={ledetekster}
+                            liste={sorterArbeidsoppgaverEtterOpprettet(oppfolgingsdialog.arbeidsoppgaveListe)}
+                            urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
+                            sendLagre={this.sendLagreArbeidsoppgave}
+                            sendSlett={this.sendSlettArbeidsoppgave}
+                            fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                            brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                            rootUrlImg={getContextRoot()}
+                            feilType={this.state.feilType}
+                            feilTekst={this.state.feilTekst}
+                        />
                     </div>;
             })()
         );

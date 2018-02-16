@@ -1,4 +1,6 @@
-const MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING = 3;
+import {
+    erSykmeldingGyldigForOppfolgingMedGrensedato,
+} from 'oppfolgingsdialog-npm';
 
 export const sykmeldtHarNaermestelederHosArbeidsgiver = (virksomhetsnummer, naermesteLedere) => {
     return naermesteLedere.filter((leder) => {
@@ -13,14 +15,19 @@ export const finnSykmeldtSinNaermestelederNavnHosArbeidsgiver = (virksomhetsnumm
     return naermesteLeder ? naermesteLeder.navn : undefined;
 };
 
-export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteLedere) => {
+export const sykmeldtHarGyldigSykmelding = (sykmeldinger) => {
+    const tomGrenseDato = new Date();
     return sykmeldinger.filter((sykmelding) => {
-        return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
-            const tomGrenseDato = new Date();
-            tomGrenseDato.setHours(0, 0, 0, 0);
-            tomGrenseDato.setMonth(tomGrenseDato.getMonth() - MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING);
-            return new Date(periode.tom) >= new Date(tomGrenseDato);
-        }).length > 0;
+        return sykmelding.orgnummer && sykmelding.orgnummer !== null;
+    }).filter((sykmelding) => {
+        return erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, tomGrenseDato);
+    }).length > 0;
+};
+
+export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteLedere) => {
+    const dagensDato = new Date();
+    return sykmeldinger.filter((sykmelding) => {
+        return erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, dagensDato);
     }).map((sykmelding) => {
         return {
             virksomhetsnummer: sykmelding.orgnummer,
@@ -35,19 +42,8 @@ export const finnArbeidsgivereForGyldigeSykmeldinger = (sykmeldinger, naermesteL
     });
 };
 
-export const skalViseOppfoelgingsdialogLenke = (sykmeldinger) => {
-    return sykmeldinger.filter((sykmelding) => {
-        return sykmelding.mulighetForArbeid.perioder.filter((periode) => {
-            const tomGrenseDato = new Date();
-            tomGrenseDato.setHours(0, 0, 0, 0);
-            tomGrenseDato.setMonth(tomGrenseDato.getMonth() - MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING);
-            return new Date(periode.tom) >= new Date(tomGrenseDato);
-        }).length > 0;
-    }).filter((sykmelding, idx, self) => {
-        return self.findIndex((t) => {
-            return t.orgnummer === sykmelding.orgnummer && sykmelding.orgnummer !== null;
-        }) === idx;
-    }).length > 0;
+export const skalViseOppfoelgingsdialogLenke = (sykmeldinger, oppfolgingsdialoger) => {
+    return sykmeldtHarGyldigSykmelding(sykmeldinger) || oppfolgingsdialoger.data.length > 0;
 };
 
 export const sykmeldtHarManglendeNaermesteLeder = (arbeidsgivere) => {

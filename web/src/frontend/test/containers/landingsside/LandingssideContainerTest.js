@@ -37,6 +37,11 @@ describe('LandingssideContainer', () => {
                     data: [],
                 },
                 hendelser: {},
+                oppfolgingsdialoger: {
+                    henter: false,
+                    hentet: false,
+                    data: [],
+                },
             };
         });
 
@@ -72,6 +77,7 @@ describe('LandingssideContainer', () => {
             state.mote.hentet = true;
             state.dineSykmeldinger.hentet = true;
             state.sykepengesoknader.hentet = true;
+            state.oppfolgingsdialoger.hentet = true;
             const res = mapStateToProps(state);
             expect(res.altHentet).to.be.true;
         });
@@ -95,7 +101,10 @@ describe('LandingssideContainer', () => {
         let hentToggles;
         let hentDineSykmeldinger;
         let hentStartdato;
+        let hentOppfolgingsdialoger;
         let hent;
+        let oppfolgingsdialoger;
+        let oppfolgingsdialogerHentet;
 
         beforeEach(() => {
             hentMote = sinon.spy();
@@ -104,54 +113,117 @@ describe('LandingssideContainer', () => {
             hentLedere = sinon.spy();
             hentToggles = sinon.spy();
             hentStartdato = sinon.spy();
+            hentOppfolgingsdialoger = sinon.spy();
             hent = {
-                hentMote, hentSykepengesoknader, hentDineSykmeldinger, hentLedere, hentToggles, hentStartdato,
+                hentMote, hentSykepengesoknader, hentDineSykmeldinger, hentLedere, hentToggles, hentStartdato, hentOppfolgingsdialoger,
+            };
+            oppfolgingsdialoger = {
+                henter: false,
+                hentet: false,
+                data: [],
             };
         });
 
         it('Skal vise Landingsside', () => {
-            let component = shallow(<LandingssideSide hentet={{}} {...hent} />);
+            let component = shallow(<LandingssideSide
+                hentet={{}}
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                {...hent}
+            />);
             expect(component.find(Landingsside)).to.have.length(1);
         });
 
         it('Skal hente sykepengesoknader hvis sykepengesoknader ikke er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ sykepengesoknader: false }} {...hent} />);
+            let component = shallow(<LandingssideSide
+                hentet={{ sykepengesoknader: false }}
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                {...hent}
+            />);
             expect(hentSykepengesoknader.called).to.be.true;
         });
 
         it('Skal ikke hente sykepengesoknader hvis sykepengesoknader er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ sykepengesoknader: true }} {...hent} />);
+            let component = shallow(<LandingssideSide
+                hentet={{ sykepengesoknader: true }}
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                {...hent}
+            />);
             expect(hentSykepengesoknader.called).to.be.false;
         });
 
         it('Skal hente møte hvis møte ikke er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ mote: false }} {...hent} />);
+            let component = shallow(<LandingssideSide
+                hentet={{ mote: false }}
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                {...hent}
+            />);
             expect(hentMote.called).to.be.true;
         });
 
         it('Skal ikke hente møte hvis møte er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ mote: true }} {...hent} />);
+            let component = shallow(<LandingssideSide
+                hentet={{ mote: true }}
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                {...hent}
+            />);
             expect(hentMote.called).to.be.false;
         });
 
         it('Skal hente ledere hvis ledere ikke er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ ledere: false }} {...hent} />);
+            let component = shallow(<LandingssideSide
+                hentet={{ ledere: false }}
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                {...hent}
+            />);
             expect(hentLedere.called).to.be.true;
         });
 
         it('Skal ikke hente ledere hvis ledere er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ ledere: true }} {...hent} />);
+            let component = shallow(<LandingssideSide
+                hentet={{ ledere: true }}
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                {...hent}
+            />);
             expect(hentLedere.called).to.be.false;
         });
 
         it('Skal hente dineSykmeldinger hvis dineSykmeldinger ikke er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ dineSykmeldinger: false }} {...hent} />);
+            let component = shallow(<LandingssideSide
+                hentet={{ dineSykmeldinger: false }}
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                {...hent}
+            />);
             expect(hentDineSykmeldinger.called).to.be.true;
         });
 
         it('Skal ikke hente dineSykmeldinger hvis dineSykmeldinger er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ dineSykmeldinger: true }} {...hent} />);
+            let component = shallow(<LandingssideSide
+                hentet={{ dineSykmeldinger: true }}
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                {...hent}
+            />);
             expect(hentDineSykmeldinger.called).to.be.false;
+        });
+
+        it('Skal hente oppfolgingsdialoger hvis oppfolgingsdialoger ikke er hentet', () => {
+            let component = shallow(<LandingssideSide
+                hentet={{}}
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                {...hent}
+            />);
+            expect(hentOppfolgingsdialoger.called).to.be.true;
+        });
+
+        it('Skal ikke hente oppfolgingsdialoger hvis oppfolgingsdialoger er hentet', () => {
+            let component = shallow(<LandingssideSide
+                hentet={{}}
+                oppfolgingsdialoger={{
+                    ...oppfolgingsdialoger,
+                    hentet: true,
+                }}
+                {...hent}
+            />);
+            expect(hentOppfolgingsdialoger.called).to.be.false;
         });
     });
 });

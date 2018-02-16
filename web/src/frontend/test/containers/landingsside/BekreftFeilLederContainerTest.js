@@ -4,7 +4,7 @@ import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../../mockLedetekster";
 import sinon from 'sinon';
-import { Varselstripe } from 'digisyfo-npm';
+import { Varselstripe, setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -94,10 +94,14 @@ describe("BekreftFeilLederContainer", () => {
                 orgnummer: "123456789",
                 organisasjonsnavn: "Solstrålen Barnehage"
             };
+            setLedetekster({
+                'sykefravaer.endre-naermeste-leder.tittel': "Nærmeste leder",
+                'sykefravaer.endre-naermeste-leder.melding': '<p>Er du sikker på at du vil fjerne <strong>%LEDER%</strong> som din nærmeste leder i <strong>%ARBEIDSGIVER%</strong>?</p><p>Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt det.</p>'
+            })
         });
 
         it("Skal vise navn på leder og organisasjonsnavn", () => {
-            compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)
+            compo = mount(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)
             expect(compo.text()).to.contain("Ole Olsen");
             expect(compo.text()).to.contain("Solstrålen Barnehage");
         })

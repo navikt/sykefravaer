@@ -25,8 +25,14 @@ const Stegindikator = ({ aktivtSteg, sykepengesoknad }) => {
                         (() => {
                             if (erPassert) {
                                 return (<Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/${urler[index]}`}>
-                                    <img src={`${window.APP_SETTINGS.APP_ROOT}/img/nav-frontend-grafikk/grafikk/stegindikator__hake.svg`} alt="Hake" className="stegindikator__hake" />
-                                    <img src={`${window.APP_SETTINGS.APP_ROOT}/img/nav-frontend-grafikk/grafikk/stegindikator__hake--hover.svg`} alt="Hake" className="stegindikator__hake--hover" />
+                                    <img
+                                        src={`${window.APP_SETTINGS.APP_ROOT}/img/nav-frontend-grafikk/grafikk/stegindikator__hake.svg`}
+                                        alt="Hake"
+                                        className="stegindikator__hake" />
+                                    <img
+                                        src={`${window.APP_SETTINGS.APP_ROOT}/img/nav-frontend-grafikk/grafikk/stegindikator__hake--hover.svg`}
+                                        alt="Hake"
+                                        className="stegindikator__hake--hover" />
                                 </Link>);
                             }
                             return s;

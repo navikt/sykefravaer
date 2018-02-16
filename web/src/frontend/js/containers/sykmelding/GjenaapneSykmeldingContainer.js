@@ -12,8 +12,7 @@ function GjenaapneSykmeldingContainer({ sykmeldingId, gjenaapneSykmelding, gjena
                 className="rammeknapp rammeknapp--mini"
                 onClick={() => {
                     return gjenaapneSykmelding(sykmeldingId);
-                }}
-            >
+                }}>
                 {getLedetekst('din-sykmelding.avbrutt.gjenaapne')}
             </button>
             <div aria-live="polite">

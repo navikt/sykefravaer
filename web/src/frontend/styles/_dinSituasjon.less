@@ -1,28 +1,33 @@
-.situasjon {
+.din-situasjon__panel {
+  margin-bottom: .5em;
+}
+
+.din-situasjon__header {
   display: flex;
-  border-bottom: 1px solid @ikonGraa;
+  background: @hvit;
+  .mixin-panel-padding();
+  margin-bottom: 2px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  .hjelpetekst {
+    align-self: center;
+  }
 }
 
-.situasjon:last-child {
-  border-bottom: 0;
+.din-situasjon__tittel {
+  .mixin-typo-undertittel();
+  margin: 0;
+  align-self: center;
 }
 
-.situasjon__ikon {
+.din-situasjon__ikon {
   margin-right: 1em;
 }
 
-.leder {
-  margin-bottom: 1em;
-}
+@media (min-width: @skjermLiten) {
 
-.leder:last-child {
-  margin-bottom: 0;
-}
+  .din-situasjon__panel {
+    margin-bottom: 1em;
+  }
 
-.leder__informasjon {
-  margin-bottom: .25em;
-}
-
-.leder--avkreftet {
-  text-decoration: line-through; 
 }

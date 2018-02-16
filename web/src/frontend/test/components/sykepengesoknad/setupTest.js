@@ -126,9 +126,15 @@ describe("setup", () => {
 
         let values; 
         let state;
+        let arbeidsgiver;
 
         beforeEach(() => {
+            arbeidsgiver = {
+                navn: "Odda Camping",
+                orgnummer: "876"
+            };
             values = {
+                arbeidsgiver,
                 andreInntektskilder: [],
                 fom: new Date("2016-07-18"),
                 tom: new Date("2016-07-24"),
@@ -220,7 +226,8 @@ describe("setup", () => {
                 korrigerer: "soknad-id-2",
                 status: "UTKAST_TIL_KORRIGERING",
                 sendtTilArbeidsgiverDato: new Date("2018-01-15"),
-                egenmeldingsperioder: []
+                egenmeldingsperioder: [],
+                arbeidsgiver,
             };
 
             beforeEach(() => {
@@ -232,7 +239,8 @@ describe("setup", () => {
                     korrigerer: "soknad-id-2",
                     status: "UTKAST_TIL_KORRIGERING",
                     sendtTilArbeidsgiverDato: new Date("2018-01-15"),
-                    egenmeldingsperioder: []
+                    egenmeldingsperioder: [],
+                    arbeidsgiver,
                 }
                 
                 sykepengesoknader = [{
@@ -241,12 +249,14 @@ describe("setup", () => {
                     identdato: identdato3,
                     egenmeldingsperioder: [],
                     status: "NY",
+                    arbeidsgiver,
                 }, {
                     id: "soknad-id-3",
                     sykmeldingId: "lang-sykmelding-id",
                     identdato: identdato1,
                     egenmeldingsperioder: [],
                     status: "NY",
+                    arbeidsgiver,
                 }, {
                     id: "soknad-id-2",
                     sykmeldingId: "lang-sykmelding-id",
@@ -254,6 +264,7 @@ describe("setup", () => {
                     sendtTilArbeidsgiverDato: new Date("2018-01-12"),
                     egenmeldingsperioder: [],
                     status: "SENDT",
+                    arbeidsgiver,
                 }, korrigerendeSoknad];
 
             });
@@ -281,6 +292,7 @@ describe("setup", () => {
                             sykmeldingId: "lang-sykmelding-id",
                             identdato: identdato1,
                             status: "SENDT",
+                            arbeidsgiver,
                             sendtTilArbeidsgiverDato: new Date("2018-01-10"),
                             egenmeldingsperioder: [{
                                 fom: new Date("2018-01-21"),
@@ -303,6 +315,40 @@ describe("setup", () => {
                     });
 
                     it("Skal forhåndsutfylle bruktEgenmeldingsdagerFoerLegemeldtFravaer når det er oppgitt egenmeldingsperioder i forrige søknad", () => {
+                        values.id = "soknad-id-3";
+                        values.identdato = identdato1;
+                        const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
+                        expect(res.bruktEgenmeldingsdagerFoerLegemeldtFravaer).to.be.true;
+                        expect(res.egenmeldingsperioder).to.deep.equal([{
+                            fom: "12.01.2018",
+                            tom: "15.01.2018"
+                        }, {
+                            fom: "21.01.2018",
+                            tom: "24.01.2018"
+                        }]);
+                    });
+
+                    it("Skal forhåndsutfylle bruktEgenmeldingsdagerFoerLegemeldtFravaer med info fra forrige søknad for denne arbeidsgiveren", () => {
+                        var soknad = sykepengesoknader.pop();
+                        sykepengesoknader.push({
+                            id: "soknad-id-annen-arbeidsgiver",
+                            sykmeldingId: "lang-sykmelding-id",
+                            identdato: identdato1,
+                            arbeidsgiver: {
+                                navn: "Oslo Bad og Rør",
+                                orgnummer: "12345678"
+                            },
+                            status: "SENDT",
+                            sendtTilArbeidsgiverDato: new Date("2018-01-10"),
+                            egenmeldingsperioder: [{
+                                fom: new Date("2018-01-22"),
+                                tom: new Date("2018-01-24"),
+                            }, {
+                                fom: new Date("2018-01-12"),
+                                tom: new Date("2018-01-14"),
+                            }]
+                        });
+                        sykepengesoknader.push(soknad);
                         values.id = "soknad-id-3";
                         values.identdato = identdato1;
                         const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));

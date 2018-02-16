@@ -29,6 +29,9 @@ const getSisteSoknadISammeSykeforloep = (soknad, soknader) => {
         .filter((s) => {
             return s.status === sykepengesoknadstatuser.SENDT || s.status === sykepengesoknadstatuser.TIL_SENDING;
         })
+        .filter((s) => {
+            return s.arbeidsgiver.orgnummer === soknad.arbeidsgiver.orgnummer;
+        })
         .sort((a, b) => {
             return getTidligsteSendtDato(a) - getTidligsteSendtDato(b);
         })[0];

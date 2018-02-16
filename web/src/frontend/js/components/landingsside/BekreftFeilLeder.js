@@ -38,6 +38,7 @@ const BekreftFeilLeder = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftFei
         <div className={avkreftFeilet ? 'blokk' : ''}>
             <h3 className="panel__tittel">Endre nærmeste leder</h3>
             <p>Er du sikker på at du vil fjerne <strong>{leder.navn}</strong> som din nærmeste leder i <strong>{leder.organisasjonsnavn}</strong>?</p>
+            <p>Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt det.</p>
         </div>
         <div aria-live="polite" role="alert" className={avkreftFeilet ? 'panel panel--ramme panel--komprimert' : ''}>
             {

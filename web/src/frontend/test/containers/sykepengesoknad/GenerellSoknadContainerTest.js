@@ -28,7 +28,7 @@ describe("GenerellSoknadContainer", () => {
             state.form = {
                 [SYKEPENGER_SKJEMANAVN]: {
                     values: {
-                        "id": "test-id"
+                        "id": "skjemasoknad-id"
                     }
                 }
             };
@@ -77,6 +77,14 @@ describe("GenerellSoknadContainer", () => {
             delete state.form;
             const props = mapStateToProps(deepFreeze(state), ownProps);
             expect(props.skjemasoknad).to.be.undefined;
+        });
+
+        it("Skal ikke tryne hvis sykepengesoknader er []", () => {
+            state.sykepengesoknader.data = [];
+            const props = mapStateToProps(deepFreeze(state), ownProps);
+            expect(props.skjemasoknad).to.deep.equal({
+                "id": "skjemasoknad-id"
+            });
         });
 
         it("Skal dekorere skjemasoknad med forrigeSykeforloepTom dersom den finnes", () => {

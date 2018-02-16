@@ -4,7 +4,6 @@ import { findDOMNode } from 'react-dom';
 import {
     OppfolgingsdialogInfoboks,
     LeggTilElementKnapper,
-    LagreTiltakSkjema,
     TiltakTabell,
     BRUKERTYPE,
     captitalizeFirstLetter,
@@ -19,57 +18,6 @@ import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
 import Feilmelding from '../../Feilmelding';
-
-export const RenderOppfolgingsdialogTiltakTabell = (
-    {
-        ledetekster,
-        tiltakListe,
-        sendLagreTiltak,
-        sendSlettTiltak,
-        sendLagreKommentar,
-        sendSlettKommentar,
-        fnr,
-    }) => {
-    return (
-        <TiltakTabell
-            ledetekster={ledetekster}
-            liste={tiltakListe}
-            urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
-            urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
-            sendLagre={sendLagreTiltak}
-            sendSlett={sendSlettTiltak}
-            sendLagreKommentar={sendLagreKommentar}
-            sendSlettKommentar={sendSlettKommentar}
-            fnr={fnr}
-            brukerType={BRUKERTYPE.ARBEIDSTAKER}
-        />
-    );
-};
-RenderOppfolgingsdialogTiltakTabell.propTypes = {
-    ledetekster: keyValue,
-    tiltakListe: PropTypes.arrayOf(oppfolgingProptypes.tiltakPt),
-    sendLagreTiltak: PropTypes.func,
-    sendSlettTiltak: PropTypes.func,
-    sendLagreKommentar: PropTypes.func,
-    sendSlettKommentar: PropTypes.func,
-    fnr: PropTypes.string,
-};
-
-export const RenderOpprettTiltak = ({ ledetekster, sendLagreTiltak, toggleTiltakSkjema }) => {
-    return (<div>
-        <h2>{getLedetekst('oppfolgingsdialog.arbeidstaker.tiltak.opprett.tittel')}</h2>
-        <LagreTiltakSkjema
-            ledetekster={ledetekster}
-            sendLagre={sendLagreTiltak}
-            avbryt={toggleTiltakSkjema}
-        />
-    </div>);
-};
-RenderOpprettTiltak.propTypes = {
-    ledetekster: keyValue,
-    sendLagreTiltak: PropTypes.func,
-    toggleTiltakSkjema: PropTypes.func,
-};
 
 class Tiltak extends Component {
     constructor(props) {
@@ -210,18 +158,18 @@ class Tiltak extends Component {
                                 }}
                             />
                         }
-                        {
-                            <RenderOppfolgingsdialogTiltakTabell
-                                ledetekster={ledetekster}
-                                tiltakListe={sorterTiltakEtterNyeste(oppfolgingsdialog.tiltakListe)}
-                                sendLagreTiltak={this.sendLagreTiltak}
-                                sendSlettTiltak={this.sendSlettTiltak}
-                                fnr={oppfolgingsdialog.arbeidstaker.fnr}
-                                rootUrl={`${getContextRoot()}`}
-                                sendLagreKommentar={this.sendLagreKommentar}
-                                sendSlettKommentar={this.sendSlettKommentar}
-                            />
-                        }
+                        <TiltakTabell
+                            ledetekster={ledetekster}
+                            liste={sorterTiltakEtterNyeste(oppfolgingsdialog.tiltakListe)}
+                            urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
+                            urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
+                            sendLagre={this.sendLagreTiltak}
+                            sendSlett={this.sendSlettTiltak}
+                            sendLagreKommentar={this.sendLagreKommentar}
+                            sendSlettKommentar={this.sendSlettKommentar}
+                            fnr={oppfolgingsdialog.arbeidstaker.fnr}
+                            brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                        />
                     </div>;
             })()
         );

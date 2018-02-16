@@ -16,6 +16,7 @@ export const normaltAntallFeil = 'Vennligst oppgi normalt antall';
 export const ikkeJobbetMerEnnGraderingProsentFeil = 'Prosenten du har oppgitt er lavere enn sykmeldingsgraden. Husk å oppgi hvor mye du har jobbet totalt';
 export const ikkeJobbetMerEnnGraderingTimerFeil = 'Antall timer du har oppgitt er lavere enn sykmeldingen tilsier. Husk å oppgi hvor mye du har jobbet totalt';
 export const overHundreFeil = 'Du må oppgi et tall fra 1 til 100';
+export const nullFeil = 'Normalt antall må være større enn null';
 export const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer enn planlagt';
 export const overHundreogfemtiFeil = 'Du må oppgi et tall fra 1 til 150';
 export const sammeNormalAntallFeil = 'Vennligst oppi samme antall timer for alle periodene';
@@ -83,6 +84,8 @@ const validerAktiviteter = (values, aktiviteter, feriePermisjonPerioder) => {
                         res.arbeidstimerNormalUke = normaltAntallFeil;
                     } else if (arbeidstimerNormalUke > 100) {
                         res.arbeidstimerNormalUke = overHundreFeil;
+                    } else if (arbeidstimerNormalUke <= 0) {
+                        res.arbeidstimerNormalUke = nullFeil;
                     } else if (!harSammeNormalAntall) {
                         res.arbeidstimerNormalUke = sammeNormalAntallFeil;
                     }

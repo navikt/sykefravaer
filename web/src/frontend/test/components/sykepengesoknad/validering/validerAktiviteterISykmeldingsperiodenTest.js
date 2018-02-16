@@ -1,6 +1,5 @@
 import chai from 'chai';
 import React from 'react'
-import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 
@@ -12,7 +11,6 @@ import validate, {
     ikkeJobbetMerEnnGraderingProsentFeil,
     ikkeJobbetMerEnnGraderingTimerFeil,
     antallTimerErMerEnn100ProsentFeil,
-    normaltAntallFeil,
     overHundreFeil,
     overHundreogfemtiFeil,
     jobbetMerEnnPlanlagtFeil,
@@ -111,12 +109,12 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }, {
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }])
         });
@@ -135,12 +133,12 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }, {
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }])
         });
@@ -158,12 +156,12 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }, {
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }])
         });
@@ -187,7 +185,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter[1]).to.deep.equal({
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             })
         });
@@ -212,7 +210,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter[1]).to.deep.equal({
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             })
         });
@@ -232,7 +230,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter).to.deep.equal([{}, {
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }])
         });
@@ -587,7 +585,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
                     timer: overHundreogfemtiFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil,
+                    arbeidstimerNormalUke: antallFeil,
                 }
             }])
         });
@@ -732,7 +730,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 }];
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.aktiviteter[0].avvik).to.be.undefined;
-                expect(res.aktiviteter[1].avvik.arbeidstimerNormalUke).to.equal("Vennligst oppgi normalt antall");
+                expect(res.aktiviteter[1].avvik.arbeidstimerNormalUke).to.equal("Vennligst oppgi antall");
             });
 
             it("Skal ikke protestere på samme normalarbeidstid hvis bruker har oppgitt normalarbeidstid for kun én periode (og ingenting for den andre)", () => {
@@ -752,7 +750,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 }];
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.aktiviteter[0].avvik).to.be.undefined;
-                expect(res.aktiviteter[1].avvik.arbeidstimerNormalUke).to.equal("Vennligst oppgi normalt antall");
+                expect(res.aktiviteter[1].avvik.arbeidstimerNormalUke).to.equal("Vennligst oppgi antall");
             });
 
         });

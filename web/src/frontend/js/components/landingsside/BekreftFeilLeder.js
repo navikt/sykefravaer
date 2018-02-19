@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Varselstripe } from 'digisyfo-npm';
+import { Varselstripe, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 
 export class LederAvkreftet extends Component {
@@ -36,8 +36,11 @@ const BekreftFeilLeder = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftFei
     const knappClassName = 'knapp knapp--fare blokk--s js-bekreft';
     return (<div>
         <div className={avkreftFeilet ? 'blokk' : ''}>
-            <h3 className="panel__tittel">Endre nærmeste leder</h3>
-            <p>Er du sikker på at du vil fjerne <strong>{leder.navn}</strong> som din nærmeste leder i <strong>{leder.organisasjonsnavn}</strong>?</p>
+            <h3 className="panel__tittel">{getLedetekst('sykefravaer.endre-naermeste-leder.tittel')}</h3>
+            <div dangerouslySetInnerHTML={getHtmlLedetekst('sykefravaer.endre-naermeste-leder.melding', {
+                '%LEDER%': leder.navn,
+                '%ARBEIDSGIVER%': leder.organisasjonsnavn,
+            })} />
         </div>
         <div aria-live="polite" role="alert" className={avkreftFeilet ? 'panel panel--ramme panel--komprimert' : ''}>
             {

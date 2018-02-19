@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { mapAktiviteter, mapBackendsoknadToSkjemasoknad, inntektskildetyper as inntektskildetypeEnums, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { mapAktiviteter, mapBackendsoknadToSkjemasoknad, inntektskildetyper as inntektskildetypeEnums, sykepengesoknadstatuser, toDatePrettyPrint } from 'digisyfo-npm';
 import history from '../../history';
 import Feiloppsummering, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
+import { getTidligsteSendtDato } from '../../utils/sykepengesoknadUtils';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
@@ -15,12 +16,61 @@ export const andreInntektskilder = Object.keys(inntektskildetypeEnums).map((key)
     };
 });
 
-
 export const SYKEPENGER_SKJEMANAVN = 'SYKEPENGERSKJEMA';
 
-export const mapToInitialValues = (soknad) => {
+const getSisteSoknadISammeSykeforloep = (soknad, soknader) => {
+    return soknader
+        .filter((s) => {
+            return s.id !== soknad.id;
+        })
+        .filter((s) => {
+            return s.identdato.getTime() === soknad.identdato.getTime();
+        })
+        .filter((s) => {
+            return s.status === sykepengesoknadstatuser.SENDT || s.status === sykepengesoknadstatuser.TIL_SENDING;
+        })
+        .filter((s) => {
+            return s.arbeidsgiver.orgnummer === soknad.arbeidsgiver.orgnummer;
+        })
+        .sort((a, b) => {
+            return getTidligsteSendtDato(a) - getTidligsteSendtDato(b);
+        })[0];
+};
+
+const preutfyllEgenmeldingsperioder = (soknad, soknader) => {
+    const sisteSoknadISammeSykeforlop = getSisteSoknadISammeSykeforloep({ ...soknad }, soknader);
+    if (!sisteSoknadISammeSykeforlop || soknad.status === sykepengesoknadstatuser.UTKAST_TIL_KORRIGERING) {
+        return soknad;
+    }
+
+    const bruktEgenmeldingsdagerFoerLegemeldtFravaer = sisteSoknadISammeSykeforlop.egenmeldingsperioder.length > 0;
+    const egenmeldingsperioder = [...sisteSoknadISammeSykeforlop.egenmeldingsperioder]
+        .sort((periodeA, periodeB) => {
+            return periodeA.fom - periodeB.fom;
+        })
+        .map((periode) => {
+            return {
+                fom: toDatePrettyPrint(periode.fom),
+                tom: toDatePrettyPrint(periode.tom),
+            };
+        });
+
+
+    return bruktEgenmeldingsdagerFoerLegemeldtFravaer
+        ? {
+            ...soknad,
+            bruktEgenmeldingsdagerFoerLegemeldtFravaer,
+            egenmeldingsperioder,
+        }
+        : {
+            ...soknad,
+            bruktEgenmeldingsdagerFoerLegemeldtFravaer,
+        };
+};
+
+export const mapToInitialValues = (soknad, soknader = []) => {
     const aktiviteter = mapAktiviteter(soknad).aktiviteter;
-    return {
+    const initialValues = {
         ...soknad,
         aktiviteter: aktiviteter.map((aktivitet) => {
             return {
@@ -34,13 +84,15 @@ export const mapToInitialValues = (soknad) => {
             perioder: [],
         },
     };
+
+    return preutfyllEgenmeldingsperioder(initialValues, soknader);
 };
 
 export const mapStateToPropsMedInitialValues = (state, ownProps) => {
     const { sykepengesoknad } = ownProps;
     const initialValues = sykepengesoknad.status === sykepengesoknadstatuser.UTKAST_TIL_KORRIGERING
         ? mapBackendsoknadToSkjemasoknad(sykepengesoknad)
-        : mapToInitialValues(sykepengesoknad);
+        : mapToInitialValues(sykepengesoknad, state.sykepengesoknader.data);
     return {
         initialValues,
         sykepengesoknad: mapAktiviteter(sykepengesoknad),

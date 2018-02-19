@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, tidligsteFom, senesteTom } from 'digisyfo-npm';
+import { getLedetekst, tidligsteFom, senesteTom, toDatePrettyPrint } from 'digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
 import Datovelger from '../../skjema/Datovelger';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
@@ -9,8 +9,9 @@ const GjenopptattArbeidFulltUt = ({ sykepengesoknad }) => {
         return aktivitet.periode;
     });
     return (<JaEllerNei
-        spoersmal={getLedetekst('sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal', {
+        spoersmal={getLedetekst('sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2', {
             '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
+            '%DATO%': toDatePrettyPrint(senesteTom(perioder)),
         })}
         name="harGjenopptattArbeidFulltUt">
         <div>

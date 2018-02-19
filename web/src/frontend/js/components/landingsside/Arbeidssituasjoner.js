@@ -38,7 +38,7 @@ const Arbeidssituasjoner = ({ arbeidsgivere, arbeidssituasjoner }) => {
                 return (
                     <Arbeidssituasjon
                         key={arbeidsgiver}
-                        className={classNames({ 'situasjon__arbeidsgiver': index > 0 })}
+                        className={classNames({ situasjon__arbeidsgiver: index > 0 })}
                         ikonSrc={mapArbeidssituasjonTilIkonSrc(ARBEIDSTAKER)}
                         ikonAlt={getLedetekst(`din-situasjon.${ARBEIDSTAKER}`)}
                         situasjon={<Arbeidsgiver arbeidsgiver={arbeidsgiver} />}

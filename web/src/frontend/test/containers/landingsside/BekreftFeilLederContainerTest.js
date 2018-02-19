@@ -9,7 +9,8 @@ import { Varselstripe } from 'digisyfo-npm';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { Container, BekreftFeil, LederAvkreftet, mapStateToProps } from "../../../js/containers/landingsside/BekreftFeilLederContainer";
+import { Container, mapStateToProps } from "../../../js/containers/landingsside/BekreftFeilLederContainer";
+import BekreftFeil, { LederAvkreftet } from '../../../js/components/landingsside/BekreftFeilLeder';
 
 describe("BekreftFeilLederContainer", () => {
 

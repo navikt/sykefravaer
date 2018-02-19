@@ -100,11 +100,21 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
             <div>
                 <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
                 <ul className="inngangsliste">
-                    { sykmeldinger.length > 0 ? <NySykmelding onClick={onClick} sykmeldinger={sykmeldinger} /> : null }
-                    { sykepengesoknader.length > 0 ? <NySykepengesoknad onClick={onClick} sykepengesoknader={sykepengesoknader} /> : null }
-                    { mote !== null ? <Li onClick={onClick} url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> : null }
-                    { avventendeGodkjenninger.length > 0 ? <Li onClick={onClick} url="/sykefravaer/oppfolgingsplaner" tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} /> : null }
-                    { nyePlaner.length > 0 ? <Li onClick={onClick} url="/sykefravaer/oppfolgingsplaner" tekst={nyePlanerTekst(nyePlaner.length)} /> : null }
+                    { sykmeldinger.length > 0
+                        ? <NySykmelding onClick={onClick} sykmeldinger={sykmeldinger} />
+                        : null }
+                    { sykepengesoknader.length > 0
+                        ? <NySykepengesoknad onClick={onClick} sykepengesoknader={sykepengesoknader} />
+                        : null }
+                    { mote !== null
+                        ? <Li onClick={onClick} url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} />
+                        : null }
+                    { avventendeGodkjenninger.length > 0
+                        ? <Li onClick={onClick} url="/sykefravaer/oppfolgingsplaner" tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />
+                        : null }
+                    { nyePlaner.length > 0
+                        ? <Li onClick={onClick} url="/sykefravaer/oppfolgingsplaner" tekst={nyePlanerTekst(nyePlaner.length)} />
+                        : null }
                     { visAktivitetskrav && <NyttAktivitetskravvarsel onClick={onClick} /> }
                 </ul>
             </div>
@@ -172,9 +182,10 @@ export const mapStateToProps = (state) => {
             moteRes = 'TRENGER_SVAR';
         }
     }
-    const _oppgaverOppfoelgingsdialoger = oppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data);
+    const _oppgaverOppfoelgingsdialoger = oppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
     const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
-    const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null || _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0 || _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0 || visAktivitetskrav;
+    const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null ||
+        _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0 || _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0 || visAktivitetskrav;
 
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,

@@ -89,7 +89,10 @@ export class OpprettOppfolgingsdialogSide extends Component {
             sendingFeilet,
             tilgang,
         } = this.props;
-        return (<Side tittel={getLedetekst('oppfolgingsdialoger.opprett.tittel')} brodsmuler={brodsmuler} laster={(henter || sender || !hentet) && !(sendingFeilet || hentingFeilet)}>
+        return (<Side
+            tittel={getLedetekst('oppfolgingsdialoger.opprett.tittel')}
+            brodsmuler={brodsmuler}
+            laster={(henter || sender || !hentet) && !(sendingFeilet || hentingFeilet)}>
             {
                 (() => {
                     if (henter || sender) {

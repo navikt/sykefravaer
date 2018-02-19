@@ -21,7 +21,7 @@ export const getOppfolgingsdialoger = [
         status: 'UNDER_ARBEID',
         arbeidsoppgaveListe: [
             {
-                arbeidsoppgaveId: "1084",
+                arbeidsoppgaveId: 1084,
                 arbeidsoppgavenavn: "Arbeidsopgave1",
                 delAvArbeidsuke: null,
                 godkjentAvArbeidsgiver: false,
@@ -50,7 +50,7 @@ export const getOppfolgingsdialoger = [
                 }
             },
             {
-                arbeidsoppgaveId: "1090",
+                arbeidsoppgaveId: 1090,
                 arbeidsoppgavenavn: "Arbeidsoppgave2",
                 delAvArbeidsuke: null,
                 godkjentAvArbeidsgiver: false,
@@ -79,7 +79,7 @@ export const getOppfolgingsdialoger = [
                 }
             },
             {
-                arbeidsoppgaveId: "1128",
+                arbeidsoppgaveId: 1128,
                 arbeidsoppgavenavn: "Arbeidsoppgave3",
                 delAvArbeidsuke: null,
                 godkjentAvArbeidsgiver: false,

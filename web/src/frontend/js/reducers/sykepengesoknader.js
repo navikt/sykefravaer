@@ -164,6 +164,7 @@ export default function sykepengesoknader(state = initiellState, action) {
             const berikelse = {
                 ...action.data,
                 forrigeSykeforloepTom: action.data.forrigeSykeforloepTom ? new Date(action.data.forrigeSykeforloepTom) : action.data.forrigeSykeforloepTom,
+                oppfoelgingsdato: action.data.oppfoelgingsdato ? new Date(action.data.oppfoelgingsdato) : action.data.oppfoelgingsdato,
             };
             const data = setSykepengesoknaderProps(state.data, action.sykepengesoknadsId, berikelse);
             return {

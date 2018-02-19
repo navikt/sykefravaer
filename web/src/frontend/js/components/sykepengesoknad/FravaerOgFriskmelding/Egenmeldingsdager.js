@@ -1,13 +1,11 @@
 import React from 'react';
-import { Hjelpetekst, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { Hjelpetekst, toDatePrettyPrint, getLedetekst, getTidligsteStartdatoSykeforloep, getEgenmeldingsdagerSporsmal } from 'digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 
 const EgenmeldingsDager = ({ sykepengesoknad }) => {
-    const startSykeforloep = sykepengesoknad.oppfoelgingsdato && sykepengesoknad.oppfoelgingsdato < sykepengesoknad.identdato
-        ? sykepengesoknad.oppfoelgingsdato
-        : sykepengesoknad.identdato;
+    const startSykeforloep = getTidligsteStartdatoSykeforloep(sykepengesoknad);
     const senesteTom = new Date(startSykeforloep);
     senesteTom.setDate(startSykeforloep.getDate() - 1);
     const tidligsteFom = new Date(senesteTom);
@@ -22,9 +20,7 @@ const EgenmeldingsDager = ({ sykepengesoknad }) => {
 
     return (
         <JaEllerNei
-            spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.janei.sporsmal', {
-                '%DATO%': toDatePrettyPrint(startSykeforloep),
-            })}
+            spoersmal={getEgenmeldingsdagerSporsmal(sykepengesoknad)}
             name="bruktEgenmeldingsdagerFoerLegemeldtFravaer"
             hjelpetekst={hjelpetekst}>
             <Periodevelger

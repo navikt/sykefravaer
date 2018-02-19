@@ -732,6 +732,7 @@ const getSoknad = (s = {}) => {
         ferie: [],
         gjenopptattArbeidFulltUtDato: null,
         identdato: null,
+        oppfoelgingsdato: null,
         permisjon: [],
         utdanning: null,
         utenlandsopphold: {
@@ -767,6 +768,7 @@ const getParsetSoknad = () => {
         ferie: [],
         gjenopptattArbeidFulltUtDato: null,
         identdato: null,
+        oppfoelgingsdato: null,
         permisjon: [],
         utdanning: null,
         utenlandsopphold: {

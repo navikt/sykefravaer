@@ -650,7 +650,7 @@ describe('sykepengesoknader', () => {
             });
         });
 
-        it("håndterer berikelse hentet når berikelse inneholder forrigeSykeforloepTom", () => {
+        it("håndterer berikelse hentet når berikelse inneholder forrigeSykeforloepTom og oppfoelgingsdato", () => {
             let state = deepFreeze({
                 data: [{
                     id: '1',
@@ -658,16 +658,16 @@ describe('sykepengesoknader', () => {
                 }]
             });
 
-            const action = berikelses_actions.berikelseHentet({forrigeSykeforloepTom: '2017-07-31'}, '1');
+            const action = berikelses_actions.berikelseHentet({forrigeSykeforloepTom: '2017-07-31', oppfoelgingsdato: '2017-12-24'}, '1');
             const nextState = sykepengesoknader(state, action);
             expect(nextState).to.deep.equal({
-                data: [{id: '1', forrigeSykeforloepTom: new Date('2017-07-31')}],
+                data: [{id: '1', forrigeSykeforloepTom: new Date('2017-07-31'), oppfoelgingsdato: new Date('2017-12-24')}],
                 henterBerikelse: false,
                 henterBerikelseFeilet: false,
             });
         });
 
-        it("håndterer berikelse hentet når berikelse inneholder forrigeSykeforloepTom === null", () => {
+        it("håndterer berikelse hentet når berikelse inneholder forrigeSykeforloepTom eller oppfoelgingsdato === null", () => {
             let state = deepFreeze({
                 data: [{
                     id: '1',
@@ -675,10 +675,10 @@ describe('sykepengesoknader', () => {
                 }]
             });
 
-            const action = berikelses_actions.berikelseHentet({forrigeSykeforloepTom: null}, '1');
+            const action = berikelses_actions.berikelseHentet({forrigeSykeforloepTom: null, oppfoelgingsdato: null}, '1');
             const nextState = sykepengesoknader(state, action);
             expect(nextState).to.deep.equal({
-                data: [{id: '1', forrigeSykeforloepTom: null}],
+                data: [{id: '1', forrigeSykeforloepTom: null, oppfoelgingsdato: null}],
                 henterBerikelse: false,
                 henterBerikelseFeilet: false,
             });

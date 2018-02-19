@@ -299,7 +299,7 @@ describe('Oppfolgingsdialog', () => {
     it('Skal vise IngenlederInfoboks, om det ikke er en naermesteLeder og steg er 3 ', () => {
         oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
             arbeidsgiver: {
-                naermesteLeder: null,
+                naermesteLeder: {},
             },
         });
         navigasjontoggles = { steg: 3 };

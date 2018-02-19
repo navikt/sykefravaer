@@ -113,7 +113,10 @@ describe('Oppfolgingsdialoger', () => {
         it('Skal vise NyNaermestelederInfoboks, dersom det er en oppfolgingsdialog med ny naermeste leder og bekreftetNyNaermesteLeder er false', () => {
             const oppfolgingsdialogListe = [Object.assign({}, getOppfolgingsdialog(), {
                 arbeidsgiver: {
-                    naermesteLeder: { aktivFom: '2017-01-01' },
+                    naermesteLeder: {
+                        fnr: '***REMOVED***',
+                        aktivFom: '2017-01-01',
+                    },
                     forrigeNaermesteLeder: {},
                 },
                 arbeidstaker: { sistInnlogget: '2017-01-01T12:12:12.000' },

@@ -26,6 +26,8 @@ import {
 } from '../../propTypes';
 import Sidetopp from '../Sidetopp';
 import {
+    harForrigeNaermesteLeder,
+    harNaermesteLeder,
     isEmpty,
     erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere,
 } from '../../utils/oppfolgingsdialogUtils';
@@ -47,8 +49,8 @@ export const OppfolgingsdialogNyDialog = () => {
 const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgingsdialoger) => {
     const sisteInnlogging = finnBrukersSisteInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
-        return oppfolgingsdialog.arbeidsgiver.forrigeNaermesteLeder &&
-            oppfolgingsdialog.arbeidsgiver.naermesteLeder &&
+        return harForrigeNaermesteLeder(oppfolgingsdialog) &&
+            harNaermesteLeder(oppfolgingsdialog) &&
             new Date(sisteInnlogging).toISOString().split('T')[0] <= new Date(oppfolgingsdialog.arbeidsgiver.naermesteLeder.aktivFom).toISOString().split('T')[0];
     })[0];
 };

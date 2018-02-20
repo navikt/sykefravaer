@@ -104,6 +104,8 @@ const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {
         utdanning: getUtdanning(soknad.utdanning),
     };
 
+    delete backendSoknad.oppfoelgingsdato;
+
     if (!alternativer.visForskutteringssporsmal) {
         delete backendSoknad.arbeidsgiverForskutterer;
     }

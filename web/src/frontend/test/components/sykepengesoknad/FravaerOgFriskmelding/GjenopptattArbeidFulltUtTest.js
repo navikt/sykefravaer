@@ -20,6 +20,7 @@ describe("GjenopptattArbeidFulltUt", () => {
     beforeEach(() => {
         _ledetekster = Object.assign({}, ledetekster, {
             'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal': 'Har du gjenopptatt arbeidet ditt hos %ARBEIDSGIVER% fullt ut?',
+            'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2': 'Har du gjenopptatt arbeidet ditt hos %ARBEIDSGIVER% før %DATO%?',
             'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.dato.sporsmal': "Når gjorde du det?"
         });
         setLedetekster(_ledetekster);
@@ -46,7 +47,7 @@ describe("GjenopptattArbeidFulltUt", () => {
                 navn: "BYGGMESTER BLOM AS"
             }
         })} />);
-        expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Har du gjenopptatt arbeidet ditt hos BYGGMESTER BLOM AS fullt ut?")
+        expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Har du gjenopptatt arbeidet ditt hos BYGGMESTER BLOM AS før 25.01.2017?")
     });
 
     it("Skal inneholde en label med tekst <når gjorde du det>", () => {

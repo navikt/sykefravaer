@@ -12,10 +12,10 @@ const parseString = (str) => {
 };
 
 export const antallFeil = 'Vennligst oppgi antall';
-export const normaltAntallFeil = 'Vennligst oppgi normalt antall';
 export const ikkeJobbetMerEnnGraderingProsentFeil = 'Prosenten du har oppgitt er lavere enn sykmeldingsgraden. Husk å oppgi hvor mye du har jobbet totalt';
 export const ikkeJobbetMerEnnGraderingTimerFeil = 'Antall timer du har oppgitt er lavere enn sykmeldingen tilsier. Husk å oppgi hvor mye du har jobbet totalt';
 export const overHundreFeil = 'Du må oppgi et tall fra 1 til 100';
+export const verdiErNullFeil = 'Tallet kan ikke være null';
 export const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer enn planlagt';
 export const overHundreogfemtiFeil = 'Du må oppgi et tall fra 1 til 150';
 export const sammeNormalAntallFeil = 'Vennligst oppi samme antall timer for alle periodene';
@@ -80,15 +80,17 @@ const validerAktiviteter = (values, aktiviteter, feriePermisjonPerioder) => {
                         }
                     }
                     if (!arbeidstimerNormalUke || arbeidstimerNormalUke === '') {
-                        res.arbeidstimerNormalUke = normaltAntallFeil;
+                        res.arbeidstimerNormalUke = antallFeil;
                     } else if (arbeidstimerNormalUke > 100) {
                         res.arbeidstimerNormalUke = overHundreFeil;
+                    } else if (arbeidstimerNormalUke <= 0) {
+                        res.arbeidstimerNormalUke = verdiErNullFeil;
                     } else if (!harSammeNormalAntall) {
                         res.arbeidstimerNormalUke = sammeNormalAntallFeil;
                     }
                 } else {
                     res.arbeidsgrad = antallFeil;
-                    res.arbeidstimerNormalUke = normaltAntallFeil;
+                    res.arbeidstimerNormalUke = antallFeil;
                 }
             }
             return res;

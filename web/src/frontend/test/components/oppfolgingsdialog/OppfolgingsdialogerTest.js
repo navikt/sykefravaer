@@ -276,7 +276,6 @@ describe('Oppfolgingsdialoger', () => {
                 kontaktinfo={kontaktinfo}
                 bekreftetNyNaermesteLeder
             />);
-            console.log("---", component2.debug());
             expect(component2.find(OppfolgingsdialogerUtenAktivSykmelding)).to.have.length(1);
         });
     });

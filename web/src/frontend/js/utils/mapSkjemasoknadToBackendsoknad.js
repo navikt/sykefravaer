@@ -81,6 +81,7 @@ const frontendProps = [
     'utenlandsoppholdSoktOmSykepenger',
     'harAndreInntektskilder',
     '_erOppdelt',
+    'oppfoelgingsdato',
 ];
 
 const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {
@@ -103,8 +104,6 @@ const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {
         aktiviteter: getAktiviteter(soknad.aktiviteter),
         utdanning: getUtdanning(soknad.utdanning),
     };
-
-    delete backendSoknad.oppfoelgingsdato;
 
     if (!alternativer.visForskutteringssporsmal) {
         delete backendSoknad.arbeidsgiverForskutterer;

@@ -81,6 +81,7 @@ const frontendProps = [
     'utenlandsoppholdSoktOmSykepenger',
     'harAndreInntektskilder',
     '_erOppdelt',
+    'oppfoelgingsdato',
 ];
 
 const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {

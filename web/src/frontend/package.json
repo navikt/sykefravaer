@@ -33,7 +33,7 @@
     "babel-loader": "7.1.2",
     "babel-polyfill": "6.26.0",
     "classnames": "2.2.5",
-    "digisyfo-npm": "5.9.0",
+    "digisyfo-npm": "5.9.1",
     "fetch": "1.0.1",
     "isomorphic-fetch": "2.2.1",
     "moter-npm": "4.2.1",

@@ -300,6 +300,10 @@ describe('Oppfolgingsdialog', () => {
         oppfolgingsdialog = Object.assign({}, getOppfolgingsdialog(), {
             arbeidsgiver: {
                 naermesteLeder: {},
+                forrigeNaermesteLeder: {
+                    fnr: '***REMOVED***',
+                    navn: 'Arbeidsgiver navn',
+                },
             },
         });
         navigasjontoggles = { steg: 3 };

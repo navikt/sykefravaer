@@ -149,6 +149,7 @@ describe('Oppfolgingsdialoger', () => {
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
+            bekreftetNyNaermesteLeder
         />);
         expect(component.find(OppfolgingsdialogFilm)).to.have.length(1);
     });
@@ -219,8 +220,10 @@ describe('Oppfolgingsdialoger', () => {
                 virksomhet={virksomhet}
                 person={person}
                 kontaktinfo={kontaktinfo}
+                bekreftetNyNaermesteLeder
             />);
         });
+
         it('Skal vise OppfolgingsdialogUtenSykmelding', () => {
             expect(component1.find(OppfolgingsdialogUtenSykmelding)).to.have.length(1);
         });
@@ -257,7 +260,7 @@ describe('Oppfolgingsdialoger', () => {
                         fom: trekkDagerFraDato(today, 5).toISOString(),
                         tom: trekkDagerFraDato(today, 1).toISOString(),
                     },
-                },
+                }
             })];
             const component2 = shallow(<Oppfolgingsdialoger
                 oppfolgingsdialoger={oppfolgingsdialogListe}
@@ -271,7 +274,9 @@ describe('Oppfolgingsdialoger', () => {
                 virksomhet={virksomhet}
                 person={person}
                 kontaktinfo={kontaktinfo}
+                bekreftetNyNaermesteLeder
             />);
+            console.log("---", component2.debug());
             expect(component2.find(OppfolgingsdialogerUtenAktivSykmelding)).to.have.length(1);
         });
     });
@@ -319,6 +324,20 @@ describe('Oppfolgingsdialoger', () => {
                         tom: trekkDagerFraDato(new Date(), 1).toISOString(),
                     },
                 },
+                arbeidsgiver: {
+                    naermesteLeder: {
+                        navn: "Test Testesen",
+                        fnr: "***REMOVED***",
+                        samtykke: null,
+                        sistInnlogget: "2017-01-01T00:00:00.000",
+                        godkjent: null,
+                        aktivFom: "2016-01-01T00:00:00.000",
+                    },
+                    forrigeNaermesteLeder: {
+                        fnr: '***REMOVED***',
+                        navn: 'Arbeidsgiver navn',
+                    },
+                },
             })];
             component = shallow(<Oppfolgingsdialoger
                 hentVirksomhet={hentVirksomhet}
@@ -342,6 +361,20 @@ describe('Oppfolgingsdialoger', () => {
             it('Skal vise en OppfolgingsdialogerTeasere dersom man har oppfolgingsdialoger', () => {
                 const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
                     godkjentPlan: null,
+                    arbeidsgiver: {
+                        naermesteLeder: {
+                            navn: "Test Testesen",
+                            fnr: "***REMOVED***",
+                            samtykke: null,
+                            sistInnlogget: "2017-01-01T00:00:00.000",
+                            godkjent: null,
+                            aktivFom: "2016-01-01T00:00:00.000",
+                        },
+                        forrigeNaermesteLeder: {
+                            fnr: '***REMOVED***',
+                            navn: 'Arbeidsgiver navn',
+                        },
+                    },
                 })];
                 component = shallow(<Oppfolgingsdialoger
                     dinesykmeldinger={dinesykmeldinger}
@@ -362,6 +395,20 @@ describe('Oppfolgingsdialoger', () => {
             it('Skal ikke vise OppfolgingsdialogNyDialog, dersom man har oppfolgingsdialog og kun 1 arbeidsgiver', () => {
                 const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
                     godkjentPlan: null,
+                    arbeidsgiver: {
+                        naermesteLeder: {
+                            navn: "Test Testesen",
+                                fnr: "***REMOVED***",
+                                samtykke: null,
+                                sistInnlogget: "2017-01-01T00:00:00.000",
+                                godkjent: null,
+                                aktivFom: "2016-01-01T00:00:00.000",
+                        },
+                        forrigeNaermesteLeder: {
+                            fnr: '***REMOVED***',
+                                navn: 'Arbeidsgiver navn',
+                        },
+                    },
                 })];
                 component = shallow(<Oppfolgingsdialoger
                     dinesykmeldinger={dinesykmeldinger}
@@ -387,6 +434,20 @@ describe('Oppfolgingsdialoger', () => {
                         gyldighetstidspunkt: {
                             fom: '2016-01-01T00:00:00.000',
                             tom: '2017-01-01T00:00:00.000',
+                        },
+                    },
+                    arbeidsgiver: {
+                        naermesteLeder: {
+                            navn: "Test Testesen",
+                            fnr: "***REMOVED***",
+                            samtykke: null,
+                            sistInnlogget: "2017-01-01T00:00:00.000",
+                            godkjent: null,
+                            aktivFom: "2016-01-01T00:00:00.000",
+                        },
+                        forrigeNaermesteLeder: {
+                            fnr: '***REMOVED***',
+                            navn: 'Arbeidsgiver navn',
                         },
                     },
                 })];

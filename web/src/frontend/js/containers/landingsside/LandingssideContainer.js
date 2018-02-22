@@ -39,7 +39,7 @@ export class LandingssideSide extends Component {
         if (skalHenteStartdato) {
             this.props.hentSykeforloep();
         }
-        if (!henterEllerHarHentetOppfolgingsdialoger(oppfolgingsdialoger)) {
+        if (!henterEllerHarHentetOppfolgingsdialoger(oppfolgingsdialoger) && !oppfolgingsdialoger.hentingFeilet) {
             this.props.hentOppfolgingsdialoger();
         }
     }
@@ -112,7 +112,7 @@ export function mapStateToProps(state) {
         ledere: state.ledere.hentet === true,
         mote: state.mote.hentet === true,
         dineSykmeldinger: state.dineSykmeldinger.hentet === true,
-        oppfolgingsdialoger: state.oppfolgingsdialoger.hentet === true,
+        oppfolgingsdialoger: state.oppfolgingsdialoger.hentet === true || state.oppfolgingsdialoger.hentingFeilet === true,
         sykepengesoknader: state.sykepengesoknader.hentet === true,
         sykeforloep: state.sykeforloep.hentet === true,
     };

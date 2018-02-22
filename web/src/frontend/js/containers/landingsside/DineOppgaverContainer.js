@@ -7,6 +7,7 @@ import { getLedetekst, log, sykepengesoknadstatuser, sykmeldingstatuser } from '
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     proptypes as oppfolgingProptypes,
+    henterEllerHarHentetOppfolgingsdialoger,
 } from 'oppfolgingsdialog-npm';
 import { oppgaverOppfoelgingsdialoger } from '../../utils/oppfolgingsdialogUtils';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
@@ -191,7 +192,8 @@ export const mapStateToProps = (state) => {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
         sykmeldinger,
         sykmeldingerHentingFeilet: state.dineSykmeldinger.hentingFeilet,
-        oppfolgingsdialogerHentet: state.oppfolgingsdialoger.hentet,
+        oppfolgingsdialogerHentet: henterEllerHarHentetOppfolgingsdialoger(state.oppfolgingsdialoger)
+        || state.oppfolgingsdialoger.hentingFeilet,
         sykepengesoknader,
         visOppgaver,
         mote: moteRes,

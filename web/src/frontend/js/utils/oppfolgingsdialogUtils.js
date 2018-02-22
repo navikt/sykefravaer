@@ -1,7 +1,9 @@
 import {
     finnAktiveOppfolgingsdialoger,
     finnNyesteGodkjenning,
+    finnTidligereOppfolgingsdialoger,
     erOppfolgingsdialogKnyttetTilGyldigSykmelding,
+    harTidligereOppfolgingsdialoger,
 } from 'oppfolgingsdialog-npm';
 import { finnArbeidsgivereForGyldigeSykmeldinger } from './sykmeldingUtils';
 
@@ -97,4 +99,14 @@ export const oppgaverOppfoelgingsdialoger = (oppfolgingsdialoger, sykmeldinger) 
         nyePlaner,
         avventendeGodkjenninger,
     };
+};
+
+export const erOppfolgingsdialogOpprettbarDirekte = (arbeidsgivere, oppfolgingsdialoger) => {
+    return arbeidsgivere.length === 1 && !harTidligereOppfolgingsdialoger(oppfolgingsdialoger);
+};
+
+export const finnNyesteTidligereOppfolgingsdialogMedVirksomhet = (oppfolgingsdialoger, virksomhetsnummer) => {
+    return finnTidligereOppfolgingsdialoger(oppfolgingsdialoger).filter((oppfolgingdialog) => {
+        return oppfolgingdialog.virksomhet.virksomhetsnummer === virksomhetsnummer;
+    })[0];
 };

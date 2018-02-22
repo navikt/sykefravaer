@@ -2,6 +2,18 @@
 @fargeAdvarsel: #fdbc6d;
 @fargeSuksess: #9bd0b0;
 
+.arbeidsgiverSkjema {
+    & > label {
+        margin: 1em 0;
+        font-size: 1.2em;
+        font-weight: bold;
+        @media all and (min-width: @skjermLiten) {
+            margin: 1.5em 0;
+            font-size: 1.5em;
+        }
+    }
+}
+
 .lenke {
     cursor: pointer;
 }

@@ -6,18 +6,19 @@ import { getLedetekst } from 'digisyfo-npm';
 import {
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
-import { getContextRoot } from '../../routers/paths';
+import { getContextRoot } from '../../../routers/paths';
 import {
     erAktivOppfolgingsdialogOpprettetMedArbeidsgiver,
     erOppfolgingsdialogOpprettbarMedArbeidsgiver,
     erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver,
     hentAktivOppfolgingsdialogOpprettetMedArbeidsgiver,
-} from '../../utils/oppfolgingsdialogUtils';
+} from '../../../utils/oppfolgingsdialogUtils';
 import {
+    dinesykmeldingerReducerPt,
     fieldPropTypes,
     opprettOppfolgingArbeidsgiverPt,
-} from '../../propTypes';
-import Radioknapper from '../skjema/Radioknapper';
+} from '../../../propTypes';
+import Radioknapper from '../../skjema/Radioknapper';
 
 const OPPFOLGINGSKJEMANAVN = 'OPPRETT_DIALOG';
 
@@ -87,9 +88,15 @@ VelgArbeidsgiverRadioKnapper.propTypes = {
     arbeidsgivere: PropTypes.arrayOf(opprettOppfolgingArbeidsgiverPt),
 };
 
-export const ArbeidsgiverSkjema = ({ arbeidsgivere, oppfolgingsdialoger, handleSubmit, avbrytHref }) => {
+export const ArbeidsgiverSkjema = (
+    {
+        arbeidsgivere,
+        oppfolgingsdialoger,
+        handleSubmit,
+    }) => {
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="arbeidsgiverSkjema">
+            <label>{getLedetekst('oppfolgingsdialog.arbeidsgiverSkjema.spoersmaal')}</label>
             <div className="inputgruppe velgarbeidsgiver__inputgruppe">
                 <Field
                     name="arbeidsgiver"
@@ -98,25 +105,20 @@ export const ArbeidsgiverSkjema = ({ arbeidsgivere, oppfolgingsdialoger, handleS
                     arbeidsgivere={arbeidsgivere}
                 />
             </div>
-
             <div className="knapperad">
                 <button
                     type="submit"
                     className="knapp knapperad__element"
                     disabled={!erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver(oppfolgingsdialoger, arbeidsgivere)}>
-                    {getLedetekst('oppfolgingsdialog.arbeidstaker.knapp.velg-arbeidsgiver')}
+                    {getLedetekst('oppfolgingsdialog.knapp.send')}
                 </button>
-                <Link className="lenke lenke--avbryt knapperad__element" to={avbrytHref}>
-                    {getLedetekst('oppfolgingsdialog.knapp.avbryt')}
-                </Link>
             </div>
         </form>);
 };
 
 ArbeidsgiverSkjema.propTypes = {
-    arbeidsgivere: PropTypes.arrayOf(opprettOppfolgingArbeidsgiverPt),
+    arbeidsgivere: dinesykmeldingerReducerPt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
-    avbrytHref: PropTypes.string,
     handleSubmit: PropTypes.func,
 };
 
@@ -129,9 +131,9 @@ function validate(values) {
 
     return feilmeldinger;
 }
-const ArbeidsgiverSkjemaForm = reduxForm({
+const ReduxSkjema = reduxForm({
     form: OPPFOLGINGSKJEMANAVN,
     validate,
 })(ArbeidsgiverSkjema);
 
-export default ArbeidsgiverSkjemaForm;
+export default ReduxSkjema;

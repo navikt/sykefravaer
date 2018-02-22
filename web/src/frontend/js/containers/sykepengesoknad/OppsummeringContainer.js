@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, mapSkjemasoknadToOppsummeringsoknad, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { getLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
-import mapSkjemasoknadToBackendsoknad from '../../utils/mapSkjemasoknadToBackendsoknad';
+import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad/mappers/mapSkjemasoknadToBackendsoknad';
 import { hentArbeidsgiverperiodeberegning } from '../../actions/arbeidsgiverperiodeberegning_actions';
 import { hentLedere } from '../../actions/ledere_actions';
 import AppSpinner from '../../components/AppSpinner';
+import mapSkjemasoknadToOppsummeringsoknad from '../../components/sykepengesoknad/mappers/mapSkjemasoknadToOppsummeringsoknad';
 
 const NAV_OG_ARBEIDSGIVER = 'NAV_OG_ARBEIDSGIVER';
 const NAV = 'NAV';

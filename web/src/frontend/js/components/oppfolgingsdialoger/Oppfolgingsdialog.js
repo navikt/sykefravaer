@@ -33,7 +33,9 @@ const inneholderGodkjenninger = (oppfolgingsdialog) => {
 };
 
 const inneholderGodkjenningerAvArbeidstaker = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.godkjenninger.length > 0 && oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.godkjenninger[0].godkjentAv.fnr === oppfolgingsdialog.arbeidstaker.fnr;
+    return oppfolgingsdialog.godkjenninger.length > 0
+        && oppfolgingsdialog.godkjenninger[0].godkjent
+        && oppfolgingsdialog.godkjenninger[0].godkjentAv.fnr === oppfolgingsdialog.arbeidstaker.fnr;
 };
 
 const utenSamtykke = (oppfoelgingsdialog) => {
@@ -45,7 +47,9 @@ const inneholderGodkjentPlan = (oppfolgingsdialog) => {
 };
 
 const skalViseSamtykke = (oppfolgingsdialog) => {
-    return harNaermesteLeder(oppfolgingsdialog) && utenSamtykke(oppfolgingsdialog) && (inneholderGodkjentPlan(oppfolgingsdialog) || inneholderGodkjenningerAvArbeidstaker(oppfolgingsdialog));
+    return harNaermesteLeder(oppfolgingsdialog)
+        && utenSamtykke(oppfolgingsdialog)
+        && (inneholderGodkjentPlan(oppfolgingsdialog) || inneholderGodkjenningerAvArbeidstaker(oppfolgingsdialog));
 };
 
 export const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {

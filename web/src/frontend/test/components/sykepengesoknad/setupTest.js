@@ -1,6 +1,4 @@
 import { mapStateToPropsMedInitialValues, mapStateToProps, mapToInitialValues, andreInntektskilder } from '../../../js/components/sykepengesoknad/setup';
-import { mapBackendsoknadToSkjemasoknad, mapAktiviteter } from 'digisyfo-npm';
-import sinon from 'sinon';
 import { getSoknad } from '../../mockSoknader';
 
 import chai from 'chai';
@@ -8,6 +6,7 @@ import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 
 import deepFreeze from 'deep-freeze';
+import { mapAktiviteter } from "../../../js/utils/sykepengesoknadUtils";
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

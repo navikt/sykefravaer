@@ -6,7 +6,7 @@ import { Varselstripe, getLedetekst, Utvidbar, SoknadOppsummering, VaerKlarOverA
 import setup from '../setup';
 import SykepengerSkjema from '../SykepengerSkjema';
 import Knapperad from '../../skjema/Knapperad';
-import mapSkjemasoknadToBackendsoknad from '../../../utils/mapSkjemasoknadToBackendsoknad';
+import mapSkjemasoknadToBackendsoknad from '../../../components/sykepengesoknad/mappers/mapSkjemasoknadToBackendsoknad';
 import CheckboxSelvstendig from '../../skjema/CheckboxSelvstendig';
 import validate from '../validering/validerOppsummering';
 import { sykepengesoknad as sykepengesoknadPt, oppsummeringsoknad as oppsummeringsoknadPt } from '../../../propTypes';

@@ -5,7 +5,8 @@ import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';
 import { soknadsaktivitet } from '../../../propTypes';
-import { getAktivitetssporsmal } from '../../../utils/sykepengesoknadUtils';
+import { getAktivitetssporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
+
 
 export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
     const hjelpetekst = field.grad !== 100 ? (<Hjelpetekst

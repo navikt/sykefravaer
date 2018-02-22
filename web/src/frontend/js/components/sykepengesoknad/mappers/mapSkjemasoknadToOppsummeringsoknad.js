@@ -256,6 +256,7 @@ const tilFeriePermisjonOgUtenlandsopphold = (skjemasoknad, sykepengesoknad, felt
 
 const tilAktiviteterSpm = (skjemasoknad, sykepengesoknad, felt) => {
     const _aktiviteter = filtrerAktuelleAktiviteter(skjemasoknad.aktiviteter, getGjenopptattArbeidFulltUtDato(skjemasoknad));
+
     return _aktiviteter.map((aktivitet) => {
         const harAvvik = aktivitet.jobbetMerEnnPlanlagt;
         let undersporsmal = [];
@@ -360,7 +361,7 @@ export default (skjemasoknad, sykepengesoknad) => {
             }
         }
 
-        if (felt === 'utdanning.underUtdanningISykmeldingsperioden') {
+        if (felt === underUtdanningISykmeldingsperioden) {
             const _aktiviteter = filtrerAktuelleAktiviteter(skjemasoknad.aktiviteter, getGjenopptattArbeidFulltUtDato(skjemasoknad));
 
             if (!_aktiviteter || _aktiviteter.length === 0) {

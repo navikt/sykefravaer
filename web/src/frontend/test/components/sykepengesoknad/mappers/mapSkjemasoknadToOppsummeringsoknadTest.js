@@ -821,6 +821,39 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 expect(verdier.soknad[3].svar[0].undersporsmal[1].svar[0].tilleggstekst).to.be.undefined
             });
 
+            it("Filterer bort aktiviteter om arbeid gjenopptatt spiller inn", () => {
+
+                //Aktiviteter: 01.01.17-15.01.17 og 16.01.17-25.01.17
+                skjemasoknad.harGjenopptattArbeidFulltUt = true;
+                skjemasoknad.gjenopptattArbeidFulltUtDato = '14.01.2017';
+
+                const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
+
+                const aktivitetssporsmaal = verdier.soknad.filter(sporsmaal => sporsmaal.type === aktiviteterType);
+                expect(aktivitetssporsmaal.length).to.equal(1);
+                expect(aktivitetssporsmaal[0]).to.deep.equal({
+                    type: aktiviteterType,
+                    ledetekst: {
+                        nokkel: 'sykepengesoknad.aktiviteter.ugradert.spoersmal-2',
+                        tekst: 'I perioden 01.01.2017–13.01.2017 var du 100 % sykmeldt fra Olsens Sykkelservice. Jobbet du noe i denne perioden?',
+                        verdier: {
+                            '%FOM%': '01.01.2017',
+                            '%TOM%': '13.01.2017',
+                            '%ARBEIDSGRAD%': 0,
+                            '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
+                        },
+                    },
+                    svar: [{
+                        ledetekst: {
+                            nokkel: 'sykepengesoknad.nei',
+                            tekst: 'Nei',
+                        },
+                        type: 'RADIOKNAPPER',
+                        undersporsmal: [],
+                    }],
+                });
+            })
+
         });
     });
 

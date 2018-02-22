@@ -165,7 +165,7 @@ export const getSoknad = (soknad = {}) => {
       "id": 1
     }, {
       "periode": {
-        "fom": "2017-01-01",
+        "fom": "2017-01-16",
         "tom": "2017-01-25"
       },
       "grad": 50,

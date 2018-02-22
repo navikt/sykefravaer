@@ -1,12 +1,10 @@
 import {
     erGyldigDatoformat,
     fraInputdatoTilJSDato,
-    getLedetekst,
     periodeOverlapperMedPeriode,
     senesteTom,
     tidligsteFom,
     tilDatePeriode,
-    toDatePrettyPrint,
 } from 'digisyfo-npm';
 
 export const getTidligsteSendtDato = (soknad) => {
@@ -86,21 +84,6 @@ export const getTomDato = (sykepengesoknad) => {
         return new Date(g - (1000 * 60 * 60 * 24));
     }
     return senesteTom(perioder);
-};
-
-export const getAktivitetssporsmal = (aktivitet, arbeidsgiver, callback = getLedetekst) => {
-    const ledetekstUgradert = 'sykepengesoknad.aktiviteter.ugradert.spoersmal-2';
-    const ledetekstGradert = 'sykepengesoknad.aktiviteter.gradert.spoersmal-2';
-
-    const nokkel = aktivitet.grad === 100 ? ledetekstUgradert : ledetekstGradert;
-    const tomDato = aktivitet.periode.tom;
-
-    return callback(nokkel, {
-        '%FOM%': toDatePrettyPrint(aktivitet.periode.fom),
-        '%TOM%': toDatePrettyPrint(tomDato),
-        '%ARBEIDSGIVER%': arbeidsgiver,
-        '%ARBEIDSGRAD%': 100 - aktivitet.grad,
-    });
 };
 
 export const getGjenopptattArbeidFulltUtDato = (skjemasoknad) => {

@@ -1,9 +1,11 @@
 import chai from "chai";
-const expect = chai.expect;
 import deepFreeze from 'deep-freeze';
 
 import * as utils from '../../js/utils/sykepengesoknadUtils';
+import { filtrerAktuelleAktiviteter } from '../../js/utils/sykepengesoknadUtils';
 import { getTidligsteStartdatoSykeforloep } from "../../js/utils/sykmeldingUtils";
+
+const expect = chai.expect;
 
 describe("sykepengesoknadUtils", () => {
     let soknad1;
@@ -129,7 +131,7 @@ describe("sykepengesoknadUtils", () => {
                 ...soknad2,
                 fom: new Date("2017-01-18"),
             };
-            
+
             const soknad7 = {
                 ...soknad2,
                 fom: new Date("2017-01-10"),
@@ -161,12 +163,12 @@ describe("sykepengesoknadUtils", () => {
             };
 
             soknadSendtTilBeggeSamtidig = {
-                sendtTilArbeidsgiverDato: new Date("2017-02-10"),  
+                sendtTilArbeidsgiverDato: new Date("2017-02-10"),
                 sendtTilNAVDato: new Date("2017-02-10"),
             };
 
             soknadSendtTilBeggeMenIkkeSamtidig = {
-                sendtTilArbeidsgiverDato: new Date("2017-02-10"),  
+                sendtTilArbeidsgiverDato: new Date("2017-02-10"),
                 sendtTilNAVDato: new Date("2017-02-12"),
             }
         });
@@ -187,63 +189,63 @@ describe("sykepengesoknadUtils", () => {
         it("Returnerer senesteTom  hvis gjenopptattArbeidFulltUtDato ikke er utfylt", () => {
             expect(utils.getTomDato({
                 gjenopptattArbeidFulltUtDato: null,
-                aktiviteter:  [{
+                aktiviteter: [{
                     "periode": {
                         "fom": new Date("2017-01-01"),
-                        "tom": new Date("2017-01-15")
+                        "tom": new Date("2017-01-15"),
                     },
                     "grad": 100,
-                    "avvik": null
+                    "avvik": null,
                 }, {
                     "periode": {
                         "fom": new Date("2017-01-01"),
-                        "tom": new Date("2017-01-25")
+                        "tom": new Date("2017-01-25"),
                     },
                     "grad": 50,
-                    "avvik": null
-                }]
+                    "avvik": null,
+                }],
             })).to.deep.equal(new Date("2017-01-25"));
         });
 
         it("Returnerer gjenopptattArbeidFulltUtDato minus en dag hvis gjenopptattArbeidFulltUtDato er utfylt", () => {
             expect(utils.getTomDato({
                 gjenopptattArbeidFulltUtDato: new Date("2017-01-24"),
-                aktiviteter:  [{
+                aktiviteter: [{
                     "periode": {
                         "fom": new Date("2017-01-01"),
-                        "tom": new Date("2017-01-15")
+                        "tom": new Date("2017-01-15"),
                     },
                     "grad": 100,
-                    "avvik": null
+                    "avvik": null,
                 }, {
                     "periode": {
                         "fom": new Date("2017-01-01"),
-                        "tom": new Date("2017-01-25")
+                        "tom": new Date("2017-01-25"),
                     },
                     "grad": 50,
-                    "avvik": null
-                }]
+                    "avvik": null,
+                }],
             })).to.deep.equal(new Date("2017-01-23"));
         });
 
         it("Returnerer gjenopptattArbeidFulltUtDato hvis gjenopptattArbeidFulltUtDato er utfylt og samme dag som tidligste fom", () => {
             expect(utils.getTomDato({
                 gjenopptattArbeidFulltUtDato: new Date("2017-01-01"),
-                aktiviteter:  [{
+                aktiviteter: [{
                     "periode": {
                         "fom": new Date("2017-01-01"),
-                        "tom": new Date("2017-01-15")
+                        "tom": new Date("2017-01-15"),
                     },
                     "grad": 100,
-                    "avvik": null
+                    "avvik": null,
                 }, {
                     "periode": {
                         "fom": new Date("2017-01-16"),
-                        "tom": new Date("2017-01-25")
+                        "tom": new Date("2017-01-25"),
                     },
                     "grad": 50,
-                    "avvik": null
-                }]
+                    "avvik": null,
+                }],
             })).to.deep.equal(new Date("2017-01-01"));
         });
 
@@ -258,32 +260,32 @@ describe("sykepengesoknadUtils", () => {
                 aktiviteter: [{
                     periode: {
                         fom: new Date("2016-05-01"),
-                        tom: new Date("2016-05-09")
+                        tom: new Date("2016-05-09"),
                     },
                     grad: 100,
                     avvik: null,
                 }, {
                     periode: {
                         fom: new Date("2016-05-10"),
-                        tom: new Date("2016-05-20")
+                        tom: new Date("2016-05-20"),
                     },
                     grad: 100,
                     avvik: null,
                 }, {
                     periode: {
                         fom: new Date("2016-05-21"),
-                        tom: new Date("2016-05-25")
+                        tom: new Date("2016-05-25"),
                     },
                     grad: 100,
                     avvik: null,
-                }]
+                }],
             };
 
             const a = utils.mapAktiviteter(deepFreeze(soknad));
             expect(a.aktiviteter).to.deep.equal([{
                 periode: {
                     fom: new Date("2016-05-10"),
-                    tom: new Date("2016-05-20")
+                    tom: new Date("2016-05-20"),
                 },
                 grad: 100,
                 avvik: null,
@@ -297,39 +299,39 @@ describe("sykepengesoknadUtils", () => {
                 aktiviteter: [{
                     periode: {
                         fom: new Date("2016-05-01"),
-                        tom: new Date("2016-05-05")
+                        tom: new Date("2016-05-05"),
                     },
                     grad: 100,
                     avvik: null,
                 }, {
                     periode: {
                         fom: new Date("2016-05-06"),
-                        tom: new Date("2016-05-12")
+                        tom: new Date("2016-05-12"),
                     },
                     grad: 100,
                     avvik: null,
                 }, {
                     periode: {
                         fom: new Date("2016-05-13"),
-                        tom: new Date("2016-05-25")
+                        tom: new Date("2016-05-25"),
                     },
                     grad: 100,
                     avvik: null,
-                }]
+                }],
             };
 
             const a = utils.mapAktiviteter(deepFreeze(soknad));
             expect(a.aktiviteter).to.deep.equal([{
                 periode: {
                     fom: new Date("2016-05-10"),
-                    tom: new Date("2016-05-12")
+                    tom: new Date("2016-05-12"),
                 },
                 grad: 100,
                 avvik: null,
             }, {
                 periode: {
                     fom: new Date("2016-05-13"),
-                    tom: new Date("2016-05-20")
+                    tom: new Date("2016-05-20"),
                 },
                 grad: 100,
                 avvik: null,
@@ -341,11 +343,11 @@ describe("sykepengesoknadUtils", () => {
                 {
                     "periode": {
                         "fom": new Date("2017-06-22"),
-                        "tom": new Date("2017-08-02")
+                        "tom": new Date("2017-08-02"),
                     },
                     "grad": 100,
-                    "avvik": null
-                }
+                    "avvik": null,
+                },
             ];
             const fom = new Date("2017-06-22");
             const tom = new Date("2017-07-12");
@@ -355,10 +357,10 @@ describe("sykepengesoknadUtils", () => {
             expect(a.aktiviteter).to.deep.equal([{
                 "periode": {
                     "fom": new Date("2017-06-22"),
-                    "tom": new Date("2017-07-12")
+                    "tom": new Date("2017-07-12"),
                 },
                 "grad": 100,
-                "avvik": null
+                "avvik": null,
             }])
         });
 
@@ -367,21 +369,21 @@ describe("sykepengesoknadUtils", () => {
                 {
                     "periode": {
                         "fom": new Date("2016-07-15"),
-                        "tom": new Date("2016-07-20")
+                        "tom": new Date("2016-07-20"),
                     },
                 },
                 {
                     "periode": {
                         "fom": new Date("2016-07-21"),
-                        "tom": new Date("2016-07-25")
+                        "tom": new Date("2016-07-25"),
                     },
                 },
                 {
                     "periode": {
                         "fom": new Date("2016-07-26"),
-                        "tom": new Date("2016-07-30")
+                        "tom": new Date("2016-07-30"),
                     },
-                }
+                },
             ];
             const fom = new Date("2016-07-18");
             const tom = new Date("2016-07-24");
@@ -391,15 +393,15 @@ describe("sykepengesoknadUtils", () => {
                 {
                     periode: {
                         fom: new Date("2016-07-18"),
-                        tom: new Date("2016-07-20")
+                        tom: new Date("2016-07-20"),
                     },
                 },
                 {
                     periode: {
                         fom: new Date("2016-07-21"),
-                        tom: new Date("2016-07-24")
+                        tom: new Date("2016-07-24"),
                     },
-                }
+                },
             ]);
         });
 
@@ -472,18 +474,18 @@ describe("sykepengesoknadUtils", () => {
             }
         });
 
-        it("skal returnere oppfølgingsdato hvis den er tidligere enn identdato", () =>  {
+        it("skal returnere oppfølgingsdato hvis den er tidligere enn identdato", () => {
             const dato = getTidligsteStartdatoSykeforloep(skjemasoknad);
             expect(dato).to.deep.equal(tidligsteDato);
         });
 
-        it("skal returnere identdato hvis oppfoelgingsdato er null", () =>  {
+        it("skal returnere identdato hvis oppfoelgingsdato er null", () => {
             skjemasoknad.oppfoelgingsdato = null;
             const dato = getTidligsteStartdatoSykeforloep(skjemasoknad);
             expect(dato).to.deep.equal(senesteDato);
         });
 
-        it("skal returnere identdato hvis den er tidligere enn oppfølgingsdato", () =>  {
+        it("skal returnere identdato hvis den er tidligere enn oppfølgingsdato", () => {
             skjemasoknad.oppfoelgingsdato = senesteDato;
             skjemasoknad.oppfoelgingsdato = tidligsteDato;
             const dato = getTidligsteStartdatoSykeforloep(skjemasoknad);
@@ -491,5 +493,95 @@ describe("sykepengesoknadUtils", () => {
         });
 
     });
+
+    describe("filtrerAktuelleAktiviteter", () => {
+
+        const aktiviteter = [{
+            periode: {
+                fom: new Date("2017-01-01"),
+                tom: new Date("2017-01-15"),
+            },
+        }, {
+            periode: {
+                fom: new Date("2017-01-16"),
+                tom: new Date("2017-01-25"),
+            },
+        }];
+
+        it('Returnerer aktiviteter om arbeid ikke er gjennopptatt - undefined', () => {
+            const _aktiviteter = filtrerAktuelleAktiviteter(aktiviteter, undefined);
+            expect(_aktiviteter).to.deep.equal([{
+                periode: {
+                    fom: new Date("2017-01-01"),
+                    tom: new Date("2017-01-15"),
+                },
+            }, {
+                periode: {
+                    fom: new Date("2017-01-16"),
+                    tom: new Date("2017-01-25"),
+                },
+            }])
+        });
+
+        it('Returnerer aktiviteter om arbeid ikke er gjennopptatt - null', () => {
+            const _aktiviteter = filtrerAktuelleAktiviteter(aktiviteter, null);
+            expect(_aktiviteter).to.deep.equal([{
+                periode: {
+                    fom: new Date("2017-01-01"),
+                    tom: new Date("2017-01-15"),
+                },
+            }, {
+                periode: {
+                    fom: new Date("2017-01-16"),
+                    tom: new Date("2017-01-25"),
+                },
+            }])
+        });
+
+        it('Returnerer aktiviteter om arbeid er gjennopptatt utenfor periodene', () => {
+            const _aktiviteter = filtrerAktuelleAktiviteter(aktiviteter, new Date('2017-02-01'));
+            expect(_aktiviteter).to.deep.equal([{
+                periode: {
+                    fom: new Date("2017-01-01"),
+                    tom: new Date("2017-01-15"),
+                },
+            }, {
+                periode: {
+                    fom: new Date("2017-01-16"),
+                    tom: new Date("2017-01-25"),
+                },
+            }])
+        });
+
+        it('Klipper siste periode om arbeid er gjennopptatt i løpet av den forrige', () => {
+            const _aktiviteter = filtrerAktuelleAktiviteter(aktiviteter, new Date('2017-01-21'));
+            expect(_aktiviteter).to.deep.equal([{
+                periode: {
+                    fom: new Date("2017-01-01"),
+                    tom: new Date("2017-01-15"),
+                },
+            }, {
+                periode: {
+                    fom: new Date("2017-01-16"),
+                    tom: new Date("2017-01-20"),
+                },
+            }])
+        });
+
+        it('Kutter hele perioden om arbeid er gjennopptatt før perioden starter', () => {
+            const _aktiviteter = filtrerAktuelleAktiviteter(aktiviteter, new Date('2017-01-15'));
+            expect(_aktiviteter).to.deep.equal([{
+                periode: {
+                    fom: new Date("2017-01-01"),
+                    tom: new Date("2017-01-14"),
+                },
+            }])
+        });
+
+        it('Kutter alle aktiviteter om arbeid er gjennopptatt første dag i sykmeldingen', () => {
+            const _aktiviteter = filtrerAktuelleAktiviteter(aktiviteter, new Date('2017-01-01'));
+            expect(_aktiviteter).to.deep.equal([])
+        });
+    })
 
 });

@@ -1,5 +1,5 @@
-import chai from 'chai';
 import React from 'react';
+import chai from 'chai';
 import { Link } from 'react-router';
 import { Field } from 'redux-form';
 import { shallow } from 'enzyme';
@@ -8,14 +8,13 @@ import sinon from 'sinon';
 import {
     ArbeidsgiverSkjema,
     VelgArbeidsgiverUndertekst,
-} from '../../../js/components/oppfolgingsdialoger/ArbeidsgiverSkjema';
-import { getOppfolgingsdialoger } from '../../mockOppfolgingsdialoger';
+} from '../../../../js/components/oppfolgingsdialoger/opprett/ArbeidsgiverSkjema';
+import { getOppfolgingsdialoger } from '../../../mockOppfolgingsdialoger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe('ArbeidsgiverSkjema', () => {
-
     let komponent;
     let oppfolgingsdialoger;
     let arbeidsgivere;
@@ -59,10 +58,6 @@ describe('ArbeidsgiverSkjema', () => {
 
     it('Skal vise rett submit knapp', () => {
         expect(komponent.find('button.knapp')).to.have.length(1);
-    });
-
-    it('Skal vise rett avbryt lenke', () => {
-        expect(komponent.find(Link)).to.have.length(1);
     });
 
     it('Skal vise 2 radioknapper med 2 arbeidsgivere uten opprettet plan', () => {

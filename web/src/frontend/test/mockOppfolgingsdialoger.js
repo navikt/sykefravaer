@@ -1,3 +1,5 @@
+import { leggTilDagerPaaDato } from './testUtils';
+
 export const getOppfolgingsdialoger = [
     {
         opprettetDato: "2017-06-12",
@@ -322,6 +324,31 @@ const oppfolgingsdialog = {
         samtykke: true,
         godkjent: null
     }
+};
+
+export const hentOppfolgingsdialogTidligere = (dagensDato) => {
+    return Object.assign({}, oppfolgingsdialog, {
+        godkjentPlan: {
+            gyldighetstidspunkt: {
+                fom: leggTilDagerPaaDato(dagensDato, -5).toISOString(),
+                tom: leggTilDagerPaaDato(dagensDato, -1).toISOString(),
+            },
+        },
+        naermesteLeder: {
+            navn: 'Test Testesen',
+            fnr: '***REMOVED***',
+            samtykke: null,
+            sistInnlogget: leggTilDagerPaaDato(dagensDato, -1).toISOString(),
+            godkjent: null,
+            aktivFom: leggTilDagerPaaDato(dagensDato, -10).toISOString(),
+        },
+    });
+};
+
+export const hentOppfolgingsdialogAktiv = (dagensDato) => {
+    return Object.assign({}, hentOppfolgingsdialogTidligere(dagensDato), {
+        godkjentPlan: null,
+    });
 };
 
 const getOppfolgingsdialog = (id = {}) => {

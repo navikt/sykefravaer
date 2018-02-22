@@ -58,7 +58,7 @@ describe('OppfolgingsdialogerContainer', () => {
             expect(component.contains(<AppSpinner />)).to.equal(true);
         });
 
-        it('Skal vise spinner dersom leder avkreftes', () => {
+        it('Skal vise spinner dersom data sendes', () => {
             const component = shallow(<OppfolgingsdialogerSide
                 dinesykmeldinger={dinesykmeldinger}
                 tilgang={tilgang}
@@ -74,7 +74,7 @@ describe('OppfolgingsdialogerContainer', () => {
             expect(component.contains(<AppSpinner />)).to.equal(true);
         });
 
-        it('Skal vise feilmelding dersom henting feilet', () => {
+        it('Skal vise feilmelding dersom henting Feilet', () => {
             const component = shallow(<OppfolgingsdialogerSide
                 dinesykmeldinger={dinesykmeldinger}
                 tilgang={tilgang}
@@ -90,7 +90,7 @@ describe('OppfolgingsdialogerContainer', () => {
             expect(component.contains(<Feilmelding />)).to.equal(true);
         });
 
-        it('Skal vise feilmelding dersom avkrefterLederFeilet', () => {
+        it('Skal vise feilmelding dersom sending feilet', () => {
             const component = shallow(<OppfolgingsdialogerSide
                 dinesykmeldinger={dinesykmeldinger}
                 tilgang={tilgang}

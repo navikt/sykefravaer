@@ -1,30 +1,45 @@
-import React from 'react';
 import chai from 'chai';
 import sinon from 'sinon';
-import { oppgaverOppfoelgingsdialoger } from '../../js/utils/oppfolgingsdialogUtils';
 import {
-    hentsykmeldingUtgaattOver4mnd,
-    hentSykmeldingAktiv,
-} from './sykmeldingUtilsTest';
+    erOppfolgingsdialogOpprettbarDirekte,
+    finnNyesteTidligereOppfolgingsdialogMedVirksomhet,
+    oppgaverOppfoelgingsdialoger,
+} from '../../js/utils/oppfolgingsdialogUtils';
+import {
+    hentSykmeldingIkkeGyldigForOppfoelging,
+    hentSykmeldingGyldigForOppfoelging,
+} from '../mockSykmeldinger';
+import getOppfolgingsdialog, {
+
+    hentOppfolgingsdialogTidligere,
+} from '../mockOppfolgingsdialoger';
 
 const expect = chai.expect;
 
 describe('OppfolgingdialogUtils', () => {
+    let klokke;
+    const dagensDato = new Date('2017-01-01');
+
+    beforeEach(() => {
+        klokke = sinon.useFakeTimers(dagensDato.getTime());
+    });
+
+    afterEach(() => {
+        klokke.restore();
+    });
+
     describe('oppgaverOppfoelgingsdialoger', () => {
-        let clock;
-        let sykmeldingUtgaattOver4mnd;
-        let sykmeldingAktiv;
+        let sykmeldingsykmeldingUgyldig;
+        let sykmeldingGyldig;
         let oppfolgingsdialogUnderArbeid;
-        const dagensDato = new Date('2017-01-01');
 
         beforeEach(() => {
-            clock = sinon.useFakeTimers(dagensDato.getTime());
-            sykmeldingUtgaattOver4mnd = hentsykmeldingUtgaattOver4mnd(dagensDato);
-            sykmeldingAktiv = hentSykmeldingAktiv(dagensDato);
+            sykmeldingsykmeldingUgyldig = hentSykmeldingIkkeGyldigForOppfoelging(dagensDato);
+            sykmeldingGyldig = hentSykmeldingGyldigForOppfoelging(dagensDato);
             oppfolgingsdialogUnderArbeid = {
                 status: 'UNDER_ARBEID',
                 virksomhet: {
-                    virksomhetsnummer: sykmeldingAktiv.orgnummer,
+                    virksomhetsnummer: sykmeldingGyldig.orgnummer,
                 },
                 godkjenninger: [],
                 sistEndretAv: {
@@ -33,13 +48,9 @@ describe('OppfolgingdialogUtils', () => {
             };
         });
 
-        afterEach(() => {
-            clock.restore();
-        });
-
         describe('med aktiv sykmelding', () => {
             it('Tom state.oppfoelgingsdialoger.data gir objekt med tomme lister', () => {
-                expect(oppgaverOppfoelgingsdialoger([], [sykmeldingAktiv])).to.deep.equal({
+                expect(oppgaverOppfoelgingsdialoger([], [sykmeldingGyldig])).to.deep.equal({
                     nyePlaner: [],
                     avventendeGodkjenninger: [],
                 });
@@ -53,7 +64,7 @@ describe('OppfolgingdialogUtils', () => {
                         sistInnlogget: null,
                     },
                 };
-                expect(oppgaverOppfoelgingsdialoger([dialog], [sykmeldingAktiv])).to.deep.equal({
+                expect(oppgaverOppfoelgingsdialoger([dialog], [sykmeldingGyldig])).to.deep.equal({
                     nyePlaner: [dialog],
                     avventendeGodkjenninger: [],
                 });
@@ -73,7 +84,7 @@ describe('OppfolgingdialogUtils', () => {
                         },
                     }],
                 };
-                expect(oppgaverOppfoelgingsdialoger([dialog], [sykmeldingAktiv])).to.deep.equal({
+                expect(oppgaverOppfoelgingsdialoger([dialog], [sykmeldingGyldig])).to.deep.equal({
                     nyePlaner: [],
                     avventendeGodkjenninger: [dialog],
                 });
@@ -93,7 +104,7 @@ describe('OppfolgingdialogUtils', () => {
                         },
                     }],
                 };
-                expect(oppgaverOppfoelgingsdialoger([dialog], [sykmeldingAktiv])).to.deep.equal({
+                expect(oppgaverOppfoelgingsdialoger([dialog], [sykmeldingGyldig])).to.deep.equal({
                     nyePlaner: [],
                     avventendeGodkjenninger: [dialog],
                 });
@@ -102,7 +113,7 @@ describe('OppfolgingdialogUtils', () => {
 
         describe('uten aktiv sykmelding', () => {
             it('Tom state.oppfoelgingsdialoger.data gir objekt med tomme lister', () => {
-                expect(oppgaverOppfoelgingsdialoger([], [sykmeldingUtgaattOver4mnd])).to.deep.equal({
+                expect(oppgaverOppfoelgingsdialoger([], [sykmeldingsykmeldingUgyldig])).to.deep.equal({
                     nyePlaner: [],
                     avventendeGodkjenninger: [],
                 });
@@ -116,7 +127,7 @@ describe('OppfolgingdialogUtils', () => {
                         sistInnlogget: null,
                     },
                 };
-                expect(oppgaverOppfoelgingsdialoger([dialog], [sykmeldingUtgaattOver4mnd])).to.deep.equal({
+                expect(oppgaverOppfoelgingsdialoger([dialog], [sykmeldingsykmeldingUgyldig])).to.deep.equal({
                     nyePlaner: [],
                     avventendeGodkjenninger: [],
                 });
@@ -136,11 +147,68 @@ describe('OppfolgingdialogUtils', () => {
                         },
                     }],
                 };
-                expect(oppgaverOppfoelgingsdialoger([dialog], [sykmeldingUtgaattOver4mnd])).to.deep.equal({
+                expect(oppgaverOppfoelgingsdialoger([dialog], [sykmeldingsykmeldingUgyldig])).to.deep.equal({
                     nyePlaner: [],
                     avventendeGodkjenninger: [],
                 });
             });
+        });
+    });
+
+    describe('erOppfolgingsdialogOpprettbarDirekte', () => {
+        let arbeidsgiver;
+        let oppfolgingsdialogTidligere;
+        let oppfolgingsdialogIkkeTidligere;
+
+        beforeEach(() => {
+            arbeidsgiver = {};
+            oppfolgingsdialogTidligere = hentOppfolgingsdialogTidligere(dagensDato);
+            oppfolgingsdialogIkkeTidligere = getOppfolgingsdialog({
+                godkjentplan: null,
+            });
+        });
+
+        it('Skal returneren false, om det er flere enn 1 AG og det er tidligere godkjent plan', () => {
+            expect(erOppfolgingsdialogOpprettbarDirekte([arbeidsgiver, arbeidsgiver], [oppfolgingsdialogTidligere])).to.be.false;
+        });
+
+        it('Skal returneren false, om det kun er 1 AG og det er tidligere godkjent plan', () => {
+            expect(erOppfolgingsdialogOpprettbarDirekte([arbeidsgiver], [oppfolgingsdialogTidligere])).to.be.false;
+        });
+
+        it('Skal returneren true, om det kun er 1 AG og det ikke er tidligere godkjent plan', () => {
+            expect(erOppfolgingsdialogOpprettbarDirekte([arbeidsgiver], [oppfolgingsdialogIkkeTidligere])).to.be.true;
+        });
+    });
+
+    describe('finnNyesteTidligereOppfolgingsdialogMedVirksomhet', () => {
+        let oppfolgingsdialogTidligere;
+        let oppfolgingsdialogIkkeTidligere;
+        let virksomhet;
+
+        beforeEach(() => {
+            virksomhet = { virksomhetsnummer: '12345678' };
+            oppfolgingsdialogTidligere = {
+                ...hentOppfolgingsdialogTidligere(dagensDato),
+                virksomhet,
+            };
+            oppfolgingsdialogIkkeTidligere = {
+                ...getOppfolgingsdialog(),
+                virksomhet,
+                godkjentplan: null,
+            };
+        });
+
+        it('Skal ikke returnere tidligere dialog med virksomhet, om det det er plan med virksomhet som ikker er tidligere godkjent', () => {
+            expect(finnNyesteTidligereOppfolgingsdialogMedVirksomhet([oppfolgingsdialogIkkeTidligere], virksomhet.virksomhetsnummer)).to.equal(undefined);
+        });
+
+        it('Skal ikke returnere tidligere dialog med virksomhet, om det det er tidligere godkjente plan med annen virksomhet', () => {
+            expect(finnNyesteTidligereOppfolgingsdialogMedVirksomhet([oppfolgingsdialogTidligere], '1')).to.equal(undefined);
+        });
+
+        it('Skal returnere tidligere dialog med virksomhet, om det det er tidligere godkjente plan med virksomhet', () => {
+            expect(finnNyesteTidligereOppfolgingsdialogMedVirksomhet([oppfolgingsdialogTidligere], virksomhet.virksomhetsnummer)).to.deep.equal(oppfolgingsdialogTidligere);
         });
     });
 });

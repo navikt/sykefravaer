@@ -32,6 +32,7 @@ import {
     henterEllerHarHentetTilgang,
     henterEllerHarHentetOppfolgingsdialoger,
     oppfolgingsdialogHarBlittAvbrutt,
+    populerDialogFraState,
     erOppfolgingsdialogTidligere,
     erOppfolgingsdialogKnyttetTilGyldigSykmelding,
 } from 'oppfolgingsdialog-npm';
@@ -195,7 +196,8 @@ OppfolgingsdialogSide.propTypes = {
 
 export function mapStateToProps(state, ownProps) {
     const id = ownProps.params.oppfolgingsdialogId;
-    const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
+    let oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
+    oppfolgingsdialog = oppfolgingsdialog && populerDialogFraState(oppfolgingsdialog, state);
     const erOppfolgingsdialogTilgjengelig = oppfolgingsdialog && (erOppfolgingsdialogTidligere(oppfolgingsdialog)
         || erOppfolgingsdialogKnyttetTilGyldigSykmelding(oppfolgingsdialog, state.dineSykmeldinger.data));
     return {

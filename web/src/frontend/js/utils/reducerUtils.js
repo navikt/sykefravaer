@@ -13,3 +13,7 @@ export const lederHarBlittAvkreftet = (ledere, nesteLedere) => {
 export const henterEllerHarHentetToggles = (toggles) => {
     return toggles.henter || toggles.hentet;
 };
+
+export const henterEllerHarHentetSykeforloep = (sykeforloep) => {
+    return sykeforloep.henter || sykeforloep.hentet;
+};

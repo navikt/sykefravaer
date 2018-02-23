@@ -1,4 +1,8 @@
-import { ledeteksterSagas, togglesSagas } from 'digisyfo-npm';
+import {
+    ledeteksterSagas,
+    tidslinjerSagas,
+    togglesSagas,
+} from 'digisyfo-npm';
 import {
     oppfolgingsdialogerAtSagas as oppfolgingsdialogerSagas,
     arbeidsoppgaveSagas,
@@ -24,7 +28,6 @@ import dineArbeidsgivereSagas from './dineArbeidsgivereSagas';
 import dineSykmeldingerSagas from './dineSykmeldingerSagas';
 import dinSykmeldingSagas from './dinSykmeldingSagas';
 import sykepengesoknadSagas from './sykepengesoknadSagas';
-import tidslinjerSagas from './tidslinjerSagas';
 import ledereSagas from './ledereSagas';
 import vedlikeholdSagas from './vedlikeholdSagas';
 import moteSagas from './moteSagas';

@@ -775,6 +775,7 @@ const getParsetSoknad = () => {
             perioder: [],
             soektOmSykepengerIPerioden: null,
         },
+        oppfoelgingsdato: null,
         opprettetDato: new Date("2017-01-01"),
         sendtTilArbeidsgiverDato: null,
         sendtTilNAVDato: null,

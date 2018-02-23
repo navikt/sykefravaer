@@ -1,26 +1,26 @@
 import * as actiontyper from './actiontyper';
 
-export const hentStartdato = () => {
+export function hentSykeforloep() {
     return {
-        type: actiontyper.HENT_SYKEFORLOEP_STARTDATO_FORESPURT,
+        type: actiontyper.HENT_SYKEFORLOEP_FORESPURT,
     };
-};
+}
 
-export const henterStartdato = () => {
+export function henterSykeforloep() {
     return {
-        type: actiontyper.HENTER_SYKEFORLOEP_STARTDATO,
+        type: actiontyper.HENTER_SYKEFORLOEP,
     };
-};
+}
 
-export const startdatoHentet = (startdato) => {
+export function sykeforloepHentet(data) {
     return {
-        type: actiontyper.SYKEFORLOEP_STARTDATO_HENTET,
-        startdato,
+        type: actiontyper.SYKEFORLOEP_HENTET,
+        data,
     };
-};
+}
 
-export const hentStartdatoFeilet = () => {
+export function hentSykeforloepFeilet() {
     return {
-        type: actiontyper.HENT_SYKEFORLOEP_STARTDATO_FEILET,
+        type: actiontyper.HENT_SYKEFORLOEP_FEILET,
     };
-};
+}

@@ -1,66 +1,99 @@
 import { expect } from 'chai';
 import deepFreeze from 'deep-freeze';
 import * as actions from '../../js/actions/sykeforloep_actions';
+import { BRUKER_ER_UTLOGGET } from '../../js/actions/actiontyper';
+import sykeforloep, { hentStartdatoFraSykeforloep } from '../../js/reducers/sykeforloep';
+import getSykeforloep from '../mockSykeforloep';
 
-import sykeforloep from '../../js/reducers/sykeforloep.js';
-
-describe("sykeforloep", () => {
-
+describe('sykeforloep', () => {
     let state;
 
-    it("Har en initiell state", () => {
+    describe('hentStartdatoFraSykeforloep', () => {
+        it('skal returnere null, om det ikke er sykeforloep', () => {
+            expect(hentStartdatoFraSykeforloep([])).to.equal(null);
+        });
+
+        it('skal returnere eldste dato, om det er sykeforloep', () => {
+            const sykeforloepNyest = getSykeforloep({
+                oppfoelgingsdato: '2018-01-05',
+            });
+            const sykeforloepEldst = getSykeforloep({
+                oppfoelgingsdato: '2018-01-01',
+            });
+            expect(hentStartdatoFraSykeforloep([sykeforloepNyest, sykeforloepEldst]).getTime()).to.equal(new Date(sykeforloepEldst.oppfoelgingsdato).getTime());
+        });
+    });
+
+    it('Har en initiell state', () => {
         state = sykeforloep();
         expect(state).to.deep.equal({
             hentet: false,
             hentingFeilet: false,
             henter: false,
             startdato: null,
+            data: [],
         });
     });
 
-    it("Håndterer HENTER_STARTDATO", () => {
-        const action = actions.henterStartdato();
-        state = sykeforloep(state, action);
-        expect(state).to.deep.equal({
+    it('Håndterer HENTER_SYKEFORLOEP', () => {
+        const action = actions.henterSykeforloep();
+        const nextState = sykeforloep(state, action);
+        expect(nextState).to.deep.equal({
+            henter: true,
             hentet: false,
             hentingFeilet: false,
-            henter: true,
             startdato: null,
-        });
-    })
-
-    it("Håndterer STARTDATO_HENTET", () => {
-        const action = actions.startdatoHentet("2017-01-12");
-        const state = sykeforloep(state, action);
-        expect(state).to.deep.equal({
-            hentet: true,
-            hentingFeilet: false,
-            henter: false,
-            startdato: new Date("2017-01-12"),
+            data: [],
         });
     });
 
-
-    it("Håndterer STARTDATO_HENTET når det returneres null", () => {
-        const action = actions.startdatoHentet(null);
-        const state = sykeforloep(state, action);
-        expect(state).to.deep.equal({
+    it('Håndterer SYKEFORLOEP_HENTET', () => {
+        const sykeforloepNyest = getSykeforloep({
+            oppfoelgingsdato: '2018-01-05',
+        });
+        const sykeforloepEldst = getSykeforloep({
+            oppfoelgingsdato: '2018-01-01',
+        });
+        const data = [sykeforloepNyest, sykeforloepEldst];
+        const action = actions.sykeforloepHentet(data);
+        const nextState = sykeforloep(state, action);
+        expect(nextState).to.deep.equal({
+            henter: false,
             hentet: true,
             hentingFeilet: false,
-            henter: false,
-            startdato: null
+            startdato: new Date(sykeforloepEldst.oppfoelgingsdato),
+            data,
         });
     });
 
-    it("Håndterer HENT_STARTDATO_FEILET", () => {
-        const action = actions.hentStartdatoFeilet();
-        const state = sykeforloep(state, action);
-        expect(state).to.deep.equal({
-            hentet: true,
+    it('Håndterer HENT_SYKEFORLOEP_FEILET', () => {
+        const action = actions.hentSykeforloepFeilet();
+        const nextState = sykeforloep(state, action);
+        expect(nextState).to.deep.equal({
+            henter: false,
+            hentet: false,
             hentingFeilet: true,
-            henter: false,
-            startdato: null
+            startdato: null,
+            data: [],
         });
     });
 
+    it('Håndterer BRUKER_ER_UTLOGGET', () => {
+        const initialState = deepFreeze({
+            henter: false,
+            hentet: true,
+            hentingFeilet: false,
+            data: [],
+        });
+        const action = {
+            type: BRUKER_ER_UTLOGGET,
+        };
+        const nextState = sykeforloep(initialState, action);
+        expect(nextState).to.deep.equal({
+            henter: false,
+            hentet: true,
+            hentingFeilet: false,
+            data: [],
+        });
+    });
 });

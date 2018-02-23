@@ -1,6 +1,7 @@
-import { toDatePrettyPrint, getTomDato, tidligsteFom, fraInputdatoTilJSDato } from 'digisyfo-npm';
+import { toDatePrettyPrint, tidligsteFom, fraInputdatoTilJSDato } from 'digisyfo-npm';
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import * as valideringUtils from './valideringUtils';
+import { getTomDato } from '../../../utils/sykepengesoknadUtils';
 
 export const validate = (values, props) => {
     const { sykepengesoknad } = props;

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getGjenopptattArbeidFulltUtDato } from 'digisyfo-npm';
+import { getGjenopptattArbeidFulltUtDato } from '../utils/sykepengesoknadUtils';
 import { SYKEPENGER_SKJEMANAVN } from '../components/sykepengesoknad/setup';
 
 export const mapStateToProps = (state) => {

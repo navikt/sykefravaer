@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, getFormValues } from 'redux-form';
-import { getLedetekst, getTotalJobbingSporsmal } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
 import { lagDesimaltall, getObjectValueByString } from '../../../utils';
@@ -9,6 +9,7 @@ import DetteTilsvarer, { getStillingsprosent } from './DetteTilsvarer';
 import { soknadperiode, fieldPropTypes } from '../../../propTypes';
 import { SYKEPENGER_SKJEMANAVN } from '../setup';
 import { getFeriePermisjonPerioder } from '../../../utils/sykepengesoknadUtils';
+import { getTotalJobbingSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 
 class AngiTid extends Component {
     constructor(props) {

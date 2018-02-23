@@ -1,7 +1,10 @@
-import { toDatePrettyPrint, getTomDato, fraInputdatoTilJSDato, inntektskildetyper } from 'digisyfo-npm';
+import { toDatePrettyPrint, fraInputdatoTilJSDato, inntektskildetyper, senesteTom } from 'digisyfo-npm';
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
-import { getFeriePermisjonPerioder } from '../../../utils/sykepengesoknadUtils';
+import {
+    filtrerAktuelleAktiviteter, getFeriePermisjonPerioder,
+    getGjenopptattArbeidFulltUtDatoFraSkjema,
+} from '../../../utils/sykepengesoknadUtils';
 import { getStillingsprosent } from '../AktiviteterISykmeldingsperioden/DetteTilsvarer';
 
 const parseString = (str) => {
@@ -128,11 +131,10 @@ const validate = (values, props) => {
         props.sendTilFoerDuBegynner(props.sykepengesoknad);
     }
 
-    const _sykepengesoknad = {
-        ...props.sykepengesoknad,
-        gjenopptattArbeidFulltUtDato: values.gjenopptattArbeidFulltUtDato ? fraInputdatoTilJSDato(values.gjenopptattArbeidFulltUtDato) : null,
-    };
-    const tomDato = getTomDato(_sykepengesoknad);
+    const gjennopptattArbeidFulltUtDato = getGjenopptattArbeidFulltUtDatoFraSkjema(values);
+
+    const _aktiviteter = filtrerAktuelleAktiviteter(props.sykepengesoknad.aktiviteter, gjennopptattArbeidFulltUtDato);
+    const _senesteTom = senesteTom(_aktiviteter.map((a) => { return a.periode; }));
 
     if (values.harAndreInntektskilder === undefined) {
         feilmeldinger.harAndreInntektskilder = 'Du må svare på om du har andre inntektskilder';
@@ -158,27 +160,30 @@ const validate = (values, props) => {
             }
         }
     }
-    const utdanningsfeilmelding = {};
-    if (values.utdanning === undefined || values.utdanning.underUtdanningISykmeldingsperioden === undefined) {
-        utdanningsfeilmelding.underUtdanningISykmeldingsperioden = 'Vennligst svar på om du har vært under utdanning';
-    } else if (values.utdanning.underUtdanningISykmeldingsperioden === true) {
-        if (!values.utdanning.utdanningStartdato) {
-            utdanningsfeilmelding.utdanningStartdato = 'Vennligst oppgi når du startet på utdanningen';
-        }
-        if (values.utdanning.erUtdanningFulltidsstudium === undefined) {
-            utdanningsfeilmelding.erUtdanningFulltidsstudium = 'Vennligst svar på om utdanningen er et fulltidsstudium';
-        }
-        if (values.utdanning.utdanningStartdato && fraInputdatoTilJSDato(values.utdanning.utdanningStartdato) > tomDato) {
-            utdanningsfeilmelding.utdanningStartdato = `Datoen kan ikke være etter sykmeldingsperioden gikk ut den ${toDatePrettyPrint(tomDato)}`;
-        }
-    }
 
-    if (Object.keys(utdanningsfeilmelding).length > 0) {
-        feilmeldinger.utdanning = utdanningsfeilmelding;
+    if (_aktiviteter.length > 0) {
+        const utdanningsfeilmelding = {};
+        if (values.utdanning === undefined || values.utdanning.underUtdanningISykmeldingsperioden === undefined) {
+            utdanningsfeilmelding.underUtdanningISykmeldingsperioden = 'Vennligst svar på om du har vært under utdanning';
+        } else if (values.utdanning.underUtdanningISykmeldingsperioden === true) {
+            if (!values.utdanning.utdanningStartdato) {
+                utdanningsfeilmelding.utdanningStartdato = 'Vennligst oppgi når du startet på utdanningen';
+            }
+            if (values.utdanning.erUtdanningFulltidsstudium === undefined) {
+                utdanningsfeilmelding.erUtdanningFulltidsstudium = 'Vennligst svar på om utdanningen er et fulltidsstudium';
+            }
+            if (values.utdanning.utdanningStartdato && fraInputdatoTilJSDato(values.utdanning.utdanningStartdato) > _senesteTom) {
+                utdanningsfeilmelding.utdanningStartdato = `Datoen kan ikke være etter sykmeldingsperioden gikk ut den ${toDatePrettyPrint(_senesteTom)}`;
+            }
+        }
+
+        if (Object.keys(utdanningsfeilmelding).length > 0) {
+            feilmeldinger.utdanning = utdanningsfeilmelding;
+        }
     }
 
     const feriePermisjonPerioder = getFeriePermisjonPerioder(values);
-    const aktivitetFeil = validerAktiviteter(values, props.sykepengesoknad.aktiviteter, feriePermisjonPerioder);
+    const aktivitetFeil = validerAktiviteter(values, _aktiviteter, feriePermisjonPerioder);
     if (aktivitetFeil) {
         feilmeldinger.aktiviteter = aktivitetFeil;
     }

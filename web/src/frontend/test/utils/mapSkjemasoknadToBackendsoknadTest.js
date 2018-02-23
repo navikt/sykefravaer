@@ -8,7 +8,7 @@ import deepFreeze from 'deep-freeze';
 import { inntektskildetyper } from '../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AndreInntektskilder';
 
 import { getSoknad } from '../mockSoknader';
-import mapSkjemasoknadToBackendsoknad from '../../js/utils/mapSkjemasoknadToBackendsoknad';
+import mapSkjemasoknadToBackendsoknad from '../../js/components/sykepengesoknad/mappers/mapSkjemasoknadToBackendsoknad';
 
 describe("mapSkjemasoknadToBackendsoknad", () => {
 

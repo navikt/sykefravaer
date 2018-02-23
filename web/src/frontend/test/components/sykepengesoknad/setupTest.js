@@ -272,6 +272,7 @@ describe("setup", () => {
                 values.identdato = new Date("2018-01-13");
                 const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                 expect(res.bruktEgenmeldingsdagerFoerLegemeldtFravaer).to.be.undefined;
+                expect(res._erEgenmeldingsdagerPreutfylt).not.to.be.true;
             });
 
             describe("Dersom det finnes andre søknader som er SENDT og har samme identdato", () => {
@@ -281,6 +282,7 @@ describe("setup", () => {
                     values.identdato = identdato1;
                     const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                     expect(res.bruktEgenmeldingsdagerFoerLegemeldtFravaer).to.be.false;
+                    expect(res._erEgenmeldingsdagerPreutfylt).to.be.true;
                 });
 
                 describe("Dersom det finnes en tidligere sendt søknad", () => {
@@ -311,6 +313,7 @@ describe("setup", () => {
 
                         const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                         expect(res.egenmeldingsperioder).to.deep.equal([]);
+                        expect(res._erEgenmeldingsdagerPreutfylt).not.to.be.true;
                     });
 
                     it("Skal forhåndsutfylle bruktEgenmeldingsdagerFoerLegemeldtFravaer når det er oppgitt egenmeldingsperioder i forrige søknad", () => {
@@ -325,6 +328,7 @@ describe("setup", () => {
                             fom: "21.01.2018",
                             tom: "24.01.2018"
                         }]);
+                        expect(res._erEgenmeldingsdagerPreutfylt).to.be.true;
                     });
 
                     it("Skal forhåndsutfylle bruktEgenmeldingsdagerFoerLegemeldtFravaer med info fra forrige søknad for denne arbeidsgiveren", () => {
@@ -359,6 +363,7 @@ describe("setup", () => {
                             fom: "21.01.2018",
                             tom: "24.01.2018"
                         }]);
+                        expect(res._erEgenmeldingsdagerPreutfylt).to.be.true;
                     });
 
                 });

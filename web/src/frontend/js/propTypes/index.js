@@ -77,12 +77,9 @@ export const dinesykmeldingerReducerPt = PropTypes.shape({
     avbrytFeilet: PropTypes.bool,
 });
 
-export const ledereReducerPt = PropTypes.shape({
-    data: PropTypes.arrayOf(sykmelding),
+export const sykeforloepPt = PropTypes.shape({
+    data: PropTypes.array,
     henter: PropTypes.bool,
-    hentingFeilet: PropTypes.bool,
     hentet: PropTypes.bool,
-    avkrefter: PropTypes.bool,
-    avkreftet: PropTypes.bool,
-    avkreftFeilet: PropTypes.bool,
+    hentingFeilet: PropTypes.bool,
 });

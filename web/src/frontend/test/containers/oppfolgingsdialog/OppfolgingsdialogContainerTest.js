@@ -57,7 +57,31 @@ describe('OppfolgingsdialogContainer', () => {
                     arbeidstaker: {
                         fnr: '81549300',
                     },
+                    arbeidsgiver: {
+                        naermesteLeder: {},
+                        forrigeNaermesteLeder: {},
+                    },
+                    sistEndretAv: {},
+                    arbeidsoppgaveListe: [],
+                    tiltakListe: [],
+                    godkjenninger: [],
                 }],
+            },
+            arbeidsforhold: {
+                data: [],
+            },
+            forrigenaermesteleder: null,
+            kontaktinfo: {
+                data: [],
+            },
+            naermesteleder: {
+                data: [],
+            },
+            person: {
+                data: [],
+            },
+            virksomhet: {
+                data: [],
             },
             tilgang: {
                 data: {

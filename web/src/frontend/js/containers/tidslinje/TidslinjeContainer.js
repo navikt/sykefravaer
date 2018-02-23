@@ -1,20 +1,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, Tidslinje, setHendelseData } from 'digisyfo-npm';
+import {
+    getLedetekst,
+    Tidslinje,
+    TidslinjeVelgArbeidssituasjon,
+    setHendelseData,
+    hentTidslinjer,
+} from 'digisyfo-npm';
+import history from '../../history';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import Sidetopp from '../../components/Sidetopp';
-import TidslinjeVelgArbeidssituasjonContainer from './TidslinjeVelgArbeidssituasjonContainer';
-import { hentTidslinjer } from '../../actions/tidslinjer_actions';
-import { brodsmule as brodsmulePt, tidslinjehendelse } from '../../propTypes';
+import { hentSykeforloep } from '../../actions/sykeforloep_actions';
+import { henterEllerHarHentetSykeforloep } from '../../utils/reducerUtils';
+import {
+    brodsmule as brodsmulePt,
+    tidslinjehendelse,
+    sykeforloepPt,
+} from '../../propTypes';
 
 export class TidslinjeSide extends Component {
     componentWillMount() {
-        const { dispatch, hashHendelser, arbeidssituasjon, forsoktHentet } = this.props;
-        if (!forsoktHentet) {
-            dispatch(hentTidslinjer(hashHendelser, arbeidssituasjon));
+        const { dispatch, sykeforloep } = this.props;
+        if (!henterEllerHarHentetSykeforloep(sykeforloep)) {
+            dispatch(hentSykeforloep());
+        }
+        this.endreArbeidssituasjon = this.endreArbeidssituasjon.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { dispatch, apneHendelseIder, sykeforloep, arbeidssituasjon } = this.props;
+        if (!sykeforloep.hentet && nextProps.sykeforloep.hentet) {
+            dispatch(hentTidslinjer(apneHendelseIder, arbeidssituasjon, nextProps.sykeforloep.data));
         }
     }
 
@@ -23,22 +42,31 @@ export class TidslinjeSide extends Component {
         dispatch(setHendelseData(id, data));
     }
 
+    endreArbeidssituasjon(arbeidssituasjon) {
+        this.props.dispatch(hentTidslinjer([], arbeidssituasjon, this.props.sykeforloep.data));
+    }
+
     render() {
-        const { brodsmuler, hendelser, arbeidssituasjon, tidslinjer, henter, forsoktHentet, hentingFeilet } = this.props;
+        const { brodsmuler, hendelser, arbeidssituasjon, henter, hentingFeilet } = this.props;
         const htmlIntro = {
             __html: `<p>${getLedetekst('tidslinje.introtekst')}</p>`,
         };
-        return (<Side tittel={getLedetekst('tidslinje.sidetittel')} brodsmuler={brodsmuler} laster={henter || !forsoktHentet}>
+        return (<Side tittel={getLedetekst('tidslinje.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
             {
                 (() => {
                     if (henter) {
                         return <AppSpinner />;
-                    } else if (hentingFeilet || (tidslinjer && tidslinjer.length === 0)) {
+                    } else if (hentingFeilet) {
                         return (<Feilmelding />);
                     }
                     return (<div>
                         <Sidetopp tittel="Tidslinjen" htmlTekst={htmlIntro} />
-                        <TidslinjeVelgArbeidssituasjonContainer arbeidssituasjon={arbeidssituasjon} />
+                        <TidslinjeVelgArbeidssituasjon
+                            valgtArbeidssituasjon={arbeidssituasjon}
+                            hentTidslinjer={this.endreArbeidssituasjon}
+                            endreUrl={history.replace}
+                            rootUrl="/sykefravaer"
+                        />
                         <Tidslinje
                             hendelser={hendelser}
                             arbeidssituasjon={arbeidssituasjon}
@@ -57,14 +85,10 @@ TidslinjeSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     hendelser: PropTypes.arrayOf(tidslinjehendelse),
     arbeidssituasjon: PropTypes.string,
-    hashHendelser: PropTypes.arrayOf(PropTypes.string),
-    tidslinjer: PropTypes.arrayOf(PropTypes.shape({
-        startdato: PropTypes.string,
-        hendelser: PropTypes.arrayOf(tidslinjehendelse),
-    })),
+    apneHendelseIder: PropTypes.arrayOf(PropTypes.string),
     hentingFeilet: PropTypes.bool,
     henter: PropTypes.bool,
-    forsoktHentet: PropTypes.bool,
+    sykeforloep: sykeforloepPt,
 };
 
 export const mapArbeidssituasjonParam = (param) => {
@@ -85,7 +109,7 @@ export const mapArbeidssituasjonParam = (param) => {
 };
 
 export function setHash(hendelser) {
-    const _apneHendelser = hendelser
+    const hendelserApne = hendelser
         .filter((m) => {
             return m.erApen;
         })
@@ -94,7 +118,7 @@ export function setHash(hendelser) {
         })
         .join('/');
 
-    window.history.replaceState(null, null, `#${_apneHendelser}`);
+    window.history.replaceState(null, null, `#${hendelserApne}`);
 }
 
 export function mapStateToProps(state, ownProps) {
@@ -105,15 +129,16 @@ export function mapStateToProps(state, ownProps) {
     if (hendelser.length) {
         setHash(hendelser);
     }
-    const hashHendelser = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
+    const apneHendelseIder = (ownProps && ownProps.location) ? ownProps.location.hash.replace('#', '').split('/') : [];
     return {
         arbeidssituasjon,
         hendelser,
-        hashHendelser,
-        tidslinjer: state.tidslinjer.data,
-        henter: state.ledetekster.henter || state.tidslinjer.henter,
-        forsoktHentet: state.tidslinjer.hentet === true,
-        hentingFeilet: state.ledetekster.hentingFeilet || state.tidslinjer.hentingFeilet,
+        apneHendelseIder,
+        henter: state.ledetekster.henter
+        || state.sykeforloep.henter,
+        sykeforloep: state.sykeforloep,
+        hentingFeilet: state.ledetekster.hentingFeilet
+        || state.sykeforloep.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

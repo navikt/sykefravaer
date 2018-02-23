@@ -16,6 +16,7 @@ import {
     henterEllerHarHentetTilgang,
     henterEllerHarHentetOppfolgingsdialoger,
     oppfolgingsdialogHarBlittOpprettet,
+    populerDialogFraState,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 import Side from '../../sider/Side';
@@ -132,6 +133,10 @@ OppfolgingsdialogerSide.propTypes = {
 };
 
 export const mapStateToProps = (state) => {
+    const oppfolgingsdialoger = state.oppfolgingsdialoger.data
+        .map((oppfolgingsdialog) => {
+            return populerDialogFraState(oppfolgingsdialog, state);
+        });
     return {
         henter: state.ledetekster.henter
         || state.oppfolgingsdialoger.henter
@@ -163,7 +168,7 @@ export const mapStateToProps = (state) => {
         virksomhet: state.virksomhet,
         bekreftetNyNaermesteLeder: state.nyNaermesteLeder.bekreftet,
         ledetekster: state.ledetekster.data,
-        oppfolgingsdialoger: state.oppfolgingsdialoger.data,
+        oppfolgingsdialoger,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

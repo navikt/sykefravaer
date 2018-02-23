@@ -5,6 +5,30 @@ import {
 } from 'oppfolgingsdialog-npm';
 import { finnArbeidsgivereForGyldigeSykmeldinger } from './sykmeldingUtils';
 
+export const harForrigeNaermesteLeder = (oppfolgingsdialog) => {
+    return oppfolgingsdialog.arbeidsgiver.forrigeNaermesteLeder;
+};
+
+export const harNaermesteLeder = (oppfolgingsdialog) => {
+    return oppfolgingsdialog.arbeidsgiver.naermesteLeder.fnr;
+};
+
+export const inneholderGodkjenninger = (oppfolgingsdialog) => {
+    return oppfolgingsdialog.godkjenninger.length > 0;
+};
+
+export const inneholderGodkjenningerAvArbeidstaker = (oppfolgingsdialog) => {
+    return oppfolgingsdialog.godkjenninger.length > 0 && oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.godkjenninger[0].godkjentAv.fnr === oppfolgingsdialog.arbeidstaker.fnr;
+};
+
+export const inneholderGodkjentPlan = (oppfolgingsdialog) => {
+    return oppfolgingsdialog.godkjentPlan;
+};
+
+export const utenSamtykke = (oppfoelgingsdialog) => {
+    return oppfoelgingsdialog.arbeidstaker.samtykke === null;
+};
+
 export function getOppfolgingsdialog(oppfolgingsdialoger, id) {
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
         return oppfolgingsdialog.id.toString() === id.toString();

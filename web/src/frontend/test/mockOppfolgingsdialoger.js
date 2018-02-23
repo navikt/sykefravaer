@@ -115,8 +115,11 @@ export const getOppfolgingsdialoger = [
                 fnr: "***REMOVED***",
                 sistInnlogget: "2017-01-01T00:00:00.000",
                 samtykke: null,
-                godkjent: null
-            }
+                godkjent: null,
+                aktivFom: "2017-01-01T00:00:00.000",
+            },
+            forrigeNaermesteLeder: {}
+            ,
         },
         arbeidstaker: {
             navn: "Test Testesen",
@@ -157,8 +160,13 @@ export const getOppfolgingsdialoger = [
                 fnr: "***REMOVED***",
                 sistInnlogget: "2017-01-01T00:00:00.000",
                 samtykke: null,
-                godkjent: null
-            }
+                godkjent: null,
+                aktivFom: "2017-01-01T00:00:00.000",
+            },
+            forrigeNaermesteLeder: {
+                fnr: '***REMOVED***',
+                navn: 'Arbeidsgiver navn',
+            },
         },
         arbeidstaker: {
             navn: "Test Testesen",
@@ -199,8 +207,13 @@ export const getOppfolgingsdialoger = [
                 fnr: "***REMOVED***",
                 sistInnlogget: "2017-01-01T00:00:00.000",
                 samtykke: null,
-                godkjent: null
-            }
+                godkjent: null,
+                aktivFom: "2017-01-01T00:00:00.000",
+            },
+            forrigeNaermesteLeder: {
+                fnr: '***REMOVED***',
+                navn: 'Arbeidsgiver navn',
+            },
         },
         arbeidstaker: {
             navn: "Test Testesen",
@@ -297,8 +310,10 @@ const oppfolgingsdialog = {
             fnr: "***REMOVED***",
             samtykke: null,
             sistInnlogget: "2017-01-01T00:00:00.000",
-            godkjent: null
-        }
+            godkjent: null,
+            aktivFom: "2017-01-01T00:00:00.000",
+        },
+        forrigeNaermesteLeder: {},
     },
     arbeidstaker: {
         navn: "Test Testesen",

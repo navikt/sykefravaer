@@ -135,7 +135,7 @@ class SporsmalMedTillegg extends Component {
     }
 
     render() {
-        const { children, Sporsmal, className } = this.props;
+        const { children, Sporsmal, className, informasjon } = this.props;
         return (<div className={className}>
             <div ref={(c) => {
                 this.hovedsporsmal = c;
@@ -163,6 +163,7 @@ class SporsmalMedTillegg extends Component {
                     </div> : null
                 }
             </div>
+            {informasjon}
         </div>);
     }
 }
@@ -175,6 +176,7 @@ SporsmalMedTillegg.propTypes = {
     Sporsmal: PropTypes.element,
     visTillegg: PropTypes.func,
     className: PropTypes.string,
+    informasjon: PropTypes.element,
 };
 
 export default SporsmalMedTillegg;

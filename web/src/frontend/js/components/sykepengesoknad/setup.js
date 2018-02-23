@@ -45,6 +45,7 @@ const preutfyllEgenmeldingsperioder = (soknad, soknader) => {
     }
 
     const bruktEgenmeldingsdagerFoerLegemeldtFravaer = sisteSoknadISammeSykeforlop.egenmeldingsperioder.length > 0;
+    const _erEgenmeldingsdagerPreutfylt = true;
     const egenmeldingsperioder = [...sisteSoknadISammeSykeforlop.egenmeldingsperioder]
         .sort((periodeA, periodeB) => {
             return periodeA.fom - periodeB.fom;
@@ -62,10 +63,12 @@ const preutfyllEgenmeldingsperioder = (soknad, soknader) => {
             ...soknad,
             bruktEgenmeldingsdagerFoerLegemeldtFravaer,
             egenmeldingsperioder,
+            _erEgenmeldingsdagerPreutfylt,
         }
         : {
             ...soknad,
             bruktEgenmeldingsdagerFoerLegemeldtFravaer,
+            _erEgenmeldingsdagerPreutfylt,
         };
 };
 

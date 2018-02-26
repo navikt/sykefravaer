@@ -57,3 +57,9 @@ export const sykmeldtHarNaermestelederHosArbeidsgivere = (arbeidsgivere) => {
         return arbeidsgiver.harNaermesteLeder;
     }).length > 0;
 };
+
+export const getTidligsteStartdatoSykeforloep = (sykepengesoknad) => {
+    return sykepengesoknad.oppfoelgingsdato && sykepengesoknad.oppfoelgingsdato < sykepengesoknad.identdato
+        ? sykepengesoknad.oppfoelgingsdato
+        : sykepengesoknad.identdato;
+};

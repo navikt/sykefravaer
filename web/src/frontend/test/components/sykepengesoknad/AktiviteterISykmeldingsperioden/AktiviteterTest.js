@@ -40,7 +40,7 @@ describe("Aktiviteter", () => {
           },
           "grad": 35,
           "avvik": null
-        }]
+        }];
 
         ledetekster = {
             'sykepengesoknad.aktiviteter.gradert.spoersmal-2': 'I perioden %FOM%–%TOM% skulle du ifølge sykmeldingen jobbe %ARBEIDSGRAD% % av din normale arbeidstid hos %ARBEIDSGIVER%. Jobbet du mer enn dette?',
@@ -98,7 +98,7 @@ describe("Aktiviteter", () => {
                 index={1}
                 arbeidsgiver="MORTENS GRØNNSAKER"
                 autofill={autofill}
-                untouch={untouch} />)
+                untouch={untouch} />);
             ja = component.find(JaEllerNei);
         });
 
@@ -134,7 +134,7 @@ describe("Aktiviteter", () => {
                 index={0}
                 arbeidsgiver="MORTENS GRØNNSAKER"
                 autofill={autofill}
-                untouch={untouch} />)
+                untouch={untouch} />);
             ja = component.find(JaEllerNei);
         });
 

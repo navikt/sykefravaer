@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { mapAktiviteter, mapBackendsoknadToSkjemasoknad, inntektskildetyper as inntektskildetypeEnums, sykepengesoknadstatuser, toDatePrettyPrint } from 'digisyfo-npm';
+import { toDatePrettyPrint, inntektskildetyper as inntektskildetypeEnums, sykepengesoknadstatuser } from 'digisyfo-npm';
 import history from '../../history';
 import Feiloppsummering, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
-import { getTidligsteSendtDato } from '../../utils/sykepengesoknadUtils';
+import { getTidligsteSendtDato, mapAktiviteter } from '../../utils/sykepengesoknadUtils';
+import mapBackendsoknadToSkjemasoknad from '../sykepengesoknad/mappers/mapBackendsoknadToSkjemasoknad';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
@@ -44,6 +45,7 @@ const preutfyllEgenmeldingsperioder = (soknad, soknader) => {
     }
 
     const bruktEgenmeldingsdagerFoerLegemeldtFravaer = sisteSoknadISammeSykeforlop.egenmeldingsperioder.length > 0;
+    const _erEgenmeldingsdagerPreutfylt = true;
     const egenmeldingsperioder = [...sisteSoknadISammeSykeforlop.egenmeldingsperioder]
         .sort((periodeA, periodeB) => {
             return periodeA.fom - periodeB.fom;
@@ -61,10 +63,12 @@ const preutfyllEgenmeldingsperioder = (soknad, soknader) => {
             ...soknad,
             bruktEgenmeldingsdagerFoerLegemeldtFravaer,
             egenmeldingsperioder,
+            _erEgenmeldingsdagerPreutfylt,
         }
         : {
             ...soknad,
             bruktEgenmeldingsdagerFoerLegemeldtFravaer,
+            _erEgenmeldingsdagerPreutfylt,
         };
 };
 

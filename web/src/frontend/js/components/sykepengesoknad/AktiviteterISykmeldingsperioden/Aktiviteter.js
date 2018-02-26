@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fields } from 'redux-form';
-import { getLedetekst, Hjelpetekst, getAktivitetssporsmal } from 'digisyfo-npm';
+import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';
 import { soknadsaktivitet } from '../../../propTypes';
+import { getAktivitetssporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
+
 
 export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
     const hjelpetekst = field.grad !== 100 ? (<Hjelpetekst

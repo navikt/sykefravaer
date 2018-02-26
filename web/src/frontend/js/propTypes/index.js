@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { naermesteLeder, sykmelding } from 'digisyfo-npm';
+import { naermesteLeder } from 'digisyfo-npm';
 import * as hendelsetyper from '../enums/hendelsetyper';
 
 export { arbeidssituasjon,

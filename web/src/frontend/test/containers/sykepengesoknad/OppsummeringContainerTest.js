@@ -3,10 +3,12 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { setLedetekster, mapSkjemasoknadToOppsummeringsoknad, mapBackendsoknadToSkjemasoknad } from 'digisyfo-npm';
+import { setLedetekster } from 'digisyfo-npm';
 import { getSoknad } from '../../mockSoknader';
 import { Oppsummering, navigeringsvarsel, mapStateToProps } from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
-import mapSkjemasoknadToBackendsoknad from '../../../js/utils/mapSkjemasoknadToBackendsoknad';
+import mapSkjemasoknadToBackendsoknad from '../../../js/components/sykepengesoknad/mappers/mapSkjemasoknadToBackendsoknad';
+import mapBackendsoknadToSkjemasoknad from '../../../js/components/sykepengesoknad/mappers/mapBackendsoknadToSkjemasoknad';
+import mapSkjemasoknadToOppsummeringsoknad from '../../../js/components/sykepengesoknad/mappers/mapSkjemasoknadToOppsummeringsoknad';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

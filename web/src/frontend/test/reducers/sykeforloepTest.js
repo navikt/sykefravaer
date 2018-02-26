@@ -13,14 +13,14 @@ describe('sykeforloep', () => {
             expect(hentStartdatoFraSykeforloep([])).to.equal(null);
         });
 
-        it('skal returnere eldste dato, om det er sykeforloep', () => {
+        it('skal returnere oppfoelgingsdato til nyeste sykeforloep, om det er sykeforloep', () => {
             const sykeforloepNyest = getSykeforloep({
                 oppfoelgingsdato: '2018-01-05',
             });
             const sykeforloepEldst = getSykeforloep({
                 oppfoelgingsdato: '2018-01-01',
             });
-            expect(hentStartdatoFraSykeforloep([sykeforloepNyest, sykeforloepEldst]).getTime()).to.equal(new Date(sykeforloepEldst.oppfoelgingsdato).getTime());
+            expect(hentStartdatoFraSykeforloep([sykeforloepEldst, sykeforloepNyest]).getTime()).to.equal(new Date(sykeforloepNyest.oppfoelgingsdato).getTime());
         });
     });
 
@@ -61,7 +61,7 @@ describe('sykeforloep', () => {
             henter: false,
             hentet: true,
             hentingFeilet: false,
-            startdato: new Date(sykeforloepEldst.oppfoelgingsdato),
+            startdato: new Date(sykeforloepNyest.oppfoelgingsdato),
             data,
         });
     });

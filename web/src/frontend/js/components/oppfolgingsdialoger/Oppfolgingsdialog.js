@@ -32,7 +32,9 @@ import IngenlederInfoboks from './IngenlederInfoboks';
 import Tiltak from './utfylling/Tiltak';
 
 const skalViseSamtykke = (oppfolgingsdialog) => {
-    return harNaermesteLeder(oppfolgingsdialog) && utenSamtykke(oppfolgingsdialog) && (inneholderGodkjentPlan(oppfolgingsdialog) || inneholderGodkjenningerAvArbeidstaker(oppfolgingsdialog));
+    return harNaermesteLeder(oppfolgingsdialog)
+        && utenSamtykke(oppfolgingsdialog)
+        && (inneholderGodkjentPlan(oppfolgingsdialog) || inneholderGodkjenningerAvArbeidstaker(oppfolgingsdialog));
 };
 
 export const erAvvistAvArbeidstaker = (oppfolgingsdialog) => {

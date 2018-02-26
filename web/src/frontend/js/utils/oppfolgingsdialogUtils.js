@@ -18,7 +18,9 @@ export const inneholderGodkjenninger = (oppfolgingsdialog) => {
 };
 
 export const inneholderGodkjenningerAvArbeidstaker = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.godkjenninger.length > 0 && oppfolgingsdialog.godkjenninger[0].godkjent && oppfolgingsdialog.godkjenninger[0].godkjentAv.fnr === oppfolgingsdialog.arbeidstaker.fnr;
+    return oppfolgingsdialog.godkjenninger.length > 0
+        && oppfolgingsdialog.godkjenninger[0].godkjent
+        && oppfolgingsdialog.godkjenninger[0].godkjentAv.fnr === oppfolgingsdialog.arbeidstaker.fnr;
 };
 
 export const inneholderGodkjentPlan = (oppfolgingsdialog) => {

@@ -21,7 +21,7 @@ export class FravaerOgFriskmeldingSkjema extends Component {
     }
 
     render() {
-        const { handleSubmit, sykepengesoknad } = this.props;
+        const { handleSubmit, sykepengesoknad, erEgenmeldingsdagerPreutfylt } = this.props;
         const onSubmit = () => {
             history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`);
         };
@@ -33,7 +33,7 @@ export class FravaerOgFriskmeldingSkjema extends Component {
             tabIndex="-1"
             id="fravaer-og-friskmelding-skjema"
             onSubmit={handleSubmit(onSubmit)}>
-            <Egenmeldingsdager sykepengesoknad={sykepengesoknad} />
+            <Egenmeldingsdager sykepengesoknad={sykepengesoknad} erEgenmeldingsdagerPreutfylt={erEgenmeldingsdagerPreutfylt} />
             <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
             <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />
 
@@ -49,22 +49,24 @@ export class FravaerOgFriskmeldingSkjema extends Component {
 FravaerOgFriskmeldingSkjema.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     sykepengesoknad: sykepengesoknadPt,
+    erEgenmeldingsdagerPreutfylt: PropTypes.bool,
 };
 
 const FravaerOgFriskmeldingSkjemaSetup = setup(validerFravaerOgFriskmelding, FravaerOgFriskmeldingSkjema);
 
-const FravaerOgFriskmelding = ({ sykepengesoknad }) => {
+const FravaerOgFriskmelding = ({ sykepengesoknad, skjemasoknad }) => {
     return (
         <SykepengerSkjema
             aktivtSteg="1"
             tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel')}
             sykepengesoknad={sykepengesoknad}>
-            <FravaerOgFriskmeldingSkjemaSetup sykepengesoknad={sykepengesoknad} />
+            <FravaerOgFriskmeldingSkjemaSetup sykepengesoknad={sykepengesoknad} erEgenmeldingsdagerPreutfylt={skjemasoknad._erEgenmeldingsdagerPreutfylt} />
         </SykepengerSkjema>);
 };
 
 FravaerOgFriskmelding.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
+    skjemasoknad: PropTypes.shape(),
 };
 
 export default FravaerOgFriskmelding;

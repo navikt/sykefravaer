@@ -1,4 +1,11 @@
-import { tilDatePeriode } from 'digisyfo-npm';
+import {
+    erGyldigDatoformat,
+    fraInputdatoTilJSDato,
+    periodeOverlapperMedPeriode,
+    senesteTom,
+    tidligsteFom,
+    tilDatePeriode,
+} from 'digisyfo-npm';
 
 export const getTidligsteSendtDato = (soknad) => {
     if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {
@@ -20,10 +27,86 @@ export const sorterEtterSendtDato = (soknad1, soknad2) => {
     return 0;
 };
 
+export const filtrerAktuelleAktiviteter = (aktiviteter, gjenopptattArbeidFulltUtDato) => {
+    if (gjenopptattArbeidFulltUtDato && aktiviteter) {
+        return aktiviteter
+            .filter((aktivitet) => {
+                return aktivitet.periode.fom < gjenopptattArbeidFulltUtDato;
+            })
+            .map((aktivitet) => {
+                const justertTOM = gjenopptattArbeidFulltUtDato <= aktivitet.periode.tom
+                    ? new Date(gjenopptattArbeidFulltUtDato.getTime() - (24 * 60 * 60 * 1000))
+                    : aktivitet.periode.tom;
+
+                return Object.assign({}, aktivitet, {
+                    periode: {
+                        fom: aktivitet.periode.fom,
+                        tom: justertTOM,
+                    },
+                });
+            });
+    }
+    return aktiviteter;
+};
+
+export const mapAktiviteter = (soknad) => {
+    const aktiviteter = soknad.aktiviteter
+        .filter((aktivitet) => {
+            return periodeOverlapperMedPeriode(aktivitet.periode, {
+                fom: soknad.fom,
+                tom: soknad.tom,
+            });
+        })
+        .map((aktivitet) => {
+            const fom = aktivitet.periode.fom.getTime() < soknad.fom.getTime() ? soknad.fom : aktivitet.periode.fom;
+            const tom = aktivitet.periode.tom.getTime() > soknad.tom.getTime() ? soknad.tom : aktivitet.periode.tom;
+            return {
+                ...aktivitet,
+                periode: { fom, tom },
+            };
+        });
+    return {
+        ...soknad,
+        aktiviteter,
+    };
+};
+
+export const getTomDato = (sykepengesoknad) => {
+    const perioder = sykepengesoknad.aktiviteter.map((a) => {
+        return a.periode;
+    });
+    if (sykepengesoknad.gjenopptattArbeidFulltUtDato) {
+        const t = new Date(tidligsteFom(perioder));
+        const g = new Date(sykepengesoknad.gjenopptattArbeidFulltUtDato);
+        if (g.getTime() === t.getTime()) {
+            return g;
+        }
+        return new Date(g - (1000 * 60 * 60 * 24));
+    }
+    return senesteTom(perioder);
+};
+
+export const getGjenopptattArbeidFulltUtDato = (skjemasoknad) => {
+    let gjenopptattArbeidFulltUtDato = skjemasoknad.gjenopptattArbeidFulltUtDato;
+    if (!skjemasoknad.harGjenopptattArbeidFulltUt || !gjenopptattArbeidFulltUtDato || !erGyldigDatoformat(gjenopptattArbeidFulltUtDato)) {
+        gjenopptattArbeidFulltUtDato = null;
+    } else {
+        try {
+            gjenopptattArbeidFulltUtDato = fraInputdatoTilJSDato(gjenopptattArbeidFulltUtDato);
+        } catch (e) {
+            gjenopptattArbeidFulltUtDato = null;
+        }
+        if (gjenopptattArbeidFulltUtDato && isNaN(gjenopptattArbeidFulltUtDato.getTime())) {
+            gjenopptattArbeidFulltUtDato = null;
+        }
+    }
+    return gjenopptattArbeidFulltUtDato;
+};
+
 export const erSendtTilBeggeMenIkkeSamtidig = (sykepengesoknad) => {
     return sykepengesoknad.sendtTilNAVDato
-            && sykepengesoknad.sendtTilArbeidsgiverDato
-            && sykepengesoknad.sendtTilNAVDato.getTime() !== sykepengesoknad.sendtTilArbeidsgiverDato.getTime();
+        && sykepengesoknad.sendtTilArbeidsgiverDato
+        && sykepengesoknad.sendtTilNAVDato.getTime() !== sykepengesoknad.sendtTilArbeidsgiverDato.getTime();
 };
 
 export const getSendtTilSuffix = (sykepengesoknad) => {
@@ -67,4 +150,22 @@ export const getFeriePermisjonPerioder = (values) => {
         }
     }
     return ferieOgPermisjonPerioder.map(tilDatePeriode);
+};
+
+export const getGjenopptattArbeidFulltUtDatoFraSkjema = (skjemasoknad) => {
+    return skjemasoknad.harGjenopptattArbeidFulltUt && skjemasoknad.gjenopptattArbeidFulltUtDato
+        ? fraInputdatoTilJSDato(skjemasoknad.gjenopptattArbeidFulltUtDato)
+        : null;
+};
+
+export const finnFomForFeriesporsmal = (sykepengesoknad) => {
+    const { forrigeSykeforloepTom, forrigeSendteSoknadTom } = sykepengesoknad;
+
+    if (forrigeSykeforloepTom !== null && forrigeSendteSoknadTom !== null) {
+        if (forrigeSendteSoknadTom >= forrigeSykeforloepTom) {
+            return sykepengesoknad.fom;
+        }
+    }
+
+    return forrigeSykeforloepTom || sykepengesoknad.fom;
 };

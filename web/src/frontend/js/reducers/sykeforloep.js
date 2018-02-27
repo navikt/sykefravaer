@@ -18,7 +18,7 @@ export const hentStartdatoFraSykeforloep = (sykeforloep) => {
         return null;
     }
     const startdato = sykeforloep.sort((s1, s2) => {
-        return new Date(s1.oppfoelgingsdato) - new Date(s2.oppfoelgingsdato);
+        return new Date(s2.oppfoelgingsdato) - new Date(s1.oppfoelgingsdato);
     })[0].oppfoelgingsdato;
     return new Date(startdato);
 };

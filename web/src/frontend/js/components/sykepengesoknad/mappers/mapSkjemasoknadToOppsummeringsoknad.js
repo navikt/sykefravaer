@@ -1,8 +1,6 @@
 import {
     getLedetekst,
     inntektskildetyper as inntektskildetypeEnums,
-    senesteTom,
-    toDatePrettyPrint,
     sykepengesoknadsvartyper as svartype,
     sporsmalstyper,
 } from 'digisyfo-npm';
@@ -12,6 +10,7 @@ import {
     getInntektskildeLabel,
     getTotalJobbingSporsmal,
     getUtdanningssporsmal,
+    getGjenopptattArbeidFulltUtSporsmal,
 } from '../Oppsummering/sykepengesoknadSporsmal';
 import { filtrerAktuelleAktiviteter, getGjenopptattArbeidFulltUtDato } from '../../../utils/sykepengesoknadUtils';
 import * as skjemafelter from '../sykepengesoknadskjemafelter';
@@ -78,7 +77,6 @@ const nokler = {};
 nokler[ansvarBekreftet] = 'sykepengesoknad.bekreft-ansvar.label';
 nokler[bruktEgenmeldingsdagerFoerLegemeldtFravaer] = 'sykepengesoknad.egenmeldingsdager.janei.sporsmal';
 nokler[egenmeldingsperioder] = 'sykepengesoknad.egenmeldingsdager.dato.sporsmal';
-nokler[harGjenopptattArbeidFulltUt] = 'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2';
 nokler[gjenopptattArbeidFulltUtDato] = 'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.dato.sporsmal';
 nokler[harHattFeriePermisjonEllerUtenlandsopphold] = 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal';
 nokler[harHattFerie] = 'sykepengesoknad.ferie-permisjon-utenlandsopphold.tatt-ut-ferie';
@@ -123,19 +121,12 @@ const getNokkelOgVerdier = (nokkel, verdier) => {
 
 const getSporsmalsledetekst = (felt, sykepengesoknad, skjemasoknad) => {
     const nokkel = nokler[felt];
-    const perioder = sykepengesoknad && sykepengesoknad.aktiviteter ? sykepengesoknad.aktiviteter.map((aktivitet) => {
-        return aktivitet.periode;
-    }) : [];
     switch (felt) {
         case bruktEgenmeldingsdagerFoerLegemeldtFravaer: {
             return getEgenmeldingsdagerSporsmal(sykepengesoknad, getNokkelOgVerdier);
         }
         case harGjenopptattArbeidFulltUt:
-
-            return getNokkelOgVerdier(nokkel, {
-                '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
-                '%DATO%': toDatePrettyPrint(senesteTom(perioder)),
-            });
+            return getGjenopptattArbeidFulltUtSporsmal(sykepengesoknad, getNokkelOgVerdier);
         case harAndreInntektskilder: {
             return getNokkelOgVerdier(nokkel, {
                 '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,

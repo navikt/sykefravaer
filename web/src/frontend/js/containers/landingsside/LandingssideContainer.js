@@ -145,6 +145,7 @@ export function mapStateToProps(state) {
         harSykmeldinger: state.dineSykmeldinger.data.length > 0,
         skalViseOppfolgingsdialog: !state.dineSykmeldinger.hentingFeilet &&
             !state.oppfolgingsdialoger.hentingFeilet &&
+            !state.ledere.hentingFeilet &&
             skalViseOppfoelgingsdialogLenke(state.dineSykmeldinger.data, state.oppfolgingsdialoger),
         hentingFeilet: state.ledetekster.hentingFeilet,
         brodsmuler: [{

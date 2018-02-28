@@ -31,7 +31,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
         <div className="begrensning blokk">
             <ServerfeilContainer />
             {
-                !harSykepengesoknader && <IngenSykmeldinger />
+                !harSykmeldinger && <IngenSykmeldinger />
             }
             <DineOppgaverContainer />
             <Utdrag />
@@ -42,15 +42,13 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                     ikon="tidslinje"
                     ikonAlt="Tidslinjen"
                     tittel="Tidslinjen"
-                    undertittel="Informasjon og oversikt over aktiviteter"
-                    variant="fersken" />
+                    undertittel="Informasjon og oversikt over aktiviteter" />
                 {
                     harSykmeldinger && <LandingssideLenke
                         to="/sykefravaer/sykmeldinger"
                         ikon="sykmeldinger"
                         ikonAlt="Sykmelding"
-                        tittel="Sykmeldinger"
-                        variant="lysblaa" />
+                        tittel="Sykmeldinger" />
                 }
                 {
                     harSykepengesoknader &&
@@ -58,8 +56,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                             to="/sykefravaer/soknader"
                             ikon="soknader"
                             ikonAlt="Søknader"
-                            tittel="Søknader om sykepenger"
-                            variant="lysgronn" />
+                            tittel="Søknader om sykepenger" />
                 }
                 {
                     harDialogmote &&
@@ -67,8 +64,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                             to="/sykefravaer/dialogmote"
                             ikon="dialogmoter"
                             ikonAlt="Dialogmøter"
-                            tittel="Dialogmøter"
-                            variant="ceil" />
+                            tittel="Dialogmøter" />
                 }
                 {
                     skalViseOppfolgingsdialog &&
@@ -76,8 +72,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                             to="/sykefravaer/oppfolgingsplaner"
                             ikon="oppfolgingsplaner"
                             ikonAlt="Oppfølgingsplaner"
-                            tittel="Oppfølgingsplaner"
-                            variant="koromiko" />
+                            tittel="Oppfølgingsplaner" />
                 }
             </nav>
             <DetteHarSkjeddContainer />

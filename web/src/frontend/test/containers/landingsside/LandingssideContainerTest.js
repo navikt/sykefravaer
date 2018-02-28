@@ -454,14 +454,17 @@ describe("LandingssideContainer", () => {
             });
 
             it("Skal være false om henting av sykmeldinger har feilet", () => {
-                state.dineSykmeldinger.data = [{
-                    orgnummer: "123",
-                    mulighetForArbeid: {
-                        perioder: []
-                    }
-                }];
+                state.dineSykmeldinger.data = [];
                 state.dineSykmeldinger.hentingFeilet = true;
                 state.oppfolgingsdialoger.data = [{}];
+                const props = mapStateToProps(state);
+                expect(props.skalViseOppfolgingsdialog).to.equal(false);
+            });
+
+            it("Skal være false om henting av ledere har feilet", () => {
+                state.dineSykmeldinger.data = [fremtidigSykmelding];
+                state.oppfolgingsdialoger.data = [{}];
+                state.ledere.hentingFeilet = true;
                 const props = mapStateToProps(state);
                 expect(props.skalViseOppfolgingsdialog).to.equal(false);
             });

@@ -209,9 +209,9 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         nokkel: 'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2',
                         verdier: {
                             '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
-                            '%DATO%': '25.01.2017',
+                            '%DATO%': '26.01.2017',
                         },
-                        tekst: 'Var du tilbake i fullt arbeid hos Olsens Sykkelservice før 25.01.2017?',
+                        tekst: 'Var du tilbake i fullt arbeid hos Olsens Sykkelservice før 26.01.2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -234,9 +234,9 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         nokkel: 'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2',
                         verdier: {
                             '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
-                            '%DATO%': '25.01.2017',
+                            '%DATO%': '26.01.2017',
                         },
-                        tekst: 'Var du tilbake i fullt arbeid hos Olsens Sykkelservice før 25.01.2017?',
+                        tekst: 'Var du tilbake i fullt arbeid hos Olsens Sykkelservice før 26.01.2017?',
                     },
                     svar: [{
                         ledetekst: {

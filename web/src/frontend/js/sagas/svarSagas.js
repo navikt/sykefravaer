@@ -1,16 +1,16 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { post, log } from 'digisyfo-npm';
-import { svarActions, actiontyper, lagJsDate } from 'moter-npm';
+import { svarActions, actiontyper } from 'moter-npm';
 
 export function* sendSvar(action) {
     yield put(svarActions.senderSvar());
     try {
-        const svar = yield call(post, `${window.APP_SETTINGS.MOTEREST_ROOT}/v2/moter/actions/${action.moteUuid}/send`, {
+        yield call(post, `${window.APP_SETTINGS.MOTEREST_ROOT}/v2/moter/actions/${action.moteUuid}/send`, {
             valgteAlternativIder: action.data,
             deltakertype: action.deltakertype,
         });
-        const a = svarActions.svarSendt(action.data, action.deltakertype, lagJsDate(svar.svartidspunkt));
+        const a = svarActions.svarSendt(action.data, action.deltakertype);
         yield put(a);
     } catch (e) {
         log(e);

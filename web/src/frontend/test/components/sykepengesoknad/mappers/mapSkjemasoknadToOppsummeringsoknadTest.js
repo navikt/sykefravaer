@@ -38,6 +38,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
             'sykepengesoknad.ja': "Ja",
             'sykepengesoknad.bekreft-ansvar.label': "Jeg bekrefter ditt og datt",
             'sykepengesoknad.egenmeldingsdager.janei.sporsmal': "Vi har registrert at dette legemeldte sykefraværet startet %DATO%. Var du borte fra jobb på grunn av sykdom før dette?",
+            'sykepengesoknad.egenmeldingsdager.janei.sporsmal-2': "Vi har registrert at du ble sykmeldt %DATO%. Brukte du egenmeldinger eller var du sykmeldt i perioden %FOM% til %TOM%?",
             'sykepengesoknad.egenmeldingsdager.dato.sporsmal': "Når gjorde du dette?",
             'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2': 'Var du tilbake i fullt arbeid hos %ARBEIDSGIVER% før %DATO%?',
             'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.dato.sporsmal': 'Fra hvilken dato ble arbeidet gjenopptatt?',
@@ -126,16 +127,18 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
 
             it("Skal mappe bruktEgenmeldingsdagerFoerLegemeldtFravaer når bruktEgenmeldingsdagerFoerLegemeldtFravaer = false", () => {
                 skjemasoknad.bruktEgenmeldingsdagerFoerLegemeldtFravaer = false;
-                sykepengesoknad.identdato = new Date("2017-02-18");
+                sykepengesoknad.identdato = new Date("2017-02-19");
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                 expect(verdier.soknad[0]).to.deep.equal({
                     type: egenmeldingsdagerType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.egenmeldingsdager.janei.sporsmal',
+                        nokkel: 'sykepengesoknad.egenmeldingsdager.janei.sporsmal-2',
                         verdier: {
-                            '%DATO%': '18.02.2017',
+                            '%DATO%': 'søndag 19.02.2017',
+                            '%FOM%': '03.02.2017',
+                            '%TOM%': '18.02.2017'
                         },
-                        tekst: "Vi har registrert at dette legemeldte sykefraværet startet 18.02.2017. Var du borte fra jobb på grunn av sykdom før dette?",
+                        tekst: "Vi har registrert at du ble sykmeldt søndag 19.02.2017. Brukte du egenmeldinger eller var du sykmeldt i perioden 03.02.2017 til 18.02.2017?",
                     },
                     svar: [{
                         ledetekst: {
@@ -151,7 +154,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
             describe("Når bruktEgenmeldingsdagerFoerLegemeldtFravaer er true", () => {
                 beforeEach(() => {
                     skjemasoknad.bruktEgenmeldingsdagerFoerLegemeldtFravaer = true;
-                    sykepengesoknad.identdato = new Date("2017-02-18");
+                    sykepengesoknad.identdato = new Date("2017-02-19");
                     skjemasoknad.egenmeldingsperioder = [{
                         fom: "01.02.2017",
                         tom: "12.01.2017",
@@ -163,11 +166,13 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                     expect(verdier.soknad[0]).to.deep.equal({
                         type: egenmeldingsdagerType,
                         ledetekst: {
-                            nokkel: 'sykepengesoknad.egenmeldingsdager.janei.sporsmal',
+                            nokkel: 'sykepengesoknad.egenmeldingsdager.janei.sporsmal-2',
                             verdier: {
-                                '%DATO%': '18.02.2017',
+                                '%DATO%': 'søndag 19.02.2017',
+                                '%FOM%': '03.02.2017',
+                                '%TOM%': '18.02.2017'
                             },
-                            tekst: "Vi har registrert at dette legemeldte sykefraværet startet 18.02.2017. Var du borte fra jobb på grunn av sykdom før dette?",
+                            tekst: "Vi har registrert at du ble sykmeldt søndag 19.02.2017. Brukte du egenmeldinger eller var du sykmeldt i perioden 03.02.2017 til 18.02.2017?",
                         },
                         svar: [{
                             ledetekst: {

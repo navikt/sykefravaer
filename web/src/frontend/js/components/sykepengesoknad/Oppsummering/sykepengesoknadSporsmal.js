@@ -2,9 +2,21 @@ import { getLedetekst, toDatePrettyPrint, tidligsteFom, senesteTom as getSeneste
 import { finnFomForFeriesporsmal, getTomDato } from '../../../utils/sykepengesoknadUtils';
 import { getTidligsteStartdatoSykeforloep } from '../../../utils/sykmeldingUtils';
 
+const getUkedag = (dato) => {
+    const dager = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
+    return dager[dato.getDay()];
+};
+
 export const getEgenmeldingsdagerSporsmal = (sykepengesoknad, callback = getLedetekst) => {
-    return callback('sykepengesoknad.egenmeldingsdager.janei.sporsmal', {
-        '%DATO%': toDatePrettyPrint(getTidligsteStartdatoSykeforloep(sykepengesoknad)),
+    const dato = getTidligsteStartdatoSykeforloep(sykepengesoknad);
+    const tom = new Date(dato);
+    tom.setDate(tom.getDate() - 1);
+    const fom = new Date(dato);
+    fom.setDate(fom.getDate() - 16);
+    return callback('sykepengesoknad.egenmeldingsdager.janei.sporsmal-2', {
+        '%DATO%': `${getUkedag(dato)} ${toDatePrettyPrint(dato)}`,
+        '%FOM%': toDatePrettyPrint(fom),
+        '%TOM%': toDatePrettyPrint(tom),
     });
 };
 

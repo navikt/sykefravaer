@@ -18,33 +18,18 @@ import {
     finnOgHentArbeidsforholdSomMangler,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
+import {
+    harNaermesteLeder,
+    inneholderGodkjenninger,
+    inneholderGodkjenningerAvArbeidstaker,
+    inneholderGodkjentPlan,
+    utenSamtykke,
+} from '../../utils/oppfolgingsdialogUtils';
 import { getContextRoot } from '../../routers/paths';
 import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
 import ReleasetPlanAT from './releasetplan/ReleasetPlanAT';
 import IngenlederInfoboks from './IngenlederInfoboks';
 import Tiltak from './utfylling/Tiltak';
-
-const harNaermesteLeder = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.arbeidsgiver.naermesteLeder;
-};
-
-const inneholderGodkjenninger = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.godkjenninger.length > 0;
-};
-
-const inneholderGodkjenningerAvArbeidstaker = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.godkjenninger.length > 0
-        && oppfolgingsdialog.godkjenninger[0].godkjent
-        && oppfolgingsdialog.godkjenninger[0].godkjentAv.fnr === oppfolgingsdialog.arbeidstaker.fnr;
-};
-
-const utenSamtykke = (oppfoelgingsdialog) => {
-    return oppfoelgingsdialog.arbeidstaker.samtykke === null;
-};
-
-const inneholderGodkjentPlan = (oppfolgingsdialog) => {
-    return oppfolgingsdialog.godkjentPlan;
-};
 
 const skalViseSamtykke = (oppfolgingsdialog) => {
     return harNaermesteLeder(oppfolgingsdialog)
@@ -154,7 +139,7 @@ class Oppfolgingsdialog extends Component {
                         lagreKommentar={lagreKommentar}
                         slettKommentar={slettKommentar}
                     />);
-                } else if (oppfolgingsdialog.arbeidsgiver.naermesteLeder === null) {
+                } else if (!harNaermesteLeder(oppfolgingsdialog)) {
                     panel = (<IngenlederInfoboks />);
                 } else {
                     panel = (<Godkjenn

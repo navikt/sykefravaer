@@ -4,7 +4,7 @@ import { Field, getFormValues } from 'redux-form';
 import { getLedetekst } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
-import { lagDesimaltall, getObjectValueByString } from '../../../utils';
+import { lagDesimaltall, getObjectValueByString, lagHeltall } from '../../../utils';
 import DetteTilsvarer, { getStillingsprosent } from './DetteTilsvarer';
 import { soknadperiode, fieldPropTypes } from '../../../propTypes';
 import { SYKEPENGER_SKJEMANAVN } from '../setup';
@@ -152,7 +152,11 @@ class AngiTid extends Component {
                 }}
                 id={this.getAntallName()}
                 component={TekstfeltMedEnhet}
-                parse={lagDesimaltall}
+                parse={(v) => {
+                    return this.getValgtEnhet() === 'timer'
+                        ? lagDesimaltall(v)
+                        : lagHeltall(v)
+                }}
                 label={this.getEnhetLabel()}
                 name={this.getAntallName()} />
             { this.visTilsvarendeIProsent() && <DetteTilsvarer stillingsprosent={this.getStillingsprosent()} /> }

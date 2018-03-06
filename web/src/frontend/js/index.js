@@ -15,7 +15,7 @@ import {
     kopierDialog as kopierDialogReducer,
     dokument,
     samtykke,
-    tilgang,
+    tilgangAt as tilgang,
     tiltak,
     navigasjontoggles,
     nullstill,

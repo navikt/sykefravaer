@@ -8,7 +8,7 @@ import {
     slettArbeidsoppgave,
     lagreTiltak,
     slettTiltak,
-    sjekkTilgang,
+    sjekkTilgangAt as sjekkTilgang,
     lagreKommentar,
     slettKommentar,
     godkjennDialogAt as godkjennDialog,

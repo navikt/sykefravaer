@@ -16,6 +16,7 @@ import {
     NyNaermestelederInfoboks,
     finnOgHentVirksomheterSomMangler,
     finnOgHentPersonerSomMangler,
+    finnOgHentNaermesteLedereSomMangler,
     finnOgHentForrigeNaermesteLedereSomMangler,
     UnderUtviklingVarsel,
     OppfolgingsdialogUtenSykmelding,
@@ -58,9 +59,20 @@ const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgi
 
 class Oppfolgingsdialoger extends Component {
     componentWillMount() {
-        const { oppfolgingsdialoger, virksomhet, person, forrigenaermesteleder, hentPerson, hentVirksomhet, hentForrigeNaermesteLeder } = this.props;
+        const {
+            oppfolgingsdialoger,
+            virksomhet,
+            person,
+            forrigenaermesteleder,
+            naermesteleder,
+            hentPerson,
+            hentVirksomhet,
+            hentNaermesteLeder,
+            hentForrigeNaermesteLeder,
+        } = this.props;
         finnOgHentVirksomheterSomMangler(oppfolgingsdialoger, virksomhet, hentVirksomhet);
         finnOgHentPersonerSomMangler(oppfolgingsdialoger, person, hentPerson);
+        finnOgHentNaermesteLedereSomMangler(oppfolgingsdialoger, naermesteleder, hentNaermesteLeder);
         finnOgHentForrigeNaermesteLedereSomMangler(oppfolgingsdialoger, forrigenaermesteleder, hentForrigeNaermesteLeder);
 
         window.sessionStorage.removeItem('hash');
@@ -183,6 +195,7 @@ class Oppfolgingsdialoger extends Component {
 }
 Oppfolgingsdialoger.propTypes = {
     dinesykmeldinger: dinesykmeldingerReducerPt,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
     naermesteLedere: ledereReducerPt,
     person: oppfolgingProptypes.personReducerPt,
@@ -194,6 +207,7 @@ Oppfolgingsdialoger.propTypes = {
     avkreftLeder: PropTypes.func,
     hentVirksomhet: PropTypes.func,
     hentPerson: PropTypes.func,
+    hentNaermesteLeder: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
     opprettOppfolgingsdialog: PropTypes.func,
 };

@@ -130,10 +130,24 @@ describe("DinSykmeldingSkjemaContainer", () => {
             expect(props.sykmelding).to.deep.equal({
                 id: 123,
                 navn: "Olsen"
-            })
+            });
         });
 
-        it("Skal returnere hentingFeilet dersom arbeidsgivere feiler", () => {
+        it("Skal returnere sykmeldingId selv om sykmeldinger ikke er hentet", () => {
+            const state = getState({
+                arbeidsgiversSykmeldinger: {
+                    hentet: false,
+                    henter: false,
+                    data: [],
+                }
+            });
+            const props = mapStateToProps(state, {
+                sykmeldingId: 123
+            });
+            expect(props.sykmeldingId).to.equal(123);
+        });
+
+        it("Skal returnere hentingFeilet === true dersom arbeidsgivere feiler", () => {
             const state = getState();
             state.arbeidsgivere.hentingFeilet = true;
             const props = mapStateToProps(state, {
@@ -232,6 +246,57 @@ describe("DinSykmeldingSkjemaContainer", () => {
             expect(res.henter).to.be.false;
             expect(res.skalHenteArbeidsgiversSykmeldinger).to.be.false;
         });
+
+        describe("skalHenteArbeidsgivere", () => {
+            let ownProps;
+
+            beforeEach(() => {
+                ownProps = {
+                    sykmeldingId: 123,
+                }
+            })
+
+            it("Skal være false dersom arbeidsgivere er hentet for den aktuelle sykmeldingen", () => {
+                const props = mapStateToProps(getState({
+                    arbeidsgivere: {
+                        sykmeldingId: 123
+                    }
+                }), ownProps);
+                expect(props.skalHenteArbeidsgivere).to.be.false;
+            });
+
+            it("Skal være true dersom arbeidsgivere ikke er hentet for den aktuelle sykmeldingen og brukeren ikke har strengt fortrolig adresse", () => {
+                const props = mapStateToProps(getState({
+                    arbeidsgivere: {
+                        sykmeldingId: 456
+                    },
+                    brukerinfo: {
+                        bruker: {
+                            data: {
+                                strengtFortroligAdresse: false,
+                            }
+                        }
+                    }
+                }), ownProps);
+                expect(props.skalHenteArbeidsgivere).to.be.true;
+            });
+
+            it("Skal være true dersom arbeidsgivere ikke er hentet for den aktuelle sykmeldingen og brukeren har strengt fortrolig adresse", () => {
+                const props = mapStateToProps(getState({
+                    arbeidsgivere: {
+                        sykmeldingId: 456
+                    },
+                    brukerinfo: {
+                        bruker: {
+                            data: {
+                                strengtFortroligAdresse: true,
+                            }
+                        }
+                    }
+                }), ownProps);
+                expect(props.skalHenteArbeidsgivere).to.be.false;
+            });
+        })
 
     });
 

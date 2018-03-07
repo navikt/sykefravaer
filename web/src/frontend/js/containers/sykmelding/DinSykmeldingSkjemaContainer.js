@@ -13,7 +13,7 @@ import { hentArbeidsgiversSykmeldinger } from '../../actions/arbeidsgiversSykmel
 export class Skjemalaster extends Component {
     componentWillMount() {
         const { sykmeldingId, skalHenteArbeidsgivere, skalHenteBrukerinfo, skalHenteArbeidsgiversSykmeldinger } = this.props;
-        if (sykmeldingId && skalHenteArbeidsgivere) {
+        if (skalHenteArbeidsgivere) {
             this.props.hentAktuelleArbeidsgivere(sykmeldingId);
         }
         if (skalHenteBrukerinfo) {
@@ -65,7 +65,7 @@ export const mapStateToProps = (state, ownProps) => {
 
     return {
         sykmelding,
-        sykmeldingId: sykmelding.id,
+        sykmeldingId,
         hentingFeilet: state.arbeidsgivere.hentingFeilet || state.brukerinfo.bruker.hentingFeilet || false,
         henter: state.vedlikehold.henter || state.brukerinfo.bruker.henter || !state.arbeidsgiversSykmeldinger.hentet || state.arbeidsgiversSykmeldinger.henter,
         vedlikehold: state.vedlikehold.data.vedlikehold,

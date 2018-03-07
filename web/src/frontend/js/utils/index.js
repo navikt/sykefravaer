@@ -18,6 +18,11 @@ export const lagDesimaltall = (streng) => {
     return s;
 };
 
+export const lagHeltall = (streng) => {
+    const strengMedDesimaler = lagDesimaltall(streng);
+    return strengMedDesimaler.split(",")[0];
+};
+
 export const getObjectValueByString = (o, s) => {
     // o = objekt
     // s = string

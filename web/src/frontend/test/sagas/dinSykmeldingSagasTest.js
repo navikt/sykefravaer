@@ -74,7 +74,7 @@ describe("dinSykmeldingSagas", () => {
         const generator = sendSykmeldingTilArbeidsgiver(action);
 
         it("Skal dispatche SENDER_SYKMELDING", () => {
-            const nextPut = put({type: actiontyper.SENDER_SYKMELDING});
+            const nextPut = put({type: actiontyper.SENDER_SYKMELDING, sykmeldingId: "minSykmeldingId"});
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getSykmelding, getLedetekst, feilaktigeOpplysninger as feilaktigeOpplysningerEnums, arbeidssituasjoner } from 'digisyfo-npm';
-import * as sykmeldingActions from '../../actions/dinSykmelding_actions';
+import { getSykmelding, getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import DinSykmeldingSkjema from '../../components/sykmeldingskjema/DinSykmeldingSkjema';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import AppSpinner from '../../components/AppSpinner';
@@ -11,13 +10,13 @@ import { hentAktuelleArbeidsgivere } from '../../actions/dineArbeidsgivere_actio
 import { hentBrukerinfo } from '../../actions/brukerinfo_actions';
 import { hentArbeidsgiversSykmeldinger } from '../../actions/arbeidsgiversSykmeldinger_actions';
 
-export class Skjema extends Component {
+export class Skjemalaster extends Component {
     componentWillMount() {
-        const { sykmeldingId, skalHenteArbeidsgivere, brukerinfoHentet, skalHenteArbeidsgiversSykmeldinger } = this.props;
+        const { sykmeldingId, skalHenteArbeidsgivere, skalHenteBrukerinfo, skalHenteArbeidsgiversSykmeldinger } = this.props;
         if (sykmeldingId && skalHenteArbeidsgivere) {
             this.props.hentAktuelleArbeidsgivere(sykmeldingId);
         }
-        if (!brukerinfoHentet) {
+        if (skalHenteBrukerinfo) {
             this.props.hentBrukerinfo();
         }
         if (skalHenteArbeidsgiversSykmeldinger) {
@@ -26,7 +25,7 @@ export class Skjema extends Component {
     }
 
     render() {
-        const { henter, hentingFeilet, vedlikehold } = this.props;
+        const { henter, hentingFeilet, vedlikehold, sykmelding } = this.props;
         if (henter) {
             return <AppSpinner />;
         } else if (hentingFeilet) {
@@ -39,72 +38,47 @@ export class Skjema extends Component {
                     '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
                 })} />);
         }
-        return <DinSykmeldingSkjema {...this.props} />;
+        return <DinSykmeldingSkjema sykmelding={sykmelding} />;
     }
 }
 
-Skjema.propTypes = {
+Skjemalaster.propTypes = {
+    sykmeldingId: PropTypes.string,
+    sykmelding: sykmeldingPt,
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     vedlikehold: PropTypes.shape({
         datospennMedTid: PropTypes.object,
     }),
-    sykmeldingId: PropTypes.string,
     skalHenteArbeidsgivere: PropTypes.bool,
     skalHenteArbeidsgiversSykmeldinger: PropTypes.bool,
     hentAktuelleArbeidsgivere: PropTypes.func,
-    brukerinfoHentet: PropTypes.bool,
+    skalHenteBrukerinfo: PropTypes.bool,
     hentBrukerinfo: PropTypes.func,
     hentArbeidsgiversSykmeldinger: PropTypes.func,
 };
 
 export const mapStateToProps = (state, ownProps) => {
-    let sykmelding = {};
     const sykmeldingId = ownProps.sykmeldingId;
-
-    if (sykmeldingId) {
-        const _sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId);
-        if (_sykmelding) {
-            sykmelding = _sykmelding;
-        }
-    }
-
     const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
-
-    const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map((key) => {
-        return {
-            opplysning: feilaktigeOpplysningerEnums[key],
-        };
-    });
+    const sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId) || {};
 
     return {
-        skjemaData: state.form.dinSykmeldingSkjema,
-        initialValues: {
-            ...sykmelding,
-            valgtArbeidssituasjon: arbeidssituasjoner.DEFAULT,
-            feilaktigeOpplysninger,
-        },
         sykmelding,
-        sykmeldingId,
-        sender: state.arbeidsgiversSykmeldinger.sender,
-        sendingFeilet: state.dineSykmeldinger.sendingFeilet,
-        avbryter: state.dineSykmeldinger.avbryter,
-        avbrytFeilet: state.dineSykmeldinger.avbrytFeilet,
-        harStrengtFortroligAdresse,
+        sykmeldingId: sykmelding.id,
         hentingFeilet: state.arbeidsgivere.hentingFeilet || state.brukerinfo.bruker.hentingFeilet || false,
         henter: state.vedlikehold.henter || state.brukerinfo.bruker.henter || !state.arbeidsgiversSykmeldinger.hentet || state.arbeidsgiversSykmeldinger.henter,
         vedlikehold: state.vedlikehold.data.vedlikehold,
         skalHenteArbeidsgivere: state.arbeidsgivere.sykmeldingId !== sykmeldingId && !harStrengtFortroligAdresse,
-        brukerinfoHentet: state.brukerinfo.bruker.hentet === true,
+        skalHenteBrukerinfo: !state.brukerinfo.bruker.henter && state.brukerinfo.bruker.hentet !== true,
         skalHenteArbeidsgiversSykmeldinger: !state.arbeidsgiversSykmeldinger.henter && !state.arbeidsgiversSykmeldinger.hentet,
     };
 };
 
 const DinSykmeldingSkjemaContainer = connect(mapStateToProps, {
-    ...sykmeldingActions,
     hentAktuelleArbeidsgivere,
     hentArbeidsgiversSykmeldinger,
     hentBrukerinfo,
-})(Skjema);
+})(Skjemalaster);
 
 export default DinSykmeldingSkjemaContainer;

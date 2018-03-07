@@ -30,7 +30,7 @@ export function* bekreftSykmelding(action) {
 }
 
 export function* sendSykmeldingTilArbeidsgiver(action) {
-    yield put({ type: actiontyper.SENDER_SYKMELDING });
+    yield put(actions.senderSykmelding(action.sykmeldingId));
     const body = {
         feilaktigeOpplysninger: action.feilaktigeOpplysninger,
         beOmNyNaermesteLeder: action.beOmNyNaermesteLeder,

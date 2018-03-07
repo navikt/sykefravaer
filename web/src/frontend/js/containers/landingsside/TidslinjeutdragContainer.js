@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { senesteTom, sykmeldingstatuser, log, arbeidssituasjoner } from 'digisyfo-npm';
+import React from 'react';
+import { senesteTom, sykmeldingstatuser, arbeidssituasjoner } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TidslinjeUtdrag, { MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI } from '../../components/landingsside/TidslinjeUtdrag';
@@ -18,39 +18,12 @@ const getSykefravaerVarighet = (dato) => {
     return Math.round(antallDager) + 1;
 };
 
-const lagreSykmeldtStatistikk = (dato, visUtdrag) => {
-    try {
-        let varighet = 0;
-        if (dato) {
-            varighet = getSykefravaerVarighet(dato);
-        }
-        /* eslint-disable quote-props */
-        window.dataLayer.push({
-            'event': 'SYKEFORLOP_HENTET',
-            'varighet': varighet,
-            'viserTidslinjeutdrag': visUtdrag,
-        });
-        /* eslint-enable quote-props */
-    } catch (e) {
-        log(e);
-    }
+export const Container = (props) => {
+    const { visUtdrag, startdato, antallDager, visning, hentingFeilet } = props;
+    return (!visUtdrag || hentingFeilet)
+        ? null
+        : <TidslinjeUtdrag startdato={startdato} antallDager={antallDager} visning={visning} />;
 };
-
-export class Container extends Component {
-    componentDidMount() {
-        if (!this.props.henter) {
-            lagreSykmeldtStatistikk(this.props.startdato, this.props.visUtdrag);
-        }
-    }
-
-    render() {
-        const { visUtdrag, startdato, antallDager, visning, hentingFeilet } = this.props;
-        if (!visUtdrag || hentingFeilet) {
-            return null;
-        }
-        return <TidslinjeUtdrag startdato={startdato} antallDager={antallDager} visning={visning} />;
-    }
-}
 
 Container.propTypes = {
     visUtdrag: PropTypes.bool,
@@ -58,22 +31,20 @@ Container.propTypes = {
     antallDager: PropTypes.number,
     visning: PropTypes.oneOf([MED_ARBEIDSGIVER, UTEN_ARBEIDSGIVER, VALGFRI]),
     hentingFeilet: PropTypes.bool,
-    henter: PropTypes.bool,
 };
 
 export const skalViseUtdrag = (sykmeldinger) => {
-    if (!sykmeldinger) {
-        return false;
-    }
-    return sykmeldinger
-        .filter((s) => {
-            const tom = senesteTom(s.mulighetForArbeid.perioder);
-            const SJU_DAGER = ETT_DOGN * 7;
-            return new Date().getTime() - tom.getTime() < SJU_DAGER;
-        })
-        .filter((s) => {
-            return [SENDT, TIL_SENDING, NY, BEKREFTET].indexOf(s.status) > -1;
-        }).length > 0;
+    return !sykmeldinger
+        ? false
+        : sykmeldinger
+            .filter((s) => {
+                const tom = senesteTom(s.mulighetForArbeid.perioder);
+                const SJU_DAGER = ETT_DOGN * 7;
+                return new Date().getTime() - tom.getTime() < SJU_DAGER;
+            })
+            .filter((s) => {
+                return [SENDT, TIL_SENDING, NY, BEKREFTET].indexOf(s.status) > -1;
+            }).length > 0;
 };
 
 export const getVisning = (dineSykmeldinger, startdato) => {
@@ -119,17 +90,12 @@ export const getVisning = (dineSykmeldinger, startdato) => {
 export const mapStateToProps = (state) => {
     const hentingFeilet = state.sykeforloep.hentingFeilet;
     const startdato = state.sykeforloep.startdato;
-    const henter = state.dineSykmeldinger.henter || state.sykeforloep.henter;
-
-    let antallDager;
-
-    if (startdato) {
-        antallDager = getSykefravaerVarighet(startdato);
-    }
+    const antallDager = startdato
+        ? getSykefravaerVarighet(startdato)
+        : undefined;
 
     return {
         hentingFeilet,
-        henter,
         visUtdrag: skalViseUtdrag(state.dineSykmeldinger.data),
         startdato,
         antallDager,

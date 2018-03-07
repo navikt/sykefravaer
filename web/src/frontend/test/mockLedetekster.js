@@ -243,6 +243,7 @@ const ledetekster = {
   "sykepengesoknad.aktiviteter.gradert.sporsmal": "Har du jobbet mer enn dette?",
   "sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet": "Som hovedregel kan du bare få sykepenger når du oppholder deg i Norge. Du kan søke om å beholde sykepenger i en kort periode ved opphold utenfor Norge.",
   "sykepengesoknad.egenmeldingsdager.janei.sporsmal": "Brukte du egenmeldingsdager før det legemeldte fraværet startet den %DATO%?",
+  "sykepengesoknad.egenmeldingsdager.janei.sporsmal-2": "Vi har registrert at du ble sykmeldt %DATO%. Brukte du egenmeldinger eller var du sykmeldt i perioden %FOM% til %TOM%?",
   "sykepengesoknad.gjenopptatt-arbeid-fullt-ut.dato.sporsmal": "Når gjorde du det?",
   "sykepengesoknad.aktiviteter.gradert.intro": "I perioden %FOM% - %TOM% skulle du jobbe %ARBEIDSGRAD% % av din normale arbeidstid hos %ARBEIDSGIVER%.",
   "sykepengesoknad.aktiviteter.ugradert.sporsmal": "Har du jobbet?",

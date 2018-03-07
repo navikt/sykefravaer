@@ -67,7 +67,7 @@ describe("Egenmeldingsdager", () => {
                     avvik: null
                 }],
         })} />);
-        expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Brukte du egenmeldingsdager før det legemeldte fraværet startet den 15.07.2016?")
+        expect(compo.find(JaEllerNei).prop("spoersmal")).to.equal("Vi har registrert at du ble sykmeldt fredag 15.07.2016. Brukte du egenmeldinger eller var du sykmeldt i perioden 29.06.2016 til 14.07.2016?")
     });
 
 });

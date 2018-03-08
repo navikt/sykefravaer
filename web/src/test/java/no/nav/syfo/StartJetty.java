@@ -28,6 +28,6 @@ public class StartJetty {
 
     private static void configureLocalConfig() {
         setProperty("dialogarena.cms.url", "https://appres-q1.nav.no");
-        setProperty("sykefravaerapi.url", "http://localhost:8182/syforest");
+        setProperty("sykefravaerapi.url", "http://localhost:8080/syforest");
     }
 }

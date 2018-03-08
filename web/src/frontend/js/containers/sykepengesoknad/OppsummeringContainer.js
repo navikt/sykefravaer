@@ -73,7 +73,9 @@ Oppsummering.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
 };
 
-const brukersSvarPaForskuttering = (arbeidsgiverForskutterer) => { return arbeidsgiverForskutterer === 'JA' || arbeidsgiverForskutterer === 'VET_IKKE'; };
+const brukersSvarPaForskuttering = (arbeidsgiverForskutterer) => {
+    return arbeidsgiverForskutterer === 'JA' || arbeidsgiverForskutterer === 'VET_IKKE';
+};
 
 const AGSvarPaForskuttering = (ledere, arbeidsgiverOrgnummer) => {
     return ledere
@@ -86,23 +88,29 @@ const harAGSvartPaForskuttering = (ledere, arbeidsgiverOrgnummer) => {
     return ledersSvar === true || ledersSvar === false;
 };
 
-const getSisteDagIAGPerioden = (arbeidsgiverPeriodeStartdato) => { return new Date(new Date().setTime(arbeidsgiverPeriodeStartdato.getTime() + (16 * 86400000))); };
+const getSisteDagIAGPerioden = (arbeidsgiverPeriodeStartdato) => {
+    return new Date(new Date().setTime(arbeidsgiverPeriodeStartdato.getTime() + (16 * 86400000)));
+};
 
 const erSoknadInnenforAGPerioden = (arbeidsgiverPeriodeStartdato, soknad) => {
     return soknad.tom <= getSisteDagIAGPerioden(arbeidsgiverPeriodeStartdato)
     && soknad.fom >= arbeidsgiverPeriodeStartdato;
 };
 
-const forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden = (arbeidsgiverPeriodeStartdato, soknad) => { return soknad.fom <= getSisteDagIAGPerioden(arbeidsgiverPeriodeStartdato); };
+const forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden = (arbeidsgiverPeriodeStartdato, soknad) => {
+    return soknad.fom <= getSisteDagIAGPerioden(arbeidsgiverPeriodeStartdato);
+};
 
 export const utledForskutteringOgMottaker = (ledere, soknad, arbeidsgiverperiodeberegning) => {
     if (!(ledere && soknad && arbeidsgiverperiodeberegning)) {
         return { skalTil: NAV, visForskutteringssporsmal: true };
     }
-    if (arbeidsgiverperiodeberegning.startdato && erSoknadInnenforAGPerioden(arbeidsgiverperiodeberegning.startdato, soknad)) {
+    const arbeidsgiverPeriodeStartdato = arbeidsgiverPeriodeStartdato && new Date(arbeidsgiverperiodeberegning.startdato);
+
+    if (arbeidsgiverPeriodeStartdato && erSoknadInnenforAGPerioden(arbeidsgiverPeriodeStartdato, soknad)) {
         return { skalTil: ARBEIDSGIVER, visForskutteringssporsmal: false };
     }
-    if (arbeidsgiverperiodeberegning.startdato && forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(arbeidsgiverperiodeberegning.startdato, soknad)) {
+    if (arbeidsgiverPeriodeStartdato && forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(arbeidsgiverPeriodeStartdato, soknad)) {
         return { skalTil: NAV_OG_ARBEIDSGIVER, visForskutteringssporsmal: false };
     }
     if (harAGSvartPaForskuttering(ledere, soknad.arbeidsgiver.orgnummer)) {

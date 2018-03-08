@@ -1,5 +1,7 @@
 import chai from 'chai';
+import { arbeidssituasjoner } from 'digisyfo-npm';
 import { getSkjemaModus } from "../../../js/components/sykmeldingskjema/sykmeldingSkjemaUtils";
+import { sykmeldingskjemamodi as modi } from '../../../js/enums/sykmeldingskjemaenums';
 
 const expect = chai.expect;
 
@@ -9,7 +11,7 @@ describe("getSkjemaModus", () => {
 
     it("Skal være GA_VIDERE by default", () => {
         const modus = getSkjemaModus({}, false);
-        expect(modus).to.equal("GA_VIDERE")
+        expect(modus).to.equal(modi.GA_VIDERE)
     })
 
     it("Skal være AVBRYT dersom periode eller sykmeldingsgrad er feil", () => {
@@ -21,34 +23,34 @@ describe("getSkjemaModus", () => {
             opplysningeneErRiktige: false,
         }
         const modus = getSkjemaModus(values, false);
-        expect(modus).to.equal("AVBRYT")
+        expect(modus).to.equal(modi.AVBRYT)
 
         values.feilaktigeOpplysninger = [{
             opplysning: "sykmeldingsgrad",
             avkrysset: true,
         }]
         const modus2 = getSkjemaModus(values, false);
-        expect(modus2).to.equal("AVBRYT")
+        expect(modus2).to.equal(modi.AVBRYT)
     });
 
     it("Skal være SEND dersom valgtArbeidssituasjon === 'ARBEIDSTAKER'", () => {
         let values = {
-            valgtArbeidssituasjon: 'ARBEIDSTAKER'
+            valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSTAKER
         }
         const modus = getSkjemaModus(values, false);
-        expect(modus).to.equal("SEND")
+        expect(modus).to.equal(modi.SEND)
     });
 
 
     it("Skal være BEKREFT dersom arbeidssituasjon === 'ARBEIDSTAKER' og valgtArbeidsgiver.orgnummer = '0'", () => {
         let values = {
-            valgtArbeidssituasjon: 'ARBEIDSTAKER',
+            valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSTAKER,
             valgtArbeidsgiver: {
                 orgnummer: '0'
             }
         }
         const modus = getSkjemaModus(values, false);
-        expect(modus).to.equal("BEKREFT")
+        expect(modus).to.equal(modi.BEKREFT)
     });
 
     it("Skal være BEKREFT dersom bruker har strengt fortrolig adresse", () => {
@@ -56,7 +58,7 @@ describe("getSkjemaModus", () => {
             valgtArbeidssituasjon: 'ARBEIDSTAKER'
         }
         const modus = getSkjemaModus(values, true);
-        expect(modus).to.equal("BEKREFT")
+        expect(modus).to.equal(modi.BEKREFT)
     });
 
 });

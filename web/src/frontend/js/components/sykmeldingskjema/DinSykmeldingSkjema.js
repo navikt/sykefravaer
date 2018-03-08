@@ -12,7 +12,7 @@ import { sykmelding as sykmeldingPt } from '../../propTypes';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
 import validerSykmeldingskjema from './validerSykmeldingskjema';
 import * as sykmeldingActions from '../../actions/dinSykmelding_actions';
-import { modi, DIN_SYKMELDING_SKJEMANAVN } from '../../enums/sykmeldingskjemaenums';
+import { sykmeldingskjemamodi as modi, DIN_SYKMELDING_SKJEMANAVN } from '../../enums/sykmeldingskjemaenums';
 import { getSkjemaModus } from './sykmeldingSkjemaUtils';
 import { Vis } from '../../utils';
 
@@ -40,17 +40,17 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     getFeilaktigeOpplysninger() {
-        const returverdi = {};
         const { values } = this.props;
-        if (values.opplysningeneErRiktige) {
-            return returverdi;
-        }
-        values.feilaktigeOpplysninger.filter((o) => {
-            return o.avkrysset;
-        }).forEach((o) => {
-            returverdi[o.opplysning] = true;
-        });
-        return returverdi;
+        return values.feilaktigeOpplysninger
+            .filter((opplysning) => {
+                return opplysning.avkrysset && !values.opplysningeneErRiktige;
+            })
+            .reduce((acc, currentValue) => {
+                return {
+                    ...acc,
+                    [currentValue.opplysning]: true,
+                };
+            }, {});
     }
 
     avbryt() {

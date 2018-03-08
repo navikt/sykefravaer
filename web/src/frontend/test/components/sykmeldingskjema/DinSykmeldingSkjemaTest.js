@@ -139,7 +139,7 @@ describe("DinSykmeldingSkjema -", () => {
         expect(component.find(StrengtFortroligInfo)).to.have.length(1);
     });
 
-    it("Skal vise info om utskrift dersom harStrengtFortroligAdresse = true", () => {
+    it("Skal ikke vise info om utskrift dersom harStrengtFortroligAdresse = true", () => {
         state.brukerinfo.bruker.data.strengtFortroligAdresse = false;
         store = getStore({
             valgtArbeidssituasjon: 'ARBEIDSTAKER'
@@ -164,7 +164,7 @@ describe("DinSykmeldingSkjema -", () => {
             values = {};
         });
         
-        it("Skal returnere tomt object hvis opplysningeneErRiktige === true", () => {
+        it("Skal returnere tomt objekt hvis opplysningeneErRiktige === true", () => {
             values = {
                 feilaktigeOpplysninger: [...feilaktigeOpplysninger],
                 opplysningeneErRiktige: true
@@ -174,7 +174,7 @@ describe("DinSykmeldingSkjema -", () => {
             expect(component.instance().getFeilaktigeOpplysninger()).to.deep.equal({})
         });
 
-        it("Skal returnere avkryssede opplysninger object hvis opplysningeneErRiktige === false", () => {
+        it("Skal returnere avkryssede opplysninger objekt hvis opplysningeneErRiktige === false", () => {
             const f = [...feilaktigeOpplysninger];
             f[0] = Object.assign({}, feilaktigeOpplysninger[0], {
                 avkrysset: true,

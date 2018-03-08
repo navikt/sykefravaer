@@ -7,8 +7,8 @@ var timestamp = process.argv[3] || Date.now().toString();
 var dev = {
     'timestamp': `${timestamp}`,
     "buildRoot": "http://localhost:9090/assets",
-    "restRoot": "http://localhost:8182/syforest",
-    "moterestRoot": "http://localhost:8184/moterest/api",
+    "restRoot": "http://localhost:8080/syforest",
+    "moterestRoot": "http://localhost:8080/moterest/api",
     "oppfoelgingsdialogrestRoot": "http://localhost:8580/oppfoelgingsdialogrest/api",
     "bundleFileName": `bundle.js`,
     "enableLogging": true,

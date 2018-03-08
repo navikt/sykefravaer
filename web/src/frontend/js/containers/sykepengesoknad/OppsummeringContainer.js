@@ -105,7 +105,7 @@ export const utledForskutteringOgMottaker = (ledere, soknad, arbeidsgiverperiode
     if (!(ledere && soknad && arbeidsgiverperiodeberegning)) {
         return { skalTil: NAV, visForskutteringssporsmal: true };
     }
-    const arbeidsgiverPeriodeStartdato = arbeidsgiverPeriodeStartdato && new Date(arbeidsgiverperiodeberegning.startdato);
+    const arbeidsgiverPeriodeStartdato = arbeidsgiverperiodeberegning && new Date(arbeidsgiverperiodeberegning.startdato);
 
     if (arbeidsgiverPeriodeStartdato && erSoknadInnenforAGPerioden(arbeidsgiverPeriodeStartdato, soknad)) {
         return { skalTil: ARBEIDSGIVER, visForskutteringssporsmal: false };

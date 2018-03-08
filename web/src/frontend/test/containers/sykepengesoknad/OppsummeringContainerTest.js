@@ -61,7 +61,7 @@ describe("OppsummeringContainer", () => {
         }
     });
 
-    describe("Utled skal vise forskuttering og mottaker", () => {
+    describe.only("Utled skal vise forskuttering og mottaker", () => {
         const arbeidsgiverperiodeberegning = {
             erUtenforArbeidsgiverperiode: true,
             startdato: new Date('2017-01-01')

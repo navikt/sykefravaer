@@ -155,7 +155,7 @@ class AngiTid extends Component {
                 parse={(v) => {
                     return this.getValgtEnhet() === 'timer'
                         ? lagDesimaltall(v)
-                        : lagHeltall(v)
+                        : lagHeltall(v);
                 }}
                 label={this.getEnhetLabel()}
                 name={this.getAntallName()} />

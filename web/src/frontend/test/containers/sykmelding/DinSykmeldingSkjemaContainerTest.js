@@ -7,7 +7,7 @@ import ledetekster from "../../mockLedetekster";
 import getSykmelding from '../../mockSykmeldinger';
 import Feilmelding from '../../../js/components/Feilmelding';
 
-import { DinSykmldSkjema, mapStateToProps, validate, Skjema } from "../../../js/containers/sykmelding/DinSykmeldingSkjemaContainer";
+import { DinSykmldSkjema, mapStateToProps, Skjemalaster } from "../../../js/containers/sykmelding/DinSykmeldingSkjemaContainer";
 import { setLedetekster } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
@@ -130,26 +130,24 @@ describe("DinSykmeldingSkjemaContainer", () => {
             expect(props.sykmelding).to.deep.equal({
                 id: 123,
                 navn: "Olsen"
-            })
+            });
         });
 
-        it("Skal returnere sender", () => {
-            const state = getState();
+        it("Skal returnere sykmeldingId selv om sykmeldinger ikke er hentet", () => {
+            const state = getState({
+                arbeidsgiversSykmeldinger: {
+                    hentet: false,
+                    henter: false,
+                    data: [],
+                }
+            });
             const props = mapStateToProps(state, {
                 sykmeldingId: 123
             });
-            expect(props.sender).to.be.true;
+            expect(props.sykmeldingId).to.equal(123);
         });
 
-        it("Skal returnere strengt fortrolig adresse", () => {
-            const state = getState();
-            const props = mapStateToProps(state, {
-                sykmeldingId: 123
-            });
-            expect(props.harStrengtFortroligAdresse).to.be.true;
-        });
-
-        it("Skal returnere hentingFeilet dersom arbeidsgivere feiler", () => {
+        it("Skal returnere hentingFeilet === true dersom arbeidsgivere feiler", () => {
             const state = getState();
             state.arbeidsgivere.hentingFeilet = true;
             const props = mapStateToProps(state, {
@@ -167,31 +165,21 @@ describe("DinSykmeldingSkjemaContainer", () => {
             expect(props.hentingFeilet).to.be.false;
         });
 
-        it("Skal returnere skjemadata", () => {
-            const state = getState(); 
-            const props = mapStateToProps(state, {
-                sykmeldingId: 123
-            });
-            expect(props.skjemaData).to.deep.equal({
-                "test": "OK"
-            })
-        });
-
-        it("Skal returnere brukerinfoHentet = true hvis brukerinfo er hentet", () => {
+        it("Skal returnere skalHenteBrukerinfo = false hvis brukerinfo er hentet", () => {
             const state = getState();
             state.brukerinfo.bruker.hentet = true;
             const res = mapStateToProps(state, {
                 sykmeldingId: 123
             });
-            expect(res.brukerinfoHentet).to.be.true;
+            expect(res.skalHenteBrukerinfo).to.be.false;
         });
 
-        it("Skal returnere brukerinfoHentet = false hvis brukerinfo ikke er hentet", () => {
+        it("Skal returnere skalHenteBrukerinfo = true hvis brukerinfo ikke er hentet", () => {
             const state = getState();
             const res = mapStateToProps(state, {
                 sykmeldingId: 123
             });
-            expect(res.brukerinfoHentet).to.be.false;
+            expect(res.skalHenteBrukerinfo).to.be.true;
         });
 
         it("Skal returnere henter dersom det hentes vedlikehold men ikke brukerinfo", () => {
@@ -259,6 +247,57 @@ describe("DinSykmeldingSkjemaContainer", () => {
             expect(res.skalHenteArbeidsgiversSykmeldinger).to.be.false;
         });
 
+        describe("skalHenteArbeidsgivere", () => {
+            let ownProps;
+
+            beforeEach(() => {
+                ownProps = {
+                    sykmeldingId: 123,
+                }
+            })
+
+            it("Skal være false dersom arbeidsgivere er hentet for den aktuelle sykmeldingen", () => {
+                const props = mapStateToProps(getState({
+                    arbeidsgivere: {
+                        sykmeldingId: 123
+                    }
+                }), ownProps);
+                expect(props.skalHenteArbeidsgivere).to.be.false;
+            });
+
+            it("Skal være true dersom arbeidsgivere ikke er hentet for den aktuelle sykmeldingen og brukeren ikke har strengt fortrolig adresse", () => {
+                const props = mapStateToProps(getState({
+                    arbeidsgivere: {
+                        sykmeldingId: 456
+                    },
+                    brukerinfo: {
+                        bruker: {
+                            data: {
+                                strengtFortroligAdresse: false,
+                            }
+                        }
+                    }
+                }), ownProps);
+                expect(props.skalHenteArbeidsgivere).to.be.true;
+            });
+
+            it("Skal være true dersom arbeidsgivere ikke er hentet for den aktuelle sykmeldingen og brukeren har strengt fortrolig adresse", () => {
+                const props = mapStateToProps(getState({
+                    arbeidsgivere: {
+                        sykmeldingId: 456
+                    },
+                    brukerinfo: {
+                        bruker: {
+                            data: {
+                                strengtFortroligAdresse: true,
+                            }
+                        }
+                    }
+                }), ownProps);
+                expect(props.skalHenteArbeidsgivere).to.be.false;
+            });
+        })
+
     });
 
     describe("Render", () => {
@@ -276,17 +315,17 @@ describe("DinSykmeldingSkjemaContainer", () => {
         })
 
         it("Skal vise planlagt-vedlikehold ved vedlikehold", () => {
-            const comp = shallow(<Skjema {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+            const comp = shallow(<Skjemalaster {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
             expect(comp.find(Feilmelding)).to.have.length(1);
         });
 
         it("Skal hente brukerinfo hvis brukerinfo ikke er hentet", () => {
-            shallow(<Skjema {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+            shallow(<Skjemalaster skalHenteBrukerinfo {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
             expect(hentBrukerinfo.calledOnce).to.be.true;
         });
 
         it("Skal ikke hente brukerinfo hvis brukerinfo er hentet", () => {
-            shallow(<Skjema brukerinfoHentet {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+            shallow(<Skjemalaster {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
             expect(hentBrukerinfo.calledOnce).to.be.false;
         });
 

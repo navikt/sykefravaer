@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
 import {
-    OppfolgingsdialogTeasere,
     BRUKERTYPE,
-    OppfolgingsdialogerIngenplanAT,
     finnTidligereOppfolgingsdialoger,
     harTidligereOppfolgingsdialoger,
-    finnAktiveOppfolgingsdialoger,
-    harAktivOppfolgingsdialog,
     AvbruttPlanNotifikasjonBoksAdvarsel,
     finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging,
     finnBrukersSisteInnlogging,
@@ -17,8 +12,11 @@ import {
     NyNaermestelederInfoboks,
     finnOgHentVirksomheterSomMangler,
     finnOgHentPersonerSomMangler,
+    finnOgHentNaermesteLedereSomMangler,
     finnOgHentForrigeNaermesteLedereSomMangler,
     UnderUtviklingVarsel,
+    OppfolgingsdialogUtenSykmelding,
+    OppfolgingsdialogerUtenAktivSykmelding,
 } from 'oppfolgingsdialog-npm';
 import {
     dinesykmeldingerReducerPt,
@@ -26,38 +24,41 @@ import {
 } from '../../propTypes';
 import Sidetopp from '../Sidetopp';
 import {
+    harForrigeNaermesteLeder,
+    harNaermesteLeder,
     isEmpty,
     erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere,
 } from '../../utils/oppfolgingsdialogUtils';
-import { finnArbeidsgivereForGyldigeSykmeldinger } from '../../utils/sykmeldingUtils';
+import { sykmeldtHarGyldigSykmelding } from '../../utils/sykmeldingUtils';
 import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
-import OppfolgingsdialogFilm from './OppfolgingsdialogFilm';
-
-export const OppfolgingsdialogNyDialog = () => {
-    return (
-        <div className="oppfolgingsdialogNyDialog">
-            <Link role="button" className="rammeknapp" to={`${getContextRoot()}/oppfolgingsplaner/opprett`}>
-                {getLedetekst('oppfolgingsdialog.oppfolgingsdialogNyDialog.knapp')}
-            </Link>
-        </div>
-    );
-};
+import OppfolgingsdialogerVisning from './OppfolgingsdialogerVisning';
 
 const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgingsdialoger) => {
     const sisteInnlogging = finnBrukersSisteInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
     return oppfolgingsdialoger.filter((oppfolgingsdialog) => {
-        return oppfolgingsdialog.arbeidsgiver.forrigeNaermesteLeder &&
-            oppfolgingsdialog.arbeidsgiver.naermesteLeder &&
+        return harForrigeNaermesteLeder(oppfolgingsdialog) &&
+            harNaermesteLeder(oppfolgingsdialog) &&
             new Date(sisteInnlogging).toISOString().split('T')[0] <= new Date(oppfolgingsdialog.arbeidsgiver.naermesteLeder.aktivFom).toISOString().split('T')[0];
     })[0];
 };
 
 class Oppfolgingsdialoger extends Component {
     componentWillMount() {
-        const { oppfolgingsdialoger, virksomhet, person, forrigenaermesteleder, hentPerson, hentVirksomhet, hentForrigeNaermesteLeder } = this.props;
+        const {
+            oppfolgingsdialoger,
+            virksomhet,
+            person,
+            forrigenaermesteleder,
+            naermesteleder,
+            hentPerson,
+            hentVirksomhet,
+            hentNaermesteLeder,
+            hentForrigeNaermesteLeder,
+        } = this.props;
         finnOgHentVirksomheterSomMangler(oppfolgingsdialoger, virksomhet, hentVirksomhet);
         finnOgHentPersonerSomMangler(oppfolgingsdialoger, person, hentPerson);
+        finnOgHentNaermesteLedereSomMangler(oppfolgingsdialoger, naermesteleder, hentNaermesteLeder);
         finnOgHentForrigeNaermesteLedereSomMangler(oppfolgingsdialoger, forrigenaermesteleder, hentForrigeNaermesteLeder);
 
         window.sessionStorage.removeItem('hash');
@@ -70,6 +71,7 @@ class Oppfolgingsdialoger extends Component {
             avkreftLeder,
             bekreftetNyNaermesteLeder,
             bekreftNyNaermesteLeder,
+            kopierOppfolgingsdialog,
             opprettOppfolgingsdialog,
             dinesykmeldinger,
             naermesteLedere,
@@ -77,7 +79,6 @@ class Oppfolgingsdialoger extends Component {
         let panel;
         const dialogerAvbruttAvMotpartSidenSistInnlogging = finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
         const oppfolgingsdialogMedNyNaermesteLeder = finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder(oppfolgingsdialoger);
-        const arbeidsgivereForSykmeldinger = finnArbeidsgivereForGyldigeSykmeldinger(dinesykmeldinger.data, naermesteLedere.data);
         if (erSykmeldtUtenOppfolgingsdialogerOgNaermesteLedere(oppfolgingsdialoger, dinesykmeldinger.data, naermesteLedere.data)) {
             panel = (<IngenledereInfoboks />);
         } else if (!bekreftetNyNaermesteLeder && oppfolgingsdialogMedNyNaermesteLeder) {
@@ -89,54 +90,35 @@ class Oppfolgingsdialoger extends Component {
                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                 rootUrlImg={getContextRoot()}
             />);
-        } else {
-            panel = (<div>
-                {!isEmpty(oppfolgingsdialoger) && harAktivOppfolgingsdialog(oppfolgingsdialoger) &&
+        } else if (!sykmeldtHarGyldigSykmelding(dinesykmeldinger.data)) {
+            panel = (
                 <div>
-                    { arbeidsgivereForSykmeldinger.length > 1 &&
-                        <OppfolgingsdialogNyDialog />
-                    }
-                    <OppfolgingsdialogTeasere
-                        ledetekster={ledetekster}
-                        oppfolgingsdialoger={finnAktiveOppfolgingsdialoger(oppfolgingsdialoger)}
-                        tittel={finnAktiveOppfolgingsdialoger(oppfolgingsdialoger).length > 1 ? getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.fler.header.tittel') :
-                            getLedetekst('oppfolgingsdialoger.oppfolgingsdialoger.header.tittel')}
-                        brukerType={BRUKERTYPE.ARBEIDSTAKER}
-                        rootUrl={getContextRoot()}
-                        rootUrlPlaner={getContextRoot()}
-                    />
-                </div>
-                }
+                    <div className="blokk--l">
+                        <OppfolgingsdialogUtenSykmelding
+                            ledetekster={ledetekster}
+                            rootUrl={getContextRoot()}
+                        />
+                    </div>
 
-                {(isEmpty(oppfolgingsdialoger) || !harAktivOppfolgingsdialog(oppfolgingsdialoger)) &&
-                <div className="blokk--l">
-                    <OppfolgingsdialogerIngenplanAT
-                        ledetekster={ledetekster}
-                        arbeidsgivere={arbeidsgivereForSykmeldinger}
-                        opprettdialog={opprettOppfolgingsdialog}
-                        rootUrl={getContextRoot()}
-                    />
-                </div>
-                }
-
-                {!isEmpty(oppfolgingsdialoger) && harTidligereOppfolgingsdialoger(oppfolgingsdialoger) &&
-                <div>
-                    <OppfolgingsdialogTeasere
-                        ledetekster={ledetekster}
+                    {!isEmpty(oppfolgingsdialoger) && harTidligereOppfolgingsdialoger(oppfolgingsdialoger) &&
+                    <OppfolgingsdialogerUtenAktivSykmelding
                         oppfolgingsdialoger={finnTidligereOppfolgingsdialoger(oppfolgingsdialoger)}
-                        harTidligerOppfolgingsdialoger
                         tittel={getLedetekst('oppfolgingsdialoger.tidligereplaner.tittel')}
-                        id="OppfolgingsdialogTeasereAT"
-                        brukerType={BRUKERTYPE.ARBEIDSTAKER}
                         rootUrl={getContextRoot()}
-                        rootUrlPlaner={getContextRoot()}
-                        svgUrl={`${window.APP_SETTINGS.APP_ROOT}/img/svg/plan-godkjent.svg`}
-                        svgAlt="OppfølgingsdialogTidligere"
                     />
-                </div>
-                }
-                <OppfolgingsdialogFilm ledetekster={ledetekster} />
-            </div>);
+                    }
+                </div>);
+        } else {
+            panel = (
+                <OppfolgingsdialogerVisning
+                    ledetekster={ledetekster}
+                    oppfolgingsdialoger={oppfolgingsdialoger}
+                    dinesykmeldinger={dinesykmeldinger}
+                    naermesteLedere={naermesteLedere}
+                    kopierOppfolgingsdialog={kopierOppfolgingsdialog}
+                    opprettOppfolgingsdialog={opprettOppfolgingsdialog}
+                />
+            );
         }
         return (<div>
             <UnderUtviklingVarsel
@@ -163,6 +145,7 @@ class Oppfolgingsdialoger extends Component {
 }
 Oppfolgingsdialoger.propTypes = {
     dinesykmeldinger: dinesykmeldingerReducerPt,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
     naermesteLedere: ledereReducerPt,
     person: oppfolgingProptypes.personReducerPt,
@@ -174,7 +157,9 @@ Oppfolgingsdialoger.propTypes = {
     avkreftLeder: PropTypes.func,
     hentVirksomhet: PropTypes.func,
     hentPerson: PropTypes.func,
+    hentNaermesteLeder: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
+    kopierOppfolgingsdialog: PropTypes.func,
     opprettOppfolgingsdialog: PropTypes.func,
 };
 

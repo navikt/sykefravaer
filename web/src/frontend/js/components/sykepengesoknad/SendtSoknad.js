@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     BekreftetKorrektInformasjon,
-    mapBackendsoknadToSkjemasoknad,
     scrollTo,
     SoknadOppsummering,
     sykepengesoknadstatuser,
     SykmeldingUtdrag,
     Utvidbar,
     VaerKlarOverAt,
-    mapSkjemasoknadToOppsummeringsoknad,
 } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import Soknadstatuspanel from './Soknadstatuspanel';
@@ -104,14 +102,7 @@ class SendtSoknad extends Component {
 
     render() {
         const { sykepengesoknad } = this.props;
-        const skjemasoknad = mapBackendsoknadToSkjemasoknad(sykepengesoknad);
-        let oppsummeringsoknad;
-
-        if (sykepengesoknad.oppsummering) {
-            oppsummeringsoknad = sykepengesoknad.oppsummering;
-        } else {
-            oppsummeringsoknad = mapSkjemasoknadToOppsummeringsoknad(skjemasoknad, sykepengesoknad);
-        }
+        const oppsummeringsoknad = sykepengesoknad.oppsummering;
 
         return (<div ref={(c) => {
             this.sendtSoknad = c;

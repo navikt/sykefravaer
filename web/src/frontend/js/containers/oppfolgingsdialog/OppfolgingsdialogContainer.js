@@ -32,6 +32,9 @@ import {
     henterEllerHarHentetTilgang,
     henterEllerHarHentetOppfolgingsdialoger,
     oppfolgingsdialogHarBlittAvbrutt,
+    populerDialogFraState,
+    erOppfolgingsdialogTidligere,
+    erOppfolgingsdialogKnyttetTilGyldigSykmelding,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 import history from '../../history';
@@ -40,16 +43,19 @@ import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { getOppfolgingsdialog } from '../../utils/oppfolgingsdialogUtils';
 import Oppfolgingsdialog from '../../components/oppfolgingsdialoger/Oppfolgingsdialog';
+import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import {
+    henterEllerHarHentetSykmeldinger,
     henterEllerHarHentetToggles,
 } from '../../utils/reducerUtils';
 import {
     brodsmule as brodsmulePt,
+    dinesykmeldingerReducerPt,
 } from '../../propTypes';
 
 export class OppfolgingsdialogSide extends Component {
     componentWillMount() {
-        const { toggles, tilgang, oppfolgingsdialogerReducer } = this.props;
+        const { toggles, tilgang, oppfolgingsdialogerReducer, dineSykmeldinger } = this.props;
         if (!henterEllerHarHentetToggles(toggles)) {
             this.props.hentToggles();
         }
@@ -58,6 +64,9 @@ export class OppfolgingsdialogSide extends Component {
         }
         if (!henterEllerHarHentetOppfolgingsdialoger(oppfolgingsdialogerReducer)) {
             this.props.hentOppfolgingsdialoger();
+        }
+        if (!henterEllerHarHentetSykmeldinger(dineSykmeldinger)) {
+            this.props.hentDineSykmeldinger();
         }
     }
 
@@ -103,6 +112,7 @@ export class OppfolgingsdialogSide extends Component {
             sendingFeilet,
             tilgang,
             navigasjontoggles,
+            erOppfolgingsdialogTilgjengelig,
         } = this.props;
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler} laster={(henter || sender || !hentet) && !(sendingFeilet || hentingFeilet)}>
             { (() => {
@@ -110,6 +120,12 @@ export class OppfolgingsdialogSide extends Component {
                     return <AppSpinner />;
                 } else if (hentingFeilet || sendingFeilet) {
                     return (<Feilmelding />);
+                } else if (!erOppfolgingsdialogTilgjengelig) {
+                    return (<OppfolgingsdialogInfoboks
+                        svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
+                        svgAlt="ikkeTilgang"
+                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                    />);
                 } else if (!tilgang.data.harTilgang) {
                     return (<OppfolgingsdialogInfoboks
                         svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
@@ -136,6 +152,7 @@ OppfolgingsdialogSide.propTypes = {
     avbrytdialogReducer: oppfolgingProptypes.avbrytdialogReducerPt,
     arbeidsforhold: oppfolgingProptypes.arbeidsforholdReducerPt,
     arbeidsoppgaver: oppfolgingProptypes.arbeidsoppgaverReducerPt,
+    dineSykmeldinger: dinesykmeldingerReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
@@ -150,6 +167,7 @@ OppfolgingsdialogSide.propTypes = {
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     toggles: togglesPt,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
+    erOppfolgingsdialogTilgjengelig: PropTypes.bool,
     lagreArbeidsoppgave: PropTypes.func,
     slettArbeidsoppgave: PropTypes.func,
     lagreTiltak: PropTypes.func,
@@ -167,6 +185,7 @@ OppfolgingsdialogSide.propTypes = {
     settAktivtSteg: PropTypes.func,
     avbrytDialog: PropTypes.func,
     settDialog: PropTypes.func,
+    hentDineSykmeldinger: PropTypes.func,
     hentToggles: PropTypes.func,
     hentVirksomhet: PropTypes.func,
     hentPerson: PropTypes.func,
@@ -178,16 +197,22 @@ OppfolgingsdialogSide.propTypes = {
 
 export function mapStateToProps(state, ownProps) {
     const id = ownProps.params.oppfolgingsdialogId;
-    const oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
+    let oppfolgingsdialog = getOppfolgingsdialog(state.oppfolgingsdialoger.data, id);
+    oppfolgingsdialog = oppfolgingsdialog && populerDialogFraState(oppfolgingsdialog, state);
+    const erOppfolgingsdialogTilgjengelig = oppfolgingsdialog && (erOppfolgingsdialogTidligere(oppfolgingsdialog)
+        || erOppfolgingsdialogKnyttetTilGyldigSykmelding(oppfolgingsdialog, state.dineSykmeldinger.data));
     return {
         henter: state.oppfolgingsdialoger.henter
         || state.ledetekster.henter
+        || state.dineSykmeldinger.henter
         || state.tilgang.henter,
         hentingFeilet: state.oppfolgingsdialoger.hentingFeilet
         || state.ledetekster.hentingFeilet
+        || state.dineSykmeldinger.hentingFeilet
         || state.tilgang.hentingFeilet,
         hentet: state.oppfolgingsdialoger.hentet
         || state.ledetekster.hentet
+        || state.dineSykmeldinger.hentet
         || state.tilgang.hentet
         || state.oppfolgingsdialoger.avviser
         || state.oppfolgingsdialoger.godkjent
@@ -216,12 +241,14 @@ export function mapStateToProps(state, ownProps) {
         navigasjontoggles: state.navigasjontoggles,
         oppfolgingsdialogerReducer: state.oppfolgingsdialoger,
         person: state.person,
+        dineSykmeldinger: state.dineSykmeldinger,
         tilgang: state.tilgang,
         toggles: state.toggles,
         oppfolgingsdialog,
         kommentar: state.kommentar,
         oppfolgingsdialoger: state.oppfolgingsdialoger.data,
         virksomhet: state.virksomhet,
+        erOppfolgingsdialogTilgjengelig,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -254,6 +281,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     settDialog,
     hentArbeidsforhold,
     avbrytDialog,
+    hentDineSykmeldinger,
     hentToggles,
     hentVirksomhet,
     hentPerson,

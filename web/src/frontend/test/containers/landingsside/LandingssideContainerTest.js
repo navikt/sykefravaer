@@ -3,7 +3,9 @@ import React from 'react'
 import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
+import deepFreeze from 'deep-freeze';
 import ledetekster from '../../mockLedetekster';
+import getSykmelding from '../../mockSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -11,147 +13,477 @@ const expect = chai.expect;
 import { LandingssideSide, mapStateToProps } from '../../../js/containers/landingsside/LandingssideContainer';
 import Landingsside from '../../../js/components/landingsside/Landingsside';
 
-describe('LandingssideContainer', () => {
+describe("LandingssideContainer", () => {
 
-    describe('mapStateToProps', () => {
-        let state;
+    let hentMote;
+    let hentSykepengesoknader;
+    let hentLedere;
+    let hentDineSykmeldinger;
+    let hentSykeforloep;
+    let hentOppfolgingsdialoger;
 
-        beforeEach(() => {
-            state = {
-                ledetekster: {
-                    data: {},
-                },
-                sykepengesoknader: {
-                    data: [],
-                },
-                dineSykmeldinger: {
-                    data: [{}],
-                },
-                sykeforloep: {
-                    hentet: true,
+    let state;
+    let actions;
+    let ownProps;
+
+    beforeEach(() => {
+
+        hentMote = sinon.spy();
+        hentSykepengesoknader = sinon.spy();
+        hentLedere = sinon.spy();
+        hentDineSykmeldinger = sinon.spy();
+        hentSykeforloep = sinon.spy();
+        hentOppfolgingsdialoger = sinon.spy();
+
+        actions = {
+            hentMote, 
+            hentSykepengesoknader, 
+            hentLedere, 
+            hentDineSykmeldinger, 
+            hentSykeforloep, 
+            hentOppfolgingsdialoger,
+        };
+
+        state = {
+            dineSykmeldinger: {
+                data: []
+            },
+            sykepengesoknader: {
+                data: []
+            },
+            mote: {},
+            ledere: {},
+            sykeforloep: {},
+            oppfolgingsdialoger: {
+                data: []
+            },
+            ledetekster: {},
+            hendelser: {}
+        };
+
+    });
+
+    describe("Henting av data", () => {
+        describe("Møte", () => {
+            it("Skal hente møte dersom møte ikke er hentet", () => {
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentMote.calledOnce).to.equal(true);
+                expect(props.henter).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it("Skal ikke hente møte dersom møte er hentet", () => {
+                state.mote.hentet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentMote.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it("Skal ikke hente møte dersom møte hentes nå", () => {
+                state.mote.henter = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentMote.called).to.equal(false);
+                expect(props.henter).to.equal(true);
+            });
+
+            it("Skal ikke hente møte dersom henting av møte har feilet", () => {
+                state.mote.hentingFeilet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentMote.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+        });
+
+        describe("Sykepengesøknader", () => {
+            it("Skal hente sykepengesøknader dersom sykepengesøknader ikke er hentet", () => {
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentSykepengesoknader.calledOnce).to.equal(true);
+                expect(props.henter).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it("Skal ikke hente sykepengesøknader dersom sykepengesøknader er hentet", () => {
+                state.sykepengesoknader.hentet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentSykepengesoknader.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it("Skal ikke hente sykepengesøknader dersom sykepengesøknader hentes nå", () => {
+                state.sykepengesoknader.henter = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentSykepengesoknader.called).to.equal(false);
+                expect(props.henter).to.equal(true);
+            });
+
+            it("Skal ikke hente sykepengesøknader dersom henting av sykepengesøknader har feilet", () => {
+                state.sykepengesoknader.hentingFeilet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentSykepengesoknader.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+        });
+
+        describe("Ledere", () => {
+            it("Skal hente ledere dersom ledere ikke er hentet", () => {
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentLedere.calledOnce).to.equal(true);
+                expect(props.henter).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it("Skal ikke hente ledere dersom ledere er hentet", () => {
+                state.ledere.hentet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentLedere.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it("Skal ikke hente ledere dersom ledere hentes nå", () => {
+                state.ledere.henter = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentLedere.called).to.equal(false);
+                expect(props.henter).to.equal(true);
+            });
+
+            it("Skal ikke hente ledere dersom henting av ledere har feilet", () => {
+                state.ledere.hentingFeilet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentLedere.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+        });
+
+        describe("Dine sykmeldinger", () => {
+            it("Skal hente dineSykmeldinger dersom dineSykmeldinger ikke er hentet", () => {
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentDineSykmeldinger.calledOnce).to.equal(true);
+                expect(props.henter).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it("Skal ikke hente dineSykmeldinger dersom dineSykmeldinger er hentet", () => {
+                state.dineSykmeldinger.hentet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentDineSykmeldinger.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it("Skal ikke hente dineSykmeldinger dersom dineSykmeldinger hentes nå", () => {
+                state.dineSykmeldinger.henter = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentDineSykmeldinger.called).to.equal(false);
+                expect(props.henter).to.equal(true);
+            });
+
+            it("Skal ikke hente dineSykmeldinger dersom dineSykmeldinger har feilet", () => {
+                state.dineSykmeldinger.hentingFeilet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentDineSykmeldinger.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+        });
+
+        describe("Sykeforløp", () => {
+            it("Skal hente sykeforloep dersom sykeforloep ikke er hentet", () => {
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentSykeforloep.calledOnce).to.equal(true);
+                expect(props.henter).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it("Skal ikke hente sykeforloep dersom sykeforloep er hentet", () => {
+                state.sykeforloep.hentet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentSykeforloep.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it("Skal ikke hente sykeforloep dersom sykeforloep hentes nå", () => {
+                state.sykeforloep.henter = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentSykeforloep.called).to.equal(false);
+                expect(props.henter).to.equal(true);
+            });
+
+            it("Skal ikke hente sykeforloep dersom henting av sykeforløp har feilet", () => {
+                state.sykeforloep.hentingFeilet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentSykeforloep.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+        });
+
+        describe("Oppfølgingsdialoger", () => {
+            it("Skal hente oppfolgingsdialoger dersom oppfolgingsdialoger ikke er hentet", () => {
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentOppfolgingsdialoger.calledOnce).to.equal(true);
+                expect(props.henter).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it("Skal ikke hente oppfolgingsdialoger dersom oppfolgingsdialoger er hentet", () => {
+                state.oppfolgingsdialoger.hentet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentOppfolgingsdialoger.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it("Skal ikke hente oppfolgingsdialoger dersom oppfolgingsdialoger hentes nå", () => {
+                state.oppfolgingsdialoger.henter = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentOppfolgingsdialoger.called).to.equal(false);
+                expect(props.henter).to.equal(true);
+            });
+
+            it("Skal ikke hente oppfolgingsdialoger dersom henting av sykeforløp har feilet", () => {
+                state.oppfolgingsdialoger.hentingFeilet = true;
+                state.oppfolgingsdialoger.hentet = false;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentOppfolgingsdialoger.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+        });
+
+        describe("Ledetekster", () => {
+            it("Skal returnere henter = true dersom ledetekster hentes", () => {
+                state.ledetekster.henter = true;
+                const props = mapStateToProps(deepFreeze(state));
+                expect(props.henter).to.be.true;
+            });
+        })
+
+    });
+
+    describe("mapStateToProps", () => {
+        describe("harDialogmote", () => {
+            it("Skal være true hvis bruker har dialogmøte", () => {
+                state.mote.data = {};
+                const props = mapStateToProps(state);
+                expect(props.harDialogmote).to.equal(true);
+            });
+
+            it("Skal være false hvis bruker ikke har dialogmøte", () => {
+                state.mote.data = null;
+                const props = mapStateToProps(state);
+                expect(props.harDialogmote).to.equal(false);
+            });
+
+            it("Skal være false hvis henting av dialogmøte har feilet", () => {
+                state.mote = {
+                    data: null,
                     henter: false,
-                },
-                mote: {},
-                ledere: {
-                    hentet: false,
-                    data: [],
-                },
-                hendelser: {},
-            };
+                    hentingFeilet: true,
+                    hentet: true,
+                };
+                const props = mapStateToProps(state);
+                expect(props.harDialogmote).to.equal(false);
+            });
         });
 
-        it('Skal returnere harDialogmote === false', () => {
-            state.mote.data = null;
-            const res = mapStateToProps(state);
-            expect(res.harDialogmote).to.be.false;
+        describe("harSykmeldinger", () => {
+            it("Skal være true hvis bruker har sykmeldinger", () => {
+                state.dineSykmeldinger.data = [{}];
+                const props = mapStateToProps(state);
+                expect(props.harSykmeldinger).to.equal(true);
+            });
+
+            it("Skal være false hvis bruker ikke har sykmeldinger", () => {
+                state.dineSykmeldinger.data = [];
+                const props = mapStateToProps(state);
+                expect(props.harSykmeldinger).to.equal(false);
+            });
+
+            it("Skal være false hvis henting av sykmeldinger har feilet", () => {
+                state.dineSykmeldinger.hentingFeilet = true;
+                const props = mapStateToProps(state);
+                expect(props.harSykmeldinger).to.equal(false);
+            });
         });
 
-        it('Skal returnere harDialogmote === true', () => {
-            state.mote.data = {};
-            const res = mapStateToProps(state);
-            expect(res.harDialogmote).to.be.true;
+        describe("harSykepengesoknader", () => {
+            it("Skal være true hvis bruker har sykepengesoknader", () => {
+                state.sykepengesoknader.data = [{}];
+                const props = mapStateToProps(state);
+                expect(props.harSykepengesoknader).to.equal(true);
+            });
+
+            it("Skal være false hvis bruker ikke har sykepengesoknader", () => {
+                state.sykepengesoknader.data = [];
+                const props = mapStateToProps(state);
+                expect(props.harSykepengesoknader).to.equal(false);
+            });
+
+            it("Skal være false hvis henting av sykmeldinger har feilet", () => {
+                state.dineSykmeldinger.hentingFeilet = true;
+                const props = mapStateToProps(state);
+                expect(props.harSykmeldinger).to.equal(false);
+            });
+
         });
 
-        it('Skal returnere sykepengesoknader', () => {
-            const res = mapStateToProps(state);
-            expect(res.sykepengesoknader).to.deep.equal([]);
+        describe("harSykepengesoknader", () => {
+            it("Skal være true hvis bruker har sykepengesoknader", () => {
+                state.sykepengesoknader.data = [{}];
+                const props = mapStateToProps(state);
+                expect(props.harSykepengesoknader).to.equal(true);
+            });
+
+            it("Skal være false hvis bruker ikke har sykepengesoknader", () => {
+                state.sykepengesoknader.data = [];
+                const props = mapStateToProps(state);
+                expect(props.harSykepengesoknader).to.equal(false);
+            });
+
+            it("Skal være false hvis henting av sykepengesøknader har feilet", () => {
+                state.sykepengesoknader.hentingFeilet = true;
+                const props = mapStateToProps(state);
+                expect(props.harSykepengesoknader).to.equal(false);
+            });
         });
 
-        it('Skal returnere altHentet = false når sykepengesoknader ikke er hentet', () => {
-            state.ledere.hentet = true;
-            state.mote.hentet = true;
-            state.dineSykmeldinger.hentet = true;
-            state.sykepengesoknader.hentet = false;
-            const res = mapStateToProps(state);
-            expect(res.altHentet).to.be.false;
-            expect(res.hentet.sykepengesoknader).to.be.false;
+        describe("skalViseOppfolgingsdialog", () => {
+            let clock;
+            let getSykmeldingMedTomDato;
+            let utgaattSykmelding;
+            let fremtidigSykmelding;
+            let fremtidigSykmeldingUtenArbeidsgiver;
+            let sykmeldingSomErUtgaattForMindreEnnFireManederSiden;
+            let sykmeldingSomNettoppErUtgaatt;
+
+            beforeEach(() => {
+                clock = sinon.useFakeTimers(new Date("2018-05-01").getTime());
+                getSykmeldingMedTomDato = (tomdato) => {
+                    const fom = new Date(tomdato);
+                    fom.setDate(fom.getTime() - 18);
+                    return getSykmelding({
+                        orgnummer: "123",
+                        mulighetForArbeid: {
+                            perioder: [{
+                                fom,
+                                tom: tomdato
+                            }]
+                        }
+                    })
+                };
+
+                utgaattSykmelding = getSykmeldingMedTomDato(new Date("2017-12-22"));
+                fremtidigSykmelding = getSykmeldingMedTomDato(new Date("2018-06-13"));
+                fremtidigSykmeldingUtenArbeidsgiver = getSykmeldingMedTomDato(new Date("2018-06-13"));
+                fremtidigSykmeldingUtenArbeidsgiver.orgnummer = null;
+                sykmeldingSomErUtgaattForMindreEnnFireManederSiden = getSykmeldingMedTomDato(new Date("2018-01-01"));
+                sykmeldingSomNettoppErUtgaatt = getSykmeldingMedTomDato(new Date("2017-31-12"));
+            });
+
+            afterEach(() => {
+                clock.restore();
+            });
+
+            it('Skal være true om vi har en oppfolgingsdialog, men ingen sykmeldinger', () => {
+                state.oppfolgingsdialoger.data = [{}];
+                state.dineSykmeldinger.data = []
+                const props = mapStateToProps(state);
+                expect(props.skalViseOppfolgingsdialog).to.equal(true);
+            });
+
+            it('Skal være true om vi har ingen oppfolgingsdialoger, men en sykmelding som gikk ut for mindre enn fire måneder siden', () => {
+                state.dineSykmeldinger.data = [utgaattSykmelding, sykmeldingSomErUtgaattForMindreEnnFireManederSiden];
+                const props = mapStateToProps(state);
+                expect(props.skalViseOppfolgingsdialog).to.equal(true);
+            });
+
+            it('Skal være false om vi har ingen oppfolgingsdialoger, men en sykmelding som gikk ut for fire måneder og én dag siden', () => {
+                state.dineSykmeldinger.data = [utgaattSykmelding, sykmeldingSomNettoppErUtgaatt];
+                const props = mapStateToProps(state);
+                expect(props.skalViseOppfolgingsdialog).to.equal(false);
+            });
+
+            it('Skal være false om det finnes fremtidig sykmelding uten arbeidsgiver', () => {
+                state.dineSykmeldinger.data = [fremtidigSykmeldingUtenArbeidsgiver];
+                const props = mapStateToProps(state);
+                expect(props.skalViseOppfolgingsdialog).to.equal(false);
+            });
+
+            it('Skal være true om det finnes fremtidig sykmelding med arbeidsgiver', () => {
+                state.dineSykmeldinger.data = [fremtidigSykmelding];
+                const props = mapStateToProps(state);
+                expect(props.skalViseOppfolgingsdialog).to.equal(true);
+            });
+
+            it('Skal være false om det eksisterer 1 sykmelding uten orgnummer', () => {
+                state.dineSykmeldinger.data = [fremtidigSykmeldingUtenArbeidsgiver];
+                const props = mapStateToProps(state);
+                expect(props.skalViseOppfolgingsdialog).to.equal(false);
+            });
+
+            it("Skal være false om henting av oppfølgingsdialoger har feilet", () => {
+                state.dineSykmeldinger.data = [{
+                    orgnummer: "123",
+                    mulighetForArbeid: {
+                        perioder: []
+                    }
+                }];
+                state.oppfolgingsdialoger.data = [];
+                state.oppfolgingsdialoger.hentingFeilet = true;
+                const props = mapStateToProps(state);
+                expect(props.skalViseOppfolgingsdialog).to.equal(false);
+            });
+
+            it("Skal være false om henting av sykmeldinger har feilet", () => {
+                state.dineSykmeldinger.data = [];
+                state.dineSykmeldinger.hentingFeilet = true;
+                state.oppfolgingsdialoger.data = [{}];
+                const props = mapStateToProps(state);
+                expect(props.skalViseOppfolgingsdialog).to.equal(false);
+            });
+
+            it("Skal være false om henting av ledere har feilet", () => {
+                state.dineSykmeldinger.data = [fremtidigSykmelding];
+                state.oppfolgingsdialoger.data = [{}];
+                state.ledere.hentingFeilet = true;
+                const props = mapStateToProps(state);
+                expect(props.skalViseOppfolgingsdialog).to.equal(false);
+            });
         });
 
-        it('Skal returnere altHentet = true når alt nødvendig er hentet', () => {
-            state.ledere.hentet = true;
-            state.mote.hentet = true;
-            state.dineSykmeldinger.hentet = true;
-            state.sykepengesoknader.hentet = true;
-            const res = mapStateToProps(state);
-            expect(res.altHentet).to.be.true;
-        });
+        describe("hentingFeilet", () => {
+            it("Skal være false om henting av ledetekster var vellykket", () => {
+                state.ledetekster.hentingFeilet = false;
+                const props = mapStateToProps(state);
+                expect(props.hentingFeilet).to.equal(false);
+            });
 
-        it('Skal returnere altHentet = false når ledere ikke er hentet', () => {
-            const res = mapStateToProps(state);
-            expect(res.hentet.ledere).to.be.false;
-        });
+            it("Skal være false om henting av ledetekster feilet", () => {
+                state.ledetekster.hentingFeilet = true;
+                const props = mapStateToProps(state);
+                expect(props.hentingFeilet).to.equal(true);
+            });
+        })
 
-        it('Skal returnere = true når ledere er hentet', () => {
-            state.ledere.hentet = true;
-            const res = mapStateToProps(state);
-            expect(res.hentet.ledere).to.be.true;
-        });
     });
 
-    describe('LandingssideSide', () => {
-        let hentMote;
-        let hentSykepengesoknader;
-        let hentLedere;
-        let hentToggles;
-        let hentDineSykmeldinger;
-        let hentStartdato;
-        let hent;
-
-        beforeEach(() => {
-            hentMote = sinon.spy();
-            hentSykepengesoknader = sinon.spy();
-            hentDineSykmeldinger = sinon.spy();
-            hentLedere = sinon.spy();
-            hentToggles = sinon.spy();
-            hentStartdato = sinon.spy();
-            hent = {
-                hentMote, hentSykepengesoknader, hentDineSykmeldinger, hentLedere, hentToggles, hentStartdato,
-            };
-        });
-
-        it('Skal vise Landingsside', () => {
-            let component = shallow(<LandingssideSide hentet={{}} {...hent} />);
-            expect(component.find(Landingsside)).to.have.length(1);
-        });
-
-        it('Skal hente sykepengesoknader hvis sykepengesoknader ikke er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ sykepengesoknader: false }} {...hent} />);
-            expect(hentSykepengesoknader.called).to.be.true;
-        });
-
-        it('Skal ikke hente sykepengesoknader hvis sykepengesoknader er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ sykepengesoknader: true }} {...hent} />);
-            expect(hentSykepengesoknader.called).to.be.false;
-        });
-
-        it('Skal hente møte hvis møte ikke er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ mote: false }} {...hent} />);
-            expect(hentMote.called).to.be.true;
-        });
-
-        it('Skal ikke hente møte hvis møte er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ mote: true }} {...hent} />);
-            expect(hentMote.called).to.be.false;
-        });
-
-        it('Skal hente ledere hvis ledere ikke er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ ledere: false }} {...hent} />);
-            expect(hentLedere.called).to.be.true;
-        });
-
-        it('Skal ikke hente ledere hvis ledere er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ ledere: true }} {...hent} />);
-            expect(hentLedere.called).to.be.false;
-        });
-
-        it('Skal hente dineSykmeldinger hvis dineSykmeldinger ikke er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ dineSykmeldinger: false }} {...hent} />);
-            expect(hentDineSykmeldinger.called).to.be.true;
-        });
-
-        it('Skal ikke hente dineSykmeldinger hvis dineSykmeldinger er hentet', () => {
-            let component = shallow(<LandingssideSide hentet={{ dineSykmeldinger: true }} {...hent} />);
-            expect(hentDineSykmeldinger.called).to.be.false;
-        });
-    });
 });

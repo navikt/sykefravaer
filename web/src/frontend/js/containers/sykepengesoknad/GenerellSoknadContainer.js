@@ -57,24 +57,29 @@ export function mapDispatchToProps(dispatch) {
     };
 }
 
-export const mapStateToProps = (state, ownProps) => {
-    const sykepengesoknad = state.sykepengesoknader.data.filter((soknad) => {
-        return soknad.id === ownProps.params.sykepengesoknadId;
-    })[0];
-    let skjemasoknad = state.form && state.form[SYKEPENGER_SKJEMANAVN] ? state.form[SYKEPENGER_SKJEMANAVN].values : undefined;
-    if (skjemasoknad && sykepengesoknad.forrigeSykeforloepTom) {
-        skjemasoknad = {
+const dekorerSkjemasoknad = (skjemasoknad, sykepengesoknad) => {
+    if (skjemasoknad && sykepengesoknad && sykepengesoknad.forrigeSykeforloepTom) {
+        return {
             ...skjemasoknad,
             forrigeSykeforloepTom: sykepengesoknad.forrigeSykeforloepTom,
         };
     }
+    return skjemasoknad;
+};
+
+export const mapStateToProps = (state, ownProps) => {
+    const sykepengesoknad = state.sykepengesoknader.data.filter((soknad) => {
+        return soknad.id === ownProps.params.sykepengesoknadId;
+    })[0];
+    const skjemasoknad = state.form && state.form[SYKEPENGER_SKJEMANAVN] ? state.form[SYKEPENGER_SKJEMANAVN].values : undefined;
+    const dekorertSkjemasoknad = dekorerSkjemasoknad(skjemasoknad, sykepengesoknad);
 
     return {
         sykepengesoknad,
         henter: state.sykepengesoknader.henter || state.ledetekster.henter,
         hentingFeilet: state.sykepengesoknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.sykepengesoknader.henterBerikelseFeilet,
         sykepengesoknaderHentet: state.sykepengesoknader.hentet === true,
-        skjemasoknad,
+        skjemasoknad: dekorertSkjemasoknad,
         sender: state.sykepengesoknader.sender,
         sendingFeilet: state.sykepengesoknader.sendingFeilet,
     };

@@ -1,3 +1,5 @@
+import { leggTilDagerPaaDato } from './testUtils';
+
 export const getOppfolgingsdialoger = [
     {
         opprettetDato: "2017-06-12",
@@ -21,7 +23,7 @@ export const getOppfolgingsdialoger = [
         status: 'UNDER_ARBEID',
         arbeidsoppgaveListe: [
             {
-                arbeidsoppgaveId: "1084",
+                arbeidsoppgaveId: 1084,
                 arbeidsoppgavenavn: "Arbeidsopgave1",
                 delAvArbeidsuke: null,
                 godkjentAvArbeidsgiver: false,
@@ -50,7 +52,7 @@ export const getOppfolgingsdialoger = [
                 }
             },
             {
-                arbeidsoppgaveId: "1090",
+                arbeidsoppgaveId: 1090,
                 arbeidsoppgavenavn: "Arbeidsoppgave2",
                 delAvArbeidsuke: null,
                 godkjentAvArbeidsgiver: false,
@@ -79,7 +81,7 @@ export const getOppfolgingsdialoger = [
                 }
             },
             {
-                arbeidsoppgaveId: "1128",
+                arbeidsoppgaveId: 1128,
                 arbeidsoppgavenavn: "Arbeidsoppgave3",
                 delAvArbeidsuke: null,
                 godkjentAvArbeidsgiver: false,
@@ -115,8 +117,11 @@ export const getOppfolgingsdialoger = [
                 fnr: "***REMOVED***",
                 sistInnlogget: "2017-01-01T00:00:00.000",
                 samtykke: null,
-                godkjent: null
-            }
+                godkjent: null,
+                aktivFom: "2017-01-01T00:00:00.000",
+            },
+            forrigeNaermesteLeder: {}
+            ,
         },
         arbeidstaker: {
             navn: "Test Testesen",
@@ -157,8 +162,13 @@ export const getOppfolgingsdialoger = [
                 fnr: "***REMOVED***",
                 sistInnlogget: "2017-01-01T00:00:00.000",
                 samtykke: null,
-                godkjent: null
-            }
+                godkjent: null,
+                aktivFom: "2017-01-01T00:00:00.000",
+            },
+            forrigeNaermesteLeder: {
+                fnr: '***REMOVED***',
+                navn: 'Arbeidsgiver navn',
+            },
         },
         arbeidstaker: {
             navn: "Test Testesen",
@@ -199,8 +209,13 @@ export const getOppfolgingsdialoger = [
                 fnr: "***REMOVED***",
                 sistInnlogget: "2017-01-01T00:00:00.000",
                 samtykke: null,
-                godkjent: null
-            }
+                godkjent: null,
+                aktivFom: "2017-01-01T00:00:00.000",
+            },
+            forrigeNaermesteLeder: {
+                fnr: '***REMOVED***',
+                navn: 'Arbeidsgiver navn',
+            },
         },
         arbeidstaker: {
             navn: "Test Testesen",
@@ -297,8 +312,10 @@ const oppfolgingsdialog = {
             fnr: "***REMOVED***",
             samtykke: null,
             sistInnlogget: "2017-01-01T00:00:00.000",
-            godkjent: null
-        }
+            godkjent: null,
+            aktivFom: "2017-01-01T00:00:00.000",
+        },
+        forrigeNaermesteLeder: {},
     },
     arbeidstaker: {
         navn: "Test Testesen",
@@ -307,6 +324,31 @@ const oppfolgingsdialog = {
         samtykke: true,
         godkjent: null
     }
+};
+
+export const hentOppfolgingsdialogTidligere = (dagensDato) => {
+    return Object.assign({}, oppfolgingsdialog, {
+        godkjentPlan: {
+            gyldighetstidspunkt: {
+                fom: leggTilDagerPaaDato(dagensDato, -5).toISOString(),
+                tom: leggTilDagerPaaDato(dagensDato, -1).toISOString(),
+            },
+        },
+        naermesteLeder: {
+            navn: 'Test Testesen',
+            fnr: '***REMOVED***',
+            samtykke: null,
+            sistInnlogget: leggTilDagerPaaDato(dagensDato, -1).toISOString(),
+            godkjent: null,
+            aktivFom: leggTilDagerPaaDato(dagensDato, -10).toISOString(),
+        },
+    });
+};
+
+export const hentOppfolgingsdialogAktiv = (dagensDato) => {
+    return Object.assign({}, hentOppfolgingsdialogTidligere(dagensDato), {
+        godkjentPlan: null,
+    });
 };
 
 const getOppfolgingsdialog = (id = {}) => {

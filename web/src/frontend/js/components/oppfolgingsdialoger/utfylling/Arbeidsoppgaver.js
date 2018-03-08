@@ -230,10 +230,9 @@ class Arbeidsoppgaver extends Component {
                         {
                             antallIkkeVurdererteArbOppgaver > 0 && <NotifikasjonBoksVurderingOppgave
                                 ledetekster={ledetekster}
-                                navn={oppfolgingsdialog.arbeidsgiver.naermesteLeder.navn}
                                 antallIkkeVurderte={antallIkkeVurdererteArbOppgaver}
-                                rootUrl={`${getContextRoot()}`}
-                                tekst="oppfolgingsdialog.notifikasjonboks.arbeidsoppgave.vurderes.tekst"
+                                rootUrl={getContextRoot()}
+                                tekst="oppfolgingsdialog.notifikasjonBoksVurderingOppgave.arbeidstaker.tekst"
                             />
                         }
                         <ArbeidsoppgaverInfoboks

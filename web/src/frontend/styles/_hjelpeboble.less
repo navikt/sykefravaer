@@ -1,0 +1,75 @@
+.hjelpeboble {
+    position: relative;
+    margin-top: 1.5em;
+
+    a {
+        .mixin-lenke();
+    }
+}
+
+.hjelpeboble__boble {
+    .mixin-panel-padding();
+    position: relative;
+    border-radius: .5em;
+    background-color: @bakgrunnGraa;
+    position: relative;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.hjelpeboble__bilde {
+    width: 4em;
+    height: 4em;
+    margin-left: auto; 
+    margin-right: auto;
+    position: relative;
+    
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.hjelpeboble__bilde:after {
+    content: "";
+    background-color: @bakgrunnGraa;
+    width: 3em;
+    height: 2em;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -100%;
+    transform: rotate(-30deg) translateY(-150%) skew(-15deg);
+}
+
+@media (min-width: 30em) {
+    .hjelpeboble {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .hjelpeboble__boble {
+        flex: 1;
+        margin-bottom: 0;
+    }
+
+    .hjelpeboble__bilde {
+        box-sizing: content-box;
+        padding-right: 2em;
+    }
+
+    @w: 1.5em;
+
+    .hjelpeboble__bilde:after {
+        width: @w;
+        height: @w;
+        top: 50%;
+        right: 0;
+        transform: translate(50%, -50%) rotate(45deg);
+    }
+}

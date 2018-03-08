@@ -2,36 +2,55 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { moteActions } from 'moter-npm';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { getLedetekst } from 'digisyfo-npm';
+import { hentOppfolgingsdialogerAt as hentOppfolgingsdialoger } from 'oppfolgingsdialog-npm';
 import Landingsside from '../../components/landingsside/Landingsside';
 import StrippetSide from '../../sider/StrippetSide';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { brodsmule as brodsmulePt, sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
+import { brodsmule as brodsmulePt } from '../../propTypes';
 import { hentSykepengesoknader } from '../../actions/sykepengesoknader_actions';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../../actions/ledere_actions';
-import { hentStartdato } from '../../actions/sykeforloep_actions';
+import { hentSykeforloep } from '../../actions/sykeforloep_actions';
+import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
 
 export class LandingssideSide extends Component {
     componentWillMount() {
-        const { mote, ledere, dineSykmeldinger, sykepengesoknader } = this.props.hentet;
-        const { skalHenteStartdato } = this.props;
-        if (!mote) {
-            this.props.hentMote();
+        const {
+            skalHenteMote,
+            skalHenteSykepengesoknader,
+            skalHenteLedere,
+            skalHenteDineSykmeldinger,
+            skalHenteSykeforloep,
+            skalHenteOppfolgingsdialoger,
+            actions,
+        } = this.props;
+
+        if (skalHenteMote) {
+            actions.hentMote();
         }
-        if (!sykepengesoknader && !this.props.hentingFeiletSykepengesoknader) {
-            this.props.hentSykepengesoknader();
+
+        if (skalHenteSykepengesoknader) {
+            actions.hentSykepengesoknader();
         }
-        if (!ledere && !this.props.hentingFeiletLedere) {
-            this.props.hentLedere();
+
+        if (skalHenteDineSykmeldinger) {
+            actions.hentDineSykmeldinger();
         }
-        if (!dineSykmeldinger && !this.props.hentingFeiletSykmeldinger) {
-            this.props.hentDineSykmeldinger();
+
+        if (skalHenteLedere) {
+            actions.hentLedere();
         }
-        if (skalHenteStartdato) {
-            this.props.hentStartdato();
+
+        if (skalHenteSykeforloep) {
+            actions.hentSykeforloep();
+        }
+
+        if (skalHenteOppfolgingsdialoger) {
+            actions.hentOppfolgingsdialoger();
         }
     }
 
@@ -39,16 +58,17 @@ export class LandingssideSide extends Component {
         const {
             brodsmuler,
             henter,
+            skalHenteNoe,
             hentingFeilet,
-            sykepengesoknader,
+            harSykepengesoknader,
             harDialogmote,
-            dineSykmeldinger,
-            altHentet,
+            harSykmeldinger,
+            skalViseOppfolgingsdialog,
         } = this.props;
         const Sidetype = hentingFeilet ? Side : StrippetSide;
         const brodsmulerArg = hentingFeilet ? brodsmuler : [];
 
-        return (<Sidetype brodsmuler={brodsmulerArg} tittel={getLedetekst('landingsside.sidetittel')} laster={henter || !altHentet}>
+        return (<Sidetype brodsmuler={brodsmulerArg} tittel={getLedetekst('landingsside.sidetittel')} laster={henter || skalHenteNoe}>
             {
                 (() => {
                     if (henter) {
@@ -58,9 +78,10 @@ export class LandingssideSide extends Component {
                     }
                     return (<Landingsside
                         brodsmuler={brodsmuler}
-                        sykepengesoknader={sykepengesoknader}
+                        harSykepengesoknader={harSykepengesoknader}
                         harDialogmote={harDialogmote}
-                        dineSykmeldinger={dineSykmeldinger}
+                        harSykmeldinger={harSykmeldinger}
+                        skalViseOppfolgingsdialog={skalViseOppfolgingsdialog}
                     />);
                 })()
             }
@@ -71,71 +92,81 @@ export class LandingssideSide extends Component {
 LandingssideSide.propTypes = {
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     henter: PropTypes.bool,
+    skalHenteNoe: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
-    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    harSykepengesoknader: PropTypes.bool,
     harDialogmote: PropTypes.bool,
-    hentMote: PropTypes.func,
-    hentLedere: PropTypes.func,
-    hentSykepengesoknader: PropTypes.func,
-    dineSykmeldinger: PropTypes.arrayOf(sykmeldingPt),
-    hentDineSykmeldinger: PropTypes.func,
-    hentingFeiletSykepengesoknader: PropTypes.bool,
-    hentingFeiletSykmeldinger: PropTypes.bool,
-    hentingFeiletLedere: PropTypes.bool,
-    hentet: PropTypes.shape({
-        ledere: PropTypes.bool,
-        mote: PropTypes.bool,
-        dineSykmeldinger: PropTypes.bool,
-        sykepengesoknader: PropTypes.bool,
+    harSykmeldinger: PropTypes.bool,
+    skalViseOppfolgingsdialog: PropTypes.bool,
+    skalHenteMote: PropTypes.bool,
+    skalHenteLedere: PropTypes.bool,
+    skalHenteSykepengesoknader: PropTypes.bool,
+    skalHenteDineSykmeldinger: PropTypes.bool,
+    skalHenteSykeforloep: PropTypes.bool,
+    skalHenteOppfolgingsdialoger: PropTypes.bool,
+    actions: PropTypes.shape({
+        hentMote: PropTypes.func,
+        hentLedere: PropTypes.func,
+        hentSykepengesoknader: PropTypes.func,
+        hentDineSykmeldinger: PropTypes.func,
+        hentSykeforloep: PropTypes.func,
+        hentOppfolgingsdialoger: PropTypes.func,
     }),
-    altHentet: PropTypes.bool,
-    skalHenteStartdato: PropTypes.bool,
-    hentStartdato: PropTypes.func,
 };
 
 export function mapStateToProps(state) {
-    const hentet = {
-        ledere: state.ledere.hentet === true,
-        mote: state.mote.hentet === true,
-        dineSykmeldinger: state.dineSykmeldinger.hentet === true,
-        sykepengesoknader: state.sykepengesoknader.hentet === true,
-        sykeforloep: state.sykeforloep.hentet === true,
+    const skalHente = (reducer) => {
+        const r = state[reducer];
+        return !r.hentingFeilet && !r.henter && !r.hentet;
     };
-    const altHentet = Object.values(hentet).reduce((acc, bool) => {
-        return bool && acc;
-    });
+
+    const henter = (reducer) => {
+        const r = state[reducer];
+        return r.henter === true;
+    };
+
+    const reducere = ['mote', 'sykepengesoknader', 'ledere', 'dineSykmeldinger', 'sykeforloep', 'oppfolgingsdialoger', 'ledetekster'];
 
     return {
-        henter:
-            state.ledetekster.henter
-            || state.sykepengesoknader.henter
-            || state.dineSykmeldinger.henter
-            || state.mote.henter
-            || state.hendelser.henter
-            || state.sykeforloep.henter,
+        skalHenteMote: skalHente('mote'),
+        skalHenteSykepengesoknader: skalHente('sykepengesoknader'),
+        skalHenteLedere: skalHente('ledere'),
+        skalHenteDineSykmeldinger: skalHente('dineSykmeldinger'),
+        skalHenteSykeforloep: skalHente('sykeforloep'),
+        skalHenteOppfolgingsdialoger: skalHente('oppfolgingsdialoger'),
+        skalHenteNoe: reducere.reduce((acc, val) => {
+            return acc || skalHente(val);
+        }, false),
+        henter: reducere.reduce((acc, val) => {
+            return acc || henter(val);
+        }, false),
+        harDialogmote: state.mote.data !== null,
+        harSykepengesoknader: state.sykepengesoknader.data.length > 0,
+        harSykmeldinger: state.dineSykmeldinger.data.length > 0,
+        skalViseOppfolgingsdialog: !state.dineSykmeldinger.hentingFeilet &&
+            !state.oppfolgingsdialoger.hentingFeilet &&
+            !state.ledere.hentingFeilet &&
+            skalViseOppfoelgingsdialogLenke(state.dineSykmeldinger.data, state.oppfolgingsdialoger),
         hentingFeilet: state.ledetekster.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
         }],
-        sykepengesoknader: state.sykepengesoknader.data,
-        harDialogmote: state.mote.data !== null,
-        dineSykmeldinger: state.dineSykmeldinger.data,
-        hentingFeiletSykepengesoknader: state.sykepengesoknader.hentingFeilet,
-        hentingFeiletSykmeldinger: state.dineSykmeldinger.hentingFeilet,
-        hentingFeiletLedere: state.ledere.hentingFeilet,
-        skalHenteStartdato: !state.sykeforloep.hentet && !state.sykeforloep.henter,
-        hentet,
-        altHentet,
     };
 }
 
-const LandingssideContainer = connect(mapStateToProps, {
-    hentMote: moteActions.hentMote,
-    hentSykepengesoknader,
-    hentLedere,
-    hentDineSykmeldinger,
-    hentStartdato,
-})(LandingssideSide);
+const mapDispatchToProps = (dispatch) => {
+    const actions = bindActionCreators({
+        hentMote: moteActions.hentMote,
+        hentSykepengesoknader,
+        hentLedere,
+        hentDineSykmeldinger,
+        hentOppfolgingsdialoger,
+        hentSykeforloep,
+    }, dispatch);
+    return { actions };
+};
+
+const LandingssideContainer = connect(mapStateToProps, mapDispatchToProps)(LandingssideSide);
 
 export default LandingssideContainer;

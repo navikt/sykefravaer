@@ -1,13 +1,17 @@
 import React from 'react';
 import { Hjelpetekst, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import PropTypes from 'prop-types';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
+import { getTidligsteStartdatoSykeforloep } from '../../../utils/sykmeldingUtils';
+import { getEgenmeldingsdagerSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
+import { Bjorn } from '../../Hjelpeboble';
 
-const EgenmeldingsDager = ({ sykepengesoknad }) => {
-    const identdato = sykepengesoknad.identdato;
-    const senesteTom = new Date(identdato);
-    senesteTom.setDate(identdato.getDate() - 1);
+const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsdagerPreutfylt }) => {
+    const startSykeforloep = getTidligsteStartdatoSykeforloep(sykepengesoknad);
+    const senesteTom = new Date(startSykeforloep);
+    senesteTom.setDate(startSykeforloep.getDate() - 1);
     const tidligsteFom = new Date(senesteTom);
     tidligsteFom.setMonth(senesteTom.getMonth() - 6);
 
@@ -15,28 +19,31 @@ const EgenmeldingsDager = ({ sykepengesoknad }) => {
         id="egenmeldingsdager-hjelpetekst"
         tittel={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tittel')}
         tekst={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tekst', {
-            '%DATO%': toDatePrettyPrint(identdato),
+            '%DATO%': toDatePrettyPrint(startSykeforloep),
         })} />);
 
-    return (
-        <JaEllerNei
-            spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.janei.sporsmal', {
-                '%DATO%': toDatePrettyPrint(identdato),
+    const informasjon = erEgenmeldingsdagerPreutfylt
+        ? <Bjorn nokkel="sykepengesoknad.egenmeldingsdager.preutfylt-melding" />
+        : null;
+
+    return (<JaEllerNei
+        spoersmal={getEgenmeldingsdagerSporsmal(sykepengesoknad)}
+        name="bruktEgenmeldingsdagerFoerLegemeldtFravaer"
+        hjelpetekst={hjelpetekst}
+        informasjon={informasjon}>
+        <Periodevelger
+            name="egenmeldingsperioder"
+            spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal-2', {
+                '%DATO%': toDatePrettyPrint(startSykeforloep),
             })}
-            name="bruktEgenmeldingsdagerFoerLegemeldtFravaer"
-            hjelpetekst={hjelpetekst}>
-            <Periodevelger
-                name="egenmeldingsperioder"
-                spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal-2', {
-                    '%DATO%': toDatePrettyPrint(identdato),     
-                })}
-                tidligsteFom={tidligsteFom}
-                senesteTom={senesteTom} />
-        </JaEllerNei>);
+            tidligsteFom={tidligsteFom}
+            senesteTom={senesteTom} />
+    </JaEllerNei>);
 };
 
 EgenmeldingsDager.propTypes = {
     sykepengesoknad: sykepengesoknadPt.isRequired,
+    erEgenmeldingsdagerPreutfylt: PropTypes.bool,
 };
 
 export default EgenmeldingsDager;

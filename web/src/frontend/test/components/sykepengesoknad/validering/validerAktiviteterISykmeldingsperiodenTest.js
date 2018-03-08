@@ -1,6 +1,5 @@
 import chai from 'chai';
 import React from 'react'
-import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 
@@ -12,7 +11,6 @@ import validate, {
     ikkeJobbetMerEnnGraderingProsentFeil,
     ikkeJobbetMerEnnGraderingTimerFeil,
     antallTimerErMerEnn100ProsentFeil,
-    normaltAntallFeil,
     overHundreFeil,
     overHundreogfemtiFeil,
     jobbetMerEnnPlanlagtFeil,
@@ -43,8 +41,8 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 "avvik": null
             }, {
                 "periode": {
-                    "fom": "2017-16-01",
-                    "tom": "2017-16-25"
+                    "fom": "2017-01-16",
+                    "tom": "2017-01-30"
               },
               "grad": 50,
               "avvik": null,
@@ -84,6 +82,39 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(typeof res).to.equal("object")
         });
 
+        it("Skal validere hvis bruker slipper aa fylle ut en aktivitet", () => {
+            const values = {
+                harGjenopptattArbeidFulltUt: true,
+                gjenopptattArbeidFulltUtDato: '14.01.2017',
+                aktiviteter: [{jobbetMerEnnPlanlagt: false}]
+            };
+
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+            expect(res.aktiviteter).to.be.undefined;
+        });
+
+        it("Skal validere om bruker har en avgrenset aktivitet", () => {
+            const values = {
+                harGjenopptattArbeidFulltUt: true,
+                gjenopptattArbeidFulltUtDato: '17.01.2017',
+                aktiviteter: [{jobbetMerEnnPlanlagt: false}, {jobbetMerEnnPlanlagt: false}]
+            };
+
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+            expect(res.aktiviteter).to.be.undefined;
+        });
+
+        it("Skal validere om bruker ikke har noen aktiviterer aa fylle ut", () => {
+            const values = {
+                harGjenopptattArbeidFulltUt: true,
+                gjenopptattArbeidFulltUtDato: '01.01.2017',
+                aktiviteter: []
+            };
+
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+            expect(res.aktiviteter).to.be.undefined;
+        });
+
         it("Skal validere alle aktiviteter i søknaden", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.aktiviteter).to.have.length(2); 
@@ -111,12 +142,12 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }, {
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }])
         });
@@ -135,12 +166,12 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }, {
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }])
         });
@@ -158,12 +189,12 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }, {
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }])
         });
@@ -187,7 +218,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter[1]).to.deep.equal({
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             })
         });
@@ -212,7 +243,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter[1]).to.deep.equal({
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             })
         });
@@ -232,7 +263,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter).to.deep.equal([{}, {
                 avvik: {
                     arbeidsgrad: antallFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil
+                    arbeidstimerNormalUke: antallFeil
                 }
             }])
         });
@@ -587,7 +618,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
                     timer: overHundreogfemtiFeil,
-                    arbeidstimerNormalUke: normaltAntallFeil,
+                    arbeidstimerNormalUke: antallFeil,
                 }
             }])
         });
@@ -732,7 +763,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 }];
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.aktiviteter[0].avvik).to.be.undefined;
-                expect(res.aktiviteter[1].avvik.arbeidstimerNormalUke).to.equal("Vennligst oppgi normalt antall");
+                expect(res.aktiviteter[1].avvik.arbeidstimerNormalUke).to.equal("Vennligst oppgi antall");
             });
 
             it("Skal ikke protestere på samme normalarbeidstid hvis bruker har oppgitt normalarbeidstid for kun én periode (og ingenting for den andre)", () => {
@@ -752,7 +783,7 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                 }];
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.aktiviteter[0].avvik).to.be.undefined;
-                expect(res.aktiviteter[1].avvik.arbeidstimerNormalUke).to.equal("Vennligst oppgi normalt antall");
+                expect(res.aktiviteter[1].avvik.arbeidstimerNormalUke).to.equal("Vennligst oppgi antall");
             });
 
         });
@@ -936,9 +967,10 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                           "grad": 100,
                           "avvik": null
                         }],
-                    })
+                    });
                     values.utdanning.utdanningStartdato = "21.07.2016";
                     values.gjenopptattArbeidFulltUtDato = "18.07.2016";
+                    values.harGjenopptattArbeidFulltUt = true;
                     const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                     expect(res.utdanning.utdanningStartdato).to.equal("Datoen kan ikke være etter sykmeldingsperioden gikk ut den 17.07.2016");
                 });
@@ -975,6 +1007,23 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
                     expect(res.utdanning.utdanningStartdato).to.be.undefined;
                 });
 
+                it("Klager ikke på utdanning om vi ikke har aktiviteter", () => {
+                    const sykepengesoknad = getSoknad({
+                        "aktiviteter": [{
+                            "periode": {
+                                "fom": "2016-07-15T00:00:00.000Z",
+                                "tom": "2016-07-20T00:00:00.000Z"
+                            },
+                            "grad": 100,
+                            "avvik": null
+                        }],
+                    });
+                    values.harGjenopptattArbeidFulltUt = true;
+                    values.gjenopptattArbeidFulltUtDato = "15.07.2016";
+
+                    const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+                    expect(res.utdanning).to.be.undefined;
+                });
             }); 
 
             describe("erUtdanningFulltidsstudium", () => {

@@ -1,5 +1,5 @@
-export const henterEllerHarHentetSykmeldinger = (sykmeldinger) => {
-    return sykmeldinger.henter || sykmeldinger.hentet;
+export const henterEllerHarHentetSykmeldinger = (dineSykmeldinger) => {
+    return dineSykmeldinger.henter || dineSykmeldinger.hentet;
 };
 
 export const henterEllerHarHentetLedere = (ledere) => {
@@ -12,4 +12,8 @@ export const lederHarBlittAvkreftet = (ledere, nesteLedere) => {
 
 export const henterEllerHarHentetToggles = (toggles) => {
     return toggles.henter || toggles.hentet;
+};
+
+export const henterEllerHarHentetSykeforloep = (sykeforloep) => {
+    return sykeforloep.henter || sykeforloep.hentet;
 };

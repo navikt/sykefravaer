@@ -1,24 +1,27 @@
 import chai from 'chai';
 import React from 'react';
-import { Link } from 'react-router';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
+import sinon from 'sinon';
 import {
-    OppfolgingsdialogTeasere,
-    OppfolgingsdialogerIngenplanAT,
     NyNaermestelederInfoboks,
     UnderUtviklingVarsel,
+    OppfolgingsdialogUtenSykmelding,
+    OppfolgingsdialogerUtenAktivSykmelding,
 } from 'oppfolgingsdialog-npm';
 import Sidetopp from '../../../js/components/Sidetopp';
-import Oppfolgingsdialoger, { OppfolgingsdialogNyDialog } from '../../../js/components/oppfolgingsdialoger/Oppfolgingsdialoger';
+import Oppfolgingsdialoger from '../../../js/components/oppfolgingsdialoger/Oppfolgingsdialoger';
 import IngenledereInfoboks from '../../../js/components/oppfolgingsdialoger/IngenledereInfoboks';
-import OppfolgingsdialogFilm from '../../../js/components/oppfolgingsdialoger/OppfolgingsdialogFilm';
+import OppfolgingsdialogerVisning from '../../../js/components/oppfolgingsdialoger/OppfolgingsdialogerVisning';
 import getOppfolgingsdialog, { getOppfolgingsdialoger } from '../../mockOppfolgingsdialoger';
-import getSykmelding from '../../mockSykmeldinger';
+import {
+    hentSykmeldingIkkeGyldigForOppfoelging,
+    hentSykmeldingGyldigForOppfoelging,
+    leggTilDagerPaaDato,
+} from '../../mockSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
-import sinon from 'sinon';
 
 describe('Oppfolgingsdialoger', () => {
     let component;
@@ -29,6 +32,9 @@ describe('Oppfolgingsdialoger', () => {
     let hentPerson;
     let hentForrigeNaermesteLeder;
     let hentKontaktinfo;
+    const dagensDato = new Date('2017-01-01');
+    dagensDato.setHours(0, 0, 0, 0);
+    let clock;
     const virksomhet = {
         henter: [],
         hentet: [],
@@ -47,6 +53,12 @@ describe('Oppfolgingsdialoger', () => {
         hentingFeilet: [],
         data: [],
     };
+    const naermesteleder = {
+        henter: [],
+        hentet: [],
+        hentingFeilet: [],
+        data: [],
+    };
     const forrigenaermesteleder = {
         henter: [],
         hentet: [],
@@ -54,7 +66,10 @@ describe('Oppfolgingsdialoger', () => {
         data: [],
     };
     beforeEach(() => {
-        dinesykmeldinger = { data: [] };
+        clock = sinon.useFakeTimers(dagensDato.getTime());
+        dinesykmeldinger = {
+            data: [hentSykmeldingGyldigForOppfoelging(dagensDato)],
+        };
         naermesteLedere = { data: [] };
         hentForrigeNaermesteLeder = sinon.spy();
         hentPerson = sinon.spy();
@@ -66,14 +81,20 @@ describe('Oppfolgingsdialoger', () => {
             dinesykmeldinger={dinesykmeldinger}
             naermesteLedere={naermesteLedere}
             hentVirksomhet={hentVirksomhet}
+            hentNaermesteLeder={sinon.spy()}
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            naermesteleder={naermesteleder}
             forrigenaermesteleder={forrigenaermesteleder}
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
         />);
+    });
+
+    afterEach(() => {
+        clock.restore();
     });
 
     it('Skal vise UnderUtviklingVarsel', () => {
@@ -88,23 +109,6 @@ describe('Oppfolgingsdialoger', () => {
         expect(component.find('p.oppfolgingsdialoger__tekst')).to.have.length(1);
     });
 
-    it('Skal vise OppfolgingsdialogFilm', () => {
-        component = shallow(<Oppfolgingsdialoger
-            oppfolgingsdialoger={oppfolgingsdialoger}
-            dinesykmeldinger={dinesykmeldinger}
-            naermesteLedere={naermesteLedere}
-            hentVirksomhet={hentVirksomhet}
-            hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-            hentPerson={hentPerson}
-            hentKontaktinfo={hentKontaktinfo}
-            forrigenaermesteleder={forrigenaermesteleder}
-            virksomhet={virksomhet}
-            person={person}
-            kontaktinfo={kontaktinfo}
-        />);
-        expect(component.find(OppfolgingsdialogFilm)).to.have.length(1);
-    });
-
     describe('Ny NaermesteLeder', () => {
         it('Skal vise IngenledereInfoboks, dersom det ikke er oppfolgingsdialoger og man ikke har noen naermesteLeder hos noen virksomhet', () => {
             expect(component.find(IngenledereInfoboks)).to.have.length(1);
@@ -113,7 +117,10 @@ describe('Oppfolgingsdialoger', () => {
         it('Skal vise NyNaermestelederInfoboks, dersom det er en oppfolgingsdialog med ny naermeste leder og bekreftetNyNaermesteLeder er false', () => {
             const oppfolgingsdialogListe = [Object.assign({}, getOppfolgingsdialog(), {
                 arbeidsgiver: {
-                    naermesteLeder: { aktivFom: '2017-01-01' },
+                    naermesteLeder: {
+                        fnr: '***REMOVED***',
+                        aktivFom: '2017-01-01',
+                    },
                     forrigeNaermesteLeder: {},
                 },
                 arbeidstaker: { sistInnlogget: '2017-01-01T12:12:12.000' },
@@ -122,9 +129,11 @@ describe('Oppfolgingsdialoger', () => {
                 oppfolgingsdialoger={oppfolgingsdialogListe}
                 dinesykmeldinger={dinesykmeldinger}
                 hentVirksomhet={hentVirksomhet}
+                hentNaermesteLeder={sinon.spy()}
                 hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
                 hentPerson={hentPerson}
                 hentKontaktinfo={hentKontaktinfo}
+                naermesteleder={naermesteleder}
                 forrigenaermesteleder={forrigenaermesteleder}
                 virksomhet={virksomhet}
                 person={person}
@@ -135,143 +144,95 @@ describe('Oppfolgingsdialoger', () => {
         });
     });
 
-    describe('Uten Aktiv(e) Oppfolgingsdialog(er)', () => {
-        it('Skal ikke vise OppfolgingsdialogerTeasere dersom man ikke har oppfolgingsdialoger', () => {
-            expect(component.find(OppfolgingsdialogTeasere)).to.have.length(0);
-        });
+    describe('Uten gyldig sykmelding', () => {
+        let component1;
+        let sykmeldingListe;
 
-        it('Skal vise OppfolgingsdialogerIngenplanAT, dersom det ikke er oppfolgingsdialoger', () => {
-            const sykmeldingListe = [getSykmelding({
-                mulighetForArbeid: {
-                    perioder: [{
-                        tom: new Date(),
-                    }],
-                },
-            })];
-            component = shallow(<Oppfolgingsdialoger
-                oppfolgingsdialoger={[]}
-                dinesykmeldinger={{ data: sykmeldingListe }}
-                hentVirksomhet={hentVirksomhet}
-                hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                hentPerson={hentPerson}
-                hentKontaktinfo={hentKontaktinfo}
+        beforeEach(() => {
+            sykmeldingListe = {
+                data: [hentSykmeldingIkkeGyldigForOppfoelging(dagensDato)],
+            };
+            component1 = shallow(<Oppfolgingsdialoger
+                oppfolgingsdialoger={oppfolgingsdialoger}
+                dinesykmeldinger={sykmeldingListe}
+                naermesteLedere={naermesteLedere}
+                hentVirksomhet={sinon.spy()}
+                hentNaermesteLeder={sinon.spy()}
+                hentForrigeNaermesteLeder={sinon.spy()}
+                hentPerson={sinon.spy()}
+                hentKontaktinfo={sinon.spy()}
+                naermesteleder={naermesteleder}
                 forrigenaermesteleder={forrigenaermesteleder}
                 virksomhet={virksomhet}
                 person={person}
                 kontaktinfo={kontaktinfo}
-                naermesteLedere={{ data: [{ orgnummer: sykmeldingListe[0].orgnummer }] }}
+                bekreftetNyNaermesteLeder
             />);
-            expect(component.find(OppfolgingsdialogerIngenplanAT)).to.have.length(1);
         });
 
-        it('Skal vise OppfolgingsdialogerIngenplanAT, dersom det ikke er aktive oppfolgingsdialoger', () => {
-            const sykmeldingListe = [getSykmelding({
-                mulighetForArbeid: {
-                    perioder: [{
-                        tom: new Date(),
-                    }],
-                },
-            })];
-            const oppfolgingsdialogListe = [Object.assign({}, getOppfolgingsdialog(), {
+        it('Skal vise OppfolgingsdialogUtenSykmelding', () => {
+            expect(component1.find(OppfolgingsdialogUtenSykmelding)).to.have.length(1);
+        });
+
+        it('Skal vise ikke OppfolgingsdialogerUtenAktivSykmelding, dersom det ikke er tidligere planer', () => {
+            const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
                 godkjentPlan: {
                     gyldighetstidspunkt: {
-                        tom: '2017-01-01T00:00:00.000',
+                        fom: leggTilDagerPaaDato(dagensDato, -5).toISOString(),
+                        tom: leggTilDagerPaaDato(dagensDato, 1).toISOString(),
                     },
                 },
             })];
-            component = shallow(<Oppfolgingsdialoger
-                hentVirksomhet={hentVirksomhet}
-                hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                hentPerson={hentPerson}
-                hentKontaktinfo={hentKontaktinfo}
+            component1 = shallow(<Oppfolgingsdialoger
+                oppfolgingsdialoger={oppfolgingsdialogListe}
+                dinesykmeldinger={sykmeldingListe}
+                naermesteLedere={naermesteLedere}
+                hentVirksomhet={sinon.spy()}
+                hentNaermesteLeder={sinon.spy()}
+                hentForrigeNaermesteLeder={sinon.spy()}
+                hentPerson={sinon.spy()}
+                hentKontaktinfo={sinon.spy()}
+                naermesteleder={naermesteleder}
                 forrigenaermesteleder={forrigenaermesteleder}
                 virksomhet={virksomhet}
                 person={person}
                 kontaktinfo={kontaktinfo}
-                oppfolgingsdialoger={oppfolgingsdialogListe}
-                dinesykmeldinger={{ data: sykmeldingListe }}
-                naermesteLedere={{ data: [{ orgnummer: sykmeldingListe[0].orgnummer }] }}
             />);
-            expect(component.find(OppfolgingsdialogerIngenplanAT)).to.have.length(1);
-        });
-    });
-
-    describe('Med Oppfolgingsdialoger', () => {
-        describe('Har Aktiv Oppfolgingsdialog', () => {
-            it('Skal vise en OppfolgingsdialogerTeasere dersom man har oppfolgingsdialoger', () => {
-                const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
-                    godkjentPlan: null,
-                })];
-                component = shallow(<Oppfolgingsdialoger
-                    dinesykmeldinger={dinesykmeldinger}
-                    naermesteLedere={naermesteLedere}
-                    oppfolgingsdialoger={oppfolgingsdialogListe}
-                    hentVirksomhet={hentVirksomhet}
-                    hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                    hentPerson={hentPerson}
-                    hentKontaktinfo={hentKontaktinfo}
-                    forrigenaermesteleder={forrigenaermesteleder}
-                    virksomhet={virksomhet}
-                    person={person}
-                    kontaktinfo={kontaktinfo}
-                />);
-                expect(component.find(OppfolgingsdialogTeasere)).to.have.length(1);
-            });
-
-            it('Skal ikke vise OppfolgingsdialogNyDialog, dersom man har oppfolgingsdialog og kun 1 arbeidsgiver', () => {
-                const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
-                    godkjentPlan: null,
-                })];
-                component = shallow(<Oppfolgingsdialoger
-                    dinesykmeldinger={dinesykmeldinger}
-                    naermesteLedere={naermesteLedere}
-                    oppfolgingsdialoger={oppfolgingsdialogListe}
-                    hentVirksomhet={hentVirksomhet}
-                    hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                    hentPerson={hentPerson}
-                    hentKontaktinfo={hentKontaktinfo}
-                    forrigenaermesteleder={forrigenaermesteleder}
-                    virksomhet={virksomhet}
-                    person={person}
-                    kontaktinfo={kontaktinfo}
-                />);
-                expect(component.find(OppfolgingsdialogNyDialog)).to.have.length(0);
-            });
+            expect(component1.find(OppfolgingsdialogerUtenAktivSykmelding)).to.have.length(0);
         });
 
-        describe('Har Tidligere Oppfolgingsdialoger', () => {
-            it('Skal vise en OppfolgingsdialogerTeasere dersom man har oppfolgingsdialoger', () => {
-                const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
-                    godkjentPlan: {
-                        gyldighetstidspunkt: {
-                            fom: '2016-01-01T00:00:00.000',
-                            tom: '2017-01-01T00:00:00.000',
-                        },
+        it('Skal vise OppfolgingsdialogerUtenAktivSykmelding, dersom det er tidligere planer', () => {
+            const oppfolgingsdialogListe = [Object.assign((oppfolgingsdialoger[0]), {
+                godkjentPlan: {
+                    gyldighetstidspunkt: {
+                        fom: leggTilDagerPaaDato(dagensDato, -5).toISOString(),
+                        tom: leggTilDagerPaaDato(dagensDato, -1).toISOString(),
                     },
-                })];
-                component = shallow(<Oppfolgingsdialoger
-                    dinesykmeldinger={dinesykmeldinger}
-                    naermesteLedere={naermesteLedere}
-                    oppfolgingsdialoger={oppfolgingsdialogListe}
-                    hentVirksomhet={hentVirksomhet}
-                    hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
-                    hentPerson={hentPerson}
-                    hentKontaktinfo={hentKontaktinfo}
-                    forrigenaermesteleder={forrigenaermesteleder}
-                    virksomhet={virksomhet}
-                    person={person}
-                    kontaktinfo={kontaktinfo}
-                />);
-                expect(component.find(OppfolgingsdialogTeasere)).to.have.length(1);
-            });
+                },
+            })];
+            const component2 = shallow(<Oppfolgingsdialoger
+                oppfolgingsdialoger={oppfolgingsdialogListe}
+                dinesykmeldinger={sykmeldingListe}
+                naermesteLedere={naermesteLedere}
+                hentVirksomhet={sinon.spy()}
+                hentNaermesteLeder={sinon.spy()}
+                hentForrigeNaermesteLeder={sinon.spy()}
+                hentPerson={sinon.spy()}
+                hentKontaktinfo={sinon.spy()}
+                naermesteleder={naermesteleder}
+                forrigenaermesteleder={forrigenaermesteleder}
+                virksomhet={virksomhet}
+                person={person}
+                kontaktinfo={kontaktinfo}
+                bekreftetNyNaermesteLeder
+            />);
+            expect(component2.find(OppfolgingsdialogerUtenAktivSykmelding)).to.have.length(1);
         });
     });
 
-    describe('OppfolgingsdialogNyDialog', () => {
-        it('Skal vise en Link til OpprettOppfolgingsdialog', () => {
-            component = shallow(<OppfolgingsdialogNyDialog
-            />);
-            expect(component.find(Link)).to.have.length(1);
+    describe('Standard visning', () => {
+        it('Skal vise OppfolgingsdialogerVisning', () => {
+            expect(component.find(OppfolgingsdialogerVisning)).to.have.length(0);
         });
     });
 });

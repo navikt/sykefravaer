@@ -80,6 +80,8 @@ const frontendProps = [
     'harHattUtenlandsopphold',
     'utenlandsoppholdSoktOmSykepenger',
     'harAndreInntektskilder',
+    'oppfoelgingsdato',
+    '_erEgenmeldingsdagerPreutfylt',
     '_erOppdelt',
 ];
 

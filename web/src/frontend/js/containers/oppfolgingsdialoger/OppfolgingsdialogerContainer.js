@@ -6,6 +6,7 @@ import {
     OppfolgingsdialogInfoboks,
     opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
+    kopierOppfolgingsdialog,
     sjekkTilgang,
     hentVirksomhet,
     hentPerson,
@@ -16,6 +17,7 @@ import {
     henterEllerHarHentetTilgang,
     henterEllerHarHentetOppfolgingsdialoger,
     oppfolgingsdialogHarBlittOpprettet,
+    populerDialogFraState,
 } from 'oppfolgingsdialog-npm';
 import { getContextRoot } from '../../routers/paths';
 import Side from '../../sider/Side';
@@ -58,13 +60,21 @@ export class OppfolgingsdialogerSide extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { oppfolgingsdialogerReducer, naermesteLedere } = this.props;
+        const {
+            kopierDialogReducer,
+            oppfolgingsdialogerReducer,
+            naermesteLedere,
+        } = this.props;
         if (lederHarBlittAvkreftet(naermesteLedere, nextProps.naermesteLedere)) {
             this.props.hentLedere();
             this.props.hentOppfolgingsdialoger();
         }
         if (oppfolgingsdialogHarBlittOpprettet(oppfolgingsdialogerReducer, nextProps.oppfolgingsdialogerReducer)) {
             history.push(`/sykefravaer/oppfolgingsplaner/${nextProps.oppfolgingsdialogerReducer.opprettetId}`);
+            this.props.hentOppfolgingsdialoger();
+        }
+        if (kopierDialogReducer.sender && nextProps.kopierDialogReducer.sendt) {
+            history.push(`${getContextRoot()}/oppfolgingsplaner/${nextProps.kopierDialogReducer.data}`);
             this.props.hentOppfolgingsdialoger();
         }
     }
@@ -109,8 +119,10 @@ OppfolgingsdialogerSide.propTypes = {
     sendingFeilet: PropTypes.bool,
     dinesykmeldinger: dinesykmeldingerReducerPt,
     naermesteLedere: ledereReducerPt,
+    kopierDialogReducer: oppfolgingProptypes.kopierDialogReducerPt,
     oppfolgingsdialogerReducer: oppfolgingProptypes.oppfolgingsdialogerAtPt,
     person: oppfolgingProptypes.personReducerPt,
+    naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
     tilgang: oppfolgingProptypes.tilgangReducerPt,
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
@@ -127,11 +139,16 @@ OppfolgingsdialogerSide.propTypes = {
     hentOppfolgingsdialoger: PropTypes.func,
     hentPerson: PropTypes.func,
     hentVirksomhet: PropTypes.func,
+    kopierOppfolgingsdialog: PropTypes.func,
     opprettOppfolgingsdialog: PropTypes.func,
     sjekkTilgang: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
+    const oppfolgingsdialoger = state.oppfolgingsdialoger.data
+        .map((oppfolgingsdialog) => {
+            return populerDialogFraState(oppfolgingsdialog, state);
+        });
     return {
         henter: state.ledetekster.henter
         || state.oppfolgingsdialoger.henter
@@ -150,12 +167,16 @@ export const mapStateToProps = (state) => {
         || state.ledere.avkreftet
         || state.oppfolgingsdialoger.opprettet,
         sender: state.oppfolgingsdialoger.oppretter
+        || state.kopierDialogReducer.sender
         || state.ledere.avkrefter,
         sendingFeilet: state.oppfolgingsdialoger.hentingFeilet
+        || state.kopierDialogReducer.sendingFeilet
         || state.ledere.avkreftFeilet,
         avkrefterLederReducer: state.ledere,
         dinesykmeldinger: state.dineSykmeldinger,
+        naermesteleder: state.naermesteleder,
         forrigenaermesteleder: state.forrigenaermesteleder,
+        kopierDialogReducer: state.kopierDialogReducer,
         naermesteLedere: state.ledere,
         oppfolgingsdialogerReducer: state.oppfolgingsdialoger,
         person: state.person,
@@ -163,7 +184,7 @@ export const mapStateToProps = (state) => {
         virksomhet: state.virksomhet,
         bekreftetNyNaermesteLeder: state.nyNaermesteLeder.bekreftet,
         ledetekster: state.ledetekster.data,
-        oppfolgingsdialoger: state.oppfolgingsdialoger.data,
+        oppfolgingsdialoger,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',
@@ -186,6 +207,7 @@ const OppfolgingsdialogerContainer = connect(mapStateToProps, {
     hentPerson,
     hentForrigeNaermesteLeder,
     hentNaermesteLeder,
+    kopierOppfolgingsdialog,
     opprettOppfolgingsdialog,
 })(OppfolgingsdialogerSide);
 

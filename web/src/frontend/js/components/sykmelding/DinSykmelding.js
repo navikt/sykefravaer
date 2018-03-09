@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe, scrollTo } from 'digisyfo-npm';
+import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import DinSykmeldingSkjemaContainer from '../../containers/sykmelding/DinSykmeldingSkjemaContainer';
 import Sidetopp from '../Sidetopp';
-import IllustrertInnhold from '../IllustrertInnhold';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
+import { Bjorn } from '../Hjelpeboble';
+import { getSykmeldtFornavn } from '../../utils/sykmeldingUtils';
 
 class DinSykmelding extends Component {
     render() {
@@ -22,23 +23,15 @@ class DinSykmelding extends Component {
                     </Varselstripe>
                 </div>
             }
-            <div className="panel blokk--s">
-                <IllustrertInnhold ikon="/sykefravaer/img/svg/din-sykmelding-veileder.svg" ikonAlt="NAV-veileder">
-                    <div>
-                        <p>{getLedetekst('din-sykmelding.introtekst.abtest')}</p>
-                        <p className="sist introtekst__knapperad">
-                            <button
-                                className="rammeknapp rammeknapp--mini"
-                                type="button"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    scrollTo(this.skjema);
-                                    this.skjema.focus();
-                                }}>Gå til utfylling</button>
-                        </p>
-                    </div>
-                </IllustrertInnhold>
-            </div>
+            <Bjorn className="blokk" hvit stor>
+                <p>
+                    {
+                        getLedetekst('din-sykmelding.introtekst.bjorn', {
+                            '%NAVN%': getSykmeldtFornavn(sykmelding),
+                        })
+                    }
+                </p>
+            </Bjorn>
             <header className="panelHeader panelHeader--lysebla">
                 <img className="panelHeader__ikon" src="/sykefravaer/img/svg/person.svg" alt="Du" />
                 <h2 className="panelHeader__tittel">{sykmelding.pasient.fornavn} {sykmelding.pasient.mellomnavn} {sykmelding.pasient.etternavn}</h2>

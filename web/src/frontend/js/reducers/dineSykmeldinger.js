@@ -108,8 +108,6 @@ export default function sykmeldinger(state = initiellState, action) {
                 gjenaapneFeilet: false,
             };
         }
-
-
         case actiontyper.ANGRER_BEKREFT_SYKMELDING: {
             return {
                 ...state,
@@ -135,8 +133,6 @@ export default function sykmeldinger(state = initiellState, action) {
                 angreBekreftSykmeldingFeilet: false,
             };
         }
-
-
         case actiontyper.HENT_DINE_SYKMELDINGER_FEILET: {
             return {
                 data: [],
@@ -224,6 +220,24 @@ export default function sykmeldinger(state = initiellState, action) {
                 data,
                 sender: false,
                 sendingFeilet: false,
+            };
+        }
+        case actiontyper.VENTETID_HENTET: {
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                erUtenforVentetid: action.erUtenforVentetid,
+            });
+            return {
+                ...state,
+                data,
+            };
+        }
+        case actiontyper.SKAL_OPPRETTE_SOKNAD_HENTET: {
+            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
+                skalOppretteSoknad: action.skalOppretteSoknad,
+            });
+            return {
+                ...state,
+                data,
             };
         }
         case actiontyper.BRUKER_ER_UTLOGGET: {

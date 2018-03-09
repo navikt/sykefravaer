@@ -6,7 +6,6 @@ import { toDatePrettyPrint, fraInputdatoTilJSDato, erGyldigDatoformat } from 'di
 import MaskedInput from 'react-maskedinput';
 import { erGyldigDato } from '../../utils/datoUtils';
 import Feilmelding from './Feilmelding';
-import { SYKEPENGER_SKJEMANAVN } from '../sykepengesoknad/setup';
 import DayPickerComponent from './DayPicker';
 import { fieldPropTypes } from '../../propTypes';
 
@@ -92,10 +91,10 @@ export class DatoField extends Component {
                     tidligsteFom={tidligsteFom}
                     senesteTom={senesteTom}
                     onDayClick={(event, jsDato) => {
-                        const { dispatch, skjemanavn } = this.props;
+                        const { dispatch } = this.props;
                         const s = toDatePrettyPrint(new Date(jsDato));
-                        dispatch(autofill(skjemanavn, this.props.input.name, s));
-                        dispatch(touch(skjemanavn, this.props.input.name));
+                        dispatch(autofill(meta.form, this.props.input.name, s));
+                        dispatch(touch(meta.form, this.props.input.name));
                         this.lukk();
                     }}
                     onKeyUp={(e) => {
@@ -116,14 +115,13 @@ DatoField.propTypes = {
     id: PropTypes.string.isRequired,
     input: fieldPropTypes.input,
     dispatch: PropTypes.func.isRequired,
-    skjemanavn: PropTypes.string.isRequired,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
 };
 
 const mapStateToProps = (state, ownProps) => {
     const inputName = ownProps.input.name;
-    const skjemanavn = ownProps.skjemanavn;
+    const skjemanavn = ownProps.meta.form;
     const selector = formValueSelector(skjemanavn);
     const inputValue = selector(state, inputName);
     return {
@@ -164,7 +162,6 @@ export const validerDatoField = (input, alternativer) => {
 const Datovelger = (props) => {
     return (<Field
         component={ConnectedDatoField}
-        skjemanavn={SYKEPENGER_SKJEMANAVN}
         validate={(input) => {
             return validerDatoField(input, {
                 fra: props.tidligsteFom,

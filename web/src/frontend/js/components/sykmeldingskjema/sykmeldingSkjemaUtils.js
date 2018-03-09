@@ -2,7 +2,7 @@ import { arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnu
 import { sykmeldingskjemamodi as modi } from '../../enums/sykmeldingskjemaenums';
 
 const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;
-const { ARBEIDSTAKER, DEFAULT } = arbeidssituasjoner;
+const { ARBEIDSTAKER, DEFAULT, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
 
 export const getSkjemaModus = (values, harStrengtFortroligAdresse) => {
     if (values === {}) {
@@ -43,4 +43,14 @@ export const getSkjemaModus = (values, harStrengtFortroligAdresse) => {
         return modi.SEND;
     }
     return modi.BEKREFT;
+};
+
+export const skalViseFrilansersporsmal = (sykmelding, values, erUtenforVentetid = false) => {
+    if (!sykmelding || !sykmelding.mulighetForArbeid || !values || erUtenforVentetid) {
+        return false;
+    }
+    const { avventende, reisetilskudd, behandlingsdager } = sykmelding.mulighetForArbeid;
+    return avventende || reisetilskudd || behandlingsdager
+        ? false
+        : [NAERINGSDRIVENDE, FRILANSER].indexOf(values.valgtArbeidssituasjon) > -1;
 };

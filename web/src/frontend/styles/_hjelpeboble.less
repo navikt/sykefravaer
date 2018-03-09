@@ -1,6 +1,5 @@
 .hjelpeboble {
     position: relative;
-    margin-top: 1.5em;
 
     a {
         .mixin-lenke();
@@ -22,6 +21,10 @@
     }
 }
 
+.hjelpeboble__boble--hvit {
+    background-color: @hvit;
+}
+
 .hjelpeboble__bilde {
     width: 4em;
     height: 4em;
@@ -33,6 +36,11 @@
         width: 100%;
         height: auto;
     }
+}
+
+.hjelpeboble__bilde--stor {
+    width: 6em;
+    height: 6em
 }
 
 .hjelpeboble__bilde:after {
@@ -47,6 +55,10 @@
     transform: rotate(-30deg) translateY(-150%) skew(-15deg);
 }
 
+.hjelpeboble__bilde--hvit:after {
+    background-color: @hvit;
+}
+
 @media (min-width: 30em) {
     .hjelpeboble {
         display: flex;
@@ -56,6 +68,10 @@
     .hjelpeboble__boble {
         flex: 1;
         margin-bottom: 0;
+    }
+
+    .hjelpeboble__boble--stor {
+        padding: 2em;
     }
 
     .hjelpeboble__bilde {

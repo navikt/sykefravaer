@@ -48,6 +48,7 @@ import arbeidsgiverperiodeberegning from './reducers/arbeidsgiverperiodeberegnin
 import hendelser from './reducers/hendelser';
 import aktivitetskrav from './reducers/aktivitetskrav';
 import sykeforloep from './reducers/sykeforloep';
+import sykmeldingMeta from './reducers/sykmeldingMeta';
 import './logging';
 
 const rootReducer = combineReducers({
@@ -91,6 +92,7 @@ const rootReducer = combineReducers({
     form: formReducer,
     formMeta: reduxFormMeta,
     sykeforloep,
+    sykmeldingMeta,
 });
 
 const sagaMiddleware = createSagaMiddleware();

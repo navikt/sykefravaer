@@ -6,7 +6,7 @@ import * as actiontyper from '../../js/actions/actiontyper';
 import * as actions from '../../js/actions/dineSykmeldinger_actions';
 import * as dinSykmeldingActions from '../../js/actions/dinSykmelding_actions';
 import * as brukerActions from '../../js/actions/brukerinfo_actions';
-
+import * as metaActions from '../../js/actions/sykmeldingMeta_actions';
 
 describe('dineSykmeldingerReducer', () => {
 
@@ -500,6 +500,26 @@ describe('dineSykmeldingerReducer', () => {
             sender: false,
             sendingFeilet: false
         });
+    });
+
+    it("Håndterer ventetidHentet({})", () => {
+        const initialState = deepFreeze({
+            data: [{id: 'min-sykmelding-id'}, {id: 'min-sykmelding-id-2'}],
+        });
+        const action = metaActions.ventetidHentet('min-sykmelding-id', true);
+        const nextState = dineSykmeldinger(initialState, action);
+        expect(nextState.data).to.deep.equal([
+            {id: 'min-sykmelding-id', erUtenforVentetid: true}, {id: 'min-sykmelding-id-2'}
+        ])
+    });
+
+    it("Håndterer skalOppretteSoknadHentet({})", () => {
+        const initialState = deepFreeze({
+            data: [{id: 'min-sykmelding-id'}, {id: 'min-sykmelding-id-2'}],
+        });
+        const action = metaActions.skalOppretteSoknadHentet('min-sykmelding-id', false);
+        const nextState = dineSykmeldinger(initialState, action);
+        expect(nextState.data).to.deep.equal([{id: 'min-sykmelding-id', skalOppretteSoknad: false}, {id: 'min-sykmelding-id-2'}])
     });
 
 }); 

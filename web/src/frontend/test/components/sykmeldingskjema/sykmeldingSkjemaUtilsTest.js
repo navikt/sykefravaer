@@ -1,7 +1,8 @@
 import chai from 'chai';
 import { arbeidssituasjoner } from 'digisyfo-npm';
-import { getSkjemaModus } from "../../../js/components/sykmeldingskjema/sykmeldingSkjemaUtils";
+import { getSkjemaModus, skalViseFrilansersporsmal } from "../../../js/components/sykmeldingskjema/sykmeldingSkjemaUtils";
 import { sykmeldingskjemamodi as modi } from '../../../js/enums/sykmeldingskjemaenums';
+import getSykmelding from "../../mockSykmeldinger";
 
 const expect = chai.expect;
 
@@ -59,6 +60,100 @@ describe("getSkjemaModus", () => {
         }
         const modus = getSkjemaModus(values, true);
         expect(modus).to.equal(modi.BEKREFT)
+    });
+
+});
+
+
+describe("skalViseFrilansersporsmal", () => {
+
+    let vanligSykmelding;
+    let behandlingsdagerSykmelding;
+    let reisetilskuddSykmelding; 
+    let avventendeSykmelding;
+    let values; 
+
+    beforeEach(() => {
+        vanligSykmelding = getSykmelding();
+        behandlingsdagerSykmelding = getSykmelding({
+            mulighetForArbeid: {
+                behandlingsdager: 5
+            }
+        });
+        reisetilskuddSykmelding = getSykmelding({
+            mulighetForArbeid: {
+                reisetilskudd: true
+            }
+        });
+        avventendeSykmelding = getSykmelding({
+            mulighetForArbeid: {
+                avventende: "Trenger en bedre stol"
+            }
+        });
+        values = {
+            valgtArbeidssituasjon: arbeidssituasjoner.DEFAULT,
+        };
+    });
+
+    it("Skal returnere false hvis sykmelding er med behandlingsdager", () => {
+        expect(skalViseFrilansersporsmal(behandlingsdagerSykmelding, values)).to.be.false;
+    });
+
+    it("Skal returnere false hvis sykmelding er med reisetilskudd", () => {
+        expect(skalViseFrilansersporsmal(reisetilskuddSykmelding, values)).to.be.false;
+    });
+
+    it("Skal returnere false hvis sykmelding er avventende", () => {
+        expect(skalViseFrilansersporsmal(avventendeSykmelding, values)).to.be.false;
+    });
+
+    it("Skal returnere false hvis sykmelding er vanlig og arbeidssituasjon ikke er valgt", () => {
+        expect(skalViseFrilansersporsmal(vanligSykmelding, values)).to.be.false;
+    });
+
+    it("Skal returnere false hvis sykmelding er vanlig og arbeidssituasjon er ARBEIDSTAKER", () => {
+        values.valgtArbeidssituasjon = arbeidssituasjoner.ARBEIDSTAKER;
+        expect(skalViseFrilansersporsmal(vanligSykmelding, values)).to.be.false;
+    });
+
+    it("Skal returnere false hvis sykmelding er vanlig og arbeidssituasjon er ARBEIDSLEDIG", () => {
+        values.valgtArbeidssituasjon = arbeidssituasjoner.ARBEIDSLEDIG;
+        expect(skalViseFrilansersporsmal(vanligSykmelding, values)).to.be.false;
+    });
+
+    it("Skal returnere true hvis sykmelding er vanlig og arbeidssituasjon er FRILANSER", () => {
+        values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
+        expect(skalViseFrilansersporsmal(vanligSykmelding, values)).to.be.true;
+    });
+
+    it("Skal returnere true hvis sykmelding er vanlig og arbeidssituasjon er NAERINGSDRIVENDE", () => {
+        values.valgtArbeidssituasjon = arbeidssituasjoner.NAERINGSDRIVENDE;
+        expect(skalViseFrilansersporsmal(vanligSykmelding, values)).to.be.true;
+    });
+
+    it("Skal returnere false hvis sykmelding ikke er vanlig og arbeidssituasjon er FRILANSER", () => {
+        values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
+        expect(skalViseFrilansersporsmal(avventendeSykmelding, values)).to.be.false;
+    });
+
+    it("Skal returnere false hvis sykmelding ikke er vanlig og arbeidssituasjon er NAERINGSDRIVENDE", () => {
+        values.valgtArbeidssituasjon = arbeidssituasjoner.NAERINGSDRIVENDE;
+        expect(skalViseFrilansersporsmal(behandlingsdagerSykmelding, values)).to.be.false;
+    });
+
+    it("Skal returnere true hvis sykmelding er vanlig og arbeidssituasjon er FRILANSER og erUtenforVentetid = false", () => {
+        values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
+        expect(skalViseFrilansersporsmal(vanligSykmelding, values, false)).to.be.true;
+    });
+
+    it("Skal returnere true hvis sykmelding er vanlig og arbeidssituasjon er NAERINGSDRIVENDE og erUtenforVentetid = false", () => {
+        values.valgtArbeidssituasjon = arbeidssituasjoner.NAERINGSDRIVENDE;
+        expect(skalViseFrilansersporsmal(vanligSykmelding, values, false)).to.be.true;
+    });
+
+    it("Skal returnere false hvis sykmelding er vanlig og arbeidssituasjon er NAERINGSDRIVENDE og erUtenforVentetid = true", () => {
+        values.valgtArbeidssituasjon = arbeidssituasjoner.NAERINGSDRIVENDE;
+        expect(skalViseFrilansersporsmal(vanligSykmelding, values, true)).to.be.false;
     });
 
 });

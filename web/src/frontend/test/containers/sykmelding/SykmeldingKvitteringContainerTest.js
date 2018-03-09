@@ -227,6 +227,72 @@ describe("SykmeldingKvitteringContainer", () => {
             expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_SØK_SENERE");
         });
 
+        it("Skal returnere 'KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR' dersom sykmeldingen er utenfor ventetid (frilanser)", () => {
+            const sykepengesoknader = [];
+            sykmelding = {
+                valgtArbeidssituasjon: "FRILANSER",
+                erUtenforVentetid: true,
+                status: "BEKREFTET",
+            };
+            const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR");
+        });
+
+        it("Skal returnere 'KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR' dersom sykmeldingen er utenfor ventetid (NAERINGSDRIVENDE)", () => {
+            const sykepengesoknader = [];
+            sykmelding = {
+                valgtArbeidssituasjon: "NAERINGSDRIVENDE",
+                erUtenforVentetid: true,
+                status: "BEKREFTET",
+            };
+            const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR");
+        });
+
+
+        it("Skal returnere 'KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR' dersom det skal opprettes søknad på tross av at søknaden er innenfor ventetid (NAERINGSDRIVENDE)", () => {
+            const sykepengesoknader = [];
+            sykmelding = {
+                erUtenforVentetid: false,
+                skalOppretteSoknad: true,
+                valgtArbeidssituasjon: "NAERINGSDRIVENDE",
+                status: "BEKREFTET",
+            };
+            const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR");
+        });
+
+        it("Skal returnere 'KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR' dersom det skal opprettes søknad på tross av at søknaden er innenfor ventetid (frilanser)", () => {
+            const sykepengesoknader = [];
+            sykmelding = {
+                erUtenforVentetid: false,
+                skalOppretteSoknad: true,
+                valgtArbeidssituasjon: "FRILANSER",
+                status: "BEKREFTET",
+            };
+            const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR");
+        });
+
+        it("Skal returnere 'KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE' dersom det ikke skal opprettes søknad", () => {
+            const sykepengesoknader = [];
+            sykmelding = {
+                erUtenforVentetid: false,
+                skalOppretteSoknad: false,
+                valgtArbeidssituasjon: "FRILANSER",
+                status: "BEKREFTET",
+            };
+            const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE");
+        });
+
+        it("Skal returnere 'KVITTERING_MED_SYKEPENGER_SOK_SENERE' dersom det finnes fremtidige søknader men ikke for denne sykmeldingen", () => {
+            sykmelding.id = "3";
+            const sykepengesoknader = [soknad1, soknad2, soknad3, soknad4, soknad5, soknad6];
+            const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_SØK_SENERE");
+        });
+
 
         it("Skal returnere 'KVITTERING_MED_SYKEPENGER_SØK_NÅ' dersom søknaden gjelder for en periode som går ut i dag", () => {
             const sykepengesoknader = [soknad4, soknad5, soknad2];
@@ -286,6 +352,21 @@ describe("SykmeldingKvitteringContainer", () => {
                 harStrengtFortroligAdresse: true
             });
             expect(nokkel).to.equal('bekreft-sykmelding.skjermingskode-6.ostepop');
+        });
+
+        it("Skal returnere riktig nøkkel dersom sykmelding.erUtenforVentetid = true", () => {
+            const nokkel = getLedetekstNokkel({ valgtArbeidssituasjon: 'FRILANSER', status: 'BEKREFTET', erUtenforVentetid: true}, "tittel");
+            expect(nokkel).to.equal('bekreft-sykmelding.skal-opprettes-soknad.tittel');
+        })
+
+        it("Skal returnere riktig nøkkel dersom sykmelding.erUtenforVentetid = false, men det skal opprettes søknad", () => {
+            const nokkel = getLedetekstNokkel({ valgtArbeidssituasjon: 'FRILANSER', status: 'BEKREFTET', erUtenforVentetid: false, skalOppretteSoknad: true}, "tittel");
+            expect(nokkel).to.equal('bekreft-sykmelding.skal-opprettes-soknad.tittel');
+        });
+
+        it("Skal returnere riktig nøkkel dersom sykmelding.erUtenforVentetid = false, men det skal ikke opprettes søknad", () => {
+            const nokkel = getLedetekstNokkel({ valgtArbeidssituasjon: 'FRILANSER', status: 'BEKREFTET', erUtenforVentetid: false, skalOppretteSoknad: false}, "tittel");
+            expect(nokkel).to.equal('bekreft-sykmelding.skal-ikke-opprettes-soknad.tittel');
         });
 
     });

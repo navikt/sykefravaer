@@ -12,8 +12,8 @@ import {
     NAV_OG_ARBEIDSGIVER,
     navigeringsvarsel,
     Oppsummering,
+    skalViseForskutteringssporsmal,
     utledMottaker,
-    utledVisForskutteringssporsmal,
 } from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
 import mapSkjemasoknadToBackendsoknad from '../../../js/components/sykepengesoknad/mappers/mapSkjemasoknadToBackendsoknad';
 import mapBackendsoknadToSkjemasoknad from '../../../js/components/sykepengesoknad/mappers/mapBackendsoknadToSkjemasoknad';
@@ -72,81 +72,86 @@ describe("OppsummeringContainer", () => {
 
         it('Skal vise forskutteringsspørsmål ledere er null', () => {
             expect(utledMottaker(null, soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV);
-            expect(utledVisForskutteringssporsmal(null, soknad, arbeidsgiverperiodeStartdato)).to.equal(true);
+            expect(skalViseForskutteringssporsmal(null, soknad, arbeidsgiverperiodeStartdato)).to.equal(true);
         });
 
         it('Skal sende søknad til arbeidsgiver og ikke vise forskutterinsspørsmål hvis søknaden er innefor arbeidsgiverperioden', () => {
-            const _soknad = getParsetSoknad({fom: '2017-01-01', tom: '2017-01-10'});
+            const _soknad = getParsetSoknad(
+                {
+                    fom: new Date('2017-01-01'),
+                    tom: new Date('2017-01-10')
+                }
+            );
 
             expect(utledMottaker(ledere, _soknad, arbeidsgiverperiodeStartdato)).to.equal(ARBEIDSGIVER);
-            expect(utledVisForskutteringssporsmal(ledere, _soknad, arbeidsgiverperiodeStartdato)).to.equal(false);
+            expect(skalViseForskutteringssporsmal(ledere, _soknad, arbeidsgiverperiodeStartdato)).to.equal(false);
         });
 
         it('Skal sende søknaden til nav og arbeidsgiver hvis første dag i søknaden er før eller samme som siste dag i arbeidsgiverperioden', () => {
             const _soknad = getParsetSoknad(
                 {
-                    fom: '2017-01-01',
-                    tom: '2017-01-30',
+                    fom: new Date('2017-01-01'),
+                    tom: new Date('2017-01-30'),
                 }
             );
 
             expect(utledMottaker(lederSvartJa, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV_OG_ARBEIDSGIVER);
-            expect(utledVisForskutteringssporsmal(lederSvartJa, _soknad, arbeidsgiverperiodeStartdato)).to.equal(false);
+            expect(skalViseForskutteringssporsmal(lederSvartJa, _soknad, arbeidsgiverperiodeStartdato)).to.equal(false);
         });
 
         it('Skal ikke vise forskutteringsspørsmål hvis arbeidsgiver har svart på forskuttering', () => {
             const startdato = new Date('2016-01-01');
 
             expect(utledMottaker(lederSvartJa, soknad, startdato)).to.equal(NAV_OG_ARBEIDSGIVER);
-            expect(utledVisForskutteringssporsmal(lederSvartJa, soknad, startdato)).to.equal(false);
+            expect(skalViseForskutteringssporsmal(lederSvartJa, soknad, startdato)).to.equal(false);
 
             expect(utledMottaker(lederSvartNei, soknad, startdato)).to.equal(NAV);
-            expect(utledVisForskutteringssporsmal(lederSvartNei, soknad, startdato)).to.equal(false);
+            expect(skalViseForskutteringssporsmal(lederSvartNei, soknad, startdato)).to.equal(false);
         });
 
         it('Skal vise forskutteringspørsmål hvis arbeidsgiver ikke har svart på forskuttering', () => {
             const startdato = new Date('2016-01-01');
 
             expect(utledMottaker(ledere, soknad, startdato)).to.equal(NAV);
-            expect(utledVisForskutteringssporsmal(ledere, soknad, startdato)).to.equal(true);
+            expect(skalViseForskutteringssporsmal(ledere, soknad, startdato)).to.equal(true);
         });
 
         it('Skal vise forskutteringsspørsmål hvis søknad er etter arbeidsgiverperioden og sende til ag og nav hvis bruker sier ja', () => {
             const _soknad = getParsetSoknad(
                 {
-                    fom: '2017-02-01',
-                    tom: '2017-02-17',
+                    fom: new Date('2017-02-01'),
+                    tom: new Date('2017-02-17'),
                     arbeidsgiverForskutterer: 'JA',
                 }
             );
 
             expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV_OG_ARBEIDSGIVER);
-            expect(utledVisForskutteringssporsmal(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(true);
+            expect(skalViseForskutteringssporsmal(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(true);
         });
 
         it('Skal vise forskutteringsspørsmål hvis søknad er etter arbeidsgiverperioden og sende bare til nav hvis bruker sier nei', () => {
             const _soknad = getParsetSoknad(
                 {
-                    fom: '2017-02-01',
-                    tom: '2017-02-30',
+                    fom: new Date('2017-02-01'),
+                    tom: new Date('2017-02-30'),
                     arbeidsgiverForskutterer: 'NEI',
                 }
             );
 
             expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV);
-            expect(utledVisForskutteringssporsmal(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(true);
+            expect(skalViseForskutteringssporsmal(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(true);
         });
 
         it('Skal ikke vise forskutteringsspørsmål hvis starten på søknad er innenfor arbeidsgiverperioden og sende til ag og nav', () => {
             const _soknad = getParsetSoknad(
                 {
-                    fom: '2017-01-15',
-                    tom: '2017-02-17',
+                    fom: new Date('2017-01-15'),
+                    tom: new Date('2017-02-17'),
                 }
             );
 
             expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV_OG_ARBEIDSGIVER);
-            expect(utledVisForskutteringssporsmal(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(false);
+            expect(skalViseForskutteringssporsmal(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(false);
         });
     });
 

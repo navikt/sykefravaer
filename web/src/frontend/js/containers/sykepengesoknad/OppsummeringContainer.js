@@ -99,27 +99,28 @@ const forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden = (arbeidsgiverPeri
     soknadFom <= getSisteDagIAGPerioden(arbeidsgiverPeriodeStartdato);
 
 export const utledMottaker = (ledere, soknad, startdato) =>
-    (erSoknadInnenforAGPerioden(startdato, new Date(soknad.fom), new Date(soknad.tom))
+    (erSoknadInnenforAGPerioden(startdato, soknad.fom, soknad.tom)
         ? ARBEIDSGIVER
         : ledere
-            && (forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(startdato, new Date(soknad.fom))
+            && (forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(startdato, soknad.fom)
             || AGsSvarPaForskuttering(ledere, soknad.arbeidsgiver.orgnummer)
             || brukersSvarPaForskuttering(soknad.arbeidsgiverForskutterer))
             ? NAV_OG_ARBEIDSGIVER
             : NAV);
 
-export const utledVisForskutteringssporsmal = (ledere, soknad, startdato) =>
+export const skalViseForskutteringssporsmal = (ledere, soknad, startdato) =>
     !ledere
-    || (!erSoknadInnenforAGPerioden(startdato, new Date(soknad.fom), new Date(soknad.tom))
-    && !forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(startdato, new Date(soknad.fom))
+    || (!erSoknadInnenforAGPerioden(startdato, soknad.fom, soknad.tom)
+    && !forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(startdato, soknad.fom)
     && !harAGSvartPaForskuttering(ledere, soknad.arbeidsgiver.orgnummer));
 
 export const mapStateToProps = (state, ownProps) => {
+    const arbeidsgiverperiodeStartdato = state.arbeidsgiverperiodeberegning.data && state.arbeidsgiverperiodeberegning.data.startdato;
     return {
         henterArbeidsgiverperiodeberegning: state.arbeidsgiverperiodeberegning.henter === true,
         henterLedere: state.ledere.henter,
-        visForskutteringssporsmal: utledVisForskutteringssporsmal(state.ledere.data, ownProps.skjemasoknad, new Date(state.arbeidsgiverperiodeberegning.data.startdato)),
-        sendesTil: utledMottaker(state.ledere.data, ownProps.skjemasoknad, new Date(state.arbeidsgiverperiodeberegning.data.startdato)),
+        visForskutteringssporsmal: skalViseForskutteringssporsmal(state.ledere.data, ownProps.skjemasoknad, new Date(arbeidsgiverperiodeStartdato)),
+        sendesTil: utledMottaker(state.ledere.data, ownProps.skjemasoknad, new Date(arbeidsgiverperiodeStartdato)),
         backendsoknad: mapSkjemasoknadToBackendsoknad(ownProps.skjemasoknad),
         oppsummeringsoknad: mapSkjemasoknadToOppsummeringsoknad(ownProps.skjemasoknad, ownProps.sykepengesoknad),
     };

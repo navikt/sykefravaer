@@ -38,7 +38,6 @@ describe("Datovelger", () => {
 
         it("Skal inneholde et Field", () => {
             expect(component.find(Field)).to.have.length(1);
-            expect(component.find(Field).prop("skjemanavn")).to.deep.equal("SYKEPENGERSKJEMA");
         });
 
         it("Skal sende en validate-funksjon videre til Field", () => {

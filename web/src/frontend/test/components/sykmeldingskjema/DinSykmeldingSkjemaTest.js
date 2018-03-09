@@ -18,7 +18,7 @@ import ErLederRiktig from "../../../js/components/sykmeldingskjema/ErLederRiktig
 import { Provider } from 'react-redux';
 import * as dinSykmeldingActions from '../../../js/actions/dinSykmelding_actions';
 import deepFreeze from 'deep-freeze';
-import { setLedetekster, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
+import { setLedetekster, feilaktigeOpplysninger as feilaktigeOpplysningerEnums, arbeidssituasjoner } from 'digisyfo-npm';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -196,7 +196,125 @@ describe("DinSykmeldingSkjema -", () => {
             })
         }); 
 
-    })
+    });
+
+    describe("Frilansersvar", () => {
+        let component; 
+        let props;
+        let values; 
+
+        beforeEach(() => {
+            actions = {
+                handleSubmit: sinon.spy(),
+            };
+            props = {
+                modus: "",
+                sykmelding: getSykmelding(),
+            };
+            values = {};
+        });
+
+        it("Skal returnere et tomt objekt hvis valgt arbeidssituasjon er ARBEIDSTAKER", () => {
+            values = {
+                valgtArbeidssituasjon: 'ARBEIDSTAKER',
+                opplysningeneErRiktige: true,
+                valgtArbeidsgiver: {
+                    orgnummer: "123456789"
+                }
+            };
+            props.values = values;
+            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
+            expect(component.instance().getDekningsgrad()).to.equal(null);
+            expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
+        });
+
+        it("Skal returnere et tomt objekt hvis valgt arbeidssituasjon er ARBEIDSLEDIG", () => {
+            values = {
+                valgtArbeidssituasjon: 'ARBEIDSLEDIG',
+                opplysningeneErRiktige: true,
+            };
+            props.values = values;
+            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
+            expect(component.instance().getDekningsgrad()).to.equal(null);
+            expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
+        });
+
+        it("Skal returnere et tomt objekt hvis valgt arbeidssituasjon er FRILANSER og tilleggsspørsmål for frilansere ikke er stilt", () => {
+            values = {
+                valgtArbeidssituasjon: 'FRILANSER',
+                opplysningeneErRiktige: true,
+            };
+            props.values = values;
+            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
+            expect(component.instance().getDekningsgrad()).to.equal(null);
+            expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
+        });
+
+        it("Skal returnere perioder hvis valgt arbeidssituasjon er FRILANSER og det er svart JA på egenmeldingsspørsmål", () => {
+            values = {
+                valgtArbeidssituasjon: 'FRILANSER',
+                opplysningeneErRiktige: true,
+                varSykmeldtEllerEgenmeldt: true,
+                egenmeldingsperioder: [{
+                    fom: "01.03.2018",
+                    tom: "05.03.2018",
+                }, {
+                    fom: "07.03.2018",
+                    tom: "12.03.2018",
+                }],
+                harForsikring: false,
+            };
+            props.values = values;
+            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
+            expect(component.instance().getEgenmeldingsperioder()).to.deep.equal([{
+                fom: new Date("2018-03-01"),
+                tom: new Date("2018-03-05"),
+            }, {
+                fom: new Date("2018-03-07"),
+                tom: new Date("2018-03-12"),
+            }]);
+        });
+
+        it("Skal returnere tomme perioder hvis valgt arbeidssituasjon er FRILANSER og det er svart NEI på egenmeldingsspørsmål", () => {
+            values = {
+                valgtArbeidssituasjon: 'FRILANSER',
+                opplysningeneErRiktige: true,
+                varSykmeldtEllerEgenmeldt: false,
+                egenmeldingsperioder: [{}, {}],
+                harForsikring: false,
+            };
+            props.values = values;
+            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
+            expect(component.instance().getEgenmeldingsperioder()).to.be.null;
+        });
+
+        it("Skal returnere tom dekningsgrad hvis arbeidssituasjon er FRILANSER og det er svart NEI på forsikringsspørsmålet", () => {
+            values = {
+                valgtArbeidssituasjon: 'FRILANSER',
+                opplysningeneErRiktige: true,
+                varSykmeldtEllerEgenmeldt: false,
+                harForsikring: false,
+                dekningsgrad: "75"
+            };
+            props.values = values;
+            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
+            expect(component.instance().getDekningsgrad()).to.be.null;
+        });
+
+        it("Skal returnere oppgitt dekningsgrad hvis arbeidssituasjon er FRILANSER og det er svart JA på forsikringsspørsmålet", () => {
+            values = {
+                valgtArbeidssituasjon: 'FRILANSER',
+                opplysningeneErRiktige: true,
+                varSykmeldtEllerEgenmeldt: false,
+                harForsikring: true,
+                dekningsgrad: "75"
+            };
+            props.values = values;
+            component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
+            expect(component.instance().getDekningsgrad()).to.equal("75")
+        });
+
+    });
 
     describe("handleSubmit", () => {
 
@@ -256,7 +374,7 @@ describe("DinSykmeldingSkjema -", () => {
                 "sykmelding-id",
                 "FRILANSER", {
                     andre: true,
-                }]);
+                }, null, null]);
             bekreftSykmelding.restore();
         });
 

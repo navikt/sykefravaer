@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, getSykmelding, toDatePrettyPrint, senesteTom, sykepengesoknadstatuser, sykmeldingstatuser } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, getSykmelding, toDatePrettyPrint, senesteTom, sykepengesoknadstatuser, sykmeldingstatuser, arbeidssituasjoner } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import Side from '../../sider/Side';
 import SykmeldingKvittering, { kvitteringtyper } from '../../components/sykmelding/SykmeldingKvittering';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import * as actions from '../../actions/sykepengesoknader_actions';
 import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../../propTypes';
 
 const { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } = sykmeldingstatuser;
@@ -46,16 +45,36 @@ KvitteringSide.propTypes = {
     hentingFeilet: PropTypes.bool,
 };
 
+const getArbeidssituasjon = (sykmelding) => {
+    return typeof sykmelding.valgtArbeidssituasjon === 'string'
+        ? sykmelding.valgtArbeidssituasjon.toUpperCase()
+        : '';
+};
+
+const getSkalOpprettesSoknad = (sykmelding) => {
+    return sykmelding.erUtenforVentetid || sykmelding.skalOppretteSoknad;
+};
+
+const erFrilanserEllerSelvstendigNaringsdrivende = (sykmelding) => {
+    return [arbeidssituasjoner.FRILANSER, arbeidssituasjoner.NAERINGSDRIVENDE].indexOf(getArbeidssituasjon(sykmelding)) > -1;
+};
+
 export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
     if (!sykmelding) {
         return null;
     }
+
     switch (sykmelding.status) {
         case BEKREFTET: {
             if (alternativer.harStrengtFortroligAdresse) {
                 return `bekreft-sykmelding.skjermingskode-6.${nokkel}`;
-            } else if (typeof sykmelding.valgtArbeidssituasjon === 'string' && sykmelding.valgtArbeidssituasjon.toUpperCase() === 'ARBEIDSTAKER') {
+            } else if (getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSTAKER) {
                 return `bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.${nokkel}`;
+            }
+            if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding)) {
+                return getSkalOpprettesSoknad(sykmelding)
+                    ? `bekreft-sykmelding.skal-opprettes-soknad.${nokkel}`
+                    : `bekreft-sykmelding.skal-ikke-opprettes-soknad.${nokkel}`;
             }
             return `bekreft-sykmelding.${nokkel}`;
         }
@@ -81,6 +100,12 @@ export const getKvitteringtype = (sykmelding, sykepengesoknader) => {
     const denneSykmeldingensSoknader = sykepengesoknader.filter((s) => {
         return s.sykmeldingId === sykmeldingId;
     });
+
+    if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding)) {
+        return getSkalOpprettesSoknad(sykmelding)
+            ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR
+            : kvitteringtyper.KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE;
+    }
 
     if (denneSykmeldingensSoknader.length === 0) {
         return kvitteringtyper.STANDARDKVITTERING;
@@ -117,6 +142,8 @@ export function mapStateToProps(state, ownProps) {
         '%TOM%': toDatePrettyPrint(senesteTom(sykmelding.mulighetForArbeid.perioder)),
     }) : null;
     const sykepengesoknader = state.sykepengesoknader.data;
+    const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
+    console.log('Sykmelding', kvitteringtype);
 
     return {
         henter,
@@ -127,7 +154,7 @@ export function mapStateToProps(state, ownProps) {
             return s.sykmeldingId === sykmeldingId && s.status === FREMTIDIG;
         }),
         tittel,
-        kvitteringtype: getKvitteringtype(sykmelding, sykepengesoknader),
+        kvitteringtype,
         brodtekst,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
@@ -147,6 +174,6 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-const SykmeldingKvitteringContainer = connect(mapStateToProps, actions)(KvitteringSide);
+const SykmeldingKvitteringContainer = connect(mapStateToProps)(KvitteringSide);
 
 export default SykmeldingKvitteringContainer;

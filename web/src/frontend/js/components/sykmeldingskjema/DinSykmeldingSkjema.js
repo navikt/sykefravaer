@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
-import { getLedetekst, Varselstripe, arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
+import { tilDatePeriode, getLedetekst, Varselstripe, arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
 import VelgArbeidssituasjon from './VelgArbeidssituasjon';
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
@@ -14,9 +14,10 @@ import validerSykmeldingskjema from './validerSykmeldingskjema';
 import * as sykmeldingActions from '../../actions/dinSykmelding_actions';
 import { sykmeldingskjemamodi as modi, DIN_SYKMELDING_SKJEMANAVN } from '../../enums/sykmeldingskjemaenums';
 import { getSkjemaModus } from './sykmeldingSkjemaUtils';
+import SpoersmalForFrilanserOgNaeringsdrivende from './SpoersmalForFrilanserOgNaeringsdrivende';
 import { Vis } from '../../utils';
 
-const { ARBEIDSTAKER } = arbeidssituasjoner;
+const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
 
 export class DinSykmeldingSkjemaComponent extends Component {
     constructor(props) {
@@ -53,6 +54,25 @@ export class DinSykmeldingSkjemaComponent extends Component {
             }, {});
     }
 
+    getDekningsgrad() {
+        const { values } = this.props;
+        return (!this.erFrilanser() || !values.harForsikring)
+            ? null
+            : values.dekningsgrad;
+    }
+
+    getEgenmeldingsperioder() {
+        const { values } = this.props;
+        return !this.erFrilanser() || !values.varSykmeldtEllerEgenmeldt
+            ? null
+            : values.egenmeldingsperioder.map(tilDatePeriode);
+    }
+
+    erFrilanser() {
+        const { values } = this.props;
+        return [NAERINGSDRIVENDE, FRILANSER].indexOf(values.valgtArbeidssituasjon) > -1;
+    }
+
     avbryt() {
         this.props.avbrytSykmelding(this.props.sykmelding.id, this.getFeilaktigeOpplysninger());
     }
@@ -73,7 +93,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
             case modi.BEKREFT: {
                 this.props.bekreftSykmelding(sykmelding.id,
                     values.valgtArbeidssituasjon,
-                    feilaktigeOpplysninger);
+                    feilaktigeOpplysninger,
+                    this.getEgenmeldingsperioder(),
+                    this.getDekningsgrad());
                 return;
             }
             case modi.AVBRYT: {
@@ -99,6 +121,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
             avbryter,
             avbrytFeilet,
             handleSubmit,
+            visFrilansersporsmal,
             untouch } = this.props;
 
         return (<form
@@ -114,6 +137,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     <VelgArbeidssituasjon {...this.props} />
                     <Vis hvis={values.valgtArbeidssituasjon === ARBEIDSTAKER && harStrengtFortroligAdresse}>
                         <StrengtFortroligInfo sykmeldingId={sykmelding.id} />
+                    </Vis>
+                    <Vis hvis={visFrilansersporsmal}>
+                        <SpoersmalForFrilanserOgNaeringsdrivende />
                     </Vis>
                 </div>
             </Vis>
@@ -203,6 +229,7 @@ DinSykmeldingSkjemaComponent.propTypes = {
     bekreftSykmelding: PropTypes.func,
     reset: PropTypes.func,
     modus: PropTypes.oneOf(Object.values(modi)),
+    visFrilansersporsmal: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {
@@ -217,7 +244,6 @@ const mapStateToProps = (state) => {
         sendingFeilet: state.dineSykmeldinger.sendingFeilet,
         avbryter: state.dineSykmeldinger.avbryter,
         avbrytFeilet: state.dineSykmeldinger.avbrytFeilet,
-        skjemanavn: DIN_SYKMELDING_SKJEMANAVN,
     };
 };
 

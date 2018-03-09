@@ -54,7 +54,7 @@ export const RendreVelgArbeidssituasjon = (props) => {
 export const Velg = (props) => {
     const Sporsmal = <RendreVelgArbeidssituasjon {...props} />;
     return (<SporsmalMedTillegg
-        className="hovedsporsmal"
+        className="hovedsporsmal blokk--s"
         {...props}
         Sporsmal={Sporsmal}
         visTillegg={(_props) => {

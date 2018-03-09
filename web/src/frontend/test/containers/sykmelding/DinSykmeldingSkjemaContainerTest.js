@@ -20,7 +20,10 @@ describe("DinSykmeldingSkjemaContainer", () => {
             arbeidsgiversSykmeldinger: {
                 data: [{
                     id: 123,
-                    navn: "Olsen"
+                    navn: "Olsen",
+                    mulighetForArbeid: {
+                        perioder: []
+                    }
                 }, {
                     id: 1234,
                     navn: "Hansen"
@@ -88,7 +91,7 @@ describe("DinSykmeldingSkjemaContainer", () => {
                                 grad: 67
                             }],
                         }
-                    })
+                    }),
                 ]
             },
             ledetekster: {
@@ -111,7 +114,8 @@ describe("DinSykmeldingSkjemaContainer", () => {
                     vedlikehold: false
                 },
                 henter: false,
-            }
+            },
+            sykmeldingMeta: {}
         };
         return Object.assign({}, defaultState, state);
     };
@@ -129,7 +133,10 @@ describe("DinSykmeldingSkjemaContainer", () => {
             });
             expect(props.sykmelding).to.deep.equal({
                 id: 123,
-                navn: "Olsen"
+                navn: "Olsen",
+                mulighetForArbeid: {
+                    perioder: []
+                }
             });
         });
 
@@ -206,8 +213,21 @@ describe("DinSykmeldingSkjemaContainer", () => {
             const state = getState();
             state.arbeidsgiversSykmeldinger.henter = false;
             state.arbeidsgiversSykmeldinger.hentet = true;
-            state.vedlikehold.henter = false;
-            state.brukerinfo.bruker.henter = false;
+            state.brukerinfo.bruker.hentet = true;
+            state.arbeidsgivere.hentet = true;
+            state.arbeidsgivere.sykmeldingId = 123;
+            state.arbeidsgiversSykmeldinger.data = [{
+                id: 123,
+                erUtenforVentetid: true,
+            }, {
+                id: 1234,
+                navn: "Hansen"
+            }];
+            state.sykmeldingMeta = {
+                "123": {
+                    ventetidHentet: true,
+                }
+            }
             const res = mapStateToProps(state, {
                 sykmeldingId: 123
             });
@@ -218,11 +238,13 @@ describe("DinSykmeldingSkjemaContainer", () => {
             const state = getState();
             state.arbeidsgiversSykmeldinger.henter = true;
             state.arbeidsgiversSykmeldinger.hentet = false;
+            state.brukerinfo.bruker.hentet = true;
+            state.arbeidsgivere.hentet = true;
+            state.arbeidsgivere.sykmeldingId = 123;
             const res = mapStateToProps(state, {
                 sykmeldingId: 123
             });
             expect(res.henter).to.be.true;
-            expect(res.skalHenteArbeidsgiversSykmeldinger).to.be.false;
         });
 
         it("Skal returnere henter === true dersom arbeidsgiversSykmeldinger ikke er hentet", () => {
@@ -234,17 +256,6 @@ describe("DinSykmeldingSkjemaContainer", () => {
             });
             expect(res.henter).to.be.true;
             expect(res.skalHenteArbeidsgiversSykmeldinger).to.be.true;
-        });
-
-        it("Skal returnere henter === false dersom arbeidsgiversSykmeldinger er hentet", () => {
-            const state = getState();
-            state.arbeidsgiversSykmeldinger.henter = false;
-            state.arbeidsgiversSykmeldinger.hentet = true;
-            const res = mapStateToProps(state, {
-                sykmeldingId: 123
-            });
-            expect(res.henter).to.be.false;
-            expect(res.skalHenteArbeidsgiversSykmeldinger).to.be.false;
         });
 
         describe("skalHenteArbeidsgivere", () => {
@@ -296,6 +307,68 @@ describe("DinSykmeldingSkjemaContainer", () => {
                 }), ownProps);
                 expect(props.skalHenteArbeidsgivere).to.be.false;
             });
+        });
+
+        describe("skalHenteVentetid", () => {
+
+            let ownProps;
+
+            beforeEach(() => {
+                ownProps = {
+                    sykmeldingId: "123",
+                }
+            })
+
+            it("Skal være true dersom ventetid ikke er hentet", () => {
+                const props = mapStateToProps(getState(), ownProps);
+                expect(props.skalHenteVentetid).to.be.true;
+            });
+
+            it("Skal være false dersom ventetid hentes", () => {
+                const props = mapStateToProps(getState({
+                    sykmeldingMeta: {
+                        "123": {
+                            henterVentetid: true
+                        }
+                    }
+                }), ownProps);
+                expect(props.skalHenteVentetid).to.be.false;
+            });
+
+            it("Skal være false dersom henting av ventetid feilet", () => {
+                const props = mapStateToProps(getState({
+                    sykmeldingMeta: {
+                        "123": {
+                            hentVentetidFeilet: true,
+                        }
+                    }
+                }), ownProps);
+                expect(props.skalHenteVentetid).to.be.false;
+            });
+
+            it("Skal være false dersom ventetid er hentet for denne sykmeldingen", () => {
+                const props = mapStateToProps(getState({
+                    arbeidsgiversSykmeldinger: {
+                        data: [{
+                            id: "123",
+                            erUtenforVentetid: true,
+                        }]
+                    }
+                }), ownProps);
+                expect(props.skalHenteVentetid).to.be.false;
+            });
+
+            it("Skal være false dersom ventetid er hentet for denne sykmeldingen", () => {
+                const props = mapStateToProps(getState({
+                    arbeidsgiversSykmeldinger: {
+                        data: [{
+                            id: "123",
+                            erUtenforVentetid: false,
+                        }]
+                    }
+                }), ownProps);
+                expect(props.skalHenteVentetid).to.be.false;
+            });
         })
 
     });
@@ -306,12 +379,14 @@ describe("DinSykmeldingSkjemaContainer", () => {
         let hentAktuelleArbeidsgivere;
         let hentArbeidsgiversSykmeldinger;
         let hentBrukerinfo;
+        let hentVentetid;
 
         beforeEach(() => {
             hentBrukerinfo = sinon.spy();
             hentAktuelleArbeidsgivere = sinon.spy();
             hentArbeidsgiversSykmeldinger = sinon.spy();
-            actions = { hentBrukerinfo, hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger }; 
+            hentVentetid = sinon.spy();
+            actions = { hentBrukerinfo, hentAktuelleArbeidsgivere, hentArbeidsgiversSykmeldinger, hentVentetid }; 
         })
 
         it("Skal vise planlagt-vedlikehold ved vedlikehold", () => {
@@ -327,6 +402,16 @@ describe("DinSykmeldingSkjemaContainer", () => {
         it("Skal ikke hente brukerinfo hvis brukerinfo er hentet", () => {
             shallow(<Skjemalaster {...actions} vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
             expect(hentBrukerinfo.calledOnce).to.be.false;
+        });
+
+        it("Skal hente ventetid hvis skalHenteVentetid er true", () => {
+            shallow(<Skjemalaster skalHenteVentetid {...actions} sykmeldingId="1" vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+            expect(hentVentetid.calledWith("1")).to.be.true;
+        });
+
+        it("Skal ikke hente ventetid hvis skalHenteVentetid er false", () => {
+            shallow(<Skjemalaster {...actions} sykmeldingId="1" vedlikehold={{ datospennMedTid: { fom: 'a', tom: 'b'} }} />);
+            expect(hentVentetid.called).to.be.false;
         });
 
     });

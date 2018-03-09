@@ -3,6 +3,7 @@ import { takeEvery } from 'redux-saga';
 import { browserHistory } from 'react-router';
 import { post, log } from 'digisyfo-npm';
 import * as actions from '../actions/dinSykmelding_actions';
+import { skalOppretteSoknadHentet } from '../actions/sykmeldingMeta_actions';
 import * as dineSykmeldingerActions from '../actions/dineSykmeldinger_actions';
 import * as arbeidsgiversSykmeldingerActions from '../actions/arbeidsgiversSykmeldinger_actions';
 import * as actiontyper from '../actions/actiontyper';
@@ -14,15 +15,18 @@ const gaTilKvittering = (sykmeldingId) => {
 export function* bekreftSykmelding(action) {
     yield put(actions.bekrefterSykmelding());
     try {
-        const body = {
-            arbeidssituasjon: action.arbeidssituasjon,
-            feilaktigeOpplysninger: action.feilaktigeOpplysninger,
-        };
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/bekreft`, body);
-        yield put(actions.sykmeldingBekreftet(action.sykmeldingId));
+        const { type, sykmeldingId, dekningsgrad, egenmeldingsperioder, ...body } = action;
+        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`, body);
+        if (dekningsgrad || egenmeldingsperioder) {
+            const skalOppretteSoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/skalOppretteSoknad`, {
+                dekningsgrad, egenmeldingsperioder,
+            });
+            yield put(skalOppretteSoknadHentet(sykmeldingId, skalOppretteSoknad));
+        }
+        yield put(actions.sykmeldingBekreftet(sykmeldingId));
         yield put(dineSykmeldingerActions.hentDineSykmeldinger());
         yield put(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
-        gaTilKvittering(action.sykmeldingId);
+        gaTilKvittering(sykmeldingId);
     } catch (e) {
         log(e);
         yield put(actions.bekreftSykmeldingFeilet());
@@ -31,17 +35,13 @@ export function* bekreftSykmelding(action) {
 
 export function* sendSykmeldingTilArbeidsgiver(action) {
     yield put(actions.senderSykmelding(action.sykmeldingId));
-    const body = {
-        feilaktigeOpplysninger: action.feilaktigeOpplysninger,
-        beOmNyNaermesteLeder: action.beOmNyNaermesteLeder,
-        orgnummer: action.orgnummer,
-    };
+    const { type, sykmeldingId, ...body } = action;
     try {
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/send`, body);
-        yield put(actions.sykmeldingSendt(action.sykmeldingId));
+        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/send`, body);
+        yield put(actions.sykmeldingSendt(sykmeldingId));
         yield put(dineSykmeldingerActions.hentDineSykmeldinger());
         yield put(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
-        gaTilKvittering(action.sykmeldingId);
+        gaTilKvittering(sykmeldingId);
     } catch (e) {
         log(e);
         yield put(actions.sendSykmeldingFeilet());

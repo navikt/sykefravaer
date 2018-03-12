@@ -88,9 +88,9 @@ const harAGSvartPaForskuttering = (ledere, arbeidsgiverOrgnummer) => {
     return ledersSvar === true || ledersSvar === false;
 };
 
-const ETT_DOGN = (16 * 86400000);
+const SEKSTEN_DAGER = (16 * 86400000);
 const getSisteDagIAGPerioden = arbeidsgiverPeriodeStartdato =>
-    new Date(new Date().setTime(arbeidsgiverPeriodeStartdato.getTime() + ETT_DOGN));
+    new Date(new Date().setTime(arbeidsgiverPeriodeStartdato.getTime() + SEKSTEN_DAGER));
 
 const erSoknadInnenforAGPerioden = (arbeidsgiverPeriodeStartdato, soknadFom, soknadTom) =>
     soknadTom <= getSisteDagIAGPerioden(arbeidsgiverPeriodeStartdato)

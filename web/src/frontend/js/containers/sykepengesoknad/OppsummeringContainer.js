@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { getLedetekst, sykepengesoknadstatuser, forskutterersvar } from 'digisyfo-npm';
 import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
@@ -75,7 +75,7 @@ Oppsummering.propTypes = {
 };
 
 const brukersSvarPaForskuttering = arbeidsgiverForskutterer =>
-    arbeidsgiverForskutterer === 'JA' || arbeidsgiverForskutterer === 'VET_IKKE';
+    arbeidsgiverForskutterer === forskutterersvar.JA || arbeidsgiverForskutterer === forskutterersvar.VET_IKKE;
 
 const AGsSvarPaForskuttering = (ledere, arbeidsgiverOrgnummer) => {
     return ledere
@@ -88,8 +88,9 @@ const harAGSvartPaForskuttering = (ledere, arbeidsgiverOrgnummer) => {
     return ledersSvar === true || ledersSvar === false;
 };
 
+const ETT_DOGN = (16 * 86400000);
 const getSisteDagIAGPerioden = arbeidsgiverPeriodeStartdato =>
-    new Date(new Date().setTime(arbeidsgiverPeriodeStartdato.getTime() + (16 * 86400000)));
+    new Date(new Date().setTime(arbeidsgiverPeriodeStartdato.getTime() + ETT_DOGN));
 
 const erSoknadInnenforAGPerioden = (arbeidsgiverPeriodeStartdato, soknadFom, soknadTom) =>
     soknadTom <= getSisteDagIAGPerioden(arbeidsgiverPeriodeStartdato)

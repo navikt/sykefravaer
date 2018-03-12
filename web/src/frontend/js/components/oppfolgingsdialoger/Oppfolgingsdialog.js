@@ -81,7 +81,6 @@ class Oppfolgingsdialog extends Component {
             delMedNavFunc,
             delmednav,
             oppfolgingsdialoger,
-            kommentar,
         } = this.props;
         const oppfolgingsdialogAvbrutt = this.props.avbrytdialogReducer.sendt;
         let panel;
@@ -133,7 +132,6 @@ class Oppfolgingsdialog extends Component {
                 } else if (navigasjontoggles.steg === 2) {
                     panel = (<Tiltak
                         tiltak={tiltak}
-                        kommentar={kommentar}
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
                         lagreTiltak={lagreTiltak}
@@ -228,7 +226,6 @@ Oppfolgingsdialog.propTypes = {
     hentForrigeNaermesteLeder: PropTypes.func,
     hentNaermesteLeder: PropTypes.func,
     hentArbeidsforhold: PropTypes.func,
-    kommentar: oppfolgingProptypes.kommentarReducerPt,
 };
 
 export default Oppfolgingsdialog;

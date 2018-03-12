@@ -86,7 +86,7 @@ describe('Tiltak', () => {
         expect(component.contains(<AppSpinner />)).to.equal(true);
     });
 
-    it('Skal vise feilmelding dersom lagring feilet', () => {
+    xit('Skal vise feilmelding dersom lagring feilet', () => {
         component = shallow(<Tiltak
             oppfolgingsdialog={oppfolgingsdialog}
             lagreTiltak={lagreTiltak}
@@ -96,7 +96,7 @@ describe('Tiltak', () => {
         expect(component.contains(<Feilmelding />)).to.equal(true);
     });
 
-    it('Skal vise feilmelding dersom sletting feilet', () => {
+    xit('Skal vise feilmelding dersom sletting feilet', () => {
         component = shallow(<Tiltak
             oppfolgingsdialog={oppfolgingsdialog}
             lagreTiltak={lagreTiltak}

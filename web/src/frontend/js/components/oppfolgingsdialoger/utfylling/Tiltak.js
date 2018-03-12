@@ -12,13 +12,11 @@ import {
     TiltakInfoboks,
     sorterTiltakEtterNyeste,
     STATUS_TILTAK,
-    STATUS_FEIL,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 import AppSpinner from '../../AppSpinner';
-import Feilmelding from '../../Feilmelding';
 
 class Tiltak extends Component {
     constructor(props) {
@@ -27,14 +25,17 @@ class Tiltak extends Component {
             visTiltakSkjema: false,
             oppdatertTiltak: false,
             nyttTiltak: false,
+            lagreNyTiltakFeilet: false,
+            varselTekst: '',
+            oppdaterTiltakFeilet: false,
         };
         this.sendLagreTiltak = this.sendLagreTiltak.bind(this);
         this.sendSlettTiltak = this.sendSlettTiltak.bind(this);
         this.sendLagreKommentar = this.sendLagreKommentar.bind(this);
         this.sendSlettKommentar = this.sendSlettKommentar.bind(this);
         this.toggleTiltakSkjema = this.toggleTiltakSkjema.bind(this);
-        this.resetFeilmelding = this.resetFeilmelding.bind(this);
-        this.setOppdateringStatus = this.setOppdateringStatus.bind(this);
+        this.visOppdateringFeilet = this.visOppdateringFeilet.bind(this);
+        this.skjulSkjema = this.skjulSkjema.bind(this);
     }
 
     componentWillMount() {
@@ -42,71 +43,15 @@ class Tiltak extends Component {
         window.sessionStorage.setItem('hash', 'tiltak');
     }
 
-    setOppdateringStatus(type, tekst) {
-        this.setState({
-            feilType: type,
-            feilTekst: tekst,
-        });
-    }
-
     componentWillReceiveProps(nextProps) {
-         /* console.log("------------------this.props---", this.props);
-         console.log("------------------nextProps---", nextProps);*/
-        if((nextProps.tiltak.lagringFeilet && nextProps.tiltak.lagringFeilet != this.props.tiltak.lagringFeilet) ||
-            (nextProps.tiltak.slettingFeilet && nextProps.tiltak.slettingFeilet != this.props.tiltak.slettingFeilet) ||
-            (nextProps.kommentar.lagringFeilet && nextProps.kommentar.lagringFeilet != this.props.kommentar.lagringFeilet) ||
-            (nextProps.kommentar.slettingFeilet && nextProps.kommentar.slettingFeilet != this.props.kommentar.slettingFeilet)) {
-            console.log("------------------found---");
-
-            const oppdatereTiltakFeilet = nextProps.tiltak.lagringFeilet && nextProps.tiltak.lagringFeilet != this.props.tiltak.lagringFeilet &&
-                 nextProps.tiltak.feiletTiltakId > 0;
-
-            const slettTiltakFeilet =  nextProps.tiltak.slettingFeilet && nextProps.tiltak.slettingFeilet != this.props.tiltak.slettingFeilet &&
-                nextProps.tiltak.feiletTiltakId > 0;
-
-            const lagNyTiltakFeilet =  nextProps.tiltak.lagringFeilet && nextProps.tiltak.lagringFeilet != this.props.tiltak.lagringFeilet && !nextProps.tiltak.feiletTiltakId;
-
-            const slettKommentarFeilet =  nextProps.kommentar.slettingFeilet && nextProps.kommentar.slettingFeilet != this.props.kommentar.slettingFeilet &&
-                nextProps.kommentar.feiletTiltakId > 0;
-
-            const lageNyKommentarFeilet =  nextProps.kommentar.lagringFeilet && nextProps.kommentar.lagringFeilet != this.props.kommentar.lagringFeilet && nextProps.kommentar.feiletTiltakId > 0;
-
-            let feilTekst;
-            let feilType;
-            switch (true) {
-            case oppdatereTiltakFeilet:
-                // feilTekst = getLedetekst('oppfolgingsdialog.arbeidstaker.arbeidsoppgave.vis.gjennomfoering.kan', ledetekster);
-                feilTekst = "oppdatere Tiltak Feilet--";
-                feilType = STATUS_FEIL.OPPDATERE_TILTAK_FEILET;
-                this.setOppdateringStatus(feilType, feilTekst);
-                break;
-           case lagNyTiltakFeilet:
-                feilTekst = "lagre ny Tiltak Feilet--";
-                feilType = STATUS_FEIL.LAGRE_NY_TILTAK_FEILET;
-                this.setOppdateringStatus(feilType, feilTekst);
-                break;
-            case slettTiltakFeilet:
-                feilTekst = "Sletting tiltak feilet--";
-                feilType = STATUS_FEIL.SLETT_TILTAK_FEILET;
-                this.setOppdateringStatus(feilType, feilTekst);
-                break;
-            case lageNyKommentarFeilet:
-                feilTekst = "lagre kommentar feilet--";
-                feilType = STATUS_FEIL.LAGRE_KOMMENTAR_FEILET;
-                this.setOppdateringStatus(feilType, feilTekst);
-                break;
-
-            case slettKommentarFeilet:
-                feilTekst = "Sletting kommentar feilet--";
-                feilType = STATUS_FEIL.SLETT_KOMMENTAR_FEILET;
-                this.setOppdateringStatus(feilType, feilTekst);
-                break;
-            default:
-                this.setOppdateringStatus("", "");
-                break;
-            }
-          /*  console.log("tekst---------------------", feilTekst);
-            console.log("feiltype", feilType);*/
+        if (!nextProps.tiltak.tiltak && nextProps.tiltak.lagringFeilet && this.props.tiltak.lagringFeilet !== nextProps.tiltak.lagringFeilet) {
+            console.log('lagring new tiltak feilet');
+            this.setState({
+                lagreNyTiltakFeilet: true,
+                visTiltakSkjema: true,
+                varselTekst: 'Tiltak new lagring feilet!',
+                oppdaterTiltakFeilet: false,
+            });
         }
     }
 
@@ -115,6 +60,13 @@ class Tiltak extends Component {
             const form = findDOMNode(this.lagreSkjema);
             scrollTo(form, 300);
         }
+    }
+
+    visOppdateringFeilet(feilet) {
+        this.setState({
+            oppdaterTiltakFeilet: feilet,
+            lagreNyTiltakFeilet: false,
+        });
     }
 
     sendLagreTiltak(values) {
@@ -133,11 +85,19 @@ class Tiltak extends Component {
         this.props.lagreTiltak(this.props.oppfolgingsdialog.id, nyeValues);
         this.setState({
             visTiltakSkjema: false,
+            lagreNyTiltakFeilet: false,
+            oppdaterTiltakFeilet: true,
+            varselTekst: '',
         });
     }
 
     sendSlettTiltak(tiltakId) {
         this.props.slettTiltak(this.props.oppfolgingsdialog.id, tiltakId);
+        this.setState({
+            sjekkLargingFeil: true,
+            lagreNyTiltakFeilet: false,
+            varselTekst: '',
+        });
     }
 
     sendLagreKommentar(tiltakId, values) {
@@ -151,13 +111,16 @@ class Tiltak extends Component {
     toggleTiltakSkjema() {
         this.setState({
             visTiltakSkjema: !this.state.visTiltakSkjema,
+            lagreNyTiltakFeilet: false,
         });
     }
 
-    resetFeilmelding() {
-      this.setOppdateringStatus("", "");
+    skjulSkjema() {
+        this.setState({
+            visTiltakSkjema: false,
+            lagreNyTiltakFeilet: false,
+        });
     }
-
 
     render() {
         const {
@@ -166,18 +129,13 @@ class Tiltak extends Component {
         } = this.props;
         const {
             lagrer,
-            lagringFeilet,
             sletter,
-            slettingFeilet,
         } = this.props.tiltak;
-
         return (
             (() => {
                 if (lagrer || sletter) {
                     return <AppSpinner />;
-                } /*else if (lagringFeilet || slettingFeilet) {
-                    return (<Feilmelding />);
-                }*/
+                }
                 return isEmpty(oppfolgingsdialog.tiltakListe) ?
                     <div>
                         {
@@ -208,9 +166,11 @@ class Tiltak extends Component {
                                     <TiltakSkjema
                                         ledetekster={ledetekster}
                                         sendLagre={this.sendLagreTiltak}
-                                        avbryt={this.toggleTiltakSkjema}
+                                        avbryt={this.skjulSkjema}
                                         fnr={oppfolgingsdialog.arbeidstaker.fnr}
                                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                                        varselTekst={this.state.varselTekst}
+                                        oppdateringFeilet={this.state.lagreNyTiltakFeilet}
                                     />
                                 </div>
 
@@ -231,12 +191,14 @@ class Tiltak extends Component {
                             <TiltakSkjema
                                 ledetekster={ledetekster}
                                 sendLagre={this.sendLagreTiltak}
-                                avbryt={this.toggleTiltakSkjema}
+                                avbryt={this.skjulSkjema}
                                 fnr={oppfolgingsdialog.arbeidstaker.fnr}
                                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                                 ref={(lagreSkjema) => {
                                     this.lagreSkjema = lagreSkjema;
                                 }}
+                                varselTekst={this.state.varselTekst}
+                                oppdateringFeilet={this.state.lagreNyTiltakFeilet}
                             />
                         }
                         <TiltakTabell
@@ -250,9 +212,8 @@ class Tiltak extends Component {
                             sendSlettKommentar={this.sendSlettKommentar}
                             fnr={oppfolgingsdialog.arbeidstaker.fnr}
                             brukerType={BRUKERTYPE.ARBEIDSTAKER}
-                            feilType={this.state.feilType}
-                            feilTekst={this.state.feilTekst}
-                            skjulFeilmelding={this.resetFeilmelding}
+                            visFeilMelding={this.visOppdateringFeilet}
+                            feilMelding={this.state.oppdaterTiltakFeilet}
                         />
                     </div>;
             })()
@@ -264,7 +225,6 @@ Tiltak.propTypes = {
     ledetekster: keyValue,
     tiltak: oppfolgingProptypes.tiltakReducerPt,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
-    kommentar: oppfolgingProptypes.kommentarReducerPt,
     lagreTiltak: PropTypes.func,
     slettTiltak: PropTypes.func,
     lagreKommentar: PropTypes.func,

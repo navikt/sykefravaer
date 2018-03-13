@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const lagDesimaltall = (streng) => {
     let s = streng.replace(/,/g, '.');
     if (s.startsWith('.')) {
@@ -20,7 +22,7 @@ export const lagDesimaltall = (streng) => {
 
 export const lagHeltall = (streng) => {
     const strengMedDesimaler = lagDesimaltall(streng);
-    return strengMedDesimaler.split(",")[0];
+    return strengMedDesimaler.split(',')[0];
 };
 
 export const getObjectValueByString = (o, s) => {
@@ -37,4 +39,15 @@ export const getObjectValueByString = (o, s) => {
         }
     }
     return obj;
+};
+
+export const Vis = ({ hvis, children }) => {
+    return hvis
+        ? children
+        : null;
+};
+
+Vis.propTypes = {
+    hvis: PropTypes.bool,
+    children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
 };

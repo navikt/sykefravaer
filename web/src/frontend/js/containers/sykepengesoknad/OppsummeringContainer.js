@@ -1,7 +1,8 @@
+/* eslint arrow-body-style: 0, no-nested-ternary: 0 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { getLedetekst, sykepengesoknadstatuser, forskutterersvar } from 'digisyfo-npm';
 import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
@@ -13,9 +14,9 @@ import { hentLedere } from '../../actions/ledere_actions';
 import AppSpinner from '../../components/AppSpinner';
 import mapSkjemasoknadToOppsummeringsoknad from '../../components/sykepengesoknad/mappers/mapSkjemasoknadToOppsummeringsoknad';
 
-const NAV_OG_ARBEIDSGIVER = 'NAV_OG_ARBEIDSGIVER';
-const NAV = 'NAV';
-const ARBEIDSGIVER = 'ARBEIDSGIVER';
+export const NAV_OG_ARBEIDSGIVER = 'NAV_OG_ARBEIDSGIVER';
+export const NAV = 'NAV';
+export const ARBEIDSGIVER = 'ARBEIDSGIVER';
 
 const beforeunload = 'beforeunload';
 
@@ -73,53 +74,54 @@ Oppsummering.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
 };
 
-const utledSkalViseForskuttering = (ledere, soknad, arbeidsgiverperiodeberegning) => {
-    if (ledere && soknad && arbeidsgiverperiodeberegning) {
-        const ledersSvar = ledere
-            .filter((l) => {
-                return l.orgnummer === soknad.arbeidsgiver.orgnummer;
-            })
-            .map((l) => {
-                return l.arbeidsgiverForskuttererLoenn;
-            })[0];
-        if (ledersSvar !== undefined && ledersSvar !== null) {
-            return false;
-        }
-        return arbeidsgiverperiodeberegning.erUtenforArbeidsgiverperiode;
-    }
-    return true;
+const brukersSvarPaForskuttering = arbeidsgiverForskutterer =>
+    arbeidsgiverForskutterer === forskutterersvar.JA || arbeidsgiverForskutterer === forskutterersvar.VET_IKKE;
+
+const AGsSvarPaForskuttering = (ledere, arbeidsgiverOrgnummer) => {
+    return ledere
+        .filter(leder => leder.orgnummer === arbeidsgiverOrgnummer)
+        .map(leder => leder.arbeidsgiverForskuttererLoenn)[0];
 };
 
-const utledMottaker = (ledere, soknad, arbeidsgiverperiodeberegning) => {
-    if (ledere && soknad && arbeidsgiverperiodeberegning) {
-        const svarFraLeder = ledere
-            .filter((l) => {
-                return l.orgnummer === soknad.arbeidsgiver.orgnummer;
-            })
-            .map((l) => {
-                return l.arbeidsgiverForskuttererLoenn;
-            })[0];
-
-        const skalTilNAV = arbeidsgiverperiodeberegning.erUtenforArbeidsgiverperiode;
-        const skalTilArbeidsgiver = !skalTilNAV || svarFraLeder || soknad.arbeidsgiverForskutterer === 'JA' || soknad.arbeidsgiverForskutterer === 'VET_IKKE';
-
-        if (skalTilNAV && skalTilArbeidsgiver) {
-            return NAV_OG_ARBEIDSGIVER;
-        } else if (skalTilNAV) {
-            return NAV;
-        } else if (skalTilArbeidsgiver) {
-            return ARBEIDSGIVER;
-        }
-    }
-    return undefined;
+const harAGSvartPaForskuttering = (ledere, arbeidsgiverOrgnummer) => {
+    const ledersSvar = AGsSvarPaForskuttering(ledere, arbeidsgiverOrgnummer);
+    return ledersSvar === true || ledersSvar === false;
 };
+
+const SEKSTEN_DAGER = (16 * 86400000);
+const getSisteDagIAGPerioden = arbeidsgiverPeriodeStartdato =>
+    new Date(new Date().setTime(arbeidsgiverPeriodeStartdato.getTime() + SEKSTEN_DAGER));
+
+const erSoknadInnenforAGPerioden = (arbeidsgiverPeriodeStartdato, soknadFom, soknadTom) =>
+    soknadTom <= getSisteDagIAGPerioden(arbeidsgiverPeriodeStartdato)
+    && soknadFom >= arbeidsgiverPeriodeStartdato;
+
+const forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden = (arbeidsgiverPeriodeStartdato, soknadFom) =>
+    soknadFom <= getSisteDagIAGPerioden(arbeidsgiverPeriodeStartdato);
+
+export const utledMottaker = (ledere, skjemasoknad, startdato) =>
+    (erSoknadInnenforAGPerioden(startdato, skjemasoknad.fom, skjemasoknad.tom)
+        ? ARBEIDSGIVER
+        : ledere
+            && (forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(startdato, skjemasoknad.fom)
+            || AGsSvarPaForskuttering(ledere, skjemasoknad.arbeidsgiver.orgnummer)
+            || brukersSvarPaForskuttering(skjemasoknad.arbeidsgiverForskutterer))
+            ? NAV_OG_ARBEIDSGIVER
+            : NAV);
+
+export const skalViseForskutteringssporsmal = (ledere, skjemasoknad, startdato) =>
+    !ledere
+    || (!erSoknadInnenforAGPerioden(startdato, skjemasoknad.fom, skjemasoknad.tom)
+    && !forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(startdato, skjemasoknad.fom)
+    && !harAGSvartPaForskuttering(ledere, skjemasoknad.arbeidsgiver.orgnummer));
 
 export const mapStateToProps = (state, ownProps) => {
+    const arbeidsgiverperiodeStartdato = state.arbeidsgiverperiodeberegning.data && state.arbeidsgiverperiodeberegning.data.startdato;
     return {
         henterArbeidsgiverperiodeberegning: state.arbeidsgiverperiodeberegning.henter === true,
         henterLedere: state.ledere.henter,
-        visForskutteringssporsmal: utledSkalViseForskuttering(state.ledere.data, ownProps.skjemasoknad, state.arbeidsgiverperiodeberegning.data),
-        sendesTil: utledMottaker(state.ledere.data, ownProps.skjemasoknad, state.arbeidsgiverperiodeberegning.data),
+        visForskutteringssporsmal: skalViseForskutteringssporsmal(state.ledere.data, ownProps.skjemasoknad, new Date(arbeidsgiverperiodeStartdato)),
+        sendesTil: utledMottaker(state.ledere.data, ownProps.skjemasoknad, new Date(arbeidsgiverperiodeStartdato)),
         backendsoknad: mapSkjemasoknadToBackendsoknad(ownProps.skjemasoknad),
         oppsummeringsoknad: mapSkjemasoknadToOppsummeringsoknad(ownProps.skjemasoknad, ownProps.sykepengesoknad),
     };

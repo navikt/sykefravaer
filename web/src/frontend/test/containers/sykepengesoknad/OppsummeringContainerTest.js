@@ -1,11 +1,20 @@
 import chai from 'chai';
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import {shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { setLedetekster } from 'digisyfo-npm';
-import { getSoknad } from '../../mockSoknader';
-import { Oppsummering, navigeringsvarsel, mapStateToProps } from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
+import {setLedetekster} from 'digisyfo-npm';
+import {getParsetSoknad, getSoknad} from '../../mockSoknader';
+import {
+    ARBEIDSGIVER,
+    mapStateToProps,
+    NAV,
+    NAV_OG_ARBEIDSGIVER,
+    navigeringsvarsel,
+    Oppsummering,
+    skalViseForskutteringssporsmal,
+    utledMottaker,
+} from '../../../js/containers/sykepengesoknad/OppsummeringContainer';
 import mapSkjemasoknadToBackendsoknad from '../../../js/components/sykepengesoknad/mappers/mapSkjemasoknadToBackendsoknad';
 import mapBackendsoknadToSkjemasoknad from '../../../js/components/sykepengesoknad/mappers/mapBackendsoknadToSkjemasoknad';
 import mapSkjemasoknadToOppsummeringsoknad from '../../../js/components/sykepengesoknad/mappers/mapSkjemasoknadToOppsummeringsoknad';
@@ -28,14 +37,12 @@ describe("OppsummeringContainer", () => {
     beforeEach(() => {
         setLedetekster({
             'sykepengesoknad.navigeringsvarsel': navigeringsvarsel
-        })
+        });
         setRouteLeaveHook = sinon.spy();
-        route = {
-
-        }
+        route = {};
         router = {
             setRouteLeaveHook,
-        }
+        };
 
         hentArbeidsgiverperiodeberegning = sinon.spy();
         hentLedere = sinon.spy();
@@ -53,7 +60,100 @@ describe("OppsummeringContainer", () => {
             backendsoknad,
             sykepengesoknad,
         }
-    })
+    });
+
+    describe("Utled skal vise forskuttering og mottaker", () => {
+        const arbeidsgiverperiodeStartdato = new Date('2017-01-01');
+        const soknad = getParsetSoknad();
+        const ledere = [];
+        const lederSvartJa = [{orgnummer: "***REMOVED***", arbeidsgiverForskuttererLoenn: true}];
+        const lederSvartNei = [{orgnummer: "***REMOVED***", arbeidsgiverForskuttererLoenn: false}];
+        const lederIkkeSvart = [{orgnummer: "***REMOVED***", arbeidsgiverForskuttererLoenn: null}];
+
+        it('Skal vise forskutteringsspørsmål ledere er null', () => {
+            expect(utledMottaker(null, soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV);
+            expect(skalViseForskutteringssporsmal(null, soknad, arbeidsgiverperiodeStartdato)).to.equal(true);
+        });
+
+        it('Skal sende søknad til arbeidsgiver og ikke vise forskutterinsspørsmål hvis søknaden er innefor arbeidsgiverperioden', () => {
+            const _soknad = getParsetSoknad(
+                {
+                    fom: new Date('2017-01-01'),
+                    tom: new Date('2017-01-10')
+                }
+            );
+
+            expect(utledMottaker(ledere, _soknad, arbeidsgiverperiodeStartdato)).to.equal(ARBEIDSGIVER);
+            expect(skalViseForskutteringssporsmal(ledere, _soknad, arbeidsgiverperiodeStartdato)).to.equal(false);
+        });
+
+        it('Skal sende søknaden til nav og arbeidsgiver hvis første dag i søknaden er før eller samme som siste dag i arbeidsgiverperioden', () => {
+            const _soknad = getParsetSoknad(
+                {
+                    fom: new Date('2017-01-01'),
+                    tom: new Date('2017-01-30'),
+                }
+            );
+
+            expect(utledMottaker(lederSvartJa, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV_OG_ARBEIDSGIVER);
+            expect(skalViseForskutteringssporsmal(lederSvartJa, _soknad, arbeidsgiverperiodeStartdato)).to.equal(false);
+        });
+
+        it('Skal ikke vise forskutteringsspørsmål hvis arbeidsgiver har svart på forskuttering', () => {
+            const startdato = new Date('2016-01-01');
+
+            expect(utledMottaker(lederSvartJa, soknad, startdato)).to.equal(NAV_OG_ARBEIDSGIVER);
+            expect(skalViseForskutteringssporsmal(lederSvartJa, soknad, startdato)).to.equal(false);
+
+            expect(utledMottaker(lederSvartNei, soknad, startdato)).to.equal(NAV);
+            expect(skalViseForskutteringssporsmal(lederSvartNei, soknad, startdato)).to.equal(false);
+        });
+
+        it('Skal vise forskutteringspørsmål hvis arbeidsgiver ikke har svart på forskuttering', () => {
+            const startdato = new Date('2016-01-01');
+
+            expect(utledMottaker(ledere, soknad, startdato)).to.equal(NAV);
+            expect(skalViseForskutteringssporsmal(ledere, soknad, startdato)).to.equal(true);
+        });
+
+        it('Skal vise forskutteringsspørsmål hvis søknad er etter arbeidsgiverperioden og sende til ag og nav hvis bruker sier ja', () => {
+            const _soknad = getParsetSoknad(
+                {
+                    fom: new Date('2017-02-01'),
+                    tom: new Date('2017-02-17'),
+                    arbeidsgiverForskutterer: 'JA',
+                }
+            );
+
+            expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV_OG_ARBEIDSGIVER);
+            expect(skalViseForskutteringssporsmal(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(true);
+        });
+
+        it('Skal vise forskutteringsspørsmål hvis søknad er etter arbeidsgiverperioden og sende bare til nav hvis bruker sier nei', () => {
+            const _soknad = getParsetSoknad(
+                {
+                    fom: new Date('2017-02-01'),
+                    tom: new Date('2017-02-30'),
+                    arbeidsgiverForskutterer: 'NEI',
+                }
+            );
+
+            expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV);
+            expect(skalViseForskutteringssporsmal(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(true);
+        });
+
+        it('Skal ikke vise forskutteringsspørsmål hvis starten på søknad er innenfor arbeidsgiverperioden og sende til ag og nav', () => {
+            const _soknad = getParsetSoknad(
+                {
+                    fom: new Date('2017-01-15'),
+                    tom: new Date('2017-02-17'),
+                }
+            );
+
+            expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV_OG_ARBEIDSGIVER);
+            expect(skalViseForskutteringssporsmal(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(false);
+        });
+    });
 
     describe("Oppsummering", () => {
         let state;
@@ -64,7 +164,7 @@ describe("OppsummeringContainer", () => {
 
         beforeEach(() => {
             sykepengesoknad = getSoknad();
-            skjemasoknad = mapBackendsoknadToSkjemasoknad(sykepengesoknad)
+            skjemasoknad = mapBackendsoknadToSkjemasoknad(sykepengesoknad);
             oppsummeringsoknad = mapSkjemasoknadToOppsummeringsoknad(skjemasoknad, sykepengesoknad);
             ownProps = {
                 skjemasoknad,
@@ -87,11 +187,11 @@ describe("OppsummeringContainer", () => {
         });
 
         it("Skal returnere backendsoknad", () => {
-           const props = mapStateToProps(state, ownProps); 
-           expect(props.backendsoknad).to.deep.equal(mapSkjemasoknadToBackendsoknad(skjemasoknad))
+            const props = mapStateToProps(state, ownProps);
+            expect(props.backendsoknad).to.deep.equal(mapSkjemasoknadToBackendsoknad(skjemasoknad))
         });
 
-    })
+    });
 
     describe("Oppsummering", () => {
 
@@ -99,7 +199,7 @@ describe("OppsummeringContainer", () => {
 
         beforeEach(() => {
             component = shallow(<Oppsummering {...props} />);
-        })
+        });
 
         it("Skal hente ledere", () => {
             expect(hentLedere.called).to.be.true;
@@ -121,7 +221,7 @@ describe("OppsummeringContainer", () => {
                     props,
                     _mounted: true,
                 }
-            })
+            });
             it("Skal returnere streng dersom man navigerer til noe annet enn forrige side", () => {
                 const nextRoute = {
                     pathname: '/sykefravaer/soknader',
@@ -164,9 +264,6 @@ describe("OppsummeringContainer", () => {
                 const res = Oppsummering.prototype.routerWillLeave.call(thisArg, nextRoute);
                 expect(res).to.be.null;
             });
-
         });
-
     });
-
 });

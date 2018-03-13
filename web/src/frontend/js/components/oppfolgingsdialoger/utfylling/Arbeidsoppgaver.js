@@ -206,7 +206,6 @@ class Arbeidsoppgaver extends Component {
                         <ArbeidsoppgaverListe
                             ledetekster={ledetekster}
                             liste={sorterArbeidsoppgaverEtterOpprettet(oppfolgingsdialog.arbeidsoppgaveListe)}
-                            urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
                             sendLagre={this.sendLagreArbeidsoppgave}
                             sendSlett={this.sendSlettArbeidsoppgave}
                             fnr={oppfolgingsdialog.arbeidstaker.fnr}

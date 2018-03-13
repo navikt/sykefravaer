@@ -99,21 +99,21 @@ const erSoknadInnenforAGPerioden = (arbeidsgiverPeriodeStartdato, soknadFom, sok
 const forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden = (arbeidsgiverPeriodeStartdato, soknadFom) =>
     soknadFom <= getSisteDagIAGPerioden(arbeidsgiverPeriodeStartdato);
 
-export const utledMottaker = (ledere, soknad, startdato) =>
-    (erSoknadInnenforAGPerioden(startdato, soknad.fom, soknad.tom)
+export const utledMottaker = (ledere, skjemasoknad, startdato) =>
+    (erSoknadInnenforAGPerioden(startdato, skjemasoknad.fom, skjemasoknad.tom)
         ? ARBEIDSGIVER
         : ledere
-            && (forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(startdato, soknad.fom)
-            || AGsSvarPaForskuttering(ledere, soknad.arbeidsgiver.orgnummer)
-            || brukersSvarPaForskuttering(soknad.arbeidsgiverForskutterer))
+            && (forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(startdato, skjemasoknad.fom)
+            || AGsSvarPaForskuttering(ledere, skjemasoknad.arbeidsgiver.orgnummer)
+            || brukersSvarPaForskuttering(skjemasoknad.arbeidsgiverForskutterer))
             ? NAV_OG_ARBEIDSGIVER
             : NAV);
 
-export const skalViseForskutteringssporsmal = (ledere, soknad, startdato) =>
+export const skalViseForskutteringssporsmal = (ledere, skjemasoknad, startdato) =>
     !ledere
-    || (!erSoknadInnenforAGPerioden(startdato, soknad.fom, soknad.tom)
-    && !forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(startdato, soknad.fom)
-    && !harAGSvartPaForskuttering(ledere, soknad.arbeidsgiver.orgnummer));
+    || (!erSoknadInnenforAGPerioden(startdato, skjemasoknad.fom, skjemasoknad.tom)
+    && !forsteDagISoknadForEllerSammeDagSomSisteDagIAGPerioden(startdato, skjemasoknad.fom)
+    && !harAGSvartPaForskuttering(ledere, skjemasoknad.arbeidsgiver.orgnummer));
 
 export const mapStateToProps = (state, ownProps) => {
     const arbeidsgiverperiodeStartdato = state.arbeidsgiverperiodeberegning.data && state.arbeidsgiverperiodeberegning.data.startdato;

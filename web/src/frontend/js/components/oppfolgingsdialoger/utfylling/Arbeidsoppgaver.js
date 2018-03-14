@@ -72,7 +72,7 @@ class Arbeidsoppgaver extends Component {
             console.log('lagring new AO feilet');
             this.setState({
                 lagreNyOppgaveFeilet: true,
-                varselTekst: 'AO new lagring feilet!',
+                varselTekst:  getLedetekst('oppfolgingsdialog.oppdatering.feilmelding', this.props.ledetekster),
                 oppdaterOppgaveFeilet: false,
             });
         }

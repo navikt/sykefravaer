@@ -49,7 +49,7 @@ class Tiltak extends Component {
             this.setState({
                 lagreNyTiltakFeilet: true,
                 visTiltakSkjema: true,
-                varselTekst: 'Tiltak new lagring feilet!',
+                varselTekst:  getLedetekst('oppfolgingsdialog.oppdatering.feilmelding', this.props.ledetekster),
                 oppdaterTiltakFeilet: false,
             });
         }

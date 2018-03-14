@@ -161,7 +161,6 @@ class Tiltak extends Component {
                         <TiltakTabell
                             ledetekster={ledetekster}
                             liste={sorterTiltakEtterNyeste(oppfolgingsdialog.tiltakListe)}
-                            urlImgArrow={`${getContextRoot()}/img/svg/arrow-down.svg`}
                             urlImgVarsel={`${getContextRoot()}/img/svg/varseltrekant.svg`}
                             sendLagre={this.sendLagreTiltak}
                             sendSlett={this.sendSlettTiltak}

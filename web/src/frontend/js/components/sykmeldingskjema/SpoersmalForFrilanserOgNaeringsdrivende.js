@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { getLedetekst, Hjelpetekst, toDatePrettyPrint } from 'digisyfo-npm';
@@ -6,8 +7,9 @@ import { fieldPropTypes } from '../../propTypes';
 import JaEllerNei from '../sykepengesoknad/JaEllerNei';
 import Radioknapper from '../skjema/Radioknapper';
 import Periodevelger from '../skjema/Periodevelger';
+import { getOppfolgingstilfelleStartdato } from '../../utils/sykeforloepUtils';
 
-export const Egenmeldingssporsmal = ({ oppfolgingstilfelleStartdato = new Date() }) => {
+export const Egenmeldingssporsmal = ({ oppfolgingstilfelleStartdato }) => {
     const tom = new Date(oppfolgingstilfelleStartdato);
     tom.setDate(tom.getDate() - 1);
 
@@ -68,15 +70,21 @@ export const Forsikringssporsmal = () => {
     </JaEllerNei>);
 };
 
-const SpoersmalForFrilanserOgNaeringsdrivende = ({ oppfolgingstilfelleStartdato }) => {
+export const Spoersmal = ({ oppfolgingstilfelleStartdato }) => {
     return (<div>
         <Egenmeldingssporsmal oppfolgingstilfelleStartdato={oppfolgingstilfelleStartdato} />
         <Forsikringssporsmal />
     </div>);
 };
 
-SpoersmalForFrilanserOgNaeringsdrivende.propTypes = {
+Spoersmal.propTypes = {
     oppfolgingstilfelleStartdato: PropTypes.instanceOf(Date),
 };
 
-export default SpoersmalForFrilanserOgNaeringsdrivende;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        oppfolgingstilfelleStartdato: getOppfolgingstilfelleStartdato(state.sykeforloep.data, ownProps.sykmeldingId),
+    };
+}
+
+export default connect(mapStateToProps)(Spoersmal);

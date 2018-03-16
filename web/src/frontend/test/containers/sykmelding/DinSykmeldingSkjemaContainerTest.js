@@ -15,7 +15,7 @@ const expect = chai.expect;
 
 describe("DinSykmeldingSkjemaContainer", () => {
 
-    const getState = (state = {}) => {
+        const getState = (state = {}) => {
         const defaultState = {
             arbeidsgiversSykmeldinger: {
                 data: [{
@@ -38,6 +38,9 @@ describe("DinSykmeldingSkjemaContainer", () => {
                     navn: "Doles pizza",
                     orgnummer: "***REMOVED***"
                 }]
+            },
+            sykeforloep: {
+
             },
             dineSykmeldinger: {
                 data: [

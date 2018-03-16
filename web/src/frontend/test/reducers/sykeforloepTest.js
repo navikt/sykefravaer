@@ -50,9 +50,11 @@ describe('sykeforloep', () => {
     it('Håndterer SYKEFORLOEP_HENTET', () => {
         const sykeforloepNyest = getSykeforloep({
             oppfoelgingsdato: '2018-01-05',
+            sykmeldinger: [],
         });
         const sykeforloepEldst = getSykeforloep({
             oppfoelgingsdato: '2018-01-01',
+            sykmeldinger: [],
         });
         const data = [sykeforloepNyest, sykeforloepEldst];
         const action = actions.sykeforloepHentet(data);
@@ -62,7 +64,13 @@ describe('sykeforloep', () => {
             hentet: true,
             hentingFeilet: false,
             startdato: new Date(sykeforloepNyest.oppfoelgingsdato),
-            data,
+            data: [getSykeforloep({
+                oppfoelgingsdato: new Date('2018-01-05'),
+                sykmeldinger: [],
+            }), getSykeforloep({
+                oppfoelgingsdato: new Date('2018-01-01'),
+                sykmeldinger: [],
+            })]
         });
     });
 

@@ -7,7 +7,7 @@ import { setLedetekster } from 'digisyfo-npm';
 import JaEllerNei from '../../../js/components/sykepengesoknad/JaEllerNei';
 import Feilomrade from '../../../js/components/skjema/Feilomrade';
 import Periodevelger from '../../../js/components/skjema/Periodevelger';
-import SpoersmalForFrilanserOgNaeringsdrivende, { Egenmeldingssporsmal, Forsikringssporsmal } from '../../../js/components/sykmeldingskjema/SpoersmalForFrilanserOgNaeringsdrivende';
+import { Spoersmal, Egenmeldingssporsmal, Forsikringssporsmal } from '../../../js/components/sykmeldingskjema/SpoersmalForFrilanserOgNaeringsdrivende';
 import { Bjorn } from '../../../js/components/Hjelpeboble';
 
 chai.use(chaiEnzyme());
@@ -16,12 +16,12 @@ const expect = chai.expect;
 describe("SpoersmalForFrilanserOgNaeringsdrivende", () => {
 
     it("Skal inneholde et Egenmeldingssporsmal", () => {
-        const component = shallow(<SpoersmalForFrilanserOgNaeringsdrivende />);
+        const component = shallow(<Spoersmal />);
         expect(component.find(Egenmeldingssporsmal)).to.have.length(1);
     });
 
     it("Skal inneholde et Forsikringssporsmal", () => {
-        const component = shallow(<SpoersmalForFrilanserOgNaeringsdrivende />);
+        const component = shallow(<Spoersmal />);
         expect(component.find(Forsikringssporsmal)).to.have.length(1);
     });
 

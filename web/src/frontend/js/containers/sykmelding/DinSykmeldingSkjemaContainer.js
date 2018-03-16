@@ -13,6 +13,7 @@ import { hentArbeidsgiversSykmeldinger } from '../../actions/arbeidsgiversSykmel
 import { hentVentetid } from '../../actions/sykmeldingMeta_actions';
 import { DIN_SYKMELDING_SKJEMANAVN } from '../../enums/sykmeldingskjemaenums';
 import { skalViseFrilansersporsmal } from '../../components/sykmeldingskjema/sykmeldingSkjemaUtils';
+import { hentSykeforloep } from '../../actions/sykeforloep_actions';
 
 export class Skjemalaster extends Component {
     componentWillMount() {
@@ -21,7 +22,8 @@ export class Skjemalaster extends Component {
             skalHenteArbeidsgivere,
             skalHenteBrukerinfo,
             skalHenteArbeidsgiversSykmeldinger,
-            skalHenteVentetid } = this.props;
+            skalHenteVentetid,
+            skalHenteSykeforloep } = this.props;
 
         if (skalHenteArbeidsgivere) {
             this.props.hentAktuelleArbeidsgivere(sykmeldingId);
@@ -34,6 +36,9 @@ export class Skjemalaster extends Component {
         }
         if (skalHenteVentetid) {
             this.props.hentVentetid(sykmeldingId);
+        }
+        if (skalHenteSykeforloep) {
+            this.props.hentSykeforloep();
         }
     }
 
@@ -63,6 +68,8 @@ Skjemalaster.propTypes = {
     vedlikehold: PropTypes.shape({
         datospennMedTid: PropTypes.object,
     }),
+    skalHenteSykeforloep: PropTypes.bool,
+    hentSykeforloep: PropTypes.func,
     skalHenteArbeidsgivere: PropTypes.bool,
     skalHenteArbeidsgiversSykmeldinger: PropTypes.bool,
     hentAktuelleArbeidsgivere: PropTypes.func,
@@ -77,7 +84,7 @@ Skjemalaster.propTypes = {
 export const mapStateToProps = (state, ownProps) => {
     const sykmeldingId = ownProps.sykmeldingId;
     const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
-    const sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId) || { ok: 'ok' };
+    const sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId) || {};
 
     const sykmeldingMeta = state.sykmeldingMeta[sykmeldingId] || {};
     const skalHenteVentetid = !sykmeldingMeta.henterVentetid && !sykmeldingMeta.hentVentetidFeilet && sykmelding.erUtenforVentetid === undefined;
@@ -91,16 +98,24 @@ export const mapStateToProps = (state, ownProps) => {
     const values = getFormValues(DIN_SYKMELDING_SKJEMANAVN)(state);
     const visFrilansersporsmal = skalViseFrilansersporsmal(sykmelding, values, sykmelding.erUtenforVentetid);
 
+    const skalHenteSykeforloep = !state.sykeforloep.hentet && !state.sykeforloep.henter;
+
     return {
         sykmelding,
         sykmeldingId,
-        hentingFeilet: state.arbeidsgivere.hentingFeilet || state.brukerinfo.bruker.hentingFeilet || false,
-        henter: skalHenteBrukerinfo || state.brukerinfo.bruker.henter || skalHenteVentetid || state.sykmeldingMeta.henter || skalHenteArbeidsgiversSykmeldinger || state.arbeidsgiversSykmeldinger.henter,
+        hentingFeilet: state.arbeidsgivere.hentingFeilet || state.brukerinfo.bruker.hentingFeilet || state.sykeforloep.hentingFeilet || false,
+        henter: skalHenteBrukerinfo ||
+            state.brukerinfo.bruker.henter ||
+            skalHenteVentetid ||
+            state.sykmeldingMeta.henter ||
+            skalHenteArbeidsgiversSykmeldinger ||
+            state.arbeidsgiversSykmeldinger.henter,
         vedlikehold: state.vedlikehold.data.vedlikehold,
         skalHenteArbeidsgivere,
         skalHenteBrukerinfo,
         skalHenteArbeidsgiversSykmeldinger,
         skalHenteVentetid,
+        skalHenteSykeforloep,
         visFrilansersporsmal,
     };
 };
@@ -110,6 +125,7 @@ const DinSykmeldingSkjemaContainer = connect(mapStateToProps, {
     hentArbeidsgiversSykmeldinger,
     hentBrukerinfo,
     hentVentetid,
+    hentSykeforloep,
 })(Skjemalaster);
 
 export default DinSykmeldingSkjemaContainer;

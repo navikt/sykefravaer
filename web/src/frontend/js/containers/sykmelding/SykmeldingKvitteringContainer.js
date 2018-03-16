@@ -143,7 +143,6 @@ export function mapStateToProps(state, ownProps) {
     }) : null;
     const sykepengesoknader = state.sykepengesoknader.data;
     const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
-    console.log('Sykmelding', kvitteringtype);
 
     return {
         henter,

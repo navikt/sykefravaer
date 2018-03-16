@@ -44,7 +44,7 @@ const RendreForsikringstype = ({ input, meta }) => {
         input={input}
         meta={meta}>
         <i value="100" label={getLedetekst('din-sykmelding.forsikring.type.svar.100')} />
-        <i value="65" label={getLedetekst('din-sykmelding.forsikring.type.svar.65')} />
+        <i value="75" label={getLedetekst('din-sykmelding.forsikring.type.svar.75')} />
     </Radioknapper>);
 };
 

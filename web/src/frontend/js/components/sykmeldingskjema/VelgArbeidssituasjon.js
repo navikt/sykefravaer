@@ -7,13 +7,21 @@ import VelgArbeidsgiverContainer from '../../containers/sykmelding/VelgArbeidsgi
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt, fieldPropTypes } from '../../propTypes';
 
-const { ARBEIDSTAKER, DEFAULT } = arbeidssituasjonerEnums;
+const { DEFAULT, ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG, ANNET } = arbeidssituasjonerEnums;
 
-const arbeidssituasjoner = Object.keys(arbeidssituasjonerEnums).map((key) => {
-    return {
-        verdi: arbeidssituasjonerEnums[key],
-    };
-});
+const arbeidssituasjoner = [{
+    verdi: DEFAULT,
+}, {
+    verdi: ARBEIDSTAKER,
+}, {
+    verdi: NAERINGSDRIVENDE,
+}, {
+    verdi: FRILANSER,
+}, {
+    verdi: ARBEIDSLEDIG,
+}, {
+    verdi: ANNET,
+}];
 
 const getArbeidssituasjoner = (arbeidssituasjon) => {
     if (!arbeidssituasjon || arbeidssituasjon === DEFAULT) {

@@ -139,7 +139,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                         <StrengtFortroligInfo sykmeldingId={sykmelding.id} />
                     </Vis>
                     <Vis hvis={visFrilansersporsmal}>
-                        <SpoersmalForFrilanserOgNaeringsdrivende />
+                        <SpoersmalForFrilanserOgNaeringsdrivende sykmeldingId={sykmelding.id} />
                     </Vis>
                 </div>
             </Vis>

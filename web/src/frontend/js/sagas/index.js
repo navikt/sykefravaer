@@ -10,7 +10,7 @@ import {
     dokumentSagas,
     samtykkeSagas,
     nullstillGodkjenningSagas,
-    tilgangSagas,
+    tilgangAtSagas as tilgangSagas,
     tiltakSagas,
     settDialogSagas,
     avbrytdialogSagas,

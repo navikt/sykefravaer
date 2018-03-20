@@ -7,7 +7,7 @@ import {
     opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     kopierOppfolgingsdialog,
-    sjekkTilgang,
+    sjekkTilgangAt as sjekkTilgang,
     hentVirksomhet,
     hentPerson,
     hentNaermesteLeder,

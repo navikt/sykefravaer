@@ -3,7 +3,7 @@ export const getOppfolgingstilfelleStartdato = (sykeforloep, sykmeldingId) => {
         return sf.sykmeldinger.filter((sm) => {
             return sm.id === sykmeldingId;
         }).length > 0;
-    })[0]
+    })[0];
     const aktuellSykmelding = aktueltSykeforloep.sykmeldinger.filter((sm) => {
         return sm.id === sykmeldingId;
     })[0];

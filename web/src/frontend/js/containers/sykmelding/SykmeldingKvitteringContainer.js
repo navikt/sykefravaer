@@ -59,6 +59,15 @@ const erFrilanserEllerSelvstendigNaringsdrivende = (sykmelding) => {
     return [arbeidssituasjoner.FRILANSER, arbeidssituasjoner.NAERINGSDRIVENDE].indexOf(getArbeidssituasjon(sykmelding)) > -1;
 };
 
+const erAvventendeReisetilskuddEllerBehandlingsdager = (sykmelding) => {
+    return sykmelding
+        && sykmelding.mulighetForArbeid
+        && sykmelding.mulighetForArbeid.perioder
+            .some((periode) => {
+                return periode.avventende || periode.reisetilskudd || periode.behandlingsdager;
+            });
+};
+
 export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
     if (!sykmelding) {
         return null;
@@ -71,7 +80,7 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
             } else if (getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSTAKER) {
                 return `bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.${nokkel}`;
             }
-            if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding)) {
+            if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding) && !erAvventendeReisetilskuddEllerBehandlingsdager(sykmelding)) {
                 return getSkalOpprettesSoknad(sykmelding)
                     ? `bekreft-sykmelding.skal-opprettes-soknad.${nokkel}`
                     : `bekreft-sykmelding.skal-ikke-opprettes-soknad.${nokkel}`;
@@ -92,7 +101,8 @@ export const getLedetekstNokkel = (sykmelding, nokkel, alternativer = {}) => {
 };
 
 export const getKvitteringtype = (sykmelding, sykepengesoknader) => {
-    if (!sykmelding) {
+    const avventendeReisetilskuddEllerBehandlingsdager = erAvventendeReisetilskuddEllerBehandlingsdager(sykmelding);
+    if (!sykmelding || avventendeReisetilskuddEllerBehandlingsdager) {
         return kvitteringtyper.STANDARDKVITTERING;
     }
 

@@ -196,6 +196,9 @@ describe("SykmeldingKvitteringContainer", () => {
         beforeEach(() => {
             sykmelding = {
                 id: "1",
+                mulighetForArbeid: {
+                    perioder: []
+                }
             };
         });
 
@@ -206,10 +209,8 @@ describe("SykmeldingKvitteringContainer", () => {
         });
 
         it("Skal returnere STANDARDKVITTERING hvis det finnes søknad som ikke er tilknyttet denne sykmeldingen", () => {
+            sykmelding.id = "3";
             const sykepengesoknader = [soknad1, soknad2, soknad3];
-            const sykmelding = {
-                id: "3"
-            };
             const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
             expect(kvitteringtype).to.equal("STANDARDKVITTERING"); 
         });
@@ -233,6 +234,9 @@ describe("SykmeldingKvitteringContainer", () => {
                 valgtArbeidssituasjon: "FRILANSER",
                 erUtenforVentetid: true,
                 status: "BEKREFTET",
+                mulighetForArbeid: {
+                    perioder: []
+                }
             };
             const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
             expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR");
@@ -244,6 +248,9 @@ describe("SykmeldingKvitteringContainer", () => {
                 valgtArbeidssituasjon: "NAERINGSDRIVENDE",
                 erUtenforVentetid: true,
                 status: "BEKREFTET",
+                mulighetForArbeid: {
+                    perioder: []
+                }
             };
             const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
             expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR");
@@ -257,6 +264,9 @@ describe("SykmeldingKvitteringContainer", () => {
                 skalOppretteSoknad: true,
                 valgtArbeidssituasjon: "NAERINGSDRIVENDE",
                 status: "BEKREFTET",
+                mulighetForArbeid: {
+                    perioder: []
+                }
             };
             const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
             expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR");
@@ -269,6 +279,9 @@ describe("SykmeldingKvitteringContainer", () => {
                 skalOppretteSoknad: true,
                 valgtArbeidssituasjon: "FRILANSER",
                 status: "BEKREFTET",
+                mulighetForArbeid: {
+                    perioder: []
+                }
             };
             const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
             expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR");
@@ -281,6 +294,9 @@ describe("SykmeldingKvitteringContainer", () => {
                 skalOppretteSoknad: false,
                 valgtArbeidssituasjon: "FRILANSER",
                 status: "BEKREFTET",
+                mulighetForArbeid: {
+                    perioder: []
+                }
             };
             const kvitteringtype = getKvitteringtype(sykmelding, sykepengesoknader);
             expect(kvitteringtype).to.equal("KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE");
@@ -307,6 +323,22 @@ describe("SykmeldingKvitteringContainer", () => {
             expect(kvitteringtype).to.equal("KVITTERING_MED_SYKEPENGER_SØK_NÅ");
         });
 
+        it("Skal returnere 'STANDARDKVITTERING' dersom sykmeldt er frilanser og sykemelding har behandlingsdager", () => {
+            const sykepengesoknader = [];
+            const _sykmelding = {
+                mulighetForArbeid: {
+                    perioder: [
+                        {
+                            behandlingsdager: 5
+                        }
+                    ]
+                },
+                valgtArbeidssituasjon: "FRILANSER",
+                status: "BEKREFTET"
+            };
+            const kvitteringtype = getKvitteringtype(_sykmelding, sykepengesoknader);
+            expect(kvitteringtype).to.equal("STANDARDKVITTERING");
+        });
 
     })
 
@@ -357,7 +389,7 @@ describe("SykmeldingKvitteringContainer", () => {
         it("Skal returnere riktig nøkkel dersom sykmelding.erUtenforVentetid = true", () => {
             const nokkel = getLedetekstNokkel({ valgtArbeidssituasjon: 'FRILANSER', status: 'BEKREFTET', erUtenforVentetid: true}, "tittel");
             expect(nokkel).to.equal('bekreft-sykmelding.skal-opprettes-soknad.tittel');
-        })
+        });
 
         it("Skal returnere riktig nøkkel dersom sykmelding.erUtenforVentetid = false, men det skal opprettes søknad", () => {
             const nokkel = getLedetekstNokkel({ valgtArbeidssituasjon: 'FRILANSER', status: 'BEKREFTET', erUtenforVentetid: false, skalOppretteSoknad: true}, "tittel");
@@ -367,6 +399,20 @@ describe("SykmeldingKvitteringContainer", () => {
         it("Skal returnere riktig nøkkel dersom sykmelding.erUtenforVentetid = false, men det skal ikke opprettes søknad", () => {
             const nokkel = getLedetekstNokkel({ valgtArbeidssituasjon: 'FRILANSER', status: 'BEKREFTET', erUtenforVentetid: false, skalOppretteSoknad: false}, "tittel");
             expect(nokkel).to.equal('bekreft-sykmelding.skal-ikke-opprettes-soknad.tittel');
+        });
+
+        it("Skal returnere riktig nøkkel dersom arbeidssituasjon er frilanser og sykmeldingen er avventende", () => {
+            const sykmelding = {
+                valgtArbeidssituasjon: 'FRILANSER',
+                status: 'BEKREFTET',
+                mulighetForArbeid: {
+                    perioder: [{
+                        avventende: "Tekst"
+                    }]
+                }
+            };
+            const nokkel = getLedetekstNokkel(sykmelding, "tittel");
+            expect(nokkel).to.equal('bekreft-sykmelding.tittel');
         });
 
     });
@@ -434,7 +480,7 @@ describe("SykmeldingKvitteringContainer", () => {
             const ledetekster = Object.assign({}, state.ledetekster.data, {
                 'bekreft-sykmelding.kvittering.tittel': 'Min fine tittel',
                 'bekreft-sykmelding.skjermingskode-6.kvittering.undertekst': '<p>Min fine tekst</p>'
-            })
+            });
             setLedetekster(ledetekster);
             state.brukerinfo = {
                 bruker: {
@@ -488,7 +534,7 @@ describe("SykmeldingKvitteringContainer", () => {
             props.sykmelding = getSykmelding({
                 status: 'BEKREFTET'
             });
-        })
+        });
 
         it("Skal inneholde en SykmeldingKvittering hvis sykmeldingen er BEKREFTET", () => {
             const component = shallow(<KvitteringSide {...props} />);

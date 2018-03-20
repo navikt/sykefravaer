@@ -2,7 +2,6 @@ var fs = require("fs");
 var Mustache = require("mustache");
 
 var env = process.argv[2];
-console.log("env", env);
 var timestamp = process.argv[3] || Date.now().toString();
 
 var dev = {
@@ -30,8 +29,6 @@ var prod = {
 };
 
 var settings = env === 'prod' ? prod : dev;
-
-console.log("settings", settings)
 
 fs.readFile("html/syfofront.mustache", function (err, data) {
     if (err) throw err;

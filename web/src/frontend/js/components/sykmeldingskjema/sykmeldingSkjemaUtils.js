@@ -49,11 +49,9 @@ export const skalViseFrilansersporsmal = (sykmelding, values, erUtenforVentetid 
     if (!sykmelding || !sykmelding.mulighetForArbeid || !values || erUtenforVentetid) {
         return false;
     }
-    const avventendeReisetilskuddEllerBehandlingsdager = sykmelding.mulighetForArbeid.perioder.reduce((curr, periode) => {
-        return curr || periode.avventende || periode.reisetilskudd || periode.behandlingsdager;
-    }, false);
 
-    return avventendeReisetilskuddEllerBehandlingsdager
+    return sykmelding.mulighetForArbeid.perioder
+        .some((periode) => { return periode.avventende || periode.reisetilskudd || periode.behandlingsdager; })
         ? false
         : [NAERINGSDRIVENDE, FRILANSER].indexOf(values.valgtArbeidssituasjon) > -1;
 };

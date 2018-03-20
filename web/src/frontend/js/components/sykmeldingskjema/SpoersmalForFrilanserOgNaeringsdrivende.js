@@ -85,6 +85,6 @@ const mapStateToProps = (state, ownProps) => {
     return {
         oppfolgingstilfelleStartdato: getOppfolgingstilfelleStartdato(state.sykeforloep.data, ownProps.sykmeldingId),
     };
-}
+};
 
 export default connect(mapStateToProps)(Spoersmal);

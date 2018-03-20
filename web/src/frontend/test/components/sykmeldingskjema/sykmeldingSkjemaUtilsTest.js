@@ -75,36 +75,60 @@ describe("skalViseFrilansersporsmal", () => {
 
     beforeEach(() => {
         vanligSykmelding = getSykmelding();
-        behandlingsdagerSykmelding = getSykmelding({
+        behandlingsdagerSykmelding = {
             mulighetForArbeid: {
-                behandlingsdager: 5
+                perioder: [{
+                    behandlingsdager: 5
+                }]
             }
-        });
-        reisetilskuddSykmelding = getSykmelding({
+        };
+        reisetilskuddSykmelding = {
             mulighetForArbeid: {
-                reisetilskudd: true
+                perioder: [{
+                    reisetilskudd: true
+                }]
             }
-        });
-        avventendeSykmelding = getSykmelding({
+        };
+        avventendeSykmelding = {
             mulighetForArbeid: {
-                avventende: "Trenger en bedre stol"
+                perioder: [{
+                    avventende: "Trenger en bedre stol"
+                }]
             }
-        });
+        };
         values = {
             valgtArbeidssituasjon: arbeidssituasjoner.DEFAULT,
         };
     });
 
     it("Skal returnere false hvis sykmelding er med behandlingsdager", () => {
-        expect(skalViseFrilansersporsmal(behandlingsdagerSykmelding, values)).to.be.false;
+        values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
+        expect(skalViseFrilansersporsmal(behandlingsdagerSykmelding, values, true)).to.be.false;
+    });
+
+    it("Skal returnere false hvis sykmelding er med behandlingsdager", () => {
+        values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
+        expect(skalViseFrilansersporsmal(behandlingsdagerSykmelding, values, false)).to.be.false;
     });
 
     it("Skal returnere false hvis sykmelding er med reisetilskudd", () => {
-        expect(skalViseFrilansersporsmal(reisetilskuddSykmelding, values)).to.be.false;
+        values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
+        expect(skalViseFrilansersporsmal(reisetilskuddSykmelding, values, false)).to.be.false;
+    });
+
+    it("Skal returnere false hvis sykmelding er med reisetilskudd", () => {
+        values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
+        expect(skalViseFrilansersporsmal(reisetilskuddSykmelding, values, true)).to.be.false;
     });
 
     it("Skal returnere false hvis sykmelding er avventende", () => {
-        expect(skalViseFrilansersporsmal(avventendeSykmelding, values)).to.be.false;
+        values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
+        expect(skalViseFrilansersporsmal(avventendeSykmelding, values, false)).to.be.false;
+    });
+
+    it("Skal returnere false hvis sykmelding er avventende", () => {
+        values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
+        expect(skalViseFrilansersporsmal(avventendeSykmelding, values, true)).to.be.false;
     });
 
     it("Skal returnere false hvis sykmelding er vanlig og arbeidssituasjon ikke er valgt", () => {

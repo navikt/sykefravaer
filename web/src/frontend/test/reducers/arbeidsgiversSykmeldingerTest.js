@@ -5,6 +5,7 @@ import arbeidsgiversSykmeldinger from '../../js/reducers/arbeidsgiversSykmelding
 import * as arbActions from '../../js/actions/arbeidsgiversSykmeldinger_actions';
 import * as dsActions from '../../js/actions/dinSykmelding_actions';
 import * as brukerActions from '../../js/actions/brukerinfo_actions';
+import * as metaActions from '../../js/actions/sykmeldingMeta_actions';
 import { getSykmelding, getParsetSykmelding } from './dineSykmeldingerReducerTest';
 
 describe('arbeidsgiversSykmeldinger', () => {
@@ -371,6 +372,26 @@ describe('arbeidsgiversSykmeldinger', () => {
             }]
         });
 
+    });
+
+    it("Håndterer ventetidHentet({})", () => {
+        const initialState = deepFreeze({
+            data: [{id: 'min-sykmelding-id'}, {id: 'min-sykmelding-id-2'}],
+        });
+        const action = metaActions.ventetidHentet('min-sykmelding-id', true);
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
+        expect(nextState.data).to.deep.equal([
+            {id: 'min-sykmelding-id', erUtenforVentetid: true}, {id: 'min-sykmelding-id-2'}
+        ])
+    });
+
+    it("Håndterer skalOppretteSoknadHentet({})", () => {
+        const initialState = deepFreeze({
+            data: [{id: 'min-sykmelding-id'}, {id: 'min-sykmelding-id-2'}],
+        });
+        const action = metaActions.skalOppretteSoknadHentet('min-sykmelding-id', false);
+        const nextState = arbeidsgiversSykmeldinger(initialState, action);
+        expect(nextState.data).to.deep.equal([{id: 'min-sykmelding-id', skalOppretteSoknad: false}, {id: 'min-sykmelding-id-2'}])
     });
 
     describe("Innsending", () => {

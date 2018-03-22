@@ -19,11 +19,6 @@ describe("SykmeldingKvittering", () => {
         }
     })
 
-    it("Skal vise en Sidetopp", () => {
-        const comp = shallow(<SykmeldingKvittering />);
-        expect(comp.find(Sidetopp)).to.have.length(1);
-    });
-
     it("Skal vise en Standardkvittering hvis kvitteringtype er STANDARDKVITTERING", () => {
         const comp = shallow(<SykmeldingKvittering kvitteringtype="STANDARDKVITTERING" />);
         expect(comp.find(Standardkvittering)).to.have.length(1);
@@ -63,15 +58,6 @@ describe("SykmeldingKvittering", () => {
 
         it("Skal vise to stk Kvitteringsteg", () => {
             expect(comp.find(Kvitteringsteg)).to.have.length(2);
-        });
-
-        it("Skal kalle på hentSykepengesoknader() og sende bruker videre via history.push() ved klikk på lenke", () => {
-            const stub = sinon.stub(history, "push");
-            comp.find(".js-sok").simulate("click", {
-                preventDefault: sinon.spy(),
-            });
-            expect(hentSykepengesoknader.calledOnce).to.be.true;
-            expect(stub.calledWith("/sykefravaer/soknader")).to.be.true;
         });
 
     });

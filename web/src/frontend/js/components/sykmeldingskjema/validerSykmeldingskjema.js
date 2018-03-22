@@ -1,7 +1,31 @@
 import { arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
+import { validerPerioder } from '../sykepengesoknad/validering/valideringUtils';
 
 const { ARBEIDSTAKER, DEFAULT } = arbeidssituasjoner;
 const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;
+
+const validerFrilansersporsmal = (values) => {
+    const feil = {};
+
+    if (values.varSykmeldtEllerEgenmeldt === undefined) {
+        feil.varSykmeldtEllerEgenmeldt = 'Vennligst svar på om du var sykmeldt eller friskmeldt';
+    }
+
+
+    if (values.varSykmeldtEllerEgenmeldt && validerPerioder(values.egenmeldingsperioder)) {
+        feil.egenmeldingsperioder = validerPerioder(values.egenmeldingsperioder);
+    }
+
+    if (values.harForsikring === undefined) {
+        feil.harForsikring = 'Vennligst svar på om du har forsikring som gjelder de første 16 dagene av sykefraværet';
+    }
+
+    if (values.harForsikring && values.dekningsgrad === undefined) {
+        feil.dekningsgrad = 'Vennligst oppgi hvilken forsikring du har';
+    }
+
+    return feil;
+};
 
 export default (values, props = {}) => {
     const feilmeldinger = {};
@@ -35,6 +59,13 @@ export default (values, props = {}) => {
         if (values.valgtArbeidsgiver.naermesteLeder && values.beOmNyNaermesteLeder === undefined) {
             feilmeldinger.beOmNyNaermesteLeder = `Vennligst svar på om ${values.valgtArbeidsgiver.naermesteLeder.navn} er din nærmeste leder med personalansvar`;
         }
+    }
+
+    if (props.visFrilansersporsmal) {
+        return {
+            ...feilmeldinger,
+            ...validerFrilansersporsmal(values),
+        };
     }
 
     return feilmeldinger;

@@ -160,7 +160,9 @@ describe("dinSykmelding_actions", () => {
                 type: actiontyper.BEKREFT_SYKMELDING_FORESPURT,
                 arbeidssituasjon: "frilanser",
                 feilaktigeOpplysninger: {},
-                sykmeldingId: 14
+                sykmeldingId: 14,
+                dekningsgrad: null,
+                egenmeldingsperioder: null,
             })
         });   
 
@@ -174,7 +176,33 @@ describe("dinSykmelding_actions", () => {
                 feilaktigeOpplysninger: {
                     periode: true,
                 },
-                sykmeldingId: 14
+                sykmeldingId: 14,
+                dekningsgrad: null,
+                egenmeldingsperioder: null,
+            })
+        });
+
+        it("Skal ha en bekreftSykmelding()-funksjon som returnerer rikig action når man har dekningsgrad", () => {
+            const action = actions.bekreftSykmelding(14, "frilanser", null, null, "75");
+            expect(action).to.deep.equal({
+                type: actiontyper.BEKREFT_SYKMELDING_FORESPURT,
+                arbeidssituasjon: "frilanser",
+                feilaktigeOpplysninger: null,
+                sykmeldingId: 14,
+                dekningsgrad: "75",
+                egenmeldingsperioder: null,
+            })
+        });
+
+        it("Skal ha en bekreftSykmelding()-funksjon som returnerer rikig action når man har egenmeldingsperioder", () => {
+            const action = actions.bekreftSykmelding(14, "frilanser", null, [], null);
+            expect(action).to.deep.equal({
+                type: actiontyper.BEKREFT_SYKMELDING_FORESPURT,
+                arbeidssituasjon: "frilanser",
+                feilaktigeOpplysninger: null,
+                sykmeldingId: 14,
+                dekningsgrad: null,
+                egenmeldingsperioder: [],
             })
         });
           

@@ -1,15 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import { getLedetekst, toDatePrettyPrint, keyValue, Video, filmer, sykmeldingstatuser } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
-import history from '../../history';
 import { sykepengesoknad as sykepengesoknadPt, sykmeldingstatus } from '../../propTypes';
+import { Bjorn } from '../Hjelpeboble';
+import IllustrertInnhold from '../IllustrertInnhold';
 
 export const kvitteringtyper = {
     STANDARDKVITTERING: 'STANDARDKVITTERING',
     KVITTERING_MED_SYKEPENGER_SOK_NA: 'KVITTERING_MED_SYKEPENGER_SØK_NÅ',
     KVITTERING_MED_SYKEPENGER_SOK_SENERE: 'KVITTERING_MED_SYKEPENGER_SØK_SENERE',
+    KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR: 'KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR',
+    KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE: 'KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE',
 };
 
 export const Kvitteringsteg = ({ ikon, alt, tittel, children }) => {
@@ -66,7 +70,7 @@ HtmlAvsnitt.propTypes = {
     replacements: keyValue,
 };
 
-export const KvitteringSokNa = ({ hentSykepengesoknader }) => {
+export const KvitteringSokNa = () => {
     const sokUrl = `${window.APP_SETTINGS.APP_ROOT}/soknader`;
     return (<div className="panel blokk js-kvittering--sok-naa">
         <div className="stegvisKvittering">
@@ -74,22 +78,11 @@ export const KvitteringSokNa = ({ hentSykepengesoknader }) => {
             <Kvitteringsteg ikon="kvitteringSokSykepenger.svg" alt="Søk om sykepenger" tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-2.tittel')}>
                 <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-na.steg-2.tekst" />
                 <p className="kvitteringsteg__handling">
-                    <a
-                        onClick={(e) => {
-                            e.preventDefault();
-                            hentSykepengesoknader();
-                            history.push(sokUrl);
-                        }}
-                        href={sokUrl}
-                        className="js-sok knapp">{getLedetekst('sykmelding.kvittering.sok-na.steg-2.knapp')}</a>
+                    <Link to={sokUrl} className="js-sok knapp">{getLedetekst('sykmelding.kvittering.sok-na.steg-2.knapp')}</Link>
                 </p>
             </Kvitteringsteg>
         </div>
     </div>);
-};
-
-KvitteringSokNa.propTypes = {
-    hentSykepengesoknader: PropTypes.func,
 };
 
 export const Soknadsdatoliste = ({ sykepengesoknader, visStatus = false }) => {
@@ -134,8 +127,7 @@ export const KvitteringSokSenere = ({ sykepengesoknader }) => {
         </div>
         <div className="blokk">
             <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
-            <Video
-                film={filmer.SOKNAD_SYKEPENGER} />
+            <Video film={filmer.SOKNAD_SYKEPENGER} />
         </div>
     </div>);
 };
@@ -144,19 +136,64 @@ KvitteringSokSenere.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
 };
 
+export const KvitteringSokPapir = () => {
+    return (<div className="js-kvittering--sok-papir">
+        <div className="panel blokk">
+            <div className="stegvisKvittering">
+                <Kvitteringsteg ikon="kvitteringhake.svg" alt="Grønn hake" tittel={getLedetekst('bekreft-sykmelding.skal-opprettes-soknad.steg-1.tittel')} />
+                <Kvitteringsteg ikon="kvitteringKonvolutt.svg" alt="Konvolutt" tittel={getLedetekst('bekreft-sykmelding.skal-opprettes-soknad.steg-2.tittel')}>
+                    <HtmlAvsnitt nokkel="bekreft-sykmelding.skal-opprettes-soknad.steg-2.tekst" />
+                </Kvitteringsteg>
+            </div>
+        </div>
+        <Bjorn className="blokk" hvit stor nokkel="bekreft-sykmelding.skal-opprettes-soknad.bjorn" />
+    </div>);
+};
+
+export const FrilanserUtenSoknadKvittering = ({ tittel, brodtekst }) => {
+    return (<div className="panel blokk js-kvittering--standard">
+        <IllustrertInnhold ikon="/sykefravaer/img/svg/kvitteringhake.svg" ikonAlt="Hake">
+            <h2 className="panel__tittel">
+                {tittel}
+            </h2>
+            <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={brodtekst} />
+        </IllustrertInnhold>
+    </div>);
+};
+
+FrilanserUtenSoknadKvittering.propTypes = {
+    tittel: PropTypes.string,
+    brodtekst: PropTypes.shape({
+        ___html: PropTypes.string,
+    }),
+};
+
+const HvaNaaTopp = () => {
+    return <Sidetopp tittel={getLedetekst('din-sykmelding.kvittering.hva-naa')} />;
+};
+
+const Standardtopp = () => {
+    return <Sidetopp tittel={getLedetekst('din-sykmelding.kvittering.sidetittel')} />;
+};
+
 const SykmeldingKvittering = (props) => {
     const { kvitteringtype } = props;
     return (<div>
-        <Sidetopp tittel={getLedetekst('din-sykmelding.kvittering.sidetittel')} />
         {
             (() => {
                 if (kvitteringtype === kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE) {
-                    return (<KvitteringSokSenere {...props} />);
+                    return [<HvaNaaTopp key="topp-1" />, <KvitteringSokSenere {...props} key="kvittering-1" />];
                 }
                 if (kvitteringtype === kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA) {
-                    return <KvitteringSokNa {...props} />;
+                    return [<HvaNaaTopp key="topp-2" />, <KvitteringSokNa {...props} key="kvittering-2" />];
                 }
-                return <Standardkvittering {...props} status={props.sykmeldingStatus} />;
+                if (kvitteringtype === kvitteringtyper.KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR) {
+                    return [<HvaNaaTopp key="topp-3" />, <KvitteringSokPapir {...props} key="kvittering-3" />];
+                }
+                if (kvitteringtype === kvitteringtyper.KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE) {
+                    return [<HvaNaaTopp key="topp-4" />, <FrilanserUtenSoknadKvittering {...props} key="kvittering-4" />];
+                }
+                return [<Standardtopp key="topp-5" />, <Standardkvittering {...props} status={props.sykmeldingStatus} key="kvittering-5" />];
             })()
         }
         <LenkeTilDineSykmeldinger />
@@ -165,10 +202,7 @@ const SykmeldingKvittering = (props) => {
 
 SykmeldingKvittering.propTypes = {
     sykmeldingStatus: sykmeldingstatus,
-    kvitteringtype: PropTypes.oneOf([
-        kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE,
-        kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA,
-        kvitteringtyper.STANDARDKVITTERING]),
+    kvitteringtype: PropTypes.oneOf(Object.values(kvitteringtyper)),
 };
 
 export default SykmeldingKvittering;

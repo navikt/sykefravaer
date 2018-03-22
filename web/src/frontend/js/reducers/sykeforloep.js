@@ -1,3 +1,4 @@
+import { parseSykmelding } from 'digisyfo-npm';
 import {
     HENTER_SYKEFORLOEP,
     SYKEFORLOEP_HENTET,
@@ -39,7 +40,13 @@ export default (state = initState, action = {}) => {
             return Object.assign({}, state, {
                 henter: false,
                 hentet: true,
-                data: action.data,
+                data: action.data.map((skforloep) => {
+                    return {
+                        ...skforloep,
+                        oppfoelgingsdato: new Date(skforloep.oppfoelgingsdato),
+                        sykmeldinger: skforloep.sykmeldinger.map(parseSykmelding),
+                    };
+                }),
                 startdato: hentStartdatoFraSykeforloep(action.data),
             });
         }

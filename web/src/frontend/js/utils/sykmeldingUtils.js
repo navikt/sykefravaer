@@ -63,3 +63,9 @@ export const getTidligsteStartdatoSykeforloep = (sykepengesoknad) => {
         ? sykepengesoknad.oppfoelgingsdato
         : sykepengesoknad.identdato;
 };
+
+export const getSykmeldtFornavn = (sykmelding) => {
+    return sykmelding.pasient.mellomnavn
+        ? `${sykmelding.pasient.fornavn} ${sykmelding.pasient.mellomnavn}`
+        : `${sykmelding.pasient.fornavn}`;
+};

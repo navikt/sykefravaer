@@ -44,8 +44,7 @@ class Tiltak extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.tiltak.tiltak && nextProps.tiltak.lagringFeilet && this.props.tiltak.lagringFeilet !== nextProps.tiltak.lagringFeilet) {
-            console.log('lagring new tiltak feilet');
+        if (!nextProps.tiltak.feiletTiltakId && nextProps.tiltak.lagringFeilet && this.props.tiltak.lagringFeilet !== nextProps.tiltak.lagringFeilet) {
             this.setState({
                 lagreNyTiltakFeilet: true,
                 visTiltakSkjema: true,
@@ -86,7 +85,7 @@ class Tiltak extends Component {
         this.setState({
             visTiltakSkjema: false,
             lagreNyTiltakFeilet: false,
-            oppdaterTiltakFeilet: true,
+            oppdaterTiltakFeilet: false,
             varselTekst: '',
         });
     }
@@ -126,16 +125,10 @@ class Tiltak extends Component {
         const {
             ledetekster,
             oppfolgingsdialog,
+            tiltak,
         } = this.props;
-        const {
-            lagrer,
-            sletter,
-        } = this.props.tiltak;
         return (
             (() => {
-                if (lagrer || sletter) {
-                    return <AppSpinner />;
-                }
                 return isEmpty(oppfolgingsdialog.tiltakListe) ?
                     <div>
                         {
@@ -171,6 +164,7 @@ class Tiltak extends Component {
                                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
                                         varselTekst={this.state.varselTekst}
                                         oppdateringFeilet={this.state.lagreNyTiltakFeilet}
+                                        rootUrlImg={`${getContextRoot()}`}
                                     />
                                 </div>
 
@@ -199,6 +193,7 @@ class Tiltak extends Component {
                                 }}
                                 varselTekst={this.state.varselTekst}
                                 oppdateringFeilet={this.state.lagreNyTiltakFeilet}
+                                rootUrlImg={`${getContextRoot()}`}
                             />
                         }
                         <TiltakTabell
@@ -213,6 +208,7 @@ class Tiltak extends Component {
                             brukerType={BRUKERTYPE.ARBEIDSTAKER}
                             visFeilMelding={this.visOppdateringFeilet}
                             feilMelding={this.state.oppdaterTiltakFeilet}
+                            rootUrlImg={`${getContextRoot()}`}
                         />
                     </div>;
             })()

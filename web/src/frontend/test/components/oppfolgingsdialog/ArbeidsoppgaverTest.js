@@ -82,38 +82,6 @@ describe('Arbeidsoppgaver', () => {
         };
     });
 
-    xit('Skal vise spinner dersom data lagres', () => {
-        component = shallow(<Arbeidsoppgaver
-            oppfolgingsdialog={oppfolgingsdialog}
-            arbeidsoppgaver={{ lagrer: true }}
-        />);
-        expect(component.contains(<AppSpinner />)).to.equal(true);
-    });
-
-    it('Skal vise spinner dersom data slettes', () => {
-        component = shallow(<Arbeidsoppgaver
-            oppfolgingsdialog={oppfolgingsdialog}
-            arbeidsoppgaver={{ sletter: true }}
-        />);
-        expect(component.contains(<AppSpinner />)).to.equal(true);
-    });
-
-    xit('Skal vise feilmelding dersom lagring feilet', () => {
-        component = shallow(<Arbeidsoppgaver
-            oppfolgingsdialog={oppfolgingsdialog}
-            arbeidsoppgaver={{ lagringFeilet: true }}
-        />);
-        expect(component.contains(<Feilmelding />)).to.equal(true);
-    });
-
-    xit('Skal vise feilmelding dersom sletting feilet', () => {
-        component = shallow(<Arbeidsoppgaver
-            oppfolgingsdialog={oppfolgingsdialog}
-            arbeidsoppgaver={{ slettingFeilet: true }}
-        />);
-        expect(component.contains(<Feilmelding />)).to.equal(true);
-    });
-
     describe('Oppfolgingsdialog uten Arbeidsoppgaver', () => {
         let oppfolgingsdialogUtenArbeidsoppgaver;
         let componentUtenArbeidsoppgaver;
@@ -147,11 +115,11 @@ describe('Arbeidsoppgaver', () => {
             expect(componentUtenArbeidsoppgaver.find(LeggTilElementKnapper)).to.have.length(1);
         });
 
-        it('Skal vise RenderOpprettArbeidsoppgave, om det ikke er arbeidsoppgaver og visArbeidsoppgaveSkjema er true', () => {
+        it('Skal vise LagreArbeidsoppgaveSkjema, om det ikke er arbeidsoppgaver og visArbeidsoppgaveSkjema er true', () => {
             componentUtenArbeidsoppgaver.setState({
                 visArbeidsoppgaveSkjema: true,
             });
-            expect(componentUtenArbeidsoppgaver.find(RenderOpprettArbeidsoppgave)).to.have.length(1);
+            expect(componentUtenArbeidsoppgaver.find(LagreArbeidsoppgaveSkjema)).to.have.length(1);
         });
     });
 

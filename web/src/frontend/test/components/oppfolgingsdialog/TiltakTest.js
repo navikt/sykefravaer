@@ -68,24 +68,6 @@ describe('Tiltak', () => {
         };
     });
 
-    it('Skal vise spinner dersom data lagres', () => {
-        component = shallow(<Tiltak
-            oppfolgingsdialog={oppfolgingsdialog}
-            tiltak={{ lagrer: true }}
-        />);
-        expect(component.contains(<AppSpinner />)).to.equal(true);
-    });
-
-    it('Skal vise spinner dersom data slettes', () => {
-        component = shallow(<Tiltak
-            oppfolgingsdialog={oppfolgingsdialog}
-            lagreTiltak={lagreTiltak}
-            slettTiltak={slettTiltak}
-            tiltak={{ sletter: true }}
-        />);
-        expect(component.contains(<AppSpinner />)).to.equal(true);
-    });
-
     xit('Skal vise feilmelding dersom lagring feilet', () => {
         component = shallow(<Tiltak
             oppfolgingsdialog={oppfolgingsdialog}

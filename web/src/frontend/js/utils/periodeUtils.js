@@ -4,7 +4,7 @@ const erPafolgendeDager = (a, b) => {
     return b.getTime() - a.getTime() === 86400000;
 };
 
-const datoErHelgedag = (dato) => {
+export const datoErHelgedag = (dato) => {
     const LORDAG = 6;
     const SONDAG = 0;
     return dato.getDay() === LORDAG || dato.getDay() === SONDAG;
@@ -25,6 +25,17 @@ export const erGyldigePerioder = (perioder) => {
         return erGyldigPeriode(p) && acc;
     }, true);
 };
+
+
+export const datePeriodeErHelg = (periode) => {
+    const fom = periode.fom;
+    const tom = periode.tom;
+    if (datoErHelgedag(fom) && datoErHelgedag(tom) && (erPafolgendeDager(fom, tom) || fom.getTime() === tom.getTime())) {
+        return true;
+    }
+    return false;
+};
+
 
 export const periodeErHelg = (periode) => {
     let fom;

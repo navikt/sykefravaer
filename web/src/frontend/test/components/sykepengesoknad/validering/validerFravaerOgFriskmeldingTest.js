@@ -52,7 +52,6 @@ describe("validerFravaerOgFriskmelding", () => {
         });
 
         describe("Dersom svaret er nei", () => {
-
             beforeEach(() => {
                 values.harGjenopptattArbeidFulltUt = false;
             });
@@ -60,7 +59,7 @@ describe("validerFravaerOgFriskmelding", () => {
             it("Skal ikke klage", () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.harGjenopptattArbeidFulltUt).to.be.undefined;
-            })
+            });
         });
 
         describe("Dersom svaret er ja", () => {
@@ -388,8 +387,21 @@ describe("validerFravaerOgFriskmelding", () => {
         });
 
         it("Skal validere at man har svart på soektOmSykepengerIPerioden", () => {
+          values.utenlandsopphold.perioder = [{
+            fom: '16.03.2018',
+            tom: '18.03.2018',
+          }]
           const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
           expect(res.utenlandsopphold.soektOmSykepengerIPerioden).to.equal("Vennligst oppgi om du har søkt på sykepenger under oppholdet utenfor Norge")
+        });
+
+        it("Skal ikke klage på at man ikke har søkt om sykepenger utenfor Norge hvis utenlandsoppholdet er i en helg", () => {
+          values.utenlandsopphold.perioder = [{
+            fom: '17.03.2018',
+            tom: '18.03.2018',
+          }];
+          const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+          expect(res.utenlandsopphold).to.be.undefined;
         });
 
         it("Skal validere at man har svart på soektOmSykepengerIPerioden når dette spørsmålet er besvart med ja", () => {
@@ -402,9 +414,10 @@ describe("validerFravaerOgFriskmelding", () => {
         });
 
         it("Skal feile validering dersom en ikke har svart på om en har soekt om sykepenger under utenlandsoppholdet", () => {
-            values.utenlandsopphold = {
-                perioder: [],
-            };
+            values.utenlandsopphold.perioder = [{
+              fom: '16.03.2018',
+              tom: '18.03.2018',
+            }]
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.utenlandsopphold.soektOmSykepengerIPerioden).to.equal("Vennligst oppgi om du har søkt på sykepenger under oppholdet utenfor Norge");
         });
@@ -435,8 +448,7 @@ describe("validerFravaerOgFriskmelding", () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.utenlandsopphold.perioder).to.deep.equal([{
               tom: "Vennligst fyll ut dato"
-            }])
-            expect(res.utenlandsopphold.soektOmSykepengerIPerioden).to.equal("Vennligst oppgi om du har søkt på sykepenger under oppholdet utenfor Norge");
+            }]);
           })
         });
 

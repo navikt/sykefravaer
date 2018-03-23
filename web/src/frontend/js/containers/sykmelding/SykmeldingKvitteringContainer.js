@@ -111,8 +111,8 @@ const getKvitteringtype = (sykmelding, sykepengesoknader = [], harStrengtFortrol
             return denneSykmeldingensSoknader.length === 0
                 ? kvitteringtyper.SENDT_SYKMELDING_INGEN_SOKNAD
                 : nyeSoknaderForDenneSykmeldingen.length === 0
-                ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE
-                : kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA;
+                    ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE
+                    : kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA;
         }
         case BEKREFTET: {
             if (harStrengtFortroligAdresse) {

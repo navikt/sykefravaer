@@ -1,6 +1,7 @@
 
 import { toDatePrettyPrint, inntektskildetyper as inntektskildetyper_ } from 'digisyfo-npm';
 import { mapAktiviteter } from '../../../utils/sykepengesoknadUtils';
+import { visSoktOmSykepengerUtenlandsoppholdsporsmal } from '../FravaerOgFriskmelding/SoktOmSykepengerIUtenlandsopphold';
 
 const inntektskilder = Object.keys(inntektskildetyper_).map((key) => {
     return {
@@ -16,39 +17,52 @@ const parsePeriode = (periode) => {
 };
 
 const map = (sykepengesoknad) => {
-    let utenlandsopphold = sykepengesoknad.utenlandsopphold;
-    let utdanning = sykepengesoknad.utdanning;
-    if (utenlandsopphold) {
-        utenlandsopphold = {
-            ...sykepengesoknad.utenlandsopphold,
-            perioder: utenlandsopphold.perioder.map(parsePeriode),
-        };
-    } else {
-        utenlandsopphold = {
-            perioder: [],
-        };
-    }
-
-    if (utdanning) {
-        utdanning = {
-            utdanningStartdato: toDatePrettyPrint(sykepengesoknad.utdanning.utdanningStartdato),
-            underUtdanningISykmeldingsperioden: true,
-            erUtdanningFulltidsstudium: utdanning.erUtdanningFulltidsstudium,
-        };
-    } else {
-        utdanning = {
-            underUtdanningISykmeldingsperioden: false,
-        };
-    }
-
+    const ferie = sykepengesoknad.ferie.map(parsePeriode);
     const harHattFerie = sykepengesoknad.ferie.length > 0;
     const harHattUtenlandsopphold = sykepengesoknad.utenlandsopphold !== null;
     const harHattPermisjon = sykepengesoknad.permisjon.length > 0;
 
+    const utenlandsopphold = (() => {
+        if (sykepengesoknad.utenlandsopphold) {
+            const perioder = sykepengesoknad.utenlandsopphold.perioder.map(parsePeriode);
+            const tempSkjemasoknad = {
+                harHattFerie,
+                harHattUtenlandsopphold,
+                ferie,
+                utenlandsopphold: {
+                    ...sykepengesoknad.utenlandsopphold,
+                    perioder,
+                },
+            };
+
+            return visSoktOmSykepengerUtenlandsoppholdsporsmal(tempSkjemasoknad)
+                ? {
+                    ...sykepengesoknad.utenlandsopphold,
+                    perioder,
+                }
+                : {
+                    perioder,
+                };
+        }
+        return {
+            perioder: [],
+        };
+    })();
+
+    const utdanning = sykepengesoknad.utdanning
+        ? {
+            utdanningStartdato: toDatePrettyPrint(sykepengesoknad.utdanning.utdanningStartdato),
+            underUtdanningISykmeldingsperioden: true,
+            erUtdanningFulltidsstudium: sykepengesoknad.utdanning.erUtdanningFulltidsstudium,
+        }
+        : {
+            underUtdanningISykmeldingsperioden: false,
+        };
+
     return {
         ...sykepengesoknad,
         bekreftetKorrektInformasjon: false,
-        ferie: sykepengesoknad.ferie.map(parsePeriode),
+        ferie,
         permisjon: sykepengesoknad.permisjon.map(parsePeriode),
         utenlandsopphold,
         andreInntektskilder: inntektskilder.map((inntektskilde) => {

@@ -36,29 +36,30 @@ export const KvitteringSide = (props) => {
     }, {
         tittel: getLedetekst('din-sykmelding.kvittering.sidetittel'),
     }];
+
+    const innhold = (() => {
+        if (henter) {
+            return <AppSpinner />;
+        }
+        if (hentingFeilet) {
+            return <Feilmelding />;
+        }
+        if (!sykmelding) {
+            return (<Feilmelding
+                tittel="Fant ikke kvittering"
+                melding="Vi fant ikke kvitteringen du ser etter. Er du sikker på at du er på riktig side?" />);
+        }
+        if (kvitteringtype && [SENDT, TIL_SENDING, BEKREFTET, AVBRUTT].indexOf(sykmelding.status) > -1) {
+            return (<Sykmeldingkvittering
+                kvitteringtype={kvitteringtype}
+                sykepengesoknader={sykepengesoknader} />);
+        }
+        return <Feilmelding />;
+    })();
+
     return (
         <Side tittel={getLedetekst('din-sykmelding.kvittering.sidetittel')} brodsmuler={brodsmuler}>
-            {
-                (() => {
-                    if (henter) {
-                        return <AppSpinner />;
-                    }
-                    if (hentingFeilet) {
-                        return <Feilmelding />;
-                    }
-                    if (!sykmelding) {
-                        return (<Feilmelding
-                            tittel="Fant ikke kvittering"
-                            melding="Vi fant ikke kvitteringen du ser etter. Er du sikker på at du er på riktig side?" />);
-                    }
-                    if (kvitteringtype && [SENDT, TIL_SENDING, BEKREFTET, AVBRUTT].indexOf(sykmelding.status) > -1) {
-                        return (<Sykmeldingkvittering
-                            kvitteringtype={kvitteringtype}
-                            sykepengesoknader={sykepengesoknader} />);
-                    }
-                    return <Feilmelding />;
-                })()
-            }
+            {innhold}
         </Side>
     );
 };
@@ -102,18 +103,16 @@ const getKvitteringtype = (sykmelding, sykepengesoknader = [], harStrengtFortrol
         return s.status === NY;
     });
     switch (sykmelding.status) {
-        case sykmeldingstatuser.AVBRUTT: {
+        case AVBRUTT: {
             return kvitteringtyper.AVBRUTT_SYKMELDING;
         }
-        case sykmeldingstatuser.SENDT:
-        case sykmeldingstatuser.TIL_SENDING: {
-            if (denneSykmeldingensSoknader.length === 0) {
-                return kvitteringtyper.SENDT_SYKMELDING_INGEN_SOKNAD;
-            }
-            if (nyeSoknaderForDenneSykmeldingen.length === 0) {
-                return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE;
-            }
-            return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA;
+        case SENDT:
+        case TIL_SENDING: {
+            return denneSykmeldingensSoknader.length === 0
+                ? kvitteringtyper.SENDT_SYKMELDING_INGEN_SOKNAD
+                : nyeSoknaderForDenneSykmeldingen.length === 0
+                ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE
+                : kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA;
         }
         case BEKREFTET: {
             if (harStrengtFortroligAdresse) {
@@ -122,14 +121,10 @@ const getKvitteringtype = (sykmelding, sykepengesoknader = [], harStrengtFortrol
             if (getArbeidssituasjon(sykmelding) === arbeidssituasjoner.ARBEIDSTAKER) {
                 return kvitteringtyper.BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER;
             }
-            if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding)) {
-                if (erAvventendeReisetilskuddEllerBehandlingsdager(sykmelding)) {
-                    return kvitteringtyper.BEKREFTET_SYKMELDING_UTEN_ARBEIDSGIVER;
-                }
-                if (sykmelding.erUtenforVentetid || sykmelding.skalOppretteSoknad) {
-                    return kvitteringtyper.KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR;
-                }
-                return kvitteringtyper.KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE;
+            if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding) && !erAvventendeReisetilskuddEllerBehandlingsdager(sykmelding)) {
+                return sykmelding.erUtenforVentetid || sykmelding.skalOppretteSoknad
+                    ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR
+                    : kvitteringtyper.KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE;
             }
             return kvitteringtyper.BEKREFTET_SYKMELDING_UTEN_ARBEIDSGIVER;
         }

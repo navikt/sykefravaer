@@ -8,13 +8,25 @@ const SokOmSykepengerSenereKvittering = ({ sykepengesoknader }) => {
     return (<div className="js-kvittering--sok-senere">
         <div className="panel blokk">
             <div className="stegvisKvittering">
-                <Kvitteringsteg ikon="kvitteringhake.svg" alt="Grønn hake" tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-1.tittel')} />
-                <Kvitteringsteg ikon="kvitteringVent.svg" alt="Timeglass" tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-2.tittel')}>
-                    <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-senere.steg-2.tekst" />
+                <Kvitteringsteg
+                    ikon="kvitteringhake.svg"
+                    alt="Grønn hake"
+                    tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-1.tittel')} />
+                <Kvitteringsteg
+                    ikon="kvitteringVent.svg"
+                    alt="Timeglass"
+                    tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-2.tittel')}>
+                    <HtmlAvsnitt
+                        nokkel="sykmelding.kvittering.sok-senere.steg-2.tekst" />
                 </Kvitteringsteg>
-                <Kvitteringsteg ikon="kvitteringSokSykepenger.svg" alt="Søk om sykepenger" tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-3.tittel')}>
-                    <HtmlAvsnitt nokkel="sykmelding.kvittering.sok-senere.steg-3.tekst-med-liste" />
-                    <Soknadsdatoliste sykepengesoknader={sykepengesoknader} />
+                <Kvitteringsteg
+                    ikon="kvitteringSokSykepenger.svg"
+                    alt="Søk om sykepenger"
+                    tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-3.tittel')}>
+                    <HtmlAvsnitt
+                        nokkel="sykmelding.kvittering.sok-senere.steg-3.tekst-med-liste" />
+                    <Soknadsdatoliste
+                        sykepengesoknader={sykepengesoknader} />
                 </Kvitteringsteg>
             </div>
         </div>

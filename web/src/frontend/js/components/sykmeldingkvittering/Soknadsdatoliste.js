@@ -7,10 +7,7 @@ const Soknadsdatoliste = ({ sykepengesoknader, visStatus = false }) => {
         {
             [...sykepengesoknader]
                 .sort((a, b) => {
-                    if (a.tom.getTime() > b.tom.getTime()) {
-                        return 1;
-                    }
-                    return -1;
+                    return a.tom.getTime() - b.tom.getTime();
                 })
                 .map((s, index) => {
                     const nokkel = `sykepengesoknader.datoliste.status.${s.status}`;

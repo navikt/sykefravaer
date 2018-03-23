@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 const Kvitteringsteg = ({ ikon, alt, tittel, children }) => {
     return (<div className="kvitteringsteg">
         <div className="kvitteringsteg__ikon">
-            <img alt={alt} src={`${window.APP_SETTINGS.APP_ROOT}/img/svg/${ikon}`} />
+            <img
+                alt={alt}
+                src={`${window.APP_SETTINGS.APP_ROOT}/img/svg/${ikon}`} />
         </div>
         <div className="kvitteringsteg__innhold">
             <h2 className="kvitteringsteg__tittel js-tittel">{tittel}</h2>
@@ -18,10 +20,7 @@ Kvitteringsteg.propTypes = {
     ikon: PropTypes.string,
     alt: PropTypes.string,
     tittel: PropTypes.string,
-    children: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.array,
-    ]),
+    children: PropTypes.node,
 };
 
 export const HtmlAvsnitt = ({ nokkel, replacements = null }) => {

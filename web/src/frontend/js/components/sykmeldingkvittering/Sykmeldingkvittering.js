@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { getLedetekst, sykmeldingstatuser, getHtmlLedetekst, sykepengesoknad as sykepengesoknadPt } from 'digisyfo-npm';
 import LenkeTilDineSykmeldinger from '../LenkeTilDineSykmeldinger';
 import Sidetopp from '../Sidetopp';
-import Standardkvittering from './StandardSykmeldingkvittering';
+import StandardSykmeldingkvittering from './StandardSykmeldingkvittering';
 import SokOmSykepengerSenereKvittering from './SokOmSykepengerSenereKvittering';
 import SokOmSykepengerNaaKvittering from './SokOmSykepengerNaaKvittering';
 import FrilanserMedPapirsoknadKvittering from './FrilanserMedPapirsoknadKvittering';
 import FrilanserUtenSoknadKvittering from './FrilanserUtenSoknadKvittering';
+import Feilmelding from '../Feilmelding';
 
 export const kvitteringtyper = {
     KVITTERING_MED_SYKEPENGER_SOK_NA: 'KVITTERING_MED_SYKEPENGER_SØK_NÅ',
@@ -22,32 +23,32 @@ export const kvitteringtyper = {
 };
 
 const AvbruttKvittering = () => {
-    return (<Standardkvittering
+    return (<StandardSykmeldingkvittering
         status={sykmeldingstatuser.AVBRUTT}
         tittel={getLedetekst('avbryt-sykmelding.kvittering.tittel')}
         brodtekst={getHtmlLedetekst('avbryt-sykmelding.kvittering.undertekst')} />);
 };
 
 const SendtIngenSoknadKvittering = () => {
-    return (<Standardkvittering
+    return (<StandardSykmeldingkvittering
         tittel={getLedetekst('send-til-arbeidsgiver.kvittering.tittel')}
         brodtekst={getHtmlLedetekst('send-til-arbeidsgiver.kvittering.undertekst')} />);
 };
 
 const ArbeidstakerBekreftetSykmeldingKvittering = () => {
-    return (<Standardkvittering
+    return (<StandardSykmeldingkvittering
         tittel={getLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel')}
         brodtekst={getHtmlLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.undertekst')} />);
 };
 
 const StrengtFortroligAdresseKvittering = () => {
-    return (<Standardkvittering
+    return (<StandardSykmeldingkvittering
         tittel={getLedetekst('bekreft-sykmelding.arbeidstaker-uten-arbeidsgiver.kvittering.tittel')}
         brodtekst={getHtmlLedetekst('bekreft-sykmelding.skjermingskode-6.kvittering.undertekst')} />);
 };
 
 const BekreftetKvittering = () => {
-    return (<Standardkvittering
+    return (<StandardSykmeldingkvittering
         tittel={getLedetekst('bekreft-sykmelding.kvittering.tittel')}
         brodtekst={getHtmlLedetekst('bekreft-sykmelding.kvittering.undertekst')} />);
 };
@@ -87,7 +88,7 @@ const SykmeldingKvittering = (props) => {
                         return <BekreftetKvittering />;
                     }
                     default: {
-                        return null;
+                        return <Feilmelding />;
                     }
                 }
             })()

@@ -16,7 +16,6 @@ import {
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
-import AppSpinner from '../../AppSpinner';
 
 class Tiltak extends Component {
     constructor(props) {
@@ -48,7 +47,7 @@ class Tiltak extends Component {
             this.setState({
                 lagreNyTiltakFeilet: true,
                 visTiltakSkjema: true,
-                varselTekst:  getLedetekst('oppfolgingsdialog.oppdatering.feilmelding', this.props.ledetekster),
+                varselTekst: getLedetekst('oppfolgingsdialog.oppdatering.feilmelding', this.props.ledetekster),
                 oppdaterTiltakFeilet: false,
             });
         }
@@ -165,6 +164,7 @@ class Tiltak extends Component {
                                         varselTekst={this.state.varselTekst}
                                         oppdateringFeilet={this.state.lagreNyTiltakFeilet}
                                         rootUrlImg={`${getContextRoot()}`}
+                                        tiltakReducer={tiltak}
                                     />
                                 </div>
 
@@ -194,6 +194,7 @@ class Tiltak extends Component {
                                 varselTekst={this.state.varselTekst}
                                 oppdateringFeilet={this.state.lagreNyTiltakFeilet}
                                 rootUrlImg={`${getContextRoot()}`}
+                                tiltakReducer={tiltak}
                             />
                         }
                         <TiltakTabell

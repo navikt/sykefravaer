@@ -9,13 +9,10 @@ import {
     LagreArbeidsoppgaveSkjema,
     LeggTilElementKnapper,
     NotifikasjonBoksVurderingOppgave,
-    Arbeidsforhold,
     ArbeidsoppgaverInfoboks,
     ArbeidsoppgaverListe,
 } from 'oppfolgingsdialog-npm';
 import ledetekster from '../../mockLedetekster';
-import AppSpinner from '../../../js/components/AppSpinner';
-import Feilmelding from '../../../js/components/Feilmelding';
 import Arbeidsoppgaver, {
     RenderOpprettArbeidsoppgave,
 } from '../../../js/components/oppfolgingsdialoger/utfylling/Arbeidsoppgaver';
@@ -120,6 +117,37 @@ describe('Arbeidsoppgaver', () => {
                 visArbeidsoppgaveSkjema: true,
             });
             expect(componentUtenArbeidsoppgaver.find(LagreArbeidsoppgaveSkjema)).to.have.length(1);
+        });
+
+        it('Skal vise feilmelding dersom lagring av ny arbeidsoppgave feilet', () => {
+            component = shallow(<Arbeidsoppgaver
+                oppfolgingsdialog={oppfolgingsdialogUtenArbeidsoppgaver}
+                lagreArbeidsoppgave={lagreArbeidsoppgave}
+                slettArbeidsoppgave={slettArbeidsoppgave}
+                arbeidsforhold={arbeidsforhold}
+                arbeidsoppgaver={{
+                    lagringFeilet: false,
+                }}
+                ledetekster={ledetekster}
+            />);
+            component.setProps({ arbeidsoppgaver : {lagringFeilet: true} });
+            expect(component.state().varselTekst).to.equal('Det oppsto en feil, og du fikk ikke lagret. Prøv igjen.');
+        });
+
+        it('Skal ikke vise feilmelding dersom lagring av ny arbeidsoppgave ikke feilet', () => {
+            component = shallow(<Arbeidsoppgaver
+                oppfolgingsdialog={oppfolgingsdialogUtenArbeidsoppgaver}
+                lagreArbeidsoppgave={lagreArbeidsoppgave}
+                slettArbeidsoppgave={slettArbeidsoppgave}
+                arbeidsforhold={arbeidsforhold}
+                arbeidsoppgaver={{
+                    lagringFeilet: false,
+                    feiletOppgaveId: 5,
+                }}
+                ledetekster={ledetekster}
+            />);
+            component.setProps({ arbeidsoppgaver: {lagringFeilet: true, feiletOppgaveId: 5,} });
+            expect(component.state().varselTekst).to.equal('');
         });
     });
 

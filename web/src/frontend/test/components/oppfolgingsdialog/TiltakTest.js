@@ -68,24 +68,29 @@ describe('Tiltak', () => {
         };
     });
 
-    xit('Skal vise feilmelding dersom lagring feilet', () => {
+    it('Skal vise feilmelding dersom lagring av ny tiltak feilet', () => {
         component = shallow(<Tiltak
             oppfolgingsdialog={oppfolgingsdialog}
-            lagreTiltak={lagreTiltak}
-            slettTiltak={slettTiltak}
-            tiltak={{ lagringFeilet: true }}
+            tiltak={{
+                lagringFeilet: false,
+            }}
+            ledetekster={ledetekster}
         />);
-        expect(component.contains(<Feilmelding />)).to.equal(true);
+        component.setProps({ tiltak: {lagringFeilet: true} });
+        expect(component.state().varselTekst).to.equal('Det oppsto en feil, og du fikk ikke lagret. Prøv igjen.');
     });
 
-    xit('Skal vise feilmelding dersom sletting feilet', () => {
+    it('Skal ikke vise feilmelding dersom lagring av ny tiltak ikke feilet', () => {
         component = shallow(<Tiltak
             oppfolgingsdialog={oppfolgingsdialog}
-            lagreTiltak={lagreTiltak}
-            slettTiltak={slettTiltak}
-            tiltak={{ slettingFeilet: true }}
+            tiltak={{
+                lagringFeilet: false,
+                feiletTiltakId: 5,
+            }}
+            ledetekster={ledetekster}
         />);
-        expect(component.contains(<Feilmelding />)).to.equal(true);
+        component.setProps({ tiltak: {lagringFeilet: true, feiletTiltakId: 5,} });
+        expect(component.state().varselTekst).to.equal('');
     });
 
     describe('Oppfolgingsdialog uten Tiltak', () => {

@@ -134,3 +134,14 @@ export const antallVirkedagerIPerioder = (perioder, startdato) => {
     });
     return virkedager.size;
 };
+
+export const tilDager = (perioder) => {
+    const dager = [];
+    const ETT_DOGN = 1000 * 60 * 60 * 24;
+    perioder.forEach((periode) => {
+        for (let i = periode.fom.getTime(); i <= periode.tom.getTime(); i += ETT_DOGN) {
+            dager.push(new Date(i));
+        }
+    });
+    return dager;
+};

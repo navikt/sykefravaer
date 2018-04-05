@@ -5,24 +5,17 @@ import { Field, getFormValues } from 'redux-form';
 import { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
 import Radioknapper from '../../skjema/Radioknapper';
 import { SYKEPENGER_SKJEMANAVN } from '../setup';
-import { datoErHelgedag, erGyldigPeriode } from '../../../utils/periodeUtils';
+import { datoErHelgedag, erGyldigPeriode, tilDager } from '../../../utils/periodeUtils';
 
-const tilDager = (perioder) => {
-    const dager = [];
-    const ETT_DOGN = 1000 * 60 * 60 * 24;
-    perioder.forEach((periode) => {
-        for (let i = periode.fom.getTime(); i <= periode.tom.getTime(); i += ETT_DOGN) {
-            dager.push(i);
-        }
-    });
-    return dager;
+const tilTimestamp = (dato) => {
+    return dato.getTime();
 };
 
 export const visSoktOmSykepengerUtenlandsoppholdsporsmal = (values) => {
     const utenlandsoppholdperioder = values.utenlandsopphold.perioder.filter(erGyldigPeriode).map(tilDatePeriode);
     const ferieperioder = values.ferie ? values.ferie.filter(erGyldigPeriode).map(tilDatePeriode) : [];
-    const utenlandsoppholddager = tilDager(utenlandsoppholdperioder);
-    const feriedager = tilDager(ferieperioder);
+    const utenlandsoppholddager = tilDager(utenlandsoppholdperioder).map(tilTimestamp);
+    const feriedager = tilDager(ferieperioder).map(tilTimestamp);
     return utenlandsoppholddager.some((dag) => {
         return datoErHelgedag(new Date(dag))
             ? false

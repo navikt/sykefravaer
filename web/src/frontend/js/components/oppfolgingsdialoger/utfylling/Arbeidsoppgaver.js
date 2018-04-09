@@ -72,7 +72,6 @@ class Arbeidsoppgaver extends Component {
                 lagreNyOppgaveFeilet: true,
                 visArbeidsoppgaveSkjema: true,
                 varselTekst: getLedetekst('oppfolgingsdialog.oppdatering.feilmelding', this.props.ledetekster),
-                oppdaterOppgaveFeilet: false,
             });
         }
     }

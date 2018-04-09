@@ -48,7 +48,7 @@ class Tiltak extends Component {
                 lagreNyTiltakFeilet: true,
                 visTiltakSkjema: true,
                 varselTekst: getLedetekst('oppfolgingsdialog.oppdatering.feilmelding', this.props.ledetekster),
-                oppdaterTiltakFeilet: false,
+               // oppdaterTiltakFeilet: false,
             });
         }
     }

@@ -5,7 +5,7 @@ import { getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyf
 import GenerellSoknadContainer from './GenerellSoknadContainer';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Feilmelding from '../../components/Feilmelding';
-import { Standardkvittering } from '../../components/sykmelding/SykmeldingKvittering';
+import Standardkvittering from '../../components/sykmeldingkvittering/StandardSykmeldingkvittering';
 
 const { AVBRUTT, SLETTET_UTKAST } = sykepengesoknadstatuser;
 

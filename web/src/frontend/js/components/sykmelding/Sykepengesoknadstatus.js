@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { sykepengesoknad as sykepengesoknadPt, getLedetekst, getHtmlLedetekst, toDatePrettyPrint, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
-import { Soknadsdatoliste } from './SykmeldingKvittering';
+import Soknadsdatoliste from '../sykmeldingkvittering/Soknadsdatoliste';
 
 const { NY, SENDT, FREMTIDIG, AVBRUTT, UTGAATT, TIL_SENDING } = sykepengesoknadstatuser;
 

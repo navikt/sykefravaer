@@ -4,6 +4,7 @@ import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import ledetekster from "../../mockLedetekster";
 import sinon from 'sinon';
+import { setLedetekster } from 'digisyfo-npm';
 const expect = chai.expect;
 
 import { VelgArbeidsgiverWrapper, mapStateToProps } from '../../../js/containers/sykmelding/VelgArbeidsgiverContainer';
@@ -36,6 +37,9 @@ describe("VelgArbeidsgiverContainer", () => {
                     data: {}
                 }
             }
+            setLedetekster({
+                'send-til-arbeidsgiver.annen-arbeidsgiver.label': 'Annen arbeidsgiver'
+            })
         });
 
         it("Skal returnere henter === true hvis det hentes", () => {

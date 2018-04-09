@@ -12,7 +12,6 @@ import { DinSykmldSide, mapStateToProps } from "../../../js/containers/sykmeldin
 import AppSpinner from '../../../js/components/AppSpinner';
 import Feilmelding from '../../../js/components/Feilmelding';
 import DinSykmelding from '../../../js/components/sykmelding/DinSykmelding';
-import SykmeldingKvittering from '../../../js/components/sykmelding/SykmeldingKvittering';
 import DinSendteSykmelding from '../../../js/components/sykmelding/DinSendteSykmelding';
 import DinAvbrutteSykmelding from '../../../js/components/sykmelding/DinAvbrutteSykmelding';
 import DinBekreftedeSykmelding from '../../../js/components/sykmelding/DinBekreftedeSykmelding';

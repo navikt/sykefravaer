@@ -26,6 +26,7 @@ export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppga
             ledetekster={ledetekster}
             sendLagre={sendLagreArbeidsoppgave}
             avbryt={toggleArbeidsoppgaveSkjema}
+            rootUrlImg={getContextRoot()}
         />
     </div>);
 };
@@ -201,6 +202,7 @@ class Arbeidsoppgaver extends Component {
                                 ref={(lagreSkjema) => {
                                     this.lagreSkjema = lagreSkjema;
                                 }}
+                                rootUrlImg={getContextRoot()}
                             />
                         }
                         <ArbeidsoppgaverListe

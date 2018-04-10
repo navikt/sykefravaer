@@ -26,7 +26,7 @@ describe("SoktOmSykepenger", () => {
     expect(f.prop("parse")).to.deep.equal(parseJaEllerNei);
   });
 
-  it("Skal inneholde to i", () => {
+  it("Skal inneholde to alternativer; ett for ja og ett for nei", () => {
     expect(f.find("i")).to.have.length(2);
     const ja = f.find("i").at(0);
     const nei = f.find("i").at(1);

@@ -1,5 +1,7 @@
 import { fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tilDatePeriode } from 'digisyfo-npm';
 
+const ETT_DOGN = 1000 * 60 * 60 * 24;
+
 const erPafolgendeDager = (a, b) => {
     return b.getTime() - a.getTime() === 86400000;
 };
@@ -107,10 +109,9 @@ export const harOverlappendePerioder = (perioder) => {
 export const antallVirkedagerIPeriode = (periode) => {
     const start = periode.fom.getTime();
     const slutt = periode.tom.getTime();
-    const DOGN = 1000 * 60 * 60 * 24;
     let antallVirkedager = 0;
 
-    for (let i = start; i <= slutt; i += DOGN) {
+    for (let i = start; i <= slutt; i += ETT_DOGN) {
         const d = new Date(i);
         if (!datoErHelgedag(d)) {
             antallVirkedager += 1;
@@ -120,12 +121,11 @@ export const antallVirkedagerIPeriode = (periode) => {
 };
 
 export const antallVirkedagerIPerioder = (perioder, startdato) => {
-    const DOGN = 1000 * 60 * 60 * 24;
     const virkedager = new Set();
     perioder.forEach((periode) => {
         const start = periode.fom.getTime();
         const slutt = periode.tom.getTime();
-        for (let i = start; i <= slutt; i += DOGN) {
+        for (let i = start; i <= slutt; i += ETT_DOGN) {
             const d = new Date(i);
             if (!datoErHelgedag(d) && (!startdato || d.getTime() >= startdato.getTime())) {
                 virkedager.add(d.getTime());
@@ -137,7 +137,6 @@ export const antallVirkedagerIPerioder = (perioder, startdato) => {
 
 export const tilDager = (perioder) => {
     const dager = [];
-    const ETT_DOGN = 1000 * 60 * 60 * 24;
     perioder.forEach((periode) => {
         for (let i = periode.fom.getTime(); i <= periode.tom.getTime(); i += ETT_DOGN) {
             dager.push(new Date(i));

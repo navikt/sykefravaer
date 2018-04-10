@@ -103,19 +103,12 @@ class Arbeidsoppgaver extends Component {
         };
         this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialog.id, nyeValues, this.props.oppfolgingsdialog.arbeidstaker.fnr);
         this.setState({
-            lagreNyOppgaveFeilet: false,
-            oppdaterOppgaveFeilet: true,
-            varselTekst: '',
             visArbeidsoppgaveSkjema: false,
         });
     }
 
     sendSlettArbeidsoppgave(arbeidsoppgaveId) {
         this.props.slettArbeidsoppgave(this.props.oppfolgingsdialog.id, arbeidsoppgaveId);
-        this.setState({
-            lagreNyOppgaveFeilet: false,
-            oppdaterOppgaveFeilet: false,
-        });
     }
 
     toggleArbeidsoppgaveSkjema() {

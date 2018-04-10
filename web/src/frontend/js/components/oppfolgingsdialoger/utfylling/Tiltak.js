@@ -48,7 +48,6 @@ class Tiltak extends Component {
                 lagreNyTiltakFeilet: true,
                 visTiltakSkjema: true,
                 varselTekst: getLedetekst('oppfolgingsdialog.oppdatering.feilmelding', this.props.ledetekster),
-               // oppdaterTiltakFeilet: false,
             });
         }
     }
@@ -83,9 +82,6 @@ class Tiltak extends Component {
         this.props.lagreTiltak(this.props.oppfolgingsdialog.id, nyeValues);
         this.setState({
             visTiltakSkjema: false,
-            lagreNyTiltakFeilet: false,
-            oppdaterTiltakFeilet: false,
-            varselTekst: '',
         });
     }
 
@@ -93,8 +89,6 @@ class Tiltak extends Component {
         this.props.slettTiltak(this.props.oppfolgingsdialog.id, tiltakId);
         this.setState({
             sjekkLargingFeil: true,
-            lagreNyTiltakFeilet: false,
-            varselTekst: '',
         });
     }
 
@@ -109,7 +103,6 @@ class Tiltak extends Component {
     toggleTiltakSkjema() {
         this.setState({
             visTiltakSkjema: !this.state.visTiltakSkjema,
-            lagreNyTiltakFeilet: false,
         });
     }
 

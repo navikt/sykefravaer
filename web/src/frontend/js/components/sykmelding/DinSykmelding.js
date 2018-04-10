@@ -37,6 +37,7 @@ class DinSykmelding extends Component {
                             onClick={(e) => {
                                 e.preventDefault();
                                 scrollTo(this.skjema);
+                                this.skjema.focus();
                             }}
                             className="rammeknapp rammeknapp--mini">Gå til utfylling</button>
                     </p>

@@ -5,7 +5,7 @@ import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
 
 export default () => {
     const sokUrl = `${window.APP_SETTINGS.APP_ROOT}/soknader`;
-    return (<div className="panel blokk js-kvittering--sok-naa">
+    return (<div className="panel blokk js-kvittering js-kvittering--sok-naa">
         <div className="stegvisKvittering">
             <Kvitteringsteg
                 ikon="kvitteringhake.svg"

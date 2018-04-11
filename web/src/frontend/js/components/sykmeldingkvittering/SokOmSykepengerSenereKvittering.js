@@ -5,7 +5,7 @@ import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
 import Soknadsdatoliste from './Soknadsdatoliste';
 
 const SokOmSykepengerSenereKvittering = ({ sykepengesoknader }) => {
-    return (<div className="js-kvittering--sok-senere">
+    return (<div className="js-kvittering js-kvittering--sok-senere">
         <div className="panel blokk">
             <div className="stegvisKvittering">
                 <Kvitteringsteg

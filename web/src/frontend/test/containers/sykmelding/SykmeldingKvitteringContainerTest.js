@@ -195,6 +195,12 @@ describe("SykmeldingkvitteringContainer", () => {
         state.sykepengesoknader = {
             data: [nySoknad1, nySoknad2, nySoknad3, nySoknad4, fremtidigSoknad1]
         };
+        state.sykmeldingMeta = {
+            "1": {
+                erUtenforVentetid: false,
+                skalOppretteSoknad: false,
+            }
+        };
         state.timeout = {};
         ownProps.params = {
             sykmeldingId: "1",
@@ -420,14 +426,16 @@ describe("SykmeldingkvitteringContainer", () => {
                 id: "1",
                 status: sykmeldingstatuser.BEKREFTET,
                 valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
                 mulighetForArbeid: {
                     perioder: [{
                         avventende: "Trenger en bedre stol"
                     }]
                 }
             });
+            state.sykmeldingMeta["1"] = {
+                erUtenforVentetid: true,
+                skalOppretteSoknad: true,
+            }
             state.dineSykmeldinger.data = [sykmelding];
             skalViseStandardBekreftetKvittering(state, ownProps);
         });
@@ -486,6 +494,10 @@ describe("SykmeldingkvitteringContainer", () => {
                     }
                 });
                 state.dineSykmeldinger.data = [sykmelding];
+                state.sykmeldingMeta["1"] = {
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: false,
+                }
                 skalViseInfoOmAtBrukerKanSoke(state, ownProps);
             });
 
@@ -495,8 +507,6 @@ describe("SykmeldingkvitteringContainer", () => {
                     id: "1",
                     status: sykmeldingstatuser.BEKREFTET,
                     valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                    erUtenforVentetid: true,
-                    skalOppretteSoknad: true,
                     mulighetForArbeid: {
                         perioder: [{
                             fom: new Date("2018-02-02"),
@@ -505,6 +515,10 @@ describe("SykmeldingkvitteringContainer", () => {
                     }
                 });
                 state.dineSykmeldinger.data = [sykmelding];
+                state.sykmeldingMeta["1"] = {
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: true,
+                }
                 skalViseInfoOmAtBrukerKanSoke(state, ownProps);
             })
         });
@@ -517,8 +531,6 @@ describe("SykmeldingkvitteringContainer", () => {
                     id: "1",
                     status: sykmeldingstatuser.BEKREFTET,
                     valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                    erUtenforVentetid: false,
-                    skalOppretteSoknad: false,
                     mulighetForArbeid: {
                         perioder: [{
                             fom: new Date("2018-02-02"),
@@ -527,6 +539,10 @@ describe("SykmeldingkvitteringContainer", () => {
                     }
                 });
                 state.dineSykmeldinger.data = [sykmelding];
+                state.sykmeldingMeta["1"] = {
+                    erUtenforVentetid: false,
+                    skalOppretteSoknad: false,
+                };
                 const component = getComponent(state, ownProps);
                 expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.tittel']);
                 expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.undertekst']);
@@ -540,8 +556,6 @@ describe("SykmeldingkvitteringContainer", () => {
                     id: "1",
                     status: sykmeldingstatuser.BEKREFTET,
                     valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                    erUtenforVentetid: false,
-                    skalOppretteSoknad: true,
                     mulighetForArbeid: {
                         perioder: [{
                             fom: new Date("2018-02-02"),
@@ -549,6 +563,10 @@ describe("SykmeldingkvitteringContainer", () => {
                         }]
                     }
                 });
+                state.sykmeldingMeta["1"] = {
+                    erUtenforVentetid: false,
+                    skalOppretteSoknad: true,
+                };
                 state.dineSykmeldinger.data = [sykmelding];
                 skalViseInfoOmAtBrukerKanSoke(state, ownProps);
             });

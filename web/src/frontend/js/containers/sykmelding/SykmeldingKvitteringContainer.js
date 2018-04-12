@@ -92,7 +92,7 @@ const erAvventendeReisetilskuddEllerBehandlingsdager = (sykmelding) => {
             });
 };
 
-const getKvitteringtype = (sykmelding, sykepengesoknader = [], harStrengtFortroligAdresse = false) => {
+const getKvitteringtype = (sykmelding, sykepengesoknader = [], harStrengtFortroligAdresse = false, erUtenforVentetid = false, skalOppretteSoknad = false) => {
     if (!sykmelding) {
         return null;
     }
@@ -122,7 +122,7 @@ const getKvitteringtype = (sykmelding, sykepengesoknader = [], harStrengtFortrol
                 return kvitteringtyper.BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER;
             }
             if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding) && !erAvventendeReisetilskuddEllerBehandlingsdager(sykmelding)) {
-                return sykmelding.erUtenforVentetid || sykmelding.skalOppretteSoknad
+                return erUtenforVentetid || skalOppretteSoknad
                     ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR
                     : kvitteringtyper.KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE;
             }
@@ -139,6 +139,7 @@ export function mapStateToProps(state, ownProps) {
     const sykmelding = getSykmelding(state.dineSykmeldinger.data, sykmeldingId) || undefined;
     const henter = state.dineSykmeldinger.henter || state.ledetekster.henter || state.sykepengesoknader.henter;
     const hentingFeilet = state.dineSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet;
+    const sykmeldingMeta = state.sykmeldingMeta[sykmeldingId] || {};
     const harStrengtFortroligAdresse = (() => {
         try {
             return state.brukerinfo.bruker.data.strengtFortroligAdresse;
@@ -147,7 +148,7 @@ export function mapStateToProps(state, ownProps) {
         }
     })();
 
-    const kvitteringtype = getKvitteringtype(sykmelding, state.sykepengesoknader.data, harStrengtFortroligAdresse);
+    const kvitteringtype = getKvitteringtype(sykmelding, state.sykepengesoknader.data, harStrengtFortroligAdresse, sykmeldingMeta.erUtenforVentetid, sykmeldingMeta.skalOppretteSoknad);
 
     return {
         henter,

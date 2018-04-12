@@ -502,26 +502,6 @@ describe('dineSykmeldingerReducer', () => {
         });
     });
 
-    it("Håndterer ventetidHentet({})", () => {
-        const initialState = deepFreeze({
-            data: [{id: 'min-sykmelding-id'}, {id: 'min-sykmelding-id-2'}],
-        });
-        const action = metaActions.ventetidHentet('min-sykmelding-id', true);
-        const nextState = dineSykmeldinger(initialState, action);
-        expect(nextState.data).to.deep.equal([
-            {id: 'min-sykmelding-id', erUtenforVentetid: true}, {id: 'min-sykmelding-id-2'}
-        ])
-    });
-
-    it("Håndterer skalOppretteSoknadHentet({})", () => {
-        const initialState = deepFreeze({
-            data: [{id: 'min-sykmelding-id'}, {id: 'min-sykmelding-id-2'}],
-        });
-        const action = metaActions.skalOppretteSoknadHentet('min-sykmelding-id', false);
-        const nextState = dineSykmeldinger(initialState, action);
-        expect(nextState.data).to.deep.equal([{id: 'min-sykmelding-id', skalOppretteSoknad: false}, {id: 'min-sykmelding-id-2'}])
-    });
-
 }); 
 
 export const getSykmelding = (soknad = {}) => {

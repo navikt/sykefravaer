@@ -58,4 +58,74 @@ describe("sykmeldingMeta", () => {
         });
     });
 
+    it("Håndterer ventetidHentet()", () => {
+        const action = actions.ventetidHentet(SYKMELDING_ID, true);
+        state = sykmeldingMeta(state, action);
+        expect(state).to.deep.equal({
+            "banan": {
+                henterVentetid: false,
+                hentVentetidFeilet: true,
+            },
+            [SYKMELDING_ID]: {
+                henterVentetid: false,
+                hentVentetidFeilet: false,
+                erUtenforVentetid: true,
+                ventetidHentet: true,
+            }
+        });
+    });
+
+    it("Håndterer ventetidHentet()", () => {
+        const action = actions.ventetidHentet(SYKMELDING_ID, false);
+        state = sykmeldingMeta(state, action);
+        expect(state).to.deep.equal({
+            "banan": {
+                henterVentetid: false,
+                hentVentetidFeilet: true,
+            },
+            [SYKMELDING_ID]: {
+                henterVentetid: false,
+                hentVentetidFeilet: false,
+                erUtenforVentetid: false,
+                ventetidHentet: true,
+            }
+        });
+    });
+
+    it("Håndterer skalOppretteSoknadHentet()", () => {
+        const action = actions.skalOppretteSoknadHentet(SYKMELDING_ID, false);
+        state = sykmeldingMeta(state, action);
+        expect(state).to.deep.equal({
+            "banan": {
+                henterVentetid: false,
+                hentVentetidFeilet: true,
+            },
+            [SYKMELDING_ID]: {
+                henterVentetid: false,
+                hentVentetidFeilet: false,
+                erUtenforVentetid: false,
+                skalOppretteSoknad: false,
+                ventetidHentet: true,
+            }
+        });
+    });
+
+    it("Håndterer skalOppretteSoknadHentet()", () => {
+        const action = actions.skalOppretteSoknadHentet(SYKMELDING_ID, true);
+        state = sykmeldingMeta(state, action);
+        expect(state).to.deep.equal({
+            "banan": {
+                henterVentetid: false,
+                hentVentetidFeilet: true,
+            },
+            [SYKMELDING_ID]: {
+                henterVentetid: false,
+                hentVentetidFeilet: false,
+                erUtenforVentetid: false,
+                skalOppretteSoknad: true,
+                ventetidHentet: true,
+            }
+        });
+    });
+
 });

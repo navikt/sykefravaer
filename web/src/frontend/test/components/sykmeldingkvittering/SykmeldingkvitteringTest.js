@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import getSykmelding from "../../mockSykmeldinger";
 import Sykmeldingkvittering from "../../../js/components/sykmeldingkvittering/Sykmeldingkvittering";
-import Soknadsdatoliste from '../../../js/components/sykmeldingkvittering/Soknadsdatoliste';
 import Kvitteringsteg from "../../../js/components/sykmeldingkvittering/Kvitteringsteg";
 import SokOmSykepengerNaaKvittering from "../../../js/components/sykmeldingkvittering/SokOmSykepengerNaaKvittering";
 import SokOmSykepengerSenereKvittering from "../../../js/components/sykmeldingkvittering/SokOmSykepengerSenereKvittering";
@@ -32,7 +31,7 @@ describe("Sykmeldingkvittering", () => {
 
     describe("SokOmSykepengerSenereKvittering", () => {
         it("Skal vise tre stk Kvitteringsteg", () => {
-            const comp = shallow(<SokOmSykepengerSenereKvittering sykmelding={getSykmelding()} />);
+            const comp = shallow(<SokOmSykepengerSenereKvittering sykmelding={getSykmelding()} sykepengesoknader={[]} />);
             expect(comp.find(Kvitteringsteg)).to.have.length(3);
         });
     });
@@ -65,35 +64,6 @@ describe("Sykmeldingkvittering", () => {
         });
 
     });
-
-    describe("Soknadsdatoliste", () => {
-        let comp;
-
-        let soknad1 = {
-            tom: new Date("2017-10-14"),
-        };
-
-        let soknad2 = {
-            tom: new Date("2017-10-12"),
-        };
-
-        let soknad3 = {
-            tom: new Date("2017-10-13"),
-        }
-
-        beforeEach(() => {
-            
-        });
-
-        it("Skal sortere etter tom", () => {
-            comp = shallow(<Soknadsdatoliste sykepengesoknader={[soknad1, soknad2, soknad3]} />)
-            expect(comp.find("li").at(0).text()).to.equal("12.10.2017");
-            expect(comp.find("li").at(1).text()).to.equal("13.10.2017");
-            expect(comp.find("li").at(2).text()).to.equal("14.10.2017");
-        });
-
-
-    })
 
 
 }); 

@@ -4,7 +4,7 @@ import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
 import { Bjorn } from '../Hjelpeboble';
 
 export default () => {
-    return (<div className="js-kvittering--sok-papir">
+    return (<div className="js-kvittering js-kvittering--sok-papir">
         <div className="panel blokk">
             <div className="stegvisKvittering">
                 <Kvitteringsteg

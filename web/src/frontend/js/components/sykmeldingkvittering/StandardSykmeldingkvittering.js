@@ -10,7 +10,7 @@ const StandardSykmeldingkvittering = (props) => {
         illustrertTittel__img: true,
         'illustrertTittel__img--mikro': status === sykmeldingstatuser.AVBRUTT,
     });
-    return (<div className="panel blokk js-kvittering--standard">
+    return (<div className="panel blokk js-kvittering js-kvittering--standard">
         <div className="illustrertTittel">
             <img className={ikonKlasser} src={`/sykefravaer/img/svg/${ikon}`} alt="" />
             <h2 className="illustrertTittel__tittel">

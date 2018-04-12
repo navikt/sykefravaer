@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe, scrollTo } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import DinSykmeldingSkjemaContainer from '../../containers/sykmelding/DinSykmeldingSkjemaContainer';
@@ -24,13 +24,24 @@ class DinSykmelding extends Component {
                 </div>
             }
             <Bjorn className="blokk" hvit stor>
-                <p>
-                    {
-                        getLedetekst('din-sykmelding.introtekst.bjorn', {
-                            '%NAVN%': getSykmeldtFornavn(sykmelding),
-                        })
-                    }
-                </p>
+                <div>
+                    <p>
+                        {
+                            getLedetekst('din-sykmelding.introtekst.bjorn', {
+                                '%NAVN%': getSykmeldtFornavn(sykmelding),
+                            })
+                        }
+                    </p>
+                    <p className="introtekst__knapperad">
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                scrollTo(this.skjema);
+                                this.skjema.focus();
+                            }}
+                            className="rammeknapp rammeknapp--mini">Gå til utfylling</button>
+                    </p>
+                </div>
             </Bjorn>
             <header className="panelHeader panelHeader--lysebla">
                 <img className="panelHeader__ikon" src="/sykefravaer/img/svg/person.svg" alt="Du" />

@@ -31,7 +31,20 @@ class ReleasetPlanAT extends Component {
     }
 
     render() {
-        const { ledetekster, oppfolgingsdialog, hentPdfurler, dokument, giSamtykke, avbrytDialog, toggles, delMedNavFunc, delmednav, oppfolgingsdialoger } = this.props;
+        const {
+            ledetekster,
+            oppfolgingsdialog,
+            hentPdfurler,
+            dokument,
+            giSamtykke,
+            avbrytDialog,
+            toggles,
+            fastlegeDeling,
+            delMedFastlege,
+            delMedNavFunc,
+            delmednav,
+            oppfolgingsdialoger,
+        } = this.props;
         if (!this.state.settTvungenGodkjenning && foersteInnloggingSidenGodkjenning(oppfolgingsdialog) && planBleTvangsgodkjent(oppfolgingsdialog)) {
             return (<ArbeidsgiverHarTvangsgodkjent
                 ledetekster={ledetekster}
@@ -50,6 +63,8 @@ class ReleasetPlanAT extends Component {
             giSamtykke={giSamtykke}
             avbrytDialog={avbrytDialog}
             brukerType={BRUKERTYPE.ARBEIDSTAKER}
+            fastlegeDeling={fastlegeDeling}
+            delMedFastlege={delMedFastlege}
             delMedNavFunc={delMedNavFunc}
             delmednav={delmednav}
             oppfolgingsdialoger={oppfolgingsdialoger}
@@ -63,12 +78,14 @@ ReleasetPlanAT.propTypes = {
     hentPdfurler: PropTypes.func,
     giSamtykke: PropTypes.func,
     avbrytDialog: PropTypes.func,
+    delMedFastlege: PropTypes.func,
     delMedNavFunc: PropTypes.func,
     dokument: oppfolgingProptypes.dokumentReducerPt,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
     ledetekster: keyValue,
     toggles: togglesPt,
     delmednav: oppfolgingProptypes.delmednavPt,
+    fastlegeDeling: oppfolgingProptypes.delMedFastlegePt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
 };
 

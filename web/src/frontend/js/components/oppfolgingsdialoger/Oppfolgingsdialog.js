@@ -80,6 +80,8 @@ class Oppfolgingsdialog extends Component {
             toggles,
             delMedNavFunc,
             delmednav,
+            fastlegeDeling,
+            delMedFastlege,
             oppfolgingsdialoger,
         } = this.props;
         const oppfolgingsdialogAvbrutt = this.props.avbrytdialogReducer.sendt;
@@ -117,6 +119,8 @@ class Oppfolgingsdialog extends Component {
                 avbrytDialog={avbrytDialog}
                 delMedNavFunc={delMedNavFunc}
                 delmednav={delmednav}
+                fastlegeDeling={fastlegeDeling}
+                delMedFastlege={delMedFastlege}
                 oppfolgingsdialoger={oppfolgingsdialoger}
             />);
         } else {
@@ -202,10 +206,12 @@ Oppfolgingsdialog.propTypes = {
     naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
     kontaktinfo: oppfolgingProptypes.kontaktinfoReducerPt,
     arbeidsforhold: oppfolgingProptypes.arbeidsforholdReducerPt,
+    fastlegeDeling: oppfolgingProptypes.delMedFastlegePt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     toggles: togglesPt,
     lagreKommentar: PropTypes.func,
     slettKommentar: PropTypes.func,
+    delMedFastlege: PropTypes.func,
     delMedNavFunc: PropTypes.func,
     delmednav: oppfolgingProptypes.delmednavPt,
     godkjennDialog: PropTypes.func,

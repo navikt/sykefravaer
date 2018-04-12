@@ -27,6 +27,7 @@ import {
     hentKontaktinfo,
     hentForrigeNaermesteLeder,
     hentNaermesteLeder,
+    delMedFastlege,
     delMedNav as delMedNavFunc,
     proptypes as oppfolgingProptypes,
     henterEllerHarHentetTilgang,
@@ -179,6 +180,7 @@ OppfolgingsdialogSide.propTypes = {
     sjekkTilgang: PropTypes.func,
     hentPdfurler: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,
+    delMedFastlege: PropTypes.func,
     delMedNav: PropTypes.func,
     godkjennDialog: PropTypes.func,
     avvisDialog: PropTypes.func,
@@ -234,6 +236,7 @@ export function mapStateToProps(state, ownProps) {
         tiltak: state.tiltak,
         delmednav: state.delmednav,
         dokument: state.dokument,
+        fastlegeDeling: state.fastlegeDeling,
         forrigenaermesteleder: state.forrigenaermesteleder,
         kontaktinfo: state.kontaktinfo,
         naermesteleder: state.naermesteleder,
@@ -286,6 +289,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     hentKontaktinfo,
     hentForrigeNaermesteLeder,
     hentNaermesteLeder,
+    delMedFastlege,
     delMedNavFunc,
 })(OppfolgingsdialogSide);
 

@@ -18,6 +18,7 @@ const SokOmSykepengerSenereKvittering = ({ sykepengesoknader }) => {
                     alt="Timeglass"
                     tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-2.tittel-2')}>
                     <HtmlAvsnitt
+                        Tag="div"
                         nokkel="sykmelding.kvittering.sok-senere.steg-2.tekst-2" />
                 </Kvitteringsteg>
                 <Kvitteringsteg

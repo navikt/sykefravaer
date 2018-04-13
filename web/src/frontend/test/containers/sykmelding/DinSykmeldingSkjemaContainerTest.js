@@ -351,11 +351,11 @@ describe("DinSykmeldingSkjemaContainer", () => {
 
             it("Skal være false dersom ventetid er hentet for denne sykmeldingen", () => {
                 const props = mapStateToProps(getState({
-                    arbeidsgiversSykmeldinger: {
-                        data: [{
-                            id: "123",
+                    sykmeldingMeta: {
+                        "123": {
                             erUtenforVentetid: true,
-                        }]
+                            ventetidHentet: true,
+                        }
                     }
                 }), ownProps);
                 expect(props.skalHenteVentetid).to.be.false;
@@ -363,11 +363,11 @@ describe("DinSykmeldingSkjemaContainer", () => {
 
             it("Skal være false dersom ventetid er hentet for denne sykmeldingen", () => {
                 const props = mapStateToProps(getState({
-                    arbeidsgiversSykmeldinger: {
-                        data: [{
-                            id: "123",
+                    sykmeldingMeta: {
+                        "123": {
                             erUtenforVentetid: false,
-                        }]
+                            ventetidHentet: true,
+                        }
                     }
                 }), ownProps);
                 expect(props.skalHenteVentetid).to.be.false;

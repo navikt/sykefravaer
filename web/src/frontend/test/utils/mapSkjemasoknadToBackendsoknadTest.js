@@ -211,6 +211,18 @@ describe("mapSkjemasoknadToBackendsoknad", () => {
                 expect(soknad.utenlandsopphold.soektOmSykepengerIPerioden).to.be.true;
             });
 
+            it("Skal ikke parse soektOmSykepengerIPerioden når dette spørsmålet ikke er stilt pga oppholdet er i en helg, selv om soektOmSykepengerIPerioden = true", () => {
+                sykepengesoknad.harHattFeriePermisjonEllerUtenlandsopphold = true;
+                sykepengesoknad.harHattUtenlandsopphold = true;
+                sykepengesoknad.utenlandsopphold.soektOmSykepengerIPerioden = true;
+                sykepengesoknad.utenlandsopphold.perioder = [{
+                    fom: "31.03.2018",
+                    tom: "01.04.2018"
+                }]
+                let soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad));
+                expect(soknad.utenlandsopphold.soektOmSykepengerIPerioden).to.be.undefined;
+            });
+
             it("Skal parse soektOmSykepengerIPerioden når soektOmSykepengerIPerioden = false", () => {
                 sykepengesoknad.harHattFeriePermisjonEllerUtenlandsopphold = true;
                 sykepengesoknad.harHattUtenlandsopphold = true;

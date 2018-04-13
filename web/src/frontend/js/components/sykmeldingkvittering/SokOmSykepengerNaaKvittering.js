@@ -8,8 +8,8 @@ export default () => {
     return (<div className="panel blokk js-kvittering js-kvittering--sok-naa">
         <div className="stegvisKvittering">
             <Kvitteringsteg
-                ikon="kvitteringhake.svg"
-                alt="Grønn hake"
+                ikon="kvitteringhake--graa.svg"
+                alt="Grå hake"
                 tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-1.tittel')} />
             <Kvitteringsteg
                 ikon="kvitteringSokSykepenger.svg"

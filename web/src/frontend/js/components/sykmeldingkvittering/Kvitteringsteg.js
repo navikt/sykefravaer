@@ -23,13 +23,14 @@ Kvitteringsteg.propTypes = {
     children: PropTypes.node,
 };
 
-export const HtmlAvsnitt = ({ nokkel, replacements = null }) => {
-    return <p className="kvitteringsteg__tekst" dangerouslySetInnerHTML={{ __html: getLedetekst(nokkel, replacements) }} />;
+export const HtmlAvsnitt = ({ nokkel, replacements = null, Tag = 'p' }) => {
+    return <Tag className="kvitteringsteg__tekst" dangerouslySetInnerHTML={{ __html: getLedetekst(nokkel, replacements) }} />;
 };
 
 HtmlAvsnitt.propTypes = {
     nokkel: PropTypes.string.isRequired,
     replacements: keyValue,
+    Tag: PropTypes.string,
 };
 
 export default Kvitteringsteg;

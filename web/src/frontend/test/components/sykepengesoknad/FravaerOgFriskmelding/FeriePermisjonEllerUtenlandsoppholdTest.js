@@ -2,19 +2,19 @@ import chai from 'chai';
 import React from 'react'
 import {shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-chai.use(chaiEnzyme());
-const expect = chai.expect;
-
-import { FeriePermisjonEllerUtenlandsoppholdComp, RendreFeriePermisjonEllerUtenlandsopphold, SoktOmSykepenger, mapStateToProps } from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FeriePermisjonEllerUtenlandsopphold';
+import { Field, FieldArray } from 'redux-form';
+import { FeriePermisjonEllerUtenlandsoppholdComp, RendreFeriePermisjonEllerUtenlandsopphold, mapStateToProps } from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FeriePermisjonEllerUtenlandsopphold';
+import SoktOmSykepenger from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/SoktOmSykepengerIUtenlandsopphold';
 import JaEllerNei, { parseJaEllerNei } from '../../../../js/components/sykepengesoknad/JaEllerNei';
 import { getSoknad } from '../../../mockSoknader';
 import { ledetekster } from '../../../mockLedetekster';
-import { Field, FieldArray } from 'redux-form';
 import Checkbox from '../../../../js/components/skjema/Checkbox';
 import Periodevelger from '../../../../js/components/skjema/Periodevelger';
 import Radioknapper from '../../../../js/components/skjema/Radioknapper';
 import { setLedetekster } from 'digisyfo-npm';
 
+chai.use(chaiEnzyme());
+const expect = chai.expect;
 
 describe("FeriePermisjonEllerUtenlandsopphold", () => {
 
@@ -208,39 +208,6 @@ describe("FeriePermisjonEllerUtenlandsopphold", () => {
       it("Skal inneholde SoktOmSykepenger", () => {
         expect(utenlandsoppholdCheckbox.find(SoktOmSykepenger)).to.have.length(1);
       })
-
-    });
-
-
-    describe("SoktOmSykepenger", () => {
-      let component;
-      let f;
-
-      beforeEach(() => {
-        component = shallow(<SoktOmSykepenger />)
-        f = component.find(Field);
-      })
-
-      it("Skal inneholde et Field med riktig name og riktig component", () => {
-        expect(f.prop("name")).to.equal("utenlandsopphold.soektOmSykepengerIPerioden");
-        expect(f.prop("component")).to.deep.equal(Radioknapper);
-        expect(f.prop("parse")).to.deep.equal(parseJaEllerNei);
-      });
-
-      it("Skal inneholde to i", () => {
-        expect(f.find("i")).to.have.length(2);
-        const ja = f.find("i").at(0);
-        const nei = f.find("i").at(1);
-        expect(ja.prop("value")).to.equal(true);
-        expect(nei.prop("value")).to.equal(false)
-      });
-
-      it("Skal inneholde ja uten presisering og nei med presisering", () => {
-        const ja = f.find("i").at(0);
-        const nei = f.find("i").at(1);
-        expect(ja.find(".js-presisering")).to.have.length(0);
-        expect(nei.find(".js-presisering")).to.have.length(1);
-      });
 
     });
 

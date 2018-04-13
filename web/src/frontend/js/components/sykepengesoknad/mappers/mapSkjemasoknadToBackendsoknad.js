@@ -1,4 +1,5 @@
 import { fraInputdatoTilJSDato } from 'digisyfo-npm';
+import { visSoktOmSykepengerUtenlandsoppholdsporsmal } from '../FravaerOgFriskmelding/SoktOmSykepengerIUtenlandsopphold';
 
 const parsePerioder = (perioder) => {
     return perioder.map((periode) => {
@@ -20,11 +21,18 @@ const parseInntektskilder = (inntektskilder) => {
     });
 };
 
-const getUtenlandsopphold = (utenlandsopphold) => {
-    return {
-        soektOmSykepengerIPerioden: utenlandsopphold.soektOmSykepengerIPerioden,
-        perioder: parsePerioder(utenlandsopphold.perioder),
-    };
+const getUtenlandsopphold = (soknad) => {
+    const utenlandsopphold = soknad.utenlandsopphold;
+    const perioder = parsePerioder(utenlandsopphold.perioder);
+
+    return visSoktOmSykepengerUtenlandsoppholdsporsmal(soknad)
+        ? {
+            soektOmSykepengerIPerioden: utenlandsopphold.soektOmSykepengerIPerioden,
+            perioder,
+        }
+        : {
+            perioder,
+        };
 };
 
 const getUtdanning = (utdanning) => {
@@ -92,7 +100,7 @@ const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {
 
     const permisjon = harHattPermisjon ? soknad.permisjon : [];
     const ferie = harHattFerie ? soknad.ferie : [];
-    const utenlandsopphold = harHattUtenlandsopphold ? getUtenlandsopphold(soknad.utenlandsopphold) : null;
+    const utenlandsopphold = harHattUtenlandsopphold ? getUtenlandsopphold(soknad) : null;
 
     const backendSoknad = {
         ...soknad,

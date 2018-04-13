@@ -1,10 +1,12 @@
 import { fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tilDatePeriode } from 'digisyfo-npm';
 
+const ETT_DOGN = 1000 * 60 * 60 * 24;
+
 const erPafolgendeDager = (a, b) => {
     return b.getTime() - a.getTime() === 86400000;
 };
 
-const datoErHelgedag = (dato) => {
+export const datoErHelgedag = (dato) => {
     const LORDAG = 6;
     const SONDAG = 0;
     return dato.getDay() === LORDAG || dato.getDay() === SONDAG;
@@ -25,6 +27,17 @@ export const erGyldigePerioder = (perioder) => {
         return erGyldigPeriode(p) && acc;
     }, true);
 };
+
+
+export const datePeriodeErHelg = (periode) => {
+    const fom = periode.fom;
+    const tom = periode.tom;
+    if (datoErHelgedag(fom) && datoErHelgedag(tom) && (erPafolgendeDager(fom, tom) || fom.getTime() === tom.getTime())) {
+        return true;
+    }
+    return false;
+};
+
 
 export const periodeErHelg = (periode) => {
     let fom;
@@ -96,10 +109,9 @@ export const harOverlappendePerioder = (perioder) => {
 export const antallVirkedagerIPeriode = (periode) => {
     const start = periode.fom.getTime();
     const slutt = periode.tom.getTime();
-    const DOGN = 1000 * 60 * 60 * 24;
     let antallVirkedager = 0;
 
-    for (let i = start; i <= slutt; i += DOGN) {
+    for (let i = start; i <= slutt; i += ETT_DOGN) {
         const d = new Date(i);
         if (!datoErHelgedag(d)) {
             antallVirkedager += 1;
@@ -109,12 +121,11 @@ export const antallVirkedagerIPeriode = (periode) => {
 };
 
 export const antallVirkedagerIPerioder = (perioder, startdato) => {
-    const DOGN = 1000 * 60 * 60 * 24;
     const virkedager = new Set();
     perioder.forEach((periode) => {
         const start = periode.fom.getTime();
         const slutt = periode.tom.getTime();
-        for (let i = start; i <= slutt; i += DOGN) {
+        for (let i = start; i <= slutt; i += ETT_DOGN) {
             const d = new Date(i);
             if (!datoErHelgedag(d) && (!startdato || d.getTime() >= startdato.getTime())) {
                 virkedager.add(d.getTime());
@@ -122,4 +133,14 @@ export const antallVirkedagerIPerioder = (perioder, startdato) => {
         }
     });
     return virkedager.size;
+};
+
+export const tilDager = (perioder) => {
+    const dager = [];
+    perioder.forEach((periode) => {
+        for (let i = periode.fom.getTime(); i <= periode.tom.getTime(); i += ETT_DOGN) {
+            dager.push(new Date(i));
+        }
+    });
+    return dager;
 };

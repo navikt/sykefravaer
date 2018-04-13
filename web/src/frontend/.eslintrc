@@ -5,8 +5,8 @@
         "window": true,
         "document": true,
         "localStorage": true,
-        'Headers': true,
-        'fetch': true
+        "Headers": true,
+        "fetch": true
     },
     "rules": {
         "indent": ["error", 4, {"SwitchCase": 1}],
@@ -19,7 +19,7 @@
         "react/no-danger": 0,
         "react/no-array-index-key": 0,
         "react/no-find-dom-node": 0,
-        "max-len": ["warn", 180],
+        "max-len": ["error", 180],
         "prefer-template": 1,
         "linebreak-style": 0,
         "import/no-unresolved": 0,

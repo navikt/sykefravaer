@@ -8,7 +8,7 @@ var dev = {
     'timestamp': `${timestamp}`,
     "buildRoot": "http://localhost:9090/assets",
     "restRoot": "http://localhost:8080/syforest",
-    "syfoteksterrestRoot": "http://localhost:8081/syfotekster/api",
+    "syfoteksterrestRoot": "http://localhost:8803/syfotekster/api",
     "moterestRoot": "http://localhost:8080/moterest/api",
     "oppfoelgingsdialogrestRoot": "http://localhost:8580/oppfoelgingsdialogrest/api",
     "bundleFileName": `bundle.js`,

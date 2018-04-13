@@ -3,7 +3,7 @@ import { getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
 import IllustrertInnhold from '../IllustrertInnhold';
 
 export default () => {
-    return (<div className="panel blokk js-kvittering--standard">
+    return (<div className="panel blokk js-kvittering s-kvittering--standard">
         <IllustrertInnhold
             ikon="/sykefravaer/img/svg/kvitteringhake.svg"
             ikonAlt="Hake">

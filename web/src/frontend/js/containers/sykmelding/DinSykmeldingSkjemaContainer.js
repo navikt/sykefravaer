@@ -87,7 +87,8 @@ export const mapStateToProps = (state, ownProps) => {
     const sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId) || {};
 
     const sykmeldingMeta = state.sykmeldingMeta[sykmeldingId] || {};
-    const skalHenteVentetid = !sykmeldingMeta.henterVentetid && !sykmeldingMeta.hentVentetidFeilet && sykmelding.erUtenforVentetid === undefined;
+
+    const skalHenteVentetid = !sykmeldingMeta.henterVentetid && !sykmeldingMeta.hentVentetidFeilet && !sykmeldingMeta.ventetidHentet;
     const skalHenteArbeidsgivere = state.arbeidsgivere.sykmeldingId !== sykmeldingId &&
         !harStrengtFortroligAdresse;
     const skalHenteBrukerinfo = !state.brukerinfo.bruker.henter &&
@@ -96,7 +97,7 @@ export const mapStateToProps = (state, ownProps) => {
         !state.arbeidsgiversSykmeldinger.hentet;
 
     const values = getFormValues(DIN_SYKMELDING_SKJEMANAVN)(state);
-    const visFrilansersporsmal = skalViseFrilansersporsmal(sykmelding, values, sykmelding.erUtenforVentetid);
+    const visFrilansersporsmal = skalViseFrilansersporsmal(sykmelding, values, sykmeldingMeta.erUtenforVentetid);
 
     const skalHenteSykeforloep = !state.sykeforloep.hentet && !state.sykeforloep.henter;
 

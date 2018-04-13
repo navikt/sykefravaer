@@ -2,6 +2,7 @@ import { toDatePrettyPrint, tidligsteFom, fraInputdatoTilJSDato } from 'digisyfo
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import * as valideringUtils from './valideringUtils';
 import { getTomDato } from '../../../utils/sykepengesoknadUtils';
+import { visSoktOmSykepengerUtenlandsoppholdsporsmal } from '../FravaerOgFriskmelding/SoktOmSykepengerIUtenlandsopphold';
 
 export const validate = (values, props) => {
     const { sykepengesoknad } = props;
@@ -74,7 +75,7 @@ export const validate = (values, props) => {
                 utenlandsoppholdfeilmeldinger.perioder = utenlandsoppholdPeriodefeilmeldinger;
             }
 
-            if (values.utenlandsopphold.soektOmSykepengerIPerioden === undefined || values.utenlandsopphold.soektOmSykepengerIPerioden === null) {
+            if (visSoktOmSykepengerUtenlandsoppholdsporsmal(values) && (values.utenlandsopphold.soektOmSykepengerIPerioden === undefined || values.utenlandsopphold.soektOmSykepengerIPerioden === null)) {
                 utenlandsoppholdfeilmeldinger.soektOmSykepengerIPerioden = 'Vennligst oppgi om du har søkt på sykepenger under oppholdet utenfor Norge';
             }
 

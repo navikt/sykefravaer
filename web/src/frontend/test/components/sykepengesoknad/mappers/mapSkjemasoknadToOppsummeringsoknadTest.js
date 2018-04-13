@@ -514,6 +514,108 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 };
                 skjemasoknad.ferie = [{
                     fom: '02.01.2017',
+                    tom: '05.01.2017',
+                }];
+                const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
+
+                expect(verdier.soknad[2]).to.deep.equal({
+                    type: feriePermisjonUtenlandsoppholdType,
+                    ledetekst: {
+                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal',
+                        verdier: {
+                            '%FOM%': '01.01.2017',
+                            '%TOM%': '25.01.2017',
+                        },
+                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 01.01.2017–25.01.2017?',
+                    },
+                    svar: [{
+                        ledetekst: {
+                            nokkel: 'sykepengesoknad.ja',
+                            tekst: 'Ja',
+                        },
+                        type: 'RADIOKNAPPER',
+                        undersporsmal: [{
+                            ledetekst: {
+                                nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har',
+                                tekst: 'Jeg har...',
+                            },
+                            svar: [{
+                                ledetekst: {
+                                    nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.tatt-ut-ferie',
+                                    tekst: 'hatt ferie',
+                                },
+                                type: 'CHECKBOX',
+                                undersporsmal: [{
+                                    ledetekst: null,
+                                    svar: [{
+                                        type: "DATOSPENN",
+                                        ledetekst: {
+                                            nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
+                                            verdier: {
+                                                '%FOM%': '02.01.2017',
+                                                '%TOM%': '05.01.2017',
+                                            },
+                                            tekst: 'Fra 02.01.2017 til 05.01.2017',
+                                        },
+                                        undersporsmal: [],
+                                    }],
+                                }],
+
+                            }, {
+                                ledetekst: {
+                                    nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.oppholdt-meg-utenfor-norge',
+                                    tekst: 'oppholdt meg utenfor Norge',
+                                },
+                                type: 'RADIOKNAPPER',
+                                undersporsmal: [{
+                                    ledetekst: null,
+                                    svar: [{
+                                        type: "DATOSPENN",
+                                        ledetekst: {
+                                            nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
+                                            verdier: {
+                                                '%FOM%': '02.01.2017',
+                                                '%TOM%': '08.01.2017',
+                                            },
+                                            tekst: 'Fra 02.01.2017 til 08.01.2017',
+                                        },
+                                        undersporsmal: [],
+                                    }],
+                                }, {
+                                    ledetekst: {
+                                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal',
+                                        tekst: 'Har du søkt om å beholde sykepenger under dette oppholdet utenfor Norge?',
+                                    },
+                                    svar: [{
+                                        ledetekst: {
+                                            nokkel: 'sykepengesoknad.ja',
+                                            tekst: 'Ja',
+                                        },
+                                        type: "RADIOKNAPPER",
+                                        undersporsmal: [],
+                                    }],
+                                }],
+
+                            }],
+
+                        }],
+                    }],
+                });
+            });
+
+            it("Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når man har hatt ferie under utenlandsopphold", () => {
+                skjemasoknad.harHattFeriePermisjonEllerUtenlandsopphold = true;
+                skjemasoknad.harHattUtenlandsopphold = true;
+                skjemasoknad.harHattFerie = true;
+                skjemasoknad.utenlandsopphold = {
+                    soektOmSykepengerIPerioden: true,
+                    perioder: [{
+                        fom: '04.01.2017',
+                        tom: '07.01.2017',
+                    }],
+                };
+                skjemasoknad.ferie = [{
+                    fom: '02.01.2017',
                     tom: '08.01.2017',
                 }];
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
@@ -574,24 +676,11 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                         ledetekst: {
                                             nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
                                             verdier: {
-                                                '%FOM%': '02.01.2017',
-                                                '%TOM%': '08.01.2017',
+                                                '%FOM%': '04.01.2017',
+                                                '%TOM%': '07.01.2017',
                                             },
-                                            tekst: 'Fra 02.01.2017 til 08.01.2017',
+                                            tekst: 'Fra 04.01.2017 til 07.01.2017',
                                         },
-                                        undersporsmal: [],
-                                    }],
-                                }, {
-                                    ledetekst: {
-                                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal',
-                                        tekst: 'Har du søkt om å beholde sykepenger under dette oppholdet utenfor Norge?',
-                                    },
-                                    svar: [{
-                                        ledetekst: {
-                                            nokkel: 'sykepengesoknad.ja',
-                                            tekst: 'Ja',
-                                        },
-                                        type: "RADIOKNAPPER",
                                         undersporsmal: [],
                                     }],
                                 }],

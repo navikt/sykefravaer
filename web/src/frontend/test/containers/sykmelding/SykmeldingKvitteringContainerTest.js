@@ -195,6 +195,12 @@ describe("SykmeldingkvitteringContainer", () => {
         state.sykepengesoknader = {
             data: [nySoknad1, nySoknad2, nySoknad3, nySoknad4, fremtidigSoknad1]
         };
+        state.sykmeldingMeta = {
+            "1": {
+                erUtenforVentetid: false,
+                skalOppretteSoknad: false,
+            }
+        };
         state.timeout = {};
         ownProps.params = {
             sykmeldingId: "1",
@@ -204,9 +210,9 @@ describe("SykmeldingkvitteringContainer", () => {
             'send-til-arbeidsgiver.kvittering.undertekst': '<p>Sykmeldingen sendes til arbeidsgiveren din via Altinn. Det vil kunne ta noe tid før meldingen ligger i din arbeidsgivers innboks.</p> <h3>Du er ikke helt ferdig!</h3><p>Skal du søke om sykepenger, må du fylle ut det siste arket du fikk (del D), slik som før. Betaler arbeidsgiveren din lønn under sykdom, skal du sende den dit. Hvis ikke, skal du sende den til <a href="https://www.nav.no/no/Bedrift/Innhold+til+Bedrift-forside/Nyttig+a+vite/Adresser+til+NAV+Arbeid+og+ytelser+for+krav+om+sykepenger">NAV Arbeid og ytelser</a> i ditt fylke. Er du usikker, spør arbeidsgiveren din.</p>',
             'bekreft-sykmelding.kvittering.tittel': 'Du har bekreftet sykmeldingen',
             'bekreft-sykmelding.kvittering.undertekst': '<h3>Du er ikke helt ferdig!</h3><p>Skal du søke om sykepenger, må du fylle ut det siste arket du fikk (del D) og sende den til <a href="https://www.nav.no/no/Bedrift/Innhold+til+Bedrift-forside/Nyttig+a+vite/Adresser+til+NAV+Arbeid+og+ytelser+for+krav+om+sykepenger">NAV Arbeid og ytelser</a> i ditt fylke.</p>',
-            'sykmelding.kvittering.sok-senere.steg-1.tittel': 'Du har sendt sykmeldingen',
-            'sykmelding.kvittering.sok-senere.steg-2.tittel': 'I mellomtiden',
-            'sykmelding.kvittering.sok-senere.steg-2.tekst': 'Mens du er sykmeldt kan du gjøre deg kjent med <a href="/sykefravaer/tidslinjen">viktige punkter i sykefraværet</a> og tenke gjennom hvilke muligheter du har. Skal du oppholde deg i utlandet i sykmeldingsperioden må du <a target="_blank" href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger/sykepenger-ved-utenlandsopphold">søke om å få beholde sykepenger under oppholdet.</a>',
+            'sykmelding.kvittering.sok-senere.steg-1.tittel-2': 'Du har sendt sykmeldingen',
+            'sykmelding.kvittering.sok-senere.steg-2.tittel-2': 'I mellomtiden',
+            'sykmelding.kvittering.sok-senere.steg-2.tekst-2': 'Mens du er sykmeldt kan du gjøre deg kjent med <a href="/sykefravaer/tidslinjen">viktige punkter i sykefraværet</a> og tenke gjennom hvilke muligheter du har. Skal du oppholde deg i utlandet i sykmeldingsperioden må du <a target="_blank" href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger/sykepenger-ved-utenlandsopphold">søke om å få beholde sykepenger under oppholdet.</a>',
             'sykmelding.kvittering.sok-na.steg-1.tittel': 'Du har sendt sykmeldingen',
             'sykmelding.kvittering.sok-na.steg-2.tittel': 'Søk om sykepenger nå',
             'sykmelding.kvittering.sok-na.steg-2.tekst': 'Du må svare på noen spørsmål som brukes til å beregne sykepengene dine.',
@@ -291,9 +297,9 @@ describe("SykmeldingkvitteringContainer", () => {
             state.dineSykmeldinger.data = [sykmelding]
             state.sykepengesoknader.data = [fremtidigSoknad1];
             const component = getComponent(state, ownProps);
-            expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.tittel']);
-            expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.tittel']);
-            expect(component.html()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.tekst']);
+            expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.tittel-2']);
+            expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.tittel-2']);
+            expect(component.html()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.tekst-2']);
         });
 
         it("Skal vise riktig kvittering hvis det finnes nye søknader som tlhører denne sykmeldingen", () => {
@@ -349,9 +355,9 @@ describe("SykmeldingkvitteringContainer", () => {
             state.dineSykmeldinger.data = [sykmelding]
             state.sykepengesoknader.data = [fremtidigSoknad1];
             const component = getComponent(state, ownProps);
-            expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.tittel']);
-            expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.tittel']);
-            expect(component.html()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.tekst']);
+            expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-1.tittel-2']);
+            expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.tittel-2']);
+            expect(component.html()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.tekst-2']);
         });
 
         it("Skal vise riktig kvittering hvis det finnes nye søknader som tlhører denne sykmeldingen", () => {
@@ -420,14 +426,16 @@ describe("SykmeldingkvitteringContainer", () => {
                 id: "1",
                 status: sykmeldingstatuser.BEKREFTET,
                 valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                erUtenforVentetid: true,
-                skalOppretteSoknad: true,
                 mulighetForArbeid: {
                     perioder: [{
                         avventende: "Trenger en bedre stol"
                     }]
                 }
             });
+            state.sykmeldingMeta["1"] = {
+                erUtenforVentetid: true,
+                skalOppretteSoknad: true,
+            }
             state.dineSykmeldinger.data = [sykmelding];
             skalViseStandardBekreftetKvittering(state, ownProps);
         });
@@ -486,6 +494,10 @@ describe("SykmeldingkvitteringContainer", () => {
                     }
                 });
                 state.dineSykmeldinger.data = [sykmelding];
+                state.sykmeldingMeta["1"] = {
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: false,
+                }
                 skalViseInfoOmAtBrukerKanSoke(state, ownProps);
             });
 
@@ -495,8 +507,6 @@ describe("SykmeldingkvitteringContainer", () => {
                     id: "1",
                     status: sykmeldingstatuser.BEKREFTET,
                     valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                    erUtenforVentetid: true,
-                    skalOppretteSoknad: true,
                     mulighetForArbeid: {
                         perioder: [{
                             fom: new Date("2018-02-02"),
@@ -505,6 +515,10 @@ describe("SykmeldingkvitteringContainer", () => {
                     }
                 });
                 state.dineSykmeldinger.data = [sykmelding];
+                state.sykmeldingMeta["1"] = {
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: true,
+                }
                 skalViseInfoOmAtBrukerKanSoke(state, ownProps);
             })
         });
@@ -517,8 +531,6 @@ describe("SykmeldingkvitteringContainer", () => {
                     id: "1",
                     status: sykmeldingstatuser.BEKREFTET,
                     valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                    erUtenforVentetid: false,
-                    skalOppretteSoknad: false,
                     mulighetForArbeid: {
                         perioder: [{
                             fom: new Date("2018-02-02"),
@@ -527,6 +539,10 @@ describe("SykmeldingkvitteringContainer", () => {
                     }
                 });
                 state.dineSykmeldinger.data = [sykmelding];
+                state.sykmeldingMeta["1"] = {
+                    erUtenforVentetid: false,
+                    skalOppretteSoknad: false,
+                };
                 const component = getComponent(state, ownProps);
                 expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.tittel']);
                 expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.undertekst']);
@@ -540,8 +556,6 @@ describe("SykmeldingkvitteringContainer", () => {
                     id: "1",
                     status: sykmeldingstatuser.BEKREFTET,
                     valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
-                    erUtenforVentetid: false,
-                    skalOppretteSoknad: true,
                     mulighetForArbeid: {
                         perioder: [{
                             fom: new Date("2018-02-02"),
@@ -549,6 +563,10 @@ describe("SykmeldingkvitteringContainer", () => {
                         }]
                     }
                 });
+                state.sykmeldingMeta["1"] = {
+                    erUtenforVentetid: false,
+                    skalOppretteSoknad: true,
+                };
                 state.dineSykmeldinger.data = [sykmelding];
                 skalViseInfoOmAtBrukerKanSoke(state, ownProps);
             });

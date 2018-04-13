@@ -14,6 +14,7 @@ import {
 } from '../Oppsummering/sykepengesoknadSporsmal';
 import { filtrerAktuelleAktiviteter, getGjenopptattArbeidFulltUtDato } from '../../../utils/sykepengesoknadUtils';
 import * as skjemafelter from '../sykepengesoknadskjemafelter';
+import { visSoktOmSykepengerUtenlandsoppholdsporsmal } from '../FravaerOgFriskmelding/SoktOmSykepengerIUtenlandsopphold';
 
 const {
     ansvarBekreftet,
@@ -218,10 +219,15 @@ const tilFeriePermisjonOgUtenlandsopphold = (skjemasoknad, sykepengesoknad, felt
             return null;
         }
         const utenlandsoppholdperiodersporsmal = new Sporsmal(null, skjemasoknad.utenlandsopphold.perioder.map(tilPeriode));
-        const utenlandsoppholdSoektSporsmal = new Sporsmal(
-            getSporsmalsledetekst(utenlandsoppholdSoektOmSykepengerIPerioden),
-            getJaEllerNeiSvar(skjemasoknad.utenlandsopphold.soektOmSykepengerIPerioden));
-        return new Svar(getNokkelOgVerdier(nokler[harHattUtenlandsopphold]), svartype.RADIOKNAPPER, [utenlandsoppholdperiodersporsmal, utenlandsoppholdSoektSporsmal]);
+        const utenlandsoppholdSoektSporsmal = visSoktOmSykepengerUtenlandsoppholdsporsmal(skjemasoknad)
+            ? new Sporsmal(
+                getSporsmalsledetekst(utenlandsoppholdSoektOmSykepengerIPerioden),
+                getJaEllerNeiSvar(skjemasoknad.utenlandsopphold.soektOmSykepengerIPerioden))
+            : null;
+        const undersporsmal = utenlandsoppholdSoektSporsmal
+            ? [utenlandsoppholdperiodersporsmal, utenlandsoppholdSoektSporsmal]
+            : [utenlandsoppholdperiodersporsmal];
+        return new Svar(getNokkelOgVerdier(nokler[harHattUtenlandsopphold]), svartype.RADIOKNAPPER, undersporsmal);
     })();
 
     const ferieOgPermisjonssvar = [harHattFerie, harHattPermisjon].map((_felt) => {

@@ -12,7 +12,7 @@ import { Field, FieldArray } from 'redux-form';
 import Aktiviteter from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/Aktiviteter';
 import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../../../../js/components/sykepengesoknad/JaEllerNei';
 import AndreInntektskilder from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AndreInntektskilder';
-import Datovelger from '../../../../js/components/skjema/Datovelger';
+import Datovelger from '../../../../js/components/skjema/datovelger/Datovelger';
 import { Link } from 'react-router';
 import ledetekster from '../../../mockLedetekster';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad/AvbrytSoknadContainer';

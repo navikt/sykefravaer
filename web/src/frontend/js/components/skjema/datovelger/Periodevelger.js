@@ -1,39 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FieldArray } from 'redux-form';
+import { FieldArray, Fields } from 'redux-form';
 import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
-import Datovelger from './Datovelger';
-import Feilomrade from './Feilomrade';
-import { harOverlappendePerioder } from '../../utils/periodeUtils';
-import { fieldPropTypes, fields as fieldsPt } from '../../propTypes';
+import DatovelgerPeriode from './DatovelgerPeriode';
+import Feilomrade from '../Feilomrade';
+import { harOverlappendePerioder } from '../../../utils/periodeUtils';
+import { fieldPropTypes, fields as fieldsPt } from '../../../propTypes';
 
 export const Periode = (props) => {
-    const { name, index, onRemoveHandler, tidligsteFom, senesteTom } = props;
+    const { name, index, onRemoveHandler, tidligsteFom, senesteTom, skjemanavn } = props;
     const fomName = `${name}.fom`;
     const tomName = `${name}.tom`;
-    return (<div className="periodevelger__periode">
-        <div className="periodevelger__fom input--s">
-            <label htmlFor={fomName}>{getLedetekst('sykepengesoknad.periodevelger.fom')}</label>
-            <Datovelger name={fomName} id={fomName} tidligsteFom={tidligsteFom} senesteTom={senesteTom} />
-        </div>
-        <div className="periodevelger__tom input--s">
-            <label htmlFor={tomName}>{getLedetekst('sykepengesoknad.periodevelger.tom')}</label>
-            <Datovelger name={tomName} id={tomName} tidligsteFom={tidligsteFom} senesteTom={senesteTom} />
-        </div>
-        <div className="periodevelger__verktoy">
-            {
-                index > 0 && <a
-                    role="button"
-                    className="lenke"
-                    href="#"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        onRemoveHandler();
-                    }}>{getLedetekst('sykepengesoknad.periodevelger.slett')}</a>
-            }
-        </div>
-    </div>);
+    return (<Fields
+        names={[fomName, tomName]}
+        skjemanavn={skjemanavn}
+        tidligsteFom={tidligsteFom}
+        senesteTom={senesteTom}
+        component={DatovelgerPeriode}
+        onRemoveHandler={onRemoveHandler}
+        visVerktoy={index > 0} />);
 };
 
 Periode.propTypes = {
@@ -42,6 +28,7 @@ Periode.propTypes = {
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
     name: PropTypes.string.isRequired,
+    skjemanavn: PropTypes.string,
 };
 
 export class PeriodevelgerComponent extends Component {
@@ -62,6 +49,7 @@ export class PeriodevelgerComponent extends Component {
                         {
                             fields.map((field, index) => {
                                 return (<Periode
+                                    skjemanavn={meta.form}
                                     name={`${namePrefix}[${index}]`}
                                     key={index}
                                     index={index}
@@ -105,10 +93,9 @@ export const StateConnectedPeriodevelger = connect()(PeriodevelgerComponent);
 const PeriodevelgerField = ({ name, spoersmal, tidligsteFom, senesteTom }) => {
     return (<FieldArray
         validate={(value) => {
-            if (harOverlappendePerioder(value)) {
-                return 'Du kan ikke legge inn perioder som overlapper med hverandre';
-            }
-            return undefined;
+            return harOverlappendePerioder(value)
+                ? 'Du kan ikke legge inn perioder som overlapper med hverandre'
+                : undefined;
         }}
         component={StateConnectedPeriodevelger}
         name={name}

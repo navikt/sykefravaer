@@ -9,7 +9,7 @@ import JaEllerNei, { parseJaEllerNei } from '../../../../js/components/sykepenge
 import { getSoknad } from '../../../mockSoknader';
 import { ledetekster } from '../../../mockLedetekster';
 import Checkbox from '../../../../js/components/skjema/Checkbox';
-import Periodevelger from '../../../../js/components/skjema/Periodevelger';
+import Periodevelger from '../../../../js/components/skjema/datovelger/Periodevelger';
 import Radioknapper from '../../../../js/components/skjema/Radioknapper';
 import { setLedetekster } from 'digisyfo-npm';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Hjelpetekst, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import JaEllerNei from '../JaEllerNei';
-import Periodevelger from '../../skjema/Periodevelger';
+import Periodevelger from '../../skjema/datovelger/Periodevelger';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import { getTidligsteStartdatoSykeforloep } from '../../../utils/sykmeldingUtils';
 import { getEgenmeldingsdagerSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';

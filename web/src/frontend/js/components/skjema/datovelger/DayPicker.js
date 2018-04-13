@@ -1,67 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DayPicker, { DateUtils, LocaleUtils } from 'react-day-picker';
-import { erGyldigDatoformat } from 'digisyfo-npm';
-import { fieldPropTypes } from '../../propTypes';
-import { erGyldigDato } from '../../utils/datoUtils';
-
-export const MONTHS = ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember'];
-export const WEEKDAYS_LONG = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
-export const WEEKDAYS_SHORT = ['søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør'];
-
-export const formatDay = (date) => {
-    // aria-label på dager
-    return `${WEEKDAYS_LONG[date.getDay()]} ${date.getDate()}. ${MONTHS[date.getMonth()]} ${date.getFullYear()}`;
-};
-
-const localeUtils = {
-    ...LocaleUtils,
-    formatDay,
-};
+import DayPicker, { DateUtils } from 'react-day-picker';
+import { erGyldigDatoformat, scrollTo } from 'digisyfo-npm';
+import { fieldPropTypes } from '../../../propTypes';
+import { erGyldigDato } from '../../../utils/datoUtils';
+import NavBar from './DayPickerNavBar';
+import Caption from './DayPickerCaption';
+import { MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT, localeUtils } from './datovelgerLocale';
 
 const pad = (nr) => {
     return nr > 9 || nr.length > 1 ? nr : `0${nr}`;
-};
-
-export const Caption = ({ date }) => {
-    return (<div className="DayPicker-Caption" role="heading" aria-live="assertive" aria-atomic="true">
-        {`${MONTHS[date.getMonth()]} ${date.getFullYear()}`}
-    </div>);
-};
-
-Caption.propTypes = {
-    date: PropTypes.instanceOf(Date),
-};
-
-export const NavBar = ({ onNextClick, onPreviousClick, showPreviousButton, showNextButton }) => {
-    const className = 'DayPicker-NavButton';
-    return (<div role="toolbar">
-        <button
-            tabIndex="-1"
-            className={`${className} DayPicker-NavButton--prev`}
-            disabled={!showPreviousButton}
-            type="button"
-            onClick={(e) => {
-                e.preventDefault();
-                onPreviousClick();
-            }}>Forrige måned</button>
-        <button
-            tabIndex="-1"
-            className={`${className} DayPicker-NavButton--next`}
-            disabled={!showNextButton}
-            type="button"
-            onClick={(e) => {
-                e.preventDefault();
-                onNextClick();
-            }}>Neste måned</button>
-    </div>);
-};
-
-NavBar.propTypes = {
-    onNextClick: PropTypes.func,
-    onPreviousClick: PropTypes.func,
-    showPreviousButton: PropTypes.bool,
-    showNextButton: PropTypes.bool,
 };
 
 let lukk;
@@ -72,6 +20,13 @@ class DayPickerComponent extends Component {
             this.props.lukk();
         };
         document.addEventListener('click', lukk);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!prevProps.erApen && this.props.erApen) {
+            scrollTo(this.kalender);
+            this.kalender.focus();
+        }
     }
 
     componentWillUnmount() {
@@ -115,6 +70,9 @@ class DayPickerComponent extends Component {
         return (<div
             className="datovelger__DayPicker"
             role="application"
+            ref={(c) => {
+                this.kalender = c;
+            }}
             onKeyUp={(e) => {
                 onKeyUp(e);
             }}>
@@ -152,6 +110,7 @@ DayPickerComponent.propTypes = {
     onDayClick: PropTypes.func.isRequired,
     senesteTom: PropTypes.instanceOf(Date),
     tidligsteFom: PropTypes.instanceOf(Date),
+    erApen: PropTypes.bool,
 };
 
 export default DayPickerComponent;

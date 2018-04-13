@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, autofill, touch, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
-import { toDatePrettyPrint, fraInputdatoTilJSDato, erGyldigDatoformat } from 'digisyfo-npm';
+import { toDatePrettyPrint } from 'digisyfo-npm';
 import MaskedInput from 'react-maskedinput';
-import { erGyldigDato } from '../../utils/datoUtils';
-import Feilmelding from './Feilmelding';
+import { Vis } from '../../../utils';
+import Feilmelding from '../Feilmelding';
 import DayPickerComponent from './DayPicker';
-import { fieldPropTypes } from '../../propTypes';
+import { validerDatoField } from './validering';
+import { fieldPropTypes } from '../../../propTypes';
 
 export class DatoField extends Component {
     constructor(props) {
@@ -86,23 +87,25 @@ export class DatoField extends Component {
                         {this.state.erApen ? 'Skjul datovelger' : 'Vis datovelger'}
                     </button>
                 </div>
-                { this.state.erApen && <DayPickerComponent
-                    {...this.props}
-                    tidligsteFom={tidligsteFom}
-                    senesteTom={senesteTom}
-                    onDayClick={(event, jsDato) => {
-                        const { dispatch } = this.props;
-                        const s = toDatePrettyPrint(new Date(jsDato));
-                        dispatch(autofill(meta.form, this.props.input.name, s));
-                        dispatch(touch(meta.form, this.props.input.name));
-                        this.lukk();
-                    }}
-                    onKeyUp={(e) => {
-                        this.onKeyUp(e);
-                    }}
-                    lukk={() => {
-                        this.lukk();
-                    }} />}
+                <Vis hvis={this.state.erApen}>
+                    <DayPickerComponent
+                        {...this.props}
+                        erApen={this.state.erApen}
+                        tidligsteFom={tidligsteFom}
+                        senesteTom={senesteTom}
+                        onDayClick={(event, jsDato) => {
+                            const s = toDatePrettyPrint(new Date(jsDato));
+                            this.props.autofill(meta.form, this.props.input.name, s);
+                            this.props.touch(meta.form, this.props.input.name);
+                            this.lukk();
+                        }}
+                        onKeyUp={(e) => {
+                            this.onKeyUp(e);
+                        }}
+                        lukk={() => {
+                            this.lukk();
+                        }} />
+                </Vis>
                 <Feilmelding {...meta} />
             </div>
         </div>);
@@ -114,7 +117,8 @@ DatoField.propTypes = {
     meta: fieldPropTypes.meta,
     id: PropTypes.string.isRequired,
     input: fieldPropTypes.input,
-    dispatch: PropTypes.func.isRequired,
+    touch: PropTypes.func.isRequired,
+    autofill: PropTypes.func.isRequired,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
 };
@@ -129,35 +133,7 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const ConnectedDatoField = connect(mapStateToProps)(DatoField);
-
-export const validerPeriode = (input, alternativer) => {
-    const { fra, til } = alternativer;
-    const inputDato = fraInputdatoTilJSDato(input);
-    if (fra && til && (inputDato < fra || inputDato > til)) {
-        return `Datoen må være innenfor perioden ${toDatePrettyPrint(fra)}-${toDatePrettyPrint(til)}`;
-    }
-    if (til && inputDato > til) {
-        return `Datoen må være før ${toDatePrettyPrint(til)}`;
-    }
-    if (fra && inputDato < fra) {
-        return `Datoen må være etter ${toDatePrettyPrint(fra)}`;
-    }
-    return undefined;
-};
-
-export const validerDatoField = (input, alternativer) => {
-    if (!input) {
-        return 'Vennligst fyll ut dato';
-    } else if (!erGyldigDatoformat(input)) {
-        return 'Datoen må være på formatet dd.mm.åååå';
-    } else if (!erGyldigDato(input)) {
-        return 'Datoen er ikke gyldig';
-    } else if (alternativer && (alternativer.fra || alternativer.til)) {
-        return validerPeriode(input, alternativer);
-    }
-    return undefined;
-};
+const ConnectedDatoField = connect(mapStateToProps, { autofill, touch })(DatoField);
 
 const Datovelger = (props) => {
     return (<Field

@@ -6,7 +6,7 @@ import { Field } from 'redux-form';
 import { setLedetekster } from 'digisyfo-npm';
 import JaEllerNei from '../../../js/components/sykepengesoknad/JaEllerNei';
 import Feilomrade from '../../../js/components/skjema/Feilomrade';
-import Periodevelger from '../../../js/components/skjema/Periodevelger';
+import Periodevelger from '../../../js/components/skjema/datovelger/Periodevelger';
 import { Spoersmal, Egenmeldingssporsmal, Forsikringssporsmal } from '../../../js/components/sykmeldingskjema/SpoersmalForFrilanserOgNaeringsdrivende';
 import { Bjorn } from '../../../js/components/Hjelpeboble';
 

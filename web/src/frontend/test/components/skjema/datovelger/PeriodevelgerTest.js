@@ -7,8 +7,8 @@ import sinon from 'sinon';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Datovelger from '../../../js/components/skjema/Datovelger';
-import { PeriodevelgerComponent, Periode, StateConnectedPeriodevelger } from '../../../js/components/skjema/Periodevelger';
+import Datovelger from '../../../../js/components/skjema/datovelger/Datovelger';
+import { PeriodevelgerComponent, Periode, StateConnectedPeriodevelger } from '../../../../js/components/skjema/datovelger/Periodevelger';
 import { Field } from 'redux-form';
 
 describe("Periodevelger", () => {
@@ -23,7 +23,7 @@ describe("Periodevelger", () => {
         const push = sinon.spy();
         fields.push = push;
 
-        const compo = shallow(<PeriodevelgerComponent fields={fields} />);
+        const compo = shallow(<PeriodevelgerComponent fields={fields} meta={{ form: "testskjema "}} />);
         expect(push.calledOnce).to.be.true;
         expect(push.calledWith({})).to.be.true;
     });
@@ -33,24 +33,15 @@ describe("Periodevelger", () => {
         const push = sinon.spy();
         fields.push = push;
 
-        const compo = shallow(<PeriodevelgerComponent fields={fields} />);
+        const compo = shallow(<PeriodevelgerComponent fields={fields} meta={{ form: "testskjema "}} />);
         expect(push.calledOnce).to.be.false;
         expect(push.calledWith({})).to.be.false;
     });
 
     it("Skal inneholde en Periode per periode ", () => {
         fields = [{}, {}]
-        const compo = shallow(<PeriodevelgerComponent fields={fields} />);
+        const compo = shallow(<PeriodevelgerComponent fields={fields} meta={{ form: "testskjema "}} />);
         expect(compo.find(Periode)).to.have.length(2);
     });
-
-    describe("Periode", () => {
-
-        it("Skal inneholde to datovelgere", () => {
-            const compo = shallow(<Periode fields={fields} />);
-            expect(compo.find(Datovelger)).to.have.length(2);
-        });
-
-    })
 
 });

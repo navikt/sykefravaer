@@ -1,0 +1,71 @@
+.periodevelger__periode {
+    margin-bottom: 2em;
+    position: relative;
+}
+
+.periodevelger__periode:first-child .periodevelger__datoer {
+    margin-bottom: 0;
+}
+
+.periodevelger__periode:not(:last-child) {
+    padding-bottom: 2em;
+    border-bottom: 1px solid @ikonGraa;
+}
+
+@media(min-width: 490px) {
+    .periodevelger__periode {
+        display: flex;
+        margin-bottom: 2em;
+    }
+
+    .periodevelger__tom {
+        margin-right: 2em;
+    }
+
+    .periodevelger__verktoy {
+        padding-top: 1.55em;
+        height: 4em;
+        line-height: 2;
+    }
+
+    .periodevelger__periode:not(:last-child) {
+        padding: 0;
+        border: 0;
+    }
+
+}
+
+.periodevelger__datoer {
+    display: flex;
+    position: relative;
+    margin-bottom: 1em;
+
+    .skjema__feilmelding {
+        padding-right: 1em;
+    }
+}
+
+.periodevelger__skille {
+    position: absolute;
+    top: 2em;
+    left: 8em;
+}
+
+.periodevelger__fom,
+.datovelger__input--fom,
+.periodevelger__tom,
+.datovelger__input--tom {
+    width: 140px;
+}
+
+.datovelger__input--fom {
+    border-right-width: 0!important;
+    border-top-right-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+}
+
+.datovelger__input--tom {
+    border-left-width: 0!important;
+    border-top-left-radius: 0!important;
+    border-bottom-left-radius: 0!important;
+}

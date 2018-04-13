@@ -1,39 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form';
-import { getLedetekst, getHtmlLedetekst, Hjelpetekst } from 'digisyfo-npm';
-import JaEllerNei, { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
+import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/Periodevelger';
 import Checkbox from '../../skjema/Checkbox';
-import Radioknapper from '../../skjema/Radioknapper';
 import Feilomrade from '../../skjema/Feilomrade';
 import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';
 import { sykepengesoknad as sykepengesoknadPt, fieldPropTypes } from '../../../propTypes';
 import { getFeriePermisjonEllerUtenlandsoppholdSporsmal } from '../../../components/sykepengesoknad/Oppsummering/sykepengesoknadSporsmal';
 import { finnFomForFeriesporsmal, getTomDato } from '../../../utils/sykepengesoknadUtils';
-
-export const SoktOmSykepenger = () => {
-    return (<Field
-        spoersmal={getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal')}
-        name="utenlandsopphold.soektOmSykepengerIPerioden"
-        component={Radioknapper}
-        Overskrift="h5"
-        parse={parseJaEllerNei}>
-        {
-            jaEllerNeiAlternativer.map((alt, index) => {
-                return (<i {...alt} key={index}>
-                    {
-                        alt.value === true ? null : (<div className="presisering js-presisering">
-                            <div
-                                className="redaksjonelt-innhold"
-                                dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet')} />
-                        </div>)
-                    }
-                </i>);
-            })
-        }
-    </Field>);
-};
+import SoktOmSykepenger from './SoktOmSykepengerIUtenlandsopphold';
 
 export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, tidligsteFom, senesteTom }) => {
     const labels = {
@@ -56,9 +33,7 @@ export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, tidlig
                         (() => {
                             if (field === 'utenlandsopphold') {
                                 return (<div>
-                                    <div className="blokk">
-                                        <Periodevelger name="utenlandsopphold.perioder" tidligsteFom={tidligsteFom} senesteTom={senesteTom} />
-                                    </div>
+                                    <Periodevelger name="utenlandsopphold.perioder" tidligsteFom={tidligsteFom} senesteTom={senesteTom} />
                                     <SoktOmSykepenger />
                                 </div>);
                             }

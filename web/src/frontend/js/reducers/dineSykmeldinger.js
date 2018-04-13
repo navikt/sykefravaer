@@ -222,24 +222,6 @@ export default function sykmeldinger(state = initiellState, action) {
                 sendingFeilet: false,
             };
         }
-        case actiontyper.VENTETID_HENTET: {
-            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
-                erUtenforVentetid: action.erUtenforVentetid,
-            });
-            return {
-                ...state,
-                data,
-            };
-        }
-        case actiontyper.SKAL_OPPRETTE_SOKNAD_HENTET: {
-            const data = setSykmeldingProps(state.data, action.sykmeldingId, {
-                skalOppretteSoknad: action.skalOppretteSoknad,
-            });
-            return {
-                ...state,
-                data,
-            };
-        }
         case actiontyper.BRUKER_ER_UTLOGGET: {
             return {
                 data: [],

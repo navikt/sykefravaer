@@ -150,6 +150,29 @@ describe("mapBackendsoknadToSkjemasoknad", () => {
             expect(s.harHattFeriePermisjonEllerUtenlandsopphold).to.be.false;
         });
 
+        it("Mapper utenlandsopphold når soektOmSykepengerIPerioden-spørsmålet ikke er stilt fordi utenlandsoppholdet var i en helg", () => {
+            const soknad = getParsetSoknad({
+                ferie: [],
+                permisjon: [],
+                utenlandsopphold: {
+                    perioder: [{
+                        fom: new Date("2018-03-31"),
+                        tom: new Date("2018-04-01")
+                    }],
+                    soektOmSykepengerIPerioden: true,
+                },
+            });
+            const s = mapBackendsoknadToSkjemasoknad(deepFreeze(soknad));
+            expect(s.utenlandsopphold).to.deep.equal({
+                perioder: [{
+                    fom: "31.03.2018",
+                    tom: "01.04.2018"
+                }]
+            });
+            expect(s.harHattUtenlandsopphold).to.be.true;
+            expect(s.harHattFeriePermisjonEllerUtenlandsopphold).to.be.true;
+        })
+
     });
 
     describe("Inntektskilder", () => {

@@ -23,6 +23,27 @@ export default function ventetid(state = initiellState, action = {}) {
                 },
             };
         }
+        case actiontyper.VENTETID_HENTET: {
+            return {
+                ...state,
+                [action.sykmeldingId]: {
+                    ...state[action.sykmeldingId],
+                    henterVentetid: false,
+                    hentVentetidFeilet: false,
+                    erUtenforVentetid: action.erUtenforVentetid,
+                    ventetidHentet: true,
+                },
+            };
+        }
+        case actiontyper.SKAL_OPPRETTE_SOKNAD_HENTET: {
+            return {
+                ...state,
+                [action.sykmeldingId]: {
+                    ...state[action.sykmeldingId],
+                    skalOppretteSoknad: action.skalOppretteSoknad,
+                },
+            };
+        }
         default: {
             return state;
         }

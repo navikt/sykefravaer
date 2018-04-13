@@ -17,14 +17,7 @@ export const getTidligsteSendtDato = (soknad) => {
 export const sorterEtterSendtDato = (soknad1, soknad2) => {
     const dato1 = getTidligsteSendtDato(soknad1);
     const dato2 = getTidligsteSendtDato(soknad2);
-
-    if (dato1.getTime() > dato2.getTime()) {
-        return -1;
-    }
-    if (dato1.getTime() < dato2.getTime()) {
-        return 1;
-    }
-    return 0;
+    return dato2.getTime() - dato1.getTime();
 };
 
 export const filtrerAktuelleAktiviteter = (aktiviteter, gjenopptattArbeidFulltUtDato) => {
@@ -123,20 +116,13 @@ export const getSendtTilSuffix = (sykepengesoknad) => {
 };
 
 export const sorterEtterPerioder = (soknad1, soknad2) => {
-    if (soknad1.tom.getTime() < soknad2.tom.getTime()) {
-        return 1;
-    }
-    if (soknad1.tom.getTime() > soknad2.tom.getTime()) {
-        return -1;
-    }
-    return 0;
+    return soknad2.tom.getTime() - soknad1.tom.getTime();
 };
 
 export const sorterEtterOpprettetDato = (soknad1, soknad2) => {
-    if (soknad1.opprettetDato.getTime() - soknad2.opprettetDato.getTime() !== 0) {
-        return soknad1.opprettetDato.getTime() - soknad2.opprettetDato.getTime();
-    }
-    return soknad1.fom.getTime() - soknad2.fom.getTime();
+    return soknad1.opprettetDato.getTime() - soknad2.opprettetDato.getTime() !== 0
+        ? soknad1.opprettetDato.getTime() - soknad2.opprettetDato.getTime()
+        : soknad1.fom.getTime() - soknad2.fom.getTime();
 };
 
 export const getFeriePermisjonPerioder = (values) => {

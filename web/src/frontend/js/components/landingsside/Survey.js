@@ -5,13 +5,13 @@ const Survey = () => {
         <div className="panel landingspanel">
             <h2 className="survey__tittel">Hjelp oss å bli bedre</h2>
             <p>Vil du bruke noen minutter på å hjelpe med oss med å forbedre tilbudet vårt til sykmeldte?</p>
-            <button
+            <a
                 className="rammeknapp rammeknapp--mini"
-                onClick={() => {
-                    window.open('https://goo.gl/forms/4qp9mDTyDe9X1QS93', '_blank');
-                }}>
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://goo.gl/forms/4qp9mDTyDe9X1QS93">
                 Gi tilbakemelding
-            </button>
+            </a>
         </div>);
 };
 

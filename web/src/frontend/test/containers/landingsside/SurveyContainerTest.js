@@ -9,7 +9,7 @@ import { Container } from "../../../js/containers/landingsside/SurveyContainer";
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe('DinSituasjonContainer', () => {
+describe('SurveyContainer', () => {
 
     let clock;
 
@@ -25,6 +25,10 @@ describe('DinSituasjonContainer', () => {
     it('Skal ikke vise survey hvis sykeperioden startet for mindre enn 2 uker siden', () => {
         const container = shallow(<Container startdato={new Date('2018-03-19')} />);
         expect(container.find(Survey)).to.have.length(0);
+    });
+
+    afterEach(() => {
+        clock.restore();
     });
 
 });

@@ -75,7 +75,8 @@ export const validate = (values, props) => {
                 utenlandsoppholdfeilmeldinger.perioder = utenlandsoppholdPeriodefeilmeldinger;
             }
 
-            if (visSoktOmSykepengerUtenlandsoppholdsporsmal(values) && (values.utenlandsopphold.soektOmSykepengerIPerioden === undefined || values.utenlandsopphold.soektOmSykepengerIPerioden === null)) {
+            if (visSoktOmSykepengerUtenlandsoppholdsporsmal(values)
+                && (values.utenlandsopphold.soektOmSykepengerIPerioden === undefined || values.utenlandsopphold.soektOmSykepengerIPerioden === null)) {
                 utenlandsoppholdfeilmeldinger.soektOmSykepengerIPerioden = 'Vennligst oppgi om du har søkt på sykepenger under oppholdet utenfor Norge';
             }
 

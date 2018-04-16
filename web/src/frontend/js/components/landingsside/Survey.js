@@ -8,7 +8,7 @@ const Survey = () => {
             <button
                 className="rammeknapp rammeknapp--mini"
                 onClick={() => {
-                    window.open('https://docs.google.com/forms/d/1pQnqbQyqoYFq1DWMsoakdsfM7GS72UyqMr9PTi83LIg/edit?usp=sharing', '_blank');
+                    window.open('https://goo.gl/forms/4qp9mDTyDe9X1QS93', '_blank');
                 }}>
                 Gi tilbakemelding
             </button>

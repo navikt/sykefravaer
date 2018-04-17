@@ -23,7 +23,7 @@ const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsdagerPreutfylt }) =>
         })} />);
 
     const informasjon = erEgenmeldingsdagerPreutfylt
-        ? <Bjorn nokkel="sykepengesoknad.egenmeldingsdager.preutfylt-melding" />
+        ? <Bjorn nokkel="sykepengesoknad.egenmeldingsdager.preutfylt-melding" className="press" />
         : null;
 
     return (<JaEllerNei

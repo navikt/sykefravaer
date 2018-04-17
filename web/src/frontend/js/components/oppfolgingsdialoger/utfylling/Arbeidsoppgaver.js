@@ -25,6 +25,7 @@ export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppga
             avbryt={toggleArbeidsoppgaveSkjema}
             oppdateringFeilet={oppdateringFeilet}
             varselTekst={varselTekst}
+            rootUrlImg={getContextRoot()}
         />
     </div>);
 };
@@ -67,7 +68,9 @@ class Arbeidsoppgaver extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (!nextProps.arbeidsoppgaver.feiletOppgaveId && nextProps.arbeidsoppgaver.lagringFeilet && this.props.arbeidsoppgaver.lagringFeilet !== nextProps.arbeidsoppgaver.lagringFeilet) {
+        if (!nextProps.arbeidsoppgaver.feiletOppgaveId
+            && nextProps.arbeidsoppgaver.lagringFeilet
+            && this.props.arbeidsoppgaver.lagringFeilet !== nextProps.arbeidsoppgaver.lagringFeilet) {
             this.setState({
                 lagreNyOppgaveFeilet: true,
                 visArbeidsoppgaveSkjema: true,

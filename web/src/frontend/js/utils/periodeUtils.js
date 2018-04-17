@@ -144,3 +144,7 @@ export const tilDager = (perioder) => {
     });
     return dager;
 };
+
+export const dagerMellom = (tidligsteDato, senesteDato) => {
+    return (senesteDato - tidligsteDato) / ETT_DOGN;
+};

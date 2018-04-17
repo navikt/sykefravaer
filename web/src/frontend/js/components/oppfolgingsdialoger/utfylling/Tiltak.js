@@ -156,8 +156,8 @@ class Tiltak extends Component {
                                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
                                         varselTekst={this.state.varselTekst}
                                         oppdateringFeilet={this.state.lagreNyTiltakFeilet}
-                                        rootUrlImg={`${getContextRoot()}`}
                                         tiltakReducer={tiltak}
+                                        rootUrlImg={getContextRoot()}
                                     />
                                 </div>
 
@@ -186,8 +186,8 @@ class Tiltak extends Component {
                                 }}
                                 varselTekst={this.state.varselTekst}
                                 oppdateringFeilet={this.state.lagreNyTiltakFeilet}
-                                rootUrlImg={`${getContextRoot()}`}
                                 tiltakReducer={tiltak}
+                                rootUrlImg={getContextRoot()}
                             />
                         }
                         <TiltakTabell
@@ -202,7 +202,7 @@ class Tiltak extends Component {
                             brukerType={BRUKERTYPE.ARBEIDSTAKER}
                             visFeilMelding={this.visOppdateringFeilet}
                             feilMelding={this.state.oppdaterTiltakFeilet}
-                            rootUrlImg={`${getContextRoot()}`}
+                            rootUrlImg={getContextRoot()}
                         />
                     </div>;
             })()

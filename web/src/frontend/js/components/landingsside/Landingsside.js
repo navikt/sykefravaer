@@ -10,6 +10,7 @@ import ServerfeilContainer from '../../containers/landingsside/ServerfeilContain
 import DetteHarSkjeddContainer from '../../containers/landingsside/DetteHarSkjeddContainer';
 import Utdrag from '../../containers/landingsside/TidslinjeutdragContainer';
 import IllustrertInnhold from '../IllustrertInnhold';
+import SurveyContainer from '../../containers/landingsside/SurveyContainer';
 
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
@@ -34,6 +35,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                 !harSykmeldinger && <IngenSykmeldinger />
             }
             <DineOppgaverContainer />
+            <SurveyContainer />
             <Utdrag />
             <DinSituasjonContainer />
             <nav className="js-navigasjon">

@@ -148,7 +148,8 @@ export function mapStateToProps(state, ownProps) {
         }
     })();
 
-    const kvitteringtype = getKvitteringtype(sykmelding, state.sykepengesoknader.data, harStrengtFortroligAdresse, sykmeldingMeta.erUtenforVentetid, sykmeldingMeta.skalOppretteSoknad);
+    const kvitteringtype = getKvitteringtype(sykmelding, state.sykepengesoknader.data, harStrengtFortroligAdresse,
+        sykmeldingMeta.erUtenforVentetid, sykmeldingMeta.skalOppretteSoknad);
 
     return {
         henter,

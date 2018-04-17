@@ -28,7 +28,7 @@ const SokOmSykepengerSenereKvittering = ({ sykepengesoknader }) => {
                     <HtmlAvsnitt
                         nokkel="sykmelding.kvittering.sok-senere.steg-3.tekst-2"
                         replacements={{
-                            '%DATOER%': soknadsdatoremse(sykepengesoknader)
+                            '%DATOER%': soknadsdatoremse(sykepengesoknader),
                         }} />
                 </Kvitteringsteg>
             </div>

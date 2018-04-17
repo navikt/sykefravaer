@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MaskedInput from 'react-maskedinput';
 import cn from 'classnames';
@@ -6,7 +6,7 @@ import { fieldPropTypes } from '../../../propTypes';
 import Feilmelding from '../Feilmelding';
 import { Vis } from '../../../utils';
 
-export const Datoinput = ({ meta, input, id, onDoubleClick }) => {
+export const Datoinput = ({ meta, input, id, onDoubleClick, withRef }) => {
     const classNames = cn({
         datovelger__input: true,
         'datovelger__input--fom': input.name.indexOf('fom') > -1,
@@ -15,6 +15,7 @@ export const Datoinput = ({ meta, input, id, onDoubleClick }) => {
     });
 
     return (<MaskedInput
+        ref={withRef}
         type="tel"
         mask="11.11.1111"
         autoComplete="off"
@@ -29,27 +30,42 @@ Datoinput.propTypes = {
     meta: fieldPropTypes.meta,
     input: fieldPropTypes.input,
     id: PropTypes.string,
+    withRef: PropTypes.func,
 };
 
-const FomField = ({ meta, input, id, kalenderVises, onDoubleClick }) => {
-    return (<div className="datovelger">
-        <div className="datovelger__inner">
-            <div className="datovelger__inputContainer">
-                <Datoinput meta={meta} id={id} input={input} onDoubleClick={onDoubleClick} />
+class FomField extends Component {
+    componentDidMount() {
+        this.input.focus();
+    }
+
+    render () {
+        const { meta, input, id, kalenderVises, onDoubleClick } = this.props;    
+        
+        return (<div className="datovelger">
+            <div className="datovelger__inner">
+                <div className="datovelger__inputContainer">
+                    <Datoinput
+                        withRef={(c) => {
+                            this.input = c;
+                        }}
+                        meta={meta}
+                        id={id}
+                        input={input}
+                        onDoubleClick={onDoubleClick} />
+                </div>
+                <Vis hvis={!kalenderVises}>
+                    <Feilmelding {...meta} />
+                </Vis>
             </div>
-            <Vis hvis={!kalenderVises}>
-                <Feilmelding {...meta} />
-            </Vis>
-        </div>
-    </div>);
-};
+        </div>);
+    }
+}
 
 FomField.propTypes = {
     meta: fieldPropTypes.meta,
     id: PropTypes.string.isRequired,
     input: fieldPropTypes.input,
     kalenderVises: PropTypes.bool,
-    toggle: PropTypes.func,
     onDoubleClick: PropTypes.func,
 };
 

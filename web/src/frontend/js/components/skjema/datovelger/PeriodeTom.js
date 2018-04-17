@@ -13,7 +13,7 @@ class TomField extends Component {
     }
 
     render() {
-        const { meta, input, id, toggle, onDoubleClick } = this.props;
+        const { meta, input, id, onDoubleClick } = this.props;
         /* eslint-disable jsx-a11y/no-static-element-interactions */
         return (<div className="datovelger">    
             <div
@@ -28,6 +28,7 @@ class TomField extends Component {
                 <div className="datovelger__inputContainer">
                     <Datoinput meta={meta} id={id} input={input} onDoubleClick={onDoubleClick} />
                     <button
+                        type="button"
                         className="js-toggle datovelger__toggleDayPicker"
                         ref={(c) => {
                             this.toggle = c;
@@ -35,7 +36,7 @@ class TomField extends Component {
                         id={`toggle-${id}`}
                         onClick={(e) => {
                             e.preventDefault();
-                            toggle();
+                            this.props.toggle();
                         }}
                         aria-pressed={this.props.erApen}>
                         {this.props.erApen ? 'Skjul kalender' : 'Vis kalender'}

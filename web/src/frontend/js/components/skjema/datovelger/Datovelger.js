@@ -83,7 +83,7 @@ export class DatoField extends Component {
                             e.preventDefault();
                             this.toggleApen();
                         }}
-                        aria-pressed={this.erApen}>
+                        aria-pressed={this.state.erApen}>
                         {this.state.erApen ? 'Skjul datovelger' : 'Vis datovelger'}
                     </button>
                 </div>

@@ -73,7 +73,6 @@ class Periodevelger extends Component {
                             component={FomField}
                             name={names[0]}
                             id={names[0]}
-                            toggle={this.toggle}
                             onDoubleClick={this.apne}
                             validate={validerDatoField}
                             kalenderVises={this.state.erApen} />

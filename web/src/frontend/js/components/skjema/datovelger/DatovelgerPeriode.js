@@ -61,7 +61,7 @@ class Periodevelger extends Component {
     }
 
     render() {
-        const { names, visVerktoy } = this.props;
+        const { names, periodeIndex } = this.props;
 
         return (
             /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -70,6 +70,7 @@ class Periodevelger extends Component {
                     <div className="periodevelger__fom">
                         <label htmlFor={names[0]}>{getLedetekst('sykepengesoknad.periodevelger.fom')}</label>
                         <Field
+                            periodeIndex={periodeIndex}
                             component={FomField}
                             name={names[0]}
                             id={names[0]}
@@ -93,7 +94,7 @@ class Periodevelger extends Component {
                 <Vis hvis={this.state.erApen}>
                     <DayPickerPeriode {...this.props} lukk={this.lukk} />
                 </Vis>
-                <Vis hvis={visVerktoy}>
+                <Vis hvis={periodeIndex !== 0}>
                     <div className="periodevelger__verktoy">
                         <button
                             type="button"
@@ -114,10 +115,7 @@ Periodevelger.propTypes = {
     visVerktoy: PropTypes.bool,
     onRemoveHandler: PropTypes.func,
     skjemanavn: PropTypes.string,
-};
-
-Periodevelger.defaultProps = {
-    Overskrift: 'h3',
+    periodeIndex: PropTypes.number,
 };
 
 export default Periodevelger;

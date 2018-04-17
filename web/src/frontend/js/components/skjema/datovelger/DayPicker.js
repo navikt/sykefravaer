@@ -20,6 +20,9 @@ class DayPickerComponent extends Component {
             this.props.lukk();
         };
         document.addEventListener('click', lukk);
+        if (this.kalender) {
+            this.kalender.focus();
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -68,8 +71,9 @@ class DayPickerComponent extends Component {
         const { onKeyUp } = this.props;
         /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
         return (<div
-            className="datovelger__DayPicker"
+            className="datokalender"
             role="application"
+            tabIndex="-1"
             ref={(c) => {
                 this.kalender = c;
             }}

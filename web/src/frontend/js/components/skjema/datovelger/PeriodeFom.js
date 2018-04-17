@@ -31,16 +31,19 @@ Datoinput.propTypes = {
     input: fieldPropTypes.input,
     id: PropTypes.string,
     withRef: PropTypes.func,
+    onDoubleClick: PropTypes.func,
 };
 
 class FomField extends Component {
     componentDidMount() {
-        this.input.focus();
+        if (this.props.periodeIndex !== 0) {
+            this.input.focus();
+        }
     }
 
-    render () {
-        const { meta, input, id, kalenderVises, onDoubleClick } = this.props;    
-        
+    render() {
+        const { meta, input, id, kalenderVises, onDoubleClick } = this.props;
+
         return (<div className="datovelger">
             <div className="datovelger__inner">
                 <div className="datovelger__inputContainer">
@@ -67,6 +70,7 @@ FomField.propTypes = {
     input: fieldPropTypes.input,
     kalenderVises: PropTypes.bool,
     onDoubleClick: PropTypes.func,
+    periodeIndex: PropTypes.number,
 };
 
 export default FomField;

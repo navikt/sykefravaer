@@ -19,7 +19,7 @@ export const Periode = (props) => {
         senesteTom={senesteTom}
         component={DatovelgerPeriode}
         onRemoveHandler={onRemoveHandler}
-        visVerktoy={index > 0} />);
+        periodeIndex={index} />);
 };
 
 Periode.propTypes = {
@@ -39,7 +39,7 @@ export class PeriodevelgerComponent extends Component {
     }
 
     render() {
-        const { fields, namePrefix, spoersmal, meta, Overskrift, tidligsteFom, senesteTom } = this.props;
+        const { fields, namePrefix, spoersmal, meta, Overskrift, tidligsteFom, senesteTom,  } = this.props;
 
         return (<div className="periodevelger">
             <div className={meta && meta.touched && meta.error ? 'blokk' : ''}>
@@ -49,6 +49,7 @@ export class PeriodevelgerComponent extends Component {
                         {
                             fields.map((field, index) => {
                                 return (<Periode
+                                    Overskrift={Overskrift}
                                     skjemanavn={meta.form}
                                     name={`${namePrefix}[${index}]`}
                                     key={index}
@@ -90,13 +91,14 @@ PeriodevelgerComponent.defaultProps = {
 
 export const StateConnectedPeriodevelger = connect()(PeriodevelgerComponent);
 
-const PeriodevelgerField = ({ name, spoersmal, tidligsteFom, senesteTom }) => {
+const PeriodevelgerField = ({ name, spoersmal, tidligsteFom, senesteTom, Overskrift = 'h3' }) => {
     return (<FieldArray
         validate={(value) => {
             return harOverlappendePerioder(value)
                 ? 'Du kan ikke legge inn perioder som overlapper med hverandre'
                 : undefined;
         }}
+        Overskrift={Overskrift}
         component={StateConnectedPeriodevelger}
         name={name}
         namePrefix={name}

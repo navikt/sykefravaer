@@ -125,7 +125,7 @@
     }
 
     &:hover {
-        background-color: @bakgrunnGraa;
+        background-color: #ccdee6;
     }    
 
     &:empty:hover {
@@ -190,7 +190,7 @@
 }
 
 .periodekalender .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: @bakgrunnGraa;
+  background-color: #ccdee6;
   color: @navTekst;
 
   &.DayPicker-Day--start {
@@ -255,7 +255,7 @@
     }
   }
 
-.datovelger__DayPicker,
+.datokalender,
 .periodekalender {
     position: fixed;
     display: block;
@@ -297,10 +297,10 @@
 }
 
 @media (min-width: @skjermMini) {
-    .datovelger__DayPicker,
+    .datokalender,
     .periodekalender {
         position: absolute;
-        top: 2.5em;
+        top: 3.5em;
         left: auto; 
         right: auto;
         bottom: auto;
@@ -309,7 +309,7 @@
     }
 
     .periodekalender {
-        top: 4.5em;
+        top: 5em;
     }
 
     .periodekalender__tittel,
@@ -320,4 +320,37 @@
     .periodekalender__kontroller {
         height: 4em;
     }
+
+    .periodekalender--velgStartdato,
+    .periodekalender--velgSluttdato,
+    .datokalender {
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: -1px;
+            transform: rotate(-45deg);
+            border-top: 1px solid @ikonGraa;
+            border-right: 1px solid @ikonGraa;
+            background-color: @hvit;
+            width: 1em;
+            height: 1em;
+            transform-origin: 0 0;
+            .mixin-transition(.3s, left);
+        }
+
+        &:focus:before {
+            box-shadow: 2px -2px 0 1px @fokusOrange;
+        }
+
+    }
+
+    .periodekalender--velgStartdato:before {
+        left: 1em;
+    }
+
+    .periodekalender--velgSluttdato:before {
+        left: 9em;   
+    }
+
 }

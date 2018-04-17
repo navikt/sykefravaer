@@ -43,11 +43,14 @@ class DayPickerPeriode extends Component {
         super(props);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.handleDayMouseEnter = this.handleDayMouseEnter.bind(this);
-        this.handleResetClick = this.handleResetClick.bind(this);
         this.erDeaktivertDag = this.erDeaktivertDag.bind(this);
         this.state = {
             enteredTo: props.to || null,
         };
+    }
+
+    componentDidMount() {
+        this.kalender.focus();
     }
 
     componentWillReceiveProps(props) {
@@ -63,10 +66,6 @@ class DayPickerPeriode extends Component {
         }
     }
 
-    componentDidMount() {
-        this.kalender.focus();
-    }
-
     getTittel() {
         const { from, to } = this.props;
         return from && to
@@ -76,27 +75,18 @@ class DayPickerPeriode extends Component {
                 : 'Velg startdato';
     }
 
-    getInitialMonth() {
-        const { from, to, tidligsteFom, senesteTom } = this.props;
-        return from || to || tidligsteFom || senesteTom;
+    getModus() {
+        const { from, to } = this.props;
+        return from && !to ? 'velgSluttdato' : 'velgStartdato';
     }
 
-
-    handleResetClick() {
-        this.setState({
-            enteredTo: null,
-        });
-        const { names } = this.props;
-        this.lagreTilReduxState(names[0], undefined);
-        this.lagreTilReduxState(names[1], undefined);
+    getInitialMonth() {
+        const { from, to, tidligsteFom, senesteTom } = this.props;
+        return to || from || senesteTom || tidligsteFom;
     }
 
     handleDayClick(day) {
         const { from, to, names } = this.props;
-        if (from && to && day >= from && day <= to) {
-            this.handleResetClick();
-            return;
-        }
         if (velgerStartdato(from, to, day)) {
             this.lagreTilReduxState(names[0], toDatePrettyPrint(day));
             this.lagreTilReduxState(names[1], undefined);
@@ -138,7 +128,7 @@ class DayPickerPeriode extends Component {
 
         return (
             <div
-                className="periodekalender js-periodekalender"
+                className={`periodekalender periodekalender--${this.getModus()} js-periodekalender`}
                 ref={(c) => {
                     this.kalender = c;
                 }}
@@ -174,6 +164,10 @@ class DayPickerPeriode extends Component {
     }
 }
 
+DayPickerPeriode.defaultProps = {
+    Overskrift: 'h3',
+};
+
 DayPickerPeriode.propTypes = {
     from: PropTypes.instanceOf(Date),
     to: PropTypes.instanceOf(Date),
@@ -184,6 +178,7 @@ DayPickerPeriode.propTypes = {
     skjemanavn: PropTypes.string,
     lukk: PropTypes.func,
     names: PropTypes.arrayOf(PropTypes.string),
+    Overskrift: PropTypes.string,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -198,4 +193,4 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-export default connect(mapStateToProps, { autofill, touch } )(DayPickerPeriode);
+export default connect(mapStateToProps, { autofill, touch })(DayPickerPeriode);

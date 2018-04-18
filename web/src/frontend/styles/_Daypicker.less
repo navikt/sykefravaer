@@ -1,5 +1,7 @@
 /* DayPicker styles */
 
+@aktivBlaaLys: #ccdee6;
+
 .DayPicker {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -125,7 +127,7 @@
     }
 
     &:hover {
-        background-color: #ccdee6;
+        background-color: @aktivBlaaLys;
     }    
 
     &:empty:hover {
@@ -190,7 +192,7 @@
 }
 
 .periodekalender .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: #ccdee6;
+  background-color: @aktivBlaaLys;
   color: @navTekst;
 
   &.DayPicker-Day--start {

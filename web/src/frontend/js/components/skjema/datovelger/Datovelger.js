@@ -71,6 +71,7 @@ export class DatoField extends Component {
                         className={`datovelger__input${meta.touched && meta.error ? ' input--feil' : ''}`}
                         {...input} />
                     <button
+                        type="button"
                         className="js-toggle datovelger__toggleDayPicker"
                         ref={(c) => {
                             this.toggle = c;

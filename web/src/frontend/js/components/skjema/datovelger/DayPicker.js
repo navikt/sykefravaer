@@ -8,7 +8,7 @@ import NavBar from './DayPickerNavBar';
 import Caption from './DayPickerCaption';
 import { MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT, localeUtils } from './datovelgerLocale';
 
-const pad = (nr) => {
+export const leggTilNullForan = (nr) => {
     return nr > 9 || nr.length > 1 ? nr : `0${nr}`;
 };
 
@@ -63,7 +63,7 @@ class DayPickerComponent extends Component {
 
     erDeaktivertDag(day) {
         const { tidligsteFom, senesteTom } = this.props;
-        const _day = new Date(`${day.getFullYear()}-${pad(day.getMonth() + 1)}-${pad(day.getDate())}`);
+        const _day = new Date(`${day.getFullYear()}-${leggTilNullForan(day.getMonth() + 1)}-${leggTilNullForan(day.getDate())}`);
         return _day < tidligsteFom || _day > senesteTom;
     }
 

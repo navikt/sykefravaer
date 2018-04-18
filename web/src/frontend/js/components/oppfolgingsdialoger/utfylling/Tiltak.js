@@ -132,6 +132,7 @@ class Tiltak extends Component {
                                         avbryt={this.toggleTiltakSkjema}
                                         fnr={oppfolgingsdialog.arbeidstaker.fnr}
                                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                                        rootUrlImg={getContextRoot()}
                                     />
                                 </div>
 
@@ -156,6 +157,7 @@ class Tiltak extends Component {
                                 ref={(lagreSkjema) => {
                                     this.lagreSkjema = lagreSkjema;
                                 }}
+                                rootUrlImg={getContextRoot()}
                             />
                         }
                         <TiltakTabell
@@ -168,6 +170,7 @@ class Tiltak extends Component {
                             sendSlettKommentar={this.sendSlettKommentar}
                             fnr={oppfolgingsdialog.arbeidstaker.fnr}
                             brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                            rootUrlImg={getContextRoot()}
                         />
                     </div>;
             })()

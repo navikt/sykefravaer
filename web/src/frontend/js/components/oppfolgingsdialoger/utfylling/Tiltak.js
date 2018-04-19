@@ -16,8 +16,6 @@ import {
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
-import AppSpinner from '../../AppSpinner';
-import Feilmelding from '../../Feilmelding';
 
 class Tiltak extends Component {
     constructor(props) {
@@ -26,12 +24,17 @@ class Tiltak extends Component {
             visTiltakSkjema: false,
             oppdatertTiltak: false,
             nyttTiltak: false,
+            lagreNyTiltakFeilet: false,
+            varselTekst: '',
+            oppdaterTiltakFeilet: false,
         };
         this.sendLagreTiltak = this.sendLagreTiltak.bind(this);
         this.sendSlettTiltak = this.sendSlettTiltak.bind(this);
         this.sendLagreKommentar = this.sendLagreKommentar.bind(this);
         this.sendSlettKommentar = this.sendSlettKommentar.bind(this);
         this.toggleTiltakSkjema = this.toggleTiltakSkjema.bind(this);
+        this.visOppdateringFeilet = this.visOppdateringFeilet.bind(this);
+        this.skjulSkjema = this.skjulSkjema.bind(this);
     }
 
     componentWillMount() {
@@ -39,11 +42,28 @@ class Tiltak extends Component {
         window.sessionStorage.setItem('hash', 'tiltak');
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.tiltak.feiletTiltakId && nextProps.tiltak.lagringFeilet && this.props.tiltak.lagringFeilet !== nextProps.tiltak.lagringFeilet) {
+            this.setState({
+                lagreNyTiltakFeilet: true,
+                visTiltakSkjema: true,
+                varselTekst: getLedetekst('oppfolgingsdialog.oppdatering.feilmelding', this.props.ledetekster),
+            });
+        }
+    }
+
     componentDidUpdate(prevProps, prevState) {
         if (!prevState.visTiltakSkjema && this.state.visTiltakSkjema && this.lagreSkjema) {
             const form = findDOMNode(this.lagreSkjema);
             scrollTo(form, 300);
         }
+    }
+
+    visOppdateringFeilet(feilet) {
+        this.setState({
+            oppdaterTiltakFeilet: feilet,
+            lagreNyTiltakFeilet: false,
+        });
     }
 
     sendLagreTiltak(values) {
@@ -67,6 +87,9 @@ class Tiltak extends Component {
 
     sendSlettTiltak(tiltakId) {
         this.props.slettTiltak(this.props.oppfolgingsdialog.id, tiltakId);
+        this.setState({
+            sjekkLargingFeil: true,
+        });
     }
 
     sendLagreKommentar(tiltakId, values) {
@@ -83,25 +106,21 @@ class Tiltak extends Component {
         });
     }
 
+    skjulSkjema() {
+        this.setState({
+            visTiltakSkjema: false,
+            lagreNyTiltakFeilet: false,
+        });
+    }
+
     render() {
         const {
             ledetekster,
             oppfolgingsdialog,
+            tiltak,
         } = this.props;
-        const {
-            lagrer,
-            lagringFeilet,
-            sletter,
-            slettingFeilet,
-        } = this.props.tiltak;
-
         return (
             (() => {
-                if (lagrer || sletter) {
-                    return <AppSpinner />;
-                } else if (lagringFeilet || slettingFeilet) {
-                    return (<Feilmelding />);
-                }
                 return isEmpty(oppfolgingsdialog.tiltakListe) ?
                     <div>
                         {
@@ -111,6 +130,8 @@ class Tiltak extends Component {
                                     svgAlt="nyttTiltak"
                                     tittel={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tittel')}
                                     tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.onboarding.tiltak.tekst')}
+                                    feilType={this.state.feilType}
+                                    feilTekst={this.state.feilTekst}
                                 >
                                     <LeggTilElementKnapper
                                         ledetekster={ledetekster}
@@ -125,13 +146,17 @@ class Tiltak extends Component {
                                         visTiltakSkjema={this.state.visTiltakSkjema}
                                         toggleSkjema={this.toggleTiltakSkjema}
                                         tittel={getLedetekst('oppfolgingsdialog.tiltak.arbeidstaker.tittel')}
+                                        feilTekst={this.state.feilTekst}
                                     />
                                     <TiltakSkjema
                                         ledetekster={ledetekster}
                                         sendLagre={this.sendLagreTiltak}
-                                        avbryt={this.toggleTiltakSkjema}
+                                        avbryt={this.skjulSkjema}
                                         fnr={oppfolgingsdialog.arbeidstaker.fnr}
                                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                                        varselTekst={this.state.varselTekst}
+                                        oppdateringFeilet={this.state.lagreNyTiltakFeilet}
+                                        tiltakReducer={tiltak}
                                         rootUrlImg={getContextRoot()}
                                     />
                                 </div>
@@ -145,18 +170,23 @@ class Tiltak extends Component {
                             visTiltakSkjema={this.state.visTiltakSkjema}
                             toggleSkjema={this.toggleTiltakSkjema}
                             tittel={getLedetekst('oppfolgingsdialog.tiltak.arbeidstaker.tittel')}
+                            feilTekst={this.state.feilTekst}
+                            feilType={this.state.feilType}
                         />
                         {
                             this.state.visTiltakSkjema &&
                             <TiltakSkjema
                                 ledetekster={ledetekster}
                                 sendLagre={this.sendLagreTiltak}
-                                avbryt={this.toggleTiltakSkjema}
+                                avbryt={this.skjulSkjema}
                                 fnr={oppfolgingsdialog.arbeidstaker.fnr}
                                 brukerType={BRUKERTYPE.ARBEIDSTAKER}
                                 ref={(lagreSkjema) => {
                                     this.lagreSkjema = lagreSkjema;
                                 }}
+                                varselTekst={this.state.varselTekst}
+                                oppdateringFeilet={this.state.lagreNyTiltakFeilet}
+                                tiltakReducer={tiltak}
                                 rootUrlImg={getContextRoot()}
                             />
                         }
@@ -170,6 +200,8 @@ class Tiltak extends Component {
                             sendSlettKommentar={this.sendSlettKommentar}
                             fnr={oppfolgingsdialog.arbeidstaker.fnr}
                             brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                            visFeilMelding={this.visOppdateringFeilet}
+                            feilMelding={this.state.oppdaterTiltakFeilet}
                             rootUrlImg={getContextRoot()}
                         />
                     </div>;

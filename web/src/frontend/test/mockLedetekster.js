@@ -251,6 +251,7 @@ const ledetekster = {
   "sykepengesoknad.ferie-permisjon-utenlandsopphold.oppholdt-meg-utenfor-norge": "oppholdt meg utenfor Norge",
   "sykepengesoknad.ferie-permisjon-utenlandsopphold.hatt-permisjon": "hatt permisjon",
   "oppfolgingsdialoger.sidetittel": "Oppfølgingsdialoger",
+  "oppfolgingsdialog.oppdatering.feilmelding": "Det oppsto en feil, og du fikk ikke lagret. Prøv igjen.",
 };
 
 export default ledetekster;

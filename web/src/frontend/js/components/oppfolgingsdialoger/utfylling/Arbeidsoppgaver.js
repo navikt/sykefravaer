@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import {
-
     BRUKERTYPE,
     captitalizeFirstLetter,
     LagreArbeidsoppgaveSkjema,
@@ -17,15 +16,15 @@ import {
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
-import AppSpinner from '../../AppSpinner';
-import Feilmelding from '../../Feilmelding';
 
-export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppgave, toggleArbeidsoppgaveSkjema }) => {
+export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppgave, toggleArbeidsoppgaveSkjema, oppdateringFeilet, varselTekst }) => {
     return (<div>
         <LagreArbeidsoppgaveSkjema
             ledetekster={ledetekster}
             sendLagre={sendLagreArbeidsoppgave}
             avbryt={toggleArbeidsoppgaveSkjema}
+            oppdateringFeilet={oppdateringFeilet}
+            varselTekst={varselTekst}
             rootUrlImg={getContextRoot()}
         />
     </div>);
@@ -35,6 +34,8 @@ RenderOpprettArbeidsoppgave.propTypes = {
     ledetekster: keyValue,
     sendLagreArbeidsoppgave: PropTypes.func,
     toggleArbeidsoppgaveSkjema: PropTypes.func,
+    oppdateringFeilet: PropTypes.bool,
+    varselTekst: PropTypes.string,
 };
 
 class Arbeidsoppgaver extends Component {
@@ -44,13 +45,17 @@ class Arbeidsoppgaver extends Component {
             nyArbeidsoppgave: false,
             oppdatertArbeidsoppgave: false,
             visArbeidsoppgaveSkjema: false,
+            lagreNyOppgaveFeilet: false,
+            varselTekst: '',
+            oppdaterOppgaveFeilet: false,
         };
         this.sendLagreArbeidsoppgave = this.sendLagreArbeidsoppgave.bind(this);
         this.sendSlettArbeidsoppgave = this.sendSlettArbeidsoppgave.bind(this);
         this.toggleArbeidsoppgaveSkjema = this.toggleArbeidsoppgaveSkjema.bind(this);
         this.scrollToForm = this.scrollToForm.bind(this);
+        this.visFeilMelding = this.visFeilMelding.bind(this);
+        this.skjulSkjema = this.skjulSkjema.bind(this);
     }
-
     componentWillMount() {
         window.location.hash = 'arbeidsoppgaver';
         window.sessionStorage.setItem('hash', 'arbeidsoppgaver');
@@ -62,10 +67,29 @@ class Arbeidsoppgaver extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.arbeidsoppgaver.feiletOppgaveId
+            && nextProps.arbeidsoppgaver.lagringFeilet
+            && this.props.arbeidsoppgaver.lagringFeilet !== nextProps.arbeidsoppgaver.lagringFeilet) {
+            this.setState({
+                lagreNyOppgaveFeilet: true,
+                visArbeidsoppgaveSkjema: true,
+                varselTekst: getLedetekst('oppfolgingsdialog.oppdatering.feilmelding', this.props.ledetekster),
+            });
+        }
+    }
+
     componentDidUpdate(prevProps, prevState) {
         if (!prevState.visArbeidsoppgaveSkjema && this.state.visArbeidsoppgaveSkjema && this.lagreSkjema) {
             this.scrollToForm();
         }
+    }
+
+    visFeilMelding(feilet) {
+        this.setState({
+            oppdaterOppgaveFeilet: feilet,
+            lagreNyOppgaveFeilet: false,
+        });
     }
 
     sendLagreArbeidsoppgave(values) {
@@ -80,7 +104,10 @@ class Arbeidsoppgaver extends Component {
             ...values,
             arbeidsoppgavenavn: captitalizeFirstLetter(values.arbeidsoppgavenavn),
         };
-        this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialog.id, nyeValues);
+        this.props.lagreArbeidsoppgave(this.props.oppfolgingsdialog.id, nyeValues, this.props.oppfolgingsdialog.arbeidstaker.fnr);
+        this.setState({
+            visArbeidsoppgaveSkjema: false,
+        });
     }
 
     sendSlettArbeidsoppgave(arbeidsoppgaveId) {
@@ -98,27 +125,24 @@ class Arbeidsoppgaver extends Component {
         scrollTo(form, 300);
     }
 
+    skjulSkjema() {
+        this.setState({
+            visArbeidsoppgaveSkjema: false,
+            lagreNyOppgaveFeilet: false,
+        });
+    }
+
     render() {
         const {
             ledetekster,
             oppfolgingsdialog,
+            arbeidsoppgaver,
         } = this.props;
-        const {
-            lagrer,
-            lagringFeilet,
-            sletter,
-            slettingFeilet,
-        } = this.props.arbeidsoppgaver;
         const antallIkkeVurdererteArbOppgaver = oppfolgingsdialog.arbeidsoppgaveListe.filter((arbeidsoppgave) => {
             return !arbeidsoppgave.gjennomfoering;
         }).length;
         return (
             (() => {
-                if (lagrer || sletter) {
-                    return <AppSpinner />;
-                } else if (lagringFeilet || slettingFeilet) {
-                    return (<Feilmelding />);
-                }
                 return isEmpty(oppfolgingsdialog.arbeidsoppgaveListe) ?
                     <div>
                         { this.state.visArbeidsoppgaveSkjema &&
@@ -157,10 +181,14 @@ class Arbeidsoppgaver extends Component {
                                         toggleSkjema={this.toggleArbeidsoppgaveSkjema}
                                     />
                                 </OppfolgingsdialogInfoboks> :
-                                <RenderOpprettArbeidsoppgave
+                                <LagreArbeidsoppgaveSkjema
                                     ledetekster={ledetekster}
-                                    sendLagreArbeidsoppgave={this.sendLagreArbeidsoppgave}
-                                    toggleArbeidsoppgaveSkjema={this.toggleArbeidsoppgaveSkjema}
+                                    varselTekst={this.state.varselTekst}
+                                    oppdateringFeilet={this.state.lagreNyOppgaveFeilet}
+                                    sendLagre={this.sendLagreArbeidsoppgave}
+                                    avbryt={this.skjulSkjema}
+                                    arbeidsoppgaverReducer={arbeidsoppgaver}
+                                    rootUrlImg={getContextRoot()}
                                 />
                         }
                     </div>
@@ -181,27 +209,30 @@ class Arbeidsoppgaver extends Component {
                             toggleSkjema={this.toggleArbeidsoppgaveSkjema}
                         >
                             { oppfolgingsdialog.arbeidstaker.stillinger.length > 0 &&
-                                <div>
-                                    { oppfolgingsdialog.arbeidstaker.stillinger.map((stilling, idx) => {
-                                        return (<p key={idx}>
-                                            {getLedetekst('oppfolgingsdialog.arbeidsoppgaverInfoboks.arbeidstaker.stilling', {
-                                                '%YRKE%': stilling.yrke.toLowerCase(),
-                                                '%PROSENT%': stilling.prosent,
-                                            })}
-                                        </p>);
-                                    })
-                                    }
-                                </div>
+                            <div>
+                                { oppfolgingsdialog.arbeidstaker.stillinger.map((stilling, idx) => {
+                                    return (<p key={idx}>
+                                        {getLedetekst('oppfolgingsdialog.arbeidsoppgaverInfoboks.arbeidstaker.stilling', {
+                                            '%YRKE%': stilling.yrke.toLowerCase(),
+                                            '%PROSENT%': stilling.prosent,
+                                        })}
+                                    </p>);
+                                })
+                                }
+                            </div>
                             }
                         </ArbeidsoppgaverInfoboks>
                         {
                             this.state.visArbeidsoppgaveSkjema && <LagreArbeidsoppgaveSkjema
                                 ledetekster={ledetekster}
                                 sendLagre={this.sendLagreArbeidsoppgave}
-                                avbryt={this.toggleArbeidsoppgaveSkjema}
+                                avbryt={this.skjulSkjema}
                                 ref={(lagreSkjema) => {
                                     this.lagreSkjema = lagreSkjema;
                                 }}
+                                varselTekst={this.state.varselTekst}
+                                oppdateringFeilet={this.state.lagreNyOppgaveFeilet}
+                                arbeidsoppgaverReducer={arbeidsoppgaver}
                                 rootUrlImg={getContextRoot()}
                             />
                         }
@@ -213,6 +244,8 @@ class Arbeidsoppgaver extends Component {
                             fnr={oppfolgingsdialog.arbeidstaker.fnr}
                             brukerType={BRUKERTYPE.ARBEIDSTAKER}
                             rootUrlImg={getContextRoot()}
+                            visFeilMelding={this.visFeilMelding}
+                            feilMelding={this.state.oppdaterOppgaveFeilet}
                         />
                     </div>;
             })()

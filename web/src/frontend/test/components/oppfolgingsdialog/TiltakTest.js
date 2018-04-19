@@ -68,42 +68,29 @@ describe('Tiltak', () => {
         };
     });
 
-    it('Skal vise spinner dersom data lagres', () => {
+    it('Skal vise feilmelding dersom lagring av ny tiltak feilet', () => {
         component = shallow(<Tiltak
             oppfolgingsdialog={oppfolgingsdialog}
-            tiltak={{ lagrer: true }}
+            tiltak={{
+                lagringFeilet: false,
+            }}
+            ledetekster={ledetekster}
         />);
-        expect(component.contains(<AppSpinner />)).to.equal(true);
+        component.setProps({ tiltak: {lagringFeilet: true} });
+        expect(component.state().varselTekst).to.equal('Det oppsto en feil, og du fikk ikke lagret. Prøv igjen.');
     });
 
-    it('Skal vise spinner dersom data slettes', () => {
+    it('Skal ikke vise feilmelding dersom lagring av ny tiltak ikke feilet', () => {
         component = shallow(<Tiltak
             oppfolgingsdialog={oppfolgingsdialog}
-            lagreTiltak={lagreTiltak}
-            slettTiltak={slettTiltak}
-            tiltak={{ sletter: true }}
+            tiltak={{
+                lagringFeilet: false,
+                feiletTiltakId: 5,
+            }}
+            ledetekster={ledetekster}
         />);
-        expect(component.contains(<AppSpinner />)).to.equal(true);
-    });
-
-    it('Skal vise feilmelding dersom lagring feilet', () => {
-        component = shallow(<Tiltak
-            oppfolgingsdialog={oppfolgingsdialog}
-            lagreTiltak={lagreTiltak}
-            slettTiltak={slettTiltak}
-            tiltak={{ lagringFeilet: true }}
-        />);
-        expect(component.contains(<Feilmelding />)).to.equal(true);
-    });
-
-    it('Skal vise feilmelding dersom sletting feilet', () => {
-        component = shallow(<Tiltak
-            oppfolgingsdialog={oppfolgingsdialog}
-            lagreTiltak={lagreTiltak}
-            slettTiltak={slettTiltak}
-            tiltak={{ slettingFeilet: true }}
-        />);
-        expect(component.contains(<Feilmelding />)).to.equal(true);
+        component.setProps({ tiltak: {lagringFeilet: true, feiletTiltakId: 5,} });
+        expect(component.state().varselTekst).to.equal('');
     });
 
     describe('Oppfolgingsdialog uten Tiltak', () => {

@@ -24,6 +24,7 @@ export const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer en
 export const overHundreogfemtiFeil = 'Du må oppgi et tall fra 1 til 150';
 export const sammeNormalAntallFeil = 'Vennligst oppi samme antall timer for alle periodene';
 export const antallTimerErMerEnn100ProsentFeil = 'Antall timer tilsvarer over 100 % av din stilling';
+export const merEnnNullFeil = overHundreogfemtiFeil;
 
 const validerAktiviteter = (values, aktiviteter, feriePermisjonPerioder) => {
     const harSammeNormalAntall = values.aktiviteter && values.aktiviteter.filter((a) => {
@@ -66,7 +67,7 @@ const validerAktiviteter = (values, aktiviteter, feriePermisjonPerioder) => {
                         }
                     } else if (enhet === 'timer') {
                         const stillingsprosent = getStillingsprosent(timer, arbeidstimerNormalUke, aktivitet.periode, feriePermisjonPerioder);
-                        if (parseString(timer) > 150) {
+                        if (parseString(timer) > 150 || parseString(timer) < 1) {
                             res.timer = overHundreogfemtiFeil;
                         } else if (stillingsprosent > 100) {
                             res.timer = antallTimerErMerEnn100ProsentFeil;

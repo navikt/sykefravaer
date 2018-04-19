@@ -119,11 +119,9 @@
     text-align: center;
     cursor: pointer;
     vertical-align: middle;
-    position: relative;
 
     &:focus {
         outline: none;
-        z-index: 1;
     }
 
     &:hover {
@@ -178,17 +176,6 @@
 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
   background-color: @aktivBlaa;
   color: @hvit;
-
-  &:focus:after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      box-shadow: 0 0 0 3px @fokusOrange;
-  }
 }
 
 .periodekalender .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
@@ -204,6 +191,10 @@
       background-color: @aktivBlaa;
       color: @hvit;
   }
+}
+
+.periodekalender .DayPicker-Day:focus {
+    box-shadow: 0 0 0 3px @fokusOrange inset;
 }
 
 .DayPicker:focus {
@@ -256,104 +247,3 @@
       background-image: data-uri("../img/png/kalender--hover.png");
     }
   }
-
-.datokalender,
-.periodekalender {
-    position: fixed;
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: @hvit;
-    padding: .5em;
-    z-index: 1; 
-
-    &:focus {
-        outline: 0;
-        box-shadow: 0 0 0 3px @fokusOrange;
-    }
-}
-
-.periodekalender {
-    display: flex;
-    flex-direction: column;
-}
-
-.periodekalender__kalender {
-    flex: 1;
-}
-
-.periodekalender__tittel {
-  .mixin-typo-undertittel();
-  text-align: center;
-  margin: 0 .25em;
-}
-
-.periodekalender__kontroller {
-    text-align: center;
-    height: 8em;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    border-top: 1px solid @ikonGraa;
-}
-
-@media (min-width: @skjermMini) {
-    .datokalender,
-    .periodekalender {
-        position: absolute;
-        top: 3.5em;
-        left: 0; 
-        right: auto;
-        bottom: auto;
-        border-radius: 2px;
-        border: 1px solid @ikonGraa;
-        display: block;
-    }
-
-    .periodekalender {
-        top: 5em;
-    }
-
-    .periodekalender__tittel,
-    .periodekalender__datoer {
-        display: none;
-    }
-
-    .periodekalender__kontroller {
-        height: 4em;
-    }
-
-    .periodekalender--velgStartdato,
-    .periodekalender--velgSluttdato,
-    .datokalender {
-        &:before {
-            content: '';
-            display: block;
-            position: absolute;
-            top: -1px;
-            transform: rotate(-45deg);
-            border-top: 1px solid @ikonGraa;
-            border-right: 1px solid @ikonGraa;
-            background-color: @hvit;
-            width: 1em;
-            height: 1em;
-            transform-origin: 0 0;
-            .mixin-transition(.3s, left);
-        }
-
-        &:focus:before {
-            box-shadow: 2px -2px 0 1px @fokusOrange;
-        }
-
-    }
-
-    .periodekalender--velgStartdato:before {
-        left: 1em;
-    }
-
-    .periodekalender--velgSluttdato:before {
-        left: 9em;   
-    }
-
-}

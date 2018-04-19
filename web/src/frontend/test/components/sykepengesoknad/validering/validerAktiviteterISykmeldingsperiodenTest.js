@@ -14,6 +14,7 @@ import validate, {
     overHundreFeil,
     overHundreogfemtiFeil,
     jobbetMerEnnPlanlagtFeil,
+    merEnnNullFeil,
     sammeNormalAntallFeil } from '../../../../js/components/sykepengesoknad/validering/validerAktiviteterISykmeldingsperioden';
 import { inntektskildetyper } from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AndreInntektskilder';
 import { getSoknad } from '../../../mockSoknader';
@@ -358,6 +359,27 @@ describe("validerAktiviteterISykmeldingsperioden", () => {
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
                     timer: overHundreogfemtiFeil,
+                }
+            }, {}])
+        });
+
+        it("Skal ikke validere tall i timer = 0", () => {
+            values.aktiviteter = [{
+                jobbetMerEnnPlanlagt: true,
+                avvik: {
+                    timer: "0",
+                    enhet: "timer",
+                    arbeidstimerNormalUke: "37,5"
+                },
+                grad: 50,
+            }, {
+                jobbetMerEnnPlanlagt: false,
+            }];
+
+            const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
+            expect(res.aktiviteter).to.deep.equal([{
+                avvik: {
+                    timer: merEnnNullFeil,
                 }
             }, {}])
         });

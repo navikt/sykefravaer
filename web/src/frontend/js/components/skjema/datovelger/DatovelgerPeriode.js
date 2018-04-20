@@ -19,6 +19,7 @@ class Periodevelger extends Component {
         this.toggle = this.toggle.bind(this);
         this.lukk = this.lukk.bind(this);
         this.apne = this.apne.bind(this);
+        this.validerDatoField = this.validerDatoField.bind(this);
     }
 
     componentDidMount() {
@@ -60,6 +61,13 @@ class Periodevelger extends Component {
         }
     }
 
+    validerDatoField(input) {
+        return validerDatoField(input, {
+            fra: this.props.tidligsteFom,
+            til: this.props.senesteTom,
+        });
+    }
+
     render() {
         const { names, periodeIndex } = this.props;
         const buttonId = `toggle-${names[1].split('.')[0]}`;
@@ -75,7 +83,7 @@ class Periodevelger extends Component {
                             name={names[0]}
                             id={names[0]}
                             onDoubleClick={this.apne}
-                            validate={validerDatoField}
+                            validate={this.validerDatoField}
                             kalenderVises={this.state.erApen} />
                     </div>
                     <div className="periodevelger__skille">–</div>
@@ -88,7 +96,7 @@ class Periodevelger extends Component {
                             buttonId={buttonId}
                             toggle={this.toggle}
                             onDoubleClick={this.apne}
-                            validate={validerDatoField}
+                            validate={this.validerDatoField}
                             erApen={this.state.erApen} />
                     </div>
                 </div>

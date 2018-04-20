@@ -41,7 +41,9 @@ class DayPickerPeriode extends Component {
         this.handleDayClick = this.handleDayClick.bind(this);
         this.handleDayMouseEnter = this.handleDayMouseEnter.bind(this);
         this.erDeaktivertDag = this.erDeaktivertDag.bind(this);
-        this.state = {};
+        this.state = {
+            valgtTil: this.props.valgtTil,
+        };
     }
 
     componentDidMount() {
@@ -82,6 +84,9 @@ class DayPickerPeriode extends Component {
 
     handleDayClick(dato) {
         const { valgtFra, valgtTil, names } = this.props;
+        if (this.erDeaktivertDag(dato)) {
+            return;
+        }
         if (velgerStartdato(valgtFra, valgtTil, dato)) {
             this.lagreTilReduxState(names[0], toDatePrettyPrint(dato));
             this.lagreTilReduxState(names[1], undefined);
@@ -95,7 +100,7 @@ class DayPickerPeriode extends Component {
 
     handleDayMouseEnter(dato) {
         const { valgtFra, valgtTil } = this.props;
-        if (!velgerStartdato(valgtFra, valgtTil, dato)) {
+        if (!this.erDeaktivertDag(dato) && !velgerStartdato(valgtFra, valgtTil, dato)) {
             this.setState({
                 valgtTil: dato,
             });
@@ -119,7 +124,7 @@ class DayPickerPeriode extends Component {
         const { valgtFra, valgtTil } = this.props;
         const fraEllerTil = valgtFra || valgtTil;
         const modifiers = { start: fraEllerTil, end: valgtTil };
-        const selectedDays = [fraEllerTil, { from: fraEllerTil, to: valgtTil }];
+        const selectedDays = [fraEllerTil, { from: fraEllerTil, to: this.state.valgtTil }];
 
         return (
             <div

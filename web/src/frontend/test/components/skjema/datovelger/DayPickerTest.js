@@ -11,8 +11,8 @@ import { connect } from 'react-redux';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import Datovelger, { DatoField, validerDatoField } from '../../../js/components/skjema/Datovelger';
-import DaypickerComponent, { Caption, MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT } from '../../../js/components/skjema/DayPicker';
+import Datovelger, { DatoField, validerDatoField } from '../../../../js/components/skjema/datovelger/Datovelger';
+import DaypickerComponent, { Caption, MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT } from '../../../../js/components/skjema/datovelger/DayPicker';
 
 describe("DaypickerComponent", () => {
 

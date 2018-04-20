@@ -6,7 +6,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import GjenopptattArbeidFulltUt from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/GjenopptattArbeidFulltUt';
-import Datovelger from '../../../../js/components/skjema/Datovelger';
+import Datovelger from '../../../../js/components/skjema/datovelger/Datovelger';
 import JaEllerNei from '../../../../js/components/sykepengesoknad/JaEllerNei';
 import { getSoknad } from '../../../mockSoknader';
 import { ledetekster } from '../../../mockLedetekster';

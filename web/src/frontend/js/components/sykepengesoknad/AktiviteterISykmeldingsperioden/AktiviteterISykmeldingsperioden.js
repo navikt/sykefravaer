@@ -7,7 +7,7 @@ import SykepengerSkjema from '../SykepengerSkjema';
 import history from '../../../history';
 import setup from '../setup';
 import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../JaEllerNei';
-import Datovelger from '../../skjema/Datovelger';
+import Datovelger from '../../skjema/datovelger/Datovelger';
 import Aktiviteter from './Aktiviteter';
 import AndreInntektskilder from './AndreInntektskilder';
 import Knapperad from '../../skjema/Knapperad';

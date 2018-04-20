@@ -6,7 +6,7 @@ import { getLedetekst, Hjelpetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { fieldPropTypes } from '../../propTypes';
 import JaEllerNei from '../sykepengesoknad/JaEllerNei';
 import Radioknapper from '../skjema/Radioknapper';
-import Periodevelger from '../skjema/Periodevelger';
+import Periodevelger from '../skjema/datovelger/Periodevelger';
 import { getOppfolgingstilfelleStartdato } from '../../utils/sykeforloepUtils';
 
 export const Egenmeldingssporsmal = ({ oppfolgingstilfelleStartdato }) => {

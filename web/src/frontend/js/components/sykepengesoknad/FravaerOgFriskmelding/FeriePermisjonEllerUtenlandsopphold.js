@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form';
 import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
-import Periodevelger from '../../skjema/Periodevelger';
+import Periodevelger from '../../skjema/datovelger/Periodevelger';
 import Checkbox from '../../skjema/Checkbox';
 import Feilomrade from '../../skjema/Feilomrade';
 import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';

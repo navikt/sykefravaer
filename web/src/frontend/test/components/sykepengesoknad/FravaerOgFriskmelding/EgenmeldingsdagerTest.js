@@ -6,7 +6,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import Egenmeldingsdager from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/Egenmeldingsdager';
-import Periodevelger from '../../../../js/components/skjema/Periodevelger';
+import Periodevelger from '../../../../js/components/skjema/datovelger/Periodevelger';
 import JaEllerNei from '../../../../js/components/sykepengesoknad/JaEllerNei';
 import { getSoknad } from '../../../mockSoknader';
 import ledetekster from '../../../mockLedetekster';

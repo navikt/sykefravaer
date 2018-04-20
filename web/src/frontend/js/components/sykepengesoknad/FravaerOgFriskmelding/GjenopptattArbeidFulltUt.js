@@ -1,7 +1,7 @@
 import React from 'react';
 import { getLedetekst, tidligsteFom, senesteTom } from 'digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
-import Datovelger from '../../skjema/Datovelger';
+import Datovelger from '../../skjema/datovelger/Datovelger';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import { getGjenopptattArbeidFulltUtSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 

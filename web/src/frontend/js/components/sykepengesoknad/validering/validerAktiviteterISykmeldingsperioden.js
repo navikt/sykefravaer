@@ -2,7 +2,8 @@ import { toDatePrettyPrint, fraInputdatoTilJSDato, inntektskildetyper, senesteTo
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 import {
-    filtrerAktuelleAktiviteter, getFeriePermisjonPerioder,
+    filtrerAktuelleAktiviteter,
+    getFeriePermisjonPerioder,
     getGjenopptattArbeidFulltUtDatoFraSkjema,
 } from '../../../utils/sykepengesoknadUtils';
 import { getStillingsprosent } from '../AktiviteterISykmeldingsperioden/DetteTilsvarer';

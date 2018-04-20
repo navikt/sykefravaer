@@ -4,7 +4,6 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 import * as utils from '../../../../js/components/sykepengesoknad/validering/valideringUtils';
-import { validerPeriode } from '../../../../js/components/skjema/Datovelger';
 
 describe("valideringUtils", () => {
 

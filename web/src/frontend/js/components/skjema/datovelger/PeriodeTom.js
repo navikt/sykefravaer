@@ -13,7 +13,7 @@ class TomField extends Component {
     }
 
     render() {
-        const { meta, input, id, onDoubleClick } = this.props;
+        const { meta, input, id, buttonId, onDoubleClick } = this.props;
         /* eslint-disable jsx-a11y/no-static-element-interactions */
         return (<div className="datovelger">
             <div
@@ -33,7 +33,7 @@ class TomField extends Component {
                         ref={(c) => {
                             this.toggle = c;
                         }}
-                        id={`toggle-${id}`}
+                        id={buttonId}
                         onClick={(e) => {
                             e.preventDefault();
                             this.props.toggle();
@@ -54,6 +54,7 @@ class TomField extends Component {
 TomField.propTypes = {
     meta: fieldPropTypes.meta,
     id: PropTypes.string.isRequired,
+    buttonId: PropTypes.string,
     input: fieldPropTypes.input,
     erApen: PropTypes.bool,
     toggle: PropTypes.func,

@@ -58,7 +58,14 @@
 
     .periodekalender__tittel,
     .periodekalender__datoer {
-        display: none;
+        position: absolute;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        width: 1px;
+        margin: -1px;
+        padding: 0;
+        border: 0;
     }
 
     .periodekalender__kontroller {
@@ -97,4 +104,11 @@
         left: 9em;   
     }
 
+}
+
+.periodekalender {
+    .DayPicker-Month {
+        position: relative;
+        
+    }
 }

@@ -49,15 +49,16 @@
     background-color: transparent;
     background-image: data-uri("../img/png/pilNeste--graa.png");
     background-size: 1.25em 1.25em;
+    z-index: 1;
 
-  &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px @fokusOrange;
-  }
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px @fokusOrange;
+    }
 
-  &:focus, &:hover {
-      background-image: data-uri("../img/png/pilNeste--blaa.png");
-  }
+    &:focus, &:hover {
+        background-image: data-uri("../img/png/pilNeste--blaa.png");
+    }
 
 }
 
@@ -74,6 +75,9 @@
     right: 1em;
 }
 
+.DayPicker-wrapper:focus {
+    outline: none;
+}
 
 .DayPicker-Caption {
     display: table-caption;

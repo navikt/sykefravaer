@@ -5,7 +5,7 @@ const NavBar = ({ onNextClick, onPreviousClick, showPreviousButton, showNextButt
     const className = 'DayPicker-NavButton';
     return (<div role="toolbar">
         <button
-            tabIndex="-1"
+            tabIndex="0"
             className={`${className} DayPicker-NavButton--prev`}
             disabled={!showPreviousButton}
             type="button"
@@ -14,7 +14,7 @@ const NavBar = ({ onNextClick, onPreviousClick, showPreviousButton, showNextButt
                 onPreviousClick();
             }}>Forrige måned</button>
         <button
-            tabIndex="-1"
+            tabIndex="0"
             className={`${className} DayPicker-NavButton--next`}
             disabled={!showNextButton}
             type="button"

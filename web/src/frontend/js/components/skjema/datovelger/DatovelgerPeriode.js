@@ -62,7 +62,7 @@ class Periodevelger extends Component {
 
     render() {
         const { names, periodeIndex } = this.props;
-
+        const buttonId = `toggle-${names[1].split('.')[0]}`;
         return (
             /* eslint-disable jsx-a11y/no-static-element-interactions */
             <div className="periodevelger__periode" onKeyUp={this.handleKeyUp}>
@@ -85,6 +85,7 @@ class Periodevelger extends Component {
                             component={TomField}
                             name={names[1]}
                             id={names[1]}
+                            buttonId={buttonId}
                             toggle={this.toggle}
                             onDoubleClick={this.apne}
                             validate={validerDatoField}
@@ -92,7 +93,7 @@ class Periodevelger extends Component {
                     </div>
                 </div>
                 <Vis hvis={this.state.erApen}>
-                    <DayPickerPeriode {...this.props} lukk={this.lukk} />
+                    <DayPickerPeriode {...this.props} lukk={this.lukk} ariaControlledBy={buttonId} />
                 </Vis>
                 <Vis hvis={periodeIndex !== 0}>
                     <div className="periodevelger__verktoy">

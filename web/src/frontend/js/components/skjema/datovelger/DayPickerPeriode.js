@@ -129,7 +129,7 @@ class DayPickerPeriode extends Component {
                 }}
                 tabIndex="-1"
                 role="application">
-                <this.props.Overskrift id="periodekalender-tittel" className="periodekalender__tittel">{this.getTittel()}</this.props.Overskrift>
+                <this.props.Overskrift id="periodekalender-tittel" className="periodekalender__tittel" aria-live="polite">{this.getTittel()}</this.props.Overskrift>
                 <div className="periodekalender__kalender">
                     <DayPicker
                         locale="no"

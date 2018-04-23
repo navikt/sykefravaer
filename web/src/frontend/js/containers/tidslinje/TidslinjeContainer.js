@@ -60,7 +60,7 @@ export class TidslinjeSide extends Component {
                         return (<Feilmelding />);
                     }
                     return (<div>
-                        <Sidetopp tittel="Tidslinjen" htmlTekst={htmlIntro} />
+                        <Sidetopp tittel="Hva skjer under sykefraværet?" htmlTekst={htmlIntro} />
                         <TidslinjeVelgArbeidssituasjon
                             valgtArbeidssituasjon={arbeidssituasjon}
                             hentTidslinjer={this.endreArbeidssituasjon}
@@ -144,7 +144,7 @@ export function mapStateToProps(state, ownProps) {
             sti: '/',
             erKlikkbar: true,
         }, {
-            tittel: getLedetekst('tidslinje.sidetittel'),
+            tittel: 'Hva skjer under sykefraværet?',
         }],
     };
 }

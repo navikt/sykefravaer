@@ -43,8 +43,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                     to="/sykefravaer/tidslinjen"
                     ikon="tidslinje"
                     ikonAlt="Tidslinjen"
-                    tittel="Tidslinjen"
-                    undertittel="Informasjon og oversikt over aktiviteter" />
+                    tittel="Hva skjer under sykefraværet?" />
                 {
                     harSykmeldinger && <LandingssideLenke
                         to="/sykefravaer/sykmeldinger"

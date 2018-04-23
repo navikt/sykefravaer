@@ -125,6 +125,8 @@ Periodevelger.propTypes = {
     onRemoveHandler: PropTypes.func,
     skjemanavn: PropTypes.string,
     periodeIndex: PropTypes.number,
+    tidligsteFom: PropTypes.instanceOf(Date),
+    senesteTom: PropTypes.instanceOf(Date),
 };
 
 export default Periodevelger;

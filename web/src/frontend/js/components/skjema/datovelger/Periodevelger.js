@@ -39,7 +39,7 @@ export class PeriodevelgerComponent extends Component {
     }
 
     render() {
-        const { fields, namePrefix, spoersmal, meta, Overskrift, tidligsteFom, senesteTom,  } = this.props;
+        const { fields, namePrefix, spoersmal, meta, Overskrift, tidligsteFom, senesteTom } = this.props;
 
         return (<div className="periodevelger">
             <div className={meta && meta.touched && meta.error ? 'blokk' : ''}>
@@ -112,6 +112,7 @@ PeriodevelgerField.propTypes = {
     spoersmal: PropTypes.string,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
+    Overskrift: PropTypes.string,
 };
 
 export default PeriodevelgerField;

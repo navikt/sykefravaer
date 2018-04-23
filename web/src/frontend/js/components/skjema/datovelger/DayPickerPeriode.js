@@ -169,8 +169,6 @@ DayPickerPeriode.defaultProps = {
 };
 
 DayPickerPeriode.propTypes = {
-    from: PropTypes.instanceOf(Date),
-    to: PropTypes.instanceOf(Date),
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
     autofill: PropTypes.func,
@@ -178,7 +176,8 @@ DayPickerPeriode.propTypes = {
     skjemanavn: PropTypes.string,
     lukk: PropTypes.func,
     names: PropTypes.arrayOf(PropTypes.string),
-    Overskrift: PropTypes.string,
+    valgtFra: PropTypes.instanceOf(Date),
+    valgtTil: PropTypes.instanceOf(Date),
 };
 
 const mapStateToProps = (state, ownProps) => {

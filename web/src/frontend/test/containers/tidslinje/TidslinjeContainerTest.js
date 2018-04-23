@@ -171,7 +171,7 @@ describe('TidslinjeContainer', () => {
                 sti: '/',
                 erKlikkbar: true,
             }, {
-                tittel: 'Tidslinjen',
+                tittel: 'Hva skjer under sykefraværet?',
             }]);
         });
 

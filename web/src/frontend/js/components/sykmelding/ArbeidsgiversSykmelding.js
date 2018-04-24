@@ -6,7 +6,7 @@ import AppSpinner from '../AppSpinner';
 
 const ArbeidsgiversSykmelding = ({ sykmelding, Overskrift = 'h2', erApen = false, henter }) => {
     return (<Utvidbar
-        tittel="Dette får arbeidsgiveren din se"
+        tittel="Slik ser sykmeldingen ut for arbeidsgiveren din"
         ikon="svg/arbeidsgiver.svg"
         ikonHover="svg/arbeidsgiver--hover.svg"
         ikonAltTekst="Arbeidsgiver"

@@ -20,6 +20,7 @@ const DinSendteSykmelding = ({ dinSykmelding }) => {
             ]} />
         <Utvidbar
             tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}
+            erApen
             ikon="svg/person.svg"
             ikonHover="svg/person_hover.svg"
             ikonAltTekst="Du"

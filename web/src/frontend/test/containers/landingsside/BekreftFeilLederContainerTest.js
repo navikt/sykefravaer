@@ -122,12 +122,12 @@ describe("BekreftFeilLederContainer", () => {
         });
 
         it("Skal vise feilmelding dersom avkreft feiler", () => {
-            compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} avkreftFeilet />)
+            compo = mount(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} avkreftFeilet />)
             expect(compo.find(Varselstripe)).to.have.length(1);
         });
 
         it("Skal ikke vise feilmelding dersom avkreft ikke feiler", () => {
-            compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)
+            compo = mount(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)
             expect(compo.find(Varselstripe)).to.have.length(0);
         });
 

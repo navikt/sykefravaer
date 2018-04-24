@@ -4,6 +4,7 @@ import { Field } from 'redux-form';
 import Radioknapper from '../skjema/Radioknapper';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { fieldPropTypes, childEllerChildren } from '../../propTypes';
+import { Vis } from '../../utils';
 
 export const jaEllerNeiAlternativer = [{
     value: true,
@@ -15,7 +16,9 @@ export const jaEllerNeiAlternativer = [{
 
 export const JaEllerNeiRadioknapper = (props) => {
     return (<div>
-        { props.intro && <p className="skjema__sporsmal blokk--s js-intro">{props.intro}</p> }
+        <Vis hvis={props.intro}>
+            <p className="skjema__sporsmal blokk--s js-intro">{props.intro}</p>
+        </Vis>
         <Radioknapper {...props} name={props.input.name}>
             {
                 jaEllerNeiAlternativer.map((alternativ, index) => {
@@ -39,10 +42,7 @@ export const RendreJaEllerNei = (props) => {
         className="hovedsporsmal blokk--xs"
         visTillegg={(_props) => {
             const { input, children, verdiMedTilleggssporsmal = true } = _props;
-            if ((input.value === verdiMedTilleggssporsmal) && children) {
-                return true;
-            }
-            return false;
+            return !!((input.value === verdiMedTilleggssporsmal) && children);
         }}>
         <div className="hovedsporsmal__tilleggssporsmal">{props.children}</div>
     </SporsmalMedTillegg>);
@@ -53,7 +53,9 @@ RendreJaEllerNei.propTypes = {
 };
 
 export const parseJaEllerNei = (value) => {
-    return value === 'true' || value === 'false' ? value === 'true' : value;
+    return value === 'true' || value === 'false'
+        ? value === 'true'
+        : value;
 };
 
 const JaEllerNei = (props) => {

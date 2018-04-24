@@ -41,10 +41,12 @@ export const getObjectValueByString = (o, s) => {
     return obj;
 };
 
-export const Vis = ({ hvis, children }) => {
-    return hvis
-        ? children
-        : null;
+export const Vis = ({ hvis, children, render }) => {
+    return hvis && render
+        ? render()
+        : hvis && children
+            ? children
+            : null;
 };
 
 Vis.propTypes = {

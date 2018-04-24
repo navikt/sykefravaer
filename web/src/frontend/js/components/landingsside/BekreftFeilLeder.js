@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Varselstripe, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
+import { Vis } from '../../utils';
 
 export class LederAvkreftet extends Component {
     componentDidMount() {
@@ -43,11 +44,11 @@ const BekreftFeilLeder = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftFei
             })} />
         </div>
         <div aria-live="polite" role="alert" className={avkreftFeilet ? 'panel panel--ramme panel--komprimert' : ''}>
-            {
-                avkreftFeilet && <Varselstripe type="feil">
+            <Vis hvis={avkreftFeilet}>
+                <Varselstripe type="feil">
                     <p className="sist">Beklager, det oppstod en feil!</p>
                 </Varselstripe>
-            }
+            </Vis>
         </div>
         <div className="knapperad">
             <button
@@ -57,7 +58,9 @@ const BekreftFeilLeder = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftFei
                 onClick={() => {
                     avkreftLeder(leder.orgnummer);
                 }}>Ja, jeg er sikker
-                {avkrefter && <span className="knapp__spinner" />}
+                <Vis hvis={avkrefter}>
+                    <span className="knapp__spinner" />
+                </Vis>
             </button>
             <p><a
                 className="lenke js-avbryt"

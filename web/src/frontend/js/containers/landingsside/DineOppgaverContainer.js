@@ -10,6 +10,7 @@ import {
     henterEllerHarHentetOppfolgingsdialoger,
 } from 'oppfolgingsdialog-npm';
 import { oppgaverOppfoelgingsdialoger } from '../../utils/oppfolgingsdialogUtils';
+import { Vis } from '../../utils';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
 import { erMotePassert } from '../../utils/moteUtils';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
@@ -101,22 +102,24 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
             <div>
                 <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
                 <ul className="inngangsliste">
-                    { sykmeldinger.length > 0
-                        ? <NySykmelding onClick={onClick} sykmeldinger={sykmeldinger} />
-                        : null }
-                    { sykepengesoknader.length > 0
-                        ? <NySykepengesoknad onClick={onClick} sykepengesoknader={sykepengesoknader} />
-                        : null }
-                    { mote !== null
-                        ? <Li onClick={onClick} url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} />
-                        : null }
-                    { avventendeGodkjenninger.length > 0
-                        ? <Li onClick={onClick} url="/sykefravaer/oppfolgingsplaner" tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />
-                        : null }
-                    { nyePlaner.length > 0
-                        ? <Li onClick={onClick} url="/sykefravaer/oppfolgingsplaner" tekst={nyePlanerTekst(nyePlaner.length)} />
-                        : null }
-                    { visAktivitetskrav && <NyttAktivitetskravvarsel onClick={onClick} /> }
+                    <Vis hvis={sykmeldinger.length > 0}>
+                        <NySykmelding onClick={onClick} sykmeldinger={sykmeldinger} />
+                    </Vis>
+                    <Vis hvis={sykepengesoknader.length > 0}>
+                        <NySykepengesoknad onClick={onClick} sykepengesoknader={sykepengesoknader} />
+                    </Vis>
+                    <Vis hvis={mote !== null}>
+                        <Li onClick={onClick} url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} />
+                    </Vis>
+                    <Vis hvis={avventendeGodkjenninger.length > 0}>
+                        <Li onClick={onClick} url="/sykefravaer/oppfolgingsplaner" tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />
+                    </Vis>
+                    <Vis hvis={nyePlaner.length > 0}>
+                        <Li onClick={onClick} url="/sykefravaer/oppfolgingsplaner" tekst={nyePlanerTekst(nyePlaner.length)} />
+                    </Vis>
+                    <Vis hvis={visAktivitetskrav}>
+                        <NyttAktivitetskravvarsel onClick={onClick} />
+                    </Vis>
                 </ul>
             </div>
         </IllustrertInnhold>

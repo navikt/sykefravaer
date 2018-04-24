@@ -1,6 +1,7 @@
 import React from 'react';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
+import { Vis } from '../../utils';
 
 const Kvitteringsteg = ({ ikon, alt, tittel, children }) => {
     return (<div className="kvitteringsteg">
@@ -11,7 +12,9 @@ const Kvitteringsteg = ({ ikon, alt, tittel, children }) => {
         </div>
         <div className="kvitteringsteg__innhold">
             <h2 className="kvitteringsteg__tittel js-tittel">{tittel}</h2>
-            { children && <div className="js-tekst">{children}</div> }
+            <Vis hvis={children}>
+                <div className="js-tekst">{children}</div>
+            </Vis>
         </div>
     </div>);
 };

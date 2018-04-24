@@ -7,6 +7,7 @@ import Brodsmuler from '../components/Brodsmuler';
 import Feilmelding from '../components/Feilmelding';
 import * as actions from '../actions/brukerinfo_actions';
 import { brodsmule as brodsmulePt } from '../propTypes';
+import { Vis } from '../utils';
 
 const DocumentTitle = require('react-document-title');
 
@@ -63,13 +64,21 @@ export class SideComponent extends Component {
         return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
             <div className={classNames} aria-busy={laster}>
                 <TimeoutBox />
-                { this.state.visSpinnerIDom && <div className="side__spinner">
-                    <AppSpinner />
-                </div> }
+                <Vis hvis={this.state.visSpinnerIDom}>
+                    <div className="side__spinner">
+                        <AppSpinner />
+                    </div>
+                </Vis>
                 <div className={begrenset || !erInnlogget ? 'side__innhold side__innhold--begrenset js-begrensning' : 'side__innhold'}>
-                    { (begrenset || !erInnlogget) && <Brodsmuler brodsmuler={brodsmuler} /> }
-                    { erInnlogget && children }
-                    { !erInnlogget && <Utlogget /> }
+                    <Vis hvis={begrenset || !erInnlogget}>
+                        <Brodsmuler brodsmuler={brodsmuler} />
+                    </Vis>
+                    <Vis hvis={erInnlogget}>
+                        {children}
+                    </Vis>
+                    <Vis hvis={!erInnlogget}>
+                        <Utlogget />
+                    </Vis>
                 </div>
             </div>
         </DocumentTitle>);

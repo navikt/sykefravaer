@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Varselstripe } from 'digisyfo-npm';
+import { Vis } from '../../utils';
 
 const ledetekster = {
     mote: 'Kunne ikke hente dialogmøter',
@@ -59,28 +60,32 @@ class Serverfeilmelding extends Component {
         const { noeErFeil, feilliste } = this.props;
         const visKnapp = this.visFeillisteknapp();
 
-        if (!noeErFeil) {
-            return null;
-        }
-        return (<div className="panel landingspanel" role="alert">
-            <Varselstripe type="feil" fylt>
-                <p className="sist">
-                    <strong>Ai ai ai!</strong><span> Vi har problemer med noen av baksystemene nå. </span>
-                    {
-                        visKnapp && <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                this.toggleVisFeil();
-                            }}
-                            className="lenke"
-                            aria-pressed={this.state.visFeil}>Se hva som er feil</button>
-                    }
-                </p>
-            </Varselstripe>
-            { visKnapp && <div aria-live="polite">
-                { this.state.visFeil && <Feiliste feilliste={feilliste} /> }
-            </div>}
-        </div>);
+        return (
+            <Vis hvis={noeErFeil}>
+                <div className="panel landingspanel" role="alert">
+                    <Varselstripe type="feil" fylt>
+                        <p className="sist">
+                            <strong>Ai ai ai!</strong><span> Vi har problemer med noen av baksystemene nå. </span>
+                            <Vis hvis={visKnapp}>
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        this.toggleVisFeil();
+                                    }}
+                                    className="lenke"
+                                    aria-pressed={this.state.visFeil}>Se hva som er feil</button>
+                            </Vis>
+                        </p>
+                    </Varselstripe>
+                    <Vis hvis={visKnapp}>
+                        <div aria-live="polite">
+                            <Vis hvis={this.state.visFeil}>
+                                <Feiliste feilliste={feilliste} />
+                            </Vis>
+                        </div>
+                    </Vis>
+                </div>
+            </Vis>);
     }
 }
 

@@ -115,17 +115,7 @@ describe("JaEllerNei", () => {
             }
             component = shallow(<JaEllerNeiRadioknapper {...props} />)
         });
-
-        it("Skal ikke vise intro hvis det ikke er intro", () => {
-            expect(component.find(".js-intro")).to.have.length(0);
-        });
-
-        it("Skal vise intro hvis det er intro", () => {
-            component = shallow(<JaEllerNeiRadioknapper {...props} intro="Min intro" />)
-            expect(component).to.contain("Min intro");
-            expect(component.find(".js-intro")).to.have.length(1);
-        });
-
+        
         it("Skal inneholde Radioknapper", () => {
             expect(component.find(Radioknapper)).to.have.length(1);
         });

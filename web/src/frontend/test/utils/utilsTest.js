@@ -1,7 +1,14 @@
 import chai from 'chai';
+import React from 'react'
+import { mount, shallow } from 'enzyme';
+import chaiEnzyme from 'chai-enzyme';
+
+import sinon from 'sinon';
+
+chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { lagDesimaltall, lagHeltall, getObjectValueByString } from '../../js/utils';
+import { lagDesimaltall, lagHeltall, getObjectValueByString, Vis } from '../../js/utils';
 
 describe("utils", () => {
     
@@ -119,6 +126,40 @@ describe("utils", () => {
             expect(n).to.equal("456");
         });
 
+    });
+
+    describe("Vis", () => {
+        it("Skal vise children hvis det er children og hvis = true", () => {
+            const toMount = (<Vis hvis={true}>
+                <p>Olsen</p>
+            </Vis>);
+            const component = mount(toMount);
+            expect(component.html()).to.equal('<p>Olsen</p>')
+        });
+
+        it("Skal ikke vise children hvis det er children og hvis = false", () => {
+            const toMount = (<Vis hvis={false}>
+                <p>Olsen</p>
+            </Vis>);
+            const component = mount(toMount);
+            expect(component.html()).to.equal(null)
+        });
+
+        it("Skal vise render-funksjonens returverdi hvis det er render-funkksjon og hvis = true", () => {
+            const toMount = (<Vis hvis={true} render={() => {
+                return <p>Olsen</p>
+            }} />);
+            const component = mount(toMount);
+            expect(component.html()).to.equal('<p>Olsen</p>')
+        });
+
+        it("Skal ikke vise render-funksjonens returverdi hvis det er render-funkksjon og hvis = false", () => {
+            const toMount = (<Vis hvis={false} render={() => {
+                return <p>Olsen</p>
+            }} />);
+            const component = mount(toMount);
+            expect(component.html()).to.equal(null)
+        });
     });
 
 });

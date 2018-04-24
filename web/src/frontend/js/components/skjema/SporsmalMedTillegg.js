@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { scrollTo, erSynligIViewport } from 'digisyfo-npm';
+import { Vis } from '../../utils';
 
 class SporsmalMedTillegg extends Component {
     constructor(props) {
@@ -151,8 +152,8 @@ class SporsmalMedTillegg extends Component {
                 onTransitionEnd={() => {
                     this.onHoydeTransitionEnd();
                 }}>
-                {
-                    this.state.visInnhold ? <div
+                <Vis hvis={this.state.visInnhold}>
+                    <div
                         className="js-tillegg"
                         ref={(c) => {
                             this.tilleggsinnhold = c;
@@ -160,8 +161,8 @@ class SporsmalMedTillegg extends Component {
                         <div className="tilleggsinnhold__innhold" style={{ opacity: this.state.opacity }}>
                             {children}
                         </div>
-                    </div> : null
-                }
+                    </div>
+                </Vis>
             </div>
             {informasjon}
         </div>);

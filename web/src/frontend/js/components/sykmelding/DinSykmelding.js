@@ -7,14 +7,15 @@ import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import { Bjorn } from '../Hjelpeboble';
 import { getSykmeldtFornavn } from '../../utils/sykmeldingUtils';
+import { Vis } from '../../utils';
 
 class DinSykmelding extends Component {
     render() {
         const { sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId } = this.props;
         return (<div>
             <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
-            {
-                visEldreSykmeldingVarsel && <div className="panel blokk">
+            <Vis hvis={visEldreSykmeldingVarsel}>
+                <div className="panel blokk">
                     <Varselstripe type="info">
                         <p className="sist">
                             <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')} </span>
@@ -22,7 +23,7 @@ class DinSykmelding extends Component {
                         </p>
                     </Varselstripe>
                 </div>
-            }
+            </Vis>
             <Bjorn className="blokk" hvit stor>
                 <div>
                     <p>

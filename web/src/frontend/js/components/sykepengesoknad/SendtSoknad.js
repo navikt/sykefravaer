@@ -17,6 +17,7 @@ import ConnectedEttersending from './Ettersending';
 import RelaterteSoknaderContainer from '../../containers/sykepengesoknad/RelaterteSoknaderContainer';
 import KorrigertAvContainer from '../../containers/sykepengesoknad/KorrigertAvContainer';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
+import { Vis } from '../../utils';
 
 const { KORRIGERT, SENDT, TIL_SENDING } = sykepengesoknadstatuser;
 
@@ -108,7 +109,9 @@ class SendtSoknad extends Component {
             this.sendtSoknad = c;
         }}>
             <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
-            { sykepengesoknad.status === KORRIGERT && <KorrigertAvContainer sykepengesoknad={sykepengesoknad} /> }
+            <Vis hvis={sykepengesoknad.status === KORRIGERT}>
+                <KorrigertAvContainer sykepengesoknad={sykepengesoknad} />
+            </Vis>
             <Soknadstatuspanel sykepengesoknad={sykepengesoknad}>
                 {
                     [KORRIGERT, TIL_SENDING].indexOf(sykepengesoknad.status) === -1 && <ConnectedKnapperad
@@ -127,7 +130,6 @@ class SendtSoknad extends Component {
                     oppsummeringsoknad={oppsummeringsoknad} />
             </div>
             <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
-
             {(sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) &&
             <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} />}
         </div>);

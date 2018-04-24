@@ -6,13 +6,11 @@ import VelgArbeidsgiver from '../../components/sykmeldingskjema/VelgArbeidsgiver
 
 export const VelgArbeidsgiverWrapper = (props) => {
     const { henter, vis } = props;
-    if (!vis) {
-        return null;
-    }
-    if (henter) {
-        return <p className="hovedsporsmal__tilleggssporsmal">Vent litt mens vi henter dine arbeidsgivere...</p>;
-    }
-    return <VelgArbeidsgiver {...props} />;
+    return !vis
+        ? null
+        : henter
+            ? <p className="hovedsporsmal__tilleggssporsmal">Vent litt mens vi henter dine arbeidsgivere...</p>
+            : <VelgArbeidsgiver {...props} />;
 };
 
 VelgArbeidsgiverWrapper.propTypes = {

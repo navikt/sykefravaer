@@ -6,10 +6,9 @@ import DetteHarSkjedd from '../../components/landingsside/DetteHarSkjedd';
 import { hendelse } from '../../propTypes';
 
 export const Container = ({ visDetteHarSkjedd, hendelser }) => {
-    if (!visDetteHarSkjedd) {
-        return null;
-    }
-    return <DetteHarSkjedd hendelser={hendelser} />;
+    return visDetteHarSkjedd
+        ? <DetteHarSkjedd hendelser={hendelser} />
+        : null;
 };
 
 Container.propTypes = {

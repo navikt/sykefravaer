@@ -15,10 +15,9 @@ const ArbeidsgiversSykmelding = ({ sykmelding, Overskrift = 'h2', erApen = false
         Overskrift={Overskrift}>
         {
             (() => {
-                if (henter) {
-                    return <AppSpinner />;
-                }
-                return <ArbeidsgiversSykmeldingOpplysninger sykmelding={sykmelding} />;
+                return henter
+                    ? <AppSpinner />
+                    : <ArbeidsgiversSykmeldingOpplysninger sykmelding={sykmelding} />;
             })()
         }
     </Utvidbar>);

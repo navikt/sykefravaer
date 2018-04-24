@@ -33,7 +33,7 @@ export const VelgInntektskilder = ({ fields, meta }) => {
                         key={index}
                         component={Checkbox}>
                         {
-                            field.annenInntektskildeType === inntektskildetypeEnums.ANNET ? null : <Field
+                            field.annenInntektskildeType !== inntektskildetypeEnums.ANNET && <Field
                                 component={Radioknapper}
                                 spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.er-du-sykmeldt-fra-dette.sporsmal')}
                                 parse={parseJaEllerNei}

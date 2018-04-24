@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Varselstripe, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import { connect } from 'react-redux';
+import cn from 'classnames';
 import Lightbox from '../Lightbox';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import * as actions from '../../actions/sykepengesoknader_actions';
+import { Vis } from '../../utils';
 
 const sendtTilNAVDato = 'sendtTilNAVDato';
 const sendtTilArbeidsgiverDato = 'sendtTilArbeidsgiverDato';
@@ -12,16 +14,31 @@ const ledetekstKeySuffixPt = PropTypes.oneOf(['send-til-nav', 'send-til-arbeidsg
 const manglendeDatoPt = PropTypes.oneOf([sendtTilNAVDato, sendtTilArbeidsgiverDato]);
 
 export const EttersendingDialog = (props) => {
-    const { onClose, sykepengesoknad, sender, sendingFeilet, sendSykepengesoknadTilNAV, sendSykepengesoknadTilArbeidsgiver, ledetekstKeySuffix, manglendeDato } = props;
+    const {
+        onClose,
+        sykepengesoknad,
+        sender,
+        sendingFeilet,
+        sendSykepengesoknadTilNAV,
+        sendSykepengesoknadTilArbeidsgiver,
+        ledetekstKeySuffix,
+        manglendeDato } = props;
+
+    const feilClassNames = cn({
+        panel: sendingFeilet,
+        'panel--ramme': sendingFeilet,
+        'panel--komprimert': sendingFeilet,
+    });
+
     return (<div className="ettersending">
         <h3 className="ettersending__tittel">{getLedetekst(`sykepengesoknad.ettersending.info.tittel.${ledetekstKeySuffix}`)}</h3>
         <div dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.ettersending.info.tekst.${ledetekstKeySuffix}`)} />
-        <div aria-live="polite" role="alert" className={sendingFeilet ? 'panel panel--ramme panel--komprimert' : ''}>
-            {
-                sendingFeilet && <Varselstripe type="feil">
+        <div aria-live="polite" role="alert" className={feilClassNames}>
+            <Vis hvis={sendingFeilet}>
+                <Varselstripe type="feil">
                     <p className="sist">Beklager, det oppstod en feil!</p>
                 </Varselstripe>
-            }
+            </Vis>
         </div>
         <div className="knapperad">
             <button
@@ -34,7 +51,12 @@ export const EttersendingDialog = (props) => {
                     } else {
                         sendSykepengesoknadTilArbeidsgiver(sykepengesoknad.id);
                     }
-                }}>{getLedetekst(`sykepengesoknad.ettersending.knapp.bekreft.${ledetekstKeySuffix}`)} { sender ? <span className="knapp__spinner" /> : null}</button>
+                }}>
+                {getLedetekst(`sykepengesoknad.ettersending.knapp.bekreft.${ledetekstKeySuffix}`)}
+                <Vis hvis={sender}>
+                    <span className="knapp__spinner" />
+                </Vis>
+            </button>
             <p>
                 <a
                     onClick={(e) => {
@@ -97,8 +119,12 @@ export const EttersendLightbox = (props) => {
         props.onClose();
     };
     return (<Lightbox onClose={onClose}>
-        { !visKvittering && <EttersendDialogConnected {...props} onClose={onClose} />}
-        { visKvittering && <EttersendKvittering {...props} onClose={onClose} />}
+        <Vis hvis={!visKvittering}>
+            <EttersendDialogConnected {...props} onClose={onClose} />
+        </Vis>
+        <Vis hvis={visKvittering}>
+            <EttersendKvittering {...props} onClose={onClose} />
+        </Vis>
     </Lightbox>);
 };
 

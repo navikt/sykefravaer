@@ -99,7 +99,7 @@ class AngiTid extends Component {
             value: 'timer',
         }];
 
-        return (<div>
+        return (<div className="blokk">
             <div className="skjema__input blokk">
                 <label
                     htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`}

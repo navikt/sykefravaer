@@ -6,7 +6,7 @@ import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';
 import { soknadsaktivitet } from '../../../propTypes';
 import { getAktivitetssporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
-
+import { Bjorn } from '../../Hjelpeboble';
 
 export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
     const hjelpetekst = field.grad !== 100 ? (<Hjelpetekst
@@ -32,6 +32,7 @@ export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => 
                     `aktiviteter[${index}].avvik.enhet`,
                     `aktiviteter[${index}].avvik.beregnetArbeidsgrad`,
                 ]} />
+            <Bjorn nokkel="sykepengesoknad.angi-tid.bjorn" />
         </div>
     </JaEllerNei>);
 };

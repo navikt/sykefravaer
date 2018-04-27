@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import { Vis } from '../../utils';
+
+/* TODO: Gjør denne stateless */
 
 export default class LandingssideLenke extends Component {
     constructor(props) {
@@ -38,7 +41,9 @@ export default class LandingssideLenke extends Component {
             </div>
             <div className="peker__innhold">
                 <h2>{this.props.tittel}</h2>
-                { this.props.undertittel ? <p className="peker__undertittel">{this.props.undertittel}</p> : null }
+                <Vis hvis={this.props.undertittel}>
+                    <p className="peker__undertittel">{this.props.undertittel}</p>
+                </Vis>
             </div>
         </Link>);
     }

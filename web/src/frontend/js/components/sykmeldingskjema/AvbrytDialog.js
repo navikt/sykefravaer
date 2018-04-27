@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, getHtmlLedetekst, scrollTo } from 'digisyfo-npm';
+import { Vis } from '../../utils';
 
 export const AvbrytSykmeldingDialog = ({ avbryter, avbrytHandler, bekreftHandler }) => {
     return (<div
@@ -15,7 +16,9 @@ export const AvbrytSykmeldingDialog = ({ avbryter, avbrytHandler, bekreftHandler
                     e.preventDefault();
                     bekreftHandler();
                 }}>{getLedetekst('din-sykmelding.avbryt.ja')}
-                { avbryter && <span className="knapp__spinner" /> }
+                <Vis hvis={avbryter}>
+                    <span className="knapp__spinner" />
+                </Vis>
             </button>
         </div>
         <p className="sist">
@@ -49,14 +52,9 @@ class AvbrytDialog extends Component {
             ref={(c) => {
                 this.dialog = c;
             }}>
-            {
-                (() => {
-                    if (!vis) {
-                        return null;
-                    }
-                    return <AvbrytSykmeldingDialog {...this.props} />;
-                })()
-            }
+            <Vis hvis={vis}>
+                <AvbrytSykmeldingDialog {...this.props} />
+            </Vis>
         </div>);
     }
 }

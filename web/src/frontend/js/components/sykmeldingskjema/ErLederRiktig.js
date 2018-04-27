@@ -15,17 +15,15 @@ export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
     }];
 
     const infoOmSykemeldingmottaker = (navn) => {
-        if (input.value === true) {
-            return <p>{getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.nei')}</p>;
-        }
-        if (input.value === false) {
-            return (<p>
-                {getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.ja', {
-                    '%NAERMESTELEDER%': navn,
-                })}
-            </p>);
-        }
-        return null;
+        return input.value === true
+            ? <p>{getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.nei')}</p>
+            : input.value === false
+                ? (<p>
+                    {getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.ja', {
+                        '%NAERMESTELEDER%': navn,
+                    })}
+                </p>)
+                : null;
     };
 
     const hjelpetekst = (<Hjelpetekst

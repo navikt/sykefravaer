@@ -1,6 +1,6 @@
 import chai from 'chai';
 import React from 'react'
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster, Hjelpetekst } from 'digisyfo-npm';
 import NaermesteLeder from '../../../js/components/landingsside/NaermesteLeder';
@@ -45,7 +45,7 @@ describe("NaermesteLeder", () => {
     });
 
     it("Skal vise feil-knapp for aktiv leder", () => {
-        const compo = shallow(<NaermesteLeder leder={leder} />);
+        const compo = mount(<NaermesteLeder leder={leder} />);
         expect(compo.find(".js-feil")).to.have.length(1);
     });
 

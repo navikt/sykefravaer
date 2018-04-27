@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { fieldPropTypes } from '../../propTypes';
 import Feilomrade from './Feilomrade';
-
+import { Vis } from '../../utils';
 
 export const getLabelId = (id) => {
     const nyId = id
@@ -29,9 +29,16 @@ export const Radioknapp = ({ input, value, children, id, label, checked, labelSe
                 onBlur={() => {
                     input.onBlur();
                 }} />
-            <label id={getLabelId(id)} htmlFor={id}>{label} {labelSekundaer ? <span className="sekundaerLabel">{labelSekundaer}</span> : null}</label>
+            <label id={getLabelId(id)} htmlFor={id}>
+                {label}
+                <Vis hvis={labelSekundaer}>
+                    <span className="sekundaerLabel">{labelSekundaer}</span>
+                </Vis>
+            </label>
         </div>
-        {(input.value === value || disabled || visUndertekst) && children}
+        <Vis hvis={input.value === value || disabled || visUndertekst}>
+            {children}
+        </Vis>
     </div>);
 };
 

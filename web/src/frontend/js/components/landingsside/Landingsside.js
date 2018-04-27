@@ -10,6 +10,7 @@ import ServerfeilContainer from '../../containers/landingsside/ServerfeilContain
 import DetteHarSkjeddContainer from '../../containers/landingsside/DetteHarSkjeddContainer';
 import Utdrag from '../../containers/landingsside/TidslinjeutdragContainer';
 import IllustrertInnhold from '../IllustrertInnhold';
+import { Vis } from '../../utils';
 
 const IngenSykmeldinger = () => {
     return (<div className="panel ingenSykmeldinger landingspanel">
@@ -42,37 +43,34 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                     ikon="tidslinje"
                     ikonAlt="Tidslinjen"
                     tittel="Hva skjer under sykefraværet?" />
-                {
-                    harSykmeldinger && <LandingssideLenke
+                <Vis hvis={harSykmeldinger}>
+                    <LandingssideLenke
                         to="/sykefravaer/sykmeldinger"
                         ikon="sykmeldinger"
                         ikonAlt="Sykmelding"
                         tittel="Sykmeldinger" />
-                }
-                {
-                    harSykepengesoknader &&
-                        <LandingssideLenke
-                            to="/sykefravaer/soknader"
-                            ikon="soknader"
-                            ikonAlt="Søknader"
-                            tittel="Søknader om sykepenger" />
-                }
-                {
-                    harDialogmote &&
-                        <LandingssideLenke
-                            to="/sykefravaer/dialogmote"
-                            ikon="dialogmoter"
-                            ikonAlt="Dialogmøter"
-                            tittel="Dialogmøter" />
-                }
-                {
-                    skalViseOppfolgingsdialog &&
-                        <LandingssideLenke
-                            to="/sykefravaer/oppfolgingsplaner"
-                            ikon="oppfolgingsplaner"
-                            ikonAlt="Oppfølgingsplaner"
-                            tittel="Oppfølgingsplaner" />
-                }
+                </Vis>
+                <Vis hvis={harSykepengesoknader}>
+                    <LandingssideLenke
+                        to="/sykefravaer/soknader"
+                        ikon="soknader"
+                        ikonAlt="Søknader"
+                        tittel="Søknader om sykepenger" />
+                </Vis>
+                <Vis hvis={harDialogmote}>
+                    <LandingssideLenke
+                        to="/sykefravaer/dialogmote"
+                        ikon="dialogmoter"
+                        ikonAlt="Dialogmøter"
+                        tittel="Dialogmøter" />
+                </Vis>
+                <Vis hvis={skalViseOppfolgingsdialog}>
+                    <LandingssideLenke
+                        to="/sykefravaer/oppfolgingsplaner"
+                        ikon="oppfolgingsplaner"
+                        ikonAlt="Oppfølgingsplaner"
+                        tittel="Oppfølgingsplaner" />
+                </Vis>
             </nav>
             <DetteHarSkjeddContainer />
         </div>

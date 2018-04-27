@@ -7,6 +7,7 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import { getTidligsteStartdatoSykeforloep } from '../../../utils/sykmeldingUtils';
 import { getEgenmeldingsdagerSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 import { Bjorn } from '../../Hjelpeboble';
+import { Vis } from '../../../utils';
 
 const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsdagerPreutfylt }) => {
     const startSykeforloep = getTidligsteStartdatoSykeforloep(sykepengesoknad);
@@ -22,9 +23,9 @@ const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsdagerPreutfylt }) =>
             '%DATO%': toDatePrettyPrint(startSykeforloep),
         })} />);
 
-    const informasjon = erEgenmeldingsdagerPreutfylt
-        ? <Bjorn nokkel="sykepengesoknad.egenmeldingsdager.preutfylt-melding" className="press" />
-        : null;
+    const informasjon = (<Vis hvis={erEgenmeldingsdagerPreutfylt}>
+        <Bjorn nokkel="sykepengesoknad.egenmeldingsdager.preutfylt-melding" className="press" />
+    </Vis>);
 
     return (<JaEllerNei
         spoersmal={getEgenmeldingsdagerSporsmal(sykepengesoknad)}

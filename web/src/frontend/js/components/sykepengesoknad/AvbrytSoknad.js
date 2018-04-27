@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, getHtmlLedetekst, Varselstripe } from 'digisyfo-npm';
+import { Vis } from '../../utils';
 
 const Feilmelding = () => {
     return (<div className="panel panel--ramme panel--komprimert">
@@ -14,7 +15,11 @@ const AvbrytSoknad = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler, s
     return (<div className="avbrytDialog__dialog">
         <div className="snakkeboble">
             <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.avbryt.sporsmal')} />
-            <div role="alert" aria-live="polite">{ avbrytFeilet && <Feilmelding /> }</div>
+            <div role="alert" aria-live="polite">
+                <Vis hvis={avbrytFeilet}>
+                    <Feilmelding />
+                </Vis>
+            </div>
             <div className="blokk--xs">
                 <button
                     disabled={avbryter || sender}
@@ -24,7 +29,9 @@ const AvbrytSoknad = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler, s
                         e.preventDefault();
                         bekreftHandler();
                     }}>{getLedetekst('sykepengesoknad.avbryt.ja')}
-                    { avbryter && <span className="knapp__spinner" /> }
+                    <Vis hvis={avbryter}>
+                        <span className="knapp__spinner" />
+                    </Vis>
                 </button>
             </div>
             <p className="sist">

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Vis } from '../utils';
 
 class Lightbox extends Component {
     constructor(props) {
@@ -25,22 +26,21 @@ class Lightbox extends Component {
 
     render() {
         const { children } = this.props;
-        if (!this.state.erApen) {
-            return null;
-        }
-        return (<div className="lightbox">
-            <div className="lightbox__innhold">
-                <button
-                    onClick={() => {
-                        this.lukk();
-                    }}
-                    className="lightbox__lukk js-lukk"
-                    ref={(c) => {
-                        this.lukknapp = c;
-                    }}>Lukk</button>
-                {children}
+        return (<Vis hvis={this.state.erApen}>
+            <div className="lightbox">
+                <div className="lightbox__innhold">
+                    <button
+                        onClick={() => {
+                            this.lukk();
+                        }}
+                        className="lightbox__lukk js-lukk"
+                        ref={(c) => {
+                            this.lukknapp = c;
+                        }}>Lukk</button>
+                    {children}
+                </div>
             </div>
-        </div>);
+        </Vis>);
     }
 }
 

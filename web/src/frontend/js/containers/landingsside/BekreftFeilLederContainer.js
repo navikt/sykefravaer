@@ -6,10 +6,9 @@ import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 import BekreftFeilLeder, { LederAvkreftet } from '../../components/landingsside/BekreftFeilLeder';
 
 export const Container = (props) => {
-    if (props.leder.avkreftet) {
-        return <LederAvkreftet onLukk={props.onAvbryt} />;
-    }
-    return <BekreftFeilLeder {...props} />;
+    return props.leder.avkreftet
+        ? <LederAvkreftet onLukk={props.onAvbryt} />
+        : <BekreftFeilLeder {...props} />;
 };
 
 Container.propTypes = {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { scrollTo, erSynligIViewport } from 'digisyfo-npm';
+import { Vis } from '../../utils';
 
 const FeillisteMelding = ({ feltnavn, feilmelding }) => {
     return (<li className="feiloppsummering__feil">
@@ -44,28 +45,23 @@ class Feiloppsummering extends Component {
     render() {
         const feilmeldinger = getFeilmeldinger(this.props);
         return (<div aria-live="polite" role="alert">
-            {
-                (() => {
-                    if (feilmeldinger.length > 0 && this.props.visFeilliste) {
-                        return (<div
-                            className="panel panel--feiloppsummering blokk--xs"
-                            ref={(c) => {
-                                this.oppsummering = c;
-                            }}
-                            tabIndex="-1">
-                            <h3 className="feiloppsummering__tittel">Det er {feilmeldinger.length} feil i skjemaet</h3>
-                            <ul className="feiloppsummering__liste">
-                                {
-                                    feilmeldinger.map((feilmld, index) => {
-                                        return <FeillisteMelding key={index} {...feilmld} />;
-                                    })
-                                }
-                            </ul>
-                        </div>);
-                    }
-                    return null;
-                })()
-            }
+            <Vis hvis={feilmeldinger.length > 0 && this.props.visFeilliste}>
+                <div
+                    className="panel panel--feiloppsummering blokk--xs"
+                    ref={(c) => {
+                        this.oppsummering = c;
+                    }}
+                    tabIndex="-1">
+                    <h3 className="feiloppsummering__tittel">Det er {feilmeldinger.length} feil i skjemaet</h3>
+                    <ul className="feiloppsummering__liste">
+                        {
+                            feilmeldinger.map((feilmld, index) => {
+                                return <FeillisteMelding key={index} {...feilmld} />;
+                            })
+                        }
+                    </ul>
+                </div>
+            </Vis>
         </div>);
     }
 }

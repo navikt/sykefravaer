@@ -53,3 +53,7 @@ Vis.propTypes = {
     hvis: PropTypes.bool,
     children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
 };
+
+export const formaterOrgnr = (orgnr) => {
+    return orgnr.replace(/(...)(...)(...)/g, '$1 $2 $3');
+};

@@ -8,6 +8,7 @@ import ErLederRiktig from './ErLederRiktig';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import Radioknapper from '../skjema/Radioknapper';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt, fieldPropTypes } from '../../propTypes';
+import { formaterOrgnr } from '../../utils';
 
 export const ArbeidsgiverRadioknapper = (props) => {
     const { input, arbeidsgivere } = props;
@@ -26,7 +27,7 @@ export const ArbeidsgiverRadioknapper = (props) => {
             arbeidsgivere.map((arbeidsgiver, index) => {
                 const checked = (input.value && input.value.orgnummer === arbeidsgiver.orgnummer) === true;
                 const labelSekundaer = (arbeidsgiver.orgnummer && arbeidsgiver.orgnummer.length) !== 1 ?
-                    `(${getLedetekst('send-til-arbeidsgiver.orgnr')}: ${arbeidsgiver.orgnummer.replace(/(...)(...)(...)/g, '$1 $2 $3')})`
+                    `(${getLedetekst('send-til-arbeidsgiver.orgnr')}: ${formaterOrgnr(arbeidsgiver.orgnummer)})`
                     : null;
                 return <input checked={checked} key={index} label={arbeidsgiver.navn} value={arbeidsgiver.orgnummer} labelSekundaer={labelSekundaer} />;
             })

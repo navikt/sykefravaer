@@ -5,7 +5,7 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Søknader---lenke-til-dine-søknader" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-216.000000, -741.000000)" stroke-linejoin="round">
-        <g id="Inngang-tjeneste-horisontal--" transform="translate(192.000000, 710.000000)" stroke="#000000">
+        <g id="Inngang-tjeneste-horisontal--" transform="translate(192.000000, 710.000000)" stroke="#3E3832">
             <g id="coin-receive" transform="translate(25.000000, 32.000000)">
                 <polygon id="Shape" points="0 17 5 17 5 28 0 28"></polygon>
                 <path d="M5,24.984208 C18.8157895,29.428704 14.2105263,29.428704 30,21.809568 C28.6013158,20.4609809 27.4973684,20.1422471 26.0526316,20.539712 L20.2184211,22.4076702 M5,18 L8.94736842,18 C12.0434211,18 14.2105263,19.904784 14.8684211,20.539712 L18.8157895,20.539712 C20.9131579,20.539712 20.9131579,23.079424 18.8157895,23.079424 L11.5789474,23.079424" id="Shape" stroke-linecap="round"></path>

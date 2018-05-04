@@ -1,18 +1,18 @@
 .inngangspanelerHeader {
-    .mixin-panel-padding(); 
-    display: flex; 
+    .mixin-panel-padding();
+    display: flex;
     width: 100%;
     padding-top: 1.25rem;
-    padding-bottom: 1.25rem; 
-    margin-bottom: 1px; 
-    display: flex;  
-    background: @hvit;  
-    margin-bottom: 1px; 
+    padding-bottom: 1.25rem;
+    margin-bottom: 1px;
+    display: flex;
+    background: @hvit;
+    margin-bottom: 1px;
 }
 
 .inngangspanelerHeader__tittel {
-    .mixin-typo-element(); 
-    flex: 1;        
+    .mixin-typo-element();
+    flex: 1;
     margin: 0;
     align-self: center;
 }
@@ -22,15 +22,15 @@
 }
 
 .inngangspanel:extend(.panel) {
-    margin-bottom: 1px; 
-    padding-right: 3rem; 
+    margin-bottom: 1px;
+    padding-right: 3rem;
     background-image: data-uri("../img/svg/pil-videre-graa.svg");
     background-repeat: no-repeat;
-    background-position: 97% 2rem; 
-    background-size: 1rem 1rem; 
+    background-position: 97% 2rem;
+    background-size: 1rem 1rem;
     transition: background-position ease-in-out .1s;
     transform: translate3d(0, 0, 0);
-    display: flex; 
+    display: flex;
     width: 100%;
     color: @navTekst;
     border-bottom-width: 0;
@@ -39,7 +39,7 @@
     border: 0;
 
     &:hover, &:focus {
-        position: relative; 
+        position: relative;
         z-index: 1;
     }
 
@@ -58,7 +58,7 @@
     }
 
     @media(min-width: @skjermLiten) {
-        background-position: 97% 35px; 
+        background-position: 97% 35px;
     }
 }
 
@@ -84,8 +84,17 @@
 
 .inngangspanel--ekstern {
     border: 5px solid @lyseroed;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    background-position: 97% center;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+
+    .inngangspanel__tittel {
+        margin-bottom: 0;
+    }
+
+    .inngangspanel__innhold {
+        align-self: center;
+    }
 }
 
 .inaktivtInngangspanel__inner {
@@ -106,12 +115,12 @@
     p {
         margin-top: 0;
         margin-bottom: .5rem;
-        .mixin-typo-normal(); 
+        .mixin-typo-normal();
     }
 }
 
 .inngangspanel__ikon {
-    display: none; 
+    display: none;
 }
 
 @media(min-width: @skjermLiten) {
@@ -149,15 +158,15 @@
 
         img {
             width: 100%;
-            height: auto; 
+            height: auto;
         }
     }
 }
 
 .inngangspanel__meta {
-    .mixin-typo-normal(); 
-    display: block; 
-    margin-bottom: 8px; 
+    .mixin-typo-normal();
+    display: block;
+    margin-bottom: 8px;
 }
 
 .inngangspanel__header h3 {
@@ -166,11 +175,11 @@
 }
 
 .inngangspanel__tittel {
-    .mixin-typo-undertittel(); 
-    display: block; 
-    margin: 0; 
-    margin-bottom: 8px; 
-    padding: 0; 
+    .mixin-typo-undertittel();
+    display: block;
+    margin: 0;
+    margin-bottom: 8px;
+    padding: 0;
 }
 
 .inngangspanel__status {
@@ -179,6 +188,6 @@
 }
 
 .inngangspanel__punktliste {
-    margin: 0; 
-    padding-left: 1rem; 
+    margin: 0;
+    padding-left: 1rem;
 }

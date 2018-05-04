@@ -6,7 +6,7 @@ import SoknadTeasere from './SoknaderTeasere';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { sorterEtterPerioder, sorterEtterOpprettetDato } from '../../utils/sykepengesoknadUtils';
 import FremtidigSoknadTeaser from './FremtidigSoknadTeaser';
-import UtbetalingerlenkeContainer from '../../containers/sykepengesoknader/UtbetalingerlenkeContainer';
+import UtbetalingerLenke from './UtbetalingerLenke';
 
 const { SENDT, TIL_SENDING, UTGAATT, NY, UTKAST_TIL_KORRIGERING, FREMTIDIG, AVBRUTT } = sykepengesoknadstatuser;
 
@@ -46,7 +46,7 @@ const Soknader = ({ soknader = [] }) => {
                 id="soknader-planlagt"
             />
         }
-        <UtbetalingerlenkeContainer />
+        <UtbetalingerLenke />
         {
             tidligereSoknader.length > 0 && (<SoknadTeasere
                 soknader={tidligereSoknader}

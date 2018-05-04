@@ -123,12 +123,11 @@ class SendtSoknad extends Component {
             </Soknadstatuspanel>
             <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />
             <Utvidbar tittel="Oppsummering" className="blokk">
-                <SoknadOppsummering oppsummeringsoknad={oppsummeringsoknad} />
+                <div className="blokk--s">
+                    <SoknadOppsummering oppsummeringsoknad={sykepengesoknad.oppsummering} />
+                </div>
+                <BekreftetKorrektInformasjon oppsummeringsoknad={sykepengesoknad.oppsummering} />
             </Utvidbar>
-            <div className="blokk bekreftet-container">
-                <BekreftetKorrektInformasjon
-                    oppsummeringsoknad={oppsummeringsoknad} />
-            </div>
             <VaerKlarOverAt oppsummeringsoknad={oppsummeringsoknad} />
             {(sykepengesoknad.status === SENDT || sykepengesoknad.status === TIL_SENDING) &&
             <RelaterteSoknaderContainer sykepengesoknadId={sykepengesoknad.id} />}

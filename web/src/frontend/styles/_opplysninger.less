@@ -1,20 +1,20 @@
  .opplysning {
-    margin-bottom: 1rem; 
+    margin-bottom: 1rem;
     page-break-inside: avoid;
     display: inline-table;
     width: 100%;
     margin-bottom: 2rem;
 
     p {
-        margin-bottom: 0; 
+        margin-bottom: 0;
     }
 
 }
 
 .opplysning__tittel {
-    .mixin-typo-element(); 
+    .mixin-typo-element();
     margin-top: 0;
-    margin-bottom: .25rem; 
+    margin-bottom: .25rem;
 }
 
 .opplysning__verdi:before {
@@ -31,24 +31,28 @@
 
     p {
         .mixin-typo-normal();
-        margin: 0; 
+        margin: 0;
+    }
+
+    a {
+        .mixin-lenke()
     }
 }
 
-@media (min-width: @skjermMini) { 
+@media (min-width: @skjermMini) {
     .nokkelopplysning--hoveddiagnose {
         margin-bottom: 0;
     }
 }
 
 .nokkelopplysning__tittel {
-        .mixin-typo-etikettLiten(); 
-        margin-bottom: .25rem; 
-        color: @inaktivGraa; 
-        margin-top: 0; 
+        .mixin-typo-etikettLiten();
+        margin-bottom: .25rem;
+        color: @inaktivGraa;
+        margin-top: 0;
 }
 
-.nokkelopplysning__meta, 
+.nokkelopplysning__meta,
 p.nokkelopplysning__meta {
     .mixin-typo-normal();
 }
@@ -72,23 +76,23 @@ p.nokkelopplysning__meta {
 }
 
 .checkboxOpplysning {
-    display: flex; 
+    display: flex;
     page-break-inside: avoid;
 
     img {
-        align-self: flex-start; 
+        align-self: flex-start;
         display: inline-block;
         width: 1rem;
         height: auto;
-        margin-right: .5rem; 
-        margin-top: 2px; 
-        vertical-align: top; 
+        margin-right: .5rem;
+        margin-top: 2px;
+        vertical-align: top;
 
         @media(min-width: @skjermMini) {
-            margin-top: 1px; 
+            margin-top: 1px;
         }
     }
-    
+
 }
 
 .checkboxOpplysning__label {
@@ -96,10 +100,10 @@ p.nokkelopplysning__meta {
 }
 
 .opplysning .checkboxOpplysning {
-    margin-bottom: .5rem; 
+    margin-bottom: .5rem;
 
     &:last-child {
-        margin-bottom: 1rem; 
+        margin-bottom: 1rem;
     }
 }
 

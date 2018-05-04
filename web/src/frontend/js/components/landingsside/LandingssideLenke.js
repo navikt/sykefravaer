@@ -28,7 +28,7 @@ export default class LandingssideLenke extends Component {
 
     render() {
         return (<Link
-            className="peker"
+            className={`peker ${this.props.className ? this.props.className : ''}`}
             to={this.props.to}
             onMouseEnter={() => {
                 this.onMouseEnter();
@@ -56,4 +56,5 @@ LandingssideLenke.propTypes = {
     tittel: PropTypes.string.isRequired,
     undertittel: PropTypes.string,
     to: PropTypes.string.isRequired,
+    className: PropTypes.string,
 };

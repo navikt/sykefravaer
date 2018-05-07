@@ -1,28 +1,26 @@
 import chai from 'chai';
-import React from 'react'
-import {mount, shallow} from 'enzyme';
+import React from 'react';
+import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
+import { FravaerOgFriskmeldingSkjema } from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FravaerOgFriskmelding';
+import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad/AvbrytSoknadContainer';
+import { getSoknad } from '../../../mockSoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { FravaerOgFriskmeldingSkjema } from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FravaerOgFriskmelding';
-import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad/AvbrytSoknadContainer';
-import { getSoknad } from '../../../mockSoknader'
 
-describe("FravaerOgFriskmelding", () => {
+describe('FravaerOgFriskmelding', () => {
+    let component;
+    let sykepengesoknad;
 
-	let component;
-	let sykepengesoknad;
-
-	beforeEach(() => {
-		sykepengesoknad = getSoknad();
-		component = shallow(<FravaerOgFriskmeldingSkjema handleSubmit={sinon.spy()} sykepengesoknad={sykepengesoknad} />);
-	})
-
-    it("Skal inneholde en AvbrytSoknadContainer", () => {
-        expect(component.contains(<AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />)).to.be.true;
+    beforeEach(() => {
+        sykepengesoknad = getSoknad();
+        component = shallow(<FravaerOgFriskmeldingSkjema handleSubmit={sinon.spy()} sykepengesoknad={sykepengesoknad} />);
     });
 
+    it('Skal inneholde en AvbrytSoknadContainer', () => {
+        expect(component.contains(<AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />)).to.equal(true);
+    });
 });

@@ -1,84 +1,76 @@
 import chai from 'chai';
-import React from 'react'
-import {mount, shallow} from 'enzyme';
+import React from 'react';
+import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../../mockLedetekster";
 import sinon from 'sinon';
 import { Varselstripe, setLedetekster } from 'digisyfo-npm';
+import { Container, mapStateToProps } from '../../../js/containers/landingsside/BekreftFeilLederContainer';
+import BekreftFeil, { LederAvkreftet } from '../../../js/components/landingsside/BekreftFeilLeder';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import { Container, mapStateToProps } from "../../../js/containers/landingsside/BekreftFeilLederContainer";
-import BekreftFeil, { LederAvkreftet } from '../../../js/components/landingsside/BekreftFeilLeder';
-
-describe("BekreftFeilLederContainer", () => {
-
-    let state; 
+describe('BekreftFeilLederContainer', () => {
+    let state;
     let ownProps;
 
-    describe("mapStateToProps", () => {
-
+    describe('mapStateToProps', () => {
         beforeEach(() => {
             ownProps = {};
             state = {};
             state.ledere = {
                 data: [{
-                    orgnummer: "123",
-                    navn: "Ole"
+                    orgnummer: '123',
+                    navn: 'Ole',
                 }, {
-                    orgnummer: "456",
-                    navn: "Dole"
-                }]
-            }
-        })
-
-        it("Skal returnere leder", () => {
-            ownProps.orgnummer = "123"
-            const props = mapStateToProps(state, ownProps);
-            expect(props.leder).to.deep.equal({
-                orgnummer: "123",
-                navn: "Ole"
-            })
+                    orgnummer: '456',
+                    navn: 'Dole',
+                }],
+            };
         });
 
-        it("Skal returnere onAvbryt", () => {
+        it('Skal returnere leder', () => {
+            ownProps.orgnummer = '123';
+            const props = mapStateToProps(state, ownProps);
+            expect(props.leder).to.deep.equal({
+                orgnummer: '123',
+                navn: 'Ole',
+            });
+        });
+
+        it('Skal returnere onAvbryt', () => {
             const onAvbryt = sinon.spy();
             ownProps.onAvbryt = onAvbryt;
             const props = mapStateToProps(state, ownProps);
-            expect(props.onAvbryt).to.deep.equal(onAvbryt)
+            expect(props.onAvbryt).to.deep.equal(onAvbryt);
         });
 
-        it("SKal returnere avkrefter", () => {
+        it('SKal returnere avkrefter', () => {
             state.ledere.avkrefter = true;
             const props = mapStateToProps(state, ownProps);
-            expect(props.avkrefter).to.be.true;
+            expect(props.avkrefter).to.equal(true);
         });
 
-        it("SKal returnere avkrefter", () => {
+        it('SKal returnere avkrefter', () => {
             state.ledere.avkrefter = false;
             const props = mapStateToProps(state, ownProps);
-            expect(props.avkrefter).to.be.false;
+            expect(props.avkrefter).to.equal(false);
         });
 
-        it("SKal returnere avkreftFeilet", () => {
+        it('SKal returnere avkreftFeilet', () => {
             state.ledere.avkreftFeilet = true;
             const props = mapStateToProps(state, ownProps);
-            expect(props.avkreftFeilet).to.be.true;
+            expect(props.avkreftFeilet).to.equal(true);
         });
 
-        it("SKal returnere avkreftFeilet", () => {
+        it('SKal returnere avkreftFeilet', () => {
             state.ledere.avkreftFeilet = false;
             const props = mapStateToProps(state, ownProps);
-            expect(props.avkreftFeilet).to.be.false;
+            expect(props.avkreftFeilet).to.equal(false);
         });
-
-
     });
 
-    describe("BekreftFeil", () => {
-
-        let feil;
+    describe('BekreftFeil', () => {
         let compo;
         let avkreftLeder;
         let onAvbryt;
@@ -90,63 +82,61 @@ describe("BekreftFeilLederContainer", () => {
             onAvbryt = sinon.spy();
             preventDefault = sinon.spy();
             leder = {
-                navn: "Ole Olsen",
-                orgnummer: "123456789",
-                organisasjonsnavn: "Solstrålen Barnehage"
+                navn: 'Ole Olsen',
+                orgnummer: '123456789',
+                organisasjonsnavn: 'Solstrålen Barnehage',
             };
+            /* eslint-disable max-len */
             setLedetekster({
-                'sykefravaer.endre-naermeste-leder.tittel': "Nærmeste leder",
-                'sykefravaer.endre-naermeste-leder.melding': '<p>Er du sikker på at du vil fjerne <strong>%LEDER%</strong> som din nærmeste leder i <strong>%ARBEIDSGIVER%</strong>?</p><p>Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt det.</p>'
-            })
-        });
-
-        it("Skal vise navn på leder og organisasjonsnavn", () => {
-            compo = mount(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)
-            expect(compo.text()).to.contain("Ole Olsen");
-            expect(compo.text()).to.contain("Solstrålen Barnehage");
-        })
-
-        it("Skal kalle på avkreftLeder når man klikker på bekreft", () => {
-            compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)
-            compo.find(".js-bekreft").simulate("click");
-            expect(avkreftLeder.calledWith("123456789")).to.be.true;
-        });
-
-        it("Skal kalle på onAvbryt når man klikker på avbryt", () => {
-            compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)
-            compo.find(".js-avbryt").simulate("click", {
-                preventDefault
+                'sykefravaer.endre-naermeste-leder.tittel': 'Nærmeste leder',
+                'sykefravaer.endre-naermeste-leder.melding': '<p>Er du sikker på at du vil fjerne <strong>%LEDER%</strong> som din nærmeste leder i <strong>%ARBEIDSGIVER%</strong>?</p><p>Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt det.</p>',
             });
-            expect(preventDefault.calledOnce).to.be.true;
-            expect(onAvbryt.calledOnce).to.be.true;
+            /* eslint-disable max-len */
         });
 
-        it("Skal vise feilmelding dersom avkreft feiler", () => {
-            compo = mount(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} avkreftFeilet />)
+        it('Skal vise navn på leder og organisasjonsnavn', () => {
+            compo = mount(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />);
+            expect(compo.text()).to.contain('Ole Olsen');
+            expect(compo.text()).to.contain('Solstrålen Barnehage');
+        });
+
+        it('Skal kalle på avkreftLeder når man klikker på bekreft', () => {
+            compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />);
+            compo.find('.js-bekreft').simulate('click');
+            expect(avkreftLeder.calledWith('123456789')).to.equal(true);
+        });
+
+        it('Skal kalle på onAvbryt når man klikker på avbryt', () => {
+            compo = shallow(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />);
+            compo.find('.js-avbryt').simulate('click', {
+                preventDefault,
+            });
+            expect(preventDefault.calledOnce).to.equal(true);
+            expect(onAvbryt.calledOnce).to.equal(true);
+        });
+
+        it('Skal vise feilmelding dersom avkreft feiler', () => {
+            compo = mount(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} avkreftFeilet />);
             expect(compo.find(Varselstripe)).to.have.length(1);
         });
 
-        it("Skal ikke vise feilmelding dersom avkreft ikke feiler", () => {
-            compo = mount(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />)
+        it('Skal ikke vise feilmelding dersom avkreft ikke feiler', () => {
+            compo = mount(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />);
             expect(compo.find(Varselstripe)).to.have.length(0);
         });
 
-
-        describe("Container", () => {
-
-            it("Skal vise kvittering dersom lederen ikke er avkreftet", () => {
+        describe('Container', () => {
+            it('Skal vise kvittering dersom lederen ikke er avkreftet', () => {
                 leder.avkreftet = false;
                 compo = shallow(<Container leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />);
-                expect(compo.find(BekreftFeil)).to.have.length(1)
-            })
+                expect(compo.find(BekreftFeil)).to.have.length(1);
+            });
 
-            it("Skal vise kvittering dersom lederen er avkreftet", () => {
+            it('Skal vise kvittering dersom lederen er avkreftet', () => {
                 leder.avkreftet = true;
                 compo = shallow(<Container leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />);
-                expect(compo.find(LederAvkreftet)).to.have.length(1)
+                expect(compo.find(LederAvkreftet)).to.have.length(1);
             });
         });
-
     });
-
-})
+});

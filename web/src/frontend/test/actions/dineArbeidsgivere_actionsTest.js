@@ -1,5 +1,4 @@
 import chai from 'chai';
-import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 import * as actions from '../../js/actions/dineArbeidsgivere_actions';
 import * as actiontyper from '../../js/actions/actiontyper';
@@ -7,72 +6,66 @@ import * as actiontyper from '../../js/actions/actiontyper';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("dineArbeidsgivere_actions", () => {
-
-    let store; 
-
+describe('dineArbeidsgivere_actions', () => {
     beforeEach(() => {
         window = window || {};
         window.APP_SETTINGS = {
-            REST_ROOT: 'http://tjenester.nav.no/syforest'
-        }
-    });    
+            REST_ROOT: 'http://tjenester.nav.no/syforest',
+        };
+    });
 
-    it("Skal ha en hentAktuelleArbeidsgivere(sykmeldingId, dato)-funksjon som returnerer en funksjon", () => {
-        const action = actions.hentAktuelleArbeidsgivere("455");
+    it('Skal ha en hentAktuelleArbeidsgivere(sykmeldingId, dato)-funksjon som returnerer en funksjon', () => {
+        const action = actions.hentAktuelleArbeidsgivere('455');
         expect(action).to.deep.equal({
             type: actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT,
-            sykmeldingId: "455"
+            sykmeldingId: '455',
         });
     });
 
-    it("Skal ha en henterAktuelleArbeidsgivere(sykmeldingId)-funksjon som returnerer riktig action", () => {
-        const sykmeldingId = "olsen";
-        const dato = { year: 2015, monthValue: 12, dayOfMonth: 31 };
+    it('Skal ha en henterAktuelleArbeidsgivere(sykmeldingId)-funksjon som returnerer riktig action', () => {
+        const sykmeldingId = 'olsen';
         const resultat = actions.henterAktuelleArbeidsgivere(sykmeldingId);
         expect(resultat).to.deep.equal({
             type: actiontyper.HENTER_AKTUELLE_ARBEIDSGIVERE,
-            sykmeldingId: "olsen",
-        })
+            sykmeldingId: 'olsen',
+        });
     });
 
-    it("Skal ha en hentAktuelleArbeidsgivereFeilet(sykmeldingId)-funksjon som returnerer riktig action", () => {
-        const sykmeldingId = "olsen";
-        const dato = { year: 2015, monthValue: 12, dayOfMonth: 31 };
+    it('Skal ha en hentAktuelleArbeidsgivereFeilet(sykmeldingId)-funksjon som returnerer riktig action', () => {
+        const sykmeldingId = 'olsen';
         const resultat = actions.hentAktuelleArbeidsgivereFeilet(sykmeldingId);
         expect(resultat).to.deep.equal({
             type: actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FEILET,
-            sykmeldingId: "olsen",
-        })
+            sykmeldingId: 'olsen',
+        });
     });
 
-    it("Skal ha en setAktuelleArbeidsgivere(sykmeldingId, [arbeidsgivere])-funksjon som returnerer riktig action", () => {
-        const sykmeldingId = "olsen";
+    it('Skal ha en setAktuelleArbeidsgivere(sykmeldingId, [arbeidsgivere])-funksjon som returnerer riktig action', () => {
+        const sykmeldingId = 'olsen';
         const arbeidsgivere = [{
             orgnr: 12345678,
-            navn: "Hansens Frisørsalong"
+            navn: 'Hansens Frisørsalong',
         }, {
             orgnr: 87654321,
-            navn: "Oslo Sykkelbutikk"
+            navn: 'Oslo Sykkelbutikk',
         }, {
             orgnr: 32165478,
-            navn: "Bergen Malingsfabrikk"
-        }]
+            navn: 'Bergen Malingsfabrikk',
+        }];
         const resultat = actions.setAktuelleArbeidsgivere(sykmeldingId, arbeidsgivere);
         expect(resultat).to.deep.equal({
             type: actiontyper.SET_AKTUELLE_ARBEIDSGIVERE,
-            sykmeldingId: "olsen",
+            sykmeldingId: 'olsen',
             arbeidsgivere: [{
                 orgnr: 12345678,
-                navn: "Hansens Frisørsalong"
+                navn: 'Hansens Frisørsalong',
             }, {
                 orgnr: 87654321,
-                navn: "Oslo Sykkelbutikk"
+                navn: 'Oslo Sykkelbutikk',
             }, {
                 orgnr: 32165478,
-                navn: "Bergen Malingsfabrikk"
-            }]
-        })
+                navn: 'Bergen Malingsfabrikk',
+            }],
+        });
     });
-
 });

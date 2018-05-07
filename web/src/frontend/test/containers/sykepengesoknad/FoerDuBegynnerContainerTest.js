@@ -1,17 +1,15 @@
 import React from 'react';
 import chai from 'chai';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
+import sinon from 'sinon';
 import { mapStateToProps, Container } from '../../../js/containers/sykepengesoknad/FoerDuBegynnerContainer';
 import { SYKEPENGER_SKJEMANAVN } from '../../../js/components/sykepengesoknad/setup';
-import sinon from 'sinon';
 
 chai.use(chaiEnzyme());
-
 const expect = chai.expect;
 
-describe("FoerDuBegynnerContainer", () => {
-
+describe('FoerDuBegynnerContainer', () => {
     let state;
     let ownProps;
     let destroy;
@@ -24,92 +22,90 @@ describe("FoerDuBegynnerContainer", () => {
         actions = { destroy, hentBerikelse };
         state = {
             vedlikehold: {
-                data: {}
+                data: {},
             },
-            sykepengesoknader: {}
+            sykepengesoknader: {},
         };
         ownProps = {
             params: {
-                sykepengesoknadId: "123"
-            }
-        }
-    })
-
-    it("Skal ikke kalle på destroy dersom bruker ikke har vært på en søknad før", () => {
-        const props = mapStateToProps(state, ownProps);
-        const component = shallow(<Container {...props} {...actions} />)
-        expect(destroy.called).to.be.false;
+                sykepengesoknadId: '123',
+            },
+        };
     });
 
-    it("Skal ikke kalle på destroy dersom bruker har vært på denne søknaden før", () => {
+    it('Skal ikke kalle på destroy dersom bruker ikke har vært på en søknad før', () => {
+        const props = mapStateToProps(state, ownProps);
+        shallow(<Container {...props} {...actions} />);
+        expect(destroy.called).to.equal(false);
+    });
+
+    it('Skal ikke kalle på destroy dersom bruker har vært på denne søknaden før', () => {
         state.form = {};
         state.form[SYKEPENGER_SKJEMANAVN] = {
             values: {
-                id: "123"
-            }
+                id: '123',
+            },
         };
         const props = mapStateToProps(state, ownProps);
-        const component = shallow(<Container {...props} {...actions} />)
-        expect(destroy.called).to.be.false;
+        shallow(<Container {...props} {...actions} />);
+        expect(destroy.called).to.equal(false);
     });
 
-    it("Skal kalle på destroy dersom bruker har vært på en annen søknad før", () => {
+    it('Skal kalle på destroy dersom bruker har vært på en annen søknad før', () => {
         state.form = {};
         state.form[SYKEPENGER_SKJEMANAVN] = {
             values: {
-                id: "456"
-            }
+                id: '456',
+            },
         };
         const props = mapStateToProps(state, ownProps);
-        const component = shallow(<Container {...props} {...actions} />)
-        expect(destroy.called).to.be.true;
+        shallow(<Container {...props} {...actions} />);
+        expect(destroy.called).to.equal(true);
     });
 
-    it("Skal hente berikelse", () => {
+    it('Skal hente berikelse', () => {
         const props = mapStateToProps(state, ownProps);
-        const component = shallow(<Container {...props} {...actions} />)
-        expect(hentBerikelse.called).to.be.true;
+        shallow(<Container {...props} {...actions} />);
+        expect(hentBerikelse.called).to.equal(true);
     });
 
-    it("Skal returnere erForsteSoknad dersom man har én NY søknad", () => {
+    it('Skal returnere erForsteSoknad dersom man har én NY søknad', () => {
         state.sykepengesoknader.data = [{
-            status: "NY"
-        }]
+            status: 'NY',
+        }];
         const props = mapStateToProps(state, ownProps);
-        expect(props.erForsteSoknad).to.be.true;
+        expect(props.erForsteSoknad).to.equal(true);
     });
 
-    it("Skal returnere erForsteSoknad === true dersom alle søknader er enten NY eller FREMTIDIG", () => {
+    it('Skal returnere erForsteSoknad === true dersom alle søknader er enten NY eller FREMTIDIG', () => {
         state.sykepengesoknader.data = [{
-            status: "NY"
+            status: 'NY',
         }, {
-            status: "FREMTIDIG"
-        }]
+            status: 'FREMTIDIG',
+        }];
         const props = mapStateToProps(state, ownProps);
-        expect(props.erForsteSoknad).to.be.true;
+        expect(props.erForsteSoknad).to.equal(true);
     });
 
-    it("Skal returnere erForsteSoknad === false dersom det finnes søknader som ikke er NY eller FREMTIDIG", () => {
+    it('Skal returnere erForsteSoknad === false dersom det finnes søknader som ikke er NY eller FREMTIDIG', () => {
         state.sykepengesoknader.data = [{
-            status: "NY"
+            status: 'NY',
         }, {
-            status: "SENDT"
-        }]
+            status: 'SENDT',
+        }];
         const props = mapStateToProps(state, ownProps);
-        expect(props.erForsteSoknad).to.be.false;
+        expect(props.erForsteSoknad).to.equal(false);
     });
 
-    it("Skal returnere erForsteSoknad === false hvis ikke alle søknader er NY eller FREMTIDIG", () => {
+    it('Skal returnere erForsteSoknad === false hvis ikke alle søknader er NY eller FREMTIDIG', () => {
         state.sykepengesoknader.data = [{
-            status: "NY"
+            status: 'NY',
         }, {
-            status: "SENDT"
+            status: 'SENDT',
         }, {
-            status: "FREMTIDIG"
-        }]
+            status: 'FREMTIDIG',
+        }];
         const props = mapStateToProps(state, ownProps);
-        expect(props.erForsteSoknad).to.be.false;
+        expect(props.erForsteSoknad).to.equal(false);
     });
-
-
 });

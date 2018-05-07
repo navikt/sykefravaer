@@ -1,17 +1,17 @@
 import chai from 'chai';
-import React from 'react'
-import {mount, shallow, render} from 'enzyme';
+import React from 'react';
 import chaiEnzyme from 'chai-enzyme';
-chai.use(chaiEnzyme());
-const expect = chai.expect;
+import { Field } from 'redux-form';
+import { shallow } from 'enzyme';
 import SporsmalMedTillegg from '../../../js/components/skjema/SporsmalMedTillegg';
 import JaEllerNei, { RendreJaEllerNei, parseJaEllerNei, JaEllerNeiRadioknapper, jaEllerNeiAlternativer } from '../../../js/components/sykepengesoknad/JaEllerNei';
 import Radioknapper from '../../../js/components/skjema/Radioknapper';
-import { Field } from 'redux-form';
 
-describe("JaEllerNei", () => {
+chai.use(chaiEnzyme());
+const expect = chai.expect;
 
-    let component; 
+describe('JaEllerNei', () => {
+    let component;
 
     beforeEach(() => {
         component = shallow(<JaEllerNei sporsmal="Liker du frukt?">
@@ -19,13 +19,13 @@ describe("JaEllerNei", () => {
         </JaEllerNei>);
     });
 
-    it("Skal inneholde en Field med riktig komponent", () => {
+    it('Skal inneholde en Field med riktig komponent', () => {
         expect(component.find(Field)).to.have.length(1);
-        expect(component.find(Field).prop("component")).to.deep.equal(RendreJaEllerNei);
-        expect(component.find(Field).prop("parse")).to.deep.equal(parseJaEllerNei);
+        expect(component.find(Field).prop('component')).to.deep.equal(RendreJaEllerNei);
+        expect(component.find(Field).prop('parse')).to.deep.equal(parseJaEllerNei);
     });
 
-    describe("parseJaEllerNei", () => {
+    describe('parseJaEllerNei', () => {
         it("Skal returnere true hvis verdi === 'true'", () => {
             const res = parseJaEllerNei('true');
             expect(res).to.equal(true);
@@ -36,7 +36,7 @@ describe("JaEllerNei", () => {
             expect(res).to.equal(false);
         });
 
-        it("Skal returnere undefined hvis verdi === undefined", () => {
+        it('Skal returnere undefined hvis verdi === undefined', () => {
             const res = parseJaEllerNei(undefined);
             expect(res).to.equal(undefined);
         });
@@ -47,93 +47,84 @@ describe("JaEllerNei", () => {
         });
     });
 
-    describe("RendreJaEllerNei", () => {
-
+    describe('RendreJaEllerNei', () => {
         let props;
-        let component;
 
         beforeEach(() => {
             props = {
-                sporsmal: "Liker du frukt?",
-                input: {}
+                sporsmal: 'Liker du frukt?',
+                input: {},
             };
             component = shallow(<RendreJaEllerNei {...props} />);
-        })
-
-        it("Skal inneholde JaEllerNeiRadioknapper", () => {
-            expect(component.find(SporsmalMedTillegg).prop("Sporsmal")).to.deep.equal(<JaEllerNeiRadioknapper {...props} />);
         });
 
-        describe("visTillegg", () => {
+        it('Skal inneholde JaEllerNeiRadioknapper', () => {
+            expect(component.find(SporsmalMedTillegg).prop('Sporsmal')).to.deep.equal(<JaEllerNeiRadioknapper {...props} />);
+        });
 
-            it("Skal returnere true hvis verdi === true", () => {
+        describe('visTillegg', () => {
+            it('Skal returnere true hvis verdi === true', () => {
                 props.input.value = true;
-                props.children = "...";
+                props.children = '...';
                 component = shallow(<RendreJaEllerNei {...props} />);
-                expect(component.prop("visTillegg")(props)).to.be.true;
+                expect(component.prop('visTillegg')(props)).to.equal(true);
             });
 
-            it("Skal returnere false hvis verdi === true og det ikke finnes children", () => {
+            it('Skal returnere false hvis verdi === true og det ikke finnes children', () => {
                 props.input.value = true;
                 component = shallow(<RendreJaEllerNei {...props} />);
-                expect(component.prop("visTillegg")(props)).to.be.false;
+                expect(component.prop('visTillegg')(props)).to.equal(false);
             });
 
-            it("Skal returnere false hvis verdi === false", () => {
+            it('Skal returnere false hvis verdi === false', () => {
                 props.input.value = false;
                 component = shallow(<RendreJaEllerNei {...props}><p>Test</p></RendreJaEllerNei>);
-                expect(component.prop("visTillegg")(props)).to.be.false;
+                expect(component.prop('visTillegg')(props)).to.equal(false);
             });
-
         });
-
     });
 
-    describe("jaEllerNeiAlternativer", () => {
-        it("Skal se slik ut:", () => {
+    describe('jaEllerNeiAlternativer', () => {
+        it('Skal se slik ut:', () => {
             expect(jaEllerNeiAlternativer).to.deep.equal([{
                 value: true,
                 label: 'Ja',
             }, {
                 value: false,
                 label: 'Nei',
-            }])
-        })
+            }]);
+        });
     });
 
-    describe("JaEllerNeiRadioknapper", () => {
-
+    describe('JaEllerNeiRadioknapper', () => {
         let props;
-        let component;
 
         beforeEach(() => {
             props = {
                 input: {
-                    name: "Olsen"
+                    name: 'Olsen',
                 },
-                sporsmal: "Liker du frukt?"
-            }
-            component = shallow(<JaEllerNeiRadioknapper {...props} />)
+                sporsmal: 'Liker du frukt?',
+            };
+            component = shallow(<JaEllerNeiRadioknapper {...props} />);
         });
-        
-        it("Skal inneholde Radioknapper", () => {
+
+        it('Skal inneholde Radioknapper', () => {
             expect(component.find(Radioknapper)).to.have.length(1);
         });
 
-        it("SKal sende props videre til Radioknapper", () => {
-            expect(component.find(Radioknapper).prop("sporsmal")).to.equal("Liker du frukt?");
-            expect(component.find(Radioknapper).prop("input")).to.deep.equal(props.input);
-        })
-
-        it("Skal inneholde to input", () => {
-            expect(component.find("input")).to.have.length(2);
-            expect(component.find("input").at(0).prop("value")).to.equal(true);
-            expect(component.find("input").at(0).prop("label")).to.equal("Ja");
-
-            expect(component.find("input").at(1).prop("value")).to.equal(false);
-            expect(component.find("input").at(1).prop("label")).to.equal("Nei");
+        it('SKal sende props videre til Radioknapper', () => {
+            expect(component.find(Radioknapper).prop('sporsmal')).to.equal('Liker du frukt?');
+            expect(component.find(Radioknapper).prop('input')).to.deep.equal(props.input);
         });
 
-    })
+        it('Skal inneholde to input', () => {
+            expect(component.find('input')).to.have.length(2);
+            expect(component.find('input').at(0).prop('value')).to.equal(true);
+            expect(component.find('input').at(0).prop('label')).to.equal('Ja');
 
-})
+            expect(component.find('input').at(1).prop('value')).to.equal(false);
+            expect(component.find('input').at(1).prop('label')).to.equal('Nei');
+        });
+    });
+});

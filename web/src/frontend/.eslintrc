@@ -5,8 +5,12 @@
         "window": true,
         "document": true,
         "localStorage": true,
-        "Headers": true,
-        "fetch": true
+        'Headers': true,
+        'fetch': true,
+        'it': true,
+        'describe': true,
+        'beforeEach': true,
+        'afterEach': true,
     },
     "rules": {
         "indent": ["error", 4, {"SwitchCase": 1}],
@@ -28,6 +32,7 @@
         "jsx-a11y/label-has-for": 0,
         "func-names": [0],
         "no-underscore-dangle": 0,
-        "no-nested-ternary": "off"
+        "no-nested-ternary": "off",
+        "no-unneeded-ternary": "error"
     }
 }

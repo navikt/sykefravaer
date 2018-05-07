@@ -1,16 +1,15 @@
 import chai from 'chai';
 import React from 'react';
-import {shallow} from 'enzyme';
+import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import {setLedetekster} from 'digisyfo-npm';
-import {getParsetSoknad, getSoknad} from '../../mockSoknader';
+import { setLedetekster } from 'digisyfo-npm';
+import { getParsetSoknad, getSoknad } from '../../mockSoknader';
 import {
     ARBEIDSGIVER,
     mapStateToProps,
     NAV,
     NAV_OG_ARBEIDSGIVER,
-    navigeringsvarsel,
     Oppsummering,
     skalViseForskutteringssporsmal,
     utledMottaker,
@@ -22,8 +21,7 @@ import mapSkjemasoknadToOppsummeringsoknad from '../../../js/components/sykepeng
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("OppsummeringContainer", () => {
-
+describe('OppsummeringContainer', () => {
     let props;
     let route;
     let router;
@@ -36,7 +34,7 @@ describe("OppsummeringContainer", () => {
 
     beforeEach(() => {
         setLedetekster({
-            'sykepengesoknad.navigeringsvarsel': navigeringsvarsel
+            'sykepengesoknad.navigeringsvarsel': navigeringsvarsel,
         });
         setRouteLeaveHook = sinon.spy();
         route = {};
@@ -59,16 +57,16 @@ describe("OppsummeringContainer", () => {
             hentLedere,
             backendsoknad,
             sykepengesoknad,
-        }
+        };
     });
 
-    describe("Utled skal vise forskuttering og mottaker", () => {
+    describe('Utled skal vise forskuttering og mottaker', () => {
         const arbeidsgiverperiodeStartdato = new Date('2017-01-01');
         const soknad = getParsetSoknad();
         const ledere = [];
-        const lederSvartJa = [{orgnummer: "***REMOVED***", arbeidsgiverForskuttererLoenn: true}];
-        const lederSvartNei = [{orgnummer: "***REMOVED***", arbeidsgiverForskuttererLoenn: false}];
-        const lederIkkeSvart = [{orgnummer: "***REMOVED***", arbeidsgiverForskuttererLoenn: null}];
+        const lederSvartJa = [{ orgnummer: '***REMOVED***', arbeidsgiverForskuttererLoenn: true }];
+        const lederSvartNei = [{ orgnummer: '***REMOVED***', arbeidsgiverForskuttererLoenn: false }];
+        const lederIkkeSvart = [{ orgnummer: '***REMOVED***', arbeidsgiverForskuttererLoenn: null }];
 
         it('Skal vise forskutteringsspørsmål ledere er null', () => {
             expect(utledMottaker(null, soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV);
@@ -79,8 +77,8 @@ describe("OppsummeringContainer", () => {
             const _soknad = getParsetSoknad(
                 {
                     fom: new Date('2017-01-01'),
-                    tom: new Date('2017-01-10')
-                }
+                    tom: new Date('2017-01-10'),
+                },
             );
 
             expect(utledMottaker(ledere, _soknad, arbeidsgiverperiodeStartdato)).to.equal(ARBEIDSGIVER);
@@ -92,7 +90,7 @@ describe("OppsummeringContainer", () => {
                 {
                     fom: new Date('2017-01-01'),
                     tom: new Date('2017-01-30'),
-                }
+                },
             );
 
             expect(utledMottaker(lederSvartJa, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV_OG_ARBEIDSGIVER);
@@ -122,7 +120,7 @@ describe("OppsummeringContainer", () => {
                     fom: new Date('2017-02-01'),
                     tom: new Date('2017-02-17'),
                     arbeidsgiverForskutterer: 'JA',
-                }
+                },
             );
 
             expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV_OG_ARBEIDSGIVER);
@@ -135,7 +133,7 @@ describe("OppsummeringContainer", () => {
                     fom: new Date('2017-02-01'),
                     tom: new Date('2017-02-30'),
                     arbeidsgiverForskutterer: 'NEI',
-                }
+                },
             );
 
             expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV);
@@ -147,7 +145,7 @@ describe("OppsummeringContainer", () => {
                 {
                     fom: new Date('2017-01-15'),
                     tom: new Date('2017-02-17'),
-                }
+                },
             );
 
             expect(utledMottaker(lederIkkeSvart, _soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV_OG_ARBEIDSGIVER);
@@ -155,10 +153,9 @@ describe("OppsummeringContainer", () => {
         });
     });
 
-    describe("Oppsummering", () => {
+    describe('Oppsummering', () => {
         let state;
         let skjemasoknad;
-        let sykepengesoknad;
         let ownProps;
         let oppsummeringsoknad;
 
@@ -173,81 +170,77 @@ describe("OppsummeringContainer", () => {
 
             state = {
                 arbeidsgiverperiodeberegning: {
-                    data: {}
+                    data: {},
                 },
                 ledere: {
-                    data: []
+                    data: [],
                 },
-            }
+            };
         });
 
-        it("Skal returnere oppsummeringsoknad", () => {
-            const props = mapStateToProps(state, ownProps);
+        it('Skal returnere oppsummeringsoknad', () => {
+            props = mapStateToProps(state, ownProps);
             expect(props.oppsummeringsoknad).to.deep.equal(oppsummeringsoknad);
         });
 
-        it("Skal returnere backendsoknad", () => {
-            const props = mapStateToProps(state, ownProps);
-            expect(props.backendsoknad).to.deep.equal(mapSkjemasoknadToBackendsoknad(skjemasoknad))
+        it('Skal returnere backendsoknad', () => {
+            props = mapStateToProps(state, ownProps);
+            expect(props.backendsoknad).to.deep.equal(mapSkjemasoknadToBackendsoknad(skjemasoknad));
         });
-
     });
 
-    describe("Oppsummering", () => {
-
-        let component;
-
+    describe('Oppsummering', () => {
         beforeEach(() => {
-            component = shallow(<Oppsummering {...props} />);
+            shallow(<Oppsummering {...props} />);
         });
 
-        it("Skal hente ledere", () => {
-            expect(hentLedere.called).to.be.true;
+        it('Skal hente ledere', () => {
+            expect(hentLedere.called).to.equal(true);
         });
 
-        it("Skal hente arbeidsgiverperiodeberegning", () => {
-            expect(hentArbeidsgiverperiodeberegning.calledWith(backendsoknad)).to.be.true;
+        it('Skal hente arbeidsgiverperiodeberegning', () => {
+            expect(hentArbeidsgiverperiodeberegning.calledWith(backendsoknad)).to.equal(true);
         });
 
-        it("Skal kalle på setRouteLeaveHook", () => {
-            expect(setRouteLeaveHook.called).to.be.true;
+        it('Skal kalle på setRouteLeaveHook', () => {
+            expect(setRouteLeaveHook.called).to.equal(true);
         });
 
-        describe("routerWillLeave", () => {
+        describe('routerWillLeave', () => {
             let thisArg;
 
             beforeEach(() => {
                 thisArg = {
                     props,
                     _mounted: true,
-                }
+                };
             });
-            it("Skal returnere streng dersom man navigerer til noe annet enn forrige side", () => {
+            it('Skal returnere streng dersom man navigerer til noe annet enn forrige side', () => {
                 const nextRoute = {
                     pathname: '/sykefravaer/soknader',
                 };
                 const res = Oppsummering.prototype.routerWillLeave.call(thisArg, nextRoute);
-                expect(res).to.equal(navigeringsvarsel)
+                expect(res).to.equal(navigeringsvarsel);
             });
 
-            it("Skal returnere null dersom man navigerer til forrige side i søknaden", () => {
+            it('Skal returnere null dersom man navigerer til forrige side i søknaden', () => {
                 const nextRoute = {
                     pathname: '/sykefravaer/soknader/3253d7f2-538d-4058-886d-2b36bef01d90/aktiviteter-i-sykmeldingsperioden',
                 };
                 const res = Oppsummering.prototype.routerWillLeave.call(thisArg, nextRoute);
-                expect(res).to.be.null;
+                expect(res).to.equal(null);
             });
 
-            it("Skal returnere null hvis sykepengesoknad ikke er NY", () => {
+            it('Skal returnere null hvis sykepengesoknad ikke er NY', () => {
                 thisArg.props.sykepengesoknad.status = 'AVBRUTT';
                 const nextRoute = {
                     pathname: '/sykefravaer/soknader',
                 };
                 const res = Oppsummering.prototype.routerWillLeave.call(thisArg, nextRoute);
-                expect(res).to.be.null;
+                expect(res).to.equal(null);
             });
 
-            it("Skal returnere streng hvis sykepengesoknad er UTKAST_TIL_KORRIGERING", () => {
+            it('Skal returnere streng hvis sykepengesoknad er UTKAST_TIL_KORRIGERING', () => {
                 thisArg.props.sykepengesoknad.status = 'UTKAST_TIL_KORRIGERING';
                 const nextRoute = {
                     pathname: '/sykefravaer/soknader',
@@ -256,13 +249,13 @@ describe("OppsummeringContainer", () => {
                 expect(res).to.equal(navigeringsvarsel);
             });
 
-            it("Skal returnere null hvis komponent ikke er mounted", () => {
+            it('Skal returnere null hvis komponent ikke er mounted', () => {
                 thisArg._mounted = false;
                 const nextRoute = {
                     pathname: '/sykefravaer/soknader',
                 };
                 const res = Oppsummering.prototype.routerWillLeave.call(thisArg, nextRoute);
-                expect(res).to.be.null;
+                expect(res).to.equal(null);
             });
         });
     });

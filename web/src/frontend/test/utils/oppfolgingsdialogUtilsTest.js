@@ -169,15 +169,15 @@ describe('OppfolgingdialogUtils', () => {
         });
 
         it('Skal returneren false, om det er flere enn 1 AG og det er tidligere godkjent plan', () => {
-            expect(erOppfolgingsdialogOpprettbarDirekte([arbeidsgiver, arbeidsgiver], [oppfolgingsdialogTidligere])).to.be.false;
+            expect(erOppfolgingsdialogOpprettbarDirekte([arbeidsgiver, arbeidsgiver], [oppfolgingsdialogTidligere])).to.equal(false);
         });
 
         it('Skal returneren false, om det kun er 1 AG og det er tidligere godkjent plan', () => {
-            expect(erOppfolgingsdialogOpprettbarDirekte([arbeidsgiver], [oppfolgingsdialogTidligere])).to.be.false;
+            expect(erOppfolgingsdialogOpprettbarDirekte([arbeidsgiver], [oppfolgingsdialogTidligere])).to.equal(false);
         });
 
         it('Skal returneren true, om det kun er 1 AG og det ikke er tidligere godkjent plan', () => {
-            expect(erOppfolgingsdialogOpprettbarDirekte([arbeidsgiver], [oppfolgingsdialogIkkeTidligere])).to.be.true;
+            expect(erOppfolgingsdialogOpprettbarDirekte([arbeidsgiver], [oppfolgingsdialogIkkeTidligere])).to.equal(true);
         });
     });
 

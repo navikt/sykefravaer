@@ -1,54 +1,50 @@
 import chai from 'chai';
-import React from 'react'
-import { mount, shallow } from 'enzyme';
+import React from 'react';
+import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../../mockLedetekster";
-import getSykmelding from "../../mockSykmeldinger";
+import { DineSykmeldingOpplysninger, setLedetekster } from 'digisyfo-npm';
+import DinSendteSykmelding from '../../../js/components/sykmelding/DinSendteSykmelding';
+import StatusPanel from '../../../js/components/StatusPanel';
+import ArbeidsgiversSykmeldingContainer from '../../../js/containers/sykmelding/ArbeidsgiversSykmeldingContainer';
+import ledetekster from '../../mockLedetekster';
+import getSykmelding from '../../mockSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import DinSendteSykmelding from "../../../js/components/sykmelding/DinSendteSykmelding";
-import { DineSykmeldingOpplysninger } from "digisyfo-npm";
-import StatusPanel from "../../../js/components/StatusPanel";
-import ArbeidsgiversSykmeldingContainer from "../../../js/containers/sykmelding/ArbeidsgiversSykmeldingContainer";
-import { setLedetekster } from 'digisyfo-npm';
-
-describe("DinSendteSykmelding", () => {
-
+describe('DinSendteSykmelding', () => {
     let component;
 
     beforeEach(() => {
         setLedetekster(ledetekster);
-    })
+    });
 
-    it("Skal vise kvittering ", () => {
-        let dinSykmelding = getSykmelding();
+    it('Skal vise kvittering ', () => {
+        const dinSykmelding = getSykmelding();
         dinSykmelding.status = 'SENDT';
         component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} />);
-        expect(component.find(StatusPanel)).to.have.length(1)
+        expect(component.find(StatusPanel)).to.have.length(1);
     });
 
-    it("Skal vise DineSykmeldingOpplysninger ", () => {
-        let dinSykmelding = getSykmelding();
+    it('Skal vise DineSykmeldingOpplysninger ', () => {
+        const dinSykmelding = getSykmelding();
         dinSykmelding.status = 'SENDT';
-        let arbeidsgiversSykmelding = {
-            id: "arbeidsgivers-sykmelding-id",
-            test: "olsen"
+        const arbeidsgiversSykmelding = {
+            id: 'arbeidsgivers-sykmelding-id',
+            test: 'olsen',
         };
-        component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}/>);
-        expect(component.contains(<DineSykmeldingOpplysninger sykmelding={dinSykmelding} />)).to.be.true;
+        component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} />);
+        expect(component.contains(<DineSykmeldingOpplysninger sykmelding={dinSykmelding} />)).to.equal(true);
     });
 
-    it("Skal vise ArbeidsgiversSykmeldingContainer", () => {
-        let dinSykmelding = getSykmelding();
+    it('Skal vise ArbeidsgiversSykmeldingContainer', () => {
+        const dinSykmelding = getSykmelding();
         dinSykmelding.status = 'SENDT';
-        let arbeidsgiversSykmelding = {
-            id: "arbeidsgivers-sykmelding-id",
-            test: "olsen"
+        const arbeidsgiversSykmelding = {
+            id: 'arbeidsgivers-sykmelding-id',
+            test: 'olsen',
         };
-        component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding}/>);
-        expect(component.contains(<ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />)).to.be.true;
-    }); 
-
-}); 
+        component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} />);
+        expect(component.contains(<ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />)).to.equal(true);
+    });
+});

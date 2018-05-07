@@ -7,8 +7,8 @@
   "scripts": {
     "analyze": "source-map-explorer ../main/webapp/js/bundle-prod.*",
     "postinstall": "npm install babel-loader",
-    "dev": "title syfofront && parallelshell \"npm run images\" \"npm run static:build:local\" \"npm run scripts:watch\" \"npm run filmtekster\"",
-    "build": "parallelshell \"npm run deploy\" \"npm run images\" \"npm run filmtekster\"",
+    "dev": "npm-run-all images static:build:local scripts:watch filmtekster",
+    "build": "npm-run-all deploy images filmtekster",
     "test": "mocha --compilers js:babel-core/register --require babel-polyfill ./test/setup.js \"test/**/*.@(js|jsx)\"",
     "test:watch": "npm run test -- --watch",
     "coverage": "nyc report --reporter=html --reporter=lcov",
@@ -19,7 +19,12 @@
     "images:install": "cp -R img ../main/webapp",
     "deploy": "node deploy.js",
     "scripts:watch": "webpack-dev-server --inline --port 9090",
-    "lint": "eslint js/. --ext .js"
+    "lint": "npm-run-all lintJs lintTest",
+    "lint:fix": "npm-run-all lintJs:fix lintTest:fix",
+    "lintJs": "eslint js/. --ext .js",
+    "lintJs:fix": "eslint js/. --ext .js --fix",
+    "lintTest": "eslint test/. --ext .js",
+    "lintTest:fix": "eslint test/. --ext .js --fix"
   },
   "nyc": {
     "require": [
@@ -104,6 +109,7 @@
     "mustache": "2.2.1",
     "ncp": "2.0.0",
     "nyc": "10.3.2",
+    "npm-run-all": "4.1.1",
     "parallelshell": "3.0.2",
     "path": "0.12.7",
     "postcss-loader": "2.0.5",

@@ -1,6 +1,6 @@
 import chai from 'chai';
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import {
@@ -23,6 +23,7 @@ describe('OppfolgingsdialogerContainer', () => {
     let hentOppfolgingsdialoger;
     let hentDineSykmeldinger;
     let hentLedere;
+
     describe('OppfolgingsdialogerSide', () => {
         const harTilgang = {
             harTilgang: true,

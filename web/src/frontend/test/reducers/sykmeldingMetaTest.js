@@ -1,68 +1,67 @@
 import deepFreeze from 'deep-freeze';
-import {expect} from 'chai';
-import * as actions from '../../js/actions/sykmeldingMeta_actions'
+import { expect } from 'chai';
+import * as actions from '../../js/actions/sykmeldingMeta_actions';
 import sykmeldingMeta from '../../js/reducers/sykmeldingMeta';
 
-describe("sykmeldingMeta", () => {
-
+describe('sykmeldingMeta', () => {
     let state = {};
-    const SYKMELDING_ID = "12345674";
+    const SYKMELDING_ID = '12345674';
 
-    it("Håndterer henterVentetid()", () => {
+    it('Håndterer henterVentetid()', () => {
         const action = actions.henterVentetid(SYKMELDING_ID);
-        state = sykmeldingMeta(state, action);
+        state = sykmeldingMeta(deepFreeze(state), action);
         expect(state).to.deep.equal({
             [SYKMELDING_ID]: {
                 henterVentetid: true,
-            }
+            },
         });
     });
 
-    it("Håndterer hentVentetidFeilet ved 500-feil", () => {
+    it('Håndterer hentVentetidFeilet ved 500-feil', () => {
         const action = actions.hentVentetidFeilet(SYKMELDING_ID);
-        state = sykmeldingMeta(state, action);
+        state = sykmeldingMeta(deepFreeze(state), action);
         expect(state).to.deep.equal({
             [SYKMELDING_ID]: {
                 henterVentetid: false,
                 hentVentetidFeilet: true,
-            }
+            },
         });
     });
 
-    it("Håndterer henterVentetid()", () => {
-        const action = actions.henterVentetid("banan");
-        state = sykmeldingMeta(state, action);
+    it('Håndterer henterVentetid()', () => {
+        const action = actions.henterVentetid('banan');
+        state = sykmeldingMeta(deepFreeze(state), action);
         expect(state).to.deep.equal({
-            "banan": {
+            banan: {
                 henterVentetid: true,
             },
             [SYKMELDING_ID]: {
                 henterVentetid: false,
                 hentVentetidFeilet: true,
-            }
+            },
         });
     });
 
-    it("Håndterer hentVentetidFeilet()", () => {
-        const action = actions.hentVentetidFeilet("banan");
-        state = sykmeldingMeta(state, action);
+    it('Håndterer hentVentetidFeilet()', () => {
+        const action = actions.hentVentetidFeilet('banan');
+        state = sykmeldingMeta(deepFreeze(state), action);
         expect(state).to.deep.equal({
-            "banan": {
+            banan: {
                 henterVentetid: false,
                 hentVentetidFeilet: true,
             },
             [SYKMELDING_ID]: {
                 henterVentetid: false,
                 hentVentetidFeilet: true,
-            }
+            },
         });
     });
 
-    it("Håndterer ventetidHentet()", () => {
+    it('Håndterer ventetidHentet()', () => {
         const action = actions.ventetidHentet(SYKMELDING_ID, true);
-        state = sykmeldingMeta(state, action);
+        state = sykmeldingMeta(deepFreeze(state), action);
         expect(state).to.deep.equal({
-            "banan": {
+            banan: {
                 henterVentetid: false,
                 hentVentetidFeilet: true,
             },
@@ -71,15 +70,15 @@ describe("sykmeldingMeta", () => {
                 hentVentetidFeilet: false,
                 erUtenforVentetid: true,
                 ventetidHentet: true,
-            }
+            },
         });
     });
 
-    it("Håndterer ventetidHentet()", () => {
+    it('Håndterer ventetidHentet()', () => {
         const action = actions.ventetidHentet(SYKMELDING_ID, false);
-        state = sykmeldingMeta(state, action);
+        state = sykmeldingMeta(deepFreeze(state), action);
         expect(state).to.deep.equal({
-            "banan": {
+            banan: {
                 henterVentetid: false,
                 hentVentetidFeilet: true,
             },
@@ -88,15 +87,15 @@ describe("sykmeldingMeta", () => {
                 hentVentetidFeilet: false,
                 erUtenforVentetid: false,
                 ventetidHentet: true,
-            }
+            },
         });
     });
 
-    it("Håndterer skalOppretteSoknadHentet()", () => {
+    it('Håndterer skalOppretteSoknadHentet()', () => {
         const action = actions.skalOppretteSoknadHentet(SYKMELDING_ID, false);
-        state = sykmeldingMeta(state, action);
+        state = sykmeldingMeta(deepFreeze(state), action);
         expect(state).to.deep.equal({
-            "banan": {
+            banan: {
                 henterVentetid: false,
                 hentVentetidFeilet: true,
             },
@@ -106,15 +105,15 @@ describe("sykmeldingMeta", () => {
                 erUtenforVentetid: false,
                 skalOppretteSoknad: false,
                 ventetidHentet: true,
-            }
+            },
         });
     });
 
-    it("Håndterer skalOppretteSoknadHentet()", () => {
+    it('Håndterer skalOppretteSoknadHentet()', () => {
         const action = actions.skalOppretteSoknadHentet(SYKMELDING_ID, true);
-        state = sykmeldingMeta(state, action);
+        state = sykmeldingMeta(deepFreeze(state), action);
         expect(state).to.deep.equal({
-            "banan": {
+            banan: {
                 henterVentetid: false,
                 hentVentetidFeilet: true,
             },
@@ -124,8 +123,7 @@ describe("sykmeldingMeta", () => {
                 erUtenforVentetid: false,
                 skalOppretteSoknad: true,
                 ventetidHentet: true,
-            }
+            },
         });
     });
-
 });

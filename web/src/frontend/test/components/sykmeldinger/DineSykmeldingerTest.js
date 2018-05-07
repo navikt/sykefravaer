@@ -1,33 +1,31 @@
 import chai from 'chai';
-import React from 'react'
-import {mount, shallow} from 'enzyme';
+import React from 'react';
+import { setLedetekster } from 'digisyfo-npm';
+import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../../mockLedetekster";
+import ledetekster from '../../mockLedetekster';
 import getSykmelding from '../../mockSykmeldinger';
-import Sidetopp from "../../../js/components/Sidetopp";
+import Sidetopp from '../../../js/components/Sidetopp';
+import DineSykmeldinger from '../../../js/components/sykmeldinger/DineSykmeldinger';
+import SykmeldingTeasere from '../../../js/components/sykmeldinger/SykmeldingTeasere';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import DineSykmeldinger from "../../../js/components/sykmeldinger/DineSykmeldinger";
-import SykmeldingTeasere from '../../../js/components/sykmeldinger/SykmeldingTeasere';
-import { setLedetekster } from 'digisyfo-npm';
-
-describe("Dine sykmeldinger", () => {
-
-    let component; 
-    let sykmeldinger; 
+describe('Dine sykmeldinger', () => {
+    let component;
+    let sykmeldinger;
 
     beforeEach(() => {
         sykmeldinger = [
             getSykmelding({
-                status: "NY"
+                status: 'NY',
             }),
             getSykmelding({
-                status: "BEKREFTET"
+                status: 'BEKREFTET',
             }),
             getSykmelding({
-                status: "SENDT"
+                status: 'SENDT',
             }),
         ];
         setLedetekster(ledetekster);
@@ -35,33 +33,32 @@ describe("Dine sykmeldinger", () => {
 
     it("Skal vise overskrift for 'Dine sykmeldinger'", () => {
         component = shallow(<DineSykmeldinger sykmeldinger={sykmeldinger} />);
-        expect(component.find(Sidetopp).prop("tittel")).to.equal("Dine sykmeldinger");
+        expect(component.find(Sidetopp).prop('tittel')).to.equal('Dine sykmeldinger');
     });
 
-    it("Skal rendre to SykmeldingTeasere dersom man både har nye og gamle sykmeldinger", () => {
+    it('Skal rendre to SykmeldingTeasere dersom man både har nye og gamle sykmeldinger', () => {
         component = shallow(<DineSykmeldinger sykmeldinger={sykmeldinger} />);
         expect(component.find(SykmeldingTeasere)).to.have.length(2);
     });
 
-    it("Skal rendre én SykmeldingTeasere dersom man ikke har sykmeldinger", () => {
+    it('Skal rendre én SykmeldingTeasere dersom man ikke har sykmeldinger', () => {
         component = shallow(<DineSykmeldinger sykmeldinger={[]} />);
         expect(component.find(SykmeldingTeasere)).to.have.length(1);
     });
 
-    it("Skal rendre én SykmeldingTeasere dersom man bare har nye sykmeldinger", () => {
+    it('Skal rendre én SykmeldingTeasere dersom man bare har nye sykmeldinger', () => {
         sykmeldinger = [
             getSykmelding({
-                status: "NY"
+                status: 'NY',
             }),
             getSykmelding({
-                status: "NY"
+                status: 'NY',
             }),
             getSykmelding({
-                status: "NY"
+                status: 'NY',
             }),
         ];
         component = shallow(<DineSykmeldinger sykmeldinger={sykmeldinger} />);
         expect(component.find(SykmeldingTeasere)).to.have.length(1);
     });
-
-}); 
+});

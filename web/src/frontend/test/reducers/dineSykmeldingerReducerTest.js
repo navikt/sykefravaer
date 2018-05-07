@@ -1,20 +1,210 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import deepFreeze from 'deep-freeze';
 
 import dineSykmeldinger from '../../js/reducers/dineSykmeldinger';
-import * as actiontyper from '../../js/actions/actiontyper';
 import * as actions from '../../js/actions/dineSykmeldinger_actions';
 import * as dinSykmeldingActions from '../../js/actions/dinSykmelding_actions';
 import * as brukerActions from '../../js/actions/brukerinfo_actions';
-import * as metaActions from '../../js/actions/sykmeldingMeta_actions';
+
+
+export function getSykmelding(soknad = {}) {
+    return Object.assign({}, {
+        id: '73970c89-1173-4d73-b1cb-e8445c2840e2',
+        startLegemeldtFravaer: '2017-07-07',
+        skalViseSkravertFelt: true,
+        identdato: '2017-07-07',
+        status: 'SENDT',
+        naermesteLederStatus: null,
+        innsendtArbeidsgivernavn: 'ARBEIDS- OG VELFERDSDIREKTORATET, AVD SANNERGATA',
+        valgtArbeidssituasjon: null,
+        orgnummer: '***REMOVED***',
+        sendtdato: '2017-07-24T10:19:15',
+        pasient: {
+            fnr: '***REMOVED***',
+            fornavn: 'Frida',
+            etternavn: 'Frost',
+        },
+        arbeidsgiver: 'LOMMEN BARNEHAVE',
+        diagnose: {
+            hoveddiagnose: {
+                diagnose: 'TENDINITT INA',
+                diagnosekode: 'L87',
+                diagnosesystem: 'ICPC-2',
+            },
+            bidiagnoser: [
+                {
+                    diagnose: 'GANGLION SENE',
+                    diagnosekode: 'L87',
+                    diagnosesystem: 'ICPC-2',
+                },
+            ],
+            fravaersgrunnLovfestet: null,
+            fravaerBeskrivelse: 'Medising årsak i kategorien annet',
+            svangerskap: true,
+            yrkesskade: true,
+            yrkesskadeDato: '2017-07-07',
+        },
+        mulighetForArbeid: {
+            perioder: [
+                {
+                    fom: '2017-07-07',
+                    tom: '2017-07-23',
+                    grad: 100,
+                    behandlingsdager: null,
+                    reisetilskudd: null,
+                    avventende: null,
+                },
+            ],
+            aktivitetIkkeMulig433: [
+                'Annet',
+            ],
+            aktivitetIkkeMulig434: [
+                'Annet',
+            ],
+            aarsakAktivitetIkkeMulig433: 'andre årsaker til sykefravær',
+            aarsakAktivitetIkkeMulig434: 'andre årsaker til sykefravær',
+        },
+        friskmelding: {
+            arbeidsfoerEtterPerioden: true,
+            hensynPaaArbeidsplassen: 'Må ta det pent',
+            antarReturSammeArbeidsgiver: true,
+            antattDatoReturSammeArbeidsgiver: '2017-07-07',
+            antarReturAnnenArbeidsgiver: true,
+            tilbakemeldingReturArbeid: '2017-07-07',
+            utenArbeidsgiverAntarTilbakeIArbeid: false,
+            utenArbeidsgiverAntarTilbakeIArbeidDato: '2017-03-10',
+            utenArbeidsgiverTilbakemelding: '2017-03-10',
+        },
+        utdypendeOpplysninger: {
+            sykehistorie: null,
+            paavirkningArbeidsevne: null,
+            resultatAvBehandling: null,
+            henvisningUtredningBehandling: null,
+        },
+        arbeidsevne: {
+            tilretteleggingArbeidsplass: 'Fortsett som sist.',
+            tiltakNAV: 'Pasienten har plager',
+            tiltakAndre: null,
+        },
+        meldingTilNav: {
+            navBoerTaTakISaken: false,
+            navBoerTaTakISakenBegrunnelse: null,
+        },
+        innspillTilArbeidsgiver: null,
+        tilbakedatering: {
+            dokumenterbarPasientkontakt: '2017-03-12',
+            tilbakedatertBegrunnelse: null,
+        },
+        bekreftelse: {
+            utstedelsesdato: '2017-07-24',
+            sykmelder: 'Frida Frost',
+            sykmelderTlf: '94431152',
+        },
+    }, soknad);
+}
+
+export function getParsetSykmelding(soknad = {}) {
+    return Object.assign({}, {
+        id: '73970c89-1173-4d73-b1cb-e8445c2840e2',
+        startLegemeldtFravaer: new Date('2017-07-07'),
+        skalViseSkravertFelt: true,
+        identdato: new Date('2017-07-07'),
+        status: 'SENDT',
+        naermesteLederStatus: null,
+        innsendtArbeidsgivernavn: 'ARBEIDS- OG VELFERDSDIREKTORATET, AVD SANNERGATA',
+        valgtArbeidssituasjon: null,
+        orgnummer: '***REMOVED***',
+        sendtdato: new Date('2017-07-24T10:19:15'),
+        pasient: {
+            fnr: '***REMOVED***',
+            fornavn: 'Frida',
+            etternavn: 'Frost',
+        },
+        arbeidsgiver: 'LOMMEN BARNEHAVE',
+        diagnose: {
+            hoveddiagnose: {
+                diagnose: 'TENDINITT INA',
+                diagnosekode: 'L87',
+                diagnosesystem: 'ICPC-2',
+            },
+            bidiagnoser: [
+                {
+                    diagnose: 'GANGLION SENE',
+                    diagnosekode: 'L87',
+                    diagnosesystem: 'ICPC-2',
+                },
+            ],
+            fravaersgrunnLovfestet: null,
+            fravaerBeskrivelse: 'Medising årsak i kategorien annet',
+            svangerskap: true,
+            yrkesskade: true,
+            yrkesskadeDato: new Date('2017-07-07'),
+        },
+        mulighetForArbeid: {
+            perioder: [
+                {
+                    fom: new Date('2017-07-07'),
+                    tom: new Date('2017-07-23'),
+                    grad: 100,
+                    behandlingsdager: null,
+                    reisetilskudd: null,
+                    avventende: null,
+                },
+            ],
+            aktivitetIkkeMulig433: [
+                'Annet',
+            ],
+            aktivitetIkkeMulig434: [
+                'Annet',
+            ],
+            aarsakAktivitetIkkeMulig433: 'andre årsaker til sykefravær',
+            aarsakAktivitetIkkeMulig434: 'andre årsaker til sykefravær',
+        },
+        friskmelding: {
+            arbeidsfoerEtterPerioden: true,
+            hensynPaaArbeidsplassen: 'Må ta det pent',
+            antarReturSammeArbeidsgiver: true,
+            antattDatoReturSammeArbeidsgiver: new Date('2017-07-07'),
+            antarReturAnnenArbeidsgiver: true,
+            tilbakemeldingReturArbeid: new Date('2017-07-07'),
+            utenArbeidsgiverAntarTilbakeIArbeid: false,
+            utenArbeidsgiverAntarTilbakeIArbeidDato: new Date('2017-03-10'),
+            utenArbeidsgiverTilbakemelding: new Date('2017-03-10'),
+        },
+        utdypendeOpplysninger: {
+            sykehistorie: null,
+            paavirkningArbeidsevne: null,
+            resultatAvBehandling: null,
+            henvisningUtredningBehandling: null,
+        },
+        arbeidsevne: {
+            tilretteleggingArbeidsplass: 'Fortsett som sist.',
+            tiltakNAV: 'Pasienten har plager',
+            tiltakAndre: null,
+        },
+        meldingTilNav: {
+            navBoerTaTakISaken: false,
+            navBoerTaTakISakenBegrunnelse: null,
+        },
+        innspillTilArbeidsgiver: null,
+        tilbakedatering: {
+            dokumenterbarPasientkontakt: new Date('2017-03-12'),
+            tilbakedatertBegrunnelse: null,
+        },
+        bekreftelse: {
+            utstedelsesdato: new Date('2017-07-24'),
+            sykmelder: 'Frida Frost',
+            sykmelderTlf: '94431152',
+        },
+    }, soknad);
+}
 
 describe('dineSykmeldingerReducer', () => {
-
     it('håndterer SET_DINE_SYKMELDINGER når man ikke har sykmeldinger fra før', () => {
         const initialState = deepFreeze({
-            data: []
+            data: [],
         });
-        const action = actions.setDineSykmeldinger([getSykmelding()])
+        const action = actions.setDineSykmeldinger([getSykmelding()]);
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
@@ -27,13 +217,13 @@ describe('dineSykmeldingerReducer', () => {
 
     it('håndterer SET_DINE_SYKMELDINGER når datofelter er null', () => {
         const initialState = deepFreeze({
-            data: []
+            data: [],
         });
-        const action = actions.setDineSykmeldinger([getSykmelding({identdato: null})])
+        const action = actions.setDineSykmeldinger([getSykmelding({ identdato: null })]);
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
-            data: [getParsetSykmelding({identdato: null})],
+            data: [getParsetSykmelding({ identdato: null })],
             henter: false,
             hentingFeilet: false,
             hentet: true,
@@ -43,32 +233,32 @@ describe('dineSykmeldingerReducer', () => {
     it('håndterer SET_DINE_SYKMELDINGER når man har sykmeldinger fra før, ved å kun overskrive properties som finnes', () => {
         const initialState = deepFreeze({
             hentet: false,
-            data: [getParsetSykmelding({id: "55"}), getParsetSykmelding({id: "44"})]
+            data: [getParsetSykmelding({ id: '55' }), getParsetSykmelding({ id: '44' })],
         });
-        const action = actions.setDineSykmeldinger([getSykmelding({id: "55", navn: "Harald"}), getSykmelding({id: "44"})])
+        const action = actions.setDineSykmeldinger([getSykmelding({ id: '55', navn: 'Harald' }), getSykmelding({ id: '44' })]);
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
-            data: [getParsetSykmelding({id: "55", navn: "Harald"}), getParsetSykmelding({id: "44"})],
+            data: [getParsetSykmelding({ id: '55', navn: 'Harald' }), getParsetSykmelding({ id: '44' })],
             henter: false,
             hentingFeilet: false,
             hentet: true,
         });
     });
 
-    it("Parser datofelter", () => {
+    it('Parser datofelter', () => {
         const initialState = deepFreeze({
             hentet: false,
-            data: []
+            data: [],
         });
         const action = actions.setDineSykmeldinger([getSykmelding()]);
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState.data).to.deep.equal([getParsetSykmelding()]);
-    })
+    });
 
-    it("Håndterer HENTER_DINE_SYKMELDINGER når man ikke har data fra før", () => {
+    it('Håndterer HENTER_DINE_SYKMELDINGER når man ikke har data fra før', () => {
         const initialState = deepFreeze({
-            data: []
+            data: [],
         });
         const action = actions.henterDineSykmeldinger();
         const nextState = dineSykmeldinger(initialState, action);
@@ -80,21 +270,21 @@ describe('dineSykmeldingerReducer', () => {
         });
     });
 
-    it("Håndterer HENTER_DINE_SYKMELDINGER når man har data fra før", () => {
+    it('Håndterer HENTER_DINE_SYKMELDINGER når man har data fra før', () => {
         const initialState = deepFreeze({
             data: [{
-                id: 77, 
+                id: 77,
             }, {
-                id: 6789
-            }]
+                id: 6789,
+            }],
         });
         const action = actions.henterDineSykmeldinger();
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             data: [{
-                id: 77, 
+                id: 77,
             }, {
-                id: 6789
+                id: 6789,
             }],
             henter: true,
             hentet: false,
@@ -102,7 +292,7 @@ describe('dineSykmeldingerReducer', () => {
         });
     });
 
-    it("Håndterer HENT_DINE_SYKMELDINGER_FEILET", () => {
+    it('Håndterer HENT_DINE_SYKMELDINGER_FEILET', () => {
         const initialState = deepFreeze({
             hentet: true,
         });
@@ -116,48 +306,48 @@ describe('dineSykmeldingerReducer', () => {
         });
     });
 
-    it("håndterer SET_SORTERING dersom man ikke har sortering fra før", () => {
+    it('håndterer SET_SORTERING dersom man ikke har sortering fra før', () => {
         const initialState = deepFreeze({});
-        const action = actions.sorterSykmeldinger("arbeidsgiver", "tidligere");
+        const action = actions.sorterSykmeldinger('arbeidsgiver', 'tidligere');
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
             sortering: {
-                tidligere: "arbeidsgiver"
-            }
+                tidligere: 'arbeidsgiver',
+            },
         });
     });
 
-    it("håndterer SET_SORTERING dersom man har sortering fra før", () => {
+    it('håndterer SET_SORTERING dersom man har sortering fra før', () => {
         const initialState = deepFreeze({
             sortering: {
-                tidligere: "dato"
-            }
+                tidligere: 'dato',
+            },
         });
-        const action = actions.sorterSykmeldinger("arbeidsgiver", "tidligere");
+        const action = actions.sorterSykmeldinger('arbeidsgiver', 'tidligere');
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
             sortering: {
-                tidligere: "arbeidsgiver"
-            }
+                tidligere: 'arbeidsgiver',
+            },
         });
     });
 
-    it("håndterer SET_SORTERING dersom man har sortering fra før, men ikke for den innsendte statusen", () => {
+    it('håndterer SET_SORTERING dersom man har sortering fra før, men ikke for den innsendte statusen', () => {
         const initialState = deepFreeze({
             sortering: {
-                tidligere: "dato"
-            }
+                tidligere: 'dato',
+            },
         });
-        const action = actions.sorterSykmeldinger("arbeidsgiver", "nye");
+        const action = actions.sorterSykmeldinger('arbeidsgiver', 'nye');
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
             sortering: {
-                tidligere: "dato",
-                nye: "arbeidsgiver"
-            }
+                tidligere: 'dato',
+                nye: 'arbeidsgiver',
+            },
         });
     });
 
@@ -168,28 +358,28 @@ describe('dineSykmeldingerReducer', () => {
                 id: 23,
             }, {
                 id: 24,
-            }]
+            }],
         });
-        const action = dinSykmeldingActions.setArbeidssituasjon("test", 23);
+        const action = dinSykmeldingActions.setArbeidssituasjon('test', 23);
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
             data: [{
                 id: 23,
-                valgtArbeidssituasjon: 'test'
+                valgtArbeidssituasjon: 'test',
             }, {
                 id: 24,
-            }]
+            }],
         });
     });
 
-    it("Håndterer SYKMELDING_BEKREFTET", () => {
+    it('Håndterer SYKMELDING_BEKREFTET', () => {
         const initialState = deepFreeze({
             data: [{
                 id: 23,
             }, {
                 id: 24,
-            }]
+            }],
         });
         const action = dinSykmeldingActions.sykmeldingBekreftet(23);
         const nextState = dineSykmeldinger(initialState, action);
@@ -202,17 +392,17 @@ describe('dineSykmeldingerReducer', () => {
                 status: 'BEKREFTET',
             }, {
                 id: 24,
-            }]
-        });        
+            }],
+        });
     });
 
-    it("Håndterer AVBRYTER_SYKMELDING", () => {
+    it('Håndterer AVBRYTER_SYKMELDING', () => {
         const initialState = deepFreeze({
             data: [{
                 id: 23,
             }, {
                 id: 24,
-            }]
+            }],
         });
         const action = dinSykmeldingActions.avbryterSykmelding();
         const nextState = dineSykmeldinger(initialState, action);
@@ -225,10 +415,10 @@ describe('dineSykmeldingerReducer', () => {
             }],
             avbryter: true,
             avbrytFeilet: false,
-        });           
+        });
     });
 
-    it("Håndterer SYKMELDING_AVBRUTT", () => {
+    it('Håndterer SYKMELDING_AVBRUTT', () => {
         const initialState = deepFreeze({
             data: [{
                 id: 23,
@@ -242,23 +432,23 @@ describe('dineSykmeldingerReducer', () => {
         expect(nextState).to.deep.equal({
             data: [{
                 id: 23,
-                status: 'AVBRUTT'
+                status: 'AVBRUTT',
             }, {
                 id: 24,
             }],
             avbryter: false,
             avbrytFeilet: false,
-        });        
+        });
     });
 
-    it("Håndterer AVBRYT_SYKMELDING_FEILET", () => {
+    it('Håndterer AVBRYT_SYKMELDING_FEILET', () => {
         const initialState = deepFreeze({
             data: [{
                 id: 23,
             }, {
                 id: 24,
             }],
-            avbryter: true
+            avbryter: true,
         });
         const action = dinSykmeldingActions.avbrytSykmeldingFeilet();
         const nextState = dineSykmeldinger(initialState, action);
@@ -271,78 +461,46 @@ describe('dineSykmeldingerReducer', () => {
             }],
             avbryter: false,
             avbrytFeilet: true,
-        });        
+        });
     });
 
 
-    it("Håndterer SET_FEILAKTIG_OPPLYSNING dersom opplysningen ikke er feilaktig fra før", () => {
-
+    it('Håndterer SET_FEILAKTIG_OPPLYSNING dersom opplysningen ikke er feilaktig fra før', () => {
         const initialState = deepFreeze({
             data: [{
                 id: 23,
             }, {
-                id: 24
-            }]
+                id: 24,
+            }],
         });
-        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, "periode", true);
+        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, 'periode', true);
         const nextState = dineSykmeldinger(initialState, action);
 
         expect(nextState).to.deep.equal({
             data: [{
                 id: 23,
                 feilaktigeOpplysninger: {
-                    "periode": true
-                }
+                    periode: true,
+                },
             }, {
-                id: 24
-            }]
+                id: 24,
+            }],
         });
-
     });
 
 
-    it("Håndterer SET_FEILAKTIG_OPPLYSNING dersom opplysningen er feilaktig fra før", () => {
-
+    it('Håndterer SET_FEILAKTIG_OPPLYSNING dersom opplysningen er feilaktig fra før', () => {
         const initialState = deepFreeze({
             data: [{
                 id: 23,
                 feilaktigeOpplysninger: {
-                    "periode": true
-                }
+                    periode: true,
+                },
             }, {
-                id: 24
-            }]
+                id: 24,
+            }],
         });
-        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, "periode", false);
-
-        const nextState = dineSykmeldinger(initialState, action);
-
-        expect(nextState).to.deep.equal({
-            data: [{
-                id: 23,
-                feilaktigeOpplysninger: {
-                    "periode": false
-                }
-            }, {
-                id: 24
-            }]
-        });
-
-    });
-
-    it("Håndterer SET_FEILAKTIG_OPPLYSNING dersom opplysningen er feilaktig fra før og man prøver å sette den til feilaktig", () => {
-
-        const initialState = deepFreeze({
-            data: [{
-                id: 23,
-                feilaktigeOpplysninger: {
-                    "periode": true
-                }
-            }, {
-                id: 24
-            }]
-        });
-        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, "periode", true);
+        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, 'periode', false);
 
         const nextState = dineSykmeldinger(initialState, action);
 
@@ -350,28 +508,26 @@ describe('dineSykmeldingerReducer', () => {
             data: [{
                 id: 23,
                 feilaktigeOpplysninger: {
-                    "periode": true
-                }
+                    periode: false,
+                },
             }, {
-                id: 24
-            }]
+                id: 24,
+            }],
         });
-
     });
 
-    it("Håndterer SET_FEILAKTIG_OPPLYSNING dersom den settes til false", () => {
-
+    it('Håndterer SET_FEILAKTIG_OPPLYSNING dersom opplysningen er feilaktig fra før og man prøver å sette den til feilaktig', () => {
         const initialState = deepFreeze({
             data: [{
                 id: 23,
                 feilaktigeOpplysninger: {
-                    "periode": true
-                }
+                    periode: true,
+                },
             }, {
-                id: 24
-            }]
+                id: 24,
+            }],
         });
-        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, "periode", false);
+        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, 'periode', true);
 
         const nextState = dineSykmeldinger(initialState, action);
 
@@ -379,28 +535,26 @@ describe('dineSykmeldingerReducer', () => {
             data: [{
                 id: 23,
                 feilaktigeOpplysninger: {
-                    "periode": false
-                }
+                    periode: true,
+                },
             }, {
-                id: 24
-            }]
+                id: 24,
+            }],
         });
-
     });
 
-    it("Håndterer SET_FEILAKTIG_OPPLYSNING dersom det finnes en (annen) feilaktig opplysning fra før", () => {
-
+    it('Håndterer SET_FEILAKTIG_OPPLYSNING dersom den settes til false', () => {
         const initialState = deepFreeze({
             data: [{
                 id: 23,
                 feilaktigeOpplysninger: {
-                    "banan": true,
-                }
+                    periode: true,
+                },
             }, {
-                id: 24
-            }]
+                id: 24,
+            }],
         });
-        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, "periode", true);
+        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, 'periode', false);
 
         const nextState = dineSykmeldinger(initialState, action);
 
@@ -408,26 +562,52 @@ describe('dineSykmeldingerReducer', () => {
             data: [{
                 id: 23,
                 feilaktigeOpplysninger: {
-                    "banan": true,
-                    "periode": true
-                }
+                    periode: false,
+                },
             }, {
-                id: 24
-            }]
+                id: 24,
+            }],
         });
-
     });
 
-    it("Håndterer SET_OPPLYSNINGENE_ER_RIKTIGE", () => {
+    it('Håndterer SET_FEILAKTIG_OPPLYSNING dersom det finnes en (annen) feilaktig opplysning fra før', () => {
         const initialState = deepFreeze({
             data: [{
                 id: 23,
                 feilaktigeOpplysninger: {
-                    "banan": true,
-                }
+                    banan: true,
+                },
             }, {
-                id: 24
-            }]
+                id: 24,
+            }],
+        });
+        const action = dinSykmeldingActions.setFeilaktigOpplysning(23, 'periode', true);
+
+        const nextState = dineSykmeldinger(initialState, action);
+
+        expect(nextState).to.deep.equal({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {
+                    banan: true,
+                    periode: true,
+                },
+            }, {
+                id: 24,
+            }],
+        });
+    });
+
+    it('Håndterer SET_OPPLYSNINGENE_ER_RIKTIGE', () => {
+        const initialState = deepFreeze({
+            data: [{
+                id: 23,
+                feilaktigeOpplysninger: {
+                    banan: true,
+                },
+            }, {
+                id: 24,
+            }],
         });
         const action = dinSykmeldingActions.setOpplysningeneErRiktige(23, true);
 
@@ -437,20 +617,20 @@ describe('dineSykmeldingerReducer', () => {
             data: [{
                 id: 23,
                 feilaktigeOpplysninger: {
-                    "banan": true,
+                    banan: true,
                 },
                 opplysningeneErRiktige: true,
             }, {
-                id: 24
-            }]
+                id: 24,
+            }],
         });
 
         const initialState2 = deepFreeze({
             data: [{
                 id: 23,
             }, {
-                id: 24
-            }]
+                id: 24,
+            }],
         });
         const action2 = dinSykmeldingActions.setOpplysningeneErRiktige(23, false);
 
@@ -461,32 +641,31 @@ describe('dineSykmeldingerReducer', () => {
                 id: 23,
                 opplysningeneErRiktige: false,
             }, {
-                id: 24
-            }]
+                id: 24,
+            }],
         });
-
     });
 
-    it("Håndterer BRUKER_ER_UTLOGGET", () => {
+    it('Håndterer BRUKER_ER_UTLOGGET', () => {
         const initialState = deepFreeze({
-            data: [{id: "5566"}],
+            data: [{ id: '5566' }],
             henter: false,
-            hentingFeilet: false
+            hentingFeilet: false,
         });
         const action = brukerActions.setErUtlogget();
         const nextState = dineSykmeldinger(initialState, action);
         expect(nextState).to.deep.equal({
             henter: false,
             hentingFeilet: false,
-            data: []
-        })
+            data: [],
+        });
     });
 
-    it("Håndterer SYKMELDING_SENDT", () => {
+    it('Håndterer SYKMELDING_SENDT', () => {
         const initialState = deepFreeze({
-            data: [{id: 56}],
+            data: [{ id: 56 }],
             henter: false,
-            hentingFeilet: false
+            hentingFeilet: false,
         });
         const action = dinSykmeldingActions.sykmeldingSendt(56);
         const nextState = dineSykmeldinger(initialState, action);
@@ -498,200 +677,7 @@ describe('dineSykmeldingerReducer', () => {
             henter: false,
             hentingFeilet: false,
             sender: false,
-            sendingFeilet: false
+            sendingFeilet: false,
         });
     });
-
-}); 
-
-export const getSykmelding = (soknad = {}) => {
-    return Object.assign({}, {
-        "id": "73970c89-1173-4d73-b1cb-e8445c2840e2",
-        "startLegemeldtFravaer": "2017-07-07",
-        "skalViseSkravertFelt": true,
-        "identdato": "2017-07-07",
-        "status": "SENDT",
-        "naermesteLederStatus": null,
-        "innsendtArbeidsgivernavn": "ARBEIDS- OG VELFERDSDIREKTORATET, AVD SANNERGATA",
-        "valgtArbeidssituasjon": null,
-        "orgnummer": "***REMOVED***",
-        "sendtdato": "2017-07-24T10:19:15",
-        "pasient": {
-          "fnr": "***REMOVED***",
-          "fornavn": "Frida",
-          "etternavn": "Frost"
-        },
-        "arbeidsgiver": "LOMMEN BARNEHAVE",
-        "diagnose": {
-          "hoveddiagnose": {
-            "diagnose": "TENDINITT INA",
-            "diagnosekode": "L87",
-            "diagnosesystem": "ICPC-2"
-          },
-          "bidiagnoser": [
-            {
-              "diagnose": "GANGLION SENE",
-              "diagnosekode": "L87",
-              "diagnosesystem": "ICPC-2"
-            }
-          ],
-          "fravaersgrunnLovfestet": null,
-          "fravaerBeskrivelse": "Medising årsak i kategorien annet",
-          "svangerskap": true,
-          "yrkesskade": true,
-          "yrkesskadeDato": "2017-07-07"
-        },
-        "mulighetForArbeid": {
-          "perioder": [
-            {
-              "fom": "2017-07-07",
-              "tom": "2017-07-23",
-              "grad": 100,
-              "behandlingsdager": null,
-              "reisetilskudd": null,
-              "avventende": null
-            }
-          ],
-          "aktivitetIkkeMulig433": [
-            "Annet"
-          ],
-          "aktivitetIkkeMulig434": [
-            "Annet"
-          ],
-          "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
-          "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
-        },
-        "friskmelding": {
-          "arbeidsfoerEtterPerioden": true,
-          "hensynPaaArbeidsplassen": "Må ta det pent",
-          "antarReturSammeArbeidsgiver": true,
-          "antattDatoReturSammeArbeidsgiver": "2017-07-07",
-          "antarReturAnnenArbeidsgiver": true,
-          "tilbakemeldingReturArbeid": "2017-07-07",
-          "utenArbeidsgiverAntarTilbakeIArbeid": false,
-          "utenArbeidsgiverAntarTilbakeIArbeidDato": "2017-03-10",
-          "utenArbeidsgiverTilbakemelding": "2017-03-10"
-        },
-        "utdypendeOpplysninger": {
-          "sykehistorie": null,
-          "paavirkningArbeidsevne": null,
-          "resultatAvBehandling": null,
-          "henvisningUtredningBehandling": null
-        },
-        "arbeidsevne": {
-          "tilretteleggingArbeidsplass": "Fortsett som sist.",
-          "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
-          "tiltakAndre": null
-        },
-        "meldingTilNav": {
-          "navBoerTaTakISaken": false,
-          "navBoerTaTakISakenBegrunnelse": null
-        },
-        "innspillTilArbeidsgiver": null,
-        "tilbakedatering": {
-          "dokumenterbarPasientkontakt": "2017-03-12",
-          "tilbakedatertBegrunnelse": null
-        },
-        "bekreftelse": {
-          "utstedelsesdato": "2017-07-24",
-          "sykmelder": "Frida Frost",
-          "sykmelderTlf": "94431152"
-        }
-      }, soknad);
-};
-
-export const getParsetSykmelding = (soknad = {}) => {
-    return Object.assign({}, {
-        "id": "73970c89-1173-4d73-b1cb-e8445c2840e2",
-        "startLegemeldtFravaer": new Date("2017-07-07"),
-        "skalViseSkravertFelt": true,
-        "identdato": new Date("2017-07-07"),
-        "status": "SENDT",
-        "naermesteLederStatus": null,
-        "innsendtArbeidsgivernavn": "ARBEIDS- OG VELFERDSDIREKTORATET, AVD SANNERGATA",
-        "valgtArbeidssituasjon": null,
-        "orgnummer": "***REMOVED***",
-        "sendtdato": new Date("2017-07-24T10:19:15"),
-        "pasient": {
-          "fnr": "***REMOVED***",
-          "fornavn": "Frida",
-          "etternavn": "Frost"
-        },
-        "arbeidsgiver": "LOMMEN BARNEHAVE",
-        "diagnose": {
-          "hoveddiagnose": {
-            "diagnose": "TENDINITT INA",
-            "diagnosekode": "L87",
-            "diagnosesystem": "ICPC-2"
-          },
-          "bidiagnoser": [
-            {
-              "diagnose": "GANGLION SENE",
-              "diagnosekode": "L87",
-              "diagnosesystem": "ICPC-2"
-            }
-          ],
-          "fravaersgrunnLovfestet": null,
-          "fravaerBeskrivelse": "Medising årsak i kategorien annet",
-          "svangerskap": true,
-          "yrkesskade": true,
-          "yrkesskadeDato": new Date("2017-07-07")
-        },
-        "mulighetForArbeid": {
-          "perioder": [
-            {
-              "fom": new Date("2017-07-07"),
-              "tom": new Date("2017-07-23"),
-              "grad": 100,
-              "behandlingsdager": null,
-              "reisetilskudd": null,
-              "avventende": null
-            }
-          ],
-          "aktivitetIkkeMulig433": [
-            "Annet"
-          ],
-          "aktivitetIkkeMulig434": [
-            "Annet"
-          ],
-          "aarsakAktivitetIkkeMulig433": "andre årsaker til sykefravær",
-          "aarsakAktivitetIkkeMulig434": "andre årsaker til sykefravær"
-        },
-        "friskmelding": {
-          "arbeidsfoerEtterPerioden": true,
-          "hensynPaaArbeidsplassen": "Må ta det pent",
-          "antarReturSammeArbeidsgiver": true,
-          "antattDatoReturSammeArbeidsgiver": new Date("2017-07-07"),
-          "antarReturAnnenArbeidsgiver": true,
-          "tilbakemeldingReturArbeid": new Date("2017-07-07"),
-          "utenArbeidsgiverAntarTilbakeIArbeid": false,
-          "utenArbeidsgiverAntarTilbakeIArbeidDato": new Date("2017-03-10"),
-          "utenArbeidsgiverTilbakemelding": new Date("2017-03-10")
-        },
-        "utdypendeOpplysninger": {
-          "sykehistorie": null,
-          "paavirkningArbeidsevne": null,
-          "resultatAvBehandling": null,
-          "henvisningUtredningBehandling": null
-        },
-        "arbeidsevne": {
-          "tilretteleggingArbeidsplass": "Fortsett som sist.",
-          "tiltakNAV": "Pasienten har plager som er kommet tilbake etter operasjon. Det er nylig tatt MR bildet som viser forandringer i hånd som mulig må opereres. Venter på time. Det er mulig sykemledingen vil vare utover aktuell sm periode. ",
-          "tiltakAndre": null
-        },
-        "meldingTilNav": {
-          "navBoerTaTakISaken": false,
-          "navBoerTaTakISakenBegrunnelse": null
-        },
-        "innspillTilArbeidsgiver": null,
-        "tilbakedatering": {
-          "dokumenterbarPasientkontakt": new Date("2017-03-12"),
-          "tilbakedatertBegrunnelse": null
-        },
-        "bekreftelse": {
-          "utstedelsesdato": new Date("2017-07-24"),
-          "sykmelder": "Frida Frost",
-          "sykmelderTlf": "94431152"
-        }
-      }, soknad);
-};
+});

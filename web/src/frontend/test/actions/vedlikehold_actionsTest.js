@@ -1,5 +1,4 @@
 import chai from 'chai';
-import React from 'react'
 import chaiEnzyme from 'chai-enzyme';
 import * as actiontyper from '../../js/actions/actiontyper';
 import * as actions from '../../js/actions/vedlikehold_actions';
@@ -7,37 +6,36 @@ import * as actions from '../../js/actions/vedlikehold_actions';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("vedlikehold_actions", () => {
-
+describe('vedlikehold_actions', () => {
     beforeEach(() => {
         window.APP_SETTINGS = {
-            REST_ROOT: 'http://tjenester.nav.no/syforest'
-        }
+            REST_ROOT: 'http://tjenester.nav.no/syforest',
+        };
     });
 
-    describe('henter',() => {
-        it("Skal ha en henterVedlikehold()-funksjon som returnerer riktig action", () => {
+    describe('henter', () => {
+        it('Skal ha en henterVedlikehold()-funksjon som returnerer riktig action', () => {
             expect(actions.henterVedlikehold()).to.deep.equal({
                 type: actiontyper.HENTER_VEDLIKEHOLD,
-            })
+            });
         });
 
-        it("Skal ha en vedlikeholdHentet()-funksjon som returnerer riktig action", () => {
+        it('Skal ha en vedlikeholdHentet()-funksjon som returnerer riktig action', () => {
             expect(actions.vedlikeholdHentet(true)).to.deep.equal({
                 type: actiontyper.VEDLIKEHOLD_HENTET,
                 data: true,
             });
         });
 
-        it("Skal ha en hentVedlikeholdFeilet()-funksjon som returnerer riktig action", () => {
+        it('Skal ha en hentVedlikeholdFeilet()-funksjon som returnerer riktig action', () => {
             expect(actions.hentVedlikeholdFeilet()).to.deep.equal({
-                type: actiontyper.HENT_VEDLIKEHOLD_FEILET
-            })
+                type: actiontyper.HENT_VEDLIKEHOLD_FEILET,
+            });
         });
 
-        it("Skal ha en hentVedlikehold()-funksjon som returnerer riktig action", () => {
+        it('Skal ha en hentVedlikehold()-funksjon som returnerer riktig action', () => {
             expect(actions.hentVedlikehold()).to.deep.equal({
-                type: actiontyper.HENT_VEDLIKEHOLD_FORESPURT
+                type: actiontyper.HENT_VEDLIKEHOLD_FORESPURT,
             });
         });
     });

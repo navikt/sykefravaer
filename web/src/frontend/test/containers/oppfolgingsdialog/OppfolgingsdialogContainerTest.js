@@ -22,7 +22,6 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe('OppfolgingsdialogContainer', () => {
-
     describe('mapStateToProps', () => {
         let clock;
         const dagensDato = new Date('2017-01-01');

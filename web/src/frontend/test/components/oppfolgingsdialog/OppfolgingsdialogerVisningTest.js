@@ -192,7 +192,7 @@ describe('Oppfolgingsdialoger', () => {
                 visOppfolgingsdialogOpprett={visOppfolgingsdialogOpprett}
             />);
             komponent.find('button').simulate('click');
-            expect(visOppfolgingsdialogOpprett.calledOnce).to.be;
+            expect(visOppfolgingsdialogOpprett.calledOnce).to.equal(true);
         });
     });
 });

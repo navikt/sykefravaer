@@ -1,35 +1,32 @@
 import { expect } from 'chai';
-import { hentHendelser } from '../../js/sagas/hendelserSagas.js';
-import * as actions from '../../js/actions/hendelser_actions';
-import { get, post } from 'digisyfo-npm';
+import { get } from 'digisyfo-npm';
 import { put, call } from 'redux-saga/effects';
+import * as actions from '../../js/actions/hendelser_actions';
+import { hentHendelser } from '../../js/sagas/hendelserSagas';
 
-describe("hendelserSagas", () => {
-
+describe('hendelserSagas', () => {
     beforeEach(() => {
         window.APP_SETTINGS = {
-            REST_ROOT: "http://tjenester.nav.no/syforest"
-        }
+            REST_ROOT: 'http://tjenester.nav.no/syforest',
+        };
     });
 
-    describe("hentHendelser", () => {
+    describe('hentHendelser', () => {
         const generator = hentHendelser();
 
-        it("Skal dispatche HENTER_HENDELSER", () => {
+        it('Skal dispatche HENTER_HENDELSER', () => {
             const nextPut = put(actions.henterHendelser());
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
-        it("Skal dernest hente hendelser", () => {
-            const nextCall = call(get, "http://tjenester.nav.no/syforest/informasjon/hendelser");
+        it('Skal dernest hente hendelser', () => {
+            const nextCall = call(get, 'http://tjenester.nav.no/syforest/informasjon/hendelser');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it("Skal dernest lagre hendelser i state", () => {
+        it('Skal dernest lagre hendelser i state', () => {
             const nextPut = put(actions.hendelserHentet([]));
             expect(generator.next([]).value).to.deep.equal(nextPut);
         });
     });
-
-
 });

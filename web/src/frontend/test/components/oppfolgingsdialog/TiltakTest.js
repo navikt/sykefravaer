@@ -11,8 +11,6 @@ import {
 } from 'oppfolgingsdialog-npm';
 import { setLedetekster } from 'digisyfo-npm';
 import ledetekster from '../../mockLedetekster';
-import AppSpinner from '../../../js/components/AppSpinner';
-import Feilmelding from '../../../js/components/Feilmelding';
 import Tiltak from '../../../js/components/oppfolgingsdialoger/utfylling/Tiltak';
 import getOppfolgingsdialog from '../../mockOppfolgingsdialoger';
 
@@ -28,25 +26,25 @@ describe('Tiltak', () => {
     let tiltak;
     const oppfolgingsdialog = getOppfolgingsdialog();
     function storageMock() {
-        var storage = {};
+        const storage = {};
 
         return {
-            setItem: function(key, value) {
+            setItem(key, value) {
                 storage[key] = value || '';
             },
-            getItem: function(key) {
+            getItem(key) {
                 return key in storage ? storage[key] : null;
             },
-            removeItem: function(key) {
+            removeItem(key) {
                 delete storage[key];
             },
             get length() {
                 return Object.keys(storage).length;
             },
-            key: function(i) {
-                var keys = Object.keys(storage);
+            key(i) {
+                const keys = Object.keys(storage);
                 return keys[i] || null;
-            }
+            },
         };
     }
     beforeEach(() => {
@@ -76,7 +74,7 @@ describe('Tiltak', () => {
             }}
             ledetekster={ledetekster}
         />);
-        component.setProps({ tiltak: {lagringFeilet: true} });
+        component.setProps({ tiltak: { lagringFeilet: true } });
         expect(component.state().varselTekst).to.equal('Det oppsto en feil, og du fikk ikke lagret. Prøv igjen.');
     });
 
@@ -89,7 +87,7 @@ describe('Tiltak', () => {
             }}
             ledetekster={ledetekster}
         />);
-        component.setProps({ tiltak: {lagringFeilet: true, feiletTiltakId: 5,} });
+        component.setProps({ tiltak: { lagringFeilet: true, feiletTiltakId: 5 } });
         expect(component.state().varselTekst).to.equal('');
     });
 

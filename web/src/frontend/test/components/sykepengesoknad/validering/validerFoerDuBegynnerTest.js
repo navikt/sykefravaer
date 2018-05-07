@@ -1,30 +1,25 @@
 import chai from 'chai';
-import React from 'react'
-import {mount, shallow} from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
+import validate from '../../../../js/components/sykepengesoknad/validering/validerFoerDuBegynner';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import validate from '../../../../js/components/sykepengesoknad/validering/validerFoerDuBegynner';
-
-describe("validerFoerDuBegynner", () => {
-
-    let values; 
+describe('validerFoerDuBegynner', () => {
+    let values;
 
     beforeEach(() => {
-        values = {}
+        values = {};
     });
 
-    it("Skal returnere ansvarBekreftet", () => {
+    it('Skal returnere ansvarBekreftet', () => {
         const res = validate(values);
-        expect(typeof res.ansvarBekreftet).to.equal("string");
+        expect(typeof res.ansvarBekreftet).to.equal('string');
     });
 
-    it("Skal returnere ansvarBekreftet når ansvarBekreftet er fylt ut", () => {
+    it('Skal returnere ansvarBekreftet når ansvarBekreftet er fylt ut', () => {
         values.ansvarBekreftet = true;
         const res = validate(values);
-        expect(typeof res.ansvarBekreftet).to.equal("undefined");
+        expect(typeof res.ansvarBekreftet).to.equal('undefined');
     });
-
 });

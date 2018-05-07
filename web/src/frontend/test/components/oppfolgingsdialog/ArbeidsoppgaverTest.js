@@ -31,25 +31,25 @@ describe('Arbeidsoppgaver', () => {
     let arbeidsoppgaver;
     const oppfolgingsdialog = getOppfolgingsdialog();
     function storageMock() {
-        var storage = {};
+        const storage = {};
 
         return {
-            setItem: function(key, value) {
+            setItem(key, value) {
                 storage[key] = value || '';
             },
-            getItem: function(key) {
+            getItem(key) {
                 return key in storage ? storage[key] : null;
             },
-            removeItem: function(key) {
+            removeItem(key) {
                 delete storage[key];
             },
             get length() {
                 return Object.keys(storage).length;
             },
-            key: function(i) {
-                var keys = Object.keys(storage);
+            key(i) {
+                const keys = Object.keys(storage);
                 return keys[i] || null;
-            }
+            },
         };
     }
     beforeEach(() => {
@@ -130,7 +130,7 @@ describe('Arbeidsoppgaver', () => {
                 }}
                 ledetekster={ledetekster}
             />);
-            component.setProps({ arbeidsoppgaver : {lagringFeilet: true} });
+            component.setProps({ arbeidsoppgaver: { lagringFeilet: true } });
             expect(component.state().varselTekst).to.equal('Det oppsto en feil, og du fikk ikke lagret. Prøv igjen.');
         });
 
@@ -146,7 +146,7 @@ describe('Arbeidsoppgaver', () => {
                 }}
                 ledetekster={ledetekster}
             />);
-            component.setProps({ arbeidsoppgaver: {lagringFeilet: true, feiletOppgaveId: 5,} });
+            component.setProps({ arbeidsoppgaver: { lagringFeilet: true, feiletOppgaveId: 5 } });
             expect(component.state().varselTekst).to.equal('');
         });
     });

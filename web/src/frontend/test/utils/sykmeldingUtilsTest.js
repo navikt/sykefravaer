@@ -1,6 +1,6 @@
-import {
-    MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING,
-} from 'oppfolgingsdialog-npm';
+import sinon from 'sinon';
+import chai from 'chai';
+import { MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING } from 'oppfolgingsdialog-npm';
 import {
     finnArbeidsgivereForGyldigeSykmeldinger,
     sykmeldtHarManglendeNaermesteLeder,
@@ -11,9 +11,8 @@ import {
     sykmeldtHarGyldigSykmelding,
 } from '../../js/utils/sykmeldingUtils';
 import getSykmelding, { getSykmeldinger, getArbeidsgivere, getArbeidsgiver } from '../mockSykmeldinger';
-import { getLedere } from '../mockLedere.js';
-import sinon from 'sinon';
-import chai from "chai";
+import { getLedere } from '../mockLedere';
+
 const expect = chai.expect;
 
 const MILLISEKUNDER_PER_DAG = 86400000;
@@ -141,7 +140,6 @@ describe('sykmeldingUtils', () => {
         clock.restore();
     });
     const naermesteLedere = getLedere;
-    const arbeidsgivere = getArbeidsgivere;
     const arbeidsgivereUtenNaermesteLeder = getArbeidsgiver({
         harNaermesteLeder: false,
     });
@@ -161,7 +159,7 @@ describe('sykmeldingUtils', () => {
             sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
                 orgnummer: null,
             })];
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.be.true;
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.equal(true);
         });
 
         it('skal returnere false med 1 sykmelding, som har siste gyldige sykmeldingsdato eldre enn grensedato(4mnd siden), med oppfolgingsdialoger', () => {
@@ -171,7 +169,7 @@ describe('sykmeldingUtils', () => {
                 }],
             };
             sykmeldinger = [sykmeldingUtgaattOver4mnd];
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.be.true;
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.equal(true);
         });
 
         it('skal returnere false med 1 sykmelding uten orgnummer, uten oppfolgingsdialoger', () => {
@@ -181,9 +179,10 @@ describe('sykmeldingUtils', () => {
             sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
                 orgnummer: null,
             })];
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.be.false;
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.equal(false);
         });
 
+        /* eslint-disable max-len */
         it('skal returnere false med 1 sykmelding, som ikke har orgnummer, men som har siste gyldige sykmeldingsdato nyligere eller lik grensedato(4mnd siden), uten oppfolgingsdialoger', () => {
             oppfolgingsdialoger = {
                 data: [],
@@ -191,15 +190,16 @@ describe('sykmeldingUtils', () => {
             sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
                 orgnummer: null,
             })];
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.be.false;
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.equal(false);
         });
+        /* eslint-disable max-len */
 
         it('skal returnere true med 1 sykmelding, som har siste gyldige sykmeldingsdato nyligere enn grensedato(4mnd siden), uteno oppfolgingsdialoger', () => {
             oppfolgingsdialoger = {
                 data: [],
             };
             sykmeldinger = [sykmeldingAktiv];
-            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.be.true;
+            expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.equal(true);
         });
     });
 
@@ -208,113 +208,105 @@ describe('sykmeldingUtils', () => {
             sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
                 orgnummer: null,
             })];
-            expect(sykmeldtHarGyldigSykmelding(sykmeldinger)).to.be.false;
+            expect(sykmeldtHarGyldigSykmelding(sykmeldinger)).to.equal(false);
         });
 
         it('skal returnere false med 1 sykmelding, som har siste gyldige sykmeldingsdato eldre enn grensedato(4mnd siden)', () => {
             sykmeldinger = [sykmeldingUtgaattOver4mnd];
-            expect(sykmeldtHarGyldigSykmelding(sykmeldinger)).to.be.false;
+            expect(sykmeldtHarGyldigSykmelding(sykmeldinger)).to.equal(false);
         });
 
         it('skal returnere false med 1 sykmelding, som ikke har orgnummer, men som har siste gyldige sykmeldingsdato nyligere eller lik grensedato(4mnd siden)', () => {
             sykmeldinger = [Object.assign({}, sykmeldingAktiv, {
                 orgnummer: null,
             })];
-            expect(sykmeldtHarGyldigSykmelding(sykmeldinger)).to.be.false;
+            expect(sykmeldtHarGyldigSykmelding(sykmeldinger)).to.equal(false);
         });
 
         it('skal returnere true med 1 sykmelding, som har siste gyldige sykmeldingsdato nyligere enn grensedato(4mnd siden)', () => {
             sykmeldinger = [sykmeldingAktiv];
-            expect(sykmeldtHarGyldigSykmelding(sykmeldinger)).to.be.true;
+            expect(sykmeldtHarGyldigSykmelding(sykmeldinger)).to.equal(true);
         });
     });
 
-    describe("finnArbeidsgivereForGyldigeSykmeldinger", () => {
-
-        it("skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt over 3 maaneder", () => {
-            const sykmeldinger = [sykmeldingUtgaattOver4mnd];
+    describe('finnArbeidsgivereForGyldigeSykmeldinger', () => {
+        it('skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt over 3 maaneder', () => {
+            sykmeldinger = [sykmeldingUtgaattOver4mnd];
             expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
         });
 
-        it("skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt", () => {
-            const sykmeldinger = [sykmeldingUtgaattOver4mnd];
+        it('skal ikke returnere arbeidsgivere, naar sykmelding er utgaatt', () => {
+            sykmeldinger = [sykmeldingUtgaattOver4mnd];
             expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(0);
         });
 
-        it("skal returnere 1 arbeidsgiver, når 1 sykmelding er utgaatt over 3mnd og 1  er utgaat under 3 mnd", () => {
-            const sykmeldinger = [sykmeldingUtgaatt, sykmeldingUtgaattOver4mnd];
+        it('skal returnere 1 arbeidsgiver, når 1 sykmelding er utgaatt over 3mnd og 1  er utgaat under 3 mnd', () => {
+            sykmeldinger = [sykmeldingUtgaatt, sykmeldingUtgaattOver4mnd];
             expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });
 
-        it("skal returnere 1 arbeidsgiver, når 1 sykmelding er utgaatt og 1 er aktiv", () => {
-            const sykmeldinger = [sykmeldingUtgaatt, sykmeldingAktiv];
+        it('skal returnere 1 arbeidsgiver, når 1 sykmelding er utgaatt og 1 er aktiv', () => {
+            sykmeldinger = [sykmeldingUtgaatt, sykmeldingAktiv];
             expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });
 
-        it("skal returnere 2 arbeidsgivere, når 2 sykmeldinger er aktive", () => {
+        it('skal returnere 2 arbeidsgivere, når 2 sykmeldinger er aktive', () => {
             expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(2);
         });
 
-        it("skal returnere 1 arbeidsgiver, når det er duplikat av arbeidsgiver", () => {
-            const sykmeldinger = [sykmeldingAktiv, sykmeldingAktiv];
+        it('skal returnere 1 arbeidsgiver, når det er duplikat av arbeidsgiver', () => {
+            sykmeldinger = [sykmeldingAktiv, sykmeldingAktiv];
             expect(finnArbeidsgivereForGyldigeSykmeldinger(sykmeldinger, naermesteLedere)).to.have.length(1);
         });
-
     });
 
-    describe("sykmeldtHarNaermestelederHosArbeidsgiver", () => {
-
+    describe('sykmeldtHarNaermestelederHosArbeidsgiver', () => {
         let virksomhetsnummer;
 
-        it("skal returnerere false", () => {
-            virksomhetsnummer = "***REMOVED***";
-            expect(sykmeldtHarNaermestelederHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.be.false;
+        it('skal returnerere false', () => {
+            virksomhetsnummer = '***REMOVED***';
+            expect(sykmeldtHarNaermestelederHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.equal(false);
         });
 
-        it("skal returnerere true", () => {
-            virksomhetsnummer = "***REMOVED***";
-            expect(sykmeldtHarNaermestelederHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.be.true;
+        it('skal returnerere true', () => {
+            virksomhetsnummer = '***REMOVED***';
+            expect(sykmeldtHarNaermestelederHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.equal(true);
         });
     });
 
-    describe("finnSykmeldtSinNaermestelederNavnHosArbeidsgiver", () => {
-
+    describe('finnSykmeldtSinNaermestelederNavnHosArbeidsgiver', () => {
         let virksomhetsnummer;
 
-        it("skal ikke returnerere en naermeste leder", () => {
-            virksomhetsnummer = "***REMOVED***";
-            expect(finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.be.undefined;
+        it('skal ikke returnerere en naermeste leder', () => {
+            virksomhetsnummer = '***REMOVED***';
+            expect(finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.equal(undefined);
         });
 
-        it("skal returnerere en naermeste leder", () => {
-            virksomhetsnummer = "***REMOVED***";
-            expect(finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.equal("Geir-Espen Fygle");
+        it('skal returnerere en naermeste leder', () => {
+            virksomhetsnummer = '***REMOVED***';
+            expect(finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.equal('Geir-Espen Fygle');
         });
-
     });
 
-    describe("sykmeldtHarManglendeNaermesteLeder", () => {
-
-        it("skal returnerere false", () => {
+    describe('sykmeldtHarManglendeNaermesteLeder', () => {
+        it('skal returnerere false', () => {
             const arbeidsgivere = [arbeidsgivereMedNaermesteLeder];
-            expect(sykmeldtHarManglendeNaermesteLeder(arbeidsgivere)).to.be.false;
+            expect(sykmeldtHarManglendeNaermesteLeder(arbeidsgivere)).to.equal(false);
         });
 
-        it("skal returnerere true", () => {
-            expect(sykmeldtHarManglendeNaermesteLeder(arbeidsgivere)).to.be.true;
+        it('skal returnerere true', () => {
+            expect(sykmeldtHarManglendeNaermesteLeder(getArbeidsgivere)).to.equal(true);
         });
     });
 
-    describe("sykmeldtHarNaermestelederHosArbeidsgivere", () => {
-
-        it("skal returnerere false", () => {
+    describe('sykmeldtHarNaermestelederHosArbeidsgivere', () => {
+        it('skal returnerere false', () => {
             const arbeidsgivere = [arbeidsgivereUtenNaermesteLeder];
-            expect(sykmeldtHarNaermestelederHosArbeidsgivere(arbeidsgivere)).to.be.false;
+            expect(sykmeldtHarNaermestelederHosArbeidsgivere(arbeidsgivere)).to.equal(false);
         });
 
-        it("skal returnerere true", () => {
-            expect(sykmeldtHarNaermestelederHosArbeidsgivere(arbeidsgivere)).to.be.true;
+        it('skal returnerere true', () => {
+            expect(sykmeldtHarNaermestelederHosArbeidsgivere(getArbeidsgivere)).to.equal(true);
         });
-
     });
 });

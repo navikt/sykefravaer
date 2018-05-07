@@ -70,7 +70,7 @@ describe('sykeforloep', () => {
             }), getSykeforloep({
                 oppfoelgingsdato: new Date('2018-01-01'),
                 sykmeldinger: [],
-            })]
+            })],
         });
     });
 

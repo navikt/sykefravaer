@@ -1,70 +1,65 @@
 import chai from 'chai';
-import React from 'react'
+import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import getSykmelding from "../../mockSykmeldinger";
-import Sykmeldingkvittering from "../../../js/components/sykmeldingkvittering/Sykmeldingkvittering";
-import Kvitteringsteg from "../../../js/components/sykmeldingkvittering/Kvitteringsteg";
-import SokOmSykepengerNaaKvittering from "../../../js/components/sykmeldingkvittering/SokOmSykepengerNaaKvittering";
-import SokOmSykepengerSenereKvittering from "../../../js/components/sykmeldingkvittering/SokOmSykepengerSenereKvittering";
+import getSykmelding from '../../mockSykmeldinger';
+import Sykmeldingkvittering from '../../../js/components/sykmeldingkvittering/Sykmeldingkvittering';
+import Kvitteringsteg from '../../../js/components/sykmeldingkvittering/Kvitteringsteg';
+import SokOmSykepengerNaaKvittering from '../../../js/components/sykmeldingkvittering/SokOmSykepengerNaaKvittering';
+import SokOmSykepengerSenereKvittering from '../../../js/components/sykmeldingkvittering/SokOmSykepengerSenereKvittering';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("Sykmeldingkvittering", () => {
-
+describe('Sykmeldingkvittering', () => {
     beforeEach(() => {
         window.APP_SETTINGS = {
-            APP_ROOT: "/sykefravaer"
-        }
-    })
+            APP_ROOT: '/sykefravaer',
+        };
+    });
 
-    it("Skal vise en SokOmSykepengerSenereKvittering hvis kvitteringtype er KVITTERING_MED_SYKEPENGER_SØK_SENERE", () => {
+    it('Skal vise en SokOmSykepengerSenereKvittering hvis kvitteringtype er KVITTERING_MED_SYKEPENGER_SØK_SENERE', () => {
         const comp = shallow(<Sykmeldingkvittering kvitteringtype="KVITTERING_MED_SYKEPENGER_SØK_SENERE" />);
         expect(comp.find(SokOmSykepengerSenereKvittering)).to.have.length(1);
     });
 
-    it("Skal vise en SokOmSykepengerNaaKvittering hvis kvitteringtype er KVITTERING_MED_SYKEPENGER_SØK_NÅ", () => {
+    it('Skal vise en SokOmSykepengerNaaKvittering hvis kvitteringtype er KVITTERING_MED_SYKEPENGER_SØK_NÅ', () => {
         const comp = shallow(<Sykmeldingkvittering kvitteringtype="KVITTERING_MED_SYKEPENGER_SØK_NÅ" />);
         expect(comp.find(SokOmSykepengerNaaKvittering)).to.have.length(1);
     });
 
-    describe("SokOmSykepengerSenereKvittering", () => {
-        it("Skal vise tre stk Kvitteringsteg", () => {
+    describe('SokOmSykepengerSenereKvittering', () => {
+        it('Skal vise tre stk Kvitteringsteg', () => {
             const comp = shallow(<SokOmSykepengerSenereKvittering sykmelding={getSykmelding()} sykepengesoknader={[]} />);
             expect(comp.find(Kvitteringsteg)).to.have.length(3);
         });
     });
 
-    describe("SokOmSykepengerNaaKvittering", () => {
-        it("Skal vise to stk Kvitteringsteg", () => {
+    describe('SokOmSykepengerNaaKvittering', () => {
+        it('Skal vise to stk Kvitteringsteg', () => {
             const comp = shallow(<SokOmSykepengerNaaKvittering />);
             expect(comp.find(Kvitteringsteg)).to.have.length(2);
         });
-
     });
 
-    describe("Kvitteringsteg", () => {
-        let comp; 
+    describe('Kvitteringsteg', () => {
+        let comp;
 
         beforeEach(() => {
             comp = shallow(<Kvitteringsteg ikon="banan.svg" tittel="Min fine tittel"><p>Hei på deg</p></Kvitteringsteg>);
         });
 
-        it("Skal vise et ikon", () => {
-            expect(comp.find("img").prop("src")).to.equal("/sykefravaer/img/svg/banan.svg")
+        it('Skal vise et ikon', () => {
+            expect(comp.find('img').prop('src')).to.equal('/sykefravaer/img/svg/banan.svg');
         });
 
-        it("Skal vise en tittel", () => {
-            expect(comp.find(".js-tittel").text()).to.equal("Min fine tittel");
+        it('Skal vise en tittel', () => {
+            expect(comp.find('.js-tittel').text()).to.equal('Min fine tittel');
         });
 
-        it("Skal vise children", () => {
-            expect(comp.find(".js-tekst")).to.contain(<p>Hei på deg</p>);
+        it('Skal vise children', () => {
+            expect(comp.find('.js-tekst')).to.contain(<p>Hei på deg</p>);
         });
-
     });
-
-
-}); 
+});
 

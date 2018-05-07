@@ -21,9 +21,11 @@ class Kvittering extends Component {
             <div className="panel js-kvittering">
                 <div className="hode hode--suksess">
                     <h2 className="hode__tittel">{getLedetekst(`sykepengesoknad.kvittering${getSendtTilSuffix(sykepengesoknad)}.tittel`)}</h2>
-                    <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.kvittering${getSendtTilSuffix(sykepengesoknad)}.tekst`, {
-                        '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver ? sykepengesoknad.arbeidsgiver.navn : '',
-                    })} />
+                    <div
+                        className="redaksjonelt-innhold"
+                        dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.kvittering${getSendtTilSuffix(sykepengesoknad)}.tekst`, {
+                            '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver ? sykepengesoknad.arbeidsgiver.navn : '',
+                        })} />
                 </div>
             </div>
         </div>);

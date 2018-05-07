@@ -89,7 +89,7 @@ SendtUlikt.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
 };
 
-export const Statuspanel = ({ sykepengesoknad, children }) => {
+const Statuspanel = ({ sykepengesoknad, children }) => {
     return (<div className="panel panel--komprimert blokk">
         <Varselstripe type="suksess">
             <div>

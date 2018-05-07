@@ -1,29 +1,30 @@
 import chai from 'chai';
-import React from 'react'
-import {mount, shallow} from 'enzyme';
+import React from 'react';
+import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import sinon from 'sinon';
-import { Field } from 'redux-form';
-import getSykmelding from "../../mockSykmeldinger";
-import ledetekster from '../../mockLedetekster';
 import { setLedetekster } from 'digisyfo-npm';
+import { Field } from 'redux-form';
+import getSykmelding from '../../mockSykmeldinger';
+import ledetekster from '../../mockLedetekster';
+import VelgArbeidsgiver, {
+    RendreVelgArbeidsgiver,
+    Tilleggsinfo,
+    ArbeidsgiverRadioknapper,
+    visTilleggssporsmal,
+    SkrivUt } from '../../../js/components/sykmeldingskjema/VelgArbeidsgiver';
+import ErLederRiktig from '../../../js/components/sykmeldingskjema/ErLederRiktig';
+import SporsmalMedTillegg from '../../../js/components/skjema/SporsmalMedTillegg';
+import Radioknapper from '../../../js/components/skjema/Radioknapper';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-import VelgArbeidsgiver, { RendreVelgArbeidsgiver, Tilleggsinfo, ArbeidsgiverRadioknapper, visTilleggssporsmal, SkrivUt } from "../../../js/components/sykmeldingskjema/VelgArbeidsgiver";
-import ErLederRiktig from '../../../js/components/sykmeldingskjema/ErLederRiktig';
-import SporsmalMedTillegg from '../../../js/components/skjema/SporsmalMedTillegg';
-import Radioknapper from '../../../js/components/skjema/Radioknapper';
-import { Hjelpetekst } from 'digisyfo-npm';
-
-describe("VelgArbeidsgiver", () => {
-
+describe('VelgArbeidsgiver', () => {
     let component;
     let arbeidsgivere;
-    let skjemaData; 
+    let skjemaData;
     let sykmelding;
-    let input; 
+    let input;
     let props;
 
     beforeEach(() => {
@@ -32,154 +33,144 @@ describe("VelgArbeidsgiver", () => {
         skjemaData.values.opplysningeneErRiktige = true;
         skjemaData.values.valgtArbeidssituasjon = 'arbeidstaker';
         arbeidsgivere = [{
-            orgnummer: "123456789",
-            navn: "Mortens frukt og grønt"
+            orgnummer: '123456789',
+            navn: 'Mortens frukt og grønt',
         }, {
-            orgnummer: "0", 
-            navn: "Annen arbeidsgiver"
+            orgnummer: '0',
+            navn: 'Annen arbeidsgiver',
         }];
         input = {
-            value: ""
-        }
+            value: '',
+        };
         sykmelding = getSykmelding();
         props = {
             skjemaData,
             arbeidsgivere,
             sykmelding,
             input,
-        }
+        };
         setLedetekster(ledetekster);
         component = shallow(<VelgArbeidsgiver {...props} />);
     });
 
-    it("Skal inneholde et Field med riktige props", () => {
-        expect(component.find(Field).prop("component")).to.deep.equal(RendreVelgArbeidsgiver);
-        expect(component.find(Field).prop("name")).to.equal("valgtArbeidsgiver");
-        expect(component.find(Field).prop("sykmelding")).to.deep.equal(sykmelding);
-        expect(component.find(Field).prop("arbeidsgivere")).to.deep.equal(arbeidsgivere);
-        expect(component.find(Field).prop("parse")("123456789")).to.deep.equal({
-            orgnummer: "123456789",
-            navn: "Mortens frukt og grønt"
-        })
+    it('Skal inneholde et Field med riktige props', () => {
+        expect(component.find(Field).prop('component')).to.deep.equal(RendreVelgArbeidsgiver);
+        expect(component.find(Field).prop('name')).to.equal('valgtArbeidsgiver');
+        expect(component.find(Field).prop('sykmelding')).to.deep.equal(sykmelding);
+        expect(component.find(Field).prop('arbeidsgivere')).to.deep.equal(arbeidsgivere);
+        expect(component.find(Field).prop('parse')('123456789')).to.deep.equal({
+            orgnummer: '123456789',
+            navn: 'Mortens frukt og grønt',
+        });
     });
 
-    describe("RendreVelgArbeidsgiver", () => {
-
+    describe('RendreVelgArbeidsgiver', () => {
         beforeEach(() => {
-            component = shallow(<RendreVelgArbeidsgiver {...props} />)
+            component = shallow(<RendreVelgArbeidsgiver {...props} />);
         });
 
-        it("Skal sende props videre til SporsmalMedTillegg", () => {
+        it('Skal sende props videre til SporsmalMedTillegg', () => {
             expect(component.find(SporsmalMedTillegg)).to.have.length(1);
-            expect(component.find(SporsmalMedTillegg).prop("skjemaData")).to.deep.equal(props.skjemaData);
-            expect(component.find(SporsmalMedTillegg).prop("arbeidsgivere")).to.deep.equal(props.arbeidsgivere);
-            expect(component.find(SporsmalMedTillegg).prop("sykmelding")).to.deep.equal(props.sykmelding);
-            expect(component.find(SporsmalMedTillegg).prop("Sporsmal")).to.deep.equal(<ArbeidsgiverRadioknapper {...props} />);
+            expect(component.find(SporsmalMedTillegg).prop('skjemaData')).to.deep.equal(props.skjemaData);
+            expect(component.find(SporsmalMedTillegg).prop('arbeidsgivere')).to.deep.equal(props.arbeidsgivere);
+            expect(component.find(SporsmalMedTillegg).prop('sykmelding')).to.deep.equal(props.sykmelding);
+            expect(component.find(SporsmalMedTillegg).prop('Sporsmal')).to.deep.equal(<ArbeidsgiverRadioknapper {...props} />);
             expect(component.find(SporsmalMedTillegg).find(Tilleggsinfo)).to.have.length(1);
         });
-
     });
 
-    describe("ArbeidsgiverRadioknapper", () => {
+    describe('ArbeidsgiverRadioknapper', () => {
         beforeEach(() => {
-            component = shallow(<ArbeidsgiverRadioknapper {...props} />)
+            component = shallow(<ArbeidsgiverRadioknapper {...props} />);
         });
 
-        it("Skal inneholde Radioknapper med riktig name", () => {
+        it('Skal inneholde Radioknapper med riktig name', () => {
             expect(component.find(Radioknapper)).to.have.length(1);
-            expect(component.find(Radioknapper).prop("name")).to.equal("valgtArbeidsgiver");
+            expect(component.find(Radioknapper).prop('name')).to.equal('valgtArbeidsgiver');
         });
 
-        it("Skal inneholde Radioknapper med hjelpelinje", () => {
-            expect(component.find(Radioknapper).prop("hjelpelinje")).not.to.be.undefined;
+        it('Skal inneholde Radioknapper med hjelpelinje', () => {
+            expect(component.find(Radioknapper).prop('hjelpelinje')).not.to.equal(undefined);
         });
 
-        it("Skal inneholde en input for hver arbeidsgiver", () => {
-            expect(component.find("input")).to.have.length(2);
+        it('Skal inneholde en input for hver arbeidsgiver', () => {
+            expect(component.find('input')).to.have.length(2);
         });
 
-        it("Skal dekorere navn med orgnummer på format 123 456 789", () => {
-            expect(component.find("input").first().prop("labelSekundaer")).to.contain("123 456 789");
+        it('Skal dekorere navn med orgnummer på format 123 456 789', () => {
+            expect(component.find('input').first().prop('labelSekundaer')).to.contain('123 456 789');
         });
+    });
 
-    })
-
-    describe("Tilleggsinfo", () => {
-
-        it("Skal returnere SkrivUt hvis bruker har valgt annen arbeidsgiver ", () => {
+    describe('Tilleggsinfo', () => {
+        it('Skal returnere SkrivUt hvis bruker har valgt annen arbeidsgiver ', () => {
             props.input.value = {
-                orgnummer: '0'
-            }
-            component = shallow(<Tilleggsinfo {...props} />)
+                orgnummer: '0',
+            };
+            component = shallow(<Tilleggsinfo {...props} />);
             expect(component.find(SkrivUt)).to.have.length(1);
         });
 
         it("Skal ikke inneholde SkrivUt hvis value.orgnummer === '123'", () => {
             props.input.value = {
-                orgnummer: '123'
-            }
-            component = shallow(<Tilleggsinfo {...props} />)
+                orgnummer: '123',
+            };
+            component = shallow(<Tilleggsinfo {...props} />);
             expect(component.find(SkrivUt)).to.have.length(0);
         });
 
         it("Skal inneholde ErLederRiktig hvis value.naermesteLeder === {navn: 'navn'}", () => {
             props.input.value = {
                 naermesteLeder: {
-                    navn: "Ole"
-                }
+                    navn: 'Ole',
+                },
             };
-            component = shallow(<Tilleggsinfo {...props} />)
+            component = shallow(<Tilleggsinfo {...props} />);
             expect(component.find(ErLederRiktig)).to.have.length(1);
-            expect(component.contains(<ErLederRiktig naermesteLeder={props.input.value.naermesteLeder} />)).to.be.true;
+            expect(component.contains(<ErLederRiktig naermesteLeder={props.input.value.naermesteLeder} />)).to.equal(true);
         });
 
-        it("Skal inneholde ErLederRiktig hvis value.naermesteLeder === null", () => {
+        it('Skal inneholde ErLederRiktig hvis value.naermesteLeder === null', () => {
             props.input.value = {
-                naermesteLeder: null
+                naermesteLeder: null,
             };
-            component = shallow(<Tilleggsinfo {...props} />)
+            component = shallow(<Tilleggsinfo {...props} />);
             expect(component.find(ErLederRiktig)).to.have.length(0);
         });
+    });
 
-    }); 
-
-    describe("visTilleggssporsmal", () => {
-
-        let props;
-
+    describe('visTilleggssporsmal', () => {
         beforeEach(() => {
             props = {
                 input: {
-                    value: {}
-                }
-            } 
-        })
+                    value: {},
+                },
+            };
+        });
 
-        it("Skal returnere false hvis det ikke finnes value", () => {
+        it('Skal returnere false hvis det ikke finnes value', () => {
             props.input.value = undefined;
             const res = visTilleggssporsmal(props);
-            expect(res).to.be.false;
+            expect(res).to.equal(false);
         });
 
 
         it("Skal returnere true hvis value.orgnummer === '0'", () => {
             props.input.value.orgnummer = '0';
             const res = visTilleggssporsmal(props);
-            expect(res).to.be.true;
+            expect(res).to.equal(true);
         });
-        
-        it("Skal returnere true hvis brukeren har nærmeste leder", () => {
+
+        it('Skal returnere true hvis brukeren har nærmeste leder', () => {
             props.input.value.naermesteLeder = {
-                navn: "Ole"
+                navn: 'Ole',
             };
-            expect(visTilleggssporsmal(props)).to.be.true;
+            expect(visTilleggssporsmal(props)).to.equal(true);
         });
 
-        it("Skal returnere false hvis brukeren ikke har nærmeste leder", () => {
+        it('Skal returnere false hvis brukeren ikke har nærmeste leder', () => {
             props.input.value.naermesteLeder = null;
-            expect(visTilleggssporsmal(props)).to.be.false;
-        })
-
-    })
- 
-}); 
+            expect(visTilleggssporsmal(props)).to.equal(false);
+        });
+    });
+});

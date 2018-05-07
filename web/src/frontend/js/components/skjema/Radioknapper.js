@@ -57,7 +57,7 @@ Radioknapp.propTypes = {
     visUndertekst: PropTypes.bool,
 };
 
-const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children, horisontal = false, hjelpetekst, hjelpelinje, visUndertekst }) => {
+const Radioknapper = ({ input, meta, spoersmal, Overskrift = 'h3', children = [], horisontal = false, hjelpetekst, hjelpelinje, visUndertekst }) => {
     return (<Feilomrade {...meta} id={input.name}>
         <div className={`${hjelpetekst ? 'medHjelpetekst' : ''}`}>
             <Overskrift className="skjema__sporsmal">{spoersmal}</Overskrift>

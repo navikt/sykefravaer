@@ -86,7 +86,7 @@ describe('OppfolgingsdialogerIngenplanAT', () => {
                 rootUrl=""
             />);
             komponent.find('button').simulate('click');
-            expect(opprett.calledOnce).to.be.true;
+            expect(opprett.calledOnce).to.equal(true);
         });
 
         it('Skal vise knapp som kaller visOppfolgingsdialogOpprett, om AT har flere arbeidsgivere', () => {
@@ -99,7 +99,7 @@ describe('OppfolgingsdialogerIngenplanAT', () => {
                 rootUrl=""
             />);
             komponent.find('button').simulate('click');
-            expect(visOppfolgingsdialogOpprett.calledOnce).to.be.true;
+            expect(visOppfolgingsdialogOpprett.calledOnce).to.equal(true);
         });
 
         it('Skal vise knapp som kaller visOppfolgingsdialogOpprett, om AT har tidligere godkjent oppfolgingsdialog med virksomhet', () => {
@@ -112,7 +112,7 @@ describe('OppfolgingsdialogerIngenplanAT', () => {
                 rootUrl=""
             />);
             komponent.find('button').simulate('click');
-            expect(visOppfolgingsdialogOpprett.calledOnce).to.be.true;
+            expect(visOppfolgingsdialogOpprett.calledOnce).to.equal(true);
         });
     });
 });

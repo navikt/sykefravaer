@@ -1,13 +1,13 @@
 import chai from 'chai';
-import React from 'react'
+import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { arbeidssituasjoner as situasjoner } from 'digisyfo-npm';
-import Arbeidssituasjon from "../../../js/components/landingsside/Arbeidssituasjon";
+import Arbeidssituasjon from '../../../js/components/landingsside/Arbeidssituasjon';
 import Arbeidssituasjoner, {
     Arbeidsgiver,
-    mapArbeidssituasjonTilIkonSrc
-} from '../../../js/components/landingsside/Arbeidssituasjoner'
+    mapArbeidssituasjonTilIkonSrc,
+} from '../../../js/components/landingsside/Arbeidssituasjoner';
 
 const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG, ANNET } = situasjoner;
 
@@ -15,9 +15,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe('Arbeidssituasjoner', () => {
-
     describe('mapArbeidssituasjonTilIkonSrc', () => {
-
         it('Skal mappe Arbeidstaker til arbeidsgiver.svg', () => {
             expect(mapArbeidssituasjonTilIkonSrc(ARBEIDSTAKER)).to.contain('arbeidsgiver.svg');
         });
@@ -37,11 +35,9 @@ describe('Arbeidssituasjoner', () => {
         it('Skal mappe Annet til skilt.svg', () => {
             expect(mapArbeidssituasjonTilIkonSrc(ANNET)).to.contain('skilt.svg');
         });
-
     });
 
     describe('Arbeidssituasjoner', () => {
-
         it('Skal vise Arbeidssituasjon for arbeidsgivere', () => {
             const component = shallow(<Arbeidssituasjoner arbeidsgivere={['SOLSTRÅLEN PIZZA']} arbeidssituasjoner={[]} />);
             expect(component.find(Arbeidssituasjon)).to.have.length(1);
@@ -64,9 +60,7 @@ describe('Arbeidssituasjoner', () => {
 
         it('Skal vise Arbeidsgiver for arbeidsgivere', () => {
             const component = shallow(<Arbeidssituasjoner arbeidsgivere={['SOLSTRÅLEN PIZZA']} arbeidssituasjoner={[]} />);
-            expect(component.find(Arbeidssituasjon).props().situasjon).to.deep.equal(<Arbeidsgiver arbeidsgiver={"SOLSTRÅLEN PIZZA"} />);
+            expect(component.find(Arbeidssituasjon).props().situasjon).to.deep.equal(<Arbeidsgiver arbeidsgiver={'SOLSTRÅLEN PIZZA'} />);
         });
-
     });
-
 });

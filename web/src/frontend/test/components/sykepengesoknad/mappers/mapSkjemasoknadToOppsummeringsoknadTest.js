@@ -1,6 +1,6 @@
 import chai from 'chai';
 import deepFreeze from 'deep-freeze';
-import { inntektskildetyper as inntektskildetyper_, setLedetekster, parseSykepengesoknad, sporsmalstyper } from 'digisyfo-npm';
+import { inntektskildetyper as inntektskildetyper_, setLedetekster, sporsmalstyper } from 'digisyfo-npm';
 
 import { getSoknad } from '../../../mockSoknader';
 import mapSkjemasoknadToOppsummeringSoknad from '../../../../js/components/sykepengesoknad/mappers/mapSkjemasoknadToOppsummeringsoknad';
@@ -24,8 +24,7 @@ const {
     arbeidsgiverForskuttererType,
 } = sporsmalstyper;
 
-describe("mapSkjemasoknadToOppsummeringSoknad", () => {
-
+describe('mapSkjemasoknadToOppsummeringSoknad', () => {
     let skjemasoknad;
     let sykepengesoknad;
 
@@ -33,13 +32,14 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
     let aktivitet2;
 
     beforeEach(() => {
+        /* eslint-disable max-len */
         const tekster = {
-            'sykepengesoknad.nei': "Nei",
-            'sykepengesoknad.ja': "Ja",
-            'sykepengesoknad.bekreft-ansvar.label': "Jeg bekrefter ditt og datt",
-            'sykepengesoknad.egenmeldingsdager.janei.sporsmal': "Vi har registrert at dette legemeldte sykefraværet startet %DATO%. Var du borte fra jobb på grunn av sykdom før dette?",
-            'sykepengesoknad.egenmeldingsdager.janei.sporsmal-2': "Vi har registrert at du ble sykmeldt %DATO%. Brukte du egenmeldinger eller var du sykmeldt i perioden %FOM% til %TOM%?",
-            'sykepengesoknad.egenmeldingsdager.dato.sporsmal': "Når gjorde du dette?",
+            'sykepengesoknad.nei': 'Nei',
+            'sykepengesoknad.ja': 'Ja',
+            'sykepengesoknad.bekreft-ansvar.label': 'Jeg bekrefter ditt og datt',
+            'sykepengesoknad.egenmeldingsdager.janei.sporsmal': 'Vi har registrert at dette legemeldte sykefraværet startet %DATO%. Var du borte fra jobb på grunn av sykdom før dette?',
+            'sykepengesoknad.egenmeldingsdager.janei.sporsmal-2': 'Vi har registrert at du ble sykmeldt %DATO%. Brukte du egenmeldinger eller var du sykmeldt i perioden %FOM% til %TOM%?',
+            'sykepengesoknad.egenmeldingsdager.dato.sporsmal': 'Når gjorde du dette?',
             'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2': 'Var du tilbake i fullt arbeid hos %ARBEIDSGIVER% før %DATO%?',
             'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.dato.sporsmal': 'Fra hvilken dato ble arbeidet gjenopptatt?',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har': 'Jeg har...',
@@ -72,37 +72,35 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
             'sykepengesoknad.utdanning.fulltidsstudium.sporsmal': 'Er utdanningen et fulltidsstudium?',
             'sykepengesoknad.oppsummering.vaer-klar-over-at': '<p>Vær klar over dette!</p>',
             'sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label': 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte.',
-            'sykepengesoknad.forskutterer-arbeidsgiver.svar.JA': "Ja",
-            'sykepengesoknad.forskutterer-arbeidsgiver.svar.NEI': "Nei",
-            'sykepengesoknad.forskutterer-arbeidsgiver.svar.VET_IKKE': "Vet ikke",
+            'sykepengesoknad.forskutterer-arbeidsgiver.svar.JA': 'Ja',
+            'sykepengesoknad.forskutterer-arbeidsgiver.svar.NEI': 'Nei',
+            'sykepengesoknad.forskutterer-arbeidsgiver.svar.VET_IKKE': 'Vet ikke',
             'sykepengesoknad.forskutterer-arbeidsgiver.sporsmal': 'Betaler arbeidsgiveren lønnen din når du er syk?',
         };
+        /* eslint-disable max-len */
 
         setLedetekster(tekster);
 
         sykepengesoknad = getSoknad({
             arbeidsgiver: {
-                navn: "Olsens Sykkelservice",
+                navn: 'Olsens Sykkelservice',
             },
         });
 
         aktivitet1 = Object.assign({}, sykepengesoknad.aktiviteter[0], {
-            "jobbetMerEnnPlanlagt": false,
+            jobbetMerEnnPlanlagt: false,
         });
         aktivitet2 = Object.assign({}, sykepengesoknad.aktiviteter[1], {
-            "jobbetMerEnnPlanlagt": false,
+            jobbetMerEnnPlanlagt: false,
         });
 
         skjemasoknad = {
             aktiviteter: [aktivitet1, aktivitet2],
         };
-
-
     });
 
-    describe("Før du begynner", () => {
-
-        it("Skal mappe ansvarBekreftet når ansvar er bekreftet", () => {
+    describe('Før du begynner', () => {
+        it('Skal mappe ansvarBekreftet når ansvar er bekreftet', () => {
             skjemasoknad.ansvarBekreftet = true;
             const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
             expect(verdier.soknad[verdier.soknad.length - 1]).to.deep.equal({
@@ -110,24 +108,21 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 ledetekst: null,
                 svar: [{
                     ledetekst: {
-                        nokkel: "sykepengesoknad.bekreft-ansvar.label",
-                        tekst: "Jeg bekrefter ditt og datt",
+                        nokkel: 'sykepengesoknad.bekreft-ansvar.label',
+                        tekst: 'Jeg bekrefter ditt og datt',
                     },
-                    type: "CHECKBOX",
+                    type: 'CHECKBOX',
                     undersporsmal: [],
                 }],
-            })
+            });
         });
-
     });
 
-    describe("Fravær og friskmelding", () => {
-
-        describe("bruktEgenmeldingsdagerFoerLegemeldtFravaer", () => {
-
-            it("Skal mappe bruktEgenmeldingsdagerFoerLegemeldtFravaer når bruktEgenmeldingsdagerFoerLegemeldtFravaer = false", () => {
+    describe('Fravær og friskmelding', () => {
+        describe('bruktEgenmeldingsdagerFoerLegemeldtFravaer', () => {
+            it('Skal mappe bruktEgenmeldingsdagerFoerLegemeldtFravaer når bruktEgenmeldingsdagerFoerLegemeldtFravaer = false', () => {
                 skjemasoknad.bruktEgenmeldingsdagerFoerLegemeldtFravaer = false;
-                sykepengesoknad.identdato = new Date("2017-02-19");
+                sykepengesoknad.identdato = new Date('2017-02-19');
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                 expect(verdier.soknad[0]).to.deep.equal({
                     type: egenmeldingsdagerType,
@@ -136,32 +131,32 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         verdier: {
                             '%DATO%': 'søndag 19.02.2017',
                             '%FOM%': '03.02.2017',
-                            '%TOM%': '18.02.2017'
+                            '%TOM%': '18.02.2017',
                         },
-                        tekst: "Vi har registrert at du ble sykmeldt søndag 19.02.2017. Brukte du egenmeldinger eller var du sykmeldt i perioden 03.02.2017 til 18.02.2017?",
+                        tekst: 'Vi har registrert at du ble sykmeldt søndag 19.02.2017. Brukte du egenmeldinger eller var du sykmeldt i perioden 03.02.2017 til 18.02.2017?',
                     },
                     svar: [{
                         ledetekst: {
                             nokkel: 'sykepengesoknad.nei',
-                            tekst: "Nei",
+                            tekst: 'Nei',
                         },
-                        type: "RADIOKNAPPER",
+                        type: 'RADIOKNAPPER',
                         undersporsmal: [],
                     }],
-                })
+                });
             });
 
-            describe("Når bruktEgenmeldingsdagerFoerLegemeldtFravaer er true", () => {
+            describe('Når bruktEgenmeldingsdagerFoerLegemeldtFravaer er true', () => {
                 beforeEach(() => {
                     skjemasoknad.bruktEgenmeldingsdagerFoerLegemeldtFravaer = true;
-                    sykepengesoknad.identdato = new Date("2017-02-19");
+                    sykepengesoknad.identdato = new Date('2017-02-19');
                     skjemasoknad.egenmeldingsperioder = [{
-                        fom: "01.02.2017",
-                        tom: "12.01.2017",
-                    }]
+                        fom: '01.02.2017',
+                        tom: '12.01.2017',
+                    }];
                 });
 
-                it("Skal mappe bruktEgenmeldingsdagerFoerLegemeldtFravaer og egenmeldingsperioder", () => {
+                it('Skal mappe bruktEgenmeldingsdagerFoerLegemeldtFravaer og egenmeldingsperioder', () => {
                     const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                     expect(verdier.soknad[0]).to.deep.equal({
                         type: egenmeldingsdagerType,
@@ -170,42 +165,39 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                             verdier: {
                                 '%DATO%': 'søndag 19.02.2017',
                                 '%FOM%': '03.02.2017',
-                                '%TOM%': '18.02.2017'
+                                '%TOM%': '18.02.2017',
                             },
-                            tekst: "Vi har registrert at du ble sykmeldt søndag 19.02.2017. Brukte du egenmeldinger eller var du sykmeldt i perioden 03.02.2017 til 18.02.2017?",
+                            tekst: 'Vi har registrert at du ble sykmeldt søndag 19.02.2017. Brukte du egenmeldinger eller var du sykmeldt i perioden 03.02.2017 til 18.02.2017?',
                         },
                         svar: [{
                             ledetekst: {
                                 nokkel: 'sykepengesoknad.ja',
-                                tekst: "Ja",
+                                tekst: 'Ja',
                             },
-                            type: "RADIOKNAPPER",
+                            type: 'RADIOKNAPPER',
                             undersporsmal: [{
                                 ledetekst: null,
                                 svar: [{
                                     ledetekst: {
                                         nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
-                                        tekst: "Fra 01.02.2017 til 12.01.2017",
+                                        tekst: 'Fra 01.02.2017 til 12.01.2017',
                                         verdier: {
-                                            '%FOM%': "01.02.2017",
-                                            '%TOM%': "12.01.2017",
+                                            '%FOM%': '01.02.2017',
+                                            '%TOM%': '12.01.2017',
                                         },
                                     },
-                                    type: "DATOSPENN",
+                                    type: 'DATOSPENN',
                                     undersporsmal: [],
                                 }],
                             }],
                         }],
-                    })
+                    });
                 });
-
             });
-
         });
 
-        describe("GjenopptattArbeidFulltUt", () => {
-
-            it("Skal mappe harGjenopptattArbeidFulltUt når harGjenopptattArbeidFulltUt er false", () => {
+        describe('GjenopptattArbeidFulltUt', () => {
+            it('Skal mappe harGjenopptattArbeidFulltUt når harGjenopptattArbeidFulltUt er false', () => {
                 skjemasoknad.harGjenopptattArbeidFulltUt = false;
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                 expect(verdier.soknad[1]).to.deep.equal({
@@ -226,12 +218,12 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         type: 'RADIOKNAPPER',
                         undersporsmal: [],
                     }],
-                })
+                });
             });
 
-            it("Skal mappe harGjenopptattArbeidFulltUt når harGjenopptattArbeidFulltUt er true", () => {
+            it('Skal mappe harGjenopptattArbeidFulltUt når harGjenopptattArbeidFulltUt er true', () => {
                 skjemasoknad.harGjenopptattArbeidFulltUt = true;
-                skjemasoknad.gjenopptattArbeidFulltUtDato = "05.01.2017";
+                skjemasoknad.gjenopptattArbeidFulltUtDato = '05.01.2017';
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                 expect(verdier.soknad[1]).to.deep.equal({
                     type: gjenopptattArbeidFulltUtType,
@@ -255,22 +247,21 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                 ledetekst: {
                                     nokkel: 'sykepengesoknad.dato',
                                     verdier: {
-                                        '%DATO%': "05.01.2017",
+                                        '%DATO%': '05.01.2017',
                                     },
                                     tekst: '05.01.2017',
                                 },
-                                type: "DATO",
+                                type: 'DATO',
                                 undersporsmal: [],
                             }],
                         }],
                     }],
-                })
+                });
             });
         });
 
-        describe("Ferie, permisjon eller utenlandsopphold", () => {
-
-            it("Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når feltet er false", () => {
+        describe('Ferie, permisjon eller utenlandsopphold', () => {
+            it('Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når feltet er false', () => {
                 skjemasoknad.harHattFeriePermisjonEllerUtenlandsopphold = false;
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                 expect(verdier.soknad[2]).to.deep.equal({
@@ -291,10 +282,10 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         type: 'RADIOKNAPPER',
                         undersporsmal: [],
                     }],
-                })
+                });
             });
 
-            it("Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når feltet er true", () => {
+            it('Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når feltet er true', () => {
                 skjemasoknad.harHattFeriePermisjonEllerUtenlandsopphold = true;
                 skjemasoknad.harHattFerie = true;
                 skjemasoknad.ferie = [{
@@ -333,7 +324,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                 undersporsmal: [{
                                     ledetekst: null,
                                     svar: [{
-                                        type: "DATOSPENN",
+                                        type: 'DATOSPENN',
                                         ledetekst: {
                                             nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
                                             verdier: {
@@ -351,10 +342,9 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         }],
                     }],
                 });
-
             });
 
-            it("Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når feltet er true og permisjon er true", () => {
+            it('Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når feltet er true og permisjon er true', () => {
                 skjemasoknad.harHattFeriePermisjonEllerUtenlandsopphold = true;
                 skjemasoknad.harHattPermisjon = true;
                 skjemasoknad.permisjon = [{
@@ -393,7 +383,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                 undersporsmal: [{
                                     ledetekst: null,
                                     svar: [{
-                                        type: "DATOSPENN",
+                                        type: 'DATOSPENN',
                                         ledetekst: {
                                             nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
                                             verdier: {
@@ -412,7 +402,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
             });
 
 
-            it("Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når feltet er true og utenlandsopphold er true", () => {
+            it('Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når feltet er true og utenlandsopphold er true', () => {
                 skjemasoknad.harHattFeriePermisjonEllerUtenlandsopphold = true;
                 skjemasoknad.harHattUtenlandsopphold = true;
                 skjemasoknad.utenlandsopphold = {
@@ -457,7 +447,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                 undersporsmal: [{
                                     ledetekst: null,
                                     svar: [{
-                                        type: "DATOSPENN",
+                                        type: 'DATOSPENN',
                                         ledetekst: {
                                             nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
                                             verdier: {
@@ -468,7 +458,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                         },
                                         undersporsmal: [],
                                     }, {
-                                        type: "DATOSPENN",
+                                        type: 'DATOSPENN',
                                         ledetekst: {
                                             nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
                                             verdier: {
@@ -489,7 +479,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                             nokkel: 'sykepengesoknad.ja',
                                             tekst: 'Ja',
                                         },
-                                        type: "RADIOKNAPPER",
+                                        type: 'RADIOKNAPPER',
                                         undersporsmal: [],
                                     }],
                                 }],
@@ -501,7 +491,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 });
             });
 
-            it("Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når feltet er true og utenlandsopphold er true og ferie er true", () => {
+            it('Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når feltet er true og utenlandsopphold er true og ferie er true', () => {
                 skjemasoknad.harHattFeriePermisjonEllerUtenlandsopphold = true;
                 skjemasoknad.harHattUtenlandsopphold = true;
                 skjemasoknad.harHattFerie = true;
@@ -548,7 +538,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                 undersporsmal: [{
                                     ledetekst: null,
                                     svar: [{
-                                        type: "DATOSPENN",
+                                        type: 'DATOSPENN',
                                         ledetekst: {
                                             nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
                                             verdier: {
@@ -570,7 +560,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                 undersporsmal: [{
                                     ledetekst: null,
                                     svar: [{
-                                        type: "DATOSPENN",
+                                        type: 'DATOSPENN',
                                         ledetekst: {
                                             nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
                                             verdier: {
@@ -591,7 +581,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                             nokkel: 'sykepengesoknad.ja',
                                             tekst: 'Ja',
                                         },
-                                        type: "RADIOKNAPPER",
+                                        type: 'RADIOKNAPPER',
                                         undersporsmal: [],
                                     }],
                                 }],
@@ -603,7 +593,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 });
             });
 
-            it("Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når man har hatt ferie under utenlandsopphold", () => {
+            it('Skal mappe harHattFeriePermisjonEllerUtenlandsopphold når man har hatt ferie under utenlandsopphold', () => {
                 skjemasoknad.harHattFeriePermisjonEllerUtenlandsopphold = true;
                 skjemasoknad.harHattUtenlandsopphold = true;
                 skjemasoknad.harHattFerie = true;
@@ -650,7 +640,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                 undersporsmal: [{
                                     ledetekst: null,
                                     svar: [{
-                                        type: "DATOSPENN",
+                                        type: 'DATOSPENN',
                                         ledetekst: {
                                             nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
                                             verdier: {
@@ -672,7 +662,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                 undersporsmal: [{
                                     ledetekst: null,
                                     svar: [{
-                                        type: "DATOSPENN",
+                                        type: 'DATOSPENN',
                                         ledetekst: {
                                             nokkel: 'sykepengesoknad.oppsummering.periode.fra-til',
                                             verdier: {
@@ -694,64 +684,59 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
         });
     });
 
-    describe("Aktiviteter i sykmeldingsperioden", () => {
-
-        describe("Arbeid", () => {
-
-            let aktivitet1;
-            let aktivitet2;
+    describe('Aktiviteter i sykmeldingsperioden', () => {
+        describe('Arbeid', () => {
             let aktivitetIkkeJobbetMerEnnPlanlagt;
             let aktivitetMedArbeidsgradLikNull;
 
             beforeEach(() => {
                 aktivitet1 = Object.assign({}, sykepengesoknad.aktiviteter[0], {
-                    "jobbetMerEnnPlanlagt": true,
-                    "avvik": {
-                        "enhet": "prosent",
-                        "arbeidsgrad": "80",
-                        "arbeidstimerNormalUke": "37,5",
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        enhet: 'prosent',
+                        arbeidsgrad: '80',
+                        arbeidstimerNormalUke: '37,5',
                     },
                 });
 
                 aktivitet2 = Object.assign({}, sykepengesoknad.aktiviteter[0], {
-                    "jobbetMerEnnPlanlagt": true,
-                    "avvik": {
-                        "enhet": "timer",
-                        "timer": "15",
-                        "arbeidstimerNormalUke": "37,5",
-                        "beregnetArbeidsgrad": "22.5",
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        enhet: 'timer',
+                        timer: '15',
+                        arbeidstimerNormalUke: '37,5',
+                        beregnetArbeidsgrad: '22.5',
                     },
                 });
 
                 aktivitetIkkeJobbetMerEnnPlanlagt = Object.assign({}, sykepengesoknad.aktiviteter[0], {
-                    "jobbetMerEnnPlanlagt": false,
-                    "avvik": {
-                        "enhet": "prosent",
-                        "arbeidsgrad": "80",
-                        "arbeidstimerNormalUke": "37,5",
+                    jobbetMerEnnPlanlagt: false,
+                    avvik: {
+                        enhet: 'prosent',
+                        arbeidsgrad: '80',
+                        arbeidstimerNormalUke: '37,5',
                     },
                 });
 
-                aktivitetMedArbeidsgradLikNull =     {
-                    "periode": {
-                        "fom": "2018-02-17T00:00:00.000Z",
-                        "tom": "2018-02-18T00:00:00.000Z"
+                aktivitetMedArbeidsgradLikNull = {
+                    periode: {
+                        fom: '2018-02-17T00:00:00.000Z',
+                        tom: '2018-02-18T00:00:00.000Z',
                     },
-                    "grad": 100,
-                    "avvik": {
-                        "enhet": "timer",
-                        "arbeidstimerNormalUke": "37",
-                        "arbeidsgrad": null,
-                        "timer": "2"
+                    grad: 100,
+                    avvik: {
+                        enhet: 'timer',
+                        arbeidstimerNormalUke: '37',
+                        arbeidsgrad: null,
+                        timer: '2',
                     },
-                    "id": 104640,
-                    "jobbetMerEnnPlanlagt": true
-                }
+                    id: 104640,
+                    jobbetMerEnnPlanlagt: true,
+                };
             });
 
 
-
-            it("Skal mappe arbeidsspørsmål for ugraderte perioder når bruker har jobbet mer enn planlagt og oppgitt dette i prosent", () => {
+            it('Skal mappe arbeidsspørsmål for ugraderte perioder når bruker har jobbet mer enn planlagt og oppgitt dette i prosent', () => {
                 skjemasoknad.aktiviteter = [aktivitet1];
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                 expect(verdier.soknad[3]).to.deep.equal({
@@ -774,37 +759,37 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         type: 'RADIOKNAPPER',
                         undersporsmal: [{
                             ledetekst: {
-                                nokkel: "sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal",
-                                tekst: "Hvor mange timer jobber du normalt per uke?",
+                                nokkel: 'sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal',
+                                tekst: 'Hvor mange timer jobber du normalt per uke?',
                             },
                             svar: [{
                                 ledetekst: {
                                     nokkel: 'sykepengesoknad.angi-tid.normal-arbeidstimer.label-med-verdi',
-                                    tekst: "37,5 timer per uke",
+                                    tekst: '37,5 timer per uke',
                                     verdier: {
-                                        '%ANTALL%': "37,5",
+                                        '%ANTALL%': '37,5',
                                     },
                                 },
-                                type: "TEKSTSVAR",
+                                type: 'TEKSTSVAR',
                                 undersporsmal: [],
                             }],
                         }, {
                             ledetekst: {
-                                nokkel: "sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet-totalt",
-                                tekst: "Hvor mye jobbet du totalt i denne perioden hos Olsens Sykkelservice?",
+                                nokkel: 'sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet-totalt',
+                                tekst: 'Hvor mye jobbet du totalt i denne perioden hos Olsens Sykkelservice?',
                                 verdier: {
-                                    '%ARBEIDSGIVER%': "Olsens Sykkelservice",
+                                    '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
                                 },
                             },
                             svar: [{
                                 ledetekst: {
                                     nokkel: 'sykepengesoknad.angi-tid.velg-enhet.label.prosent-med-verdi',
-                                    tekst: "80 prosent per uke",
+                                    tekst: '80 prosent per uke',
                                     verdier: {
-                                        '%ANTALL%': "80",
+                                        '%ANTALL%': '80',
                                     },
                                 },
-                                type: "TEKSTSVAR",
+                                type: 'TEKSTSVAR',
                                 undersporsmal: [],
                             }],
                         }],
@@ -812,14 +797,14 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 });
             });
 
-            it("Skal mappe arbeidsspørsmål for ugraderte perioder når bruker har jobbet mer enn planlagt og oppgitt dette i timer", () => {
+            it('Skal mappe arbeidsspørsmål for ugraderte perioder når bruker har jobbet mer enn planlagt og oppgitt dette i timer', () => {
                 skjemasoknad.aktiviteter = [aktivitet2];
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                 expect(verdier.soknad[3]).to.deep.equal({
                     type: aktiviteterType,
                     ledetekst: {
-                        nokkel: "sykepengesoknad.aktiviteter.ugradert.spoersmal-2",
-                        tekst: "I perioden 01.01.2017–15.01.2017 var du 100 % sykmeldt fra Olsens Sykkelservice. Jobbet du noe i denne perioden?",
+                        nokkel: 'sykepengesoknad.aktiviteter.ugradert.spoersmal-2',
+                        tekst: 'I perioden 01.01.2017–15.01.2017 var du 100 % sykmeldt fra Olsens Sykkelservice. Jobbet du noe i denne perioden?',
                         verdier: {
                             '%FOM%': '01.01.2017',
                             '%TOM%': '15.01.2017',
@@ -835,37 +820,37 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         type: 'RADIOKNAPPER',
                         undersporsmal: [{
                             ledetekst: {
-                                nokkel: "sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal",
-                                tekst: "Hvor mange timer jobber du normalt per uke?",
+                                nokkel: 'sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal',
+                                tekst: 'Hvor mange timer jobber du normalt per uke?',
                             },
                             svar: [{
                                 ledetekst: {
                                     nokkel: 'sykepengesoknad.angi-tid.normal-arbeidstimer.label-med-verdi',
-                                    tekst: "37,5 timer per uke",
+                                    tekst: '37,5 timer per uke',
                                     verdier: {
-                                        '%ANTALL%': "37,5",
+                                        '%ANTALL%': '37,5',
                                     },
                                 },
-                                type: "TEKSTSVAR",
+                                type: 'TEKSTSVAR',
                                 undersporsmal: [],
                             }],
                         }, {
                             ledetekst: {
-                                nokkel: "sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet-totalt",
-                                tekst: "Hvor mye jobbet du totalt i denne perioden hos Olsens Sykkelservice?",
+                                nokkel: 'sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet-totalt',
+                                tekst: 'Hvor mye jobbet du totalt i denne perioden hos Olsens Sykkelservice?',
                                 verdier: {
-                                    '%ARBEIDSGIVER%': "Olsens Sykkelservice",
+                                    '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
                                 },
                             },
                             svar: [{
                                 ledetekst: {
                                     nokkel: 'sykepengesoknad.angi-tid.velg-enhet.label.timer-med-verdi',
-                                    tekst: "15 timer totalt",
+                                    tekst: '15 timer totalt',
                                     verdier: {
-                                        '%ANTALL%': "15",
+                                        '%ANTALL%': '15',
                                     },
                                 },
-                                type: "TEKSTSVAR",
+                                type: 'TEKSTSVAR',
                                 tilleggstekst: {
                                     ledetekst: {
                                         tekst: 'Vår foreløpige beregning er at du jobbet <strong>22.5 %</strong> av stillingen din.',
@@ -883,7 +868,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 });
             });
 
-            it("Skal mappe arbeidsspørsmål for ugraderte perioder når bruker ikke har jobbet mer enn planlagt", () => {
+            it('Skal mappe arbeidsspørsmål for ugraderte perioder når bruker ikke har jobbet mer enn planlagt', () => {
                 skjemasoknad.aktiviteter = [aktivitetIkkeJobbetMerEnnPlanlagt];
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                 expect(verdier.soknad[3]).to.deep.equal({
@@ -909,21 +894,20 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 });
             });
 
-            it("Skal ikke lage tilleggstekst med beregnet arbeidsgrad når arbeidsgrad er null", () => {
+            it('Skal ikke lage tilleggstekst med beregnet arbeidsgrad når arbeidsgrad er null', () => {
                 skjemasoknad.aktiviteter = [aktivitetMedArbeidsgradLikNull];
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
-                expect(verdier.soknad[3].svar[0].undersporsmal[1].svar[0].tilleggstekst).to.be.undefined
+                expect(verdier.soknad[3].svar[0].undersporsmal[1].svar[0].tilleggstekst).to.equal(undefined);
             });
 
-            it("Filterer bort aktiviteter om arbeid gjenopptatt spiller inn", () => {
-
-                //Aktiviteter: 01.01.17-15.01.17 og 16.01.17-25.01.17
+            it('Filterer bort aktiviteter om arbeid gjenopptatt spiller inn', () => {
+                // Aktiviteter: 01.01.17-15.01.17 og 16.01.17-25.01.17
                 skjemasoknad.harGjenopptattArbeidFulltUt = true;
                 skjemasoknad.gjenopptattArbeidFulltUtDato = '14.01.2017';
 
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
 
-                const aktivitetssporsmaal = verdier.soknad.filter(sporsmaal => sporsmaal.type === aktiviteterType);
+                const aktivitetssporsmaal = verdier.soknad.filter((sporsmaal) => { return sporsmaal.type === aktiviteterType; });
                 expect(aktivitetssporsmaal.length).to.equal(1);
                 expect(aktivitetssporsmaal[0]).to.deep.equal({
                     type: aktiviteterType,
@@ -946,13 +930,11 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         undersporsmal: [],
                     }],
                 });
-            })
-
+            });
         });
     });
 
-    describe("Andre inntektskilder", () => {
-
+    describe('Andre inntektskilder', () => {
         const erDuSykmeldt = (bool) => {
             const nokkel = bool ? 'sykepengesoknad.ja' : 'sykepengesoknad.nei';
             const tekst = bool ? 'Ja' : 'Nei';
@@ -969,16 +951,15 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                     type: 'RADIOKNAPPER',
                     undersporsmal: [],
                 }],
-            }]
+            }];
         };
 
-        describe("Når bruker ikke har andre inntektskilder", () => {
-
+        describe('Når bruker ikke har andre inntektskilder', () => {
             beforeEach(() => {
                 skjemasoknad.harAndreInntektskilder = false;
-            })
+            });
 
-            it("Skal mappe", () => {
+            it('Skal mappe', () => {
                 const resultat = mapSkjemasoknadToOppsummeringSoknad(skjemasoknad, sykepengesoknad);
                 expect(resultat.soknad[5]).to.deep.equal({
                     type: inntektskilderType,
@@ -986,7 +967,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         nokkel: 'sykepengesoknad.andre-inntektskilder.janei.sporsmal',
                         tekst: 'Har du andre inntektskilder, eller jobber du for andre enn Olsens Sykkelservice?',
                         verdier: {
-                            '%ARBEIDSGIVER%': "Olsens Sykkelservice",
+                            '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
                         },
                     },
                     svar: [{
@@ -994,11 +975,11 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                             nokkel: 'sykepengesoknad.nei',
                             tekst: 'Nei',
                         },
-                        type: "RADIOKNAPPER",
+                        type: 'RADIOKNAPPER',
                         undersporsmal: [],
                     }],
-                })
-            })
+                });
+            });
         });
 
         beforeEach(() => {
@@ -1037,7 +1018,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
             skjemasoknad.andreInntektskilder = andreInntektskilder;
         });
 
-        it("Skal konvertere andreInntektskilder hvis det finnes inntektskilder", () => {
+        it('Skal konvertere andreInntektskilder hvis det finnes inntektskilder', () => {
             const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
 
             expect(soknad.soknad[5]).to.deep.equal({
@@ -1046,7 +1027,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                     nokkel: 'sykepengesoknad.andre-inntektskilder.janei.sporsmal',
                     tekst: 'Har du andre inntektskilder, eller jobber du for andre enn Olsens Sykkelservice?',
                     verdier: {
-                        '%ARBEIDSGIVER%': "Olsens Sykkelservice",
+                        '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
                     },
                 },
                 svar: [{
@@ -1054,7 +1035,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         nokkel: 'sykepengesoknad.ja',
                         tekst: 'Ja',
                     },
-                    type: "RADIOKNAPPER",
+                    type: 'RADIOKNAPPER',
                     undersporsmal: [{
                         ledetekst: {
                             nokkel: 'sykepengesoknad.andre-inntektskilder.hvilke-inntektskilder.sporsmal',
@@ -1086,29 +1067,25 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 }],
             });
         });
-
     });
 
-    describe("utdanning", () => {
-
-        describe("Når bruker ikke har vært i utdanning", () => {
-
+    describe('utdanning', () => {
+        describe('Når bruker ikke har vært i utdanning', () => {
             beforeEach(() => {
                 skjemasoknad.utdanning = { underUtdanningISykmeldingsperioden: false };
             });
 
-            it("mapper ikke utdanning om vi ikke har noen aktiviteter", () => {
-
+            it('mapper ikke utdanning om vi ikke har noen aktiviteter', () => {
                 skjemasoknad.harGjenopptattArbeidFulltUt = true;
-                skjemasoknad.gjenopptattArbeidFulltUtDato = "01.01.2017";
+                skjemasoknad.gjenopptattArbeidFulltUtDato = '01.01.2017';
 
                 const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
-                const sporsmalstyper = soknad.soknad.map(sporsmaal => sporsmaal.type);
+                const _sporsmalstyper = soknad.soknad.map((sporsmaal) => { return sporsmaal.type; });
 
-                expect(sporsmalstyper).to.be.an('array').that.does.not.include('UTDANNING');
+                expect(_sporsmalstyper).to.be.an('array').that.does.not.include('UTDANNING');
             });
 
-            it("Skal mappe utdanning", () => {
+            it('Skal mappe utdanning', () => {
                 const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                 expect(soknad.soknad[6]).to.deep.equal({
                     type: utdanningType,
@@ -1118,7 +1095,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                             '%STARTDATO%': '01.01.2017',
                             '%SLUTTDATO%': '25.01.2017',
                         },
-                        tekst: "Har du vært under utdanning i løpet av perioden 01.01.2017 - 25.01.2017?",
+                        tekst: 'Har du vært under utdanning i løpet av perioden 01.01.2017 - 25.01.2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -1129,19 +1106,19 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         undersporsmal: [],
                     }],
                 });
-            })
+            });
         });
 
-        describe("Når bruker har vært i utdanning", () => {
+        describe('Når bruker har vært i utdanning', () => {
             beforeEach(() => {
                 skjemasoknad.utdanning = {
-                    "underUtdanningISykmeldingsperioden": true,
-                    "utdanningStartdato": "12.01.2017",
-                    "erUtdanningFulltidsstudium": false,
+                    underUtdanningISykmeldingsperioden: true,
+                    utdanningStartdato: '12.01.2017',
+                    erUtdanningFulltidsstudium: false,
                 };
             });
 
-            it("Skal mappe utdanning", () => {
+            it('Skal mappe utdanning', () => {
                 const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                 expect(soknad.soknad[6]).to.deep.equal({
                     type: utdanningType,
@@ -1151,7 +1128,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                             '%STARTDATO%': '01.01.2017',
                             '%SLUTTDATO%': '25.01.2017',
                         },
-                        tekst: "Har du vært under utdanning i løpet av perioden 01.01.2017 - 25.01.2017?",
+                        tekst: 'Har du vært under utdanning i løpet av perioden 01.01.2017 - 25.01.2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -1165,7 +1142,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                 tekst: 'Når startet du på utdanningen?',
                             },
                             svar: [{
-                                type: "TEKSTSVAR",
+                                type: 'TEKSTSVAR',
                                 ledetekst: {
                                     nokkel: 'sykepengesoknad.dato',
                                     tekst: '12.01.2017',
@@ -1185,7 +1162,7 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                                     nokkel: 'sykepengesoknad.nei',
                                     tekst: 'Nei',
                                 },
-                                type: "RADIOKNAPPER",
+                                type: 'RADIOKNAPPER',
                                 undersporsmal: [],
                             }],
                         },
@@ -1193,12 +1170,10 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                     }],
                 });
             });
-        })
-
+        });
     });
 
-    describe("Forskutterer arbeidsgiver", () => {
-
+    describe('Forskutterer arbeidsgiver', () => {
         let getForskuttererSporsmal;
 
         beforeEach(() => {
@@ -1207,9 +1182,9 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                     return spm.type === arbeidsgiverForskuttererType;
                 })[0];
             };
-        })
+        });
 
-        it("Skal mappe om JA", () => {
+        it('Skal mappe om JA', () => {
             skjemasoknad.arbeidsgiverForskutterer = 'JA';
             const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
             const forskuttererSpm = getForskuttererSporsmal(soknad);
@@ -1221,16 +1196,16 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 },
                 svar: [{
                     ledetekst: {
-                        tekst: "Ja",
+                        tekst: 'Ja',
                         nokkel: 'sykepengesoknad.forskutterer-arbeidsgiver.svar.JA',
                     },
-                    type: "RADIOKNAPPER",
+                    type: 'RADIOKNAPPER',
                     undersporsmal: [],
                 }],
-            })
+            });
         });
 
-        it("Skal mappe om NEI", () => {
+        it('Skal mappe om NEI', () => {
             skjemasoknad.arbeidsgiverForskutterer = 'NEI';
             const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
             const forskuttererSpm = getForskuttererSporsmal(soknad);
@@ -1242,16 +1217,16 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 },
                 svar: [{
                     ledetekst: {
-                        tekst: "Nei",
+                        tekst: 'Nei',
                         nokkel: 'sykepengesoknad.forskutterer-arbeidsgiver.svar.NEI',
                     },
-                    type: "RADIOKNAPPER",
+                    type: 'RADIOKNAPPER',
                     undersporsmal: [],
                 }],
-            })
+            });
         });
 
-        it("Skal mappe om VET_IKKE", () => {
+        it('Skal mappe om VET_IKKE', () => {
             skjemasoknad.arbeidsgiverForskutterer = 'VET_IKKE';
             const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
             const forskuttererSpm = getForskuttererSporsmal(soknad);
@@ -1263,52 +1238,51 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                 },
                 svar: [{
                     ledetekst: {
-                        tekst: "Vet ikke",
+                        tekst: 'Vet ikke',
                         nokkel: 'sykepengesoknad.forskutterer-arbeidsgiver.svar.VET_IKKE',
                     },
-                    type: "RADIOKNAPPER",
+                    type: 'RADIOKNAPPER',
                     undersporsmal: [],
                 }],
-            })
+            });
         });
 
-        it("Skal mappe om når feltet ikke finnes", () => {
+        it('Skal mappe om når feltet ikke finnes', () => {
             const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
             const forskuttererSpm = getForskuttererSporsmal(soknad);
-            expect(forskuttererSpm).to.be.undefined;
+            expect(forskuttererSpm).to.equal(undefined);
         });
 
-        it("Skal mappe om når feltet er null", () => {
+        it('Skal mappe om når feltet er null', () => {
             skjemasoknad.arbeidsgiverForskutterer = null;
             const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
             const forskuttererSpm = getForskuttererSporsmal(soknad);
-            expect(forskuttererSpm).to.be.undefined;
+            expect(forskuttererSpm).to.equal(undefined);
         });
 
-        it("Skal mappe om når feltet er undefined", () => {
+        it('Skal mappe om når feltet er undefined', () => {
             skjemasoknad.arbeidsgiverForskutterer = undefined;
             const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
             const forskuttererSpm = getForskuttererSporsmal(soknad);
-            expect(forskuttererSpm).to.be.undefined;
+            expect(forskuttererSpm).to.equal(undefined);
         });
+    });
 
-    })
-
-    describe("Ansvarserklæring", () => {
-        it("Skal mappe om til en sykepengesoknadoppsummeringtilleggstekst", () => {
+    describe('Ansvarserklæring', () => {
+        it('Skal mappe om til en sykepengesoknadoppsummeringtilleggstekst', () => {
             const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
             expect(soknad.vaerKlarOverAt).to.deep.equal({
                 ledetekst: {
                     tekst: '<p>Vær klar over dette!</p>',
                     nokkel: 'sykepengesoknad.oppsummering.vaer-klar-over-at',
                 },
-                type: "HTML",
+                type: 'HTML',
             });
-        })
+        });
     });
 
-    describe("bekreftetKorrektInformasjon", () => {
-        it("Skal mappe om til et sporsmal", () => {
+    describe('bekreftetKorrektInformasjon', () => {
+        it('Skal mappe om til et sporsmal', () => {
             const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
             expect(soknad.bekreftetKorrektInformasjon).to.deep.equal({
                 ledetekst: null,
@@ -1317,11 +1291,11 @@ describe("mapSkjemasoknadToOppsummeringSoknad", () => {
                         tekst: 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte.',
                         nokkel: 'sykepengesoknad.oppsummering.bekreft-korrekt-informasjon.label',
                     },
-                    type: "CHECKBOX",
+                    type: 'CHECKBOX',
                     undersporsmal: [],
                 }],
             });
-        })
+        });
     });
 })
 ;

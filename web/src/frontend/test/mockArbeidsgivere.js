@@ -1,20 +1,20 @@
 export const getArbeidsgivere = [
     {
-        "virksomhetsnummer": "123456789",
-        "navn": "Lommen Barnehave",
-        "harNaermesteLeder": false
+        virksomhetsnummer: '123456789',
+        navn: 'Lommen Barnehave',
+        harNaermesteLeder: false,
     },
     {
-        "virksomhetsnummer": "***REMOVED***",
-        "navn": "Skogen Barnehave",
-        "harNaermesteLeder": true
-    }
+        virksomhetsnummer: '***REMOVED***',
+        navn: 'Skogen Barnehave',
+        harNaermesteLeder: true,
+    },
 ];
 
 const arbeidsgiver = {
-    "virksomhetsnummer": "***REMOVED***",
-    "navn": "Skogen Barnehave",
-    "harNaermesteLeder": true
+    virksomhetsnummer: '***REMOVED***',
+    navn: 'Skogen Barnehave',
+    harNaermesteLeder: true,
 };
 
 const getArbeidsgiver = (arbsgiver = {}) => {

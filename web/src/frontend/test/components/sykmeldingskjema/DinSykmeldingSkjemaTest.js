@@ -1,63 +1,54 @@
 import chai from 'chai';
-import React from 'react'
+import React from 'react';
 import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 import chaiEnzyme from 'chai-enzyme';
-import ledetekster from "../../mockLedetekster";
-import getSykmelding from "../../mockSykmeldinger";
 import configureMockStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
-import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, DinSykmeldingConnectedSkjema } from "../../../js/components/sykmeldingskjema/DinSykmeldingSkjema";
-import StrengtFortroligInfo from "../../../js/components/sykmeldingskjema/StrengtFortroligInfo";
-import VelgArbeidssituasjon from "../../../js/components/sykmeldingskjema/VelgArbeidssituasjon";
-import { DineSykmeldingOpplysninger } from "digisyfo-npm";
-import VelgArbeidsgiver from "../../../js/components/sykmeldingskjema/VelgArbeidsgiver";
-import ArbeidsgiversSykmeldingContainer from "../../../js/containers/sykmelding/ArbeidsgiversSykmeldingContainer";
-import { Varselstripe } from "digisyfo-npm";
-import ErLederRiktig from "../../../js/components/sykmeldingskjema/ErLederRiktig";
 import { Provider } from 'react-redux';
-import * as dinSykmeldingActions from '../../../js/actions/dinSykmelding_actions';
+import { setLedetekster, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
 import deepFreeze from 'deep-freeze';
-import { setLedetekster, feilaktigeOpplysninger as feilaktigeOpplysningerEnums, arbeidssituasjoner } from 'digisyfo-npm';
+import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent } from '../../../js/components/sykmeldingskjema/DinSykmeldingSkjema';
+import StrengtFortroligInfo from '../../../js/components/sykmeldingskjema/StrengtFortroligInfo';
+import VelgArbeidssituasjon from '../../../js/components/sykmeldingskjema/VelgArbeidssituasjon';
+import VelgArbeidsgiver from '../../../js/components/sykmeldingskjema/VelgArbeidsgiver';
+import ArbeidsgiversSykmeldingContainer from '../../../js/containers/sykmelding/ArbeidsgiversSykmeldingContainer';
+import * as dinSykmeldingActions from '../../../js/actions/dinSykmelding_actions';
+import ledetekster from '../../mockLedetekster';
+import getSykmelding from '../../mockSykmeldinger';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe("DinSykmeldingSkjema -", () => {
-
+describe('DinSykmeldingSkjema -', () => {
     let component;
     const sagaMiddleware = createSagaMiddleware();
     const middlewares = [sagaMiddleware];
     const mockStore = configureMockStore(middlewares);
 
-    let store;
-    let brukerinfo;
     let values;
-    
     let state;
     let getStore;
 
-    let feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map((key) => {
+    const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map((key) => {
         return {
             opplysning: feilaktigeOpplysningerEnums[key],
         };
     });
 
-    let props;
     let actions;
     let getComponent;
-    let handleSubmit;
     let ownProps;
 
     beforeEach(() => {
         setLedetekster(ledetekster);
         deepFreeze(feilaktigeOpplysninger);
         state = {
-            ledetekster: { 
+            ledetekster: {
                 data: ledetekster,
             },
             arbeidsgiversSykmeldinger: {
-                data: [getSykmelding({id: "123"})]
+                data: [getSykmelding({ id: '123' })],
             },
             dineSykmeldinger: {
 
@@ -72,119 +63,108 @@ describe("DinSykmeldingSkjema -", () => {
             },
         };
 
-        brukerinfo = {
-            strengtFortroligAdresse: false,
-        };
-
         getStore = (_values = {}, _state = state) => {
             const stateToStore = {
                 ..._state,
                 form: {
                     dinSykmeldingSkjema: {
                         values: _values,
-                    }
-                }
+                    },
+                },
             };
             return mockStore(stateToStore);
-        }
+        };
 
         ownProps = {
             sykmelding: getSykmelding({
-                id: "sykmelding-id"
+                id: 'sykmelding-id',
             }),
-        }
-        actions = {}
-        getComponent = (store = getStore()) => {
-            return mount(<Provider store={store}>
+        };
+        actions = {};
+        getComponent = (s = getStore()) => {
+            return mount(<Provider store={s}>
                 <DinSykmeldingSkjema {...ownProps} />
-            </Provider>)
-        }
-
+            </Provider>);
+        };
     });
 
-    it("Skal vise VelgArbeidssituasjon", () => {
+    it('Skal vise VelgArbeidssituasjon', () => {
         component = getComponent(getStore());
         expect(component.find(VelgArbeidssituasjon)).to.have.length(1);
     });
 
-    it("Skal ikke vise VelgArbeidsgiver dersom arbeidssituasjon === undefined", () => {
+    it('Skal ikke vise VelgArbeidsgiver dersom arbeidssituasjon === undefined', () => {
         component = getComponent(getStore());
         expect(component.find(VelgArbeidsgiver)).to.have.length(0);
         expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(0);
     });
 
     it("Skal ikke vise VelgArbeidsgiver arbeidssituasjon === 'ARBEIDSLEDIG'", () => {
-        const store = getStore({
-            valgtArbeidssituasjon: 'ARBEIDSLEDIG'
-        });
-        component = getComponent(store);
+        component = getComponent(getStore({
+            valgtArbeidssituasjon: 'ARBEIDSLEDIG',
+        }));
         expect(component.find(VelgArbeidsgiver)).to.have.length(0);
         expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(0);
     });
 
     it("Skal vise ArbeidsgiversSykmeldingContainer dersom arbeidssituasjon === 'ARBEIDSTAKER'", () => {
-        const store = getStore({
-            valgtArbeidssituasjon: 'ARBEIDSTAKER'
-        });
-        component = getComponent(store);
+        component = getComponent(getStore({
+            valgtArbeidssituasjon: 'ARBEIDSTAKER',
+        }));
         expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(1);
     });
 
-    it("Skal vise info om utskrift dersom harStrengtFortroligAdresse = true", () => {
+    it('Skal vise info om utskrift dersom harStrengtFortroligAdresse = true', () => {
         state.brukerinfo.bruker.data.strengtFortroligAdresse = true;
-        const store = getStore({
-            valgtArbeidssituasjon: 'ARBEIDSTAKER'
-        });
-        component = getComponent(store);
+        component = getComponent(getStore({
+            valgtArbeidssituasjon: 'ARBEIDSTAKER',
+        }));
         expect(component.find(StrengtFortroligInfo)).to.have.length(1);
     });
 
-    it("Skal ikke vise info om utskrift dersom harStrengtFortroligAdresse = true", () => {
+    it('Skal ikke vise info om utskrift dersom harStrengtFortroligAdresse = true', () => {
         state.brukerinfo.bruker.data.strengtFortroligAdresse = false;
-        store = getStore({
-            valgtArbeidssituasjon: 'ARBEIDSTAKER'
-        });
-        component = getComponent(store);
+        component = getComponent(getStore({
+            valgtArbeidssituasjon: 'ARBEIDSTAKER',
+        }));
         expect(component.find(StrengtFortroligInfo)).to.have.length(0);
     });
 
-    describe("getFeilaktigeOpplysninger", () => {
-        let component; 
+    describe('getFeilaktigeOpplysninger', () => {
         let props;
-        let values; 
 
         beforeEach(() => {
             actions = {
                 handleSubmit: sinon.spy(),
             };
             props = {
-                modus: "",
+                modus: '',
                 sykmelding: getSykmelding(),
             };
             values = {};
         });
-        
-        it("Skal returnere tomt objekt hvis opplysningeneErRiktige === true", () => {
+
+        it('Skal returnere tomt objekt hvis opplysningeneErRiktige === true', () => {
             values = {
                 feilaktigeOpplysninger: [...feilaktigeOpplysninger],
-                opplysningeneErRiktige: true
+                opplysningeneErRiktige: true,
             };
             props.values = values;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
-            expect(component.instance().getFeilaktigeOpplysninger()).to.deep.equal({})
+            expect(component.instance().getFeilaktigeOpplysninger()).to.deep.equal({});
         });
 
-        it("Skal returnere avkryssede opplysninger objekt hvis opplysningeneErRiktige === false", () => {
+        it('Skal returnere avkryssede opplysninger objekt hvis opplysningeneErRiktige === false', () => {
             const f = [...feilaktigeOpplysninger];
             f[0] = Object.assign({}, feilaktigeOpplysninger[0], {
                 avkrysset: true,
             });
             f[1] = Object.assign({}, feilaktigeOpplysninger[1], {
                 avkrysset: true,
-            })
+            });
             f[2] = Object.assign({}, feilaktigeOpplysninger[2], {
                 avkrysset: false,
-            })
+            });
             props.values = {
                 feilaktigeOpplysninger: f,
                 opplysningeneErRiktige: false,
@@ -193,34 +173,31 @@ describe("DinSykmeldingSkjema -", () => {
             expect(component.instance().getFeilaktigeOpplysninger()).to.deep.equal({
                 periode: true,
                 sykmeldingsgrad: true,
-            })
-        }); 
-
+            });
+        });
     });
 
-    describe("Frilansersvar", () => {
-        let component; 
+    describe('Frilansersvar', () => {
         let props;
-        let values; 
 
         beforeEach(() => {
             actions = {
                 handleSubmit: sinon.spy(),
             };
             props = {
-                modus: "",
+                modus: '',
                 sykmelding: getSykmelding(),
             };
             values = {};
         });
 
-        it("Skal returnere et tomt objekt hvis valgt arbeidssituasjon er ARBEIDSTAKER", () => {
+        it('Skal returnere et tomt objekt hvis valgt arbeidssituasjon er ARBEIDSTAKER', () => {
             values = {
                 valgtArbeidssituasjon: 'ARBEIDSTAKER',
                 opplysningeneErRiktige: true,
                 valgtArbeidsgiver: {
-                    orgnummer: "123456789"
-                }
+                    orgnummer: '123456789',
+                },
             };
             props.values = values;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
@@ -228,7 +205,7 @@ describe("DinSykmeldingSkjema -", () => {
             expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
-        it("Skal returnere et tomt objekt hvis valgt arbeidssituasjon er ARBEIDSLEDIG", () => {
+        it('Skal returnere et tomt objekt hvis valgt arbeidssituasjon er ARBEIDSLEDIG', () => {
             values = {
                 valgtArbeidssituasjon: 'ARBEIDSLEDIG',
                 opplysningeneErRiktige: true,
@@ -239,7 +216,7 @@ describe("DinSykmeldingSkjema -", () => {
             expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
-        it("Skal returnere et tomt objekt hvis valgt arbeidssituasjon er FRILANSER og tilleggsspørsmål for frilansere ikke er stilt", () => {
+        it('Skal returnere et tomt objekt hvis valgt arbeidssituasjon er FRILANSER og tilleggsspørsmål for frilansere ikke er stilt', () => {
             values = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
@@ -250,32 +227,32 @@ describe("DinSykmeldingSkjema -", () => {
             expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
-        it("Skal returnere perioder hvis valgt arbeidssituasjon er FRILANSER og det er svart JA på egenmeldingsspørsmål", () => {
+        it('Skal returnere perioder hvis valgt arbeidssituasjon er FRILANSER og det er svart JA på egenmeldingsspørsmål', () => {
             values = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
                 varSykmeldtEllerEgenmeldt: true,
                 egenmeldingsperioder: [{
-                    fom: "01.03.2018",
-                    tom: "05.03.2018",
+                    fom: '01.03.2018',
+                    tom: '05.03.2018',
                 }, {
-                    fom: "07.03.2018",
-                    tom: "12.03.2018",
+                    fom: '07.03.2018',
+                    tom: '12.03.2018',
                 }],
                 harForsikring: false,
             };
             props.values = values;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
             expect(component.instance().getEgenmeldingsperioder()).to.deep.equal([{
-                fom: new Date("2018-03-01"),
-                tom: new Date("2018-03-05"),
+                fom: new Date('2018-03-01'),
+                tom: new Date('2018-03-05'),
             }, {
-                fom: new Date("2018-03-07"),
-                tom: new Date("2018-03-12"),
+                fom: new Date('2018-03-07'),
+                tom: new Date('2018-03-12'),
             }]);
         });
 
-        it("Skal returnere tomme perioder hvis valgt arbeidssituasjon er FRILANSER og det er svart NEI på egenmeldingsspørsmål", () => {
+        it('Skal returnere tomme perioder hvis valgt arbeidssituasjon er FRILANSER og det er svart NEI på egenmeldingsspørsmål', () => {
             values = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
@@ -285,78 +262,71 @@ describe("DinSykmeldingSkjema -", () => {
             };
             props.values = values;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
-            expect(component.instance().getEgenmeldingsperioder()).to.be.null;
+            expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
-        it("Skal returnere tom dekningsgrad hvis arbeidssituasjon er FRILANSER og det er svart NEI på forsikringsspørsmålet", () => {
+        it('Skal returnere tom dekningsgrad hvis arbeidssituasjon er FRILANSER og det er svart NEI på forsikringsspørsmålet', () => {
             values = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
                 varSykmeldtEllerEgenmeldt: false,
                 harForsikring: false,
-                dekningsgrad: "75"
+                dekningsgrad: '75',
             };
             props.values = values;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
-            expect(component.instance().getDekningsgrad()).to.be.null;
+            expect(component.instance().getDekningsgrad()).to.equal(null);
         });
 
-        it("Skal returnere oppgitt dekningsgrad hvis arbeidssituasjon er FRILANSER og det er svart JA på forsikringsspørsmålet", () => {
+        it('Skal returnere oppgitt dekningsgrad hvis arbeidssituasjon er FRILANSER og det er svart JA på forsikringsspørsmålet', () => {
             values = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
                 varSykmeldtEllerEgenmeldt: false,
                 harForsikring: true,
-                dekningsgrad: "75"
+                dekningsgrad: '75',
             };
             props.values = values;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
-            expect(component.instance().getDekningsgrad()).to.equal("75")
+            expect(component.instance().getDekningsgrad()).to.equal('75');
         });
-
     });
 
-    describe("handleSubmit", () => {
-
-        let component;
-        let values;
-
+    describe('handleSubmit', () => {
         beforeEach(() => {
             values = {
                 feilaktigeOpplysninger: [...feilaktigeOpplysninger],
                 opplysningeneErRiktige: false,
                 valgtArbeidssituasjon: 'ARBEIDSTAKER',
                 valgtArbeidsgiver: {
-                    orgnummer: "123456789"
-                }
+                    orgnummer: '123456789',
+                },
             };
-        })
+        });
 
-        it("Sender feilaktigeOpplysninger til arbeidsgiver", () => {
-            const sendSykmeldingTilArbeidsgiverSpy = sinon.spy();
+        it('Sender feilaktigeOpplysninger til arbeidsgiver', () => {
             const f = [...feilaktigeOpplysninger];
             f[4] = Object.assign({}, f[4], {
                 avkrysset: true,
             });
             values.feilaktigeOpplysninger = f;
-            
-            const sendSykmeldingTilArbeidsgiver = sinon.stub(dinSykmeldingActions, "sendSykmeldingTilArbeidsgiver");
+
+            const sendSykmeldingTilArbeidsgiver = sinon.stub(dinSykmeldingActions, 'sendSykmeldingTilArbeidsgiver');
 
             component = getComponent(getStore(values));
-            component.simulate("submit");
+            component.simulate('submit');
 
             expect(sendSykmeldingTilArbeidsgiver.callCount).to.equal(1);
             expect(sendSykmeldingTilArbeidsgiver.getCall(0).args).to.deep.equal([
-                "sykmelding-id",
-                "123456789", {
+                'sykmelding-id',
+                '123456789', {
                     andre: true,
-                }, 
+                },
                 undefined]);
             sendSykmeldingTilArbeidsgiver.restore();
         });
 
-        it("Sender feilaktigeOpplysninger og valgt arbeidssituasjon når sykmeldingen bekreftes", () => {
-            const sendSykmeldingTilArbeidsgiverSpy = sinon.spy();
+        it('Sender feilaktigeOpplysninger og valgt arbeidssituasjon når sykmeldingen bekreftes', () => {
             const f = [...feilaktigeOpplysninger];
             f[4] = Object.assign({}, f[4], {
                 avkrysset: true,
@@ -364,98 +334,91 @@ describe("DinSykmeldingSkjema -", () => {
             values.feilaktigeOpplysninger = f;
             values.valgtArbeidssituasjon = 'FRILANSER';
 
-            const bekreftSykmelding = sinon.stub(dinSykmeldingActions, "bekreftSykmelding");
+            const bekreftSykmelding = sinon.stub(dinSykmeldingActions, 'bekreftSykmelding');
 
             component = getComponent(getStore(values));
-            component.simulate("submit");
+            component.simulate('submit');
 
             expect(bekreftSykmelding.callCount).to.equal(1);
             expect(bekreftSykmelding.getCall(0).args).to.deep.equal([
-                "sykmelding-id",
-                "FRILANSER", {
+                'sykmelding-id',
+                'FRILANSER', {
                     andre: true,
                 }, null, null]);
             bekreftSykmelding.restore();
         });
-
     });
 
-    describe("Velg arbeidssituasjon", () => { 
-
-        let component;
-
+    describe('Velg arbeidssituasjon', () => {
         beforeEach(() => {
             component = getComponent();
         });
 
-        it("Viser en select", () => {
-            expect(component.find("select")).to.have.length(1);
+        it('Viser en select', () => {
+            expect(component.find('select')).to.have.length(1);
         });
 
-        it("Setter dropdown til 'Velg' om arbeidssituasjon ikke er satt", function () {
-            const dropdown = component.find("select");
+        it("Setter dropdown til 'Velg' om arbeidssituasjon ikke er satt", () => {
+            const dropdown = component.find('select');
             expect(dropdown.value).to.equal(undefined);
         });
     });
 
 
-    describe("Logikk i skjemaet basert på svar i VelgArbeidsgiver", () => {
-
-        let component;
-        let arbeidsgivere; 
-
+    describe('Logikk i skjemaet basert på svar i VelgArbeidsgiver', () => {
         beforeEach(() => {
             values = {};
             values.opplysningeneErRiktige = true;
             values.valgtArbeidssituasjon = 'ARBEIDSTAKER';
-            const ledetekster = {
+            /* eslint-disable max-len */
+            setLedetekster({
                 'starte-sykmelding.info.send-med-naermeste-leder': 'Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.',
                 'starte-sykmelding.knapp.SEND-MED-NAERMESTE-LEDER': 'Send sykmelding',
                 'starte-sykmelding.info.send': 'Sykmeldingen blir sendt til bedriftens innboks i Altinn. Vi anbefaler at du tipser arbeidsgiveren din om at du har sendt sykmeldingen siden dette er nytt for dem også.',
                 'starte-sykmelding.knapp.SEND': 'Send sykmelding',
-            };
-            setLedetekster(ledetekster);
+            });
+            /* eslint-disable max-len */
         });
 
-        it("Skal vise egen tekst for innsending ved JA på bekreft nærmest leder", () => {
+        it('Skal vise egen tekst for innsending ved JA på bekreft nærmest leder', () => {
             values = {
                 beOmNyNaermesteLeder: false,
                 valgtArbeidssituasjon: 'ARBEIDSTAKER',
                 valgtArbeidsgiver: {
-                    orgnummer: "123456789",
-                    navn: "Mortens frukt og grønt",
+                    orgnummer: '123456789',
+                    navn: 'Mortens frukt og grønt',
                     naermesteLeder: {
-                        navn: "Ole sykmelding-id",
-                        epost: "ole.sykmelding-id@test.no"
-                    }
-            }};
-            
-            const component = getComponent(getStore(values));
+                        navn: 'Ole sykmelding-id',
+                        epost: 'ole.sykmelding-id@test.no',
+                    },
+                } };
 
-            expect(component.text()).to.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.')
-            expect(component.text()).to.contain('Send sykmelding')
+            component = getComponent(getStore(values));
+            /* eslint-disable max-len */
+            expect(component.text()).to.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.');
+            expect(component.text()).to.contain('Send sykmelding');
+            /* eslint-disable max-len */
         });
 
-        it("Skal ikke vise egen tekst for innsending ved NEI på bekreft nærmest leder", () => {
+        it('Skal ikke vise egen tekst for innsending ved NEI på bekreft nærmest leder', () => {
             values = {
                 beOmNyNaermesteLeder: true,
                 valgtArbeidssituasjon: 'ARBEIDSTAKER',
                 valgtArbeidsgiver: {
-                    orgnummer: "123456789",
-                    navn: "Mortens frukt og grønt",
+                    orgnummer: '123456789',
+                    navn: 'Mortens frukt og grønt',
                     naermesteLeder: {
-                        navn: "Ole sykmelding-id",
-                        epost: "ole.sykmelding-id@test.no"
-                    }
-                }
+                        navn: 'Ole sykmelding-id',
+                        epost: 'ole.sykmelding-id@test.no',
+                    },
+                },
             };
-            const component = getComponent(getStore(values));
-
-            expect(component.text()).to.not.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.')
-            expect(component.text()).to.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Vi anbefaler at du tipser arbeidsgiveren din om at du har sendt sykmeldingen siden dette er nytt for dem også.')
-            expect(component.text()).to.contain('Send sykmelding')
+            component = getComponent(getStore(values));
+            /* eslint-disable max-len */
+            expect(component.text()).to.not.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.');
+            expect(component.text()).to.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Vi anbefaler at du tipser arbeidsgiveren din om at du har sendt sykmeldingen siden dette er nytt for dem også.');
+            expect(component.text()).to.contain('Send sykmelding');
+            /* eslint-disable max-len */
         });
-
     });
-
 });

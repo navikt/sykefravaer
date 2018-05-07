@@ -129,7 +129,7 @@ describe('OppfolgingsdialogerOpprett', () => {
             komponent.instance().settVirksomhetsnummer({
                 arbeidsgiver: oppfolgingsdialog.virksomhet.virksomhetsnummer,
             });
-            expect(opprett.calledOnce).to.be.true;
+            expect(opprett.calledOnce).to.equal(true);
         });
     });
 
@@ -152,14 +152,14 @@ describe('OppfolgingsdialogerOpprett', () => {
             wrapperTidligereDialog.opprett({
                 baserPaaTidligerePlan: 'true',
             });
-            expect(kopier.calledOnce).to.be.true;
+            expect(kopier.calledOnce).to.equal(true);
         });
 
         it('Skal kalle opprett dersom BaserTidligereSkjema blir utfylt med baserPaaTidligerePlan=false', () => {
             wrapper.opprett({
                 baserPaaTidligerePlan: 'false',
             });
-            expect(opprett.calledOnce).to.be.true;
+            expect(opprett.calledOnce).to.equal(true);
         });
     });
 });

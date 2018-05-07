@@ -71,7 +71,6 @@ describe('ArbeidsgiverSkjema', () => {
     });
 
     describe('VelgArbeidsgiverUndertekst', () => {
-
         it('Skal vise ikke vise en feilmelding', () => {
             komponent = shallow(<VelgArbeidsgiverUndertekst
                 oppfolgingsdialoger={oppfolgingsdialoger}

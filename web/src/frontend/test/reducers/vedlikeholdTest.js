@@ -1,11 +1,10 @@
 import deepFreeze from 'deep-freeze';
-import {expect} from 'chai';
-import * as actions from '../../js/actions/vedlikehold_actions'
+import { expect } from 'chai';
+import * as actions from '../../js/actions/vedlikehold_actions';
 import vedlikehold from '../../js/reducers/vedlikehold';
 
 describe('vedlikehold', () => {
     describe('henter', () => {
-
         let initialState = deepFreeze({
             data: {},
             henter: false,
@@ -13,7 +12,7 @@ describe('vedlikehold', () => {
         });
 
         it('håndterer VEDLIKEHOLD_HENTET', () => {
-            const action = actions.vedlikeholdHentet(true)
+            const action = actions.vedlikeholdHentet(true);
             const nextState = vedlikehold(initialState, action);
 
             expect(nextState).to.deep.equal({
@@ -24,7 +23,7 @@ describe('vedlikehold', () => {
             });
         });
 
-        it("håndterer HENTER_VEDLIKEHOLD", () => {
+        it('håndterer HENTER_VEDLIKEHOLD', () => {
             const action = actions.henterVedlikehold();
             const nextState = vedlikehold(initialState, action);
             expect(nextState).to.deep.equal({
@@ -35,8 +34,7 @@ describe('vedlikehold', () => {
             });
         });
 
-        it("håndterer HENT_VEDLIKEHOLD_FEILET", () => {
-
+        it('håndterer HENT_VEDLIKEHOLD_FEILET', () => {
             initialState = deepFreeze({
                 data: { vedlikehold: false },
                 henter: false,
@@ -53,5 +51,5 @@ describe('vedlikehold', () => {
                 hentet: true,
             });
         });
-    })
+    });
 });

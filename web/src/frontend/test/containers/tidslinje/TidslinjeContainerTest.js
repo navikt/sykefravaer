@@ -1,6 +1,6 @@
 import chai from 'chai';
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import {
@@ -9,10 +9,6 @@ import {
     setLedetekster,
 } from 'digisyfo-npm';
 import ledetekster from '../../mockLedetekster';
-
-chai.use(chaiEnzyme());
-const expect = chai.expect;
-
 import {
     TidslinjeSide,
     mapStateToProps,
@@ -21,6 +17,9 @@ import {
 } from '../../../js/containers/tidslinje/TidslinjeContainer';
 import AppSpinner from '../../../js/components/AppSpinner';
 import Feilmelding from '../../../js/components/Feilmelding';
+
+chai.use(chaiEnzyme());
+const expect = chai.expect;
 
 const hendelserData = [{
     ledetekst: 'tidslinje.utarbeide.plan',
@@ -98,7 +97,6 @@ describe('TidslinjeContainer', () => {
     });
 
     describe('mapStateToProps', () => {
-
         it('Skal returnere hendelser', () => {
             const props = mapStateToProps(initState);
             expect(props.hendelser).to.deep.equal([{
@@ -181,9 +179,8 @@ describe('TidslinjeContainer', () => {
                     hash: '#1/2',
                 },
             });
-            expect(props.apneHendelseIder).to.deep.equal(['1', '2'])
+            expect(props.apneHendelseIder).to.deep.equal(['1', '2']);
         });
-
     });
 
     describe('TidslinjeSide', () => {
@@ -202,14 +199,10 @@ describe('TidslinjeContainer', () => {
         });
 
         it('Skal vise en AppSpinner dersom ledetekster ikke er lastet og vi venter på sykeforloep', () => {
-            const ledetekster = {
-                henter: true,
-            };
             const hendelser = [];
-            const spy = sinon.spy();
             const component = shallow(<TidslinjeSide
                 dispatch={dispatch}
-                ledetekster={ledetekster.data}
+                ledetekster={ledetekster}
                 sykeforloep={Object.assign({}, sykeforloep, {
                     hentet: true,
                 })}
@@ -222,13 +215,10 @@ describe('TidslinjeContainer', () => {
         });
 
         it('Skal vise en Feilmelding dersom henting av ledetekster feiler', () => {
-            const ledetekster = {
-                hentingFeilet: true,
-            };
             const hendelser = [];
             const component = shallow(<TidslinjeSide
                 dispatch={dispatch}
-                ledetekster={ledetekster.data}
+                ledetekster={ledetekster}
                 sykeforloep={sykeforloep}
                 hendelser={hendelser}
                 apneHendelser={apneHendelserSpy}
@@ -239,7 +229,7 @@ describe('TidslinjeContainer', () => {
         });
 
         it('Skal sende arbeidssituasjon videre til tidslinjen', () => {
-            const ledetekster = {
+            const _ledetekster = {
                 data: {},
             };
             const arbeidssituasjon = TIDSLINJE_TYPER.MED_ARBEIDSGIVER;
@@ -268,7 +258,7 @@ describe('TidslinjeContainer', () => {
             }];
             const component = shallow(<TidslinjeSide
                 dispatch={dispatch}
-                ledetekster={ledetekster}
+                ledetekster={_ledetekster}
                 hendelser={hendelser}
                 sykeforloep={sykeforloep}
                 arbeidssituasjon={arbeidssituasjon}
@@ -277,7 +267,6 @@ describe('TidslinjeContainer', () => {
             const tidslinjeComp = component.find(Tidslinje);
             expect(tidslinjeComp.prop('arbeidssituasjon')).to.equal(TIDSLINJE_TYPER.MED_ARBEIDSGIVER);
         });
-
     });
 
     describe('Set hash', () => {
@@ -290,7 +279,7 @@ describe('TidslinjeContainer', () => {
 
         it('Skal kalle på window.history.replaceState med null, null, # når det ikke finnes noen åpne milepæler', () => {
             setHash([]);
-            expect(replaceState.calledOnce).to.be.true;
+            expect(replaceState.calledOnce).to.equal(true);
             expect(replaceState.getCall(0).args[0]).to.equal(null);
             expect(replaceState.getCall(0).args[1]).to.equal(null);
             expect(replaceState.getCall(0).args[2]).to.equal('#');
@@ -316,7 +305,7 @@ describe('TidslinjeContainer', () => {
                 id: 5,
                 erApen: false,
             }]);
-            expect(replaceState.calledOnce).to.be.true;
+            expect(replaceState.calledOnce).to.equal(true);
             expect(replaceState.getCall(0).args[0]).to.equal(null);
             expect(replaceState.getCall(0).args[1]).to.equal(null);
             expect(replaceState.getCall(0).args[2]).to.equal('#1/2/3');

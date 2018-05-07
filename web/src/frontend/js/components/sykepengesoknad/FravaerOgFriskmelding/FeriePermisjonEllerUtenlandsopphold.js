@@ -8,9 +8,10 @@ import Checkbox from '../../skjema/Checkbox';
 import Feilomrade from '../../skjema/Feilomrade';
 import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';
 import { sykepengesoknad as sykepengesoknadPt, fieldPropTypes } from '../../../propTypes';
-import { getFeriePermisjonEllerUtenlandsoppholdSporsmal } from '../../../components/sykepengesoknad/Oppsummering/sykepengesoknadSporsmal';
+import { getFeriePermisjonEllerUtenlandsoppholdSporsmal } from '../../sykepengesoknad/Oppsummering/sykepengesoknadSporsmal';
 import { finnFomForFeriesporsmal, getTomDato } from '../../../utils/sykepengesoknadUtils';
 import SoktOmSykepenger from './SoktOmSykepengerIUtenlandsopphold';
+import { Bjorn } from '../../Hjelpeboble';
 
 export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, tidligsteFom, senesteTom }) => {
     const labels = {
@@ -60,6 +61,8 @@ export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjeno
     };
 
     const tidligsteFom = finnFomForFeriesporsmal(sykepengesoknad);
+    const visBjorn = tidligsteFom.getTime() !== sykepengesoknad.fom.getTime();
+    const feriebjorn = visBjorn ? <Bjorn className="press" nokkel="sykepengesoknad.ferie.bjorn" /> : null;
     const senesteTom = getTomDato(_soknad);
     const hjelpetekst = (<Hjelpetekst
         id="ferie-permisjon-hjelpetekst"
@@ -69,6 +72,7 @@ export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjeno
     return (<JaEllerNei
         spoersmal={getFeriePermisjonEllerUtenlandsoppholdSporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}
         name="harHattFeriePermisjonEllerUtenlandsopphold"
+        informasjon={feriebjorn}
         hjelpetekst={hjelpetekst}>
         <FieldArray
             component={RendreFeriePermisjonEllerUtenlandsopphold}

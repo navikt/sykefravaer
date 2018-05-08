@@ -59,8 +59,8 @@
     display: block;
     position: absolute;
     top: -1.5em;
-    right: 50%;
-    transform: translateX(50%);
+    right: 0;
+    transform: skewX(-30deg);
 }
 
 .hjelpeboble__bilde--hvit:after {
@@ -92,6 +92,7 @@
         right: 1em;
         border-top-color: transparent;
         border-right-color: @bakgrunnGraa;
+        transform: translateX(50%);
     }
 
     .hjelpeboble__bilde--hvit:after {

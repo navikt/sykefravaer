@@ -14,15 +14,14 @@
     position: relative;
     padding-top: 1em;
     padding-bottom: 1em;
-    margin-bottom: 1em;
-    z-index: 2;
+    margin-bottom: 1.5em;
 
     p:last-child {
         margin-bottom: 0;
     }
 }
 
-.hjelpeboble__boble h2, 
+.hjelpeboble__boble h2,
 .hjelpeboble__boble h3,
 .hjelpeboble__boble h4 {
     .mixin-typo-element();
@@ -36,10 +35,10 @@
 .hjelpeboble__bilde {
     width: 4em;
     height: 4em;
-    margin-left: auto; 
+    margin-left: auto;
     margin-right: auto;
     position: relative;
-    
+
     img {
         width: 100%;
         height: auto;
@@ -53,18 +52,19 @@
 
 .hjelpeboble__bilde:after {
     content: "";
-    background-color: @bakgrunnGraa;
-    width: 3em;
-    height: 2em;
+    border: 1em solid transparent;
+    border-top-color: @bakgrunnGraa;
+    width: 0;
+    height: 0;
     display: block;
     position: absolute;
-    top: 0;
-    right: -100%;
-    transform: rotate(-30deg) translateY(-150%) skew(-15deg);
+    top: -1.5em;
+    right: 50%;
+    transform: translateX(50%);
 }
 
 .hjelpeboble__bilde--hvit:after {
-    background-color: @hvit;
+    border-top-color: @hvit;
 }
 
 @media (min-width: 30em) {
@@ -87,13 +87,14 @@
         padding-right: 2em;
     }
 
-    @w: 1.5em;
-
     .hjelpeboble__bilde:after {
-        width: @w;
-        height: @w;
-        top: 50%;
-        right: 0;
-        transform: translate(50%, -50%) rotate(45deg);
+        top: 25%;
+        right: 1em;
+        border-top-color: transparent;
+        border-right-color: @bakgrunnGraa;
+    }
+
+    .hjelpeboble__bilde--hvit:after {
+        border-right-color: @hvit;
     }
 }

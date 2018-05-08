@@ -88,12 +88,13 @@ describe('FeriePermisjonEllerUtenlandsopphold', () => {
         });
         compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={soknad} />);
         expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 22.12.2016 – 30.01.2017?');
+        expect(compo.find(JaEllerNei).prop('informasjon')).not.to.equal(null);
     });
 
     it('Skal vise riktig spørsmål dersom forrigeSykeforloepTom er satt og forrigeSendteSoknadTom er satt', () => {
         const soknad = getSoknad({
-            forrigeSykeforloepTom: '2016-12-22',
-            forrigeSendteSoknadTom: '2016-12-31',
+            forrigeSykeforloepTom: new Date('2016-12-22'),
+            forrigeSendteSoknadTom: new Date('2016-12-31'),
             del: 2,
             aktiviteter: [{
                 periode: {
@@ -113,6 +114,7 @@ describe('FeriePermisjonEllerUtenlandsopphold', () => {
         });
         compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={soknad} />);
         expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 30.01.2017?');
+        expect(compo.find(JaEllerNei).prop('informasjon')).to.equal(null);
     });
 
     it('Skal bruke FOM i søknaden om forrigeSendteSoknadTom er nærmere i tid enn forrigeSykeforloepTom', () => {
@@ -138,6 +140,7 @@ describe('FeriePermisjonEllerUtenlandsopphold', () => {
         });
         compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={soknad} />);
         expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 30.01.2017?');
+        expect(compo.find(JaEllerNei).prop('informasjon')).to.equal(null);
     });
 
     it('Skal inneholde et FieldArray', () => {

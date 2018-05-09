@@ -1,12 +1,11 @@
 import React from 'react';
-import { Hjelpetekst, toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { Hjelpetekst, toDatePrettyPrint, getLedetekst, Bjorn } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/datovelger/Periodevelger';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import { getTidligsteStartdatoSykeforloep } from '../../../utils/sykmeldingUtils';
 import { getEgenmeldingsdagerSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
-import { Bjorn } from '../../Hjelpeboble';
 import { Vis } from '../../../utils';
 
 const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsdagerPreutfylt }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form';
-import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import { getLedetekst, Hjelpetekst, Bjorn } from 'digisyfo-npm';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/datovelger/Periodevelger';
 import Checkbox from '../../skjema/Checkbox';
@@ -11,7 +11,6 @@ import { sykepengesoknad as sykepengesoknadPt, fieldPropTypes } from '../../../p
 import { getFeriePermisjonEllerUtenlandsoppholdSporsmal } from '../../sykepengesoknad/Oppsummering/sykepengesoknadSporsmal';
 import { finnFomForFeriesporsmal, getTomDato } from '../../../utils/sykepengesoknadUtils';
 import SoktOmSykepenger from './SoktOmSykepengerIUtenlandsopphold';
-import { Bjorn } from '../../Hjelpeboble';
 
 export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, tidligsteFom, senesteTom }) => {
     const labels = {

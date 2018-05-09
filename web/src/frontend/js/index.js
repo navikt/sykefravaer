@@ -21,6 +21,7 @@ import { svar, mote } from 'moter-npm';
 import {
     oppfolgingsdialogerAt as oppfolgingsdialoger,
     arbeidsoppgaver,
+    forespoerselRevidering,
     kommentar,
     kopierDialog as kopierDialogReducer,
     dokument,
@@ -76,6 +77,7 @@ const rootReducer = combineReducers({
     history,
     ledere,
     dokument,
+    forespoerselRevidering,
     kommentar,
     kopierDialogReducer,
     ledetekster,

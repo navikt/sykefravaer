@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Bjorn, getLedetekst, DineSykmeldingOpplysninger, Varselstripe, scrollTo } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import { getContextRoot } from '../../routers/paths';
 import DinSykmeldingSkjemaContainer from '../../containers/sykmelding/DinSykmeldingSkjemaContainer';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
@@ -23,7 +24,11 @@ class DinSykmelding extends Component {
                     </Varselstripe>
                 </div>
             </Vis>
-            <Bjorn className="blokk" hvit stor>
+            <Bjorn
+                className="blokk"
+                hvit
+                stor
+                rootUrl={getContextRoot()}>
                 <div>
                     <p>
                         {

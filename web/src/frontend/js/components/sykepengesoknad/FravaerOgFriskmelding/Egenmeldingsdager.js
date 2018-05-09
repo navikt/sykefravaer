@@ -1,6 +1,7 @@
 import React from 'react';
 import { Hjelpetekst, toDatePrettyPrint, getLedetekst, Bjorn } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
+import { getContextRoot } from '../../../routers/paths';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/datovelger/Periodevelger';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
@@ -23,7 +24,10 @@ const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsdagerPreutfylt }) =>
         })} />);
 
     const informasjon = (<Vis hvis={erEgenmeldingsdagerPreutfylt}>
-        <Bjorn nokkel="sykepengesoknad.egenmeldingsdager.preutfylt-melding" className="press" />
+        <Bjorn
+            className="press"
+            nokkel="sykepengesoknad.egenmeldingsdager.preutfylt-melding"
+            rootUrl={getContextRoot()} />
     </Vis>);
 
     return (<JaEllerNei

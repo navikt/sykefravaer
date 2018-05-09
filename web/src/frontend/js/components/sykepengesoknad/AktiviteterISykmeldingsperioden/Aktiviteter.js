@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Fields } from 'redux-form';
 import { getLedetekst, Hjelpetekst, Bjorn } from 'digisyfo-npm';
+import { getContextRoot } from '../../../routers/paths';
 import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';
 import { soknadsaktivitet } from '../../../propTypes';
@@ -31,7 +32,10 @@ export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => 
                     `aktiviteter[${index}].avvik.enhet`,
                     `aktiviteter[${index}].avvik.beregnetArbeidsgrad`,
                 ]} />
-            <Bjorn nokkel="sykepengesoknad.angi-tid.bjorn" />
+            <Bjorn
+                nokkel="sykepengesoknad.angi-tid.bjorn"
+                rootUrl={getContextRoot()}
+            />
         </div>
     </JaEllerNei>);
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, Bjorn } from 'digisyfo-npm';
+import { getContextRoot } from '../../routers/paths';
 import LandingssideLenke from './LandingssideLenke';
 import { brodsmule as brodsmulePt } from '../../propTypes';
 import Brodsmuler from '../Brodsmuler';
@@ -36,7 +37,10 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
             }
             <DineOppgaverContainer />
             <Utdrag />
-            <Bjorn className="landingspanel" hvit>
+            <Bjorn
+                className="landingspanel"
+                hvit
+                rootUrl={getContextRoot()}>
                 <p>Hei, her er et lite tips: Hvis du er frisk før sykmeldingsperioden er over, kan du gå tilbake i arbeid.</p>
                 <button className="rammeknapp rammeknapp--mini" type="button">Jeg er frisk</button>
             </Bjorn>

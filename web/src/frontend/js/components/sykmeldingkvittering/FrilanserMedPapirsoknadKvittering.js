@@ -1,7 +1,6 @@
 import React from 'react';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, Bjorn } from 'digisyfo-npm';
 import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
-import { Bjorn } from '../Hjelpeboble';
 
 export default () => {
     return (<div className="js-kvittering js-kvittering--sok-papir">

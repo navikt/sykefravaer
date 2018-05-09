@@ -1,9 +1,8 @@
 import React from 'react';
-import { sykepengesoknad as sykepengesoknadPt, getLedetekst, Video, filmer } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt, getLedetekst, Video, filmer, Bjorn } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
 import { soknadsdatoremse } from './Soknadsdatoliste';
-import { Bjorn } from '../Hjelpeboble';
 
 const SokOmSykepengerSenereKvittering = ({ sykepengesoknader }) => {
     return (<div className="js-kvittering js-kvittering--sok-senere">

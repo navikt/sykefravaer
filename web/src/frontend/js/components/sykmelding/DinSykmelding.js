@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { getLedetekst, DineSykmeldingOpplysninger, Varselstripe, scrollTo } from 'digisyfo-npm';
+import { Bjorn, getLedetekst, DineSykmeldingOpplysninger, Varselstripe, scrollTo } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import DinSykmeldingSkjemaContainer from '../../containers/sykmelding/DinSykmeldingSkjemaContainer';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
-import { Bjorn } from '../Hjelpeboble';
 import { getSykmeldtFornavn } from '../../utils/sykmeldingUtils';
 import { Vis } from '../../utils';
 

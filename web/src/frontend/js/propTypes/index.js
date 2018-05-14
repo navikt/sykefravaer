@@ -94,3 +94,4 @@ export const ledereReducerPt = PropTypes.shape({
     avkreftFeilet: PropTypes.bool,
 });
 
+export const soknad = PropTypes.shape();

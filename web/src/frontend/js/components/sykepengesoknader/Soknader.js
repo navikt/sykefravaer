@@ -10,16 +10,16 @@ import UtbetalingerLenke from './UtbetalingerLenke';
 
 const { SENDT, TIL_SENDING, UTGAATT, NY, UTKAST_TIL_KORRIGERING, FREMTIDIG, AVBRUTT } = sykepengesoknadstatuser;
 
-const Soknader = ({ soknader = [] }) => {
-    const nyeSoknader = [...soknader].filter((soknad) => {
+const Soknader = ({ sykepengesoknader = [] }) => {
+    const nyeSoknader = [...sykepengesoknader].filter((soknad) => {
         return soknad.status === NY || soknad.status === UTKAST_TIL_KORRIGERING;
     }).sort(sorterEtterOpprettetDato);
-    const tidligereSoknader = [...soknader]
+    const tidligereSoknader = [...sykepengesoknader]
         .filter((soknad) => {
             return soknad.status === SENDT || soknad.status === TIL_SENDING || soknad.status === UTGAATT || soknad.status === AVBRUTT;
         })
         .sort(sorterEtterPerioder);
-    const fremtidigeSoknader = [...soknader]
+    const fremtidigeSoknader = [...sykepengesoknader]
         .filter((soknad) => {
             return soknad.status === FREMTIDIG;
         })
@@ -60,7 +60,7 @@ const Soknader = ({ soknader = [] }) => {
 };
 
 Soknader.propTypes = {
-    soknader: PropTypes.arrayOf(sykepengesoknadPt),
+    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
 };
 
 export default Soknader;

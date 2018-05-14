@@ -56,23 +56,23 @@ export default (state = initiellState, action = {}) => {
     switch (action.type) {
         case SOKNADER_HENTET: {
             return {
-                ...state,
+                data: action.soknader.map(parseSoknad),
                 hentet: true,
                 henter: false,
-                data: action.soknader.map(parseSoknad),
+                hentingFeilet: false,
             };
         }
         case HENT_SOKNADER_FEILET: {
             return {
-                ...state,
-                hentet: false,
+                data: [],
+                hentet: true,
                 henter: false,
                 hentingFeilet: true,
             };
         }
         case HENTER_SOKNADER: {
             return {
-                ...state,
+                data: [],
                 hentet: false,
                 henter: true,
                 hentingFeilet: false,

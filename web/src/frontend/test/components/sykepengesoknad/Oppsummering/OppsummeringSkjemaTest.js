@@ -8,7 +8,7 @@ import { Link } from 'react-router';
 import { setLedetekster, SoknadOppsummering, VaerKlarOverAt } from 'digisyfo-npm';
 import { OppsummeringForm, SendingFeilet } from '../../../../js/components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
 import ForskuttererArbeidsgiver from '../../../../js/components/sykepengesoknad/Oppsummering/ForskuttererArbeidsgiver';
-import { getSoknad } from '../../../mockSoknader';
+import { getSoknad } from '../../../mockSykepengesoknader';
 
 import CheckboxSelvstendig from '../../../../js/components/skjema/CheckboxSelvstendig';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad/AvbrytSoknadContainer';

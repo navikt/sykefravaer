@@ -40,6 +40,7 @@ import beregnArbeidsgiverperiodeSagas from './beregnArbeidsgiverperiodeSagas';
 import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
 import sykeforloepSagas from './sykeforloepSagas';
 import sykmeldingMetaSagas from './sykmeldingMetaSagas';
+import soknaderSagas from './soknaderSagas';
 
 export default function* rootSaga() {
     yield [
@@ -81,5 +82,6 @@ export default function* rootSaga() {
         naermesteLederSagas(),
         sykeforloepSagas(),
         sykmeldingMetaSagas(),
+        soknaderSagas(),
     ];
 }

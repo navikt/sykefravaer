@@ -6,7 +6,7 @@ import { setLedetekster } from 'digisyfo-npm';
 import GjenopptattArbeidFulltUt from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/GjenopptattArbeidFulltUt';
 import Datovelger from '../../../../js/components/skjema/datovelger/Datovelger';
 import JaEllerNei from '../../../../js/components/sykepengesoknad/JaEllerNei';
-import { getSoknad } from '../../../mockSoknader';
+import { getSoknad } from '../../../mockSykepengesoknader';
 import { ledetekster } from '../../../mockLedetekster';
 
 chai.use(chaiEnzyme());

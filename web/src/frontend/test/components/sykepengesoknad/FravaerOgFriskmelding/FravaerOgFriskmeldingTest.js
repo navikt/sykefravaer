@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { FravaerOgFriskmeldingSkjema } from '../../../../js/components/sykepengesoknad/FravaerOgFriskmelding/FravaerOgFriskmelding';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad/AvbrytSoknadContainer';
-import { getSoknad } from '../../../mockSoknader';
+import { getSoknad } from '../../../mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

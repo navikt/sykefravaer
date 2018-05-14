@@ -2,7 +2,7 @@ import chai from 'chai';
 import deepFreeze from 'deep-freeze';
 import { inntektskildetyper as inntektskildetyper_, setLedetekster, sporsmalstyper } from 'digisyfo-npm';
 
-import { getSoknad } from '../../../mockSoknader';
+import { getSoknad } from '../../../mockSykepengesoknader';
 import mapSkjemasoknadToOppsummeringSoknad from '../../../../js/components/sykepengesoknad/mappers/mapSkjemasoknadToOppsummeringsoknad';
 
 const expect = chai.expect;

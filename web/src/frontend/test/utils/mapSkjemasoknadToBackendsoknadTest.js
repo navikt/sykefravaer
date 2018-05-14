@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import deepFreeze from 'deep-freeze';
 import { inntektskildetyper } from '../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AndreInntektskilder';
-import { getSoknad } from '../mockSoknader';
+import { getSoknad } from '../mockSykepengesoknader';
 import mapSkjemasoknadToBackendsoknad from '../../js/components/sykepengesoknad/mappers/mapSkjemasoknadToBackendsoknad';
 
 chai.use(chaiEnzyme());

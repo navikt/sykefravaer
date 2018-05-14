@@ -4,7 +4,7 @@ import deepFreeze from 'deep-freeze';
 import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
 
 import { mapStateToPropsMedInitialValues, mapStateToProps, mapToInitialValues, andreInntektskilder } from '../../../js/components/sykepengesoknad/setup';
-import { getSoknad } from '../../mockSoknader';
+import { getSoknad } from '../../mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

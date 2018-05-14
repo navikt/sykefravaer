@@ -16,7 +16,7 @@ import AndreInntektskilder from '../../../../js/components/sykepengesoknad/Aktiv
 import Datovelger from '../../../../js/components/skjema/datovelger/Datovelger';
 import ledetekster from '../../../mockLedetekster';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad/AvbrytSoknadContainer';
-import { getSoknad } from '../../../mockSoknader';
+import { getSoknad } from '../../../mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

@@ -10,7 +10,7 @@ import FoerDuBegynner, {
     SoknadIntro,
 } from '../../../../js/components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad/AvbrytSoknadContainer';
-import { getSoknad } from '../../../mockSoknader';
+import { getSoknad } from '../../../mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

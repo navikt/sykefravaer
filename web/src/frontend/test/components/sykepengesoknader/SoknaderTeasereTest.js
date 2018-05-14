@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
 import SoknadTeaser from '../../../js/components/sykepengesoknader/SoknadTeaser';
 import SoknaderTeasere from '../../../js/components/sykepengesoknader/SoknaderTeasere';
-import { getSoknad } from '../../mockSoknader';
+import { getSoknad } from '../../mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

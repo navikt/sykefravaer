@@ -4,7 +4,7 @@ import { setLedetekster } from 'digisyfo-npm';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import Kvittering from '../../../js/components/sykepengesoknad/Kvittering';
-import { getSoknad } from '../../mockSoknader';
+import { getSoknad } from '../../mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

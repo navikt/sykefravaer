@@ -13,7 +13,7 @@ import validate, {
     sammeNormalAntallFeil } from '../../../../js/components/sykepengesoknad/validering/validerAktiviteterISykmeldingsperioden';
 
 import { inntektskildetyper } from '../../../../js/components/sykepengesoknad/AktiviteterISykmeldingsperioden/AndreInntektskilder';
-import { getSoknad } from '../../../mockSoknader';
+import { getSoknad } from '../../../mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

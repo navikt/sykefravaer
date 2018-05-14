@@ -5,7 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { setLedetekster } from 'digisyfo-npm';
 import { Ettersending, EttersendLightbox, EttersendDialogConnected, EttersendKvittering } from '../../../js/components/sykepengesoknad/Ettersending';
-import { getSoknad } from '../../mockSoknader';
+import { getSoknad } from '../../mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

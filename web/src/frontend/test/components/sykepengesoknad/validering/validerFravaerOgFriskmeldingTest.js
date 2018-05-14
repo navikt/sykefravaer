@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { getSoknad } from '../../../mockSoknader';
+import { getSoknad } from '../../../mockSykepengesoknader';
 import { validate } from '../../../../js/components/sykepengesoknad/validering/validerFravaerOgFriskmelding';
 
 chai.use(chaiEnzyme());

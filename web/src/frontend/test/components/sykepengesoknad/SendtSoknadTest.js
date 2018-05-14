@@ -7,7 +7,7 @@ import sinon from 'sinon';
 import SendtSoknad, { Knapperad, ConnectedKnapperad } from '../../../js/components/sykepengesoknad/SendtSoknad';
 import KorrigertAvContainer from '../../../js/containers/sykepengesoknad/KorrigertAvContainer';
 import Soknadstatuspanel from '../../../js/components/sykepengesoknad/Soknadstatuspanel';
-import { getSoknad } from '../../mockSoknader';
+import { getSoknad } from '../../mockSykepengesoknader';
 import ledetekster from '../../mockLedetekster';
 import SykepengesoknadHeader from '../../../js/components/sykepengesoknad/SykepengesoknadHeader';
 

@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import validate from '../../../../js/components/sykepengesoknad/validering/validerOppsummering';
-import { getSoknad } from '../../../mockSoknader';
+import { getSoknad } from '../../../mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

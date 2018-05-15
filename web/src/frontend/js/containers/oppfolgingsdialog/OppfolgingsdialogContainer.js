@@ -37,6 +37,7 @@ import {
     erOppfolgingsdialogTidligere,
     erOppfolgingsdialogKnyttetTilGyldigSykmelding,
 } from 'oppfolgingsdialog-npm';
+import { sykeforlopsPerioderReducerPt, hentSykeforlopsPerioder } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import history from '../../history';
 import Side from '../../sider/Side';
@@ -116,31 +117,31 @@ export class OppfolgingsdialogSide extends Component {
             erOppfolgingsdialogTilgjengelig,
         } = this.props;
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler} laster={(henter || sender || !hentet) && !(sendingFeilet || hentingFeilet)}>
-            { (() => {
-                if (henter || sender) {
-                    return <AppSpinner />;
-                } else if (hentingFeilet || sendingFeilet) {
-                    return (<Feilmelding />);
-                } else if (!erOppfolgingsdialogTilgjengelig) {
-                    return (<OppfolgingsdialogInfoboks
-                        svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
-                        svgAlt="ikkeTilgang"
-                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-                    />);
-                } else if (!tilgang.data.harTilgang) {
-                    return (<OppfolgingsdialogInfoboks
-                        svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
-                        svgAlt="ikkeTilgang"
-                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-                        tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
-                    />);
-                }
-                return (
-                    <Oppfolgingsdialog {...this.props} steg={navigasjontoggles.steg} />
-                );
-            })()
-            }
-        </Side>);
+        { (() => {
+            if (henter || sender) {
+            return <AppSpinner />;
+        } else if (hentingFeilet || sendingFeilet) {
+            return (<Feilmelding />);
+        } else if (!erOppfolgingsdialogTilgjengelig) {
+            return (<OppfolgingsdialogInfoboks
+            svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
+            svgAlt="ikkeTilgang"
+            tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+            />);
+        } else if (!tilgang.data.harTilgang) {
+            return (<OppfolgingsdialogInfoboks
+            svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
+            svgAlt="ikkeTilgang"
+            tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+            tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
+            />);
+        }
+            return (
+                <Oppfolgingsdialog {...this.props} steg={navigasjontoggles.steg} />
+        );
+        })()
+        }
+    </Side>);
     }
 }
 
@@ -166,6 +167,7 @@ OppfolgingsdialogSide.propTypes = {
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     ledetekster: keyValue,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
+    sykeforlopsPerioder: sykeforlopsPerioderReducerPt,
     toggles: togglesPt,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     erOppfolgingsdialogTilgjengelig: PropTypes.bool,
@@ -194,6 +196,7 @@ OppfolgingsdialogSide.propTypes = {
     hentKontaktinfo: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
     hentNaermesteLeder: PropTypes.func,
+    hentSykeforlopsPerioder: PropTypes.func,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -242,6 +245,7 @@ export function mapStateToProps(state, ownProps) {
         naermesteleder: state.naermesteleder,
         navigasjontoggles: state.navigasjontoggles,
         oppfolgingsdialogerReducer: state.oppfolgingsdialoger,
+        sykeforlopsPerioderReducer: state.sykeforlopsPerioder,
         person: state.person,
         dineSykmeldinger: state.dineSykmeldinger,
         tilgang: state.tilgang,
@@ -289,6 +293,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     hentKontaktinfo,
     hentForrigeNaermesteLeder,
     hentNaermesteLeder,
+    hentSykeforlopsPerioder,
     delMedFastlege,
     delMedNavFunc,
 })(OppfolgingsdialogSide);

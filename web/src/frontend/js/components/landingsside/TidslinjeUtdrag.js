@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getHtmlLedetekst, getLedetekst, Radiofaner, Utvidbar, log, scrollTo } from 'digisyfo-npm';
 import { Link } from 'react-router';
+import FriskmeldingContainer from '../../containers/landingsside/FriskmeldingContainer';
 
 const teksterMedArbeidsgiver = [{
     fom: 0,
@@ -188,60 +189,69 @@ export default class TidslinjeUtdrag extends Utvidbar {
             return null;
         }
         const nokkelbase = this.getNokkelbase();
-        return (<article
-            aria-expanded={this.state.erApen}
-            className="panel landingspanel"
-            ref={(c) => {
-                this.utvidbar = c;
-            }}>
-            {
-                visning === VALGFRI && <VelgArbeidssituasjon
-                    valgtAlternativ={this.state.visning}
-                    changeHandler={(_visning) => {
-                        this.setState({
-                            visning: _visning,
-                        });
-                    }} />
-            }
-            <TittelIngress nokkelbase={nokkelbase} bilde={this.getBilde()} />
-            <div
-                tabIndex="-1"
-                style={{ height: this.state.hoyde }}
-                className={`utvidbar__innholdContainer${this.state.containerClassName}`}
-                onTransitionEnd={() => {
-                    this.onTransitionEnd();
-                    scrollTo(this.utvidbar, 300);
-                    if (this.state.erApen) {
-                        this.container.focus();
-                    }
-                }}
+        return (<div>
+            <article
+                aria-expanded={this.state.erApen}
+                className="panel landingspanel"
                 ref={(c) => {
-                    this.container = c;
+                    this.utvidbar = c;
                 }}>
+                {
+                    visning === VALGFRI && <VelgArbeidssituasjon
+                        valgtAlternativ={this.state.visning}
+                        changeHandler={(_visning) => {
+                            this.setState({
+                                visning: _visning,
+                            });
+                        }} />
+                }
+                <TittelIngress nokkelbase={nokkelbase} bilde={this.getBilde()} />
                 <div
+                    tabIndex="-1"
+                    style={{ height: this.state.hoyde }}
+                    className={`utvidbar__innholdContainer${this.state.containerClassName}`}
+                    onTransitionEnd={() => {
+                        this.onTransitionEnd();
+                        scrollTo(this.utvidbar, 300);
+                        if (this.state.erApen) {
+                            this.container.focus();
+                        }
+                    }}
                     ref={(c) => {
-                        this.innhold = c;
+                        this.container = c;
                     }}>
-                    {
-                        this.state.visInnhold && (<div>
-                            <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.mer`)} />
-                            <p className="blokk"><Link className="lenkeTilTidslinje" to="/sykefravaer/tidslinjen">{getLedetekst('tidslinje.utdrag.lenke-til-tidslinje')}</Link></p>
-                        </div>)
-                    }
+                    <div
+                        ref={(c) => {
+                            this.innhold = c;
+                        }}>
+                        {
+                            this.state.visInnhold && (<div>
+                                <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst(`${nokkelbase}.mer`)} />
+                                <p className="blokk">
+                                    <Link className="lenkeTilTidslinje" to="/sykefravaer/tidslinjen">
+                                        {getLedetekst('tidslinje.utdrag.lenke-til-tidslinje')}
+                                    </Link>
+                                </p>
+                            </div>)
+                        }
+                    </div>
                 </div>
-            </div>
-            <div className="tidslinjeutdrag__toggle">
-                <button
-                    aria-pressed={this.state.erApen}
-                    ref={(c) => {
-                        this['js-toggle'] = c;
-                    }}
-                    onClick={(e) => {
-                        this.trackKlikk();
-                        this.toggle(e);
-                    }}
-                    className={`tidslinjeutdrag__togglelink ${this.state.erApen ? 'tidslinjeutdrag__togglelink--erApen' : ''}`}>{this.state.erApen ? 'Skjul' : 'Les mer'}</button>
-            </div>
-        </article>);
+                <div className="tidslinjeutdrag__toggle">
+                    <button
+                        aria-pressed={this.state.erApen}
+                        ref={(c) => {
+                            this['js-toggle'] = c;
+                        }}
+                        onClick={(e) => {
+                            this.trackKlikk();
+                            this.toggle(e);
+                        }}
+                        className={`tidslinjeutdrag__togglelink ${this.state.erApen ? 'tidslinjeutdrag__togglelink--erApen' : ''}`}>
+                        {this.state.erApen ? 'Skjul' : 'Les mer'}
+                    </button>
+                </div>
+            </article>
+            <FriskmeldingContainer sykefravaerVarighet={this.props.antallDager} />
+        </div>);
     }
 }

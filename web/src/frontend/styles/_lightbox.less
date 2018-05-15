@@ -15,6 +15,17 @@
     width: 100%;
     max-width: 32em;
     position: relative;
+    margin-right: .5em;
+    margin-left: .5em;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px @fokusOrange;
+    }
+}
+
+.lightbox__innhold .panel__tittel {
+    margin-right: 3em;
 }
 
 .lightbox__p {
@@ -27,7 +38,7 @@
     right: 10px;
     width: 2rem;
     height: 2rem;
-    border: 0;      
+    border: 0;
     text-indent: -9999px;
     border: 1px solid @ikonGraa;
     background: transparent data-uri('@{nodeModulesPath}nav-frontend-grafikk/ikoner/kryss--sort.svg') no-repeat center center;

@@ -5,13 +5,22 @@ import { Vis } from '../utils';
 class Lightbox extends Component {
     constructor(props) {
         super(props);
+        this.lukk = this.lukk.bind(this);
+        this.fjernTabIndex = this.fjernTabIndex.bind(this);
         this.state = {
             erApen: true,
+            tabIndex: '-1',
         };
     }
 
     componentDidMount() {
-        this.lukknapp.focus();
+        this.lightbox.focus();
+    }
+
+    fjernTabIndex() {
+        this.setState({
+            tabIndex: null,
+        });
     }
 
     lukk() {
@@ -28,15 +37,16 @@ class Lightbox extends Component {
         const { children } = this.props;
         return (<Vis hvis={this.state.erApen}>
             <div className="lightbox">
-                <div className="lightbox__innhold">
+                <div
+                    onBlur={this.fjernTabIndex}
+                    tabIndex={this.state.tabIndex}
+                    className="lightbox__innhold"
+                    ref={(c) => {
+                        this.lightbox = c;
+                    }}>
                     <button
-                        onClick={() => {
-                            this.lukk();
-                        }}
-                        className="lightbox__lukk js-lukk"
-                        ref={(c) => {
-                            this.lukknapp = c;
-                        }}>Lukk</button>
+                        onClick={this.lukk}
+                        className="lightbox__lukk js-lukk">Lukk</button>
                     {children}
                 </div>
             </div>
@@ -47,6 +57,7 @@ class Lightbox extends Component {
 Lightbox.propTypes = {
     children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     onClose: PropTypes.func,
+    lukkbar: PropTypes.bool,
 };
 
 export default Lightbox;

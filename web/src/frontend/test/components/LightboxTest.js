@@ -17,14 +17,15 @@ describe('Lightbox', () => {
         component = mount(<Lightbox onClose={onClose}><p>Innhold</p></Lightbox>);
     });
 
-    it('Skal sette fokus på Lukk-knapp', () => {
+    it('Skal sette fokus på lightbox', () => {
         component = mount(<Lightbox onClose={onClose} />);
-        expect(document.activeElement.className).to.contain('js-lukk');
+        expect(document.activeElement.className).to.contain('lightbox__innhold');
     });
 
     it('Skal sette erApen til true', () => {
         expect(component.state()).to.deep.equal({
             erApen: true,
+            tabIndex: '-1',
         });
     });
 

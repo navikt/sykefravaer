@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { getHtmlLedetekst, getLedetekst, Radiofaner, Utvidbar, log, scrollTo } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import FriskmeldingContainer from '../../containers/landingsside/FriskmeldingContainer';
+import { Vis } from '../../utils';
 
 const teksterMedArbeidsgiver = [{
     fom: 0,
@@ -251,7 +252,9 @@ export default class TidslinjeUtdrag extends Utvidbar {
                     </button>
                 </div>
             </article>
-            <FriskmeldingContainer sykefravaerVarighet={this.props.antallDager} />
+            <Vis hvis={this.props.visning !== UTEN_ARBEIDSGIVER}>
+                <FriskmeldingContainer sykefravaerVarighet={this.props.antallDager} />
+            </Vis>
         </div>);
     }
 }

@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { Field } from 'redux-form';
 import { setLedetekster } from 'digisyfo-npm';
-import JaEllerNei from '../../../js/components/sykepengesoknad/JaEllerNei';
+import JaEllerNei from '../../../js/components/sykepengesoknad-arbeidstaker/JaEllerNei';
 import Periodevelger from '../../../js/components/skjema/datovelger/Periodevelger';
 import { Spoersmal, Egenmeldingssporsmal, Forsikringssporsmal } from '../../../js/components/sykmeldingskjema/SpoersmalForFrilanserOgNaeringsdrivende';
 

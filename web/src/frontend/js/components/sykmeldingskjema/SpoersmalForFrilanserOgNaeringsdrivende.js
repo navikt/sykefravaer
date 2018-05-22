@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { getLedetekst, Hjelpetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { fieldPropTypes } from '../../propTypes';
-import JaEllerNei from '../sykepengesoknad/JaEllerNei';
+import JaEllerNei from '../sykepengesoknad-arbeidstaker/JaEllerNei';
 import Radioknapper from '../skjema/Radioknapper';
 import Periodevelger from '../skjema/datovelger/Periodevelger';
 import { getOppfolgingstilfelleStartdato } from '../../utils/sykeforloepUtils';

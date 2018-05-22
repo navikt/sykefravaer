@@ -196,7 +196,7 @@ describe('SykepengesoknadTeaser', () => {
         expect(component.find('.js-undertekst').text()).to.contain('Avbrutt av deg 18.05.2017');
     });
 
-    it("Skal funke med en frilansersoknad", () => {
+    it("Skal funke med en sykepengesoknad-felles-felles-arbeidstaker-arbeidstaker-arbeidstaker-selvstendig", () => {
         shallow(<SykepengesoknadTeaser soknad={frilansersoknad} />);
     });
 });

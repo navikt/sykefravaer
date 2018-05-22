@@ -102,7 +102,7 @@ describe('sykepengersoknadSagas', () => {
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
-        it('skal dernest sende sykepengesoknad', () => {
+        it('skal dernest sende sykepengesoknad-felles-felles-arbeidstaker-arbeidstaker-arbeidstaker-arbeidstaker', () => {
             const nextCall = call(post, 'http://tjenester.nav.no/syforest/soknader/1/actions/send-til-arbeidsgiver');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
@@ -129,7 +129,7 @@ describe('sykepengersoknadSagas', () => {
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
-        it('skal dernest sende sykepengesoknad', () => {
+        it('skal dernest sende sykepengesoknad-felles-felles-arbeidstaker-arbeidstaker-arbeidstaker-arbeidstaker', () => {
             const nextCall = call(post, 'http://tjenester.nav.no/syforest/soknader/1/actions/send-til-nav');
             expect(generator.next().value).to.deep.equal(nextCall);
         });

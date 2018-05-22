@@ -13,7 +13,7 @@ import SoknaderContainer from '../containers/sykepengesoknader/SoknaderContainer
 import OppfolgingsdialogerContainer from '../containers/oppfolgingsdialoger/OppfolgingsdialogerContainer';
 import OppfolgingsdialogContainer from '../containers/oppfolgingsdialog/OppfolgingsdialogContainer';
 import AktivitetskravvarselContainer from '../containers/aktivitetskrav/AktivitetskravvarselContainer';
-import SykepengesoknadContainer from '../containers/sykepengesoknad/SykepengesoknadContainer';
+import SykepengesoknadContainer from '../containers/sykepengesoknad-felles/SykepengesoknadContainer';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>

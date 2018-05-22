@@ -1,7 +1,7 @@
 import React from 'react';
 import { FieldArray } from 'redux-form';
 import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
-import JaEllerNei from '../../components/sykepengesoknad/JaEllerNei';
+import JaEllerNei from '../sykepengesoknad-arbeidstaker/JaEllerNei';
 import HvilkeOpplysningerErIkkeRiktige from './HvilkeOpplysningerErIkkeRiktige';
 
 export const feilaktigeOpplysninger = Object.keys(feilaktigeOpplysningerEnums).map((key) => {

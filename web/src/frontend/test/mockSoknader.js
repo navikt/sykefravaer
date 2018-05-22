@@ -1,6 +1,10 @@
 const soknad1 = {
     uuid: 'uuid123',
     status: 'NY',
+    soknadstype: "SELVSTENDIGE_OG_FRILANSERE",
+    fom: "2018-03-12",
+    tom: "2018-03-17",
+    opprettetDato: "2018-02-30",
     sporsmal: [{
         tekst: 'Var du tilbake i fullt arbeid som selvstendig næringsdrivende før sykmeldingsperioden utløp 31.01.2017?',
         svar: {
@@ -132,7 +136,12 @@ const soknad1 = {
 
 const parsetSoknad1 = {
     uuid: 'uuid123',
+    id: 'uuid123',
     status: 'NY',
+    fom: new Date("2018-03-12"),
+    tom: new Date("2018-03-17"),
+    opprettetDato: new Date("2018-02-30"),
+    soknadstype: "SELVSTENDIGE_OG_FRILANSERE",
     sporsmal: [{
         tekst: 'Var du tilbake i fullt arbeid som selvstendig næringsdrivende før sykmeldingsperioden utløp 31.01.2017?',
         svar: {
@@ -263,5 +272,12 @@ const parsetSoknad1 = {
 };
 
 export const soknadrespons = [soknad1];
+
+export const getSoknad = (soknad) => {
+    return {
+        ...parsetSoknad1,
+        soknad,
+    };
+}
 
 export default [parsetSoknad1];

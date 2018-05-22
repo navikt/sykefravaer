@@ -18,7 +18,6 @@ export class SoknaderSide extends Component {
             this.props.actions.hentSykepengesoknader();
         }
         if (this.props.skalHenteSoknader) {
-            console.log("halla");
             this.props.actions.hentSoknader();
         }
     }

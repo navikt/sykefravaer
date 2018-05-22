@@ -5,6 +5,7 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { mapStateToProps, Container } from '../../../js/containers/sykepengesoknad/FoerDuBegynnerContainer';
 import { SYKEPENGER_SKJEMANAVN } from '../../../js/components/sykepengesoknad/setup';
+import { getSoknad } from '../../mockSoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -24,7 +25,12 @@ describe('FoerDuBegynnerContainer', () => {
             vedlikehold: {
                 data: {},
             },
-            sykepengesoknader: {},
+            sykepengesoknader: {
+                data: [],
+            },
+            soknader: {
+                data: [],
+            },
         };
         ownProps = {
             params: {
@@ -63,10 +69,25 @@ describe('FoerDuBegynnerContainer', () => {
         expect(destroy.called).to.equal(true);
     });
 
-    it('Skal hente berikelse', () => {
+    it('Skal hente berikelse hvis søknaden er en sykepengesøknad', () => {
+        state.sykepengesoknader.data = [{
+            id: '123',
+        }];
         const props = mapStateToProps(state, ownProps);
         shallow(<Container {...props} {...actions} />);
         expect(hentBerikelse.called).to.equal(true);
+    });
+
+    it('Skal ikke hente berikelse hvis søknaden er en frilansersøknad', () => {
+        state.sykepengesoknader.data = [{
+            id: '456',
+        }];
+        state.soknader.data = [{
+            id: '123',
+        }];
+        const props = mapStateToProps(state, ownProps);
+        shallow(<Container {...props} {...actions} />);
+        expect(hentBerikelse.called).to.equal(false);
     });
 
     it('Skal returnere erForsteSoknad dersom man har én NY søknad', () => {

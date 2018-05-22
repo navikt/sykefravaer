@@ -48,7 +48,11 @@ const parseSporsmal = (sporsmal) => {
 const parseSoknad = (soknad) => {
     return {
         ...soknad,
+        fom: new Date(soknad.fom),
+        tom: new Date(soknad.tom),
+        opprettetDato: new Date(soknad.opprettetDato),
         sporsmal: [...soknad.sporsmal].map(parseSporsmal),
+        id: soknad.uuid,
     };
 };
 

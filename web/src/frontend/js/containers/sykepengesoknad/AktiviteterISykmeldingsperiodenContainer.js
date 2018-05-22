@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { sykepengesoknadstatuser } from 'digisyfo-npm';
 import AktiviteterISykmeldingsperioden from '../../components/sykepengesoknad/AktiviteterISykmeldingsperioden/AktiviteterISykmeldingsperioden';
-import GenerellSoknadContainer from './GenerellSoknadContainer';
+import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
@@ -25,18 +25,7 @@ Controller.propTypes = {
 };
 
 const AktiviteterISykmeldingsperiodenContainer = ({ params }) => {
-    const brodsmuler = [{
-        tittel: 'Ditt sykefravær',
-        sti: '/',
-        erKlikkbar: true,
-    }, {
-        tittel: 'Søknader om sykepenger',
-        sti: '/soknader/',
-        erKlikkbar: true,
-    }, {
-        tittel: 'Søknad',
-    }];
-    return <GenerellSoknadContainer Component={Controller} brodsmuler={brodsmuler} params={params} />;
+    return <GenerellSoknadContainer Component={Controller} params={params} />;
 };
 
 AktiviteterISykmeldingsperiodenContainer.propTypes = {

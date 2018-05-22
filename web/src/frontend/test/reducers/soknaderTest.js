@@ -28,7 +28,7 @@ describe('soknader', () => {
         const state = soknader(deepFreeze(initState), action);
         expect(state.hentingFeilet).to.equal(true);
         expect(state.henter).to.equal(false);
-        expect(state.hentet).to.equal(false);
+        expect(state.hentet).to.equal(true);
     });
 
     it('Håndterer soknaderHentet', () => {

@@ -28,6 +28,9 @@ describe('SoknaderContainer', () => {
                     hentingFeilet: false,
                     hentet: true,
                 },
+                soknader: {
+                    data: [],
+                },
             });
             expect(res.sykepengesoknader).to.deep.equal([
                 { id: 1 },
@@ -35,7 +38,7 @@ describe('SoknaderContainer', () => {
         });
     });
 
-    describe.only('SoknaderSide', () => {
+    describe('SoknaderSide', () => {
         let actions;
         let hentSykepengesoknader;
         let hentSoknader;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLedetekst, sykepengesoknadstatuser, forskutterersvar } from 'digisyfo-npm';
 import OppsummeringSkjema from '../../components/sykepengesoknad/Oppsummering/OppsummeringSkjema';
-import GenerellSoknadContainer from './GenerellSoknadContainer';
+import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
 import StartIgjen from '../../components/sykepengesoknad/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad/Kvittering';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
@@ -149,22 +149,10 @@ Controller.propTypes = {
 
 const OppsummeringContainer = (props) => {
     const { params, router, route } = props;
-    const brodsmuler = [{
-        tittel: 'Ditt sykefravær',
-        sti: '/',
-        erKlikkbar: true,
-    }, {
-        tittel: 'Søknader om sykepenger',
-        sti: '/soknader/',
-        erKlikkbar: true,
-    }, {
-        tittel: 'Søknad',
-    }];
     return (<GenerellSoknadContainer
         Component={Controller}
         router={router}
         route={route}
-        brodsmuler={brodsmuler}
         params={params} />);
 };
 

@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import { getLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';
-import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
 import { sorterEtterPerioder, sorterEtterOpprettetDato } from '../../utils/sykepengesoknadUtils';
 import FremtidigSoknadTeaser from './FremtidigSoknadTeaser';
 import UtbetalingerLenke from './UtbetalingerLenke';
 
 const { SENDT, TIL_SENDING, UTGAATT, NY, UTKAST_TIL_KORRIGERING, FREMTIDIG, AVBRUTT } = sykepengesoknadstatuser;
 
-const Soknader = ({ sykepengesoknader = [] }) => {
-    const nyeSoknader = [...sykepengesoknader].filter((soknad) => {
+const Soknader = ({ sykepengesoknader = [], soknader = [] }) => {
+    const nyeSoknader = [...sykepengesoknader, ...soknader].filter((soknad) => {
         return soknad.status === NY || soknad.status === UTKAST_TIL_KORRIGERING;
     }).sort(sorterEtterOpprettetDato);
-    const tidligereSoknader = [...sykepengesoknader]
+    const tidligereSoknader = [...sykepengesoknader, ...soknader]
         .filter((soknad) => {
             return soknad.status === SENDT || soknad.status === TIL_SENDING || soknad.status === UTGAATT || soknad.status === AVBRUTT;
         })
         .sort(sorterEtterPerioder);
-    const fremtidigeSoknader = [...sykepengesoknader]
+    const fremtidigeSoknader = [...sykepengesoknader, ...soknader]
         .filter((soknad) => {
             return soknad.status === FREMTIDIG;
         })
@@ -61,6 +61,7 @@ const Soknader = ({ sykepengesoknader = [] }) => {
 
 Soknader.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    soknader: PropTypes.arrayOf(soknadPt),
 };
 
 export default Soknader;

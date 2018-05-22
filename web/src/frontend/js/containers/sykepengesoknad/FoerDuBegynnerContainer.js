@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { destroy } from 'redux-form';
 import FoerDuBegynner from '../../components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
-import GenerellSoknadContainer from './GenerellSoknadContainer';
+import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
 import SendtSoknad from '../../components/sykepengesoknad/SendtSoknad';
 import UtgaattSoknad from '../../components/sykepengesoknad/UtgaattSoknad';
 import AvbruttSoknadContainer from './AvbruttSoknadContainer';
@@ -65,23 +65,19 @@ export class Container extends Component {
     }
 
     componentDidMount() {
-        this.props.hentBerikelse(this.props.sykepengesoknadId);
+        if (this.props.skalHenteBerikelse) {
+            this.props.hentBerikelse(this.props.sykepengesoknadId);
+        }
     }
 
     render() {
         const { params, vedlikehold, henter, erForsteSoknad } = this.props;
-        const brodsmuler = [{
-            tittel: 'Ditt sykefravær',
-            sti: '/',
-            erKlikkbar: true,
-        }, {
-            tittel: 'Søknader om sykepenger',
-            sti: '/soknader/',
-            erKlikkbar: true,
-        }, {
-            tittel: 'Søknad',
-        }];
-        return <GenerellSoknadContainer erForsteSoknad={erForsteSoknad} henter={henter} Component={Controller} brodsmuler={brodsmuler} params={params} vedlikehold={vedlikehold} />;
+        return (<GenerellSoknadContainer
+            erForsteSoknad={erForsteSoknad}
+            henter={henter}
+            Component={Controller}
+            params={params}
+            vedlikehold={vedlikehold} />);
     }
 }
 
@@ -101,11 +97,15 @@ Container.propTypes = {
     brukerHarNavigertTilAnnenSoknad: PropTypes.bool,
     destroy: PropTypes.func,
     erForsteSoknad: PropTypes.bool,
+    skalHenteBerikelse: PropTypes.bool,
 };
 
 export const mapStateToProps = (state, ownProps) => {
     const henter = state.vedlikehold.henter || state.sykepengesoknader.henterBerikelse;
     const sykepengesoknadId = ownProps.params.sykepengesoknadId;
+    const skalHenteBerikelse = state.sykepengesoknader.data.some((s) => {
+        return s.id === sykepengesoknadId;
+    });
 
     let brukerHarNavigertTilAnnenSoknad;
 
@@ -126,6 +126,7 @@ export const mapStateToProps = (state, ownProps) => {
         sykepengesoknadId,
         vedlikehold: state.vedlikehold.data.vedlikehold,
         erForsteSoknad,
+        skalHenteBerikelse,
     };
 };
 

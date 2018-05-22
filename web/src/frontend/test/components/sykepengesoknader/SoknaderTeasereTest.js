@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
-import SoknadTeaser from '../../../js/components/sykepengesoknader/SoknadTeaser';
+import SykepengesoknadTeaser from '../../../js/components/sykepengesoknader/SykepengesoknadTeaser';
 import SoknaderTeasere from '../../../js/components/sykepengesoknader/SoknaderTeasere';
 import { getSoknad } from '../../mockSykepengesoknader';
 
@@ -37,14 +37,14 @@ describe('SoknadTeasere', () => {
         expect(component.find('header').text()).to.contain('Søknader som venter din behandling');
     });
 
-    it('Viser en SoknadTeaser per Soknad', () => {
+    it('Viser en SykepengesoknadTeaser per Soknad', () => {
         const component = shallow(<SoknaderTeasere tittel="Søknader som venter din behandling" soknader={soknader} />);
-        expect(component.find(SoknadTeaser)).to.have.length(3);
+        expect(component.find(SykepengesoknadTeaser)).to.have.length(3);
     });
 
     it('Viser en melding når det ikke er sykmeldinger', () => {
         const component = shallow(<SoknaderTeasere tittel="Søknader som venter din behandling" soknader={[]} tomListeTekst={'tomlisteTekst'} />);
-        expect(component.find(SoknadTeaser)).to.have.length(0);
+        expect(component.find(SykepengesoknadTeaser)).to.have.length(0);
         expect(component.text()).to.contain('tomlisteTekst');
     });
 });

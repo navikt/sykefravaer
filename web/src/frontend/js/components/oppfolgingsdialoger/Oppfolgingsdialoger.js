@@ -33,6 +33,7 @@ import { sykmeldtHarGyldigSykmelding } from '../../utils/sykmeldingUtils';
 import IngenledereInfoboks from './IngenledereInfoboks';
 import { getContextRoot } from '../../routers/paths';
 import OppfolgingsdialogerVisning from './OppfolgingsdialogerVisning';
+import OppfolgingsdialogerInfoPersonvern from './OppfolgingsdialogerInfoPersonvern';
 
 const finnOppfolgingsdialogMedFoersteInnloggingSidenNyNaermesteLeder = (oppfolgingsdialoger) => {
     const sisteInnlogging = finnBrukersSisteInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
@@ -127,9 +128,9 @@ class Oppfolgingsdialoger extends Component {
             />
             <Sidetopp
                 tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
-            <p className="oppfolgingsdialoger__tekst">
-                {getLedetekst('oppfolgingsdialog.oppfolgingsdialoger.arbeidstaker.tekst')}
-            </p>
+            <OppfolgingsdialogerInfoPersonvern
+                ledetekster={ledetekster}
+            />
 
             {
                 dialogerAvbruttAvMotpartSidenSistInnlogging.length > 0 && <AvbruttPlanNotifikasjonBoksAdvarsel

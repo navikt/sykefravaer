@@ -14,7 +14,7 @@ describe('FriskmeldingContainer', () => {
         getState = (sykmelding) => {
             return {
                 dineSykmeldinger: {
-                    data: [mockSykmelding(), mockSykmelding(), sykmelding]
+                    data: [mockSykmelding(), mockSykmelding(), sykmelding],
                 },
             };
         };
@@ -162,6 +162,4 @@ describe('FriskmeldingContainer', () => {
             sykmeldingstype: 'GRADERT',
         });
     });
-
 });
-

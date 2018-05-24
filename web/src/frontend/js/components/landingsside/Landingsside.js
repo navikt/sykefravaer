@@ -73,6 +73,9 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                 </Vis>
             </nav>
             <DetteHarSkjeddContainer />
+            <div className="panel blokk">
+                <p className="sist">{getLedetekst('landingsside.gdpr.personopplysninger')}</p>
+            </div>
         </div>
     </div>);
 };

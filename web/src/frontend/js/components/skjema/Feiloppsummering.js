@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { scrollTo, erSynligIViewport } from 'digisyfo-npm';
 import { Vis } from '../../utils';
+import logger from "../../logging";
 
 const FeillisteMelding = ({ feltnavn, feilmelding }) => {
     return (<li className="feiloppsummering__feil">
@@ -19,6 +20,7 @@ const getFeilmeldinger = (props) => {
 };
 
 class Feiloppsummering extends Component {
+
     componentDidUpdate(prevProps) {
         const { settFokus, skjemaErGyldig, skjemanavn } = this.props;
         if (settFokus) {

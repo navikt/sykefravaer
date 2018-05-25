@@ -100,6 +100,26 @@ describe('VelgArbeidsgiver', () => {
         it('Skal dekorere navn med orgnummer på format 123 456 789', () => {
             expect(component.find('input').first().prop('labelSekundaer')).to.contain('123 456 789');
         });
+
+        it('Skal vise gdprtekst hvis value.orgnummer != 0', () => {
+            props.input.value = {
+                orgnummer: '123456789',
+            };
+            component = shallow(<ArbeidsgiverRadioknapper {...props} />);
+            expect(component.find('.js-gdpr')).to.have.length(1);
+        });
+
+        it('Skal ikke gdprtekst hvis ikke en arbeidsgiver er valgt', () => {
+            props.input.value = {
+                orgnummer: '0',
+            };
+            component = shallow(<ArbeidsgiverRadioknapper {...props} />);
+            expect(component.find('.js-gdpr')).to.have.length(0);
+
+            props.input.value = undefined;
+            component = shallow(<ArbeidsgiverRadioknapper {...props} />);
+            expect(component.find('.js-gdpr')).to.have.length(0);
+        });
     });
 
     describe('Tilleggsinfo', () => {

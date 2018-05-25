@@ -34,7 +34,7 @@ export const ArbeidsgiverRadioknapper = (props) => {
                 })
             }
         </Radioknapper>
-        <p className="sist">{getLedetekst('send-til-arbeidsgiver.gdpr.sender-til-altinn')}</p>
+        {input.value && input.value.orgnummer !== '0' && <p className="sist js-gdpr">{getLedetekst('send-til-arbeidsgiver.gdpr.sender-til-altinn')}</p>}
     </div>);
 };
 

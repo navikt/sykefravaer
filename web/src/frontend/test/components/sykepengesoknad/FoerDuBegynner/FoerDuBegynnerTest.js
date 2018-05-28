@@ -3,7 +3,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import FoerDuBegynner, { FoerDuBegynnerSkjema, TidligSoknad, ForsteSoknad } from '../../../../js/components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
+import FoerDuBegynner, {
+    FoerDuBegynnerSkjema,
+    TidligSoknad,
+    ForsteSoknadIntro,
+    SoknadIntro,
+} from '../../../../js/components/sykepengesoknad/FoerDuBegynner/FoerDuBegynner';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad/AvbrytSoknadContainer';
 import { getSoknad } from '../../../mockSoknader';
 
@@ -54,7 +59,7 @@ describe('TidligSoknad', () => {
     });
 });
 
-describe('ForsteSoknad', () => {
+describe('ForsteSoknadIntro', () => {
     let component;
     let sykepengesoknad;
 
@@ -62,13 +67,15 @@ describe('ForsteSoknad', () => {
         sykepengesoknad = getSoknad();
     });
 
-    it('Skal inneholde en ForsteSoknad hvis erForsteSoknad === true', () => {
+    it('Skal inneholde en ForsteSoknadIntro hvis erForsteSoknad === true', () => {
         component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} erForsteSoknad />);
-        expect(component.contains(<ForsteSoknad />)).to.equal(true);
+        expect(component.contains(<ForsteSoknadIntro />)).to.equal(true);
+        expect(component.contains(<SoknadIntro />)).to.equal(false);
     });
 
-    it('Skal ikke inneholde en ForsteSoknad hvis erForsteSoknad === false', () => {
+    it('Skal inneholde en SoknadIntro hvis erForsteSoknad === false', () => {
         component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} erForsteSoknad={false} />);
-        expect(component.contains(<ForsteSoknad />)).to.equal(false);
+        expect(component.contains(<ForsteSoknadIntro />)).to.equal(false);
+        expect(component.contains(<SoknadIntro />)).to.equal(true);
     });
 });

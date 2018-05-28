@@ -23,16 +23,24 @@ const KorrigerVarsel = () => {
     </div>);
 };
 
-export const ForsteSoknad = () => {
+export const ForsteSoknadIntro = () => {
     return (<div className="panel blokk">
         <div className="blokk--s">
-            <IllustrertInnhold ikon="/sykefravaer/img/svg/foerste-soknad.svg" ikonAlt="Din første digitale søknad om sykepenger">
-                <h2 className="panel__tittel">{getLedetekst('sykepengesoknad.foerste-soknad.tittel')}</h2>
-                <p className="sist redaksjonelt-innhold">{getLedetekst('sykepengesoknad.foerste-soknad.intro')}</p>
+            <IllustrertInnhold ikon="/sykefravaer/img/svg/foerste-soknad.svg" ikonAlt="Din første digitale søknad om sykepenger" liten>
+                <h2 className="panel__tittel sist">{getLedetekst('sykepengesoknad.foerste-soknad.tittel')}</h2>
             </IllustrertInnhold>
         </div>
-        <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.foerste-soknad.mer')} />
+        <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.foerste-soknad.mer_v2')} />
     </div>);
+};
+
+export const SoknadIntro = () => {
+    return (
+        <div className="panel blokk">
+            <IllustrertInnhold ikon="/sykefravaer/img/svg/foerste-soknad.svg" ikonAlt="Din første digitale søknad om sykepenger" liten>
+                <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.soknad-intro.personvern')} />
+            </IllustrertInnhold>
+        </div>);
 };
 
 export const FoerDuBegynnerSkjema = (props) => {
@@ -80,7 +88,8 @@ const FoerDuBegynner = (props) => {
         { sykepengesoknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel /> }
         { (sykepengesoknad.status === NY && sykepengesoknad.tom > now) && <TidligSoknad /> }
 
-        { erForsteSoknad && <ForsteSoknad /> }
+        { erForsteSoknad ? <ForsteSoknadIntro /> : <SoknadIntro />}
+
         <SykmeldingUtdrag erApen sykepengesoknad={sykepengesoknad} />
         <h2 className="sykepenger__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
         <FoerDuBegynnerSkjemaSetup sykepengesoknad={sykepengesoknad} />

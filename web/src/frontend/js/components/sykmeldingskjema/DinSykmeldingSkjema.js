@@ -163,7 +163,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     </div>
                 </Vis>
             </div>
-            <Vis hvis={modus !== modi.GA_VIDERE}>
+            <Vis hvis={modus !== modi.GA_VIDERE && modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}>
                 <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>
             </Vis>
             <div className="knapperad">

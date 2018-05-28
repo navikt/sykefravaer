@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Varselstripe } from 'digisyfo-npm';
 import { Vis } from '../../utils';
-import logger from "../../logging";
+import logger from '../../logging';
 
 const ledetekster = {
     mote: 'Kunne ikke hente dialogmøter',
@@ -40,6 +40,13 @@ class Serverfeilmelding extends Component {
         };
     }
 
+    componentDidMount() {
+        const { feilliste } = this.props;
+        if (feilliste.length > 0) {
+            logger.error(`Bruker fikk aiaiai med feilmeldinger: [${feilliste.join(', ')}]`);
+        }
+    }
+
     toggleVisFeil() {
         this.setState({
             visFeil: !this.state.visFeil,
@@ -55,13 +62,6 @@ class Serverfeilmelding extends Component {
             }
         }
         return false;
-    }
-
-    componentDidMount() {
-        const { feilliste } = this.props;
-        if(feilliste.length > 0) {
-            logger.error(`Bruker fikk aiaiai med feilmeldinger: [${feilliste.join()}]`);
-        }
     }
 
     render() {

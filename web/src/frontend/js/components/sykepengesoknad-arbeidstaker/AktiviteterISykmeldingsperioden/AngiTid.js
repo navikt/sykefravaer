@@ -7,8 +7,7 @@ import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
 import { lagDesimaltall, getObjectValueByString, lagHeltall } from '../../../utils';
 import DetteTilsvarer, { getStillingsprosent } from './DetteTilsvarer';
 import { soknadperiode, fieldPropTypes } from '../../../propTypes';
-import { SYKEPENGER_SKJEMANAVN } from '../setup';
-import { getFeriePermisjonPerioder } from '../../../utils/sykepengesoknadUtils';
+import { getFeriePermisjonPerioder, SYKEPENGER_SKJEMANAVN } from '../../../utils/sykepengesoknadUtils';
 import { getTotalJobbingSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 
 class AngiTid extends Component {

@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import { Field, FieldArray } from 'redux-form';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { Link } from 'react-router';
 import { setLedetekster } from 'digisyfo-npm';
 import {
     AktiviteterISykmeldingsperiodenSkjema,
@@ -128,10 +127,6 @@ describe('AktiviteterISykmeldingsperioden', () => {
             parse={parseJaEllerNei}
             spoersmal="Er utdanningen et fulltidsstudium?"
             Overskrift="h4" />)).to.equal(true);
-    });
-
-    it('Skal inneholde en Link til forrige side', () => {
-        expect(component.find(Link).prop('to')).to.equal('/sykefravaer/soknader/min-soknad/fravaer-og-friskmelding');
     });
 
     it('Skal inneholde en AvbrytSoknadContainer', () => {

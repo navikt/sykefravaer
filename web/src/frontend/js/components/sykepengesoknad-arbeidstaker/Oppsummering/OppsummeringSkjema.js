@@ -50,7 +50,7 @@ export class OppsummeringForm extends Component {
         };
 
         return (<form
-            className="sykepengerskjema"
+            className="soknadskjema"
             ref={(c) => {
                 this.form = c;
             }}
@@ -100,7 +100,7 @@ const OppsummeringSkjema = setup(validate, OppsummeringForm);
 
 const OppsummeringSide = (props) => {
     const { sykepengesoknad } = props;
-    return (<SykepengerSkjema aktivtSteg="3" sykepengesoknad={sykepengesoknad}>
+    return (<SykepengerSkjema aktivtSteg="4" sykepengesoknad={sykepengesoknad}>
         <OppsummeringSkjema {...props} />
     </SykepengerSkjema>);
 };

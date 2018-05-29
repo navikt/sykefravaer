@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { destroy } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import * as soknaderActions from '../../actions/soknader_actions';
 import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
+import * as dineSykmeldingerActions from '../../actions/dineSykmeldinger_actions';
 import Feilmelding from '../../components/Feilmelding';
 import FoerDuBegynnerContainer from '../sykepengesoknad-arbeidstaker/FoerDuBegynnerContainer';
 import FravaerOgFriskmeldingContainer from '../sykepengesoknad-arbeidstaker/FravaerOgFriskmeldingContainer';
 import AktiviteterISykmeldingsperiodenContainer from '../sykepengesoknad-arbeidstaker/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringContainer from '../sykepengesoknad-arbeidstaker/OppsummeringContainer';
 import SykepengesoknadKvitteringContainer from '../sykepengesoknad-arbeidstaker/SykepengesoknadKvitteringContainer';
+import FoerDuBegynnerSelvstendigContainer from '../sykepengersoknad-selvstendig/FoerDuBegynnerContainer';
+import FravaerOgFriskmeldingSelvstendigContainer from '../sykepengersoknad-selvstendig/FravaerOgFriskmeldingContainer';
+import AktiviteterISykmeldingsperiodenSelvstendigContainer from '../sykepengersoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
 import Side from '../../sider/Side';
+import { beregnHarBrukerNavigertTilAnnenSoknad, SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
+import AppSpinner from '../../components/AppSpinner';
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';
@@ -35,17 +42,19 @@ const beregnSteg = (sti) => {
 };
 
 const beregnBrodsmulesti = (sti, id) => {
+    const dittSykefravaerSmule = {
+        tittel: 'Ditt sykefravær',
+        sti: '/',
+        erKlikkbar: true,
+    };
+    const soknaderSmule = {
+        tittel: 'Søknader om sykepenger',
+        sti: '/soknader/',
+        erKlikkbar: true,
+    };
     switch (beregnSteg(sti)) {
         case KVITTERING: {
-            return [{
-                tittel: 'Ditt sykefravær',
-                sti: '/',
-                erKlikkbar: true,
-            }, {
-                tittel: 'Søknader om sykepenger',
-                sti: '/soknader/',
-                erKlikkbar: true,
-            }, {
+            return [dittSykefravaerSmule, soknaderSmule, {
                 tittel: 'Søknad',
                 sti: `/soknader/${id}`,
                 erKlikkbar: true,
@@ -54,26 +63,24 @@ const beregnBrodsmulesti = (sti, id) => {
             }];
         }
         default: {
-            return [{
-                tittel: 'Ditt sykefravær',
-                sti: '/',
-                erKlikkbar: true,
-            }, {
-                tittel: 'Søknader om sykepenger',
-                sti: '/soknader/',
-                erKlikkbar: true,
-            }, {
+            return [dittSykefravaerSmule, soknaderSmule, {
                 tittel: 'Søknad',
             }];
         }
     }
 };
 
-const Frilansersoknad = (props) => {
+const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
     const steg = beregnSteg(props.sti);
     switch (steg) {
         case FOER_DU_BEGYNNER: {
-            return <p>Test</p>;
+            return <FoerDuBegynnerSelvstendigContainer {...props} />;
+        }
+        case FRAVAER_OG_FRISKMELDING: {
+            return <FravaerOgFriskmeldingSelvstendigContainer {...props} />;
+        }
+        case AKTIVITETER_I_SYKMELDINGSPERIODEN: {
+            return <AktiviteterISykmeldingsperiodenSelvstendigContainer {...props} />;
         }
         default: {
             return <Feilmelding />;
@@ -81,11 +88,11 @@ const Frilansersoknad = (props) => {
     }
 };
 
-Frilansersoknad.propTypes = {
+SykepengesoknadSelvstendigNaeringsdrivende.propTypes = {
     sti: PropTypes.string,
 };
 
-const Arbeidstakersoknad = (props) => {
+const SykepengesoknadArbeidstaker = (props) => {
     const { sti } = props;
     const steg = beregnSteg(sti);
     switch (steg) {
@@ -110,7 +117,7 @@ const Arbeidstakersoknad = (props) => {
     }
 };
 
-Arbeidstakersoknad.propTypes = {
+SykepengesoknadArbeidstaker.propTypes = {
     sti: PropTypes.string,
 };
 
@@ -122,17 +129,29 @@ export class Container extends Component {
         if (this.props.skalHenteSoknader) {
             this.props.actions.hentSoknader();
         }
+        if (this.props.brukerHarNavigertTilAnnenSoknad) {
+            this.props.actions.destroy(SYKEPENGER_SKJEMANAVN);
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.props.skalHenteSykmeldinger) {
+            this.props.actions.hentDineSykmeldinger();
+        }
     }
 
     render() {
-        const { skalHenteSykepengesoknader, skalHenteSoknader, erArbeidstakersoknad, erFrilansersoknad, henter, sti } = this.props;
+        const { skalHenteSykepengesoknader, skalHenteSoknader, erArbeidstakersoknad, erSelvstendigNaeringsdrivendeSoknad, skalHenteSykmeldinger, henter, sti } = this.props;
         const brodsmuler = beregnBrodsmulesti(sti, this.props.soknadId);
-        return (<Side brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSykepengesoknader || skalHenteSoknader || henter}>
+        return (<Side brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSykepengesoknader || skalHenteSoknader || skalHenteSykmeldinger || henter}>
             {(() => {
+                if (henter) {
+                    return <AppSpinner />;
+                }
                 if (erArbeidstakersoknad) {
-                    return <Arbeidstakersoknad {...this.props} />;
-                } else if (erFrilansersoknad) {
-                    return <Frilansersoknad {...this.props} />;
+                    return <SykepengesoknadArbeidstaker {...this.props} />;
+                } else if (erSelvstendigNaeringsdrivendeSoknad) {
+                    return <SykepengesoknadSelvstendigNaeringsdrivende {...this.props} />;
                 }
                 return <Feilmelding />;
             })()}
@@ -144,11 +163,15 @@ Container.propTypes = {
     actions: PropTypes.shape({
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,
+        hentDineSykmeldinger: PropTypes.func,
+        destroy: PropTypes.func,
     }),
     skalHenteSykepengesoknader: PropTypes.bool,
     skalHenteSoknader: PropTypes.bool,
+    skalHenteSykmeldinger: PropTypes.bool,
     erArbeidstakersoknad: PropTypes.bool,
-    erFrilansersoknad: PropTypes.bool,
+    erSelvstendigNaeringsdrivendeSoknad: PropTypes.bool,
+    brukerHarNavigertTilAnnenSoknad: PropTypes.bool,
     sti: PropTypes.string,
     henter: PropTypes.bool,
     soknadId: PropTypes.string,
@@ -156,29 +179,34 @@ Container.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions }, dispatch),
+        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions, destroy }, dispatch),
     };
 }
 
 export const mapStateToProps = (state, ownProps) => {
     const soknadId = ownProps.params.sykepengesoknadId;
-    const erFrilansersoknad = state.soknader.data.some((s) => {
+    const erSelvstendigNaeringsdrivendeSoknad = state.soknader.data.some((s) => {
         return s.id === soknadId;
     });
     const erArbeidstakersoknad = state.sykepengesoknader.data.some((s) => {
         return s.id === soknadId;
     });
-    const henter = state.soknader.henter || state.sykepengesoknader.henter || state.ledetekster.henter;
+    const skalHenteSykmeldinger = erSelvstendigNaeringsdrivendeSoknad && !state.dineSykmeldinger.hentet && !state.dineSykmeldinger.henter;
+    const henter = state.soknader.henter || state.sykepengesoknader.henter || state.ledetekster.henter || (skalHenteSykmeldinger);
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
+    const brukerHarNavigertTilAnnenSoknad = beregnHarBrukerNavigertTilAnnenSoknad(state, soknadId);
+
     return {
+        soknadId,
         skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,
         skalHenteSoknader: !state.soknader.hentet && !state.soknader.henter,
-        erFrilansersoknad,
+        skalHenteSykmeldinger,
+        erSelvstendigNaeringsdrivendeSoknad,
         erArbeidstakersoknad,
         henter,
         hentingFeilet,
         sti: ownProps.location.pathname,
-        soknadId,
+        brukerHarNavigertTilAnnenSoknad,
     };
 };
 

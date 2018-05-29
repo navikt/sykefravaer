@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 import { Field, FieldArray } from 'redux-form';
 import { getLedetekst, senesteTom as finnSenesteTom } from 'digisyfo-npm';
 import SykepengerSkjema from '../SykepengerSkjema';
@@ -10,7 +9,7 @@ import JaEllerNei, { JaEllerNeiRadioknapper, parseJaEllerNei } from '../JaEllerN
 import Datovelger from '../../skjema/datovelger/Datovelger';
 import Aktiviteter from './Aktiviteter';
 import AndreInntektskilder from './AndreInntektskilder';
-import Knapperad from '../../skjema/Knapperad';
+import { KnapperadTilbake } from '../../skjema/Knapperad';
 import validate from '../validering/validerAktiviteterISykmeldingsperioden';
 import connectGjenopptattArbeidFulltUtDato from '../../../utils/connectGjenopptattArbeidFulltUtDato';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
@@ -49,7 +48,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
         const _senesteTom = finnSenesteTom(_aktiviteter.map((a) => { return a.periode; }));
 
         return (<form
-            className="sykepengerskjema"
+            className="soknadskjema"
             ref={(c) => {
                 this.form = c;
             }}
@@ -84,11 +83,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
                     spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal')}
                     Overskrift="h4" />
             </JaEllerNei>}
-
-            <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
-                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} className="rammeknapp">Tilbake</Link>
-                <button type="submit" className="knapp js-ga-videre">Gå videre</button>
-            </Knapperad>
+            <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} />
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);
     }
@@ -111,7 +106,7 @@ const AktiviteterISykmeldingsperioden = (props) => {
 
     return (
         <SykepengerSkjema
-            aktivtSteg="2"
+            aktivtSteg="3"
             tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
             sykepengesoknad={sykepengesoknad}>
             <AktiviteterISykmeldingsperiodenReduxSkjema sykepengesoknad={sykepengesoknad} />

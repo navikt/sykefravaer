@@ -9,7 +9,7 @@ import {
 export function* hentSoknader() {
     yield put(actions.henterSoknader());
     try {
-        const data = yield call(get, '/soknad/hentSoknader');
+        const data = yield call(get, '/syfosoknad/soknader');
         yield put(actions.soknaderHentet(data));
     } catch (e) {
         log(e);

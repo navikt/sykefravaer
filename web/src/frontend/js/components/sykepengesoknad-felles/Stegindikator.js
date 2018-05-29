@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
-const Stegindikator = ({ aktivtSteg, sykepengesoknad }) => {
-    const steg = [1, 2, 3];
-    const urler = ['fravaer-og-friskmelding', 'aktiviteter-i-sykmeldingsperioden', ''];
+const arbeidstakerUrler = ['', 'fravaer-og-friskmelding', 'aktiviteter-i-sykmeldingsperioden', ''];
+export const frilanserOgSelvstendigUrler = ['', 'fravaer-og-friskmelding', 'aktiviteter-i-sykmeldingsperioden', ''];
+
+const Stegindikator = ({ aktivtSteg, soknadId, urler = arbeidstakerUrler }) => {
+    const steg = [1, 2, 3, 4];
     return (<div className="blokk--l" role="progressbar" aria-valuenow={aktivtSteg} aria-valuemin="1" aria-valuemax="3">
         <ul className="stegindikator">
             {steg.map((s, index) => {
@@ -24,7 +25,7 @@ const Stegindikator = ({ aktivtSteg, sykepengesoknad }) => {
                     {
                         (() => {
                             if (erPassert) {
-                                return (<Link to={`/sykefravaer/soknader/${sykepengesoknad.id}/${urler[index]}`}>
+                                return (<Link to={`/sykefravaer/soknader/${soknadId}/${urler[index]}`}>
                                     <img
                                         src={`${window.APP_SETTINGS.APP_ROOT}/img/nav-frontend-grafikk/grafikk/stegindikator__hake.svg`}
                                         alt="Hake"
@@ -45,8 +46,9 @@ const Stegindikator = ({ aktivtSteg, sykepengesoknad }) => {
 };
 
 Stegindikator.propTypes = {
-    sykepengesoknad: sykepengesoknadPt,
+    soknadId: PropTypes.string,
     aktivtSteg: PropTypes.string,
+    urler: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Stegindikator;

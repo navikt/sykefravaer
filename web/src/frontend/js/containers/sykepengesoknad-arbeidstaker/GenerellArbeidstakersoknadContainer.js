@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Feilmelding from '../../components/Feilmelding';
-import { SYKEPENGER_SKJEMANAVN } from '../../components/sykepengesoknad-arbeidstaker/setup';
+import { SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
 
 const GenerellArbeidstakersoknadContainer = (props) => {

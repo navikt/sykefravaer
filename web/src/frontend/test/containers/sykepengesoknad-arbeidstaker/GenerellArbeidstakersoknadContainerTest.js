@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import deepFreeze from 'deep-freeze';
 import { mapStateToProps } from '../../../js/containers/sykepengesoknad-arbeidstaker/GenerellArbeidstakersoknadContainer';
-import { SYKEPENGER_SKJEMANAVN } from '../../../js/components/sykepengesoknad-arbeidstaker/setup';
+import { SYKEPENGER_SKJEMANAVN } from '../../../js/utils/sykepengesoknadUtils';
 
 chai.use(chaiEnzyme());
 

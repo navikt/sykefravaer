@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
-import { toDatePrettyPrint, inntektskildetyper as inntektskildetypeEnums, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { inntektskildetyper as inntektskildetypeEnums, sykepengesoknadstatuser, toDatePrettyPrint } from 'digisyfo-npm';
 import history from '../../history';
 import Feiloppsummering, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
-import { getTidligsteSendtDato, mapAktiviteter } from '../../utils/sykepengesoknadUtils';
+import { getTidligsteSendtDato, mapAktiviteter, SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
 import mapBackendsoknadToSkjemasoknad from './/mappers/mapBackendsoknadToSkjemasoknad';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
@@ -17,7 +17,6 @@ export const andreInntektskilder = Object.keys(inntektskildetypeEnums).map((key)
     };
 });
 
-export const SYKEPENGER_SKJEMANAVN = 'SYKEPENGERSKJEMA';
 
 const getSisteSoknadISammeSykeforloep = (soknad, soknader) => {
     return soknader

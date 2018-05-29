@@ -61,7 +61,7 @@ describe('SoknaderContainer', () => {
                     hentingFeilet: false,
                     hentet: false,
                 },
-            }
+            };
             hentSykepengesoknader = sinon.spy();
             hentSoknader = sinon.spy();
             actions = { hentSykepengesoknader, hentSoknader };

@@ -11,7 +11,6 @@ import AvbruttSoknadContainer from './AvbruttSoknadContainer';
 import Feilmelding from '../../components/Feilmelding';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
-import { SYKEPENGER_SKJEMANAVN } from '../../components/sykepengesoknad-arbeidstaker/setup';
 import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
 
 const { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST, FREMTIDIG } = sykepengesoknadstatuser;
@@ -58,12 +57,6 @@ Controller.propTypes = {
 };
 
 export class Container extends Component {
-    componentWillMount() {
-        if (this.props.brukerHarNavigertTilAnnenSoknad) {
-            this.props.destroy(SYKEPENGER_SKJEMANAVN);
-        }
-    }
-
     componentDidMount() {
         if (this.props.skalHenteBerikelse) {
             this.props.hentBerikelse(this.props.sykepengesoknadId);
@@ -94,8 +87,6 @@ Container.propTypes = {
         }),
     }),
     hentBerikelse: PropTypes.func,
-    brukerHarNavigertTilAnnenSoknad: PropTypes.bool,
-    destroy: PropTypes.func,
     erForsteSoknad: PropTypes.bool,
     skalHenteBerikelse: PropTypes.bool,
 };
@@ -107,21 +98,11 @@ export const mapStateToProps = (state, ownProps) => {
         return s.id === sykepengesoknadId;
     });
 
-    let brukerHarNavigertTilAnnenSoknad;
-
-    try {
-        const forrigeId = state.form[SYKEPENGER_SKJEMANAVN].values.id;
-        brukerHarNavigertTilAnnenSoknad = forrigeId && forrigeId !== sykepengesoknadId;
-    } catch (e) {
-        brukerHarNavigertTilAnnenSoknad = false;
-    }
-
     const erForsteSoknad = state.sykepengesoknader.data && state.sykepengesoknader.data.filter((s) => {
         return s.status === NY || s.status === FREMTIDIG;
     }).length === state.sykepengesoknader.data.length;
 
     return {
-        brukerHarNavigertTilAnnenSoknad,
         henter,
         sykepengesoknadId,
         vedlikehold: state.vedlikehold.data.vedlikehold,

@@ -15,7 +15,7 @@ describe('soknaderSagas', () => {
     });
 
     it('Skal hente søknader', () => {
-        const nextCall = call(get, '/soknad/hentSoknader');
+        const nextCall = call(get, '/syfosoknad/soknader');
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

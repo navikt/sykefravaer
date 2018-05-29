@@ -4,6 +4,7 @@ import chaiEnzyme from 'chai-enzyme';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { mapStateToProps, Container } from '../../../js/containers/sykepengesoknad-felles/SykepengesoknadContainer';
+import { SYKEPENGER_SKJEMANAVN } from '../../../js/utils/sykepengesoknadUtils';
 
 chai.use(chaiEnzyme());
 
@@ -15,6 +16,7 @@ describe('SykepengesoknadContainerTest', () => {
     let actions;
     let hentSykepengesoknader;
     let hentSoknader;
+    let destroy;
 
     beforeEach(() => {
         state = {};
@@ -42,47 +44,61 @@ describe('SykepengesoknadContainerTest', () => {
 
         hentSykepengesoknader = sinon.spy();
         hentSoknader = sinon.spy();
+        destroy = sinon.spy();
 
         actions = {
             hentSykepengesoknader,
             hentSoknader,
+            destroy,
         };
+    });
+
+    it('Skal kalle på destroy dersom bruker har vært på en annen søknad før', () => {
+        state.form = {};
+        state.form[SYKEPENGER_SKJEMANAVN] = {
+            values: {
+                id: '456',
+            },
+        };
+        const props = mapStateToProps(state, ownProps);
+        shallow(<Container {...props} actions={actions} />);
+        expect(destroy.called).to.equal(true);
     });
 
     describe('Henting av data', () => {
         it('Skal hente søknader hvis søknader ikke er hentet', () => {
             state.soknader.hentet = false;
-            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />)
+            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
             expect(hentSoknader.called).to.equal(true);
         });
 
         it('Skal ikke hente søknader hvis søknader er hentet', () => {
             state.soknader.hentet = true;
-            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />)
+            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
             expect(hentSoknader.called).to.equal(false);
         });
 
         it('Skal ikke hente søknader hvis søknader hentes', () => {
             state.soknader.henter = true;
-            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />)
+            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
             expect(hentSoknader.called).to.equal(false);
         });
 
         it('Skal hente sykepengesøknader hvis sykepengesøknader ikke er hentet', () => {
             state.sykepengesoknader.hentet = false;
-            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />)
+            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
             expect(hentSykepengesoknader.called).to.equal(true);
         });
 
         it('Skal ikke hente sykepengesøknader hvis sykepengesøknader er hentet', () => {
             state.sykepengesoknader.hentet = true;
-            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />)
+            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
             expect(hentSykepengesoknader.called).to.equal(false);
         });
 
         it('Skal ikke hente sykepengesøknader hvis sykepengesøknader hentes', () => {
             state.sykepengesoknader.henter = true;
-            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />)
+            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
             expect(hentSykepengesoknader.called).to.equal(false);
         });
     });

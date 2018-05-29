@@ -1,5 +1,5 @@
 import { HENT_SOKNADER_FEILET, HENTER_SOKNADER, SOKNADER_HENTET } from '../actions/actiontyper';
-import { TALL, DATO, PERIODER } from '../enums/svartyper';
+import { TIMER, DATO, PERIODER, PROSENT } from '../enums/svartyper';
 
 const initiellState = {
     data: [],
@@ -18,7 +18,8 @@ const parseSvar = (svar) => {
                 max: new Date(svar.max),
             };
         }
-        case TALL: {
+        case TIMER:
+        case PROSENT: {
             return {
                 ...svar,
                 min: parseInt(svar.min, 10),
@@ -52,7 +53,7 @@ const parseSoknad = (soknad) => {
         tom: new Date(soknad.tom),
         opprettetDato: new Date(soknad.opprettetDato),
         sporsmal: [...soknad.sporsmal].map(parseSporsmal),
-        id: soknad.uuid,
+        // sykmeldingId: 'b83994d1-bfa8-4033-9412-a49dfe7272df',
     };
 };
 

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { childEllerChildren } from '../propTypes';
 
 export const lagDesimaltall = (streng) => {
     let s = streng.replace(/,/g, '.');
@@ -51,7 +52,7 @@ export const Vis = ({ hvis, children, render }) => {
 
 Vis.propTypes = {
     hvis: PropTypes.bool,
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
+    children: childEllerChildren,
 };
 
 export const formaterOrgnr = (orgnr) => {

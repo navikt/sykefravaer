@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Field, autofill, touch, formValueSelector } from 'redux-form';
+import { Field, change, touch, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { toDatePrettyPrint } from 'digisyfo-npm';
 import MaskedInput from 'react-maskedinput';
@@ -46,6 +46,13 @@ export class DatoField extends Component {
         if (this.toggle) {
             this.toggle.focus();
         }
+    }
+
+    parseVerdi(jsDato) {
+        const verdi = toDatePrettyPrint(new Date(jsDato));
+        return !this.props.parseVerdi
+            ? verdi
+            : this.props.parseVerdi(verdi);
     }
 
     render() {
@@ -95,8 +102,8 @@ export class DatoField extends Component {
                         tidligsteFom={tidligsteFom}
                         senesteTom={senesteTom}
                         onDayClick={(event, jsDato) => {
-                            const s = toDatePrettyPrint(new Date(jsDato));
-                            this.props.autofill(meta.form, this.props.input.name, s);
+                            const verdi = this.parseVerdi(jsDato);
+                            this.props.change(meta.form, this.props.input.name, verdi);
                             this.props.touch(meta.form, this.props.input.name);
                             this.lukk();
                         }}
@@ -119,7 +126,8 @@ DatoField.propTypes = {
     id: PropTypes.string.isRequired,
     input: fieldPropTypes.input,
     touch: PropTypes.func.isRequired,
-    autofill: PropTypes.func.isRequired,
+    change: PropTypes.func.isRequired,
+    parseVerdi: PropTypes.func,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
 };
@@ -134,23 +142,32 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const ConnectedDatoField = connect(mapStateToProps, { autofill, touch })(DatoField);
+const ConnectedDatoField = connect(mapStateToProps, { change, touch })(DatoField);
+
+export const genererValidate = (props) => {
+    return (verdi) => {
+        const formatertVerdi = props.format
+            ? props.format(verdi)
+            : verdi;
+        return validerDatoField(formatertVerdi, {
+            fra: props.tidligsteFom,
+            til: props.senesteTom,
+        });
+    };
+};
 
 const Datovelger = (props) => {
+    const validate = genererValidate(props);
     return (<Field
         component={ConnectedDatoField}
-        validate={(input) => {
-            return validerDatoField(input, {
-                fra: props.tidligsteFom,
-                til: props.senesteTom,
-            });
-        }}
+        validate={validate}
         {...props} />);
 };
 
 Datovelger.propTypes = {
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
+    validate: PropTypes.func,
 };
 
 export default Datovelger;

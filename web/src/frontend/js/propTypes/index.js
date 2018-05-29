@@ -94,9 +94,13 @@ export const ledereReducerPt = PropTypes.shape({
     avkreftFeilet: PropTypes.bool,
 });
 
+export const svar = PropTypes.shape({});
+
+export const sporsmal = PropTypes.shape({});
+
 export const soknad = PropTypes.shape({
     uuid: PropTypes.string,
     soknadstype: PropTypes.string,
     status: PropTypes.string,
-    sporsmal: PropTypes.arrayOf(PropTypes.shape()),
+    sporsmal: PropTypes.arrayOf(sporsmal),
 });

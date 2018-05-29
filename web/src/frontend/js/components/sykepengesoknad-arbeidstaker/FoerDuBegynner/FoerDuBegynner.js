@@ -48,7 +48,7 @@ export const FoerDuBegynnerSkjema = (props) => {
     const onSubmit = () => {
         history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`);
     };
-    return (<form className="sykepengerskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
+    return (<form className="soknadskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
         <div className="panel">
             <div className="redaksjonelt-innhold">
                 <BekreftAnsvar sykepengesoknad={sykepengesoknad} />
@@ -91,7 +91,7 @@ const FoerDuBegynner = (props) => {
         { erForsteSoknad ? <ForsteSoknadIntro /> : <SoknadIntro />}
 
         <SykmeldingUtdrag erApen sykepengesoknad={sykepengesoknad} />
-        <h2 className="sykepenger__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
+        <h2 className="soknad__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
         <FoerDuBegynnerSkjemaSetup sykepengesoknad={sykepengesoknad} />
     </div>);
 };

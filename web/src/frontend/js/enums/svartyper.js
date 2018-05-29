@@ -1,6 +1,7 @@
 export const JA_NEI = 'JA_NEI';
 export const DATO = 'DATO';
-export const TALL = 'TALL';
-export const PROSENT_TIMER = 'PROSENT_TIMER';
+export const TIMER = 'TIMER';
+export const PROSENT = 'PROSENT';
 export const CHECKBOX = 'CHECKBOX';
+export const CHECKBOX_GRUPPE = 'CHECKBOX_GRUPPE';
 export const PERIODER = 'PERIODER';

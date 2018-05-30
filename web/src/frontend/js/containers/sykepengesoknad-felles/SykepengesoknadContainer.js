@@ -132,6 +132,9 @@ export class Container extends Component {
         if (this.props.brukerHarNavigertTilAnnenSoknad) {
             this.props.actions.destroy(SYKEPENGER_SKJEMANAVN);
         }
+        if (this.props.skalHenteSykmeldinger) {
+            this.props.actions.hentDineSykmeldinger();
+        }
     }
 
     componentDidUpdate() {
@@ -195,7 +198,7 @@ export const mapStateToProps = (state, ownProps) => {
     const henter = state.soknader.henter || state.sykepengesoknader.henter || state.ledetekster.henter || (skalHenteSykmeldinger);
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
     const brukerHarNavigertTilAnnenSoknad = beregnHarBrukerNavigertTilAnnenSoknad(state, soknadId);
-
+    
     return {
         soknadId,
         skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,

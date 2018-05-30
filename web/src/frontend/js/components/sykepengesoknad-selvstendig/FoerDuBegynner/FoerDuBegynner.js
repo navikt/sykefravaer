@@ -13,7 +13,7 @@ export const hentSporsmalForDuBegynner = (soknad) => {
     return soknad.sporsmal.filter((s) => {
         return s.tag === ANSVARSERKLARING;
     });
-}
+};
 
 export const FoerDuBegynnerSkjema = (props) => {
     const { handleSubmit, soknad } = props;

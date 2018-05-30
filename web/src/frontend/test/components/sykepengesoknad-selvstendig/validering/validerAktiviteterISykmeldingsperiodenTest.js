@@ -7,17 +7,22 @@ import {
     ANDRE_INNTEKTSKILDER,
     HVILKE_ANDRE_INNTEKTSKILDER,
     INNTEKTSKILDE_ANNET,
-    INNTEKTSKILDE_ANNET_ER_DU_SYKMELDT,
+    INNTEKTSKILDE_ANNET_ER_DU_SYKMELDT, UTLAND,
 } from '../../../../js/enums/tagtyper';
 import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles/fieldUtils';
 import { NEI, JA } from '../../../../js/enums/svarEnums';
 import { getLedetekstNokkelFraTag } from '../../../../js/components/sykepengesoknad-selvstendig/validering/valideringUtils';
+import { PERIODER } from '../../../../js/enums/svartyper';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
+
 describe('validerAktiviteterISykmeldingsperioden', () => {
+    let parse;
+
     beforeEach(() => {
+        parse = genererParseForEnkeltverdi('1');
         setLedetekster({
             [getLedetekstNokkelFraTag(ANDRE_INNTEKTSKILDER)]: 'Vennligst svar på om du har andre inntektskilder',
             [getLedetekstNokkelFraTag(HVILKE_ANDRE_INNTEKTSKILDER)]: 'Vennligst oppgi hvilke andre inntektskilder du har',
@@ -26,12 +31,6 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
     });
 
     describe('Andre inntektskilder', () => {
-        let parse;
-
-        beforeEach(() => {
-            parse = genererParseForEnkeltverdi('1');
-        });
-
         it('Skal klage hvis bruker ikke har svart på om han har andre inntektskilder', () => {
             const soknad = getSoknad();
             const feilmeldinger = validerAktiviteterISykmeldingsperioden({}, { soknad });
@@ -122,6 +121,43 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
                 const feilmeldinger = validerAktiviteterISykmeldingsperioden(values, { soknad });
                 expect(feilmeldinger[INNTEKTSKILDE_ANNET_ER_DU_SYKMELDT]).to.equal(undefined);
             });
+        });
+    });
+
+    describe('Utenlandsopphold med perioder', () => {
+        it('Skal ikke klage når man har svart JA uten å fylle ut perioder (perioder valideres i selve komponenten)', () => {
+            const soknad = getSoknad();
+            const svar = parse(JA);
+            const values = {
+                [UTLAND]: svar,
+                [PERIODER]: [{}],
+            };
+            const feilmeldinger = validerAktiviteterISykmeldingsperioden(values, { soknad });
+            expect(feilmeldinger[PERIODER]).to.equal(undefined);
+        });
+
+        it('Skal ikke klage når man har svart JA og perioder er fylt ut', () => {
+            const soknad = getSoknad();
+            const svar = parse(JA);
+            const values = {
+                [UTLAND]: svar,
+                [PERIODER]: [{
+                    fom: '10.10.2018',
+                    tom: '12.10.2018',
+                }],
+            };
+            const feilmeldinger = validerAktiviteterISykmeldingsperioden(values, { soknad });
+            expect(feilmeldinger[PERIODER]).to.equal(undefined);
+        });
+
+        it('Skal ikke validere perioder når man har svart NEI', () => {
+            const soknad = getSoknad();
+            const svar = parse(NEI);
+            const values = {
+                [PERIODER]: svar,
+            };
+            const feilmeldinger = validerAktiviteterISykmeldingsperioden(values, { soknad });
+            expect(feilmeldinger[PERIODER]).to.equal(undefined);
         });
     });
 });

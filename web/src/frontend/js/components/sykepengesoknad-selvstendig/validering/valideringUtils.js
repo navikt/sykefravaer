@@ -1,7 +1,7 @@
 import { getLedetekst } from 'digisyfo-npm';
 import { formaterEnkeltverdi } from '../../soknad-felles/fieldUtils';
 import { CHECKED } from '../../../enums/svarEnums';
-import { CHECKBOX_GRUPPE } from '../../../enums/svartyper';
+import { CHECKBOX_GRUPPE, PERIODER } from '../../../enums/svartyper';
 
 export const getLedetekstNokkelFraTag = (tag) => {
     return `soknad.feilmelding.${tag.toLowerCase()}`;
@@ -46,6 +46,10 @@ export const validerUndersporsmal = (sporsmalsliste = [], values = {}, feilmeldi
                         } else {
                             returverdi = validerUndersporsmal(undersporsmal.svar.undersporsmal, values, returverdi);
                         }
+                        break;
+                    }
+                    case PERIODER: {
+                        // Perioder valideres i komponenten, og har en avvikende datastruktur i store
                         break;
                     }
                     default: {

@@ -18,7 +18,7 @@ export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
         return input.value === true
             ? <p>{getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.nei')}</p>
             : input.value === false
-                ? (<p>
+                ? (<p className="sist">
                     {getLedetekst('starte-sykmelding.bekreft-naermeste-leder.sporsmal.ja', {
                         '%NAERMESTELEDER%': navn,
                     })}

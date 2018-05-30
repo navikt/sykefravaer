@@ -375,14 +375,15 @@ describe('DinSykmeldingSkjema -', () => {
                 'starte-sykmelding.info.send-med-naermeste-leder': 'Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.',
                 'starte-sykmelding.knapp.SEND-MED-NAERMESTE-LEDER': 'Send sykmelding',
                 'starte-sykmelding.info.send': 'Sykmeldingen blir sendt til bedriftens innboks i Altinn. Vi anbefaler at du tipser arbeidsgiveren din om at du har sendt sykmeldingen siden dette er nytt for dem også.',
+                'starte-sykmelding.info.bekreft': 'Å bekrefte sykmeldingen betyr at du er enig i innholdet, og at du ønsker å ta den i bruk',
                 'starte-sykmelding.knapp.SEND': 'Send sykmelding',
             });
             /* eslint-disable max-len */
         });
 
-        it('Skal vise egen tekst for innsending ved JA på bekreft nærmest leder', () => {
+        it('Skal ikke vise infotekst tekst for innsending som arbeidstaker med NL', () => {
             values = {
-                beOmNyNaermesteLeder: false,
+                beOmNyNaermesteLeder: true,
                 valgtArbeidssituasjon: 'ARBEIDSTAKER',
                 valgtArbeidsgiver: {
                     orgnummer: '123456789',
@@ -394,16 +395,13 @@ describe('DinSykmeldingSkjema -', () => {
                 } };
 
             component = getComponent(getStore(values));
-            /* eslint-disable max-len */
-            expect(component.text()).to.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.');
-            expect(component.text()).to.contain('Send sykmelding');
-            /* eslint-disable max-len */
+            expect(component.find('.dinSykmeldingSkjema__sendInfo')).to.have.length(0);
         });
 
-        it('Skal ikke vise egen tekst for innsending ved NEI på bekreft nærmest leder', () => {
+        it('Skal ikke vise infotekst tekst for innsending som arbeidstaker uten NL', () => {
             values = {
-                beOmNyNaermesteLeder: true,
-                valgtArbeidssituasjon: 'ARBEIDSTAKER',
+                beOmNyNaermesteLeder: false,
+                valgtArbeidssituasjon: '',
                 valgtArbeidsgiver: {
                     orgnummer: '123456789',
                     navn: 'Mortens frukt og grønt',
@@ -411,14 +409,20 @@ describe('DinSykmeldingSkjema -', () => {
                         navn: 'Ole sykmelding-id',
                         epost: 'ole.sykmelding-id@test.no',
                     },
-                },
-            };
+                } };
+
             component = getComponent(getStore(values));
-            /* eslint-disable max-len */
-            expect(component.text()).to.not.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Din nærmeste leder vil også få se sykmeldingen ved å logge seg på nav.no. Lederen kan bli kontaktet av NAV underveis i sykefraværet hvis det er behov for det.');
-            expect(component.text()).to.contain('Sykmeldingen blir sendt til bedriftens innboks i Altinn. Vi anbefaler at du tipser arbeidsgiveren din om at du har sendt sykmeldingen siden dette er nytt for dem også.');
-            expect(component.text()).to.contain('Send sykmelding');
-            /* eslint-disable max-len */
+            expect(component.find('.dinSykmeldingSkjema__sendInfo')).to.have.length(0);
+        });
+
+        it('Skal vise infotekst tekst for innsending som NAERINGSDRIVENDE', () => {
+            values = {
+                valgtArbeidssituasjon: 'NAERINGSDRIVENDE',
+            };
+
+            component = getComponent(getStore(values));
+            expect(component.find('.dinSykmeldingSkjema__sendInfo')).to.have.length(1);
+            expect(component.find('.dinSykmeldingSkjema__sendInfo')).text().to.contain('Å bekrefte sykmeldingen betyr at du er enig i innholdet, og at du ønsker å ta den i bruk');
         });
     });
 });

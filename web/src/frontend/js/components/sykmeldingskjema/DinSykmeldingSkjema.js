@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
-import { tilDatePeriode, getLedetekst, Varselstripe, arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
+import {
+    tilDatePeriode,
+    getLedetekst,
+    Varselstripe,
+    arbeidssituasjoner,
+    feilaktigeOpplysninger as feilaktigeOpplysningerEnums,
+    getHtmlLedetekst,
+} from 'digisyfo-npm';
 import VelgArbeidssituasjon from './VelgArbeidssituasjon';
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
@@ -131,6 +138,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
             })}>
             <FeiloppsummeringContainer skjemanavn={DIN_SYKMELDING_SKJEMANAVN} />
             <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel')}</h3>
+            <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.gdpr.bruk-sykmeldingen')} />
             <ErOpplysningeneRiktige untouch={untouch} />
             <Vis hvis={modus !== modi.AVBRYT}>
                 <div className="blokk">
@@ -155,7 +163,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     </div>
                 </Vis>
             </div>
-            <Vis hvis={modus !== modi.GA_VIDERE}>
+            <Vis hvis={modus !== modi.GA_VIDERE && modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}>
                 <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>
             </Vis>
             <div className="knapperad">

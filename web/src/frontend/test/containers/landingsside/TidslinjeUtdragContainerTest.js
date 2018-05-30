@@ -17,6 +17,7 @@ describe('TidslinjeutdragContainer', () => {
     let actions;
     let hentStartdato;
 
+
     beforeEach(() => {
         clock = sinon.useFakeTimers(new Date('2017-08-12').getTime());
 
@@ -66,13 +67,13 @@ describe('TidslinjeutdragContainer', () => {
         state.dineSykmeldinger.data = [];
         const props = mapStateToProps(state);
         const component = shallow(<Container {...props} {...actions} />);
-        expect(component.html()).to.equal(null);
+        expect(component.text()).to.equal('');
     });
 
     it('Skal ikke vise noe dersom siste sykmeldings tom-dato er passert med 7 dager', () => {
         const props = mapStateToProps(state);
         const component = shallow(<Container {...props} {...actions} />);
-        expect(component.html()).to.equal(null);
+        expect(component.text()).to.equal('');
     });
 
     it('Skal ikke vise noe dersom siste sykmeldings tom-dato ikke er passert, men sykmeldingen er avbrutt', () => {
@@ -80,21 +81,21 @@ describe('TidslinjeutdragContainer', () => {
         state.dineSykmeldinger.data = [passertSykmelding, aktivSykmelding];
         const props = mapStateToProps(state);
         const component = shallow(<Container {...props} {...actions} />);
-        expect(component.html()).to.equal(null);
+        expect(component.text()).to.equal('');
     });
 
     it('Skal vise noe dersom siste sykmeldings tom-dato ikke er passert', () => {
         state.dineSykmeldinger.data = [passertSykmelding, aktivSykmelding];
         const props = mapStateToProps(state);
         const component = shallow(<Container {...props} {...actions} />);
-        expect(component.html()).not.to.equal(null);
+        expect(component.text()).not.to.equal('');
     });
 
     it('Skal vise noe dersom siste sykmeldings tom-dato ikke er passert', () => {
         state.dineSykmeldinger.data = [passertSykmelding, aktivSykmelding];
         const props = mapStateToProps(state);
         const component = shallow(<Container {...props} {...actions} />);
-        expect(component.html()).not.to.equal(null);
+        expect(component.text()).not.to.equal('');
     });
 
     it('SKal beregne antallDager 1', () => {

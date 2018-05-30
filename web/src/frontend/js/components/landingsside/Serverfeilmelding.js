@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Varselstripe } from 'digisyfo-npm';
 import { Vis } from '../../utils';
+import logger from '../../logging';
 
 const ledetekster = {
     mote: 'Kunne ikke hente dialogmøter',
@@ -37,6 +38,13 @@ class Serverfeilmelding extends Component {
         this.state = {
             visFeil: false,
         };
+    }
+
+    componentDidMount() {
+        const { feilliste } = this.props;
+        if (feilliste.length > 0) {
+            logger.error(`Bruker fikk aiaiai med feilmeldinger: [${feilliste.join(', ')}]`);
+        }
     }
 
     toggleVisFeil() {

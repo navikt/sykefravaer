@@ -13,6 +13,7 @@ import Sidetopp from '../../../js/components/Sidetopp';
 import Oppfolgingsdialoger from '../../../js/components/oppfolgingsdialoger/Oppfolgingsdialoger';
 import IngenledereInfoboks from '../../../js/components/oppfolgingsdialoger/IngenledereInfoboks';
 import OppfolgingsdialogerVisning from '../../../js/components/oppfolgingsdialoger/OppfolgingsdialogerVisning';
+import OppfolgingsdialogerInfoPersonvern from '../../../js/components/oppfolgingsdialoger/OppfolgingsdialogerInfoPersonvern';
 import getOppfolgingsdialog, { getOppfolgingsdialoger } from '../../mockOppfolgingsdialoger';
 import {
     hentSykmeldingIkkeGyldigForOppfoelging,
@@ -105,8 +106,8 @@ describe('Oppfolgingsdialoger', () => {
         expect(component.find(Sidetopp)).to.have.length(1);
     });
 
-    it('Skal vise tekst for Oppfolgingsdialoger', () => {
-        expect(component.find('p.oppfolgingsdialoger__tekst')).to.have.length(1);
+    it('Skal vise OppfolgingsdialogerInfoPersonvern', () => {
+        expect(component.find(OppfolgingsdialogerInfoPersonvern)).to.have.length(1);
     });
 
     describe('Ny NaermesteLeder', () => {

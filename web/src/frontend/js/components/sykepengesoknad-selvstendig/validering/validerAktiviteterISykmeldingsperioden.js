@@ -3,7 +3,5 @@ import { validerSporsmal } from './valideringUtils';
 
 export default (values, props) => {
     const sporsmal = hentSporsmalForAktiviteterISykmeldingsperioden(props.soknad);
-    const r = validerSporsmal(sporsmal, values);
-
-    return r;
+    return validerSporsmal(sporsmal, values);
 };

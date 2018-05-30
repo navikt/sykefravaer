@@ -1,4 +1,5 @@
 import React from 'react';
+import { getLedetekst } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import Radioknapper from '../skjema/Radioknapper';
@@ -7,24 +8,20 @@ import { childEllerChildren, fieldPropTypes, svar as svarPt } from '../../propTy
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { JA, NEI } from '../../enums/svarEnums';
 
-export const jaEllerNeiAlternativer = [{
-    value: JA,
-    label: 'Ja',
-}, {
-    value: NEI,
-    label: 'Nei',
-}];
+const jaEllerNeiAlternativer = [JA, NEI];
 
 export const JaEllerNeiRadioknapper = (props) => {
-    return (<div>
-        <Radioknapper {...props} name={props.input.name} spoersmal={props.sporsmalstekst}>
-            {
-                jaEllerNeiAlternativer.map((alternativ, index) => {
-                    return <input {...alternativ} key={index} />;
+    return (<Radioknapper {...props} name={props.input.name} spoersmal={props.sporsmalstekst}>
+        {
+            jaEllerNeiAlternativer
+                .map((alternativ, index) => {
+                    return (<input
+                        value={alternativ}
+                        label={getLedetekst(`sykepengesoknad.${alternativ.toLowerCase()}`)}
+                        key={index} />);
                 })
-            }
-        </Radioknapper>
-    </div>);
+        }
+    </Radioknapper>);
 };
 
 JaEllerNeiRadioknapper.propTypes = {

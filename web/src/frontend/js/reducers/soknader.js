@@ -53,7 +53,6 @@ const parseSoknad = (soknad) => {
         tom: new Date(soknad.tom),
         opprettetDato: new Date(soknad.opprettetDato),
         sporsmal: [...soknad.sporsmal].map(parseSporsmal),
-        // sykmeldingId: 'b83994d1-bfa8-4033-9412-a49dfe7272df',
     };
 };
 

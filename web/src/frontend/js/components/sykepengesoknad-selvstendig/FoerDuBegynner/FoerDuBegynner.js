@@ -25,15 +25,11 @@ export const FoerDuBegynnerSkjema = (props) => {
 
     return (<form className="soknadskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
         <FeiloppsummeringContainer skjemanavn={SYKEPENGER_SKJEMANAVN} />
-        <div className="panel">
-            <div className="redaksjonelt-innhold">
-                <Checkbox {...sporsmal[0]} name={sporsmal[0].tag} />
-            </div>
+        <div className="panel redaksjonelt-innhold">
+            <Checkbox {...sporsmal[0]} name={sporsmal[0].tag} />
         </div>
         <div className="knapperad">
-            <p className="blokk--s">
-                <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
-            </p>
+            <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
         </div>
     </form>);
 };
@@ -44,15 +40,13 @@ FoerDuBegynnerSkjema.propTypes = {
 };
 
 const FoerDuBegynner = (props) => {
-    return (<div>
-        <Soknadskjema
-            aktivtSteg="1"
-            tittel={getLedetekst('sykepengesoknad.for-du-begynner.tittel')}
-            sykmelding={props.sykmelding}
-            soknad={props.soknad}>
-            <FoerDuBegynnerSkjema soknad={props.soknad} handleSubmit={props.handleSubmit} />
-        </Soknadskjema>
-    </div>);
+    return (<Soknadskjema
+        aktivtSteg="1"
+        tittel={getLedetekst('sykepengesoknad.for-du-begynner.tittel')}
+        sykmelding={props.sykmelding}
+        soknad={props.soknad}>
+        <FoerDuBegynnerSkjema soknad={props.soknad} handleSubmit={props.handleSubmit} />
+    </Soknadskjema>);
 };
 
 FoerDuBegynner.propTypes = {

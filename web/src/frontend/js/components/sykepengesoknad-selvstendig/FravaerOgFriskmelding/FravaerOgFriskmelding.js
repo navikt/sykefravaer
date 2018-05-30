@@ -43,15 +43,13 @@ FravaerOgFriskmeldingSkjema.propTypes = {
 
 const FravaerOgFriskmelding = (props) => {
     const { sykmelding, soknad, handleSubmit } = props;
-    return (<div>
-        <Soknadskjema
-            aktivtSteg="2"
-            tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel')}
-            sykmelding={sykmelding}
-            soknad={soknad}>
-            <FravaerOgFriskmeldingSkjema soknad={soknad} handleSubmit={handleSubmit} />
-        </Soknadskjema>
-    </div>);
+    return (<Soknadskjema
+        aktivtSteg="2"
+        tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel')}
+        sykmelding={sykmelding}
+        soknad={soknad}>
+        <FravaerOgFriskmeldingSkjema soknad={soknad} handleSubmit={handleSubmit} />
+    </Soknadskjema>);
 };
 
 FravaerOgFriskmelding.propTypes = {

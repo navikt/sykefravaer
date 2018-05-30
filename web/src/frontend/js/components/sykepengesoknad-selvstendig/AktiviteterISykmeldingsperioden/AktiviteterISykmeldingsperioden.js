@@ -41,18 +41,16 @@ AktiviteterISykmeldingsperiodenSkjema.propTypes = {
 
 const AktiviteterISykmeldingsperioden = (props) => {
     const { sykmelding, soknad, handleSubmit } = props;
-    return (<div>
-        <Soknadskjema
-            aktivtSteg="3"
-            tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
-            sykmelding={sykmelding}
-            soknad={soknad}>
-            <FeiloppsummeringContainer skjemanavn={SYKEPENGER_SKJEMANAVN} />
-            <AktiviteterISykmeldingsperiodenSkjema
-                soknad={soknad}
-                handleSubmit={handleSubmit} />
-        </Soknadskjema>
-    </div>);
+    return (<Soknadskjema
+        aktivtSteg="3"
+        tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
+        sykmelding={sykmelding}
+        soknad={soknad}>
+        <FeiloppsummeringContainer skjemanavn={SYKEPENGER_SKJEMANAVN} />
+        <AktiviteterISykmeldingsperiodenSkjema
+            soknad={soknad}
+            handleSubmit={handleSubmit} />
+    </Soknadskjema>);
 };
 
 AktiviteterISykmeldingsperioden.propTypes = {

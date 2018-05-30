@@ -12,9 +12,8 @@ export const getLedetekstFraTag = (tag, ledetekster) => {
     return ledetekster ? getLedetekst(nokkel, ledetekster) : getLedetekst(nokkel);
 };
 
-export const validerUndersporsmal = (sporsmalsliste = [], values = {}, feilmeldinger = {}) => {
-    let returverdi = { ...feilmeldinger };
-    const sporsmalMedAktiveUndersporsmal = sporsmalsliste
+const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
+    return sporsmalsliste
         .filter((sporsmal) => {
             return values[sporsmal.tag] !== undefined;
         })
@@ -23,8 +22,13 @@ export const validerUndersporsmal = (sporsmalsliste = [], values = {}, feilmeldi
             const formatertVerdi = verdi === true ? CHECKED : verdi;
             return sporsmal.svar && formatertVerdi === sporsmal.svar.kriterieForVisningAvUndersporsmal;
         });
+};
 
-    sporsmalMedAktiveUndersporsmal
+export const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldingerParam = {}) => {
+    let feilmeldinger = { ...feilmeldingerParam };
+    const sporsmalMedStilteUndersporsmal = hentSporsmalMedStilteUndersporsmal(sporsmalsliste, values);
+
+    sporsmalMedStilteUndersporsmal
         .forEach((sporsmalMedUndersporsmal) => {
             const undersporsmalsliste = sporsmalMedUndersporsmal.svar.undersporsmal;
             undersporsmalsliste.forEach((undersporsmal) => {
@@ -35,16 +39,16 @@ export const validerUndersporsmal = (sporsmalsliste = [], values = {}, feilmeldi
                                 const verdi = values[checkboxSporsmal.tag];
                                 return formaterEnkeltverdi(verdi);
                             })
-                            .filter((verdier) => {
-                                return verdier === true;
+                            .filter((verdi) => {
+                                return verdi === true;
                             });
 
                         if (avkryssedeCheckboxer.length === 0) {
-                            returverdi[undersporsmal.tag] = {
+                            feilmeldinger[undersporsmal.tag] = {
                                 _error: getLedetekstFraTag(undersporsmal.tag),
                             };
                         } else {
-                            returverdi = validerUndersporsmal(undersporsmal.svar.undersporsmal, values, returverdi);
+                            feilmeldinger = validerUndersporsmalsliste(undersporsmal.svar.undersporsmal, values, feilmeldinger);
                         }
                         break;
                     }
@@ -54,8 +58,9 @@ export const validerUndersporsmal = (sporsmalsliste = [], values = {}, feilmeldi
                     }
                     default: {
                         const verdi = formaterEnkeltverdi(values[undersporsmal.tag]);
-                        if ((verdi || verdi === '') && verdi.trim && verdi.trim() === '') {
-                            returverdi[undersporsmal.tag] = getLedetekstFraTag(undersporsmal.tag);
+                        const verdiErTom = (verdi || verdi === '') && verdi.trim && verdi.trim() === '';
+                        if (verdiErTom) {
+                            feilmeldinger[undersporsmal.tag] = getLedetekstFraTag(undersporsmal.tag);
                         }
                         break;
                     }
@@ -63,18 +68,18 @@ export const validerUndersporsmal = (sporsmalsliste = [], values = {}, feilmeldi
             });
         });
 
-    return returverdi;
+    return feilmeldinger;
 };
 
 export const validerSporsmal = (sporsmal, values) => {
-    const returverdi = {};
+    const feilmeldinger = {};
     sporsmal
         .filter((s) => {
             return values[s.tag] === undefined ||
                 formaterEnkeltverdi(values[s.tag]) === false;
         })
         .forEach((s) => {
-            returverdi[s.tag] = getLedetekstFraTag(s.tag);
+            feilmeldinger[s.tag] = getLedetekstFraTag(s.tag);
         });
-    return validerUndersporsmal(sporsmal, values, returverdi);
+    return validerUndersporsmalsliste(sporsmal, values, feilmeldinger);
 };

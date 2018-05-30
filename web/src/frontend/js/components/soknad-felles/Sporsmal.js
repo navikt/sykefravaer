@@ -8,9 +8,9 @@ const Sporsmal = ({ sporsmal, name }) => {
     return (<JaEllerNei {...sporsmal} name={name}>
         {
             sporsmal.svar.undersporsmal.map((underspm) => {
-                return underspm.svar === null
-                    ? null
-                    : <Undersporsmal sporsmal={underspm} key={underspm.tag} />;
+                return underspm.svar !== null
+                    ? <Undersporsmal sporsmal={underspm} key={underspm.tag} />
+                    : null;
             })
         }
     </JaEllerNei>);

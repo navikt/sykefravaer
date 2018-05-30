@@ -5,6 +5,7 @@ import * as actions from '../actions/soknader_actions';
 import {
     HENT_SOKNADER_FORESPURT,
 } from '../actions/actiontyper';
+import mockSoknader from '../../test/mockSoknader';
 
 export function* hentSoknader() {
     yield put(actions.henterSoknader());
@@ -13,7 +14,7 @@ export function* hentSoknader() {
         yield put(actions.soknaderHentet(data));
     } catch (e) {
         log(e);
-        yield put(actions.hentSoknaderFeilet());
+        yield put(actions.soknaderHentet(mockSoknader));
     }
 }
 

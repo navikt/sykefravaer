@@ -33,6 +33,7 @@ describe('Oppfolgingsdialog', () => {
     let hentNaermesteLeder;
     let hentForrigeNaermesteLeder;
     let hentKontaktinfo;
+    let hentSykeforlopsPerioder;
     let hentArbeidsforhold;
     let avbrytdialogReducer;
     const data = {
@@ -47,6 +48,7 @@ describe('Oppfolgingsdialog', () => {
     const forrigenaermesteleder = data;
     const naermesteleder = data;
     const arbeidsforhold = data;
+    const sykeforlopsPerioderReducer = data;
 
     let oppfolgingsdialog;
     beforeEach(() => {
@@ -60,6 +62,7 @@ describe('Oppfolgingsdialog', () => {
         hentPerson = sinon.spy();
         hentNaermesteLeder = sinon.spy();
         hentKontaktinfo = sinon.spy();
+        hentSykeforlopsPerioder = sinon.spy();
         hentVirksomhet = sinon.spy();
         component = shallow(<Oppfolgingsdialog
             avbrytdialogReducer={avbrytdialogReducer}
@@ -71,6 +74,7 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentSykeforlopsPerioder={hentSykeforlopsPerioder}
             forrigenaermesteleder={forrigenaermesteleder}
             virksomhet={virksomhet}
             naermesteleder={naermesteleder}
@@ -79,6 +83,7 @@ describe('Oppfolgingsdialog', () => {
             navigasjontoggles={navigasjontoggles}
             arbeidsforhold={arbeidsforhold}
             hentArbeidsforhold={hentArbeidsforhold}
+            sykeforlopsPerioderReducer={sykeforlopsPerioderReducer}
         />);
     });
 
@@ -105,6 +110,7 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentSykeforlopsPerioder={hentSykeforlopsPerioder}
             forrigenaermesteleder={forrigenaermesteleder}
             virksomhet={virksomhet}
             naermesteleder={naermesteleder}
@@ -113,6 +119,7 @@ describe('Oppfolgingsdialog', () => {
             navigasjontoggles={navigasjontoggles}
             arbeidsforhold={arbeidsforhold}
             hentArbeidsforhold={hentArbeidsforhold}
+            sykeforlopsPerioderReducer={sykeforlopsPerioderReducer}
         />);
         expect(componentUnderArbeid.find(NavigasjonsTopp)).to.have.length(1);
     });
@@ -137,6 +144,7 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentSykeforlopsPerioder={hentSykeforlopsPerioder}
             forrigenaermesteleder={forrigenaermesteleder}
             virksomhet={virksomhet}
             naermesteleder={naermesteleder}
@@ -145,6 +153,7 @@ describe('Oppfolgingsdialog', () => {
             oppfolgingsdialogAvbrutt
             arbeidsforhold={arbeidsforhold}
             hentArbeidsforhold={hentArbeidsforhold}
+            sykeforlopsPerioderReducer={sykeforlopsPerioderReducer}
         />);
         expect(component.find(AvbruttGodkjentPlanVarsel)).to.have.length(1);
     });
@@ -165,6 +174,7 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentSykeforlopsPerioder={hentSykeforlopsPerioder}
             hentNaermesteLeder={hentNaermesteLeder}
             forrigenaermesteleder={forrigenaermesteleder}
             naermesteleder={naermesteleder}
@@ -173,6 +183,7 @@ describe('Oppfolgingsdialog', () => {
             kontaktinfo={kontaktinfo}
             arbeidsforhold={arbeidsforhold}
             hentArbeidsforhold={hentArbeidsforhold}
+            sykeforlopsPerioderReducer={sykeforlopsPerioderReducer}
         />);
         expect(component.find(Samtykke)).to.have.length(1);
     });
@@ -200,6 +211,7 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentSykeforlopsPerioder={hentSykeforlopsPerioder}
             hentNaermesteLeder={hentNaermesteLeder}
             forrigenaermesteleder={forrigenaermesteleder}
             naermesteleder={naermesteleder}
@@ -208,6 +220,7 @@ describe('Oppfolgingsdialog', () => {
             kontaktinfo={kontaktinfo}
             arbeidsforhold={arbeidsforhold}
             hentArbeidsforhold={hentArbeidsforhold}
+            sykeforlopsPerioderReducer={sykeforlopsPerioderReducer}
         />);
         expect(component.find(Godkjenninger)).to.have.length(1);
     });
@@ -226,6 +239,7 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentSykeforlopsPerioder={hentSykeforlopsPerioder}
             hentNaermesteLeder={hentNaermesteLeder}
             forrigenaermesteleder={forrigenaermesteleder}
             naermesteleder={naermesteleder}
@@ -234,6 +248,7 @@ describe('Oppfolgingsdialog', () => {
             kontaktinfo={kontaktinfo}
             arbeidsforhold={arbeidsforhold}
             hentArbeidsforhold={hentArbeidsforhold}
+            sykeforlopsPerioderReducer={sykeforlopsPerioderReducer}
         />);
         expect(component.find(ReleasetPlanAT)).to.have.length(1);
     });
@@ -255,6 +270,7 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentSykeforlopsPerioder={hentSykeforlopsPerioder}
             hentNaermesteLeder={hentNaermesteLeder}
             naermesteleder={naermesteleder}
             forrigenaermesteleder={forrigenaermesteleder}
@@ -263,6 +279,7 @@ describe('Oppfolgingsdialog', () => {
             kontaktinfo={kontaktinfo}
             arbeidsforhold={arbeidsforhold}
             hentArbeidsforhold={hentArbeidsforhold}
+            sykeforlopsPerioderReducer={sykeforlopsPerioderReducer}
         />);
         expect(component.find(Arbeidsoppgaver)).to.have.length(1);
     });
@@ -284,6 +301,7 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentSykeforlopsPerioder={hentSykeforlopsPerioder}
             hentNaermesteLeder={hentNaermesteLeder}
             forrigenaermesteleder={forrigenaermesteleder}
             naermesteleder={naermesteleder}
@@ -292,6 +310,7 @@ describe('Oppfolgingsdialog', () => {
             kontaktinfo={kontaktinfo}
             arbeidsforhold={arbeidsforhold}
             hentArbeidsforhold={hentArbeidsforhold}
+            sykeforlopsPerioderReducer={sykeforlopsPerioderReducer}
         />);
         expect(component.find(Tiltak)).to.have.length(1);
     });
@@ -317,6 +336,7 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentSykeforlopsPerioder={hentSykeforlopsPerioder}
             hentNaermesteLeder={hentNaermesteLeder}
             forrigenaermesteleder={forrigenaermesteleder}
             naermesteleder={naermesteleder}
@@ -325,6 +345,7 @@ describe('Oppfolgingsdialog', () => {
             kontaktinfo={kontaktinfo}
             arbeidsforhold={arbeidsforhold}
             hentArbeidsforhold={hentArbeidsforhold}
+            sykeforlopsPerioderReducer={sykeforlopsPerioderReducer}
         />);
         expect(component.find(IngenlederInfoboks)).to.have.length(1);
     });
@@ -346,6 +367,7 @@ describe('Oppfolgingsdialog', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentSykeforlopsPerioder={hentSykeforlopsPerioder}
             hentNaermesteLeder={hentNaermesteLeder}
             forrigenaermesteleder={forrigenaermesteleder}
             naermesteleder={naermesteleder}
@@ -354,6 +376,7 @@ describe('Oppfolgingsdialog', () => {
             kontaktinfo={kontaktinfo}
             arbeidsforhold={arbeidsforhold}
             hentArbeidsforhold={hentArbeidsforhold}
+            sykeforlopsPerioderReducer={sykeforlopsPerioderReducer}
         />);
         expect(component.find(Godkjenn)).to.have.length(1);
     });

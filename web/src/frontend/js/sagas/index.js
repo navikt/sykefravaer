@@ -2,7 +2,7 @@ import {
     ledeteksterSagas,
     tidslinjerSagas,
     togglesSagas,
-    sykeforlopsPerioderSagas
+    sykeforlopsPerioderSagas,
 } from 'digisyfo-npm';
 import {
     oppfolgingsdialogerAtSagas as oppfolgingsdialogerSagas,

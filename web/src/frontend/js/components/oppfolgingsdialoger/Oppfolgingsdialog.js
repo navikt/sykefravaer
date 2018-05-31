@@ -93,105 +93,103 @@ class Oppfolgingsdialog extends Component {
         if (skalViseSamtykke(oppfolgingsdialog)) {
             disableNavigation = true;
             panel = (<Samtykke
-            sendSamtykke={giSamtykke}
-            oppfolgingsdialog={oppfolgingsdialog}
-            ledetekster={ledetekster}
-            rootUrl={`${getContextRoot()}`}
+                sendSamtykke={giSamtykke}
+                oppfolgingsdialog={oppfolgingsdialog}
+                ledetekster={ledetekster}
+                rootUrl={`${getContextRoot()}`}
             />);
         } else if (harNaermesteLeder(oppfolgingsdialog) && inneholderGodkjenninger(oppfolgingsdialog) && !erAvvistAvArbeidstaker(oppfolgingsdialog)) {
             disableNavigation = true;
             panel = (<Godkjenninger
-            avvisDialog={avvisDialog}
-            oppfolgingsdialog={oppfolgingsdialog}
-            godkjennPlan={godkjennDialog}
-            ledetekster={ledetekster}
-            nullstillGodkjenning={nullstillGodkjenning}
-            brukerType={BRUKERTYPE.ARBEIDSTAKER}
-            rootUrl={`${getContextRoot()}`}
-            rootUrlPlaner={`${getContextRoot()}`}
+                avvisDialog={avvisDialog}
+                oppfolgingsdialog={oppfolgingsdialog}
+                godkjennPlan={godkjennDialog}
+                ledetekster={ledetekster}
+                nullstillGodkjenning={nullstillGodkjenning}
+                brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                rootUrl={`${getContextRoot()}`}
+                rootUrlPlaner={`${getContextRoot()}`}
             />);
         } else if (harNaermesteLeder(oppfolgingsdialog) && inneholderGodkjentPlan(oppfolgingsdialog)) {
             disableNavigation = true;
             panel = (<ReleasetPlanAT
-            ledetekster={ledetekster}
-            toggles={toggles}
-            oppfolgingsdialog={oppfolgingsdialog}
-            hentPdfurler={hentPdfurler}
-            dokument={dokument}
-            giSamtykke={giSamtykke}
-            avbrytDialog={avbrytDialog}
-            delMedNavFunc={delMedNavFunc}
-            delmednav={delmednav}
-            fastlegeDeling={fastlegeDeling}
-            delMedFastlege={delMedFastlege}
-            oppfolgingsdialoger={oppfolgingsdialoger}
+                ledetekster={ledetekster}
+                toggles={toggles}
+                oppfolgingsdialog={oppfolgingsdialog}
+                hentPdfurler={hentPdfurler}
+                dokument={dokument}
+                giSamtykke={giSamtykke}
+                avbrytDialog={avbrytDialog}
+                delMedNavFunc={delMedNavFunc}
+                delmednav={delmednav}
+                fastlegeDeling={fastlegeDeling}
+                delMedFastlege={delMedFastlege}
+                oppfolgingsdialoger={oppfolgingsdialoger}
             />);
         } else {
             (() => {
                 if (navigasjontoggles.steg === 1) {
-                panel = (<Arbeidsoppgaver
-                arbeidsoppgaver={arbeidsoppgaver}
-                ledetekster={ledetekster}
-                oppfolgingsdialog={oppfolgingsdialog}
-                lagreArbeidsoppgave={lagreArbeidsoppgave}
-                slettArbeidsoppgave={slettArbeidsoppgave}
-                />);
-            } else if (navigasjontoggles.steg === 2) {
-                panel = (<Tiltak
-                tiltak={tiltak}
-                ledetekster={ledetekster}
-                oppfolgingsdialog={oppfolgingsdialog}
-                lagreTiltak={lagreTiltak}
-                slettTiltak={slettTiltak}
-                lagreKommentar={lagreKommentar}
-                slettKommentar={slettKommentar}
-                />);
-            } else if (!harNaermesteLeder(oppfolgingsdialog)) {
-                panel = (<IngenlederInfoboks />);
-            } else {
-                panel = (<Godkjenn
-                ledetekster={ledetekster}
-                oppfolgingsdialog={oppfolgingsdialog}
-                settAktivtSteg={settAktivtSteg}
-                godkjennPlan={godkjennDialog}
-                brukerType={BRUKERTYPE.ARBEIDSTAKER}
-                rootUrl={`${getContextRoot()}`}
-                />);
-            }
-        })();
+                    panel = (<Arbeidsoppgaver
+                        arbeidsoppgaver={arbeidsoppgaver}
+                        ledetekster={ledetekster}
+                        oppfolgingsdialog={oppfolgingsdialog}
+                        lagreArbeidsoppgave={lagreArbeidsoppgave}
+                        slettArbeidsoppgave={slettArbeidsoppgave}
+                    />);
+                } else if (navigasjontoggles.steg === 2) {
+                    panel = (<Tiltak
+                        tiltak={tiltak}
+                        ledetekster={ledetekster}
+                        oppfolgingsdialog={oppfolgingsdialog}
+                        lagreTiltak={lagreTiltak}
+                        slettTiltak={slettTiltak}
+                        lagreKommentar={lagreKommentar}
+                        slettKommentar={slettKommentar}
+                    />);
+                } else if (!harNaermesteLeder(oppfolgingsdialog)) {
+                    panel = (<IngenlederInfoboks />);
+                } else {
+                    panel = (<Godkjenn
+                        ledetekster={ledetekster}
+                        oppfolgingsdialog={oppfolgingsdialog}
+                        settAktivtSteg={settAktivtSteg}
+                        godkjennPlan={godkjennDialog}
+                        brukerType={BRUKERTYPE.ARBEIDSTAKER}
+                        rootUrl={`${getContextRoot()}`}
+                    />);
+                }
+            })();
         }
 
-        return (
-            <div className="oppfolgingsdialog">
+        return (<div className="oppfolgingsdialog">
             { oppfolgingsdialogAvbrutt &&
             <AvbruttGodkjentPlanVarsel
-        tekst={getLedetekst('oppfolgingdialog.avbruttGodkjentPlanVarsel.opprettet-plan')}
-        rootUrl={`${getContextRoot()}`}
-        />
-    }
-    <SideOverskrift
-        tittel={oppfolgingsdialog.virksomhet.navn}
-        />
-        { !disableNavigation && <NavigasjonsTopp
-            ledetekster={ledetekster}
-            disabled={disableNavigation}
-            navn={oppfolgingsdialog.virksomhet.navn}
-            settAktivtSteg={settAktivtSteg}
-            steg={navigasjontoggles.steg}
+                tekst={getLedetekst('oppfolgingdialog.avbruttGodkjentPlanVarsel.opprettet-plan')}
+                rootUrl={`${getContextRoot()}`}
             />
-        }
-    <div id="oppfolgingsdialogpanel">
-            { panel }
+            }
+            <SideOverskrift
+                tittel={oppfolgingsdialog.virksomhet.navn}
+            />
+            { !disableNavigation && <NavigasjonsTopp
+                ledetekster={ledetekster}
+                disabled={disableNavigation}
+                navn={oppfolgingsdialog.virksomhet.navn}
+                settAktivtSteg={settAktivtSteg}
+                steg={navigasjontoggles.steg}
+            />
+            }
+            <div id="oppfolgingsdialogpanel">
+                { panel }
             </div>
             <NavigasjonsBunn
-        ledetekster={ledetekster}
-        disabled={disableNavigation}
-        settAktivtSteg={settAktivtSteg}
-        steg={navigasjontoggles.steg}
-        rootUrlPlaner={getContextRoot()}
-        />
-        </div>
-    );
+                ledetekster={ledetekster}
+                disabled={disableNavigation}
+                settAktivtSteg={settAktivtSteg}
+                steg={navigasjontoggles.steg}
+                rootUrlPlaner={getContextRoot()}
+            />
+        </div>);
     }
 }
 

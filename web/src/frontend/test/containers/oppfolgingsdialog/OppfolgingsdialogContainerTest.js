@@ -99,7 +99,7 @@ describe('OppfolgingsdialogContainer', () => {
             },
             sykeforlopsPerioder: {
                 data: [],
-            }
+            },
         };
 
         it('Skal returnere props', () => {

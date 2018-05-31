@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, keyValue, hentToggles, togglesPt } from 'digisyfo-npm';
+import {
+    getLedetekst,
+    keyValue,
+    hentToggles,
+    togglesPt,
+    sykeforlopsPerioderReducerPt,
+    hentSykeforlopsPerioder,
+} from 'digisyfo-npm';
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     lagreArbeidsoppgave,
@@ -37,7 +44,6 @@ import {
     erOppfolgingsdialogTidligere,
     erOppfolgingsdialogKnyttetTilGyldigSykmelding,
 } from 'oppfolgingsdialog-npm';
-import { sykeforlopsPerioderReducerPt, hentSykeforlopsPerioder } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import history from '../../history';
 import Side from '../../sider/Side';
@@ -117,31 +123,31 @@ export class OppfolgingsdialogSide extends Component {
             erOppfolgingsdialogTilgjengelig,
         } = this.props;
         return (<Side tittel={getLedetekst('oppfolgingsdialog.sidetittel')} brodsmuler={brodsmuler} laster={(henter || sender || !hentet) && !(sendingFeilet || hentingFeilet)}>
-        { (() => {
-            if (henter || sender) {
-            return <AppSpinner />;
-        } else if (hentingFeilet || sendingFeilet) {
-            return (<Feilmelding />);
-        } else if (!erOppfolgingsdialogTilgjengelig) {
-            return (<OppfolgingsdialogInfoboks
-            svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
-            svgAlt="ikkeTilgang"
-            tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-            />);
-        } else if (!tilgang.data.harTilgang) {
-            return (<OppfolgingsdialogInfoboks
-            svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
-            svgAlt="ikkeTilgang"
-            tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
-            tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
-            />);
-        }
-            return (
-                <Oppfolgingsdialog {...this.props} steg={navigasjontoggles.steg} />
-        );
-        })()
-        }
-    </Side>);
+            { (() => {
+                if (henter || sender) {
+                    return <AppSpinner />;
+                } else if (hentingFeilet || sendingFeilet) {
+                    return (<Feilmelding />);
+                } else if (!erOppfolgingsdialogTilgjengelig) {
+                    return (<OppfolgingsdialogInfoboks
+                        svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
+                        svgAlt="ikkeTilgang"
+                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                    />);
+                } else if (!tilgang.data.harTilgang) {
+                    return (<OppfolgingsdialogInfoboks
+                        svgUrl={`${getContextRoot()}/img/svg/oppfolgingsdialog-infoboks-ikkeTilgang.svg`}
+                        svgAlt="ikkeTilgang"
+                        tittel={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.tittel')}
+                        tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
+                    />);
+                }
+                return (
+                    <Oppfolgingsdialog {...this.props} steg={navigasjontoggles.steg} />
+                );
+            })()
+            }
+        </Side>);
     }
 }
 

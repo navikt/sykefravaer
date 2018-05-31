@@ -6,7 +6,17 @@ import { reducer as formReducer } from 'redux-form';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import { hentLedetekster, ledetekster, hentSykeforlopsPerioder, sykeforlopsPerioder, tidslinjer, toggles, setPerformOnHttpCalls, timeout, forlengInnloggetSesjon, sjekkInnloggingssesjon } from 'digisyfo-npm';
+import {
+    hentLedetekster,
+    ledetekster,
+    sykeforlopsPerioder,
+    tidslinjer,
+    toggles,
+    setPerformOnHttpCalls,
+    timeout,
+    forlengInnloggetSesjon,
+    sjekkInnloggingssesjon,
+} from 'digisyfo-npm';
 import { svar, mote } from 'moter-npm';
 import {
     oppfolgingsdialogerAt as oppfolgingsdialoger,
@@ -29,7 +39,6 @@ import {
     kontaktinfo,
     forrigenaermesteleder,
     naermesteleder,
-    hentNaermesteLeder,
     setPerformOnOppDialogHttpCalls,
 } from 'oppfolgingsdialog-npm';
 import AppRouter from './routers/AppRouter';
@@ -127,9 +136,8 @@ if (window.location.href.indexOf('visLedetekster=true') > -1) {
 }
 
 render(<Provider store={store}>
-        <AppRouter history={history} />
-    </Provider>,
-    document.getElementById('maincontent'));
+    <AppRouter history={history} />
+</Provider>, document.getElementById('maincontent'));
 
 export {
     store,

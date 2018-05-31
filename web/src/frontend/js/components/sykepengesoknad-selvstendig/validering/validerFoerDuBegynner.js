@@ -1,5 +1,5 @@
 import { hentSporsmalForDuBegynner } from '../../sykepengesoknad-selvstendig/FoerDuBegynner/FoerDuBegynner';
-import { validerSporsmal } from '../../sykepengesoknad-selvstendig/validering/valideringUtils';
+import validerSporsmal from '../../../utils/soknad-felles/validerSporsmal';
 
 const validate = (values, { soknad }) => {
     const sporsmal = hentSporsmalForDuBegynner(soknad);

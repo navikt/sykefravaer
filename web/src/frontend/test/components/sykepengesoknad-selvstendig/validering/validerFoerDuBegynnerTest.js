@@ -5,7 +5,7 @@ import { getSoknad } from '../../../mockSoknader';
 import { genererParseForCheckbox } from '../../../../js/components/soknad-felles/fieldUtils';
 import validerFoerDuBegynner from '../../../../js/components/sykepengesoknad-selvstendig/validering/validerFoerDuBegynner';
 import { ANSVARSERKLARING } from '../../../../js/enums/tagtyper';
-import { getLedetekstNokkelFraTag } from '../../../../js/components/sykepengesoknad-selvstendig/validering/valideringUtils';
+import { beregnFeilmeldingnokkelFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -16,7 +16,7 @@ describe('validerFoerDuBegynner', () => {
     beforeEach(() => {
         parse = genererParseForCheckbox('1');
         setLedetekster({
-            [getLedetekstNokkelFraTag(ANSVARSERKLARING)]: 'Du må bekrefte dette før du går videre',
+            [beregnFeilmeldingnokkelFraTag(ANSVARSERKLARING)]: 'Du må bekrefte dette før du går videre',
         });
     });
 

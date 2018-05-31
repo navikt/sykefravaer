@@ -5,7 +5,7 @@ import TekstfeltMedEnhet from '../skjema/TekstfeltMedEnhet';
 import Sporsmalstekst from './Sporsmalstekst';
 import { fjernIndexFraTag, formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { lagDesimaltall } from '../../utils';
-import { getLedetekstFraTag } from '../sykepengesoknad-selvstendig/validering/valideringUtils';
+import { beregnFeilmeldingstekstFraTag } from '../../utils/soknad-felles/validerSporsmal';
 import { svar as svarPt } from '../../propTypes';
 
 export const genererValiderTall = (min, max, blankfeilmelding = 'Vennligst fyll ut dette feltet') => {
@@ -25,7 +25,7 @@ export const genererValiderTall = (min, max, blankfeilmelding = 'Vennligst fyll 
 const Tall = ({ sporsmalstekst, name, id, label, svar }) => {
     const parse = genererParseForEnkeltverdi(id);
     const tag = fjernIndexFraTag(name);
-    const valider = genererValiderTall(svar.min, svar.max, getLedetekstFraTag(tag));
+    const valider = genererValiderTall(svar.min, svar.max, beregnFeilmeldingstekstFraTag(tag));
     return (<div>
         <Sporsmalstekst Tag="label" tekst={sporsmalstekst} htmlFor={name} />
         <Field

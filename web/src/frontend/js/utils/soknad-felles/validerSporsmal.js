@@ -1,16 +1,7 @@
 import { getLedetekst } from 'digisyfo-npm';
-import { formaterEnkeltverdi } from '../../soknad-felles/fieldUtils';
-import { CHECKED } from '../../../enums/svarEnums';
-import { CHECKBOX_GRUPPE, PERIODER } from '../../../enums/svartyper';
-
-export const getLedetekstNokkelFraTag = (tag) => {
-    return `soknad.feilmelding.${tag.toLowerCase()}`;
-};
-
-export const getLedetekstFraTag = (tag, ledetekster) => {
-    const nokkel = getLedetekstNokkelFraTag(tag);
-    return ledetekster ? getLedetekst(nokkel, ledetekster) : getLedetekst(nokkel);
-};
+import { formaterEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
+import { CHECKED } from '../../enums/svarEnums';
+import { CHECKBOX_GRUPPE, PERIODER } from '../../enums/svartyper';
 
 const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
     return sporsmalsliste
@@ -24,7 +15,16 @@ const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
         });
 };
 
-export const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldingerParam = {}) => {
+export const beregnFeilmeldingnokkelFraTag = (tag) => {
+    return `soknad.feilmelding.${tag.toLowerCase()}`;
+};
+
+export const beregnFeilmeldingstekstFraTag = (tag) => {
+    const nokkel = beregnFeilmeldingnokkelFraTag(tag);
+    return getLedetekst(nokkel);
+};
+
+const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldingerParam = {}) => {
     let feilmeldinger = { ...feilmeldingerParam };
     const sporsmalMedStilteUndersporsmal = hentSporsmalMedStilteUndersporsmal(sporsmalsliste, values);
 
@@ -45,7 +45,7 @@ export const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, fei
 
                         if (avkryssedeCheckboxer.length === 0) {
                             feilmeldinger[undersporsmal.tag] = {
-                                _error: getLedetekstFraTag(undersporsmal.tag),
+                                _error: beregnFeilmeldingstekstFraTag(undersporsmal.tag),
                             };
                         } else {
                             feilmeldinger = validerUndersporsmalsliste(undersporsmal.svar.undersporsmal, values, feilmeldinger);
@@ -60,7 +60,7 @@ export const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, fei
                         const verdi = formaterEnkeltverdi(values[undersporsmal.tag]);
                         const verdiErTom = (verdi || verdi === '') && verdi.trim && verdi.trim() === '';
                         if (verdiErTom) {
-                            feilmeldinger[undersporsmal.tag] = getLedetekstFraTag(undersporsmal.tag);
+                            feilmeldinger[undersporsmal.tag] = beregnFeilmeldingstekstFraTag(undersporsmal.tag);
                         }
                         break;
                     }
@@ -71,7 +71,7 @@ export const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, fei
     return feilmeldinger;
 };
 
-export const validerSporsmal = (sporsmal, values) => {
+export default (sporsmal, values) => {
     const feilmeldinger = {};
     sporsmal
         .filter((s) => {
@@ -79,7 +79,7 @@ export const validerSporsmal = (sporsmal, values) => {
                 formaterEnkeltverdi(values[s.tag]) === false;
         })
         .forEach((s) => {
-            feilmeldinger[s.tag] = getLedetekstFraTag(s.tag);
+            feilmeldinger[s.tag] = beregnFeilmeldingstekstFraTag(s.tag);
         });
     return validerUndersporsmalsliste(sporsmal, values, feilmeldinger);
 };

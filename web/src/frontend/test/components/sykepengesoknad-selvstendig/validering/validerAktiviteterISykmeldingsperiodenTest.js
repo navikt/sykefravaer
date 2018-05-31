@@ -11,7 +11,7 @@ import {
 } from '../../../../js/enums/tagtyper';
 import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles/fieldUtils';
 import { NEI, JA } from '../../../../js/enums/svarEnums';
-import { getLedetekstNokkelFraTag } from '../../../../js/components/sykepengesoknad-selvstendig/validering/valideringUtils';
+import { beregnFeilmeldingnokkelFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
 import { PERIODER } from '../../../../js/enums/svartyper';
 
 chai.use(chaiEnzyme());
@@ -24,9 +24,9 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
     beforeEach(() => {
         parse = genererParseForEnkeltverdi('1');
         setLedetekster({
-            [getLedetekstNokkelFraTag(ANDRE_INNTEKTSKILDER)]: 'Vennligst svar på om du har andre inntektskilder',
-            [getLedetekstNokkelFraTag(HVILKE_ANDRE_INNTEKTSKILDER)]: 'Vennligst oppgi hvilke andre inntektskilder du har',
-            [getLedetekstNokkelFraTag(INNTEKTSKILDE_ANNET_ER_DU_SYKMELDT)]: 'Vennligst svar på om du er sykmeldt fra dette',
+            [beregnFeilmeldingnokkelFraTag(ANDRE_INNTEKTSKILDER)]: 'Vennligst svar på om du har andre inntektskilder',
+            [beregnFeilmeldingnokkelFraTag(HVILKE_ANDRE_INNTEKTSKILDER)]: 'Vennligst oppgi hvilke andre inntektskilder du har',
+            [beregnFeilmeldingnokkelFraTag(INNTEKTSKILDE_ANNET_ER_DU_SYKMELDT)]: 'Vennligst svar på om du er sykmeldt fra dette',
         });
     });
 

@@ -5,7 +5,7 @@ import validerFravaerOgFriskmelding from '../../../../js/components/sykepengesok
 import { ANSVARSERKLARING, TILBAKE_I_ARBEID, JOBBET_DU_GRADERT, JOBBET_DU_100_PROSENT, TILBAKE_NAR } from '../../../../js/enums/tagtyper';
 import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles/fieldUtils';
 import { NEI, JA } from '../../../../js/enums/svarEnums';
-import { getLedetekstNokkelFraTag } from '../../../../js/components/sykepengesoknad-selvstendig/validering/valideringUtils';
+import { beregnFeilmeldingnokkelFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
 
 const expect = chai.expect;
 
@@ -14,10 +14,10 @@ describe('validerFravaerOgFriskmelding', () => {
 
     beforeEach(() => {
         setLedetekster({
-            [getLedetekstNokkelFraTag(TILBAKE_I_ARBEID)]: 'Vennligst svar på om du var tilbake i arbeid før sykmeldingsperioden utløp',
-            [getLedetekstNokkelFraTag(TILBAKE_NAR)]: 'Vennligst oppgi når du var tilbake i fullt arbeid',
-            [getLedetekstNokkelFraTag(JOBBET_DU_GRADERT)]: 'Vennligst svar på om du jobbet mer enn sykmeldingen tilsier',
-            [getLedetekstNokkelFraTag(JOBBET_DU_100_PROSENT)]: 'Vennligst svar på om du jobbet mer enn sykmeldingen tilsier',
+            [beregnFeilmeldingnokkelFraTag(TILBAKE_I_ARBEID)]: 'Vennligst svar på om du var tilbake i arbeid før sykmeldingsperioden utløp',
+            [beregnFeilmeldingnokkelFraTag(TILBAKE_NAR)]: 'Vennligst oppgi når du var tilbake i fullt arbeid',
+            [beregnFeilmeldingnokkelFraTag(JOBBET_DU_GRADERT)]: 'Vennligst svar på om du jobbet mer enn sykmeldingen tilsier',
+            [beregnFeilmeldingnokkelFraTag(JOBBET_DU_100_PROSENT)]: 'Vennligst svar på om du jobbet mer enn sykmeldingen tilsier',
         });
         const parseCheckbox = genererParseForCheckbox('1');
         const ansvarserklaeringVerdi = parseCheckbox(true);

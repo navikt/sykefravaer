@@ -1,13 +1,13 @@
 import { UNCHECKED, CHECKED } from '../../enums/svarEnums';
 
-export const genererParseForEnkeltverdi = (sporsmalsid, svarverditype = null) => {
+export const genererParseForEnkeltverdi = (sporsmalsid, svarverdiType = null) => {
     return (verdi) => {
         return verdi || verdi === ''
             ? {
                 sporsmalsid,
                 svarverdier: [{
                     verdi,
-                    svarverditype,
+                    svarverdiType,
                 }],
             }
             : undefined;

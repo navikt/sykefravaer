@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { naermesteLeder } from 'digisyfo-npm';
 import * as hendelsetyper from '../enums/hendelsetyper';
+import * as svartyper from '../enums/svartyper';
+import { FOM, TOM } from '../enums/svarverdityper';
 
 export { arbeidssituasjon,
     soknadperiode,
@@ -94,13 +96,47 @@ export const ledereReducerPt = PropTypes.shape({
     avkreftFeilet: PropTypes.bool,
 });
 
-export const svar = PropTypes.shape({});
+export const svartypePt = PropTypes.oneOf(Object.values(svartyper));
 
-export const sporsmal = PropTypes.shape({});
+export const svar = PropTypes.shape({
+    svartype: svartypePt,
+    svarverdi: PropTypes.arrayOf(PropTypes.shape({
+        verdi: PropTypes.string,
+        svarverdiType: PropTypes.oneOf(FOM, TOM, null),
+    })),
+    min: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number]),
+    max: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number]),
+    kriterieForVisningAvUndersporsmal: PropTypes.string,
+    undersporsmal: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        tag: PropTypes.string,
+        sporsmalstekst: PropTypes.string,
+        svar,
+    })),
+});
+
+export const sporsmal = PropTypes.shape({
+    id: PropTypes.string,
+    tag: PropTypes.string,
+    sporsmalstekst: PropTypes.string,
+    svar,
+});
+
+export const skjemasvar = PropTypes.shape({});
 
 export const soknad = PropTypes.shape({
-    uuid: PropTypes.string,
+    id: PropTypes.string,
+    sykmeldingId: PropTypes.string,
     soknadstype: PropTypes.string,
     status: PropTypes.string,
+    fom: PropTypes.instanceOf(Date),
+    tom: PropTypes.instanceOf(Date),
+    opprettetDato: PropTypes.instanceOf(Date),
     sporsmal: PropTypes.arrayOf(sporsmal),
 });
+
+export const oppsummeringSporsmal = {
+    svar,
+    sporsmalstekst: PropTypes.string,
+    tag: PropTypes.string,
+};

@@ -20,7 +20,7 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: 'JA',
-                    svarverditype: null,
+                    svarverdiType: null,
                 }],
             });
         });
@@ -31,7 +31,7 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: 'NEI',
-                    svarverditype: null,
+                    svarverdiType: null,
                 }],
             });
         });
@@ -47,7 +47,7 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '',
-                    svarverditype: null,
+                    svarverdiType: null,
                 }],
             });
         });
@@ -58,7 +58,7 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '22.02.2018',
-                    svarverditype: null,
+                    svarverdiType: null,
                 }],
             });
         });
@@ -70,7 +70,7 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '40',
-                    svarverditype: FOM,
+                    svarverdiType: FOM,
                 }],
             });
         });
@@ -82,7 +82,7 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '40',
-                    svarverditype: TOM,
+                    svarverdiType: TOM,
                 }],
             });
         });
@@ -94,7 +94,7 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '',
-                    svarverditype: TOM,
+                    svarverdiType: TOM,
                 }],
             });
         });
@@ -114,7 +114,7 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: CHECKED,
-                    svarverditype: null,
+                    svarverdiType: null,
                 }],
             });
         });
@@ -126,7 +126,7 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: UNCHECKED,
-                    svarverditype: null,
+                    svarverdiType: null,
                 }],
             });
         });

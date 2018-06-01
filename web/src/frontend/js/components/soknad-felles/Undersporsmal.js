@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getLedetekst } from 'digisyfo-npm';
 import { sporsmal as sporsmalPt } from '../../propTypes';
 import { CHECKBOX, DATO, PROSENT, TIMER, PERIODER, JA_NEI, CHECKBOX_GRUPPE } from '../../enums/svartyper';
 import Tall from './Tall';
@@ -26,12 +27,12 @@ const Undersporsmal = ({ sporsmal }) => {
         }
         case TIMER: {
             return (<Wrap>
-                <Tall {...sporsmal} name={sporsmal.tag} label="timer totalt" />
+                <Tall {...sporsmal} name={sporsmal.tag} label={getLedetekst('soknad.timer-totalt')} />
             </Wrap>);
         }
         case PROSENT: {
             return (<Wrap>
-                <Tall {...sporsmal} name={sporsmal.tag} label="prosent" />
+                <Tall {...sporsmal} name={sporsmal.tag} label={getLedetekst('soknad.prosent')} />
             </Wrap>);
         }
         case CHECKBOX: {

@@ -11,7 +11,7 @@ export function* hentSoknader() {
     yield put(actions.henterSoknader());
     try {
         const data = yield call(get, '/syfosoknad/soknader');
-        yield put(actions.soknaderHentet(data));
+        yield put(actions.soknaderHentet(mockSoknader));
     } catch (e) {
         log(e);
         yield put(actions.soknaderHentet(mockSoknader));

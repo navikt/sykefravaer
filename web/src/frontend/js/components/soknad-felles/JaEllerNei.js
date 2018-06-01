@@ -17,7 +17,7 @@ export const JaEllerNeiRadioknapper = (props) => {
                 .map((alternativ, index) => {
                     return (<input
                         value={alternativ}
-                        label={getLedetekst(`sykepengesoknad.${alternativ.toLowerCase()}`)}
+                        label={getLedetekst(`soknad.${alternativ.toLowerCase()}`)}
                         key={index} />);
                 })
         }

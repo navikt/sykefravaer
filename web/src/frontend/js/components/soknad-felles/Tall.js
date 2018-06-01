@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field } from 'redux-form';
 import PropTypes from 'prop-types';
+import { getLedetekst } from 'digisyfo-npm';
 import TekstfeltMedEnhet from '../skjema/TekstfeltMedEnhet';
 import Sporsmalstekst from './Sporsmalstekst';
 import { fjernIndexFraTag, formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
@@ -13,7 +14,10 @@ export const genererValiderTall = (min, max, blankfeilmelding = 'Vennligst fyll 
         const formatertVerdi = formaterEnkeltverdi(verdi);
         const parsetVerdi = parseInt(formatertVerdi, 10);
         if (parsetVerdi > max || parsetVerdi < min) {
-            return `Vennligst fyll ut et tall mellom ${min} og ${max}`;
+            return getLedetekst('soknad.feilmelding.tall-min-max', {
+                '%MIN%': min,
+                '%MAX%': max,
+            });
         }
         if (!parsetVerdi || isNaN(parsetVerdi)) {
             return blankfeilmelding;

@@ -15,6 +15,7 @@ import SykepengesoknadKvitteringContainer from '../sykepengesoknad-arbeidstaker/
 import FoerDuBegynnerSelvstendigContainer from '../sykepengersoknad-selvstendig/FoerDuBegynnerContainer';
 import FravaerOgFriskmeldingSelvstendigContainer from '../sykepengersoknad-selvstendig/FravaerOgFriskmeldingContainer';
 import AktiviteterISykmeldingsperiodenSelvstendigContainer from '../sykepengersoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
+import OppsummeringSelvstendigContainer from '../sykepengersoknad-selvstendig/OppsummeringContainer';
 import Side from '../../sider/Side';
 import { beregnHarBrukerNavigertTilAnnenSoknad, SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
 import AppSpinner from '../../components/AppSpinner';
@@ -81,6 +82,9 @@ const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
         }
         case AKTIVITETER_I_SYKMELDINGSPERIODEN: {
             return <AktiviteterISykmeldingsperiodenSelvstendigContainer {...props} />;
+        }
+        case OPPSUMMERING: {
+            return <OppsummeringSelvstendigContainer {...props} />;
         }
         default: {
             return <Feilmelding />;
@@ -198,7 +202,7 @@ export const mapStateToProps = (state, ownProps) => {
     const henter = state.soknader.henter || state.sykepengesoknader.henter || state.ledetekster.henter || (skalHenteSykmeldinger);
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
     const brukerHarNavigertTilAnnenSoknad = beregnHarBrukerNavigertTilAnnenSoknad(state, soknadId);
-    
+
     return {
         soknadId,
         skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,

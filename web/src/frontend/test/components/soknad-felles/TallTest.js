@@ -1,5 +1,6 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
+import { setLedetekster } from 'digisyfo-npm';
 import { genererValiderTall } from '../../../js/components/soknad-felles/Tall';
 import { genererParseForEnkeltverdi } from '../../../js/components/soknad-felles/fieldUtils';
 
@@ -13,6 +14,9 @@ describe('Tall', () => {
     beforeEach(() => {
         parse = genererParseForEnkeltverdi('1');
         valider = genererValiderTall(1, 20, 'Husk å fylle ut dette');
+        setLedetekster({
+            'soknad.feilmelding.tall-min-max': 'Vennligst fyll ut et tall mellom %MIN% og %MAX%',
+        });
     });
 
     describe('validerTall', () => {

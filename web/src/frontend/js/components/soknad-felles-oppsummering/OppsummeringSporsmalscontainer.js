@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { childEllerChildren } from '../../propTypes';
 
 const OppsummeringSporsmalscontainer = ({ tag, children }) => {
     return (<div className="oppsummering__sporsmalscontainer" id={`js-${tag.toLowerCase()}`}>
@@ -10,7 +9,7 @@ const OppsummeringSporsmalscontainer = ({ tag, children }) => {
 
 OppsummeringSporsmalscontainer.propTypes = {
     tag: PropTypes.string,
-    children: childEllerChildren,
+    children: PropTypes.node,
 };
 
 export default OppsummeringSporsmalscontainer;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { getLedetekst } from 'digisyfo-npm';
-import { JA, NEI } from '../../enums/svarEnums';
 import OppsummeringSporsmalscontainer from './OppsummeringSporsmalscontainer';
 import OppsummeringSporsmalstekst from './OppsummeringSporsmalstekst';
 import OppsummeringAvkrysset from './OppsummeringAvkrysset';
@@ -8,15 +7,7 @@ import OppsummeringUndersporsmal from './OppsummeringUndersporsmal';
 import { oppsummeringSporsmal } from '../../propTypes';
 
 const getLedetekstFraSvar = (svar) => {
-    switch (svar) {
-        case JA:
-        case NEI: {
-            return getLedetekst(`soknad.${svar.toLowerCase()}`);
-        }
-        default: {
-            return null;
-        }
-    }
+    return getLedetekst(`soknad.${svar.toLowerCase()}`);
 };
 
 const erUndersporsmalStilt = (svar) => {

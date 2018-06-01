@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { childEllerChildren } from '../../propTypes';
 
 const OppsummeringSporsmalstekst = ({ overskriftsnivaa = 3, children }) => {
     const Overskriftstag = `h${overskriftsnivaa}`;
@@ -9,7 +8,7 @@ const OppsummeringSporsmalstekst = ({ overskriftsnivaa = 3, children }) => {
 
 OppsummeringSporsmalstekst.propTypes = {
     overskriftsnivaa: PropTypes.number,
-    children: childEllerChildren,
+    children: PropTypes.string,
 };
 
 export default OppsummeringSporsmalstekst;

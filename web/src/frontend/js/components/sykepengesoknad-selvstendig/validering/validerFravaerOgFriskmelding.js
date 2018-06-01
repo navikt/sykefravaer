@@ -1,6 +1,5 @@
 import { hentSporsmalForFravaerOgFriskmelding } from '../FravaerOgFriskmelding/FravaerOgFriskmelding';
-import validerSporsmal from '../../../utils/soknad-felles/validerSporsmal';
-import { beregnFeilmeldingstekstFraTag } from '../../../utils/soknad-felles/validerSporsmal';
+import validerSporsmal, { beregnFeilmeldingstekstFraTag } from '../../../utils/soknad-felles/validerSporsmal';
 import { fjernIndexFraTag } from '../../soknad-felles/fieldUtils';
 
 export default (values, props) => {

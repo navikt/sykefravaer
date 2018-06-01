@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-    BekreftetKorrektInformasjon,
-    scrollTo,
-    SoknadOppsummering,
-    sykepengesoknadstatuser,
-    SykmeldingUtdrag,
-    Utvidbar,
-    VaerKlarOverAt,
-} from 'digisyfo-npm';
+import { BekreftetKorrektInformasjon, scrollTo, SoknadOppsummering, sykepengesoknadstatuser, SykmeldingUtdrag, Utvidbar, VaerKlarOverAt } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import Soknadstatuspanel from './Soknadstatuspanel';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
@@ -20,17 +12,6 @@ import SykepengesoknadHeader from './SykepengesoknadHeader';
 import { Vis } from '../../utils';
 
 const { KORRIGERT, SENDT, TIL_SENDING } = sykepengesoknadstatuser;
-
-export const Avkrysset = ({ tekst }) => {
-    return (<div className="oppsummering__avkrysset">
-        <img src={`${window.APP_SETTINGS.APP_ROOT}/img/png/check-box-1.png`} alt="Avkrysset" />
-        <span>{tekst}</span>
-    </div>);
-};
-
-Avkrysset.propTypes = {
-    tekst: PropTypes.string,
-};
 
 const getSistSendtDato = (s) => {
     if (s.sendtTilNAVDato && s.sendtTilArbeidsgiverDato) {

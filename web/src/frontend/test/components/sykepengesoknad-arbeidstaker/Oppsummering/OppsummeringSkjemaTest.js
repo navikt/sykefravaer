@@ -16,7 +16,7 @@ import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad-arb
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe('OppsummeringSkjema', () => {
+describe('Oppsummering', () => {
     describe('OppsummeringSide', () => {
         let component;
         let skjemasoknad;

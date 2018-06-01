@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { naermesteLeder } from 'digisyfo-npm';
 import * as hendelsetyper from '../enums/hendelsetyper';
+import * as svartyper from '../enums/svartyper';
 
 export { arbeidssituasjon,
     soknadperiode,
@@ -98,9 +99,19 @@ export const svar = PropTypes.shape({});
 
 export const sporsmal = PropTypes.shape({});
 
+export const skjemasvar = PropTypes.shape({});
+
 export const soknad = PropTypes.shape({
     uuid: PropTypes.string,
     soknadstype: PropTypes.string,
     status: PropTypes.string,
     sporsmal: PropTypes.arrayOf(sporsmal),
 });
+
+export const svartypePt = PropTypes.oneOf(Object.values(svartyper));
+
+export const oppsummeringSporsmal = {
+    svar,
+    sporsmalstekst: PropTypes.string,
+    tag: PropTypes.string,
+};

@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, keyValue, hentToggles, togglesPt } from 'digisyfo-npm';
+import {
+    getLedetekst,
+    keyValue,
+    hentToggles,
+    togglesPt,
+    sykeforlopsPerioderReducerPt,
+    hentSykeforlopsPerioder,
+} from 'digisyfo-npm';
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     lagreArbeidsoppgave,
@@ -166,6 +173,7 @@ OppfolgingsdialogSide.propTypes = {
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     ledetekster: keyValue,
     oppfolgingsdialog: oppfolgingProptypes.oppfolgingsdialogPt,
+    sykeforlopsPerioder: sykeforlopsPerioderReducerPt,
     toggles: togglesPt,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     erOppfolgingsdialogTilgjengelig: PropTypes.bool,
@@ -194,6 +202,7 @@ OppfolgingsdialogSide.propTypes = {
     hentKontaktinfo: PropTypes.func,
     hentForrigeNaermesteLeder: PropTypes.func,
     hentNaermesteLeder: PropTypes.func,
+    hentSykeforlopsPerioder: PropTypes.func,
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -242,6 +251,7 @@ export function mapStateToProps(state, ownProps) {
         naermesteleder: state.naermesteleder,
         navigasjontoggles: state.navigasjontoggles,
         oppfolgingsdialogerReducer: state.oppfolgingsdialoger,
+        sykeforlopsPerioderReducer: state.sykeforlopsPerioder,
         person: state.person,
         dineSykmeldinger: state.dineSykmeldinger,
         tilgang: state.tilgang,
@@ -289,6 +299,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     hentKontaktinfo,
     hentForrigeNaermesteLeder,
     hentNaermesteLeder,
+    hentSykeforlopsPerioder,
     delMedFastlege,
     delMedNavFunc,
 })(OppfolgingsdialogSide);

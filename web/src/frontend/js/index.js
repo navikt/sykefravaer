@@ -6,7 +6,17 @@ import { reducer as formReducer } from 'redux-form';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
-import { hentLedetekster, ledetekster, tidslinjer, toggles, setPerformOnHttpCalls, timeout, forlengInnloggetSesjon, sjekkInnloggingssesjon } from 'digisyfo-npm';
+import {
+    hentLedetekster,
+    ledetekster,
+    sykeforlopsPerioder,
+    tidslinjer,
+    toggles,
+    setPerformOnHttpCalls,
+    timeout,
+    forlengInnloggetSesjon,
+    sjekkInnloggingssesjon,
+} from 'digisyfo-npm';
 import { svar, mote } from 'moter-npm';
 import {
     oppfolgingsdialogerAt as oppfolgingsdialoger,
@@ -37,8 +47,8 @@ import sykepengesoknader from './reducers/sykepengesoknader';
 import arbeidsgiversSykmeldinger from './reducers/arbeidsgiversSykmeldinger';
 import brukerinfo from './reducers/brukerinfo';
 import arbeidsgivere from './reducers/arbeidsgivere';
-import ledere from './reducers/ledere';
 import { hentVedlikehold } from './actions/vedlikehold_actions';
+import ledere from './reducers/ledere';
 import history from './history';
 import rootSaga from './sagas';
 import vedlikehold from './reducers/vedlikehold';
@@ -89,6 +99,7 @@ const rootReducer = combineReducers({
     person,
     virksomhet,
     kontaktinfo,
+    sykeforlopsPerioder,
     forrigenaermesteleder,
     naermesteleder,
     timeout,
@@ -128,8 +139,7 @@ if (window.location.href.indexOf('visLedetekster=true') > -1) {
 
 render(<Provider store={store}>
     <AppRouter history={history} />
-</Provider>,
-document.getElementById('maincontent'));
+</Provider>, document.getElementById('maincontent'));
 
 export {
     store,

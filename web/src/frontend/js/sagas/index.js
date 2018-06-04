@@ -2,6 +2,7 @@ import {
     ledeteksterSagas,
     tidslinjerSagas,
     togglesSagas,
+    sykeforlopsPerioderSagas,
 } from 'digisyfo-npm';
 import {
     oppfolgingsdialogerAtSagas as oppfolgingsdialogerSagas,
@@ -80,6 +81,7 @@ export default function* rootSaga() {
         kontaktinfoSagas(),
         forrigeNaermesteLederSagas(),
         naermesteLederSagas(),
+        sykeforlopsPerioderSagas(),
         sykeforloepSagas(),
         sykmeldingMetaSagas(),
         soknaderSagas(),

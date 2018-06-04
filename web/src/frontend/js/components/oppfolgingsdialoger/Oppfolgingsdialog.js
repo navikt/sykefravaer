@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, keyValue, togglesPt } from 'digisyfo-npm';
+import { getLedetekst, keyValue, togglesPt, sykeforlopsPerioderReducerPt } from 'digisyfo-npm';
 import {
     SideOverskrift,
     NavigasjonsTopp,
@@ -16,6 +16,7 @@ import {
     finnOgHentNaermesteLedereSomMangler,
     finnOgHentForrigeNaermesteLedereSomMangler,
     finnOgHentArbeidsforholdSomMangler,
+    finnOgHentSykeforlopsPerioderSomMangler,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
 import {
@@ -30,6 +31,7 @@ import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
 import ReleasetPlanAT from './releasetplan/ReleasetPlanAT';
 import IngenlederInfoboks from './IngenlederInfoboks';
 import Tiltak from './utfylling/Tiltak';
+
 
 const skalViseSamtykke = (oppfolgingsdialog) => {
     return harNaermesteLeder(oppfolgingsdialog)
@@ -46,7 +48,7 @@ class Oppfolgingsdialog extends Component {
     componentWillMount() {
         const { oppfolgingsdialog, virksomhet, person, kontaktinfo, forrigenaermesteleder, naermesteleder,
             hentForrigeNaermesteLeder, hentVirksomhet, hentPerson, hentNaermesteLeder, hentKontaktinfo,
-            arbeidsforhold, hentArbeidsforhold } = this.props;
+            arbeidsforhold, hentArbeidsforhold, sykeforlopsPerioderReducer, hentSykeforlopsPerioder } = this.props;
         this.props.settDialog(oppfolgingsdialog.id);
         finnOgHentVirksomheterSomMangler([oppfolgingsdialog], virksomhet, hentVirksomhet);
         finnOgHentPersonerSomMangler([oppfolgingsdialog], person, hentPerson);
@@ -54,6 +56,7 @@ class Oppfolgingsdialog extends Component {
         finnOgHentNaermesteLedereSomMangler([oppfolgingsdialog], naermesteleder, hentNaermesteLeder);
         finnOgHentKontaktinfoSomMangler([oppfolgingsdialog], kontaktinfo, hentKontaktinfo);
         finnOgHentArbeidsforholdSomMangler([oppfolgingsdialog], arbeidsforhold, hentArbeidsforhold);
+        finnOgHentSykeforlopsPerioderSomMangler([oppfolgingsdialog], sykeforlopsPerioderReducer, hentSykeforlopsPerioder);
     }
 
     render() {
@@ -158,37 +161,35 @@ class Oppfolgingsdialog extends Component {
             })();
         }
 
-        return (
-            <div className="oppfolgingsdialog">
-                { oppfolgingsdialogAvbrutt &&
-                    <AvbruttGodkjentPlanVarsel
-                        tekst={getLedetekst('oppfolgingdialog.avbruttGodkjentPlanVarsel.opprettet-plan')}
-                        rootUrl={`${getContextRoot()}`}
-                    />
-                }
-                <SideOverskrift
-                    tittel={oppfolgingsdialog.virksomhet.navn}
-                />
-                { !disableNavigation && <NavigasjonsTopp
-                    ledetekster={ledetekster}
-                    disabled={disableNavigation}
-                    navn={oppfolgingsdialog.virksomhet.navn}
-                    settAktivtSteg={settAktivtSteg}
-                    steg={navigasjontoggles.steg}
-                />
-                }
-                <div id="oppfolgingsdialogpanel">
-                    { panel }
-                </div>
-                <NavigasjonsBunn
-                    ledetekster={ledetekster}
-                    disabled={disableNavigation}
-                    settAktivtSteg={settAktivtSteg}
-                    steg={navigasjontoggles.steg}
-                    rootUrlPlaner={getContextRoot()}
-                />
+        return (<div className="oppfolgingsdialog">
+            { oppfolgingsdialogAvbrutt &&
+            <AvbruttGodkjentPlanVarsel
+                tekst={getLedetekst('oppfolgingdialog.avbruttGodkjentPlanVarsel.opprettet-plan')}
+                rootUrl={`${getContextRoot()}`}
+            />
+            }
+            <SideOverskrift
+                tittel={oppfolgingsdialog.virksomhet.navn}
+            />
+            { !disableNavigation && <NavigasjonsTopp
+                ledetekster={ledetekster}
+                disabled={disableNavigation}
+                navn={oppfolgingsdialog.virksomhet.navn}
+                settAktivtSteg={settAktivtSteg}
+                steg={navigasjontoggles.steg}
+            />
+            }
+            <div id="oppfolgingsdialogpanel">
+                { panel }
             </div>
-        );
+            <NavigasjonsBunn
+                ledetekster={ledetekster}
+                disabled={disableNavigation}
+                settAktivtSteg={settAktivtSteg}
+                steg={navigasjontoggles.steg}
+                rootUrlPlaner={getContextRoot()}
+            />
+        </div>);
     }
 }
 
@@ -206,14 +207,15 @@ Oppfolgingsdialog.propTypes = {
     naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
     kontaktinfo: oppfolgingProptypes.kontaktinfoReducerPt,
     arbeidsforhold: oppfolgingProptypes.arbeidsforholdReducerPt,
+    sykeforlopsPerioderReducer: sykeforlopsPerioderReducerPt,
     fastlegeDeling: oppfolgingProptypes.delMedFastlegePt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
+    delmednav: oppfolgingProptypes.delmednavPt,
     toggles: togglesPt,
     lagreKommentar: PropTypes.func,
     slettKommentar: PropTypes.func,
     delMedFastlege: PropTypes.func,
     delMedNavFunc: PropTypes.func,
-    delmednav: oppfolgingProptypes.delmednavPt,
     godkjennDialog: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,
     hentPdfurler: PropTypes.func,
@@ -232,6 +234,7 @@ Oppfolgingsdialog.propTypes = {
     hentForrigeNaermesteLeder: PropTypes.func,
     hentNaermesteLeder: PropTypes.func,
     hentArbeidsforhold: PropTypes.func,
+    hentSykeforlopsPerioder: PropTypes.func,
 };
 
 export default Oppfolgingsdialog;

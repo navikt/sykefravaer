@@ -55,6 +55,12 @@ TekstOgKnapp.propTypes = {
     tekstnokkel: PropTypes.string,
 };
 
+const TekstOgLenke = ({ onClick, withRef, tekstnokkel }) => {
+    return (<p>{getLedetekst(tekstnokkel)} <button ref={withRef} onClick={onClick} type="button" className="lenke">Les mer om hva du kan gjøre.</button></p>);
+};
+
+TekstOgLenke.propTypes = TekstOgKnapp.propTypes;
+
 class Friskmelding extends Component {
     constructor(props) {
         super(props);
@@ -97,18 +103,16 @@ class Friskmelding extends Component {
 
     render() {
         return ([
-            <Experiment name="friskmeldingsknapp_bjorn" onChoice={this.startABTest}>
-                <Variant name="BJORN">
-                    <Bjorn key="friskmeldingsbjorn" rootUrl={getContextRoot()} className="landingspanel" hvit>
+            <Bjorn key="friskmeldingsbjorn" rootUrl={getContextRoot()} className="landingspanel" hvit>
+                <Experiment name="friskmeldingsknapp_lenke_eller_knapp" onChoice={this.startABTest}>
+                    <Variant name="FRISKMELDING_KNAPP">
                         <TekstOgKnapp onClick={this.visLightbox} withRef={this.withRef} tekstnokkel="friskmelding.bjorn" />
-                    </Bjorn>
-                </Variant>
-                <Variant name="IKKE_BJORN">
-                    <div className="panel landingspanel">
-                        <TekstOgKnapp onClick={this.visLightbox} withRef={this.withRef} tekstnokkel="friskmelding.introtekst" />
-                    </div>
-                </Variant>
-            </Experiment>,
+                    </Variant>
+                    <Variant name="FRISKMELDING_LENKE">
+                        <TekstOgLenke onClick={this.visLightbox} withRef={this.withRef} tekstnokkel="friskmelding.bjorn" />
+                    </Variant>
+                </Experiment>
+            </Bjorn>,
             <Vis key="friskmeldingslightbox" hvis={this.state.visLightbox}>
                 <Friskmeldingslightbox lukk={this.lukkLightbox} />
             </Vis>,

@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Feilmelding from '../../components/Feilmelding';
 import { SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
+import * as soknadActions from '../../actions/sykepengesoknader_actions';
 
 const GenerellArbeidstakersoknadContainer = (props) => {
     const { Component, sykepengesoknad, hentingFeilet } = props;
@@ -34,6 +36,12 @@ const dekorerSkjemasoknad = (skjemasoknad, sykepengesoknad) => {
     return skjemasoknad;
 };
 
+export function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(soknadActions, dispatch),
+    };
+}
+
 export const mapStateToProps = (state, ownProps) => {
     const sykepengesoknad = state.sykepengesoknader.data.filter((soknad) => {
         return soknad.id === ownProps.params.sykepengesoknadId;
@@ -49,6 +57,6 @@ export const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const Container = connect(mapStateToProps)(GenerellArbeidstakersoknadContainer);
+const Container = connect(mapStateToProps, mapDispatchToProps)(GenerellArbeidstakersoknadContainer);
 
 export default Container;

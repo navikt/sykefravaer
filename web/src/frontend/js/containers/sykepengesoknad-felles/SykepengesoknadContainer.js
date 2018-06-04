@@ -19,6 +19,7 @@ import OppsummeringSelvstendigContainer from '../sykepengersoknad-selvstendig/Op
 import Side from '../../sider/Side';
 import { beregnHarBrukerNavigertTilAnnenSoknad, SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
 import AppSpinner from '../../components/AppSpinner';
+import { toggleSelvstendigSoknad } from '../../toggles';
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';
@@ -206,7 +207,7 @@ export const mapStateToProps = (state, ownProps) => {
     return {
         soknadId,
         skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,
-        skalHenteSoknader: !state.soknader.hentet && !state.soknader.henter,
+        skalHenteSoknader: toggleSelvstendigSoknad() && !state.soknader.hentet && !state.soknader.henter,
         skalHenteSykmeldinger,
         erSelvstendigNaeringsdrivendeSoknad,
         erArbeidstakersoknad,

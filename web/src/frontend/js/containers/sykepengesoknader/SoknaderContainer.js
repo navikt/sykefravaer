@@ -11,6 +11,7 @@ import Feilmelding from '../../components/Feilmelding';
 import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt, soknad as soknadPt } from '../../propTypes';
 import { hentSykepengesoknader } from '../../actions/sykepengesoknader_actions';
 import { hentSoknader } from '../../actions/soknader_actions';
+import { toggleSelvstendigSoknad } from '../../toggles';
 
 export class SoknaderSide extends Component {
     componentWillMount() {
@@ -72,7 +73,7 @@ export function mapStateToProps(state) {
         sykepengesoknader,
         soknader,
         skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,
-        skalHenteSoknader: !state.soknader.hentet && !state.soknader.henter,
+        skalHenteSoknader: toggleSelvstendigSoknad() && !state.soknader.hentet && !state.soknader.henter,
         henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.soknader.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.soknader.hentingFeilet,
         brodsmuler: [{

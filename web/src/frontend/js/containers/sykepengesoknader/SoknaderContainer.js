@@ -8,21 +8,26 @@ import Soknader from '../../components/sykepengesoknader/Soknader';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt } from '../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt, soknad as soknadPt } from '../../propTypes';
 import { hentSykepengesoknader } from '../../actions/sykepengesoknader_actions';
+import { hentSoknader } from '../../actions/soknader_actions';
+import { toggleSelvstendigSoknad } from '../../toggles';
 
 export class SoknaderSide extends Component {
     componentWillMount() {
-        if (!this.props.soknaderHentet) {
+        if (this.props.skalHenteSykepengesoknader) {
             this.props.actions.hentSykepengesoknader();
+        }
+        if (this.props.skalHenteSoknader) {
+            this.props.actions.hentSoknader();
         }
     }
 
     render() {
-        const { brodsmuler, henter, hentingFeilet, sykepengesoknader, soknaderHentet } = this.props;
+        const { brodsmuler, henter, hentingFeilet, sykepengesoknader, skalHenteSykepengesoknader, skalHenteSoknader, soknader } = this.props;
 
         return (
-            <Side tittel={getLedetekst('soknader.sidetittel')} brodsmuler={brodsmuler} laster={henter || !soknaderHentet}>
+            <Side tittel={getLedetekst('soknader.sidetittel')} brodsmuler={brodsmuler} laster={henter || skalHenteSoknader || skalHenteSykepengesoknader}>
                 {
                     (() => {
                         if (henter) {
@@ -31,7 +36,7 @@ export class SoknaderSide extends Component {
                         if (hentingFeilet) {
                             return <Feilmelding />;
                         }
-                        return (<Soknader soknader={sykepengesoknader} />);
+                        return (<Soknader sykepengesoknader={sykepengesoknader} soknader={soknader} />);
                     })()
                 }
             </Side>
@@ -44,27 +49,33 @@ SoknaderSide.propTypes = {
     henter: PropTypes.bool,
     hentingFeilet: PropTypes.bool,
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    soknader: PropTypes.arrayOf(soknadPt),
     actions: PropTypes.shape({
         destroy: PropTypes.func,
         hentSykepengesoknader: PropTypes.func,
+        hentSoknader: PropTypes.func,
     }),
-    soknaderHentet: PropTypes.bool,
+    skalHenteSykepengesoknader: PropTypes.bool,
+    skalHenteSoknader: PropTypes.bool,
 };
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ destroy, hentSykepengesoknader }, dispatch),
+        actions: bindActionCreators({ destroy, hentSykepengesoknader, hentSoknader }, dispatch),
     };
 }
 
 export function mapStateToProps(state) {
     const sykepengesoknader = state.sykepengesoknader.data;
+    const soknader = state.soknader.data;
 
     return {
         sykepengesoknader,
-        soknaderHentet: state.sykepengesoknader.hentet === true,
-        henter: state.ledetekster.henter || state.sykepengesoknader.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet,
+        soknader,
+        skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,
+        skalHenteSoknader: toggleSelvstendigSoknad() && !state.soknader.hentet && !state.soknader.henter,
+        henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.soknader.henter,
+        hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.soknader.hentingFeilet,
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

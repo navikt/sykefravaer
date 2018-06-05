@@ -104,7 +104,8 @@ const PeriodevelgerField = ({ name, spoersmal, tidligsteFom, senesteTom, Overskr
         namePrefix={name}
         spoersmal={spoersmal}
         tidligsteFom={tidligsteFom}
-        senesteTom={senesteTom} />);
+        senesteTom={senesteTom}
+    />);
 };
 
 PeriodevelgerField.propTypes = {

@@ -1,4 +1,4 @@
-.sykepengerskjema:focus {
+.soknadskjema:focus {
     outline: none;
 }
 
@@ -126,10 +126,18 @@
     }
 }
 
-.sykepenger__stegtittel {
+.soknad__stegtittel {
     .mixin-typo-innholdstittel();
     margin-top: 0;
     margin-bottom: 1em;
+}
+
+.soknad__undersporsmal {
+    margin-bottom: 2em;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
 .sykepenger__tidligSoknad {

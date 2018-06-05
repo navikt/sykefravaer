@@ -3,7 +3,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { getSoknad } from '../../mockSoknader';
+import { getSoknad } from '../../mockSykepengesoknader';
 import { Container, mapStateToProps } from '../../../js/containers/sykmelding/SykepengesoknadstatusContainer';
 import { FlereSoknader,
     UtgaattSoknadBekreftelse,

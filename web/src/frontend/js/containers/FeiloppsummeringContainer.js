@@ -89,6 +89,6 @@ export const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const ConnectedFeiloppsummering = connect(mapStateToProps, actions)(Feiloppsummering);
+const FeiloppsummeringContainer = connect(mapStateToProps, actions)(Feiloppsummering);
 
-export default ConnectedFeiloppsummering;
+export default FeiloppsummeringContainer;

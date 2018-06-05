@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SoknadTeaser from './SoknadTeaser';
-import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import SykepengesoknadTeaser from './SykepengesoknadTeaser';
+import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
 
-const SoknaderTeasere = ({ soknader, className, tittel = '', tomListeTekst, id, Child = SoknadTeaser }) => {
+const SoknaderTeasere = ({ soknader, className, tittel = '', tomListeTekst, id, Child = SykepengesoknadTeaser }) => {
     return (<div className="blokk--l">
         <header className="inngangspanelerHeader">
             <h2 className="inngangspanelerHeader__tittel">{tittel}</h2>
@@ -20,7 +20,7 @@ const SoknaderTeasere = ({ soknader, className, tittel = '', tomListeTekst, id, 
 };
 
 SoknaderTeasere.propTypes = {
-    soknader: PropTypes.arrayOf(sykepengesoknadPt),
+    soknader: PropTypes.arrayOf(PropTypes.oneOfType([sykepengesoknadPt, soknadPt])),
     className: PropTypes.string,
     tittel: PropTypes.string,
     tomListeTekst: PropTypes.string,

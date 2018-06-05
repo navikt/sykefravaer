@@ -23,7 +23,7 @@ var config = function (opts) {
         resolve: {
             alias: {
                 react: path.join(__dirname, 'node_modules', 'react')
-            }
+            },
         },
         module: {
             rules: [

@@ -1,11 +1,4 @@
-import {
-    erGyldigDatoformat,
-    fraInputdatoTilJSDato,
-    periodeOverlapperMedPeriode,
-    senesteTom,
-    tidligsteFom,
-    tilDatePeriode,
-} from 'digisyfo-npm';
+import { erGyldigDatoformat, fraInputdatoTilJSDato, periodeOverlapperMedPeriode, senesteTom, tidligsteFom, tilDatePeriode } from 'digisyfo-npm';
 
 export const getTidligsteSendtDato = (soknad) => {
     if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {
@@ -154,4 +147,16 @@ export const finnFomForFeriesporsmal = (sykepengesoknad) => {
     }
 
     return forrigeSykeforloepTom || sykepengesoknad.fom;
+};
+export const SYKEPENGER_SKJEMANAVN = 'SYKEPENGERSKJEMA';
+
+export const beregnHarBrukerNavigertTilAnnenSoknad = (state, id) => {
+    let brukerHarNavigertTilAnnenSoknad;
+    try {
+        const forrigeId = state.form[SYKEPENGER_SKJEMANAVN].values.id;
+        brukerHarNavigertTilAnnenSoknad = forrigeId && forrigeId !== id;
+    } catch (e) {
+        brukerHarNavigertTilAnnenSoknad = false;
+    }
+    return brukerHarNavigertTilAnnenSoknad;
 };

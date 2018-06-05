@@ -13,7 +13,7 @@ import FrilanserMedPapirsoknadKvittering from '../../../js/components/sykmelding
 import FrilanserUtenSoknadKvittering from '../../../js/components/sykmeldingkvittering/FrilanserUtenSoknadKvittering';
 
 import getSykmelding from '../../mockSykmeldinger';
-import { getParsetSoknad } from '../../mockSoknader';
+import { getParsetSoknad } from '../../mockSykepengesoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

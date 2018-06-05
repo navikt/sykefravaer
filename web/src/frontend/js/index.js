@@ -60,6 +60,7 @@ import hendelser from './reducers/hendelser';
 import aktivitetskrav from './reducers/aktivitetskrav';
 import sykeforloep from './reducers/sykeforloep';
 import sykmeldingMeta from './reducers/sykmeldingMeta';
+import soknader from './reducers/soknader';
 import './logging';
 
 const rootReducer = combineReducers({
@@ -106,6 +107,7 @@ const rootReducer = combineReducers({
     formMeta: reduxFormMeta,
     sykeforloep,
     sykmeldingMeta,
+    soknader,
 });
 
 const sagaMiddleware = createSagaMiddleware();

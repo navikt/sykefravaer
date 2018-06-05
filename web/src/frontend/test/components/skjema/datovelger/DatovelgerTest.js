@@ -4,8 +4,9 @@ import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { Field } from 'redux-form';
-import Datovelger, { DatoField, MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT } from '../../../../js/components/skjema/datovelger/Datovelger';
+import Datovelger, { DatoField, genererValidate, MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT } from '../../../../js/components/skjema/datovelger/Datovelger';
 import DaypickerComponent from '../../../../js/components/skjema/datovelger/DayPicker';
+import { formaterEnkeltverdi, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles/fieldUtils';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -110,6 +111,61 @@ describe('Datovelger', () => {
             it('Skal sette erApen til false', () => {
                 expect(component.state()).to.deep.equal({
                     erApen: false,
+                });
+            });
+        });
+
+        describe('validate', () => {
+            let validate;
+            let parse;
+
+            beforeEach(() => {
+                validate = genererValidate({
+                    tidligsteFom: new Date('2018-01-01'),
+                    senesteTom: new Date('2018-01-05'),
+                });
+            });
+
+            it('Skal klage hvis datoformatet er ugyldig', () => {
+                const feilmelding = validate('02.__.____');
+                expect(feilmelding).to.equal('Datoen må være på formatet dd.mm.åååå');
+            });
+
+            it('Skal klage hvis datoen er etter senesteTom', () => {
+                const feilmelding = validate('06.01.2018');
+                expect(feilmelding).to.equal('Datoen må være innenfor perioden 01.01.2018-05.01.2018');
+            });
+
+            it('Skal klage hvis datoen før tidligsteFom', () => {
+                const feilmelding = validate('31.12.2017');
+                expect(feilmelding).to.equal('Datoen må være innenfor perioden 01.01.2018-05.01.2018');
+            });
+
+            it('Skal ikke klage hvis alt er OK', () => {
+                const okmelding = validate('03.01.2018');
+                expect(okmelding).to.equal(undefined);
+            });
+
+            describe('Når det finnes format', () => {
+                beforeEach(() => {
+                    parse = genererParseForEnkeltverdi('1');
+                    validate = genererValidate({
+                        tidligsteFom: new Date('2018-01-01'),
+                        senesteTom: new Date('2018-01-05'),
+                        format: formaterEnkeltverdi,
+                    });
+                });
+
+                it('Skal fortsatt funke', () => {
+                    const verdi = parse('03.01.2018');
+                    const okmelding = validate(verdi);
+                    expect(okmelding).to.equal(undefined);
+                });
+
+                it('Skal fortsatt funke', () => {
+                    const verdi = parse('06.01.2018');
+                    const okmelding = validate(verdi);
+                    expect(okmelding).to.equal('Datoen må være innenfor perioden 01.01.2018-05.01.2018');
                 });
             });
         });

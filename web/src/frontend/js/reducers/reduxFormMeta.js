@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import * as actiontyper from '../actions/actiontyper';
 import { SEND_SKJEMA_FEILET, SEND_SKJEMA_FEILET_HANDTERT } from '../enums/reduxFormMetaEnums';
-import { SYKEPENGER_SKJEMANAVN } from '../components/sykepengesoknad/setup';
+import { SYKEPENGER_SKJEMANAVN } from '../utils/sykepengesoknadUtils';
 import { DIN_SYKMELDING_SKJEMANAVN } from '../enums/sykmeldingskjemaenums';
 
 const defaultState = {};
@@ -32,23 +32,18 @@ const skjemafeil = (state, action) => {
     }
 };
 
-function sykmeldingskjema(state = defaultState, action = {}) {
-    if (action.skjemanavn === DIN_SYKMELDING_SKJEMANAVN) {
-        return skjemafeil(state, action);
-    }
-    return state;
-}
-
-function sykepengesoknadskjema(state = defaultState, action = {}) {
-    if (action.skjemanavn === SYKEPENGER_SKJEMANAVN) {
-        return skjemafeil(state, action);
-    }
-    return state;
-}
+const genererReducer = (skjemanavn) => {
+    return (state = defaultState, action = {}) => {
+        if (action.skjemanavn === skjemanavn) {
+            return skjemafeil(state, action);
+        }
+        return state;
+    };
+};
 
 const reducers = {};
-reducers[DIN_SYKMELDING_SKJEMANAVN] = sykmeldingskjema;
-reducers[SYKEPENGER_SKJEMANAVN] = sykepengesoknadskjema;
+reducers[DIN_SYKMELDING_SKJEMANAVN] = genererReducer(DIN_SYKMELDING_SKJEMANAVN);
+reducers[SYKEPENGER_SKJEMANAVN] = genererReducer(SYKEPENGER_SKJEMANAVN);
 
 const rootReduxer = combineReducers(reducers);
 

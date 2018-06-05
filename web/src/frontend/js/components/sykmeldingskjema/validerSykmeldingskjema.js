@@ -1,5 +1,5 @@
 import { arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
-import { validerPerioder } from '../sykepengesoknad/validering/valideringUtils';
+import { validerPerioder } from '../sykepengesoknad-arbeidstaker/validering/valideringUtils';
 
 const { ARBEIDSTAKER, DEFAULT } = arbeidssituasjoner;
 const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;

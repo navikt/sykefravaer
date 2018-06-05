@@ -1,0 +1,191 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Field, getFormValues } from 'redux-form';
+import { getLedetekst } from 'digisyfo-npm';
+import { connect } from 'react-redux';
+import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
+import { lagDesimaltall, getObjectValueByString, lagHeltall } from '../../../utils';
+import DetteTilsvarer, { getStillingsprosent } from './DetteTilsvarer';
+import { soknadperiode, fieldPropTypes } from '../../../propTypes';
+import { getFeriePermisjonPerioder, SYKEPENGER_SKJEMANAVN } from '../../../utils/sykepengesoknadUtils';
+import { getTotalJobbingSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
+
+class AngiTid extends Component {
+    constructor(props) {
+        super(props);
+        let valgtEnhet = 'prosent';
+        try {
+            const timerName = this.props.names[1];
+            const timer = getObjectValueByString(this.props, timerName).input.value;
+            if (timer && timer !== '') {
+                valgtEnhet = 'timer';
+            }
+        } catch (e) {
+            valgtEnhet = 'prosent';
+        }
+
+        this.state = {
+            valgtEnhet,
+        };
+    }
+
+    componentDidMount() {
+        this.setEnhet(this.getValgtEnhet());
+        this.lagreStillingsprosent();
+    }
+
+    setEnhet(enhet) {
+        const { autofill } = this.props;
+        autofill(this.getEnhetName(), enhet);
+    }
+
+    getValgtEnhet() {
+        return this.state.valgtEnhet;
+    }
+
+    getEnhetLabel() {
+        return getLedetekst(`sykepengesoknad.angi-tid.antall.label-totalt.${this.getValgtEnhet()}`);
+    }
+
+    getAntallName() {
+        if (this.getValgtEnhet() === 'prosent') {
+            return this.props.names[0];
+        }
+        return this.props.names[1];
+    }
+
+    getEnhetName() {
+        return this.props.names[3];
+    }
+
+    getAntallId() {
+        return `angiTid-${this.props.aktivitetIndex}`;
+    }
+
+    getStillingsprosent() {
+        const { periode, ferieOgPermisjonPerioder } = this.props;
+        const avvik = this.getAvvik();
+        const timer = avvik.timer.input.value;
+        const arbeidstimerNormalUke = avvik.arbeidstimerNormalUke.input.value;
+        return getStillingsprosent(timer, arbeidstimerNormalUke, periode, ferieOgPermisjonPerioder);
+    }
+
+    getAvvik() {
+        const { aktiviteter, aktivitetIndex } = this.props;
+        return aktiviteter[aktivitetIndex].avvik;
+    }
+
+    lagreStillingsprosent() {
+        const stillingsprosent = this.getStillingsprosent();
+        if (this.getValgtEnhet() === 'timer' && this.visTilsvarendeIProsent()) {
+            this.props.autofill(this.props.names[4], stillingsprosent);
+        }
+    }
+
+    visTilsvarendeIProsent() {
+        const avvik = this.getAvvik();
+        const timer = avvik.timer.input.value;
+        const stillingsprosent = this.getStillingsprosent();
+        return timer !== '' && stillingsprosent !== undefined;
+    }
+
+    render() {
+        const { autofill, untouch, arbeidsgiver } = this.props;
+
+        const enheter = [{
+            value: 'prosent',
+        }, {
+            value: 'timer',
+        }];
+
+        return (<div className="blokk">
+            <div className="skjema__input blokk">
+                <label
+                    htmlFor={`aktivitet-${this.props.aktivitetIndex}-normal`}
+                    className="skjema__sporsmal">
+                    {getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal')}
+                </label>
+                <Field
+                    onBlur={() => {
+                        this.lagreStillingsprosent();
+                    }}
+                    name={this.props.names[2]}
+                    id={this.props.names[2]}
+                    component={TekstfeltMedEnhet}
+                    parse={lagDesimaltall}
+                    label={getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label')} />
+            </div>
+            <h4 className="skjema__sporsmal">
+                {getTotalJobbingSporsmal(arbeidsgiver)}
+            </h4>
+            <div className="inputgruppe inputgruppe--horisontal">
+                {
+                    enheter.map((enhet, index) => {
+                        const name = `enhet_${this.props.aktivitetIndex}`;
+                        const id = `${name}_${index}`;
+                        return (<div className="skjema__input" key={index}>
+                            <input
+                                onChange={() => {
+                                    autofill(this.getAntallName(), null);
+                                    untouch(this.getAntallName());
+                                    this.setState({
+                                        valgtEnhet: enhet.value,
+                                    });
+                                    this.setEnhet(enhet.value);
+                                }}
+                                type="radio"
+                                className="radioknapp"
+                                value={enhet.value}
+                                name={name}
+                                id={id}
+                                checked={enhet.value === this.state.valgtEnhet}
+                                aria-controls={this.getAntallName()} />
+                            <label htmlFor={id}>{getLedetekst(`sykepengesoknad.angi-tid.velg-enhet.label.${enhet.value}`)}</label>
+                        </div>);
+                    })
+                }
+            </div>
+            <Field
+                onBlur={() => {
+                    this.lagreStillingsprosent();
+                }}
+                id={this.getAntallName()}
+                component={TekstfeltMedEnhet}
+                parse={(v) => {
+                    return this.getValgtEnhet() === 'timer'
+                        ? lagDesimaltall(v)
+                        : lagHeltall(v);
+                }}
+                label={this.getEnhetLabel()}
+                name={this.getAntallName()} />
+            { this.visTilsvarendeIProsent() && <DetteTilsvarer stillingsprosent={this.getStillingsprosent()} /> }
+        </div>);
+    }
+}
+
+AngiTid.propTypes = {
+    aktivitetIndex: PropTypes.number,
+    names: PropTypes.arrayOf(PropTypes.string),
+    autofill: PropTypes.func,
+    untouch: PropTypes.func,
+    arbeidsgiver: PropTypes.string,
+    periode: soknadperiode,
+    ferieOgPermisjonPerioder: PropTypes.arrayOf(soknadperiode),
+    aktiviteter: PropTypes.arrayOf(PropTypes.shape({
+        avvik: PropTypes.shape(fieldPropTypes),
+        arbeidsgrad: PropTypes.shape(fieldPropTypes),
+        beregnetArbeidsgrad: PropTypes.shape(fieldPropTypes),
+        enhet: PropTypes.shape(fieldPropTypes),
+        timer: PropTypes.shape(fieldPropTypes),
+    })),
+};
+
+const mapStateToProps = (state) => {
+    const values = getFormValues(SYKEPENGER_SKJEMANAVN)(state);
+    const ferieOgPermisjonPerioder = getFeriePermisjonPerioder(values);
+    return {
+        ferieOgPermisjonPerioder,
+    };
+};
+
+export default connect(mapStateToProps)(AngiTid);

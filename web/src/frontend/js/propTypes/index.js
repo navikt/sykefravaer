@@ -102,7 +102,7 @@ export const svar = PropTypes.shape({
     svartype: svartypePt,
     svarverdi: PropTypes.arrayOf(PropTypes.shape({
         verdi: PropTypes.string,
-        svarverdiType: PropTypes.oneOf(FOM, TOM, null),
+        svarverdiType: PropTypes.oneOf([FOM, TOM, null]),
     })),
     min: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number]),
     max: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number]),

@@ -18,12 +18,14 @@ OppsummeringUtvidbar.propTypes = {
 };
 
 export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
-    const { handleSubmit, soknad, skjemasvar } = props;
+    const { handleSubmit, soknad, skjemasvar, actions } = props;
+    const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
     const onSubmit = () => {
-        window.alert('Send søknad!');
+        console.log(JSON.stringify(populertSoknad));
+        actions.sendSoknad(populertSoknad);
     };
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
-        { skjemasvar && <OppsummeringUtvidbar soknad={populerSoknadMedSvar(soknad, skjemasvar)} /> }
+        { skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} /> }
         <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`} />
     </form>);
 };
@@ -32,16 +34,20 @@ SykepengesoknadSelvstendigOppsummeringSkjema.propTypes = {
     handleSubmit: PropTypes.func,
     soknad: soknadPt,
     skjemasvar: skjemasvarPt,
+    actions: PropTypes.shape({
+        sendSoknad: PropTypes.func,
+    }),
 };
 
 const Oppsummering = (props) => {
-    const { sykmelding, soknad, handleSubmit, skjemasvar } = props;
+    const { sykmelding, soknad, handleSubmit, skjemasvar, actions } = props;
+    console.log("actions", actions);
     return (<Soknadskjema
         aktivtSteg="4"
         tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')}
         sykmelding={sykmelding}
         soknad={soknad}>
-        <SykepengesoknadSelvstendigOppsummeringSkjema soknad={soknad} handleSubmit={handleSubmit} skjemasvar={skjemasvar} />
+        <SykepengesoknadSelvstendigOppsummeringSkjema soknad={soknad} handleSubmit={handleSubmit} skjemasvar={skjemasvar} actions={actions} />
     </Soknadskjema>);
 };
 
@@ -50,6 +56,9 @@ Oppsummering.propTypes = {
     soknad: soknadPt,
     handleSubmit: PropTypes.func,
     skjemasvar: skjemasvarPt,
+    actions: PropTypes.shape({
+        sendSoknad: PropTypes.func,
+    }),
 };
 
 export default Oppsummering;

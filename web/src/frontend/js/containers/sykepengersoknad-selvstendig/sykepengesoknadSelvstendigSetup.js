@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
+import { bindActionCreators } from 'redux';
 import { onSubmitFail } from '../FeiloppsummeringContainer';
 import { SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
+import { sendSoknad } from '../../actions/soknader_actions';
 
 const finnSoknad = (state, ownProps) => {
     const soknader = state.soknader.data.filter((s) => {
@@ -31,6 +33,16 @@ const mapStateToProps = (state, ownProps) => {
     return mapStateToPropsMedInitialValues(state, ownProps);
 };
 
+const mapDispatchToProps = (dispatch) => {
+    const actions = bindActionCreators({
+        sendSoknad,
+    }, dispatch);
+
+    return {
+        actions,
+    };
+};
+
 export default (validate, Component, initialize = false) => {
     const form = reduxForm({
         form: SYKEPENGER_SKJEMANAVN,
@@ -44,5 +56,5 @@ export default (validate, Component, initialize = false) => {
     if (initialize) {
         return connect(mapStateToPropsMedInitialValues)(form);
     }
-    return connect(mapStateToProps)(form);
+    return connect(mapStateToProps, mapDispatchToProps)(form);
 };

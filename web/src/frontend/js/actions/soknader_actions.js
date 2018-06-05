@@ -1,7 +1,9 @@
-import { SOKNADER_HENTET,
+import {
+    SOKNADER_HENTET,
     HENTER_SOKNADER,
     HENT_SOKNADER_FEILET,
-    HENT_SOKNADER_FORESPURT } from './actiontyper';
+    HENT_SOKNADER_FORESPURT, SEND_SOKNAD_FORESPURT, SENDER_SOKNAD, SEND_SOKNAD_FEILET, SOKNAD_SENDT
+} from './actiontyper';
 
 export const soknaderHentet = (soknader) => {
     return {
@@ -25,5 +27,31 @@ export const hentSoknaderFeilet = () => {
 export const hentSoknader = () => {
     return {
         type: HENT_SOKNADER_FORESPURT,
+    };
+};
+
+export const sendSoknad = (soknad) => {
+    return {
+        type: SEND_SOKNAD_FORESPURT,
+        soknad,
+    };
+};
+
+export const senderSoknad = () => {
+    return {
+        type: SENDER_SOKNAD,
+    };
+};
+
+export const sendSoknadFeilet = () => {
+    return {
+        type: SEND_SOKNAD_FEILET,
+    };
+};
+
+export const soknadSendt = (soknad) => {
+    return {
+        type: SOKNAD_SENDT,
+        soknad,
     };
 };

@@ -1,5 +1,6 @@
-import { HENT_SOKNADER_FEILET, HENTER_SOKNADER, SOKNADER_HENTET } from '../actions/actiontyper';
+import { HENT_SOKNADER_FEILET, HENTER_SOKNADER, SEND_SOKNAD_FEILET, SENDER_SOKNAD, SOKNAD_SENDT, SOKNADER_HENTET } from '../actions/actiontyper';
 import { TIMER, DATO, PERIODER, PROSENT } from '../enums/svartyper';
+import { TIL_SENDING } from '../enums/soknadstatuser';
 
 const initiellState = {
     data: [],
@@ -80,6 +81,35 @@ export default (state = initiellState, action = {}) => {
                 hentet: false,
                 henter: true,
                 hentingFeilet: false,
+            };
+        }
+        case SENDER_SOKNAD: {
+            return {
+                ...state,
+                sender: true,
+                sendingFeilet: false,
+            };
+        }
+        case SOKNAD_SENDT: {
+            return {
+                ...state,
+                data: state.data.map((s) => {
+                    return s.id === action.soknad.id
+                        ? {
+                            ...action.soknad,
+                            status: TIL_SENDING,
+                        }
+                        : { ...s };
+                }),
+                sender: false,
+                sendingFeilet: false,
+            };
+        }
+        case SEND_SOKNAD_FEILET: {
+            return {
+                ...state,
+                sender: false,
+                sendingFeilet: true,
             };
         }
         default: {

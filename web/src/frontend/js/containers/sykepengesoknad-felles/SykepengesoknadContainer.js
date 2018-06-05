@@ -16,6 +16,7 @@ import FoerDuBegynnerSelvstendigContainer from '../sykepengersoknad-selvstendig/
 import FravaerOgFriskmeldingSelvstendigContainer from '../sykepengersoknad-selvstendig/FravaerOgFriskmeldingContainer';
 import AktiviteterISykmeldingsperiodenSelvstendigContainer from '../sykepengersoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringSelvstendigContainer from '../sykepengersoknad-selvstendig/OppsummeringContainer';
+import KvitteringSelvstendigContainer from '../sykepengersoknad-selvstendig/KvitteringContainer';
 import Side from '../../sider/Side';
 import { beregnHarBrukerNavigertTilAnnenSoknad, SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
 import AppSpinner from '../../components/AppSpinner';
@@ -86,6 +87,9 @@ const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
         }
         case OPPSUMMERING: {
             return <OppsummeringSelvstendigContainer {...props} />;
+        }
+        case KVITTERING: {
+            return <KvitteringSelvstendigContainer {...props} />;
         }
         default: {
             return <Feilmelding />;

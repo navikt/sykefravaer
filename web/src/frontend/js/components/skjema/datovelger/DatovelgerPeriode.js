@@ -24,8 +24,11 @@ class Periodevelger extends Component {
 
     componentDidMount() {
         lukk = (event) => {
-            if (!event.target.closest('.js-periodekalender')) {
-                this.lukk();
+            const kalendere = document.getElementsByClassName('js-periodekalender');
+            for (let i = 0; i < kalendere.length; i += 1) {
+                if (!kalendere[i].contains(event.target)) {
+                    this.lukk();
+                }
             }
         };
         document.addEventListener('click', lukk);

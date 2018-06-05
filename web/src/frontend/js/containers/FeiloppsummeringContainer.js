@@ -64,8 +64,8 @@ export const mapStateToProps = (state, ownProps) => {
     const meta = state.formMeta && state.formMeta[skjemanavn] && state.formMeta[skjemanavn] ? state.formMeta[skjemanavn] : {};
     const visFeilliste = meta.status === SEND_SKJEMA_FEILET;
     const settFokus = meta.status === SEND_SKJEMA_FEILET && meta.settFokus === true;
-    const feltnavnMedFeil = getNestedKeys(state.form[skjemanavn].syncErrors);
     const reduxForm = state.form[skjemanavn];
+    const feltnavnMedFeil = reduxForm ? getNestedKeys(reduxForm.syncErrors) : [];
 
     const feilmeldinger = feltnavnMedFeil.filter((feltnavn) => {
         try {

@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
+import cn from 'classnames';
 import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from 'digisyfo-npm';
 import Soknadskjema from '../Soknadskjema';
 import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes';
-import { KnapperadTilbake } from '../../skjema/Knapperad';
+import Knapperad from '../../skjema/Knapperad';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
+import { Vis } from '../../../utils';
 
 const OppsummeringUtvidbar = ({ soknad }) => {
     return (<Utvidbar variant="lilla" tittel={getLedetekst('sykepengesoknad.sidetittel')} erApen>
@@ -17,16 +20,37 @@ OppsummeringUtvidbar.propTypes = {
     soknad: soknadPt,
 };
 
+const Knapp = ({ children, className = '', visSpinner, ...rest }) => {
+    const classNames = cn({
+        knapp: true,
+        'knapp--spinner': visSpinner,
+    });
+    return (<button {...rest} className={`${classNames} ${className}`}>
+        {children}
+        <Vis hvis={visSpinner}>
+            <span className="knapp__spinner" />
+        </Vis>
+    </button>);
+};
+
+Knapp.propTypes = {
+    children: PropTypes.string,
+    className: PropTypes.string,
+    visSpinner: PropTypes.bool,
+};
+
 export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
-    const { handleSubmit, soknad, skjemasvar, actions } = props;
+    const { handleSubmit, soknad, skjemasvar, actions, sender } = props;
     const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
     const onSubmit = () => {
-        console.log(JSON.stringify(populertSoknad));
         actions.sendSoknad(populertSoknad);
     };
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
         { skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} /> }
-        <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`} />
+        <Knapperad variant="knapperad--forrigeNeste">
+            <Link to={`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`} className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
+            <Knapp type="submit" className="js-send" visSpinner={sender}>{getLedetekst('sykepengesoknad.send')}</Knapp>
+        </Knapperad>
     </form>);
 };
 
@@ -37,11 +61,12 @@ SykepengesoknadSelvstendigOppsummeringSkjema.propTypes = {
     actions: PropTypes.shape({
         sendSoknad: PropTypes.func,
     }),
+    sender: PropTypes.bool,
+    sendingFeilet: PropTypes.bool,
 };
 
 const Oppsummering = (props) => {
     const { sykmelding, soknad, handleSubmit, skjemasvar, actions } = props;
-    console.log("actions", actions);
     return (<Soknadskjema
         aktivtSteg="4"
         tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')}

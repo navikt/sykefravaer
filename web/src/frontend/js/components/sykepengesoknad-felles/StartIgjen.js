@@ -1,0 +1,19 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router';
+import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
+
+const StartIgjen = ({ soknad }) => {
+    return (<div className="panel">
+        <div className="hode hode--informasjon">
+            <h1 className="hode__tittel">Oops, nå har vi mistet dataene dine</h1>
+            <p className="hode__melding">Derfor må du dessverre <Link className="lenke" to={`/sykefravaer/soknader/${soknad.id}`}>fylle ut søknaden på nytt</Link>.</p>
+        </div>
+    </div>);
+};
+
+StartIgjen.propTypes = {
+    soknad: PropTypes.oneOfType([sykepengesoknadPt, soknadPt]),
+};
+
+export default StartIgjen;

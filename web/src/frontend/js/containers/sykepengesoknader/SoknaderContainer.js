@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import { destroy } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import Soknader from '../../components/sykepengesoknader/Soknader';
@@ -24,7 +24,7 @@ export class SoknaderSide extends Component {
     }
 
     render() {
-        const { brodsmuler, henter, hentingFeilet, sykepengesoknader, skalHenteSykepengesoknader, skalHenteSoknader, soknader } = this.props;
+        const { brodsmuler, henter, hentingFeilet, sykepengesoknader, skalHenteSykepengesoknader, skalHenteSoknader, soknader, visFeil } = this.props;
 
         return (
             <Side tittel={getLedetekst('soknader.sidetittel')} brodsmuler={brodsmuler} laster={henter || skalHenteSoknader || skalHenteSykepengesoknader}>
@@ -36,7 +36,7 @@ export class SoknaderSide extends Component {
                         if (hentingFeilet) {
                             return <Feilmelding />;
                         }
-                        return (<Soknader sykepengesoknader={sykepengesoknader} soknader={soknader} />);
+                        return (<Soknader sykepengesoknader={sykepengesoknader} soknader={soknader} visFeil={visFeil} />);
                     })()
                 }
             </Side>
@@ -57,6 +57,7 @@ SoknaderSide.propTypes = {
     }),
     skalHenteSykepengesoknader: PropTypes.bool,
     skalHenteSoknader: PropTypes.bool,
+    visFeil: PropTypes.bool,
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -75,7 +76,10 @@ export function mapStateToProps(state) {
         skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,
         skalHenteSoknader: toggleSelvstendigSoknad() && !state.soknader.hentet && !state.soknader.henter,
         henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.soknader.henter,
-        hentingFeilet: state.ledetekster.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.soknader.hentingFeilet,
+        hentingFeilet: state.ledetekster.hentingFeilet || (state.sykepengesoknader.hentingFeilet && state.soknader.hentingFeilet),
+        visFeil: [state.soknader.hentingFeilet, state.sykepengesoknader.hentingFeilet].some((s) => {
+            return s;
+        }),
         brodsmuler: [{
             tittel: getLedetekst('landingsside.sidetittel'),
             sti: '/',

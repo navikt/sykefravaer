@@ -5,7 +5,7 @@ import { onSubmitFail } from '../FeiloppsummeringContainer';
 import { SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
 import { sendSoknad } from '../../actions/soknader_actions';
 
-const finnSoknad = (state, ownProps) => {
+export const finnSoknad = (state, ownProps) => {
     const soknader = state.soknader.data.filter((s) => {
         return s.id === ownProps.params.sykepengesoknadId;
     });
@@ -26,6 +26,8 @@ const mapStateToPropsMedInitialValues = (state, ownProps) => {
         soknad: finnSoknad(state, ownProps),
         sykmelding: finnSykmelding(state, ownProps),
         skjemasvar: getFormValues(SYKEPENGER_SKJEMANAVN)(state),
+        sender: state.soknader.sender,
+        sendingFeilet: state.soknader.sendingFeilet,
     };
 };
 

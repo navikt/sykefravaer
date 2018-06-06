@@ -89,7 +89,7 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                             if (soknad.status !== NY && soknad.status !== UTKAST_TIL_KORRIGERING) {
                                 return getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
                                     '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
-                                    '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn,
+                                    '%ARBEIDSGIVER%': soknad.arbeidsgiver ? soknad.arbeidsgiver.navn : null,
                                 });
                             }
                             return null;

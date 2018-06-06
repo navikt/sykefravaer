@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { sykepengesoknadstatuser } from 'digisyfo-npm';
 import FravaerOgFriskmelding from '../../components/sykepengesoknad-arbeidstaker/FravaerOgFriskmelding/FravaerOgFriskmelding';
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
-import StartIgjen from '../../components/sykepengesoknad-arbeidstaker/StartIgjen';
+import StartIgjen from '../../components/sykepengesoknad-felles/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad-arbeidstaker/Kvittering';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
 
@@ -14,7 +14,7 @@ export const Controller = (props) => {
     if (props.skjemasoknad) {
         return <FravaerOgFriskmelding {...props} />;
     }
-    return <StartIgjen sykepengesoknad={props.sykepengesoknad} />;
+    return <StartIgjen soknad={props.sykepengesoknad} />;
 };
 
 Controller.propTypes = {

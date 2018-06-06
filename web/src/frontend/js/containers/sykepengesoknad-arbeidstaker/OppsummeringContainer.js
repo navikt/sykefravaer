@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { getLedetekst, sykepengesoknadstatuser, forskutterersvar } from 'digisyfo-npm';
 import OppsummeringSkjema from '../../components/sykepengesoknad-arbeidstaker/Oppsummering/OppsummeringSkjema';
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
-import StartIgjen from '../../components/sykepengesoknad-arbeidstaker/StartIgjen';
+import StartIgjen from '../../components/sykepengesoknad-felles/StartIgjen';
 import Kvittering from '../../components/sykepengesoknad-arbeidstaker/Kvittering';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
 import mapSkjemasoknadToBackendsoknad from '../../components/sykepengesoknad-arbeidstaker/mappers/mapSkjemasoknadToBackendsoknad';
@@ -139,7 +139,7 @@ export const Controller = (props) => {
     if (props.skjemasoknad) {
         return <ConnectedOppsummering {...props} />;
     }
-    return <StartIgjen sykepengesoknad={props.sykepengesoknad} />;
+    return <StartIgjen soknad={props.sykepengesoknad} />;
 };
 
 Controller.propTypes = {

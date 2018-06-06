@@ -27,23 +27,22 @@ describe('soknaderSagas', () => {
     });
 
     describe("Innsending av søknad", () => {
-        const soknadId = '1';
         const soknadData = { 'test': 'data' };
-        const action = actions.sendSoknad(soknadId, soknadData);
+        const action = actions.sendSoknad(soknadData);
         const generator = sendSoknad(action);
 
         it("Skal dispatche SENDER_SOKNAD", () => {
-            const nextPut = put(actions.senderSoknad(soknadId));
+            const nextPut = put(actions.senderSoknad());
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
         it("Skal sende søknad", () => {
-            const nextCall = call(post, '/syfosoknad/soknader/1/actions/send');
+            const nextCall = call(post, '/syfosoknad/sendSoknad', soknadData);
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
         it("Skal deretter dispatche SOKNAD_SENDT", () => {
-            const nextPut = put(actions.soknadSendt(soknadId));
+            const nextPut = put(actions.soknadSendt(soknadData));
             expect(generator.next().value).to.deep.equal(nextPut);
         })
 

@@ -12,15 +12,17 @@ import FravaerOgFriskmeldingContainer from '../sykepengesoknad-arbeidstaker/Frav
 import AktiviteterISykmeldingsperiodenContainer from '../sykepengesoknad-arbeidstaker/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringContainer from '../sykepengesoknad-arbeidstaker/OppsummeringContainer';
 import SykepengesoknadKvitteringContainer from '../sykepengesoknad-arbeidstaker/SykepengesoknadKvitteringContainer';
-import FoerDuBegynnerSelvstendigContainer from '../sykepengersoknad-selvstendig/FoerDuBegynnerContainer';
-import FravaerOgFriskmeldingSelvstendigContainer from '../sykepengersoknad-selvstendig/FravaerOgFriskmeldingContainer';
-import AktiviteterISykmeldingsperiodenSelvstendigContainer from '../sykepengersoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
-import OppsummeringSelvstendigContainer from '../sykepengersoknad-selvstendig/OppsummeringContainer';
-import KvitteringSelvstendigContainer from '../sykepengersoknad-selvstendig/KvitteringContainer';
+import FoerDuBegynnerSelvstendigContainer from '../sykepengesoknad-selvstendig/FoerDuBegynnerContainer';
+import FravaerOgFriskmeldingSelvstendigContainer from '../sykepengesoknad-selvstendig/FravaerOgFriskmeldingContainer';
+import AktiviteterISykmeldingsperiodenSelvstendigContainer from '../sykepengesoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
+import OppsummeringSelvstendigContainer from '../sykepengesoknad-selvstendig/OppsummeringContainer';
+import KvitteringSelvstendigContainer from '../sykepengesoknad-selvstendig/KvitteringContainer';
 import Side from '../../sider/Side';
 import { beregnHarBrukerNavigertTilAnnenSoknad, SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
 import AppSpinner from '../../components/AppSpinner';
 import { toggleSelvstendigSoknad } from '../../toggles';
+import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
+import SendtSoknadSelvstendig from '../../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';
@@ -73,9 +75,8 @@ const beregnBrodsmulesti = (sti, id) => {
     }
 };
 
-const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
-    const steg = beregnSteg(props.sti);
-    switch (steg) {
+const SkjemaForSelvstendige = (props) => {
+    switch (beregnSteg(props.sti)) {
         case FOER_DU_BEGYNNER: {
             return <FoerDuBegynnerSelvstendigContainer {...props} />;
         }
@@ -88,8 +89,24 @@ const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
         case OPPSUMMERING: {
             return <OppsummeringSelvstendigContainer {...props} />;
         }
-        case KVITTERING: {
-            return <KvitteringSelvstendigContainer {...props} />;
+        default: {
+            return <Feilmelding />;
+        }
+    }
+}
+
+const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
+    const { soknad, sti } = props;
+    switch (soknad.status) {
+        case NY: {
+            return <SkjemaForSelvstendige {...props} />;
+        }
+        case TIL_SENDING:
+        case SENDT: {
+            if (beregnSteg(sti) === KVITTERING) {
+                return <KvitteringSelvstendigContainer {...props} />;
+            }
+            return <SendtSoknadSelvstendig {...props} />;
         }
         default: {
             return <Feilmelding />;
@@ -197,12 +214,13 @@ export function mapDispatchToProps(dispatch) {
 
 export const mapStateToProps = (state, ownProps) => {
     const soknadId = ownProps.params.sykepengesoknadId;
-    const erSelvstendigNaeringsdrivendeSoknad = state.soknader.data.some((s) => {
+    const finnSoknad = (s) => {
         return s.id === soknadId;
-    });
-    const erArbeidstakersoknad = state.sykepengesoknader.data.some((s) => {
-        return s.id === soknadId;
-    });
+    };
+    const soknad = state.soknader.data.find(finnSoknad);
+    const sykepengesoknad = state.sykepengesoknader.data.find(finnSoknad);
+    const erSelvstendigNaeringsdrivendeSoknad = soknad !== undefined;
+    const erArbeidstakersoknad = sykepengesoknad !== undefined;
     const skalHenteSykmeldinger = erSelvstendigNaeringsdrivendeSoknad && !state.dineSykmeldinger.hentet && !state.dineSykmeldinger.henter;
     const henter = state.soknader.henter || state.sykepengesoknader.henter || state.ledetekster.henter || (skalHenteSykmeldinger);
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
@@ -219,6 +237,8 @@ export const mapStateToProps = (state, ownProps) => {
         hentingFeilet,
         sti: ownProps.location.pathname,
         brukerHarNavigertTilAnnenSoknad,
+        soknad,
+        sykepengesoknad,
     };
 };
 

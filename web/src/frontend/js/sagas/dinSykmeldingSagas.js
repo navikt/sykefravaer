@@ -15,11 +15,20 @@ const gaTilKvittering = (sykmeldingId) => {
 export function* bekreftSykmelding(action) {
     yield put(actions.bekrefterSykmelding());
     try {
-        const { type, sykmeldingId, dekningsgrad, egenmeldingsperioder, ...body } = action;
+        const { sykmeldingId, verdier } = action;
+        const body = {
+            feilaktigeOpplysninger: verdier.feilaktigeOpplysninger,
+            arbeidssituasjon: verdier.arbeidssituasjon,
+            harForsikring: verdier.harForsikring,
+            dekningsgrad: verdier.dekningsgrad,
+            harAnnetFravaer: verdier.harAnnetFravaer,
+            egenmeldingsperioder: verdier.egenmeldingsperioder,
+        };
+
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`, body);
-        if (dekningsgrad || egenmeldingsperioder) {
+        if (verdier.dekningsgrad || verdier.egenmeldingsperioder) {
             const skalOppretteSoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/skalOppretteSoknad`, {
-                dekningsgrad, egenmeldingsperioder,
+                dekningsgrad: verdier.dekningsgrad, egenmeldingsperioder: verdier.egenmeldingsperioder,
             });
             yield put(skalOppretteSoknadHentet(sykmeldingId, skalOppretteSoknad));
         }

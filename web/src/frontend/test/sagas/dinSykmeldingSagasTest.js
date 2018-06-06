@@ -20,9 +20,19 @@ describe('dinSykmeldingSagas', () => {
     });
 
     describe('bekreftSykmelding', () => {
-        const action = actions.bekreftSykmelding('123', 'arbeidstaker', {
-            periode: true,
-        });
+        const action = actions.bekreftSykmelding(
+            '123',
+            {
+                arbeidssituasjon: 'arbeidstaker',
+                feilaktigeOpplysninger: {
+                    periode: true,
+                },
+                dekningsgrad: null,
+                egenmeldingsperioder: null,
+                harAnnetFravaer: false,
+                harForsikring: false,
+            }
+            );
         const generator = bekreftSykmelding(action);
 
         it('Skal dispatche BEKREFTER_SYKMELDING', () => {
@@ -36,6 +46,10 @@ describe('dinSykmeldingSagas', () => {
                 feilaktigeOpplysninger: {
                     periode: true,
                 },
+                harForsikring: false,
+                dekningsgrad: null,
+                harAnnetFravaer: false,
+                egenmeldingsperioder: null,
             });
             expect(generator.next().value).to.deep.equal(nextCall);
         });
@@ -59,12 +73,17 @@ describe('dinSykmeldingSagas', () => {
     describe('bekreftSykmelding for frilansere som er innenfor ventetid', () => {
         const action = actions.bekreftSykmelding(
             '123',
-            arbeidssituasjoner.FRILANSER,
-
-            null, [{
-                fom: new Date('2018-01-02'),
-                tom: new Date('2018-01-08'),
-            }], '75');
+            {
+                arbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                feilaktigeOpplysninger: null,
+                dekningsgrad: '75',
+                egenmeldingsperioder:             [{
+                    fom: new Date('2018-01-02'),
+                    tom: new Date('2018-01-08'),
+                }],
+                harAnnetFravaer: true,
+                harForsikring: true,
+            });
         const generator = bekreftSykmelding(action);
 
         it('Skal dispatche BEKREFTER_SYKMELDING', () => {
@@ -76,6 +95,15 @@ describe('dinSykmeldingSagas', () => {
             const nextCall = call(post, 'http://tjenester.nav.no/syforest/sykmeldinger/123/actions/bekreft', {
                 arbeidssituasjon: arbeidssituasjoner.FRILANSER,
                 feilaktigeOpplysninger: null,
+                dekningsgrad: '75',
+                egenmeldingsperioder: [
+                    {
+                        fom: new Date('2018-01-02'),
+                        tom: new Date('2018-01-08'),
+                    },
+                ],
+                harAnnetFravaer: true,
+                harForsikring: true,
             });
             expect(generator.next().value).to.deep.equal(nextCall);
         });

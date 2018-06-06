@@ -333,6 +333,9 @@ describe('DinSykmeldingSkjema -', () => {
             });
             values.feilaktigeOpplysninger = f;
             values.valgtArbeidssituasjon = 'FRILANSER';
+            values.harForsikring = false;
+            values.varSykmeldtEllerEgenmeldt = false;
+            values.egenmeldingsperioder = null;
 
             const bekreftSykmelding = sinon.stub(dinSykmeldingActions, 'bekreftSykmelding');
 
@@ -342,9 +345,17 @@ describe('DinSykmeldingSkjema -', () => {
             expect(bekreftSykmelding.callCount).to.equal(1);
             expect(bekreftSykmelding.getCall(0).args).to.deep.equal([
                 'sykmelding-id',
-                'FRILANSER', {
-                    andre: true,
-                }, null, null]);
+                {
+                    arbeidssituasjon: 'FRILANSER',
+                    feilaktigeOpplysninger: {
+                        andre: true,
+                    },
+                    harForsikring: false,
+                    harAnnetFravaer: false,
+                    egenmeldingsperioder: null,
+                    dekningsgrad: null,
+                }
+            ]);
             bekreftSykmelding.restore();
         });
     });

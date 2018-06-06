@@ -5,10 +5,7 @@ import FoerDuBegynner from '../../components/sykepengesoknad-selvstendig/FoerDuB
 import Soknadstatussjekker from '../../components/sykepengesoknad-selvstendig/Soknadstatussjekker';
 
 const FoerDuBegynnerContainer = (props) => {
-    const valider = () => {
-        return {};
-    };
-    return <Soknadstatussjekker {...props} Component={FoerDuBegynner} valider={valider} />;
-}
+    return <Soknadstatussjekker {...props} Component={FoerDuBegynner} />;
+};
 
 export default setup(validerFoerDuBegynner, FoerDuBegynnerContainer, true);

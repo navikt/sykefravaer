@@ -1,8 +1,8 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { get, post, log } from 'digisyfo-npm';
-import * as actions from '../actions/soknader_actions';
 import { browserHistory } from 'react-router';
+import * as actions from '../actions/soknader_actions';
 import {
     HENT_SOKNADER_FORESPURT, SEND_SOKNAD_FORESPURT,
 } from '../actions/actiontyper';

@@ -21,9 +21,12 @@ const finnSykmelding = (state, ownProps) => {
 };
 
 const mapStateToPropsMedInitialValues = (state, ownProps) => {
+    const soknad = finnSoknad(state, ownProps);
     return {
-        initialValues: {},
-        soknad: finnSoknad(state, ownProps),
+        initialValues: {
+            id: soknad.id,
+        },
+        soknad,
         sykmelding: finnSykmelding(state, ownProps),
         skjemasvar: getFormValues(SYKEPENGER_SKJEMANAVN)(state),
         sender: state.soknader.sender,

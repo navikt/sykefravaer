@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import { destroy } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import Soknader from '../../components/sykepengesoknader/Soknader';

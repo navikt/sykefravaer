@@ -151,7 +151,7 @@ export const finnFomForFeriesporsmal = (sykepengesoknad) => {
 export const SYKEPENGER_SKJEMANAVN = 'SYKEPENGERSKJEMA';
 
 export const beregnHarBrukerNavigertTilAnnenSoknad = (state, id) => {
-    let brukerHarNavigertTilAnnenSoknad;
+    let brukerHarNavigertTilAnnenSoknad = false;
     try {
         const forrigeId = state.form[SYKEPENGER_SKJEMANAVN].values.id;
         brukerHarNavigertTilAnnenSoknad = forrigeId && forrigeId !== id;

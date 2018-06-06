@@ -26,26 +26,24 @@ describe('soknaderSagas', () => {
         });
     });
 
-    describe("Innsending av søknad", () => {
-        const soknadData = { 'test': 'data' };
+    describe('Innsending av søknad', () => {
+        const soknadData = { test: 'data' };
         const action = actions.sendSoknad(soknadData);
         const generator = sendSoknad(action);
 
-        it("Skal dispatche SENDER_SOKNAD", () => {
+        it('Skal dispatche SENDER_SOKNAD', () => {
             const nextPut = put(actions.senderSoknad());
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
-        it("Skal sende søknad", () => {
+        it('Skal sende søknad', () => {
             const nextCall = call(post, '/syfosoknad/sendSoknad', soknadData);
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
-        it("Skal deretter dispatche SOKNAD_SENDT", () => {
+        it('Skal deretter dispatche SOKNAD_SENDT', () => {
             const nextPut = put(actions.soknadSendt(soknadData));
             expect(generator.next().value).to.deep.equal(nextPut);
-        })
-
+        });
     });
-
 });

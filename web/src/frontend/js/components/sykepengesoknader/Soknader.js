@@ -70,6 +70,7 @@ const Soknader = ({ sykepengesoknader = [], soknader = [], visFeil }) => {
 Soknader.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     soknader: PropTypes.arrayOf(soknadPt),
+    visFeil: PropTypes.bool,
 };
 
 export default Soknader;

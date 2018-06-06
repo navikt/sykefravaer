@@ -7,6 +7,6 @@ import Soknadstatussjekker from '../../components/sykepengesoknad-selvstendig/So
 
 const FravaerOgFriskmeldingContainer = (props) => {
     return <Soknadstatussjekker {...props} Component={FravaerOgFriskmelding} valider={validerFoerDuBegynner} />;
-}
+};
 
 export default setup(validerFravaerOgFriskmelding, FravaerOgFriskmeldingContainer, false);

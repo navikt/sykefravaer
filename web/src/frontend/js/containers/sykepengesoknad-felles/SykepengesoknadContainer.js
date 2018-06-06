@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { destroy } from 'redux-form';
+import { initialize } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import * as soknaderActions from '../../actions/soknader_actions';
 import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
@@ -16,13 +16,14 @@ import FoerDuBegynnerSelvstendigContainer from '../sykepengesoknad-selvstendig/F
 import FravaerOgFriskmeldingSelvstendigContainer from '../sykepengesoknad-selvstendig/FravaerOgFriskmeldingContainer';
 import AktiviteterISykmeldingsperiodenSelvstendigContainer from '../sykepengesoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringSelvstendigContainer from '../sykepengesoknad-selvstendig/OppsummeringContainer';
-import KvitteringSelvstendigContainer from '../sykepengesoknad-selvstendig/KvitteringContainer';
+import KvitteringSelvstendigContainer from '../sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
 import Side from '../../sider/Side';
 import { beregnHarBrukerNavigertTilAnnenSoknad, SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
 import AppSpinner from '../../components/AppSpinner';
 import { toggleSelvstendigSoknad } from '../../toggles';
 import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import SendtSoknadSelvstendig from '../../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
+import { soknad as soknadPt } from '../../propTypes';
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';
@@ -75,7 +76,7 @@ const beregnBrodsmulesti = (sti, id) => {
     }
 };
 
-const SkjemaForSelvstendige = (props) => {
+export const SykepengeskjemaForSelvstendige = (props) => {
     switch (beregnSteg(props.sti)) {
         case FOER_DU_BEGYNNER: {
             return <FoerDuBegynnerSelvstendigContainer {...props} />;
@@ -89,17 +90,24 @@ const SkjemaForSelvstendige = (props) => {
         case OPPSUMMERING: {
             return <OppsummeringSelvstendigContainer {...props} />;
         }
+        case KVITTERING: {
+            return <KvitteringSelvstendigContainer {...props} />;
+        }
         default: {
             return <Feilmelding />;
         }
     }
-}
+};
 
-const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
+SykepengeskjemaForSelvstendige.propTypes = {
+    sti: PropTypes.string,
+};
+
+export const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
     const { soknad, sti } = props;
     switch (soknad.status) {
         case NY: {
-            return <SkjemaForSelvstendige {...props} />;
+            return <SykepengeskjemaForSelvstendige {...props} />;
         }
         case TIL_SENDING:
         case SENDT: {
@@ -116,6 +124,7 @@ const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
 
 SykepengesoknadSelvstendigNaeringsdrivende.propTypes = {
     sti: PropTypes.string,
+    soknad: soknadPt,
 };
 
 const SykepengesoknadArbeidstaker = (props) => {
@@ -156,7 +165,9 @@ export class Container extends Component {
             this.props.actions.hentSoknader();
         }
         if (this.props.brukerHarNavigertTilAnnenSoknad) {
-            this.props.actions.destroy(SYKEPENGER_SKJEMANAVN);
+            this.props.actions.initialize(SYKEPENGER_SKJEMANAVN, {
+                id: this.props.soknadId,
+            });
         }
         if (this.props.skalHenteSykmeldinger) {
             this.props.actions.hentDineSykmeldinger();
@@ -193,7 +204,7 @@ Container.propTypes = {
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,
         hentDineSykmeldinger: PropTypes.func,
-        destroy: PropTypes.func,
+        initialize: PropTypes.func,
     }),
     skalHenteSykepengesoknader: PropTypes.bool,
     skalHenteSoknader: PropTypes.bool,
@@ -208,7 +219,7 @@ Container.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions, destroy }, dispatch),
+        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions, initialize }, dispatch),
     };
 }
 

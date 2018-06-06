@@ -24,8 +24,8 @@ const Kvittering = () => {
                 Gå til dine sykepengesøknader
             </Link>
         </p>
-    </div>)
-}
+    </div>);
+};
 
 export default Kvittering;
 

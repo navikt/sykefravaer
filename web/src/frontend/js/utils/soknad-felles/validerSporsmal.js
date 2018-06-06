@@ -71,7 +71,7 @@ const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldin
     return feilmeldinger;
 };
 
-export default (sporsmal, values) => {
+export default (sporsmal = [], values = {}) => {
     const feilmeldinger = {};
     sporsmal
         .filter((s) => {

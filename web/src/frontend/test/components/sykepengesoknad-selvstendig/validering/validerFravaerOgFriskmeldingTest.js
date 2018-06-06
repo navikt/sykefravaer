@@ -26,6 +26,13 @@ describe('validerFravaerOgFriskmelding', () => {
         };
     });
 
+    it('Skal klage hvis verdier er undefined', () => {
+        const verdier = undefined;
+        const soknad = getSoknad();
+        const feilmeldinger = validerFravaerOgFriskmelding(verdier, { soknad });
+        expect(feilmeldinger[TILBAKE_I_ARBEID]).to.equal('Vennligst svar på om du var tilbake i arbeid før sykmeldingsperioden utløp');
+    });
+
     it('Skal klage hvis bruker ikke har svart på om han var tilbake i fullt arbeid', () => {
         const soknad = getSoknad();
         const feilmeldinger = validerFravaerOgFriskmelding(values, { soknad });

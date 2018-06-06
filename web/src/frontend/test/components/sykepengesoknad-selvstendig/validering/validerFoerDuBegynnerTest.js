@@ -20,6 +20,13 @@ describe('validerFoerDuBegynner', () => {
         });
     });
 
+    it('Skal klage hvis verdier er undefined', () => {
+        const verdier = undefined;
+        const soknad = getSoknad();
+        const feilmeldinger = validerFoerDuBegynner(verdier, { soknad });
+        expect(feilmeldinger[ANSVARSERKLARING]).to.equal('Du må bekrefte dette før du går videre');
+    });
+
     it('Skal klage hvis bruker ikke har krysset av på ansvarserklæring', () => {
         const verdier = {};
         const soknad = getSoknad();

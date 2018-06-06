@@ -14,16 +14,6 @@ describe('soknader', () => {
             const action = actions.soknaderHentet(soknadrespons);
             return soknader(deepFreeze(state), action);
         };
-
-    })
-    it('Har en default state', () => {
-        const state = soknader();
-        expect(state).to.deep.equal({
-            data: [],
-            henter: false,
-            hentingFeilet: false,
-            hentet: false,
-        });
     });
 
     it('Håndterer henter', () => {
@@ -49,18 +39,18 @@ describe('soknader', () => {
         expect(state.data).to.deep.equal(mockSoknader);
     });
 
-    it("Håndterer senderSoknad", () => {
+    it('Håndterer senderSoknad', () => {
         const initState = getStateMedDataHentet();
         const action = actions.senderSoknad(soknadrespons[0].id);
         const state = soknader(deepFreeze(initState), action);
         expect(state.sender).to.equal(true);
     });
 
-    it("Håndterer soknadSendt", () => {
+    it('Håndterer soknadSendt', () => {
         const initState = getStateMedDataHentet();
         const data = {
             ...getSoknad(),
-            test: "ok",
+            test: 'ok',
         };
         const action2 = actions.senderSoknad();
         const initState2 = soknader(deepFreeze(initState), action2);
@@ -73,11 +63,11 @@ describe('soknader', () => {
         const sendtSoknad = {
             ...data,
             status: TIL_SENDING,
-        }
+        };
         expect(soknad).to.deep.equal(sendtSoknad);
     });
 
-    it("Håndterer sendSoknadFeilet", () => {
+    it('Håndterer sendSoknadFeilet', () => {
         const initState = getStateMedDataHentet();
         const action = actions.sendSoknadFeilet(soknadrespons[0].id);
         const nextState = soknader(deepFreeze(initState), action);

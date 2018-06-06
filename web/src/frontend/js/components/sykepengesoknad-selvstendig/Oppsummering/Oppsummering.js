@@ -62,7 +62,6 @@ SykepengesoknadSelvstendigOppsummeringSkjema.propTypes = {
         sendSoknad: PropTypes.func,
     }),
     sender: PropTypes.bool,
-    sendingFeilet: PropTypes.bool,
 };
 
 const Oppsummering = (props) => {

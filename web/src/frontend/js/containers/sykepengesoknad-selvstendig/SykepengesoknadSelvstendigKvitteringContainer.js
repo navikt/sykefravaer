@@ -12,7 +12,7 @@ const validate = () => {
     return {};
 };
 
-const KvitteringContainer = ({ soknad }) => {
+const SykepengesoknadSelvstendigKvitteringContainer = ({ soknad }) => {
     switch (soknad.status) {
         case NY: {
             return (<div>
@@ -36,8 +36,8 @@ const KvitteringContainer = ({ soknad }) => {
     }
 };
 
-KvitteringContainer.propTypes = {
+SykepengesoknadSelvstendigKvitteringContainer.propTypes = {
     soknad: soknadPt,
 };
 
-export default setup(validate, KvitteringContainer, false);
+export default setup(validate, SykepengesoknadSelvstendigKvitteringContainer, false);

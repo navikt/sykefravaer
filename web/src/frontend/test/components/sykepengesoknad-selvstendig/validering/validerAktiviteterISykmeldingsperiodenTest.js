@@ -30,6 +30,12 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
         });
     });
 
+    it('Skal klage hvis verdier er undefined', () => {
+        const soknad = getSoknad();
+        const feilmeldinger = validerAktiviteterISykmeldingsperioden(undefined, { soknad });
+        expect(feilmeldinger[ANDRE_INNTEKTSKILDER]).to.equal('Vennligst svar på om du har andre inntektskilder');
+    });
+
     describe('Andre inntektskilder', () => {
         it('Skal klage hvis bruker ikke har svart på om han har andre inntektskilder', () => {
             const soknad = getSoknad();

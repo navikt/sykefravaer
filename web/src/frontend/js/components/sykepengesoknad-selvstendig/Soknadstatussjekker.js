@@ -11,12 +11,12 @@ const soknadErSendt = (soknad) => {
 
 const Soknadstatussjekker = (props) => {
     const { soknad, skjemasvar, valider, Component } = props;
-    const feilmeldinger = skjemasvar ? valider(skjemasvar, { soknad }) : {};
+    const feilmeldinger = valider ? valider(skjemasvar, { soknad }) : {};
     if (soknadErSendt(soknad)) {
         return <Kvittering />;
     }
 
-    if (!skjemasvar || Object.keys(feilmeldinger).length > 0) {
+    if (Object.keys(feilmeldinger).length > 0) {
         return <StartIgjen soknad={soknad} />;
     }
 

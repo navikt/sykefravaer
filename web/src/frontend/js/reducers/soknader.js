@@ -7,6 +7,8 @@ const initiellState = {
     henter: false,
     hentingFeilet: false,
     hentet: false,
+    sender: false,
+    sendingFeilet: false,
 };
 
 const parseSvar = (svar) => {

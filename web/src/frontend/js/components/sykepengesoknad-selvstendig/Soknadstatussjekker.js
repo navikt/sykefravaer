@@ -15,11 +15,9 @@ const Soknadstatussjekker = (props) => {
     if (soknadErSendt(soknad)) {
         return <Kvittering />;
     }
-
     if (Object.keys(feilmeldinger).length > 0) {
         return <StartIgjen soknad={soknad} />;
     }
-
     return <Component {...props} />;
 };
 

@@ -9,9 +9,11 @@ import Knapperad from '../../skjema/Knapperad';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
 import { Vis } from '../../../utils';
+import { BEKREFT_OPPLYSNINGER } from '../../../enums/tagtyper';
+import Checkbox from '../../soknad-felles/Checkbox';
 
 const OppsummeringUtvidbar = ({ soknad }) => {
-    return (<Utvidbar variant="lilla" tittel={getLedetekst('sykepengesoknad.sidetittel')} erApen>
+    return (<Utvidbar className="blokk" variant="lilla" tittel={getLedetekst('sykepengesoknad.sidetittel')} erApen>
         <Oppsummeringsvisning soknad={soknad} />
     </Utvidbar>);
 };
@@ -39,14 +41,24 @@ Knapp.propTypes = {
     visSpinner: PropTypes.bool,
 };
 
+export const hentSporsmalForOppsummering = (soknad) => {
+    return soknad.sporsmal.filter((s) => {
+        return s.tag === BEKREFT_OPPLYSNINGER;
+    });
+};
+
 export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
     const { handleSubmit, soknad, skjemasvar, actions, sender } = props;
     const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
+    const sporsmal = hentSporsmalForOppsummering(soknad)[0];
     const onSubmit = () => {
         actions.sendSoknad(populertSoknad);
     };
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
         { skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} /> }
+        <div className="bekreftet-container">
+            <Checkbox {...sporsmal} name={sporsmal.tag} />
+        </div>
         <Knapperad variant="knapperad--forrigeNeste">
             <Link to={`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`} className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
             <Knapp type="submit" className="js-send" visSpinner={sender}>{getLedetekst('sykepengesoknad.send')}</Knapp>

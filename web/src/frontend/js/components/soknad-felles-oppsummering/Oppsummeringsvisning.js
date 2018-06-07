@@ -9,11 +9,15 @@ export const getKey = (tag, id) => {
 const Oppsummeringsvisning = ({ soknad }) => {
     return (<div>
         {
-            soknad.sporsmal.map((sporsmal) => {
-                return (<div className="oppsummering__seksjon" key={getKey(sporsmal.tag, sporsmal.id)}>
-                    <OppsummeringSporsmal {...sporsmal} />
-                </div>);
-            })
+            soknad.sporsmal
+                .filter((sporsmal) => {
+                    return sporsmal.svar.svarverdi.length > 0;
+                })
+                .map((sporsmal) => {
+                    return (<div className="oppsummering__seksjon" key={getKey(sporsmal.tag, sporsmal.id)}>
+                        <OppsummeringSporsmal {...sporsmal} />
+                    </div>);
+                })
         }
     </div>);
 };

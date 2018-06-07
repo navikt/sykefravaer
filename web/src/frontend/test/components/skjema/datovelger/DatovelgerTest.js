@@ -37,7 +37,7 @@ describe('Datovelger', () => {
             expect(component.find(Field)).to.have.length(1);
         });
 
-        it('Skal sende en validate-funksjon videre til Field', () => {
+        it('Skal sende en validerFoerDuBegynner-funksjon videre til Field', () => {
             expect(typeof component.find(Field).prop('validate')).to.equal('function');
         });
 

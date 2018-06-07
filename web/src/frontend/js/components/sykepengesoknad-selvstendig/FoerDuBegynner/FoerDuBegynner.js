@@ -26,6 +26,7 @@ export const FoerDuBegynnerSkjema = (props) => {
     return (<form className="soknadskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
         <FeiloppsummeringContainer skjemanavn={SYKEPENGER_SKJEMANAVN} />
         <div className="panel redaksjonelt-innhold">
+            <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
             <Checkbox {...sporsmal[0]} name={sporsmal[0].tag} />
         </div>
         <div className="knapperad">

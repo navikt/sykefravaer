@@ -26,7 +26,9 @@ describe('populerSoknadMedSvar', () => {
 
     beforeEach(() => {
         soknad = getSoknad();
-        values = {};
+        values = {
+            id: soknad.id,
+        };
     });
 
     it('Skal populere checkbox-svar på nivå 1', () => {

@@ -1,5 +1,4 @@
-const FRILANSERSOKNAD_TOGGLE = false;
-
 export const toggleSelvstendigSoknad = () => {
-    return FRILANSERSOKNAD_TOGGLE;
+    const url = window.location.href;
+    return url.indexOf('localhost') > -1 || url.indexOf('tjenester-q1') > -1;
 };

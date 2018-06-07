@@ -22,4 +22,8 @@ IllustrertInnhold.propTypes = {
     liten: PropTypes.bool,
 };
 
+export const IllustrertInnholdGronnHake = (props) => {
+    return <IllustrertInnhold {...props} ikon="/sykefravaer/img/svg/kvitteringhake.svg" ikonAlt="Hake" />;
+};
+
 export default IllustrertInnhold;

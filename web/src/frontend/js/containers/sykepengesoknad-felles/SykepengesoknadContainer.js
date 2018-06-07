@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { destroy } from 'redux-form';
+import { initialize } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import * as soknaderActions from '../../actions/soknader_actions';
 import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
@@ -12,14 +12,17 @@ import FravaerOgFriskmeldingContainer from '../sykepengesoknad-arbeidstaker/Frav
 import AktiviteterISykmeldingsperiodenContainer from '../sykepengesoknad-arbeidstaker/AktiviteterISykmeldingsperiodenContainer';
 import OppsummeringContainer from '../sykepengesoknad-arbeidstaker/OppsummeringContainer';
 import SykepengesoknadKvitteringContainer from '../sykepengesoknad-arbeidstaker/SykepengesoknadKvitteringContainer';
-import FoerDuBegynnerSelvstendigContainer from '../sykepengersoknad-selvstendig/FoerDuBegynnerContainer';
-import FravaerOgFriskmeldingSelvstendigContainer from '../sykepengersoknad-selvstendig/FravaerOgFriskmeldingContainer';
-import AktiviteterISykmeldingsperiodenSelvstendigContainer from '../sykepengersoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
-import OppsummeringSelvstendigContainer from '../sykepengersoknad-selvstendig/OppsummeringContainer';
+import FoerDuBegynnerSelvstendigContainer from '../sykepengesoknad-selvstendig/FoerDuBegynnerContainer';
+import FravaerOgFriskmeldingSelvstendigContainer from '../sykepengesoknad-selvstendig/FravaerOgFriskmeldingContainer';
+import AktiviteterISykmeldingsperiodenSelvstendigContainer from '../sykepengesoknad-selvstendig/AktiviteterISykmeldingsperiodenContainer';
+import OppsummeringSelvstendigContainer from '../sykepengesoknad-selvstendig/OppsummeringContainer';
+import KvitteringSelvstendigContainer from '../sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
 import Side from '../../sider/Side';
 import { beregnHarBrukerNavigertTilAnnenSoknad, SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
 import AppSpinner from '../../components/AppSpinner';
-import { toggleSelvstendigSoknad } from '../../toggles';
+import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
+import SendtSoknadSelvstendig from '../../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
+import { soknad as soknadPt } from '../../propTypes';
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';
@@ -72,9 +75,8 @@ const beregnBrodsmulesti = (sti, id) => {
     }
 };
 
-const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
-    const steg = beregnSteg(props.sti);
-    switch (steg) {
+export const SykepengeskjemaForSelvstendige = (props) => {
+    switch (beregnSteg(props.sti)) {
         case FOER_DU_BEGYNNER: {
             return <FoerDuBegynnerSelvstendigContainer {...props} />;
         }
@@ -87,6 +89,32 @@ const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
         case OPPSUMMERING: {
             return <OppsummeringSelvstendigContainer {...props} />;
         }
+        case KVITTERING: {
+            return <KvitteringSelvstendigContainer {...props} />;
+        }
+        default: {
+            return <Feilmelding />;
+        }
+    }
+};
+
+SykepengeskjemaForSelvstendige.propTypes = {
+    sti: PropTypes.string,
+};
+
+export const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
+    const { soknad, sti } = props;
+    switch (soknad.status) {
+        case NY: {
+            return <SykepengeskjemaForSelvstendige {...props} />;
+        }
+        case TIL_SENDING:
+        case SENDT: {
+            if (beregnSteg(sti) === KVITTERING) {
+                return <KvitteringSelvstendigContainer {...props} />;
+            }
+            return <SendtSoknadSelvstendig {...props} />;
+        }
         default: {
             return <Feilmelding />;
         }
@@ -95,6 +123,7 @@ const SykepengesoknadSelvstendigNaeringsdrivende = (props) => {
 
 SykepengesoknadSelvstendigNaeringsdrivende.propTypes = {
     sti: PropTypes.string,
+    soknad: soknadPt,
 };
 
 const SykepengesoknadArbeidstaker = (props) => {
@@ -135,7 +164,9 @@ export class Container extends Component {
             this.props.actions.hentSoknader();
         }
         if (this.props.brukerHarNavigertTilAnnenSoknad) {
-            this.props.actions.destroy(SYKEPENGER_SKJEMANAVN);
+            this.props.actions.initialize(SYKEPENGER_SKJEMANAVN, {
+                id: this.props.soknadId,
+            });
         }
         if (this.props.skalHenteSykmeldinger) {
             this.props.actions.hentDineSykmeldinger();
@@ -172,7 +203,7 @@ Container.propTypes = {
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,
         hentDineSykmeldinger: PropTypes.func,
-        destroy: PropTypes.func,
+        initialize: PropTypes.func,
     }),
     skalHenteSykepengesoknader: PropTypes.bool,
     skalHenteSoknader: PropTypes.bool,
@@ -187,18 +218,19 @@ Container.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions, destroy }, dispatch),
+        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions, initialize }, dispatch),
     };
 }
 
 export const mapStateToProps = (state, ownProps) => {
     const soknadId = ownProps.params.sykepengesoknadId;
-    const erSelvstendigNaeringsdrivendeSoknad = state.soknader.data.some((s) => {
+    const finnSoknad = (s) => {
         return s.id === soknadId;
-    });
-    const erArbeidstakersoknad = state.sykepengesoknader.data.some((s) => {
-        return s.id === soknadId;
-    });
+    };
+    const soknad = state.soknader.data.find(finnSoknad);
+    const sykepengesoknad = state.sykepengesoknader.data.find(finnSoknad);
+    const erSelvstendigNaeringsdrivendeSoknad = soknad !== undefined;
+    const erArbeidstakersoknad = sykepengesoknad !== undefined;
     const skalHenteSykmeldinger = erSelvstendigNaeringsdrivendeSoknad && !state.dineSykmeldinger.hentet && !state.dineSykmeldinger.henter;
     const henter = state.soknader.henter || state.sykepengesoknader.henter || state.ledetekster.henter || (skalHenteSykmeldinger);
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
@@ -207,7 +239,7 @@ export const mapStateToProps = (state, ownProps) => {
     return {
         soknadId,
         skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,
-        skalHenteSoknader: toggleSelvstendigSoknad() && !state.soknader.hentet && !state.soknader.henter,
+        skalHenteSoknader: !state.soknader.hentet && !state.soknader.henter,
         skalHenteSykmeldinger,
         erSelvstendigNaeringsdrivendeSoknad,
         erArbeidstakersoknad,
@@ -215,6 +247,8 @@ export const mapStateToProps = (state, ownProps) => {
         hentingFeilet,
         sti: ownProps.location.pathname,
         brukerHarNavigertTilAnnenSoknad,
+        soknad,
+        sykepengesoknad,
     };
 };
 

@@ -63,7 +63,7 @@ export const finnSoknad = (state, id) => {
     })[0] || {};
 };
 
-export default function sykepengesoknader(state = initiellState, action) {
+export default function sykepengesoknader(state = initiellState, action = {}) {
     switch (action.type) {
         case actiontyper.SYKEPENGESOKNADER_HENTET: {
             const soknader = action.sykepengesoknader.map((s) => {

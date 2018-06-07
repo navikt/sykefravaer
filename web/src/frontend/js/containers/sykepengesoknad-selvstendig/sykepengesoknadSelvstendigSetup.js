@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
+import { bindActionCreators } from 'redux';
 import { onSubmitFail } from '../FeiloppsummeringContainer';
 import { SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
+import { sendSoknad } from '../../actions/soknader_actions';
 
-const finnSoknad = (state, ownProps) => {
+export const finnSoknad = (state, ownProps) => {
     const soknader = state.soknader.data.filter((s) => {
         return s.id === ownProps.params.sykepengesoknadId;
     });
@@ -19,16 +21,31 @@ const finnSykmelding = (state, ownProps) => {
 };
 
 const mapStateToPropsMedInitialValues = (state, ownProps) => {
+    const soknad = finnSoknad(state, ownProps);
     return {
-        initialValues: {},
-        soknad: finnSoknad(state, ownProps),
+        initialValues: {
+            id: soknad.id,
+        },
+        soknad,
         sykmelding: finnSykmelding(state, ownProps),
         skjemasvar: getFormValues(SYKEPENGER_SKJEMANAVN)(state),
+        sender: state.soknader.sender,
+        sendingFeilet: state.soknader.sendingFeilet,
     };
 };
 
 const mapStateToProps = (state, ownProps) => {
     return mapStateToPropsMedInitialValues(state, ownProps);
+};
+
+const mapDispatchToProps = (dispatch) => {
+    const actions = bindActionCreators({
+        sendSoknad,
+    }, dispatch);
+
+    return {
+        actions,
+    };
 };
 
 export default (validate, Component, initialize = false) => {
@@ -44,5 +61,5 @@ export default (validate, Component, initialize = false) => {
     if (initialize) {
         return connect(mapStateToPropsMedInitialValues)(form);
     }
-    return connect(mapStateToProps)(form);
+    return connect(mapStateToProps, mapDispatchToProps)(form);
 };

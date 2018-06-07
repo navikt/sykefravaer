@@ -151,12 +151,8 @@ export const finnFomForFeriesporsmal = (sykepengesoknad) => {
 export const SYKEPENGER_SKJEMANAVN = 'SYKEPENGERSKJEMA';
 
 export const beregnHarBrukerNavigertTilAnnenSoknad = (state, id) => {
-    let brukerHarNavigertTilAnnenSoknad;
-    try {
-        const forrigeId = state.form[SYKEPENGER_SKJEMANAVN].values.id;
-        brukerHarNavigertTilAnnenSoknad = forrigeId && forrigeId !== id;
-    } catch (e) {
-        brukerHarNavigertTilAnnenSoknad = false;
-    }
-    return brukerHarNavigertTilAnnenSoknad;
+    const formData = state.form ? state.form[SYKEPENGER_SKJEMANAVN] : undefined;
+    return formData && formData.values && formData.values.id
+        ? formData.values.id !== id
+        : false;
 };

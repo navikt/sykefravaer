@@ -31,7 +31,7 @@ class Kvittering extends Component {
             </div>
             <p className="ikke-print blokk navigasjonsstripe">
                 <Link to="/sykefravaer/soknader" className="tilbakelenke">
-                    Gå til dine sykepengesøknader
+                    {getLedetekst('sykepengesoknad.navigasjon.gaa-til')}
                 </Link>
             </p>
         </div>);

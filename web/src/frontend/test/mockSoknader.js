@@ -343,6 +343,25 @@ const soknad1 = {
                 ],
             },
         },
+        {
+            id: '49',
+            tag: 'BEKREFT_OPPLYSNINGER',
+            sporsmalstekst: 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte.',
+            undertekst: null,
+            svar: {
+                svartype: 'CHECKBOX',
+                svarverdi: [
+                    {
+                        svarverdiType: null,
+                        verdi: 'CHECKED',
+                    },
+                ],
+                min: null,
+                max: null,
+                kriterieForVisningAvUndersporsmal: null,
+                undersporsmal: [],
+            },
+        },
     ],
 };
 
@@ -689,6 +708,25 @@ const parsetSoknad1 = {
                         },
                     },
                 ],
+            },
+        },
+        {
+            id: '49',
+            tag: 'BEKREFT_OPPLYSNINGER',
+            sporsmalstekst: 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte.',
+            undertekst: null,
+            svar: {
+                svartype: 'CHECKBOX',
+                svarverdi: [
+                    {
+                        svarverdiType: null,
+                        verdi: 'CHECKED',
+                    },
+                ],
+                min: null,
+                max: null,
+                kriterieForVisningAvUndersporsmal: null,
+                undersporsmal: [],
             },
         },
     ],

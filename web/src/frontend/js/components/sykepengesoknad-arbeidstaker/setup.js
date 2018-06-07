@@ -91,11 +91,15 @@ export const mapToInitialValues = (soknad, soknader = []) => {
     return preutfyllEgenmeldingsperioder(initialValues, soknader);
 };
 
-export const mapStateToPropsMedInitialValues = (state, ownProps) => {
-    const { sykepengesoknad } = ownProps;
-    const initialValues = sykepengesoknad.status === sykepengesoknadstatuser.UTKAST_TIL_KORRIGERING
+export const getInitialValuesSykepengesoknad = (sykepengesoknad, state) => {
+    return sykepengesoknad.status === sykepengesoknadstatuser.UTKAST_TIL_KORRIGERING
         ? mapBackendsoknadToSkjemasoknad(sykepengesoknad)
         : mapToInitialValues(sykepengesoknad, state.sykepengesoknader.data);
+};
+
+export const mapStateToPropsMedInitialValues = (state, ownProps) => {
+    const { sykepengesoknad } = ownProps;
+    const initialValues = getInitialValuesSykepengesoknad(sykepengesoknad, state);
     return {
         initialValues,
         sykepengesoknad: mapAktiviteter(sykepengesoknad),

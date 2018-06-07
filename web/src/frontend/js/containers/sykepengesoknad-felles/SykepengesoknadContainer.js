@@ -23,6 +23,7 @@ import AppSpinner from '../../components/AppSpinner';
 import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import SendtSoknadSelvstendig from '../../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
 import { soknad as soknadPt } from '../../propTypes';
+import { getInitialValuesSykepengesoknad } from '../../components/sykepengesoknad-arbeidstaker/setup';
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';
@@ -164,9 +165,7 @@ export class Container extends Component {
             this.props.actions.hentSoknader();
         }
         if (this.props.brukerHarNavigertTilAnnenSoknad) {
-            this.props.actions.initialize(SYKEPENGER_SKJEMANAVN, {
-                id: this.props.soknadId,
-            });
+            this.props.actions.initialize(SYKEPENGER_SKJEMANAVN, this.props.initialValues);
         }
         if (this.props.skalHenteSykmeldinger) {
             this.props.actions.hentDineSykmeldinger();
@@ -214,6 +213,7 @@ Container.propTypes = {
     sti: PropTypes.string,
     henter: PropTypes.bool,
     soknadId: PropTypes.string,
+    initialValues: PropTypes.shape(),
 };
 
 export function mapDispatchToProps(dispatch) {
@@ -236,6 +236,18 @@ export const mapStateToProps = (state, ownProps) => {
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
     const brukerHarNavigertTilAnnenSoknad = beregnHarBrukerNavigertTilAnnenSoknad(state, soknadId);
 
+    const initialValues = (() => {
+        if (erArbeidstakersoknad) {
+            return getInitialValuesSykepengesoknad(sykepengesoknad, state);
+        }
+        if (erSelvstendigNaeringsdrivendeSoknad) {
+            return {
+                id: soknadId,
+            };
+        }
+        return {};
+    })();
+
     return {
         soknadId,
         skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,
@@ -249,6 +261,7 @@ export const mapStateToProps = (state, ownProps) => {
         brukerHarNavigertTilAnnenSoknad,
         soknad,
         sykepengesoknad,
+        initialValues,
     };
 };
 

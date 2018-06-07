@@ -7,7 +7,7 @@ import {
     HENT_SOKNADER_FORESPURT, SEND_SOKNAD_FORESPURT,
 } from '../actions/actiontyper';
 import mockSoknader from '../../test/mockSoknader';
-import { toggleSelvstendigSoknad } from '../toggles';
+import { toggleInnsendingAvSelvstendigSoknad, toggleSelvstendigSoknad } from '../toggles';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);
@@ -31,7 +31,9 @@ export function* hentSoknader() {
 export function* sendSoknad(action) {
     yield put(actions.senderSoknad(action.soknadId));
     try {
-        yield call(post, '/syfosoknad/sendSoknad', action.soknad);
+        if (toggleInnsendingAvSelvstendigSoknad()) {
+            yield call(post, '/syfosoknad/sendSoknad', action.soknad);
+        }
         yield put(actions.soknadSendt(action.soknad));
         gaTilKvittering(action.soknad.id);
     } catch (e) {

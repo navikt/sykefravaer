@@ -59,9 +59,18 @@ describe('soknaderSagas', () => {
     });
 
     describe('Innsending av søknad', () => {
+        let toggleInnsendingAvSelvstendigSoknad;
         const soknadData = { test: 'data' };
         const action = actions.sendSoknad(soknadData);
         const generator = sendSoknad(action);
+
+        beforeEach(() => {
+            toggleInnsendingAvSelvstendigSoknad = sinon.stub(toggles, 'toggleInnsendingAvSelvstendigSoknad').returns(true);
+        });
+
+        afterEach(() => {
+            toggleInnsendingAvSelvstendigSoknad.restore();
+        });
 
         it('Skal dispatche SENDER_SOKNAD', () => {
             const nextPut = put(actions.senderSoknad());

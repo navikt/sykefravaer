@@ -24,7 +24,15 @@ export class SoknaderSide extends Component {
     }
 
     render() {
-        const { brodsmuler, henter, hentingFeilet, sykepengesoknader, skalHenteSykepengesoknader, skalHenteSoknader, soknader, visFeil } = this.props;
+        const {
+            brodsmuler,
+            henter,
+            hentingFeilet,
+            sykepengesoknader,
+            skalHenteSykepengesoknader,
+            skalHenteSoknader,
+            soknader,
+            visFeil } = this.props;
 
         return (
             <Side tittel={getLedetekst('soknader.sidetittel')} brodsmuler={brodsmuler} laster={henter || skalHenteSoknader || skalHenteSykepengesoknader}>

@@ -1,12 +1,24 @@
 import { expect } from 'chai';
 import { get, post } from 'digisyfo-npm';
+import sinon from 'sinon';
 import { put, call } from 'redux-saga/effects';
 import { hentSoknader, sendSoknad } from '../../js/sagas/soknaderSagas';
 import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader from '../mockSoknader';
+import * as toggles from '../../js/toggles';
 
 describe('soknaderSagas', () => {
-    describe('Henting av søknader', () => {
+    describe('Henting av søknader når det er togglet på', () => {
+        let toggleSelvstendigSoknad;
+
+        beforeEach(() => {
+            toggleSelvstendigSoknad = sinon.stub(toggles, 'toggleSelvstendigSoknad').returns(true);
+        });
+
+        afterEach(() => {
+            toggleSelvstendigSoknad.restore();
+        });
+
         const action = actions.hentSoknader();
         const generator = hentSoknader(action);
 
@@ -23,6 +35,26 @@ describe('soknaderSagas', () => {
         it('Skal deretter dispatche SOKNADER_HENTET', () => {
             const nextPut = put(actions.soknaderHentet(mockSoknader));
             expect(generator.next(mockSoknader).value).to.deep.equal(nextPut);
+        });
+    });
+
+    describe('Henting av søknader når det er togglet av', () => {
+        let toggleSelvstendigSoknad;
+
+        beforeEach(() => {
+            toggleSelvstendigSoknad = sinon.stub(toggles, 'toggleSelvstendigSoknad').returns(false);
+        });
+
+        afterEach(() => {
+            toggleSelvstendigSoknad.restore();
+        });
+
+        const action = actions.hentSoknader();
+        const generator = hentSoknader(action);
+
+        it('Skal oppføre seg som om det ble returnert ingen søknader', () => {
+            const nextPut = put(actions.soknaderHentet([]));
+            expect(generator.next().value).to.deep.equal(nextPut);
         });
     });
 

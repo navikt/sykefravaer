@@ -23,8 +23,7 @@ OppsummeringUtvidbar.propTypes = {
 };
 
 const Knapp = ({ children, className = '', visSpinner, ...rest }) => {
-    const classNames = cn({
-        knapp: true,
+    const classNames = cn('knapp', {
         'knapp--spinner': visSpinner,
     });
     return (<button {...rest} className={`${classNames} ${className}`}>
@@ -60,7 +59,9 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
             <Checkbox {...sporsmal} name={sporsmal.tag} />
         </div>
         <Knapperad variant="knapperad--forrigeNeste">
-            <Link to={`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`} className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
+            <Link
+                to={`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
+                className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
             <Knapp type="submit" className="js-send" visSpinner={sender}>{getLedetekst('sykepengesoknad.send')}</Knapp>
         </Knapperad>
     </form>);

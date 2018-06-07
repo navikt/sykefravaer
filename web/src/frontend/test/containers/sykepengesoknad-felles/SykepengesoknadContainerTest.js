@@ -10,7 +10,6 @@ import {
     SykepengeskjemaForSelvstendige,
 } from '../../../js/containers/sykepengesoknad-felles/SykepengesoknadContainer';
 import { SYKEPENGER_SKJEMANAVN } from '../../../js/utils/sykepengesoknadUtils';
-import * as toggles from '../../../js/toggles';
 import AppSpinner from '../../../js/components/AppSpinner';
 import { NY, SENDT, TIL_SENDING } from '../../../js/enums/soknadstatuser';
 import SykepengesoknadSelvstendigKvitteringContainer from '../../../js/containers/sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
@@ -82,16 +81,6 @@ describe('SykepengesoknadContainerTest', () => {
     });
 
     describe('Henting av data', () => {
-        let toggleSelvstendigSoknad;
-
-        beforeEach(() => {
-            toggleSelvstendigSoknad = sinon.stub(toggles, 'toggleSelvstendigSoknad').returns(true);
-        });
-
-        afterEach(() => {
-            toggleSelvstendigSoknad.restore();
-        });
-
         it('Skal hente søknader hvis søknader ikke er hentet', () => {
             state.soknader.hentet = false;
             shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);

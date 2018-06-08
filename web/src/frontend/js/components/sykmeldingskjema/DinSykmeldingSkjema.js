@@ -138,7 +138,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
             })}>
             <FeiloppsummeringContainer skjemanavn={DIN_SYKMELDING_SKJEMANAVN} />
             <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel')}</h3>
-            <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.gdpr.bruk-sykmeldingen')} />
+            <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.gdpr.bruk-sykmeldingen')} />
             <ErOpplysningeneRiktige untouch={untouch} />
             <Vis hvis={modus !== modi.AVBRYT}>
                 <div className="blokk">

@@ -1,4 +1,4 @@
-import { erGyldigDatoformat, fraInputdatoTilJSDato, periodeOverlapperMedPeriode, senesteTom, tidligsteFom, tilDatePeriode } from 'digisyfo-npm';
+import { erGyldigDatoformat, fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tidligsteFom, tilDatePeriode } from 'digisyfo-npm';
 
 export const getTidligsteSendtDato = (soknad) => {
     if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {
@@ -62,14 +62,14 @@ export const getTomDato = (sykepengesoknad) => {
         return a.periode;
     });
     if (sykepengesoknad.gjenopptattArbeidFulltUtDato) {
-        const t = new Date(tidligsteFom(perioder));
-        const g = new Date(sykepengesoknad.gjenopptattArbeidFulltUtDato);
-        if (g.getTime() === t.getTime()) {
-            return g;
+        const tidligsteFomFraPerioder = new Date(tidligsteFom(perioder));
+        const gjenopptattArbeidFulltUtDato = new Date(sykepengesoknad.gjenopptattArbeidFulltUtDato);
+        if (gjenopptattArbeidFulltUtDato.getTime() === tidligsteFomFraPerioder.getTime()) {
+            return gjenopptattArbeidFulltUtDato;
         }
-        return new Date(g - (1000 * 60 * 60 * 24));
+        return new Date(gjenopptattArbeidFulltUtDato - (1000 * 60 * 60 * 24));
     }
-    return senesteTom(perioder);
+    return sykepengesoknad.tom;
 };
 
 export const getGjenopptattArbeidFulltUtDato = (skjemasoknad) => {

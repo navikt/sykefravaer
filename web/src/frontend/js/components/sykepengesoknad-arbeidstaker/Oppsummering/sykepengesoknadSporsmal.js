@@ -1,4 +1,4 @@
-import { getLedetekst, toDatePrettyPrint, tidligsteFom, senesteTom as getSenesteTom } from 'digisyfo-npm';
+import { getLedetekst, toDatePrettyPrint, tidligsteFom } from 'digisyfo-npm';
 import { finnFomForFeriesporsmal, getTomDato } from '../../../utils/sykepengesoknadUtils';
 import { getTidligsteStartdatoSykeforloep } from '../../../utils/sykmeldingUtils';
 
@@ -76,10 +76,7 @@ export const getUtdanningssporsmal = (sykepengesoknad, gjenopptattArbeidFulltUtD
 };
 
 export const getGjenopptattArbeidFulltUtSporsmal = (sykepengesoknad, callback = getLedetekst) => {
-    const perioder = sykepengesoknad.aktiviteter.map((aktivitet) => {
-        return aktivitet.periode;
-    });
-    const dato = new Date(getSenesteTom(perioder));
+    const dato = new Date(sykepengesoknad.tom);
     dato.setDate(dato.getDate() + 1);
     return callback('sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2', {
         '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,

@@ -38,11 +38,6 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
             <Utdrag />
             <DinSituasjonContainer />
             <nav className="js-navigasjon">
-                <LandingssideLenke
-                    to="/sykefravaer/tidslinjen"
-                    ikon="tidslinje"
-                    ikonAlt="Tidslinjen"
-                    tittel="Hva skjer under sykefraværet?" />
                 <Vis hvis={harSykmeldinger}>
                     <LandingssideLenke
                         to="/sykefravaer/sykmeldinger"
@@ -71,6 +66,11 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                         ikonAlt="Oppfølgingsplaner"
                         tittel="Oppfølgingsplaner" />
                 </Vis>
+                <LandingssideLenke
+                    to="/sykefravaer/tidslinjen"
+                    ikon="tidslinje"
+                    ikonAlt="Tidslinjen"
+                    tittel="Hva skjer under sykefraværet?" />
             </nav>
             <DetteHarSkjeddContainer />
             <div className="panel blokk">

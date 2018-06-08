@@ -3,6 +3,7 @@ import {
     inntektskildetyper as inntektskildetypeEnums,
     sykepengesoknadsvartyper as svartype,
     sporsmalstyper,
+    tilDatePeriode,
 } from 'digisyfo-npm';
 import {
     getAktivitetssporsmal, getEgenmeldingsdagerSporsmal,
@@ -15,6 +16,7 @@ import {
 import { filtrerAktuelleAktiviteter, getGjenopptattArbeidFulltUtDato } from '../../../utils/sykepengesoknadUtils';
 import * as skjemafelter from '../sykepengesoknadskjemafelter';
 import { visSoktOmSykepengerUtenlandsoppholdsporsmal } from '../FravaerOgFriskmelding/SoktOmSykepengerIUtenlandsopphold';
+import { getStillingsprosent } from '../AktiviteterISykmeldingsperioden/DetteTilsvarer';
 
 const {
     ansvarBekreftet,
@@ -270,10 +272,16 @@ const tilAktiviteterSpm = (skjemasoknad, sykepengesoknad, felt) => {
             const svarnokkel = valgtEnhet === prosent ? nokler.angiArbeidsgrad : nokler.angiArbeidstimer;
             const faktiskjobbingSvar = new Svar(getNokkelOgVerdier(svarnokkel, arbeidsgradverdier));
 
-            if (valgtEnhet !== prosent && aktivitet.avvik.beregnetArbeidsgrad) {
-                faktiskjobbingSvar.tilleggstekst = new Tilleggstekst(getNokkelOgVerdier(nokler.detteTilsvarer, {
-                    '%STILLINGSPROSENT%': aktivitet.avvik.beregnetArbeidsgrad,
-                }), svartype.HTML);
+            if (valgtEnhet !== prosent) {
+                const ferieOgPermisjonPerioder = skjemasoknad.harHattFeriePermisjonEllerUtenlandsopphold && skjemasoknad.harHattFerie ? skjemasoknad.ferie : [];
+                const feriePerioderSomJSDatePerioder = ferieOgPermisjonPerioder.map(tilDatePeriode);
+                const beregnetArbeidsgrad = getStillingsprosent(aktivitet.avvik.timer, aktivitet.avvik.arbeidstimerNormalUke, aktivitet.periode, feriePerioderSomJSDatePerioder);
+
+                if (beregnetArbeidsgrad && beregnetArbeidsgrad > 0) {
+                    faktiskjobbingSvar.tilleggstekst = new Tilleggstekst(getNokkelOgVerdier(nokler.detteTilsvarer, {
+                        '%STILLINGSPROSENT%': beregnetArbeidsgrad.toString(),
+                    }), svartype.HTML);
+                }
             }
 
             undersporsmal = [

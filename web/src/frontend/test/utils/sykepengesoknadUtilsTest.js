@@ -174,9 +174,10 @@ describe('sykepengesoknadUtils', () => {
     });
 
     describe('getTomDato', () => {
-        it('Returnerer senesteTom  hvis gjenopptattArbeidFulltUtDato ikke er utfylt', () => {
+        it('Returnerer tom fra søknaden hvis gjenopptattArbeidFulltUtDato ikke er utfylt', () => {
             expect(utils.getTomDato({
                 gjenopptattArbeidFulltUtDato: null,
+                tom: new Date('2017-01-13'),
                 aktiviteter: [{
                     periode: {
                         fom: new Date('2017-01-01'),
@@ -192,7 +193,7 @@ describe('sykepengesoknadUtils', () => {
                     grad: 50,
                     avvik: null,
                 }],
-            })).to.deep.equal(new Date('2017-01-25'));
+            })).to.deep.equal(new Date('2017-01-13'));
         });
 
         it('Returnerer gjenopptattArbeidFulltUtDato minus en dag hvis gjenopptattArbeidFulltUtDato er utfylt', () => {

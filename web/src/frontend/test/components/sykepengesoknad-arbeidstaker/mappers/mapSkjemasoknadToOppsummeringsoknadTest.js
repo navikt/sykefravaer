@@ -221,6 +221,31 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 });
             });
 
+            it('Skal mappe harGjenopptattArbeidFulltUt når det er en oppdelt søknad', () => {
+                skjemasoknad.harGjenopptattArbeidFulltUt = false;
+                sykepengesoknad.tom = new Date("2017-01-13");
+                const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
+                expect(verdier.soknad[1]).to.deep.equal({
+                    type: gjenopptattArbeidFulltUtType,
+                    ledetekst: {
+                        nokkel: 'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2',
+                        verdier: {
+                            '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
+                            '%DATO%': '14.01.2017',
+                        },
+                        tekst: 'Var du tilbake i fullt arbeid hos Olsens Sykkelservice før 14.01.2017?',
+                    },
+                    svar: [{
+                        ledetekst: {
+                            nokkel: 'sykepengesoknad.nei',
+                            tekst: 'Nei',
+                        },
+                        type: 'RADIOKNAPPER',
+                        undersporsmal: [],
+                    }],
+                });
+            });
+
             it('Skal mappe harGjenopptattArbeidFulltUt når harGjenopptattArbeidFulltUt er true', () => {
                 skjemasoknad.harGjenopptattArbeidFulltUt = true;
                 skjemasoknad.gjenopptattArbeidFulltUtDato = '05.01.2017';
@@ -1096,6 +1121,30 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                             '%SLUTTDATO%': '25.01.2017',
                         },
                         tekst: 'Har du vært under utdanning i løpet av perioden 01.01.2017 - 25.01.2017?',
+                    },
+                    svar: [{
+                        ledetekst: {
+                            nokkel: 'sykepengesoknad.nei',
+                            tekst: 'Nei',
+                        },
+                        type: 'RADIOKNAPPER',
+                        undersporsmal: [],
+                    }],
+                });
+            });
+
+            it('Skal mappe utdanning når søknaden er oppdelt', () => {
+                sykepengesoknad.tom = new Date("2017-01-12");
+                const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
+                expect(soknad.soknad[6]).to.deep.equal({
+                    type: utdanningType,
+                    ledetekst: {
+                        nokkel: 'sykepengesoknad.utdanning.ja-nei.sporsmal',
+                        verdier: {
+                            '%STARTDATO%': '01.01.2017',
+                            '%SLUTTDATO%': '12.01.2017',
+                        },
+                        tekst: 'Har du vært under utdanning i løpet av perioden 01.01.2017 - 12.01.2017?',
                     },
                     svar: [{
                         ledetekst: {

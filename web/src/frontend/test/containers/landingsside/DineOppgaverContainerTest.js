@@ -59,6 +59,9 @@ describe('DineOppgaverContainer', () => {
                     data: [],
                     hentet: true,
                 },
+                soknader: {
+                    data: [],
+                },
             };
         });
 

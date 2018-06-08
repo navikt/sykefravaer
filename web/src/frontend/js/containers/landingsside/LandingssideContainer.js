@@ -16,6 +16,7 @@ import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentLedere } from '../../actions/ledere_actions';
 import { hentSykeforloep } from '../../actions/sykeforloep_actions';
 import { skalViseOppfoelgingsdialogLenke } from '../../utils/sykmeldingUtils';
+import { hentSoknader } from '../../actions/soknader_actions';
 
 export class LandingssideSide extends Component {
     componentWillMount() {
@@ -26,6 +27,7 @@ export class LandingssideSide extends Component {
             skalHenteDineSykmeldinger,
             skalHenteSykeforloep,
             skalHenteOppfolgingsdialoger,
+            skalHenteSoknader,
             actions,
         } = this.props;
 
@@ -51,6 +53,10 @@ export class LandingssideSide extends Component {
 
         if (skalHenteOppfolgingsdialoger) {
             actions.hentOppfolgingsdialoger();
+        }
+
+        if (skalHenteSoknader) {
+            actions.hentSoknader();
         }
     }
 
@@ -104,6 +110,7 @@ LandingssideSide.propTypes = {
     skalHenteDineSykmeldinger: PropTypes.bool,
     skalHenteSykeforloep: PropTypes.bool,
     skalHenteOppfolgingsdialoger: PropTypes.bool,
+    skalHenteSoknader: PropTypes.bool,
     actions: PropTypes.shape({
         hentMote: PropTypes.func,
         hentLedere: PropTypes.func,
@@ -111,6 +118,7 @@ LandingssideSide.propTypes = {
         hentDineSykmeldinger: PropTypes.func,
         hentSykeforloep: PropTypes.func,
         hentOppfolgingsdialoger: PropTypes.func,
+        hentSoknader: PropTypes.func,
     }),
 };
 
@@ -125,7 +133,7 @@ export function mapStateToProps(state) {
         return r.henter === true;
     };
 
-    const reducere = ['mote', 'sykepengesoknader', 'ledere', 'dineSykmeldinger', 'sykeforloep', 'oppfolgingsdialoger', 'ledetekster'];
+    const reducere = ['mote', 'sykepengesoknader', 'ledere', 'dineSykmeldinger', 'sykeforloep', 'oppfolgingsdialoger', 'ledetekster', 'soknader'];
 
     return {
         skalHenteMote: skalHente('mote'),
@@ -134,6 +142,7 @@ export function mapStateToProps(state) {
         skalHenteDineSykmeldinger: skalHente('dineSykmeldinger'),
         skalHenteSykeforloep: skalHente('sykeforloep'),
         skalHenteOppfolgingsdialoger: skalHente('oppfolgingsdialoger'),
+        skalHenteSoknader: skalHente('soknader'),
         skalHenteNoe: reducere.reduce((acc, val) => {
             return acc || skalHente(val);
         }, false),
@@ -141,7 +150,7 @@ export function mapStateToProps(state) {
             return acc || henter(val);
         }, false),
         harDialogmote: state.mote.data !== null,
-        harSykepengesoknader: state.sykepengesoknader.data.length > 0,
+        harSykepengesoknader: state.sykepengesoknader.data.length > 0 || state.soknader.data.length > 0,
         harSykmeldinger: state.dineSykmeldinger.data.length > 0,
         skalViseOppfolgingsdialog: !state.dineSykmeldinger.hentingFeilet &&
             !state.oppfolgingsdialoger.hentingFeilet &&
@@ -163,6 +172,7 @@ const mapDispatchToProps = (dispatch) => {
         hentDineSykmeldinger,
         hentOppfolgingsdialoger,
         hentSykeforloep,
+        hentSoknader,
     }, dispatch);
     return { actions };
 };

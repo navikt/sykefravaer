@@ -18,52 +18,43 @@ import { hentHendelser } from '../../actions/hendelser_actions';
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../aktivitetskrav/AktivitetskravvarselContainer';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
 
-const GRONN = 'GRØNN';
-
-const Li = ({ tekst, url, onClick }) => {
+const Li = ({ tekst, url }) => {
     return (<li>
-        <Link onClick={onClick} to={url}>{tekst}</Link>
+        <Link to={url}>{tekst}</Link>
     </li>);
 };
 
 Li.propTypes = {
     tekst: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-    onClick: PropTypes.func,
 };
 
-export const NySykmelding = ({ sykmeldinger, onClick }) => {
+export const NySykmelding = ({ sykmeldinger }) => {
     const url = sykmeldinger.length === 1 ? `/sykefravaer/sykmeldinger/${sykmeldinger[0].id}` : '/sykefravaer/sykmeldinger';
     const tekst = sykmeldinger.length === 1 ? getLedetekst('dine-oppgaver.sykmeldinger.en-sykmelding') : getLedetekst('dine-oppgaver.sykmeldinger.flere-sykmeldinger', {
         '%ANTALL%': sykmeldinger.length.toString(),
     });
-    return (<Li onClick={onClick} url={url} tekst={tekst} />);
+    return (<Li url={url} tekst={tekst} />);
 };
 
 NySykmelding.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
-    onClick: PropTypes.func,
 };
 
-export const NySykepengesoknad = ({ sykepengesoknader, onClick }) => {
+export const NySykepengesoknad = ({ sykepengesoknader }) => {
     const url = sykepengesoknader.length === 1 ? `/sykefravaer/soknader/${sykepengesoknader[0].id}` : '/sykefravaer/soknader';
     const tekst = sykepengesoknader.length === 1 ? getLedetekst('dine-oppgaver.sykepengesoknader.en-soknad') : getLedetekst('dine-oppgaver.sykepengesoknader.flere-soknader', {
         '%ANTALL%': sykepengesoknader.length.toString(),
     });
-    return (<Li onClick={onClick} url={url} tekst={tekst} />);
+    return (<Li url={url} tekst={tekst} />);
 };
 
-export const NyttAktivitetskravvarsel = ({ onClick }) => {
-    return (<Li onClick={onClick} url="/sykefravaer/aktivitetsplikt/" tekst={getLedetekst('dine-oppgaver.aktivitetskrav')} />);
-};
-
-NyttAktivitetskravvarsel.propTypes = {
-    onClick: PropTypes.func,
+export const NyttAktivitetskravvarsel = () => {
+    return (<Li url="/sykefravaer/aktivitetsplikt/" tekst={getLedetekst('dine-oppgaver.aktivitetskrav')} />);
 };
 
 NySykepengesoknad.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
-    onClick: PropTypes.func,
 };
 
 const nyePlanerTekst = (antall) => {
@@ -80,45 +71,33 @@ const avventendeGodkjenningerTekst = (antall) => {
         });
 };
 
-const sendTilDataLayer = (event, variant) => {
-    /* eslint-disable quote-props */
-    window.dataLayer.push({
-        'event': event,
-        'variant': variant,
-    });
-    /* eslint-enable quote-props */
-};
-
 const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, avventendeGodkjenninger, nyePlaner, visAktivitetskrav }) => {
     if (!visOppgaver) {
         return null;
     }
-    const onClick = () => {
-        log('Registrerer klikk', GRONN);
-        sendTilDataLayer('DINE_OPPGAVER_KLIKK', GRONN);
-    };
+
     return (<div className="landingspanel dineOppgaver">
         <IllustrertInnhold ikon="/sykefravaer/img/svg/landingsside/oppgaver.svg" ikonAlt="Oppgaver">
             <div>
                 <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
                 <ul className="inngangsliste">
                     <Vis hvis={sykmeldinger.length > 0}>
-                        <NySykmelding onClick={onClick} sykmeldinger={sykmeldinger} />
+                        <NySykmelding sykmeldinger={sykmeldinger} />
                     </Vis>
                     <Vis hvis={sykepengesoknader.length > 0}>
-                        <NySykepengesoknad onClick={onClick} sykepengesoknader={sykepengesoknader} />
+                        <NySykepengesoknad sykepengesoknader={sykepengesoknader} />
                     </Vis>
                     <Vis hvis={mote !== null}>
-                        <Li onClick={onClick} url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} />
+                        <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} />
                     </Vis>
                     <Vis hvis={avventendeGodkjenninger.length > 0}>
-                        <Li onClick={onClick} url="/sykefravaer/oppfolgingsplaner" tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />
+                        <Li url="/sykefravaer/oppfolgingsplaner" tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />
                     </Vis>
                     <Vis hvis={nyePlaner.length > 0}>
-                        <Li onClick={onClick} url="/sykefravaer/oppfolgingsplaner" tekst={nyePlanerTekst(nyePlaner.length)} />
+                        <Li url="/sykefravaer/oppfolgingsplaner" tekst={nyePlanerTekst(nyePlaner.length)} />
                     </Vis>
                     <Vis hvis={visAktivitetskrav}>
-                        <NyttAktivitetskravvarsel onClick={onClick} />
+                        <NyttAktivitetskravvarsel />
                     </Vis>
                 </ul>
             </div>
@@ -147,10 +126,6 @@ export class DineOppgaver extends Component {
         }
         if (!oppfolgingsdialogerHentet) {
             this.props.hentOppfolgingsdialoger();
-        }
-        if (visOppgaver) {
-            log('Registrerer visning', GRONN);
-            sendTilDataLayer('DINE_OPPGAVER_VIST', GRONN);
         }
     }
 

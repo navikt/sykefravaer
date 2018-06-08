@@ -1,4 +1,4 @@
-import { erGyldigDatoformat, fraInputdatoTilJSDato, periodeOverlapperMedPeriode, senesteTom, tidligsteFom, tilDatePeriode } from 'digisyfo-npm';
+import { erGyldigDatoformat, fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tidligsteFom, tilDatePeriode } from 'digisyfo-npm';
 
 export const getTidligsteSendtDato = (soknad) => {
     if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {

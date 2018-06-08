@@ -31,7 +31,6 @@ class AngiTid extends Component {
 
     componentDidMount() {
         this.setEnhet(this.getValgtEnhet());
-        this.lagreStillingsprosent();
     }
 
     setEnhet(enhet) {
@@ -75,9 +74,10 @@ class AngiTid extends Component {
         return aktiviteter[aktivitetIndex].avvik;
     }
 
-    lagreStillingsprosent() {
+    _lagreStillingsprosent() {
         const stillingsprosent = this.getStillingsprosent();
         if (this.getValgtEnhet() === 'timer' && this.visTilsvarendeIProsent()) {
+            console.log(this.props.names[4]);
             this.props.autofill(this.props.names[4], stillingsprosent);
         }
     }
@@ -106,9 +106,6 @@ class AngiTid extends Component {
                     {getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal')}
                 </label>
                 <Field
-                    onBlur={() => {
-                        this.lagreStillingsprosent();
-                    }}
                     name={this.props.names[2]}
                     id={this.props.names[2]}
                     component={TekstfeltMedEnhet}
@@ -146,9 +143,6 @@ class AngiTid extends Component {
                 }
             </div>
             <Field
-                onBlur={() => {
-                    this.lagreStillingsprosent();
-                }}
                 id={this.getAntallName()}
                 component={TekstfeltMedEnhet}
                 parse={(v) => {

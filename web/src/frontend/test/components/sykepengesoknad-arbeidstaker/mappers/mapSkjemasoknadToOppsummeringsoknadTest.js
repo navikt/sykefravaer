@@ -223,7 +223,7 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
 
             it('Skal mappe harGjenopptattArbeidFulltUt når det er en oppdelt søknad', () => {
                 skjemasoknad.harGjenopptattArbeidFulltUt = false;
-                sykepengesoknad.tom = new Date("2017-01-13");
+                sykepengesoknad.tom = new Date('2017-01-13');
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                 expect(verdier.soknad[1]).to.deep.equal({
                     type: gjenopptattArbeidFulltUtType,
@@ -730,7 +730,6 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                         enhet: 'timer',
                         timer: '15',
                         arbeidstimerNormalUke: '37,5',
-                        beregnetArbeidsgrad: '22.5',
                     },
                 });
 
@@ -745,8 +744,8 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
 
                 aktivitetMedArbeidsgradLikNull = {
                     periode: {
-                        fom: '2018-02-17T00:00:00.000Z',
-                        tom: '2018-02-18T00:00:00.000Z',
+                        fom: new Date('2018-02-17T00:00:00.000Z'),
+                        tom: new Date('2018-02-18T00:00:00.000Z'),
                     },
                     grad: 100,
                     avvik: {
@@ -878,10 +877,10 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                                 type: 'TEKSTSVAR',
                                 tilleggstekst: {
                                     ledetekst: {
-                                        tekst: 'Vår foreløpige beregning er at du jobbet <strong>22.5 %</strong> av stillingen din.',
+                                        tekst: 'Vår foreløpige beregning er at du jobbet <strong>20 %</strong> av stillingen din.',
                                         nokkel: 'sykepengesoknad.angi-tid.dette-tilsvarer',
                                         verdier: {
-                                            '%STILLINGSPROSENT%': '22.5',
+                                            '%STILLINGSPROSENT%': '20',
                                         },
                                     },
                                     type: 'HTML',
@@ -1134,7 +1133,7 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
             });
 
             it('Skal mappe utdanning når søknaden er oppdelt', () => {
-                sykepengesoknad.tom = new Date("2017-01-12");
+                sykepengesoknad.tom = new Date('2017-01-12');
                 const soknad = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
                 expect(soknad.soknad[6]).to.deep.equal({
                     type: utdanningType,

@@ -119,7 +119,7 @@ describe('Aktiviteter', () => {
                 'aktiviteter[1].avvik.timer',
                 'aktiviteter[1].avvik.arbeidstimerNormalUke',
                 'aktiviteter[1].avvik.enhet',
-                'aktiviteter[1].avvik.beregnetArbeidsgrad']);
+            ]);
         });
     });
 
@@ -158,7 +158,7 @@ describe('Aktiviteter', () => {
                 'aktiviteter[0].avvik.timer',
                 'aktiviteter[0].avvik.arbeidstimerNormalUke',
                 'aktiviteter[0].avvik.enhet',
-                'aktiviteter[0].avvik.beregnetArbeidsgrad']);
+            ]);
         });
     });
 });

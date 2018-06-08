@@ -1,4 +1,4 @@
-import { getLedetekst, toDatePrettyPrint, tidligsteFom, senesteTom as getSenesteTom } from 'digisyfo-npm';
+import { getLedetekst, toDatePrettyPrint, tidligsteFom } from 'digisyfo-npm';
 import { finnFomForFeriesporsmal, getTomDato } from '../../../utils/sykepengesoknadUtils';
 import { getTidligsteStartdatoSykeforloep } from '../../../utils/sykmeldingUtils';
 

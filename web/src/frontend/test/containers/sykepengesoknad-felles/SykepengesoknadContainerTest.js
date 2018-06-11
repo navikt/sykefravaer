@@ -34,6 +34,7 @@ describe('SykepengesoknadContainerTest', () => {
     let hentSoknader;
     let hentDineSykmeldinger;
     let initialize;
+    let destroy;
 
     beforeEach(() => {
         state = {};
@@ -59,16 +60,18 @@ describe('SykepengesoknadContainerTest', () => {
         hentSoknader = sinon.spy();
         hentDineSykmeldinger = sinon.spy();
         initialize = sinon.spy();
+        destroy = sinon.spy();
 
         actions = {
             hentSykepengesoknader,
             hentSoknader,
             hentDineSykmeldinger,
             initialize,
+            destroy,
         };
     });
 
-    it('Skal kalle på initialize dersom bruker har vært på en annen søknad før', () => {
+    it('Skal kalle på destroy dersom bruker har vært på en annen søknad før', () => {
         state.form = {};
         state.form[SYKEPENGER_SKJEMANAVN] = {
             values: {
@@ -77,7 +80,7 @@ describe('SykepengesoknadContainerTest', () => {
         };
         const props = mapStateToProps(state, ownProps);
         shallow(<Container {...props} actions={actions} />);
-        expect(initialize.called).to.equal(true);
+        expect(destroy.called).to.equal(true);
     });
 
     describe('Henting av data', () => {

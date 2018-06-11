@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { initialize } from 'redux-form';
+import { destroy, initialize } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import * as soknaderActions from '../../actions/soknader_actions';
 import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
@@ -165,7 +165,10 @@ export class Container extends Component {
             this.props.actions.hentSoknader();
         }
         if (this.props.brukerHarNavigertTilAnnenSoknad) {
-            this.props.actions.initialize(SYKEPENGER_SKJEMANAVN, this.props.initialValues);
+            this.props.actions.destroy(SYKEPENGER_SKJEMANAVN);
+            if (this.props.erSelvstendigNaeringsdrivendeSoknad) {
+                this.props.actions.initialize(SYKEPENGER_SKJEMANAVN, this.props.initialValueSelvstendigSoknad);
+            }
         }
         if (this.props.skalHenteSykmeldinger) {
             this.props.actions.hentDineSykmeldinger();
@@ -202,6 +205,7 @@ Container.propTypes = {
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,
         hentDineSykmeldinger: PropTypes.func,
+        destroy: PropTypes.func,
         initialize: PropTypes.func,
     }),
     skalHenteSykepengesoknader: PropTypes.bool,
@@ -213,12 +217,12 @@ Container.propTypes = {
     sti: PropTypes.string,
     henter: PropTypes.bool,
     soknadId: PropTypes.string,
-    initialValues: PropTypes.shape(),
+    initialValueSelvstendigSoknad: PropTypes.shape(),
 };
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions, initialize }, dispatch),
+        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions, destroy, initialize }, dispatch),
     };
 }
 
@@ -236,17 +240,9 @@ export const mapStateToProps = (state, ownProps) => {
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
     const brukerHarNavigertTilAnnenSoknad = beregnHarBrukerNavigertTilAnnenSoknad(state, soknadId);
 
-    const initialValues = (() => {
-        if (erArbeidstakersoknad) {
-            return getInitialValuesSykepengesoknad(sykepengesoknad, state);
-        }
-        if (erSelvstendigNaeringsdrivendeSoknad) {
-            return {
-                id: soknadId,
-            };
-        }
-        return {};
-    })();
+    const initialValueSelvstendigSoknad = {
+        id: soknadId,
+    };
 
     return {
         soknadId,
@@ -261,7 +257,7 @@ export const mapStateToProps = (state, ownProps) => {
         brukerHarNavigertTilAnnenSoknad,
         soknad,
         sykepengesoknad,
-        initialValues,
+        initialValueSelvstendigSoknad,
     };
 };
 

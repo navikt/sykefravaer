@@ -17,8 +17,8 @@ const parseSvar = (svar) => {
         case DATO: {
             return {
                 ...svar,
-                min: new Date(svar.min),
-                max: new Date(svar.max),
+                min: svar.min ? new Date(svar.min) : svar.min,
+                max: svar.max ? new Date(svar.max) : svar.max,
             };
         }
         case TIMER:

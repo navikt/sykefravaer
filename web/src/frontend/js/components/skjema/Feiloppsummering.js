@@ -21,7 +21,7 @@ const getFeilmeldinger = (props) => {
 class Feiloppsummering extends Component {
     componentDidUpdate(prevProps) {
         const { settFokus, skjemaErGyldig, skjemanavn } = this.props;
-        if (settFokus) {
+        if (settFokus && this.oppsummering) {
             if (!erSynligIViewport(this.oppsummering)) {
                 scrollTo(this.oppsummering, 300);
                 setTimeout(() => {

@@ -10,10 +10,10 @@ import getSykmelding from '../../mockSykmeldinger';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-
 describe('LandingssideContainer', () => {
     let hentMote;
     let hentSykepengesoknader;
+    let hentSoknader;
     let hentLedere;
     let hentDineSykmeldinger;
     let hentSykeforloep;
@@ -29,6 +29,7 @@ describe('LandingssideContainer', () => {
         hentDineSykmeldinger = sinon.spy();
         hentSykeforloep = sinon.spy();
         hentOppfolgingsdialoger = sinon.spy();
+        hentSoknader = sinon.spy();
 
         actions = {
             hentMote,
@@ -37,6 +38,7 @@ describe('LandingssideContainer', () => {
             hentDineSykmeldinger,
             hentSykeforloep,
             hentOppfolgingsdialoger,
+            hentSoknader,
         };
 
         state = {
@@ -54,6 +56,9 @@ describe('LandingssideContainer', () => {
             },
             ledetekster: {},
             hendelser: {},
+            soknader: {
+                data: [],
+            },
         };
     });
 
@@ -122,6 +127,40 @@ describe('LandingssideContainer', () => {
                 const props = mapStateToProps(deepFreeze(state));
                 shallow(<LandingssideSide {...props} actions={actions} />);
                 expect(hentSykepengesoknader.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+        });
+
+        describe('Søknader', () => {
+            it('Skal hente søknader dersom søknader ikke er hentet', () => {
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentSoknader.calledOnce).to.equal(true);
+                expect(props.henter).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it('Skal ikke hente søknader dersom søknader er hentet', () => {
+                state.soknader.hentet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentSoknader.called).to.equal(false);
+                expect(props.henter).to.equal(false);
+            });
+
+            it('Skal ikke hente søknader dersom søknader hentes nå', () => {
+                state.soknader.henter = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentSoknader.called).to.equal(false);
+                expect(props.henter).to.equal(true);
+            });
+
+            it('Skal ikke hente søknader dersom henting av søknader har feilet', () => {
+                state.soknader.hentingFeilet = true;
+                const props = mapStateToProps(deepFreeze(state));
+                shallow(<LandingssideSide {...props} actions={actions} />);
+                expect(hentSoknader.called).to.equal(false);
                 expect(props.henter).to.equal(false);
             });
         });

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { getSvarsideModus } from 'moter-npm';
-import { getLedetekst, log, sykepengesoknadstatuser, sykmeldingstatuser } from 'digisyfo-npm';
+import { getLedetekst, sykepengesoknadstatuser, sykmeldingstatuser } from 'digisyfo-npm';
 import {
     hentOppfolgingsdialogerAt as hentOppfolgingsdialoger,
     proptypes as oppfolgingProptypes,
@@ -11,12 +11,14 @@ import {
 } from 'oppfolgingsdialog-npm';
 import { oppgaverOppfoelgingsdialoger } from '../../utils/oppfolgingsdialogUtils';
 import { Vis } from '../../utils';
-import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
+import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, soknad as soknadPt } from '../../propTypes';
 import { erMotePassert } from '../../utils/moteUtils';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentHendelser } from '../../actions/hendelser_actions';
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../aktivitetskrav/AktivitetskravvarselContainer';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
+import { NY } from '../../enums/soknadstatuser';
+import { SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 
 const Li = ({ tekst, url }) => {
     return (<li>
@@ -41,20 +43,22 @@ NySykmelding.propTypes = {
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
 };
 
-export const NySykepengesoknad = ({ sykepengesoknader }) => {
-    const url = sykepengesoknader.length === 1 ? `/sykefravaer/soknader/${sykepengesoknader[0].id}` : '/sykefravaer/soknader';
-    const tekst = sykepengesoknader.length === 1 ? getLedetekst('dine-oppgaver.sykepengesoknader.en-soknad') : getLedetekst('dine-oppgaver.sykepengesoknader.flere-soknader', {
-        '%ANTALL%': sykepengesoknader.length.toString(),
+export const NySykepengesoknad = ({ sykepengesoknader, soknader }) => {
+    const alleSoknader = [...sykepengesoknader, ...soknader];
+    const url = alleSoknader.length === 1 ? `/sykefravaer/soknader/${alleSoknader[0].id}` : '/sykefravaer/soknader';
+    const tekst = alleSoknader.length === 1 ? getLedetekst('dine-oppgaver.sykepengesoknader.en-soknad') : getLedetekst('dine-oppgaver.sykepengesoknader.flere-soknader', {
+        '%ANTALL%': alleSoknader.length.toString(),
     });
     return (<Li url={url} tekst={tekst} />);
 };
 
-export const NyttAktivitetskravvarsel = () => {
-    return (<Li url="/sykefravaer/aktivitetsplikt/" tekst={getLedetekst('dine-oppgaver.aktivitetskrav')} />);
-};
-
 NySykepengesoknad.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    soknader: PropTypes.arrayOf(soknadPt),
+};
+
+export const NyttAktivitetskravvarsel = () => {
+    return (<Li url="/sykefravaer/aktivitetsplikt/" tekst={getLedetekst('dine-oppgaver.aktivitetskrav')} />);
 };
 
 const nyePlanerTekst = (antall) => {
@@ -71,7 +75,7 @@ const avventendeGodkjenningerTekst = (antall) => {
         });
 };
 
-const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, avventendeGodkjenninger, nyePlaner, visAktivitetskrav }) => {
+const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver, mote, avventendeGodkjenninger, nyePlaner, visAktivitetskrav, soknader = [] }) => {
     if (!visOppgaver) {
         return null;
     }
@@ -84,8 +88,8 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
                     <Vis hvis={sykmeldinger.length > 0}>
                         <NySykmelding sykmeldinger={sykmeldinger} />
                     </Vis>
-                    <Vis hvis={sykepengesoknader.length > 0}>
-                        <NySykepengesoknad sykepengesoknader={sykepengesoknader} />
+                    <Vis hvis={sykepengesoknader.length > 0 || soknader.length > 0}>
+                        <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} />
                     </Vis>
                     <Vis hvis={mote !== null}>
                         <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} />
@@ -110,6 +114,7 @@ RendreOppgaver.propTypes = {
     nyePlaner: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     sykmeldinger: PropTypes.arrayOf(sykmeldingPt),
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    soknader: PropTypes.arrayOf(soknadPt),
     visOppgaver: PropTypes.bool,
     mote: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     visAktivitetskrav: PropTypes.bool,
@@ -117,7 +122,7 @@ RendreOppgaver.propTypes = {
 
 export class DineOppgaver extends Component {
     componentWillMount() {
-        const { sykmeldingerHentet, sykmeldingerHentingFeilet, hendelserHentet, hentingFeiletHendelser, oppfolgingsdialogerHentet, visOppgaver } = this.props;
+        const { sykmeldingerHentet, sykmeldingerHentingFeilet, hendelserHentet, hentingFeiletHendelser, oppfolgingsdialogerHentet } = this.props;
         if (!sykmeldingerHentet && !sykmeldingerHentingFeilet) {
             this.props.hentDineSykmeldinger();
         }
@@ -153,6 +158,9 @@ export const mapStateToProps = (state) => {
     const sykepengesoknader = state.sykepengesoknader.data.filter((s) => {
         return s.status === sykepengesoknadstatuser.NY;
     });
+    const soknader = state.soknader.data.filter((s) => {
+        return s.status === NY && s.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
+    });
 
     const mote = state.mote.data;
     let moteRes = null;
@@ -163,8 +171,13 @@ export const mapStateToProps = (state) => {
     }
     const _oppgaverOppfoelgingsdialoger = oppgaverOppfoelgingsdialoger(state.oppfolgingsdialoger.data, state.dineSykmeldinger.data);
     const visAktivitetskrav = getAktivitetskravvisning(state.hendelser.data) === NYTT_AKTIVITETSKRAVVARSEL;
-    const visOppgaver = sykmeldinger.length > 0 || sykepengesoknader.length > 0 || moteRes !== null ||
-        _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0 || _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0 || visAktivitetskrav;
+    const visOppgaver = sykmeldinger.length > 0 ||
+        sykepengesoknader.length > 0 ||
+        soknader.length > 0 ||
+        moteRes !== null ||
+        _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger.length > 0 ||
+        _oppgaverOppfoelgingsdialoger.nyePlaner.length > 0 ||
+        visAktivitetskrav;
 
     return {
         sykmeldingerHentet: state.dineSykmeldinger.hentet === true,
@@ -173,6 +186,7 @@ export const mapStateToProps = (state) => {
         oppfolgingsdialogerHentet: henterEllerHarHentetOppfolgingsdialoger(state.oppfolgingsdialoger)
         || state.oppfolgingsdialoger.hentingFeilet,
         sykepengesoknader,
+        soknader,
         visOppgaver,
         mote: moteRes,
         avventendeGodkjenninger: _oppgaverOppfoelgingsdialoger.avventendeGodkjenninger,

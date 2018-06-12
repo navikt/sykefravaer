@@ -20,12 +20,9 @@ const finnSykmelding = (state, ownProps) => {
     return sykmeldinger.length === 1 ? sykmeldinger[0] : undefined;
 };
 
-const mapStateToPropsMedInitialValues = (state, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
     const soknad = finnSoknad(state, ownProps);
     return {
-        initialValues: {
-            id: soknad.id,
-        },
         soknad,
         sykmelding: finnSykmelding(state, ownProps),
         skjemasvar: getFormValues(SYKEPENGER_SKJEMANAVN)(state),
@@ -34,8 +31,15 @@ const mapStateToPropsMedInitialValues = (state, ownProps) => {
     };
 };
 
-const mapStateToProps = (state, ownProps) => {
-    return mapStateToPropsMedInitialValues(state, ownProps);
+const mapStateToPropsMedInitialValues = (state, ownProps) => {
+    const soknad = finnSoknad(state, ownProps);
+
+    return {
+        ...mapStateToProps(state, ownProps),
+        initialValues: {
+            id: soknad.id,
+        },
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -15,7 +15,7 @@ export const getLabelId = (id) => {
     return `label-${nyId}`;
 };
 
-export const Radioknapp = ({ input, value, children, id, label, checked, labelSekundaer, disabled, visUndertekst }) => {
+export const Radioknapp = ({ input, value, children, id, label, checked, labelSekundaer = null, disabled, visUndertekst }) => {
     return (<div>
         <div className={`skjema__input ${disabled ? 'skjema__input--inaktiv' : ''}`}>
             <input
@@ -31,7 +31,7 @@ export const Radioknapp = ({ input, value, children, id, label, checked, labelSe
                 }} />
             <label id={getLabelId(id)} htmlFor={id}>
                 {label}
-                <Vis hvis={labelSekundaer}>
+                <Vis hvis={labelSekundaer !== null}>
                     <span className="sekundaerLabel">{labelSekundaer}</span>
                 </Vis>
             </label>

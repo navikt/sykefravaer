@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Vis } from '../utils';
 
-const Sidetopp = ({ tittel, htmlTekst }) => {
+const Sidetopp = ({ tittel, htmlTekst = null }) => {
     return (<header className="sidetopp">
         <h1 className="sidetopp__tittel">
             {tittel}
         </h1>
-        <Vis hvis={htmlTekst}>
+        <Vis hvis={htmlTekst !== null}>
             <div className="sidetopp__intro js-intro">
                 <p dangerouslySetInnerHTML={htmlTekst} />
             </div>

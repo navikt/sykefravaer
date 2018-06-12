@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { initialize } from 'redux-form';
+import { destroy, initialize } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import * as soknaderActions from '../../actions/soknader_actions';
 import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
@@ -23,7 +23,6 @@ import AppSpinner from '../../components/AppSpinner';
 import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import SendtSoknadSelvstendig from '../../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
 import { soknad as soknadPt } from '../../propTypes';
-import { getInitialValuesSykepengesoknad } from '../../components/sykepengesoknad-arbeidstaker/setup';
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';
@@ -165,7 +164,7 @@ export class Container extends Component {
             this.props.actions.hentSoknader();
         }
         if (this.props.brukerHarNavigertTilAnnenSoknad) {
-            this.props.actions.initialize(SYKEPENGER_SKJEMANAVN, this.props.initialValues);
+            this.props.actions.destroy(SYKEPENGER_SKJEMANAVN);
         }
         if (this.props.skalHenteSykmeldinger) {
             this.props.actions.hentDineSykmeldinger();
@@ -202,6 +201,7 @@ Container.propTypes = {
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,
         hentDineSykmeldinger: PropTypes.func,
+        destroy: PropTypes.func,
         initialize: PropTypes.func,
     }),
     skalHenteSykepengesoknader: PropTypes.bool,
@@ -213,12 +213,11 @@ Container.propTypes = {
     sti: PropTypes.string,
     henter: PropTypes.bool,
     soknadId: PropTypes.string,
-    initialValues: PropTypes.shape(),
 };
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions, initialize }, dispatch),
+        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions, destroy, initialize }, dispatch),
     };
 }
 
@@ -236,18 +235,6 @@ export const mapStateToProps = (state, ownProps) => {
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
     const brukerHarNavigertTilAnnenSoknad = beregnHarBrukerNavigertTilAnnenSoknad(state, soknadId);
 
-    const initialValues = (() => {
-        if (erArbeidstakersoknad) {
-            return getInitialValuesSykepengesoknad(sykepengesoknad, state);
-        }
-        if (erSelvstendigNaeringsdrivendeSoknad) {
-            return {
-                id: soknadId,
-            };
-        }
-        return {};
-    })();
-
     return {
         soknadId,
         skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,
@@ -261,7 +248,6 @@ export const mapStateToProps = (state, ownProps) => {
         brukerHarNavigertTilAnnenSoknad,
         soknad,
         sykepengesoknad,
-        initialValues,
     };
 };
 

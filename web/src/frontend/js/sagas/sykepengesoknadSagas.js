@@ -19,7 +19,7 @@ export function* hentSykepengesoknader() {
         yield put(actions.sykepengesoknaderHentet(data));
     } catch (e) {
         log(e);
-        logger.error(`Kunne ikke hente sykepengesoknader. ${e.message}`);
+        logger.error(`Kunne ikke hente sykepengesoknader. URL: ${window.location.href} - ${e.message}`);
         yield put(actions.hentSykepengesoknaderFeilet());
     }
 }
@@ -31,7 +31,7 @@ export function* sendSykepengesoknad(action) {
         yield put(actions.sykepengesoknadSendt(action.sykepengesoknad.id, sykepengesoknad));
     } catch (e) {
         log(e);
-        logger.error(`Kunne ikke sende sykepengesøknad. ${e.message}`);
+        logger.error(`Kunne ikke sende sykepengesøknad. URL: ${window.location.href} - ${e.message}`);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }
@@ -43,7 +43,7 @@ export function* sendSykepengesoknadTilArbeidsgiver(action) {
         yield put(actions.sykepengesoknadSendtTilArbeidsgiver(action.sykepengesoknadsId, sykepengesoknad));
     } catch (e) {
         log(e);
-        logger.error(`Kunne ikke sende sykepengesøknad til arbeidsgiver. ${e.message}`);
+        logger.error(`Kunne ikke sende sykepengesøknad til arbeidsgiver. URL: ${window.location.href} - ${e.message}`);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }
@@ -55,7 +55,7 @@ export function* sendSykepengesoknadTilNAV(action) {
         yield put(actions.sykepengesoknadSendtTilNAV(action.sykepengesoknadsId, sykepengesoknad));
     } catch (e) {
         log(e);
-        logger.error(`Kunne ikke sende sykepengesøknad til NAV. ${e.message}`);
+        logger.error(`Kunne ikke sende sykepengesøknad til NAV. URL: ${window.location.href} - ${e.message}`);
         yield put(actions.sendSykepengesoknadFeilet());
     }
 }
@@ -83,7 +83,7 @@ export function* hentBerikelse(action) {
         yield put(actions.berikelseHentet(data, action.sykepengesoknadsId));
     } catch (e) {
         log(e);
-        logger.error(`Kunne ikke hente berikelse av søknaden. ${e.message}`);
+        logger.error(`Kunne ikke hente berikelse av søknaden. URL: ${window.location.href} - ${e.message}`);
         yield put(actions.hentBerikelseFeilet());
     }
 }
@@ -96,7 +96,7 @@ export function* avbrytSoknad(action) {
         gaTilKvittering(action.sykepengesoknadsId);
     } catch (e) {
         log(e);
-        logger.error(`Kunne ikke avbryte søknad. ${e.message}`);
+        logger.error(`Kunne ikke avbryte søknad. URL: ${window.location.href} - ${e.message}`);
         yield put(actions.avbrytSoknadFeilet());
     }
 }
@@ -108,7 +108,7 @@ export function* gjenapneSoknad(action) {
         yield put(actions.soknadGjenapnet(action.sykepengesoknadsId));
     } catch (e) {
         log(e);
-        logger.error(`Kunne ikke gjenåpne søknad. ${e.message}`);
+        logger.error(`Kunne ikke gjenåpne søknad. URL: ${window.location.href} - ${e.message}`);
         yield put(actions.gjenapneSoknadFeilet());
     }
 }

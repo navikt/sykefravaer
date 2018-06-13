@@ -152,19 +152,11 @@ export function setFeilaktigOpplysning(sykmeldingId, opplysning, erFeilaktig) {
     };
 }
 
-export function bekreftSykmelding(
-    sykmeldingId,
-    arbeidssituasjon = {},
-    feilaktigeOpplysninger = {},
-    egenmeldingsperioder = null,
-    dekningsgrad = null) {
+export function bekreftSykmelding(sykmeldingId, verdier = {}) {
     return {
         type: actiontyper.BEKREFT_SYKMELDING_FORESPURT,
         sykmeldingId,
-        arbeidssituasjon,
-        feilaktigeOpplysninger,
-        egenmeldingsperioder,
-        dekningsgrad,
+        verdier,
     };
 }
 

@@ -91,18 +91,26 @@ export class DinSykmeldingSkjemaComponent extends Component {
         switch (modus) {
             case modi.SEND_MED_NAERMESTE_LEDER:
             case modi.SEND: {
-                this.props.sendSykmeldingTilArbeidsgiver(sykmelding.id,
+                this.props.sendSykmeldingTilArbeidsgiver(
+                    sykmelding.id,
                     values.valgtArbeidsgiver.orgnummer,
                     feilaktigeOpplysninger,
-                    values.beOmNyNaermesteLeder);
+                    values.beOmNyNaermesteLeder,
+                );
                 return;
             }
             case modi.BEKREFT: {
-                this.props.bekreftSykmelding(sykmelding.id,
-                    values.valgtArbeidssituasjon,
-                    feilaktigeOpplysninger,
-                    this.getEgenmeldingsperioder(),
-                    this.getDekningsgrad());
+                this.props.bekreftSykmelding(
+                    sykmelding.id,
+                    {
+                        arbeidssituasjon: values.valgtArbeidssituasjon,
+                        feilaktigeOpplysninger,
+                        egenmeldingsperioder: this.getEgenmeldingsperioder(),
+                        harForsikring: values.harForsikring,
+                        harAnnetFravaer: values.varSykmeldtEllerEgenmeldt,
+                        dekningsgrad: this.getDekningsgrad(),
+                    },
+                );
                 return;
             }
             case modi.AVBRYT: {

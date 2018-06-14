@@ -61,3 +61,9 @@ export function hentBrukerinfo() {
         type: actiontyper.HENT_BRUKERINFO_FORESPURT,
     };
 }
+
+export const hentSoknaderTest = () => {
+    return {
+        type: 'HENT_SOKNADER_TEST_FORESPURT',
+    };
+};

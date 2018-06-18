@@ -5,7 +5,7 @@ import {log} from 'digisyfo-npm';
 export function* hentSoknaderTest() {
     yield put(henterSoknader());
     try {
-        const data = yield call(get, 'https://syfoapi-t1.nais.preprod.local/syfoapi/rest/soknad/soknader');
+        const data = yield call(get, 'https://syfoapi-q1.nais.oera-q.local/syfoapi/rest/soknad/soknader');
         yield put(soknaderHentet(data));
     } catch (e) {
         log(e);

@@ -1,6 +1,6 @@
-import {call, fork, put} from 'redux-saga/effects';
-import {takeEvery} from 'redux-saga';
-import {log} from 'digisyfo-npm';
+import { call, fork, put } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga';
+import { log, getCookie } from 'digisyfo-npm';
 
 export function* hentSoknaderTest() {
     yield put(henterSoknader());
@@ -22,8 +22,12 @@ export default function* soknaderTestSagas() {
 }
 
 function get(url) {
+    const getHeader = new Headers({
+        'selvbetjening-idtoken': getCookie('selvbetjening-idtoken'),
+    });
     return fetch(url, {
         credentials: 'include',
+        headers: getHeader,
     })
         .then((res) => {
             if (res.status === 401) {

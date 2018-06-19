@@ -29,9 +29,9 @@ describe('Sykmeldingkvittering', () => {
     });
 
     describe('SokOmSykepengerSenereKvittering', () => {
-        it('Skal vise tre stk Kvitteringsteg', () => {
+        it('Skal vise to stk Kvitteringsteg', () => {
             const comp = shallow(<SokOmSykepengerSenereKvittering sykmelding={getSykmelding()} sykepengesoknader={[]} />);
-            expect(comp.find(Kvitteringsteg)).to.have.length(3);
+            expect(comp.find(Kvitteringsteg)).to.have.length(2);
         });
     });
 
@@ -46,15 +46,11 @@ describe('Sykmeldingkvittering', () => {
         let comp;
 
         beforeEach(() => {
-            comp = shallow(<Kvitteringsteg ikon="banan.svg" tittel="Min fine tittel"><p>Hei på deg</p></Kvitteringsteg>);
+            comp = shallow(<Kvitteringsteg nummer="1" tittel="Min fine tittel"><p>Hei på deg</p></Kvitteringsteg>);
         });
 
-        it('Skal vise et ikon', () => {
-            expect(comp.find('img').prop('src')).to.equal('/sykefravaer/img/svg/banan.svg');
-        });
-
-        it('Skal vise en tittel', () => {
-            expect(comp.find('.js-tittel').text()).to.equal('Min fine tittel');
+        it('Skal vise tall og tittel', () => {
+            expect(comp.find('.js-tittel').text()).to.equal('1 Min fine tittel');
         });
 
         it('Skal vise children', () => {

@@ -10,23 +10,18 @@ const SokOmSykepengerSenereKvittering = ({ sykepengesoknader }) => {
         <div className="panel blokk">
             <div className="stegvisKvittering">
                 <Kvitteringsteg
-                    ikon="kvitteringhake--graa.svg"
-                    alt="Grå hake"
-                    tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-1.tittel-2')} />
-                <Kvitteringsteg
-                    ikon="kvitteringVent.svg"
-                    alt="Timeglass"
-                    tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-2.tittel-2')}>
+                    nummer="1"
+                    ok
+                    tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-1.tittel-3')}>
                     <HtmlAvsnitt
                         Tag="div"
-                        nokkel="sykmelding.kvittering.sok-senere.steg-2.tekst-2" />
+                        nokkel="sykmelding.kvittering.sok-senere.steg-1.tekst-3" />
                 </Kvitteringsteg>
                 <Kvitteringsteg
-                    ikon="kvitteringSokSykepenger.svg"
-                    alt="Søk om sykepenger"
-                    tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-3.tittel-2')}>
+                    nummer="2"
+                    tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-2.tittel-3')}>
                     <HtmlAvsnitt
-                        nokkel="sykmelding.kvittering.sok-senere.steg-3.tekst-2"
+                        nokkel="sykmelding.kvittering.sok-senere.steg-2.tekst-3"
                         replacements={{
                             '%DATOER%': soknadsdatoremse(sykepengesoknader),
                         }} />

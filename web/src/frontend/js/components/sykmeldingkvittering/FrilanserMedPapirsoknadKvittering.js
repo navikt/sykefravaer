@@ -8,12 +8,11 @@ export default () => {
         <div className="panel blokk">
             <div className="stegvisKvittering">
                 <Kvitteringsteg
-                    ikon="kvitteringhake.svg"
-                    alt="Grønn hake"
+                    nummer="1"
+                    ok
                     tittel={getLedetekst('bekreft-sykmelding.skal-opprettes-soknad.steg-1.tittel')} />
                 <Kvitteringsteg
-                    ikon="kvitteringKonvolutt.svg"
-                    alt="Konvolutt"
+                    nummer="2"
                     tittel={getLedetekst('bekreft-sykmelding.skal-opprettes-soknad.steg-2.tittel')}>
                     <HtmlAvsnitt
                         nokkel="bekreft-sykmelding.skal-opprettes-soknad.steg-2.tekst" />

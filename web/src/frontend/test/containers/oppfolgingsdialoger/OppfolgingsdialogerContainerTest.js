@@ -19,10 +19,12 @@ describe('OppfolgingsdialogerContainer', () => {
     let tilgang;
     let naermesteLedere;
     let oppfolgingsdialogerReducer;
+    let toggles;
     let sjekkTilgang;
     let hentOppfolgingsdialoger;
     let hentDineSykmeldinger;
     let hentLedere;
+    let hentToggles;
 
     describe('OppfolgingsdialogerSide', () => {
         const harTilgang = {
@@ -37,10 +39,16 @@ describe('OppfolgingsdialogerContainer', () => {
             tilgang = {};
             naermesteLedere = {};
             oppfolgingsdialogerReducer = {};
+            toggles = {
+                data: {},
+                henter: false,
+                hentet: false,
+            };
             sjekkTilgang = sinon.spy();
             hentOppfolgingsdialoger = sinon.spy();
             hentDineSykmeldinger = sinon.spy();
             hentLedere = sinon.spy();
+            hentToggles = sinon.spy();
         });
 
         it('Skal vise spinner dersom data hentes', () => {
@@ -50,9 +58,11 @@ describe('OppfolgingsdialogerContainer', () => {
                 naermesteLedere={naermesteLedere}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
+                toggles={toggles}
                 henter
                 hentOppfolgingsdialoger={hentOppfolgingsdialoger}
                 hentDineSykmeldinger={hentDineSykmeldinger}
+                hentToggles={hentToggles}
                 hentLedere={hentLedere}
                 sjekkTilgang={sjekkTilgang}
             />);
@@ -66,9 +76,11 @@ describe('OppfolgingsdialogerContainer', () => {
                 naermesteLedere={naermesteLedere}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
+                toggles={toggles}
                 sender
                 hentOppfolgingsdialoger={hentOppfolgingsdialoger}
                 hentDineSykmeldinger={hentDineSykmeldinger}
+                hentToggles={hentToggles}
                 hentLedere={hentLedere}
                 sjekkTilgang={sjekkTilgang}
             />);
@@ -82,9 +94,11 @@ describe('OppfolgingsdialogerContainer', () => {
                 naermesteLedere={naermesteLedere}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
+                toggles={toggles}
                 hentingFeilet
                 hentOppfolgingsdialoger={hentOppfolgingsdialoger}
                 hentDineSykmeldinger={hentDineSykmeldinger}
+                hentToggles={hentToggles}
                 hentLedere={hentLedere}
                 sjekkTilgang={sjekkTilgang}
             />);
@@ -98,9 +112,11 @@ describe('OppfolgingsdialogerContainer', () => {
                 naermesteLedere={naermesteLedere}
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
+                toggles={toggles}
                 sendingFeilet
                 hentOppfolgingsdialoger={hentOppfolgingsdialoger}
                 hentDineSykmeldinger={hentDineSykmeldinger}
+                hentToggles={hentToggles}
                 hentLedere={hentLedere}
                 sjekkTilgang={sjekkTilgang}
             />);
@@ -114,8 +130,10 @@ describe('OppfolgingsdialogerContainer', () => {
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 tilgang={{ data: ikkeTilgang }}
+                toggles={toggles}
                 hentOppfolgingsdialoger={hentOppfolgingsdialoger}
                 hentDineSykmeldinger={hentDineSykmeldinger}
+                hentToggles={hentToggles}
                 hentLedere={hentLedere}
                 sjekkTilgang={sjekkTilgang}
             />);
@@ -129,8 +147,10 @@ describe('OppfolgingsdialogerContainer', () => {
                 oppfolgingsdialogerReducer={oppfolgingsdialogerReducer}
                 oppfolgingsdialoger={[]}
                 tilgang={{ data: harTilgang }}
+                toggles={toggles}
                 hentOppfolgingsdialoger={hentOppfolgingsdialoger}
                 hentDineSykmeldinger={hentDineSykmeldinger}
+                hentToggles={hentToggles}
                 hentLedere={hentLedere}
                 sjekkTilgang={sjekkTilgang}
             />);

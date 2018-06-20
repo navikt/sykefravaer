@@ -37,6 +37,7 @@ import {
     delMedFastlege,
     delMedNav as delMedNavFunc,
     proptypes as oppfolgingProptypes,
+    forespoerRevidering,
     henterEllerHarHentetTilgang,
     henterEllerHarHentetOppfolgingsdialoger,
     oppfolgingsdialogHarBlittAvbrutt,
@@ -162,6 +163,7 @@ OppfolgingsdialogSide.propTypes = {
     arbeidsoppgaver: oppfolgingProptypes.arbeidsoppgaverReducerPt,
     dineSykmeldinger: dinesykmeldingerReducerPt,
     dokument: oppfolgingProptypes.dokumentReducerPt,
+    forespoerselRevidering: oppfolgingProptypes.forespoerselRevideringPt,
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
     navigasjontoggles: oppfolgingProptypes.navigasjonstogglesReducerPt,
     naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
@@ -190,6 +192,7 @@ OppfolgingsdialogSide.propTypes = {
     nullstillGodkjenning: PropTypes.func,
     delMedFastlege: PropTypes.func,
     delMedNav: PropTypes.func,
+    forespoerRevidering: PropTypes.func,
     godkjennDialog: PropTypes.func,
     avvisDialog: PropTypes.func,
     settAktivtSteg: PropTypes.func,
@@ -246,6 +249,7 @@ export function mapStateToProps(state, ownProps) {
         delmednav: state.delmednav,
         dokument: state.dokument,
         fastlegeDeling: state.fastlegeDeling,
+        forespoerselRevidering: state.forespoerselRevidering,
         forrigenaermesteleder: state.forrigenaermesteleder,
         kontaktinfo: state.kontaktinfo,
         naermesteleder: state.naermesteleder,
@@ -302,6 +306,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     hentSykeforlopsPerioder,
     delMedFastlege,
     delMedNavFunc,
+    forespoerRevidering,
 })(OppfolgingsdialogSide);
 
 export default OppfolgingsdialogContainer;

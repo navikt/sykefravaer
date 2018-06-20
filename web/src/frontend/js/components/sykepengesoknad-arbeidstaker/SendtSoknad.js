@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BekreftetKorrektInformasjon, scrollTo, SoknadOppsummering, sykepengesoknadstatuser, SykmeldingUtdrag, Utvidbar, VaerKlarOverAt } from 'digisyfo-npm';
+import { BekreftetKorrektInformasjon, scrollTo, SoknadOppsummering, sykepengesoknadstatuser, Utvidbar, VaerKlarOverAt } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import Soknadstatuspanel from './Soknadstatuspanel';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
@@ -10,6 +10,7 @@ import RelaterteSoknaderContainer from '../../containers/sykepengesoknad-arbeids
 import KorrigertAvContainer from '../../containers/sykepengesoknad-arbeidstaker/KorrigertAvContainer';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
 import { Vis } from '../../utils';
+import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 
 const { KORRIGERT, SENDT, TIL_SENDING } = sykepengesoknadstatuser;
 
@@ -102,7 +103,7 @@ class SendtSoknad extends Component {
                         }} />
                 }
             </Soknadstatuspanel>
-            <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />
+            <SykmeldingUtdragContainer sykepengesoknad={sykepengesoknad} />
             <Utvidbar tittel="Oppsummering" className="blokk">
                 <div className="blokk--s">
                     <SoknadOppsummering oppsummeringsoknad={sykepengesoknad.oppsummering} />

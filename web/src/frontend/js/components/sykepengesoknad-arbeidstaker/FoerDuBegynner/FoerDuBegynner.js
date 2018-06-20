@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, Varselstripe, getHtmlLedetekst, SykmeldingUtdrag, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { getLedetekst, Varselstripe, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import history from '../../../history';
 import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';
@@ -8,7 +8,9 @@ import validate from '../validering/validerFoerDuBegynner';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import SykepengesoknadHeader from '../SykepengesoknadHeader';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
+import SykmeldingUtdragContainer from '../../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 import IllustrertInnhold from '../../IllustrertInnhold';
+
 
 const { NY, UTKAST_TIL_KORRIGERING } = sykepengesoknadstatuser;
 
@@ -90,7 +92,7 @@ const FoerDuBegynner = (props) => {
 
         { erForsteSoknad ? <ForsteSoknadIntro /> : <SoknadIntro />}
 
-        <SykmeldingUtdrag erApen sykepengesoknad={sykepengesoknad} />
+        <SykmeldingUtdragContainer erApen sykepengesoknad={sykepengesoknad} />
         <h2 className="soknad__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
         <FoerDuBegynnerSkjemaSetup sykepengesoknad={sykepengesoknad} />
     </div>);

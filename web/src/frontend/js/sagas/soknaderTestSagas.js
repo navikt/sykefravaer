@@ -28,7 +28,7 @@ function get(url) {
         .then((res) => {
             if (res.status === 401) {
                 log(res, "Redirect til login");
-                window.location.href = hentLoginUrl() + '?redirect=' + window.location.href;
+                window.location.href = hentLoginUrl() + '?redirect=' + window.location.href.replace('/hemmelig', '');
             } else if (res.status > 400) {
                 log(res);
                 throw new Error('Forespørsel feilet');

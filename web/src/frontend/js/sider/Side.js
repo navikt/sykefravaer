@@ -70,7 +70,6 @@ export class SideComponent extends Component {
                     </div>
                 </Vis>
                 <div className={begrenset || !erInnlogget ? 'side__innhold side__innhold--begrenset js-begrensning' : 'side__innhold'}>
-                    <button onClick={this.props.hentSoknaderTest}>Test søknad</button>
                     <Vis hvis={begrenset || !erInnlogget}>
                         <Brodsmuler brodsmuler={brodsmuler} />
                     </Vis>

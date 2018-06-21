@@ -10,18 +10,21 @@ const getLedetekstFraSvar = (svar) => {
     return getLedetekst(`soknad.${svar.toLowerCase()}`);
 };
 
-const erUndersporsmalStilt = (svar) => {
-    return svar.svarverdi.map((s) => {
+const erUndersporsmalStilt = (svar, kriterieForVisningAvUndersporsmal) => {
+    return svar.map((s) => {
         return s.verdi;
-    }).indexOf(svar.kriterieForVisningAvUndersporsmal) > -1;
+    }).indexOf(kriterieForVisningAvUndersporsmal) > -1;
 };
 
-const OppsummeringJaEllerNei = ({ svar, sporsmalstekst, tag, overskriftsnivaa = 3 }) => {
-    const svartekst = getLedetekstFraSvar(svar.svarverdi[0].verdi);
+const OppsummeringJaEllerNei = ({ svar, sporsmalstekst, tag, overskriftsnivaa = 3, kriterieForVisningAvUndersporsmal, undersporsmal }) => {
+    const svartekst = getLedetekstFraSvar(svar[0].verdi);
     return (<OppsummeringSporsmalscontainer tag={tag}>
         <OppsummeringSporsmalstekst overskriftsnivaa={overskriftsnivaa}>{sporsmalstekst}</OppsummeringSporsmalstekst>
         <OppsummeringAvkrysset tekst={svartekst} />
-        { erUndersporsmalStilt(svar) && <OppsummeringUndersporsmal sporsmalsliste={svar.undersporsmal} overskriftsnivaa={overskriftsnivaa + 1} /> }
+        {
+            erUndersporsmalStilt(svar, kriterieForVisningAvUndersporsmal)
+            && <OppsummeringUndersporsmal sporsmalsliste={undersporsmal} overskriftsnivaa={overskriftsnivaa + 1} />
+        }
     </OppsummeringSporsmalscontainer>);
 };
 

@@ -77,7 +77,6 @@ class AngiTid extends Component {
     _lagreStillingsprosent() {
         const stillingsprosent = this.getStillingsprosent();
         if (this.getValgtEnhet() === 'timer' && this.visTilsvarendeIProsent()) {
-            console.log(this.props.names[4]);
             this.props.autofill(this.props.names[4], stillingsprosent);
         }
     }

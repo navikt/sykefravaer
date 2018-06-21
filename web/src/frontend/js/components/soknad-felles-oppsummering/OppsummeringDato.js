@@ -9,7 +9,7 @@ const OppsummeringDato = ({ tag, sporsmalstekst, svar, overskriftsnivaa = 3 }) =
         <OppsummeringSporsmalstekst overskriftsnivaa={overskriftsnivaa}>{sporsmalstekst}</OppsummeringSporsmalstekst>
         <div className="oppsummering__tekstsvar">
             {
-                svar.svarverdi.map((svarverdi, index) => {
+                svar.map((svarverdi, index) => {
                     return <p className="oppsummering__dato" key={getKey(tag, index)}>{svarverdi.verdi}</p>;
                 })
             }

@@ -5,11 +5,11 @@ import OppsummeringSporsmal from './OppsummeringSporsmal';
 import { oppsummeringSporsmal } from '../../propTypes';
 import { getKey } from './Oppsummeringsvisning';
 
-const OppsummeringCheckboxgruppe = ({ tag, sporsmalstekst, svar, overskriftsnivaa }) => {
+const OppsummeringCheckboxgruppe = ({ tag, sporsmalstekst, undersporsmal, overskriftsnivaa }) => {
     return (<OppsummeringSporsmalscontainer tag={tag}>
         <OppsummeringSporsmalstekst overskriftsnivaa={overskriftsnivaa}>{sporsmalstekst}</OppsummeringSporsmalstekst>
         {
-            svar.undersporsmal.map((s) => {
+            undersporsmal.map((s) => {
                 return <OppsummeringSporsmal {...s} overskriftsnivaa={overskriftsnivaa + 1} key={getKey(s.tag, s.id)} />;
             })
         }

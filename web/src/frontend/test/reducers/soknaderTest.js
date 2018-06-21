@@ -5,7 +5,7 @@ import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader, { getSoknad, soknadrespons } from '../mockSoknader';
 import { TIL_SENDING } from '../../js/enums/soknadstatuser';
 
-describe('soknader', () => {
+describe.only('soknader', () => {
     let getStateMedDataHentet;
 
     beforeEach(() => {

@@ -5,7 +5,7 @@ import { log, getCookie } from 'digisyfo-npm';
 export function* hentSoknaderTest() {
     yield put(henterSoknader());
     try {
-        const data = yield call(get, 'https://syfoapi-q1.nais.oera-q.local/syfoapi/rest/soknad/soknader');
+        const data = yield call(get, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/soknader');
         yield put(soknaderHentet(data));
     } catch (e) {
         log(e);
@@ -22,12 +22,8 @@ export default function* soknaderTestSagas() {
 }
 
 function get(url) {
-    const getHeader = new Headers({
-        'selvbetjening-idtoken': getCookie('selvbetjening-idtoken'),
-    });
     return fetch(url, {
         credentials: 'include',
-        headers: getHeader,
     })
         .then((res) => {
             if (res.status === 401) {

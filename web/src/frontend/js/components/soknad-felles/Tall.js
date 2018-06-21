@@ -26,10 +26,10 @@ export const genererValiderTall = (min, max, blankfeilmelding = 'Vennligst fyll 
     };
 };
 
-const Tall = ({ sporsmalstekst, name, id, label, svar }) => {
+const Tall = ({ sporsmalstekst, name, id, label, min, max }) => {
     const parse = genererParseForEnkeltverdi(id);
     const tag = fjernIndexFraTag(name);
-    const valider = genererValiderTall(svar.min, svar.max, beregnFeilmeldingstekstFraTag(tag));
+    const valider = genererValiderTall(min, max, beregnFeilmeldingstekstFraTag(tag));
     return (<div>
         <Sporsmalstekst Tag="label" tekst={sporsmalstekst} htmlFor={name} />
         <Field
@@ -51,7 +51,8 @@ Tall.propTypes = {
     name: PropTypes.string,
     id: PropTypes.string,
     label: PropTypes.string,
-    svar: svarPt,
+    min: PropTypes.number,
+    max: PropTypes.number,
 };
 
 export default Tall;

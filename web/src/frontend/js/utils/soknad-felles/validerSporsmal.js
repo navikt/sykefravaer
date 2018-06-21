@@ -11,7 +11,7 @@ const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
         .filter((sporsmal) => {
             const verdi = formaterEnkeltverdi(values[sporsmal.tag]);
             const formatertVerdi = verdi === true ? CHECKED : verdi;
-            return sporsmal.svar && formatertVerdi === sporsmal.svar.kriterieForVisningAvUndersporsmal;
+            return sporsmal.svar && formatertVerdi === sporsmal.kriterieForVisningAvUndersporsmal;
         });
 };
 
@@ -30,11 +30,11 @@ const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldin
 
     sporsmalMedStilteUndersporsmal
         .forEach((sporsmalMedUndersporsmal) => {
-            const undersporsmalsliste = sporsmalMedUndersporsmal.svar.undersporsmal;
+            const undersporsmalsliste = sporsmalMedUndersporsmal.undersporsmal;
             undersporsmalsliste.forEach((undersporsmal) => {
-                switch (undersporsmal.svar.svartype) {
+                switch (undersporsmal.svartype) {
                     case CHECKBOX_GRUPPE: {
-                        const avkryssedeCheckboxer = undersporsmal.svar.undersporsmal
+                        const avkryssedeCheckboxer = undersporsmal.undersporsmal
                             .map((checkboxSporsmal) => {
                                 const verdi = values[checkboxSporsmal.tag];
                                 return formaterEnkeltverdi(verdi);
@@ -48,7 +48,7 @@ const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldin
                                 _error: beregnFeilmeldingstekstFraTag(undersporsmal.tag),
                             };
                         } else {
-                            feilmeldinger = validerUndersporsmalsliste(undersporsmal.svar.undersporsmal, values, feilmeldinger);
+                            feilmeldinger = validerUndersporsmalsliste(undersporsmal.undersporsmal, values, feilmeldinger);
                         }
                         break;
                     }

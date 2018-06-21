@@ -354,7 +354,7 @@ describe('DinSykmeldingSkjema -', () => {
                     harAnnetFravaer: false,
                     egenmeldingsperioder: null,
                     dekningsgrad: null,
-                }
+                },
             ]);
             bekreftSykmelding.restore();
         });

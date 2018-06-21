@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLedetekst, keyValue } from 'digisyfo-npm';
+import {
+    getLedetekst,
+    keyValue,
+    hentToggles,
+    togglesPt,
+} from 'digisyfo-npm';
 import {
     OppfolgingsdialogInfoboks,
     opprettOppfolgingsdialogAt as opprettOppfolgingsdialog,
@@ -32,6 +37,7 @@ import {
 import {
     henterEllerHarHentetLedere,
     henterEllerHarHentetSykmeldinger,
+    henterEllerHarHentetToggles,
     lederHarBlittAvkreftet,
 } from '../../utils/reducerUtils';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
@@ -40,7 +46,13 @@ import Oppfolgingsdialoger from '../../components/oppfolgingsdialoger/Oppfolging
 
 export class OppfolgingsdialogerSide extends Component {
     componentWillMount() {
-        const { tilgang, dinesykmeldinger, naermesteLedere, oppfolgingsdialogerReducer } = this.props;
+        const {
+            tilgang,
+            dinesykmeldinger,
+            naermesteLedere,
+            oppfolgingsdialogerReducer,
+            toggles,
+        } = this.props;
         if (!henterEllerHarHentetTilgang(tilgang)) {
             this.props.sjekkTilgang();
         }
@@ -52,6 +64,9 @@ export class OppfolgingsdialogerSide extends Component {
         }
         if (!henterEllerHarHentetOppfolgingsdialoger(oppfolgingsdialogerReducer)) {
             this.props.hentOppfolgingsdialoger();
+        }
+        if (!henterEllerHarHentetToggles(toggles)) {
+            this.props.hentToggles();
         }
         window.sessionStorage.setItem('hash', 'arbeidsoppgaver');
         window.sessionStorage.removeItem('startdato');
@@ -129,6 +144,7 @@ OppfolgingsdialogerSide.propTypes = {
     bekreftetNyNaermesteLeder: PropTypes.bool,
     ledetekster: keyValue,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
+    toggles: togglesPt,
     brodsmuler: PropTypes.arrayOf(brodsmulePt),
     avkreftLeder: PropTypes.func,
     bekreftNyNaermesteLeder: PropTypes.func,
@@ -138,6 +154,7 @@ OppfolgingsdialogerSide.propTypes = {
     hentNaermesteLeder: PropTypes.func,
     hentOppfolgingsdialoger: PropTypes.func,
     hentPerson: PropTypes.func,
+    hentToggles: PropTypes.func,
     hentVirksomhet: PropTypes.func,
     kopierOppfolgingsdialog: PropTypes.func,
     opprettOppfolgingsdialog: PropTypes.func,
@@ -181,6 +198,7 @@ export const mapStateToProps = (state) => {
         oppfolgingsdialogerReducer: state.oppfolgingsdialoger,
         person: state.person,
         tilgang: state.tilgang,
+        toggles: state.toggles,
         virksomhet: state.virksomhet,
         bekreftetNyNaermesteLeder: state.nyNaermesteLeder.bekreftet,
         ledetekster: state.ledetekster.data,
@@ -207,6 +225,7 @@ const OppfolgingsdialogerContainer = connect(mapStateToProps, {
     hentPerson,
     hentForrigeNaermesteLeder,
     hentNaermesteLeder,
+    hentToggles,
     kopierOppfolgingsdialog,
     opprettOppfolgingsdialog,
 })(OppfolgingsdialogerSide);

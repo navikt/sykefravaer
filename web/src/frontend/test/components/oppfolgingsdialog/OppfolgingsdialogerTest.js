@@ -33,6 +33,8 @@ describe('Oppfolgingsdialoger', () => {
     let hentPerson;
     let hentForrigeNaermesteLeder;
     let hentKontaktinfo;
+    let hentToggles;
+    let toggles;
     const dagensDato = new Date('2017-01-01');
     dagensDato.setHours(0, 0, 0, 0);
     let clock;
@@ -68,6 +70,11 @@ describe('Oppfolgingsdialoger', () => {
     };
     beforeEach(() => {
         clock = sinon.useFakeTimers(dagensDato.getTime());
+        toggles = {
+            data: {},
+            henter: false,
+            hentet: false,
+        };
         dinesykmeldinger = {
             data: [hentSykmeldingGyldigForOppfoelging(dagensDato)],
         };
@@ -75,6 +82,7 @@ describe('Oppfolgingsdialoger', () => {
         hentForrigeNaermesteLeder = sinon.spy();
         hentPerson = sinon.spy();
         hentKontaktinfo = sinon.spy();
+        hentToggles = sinon.spy();
         hentVirksomhet = sinon.spy();
 
         component = shallow(<Oppfolgingsdialoger
@@ -86,11 +94,13 @@ describe('Oppfolgingsdialoger', () => {
             hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
             hentPerson={hentPerson}
             hentKontaktinfo={hentKontaktinfo}
+            hentToggles={hentToggles}
             naermesteleder={naermesteleder}
             forrigenaermesteleder={forrigenaermesteleder}
             virksomhet={virksomhet}
             person={person}
             kontaktinfo={kontaktinfo}
+            toggles={toggles}
         />);
     });
 
@@ -134,12 +144,14 @@ describe('Oppfolgingsdialoger', () => {
                 hentForrigeNaermesteLeder={hentForrigeNaermesteLeder}
                 hentPerson={hentPerson}
                 hentKontaktinfo={hentKontaktinfo}
+                hentToggles={hentToggles}
                 naermesteleder={naermesteleder}
                 forrigenaermesteleder={forrigenaermesteleder}
                 virksomhet={virksomhet}
                 person={person}
                 kontaktinfo={kontaktinfo}
                 naermesteLedere={naermesteLedere}
+                toggles={toggles}
             />);
             expect(component.find(NyNaermestelederInfoboks)).to.have.length(1);
         });
@@ -162,11 +174,13 @@ describe('Oppfolgingsdialoger', () => {
                 hentForrigeNaermesteLeder={sinon.spy()}
                 hentPerson={sinon.spy()}
                 hentKontaktinfo={sinon.spy()}
+                hentToggles={hentToggles}
                 naermesteleder={naermesteleder}
                 forrigenaermesteleder={forrigenaermesteleder}
                 virksomhet={virksomhet}
                 person={person}
                 kontaktinfo={kontaktinfo}
+                toggles={toggles}
                 bekreftetNyNaermesteLeder
             />);
         });
@@ -193,11 +207,13 @@ describe('Oppfolgingsdialoger', () => {
                 hentForrigeNaermesteLeder={sinon.spy()}
                 hentPerson={sinon.spy()}
                 hentKontaktinfo={sinon.spy()}
+                hentToggles={hentToggles}
                 naermesteleder={naermesteleder}
                 forrigenaermesteleder={forrigenaermesteleder}
                 virksomhet={virksomhet}
                 person={person}
                 kontaktinfo={kontaktinfo}
+                toggles={toggles}
             />);
             expect(component1.find(OppfolgingsdialogerUtenAktivSykmelding)).to.have.length(0);
         });
@@ -220,11 +236,13 @@ describe('Oppfolgingsdialoger', () => {
                 hentForrigeNaermesteLeder={sinon.spy()}
                 hentPerson={sinon.spy()}
                 hentKontaktinfo={sinon.spy()}
+                hentToggles={hentToggles}
                 naermesteleder={naermesteleder}
                 forrigenaermesteleder={forrigenaermesteleder}
                 virksomhet={virksomhet}
                 person={person}
                 kontaktinfo={kontaktinfo}
+                toggles={toggles}
                 bekreftetNyNaermesteLeder
             />);
             expect(component2.find(OppfolgingsdialogerUtenAktivSykmelding)).to.have.length(1);

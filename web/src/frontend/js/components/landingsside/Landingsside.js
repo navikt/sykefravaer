@@ -9,6 +9,7 @@ import DinSituasjonContainer from '../../containers/landingsside/DinSituasjonCon
 import ServerfeilContainer from '../../containers/landingsside/ServerfeilContainer';
 import DetteHarSkjeddContainer from '../../containers/landingsside/DetteHarSkjeddContainer';
 import Utdrag from '../../containers/landingsside/TidslinjeutdragContainer';
+import ArbeidsrettetOppfolgingContainer from '../../containers/landingsside/ArbeidsrettetOppfolgingContainer';
 import IllustrertInnhold from '../IllustrertInnhold';
 import { Vis } from '../../utils';
 
@@ -72,6 +73,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
                     ikonAlt="Tidslinjen"
                     tittel="Hva skjer under sykefraværet?" />
             </nav>
+            <ArbeidsrettetOppfolgingContainer />
             <DetteHarSkjeddContainer />
             <div className="panel blokk">
                 <p className="sist">{getLedetekst('landingsside.gdpr.personopplysninger')}</p>

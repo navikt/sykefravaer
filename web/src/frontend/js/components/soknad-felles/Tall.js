@@ -7,7 +7,6 @@ import Sporsmalstekst from './Sporsmalstekst';
 import { fjernIndexFraTag, formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { lagDesimaltall } from '../../utils';
 import { beregnFeilmeldingstekstFraTag } from '../../utils/soknad-felles/validerSporsmal';
-import { svar as svarPt } from '../../propTypes';
 
 export const genererValiderTall = (min, max, blankfeilmelding = 'Vennligst fyll ut dette feltet') => {
     return (verdi) => {

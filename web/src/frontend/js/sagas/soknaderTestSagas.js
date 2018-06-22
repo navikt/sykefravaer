@@ -5,7 +5,7 @@ import { log, getCookie } from 'digisyfo-npm';
 export function* hentSoknaderTest() {
     yield put(henterSoknader());
     try {
-        const data = yield call(get, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/soknader');
+        const data = yield call(get, 'https://syfoapi.nav.no/syfoapi/rest/soknad/soknader');
         yield put(soknaderHentet(data));
     } catch (e) {
         log(e);
@@ -63,7 +63,7 @@ const hentSoknaderFeilet = () => {
 const hentLoginUrl = () => {
     if (window.location.href.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://login.microsoftonline.com/navnob2c.onmicrosoft.com/v2.0/.well-known/openid-configuration?p=B2C_1A_idporten'
+        return 'https://loginservice.nav.no/login'
     } else if (window.location.href.indexOf('localhost') > -1) {
         // Lokalt
         return 'http://localhost:8080/syfoapi/local/cookie'

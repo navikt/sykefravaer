@@ -163,10 +163,10 @@ describe('dinSykmelding_actions', () => {
                     arbeidssituasjon: 'frilanser',
                     feilaktigeOpplysninger: {},
                     dekningsgrad: null,
-                        egenmeldingsperioder: null,
+                    egenmeldingsperioder: null,
                     harAnnetFravaer: null,
                     harForsikring: null,
-                }
+                },
             });
         });
 
@@ -193,7 +193,7 @@ describe('dinSykmelding_actions', () => {
                     egenmeldingsperioder: null,
                     harAnnetFravaer: null,
                     harForsikring: null,
-                }
+                },
             });
         });
 
@@ -216,7 +216,7 @@ describe('dinSykmelding_actions', () => {
                     egenmeldingsperioder: null,
                     harAnnetFravaer: null,
                     harForsikring: true,
-                }
+                },
             });
         });
 
@@ -225,7 +225,7 @@ describe('dinSykmelding_actions', () => {
                 arbeidssituasjon: 'frilanser',
                 feilaktigeOpplysninger: {},
                 dekningsgrad: null,
-                egenmeldingsperioder: [{fom: 'dato', tom:'dato'}],
+                egenmeldingsperioder: [{ fom: 'dato', tom: 'dato' }],
                 harAnnetFravaer: true,
                 harForsikring: null,
             });
@@ -236,10 +236,10 @@ describe('dinSykmelding_actions', () => {
                     arbeidssituasjon: 'frilanser',
                     feilaktigeOpplysninger: {},
                     dekningsgrad: null,
-                    egenmeldingsperioder: [{fom: 'dato', tom:'dato'}],
+                    egenmeldingsperioder: [{ fom: 'dato', tom: 'dato' }],
                     harAnnetFravaer: true,
                     harForsikring: null,
-                }
+                },
             });
         });
     });

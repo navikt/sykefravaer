@@ -7,10 +7,10 @@ import OppsummeringCheckboxgruppe from './OppsummeringCheckboxgruppe';
 import OppsummeringTall from './OppsummeringTall';
 import OppsummeringCheckbox from './OppsummeringCheckbox';
 import OppsummeringJaEllerNei from './OppsummeringJaEllerNei';
-import { svar as svarPt } from '../../propTypes';
+import { svartypePt } from '../../propTypes';
 
 const OppsummeringSporsmal = (props) => {
-    switch (props.svar.svartype) {
+    switch (props.svartype) {
         case CHECKBOX: {
             return <OppsummeringCheckbox {...props} />;
         }
@@ -37,7 +37,7 @@ const OppsummeringSporsmal = (props) => {
 };
 
 OppsummeringSporsmal.propTypes = {
-    svar: svarPt,
+    svartype: svartypePt,
     overskriftsnivaa: PropTypes.number,
 };
 

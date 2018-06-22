@@ -4,10 +4,10 @@ import OppsummeringAvkrysset from './OppsummeringAvkrysset';
 import OppsummeringUndersporsmal from './OppsummeringUndersporsmal';
 import { oppsummeringSporsmal } from '../../propTypes';
 
-const OppsummeringCheckbox = ({ svar, sporsmalstekst, overskriftsnivaa = 3 }) => {
-    return svar.svarverdi[0] && svar.svarverdi[0].verdi === CHECKED ? (<div>
+const OppsummeringCheckbox = ({ undersporsmal, svar, sporsmalstekst, overskriftsnivaa = 3 }) => {
+    return svar[0] && svar[0].verdi === CHECKED ? (<div>
         <OppsummeringAvkrysset tekst={sporsmalstekst} />
-        <OppsummeringUndersporsmal sporsmalsliste={svar.undersporsmal} overskriftsnivaa={overskriftsnivaa} />
+        <OppsummeringUndersporsmal sporsmalsliste={undersporsmal} overskriftsnivaa={overskriftsnivaa} />
     </div>) : null;
 };
 

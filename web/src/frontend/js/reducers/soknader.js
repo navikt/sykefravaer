@@ -11,42 +11,35 @@ const initiellState = {
     sendingFeilet: false,
 };
 
-const parseSvar = (svar) => {
-    switch (svar.svartype) {
+const getMinMax = (sporsmal) => {
+    switch (sporsmal.svartype) {
         case PERIODER:
         case DATO: {
             return {
-                ...svar,
-                min: svar.min ? new Date(svar.min) : svar.min,
-                max: svar.max ? new Date(svar.max) : svar.max,
+                min: sporsmal.min ? new Date(sporsmal.min) : sporsmal.min,
+                max: sporsmal.max ? new Date(sporsmal.max) : sporsmal.max,
             };
         }
         case TIMER:
         case PROSENT: {
             return {
-                ...svar,
-                min: parseInt(svar.min, 10),
-                max: parseInt(svar.max, 10),
+                min: parseInt(sporsmal.min, 10),
+                max: parseInt(sporsmal.max, 10),
             };
         }
         default: {
-            /* eslint-disable no-use-before-define */
-            return {
-                ...svar,
-                undersporsmal: svar.undersporsmal.map(parseSporsmal),
-            };
-            /* eslint-disable no-use-before-define */
+            return {};
         }
     }
 };
 
 const parseSporsmal = (sporsmal) => {
-    return !sporsmal.svar
-        ? sporsmal
-        : {
-            ...sporsmal,
-            svar: parseSvar(sporsmal.svar),
-        };
+    const minMax = getMinMax(sporsmal);
+    return {
+        ...sporsmal,
+        ...minMax,
+        undersporsmal: [...sporsmal.undersporsmal].map(parseSporsmal),
+    };
 };
 
 const parseSoknad = (soknad) => {

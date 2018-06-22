@@ -9,7 +9,7 @@ import { oppsummeringSporsmal } from '../../propTypes';
 const OppsummeringPerioder = ({ svar, sporsmalstekst, tag, overskriftsnivaa }) => {
     const perioder = [];
     let periode;
-    svar.svarverdi.forEach((s) => {
+    svar.forEach((s) => {
         if (s.svarverdiType === FOM) {
             periode = {
                 fom: s.verdi,

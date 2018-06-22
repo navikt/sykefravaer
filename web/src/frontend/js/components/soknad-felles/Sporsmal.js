@@ -7,7 +7,7 @@ import { sporsmal as sporsmalPt } from '../../propTypes';
 const Sporsmal = ({ sporsmal, name }) => {
     return (<JaEllerNei {...sporsmal} name={name}>
         {
-            sporsmal.svar.undersporsmal.map((underspm) => {
+            sporsmal.undersporsmal.map((underspm) => {
                 return underspm.svar !== null
                     ? <Undersporsmal sporsmal={underspm} key={underspm.tag} />
                     : null;

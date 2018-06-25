@@ -221,7 +221,6 @@ Oppfolgingsdialog.propTypes = {
     slettKommentar: PropTypes.func,
     delMedFastlege: PropTypes.func,
     delMedNavFunc: PropTypes.func,
-    delmednav: oppfolgingProptypes.delmednavPt,
     forespoerRevidering: PropTypes.func,
     godkjennDialog: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,

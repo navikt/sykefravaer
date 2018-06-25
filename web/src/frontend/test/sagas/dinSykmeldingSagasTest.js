@@ -31,8 +31,8 @@ describe('dinSykmeldingSagas', () => {
                 egenmeldingsperioder: null,
                 harAnnetFravaer: false,
                 harForsikring: false,
-            }
-            );
+            },
+        );
         const generator = bekreftSykmelding(action);
 
         it('Skal dispatche BEKREFTER_SYKMELDING', () => {
@@ -77,7 +77,7 @@ describe('dinSykmeldingSagas', () => {
                 arbeidssituasjon: arbeidssituasjoner.FRILANSER,
                 feilaktigeOpplysninger: null,
                 dekningsgrad: '75',
-                egenmeldingsperioder:             [{
+                egenmeldingsperioder: [{
                     fom: new Date('2018-01-02'),
                     tom: new Date('2018-01-08'),
                 }],

@@ -1,8 +1,7 @@
 import { expect } from 'chai';
-import { get, post } from 'digisyfo-npm';
 import sinon from 'sinon';
 import { put, call } from 'redux-saga/effects';
-import { hentSoknader, sendSoknad } from '../../js/sagas/soknaderSagas';
+import { hentSoknader, sendSoknad, get, post } from '../../js/sagas/soknaderSagas';
 import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader from '../mockSoknader';
 import * as toggles from '../../js/toggles';
@@ -28,7 +27,7 @@ describe('soknaderSagas', () => {
         });
 
         it('Skal hente søknader', () => {
-            const nextCall = call(get, '/syfosoknad/soknader');
+            const nextCall = call(get, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/soknader');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -78,7 +77,7 @@ describe('soknaderSagas', () => {
         });
 
         it('Skal sende søknad', () => {
-            const nextCall = call(post, '/syfosoknad/sendSoknad', soknadData);
+            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/sendSoknad', soknadData);
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

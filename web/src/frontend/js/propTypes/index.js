@@ -111,7 +111,7 @@ export const svar = PropTypes.shape({
         id: PropTypes.string,
         tag: PropTypes.string,
         sporsmalstekst: PropTypes.string,
-        svar,
+        svar, // eslint-disable-line no-use-before-define
     })),
 });
 

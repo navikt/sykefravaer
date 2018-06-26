@@ -252,9 +252,11 @@ export default class TidslinjeUtdrag extends Utvidbar {
                     </button>
                 </div>
             </article>
-            <Vis hvis={this.props.visning !== UTEN_ARBEIDSGIVER}>
-                <FriskmeldingContainer sykefravaerVarighet={this.props.antallDager} />
-            </Vis>
+            <Vis
+                hvis={this.props.visning !== UTEN_ARBEIDSGIVER}
+                render={() => {
+                    return <FriskmeldingContainer sykefravaerVarighet={this.props.antallDager} />;
+                }} />
         </div>);
     }
 }

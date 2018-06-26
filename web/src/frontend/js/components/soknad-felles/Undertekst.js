@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Vis } from '../../utils';
 
 const Undertekst = ({ Tag = 'p', tekst = null }) => {
-    return (<Vis hvis={tekst !== null}>
-        <Tag>{tekst}</Tag>
-    </Vis>);
+    return tekst !== null
+        ? <Tag>{tekst}</Tag>
+        : null;
 };
 
 Undertekst.propTypes = {

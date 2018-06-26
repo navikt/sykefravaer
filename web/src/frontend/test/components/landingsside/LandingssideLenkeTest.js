@@ -18,11 +18,6 @@ describe('LandingsideLenke', () => {
         expect(lenke.find('p').length).to.equal(0);
     });
 
-    it('Viser undertittel om den er gitt', () => {
-        const lenke = mount(<LandingssideLenke tittel="Tittel" undertittel="Undertittel" ikon="ikon" ikonAlt="banan" />);
-        expect(lenke.find('p').length).to.equal(1);
-    });
-
     it('Viser ikon', () => {
         const lenke = shallow(<LandingssideLenke tittel="Tittel" undertittel="Undertittel" ikon="ikon" ikonAlt="banan" />);
         expect(lenke.find('.peker__ikon').get(0).props.children.props.src).to.equal('/sykefravaer/img/svg/ikon.svg');

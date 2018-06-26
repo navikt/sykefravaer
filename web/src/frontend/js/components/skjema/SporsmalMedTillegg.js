@@ -152,17 +152,19 @@ class SporsmalMedTillegg extends Component {
                 onTransitionEnd={() => {
                     this.onHoydeTransitionEnd();
                 }}>
-                <Vis hvis={this.state.visInnhold}>
-                    <div
-                        className="js-tillegg"
-                        ref={(c) => {
-                            this.tilleggsinnhold = c;
-                        }}>
-                        <div className="tilleggsinnhold__innhold" style={{ opacity: this.state.opacity }}>
-                            {children}
-                        </div>
-                    </div>
-                </Vis>
+                <Vis
+                    hvis={this.state.visInnhold}
+                    render={() => {
+                        return (<div
+                            className="js-tillegg"
+                            ref={(c) => {
+                                this.tilleggsinnhold = c;
+                            }}>
+                            <div className="tilleggsinnhold__innhold" style={{ opacity: this.state.opacity }}>
+                                {children}
+                            </div>
+                        </div>);
+                    }} />
             </div>
             {informasjon}
         </div>);

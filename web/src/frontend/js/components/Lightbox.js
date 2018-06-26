@@ -35,22 +35,24 @@ class Lightbox extends Component {
 
     render() {
         const { children } = this.props;
-        return (<Vis hvis={this.state.erApen}>
-            <div className="lightbox">
-                <div
-                    onBlur={this.fjernTabIndex}
-                    tabIndex={this.state.tabIndex}
-                    className="lightbox__innhold"
-                    ref={(c) => {
-                        this.lightbox = c;
-                    }}>
-                    <button
-                        onClick={this.lukk}
-                        className="lightbox__lukk js-lukk">Lukk</button>
-                    {children}
-                </div>
-            </div>
-        </Vis>);
+        return (<Vis
+            hvis={this.state.erApen}
+            render={() => {
+                return (<div className="lightbox">
+                    <div
+                        onBlur={this.fjernTabIndex}
+                        tabIndex={this.state.tabIndex}
+                        className="lightbox__innhold"
+                        ref={(c) => {
+                            this.lightbox = c;
+                        }}>
+                        <button
+                            onClick={this.lukk}
+                            className="lightbox__lukk js-lukk">Lukk</button>
+                        {children}
+                    </div>
+                </div>);
+            }} />);
     }
 }
 

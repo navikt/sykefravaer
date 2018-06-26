@@ -42,9 +42,11 @@ class TomField extends Component {
                         {this.props.erApen ? 'Skjul kalender' : 'Vis kalender'}
                     </button>
                 </div>
-                <Vis hvis={!this.props.erApen}>
-                    <Feilmelding {...meta} />
-                </Vis>
+                <Vis
+                    hvis={!this.props.erApen}
+                    render={() => {
+                        return <Feilmelding {...meta} />;
+                    }} />
             </div>
         </div>);
         /* eslint-enable jsx-a11y/no-static-element-interactions */

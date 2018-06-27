@@ -201,25 +201,25 @@ export class DinSykmeldingSkjemaComponent extends Component {
                         { sender && <span className="knapp__spinner" /> }
                     </button>
                 </p>
-                <Vis
-                    hvis={modus !== modi.AVBRYT}
-                    render={() => {
-                        return (<p className="blokk">
-                            <button
-                                aria-pressed={this.state.visAvbrytDialog}
-                                className="lenke"
-                                ref={(c) => {
-                                    this.triggAvbrytdialogKnapp = c;
-                                }}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    this.setState({
-                                        visAvbrytDialog: !this.state.visAvbrytDialog,
-                                    });
-                                }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</button>
-                        </p>);
-                    }} />
                 <div className="avbrytDialog">
+                    <Vis
+                        hvis={modus !== modi.AVBRYT}
+                        render={() => {
+                            return (<p className="blokk">
+                                <button
+                                    aria-pressed={this.state.visAvbrytDialog}
+                                    className="lenke"
+                                    ref={(c) => {
+                                        this.triggAvbrytdialogKnapp = c;
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        this.setState({
+                                            visAvbrytDialog: !this.state.visAvbrytDialog,
+                                        });
+                                    }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</button>
+                            </p>);
+                        }} />
                     <AvbrytDialog
                         vis={this.state.visAvbrytDialog}
                         avbryter={avbryter}

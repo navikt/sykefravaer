@@ -28,9 +28,7 @@ const Knapp = ({ children, className = '', visSpinner, ...rest }) => {
     });
     return (<button {...rest} className={`${classNames} ${className}`}>
         {children}
-        <Vis hvis={visSpinner}>
-            <span className="knapp__spinner" />
-        </Vis>
+        { visSpinner && <span className="knapp__spinner" /> }
     </button>);
 };
 

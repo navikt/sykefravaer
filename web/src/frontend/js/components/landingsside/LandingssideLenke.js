@@ -41,9 +41,6 @@ export default class LandingssideLenke extends Component {
             </div>
             <div className="peker__innhold">
                 <h2>{this.props.tittel}</h2>
-                <Vis hvis={this.props.undertittel}>
-                    <p className="peker__undertittel">{this.props.undertittel}</p>
-                </Vis>
             </div>
         </Link>);
     }

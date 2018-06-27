@@ -56,9 +56,11 @@ class FomField extends Component {
                         input={input}
                         onDoubleClick={onDoubleClick} />
                 </div>
-                <Vis hvis={!kalenderVises}>
-                    <Feilmelding {...meta} />
-                </Vis>
+                <Vis
+                    hvis={!kalenderVises}
+                    render={() => {
+                        return <Feilmelding {...meta} />;
+                    }} />
             </div>
         </div>);
     }

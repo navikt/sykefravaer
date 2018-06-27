@@ -16,9 +16,7 @@ const AvbrytSoknad = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler, s
         <div className="snakkeboble">
             <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.avbryt.sporsmal')} />
             <div role="alert" aria-live="polite">
-                <Vis hvis={avbrytFeilet}>
-                    <Feilmelding />
-                </Vis>
+                { avbrytFeilet && <Feilmelding /> }
             </div>
             <div className="blokk--xs">
                 <button
@@ -29,9 +27,7 @@ const AvbrytSoknad = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler, s
                         e.preventDefault();
                         bekreftHandler();
                     }}>{getLedetekst('sykepengesoknad.avbryt.ja')}
-                    <Vis hvis={avbryter}>
-                        <span className="knapp__spinner" />
-                    </Vis>
+                    { avbryter && <span className="knapp__spinner" /> }
                 </button>
             </div>
             <p className="sist">

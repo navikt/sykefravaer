@@ -16,8 +16,8 @@ const tilPeriodesvar = (perioder) => {
 };
 
 const populerSporsmalMedSvar = (sporsmal, svarFraSkjema) => {
-    const svarverdiliste = (() => {
-        if (sporsmal.svar.svartype === PERIODER) {
+    const svar = (() => {
+        if (sporsmal.svartype === PERIODER) {
             return tilPeriodesvar(svarFraSkjema);
         }
         return svarFraSkjema ? svarFraSkjema.svarverdier : [];
@@ -25,10 +25,7 @@ const populerSporsmalMedSvar = (sporsmal, svarFraSkjema) => {
 
     return {
         ...sporsmal,
-        svar: {
-            ...sporsmal.svar,
-            svarverdi: svarverdiliste,
-        },
+        svar,
     };
 };
 
@@ -38,7 +35,7 @@ const erUndersporsmalStilt = (sporsmal, values) => {
     const svarverdistrenger = svarverdiliste.map((svarverdi) => {
         return svarverdi.verdi;
     });
-    return sporsmal.svar.svartype === CHECKBOX_GRUPPE || svarverdistrenger.indexOf(sporsmal.svar.kriterieForVisningAvUndersporsmal) > -1;
+    return sporsmal.svartype === CHECKBOX_GRUPPE || svarverdistrenger.indexOf(sporsmal.kriterieForVisningAvUndersporsmal) > -1;
 };
 
 const populerSporsmalsliste = (sporsmalsliste, values) => {
@@ -49,10 +46,7 @@ const populerSporsmalsliste = (sporsmalsliste, values) => {
         if (undersporsmalErStilt) {
             return {
                 ...populertSporsmal,
-                svar: {
-                    ...populertSporsmal.svar,
-                    undersporsmal: populerSporsmalsliste(populertSporsmal.svar.undersporsmal, values),
-                },
+                undersporsmal: populerSporsmalsliste(populertSporsmal.undersporsmal, values),
             };
         }
         return populertSporsmal;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import Radioknapper from '../skjema/Radioknapper';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
-import { childEllerChildren, fieldPropTypes, svar as svarPt } from '../../propTypes';
+import { childEllerChildren, fieldPropTypes, sporsmal as sporsmalPt } from '../../propTypes';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { JA, NEI } from '../../enums/svarEnums';
 
@@ -32,7 +32,7 @@ JaEllerNeiRadioknapper.propTypes = {
 
 export const RendreJaEllerNei = (props) => {
     const Sporsmal = <JaEllerNeiRadioknapper {...props} />;
-    if (props.svar.undersporsmal.length === 0) {
+    if (props.undersporsmal.length === 0) {
         return Sporsmal;
     }
     return (<SporsmalMedTillegg
@@ -40,7 +40,7 @@ export const RendreJaEllerNei = (props) => {
         Sporsmal={Sporsmal}
         className="hovedsporsmal blokk--xs"
         visTillegg={(_props) => {
-            return _props.input.value === _props.svar.kriterieForVisningAvUndersporsmal;
+            return _props.input.value === _props.kriterieForVisningAvUndersporsmal;
         }}>
         <div className="hovedsporsmal__tilleggssporsmal">{props.children}</div>
     </SporsmalMedTillegg>);
@@ -48,7 +48,7 @@ export const RendreJaEllerNei = (props) => {
 
 RendreJaEllerNei.propTypes = {
     children: childEllerChildren,
-    svar: svarPt,
+    undersporsmal: PropTypes.arrayOf(sporsmalPt),
 };
 
 const JaEllerNei = (props) => {

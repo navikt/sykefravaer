@@ -103,20 +103,27 @@ class Periodevelger extends Component {
                             erApen={this.state.erApen} />
                     </div>
                 </div>
-                <Vis hvis={this.state.erApen}>
-                    <DayPickerPeriode {...this.props} lukk={this.lukk} ariaControlledBy={buttonId} />
-                </Vis>
-                <Vis hvis={periodeIndex !== 0}>
-                    <div className="periodevelger__verktoy">
-                        <button
-                            type="button"
-                            className="lenke"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                this.props.onRemoveHandler();
-                            }}>{getLedetekst('sykepengesoknad.periodevelger.slett')}</button>
-                    </div>
-                </Vis>
+                <Vis
+                    hvis={this.state.erApen}
+                    render={() => {
+                        return (<DayPickerPeriode
+                            {...this.props}
+                            lukk={this.lukk}
+                            ariaControlledBy={buttonId} />);
+                    }} />
+                <Vis
+                    hvis={periodeIndex !== 0}
+                    render={() => {
+                        return (<div className="periodevelger__verktoy">
+                            <button
+                                type="button"
+                                className="lenke"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    this.props.onRemoveHandler();
+                                }}>{getLedetekst('sykepengesoknad.periodevelger.slett')}</button>
+                        </div>);
+                    }} />
             </div>);
         /* eslint-disable jsx-a11y/no-static-element-interactions */
     }

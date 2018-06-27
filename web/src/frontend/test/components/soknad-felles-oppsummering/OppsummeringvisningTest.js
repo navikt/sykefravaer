@@ -41,7 +41,7 @@ describe('Oppsummeringvisning', () => {
                     },
                 ],
             },
-            JOBBET_DU_GRADERT_0: {
+            JOBBET_DU_100_PROSENT_0: {
                 sporsmalsid: '4',
                 svarverdier: [
                     {
@@ -177,13 +177,13 @@ describe('Oppsummeringvisning', () => {
     it('Skal vise besvarte spørsmål på nivå 1', () => {
         const populertSoknad = populerSoknadMedSvar(getSoknad(), values);
         const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
-        expect(component.text()).to.contain('Jeg vet at dersom jeg gir uriktige opplysninger...');
+        expect(component.text()).to.contain('Jeg vet at dersom jeg gir uriktige opplysninger');
     });
 
     it('Skal vise besvarte spørsmål på nivå 1 (ja/nei-spørsmål)', () => {
         const populertSoknad = populerSoknadMedSvar(getSoknad(), values);
         const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
-        expect(component.text()).to.contain('Var du tilbake i fullt arbeid som selvstendig næringsdrivende før sykmeldingsperioden utløp 26.03.2018?');
+        expect(component.text()).to.contain('Var du tilbake i fullt arbeid som FRILANSER før sykmeldingsperioden utløp 28.05.2018?');
         expect(component.text()).to.contain('Ja');
     });
 

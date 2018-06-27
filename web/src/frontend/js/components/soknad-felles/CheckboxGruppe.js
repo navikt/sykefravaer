@@ -4,7 +4,7 @@ import { FieldArray } from 'redux-form';
 import Sporsmalstekst from './Sporsmalstekst';
 import Feilomrade from '../skjema/Feilomrade';
 import Checkbox from './Checkbox';
-import { sporsmal as sporsmalPt, fieldPropTypes, svar as svarPt } from '../../propTypes';
+import { sporsmal as sporsmalPt, fieldPropTypes } from '../../propTypes';
 import Undertekst from './Undertekst';
 
 const rendreCheckboxGruppe = ({ fields, meta }) => {
@@ -22,18 +22,18 @@ rendreCheckboxGruppe.propTypes = {
     meta: fieldPropTypes.meta,
 };
 
-const CheckboxGruppe = ({ sporsmalstekst, undertekst, name, svar }) => {
+const CheckboxGruppe = ({ sporsmalstekst, undertekst, name, undersporsmal }) => {
     return (<div>
         <Sporsmalstekst tekst={sporsmalstekst} />
         <Undertekst tekst={undertekst} />
-        <FieldArray component={rendreCheckboxGruppe} name={name} fields={svar.undersporsmal} />
+        <FieldArray component={rendreCheckboxGruppe} name={name} fields={undersporsmal} />
     </div>);
 };
 
 CheckboxGruppe.propTypes = {
     sporsmalstekst: PropTypes.string,
     name: PropTypes.string,
-    svar: svarPt,
+    undersporsmal: PropTypes.arrayOf(sporsmalPt),
     undertekst: PropTypes.string,
 };
 

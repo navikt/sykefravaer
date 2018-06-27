@@ -69,31 +69,33 @@ class Serverfeilmelding extends Component {
         const visKnapp = this.visFeillisteknapp();
 
         return (
-            <Vis hvis={noeErFeil}>
-                <div className="panel landingspanel" role="alert">
-                    <Varselstripe type="feil" fylt>
-                        <p className="sist">
-                            <strong>Ai ai ai!</strong><span> Vi har problemer med noen av baksystemene nå. </span>
-                            <Vis hvis={visKnapp}>
-                                <button
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        this.toggleVisFeil();
-                                    }}
-                                    className="lenke"
-                                    aria-pressed={this.state.visFeil}>Se hva som er feil</button>
-                            </Vis>
-                        </p>
-                    </Varselstripe>
-                    <Vis hvis={visKnapp}>
-                        <div aria-live="polite">
-                            <Vis hvis={this.state.visFeil}>
-                                <Feiliste feilliste={feilliste} />
-                            </Vis>
-                        </div>
-                    </Vis>
-                </div>
-            </Vis>);
+            <Vis
+                hvis={noeErFeil}
+                render={() => {
+                    return (<div className="panel landingspanel" role="alert">
+                        <Varselstripe type="feil" fylt>
+                            <p className="sist">
+                                <strong>Ai ai ai!</strong><span> Vi har problemer med noen av baksystemene nå. </span>
+                                <Vis
+                                    hvis={visKnapp}
+                                    render={() => {
+                                        return (<button
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                this.toggleVisFeil();
+                                            }}
+                                            className="lenke"
+                                            aria-pressed={this.state.visFeil}>Se hva som er feil</button>)
+                                    }} />
+                            </p>
+                        </Varselstripe>
+                        {
+                            visKnapp && <div aria-live="polite">
+                                { this.state.visFeil && <Feiliste feilliste={feilliste} /> }
+                            </div>
+                        }
+                    </div>);
+                }} />);
     }
 }
 

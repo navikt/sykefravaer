@@ -31,13 +31,15 @@ const Soknader = ({ sykepengesoknader = [], soknader = [], visFeil }) => {
         <Sidetopp
             tittel={getLedetekst('soknader.sidetittel')}
         />
-        <Vis hvis={visFeil}>
-            <div className="panel blokk">
-                <Varselstripe type="feil" fylt>
-                    <p className="sist"><strong>Oops! </strong> Vi kunne ikke hente alle dine sykepengesøknader.</p>
-                </Varselstripe>
-            </div>
-        </Vis>
+        <Vis
+            hvis={visFeil}
+            render={() => {
+                return (<div className="panel blokk">
+                    <Varselstripe type="feil" fylt>
+                        <p className="sist"><strong>Oops! </strong> Vi kunne ikke hente alle dine sykepengesøknader.</p>
+                    </Varselstripe>
+                </div>);
+            }} />
         <SoknadTeasere
             soknader={nyeSoknader}
             tittel={getLedetekst('soknader.venter-paa-behandling.tittel')}

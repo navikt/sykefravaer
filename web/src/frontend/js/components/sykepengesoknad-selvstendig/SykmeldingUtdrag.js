@@ -62,12 +62,16 @@ const SykmeldingUtdrag = ({ erApen, sykmelding }) => {
                     tittel={getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}>
                     <p className="js-arbeidssituasjon">{getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${sykmelding.valgtArbeidssituasjon.toLowerCase()}`)}</p>
                 </SykmeldingNokkelOpplysning>
-                <Vis hvis={sykmelding.sporsmal.fravaerBesvart}>
-                    <Fravaersperioder sykmelding={sykmelding} />
-                </Vis>
-                <Vis hvis={sykmelding.sporsmal.forsikringBesvart}>
-                    <Forsikring sykmelding={sykmelding} />
-                </Vis>
+                <Vis
+                    hvis={sykmelding.sporsmal.fravaerBesvart}
+                    render={() => {
+                        return <Fravaersperioder sykmelding={sykmelding} />;
+                    }} />
+                <Vis
+                    hvis={sykmelding.sporsmal.forsikringBesvart}
+                    render={() => {
+                        return <Forsikring sykmelding={sykmelding} />;
+                    }} />
             </div>
         </Utvidbar>
     </div>);

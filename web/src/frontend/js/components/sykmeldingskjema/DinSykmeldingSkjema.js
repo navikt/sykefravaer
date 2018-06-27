@@ -148,32 +148,45 @@ export class DinSykmeldingSkjemaComponent extends Component {
             <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel')}</h3>
             <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.gdpr.bruk-sykmeldingen')} />
             <ErOpplysningeneRiktige untouch={untouch} />
-            <Vis hvis={modus !== modi.AVBRYT}>
-                <div className="blokk">
-                    <VelgArbeidssituasjon {...this.props} />
-                    <Vis hvis={values.valgtArbeidssituasjon === ARBEIDSTAKER && harStrengtFortroligAdresse}>
-                        <StrengtFortroligInfo sykmeldingId={sykmelding.id} />
-                    </Vis>
-                    <Vis hvis={visFrilansersporsmal}>
-                        <SpoersmalForFrilanserOgNaeringsdrivende sykmeldingId={sykmelding.id} />
-                    </Vis>
-                </div>
-            </Vis>
-            <Vis hvis={values.valgtArbeidssituasjon === ARBEIDSTAKER}>
-                <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" />
-            </Vis>
+            <Vis
+                hvis={modus !== modi.AVBRYT}
+                render={() => {
+                    return (<div className="blokk">
+                        <VelgArbeidssituasjon {...this.props} />
+                        <Vis
+                            hvis={values.valgtArbeidssituasjon === ARBEIDSTAKER && harStrengtFortroligAdresse}
+                            render={() => {
+                                return <StrengtFortroligInfo sykmeldingId={sykmelding.id} />;
+                            }} />
+                        <Vis
+                            hvis={visFrilansersporsmal}
+                            render={() => {
+                                return <SpoersmalForFrilanserOgNaeringsdrivende sykmeldingId={sykmelding.id} />;
+                            }} />
+                    </div>);
+                }}
+            />
+            <Vis
+                hvis={values.valgtArbeidssituasjon === ARBEIDSTAKER}
+                render={() => {
+                    return <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" />;
+                }} />
             <div aria-live="polite" role="alert">
-                <Vis hvis={sendingFeilet || avbrytFeilet}>
-                    <div className="panel panel-ramme js-varsel">
-                        <Varselstripe type="feil">
-                            <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
-                        </Varselstripe>
-                    </div>
-                </Vis>
+                <Vis
+                    hvis={sendingFeilet || avbrytFeilet}
+                    render={() => {
+                        return (<div className="panel panel-ramme js-varsel">
+                            <Varselstripe type="feil">
+                                <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
+                            </Varselstripe>
+                        </div>);
+                    }} />
             </div>
-            <Vis hvis={modus !== modi.GA_VIDERE && modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}>
-                <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>
-            </Vis>
+            <Vis
+                hvis={modus !== modi.GA_VIDERE && modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}
+                render={() => {
+                    return <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>
+                }} />
             <div className="knapperad">
                 <p className="blokk--s">
                     <button
@@ -188,9 +201,10 @@ export class DinSykmeldingSkjemaComponent extends Component {
                         { sender && <span className="knapp__spinner" /> }
                     </button>
                 </p>
-                <div className="avbrytDialog">
-                    <Vis hvis={modus !== modi.AVBRYT}>
-                        <p className="blokk">
+                <Vis
+                    hvis={modus !== modi.AVBRYT}
+                    render={() => {
+                        return (<p className="blokk">
                             <button
                                 aria-pressed={this.state.visAvbrytDialog}
                                 className="lenke"
@@ -203,8 +217,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
                                         visAvbrytDialog: !this.state.visAvbrytDialog,
                                     });
                                 }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</button>
-                        </p>
-                    </Vis>
+                        </p>);
+                    }} />
+                <div className="avbrytDialog">
                     <AvbrytDialog
                         vis={this.state.visAvbrytDialog}
                         avbryter={avbryter}

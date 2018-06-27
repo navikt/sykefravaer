@@ -91,9 +91,10 @@ class SendtSoknad extends Component {
             this.sendtSoknad = c;
         }}>
             <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
-            <Vis hvis={sykepengesoknad.status === KORRIGERT}>
-                <KorrigertAvContainer sykepengesoknad={sykepengesoknad} />
-            </Vis>
+            {
+                sykepengesoknad.status === KORRIGERT
+                    && <KorrigertAvContainer sykepengesoknad={sykepengesoknad} />
+            }
             <Soknadstatuspanel sykepengesoknad={sykepengesoknad}>
                 {
                     [KORRIGERT, TIL_SENDING].indexOf(sykepengesoknad.status) === -1 && <ConnectedKnapperad

@@ -16,9 +16,11 @@ export const jaEllerNeiAlternativer = [{
 
 export const JaEllerNeiRadioknapper = (props) => {
     return (<div>
-        <Vis hvis={props.intro}>
-            <p className="skjema__sporsmal blokk--s js-intro">{props.intro}</p>
-        </Vis>
+        <Vis
+            hvis={props.intro}
+            render={() => {
+                return (<p className="skjema__sporsmal blokk--s js-intro">{props.intro}</p>);
+            }} />
         <Radioknapper {...props} name={props.input.name}>
             {
                 jaEllerNeiAlternativer.map((alternativ, index) => {

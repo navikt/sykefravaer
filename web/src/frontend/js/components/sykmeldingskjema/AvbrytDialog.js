@@ -16,9 +16,11 @@ export const AvbrytSykmeldingDialog = ({ avbryter, avbrytHandler, bekreftHandler
                     e.preventDefault();
                     bekreftHandler();
                 }}>{getLedetekst('din-sykmelding.avbryt.ja')}
-                <Vis hvis={avbryter}>
-                    <span className="knapp__spinner" />
-                </Vis>
+                <Vis
+                    hvis={avbryter}
+                    render={() => {
+                        return <span className="knapp__spinner" />;
+                    }} />
             </button>
         </div>
         <p className="sist">
@@ -52,9 +54,11 @@ class AvbrytDialog extends Component {
             ref={(c) => {
                 this.dialog = c;
             }}>
-            <Vis hvis={vis}>
-                <AvbrytSykmeldingDialog {...this.props} />
-            </Vis>
+            <Vis
+                hvis={vis}
+                render={() => {
+                    return <AvbrytSykmeldingDialog {...this.props} />;
+                }} />
         </div>);
     }
 }

@@ -14,16 +14,18 @@ class DinSykmelding extends Component {
         const { sykmelding, visEldreSykmeldingVarsel, eldsteSykmeldingId } = this.props;
         return (<div>
             <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
-            <Vis hvis={visEldreSykmeldingVarsel}>
-                <div className="panel blokk">
-                    <Varselstripe type="info">
-                        <p className="sist">
-                            <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')} </span>
-                            <Link className="lenke" to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}</Link>
-                        </p>
-                    </Varselstripe>
-                </div>
-            </Vis>
+            <Vis
+                hvis={visEldreSykmeldingVarsel}
+                render={() => {
+                    return (<div className="panel blokk">
+                        <Varselstripe type="info">
+                            <p className="sist">
+                                <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')} </span>
+                                <Link className="lenke" to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}</Link>
+                            </p>
+                        </Varselstripe>
+                    </div>);
+                }} />
             <Bjorn
                 className="blokk"
                 hvit

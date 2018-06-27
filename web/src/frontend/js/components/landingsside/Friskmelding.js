@@ -113,9 +113,12 @@ class Friskmelding extends Component {
                     </Variant>
                 </Experiment>
             </Bjorn>,
-            <Vis key="friskmeldingslightbox" hvis={this.state.visLightbox}>
-                <Friskmeldingslightbox lukk={this.lukkLightbox} />
-            </Vis>,
+            <Vis
+                key="friskmeldingslightbox"
+                hvis={this.state.visLightbox}
+                render={() => {
+                    return <Friskmeldingslightbox lukk={this.lukkLightbox} />
+                }} />
         ]);
     }
 }

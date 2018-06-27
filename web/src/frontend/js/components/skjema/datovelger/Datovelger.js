@@ -95,25 +95,26 @@ export class DatoField extends Component {
                         {this.state.erApen ? 'Skjul datovelger' : 'Vis datovelger'}
                     </button>
                 </div>
-                <Vis hvis={this.state.erApen}>
-                    <DayPickerComponent
-                        {...this.props}
-                        erApen={this.state.erApen}
-                        tidligsteFom={tidligsteFom}
-                        senesteTom={senesteTom}
-                        onDayClick={(event, jsDato) => {
-                            const verdi = this.parseVerdi(jsDato);
-                            this.props.change(meta.form, this.props.input.name, verdi);
-                            this.props.touch(meta.form, this.props.input.name);
-                            this.lukk();
-                        }}
-                        onKeyUp={(e) => {
-                            this.onKeyUp(e);
-                        }}
-                        lukk={() => {
-                            this.lukk();
-                        }} />
-                </Vis>
+                {
+                    this.state.erApen
+                        && <DayPickerComponent
+                            {...this.props}
+                            erApen={this.state.erApen}
+                            tidligsteFom={tidligsteFom}
+                            senesteTom={senesteTom}
+                            onDayClick={(event, jsDato) => {
+                                const verdi = this.parseVerdi(jsDato);
+                                this.props.change(meta.form, this.props.input.name, verdi);
+                                this.props.touch(meta.form, this.props.input.name);
+                                this.lukk();
+                            }}
+                            onKeyUp={(e) => {
+                                this.onKeyUp(e);
+                            }}
+                            lukk={() => {
+                                this.lukk();
+                            }} />
+                }
                 <Feilmelding {...meta} />
             </div>
         </div>);

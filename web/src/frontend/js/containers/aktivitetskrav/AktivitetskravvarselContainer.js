@@ -77,14 +77,18 @@ class Container extends Component {
                             ref={(c) => {
                                 this.kvittering = c;
                             }}>
-                            <Vis hvis={visning === AKTIVITETSVARSELKVITTERING}>
-                                <Kvittering ledetekster={ledetekster} bekreftetdato={bekreftetdato} />
-                            </Vis>
+                            <Vis
+                                hvis={visning === AKTIVITETSVARSELKVITTERING}
+                                render={() => {
+                                    return <Kvittering ledetekster={ledetekster} bekreftetdato={bekreftetdato} />;
+                                }} />
                         </div>
                         <Artikkel ledetekster={ledetekster} inntruffetdato={varseldato} />
-                        <Vis hvis={visning !== AKTIVITETSVARSELKVITTERING}>
-                            <BekreftAktivitetskravSkjema />
-                        </Vis>
+                        <Vis
+                            hvis={visning !== AKTIVITETSVARSELKVITTERING}
+                            render={() => {
+                                return <BekreftAktivitetskravSkjema />;
+                            }} />
                     </div>);
                 })()
             }

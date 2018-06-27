@@ -12,7 +12,7 @@ const Kvitteringsteg = ({ nummer, aktiv, ok, tittel, children }) => {
     return (<div className="kvitteringsteg">
         <div className="kvitteringsteg__innhold">
             <h2 className="kvitteringsteg__tittel js-tittel"><span className={classNames}>{nummer}</span> {tittel}</h2>
-            [ children && <div className="js-tekst">{children}</div> }
+            { children && <div className="js-tekst">{children}</div> }
         </div>
     </div>);
 };

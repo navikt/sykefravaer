@@ -69,7 +69,6 @@ export function post(url, body) {
         body: JSON.stringify(body),
         headers: new window.Headers({
             'Content-Type': 'application/json',
-            'X-XSRF-TOKEN': getCookie('XSRF-TOKEN-SYFOREST'),
         }),
     })
         .then((res) => {

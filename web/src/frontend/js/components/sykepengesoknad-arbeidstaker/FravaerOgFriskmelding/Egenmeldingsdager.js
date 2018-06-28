@@ -29,7 +29,7 @@ const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsdagerPreutfylt }) =>
             return (<Bjorn
                 className="press"
                 nokkel="sykepengesoknad.egenmeldingsdager.preutfylt-melding"
-                rootUrl={getContextRoot()} />)
+                rootUrl={getContextRoot()} />);
         }} />);
 
     return (<JaEllerNei

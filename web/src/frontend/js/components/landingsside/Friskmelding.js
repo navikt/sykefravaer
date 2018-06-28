@@ -117,8 +117,8 @@ class Friskmelding extends Component {
                 key="friskmeldingslightbox"
                 hvis={this.state.visLightbox}
                 render={() => {
-                    return <Friskmeldingslightbox lukk={this.lukkLightbox} />
-                }} />
+                    return <Friskmeldingslightbox lukk={this.lukkLightbox} />;
+                }} />,
         ]);
     }
 }

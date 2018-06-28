@@ -101,7 +101,7 @@ export const svartypePt = PropTypes.oneOf(Object.values(svartyper));
 export const svar = PropTypes.arrayOf(PropTypes.shape({
     verdi: PropTypes.string,
     svarverdiType: PropTypes.oneOf([FOM, TOM, null]),
-}))
+}));
 
 export const sporsmal = PropTypes.shape({
     id: PropTypes.string,

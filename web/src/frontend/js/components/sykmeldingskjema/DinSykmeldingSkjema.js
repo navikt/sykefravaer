@@ -185,7 +185,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
             <Vis
                 hvis={modus !== modi.GA_VIDERE && modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}
                 render={() => {
-                    return <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>
+                    return <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>;
                 }} />
             <div className="knapperad">
                 <p className="blokk--s">

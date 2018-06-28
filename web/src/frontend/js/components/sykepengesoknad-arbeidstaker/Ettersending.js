@@ -58,7 +58,7 @@ export const EttersendingDialog = (props) => {
                 <Vis
                     hvis={sender}
                     render={() => {
-                        return <span className="knapp__spinner" />
+                        return <span className="knapp__spinner" />;
                     }} />
             </button>
             <p>

@@ -5,7 +5,9 @@ import { takeEvery } from 'redux-saga';
 import { getCookie, log } from 'digisyfo-npm';
 import { browserHistory } from 'react-router';
 import * as actions from '../actions/soknader_actions';
-import { HENT_SOKNADER_FORESPURT, SEND_SOKNAD_FORESPURT } from '../actions/actiontyper';
+import {
+    HENT_SOKNADER_FORESPURT, SEND_SOKNAD_FORESPURT, SYKMELDING_SENDT,
+} from '../actions/actiontyper';
 import mockSoknader from '../../test/mockSoknader';
 import { toggleInnsendingAvSelvstendigSoknad, toggleSelvstendigSoknad } from '../toggles';
 
@@ -123,7 +125,12 @@ function* watchSendSoknad() {
     yield* takeEvery(SEND_SOKNAD_FORESPURT, sendSoknad);
 }
 
+function* watchSykmeldingSendt() {
+    yield* takeEvery(SYKMELDING_SENDT, hentSoknader);
+}
+
 export default function* soknaderSagas() {
     yield fork(watchHentSoknader);
     yield fork(watchSendSoknad);
+    yield fork(watchSykmeldingSendt);
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { Vis } from '../../utils';
 
 const Kvitteringsteg = ({ nummer, aktiv, ok, tittel, children }) => {
     const classNames = cn('kvitteringsteg__nummer', {

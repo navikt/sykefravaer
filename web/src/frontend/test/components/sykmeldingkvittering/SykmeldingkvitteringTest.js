@@ -18,7 +18,7 @@ describe('Sykmeldingkvittering', () => {
         };
     });
 
-    it('Skal vise en SokOmSykepengerSenereKvittering hvis kvitteringtype er KVITTERING_MED_SYKEPENGER_SØK_SENERE', () => {
+    it('Skal vise en FrilanserSoekDigitaltSenere hvis kvitteringtype er KVITTERING_MED_SYKEPENGER_SØK_SENERE', () => {
         const comp = shallow(<Sykmeldingkvittering kvitteringtype="KVITTERING_MED_SYKEPENGER_SØK_SENERE" />);
         expect(comp.find(SokOmSykepengerSenereKvittering)).to.have.length(1);
     });

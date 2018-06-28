@@ -103,7 +103,8 @@ const getKvitteringtype = (
     harStrengtFortroligAdresse = false,
     erUtenforVentetid = false,
     skalOppretteSoknad = false,
-    soknader = []) => {
+    soknader = [],
+    hentSoknaderFeilet = false) => {
     if (!sykmelding) {
         return null;
     }
@@ -140,11 +141,17 @@ const getKvitteringtype = (
             }
             if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding) && !erAvventendeReisetilskuddEllerBehandlingsdager(sykmelding)) {
                 if (toggleSelvstendigSoknad()) {
+                    if (hentSoknaderFeilet) {
+                        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER;
+                    }
                     if (nyeSoknaderForDenneSykmeldingen.length > 0) {
                         return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER;
                     }
                     if (denneSykmeldingensSoknader.length > 0) {
                         return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_FRILANSER;
+                    }
+                    if (denneSykmeldingensSoknader.length === 0) {
+                        return kvitteringtyper.KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE;
                     }
                 }
                 return erUtenforVentetid || skalOppretteSoknad
@@ -173,8 +180,9 @@ export function mapStateToProps(state, ownProps) {
         }
     })();
 
+    const hentSoknaderFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet;
     const kvitteringtype = getKvitteringtype(sykmelding, state.sykepengesoknader.data, harStrengtFortroligAdresse,
-        sykmeldingMeta.erUtenforVentetid, sykmeldingMeta.skalOppretteSoknad, state.soknader.data);
+        sykmeldingMeta.erUtenforVentetid, sykmeldingMeta.skalOppretteSoknad, state.soknader.data, hentSoknaderFeilet);
     const soknadErFremtidig = (s) => {
         return s.sykmeldingId === sykmeldingId && s.status === FREMTIDIG;
     };

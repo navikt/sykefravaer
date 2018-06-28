@@ -10,6 +10,7 @@ import FrilanserMedPapirsoknadKvittering from './FrilanserMedPapirsoknadKvitteri
 import FrilanserUtenSoknadKvittering from './FrilanserUtenSoknadKvittering';
 import FrilanserSoekDigitaltNaa from './FrilanserSoekDigitaltNaa';
 import FrilanserSoekDigitaltSenere from './FrilanserSoekDigitaltSenere';
+import FrilanserSoekDigitaltFeil from './FrilanserSoekDigitaltFeil';
 import Feilmelding from '../Feilmelding';
 import { soknad as soknadPt } from '../../propTypes';
 
@@ -18,6 +19,7 @@ export const kvitteringtyper = {
     KVITTERING_MED_SYKEPENGER_SOK_SENERE: 'KVITTERING_MED_SYKEPENGER_SØK_SENERE',
     KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER: 'KVITTERING_MED_SYKEPENGER_SØK_NÅ_FRILANSER',
     KVITTERING_MED_SYKEPENGER_SOK_SENERE_FRILANSER: 'KVITTERING_MED_SYKEPENGER_SØK_SENERE_FRILANSER',
+    KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER: 'KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER',
     KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR: 'KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR',
     KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE: 'KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE',
     AVBRUTT_SYKMELDING: 'AVBRUTT_SYKMELDING',
@@ -97,6 +99,9 @@ const SykmeldingKvittering = (props) => {
                     }
                     case kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER: {
                         return <FrilanserSoekDigitaltNaa />;
+                    }
+                    case kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER: {
+                        return <FrilanserSoekDigitaltFeil />;
                     }
                     default: {
                         return <Feilmelding />;

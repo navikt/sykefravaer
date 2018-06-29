@@ -14,3 +14,5 @@ web/src/frontend/img/modig-frontend/**/*
 web/src/frontend/img/nav-frontend-grafikk/**/*
 web/src/frontend/coverage
 web/src/frontend/.nyc_output
+web/src/frontend/dist/resources
+web/src/frontend/settings.json

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta charset="UTF-8">
+    <script>
+        dataLayer = [];
+    </script>
+    {{{NAV_STYLES}}}
+    {{{NAV_MEGAMENU_RESOURCES}}}
+    {{{NAV_SCRIPTS}}}
+    {{#isProd}}
+    <link href="/sykefravaer/resources/styles.{{{timestamp}}}.css" rel="stylesheet"/>
+    {{/isProd}}
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+        .app:focus {
+            outline: none;
+        }
+        .app--laster {
+            height: 100vh;
+        }
+        .app-spinner {
+            width: 4em;
+            height: 4em;
+            border-top: 0.3125em solid #7f756c;
+            border-left: 0.3125em solid #b7b1a9;
+            border-bottom: 0.3125em solid #b7b1a9;
+            border-right: 0.3125em solid #7f756c;
+            border-radius: 50%;
+            -webkit-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-animation: rotering 800ms infinite linear;
+            animation: rotering 800ms infinite linear;
+            margin: 8em auto;
+        }
+        @-webkit-keyframes rotering {
+            from {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes rotering {
+            from {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+{{{NAV_SKIPLINKS}}}
+{{{NAV_HEADING}}}
+<div id="maincontent" class="app app--laster" tabindex="-1">
+    <div class="app-spinner" aria-label="Vent litt mens siden laster"></div>
+</div>
+{{{NAV_FOOTER}}}
+
+<script>
+    window.APP_SETTINGS = {
+        "REST_ROOT": "{{{SYFOREST_URL}}}",
+        "SYFOTEKSTERREST_ROOT": "{{{SYFOTEKSTER_URL}}}",
+        "MOTEREST_ROOT": "{{{MOTEREST_URL}}}",
+        "OPPFOELGINGSDIALOGREST_ROOT": "{{{OPPFOLGINGSDIALOGREST_URL}}}",
+        "APP_ROOT": "/sykefravaer",
+    {{^isProd}}"LOGGING_ENABLED": true{{/isProd}}
+    };
+</script>
+{{#isProd}}<script src="/sykefravaer/resources/bundle-prod.{{timestamp}}.js"></script>{{/isProd}}
+{{^isProd}}<script src="http://localhost:9090/assets/bundle.js"></script>{{/isProd}}
+</body>
+</html>

@@ -45,9 +45,10 @@ export const RendreForskuttererArbeidsgiver = (props) => {
             const input = _props.input;
             return input && (input.value === VET_IKKE || input.value === NEI || input.value === JA);
         }}>
-        <div
-            className="ekstrasporsmal ekstrasporsmal--sist"
-            dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.forskutterer-arbeidsgiver.infotekst.${props.input.value}`)} />
+        { props.input.value
+            && (<div
+                className="ekstrasporsmal ekstrasporsmal--sist"
+                dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.forskutterer-arbeidsgiver.infotekst.${props.input.value}`)} />) }
     </SporsmalMedTillegg>);
 };
 

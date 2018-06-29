@@ -30,7 +30,6 @@ const DineSykmeldinger = ({ sykmeldinger = [], sortering }) => {
             tidligereSykmeldinger.length > 0 && <SykmeldingTeasere
                 sykmeldinger={sorterSykmeldinger(tidligereSykmeldinger, tidligereSortering)}
                 tittel={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.tittel')}
-                ingenSykmeldingerMelding={getLedetekst('dine-sykmeldinger.tidligere-sykmeldinger.ingen-sykmeldinger.melding')}
                 className="js-tidligere-sykmeldinger"
                 id="sykmelding-liste-tidligere">
                 <SykmeldingerSorteringContainer status="tidligere" />

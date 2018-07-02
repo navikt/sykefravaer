@@ -31,11 +31,13 @@ const DinBekreftedeSykmelding = ({ dinSykmelding }) => {
                 Overskrift="h2">
                 <DineSykmeldingOpplysninger sykmelding={dinSykmelding} />
             </Utvidbar>
-            <Vis hvis={dinSykmelding.valgtArbeidssituasjon === arbeidssituasjoner.ARBEIDSTAKER}>
-                <div className="blokk">
-                    <ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />
-                </div>
-            </Vis>
+            <Vis
+                hvis={dinSykmelding.valgtArbeidssituasjon === arbeidssituasjoner.ARBEIDSTAKER}
+                render={() => {
+                    return (<div className="blokk">
+                        <ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />
+                    </div>);
+                }} />
             <SykepengesoknadstatusContainer sykmeldingId={dinSykmelding.id} />
         </div>
     );

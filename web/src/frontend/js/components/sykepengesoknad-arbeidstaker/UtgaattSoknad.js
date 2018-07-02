@@ -1,7 +1,8 @@
 import React from 'react';
-import { getLedetekst, Varselstripe, SykmeldingUtdrag } from 'digisyfo-npm';
+import { getLedetekst, Varselstripe } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
+import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 
 const UtgaattSoknad = ({ sykepengesoknad }) => {
     return (<div>
@@ -11,7 +12,7 @@ const UtgaattSoknad = ({ sykepengesoknad }) => {
                 <p className="sist">{getLedetekst('sykepengesoknad.utgaatt.info.tekst')}</p>
             </Varselstripe>
         </div>
-        <SykmeldingUtdrag sykepengesoknad={sykepengesoknad} erApen />
+        <SykmeldingUtdragContainer sykepengesoknad={sykepengesoknad} erApen />
     </div>);
 };
 

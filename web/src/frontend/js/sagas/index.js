@@ -9,6 +9,7 @@ import {
     arbeidsoppgaveSagas,
     arbeidsforholdSagas,
     dokumentSagas,
+    forespoerRevideringSagas,
     samtykkeSagas,
     nullstillGodkjenningSagas,
     tilgangAtSagas as tilgangSagas,
@@ -42,7 +43,6 @@ import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
 import sykeforloepSagas from './sykeforloepSagas';
 import sykmeldingMetaSagas from './sykmeldingMetaSagas';
 import soknaderSagas from './soknaderSagas';
-import soknaderTestSagas from "./soknaderTestSagas";
 
 export default function* rootSaga() {
     yield [
@@ -65,6 +65,7 @@ export default function* rootSaga() {
         oppfolgingsdialogerSagas(),
         delMedFastlegeSagas(),
         delMedNavSagas(),
+        forespoerRevideringSagas(),
         nullstillGodkjenningSagas(),
         arbeidsoppgaveSagas(),
         dokumentSagas(),
@@ -86,6 +87,5 @@ export default function* rootSaga() {
         sykeforloepSagas(),
         sykmeldingMetaSagas(),
         soknaderSagas(),
-        soknaderTestSagas(),
     ];
 }

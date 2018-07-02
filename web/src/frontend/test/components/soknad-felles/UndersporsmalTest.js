@@ -13,14 +13,12 @@ describe('Undersporsmal', () => {
             id: '24',
             tag: null,
             sporsmalstekst: 'Når var du tilbake i arbeid?',
-            svar: {
-                svartype: 'DATO',
-                svarverdi: [],
-                min: new Date('2018-05-09'),
-                max: new Date('2018-05-19'),
-                kriterieForVisningAvUndersporsmal: null,
-                undersporsmal: [],
-            },
+            undersporsmal: [],
+            kriterieForVisningAvUndersporsmal: null,
+            min: new Date('2018-05-09'),
+            max: new Date('2018-05-19'),
+            svartype: 'DATO',
+            svar: [],
         };
         const component = shallow(<Undersporsmal sporsmal={undersporsmal} />);
         expect(component.find(Dato)).to.have.length(1);
@@ -31,14 +29,12 @@ describe('Undersporsmal', () => {
             id: '26',
             tag: null,
             sporsmalstekst: 'Hvor mange timer jobbet du normalt per uke som frilanser?',
-            svar: {
-                svartype: 'TIMER',
-                svarverdi: [],
-                min: '0',
-                max: '100',
-                kriterieForVisningAvUndersporsmal: null,
-                undersporsmal: [],
-            },
+            min: 0,
+            max: 100,
+            kriterieForVisningAvUndersporsmal: null,
+            undersporsmal: [],
+            svartype: 'TIMER',
+            svar: [],
         };
         const component = shallow(<Undersporsmal sporsmal={undersporsmal} />);
         expect(component.find(Tall)).to.have.length(1);

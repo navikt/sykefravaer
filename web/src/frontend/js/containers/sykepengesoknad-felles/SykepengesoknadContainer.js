@@ -230,7 +230,7 @@ export const mapStateToProps = (state, ownProps) => {
     const sykepengesoknad = state.sykepengesoknader.data.find(finnSoknad);
     const erSelvstendigNaeringsdrivendeSoknad = soknad !== undefined;
     const erArbeidstakersoknad = sykepengesoknad !== undefined;
-    const skalHenteSykmeldinger = erSelvstendigNaeringsdrivendeSoknad && !state.dineSykmeldinger.hentet && !state.dineSykmeldinger.henter;
+    const skalHenteSykmeldinger = !state.dineSykmeldinger.hentet && !state.dineSykmeldinger.henter;
     const henter = state.soknader.henter || state.sykepengesoknader.henter || state.ledetekster.henter || (skalHenteSykmeldinger);
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
     const brukerHarNavigertTilAnnenSoknad = beregnHarBrukerNavigertTilAnnenSoknad(state, soknadId);

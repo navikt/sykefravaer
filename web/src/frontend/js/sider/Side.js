@@ -64,22 +64,15 @@ export class SideComponent extends Component {
         return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
             <div className={classNames} aria-busy={laster}>
                 <TimeoutBox />
-                <Vis hvis={this.state.visSpinnerIDom}>
-                    <div className="side__spinner">
+                {
+                    this.state.visSpinnerIDom && (<div className="side__spinner">
                         <AppSpinner />
-                    </div>
-                </Vis>
+                    </div>)
+                }
                 <div className={begrenset || !erInnlogget ? 'side__innhold side__innhold--begrenset js-begrensning' : 'side__innhold'}>
-                    <button onClick={this.props.hentSoknaderTest}>Test søknad</button>
-                    <Vis hvis={begrenset || !erInnlogget}>
-                        <Brodsmuler brodsmuler={brodsmuler} />
-                    </Vis>
-                    <Vis hvis={erInnlogget}>
-                        {children}
-                    </Vis>
-                    <Vis hvis={!erInnlogget}>
-                        <Utlogget />
-                    </Vis>
+                    { (begrenset || !erInnlogget) && <Brodsmuler brodsmuler={brodsmuler} /> }
+                    { erInnlogget && children }
+                    { !erInnlogget && <Utlogget /> }
                 </div>
             </div>
         </DocumentTitle>);

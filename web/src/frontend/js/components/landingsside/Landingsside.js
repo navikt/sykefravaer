@@ -9,6 +9,7 @@ import DinSituasjonContainer from '../../containers/landingsside/DinSituasjonCon
 import ServerfeilContainer from '../../containers/landingsside/ServerfeilContainer';
 import DetteHarSkjeddContainer from '../../containers/landingsside/DetteHarSkjeddContainer';
 import Utdrag from '../../containers/landingsside/TidslinjeutdragContainer';
+import ArbeidsrettetOppfolgingContainer from '../../containers/landingsside/ArbeidsrettetOppfolgingContainer';
 import IllustrertInnhold from '../IllustrertInnhold';
 import { Vis } from '../../utils';
 
@@ -38,40 +39,49 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
             <Utdrag />
             <DinSituasjonContainer />
             <nav className="js-navigasjon">
-                <Vis hvis={harSykmeldinger}>
-                    <LandingssideLenke
-                        to="/sykefravaer/sykmeldinger"
-                        ikon="sykmeldinger"
-                        ikonAlt="Sykmelding"
-                        tittel="Sykmeldinger" />
-                </Vis>
-                <Vis hvis={harSykepengesoknader}>
-                    <LandingssideLenke
-                        to="/sykefravaer/soknader"
-                        ikon="soknader"
-                        ikonAlt="Søknader"
-                        tittel="Søknader om sykepenger" />
-                </Vis>
-                <Vis hvis={harDialogmote}>
-                    <LandingssideLenke
-                        to="/sykefravaer/dialogmote"
-                        ikon="dialogmoter"
-                        ikonAlt="Dialogmøter"
-                        tittel="Dialogmøter" />
-                </Vis>
-                <Vis hvis={skalViseOppfolgingsdialog}>
-                    <LandingssideLenke
-                        to="/sykefravaer/oppfolgingsplaner"
-                        ikon="oppfolgingsplaner"
-                        ikonAlt="Oppfølgingsplaner"
-                        tittel="Oppfølgingsplaner" />
-                </Vis>
+                <Vis
+                    hvis={harSykmeldinger}
+                    render={() => {
+                        return (<LandingssideLenke
+                            to="/sykefravaer/sykmeldinger"
+                            ikon="sykmeldinger"
+                            ikonAlt="Sykmelding"
+                            tittel="Sykmeldinger" />);
+                    }} />
+                <Vis
+                    hvis={harSykepengesoknader}
+                    render={() => {
+                        return (<LandingssideLenke
+                            to="/sykefravaer/soknader"
+                            ikon="soknader"
+                            ikonAlt="Søknader"
+                            tittel="Søknader om sykepenger" />);
+                    }} />
+                <Vis
+                    hvis={harDialogmote}
+                    render={() => {
+                        return (<LandingssideLenke
+                            to="/sykefravaer/dialogmote"
+                            ikon="dialogmoter"
+                            ikonAlt="Dialogmøter"
+                            tittel="Dialogmøter" />);
+                    }} />
+                <Vis
+                    hvis={skalViseOppfolgingsdialog}
+                    render={() => {
+                        return (<LandingssideLenke
+                            to="/sykefravaer/oppfolgingsplaner"
+                            ikon="oppfolgingsplaner"
+                            ikonAlt="Oppfølgingsplaner"
+                            tittel="Oppfølgingsplaner" />);
+                    }} />
                 <LandingssideLenke
                     to="/sykefravaer/tidslinjen"
                     ikon="tidslinje"
                     ikonAlt="Tidslinjen"
                     tittel="Hva skjer under sykefraværet?" />
             </nav>
+            <ArbeidsrettetOppfolgingContainer />
             <DetteHarSkjeddContainer />
             <div className="panel blokk">
                 <p className="sist">{getLedetekst('landingsside.gdpr.personopplysninger')}</p>

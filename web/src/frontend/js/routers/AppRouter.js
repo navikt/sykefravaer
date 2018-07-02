@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router, Route } from 'react-router';
+import { Route, Router } from 'react-router';
 import DineSykmeldingerContainer from '../containers/sykmeldinger/DineSykmeldingerContainer';
 import LandingssideContainer from '../containers/landingsside/LandingssideContainer';
 import { DinSykmeldingContainer } from '../containers/sykmelding/DinSykmeldingContainer';
@@ -15,9 +15,16 @@ import OppfolgingsdialogContainer from '../containers/oppfolgingsdialog/Oppfolgi
 import AktivitetskravvarselContainer from '../containers/aktivitetskrav/AktivitetskravvarselContainer';
 import SykepengesoknadContainer from '../containers/sykepengesoknad-felles/SykepengesoknadContainer';
 
+const HemmeligKnapp = () => {
+    return (
+        <button>hemmelig knapp</button>
+    );
+};
+
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
         <Route path="/sykefravaer" component={LandingssideContainer} />
+        <Route path="/sykefravaer/hemmelig" component={HemmeligKnapp} />
         <Route path="/sykefravaer/tidslinjen" component={TidslinjeContainer} />
         <Route path="/sykefravaer/tidslinjen/:arbeidssituasjon" component={TidslinjeContainer} />
         <Route path="/sykefravaer/sykmeldinger" component={DineSykmeldingerContainer} />
@@ -28,7 +35,7 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/soknader/:sykepengesoknadId" component={SykepengesoknadContainer} />
         <Route path="/sykefravaer/soknader/:sykepengesoknadId/fravaer-og-friskmelding" component={SykepengesoknadContainer} />
         <Route path="/sykefravaer/soknader/:sykepengesoknadId/aktiviteter-i-sykmeldingsperioden" component={SykepengesoknadContainer} />
-        <Route path="/sykefravaer/soknader/:sykepengesoknadId/oppsummering" component={SykepengesoknadContainer} />
+        <Route path="/sykefravaer/soknader/:sykepengesoknadId/oppsummering" component={SykepengesoknadContainer}K />
         <Route path="/sykefravaer/soknader/:sykepengesoknadId/kvittering" component={SykepengesoknadContainer} />
         <Route path="/sykefravaer/roller-og-ansvarsomrader" component={RollerContainer} />
         <Route path="/sykefravaer/dialogmote" component={MoteContainer} />

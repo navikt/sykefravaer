@@ -98,28 +98,20 @@ export const ledereReducerPt = PropTypes.shape({
 
 export const svartypePt = PropTypes.oneOf(Object.values(svartyper));
 
-export const svar = PropTypes.shape({
-    svartype: svartypePt,
-    svarverdi: PropTypes.arrayOf(PropTypes.shape({
-        verdi: PropTypes.string,
-        svarverdiType: PropTypes.oneOf([FOM, TOM, null]),
-    })),
-    min: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number]),
-    max: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number]),
-    kriterieForVisningAvUndersporsmal: PropTypes.string,
-    undersporsmal: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.string,
-        tag: PropTypes.string,
-        sporsmalstekst: PropTypes.string,
-        svar,
-    })),
-});
+export const svar = PropTypes.arrayOf(PropTypes.shape({
+    verdi: PropTypes.string,
+    svarverdiType: PropTypes.oneOf([FOM, TOM, null]),
+}));
 
 export const sporsmal = PropTypes.shape({
     id: PropTypes.string,
     tag: PropTypes.string,
     sporsmalstekst: PropTypes.string,
-    svar,
+    svartype: svartypePt,
+    min: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number]),
+    max: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number]),
+    kriterieForVisningAvUndersporsmal: PropTypes.string,
+    undersporsmal: PropTypes.arrayOf(sporsmal),
 });
 
 export const skjemasvar = PropTypes.shape({});
@@ -139,4 +131,6 @@ export const oppsummeringSporsmal = {
     svar,
     sporsmalstekst: PropTypes.string,
     tag: PropTypes.string,
+    overskriftsnivaa: PropTypes.number,
+    svartype: svartypePt,
 };

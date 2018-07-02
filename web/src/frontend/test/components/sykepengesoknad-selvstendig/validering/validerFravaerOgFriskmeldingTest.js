@@ -54,8 +54,8 @@ describe('validerFravaerOgFriskmelding', () => {
         const parse = genererParseForEnkeltverdi('1');
         const parsetSvar = parse(NEI);
         values[TILBAKE_I_ARBEID] = parsetSvar;
-        values.JOBBET_DU_GRADERT_0 = parsetSvar;
         values.JOBBET_DU_GRADERT_1 = parsetSvar;
+        values.JOBBET_DU_100_PROSENT_0 = parsetSvar;
         const feilmeldinger = validerFravaerOgFriskmelding(values, { soknad });
         expect(feilmeldinger).to.deep.equal({});
     });
@@ -64,7 +64,7 @@ describe('validerFravaerOgFriskmelding', () => {
         it('Skal klage hvis bruker ikke har svart på noen av periodene', () => {
             const soknad = getSoknad();
             const feilmeldinger = validerFravaerOgFriskmelding(values, { soknad });
-            expect(feilmeldinger.JOBBET_DU_GRADERT_0).to.equal('Vennligst svar på om du jobbet mer enn sykmeldingen tilsier');
+            expect(feilmeldinger.JOBBET_DU_100_PROSENT_0).to.equal('Vennligst svar på om du jobbet mer enn sykmeldingen tilsier');
             expect(feilmeldinger.JOBBET_DU_GRADERT_1).to.equal('Vennligst svar på om du jobbet mer enn sykmeldingen tilsier');
         });
 
@@ -72,9 +72,9 @@ describe('validerFravaerOgFriskmelding', () => {
             const parse = genererParseForEnkeltverdi('1');
             const soknad = getSoknad();
             const verdi = parse(JA);
-            values.JOBBET_DU_GRADERT_0 = verdi;
+            values.JOBBET_DU_100_PROSENT_0 = verdi;
             const feilmeldinger = validerFravaerOgFriskmelding(values, { soknad });
-            expect(feilmeldinger.JOBBET_DU_GRADERT_0).to.equal(undefined);
+            expect(feilmeldinger.JOBBET_DU_100_PROSENT_0).to.equal(undefined);
             expect(feilmeldinger.JOBBET_DU_GRADERT_1).to.equal('Vennligst svar på om du jobbet mer enn sykmeldingen tilsier');
         });
 
@@ -83,10 +83,10 @@ describe('validerFravaerOgFriskmelding', () => {
             const soknad = getSoknad();
             const verdi = parse(JA);
             const verdi2 = parse(NEI);
-            values.JOBBET_DU_GRADERT_0 = verdi;
+            values.JOBBET_DU_100_PROSENT_0 = verdi;
             values.JOBBET_DU_GRADERT_1 = verdi2;
             const feilmeldinger = validerFravaerOgFriskmelding(values, { soknad });
-            expect(feilmeldinger.JOBBET_DU_GRADERT_0).to.equal(undefined);
+            expect(feilmeldinger.JOBBET_DU_100_PROSENT_0).to.equal(undefined);
             expect(feilmeldinger.JOBBET_DU_GRADERT_1).to.equal(undefined);
         });
     });

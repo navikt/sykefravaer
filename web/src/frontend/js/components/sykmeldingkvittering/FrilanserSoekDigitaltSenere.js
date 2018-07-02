@@ -1,12 +1,12 @@
 import React from 'react';
-import { sykepengesoknad as sykepengesoknadPt, getLedetekst, Video, filmer, Bjorn } from 'digisyfo-npm';
+import { getLedetekst, Video, Bjorn } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
-import { getContextRoot } from '../../routers/paths';
 import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
 import { soknadsdatoremse } from './Soknadsdatoliste';
+import { soknad as soknadPt } from '../../propTypes';
 
-const SokOmSykepengerSenereKvittering = ({ sykepengesoknader }) => {
-    return (<div className="js-kvittering js-kvittering--sok-senere">
+const FrilanserSoekDigitaltSenere = ({ soknader }) => {
+    return (<div className="js-kvittering js-kvittering--frilanser-sok-senere">
         <div className="panel blokk">
             <div className="stegvisKvittering">
                 <Kvitteringsteg
@@ -23,26 +23,16 @@ const SokOmSykepengerSenereKvittering = ({ sykepengesoknader }) => {
                     <HtmlAvsnitt
                         nokkel="sykmelding.kvittering.sok-senere.steg-2.tekst-3"
                         replacements={{
-                            '%DATOER%': soknadsdatoremse(sykepengesoknader),
+                            '%DATOER%': soknadsdatoremse(soknader),
                         }} />
                 </Kvitteringsteg>
             </div>
         </div>
-        <Bjorn
-            className="blokk"
-            hvit
-            stor
-            nokkel="sykmelding.kvittering.sok-senere.bjorn"
-            rootUrl={getContextRoot()} />
-        <div className="blokk">
-            <h2 className="panel__tittel blokk--xxs">{getLedetekst('sykmelding.kvittering.sok-senere.video.tittel')}</h2>
-            <Video film={filmer.SOKNAD_SYKEPENGER} />
-        </div>
     </div>);
 };
 
-SokOmSykepengerSenereKvittering.propTypes = {
-    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+FrilanserSoekDigitaltSenere.propTypes = {
+    soknader: PropTypes.arrayOf(soknadPt),
 };
 
-export default SokOmSykepengerSenereKvittering;
+export default FrilanserSoekDigitaltSenere;

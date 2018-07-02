@@ -23,12 +23,14 @@ const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsdagerPreutfylt }) =>
             '%DATO%': toDatePrettyPrint(startSykeforloep),
         })} />);
 
-    const informasjon = (<Vis hvis={erEgenmeldingsdagerPreutfylt}>
-        <Bjorn
-            className="press"
-            nokkel="sykepengesoknad.egenmeldingsdager.preutfylt-melding"
-            rootUrl={getContextRoot()} />
-    </Vis>);
+    const informasjon = (<Vis
+        hvis={erEgenmeldingsdagerPreutfylt}
+        render={() => {
+            return (<Bjorn
+                className="press"
+                nokkel="sykepengesoknad.egenmeldingsdager.preutfylt-melding"
+                rootUrl={getContextRoot()} />);
+        }} />);
 
     return (<JaEllerNei
         spoersmal={getEgenmeldingsdagerSporsmal(sykepengesoknad)}

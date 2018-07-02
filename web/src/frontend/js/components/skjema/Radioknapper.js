@@ -31,14 +31,10 @@ export const Radioknapp = ({ input, value, children, id, label, checked, labelSe
                 }} />
             <label id={getLabelId(id)} htmlFor={id}>
                 {label}
-                <Vis hvis={labelSekundaer !== null}>
-                    <span className="sekundaerLabel">{labelSekundaer}</span>
-                </Vis>
+                { labelSekundaer !== null && <span className="sekundaerLabel">{labelSekundaer}</span> }
             </label>
         </div>
-        <Vis hvis={input.value === value || disabled || visUndertekst}>
-            {children}
-        </Vis>
+        { (input.value === value || disabled || visUndertekst) && children }
     </div>);
 };
 

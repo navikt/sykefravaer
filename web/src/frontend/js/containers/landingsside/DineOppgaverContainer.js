@@ -85,24 +85,12 @@ const RendreOppgaver = ({ sykmeldinger = [], sykepengesoknader = [], visOppgaver
             <div>
                 <h2 className="dineOppgaver__tittel js-tittel">{getLedetekst('dine-oppgaver.tittel')}</h2>
                 <ul className="inngangsliste">
-                    <Vis hvis={sykmeldinger.length > 0}>
-                        <NySykmelding sykmeldinger={sykmeldinger} />
-                    </Vis>
-                    <Vis hvis={sykepengesoknader.length > 0 || soknader.length > 0}>
-                        <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} />
-                    </Vis>
-                    <Vis hvis={mote !== null}>
-                        <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} />
-                    </Vis>
-                    <Vis hvis={avventendeGodkjenninger.length > 0}>
-                        <Li url="/sykefravaer/oppfolgingsplaner" tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} />
-                    </Vis>
-                    <Vis hvis={nyePlaner.length > 0}>
-                        <Li url="/sykefravaer/oppfolgingsplaner" tekst={nyePlanerTekst(nyePlaner.length)} />
-                    </Vis>
-                    <Vis hvis={visAktivitetskrav}>
-                        <NyttAktivitetskravvarsel />
-                    </Vis>
+                    { sykmeldinger.length > 0 && <NySykmelding sykmeldinger={sykmeldinger} /> }
+                    { (sykepengesoknader.length > 0 || soknader.length > 0) && <NySykepengesoknad sykepengesoknader={sykepengesoknader} soknader={soknader} /> }
+                    { mote !== null && <Li url="/sykefravaer/dialogmote" tekst={getLedetekst('dine-oppgaver.mote.svar')} /> }
+                    { avventendeGodkjenninger.length > 0 && <Li url="/sykefravaer/oppfolgingsplaner" tekst={avventendeGodkjenningerTekst(avventendeGodkjenninger.length)} /> }
+                    { nyePlaner.length > 0 && <Li url="/sykefravaer/oppfolgingsplaner" tekst={nyePlanerTekst(nyePlaner.length)} /> }
+                    { visAktivitetskrav && <NyttAktivitetskravvarsel /> }
                 </ul>
             </div>
         </IllustrertInnhold>

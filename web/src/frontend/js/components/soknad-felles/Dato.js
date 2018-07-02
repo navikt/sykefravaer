@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Datovelger from '../skjema/datovelger/Datovelger';
-import { svar as svarPt } from '../../propTypes';
 import Sporsmalstekst from './Sporsmalstekst';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 
-const Dato = ({ sporsmalstekst, svar, name, id }) => {
+const Dato = ({ sporsmalstekst, min, max, name, id }) => {
     const parse = genererParseForEnkeltverdi(id);
     return (<div>
         <Sporsmalstekst tekst={sporsmalstekst} Tag="label" htmlFor={name} />
@@ -15,14 +14,15 @@ const Dato = ({ sporsmalstekst, svar, name, id }) => {
             parseVerdi={parse}
             name={name}
             id={name}
-            tidligsteFom={svar.min}
-            senesteTom={svar.max} />
+            tidligsteFom={min}
+            senesteTom={max} />
     </div>);
 };
 
 Dato.propTypes = {
     sporsmalstekst: PropTypes.string,
-    svar: svarPt,
+    min: PropTypes.instanceOf(Date),
+    max: PropTypes.instanceOf(Date),
     name: PropTypes.string,
     id: PropTypes.string,
 };

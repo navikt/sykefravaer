@@ -19,7 +19,7 @@ Wrap.propTypes = {
 };
 
 const Undersporsmal = ({ sporsmal }) => {
-    switch (sporsmal.svar.svartype) {
+    switch (sporsmal.svartype) {
         case DATO: {
             return (<Wrap>
                 <Dato {...sporsmal} name={sporsmal.tag} />

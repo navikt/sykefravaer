@@ -5,21 +5,23 @@ import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
 
 export default () => {
     const sokUrl = `${window.APP_SETTINGS.APP_ROOT}/soknader`;
-    return (<div className="panel blokk js-kvittering js-kvittering--sok-naa">
+    return (<div className="panel blokk js-kvittering js-kvittering--sok-naa-frilanser">
         <div className="stegvisKvittering">
             <Kvitteringsteg
                 nummer="1"
                 ok
-                tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-1.tittel-2')}>
+                tittel={getLedetekst('bekreft-sykmelding.kvittering.sok-na.steg-1.tittel')}>
                 <HtmlAvsnitt
-                    nokkel="sykmelding.kvittering.sok-na.steg-1.tekst-2" />
+                    tag="div"
+                    nokkel="bekreft-sykmelding.kvittering.sok-na.steg-1.tekst" />
             </Kvitteringsteg>
             <Kvitteringsteg
                 nummer="2"
                 aktiv
-                tittel={getLedetekst('sykmelding.kvittering.sok-na.steg-2.tittel-2')}>
+                tittel={getLedetekst('bekreft-sykmelding.kvittering.sok-na.steg-2.tittel')}>
                 <HtmlAvsnitt
-                    nokkel="sykmelding.kvittering.sok-na.steg-2.tekst-2" />
+                    tag="div"
+                    nokkel="bekreft-sykmelding.kvittering.sok-na.steg-2.tekst" />
                 <p className="kvitteringsteg__handling">
                     <Link
                         to={sokUrl}

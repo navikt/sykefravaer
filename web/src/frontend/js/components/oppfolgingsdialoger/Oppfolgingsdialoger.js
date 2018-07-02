@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, keyValue } from 'digisyfo-npm';
+import {
+    getLedetekst,
+    keyValue,
+    togglesPt,
+} from 'digisyfo-npm';
 import {
     BRUKERTYPE,
     finnTidligereOppfolgingsdialoger,
@@ -17,6 +21,8 @@ import {
     UnderUtviklingVarsel,
     OppfolgingsdialogUtenSykmelding,
     OppfolgingsdialogerUtenAktivSykmelding,
+    NotifikasjonBoks,
+    NOTIFIKASJONBOKS_TYPE,
 } from 'oppfolgingsdialog-npm';
 import {
     dinesykmeldingerReducerPt,
@@ -76,6 +82,7 @@ class Oppfolgingsdialoger extends Component {
             opprettOppfolgingsdialog,
             dinesykmeldinger,
             naermesteLedere,
+            toggles,
         } = this.props;
         let panel;
         const dialogerAvbruttAvMotpartSidenSistInnlogging = finnGodkjentedialogerAvbruttAvMotpartSidenSistInnlogging(oppfolgingsdialoger, BRUKERTYPE.ARBEIDSTAKER);
@@ -122,6 +129,13 @@ class Oppfolgingsdialoger extends Component {
             );
         }
         return (<div>
+            { toggles.data['syfotoggles.send.oppfoelgingsdialog.fastlege'] === 'false' &&
+            <NotifikasjonBoks
+                imgUrl={`${getContextRoot()}/img/svg/notifikasjon-illustrasjon.svg`}
+                tekst={getLedetekst('oppfolgingsdialog.oppfolgingsdialoger.notifikasjonboks.generell-info')}
+                type={NOTIFIKASJONBOKS_TYPE.ADVARSEL}
+            />
+            }
             <UnderUtviklingVarsel
                 ledetekster={ledetekster}
                 rootUrl={getContextRoot()}
@@ -153,6 +167,7 @@ Oppfolgingsdialoger.propTypes = {
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
     oppfolgingsdialoger: PropTypes.arrayOf(oppfolgingProptypes.oppfolgingsdialogPt),
     ledetekster: keyValue,
+    toggles: togglesPt,
     bekreftetNyNaermesteLeder: PropTypes.bool,
     bekreftNyNaermesteLeder: PropTypes.func,
     avkreftLeder: PropTypes.func,

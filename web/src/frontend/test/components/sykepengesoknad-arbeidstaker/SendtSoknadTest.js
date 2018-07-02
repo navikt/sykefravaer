@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon, SykmeldingUtdrag, setLedetekster } from 'digisyfo-npm';
+import { SoknadOppsummering, VaerKlarOverAt, BekreftetKorrektInformasjon, setLedetekster } from 'digisyfo-npm';
 import sinon from 'sinon';
 import SendtSoknad, { Knapperad, ConnectedKnapperad } from '../../../js/components/sykepengesoknad-arbeidstaker/SendtSoknad';
 import KorrigertAvContainer from '../../../js/containers/sykepengesoknad-arbeidstaker/KorrigertAvContainer';
@@ -10,6 +10,7 @@ import Soknadstatuspanel from '../../../js/components/sykepengesoknad-arbeidstak
 import { getSoknad } from '../../mockSykepengesoknader';
 import ledetekster from '../../mockLedetekster';
 import SykepengesoknadHeader from '../../../js/components/sykepengesoknad-arbeidstaker/SykepengesoknadHeader';
+import SykmeldingUtdragContainer from '../../../js/containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -32,7 +33,7 @@ describe('SendtSoknad', () => {
     });
 
     it('Skal inneholde et SykmeldingUtdrag', () => {
-        expect(component.contains(<SykmeldingUtdrag sykepengesoknad={sykepengesoknad} />)).to.equal(true);
+        expect(component.contains(<SykmeldingUtdragContainer sykepengesoknad={sykepengesoknad} />)).to.equal(true);
     });
 
     it('Skal inneholde en SoknadOppsummering, VaerKlarOverAt og BekreftetKorrektInformasjon', () => {

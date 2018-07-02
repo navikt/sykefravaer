@@ -85,6 +85,8 @@ class Oppfolgingsdialog extends Component {
             delmednav,
             fastlegeDeling,
             delMedFastlege,
+            forespoerselRevidering,
+            forespoerRevidering,
             oppfolgingsdialoger,
         } = this.props;
         const oppfolgingsdialogAvbrutt = this.props.avbrytdialogReducer.sendt;
@@ -152,6 +154,8 @@ class Oppfolgingsdialog extends Component {
                     panel = (<Godkjenn
                         ledetekster={ledetekster}
                         oppfolgingsdialog={oppfolgingsdialog}
+                        forespoerselRevidering={forespoerselRevidering}
+                        forespoerRevidering={forespoerRevidering}
                         settAktivtSteg={settAktivtSteg}
                         godkjennPlan={godkjennDialog}
                         brukerType={BRUKERTYPE.ARBEIDSTAKER}
@@ -203,6 +207,7 @@ Oppfolgingsdialog.propTypes = {
     dokument: oppfolgingProptypes.dokumentReducerPt,
     virksomhet: oppfolgingProptypes.virksomhetReducerPt,
     person: oppfolgingProptypes.personReducerPt,
+    forespoerselRevidering: oppfolgingProptypes.forespoerselRevideringPt,
     forrigenaermesteleder: oppfolgingProptypes.forrigenaermestelederReducerPt,
     naermesteleder: oppfolgingProptypes.naermestelederReducerPt,
     kontaktinfo: oppfolgingProptypes.kontaktinfoReducerPt,
@@ -216,6 +221,7 @@ Oppfolgingsdialog.propTypes = {
     slettKommentar: PropTypes.func,
     delMedFastlege: PropTypes.func,
     delMedNavFunc: PropTypes.func,
+    forespoerRevidering: PropTypes.func,
     godkjennDialog: PropTypes.func,
     nullstillGodkjenning: PropTypes.func,
     hentPdfurler: PropTypes.func,

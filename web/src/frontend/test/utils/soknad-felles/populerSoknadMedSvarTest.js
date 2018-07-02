@@ -39,7 +39,7 @@ describe('populerSoknadMedSvar', () => {
         const jaSvar = parseCheckbox(true);
         values[ANSVARSERKLARING] = jaSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
-        expect(populertSoknad.sporsmal[0].svar.svarverdi).to.deep.equal([
+        expect(populertSoknad.sporsmal[0].svar).to.deep.equal([
             {
                 svarverdiType: null,
                 verdi: CHECKED,
@@ -55,7 +55,7 @@ describe('populerSoknadMedSvar', () => {
         const jaSvar = parse(JA);
         values[TILBAKE_I_ARBEID] = jaSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
-        expect(populertSoknad.sporsmal[1].svar.svarverdi).to.deep.equal([
+        expect(populertSoknad.sporsmal[1].svar).to.deep.equal([
             {
                 svarverdiType: null,
                 verdi: JA,
@@ -69,12 +69,12 @@ describe('populerSoknadMedSvar', () => {
         });
         const parseToppnivasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
         const toppnivaaSvar = parseToppnivasporsmal(JA);
-        const parseUndersporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.svar.undersporsmal[0].id);
+        const parseUndersporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.undersporsmal[0].id);
         const undersporsmalSvar = parseUndersporsmal('25.03.2018');
         values[TILBAKE_I_ARBEID] = toppnivaaSvar;
         values[TILBAKE_NAR] = undersporsmalSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
-        expect(populertSoknad.sporsmal[1].svar.undersporsmal[0].svar.svarverdi).to.deep.equal([
+        expect(populertSoknad.sporsmal[1].undersporsmal[0].svar).to.deep.equal([
             {
                 svarverdiType: null,
                 verdi: '25.03.2018',
@@ -88,39 +88,40 @@ describe('populerSoknadMedSvar', () => {
         });
         const parseToppnivasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
         const toppnivaaSvar = parseToppnivasporsmal(NEI);
-        const parseUndersporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.svar.undersporsmal[0].id);
+        const parseUndersporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.undersporsmal[0].id);
         const undersporsmalSvar = parseUndersporsmal('25.03.2018');
         values[TILBAKE_I_ARBEID] = toppnivaaSvar;
         values[TILBAKE_NAR] = undersporsmalSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
-        expect(populertSoknad.sporsmal[1].svar.undersporsmal[0].svar.svarverdi).to.deep.equal([]);
+        expect(populertSoknad.sporsmal[1].undersporsmal[0].svar).to.deep.equal([]);
     });
 
     it('Når man har svart JA på et toppnivå-spørsmål, skal underspørsmål også populeres, også når det er flere underspørsmål', () => {
-        const toppnivaSporsmal = soknad.sporsmal.find((s) => {
-            return s.tag === `${JOBBET_DU_GRADERT}_0`;
-        });
+        const sporsmalForDenneTesten = (s) => {
+            return s.tag === `${JOBBET_DU_GRADERT}_1`;
+        };
+        const toppnivaSporsmal = soknad.sporsmal.find(sporsmalForDenneTesten);
         const parseToppnivasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
         const toppnivaaSvar = parseToppnivasporsmal(JA);
-        const parseUndersporsmal1 = genererParseForEnkeltverdi(toppnivaSporsmal.svar.undersporsmal[0].id);
-        const parseUndersporsmal2 = genererParseForEnkeltverdi(toppnivaSporsmal.svar.undersporsmal[1].id);
+        const parseUndersporsmal1 = genererParseForEnkeltverdi(toppnivaSporsmal.undersporsmal[0].id);
+        const parseUndersporsmal2 = genererParseForEnkeltverdi(toppnivaSporsmal.undersporsmal[1].id);
         const undersporsmalSvar1 = parseUndersporsmal1('20');
-        const undersporsmalSvar2 = parseUndersporsmal2('37,5');
-        values[`${JOBBET_DU_GRADERT}_0`] = toppnivaaSvar;
-        values[`${HVOR_MANGE_TIMER}_0`] = undersporsmalSvar1;
-        values[`${HVOR_MYE_HAR_DU_JOBBET}_0`] = undersporsmalSvar2;
+        const undersporsmalSvar2 = parseUndersporsmal2('65');
+        values[`${JOBBET_DU_GRADERT}_1`] = toppnivaaSvar;
+        values[`${HVOR_MANGE_TIMER}_1`] = undersporsmalSvar1;
+        values[`${HVOR_MYE_HAR_DU_JOBBET}_1`] = undersporsmalSvar2;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
-        const populerteUndersporsmal = populertSoknad.sporsmal[2].svar.undersporsmal;
-        expect(populerteUndersporsmal[0].svar.svarverdi).to.deep.equal([
+        const populerteUndersporsmal = populertSoknad.sporsmal.find(sporsmalForDenneTesten).undersporsmal;
+        expect(populerteUndersporsmal[0].svar).to.deep.equal([
             {
                 svarverdiType: null,
                 verdi: '20',
             },
         ]);
-        expect(populerteUndersporsmal[1].svar.svarverdi).to.deep.equal([
+        expect(populerteUndersporsmal[1].svar).to.deep.equal([
             {
                 svarverdiType: null,
-                verdi: '37,5',
+                verdi: '65',
             },
         ]);
     });
@@ -141,7 +142,7 @@ describe('populerSoknadMedSvar', () => {
         values[UTLAND] = toppnivaaSvar;
         values[PERIODER] = undersporsmalSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
-        expect(populertSoknad.sporsmal[5].svar.undersporsmal[0].svar.svarverdi).to.deep.equal([{
+        expect(populertSoknad.sporsmal[5].undersporsmal[0].svar).to.deep.equal([{
             svarverdiType: FOM,
             verdi: '20.03.2018',
         }, {
@@ -162,8 +163,8 @@ describe('populerSoknadMedSvar', () => {
         });
         const parseToppnivaasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
         const toppnivaaSvar = parseToppnivaasporsmal(JA);
-        const inntektskildeArbeidsforholdSvar = genererParseForCheckbox(toppnivaSporsmal.svar.undersporsmal[0].id)(true);
-        const sykmeldtFraArbeidsforholdSvar = genererParseForEnkeltverdi(toppnivaSporsmal.svar.undersporsmal[0].svar.undersporsmal[0].id)(NEI);
+        const inntektskildeArbeidsforholdSvar = genererParseForCheckbox(toppnivaSporsmal.undersporsmal[0].id)(true);
+        const sykmeldtFraArbeidsforholdSvar = genererParseForEnkeltverdi(toppnivaSporsmal.undersporsmal[0].undersporsmal[0].id)(NEI);
         values[ANDRE_INNTEKTSKILDER] = toppnivaaSvar;
         values[INNTEKTSKILDE_ARBEIDSFORHOLD] = inntektskildeArbeidsforholdSvar;
         values[INNTEKTSKILDE_ARBEIDSFORHOLD_ER_DU_SYKMELDT] = sykmeldtFraArbeidsforholdSvar;
@@ -171,23 +172,23 @@ describe('populerSoknadMedSvar', () => {
         const populertHarInntektskildeSporsmal = populertSoknad.sporsmal.find((s) => {
             return s.tag === ANDRE_INNTEKTSKILDER;
         });
-        const populertHarInntektskildeArbeidsforholdSporsmal = populertHarInntektskildeSporsmal.svar.undersporsmal[0].svar.undersporsmal.find((s) => {
+        const populertHarInntektskildeArbeidsforholdSporsmal = populertHarInntektskildeSporsmal.undersporsmal[0].undersporsmal.find((s) => {
             return s.tag === INNTEKTSKILDE_ARBEIDSFORHOLD;
         });
-        const populertSykmeldtFraArbeidsforholdSporsmal = populertHarInntektskildeArbeidsforholdSporsmal.svar.undersporsmal.find((s) => {
+        const populertSykmeldtFraArbeidsforholdSporsmal = populertHarInntektskildeArbeidsforholdSporsmal.undersporsmal.find((s) => {
             return s.tag === INNTEKTSKILDE_ARBEIDSFORHOLD_ER_DU_SYKMELDT;
         });
-        expect(populertHarInntektskildeSporsmal.svar.svarverdi[0]).to.deep.equal({
+        expect(populertHarInntektskildeSporsmal.svar).to.deep.equal([{
             verdi: JA,
             svarverdiType: null,
-        });
-        expect(populertHarInntektskildeArbeidsforholdSporsmal.svar.svarverdi[0]).to.deep.equal({
+        }]);
+        expect(populertHarInntektskildeArbeidsforholdSporsmal.svar).to.deep.equal([{
             verdi: CHECKED,
             svarverdiType: null,
-        });
-        expect(populertSykmeldtFraArbeidsforholdSporsmal.svar.svarverdi[0]).to.deep.equal({
+        }]);
+        expect(populertSykmeldtFraArbeidsforholdSporsmal.svar).to.deep.equal([{
             verdi: NEI,
             svarverdiType: null,
-        });
+        }]);
     });
 });

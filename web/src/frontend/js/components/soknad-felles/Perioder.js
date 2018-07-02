@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { svar as svarPt } from '../../propTypes';
 import Periodevelger from '../skjema/datovelger/Periodevelger';
 
-const Perioder = ({ svar, name }) => {
+const Perioder = ({ min, max, name }) => {
     return (<Periodevelger
         name={name}
-        tidligsteFom={svar.min}
-        senesteTom={svar.max} />);
+        tidligsteFom={min}
+        senesteTom={max} />);
 };
 
 Perioder.propTypes = {
-    svar: svarPt,
+    min: PropTypes.instanceOf(Date),
+    max: PropTypes.instanceOf(Date),
     name: PropTypes.string,
 };
 

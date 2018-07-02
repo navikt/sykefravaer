@@ -34,11 +34,13 @@ export const EttersendingDialog = (props) => {
         <h3 className="ettersending__tittel">{getLedetekst(`sykepengesoknad.ettersending.info.tittel.${ledetekstKeySuffix}`)}</h3>
         <div dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.ettersending.info.tekst.${ledetekstKeySuffix}`)} />
         <div aria-live="polite" role="alert" className={feilClassNames}>
-            <Vis hvis={sendingFeilet}>
-                <Varselstripe type="feil">
-                    <p className="sist">Beklager, det oppstod en feil!</p>
-                </Varselstripe>
-            </Vis>
+            <Vis
+                hvis={sendingFeilet}
+                render={() => {
+                    return (<Varselstripe type="feil">
+                        <p className="sist">Beklager, det oppstod en feil!</p>
+                    </Varselstripe>);
+                }} />
         </div>
         <div className="knapperad">
             <button
@@ -53,9 +55,11 @@ export const EttersendingDialog = (props) => {
                     }
                 }}>
                 {getLedetekst(`sykepengesoknad.ettersending.knapp.bekreft.${ledetekstKeySuffix}`)}
-                <Vis hvis={sender}>
-                    <span className="knapp__spinner" />
-                </Vis>
+                <Vis
+                    hvis={sender}
+                    render={() => {
+                        return <span className="knapp__spinner" />;
+                    }} />
             </button>
             <p>
                 <a
@@ -119,12 +123,8 @@ export const EttersendLightbox = (props) => {
         props.onClose();
     };
     return (<Lightbox onClose={onClose}>
-        <Vis hvis={!visKvittering}>
-            <EttersendDialogConnected {...props} onClose={onClose} />
-        </Vis>
-        <Vis hvis={visKvittering}>
-            <EttersendKvittering {...props} onClose={onClose} />
-        </Vis>
+        { !visKvittering && <EttersendDialogConnected {...props} onClose={onClose} /> }
+        { visKvittering && <EttersendKvittering {...props} onClose={onClose} /> }
     </Lightbox>);
 };
 

@@ -1,4 +1,12 @@
-import { HENT_SOKNADER_FEILET, HENTER_SOKNADER, SEND_SOKNAD_FEILET, SENDER_SOKNAD, SOKNAD_SENDT, SOKNADER_HENTET } from '../actions/actiontyper';
+import {
+    HENT_SOKNADER_FEILET,
+    HENTER_SOKNADER, OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
+    OPPRETTER_SYKEPENGESOKNADUTLAND,
+    SEND_SOKNAD_FEILET,
+    SENDER_SOKNAD,
+    SOKNAD_SENDT,
+    SOKNADER_HENTET, SYKEPENGESOKNADUTLAND_OPPRETTET,
+} from '../actions/actiontyper';
 import { TIMER, DATO, PERIODER, PROSENT } from '../enums/svartyper';
 import { TIL_SENDING } from '../enums/soknadstatuser';
 
@@ -105,6 +113,28 @@ export default (state = initiellState, action = {}) => {
                 ...state,
                 sender: false,
                 sendingFeilet: true,
+            };
+        }
+        case OPPRETTER_SYKEPENGESOKNADUTLAND: {
+            return {
+                ...state,
+                oppretterSoknad: true,
+                opprettFeilet: false,
+            };
+        }
+        case SYKEPENGESOKNADUTLAND_OPPRETTET: {
+            return {
+                ...state,
+                oppretterSoknad: false,
+                opprettFeilet: false,
+                data: [...state.data, parseSoknad(action.soknad)],
+            };
+        }
+        case OPPRETT_SYKEPENGESOKNADUTLAND_FEILET: {
+            return {
+                ...state,
+                oppretterSoknad: false,
+                opprettFeilet: true,
             };
         }
         default: {

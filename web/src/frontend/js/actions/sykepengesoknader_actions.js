@@ -186,3 +186,4 @@ export function gjenapneSoknadFeilet() {
         type: actiontyper.GJENAPNE_SOKNAD_FEILET,
     };
 }
+

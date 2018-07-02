@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { put, call } from 'redux-saga/effects';
-import { hentSoknader, sendSoknad } from '../../js/sagas/soknaderSagas';
+import { hentSoknader, sendSoknad, opprettSoknadUtland } from '../../js/sagas/soknaderSagas';
 import { get, post } from '../../js/gateway-api';
 import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader from '../mockSoknader';
@@ -86,5 +86,36 @@ describe('soknaderSagas', () => {
             const nextPut = put(actions.soknadSendt(soknadData));
             expect(generator.next().value).to.deep.equal(nextPut);
         });
+    });
+
+    describe('Oppretting av søknad utland', () => {
+       let toggleSykepengesoknadUtland;
+       const generator = opprettSoknadUtland();
+       const soknadData = { test: 'data' };
+
+       beforeEach(() => {
+           toggleSykepengesoknadUtland = sinon.stub(toggles, 'toggleSykepengesoknadUtland').returns(true);
+       });
+
+       afterEach(() => {
+           toggleSykepengesoknadUtland.restore();
+
+       });
+
+       it('Skal dispatche OPPRETTER_SOKNADUTLAND', () => {
+           const nextPut = put(actions.oppretterSoknadUtland());
+           expect(generator.next().value).to.deep.equal(nextPut);
+       });
+
+       it('Skal opprette søknad', () => {
+            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/opprettSoknadUtland');
+            expect(generator.next().value).to.deep.equal(nextCall);
+       });
+
+       it('Skal dispatche SOKNADUTLAND_OPPRETTET', () => {
+           const nextPut = put(actions.soknadUtlandOpprettet(soknadData));
+           expect(generator.next(soknadData).value).to.deep.equal(nextPut);
+       });
+
     });
 });

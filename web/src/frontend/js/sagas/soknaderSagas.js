@@ -1,15 +1,12 @@
 /* eslint-disable no-use-before-define */
 
-import { call, fork, put } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
-import { getCookie, log } from 'digisyfo-npm';
-import { browserHistory } from 'react-router';
+import {call, fork, put} from 'redux-saga/effects';
+import {takeEvery} from 'redux-saga';
+import {getCookie, log} from 'digisyfo-npm';
+import {browserHistory} from 'react-router';
 import * as actions from '../actions/soknader_actions';
-import {
-    HENT_SOKNADER_FORESPURT, SEND_SOKNAD_FORESPURT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT,
-} from '../actions/actiontyper';
-import mockSoknader from '../../test/mockSoknader';
-import { toggleInnsendingAvSelvstendigSoknad, toggleSelvstendigSoknad } from '../toggles';
+import {HENT_SOKNADER_FORESPURT, SEND_SOKNAD_FORESPURT, SYKMELDING_BEKREFTET} from '../actions/actiontyper';
+import {toggleInnsendingAvSelvstendigSoknad, toggleSelvstendigSoknad} from '../toggles';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);
@@ -23,7 +20,7 @@ export function* hentSoknader() {
             yield put(actions.soknaderHentet(data));
         } catch (e) {
             log(e);
-            yield put(actions.soknaderHentet(mockSoknader));
+            yield put(actions.hentSoknaderFeilet());
         }
     } else {
         yield put(actions.soknaderHentet([]));

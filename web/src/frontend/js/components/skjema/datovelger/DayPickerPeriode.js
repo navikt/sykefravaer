@@ -8,6 +8,7 @@ import { MONTHS, WEEKDAYS_LONG, WEEKDAYS_SHORT, localeUtils } from './datovelger
 import Caption from './DayPickerCaption';
 import NavBar from './DayPickerNavBar';
 import { leggTilNullForan } from './DayPicker';
+import { erGyldigDato } from '../../../utils/datoUtils';
 
 const Style = () => {
     return (<style dangerouslySetInnerHTML={{ __html:
@@ -184,8 +185,8 @@ const mapStateToProps = (state, ownProps) => {
     const fomValue = formValueSelector(ownProps.skjemanavn)(state, ownProps.names[0]);
     const tomValue = formValueSelector(ownProps.skjemanavn)(state, ownProps.names[1]);
 
-    const valgtFra = fomValue ? fraInputdatoTilJSDato(fomValue) : undefined;
-    const valgtTil = tomValue ? fraInputdatoTilJSDato(tomValue) : undefined;
+    const valgtFra = fomValue && erGyldigDato(fomValue) ? fraInputdatoTilJSDato(fomValue) : undefined;
+    const valgtTil = tomValue && erGyldigDato(tomValue) ? fraInputdatoTilJSDato(tomValue) : undefined;
 
     return {
         valgtFra, valgtTil,

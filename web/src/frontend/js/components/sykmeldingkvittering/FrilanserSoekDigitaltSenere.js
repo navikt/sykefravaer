@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, Video, Bjorn } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
 import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
 import { soknadsdatoremse } from './Soknadsdatoliste';

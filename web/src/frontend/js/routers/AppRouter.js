@@ -16,16 +16,9 @@ import AktivitetskravvarselContainer from '../containers/aktivitetskrav/Aktivite
 import SykepengesoknadContainer from '../containers/sykepengesoknad-felles/SykepengesoknadContainer';
 import SykepengesoknadUtlandContainer from '../containers/sykepengesoknad-utland/SykepengesoknadUtlandContainer';
 
-const HemmeligKnapp = () => {
-    return (
-        <button>hemmelig knapp</button>
-    );
-};
-
 const AppRouter = ({ history }) => {
     return (<Router history={history}>
         <Route path="/sykefravaer" component={LandingssideContainer} />
-        <Route path="/sykefravaer/hemmelig" component={HemmeligKnapp} />
         <Route path="/sykefravaer/tidslinjen" component={TidslinjeContainer} />
         <Route path="/sykefravaer/tidslinjen/:arbeidssituasjon" component={TidslinjeContainer} />
         <Route path="/sykefravaer/sykmeldinger" component={DineSykmeldingerContainer} />

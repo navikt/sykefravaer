@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { Vis } from '../../utils';
 
 /* TODO: Gjør denne stateless */
 

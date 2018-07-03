@@ -7,7 +7,6 @@ import Brodsmuler from '../components/Brodsmuler';
 import Feilmelding from '../components/Feilmelding';
 import * as actions from '../actions/brukerinfo_actions';
 import { brodsmule as brodsmulePt } from '../propTypes';
-import { Vis } from '../utils';
 
 const DocumentTitle = require('react-document-title');
 

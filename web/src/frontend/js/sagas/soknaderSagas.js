@@ -1,12 +1,12 @@
 /* eslint-disable no-use-before-define */
 
-import {call, fork, put} from 'redux-saga/effects';
-import {takeEvery} from 'redux-saga';
-import {getCookie, log} from 'digisyfo-npm';
-import {browserHistory} from 'react-router';
+import { call, fork, put } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga';
+import { log } from 'digisyfo-npm';
+import { browserHistory } from 'react-router';
 import * as actions from '../actions/soknader_actions';
-import {HENT_SOKNADER_FORESPURT, SEND_SOKNAD_FORESPURT, SYKMELDING_BEKREFTET} from '../actions/actiontyper';
-import {toggleInnsendingAvSelvstendigSoknad, toggleSelvstendigSoknad} from '../toggles';
+import { HENT_SOKNADER_FORESPURT, SEND_SOKNAD_FORESPURT, SYKMELDING_BEKREFTET } from '../actions/actiontyper';
+import { toggleInnsendingAvSelvstendigSoknad, toggleSelvstendigSoknad } from '../toggles';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);

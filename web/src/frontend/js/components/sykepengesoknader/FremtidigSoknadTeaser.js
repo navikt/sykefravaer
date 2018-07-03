@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
-import { soknad, sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { soknad as soknadPt, sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Lightbox from '../Lightbox';
 
 const SoknadLightbox = ({ soknad, onClose }) => {
@@ -89,7 +89,7 @@ class FremtidigSoknadTeaser extends Component {
 }
 
 FremtidigSoknadTeaser.propTypes = {
-    soknad: PropTypes.oneOfType(sykepengesoknadPt, soknad),
+    soknad: PropTypes.oneOfType(sykepengesoknadPt, soknadPt),
 };
 
 export default FremtidigSoknadTeaser;

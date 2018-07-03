@@ -55,7 +55,7 @@ describe('SykmeldingUtdrag', () => {
     });
 
     it('Skal vise informasjon om forsikring dersom dette spørsmålet er stilt og besvart med nei', () => {
-        sykmelding.sporsmal.forsikring = null;
+        sykmelding.sporsmal.dekningsgrad = null;
         const component = mount(<SykmeldingUtdrag sykmelding={sykmelding} erApen />);
         expect(component.text()).to.contain('Forsikring');
         expect(component.text()).to.contain('Nei');

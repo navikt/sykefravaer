@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
-import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
+import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { soknad, sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Lightbox from '../Lightbox';
 
 const SoknadLightbox = ({ soknad, onClose }) => {
@@ -49,7 +49,7 @@ class FremtidigSoknadTeaser extends Component {
                     <header className="inngangspanel__header">
                         <h3 className="js-title" id={`soknad-header-${soknad.id}`}>
                             <small className="inngangspanel__meta js-meta">
-                                {getLedetekst('soknad.teaser.dato.fremtidig', { '%DATO%': toDatePrettyPrint(soknad.tom) }) }
+                                {getLedetekst('soknad.teaser.dato.fremtidig', { '%DATO%': toDatePrettyPrint(soknad.tom) })}
                             </small>
                             <span className="inngangspanel__tittel">
                                 {getLedetekst('soknad.teaser.tittel')}
@@ -67,9 +67,12 @@ class FremtidigSoknadTeaser extends Component {
                             })
                         }
                     </p>
-                    <p className="inngangspanel__undertekst js-undertekst mute">
-                        {soknad.arbeidsgiver.navn}
-                    </p>
+                    {
+                        soknad.arbeidsgiver &&
+                        (<p className="inngangspanel__undertekst js-undertekst mute">
+                            {soknad.arbeidsgiver.navn}
+                        </p>)
+                    }
                 </div>
             </button>
             {
@@ -86,7 +89,7 @@ class FremtidigSoknadTeaser extends Component {
 }
 
 FremtidigSoknadTeaser.propTypes = {
-    soknad: sykepengesoknadPt,
+    soknad: PropTypes.oneOfType(sykepengesoknadPt, soknad),
 };
 
 export default FremtidigSoknadTeaser;

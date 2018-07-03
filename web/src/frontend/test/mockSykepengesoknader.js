@@ -132,6 +132,19 @@ export const soknader = [{
     utdanning: null,
 }];
 
+export const getModerneSokand = (soknad = {}) => {
+    return Object.assign({}, {
+        id: "uuid",
+        sykmeldingId: "sykmeldingId",
+        soknadstype: "SELVSTENDIG",
+        status: "NY",
+        fom: new Date('2018-07-03'),
+        tom: new Date('2018-07-10'),
+        opprettetDato: new Date('2018-07-03'),
+        sporsmal: [],
+    }, soknad)
+};
+
 export const getSoknad = (soknad = {}) => {
     const _soknad = Object.assign({}, {
         id: '66a8ec20-b813-4b03-916f-7a2f0751b600',

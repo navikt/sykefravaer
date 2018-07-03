@@ -10,7 +10,7 @@ import Feilmelding from '../../components/Feilmelding';
 
 
 export const Container = ({ henter, hentingFeilet }) => {
-    return (<StrippetSide tittel={ getLedetekst('sykepengesoknad-utland.sidetittel')} laster={henter }>
+    return (<StrippetSide tittel={getLedetekst('sykepengesoknad-utland.sidetittel')} laster={henter}>
         {(() => {
             if (henter) {
                 return <AppSpinner />;

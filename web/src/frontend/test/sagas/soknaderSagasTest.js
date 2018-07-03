@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { put, call } from 'redux-saga/effects';
-import { hentSoknader, sendSoknad, get, post } from '../../js/sagas/soknaderSagas';
+import { hentSoknader, sendSoknad } from '../../js/sagas/soknaderSagas';
+import { get, post } from '../../js/gateway-api';
 import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader from '../mockSoknader';
 import * as toggles from '../../js/toggles';

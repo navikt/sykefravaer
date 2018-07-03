@@ -26,7 +26,7 @@ describe('SykmeldingUtdrag', () => {
                     fom: new Date('2018-03-21'),
                     tom: new Date('2018-03-24'),
                 }],
-                forsikring: 75,
+                dekningsgrad: 75,
                 arbeidssituasjon: arbeidssituasjoner.NAERINGSDRIVENDE,
                 fravaerBesvart: true,
                 forsikringBesvart: true,

@@ -21,7 +21,7 @@ Fravaersperioder.propTypes = {
 };
 
 const Forsikring = ({ sykmelding }) => {
-    const grad = sykmelding.sporsmal.forsikring;
+    const grad = sykmelding.sporsmal.dekningsgrad;
     const nokkel = grad === null
         ? 'sykepengesoknad.sykmelding-utdrag.forsikring-nei'
         : 'sykepengesoknad.sykmelding-utdrag.forsikring-ja';

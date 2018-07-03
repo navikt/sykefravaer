@@ -61,7 +61,6 @@ const Soknader = ({ sykepengesoknader = [], soknader = [], visFeil }) => {
             tidligereSoknader.length > 0 && (<SoknadTeasere
                 soknader={tidligereSoknader}
                 tittel={getLedetekst('soknader.sendt.tittel')}
-                tomListeTekst={getLedetekst('soknader.sendt.ingen-soknader')}
                 className="js-sendt"
                 id="soknader-sendt"
             />)

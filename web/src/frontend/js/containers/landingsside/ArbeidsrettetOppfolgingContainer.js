@@ -12,6 +12,7 @@ const Inngang = () => {
             revers>
             <h2 className="panel__tittel">{getLedetekst('sykefravaer.arbeidsrettet-oppfolging.tittel')}</h2>
             <p className="sist"><a
+                id="lenke-til-tiltakinfo"
                 className="lenke"
                 href="http://tjenester.nav.no/tiltakinfo/">{getLedetekst('sykefravaer.arbeidsrettet-oppfolging.lenketekst')}</a></p>
         </IllustrertInnhold>

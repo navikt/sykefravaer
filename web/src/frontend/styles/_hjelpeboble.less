@@ -50,6 +50,10 @@
     height: 6em
 }
 
+.sidebanner .hjelpeboble {
+    margin-bottom: -4em;
+}
+
 .hjelpeboble__bilde:after {
     content: "";
     border: 1em solid transparent;
@@ -68,12 +72,12 @@
 }
 
 @media (min-width: 30em) {
-    .hjelpeboble {
+    .hjelpeboble--horisontal {
         display: flex;
         flex-direction: row-reverse;
     }
 
-    .hjelpeboble__boble {
+    .hjelpeboble__boble--horisontal {
         flex: 1;
         margin-bottom: 0;
     }
@@ -82,12 +86,12 @@
         padding: 2em;
     }
 
-    .hjelpeboble__bilde {
+    .hjelpeboble__bilde--horisontal {
         box-sizing: content-box;
         padding-right: 2em;
     }
 
-    .hjelpeboble__bilde:after {
+    .hjelpeboble__bilde--horisontal:after {
         top: 25%;
         right: 1em;
         border-top-color: transparent;
@@ -95,7 +99,7 @@
         transform: translateX(50%);
     }
 
-    .hjelpeboble__bilde--hvit:after {
+    .hjelpeboble__bilde--horisontal.hjelpeboble__bilde--hvit:after {
         border-right-color: @hvit;
     }
 }

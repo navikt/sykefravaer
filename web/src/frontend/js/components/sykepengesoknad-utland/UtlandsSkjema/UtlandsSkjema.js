@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { reduxForm } from 'redux-form';
+import { log } from 'digisyfo-npm';
 import Header from '../../../containers/sykepengesoknad-utland/SykepengesoknadUtlandHeader';
 import Sporsmal from '../../soknad-felles/Sporsmal';
 import { JA_NEI } from '../../../enums/svarverdityper';
@@ -21,7 +22,7 @@ const UtlandsSkjema = ({ soknad, handleSubmit }) => {
     });
 
     const onSubmit = () => {
-        console.log('send skjema');
+        log('send skjema');
     };
     return (<form className="soknadskjema" id="sykepengesoknad-utland-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Header />

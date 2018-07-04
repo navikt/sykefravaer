@@ -5,13 +5,19 @@ import { browserHistory } from 'react-router';
 import { get, post, hentApiUrl } from '../gateway-api';
 import * as actions from '../actions/soknader_actions';
 import {
-    HENT_SOKNADER_FORESPURT,
     OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
+    HENT_SOKNADER_FORESPURT,
     SEND_SOKNAD_FORESPURT,
     SYKMELDING_BEKREFTET,
 } from '../actions/actiontyper';
 import { soknadUtland1 } from '../../test/mockSoknader';
-import { toggleInnsendingAvSelvstendigSoknad, toggleSelvstendigSoknad, toggleSykepengesoknadUtland } from '../toggles';
+import {
+    toggleBrukMockdataUtland,
+    toggleInnsendingAvSelvstendigSoknad,
+    toggleSelvstendigSoknad,
+    toggleSykepengesoknadUtland,
+} from '../toggles';
+import logger from '../logging';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);
@@ -58,10 +64,13 @@ export function* opprettSoknadUtland() {
             yield put(actions.soknadUtlandOpprettet(data));
         } catch (e) {
             log(e);
-            // logger.error(`Kunne ikke opprette søknad utland. URL: ${window.location.href} - ${e.message}`);
-            // yield put(actions.opprettSoknadUtlandFeilet());
-            yield put(actions.soknadUtlandOpprettet(soknadUtland1));
-            gaTilSkjemaUtland(soknadUtland1.id);
+            if (toggleBrukMockdataUtland()) {
+                yield put(actions.soknadUtlandOpprettet(soknadUtland1));
+                gaTilSkjemaUtland(soknadUtland1.id);
+            } else {
+                logger.error(`Kunne ikke opprette søknad utland. URL: ${window.location.href} - ${e.message}`);
+                yield put(actions.opprettSoknadUtlandFeilet());
+            }
         }
     }
 }
@@ -74,12 +83,12 @@ function* watchSendSoknad() {
     yield* takeEvery(SEND_SOKNAD_FORESPURT, sendSoknad);
 }
 
-function* watchOpprettSoknadUtland() {
-    yield* takeEvery(OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT, opprettSoknadUtland);
-}
-
 function* watchSykmeldingSendt() {
     yield* takeEvery(SYKMELDING_BEKREFTET, hentSoknader);
+}
+
+function* watchOpprettSoknadUtland() {
+    yield* takeEvery(OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT, opprettSoknadUtland);
 }
 
 export default function* soknaderSagas() {

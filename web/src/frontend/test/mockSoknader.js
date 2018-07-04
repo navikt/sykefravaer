@@ -678,3 +678,16 @@ export const getSoknad = (soknad = {}) => {
 };
 
 export default [parsetSoknad1];
+
+export const getModerneSokand = (soknad = {}) => {
+    return Object.assign({}, {
+        id: 'uuid',
+        sykmeldingId: 'sykmeldingId',
+        soknadstype: 'SELVSTENDIG',
+        status: 'NY',
+        fom: new Date('2018-07-03'),
+        tom: new Date('2018-07-10'),
+        opprettetDato: new Date('2018-07-03'),
+        sporsmal: [],
+    }, soknad);
+};

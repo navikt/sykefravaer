@@ -2,8 +2,9 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { getModerneSokand, getSoknad } from '../../mockSykepengesoknader';
-import FremtidigSoknadTeaser from "../../../js/components/sykepengesoknader/FremtidigSoknadTeaser";
+import { getSoknad } from '../../mockSykepengesoknader';
+import FremtidigSoknadTeaser from '../../../js/components/sykepengesoknader/FremtidigSoknadTeaser';
+import { getSoknad as getModerneSoknad } from '../../mockSoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -22,7 +23,7 @@ describe('SoknadTeasere', () => {
     });
 
     it('Viser ikke arbeidsgivernavn om søknaden er for selvstendig/frilans', () => {
-        const soknad = getModerneSokand();
+        const soknad = getModerneSoknad();
         const component = shallow(<FremtidigSoknadTeaser soknad={soknad} />);
         expect(component.find('.inngangspanel__undertekst')).to.have.length(0);
     });

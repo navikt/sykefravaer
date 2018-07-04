@@ -40,7 +40,7 @@ UtlandsSkjema.propTypes = {
     handleSubmit: PropTypes.func,
 };
 
-const SYKEPENGER_UTLAND_SKJEMANAVN = 'SYKEPENGER_UTLAND';
+export const SYKEPENGER_UTLAND_SKJEMANAVN = 'SYKEPENGER_UTLAND';
 
 export default reduxForm({
     form: SYKEPENGER_UTLAND_SKJEMANAVN,

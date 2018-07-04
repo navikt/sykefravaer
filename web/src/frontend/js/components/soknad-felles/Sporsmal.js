@@ -20,6 +20,7 @@ import Tall from './Tall';
 import Dato from './Dato';
 import CheckboxGruppe from './CheckboxGruppe';
 import Tekstinput from './Tekstinput';
+import SporsmalBjorn from "./SporsmalBjorn";
 
 const Sporsmal = ({ sporsmal, name }) => {
     const undersporsmal = sporsmal.undersporsmal.map((underspm) => {
@@ -57,6 +58,7 @@ const Sporsmal = ({ sporsmal, name }) => {
         case JA_NEI: {
             return (<JaEllerNei {...sporsmal} name={name}>
                 { undersporsmal }
+
             </JaEllerNei>);
         }
         case CHECKBOX_GRUPPE: {

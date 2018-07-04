@@ -65,7 +65,7 @@ export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }
 };
 
 FoerDuBegynner.propTypes = {
-    opprettSoknad: PropTypes.bool,
+    opprettSoknad: PropTypes.func,
     opprettFeilet: PropTypes.bool,
     oppretterSoknad: PropTypes.bool,
 };

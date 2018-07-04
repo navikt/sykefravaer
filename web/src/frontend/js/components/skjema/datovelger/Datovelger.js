@@ -4,7 +4,6 @@ import { Field, change, touch, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { toDatePrettyPrint } from 'digisyfo-npm';
 import MaskedInput from 'react-maskedinput';
-import { Vis } from '../../../utils';
 import Feilmelding from '../Feilmelding';
 import DayPickerComponent from './DayPicker';
 import { validerDatoField } from './validering';

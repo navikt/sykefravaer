@@ -85,7 +85,7 @@ class Serverfeilmelding extends Component {
                                                 this.toggleVisFeil();
                                             }}
                                             className="lenke"
-                                            aria-pressed={this.state.visFeil}>Se hva som er feil</button>)
+                                            aria-pressed={this.state.visFeil}>Se hva som er feil</button>);
                                     }} />
                             </p>
                         </Varselstripe>

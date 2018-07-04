@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router, Route } from 'react-router';
+import { Route, Router } from 'react-router';
 import DineSykmeldingerContainer from '../containers/sykmeldinger/DineSykmeldingerContainer';
 import LandingssideContainer from '../containers/landingsside/LandingssideContainer';
 import { DinSykmeldingContainer } from '../containers/sykmelding/DinSykmeldingContainer';

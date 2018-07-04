@@ -11,9 +11,13 @@ import SykmeldingKvitteringContainer, { mapStateToProps } from '../../../js/cont
 import Standardkvittering from '../../../js/components/sykmeldingkvittering/StandardSykmeldingkvittering';
 import FrilanserMedPapirsoknadKvittering from '../../../js/components/sykmeldingkvittering/FrilanserMedPapirsoknadKvittering';
 import FrilanserUtenSoknadKvittering from '../../../js/components/sykmeldingkvittering/FrilanserUtenSoknadKvittering';
+import * as toggles from '../../../js/toggles';
 
 import getSykmelding from '../../mockSykmeldinger';
 import { getParsetSoknad } from '../../mockSykepengesoknader';
+import FrilanserSoekDigitaltNaa from '../../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltNaa';
+import FrilanserSoekDigitaltSenere from '../../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltSenere';
+import { SELVSTENDIGE_OG_FRILANSERE } from '../../../js/enums/soknadtyper';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -31,6 +35,8 @@ describe('SykmeldingkvitteringContainer', () => {
     const sagaMiddleware = createSagaMiddleware();
     const middlewares = [sagaMiddleware];
     const mockStore = configureMockStore(middlewares);
+    let toggleStub;
+    let clock;
 
     beforeEach(() => {
         sykmeldinger = [{
@@ -180,6 +186,12 @@ describe('SykmeldingkvitteringContainer', () => {
         state.sykepengesoknader = {
             data: [nySoknad1, nySoknad2, nySoknad3, nySoknad4, fremtidigSoknad1],
         };
+        state.soknader = {
+            data: [],
+            henter: false,
+            hentingFeilet: false,
+            hentet: true,
+        };
         state.sykmeldingMeta = {
             1: {
                 erUtenforVentetid: false,
@@ -215,19 +227,24 @@ describe('SykmeldingkvitteringContainer', () => {
             'bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.undertekst': '<p>NAV dekker ikke sykepenger for de første 16 dagene. Dette fraværet er beregnet til 16 dager eller kortere. Du trenger derfor ikke å søke om sykepenger for dette sykefraværet. </p> <p>Les gjerne om <a href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger/Sykepenger+til+selvstendig+naringsdrivende+og+frilansere#chapter-1" target="_blank">sykepenger til selvstendig næringsdrivende og frilansere.</a></p>',
             'avbryt-sykmelding.kvittering.tittel': 'Sykmeldingen er avbrutt',
             'avbryt-sykmelding.kvittering.undertekst': '<p>Du kan ikke lenger sende sykmeldingen her fra nav.no.</p><p>Dette påvirker ikke dine muligheter for å levere den på papir.</p><p>Hvis du har avbrutt fordi du fant feil, bør du kontakte den som sykmeldte deg og få en ny.</p>',
+            'bekreft-sykmelding.kvittering.digital-soknad.steg-1.tittel': 'Da har du gjort første del',
+            'bekreft-sykmelding.kvittering.digital-soknad.steg-1.tekst': '<p>Du har bekreftet at du vil bruke sykmeldingen.</p>',
+            'bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tittel': 'Hva med sykepengene?',
+            'bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tekst': '<p>Dessverre oppstod det en feil som gjør at vi akkurat nå ikke vet om du trenger å søke om sykepenger.</p>',
+            'bekreft-sykmelding.kvittering.sok-na.steg-2.tittel': 'Nå skal du svare på noen spørsmål',
+            'bekreft-sykmelding.kvittering.sok-na.steg-2.tekst': '<p>Svarene bruker vi til å beregne sykepengene dine.</p>',
+            'bekreft-sykmelding.kvittering.sok-senere.steg-2.tittel': 'Om noen dager får du noen spørsmål',
+            'bekreft-sykmelding.kvittering.sok-senere.steg-2.tekst': '<p>Svarene bruker vi til å beregne sykepengene dine.</p><p>Du får melding fra oss om dette %DATOER%.</p><p>Fikk du sykmeldingen på papir hos legen?<br />Legg den bort. Det du gjør på nett erstatter papiret.</p><p>Skal du reise ut av Norge? <br /><a target="_blank" href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger/sykepenger-ved-utenlandsopphold">Se regler om sykepenger og opphold utenfor Norge.</a></p>',
         };
         /* eslint-disable max-len */
         setLedetekster(ledetekster);
-    });
-
-    let clock;
-
-    beforeEach(() => {
+        toggleStub = sinon.stub(toggles, 'toggleSelvstendigSoknad').returns(false);
         clock = sinon.useFakeTimers(1484524800000); // 16. januar 2017
     });
 
     afterEach(() => {
         clock.restore();
+        toggleStub.restore();
     });
 
     const getComponent = (_state, _ownProps) => {
@@ -276,7 +293,7 @@ describe('SykmeldingkvitteringContainer', () => {
             skalViseStandardSendtKvittering(state, ownProps);
         });
 
-        it('Skal vise riktig kvittering hvis det finnes fremtidige søknader som tlhører denne sykmeldingen', () => {
+        it('Skal vise riktig kvittering hvis det finnes fremtidige sykepengesøknader som tlhører denne sykmeldingen', () => {
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.SENDT,
@@ -289,7 +306,7 @@ describe('SykmeldingkvitteringContainer', () => {
             expect(component.text()).to.contain(ledetekster['sykmelding.kvittering.sok-senere.steg-2.tittel-3']);
         });
 
-        it('Skal vise riktig kvittering hvis det finnes nye søknader som tilhører denne sykmeldingen', () => {
+        it('Skal vise riktig kvittering hvis det finnes nye sykepengesøknader som tilhører denne sykmeldingen', () => {
             const sykmelding = getSykmelding({
                 id: '1',
                 status: sykmeldingstatuser.SENDT,
@@ -390,7 +407,7 @@ describe('SykmeldingkvitteringContainer', () => {
         });
     });
 
-    describe('BEKREFTET sykmelding for frilansere', () => {
+    describe('BEKREFTET sykmelding for frilansere når toggle er AV', () => {
         const skalViseInfoOmAtBrukerKanSoke = (_state, _ownProps) => {
             const component = getComponent(_state, _ownProps);
             expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.skal-opprettes-soknad.steg-1.tittel']);
@@ -546,6 +563,254 @@ describe('SykmeldingkvitteringContainer', () => {
                 };
                 state.dineSykmeldinger.data = [sykmelding];
                 skalViseInfoOmAtBrukerKanSoke(state, ownProps);
+            });
+        });
+    });
+
+    describe('BEKREFTET sykmelding for frilansere når toggle er PÅ', () => {
+        const skalViseInfoOmAtFrilanserKanSokNaa = (_state, _ownProps) => {
+            const component = getComponent(_state, _ownProps);
+            expect(component.find(FrilanserSoekDigitaltNaa)).to.have.length(1);
+        };
+
+        const skalViseInfoOmAtFrilanserKanSokSenere = (_state, _ownProps) => {
+            const component = getComponent(_state, _ownProps);
+            expect(component.find(FrilanserSoekDigitaltSenere)).to.have.length(1);
+        };
+
+        beforeEach(() => {
+            toggleStub.restore();
+            toggleStub = sinon.stub(toggles, 'toggleSelvstendigSoknad').returns(true);
+        });
+
+        afterEach(() => {
+            toggleStub.restore();
+        });
+
+        it('Skal vise standard bekreftet-kvittering om sykmeldingen er avventende', () => {
+            state.sykepengesoknader.data = [];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.BEKREFTET,
+                valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                mulighetForArbeid: {
+                    perioder: [{
+                        avventende: 'Trenger en bedre stol',
+                    }],
+                },
+            });
+            state.sykmeldingMeta['1'] = {
+                erUtenforVentetid: true,
+                skalOppretteSoknad: true,
+            };
+            state.dineSykmeldinger.data = [sykmelding];
+            skalViseStandardBekreftetKvittering(state, ownProps);
+        });
+
+        it('Skal vise standard bekreftet-kvittering om sykmeldingen har reisetilskudd', () => {
+            state.sykepengesoknader.data = [];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.BEKREFTET,
+                valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                erUtenforVentetid: true,
+                skalOppretteSoknad: true,
+                mulighetForArbeid: {
+                    perioder: [{
+                        reisetilskudd: true,
+                    }],
+                },
+            });
+            state.dineSykmeldinger.data = [sykmelding];
+            skalViseStandardBekreftetKvittering(state, ownProps);
+        });
+
+        it('Skal vise standard bekreftet-kvittering om sykmeldingen har behandlingsdager', () => {
+            state.sykepengesoknader.data = [];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.BEKREFTET,
+                valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                erUtenforVentetid: true,
+                skalOppretteSoknad: true,
+                mulighetForArbeid: {
+                    perioder: [{
+                        behandlingsdager: 4,
+                    }],
+                },
+            });
+            state.dineSykmeldinger.data = [sykmelding];
+            skalViseStandardBekreftetKvittering(state, ownProps);
+        });
+
+        it('Skal vise info om at det ikke er nødvendig å søke dersom sykmeldingne ikke genererer søknader', () => {
+            state.sykepengesoknader.data = [];
+            const sykmelding = getSykmelding({
+                id: '1',
+                status: sykmeldingstatuser.BEKREFTET,
+                valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                mulighetForArbeid: {
+                    perioder: [{
+                        fom: new Date('2018-02-02'),
+                        tom: new Date('2018-02-20'),
+                    }],
+                },
+            });
+            state.dineSykmeldinger.data = [sykmelding];
+            state.sykmeldingMeta['1'] = {
+                erUtenforVentetid: true,
+                skalOppretteSoknad: true,
+            };
+            state.soknader.data = [{
+                sykmeldingId: 'ikke-relevant-sykmelding-id',
+                status: 'NY',
+                tom: new Date('2018-01-10'),
+                soknadstype: SELVSTENDIGE_OG_FRILANSERE,
+            }];
+            const component = getComponent(state, ownProps);
+            expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.tittel']);
+            expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.skal-ikke-opprettes-soknad.kvittering.undertekst']);
+            expect(component.find(FrilanserMedPapirsoknadKvittering)).to.have.length(0);
+            expect(component.find(FrilanserUtenSoknadKvittering)).to.have.length(1);
+        });
+
+        describe('Når sykmeldingen har generert en søknad som er NY', () => {
+            beforeEach(() => {
+                state.soknader.data = [{
+                    sykmeldingId: '1',
+                    status: 'NY',
+                    tom: new Date('2018-01-10'),
+                    soknadstype: SELVSTENDIGE_OG_FRILANSERE,
+                }];
+            });
+
+            it('Skal vise info om at bruker kan søke om sykepenger', () => {
+                state.sykepengesoknader.data = [];
+                const sykmelding = getSykmelding({
+                    id: '1',
+                    status: sykmeldingstatuser.BEKREFTET,
+                    valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: false,
+                    mulighetForArbeid: {
+                        perioder: [{
+                            fom: new Date('2018-02-02'),
+                            tom: new Date('2018-02-20'),
+                        }],
+                    },
+                });
+                state.dineSykmeldinger.data = [sykmelding];
+                state.sykmeldingMeta['1'] = {
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: false,
+                };
+                skalViseInfoOmAtFrilanserKanSokNaa(state, ownProps);
+            });
+
+            it('Skal vise info om at bruker kan søke om sykepenger', () => {
+                state.sykepengesoknader.data = [];
+                const sykmelding = getSykmelding({
+                    id: '1',
+                    status: sykmeldingstatuser.BEKREFTET,
+                    valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                    mulighetForArbeid: {
+                        perioder: [{
+                            fom: new Date('2018-02-02'),
+                            tom: new Date('2018-02-20'),
+                        }],
+                    },
+                });
+                state.dineSykmeldinger.data = [sykmelding];
+                state.sykmeldingMeta['1'] = {
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: true,
+                };
+                skalViseInfoOmAtFrilanserKanSokNaa(state, ownProps);
+            });
+        });
+
+        describe('Når sykmeldingen har generert en søknad som er FREMTIDIG', () => {
+            beforeEach(() => {
+                state.soknader.data = [{
+                    sykmeldingId: '1',
+                    status: 'FREMTIDIG',
+                    tom: new Date('2018-02-14'),
+                    soknadstype: SELVSTENDIGE_OG_FRILANSERE,
+                }];
+            });
+
+            it('Skal vise info om at bruker kan søke om sykepenger senere', () => {
+                state.sykepengesoknader.data = [];
+                const sykmelding = getSykmelding({
+                    id: '1',
+                    status: sykmeldingstatuser.BEKREFTET,
+                    valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: false,
+                    mulighetForArbeid: {
+                        perioder: [{
+                            fom: new Date('2018-02-02'),
+                            tom: new Date('2018-02-20'),
+                        }],
+                    },
+                });
+                state.dineSykmeldinger.data = [sykmelding];
+                state.sykmeldingMeta['1'] = {
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: false,
+                };
+                skalViseInfoOmAtFrilanserKanSokSenere(state, ownProps);
+            });
+
+            it('Skal vise info om at bruker kan søke om sykepenger', () => {
+                state.sykepengesoknader.data = [];
+                const sykmelding = getSykmelding({
+                    id: '1',
+                    status: sykmeldingstatuser.BEKREFTET,
+                    valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                    mulighetForArbeid: {
+                        perioder: [{
+                            fom: new Date('2018-02-02'),
+                            tom: new Date('2018-02-20'),
+                        }],
+                    },
+                });
+                state.dineSykmeldinger.data = [sykmelding];
+                state.sykmeldingMeta['1'] = {
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: true,
+                };
+                skalViseInfoOmAtFrilanserKanSokSenere(state, ownProps);
+            });
+        });
+
+        describe('Når vi ikke vet om sykmeldingen har generert søknad, pga feil ved henting av søknader', () => {
+            beforeEach(() => {
+                state.soknader.hentingFeilet = true;
+            });
+
+            it('Skal vise info om at sykmeldingen er bekreftet, men vi vet ikke om det finnes relevant søknad', () => {
+                const sykmelding = getSykmelding({
+                    id: '1',
+                    status: sykmeldingstatuser.BEKREFTET,
+                    valgtArbeidssituasjon: arbeidssituasjoner.FRILANSER,
+                    mulighetForArbeid: {
+                        perioder: [{
+                            fom: new Date('2018-02-02'),
+                            tom: new Date('2018-02-20'),
+                        }],
+                    },
+                });
+                state.dineSykmeldinger.data = [sykmelding];
+                state.sykmeldingMeta['1'] = {
+                    erUtenforVentetid: true,
+                    skalOppretteSoknad: true,
+                };
+                const component = getComponent(state, ownProps);
+                expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.kvittering.digital-soknad.steg-1.tittel']);
+                expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.kvittering.digital-soknad.steg-1.tekst']);
+                expect(component.text()).to.contain(ledetekster['bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tittel']);
+                expect(component.html()).to.contain(ledetekster['bekreft-sykmelding.kvittering.digital-soknad-feil.steg-2.tekst']);
             });
         });
     });

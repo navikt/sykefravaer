@@ -9,7 +9,6 @@ import ConnectedEttersending from './Ettersending';
 import RelaterteSoknaderContainer from '../../containers/sykepengesoknad-arbeidstaker/RelaterteSoknaderContainer';
 import KorrigertAvContainer from '../../containers/sykepengesoknad-arbeidstaker/KorrigertAvContainer';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
-import { Vis } from '../../utils';
 import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 
 const { KORRIGERT, SENDT, TIL_SENDING } = sykepengesoknadstatuser;

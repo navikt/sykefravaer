@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { Vis } from '../../utils';
 
 /* TODO: Gjør denne stateless */
 
@@ -51,7 +50,6 @@ LandingssideLenke.propTypes = {
     ikonAlt: PropTypes.string.isRequired,
     variant: PropTypes.string,
     tittel: PropTypes.string.isRequired,
-    undertittel: PropTypes.string,
     to: PropTypes.string.isRequired,
     className: PropTypes.string,
 };

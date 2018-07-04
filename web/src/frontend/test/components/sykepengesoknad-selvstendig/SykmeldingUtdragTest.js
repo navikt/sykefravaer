@@ -26,7 +26,7 @@ describe('SykmeldingUtdrag', () => {
                     fom: new Date('2018-03-21'),
                     tom: new Date('2018-03-24'),
                 }],
-                forsikring: 75,
+                dekningsgrad: 75,
                 arbeidssituasjon: arbeidssituasjoner.NAERINGSDRIVENDE,
                 fravaerBesvart: true,
                 forsikringBesvart: true,
@@ -55,7 +55,7 @@ describe('SykmeldingUtdrag', () => {
     });
 
     it('Skal vise informasjon om forsikring dersom dette spørsmålet er stilt og besvart med nei', () => {
-        sykmelding.sporsmal.forsikring = null;
+        sykmelding.sporsmal.dekningsgrad = null;
         const component = mount(<SykmeldingUtdrag sykmelding={sykmelding} erApen />);
         expect(component.text()).to.contain('Forsikring');
         expect(component.text()).to.contain('Nei');

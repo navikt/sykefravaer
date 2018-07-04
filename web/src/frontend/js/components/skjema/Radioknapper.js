@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { fieldPropTypes } from '../../propTypes';
 import Feilomrade from './Feilomrade';
-import { Vis } from '../../utils';
 
 export const getLabelId = (id) => {
     const nyId = id

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, getHtmlLedetekst, Varselstripe } from 'digisyfo-npm';
-import { Vis } from '../../utils';
 
 const Feilmelding = () => {
     return (<div className="panel panel--ramme panel--komprimert">

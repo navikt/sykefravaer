@@ -10,7 +10,6 @@ import {
     henterEllerHarHentetOppfolgingsdialoger,
 } from 'oppfolgingsdialog-npm';
 import { oppgaverOppfoelgingsdialoger } from '../../utils/oppfolgingsdialogUtils';
-import { Vis } from '../../utils';
 import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, soknad as soknadPt } from '../../propTypes';
 import { erMotePassert } from '../../utils/moteUtils';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';

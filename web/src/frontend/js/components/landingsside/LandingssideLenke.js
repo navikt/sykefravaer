@@ -50,7 +50,6 @@ LandingssideLenke.propTypes = {
     ikonAlt: PropTypes.string.isRequired,
     variant: PropTypes.string,
     tittel: PropTypes.string.isRequired,
-    undertittel: PropTypes.string,
     to: PropTypes.string.isRequired,
     className: PropTypes.string,
 };

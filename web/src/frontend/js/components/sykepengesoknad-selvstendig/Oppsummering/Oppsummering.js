@@ -8,7 +8,6 @@ import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTyp
 import Knapperad from '../../skjema/Knapperad';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
-import { Vis } from '../../../utils';
 import { BEKREFT_OPPLYSNINGER } from '../../../enums/tagtyper';
 import Checkbox from '../../soknad-felles/Checkbox';
 

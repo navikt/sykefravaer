@@ -674,7 +674,7 @@ export const soknadUtland1 = {
     soknadstype: "OPPHOLD_UTLAND",
     status: "NY",
     fom: "2018-06-27",
-    tom: "2018-06-28",
+    tom: "2018-08-28",
     opprettetDato: "2018-06-29",
     sporsmal: [{
         id: "103",
@@ -683,7 +683,7 @@ export const soknadUtland1 = {
         undertekst: null,
         svartype: "PERIODER",
         min: "2018-06-27",
-        max: "2018-06-28",
+        max: "2018-08-28",
         kriterieForVisningAvUndersporsmal: null,
         svar: [],
         undersporsmal: []
@@ -716,10 +716,36 @@ export const soknadUtland1 = {
             svartype: "JA_NEI",
             min: null,
             max: null,
+            introtekst: null,
             kriterieForVisningAvUndersporsmal: null,
             svar: [],
             undersporsmal: []
         }]
+    }, {
+        id: '104',
+        kriterieForVisningAvUndersporsmal: "",
+        max: null,
+        min: null,
+        sporsmalstekst: 'Før du reiser trenger vi denne bekreftelsen fra deg',
+        svar: [],
+        svartype: "TOMT_SPORSMAL",
+        tag: 'BEKREFT_OPPLYSNINGER_UTLAND_INFO',
+        undersporsmal: [{id: '105',
+            kriterieForVisningAvUndersporsmal: null,
+            max: null,
+            min: null,
+            sporsmalstekst: 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte.',
+            svar: [],
+            svartype: 'CHECKBOX',
+            tag: 'BEKREFT_OPPLYSNINGER_UTLAND',
+            undersporsmal: [],
+            undertekst: null,
+        }],
+        undertekst: "<ul>\n" +
+        "    <li>Reisen vil ikke gjøre at jeg blir dårligere</li>\n" +
+        "    <li>Reisen vil ikke gjøre at sykefraværet blir lengre</li>\n" +
+        "    <li>Reisen vil ikke hindre planlagt behandling eller oppfølging</li>\n" +
+        "</ul>",
     }]
 };
 
@@ -775,11 +801,37 @@ export const parsetSoknadUtland1 = {
             svar: [],
             undersporsmal: []
         }]
+    }, {
+        id: '104',
+        kriterieForVisningAvUndersporsmal: "",
+        max: null,
+        min: null,
+        sporsmalstekst: 'Før du reiser trenger vi denne bekreftelsen fra deg',
+        svar: [],
+        svartype: "TOMT_SPORSMAL",
+        tag: 'BEKREFT_OPPLYSNINGER_UTLAND_INFO',
+        undersporsmal: [{id: '105',
+            kriterieForVisningAvUndersporsmal: null,
+            max: null,
+            min: null,
+            sporsmalstekst: 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte.',
+            svar: [],
+            svartype: 'CHECKBOX',
+            tag: 'BEKREFT_OPPLYSNINGER_UTLAND',
+            undersporsmal: [],
+            undertekst: null,
+        }],
+        undertekst: "<ul>\n" +
+        "    <li>Reisen vil ikke gjøre at jeg blir dårligere</li>\n" +
+        "    <li>Reisen vil ikke gjøre at sykefraværet blir lengre</li>\n" +
+        "    <li>Reisen vil ikke hindre planlagt behandling eller oppfølging</li>\n" +
+        "</ul>",
     }]
 };
 
 export const soknadrespons = [soknad1];
 export const soknadUtlandRespons = [soknadUtland1];
+export const soknadUtlandParset = [parsetSoknadUtland1];
 
 
 export const getSoknad = (soknad = {}) => {

@@ -2,13 +2,12 @@ import chai from 'chai';
 import React from 'react';
 import chaiEnzyme from 'chai-enzyme';
 import {shallow} from "enzyme";
-import { mapStateToProps, SporsmalBjornComponent } from "../../../js/components/soknad-felles/SporsmalBjorn";
-import {soknadUtland1} from "../../mockSoknader";
-import UtlandsSkjema, {SYKEPENGER_UTLAND_SKJEMANAVN} from "../../../js/components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema";
-import {genererParseForEnkeltverdi} from "../../../js/components/soknad-felles/fieldUtils";
-import {JA, NEI} from "../../../js/enums/svarEnums";
-import {SYKMELDINGSGRAD} from "../../../js/enums/tagtyper";
 import { Bjorn } from 'digisyfo-npm';
+import { mapStateToProps, SporsmalBjornComponent } from "../../../js/components/soknad-felles/SporsmalBjorn";
+import {genererParseForEnkeltverdi} from "../../../js/components/soknad-felles/fieldUtils";
+import { JA, NEI } from "../../../js/enums/svarEnums";
+import { SYKMELDINGSGRAD } from "../../../js/enums/tagtyper";
+import { SYKEPENGER_UTLAND } from '../../../js/enums/soknadtyper';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -21,7 +20,7 @@ describe('SporsmalBjorn', () => {
     beforeEach(() => {
         state = {
             form: {
-                [SYKEPENGER_UTLAND_SKJEMANAVN]: {
+                [SYKEPENGER_UTLAND]: {
                     values: {
                         [SYKMELDINGSGRAD]: parse(NEI),
                     }
@@ -37,7 +36,7 @@ describe('SporsmalBjorn', () => {
     });
 
     it('Skal ikke opprette en SporsmalBjorn ved tag SYKEMELDINGSGRAD og svar JA', () => {
-        state.form[SYKEPENGER_UTLAND_SKJEMANAVN].values[SYKMELDINGSGRAD] = parse(JA);
+        state.form[SYKEPENGER_UTLAND].values[SYKMELDINGSGRAD] = parse(JA);
         const props = mapStateToProps(state, {tag: SYKMELDINGSGRAD});
         const component = shallow(<SporsmalBjornComponent {...props} />);
         expect(component.find(Bjorn)).to.have.length(0);
@@ -48,6 +47,5 @@ describe('SporsmalBjorn', () => {
        const component = shallow(<SporsmalBjornComponent {...props} />);
        expect(component.find(Bjorn)).to.have.length(0);
     });
-
 
 });

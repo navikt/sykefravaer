@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Alertstripe from 'nav-frontend-alertstriper';
-import Hovedknapp from 'nav-frontend-knapper';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { Bjorn, getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
 

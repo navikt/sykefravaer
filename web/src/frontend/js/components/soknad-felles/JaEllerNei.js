@@ -7,7 +7,7 @@ import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { childEllerChildren, fieldPropTypes, sporsmal as sporsmalPt } from '../../propTypes';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { JA, NEI } from '../../enums/svarEnums';
-import SporsmalBjorn from "./SporsmalBjorn";
+import SporsmalBjorn from './SporsmalBjorn';
 
 const jaEllerNeiAlternativer = [JA, NEI];
 

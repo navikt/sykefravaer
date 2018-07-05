@@ -7,6 +7,7 @@ import Header from '../../../containers/sykepengesoknad-utland/SykepengesoknadUt
 import Sporsmal from '../../soknad-felles/Sporsmal';
 import { JA_NEI } from '../../../enums/svarverdityper';
 import { soknad as soknadPt } from '../../../propTypes';
+import { SYKEPENGER_UTLAND } from '../../../enums/soknadtyper';
 
 
 const UtlandsSkjema = ({ soknad, handleSubmit }) => {
@@ -27,7 +28,7 @@ const UtlandsSkjema = ({ soknad, handleSubmit }) => {
     return (<form className="soknadskjema" id="sykepengesoknad-utland-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Header />
         <div className="begrensning">
-            { sporsmalsliste }
+            {sporsmalsliste}
             <div className="knapperad blokk">
                 <input type="submit" value="Send" className="knapp knapp--hoved" />
             </div>
@@ -40,8 +41,6 @@ UtlandsSkjema.propTypes = {
     handleSubmit: PropTypes.func,
 };
 
-export const SYKEPENGER_UTLAND_SKJEMANAVN = 'SYKEPENGER_UTLAND';
-
 export default reduxForm({
-    form: SYKEPENGER_UTLAND_SKJEMANAVN,
+    form: SYKEPENGER_UTLAND,
 })(UtlandsSkjema);

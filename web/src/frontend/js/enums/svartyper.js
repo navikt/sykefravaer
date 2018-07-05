@@ -6,3 +6,4 @@ export const CHECKBOX = 'CHECKBOX';
 export const CHECKBOX_GRUPPE = 'CHECKBOX_GRUPPE';
 export const PERIODER = 'PERIODER';
 export const FRITEKST = 'FRITEKST';
+export const TOMT_SPORSMAL = 'TOMT_SPORSMAL';

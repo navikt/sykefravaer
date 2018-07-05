@@ -1,5 +1,4 @@
 var path = require("path");
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var mainPath = path.resolve(__dirname, '../js', 'index.js');
 var autoprefixer = require("autoprefixer");
 

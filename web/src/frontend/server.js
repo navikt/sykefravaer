@@ -5,7 +5,6 @@ const path = require('path');
 const mustacheExpress = require('mustache-express');
 const Promise = require('promise');
 const getDecorator = require('./decorator');
-const settingsFile = require('./settings.json');
 const prometheus = require('prom-client');
 
 // Prometheus metrics
@@ -22,7 +21,7 @@ const httpRequestDurationMicroseconds = new prometheus.Histogram({
 const server = express();
 
 const env = process.argv[2];
-const settings = env === 'local' ? { isProd: false } : settingsFile;
+const settings = env === 'local' ? { isProd: false } : require('./settings.json');
 
 server.set('views', `${__dirname}/dist`);
 server.set('view engine', 'mustache');

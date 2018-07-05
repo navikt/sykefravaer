@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Sporsmalstekst = ({ Tag = 'h3', tekst, ...rest }) => {
-    return <Tag className="skjema__sporsmal" {...rest}>{tekst}</Tag>;
+    return tekst !== null
+        ? <Tag className="skjema__sporsmal" {...rest}>{tekst}</Tag>
+        : null;
 };
 
 Sporsmalstekst.propTypes = {

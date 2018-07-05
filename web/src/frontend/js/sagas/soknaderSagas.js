@@ -4,8 +4,20 @@ import { log } from 'digisyfo-npm';
 import { browserHistory } from 'react-router';
 import { get, post, hentApiUrl } from '../gateway-api';
 import * as actions from '../actions/soknader_actions';
-import { HENT_SOKNADER_FORESPURT, SEND_SOKNAD_FORESPURT, SYKMELDING_BEKREFTET } from '../actions/actiontyper';
-import { toggleInnsendingAvSelvstendigSoknad, toggleSelvstendigSoknad } from '../toggles';
+import {
+    OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
+    HENT_SOKNADER_FORESPURT,
+    SEND_SOKNAD_FORESPURT,
+    SYKMELDING_BEKREFTET,
+} from '../actions/actiontyper';
+import { soknadUtland1 } from '../../test/mockSoknader';
+import {
+    toggleBrukMockdataUtland,
+    toggleInnsendingAvSelvstendigSoknad,
+    toggleSelvstendigSoknad,
+    toggleSykepengesoknadUtland,
+} from '../toggles';
+import logger from '../logging';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);
@@ -40,6 +52,29 @@ export function* sendSoknad(action) {
     }
 }
 
+const gaTilSkjemaUtland = (soknadUtlandId) => {
+    browserHistory.push(`/sykefravaer/soknader/${soknadUtlandId}/soknadUtland`);
+};
+
+export function* opprettSoknadUtland() {
+    if (toggleSykepengesoknadUtland()) {
+        yield put(actions.oppretterSoknadUtland());
+        try {
+            const data = yield call(post, `${hentApiUrl()}/opprettSoknadUtland`);
+            yield put(actions.soknadUtlandOpprettet(data));
+        } catch (e) {
+            log(e);
+            if (toggleBrukMockdataUtland()) {
+                yield put(actions.soknadUtlandOpprettet(soknadUtland1));
+                gaTilSkjemaUtland(soknadUtland1.id);
+            } else {
+                logger.error(`Kunne ikke opprette søknad utland. URL: ${window.location.href} - ${e.message}`);
+                yield put(actions.opprettSoknadUtlandFeilet());
+            }
+        }
+    }
+}
+
 function* watchHentSoknader() {
     yield* takeEvery(HENT_SOKNADER_FORESPURT, hentSoknader);
 }
@@ -52,8 +87,13 @@ function* watchSykmeldingSendt() {
     yield* takeEvery(SYKMELDING_BEKREFTET, hentSoknader);
 }
 
+function* watchOpprettSoknadUtland() {
+    yield* takeEvery(OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT, opprettSoknadUtland);
+}
+
 export default function* soknaderSagas() {
     yield fork(watchHentSoknader);
     yield fork(watchSendSoknad);
     yield fork(watchSykmeldingSendt);
+    yield fork(watchOpprettSoknadUtland);
 }

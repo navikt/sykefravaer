@@ -5,3 +5,4 @@ export const PROSENT = 'PROSENT';
 export const CHECKBOX = 'CHECKBOX';
 export const CHECKBOX_GRUPPE = 'CHECKBOX_GRUPPE';
 export const PERIODER = 'PERIODER';
+export const FRITEKST = 'FRITEKST';

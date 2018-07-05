@@ -2,7 +2,15 @@ import {
     SOKNADER_HENTET,
     HENTER_SOKNADER,
     HENT_SOKNADER_FEILET,
-    HENT_SOKNADER_FORESPURT, SEND_SOKNAD_FORESPURT, SENDER_SOKNAD, SEND_SOKNAD_FEILET, SOKNAD_SENDT,
+    HENT_SOKNADER_FORESPURT,
+    SEND_SOKNAD_FORESPURT,
+    SENDER_SOKNAD,
+    SEND_SOKNAD_FEILET,
+    SOKNAD_SENDT,
+    OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
+    OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
+    OPPRETTER_SYKEPENGESOKNADUTLAND,
+    SYKEPENGESOKNADUTLAND_OPPRETTET,
 } from './actiontyper';
 
 export const soknaderHentet = (soknader) => {
@@ -52,6 +60,31 @@ export const sendSoknadFeilet = () => {
 export const soknadSendt = (soknad) => {
     return {
         type: SOKNAD_SENDT,
+        soknad,
+    };
+};
+
+export const opprettSoknadUtland = () => {
+    return {
+        type: OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
+    };
+};
+
+export const opprettSoknadUtlandFeilet = () => {
+    return {
+        type: OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
+    };
+};
+
+export const oppretterSoknadUtland = () => {
+    return {
+        type: OPPRETTER_SYKEPENGESOKNADUTLAND,
+    };
+};
+
+export const soknadUtlandOpprettet = (soknad) => {
+    return {
+        type: SYKEPENGESOKNADUTLAND_OPPRETTET,
         soknad,
     };
 };

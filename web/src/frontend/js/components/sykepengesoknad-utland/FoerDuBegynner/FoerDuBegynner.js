@@ -1,13 +1,32 @@
 import React from 'react';
-import { Bjorn, getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
+import PropTypes from 'prop-types';
+import { Bjorn, getHtmlLedetekst, getLedetekst, Varselstripe } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
 
 
-export const FoerDuBegynner = () => {
+const Feilmelding = ({ opprettFeilet }) => {
+    return (<div aria-live="polite">
+        {
+            opprettFeilet
+                ? (<div className="panel panel--komprimert">
+                    <Varselstripe type="feil">
+                        <p>Beklager, det oppstod en feil! Prøv igjen senere.</p>
+                    </Varselstripe>
+                </div>)
+                : null
+        }
+    </div>);
+};
+
+Feilmelding.propTypes = {
+    opprettFeilet: PropTypes.bool,
+};
+
+export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }) => {
     return (<div>
         <div className="sidebanner sidebanner--utenramme">
             <div className="sidebanner__innhold blokk--xl">
-                <Bjorn rootUrl={getContextRoot()} stor hvit vertikal>
+                <Bjorn rootUrl={ getContextRoot() } stor hvit vertikal>
                     <p>{ getLedetekst('sykepengesoknad-utland.bjorn') }</p>
                 </Bjorn>
             </div>
@@ -18,15 +37,26 @@ export const FoerDuBegynner = () => {
             </header>
             <div
                 className="panel blokk redaksjonelt-innhold"
-                dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad-utland.tekst')}
+                dangerouslySetInnerHTML={ getHtmlLedetekst('sykepengesoknad-utland.tekst') }
             />
+            <Feilmelding opprettFeilet={opprettFeilet} />
             <div className="knapperad">
                 <p>
-                    <button type="submit" className="knapp">{ getLedetekst('sykepengesoknad-utland.knapp') }</button>
+                    <button
+                        type="submit"
+                        disabled={oppretterSoknad}
+                        className={`js-submit knapp ${(oppretterSoknad) ? 'js-spinner' : ''}`}
+                        onClick={(event) => {
+                            event.preventDefault();
+                            opprettSoknad();
+                        }}
+                    >
+                        { getLedetekst('sykepengesoknad-utland.knapp') }
+                        { oppretterSoknad && <span className="knapp__spinner" /> }
+                    </button>
                 </p>
                 <p>
-                    <a
-                        className="lenke"
+                    <a className="lenke"
                         href="https://www.nav.no/no/NAV+og+samfunn/Om+NAV/personvern-i-arbeids-og-velferdsetaten"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -37,4 +67,10 @@ export const FoerDuBegynner = () => {
             </div>
         </div>
     </div>);
+};
+
+FoerDuBegynner.propTypes = {
+    opprettSoknad: PropTypes.bool,
+    opprettFeilet: PropTypes.bool,
+    oppretterSoknad: PropTypes.bool,
 };

@@ -131,6 +131,4 @@ export const oppsummeringSporsmal = {
     svar,
     sporsmalstekst: PropTypes.string,
     tag: PropTypes.string,
-    overskriftsnivaa: PropTypes.number,
-    svartype: svartypePt,
 };

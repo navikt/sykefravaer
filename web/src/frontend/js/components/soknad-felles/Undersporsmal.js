@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst } from 'digisyfo-npm';
 import { sporsmal as sporsmalPt } from '../../propTypes';
-import { CHECKBOX, DATO, PROSENT, TIMER, PERIODER, JA_NEI, CHECKBOX_GRUPPE } from '../../enums/svartyper';
-import Tall from './Tall';
-import Dato from './Dato';
-import Checkbox from './Checkbox';
-import Perioder from './Perioder';
-import JaEllerNei from './JaEllerNei';
-import CheckboxGruppe from './CheckboxGruppe';
+import {
+    CHECKBOX,
+    DATO,
+    PROSENT,
+    TIMER,
+    PERIODER,
+    JA_NEI,
+    CHECKBOX_GRUPPE,
+    FRITEKST,
+} from '../../enums/svartyper';
+import Sporsmal from './Sporsmal';
 
 const Wrap = ({ children }) => {
     return <div className="soknad__undersporsmal">{children}</div>;
@@ -20,37 +23,18 @@ Wrap.propTypes = {
 
 const Undersporsmal = ({ sporsmal }) => {
     switch (sporsmal.svartype) {
-        case DATO: {
-            return (<Wrap>
-                <Dato {...sporsmal} name={sporsmal.tag} />
-            </Wrap>);
-        }
-        case TIMER: {
-            return (<Wrap>
-                <Tall {...sporsmal} name={sporsmal.tag} label={getLedetekst('soknad.timer-totalt')} />
-            </Wrap>);
-        }
-        case PROSENT: {
-            return (<Wrap>
-                <Tall {...sporsmal} name={sporsmal.tag} label={getLedetekst('soknad.prosent')} />
-            </Wrap>);
-        }
         case CHECKBOX: {
-            return <Checkbox {...sporsmal} name={sporsmal.tag} />;
+            return <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} />;
         }
-        case PERIODER: {
+        case DATO:
+        case TIMER:
+        case PROSENT:
+        case PERIODER:
+        case JA_NEI:
+        case CHECKBOX_GRUPPE:
+        case FRITEKST: {
             return (<Wrap>
-                <Perioder {...sporsmal} name={sporsmal.tag} />
-            </Wrap>);
-        }
-        case JA_NEI: {
-            return (<Wrap>
-                <JaEllerNei {...sporsmal} name={sporsmal.tag} />
-            </Wrap>);
-        }
-        case CHECKBOX_GRUPPE: {
-            return (<Wrap>
-                <CheckboxGruppe {...sporsmal} name={sporsmal.tag} />
+                <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} />
             </Wrap>);
         }
         default: {

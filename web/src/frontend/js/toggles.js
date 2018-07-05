@@ -9,3 +9,11 @@ export const toggleInnsendingAvSelvstendigSoknad = () => {
     // const url = window.location.href;
     // return url.indexOf('localhost') > -1;
 };
+
+export const toggleSykepengesoknadUtland = () => {
+    return false;
+};
+
+export const toggleBrukMockdataUtland = () => {
+    return false;
+};

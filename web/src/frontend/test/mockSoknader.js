@@ -668,7 +668,119 @@ const parsetSoknad1 = {
     tom: new Date('2018-05-28'),
 };
 
+export const soknadUtland1 = {
+    id: "67118cde-dbe1-4f2a-9d4b-2ba7c046242d",
+    sykmeldingId: "22",
+    soknadstype: "OPPHOLD_UTLAND",
+    status: "NY",
+    fom: "2018-06-27",
+    tom: "2018-06-28",
+    opprettetDato: "2018-06-29",
+    sporsmal: [{
+        id: "103",
+        tag: "PERIODEUTLAND",
+        sporsmalstekst: "Når skal du være utenfor Norge?",
+        undertekst: null,
+        svartype: "PERIODER",
+        min: "2018-06-27",
+        max: "2018-06-28",
+        kriterieForVisningAvUndersporsmal: null,
+        svar: [],
+        undersporsmal: []
+    }, {
+        id: "102",
+        tag: "LAND",
+        sporsmalstekst: "Hvilket land skal du reise til?",
+        undertekst: null,
+        svartype: "FRITEKST",
+        min: null,
+        max: null,
+        kriterieForVisningAvUndersporsmal: null,
+        svar: [],
+        undersporsmal: []
+    }, {
+        id: "100",
+        tag: "ARBEIDSGIVER",
+        sporsmalstekst: "Har du arbeidsgiver?",
+        undertekst: null,
+        svartype: "JA_NEI",
+        min: null,
+        max: null,
+        kriterieForVisningAvUndersporsmal: "JA",
+        svar: [],
+        undersporsmal: [{
+            id: "101",
+            tag: "SYKMELDINGSGRAD",
+            sporsmalstekst: "Er du 100% sykmeldt?",
+            undertekst: null,
+            svartype: "JA_NEI",
+            min: null,
+            max: null,
+            kriterieForVisningAvUndersporsmal: null,
+            svar: [],
+            undersporsmal: []
+        }]
+    }]
+};
+
+export const parsetSoknadUtland1 = {
+    id: "67118cde-dbe1-4f2a-9d4b-2ba7c046242d",
+    sykmeldingId: "22",
+    soknadstype: "OPPHOLD_UTLAND",
+    status: "NY",
+    fom: new Date("2018-06-27"),
+    tom: new Date("2018-06-28"),
+    opprettetDato: new Date("2018-06-29"),
+    sporsmal: [{
+        id: "103",
+        tag: "PERIODEUTLAND",
+        sporsmalstekst: "Når skal du være utenfor Norge?",
+        undertekst: null,
+        svartype: "PERIODER",
+        min: new Date("2018-06-27"),
+        max: new Date("2018-06-28"),
+        kriterieForVisningAvUndersporsmal: null,
+        svar: [],
+        undersporsmal: []
+    }, {
+        id: "102",
+        tag: "LAND",
+        sporsmalstekst: "Hvilket land skal du reise til?",
+        undertekst: null,
+        svartype: "FRITEKST",
+        min: null,
+        max: null,
+        kriterieForVisningAvUndersporsmal: null,
+        svar: [],
+        undersporsmal: []
+    }, {
+        id: "100",
+        tag: "ARBEIDSGIVER",
+        sporsmalstekst: "Har du arbeidsgiver?",
+        undertekst: null,
+        svartype: "JA_NEI",
+        min: null,
+        max: null,
+        kriterieForVisningAvUndersporsmal: "JA",
+        svar: [],
+        undersporsmal: [{
+            id: "101",
+            tag: "SYKMELDINGSGRAD",
+            sporsmalstekst: "Er du 100% sykmeldt?",
+            undertekst: null,
+            svartype: "JA_NEI",
+            min: null,
+            max: null,
+            kriterieForVisningAvUndersporsmal: null,
+            svar: [],
+            undersporsmal: []
+        }]
+    }]
+};
+
 export const soknadrespons = [soknad1];
+export const soknadUtlandRespons = [soknadUtland1];
+
 
 export const getSoknad = (soknad = {}) => {
     return {

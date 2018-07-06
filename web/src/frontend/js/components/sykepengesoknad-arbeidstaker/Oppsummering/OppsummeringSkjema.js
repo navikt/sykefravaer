@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { Link } from 'react-router';
 import { Varselstripe, getLedetekst, Utvidbar, SoknadOppsummering, VaerKlarOverAt } from 'digisyfo-npm';
 import setup from '../setup';
@@ -70,13 +71,13 @@ export class OppsummeringForm extends Component {
             <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
                 <Link
                     to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}
-                    className="rammeknapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake')}
+                    className="knapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake')}
                 </Link>
-                <button
-                    className="knapp js-send"
-                    type="submit"
-                    disabled={sender}>{getLedetekst('sykepengesoknad.send')}{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}
-                </button>
+                <Hovedknapp
+                    className="js-send"
+                    spinner={sender}
+                    disabled={sender}>{getLedetekst('sykepengesoknad.send')}
+                </Hovedknapp>
             </Knapperad>
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);

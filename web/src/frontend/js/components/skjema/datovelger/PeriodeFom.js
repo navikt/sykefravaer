@@ -7,11 +7,10 @@ import Feilmelding from '../Feilmelding';
 import { Vis } from '../../../utils';
 
 export const Datoinput = ({ meta, input, id, onDoubleClick, withRef }) => {
-    const classNames = cn({
-        datovelger__input: true,
+    const classNames = cn('skjemaelement__input datovelger__input', {
         'datovelger__input--fom': input.name.indexOf('fom') > -1,
         'datovelger__input--tom': input.name.indexOf('tom') > -1,
-        'input--feil': meta.touched && meta.error,
+        'skjemaelement__input--harFeil': meta.touched && meta.error,
     });
 
     return (<MaskedInput

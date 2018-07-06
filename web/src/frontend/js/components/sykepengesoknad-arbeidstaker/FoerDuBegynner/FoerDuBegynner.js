@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, Varselstripe, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import history from '../../../history';
 import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';
@@ -58,7 +59,7 @@ export const FoerDuBegynnerSkjema = (props) => {
         </div>
         <div className="knapperad">
             <p className="blokk--s">
-                <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
+                <Hovedknapp className="js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</Hovedknapp>
             </p>
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </div>

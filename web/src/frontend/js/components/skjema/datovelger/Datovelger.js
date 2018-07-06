@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, change, touch, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { toDatePrettyPrint } from 'digisyfo-npm';
+import cn from 'classnames';
 import MaskedInput from 'react-maskedinput';
 import Feilmelding from '../Feilmelding';
 import DayPickerComponent from './DayPicker';
@@ -56,6 +57,9 @@ export class DatoField extends Component {
 
     render() {
         const { meta, input, id, tidligsteFom, senesteTom } = this.props;
+        const classNameMaskedInput = cn('skjemaelement__input  datovelger__input', {
+            'skjemaelement__input--harFeil': meta.touched && meta.error,
+        });
         /* eslint-disable jsx-a11y/no-static-element-interactions */
         return (<div className="datovelger">
             <div
@@ -74,7 +78,7 @@ export class DatoField extends Component {
                         autoComplete="off"
                         placeholder="dd.mm.åååå"
                         id={id}
-                        className={`datovelger__input${meta.touched && meta.error ? ' input--feil' : ''}`}
+                        className={classNameMaskedInput}
                         {...input} />
                     <button
                         type="button"

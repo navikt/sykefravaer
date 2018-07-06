@@ -157,7 +157,7 @@ class DayPickerPeriode extends Component {
                     <Datoer fom={valgtFra} tom={valgtTil} />
                     <button
                         type="button"
-                        className="rammeknapp"
+                        className="knapp"
                         onClick={this.props.lukk}>Lagre periode</button>
                 </div>
                 <Style />

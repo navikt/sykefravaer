@@ -49,7 +49,7 @@ class Feiloppsummering extends Component {
                 hvis={feilmeldinger.length > 0 && this.props.visFeilliste}
                 render={() => {
                     return (<div
-                        className="panel panel--feiloppsummering blokk--xs"
+                        className="panel panel--feiloppsummering blokk"
                         ref={(c) => {
                             this.oppsummering = c;
                         }}

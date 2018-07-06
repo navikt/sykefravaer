@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BekreftetKorrektInformasjon, scrollTo, SoknadOppsummering, sykepengesoknadstatuser, Utvidbar, VaerKlarOverAt } from 'digisyfo-npm';
+import Knapp from 'nav-frontend-knapper';
 import { connect } from 'react-redux';
 import Soknadstatuspanel from './Soknadstatuspanel';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
@@ -36,15 +37,15 @@ export const Knapperad = (props) => {
         <div className="verktoylinje">
             {
                 sendtDato.getTime() >= frist.getTime() && <div className="verktoylinje__element">
-                    <button
+                    <Knapp
+                        mini
                         onClick={(e) => {
                             e.preventDefault();
                             startEndringForespurt(sykepengesoknad.id);
                         }}
+                        spinner={starterEndring}
                         disabled={starterEndring}
-                        className="rammeknapp rammeknapp--mini js-endre">
-                        {starterEndring ? <span className="knapp__spinner" /> : null} Endre søknad
-                    </button>
+                        className="js-endre">Endre søknad</Knapp>
                 </div>
             }
             <ConnectedEttersending
@@ -57,7 +58,7 @@ export const Knapperad = (props) => {
                 ledetekstKeySuffix="send-til-arbeidsgiver" />
         </div>
         {startEndringFeilet ?
-            <p className="skjema__feilmelding">Beklager, det oppstod en feil. Prøv igjen litt senere</p> : null}
+            <p className="skjemaelement__feilmelding">Beklager, det oppstod en feil. Prøv igjen litt senere</p> : null}
     </div>);
 };
 

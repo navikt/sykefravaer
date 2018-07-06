@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { BekreftCheckboksPanel } from 'nav-frontend-skjema';
 import { fieldPropTypes } from '../../propTypes';
-import Feilomrade from './Feilomrade';
-import Checkbox from './Checkbox';
+import Feilmelding from './Feilmelding';
 
 const CheckboxSelvstendig = ({ input, meta, label, id }) => {
-    return (<Feilomrade {...meta}>
-        <Checkbox input={input} id={id} label={label} />
-    </Feilomrade>);
+    return (<div>
+        <BekreftCheckboksPanel {...input} id={id} label={label} checked={input.value} />
+        <Feilmelding {...meta} />
+    </div>);
 };
 
 CheckboxSelvstendig.propTypes = {

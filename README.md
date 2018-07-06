@@ -16,8 +16,7 @@ Du må også konfigurere npm som følger:
 `npm config set @types:registry "http://a34apvl062.devillo.no:8082/repository/npm-all"`
 `npm config set @babel:registry "http://a34apvl062.devillo.no:8082/repository/npm-all"`
 
-* Kjør java-klassen StartJetty
-* I web/src/frontend: Kjør `npm install`, dernest `npm run dev`
+* I web/src/frontend: Kjør `npm install`, dernest `npm run naisdev`. I et annet vindu, kjør `npm run naisdev-start`.
 * Kjør tester med `npm test` 
 * Lint JS-kode med `npm run lint`
 

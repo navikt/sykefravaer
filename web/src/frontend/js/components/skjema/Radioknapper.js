@@ -16,9 +16,11 @@ export const getLabelId = (id) => {
 };
 
 export const Radioknapp = ({ input, value, children, id, label, checked, labelSekundaer = null, disabled, visUndertekst }) => {
-    const labelMedSekundaerlabel = labelSekundaer ?
-        `${label} ${labelSekundaer}`
-        : label;
+    const labelMedSekundaerlabel = labelSekundaer
+        ? (<div>
+            {label}
+            <span className="sekundaerLabel">{labelSekundaer}</span>
+        </div>) : label;
     return (<div>
         <Radio
             id={id}

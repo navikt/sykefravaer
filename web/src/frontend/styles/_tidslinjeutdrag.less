@@ -10,7 +10,7 @@
 }
 
 .tidslinjeutdrag__tittel {
-	.mixin-typo-systemtittel();
+	.typo-systemtittel-mixin();
 	margin: 0 0 .25em 0;
 }
 
@@ -22,12 +22,12 @@
 	background: transparent;
 	border: 0;
 	padding: 0;
-	color: @lenkeBlaa;
+	color: @navBla;
 	position: relative;
 	padding: 0 0 1em 0;
 
 	&:focus {
-		box-shadow: 0 0 0 3px @fokusOrange;
+		box-shadow: 0 0 0 3px @orangeFocus;
 		outline: none;
 	}
 
@@ -84,14 +84,14 @@
 }
 
 .lenkeTilTidslinje {
-	color: @lenkeBlaa;
-	border-bottom: 1px solid @ikonGraa;
+	color: @navBla;
+	border-bottom: 1px solid @navGra40;
 	text-decoration: none;
 	position: relative;
 	margin-left: 1.5em;
 
 	&:hover {
-		border-bottom-color: @lenkeBlaa;
+		border-bottom-color: @navBla;
 	}
 
 	&:before {

@@ -3,52 +3,52 @@
     // Standard-panel
     // <div class="panel"></div>
 
-    background: @hvit;
+    background: @white;
     padding: 1em;
     margin-bottom: 1em;
     display: block;
 
     &:focus {
-        outline: 3px @fokusOrange solid;
+        outline: 3px @orangeFocus solid;
     }
 
 }
 
 .panel--ramme {
-    border: 1px solid @ikonGraa;
+    border: 1px solid @navGra40;
 }
 
 .panel--feiloppsummering {
-    background-color: @advarselRoed;
-    color: @hvit;
+    background-color: @redError;
+    color: @white;
 
     a:visited {
-        color: @hvit;
+        color: @white;
     }
 
     &:focus {
         outline: none;
-        box-shadow: 0 0 0 3px @bakgrunnGraa, 0 0 0 6px @fokusOrange;
+        box-shadow: 0 0 0 3px @grayBackground, 0 0 0 6px @orangeFocus;
     }
 
     a {
-        color: @hvit;
-        border-bottom: 1px solid @advarselRoedBakgrunn;
+        color: @white;
+        border-bottom: 1px solid @pinkErrorBg;
     }
 
     a:hover, a:active {
-        border-bottom-color: @hvit;
+        border-bottom-color: @white;
     }
 
     a:focus {
-        color: @navTekst;
-        border-bottom-color: @fokusOrange;
-        background-color: @fokusOrange;
+        color: @navMorkGra;
+        border-bottom-color: @orangeFocus;
+        background-color: @orangeFocus;
     }
 }
 
 .panel__tittel {
-    .mixin-typo-undertittel();
+    .typo-undertittel-mixin();
     margin-top: 0;
 }
 

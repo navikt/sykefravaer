@@ -12,7 +12,7 @@
 }
 
 .opplysning__tittel {
-    .mixin-typo-element();
+    .typo-element-mixin();
     margin-top: 0;
     margin-bottom: .25rem;
 }
@@ -30,12 +30,12 @@
     width: 100%;
 
     p {
-        .mixin-typo-normal();
+        .typo-normal-mixin();
         margin: 0;
     }
 
     a {
-        .mixin-lenke()
+        .lenke-mixin()
     }
 }
 
@@ -46,15 +46,15 @@
 }
 
 .nokkelopplysning__tittel {
-        .mixin-typo-etikettLiten();
+        .typo-etikett-liten-mixin();
         margin-bottom: .25rem;
-        color: @inaktivGraa;
+        color: @navGra60;
         margin-top: 0;
 }
 
 .nokkelopplysning__meta,
 p.nokkelopplysning__meta {
-    .mixin-typo-normal();
+    .typo-normal-mixin();
 }
 
 .nokkelopplysning__meta--desktop {

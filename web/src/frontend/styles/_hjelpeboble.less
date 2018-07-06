@@ -2,7 +2,7 @@
     position: relative;
 
     a {
-        .mixin-lenke();
+        .lenke-mixin();
     }
 }
 
@@ -10,7 +10,7 @@
     .mixin-panel-padding();
     position: relative;
     border-radius: .5em;
-    background-color: @bakgrunnGraa;
+    background-color: @grayBackground;
     position: relative;
     padding-top: 1em;
     padding-bottom: 1em;
@@ -24,12 +24,12 @@
 .hjelpeboble__boble h2,
 .hjelpeboble__boble h3,
 .hjelpeboble__boble h4 {
-    .mixin-typo-element();
+    .typo-element-mixin();
     margin-top: 0;
 }
 
 .hjelpeboble__boble--hvit {
-    background-color: @hvit;
+    background-color: @white;
 }
 
 .hjelpeboble__bilde {
@@ -57,7 +57,7 @@
 .hjelpeboble__bilde:after {
     content: "";
     border: 1em solid transparent;
-    border-top-color: @bakgrunnGraa;
+    border-top-color: @grayBackground;
     width: 0;
     height: 0;
     display: block;
@@ -68,7 +68,7 @@
 }
 
 .hjelpeboble__bilde--hvit:after {
-    border-top-color: @hvit;
+    border-top-color: @white;
 }
 
 @media (min-width: 30em) {
@@ -95,11 +95,11 @@
         top: 25%;
         right: 1em;
         border-top-color: transparent;
-        border-right-color: @bakgrunnGraa;
+        border-right-color: @grayBackground;
         transform: translateX(50%);
     }
 
     .hjelpeboble__bilde--horisontal.hjelpeboble__bilde--hvit:after {
-        border-right-color: @hvit;
+        border-right-color: @white;
     }
 }

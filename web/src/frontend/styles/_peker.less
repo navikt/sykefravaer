@@ -1,6 +1,6 @@
 .peker {
-  color: @navTekst;
-  background-color: @hvit;
+  color: @navMorkGra;
+  background-color: @white;
   background-image: data-uri("../img/svg/pil-videre-graa.svg");
   background-repeat: no-repeat;
   background-position: 97% 50%;
@@ -17,12 +17,12 @@
   }
 
   &:focus {
-    background-color: @hvit;
-    box-shadow: 0 0 0 3px @fokusOrange;
+    background-color: @white;
+    box-shadow: 0 0 0 3px @orangeFocus;
   }
 
   &:visited, &:hover, &:active {
-    color: @navTekst;
+    color: @navMorkGra;
   }
 
 }
@@ -46,7 +46,7 @@
 }
 
 .peker__undertittel {
-  .mixin-typo-normal();
+  .typo-normal-mixin();
 }
 
 .peker__innhold {

@@ -1,5 +1,5 @@
 @okFarge: #97D2AE;
-@aktivFarge: @aktivBlaa;
+@aktivFarge: @navDypBla;
 
 .stegvisKvittering {
     margin-left: auto;
@@ -31,7 +31,7 @@
     margin-bottom: 0;
 
     a {
-        .mixin-lenke();
+        .lenke-mixin();
     }
 
     ul {
@@ -44,7 +44,7 @@
 }
 
 .kvitteringsteg__tittel {
-    .mixin-typo-undertittel();
+    .typo-undertittel-mixin();
     margin-top: 0;
     margin-bottom: .25em;
 }
@@ -61,7 +61,7 @@
     top: 0;
     font-weight: 200;
     border-radius: 1em;
-    border: 1px solid @ikonGraa;
+    border: 1px solid @navGra40;
 }
 
 .kvitteringsteg__nummer--ok {
@@ -72,7 +72,7 @@
 .kvitteringsteg__nummer--aktiv {
     background-color: @aktivFarge;
     border-color: @aktivFarge;
-    color: @hvit;
+    color: @white;
     font-weight: 700;
 }
 
@@ -80,7 +80,7 @@
     content: '';
     width: 1px;
     height: ~'calc(100% - 2.25em)';
-    background-color: @ikonGraa;
+    background-color: @navGra40;
     position: absolute;
     left: 1em;
     bottom: -.25em;

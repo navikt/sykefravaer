@@ -6,10 +6,10 @@
         content: "";
         position: absolute;
         top: 0;
-        left: 12px; 
+        left: 12px;
         height: 100%;
         width: 1px;
-        background-color: @ikonGraa;
+        background-color: @navGra40;
 
         @media(min-width: @skjermMini) {
             left: 20px;
@@ -27,16 +27,16 @@
 }
 
 .tidslinjeHendelse__status {
-    position: relative; 
+    position: relative;
     flex-basis: 24px;
     margin-right: 13px;
     display: flex;
-    align-items: center; 
-    justify-content: center; 
+    align-items: center;
+    justify-content: center;
 
     @media(min-width: @skjermMini) {
         flex-basis: 40px;
-        margin-right: 20px; 
+        margin-right: 20px;
     }
 
     &:after {
@@ -49,11 +49,11 @@
 
 .tidslinjeHendelse__ikon {
     width: 24px;
-    height: 24px; 
-    border-radius: 50%; 
+    height: 24px;
+    border-radius: 50%;
     display: flex;
-    align-items: center; 
-    justify-content: center; 
+    align-items: center;
+    justify-content: center;
     z-index: 10;
     position: relative;
 
@@ -64,7 +64,7 @@
 }
 
 .tidslinjeHendelse__img--hoykontrast {
-    display: none; 
+    display: none;
 }
 
 .tidslinjeHendelse__ikon--start {
@@ -102,22 +102,22 @@
 
 .tidslinjeHendelse__ikon--klokke {
 
-    height: 24px; 
+    height: 24px;
 
     img {
         width: 24px;
-        height: 24px; 
+        height: 24px;
     }
 }
 
 
 .tidslinjeHendelse__tittel {
-    .mixin-typo-element();
-    margin: 0; 
+    .typo-element-mixin();
+    margin: 0;
 }
 
 .tidslinjeHendelse__innhold {
     flex: 1;
     display: flex;
-    align-items: center; 
+    align-items: center;
 }

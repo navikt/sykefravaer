@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Varselstripe } from 'digisyfo-npm';
 import StatusOpplysning from './StatusOpplysning';
 import { sykmelding as sykmeldingPt } from '../propTypes';
 
@@ -30,22 +29,10 @@ Nokkelopplysninger.propTypes = {
 };
 
 const StatusPanel = ({ sykmelding, nokkelopplysninger, type, children }) => {
-    const varselprops = {
-        type,
-    };
-    if (type === 'avbrutt') {
-        varselprops.ikon = `${window.APP_SETTINGS.APP_ROOT}/img/svg/avbryt-sykmelding-roed.svg`;
-    }
-
-    return (
-        <div className="panel panel--komprimert blokk">
-            <Varselstripe {...varselprops}>
-                <div>
-                    <Nokkelopplysninger nokkelopplysninger={nokkelopplysninger} sykmelding={sykmelding} />
-                    {children}
-                </div>
-            </Varselstripe>
-        </div>);
+    return (<div className="panel panel--komprimert blokk">
+        <Nokkelopplysninger nokkelopplysninger={nokkelopplysninger} sykmelding={sykmelding} />
+        {children}
+    </div>);
 };
 
 StatusPanel.propTypes = {

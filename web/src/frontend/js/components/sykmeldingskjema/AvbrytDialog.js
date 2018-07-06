@@ -5,7 +5,7 @@ import { Vis } from '../../utils';
 
 export const AvbrytSykmeldingDialog = ({ avbryter, avbrytHandler, bekreftHandler }) => {
     return (<div
-        className="snakkeboble">
+        className="pekeboble">
         <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.avbryt.spoersmal')} />
         <div className="blokk--xs">
             <button

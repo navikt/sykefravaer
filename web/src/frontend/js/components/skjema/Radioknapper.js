@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { fieldPropTypes } from '../../propTypes';
 import Feilomrade from './Feilomrade';
+import { Radio } from 'nav-frontend-skjema';
 
 export const getLabelId = (id) => {
     const nyId = id
@@ -15,24 +16,21 @@ export const getLabelId = (id) => {
 };
 
 export const Radioknapp = ({ input, value, children, id, label, checked, labelSekundaer = null, disabled, visUndertekst }) => {
+    const labelMedSekundaerlabel = labelSekundaer ?
+        `${label} ${labelSekundaer}`
+        : label;
     return (<div>
-        <div className={`skjema__input ${disabled ? 'skjema__input--inaktiv' : ''}`}>
-            <input
-                id={id}
-                className="radioknapp"
-                type="radio"
-                {...input}
-                disabled={disabled}
-                checked={checked || input.value.toString() === value.toString()}
-                value={value}
-                onBlur={() => {
-                    input.onBlur();
-                }} />
-            <label id={getLabelId(id)} htmlFor={id}>
-                {label}
-                { labelSekundaer !== null && <span className="sekundaerLabel">{labelSekundaer}</span> }
-            </label>
-        </div>
+        <Radio
+            id={id}
+            type="radio"
+            {...input}
+            disabled={disabled}
+            checked={checked || input.value.toString() === value.toString()}
+            value={value}
+            label={labelMedSekundaerlabel}
+            onBlur={() => {
+                input.onBlur();
+            }} />
         { (input.value === value || disabled || visUndertekst) && children }
     </div>);
 };

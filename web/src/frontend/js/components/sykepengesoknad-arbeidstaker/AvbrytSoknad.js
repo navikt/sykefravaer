@@ -12,7 +12,7 @@ const Feilmelding = () => {
 
 const AvbrytSoknad = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler, sender }) => {
     return (<div className="avbrytDialog__dialog">
-        <div className="snakkeboble">
+        <div className="pekeboble">
             <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.avbryt.sporsmal')} />
             <div role="alert" aria-live="polite">
                 { avbrytFeilet && <Feilmelding /> }

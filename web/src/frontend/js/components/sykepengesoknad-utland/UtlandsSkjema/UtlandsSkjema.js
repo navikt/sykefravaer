@@ -29,7 +29,7 @@ const UtlandsSkjema = ({ soknad, handleSubmit }) => {
         <div className="begrensning">
             { sporsmalsliste }
             <div className="knapperad blokk">
-                <input type="submit" value="Send" className="knapp" />
+                <input type="submit" value="Send" className="knapp knapp--hoved" />
             </div>
         </div>
     </form>);

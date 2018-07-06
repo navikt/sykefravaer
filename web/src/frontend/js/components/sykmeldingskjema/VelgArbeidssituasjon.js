@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { getLedetekst, arbeidssituasjoner as arbeidssituasjonerEnums } from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import Feilmelding from '../skjema/Feilmelding';
+import { Select } from 'nav-frontend-skjema';
 import VelgArbeidsgiverContainer from '../../containers/sykmelding/VelgArbeidsgiverContainer';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt, fieldPropTypes } from '../../propTypes';
@@ -35,6 +35,10 @@ const getArbeidssituasjoner = (arbeidssituasjon) => {
 
 export const RendreVelgArbeidssituasjon = (props) => {
     const { input, meta } = props;
+    const feil = meta.error && meta.touched
+        ? {
+            feilmelding: meta.error,
+        } : null;
     return (
         <div>
             <div className="medHjelpetekst">
@@ -43,16 +47,16 @@ export const RendreVelgArbeidssituasjon = (props) => {
                 </label>
                 <Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')}</Hjelpetekst>
             </div>
-            <div className="selectContainer">
-                <select id="valgtArbeidssituasjon" {...input} className={meta.error && meta.touched ? 'input--feil' : ''}>
-                    {getArbeidssituasjoner(input.value).map((arbeidssituasjon, index) => {
-                        return (<option value={arbeidssituasjon.verdi} key={index}>
-                            {getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${arbeidssituasjon.verdi.toLowerCase()}`)}
-                        </option>);
-                    })}
-                </select>
-            </div>
-            <Feilmelding {...meta} />
+            <Select bredde="l" id="valgtArbeidssituasjon" {...input} feil={feil}>
+                {
+                    getArbeidssituasjoner(input.value)
+                        .map((arbeidssituasjon, index) => {
+                            return (<option value={arbeidssituasjon.verdi} key={index}>
+                                {getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${arbeidssituasjon.verdi.toLowerCase()}`)}
+                            </option>);
+                        })
+                }
+            </Select>
         </div>
     );
 };

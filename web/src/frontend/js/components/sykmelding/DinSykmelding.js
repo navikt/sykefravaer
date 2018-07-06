@@ -46,7 +46,7 @@ class DinSykmelding extends Component {
                                 scrollTo(this.skjema);
                                 this.skjema.focus();
                             }}
-                            className="rammeknapp rammeknapp--mini">Gå til utfylling</button>
+                            className="knapp knapp--mini">Gå til utfylling</button>
                     </p>
                 </div>
             </Bjorn>

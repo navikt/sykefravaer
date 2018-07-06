@@ -54,7 +54,7 @@ class Feiloppsummering extends Component {
                             this.oppsummering = c;
                         }}
                         tabIndex="-1">
-                        <h3 className="feiloppsummering__tittel">Det er {feilmeldinger.length} feil i skjemaet</h3>
+                        <h3 className="panel__tittel">Det er {feilmeldinger.length} feil i skjemaet</h3>
                         <ul className="feiloppsummering__liste">
                             {
                                 feilmeldinger.map((feilmld, index) => {

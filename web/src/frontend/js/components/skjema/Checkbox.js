@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLabelId } from './Radioknapper';
+import { Checkbox } from 'nav-frontend-skjema';
 import { childEllerChildren, fieldPropTypes } from '../../propTypes';
 
-const Checkbox = ({ input, label, id, children }) => {
+const Box = ({ input, label, id, children }) => {
     return (<div className="checkboksContainer" id={`cb-${id}`}>
-        <div className="skjema__input">
-            <input id={id} type="checkbox" className="checkboks" checked={input.value} {...input} />
-            <label id={getLabelId(id)} htmlFor={id}>{label}</label>
-        </div>
+        <Checkbox
+            id={id}
+            label={label}
+            checked={input.value} {...input} />
         {
             input.value === true && children && <div className="ekstrasporsmal">{children}</div>
         }
@@ -22,4 +22,4 @@ Checkbox.propTypes = {
     children: childEllerChildren,
 };
 
-export default Checkbox;
+export default Box;

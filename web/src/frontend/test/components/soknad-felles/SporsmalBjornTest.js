@@ -7,7 +7,7 @@ import { mapStateToProps, SporsmalBjornComponent } from "../../../js/components/
 import {genererParseForEnkeltverdi} from "../../../js/components/soknad-felles/fieldUtils";
 import { JA, NEI } from "../../../js/enums/svarEnums";
 import { SYKMELDINGSGRAD } from "../../../js/enums/tagtyper";
-import { SYKEPENGER_UTLAND } from '../../../js/enums/soknadtyper';
+import { OPPHOLD_UTLAND_SKJEMA } from '../../../js/enums/skjemanavn';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -20,7 +20,7 @@ describe('SporsmalBjorn', () => {
     beforeEach(() => {
         state = {
             form: {
-                [SYKEPENGER_UTLAND]: {
+                [OPPHOLD_UTLAND_SKJEMA]: {
                     values: {
                         [SYKMELDINGSGRAD]: parse(NEI),
                     }
@@ -36,7 +36,7 @@ describe('SporsmalBjorn', () => {
     });
 
     it('Skal ikke opprette en SporsmalBjorn ved tag SYKEMELDINGSGRAD og svar JA', () => {
-        state.form[SYKEPENGER_UTLAND].values[SYKMELDINGSGRAD] = parse(JA);
+        state.form[OPPHOLD_UTLAND_SKJEMA].values[SYKMELDINGSGRAD] = parse(JA);
         const props = mapStateToProps(state, {tag: SYKMELDINGSGRAD});
         const component = shallow(<SporsmalBjornComponent {...props} />);
         expect(component.find(Bjorn)).to.have.length(0);

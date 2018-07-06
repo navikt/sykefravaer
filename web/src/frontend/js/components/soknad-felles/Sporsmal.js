@@ -13,7 +13,7 @@ import {
     PERIODER,
     PROSENT,
     TIMER,
-    TOMT_SPORSMAL,
+    INFORMASJON,
 } from '../../enums/svartyper';
 import Perioder from './Perioder';
 import Checkbox from './Checkbox';
@@ -21,7 +21,7 @@ import Tall from './Tall';
 import Dato from './Dato';
 import CheckboxGruppe from './CheckboxGruppe';
 import Tekstinput from './Tekstinput';
-import Tomtsporsmal from './Tomtsporsmal';
+import Informasjon from './Informasjon';
 
 
 const Sporsmal = ({ sporsmal, name }) => {
@@ -72,10 +72,10 @@ const Sporsmal = ({ sporsmal, name }) => {
                 { undersporsmal }
             </Tekstinput>);
         }
-        case TOMT_SPORSMAL: {
-            return (<Tomtsporsmal {...sporsmal} name={name} >
+        case INFORMASJON: {
+            return (<Informasjon {...sporsmal} name={name} >
                 { undersporsmal}
-            </Tomtsporsmal>);
+            </Informasjon>);
         }
         default: {
             return null;

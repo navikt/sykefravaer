@@ -7,7 +7,7 @@ import { getContextRoot } from '../../routers/paths';
 import { SYKMELDINGSGRAD } from '../../enums/tagtyper';
 import { formaterEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
 import { NEI } from '../../enums/svarEnums';
-import { SYKEPENGER_UTLAND } from '../../enums/soknadtyper';
+import { OPPHOLD_UTLAND_SKJEMA } from '../../enums/skjemanavn';
 
 const sporsmalMedBjorn = {
     [SYKMELDINGSGRAD]: NEI,
@@ -31,7 +31,7 @@ SporsmalBjornComponent.propTypes = {
 };
 
 export function mapStateToProps(state, ownProps) {
-    const selector = formValueSelector(SYKEPENGER_UTLAND);
+    const selector = formValueSelector(OPPHOLD_UTLAND_SKJEMA);
     const val = selector(state, ownProps.tag);
     return {
         vis: sporsmalMedBjorn[ownProps.tag] === undefined

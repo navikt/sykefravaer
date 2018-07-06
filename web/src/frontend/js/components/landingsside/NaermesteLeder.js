@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { getHtmlLedetekst, getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import classNames from 'classnames';
 import Lightbox from '../Lightbox';
 import BekreftFeilLederContainer from '../../containers/landingsside/BekreftFeilLederContainer';
@@ -67,9 +68,7 @@ export default class NaermesteLeder extends Component {
                     leder.arbeidsgiverForskuttererLoenn != null &&
                     <div className="leder__forskuttering">
                         <p className="leder__forskuttering-tekst">{getLedetekst(`din-situasjon.arbeidsgiver-forskutterer${leder.arbeidsgiverForskuttererLoenn ? '' : '-ikke'}`)}</p>
-                        <Hjelpetekst
-                            tittel={getLedetekst('din-situasjon.forskuttering.hjelpetekst.tittel')}
-                            tekst={getLedetekst('din-situasjon.forskuttering.hjelpetekst.tekst')} />
+                        <Hjelpetekst>{getLedetekst('din-situasjon.forskuttering.hjelpetekst.tekst')}</Hjelpetekst>
                     </div>
                 }
             </div>);

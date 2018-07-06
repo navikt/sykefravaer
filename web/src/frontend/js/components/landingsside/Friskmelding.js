@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Bjorn, getHtmlLedetekst, getLedetekst, log } from 'digisyfo-npm';
 import { Experiment, Variant } from 'react-ab';
+import { Knapp } from 'nav-frontend-knapper';
 import { getContextRoot } from '../../routers/paths';
 import { Vis } from '../../utils';
 import Lightbox from '../Lightbox';
@@ -40,11 +41,11 @@ const TekstOgKnapp = ({ onClick, withRef, tekstnokkel }) => {
     return (<div>
         <p>{getLedetekst(tekstnokkel)}</p>
         <p className="sist">
-            <button
+            <Knapp
+                mini
                 ref={withRef}
                 onClick={onClick}
-                className="rammeknapp rammeknapp--mini"
-                type="button">{getLedetekst('friskmelding.bjorn-knapp')}</button>
+                type="button">{getLedetekst('friskmelding.bjorn-knapp')}</Knapp>
         </p>
     </div>);
 };

@@ -1,63 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Modal from 'nav-frontend-modal';
 import PropTypes from 'prop-types';
-import { Vis } from '../utils';
 
-class Lightbox extends Component {
-    constructor(props) {
-        super(props);
-        this.lukk = this.lukk.bind(this);
-        this.fjernTabIndex = this.fjernTabIndex.bind(this);
-        this.state = {
-            erApen: true,
-            tabIndex: '-1',
-        };
-    }
-
-    componentDidMount() {
-        this.lightbox.focus();
-    }
-
-    fjernTabIndex() {
-        this.setState({
-            tabIndex: null,
-        });
-    }
-
-    lukk() {
-        const { onClose } = this.props;
-        if (onClose) {
-            onClose();
-        }
-        this.setState({
-            erApen: false,
-        });
-    }
-
-    render() {
-        const { children } = this.props;
-        return (<Vis
-            hvis={this.state.erApen}
-            render={() => {
-                return (<div className="lightbox">
-                    <div
-                        onBlur={this.fjernTabIndex}
-                        tabIndex={this.state.tabIndex}
-                        className="lightbox__innhold"
-                        ref={(c) => {
-                            this.lightbox = c;
-                        }}>
-                        <button
-                            onClick={this.lukk}
-                            className="lightbox__lukk js-lukk">Lukk</button>
-                        {children}
-                    </div>
-                </div>);
-            }} />);
-    }
-}
+const Lightbox = ({ onClose, children }) => {
+    const appEl = document.getElementById('maincontent');
+    Modal.setAppElement(appEl);
+    return (<Modal
+        isOpen
+        closeButton
+        onRequestClose={onClose}>
+        {children}
+    </Modal>);
+};
 
 Lightbox.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
     onClose: PropTypes.func,
 };
 

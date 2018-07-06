@@ -1,5 +1,6 @@
 import React from 'react';
-import { Hjelpetekst, toDatePrettyPrint, getLedetekst, Bjorn } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, Bjorn } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import PropTypes from 'prop-types';
 import { getContextRoot } from '../../../routers/paths';
 import JaEllerNei from '../JaEllerNei';
@@ -17,11 +18,9 @@ const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsdagerPreutfylt }) =>
     tidligsteFom.setMonth(senesteTom.getMonth() - 6);
 
     const hjelpetekst = (<Hjelpetekst
-        id="egenmeldingsdager-hjelpetekst"
-        tittel={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tittel')}
-        tekst={getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tekst', {
+        id="egenmeldingsdager-hjelpetekst">{getLedetekst('sykepengesoknad.egenmeldingsdager.hjelpetekst.tekst', {
             '%DATO%': toDatePrettyPrint(startSykeforloep),
-        })} />);
+        })}</Hjelpetekst>);
 
     const informasjon = (<Vis
         hvis={erEgenmeldingsdagerPreutfylt}

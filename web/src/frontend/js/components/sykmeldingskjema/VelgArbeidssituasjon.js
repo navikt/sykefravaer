@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { getLedetekst, Hjelpetekst, arbeidssituasjoner as arbeidssituasjonerEnums } from 'digisyfo-npm';
+import { getLedetekst, arbeidssituasjoner as arbeidssituasjonerEnums } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import Feilmelding from '../skjema/Feilmelding';
 import VelgArbeidsgiverContainer from '../../containers/sykmelding/VelgArbeidsgiverContainer';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
@@ -40,10 +41,7 @@ export const RendreVelgArbeidssituasjon = (props) => {
                 <label htmlFor="valgtArbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
                     {getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}
                 </label>
-                <Hjelpetekst
-                    id="velg-arbeidssituasjon-hjelpetekst"
-                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tittel')}
-                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')} />
+                <Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')}</Hjelpetekst>
             </div>
             <div className="selectContainer">
                 <select id="valgtArbeidssituasjon" {...input} className={meta.error && meta.touched ? 'input--feil' : ''}>

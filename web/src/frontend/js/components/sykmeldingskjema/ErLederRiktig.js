@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import Radioknapper from '../skjema/Radioknapper';
 import { naermesteLeder as naermesteLederPt, fieldPropTypes } from '../../propTypes';
 
@@ -26,10 +27,7 @@ export const RendreErLederRiktig = ({ input, meta, naermesteLeder }) => {
                 : null;
     };
 
-    const hjelpetekst = (<Hjelpetekst
-        id="velg-beOmNyNaermesteLeder-hjelpetekst"
-        tittel={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tittel')}
-        tekst={getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tekst')} />);
+    const hjelpetekst = (<Hjelpetekst id="velg-beOmNyNaermesteLeder-hjelpetekst">{getLedetekst('din-sykmelding.beOmNyNaermesteLeder.hjelpetekst.tekst')}</Hjelpetekst>);
 
     return (<div className="hovedsporsmal__tilleggssporsmal">
         <Radioknapper

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form';
-import { getLedetekst, Hjelpetekst, Bjorn } from 'digisyfo-npm';
+import { getLedetekst, Bjorn } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { getContextRoot } from '../../../routers/paths';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/datovelger/Periodevelger';
@@ -65,9 +66,7 @@ export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjeno
     const feriebjorn = visBjorn ? <Bjorn className="press" nokkel="sykepengesoknad.ferie.bjorn" rootUrl={getContextRoot()} /> : null;
     const senesteTom = getTomDato(_soknad);
     const hjelpetekst = (<Hjelpetekst
-        id="ferie-permisjon-hjelpetekst"
-        tittel={getLedetekst('sykepengesoknad.ferie.hjelpetekst.tittel')}
-        tekst={getLedetekst('sykepengesoknad.ferie.hjelpetekst.tekst')} />);
+        id="ferie-permisjon-hjelpetekst">{getLedetekst('sykepengesoknad.ferie.hjelpetekst.tekst')}</Hjelpetekst>);
 
     return (<JaEllerNei
         spoersmal={getFeriePermisjonEllerUtenlandsoppholdSporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}

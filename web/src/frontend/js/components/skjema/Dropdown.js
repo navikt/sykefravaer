@@ -1,22 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Select } from 'nav-frontend-skjema';
 
-const Dropdown = ({ alternativer, valgtAlternativ, ariaControls, id, onChange }) => {
-    return (<select
+const Dropdown = ({ alternativer, valgtAlternativ, ariaControls, id, onChange, label }) => {
+    return (<Select
+        label={label}
         onChange={(event) => {
             onChange(event.target.value);
         }}
-        defaultValue={valgtAlternativ}
-        value={valgtAlternativ}
+        selected={valgtAlternativ}
         aria-controls={ariaControls}
         id={id}>
         {alternativer.map((alt, idx) => {
             return (<option
                 className={`js-${alt.verdi}`}
-                key={idx}
+                key={`${id}-${idx}`}
                 value={alt.verdi}>{alt.tekst}</option>);
         })}
-    </select>);
+    </Select>);
 };
 
 Dropdown.propTypes = {

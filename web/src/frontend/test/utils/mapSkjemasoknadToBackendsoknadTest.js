@@ -284,19 +284,23 @@ describe('mapSkjemasoknadToBackendsoknad', () => {
             });
         });
 
-        it('Skal ikke sette avvik til null, men fjerne enhet, hvis jobbetMerEnnPlanlagt === true og enhet === timer', () => {
+        it('Skal beregne arbeidsgrad hvis jobbetMerEnnPlanlagt === true og enhet === timer', () => {
             sykepengesoknad.aktiviteter[0].avvik = {
+                periode: {
+                    fom: new Date('2017-01-20'),
+                    tom: new Date('2017-01-30'),
+                },
                 enhet: 'timer',
                 timer: '55',
                 arbeidstimerNormalUke: '37,5',
-                beregnetArbeidsgrad: '12',
             };
+            sykepengesoknad.harHattFeriePermisjonEllerUtenlandsopphold = false;
             sykepengesoknad.aktiviteter[0].jobbetMerEnnPlanlagt = true;
             const soknad = mapSkjemasoknadToBackendsoknad(deepFreeze(sykepengesoknad));
             expect(soknad.aktiviteter[0].avvik).to.deep.equal({
                 timer: 55,
                 arbeidstimerNormalUke: 37.5,
-                beregnetArbeidsgrad: 12,
+                beregnetArbeidsgrad: 73,
             });
         });
 
@@ -403,8 +407,8 @@ describe('mapSkjemasoknadToBackendsoknad', () => {
             const aktiviteter = [
                 {
                     periode: {
-                        fom: '2016-07-25T00:00:00.000Z',
-                        tom: '2016-07-30T00:00:00.000Z',
+                        fom: new Date('2016-07-25T00:00:00.000Z'),
+                        tom: new Date('2016-07-30T00:00:00.000Z'),
                     },
                     grad: 100,
                     avvik: {
@@ -422,7 +426,7 @@ describe('mapSkjemasoknadToBackendsoknad', () => {
             expect(_soknad.aktiviteter[0].avvik).to.deep.equal({
                 timer: 11,
                 arbeidstimerNormalUke: 12.5,
-                beregnetArbeidsgrad: 12,
+                beregnetArbeidsgrad: 88,
             });
         });
 

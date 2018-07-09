@@ -1,6 +1,6 @@
-.hovedsporsmal, .presisering, .snakkeboble {
+.hovedsporsmal, .presisering, .pekeboble {
     padding: 1em;
-    background-color: @hvit;
+    background-color: @white;
     position: relative;
 
     @media(min-width: @skjermMini) {
@@ -20,7 +20,7 @@
 
 .tilleggssporsmal {
     padding: 1em;
-    background-color: @hvit;
+    background-color: @white;
     position: relative;
 
     @media(min-width: @skjermMini) {
@@ -30,13 +30,13 @@
 
 .tilleggssporsmal__innholdContainer--medAnimasjon {
     overflow: hidden;
-    .mixin-transition(.3s, height);
+    .transition-mixin(.3s, height);
     transform: translate3d(0, 0, 0);
 }
 
 .tilleggsinnhold__innhold {
     opacity: 0;
-    .mixin-transition(.3s, opacity);
+    .transition-mixin(.3s, opacity);
     position: relative;
 }
 
@@ -51,16 +51,16 @@
     }
 }
 
-.presisering, .snakkeboble {
+.presisering, .pekeboble {
     margin-top: 2em;
 
     &:after {
-        background-color: @hvit;
+        background-color: @white;
     }
 }
 
 .ekstrasporsmal {
-    background-color: @bakgrunnGraa;
+    background-color: @grayBackground;
     margin: 2em -.5em .5em;
 
     @media(min-width: @skjermMini) {
@@ -71,11 +71,11 @@
     }
 
     &:after {
-        background-color: @bakgrunnGraa;
+        background-color: @grayBackground;
     }
 }
 
-.ekstrasporsmal, .presisering, .snakkeboble {
+.ekstrasporsmal, .presisering, .pekeboble {
     &:after {
         content: "";
         width: 1em;
@@ -99,11 +99,11 @@
     }
 
     &:after {
-        background-color: @hvit;
+        background-color: @white;
     }
 }
 
-.snakkeboble {
+.pekeboble {
     &:after {
         font-size: 1.3333333333333333em;
         left: 50%;

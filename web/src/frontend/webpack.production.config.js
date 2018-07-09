@@ -42,10 +42,11 @@ var config = function (opts) {
                         }, {
                             loader: 'less-loader',
                             options: {
-                                paths: [
-                                    path.resolve(__dirname, 'node_modules')
-                                ],
-                            },
+                                globalVars: {
+                                    nodeModulesPath: "~",
+                                    coreModulePath: "~"
+                                }
+                            }
                         }],
                     }),
                 },

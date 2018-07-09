@@ -1,6 +1,7 @@
 import React from 'react';
-import { getLedetekst, Hjelpetekst } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import Arbeidssituasjoner from '../../components/landingsside/Arbeidssituasjoner';
 
 const DinSituasjon = ({ arbeidsgivere, arbeidssituasjoner }) => {
@@ -12,9 +13,7 @@ const DinSituasjon = ({ arbeidsgivere, arbeidssituasjoner }) => {
                     src="/sykefravaer/img/svg/landingsside/arbeidssituasjon.svg"
                     alt="Arbeidssituasjon" />
                 <h2 className="din-situasjon__tittel">{getLedetekst('din-situasjon.tittel.2')}</h2>
-                <Hjelpetekst
-                    tittel={getLedetekst('din-situasjon.hjelpetekst.tittel')}
-                    tekst={getLedetekst('din-situasjon.hjelpetekst.tekst')} />
+                <Hjelpetekst>{getLedetekst('din-situasjon.hjelpetekst.tekst')}</Hjelpetekst>
             </header>
             <Arbeidssituasjoner arbeidsgivere={arbeidsgivere} arbeidssituasjoner={arbeidssituasjoner} />
         </div>);

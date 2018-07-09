@@ -20,7 +20,7 @@ class IngenledereInfoboks extends Component {
                 tekst={getLedetekst('oppfolgingsdialog.arbeidstaker.ingenlederInfoboks.tekst')}
             />
             <div className="knapperad">
-                <Link className="rammeknapp" to={`${getContextRoot()}/oppfolgingsplaner`}>
+                <Link className="knapp" to={`${getContextRoot()}/oppfolgingsplaner`}>
                     {getLedetekst('oppfolgingsdialog.knapp.tilbake-oversikten')}
                 </Link>
             </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Varselstripe } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import { Vis } from '../../utils';
 import logger from '../../logging';
 
@@ -8,6 +8,7 @@ const ledetekster = {
     mote: 'Kunne ikke hente dialogmøter',
     dineSykmeldinger: 'Kunne ikke hente dine sykmeldinger',
     sykepengesoknader: 'Kunne ikke hente sykepengesøknader',
+    soknader: 'Kunne ikke hente søknader',
     oppfolgingsdialoger: 'Kunne ikke hente oppfølgingsplaner',
     ledere: 'Kunne ikke hente din(e) nærmeste leder(e)',
     hendelser: 'Kunne ikke hente alle hendelser',
@@ -72,8 +73,8 @@ class Serverfeilmelding extends Component {
             <Vis
                 hvis={noeErFeil}
                 render={() => {
-                    return (<div className="panel landingspanel" role="alert">
-                        <Varselstripe type="feil" fylt>
+                    return (
+                        <Alertstripe type="advarsel" className="landingspanel">
                             <p className="sist">
                                 <strong>Ai ai ai!</strong><span> Vi har problemer med noen av baksystemene nå. </span>
                                 <Vis
@@ -88,13 +89,13 @@ class Serverfeilmelding extends Component {
                                             aria-pressed={this.state.visFeil}>Se hva som er feil</button>);
                                     }} />
                             </p>
-                        </Varselstripe>
-                        {
-                            visKnapp && <div aria-live="polite">
-                                { this.state.visFeil && <Feiliste feilliste={feilliste} /> }
-                            </div>
-                        }
-                    </div>);
+                            {
+                                visKnapp && <div aria-live="polite">
+                                    { this.state.visFeil && <Feiliste feilliste={feilliste} /> }
+                                </div>
+                            }
+                        </Alertstripe>
+                    );
                 }} />);
     }
 }

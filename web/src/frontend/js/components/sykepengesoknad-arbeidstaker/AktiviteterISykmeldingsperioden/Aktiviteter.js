@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fields } from 'redux-form';
-import { getLedetekst, Hjelpetekst, Bjorn } from 'digisyfo-npm';
+import { getLedetekst, Bjorn } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { getContextRoot } from '../../../routers/paths';
 import JaEllerNei from '../JaEllerNei';
 import AngiTid from './AngiTid';
@@ -9,9 +10,9 @@ import { soknadsaktivitet } from '../../../propTypes';
 import { getAktivitetssporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 
 export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
-    const hjelpetekst = field.grad !== 100 ? (<Hjelpetekst
-        tittel={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tittel')}
-        tekst={getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tekst')} />) : null;
+    const hjelpetekst = field.grad !== 100
+        ? (<Hjelpetekst>{getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tekst')}</Hjelpetekst>)
+        : null;
 
     return (<JaEllerNei
         name={`aktiviteter[${index}].jobbetMerEnnPlanlagt`}

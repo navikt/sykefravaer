@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Bjorn, getHtmlLedetekst, getLedetekst, Varselstripe } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
+import Hovedknapp from 'nav-frontend-knapper';
+import { Bjorn, getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
-
 
 const Feilmelding = ({ opprettFeilet }) => {
     return (<div aria-live="polite">
         {
             opprettFeilet
-                ? (<div className="panel panel--komprimert">
-                    <Varselstripe type="feil">
-                        <p>Beklager, det oppstod en feil! Prøv igjen senere.</p>
-                    </Varselstripe>
-                </div>)
+                ? (<Alertstripe type="advarsel">
+                    <p className="sist">Beklager, det oppstod en feil! Prøv igjen senere.</p>
+                </Alertstripe>)
                 : null
         }
     </div>);
@@ -26,7 +25,7 @@ export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }
     return (<div>
         <div className="sidebanner sidebanner--utenramme">
             <div className="sidebanner__innhold blokk--xl">
-                <Bjorn rootUrl={ getContextRoot() } stor hvit vertikal>
+                <Bjorn rootUrl={getContextRoot()} stor hvit vertikal>
                     <p>{ getLedetekst('sykepengesoknad-utland.bjorn') }</p>
                 </Bjorn>
             </div>
@@ -37,30 +36,26 @@ export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }
             </header>
             <div
                 className="panel blokk redaksjonelt-innhold"
-                dangerouslySetInnerHTML={ getHtmlLedetekst('sykepengesoknad-utland.tekst') }
+                dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad-utland.tekst')}
             />
             <Feilmelding opprettFeilet={opprettFeilet} />
             <div className="knapperad">
                 <p>
-                    <button
-                        type="submit"
+                    <Hovedknapp
                         disabled={oppretterSoknad}
-                        className={`js-submit knapp ${(oppretterSoknad) ? 'js-spinner' : ''}`}
+                        spinner={oppretterSoknad}
+                        className="js-submit"
                         onClick={(event) => {
                             event.preventDefault();
                             opprettSoknad();
-                        }}
-                    >
-                        { getLedetekst('sykepengesoknad-utland.knapp') }
-                        { oppretterSoknad && <span className="knapp__spinner" /> }
-                    </button>
+                        }}>{getLedetekst('sykepengesoknad-utland.knapp')}</Hovedknapp>
                 </p>
-                <p>
-                    <a className="lenke"
+                <p className="blokk">
+                    <a
+                        className="lenke"
                         href="https://www.nav.no/no/NAV+og+samfunn/Om+NAV/personvern-i-arbeids-og-velferdsetaten"
                         target="_blank"
-                        rel="noopener noreferrer"
-                    >
+                        rel="noopener noreferrer">
                         { getLedetekst('sykepengesoknad-utland.personvern') }
                     </a>
                 </p>

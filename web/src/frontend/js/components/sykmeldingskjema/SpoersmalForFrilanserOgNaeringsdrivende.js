@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { getLedetekst, Hjelpetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { fieldPropTypes } from '../../propTypes';
 import JaEllerNei from '../sykepengesoknad-arbeidstaker/JaEllerNei';
 import Radioknapper from '../skjema/Radioknapper';
@@ -20,9 +21,7 @@ export const Egenmeldingssporsmal = ({ oppfolgingstilfelleStartdato }) => {
         '%DATO%': toDatePrettyPrint(oppfolgingstilfelleStartdato),
     };
     const hjelpetekst = (<Hjelpetekst
-        id="egenmeldingsperioder-hjelpetekst"
-        tittel={getLedetekst('din-sykmelding.egenmeldingsperioder.hjelpetekst-tittel', ledetekstparams)}
-        tekst={getLedetekst('din-sykmelding.egenmeldingsperioder.hjelpetekst', ledetekstparams)} />);
+        id="egenmeldingsperioder-hjelpetekst">{getLedetekst('din-sykmelding.egenmeldingsperioder.hjelpetekst', ledetekstparams)}</Hjelpetekst>);
 
     return (<JaEllerNei
         name="varSykmeldtEllerEgenmeldt"
@@ -57,9 +56,7 @@ RendreForsikringstype.propTypes = {
 
 export const Forsikringssporsmal = () => {
     const hjelpetekst = (<Hjelpetekst
-        id="forsikring-hjelpetekst"
-        tittel={getLedetekst('din-sykmelding.forsikring.hjelpetekst.tittel')}
-        tekst={getLedetekst('din-sykmelding.forsikring.hjelpetekst.tekst')} />);
+        id="forsikring-hjelpetekst">{getLedetekst('din-sykmelding.forsikring.hjelpetekst.tekst')}</Hjelpetekst>);
     return (<JaEllerNei
         name="harForsikring"
         hjelpetekst={hjelpetekst}

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { Link } from 'react-router';
-import { Varselstripe, getLedetekst, Utvidbar, SoknadOppsummering, VaerKlarOverAt } from 'digisyfo-npm';
+import { getLedetekst, Utvidbar, SoknadOppsummering, VaerKlarOverAt } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import setup from '../setup';
 import SykepengerSkjema from '../SykepengerSkjema';
 import Knapperad from '../../skjema/Knapperad';
@@ -14,11 +16,9 @@ import ForskuttererArbeidsgiver from './ForskuttererArbeidsgiver';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 
 export const SendingFeilet = () => {
-    return (<div className="panel panel--komprimert">
-        <Varselstripe type="feil">
-            <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
-        </Varselstripe>
-    </div>);
+    return (<Alertstripe type="advarsel" className="blokk">
+        <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
+    </Alertstripe>);
 };
 
 const mottaker = (sendesTil, sykepengesoknad) => {
@@ -70,13 +70,13 @@ export class OppsummeringForm extends Component {
             <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
                 <Link
                     to={`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`}
-                    className="rammeknapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake')}
+                    className="knapp rammeknapp--forrige">{getLedetekst('sykepengesoknad.tilbake')}
                 </Link>
-                <button
-                    className="knapp js-send"
-                    type="submit"
-                    disabled={sender}>{getLedetekst('sykepengesoknad.send')}{sender ? ' ' : null}{ sender ? <span className="knapp__spinner" /> : null}
-                </button>
+                <Hovedknapp
+                    className="js-send"
+                    spinner={sender}
+                    disabled={sender}>{getLedetekst('sykepengesoknad.send')}
+                </Hovedknapp>
             </Knapperad>
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);

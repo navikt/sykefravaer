@@ -1,6 +1,6 @@
 /* DayPicker styles */
 
-@aktivBlaaLys: #ccdee6;
+@navDypBlaLys: #ccdee6;
 
 .DayPicker {
     display: -webkit-box;
@@ -53,7 +53,7 @@
 
     &:focus {
         outline: none;
-        box-shadow: 0 0 0 3px @fokusOrange;
+        box-shadow: 0 0 0 3px @orangeFocus;
     }
 
     &:focus, &:hover {
@@ -81,7 +81,7 @@
 
 .DayPicker-Caption {
     display: table-caption;
-    .mixin-typo-element();
+    .typo-element-mixin();
     height: 3em;
     line-height: 3em;
     text-align: center;
@@ -89,7 +89,7 @@
 }
 
 .DayPicker-Weekdays {
-    border-top: 1px solid @ikonGraa;
+    border-top: 1px solid @navGra40;
     display: table-header-group;
 }
 
@@ -101,7 +101,7 @@
     display: table-cell;
     padding: .5em;
     text-align: center;
-    .mixin-typo-element();
+    .typo-element-mixin();
 
     abbr {
         text-decoration: none;
@@ -129,15 +129,15 @@
     }
 
     &:hover {
-        background-color: @aktivBlaaLys;
-    }    
+        background-color: @navDypBlaLys;
+    }
 
     &:empty:hover {
         background-color: transparent;
     }
 
     &:last-child {
-      color: @navRoed;
+      color: @navRod;
     }
 
     @media (min-width: 350px) {
@@ -153,14 +153,14 @@
     cursor: default;
 }
 
-.DayPicker-Day--disabled, 
+.DayPicker-Day--disabled,
 .DayPicker-Day--disabled:last-child {
-    color: @ikonGraa;
+    color: @navGra40;
     cursor: default;
     font-weight: normal;
 
     &:focus {
-        color: @inaktivGraa;
+        color: @navGra60;
     }
 }
 
@@ -178,36 +178,36 @@
 }
 
 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: @aktivBlaa;
-  color: @hvit;
+  background-color: @navDypBla;
+  color: @white;
 }
 
 .periodekalender .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: @aktivBlaaLys;
-  color: @navTekst;
+  background-color: @navDypBlaLys;
+  color: @navMorkGra;
 
   &.DayPicker-Day--start {
-      background-color: @aktivBlaa;
-      color: @hvit;
+      background-color: @navDypBla;
+      color: @white;
   }
 
   &.DayPicker-Day--end {
-      background-color: @aktivBlaa;
-      color: @hvit;
+      background-color: @navDypBla;
+      color: @white;
   }
 }
 
 .periodekalender .DayPicker-Day:focus {
-    box-shadow: 0 0 0 3px @fokusOrange inset;
+    box-shadow: 0 0 0 3px @orangeFocus inset;
 }
 
 .DayPicker:focus {
     outline: none;
-    box-shadow: 0 0 0 3px @fokusOrange;
+    box-shadow: 0 0 0 3px @orangeFocus;
 }
 
 .datovelger__input {
-    width: 8.65em; 
+    width: 8.65em;
 }
 
 .datovelger {
@@ -230,8 +230,10 @@
     display: block;
     text-indent: -9999px;
     width: 2em;
-    height: 2em;
+    height: 2.25rem;
     border: 0;
+    border-bottom-right-radius: .25rem;
+    border-top-right-radius: .25rem;
     background-color: transparent;
     padding: 0;
     position: absolute;
@@ -244,7 +246,7 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px @fokusOrange;
+      box-shadow: 0 0 0 3px @orangeFocus;
     }
 
     &:hover, &:focus {

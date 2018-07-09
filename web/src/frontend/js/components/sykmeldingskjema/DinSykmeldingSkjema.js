@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
+import Knapp from 'nav-frontend-knapper';
 import {
     tilDatePeriode,
     getLedetekst,
-    Varselstripe,
     arbeidssituasjoner,
     feilaktigeOpplysninger as feilaktigeOpplysningerEnums,
     getHtmlLedetekst,
 } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import VelgArbeidssituasjon from './VelgArbeidssituasjon';
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
@@ -145,7 +146,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 this.handleSubmit(v);
             })}>
             <FeiloppsummeringContainer skjemanavn={DIN_SYKMELDING_SKJEMANAVN} />
-            <h3 className="typo-innholdstittel">{getLedetekst('starte-sykmelding.tittel')}</h3>
+            <h3 className="typo-innholdstittel blokk--xxs">{getLedetekst('starte-sykmelding.tittel')}</h3>
             <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.gdpr.bruk-sykmeldingen')} />
             <ErOpplysningeneRiktige untouch={untouch} />
             <Vis
@@ -176,9 +177,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     hvis={sendingFeilet || avbrytFeilet}
                     render={() => {
                         return (<div className="panel panel-ramme js-varsel">
-                            <Varselstripe type="feil">
-                                <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
-                            </Varselstripe>
+                            <Alertstripe type="advarsel">
+                                Beklager, det oppstod en feil! Prøv igjen litt senere.
+                            </Alertstripe>
                         </div>);
                     }} />
             </div>
@@ -189,17 +190,16 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 }} />
             <div className="knapperad">
                 <p className="blokk--s">
-                    <button
-                        disabled={sender}
+                    <Knapp
+                        autoDisableVedSpinner
+                        spinner={sender}
                         ref={(c) => {
                             this.submitknapp = c;
                         }}
-                        type="submit"
                         id="dinSykmeldingSkjemaSubmit"
-                        className={`js-submit knapp ${modus === modi.AVBRYT ? 'knapp--fare' : ''} ${(sender) ? 'js-spinner' : ''}`}>
+                        type={modus === modi.AVBRYT ? 'fare' : 'hoved'}>
                         {getLedetekst(`starte-sykmelding.knapp.${modus}`)}
-                        { sender && <span className="knapp__spinner" /> }
-                    </button>
+                    </Knapp>
                 </p>
                 <div className="avbrytDialog">
                     <Vis

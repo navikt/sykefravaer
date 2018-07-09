@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Hjelpetekst, SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst, nokkelopplysninger, sykmeldingstatuser } from 'digisyfo-npm';
+import { SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst, nokkelopplysninger, sykmeldingstatuser } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { sykmelding as sykmeldingPt } from '../propTypes';
 
 const { ARBEIDSGIVER, INNSENDT_DATO, ORGNUMMER, STATUS } = nokkelopplysninger;
 const { BEKREFTET, AVBRUTT, TIL_SENDING } = sykmeldingstatuser;
 
 const tilSendingHjelpetekst = () => {
-    return (<Hjelpetekst
-        tittel={getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tittel')}
-        tekst={getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tekst')} />);
+    return (<Hjelpetekst>{getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tekst')}</Hjelpetekst>);
 };
 
 const Status = ({ status }) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { getLedetekst } from 'digisyfo-npm';
 import {
     proptypes as oppfolgingProptypes,
@@ -96,7 +97,9 @@ export const ArbeidsgiverSkjema = (
     }) => {
     return (
         <form onSubmit={handleSubmit} className="arbeidsgiverSkjema">
-            <label>{getLedetekst('oppfolgingsdialog.arbeidsgiverSkjema.spoersmaal')}</label>
+            <label className="skjemaelement__label">
+                {getLedetekst('oppfolgingsdialog.arbeidsgiverSkjema.spoersmaal')}
+            </label>
             <div className="inputgruppe velgarbeidsgiver__inputgruppe">
                 <Field
                     name="arbeidsgiver"
@@ -106,12 +109,13 @@ export const ArbeidsgiverSkjema = (
                 />
             </div>
             <div className="knapperad">
-                <button
-                    type="submit"
-                    className="knapp knapperad__element"
-                    disabled={!erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver(oppfolgingsdialoger, arbeidsgivere)}>
-                    {getLedetekst('oppfolgingsdialog.knapp.send')}
-                </button>
+                <div className="knapperad__element">
+                    <Hovedknapp
+                        htmlType="submit"
+                        disabled={!erOppfolgingsdialogOpprettbarMedMinstEnArbeidsgiver(oppfolgingsdialoger, arbeidsgivere)}>
+                        {getLedetekst('oppfolgingsdialog.knapp.send')}
+                    </Hovedknapp>
+                </div>
             </div>
         </form>);
 };

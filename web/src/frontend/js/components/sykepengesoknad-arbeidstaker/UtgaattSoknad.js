@@ -1,5 +1,6 @@
 import React from 'react';
-import { getLedetekst, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
 import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
@@ -7,11 +8,9 @@ import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidst
 const UtgaattSoknad = ({ sykepengesoknad }) => {
     return (<div>
         <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
-        <div className="panel panel--komprimert">
-            <Varselstripe type="info" fylt>
-                <p className="sist">{getLedetekst('sykepengesoknad.utgaatt.info.tekst')}</p>
-            </Varselstripe>
-        </div>
+        <Alertstripe type="info" className="blokk">
+            <p className="sist">{getLedetekst('sykepengesoknad.utgaatt.info.tekst')}</p>
+        </Alertstripe>
         <SykmeldingUtdragContainer sykepengesoknad={sykepengesoknad} erApen />
     </div>);
 };

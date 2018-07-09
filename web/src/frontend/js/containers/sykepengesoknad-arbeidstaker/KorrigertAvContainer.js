@@ -1,25 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { Varselstripe, getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { getTidligsteSendtDato } from '../../utils/sykepengesoknadUtils';
 
 export const KorrigertAv = ({ korrigertAvSoknad }) => {
-    return (<div className="panel panel--komprimert blokk">
-        <Varselstripe ikon="/sykefravaer/img/svg/hoder/utropstegn--gulfylt.svg">
-            <div>
-                <p className="sist">
-                    {getLedetekst('sykepengesoknad.korrigert.tekst', {
-                        '%DATO%': toDatePrettyPrint(getTidligsteSendtDato(korrigertAvSoknad)),
-                    })}
-                </p>
-                <p className="sist">
-                    <Link className="lenke" to={`/sykefravaer/soknader/${korrigertAvSoknad.id}`}>{getLedetekst('sykepengesoknad.korrigert.lenketekst')}</Link>
-                </p>
-            </div>
-        </Varselstripe>
-    </div>);
+    return (<Alertstripe className="blokk" type="info">
+        <p className="sist">
+            {getLedetekst('sykepengesoknad.korrigert.tekst', {
+                '%DATO%': toDatePrettyPrint(getTidligsteSendtDato(korrigertAvSoknad)),
+            })}
+        </p>
+        <p className="sist">
+            <Link className="lenke" to={`/sykefravaer/soknader/${korrigertAvSoknad.id}`}>{getLedetekst('sykepengesoknad.korrigert.lenketekst')}</Link>
+        </p>
+    </Alertstripe>);
 };
 
 KorrigertAv.propTypes = {

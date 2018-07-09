@@ -5,24 +5,21 @@ import Checkboks from '../skjema/Checkbox';
 import { fieldPropTypes, sporsmal as sporsmalPt } from '../../propTypes';
 import Undersporsmal from './Undersporsmal';
 import { formaterEnkeltverdi, genererParseForCheckbox } from './fieldUtils';
-import Feilomrade from '../skjema/Feilomrade';
 
 const rendreCheckbox = (props) => {
-    return (<Feilomrade {...props.meta}>
-        <Checkboks {...props} />
-    </Feilomrade>);
+    return (<Checkboks {...props} />);
 };
 
 rendreCheckbox.propTypes = {
     meta: fieldPropTypes.meta,
 };
 
-const Checkbox = ({ sporsmalstekst, undersporsmal, name, id }) => {
+const Checkbox = ({ sporsmalstekst, undersporsmal, name, id, renderComponent = rendreCheckbox }) => {
     const parse = genererParseForCheckbox(id);
     return (<Field
         parse={parse}
         format={formaterEnkeltverdi}
-        component={rendreCheckbox}
+        component={renderComponent}
         name={name}
         label={sporsmalstekst}
         id={name}>
@@ -41,6 +38,7 @@ Checkbox.propTypes = {
     undersporsmal: PropTypes.arrayOf(sporsmalPt),
     name: PropTypes.string,
     id: PropTypes.string,
+    renderComponent: PropTypes.func,
 };
 
 export default Checkbox;

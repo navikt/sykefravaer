@@ -1,5 +1,6 @@
 import React from 'react';
-import { Hjelpetekst, getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import * as proptypes from '../../propTypes';
 import Sidetopp from '../Sidetopp';
 
@@ -15,9 +16,7 @@ const SykepengesoknadHeader = ({ sykepengesoknad }) => {
                         '%TOM%': toDatePrettyPrint(sykepengesoknad.tom),
                     })
                 }</p>
-                <Hjelpetekst
-                    tittel={getLedetekst('sykepengesoknad.sidetittel.hjelpetekst.tittel')}
-                    tekst={getLedetekst('sykepengesoknad.sidetittel.hjelpetekst.tekst')} />
+                <Hjelpetekst id="oppdelt-soknad-hjelpetekst">{getLedetekst('sykepengesoknad.sidetittel.hjelpetekst.tekst')}</Hjelpetekst>
             </div>
         </header>);
 };

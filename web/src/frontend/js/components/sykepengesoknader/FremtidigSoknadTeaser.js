@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Knapp } from 'nav-frontend-knapper';
 import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { soknad as soknadPt, sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Lightbox from '../Lightbox';
@@ -12,7 +13,7 @@ const SoknadLightbox = ({ soknad, onClose }) => {
             })
         }</p>
         <div className="knapperad">
-            <button className="rammeknapp" onClick={onClose}>Lukk</button>
+            <Knapp onClick={onClose}>Lukk</Knapp>
         </div>
     </Lightbox>);
 };

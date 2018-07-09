@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Varselstripe, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { Knapp } from 'nav-frontend-knapper';
+import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 import { Vis } from '../../utils';
 
@@ -14,16 +16,15 @@ export class LederAvkreftet extends Component {
         return (<div>
             <p className="hode hode--suksess">Lederen er avkreftet!</p>
             <div className="knapperad">
-                <button
+                <Knapp
                     ref={(c) => {
                         this.lukk = c;
                     }}
-                    className="rammeknapp js-lukk"
-                    href="#"
+                    className="js-lukk"
                     onClick={(e) => {
                         e.preventDefault();
                         onLukk();
-                    }}>Lukk</button>
+                    }}>Lukk</Knapp>
             </div>
         </div>);
     }
@@ -47,21 +48,22 @@ const BekreftFeilLeder = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftFei
             <Vis
                 hvis={avkreftFeilet}
                 render={() => {
-                    return (<Varselstripe type="feil">
+                    return (<Alertstripe type="advarsel">
                         <p className="sist">Beklager, det oppstod en feil!</p>
-                    </Varselstripe>);
+                    </Alertstripe>);
                 }} />
         </div>
         <div className="knapperad">
-            <button
-                type="button"
+            <Knapp
+                htmlType="button"
                 disabled={avkrefter}
                 className={knappClassName}
+                spinner={avkrefter}
                 onClick={() => {
                     avkreftLeder(leder.orgnummer);
-                }}>Ja, jeg er sikker
-                { avkrefter && <span className="knapp__spinner" /> }
-            </button>
+                }}>
+                Ja, jeg er sikker
+            </Knapp>
             <p><a
                 className="lenke js-avbryt"
                 href="#"

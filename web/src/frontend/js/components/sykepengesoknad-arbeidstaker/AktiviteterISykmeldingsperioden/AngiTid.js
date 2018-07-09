@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, getFormValues } from 'redux-form';
 import { getLedetekst } from 'digisyfo-npm';
 import { connect } from 'react-redux';
+import { Radio } from 'nav-frontend-skjema';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
 import { lagDesimaltall, getObjectValueByString, lagHeltall } from '../../../utils';
 import DetteTilsvarer, { getStillingsprosent } from './DetteTilsvarer';
@@ -119,25 +120,21 @@ class AngiTid extends Component {
                     enheter.map((enhet, index) => {
                         const name = `enhet_${this.props.aktivitetIndex}`;
                         const id = `${name}_${index}`;
-                        return (<div className="skjema__input" key={index}>
-                            <input
-                                onChange={() => {
-                                    autofill(this.getAntallName(), null);
-                                    untouch(this.getAntallName());
-                                    this.setState({
-                                        valgtEnhet: enhet.value,
-                                    });
-                                    this.setEnhet(enhet.value);
-                                }}
-                                type="radio"
-                                className="radioknapp"
-                                value={enhet.value}
-                                name={name}
-                                id={id}
-                                checked={enhet.value === this.state.valgtEnhet}
-                                aria-controls={this.getAntallName()} />
-                            <label htmlFor={id}>{getLedetekst(`sykepengesoknad.angi-tid.velg-enhet.label.${enhet.value}`)}</label>
-                        </div>);
+                        return (<Radio
+                            onChange={() => {
+                                autofill(this.getAntallName(), null);
+                                untouch(this.getAntallName());
+                                this.setState({
+                                    valgtEnhet: enhet.value,
+                                });
+                                this.setEnhet(enhet.value);
+                            }}
+                            value={enhet.value}
+                            name={name}
+                            id={id}
+                            label={getLedetekst(`sykepengesoknad.angi-tid.velg-enhet.label.${enhet.value}`)}
+                            checked={enhet.value === this.state.valgtEnhet}
+                            aria-controls={this.getAntallName()} />);
                     })
                 }
             </div>

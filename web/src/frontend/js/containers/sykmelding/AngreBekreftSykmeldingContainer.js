@@ -9,7 +9,7 @@ function AngreBekreftSykmeldingContainer({ sykmeldingId, angreBekreftSykmelding,
     return (
         [
             <button
-                className="rammeknapp rammeknapp--mini"
+                className="knapp knapp--mini"
                 onClick={() => { return angreBekreftSykmelding(sykmeldingId); }}
                 key={1}>
                 {getLedetekst('din-sykmelding.godkjennt.angre')}

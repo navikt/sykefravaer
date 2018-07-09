@@ -1,34 +1,34 @@
 @purple-light: #e0dae7;
 
 .utvidbar {
-	border: 1px solid @ikonGraa; 
+	border: 1px solid @navGra40;
 	border-radius: 2px;
 }
 
 .utvidbar__toggle {
-	color: @navTekst; 
-	display: flex; 
+	color: @navMorkGra;
+	display: flex;
 	width: 100%;
 	border-bottom-width: 0;
 }
 
 .utvidbar__toggle:focus {
-	color: @navTekst;
-	background-color: transparent; 
-	box-shadow: 0 0 0 3px @fokusOrange;
+	color: @navMorkGra;
+	background-color: transparent;
+	box-shadow: 0 0 0 3px @orangeFocus;
 	z-index: 1;
-	position: relative; 
+	position: relative;
 }
 
 .utvidbar__toggle:hover {
-	color: @lenkeBlaa; 
+	color: @navBla;
 }
 
 .utvidbar__header:extend(.panelHeader) {
 	padding: .75em;
 	margin: 0;
 	min-height: 3.5em;
-	.mixin-typo-normal();
+	.typo-normal-mixin();
 
 	@media(min-width: @skjermMini) {
 		padding-left: 1rem;
@@ -41,7 +41,7 @@
 	width: 1.5em;
 	height: 1.5em;
 	margin-right: 1em;
-	align-self: center; 
+	align-self: center;
 
 	@media(min-width: @skjermMini) {
 		width: 2em;
@@ -56,16 +56,16 @@
 }
 
 .utvidbar__handling {
-	padding-right: 1.5em; 
+	padding-right: 1.5em;
 	background-image: data-uri("../img/svg/arrow-down_hover.svg");
 	background-repeat: no-repeat;
 	background-position: 100% center;
 	background-size: 1em .5em;
-	color: @lenkeBlaa;
+	color: @navBla;
 	min-height: 1em;
 	align-self: center;
 	font-style: normal;
-	
+
 	@media(min-width: @skjermMini) {
 		margin-left: 1em;
 	}
@@ -101,9 +101,9 @@
 	transform: translate3d(0, 0, 0);
 }
 
-.utvidbar__innhold { 
+.utvidbar__innhold {
 	padding: 1.5em 1em 2.5em 1em;
-	background-color: @hvit;
+	background-color: @white;
 
 	@media(min-width: @skjermMini) {
 		padding: 2.5em;
@@ -116,7 +116,7 @@
 
 @media print {
 	.utvidbar__toggle {
-		border-bottom: 1px solid @ikonGraa;
+		border-bottom: 1px solid @navGra40;
 		text-decoration: none;
 	}
 }

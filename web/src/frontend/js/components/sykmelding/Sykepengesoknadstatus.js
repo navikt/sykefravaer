@@ -41,7 +41,7 @@ export const SokOmSykepengerNaa = ({ sykepengesoknad }) => {
             <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.sok.tittel')}</h2>
             <p>{getLedetekst('sykmelding.sykepengesoknadstatus.sok.melding')}</p>
             <p className="sist">
-                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}`} className="knapp">
+                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}`} className="knapp knapp--hoved">
                     {getLedetekst('sykmelding.sykepengesoknadstatus.sok.lenke')}
                 </Link>
             </p>

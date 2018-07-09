@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { getLedetekst, getHtmlLedetekst, Hjelpetekst, forskutterersvar } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, forskutterersvar } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import Feilomrade from '../../skjema/Feilomrade';
 import SporsmalMedTillegg from '../../skjema/SporsmalMedTillegg';
 import { Radioknapp } from '../../skjema/Radioknapper';
@@ -12,9 +13,7 @@ export const ForskuttererSporsmal = ({ input, meta }) => {
     return (<Feilomrade {...meta} id="arbeidsgiverForskutterer">
         <div className="medHjelpetekst">
             <h3 className="skjema__sporsmal">{getLedetekst('sykepengesoknad.forskutterer-arbeidsgiver.sporsmal')}</h3>
-            <Hjelpetekst
-                tittel={getLedetekst('sykepengesoknad.forskutterer-arbeidsgiver.hjelpetekst.tittel')}
-                tekst={getLedetekst('sykepengesoknad.forskutterer-arbeidsgiver.hjelpetekst.tekst')} />
+            <Hjelpetekst id="forskutterer-hjelpetekst">{getLedetekst('sykepengesoknad.forskutterer-arbeidsgiver.hjelpetekst.tekst')}</Hjelpetekst>
         </div>
         {
             [JA, NEI, VET_IKKE].map((alternativ, index) => {

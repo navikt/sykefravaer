@@ -19,7 +19,7 @@
 }
 
 .hode__tittel {
-    .mixin-typo-undertittel();
+    .typo-undertittel-mixin();
     position: relative;
     margin: 0;
     margin-bottom: 1em;
@@ -27,7 +27,7 @@
     padding-bottom: ~"calc(1.25em + 1px)";
 
     &:after {
-        width: 1.6em; 
+        width: 1.6em;
         height: 1px;
         content: "";
         display: block;
@@ -35,7 +35,7 @@
         left: 50%;
         transform: translateX(-50%);
         position: absolute;
-        background-color: @navTekst;
+        background-color: @navMorkGra;
     }
 }
 
@@ -50,7 +50,7 @@
     }
 
     .hode__tittel:after {
-        background-color: @advarselRoed;
+        background-color: @redError;
     }
 }
 
@@ -61,7 +61,7 @@
     }
 
     .hode__tittel:after {
-        background-color: @suksessGroenn;
+        background-color: @navGronn;
     }
 }
 
@@ -72,7 +72,7 @@
     }
 
     .hode__tittel:after {
-        background-color: @ikonGraa;
+        background-color: @navGra40;
     }
 }
 
@@ -83,6 +83,6 @@
     }
 
     .hode__tittel:after {
-        background-color: @infoOrange;
+        background-color: @navOransje;
     }
 }

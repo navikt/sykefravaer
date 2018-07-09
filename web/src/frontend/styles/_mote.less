@@ -1,12 +1,12 @@
 .svarside__introTittel {
-  .mixin-typo-innholdstittel();
+  .typo-innholdstittel-mixin();
   margin-top: 0;
   margin-bottom: .5em;
   text-align: center;
 }
 
 .svarside__introInnhold {
-  .mixin-typo-normal();
+  .typo-normal-mixin();
 
   p:last-child {
     margin-bottom: 0;
@@ -22,18 +22,16 @@
 }
 
 .svarskjema {
-  background-color: @hvit;
+  background-color: @white;
 }
 
 .svarskjema__tittel {
-  .mixin-typo-undertittel();
+  .typo-undertittel-mixin();
   margin-top: 0;
   margin-bottom: .8em;
-  max-width: 11em;
-  margin-left: auto; 
-  margin-right: auto;
+  text-align: center;
 
-  @media(min-width: 24em) {
+  @media(min-width: @screen-sm-min) {
     max-width: 100%;
   }
 }
@@ -67,25 +65,25 @@
 }
 
 .motested__tittel {
-  .mixin-typo-element();
+  .typo-element-mixin();
   margin-top: 0;
   margin-bottom: .5em;
 }
 
 .motetidspunkter--nyeTidspunkter {
   margin-bottom: 2em;
-  border-top: 1px solid @ikonGraa;
-  border-bottom: 1px solid @ikonGraa;
+  border-top: 1px solid @navGra40;
+  border-bottom: 1px solid @navGra40;
 }
 
 .motetidspunkter--besvarteTidspunkter {
   padding-top: 2em;
-  border-top: 1px solid @ikonGraa;
+  border-top: 1px solid @navGra40;
 }
 
 .motetidspunkt--besvart {
   &:first-child {
-    padding-top: 0;   
+    padding-top: 0;
   }
 
   &:last-child {
@@ -96,16 +94,8 @@
 }
 
 .ingenTidspunktPasser {
-  border-bottom: 1px solid @ikonGraa;
+  border-bottom: 1px solid @navGra40;
   padding-bottom: 1.5em;
-}
-
-.mote__panel--advarsel {
-  background: #fdbc6d;
-  padding-top: 1em;
-  padding-left: 1em;
-  border-bottom: 1px solid #b7b1a9;
-  padding-bottom: 1em;
 }
 
 .mote__panel--info {
@@ -146,7 +136,7 @@
   width: 100%;
 
   p {
-    .mixin-typo-normal();
+    .typo-normal-mixin();
     margin: 0;
   }
 }
@@ -178,16 +168,8 @@
 
 .motetidspunkter__svar {
   list-style-type: none;
-  margin: 0; 
+  margin: 0;
   padding: 0;
-}
-
-.mote__panel--advarsel {
-  background: #fdbc6d;
-  padding-top: 1em;
-  padding-left: 1em;
-  border-bottom: 1px solid #b7b1a9;
-  padding-bottom: 1em;
 }
 
 .mote__panel--info {

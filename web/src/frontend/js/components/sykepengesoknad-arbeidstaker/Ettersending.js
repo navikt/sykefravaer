@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Varselstripe, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
+import Knapp from 'nav-frontend-knapper';
 import { connect } from 'react-redux';
 import cn from 'classnames';
 import Lightbox from '../Lightbox';
@@ -37,9 +39,9 @@ export const EttersendingDialog = (props) => {
             <Vis
                 hvis={sendingFeilet}
                 render={() => {
-                    return (<Varselstripe type="feil">
+                    return (<Alertstripe type="advarsel">
                         <p className="sist">Beklager, det oppstod en feil!</p>
-                    </Varselstripe>);
+                    </Alertstripe>);
                 }} />
         </div>
         <div className="knapperad">
@@ -98,13 +100,12 @@ export const EttersendKvittering = ({ onClose, ledetekstKeySuffix }) => {
     return (<div>
         <p className="hode hode--suksess">{getLedetekst(`sykepengesoknad.ettersending.kvittering.${ledetekstKeySuffix}`)}</p>
         <div className="knapperad">
-            <button
-                className="rammeknapp js-lukk"
-                href="#"
+            <Knapp
+                className="js-lukk"
                 onClick={(e) => {
                     e.preventDefault();
                     onClose();
-                }}>Lukk</button>
+                }}>Lukk</Knapp>
         </div>
     </div>);
 };
@@ -165,7 +166,8 @@ export class Ettersending extends Component {
         }
         return (<div className="verktoylinje__element">
             {
-                !sykepengesoknad[manglendeDato] && <button
+                !sykepengesoknad[manglendeDato] && <Knapp
+                    mini
                     ref={(c) => {
                         this.triggEttersending = c;
                     }}
@@ -175,7 +177,9 @@ export class Ettersending extends Component {
                             visLightbox: true,
                         });
                     }}
-                    className="js-trigger rammeknapp rammeknapp--mini">{getLedetekst(`sykepengesoknad.ettersending.knapp.${ledetekstKeySuffix}`)}</button>
+                    className="js-trigger">
+                    {getLedetekst(`sykepengesoknad.ettersending.knapp.${ledetekstKeySuffix}`)}
+                </Knapp>
             }
             {
                 this.state.visLightbox && <EttersendLightbox

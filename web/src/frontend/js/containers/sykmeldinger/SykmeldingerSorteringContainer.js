@@ -7,16 +7,14 @@ import * as actionCreators from '../../actions/dineSykmeldinger_actions';
 
 const DropdownContainer = ({ alternativer, sorterSykmeldinger, status }) => {
     return (<div className="inngangspanelerHeader__verktoy">
-        <label htmlFor="sykmeldinger-sortering" className="inngangspanelerHeader__verktoyLabel">{getLedetekst('dine-sykmeldinger.sorter.label')}</label>
-        <div className="selectContainer selectContainer--liten">
-            <Dropdown
-                alternativer={alternativer}
-                id="sykmeldinger-sortering"
-                ariaControls={`sykmelding-liste-${status}`}
-                onChange={(kriterium) => {
-                    sorterSykmeldinger(kriterium, status);
-                }} />
-        </div>
+        <Dropdown
+            label={getLedetekst('dine-sykmeldinger.sorter.label')}
+            alternativer={alternativer}
+            id="sykmeldinger-sortering"
+            ariaControls={`sykmelding-liste-${status}`}
+            onChange={(kriterium) => {
+                sorterSykmeldinger(kriterium, status);
+            }} />
     </div>);
 };
 

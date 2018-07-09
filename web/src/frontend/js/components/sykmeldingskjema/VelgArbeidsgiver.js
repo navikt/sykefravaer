@@ -51,7 +51,7 @@ export const SkrivUt = (props) => {
             dangerouslySetInnerHTML={getHtmlLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.infotekst')} />
         <div className="knapperad">
             <p>
-                <Link target="_blank" to={`${getContextRoot()}/sykmeldinger/${sykmelding.id}/skriv-ut`} className="rammeknapp">
+                <Link target="_blank" to={`${getContextRoot()}/sykmeldinger/${sykmelding.id}/skriv-ut`} className="knapp">
                     {getLedetekst('send-til-arbeidsgiver.annen-arbeidsgiver.skriv-ut')}
                 </Link>
             </p>

@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { getLedetekst, Hjelpetekst, arbeidssituasjoner as arbeidssituasjonerEnums } from 'digisyfo-npm';
-import Feilmelding from '../skjema/Feilmelding';
+import { getLedetekst, arbeidssituasjoner as arbeidssituasjonerEnums } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
+import { Select } from 'nav-frontend-skjema';
 import VelgArbeidsgiverContainer from '../../containers/sykmelding/VelgArbeidsgiverContainer';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt, fieldPropTypes } from '../../propTypes';
+import { getFeilFraMeta } from '../skjema/Tekstfelt';
 
 const { DEFAULT, ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG, ANNET } = arbeidssituasjonerEnums;
 
@@ -34,27 +36,25 @@ const getArbeidssituasjoner = (arbeidssituasjon) => {
 
 export const RendreVelgArbeidssituasjon = (props) => {
     const { input, meta } = props;
+    const feil = getFeilFraMeta(meta);
+    const label = (<div className="medHjelpetekst">
+        <span className="skjema__sporsmal">
+            {getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}
+        </span>
+        <Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')}</Hjelpetekst>
+    </div>);
     return (
         <div>
-            <div className="medHjelpetekst">
-                <label htmlFor="valgtArbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
-                    {getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}
-                </label>
-                <Hjelpetekst
-                    id="velg-arbeidssituasjon-hjelpetekst"
-                    tittel={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tittel')}
-                    tekst={getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')} />
-            </div>
-            <div className="selectContainer">
-                <select id="valgtArbeidssituasjon" {...input} className={meta.error && meta.touched ? 'input--feil' : ''}>
-                    {getArbeidssituasjoner(input.value).map((arbeidssituasjon, index) => {
-                        return (<option value={arbeidssituasjon.verdi} key={index}>
-                            {getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${arbeidssituasjon.verdi.toLowerCase()}`)}
-                        </option>);
-                    })}
-                </select>
-            </div>
-            <Feilmelding {...meta} />
+            <Select label={label} bredde="l" id="valgtArbeidssituasjon" {...input} feil={feil}>
+                {
+                    getArbeidssituasjoner(input.value)
+                        .map((arbeidssituasjon, index) => {
+                            return (<option value={arbeidssituasjon.verdi} key={index}>
+                                {getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${arbeidssituasjon.verdi.toLowerCase()}`)}
+                            </option>);
+                        })
+                }
+            </Select>
         </div>
     );
 };

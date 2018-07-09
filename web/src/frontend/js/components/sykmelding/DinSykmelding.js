@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Bjorn, getLedetekst, DineSykmeldingOpplysninger, Varselstripe, scrollTo } from 'digisyfo-npm';
+import { Bjorn, getLedetekst, DineSykmeldingOpplysninger, scrollTo } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { getContextRoot } from '../../routers/paths';
@@ -17,14 +18,12 @@ class DinSykmelding extends Component {
             <Vis
                 hvis={visEldreSykmeldingVarsel}
                 render={() => {
-                    return (<div className="panel blokk">
-                        <Varselstripe type="info">
-                            <p className="sist">
-                                <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')} </span>
-                                <Link className="lenke" to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}</Link>
-                            </p>
-                        </Varselstripe>
-                    </div>);
+                    return (<Alertstripe type="info" className="blokk">
+                        <p className="sist">
+                            <span>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.tekst')} </span>
+                            <Link className="lenke" to={`/sykefravaer/sykmeldinger/${eldsteSykmeldingId}`}>{getLedetekst('starte-sykmelding.eldre-sykmeldinger.lenke')}</Link>
+                        </p>
+                    </Alertstripe>);
                 }} />
             <Bjorn
                 className="blokk"
@@ -46,7 +45,7 @@ class DinSykmelding extends Component {
                                 scrollTo(this.skjema);
                                 this.skjema.focus();
                             }}
-                            className="rammeknapp rammeknapp--mini">Gå til utfylling</button>
+                            className="knapp knapp--mini">Gå til utfylling</button>
                     </p>
                 </div>
             </Bjorn>

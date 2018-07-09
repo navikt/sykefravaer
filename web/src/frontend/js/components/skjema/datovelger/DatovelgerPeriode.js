@@ -79,7 +79,7 @@ class Periodevelger extends Component {
             <div className="periodevelger__periode" onKeyUp={this.handleKeyUp}>
                 <div className="periodevelger__datoer">
                     <div className="periodevelger__fom">
-                        <label htmlFor={names[0]}>{getLedetekst('sykepengesoknad.periodevelger.fom')}</label>
+                        <label className="skjemaelement__label" htmlFor={names[0]}>{getLedetekst('sykepengesoknad.periodevelger.fom')}</label>
                         <Field
                             periodeIndex={periodeIndex}
                             component={FomField}
@@ -91,7 +91,7 @@ class Periodevelger extends Component {
                     </div>
                     <div className="periodevelger__skille">–</div>
                     <div className="periodevelger__tom">
-                        <label htmlFor={names[1]}>{getLedetekst('sykepengesoknad.periodevelger.tom')}</label>
+                        <label className="skjemaelement__label" htmlFor={names[1]}>{getLedetekst('sykepengesoknad.periodevelger.tom')}</label>
                         <Field
                             component={TomField}
                             name={names[1]}

@@ -2,7 +2,7 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { Varselstripe } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import sinon from 'sinon';
 import Feilmelding from '../../../js/components/Feilmelding';
 import { SoknaderSide, mapStateToProps } from '../../../js/containers/sykepengesoknader/SoknaderContainer';
@@ -75,7 +75,7 @@ describe('SoknaderContainer', () => {
             toggleSelvstendigSoknad.restore();
         });
 
-        it('Skal vise Varselstripe om henting av sykepengesøknader feiler', () => {
+        it('Skal vise Alertstripe om henting av sykepengesøknader feiler', () => {
             state.sykepengesoknader.hentingFeilet = true;
             const props = mapStateToProps(state);
             const component = shallow(<SoknaderSide {...props} actions={actions} />);
@@ -84,7 +84,7 @@ describe('SoknaderContainer', () => {
             expect(component.find(AppSpinner)).to.have.length(0);
         });
 
-        it('Skal vise Varselstripe om henting av søknader feiler', () => {
+        it('Skal vise Alertstripe om henting av søknader feiler', () => {
             state.soknader.hentingFeilet = true;
             const props = mapStateToProps(state);
             const component = shallow(<SoknaderSide {...props} actions={actions} />);
@@ -108,7 +108,7 @@ describe('SoknaderContainer', () => {
             const props = mapStateToProps(state);
             const component = shallow(<SoknaderSide {...props} actions={actions} />);
             expect(component.find(Soknader)).to.have.length(0);
-            expect(component.find(Varselstripe)).to.have.length(0);
+            expect(component.find(Alertstripe)).to.have.length(0);
             expect(component.find(AppSpinner)).to.have.length(1);
         });
 

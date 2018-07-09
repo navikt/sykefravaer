@@ -20,8 +20,8 @@ Knapperad.propTypes = {
 
 export const KnapperadTilbake = ({ forrigeUrl }) => {
     return (<Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
-        <Link to={forrigeUrl} className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
-        <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
+        <Link to={forrigeUrl} className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
+        <button type="submit" className="knapp knapp--hoved js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
     </Knapperad>);
 };
 

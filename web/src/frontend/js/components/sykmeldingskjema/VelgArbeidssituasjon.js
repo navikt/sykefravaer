@@ -7,6 +7,7 @@ import { Select } from 'nav-frontend-skjema';
 import VelgArbeidsgiverContainer from '../../containers/sykmelding/VelgArbeidsgiverContainer';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt, fieldPropTypes } from '../../propTypes';
+import { getFeilFraMeta } from '../skjema/Tekstfelt';
 
 const { DEFAULT, ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG, ANNET } = arbeidssituasjonerEnums;
 
@@ -35,19 +36,16 @@ const getArbeidssituasjoner = (arbeidssituasjon) => {
 
 export const RendreVelgArbeidssituasjon = (props) => {
     const { input, meta } = props;
-    const feil = meta.error && meta.touched
-        ? {
-            feilmelding: meta.error,
-        } : null;
+    const feil = getFeilFraMeta(meta);
+    const label = (<div className="medHjelpetekst">
+        <span className="skjema__sporsmal">
+            {getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}
+        </span>
+        <Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')}</Hjelpetekst>
+    </div>);
     return (
         <div>
-            <div className="medHjelpetekst">
-                <label htmlFor="valgtArbeidssituasjon" className="skjema__sporsmal medHjelpetekst">
-                    {getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}
-                </label>
-                <Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')}</Hjelpetekst>
-            </div>
-            <Select bredde="l" id="valgtArbeidssituasjon" {...input} feil={feil}>
+            <Select label={label} bredde="l" id="valgtArbeidssituasjon" {...input} feil={feil}>
                 {
                     getArbeidssituasjoner(input.value)
                         .map((arbeidssituasjon, index) => {

@@ -52,7 +52,7 @@ SykepengerInfo.propTypes = {
 const SendtLikt = ({ sykepengesoknad }) => {
     const tekst = getStatusTekst(sykepengesoknad);
     return (<div className="statusopplysninger">
-        <div Overskrift="h2" tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
+        <SykmeldingNokkelOpplysning Overskrift="h2" tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
             {
                 sykepengesoknad.status === TIL_SENDING
                     ? (<div>
@@ -60,7 +60,7 @@ const SendtLikt = ({ sykepengesoknad }) => {
                     </div>)
                     : <p>{tekst}</p>
             }
-        </div>
+        </SykmeldingNokkelOpplysning>
         <SykepengerInfo sykepengesoknad={sykepengesoknad} />
     </div>);
 };

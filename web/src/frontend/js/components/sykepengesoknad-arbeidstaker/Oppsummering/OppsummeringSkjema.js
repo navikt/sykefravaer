@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Link } from 'react-router';
-import { Varselstripe, getLedetekst, Utvidbar, SoknadOppsummering, VaerKlarOverAt } from 'digisyfo-npm';
+import { getLedetekst, Utvidbar, SoknadOppsummering, VaerKlarOverAt } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import setup from '../setup';
 import SykepengerSkjema from '../SykepengerSkjema';
 import Knapperad from '../../skjema/Knapperad';
@@ -15,11 +16,9 @@ import ForskuttererArbeidsgiver from './ForskuttererArbeidsgiver';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 
 export const SendingFeilet = () => {
-    return (<div className="panel panel--komprimert">
-        <Varselstripe type="feil">
-            <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
-        </Varselstripe>
-    </div>);
+    return (<Alertstripe type="advarsel" className="blokk">
+        <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
+    </Alertstripe>);
 };
 
 const mottaker = (sendesTil, sykepengesoknad) => {

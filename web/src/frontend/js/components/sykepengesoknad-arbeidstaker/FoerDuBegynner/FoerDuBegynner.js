@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, Varselstripe, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import history from '../../../history';
 import setup from '../setup';
@@ -16,14 +17,9 @@ import IllustrertInnhold from '../../IllustrertInnhold';
 const { NY, UTKAST_TIL_KORRIGERING } = sykepengesoknadstatuser;
 
 const KorrigerVarsel = () => {
-    return (<div className="panel panel--komprimert blokk">
-        <Varselstripe ikon="/sykefravaer/img/svg/soknader.svg" ikonAlt="Endre søknad">
-            <div>
-                <h2 className="varselstripe__tittel">Endre søknaden</h2>
-                <p>Rediger det som er feil i søknaden, og send den inn på nytt.</p>
-            </div>
-        </Varselstripe>
-    </div>);
+    return (<Alertstripe type="info" className="blokk">
+        <p className="sist">Rediger det som er feil i søknaden, og send den inn på nytt.</p>
+    </Alertstripe>);
 };
 
 export const ForsteSoknadIntro = () => {

@@ -6,11 +6,11 @@ import Knapp from 'nav-frontend-knapper';
 import {
     tilDatePeriode,
     getLedetekst,
-    Varselstripe,
     arbeidssituasjoner,
     feilaktigeOpplysninger as feilaktigeOpplysningerEnums,
     getHtmlLedetekst,
 } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import VelgArbeidssituasjon from './VelgArbeidssituasjon';
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
@@ -177,9 +177,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     hvis={sendingFeilet || avbrytFeilet}
                     render={() => {
                         return (<div className="panel panel-ramme js-varsel">
-                            <Varselstripe type="feil">
-                                <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
-                            </Varselstripe>
+                            <Alertstripe type="advarsel">
+                                Beklager, det oppstod en feil! Prøv igjen litt senere.
+                            </Alertstripe>
                         </div>);
                     }} />
             </div>

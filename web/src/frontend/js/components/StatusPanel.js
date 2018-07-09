@@ -37,7 +37,6 @@ const StatusPanel = ({ sykmelding, nokkelopplysninger, children }) => {
 
 StatusPanel.propTypes = {
     sykmelding: sykmeldingPt,
-    type: PropTypes.string,
     nokkelopplysninger: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
     children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };

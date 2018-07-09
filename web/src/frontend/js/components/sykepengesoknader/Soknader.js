@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, sykepengesoknadstatuser, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import Sidetopp from '../Sidetopp';
 import SoknadTeasere from './SoknaderTeasere';
 import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
@@ -34,11 +35,9 @@ const Soknader = ({ sykepengesoknader = [], soknader = [], visFeil }) => {
         <Vis
             hvis={visFeil}
             render={() => {
-                return (<div className="panel blokk">
-                    <Varselstripe type="feil" fylt>
-                        <p className="sist"><strong>Oops! </strong> Vi kunne ikke hente alle dine sykepengesøknader.</p>
-                    </Varselstripe>
-                </div>);
+                return (<Alertstripe type="advarsel" className="blokk">
+                    <p className="sist"><strong>Oops! </strong> Vi kunne ikke hente alle dine sykepengesøknader.</p>
+                </Alertstripe>);
             }} />
         <SoknadTeasere
             soknader={nyeSoknader}

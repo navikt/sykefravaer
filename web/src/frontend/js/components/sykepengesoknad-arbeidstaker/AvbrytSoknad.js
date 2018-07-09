@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, Varselstripe } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 
 const Feilmelding = () => {
-    return (<div className="panel panel--ramme panel--komprimert">
-        <Varselstripe type="feil">
-            <p className="sist">Beklager, det oppstod en feil! Prøv litt senere.</p>
-        </Varselstripe>
-    </div>);
+    return (<Alertstripe type="feil" className="blokk">
+        <p className="sist">Beklager, det oppstod en feil! Prøv litt senere.</p>
+    </Alertstripe>);
 };
 
 const AvbrytSoknad = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler, sender }) => {

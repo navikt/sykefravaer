@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Varselstripe, toDatePrettyPrint, scrollTo, getLedetekst, keyValue } from 'digisyfo-npm';
+import { toDatePrettyPrint, scrollTo, getLedetekst, keyValue } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
@@ -16,13 +17,11 @@ export const NYTT_AKTIVITETSKRAVVARSEL = 'NYTT_AKTIVITETSKRAVVARSEL';
 export const AKTIVITETSVARSELKVITTERING = 'AKTIVITETSVARSELKVITTERING';
 
 const Kvittering = ({ bekreftetdato, ledetekster }) => {
-    return (<div className="panel panel--komprimert">
-        <Varselstripe type="suksess" fylt>
-            <p className="sist">{getLedetekst('aktivitetskrav-varsel.kvittering', ledetekster, {
-                '%DATO%': toDatePrettyPrint(bekreftetdato),
-            })}</p>
-        </Varselstripe>
-    </div>);
+    return (<Alertstripe type="suksess">
+        <p className="sist">{getLedetekst('aktivitetskrav-varsel.kvittering', ledetekster, {
+            '%DATO%': toDatePrettyPrint(bekreftetdato),
+        })}</p>
+    </Alertstripe>);
 };
 
 Kvittering.propTypes = {

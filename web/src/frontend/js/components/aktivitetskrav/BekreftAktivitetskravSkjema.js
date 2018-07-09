@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
-import { getLedetekst, Varselstripe, keyValue } from 'digisyfo-npm';
+import { getLedetekst, keyValue } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import { connect } from 'react-redux';
 import CheckboxSelvstendig from '../skjema/CheckboxSelvstendig';
 import { bekreftAktivitetskrav } from '../../actions/aktivitetskrav_actions';
@@ -12,11 +13,11 @@ const Aktivitetskrav = (props) => {
         dispatch(bekreftAktivitetskrav());
     })}>
         <div role="alert" aria-live="polite">
-            { bekreftFeilet && (<div className="panel panel--komprimert blokk">
-                <Varselstripe fylt type="feil">
+            { bekreftFeilet && (
+                <Alertstripe type="advarsel">
                     <p className="sist">Beklager! Det oppstod en feil! Prøv igjen litt senere.</p>
-                </Varselstripe>
-            </div>) }
+                </Alertstripe>)
+            }
         </div>
         <div className="bekreftAktivitetskrav">
             <Field

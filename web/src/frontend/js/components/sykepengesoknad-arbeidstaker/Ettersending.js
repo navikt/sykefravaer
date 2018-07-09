@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
+import Knapp from 'nav-frontend-knapper';
 import { connect } from 'react-redux';
 import cn from 'classnames';
-import { Knapp } from 'nav-frontend-knapper';
-import { Varselstripe, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Lightbox from '../Lightbox';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import * as actions from '../../actions/sykepengesoknader_actions';
@@ -38,9 +39,9 @@ export const EttersendingDialog = (props) => {
             <Vis
                 hvis={sendingFeilet}
                 render={() => {
-                    return (<Varselstripe type="feil">
+                    return (<Alertstripe type="advarsel">
                         <p className="sist">Beklager, det oppstod en feil!</p>
-                    </Varselstripe>);
+                    </Alertstripe>);
                 }} />
         </div>
         <div className="knapperad">
@@ -101,7 +102,6 @@ export const EttersendKvittering = ({ onClose, ledetekstKeySuffix }) => {
         <div className="knapperad">
             <Knapp
                 className="js-lukk"
-                href="#"
                 onClick={(e) => {
                     e.preventDefault();
                     onClose();

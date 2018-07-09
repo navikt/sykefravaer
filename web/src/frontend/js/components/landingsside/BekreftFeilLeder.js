@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Knapp } from 'nav-frontend-knapper';
-import { Varselstripe, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
 import { Vis } from '../../utils';
 
@@ -20,7 +21,6 @@ export class LederAvkreftet extends Component {
                         this.lukk = c;
                     }}
                     className="js-lukk"
-                    href="#"
                     onClick={(e) => {
                         e.preventDefault();
                         onLukk();
@@ -48,9 +48,9 @@ const BekreftFeilLeder = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftFei
             <Vis
                 hvis={avkreftFeilet}
                 render={() => {
-                    return (<Varselstripe type="feil">
+                    return (<Alertstripe type="advarsel">
                         <p className="sist">Beklager, det oppstod en feil!</p>
-                    </Varselstripe>);
+                    </Alertstripe>);
                 }} />
         </div>
         <div className="knapperad">

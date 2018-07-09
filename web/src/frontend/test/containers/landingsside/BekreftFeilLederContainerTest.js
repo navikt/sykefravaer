@@ -3,7 +3,8 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
-import { Varselstripe, setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from 'digisyfo-npm';
+import Alertstripe from 'nav-frontend-alertstriper';
 import { Container, mapStateToProps } from '../../../js/containers/landingsside/BekreftFeilLederContainer';
 import BekreftFeil, { LederAvkreftet } from '../../../js/components/landingsside/BekreftFeilLeder';
 
@@ -117,12 +118,12 @@ describe('BekreftFeilLederContainer', () => {
 
         it('Skal vise feilmelding dersom avkreft feiler', () => {
             compo = mount(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} avkreftFeilet />);
-            expect(compo.find(Varselstripe)).to.have.length(1);
+            expect(compo.find(Alertstripe)).to.have.length(1);
         });
 
         it('Skal ikke vise feilmelding dersom avkreft ikke feiler', () => {
             compo = mount(<BekreftFeil leder={leder} avkreftLeder={avkreftLeder} onAvbryt={onAvbryt} />);
-            expect(compo.find(Varselstripe)).to.have.length(0);
+            expect(compo.find(Alertstripe)).to.have.length(0);
         });
 
         describe('Container', () => {

@@ -2,7 +2,8 @@ import chai from 'chai';
 import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { SykmeldingNokkelOpplysning, nokkelopplysninger, Hjelpetekst } from 'digisyfo-npm';
+import { SykmeldingNokkelOpplysning, nokkelopplysninger } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import getSykmelding from '../mockSykmeldinger';
 import StatusOpplysning from '../../js/components/StatusOpplysning';
 

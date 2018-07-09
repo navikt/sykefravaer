@@ -2,7 +2,8 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import { Hjelpetekst, setLedetekster } from 'digisyfo-npm';
+import { setLedetekster } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import Feilomrade from '../../../../js/components/skjema/Feilomrade';
 import { ForskuttererSporsmal } from '../../../../js/components/sykepengesoknad-arbeidstaker/Oppsummering/ForskuttererArbeidsgiver';
 
@@ -39,8 +40,7 @@ describe('ForskuttererArbeidsgiver', () => {
         it('Inneholder hjelpetekst', () => {
             const h = component.find(Hjelpetekst);
             expect(h).to.have.length(1);
-            expect(h.prop('tittel')).to.equal(ledetekster['sykepengesoknad.forskutterer-arbeidsgiver.hjelpetekst.tittel']);
-            expect(h.prop('tekst')).to.equal(ledetekster['sykepengesoknad.forskutterer-arbeidsgiver.hjelpetekst.tekst']);
+            expect(h.prop('children')).to.equal(ledetekster['sykepengesoknad.forskutterer-arbeidsgiver.hjelpetekst.tekst']);
         });
 
         it('Inneholder Feilomrade', () => {

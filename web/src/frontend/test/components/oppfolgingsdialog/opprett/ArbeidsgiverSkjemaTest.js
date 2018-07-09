@@ -5,6 +5,7 @@ import { Field } from 'redux-form';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import {
     ArbeidsgiverSkjema,
     VelgArbeidsgiverUndertekst,
@@ -57,7 +58,7 @@ describe('ArbeidsgiverSkjema', () => {
     });
 
     it('Skal vise rett submit knapp', () => {
-        expect(komponent.find('button.knapp')).to.have.length(1);
+        expect(komponent.find(Hovedknapp)).to.have.length(1);
     });
 
     it('Skal vise 2 radioknapper med 2 arbeidsgivere uten opprettet plan', () => {

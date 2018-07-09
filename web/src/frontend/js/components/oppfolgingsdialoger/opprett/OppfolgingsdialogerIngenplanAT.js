@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
 import {
     proptypes as oppfolgingProptypes,
@@ -17,23 +18,23 @@ export const OppfolgingsdialogerIngenplanKnapper = (
     }) => {
     return (
         <div className="knapperad knapperad--justervenstre">
-            { erOppfolgingsdialogOpprettbarDirekte(arbeidsgivere, oppfolgingsdialoger) ?
-                <button
-                    className="knapp knapperad__element"
-                    onClick={() => {
-                        opprett(arbeidsgivere[0].virksomhetsnummer);
-                    }}>
-                    {getLedetekst('oppfolgingsdialog.knapp.ny-oppfolgingsdialog')}
-                </button>
-                :
-                <button
-                    className="knapp knapperad__element"
-                    onClick={() => {
-                        visOppfolgingsdialogOpprett(true);
-                    }}>
-                    {getLedetekst('oppfolgingsdialog.knapp.ny-oppfolgingsdialog')}
-                </button>
-            }
+            <div className="knapperad__element">
+                { erOppfolgingsdialogOpprettbarDirekte(arbeidsgivere, oppfolgingsdialoger) ?
+                    <Hovedknapp
+                        onClick={() => {
+                            opprett(arbeidsgivere[0].virksomhetsnummer);
+                        }}>
+                        {getLedetekst('oppfolgingsdialog.knapp.ny-oppfolgingsdialog')}
+                    </Hovedknapp>
+                    :
+                    <Hovedknapp
+                        onClick={() => {
+                            visOppfolgingsdialogOpprett(true);
+                        }}>
+                        {getLedetekst('oppfolgingsdialog.knapp.ny-oppfolgingsdialog')}
+                    </Hovedknapp>
+                }
+            </div>
         </div>
     );
 };

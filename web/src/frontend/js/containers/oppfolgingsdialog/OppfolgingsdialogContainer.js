@@ -143,9 +143,10 @@ export class OppfolgingsdialogSide extends Component {
                         tekst={getLedetekst('oppfolgingsdialog.infoboks.ikke-tilgang.kodebegrensning.tekst')}
                     />);
                 }
-                return (
-                    <Oppfolgingsdialog {...this.props} steg={navigasjontoggles.steg} />
-                );
+                return (<Oppfolgingsdialog
+                    {...this.props}
+                    steg={navigasjontoggles.steg}
+                />);
             })()
             }
         </Side>);

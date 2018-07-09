@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Alertstripe from 'nav-frontend-alertstriper';
 import {
     getLedetekst,
     keyValue,
@@ -21,8 +22,6 @@ import {
     UnderUtviklingVarsel,
     OppfolgingsdialogUtenSykmelding,
     OppfolgingsdialogerUtenAktivSykmelding,
-    NotifikasjonBoks,
-    NOTIFIKASJONBOKS_TYPE,
 } from 'oppfolgingsdialog-npm';
 import {
     dinesykmeldingerReducerPt,
@@ -130,10 +129,20 @@ class Oppfolgingsdialoger extends Component {
         }
         return (<div>
             { toggles.data['syfotoggles.send.oppfoelgingsdialog.fastlege'] === 'false' &&
-            <NotifikasjonBoks
-                imgUrl={`${getContextRoot()}/img/svg/notifikasjon-illustrasjon.svg`}
-                tekst={getLedetekst('oppfolgingsdialog.oppfolgingsdialoger.notifikasjonboks.generell-info')}
-                type={NOTIFIKASJONBOKS_TYPE.ADVARSEL}
+            <Alertstripe
+                className="alertstripe--notifikasjonboks"
+                type="info"
+                solid
+            >
+                {getLedetekst('oppfolgingsdialog.oppfolgingsdialoger.notifikasjonboks.generell-info')}
+            </Alertstripe>
+            }
+
+            { dialogerAvbruttAvMotpartSidenSistInnlogging.length > 0 &&
+            <AvbruttPlanNotifikasjonBoksAdvarsel
+                ledetekster={ledetekster}
+                motpartnavn={dialogerAvbruttAvMotpartSidenSistInnlogging[0].sistEndretAv.navn}
+                rootUrl={getContextRoot()}
             />
             }
             <UnderUtviklingVarsel
@@ -141,18 +150,11 @@ class Oppfolgingsdialoger extends Component {
                 rootUrl={getContextRoot()}
             />
             <Sidetopp
-                tittel={getLedetekst('oppfolgingsdialoger.sidetittel')} />
+                tittel={getLedetekst('oppfolgingsdialoger.sidetittel')}
+            />
             <OppfolgingsdialogerInfoPersonvern
                 ledetekster={ledetekster}
             />
-
-            {
-                dialogerAvbruttAvMotpartSidenSistInnlogging.length > 0 && <AvbruttPlanNotifikasjonBoksAdvarsel
-                    ledetekster={ledetekster}
-                    motpartnavn={dialogerAvbruttAvMotpartSidenSistInnlogging[0].sistEndretAv.navn}
-                    rootUrl={getContextRoot()}
-                />
-            }
 
             {panel}
         </div>);

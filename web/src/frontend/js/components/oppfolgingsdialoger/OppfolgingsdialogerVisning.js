@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Knapp } from 'nav-frontend-knapper';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
 import {
     OppfolgingsdialogTeasere,
@@ -21,13 +22,12 @@ import OppfolgingsdialogerIngenplanAT from './opprett/OppfolgingsdialogerIngenpl
 
 export const OppfolgingsdialogNyKnapp = ({ visOppfolgingsdialogOpprett }) => {
     return (<div className="oppfolgingsdialogNyDialog">
-        <button
-            className="rammeknapp"
+        <Knapp
             onClick={() => {
                 visOppfolgingsdialogOpprett(true);
             }}>
             {getLedetekst('oppfolgingsdialog.oppfolgingsdialogNyDialog.knapp')}
-        </button>
+        </Knapp>
     </div>);
 };
 OppfolgingsdialogNyKnapp.propTypes = {

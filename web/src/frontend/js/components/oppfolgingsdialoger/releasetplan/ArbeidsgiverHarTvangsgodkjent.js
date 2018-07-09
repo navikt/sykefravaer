@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { getLedetekst, Utvidbar, keyValue } from 'digisyfo-npm';
 import {
     OppfolgingsdialogInnholdboks,
@@ -49,9 +50,11 @@ class ArbeidsgiverHarTvangsgodkjent extends Component {
                     </Utvidbar>
 
                     <div className="knapperad">
-                        <button className="knapp knapperad__element" type="button" onClick={markerMottattTvungenGodkjenning}>
-                            {getLedetekst('oppfolgingsdialog.knapp.videre')}
-                        </button>
+                        <div className="knapperad__element">
+                            <Hovedknapp onClick={markerMottattTvungenGodkjenning}>
+                                {getLedetekst('oppfolgingsdialog.knapp.videre')}
+                            </Hovedknapp>
+                        </div>
                     </div>
                 </div>
             </OppfolgingsdialogInnholdboks>);

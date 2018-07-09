@@ -3,6 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
+import { Knapp } from 'nav-frontend-knapper';
 import {
     OppfolgingsdialogTeasere,
 } from 'oppfolgingsdialog-npm';
@@ -191,7 +192,7 @@ describe('Oppfolgingsdialoger', () => {
             komponent = shallow(<OppfolgingsdialogNyKnapp
                 visOppfolgingsdialogOpprett={visOppfolgingsdialogOpprett}
             />);
-            komponent.find('button').simulate('click');
+            komponent.find(Knapp).simulate('click');
             expect(visOppfolgingsdialogOpprett.calledOnce).to.equal(true);
         });
     });

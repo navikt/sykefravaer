@@ -26,7 +26,7 @@ export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }
     return (<div>
         <div className="sidebanner sidebanner--utenramme">
             <div className="sidebanner__innhold blokk--xl">
-                <Bjorn rootUrl={ getContextRoot() } stor hvit vertikal>
+                <Bjorn rootUrl={getContextRoot()} stor hvit vertikal>
                     <p>{ getLedetekst('sykepengesoknad-utland.bjorn') }</p>
                 </Bjorn>
             </div>
@@ -37,7 +37,7 @@ export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }
             </header>
             <div
                 className="panel blokk redaksjonelt-innhold"
-                dangerouslySetInnerHTML={ getHtmlLedetekst('sykepengesoknad-utland.tekst') }
+                dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad-utland.tekst')}
             />
             <Feilmelding opprettFeilet={opprettFeilet} />
             <div className="knapperad">
@@ -56,7 +56,8 @@ export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }
                     </button>
                 </p>
                 <p>
-                    <a className="lenke"
+                    <a
+                        className="lenke"
                         href="https://www.nav.no/no/NAV+og+samfunn/Om+NAV/personvern-i-arbeids-og-velferdsetaten"
                         target="_blank"
                         rel="noopener noreferrer"

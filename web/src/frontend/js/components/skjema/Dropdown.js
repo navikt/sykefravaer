@@ -21,6 +21,7 @@ const Dropdown = ({ alternativer, valgtAlternativ, ariaControls, id, onChange, l
 };
 
 Dropdown.propTypes = {
+    label: PropTypes.string,
     alternativer: PropTypes.arrayOf(PropTypes.shape({
         tekst: PropTypes.string,
         verdi: PropTypes.string,

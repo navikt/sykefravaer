@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Radio } from 'nav-frontend-skjema';
 import { fieldPropTypes } from '../../propTypes';
 import Feilomrade from './Feilomrade';
-import { Radio } from 'nav-frontend-skjema';
 
 export const getLabelId = (id) => {
     const nyId = id

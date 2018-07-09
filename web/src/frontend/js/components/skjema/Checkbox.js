@@ -8,14 +8,16 @@ const Box = ({ input, label, id, children }) => {
         <Checkbox
             id={id}
             label={label}
-            checked={input.value} {...input} />
+            checked={input.value}
+            {...input}
+        />
         {
             input.value === true && children && <div className="ekstrasporsmal">{children}</div>
         }
     </div>);
 };
 
-Checkbox.propTypes = {
+Box.propTypes = {
     input: fieldPropTypes.input,
     label: PropTypes.string,
     id: PropTypes.string,

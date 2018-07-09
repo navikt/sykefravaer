@@ -6,10 +6,10 @@ import { fieldPropTypes } from '../../propTypes';
 export const getFeilFraMeta = (meta) => {
     return meta.touched && meta.error
         ? {
-            feilmelding: meta.error
+            feilmelding: meta.error,
         }
         : null;
-}
+};
 
 const Tekstfelt = (props) => {
     const { meta, input, id, label } = props;
@@ -30,6 +30,7 @@ Tekstfelt.propTypes = {
     meta: fieldPropTypes.meta,
     id: PropTypes.string,
     input: fieldPropTypes.input,
+    label: PropTypes.string,
     type: PropTypes.string,
     className: PropTypes.string,
     onKeyUp: PropTypes.func,

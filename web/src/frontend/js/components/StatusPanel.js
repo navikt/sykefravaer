@@ -28,7 +28,7 @@ Nokkelopplysninger.propTypes = {
     sykmelding: sykmeldingPt,
 };
 
-const StatusPanel = ({ sykmelding, nokkelopplysninger, type, children }) => {
+const StatusPanel = ({ sykmelding, nokkelopplysninger, children }) => {
     return (<div className="panel panel--komprimert blokk">
         <Nokkelopplysninger nokkelopplysninger={nokkelopplysninger} sykmelding={sykmelding} />
         {children}

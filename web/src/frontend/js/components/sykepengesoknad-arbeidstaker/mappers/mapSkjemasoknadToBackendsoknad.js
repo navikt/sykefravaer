@@ -1,5 +1,6 @@
 import { fraInputdatoTilJSDato } from 'digisyfo-npm';
 import { visSoktOmSykepengerUtenlandsoppholdsporsmal } from '../FravaerOgFriskmelding/SoktOmSykepengerIUtenlandsopphold';
+import { getStillingsprosent } from '../AktiviteterISykmeldingsperioden/DetteTilsvarer';
 
 const parsePerioder = (perioder) => {
     return perioder.map((periode) => {
@@ -55,7 +56,7 @@ const tilInt = (streng) => {
     return parseFloat(streng.replace(',', '.'));
 };
 
-const getAktiviteter = (aktiviteter) => {
+const getAktiviteter = (aktiviteter, ferieOgPermisjonPerioder) => {
     return aktiviteter.map((aktivitet) => {
         const _a = {
             periode: aktivitet.periode,
@@ -67,8 +68,13 @@ const getAktiviteter = (aktiviteter) => {
                 arbeidstimerNormalUke: tilInt(aktivitet.avvik.arbeidstimerNormalUke),
             };
             if (aktivitet.avvik.enhet === 'timer') {
+                const stillingsprosent = getStillingsprosent(
+                    aktivitet.avvik.timer,
+                    aktivitet.avvik.arbeidstimerNormalUke,
+                    aktivitet.periode,
+                    ferieOgPermisjonPerioder);
                 _a.avvik.timer = tilInt(aktivitet.avvik.timer);
-                _a.avvik.beregnetArbeidsgrad = tilInt(aktivitet.avvik.beregnetArbeidsgrad);
+                _a.avvik.beregnetArbeidsgrad = stillingsprosent;
             } else {
                 _a.avvik.arbeidsgrad = tilInt(aktivitet.avvik.arbeidsgrad);
             }
@@ -101,16 +107,19 @@ const mapSkjemasoknadToBackendsoknad = (soknad, alternativer = {}) => {
     const permisjon = harHattPermisjon ? soknad.permisjon : [];
     const ferie = harHattFerie ? soknad.ferie : [];
     const utenlandsopphold = harHattUtenlandsopphold ? getUtenlandsopphold(soknad) : null;
+    const permisjonperioder = parsePerioder(permisjon);
+    const ferieperioder = parsePerioder(ferie);
+    const ferieOgPermisjonPerioder = [...ferieperioder, ...permisjonperioder];
 
     const backendSoknad = {
         ...soknad,
-        permisjon: parsePerioder(permisjon),
-        ferie: parsePerioder(ferie),
+        permisjon: permisjonperioder,
+        ferie: ferieperioder,
         utenlandsopphold,
         andreInntektskilder: parseInntektskilder(soknad.andreInntektskilder),
         gjenopptattArbeidFulltUtDato: soknad.harGjenopptattArbeidFulltUt ? fraInputdatoTilJSDato(soknad.gjenopptattArbeidFulltUtDato) : null,
         egenmeldingsperioder: soknad.bruktEgenmeldingsdagerFoerLegemeldtFravaer ? parsePerioder(soknad.egenmeldingsperioder) : [],
-        aktiviteter: getAktiviteter(soknad.aktiviteter),
+        aktiviteter: getAktiviteter(soknad.aktiviteter, ferieOgPermisjonPerioder),
         utdanning: getUtdanning(soknad.utdanning),
     };
 

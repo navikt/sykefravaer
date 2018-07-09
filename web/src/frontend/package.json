@@ -36,8 +36,7 @@
     "nais-build": "npm-run-all nais-clean nais-deploy nais-images nais-filmtekster",
     "start": "node ./server.js",
     "naisdev-start": "node ./server.js local",
-    "naisdev": "npm-run-all nais-clean nais-images nais-filmtekster scripts:watch",
-    "lesstest": "lessc styles/styles.less > test.css"
+    "naisdev": "npm-run-all nais-clean nais-images nais-filmtekster scripts:watch"
   },
   "nyc": {
     "require": [

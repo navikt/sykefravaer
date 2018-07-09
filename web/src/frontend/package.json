@@ -92,6 +92,8 @@
     "nav-logger": "2.0.3",
     "oppfolgingsdialog-npm": "4.1.1",
     "prom-client": "11.1.0",
+    "prop-types": "15.6.0",
+    "react": "16.2.0",
     "promise": "8.0.1",
     "promise-polyfill": "6.0.2",
     "prop-types": "15.6.0",

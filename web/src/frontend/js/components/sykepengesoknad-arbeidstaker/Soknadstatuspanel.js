@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Varselstripe, SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst, getHtmlLedetekst, Hjelpetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { erSendtTilBeggeMenIkkeSamtidig, getSendtTilSuffix } from '../../utils/sykepengesoknadUtils';
 import { formaterOrgnr } from '../../utils';
@@ -35,10 +36,7 @@ const getStatusTekst = (sykepengesoknad) => {
 };
 
 export const tilSendingHjelpetekst = () => {
-    return (<Hjelpetekst
-        id="til-sending-hjelpetekst"
-        tittel={getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tittel')}
-        tekst={getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tekst')} />);
+    return (<Hjelpetekst>{getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tekst')}</Hjelpetekst>);
 };
 
 const SykepengerInfo = ({ sykepengesoknad }) => {
@@ -54,16 +52,15 @@ SykepengerInfo.propTypes = {
 const SendtLikt = ({ sykepengesoknad }) => {
     const tekst = getStatusTekst(sykepengesoknad);
     return (<div className="statusopplysninger">
-        <SykmeldingNokkelOpplysning Overskrift="h2" tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
+        <div Overskrift="h2" tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
             {
-                sykepengesoknad.status === TIL_SENDING ?
-                    <div>
+                sykepengesoknad.status === TIL_SENDING
+                    ? (<div>
                         <span>{tekst}</span>{tilSendingHjelpetekst()}
-                    </div>
-                    :
-                    <p>{tekst}</p>
+                    </div>)
+                    : <p>{tekst}</p>
             }
-        </SykmeldingNokkelOpplysning>
+        </div>
         <SykepengerInfo sykepengesoknad={sykepengesoknad} />
     </div>);
 };
@@ -91,19 +88,15 @@ SendtUlikt.propTypes = {
 
 const Statuspanel = ({ sykepengesoknad, children }) => {
     return (<div className="panel panel--komprimert blokk">
-        <Varselstripe type="suksess">
-            <div>
-                {
-                    (() => {
-                        if (erSendtTilBeggeMenIkkeSamtidig(sykepengesoknad)) {
-                            return <SendtUlikt sykepengesoknad={sykepengesoknad} />;
-                        }
-                        return <SendtLikt sykepengesoknad={sykepengesoknad} />;
-                    })()
+        {
+            (() => {
+                if (erSendtTilBeggeMenIkkeSamtidig(sykepengesoknad)) {
+                    return <SendtUlikt sykepengesoknad={sykepengesoknad} />;
                 }
-                {children}
-            </div>
-        </Varselstripe>
+                return <SendtLikt sykepengesoknad={sykepengesoknad} />;
+            })()
+        }
+        {children}
     </div>);
 };
 

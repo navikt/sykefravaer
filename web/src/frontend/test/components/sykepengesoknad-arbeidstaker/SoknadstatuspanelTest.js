@@ -1,4 +1,5 @@
-import { Hjelpetekst, setLedetekster, Varselstripe, sykepengesoknadstatuser as statuser } from 'digisyfo-npm';
+import { setLedetekster, sykepengesoknadstatuser as statuser } from 'digisyfo-npm';
+import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import chai from 'chai';
 import React from 'react';
 import { mount } from 'enzyme';
@@ -27,13 +28,6 @@ describe('Soknadstatuspanel', () => {
             'sykepengesoknad.sykepengeinfo.tittel': 'Utbetaling av sykepenger',
         });
         /* eslint-disable max-len */
-    });
-
-    it('Skal inneholde en Varselstripe', () => {
-        const component = mount(<Statuspanel sykepengesoknad={getSoknad({
-            status: statuser.TIL_SENDING,
-        })} />);
-        expect(component.find(Varselstripe)).to.have.length(1);
     });
 
     describe('Når søknaden sendes til NAV', () => {

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Varselstripe, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import cn from 'classnames';
+import { Knapp } from 'nav-frontend-knapper';
+import { Varselstripe, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Lightbox from '../Lightbox';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import * as actions from '../../actions/sykepengesoknader_actions';
@@ -98,13 +99,13 @@ export const EttersendKvittering = ({ onClose, ledetekstKeySuffix }) => {
     return (<div>
         <p className="hode hode--suksess">{getLedetekst(`sykepengesoknad.ettersending.kvittering.${ledetekstKeySuffix}`)}</p>
         <div className="knapperad">
-            <button
-                className="rammeknapp js-lukk"
+            <Knapp
+                className="js-lukk"
                 href="#"
                 onClick={(e) => {
                     e.preventDefault();
                     onClose();
-                }}>Lukk</button>
+                }}>Lukk</Knapp>
         </div>
     </div>);
 };
@@ -165,7 +166,8 @@ export class Ettersending extends Component {
         }
         return (<div className="verktoylinje__element">
             {
-                !sykepengesoknad[manglendeDato] && <button
+                !sykepengesoknad[manglendeDato] && <Knapp
+                    mini
                     ref={(c) => {
                         this.triggEttersending = c;
                     }}
@@ -175,7 +177,9 @@ export class Ettersending extends Component {
                             visLightbox: true,
                         });
                     }}
-                    className="js-trigger rammeknapp rammeknapp--mini">{getLedetekst(`sykepengesoknad.ettersending.knapp.${ledetekstKeySuffix}`)}</button>
+                    className="js-trigger">
+                    {getLedetekst(`sykepengesoknad.ettersending.knapp.${ledetekstKeySuffix}`)}
+                </Knapp>
             }
             {
                 this.state.visLightbox && <EttersendLightbox

@@ -10,7 +10,7 @@ const StrengtFortroligInfo = ({ sykmeldingId }) => {
             className="hode hode--advarsel redaksjonelt-innhold"
             dangerouslySetInnerHTML={getHtmlLedetekst('send-til-arbeidsgiver.skjermingskode-6.infotekst')} />
         <div className="knapperad">
-            <Link target="_blank" to={`${getContextRoot()}/sykmeldinger/${sykmeldingId}/skriv-ut`} className="rammeknapp">
+            <Link target="_blank" to={`${getContextRoot()}/sykmeldinger/${sykmeldingId}/skriv-ut`} className="knapp">
                 {getLedetekst('send-til-arbeidsgiver.skjermingskode-6.skriv-ut')}
             </Link>
         </div>

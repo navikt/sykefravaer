@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Knapp } from 'nav-frontend-knapper';
 import { getLedetekst, Varselstripe, SykmeldingNokkelOpplysning, toDatePrettyPrint, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
@@ -9,14 +10,15 @@ const Verktoylinje = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFeil
     return (<div>
         <div className={`verktoylinje ${gjenapneFeilet ? 'blokk--mini' : ''}`}>
             <div className="verktoylinje__element">
-                <button
+                <Knapp
+                    mini
                     onClick={(e) => {
                         e.preventDefault();
                         gjenapneSoknad(sykepengesoknad.id);
                     }}
-                    className="rammeknapp rammeknapp--mini js-gjenapne">
+                    className="js-gjenapne">
                     {getLedetekst('sykepengesoknad.gjenapne.knapp')}
-                    { gjenapner ? <span className="knapp__spinner" /> : null }</button>
+                    { gjenapner ? <span className="knapp__spinner" /> : null }</Knapp>
             </div>
         </div>
         <div aria-live="polite">

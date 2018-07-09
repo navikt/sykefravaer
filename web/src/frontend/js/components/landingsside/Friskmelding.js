@@ -37,27 +37,24 @@ Friskmeldingslightbox.propTypes = {
     lukk: PropTypes.func,
 };
 
-const TekstOgKnapp = ({ onClick, withRef, tekstnokkel }) => {
+const TekstOgKnapp = ({ onClick, tekstnokkel }) => {
     return (<div>
         <p>{getLedetekst(tekstnokkel)}</p>
         <p className="sist">
             <Knapp
                 mini
-                ref={withRef}
-                onClick={onClick}
-                type="button">{getLedetekst('friskmelding.bjorn-knapp')}</Knapp>
+                onClick={onClick}>{getLedetekst('friskmelding.bjorn-knapp')}</Knapp>
         </p>
     </div>);
 };
 
 TekstOgKnapp.propTypes = {
     onClick: PropTypes.func,
-    withRef: PropTypes.func,
     tekstnokkel: PropTypes.string,
 };
 
-const TekstOgLenke = ({ onClick, withRef, tekstnokkel }) => {
-    return (<p>{getLedetekst(tekstnokkel)} <button ref={withRef} onClick={onClick} type="button" className="lenke">Les mer om hva du kan gjøre.</button></p>);
+const TekstOgLenke = ({ onClick, tekstnokkel }) => {
+    return (<p>{getLedetekst(tekstnokkel)} <button onClick={onClick} type="button" className="lenke">Les mer om hva du kan gjøre.</button></p>);
 };
 
 TekstOgLenke.propTypes = TekstOgKnapp.propTypes;
@@ -67,7 +64,6 @@ class Friskmelding extends Component {
         super(props);
         this.visLightbox = this.visLightbox.bind(this);
         this.lukkLightbox = this.lukkLightbox.bind(this);
-        this.withRef = this.withRef.bind(this);
         this.startABTest = this.startABTest.bind(this);
         this.state = {
             visLightbox: false,
@@ -87,7 +83,6 @@ class Friskmelding extends Component {
     }
 
     lukkLightbox() {
-        this.knapp.focus();
         this.setState({
             visLightbox: false,
         });
@@ -98,19 +93,15 @@ class Friskmelding extends Component {
         this.pushToDataLayer('FRISKMELDINGSKNAPP_VIST', variant);
     }
 
-    withRef(c) {
-        this.knapp = c;
-    }
-
     render() {
         return ([
             <Bjorn key="friskmeldingsbjorn" rootUrl={getContextRoot()} className="landingspanel" hvit>
                 <Experiment name="friskmeldingsknapp_lenke_eller_knapp" onChoice={this.startABTest}>
                     <Variant name="FRISKMELDING_KNAPP">
-                        <TekstOgKnapp onClick={this.visLightbox} withRef={this.withRef} tekstnokkel="friskmelding.bjorn" />
+                        <TekstOgKnapp onClick={this.visLightbox} tekstnokkel="friskmelding.bjorn" />
                     </Variant>
                     <Variant name="FRISKMELDING_LENKE">
-                        <TekstOgLenke onClick={this.visLightbox} withRef={this.withRef} tekstnokkel="friskmelding.bjorn" />
+                        <TekstOgLenke onClick={this.visLightbox} tekstnokkel="friskmelding.bjorn" />
                     </Variant>
                 </Experiment>
             </Bjorn>,

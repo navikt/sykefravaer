@@ -5,7 +5,7 @@ import history from '../../../history';
 import Soknadskjema from '../Soknadskjema';
 import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
 import { SYKEPENGER_SKJEMANAVN } from '../../../utils/sykepengesoknadUtils';
-import Checkbox from '../../soknad-felles/Checkbox';
+import Checkboxpanel from '../../soknad-felles/Checkboxpanel';
 import { ANSVARSERKLARING } from '../../../enums/tagtyper';
 import { soknad as soknadPt } from '../../../propTypes';
 
@@ -27,7 +27,7 @@ export const FoerDuBegynnerSkjema = (props) => {
         <FeiloppsummeringContainer skjemanavn={SYKEPENGER_SKJEMANAVN} />
         <div className="panel redaksjonelt-innhold">
             <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
-            <Checkbox {...sporsmal[0]} name={sporsmal[0].tag} />
+            <Checkboxpanel {...sporsmal[0]} name={sporsmal[0].tag} />
         </div>
         <div className="knapperad">
             <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>

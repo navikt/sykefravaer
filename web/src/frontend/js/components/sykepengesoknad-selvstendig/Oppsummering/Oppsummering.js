@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import cn from 'classnames';
 import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from 'digisyfo-npm';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import Soknadskjema from '../Soknadskjema';
 import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes';
 import Knapperad from '../../skjema/Knapperad';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
 import { BEKREFT_OPPLYSNINGER } from '../../../enums/tagtyper';
-import Checkbox from '../../soknad-felles/Checkbox';
+import Checkboxpanel from '../../soknad-felles/Checkboxpanel';
 
 const OppsummeringUtvidbar = ({ soknad }) => {
     return (<Utvidbar className="blokk" variant="lilla" tittel={getLedetekst('sykepengesoknad.sidetittel')} erApen>
@@ -19,22 +19,6 @@ const OppsummeringUtvidbar = ({ soknad }) => {
 
 OppsummeringUtvidbar.propTypes = {
     soknad: soknadPt,
-};
-
-const Knapp = ({ children, className = '', visSpinner, ...rest }) => {
-    const classNames = cn('knapp', {
-        'knapp--spinner': visSpinner,
-    });
-    return (<button {...rest} className={`${classNames} ${className}`}>
-        {children}
-        { visSpinner && <span className="knapp__spinner" /> }
-    </button>);
-};
-
-Knapp.propTypes = {
-    children: PropTypes.string,
-    className: PropTypes.string,
-    visSpinner: PropTypes.bool,
 };
 
 export const hentSporsmalForOppsummering = (soknad) => {
@@ -53,13 +37,13 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
         { skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} /> }
         <div className="bekreftet-container">
-            <Checkbox {...sporsmal} name={sporsmal.tag} />
+            <Checkboxpanel {...sporsmal} name={sporsmal.tag} />
         </div>
         <Knapperad variant="knapperad--forrigeNeste">
             <Link
                 to={`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
-                className="rammeknapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
-            <Knapp type="submit" className="js-send" visSpinner={sender}>{getLedetekst('sykepengesoknad.send')}</Knapp>
+                className="knapp">{getLedetekst('sykepengesoknad.tilbake')}</Link>
+            <Hovedknapp className="js-send" spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
         </Knapperad>
     </form>);
 };

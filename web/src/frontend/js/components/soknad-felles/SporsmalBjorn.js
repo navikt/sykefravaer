@@ -32,11 +32,11 @@ SporsmalBjornComponent.propTypes = {
 
 export function mapStateToProps(state, ownProps) {
     const selector = formValueSelector(OPPHOLD_UTLAND_SKJEMA);
-    const val = selector(state, ownProps.tag);
+    const feltVerdi = selector(state, ownProps.tag);
     return {
         vis: sporsmalMedBjorn[ownProps.tag] === undefined
             ? false
-            : sporsmalMedBjorn[ownProps.tag] === formaterEnkeltverdi(val),
+            : sporsmalMedBjorn[ownProps.tag] === formaterEnkeltverdi(feltVerdi),
     };
 }
 

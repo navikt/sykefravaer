@@ -7,6 +7,7 @@ import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { childEllerChildren, fieldPropTypes, sporsmal as sporsmalPt } from '../../propTypes';
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { JA, NEI } from '../../enums/svarEnums';
+import SporsmalBjorn from './SporsmalBjorn';
 
 const jaEllerNeiAlternativer = [JA, NEI];
 
@@ -52,11 +53,11 @@ RendreJaEllerNei.propTypes = {
 };
 
 const JaEllerNei = (props) => {
-    return (<Field
+    return ([<Field
         format={formaterEnkeltverdi}
         parse={genererParseForEnkeltverdi(props.id)}
         component={RendreJaEllerNei}
-        {...props} />);
+        {...props} />, <SporsmalBjorn tag={props.tag} />]);
 };
 
 JaEllerNei.propTypes = {

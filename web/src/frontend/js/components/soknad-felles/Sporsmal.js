@@ -13,6 +13,7 @@ import {
     PERIODER,
     PROSENT,
     TIMER,
+    INFORMASJON,
 } from '../../enums/svartyper';
 import Perioder from './Perioder';
 import Checkbox from './Checkbox';
@@ -20,6 +21,8 @@ import Tall from './Tall';
 import Dato from './Dato';
 import CheckboxGruppe from './CheckboxGruppe';
 import Tekstinput from './Tekstinput';
+import Informasjon from './Informasjon';
+
 
 const Sporsmal = ({ sporsmal, name }) => {
     const undersporsmal = sporsmal.undersporsmal.map((underspm) => {
@@ -64,13 +67,16 @@ const Sporsmal = ({ sporsmal, name }) => {
                 { undersporsmal }
             </CheckboxGruppe>);
         }
-
         case FRITEKST: {
             return (<Tekstinput {...sporsmal} name={name}>
                 { undersporsmal }
             </Tekstinput>);
         }
-
+        case INFORMASJON: {
+            return (<Informasjon {...sporsmal} name={name} >
+                { undersporsmal}
+            </Informasjon>);
+        }
         default: {
             return null;
         }

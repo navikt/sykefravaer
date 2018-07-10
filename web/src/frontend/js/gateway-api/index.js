@@ -64,11 +64,11 @@ export const hentApiUrl = () => {
         : '';
     if (url.indexOf('tjenester.nav') > -1) {
         // Prod
-        return 'https://syfoapi.nav.no/syfoapi/rest/soknad';
+        return 'https://syfoapi.nav.no/syfosoknad/api';
     } else if (url.indexOf('localhost') > -1) {
         // Lokalt
-        return 'http://localhost:8080/syfoapi/rest/soknad';
+        return 'http://localhost:8080/syfoapi/syfosoknad/api';
     }
     // Preprod
-    return 'https://syfoapi-q.nav.no/syfoapi/rest/soknad';
+    return 'https://syfoapi-q.nav.no/syfosoknad/api';
 };

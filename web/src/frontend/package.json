@@ -5,9 +5,7 @@
   "main": "index.js",
   "test": "npm run test",
   "scripts": {
-    "analyze": "source-map-explorer ../main/webapp/js/bundle-prod.*",
     "postinstall": "npm install babel-loader",
-    "dev": "npm-run-all images static:build:local scripts:watch filmtekster",
     "build": "npm-run-all deploy images filmtekster",
     "test": "mocha --compilers js:babel-core/register --require babel-polyfill --require ignore-styles  ./test/setup.js \"test/**/*.@(js|jsx)\"",
     "test:watch": "npm run test -- --watch",
@@ -35,8 +33,8 @@
     "nais-filmtekster": "cp -R filmtekster ./dist/resources/",
     "nais-build": "npm-run-all nais-clean nais-deploy nais-images nais-filmtekster",
     "start": "node ./server.js",
-    "naisdev-start": "node ./server.js local",
-    "naisdev": "npm-run-all nais-clean nais-images nais-filmtekster scripts:watch"
+    "startdev": "node ./server.js local",
+    "dev": "npm-run-all nais-clean nais-images nais-filmtekster scripts:watch"
   },
   "nyc": {
     "require": [

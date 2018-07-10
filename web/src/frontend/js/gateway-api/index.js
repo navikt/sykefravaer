@@ -70,5 +70,5 @@ export const hentApiUrl = () => {
         return 'http://localhost:8080/syfoapi/syfosoknad/api';
     }
     // Preprod
-    return 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/';
+    return 'https://syfoapi-q.nav.no/syfoapi/rest/soknad';
 };

@@ -14,7 +14,7 @@ const Aktivitetskrav = (props) => {
     })}>
         <div role="alert" aria-live="polite">
             { bekreftFeilet && (
-                <Alertstripe type="advarsel">
+                <Alertstripe type="advarsel" className="blokk">
                     <p className="sist">Beklager! Det oppstod en feil! Prøv igjen litt senere.</p>
                 </Alertstripe>)
             }

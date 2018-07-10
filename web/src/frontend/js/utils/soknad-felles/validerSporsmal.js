@@ -1,7 +1,7 @@
 import { getLedetekst } from 'digisyfo-npm';
 import { formaterEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
 import { CHECKED } from '../../enums/svarEnums';
-import { CHECKBOX_GRUPPE, PERIODER } from '../../enums/svartyper';
+import { CHECKBOX_GRUPPE, PERIODER, FRITEKST } from '../../enums/svartyper';
 
 const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
     return sporsmalsliste
@@ -11,7 +11,7 @@ const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
         .filter((sporsmal) => {
             const verdi = formaterEnkeltverdi(values[sporsmal.tag]);
             const formatertVerdi = verdi === true ? CHECKED : verdi;
-            return sporsmal.svar && formatertVerdi === sporsmal.kriterieForVisningAvUndersporsmal;
+            return (sporsmal.svar && formatertVerdi === sporsmal.kriterieForVisningAvUndersporsmal);
         });
 };
 
@@ -22,6 +22,10 @@ export const beregnFeilmeldingnokkelFraTag = (tag) => {
 export const beregnFeilmeldingstekstFraTag = (tag) => {
     const nokkel = beregnFeilmeldingnokkelFraTag(tag);
     return getLedetekst(nokkel);
+};
+
+const verdiErTom = (verdi) => {
+    return (verdi || verdi === '') && verdi.trim && verdi.trim() === '';
 };
 
 const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldingerParam = {}) => {
@@ -58,8 +62,7 @@ const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldin
                     }
                     default: {
                         const verdi = formaterEnkeltverdi(values[undersporsmal.tag]);
-                        const verdiErTom = (verdi || verdi === '') && verdi.trim && verdi.trim() === '';
-                        if (verdiErTom) {
+                        if (verdiErTom(verdi)) {
                             feilmeldinger[undersporsmal.tag] = beregnFeilmeldingstekstFraTag(undersporsmal.tag);
                         }
                         break;
@@ -75,11 +78,15 @@ export default (sporsmal = [], values = {}) => {
     const feilmeldinger = {};
     sporsmal
         .filter((s) => {
-            return values[s.tag] === undefined ||
-                formaterEnkeltverdi(values[s.tag]) === false;
+            const verdi = formaterEnkeltverdi(values[s.tag]);
+            return (values[s.tag] === undefined
+                    || verdi === false
+                    || (s.svartype === FRITEKST && verdiErTom(verdi))
+            );
         })
         .forEach((s) => {
             feilmeldinger[s.tag] = beregnFeilmeldingstekstFraTag(s.tag);
         });
+
     return validerUndersporsmalsliste(sporsmal, values, feilmeldinger);
 };

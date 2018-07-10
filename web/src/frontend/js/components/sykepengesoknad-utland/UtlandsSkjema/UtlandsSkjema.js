@@ -8,6 +8,7 @@ import Sporsmal from '../../soknad-felles/Sporsmal';
 import { JA_NEI } from '../../../enums/svarverdityper';
 import { soknad as soknadPt } from '../../../propTypes';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
+import validate from '../validering/validerUtlandsSkjema';
 
 
 const UtlandsSkjema = ({ soknad, handleSubmit }) => {
@@ -43,4 +44,5 @@ UtlandsSkjema.propTypes = {
 
 export default reduxForm({
     form: OPPHOLD_UTLAND_SKJEMA,
+    validate,
 })(UtlandsSkjema);

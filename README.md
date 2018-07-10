@@ -9,15 +9,15 @@ Konsumerer REST-APIet til [SyfoREST](http://stash.devillo.no/projects/SYFO/repos
 
 ### Kjøre lokalt
 
-Du må ha Node installert. 
+Du må ha Node installert.
 
 Du må også konfigurere npm som følger:
 
 `npm config set @types:registry "http://a34apvl062.devillo.no:8082/repository/npm-all"`
 `npm config set @babel:registry "http://a34apvl062.devillo.no:8082/repository/npm-all"`
 
-* I web/src/frontend: Kjør `npm install`, dernest `npm run naisdev`. I et annet vindu, kjør `npm run naisdev-start`.
-* Kjør tester med `npm test` 
+* I web/src/frontend: Kjør `npm install`, dernest `npm run dev`. I et annet vindu, kjør `npm run devstart`.
+* Kjør tester med `npm test`
 * Lint JS-kode med `npm run lint`
 
 ### Logge på i T-miljø

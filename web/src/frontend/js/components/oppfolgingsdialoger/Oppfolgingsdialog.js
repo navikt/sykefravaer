@@ -89,7 +89,8 @@ class Oppfolgingsdialog extends Component {
             forespoerRevidering,
             oppfolgingsdialoger,
         } = this.props;
-        const oppfolgingsdialogAvbrutt = this.props.avbrytdialogReducer.sendt;
+        const oppfolgingsdialogAvbruttOgNyOpprettet = this.props.avbrytdialogReducer.sendt
+            && (this.props.avbrytdialogReducer.nyPlanId === oppfolgingsdialog.id);
         let panel;
         let disableNavigation = false;
         if (skalViseSamtykke(oppfolgingsdialog)) {
@@ -166,7 +167,7 @@ class Oppfolgingsdialog extends Component {
         }
 
         return (<div className="oppfolgingsdialog">
-            { oppfolgingsdialogAvbrutt &&
+            { oppfolgingsdialogAvbruttOgNyOpprettet &&
             <AvbruttGodkjentPlanVarsel
                 tekst={getLedetekst('oppfolgingdialog.avbruttGodkjentPlanVarsel.opprettet-plan')}
                 rootUrl={`${getContextRoot()}`}

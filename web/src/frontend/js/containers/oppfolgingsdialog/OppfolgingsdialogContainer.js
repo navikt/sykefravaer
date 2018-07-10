@@ -27,6 +27,7 @@ import {
     OppfolgingsdialogInfoboks,
     settDialog,
     avbrytDialog,
+    dialogAvbruttOgNyOpprettet,
     finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt,
     hentArbeidsforhold,
     hentVirksomhet,
@@ -80,13 +81,14 @@ export class OppfolgingsdialogSide extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { oppfolgingsdialogerReducer, avbrytdialogReducer } = this.props;
+        const { oppfolgingsdialogerReducer, avbrytdialogReducer, dialogAvbruttOgNyOpprettet } = this.props;
         if (oppfolgingsdialogHarBlittAvbrutt(avbrytdialogReducer, nextProps.avbrytdialogReducer)) {
             this.props.hentOppfolgingsdialoger();
         }
         if (avbrytdialogReducer.sendt && oppfolgingsdialogerReducer.henter && nextProps.oppfolgingsdialogerReducer.hentet) {
             const nyOpprettetDialog = finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt(nextProps.oppfolgingsdialoger, nextProps.oppfolgingsdialog.virksomhet.virksomhetsnummer);
             if (nyOpprettetDialog) {
+                dialogAvbruttOgNyOpprettet(nyOpprettetDialog.id);
                 history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.id}`);
                 window.location.hash = 'arbeidsoppgaver';
             }
@@ -198,6 +200,7 @@ OppfolgingsdialogSide.propTypes = {
     avvisDialog: PropTypes.func,
     settAktivtSteg: PropTypes.func,
     avbrytDialog: PropTypes.func,
+    dialogAvbruttOgNyOpprettet: PropTypes.func,
     settDialog: PropTypes.func,
     hentDineSykmeldinger: PropTypes.func,
     hentToggles: PropTypes.func,
@@ -297,6 +300,7 @@ const OppfolgingsdialogContainer = connect(mapStateToProps, {
     settDialog,
     hentArbeidsforhold,
     avbrytDialog,
+    dialogAvbruttOgNyOpprettet,
     hentDineSykmeldinger,
     hentToggles,
     hentVirksomhet,

@@ -15,5 +15,5 @@ export const toggleSykepengesoknadUtland = () => {
 };
 
 export const toggleBrukMockdataUtland = () => {
-    return true;
+    return false;
 };

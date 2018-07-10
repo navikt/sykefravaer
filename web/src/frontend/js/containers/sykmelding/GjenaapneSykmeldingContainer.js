@@ -9,7 +9,7 @@ function GjenaapneSykmeldingContainer({ sykmeldingId, gjenaapneSykmelding, gjena
     return (
         <div className="verktoylinje">
             <button
-                className="knapp knapp--mini"
+                className="knapp knapp--mini js-gjenaapne-sykmelding"
                 onClick={() => {
                     return gjenaapneSykmelding(sykmeldingId);
                 }}>

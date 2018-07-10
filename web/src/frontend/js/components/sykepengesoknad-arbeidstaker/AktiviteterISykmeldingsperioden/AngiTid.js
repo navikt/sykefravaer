@@ -121,6 +121,7 @@ class AngiTid extends Component {
                         const name = `enhet_${this.props.aktivitetIndex}`;
                         const id = `${name}_${index}`;
                         return (<Radio
+                            key={id}
                             onChange={() => {
                                 autofill(this.getAntallName(), null);
                                 untouch(this.getAntallName());

@@ -5,8 +5,14 @@ import { getSoknadUtland } from '../../../mockSoknader';
 import { ledeteksterUtland } from '../../../mockLedetekster';
 import { genererParseForCheckbox, genererParseForEnkeltverdi} from '../../../../js/components/soknad-felles/fieldUtils';
 import validerUtlandsSkjema from '../../../../js/components/sykepengesoknad-utland/validering/validerUtlandsSkjema';
-import {ARBEIDSGIVER, BEKREFT_OPPLYSNINGER_UTLAND, LAND, SYKMELDINGSGRAD} from '../../../../js/enums/tagtyper';
-import { beregnFeilmeldingnokkelFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
+import {
+    ARBEIDSGIVER,
+    BEKREFT_OPPLYSNINGER_UTLAND,
+    LAND,
+    PERIODEUTLAND,
+    SYKMELDINGSGRAD
+} from '../../../../js/enums/tagtyper';
+import { beregnFeilmeldingstekstFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
 import {JA, NEI} from "../../../../js/enums/svarEnums";
 
 chai.use(chaiEnzyme());
@@ -27,20 +33,20 @@ describe('validerUtlandsSkjema', () => {
     it('Skal klage hvis verdier er undefined', () => {
         const verdier = undefined;
         const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
-        expect(feilmeldinger[BEKREFT_OPPLYSNINGER_UTLAND]).to.equal(beregnFeilmeldingnokkelFraTag(BEKREFT_OPPLYSNINGER_UTLAND));
+        expect(feilmeldinger[BEKREFT_OPPLYSNINGER_UTLAND]).to.equal(beregnFeilmeldingstekstFraTag(BEKREFT_OPPLYSNINGER_UTLAND));
     });
 
     it('Skal klage hvis bruker ikke har krysset av på ansvarserklæring', () => {
         const verdier = {};
         const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
-        expect(feilmeldinger[BEKREFT_OPPLYSNINGER_UTLAND]).to.equal(beregnFeilmeldingnokkelFraTag(BEKREFT_OPPLYSNINGER_UTLAND));
+        expect(feilmeldinger[BEKREFT_OPPLYSNINGER_UTLAND]).to.equal(beregnFeilmeldingstekstFraTag(BEKREFT_OPPLYSNINGER_UTLAND));
     });
 
     it('Skal klage hvis bruker har krysset av på ansvarserklæring med en ugyldig verdi', () => {
         const verdier = {};
         verdier[BEKREFT_OPPLYSNINGER_UTLAND] = parse(false);
         const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
-        expect(feilmeldinger[BEKREFT_OPPLYSNINGER_UTLAND]).to.equal(beregnFeilmeldingnokkelFraTag(BEKREFT_OPPLYSNINGER_UTLAND));
+        expect(feilmeldinger[BEKREFT_OPPLYSNINGER_UTLAND]).to.equal(beregnFeilmeldingstekstFraTag(BEKREFT_OPPLYSNINGER_UTLAND));
     });
 
     it('Skal ikke klage hvis bruker har krysset av på ansvarserklæring', () => {
@@ -111,5 +117,19 @@ describe('validerUtlandsSkjema', () => {
         expect(feilmeldinger[SYKMELDINGSGRAD]).to.equal(undefined);
     });
 
+    it('Skal ikke klage når bruker har svart alt "riktig"', () => {
+        const verdier = {
+            [ARBEIDSGIVER]: enkeltverdi(JA),
+            [SYKMELDINGSGRAD]: enkeltverdi(JA),
+            [BEKREFT_OPPLYSNINGER_UTLAND]: parse(true),
+            [LAND]: enkeltverdi('Spania'),
+            [PERIODEUTLAND]: [{
+                fom: '27.06.2018',
+                tom: '30.06.2018',
+            }],
+        };
+        const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
+        expect(feilmeldinger).to.be.empty;
+    });
 
 });

@@ -81,6 +81,7 @@ export const mapStateToProps = (state, ownProps) => {
         };
     });
 
+    console.log(visFeilliste);
     return {
         skjemanavn,
         settFokus,

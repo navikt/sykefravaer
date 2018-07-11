@@ -7,4 +7,4 @@ export const CHECKBOX_GRUPPE = 'CHECKBOX_GRUPPE';
 export const CHECKBOX_PANEL = 'CHECKBOX_PANEL';
 export const PERIODER = 'PERIODER';
 export const FRITEKST = 'FRITEKST';
-export const INFORMASJON = 'INFORMASJON';
+export const IKKE_RELEVANT = 'IKKE_RELEVANT';

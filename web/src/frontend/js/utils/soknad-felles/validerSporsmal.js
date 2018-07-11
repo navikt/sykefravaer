@@ -1,7 +1,7 @@
 import { getLedetekst } from 'digisyfo-npm';
 import { formaterEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
 import { CHECKED } from '../../enums/svarEnums';
-import {CHECKBOX_GRUPPE, PERIODER, FRITEKST, INFORMASJON} from '../../enums/svartyper';
+import {CHECKBOX_GRUPPE, PERIODER, FRITEKST, IKKE_RELEVANT} from '../../enums/svartyper';
 
 const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
     return sporsmalsliste
@@ -82,7 +82,7 @@ export default (sporsmal = [], values = {}) => {
             return ((values[s.tag] === undefined
                     || verdi === false
                     || (s.svartype === FRITEKST && verdiErTom(verdi)))
-                        && s.svartype !== INFORMASJON
+                        && s.svartype !== IKKE_RELEVANT
             );
         })
         .forEach((s) => {

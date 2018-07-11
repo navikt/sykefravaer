@@ -13,7 +13,7 @@ import {
     PERIODER,
     PROSENT,
     TIMER,
-    INFORMASJON, CHECKBOX_PANEL,
+    IKKE_RELEVANT, CHECKBOX_PANEL,
 } from '../../enums/svartyper';
 import Perioder from './Perioder';
 import Checkbox from './Checkbox';
@@ -73,7 +73,7 @@ const Sporsmal = ({ sporsmal, name }) => {
                 { undersporsmal }
             </Tekstinput>);
         }
-        case INFORMASJON: {
+        case IKKE_RELEVANT: {
             return (<Informasjon {...sporsmal} name={name} >
                 { undersporsmal }
             </Informasjon>);

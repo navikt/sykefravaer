@@ -7,7 +7,7 @@ import Soknadskjema from '../Soknadskjema';
 import Sporsmal from '../../soknad-felles/Sporsmal';
 import { KnapperadTilbake } from '../../skjema/Knapperad';
 import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
-import { SYKEPENGER_SKJEMANAVN } from '../../../utils/sykepengesoknadUtils';
+import { SYKEPENGER_SKJEMANAVN } from '../../../enums/skjemanavn';
 import { ANDRE_INNTEKTSKILDER, UTDANNING, UTLAND } from '../../../enums/tagtyper';
 
 export const hentSporsmalForAktiviteterISykmeldingsperioden = (soknad) => {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Feilmelding from '../../components/Feilmelding';
-import { SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
+import { SYKEPENGER_SKJEMANAVN } from '../../enums/skjemanavn';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
 import * as soknadActions from '../../actions/sykepengesoknader_actions';
 

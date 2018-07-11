@@ -4,7 +4,7 @@ import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import history from '../../../history';
 import Soknadskjema from '../Soknadskjema';
 import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
-import { SYKEPENGER_SKJEMANAVN } from '../../../utils/sykepengesoknadUtils';
+import { SYKEPENGER_SKJEMANAVN } from '../../../enums/skjemanavn';
 import Checkboxpanel from '../../soknad-felles/Checkboxpanel';
 import { ANSVARSERKLARING } from '../../../enums/tagtyper';
 import { soknad as soknadPt } from '../../../propTypes';

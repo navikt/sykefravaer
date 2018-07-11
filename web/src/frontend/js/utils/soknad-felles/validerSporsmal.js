@@ -2,6 +2,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import { formaterEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
 import { CHECKED } from '../../enums/svarEnums';
 import { CHECKBOX_GRUPPE, PERIODER } from '../../enums/svartyper';
+import { validerPerioder } from '../../components/sykepengesoknad-arbeidstaker/validering/valideringUtils';
 
 const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
     return sporsmalsliste
@@ -53,7 +54,10 @@ const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldin
                         break;
                     }
                     case PERIODER: {
-                        // Perioder valideres i komponenten, og har en avvikende datastruktur i store
+                        const periodeFeilmeldinger = validerPerioder(values[undersporsmal.tag]);
+                        if (periodeFeilmeldinger) {
+                            feilmeldinger[undersporsmal.tag] = periodeFeilmeldinger;
+                        }
                         break;
                     }
                     default: {

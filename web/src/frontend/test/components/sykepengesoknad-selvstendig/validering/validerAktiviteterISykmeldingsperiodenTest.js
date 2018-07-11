@@ -131,7 +131,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
     });
 
     describe('Utenlandsopphold med perioder', () => {
-        it('Skal ikke klage når man har svart JA uten å fylle ut perioder (perioder valideres i selve komponenten)', () => {
+        it('Skal klage når man har svart JA uten å fylle ut perioder', () => {
             const soknad = getSoknad();
             const svar = parse(JA);
             const values = {
@@ -139,7 +139,10 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
                 [PERIODER]: [{}],
             };
             const feilmeldinger = validerAktiviteterISykmeldingsperioden(values, { soknad });
-            expect(feilmeldinger[PERIODER]).to.equal(undefined);
+            expect(feilmeldinger[PERIODER]).to.deep.equal([{
+                fom: 'Vennligst fyll ut dato',
+                tom: 'Vennligst fyll ut dato',
+            }]);
         });
 
         it('Skal ikke klage når man har svart JA og perioder er fylt ut', () => {
@@ -156,11 +159,41 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
             expect(feilmeldinger[PERIODER]).to.equal(undefined);
         });
 
+        it('Skal ikke klage når man har svart NEI og perioder er fylt ut med ugyldige datoer', () => {
+            const soknad = getSoknad();
+            const svar = parse(NEI);
+            const values = {
+                [UTLAND]: svar,
+                [PERIODER]: [{
+                    fom: '12.10.2018',
+                    tom: '10.10.2018',
+                }],
+            };
+            const feilmeldinger = validerAktiviteterISykmeldingsperioden(values, { soknad });
+            expect(feilmeldinger[PERIODER]).to.equal(undefined);
+        });
+
+        it('Skal klage når man har svart JA og perioder er fylt ut med ugyldige datoer', () => {
+            const soknad = getSoknad();
+            const svar = parse(JA);
+            const values = {
+                [UTLAND]: svar,
+                [PERIODER]: [{
+                    fom: '12.10.2018',
+                    tom: '10.10.2018',
+                }],
+            };
+            const feilmeldinger = validerAktiviteterISykmeldingsperioden(values, { soknad });
+            expect(feilmeldinger[PERIODER]).to.deep.equal([{
+                tom: 'Sluttdato må være etter startdato',
+            }]);
+        });
+
         it('Skal ikke validere perioder når man har svart NEI', () => {
             const soknad = getSoknad();
             const svar = parse(NEI);
             const values = {
-                [PERIODER]: svar,
+                [UTLAND]: svar,
             };
             const feilmeldinger = validerAktiviteterISykmeldingsperioden(values, { soknad });
             expect(feilmeldinger[PERIODER]).to.equal(undefined);

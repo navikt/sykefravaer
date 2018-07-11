@@ -11,7 +11,7 @@ import { hentAktuelleArbeidsgivere } from '../../actions/dineArbeidsgivere_actio
 import { hentBrukerinfo } from '../../actions/brukerinfo_actions';
 import { hentArbeidsgiversSykmeldinger } from '../../actions/arbeidsgiversSykmeldinger_actions';
 import { hentVentetid } from '../../actions/sykmeldingMeta_actions';
-import { DIN_SYKMELDING_SKJEMANAVN } from '../../enums/sykmeldingskjemaenums';
+import { DIN_SYKMELDING_SKJEMANAVN } from '../../enums/skjemanavn';
 import { skalViseFrilansersporsmal } from '../../components/sykmeldingskjema/sykmeldingSkjemaUtils';
 import { hentSykeforloep } from '../../actions/sykeforloep_actions';
 

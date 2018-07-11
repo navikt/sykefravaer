@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { mapStateToProps, Container } from '../../../js/containers/sykepengesoknad-arbeidstaker/FoerDuBegynnerContainer';
-import { SYKEPENGER_SKJEMANAVN } from '../../../js/utils/sykepengesoknadUtils';
+import { SYKEPENGER_SKJEMANAVN } from '../../../js/enums/skjemanavn';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

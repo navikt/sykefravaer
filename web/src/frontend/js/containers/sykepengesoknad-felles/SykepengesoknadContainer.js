@@ -18,11 +18,12 @@ import AktiviteterISykmeldingsperiodenSelvstendigContainer from '../sykepengesok
 import OppsummeringSelvstendigContainer from '../sykepengesoknad-selvstendig/OppsummeringContainer';
 import KvitteringSelvstendigContainer from '../sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
 import Side from '../../sider/Side';
-import { beregnHarBrukerNavigertTilAnnenSoknad, SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
+import { beregnHarBrukerNavigertTilAnnenSoknad } from '../../utils/sykepengesoknadUtils';
 import AppSpinner from '../../components/AppSpinner';
 import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import SendtSoknadSelvstendig from '../../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
 import { soknad as soknadPt } from '../../propTypes';
+import { SYKEPENGER_SKJEMANAVN } from '../../enums/skjemanavn';
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';

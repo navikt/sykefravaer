@@ -32,12 +32,12 @@ export function get(url) {
         });
 }
 
-export function post(url, body) {
+export const post = (url, body) => {
     return fetch(url, {
         credentials: 'include',
         method: 'POST',
         body: JSON.stringify(body),
-        headers: new window.Headers({
+        headers: new Headers({
             'Content-Type': 'application/json',
         }),
     })
@@ -48,13 +48,19 @@ export function post(url, body) {
             } else if (res.status > 400) {
                 log(res);
                 throw new Error('Forespørsel feilet');
+            } else {
+                const contentType = res.headers.get('Content-Type') || '';
+                if (contentType.includes('json')) {
+                    return res.json();
+                }
+                return res;
             }
         })
         .catch((err) => {
             log(err);
             throw err;
         });
-}
+};
 
 export const hentApiUrl = () => {
     const url = window

@@ -1,7 +1,8 @@
 import { getLedetekst } from 'digisyfo-npm';
 import { formaterEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
 import { CHECKED } from '../../enums/svarEnums';
-import {CHECKBOX_GRUPPE, PERIODER, FRITEKST, IKKE_RELEVANT} from '../../enums/svartyper';
+import { CHECKBOX_GRUPPE, PERIODER, FRITEKST, IKKE_RELEVANT } from '../../enums/svartyper';
+import { validerPerioder } from '../../components/sykepengesoknad-arbeidstaker/validering/valideringUtils';
 
 const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
     return sporsmalsliste
@@ -81,12 +82,20 @@ export default (sporsmal = [], values = {}) => {
             const verdi = formaterEnkeltverdi(values[s.tag]);
             return ((values[s.tag] === undefined
                     || verdi === false
-                    || (s.svartype === FRITEKST && verdiErTom(verdi)))
+                    || (s.svartype === FRITEKST && verdiErTom(verdi))
+                    || (s.svartype === PERIODER))
                         && s.svartype !== IKKE_RELEVANT
             );
         })
         .forEach((s) => {
-            feilmeldinger[s.tag] = beregnFeilmeldingstekstFraTag(s.tag);
+            if (s.svartype === PERIODER) {
+                const periodeFeilmeldinger = validerPerioder(values[s.tag]);
+                if (periodeFeilmeldinger) {
+                    feilmeldinger[s.tag] = periodeFeilmeldinger;
+                }
+            } else {
+                feilmeldinger[s.tag] = beregnFeilmeldingstekstFraTag(s.tag);
+            }
         });
 
     return validerUndersporsmalsliste(sporsmal, values, feilmeldinger);

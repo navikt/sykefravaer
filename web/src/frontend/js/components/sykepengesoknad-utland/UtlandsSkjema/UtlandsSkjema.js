@@ -9,7 +9,7 @@ import { JA_NEI } from '../../../enums/svarverdityper';
 import { soknad as soknadPt } from '../../../propTypes';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
 import validate from '../validering/validerUtlandsSkjema';
-import FeiloppsummeringContainer, {onSubmitFail} from "../../../containers/FeiloppsummeringContainer";
+import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/FeiloppsummeringContainer';
 
 
 const UtlandsSkjema = ({ soknad, handleSubmit }) => {
@@ -30,7 +30,7 @@ const UtlandsSkjema = ({ soknad, handleSubmit }) => {
     return (<form className="soknadskjema" id="sykepengesoknad-utland-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Header />
         <div className="begrensning">
-            <FeiloppsummeringContainer skjemanavn={ OPPHOLD_UTLAND_SKJEMA } />
+            <FeiloppsummeringContainer skjemanavn={OPPHOLD_UTLAND_SKJEMA} />
             {sporsmalsliste}
             <div className="knapperad blokk">
                 <input type="submit" value="Send" className="knapp knapp--hoved" />

@@ -37,7 +37,7 @@ export const post = (url, body) => {
         credentials: 'include',
         method: 'POST',
         body: JSON.stringify(body),
-        headers: new Headers({
+        headers: new window.Headers({
             'Content-Type': 'application/json',
         }),
     })

@@ -4,8 +4,9 @@ import { reduxForm } from 'redux-form';
 import { inntektskildetyper as inntektskildetypeEnums, sykepengesoknadstatuser, toDatePrettyPrint } from 'digisyfo-npm';
 import history from '../../history';
 import Feiloppsummering, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
-import { getTidligsteSendtDato, mapAktiviteter, SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
+import { getTidligsteSendtDato, mapAktiviteter } from '../../utils/sykepengesoknadUtils';
 import mapBackendsoknadToSkjemasoknad from './/mappers/mapBackendsoknadToSkjemasoknad';
+import { SYKEPENGER_SKJEMANAVN } from '../../enums/skjemanavn';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);

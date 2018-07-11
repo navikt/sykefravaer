@@ -9,7 +9,7 @@ import {
     SykepengesoknadSelvstendigNaeringsdrivende,
     SykepengeskjemaForSelvstendige,
 } from '../../../js/containers/sykepengesoknad-felles/SykepengesoknadContainer';
-import { SYKEPENGER_SKJEMANAVN } from '../../../js/utils/sykepengesoknadUtils';
+import { SYKEPENGER_SKJEMANAVN } from '../../../js/enums/skjemanavn';
 import AppSpinner from '../../../js/components/AppSpinner';
 import { NY, SENDT, TIL_SENDING } from '../../../js/enums/soknadstatuser';
 import SykepengesoknadSelvstendigKvitteringContainer from '../../../js/containers/sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';

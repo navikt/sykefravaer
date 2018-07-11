@@ -7,7 +7,7 @@ import Checkbox from '../skjema/Checkbox';
 import Feilomrade from '../skjema/Feilomrade';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { fieldPropTypes } from '../../propTypes';
-import { DIN_SYKMELDING_SKJEMANAVN } from '../../enums/sykmeldingskjemaenums';
+import { DIN_SYKMELDING_SKJEMANAVN } from '../../enums/skjemanavn';
 
 const { PERIODE, SYKMELDINGSGRAD, ARBEIDSGIVER, DIAGNOSE, ANDRE } = feilaktigeOpplysningerEnums;
 

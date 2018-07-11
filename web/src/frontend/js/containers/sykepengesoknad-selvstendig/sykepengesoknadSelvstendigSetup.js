@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { onSubmitFail } from '../FeiloppsummeringContainer';
-import { SYKEPENGER_SKJEMANAVN } from '../../utils/sykepengesoknadUtils';
+import { SYKEPENGER_SKJEMANAVN } from '../../enums/skjemanavn';
 import { sendSoknad } from '../../actions/soknader_actions';
 
 export const finnSoknad = (state, ownProps) => {

@@ -4,7 +4,7 @@ import { getHtmlLedetekst, getLedetekst, tilDatePeriode } from 'digisyfo-npm';
 import { Field, getFormValues } from 'redux-form';
 import { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
 import Radioknapper from '../../skjema/Radioknapper';
-import { SYKEPENGER_SKJEMANAVN } from '../../../utils/sykepengesoknadUtils';
+import { SYKEPENGER_SKJEMANAVN } from '../../../enums/skjemanavn';
 import { datoErHelgedag, erGyldigPeriode, tilDager } from '../../../utils/periodeUtils';
 
 const tilTimestamp = (dato) => {

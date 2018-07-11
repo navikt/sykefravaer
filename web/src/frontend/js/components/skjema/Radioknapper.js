@@ -4,15 +4,16 @@ import { Radio } from 'nav-frontend-skjema';
 import { fieldPropTypes } from '../../propTypes';
 import Feilomrade from './Feilomrade';
 
-export const getLabelId = (id) => {
-    const nyId = id
+export const getId = (id) => {
+    return id
         .split('.')
         .join('-')
         .split('[')
         .join('-')
         .split(']')
+        .join('-')
+        .split('--')
         .join('-');
-    return `label-${nyId}`;
 };
 
 export const Radioknapp = ({ input, value, children, id, label, checked, labelSekundaer = null, disabled, visUndertekst }) => {
@@ -23,7 +24,7 @@ export const Radioknapp = ({ input, value, children, id, label, checked, labelSe
         </div>) : label;
     return (<div>
         <Radio
-            id={id}
+            id={getId(id)}
             type="radio"
             {...input}
             disabled={disabled}

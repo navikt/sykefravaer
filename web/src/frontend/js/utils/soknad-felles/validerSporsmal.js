@@ -58,7 +58,10 @@ const validerUndersporsmalsliste = (sporsmalsliste = [], values = {}, feilmeldin
                         break;
                     }
                     case PERIODER: {
-                        // Perioder valideres i komponenten, og har en avvikende datastruktur i store
+                        const periodeFeilmeldinger = validerPerioder(values[undersporsmal.tag]);
+                        if (periodeFeilmeldinger) {
+                            feilmeldinger[undersporsmal.tag] = periodeFeilmeldinger;
+                        }
                         break;
                     }
                     default: {
@@ -97,6 +100,5 @@ export default (sporsmal = [], values = {}) => {
                 feilmeldinger[s.tag] = beregnFeilmeldingstekstFraTag(s.tag);
             }
         });
-
     return validerUndersporsmalsliste(sporsmal, values, feilmeldinger);
 };

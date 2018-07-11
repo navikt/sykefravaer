@@ -17,7 +17,7 @@ export const NYTT_AKTIVITETSKRAVVARSEL = 'NYTT_AKTIVITETSKRAVVARSEL';
 export const AKTIVITETSVARSELKVITTERING = 'AKTIVITETSVARSELKVITTERING';
 
 const Kvittering = ({ bekreftetdato, ledetekster }) => {
-    return (<Alertstripe type="suksess">
+    return (<Alertstripe type="suksess" className="js-aktivitetskrav-kvittering blokk">
         <p className="sist">{getLedetekst('aktivitetskrav-varsel.kvittering', ledetekster, {
             '%DATO%': toDatePrettyPrint(bekreftetdato),
         })}</p>

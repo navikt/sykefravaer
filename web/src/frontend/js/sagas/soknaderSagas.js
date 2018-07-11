@@ -62,6 +62,7 @@ export function* opprettSoknadUtland() {
         try {
             const data = yield call(post, `${hentApiUrl()}/opprettSoknadUtland`);
             yield put(actions.soknadUtlandOpprettet(data));
+            gaTilSkjemaUtland(data.id);
         } catch (e) {
             log(e);
             if (toggleBrukMockdataUtland()) {

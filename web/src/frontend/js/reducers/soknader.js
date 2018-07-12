@@ -17,6 +17,8 @@ const initiellState = {
     hentet: false,
     sender: false,
     sendingFeilet: false,
+    oppretterSoknad: false,
+    opprettFeilet: false,
 };
 
 const getMinMax = (sporsmal) => {

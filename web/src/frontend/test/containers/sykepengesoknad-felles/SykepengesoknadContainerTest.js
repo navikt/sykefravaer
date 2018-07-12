@@ -33,6 +33,7 @@ describe('SykepengesoknadContainerTest', () => {
     let hentSykepengesoknader;
     let hentSoknader;
     let hentDineSykmeldinger;
+    let opprettSoknadUtland;
     let initialize;
     let destroy;
 
@@ -59,6 +60,7 @@ describe('SykepengesoknadContainerTest', () => {
         hentSykepengesoknader = sinon.spy();
         hentSoknader = sinon.spy();
         hentDineSykmeldinger = sinon.spy();
+        opprettSoknadUtland = sinon.spy();
         initialize = sinon.spy();
         destroy = sinon.spy();
 
@@ -66,6 +68,7 @@ describe('SykepengesoknadContainerTest', () => {
             hentSykepengesoknader,
             hentSoknader,
             hentDineSykmeldinger,
+            opprettSoknadUtland,
             initialize,
             destroy,
         };

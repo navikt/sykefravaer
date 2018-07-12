@@ -24,6 +24,8 @@ import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import SendtSoknadSelvstendig from '../../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
 import { soknad as soknadPt } from '../../propTypes';
 import { SYKEPENGER_SKJEMANAVN } from '../../enums/skjemanavn';
+import {OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE} from "../../enums/soknadtyper";
+import SykepengesoknadUtlandSkjemaContainer from "../sykepengesoknad-utland/SykepengesoknadUtlandSkjemaContainer";
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';
@@ -179,7 +181,16 @@ export class Container extends Component {
     }
 
     render() {
-        const { skalHenteSykepengesoknader, skalHenteSoknader, erArbeidstakersoknad, erSelvstendigNaeringsdrivendeSoknad, skalHenteSykmeldinger, henter, sti } = this.props;
+        const {
+            skalHenteSykepengesoknader,
+            skalHenteSoknader,
+            erArbeidstakersoknad,
+            erSelvstendigNaeringsdrivendeSoknad,
+            erSoknadOmUtenlandsopphold,
+            skalHenteSykmeldinger,
+            henter,
+            sti
+        } = this.props;
         const brodsmuler = beregnBrodsmulesti(sti, this.props.soknadId);
         return (<Side brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSykepengesoknader || skalHenteSoknader || skalHenteSykmeldinger || henter}>
             {(() => {
@@ -190,6 +201,8 @@ export class Container extends Component {
                     return <SykepengesoknadArbeidstaker {...this.props} />;
                 } else if (erSelvstendigNaeringsdrivendeSoknad) {
                     return <SykepengesoknadSelvstendigNaeringsdrivende {...this.props} />;
+                } else if (erSoknadOmUtenlandsopphold) {
+                    return <SykepengesoknadUtlandSkjemaContainer {...this.props} />
                 }
                 return <Feilmelding />;
             })()}
@@ -210,6 +223,7 @@ Container.propTypes = {
     skalHenteSykmeldinger: PropTypes.bool,
     erArbeidstakersoknad: PropTypes.bool,
     erSelvstendigNaeringsdrivendeSoknad: PropTypes.bool,
+    erSoknadOmUtenlandsopphold: PropTypes.bool,
     brukerHarNavigertTilAnnenSoknad: PropTypes.bool,
     sti: PropTypes.string,
     henter: PropTypes.bool,
@@ -229,7 +243,8 @@ export const mapStateToProps = (state, ownProps) => {
     };
     const soknad = state.soknader.data.find(finnSoknad);
     const sykepengesoknad = state.sykepengesoknader.data.find(finnSoknad);
-    const erSelvstendigNaeringsdrivendeSoknad = soknad !== undefined;
+    const erSelvstendigNaeringsdrivendeSoknad = soknad !== undefined && soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE;
+    const erSoknadOmUtenlandsopphold = soknad !== undefined && soknad.soknadstype === OPPHOLD_UTLAND;
     const erArbeidstakersoknad = sykepengesoknad !== undefined;
     const skalHenteSykmeldinger = !state.dineSykmeldinger.hentet && !state.dineSykmeldinger.henter;
     const henter = state.soknader.henter || state.sykepengesoknader.henter || state.ledetekster.henter || (skalHenteSykmeldinger);
@@ -242,6 +257,7 @@ export const mapStateToProps = (state, ownProps) => {
         skalHenteSoknader: !state.soknader.hentet && !state.soknader.henter,
         skalHenteSykmeldinger,
         erSelvstendigNaeringsdrivendeSoknad,
+        erSoknadOmUtenlandsopphold,
         erArbeidstakersoknad,
         henter,
         hentingFeilet,

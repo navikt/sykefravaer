@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { getGjenopptattArbeidFulltUtDato, SYKEPENGER_SKJEMANAVN } from '../utils/sykepengesoknadUtils';
+import { getGjenopptattArbeidFulltUtDato } from '../utils/sykepengesoknadUtils';
+import { SYKEPENGER_SKJEMANAVN } from '../enums/skjemanavn';
 
 export const mapStateToProps = (state) => {
     const values = state.form[SYKEPENGER_SKJEMANAVN].values;

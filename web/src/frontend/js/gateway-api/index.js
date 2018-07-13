@@ -32,7 +32,7 @@ export function get(url) {
         });
 }
 
-export function post(url, body) {
+export const post = (url, body) => {
     return fetch(url, {
         credentials: 'include',
         method: 'POST',
@@ -48,13 +48,19 @@ export function post(url, body) {
             } else if (res.status > 400) {
                 log(res);
                 throw new Error('Forespørsel feilet');
+            } else {
+                const contentType = res.headers.get('Content-Type') || '';
+                if (contentType.includes('json')) {
+                    return res.json();
+                }
+                return res;
             }
         })
         .catch((err) => {
             log(err);
             throw err;
         });
-}
+};
 
 export const hentApiUrl = () => {
     const url = window
@@ -70,5 +76,5 @@ export const hentApiUrl = () => {
         return 'http://localhost:8080/syfoapi/syfosoknad/api';
     }
     // Preprod
-    return 'https://syfoapi-q.nav.no/syfosoknad/api';
+    return 'https://syfoapi-q.nav.no/syfoapi/rest/soknad';
 };

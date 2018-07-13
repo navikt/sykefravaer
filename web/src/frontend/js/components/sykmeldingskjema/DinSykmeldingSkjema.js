@@ -20,10 +20,11 @@ import { sykmelding as sykmeldingPt } from '../../propTypes';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
 import validerSykmeldingskjema from './validerSykmeldingskjema';
 import * as sykmeldingActions from '../../actions/dinSykmelding_actions';
-import { sykmeldingskjemamodi as modi, DIN_SYKMELDING_SKJEMANAVN } from '../../enums/sykmeldingskjemaenums';
+import { sykmeldingskjemamodi as modi } from '../../enums/sykmeldingskjemaenums';
 import { getSkjemaModus } from './sykmeldingSkjemaUtils';
 import SpoersmalForFrilanserOgNaeringsdrivende from './SpoersmalForFrilanserOgNaeringsdrivende';
 import { Vis } from '../../utils';
+import { DIN_SYKMELDING_SKJEMANAVN } from '../../enums/skjemanavn';
 
 const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
 

@@ -256,4 +256,10 @@ const ledetekster = {
 };
 /* eslint-disable max-len */
 
+export const ledeteksterUtland = {
+    'soknad.feilmelding.land': 'Vennligst skriv inn land',
+    'soknad.feilmelding.arbeidsgiver': 'Du har nødt å svare på dette før du går videre',
+    'soknad.feilmelding.sykmeldingsgrad': 'Du har nødt å svare på dette før du går videre',
+};
+
 export default ledetekster;

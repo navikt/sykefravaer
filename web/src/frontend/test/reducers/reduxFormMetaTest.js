@@ -4,8 +4,9 @@ import * as actions from '../../js/actions/reduxFormMeta_actions';
 import reduxFormMeta from '../../js/reducers/reduxFormMeta';
 
 describe('reduxFormMeta', () => {
-    it('Returnerer to tomme objekt by default', () => {
+    it('Returnerer tre tomme objekt by default', () => {
         expect(reduxFormMeta()).to.deep.equal({
+            OPPHOLD_UTLAND_SKJEMA: {},
             dinSykmeldingSkjema: {},
             SYKEPENGERSKJEMA: {},
         });
@@ -14,6 +15,7 @@ describe('reduxFormMeta', () => {
     it('Håndterer sendSkjemaFeilet', () => {
         const action = actions.sendSkjemaFeilet('SYKEPENGERSKJEMA');
         expect(reduxFormMeta(deepFreeze({}), action)).to.deep.equal({
+            OPPHOLD_UTLAND_SKJEMA: {},
             dinSykmeldingSkjema: {},
             SYKEPENGERSKJEMA: {
                 status: 'SEND_SKJEMA_FEILET',
@@ -25,6 +27,7 @@ describe('reduxFormMeta', () => {
     it('Håndterer sendSkjemaFeiletHandtert', () => {
         const action = actions.sendSkjemaFeiletHandtert('SYKEPENGERSKJEMA');
         expect(reduxFormMeta(deepFreeze({}), action)).to.deep.equal({
+            OPPHOLD_UTLAND_SKJEMA: {},
             dinSykmeldingSkjema: {},
             SYKEPENGERSKJEMA: {
                 status: 'SEND_SKJEMA_FEILET',
@@ -39,6 +42,7 @@ describe('reduxFormMeta', () => {
         const state1 = reduxFormMeta(deepFreeze({}), action1);
         const state2 = reduxFormMeta(deepFreeze(state1), action2);
         expect(state2).to.deep.equal({
+            OPPHOLD_UTLAND_SKJEMA: {},
             dinSykmeldingSkjema: {},
             SYKEPENGERSKJEMA: {
                 status: 'SEND_SKJEMA_FEILET_HÅNDTERT',
@@ -55,6 +59,7 @@ describe('reduxFormMeta', () => {
         const state2 = reduxFormMeta(deepFreeze(state1), action2);
         const state3 = reduxFormMeta(deepFreeze(state2), action3);
         expect(state3).to.deep.equal({
+            OPPHOLD_UTLAND_SKJEMA: {},
             SYKEPENGERSKJEMA: {
                 status: 'SEND_SKJEMA_FEILET',
                 settFokus: false,

@@ -6,4 +6,3 @@ export const sykmeldingskjemamodi = {
     BEKREFT: 'BEKREFT',
 };
 
-export const DIN_SYKMELDING_SKJEMANAVN = 'dinSykmeldingSkjema';

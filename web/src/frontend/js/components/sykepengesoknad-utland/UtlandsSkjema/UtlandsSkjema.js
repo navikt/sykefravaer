@@ -8,6 +8,8 @@ import Sporsmal from '../../soknad-felles/Sporsmal';
 import { JA_NEI } from '../../../enums/svarverdityper';
 import { soknad as soknadPt } from '../../../propTypes';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
+import validate from '../validering/validerUtlandsSkjema';
+import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/FeiloppsummeringContainer';
 
 
 const UtlandsSkjema = ({ soknad, handleSubmit }) => {
@@ -28,6 +30,7 @@ const UtlandsSkjema = ({ soknad, handleSubmit }) => {
     return (<form className="soknadskjema" id="sykepengesoknad-utland-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Header />
         <div className="begrensning">
+            <FeiloppsummeringContainer skjemanavn={OPPHOLD_UTLAND_SKJEMA} />
             {sporsmalsliste}
             <div className="knapperad blokk">
                 <input type="submit" value="Send" className="knapp knapp--hoved" />
@@ -39,8 +42,13 @@ const UtlandsSkjema = ({ soknad, handleSubmit }) => {
 UtlandsSkjema.propTypes = {
     soknad: soknadPt,
     handleSubmit: PropTypes.func,
+
 };
 
 export default reduxForm({
     form: OPPHOLD_UTLAND_SKJEMA,
+    validate,
+    onSubmitFail: (errors, dispatch) => {
+        onSubmitFail(errors, dispatch, OPPHOLD_UTLAND_SKJEMA);
+    },
 })(UtlandsSkjema);

@@ -728,7 +728,7 @@ export const soknadUtland1 = {
         min: null,
         sporsmalstekst: 'Før du reiser trenger vi denne bekreftelsen fra deg',
         svar: [],
-        svartype: "INFORMASJON",
+        svartype: "IKKE_RELEVANT",
         tag: 'BEKREFT_OPPLYSNINGER_UTLAND_INFO',
         undersporsmal: [{id: '105',
             kriterieForVisningAvUndersporsmal: null,
@@ -736,7 +736,7 @@ export const soknadUtland1 = {
             min: null,
             sporsmalstekst: 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte.',
             svar: [],
-            svartype: 'CHECKBOX',
+            svartype: 'CHECKBOX_PANEL',
             tag: 'BEKREFT_OPPLYSNINGER_UTLAND',
             undersporsmal: [],
             undertekst: null,
@@ -808,7 +808,7 @@ export const parsetSoknadUtland1 = {
         min: null,
         sporsmalstekst: 'Før du reiser trenger vi denne bekreftelsen fra deg',
         svar: [],
-        svartype: "INFORMASJON",
+        svartype: "IKKE_RELEVANT",
         tag: 'BEKREFT_OPPLYSNINGER_UTLAND_INFO',
         undersporsmal: [{id: '105',
             kriterieForVisningAvUndersporsmal: null,
@@ -816,7 +816,7 @@ export const parsetSoknadUtland1 = {
             min: null,
             sporsmalstekst: 'Jeg har lest all informasjonen jeg har fått i søknaden og bekrefter at opplysningene jeg har gitt er korrekte.',
             svar: [],
-            svartype: 'CHECKBOX',
+            svartype: 'CHECKBOX_PANEL',
             tag: 'BEKREFT_OPPLYSNINGER_UTLAND',
             undersporsmal: [],
             undertekst: null,
@@ -838,6 +838,13 @@ export const getSoknad = (soknad = {}) => {
     return {
         ...parsetSoknad1,
         ...soknad,
+    };
+};
+
+export const getSoknadUtland = (soknadUtland1 = {}) => {
+    return {
+        ...parsetSoknadUtland1,
+        ...soknadUtland1,
     };
 };
 

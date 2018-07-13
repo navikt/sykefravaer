@@ -9,7 +9,7 @@ import {
     PERIODER,
     JA_NEI,
     CHECKBOX_GRUPPE,
-    FRITEKST,
+    FRITEKST, CHECKBOX_PANEL,
 } from '../../enums/svartyper';
 import Sporsmal from './Sporsmal';
 
@@ -23,7 +23,8 @@ Wrap.propTypes = {
 
 const Undersporsmal = ({ sporsmal }) => {
     switch (sporsmal.svartype) {
-        case CHECKBOX: {
+        case CHECKBOX:
+        case CHECKBOX_PANEL: {
             return <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} />;
         }
         case DATO:

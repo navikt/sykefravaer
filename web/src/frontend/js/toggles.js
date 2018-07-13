@@ -11,9 +11,9 @@ export const toggleInnsendingAvSelvstendigSoknad = () => {
 };
 
 export const toggleSykepengesoknadUtland = () => {
-    return true;
+    return false;
 };
 
 export const toggleBrukMockdataUtland = () => {
-    return true;
+    return false;
 };

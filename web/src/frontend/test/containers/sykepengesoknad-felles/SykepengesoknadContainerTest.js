@@ -125,7 +125,7 @@ describe('SykepengesoknadContainerTest', () => {
 
         it('Skal ikke hente søknad hvis det eksisterer en søknad', () => {
             state.soknader.data = [{
-                id: "soknad-id",
+                id: 'soknad-id',
             }];
             shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
             expect(hentSoknader.called).to.equal(false);

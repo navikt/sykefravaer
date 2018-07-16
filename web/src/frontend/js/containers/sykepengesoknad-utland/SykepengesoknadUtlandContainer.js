@@ -6,9 +6,9 @@ import StrippetSide from '../../sider/StrippetSide';
 import { FoerDuBegynner } from '../../components/sykepengesoknad-utland/FoerDuBegynner/FoerDuBegynner';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
-import { opprettSoknadUtland } from '../../actions/soknader_actions';
+import {opprettSoknadUtland} from '../../actions/soknader_actions';
 
-export const Container = ({ henter, hentingFeilet, opprettSoknad, opprettFeilet, oppretterSoknad }) => {
+export const Container = ({ henter, hentingFeilet, opprettSoknad, opprettFeilet, oppretterSoknad}) => {
     return (<StrippetSide tittel={getLedetekst('sykepengesoknad-utland.sidetittel')} laster={henter}>
         {(() => {
             if (henter) {
@@ -35,6 +35,7 @@ Container.propTypes = {
 };
 
 export function mapStateToProps(state) {
+
     return {
         henter: state.ledetekster.henter,
         hentingFeilet: state.ledetekster.hentingFeilet,
@@ -44,4 +45,4 @@ export function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, { opprettSoknad: opprettSoknadUtland })(Container);
+export default connect(mapStateToProps, {opprettSoknad: opprettSoknadUtland})(Container);

@@ -5,10 +5,10 @@ import chaiEnzyme from 'chai-enzyme';
 import Sporsmal from '../../../js/components/soknad-felles/Sporsmal';
 import Undersporsmal from '../../../js/components/soknad-felles/Undersporsmal';
 import { getSoknad } from '../../mockSoknader';
-import Checkbox from "../../../js/components/soknad-felles/Checkbox";
-import Tall from "../../../js/components/soknad-felles/Tall";
-import Tekstinput from "../../../js/components/soknad-felles/Tekstinput";
-import Dato from "../../../js/components/soknad-felles/Dato";
+import Checkbox from '../../../js/components/soknad-felles/Checkbox';
+import Tall from '../../../js/components/soknad-felles/Tall';
+import Tekstinput from '../../../js/components/soknad-felles/Tekstinput';
+import Dato from '../../../js/components/soknad-felles/Dato';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

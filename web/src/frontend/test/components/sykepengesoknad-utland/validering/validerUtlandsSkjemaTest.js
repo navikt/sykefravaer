@@ -3,17 +3,17 @@ import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
 import { getSoknadUtland } from '../../../mockSoknader';
 import { ledeteksterUtland } from '../../../mockLedetekster';
-import { genererParseForCheckbox, genererParseForEnkeltverdi} from '../../../../js/components/soknad-felles/fieldUtils';
+import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles/fieldUtils';
 import validerUtlandsSkjema from '../../../../js/components/sykepengesoknad-utland/validering/validerUtlandsSkjema';
 import {
     ARBEIDSGIVER,
     BEKREFT_OPPLYSNINGER_UTLAND,
     LAND,
     PERIODEUTLAND,
-    SYKMELDINGSGRAD
+    SYKMELDINGSGRAD,
 } from '../../../../js/enums/tagtyper';
 import { beregnFeilmeldingstekstFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
-import {JA, NEI} from "../../../../js/enums/svarEnums";
+import { JA, NEI } from '../../../../js/enums/svarEnums';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -59,21 +59,21 @@ describe('validerUtlandsSkjema', () => {
     it('Skal klage hvis bruker ikke har skrevet inn reisemål', () => {
         const verdier = {};
         const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
-        expect(feilmeldinger[LAND]).to.equal("Vennligst skriv inn land");
+        expect(feilmeldinger[LAND]).to.equal('Vennligst skriv inn land');
     });
 
     it('Skal klage hvis bruker har skrevet inn og visket ut reisemål', () => {
         const verdier = {};
         verdier[LAND] = enkeltverdi('');
         const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
-        expect(feilmeldinger[LAND]).to.equal("Vennligst skriv inn land");
+        expect(feilmeldinger[LAND]).to.equal('Vennligst skriv inn land');
     });
 
     it('Skal klage hvis bruker har skrevet inn kun mellomrom som reisemål', () => {
-       const verdier = {};
-       verdier[LAND] = enkeltverdi('         ');
-       const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
-       expect(feilmeldinger[LAND]).to.equal("Vennligst skriv inn land");
+        const verdier = {};
+        verdier[LAND] = enkeltverdi('         ');
+        const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
+        expect(feilmeldinger[LAND]).to.equal('Vennligst skriv inn land');
     });
 
     it('Skal ikke klage hvis bruker har skrevet inn reisemål', () => {
@@ -84,9 +84,9 @@ describe('validerUtlandsSkjema', () => {
     });
 
     it('Skal klage hvis bruker ikke har svart på arbeidsgiver', () => {
-       const verdier = {};
-       const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
-       expect(feilmeldinger[ARBEIDSGIVER]).to.equal('Du har nødt å svare på dette før du går videre');
+        const verdier = {};
+        const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
+        expect(feilmeldinger[ARBEIDSGIVER]).to.equal('Du har nødt å svare på dette før du går videre');
     });
 
     it('Skal ikke klage hvis bruker har svart ja på arbeidsgiver', () => {
@@ -131,5 +131,4 @@ describe('validerUtlandsSkjema', () => {
         const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
         expect(feilmeldinger).to.be.empty;
     });
-
 });

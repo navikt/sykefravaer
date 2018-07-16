@@ -6,6 +6,8 @@ import { get, post } from '../../js/gateway-api';
 import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader from '../mockSoknader';
 import * as toggles from '../../js/toggles';
+import {OPPHOLD_UTLAND} from "../../js/enums/soknadtyper";
+import {toggleSykepengesoknadUtland} from "../../js/toggles";
 
 describe('soknaderSagas', () => {
     describe('Henting av søknader når det er togglet på', () => {
@@ -60,16 +62,19 @@ describe('soknaderSagas', () => {
 
     describe('Innsending av søknad', () => {
         let toggleInnsendingAvSelvstendigSoknad;
-        const soknadData = { test: 'data' };
+        let toggleSykepengesoknadUtland;
+        const soknadData = { test: 'data', soknadstype: OPPHOLD_UTLAND };
         const action = actions.sendSoknad(soknadData);
         const generator = sendSoknad(action);
 
         beforeEach(() => {
             toggleInnsendingAvSelvstendigSoknad = sinon.stub(toggles, 'toggleInnsendingAvSelvstendigSoknad').returns(true);
+            toggleSykepengesoknadUtland = sinon.stub(toggles, 'toggleSykepengesoknadUtland').returns(true);
         });
 
         afterEach(() => {
             toggleInnsendingAvSelvstendigSoknad.restore();
+            toggleSykepengesoknadUtland.restore();
         });
 
         it('Skal dispatche SENDER_SOKNAD', () => {
@@ -89,33 +94,31 @@ describe('soknaderSagas', () => {
     });
 
     describe('Oppretting av søknad utland', () => {
-       let toggleSykepengesoknadUtland;
-       const generator = opprettSoknadUtland();
-       const soknadData = { test: 'data' };
+        let toggleSykepengesoknadUtland;
+        const generator = opprettSoknadUtland();
+        const soknadData = { test: 'data' };
 
-       beforeEach(() => {
-           toggleSykepengesoknadUtland = sinon.stub(toggles, 'toggleSykepengesoknadUtland').returns(true);
-       });
+        beforeEach(() => {
+            toggleSykepengesoknadUtland = sinon.stub(toggles, 'toggleSykepengesoknadUtland').returns(true);
+        });
 
-       afterEach(() => {
-           toggleSykepengesoknadUtland.restore();
+        afterEach(() => {
+            toggleSykepengesoknadUtland.restore();
+        });
 
-       });
+        it('Skal dispatche OPPRETTER_SOKNADUTLAND', () => {
+            const nextPut = put(actions.oppretterSoknadUtland());
+            expect(generator.next().value).to.deep.equal(nextPut);
+        });
 
-       it('Skal dispatche OPPRETTER_SOKNADUTLAND', () => {
-           const nextPut = put(actions.oppretterSoknadUtland());
-           expect(generator.next().value).to.deep.equal(nextPut);
-       });
-
-       it('Skal opprette søknad', () => {
+        it('Skal opprette søknad', () => {
             const nextCall = call(post, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/opprettSoknadUtland');
             expect(generator.next().value).to.deep.equal(nextCall);
-       });
+        });
 
-       it('Skal dispatche SOKNADUTLAND_OPPRETTET', () => {
-           const nextPut = put(actions.soknadUtlandOpprettet(soknadData));
-           expect(generator.next(soknadData).value).to.deep.equal(nextPut);
-       });
-
+        it('Skal dispatche SOKNADUTLAND_OPPRETTET', () => {
+            const nextPut = put(actions.soknadUtlandOpprettet(soknadData));
+            expect(generator.next(soknadData).value).to.deep.equal(nextPut);
+        });
     });
 });

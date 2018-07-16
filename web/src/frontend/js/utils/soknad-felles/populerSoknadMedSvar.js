@@ -1,5 +1,5 @@
 import { fraInputdatoTilJSDato } from 'digisyfo-npm';
-import { CHECKBOX_GRUPPE, DATO, PERIODER } from '../../enums/svartyper';
+import { CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER } from '../../enums/svartyper';
 import { FOM, TOM } from '../../enums/svarverdityper';
 
 const tilPeriodesvar = (perioder) => {
@@ -37,7 +37,6 @@ const populerSporsmalMedSvar = (sporsmal, svarFraSkjema) => {
         }
         return svarFraSkjema ? svarFraSkjema.svarverdier : [];
     })();
-
     return {
         ...sporsmal,
         svar,
@@ -50,7 +49,7 @@ const erUndersporsmalStilt = (sporsmal, values) => {
     const svarverdistrenger = svarverdiliste.map((svarverdi) => {
         return svarverdi.verdi;
     });
-    return sporsmal.svartype === CHECKBOX_GRUPPE || svarverdistrenger.indexOf(sporsmal.kriterieForVisningAvUndersporsmal) > -1;
+    return sporsmal.svartype === CHECKBOX_GRUPPE || sporsmal.svartype === IKKE_RELEVANT || svarverdistrenger.indexOf(sporsmal.kriterieForVisningAvUndersporsmal) > -1;
 };
 
 const populerSporsmalsliste = (sporsmalsliste, values) => {

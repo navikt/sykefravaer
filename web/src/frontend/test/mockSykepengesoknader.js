@@ -133,7 +133,6 @@ export const soknader = [{
 }];
 
 
-
 export const getSoknad = (soknad = {}) => {
     const _soknad = Object.assign({}, {
         id: '66a8ec20-b813-4b03-916f-7a2f0751b600',

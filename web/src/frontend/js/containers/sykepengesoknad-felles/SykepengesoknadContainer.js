@@ -254,7 +254,7 @@ export const mapStateToProps = (state, ownProps) => {
     return {
         soknadId,
         skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,
-        skalHenteSoknader: !state.soknader.hentet && !state.soknader.henter,
+        skalHenteSoknader: !state.soknader.hentet && !state.soknader.henter && !soknad,
         skalHenteSykmeldinger,
         erSelvstendigNaeringsdrivendeSoknad,
         erSoknadOmUtenlandsopphold,

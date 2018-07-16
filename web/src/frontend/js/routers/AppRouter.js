@@ -39,7 +39,6 @@ const AppRouter = ({ history }) => {
         <Route path="/sykefravaer/oppfolgingsplaner/:oppfolgingsdialogId" component={OppfolgingsdialogContainer} />
         <Route path="/sykefravaer/aktivitetsplikt" component={AktivitetskravvarselContainer} />
         <Route path="/sykefravaer/sykepengesoknad-utland" component={SykepengesoknadUtlandContainer} />
-        <Route path="/sykefravaer/soknader/:sykepengesoknadId/soknadUtland" component={SykepengesoknadUtlandSkjemaContainer} />
         <Route path="*" component={LandingssideContainer} />
     </Router>);
 };

@@ -81,6 +81,7 @@ export default (state = initiellState, action = {}) => {
             };
         }
         case HENTER_SOKNADER: {
+
             return {
                 data: [],
                 hentet: false,

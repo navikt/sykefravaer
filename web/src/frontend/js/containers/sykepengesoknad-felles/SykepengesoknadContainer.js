@@ -24,8 +24,8 @@ import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import SendtSoknadSelvstendig from '../../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
 import { soknad as soknadPt } from '../../propTypes';
 import { SYKEPENGER_SKJEMANAVN } from '../../enums/skjemanavn';
-import {OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE} from "../../enums/soknadtyper";
-import SykepengesoknadUtlandSkjemaContainer from "../sykepengesoknad-utland/SykepengesoknadUtlandSkjemaContainer";
+import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
+import { SykepengesoknadUtlandSkjemaContainer } from '../sykepengesoknad-utland/SykepengesoknadUtlandSkjemaContainer';
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';
@@ -189,7 +189,7 @@ export class Container extends Component {
             erSoknadOmUtenlandsopphold,
             skalHenteSykmeldinger,
             henter,
-            sti
+            sti,
         } = this.props;
         const brodsmuler = beregnBrodsmulesti(sti, this.props.soknadId);
         return (<Side brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSykepengesoknader || skalHenteSoknader || skalHenteSykmeldinger || henter}>
@@ -202,7 +202,7 @@ export class Container extends Component {
                 } else if (erSelvstendigNaeringsdrivendeSoknad) {
                     return <SykepengesoknadSelvstendigNaeringsdrivende {...this.props} />;
                 } else if (erSoknadOmUtenlandsopphold) {
-                    return <SykepengesoknadUtlandSkjemaContainer {...this.props} />
+                    return <SykepengesoknadUtlandSkjemaContainer {...this.props} />;
                 }
                 return <Feilmelding />;
             })()}

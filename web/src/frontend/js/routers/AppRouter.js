@@ -15,8 +15,6 @@ import OppfolgingsdialogContainer from '../containers/oppfolgingsdialog/Oppfolgi
 import AktivitetskravvarselContainer from '../containers/aktivitetskrav/AktivitetskravvarselContainer';
 import SykepengesoknadContainer from '../containers/sykepengesoknad-felles/SykepengesoknadContainer';
 import SykepengesoknadUtlandContainer from '../containers/sykepengesoknad-utland/SykepengesoknadUtlandContainer';
-import SykepengesoknadUtlandSkjemaContainer
-    from '../containers/sykepengesoknad-utland/SykepengesoknadUtlandSkjemaContainer';
 
 const AppRouter = ({ history }) => {
     return (<Router history={history}>

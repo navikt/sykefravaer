@@ -1,7 +1,7 @@
 import React from 'react';
-import {getLedetekst} from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import StrippetSide from '../../sider/StrippetSide';
-import {soknad as soknadPt} from '../../propTypes';
+import { soknad as soknadPt } from '../../propTypes';
 import UtlandsSkjema from '../../components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
 
 export const SykepengesoknadUtlandSkjemaContainer = ({ soknad }) => {
@@ -24,7 +24,3 @@ export const SykepengesoknadUtlandSkjemaContainer = ({ soknad }) => {
 SykepengesoknadUtlandSkjemaContainer.propTypes = {
     soknad: soknadPt,
 };
-
-
-
-export default SykepengesoknadUtlandSkjemaContainer;

@@ -123,7 +123,7 @@ describe('SykepengesoknadContainerTest', () => {
             expect(hentSykepengesoknader.called).to.equal(false);
         });
 
-        it.only('Skal ikke hente søknad hvis det eksisterer en søknad', () => {
+        it('Skal ikke hente søknad hvis det eksisterer en søknad', () => {
             state.soknader.data = [{
                 id: "soknad-id",
             }];

@@ -11,9 +11,11 @@ export const toggleInnsendingAvSelvstendigSoknad = () => {
 };
 
 export const toggleSykepengesoknadUtland = () => {
-    return false;
+    const url = window.location.href;
+    return url.indexOf('localhost') > -1 || url.indexOf('tjenester-q1') > -1;
 };
 
 export const toggleBrukMockdataUtland = () => {
-    return false;
+    const url = window.location.href;
+    return url.indexOf('localhost') > -1;
 };

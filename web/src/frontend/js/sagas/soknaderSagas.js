@@ -53,7 +53,7 @@ export function* sendSoknad(action) {
 }
 
 const gaTilSkjemaUtland = (soknadUtlandId) => {
-    browserHistory.push(`/sykefravaer/soknader/${soknadUtlandId}/soknadUtland`);
+    browserHistory.push(`/sykefravaer/soknader/${soknadUtlandId}`);
 };
 
 export function* opprettSoknadUtland() {

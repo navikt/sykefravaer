@@ -32,10 +32,10 @@ SendtUlikt.propTypes = {
 const SykepengesoknadTeaser = ({ soknad }) => {
     const visStatus = [NY, SENDT, AVBRUTT].indexOf(soknad.status) === -1;
     const sendtTilBeggeMenIkkeSamtidig = erSendtTilBeggeMenIkkeSamtidig(soknad);
-
+    const status = soknad.status ? soknad.status.toLowerCase() : '';
     return (<article aria-labelledby={`soknader-header-${soknad.id}`}>
         <Link
-            className="inngangspanel js-panel"
+            className={`inngangspanel js-panel js-soknad-${status}`}
             to={`${getContextRoot()}/soknader/${soknad.id}`}>
             <span className="inngangspanel__ikon inngangspanel__ikon--normal">
                 <img alt="" className="js-ikon" src="/sykefravaer/img/svg/soknader.svg" />

@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
+import { sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import Stegindikator, { frilanserOgSelvstendigUrler } from '../sykepengesoknad-felles/Stegindikator';
 import { childEllerChildren, soknad as soknadPt } from '../../propTypes';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
-import Sidetopp from '../Sidetopp';
+import Soknadtopp from './Soknadtopp';
 
 const Soknadskjema = ({ children, aktivtSteg, tittel, soknad, sykmelding }) => {
     return (<div>
-        <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
+        <Soknadtopp soknad={soknad} />
         <Stegindikator aktivtSteg={aktivtSteg} soknadId={soknad.id} urler={frilanserOgSelvstendigUrler} />
         { sykmelding && <SykmeldingUtdrag sykmelding={sykmelding} erApen={aktivtSteg === '1'} /> }
         <h2 className="soknad__stegtittel">{tittel}</h2>

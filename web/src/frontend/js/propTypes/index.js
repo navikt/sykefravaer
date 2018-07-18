@@ -103,16 +103,21 @@ export const svar = PropTypes.arrayOf(PropTypes.shape({
     svarverdiType: PropTypes.oneOf([FOM, TOM, null]),
 }));
 
-export const sporsmal = PropTypes.shape({
+const sporsmalShape = {
     id: PropTypes.string,
-    tag: PropTypes.string,
-    sporsmalstekst: PropTypes.string,
-    svartype: svartypePt,
-    min: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number]),
-    max: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number]),
     kriterieForVisningAvUndersporsmal: PropTypes.string,
-    undersporsmal: PropTypes.arrayOf(sporsmal),
-});
+    max: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number, PropTypes.string]),
+    min: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.number, PropTypes.string]),
+    sporsmalstekst: PropTypes.string,
+    svar,
+    svartype: svartypePt,
+    tag: PropTypes.string,
+    undertekst: PropTypes.string,
+};
+
+sporsmalShape.undersporsmal = PropTypes.arrayOf(PropTypes.shape(sporsmalShape));
+
+export const sporsmal = PropTypes.shape(sporsmalShape);
 
 export const skjemasvar = PropTypes.shape({});
 

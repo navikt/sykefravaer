@@ -1,6 +1,4 @@
 import React from 'react';
-import { getLedetekst } from 'digisyfo-npm';
-import StrippetSide from '../../sider/StrippetSide';
 import { soknad as soknadPt } from '../../propTypes';
 import UtlandsSkjema from '../../components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
 

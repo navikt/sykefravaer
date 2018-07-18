@@ -1,4 +1,4 @@
-const soknad1 = {
+export const soknadSelvstendig1 = {
     fom: '2018-05-20',
     id: 'e062a444-5171-4147-84a3-19c8b4ba3c39',
     opprettetDato: '2018-05-29',
@@ -829,7 +829,7 @@ export const parsetSoknadUtland1 = {
     }]
 };
 
-export const soknadrespons = [soknad1];
+export const soknadrespons = [soknadSelvstendig1];
 export const soknadUtlandRespons = [soknadUtland1];
 export const soknadUtlandParset = [parsetSoknadUtland1];
 
@@ -850,15 +850,3 @@ export const getSoknadUtland = (soknadUtland1 = {}) => {
 
 export default [parsetSoknad1];
 
-export const getModerneSokand = (soknad = {}) => {
-    return Object.assign({}, {
-        id: 'uuid',
-        sykmeldingId: 'sykmeldingId',
-        soknadstype: 'SELVSTENDIG',
-        status: 'NY',
-        fom: new Date('2018-07-03'),
-        tom: new Date('2018-07-10'),
-        opprettetDato: new Date('2018-07-03'),
-        sporsmal: [],
-    }, soknad);
-};

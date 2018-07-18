@@ -6,7 +6,7 @@ import Feilmelding from './Feilmelding';
 
 const CheckboxSelvstendig = ({ input, meta, label, id }) => {
     return (<div>
-        <BekreftCheckboksPanel {...input} id={id} label={label} checked={input.value} />
+        <BekreftCheckboksPanel {...input} id={id} label={label} checked={input.value === true} />
         <Feilmelding {...meta} />
     </div>);
 };

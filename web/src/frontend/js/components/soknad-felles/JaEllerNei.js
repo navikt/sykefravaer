@@ -53,11 +53,16 @@ RendreJaEllerNei.propTypes = {
 };
 
 const JaEllerNei = (props) => {
-    return ([<Field
-        format={formaterEnkeltverdi}
-        parse={genererParseForEnkeltverdi(props.id)}
-        component={RendreJaEllerNei}
-        {...props} />, <SporsmalBjorn tag={props.tag} />]);
+    return ([
+        <Field
+            key={`${props.id}-field`}
+            format={formaterEnkeltverdi}
+            parse={genererParseForEnkeltverdi(props.id)}
+            component={RendreJaEllerNei}
+            {...props} />,
+        <SporsmalBjorn
+            key={`${props.id}-sporsmalbjorn`}
+            tag={props.tag} />]);
 };
 
 JaEllerNei.propTypes = {

@@ -1,13 +1,13 @@
 import React from 'react';
 import { getLedetekst, Utvidbar, sykmelding as sykmeldingPt } from 'digisyfo-npm';
-import Sidetopp from '../Sidetopp';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Oppsummeringsvisning from '../soknad-felles-oppsummering/Oppsummeringsvisning';
 import { soknad as soknadPt } from '../../propTypes';
+import Soknadtopp from './Soknadtopp';
 
 const SendtSoknadSelvstendig = ({ sykmelding, soknad }) => {
     return (<div>
-        <Sidetopp tittel={getLedetekst('sykepengesoknad.sidetittel')} />
+        <Soknadtopp soknad={soknad} />
         { sykmelding && <SykmeldingUtdrag sykmelding={sykmelding} /> }
         <Utvidbar tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')} className="blokk" erApen>
             <Oppsummeringsvisning soknad={soknad} />

@@ -173,7 +173,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 render={() => {
                     return <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" />;
                 }} />
-            <Feilstripe vis={sendingFeilet || avbrytFeilet} />
+            <Feilstripe vis={sendingFeilet || avbrytFeilet} className="blokk" />
             <Vis
                 hvis={modus !== modi.GA_VIDERE && modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}
                 render={() => {

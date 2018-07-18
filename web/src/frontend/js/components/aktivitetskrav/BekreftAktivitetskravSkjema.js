@@ -2,23 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { getLedetekst, keyValue } from 'digisyfo-npm';
-import Alertstripe from 'nav-frontend-alertstriper';
 import { connect } from 'react-redux';
 import CheckboxSelvstendig from '../skjema/CheckboxSelvstendig';
 import { bekreftAktivitetskrav } from '../../actions/aktivitetskrav_actions';
+import Feilstripe from '../Feilstripe';
 
 const Aktivitetskrav = (props) => {
     const { handleSubmit, ledetekster, dispatch, bekrefter, bekreftFeilet } = props;
     return (<form onSubmit={handleSubmit(() => {
         dispatch(bekreftAktivitetskrav());
     })}>
-        <div role="alert" aria-live="polite">
-            { bekreftFeilet && (
-                <Alertstripe type="advarsel" className="blokk">
-                    <p className="sist">Beklager! Det oppstod en feil! Prøv igjen litt senere.</p>
-                </Alertstripe>)
-            }
-        </div>
+        <Feilstripe vis={bekreftFeilet} className="blokk" />
         <div className="bekreftAktivitetskrav">
             <Field
                 name="bekreftAktivitetskrav"

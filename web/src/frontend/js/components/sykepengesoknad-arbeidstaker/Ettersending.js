@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
-import Alertstripe from 'nav-frontend-alertstriper';
 import Knapp from 'nav-frontend-knapper';
 import { connect } from 'react-redux';
-import cn from 'classnames';
 import Lightbox from '../Lightbox';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import * as actions from '../../actions/sykepengesoknader_actions';
 import { Vis } from '../../utils';
+import Feilstripe from '../Feilstripe';
 
 const sendtTilNAVDato = 'sendtTilNAVDato';
 const sendtTilArbeidsgiverDato = 'sendtTilArbeidsgiverDato';
@@ -26,24 +25,10 @@ export const EttersendingDialog = (props) => {
         ledetekstKeySuffix,
         manglendeDato } = props;
 
-    const feilClassNames = cn({
-        panel: sendingFeilet,
-        'panel--ramme': sendingFeilet,
-        'panel--komprimert': sendingFeilet,
-    });
-
     return (<div className="ettersending">
         <h3 className="ettersending__tittel">{getLedetekst(`sykepengesoknad.ettersending.info.tittel.${ledetekstKeySuffix}`)}</h3>
         <div dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.ettersending.info.tekst.${ledetekstKeySuffix}`)} />
-        <div aria-live="polite" role="alert" className={feilClassNames}>
-            <Vis
-                hvis={sendingFeilet}
-                render={() => {
-                    return (<Alertstripe type="advarsel">
-                        <p className="sist">Beklager, det oppstod en feil!</p>
-                    </Alertstripe>);
-                }} />
-        </div>
+        <Feilstripe vis={sendingFeilet} />
         <div className="knapperad">
             <button
                 disabled={sender}

@@ -4,7 +4,6 @@ import { Field } from 'redux-form';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Link } from 'react-router';
 import { getLedetekst, Utvidbar, SoknadOppsummering, VaerKlarOverAt } from 'digisyfo-npm';
-import Alertstripe from 'nav-frontend-alertstriper';
 import setup from '../setup';
 import SykepengerSkjema from '../SykepengerSkjema';
 import Knapperad from '../../skjema/Knapperad';
@@ -14,12 +13,7 @@ import validate from '../validering/validerOppsummering';
 import { sykepengesoknad as sykepengesoknadPt, oppsummeringsoknad as oppsummeringsoknadPt } from '../../../propTypes';
 import ForskuttererArbeidsgiver from './ForskuttererArbeidsgiver';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
-
-export const SendingFeilet = () => {
-    return (<Alertstripe type="advarsel" className="blokk">
-        <p className="sist">Beklager, det oppstod en feil! Prøv igjen litt senere.</p>
-    </Alertstripe>);
-};
+import Feilstripe from '../../Feilstripe';
 
 const mottaker = (sendesTil, sykepengesoknad) => {
     switch (sendesTil) {
@@ -65,7 +59,7 @@ export class OppsummeringForm extends Component {
                 <Field component={CheckboxSelvstendig} name="bekreftetKorrektInformasjon" id="bekreftetKorrektInformasjon" label={label} />
             </div>
             { visForskutteringssporsmal && <ForskuttererArbeidsgiver /> }
-            { sendingFeilet && <SendingFeilet /> }
+            <Feilstripe vis={sendingFeilet} className="blokk" />
             { !visForskutteringssporsmal && <p className="js-mottaker sykepengerskjema__sendesTil">{mottaker(sendesTil, sykepengesoknad)}</p> }
             <Knapperad variant="knapperad--forrigeNeste knapperad--medAvbryt">
                 <Link

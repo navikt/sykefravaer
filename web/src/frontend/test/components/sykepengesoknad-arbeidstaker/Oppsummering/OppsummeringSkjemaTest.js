@@ -6,12 +6,13 @@ import sinon from 'sinon';
 import { Field } from 'redux-form';
 import { Link } from 'react-router';
 import { setLedetekster, SoknadOppsummering, VaerKlarOverAt } from 'digisyfo-npm';
-import { OppsummeringForm, SendingFeilet } from '../../../../js/components/sykepengesoknad-arbeidstaker/Oppsummering/OppsummeringSkjema';
+import { OppsummeringForm } from '../../../../js/components/sykepengesoknad-arbeidstaker/Oppsummering/OppsummeringSkjema';
 import ForskuttererArbeidsgiver from '../../../../js/components/sykepengesoknad-arbeidstaker/Oppsummering/ForskuttererArbeidsgiver';
 import { getSoknad } from '../../../mockSykepengesoknader';
 
 import CheckboxSelvstendig from '../../../../js/components/skjema/CheckboxSelvstendig';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
+import Feilstripe from '../../../../js/components/Feilstripe';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -66,18 +67,20 @@ describe('Oppsummering', () => {
             expect(component.find(Link).prop('to')).to.equal('/sykefravaer/soknader/olsen/aktiviteter-i-sykmeldingsperioden');
         });
 
-        it('Skal inneholde en SendingFeilet hvis sendingFeilet', () => {
+        it('Skal ikke vise en Feilstripe hvis sendingFeilet', () => {
             const component2 = shallow(<OppsummeringForm
                 handleSubmit={handleSubmit}
                 oppsummeringsoknad={oppsummeringsoknad}
                 skjemasoknad={skjemasoknad}
                 sykepengesoknad={sykepengesoknad}
                 sendingFeilet />);
-            expect(component2.find(SendingFeilet)).to.have.length(1);
+            expect(component2.find(Feilstripe)).to.have.length(1);
+            expect(component2.find(Feilstripe).prop('vis')).to.equal(true);
         });
 
-        it('Skal ikke vise en SendingFeilet hvis sending ikke feilet', () => {
-            expect(component.find(SendingFeilet)).to.have.length(0);
+        it('Skal ikke vise en Feilstripe hvis sending ikke feilet', () => {
+            expect(component.find(Feilstripe)).to.have.length(1);
+            expect(component.find(Feilstripe).prop('vis')).to.equal(undefined);
         });
 
         it('Inneholder mottakertekst om vi ikke spør om forskuttering', () => {

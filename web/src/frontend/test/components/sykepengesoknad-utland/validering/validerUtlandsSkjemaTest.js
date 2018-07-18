@@ -129,6 +129,6 @@ describe('validerUtlandsSkjema', () => {
             }],
         };
         const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
-        expect(feilmeldinger).to.be.empty;
+        expect(feilmeldinger).to.deep.equal({});
     });
 });

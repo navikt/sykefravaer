@@ -1,25 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Alertstripe from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Bjorn, getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
 import { getContextRoot } from '../../../routers/paths';
-
-const Feilmelding = ({ opprettFeilet }) => {
-    return (<div aria-live="polite">
-        {
-            opprettFeilet
-                ? (<Alertstripe type="advarsel">
-                    <p className="sist">Beklager, det oppstod en feil! Prøv igjen senere.</p>
-                </Alertstripe>)
-                : null
-        }
-    </div>);
-};
-
-Feilmelding.propTypes = {
-    opprettFeilet: PropTypes.bool,
-};
+import Feilstripe from '../../Feilstripe';
 
 export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }) => {
     return (<div>
@@ -38,7 +22,7 @@ export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }
                 className="panel blokk redaksjonelt-innhold"
                 dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad-utland.tekst')}
             />
-            <Feilmelding opprettFeilet={opprettFeilet} />
+            <Feilstripe vis={opprettFeilet} />
             <div className="knapperad">
                 <p>
                     <Hovedknapp

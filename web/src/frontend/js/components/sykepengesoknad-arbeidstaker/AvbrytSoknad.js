@@ -1,21 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
-import Alertstripe from 'nav-frontend-alertstriper';
-
-const Feilmelding = () => {
-    return (<Alertstripe type="feil" className="blokk">
-        <p className="sist">Beklager, det oppstod en feil! Prøv litt senere.</p>
-    </Alertstripe>);
-};
+import Feilstripe from '../Feilstripe';
 
 const AvbrytSoknad = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler, sender }) => {
     return (<div className="avbrytDialog__dialog">
         <div className="pekeboble">
             <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.avbryt.sporsmal')} />
-            <div role="alert" aria-live="polite">
-                { avbrytFeilet && <Feilmelding /> }
-            </div>
+            <Feilstripe vis={avbrytFeilet} className="blokk" />
             <div className="blokk--xs">
                 <button
                     disabled={avbryter || sender}

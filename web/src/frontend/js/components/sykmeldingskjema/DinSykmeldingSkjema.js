@@ -10,7 +10,6 @@ import {
     feilaktigeOpplysninger as feilaktigeOpplysningerEnums,
     getHtmlLedetekst,
 } from 'digisyfo-npm';
-import Alertstripe from 'nav-frontend-alertstriper';
 import VelgArbeidssituasjon from './VelgArbeidssituasjon';
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
@@ -25,6 +24,7 @@ import { getSkjemaModus } from './sykmeldingSkjemaUtils';
 import SpoersmalForFrilanserOgNaeringsdrivende from './SpoersmalForFrilanserOgNaeringsdrivende';
 import { Vis } from '../../utils';
 import { DIN_SYKMELDING_SKJEMANAVN } from '../../enums/skjemanavn';
+import Feilstripe from '../Feilstripe';
 
 const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
 
@@ -173,17 +173,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 render={() => {
                     return <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" />;
                 }} />
-            <div aria-live="polite" role="alert">
-                <Vis
-                    hvis={sendingFeilet || avbrytFeilet}
-                    render={() => {
-                        return (<div className="panel panel-ramme js-varsel">
-                            <Alertstripe type="advarsel">
-                                Beklager, det oppstod en feil! Prøv igjen litt senere.
-                            </Alertstripe>
-                        </div>);
-                    }} />
-            </div>
+            <Feilstripe vis={sendingFeilet || avbrytFeilet} />
             <Vis
                 hvis={modus !== modi.GA_VIDERE && modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}
                 render={() => {

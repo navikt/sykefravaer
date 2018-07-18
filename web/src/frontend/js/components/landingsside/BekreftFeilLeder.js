@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Knapp } from 'nav-frontend-knapper';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
-import Alertstripe from 'nav-frontend-alertstriper';
 import { naermesteLeder as naermesteLederPt } from '../../propTypes';
-import { Vis } from '../../utils';
+import Feilstripe from '../Feilstripe';
 
 export class LederAvkreftet extends Component {
     componentDidMount() {
@@ -44,15 +43,7 @@ const BekreftFeilLeder = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftFei
                 '%ARBEIDSGIVER%': leder.organisasjonsnavn,
             })} />
         </div>
-        <div aria-live="polite" role="alert" className={avkreftFeilet ? 'panel panel--ramme panel--komprimert' : ''}>
-            <Vis
-                hvis={avkreftFeilet}
-                render={() => {
-                    return (<Alertstripe type="advarsel">
-                        <p className="sist">Beklager, det oppstod en feil!</p>
-                    </Alertstripe>);
-                }} />
-        </div>
+        <Feilstripe vis={avkreftFeilet} />
         <div className="knapperad">
             <Knapp
                 htmlType="button"

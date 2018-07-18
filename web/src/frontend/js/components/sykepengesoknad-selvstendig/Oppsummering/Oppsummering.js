@@ -5,6 +5,7 @@ import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from 'digisyfo-npm
 import { Hovedknapp } from 'nav-frontend-knapper';
 import Soknadskjema from '../Soknadskjema';
 import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes';
+import Feilstripe from '../../../components/Feilstripe';
 import Knapperad from '../../skjema/Knapperad';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
@@ -28,7 +29,7 @@ export const hentSporsmalForOppsummering = (soknad) => {
 };
 
 export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
-    const { handleSubmit, soknad, skjemasvar, actions, sender } = props;
+    const { handleSubmit, soknad, skjemasvar, actions, sender, sendingFeilet } = props;
     const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
     const sporsmal = hentSporsmalForOppsummering(soknad)[0];
     const onSubmit = () => {
@@ -36,9 +37,10 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
     };
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
         { skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} /> }
-        <div className="bekreftet-container">
+        <div className="bekreftet-container blokk">
             <Checkboxpanel {...sporsmal} name={sporsmal.tag} />
         </div>
+        <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">
             <Link
                 to={`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden/`}
@@ -56,16 +58,22 @@ SykepengesoknadSelvstendigOppsummeringSkjema.propTypes = {
         sendSoknad: PropTypes.func,
     }),
     sender: PropTypes.bool,
+    sendingFeilet: PropTypes.bool,
 };
 
 const Oppsummering = (props) => {
-    const { sykmelding, soknad, handleSubmit, skjemasvar, actions } = props;
+    const { sykmelding, soknad, handleSubmit, skjemasvar, actions, sendingFeilet } = props;
     return (<Soknadskjema
         aktivtSteg="4"
         tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')}
         sykmelding={sykmelding}
         soknad={soknad}>
-        <SykepengesoknadSelvstendigOppsummeringSkjema soknad={soknad} handleSubmit={handleSubmit} skjemasvar={skjemasvar} actions={actions} />
+        <SykepengesoknadSelvstendigOppsummeringSkjema
+            soknad={soknad}
+            handleSubmit={handleSubmit}
+            skjemasvar={skjemasvar}
+            sendingFeilet={sendingFeilet}
+            actions={actions} />
     </Soknadskjema>);
 };
 
@@ -77,6 +85,7 @@ Oppsummering.propTypes = {
     actions: PropTypes.shape({
         sendSoknad: PropTypes.func,
     }),
+    sendingFeilet: PropTypes.bool,
 };
 
 export default Oppsummering;

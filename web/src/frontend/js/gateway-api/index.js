@@ -45,6 +45,7 @@ export const post = (url, body) => {
             if (res.status === 401) {
                 log(res, 'Redirect til login');
                 window.location.href = `${hentLoginUrl()}?redirect=${window.location.href}`;
+                return null;
             } else if (res.status > 400) {
                 log(res);
                 throw new Error('Forespørsel feilet');

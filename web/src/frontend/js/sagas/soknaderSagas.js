@@ -10,8 +10,9 @@ import {
     SEND_SOKNAD_FORESPURT,
     SYKMELDING_BEKREFTET,
 } from '../actions/actiontyper';
-import { soknadUtland1 } from '../../test/mockSoknader';
+import { soknadrespons, soknadUtland1 } from '../../test/mockSoknader';
 import {
+    toggleBrukMockDataSelvstendigSoknad,
     toggleBrukMockdataUtland,
     toggleInnsendingAvSelvstendigSoknad,
     toggleSelvstendigSoknad,
@@ -31,7 +32,11 @@ export function* hentSoknader() {
             yield put(actions.soknaderHentet(data));
         } catch (e) {
             log(e);
-            yield put(actions.hentSoknaderFeilet());
+            if (toggleBrukMockDataSelvstendigSoknad()) {
+                yield put(actions.soknaderHentet(soknadrespons));
+            } else {
+                yield put(actions.hentSoknaderFeilet());
+            }
         }
     } else {
         yield put(actions.soknaderHentet([]));

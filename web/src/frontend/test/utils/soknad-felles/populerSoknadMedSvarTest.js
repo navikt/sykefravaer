@@ -77,7 +77,7 @@ describe('populerSoknadMedSvar', () => {
         expect(populertSoknad.sporsmal[1].undersporsmal[0].svar).to.deep.equal([
             {
                 svarverdiType: null,
-                verdi: '25.03.2018',
+                verdi: new Date('2018-03-25'),
             },
         ]);
     });
@@ -144,16 +144,16 @@ describe('populerSoknadMedSvar', () => {
         const populertSoknad = populerSoknadMedSvar(soknad, values);
         expect(populertSoknad.sporsmal[5].undersporsmal[0].svar).to.deep.equal([{
             svarverdiType: FOM,
-            verdi: '20.03.2018',
+            verdi: new Date('2018-03-20'),
         }, {
             svarverdiType: TOM,
-            verdi: '21.03.2018',
+            verdi: new Date('2018-03-21'),
         }, {
             svarverdiType: FOM,
-            verdi: '23.03.2018',
+            verdi: new Date('2018-03-23'),
         }, {
             svarverdiType: TOM,
-            verdi: '23.03.2018',
+            verdi: new Date('2018-03-23'),
         }]);
     });
 
@@ -188,6 +188,29 @@ describe('populerSoknadMedSvar', () => {
         }]);
         expect(populertSykmeldtFraArbeidsforholdSporsmal.svar).to.deep.equal([{
             verdi: NEI,
+            svarverdiType: null,
+        }]);
+    });
+
+    it('Skal populere DATO', () => {
+        const toppnivaSporsmal = soknad.sporsmal.find((s) => {
+            return s.tag === TILBAKE_I_ARBEID;
+        });
+        const parseToppnivaasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
+        const toppnivaaSvar = parseToppnivaasporsmal(JA);
+        const tilbakeNarSporsmal = toppnivaSporsmal.undersporsmal[0];
+        const tilBakeNarSvar = genererParseForEnkeltverdi(tilbakeNarSporsmal.id)("23.05.2018");
+        values[TILBAKE_I_ARBEID] = toppnivaaSvar;
+        values[TILBAKE_NAR] = tilBakeNarSvar;
+        const populertSoknad = populerSoknadMedSvar(soknad, values);
+
+        const populertDatoSporsmal = populertSoknad.sporsmal.find((s) => {
+            return s.tag === TILBAKE_I_ARBEID;
+        }).undersporsmal.find((s) => {
+            return s.tag === TILBAKE_NAR;
+        });
+        expect(populertDatoSporsmal.svar).to.deep.equal([{
+            verdi: new Date("2018-05-23"),
             svarverdiType: null,
         }]);
     });

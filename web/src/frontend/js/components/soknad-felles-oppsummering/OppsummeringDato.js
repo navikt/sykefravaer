@@ -1,4 +1,5 @@
 import React from 'react';
+import { toDatePrettyPrint } from 'digisyfo-npm';
 import { getKey } from './Oppsummeringsvisning';
 import OppsummeringSporsmalscontainer from './OppsummeringSporsmalscontainer';
 import OppsummeringSporsmalstekst from './OppsummeringSporsmalstekst';
@@ -10,7 +11,7 @@ const OppsummeringDato = ({ tag, sporsmalstekst, svar, overskriftsnivaa = 3 }) =
         <div className="oppsummering__tekstsvar">
             {
                 svar.map((svarverdi, index) => {
-                    return <p className="oppsummering__dato" key={getKey(tag, index)}>{svarverdi.verdi}</p>;
+                    return <p className="oppsummering__dato" key={getKey(tag, index)}>{toDatePrettyPrint(svarverdi.verdi)}</p>;
                 })
             }
         </div>

@@ -38,7 +38,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
             <DineOppgaverContainer />
             <Utdrag />
             <DinSituasjonContainer />
-            <nav className="js-navigasjon">
+            <nav className="js-navigasjon landingssideNavigasjon">
                 <Vis
                     hvis={harSykmeldinger}
                     render={() => {
@@ -83,7 +83,7 @@ const Landingsside = ({ brodsmuler, harSykepengesoknader, harDialogmote, harSykm
             </nav>
             <ArbeidsrettetOppfolgingContainer />
             <DetteHarSkjeddContainer />
-            <div className="panel blokk">
+            <div className="panel blokk-xl">
                 <p className="sist">{getLedetekst('landingsside.gdpr.personopplysninger')}</p>
             </div>
         </div>

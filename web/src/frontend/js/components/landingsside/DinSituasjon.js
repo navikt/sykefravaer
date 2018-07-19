@@ -6,7 +6,7 @@ import Arbeidssituasjoner from '../../components/landingsside/Arbeidssituasjoner
 
 const DinSituasjon = ({ arbeidsgivere, arbeidssituasjoner }) => {
     return (
-        <div className={'din-situasjon__panel'}>
+        <div className="landingspanel din-situasjon">
             <header className="din-situasjon__header">
                 <img
                     className="din-situasjon__ikon"

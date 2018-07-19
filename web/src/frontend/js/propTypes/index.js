@@ -99,7 +99,7 @@ export const ledereReducerPt = PropTypes.shape({
 export const svartypePt = PropTypes.oneOf(Object.values(svartyper));
 
 export const svar = PropTypes.arrayOf(PropTypes.shape({
-    verdi: PropTypes.string,
+    verdi: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
     svarverdiType: PropTypes.oneOf([FOM, TOM, null]),
 }));
 

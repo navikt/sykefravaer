@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { FOM } from '../../enums/svarverdityper';
 import { getKey } from './Oppsummeringsvisning';
 import OppsummeringSporsmalscontainer from './OppsummeringSporsmalscontainer';
@@ -25,8 +25,8 @@ const OppsummeringPerioder = ({ svar, sporsmalstekst, tag, overskriftsnivaa }) =
             {
                 perioder.map((p, i) => {
                     return (<p key={getKey(tag, i)} className="oppsummering__dato">{getLedetekst('soknad.periode', {
-                        '%FOM%': p.fom,
-                        '%TOM%': p.tom,
+                        '%FOM%': toDatePrettyPrint(p.fom),
+                        '%TOM%': toDatePrettyPrint(p.tom),
                     })}</p>);
                 })
             }

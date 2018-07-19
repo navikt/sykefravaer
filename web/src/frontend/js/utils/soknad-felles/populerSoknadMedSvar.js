@@ -1,24 +1,39 @@
-import { CHECKBOX_GRUPPE, PERIODER } from '../../enums/svartyper';
+import { fraInputdatoTilJSDato } from 'digisyfo-npm';
+import { CHECKBOX_GRUPPE, DATO, PERIODER } from '../../enums/svartyper';
 import { FOM, TOM } from '../../enums/svarverdityper';
 
 const tilPeriodesvar = (perioder) => {
     let periodesvar = [];
     perioder.forEach((periode) => {
         periodesvar = [...periodesvar, {
-            verdi: periode.fom,
+            verdi: fraInputdatoTilJSDato(periode.fom),
             svarverdiType: FOM,
         }, {
-            verdi: periode.tom,
+            verdi: fraInputdatoTilJSDato(periode.tom),
             svarverdiType: TOM,
         }];
     });
     return periodesvar;
 };
 
+const tilDatoSvar = (svar) => {
+    return svar
+        ? svar.svarverdier.map((s) => {
+            return {
+                ...s,
+                verdi: fraInputdatoTilJSDato(s.verdi),
+            };
+        })
+        : [];
+};
+
 const populerSporsmalMedSvar = (sporsmal, svarFraSkjema) => {
     const svar = (() => {
         if (sporsmal.svartype === PERIODER) {
             return tilPeriodesvar(svarFraSkjema);
+        }
+        if (sporsmal.svartype === DATO) {
+            return tilDatoSvar(svarFraSkjema);
         }
         return svarFraSkjema ? svarFraSkjema.svarverdier : [];
     })();

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Landingspanel = ({ className, ikon, ikonAlt, tittel, children }) => {
+const Landingspanel = ({ className = '', ikon, ikonAlt, tittel, children }) => {
     return (<div className={`landingspanel ${className}`}>
         <header className="landingspanel__header">
             <img className="landingspanel__ikon" src={ikon} alt={ikonAlt} />

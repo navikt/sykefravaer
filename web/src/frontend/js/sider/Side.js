@@ -59,13 +59,21 @@ export class SideComponent extends Component {
         this.props.sjekkInnlogging();
     }
 
-    componentDidUpdate(prevProps) {
-        if (!this.props.laster && prevProps.laster) {
-            window.setTimeout(() => {
+    componentWillReceiveProps(nextProps) {
+        if (this.props.laster && !nextProps.laster) {
+            const timeoutHandle = window.setTimeout(() => {
                 this.setState({
                     visSpinnerIDom: false,
                 });
-            }, 800);
+            }, 100);
+            this.setState({ timeoutHandle });
+        } else if (this.props.laster || nextProps.laster) {
+            this.setState({
+                visSpinnerIDom: true,
+            });
+            if (this.state.timeoutHandle) {
+                window.clearTimeout(this.state.timeoutHandle);
+            }
         }
     }
 
@@ -76,6 +84,7 @@ export class SideComponent extends Component {
             'side__innhold--begrenset js-begrensning': begrenset || !erInnlogget || !toggleHeleAppen(),
         });
         setAppClass(laster, erInnlogget);
+
         return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
             <div className={sideClassNames} aria-busy={laster}>
                 <TimeoutBox />

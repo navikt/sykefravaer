@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Knapp from 'nav-frontend-knapper';
 import { connect } from 'react-redux';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import Lightbox from '../Lightbox';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import * as actions from '../../actions/sykepengesoknader_actions';
@@ -26,13 +27,14 @@ export const EttersendingDialog = (props) => {
         manglendeDato } = props;
 
     return (<div className="ettersending">
-        <h3 className="ettersending__tittel">{getLedetekst(`sykepengesoknad.ettersending.info.tittel.${ledetekstKeySuffix}`)}</h3>
+        <h3 className="modal__tittel">{getLedetekst(`sykepengesoknad.ettersending.info.tittel.${ledetekstKeySuffix}`)}</h3>
         <div dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.ettersending.info.tekst.${ledetekstKeySuffix}`)} />
         <Feilstripe vis={sendingFeilet} />
         <div className="knapperad">
-            <button
+            <Hovedknapp
                 disabled={sender}
-                className="knapp blokk--s"
+                spinner={sender}
+                className="blokk--s"
                 onClick={(e) => {
                     e.preventDefault();
                     if (manglendeDato === sendtTilNAVDato) {
@@ -42,12 +44,7 @@ export const EttersendingDialog = (props) => {
                     }
                 }}>
                 {getLedetekst(`sykepengesoknad.ettersending.knapp.bekreft.${ledetekstKeySuffix}`)}
-                <Vis
-                    hvis={sender}
-                    render={() => {
-                        return <span className="knapp__spinner" />;
-                    }} />
-            </button>
+            </Hovedknapp>
             <p>
                 <a
                     onClick={(e) => {
@@ -108,7 +105,7 @@ export const EttersendLightbox = (props) => {
         }
         props.onClose();
     };
-    return (<Lightbox onClose={onClose}>
+    return (<Lightbox onClose={onClose} bredde="m">
         { !visKvittering && <EttersendDialogConnected {...props} onClose={onClose} /> }
         { visKvittering && <EttersendKvittering {...props} onClose={onClose} /> }
     </Lightbox>);
@@ -153,7 +150,7 @@ export class Ettersending extends Component {
             {
                 !sykepengesoknad[manglendeDato] && <Knapp
                     mini
-                    ref={(c) => {
+                    withRef={(c) => {
                         this.triggEttersending = c;
                     }}
                     onClick={(e) => {

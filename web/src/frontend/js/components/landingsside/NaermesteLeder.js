@@ -37,15 +37,20 @@ export default class NaermesteLeder extends Component {
         const classNameLeder = classNames('leder', { 'leder--avkreftet': leder.avkreftet });
         return (
             <div className={classNameLeder}>
-                {this.state.visLightbox && <Lightbox onClose={() => {
-                    this.lukkLightbox();
-                }}>
-                    <BekreftFeilLederContainer
-                        orgnummer={this.state.leder.orgnummer}
-                        onAvbryt={() => {
-                            this.lukkLightbox();
-                        }} />
-                </Lightbox>}
+                {
+                    this.state.visLightbox
+                        && <Lightbox
+                            bredde="m"
+                            onClose={() => {
+                                this.lukkLightbox();
+                            }}>
+                            <BekreftFeilLederContainer
+                                orgnummer={this.state.leder.orgnummer}
+                                onAvbryt={() => {
+                                    this.lukkLightbox();
+                                }} />
+                        </Lightbox>
+                }
                 <p
                     className="leder__informasjon"
                     dangerouslySetInnerHTML={getHtmlLedetekst('din-situasjon.naermeste-leder', {

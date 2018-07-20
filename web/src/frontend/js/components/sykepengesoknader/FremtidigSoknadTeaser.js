@@ -7,7 +7,8 @@ import Lightbox from '../Lightbox';
 
 const SoknadLightbox = ({ soknad, onClose }) => {
     return (<Lightbox onClose={onClose}>
-        <p className="lightbox__p">{
+        <h3 className="modal__tittel">{getLedetekst('soknader.teaser.fremtidig.dato-tittel')}</h3>
+        <p>{
             getLedetekst('soknader.teaser.fremtidig.dato-info', {
                 '%DATO%': toDatePrettyPrint(soknad.tom),
             })

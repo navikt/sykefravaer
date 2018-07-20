@@ -1,11 +1,18 @@
 import React from 'react';
 import Modal from 'nav-frontend-modal';
+import cn from 'classnames';
 import PropTypes from 'prop-types';
 
-const Lightbox = ({ onClose, children }) => {
+const m = 'm';
+
+const Lightbox = ({ onClose, children, bredde }) => {
     const appEl = document.getElementById('maincontent');
+    const classNames = cn({
+        'modal--medium': bredde === m,
+    });
     Modal.setAppElement(appEl);
     return (<Modal
+        className={classNames}
         isOpen
         closeButton
         onRequestClose={onClose}>
@@ -16,6 +23,7 @@ const Lightbox = ({ onClose, children }) => {
 Lightbox.propTypes = {
     children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
     onClose: PropTypes.func,
+    bredde: PropTypes.oneOf([m]),
 };
 
 export default Lightbox;

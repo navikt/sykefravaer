@@ -49,7 +49,9 @@ const erUndersporsmalStilt = (sporsmal, values) => {
     const svarverdistrenger = svarverdiliste.map((svarverdi) => {
         return svarverdi.verdi;
     });
-    return sporsmal.svartype === CHECKBOX_GRUPPE || sporsmal.svartype === IKKE_RELEVANT || svarverdistrenger.indexOf(sporsmal.kriterieForVisningAvUndersporsmal) > -1;
+    return sporsmal.svartype === CHECKBOX_GRUPPE
+        || sporsmal.svartype === IKKE_RELEVANT
+        || svarverdistrenger.indexOf(sporsmal.kriterieForVisningAvUndersporsmal) > -1;
 };
 
 const populerSporsmalsliste = (sporsmalsliste, values) => {

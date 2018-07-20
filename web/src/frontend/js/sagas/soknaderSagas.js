@@ -47,8 +47,8 @@ export function* hentSoknader() {
 export function* sendSoknad(action) {
     yield put(actions.senderSoknad(action.soknadId));
     try {
-        if (toggleInnsendingAvSelvstendigSoknad() && action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
-            || toggleSykepengesoknadUtland() && action.soknad.soknadstype === OPPHOLD_UTLAND) {
+        if ((toggleInnsendingAvSelvstendigSoknad() && action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE)
+            || (toggleSykepengesoknadUtland() && action.soknad.soknadstype === OPPHOLD_UTLAND)) {
             yield call(post, `${hentApiUrl()}/sendSoknad`, action.soknad);
         }
         yield put(actions.soknadSendt(action.soknad));

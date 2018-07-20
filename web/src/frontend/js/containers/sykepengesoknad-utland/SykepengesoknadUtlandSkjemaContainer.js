@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 export const SykepengesoknadUtlandSkjemaContainer = ({ soknad, sendSoknad, sender }) => {
             if (soknad) {
                 return (<UtlandsSkjema
-                    soknad={soknad}
+                    soknad = {soknad}
                     sendSoknad = {sendSoknad}
                     sender = {sender}
                 />);

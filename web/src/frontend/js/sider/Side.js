@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { TimeoutBox } from 'digisyfo-npm';
+import cn from 'classnames';
 import AppSpinner from '../components/AppSpinner';
 import Brodsmuler from '../components/Brodsmuler';
 import Feilmelding from '../components/Feilmelding';
 import * as actions from '../actions/brukerinfo_actions';
 import { brodsmule as brodsmulePt } from '../propTypes';
+import { toggleHeleAppen } from '../toggles';
 
 const DocumentTitle = require('react-document-title');
 
@@ -28,11 +30,22 @@ export const setAppClass = (laster, erInnlogget) => {
 };
 
 export const getClassNames = (laster, erInnlogget) => {
-    if (laster && erInnlogget) {
-        return 'side side--laster';
-    }
-    return 'side side--lastet';
+    return cn('side', {
+        'side--laster': laster && erInnlogget,
+        'side--lastet': !laster || !erInnlogget,
+    });
 };
+
+const Plakat = () => {
+    return (<div className="panel press">
+        <div className="hode hode--advarsel">
+            <h1 className="hode__tittel">Beklager! Vi har gjort en feil!</h1>
+            <div className="hode__melding">
+                <p>Vi jobber med å rette feilen, og håper å være tilbake så snart som mulig.</p>
+            </div>
+        </div>
+    </div>);
+}
 
 export class SideComponent extends Component {
     constructor(props) {
@@ -58,19 +71,23 @@ export class SideComponent extends Component {
 
     render() {
         const { children, tittel, brodsmuler = [], laster, begrenset, erInnlogget } = this.props;
-        const classNames = getClassNames(laster, erInnlogget);
+        const sideClassNames = getClassNames(laster, erInnlogget);
+        const innholdClassNames = cn('side__innhold', {
+            'side__innhold--begrenset js-begrensning': begrenset || !erInnlogget || !toggleHeleAppen(),
+        });
         setAppClass(laster, erInnlogget);
         return (<DocumentTitle title={tittel + (tittel.length > 0 ? ' - www.nav.no' : 'www.nav.no')}>
-            <div className={classNames} aria-busy={laster}>
+            <div className={sideClassNames} aria-busy={laster}>
                 <TimeoutBox />
                 {
                     this.state.visSpinnerIDom && (<div className="side__spinner">
                         <AppSpinner />
                     </div>)
                 }
-                <div className={begrenset || !erInnlogget ? 'side__innhold side__innhold--begrenset js-begrensning' : 'side__innhold'}>
+                <div className={innholdClassNames}>
                     { (begrenset || !erInnlogget) && <Brodsmuler brodsmuler={brodsmuler} /> }
-                    { erInnlogget && children }
+                    { erInnlogget && toggleHeleAppen() && children }
+                    { erInnlogget && !toggleHeleAppen() && <Plakat /> }
                     { !erInnlogget && <Utlogget /> }
                 </div>
             </div>

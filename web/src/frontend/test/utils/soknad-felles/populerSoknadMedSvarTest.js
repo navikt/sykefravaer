@@ -199,7 +199,7 @@ describe('populerSoknadMedSvar', () => {
         const parseToppnivaasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
         const toppnivaaSvar = parseToppnivaasporsmal(JA);
         const tilbakeNarSporsmal = toppnivaSporsmal.undersporsmal[0];
-        const tilBakeNarSvar = genererParseForEnkeltverdi(tilbakeNarSporsmal.id)("23.05.2018");
+        const tilBakeNarSvar = genererParseForEnkeltverdi(tilbakeNarSporsmal.id)('23.05.2018');
         values[TILBAKE_I_ARBEID] = toppnivaaSvar;
         values[TILBAKE_NAR] = tilBakeNarSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
@@ -210,7 +210,7 @@ describe('populerSoknadMedSvar', () => {
             return s.tag === TILBAKE_NAR;
         });
         expect(populertDatoSporsmal.svar).to.deep.equal([{
-            verdi: new Date("2018-05-23"),
+            verdi: new Date('2018-05-23'),
             svarverdiType: null,
         }]);
     });

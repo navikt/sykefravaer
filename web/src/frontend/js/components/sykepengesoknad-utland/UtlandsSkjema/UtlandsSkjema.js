@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { reduxForm } from 'redux-form';
-import { log } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import Header from '../../../containers/sykepengesoknad-utland/SykepengesoknadUtlandHeader';
 import Sporsmal from '../../soknad-felles/Sporsmal';
 import { JA_NEI } from '../../../enums/svarverdityper';
@@ -10,9 +10,11 @@ import { soknad as soknadPt } from '../../../propTypes';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
 import validate from '../validering/validerUtlandsSkjema';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/FeiloppsummeringContainer';
+import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
+import { Hovedknapp } from 'nav-frontend-knapper';
 
 
-const UtlandsSkjema = ({ soknad, handleSubmit }) => {
+const UtlandsSkjema = ({ soknad, handleSubmit, sender, sendSoknad }) => {
     const sporsmalsliste = soknad.sporsmal.map((sporsmal) => {
         const className = cn({ hovedsporsmal: sporsmal.svartype !== JA_NEI, 'blokk--xs': true });
         return (<div className={className}>
@@ -24,8 +26,9 @@ const UtlandsSkjema = ({ soknad, handleSubmit }) => {
         </div>);
     });
 
-    const onSubmit = () => {
-        log('send skjema');
+    const onSubmit = (values) => {
+        const populertSoknad = populerSoknadMedSvar(soknad, values);
+        sendSoknad(populertSoknad);
     };
     return (<form className="soknadskjema" id="sykepengesoknad-utland-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Header />
@@ -33,7 +36,7 @@ const UtlandsSkjema = ({ soknad, handleSubmit }) => {
             <FeiloppsummeringContainer skjemanavn={OPPHOLD_UTLAND_SKJEMA} />
             {sporsmalsliste}
             <div className="knapperad blokk">
-                <input type="submit" value="Send" className="knapp knapp--hoved" />
+                <Hovedknapp type="submit" disabled={sender} spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
             </div>
         </div>
     </form>);
@@ -42,7 +45,8 @@ const UtlandsSkjema = ({ soknad, handleSubmit }) => {
 UtlandsSkjema.propTypes = {
     soknad: soknadPt,
     handleSubmit: PropTypes.func,
-
+    sendSoknad: PropTypes.func,
+    sender: PropTypes.bool,
 };
 
 export default reduxForm({

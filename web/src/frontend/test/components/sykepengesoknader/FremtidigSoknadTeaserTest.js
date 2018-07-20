@@ -10,11 +10,10 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe('SoknadTeasere', () => {
-
     it('Viser arbeidsgivernavn om søknaden skal til arbeidsgiver', () => {
         const soknad = getSoknad({
             arbeidsgiver: {
-                navn: "Arbeidsgiver AS",
+                navn: 'Arbeidsgiver AS',
             },
         });
         const component = shallow(<FremtidigSoknadTeaser soknad={soknad} />);

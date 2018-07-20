@@ -19,6 +19,7 @@ import {
     toggleSykepengesoknadUtland,
 } from '../toggles';
 import logger from '../logging';
+import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);
@@ -46,7 +47,8 @@ export function* hentSoknader() {
 export function* sendSoknad(action) {
     yield put(actions.senderSoknad(action.soknadId));
     try {
-        if (toggleInnsendingAvSelvstendigSoknad()) {
+        if ((toggleInnsendingAvSelvstendigSoknad() && action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE)
+            || (toggleSykepengesoknadUtland() && action.soknad.soknadstype === OPPHOLD_UTLAND)) {
             yield call(post, `${hentApiUrl()}/sendSoknad`, action.soknad);
         }
         yield put(actions.soknadSendt(action.soknad));

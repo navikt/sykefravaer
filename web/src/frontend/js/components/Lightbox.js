@@ -9,7 +9,7 @@ const Lightbox = ({ onClose, children, bredde }) => {
     const appEl = document.getElementById('maincontent');
     const classNames = cn({
         'modal--medium': bredde === m,
-    })
+    });
     Modal.setAppElement(appEl);
     return (<Modal
         className={classNames}

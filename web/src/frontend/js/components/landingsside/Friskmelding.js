@@ -22,7 +22,7 @@ const track = (event, variant, datalayerData, sykefravaerVarighet) => {
 
 const Friskmeldingslightbox = ({ lukk }) => {
     return (<Lightbox onClose={lukk}>
-        <h2 className="panel__tittel">{getLedetekst('friskmelding.info-tittel.helt')}</h2>
+        <h2 className="modal__tittel">{getLedetekst('friskmelding.info-tittel.helt')}</h2>
         <div
             className="redaksjonelt-innhold blokk"
             dangerouslySetInnerHTML={getHtmlLedetekst('friskmelding.info.helt')} />

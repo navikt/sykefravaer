@@ -37,7 +37,7 @@ const BekreftFeilLeder = ({ leder, onAvbryt, avkreftLeder, avkrefter, avkreftFei
     const knappClassName = 'knapp knapp--fare blokk--s js-bekreft';
     return (<div>
         <div className={avkreftFeilet ? 'blokk' : ''}>
-            <h3 className="panel__tittel">{getLedetekst('sykefravaer.endre-naermeste-leder.tittel')}</h3>
+            <h3 className="modal__tittel">{getLedetekst('sykefravaer.endre-naermeste-leder.tittel')}</h3>
             <div dangerouslySetInnerHTML={getHtmlLedetekst('sykefravaer.endre-naermeste-leder.melding', {
                 '%LEDER%': leder.navn,
                 '%ARBEIDSGIVER%': leder.organisasjonsnavn,

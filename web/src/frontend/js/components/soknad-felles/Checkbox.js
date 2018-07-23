@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form';
+import {Field} from 'redux-form';
 import Checkboks from '../skjema/Checkbox';
-import { fieldPropTypes, sporsmal as sporsmalPt } from '../../propTypes';
+import {fieldPropTypes, sporsmal as sporsmalPt} from '../../propTypes';
 import Undersporsmal from './Undersporsmal';
-import { formaterEnkeltverdi, genererParseForCheckbox } from './fieldUtils';
+import {formaterEnkeltverdi, genererParseForCheckbox} from './fieldUtils';
 
 const rendreCheckbox = (props) => {
     return (<Checkboks {...props} />);
@@ -14,7 +14,7 @@ rendreCheckbox.propTypes = {
     meta: fieldPropTypes.meta,
 };
 
-const Checkbox = ({ sporsmalstekst, undersporsmal, name, id, renderComponent = rendreCheckbox }) => {
+const Checkbox = ({sporsmalstekst, undersporsmal, name, id, renderComponent = rendreCheckbox}) => {
     const parse = genererParseForCheckbox(id);
     return (<Field
         parse={parse}
@@ -23,13 +23,18 @@ const Checkbox = ({ sporsmalstekst, undersporsmal, name, id, renderComponent = r
         name={name}
         label={sporsmalstekst}
         id={name}>
-        {
+        {() => {
+            try{
             undersporsmal.length > 0
-                ? undersporsmal.map((spm, index) => {
-                    return <Undersporsmal sporsmal={spm} key={`${spm.tag}-${index}`} />;
-                })
-                : null
+            ? undersporsmal.map((spm, index) => {
+            return <Undersporsmal sporsmal={spm} key={`${spm.tag}-${index}`} />;
+        })
+            : null
         }
+            catch(e){
+            return null
+        }
+        }}()
     </Field>);
 };
 

@@ -11,7 +11,7 @@ const Oppsummeringsvisning = ({ soknad }) => {
         {
             soknad.sporsmal
                 .filter((sporsmal) => {
-                    return sporsmal.svar.length > 0;
+                    return (sporsmal.svar.length > 0 || sporsmal.undersporsmal.length > 0);
                 })
                 .map((sporsmal) => {
                     return (<div className="oppsummering__seksjon" key={getKey(sporsmal.tag, sporsmal.id)}>

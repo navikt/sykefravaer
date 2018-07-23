@@ -16,6 +16,7 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import { getUtdanningssporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 import { filtrerAktuelleAktiviteter } from '../../../utils/sykepengesoknadUtils';
+import { PreutfyltBjorn } from '../FravaerOgFriskmelding/Egenmeldingsdager';
 
 export const UtdanningStartDato = ({ senesteTom }) => {
     return (<div className="blokk">
@@ -38,7 +39,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
     }
 
     render() {
-        const { handleSubmit, sykepengesoknad, autofill, untouch, gjenopptattArbeidFulltUtDato } = this.props;
+        const { handleSubmit, sykepengesoknad, autofill, untouch, gjenopptattArbeidFulltUtDato, erPreutfylt } = this.props;
 
         const onSubmit = () => {
             history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
@@ -64,6 +65,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
                 arbeidsgiver={sykepengesoknad.arbeidsgiver.navn} />
 
             <JaEllerNei
+                informasjon={<PreutfyltBjorn vis={erPreutfylt} />}
                 name="harAndreInntektskilder"
                 spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', {
                     '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
@@ -71,8 +73,10 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
                 <AndreInntektskilder />
             </JaEllerNei>
 
+
             {_aktiviteter.length > 0 &&
             <JaEllerNei
+                informasjon={<PreutfyltBjorn vis={erPreutfylt} />}
                 name="utdanning.underUtdanningISykmeldingsperioden"
                 spoersmal={getUtdanningssporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}>
                 <UtdanningStartDato senesteTom={_senesteTom} />
@@ -95,26 +99,26 @@ AktiviteterISykmeldingsperiodenSkjema.propTypes = {
     autofill: PropTypes.func,
     untouch: PropTypes.func,
     gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
+    erPreutfylt: PropTypes.bool,
 };
 
 const AktiviteterISykmeldingsperiodenSkjemaConnected = connectGjenopptattArbeidFulltUtDato(AktiviteterISykmeldingsperiodenSkjema);
 
 const AktiviteterISykmeldingsperiodenReduxSkjema = setup(validate, AktiviteterISykmeldingsperiodenSkjemaConnected);
 
-const AktiviteterISykmeldingsperioden = (props) => {
-    const { sykepengesoknad } = props;
-
+const AktiviteterISykmeldingsperioden = ({ sykepengesoknad, skjemasoknad }) => {
     return (
         <SykepengerSkjema
             aktivtSteg="3"
             tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
             sykepengesoknad={sykepengesoknad}>
-            <AktiviteterISykmeldingsperiodenReduxSkjema sykepengesoknad={sykepengesoknad} />
+            <AktiviteterISykmeldingsperiodenReduxSkjema sykepengesoknad={sykepengesoknad} erPreutfylt={skjemasoknad._erPreutfylt} />
         </SykepengerSkjema>);
 };
 
 AktiviteterISykmeldingsperioden.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
+    skjemasoknad: PropTypes.shape(),
 };
 
 export default AktiviteterISykmeldingsperioden;

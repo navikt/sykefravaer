@@ -10,7 +10,22 @@ import { getTidligsteStartdatoSykeforloep } from '../../../utils/sykmeldingUtils
 import { getEgenmeldingsdagerSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 import { Vis } from '../../../utils';
 
-const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsdagerPreutfylt }) => {
+export const PreutfyltBjorn = ({ vis }) => {
+    return (<Vis
+        hvis={vis}
+        render={() => {
+            return (<Bjorn
+                className="press"
+                nokkel="sykepengesoknad.egenmeldingsdager.preutfylt-melding"
+                rootUrl={getContextRoot()} />);
+        }} />);
+};
+
+PreutfyltBjorn.propTypes = {
+    vis: PropTypes.bool,
+};
+
+const EgenmeldingsDager = ({ sykepengesoknad, erPreutfylt }) => {
     const startSykeforloep = getTidligsteStartdatoSykeforloep(sykepengesoknad);
     const senesteTom = new Date(startSykeforloep);
     senesteTom.setDate(startSykeforloep.getDate() - 1);
@@ -22,14 +37,7 @@ const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsdagerPreutfylt }) =>
             '%DATO%': toDatePrettyPrint(startSykeforloep),
         })}</Hjelpetekst>);
 
-    const informasjon = (<Vis
-        hvis={erEgenmeldingsdagerPreutfylt}
-        render={() => {
-            return (<Bjorn
-                className="press"
-                nokkel="sykepengesoknad.egenmeldingsdager.preutfylt-melding"
-                rootUrl={getContextRoot()} />);
-        }} />);
+    const informasjon = <PreutfyltBjorn vis={erPreutfylt} />;
 
     return (<JaEllerNei
         spoersmal={getEgenmeldingsdagerSporsmal(sykepengesoknad)}
@@ -48,7 +56,7 @@ const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsdagerPreutfylt }) =>
 
 EgenmeldingsDager.propTypes = {
     sykepengesoknad: sykepengesoknadPt.isRequired,
-    erEgenmeldingsdagerPreutfylt: PropTypes.bool,
+    erPreutfylt: PropTypes.bool,
 };
 
 export default EgenmeldingsDager;

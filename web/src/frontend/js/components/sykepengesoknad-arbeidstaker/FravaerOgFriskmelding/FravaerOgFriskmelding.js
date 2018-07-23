@@ -20,7 +20,7 @@ export class FravaerOgFriskmeldingSkjema extends Component {
     }
 
     render() {
-        const { handleSubmit, sykepengesoknad, erEgenmeldingsdagerPreutfylt } = this.props;
+        const { handleSubmit, sykepengesoknad, erPreutfylt } = this.props;
         const onSubmit = () => {
             history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/aktiviteter-i-sykmeldingsperioden`);
         };
@@ -32,7 +32,7 @@ export class FravaerOgFriskmeldingSkjema extends Component {
             tabIndex="-1"
             id="fravaer-og-friskmelding-skjema"
             onSubmit={handleSubmit(onSubmit)}>
-            <Egenmeldingsdager sykepengesoknad={sykepengesoknad} erEgenmeldingsdagerPreutfylt={erEgenmeldingsdagerPreutfylt} />
+            <Egenmeldingsdager sykepengesoknad={sykepengesoknad} erPreutfylt={erPreutfylt} />
             <GjenopptattArbeidFulltUt sykepengesoknad={sykepengesoknad} />
             <FeriePermisjonEllerUtenlandsopphold sykepengesoknad={sykepengesoknad} />
             <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${sykepengesoknad.id}/`} />
@@ -44,7 +44,7 @@ export class FravaerOgFriskmeldingSkjema extends Component {
 FravaerOgFriskmeldingSkjema.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     sykepengesoknad: sykepengesoknadPt,
-    erEgenmeldingsdagerPreutfylt: PropTypes.bool,
+    erPreutfylt: PropTypes.bool,
 };
 
 const FravaerOgFriskmeldingSkjemaSetup = setup(validerFravaerOgFriskmelding, FravaerOgFriskmeldingSkjema);
@@ -55,7 +55,7 @@ const FravaerOgFriskmelding = ({ sykepengesoknad, skjemasoknad }) => {
             aktivtSteg="2"
             tittel={getLedetekst('sykepengesoknad.fraver-og-friskmelding.tittel')}
             sykepengesoknad={sykepengesoknad}>
-            <FravaerOgFriskmeldingSkjemaSetup sykepengesoknad={sykepengesoknad} erEgenmeldingsdagerPreutfylt={skjemasoknad._erEgenmeldingsdagerPreutfylt} />
+            <FravaerOgFriskmeldingSkjemaSetup sykepengesoknad={sykepengesoknad} erPreutfylt={skjemasoknad._erPreutfylt} />
         </SykepengerSkjema>);
 };
 

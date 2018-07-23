@@ -9,7 +9,9 @@ export const soknadSelvstendig1 = {
             kriterieForVisningAvUndersporsmal: null,
             max: null,
             min: null,
+            /* eslint-disable max-len */
             sporsmalstekst: 'Jeg vet at dersom jeg gir uriktige opplysninger, eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar. Jeg er også klar over at jeg må melde fra til NAV dersom jeg sitter i varetekt, soner straff eller er under forvaring.',
+            /* eslint-enable max-len */
             svar: [],
             svartype: 'CHECKBOX',
             tag: 'ANSVARSERKLARING',
@@ -344,7 +346,9 @@ const parsetSoknad1 = {
             kriterieForVisningAvUndersporsmal: null,
             max: null,
             min: null,
+            /* eslint-disable max-len */
             sporsmalstekst: 'Jeg vet at dersom jeg gir uriktige opplysninger, eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar. Jeg er også klar over at jeg må melde fra til NAV dersom jeg sitter i varetekt, soner straff eller er under forvaring.',
+            /* eslint-enable max-len */
             svar: [],
             svartype: 'CHECKBOX',
             tag: 'ANSVARSERKLARING',
@@ -841,10 +845,10 @@ export const getSoknad = (soknad = {}) => {
     };
 };
 
-export const getSoknadUtland = (soknadUtland1 = {}) => {
+export const getSoknadUtland = (soknad = {}) => {
     return {
         ...parsetSoknadUtland1,
-        ...soknadUtland1,
+        ...soknad,
     };
 };
 

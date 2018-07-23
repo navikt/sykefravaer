@@ -5,12 +5,12 @@ import validate, {
     antallFeil,
     ikkeJobbetMerEnnGraderingProsentFeil,
     ikkeJobbetMerEnnGraderingTimerFeil,
-    antallTimerErMerEnn100ProsentFeil,
-    overHundreFeil,
     overHundreogfemtiFeil,
     jobbetMerEnnPlanlagtFeil,
     merEnnNullFeil,
-    sammeNormalAntallFeil } from '../../../../js/components/sykepengesoknad-arbeidstaker/validering/validerAktiviteterISykmeldingsperioden';
+    sammeNormalAntallFeil,
+    oppgiTallFraEnTil100Feil,
+    arbeidsgradEr100ProsentFeil} from '../../../../js/components/sykepengesoknad-arbeidstaker/validering/validerAktiviteterISykmeldingsperioden';
 
 import { inntektskildetyper } from '../../../../js/components/sykepengesoknad-arbeidstaker/AktiviteterISykmeldingsperioden/AndreInntektskilder';
 import { getSoknad } from '../../../mockSykepengesoknader';
@@ -280,7 +280,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
             const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    arbeidsgrad: overHundreFeil,
+                    arbeidsgrad: arbeidsgradEr100ProsentFeil,
                 },
             }, {}]);
         });
@@ -333,7 +333,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
 
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    arbeidsgrad: overHundreFeil,
+                    arbeidsgrad: arbeidsgradEr100ProsentFeil,
                 },
             }, {}]);
         });
@@ -397,7 +397,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
 
             expect(res.aktiviteter).to.deep.equal([{}, {
                 avvik: {
-                    arbeidstimerNormalUke: overHundreFeil,
+                    arbeidstimerNormalUke: oppgiTallFraEnTil100Feil,
                 },
             }]);
         });
@@ -470,7 +470,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
 
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    timer: antallTimerErMerEnn100ProsentFeil,
+                    timer: arbeidsgradEr100ProsentFeil,
                 },
             }]);
         });
@@ -509,7 +509,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
 
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    timer: antallTimerErMerEnn100ProsentFeil,
+                    timer: arbeidsgradEr100ProsentFeil,
                 },
             }]);
         });
@@ -666,7 +666,7 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
 
             expect(res.aktiviteter).to.deep.equal([{
                 avvik: {
-                    timer: 'Antall timer tilsvarer over 100 % av din stilling',
+                    timer: arbeidsgradEr100ProsentFeil,
                 },
             }]);
         });
@@ -802,6 +802,69 @@ describe('validerAktiviteterISykmeldingsperioden', () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.aktiviteter[0].avvik).to.equal(undefined);
                 expect(res.aktiviteter[1].avvik.arbeidstimerNormalUke).to.equal('Vennligst oppgi antall');
+            });
+        });
+
+        describe('Ikke motstridende informasjon mellom arbeid og gjenopptatt arbeid', () => {
+            it('Skal ikke kunne oppgi timer som tilsvarer 100 %', () => {
+                const _soknad = getSoknad({
+                    aktiviteter: [{
+                        periode: {
+                            fom: new Date('2017-07-31'),
+                            tom: new Date('2017-08-08'),
+                        },
+                        grad: 60,
+                        avvik: null,
+                    }],
+                });
+                values.aktiviteter = [{
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        arbeidstimerNormalUke: '10',
+                        timer: '14',
+                        enhet: 'timer',
+                    },
+                    grad: 50,
+                }];
+
+                const res = validate(values, { sykepengesoknad: _soknad, sendTilFoerDuBegynner });
+
+                expect(res.aktiviteter).to.deep.equal([{
+                    avvik: {
+                        timer: 'Du har allerede svart at du ikke har begynt å jobbe fullt igjen. Hvis dette ikke stemmer, må du gå tilbake til forrige trinn',
+                    },
+                }]);
+            });
+
+            it('Skal ikke kunne  oppgi 100 % som arbeidsgrad', () => {
+                const _soknad = getSoknad({
+                    aktiviteter: [{
+                        periode: {
+                            fom: new Date('2017-07-31'),
+                            tom: new Date('2017-08-08'),
+                        },
+                        grad: 60,
+                        avvik: null,
+                    }],
+                });
+                values.aktiviteter = [{
+                    jobbetMerEnnPlanlagt: true,
+                    avvik: {
+                        arbeidstimerNormalUke: '37,5',
+                        arbeidsgrad: '100',
+                        timer: '71',
+                        enhet: 'prosent',
+                    },
+                    grad: 50,
+                }];
+
+                const res = validate(values, { sykepengesoknad: _soknad, sendTilFoerDuBegynner });
+
+                expect(res.aktiviteter).to.deep.equal([{
+                    avvik: {
+                        arbeidsgrad: 'Du har allerede svart at du ikke har begynt å jobbe fullt igjen. Hvis dette ikke stemmer, må du gå tilbake til forrige trinn',
+                    },
+                }]);
             });
         });
     });

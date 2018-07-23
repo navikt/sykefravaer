@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { soknad as soknadPt } from '../../propTypes';
-import { NY, TIL_SENDING } from '../../enums/soknadstatuser';
+import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import UtlandsSkjema from '../../components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
 import { sendSoknad } from '../../actions/soknader_actions';
 import PropTypes from 'prop-types';
@@ -17,7 +17,7 @@ export const SykepengesoknadUtlandSkjemaContainer = ({ soknad, sendSoknad, sende
             sender={sender}
         />);
     }
-    if (soknad && soknad.status === TIL_SENDING) {
+    if (soknad && soknad.status === TIL_SENDING || soknad && soknad.status === SENDT) {
         return <Kvittering />;
     }
     return <Feilmelding />;
@@ -32,7 +32,8 @@ SykepengesoknadUtlandSkjemaContainer.propTypes = {
 export const finnSoknad = (state, ownProps) => {
     return state.soknader.data.find((s) => {
         return s.id === ownProps.params.sykepengesoknadId && s.status === NY
-            || s.id === ownProps.params.sykepengesoknadId && s.status === TIL_SENDING;
+            || s.id === ownProps.params.sykepengesoknadId && s.status === TIL_SENDING
+            || s.id === ownProps.params.sykepengesoknadId && s.status === SENDT;
     });
 };
 

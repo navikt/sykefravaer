@@ -45,7 +45,7 @@ const Plakat = () => {
             </div>
         </div>
     </div>);
-}
+};
 
 export class SideComponent extends Component {
     constructor(props) {

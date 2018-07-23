@@ -4,6 +4,7 @@ import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from 'digisyfo-npm
 import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes';
 import Feilstripe from '../../../components/Feilstripe';
 import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
+import StatuspanelUtland from "../SoknadstatuspanelUtland";
 
 const OppsummeringUtvidbar = ({ soknad }) => {
     return (<div className="panel blokk" tittel={getLedetekst('sykepengesoknad.sidetittel')}>
@@ -17,10 +18,6 @@ OppsummeringUtvidbar.propTypes = {
 
 export const hentSporsmalForOppsummering = (soknad) => {
     return soknad.sporsmal;
-
-    //return soknad.sporsmal.filter((s) => {
-    //    return s.tag === BEKREFT_OPPLYSNINGER;
-    //});
 };
 
 export const SykepengesoknadUtlandOppsummeringSkjema = (props) => {
@@ -28,10 +25,11 @@ export const SykepengesoknadUtlandOppsummeringSkjema = (props) => {
     console.log("eg trynar ikkje ennau");
     console.log(soknad);
 
-    //TODO: DETTE BURDE GJRØES FØR SØKNADEN SENDS
     const sporsmal = hentSporsmalForOppsummering(soknad);
     console.log(sporsmal);
     return (<form className="soknadskjema" id="oppsummering-skjema" >
+        <StatuspanelUtland sykepengesoknad={soknad}>
+        </StatuspanelUtland>
         <div className="bekreftet-container blokk">
             <OppsummeringUtvidbar soknad={soknad} />
         </div>

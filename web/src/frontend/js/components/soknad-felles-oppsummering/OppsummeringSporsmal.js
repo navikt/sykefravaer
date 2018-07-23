@@ -41,7 +41,6 @@ const OppsummeringSporsmal = (props) => {
             return <OppsummeringFritekst {...props} />;
         }
         case IKKE_RELEVANT: {
-            console.log("sann kan de gå, ja");
             return <OppsummeringVisUndertekst {...props}/>
         }
         case CHECKBOX_GRUPPE: {

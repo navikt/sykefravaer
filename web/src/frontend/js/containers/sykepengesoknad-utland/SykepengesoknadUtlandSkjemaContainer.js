@@ -1,25 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getLedetekst } from 'digisyfo-npm';
 import { soknad as soknadPt } from '../../propTypes';
-import { NY } from '../../enums/soknadstatuser';
+import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import UtlandsSkjema from '../../components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
 import { sendSoknad } from '../../actions/soknader_actions';
 import PropTypes from 'prop-types';
-
+import Kvittering from '../../components/sykepengesoknad-utland/Kvittering/Kvittering';
+import Feilmelding from '../../components/Feilmelding';
 
 
 export const SykepengesoknadUtlandSkjemaContainer = ({ soknad, sendSoknad, sender }) => {
-            if (soknad) {
-                return (<UtlandsSkjema
-                    soknad = {soknad}
-                    sendSoknad = {sendSoknad}
-                    sender = {sender}
-                />);
-            }
-            return (<p className="panel begrensning">
-                    Lat som om vi redirecter til fremsiden!
-    </p>); // redirect til fremside
+    if (soknad && soknad.status === NY) {
+        return (<UtlandsSkjema
+            soknad={soknad}
+            sendSoknad={sendSoknad}
+            sender={sender}
+        />);
+    }
+    if (soknad && soknad.status === TIL_SENDING || soknad && soknad.status === SENDT) {
+        return <Kvittering />;
+    }
+    return <Feilmelding />;
 };
 
 SykepengesoknadUtlandSkjemaContainer.propTypes = {
@@ -30,7 +31,9 @@ SykepengesoknadUtlandSkjemaContainer.propTypes = {
 
 export const finnSoknad = (state, ownProps) => {
     return state.soknader.data.find((s) => {
-        return s.id === ownProps.params.sykepengesoknadId && s.status === NY;
+        return s.id === ownProps.params.sykepengesoknadId && s.status === NY
+            || s.id === ownProps.params.sykepengesoknadId && s.status === TIL_SENDING
+            || s.id === ownProps.params.sykepengesoknadId && s.status === SENDT;
     });
 };
 

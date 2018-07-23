@@ -12,7 +12,7 @@ const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
 };
 
-export const andreInntektskilder = Object.keys(inntektskildetypeEnums).map((key) => {
+export const andreInntektskilderDefault = Object.keys(inntektskildetypeEnums).map((key) => {
     return {
         annenInntektskildeType: inntektskildetypeEnums[key],
     };
@@ -56,31 +56,8 @@ const preutfyllSoknad = (soknad, sisteSoknadISammeSykeforlop) => {
             };
         });
 
-    const utdanning = sisteSoknadISammeSykeforlop.utdanning
-        ? {
-            utdanningStartdato: toDatePrettyPrint(sisteSoknadISammeSykeforlop.utdanning.utdanningStartdato),
-            underUtdanningISykmeldingsperioden: true,
-            erUtdanningFulltidsstudium: sisteSoknadISammeSykeforlop.utdanning.erUtdanningFulltidsstudium,
-        }
-        : {
-            underUtdanningISykmeldingsperioden: false,
-        };
-
-    const harAndreInntektskilder = sisteSoknadISammeSykeforlop.andreInntektskilder
-        && sisteSoknadISammeSykeforlop.andreInntektskilder.length > 0;
-
-    const preutfylteInntektskilder = soknad.andreInntektskilder.map((i) => {
-        const svarFraForrigeSoknad = sisteSoknadISammeSykeforlop.andreInntektskilder.find((s) => {
-            return s.annenInntektskildeType === i.annenInntektskildeType;
-        });
-        return svarFraForrigeSoknad
-            ? {
-                ...i,
-                avkrysset: true,
-                sykmeldt: svarFraForrigeSoknad.sykmeldt,
-            }
-            : i;
-    });
+    const mappetSoknad = mapBackendsoknadToSkjemasoknad(sisteSoknadISammeSykeforlop);
+    const { utdanning, harAndreInntektskilder, andreInntektskilder } = mappetSoknad;
 
     return bruktEgenmeldingsdagerFoerLegemeldtFravaer
         ? {
@@ -89,15 +66,15 @@ const preutfyllSoknad = (soknad, sisteSoknadISammeSykeforlop) => {
             bruktEgenmeldingsdagerFoerLegemeldtFravaer,
             egenmeldingsperioder,
             harAndreInntektskilder,
-            andreInntektskilder: preutfylteInntektskilder,
+            andreInntektskilder,
             _erPreutfylt,
         }
         : {
             ...soknad,
             utdanning,
-            harAndreInntektskilder,
-            andreInntektskilder: preutfylteInntektskilder,
             bruktEgenmeldingsdagerFoerLegemeldtFravaer,
+            harAndreInntektskilder,
+            andreInntektskilder,
             _erPreutfylt,
         };
 };
@@ -113,7 +90,7 @@ export const mapToInitialValues = (soknad, soknader = []) => {
             };
         }),
         utdanning: {},
-        andreInntektskilder,
+        andreInntektskilder: andreInntektskilderDefault,
         utenlandsopphold: {
             perioder: [],
         },

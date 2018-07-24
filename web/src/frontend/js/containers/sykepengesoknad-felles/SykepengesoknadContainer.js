@@ -25,7 +25,7 @@ import SendtSoknadSelvstendig from '../../components/sykepengesoknad-selvstendig
 import { soknad as soknadPt } from '../../propTypes';
 import { SYKEPENGER_SKJEMANAVN } from '../../enums/skjemanavn';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
-import { SykepengesoknadUtlandSkjemaContainer } from '../sykepengesoknad-utland/SykepengesoknadUtlandSkjemaContainer';
+import SykepengesoknadUtlandSkjemaContainer from '../sykepengesoknad-utland/SykepengesoknadUtlandSkjemaContainer';
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';

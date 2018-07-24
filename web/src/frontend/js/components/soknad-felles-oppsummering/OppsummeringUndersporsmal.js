@@ -5,7 +5,7 @@ import { getKey } from './Oppsummeringsvisning';
 import { sporsmal as sporsmalPt } from '../../propTypes';
 
 const OppsummeringUndersporsmal = ({ sporsmalsliste = [], overskriftsnivaa = 4 }) => {
-    return sporsmalsliste.length > 0 ? (<div className="oppsummering__undersporsmalsliste" >
+    return sporsmalsliste.length > 0 ? (<div className="oppsummering__undersporsmalsliste">
         {
             sporsmalsliste.map((sporsmal) => {
                 return <OppsummeringSporsmal {...sporsmal} key={getKey(sporsmal.tag, sporsmal.id)} overskriftsnivaa={overskriftsnivaa} />;

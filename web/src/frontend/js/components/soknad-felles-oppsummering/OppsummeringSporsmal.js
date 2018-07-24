@@ -19,7 +19,7 @@ import OppsummeringCheckbox from './OppsummeringCheckbox';
 import OppsummeringJaEllerNei from './OppsummeringJaEllerNei';
 import { svartypePt } from '../../propTypes';
 import OppsummeringFritekst from './OppsummeringFritekst';
-import OppsummeringVisUndertekst from './OppsummeringVisUndertekst';
+import OppsummeringUndertekst from './OppsummeringUndertekst';
 
 const OppsummeringSporsmal = (props) => {
     switch (props.svartype) {
@@ -40,7 +40,7 @@ const OppsummeringSporsmal = (props) => {
             return <OppsummeringFritekst {...props} />;
         }
         case IKKE_RELEVANT: {
-            return <OppsummeringVisUndertekst {...props} />;
+            return <OppsummeringUndertekst {...props} />;
         }
         case CHECKBOX_GRUPPE: {
             return (<OppsummeringCheckboxgruppe {...props} />);

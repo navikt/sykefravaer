@@ -2,26 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import OppsummeringSporsmalstekst from './OppsummeringSporsmalstekst';
 import OppsummeringUndersporsmal from './OppsummeringUndersporsmal';
-import { getKey } from './Oppsummeringsvisning';
 import { sporsmal as sporsmalPt } from '../../propTypes';
 
-const OppsummeringVisUndertekst = ({ sporsmalstekst, id, overskriftsnivaa, undertekst, undersporsmal }) => {
-    const undertekstList = undertekst.replace('<ul>', '').replace('</ul>', '').split('</li>').join('')
-        .split('<li>');
-    undertekstList.shift();
-
+const OppsummeringUndertekst = ({ sporsmalstekst, id, overskriftsnivaa, undertekst, undersporsmal }) => {
     return (<div className="oppsummering__VisUndertekst" id={id}>
         <OppsummeringSporsmalstekst overskriftsnivaa={overskriftsnivaa}>{sporsmalstekst}</OppsummeringSporsmalstekst>
-        {
-            undertekstList.map((undertekstList, index) => {
-                return <p className="oppsummering__dato" key={getKey(undertekstList, index)}>{undertekstList}</p>;
-            })
-        }
+        <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={{ __html: undertekst }} />
         <OppsummeringUndersporsmal sporsmalsliste={undersporsmal} overskriftsnivaa={overskriftsnivaa} />
     </div>);
 };
 
-OppsummeringVisUndertekst.propTypes = {
+OppsummeringUndertekst.propTypes = {
     undersporsmal: sporsmalPt,
     undertekst: PropTypes.string,
     overskriftsnivaa: PropTypes.number,
@@ -29,4 +20,4 @@ OppsummeringVisUndertekst.propTypes = {
     id: PropTypes.string,
 };
 
-export default OppsummeringVisUndertekst;
+export default OppsummeringUndertekst;

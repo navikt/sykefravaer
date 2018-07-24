@@ -6,37 +6,34 @@ import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTyp
 import Feilstripe from '../../../components/Feilstripe';
 import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
 import StatuspanelUtland from '../SoknadstatuspanelUtland';
-import Header from '../../../containers/sykepengesoknad-utland/SykepengesoknadUtlandHeader';
+import Sidetopp from '../../Sidetopp';
 
-const OppsummeringUtvidbar = ({ soknad }) => {
+const OppsummeringPanel = ({ soknad }) => {
     return (<div className="panel blokk">
-        <div className="panel__tittel panel__lang"> {getLedetekst('sykepengesoknad.oppsummering.undertittel')}</div>
+        <div className="panel__tittel blokk--xs"> {getLedetekst('sykepengesoknad.oppsummering.undertittel')}</div>
         <Oppsummeringsvisning soknad={soknad} />
     </div>);
 };
 
-OppsummeringUtvidbar.propTypes = {
+OppsummeringPanel.propTypes = {
     soknad: soknadPt,
-};
-
-export const hentSporsmalForOppsummering = (soknad) => {
-    return soknad.sporsmal;
 };
 
 export const SykepengesoknadUtlandOppsummeringSkjema = (props) => {
     const { soknad, sendingFeilet } = props;
-
-    return (<form className="soknadskjema" id="oppsummering-skjema">
-        <Header isLong />
-        <StatuspanelUtland sykepengesoknad={soknad} />
-        <OppsummeringUtvidbar soknad={soknad} />
+    return (<div>
+        <div className="blokk--xl">
+            <Sidetopp tittel={getLedetekst('sykepengesoknad-utland.tittel')} />
+        </div>
+        <StatuspanelUtland soknad={soknad} />
+        <OppsummeringPanel soknad={soknad} />
         <Feilstripe vis={sendingFeilet} />
         <p className="ikke-print blokk navigasjonsstripe">
             <Link to="/sykefravaer/soknader" className="tilbakelenke">
                 {getLedetekst('sykepengesoknad.navigasjon.gaa-til')}
             </Link>
         </p>
-    </form>);
+    </div>);
 };
 
 SykepengesoknadUtlandOppsummeringSkjema.propTypes = {

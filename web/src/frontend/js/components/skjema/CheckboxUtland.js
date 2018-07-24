@@ -6,7 +6,7 @@ import Feilmelding from './Feilmelding';
 
 const CheckboxUtland = ({ input, meta, label, id }) => {
     return (<div>
-        <BekreftCheckboksPanel {...input} id={id} label={label} checked={true} />
+        <BekreftCheckboksPanel {...input} id={id} label={label} checked />
         <Feilmelding {...meta} />
     </div>);
 };
@@ -18,4 +18,4 @@ CheckboxUtland.propTypes = {
     id: PropTypes.string,
 };
 
-export default CheckboxSUtland;
+export default CheckboxUtland;

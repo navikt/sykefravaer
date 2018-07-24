@@ -1,28 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import {
+    SykmeldingNokkelOpplysning,
+    toDatePrettyPrint,
+    getLedetekst,
+    sykepengesoknadstatuser,
+} from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
-import { erSendtTilBeggeMenIkkeSamtidig, getSendtTilSuffix } from '../../utils/sykepengesoknadUtils';
-import { formaterOrgnr } from '../../utils';
 
 const { SENDT, TIL_SENDING, KORRIGERT } = sykepengesoknadstatuser;
-
-const getParams = (sykepengesoknad) => {
-    return {
-        '%SENDTTILNAVDATO%': toDatePrettyPrint(sykepengesoknad.sendtTilNAVDato)
-    };
-};
 
 const getStatusTekst = (sykepengesoknad) => {
     switch (sykepengesoknad.status) {
         case SENDT: {
-            return getLedetekst("sykepengesoknad-utland.status-2.sendt");
+            return getLedetekst('sykepengesoknad-utland.status-2.sendt');
         }
         case TIL_SENDING: {
-            return getLedetekst("sykepengesoknad-utland.status-2.til-sending");
+            return getLedetekst('sykepengesoknad-utland.status-2.til-sending');
         }
-        //TODO: KORRIGERT?
         case KORRIGERT: {
             return getLedetekst('sykepengesoknad-utland.status-2.korrigert');
         }
@@ -36,20 +32,27 @@ export const tilSendingHjelpetekst = () => {
     return (<Hjelpetekst>{getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tekst')}</Hjelpetekst>);
 };
 
-const SykepengerInfo = ({ sykepengesoknad }) => {
-    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel={getLedetekst('sykepengesoknad.sykepengeinfo.tittel')}>
-        <p dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.sykepengeinfo${getSendtTilSuffix(sykepengesoknad)}`)} />
-    </SykmeldingNokkelOpplysning>);
+const SendtDato = ({ sykepengesoknad }) => {
+    return (<SykmeldingNokkelOpplysning
+        className="nokkelopplysning--statusopplysning"
+        Overskrift="h2"
+        tittel={getLedetekst('sykepengesoknad.sykepengeinfo.tittel.dato')}>
+        <p>{toDatePrettyPrint(sykepengesoknad.sendtTilNavDato)}</p>
+    </SykmeldingNokkelOpplysning>
+    );
 };
 
-SykepengerInfo.propTypes = {
+SendtDato.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
 };
 
 const SendtLikt = ({ sykepengesoknad }) => {
     const tekst = getStatusTekst(sykepengesoknad);
     return (<div className="statusopplysninger">
-        <SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
+        <SykmeldingNokkelOpplysning
+            className="nokkelopplysning--statusopplysning"
+            Overskrift="h2"
+            tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
             {
                 sykepengesoknad.status === TIL_SENDING
                     ? (<div>
@@ -58,7 +61,8 @@ const SendtLikt = ({ sykepengesoknad }) => {
                     : <p>{tekst}</p>
             }
         </SykmeldingNokkelOpplysning>
-        <SykepengerInfo sykepengesoknad={sykepengesoknad} />
+
+        <SendtDato sykepengesoknad={sykepengesoknad} />
     </div>);
 };
 
@@ -67,8 +71,6 @@ SendtLikt.propTypes = {
 };
 
 const StatuspanelUtland = ({ sykepengesoknad, children }) => {
-    //TODO: OVERSKRIV OPPRETTET DATO VED SENDING?
-    console.log("jau", sykepengesoknad);
     return (<div className="panel panel--komprimert blokk">
         {
             <SendtLikt sykepengesoknad={sykepengesoknad} />

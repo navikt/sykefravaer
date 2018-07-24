@@ -1,13 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
-import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes';
 import Feilstripe from '../../../components/Feilstripe';
 import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
-import StatuspanelUtland from "../SoknadstatuspanelUtland";
+import StatuspanelUtland from '../SoknadstatuspanelUtland';
+import Header from '../../../containers/sykepengesoknad-utland/SykepengesoknadUtlandHeader';
 
 const OppsummeringUtvidbar = ({ soknad }) => {
-    return (<div className="panel blokk" tittel={getLedetekst('sykepengesoknad.sidetittel')}>
+    return (<div className="panel blokk">
+        <div className="panel__tittel panel__lang"> {getLedetekst('sykepengesoknad.oppsummering.undertittel')}</div>
         <Oppsummeringsvisning soknad={soknad} />
     </div>);
 };
@@ -21,35 +24,28 @@ export const hentSporsmalForOppsummering = (soknad) => {
 };
 
 export const SykepengesoknadUtlandOppsummeringSkjema = (props) => {
-    const { handleSubmit, soknad, skjemasvar, actions, sender, sendingFeilet } = props;
-    console.log("eg trynar ikkje ennau");
-    console.log(soknad);
+    const { soknad, sendingFeilet } = props;
 
-    const sporsmal = hentSporsmalForOppsummering(soknad);
-    console.log(sporsmal);
-    return (<form className="soknadskjema" id="oppsummering-skjema" >
-        <StatuspanelUtland sykepengesoknad={soknad}>
-        </StatuspanelUtland>
-        <div className="bekreftet-container blokk">
-            <OppsummeringUtvidbar soknad={soknad} />
-        </div>
+    return (<form className="soknadskjema" id="oppsummering-skjema">
+        <Header isLong />
+        <StatuspanelUtland sykepengesoknad={soknad} />
+        <OppsummeringUtvidbar soknad={soknad} />
         <Feilstripe vis={sendingFeilet} />
+        <p className="ikke-print blokk navigasjonsstripe">
+            <Link to="/sykefravaer/soknader" className="tilbakelenke">
+                {getLedetekst('sykepengesoknad.navigasjon.gaa-til')}
+            </Link>
+        </p>
     </form>);
 };
 
 SykepengesoknadUtlandOppsummeringSkjema.propTypes = {
-    handleSubmit: PropTypes.func,
     soknad: soknadPt,
-    skjemasvar: skjemasvarPt,
-    actions: PropTypes.shape({
-        sendSoknad: PropTypes.func,
-    }),
-    sender: PropTypes.bool,
     sendingFeilet: PropTypes.bool,
 };
 
 const OppsummeringUtland = (props) => {
-    const { sykmelding, soknad, handleSubmit, skjemasvar, actions, sendingFeilet } = props;
+    const { soknad, handleSubmit, skjemasvar, actions, sendingFeilet } = props;
     return (
         <SykepengesoknadUtlandOppsummeringSkjema
             soknad={soknad}
@@ -60,7 +56,6 @@ const OppsummeringUtland = (props) => {
 };
 
 OppsummeringUtland.propTypes = {
-    sykmelding: sykmeldingPt,
     soknad: soknadPt,
     handleSubmit: PropTypes.func,
     skjemasvar: skjemasvarPt,

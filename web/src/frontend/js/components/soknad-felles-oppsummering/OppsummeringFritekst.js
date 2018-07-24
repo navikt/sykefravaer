@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OppsummeringSporsmalstekst from "./OppsummeringSporsmalstekst";
+import OppsummeringSporsmalstekst from './OppsummeringSporsmalstekst';
+import { svar as svarPt } from '../../propTypes';
 
-const OppsummeringFritekst = ({ sporsmalstekst, id , overskriftsnivaa, svar}) => {
-    console.log(sporsmalstekst);
+const OppsummeringFritekst = ({ sporsmalstekst, id, overskriftsnivaa, svar }) => {
     return (<div className="oppsummering__fritekst" id={id}>
         <OppsummeringSporsmalstekst overskriftsnivaa={overskriftsnivaa}>{sporsmalstekst}</OppsummeringSporsmalstekst>
         <span>{svar[0].verdi}</span>
@@ -11,7 +11,9 @@ const OppsummeringFritekst = ({ sporsmalstekst, id , overskriftsnivaa, svar}) =>
 };
 
 OppsummeringFritekst.propTypes = {
-    tekst: PropTypes.string,
+    svar: svarPt,
+    overskriftsnivaa: PropTypes.number,
+    sporsmalstekst: PropTypes.string,
     id: PropTypes.string,
 };
 

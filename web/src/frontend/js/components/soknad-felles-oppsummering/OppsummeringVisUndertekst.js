@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OppsummeringSporsmalstekst from "./OppsummeringSporsmalstekst";
-import OppsummeringUndersporsmal from "./OppsummeringUndersporsmal";
-import {getLedetekst, toDatePrettyPrint} from "digisyfo-npm";
-import {getKey} from "./Oppsummeringsvisning";
+import OppsummeringSporsmalstekst from './OppsummeringSporsmalstekst';
+import OppsummeringUndersporsmal from './OppsummeringUndersporsmal';
+import { getKey } from './Oppsummeringsvisning';
+import { sporsmal as sporsmalPt } from '../../propTypes';
 
-const OppsummeringVisUndertekst = ({ sporsmalstekst, id , overskriftsnivaa, undertekst, undersporsmal}) => {
-    console.log(undertekst);
-    console.log(((undertekst).replace("<ul>","")).replace("</li>","").replace("</ul>","").replace("\n","").split("<li>"));
-    let undertekstList = undertekst.replace("<ul>","").replace("</ul>","").split("</li>").join("").split("<li>");
+const OppsummeringVisUndertekst = ({ sporsmalstekst, id, overskriftsnivaa, undertekst, undersporsmal }) => {
+    const undertekstList = undertekst.replace('<ul>', '').replace('</ul>', '').split('</li>').join('')
+        .split('<li>');
     undertekstList.shift();
 
     return (<div className="oppsummering__VisUndertekst" id={id}>
@@ -23,7 +22,10 @@ const OppsummeringVisUndertekst = ({ sporsmalstekst, id , overskriftsnivaa, unde
 };
 
 OppsummeringVisUndertekst.propTypes = {
-    tekst: PropTypes.string,
+    undersporsmal: sporsmalPt,
+    undertekst: PropTypes.string,
+    overskriftsnivaa: PropTypes.number,
+    sporsmalstekst: PropTypes.string,
     id: PropTypes.string,
 };
 

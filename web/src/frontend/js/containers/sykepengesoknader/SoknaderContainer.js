@@ -11,7 +11,7 @@ import Feilmelding from '../../components/Feilmelding';
 import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt, soknad as soknadPt } from '../../propTypes';
 import { hentSykepengesoknader } from '../../actions/sykepengesoknader_actions';
 import { hentSoknader } from '../../actions/soknader_actions';
-import {toggleSelvstendigSoknad, toggleSykepengesoknadUtland} from '../../toggles';
+import { toggleSelvstendigSoknad, toggleSykepengesoknadUtland } from '../../toggles';
 
 export class SoknaderSide extends Component {
     componentWillMount() {

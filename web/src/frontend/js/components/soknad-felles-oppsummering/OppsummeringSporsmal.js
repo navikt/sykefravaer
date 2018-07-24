@@ -9,7 +9,7 @@ import {
     JA_NEI,
     PERIODER,
     PROSENT,
-    TIMER
+    TIMER,
 } from '../../enums/svartyper';
 import OppsummeringPerioder from './OppsummeringPerioder';
 import OppsummeringDato from './OppsummeringDato';
@@ -18,11 +18,10 @@ import OppsummeringTall from './OppsummeringTall';
 import OppsummeringCheckbox from './OppsummeringCheckbox';
 import OppsummeringJaEllerNei from './OppsummeringJaEllerNei';
 import { svartypePt } from '../../propTypes';
-import OppsummeringFritekst from "./OppsummeringFritekst";
-import OppsummeringVisUndertekst from "./OppsummeringVisUndertekst";
+import OppsummeringFritekst from './OppsummeringFritekst';
+import OppsummeringVisUndertekst from './OppsummeringVisUndertekst';
 
 const OppsummeringSporsmal = (props) => {
-    console.log(props.svartype);
     switch (props.svartype) {
         case CHECKBOX_PANEL:
         case CHECKBOX: {
@@ -41,7 +40,7 @@ const OppsummeringSporsmal = (props) => {
             return <OppsummeringFritekst {...props} />;
         }
         case IKKE_RELEVANT: {
-            return <OppsummeringVisUndertekst {...props}/>
+            return <OppsummeringVisUndertekst {...props} />;
         }
         case CHECKBOX_GRUPPE: {
             return (<OppsummeringCheckboxgruppe {...props} />);

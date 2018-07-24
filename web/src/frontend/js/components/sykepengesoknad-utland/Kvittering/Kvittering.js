@@ -8,7 +8,7 @@ import { getContextRoot } from '../../../routers/paths';
 const Kvittering = () => {
     return (<div>
         <Header />
-        <div className="panel blokk" >
+        <div className="panel blokk">
             <IllustrertInnholdGronnHake>
                 <h2 className="illustrertInnhold__tittel panel__tittel">
                     {getLedetekst('sykepengesoknad-utland.kvittering.sendt.undertittel')}
@@ -20,12 +20,12 @@ const Kvittering = () => {
         </div>
         <div className="blokk">
             <Bjorn rootUrl={getContextRoot()} hvit stor>
-                <p>{ getLedetekst('sykepengesoknad-utland.kvittering.sendt.bjorn') }</p>
+                <p>{getLedetekst('sykepengesoknad-utland.kvittering.sendt.bjorn')}</p>
             </Bjorn>
         </div>
         <p className="ikke-print blokk navigasjonsstripe">
-            <Link to="/sykefravaer" className="tilbakelenke">
-                {getLedetekst('sykepengesoknad.navigasjon.gaa-til-sykefravaer')}
+            <Link to="/sykefravaer/soknader" className="tilbakelenke">
+                {getLedetekst('sykepengesoknad.navigasjon.gaa-til')}
             </Link>
         </p>
     </div>);

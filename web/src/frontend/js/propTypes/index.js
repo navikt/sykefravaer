@@ -129,6 +129,7 @@ export const soknad = PropTypes.shape({
     fom: PropTypes.instanceOf(Date),
     tom: PropTypes.instanceOf(Date),
     opprettetDato: PropTypes.instanceOf(Date),
+    sendtTilNavDato: PropTypes.instanceOf(Date),
     sporsmal: PropTypes.arrayOf(sporsmal),
 });
 

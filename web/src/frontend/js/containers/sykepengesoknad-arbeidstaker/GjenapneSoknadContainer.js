@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import AvbruttSoknad from '../../components/sykepengesoknad-arbeidstaker/AvbruttSoknad';
+import GjenapneSoknad from '../../components/sykepengesoknad-arbeidstaker/GjenapneSoknad';
 import { gjenapneSoknad } from '../../actions/sykepengesoknader_actions';
 
 const mapStateToProps = (state) => {
@@ -9,6 +9,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-const AvbruttSoknadContainer = connect(mapStateToProps, { gjenapneSoknad })(AvbruttSoknad);
+const GjenapneSoknadContainer = connect(mapStateToProps, { gjenapneSoknad })(GjenapneSoknad);
 
-export default AvbruttSoknadContainer;
+export default GjenapneSoknadContainer;

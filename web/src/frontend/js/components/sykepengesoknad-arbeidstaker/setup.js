@@ -44,7 +44,8 @@ const preutfyllSoknad = (soknad, sisteSoknadISammeSykeforlop) => {
     }
 
     const bruktEgenmeldingsdagerFoerLegemeldtFravaer = sisteSoknadISammeSykeforlop.egenmeldingsperioder.length > 0;
-    const _erPreutfylt = true;
+    const _erInntektskilderPreutfylt = true;
+    const _erEgenmeldingsperioderPreutfylt = true;
     const egenmeldingsperioder = [...sisteSoknadISammeSykeforlop.egenmeldingsperioder]
         .sort((periodeA, periodeB) => {
             return periodeA.fom - periodeB.fom;
@@ -58,24 +59,32 @@ const preutfyllSoknad = (soknad, sisteSoknadISammeSykeforlop) => {
 
     const mappetSoknad = mapBackendsoknadToSkjemasoknad(sisteSoknadISammeSykeforlop);
     const { utdanning, harAndreInntektskilder, andreInntektskilder } = mappetSoknad;
+    const _utdanning = utdanning.underUtdanningISykmeldingsperioden
+        ? utdanning
+        : {};
+    const _erUtdanningPreutfylt = utdanning.underUtdanningISykmeldingsperioden;
 
     return bruktEgenmeldingsdagerFoerLegemeldtFravaer
         ? {
             ...soknad,
-            utdanning,
+            utdanning: _utdanning,
             bruktEgenmeldingsdagerFoerLegemeldtFravaer,
             egenmeldingsperioder,
             harAndreInntektskilder,
             andreInntektskilder,
-            _erPreutfylt,
+            _erInntektskilderPreutfylt,
+            _erEgenmeldingsperioderPreutfylt,
+            _erUtdanningPreutfylt,
         }
         : {
             ...soknad,
-            utdanning,
+            utdanning: _utdanning,
             bruktEgenmeldingsdagerFoerLegemeldtFravaer,
             harAndreInntektskilder,
             andreInntektskilder,
-            _erPreutfylt,
+            _erInntektskilderPreutfylt,
+            _erEgenmeldingsperioderPreutfylt,
+            _erUtdanningPreutfylt,
         };
 };
 

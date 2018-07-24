@@ -255,17 +255,15 @@ describe('setup', () => {
                 values.identdato = new Date('2018-01-13');
                 const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                 expect(res.utdanning).to.deep.equal({});
-                expect(res._erPreutfylt).not.to.equal(true);
+                expect(res._erUtdanningPreutfylt).not.to.equal(true);
             });
 
-            it('Skal forhåndsutfylle når det ikke er oppgitt utdanning i forrige sendte søknad', () => {
+            it('Skal ikke forhåndsutfylle når det ikke er oppgitt utdanning i forrige sendte søknad', () => {
                 values.id = 'soknad-id-3';
                 values.identdato = identdato1;
                 const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
-                expect(res.utdanning).to.deep.equal({
-                    underUtdanningISykmeldingsperioden: false,
-                });
-                expect(res._erPreutfylt).to.equal(true);
+                expect(res.utdanning).to.deep.equal({});
+                expect(res._erUtdanningPreutfylt).to.equal(false);
             });
 
             it('Skal forhåndsutfylle når det er oppgitt utdanning i forrige sendte søknad', () => {
@@ -281,7 +279,7 @@ describe('setup', () => {
                     erUtdanningFulltidsstudium: false,
                     underUtdanningISykmeldingsperioden: true,
                 });
-                expect(res._erPreutfylt).to.equal(true);
+                expect(res._erUtdanningPreutfylt).to.equal(true);
             });
         });
 
@@ -333,7 +331,7 @@ describe('setup', () => {
                 values.identdato = new Date('2018-01-13');
                 const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                 expect(res.andreInntektskilder).to.deep.equal(andreInntektskilderDefault);
-                expect(res._erPreutfylt).not.to.equal(true);
+                expect(res._erInntektskilderPreutfylt).not.to.equal(true);
             });
 
             it('Skal forhåndsutfylle når det ikke er oppgitt inntektskilder i forrige sendte søknad', () => {
@@ -342,7 +340,7 @@ describe('setup', () => {
                 const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                 expect(res.andreInntektskilder).to.deep.equal(andreInntektskilderDefault);
                 expect(res.harAndreInntektskilder).to.deep.equal(false);
-                expect(res._erPreutfylt).to.equal(true);
+                expect(res._erInntektskilderPreutfylt).to.equal(true);
             });
 
             it('Skal forhåndsutfylle når det er oppgitt inntektskilder i forrige sendte søknad', () => {
@@ -359,7 +357,7 @@ describe('setup', () => {
                     avkrysset: true,
                     sykmeldt: false,
                 });
-                expect(res._erPreutfylt).to.equal(true);
+                expect(res._erInntektskilderPreutfylt).to.equal(true);
             });
         });
 
@@ -430,7 +428,7 @@ describe('setup', () => {
                 values.identdato = new Date('2018-01-13');
                 const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                 expect(res.bruktEgenmeldingsdagerFoerLegemeldtFravaer).to.equal(undefined);
-                expect(res._erPreutfylt).not.to.equal(true);
+                expect(res._erEgenmeldingsperioderPreutfylt).not.to.equal(true);
             });
 
             describe('Dersom det finnes andre søknader som er SENDT og har samme identdato', () => {
@@ -439,7 +437,7 @@ describe('setup', () => {
                     values.identdato = identdato1;
                     const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                     expect(res.bruktEgenmeldingsdagerFoerLegemeldtFravaer).to.equal(false);
-                    expect(res._erPreutfylt).to.equal(true);
+                    expect(res._erEgenmeldingsperioderPreutfylt).to.equal(true);
                 });
 
                 describe('Dersom det finnes en tidligere sendt søknad', () => {
@@ -470,7 +468,7 @@ describe('setup', () => {
 
                         const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                         expect(res.egenmeldingsperioder).to.deep.equal([]);
-                        expect(res._erPreutfylt).not.to.equal(true);
+                        expect(res._erEgenmeldingsperioderPreutfylt).not.to.equal(true);
                     });
 
                     it('Skal forhåndsutfylle bruktEgenmeldingsdagerFoerLegemeldtFravaer når det er oppgitt egenmeldingsperioder i forrige søknad', () => {
@@ -478,14 +476,14 @@ describe('setup', () => {
                         values.identdato = identdato1;
                         const res = mapToInitialValues(deepFreeze(values), deepFreeze(sykepengesoknader));
                         expect(res.bruktEgenmeldingsdagerFoerLegemeldtFravaer).to.equal(true);
-                        /*  expect(res.egenmeldingsperioder).to.deep.equal([{
+                        expect(res.egenmeldingsperioder).to.deep.equal([{
                             fom: '12.01.2018',
                             tom: '15.01.2018',
                         }, {
                             fom: '21.01.2018',
                             tom: '24.01.2018',
                         }]);
-                        expect(res._erPreutfylt).to.equal(true); */
+                        expect(res._erEgenmeldingsperioderPreutfylt).to.equal(true);
                     });
 
                     it('Skal forhåndsutfylle bruktEgenmeldingsdagerFoerLegemeldtFravaer med info fra forrige søknad for denne arbeidsgiveren', () => {
@@ -520,7 +518,7 @@ describe('setup', () => {
                             fom: '21.01.2018',
                             tom: '24.01.2018',
                         }]);
-                        expect(res._erPreutfylt).to.equal(true);
+                        expect(res._erEgenmeldingsperioderPreutfylt).to.equal(true);
                     });
                 });
             });

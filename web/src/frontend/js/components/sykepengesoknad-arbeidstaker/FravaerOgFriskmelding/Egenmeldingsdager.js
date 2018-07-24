@@ -25,7 +25,7 @@ PreutfyltBjorn.propTypes = {
     vis: PropTypes.bool,
 };
 
-const EgenmeldingsDager = ({ sykepengesoknad, erPreutfylt }) => {
+const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsperioderPreutfylt }) => {
     const startSykeforloep = getTidligsteStartdatoSykeforloep(sykepengesoknad);
     const senesteTom = new Date(startSykeforloep);
     senesteTom.setDate(startSykeforloep.getDate() - 1);
@@ -37,7 +37,7 @@ const EgenmeldingsDager = ({ sykepengesoknad, erPreutfylt }) => {
             '%DATO%': toDatePrettyPrint(startSykeforloep),
         })}</Hjelpetekst>);
 
-    const informasjon = <PreutfyltBjorn vis={erPreutfylt} />;
+    const informasjon = <PreutfyltBjorn vis={erEgenmeldingsperioderPreutfylt} />;
 
     return (<JaEllerNei
         spoersmal={getEgenmeldingsdagerSporsmal(sykepengesoknad)}
@@ -56,7 +56,7 @@ const EgenmeldingsDager = ({ sykepengesoknad, erPreutfylt }) => {
 
 EgenmeldingsDager.propTypes = {
     sykepengesoknad: sykepengesoknadPt.isRequired,
-    erPreutfylt: PropTypes.bool,
+    erEgenmeldingsperioderPreutfylt: PropTypes.bool,
 };
 
 export default EgenmeldingsDager;

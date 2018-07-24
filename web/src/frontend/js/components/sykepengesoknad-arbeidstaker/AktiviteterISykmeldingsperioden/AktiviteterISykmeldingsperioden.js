@@ -39,7 +39,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
     }
 
     render() {
-        const { handleSubmit, sykepengesoknad, autofill, untouch, gjenopptattArbeidFulltUtDato, erPreutfylt } = this.props;
+        const { handleSubmit, sykepengesoknad, autofill, untouch, gjenopptattArbeidFulltUtDato, erUtdanningPreutfylt, erInntektskilderPreutfylt } = this.props;
 
         const onSubmit = () => {
             history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
@@ -65,28 +65,29 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
                 arbeidsgiver={sykepengesoknad.arbeidsgiver.navn} />
 
             <JaEllerNei
-                informasjon={<PreutfyltBjorn vis={erPreutfylt} />}
+                informasjon={<PreutfyltBjorn vis={erInntektskilderPreutfylt} />}
                 name="harAndreInntektskilder"
                 spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', {
                     '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
                 })}>
                 <AndreInntektskilder />
             </JaEllerNei>
-
-
-            {_aktiviteter.length > 0 &&
-            <JaEllerNei
-                informasjon={<PreutfyltBjorn vis={erPreutfylt} />}
-                name="utdanning.underUtdanningISykmeldingsperioden"
-                spoersmal={getUtdanningssporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}>
-                <UtdanningStartDato senesteTom={_senesteTom} />
-                <Field
-                    component={JaEllerNeiRadioknapper}
-                    name="utdanning.erUtdanningFulltidsstudium"
-                    parse={parseJaEllerNei}
-                    spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal')}
-                    Overskrift="h4" />
-            </JaEllerNei>}
+            {
+                _aktiviteter.length > 0
+                    &&
+                        <JaEllerNei
+                            informasjon={<PreutfyltBjorn vis={erUtdanningPreutfylt} />}
+                            name="utdanning.underUtdanningISykmeldingsperioden"
+                            spoersmal={getUtdanningssporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}>
+                            <UtdanningStartDato senesteTom={_senesteTom} />
+                            <Field
+                                component={JaEllerNeiRadioknapper}
+                                name="utdanning.erUtdanningFulltidsstudium"
+                                parse={parseJaEllerNei}
+                                spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal')}
+                                Overskrift="h4" />
+                        </JaEllerNei>
+            }
             <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} />
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);
@@ -99,7 +100,8 @@ AktiviteterISykmeldingsperiodenSkjema.propTypes = {
     autofill: PropTypes.func,
     untouch: PropTypes.func,
     gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
-    erPreutfylt: PropTypes.bool,
+    erInntektskilderPreutfylt: PropTypes.bool,
+    erUtdanningPreutfylt: PropTypes.bool,
 };
 
 const AktiviteterISykmeldingsperiodenSkjemaConnected = connectGjenopptattArbeidFulltUtDato(AktiviteterISykmeldingsperiodenSkjema);
@@ -112,7 +114,10 @@ const AktiviteterISykmeldingsperioden = ({ sykepengesoknad, skjemasoknad }) => {
             aktivtSteg="3"
             tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
             sykepengesoknad={sykepengesoknad}>
-            <AktiviteterISykmeldingsperiodenReduxSkjema sykepengesoknad={sykepengesoknad} erPreutfylt={skjemasoknad._erPreutfylt} />
+            <AktiviteterISykmeldingsperiodenReduxSkjema
+                sykepengesoknad={sykepengesoknad}
+                erUtdanningPreutfylt={skjemasoknad._erUtdanningPreutfylt}
+                erInntektskilderPreutfylt={skjemasoknad._erInntektskilderPreutfylt} />
         </SykepengerSkjema>);
 };
 

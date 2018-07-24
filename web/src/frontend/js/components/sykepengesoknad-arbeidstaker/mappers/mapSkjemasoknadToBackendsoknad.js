@@ -95,7 +95,9 @@ const frontendProps = [
     'utenlandsoppholdSoktOmSykepenger',
     'harAndreInntektskilder',
     'oppfoelgingsdato',
-    '_erEgenmeldingsdagerPreutfylt',
+    '_erEgenmeldingsperioderPreutfylt',
+    '_erUtdanningPreutfylt',
+    '_erInntektskilderPreutfylt',
     '_erOppdelt',
 ];
 

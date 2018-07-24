@@ -10,7 +10,7 @@ import validate, {
     merEnnNullFeil,
     sammeNormalAntallFeil,
     oppgiTallFraEnTil100Feil,
-    arbeidsgradEr100ProsentFeil} from '../../../../js/components/sykepengesoknad-arbeidstaker/validering/validerAktiviteterISykmeldingsperioden';
+    arbeidsgradEr100ProsentFeil } from '../../../../js/components/sykepengesoknad-arbeidstaker/validering/validerAktiviteterISykmeldingsperioden';
 
 import { inntektskildetyper } from '../../../../js/components/sykepengesoknad-arbeidstaker/AktiviteterISykmeldingsperioden/AndreInntektskilder';
 import { getSoknad } from '../../../mockSykepengesoknader';

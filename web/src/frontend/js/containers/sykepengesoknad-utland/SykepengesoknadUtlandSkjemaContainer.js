@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { soknad as soknadPt } from '../../propTypes';
 import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import UtlandsSkjema from '../../components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
-import { sendSoknad } from '../../actions/soknader_actions';
-import PropTypes from 'prop-types';
 import Kvittering from '../../components/sykepengesoknad-utland/Kvittering/Kvittering';
 import Feilmelding from '../../components/Feilmelding';
+import { sendSoknad as sendSoknadAction } from '../../actions/soknader_actions';
 
 
-export const SykepengesoknadUtlandSkjemaContainer = ({ soknad, sendSoknad, sender }) => {
+const SykepengesoknadUtlandSkjemaContainer = ({ soknad, sendSoknad, sender }) => {
     if (soknad && soknad.status === NY) {
         return (<UtlandsSkjema
             soknad={soknad}
@@ -17,7 +17,7 @@ export const SykepengesoknadUtlandSkjemaContainer = ({ soknad, sendSoknad, sende
             sender={sender}
         />);
     }
-    if (soknad && soknad.status === TIL_SENDING || soknad && soknad.status === SENDT) {
+    if (soknad && (soknad.status === TIL_SENDING || soknad.status === SENDT)) {
         return <Kvittering />;
     }
     return <Feilmelding />;
@@ -31,9 +31,7 @@ SykepengesoknadUtlandSkjemaContainer.propTypes = {
 
 export const finnSoknad = (state, ownProps) => {
     return state.soknader.data.find((s) => {
-        return s.id === ownProps.params.sykepengesoknadId && s.status === NY
-            || s.id === ownProps.params.sykepengesoknadId && s.status === TIL_SENDING
-            || s.id === ownProps.params.sykepengesoknadId && s.status === SENDT;
+        return (s.id === ownProps.params.sykepengesoknadId) && (s.status === NY || s.status === TIL_SENDING || s.status === SENDT);
     });
 };
 
@@ -46,4 +44,4 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-export default connect(mapStateToProps, { sendSoknad })(SykepengesoknadUtlandSkjemaContainer);
+export default connect(mapStateToProps, { sendSoknad: sendSoknadAction })(SykepengesoknadUtlandSkjemaContainer);

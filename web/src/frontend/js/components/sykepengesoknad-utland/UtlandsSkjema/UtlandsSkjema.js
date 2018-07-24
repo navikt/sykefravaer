@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { reduxForm } from 'redux-form';
 import { getLedetekst } from 'digisyfo-npm';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import Header from '../../../containers/sykepengesoknad-utland/SykepengesoknadUtlandHeader';
 import Sporsmal from '../../soknad-felles/Sporsmal';
 import { JA_NEI } from '../../../enums/svarverdityper';
@@ -11,7 +12,6 @@ import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
 import validate from '../validering/validerUtlandsSkjema';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/FeiloppsummeringContainer';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
-import { Hovedknapp } from 'nav-frontend-knapper';
 
 
 const UtlandsSkjema = ({ soknad, handleSubmit, sender, sendSoknad }) => {

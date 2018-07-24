@@ -170,7 +170,7 @@ describe('mapBackendsoknadToSkjemasoknad', () => {
     });
 
     describe('Inntektskilder', () => {
-        it('mapper andreInntektskilder', () => {
+        it('mapper andre inntektskilder', () => {
             const soknad = getParsetSoknad({
                 andreInntektskilder: [{
                     sykmeldt: true,
@@ -196,7 +196,7 @@ describe('mapBackendsoknadToSkjemasoknad', () => {
             expect(s.harAndreInntektskilder).to.equal(true);
         });
 
-        it('mapper andreInntektskilder når det er []', () => {
+        it('mapper andre inntektskilder når det er []', () => {
             const soknad = getParsetSoknad({
                 andreInntektskilder: [],
             });

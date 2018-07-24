@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
-import Knapp from 'nav-frontend-knapper';
+import Knapp, { Hovedknapp } from 'nav-frontend-knapper';
 import { connect } from 'react-redux';
-import { Hovedknapp } from 'nav-frontend-knapper';
 import Lightbox from '../Lightbox';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import * as actions from '../../actions/sykepengesoknader_actions';
-import { Vis } from '../../utils';
 import Feilstripe from '../Feilstripe';
 
 const sendtTilNAVDato = 'sendtTilNAVDato';

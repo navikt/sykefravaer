@@ -12,7 +12,7 @@ const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
 };
 
-export const andreInntektskilder = Object.keys(inntektskildetypeEnums).map((key) => {
+export const andreInntektskilderDefault = Object.keys(inntektskildetypeEnums).map((key) => {
     return {
         annenInntektskildeType: inntektskildetypeEnums[key],
     };
@@ -38,14 +38,14 @@ const getSisteSoknadISammeSykeforloep = (soknad, soknader) => {
         })[0];
 };
 
-const preutfyllEgenmeldingsperioder = (soknad, soknader) => {
-    const sisteSoknadISammeSykeforlop = getSisteSoknadISammeSykeforloep({ ...soknad }, soknader);
+const preutfyllSoknad = (soknad, sisteSoknadISammeSykeforlop) => {
     if (!sisteSoknadISammeSykeforlop || soknad.status === sykepengesoknadstatuser.UTKAST_TIL_KORRIGERING) {
         return soknad;
     }
 
     const bruktEgenmeldingsdagerFoerLegemeldtFravaer = sisteSoknadISammeSykeforlop.egenmeldingsperioder.length > 0;
-    const _erEgenmeldingsdagerPreutfylt = true;
+    const _erInntektskilderPreutfylt = true;
+    const _erEgenmeldingsperioderPreutfylt = true;
     const egenmeldingsperioder = [...sisteSoknadISammeSykeforlop.egenmeldingsperioder]
         .sort((periodeA, periodeB) => {
             return periodeA.fom - periodeB.fom;
@@ -57,18 +57,34 @@ const preutfyllEgenmeldingsperioder = (soknad, soknader) => {
             };
         });
 
+    const mappetSoknad = mapBackendsoknadToSkjemasoknad(sisteSoknadISammeSykeforlop);
+    const { utdanning, harAndreInntektskilder, andreInntektskilder } = mappetSoknad;
+    const _utdanning = utdanning.underUtdanningISykmeldingsperioden
+        ? utdanning
+        : {};
+    const _erUtdanningPreutfylt = utdanning.underUtdanningISykmeldingsperioden;
 
     return bruktEgenmeldingsdagerFoerLegemeldtFravaer
         ? {
             ...soknad,
+            utdanning: _utdanning,
             bruktEgenmeldingsdagerFoerLegemeldtFravaer,
             egenmeldingsperioder,
-            _erEgenmeldingsdagerPreutfylt,
+            harAndreInntektskilder,
+            andreInntektskilder,
+            _erInntektskilderPreutfylt,
+            _erEgenmeldingsperioderPreutfylt,
+            _erUtdanningPreutfylt,
         }
         : {
             ...soknad,
+            utdanning: _utdanning,
             bruktEgenmeldingsdagerFoerLegemeldtFravaer,
-            _erEgenmeldingsdagerPreutfylt,
+            harAndreInntektskilder,
+            andreInntektskilder,
+            _erInntektskilderPreutfylt,
+            _erEgenmeldingsperioderPreutfylt,
+            _erUtdanningPreutfylt,
         };
 };
 
@@ -83,13 +99,14 @@ export const mapToInitialValues = (soknad, soknader = []) => {
             };
         }),
         utdanning: {},
-        andreInntektskilder,
+        andreInntektskilder: andreInntektskilderDefault,
         utenlandsopphold: {
             perioder: [],
         },
     };
+    const sisteSoknadISammeSykeforlop = getSisteSoknadISammeSykeforloep(soknad, soknader);
 
-    return preutfyllEgenmeldingsperioder(initialValues, soknader);
+    return preutfyllSoknad(initialValues, sisteSoknadISammeSykeforlop);
 };
 
 export const getInitialValuesSykepengesoknad = (sykepengesoknad, state) => {

@@ -18,12 +18,12 @@ const parseString = (str) => {
 export const antallFeil = 'Vennligst oppgi antall';
 export const ikkeJobbetMerEnnGraderingProsentFeil = 'Prosenten du har oppgitt er lavere enn sykmeldingsgraden. Husk å oppgi hvor mye du har jobbet totalt';
 export const ikkeJobbetMerEnnGraderingTimerFeil = 'Antall timer du har oppgitt er lavere enn sykmeldingen tilsier. Husk å oppgi hvor mye du har jobbet totalt';
-export const overHundreFeil = 'Du må oppgi et tall fra 1 til 100';
 export const verdiErNullFeil = 'Tallet kan ikke være null';
+export const oppgiTallFraEnTil100Feil = 'Du må oppgi et tall fra 1 til 100';
 export const jobbetMerEnnPlanlagtFeil = 'Vennligst oppgi om du har jobbet mer enn planlagt';
 export const overHundreogfemtiFeil = 'Du må oppgi et tall fra 1 til 150';
 export const sammeNormalAntallFeil = 'Vennligst oppi samme antall timer for alle periodene';
-export const antallTimerErMerEnn100ProsentFeil = 'Antall timer tilsvarer over 100 % av din stilling';
+export const arbeidsgradEr100ProsentFeil = 'Du har allerede svart at du ikke har begynt å jobbe fullt igjen. Hvis dette ikke stemmer, må du gå tilbake til forrige trinn';
 export const merEnnNullFeil = overHundreogfemtiFeil;
 
 const validerAktiviteter = (values, aktiviteter, feriePermisjonPerioder) => {
@@ -55,22 +55,23 @@ const validerAktiviteter = (values, aktiviteter, feriePermisjonPerioder) => {
 
                 if (_avvik) {
                     const { enhet, arbeidstimerNormalUke, arbeidsgrad, timer } = _avvik;
+                    const arbeidsgradSomInt = parseInt(arbeidsgrad, 10);
                     if (enhet === 'prosent') {
-                        if (arbeidsgrad > 100) {
-                            res.arbeidsgrad = overHundreFeil;
+                        if (arbeidsgradSomInt >= 100) {
+                            res.arbeidsgrad = arbeidsgradEr100ProsentFeil;
                         }
-                        if (arbeidsgrad <= (100 - values.aktiviteter[index].grad)) {
+                        if (arbeidsgradSomInt <= (100 - values.aktiviteter[index].grad)) {
                             res.arbeidsgrad = ikkeJobbetMerEnnGraderingProsentFeil;
                         }
-                        if (!arbeidsgrad || arbeidsgrad === '') {
+                        if (isNaN(arbeidsgradSomInt)) {
                             res.arbeidsgrad = antallFeil;
                         }
                     } else if (enhet === 'timer') {
                         const stillingsprosent = getStillingsprosent(timer, arbeidstimerNormalUke, aktivitet.periode, feriePermisjonPerioder);
                         if (parseString(timer) > 150 || parseString(timer) < 1) {
                             res.timer = overHundreogfemtiFeil;
-                        } else if (stillingsprosent > 100) {
-                            res.timer = antallTimerErMerEnn100ProsentFeil;
+                        } else if (stillingsprosent >= 100) {
+                            res.timer = arbeidsgradEr100ProsentFeil;
                         }
 
                         if (arbeidstimerNormalUke && parseString(arbeidstimerNormalUke) > 0) {
@@ -87,7 +88,7 @@ const validerAktiviteter = (values, aktiviteter, feriePermisjonPerioder) => {
                     if (!arbeidstimerNormalUke || arbeidstimerNormalUke === '') {
                         res.arbeidstimerNormalUke = antallFeil;
                     } else if (arbeidstimerNormalUke > 100) {
-                        res.arbeidstimerNormalUke = overHundreFeil;
+                        res.arbeidstimerNormalUke = oppgiTallFraEnTil100Feil;
                     } else if (arbeidstimerNormalUke <= 0) {
                         res.arbeidstimerNormalUke = verdiErNullFeil;
                     } else if (!harSammeNormalAntall) {

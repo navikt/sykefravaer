@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
 import {skjemasvar as skjemasvarPt, soknad as soknadPt} from '../../propTypes';
 import { NY } from '../../enums/soknadstatuser';
+import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import UtlandsSkjema from '../../components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
+import Kvittering from '../../components/sykepengesoknad-utland/Kvittering/Kvittering';
+import Feilmelding from '../../components/Feilmelding';
+import { sendSoknad as sendSoknadAction } from '../../actions/soknader_actions';
 import { sendSoknad } from '../../actions/soknader_actions';
 import PropTypes from 'prop-types';
 import OppsummeringUtlandContainer from "./OppsummeringUtlandContainer";
@@ -11,16 +15,30 @@ import OppsummeringUtlandContainer from "./OppsummeringUtlandContainer";
 
 
 export const SykepengesoknadUtlandSkjemaContainer = (props) => {
-    const { soknad, sendSoknad, sender, sti, skjemasvar, sendingFailet} = props;
-            if (soknad) {
-                return (<UtlandsSkjema
-                    soknad = {soknad}
-                    sendSoknad = {sendSoknad}
-                    sender = {sender}
-                />);
-            }
+    const {soknad, sendSoknad, sender, sti, skjemasvar, sendingFailet} = props;
+    if (soknad) {
+        return (<UtlandsSkjema
+            soknad={soknad}
+            sendSoknad={sendSoknad}
+            sender={sender}
+        />);
+    }
     return (<OppsummeringUtlandContainer {...props}> </OppsummeringUtlandContainer>); // redirect til fremside
 };
+    /* const SykepengesoknadUtlandSkjemaContainer = ({ soknad, sendSoknad, sender }) => {
+    if (soknad && soknad.status === NY) {
+        return (<UtlandsSkjema
+            soknad={soknad}
+            sendSoknad={sendSoknad}
+            sender={sender}
+        />);
+    }
+    if (soknad && (soknad.status === TIL_SENDING || soknad.status === SENDT)) {
+        return <Kvittering />;
+    }
+    return <Feilmelding />;
+};
+*/
 
 SykepengesoknadUtlandSkjemaContainer.propTypes = {
     soknad: soknadPt,
@@ -36,7 +54,7 @@ SykepengesoknadUtlandSkjemaContainer.propTypes = {
 
 export const finnSoknad = (state, ownProps) => {
     return state.soknader.data.find((s) => {
-        return s.id === ownProps.params.sykepengesoknadId && s.status === NY;
+        return (s.id === ownProps.params.sykepengesoknadId) && (s.status === NY || s.status === TIL_SENDING || s.status === SENDT);
     });
 };
 
@@ -50,4 +68,4 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-export default connect(mapStateToProps, { sendSoknad })(SykepengesoknadUtlandSkjemaContainer);
+export default connect(mapStateToProps, { sendSoknad: sendSoknadAction })(SykepengesoknadUtlandSkjemaContainer);

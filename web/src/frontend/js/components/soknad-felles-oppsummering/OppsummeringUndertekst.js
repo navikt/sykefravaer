@@ -4,7 +4,7 @@ import OppsummeringSporsmalstekst from './OppsummeringSporsmalstekst';
 import OppsummeringUndersporsmal from './OppsummeringUndersporsmal';
 import { sporsmal as sporsmalPt } from '../../propTypes';
 
-const OppsummeringVisUndertekst = ({ sporsmalstekst, id, overskriftsnivaa, undertekst, undersporsmal }) => {
+const OppsummeringUndertekst = ({ sporsmalstekst, id, overskriftsnivaa, undertekst, undersporsmal }) => {
     return (<div className="oppsummering__VisUndertekst" id={id}>
         <OppsummeringSporsmalstekst overskriftsnivaa={overskriftsnivaa}>{sporsmalstekst}</OppsummeringSporsmalstekst>
         <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={{ __html: undertekst }} />
@@ -12,7 +12,7 @@ const OppsummeringVisUndertekst = ({ sporsmalstekst, id, overskriftsnivaa, under
     </div>);
 };
 
-OppsummeringVisUndertekst.propTypes = {
+OppsummeringUndertekst.propTypes = {
     undersporsmal: sporsmalPt,
     undertekst: PropTypes.string,
     overskriftsnivaa: PropTypes.number,
@@ -20,4 +20,4 @@ OppsummeringVisUndertekst.propTypes = {
     id: PropTypes.string,
 };
 
-export default OppsummeringVisUndertekst;
+export default OppsummeringUndertekst;

@@ -12,6 +12,7 @@ import Feilmelding from '../../components/Feilmelding';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
 import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
+import { filtrerOgSorterNyeSoknader } from '../../components/sykepengesoknader/Soknader';
 
 const { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST, FREMTIDIG } = sykepengesoknadstatuser;
 
@@ -64,13 +65,15 @@ export class Container extends Component {
     }
 
     render() {
-        const { params, vedlikehold, henter, erForsteSoknad } = this.props;
+        const { params, vedlikehold, henter, erForsteSoknad, detFinnesEldreSoknader, eldsteSoknadId } = this.props;
         return (<GenerellSoknadContainer
             erForsteSoknad={erForsteSoknad}
             henter={henter}
             Component={Controller}
             params={params}
-            vedlikehold={vedlikehold} />);
+            vedlikehold={vedlikehold}
+            detFinnesEldreSoknader={detFinnesEldreSoknader}
+            eldsteSoknadId={eldsteSoknadId} />);
     }
 }
 
@@ -89,6 +92,8 @@ Container.propTypes = {
     hentBerikelse: PropTypes.func,
     erForsteSoknad: PropTypes.bool,
     skalHenteBerikelse: PropTypes.bool,
+    detFinnesEldreSoknader: PropTypes.bool,
+    eldsteSoknadId: PropTypes.string,
 };
 
 export const mapStateToProps = (state, ownProps) => {
@@ -102,12 +107,18 @@ export const mapStateToProps = (state, ownProps) => {
         return s.status === NY || s.status === FREMTIDIG;
     }).length === state.sykepengesoknader.data.length;
 
+    const soknader = filtrerOgSorterNyeSoknader(state.sykepengesoknader.data);
+    const eldsteSoknadId = soknader[0] ? soknader[0].id : '';
+    const detFinnesEldreSoknader = eldsteSoknadId !== sykepengesoknadId;
+
     return {
         henter,
         sykepengesoknadId,
         vedlikehold: state.vedlikehold.data.vedlikehold,
         erForsteSoknad,
         skalHenteBerikelse,
+        detFinnesEldreSoknader,
+        eldsteSoknadId,
     };
 };
 

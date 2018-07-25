@@ -7,7 +7,9 @@ import FoerDuBegynner, {
     FoerDuBegynnerSkjema,
     TidligSoknad,
     ForsteSoknadIntro,
-    SoknadIntro } from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/FoerDuBegynner';
+    SoknadIntro,
+    DetFinnesEldreSoknader,
+} from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/FoerDuBegynner';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import { getSoknad } from '../../../mockSykepengesoknader';
 
@@ -76,5 +78,24 @@ describe('ForsteSoknadIntro', () => {
         component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} erForsteSoknad={false} />);
         expect(component.contains(<ForsteSoknadIntro />)).to.equal(false);
         expect(component.contains(<SoknadIntro />)).to.equal(true);
+    });
+});
+
+describe('DetFinnesEldreSoknader', () => {
+    let component;
+    let sykepengesoknad;
+
+    beforeEach(() => {
+        sykepengesoknad = getSoknad();
+    });
+
+    it('Skal inneholde en DetFinnesEldreSoknader hvis detFinnesEldreSoknader === true', () => {
+        component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} detFinnesEldreSoknader />);
+        expect(component.contains(<DetFinnesEldreSoknader />)).to.equal(true);
+    });
+
+    it('Skal ikke inneholde en DetFinnesEldreSoknader hvis detFinnesEldreSoknader === false', () => {
+        component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} detFinnesEldreSoknader={false} />);
+        expect(component.contains(<DetFinnesEldreSoknader />)).to.equal(false);
     });
 });

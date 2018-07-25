@@ -52,8 +52,8 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                                 (() => {
                                     return getLedetekst('soknad.teaser.dato', {
                                         '%DATO%':
-                                            (soknad.soknadstype === OPPHOLD_UTLAND) ? toDatePrettyPrint(soknad.opprettetDato)
-                                                : toDatePrettyPrint(soknad.tom),
+                                            toDatePrettyPrint(soknad.soknadstype === OPPHOLD_UTLAND
+                                                ? soknad.opprettetDato : soknad.tom),
                                     });
                                 })()
                             }

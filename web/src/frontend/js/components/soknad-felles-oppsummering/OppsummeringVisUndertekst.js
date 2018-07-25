@@ -5,11 +5,9 @@ import OppsummeringUndersporsmal from './OppsummeringUndersporsmal';
 import { sporsmal as sporsmalPt } from '../../propTypes';
 
 const OppsummeringVisUndertekst = ({ sporsmalstekst, id, overskriftsnivaa, undertekst, undersporsmal }) => {
-    const HTMLundertekst = { __html: undertekst };
-
     return (<div className="oppsummering__VisUndertekst" id={id}>
         <OppsummeringSporsmalstekst overskriftsnivaa={overskriftsnivaa}>{sporsmalstekst}</OppsummeringSporsmalstekst>
-        <p dangerouslySetInnerHTML={HTMLundertekst} />
+        <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={{ __html: undertekst }} />
         <OppsummeringUndersporsmal sporsmalsliste={undersporsmal} overskriftsnivaa={overskriftsnivaa} />
     </div>);
 };

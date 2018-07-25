@@ -1,19 +1,19 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
-import { getSoknadUtland } from '../../../../mockSoknader';
-import { ledeteksterUtland } from '../../../../mockLedetekster';
-import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../../js/components/soknad-felles/fieldUtils';
-import validerUtlandsSkjema from '../../../../../js/components/sykepengesoknad-utland/validering/validerUtlandsSkjema';
+import { getSoknadUtland } from '../../../mockSoknader';
+import { ledeteksterUtland } from '../../../mockLedetekster';
+import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../../js/components/soknad-felles/fieldUtils';
+import validerUtlandsSkjema from '../../../../js/components/sykepengesoknad-utland/validering/validerUtlandsSkjema';
 import {
     ARBEIDSGIVER,
     BEKREFT_OPPLYSNINGER_UTLAND,
     LAND,
     PERIODEUTLAND,
     SYKMELDINGSGRAD,
-} from '../../../../../js/enums/tagtyper';
-import { beregnFeilmeldingstekstFraTag } from '../../../../../js/utils/soknad-felles/validerSporsmal';
-import { JA, NEI } from '../../../../../js/enums/svarEnums';
+} from '../../../../js/enums/tagtyper';
+import { beregnFeilmeldingstekstFraTag } from '../../../../js/utils/soknad-felles/validerSporsmal';
+import { JA, NEI } from '../../../../js/enums/svarEnums';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

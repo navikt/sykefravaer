@@ -21,7 +21,9 @@ export const SykepengesoknadUtlandSkjemaContainer = (props) => {
         />);
     }
     if (soknad && [SENDT, TIL_SENDING].indexOf(soknad.status) > -1) {
-        if ((sti.indexOf('kvittering') > -1)) return <Kvittering />;
+        if (sti.indexOf('kvittering') > -1) {
+            return <Kvittering />;
+        }
         return <OppsummeringUtland {...props} />;
     }
     return <Feilmelding />;

@@ -25,7 +25,7 @@ export const SykepengesoknadUtlandOppsummeringSkjema = (props) => {
         <div className="blokk--xl">
             <Sidetopp tittel={getLedetekst('sykepengesoknad-utland.tittel')} />
         </div>
-        <StatuspanelUtland sykepengesoknad={soknad} />
+        <StatuspanelUtland soknad={soknad} />
         <OppsummeringPanel soknad={soknad} />
         <Feilstripe vis={sendingFeilet} />
         <p className="ikke-print blokk navigasjonsstripe">

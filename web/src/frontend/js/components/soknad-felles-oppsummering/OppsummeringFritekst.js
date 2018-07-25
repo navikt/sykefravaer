@@ -6,7 +6,7 @@ import { svar as svarPt } from '../../propTypes';
 const OppsummeringFritekst = ({ sporsmalstekst, id, overskriftsnivaa, svar }) => {
     return (<div className="oppsummering__fritekst" id={id}>
         <OppsummeringSporsmalstekst overskriftsnivaa={overskriftsnivaa}>{sporsmalstekst}</OppsummeringSporsmalstekst>
-        <span>{svar[0].verdi}</span>
+        <p>{svar[0].verdi}</p>
     </div>);
 };
 

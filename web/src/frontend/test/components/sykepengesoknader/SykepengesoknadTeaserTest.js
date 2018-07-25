@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
 import SykepengesoknadTeaser, { SendtUlikt } from '../../../js/components/sykepengesoknader/SykepengesoknadTeaser';
-import { getSoknad } from '../../mockSoknader';
+import { getSoknad, getSoknadUtland } from '../../mockSoknader';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -21,6 +21,7 @@ describe('SykepengesoknadTeaser', () => {
     };
 
     let frilansersoknad;
+    let utlandsoknad;
 
     beforeEach(() => {
         setLedetekster({
@@ -38,8 +39,10 @@ describe('SykepengesoknadTeaser', () => {
             'soknad.teaser.status.TIL_SENDING.til-arbeidsgiver': 'Sender til %ARBEIDSGIVER%...',
             'soknad.teaser.status.TIL_SENDING.til-arbeidsgiver-og-nav': 'Sender til %ARBEIDSGIVER% og NAV...',
             'soknad.teaser.status.AVBRUTT': 'Avbrutt av deg %DATO%',
+            'soknad.utland.teaser.tittel': 'Søknad om å beholde sykepenger utenfor Norge',
         });
         frilansersoknad = getSoknad();
+        utlandsoknad = getSoknadUtland();
     });
 
     it('er en lenke', () => {
@@ -186,7 +189,6 @@ describe('SykepengesoknadTeaser', () => {
         expect(component.find('.js-undertekst').text()).to.contain('Sender til BEKK Consulting AS og NAV...');
     });
 
-
     it('Viser statustekst hvis søknaden er avbrutt', () => {
         const _soknad = Object.assign({}, sykepengesoknad, {
             status: 'AVBRUTT',
@@ -198,5 +200,23 @@ describe('SykepengesoknadTeaser', () => {
 
     it('Skal funke med en frilansersøknad', () => {
         shallow(<SykepengesoknadTeaser soknad={frilansersoknad} />);
+    });
+
+    it('Skal funke med en søknad om sykpenger ved opphold utenfor Noreg', () => {
+        shallow(<SykepengesoknadTeaser soknad={utlandsoknad} />);
+    });
+
+    it('Viser riktig statustekst for sending til nav', () => {
+        const _soknad = Object.assign({}, utlandsoknad, {
+            status: 'SENDT',
+            sendtTilNavDato: new Date('2018-05-18'),
+        });
+        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
+        expect(component.find('.js-undertekst').text()).to.contain('Sendt til NAV 18.05.2018');
+    });
+
+    it('Viser riktig test for soknadstype', () => {
+        const component = shallow(<SykepengesoknadTeaser soknad={utlandsoknad} />);
+        expect(component.find('.js-title').text()).to.contain('Søknad om å beholde sykepenger utenfor Norge');
     });
 });

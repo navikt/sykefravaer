@@ -6,11 +6,13 @@ import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import UtlandsSkjema from '../../components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
 import Feilmelding from '../../components/Feilmelding';
 import { sendSoknad as sendSoknadAction } from '../../actions/soknader_actions';
-import OppsummeringUtlandContainer from './OppsummeringUtlandContainer';
+import OppsummeringUtland from '../../components/sykepengesoknad-utland/Oppsummering/OppsummeringUtland';
+import Kvittering from '../../components/sykepengesoknad-utland/Kvittering/Kvittering';
 
 
 export const SykepengesoknadUtlandSkjemaContainer = (props) => {
-    const { soknad, sendSoknad, sender } = props;
+    const { soknad, sendSoknad, sender, sti } = props;
+
     if (soknad && soknad.status === NY) {
         return (<UtlandsSkjema
             soknad={soknad}
@@ -18,8 +20,9 @@ export const SykepengesoknadUtlandSkjemaContainer = (props) => {
             sender={sender}
         />);
     }
-    if (soknad) {
-        return (<OppsummeringUtlandContainer {...props} />);
+    if (soknad && [SENDT, TIL_SENDING].indexOf(soknad.status) > -1) {
+        if ((sti.indexOf('kvittering') > -1)) return <Kvittering />;
+        return <OppsummeringUtland {...props} />;
     }
     return <Feilmelding />;
 };

@@ -50,11 +50,11 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                         <small className="inngangspanel__meta js-meta">
                             {
                                 (() => {
-                                    if (soknad.soknadstype === OPPHOLD_UTLAND) {
-                                        return getLedetekst('soknad.teaser.dato',
-                                            { '%DATO%': toDatePrettyPrint(soknad.opprettetDato) });
-                                    }
-                                    return getLedetekst('soknad.teaser.dato', { '%DATO%': toDatePrettyPrint(soknad.tom) });
+                                    return getLedetekst('soknad.teaser.dato', {
+                                        '%DATO%':
+                                            (soknad.soknadstype === OPPHOLD_UTLAND) ? toDatePrettyPrint(soknad.opprettetDato)
+                                                : toDatePrettyPrint(soknad.tom),
+                                    });
                                 })()
                             }
                         </small>

@@ -27,6 +27,7 @@ const UtlandsSkjema = ({ soknad, handleSubmit, sender, sendSoknad }) => {
     });
 
     const onSubmit = (values) => {
+        console.log('slik ser det ut inn i populerSoknadMedSvar', values);
         const populertSoknad = populerSoknadMedSvar(soknad, values);
         sendSoknad(populertSoknad);
     };

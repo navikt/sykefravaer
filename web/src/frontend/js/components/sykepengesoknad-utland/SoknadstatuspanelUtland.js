@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
     SykmeldingNokkelOpplysning,
     toDatePrettyPrint,
@@ -9,18 +8,15 @@ import {
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 
-const { SENDT, TIL_SENDING, KORRIGERT } = sykepengesoknadstatuser;
+const { SENDT, TIL_SENDING } = sykepengesoknadstatuser;
 
 const getStatusTekst = (sykepengesoknad) => {
     switch (sykepengesoknad.status) {
         case SENDT: {
-            return getLedetekst('sykepengesoknad-utland.status-2.sendt');
+            return getLedetekst('sykepengesoknad-utland.status.sendt');
         }
         case TIL_SENDING: {
-            return getLedetekst('sykepengesoknad-utland.status-2.til-sending');
-        }
-        case KORRIGERT: {
-            return getLedetekst('sykepengesoknad-utland.status-2.korrigert');
+            return getLedetekst('sykepengesoknad-utland.status.til-sending');
         }
         default: {
             return 'Ukjent status';
@@ -61,7 +57,6 @@ const SendtLikt = ({ sykepengesoknad }) => {
                     : <p>{tekst}</p>
             }
         </SykmeldingNokkelOpplysning>
-
         <SendtDato sykepengesoknad={sykepengesoknad} />
     </div>);
 };
@@ -70,18 +65,14 @@ SendtLikt.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
 };
 
-const StatuspanelUtland = ({ sykepengesoknad, children }) => {
+const StatuspanelUtland = ({ sykepengesoknad }) => {
     return (<div className="panel panel--komprimert blokk">
-        {
-            <SendtLikt sykepengesoknad={sykepengesoknad} />
-        }
-        {children}
+        <SendtLikt sykepengesoknad={sykepengesoknad} />
     </div>);
 };
 
 StatuspanelUtland.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
-    children: PropTypes.node,
 };
 
 export default StatuspanelUtland;

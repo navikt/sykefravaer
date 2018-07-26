@@ -16,6 +16,7 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import { getUtdanningssporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 import { filtrerAktuelleAktiviteter } from '../../../utils/sykepengesoknadUtils';
+import { PreutfyltBjorn } from '../FravaerOgFriskmelding/Egenmeldingsdager';
 
 export const UtdanningStartDato = ({ senesteTom }) => {
     return (<div className="blokk">
@@ -38,7 +39,7 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
     }
 
     render() {
-        const { handleSubmit, sykepengesoknad, autofill, untouch, gjenopptattArbeidFulltUtDato } = this.props;
+        const { handleSubmit, sykepengesoknad, autofill, untouch, gjenopptattArbeidFulltUtDato, erUtdanningPreutfylt, erInntektskilderPreutfylt } = this.props;
 
         const onSubmit = () => {
             history.push(`/sykefravaer/soknader/${sykepengesoknad.id}/oppsummering`);
@@ -64,25 +65,29 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
                 arbeidsgiver={sykepengesoknad.arbeidsgiver.navn} />
 
             <JaEllerNei
+                informasjon={<PreutfyltBjorn vis={erInntektskilderPreutfylt} />}
                 name="harAndreInntektskilder"
                 spoersmal={getLedetekst('sykepengesoknad.andre-inntektskilder.janei.sporsmal', {
                     '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
                 })}>
                 <AndreInntektskilder />
             </JaEllerNei>
-
-            {_aktiviteter.length > 0 &&
-            <JaEllerNei
-                name="utdanning.underUtdanningISykmeldingsperioden"
-                spoersmal={getUtdanningssporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}>
-                <UtdanningStartDato senesteTom={_senesteTom} />
-                <Field
-                    component={JaEllerNeiRadioknapper}
-                    name="utdanning.erUtdanningFulltidsstudium"
-                    parse={parseJaEllerNei}
-                    spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal')}
-                    Overskrift="h4" />
-            </JaEllerNei>}
+            {
+                _aktiviteter.length > 0
+                    &&
+                        <JaEllerNei
+                            informasjon={<PreutfyltBjorn vis={erUtdanningPreutfylt} />}
+                            name="utdanning.underUtdanningISykmeldingsperioden"
+                            spoersmal={getUtdanningssporsmal(sykepengesoknad, gjenopptattArbeidFulltUtDato)}>
+                            <UtdanningStartDato senesteTom={_senesteTom} />
+                            <Field
+                                component={JaEllerNeiRadioknapper}
+                                name="utdanning.erUtdanningFulltidsstudium"
+                                parse={parseJaEllerNei}
+                                spoersmal={getLedetekst('sykepengesoknad.utdanning.fulltidsstudium.sporsmal')}
+                                Overskrift="h4" />
+                        </JaEllerNei>
+            }
             <KnapperadTilbake forrigeUrl={`/sykefravaer/soknader/${sykepengesoknad.id}/fravaer-og-friskmelding`} />
             <AvbrytSoknadContainer sykepengesoknad={sykepengesoknad} />
         </form>);
@@ -95,26 +100,30 @@ AktiviteterISykmeldingsperiodenSkjema.propTypes = {
     autofill: PropTypes.func,
     untouch: PropTypes.func,
     gjenopptattArbeidFulltUtDato: PropTypes.instanceOf(Date),
+    erInntektskilderPreutfylt: PropTypes.bool,
+    erUtdanningPreutfylt: PropTypes.bool,
 };
 
 const AktiviteterISykmeldingsperiodenSkjemaConnected = connectGjenopptattArbeidFulltUtDato(AktiviteterISykmeldingsperiodenSkjema);
 
 const AktiviteterISykmeldingsperiodenReduxSkjema = setup(validate, AktiviteterISykmeldingsperiodenSkjemaConnected);
 
-const AktiviteterISykmeldingsperioden = (props) => {
-    const { sykepengesoknad } = props;
-
+const AktiviteterISykmeldingsperioden = ({ sykepengesoknad, skjemasoknad }) => {
     return (
         <SykepengerSkjema
             aktivtSteg="3"
             tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
             sykepengesoknad={sykepengesoknad}>
-            <AktiviteterISykmeldingsperiodenReduxSkjema sykepengesoknad={sykepengesoknad} />
+            <AktiviteterISykmeldingsperiodenReduxSkjema
+                sykepengesoknad={sykepengesoknad}
+                erUtdanningPreutfylt={skjemasoknad._erUtdanningPreutfylt}
+                erInntektskilderPreutfylt={skjemasoknad._erInntektskilderPreutfylt} />
         </SykepengerSkjema>);
 };
 
 AktiviteterISykmeldingsperioden.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
+    skjemasoknad: PropTypes.shape(),
 };
 
 export default AktiviteterISykmeldingsperioden;

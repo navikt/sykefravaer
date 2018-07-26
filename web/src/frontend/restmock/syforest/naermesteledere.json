@@ -1,8 +1,12 @@
-[{
-  "navn": "Ola Nordmann",
-  "epost": "ola.nordmann@nav.no",
-  "mobil": "99887766",
-  "orgnummer": "123456789",
-  "organisasjonsnavn": "SOLSTRÅLEN BARNEHAGE",
-  "arbeidsgiverForskuttererLoenn": true
-}]
+[
+  {
+    "aktoerId": "1242536513046",
+    "navn": "Fanny Storm",
+    "epost": "morten.tholander@nav.no",
+    "mobil": "***REMOVED***",
+    "orgnummer": "982708672",
+    "organisasjonsnavn": "BERGEN KOMMUNE HR KONSERN",
+    "aktivTom": null,
+    "arbeidsgiverForskuttererLoenn": true
+  }
+]

@@ -1,148 +1,101 @@
 [
   {
-    "id": "9997ab30-ce08-443c-87fe-e953c8a07cca",
+    "id": "f03b2b17-c064-4b7b-8438-42adb08ff3fd",
+    "sykmeldingId": "dfafc9ea-0e8f-42e9-9ae2-0e351af989da",
     "status": "NY",
+    "opprettetDato": "2018-07-26",
+    "arbeidsgiver": {
+      "navn": "BERGEN KOMMUNE HR KONSERN",
+      "orgnummer": "982708672",
+      "naermesteLeder": null,
+      "stilling": null
+    },
+    "identdato": "2018-06-01",
+    "ansvarBekreftet": false,
+    "bekreftetKorrektInformasjon": false,
+    "arbeidsgiverForskutterer": null,
+    "egenmeldingsperioder": [],
+    "gjenopptattArbeidFulltUtDato": null,
+    "ferie": [],
+    "permisjon": [],
+    "utenlandsopphold": null,
+    "aktiviteter": [
+      {
+        "periode": {
+          "fom": "2018-06-01",
+          "tom": "2018-06-10"
+        },
+        "grad": 100,
+        "avvik": null,
+        "id": 109944
+      },
+      {
+        "periode": {
+          "fom": "2018-06-11",
+          "tom": "2018-06-25"
+        },
+        "grad": 50,
+        "avvik": null,
+        "id": 109945
+      }
+    ],
+    "andreInntektskilder": [],
+    "utdanning": null,
+    "sykmeldingSkrevetDato": "2018-07-17",
+    "sendtTilArbeidsgiverDato": null,
+    "sendtTilNAVDato": null,
+    "forrigeSykeforloepTom": null,
+    "korrigerer": null,
+    "fom": "2018-06-01",
+    "tom": "2018-06-25",
+    "avbruttDato": null,
+    "forrigeSendteSoknadTom": null,
     "del": 1,
-    "fom": "2016-07-15",
-    "tom": "2017-01-16",
-    "sykmeldingId": "31ac2ac8-aa31-4f5f-8bda-fd199aa7d8f4",
-    "opprettetDato": "2017-01-19",
-    "arbeidsgiver": {
-      "navn": "BYGGMESTER BLOM AS",
-      "orgnummer": "***REMOVED***",
-      "naermesteLeder": null
-    },
-    "identdato": "2016-07-15",
-    "oppfoelgingsdato": "2017-12-24",
-    "ansvarBekreftet": false,
-    "bekreftetKorrektInformasjon": false,
-    "arbeidsgiverUtbetalerLoenn": false,
-    "egenmeldingsperioder": [],
-    "gjenopptattArbeidFulltUtDato": null,
-    "ferie": [],
-    "permisjon": [],
-    "utenlandsopphold": {
-      "perioder": [],
-      "soektOmSykepengerIPerioden": null
-    },
-    "aktiviteter": [
-      {
-        "periode": {
-          "fom": "2016-07-15",
-          "tom": "2017-01-19"
-        },
-        "grad": 100,
-        "avvik": null,
-        "id": 1
-      }
-    ],
-    "andreInntektskilder": [],
-    "utdanning": null
+    "oppsummering": null
   },
   {
-    "id": "a0acb034-ea32-43cd-a71a-667ea02d9a9b",
+    "id": "2bed5012-ee65-4901-9e3e-6606091329b3",
+    "sykmeldingId": "7693960a-7c64-4c38-a75f-9a3327c5f7e5",
     "status": "NY",
-    "sykmeldingId": "31ac2ac8-aa31-4f5f-8bda-fd199aa7d8f4",
-    "opprettetDato": "2017-01-18",
+    "opprettetDato": "2018-07-26",
     "arbeidsgiver": {
-      "navn": "BYGGMESTER BLOM AS",
-      "orgnummer": "***REMOVED***",
-      "naermesteLeder": null
+      "navn": "BERGEN KOMMUNE HR KONSERN",
+      "orgnummer": "982708672",
+      "naermesteLeder": null,
+      "stilling": null
     },
-    "identdato": "2016-07-15",
+    "identdato": "2018-07-17",
     "ansvarBekreftet": false,
     "bekreftetKorrektInformasjon": false,
-    "arbeidsgiverUtbetalerLoenn": false,
+    "arbeidsgiverForskutterer": null,
     "egenmeldingsperioder": [],
     "gjenopptattArbeidFulltUtDato": null,
     "ferie": [],
     "permisjon": [],
-    "utenlandsopphold": {
-      "perioder": [],
-      "soektOmSykepengerIPerioden": null
-    },
+    "utenlandsopphold": null,
     "aktiviteter": [
       {
         "periode": {
-          "fom": "2016-07-15",
-          "tom": "2016-07-20"
+          "fom": "2018-07-17",
+          "tom": "2018-07-25"
         },
         "grad": 100,
         "avvik": null,
-        "id": 2
+        "id": 109850
       }
     ],
     "andreInntektskilder": [],
-    "utdanning": null
-  },
-  {
-    "id": "8224090d-d021-4bf3-8144-92439fc05605",
-    "status": "NY",
-    "opprettetDato": "2017-01-18",
-    "arbeidsgiver": {
-      "navn": "BYGGMESTER BLOM AS",
-      "orgnummer": "***REMOVED***",
-      "naermesteLeder": null
-    },
-    "identdato": "2016-07-15",
-    "ansvarBekreftet": false,
-    "bekreftetKorrektInformasjon": false,
-    "arbeidsgiverUtbetalerLoenn": false,
-    "egenmeldingsperioder": [],
-    "gjenopptattArbeidFulltUtDato": null,
-    "ferie": [],
-    "permisjon": [],
-    "utenlandsopphold": {
-      "perioder": [],
-      "soektOmSykepengerIPerioden": null
-    },
-    "aktiviteter": [
-      {
-        "periode": {
-          "fom": "2016-07-15",
-          "tom": "2016-07-20"
-        },
-        "grad": 100,
-        "avvik": null,
-        "id": 3
-      }
-    ],
-    "andreInntektskilder": [],
-    "utdanning": null
-  },
-  {
-    "id": "66a8ec20-b813-4b03-916f-7a2f0751b600",
-    "status": "NY",
-    "opprettetDato": "2017-01-18",
-    "arbeidsgiver": {
-      "navn": "BYGGMESTER BLOM AS",
-      "orgnummer": "***REMOVED***",
-      "naermesteLeder": null
-    },
-    "identdato": "2016-07-15",
-    "ansvarBekreftet": false,
-    "bekreftetKorrektInformasjon": false,
-    "arbeidsgiverUtbetalerLoenn": false,
-    "egenmeldingsperioder": [],
-    "gjenopptattArbeidFulltUtDato": null,
-    "ferie": [],
-    "permisjon": [],
-    "utenlandsopphold": {
-      "perioder": [],
-      "soektOmSykepengerIPerioden": null
-    },
-    "aktiviteter": [
-      {
-        "periode": {
-          "fom": "2016-07-15",
-          "tom": "2016-07-20"
-        },
-        "grad": 100,
-        "avvik": null,
-        "id": 4
-      }
-    ],
-    "andreInntektskilder": [],
-    "utdanning": null
+    "utdanning": null,
+    "sykmeldingSkrevetDato": "2018-07-17",
+    "sendtTilArbeidsgiverDato": null,
+    "sendtTilNAVDato": null,
+    "forrigeSykeforloepTom": null,
+    "korrigerer": null,
+    "fom": "2018-07-17",
+    "tom": "2018-07-25",
+    "avbruttDato": null,
+    "forrigeSendteSoknadTom": null,
+    "del": 1,
+    "oppsummering": null
   }
 ]

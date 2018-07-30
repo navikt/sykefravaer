@@ -15,10 +15,10 @@
         "sendtdato": null,
         "sporsmal": null,
         "pasient": {
-          "fnr": "22026900623",
-          "fornavn": "Frida",
+          "fnr": "12121233455",
+          "fornavn": "Kari",
           "mellomnavn": "Perma",
-          "etternavn": "Frost"
+          "etternavn": "Testperson"
         },
         "arbeidsgiver": "LOMMEN BARNEHAVE",
         "stillingsprosent": 100,
@@ -117,8 +117,8 @@
         },
         "bekreftelse": {
           "utstedelsesdato": "2018-07-17",
-          "sykmelder": "Frida Perma Frost",
-          "sykmelderTlf": "94431152"
+          "sykmelder": "Kari Perma Testperson",
+          "sykmelderTlf": "99988777"
         }
       },
       {
@@ -135,10 +135,10 @@
         "sendtdato": null,
         "sporsmal": null,
         "pasient": {
-          "fnr": "22026900623",
-          "fornavn": "Frida",
+          "fnr": "12121233455",
+          "fornavn": "Kari",
           "mellomnavn": "Perma",
-          "etternavn": "Frost"
+          "etternavn": "Testperson"
         },
         "arbeidsgiver": "LOMMEN BARNEHAVE",
         "stillingsprosent": 100,
@@ -237,8 +237,8 @@
         },
         "bekreftelse": {
           "utstedelsesdato": "2018-07-17",
-          "sykmelder": "Frida Perma Frost",
-          "sykmelderTlf": "94431152"
+          "sykmelder": "Kari Perma Testperson",
+          "sykmelderTlf": "99988777"
         }
       },
       {
@@ -251,11 +251,11 @@
         "innsendtArbeidsgivernavn": null,
         "valgtArbeidssituasjon": null,
         "mottakendeArbeidsgiver": {
-          "navn": "BERGEN KOMMUNE HR KONSERN",
-          "virksomhetsnummer": "982708672",
+          "navn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
+          "virksomhetsnummer": "99988877",
           "juridiskOrgnummer": "964338531"
         },
-        "orgnummer": "982708672",
+        "orgnummer": "99988877",
         "sendtdato": "2018-07-26T15:14:16",
         "sporsmal": {
           "arbeidssituasjon": "ARBEIDSTAKER",
@@ -265,10 +265,10 @@
           "fravaerBesvart": null
         },
         "pasient": {
-          "fnr": "22026900623",
-          "fornavn": "Frida",
+          "fnr": "12121233455",
+          "fornavn": "Kari",
           "mellomnavn": "Perma",
-          "etternavn": "Frost"
+          "etternavn": "Testperson"
         },
         "arbeidsgiver": "LOMMEN BARNEHAVE",
         "stillingsprosent": 100,
@@ -375,8 +375,8 @@
         },
         "bekreftelse": {
           "utstedelsesdato": "2018-07-17",
-          "sykmelder": "Frida Perma Frost",
-          "sykmelderTlf": "94431152"
+          "sykmelder": "Kari Perma Testperson",
+          "sykmelderTlf": "99988777"
         }
       },
       {
@@ -389,11 +389,11 @@
         "innsendtArbeidsgivernavn": null,
         "valgtArbeidssituasjon": null,
         "mottakendeArbeidsgiver": {
-          "navn": "BERGEN KOMMUNE HR KONSERN",
-          "virksomhetsnummer": "982708672",
+          "navn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
+          "virksomhetsnummer": "99988877",
           "juridiskOrgnummer": "964338531"
         },
-        "orgnummer": "982708672",
+        "orgnummer": "99988877",
         "sendtdato": "2018-07-26T15:14:03",
         "sporsmal": {
           "arbeidssituasjon": "ARBEIDSTAKER",
@@ -403,10 +403,10 @@
           "fravaerBesvart": null
         },
         "pasient": {
-          "fnr": "22026900623",
-          "fornavn": "Frida",
+          "fnr": "12121233455",
+          "fornavn": "Kari",
           "mellomnavn": "Perma",
-          "etternavn": "Frost"
+          "etternavn": "Testperson"
         },
         "arbeidsgiver": "LOMMEN BARNEHAVE",
         "stillingsprosent": 100,
@@ -505,8 +505,8 @@
         },
         "bekreftelse": {
           "utstedelsesdato": "2018-07-17",
-          "sykmelder": "Frida Perma Frost",
-          "sykmelderTlf": "94431152"
+          "sykmelder": "Kari Perma Testperson",
+          "sykmelderTlf": "99988777"
         }
       },
       {
@@ -523,10 +523,10 @@
         "sendtdato": null,
         "sporsmal": null,
         "pasient": {
-          "fnr": "22026900623",
-          "fornavn": "Frida",
+          "fnr": "12121233455",
+          "fornavn": "Kari",
           "mellomnavn": "Perma",
-          "etternavn": "Frost"
+          "etternavn": "Testperson"
         },
         "arbeidsgiver": "LOMMEN BARNEHAVE",
         "stillingsprosent": 100,
@@ -625,8 +625,8 @@
         },
         "bekreftelse": {
           "utstedelsesdato": "2018-07-17",
-          "sykmelder": "Frida Perma Frost",
-          "sykmelderTlf": "94431152"
+          "sykmelder": "Kari Perma Testperson",
+          "sykmelderTlf": "99988777"
         }
       }
     ],
@@ -643,8 +643,8 @@
             "navn": "Fanny Storm",
             "epost": "morten.tholander@nav.no",
             "mobil": "***REMOVED***",
-            "orgnummer": "982708672",
-            "organisasjonsnavn": "BERGEN KOMMUNE HR KONSERN",
+            "orgnummer": "99988877",
+            "organisasjonsnavn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
             "aktivTom": null,
             "arbeidsgiverForskuttererLoenn": true
           }

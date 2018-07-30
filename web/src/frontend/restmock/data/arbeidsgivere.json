@@ -1,13 +1,13 @@
 [
   {
-    "navn": "BERGEN KOMMUNE HR KONSERN",
-    "orgnummer": "982708672",
+    "navn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
+    "orgnummer": "123456789",
     "naermesteLeder": {
       "aktoerId": "1242536513046",
       "navn": "Fanny Storm",
-      "epost": "morten.tholander@nav.no",
+      "epost": "naermeste-leder-epost@nav.no",
       "mobil": "***REMOVED***",
-      "orgnummer": "982708672",
+      "orgnummer": "123456789",
       "organisasjonsnavn": null,
       "aktivTom": null,
       "arbeidsgiverForskuttererLoenn": true

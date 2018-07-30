@@ -6,14 +6,14 @@
     "identdato": "2018-07-17",
     "status": "SENDT",
     "naermesteLederStatus": null,
-    "innsendtArbeidsgivernavn": "BERGEN KOMMUNE HR KONSERN",
+    "innsendtArbeidsgivernavn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
     "valgtArbeidssituasjon": null,
     "mottakendeArbeidsgiver": {
-      "navn": "BERGEN KOMMUNE HR KONSERN",
-      "virksomhetsnummer": "982708672",
-      "juridiskOrgnummer": "964338531"
+      "navn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
+      "virksomhetsnummer": "88877766",
+      "juridiskOrgnummer": "99988877"
     },
-    "orgnummer": "982708672",
+    "orgnummer": "88877766",
     "sendtdato": "2018-07-26T15:14:03",
     "sporsmal": {
       "arbeidssituasjon": "ARBEIDSTAKER",
@@ -23,7 +23,7 @@
       "fravaerBesvart": null
     },
     "pasient": {
-      "fnr": "22026900623",
+      "fnr": "12121222222",
       "fornavn": "Frida",
       "mellomnavn": "Perma",
       "etternavn": "Frost"
@@ -126,7 +126,7 @@
     "bekreftelse": {
       "utstedelsesdato": "2018-07-17",
       "sykmelder": "Frida Perma Frost",
-      "sykmelderTlf": "94431152"
+      "sykmelderTlf": "99998888"
     }
   },
   {
@@ -136,14 +136,14 @@
     "identdato": "2018-06-01",
     "status": "SENDT",
     "naermesteLederStatus": null,
-    "innsendtArbeidsgivernavn": "BERGEN KOMMUNE HR KONSERN",
+    "innsendtArbeidsgivernavn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
     "valgtArbeidssituasjon": null,
     "mottakendeArbeidsgiver": {
-      "navn": "BERGEN KOMMUNE HR KONSERN",
-      "virksomhetsnummer": "982708672",
-      "juridiskOrgnummer": "964338531"
+      "navn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
+      "virksomhetsnummer": "88877766",
+      "juridiskOrgnummer": "99988877"
     },
-    "orgnummer": "982708672",
+    "orgnummer": "88877766",
     "sendtdato": "2018-07-26T15:14:16",
     "sporsmal": {
       "arbeidssituasjon": "ARBEIDSTAKER",
@@ -153,7 +153,7 @@
       "fravaerBesvart": null
     },
     "pasient": {
-      "fnr": "22026900623",
+      "fnr": "12121222222",
       "fornavn": "Frida",
       "mellomnavn": "Perma",
       "etternavn": "Frost"
@@ -264,7 +264,7 @@
     "bekreftelse": {
       "utstedelsesdato": "2018-07-17",
       "sykmelder": "Frida Perma Frost",
-      "sykmelderTlf": "94431152"
+      "sykmelderTlf": "99998888"
     }
   },
   {
@@ -281,7 +281,7 @@
     "sendtdato": null,
     "sporsmal": null,
     "pasient": {
-      "fnr": "22026900623",
+      "fnr": "12121222222",
       "fornavn": "Frida",
       "mellomnavn": "Perma",
       "etternavn": "Frost"
@@ -384,7 +384,7 @@
     "bekreftelse": {
       "utstedelsesdato": "2018-07-17",
       "sykmelder": "Frida Perma Frost",
-      "sykmelderTlf": "94431152"
+      "sykmelderTlf": "99998888"
     }
   },
   {
@@ -401,7 +401,7 @@
     "sendtdato": null,
     "sporsmal": null,
     "pasient": {
-      "fnr": "22026900623",
+      "fnr": "12121222222",
       "fornavn": "Frida",
       "mellomnavn": "Perma",
       "etternavn": "Frost"
@@ -504,7 +504,7 @@
     "bekreftelse": {
       "utstedelsesdato": "2018-07-17",
       "sykmelder": "Frida Perma Frost",
-      "sykmelderTlf": "94431152"
+      "sykmelderTlf": "99998888"
     }
   },
   {
@@ -521,7 +521,7 @@
     "sendtdato": null,
     "sporsmal": null,
     "pasient": {
-      "fnr": "22026900623",
+      "fnr": "12121222222",
       "fornavn": "Frida",
       "mellomnavn": "Perma",
       "etternavn": "Frost"
@@ -624,7 +624,7 @@
     "bekreftelse": {
       "utstedelsesdato": "2018-07-17",
       "sykmelder": "Frida Perma Frost",
-      "sykmelderTlf": "94431152"
+      "sykmelderTlf": "99998888"
     }
   }
 ]

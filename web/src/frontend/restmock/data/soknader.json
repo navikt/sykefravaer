@@ -5,8 +5,8 @@
     "status": "NY",
     "opprettetDato": "2018-07-26",
     "arbeidsgiver": {
-      "navn": "BERGEN KOMMUNE HR KONSERN",
-      "orgnummer": "982708672",
+      "navn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
+      "orgnummer": "123456789",
       "naermesteLeder": null,
       "stilling": null
     },
@@ -59,8 +59,8 @@
     "status": "NY",
     "opprettetDato": "2018-07-26",
     "arbeidsgiver": {
-      "navn": "BERGEN KOMMUNE HR KONSERN",
-      "orgnummer": "982708672",
+      "navn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
+      "orgnummer": "123456789",
       "naermesteLeder": null,
       "stilling": null
     },

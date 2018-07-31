@@ -110,7 +110,7 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                             if (soknad.status !== NY && soknad.status !== UTKAST_TIL_KORRIGERING) {
                                 if (soknad.soknadstype === OPPHOLD_UTLAND && soknad.status === SENDT) {
                                     return getLedetekst('soknad.teaser.status.SENDT.til-nav', {
-                                        '%DATO%': toDatePrettyPrint(soknad.sendtTilNavDato),
+                                        '%DATO%': toDatePrettyPrint(soknad.innsendtDato),
                                     });
                                 }
                                 return getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {

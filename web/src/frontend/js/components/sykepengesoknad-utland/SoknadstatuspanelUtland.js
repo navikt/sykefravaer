@@ -33,7 +33,7 @@ const SendtDato = ({ soknad }) => {
         className="nokkelopplysning--statusopplysning"
         Overskrift="h2"
         tittel={getLedetekst('sykepengesoknad.sykepengeinfo.tittel.dato')}>
-        <p>{toDatePrettyPrint(soknad.sendtTilNavDato)}</p>
+        <p>{toDatePrettyPrint(soknad.innsendtDato)}</p>
     </SykmeldingNokkelOpplysning>
     );
 };

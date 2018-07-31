@@ -209,7 +209,7 @@ describe('SykepengesoknadTeaser', () => {
     it('Viser riktig statustekst for sending til nav', () => {
         const _soknad = Object.assign({}, utlandsoknad, {
             status: 'SENDT',
-            sendtTilNavDato: new Date('2018-05-18'),
+            innsendtDato: new Date('2018-05-18'),
         });
         const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
         expect(component.find('.js-undertekst').text()).to.contain('Sendt til NAV 18.05.2018');

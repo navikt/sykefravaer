@@ -83,12 +83,6 @@ describe('SykepengesoknadContainerTest', () => {
             expect(hentSoknader.called).to.equal(true);
         });
 
-        it('Skal ikke hente søknader hvis søknader hentes', () => {
-            state.soknader.henter = true;
-            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
-            expect(hentSoknader.called).to.equal(false);
-        });
-
         it('Skal hente sykepengesøknader hvis sykepengesøknader ikke er hentet (1)', () => {
             state.sykepengesoknader.hentet = false;
             state.sykepengesoknader.henter = false;
@@ -100,12 +94,6 @@ describe('SykepengesoknadContainerTest', () => {
             state.sykepengesoknader.hentet = true;
             shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
             expect(hentSykepengesoknader.called).to.equal(true);
-        });
-
-        it('Skal ikke hente sykepengesøknader hvis sykepengesøknader hentes', () => {
-            state.sykepengesoknader.henter = true;
-            shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
-            expect(hentSykepengesoknader.called).to.equal(false);
         });
 
         it('Skal hente søknad hvis det eksisterer en søknad', () => {

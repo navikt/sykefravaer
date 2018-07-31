@@ -157,12 +157,9 @@ SykepengesoknadArbeidstaker.propTypes = {
 
 export class Container extends Component {
     componentDidMount() {
-        if (this.props.skalHenteSykepengesoknader) {
-            this.props.actions.hentSykepengesoknader();
-        }
-        if (this.props.skalHenteSoknader) {
-            this.props.actions.hentSoknader();
-        }
+        this.props.actions.hentSykepengesoknader();
+        this.props.actions.hentSoknader();
+
         if (this.props.skalHenteSykmeldinger) {
             this.props.actions.hentDineSykmeldinger();
         }
@@ -176,8 +173,6 @@ export class Container extends Component {
 
     render() {
         const {
-            skalHenteSoknader,
-            skalHenteSykepengesoknader,
             erArbeidstakersoknad,
             erSelvstendigNaeringsdrivendeSoknad,
             erSoknadOmUtenlandsopphold,
@@ -186,7 +181,7 @@ export class Container extends Component {
             sti,
         } = this.props;
         const brodsmuler = beregnBrodsmulesti(sti, this.props.soknadId);
-        return (<Side brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSoknader || skalHenteSykepengesoknader || skalHenteSykmeldinger || henter}>
+        return (<Side brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSykmeldinger || henter}>
             {(() => {
                 if (henter) {
                     return <AppSpinner />;
@@ -244,8 +239,6 @@ export const mapStateToProps = (state, ownProps) => {
 
     return {
         soknadId,
-        skalHenteSoknader: !state.soknader.henter,
-        skalHenteSykepengesoknader: !state.sykepengesoknader.henter,
         skalHenteSykmeldinger,
         erSelvstendigNaeringsdrivendeSoknad,
         erSoknadOmUtenlandsopphold,

@@ -77,10 +77,10 @@ describe('SykepengesoknadContainerTest', () => {
             expect(hentSoknader.called).to.equal(true);
         });
 
-        it('Skal ikke hente søknader hvis søknader er hentet', () => {
+        it('Skal hente søknader hvis søknader er hentet', () => {
             state.soknader.hentet = true;
             shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
-            expect(hentSoknader.called).to.equal(false);
+            expect(hentSoknader.called).to.equal(true);
         });
 
         it('Skal ikke hente søknader hvis søknader hentes', () => {
@@ -89,16 +89,17 @@ describe('SykepengesoknadContainerTest', () => {
             expect(hentSoknader.called).to.equal(false);
         });
 
-        it('Skal hente sykepengesøknader hvis sykepengesøknader ikke er hentet', () => {
+        it('Skal hente sykepengesøknader hvis sykepengesøknader ikke er hentet (1)', () => {
             state.sykepengesoknader.hentet = false;
+            state.sykepengesoknader.henter = false;
             shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
             expect(hentSykepengesoknader.called).to.equal(true);
         });
 
-        it('Skal ikke hente sykepengesøknader hvis sykepengesøknader er hentet', () => {
+        it('Skal hente sykepengesøknader hvis sykepengesøknader er hentet', () => {
             state.sykepengesoknader.hentet = true;
             shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
-            expect(hentSykepengesoknader.called).to.equal(false);
+            expect(hentSykepengesoknader.called).to.equal(true);
         });
 
         it('Skal ikke hente sykepengesøknader hvis sykepengesøknader hentes', () => {
@@ -107,12 +108,13 @@ describe('SykepengesoknadContainerTest', () => {
             expect(hentSykepengesoknader.called).to.equal(false);
         });
 
-        it('Skal ikke hente søknad hvis det eksisterer en søknad', () => {
+        it('Skal hente søknad hvis det eksisterer en søknad', () => {
             state.soknader.data = [{
                 id: 'soknad-id',
             }];
+            state.soknader.henter = false;
             shallow(<Container {...mapStateToProps(state, ownProps)} actions={actions} />);
-            expect(hentSoknader.called).to.equal(false);
+            expect(hentSoknader.called).to.equal(true);
         });
     });
 

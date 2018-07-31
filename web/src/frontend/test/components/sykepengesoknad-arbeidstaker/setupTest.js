@@ -5,6 +5,7 @@ import { inntektskildetyper } from 'digisyfo-npm';
 import { mapAktiviteter } from '../../../js/utils/sykepengesoknadUtils';
 import { mapStateToPropsMedInitialValues, mapStateToProps, mapToInitialValues, andreInntektskilderDefault } from '../../../js/components/sykepengesoknad-arbeidstaker/setup';
 import { getParsetSoknad, getSoknad } from '../../mockSykepengesoknader';
+import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../js/enums/skjemanavn';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -75,14 +76,15 @@ describe('setup', () => {
             expect(props.sykepengesoknad).to.deep.equal(mappetSoknad);
         });
 
-        it('Skal returnere sykepengesoknad.id som key', () => {
+        it('Skal returnere sykepengesoknad.id som key og et unikt skjemanavn', () => {
             // Dette er for å tvinge re-rendring ved navigering mellom søknader
-            const id = "min-fine-id";
+            const id = 'min-fine-id';
             ownProps.sykepengesoknad = getParsetSoknad({
                 id,
             });
             const props = mapStateToPropsMedInitialValues(state, ownProps);
             expect(props.key).to.equal(id);
+            expect(props.form).to.equal(getSykepengesoknadArbeidstakerSkjemanavn('min-fine-id'));
         });
     });
 
@@ -123,14 +125,15 @@ describe('setup', () => {
             expect(props.sykepengesoknad).to.deep.equal(mappetSoknad);
         });
 
-        it('Skal returnere sykepengesoknad.id som key', () => {
+        it('Skal returnere sykepengesoknad.id som key og et unikt skjemanavn', () => {
             // Dette er for å tvinge re-rendring ved navigering mellom søknader
-            const id = "min-fine-id";
+            const id = 'min-fine-id';
             ownProps.sykepengesoknad = getParsetSoknad({
                 id,
             });
             const props = mapStateToProps(state, ownProps);
             expect(props.key).to.equal(id);
+            expect(props.form).to.equal(getSykepengesoknadArbeidstakerSkjemanavn('min-fine-id'));
         });
     });
 

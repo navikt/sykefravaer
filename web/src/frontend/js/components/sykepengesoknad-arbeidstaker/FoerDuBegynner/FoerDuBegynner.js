@@ -14,7 +14,7 @@ import SykepengesoknadHeader from '../SykepengesoknadHeader';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import SykmeldingUtdragContainer from '../../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 import IllustrertInnhold from '../../IllustrertInnhold';
-import { getSykepengesoknadSkjemanavn } from '../../../enums/skjemanavn';
+import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
 
 const { NY, UTKAST_TIL_KORRIGERING } = sykepengesoknadstatuser;
 
@@ -111,10 +111,9 @@ const FoerDuBegynner = (props) => {
 
         <SykmeldingUtdragContainer erApen sykepengesoknad={sykepengesoknad} />
         <h2 className="soknad__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
-        <FeiloppsummeringContainer skjemanavn={getSykepengesoknadSkjemanavn(sykepengesoknad.id)} />
+        <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(sykepengesoknad.id)} />
         <FoerDuBegynnerSkjemaSetup
-            sykepengesoknad={sykepengesoknad}
-            form={getSykepengesoknadSkjemanavn(sykepengesoknad.id)} />
+            sykepengesoknad={sykepengesoknad} />
     </div>);
 };
 

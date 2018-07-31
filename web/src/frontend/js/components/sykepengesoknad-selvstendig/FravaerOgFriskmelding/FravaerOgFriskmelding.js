@@ -6,7 +6,7 @@ import Soknadskjema from '../Soknadskjema';
 import Sporsmal from '../../soknad-felles/Sporsmal';
 import { KnapperadTilbake } from '../../skjema/Knapperad';
 import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
-import { SYKEPENGER_SKJEMANAVN } from '../../../enums/skjemanavn';
+import { getSykepengesoknadSelvstendigSkjemanavn } from '../../../enums/skjemanavn';
 import { JOBBET_DU_100_PROSENT, JOBBET_DU_GRADERT, TILBAKE_I_ARBEID } from '../../../enums/tagtyper';
 import { soknad as soknadPt } from '../../../propTypes';
 
@@ -23,7 +23,7 @@ const FravaerOgFriskmeldingSkjema = (props) => {
         history.push(`/sykefravaer/soknader/${soknad.id}/aktiviteter-i-sykmeldingsperioden`);
     };
     return (<form className="soknadskjema" id="fravaer-og-friskmeldnig-skjema" onSubmit={handleSubmit(onSubmit)}>
-        <FeiloppsummeringContainer skjemanavn={SYKEPENGER_SKJEMANAVN} />
+        <FeiloppsummeringContainer skjemanavn={getSykepengesoknadSelvstendigSkjemanavn(soknad.id)} />
         {
             sporsmalsliste.map((sporsmal) => {
                 return (<Sporsmal

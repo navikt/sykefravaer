@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { onSubmitFail } from '../FeiloppsummeringContainer';
-import { SYKEPENGER_SKJEMANAVN } from '../../enums/skjemanavn';
 import { sendSoknad } from '../../actions/soknader_actions';
+import { getSykepengesoknadSelvstendigSkjemanavn } from '../../enums/skjemanavn';
 
 export const finnSoknad = (state, ownProps) => {
     const soknader = state.soknader.data.filter((s) => {
@@ -25,9 +25,11 @@ const mapStateToProps = (state, ownProps) => {
     return {
         soknad,
         sykmelding: finnSykmelding(state, ownProps),
-        skjemasvar: getFormValues(SYKEPENGER_SKJEMANAVN)(state),
+        skjemasvar: getFormValues(getSykepengesoknadSelvstendigSkjemanavn(ownProps.params.sykepengesoknadId))(state),
         sender: state.soknader.sender,
         sendingFeilet: state.soknader.sendingFeilet,
+        key: soknad.id,
+        form: getSykepengesoknadSelvstendigSkjemanavn(soknad.id),
     };
 };
 
@@ -35,10 +37,10 @@ const mapStateToPropsMedInitialValues = (state, ownProps) => {
     const soknad = finnSoknad(state, ownProps);
 
     return {
-        ...mapStateToProps(state, ownProps),
         initialValues: {
             id: soknad.id,
         },
+        ...mapStateToProps(state, ownProps),
     };
 };
 
@@ -53,17 +55,19 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default (validate, Component, initialize = false) => {
-    const form = reduxForm({
-        form: SYKEPENGER_SKJEMANAVN,
-        validate,
-        destroyOnUnmount: false,
-        forceUnregisterOnUnmount: true,
-        onSubmitFail: (errors, dispatch) => {
-            onSubmitFail(errors, dispatch, SYKEPENGER_SKJEMANAVN);
-        },
-    })(Component);
-    if (initialize) {
-        return connect(mapStateToPropsMedInitialValues)(form);
-    }
-    return connect(mapStateToProps, mapDispatchToProps)(form);
+    const connected = initialize
+        ? connect(mapStateToPropsMedInitialValues)
+        : connect(mapStateToProps, mapDispatchToProps);
+
+    return compose(
+        connected,
+        reduxForm({
+            validate,
+            destroyOnUnmount: false,
+            forceUnregisterOnUnmount: true,
+            onSubmitFail: (errors, dispatch, submitError, props) => {
+                onSubmitFail(errors, dispatch, getSykepengesoknadSelvstendigSkjemanavn(props.soknad.id));
+            },
+        }),
+    )(Component);
 };

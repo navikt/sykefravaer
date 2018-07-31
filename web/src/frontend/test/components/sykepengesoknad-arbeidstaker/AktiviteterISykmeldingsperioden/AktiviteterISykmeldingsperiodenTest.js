@@ -46,7 +46,7 @@ describe('AktiviteterISykmeldingsperioden', () => {
         expect(arr.prop('component')).to.deep.equal(Aktiviteter);
         expect(arr.prop('fields')).to.deep.equal(sykepengesoknad.aktiviteter);
         expect(arr.prop('name')).to.equal('aktiviteter');
-        expect(arr.prop('arbeidsgiver')).to.equal('BYGGMESTER BLOM AS');
+        expect(arr.prop('sykepengesoknad')).to.deep.equal(sykepengesoknad);
         expect(arr.prop('autofill')).to.deep.equal(autofill);
         expect(arr.prop('untouch')).to.deep.equal(untouch);
     });

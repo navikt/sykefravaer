@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
-import { destroy } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import Soknader from '../../components/sykepengesoknader/Soknader';
 import Side from '../../sider/Side';
@@ -59,7 +58,6 @@ SoknaderSide.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     soknader: PropTypes.arrayOf(soknadPt),
     actions: PropTypes.shape({
-        destroy: PropTypes.func,
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,
     }),
@@ -70,7 +68,7 @@ SoknaderSide.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ destroy, hentSykepengesoknader, hentSoknader }, dispatch),
+        actions: bindActionCreators({ hentSykepengesoknader, hentSoknader }, dispatch),
     };
 }
 

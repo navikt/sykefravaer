@@ -18,6 +18,7 @@ describe('Aktiviteter', () => {
     let untouch;
     let autofill;
     let aktiviteter;
+    let sykepengesoknad;
 
     beforeEach(() => {
         autofill = sinon.spy();
@@ -46,6 +47,13 @@ describe('Aktiviteter', () => {
         /* eslint-disable max-len */
 
         setLedetekster(ledetekster);
+
+        sykepengesoknad = {
+            id: 'test',
+            arbeidsgiver: {
+                navn: 'MORTENS GRØNNSAKER',
+            },
+        };
     });
 
     describe('Aktiviteter', () => {
@@ -53,9 +61,15 @@ describe('Aktiviteter', () => {
 
         beforeEach(() => {
             dato = new Date();
+            sykepengesoknad = {
+                id: 'test',
+                arbeidsgiver: {
+                    navn: 'Mortens Gitarservice',
+                },
+            };
             component = shallow(<Aktiviteter
+                sykepengesoknad={sykepengesoknad}
                 fields={aktiviteter}
-                arbeidsgiver="MORTENS GRØNNSAKER"
                 gjenopptattArbeidFulltUtDato={dato}
                 ledetekster={ledetekster}
                 autofill={autofill}
@@ -70,14 +84,14 @@ describe('Aktiviteter', () => {
             expect(component.contains(<Aktivitet
                 field={aktiviteter[0]}
                 index={0}
-                arbeidsgiver="MORTENS GRØNNSAKER"
+                sykepengesoknad={sykepengesoknad}
                 autofill={autofill}
                 untouch={untouch} />)).to.equal(true);
 
             expect(component.contains(<Aktivitet
                 field={aktiviteter[1]}
                 index={1}
-                arbeidsgiver="MORTENS GRØNNSAKER"
+                sykepengesoknad={sykepengesoknad}
                 autofill={autofill}
                 untouch={untouch} />)).to.equal(true);
         });
@@ -88,6 +102,7 @@ describe('Aktiviteter', () => {
 
         beforeEach(() => {
             component = shallow(<Aktivitet
+                sykepengesoknad={sykepengesoknad}
                 field={aktiviteter[1]}
                 index={1}
                 arbeidsgiver="MORTENS GRØNNSAKER"
@@ -130,7 +145,7 @@ describe('Aktiviteter', () => {
             component = shallow(<Aktivitet
                 field={aktiviteter[0]}
                 index={0}
-                arbeidsgiver="MORTENS GRØNNSAKER"
+                sykepengesoknad={sykepengesoknad}
                 autofill={autofill}
                 untouch={untouch} />);
             ja = component.find(JaEllerNei);

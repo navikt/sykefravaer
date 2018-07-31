@@ -61,7 +61,8 @@ export const onSubmitFail = (errors, dispatch, skjemanavn) => {
 
 export const mapStateToProps = (state, ownProps) => {
     const skjemanavn = ownProps.skjemanavn;
-    const meta = state.formMeta && state.formMeta[skjemanavn] && state.formMeta[skjemanavn] ? state.formMeta[skjemanavn] : {};
+    const harReducer = state.formMeta && state.formMeta[skjemanavn];
+    const meta = harReducer ? state.formMeta[skjemanavn] : {};
     const visFeilliste = meta.status === SEND_SKJEMA_FEILET;
     const settFokus = meta.status === SEND_SKJEMA_FEILET && meta.settFokus === true;
     const reduxForm = state.form[skjemanavn];

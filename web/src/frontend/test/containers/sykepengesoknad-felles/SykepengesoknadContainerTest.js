@@ -9,7 +9,6 @@ import {
     SykepengesoknadSelvstendigNaeringsdrivende,
     SykepengeskjemaForSelvstendige,
 } from '../../../js/containers/sykepengesoknad-felles/SykepengesoknadContainer';
-import { SYKEPENGER_SKJEMANAVN } from '../../../js/enums/skjemanavn';
 import AppSpinner from '../../../js/components/AppSpinner';
 import { NY, SENDT, TIL_SENDING } from '../../../js/enums/soknadstatuser';
 import SykepengesoknadSelvstendigKvitteringContainer from '../../../js/containers/sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
@@ -35,7 +34,6 @@ describe('SykepengesoknadContainerTest', () => {
     let hentDineSykmeldinger;
     let opprettSoknadUtland;
     let initialize;
-    let destroy;
 
     beforeEach(() => {
         state = {};
@@ -62,7 +60,6 @@ describe('SykepengesoknadContainerTest', () => {
         hentDineSykmeldinger = sinon.spy();
         opprettSoknadUtland = sinon.spy();
         initialize = sinon.spy();
-        destroy = sinon.spy();
 
         actions = {
             hentSykepengesoknader,
@@ -70,20 +67,7 @@ describe('SykepengesoknadContainerTest', () => {
             hentDineSykmeldinger,
             opprettSoknadUtland,
             initialize,
-            destroy,
         };
-    });
-
-    it('Skal kalle på destroy dersom bruker har vært på en annen søknad før', () => {
-        state.form = {};
-        state.form[SYKEPENGER_SKJEMANAVN] = {
-            values: {
-                id: '456',
-            },
-        };
-        const props = mapStateToProps(state, ownProps);
-        shallow(<Container {...props} actions={actions} />);
-        expect(destroy.called).to.equal(true);
     });
 
     describe('Henting av data', () => {

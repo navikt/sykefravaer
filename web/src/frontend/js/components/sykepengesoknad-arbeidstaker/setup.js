@@ -1,12 +1,12 @@
-import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
 import { inntektskildetyper as inntektskildetypeEnums, sykepengesoknadstatuser, toDatePrettyPrint } from 'digisyfo-npm';
 import history from '../../history';
-import Feiloppsummering, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
+import { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
 import { getTidligsteSendtDato, mapAktiviteter } from '../../utils/sykepengesoknadUtils';
 import mapBackendsoknadToSkjemasoknad from './/mappers/mapBackendsoknadToSkjemasoknad';
-import { SYKEPENGER_SKJEMANAVN } from '../../enums/skjemanavn';
+import { getSykepengesoknadSkjemanavn } from '../../enums/skjemanavn';
 
 const sendTilFoerDuBegynner = (sykepengesoknad) => {
     history.replace(`/sykefravaer/soknader/${sykepengesoknad.id}`);
@@ -115,43 +115,36 @@ export const getInitialValuesSykepengesoknad = (sykepengesoknad, state) => {
         : mapToInitialValues(sykepengesoknad, state.sykepengesoknader.data);
 };
 
-export const mapStateToPropsMedInitialValues = (state, ownProps) => {
+export const mapStateToProps = (state, ownProps) => {
     const { sykepengesoknad } = ownProps;
-    const initialValues = getInitialValuesSykepengesoknad(sykepengesoknad, state);
     return {
-        initialValues,
+        key: sykepengesoknad.id,
         sykepengesoknad: mapAktiviteter(sykepengesoknad),
     };
 };
 
-export const mapStateToProps = (state, ownProps) => {
-    const { sykepengesoknad } = ownProps;
+export const mapStateToPropsMedInitialValues = (state, ownProps) => {
+    const initialValues = getInitialValuesSykepengesoknad(ownProps.sykepengesoknad, state);
+
     return {
-        sykepengesoknad: mapAktiviteter(sykepengesoknad),
+        ...mapStateToProps(state, ownProps),
+        initialValues,
     };
 };
 
 const setup = (validate, Component, initialize = false) => {
-    const ComponentMedOppsummering = (props) => {
-        return (<div>
-            <Feiloppsummering skjemanavn={SYKEPENGER_SKJEMANAVN} />
-            <Component {...props} />
-        </div>);
-    };
-    const form = reduxForm({
-        form: SYKEPENGER_SKJEMANAVN,
-        validate,
-        destroyOnUnmount: false,
-        forceUnregisterOnUnmount: true,
-        sendTilFoerDuBegynner,
-        onSubmitFail: (errors, dispatch) => {
-            onSubmitFail(errors, dispatch, SYKEPENGER_SKJEMANAVN);
-        },
-    })(ComponentMedOppsummering);
-    if (initialize) {
-        return connect(mapStateToPropsMedInitialValues)(form);
-    }
-    return connect(mapStateToProps)(form);
+    return compose(
+        connect(initialize ? mapStateToPropsMedInitialValues : mapStateToProps),
+        reduxForm({
+            validate,
+            destroyOnUnmount: false,
+            forceUnregisterOnUnmount: true,
+            sendTilFoerDuBegynner,
+            onSubmitFail: (errors, dispatch, submitError, props) => {
+                onSubmitFail(errors, dispatch, getSykepengesoknadSkjemanavn(props.sykepengesoknad.id));
+            },
+        }),
+    )(Component);
 };
 
 export default setup;

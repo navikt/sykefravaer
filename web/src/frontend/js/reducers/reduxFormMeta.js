@@ -1,28 +1,35 @@
-import { combineReducers } from 'redux';
 import * as actiontyper from '../actions/actiontyper';
 import { SEND_SKJEMA_FEILET, SEND_SKJEMA_FEILET_HANDTERT } from '../enums/reduxFormMetaEnums';
-import { SYKEPENGER_SKJEMANAVN, DIN_SYKMELDING_SKJEMANAVN, OPPHOLD_UTLAND_SKJEMA } from '../enums/skjemanavn';
 
 const defaultState = {};
 
-const skjemafeil = (state, action) => {
+const reduxFormMeta = (state = defaultState, action = {}) => {
     switch (action.type) {
         case actiontyper.SEND_SKJEMA_FEILET: {
             return {
-                status: SEND_SKJEMA_FEILET,
-                settFokus: true,
+                ...state,
+                [action.skjemanavn]: {
+                    status: SEND_SKJEMA_FEILET,
+                    settFokus: true,
+                },
             };
         }
         case actiontyper.SEND_SKJEMA_FEILET_HANDTERT: {
             return {
-                status: SEND_SKJEMA_FEILET,
-                settFokus: false,
+                ...state,
+                [action.skjemanavn]: {
+                    status: SEND_SKJEMA_FEILET,
+                    settFokus: false,
+                },
             };
         }
         case actiontyper.SKJEMA_ER_GYLDIG: {
             return {
-                status: SEND_SKJEMA_FEILET_HANDTERT,
-                settFokus: false,
+                ...state,
+                [action.skjemanavn]: {
+                    status: SEND_SKJEMA_FEILET_HANDTERT,
+                    settFokus: false,
+                },
             };
         }
         default: {
@@ -31,20 +38,4 @@ const skjemafeil = (state, action) => {
     }
 };
 
-const genererReducer = (skjemanavn) => {
-    return (state = defaultState, action = {}) => {
-        if (action.skjemanavn === skjemanavn) {
-            return skjemafeil(state, action);
-        }
-        return state;
-    };
-};
-
-const reducers = {};
-reducers[DIN_SYKMELDING_SKJEMANAVN] = genererReducer(DIN_SYKMELDING_SKJEMANAVN);
-reducers[SYKEPENGER_SKJEMANAVN] = genererReducer(SYKEPENGER_SKJEMANAVN);
-reducers[OPPHOLD_UTLAND_SKJEMA] = genererReducer(OPPHOLD_UTLAND_SKJEMA);
-
-const rootReduxer = combineReducers(reducers);
-
-export default rootReduxer;
+export default reduxFormMeta;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { destroy, initialize } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import * as soknaderActions from '../../actions/soknader_actions';
 import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
@@ -23,7 +22,6 @@ import AppSpinner from '../../components/AppSpinner';
 import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import SendtSoknadSelvstendig from '../../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
 import { soknad as soknadPt } from '../../propTypes';
-import { SYKEPENGER_SKJEMANAVN } from '../../enums/skjemanavn';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 import SykepengesoknadUtlandSkjemaContainer from '../sykepengesoknad-utland/SykepengesoknadUtlandSkjemaContainer';
 
@@ -166,9 +164,6 @@ export class Container extends Component {
         if (this.props.skalHenteSoknader) {
             this.props.actions.hentSoknader();
         }
-        if (this.props.brukerHarNavigertTilAnnenSoknad) {
-            this.props.actions.destroy(SYKEPENGER_SKJEMANAVN);
-        }
         if (this.props.skalHenteSykmeldinger) {
             this.props.actions.hentDineSykmeldinger();
         }
@@ -215,8 +210,6 @@ Container.propTypes = {
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,
         hentDineSykmeldinger: PropTypes.func,
-        destroy: PropTypes.func,
-        initialize: PropTypes.func,
     }),
     skalHenteSykepengesoknader: PropTypes.bool,
     skalHenteSoknader: PropTypes.bool,
@@ -232,7 +225,7 @@ Container.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions, destroy, initialize }, dispatch),
+        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions }, dispatch),
     };
 }
 

@@ -1,15 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { soknad as soknadPt } from '../../propTypes';
+import { connect } from 'react-redux';
+import { skjemasvar as skjemasvarPt, soknad as soknadPt } from '../../propTypes';
 import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import UtlandsSkjema from '../../components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
-import Kvittering from '../../components/sykepengesoknad-utland/Kvittering/Kvittering';
 import Feilmelding from '../../components/Feilmelding';
 import { sendSoknad as sendSoknadAction } from '../../actions/soknader_actions';
+import OppsummeringUtland from '../../components/sykepengesoknad-utland/Oppsummering/OppsummeringUtland';
+import Kvittering from '../../components/sykepengesoknad-utland/Kvittering/Kvittering';
 
 
-const SykepengesoknadUtlandSkjemaContainer = ({ soknad, sendSoknad, sender }) => {
+export const SykepengesoknadUtlandSkjemaContainer = (props) => {
+    const { soknad, sendSoknad, sender, sti } = props;
+
     if (soknad && soknad.status === NY) {
         return (<UtlandsSkjema
             soknad={soknad}
@@ -17,16 +20,25 @@ const SykepengesoknadUtlandSkjemaContainer = ({ soknad, sendSoknad, sender }) =>
             sender={sender}
         />);
     }
-    if (soknad && (soknad.status === TIL_SENDING || soknad.status === SENDT)) {
-        return <Kvittering />;
+    if (soknad && [SENDT, TIL_SENDING].indexOf(soknad.status) > -1) {
+        if (sti.indexOf('kvittering') > -1) {
+            return <Kvittering />;
+        }
+        return <OppsummeringUtland {...props} />;
     }
     return <Feilmelding />;
 };
 
 SykepengesoknadUtlandSkjemaContainer.propTypes = {
     soknad: soknadPt,
+    actions: PropTypes.shape({
+        sendSoknad: PropTypes.func,
+    }),
+    sendingFailet: PropTypes.bool,
+    skjemasvar: skjemasvarPt,
     sendSoknad: PropTypes.func,
     sender: PropTypes.bool,
+    sti: PropTypes.string,
 };
 
 export const finnSoknad = (state, ownProps) => {
@@ -39,6 +51,7 @@ export function mapStateToProps(state, ownProps) {
     const soknad = finnSoknad(state, ownProps);
     return {
         soknad,
+        sti: ownProps.location.pathname,
         sendSoknad: state.soknader.senderSoknad,
         sender: state.soknader.sender,
     };

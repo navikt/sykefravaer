@@ -5,6 +5,7 @@ import { getLedetekst, toDatePrettyPrint, sykepengesoknadstatuser } from 'digisy
 import { getContextRoot } from '../../routers/paths';
 import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
 import { getSendtTilSuffix, erSendtTilBeggeMenIkkeSamtidig } from '../../utils/sykepengesoknadUtils';
+import { OPPHOLD_UTLAND } from '../../enums/soknadtyper';
 
 const { NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING, AVBRUTT } = sykepengesoknadstatuser;
 
@@ -47,10 +48,25 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                 <header className="inngangspanel__header">
                     <h3 className="js-title" id={`soknad-header-${soknad.id}`}>
                         <small className="inngangspanel__meta js-meta">
-                            {getLedetekst('soknad.teaser.dato', { '%DATO%': toDatePrettyPrint(soknad.tom) }) }
+                            {
+                                (() => {
+                                    return getLedetekst('soknad.teaser.dato', {
+                                        '%DATO%':
+                                            toDatePrettyPrint(soknad.soknadstype === OPPHOLD_UTLAND
+                                                ? soknad.opprettetDato : soknad.tom),
+                                    });
+                                })()
+                            }
                         </small>
                         <span className="inngangspanel__tittel">
-                            {getLedetekst('soknad.teaser.tittel')}
+                            {
+                                (() => {
+                                    if (soknad.soknadstype === OPPHOLD_UTLAND) {
+                                        return getLedetekst('soknad.utland.teaser.tittel');
+                                    }
+                                    return getLedetekst('soknad.teaser.tittel');
+                                })()
+                            }
                         </span>
                     </h3>
                     {
@@ -66,10 +82,15 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                 </header>
                 <p className="inngangspanel__tekst js-tekst">
                     {
-                        getLedetekst('soknad.teaser.tekst', {
-                            '%FRA%': toDatePrettyPrint(soknad.fom),
-                            '%TIL%': toDatePrettyPrint(soknad.tom),
-                        })
+                        (() => {
+                            if (soknad.soknadstype !== OPPHOLD_UTLAND) {
+                                return getLedetekst('soknad.teaser.tekst', {
+                                    '%FRA%': toDatePrettyPrint(soknad.fom),
+                                    '%TIL%': toDatePrettyPrint(soknad.tom),
+                                });
+                            }
+                            return null;
+                        })()
                     }
                 </p>
                 <p className="inngangspanel__undertekst js-undertekst mute">
@@ -87,6 +108,11 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                                 return <SendtUlikt soknad={soknad} />;
                             }
                             if (soknad.status !== NY && soknad.status !== UTKAST_TIL_KORRIGERING) {
+                                if (soknad.soknadstype === OPPHOLD_UTLAND && soknad.status === SENDT) {
+                                    return getLedetekst('soknad.teaser.status.SENDT.til-nav', {
+                                        '%DATO%': toDatePrettyPrint(soknad.innsendtDato),
+                                    });
+                                }
                                 return getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
                                     '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
                                     '%ARBEIDSGIVER%': soknad.arbeidsgiver ? soknad.arbeidsgiver.navn : null,

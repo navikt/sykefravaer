@@ -30,13 +30,17 @@ const UtlandsSkjema = ({ soknad, handleSubmit, sender, sendSoknad }) => {
         const populertSoknad = populerSoknadMedSvar(soknad, values);
         sendSoknad(populertSoknad);
     };
+
     return (<form className="soknadskjema" id="sykepengesoknad-utland-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Header />
         <div className="begrensning">
             <FeiloppsummeringContainer skjemanavn={OPPHOLD_UTLAND_SKJEMA} />
             {sporsmalsliste}
             <div className="knapperad blokk">
-                <Hovedknapp type="submit" disabled={sender} spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
+                <Hovedknapp
+                    type="submit"
+                    disabled={sender}
+                    spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>
             </div>
         </div>
     </form>);

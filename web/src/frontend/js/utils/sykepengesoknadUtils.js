@@ -1,5 +1,4 @@
 import { erGyldigDatoformat, fraInputdatoTilJSDato, periodeOverlapperMedPeriode, tidligsteFom, tilDatePeriode } from 'digisyfo-npm';
-import { SYKEPENGER_SKJEMANAVN } from '../enums/skjemanavn';
 
 export const getTidligsteSendtDato = (soknad) => {
     if (soknad.sendtTilNAVDato && soknad.sendtTilArbeidsgiverDato) {
@@ -148,12 +147,4 @@ export const finnFomForFeriesporsmal = (sykepengesoknad) => {
     }
 
     return forrigeSykeforloepTom || sykepengesoknad.fom;
-};
-
-
-export const beregnHarBrukerNavigertTilAnnenSoknad = (state, id) => {
-    const formData = state.form ? state.form[SYKEPENGER_SKJEMANAVN] : undefined;
-    return formData && formData.values && formData.values.id
-        ? formData.values.id !== id
-        : false;
 };

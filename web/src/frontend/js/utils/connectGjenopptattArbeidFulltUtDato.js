@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { getGjenopptattArbeidFulltUtDato } from '../utils/sykepengesoknadUtils';
-import { getSykepengesoknadSkjemanavn } from '../enums/skjemanavn';
+import { getSykepengesoknadArbeidstakerSkjemanavn } from '../enums/skjemanavn';
 
 export const mapStateToProps = (state, ownProps) => {
-    const values = state.form[getSykepengesoknadSkjemanavn(ownProps.sykepengesoknad.id)].values;
+    const values = state.form[getSykepengesoknadArbeidstakerSkjemanavn(ownProps.sykepengesoknad.id)].values;
     const gjenopptattArbeidFulltUtDato = getGjenopptattArbeidFulltUtDato(values);
     return {
         gjenopptattArbeidFulltUtDato,

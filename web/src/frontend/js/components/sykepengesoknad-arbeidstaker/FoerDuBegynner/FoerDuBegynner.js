@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
-import Alertstripe from 'nav-frontend-alertstriper';
-import { Link } from 'react-router';
+import { getLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
 import history from '../../../history';
 import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';
@@ -12,48 +11,14 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import SykepengesoknadHeader from '../SykepengesoknadHeader';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import SykmeldingUtdragContainer from '../../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
-import IllustrertInnhold from '../../IllustrertInnhold';
+import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
+import DetFinnesEldreSoknader from './DetFinnesEldreSoknader';
+import KorrigerVarsel from './KorrigerVarsel';
+import ForsteSoknadIntro from './ForsteSoknadIntro';
+import SoknadIntro from './SoknadIntro';
+import TidligSoknad from './TidligSoknad';
 
 const { NY, UTKAST_TIL_KORRIGERING } = sykepengesoknadstatuser;
-
-export const DetFinnesEldreSoknader = ({ eldsteSoknadId }) => {
-    return (<Alertstripe type="info" className="blokk">
-        <p className="sist">{getLedetekst('sykepengesoknad.eldre-soknad.varsel.melding')}</p>
-        <p className="sist">
-            <Link className="lenke" to={`/sykefravaer/soknader/${eldsteSoknadId}`}>{getLedetekst('sykepengesoknad.eldre-soknad.varsel.lenke')}</Link>
-        </p>
-    </Alertstripe>);
-};
-
-DetFinnesEldreSoknader.propTypes = {
-    eldsteSoknadId: PropTypes.string,
-};
-
-const KorrigerVarsel = () => {
-    return (<Alertstripe type="info" className="blokk">
-        <p className="sist">Rediger det som er feil i søknaden, og send den inn på nytt.</p>
-    </Alertstripe>);
-};
-
-export const ForsteSoknadIntro = () => {
-    return (<div className="panel blokk">
-        <div className="blokk--s">
-            <IllustrertInnhold ikon="/sykefravaer/img/svg/foerste-soknad.svg" ikonAlt="Din første digitale søknad om sykepenger" liten>
-                <h2 className="panel__tittel sist">{getLedetekst('sykepengesoknad.foerste-soknad.tittel')}</h2>
-            </IllustrertInnhold>
-        </div>
-        <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.foerste-soknad.mer_v2')} />
-    </div>);
-};
-
-export const SoknadIntro = () => {
-    return (
-        <div className="panel blokk">
-            <IllustrertInnhold ikon="/sykefravaer/img/svg/foerste-soknad.svg" ikonAlt="Din første digitale søknad om sykepenger" liten>
-                <div className="redaksjonelt-innhold" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.soknad-intro.personvern')} />
-            </IllustrertInnhold>
-        </div>);
-};
 
 export const FoerDuBegynnerSkjema = (props) => {
     const { handleSubmit, sykepengesoknad } = props;
@@ -80,14 +45,6 @@ FoerDuBegynnerSkjema.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
 };
 
-export const TidligSoknad = () => {
-    return (<div className="panel panel--komprimert blokk">
-        <IllustrertInnhold ikon="/sykefravaer/img/svg/snomannen.svg" ikonAlt="Tidlig søknad">
-            <p className="sykepenger__tidligSoknad">{getLedetekst('sykepengesoknad.tidlig-soknad')}</p>
-        </IllustrertInnhold>
-    </div>);
-};
-
 const initialize = true;
 const FoerDuBegynnerSkjemaSetup = setup(validate, FoerDuBegynnerSkjema, initialize);
 
@@ -109,7 +66,9 @@ const FoerDuBegynner = (props) => {
 
         <SykmeldingUtdragContainer erApen sykepengesoknad={sykepengesoknad} />
         <h2 className="soknad__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
-        <FoerDuBegynnerSkjemaSetup sykepengesoknad={sykepengesoknad} />
+        <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(sykepengesoknad.id)} />
+        <FoerDuBegynnerSkjemaSetup
+            sykepengesoknad={sykepengesoknad} />
     </div>);
 };
 

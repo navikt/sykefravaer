@@ -17,6 +17,8 @@ import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidsta
 import { getUtdanningssporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 import { filtrerAktuelleAktiviteter } from '../../../utils/sykepengesoknadUtils';
 import { PreutfyltBjorn } from '../FravaerOgFriskmelding/Egenmeldingsdager';
+import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
+import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
 
 export const UtdanningStartDato = ({ senesteTom }) => {
     return (<div className="blokk">
@@ -57,12 +59,12 @@ export class AktiviteterISykmeldingsperiodenSkjema extends Component {
             id="aktiviteter-i-sykmeldingsperioden-skjema"
             onSubmit={handleSubmit(onSubmit)}>
             <FieldArray
+                sykepengesoknad={sykepengesoknad}
                 component={Aktiviteter}
                 fields={_aktiviteter}
                 autofill={autofill}
                 untouch={untouch}
-                name="aktiviteter"
-                arbeidsgiver={sykepengesoknad.arbeidsgiver.navn} />
+                name="aktiviteter" />
 
             <JaEllerNei
                 informasjon={<PreutfyltBjorn vis={erInntektskilderPreutfylt} />}
@@ -114,6 +116,7 @@ const AktiviteterISykmeldingsperioden = ({ sykepengesoknad, skjemasoknad }) => {
             aktivtSteg="3"
             tittel={getLedetekst('sykepengesoknad.aktiviteter-i-sykmeldingsperioden.tittel')}
             sykepengesoknad={sykepengesoknad}>
+            <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(sykepengesoknad.id)} />
             <AktiviteterISykmeldingsperiodenReduxSkjema
                 sykepengesoknad={sykepengesoknad}
                 erUtdanningPreutfylt={skjemasoknad._erUtdanningPreutfylt}

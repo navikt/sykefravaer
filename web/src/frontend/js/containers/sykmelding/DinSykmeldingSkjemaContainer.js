@@ -11,7 +11,7 @@ import { hentAktuelleArbeidsgivere } from '../../actions/dineArbeidsgivere_actio
 import { hentBrukerinfo } from '../../actions/brukerinfo_actions';
 import { hentArbeidsgiversSykmeldinger } from '../../actions/arbeidsgiversSykmeldinger_actions';
 import { hentVentetid } from '../../actions/sykmeldingMeta_actions';
-import { DIN_SYKMELDING_SKJEMANAVN } from '../../enums/skjemanavn';
+import { getSykmeldingSkjemanavn } from '../../enums/skjemanavn';
 import { skalViseFrilansersporsmal } from '../../components/sykmeldingskjema/sykmeldingSkjemaUtils';
 import { hentSykeforloep } from '../../actions/sykeforloep_actions';
 
@@ -96,7 +96,7 @@ export const mapStateToProps = (state, ownProps) => {
     const skalHenteArbeidsgiversSykmeldinger = !state.arbeidsgiversSykmeldinger.henter &&
         !state.arbeidsgiversSykmeldinger.hentet;
 
-    const values = getFormValues(DIN_SYKMELDING_SKJEMANAVN)(state);
+    const values = getFormValues(getSykmeldingSkjemanavn(sykmeldingId))(state);
     const visFrilansersporsmal = skalViseFrilansersporsmal(sykmelding, values, sykmeldingMeta.erUtenforVentetid);
 
     const skalHenteSykeforloep = !state.sykeforloep.hentet && !state.sykeforloep.henter;

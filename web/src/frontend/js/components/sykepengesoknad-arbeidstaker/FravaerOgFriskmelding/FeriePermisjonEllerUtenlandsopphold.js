@@ -14,7 +14,7 @@ import { getFeriePermisjonEllerUtenlandsoppholdSporsmal } from '../Oppsummering/
 import { finnFomForFeriesporsmal, getTomDato } from '../../../utils/sykepengesoknadUtils';
 import SoktOmSykepenger from './SoktOmSykepengerIUtenlandsopphold';
 
-export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, tidligsteFom, senesteTom }) => {
+export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, tidligsteFom, senesteTom, sykepengesoknad }) => {
     const labels = {
         ferie: getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.tatt-ut-ferie'),
         permisjon: getLedetekst('sykepengesoknad.ferie-permisjon-utenlandsopphold.hatt-permisjon'),
@@ -36,7 +36,7 @@ export const RendreFeriePermisjonEllerUtenlandsopphold = ({ fields, meta, tidlig
                             if (field === 'utenlandsopphold') {
                                 return (<div>
                                     <Periodevelger name="utenlandsopphold.perioder" tidligsteFom={tidligsteFom} senesteTom={senesteTom} />
-                                    <SoktOmSykepenger />
+                                    <SoktOmSykepenger sykepengesoknad={sykepengesoknad} />
                                 </div>);
                             }
                             return <Periodevelger name={field} tidligsteFom={tidligsteFom} senesteTom={senesteTom} />;
@@ -53,6 +53,7 @@ RendreFeriePermisjonEllerUtenlandsopphold.propTypes = {
     meta: fieldPropTypes.meta,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
+    sykepengesoknad: sykepengesoknadPt,
 };
 
 export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjenopptattArbeidFulltUtDato }) => {
@@ -74,6 +75,7 @@ export const FeriePermisjonEllerUtenlandsoppholdComp = ({ sykepengesoknad, gjeno
         informasjon={feriebjorn}
         hjelpetekst={hjelpetekst}>
         <FieldArray
+            sykepengesoknad={sykepengesoknad}
             component={RendreFeriePermisjonEllerUtenlandsopphold}
             name="feriePermisjonEllerUtenlandsopphold"
             fields={['ferie', 'permisjon', 'utenlandsopphold']}

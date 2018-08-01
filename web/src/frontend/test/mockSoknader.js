@@ -833,18 +833,12 @@ export const parsetSoknadUtland1 = {
     }],
 };
 
-export const soknadrespons = [soknadSelvstendig1];
-export const soknadUtlandRespons = [soknadUtland1];
-export const soknadUtlandParset = [parsetSoknadUtland1];
-
-
 export const getSoknad = (soknad = {}) => {
     return {
         ...parsetSoknad1,
         ...soknad,
     };
 };
-
 export const getSoknadUtland = (soknad = {}) => {
     return {
         ...parsetSoknadUtland1,
@@ -852,5 +846,10 @@ export const getSoknadUtland = (soknad = {}) => {
     };
 };
 
-export default [parsetSoknad1];
+export const soknadrespons = [soknadSelvstendig1];
 
+export const soknadUtlandRespons = [soknadUtland1];
+export const soknadUtlandParset = [parsetSoknadUtland1];
+
+
+export default [parsetSoknad1];

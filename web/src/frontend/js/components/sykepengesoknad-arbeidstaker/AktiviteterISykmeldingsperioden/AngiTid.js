@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, getFormValues } from 'redux-form';
-import { getLedetekst } from 'digisyfo-npm';
+import { getLedetekst, sykepengesoknad as sykepengesoknadPt } from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import { Radio } from 'nav-frontend-skjema';
 import TekstfeltMedEnhet from '../../skjema/TekstfeltMedEnhet';
@@ -10,7 +10,7 @@ import DetteTilsvarer, { getStillingsprosent } from './DetteTilsvarer';
 import { soknadperiode, fieldPropTypes } from '../../../propTypes';
 import { getFeriePermisjonPerioder } from '../../../utils/sykepengesoknadUtils';
 import { getTotalJobbingSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
-import { SYKEPENGER_SKJEMANAVN } from '../../../enums/skjemanavn';
+import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
 
 class AngiTid extends Component {
     constructor(props) {
@@ -91,7 +91,7 @@ class AngiTid extends Component {
     }
 
     render() {
-        const { autofill, untouch, arbeidsgiver } = this.props;
+        const { autofill, untouch, sykepengesoknad } = this.props;
 
         const enheter = [{
             value: 'prosent',
@@ -114,7 +114,7 @@ class AngiTid extends Component {
                     label={getLedetekst('sykepengesoknad.angi-tid.normal-arbeidstimer.label')} />
             </div>
             <h4 className="skjema__sporsmal">
-                {getTotalJobbingSporsmal(arbeidsgiver)}
+                {getTotalJobbingSporsmal(sykepengesoknad.arbeidsgiver.navn)}
             </h4>
             <div className="inputgruppe inputgruppe--horisontal">
                 {
@@ -160,9 +160,9 @@ AngiTid.propTypes = {
     names: PropTypes.arrayOf(PropTypes.string),
     autofill: PropTypes.func,
     untouch: PropTypes.func,
-    arbeidsgiver: PropTypes.string,
-    periode: soknadperiode,
     ferieOgPermisjonPerioder: PropTypes.arrayOf(soknadperiode),
+    sykepengesoknad: sykepengesoknadPt,
+    periode: soknadperiode,
     aktiviteter: PropTypes.arrayOf(PropTypes.shape({
         avvik: PropTypes.shape(fieldPropTypes),
         arbeidsgrad: PropTypes.shape(fieldPropTypes),
@@ -172,8 +172,8 @@ AngiTid.propTypes = {
     })),
 };
 
-const mapStateToProps = (state) => {
-    const values = getFormValues(SYKEPENGER_SKJEMANAVN)(state);
+const mapStateToProps = (state, ownProps) => {
+    const values = getFormValues(getSykepengesoknadArbeidstakerSkjemanavn(ownProps.sykepengesoknad.id))(state);
     const ferieOgPermisjonPerioder = getFeriePermisjonPerioder(values);
     return {
         ferieOgPermisjonPerioder,

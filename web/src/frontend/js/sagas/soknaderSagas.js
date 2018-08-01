@@ -26,7 +26,7 @@ const gaTilKvittering = (soknadId) => {
 };
 
 export function* hentSoknader() {
-    if (toggleSelvstendigSoknad()) {
+    if (toggleSelvstendigSoknad() || toggleSykepengesoknadUtland()) {
         yield put(actions.henterSoknader());
         try {
             const data = yield call(get, `${hentApiUrl()}/soknader`);

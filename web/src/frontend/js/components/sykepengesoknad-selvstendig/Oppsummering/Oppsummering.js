@@ -13,7 +13,7 @@ import { BEKREFT_OPPLYSNINGER } from '../../../enums/tagtyper';
 import Checkboxpanel from '../../soknad-felles/Checkboxpanel';
 
 const OppsummeringUtvidbar = ({ soknad }) => {
-    return (<Utvidbar className="blokk" variant="lilla" tittel={getLedetekst('sykepengesoknad.sidetittel')} erApen>
+    return (<Utvidbar className="blokk" variant="lilla" tittel={getLedetekst('sykepengesoknad.oppsummering')} erApen>
         <Oppsummeringsvisning soknad={soknad} />
     </Utvidbar>);
 };

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
-import { destroy } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import Soknader from '../../components/sykepengesoknader/Soknader';
 import Side from '../../sider/Side';
@@ -11,7 +10,7 @@ import Feilmelding from '../../components/Feilmelding';
 import { sykepengesoknad as sykepengesoknadPt, brodsmule as brodsmulePt, soknad as soknadPt } from '../../propTypes';
 import { hentSykepengesoknader } from '../../actions/sykepengesoknader_actions';
 import { hentSoknader } from '../../actions/soknader_actions';
-import { toggleSelvstendigSoknad } from '../../toggles';
+import { toggleSelvstendigSoknad, toggleSykepengesoknadUtland } from '../../toggles';
 
 export class SoknaderSide extends Component {
     componentWillMount() {
@@ -59,7 +58,6 @@ SoknaderSide.propTypes = {
     sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
     soknader: PropTypes.arrayOf(soknadPt),
     actions: PropTypes.shape({
-        destroy: PropTypes.func,
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,
     }),
@@ -70,7 +68,7 @@ SoknaderSide.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ destroy, hentSykepengesoknader, hentSoknader }, dispatch),
+        actions: bindActionCreators({ hentSykepengesoknader, hentSoknader }, dispatch),
     };
 }
 
@@ -82,7 +80,7 @@ export function mapStateToProps(state) {
         sykepengesoknader,
         soknader,
         skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,
-        skalHenteSoknader: toggleSelvstendigSoknad() && !state.soknader.hentet && !state.soknader.henter,
+        skalHenteSoknader: (toggleSykepengesoknadUtland() || toggleSelvstendigSoknad()) && !state.soknader.hentet && !state.soknader.henter,
         henter: state.ledetekster.henter || state.sykepengesoknader.henter || state.soknader.henter,
         hentingFeilet: state.ledetekster.hentingFeilet || (state.sykepengesoknader.hentingFeilet && state.soknader.hentingFeilet),
         visFeil: [state.soknader.hentingFeilet, state.sykepengesoknader.hentingFeilet].some((s) => {

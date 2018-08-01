@@ -23,13 +23,13 @@ const Checkbox = ({ sporsmalstekst, undersporsmal, name, id, renderComponent = r
         name={name}
         label={sporsmalstekst}
         id={name}>
-        {
+        {() => {
             undersporsmal.length > 0
                 ? undersporsmal.map((spm, index) => {
                     return <Undersporsmal sporsmal={spm} key={`${spm.tag}-${index}`} />;
                 })
-                : null
-        }
+                : null;
+        }}()
     </Field>);
 };
 

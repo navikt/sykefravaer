@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { mapStateToProps, Container } from '../../../js/containers/sykepengesoknad-arbeidstaker/FoerDuBegynnerContainer';
-import { SYKEPENGER_SKJEMANAVN } from '../../../js/enums/skjemanavn';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -36,24 +35,6 @@ describe('FoerDuBegynnerContainer', () => {
                 sykepengesoknadId: '123',
             },
         };
-    });
-
-    it('Skal ikke kalle på destroy dersom bruker ikke har vært på en søknad før', () => {
-        const props = mapStateToProps(state, ownProps);
-        shallow(<Container {...props} {...actions} />);
-        expect(destroy.called).to.equal(false);
-    });
-
-    it('Skal ikke kalle på destroy dersom bruker har vært på denne søknaden før', () => {
-        state.form = {};
-        state.form[SYKEPENGER_SKJEMANAVN] = {
-            values: {
-                id: '123',
-            },
-        };
-        const props = mapStateToProps(state, ownProps);
-        shallow(<Container {...props} {...actions} />);
-        expect(destroy.called).to.equal(false);
     });
 
     it('Skal hente berikelse hvis søknaden er en sykepengesøknad', () => {

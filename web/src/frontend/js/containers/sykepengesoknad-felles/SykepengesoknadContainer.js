@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { destroy, initialize } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import * as soknaderActions from '../../actions/soknader_actions';
 import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
@@ -18,12 +17,10 @@ import AktiviteterISykmeldingsperiodenSelvstendigContainer from '../sykepengesok
 import OppsummeringSelvstendigContainer from '../sykepengesoknad-selvstendig/OppsummeringContainer';
 import KvitteringSelvstendigContainer from '../sykepengesoknad-selvstendig/SykepengesoknadSelvstendigKvitteringContainer';
 import Side from '../../sider/Side';
-import { beregnHarBrukerNavigertTilAnnenSoknad } from '../../utils/sykepengesoknadUtils';
 import AppSpinner from '../../components/AppSpinner';
 import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import SendtSoknadSelvstendig from '../../components/sykepengesoknad-selvstendig/SendtSoknadSelvstendig';
 import { soknad as soknadPt } from '../../propTypes';
-import { SYKEPENGER_SKJEMANAVN } from '../../enums/skjemanavn';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 import SykepengesoknadUtlandSkjemaContainer from '../sykepengesoknad-utland/SykepengesoknadUtlandSkjemaContainer';
 
@@ -160,15 +157,9 @@ SykepengesoknadArbeidstaker.propTypes = {
 
 export class Container extends Component {
     componentDidMount() {
-        if (this.props.skalHenteSykepengesoknader) {
-            this.props.actions.hentSykepengesoknader();
-        }
-        if (this.props.skalHenteSoknader) {
-            this.props.actions.hentSoknader();
-        }
-        if (this.props.brukerHarNavigertTilAnnenSoknad) {
-            this.props.actions.destroy(SYKEPENGER_SKJEMANAVN);
-        }
+        this.props.actions.hentSykepengesoknader();
+        this.props.actions.hentSoknader();
+
         if (this.props.skalHenteSykmeldinger) {
             this.props.actions.hentDineSykmeldinger();
         }
@@ -182,8 +173,6 @@ export class Container extends Component {
 
     render() {
         const {
-            skalHenteSykepengesoknader,
-            skalHenteSoknader,
             erArbeidstakersoknad,
             erSelvstendigNaeringsdrivendeSoknad,
             erSoknadOmUtenlandsopphold,
@@ -192,7 +181,7 @@ export class Container extends Component {
             sti,
         } = this.props;
         const brodsmuler = beregnBrodsmulesti(sti, this.props.soknadId);
-        return (<Side brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSykepengesoknader || skalHenteSoknader || skalHenteSykmeldinger || henter}>
+        return (<Side brodsmuler={brodsmuler} tittel="Søknad om sykepenger" laster={skalHenteSykmeldinger || henter}>
             {(() => {
                 if (henter) {
                     return <AppSpinner />;
@@ -215,8 +204,6 @@ Container.propTypes = {
         hentSykepengesoknader: PropTypes.func,
         hentSoknader: PropTypes.func,
         hentDineSykmeldinger: PropTypes.func,
-        destroy: PropTypes.func,
-        initialize: PropTypes.func,
     }),
     skalHenteSykepengesoknader: PropTypes.bool,
     skalHenteSoknader: PropTypes.bool,
@@ -232,7 +219,7 @@ Container.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions, destroy, initialize }, dispatch),
+        actions: bindActionCreators({ ...sykepengesoknaderActions, ...soknaderActions, ...dineSykmeldingerActions }, dispatch),
     };
 }
 
@@ -249,12 +236,9 @@ export const mapStateToProps = (state, ownProps) => {
     const skalHenteSykmeldinger = !state.dineSykmeldinger.hentet && !state.dineSykmeldinger.henter;
     const henter = state.soknader.henter || state.sykepengesoknader.henter || state.ledetekster.henter || (skalHenteSykmeldinger);
     const hentingFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet || state.ledetekster.hentingFeilet;
-    const brukerHarNavigertTilAnnenSoknad = beregnHarBrukerNavigertTilAnnenSoknad(state, soknadId);
 
     return {
         soknadId,
-        skalHenteSykepengesoknader: !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter,
-        skalHenteSoknader: !state.soknader.hentet && !state.soknader.henter && !soknad,
         skalHenteSykmeldinger,
         erSelvstendigNaeringsdrivendeSoknad,
         erSoknadOmUtenlandsopphold,
@@ -262,7 +246,6 @@ export const mapStateToProps = (state, ownProps) => {
         henter,
         hentingFeilet,
         sti: ownProps.location.pathname,
-        brukerHarNavigertTilAnnenSoknad,
         soknad,
         sykepengesoknad,
     };

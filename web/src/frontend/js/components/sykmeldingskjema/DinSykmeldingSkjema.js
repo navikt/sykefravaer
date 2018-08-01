@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { reduxForm, getFormValues } from 'redux-form';
 import Knapp from 'nav-frontend-knapper';
 import {
@@ -17,13 +18,13 @@ import StrengtFortroligInfo from './StrengtFortroligInfo';
 import AvbrytDialog from './AvbrytDialog';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
-import validerSykmeldingskjema from './validerSykmeldingskjema';
+import validate from './validerSykmeldingskjema';
 import * as sykmeldingActions from '../../actions/dinSykmelding_actions';
 import { sykmeldingskjemamodi as modi } from '../../enums/sykmeldingskjemaenums';
 import { getSkjemaModus } from './sykmeldingSkjemaUtils';
 import SpoersmalForFrilanserOgNaeringsdrivende from './SpoersmalForFrilanserOgNaeringsdrivende';
 import { Vis } from '../../utils';
-import { DIN_SYKMELDING_SKJEMANAVN } from '../../enums/skjemanavn';
+import { getSykmeldingSkjemanavn } from '../../enums/skjemanavn';
 import Feilstripe from '../Feilstripe';
 
 const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
@@ -35,17 +36,10 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.values.opplysningeneErRiktige !== this.props.values.opplysningeneErRiktige) {
+        if (nextProps.values && this.props.values && nextProps.values.opplysningeneErRiktige !== this.props.values.opplysningeneErRiktige) {
             this.setState({
                 visAvbrytDialog: false,
             });
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.sykmelding.id !== prevProps.sykmelding.id) {
-            // Tilbakestiller data i skjema dersom man navigverer til en ny sykmelding
-            this.props.reset();
         }
     }
 
@@ -146,10 +140,10 @@ export class DinSykmeldingSkjemaComponent extends Component {
             onSubmit={handleSubmit((v) => {
                 this.handleSubmit(v);
             })}>
-            <FeiloppsummeringContainer skjemanavn={DIN_SYKMELDING_SKJEMANAVN} />
+            <FeiloppsummeringContainer skjemanavn={getSykmeldingSkjemanavn(sykmelding.id)} />
             <h3 className="typo-innholdstittel blokk--xxs">{getLedetekst('starte-sykmelding.tittel')}</h3>
             <div className="redaksjonelt-innhold blokk" dangerouslySetInnerHTML={getHtmlLedetekst('din-sykmelding.gdpr.bruk-sykmeldingen')} />
-            <ErOpplysningeneRiktige untouch={untouch} />
+            <ErOpplysningeneRiktige untouch={untouch} sykmelding={sykmelding} />
             <Vis
                 hvis={modus !== modi.AVBRYT}
                 render={() => {
@@ -254,9 +248,10 @@ DinSykmeldingSkjemaComponent.propTypes = {
     visFrilansersporsmal: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
-    const values = getFormValues(DIN_SYKMELDING_SKJEMANAVN)(state);
+    const skjemanavn = getSykmeldingSkjemanavn(ownProps.sykmelding.id);
+    const values = getFormValues(skjemanavn)(state) || {};
 
     return {
         values,
@@ -269,22 +264,31 @@ const mapStateToProps = (state) => {
     };
 };
 
-export const DinSykmeldingConnectedSkjema = connect(mapStateToProps, sykmeldingActions)(DinSykmeldingSkjemaComponent);
-
-const initialValues = {
-    feilaktigeOpplysninger: Object.keys(feilaktigeOpplysningerEnums).map((key) => {
-        return {
-            opplysning: feilaktigeOpplysningerEnums[key],
-        };
+const ConnectedSkjema = compose(
+    reduxForm({
+        destroyOnUnmount: false,
+        validate,
+        initialValues: {
+            feilaktigeOpplysninger: Object.keys(feilaktigeOpplysningerEnums).map((key) => {
+                return {
+                    opplysning: feilaktigeOpplysningerEnums[key],
+                };
+            }),
+            valgtArbeidssituasjon: arbeidssituasjoner.DEFAULT,
+        },
+        onSubmitFail: (error, dispatch, submitError, props) => {
+            onSubmitFail(error, dispatch, getSykmeldingSkjemanavn(props.sykmelding.id));
+        },
     }),
-    valgtArbeidssituasjon: arbeidssituasjoner.DEFAULT,
+    connect(mapStateToProps, sykmeldingActions),
+)(DinSykmeldingSkjemaComponent);
+
+const DinSykmeldingSkjema = (props) => {
+    return <ConnectedSkjema {...props} form={getSykmeldingSkjemanavn(props.sykmelding.id)} />;
 };
 
-export default reduxForm({
-    form: DIN_SYKMELDING_SKJEMANAVN,
-    initialValues,
-    validate: validerSykmeldingskjema,
-    onSubmitFail: (error, dispatch) => {
-        onSubmitFail(error, dispatch, DIN_SYKMELDING_SKJEMANAVN);
-    },
-})(DinSykmeldingConnectedSkjema);
+DinSykmeldingSkjema.propTypes = {
+    sykmelding: sykmeldingPt,
+};
+
+export default DinSykmeldingSkjema;

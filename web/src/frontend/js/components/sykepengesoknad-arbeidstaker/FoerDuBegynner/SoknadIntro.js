@@ -2,7 +2,7 @@ import React from 'react';
 import { getHtmlLedetekst } from 'digisyfo-npm';
 import IllustrertInnhold from '../../IllustrertInnhold';
 
-export const SoknadIntro = () => {
+const SoknadIntro = () => {
     return (
         <div className="panel blokk">
             <IllustrertInnhold
@@ -15,3 +15,5 @@ export const SoknadIntro = () => {
             </IllustrertInnhold>
         </div>);
 };
+
+export default SoknadIntro;

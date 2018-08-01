@@ -1,0 +1,17 @@
+[
+  {
+    "navn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
+    "orgnummer": "123456789",
+    "naermesteLeder": {
+      "aktoerId": "1242536513046",
+      "navn": "Fanny Storm",
+      "epost": "naermeste-leder-epost@nav.no",
+      "mobil": "***REMOVED***",
+      "orgnummer": "123456789",
+      "organisasjonsnavn": null,
+      "aktivTom": null,
+      "arbeidsgiverForskuttererLoenn": true
+    },
+    "stilling": "LÆRER (GRUNNSKOLE)"
+  }
+]

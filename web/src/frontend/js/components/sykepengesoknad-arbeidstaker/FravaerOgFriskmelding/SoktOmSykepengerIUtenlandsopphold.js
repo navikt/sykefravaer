@@ -4,8 +4,8 @@ import { getHtmlLedetekst, getLedetekst, tilDatePeriode } from 'digisyfo-npm';
 import { Field, getFormValues } from 'redux-form';
 import { jaEllerNeiAlternativer, parseJaEllerNei } from '../JaEllerNei';
 import Radioknapper from '../../skjema/Radioknapper';
-import { SYKEPENGER_SKJEMANAVN } from '../../../enums/skjemanavn';
 import { datoErHelgedag, erGyldigPeriode, tilDager } from '../../../utils/periodeUtils';
+import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
 
 const tilTimestamp = (dato) => {
     return dato.getTime();
@@ -48,8 +48,8 @@ export const Sporsmal = ({ vis }) => {
     </div>);
 };
 
-const mapStateToProps = (state) => {
-    const values = getFormValues(SYKEPENGER_SKJEMANAVN)(state);
+const mapStateToProps = (state, ownProps) => {
+    const values = getFormValues(getSykepengesoknadArbeidstakerSkjemanavn(ownProps.sykepengesoknad.id))(state);
 
     return {
         vis: visSoktOmSykepengerUtenlandsoppholdsporsmal(values),

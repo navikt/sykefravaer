@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fields } from 'redux-form';
-import { getLedetekst, Bjorn } from 'digisyfo-npm';
+import { getLedetekst, Bjorn, sykepengesoknad as sykepengesoknadPt } from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { getContextRoot } from '../../../routers/paths';
 import JaEllerNei from '../JaEllerNei';
@@ -9,14 +9,14 @@ import AngiTid from './AngiTid';
 import { soknadsaktivitet } from '../../../propTypes';
 import { getAktivitetssporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 
-export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => {
+export const Aktivitet = ({ field, index, autofill, untouch, sykepengesoknad }) => {
     const hjelpetekst = field.grad !== 100
         ? (<Hjelpetekst>{getLedetekst('sykepengesoknad.aktiviteter.gradert.hjelpetekst.tekst')}</Hjelpetekst>)
         : null;
 
     return (<JaEllerNei
         name={`aktiviteter[${index}].jobbetMerEnnPlanlagt`}
-        spoersmal={getAktivitetssporsmal(field, arbeidsgiver)}
+        spoersmal={getAktivitetssporsmal(field, sykepengesoknad.arbeidsgiver.navn)}
         hjelpetekst={hjelpetekst}>
         <div>
             <Fields
@@ -24,7 +24,7 @@ export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => 
                 untouch={untouch}
                 component={AngiTid}
                 aktivitetIndex={index}
-                arbeidsgiver={arbeidsgiver}
+                sykepengesoknad={sykepengesoknad}
                 periode={field.periode}
                 names={[
                     `aktiviteter[${index}].avvik.arbeidsgrad`,
@@ -43,12 +43,12 @@ export const Aktivitet = ({ field, index, arbeidsgiver, autofill, untouch }) => 
 Aktivitet.propTypes = {
     field: soknadsaktivitet,
     index: PropTypes.number,
-    arbeidsgiver: PropTypes.string,
     autofill: PropTypes.func,
     untouch: PropTypes.func,
+    sykepengesoknad: sykepengesoknadPt,
 };
 
-const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch }) => {
+const Aktiviteter = ({ fields, sykepengesoknad, autofill, untouch }) => {
     return (<div>
         {
             fields.map((field, index) => {
@@ -56,7 +56,7 @@ const Aktiviteter = ({ fields, arbeidsgiver, autofill, untouch }) => {
                     field={field}
                     index={index}
                     key={index}
-                    arbeidsgiver={arbeidsgiver}
+                    sykepengesoknad={sykepengesoknad}
                     autofill={autofill}
                     untouch={untouch} />);
             })
@@ -68,7 +68,7 @@ Aktiviteter.propTypes = {
     fields: PropTypes.arrayOf(soknadsaktivitet),
     autofill: PropTypes.func,
     untouch: PropTypes.func,
-    arbeidsgiver: PropTypes.string,
+    sykepengesoknad: sykepengesoknadPt,
 };
 
 export default Aktiviteter;

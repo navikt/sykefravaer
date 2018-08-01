@@ -7,7 +7,7 @@ import Checkbox from '../skjema/Checkbox';
 import Feilomrade from '../skjema/Feilomrade';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { fieldPropTypes } from '../../propTypes';
-import { DIN_SYKMELDING_SKJEMANAVN } from '../../enums/skjemanavn';
+import { getSykmeldingSkjemanavn } from '../../enums/skjemanavn';
 
 const { PERIODE, SYKMELDINGSGRAD, ARBEIDSGIVER, DIAGNOSE, ANDRE } = feilaktigeOpplysningerEnums;
 
@@ -144,9 +144,9 @@ HvilkeOpplysninger.propTypes = {
     feilaktigeOpplysninger: feilaktigeOpplysningerProp,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
-        feilaktigeOpplysninger: getFormValues(DIN_SYKMELDING_SKJEMANAVN)(state).feilaktigeOpplysninger,
+        feilaktigeOpplysninger: getFormValues(getSykmeldingSkjemanavn(ownProps.sykmelding.id))(state).feilaktigeOpplysninger,
     };
 };
 

@@ -4,10 +4,10 @@ import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import history from '../../../history';
 import Soknadskjema from '../Soknadskjema';
 import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
-import { SYKEPENGER_SKJEMANAVN } from '../../../enums/skjemanavn';
 import Checkboxpanel from '../../soknad-felles/Checkboxpanel';
 import { ANSVARSERKLARING } from '../../../enums/tagtyper';
 import { soknad as soknadPt } from '../../../propTypes';
+import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
 
 export const hentSporsmalForDuBegynner = (soknad) => {
     return soknad.sporsmal.filter((s) => {
@@ -24,7 +24,7 @@ export const FoerDuBegynnerSkjema = (props) => {
     const sporsmal = hentSporsmalForDuBegynner(soknad);
 
     return (<form className="soknadskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
-        <FeiloppsummeringContainer skjemanavn={SYKEPENGER_SKJEMANAVN} />
+        <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(soknad.id)} />
         <div className="panel redaksjonelt-innhold">
             <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
             <Checkboxpanel {...sporsmal[0]} name={sporsmal[0].tag} />

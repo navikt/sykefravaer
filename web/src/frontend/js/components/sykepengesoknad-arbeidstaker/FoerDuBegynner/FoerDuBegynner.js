@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import Alertstripe from 'nav-frontend-alertstriper';
+import { Link } from 'react-router';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
 import history from '../../../history';
 import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';
@@ -12,9 +14,22 @@ import SykepengesoknadHeader from '../SykepengesoknadHeader';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import SykmeldingUtdragContainer from '../../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 import IllustrertInnhold from '../../IllustrertInnhold';
-
+import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
 
 const { NY, UTKAST_TIL_KORRIGERING } = sykepengesoknadstatuser;
+
+export const DetFinnesEldreSoknader = ({ eldsteSoknadId }) => {
+    return (<Alertstripe type="info" className="blokk">
+        <p className="sist">{getLedetekst('sykepengesoknad.eldre-soknad.varsel.melding')}</p>
+        <p className="sist">
+            <Link className="lenke" to={`/sykefravaer/soknader/${eldsteSoknadId}`}>{getLedetekst('sykepengesoknad.eldre-soknad.varsel.lenke')}</Link>
+        </p>
+    </Alertstripe>);
+};
+
+DetFinnesEldreSoknader.propTypes = {
+    eldsteSoknadId: PropTypes.string,
+};
 
 const KorrigerVarsel = () => {
     return (<Alertstripe type="info" className="blokk">
@@ -79,11 +94,16 @@ const initialize = true;
 const FoerDuBegynnerSkjemaSetup = setup(validate, FoerDuBegynnerSkjema, initialize);
 
 const FoerDuBegynner = (props) => {
-    const { sykepengesoknad, erForsteSoknad } = props;
+    const { sykepengesoknad, erForsteSoknad, detFinnesEldreSoknader, eldsteSoknadId } = props;
     const now = new Date();
 
     return (<div>
         <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
+        {
+            detFinnesEldreSoknader
+                && sykepengesoknad.status !== UTKAST_TIL_KORRIGERING
+                && <DetFinnesEldreSoknader eldsteSoknadId={eldsteSoknadId} />
+        }
         { sykepengesoknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel /> }
         { (sykepengesoknad.status === NY && sykepengesoknad.tom > now) && <TidligSoknad /> }
 
@@ -91,13 +111,17 @@ const FoerDuBegynner = (props) => {
 
         <SykmeldingUtdragContainer erApen sykepengesoknad={sykepengesoknad} />
         <h2 className="soknad__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
-        <FoerDuBegynnerSkjemaSetup sykepengesoknad={sykepengesoknad} />
+        <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(sykepengesoknad.id)} />
+        <FoerDuBegynnerSkjemaSetup
+            sykepengesoknad={sykepengesoknad} />
     </div>);
 };
 
 FoerDuBegynner.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
     erForsteSoknad: PropTypes.bool,
+    detFinnesEldreSoknader: PropTypes.bool,
+    eldsteSoknadId: PropTypes.string,
 };
 
 export default FoerDuBegynner;

@@ -12,10 +12,14 @@ import { Vis } from '../../utils';
 
 const { SENDT, TIL_SENDING, UTGAATT, NY, UTKAST_TIL_KORRIGERING, FREMTIDIG, AVBRUTT } = sykepengesoknadstatuser;
 
-const Soknader = ({ sykepengesoknader = [], soknader = [], visFeil }) => {
-    const nyeSoknader = [...sykepengesoknader, ...soknader].filter((soknad) => {
+export const filtrerOgSorterNyeSoknader = (soknader) => {
+    return [...soknader].filter((soknad) => {
         return soknad.status === NY || soknad.status === UTKAST_TIL_KORRIGERING;
     }).sort(sorterEtterOpprettetDato);
+};
+
+const Soknader = ({ sykepengesoknader = [], soknader = [], visFeil }) => {
+    const nyeSoknader = filtrerOgSorterNyeSoknader([...sykepengesoknader, ...soknader]);
     const tidligereSoknader = [...sykepengesoknader, ...soknader]
         .filter((soknad) => {
             return soknad.status === SENDT || soknad.status === TIL_SENDING || soknad.status === UTGAATT || soknad.status === AVBRUTT;

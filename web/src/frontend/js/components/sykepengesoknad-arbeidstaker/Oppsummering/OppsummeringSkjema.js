@@ -14,6 +14,8 @@ import { sykepengesoknad as sykepengesoknadPt, oppsummeringsoknad as oppsummerin
 import ForskuttererArbeidsgiver from './ForskuttererArbeidsgiver';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import Feilstripe from '../../Feilstripe';
+import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
+import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
 
 const mottaker = (sendesTil, sykepengesoknad) => {
     switch (sendesTil) {
@@ -95,6 +97,7 @@ const OppsummeringSkjema = setup(validate, OppsummeringForm);
 const OppsummeringSide = (props) => {
     const { sykepengesoknad } = props;
     return (<SykepengerSkjema aktivtSteg="4" sykepengesoknad={sykepengesoknad}>
+        <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(sykepengesoknad.id)} />
         <OppsummeringSkjema {...props} />
     </SykepengerSkjema>);
 };

@@ -4,6 +4,7 @@ import { SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import Kvittering from './Kvittering/Kvittering';
 import StartIgjen from '../sykepengesoknad-felles/StartIgjen';
 import { skjemasvar as skjemasvarPt, soknad as soknadPt } from '../../propTypes';
+import { getSykepengesoknadSelvstendigSkjemanavn } from '../../enums/skjemanavn';
 
 const soknadErSendt = (soknad) => {
     return [SENDT, TIL_SENDING].indexOf(soknad.status) > -1;
@@ -18,7 +19,7 @@ const Soknadstatussjekker = (props) => {
     if (Object.keys(feilmeldinger).length > 0) {
         return <StartIgjen soknad={soknad} />;
     }
-    return <Component {...props} />;
+    return <Component {...props} form={getSykepengesoknadSelvstendigSkjemanavn(soknad.id)} />;
 };
 
 Soknadstatussjekker.propTypes = {

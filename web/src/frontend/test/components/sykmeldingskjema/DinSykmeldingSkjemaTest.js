@@ -16,6 +16,7 @@ import ArbeidsgiversSykmeldingContainer from '../../../js/containers/sykmelding/
 import * as dinSykmeldingActions from '../../../js/actions/dinSykmelding_actions';
 import ledetekster from '../../mockLedetekster';
 import getSykmelding from '../../mockSykmeldinger';
+import { getSykmeldingSkjemanavn } from '../../../js/enums/skjemanavn';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -67,7 +68,7 @@ describe('DinSykmeldingSkjema -', () => {
             const stateToStore = {
                 ..._state,
                 form: {
-                    dinSykmeldingSkjema: {
+                    [getSykmeldingSkjemanavn('sykmelding-id')]: {
                         values: _values,
                     },
                 },

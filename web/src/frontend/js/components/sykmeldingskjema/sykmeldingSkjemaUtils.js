@@ -5,7 +5,7 @@ const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;
 const { ARBEIDSTAKER, DEFAULT, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
 
 export const getSkjemaModus = (values, harStrengtFortroligAdresse) => {
-    if (values === {}) {
+    if (!values || values === {}) {
         return modi.GA_VIDERE;
     }
     const { opplysningeneErRiktige, feilaktigeOpplysninger, valgtArbeidssituasjon } = values;

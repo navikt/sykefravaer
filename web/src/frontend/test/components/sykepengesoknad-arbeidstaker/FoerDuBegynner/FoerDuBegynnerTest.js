@@ -5,13 +5,13 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import FoerDuBegynner, {
     FoerDuBegynnerSkjema,
-    TidligSoknad,
-    ForsteSoknadIntro,
-    SoknadIntro,
-    DetFinnesEldreSoknader,
 } from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/FoerDuBegynner';
 import AvbrytSoknadContainer from '../../../../js/containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import { getSoknad } from '../../../mockSykepengesoknader';
+import DetFinnesEldreSoknader from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/DetFinnesEldreSoknader';
+import ForsteSoknadIntro from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/ForsteSoknadIntro';
+import SoknadIntro from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/SoknadIntro';
+import TidligSoknad from '../../../../js/components/sykepengesoknad-arbeidstaker/FoerDuBegynner/TidligSoknad';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

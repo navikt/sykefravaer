@@ -3,8 +3,8 @@ import { getLedetekst, sykepengesoknad as sykepengesoknadPt } from 'digisyfo-npm
 import PropTypes from 'prop-types';
 import Knapp from 'nav-frontend-knapper';
 
-const GjenapneSoknad = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFeilet, tekst = getLedetekst('sykepengesoknad.gjenapne.knapp') }) => {
-    return (<div>
+const GjenapneSoknad = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFeilet, tekst = getLedetekst('sykepengesoknad.gjenapne.knapp'), vis }) => {
+    return vis ? (<div>
         <div className={`verktoylinje ${gjenapneFeilet ? 'blokk--mini' : ''}`}>
             <div className="verktoylinje__element">
                 <Knapp
@@ -23,7 +23,7 @@ const GjenapneSoknad = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFe
         <div aria-live="polite">
             { gjenapneFeilet && <p className="skjemaelement__feilmelding">Beklager, søknaden kunne ikke gjenåpnes</p> }
         </div>
-    </div>);
+    </div>) : null;
 };
 
 GjenapneSoknad.propTypes = {
@@ -32,6 +32,7 @@ GjenapneSoknad.propTypes = {
     gjenapneFeilet: PropTypes.bool,
     sykepengesoknad: sykepengesoknadPt,
     tekst: PropTypes.string,
+    vis: PropTypes.bool,
 };
 
 export default GjenapneSoknad;

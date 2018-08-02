@@ -86,7 +86,7 @@ SendtUlikt.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
 };
 
-const Statuspanel = ({ sykepengesoknad, children }) => {
+const Soknadstatuspanel = ({ sykepengesoknad, children }) => {
     return (<div className="panel panel--komprimert blokk">
         {
             (() => {
@@ -100,9 +100,9 @@ const Statuspanel = ({ sykepengesoknad, children }) => {
     </div>);
 };
 
-Statuspanel.propTypes = {
+Soknadstatuspanel.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
     children: PropTypes.node,
 };
 
-export default Statuspanel;
+export default Soknadstatuspanel;

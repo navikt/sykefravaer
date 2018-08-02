@@ -1,16 +1,23 @@
 import React from 'react';
-import { getLedetekst } from 'digisyfo-npm';
-import Alertstripe from 'nav-frontend-alertstriper';
+import { getLedetekst, SykmeldingNokkelOpplysning } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
 import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
+import GjenapneSoknadContainer from '../../containers/sykepengesoknad-arbeidstaker/GjenapneSoknadContainer';
 
 const UtgaattSoknad = ({ sykepengesoknad }) => {
     return (<div>
         <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
-        <Alertstripe type="info" className="blokk">
-            <p className="sist">{getLedetekst('sykepengesoknad.utgaatt.info.tekst')}</p>
-        </Alertstripe>
+        <div className="panel panel--komprimert blokk">
+            <div>
+                <div className="statusopplysninger">
+                    <SykmeldingNokkelOpplysning Overskrift="h2" tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
+                        <p>{getLedetekst('soknad.teaser.status.UTGAATT')}</p>
+                    </SykmeldingNokkelOpplysning>
+                </div>
+            </div>
+            <GjenapneSoknadContainer sykepengesoknad={sykepengesoknad} tekst="Åpne søknad" />
+        </div>
         <SykmeldingUtdragContainer sykepengesoknad={sykepengesoknad} erApen />
     </div>);
 };

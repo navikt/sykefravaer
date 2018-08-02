@@ -5,7 +5,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { getSoknad } from '../../mockSykepengesoknader';
-import Statuspanel from '../../../js/components/sykepengesoknad-arbeidstaker/Soknadstatuspanel';
+import Soknadstatuspanel from '../../../js/components/sykepengesoknad-arbeidstaker/Soknadstatuspanel';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -39,7 +39,7 @@ describe('Soknadstatuspanel', () => {
                 status: statuser.TIL_SENDING,
                 sendtTilNAVDato: new Date('1945-05-08'),
             });
-            component = mount(<Statuspanel sykepengesoknad={sykepengesoknad} />);
+            component = mount(<Soknadstatuspanel sykepengesoknad={sykepengesoknad} />);
         });
 
         it('Skal vise Sender...', () => {
@@ -65,7 +65,7 @@ describe('Soknadstatuspanel', () => {
                 status: statuser.TIL_SENDING,
                 sendtTilArbeidsgiverDato: new Date('2017-05-17'),
             });
-            component = mount(<Statuspanel sykepengesoknad={sykepengesoknad} />);
+            component = mount(<Soknadstatuspanel sykepengesoknad={sykepengesoknad} />);
         });
 
         it('Skal vise Sender...', () => {
@@ -91,7 +91,7 @@ describe('Soknadstatuspanel', () => {
                 sendtTilArbeidsgiverDato: new Date('2017-05-17'),
                 sendtTilNAVDato: new Date('2017-05-17'),
             });
-            component = mount(<Statuspanel sykepengesoknad={sykepengesoknad} />);
+            component = mount(<Soknadstatuspanel sykepengesoknad={sykepengesoknad} />);
         });
 
         it('Skal vise Sender...', () => {
@@ -116,7 +116,7 @@ describe('Soknadstatuspanel', () => {
                 status: statuser.SENDT,
                 sendtTilArbeidsgiverDato: new Date('2017-05-17'),
             });
-            component = mount(<Statuspanel sykepengesoknad={sykepengesoknad} />);
+            component = mount(<Soknadstatuspanel sykepengesoknad={sykepengesoknad} />);
         });
 
         it('Skal vise statustekst', () => {
@@ -142,7 +142,7 @@ describe('Soknadstatuspanel', () => {
                 sendtTilArbeidsgiverDato: new Date('2017-05-17'),
                 sendtTilNAVDato: new Date('2017-05-17'),
             });
-            component = mount(<Statuspanel sykepengesoknad={sykepengesoknad} />);
+            component = mount(<Soknadstatuspanel sykepengesoknad={sykepengesoknad} />);
         });
 
         it('Skal vise riktig status', () => {
@@ -168,7 +168,7 @@ describe('Soknadstatuspanel', () => {
                 sendtTilArbeidsgiverDato: new Date('2017-05-17'),
                 sendtTilNAVDato: new Date('2017-05-20'),
             });
-            component = mount(<Statuspanel sykepengesoknad={sykepengesoknad} />);
+            component = mount(<Soknadstatuspanel sykepengesoknad={sykepengesoknad} />);
         });
 
         it('Skal vise riktig status', () => {

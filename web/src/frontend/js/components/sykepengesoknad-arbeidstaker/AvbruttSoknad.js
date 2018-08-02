@@ -1,39 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { getLedetekst, SykmeldingNokkelOpplysning, toDatePrettyPrint, sykepengesoknadstatuser } from 'digisyfo-npm';
-import Knapp from 'nav-frontend-knapper';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from './SykepengesoknadHeader';
 import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
-
-const Verktoylinje = ({ sykepengesoknad, gjenapneSoknad, gjenapner, gjenapneFeilet }) => {
-    return (<div>
-        <div className={`verktoylinje ${gjenapneFeilet ? 'blokk--mini' : ''}`}>
-            <div className="verktoylinje__element">
-                <Knapp
-                    spinner={gjenapner}
-                    disabled={gjenapner}
-                    mini
-                    onClick={(e) => {
-                        e.preventDefault();
-                        gjenapneSoknad(sykepengesoknad.id);
-                    }}
-                    className="js-gjenapne">
-                    {getLedetekst('sykepengesoknad.gjenapne.knapp')}</Knapp>
-            </div>
-        </div>
-        <div aria-live="polite">
-            { gjenapneFeilet && <p className="skjema__feilmelding">Beklager, søknaden kunne ikke gjenåpnes</p> }
-        </div>
-    </div>);
-};
-
-Verktoylinje.propTypes = {
-    gjenapneSoknad: PropTypes.func,
-    gjenapner: PropTypes.bool,
-    gjenapneFeilet: PropTypes.bool,
-    sykepengesoknad: sykepengesoknadPt,
-};
+import GjenapneSoknadContainer from '../../containers/sykepengesoknad-arbeidstaker/GjenapneSoknadContainer';
 
 const AvbruttSoknad = (props) => {
     const { sykepengesoknad } = props;
@@ -54,7 +24,7 @@ const AvbruttSoknad = (props) => {
                     </SykmeldingNokkelOpplysning>
                 </div>
             </div>
-            { sykepengesoknad.status === sykepengesoknadstatuser.AVBRUTT && <Verktoylinje {...props} /> }
+            { sykepengesoknad.status === sykepengesoknadstatuser.AVBRUTT && <GjenapneSoknadContainer {...props} /> }
         </div>
         <SykmeldingUtdragContainer sykepengesoknad={sykepengesoknad} erApen />
     </div>);

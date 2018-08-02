@@ -7,11 +7,11 @@ import FoerDuBegynner from '../../components/sykepengesoknad-arbeidstaker/FoerDu
 import GenerellSoknadContainer from './GenerellArbeidstakersoknadContainer';
 import SendtSoknad from '../../components/sykepengesoknad-arbeidstaker/SendtSoknad';
 import UtgaattSoknad from '../../components/sykepengesoknad-arbeidstaker/UtgaattSoknad';
-import AvbruttSoknadContainer from './AvbruttSoknadContainer';
 import Feilmelding from '../../components/Feilmelding';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
 import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
+import AvbruttSoknad from '../../components/sykepengesoknad-arbeidstaker/AvbruttSoknad';
 import { filtrerOgSorterNyeSoknader } from '../../components/sykepengesoknader/Soknader';
 
 const { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST, FREMTIDIG } = sykepengesoknadstatuser;
@@ -42,7 +42,7 @@ export const Controller = (props) => {
         }
         case AVBRUTT:
         case SLETTET_UTKAST: {
-            return <AvbruttSoknadContainer sykepengesoknad={sykepengesoknad} />;
+            return <AvbruttSoknad sykepengesoknad={sykepengesoknad} />;
         }
         default: {
             return <Feilmelding tittel="Søknaden har ukjent status" />;

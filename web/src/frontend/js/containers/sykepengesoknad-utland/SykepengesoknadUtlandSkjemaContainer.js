@@ -12,6 +12,7 @@ import { formaterEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
 import { JA } from '../../enums/svarEnums';
 import OppsummeringUtland from '../../components/sykepengesoknad-utland/Oppsummering/OppsummeringUtland';
 import Kvittering from '../../components/sykepengesoknad-utland/Kvittering/Kvittering';
+import { FERIE } from '../../enums/tagtyper';
 
 
 export const UtlandSkjemaContainer = (props) => {
@@ -56,7 +57,7 @@ export const finnSoknad = (state, ownProps) => {
 export function mapStateToProps(state, ownProps) {
     const soknad = finnSoknad(state, ownProps);
     const selector = formValueSelector(OPPHOLD_UTLAND_SKJEMA);
-    const feltVerdi = selector(state, 'FERIE');
+    const feltVerdi = selector(state, FERIE);
     const ferie = JA === formaterEnkeltverdi(feltVerdi);
     return {
         soknad,

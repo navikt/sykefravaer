@@ -2,6 +2,7 @@ import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { mapStateToProps } from '../../../js/containers/sykepengesoknad-arbeidstaker/GjenapneSoknadContainer';
+
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
@@ -16,7 +17,7 @@ describe('GjenapneSykepengesoknadContainer', () => {
         clock.restore();
     });
 
-    it("Skal returnere vis === true hvis søknad ble opprettet for mindre enn et år siden", () => {
+    it('Skal returnere vis === true hvis søknad ble opprettet for mindre enn et år siden', () => {
         const state = {
             sykepengesoknader: {},
         };
@@ -27,7 +28,7 @@ describe('GjenapneSykepengesoknadContainer', () => {
         expect(vis).to.equal(true);
     });
 
-    it("Skal returnere vis === true hvis søknad ble opprettet for nøyaktig ett år siden", () => {
+    it('Skal returnere vis === true hvis søknad ble opprettet for nøyaktig ett år siden', () => {
         const state = {
             sykepengesoknader: {},
         };
@@ -38,7 +39,7 @@ describe('GjenapneSykepengesoknadContainer', () => {
         expect(vis).to.equal(true);
     });
 
-    it("Skal returnere vis === false hvis søknad ble opprettet for mer enn et år siden", () => {
+    it('Skal returnere vis === false hvis søknad ble opprettet for mer enn et år siden', () => {
         const state = {
             sykepengesoknader: {},
         };

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { formValueSelector } from 'redux-form';
-import { soknad as soknadPt } from '../../propTypes';
 import { connect } from 'react-redux';
 import { skjemasvar as skjemasvarPt, soknad as soknadPt } from '../../propTypes';
 import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
@@ -15,7 +14,7 @@ import OppsummeringUtland from '../../components/sykepengesoknad-utland/Oppsumme
 import Kvittering from '../../components/sykepengesoknad-utland/Kvittering/Kvittering';
 
 
-export const SykepengesoknadUtlandSkjemaContainer = (props) => {
+export const UtlandSkjemaContainer = (props) => {
     const { soknad, sendSoknad, sender, sti, ferie } = props;
 
     if (soknad && soknad.status === NY) {
@@ -35,7 +34,7 @@ export const SykepengesoknadUtlandSkjemaContainer = (props) => {
     return <Feilmelding />;
 };
 
-SykepengesoknadUtlandSkjemaContainer.propTypes = {
+UtlandSkjemaContainer.propTypes = {
     soknad: soknadPt,
     actions: PropTypes.shape({
         sendSoknad: PropTypes.func,
@@ -68,4 +67,4 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-export default connect(mapStateToProps, { sendSoknad: sendSoknadAction })(SykepengesoknadUtlandSkjemaContainer);
+export default connect(mapStateToProps, { sendSoknad: sendSoknadAction })(UtlandSkjemaContainer);

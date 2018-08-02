@@ -93,5 +93,4 @@ describe('GenerellArbeidstakersoknadContainer', () => {
         const props = mapStateToProps(deepFreeze(state), ownProps);
         expect(props.skjemasoknad.forrigeSykeforloepTom).to.equal(undefined);
     });
-
 });

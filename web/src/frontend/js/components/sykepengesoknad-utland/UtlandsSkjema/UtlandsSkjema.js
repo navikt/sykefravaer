@@ -16,12 +16,12 @@ import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedS
 import { getContextRoot } from '../../../routers/paths';
 
 
-const UtlandsSkjema = ({ soknad, handleSubmit, sender, sendSoknad, ferie }) => {
-    const sporsmaliSkjema = () => {
-        return ferie ? soknad.sporsmal.slice(0, 3) : soknad.sporsmal;
+export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, ferie }) => {
+    const sporsmallisteSkjema = () => {
+        return ferie ? soknad.sporsmal.slice(0, -1) : soknad.sporsmal;
     };
 
-    const sporsmalsliste = sporsmaliSkjema().map((sporsmal) => {
+    const sporsmalsliste = sporsmallisteSkjema().map((sporsmal) => {
         const className = cn({ hovedsporsmal: sporsmal.svartype !== JA_NEI, 'blokk--xs': true });
         return (<div className={className}>
             <Sporsmal
@@ -62,7 +62,7 @@ const UtlandsSkjema = ({ soknad, handleSubmit, sender, sendSoknad, ferie }) => {
     </form>);
 };
 
-UtlandsSkjema.propTypes = {
+Utlandsskjema.propTypes = {
     soknad: soknadPt,
     handleSubmit: PropTypes.func,
     sendSoknad: PropTypes.func,
@@ -76,4 +76,4 @@ export default reduxForm({
     onSubmitFail: (errors, dispatch) => {
         onSubmitFail(errors, dispatch, OPPHOLD_UTLAND_SKJEMA);
     },
-})(UtlandsSkjema);
+})(Utlandsskjema);

@@ -69,6 +69,15 @@ describe('Oppsummeringvisning', () => {
                     tom: '08.01.2019',
                 },
             ],
+            FERIE: {
+                sporsmalid: '5',
+                svarverdier: [
+                    {
+                        verdi: 'NEI',
+                        svarverdiType: null,
+                    },
+                ],
+            },
         };
     });
 
@@ -102,5 +111,6 @@ describe('Oppsummeringvisning', () => {
         const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
         expect(component.contains(<h3 className="oppsummering__sporsmal">Har du arbeidsgiver?</h3>)).to.equal(true);
         expect(component.contains(<h4 className="oppsummering__sporsmal">Er du 100% sykmeldt?</h4>)).to.equal(true);
+        expect(component.contains(<h4 className="oppsummering__sporsmal">Skal du ha ferie i hele perioden?</h4>)).to.equal(true);
     });
 });

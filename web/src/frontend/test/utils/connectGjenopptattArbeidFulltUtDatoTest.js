@@ -7,7 +7,7 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe('mapStateToProps', () => {
-    let state
+    let state;
     const sykepengesoknad = {
         id: 'soknad-id',
     };

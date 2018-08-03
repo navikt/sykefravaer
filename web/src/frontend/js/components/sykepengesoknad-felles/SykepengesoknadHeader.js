@@ -1,7 +1,8 @@
 import React from 'react';
 import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import PropTypes from 'prop-types';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import * as proptypes from '../../propTypes';
+import * as proptypes from '../../propTypes/index';
 import Sidetopp from '../Sidetopp';
 
 const SykepengesoknadHeader = ({ sykepengesoknad }) => {
@@ -22,7 +23,10 @@ const SykepengesoknadHeader = ({ sykepengesoknad }) => {
 };
 
 SykepengesoknadHeader.propTypes = {
-    sykepengesoknad: proptypes.sykepengesoknad,
+    sykepengesoknad: PropTypes.oneOfType([
+        proptypes.sykepengesoknad,
+        proptypes.soknad,
+    ]),
 };
 
 export default SykepengesoknadHeader;

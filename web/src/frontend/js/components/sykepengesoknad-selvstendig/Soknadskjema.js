@@ -5,12 +5,15 @@ import Stegindikator, { frilanserOgSelvstendigUrler } from '../sykepengesoknad-f
 import { childEllerChildren, soknad as soknadPt } from '../../propTypes';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Soknadtopp from './Soknadtopp';
+import { settErOppdelt } from '../../utils/soknadSelvstendigUtils';
 
 const Soknadskjema = ({ children, aktivtSteg, tittel, soknad, sykmelding }) => {
+    const { _erOppdelt } = settErOppdelt(soknad, sykmelding);
+
     return (<div>
-        <Soknadtopp soknad={soknad} />
+        <Soknadtopp soknad={soknad} sykmelding={sykmelding} />
         <Stegindikator aktivtSteg={aktivtSteg} soknadId={soknad.id} urler={frilanserOgSelvstendigUrler} />
-        { sykmelding && <SykmeldingUtdrag sykmelding={sykmelding} erApen={aktivtSteg === '1'} /> }
+        { sykmelding && <SykmeldingUtdrag sykmelding={sykmelding} erApen={aktivtSteg === '1'} erOppdelt={_erOppdelt} /> }
         <h2 className="soknad__stegtittel">{tittel}</h2>
         {children}
     </div>);

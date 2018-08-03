@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
     SykmeldingPerioder,
+    Bjorn,
     SykmeldingNokkelOpplysning,
     Utvidbar,
     toDatePrettyPrint,
     getLedetekst,
-    sykmelding as sykmeldingPt,
-} from 'digisyfo-npm';
+    sykmelding as sykmeldingPt } from 'digisyfo-npm';
+import { getContextRoot } from '../../routers/paths';
 
 export const SykmeldingopplysningFravaersperioder = ({ sykmelding, className }) => {
     return sykmelding.sporsmal.fravaerBesvart
@@ -55,7 +56,7 @@ SykmeldingopplysningForsikring.propTypes = {
     className: PropTypes.string,
 };
 
-const SykmeldingUtdrag = ({ erApen, sykmelding }) => {
+const SykmeldingUtdrag = ({ erApen, sykmelding, erOppdelt }) => {
     return (<div className="blokk">
         <Utvidbar
             Overskrift="h2"
@@ -68,6 +69,10 @@ const SykmeldingUtdrag = ({ erApen, sykmelding }) => {
             ikonAltTekst="Plaster-ikon">
             <div>
                 <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} />
+                {
+                    erOppdelt
+                    && <Bjorn rootUrl={getContextRoot()} className="blokk" nokkel="sykepengesoknad.sykmelding-utdrag.oppdelt.bjorn" />
+                }
                 <SykmeldingNokkelOpplysning
                     tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.dato-sykmeldingen-ble-skrevet')}>
                     <p className="js-utstedelsesdato">{toDatePrettyPrint(sykmelding.bekreftelse.utstedelsesdato)}</p>
@@ -85,6 +90,7 @@ const SykmeldingUtdrag = ({ erApen, sykmelding }) => {
 
 SykmeldingUtdrag.propTypes = {
     erApen: PropTypes.bool,
+    erOppdelt: PropTypes.bool,
     sykmelding: sykmeldingPt,
 };
 

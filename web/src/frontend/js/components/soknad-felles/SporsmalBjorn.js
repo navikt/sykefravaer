@@ -4,17 +4,19 @@ import PropTypes from 'prop-types';
 import { Bjorn, getLedetekst } from 'digisyfo-npm';
 import { formValueSelector } from 'redux-form';
 import { getContextRoot } from '../../routers/paths';
-import { SYKMELDINGSGRAD } from '../../enums/tagtyper';
+import { SYKMELDINGSGRAD, FERIE } from '../../enums/tagtyper';
 import { formaterEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
-import { NEI } from '../../enums/svarEnums';
+import { NEI, JA } from '../../enums/svarEnums';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../enums/skjemanavn';
 
 const sporsmalMedBjorn = {
     [SYKMELDINGSGRAD]: NEI,
+    [FERIE]: JA,
 };
 
 const ledetekstNokler = {
     [SYKMELDINGSGRAD]: 'sykepengesoknad-utland.skjema.bjorn',
+    [FERIE]: 'sykepengesoknad-utland.skjema.ferie-sporsmal-bjorn',
 };
 
 export const SporsmalBjornComponent = ({ vis, tag }) => {

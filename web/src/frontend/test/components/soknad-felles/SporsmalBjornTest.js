@@ -6,7 +6,7 @@ import { Bjorn } from 'digisyfo-npm';
 import { mapStateToProps, SporsmalBjornComponent } from '../../../js/components/soknad-felles/SporsmalBjorn';
 import { genererParseForEnkeltverdi } from '../../../js/components/soknad-felles/fieldUtils';
 import { JA, NEI } from '../../../js/enums/svarEnums';
-import { SYKMELDINGSGRAD } from '../../../js/enums/tagtyper';
+import { FERIE, SYKMELDINGSGRAD } from '../../../js/enums/tagtyper';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../../js/enums/skjemanavn';
 
 chai.use(chaiEnzyme());
@@ -22,6 +22,7 @@ describe('SporsmalBjorn', () => {
                 [OPPHOLD_UTLAND_SKJEMA]: {
                     values: {
                         [SYKMELDINGSGRAD]: parse(NEI),
+                        [FERIE]: parse(JA),
                     },
                 },
             },
@@ -37,6 +38,19 @@ describe('SporsmalBjorn', () => {
     it('Skal ikke opprette en SporsmalBjorn ved tag SYKEMELDINGSGRAD og svar JA', () => {
         state.form[OPPHOLD_UTLAND_SKJEMA].values[SYKMELDINGSGRAD] = parse(JA);
         const props = mapStateToProps(state, { tag: SYKMELDINGSGRAD });
+        const component = shallow(<SporsmalBjornComponent {...props} />);
+        expect(component.find(Bjorn)).to.have.length(0);
+    });
+
+    it('Skal opprette en SporsmalBjorn ved tag FERIE og svar JA', () => {
+        const props = mapStateToProps(state, { tag: FERIE });
+        const component = shallow(<SporsmalBjornComponent {...props} />);
+        expect(component.find(Bjorn)).to.have.length(1);
+    });
+
+    it('Skal ikke opprette en SporsmalBjorn ved tag FERIE og svar NEI', () => {
+        state.form[OPPHOLD_UTLAND_SKJEMA].values[FERIE] = parse(NEI);
+        const props = mapStateToProps(state, { tag: FERIE });
         const component = shallow(<SporsmalBjornComponent {...props} />);
         expect(component.find(Bjorn)).to.have.length(0);
     });

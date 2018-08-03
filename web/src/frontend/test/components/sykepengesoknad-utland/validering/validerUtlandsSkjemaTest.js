@@ -7,7 +7,7 @@ import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../..
 import validerUtlandsSkjema from '../../../../js/components/sykepengesoknad-utland/validering/validerUtlandsSkjema';
 import {
     ARBEIDSGIVER,
-    BEKREFT_OPPLYSNINGER_UTLAND,
+    BEKREFT_OPPLYSNINGER_UTLAND, FERIE,
     LAND,
     PERIODEUTLAND,
     SYKMELDINGSGRAD,
@@ -117,10 +117,25 @@ describe('validerUtlandsSkjema', () => {
         expect(feilmeldinger[SYKMELDINGSGRAD]).to.equal(undefined);
     });
 
+    it('Skal klage hvis bruker har svart ja på arbeidsgiver men ikke svart på feie', () => {
+        const verdier = {};
+        verdier[ARBEIDSGIVER] = enkeltverdi(JA);
+        const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
+        expect(feilmeldinger[FERIE]).to.equal('Du har nødt å svare på om du har ferie');
+    });
+
+    it('Skal ikke klage på ferie hvis bruker har svart nei på arbeidsgiver', () => {
+        const verdier = {};
+        verdier[ARBEIDSGIVER] = enkeltverdi(NEI);
+        const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
+        expect(feilmeldinger[FERIE]).to.equal(undefined);
+    });
+
     it('Skal ikke klage når bruker har svart alt "riktig"', () => {
         const verdier = {
             [ARBEIDSGIVER]: enkeltverdi(JA),
             [SYKMELDINGSGRAD]: enkeltverdi(JA),
+            [FERIE]: enkeltverdi(NEI),
             [BEKREFT_OPPLYSNINGER_UTLAND]: parse(true),
             [LAND]: enkeltverdi('Spania'),
             [PERIODEUTLAND]: [{

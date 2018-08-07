@@ -5,7 +5,7 @@ export const toggleSelvstendigSoknad = () => {
 };
 
 export const toggleInnsendingAvSelvstendigSoknad = () => {
-    return false;
+    return true;
     // const url = window.location.href;
     // return url.indexOf('localhost') > -1;
 };
@@ -16,7 +16,7 @@ export const toggleBrukMockDataSelvstendigSoknad = () => {
 
 export const toggleSykepengesoknadUtland = () => {
     const url = window.location.href;
-    return url.indexOf('localhost') > -1;
+    return url.indexOf('localhost') > -1 || url.indexOf('tjenester-q1') > -1;
 };
 
 export const toggleBrukMockdataUtland = () => {

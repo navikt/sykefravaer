@@ -1,11 +1,12 @@
 import {
+    AVBRYT_SYKEPENGESOKNAD_FEILET, AVBRYTER_SYKEPENGESOKNAD,
     HENT_SOKNADER_FEILET,
     HENTER_SOKNADER, OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
     OPPRETTER_SYKEPENGESOKNADUTLAND,
     SEND_SOKNAD_FEILET,
     SENDER_SOKNAD,
     SOKNAD_SENDT,
-    SOKNADER_HENTET, SYKEPENGESOKNADUTLAND_OPPRETTET,
+    SOKNADER_HENTET, SYKEPENGESOKNAD_AVBRUTT, SYKEPENGESOKNADUTLAND_OPPRETTET,
 } from '../actions/actiontyper';
 import { TIMER, DATO, PERIODER, PROSENT } from '../enums/svartyper';
 import { TIL_SENDING } from '../enums/soknadstatuser';
@@ -19,6 +20,8 @@ const initiellState = {
     sendingFeilet: false,
     oppretterSoknad: false,
     opprettFeilet: false,
+    avbryter: false,
+    avbrytSoknadFeilet: false,
 };
 
 const getMinMax = (sporsmal) => {
@@ -137,6 +140,29 @@ export default (state = initiellState, action = {}) => {
                 ...state,
                 oppretterSoknad: false,
                 opprettFeilet: true,
+            };
+        }
+
+        case AVBRYTER_SYKEPENGESOKNAD: {
+            return {
+                ...state,
+                avbryter: true,
+                avbrytSoknadFeilet: false,
+            };
+        }
+
+        case SYKEPENGESOKNAD_AVBRUTT: {
+            return {
+                ...state,
+                avbryter: false,
+                avbrytSoknadFeilet: false,
+            };
+        }
+        case AVBRYT_SYKEPENGESOKNAD_FEILET: {
+            return {
+                ...state,
+                avbryter: false,
+                avbrytSoknadFeilet: true,
             };
         }
         default: {

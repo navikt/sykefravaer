@@ -32,6 +32,7 @@ export function* bekreftSykmelding(action) {
             });
             yield put(skalOppretteSoknadHentet(sykmeldingId, skalOppretteSoknad));
         }
+        yield put(actions.setArbeidssituasjon(verdier.arbeidssituasjon, sykmeldingId));
         yield put(actions.sykmeldingBekreftet(sykmeldingId));
         yield put(dineSykmeldingerActions.hentDineSykmeldinger());
         yield put(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());

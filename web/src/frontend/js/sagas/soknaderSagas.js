@@ -67,7 +67,7 @@ export function* avbrytSykepengesoknad(action) {
             || (toggleSykepengesoknadUtland() && action.soknad.soknadstype === OPPHOLD_UTLAND)) {
             yield call(post, `${hentApiUrl()}/avbrytSoknad`, action.soknad);
         }
-        yield put(actions.soknadAvbrutt());
+        yield put(actions.soknadAvbrutt(action.soknad));
     } catch (e) {
         log(e);
         yield put(actions.avbrytSoknadFeilet());

@@ -154,6 +154,7 @@ export default (state = initiellState, action = {}) => {
         case SYKEPENGESOKNAD_AVBRUTT: {
             return {
                 ...state,
+                data: [...state.data.filter((s) => { return s.id !== action.soknad.id; })],
                 avbryter: false,
                 avbrytSoknadFeilet: false,
             };

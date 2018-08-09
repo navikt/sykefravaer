@@ -86,8 +86,9 @@ describe('soknader', () => {
         const initState = getStateMedDataHentet();
         const action2 = actions.avbryterSoknad();
         const initState2 = soknader(deepFreeze(initState), action2);
-        const action = actions.soknadAvbrutt();
+        const action = actions.soknadAvbrutt(initState2.data[0]);
         const state = soknader(deepFreeze(initState2), action);
+        expect(state.date).contains([]);
         expect(state.avbryter).to.equal(false);
         expect(state.avbrytSoknadFeilet).to.equal(false);
     });

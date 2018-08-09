@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { reduxForm } from 'redux-form';
-import { getLedetekst, sykmeldingstatuser } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { browserHistory } from 'react-router';
 import Header from '../../../containers/sykepengesoknad-utland/SykepengesoknadUtlandHeader';
@@ -13,11 +13,11 @@ import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
 import validate from '../validering/validerUtlandsSkjema';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/FeiloppsummeringContainer';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
-import { getContextRoot } from '../../../routers/paths';
 import { IKKE_RELEVANT } from '../../../enums/svartyper';
+import { getContextRoot } from '../../../routers/paths';
 
 
-export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, ferie }) => {
+export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryter, avbrytSoknad, ferie }) => {
     const sporsmallisteSkjema = () => {
         return ferie ? soknad.sporsmal.filter((sporsmal) => {
             return IKKE_RELEVANT !== sporsmal.svartype;
@@ -43,11 +43,12 @@ export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, ferie 
         return ferie
             ? (<Fareknapp
                 type="button"
-                disabled={sender}
-                spinner={sender}
+                disabled={avbryter}
+                spinner={avbryter}
                 onClick={(event) => {
-                    event.preventDefault();
+                    avbrytSoknad(soknad);
                     browserHistory.push(getContextRoot());
+                    event.preventDefault();
                 }}>{getLedetekst('sykepengesoknad.avbryt-soknad')}</Fareknapp>)
             : <Hovedknapp type="submit" disabled={sender} spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>;
     };
@@ -69,7 +70,8 @@ Utlandsskjema.propTypes = {
     handleSubmit: PropTypes.func,
     sendSoknad: PropTypes.func,
     sender: PropTypes.bool,
-    ferie: PropTypes.bool,
+    avbrytSoknad: PropTypes.func,
+    avbryter: PropTypes.bool,
 };
 
 export default reduxForm({

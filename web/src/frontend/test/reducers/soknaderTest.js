@@ -73,4 +73,30 @@ describe('soknader', () => {
         const nextState = soknader(deepFreeze(initState), action);
         expect(nextState.sendingFeilet).to.equal(true);
     });
+
+    it('Håndterer avbryterSoknad', () => {
+        const initState = getStateMedDataHentet();
+        const action = actions.avbryterSoknad(soknadrespons[0].id);
+        const state = soknader(deepFreeze(initState), action);
+        expect(state.avbryter).to.equal(true);
+        expect(state.avbrytSoknadFeilet).to.equal(false);
+    });
+
+    it('Håndterer soknadAvbrutt', () => {
+        const initState = getStateMedDataHentet();
+        const action2 = actions.avbryterSoknad();
+        const initState2 = soknader(deepFreeze(initState), action2);
+        const action = actions.soknadAvbrutt();
+        const state = soknader(deepFreeze(initState2), action);
+        expect(state.avbryter).to.equal(false);
+        expect(state.avbrytSoknadFeilet).to.equal(false);
+    });
+
+    it('Håndterer avbrytSoknadFeilet', () => {
+        const initState = getStateMedDataHentet();
+        const action = actions.avbrytSoknadFeilet();
+        const state = soknader(deepFreeze(initState), action);
+        expect(state.avbryter).to.equal(false);
+        expect(state.avbrytSoknadFeilet).to.equal(true);
+    });
 });

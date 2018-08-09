@@ -11,6 +11,9 @@ import {
     OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
     OPPRETTER_SYKEPENGESOKNADUTLAND,
     SYKEPENGESOKNADUTLAND_OPPRETTET,
+    SYKEPENGESOKNAD_AVBRUTT,
+    AVBRYTER_SYKEPENGESOKNAD,
+    AVBRYT_SYKEPENGESOKNAD_FORESPURT, AVBRYT_SYKEPENGESOKNAD_FEILET,
 } from './actiontyper';
 
 export const soknaderHentet = (soknader) => {
@@ -88,3 +91,28 @@ export const soknadUtlandOpprettet = (soknad) => {
         soknad,
     };
 };
+
+export function avbrytSoknad(soknad) {
+    return {
+        type: AVBRYT_SYKEPENGESOKNAD_FORESPURT,
+        soknad,
+    };
+}
+
+export function avbryterSoknad() {
+    return {
+        type: AVBRYTER_SYKEPENGESOKNAD,
+    };
+}
+
+export function soknadAvbrutt() {
+    return {
+        type: SYKEPENGESOKNAD_AVBRUTT,
+    };
+}
+
+export function avbrytSoknadFeilet() {
+    return {
+        type: AVBRYT_SYKEPENGESOKNAD_FEILET,
+    };
+}

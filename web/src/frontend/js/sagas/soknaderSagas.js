@@ -8,7 +8,7 @@ import {
     OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
     HENT_SOKNADER_FORESPURT,
     SEND_SOKNAD_FORESPURT,
-    SYKMELDING_BEKREFTET,
+    SYKMELDING_BEKREFTET, AVBRYT_SYKEPENGESOKNAD_FORESPURT,
 } from '../actions/actiontyper';
 import { soknadrespons, soknadUtland1 } from '../../test/mockSoknader';
 import {
@@ -59,6 +59,22 @@ export function* sendSoknad(action) {
     }
 }
 
+
+export function* avbrytSykepengesoknad(action) {
+    yield put(actions.avbryterSoknad());
+    try {
+        if ((toggleInnsendingAvSelvstendigSoknad() && action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE)
+            || (toggleSykepengesoknadUtland() && action.soknad.soknadstype === OPPHOLD_UTLAND)) {
+            yield call(post, `${hentApiUrl()}/avbrytSoknad`, action.soknad);
+        }
+        yield put(actions.soknadAvbrutt());
+    } catch (e) {
+        log(e);
+        yield put(actions.avbrytSoknadFeilet());
+    }
+}
+
+
 const gaTilSkjemaUtland = (soknadUtlandId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadUtlandId}`);
 };
@@ -95,6 +111,10 @@ function* watchSykmeldingSendt() {
     yield* takeEvery(SYKMELDING_BEKREFTET, hentSoknader);
 }
 
+function* watchAvbrytSykepengeoknad() {
+    yield* takeEvery(AVBRYT_SYKEPENGESOKNAD_FORESPURT, avbrytSykepengesoknad);
+}
+
 function* watchOpprettSoknadUtland() {
     yield* takeEvery(OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT, opprettSoknadUtland);
 }
@@ -103,5 +123,6 @@ export default function* soknaderSagas() {
     yield fork(watchHentSoknader);
     yield fork(watchSendSoknad);
     yield fork(watchSykmeldingSendt);
+    yield fork(watchAvbrytSykepengeoknad);
     yield fork(watchOpprettSoknadUtland);
 }

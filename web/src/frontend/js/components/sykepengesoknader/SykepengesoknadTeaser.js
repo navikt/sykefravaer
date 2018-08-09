@@ -30,6 +30,18 @@ SendtUlikt.propTypes = {
     soknad: sykepengesoknadPt.isRequired,
 };
 
+const visIkon = (soknadstype) => {
+    return soknadstype === OPPHOLD_UTLAND
+        ? (<img alt="" className="js-ikon" src="/sykefravaer/img/svg/globe.svg" />)
+        : <img alt="" className="js-ikon" src="/sykefravaer/img/svg/soknader.svg" />;
+};
+
+const visIkonHover = (soknadstype) => {
+    return soknadstype === OPPHOLD_UTLAND
+        ? (<img alt="" className="js-ikon" src="/sykefravaer/img/svg/globe-hover.svg" />)
+        : <img alt="" className="js-ikon" src="/sykefravaer/img/svg/soknader_hover-blue.svg" />;
+};
+
 const SykepengesoknadTeaser = ({ soknad }) => {
     const visStatus = [NY, SENDT, AVBRUTT].indexOf(soknad.status) === -1;
     const sendtTilBeggeMenIkkeSamtidig = erSendtTilBeggeMenIkkeSamtidig(soknad);
@@ -39,10 +51,10 @@ const SykepengesoknadTeaser = ({ soknad }) => {
             className={`inngangspanel js-panel js-soknad-${status}`}
             to={`${getContextRoot()}/soknader/${soknad.id}`}>
             <span className="inngangspanel__ikon inngangspanel__ikon--normal">
-                <img alt="" className="js-ikon" src="/sykefravaer/img/svg/soknader.svg" />
+                {visIkon(soknad.soknadstype)}
             </span>
             <span className="inngangspanel__ikon inngangspanel__ikon--hover">
-                <img alt="" className="js-ikon" src="/sykefravaer/img/svg/soknader_hover-blue.svg" />
+                {visIkonHover(soknad.soknadstype)}
             </span>
             <div className="inngangspanel__innhold">
                 <header className="inngangspanel__header">

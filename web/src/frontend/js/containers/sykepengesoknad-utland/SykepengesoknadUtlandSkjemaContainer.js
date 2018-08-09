@@ -6,7 +6,7 @@ import { skjemasvar as skjemasvarPt, soknad as soknadPt } from '../../propTypes'
 import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import UtlandsSkjema from '../../components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
 import Feilmelding from '../../components/Feilmelding';
-import { sendSoknad as sendSoknadAction } from '../../actions/soknader_actions';
+import { sendSoknad as sendSoknadAction, avbrytSoknad as avbrytSoknadAction } from '../../actions/soknader_actions';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../enums/skjemanavn';
 import { formaterEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
 import { JA } from '../../enums/svarEnums';
@@ -16,13 +16,14 @@ import { FERIE } from '../../enums/tagtyper';
 
 
 export const UtlandSkjemaContainer = (props) => {
-    const { soknad, sendSoknad, sender, sti, ferie } = props;
-
+    const { soknad, sendSoknad, sender, avbryter, avbrytSoknad, sti, ferie } = props;
     if (soknad && soknad.status === NY) {
         return (<UtlandsSkjema
             soknad={soknad}
             sendSoknad={sendSoknad}
             sender={sender}
+            avbrytSoknad={avbrytSoknad}
+            avbryter={avbryter}
             ferie={ferie}
         />);
     }
@@ -39,11 +40,13 @@ UtlandSkjemaContainer.propTypes = {
     soknad: soknadPt,
     actions: PropTypes.shape({
         sendSoknad: PropTypes.func,
+        avbrytSoknad: PropTypes.func,
     }),
     sendingFailet: PropTypes.bool,
     skjemasvar: skjemasvarPt,
     sendSoknad: PropTypes.func,
     sender: PropTypes.bool,
+    avbryter: PropTypes.bool,
     ferie: PropTypes.bool,
     sti: PropTypes.string,
 };
@@ -64,8 +67,9 @@ export function mapStateToProps(state, ownProps) {
         sti: ownProps.location.pathname,
         sendSoknad: state.soknader.senderSoknad,
         sender: state.soknader.sender,
+        avbryter: state.soknader.avbryter,
         ferie,
     };
 }
 
-export default connect(mapStateToProps, { sendSoknad: sendSoknadAction })(UtlandSkjemaContainer);
+export default connect(mapStateToProps, { sendSoknad: sendSoknadAction, avbrytSoknad: avbrytSoknadAction })(UtlandSkjemaContainer);

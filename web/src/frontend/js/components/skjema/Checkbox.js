@@ -12,7 +12,7 @@ const Box = ({ input, label, id, children }) => {
             {...input}
         />
         {
-            input.value === true && children && children.length > 0 && <div className="ekstrasporsmal">{children}</div>
+            input.value === true && children && (children.length !== 0) && <div className="ekstrasporsmal">{children}</div>
         }
     </div>);
 };

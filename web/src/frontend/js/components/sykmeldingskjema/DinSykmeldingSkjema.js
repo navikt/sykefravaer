@@ -284,7 +284,10 @@ const ConnectedSkjema = compose(
 )(DinSykmeldingSkjemaComponent);
 
 const DinSykmeldingSkjema = (props) => {
-    return <ConnectedSkjema {...props} form={getSykmeldingSkjemanavn(props.sykmelding.id)} />;
+    return (<ConnectedSkjema
+        {...props}
+        form={getSykmeldingSkjemanavn(props.sykmelding.id)}
+        key={getSykmeldingSkjemanavn(props.sykmelding.id)} />);
 };
 
 DinSykmeldingSkjema.propTypes = {

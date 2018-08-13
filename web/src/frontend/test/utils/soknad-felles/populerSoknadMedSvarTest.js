@@ -77,7 +77,7 @@ describe('populerSoknadMedSvar', () => {
         expect(populertSoknad.sporsmal[1].undersporsmal[0].svar).to.deep.equal([
             {
                 svarverdiType: null,
-                verdi: new Date('2018-03-25'),
+                verdi: '2018-03-25',
             },
         ]);
     });
@@ -210,7 +210,7 @@ describe('populerSoknadMedSvar', () => {
             return s.tag === TILBAKE_NAR;
         });
         expect(populertDatoSporsmal.svar).to.deep.equal([{
-            verdi: new Date('2018-05-23'),
+            verdi: '2018-05-23',
             svarverdiType: null,
         }]);
     });

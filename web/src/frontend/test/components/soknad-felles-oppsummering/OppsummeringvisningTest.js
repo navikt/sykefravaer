@@ -157,7 +157,7 @@ describe('Oppsummeringvisning', () => {
                 sporsmalsid: '24',
                 svarverdier: [
                     {
-                        verdi: '22.03.2018',
+                        verdi: '22.03.2014',
                         svarverdiType: null,
                     },
                 ],
@@ -220,5 +220,11 @@ describe('Oppsummeringvisning', () => {
         const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
         expect(component.contains(<h5 className="oppsummering__sporsmal">Er du sykmeldt fra dette?</h5>)).to.equal(true);
         expect(component.contains(<h4 className="oppsummering__sporsmal">Hvilke andre inntektskilder har du?</h4>)).to.equal(true);
+    });
+
+    it('Skal vise dato på riktig format', () => {
+        const populertSoknad = populerSoknadMedSvar(getSoknad(), values);
+        const component = mount(<Oppsummeringsvisning soknad={populertSoknad} />);
+        expect(component.text()).to.contain('22.03.2014');
     });
 });

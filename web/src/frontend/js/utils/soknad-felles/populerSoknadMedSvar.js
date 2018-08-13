@@ -2,6 +2,10 @@ import { fraInputdatoTilJSDato } from 'digisyfo-npm';
 import { CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER } from '../../enums/svartyper';
 import { FOM, TOM } from '../../enums/svarverdityper';
 
+const tilBackendDato = (inputdato) => {
+    return fraInputdatoTilJSDato(inputdato).toJSON().substr(0, 10);
+};
+
 const tilPeriodesvar = (perioder) => {
     let periodesvar = [];
     perioder.forEach((periode) => {
@@ -21,7 +25,7 @@ const tilDatoSvar = (svar) => {
         ? svar.svarverdier.map((s) => {
             return {
                 ...s,
-                verdi: fraInputdatoTilJSDato(s.verdi),
+                verdi: tilBackendDato(s.verdi),
             };
         })
         : [];

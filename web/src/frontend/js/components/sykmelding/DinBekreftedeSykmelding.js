@@ -5,7 +5,7 @@ import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import SykepengesoknadstatusContainer from '../../containers/sykmelding/SykepengesoknadstatusContainer';
 import { Vis } from '../../utils';
-import BekreftetSykmeldingStatuspanel from './BekreftetSykmeldingStatuspanel';
+import BekreftetSykmeldingStatuspanel from '../sykmeldingstatuspanel/BekreftetSykmeldingStatuspanel';
 
 const DinBekreftedeSykmelding = ({ dinSykmelding }) => {
     return (

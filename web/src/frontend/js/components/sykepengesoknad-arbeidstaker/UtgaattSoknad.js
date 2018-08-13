@@ -1,23 +1,22 @@
 import React from 'react';
-import { getLedetekst, SykmeldingNokkelOpplysning } from 'digisyfo-npm';
+import { getLedetekst } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from '../sykepengesoknad-felles/SykepengesoknadHeader';
 import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 import GjenapneSoknadContainer from '../../containers/sykepengesoknad-arbeidstaker/GjenapneSoknadContainer';
+import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
 
 const UtgaattSoknad = ({ sykepengesoknad }) => {
     return (<div>
         <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
-        <div className="panel panel--komprimert blokk">
-            <div>
-                <div className="statusopplysninger">
-                    <SykmeldingNokkelOpplysning Overskrift="h2" tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
-                        <p>{getLedetekst('soknad.teaser.status.UTGAATT')}</p>
-                    </SykmeldingNokkelOpplysning>
-                </div>
-            </div>
+        <Statuspanel>
+            <Statusopplysninger>
+                <StatusNokkelopplysning tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
+                    <p>{getLedetekst('soknad.teaser.status.UTGAATT')}</p>
+                </StatusNokkelopplysning>
+            </Statusopplysninger>
             <GjenapneSoknadContainer sykepengesoknad={sykepengesoknad} tekst="Åpne søknad" />
-        </div>
+        </Statuspanel>
         <SykmeldingUtdragContainer sykepengesoknad={sykepengesoknad} erApen />
     </div>);
 };

@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SykmeldingNokkelOpplysning, toDatePrettyPrint, getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { erSendtTilBeggeMenIkkeSamtidig, getSendtTilSuffix } from '../../utils/sykepengesoknadUtils';
 import { formaterOrgnr } from '../../utils';
+import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
 
 const { SENDT, TIL_SENDING, KORRIGERT } = sykepengesoknadstatuser;
 
@@ -40,9 +41,9 @@ export const tilSendingHjelpetekst = () => {
 };
 
 const SykepengerInfo = ({ sykepengesoknad }) => {
-    return (<SykmeldingNokkelOpplysning Overskrift="h2" tittel={getLedetekst('sykepengesoknad.sykepengeinfo.tittel')}>
+    return (<StatusNokkelopplysning tittel={getLedetekst('sykepengesoknad.sykepengeinfo.tittel')}>
         <p dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.sykepengeinfo${getSendtTilSuffix(sykepengesoknad)}`)} />
-    </SykmeldingNokkelOpplysning>);
+    </StatusNokkelopplysning>);
 };
 
 SykepengerInfo.propTypes = {
@@ -52,7 +53,7 @@ SykepengerInfo.propTypes = {
 const SendtLikt = ({ sykepengesoknad }) => {
     const tekst = getStatusTekst(sykepengesoknad);
     return (<div className="statusopplysninger">
-        <SykmeldingNokkelOpplysning Overskrift="h2" tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
+        <StatusNokkelopplysning tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
             {
                 sykepengesoknad.status === TIL_SENDING
                     ? (<div>
@@ -60,7 +61,7 @@ const SendtLikt = ({ sykepengesoknad }) => {
                     </div>)
                     : <p>{tekst}</p>
             }
-        </SykmeldingNokkelOpplysning>
+        </StatusNokkelopplysning>
         <SykepengerInfo sykepengesoknad={sykepengesoknad} />
     </div>);
 };
@@ -71,15 +72,15 @@ SendtLikt.propTypes = {
 
 const SendtUlikt = ({ sykepengesoknad }) => {
     const params = getParams(sykepengesoknad);
-    return (<div className="statusopplysninger">
-        <SykmeldingNokkelOpplysning Overskrift="h2" tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
+    return (<Statusopplysninger>
+        <StatusNokkelopplysning tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
             <p>
                 {getLedetekst('sykepengesoknad.status-2.SENDT.til-nav', params)}<br />
                 {getLedetekst('sykepengesoknad.status-2.SENDT.til-arbeidsgiver', params)}
             </p>
-        </SykmeldingNokkelOpplysning>
+        </StatusNokkelopplysning>
         <SykepengerInfo sykepengesoknad={sykepengesoknad} />
-    </div>);
+    </Statusopplysninger>);
 };
 
 SendtUlikt.propTypes = {
@@ -87,17 +88,14 @@ SendtUlikt.propTypes = {
 };
 
 const Soknadstatuspanel = ({ sykepengesoknad, children }) => {
-    return (<div className="panel panel--komprimert blokk">
+    return (<Statuspanel enKolonne>
         {
-            (() => {
-                if (erSendtTilBeggeMenIkkeSamtidig(sykepengesoknad)) {
-                    return <SendtUlikt sykepengesoknad={sykepengesoknad} />;
-                }
-                return <SendtLikt sykepengesoknad={sykepengesoknad} />;
-            })()
+            erSendtTilBeggeMenIkkeSamtidig(sykepengesoknad)
+                ? <SendtUlikt sykepengesoknad={sykepengesoknad} />
+                : <SendtLikt sykepengesoknad={sykepengesoknad} />
         }
         {children}
-    </div>);
+    </Statuspanel>);
 };
 
 Soknadstatuspanel.propTypes = {

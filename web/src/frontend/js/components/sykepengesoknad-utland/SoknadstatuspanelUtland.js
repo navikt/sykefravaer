@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-    SykmeldingNokkelOpplysning,
     toDatePrettyPrint,
     getLedetekst,
     sykepengesoknadstatuser,
 } from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { soknad as soknadPt } from '../../propTypes';
+import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
 
 const { SENDT, TIL_SENDING } = sykepengesoknadstatuser;
 
@@ -29,49 +29,21 @@ export const tilSendingHjelpetekst = () => {
 };
 
 const SendtDato = ({ soknad }) => {
-    return (<SykmeldingNokkelOpplysning
-        className="nokkelopplysning--statusopplysning"
-        Overskrift="h2"
+    return (<StatusNokkelopplysning
         tittel={getLedetekst('sykepengesoknad.sykepengeinfo.tittel.dato')}>
         <p>{toDatePrettyPrint(soknad.innsendtDato)}</p>
-    </SykmeldingNokkelOpplysning>
-    );
+    </StatusNokkelopplysning>);
 };
 
 SendtDato.propTypes = {
     soknad: soknadPt,
 };
 
-const SendtLikt = ({ soknad }) => {
-    const tekst = getStatusTekst(soknad);
-    return (<div className="statusopplysninger">
-        <SykmeldingNokkelOpplysning
-            className="nokkelopplysning--statusopplysning"
-            Overskrift="h2"
-            tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
-            {
-                soknad.status === TIL_SENDING
-                    ? (<div>
-                        <span>{tekst}</span>{tilSendingHjelpetekst()}
-                    </div>)
-                    : <p>{tekst}</p>
-            }
-        </SykmeldingNokkelOpplysning>
-        <SendtDato soknad={soknad} />
-    </div>);
-};
-
-SendtLikt.propTypes = {
-    soknad: soknadPt,
-};
-
 const StatuspanelUtland = ({ soknad }) => {
     const tekst = getStatusTekst(soknad);
-    return (<div className="panel panel--komprimert blokk">
-        <div className="statusopplysninger">
-            <SykmeldingNokkelOpplysning
-                className="nokkelopplysning--statusopplysning"
-                Overskrift="h2"
+    return (<Statuspanel>
+        <Statusopplysninger>
+            <StatusNokkelopplysning
                 tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
                 {
                     soknad.status === TIL_SENDING
@@ -80,10 +52,10 @@ const StatuspanelUtland = ({ soknad }) => {
                         </div>)
                         : <p>{tekst}</p>
                 }
-            </SykmeldingNokkelOpplysning>
+            </StatusNokkelopplysning>
             <SendtDato soknad={soknad} />
-        </div>
-    </div>);
+        </Statusopplysninger>
+    </Statuspanel>);
 };
 
 StatuspanelUtland.propTypes = {

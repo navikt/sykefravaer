@@ -1,21 +1,13 @@
 import React from 'react';
-import { DineSykmeldingOpplysninger, Utvidbar, getLedetekst, nokkelopplysninger } from 'digisyfo-npm';
-import StatusPanel from '../StatusPanel';
+import { DineSykmeldingOpplysninger, Utvidbar, getLedetekst } from 'digisyfo-npm';
+import SykmeldingStatuspanel from '../sykmeldingstatuspanel/SykmeldingStatuspanel';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
-import GjenaapneSykmeldingContainer from '../../containers/sykmelding/GjenaapneSykmeldingContainer';
-
-const { STATUS, INNSENDT_DATO } = nokkelopplysninger;
 
 const DinAvbrutteSykmelding = ({ sykmelding }) => {
     return (<div>
         <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
-        <StatusPanel
-            sykmelding={sykmelding}
-            type="avbrutt"
-            nokkelopplysninger={[[STATUS, INNSENDT_DATO]]}>
-            <GjenaapneSykmeldingContainer sykmeldingId={sykmelding.id} />
-        </StatusPanel>
+        <SykmeldingStatuspanel sykmelding={sykmelding} />
         <Utvidbar
             erApen
             tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}

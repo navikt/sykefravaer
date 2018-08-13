@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { naermesteLeder } from 'digisyfo-npm';
 import * as hendelsetyper from '../enums/hendelsetyper';
 import * as svartyper from '../enums/svartyper';
-import { FOM, TOM } from '../enums/svarverdityper';
 
 export { arbeidssituasjon,
     soknadperiode,
@@ -100,7 +99,6 @@ export const svartypePt = PropTypes.oneOf(Object.values(svartyper));
 
 export const svar = PropTypes.arrayOf(PropTypes.shape({
     verdi: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
-    svarverdiType: PropTypes.oneOf([FOM, TOM, null]),
 }));
 
 const sporsmalShape = {

@@ -28,7 +28,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'JA',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -37,7 +36,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'Italia',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -46,7 +44,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'JA',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -55,7 +52,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'CHECKED',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -74,7 +70,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'NEI',
-                        svarverdiType: null,
                     },
                 ],
             },

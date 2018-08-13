@@ -11,7 +11,7 @@ export const toggleInnsendingAvSelvstendigSoknad = () => {
 };
 
 export const toggleBrukMockDataSelvstendigSoknad = () => {
-    return true;
+    return false;
 };
 
 export const toggleSykepengesoknadUtland = () => {

@@ -1,6 +1,5 @@
 import chai from 'chai';
 import { fjernIndexFraTag, formaterEnkeltverdi, genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../js/components/soknad-felles/fieldUtils';
-import { FOM, TOM } from '../../../js/enums/svarverdityper';
 import { UNCHECKED, CHECKED } from '../../../js/enums/svarEnums';
 import { ANDRE_INNTEKTSKILDER, JOBBET_DU_GRADERT } from '../../../js/enums/tagtyper';
 
@@ -20,7 +19,6 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: 'JA',
-                    svarverdiType: null,
                 }],
             });
         });
@@ -31,7 +29,6 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: 'NEI',
-                    svarverdiType: null,
                 }],
             });
         });
@@ -47,7 +44,6 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '',
-                    svarverdiType: null,
                 }],
             });
         });
@@ -58,50 +54,46 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '22.02.2018',
-                    svarverdiType: null,
                 }],
             });
         });
 
         it('Skal returnere riktig svar når enhet er FOM', () => {
-            const parseTimer = genererParseForEnkeltverdi('1', FOM);
+            const parseTimer = genererParseForEnkeltverdi('1');
             const svar = parseTimer('40');
             expect(svar).to.deep.equal({
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '40',
-                    svarverdiType: FOM,
                 }],
             });
         });
 
         it('Skal returnere riktig svar når enhet er TOM', () => {
-            const parseFom = genererParseForEnkeltverdi('1', TOM);
+            const parseFom = genererParseForEnkeltverdi('1');
             const svar = parseFom('40');
             expect(svar).to.deep.equal({
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '40',
-                    svarverdiType: TOM,
                 }],
             });
         });
 
         it('Skal returnere riktig svar når det svares med tom streng', () => {
-            const parseTom = genererParseForEnkeltverdi('1', TOM);
-            const svar = parseTom('', TOM);
+            const parseTom = genererParseForEnkeltverdi('1');
+            const svar = parseTom('');
             expect(svar).to.deep.equal({
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: '',
-                    svarverdiType: TOM,
                 }],
             });
         });
 
         it('Skal returnere riktig svar når det svares med undefined', () => {
-            const parseTom = genererParseForEnkeltverdi('1', TOM);
-            const svar = parseTom(undefined, TOM);
+            const parseTom = genererParseForEnkeltverdi('1');
+            const svar = parseTom(undefined);
             expect(svar).to.deep.equal(undefined);
         });
     });
@@ -114,7 +106,6 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: CHECKED,
-                    svarverdiType: null,
                 }],
             });
         });
@@ -126,7 +117,6 @@ describe('fieldUtils', () => {
                 sporsmalsid: '1',
                 svarverdier: [{
                     verdi: UNCHECKED,
-                    svarverdiType: null,
                 }],
             });
         });

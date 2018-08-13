@@ -28,7 +28,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'CHECKED',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -37,7 +36,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'JA',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -46,7 +44,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'JA',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -55,7 +52,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: '37',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -64,7 +60,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: '15',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -73,7 +68,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'NEI',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -82,7 +76,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: '',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -91,7 +84,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: '21.03.2018',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -100,7 +92,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'JA',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -109,7 +100,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'CHECKED',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -118,7 +108,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'JA',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -127,7 +116,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'JA',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -141,7 +129,6 @@ describe('Oppsummeringvisning', () => {
                 sporsmalsid: '22',
                 svarverdier: [{
                     verdi: 'NEI',
-                    svarverdiType: null,
                 }],
             },
             UTDANNING: {
@@ -149,7 +136,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'JA',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -158,7 +144,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: '22.03.2014',
-                        svarverdiType: null,
                     },
                 ],
             },
@@ -167,7 +152,6 @@ describe('Oppsummeringvisning', () => {
                 svarverdier: [
                     {
                         verdi: 'NEI',
-                        svarverdiType: null,
                     },
                 ],
             },

@@ -7,13 +7,12 @@ import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { browserHistory } from 'react-router';
 import Header from '../../../containers/sykepengesoknad-utland/SykepengesoknadUtlandHeader';
 import Sporsmal from '../../soknad-felles/Sporsmal';
-import { JA_NEI } from '../../../enums/svarverdityper';
 import { soknad as soknadPt } from '../../../propTypes';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
 import validate from '../validering/validerUtlandsSkjema';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/FeiloppsummeringContainer';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
-import { IKKE_RELEVANT } from '../../../enums/svartyper';
+import { IKKE_RELEVANT, JA_NEI } from '../../../enums/svartyper';
 import { getContextRoot } from '../../../routers/paths';
 
 

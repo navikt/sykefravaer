@@ -86,7 +86,7 @@ describe('soknader', () => {
         const initState = getStateMedDataHentet();
 
         const avbryterAction = actions.avbryterSoknad();
-        var nyState = soknader(deepFreeze(initState), avbryterAction);
+        let nyState = soknader(deepFreeze(initState), avbryterAction);
 
         const avbruttAction = actions.soknadAvbrutt(nyState.data[0]);
         nyState = soknader(deepFreeze(nyState), avbruttAction);

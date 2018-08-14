@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { DineSykmeldingOpplysninger, setLedetekster } from 'digisyfo-npm';
 import DinSendteSykmelding from '../../../js/components/sykmelding/DinSendteSykmelding';
-import StatusPanel from '../../../js/components/StatusPanel';
+import SykmeldingStatuspanel from '../../../js/components/sykmeldingstatuspanel/SykmeldingStatuspanel';
 import ArbeidsgiversSykmeldingContainer from '../../../js/containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import ledetekster from '../../mockLedetekster';
 import getSykmelding from '../../mockSykmeldinger';
@@ -23,7 +23,7 @@ describe('DinSendteSykmelding', () => {
         const dinSykmelding = getSykmelding();
         dinSykmelding.status = 'SENDT';
         component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} />);
-        expect(component.find(StatusPanel)).to.have.length(1);
+        expect(component.find(SykmeldingStatuspanel)).to.have.length(1);
     });
 
     it('Skal vise DineSykmeldingOpplysninger ', () => {

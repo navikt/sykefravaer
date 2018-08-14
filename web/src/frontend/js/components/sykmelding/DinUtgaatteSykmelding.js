@@ -1,16 +1,11 @@
 import React from 'react';
-import { Utvidbar, getLedetekst, DineSykmeldingOpplysninger, nokkelopplysninger } from 'digisyfo-npm';
-import StatusPanel from '../StatusPanel';
+import { Utvidbar, getLedetekst, DineSykmeldingOpplysninger } from 'digisyfo-npm';
+import SykmeldingStatuspanel from '../sykmeldingstatuspanel/SykmeldingStatuspanel';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 
-const DinBekreftedeSykmelding = ({ sykmelding }) => {
+const DinUtgaatteSykmelding = ({ sykmelding }) => {
     return (<div>
-        <StatusPanel
-            sykmelding={sykmelding}
-            type="info"
-            nokkelopplysninger={[
-                [nokkelopplysninger.STATUS],
-            ]} />
+        <SykmeldingStatuspanel sykmelding={sykmelding} />
         <Utvidbar
             erApen
             tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}
@@ -24,8 +19,8 @@ const DinBekreftedeSykmelding = ({ sykmelding }) => {
     </div>);
 };
 
-DinBekreftedeSykmelding.propTypes = {
+DinUtgaatteSykmelding.propTypes = {
     sykmelding: sykmeldingPt,
 };
 
-export default DinBekreftedeSykmelding;
+export default DinUtgaatteSykmelding;

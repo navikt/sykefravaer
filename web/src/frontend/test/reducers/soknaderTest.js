@@ -84,12 +84,16 @@ describe('soknader', () => {
 
     it('Håndterer soknadAvbrutt', () => {
         const initState = getStateMedDataHentet();
-        const action2 = actions.avbryterSoknad();
-        const initState2 = soknader(deepFreeze(initState), action2);
-        const action = actions.soknadAvbrutt();
-        const state = soknader(deepFreeze(initState2), action);
-        expect(state.avbryter).to.equal(false);
-        expect(state.avbrytSoknadFeilet).to.equal(false);
+
+        const avbryterAction = actions.avbryterSoknad();
+        let nyState = soknader(deepFreeze(initState), avbryterAction);
+
+        const avbruttAction = actions.soknadAvbrutt(nyState.data[0]);
+        nyState = soknader(deepFreeze(nyState), avbruttAction);
+
+        expect(nyState.data).to.deep.equal([]);
+        expect(nyState.avbryter).to.equal(false);
+        expect(nyState.avbrytSoknadFeilet).to.equal(false);
     });
 
     it('Håndterer avbrytSoknadFeilet', () => {

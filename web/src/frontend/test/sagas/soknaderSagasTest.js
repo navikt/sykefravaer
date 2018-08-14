@@ -146,7 +146,7 @@ describe('soknaderSagas', () => {
         });
 
         it('Skal deretter dispatche SYKEPENGESOKNAD_AVBRUTT', () => {
-            const nextPut = put(actions.soknadAvbrutt());
+            const nextPut = put(actions.soknadAvbrutt(action.soknad));
             expect(generator.next().value).to.deep.equal(nextPut);
         });
     });

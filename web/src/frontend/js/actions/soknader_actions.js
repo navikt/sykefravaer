@@ -105,9 +105,10 @@ export function avbryterSoknad() {
     };
 }
 
-export function soknadAvbrutt() {
+export function soknadAvbrutt(soknad) {
     return {
         type: SYKEPENGESOKNAD_AVBRUTT,
+        soknad,
     };
 }
 

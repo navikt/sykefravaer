@@ -1,25 +1,17 @@
 import React from 'react';
-import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import { soknad as soknadPt } from '../../propTypes';
+import { settErOppdelt } from '../../utils/soknadSelvstendigUtils';
+import SykepengesoknadHeader from '../sykepengesoknad-felles/SykepengesoknadHeader';
 
-const Soknadtopp = ({ soknad }) => {
-    return (<header className="sidetopp">
-        <h1 className="sidetopp__tittel">{getLedetekst('sykepengesoknad.sidetittel')}</h1>
-        <div className="sidetopp__meta">
-            <p>
-                {
-                    getLedetekst('sykepengesoknad.sidetittel.periode', {
-                        '%FOM%': toDatePrettyPrint(soknad.fom),
-                        '%TOM%': toDatePrettyPrint(soknad.tom),
-                    })
-                }
-            </p>
-        </div>
-    </header>);
+const Soknadtopp = ({ soknad, sykmelding }) => {
+    const soknadParameter = settErOppdelt(soknad, sykmelding);
+    return <SykepengesoknadHeader sykepengesoknad={soknadParameter} />;
 };
 
 Soknadtopp.propTypes = {
     soknad: soknadPt,
+    sykmelding: sykmeldingPt,
 };
 
 export default Soknadtopp;

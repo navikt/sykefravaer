@@ -8,7 +8,7 @@ import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';
 import validate from '../validering/validerFoerDuBegynner';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
-import SykepengesoknadHeader from '../SykepengesoknadHeader';
+import SykepengesoknadHeader from '../../sykepengesoknad-felles/SykepengesoknadHeader';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import SykmeldingUtdragContainer from '../../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';

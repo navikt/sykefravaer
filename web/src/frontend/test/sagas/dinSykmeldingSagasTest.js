@@ -1,11 +1,11 @@
 import { expect } from 'chai';
-import { put, call } from 'redux-saga/effects';
-import { post, arbeidssituasjoner } from 'digisyfo-npm';
+import { call, put } from 'redux-saga/effects';
+import { arbeidssituasjoner, post } from 'digisyfo-npm';
 import {
-    bekreftSykmelding,
-    sendSykmeldingTilArbeidsgiver,
     avbrytSykmelding,
+    bekreftSykmelding,
     gjenaapneSykmelding,
+    sendSykmeldingTilArbeidsgiver,
 } from '../../js/sagas/dinSykmeldingSagas';
 import * as actions from '../../js/actions/dinSykmelding_actions';
 import { hentDineSykmeldinger } from '../../js/actions/dineSykmeldinger_actions';
@@ -52,6 +52,11 @@ describe('dinSykmeldingSagas', () => {
                 egenmeldingsperioder: null,
             });
             expect(generator.next().value).to.deep.equal(nextCall);
+        });
+
+        it('Skal dernest dispatche SET_ARBEIDSSITUASJON', () => {
+            const nextPut = put(actions.setArbeidssituasjon('arbeidstaker', '123'))
+            expect(generator.next().value).to.deep.equal(nextPut);
         });
 
         it('Skal dernest dispatche SYKMELDING_BEKREFTET', () => {
@@ -122,6 +127,11 @@ describe('dinSykmeldingSagas', () => {
         it('Skal dernest dispatche svar på sjekk om det skulle ha vært opprettet søknad', () => {
             const nextPut = put(skalOppretteSoknadHentet('123', true));
             expect(generator.next(true).value).to.deep.equal(nextPut);
+        });
+
+        it('Skal dernest dispatche SETT_ARBEIDSSITUASJON', () => {
+            const nextPut = put(actions.setArbeidssituasjon(arbeidssituasjoner.FRILANSER, '123'))
+            expect(generator.next().value).to.deep.equal(nextPut);
         });
 
         it('Skal dernest dispatche SYKMELDING_BEKREFTET', () => {

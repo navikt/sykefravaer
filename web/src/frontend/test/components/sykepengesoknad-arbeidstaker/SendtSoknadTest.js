@@ -9,7 +9,7 @@ import KorrigertAvContainer from '../../../js/containers/sykepengesoknad-arbeids
 import Soknadstatuspanel from '../../../js/components/sykepengesoknad-arbeidstaker/Soknadstatuspanel';
 import { getSoknad } from '../../mockSykepengesoknader';
 import ledetekster from '../../mockLedetekster';
-import SykepengesoknadHeader from '../../../js/components/sykepengesoknad-arbeidstaker/SykepengesoknadHeader';
+import SykepengesoknadHeader from '../../../js/components/sykepengesoknad-felles/SykepengesoknadHeader';
 import SykmeldingUtdragContainer from '../../../js/containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 
 chai.use(chaiEnzyme());

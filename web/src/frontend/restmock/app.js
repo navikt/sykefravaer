@@ -18,7 +18,7 @@ const getJsonFil = (filnavn) => {
 }
 
 const lastFilTilMinne = (filnavn) => {
-    fs.readFile(`data/${getJsonFil(filnavn)}`, (err, data) => {
+    fs.readFile(path.join(__dirname, `data/${getJsonFil(filnavn)}`), (err, data) => {
         if (err) throw err;
         appData[filnavn] = JSON.parse(data.toString());
     });
@@ -47,6 +47,7 @@ app.post('/syforest/sykmeldinger/:sykmeldingId/actions/:endepunkt', (req, res) =
         }
         default: {
             console.log('Ukjent endepunkt for post mot ' + endepunkt);
+            res.send(500);
             break;
         }
     }

@@ -1,47 +1,62 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SykmeldingPerioder, SykmeldingNokkelOpplysning, Utvidbar, toDatePrettyPrint, getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
-import { Vis } from '../../utils';
+import {
+    SykmeldingPerioder,
+    Bjorn,
+    SykmeldingNokkelOpplysning,
+    Utvidbar,
+    toDatePrettyPrint,
+    getLedetekst,
+    sykmelding as sykmeldingPt } from 'digisyfo-npm';
+import { getContextRoot } from '../../routers/paths';
 
-const Fravaersperioder = ({ sykmelding }) => {
-    return (<SykmeldingNokkelOpplysning
-        tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.egenmelding-papir')}>
-        <ul>
-            {
-                sykmelding.sporsmal.fravaersperioder.map((p) => {
-                    return <li key={toDatePrettyPrint(p.fom)}>{toDatePrettyPrint(p.fom)} – {toDatePrettyPrint(p.tom)}</li>;
-                })
-            }
-        </ul>
-    </SykmeldingNokkelOpplysning>);
+export const SykmeldingopplysningFravaersperioder = ({ sykmelding, className }) => {
+    return sykmelding.sporsmal.fravaerBesvart
+        ? (<SykmeldingNokkelOpplysning
+            className={className}
+            tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.egenmelding-papir')}>
+            <ul className="nokkelopplysning__liste">
+                {
+                    sykmelding.sporsmal.fravaersperioder.map((p) => {
+                        return <li key={toDatePrettyPrint(p.fom)}>{toDatePrettyPrint(p.fom)} – {toDatePrettyPrint(p.tom)}</li>;
+                    })
+                }
+            </ul>
+        </SykmeldingNokkelOpplysning>)
+        : null;
 };
 
-Fravaersperioder.propTypes = {
+SykmeldingopplysningFravaersperioder.propTypes = {
     sykmelding: sykmeldingPt,
+    className: PropTypes.string,
 };
 
-const Forsikring = ({ sykmelding }) => {
+export const SykmeldingopplysningForsikring = ({ sykmelding, className }) => {
     const grad = sykmelding.sporsmal.dekningsgrad;
     const nokkel = grad === null
         ? 'sykepengesoknad.sykmelding-utdrag.forsikring-nei'
         : 'sykepengesoknad.sykmelding-utdrag.forsikring-ja';
-    return (<SykmeldingNokkelOpplysning
-        tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.forsikring')}>
-        <p>
-            {
-                getLedetekst(nokkel, {
-                    '%GRAD%': grad,
-                })
-            }
-        </p>
-    </SykmeldingNokkelOpplysning>);
+    return sykmelding.sporsmal.forsikringBesvart
+        ? (<SykmeldingNokkelOpplysning
+            className={className}
+            tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.forsikring')}>
+            <p>
+                {
+                    getLedetekst(nokkel, {
+                        '%GRAD%': grad,
+                    })
+                }
+            </p>
+        </SykmeldingNokkelOpplysning>)
+        : null;
 };
 
-Forsikring.propTypes = {
+SykmeldingopplysningForsikring.propTypes = {
     sykmelding: sykmeldingPt,
+    className: PropTypes.string,
 };
 
-const SykmeldingUtdrag = ({ erApen, sykmelding }) => {
+const SykmeldingUtdrag = ({ erApen, sykmelding, erOppdelt }) => {
     return (<div className="blokk">
         <Utvidbar
             Overskrift="h2"
@@ -54,6 +69,10 @@ const SykmeldingUtdrag = ({ erApen, sykmelding }) => {
             ikonAltTekst="Plaster-ikon">
             <div>
                 <SykmeldingPerioder perioder={sykmelding.mulighetForArbeid.perioder} />
+                {
+                    erOppdelt
+                    && <Bjorn rootUrl={getContextRoot()} className="blokk" nokkel="sykepengesoknad.sykmelding-utdrag.oppdelt.bjorn" />
+                }
                 <SykmeldingNokkelOpplysning
                     tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.dato-sykmeldingen-ble-skrevet')}>
                     <p className="js-utstedelsesdato">{toDatePrettyPrint(sykmelding.bekreftelse.utstedelsesdato)}</p>
@@ -62,16 +81,8 @@ const SykmeldingUtdrag = ({ erApen, sykmelding }) => {
                     tittel={getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}>
                     <p className="js-arbeidssituasjon">{getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${sykmelding.valgtArbeidssituasjon.toLowerCase()}`)}</p>
                 </SykmeldingNokkelOpplysning>
-                <Vis
-                    hvis={sykmelding.sporsmal.fravaerBesvart}
-                    render={() => {
-                        return <Fravaersperioder sykmelding={sykmelding} />;
-                    }} />
-                <Vis
-                    hvis={sykmelding.sporsmal.forsikringBesvart}
-                    render={() => {
-                        return <Forsikring sykmelding={sykmelding} />;
-                    }} />
+                <SykmeldingopplysningFravaersperioder sykmelding={sykmelding} />
+                <SykmeldingopplysningForsikring sykmelding={sykmelding} />
             </div>
         </Utvidbar>
     </div>);
@@ -79,6 +90,7 @@ const SykmeldingUtdrag = ({ erApen, sykmelding }) => {
 
 SykmeldingUtdrag.propTypes = {
     erApen: PropTypes.bool,
+    erOppdelt: PropTypes.bool,
     sykmelding: sykmeldingPt,
 };
 

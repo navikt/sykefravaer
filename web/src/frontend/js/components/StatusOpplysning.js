@@ -11,8 +11,20 @@ const tilSendingHjelpetekst = () => {
     return (<Hjelpetekst>{getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tekst')}</Hjelpetekst>);
 };
 
+export const StatusNokkelopplysning = ({ children, Overskrift = 'h2', tittel }) => {
+    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift={Overskrift} tittel={tittel}>
+        {children}
+    </SykmeldingNokkelOpplysning>);
+};
+
+StatusNokkelopplysning.propTypes = {
+    children: PropTypes.node,
+    Overskrift: PropTypes.string,
+    tittel: PropTypes.string,
+};
+
 const Status = ({ status }) => {
-    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel={getLedetekst('statuspanel.status')}>
+    return (<StatusNokkelopplysning tittel={getLedetekst('statuspanel.status')}>
         {status === TIL_SENDING ?
             <div className="medHjelpetekst">
                 <span>{getLedetekst(`statuspanel.status.${status}`)}</span>
@@ -21,7 +33,7 @@ const Status = ({ status }) => {
             :
             <p className="js-status">{getLedetekst(`statuspanel.status.${status}`)}</p>
         }
-    </SykmeldingNokkelOpplysning>);
+    </StatusNokkelopplysning>);
 };
 
 Status.propTypes = {
@@ -35,9 +47,9 @@ const InnsendtDato = ({ sendtdato, status }) => {
     } else if (status === AVBRUTT) {
         nokkel = 'statuspanel.dato.avbrutt';
     }
-    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel={getLedetekst(nokkel)}>
+    return (<StatusNokkelopplysning tittel={getLedetekst(nokkel)}>
         <p className="js-dato">{toDatePrettyPrint(sendtdato)}</p>
-    </SykmeldingNokkelOpplysning>);
+    </StatusNokkelopplysning>);
 };
 
 InnsendtDato.propTypes = {
@@ -46,9 +58,9 @@ InnsendtDato.propTypes = {
 };
 
 const Arbeidsgiver = ({ arbeidsgiver }) => {
-    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel={getLedetekst('statuspanel.arbeidsgiver')}>
+    return (<StatusNokkelopplysning tittel={getLedetekst('statuspanel.arbeidsgiver')}>
         <p className="js-arbeidsgiver">{arbeidsgiver}</p>
-    </SykmeldingNokkelOpplysning>);
+    </StatusNokkelopplysning>);
 };
 
 Arbeidsgiver.propTypes = {
@@ -60,9 +72,9 @@ const Orgnummer = ({ orgnummer }) => {
     if (_orgnummer) {
         _orgnummer = _orgnummer.replace(/(...)(...)(...)/g, '$1 $2 $3');
     }
-    return (<SykmeldingNokkelOpplysning className="nokkelopplysning--statusopplysning" Overskrift="h2" tittel={getLedetekst('statuspanel.organisasjonsnummer')}>
+    return (<StatusNokkelopplysning tittel={getLedetekst('statuspanel.organisasjonsnummer')}>
         <p className="js-organisasjonsnummer">{_orgnummer}</p>
-    </SykmeldingNokkelOpplysning>);
+    </StatusNokkelopplysning>);
 };
 
 Orgnummer.propTypes = {

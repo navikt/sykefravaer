@@ -1,25 +1,17 @@
 import React from 'react';
-import { getLedetekst, DineSykmeldingOpplysninger, Utvidbar, nokkelopplysninger, arbeidssituasjoner } from 'digisyfo-npm';
-import StatusPanel from '../StatusPanel';
+import { getLedetekst, DineSykmeldingOpplysninger, Utvidbar, arbeidssituasjoner } from 'digisyfo-npm';
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import SykepengesoknadstatusContainer from '../../containers/sykmelding/SykepengesoknadstatusContainer';
-import AngreBekreftSykmeldingContainer from '../../containers/sykmelding/AngreBekreftSykmeldingContainer';
 import { Vis } from '../../utils';
-
-const { STATUS, INNSENDT_DATO } = nokkelopplysninger;
+import BekreftetSykmeldingStatuspanel from './BekreftetSykmeldingStatuspanel';
 
 const DinBekreftedeSykmelding = ({ dinSykmelding }) => {
     return (
         <div>
             <Sidetopp tittel={getLedetekst('din-sykmelding.tittel')} />
-            <StatusPanel
-                sykmelding={dinSykmelding}
-                type="suksess"
-                nokkelopplysninger={[[STATUS, INNSENDT_DATO]]}>
-                <AngreBekreftSykmeldingContainer sykmeldingId={dinSykmelding.id} />
-            </StatusPanel>
+            <BekreftetSykmeldingStatuspanel sykmelding={dinSykmelding} />
             <Utvidbar
                 erApen
                 tittel={getLedetekst('din-sykmelding.dine-opplysninger.tittel')}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { getLedetekst, SykmeldingNokkelOpplysning, toDatePrettyPrint, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
-import SykepengesoknadHeader from './SykepengesoknadHeader';
+import SykepengesoknadHeader from '../sykepengesoknad-felles/SykepengesoknadHeader';
 import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
 import GjenapneSoknadContainer from '../../containers/sykepengesoknad-arbeidstaker/GjenapneSoknadContainer';
 

@@ -62,7 +62,9 @@ import aktivitetskrav from './reducers/aktivitetskrav';
 import sykeforloep from './reducers/sykeforloep';
 import sykmeldingMeta from './reducers/sykmeldingMeta';
 import soknader from './reducers/soknader';
+import unleashToggles from './reducers/unleashToggles';
 import './logging';
+import { hentUnleashToggles } from './actions/unleashToggles_actions';
 
 const rootReducer = combineReducers({
     arbeidsforhold,
@@ -110,6 +112,7 @@ const rootReducer = combineReducers({
     sykeforloep,
     sykmeldingMeta,
     soknader,
+    unleashToggles,
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -124,6 +127,7 @@ sagaMiddleware.run(rootSaga);
 store.dispatch(hentLedetekster());
 store.dispatch(hentVedlikehold());
 store.dispatch(forlengInnloggetSesjon());
+store.dispatch(hentUnleashToggles());
 // </OBS>
 
 setPerformOnHttpCalls(() => { store.dispatch(forlengInnloggetSesjon()); });

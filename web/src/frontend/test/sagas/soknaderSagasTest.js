@@ -1,27 +1,31 @@
 import { expect } from 'chai';
-import sinon from 'sinon';
-import { put, call } from 'redux-saga/effects';
-import { hentSoknader, sendSoknad, opprettSoknadUtland, avbrytSykepengesoknad } from '../../js/sagas/soknaderSagas';
+import { put, call, select } from 'redux-saga/effects';
+import { hentSoknader, sendSoknad, opprettSoknadUtland, avbrytSoknad, togglesHentet } from '../../js/sagas/soknaderSagas';
 import { get, post } from '../../js/gateway-api';
 import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader from '../mockSoknader';
-import * as toggles from '../../js/toggles';
 import { OPPHOLD_UTLAND } from '../../js/enums/soknadtyper';
+import { toggleSykepengesoknadUtland, toggleSelvstendigSoknad } from '../../js/selectors/unleashTogglesSelectors';
 
 describe('soknaderSagas', () => {
     describe('Henting av søknader når det er togglet på', () => {
-        let toggleSelvstendigSoknad;
-
-        beforeEach(() => {
-            toggleSelvstendigSoknad = sinon.stub(toggles, 'toggleSelvstendigSoknad').returns(true);
-        });
-
-        afterEach(() => {
-            toggleSelvstendigSoknad.restore();
-        });
-
         const action = actions.hentSoknader();
         const generator = hentSoknader(action);
+
+        it('Skal sjekke om toggles er hentet', () => {
+            const nextSelect = select(togglesHentet);
+            expect(generator.next().value).to.deep.equal(nextSelect);
+        });
+
+        it('Skal sjekke om selvstendig-søknad er skrudd på', () => {
+            const nextSelect = select(toggleSelvstendigSoknad);
+            expect(generator.next().value).to.deep.equal(nextSelect);
+        });
+
+        it('Skal sjekke om utenlands-søknad er skrudd på', () => {
+            const nextSelect = select(toggleSykepengesoknadUtland);
+            expect(generator.next(true).value).to.deep.equal(nextSelect);
+        });
 
         it('Skal dispatche HENTER_SOKNADER', () => {
             const nextPut = put(actions.henterSoknader());
@@ -40,18 +44,23 @@ describe('soknaderSagas', () => {
     });
 
     describe('Henting av søknader når det er togglet av', () => {
-        let toggleSelvstendigSoknad;
-
-        beforeEach(() => {
-            toggleSelvstendigSoknad = sinon.stub(toggles, 'toggleSelvstendigSoknad').returns(false);
-        });
-
-        afterEach(() => {
-            toggleSelvstendigSoknad.restore();
-        });
-
         const action = actions.hentSoknader();
         const generator = hentSoknader(action);
+
+        it('Skal sjekke om toggles er hentet', () => {
+            const nextSelect = select(togglesHentet);
+            expect(generator.next().value).to.deep.equal(nextSelect);
+        });
+
+        it('Skal sjekke om selvstendig-søknad er skrudd på', () => {
+            const nextSelect = select(toggleSelvstendigSoknad);
+            expect(generator.next().value).to.deep.equal(nextSelect);
+        });
+
+        it('Skal sjekke om utenlands-søknad er skrudd på', () => {
+            const nextSelect = select(toggleSykepengesoknadUtland);
+            expect(generator.next(false).value).to.deep.equal(nextSelect);
+        });
 
         it('Skal oppføre seg som om det ble returnert ingen søknader', () => {
             const nextPut = put(actions.soknaderHentet([]));
@@ -60,25 +69,23 @@ describe('soknaderSagas', () => {
     });
 
     describe('Innsending av søknad', () => {
-        let toggleInnsendingAvSelvstendigSoknad;
-        let toggleSykepengesoknadUtland;
         const soknadData = { test: 'data', soknadstype: OPPHOLD_UTLAND };
         const action = actions.sendSoknad(soknadData);
         const generator = sendSoknad(action);
 
-        beforeEach(() => {
-            toggleInnsendingAvSelvstendigSoknad = sinon.stub(toggles, 'toggleInnsendingAvSelvstendigSoknad').returns(true);
-            toggleSykepengesoknadUtland = sinon.stub(toggles, 'toggleSykepengesoknadUtland').returns(true);
+        it('Skal sjekke om selvstendig-søknad er skrudd på', () => {
+            const nextSelect = select(toggleSelvstendigSoknad);
+            expect(generator.next().value).to.deep.equal(nextSelect);
         });
 
-        afterEach(() => {
-            toggleInnsendingAvSelvstendigSoknad.restore();
-            toggleSykepengesoknadUtland.restore();
+        it('Skal sjekke om utenlands-søknad er skrudd på', () => {
+            const nextSelect = select(toggleSykepengesoknadUtland);
+            expect(generator.next().value).to.deep.equal(nextSelect);
         });
 
         it('Skal dispatche SENDER_SOKNAD', () => {
             const nextPut = put(actions.senderSoknad());
-            expect(generator.next().value).to.deep.equal(nextPut);
+            expect(generator.next(true).value).to.deep.equal(nextPut);
         });
 
         it('Skal sende søknad', () => {
@@ -93,21 +100,17 @@ describe('soknaderSagas', () => {
     });
 
     describe('Oppretting av søknad utland', () => {
-        let toggleSykepengesoknadUtland;
         const generator = opprettSoknadUtland();
         const soknadData = { test: 'data' };
 
-        beforeEach(() => {
-            toggleSykepengesoknadUtland = sinon.stub(toggles, 'toggleSykepengesoknadUtland').returns(true);
-        });
-
-        afterEach(() => {
-            toggleSykepengesoknadUtland.restore();
+        it('Skal sjekke om utenlands-søknad er skrudd på', () => {
+            const nextSelect = select(toggleSykepengesoknadUtland);
+            expect(generator.next().value).to.deep.equal(nextSelect);
         });
 
         it('Skal dispatche OPPRETTER_SOKNADUTLAND', () => {
             const nextPut = put(actions.oppretterSoknadUtland());
-            expect(generator.next().value).to.deep.equal(nextPut);
+            expect(generator.next(true).value).to.deep.equal(nextPut);
         });
 
         it('Skal opprette søknad', () => {
@@ -122,22 +125,23 @@ describe('soknaderSagas', () => {
     });
 
     describe('Avbryting av søknad', () => {
-        let toggleSykepengesoknadUtland;
         const soknadData = { test: 'data', soknadstype: OPPHOLD_UTLAND };
         const action = actions.avbrytSoknad(soknadData);
-        const generator = avbrytSykepengesoknad(action);
+        const generator = avbrytSoknad(action);
 
-        beforeEach(() => {
-            toggleSykepengesoknadUtland = sinon.stub(toggles, 'toggleSykepengesoknadUtland').returns(true);
+        it('Skal sjekke om selvstendig-søknad er skrudd på', () => {
+            const nextSelect = select(toggleSelvstendigSoknad);
+            expect(generator.next().value).to.deep.equal(nextSelect);
         });
 
-        afterEach(() => {
-            toggleSykepengesoknadUtland.restore();
+        it('Skal sjekke om utenlands-søknad er skrudd på', () => {
+            const nextSelect = select(toggleSykepengesoknadUtland);
+            expect(generator.next().value).to.deep.equal(nextSelect);
         });
 
         it('Skal dispatche AVBRYTER_SOKNAD', () => {
             const nextPut = put(actions.avbryterSoknad());
-            expect(generator.next().value).to.deep.equal(nextPut);
+            expect(generator.next(true).value).to.deep.equal(nextPut);
         });
 
         it('Skal avbryte søknad', () => {

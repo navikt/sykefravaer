@@ -11,13 +11,13 @@ import SykmeldingKvitteringContainer, { mapStateToProps } from '../../../js/cont
 import Standardkvittering from '../../../js/components/sykmeldingkvittering/StandardSykmeldingkvittering';
 import FrilanserMedPapirsoknadKvittering from '../../../js/components/sykmeldingkvittering/FrilanserMedPapirsoknadKvittering';
 import FrilanserUtenSoknadKvittering from '../../../js/components/sykmeldingkvittering/FrilanserUtenSoknadKvittering';
-import * as toggles from '../../../js/toggles';
 
 import getSykmelding from '../../mockSykmeldinger';
 import { getParsetSoknad } from '../../mockSykepengesoknader';
 import FrilanserSoekDigitaltNaa from '../../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltNaa';
 import FrilanserSoekDigitaltSenere from '../../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltSenere';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../../js/enums/soknadtyper';
+import { SELVSTENDIG_FRILANSER_SOKNAD_TOGGLE } from '../../../js/enums/unleashToggles';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -35,7 +35,6 @@ describe('SykmeldingkvitteringContainer', () => {
     const sagaMiddleware = createSagaMiddleware();
     const middlewares = [sagaMiddleware];
     const mockStore = configureMockStore(middlewares);
-    let toggleStub;
     let clock;
 
     beforeEach(() => {
@@ -199,6 +198,11 @@ describe('SykmeldingkvitteringContainer', () => {
             },
         };
         state.timeout = {};
+        state.unleashToggles = {
+            data: {
+                [SELVSTENDIG_FRILANSER_SOKNAD_TOGGLE]: false,
+            },
+        };
         ownProps.params = {
             sykmeldingId: '1',
         };
@@ -238,13 +242,11 @@ describe('SykmeldingkvitteringContainer', () => {
         };
         /* eslint-disable max-len */
         setLedetekster(ledetekster);
-        toggleStub = sinon.stub(toggles, 'toggleSelvstendigSoknad').returns(false);
         clock = sinon.useFakeTimers(1484524800000); // 16. januar 2017
     });
 
     afterEach(() => {
         clock.restore();
-        toggleStub.restore();
     });
 
     const getComponent = (_state, _ownProps) => {
@@ -579,12 +581,11 @@ describe('SykmeldingkvitteringContainer', () => {
         };
 
         beforeEach(() => {
-            toggleStub.restore();
-            toggleStub = sinon.stub(toggles, 'toggleSelvstendigSoknad').returns(true);
-        });
-
-        afterEach(() => {
-            toggleStub.restore();
+            state.unleashToggles = {
+                data: {
+                    [SELVSTENDIG_FRILANSER_SOKNAD_TOGGLE]: true,
+                },
+            };
         });
 
         it('Skal vise standard bekreftet-kvittering om sykmeldingen er avventende', () => {

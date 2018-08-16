@@ -5,3 +5,7 @@ export const erForsteSykepengesoknad = (state) => {
         return s.status === sykepengesoknadstatuser.NY || s.status === sykepengesoknadstatuser.FREMTIDIG;
     }).length === state.sykepengesoknader.data.length;
 };
+
+export const skalHenteSykepengesoknader = (state) => {
+    return !state.sykepengesoknader.hentet && !state.sykepengesoknader.henter;
+};

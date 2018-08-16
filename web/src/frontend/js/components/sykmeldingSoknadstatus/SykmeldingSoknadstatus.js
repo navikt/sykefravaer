@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sykepengesoknad as sykepengesoknadPt, getLedetekst, getHtmlLedetekst, toDatePrettyPrint, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst, sykepengesoknad as sykepengesoknadPt, toDatePrettyPrint } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import IllustrertInnhold from '../../components/IllustrertInnhold';
+import IllustrertInnhold from '../IllustrertInnhold';
 import Soknadsdatoliste from '../sykmeldingkvittering/Soknadsdatoliste';
-
-const { NY, SENDT, FREMTIDIG, AVBRUTT, UTGAATT, TIL_SENDING } = sykepengesoknadstatuser;
+import { soknad as soknadPt } from '../../propTypes';
 
 const LenkeTilSoknader = () => {
     return (<p className="sist">
@@ -32,7 +31,7 @@ export const FlereSoknader = ({ sykepengesoknader }) => {
 };
 
 FlereSoknader.propTypes = {
-    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
+    sykepengesoknader: PropTypes.arrayOf(PropTypes.oneOfType([sykepengesoknadPt, soknadPt])),
 };
 
 export const SokOmSykepengerNaa = ({ sykepengesoknad }) => {
@@ -50,7 +49,7 @@ export const SokOmSykepengerNaa = ({ sykepengesoknad }) => {
 };
 
 SokOmSykepengerNaa.propTypes = {
-    sykepengesoknad: sykepengesoknadPt,
+    sykepengesoknad: PropTypes.oneOfType([sykepengesoknadPt, soknadPt]),
 };
 
 export const SoknadSendtBekreftelse = () => {
@@ -75,7 +74,7 @@ export const KommendeSoknad = ({ sykepengesoknad }) => {
 };
 
 KommendeSoknad.propTypes = {
-    sykepengesoknad: sykepengesoknadPt,
+    sykepengesoknad: PropTypes.oneOfType([sykepengesoknadPt, soknadPt]),
 };
 
 export const SoknadAvbruttBekreftelse = ({ sykepengesoknad }) => {
@@ -93,7 +92,7 @@ export const SoknadAvbruttBekreftelse = ({ sykepengesoknad }) => {
 };
 
 SoknadAvbruttBekreftelse.propTypes = {
-    sykepengesoknad: sykepengesoknadPt,
+    sykepengesoknad: PropTypes.oneOfType([sykepengesoknadPt, soknadPt]),
 };
 
 export const UtgaattSoknadBekreftelse = () => {
@@ -105,48 +104,3 @@ export const UtgaattSoknadBekreftelse = () => {
         </div>
     </IllustrertInnhold>);
 };
-
-const Sykepengesoknadstatus = ({ sykepengesoknader }) => {
-    const el = (() => {
-        if (sykepengesoknader.length === 0) {
-            return <PapirsoknadMelding />;
-        }
-        if (sykepengesoknader.length > 1) {
-            return <FlereSoknader sykepengesoknader={sykepengesoknader} />;
-        }
-        const soknad = sykepengesoknader[0];
-        switch (soknad.status) {
-            case NY: {
-                return <SokOmSykepengerNaa sykepengesoknad={soknad} />;
-            }
-            case FREMTIDIG: {
-                return <KommendeSoknad sykepengesoknad={soknad} />;
-            }
-            case SENDT:
-            case TIL_SENDING: {
-                return <SoknadSendtBekreftelse sykepengesoknad={soknad} />;
-            }
-            case UTGAATT: {
-                return <UtgaattSoknadBekreftelse />;
-            }
-            case AVBRUTT: {
-                return <SoknadAvbruttBekreftelse sykepengesoknad={soknad} />;
-            }
-            default: {
-                return null;
-            }
-        }
-    })();
-    if (!el) {
-        return null;
-    }
-    return (<div className="panel panel--komprimert blokk">
-        {el}
-    </div>);
-};
-
-Sykepengesoknadstatus.propTypes = {
-    sykepengesoknader: PropTypes.arrayOf(sykepengesoknadPt),
-};
-
-export default Sykepengesoknadstatus;

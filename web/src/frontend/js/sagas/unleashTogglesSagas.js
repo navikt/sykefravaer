@@ -8,7 +8,7 @@ import * as toggles from '../enums/unleashToggles';
 export function* hentUnleashToggles() {
     yield put(actions.henterUnleashToggles());
     try {
-        const data = yield call(post, '/syfounleash', Object.values(toggles));
+        const data = yield call(post, '/syfounleash/', Object.values(toggles));
         yield put(actions.unleashTogglesHentet(data));
     } catch (e) {
         yield put(actions.hentUnleashTogglesFeilet());

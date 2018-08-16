@@ -19,7 +19,7 @@ describe('soknaderSagas', () => {
 
         it('Skal sjekke om selvstendig-søknad er skrudd på', () => {
             const nextSelect = select(toggleSelvstendigSoknad);
-            expect(generator.next().value).to.deep.equal(nextSelect);
+            expect(generator.next(true).value).to.deep.equal(nextSelect);
         });
 
         it('Skal sjekke om utenlands-søknad er skrudd på', () => {
@@ -54,7 +54,7 @@ describe('soknaderSagas', () => {
 
         it('Skal sjekke om selvstendig-søknad er skrudd på', () => {
             const nextSelect = select(toggleSelvstendigSoknad);
-            expect(generator.next().value).to.deep.equal(nextSelect);
+            expect(generator.next(true).value).to.deep.equal(nextSelect);
         });
 
         it('Skal sjekke om utenlands-søknad er skrudd på', () => {

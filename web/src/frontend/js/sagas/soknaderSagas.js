@@ -29,9 +29,9 @@ export const togglesHentet = (state) => {
 
 export function* hentSoknader() {
     const togglesErHentet = yield select(togglesHentet);
-    if (togglesErHentet) {
+    if (!togglesErHentet) {
+        /* Hvis git toggles ikke er hentet, pauser vi denne funksjonen til toggles er hentet eller henting har feilet */
         yield take([HENTET_UNLEASH_TOGGLES, HENT_UNLEASH_TOGGLES_FEILET]);
-        /* Hvis toggles ikke er hentet, pauser vi denne funksjonen til toggles er hentet eller henting har feilet */
     }
     const toggleSelvstendig = yield select(toggleSelvstendigSoknad);
     const toggleUtland = yield select(toggleSykepengesoknadUtland);

@@ -21,7 +21,7 @@ describe('togglesSagas', () => {
     });
 
     it('Skal dernest hente toggles', () => {
-        const nextCall = call(post, '/syfounleash', Object.values(toggles));
+        const nextCall = call(post, '/syfounleash/', Object.values(toggles));
         expect(generator.next().value).to.deep.equal(nextCall);
     });
 

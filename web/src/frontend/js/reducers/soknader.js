@@ -55,7 +55,7 @@ const parseSporsmal = (sporsmal) => {
     };
 };
 
-const parseSoknad = (soknad) => {
+export const parseSoknad = (soknad) => {
     return {
         ...soknad,
         fom: new Date(soknad.fom),

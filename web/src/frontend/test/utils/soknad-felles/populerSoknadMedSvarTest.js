@@ -15,7 +15,6 @@ import {
 import { genererParseForCheckbox, genererParseForEnkeltverdi } from '../../../js/components/soknad-felles/fieldUtils';
 import { CHECKED, JA, NEI } from '../../../js/enums/svarEnums';
 import { PERIODER } from '../../../js/enums/svartyper';
-import { FOM, TOM } from '../../../js/enums/svarverdityper';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -41,7 +40,6 @@ describe('populerSoknadMedSvar', () => {
         const populertSoknad = populerSoknadMedSvar(soknad, values);
         expect(populertSoknad.sporsmal[0].svar).to.deep.equal([
             {
-                svarverdiType: null,
                 verdi: CHECKED,
             },
         ]);
@@ -57,7 +55,6 @@ describe('populerSoknadMedSvar', () => {
         const populertSoknad = populerSoknadMedSvar(soknad, values);
         expect(populertSoknad.sporsmal[1].svar).to.deep.equal([
             {
-                svarverdiType: null,
                 verdi: JA,
             },
         ]);
@@ -76,8 +73,7 @@ describe('populerSoknadMedSvar', () => {
         const populertSoknad = populerSoknadMedSvar(soknad, values);
         expect(populertSoknad.sporsmal[1].undersporsmal[0].svar).to.deep.equal([
             {
-                svarverdiType: null,
-                verdi: new Date('2018-03-25'),
+                verdi: '2018-03-25',
             },
         ]);
     });
@@ -114,19 +110,17 @@ describe('populerSoknadMedSvar', () => {
         const populerteUndersporsmal = populertSoknad.sporsmal.find(sporsmalForDenneTesten).undersporsmal;
         expect(populerteUndersporsmal[0].svar).to.deep.equal([
             {
-                svarverdiType: null,
                 verdi: '20',
             },
         ]);
         expect(populerteUndersporsmal[1].svar).to.deep.equal([
             {
-                svarverdiType: null,
                 verdi: '65',
             },
         ]);
     });
 
-    it('Skal populere perioder', () => {
+    it.only('Skal populere perioder', () => {
         const toppnivaSporsmal = soknad.sporsmal.find((s) => {
             return s.tag === UTLAND;
         });
@@ -142,19 +136,20 @@ describe('populerSoknadMedSvar', () => {
         values[UTLAND] = toppnivaaSvar;
         values[PERIODER] = undersporsmalSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
-        expect(populertSoknad.sporsmal[5].undersporsmal[0].svar).to.deep.equal([{
-            svarverdiType: FOM,
-            verdi: new Date('2018-03-20'),
+        const periodesporsmal = populertSoknad.sporsmal[5].undersporsmal[0];
+        expect(periodesporsmal.svar).to.deep.equal([{
+            verdi: JSON.stringify({
+                fom: '2018-03-20',
+                tom: '2018-03-21',
+            }),
         }, {
-            svarverdiType: TOM,
-            verdi: new Date('2018-03-21'),
-        }, {
-            svarverdiType: FOM,
-            verdi: new Date('2018-03-23'),
-        }, {
-            svarverdiType: TOM,
-            verdi: new Date('2018-03-23'),
+            verdi: JSON.stringify({
+                fom: '2018-03-23',
+                tom: '2018-03-23',
+            }),
         }]);
+        expect(periodesporsmal.min).to.equal("2018-05-20");
+        expect(periodesporsmal.max).to.equal("2018-05-28");
     });
 
     it('Skal populere CHECKBOX_GRUPPE', () => {
@@ -180,15 +175,12 @@ describe('populerSoknadMedSvar', () => {
         });
         expect(populertHarInntektskildeSporsmal.svar).to.deep.equal([{
             verdi: JA,
-            svarverdiType: null,
         }]);
         expect(populertHarInntektskildeArbeidsforholdSporsmal.svar).to.deep.equal([{
             verdi: CHECKED,
-            svarverdiType: null,
         }]);
         expect(populertSykmeldtFraArbeidsforholdSporsmal.svar).to.deep.equal([{
             verdi: NEI,
-            svarverdiType: null,
         }]);
     });
 
@@ -210,8 +202,26 @@ describe('populerSoknadMedSvar', () => {
             return s.tag === TILBAKE_NAR;
         });
         expect(populertDatoSporsmal.svar).to.deep.equal([{
-            verdi: new Date('2018-05-23'),
-            svarverdiType: null,
+            verdi: '2018-05-23',
         }]);
+    });
+
+    it('Skal konvertere datoformater i MIN/MAX', () => {
+        const toppnivaSporsmal = soknad.sporsmal.find((s) => {
+            return s.tag === TILBAKE_I_ARBEID;
+        });
+        const parseToppnivaasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
+        const toppnivaaSvar = parseToppnivaasporsmal(JA);
+        const tilbakeNarSporsmal = toppnivaSporsmal.undersporsmal[0];
+        const tilBakeNarSvar = genererParseForEnkeltverdi(tilbakeNarSporsmal.id)('23.05.2018');
+        values[TILBAKE_I_ARBEID] = toppnivaaSvar;
+        values[TILBAKE_NAR] = tilBakeNarSvar;
+        const populertSoknad = populerSoknadMedSvar(soknad, values);
+        const populertToppnivaaSporsmal = populertSoknad.sporsmal.find((s) => {
+            return s.tag === TILBAKE_I_ARBEID;
+        });
+        const undersporsmal = populertToppnivaaSporsmal.undersporsmal[0];
+        expect(undersporsmal.min).to.equal("2018-05-20");
+        expect(undersporsmal.max).to.equal("2018-05-28");
     });
 });

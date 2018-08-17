@@ -16,7 +16,7 @@ import Sykmeldingkvittering, { kvitteringtyper } from '../../components/sykmeldi
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { soknad as soknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
-import { toggleSelvstendigSoknad } from '../../toggles';
+import { toggleSelvstendigSoknad } from '../../selectors/unleashTogglesSelectors';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 
 const { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } = sykmeldingstatuser;
@@ -104,7 +104,8 @@ const getKvitteringtype = (
     erUtenforVentetid = false,
     skalOppretteSoknad = false,
     soknader = [],
-    hentSoknaderFeilet = false) => {
+    hentSoknaderFeilet = false,
+    selvstendigFrilanserSoknadToggle = false) => {
     if (!sykmelding) {
         return null;
     }
@@ -140,7 +141,7 @@ const getKvitteringtype = (
                 return kvitteringtyper.BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER;
             }
             if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding) && !erAvventendeReisetilskuddEllerBehandlingsdager(sykmelding)) {
-                if (toggleSelvstendigSoknad()) {
+                if (selvstendigFrilanserSoknadToggle) {
                     if (hentSoknaderFeilet) {
                         return kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER;
                     }
@@ -181,8 +182,15 @@ export function mapStateToProps(state, ownProps) {
     })();
 
     const hentSoknaderFeilet = state.soknader.hentingFeilet || state.sykepengesoknader.hentingFeilet;
-    const kvitteringtype = getKvitteringtype(sykmelding, state.sykepengesoknader.data, harStrengtFortroligAdresse,
-        sykmeldingMeta.erUtenforVentetid, sykmeldingMeta.skalOppretteSoknad, state.soknader.data, hentSoknaderFeilet);
+    const kvitteringtype = getKvitteringtype(
+        sykmelding,
+        state.sykepengesoknader.data,
+        harStrengtFortroligAdresse,
+        sykmeldingMeta.erUtenforVentetid,
+        sykmeldingMeta.skalOppretteSoknad,
+        state.soknader.data,
+        hentSoknaderFeilet,
+        toggleSelvstendigSoknad(state));
     const soknadErFremtidig = (s) => {
         return s.sykmeldingId === sykmeldingId && s.status === FREMTIDIG;
     };

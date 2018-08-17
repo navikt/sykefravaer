@@ -1,4 +1,4 @@
-import { call, fork, put } from 'redux-saga/effects';
+import { call, fork, put, take, select } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { log } from 'digisyfo-npm';
 import { browserHistory } from 'react-router';
@@ -8,25 +8,35 @@ import {
     OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
     HENT_SOKNADER_FORESPURT,
     SEND_SOKNAD_FORESPURT,
-    SYKMELDING_BEKREFTET, AVBRYT_SYKEPENGESOKNAD_FORESPURT,
+    SYKMELDING_BEKREFTET, AVBRYT_SYKEPENGESOKNAD_FORESPURT, HENTET_UNLEASH_TOGGLES, HENT_UNLEASH_TOGGLES_FEILET,
 } from '../actions/actiontyper';
 import { soknadrespons, soknadUtland1 } from '../../test/mockSoknader';
 import {
     toggleBrukMockDataSelvstendigSoknad,
     toggleBrukMockdataUtland,
-    toggleInnsendingAvSelvstendigSoknad,
-    toggleSelvstendigSoknad,
-    toggleSykepengesoknadUtland,
 } from '../toggles';
 import logger from '../logging';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
+import { toggleSelvstendigSoknad, toggleSykepengesoknadUtland } from '../selectors/unleashTogglesSelectors';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);
 };
 
+export const togglesHentet = (state) => {
+    return state.unleashToggles.hentet;
+};
+
 export function* hentSoknader() {
-    if (toggleSelvstendigSoknad() || toggleSykepengesoknadUtland()) {
+    const togglesErHentet = yield select(togglesHentet);
+    if (!togglesErHentet) {
+        /* Hvis git toggles ikke er hentet, pauser vi denne funksjonen til toggles er hentet eller henting har feilet */
+        yield take([HENTET_UNLEASH_TOGGLES, HENT_UNLEASH_TOGGLES_FEILET]);
+    }
+    const toggleSelvstendig = yield select(toggleSelvstendigSoknad);
+    const toggleUtland = yield select(toggleSykepengesoknadUtland);
+    if (toggleSelvstendig
+        || toggleUtland) {
         yield put(actions.henterSoknader());
         try {
             const data = yield call(get, `${hentApiUrl()}/soknader`);
@@ -45,42 +55,47 @@ export function* hentSoknader() {
 }
 
 export function* sendSoknad(action) {
-    yield put(actions.senderSoknad(action.soknadId));
+    const toggleSelvstendig = yield select(toggleSelvstendigSoknad);
+    const toggleUtland = yield select(toggleSykepengesoknadUtland);
     try {
-        if ((toggleInnsendingAvSelvstendigSoknad() && action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE)
-            || (toggleSykepengesoknadUtland() && action.soknad.soknadstype === OPPHOLD_UTLAND)) {
+        if ((toggleSelvstendig && action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE)
+            || (toggleUtland && action.soknad.soknadstype === OPPHOLD_UTLAND)) {
+            yield put(actions.senderSoknad(action.soknadId));
             yield call(post, `${hentApiUrl()}/sendSoknad`, action.soknad);
+            yield put(actions.soknadSendt(action.soknad));
+            gaTilKvittering(action.soknad.id);
+        } else {
+            log('Innsending av søknad er togglet av.');
         }
-        yield put(actions.soknadSendt(action.soknad));
-        gaTilKvittering(action.soknad.id);
     } catch (e) {
         log(e);
         yield put(actions.sendSoknadFeilet());
     }
 }
 
-
-export function* avbrytSykepengesoknad(action) {
-    yield put(actions.avbryterSoknad());
-    try {
-        if ((toggleInnsendingAvSelvstendigSoknad() && action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE)
-            || (toggleSykepengesoknadUtland() && action.soknad.soknadstype === OPPHOLD_UTLAND)) {
+export function* avbrytSoknad(action) {
+    const toggleSelvstendig = yield select(toggleSelvstendigSoknad);
+    const toggleUtland = yield select(toggleSykepengesoknadUtland);
+    if ((toggleSelvstendig && action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE)
+        || (toggleUtland && action.soknad.soknadstype === OPPHOLD_UTLAND)) {
+        try {
+            yield put(actions.avbryterSoknad());
             yield call(post, `${hentApiUrl()}/avbrytSoknad`, action.soknad);
+            yield put(actions.soknadAvbrutt(action.soknad));
+        } catch (e) {
+            log(e);
+            yield put(actions.avbrytSoknadFeilet());
         }
-        yield put(actions.soknadAvbrutt(action.soknad));
-    } catch (e) {
-        log(e);
-        yield put(actions.avbrytSoknadFeilet());
     }
 }
-
 
 const gaTilSkjemaUtland = (soknadUtlandId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadUtlandId}`);
 };
 
 export function* opprettSoknadUtland() {
-    if (toggleSykepengesoknadUtland()) {
+    const toggleUtland = yield select(toggleSykepengesoknadUtland);
+    if (toggleUtland) {
         yield put(actions.oppretterSoknadUtland());
         try {
             const data = yield call(post, `${hentApiUrl()}/opprettSoknadUtland`);
@@ -112,7 +127,7 @@ function* watchSykmeldingSendt() {
 }
 
 function* watchAvbrytSykepengeoknad() {
-    yield* takeEvery(AVBRYT_SYKEPENGESOKNAD_FORESPURT, avbrytSykepengesoknad);
+    yield* takeEvery(AVBRYT_SYKEPENGESOKNAD_FORESPURT, avbrytSoknad);
 }
 
 function* watchOpprettSoknadUtland() {

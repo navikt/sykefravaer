@@ -1,19 +1,23 @@
 import { fraInputdatoTilJSDato } from 'digisyfo-npm';
 import { CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER } from '../../enums/svartyper';
-import { FOM, TOM } from '../../enums/svarverdityper';
+
+const fraJSDatoTilBackendDato = (jsDato) => {
+    return jsDato.toJSON().substr(0, 10);
+};
+
+const fraInputDatoTilBackendDato = (inputdato) => {
+    return fraJSDatoTilBackendDato(fraInputdatoTilJSDato(inputdato));
+};
 
 const tilPeriodesvar = (perioder) => {
-    let periodesvar = [];
-    perioder.forEach((periode) => {
-        periodesvar = [...periodesvar, {
-            verdi: fraInputdatoTilJSDato(periode.fom),
-            svarverdiType: FOM,
-        }, {
-            verdi: fraInputdatoTilJSDato(periode.tom),
-            svarverdiType: TOM,
-        }];
+    return perioder.map((p) => {
+        return {
+            verdi: JSON.stringify({
+                fom: fraInputDatoTilBackendDato(p.fom),
+                tom: fraInputDatoTilBackendDato(p.tom),
+            }),
+        };
     });
-    return periodesvar;
 };
 
 const tilDatoSvar = (svar) => {
@@ -21,10 +25,16 @@ const tilDatoSvar = (svar) => {
         ? svar.svarverdier.map((s) => {
             return {
                 ...s,
-                verdi: fraInputdatoTilJSDato(s.verdi),
+                verdi: fraInputDatoTilBackendDato(s.verdi),
             };
         })
         : [];
+};
+
+const tilBackendMinMax = (minMax) => {
+    return minMax && typeof minMax.getFullYear === 'function'
+        ? fraJSDatoTilBackendDato(minMax)
+        : minMax;
 };
 
 const populerSporsmalMedSvar = (sporsmal, svarFraSkjema) => {
@@ -39,6 +49,8 @@ const populerSporsmalMedSvar = (sporsmal, svarFraSkjema) => {
     })();
     return {
         ...sporsmal,
+        min: tilBackendMinMax(sporsmal.min),
+        max: tilBackendMinMax(sporsmal.max),
         svar,
     };
 };

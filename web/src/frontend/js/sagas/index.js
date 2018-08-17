@@ -43,6 +43,7 @@ import forskutteringssporsmalSagas from './forskutteringssporsmalSagas';
 import sykeforloepSagas from './sykeforloepSagas';
 import sykmeldingMetaSagas from './sykmeldingMetaSagas';
 import soknaderSagas from './soknaderSagas';
+import unleashTogglesSagas from './unleashTogglesSagas';
 
 export default function* rootSaga() {
     yield [
@@ -87,5 +88,6 @@ export default function* rootSaga() {
         sykeforloepSagas(),
         sykmeldingMetaSagas(),
         soknaderSagas(),
+        unleashTogglesSagas(),
     ];
 }

@@ -15,7 +15,7 @@ import AvbruttSoknad from '../../components/sykepengesoknad-arbeidstaker/Avbrutt
 import { filtrerOgSorterNyeSoknader } from '../../components/sykepengesoknader/Soknader';
 import { erForsteSykepengesoknad } from '../../selectors/sykepengesoknaderSelectors';
 
-const { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST, FREMTIDIG } = sykepengesoknadstatuser;
+const { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST } = sykepengesoknadstatuser;
 
 export const Controller = (props) => {
     const { sykepengesoknad, vedlikehold } = props;

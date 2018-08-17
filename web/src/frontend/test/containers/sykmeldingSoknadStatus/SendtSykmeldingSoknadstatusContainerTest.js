@@ -4,20 +4,22 @@ import { mount, shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { getSoknad } from '../../mockSykepengesoknader';
-import { Container, mapStateToProps } from '../../../js/containers/sykmelding/SykepengesoknadstatusContainer';
-import { FlereSoknader,
-    UtgaattSoknadBekreftelse,
-    PapirsoknadMelding,
-    SokOmSykepengerNaa,
+import { Container, mapStateToProps } from '../../../js/containers/sykmeldingSoknadStatus/SendtSykmeldingSoknadstatusContainer';
+import { UtgaattSoknadBekreftelse} from '../../../js/components/sykmeldingSoknadstatus/SykmeldingSoknadstatus';
+import getSykmelding from '../../mockSykmeldinger';
+import {
+    FlereSoknader,
     KommendeSoknad,
+    PapirsoknadMelding,
+    SoknadAvbruttBekreftelse,
     SoknadSendtBekreftelse,
-    SoknadAvbruttBekreftelse } from '../../../js/components/sykmelding/Sykepengesoknadstatus';
-import AppSpinner from '../../../js/components/AppSpinner';
+    SokOmSykepengerNaa
+} from '../../../js/components/sykmeldingSoknadstatus/SykmeldingSoknadstatus';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe('SykepengesoknadstatusContainer', () => {
+describe('BekreftetSykmeldingSoknadstatusContainer', () => {
     let state;
 
     let hentSykepengesoknader;
@@ -37,6 +39,12 @@ describe('SykepengesoknadstatusContainer', () => {
                 henter: false,
                 hentet: false,
             },
+
+            soknader: {
+                data: [],
+                henter: false,
+                hentet: false,
+            },
         };
 
         hentSykepengesoknader = sinon.spy();
@@ -44,7 +52,9 @@ describe('SykepengesoknadstatusContainer', () => {
         actions = { hentSykepengesoknader };
 
         ownProps = {
-            sykmeldingId: '1',
+            sykmelding: getSykmelding({
+                id: '1',
+            }),
         };
     });
 
@@ -66,21 +76,6 @@ describe('SykepengesoknadstatusContainer', () => {
         const props = mapStateToProps(state, ownProps);
         shallow(<Container {...props} {...actions} />);
         expect(hentSykepengesoknader.called).to.equal(false);
-    });
-
-    describe('Visning av spinner', () => {
-        it('Skal vise AppSpinner dersom sykepengesoknader hentes', () => {
-            state.sykepengesoknader.henter = true;
-            const props = mapStateToProps(state, ownProps);
-            const component = shallow(<Container {...props} {...actions} />);
-            expect(component.find(AppSpinner)).to.have.length(1);
-        });
-
-        it('Skal vise AppSpinner dersom sykepengesoknader ikke er hentet', () => {
-            const props = mapStateToProps(state, ownProps);
-            const component = shallow(<Container {...props} {...actions} />);
-            expect(component.find(AppSpinner)).to.have.length(1);
-        });
     });
 
     describe('Når sykepengesoknader er hentet', () => {

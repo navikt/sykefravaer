@@ -3,9 +3,9 @@ import { getLedetekst, DineSykmeldingOpplysninger, Utvidbar, arbeidssituasjoner 
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import Sidetopp from '../Sidetopp';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
-import SykepengesoknadstatusContainer from '../../containers/sykmelding/SykepengesoknadstatusContainer';
 import { Vis } from '../../utils';
 import BekreftetSykmeldingStatuspanel from '../sykmeldingstatuspanel/BekreftetSykmeldingStatuspanel';
+import BekreftetSykmeldingSoknadstatusContainer from '../../containers/sykmeldingSoknadStatus/BekreftetSykmeldingSoknadstatusContainer';
 
 const DinBekreftedeSykmelding = ({ dinSykmelding }) => {
     return (
@@ -30,7 +30,7 @@ const DinBekreftedeSykmelding = ({ dinSykmelding }) => {
                         <ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />
                     </div>);
                 }} />
-            <SykepengesoknadstatusContainer sykmeldingId={dinSykmelding.id} />
+            <BekreftetSykmeldingSoknadstatusContainer sykmelding={dinSykmelding} />
         </div>
     );
 };

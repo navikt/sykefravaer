@@ -8,7 +8,6 @@ import Feilmelding from '../../../js/components/Feilmelding';
 import { SoknaderSide, mapStateToProps } from '../../../js/containers/sykepengesoknader/SoknaderContainer';
 import Soknader from '../../../js/components/sykepengesoknader/Soknader';
 import AppSpinner from '../../../js/components/AppSpinner';
-import * as toggles from '../../../js/toggles';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -45,7 +44,6 @@ describe('SoknaderContainer', () => {
         let hentSykepengesoknader;
         let hentSoknader;
         let state;
-        let toggleSelvstendigSoknad;
 
         beforeEach(() => {
             state = {
@@ -68,11 +66,6 @@ describe('SoknaderContainer', () => {
             hentSykepengesoknader = sinon.spy();
             hentSoknader = sinon.spy();
             actions = { hentSykepengesoknader, hentSoknader };
-            toggleSelvstendigSoknad = sinon.stub(toggles, 'toggleSelvstendigSoknad').returns(true);
-        });
-
-        afterEach(() => {
-            toggleSelvstendigSoknad.restore();
         });
 
         it('Skal vise Alertstripe om henting av sykepengesøknader feiler', () => {

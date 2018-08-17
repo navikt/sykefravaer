@@ -13,7 +13,7 @@ import { BEKREFT_OPPLYSNINGER } from '../../../enums/tagtyper';
 import Checkboxpanel from '../../soknad-felles/Checkboxpanel';
 
 const OppsummeringUtvidbar = ({ soknad }) => {
-    return (<Utvidbar className="blokk" variant="lilla" tittel={getLedetekst('sykepengesoknad.oppsummering')} erApen>
+    return (<Utvidbar className="blokk" tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')} erApen={false}>
         <Oppsummeringsvisning soknad={soknad} />
     </Utvidbar>);
 };
@@ -65,7 +65,6 @@ const Oppsummering = (props) => {
     const { sykmelding, soknad, handleSubmit, skjemasvar, actions, sendingFeilet } = props;
     return (<Soknadskjema
         aktivtSteg="4"
-        tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')}
         sykmelding={sykmelding}
         soknad={soknad}>
         <SykepengesoknadSelvstendigOppsummeringSkjema

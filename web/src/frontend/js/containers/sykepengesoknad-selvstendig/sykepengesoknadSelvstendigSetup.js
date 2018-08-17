@@ -4,6 +4,7 @@ import { bindActionCreators, compose } from 'redux';
 import { onSubmitFail } from '../FeiloppsummeringContainer';
 import { sendSoknad } from '../../actions/soknader_actions';
 import { getSykepengesoknadSelvstendigSkjemanavn } from '../../enums/skjemanavn';
+import { erForsteSoknad } from '../../selectors/soknaderSelectors';
 
 export const finnSoknad = (state, ownProps) => {
     const soknader = state.soknader.data.filter((s) => {
@@ -40,6 +41,7 @@ const mapStateToPropsMedInitialValues = (state, ownProps) => {
         initialValues: {
             id: soknad.id,
         },
+        erForsteSoknad: erForsteSoknad(state),
         ...mapStateToProps(state, ownProps),
     };
 };

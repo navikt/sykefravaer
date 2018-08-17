@@ -13,6 +13,7 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes/index';
 import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
 import AvbruttSoknad from '../../components/sykepengesoknad-arbeidstaker/AvbruttSoknad';
 import { filtrerOgSorterNyeSoknader } from '../../components/sykepengesoknader/Soknader';
+import { erForsteSykepengesoknad } from '../../selectors/sykepengesoknaderSelectors';
 
 const { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST, FREMTIDIG } = sykepengesoknadstatuser;
 
@@ -103,10 +104,6 @@ export const mapStateToProps = (state, ownProps) => {
         return s.id === sykepengesoknadId;
     });
 
-    const erForsteSoknad = state.sykepengesoknader.data && state.sykepengesoknader.data.filter((s) => {
-        return s.status === NY || s.status === FREMTIDIG;
-    }).length === state.sykepengesoknader.data.length;
-
     const soknader = filtrerOgSorterNyeSoknader(state.sykepengesoknader.data);
     const eldsteSoknadId = soknader[0] ? soknader[0].id : '';
     const detFinnesEldreSoknader = eldsteSoknadId !== sykepengesoknadId;
@@ -115,7 +112,7 @@ export const mapStateToProps = (state, ownProps) => {
         henter,
         sykepengesoknadId,
         vedlikehold: state.vedlikehold.data.vedlikehold,
-        erForsteSoknad,
+        erForsteSoknad: erForsteSykepengesoknad(state),
         skalHenteBerikelse,
         detFinnesEldreSoknader,
         eldsteSoknadId,

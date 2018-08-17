@@ -120,7 +120,7 @@ describe('populerSoknadMedSvar', () => {
         ]);
     });
 
-    it.only('Skal populere perioder', () => {
+    it('Skal populere perioder', () => {
         const toppnivaSporsmal = soknad.sporsmal.find((s) => {
             return s.tag === UTLAND;
         });
@@ -148,8 +148,8 @@ describe('populerSoknadMedSvar', () => {
                 tom: '2018-03-23',
             }),
         }]);
-        expect(periodesporsmal.min).to.equal("2018-05-20");
-        expect(periodesporsmal.max).to.equal("2018-05-28");
+        expect(periodesporsmal.min).to.equal('2018-05-20');
+        expect(periodesporsmal.max).to.equal('2018-05-28');
     });
 
     it('Skal populere CHECKBOX_GRUPPE', () => {

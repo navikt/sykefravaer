@@ -8,6 +8,8 @@ import Checkboxpanel from '../../soknad-felles/Checkboxpanel';
 import { ANSVARSERKLARING } from '../../../enums/tagtyper';
 import { soknad as soknadPt } from '../../../propTypes';
 import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
+import ForsteSoknadIntro from './ForsteSelvstendigFrilanserSoknadIntro';
+import SoknadIntro from './SelvstendigFrilanserSoknadIntro';
 
 export const hentSporsmalForDuBegynner = (soknad) => {
     return soknad.sporsmal.filter((s) => {
@@ -41,10 +43,15 @@ FoerDuBegynnerSkjema.propTypes = {
 };
 
 const FoerDuBegynner = (props) => {
+    const intro = props.erForsteSoknad
+        ? <ForsteSoknadIntro />
+        : <SoknadIntro />;
+
     return (<Soknadskjema
         aktivtSteg="1"
         tittel={getLedetekst('sykepengesoknad.for-du-begynner.tittel')}
         sykmelding={props.sykmelding}
+        intro={intro}
         soknad={props.soknad}>
         <FoerDuBegynnerSkjema soknad={props.soknad} handleSubmit={props.handleSubmit} />
     </Soknadskjema>);
@@ -54,6 +61,7 @@ FoerDuBegynner.propTypes = {
     sykmelding: sykmeldingPt,
     soknad: soknadPt,
     handleSubmit: PropTypes.func,
+    erForsteSoknad: PropTypes.bool,
 };
 
 export default FoerDuBegynner;

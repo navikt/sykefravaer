@@ -1,17 +1,21 @@
 import { fraInputdatoTilJSDato } from 'digisyfo-npm';
 import { CHECKBOX_GRUPPE, DATO, IKKE_RELEVANT, PERIODER } from '../../enums/svartyper';
 
-const tilBackendDato = (inputdato) => {
-    return fraInputdatoTilJSDato(inputdato).toJSON().substr(0, 10);
+const fraJSDatoTilBackendDato = (jsDato) => {
+    return jsDato.toJSON().substr(0, 10);
+};
+
+const fraInputDatoTilBackendDato = (inputdato) => {
+    return fraJSDatoTilBackendDato(fraInputdatoTilJSDato(inputdato));
 };
 
 const tilPeriodesvar = (perioder) => {
     return perioder.map((p) => {
         return {
-            verdi: {
-                fom: tilBackendDato(p.fom),
-                tom: tilBackendDato(p.tom),
-            },
+            verdi: JSON.stringify({
+                fom: fraInputDatoTilBackendDato(p.fom),
+                tom: fraInputDatoTilBackendDato(p.tom),
+            }),
         };
     });
 };
@@ -21,10 +25,16 @@ const tilDatoSvar = (svar) => {
         ? svar.svarverdier.map((s) => {
             return {
                 ...s,
-                verdi: tilBackendDato(s.verdi),
+                verdi: fraInputDatoTilBackendDato(s.verdi),
             };
         })
         : [];
+};
+
+const tilBackendMinMax = (minMax) => {
+    return minMax && typeof minMax.getFullYear === 'function'
+        ? fraJSDatoTilBackendDato(minMax)
+        : minMax;
 };
 
 const populerSporsmalMedSvar = (sporsmal, svarFraSkjema) => {
@@ -39,6 +49,8 @@ const populerSporsmalMedSvar = (sporsmal, svarFraSkjema) => {
     })();
     return {
         ...sporsmal,
+        min: tilBackendMinMax(sporsmal.min),
+        max: tilBackendMinMax(sporsmal.max),
         svar,
     };
 };

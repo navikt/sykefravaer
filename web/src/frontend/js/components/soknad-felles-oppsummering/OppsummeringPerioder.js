@@ -11,9 +11,10 @@ const OppsummeringPerioder = ({ svar, sporsmalstekst, tag, overskriftsnivaa }) =
         <div className="oppsummering__tekstsvar">
             {
                 svar.map((p, i) => {
+                    const periode = JSON.parse(p.verdi);
                     return (<p key={getKey(tag, i)} className="oppsummering__dato">{getLedetekst('soknad.periode', {
-                        '%FOM%': toDatePrettyPrint(p.verdi.fom),
-                        '%TOM%': toDatePrettyPrint(p.verdi.tom),
+                        '%FOM%': toDatePrettyPrint(periode.fom),
+                        '%TOM%': toDatePrettyPrint(periode.tom),
                     })}</p>);
                 })
             }

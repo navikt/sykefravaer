@@ -1,7 +1,7 @@
 import React from 'react';
 import { getLedetekst, sykmelding as sykmeldingPt, toDatePrettyPrint } from 'digisyfo-npm';
 import AngreBekreftSykmeldingContainer from '../../containers/sykmelding/AngreBekreftSykmeldingContainer';
-import { Frilansersporsmal} from './SykmeldingStatuspanelOpplysning';
+import { Frilansersporsmal } from './SykmeldingStatuspanelOpplysning';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
 
 const BekreftetSykmeldingStatuspanel = ({ sykmelding }) => {

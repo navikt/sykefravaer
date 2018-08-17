@@ -120,7 +120,7 @@ describe('populerSoknadMedSvar', () => {
         ]);
     });
 
-    it('Skal populere perioder', () => {
+    it.only('Skal populere perioder', () => {
         const toppnivaSporsmal = soknad.sporsmal.find((s) => {
             return s.tag === UTLAND;
         });
@@ -136,17 +136,20 @@ describe('populerSoknadMedSvar', () => {
         values[UTLAND] = toppnivaaSvar;
         values[PERIODER] = undersporsmalSvar;
         const populertSoknad = populerSoknadMedSvar(soknad, values);
-        expect(populertSoknad.sporsmal[5].undersporsmal[0].svar).to.deep.equal([{
-            verdi: {
+        const periodesporsmal = populertSoknad.sporsmal[5].undersporsmal[0];
+        expect(periodesporsmal.svar).to.deep.equal([{
+            verdi: JSON.stringify({
                 fom: '2018-03-20',
                 tom: '2018-03-21',
-            },
+            }),
         }, {
-            verdi: {
+            verdi: JSON.stringify({
                 fom: '2018-03-23',
                 tom: '2018-03-23',
-            },
+            }),
         }]);
+        expect(periodesporsmal.min).to.equal("2018-05-20");
+        expect(periodesporsmal.max).to.equal("2018-05-28");
     });
 
     it('Skal populere CHECKBOX_GRUPPE', () => {
@@ -201,5 +204,24 @@ describe('populerSoknadMedSvar', () => {
         expect(populertDatoSporsmal.svar).to.deep.equal([{
             verdi: '2018-05-23',
         }]);
+    });
+
+    it('Skal konvertere datoformater i MIN/MAX', () => {
+        const toppnivaSporsmal = soknad.sporsmal.find((s) => {
+            return s.tag === TILBAKE_I_ARBEID;
+        });
+        const parseToppnivaasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
+        const toppnivaaSvar = parseToppnivaasporsmal(JA);
+        const tilbakeNarSporsmal = toppnivaSporsmal.undersporsmal[0];
+        const tilBakeNarSvar = genererParseForEnkeltverdi(tilbakeNarSporsmal.id)('23.05.2018');
+        values[TILBAKE_I_ARBEID] = toppnivaaSvar;
+        values[TILBAKE_NAR] = tilBakeNarSvar;
+        const populertSoknad = populerSoknadMedSvar(soknad, values);
+        const populertToppnivaaSporsmal = populertSoknad.sporsmal.find((s) => {
+            return s.tag === TILBAKE_I_ARBEID;
+        });
+        const undersporsmal = populertToppnivaaSporsmal.undersporsmal[0];
+        expect(undersporsmal.min).to.equal("2018-05-20");
+        expect(undersporsmal.max).to.equal("2018-05-28");
     });
 });

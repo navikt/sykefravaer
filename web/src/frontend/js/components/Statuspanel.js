@@ -33,7 +33,7 @@ const Statuspanel = ({ children, enKolonne = false }) => {
     return (<div className={classNames}>
         {children}
     </div>);
-}
+};
 
 Statuspanel.propTypes = {
     children: PropTypes.node,

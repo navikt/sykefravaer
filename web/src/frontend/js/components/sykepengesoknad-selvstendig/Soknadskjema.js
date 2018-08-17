@@ -17,7 +17,7 @@ const Soknadskjema = ({ children, aktivtSteg, tittel, soknad, sykmelding, intro 
         <Stegindikator aktivtSteg={aktivtSteg} soknadId={soknad.id} urler={frilanserOgSelvstendigUrler} />
         {intro}
         { sykmelding && <SykmeldingUtdrag sykmelding={sykmelding} erApen={aktivtSteg === '1'} erOppdelt={_erOppdelt} /> }
-        <h2 className="soknad__stegtittel">{tittel}</h2>
+        { tittel && <h2 className="soknad__stegtittel">{tittel}</h2> }
         {children}
     </div>);
 };

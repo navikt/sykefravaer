@@ -221,7 +221,18 @@ describe('populerSoknadMedSvar', () => {
             return s.tag === TILBAKE_I_ARBEID;
         });
         const undersporsmal = populertToppnivaaSporsmal.undersporsmal[0];
-        expect(undersporsmal.min).to.equal("2018-05-20");
-        expect(undersporsmal.max).to.equal("2018-05-28");
+        expect(undersporsmal.min).to.equal('2018-05-20');
+        expect(undersporsmal.max).to.equal('2018-05-28');
+    });
+
+
+    it('Skal gjøre alle min/max om til strenger, også for spørsmål som ikke er besvart', () => {
+        const populertSoknad = populerSoknadMedSvar(soknad, values);
+        const undersporsmal = populertSoknad.sporsmal[1].undersporsmal[0];
+        const utenlandssporsmal = populertSoknad.sporsmal[5].undersporsmal[0];
+        expect(undersporsmal.min).to.equal('2018-05-20');
+        expect(undersporsmal.max).to.equal('2018-05-28');
+        expect(utenlandssporsmal.min).to.equal('2018-05-20');
+        expect(utenlandssporsmal.max).to.equal('2018-05-28');
     });
 });

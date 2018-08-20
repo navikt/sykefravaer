@@ -5,7 +5,7 @@ import { getLedetekst, toDatePrettyPrint, sykepengesoknadstatuser } from 'digisy
 import { getContextRoot } from '../../routers/paths';
 import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
 import { getSendtTilSuffix, erSendtTilBeggeMenIkkeSamtidig } from '../../utils/sykepengesoknadUtils';
-import { OPPHOLD_UTLAND } from '../../enums/soknadtyper';
+import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 
 const { NY, SENDT, TIL_SENDING, UTKAST_TIL_KORRIGERING, AVBRUTT } = sykepengesoknadstatuser;
 
@@ -64,7 +64,7 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                                 (() => {
                                     return getLedetekst('soknad.teaser.dato', {
                                         '%DATO%':
-                                            toDatePrettyPrint(soknad.soknadstype === OPPHOLD_UTLAND
+                                            toDatePrettyPrint(soknad.soknadstype === OPPHOLD_UTLAND || soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
                                                 ? soknad.opprettetDato : soknad.tom),
                                     });
                                 })()
@@ -120,7 +120,7 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                                 return <SendtUlikt soknad={soknad} />;
                             }
                             if (soknad.status !== NY && soknad.status !== UTKAST_TIL_KORRIGERING) {
-                                if (soknad.soknadstype === OPPHOLD_UTLAND && soknad.status === SENDT) {
+                                if ((soknad.soknadstype === OPPHOLD_UTLAND || soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE) && soknad.status === SENDT) {
                                     return getLedetekst('soknad.teaser.status.SENDT.til-nav', {
                                         '%DATO%': toDatePrettyPrint(soknad.innsendtDato),
                                     });

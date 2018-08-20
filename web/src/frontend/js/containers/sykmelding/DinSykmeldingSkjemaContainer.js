@@ -23,7 +23,8 @@ export class Skjemalaster extends Component {
             skalHenteBrukerinfo,
             skalHenteArbeidsgiversSykmeldinger,
             skalHenteVentetid,
-            skalHenteSykeforloep } = this.props;
+            skalHenteSykeforloep,
+        } = this.props;
 
         if (skalHenteArbeidsgivere) {
             this.props.hentAktuelleArbeidsgivere(sykmeldingId);
@@ -56,7 +57,9 @@ export class Skjemalaster extends Component {
                     '%TIL%': datoMedKlokkeslett(vedlikehold.datospennMedTid.tom),
                 })} />);
         }
-        return <DinSykmeldingSkjema sykmelding={sykmelding} visFrilansersporsmal={visFrilansersporsmal} />;
+        return (<DinSykmeldingSkjema
+            sykmelding={sykmelding}
+            visFrilansersporsmal={visFrilansersporsmal} />);
     }
 }
 

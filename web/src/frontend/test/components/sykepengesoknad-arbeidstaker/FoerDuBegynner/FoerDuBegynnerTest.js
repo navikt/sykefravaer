@@ -22,7 +22,10 @@ describe('FoerDuBegynner', () => {
 
     beforeEach(() => {
         sykepengesoknad = getSoknad();
-        component = shallow(<FoerDuBegynnerSkjema handleSubmit={sinon.spy()} sykepengesoknad={sykepengesoknad} />);
+        component = shallow(<FoerDuBegynnerSkjema
+            utfyllingStartet={sinon.spy()}
+            handleSubmit={sinon.spy()}
+            sykepengesoknad={sykepengesoknad} />);
     });
 
     it('Skal inneholde en AvbrytSoknadContainer', () => {
@@ -41,21 +44,21 @@ describe('TidligSoknad', () => {
     it('Skal inneholde en TidligSoknad', () => {
         sykepengesoknad.status = 'NY';
         sykepengesoknad.tom = new Date().setDate(new Date().getDate() + 1);
-        component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} />);
+        component = shallow(<FoerDuBegynner utfyllingStartet={sinon.spy()} sykepengesoknad={sykepengesoknad} />);
         expect(component.contains(<TidligSoknad />)).to.equal(true);
     });
 
     it('Skal ikke inneholde en TidligSoknad - Ikke tidlig', () => {
         sykepengesoknad.status = 'NY';
         sykepengesoknad.tom = new Date();
-        component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} />);
+        component = shallow(<FoerDuBegynner utfyllingStartet={sinon.spy()} sykepengesoknad={sykepengesoknad} />);
         expect(component.contains(<TidligSoknad />)).to.equal(false);
     });
 
     it('Skal ikke inneholde en TidligSoknad - Ikke NY søknad', () => {
         sykepengesoknad.status = 'SENDT';
         sykepengesoknad.tom = new Date().setDate(new Date().getDate() + 1);
-        component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} />);
+        component = shallow(<FoerDuBegynner utfyllingStartet={sinon.spy()} sykepengesoknad={sykepengesoknad} />);
         expect(component.contains(<TidligSoknad />)).to.equal(false);
     });
 });
@@ -69,13 +72,13 @@ describe('ForsteSoknadIntro', () => {
     });
 
     it('Skal inneholde en ForsteSoknadIntro hvis erForsteSoknad === true', () => {
-        component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} erForsteSoknad />);
+        component = shallow(<FoerDuBegynner utfyllingStartet={sinon.spy()} sykepengesoknad={sykepengesoknad} erForsteSoknad />);
         expect(component.contains(<ForsteSoknadIntro />)).to.equal(true);
         expect(component.contains(<SoknadIntro />)).to.equal(false);
     });
 
     it('Skal inneholde en SoknadIntro hvis erForsteSoknad === false', () => {
-        component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} erForsteSoknad={false} />);
+        component = shallow(<FoerDuBegynner utfyllingStartet={sinon.spy()} sykepengesoknad={sykepengesoknad} erForsteSoknad={false} />);
         expect(component.contains(<ForsteSoknadIntro />)).to.equal(false);
         expect(component.contains(<SoknadIntro />)).to.equal(true);
     });
@@ -90,12 +93,12 @@ describe('DetFinnesEldreSoknader', () => {
     });
 
     it('Skal inneholde en DetFinnesEldreSoknader hvis detFinnesEldreSoknader === true', () => {
-        component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} detFinnesEldreSoknader />);
+        component = shallow(<FoerDuBegynner utfyllingStartet={sinon.spy()} sykepengesoknad={sykepengesoknad} detFinnesEldreSoknader />);
         expect(component.contains(<DetFinnesEldreSoknader />)).to.equal(true);
     });
 
     it('Skal ikke inneholde en DetFinnesEldreSoknader hvis detFinnesEldreSoknader === false', () => {
-        component = shallow(<FoerDuBegynner sykepengesoknad={sykepengesoknad} detFinnesEldreSoknader={false} />);
+        component = shallow(<FoerDuBegynner utfyllingStartet={sinon.spy()} sykepengesoknad={sykepengesoknad} detFinnesEldreSoknader={false} />);
         expect(component.contains(<DetFinnesEldreSoknader />)).to.equal(false);
     });
 });

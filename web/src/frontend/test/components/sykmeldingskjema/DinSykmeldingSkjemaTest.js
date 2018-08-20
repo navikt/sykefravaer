@@ -84,7 +84,9 @@ describe('DinSykmeldingSkjema -', () => {
         actions = {};
         getComponent = (s = getStore()) => {
             return mount(<Provider store={s}>
-                <DinSykmeldingSkjema {...ownProps} />
+                <DinSykmeldingSkjema
+                    {...ownProps}
+                />
             </Provider>);
         };
     });
@@ -137,6 +139,8 @@ describe('DinSykmeldingSkjema -', () => {
         beforeEach(() => {
             actions = {
                 handleSubmit: sinon.spy(),
+                utfyllingStartet: sinon.spy(),
+                dispatch: sinon.spy(),
             };
             props = {
                 modus: '',
@@ -184,6 +188,7 @@ describe('DinSykmeldingSkjema -', () => {
         beforeEach(() => {
             actions = {
                 handleSubmit: sinon.spy(),
+                dispatch: sinon.spy(),
             };
             props = {
                 modus: '',

@@ -14,6 +14,7 @@ import { hentBerikelse } from '../../actions/sykepengesoknader_actions';
 import AvbruttSoknad from '../../components/sykepengesoknad-arbeidstaker/AvbruttSoknad';
 import { filtrerOgSorterNyeSoknader } from '../../components/sykepengesoknader/Soknader';
 import { erForsteSykepengesoknad } from '../../selectors/sykepengesoknaderSelectors';
+import { utfyllingStartet as utfyllingStartetAction } from '../../actions/metrikker_actions';
 
 const { NY, SENDT, UTGAATT, TIL_SENDING, UTKAST_TIL_KORRIGERING, KORRIGERT, AVBRUTT, SLETTET_UTKAST } = sykepengesoknadstatuser;
 
@@ -66,7 +67,7 @@ export class Container extends Component {
     }
 
     render() {
-        const { params, vedlikehold, henter, erForsteSoknad, detFinnesEldreSoknader, eldsteSoknadId } = this.props;
+        const { params, vedlikehold, henter, erForsteSoknad, detFinnesEldreSoknader, eldsteSoknadId, utfyllingStartet } = this.props;
         return (<GenerellSoknadContainer
             erForsteSoknad={erForsteSoknad}
             henter={henter}
@@ -74,6 +75,7 @@ export class Container extends Component {
             params={params}
             vedlikehold={vedlikehold}
             detFinnesEldreSoknader={detFinnesEldreSoknader}
+            utfyllingStartet={utfyllingStartet}
             eldsteSoknadId={eldsteSoknadId} />);
     }
 }
@@ -95,6 +97,7 @@ Container.propTypes = {
     skalHenteBerikelse: PropTypes.bool,
     detFinnesEldreSoknader: PropTypes.bool,
     eldsteSoknadId: PropTypes.string,
+    utfyllingStartet: PropTypes.func,
 };
 
 export const mapStateToProps = (state, ownProps) => {
@@ -122,6 +125,7 @@ export const mapStateToProps = (state, ownProps) => {
 const FoerDuBegynnerContainer = connect(mapStateToProps, {
     hentBerikelse,
     destroy,
+    utfyllingStartet: utfyllingStartetAction,
 })(Container);
 
 export default FoerDuBegynnerContainer;

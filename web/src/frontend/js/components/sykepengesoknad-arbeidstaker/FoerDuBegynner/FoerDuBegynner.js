@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
@@ -48,35 +48,42 @@ FoerDuBegynnerSkjema.propTypes = {
 const initialize = true;
 const FoerDuBegynnerSkjemaSetup = setup(validate, FoerDuBegynnerSkjema, initialize);
 
-const FoerDuBegynner = (props) => {
-    const { sykepengesoknad, erForsteSoknad, detFinnesEldreSoknader, eldsteSoknadId } = props;
-    const now = new Date();
+class FoerDuBegynner extends Component {
+    componentDidMount() {
+        this.props.utfyllingStartet(this.props.sykepengesoknad.id);
+    }
 
-    return (<div>
-        <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
-        {
-            detFinnesEldreSoknader
+    render() {
+        const { sykepengesoknad, erForsteSoknad, detFinnesEldreSoknader, eldsteSoknadId } = this.props;
+        const now = new Date();
+
+        return (<div>
+            <SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />
+            {
+                detFinnesEldreSoknader
                 && sykepengesoknad.status !== UTKAST_TIL_KORRIGERING
                 && <DetFinnesEldreSoknader eldsteSoknadId={eldsteSoknadId} />
-        }
-        { sykepengesoknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel /> }
-        { (sykepengesoknad.status === NY && sykepengesoknad.tom > now) && <TidligSoknad /> }
+            }
+            { sykepengesoknad.status === UTKAST_TIL_KORRIGERING && <KorrigerVarsel /> }
+            { (sykepengesoknad.status === NY && sykepengesoknad.tom > now) && <TidligSoknad /> }
 
-        { erForsteSoknad ? <ForsteSoknadIntro /> : <SoknadIntro />}
+            { erForsteSoknad ? <ForsteSoknadIntro /> : <SoknadIntro />}
 
-        <SykmeldingUtdragContainer erApen sykepengesoknad={sykepengesoknad} />
-        <h2 className="soknad__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
-        <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(sykepengesoknad.id)} />
-        <FoerDuBegynnerSkjemaSetup
-            sykepengesoknad={sykepengesoknad} />
-    </div>);
-};
+            <SykmeldingUtdragContainer erApen sykepengesoknad={sykepengesoknad} />
+            <h2 className="soknad__stegtittel">{getLedetekst('sykepengesoknad.for-du-begynner.tittel')}</h2>
+            <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(sykepengesoknad.id)} />
+            <FoerDuBegynnerSkjemaSetup
+                sykepengesoknad={sykepengesoknad} />
+        </div>);
+    }
+}
 
 FoerDuBegynner.propTypes = {
     sykepengesoknad: sykepengesoknadPt,
     erForsteSoknad: PropTypes.bool,
     detFinnesEldreSoknader: PropTypes.bool,
     eldsteSoknadId: PropTypes.string,
+    utfyllingStartet: PropTypes.func,
 };
 
 export default FoerDuBegynner;

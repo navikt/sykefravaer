@@ -26,6 +26,7 @@ import SpoersmalForFrilanserOgNaeringsdrivende from './SpoersmalForFrilanserOgNa
 import { Vis } from '../../utils';
 import { getSykmeldingSkjemanavn } from '../../enums/skjemanavn';
 import Feilstripe from '../Feilstripe';
+import { utfyllingStartet } from '../../actions/metrikker_actions';
 
 const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
 
@@ -33,6 +34,10 @@ export class DinSykmeldingSkjemaComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {};
+    }
+
+    componentDidMount() {
+        this.props.dispatch(utfyllingStartet(this.props.sykmelding.id));
     }
 
     componentWillReceiveProps(nextProps) {
@@ -246,6 +251,7 @@ DinSykmeldingSkjemaComponent.propTypes = {
     reset: PropTypes.func,
     modus: PropTypes.oneOf(Object.values(modi)),
     visFrilansersporsmal: PropTypes.bool,
+    dispatch: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) => {

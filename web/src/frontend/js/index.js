@@ -65,6 +65,7 @@ import soknader from './reducers/soknader';
 import unleashToggles from './reducers/unleashToggles';
 import './logging';
 import { hentUnleashToggles } from './actions/unleashToggles_actions';
+import metrikker from './reducers/metrikker';
 
 const rootReducer = combineReducers({
     arbeidsforhold,
@@ -113,6 +114,7 @@ const rootReducer = combineReducers({
     sykmeldingMeta,
     soknader,
     unleashToggles,
+    metrikker,
 });
 
 const sagaMiddleware = createSagaMiddleware();

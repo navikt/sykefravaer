@@ -44,6 +44,7 @@ import sykeforloepSagas from './sykeforloepSagas';
 import sykmeldingMetaSagas from './sykmeldingMetaSagas';
 import soknaderSagas from './soknaderSagas';
 import unleashTogglesSagas from './unleashTogglesSagas';
+import metrikkerSagas from './metrikkerSagas';
 
 export default function* rootSaga() {
     yield [
@@ -89,5 +90,6 @@ export default function* rootSaga() {
         sykmeldingMetaSagas(),
         soknaderSagas(),
         unleashTogglesSagas(),
+        metrikkerSagas(),
     ];
 }

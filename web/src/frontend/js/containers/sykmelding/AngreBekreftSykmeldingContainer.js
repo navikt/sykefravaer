@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Knapp from 'nav-frontend-knapper';
 import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import { angreBekreftSykmelding as angreBekreftSykmeldingAction } from '../../actions/dinSykmelding_actions';
+import { sykmeldingHarSoknad } from '../../selectors/soknaderSelectors';
 
 function AngreBekreftSykmeldingContainer({ sykmelding, angreBekreftSykmelding, angreBekreftSykmeldingFeilet, vis }) {
     return vis ? (
@@ -37,7 +38,8 @@ AngreBekreftSykmeldingContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
     const FIRE_MANEDER_SIDEN = new Date();
     FIRE_MANEDER_SIDEN.setMonth(FIRE_MANEDER_SIDEN.getMonth() - 4);
-    const vis = ownProps.sykmelding.sendtdato > FIRE_MANEDER_SIDEN;
+    const vis = ownProps.sykmelding.sendtdato > FIRE_MANEDER_SIDEN
+        && !sykmeldingHarSoknad(state, ownProps.sykmelding.id);
     return {
         vis,
         angreBekreftSykmeldingFeilet: state.dineSykmeldinger.angreBekreftSykmeldingFeilet,

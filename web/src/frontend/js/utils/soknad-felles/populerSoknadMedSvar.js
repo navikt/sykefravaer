@@ -66,6 +66,26 @@ const erUndersporsmalStilt = (sporsmal, values) => {
         || svarverdistrenger.indexOf(sporsmal.kriterieForVisningAvUndersporsmal) > -1;
 };
 
+const settMinMax = (sporsmal) => {
+    switch (sporsmal.svartype) {
+        case DATO:
+        case PERIODER: {
+            return {
+                ...sporsmal,
+                min: tilBackendMinMax(sporsmal.min),
+                max: tilBackendMinMax(sporsmal.max),
+                undersporsmal: sporsmal.undersporsmal.map(settMinMax),
+            };
+        }
+        default: {
+            return {
+                ...sporsmal,
+                undersporsmal: sporsmal.undersporsmal.map(settMinMax),
+            };
+        }
+    }
+};
+
 const populerSporsmalsliste = (sporsmalsliste, values) => {
     return sporsmalsliste.map((sporsmal) => {
         const svarValue = values[sporsmal.tag];
@@ -77,7 +97,7 @@ const populerSporsmalsliste = (sporsmalsliste, values) => {
                 undersporsmal: populerSporsmalsliste(populertSporsmal.undersporsmal, values),
             };
         }
-        return populertSporsmal;
+        return settMinMax(populertSporsmal);
     });
 };
 

@@ -62,7 +62,7 @@ SykepengesoknadSelvstendigOppsummeringSkjema.propTypes = {
 };
 
 const Oppsummering = (props) => {
-    const { sykmelding, soknad, handleSubmit, skjemasvar, actions, sendingFeilet } = props;
+    const { sykmelding, soknad, handleSubmit, skjemasvar, actions, sendingFeilet, sender } = props;
     return (<Soknadskjema
         aktivtSteg="4"
         sykmelding={sykmelding}
@@ -72,6 +72,7 @@ const Oppsummering = (props) => {
             handleSubmit={handleSubmit}
             skjemasvar={skjemasvar}
             sendingFeilet={sendingFeilet}
+            sender={sender}
             actions={actions} />
     </Soknadskjema>);
 };
@@ -85,6 +86,7 @@ Oppsummering.propTypes = {
         sendSoknad: PropTypes.func,
     }),
     sendingFeilet: PropTypes.bool,
+    sender: PropTypes.bool,
 };
 
 export default Oppsummering;

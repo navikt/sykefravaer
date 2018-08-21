@@ -48,7 +48,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         sykmelding: finnSykmelding(state, ownProps),
     };
-}
+};
 
 export default connect(mapStateToProps)(SendtSoknadSelvstendig);
 

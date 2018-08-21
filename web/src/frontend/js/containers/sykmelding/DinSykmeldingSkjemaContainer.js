@@ -113,7 +113,8 @@ export const mapStateToProps = (state, ownProps) => {
             skalHenteVentetid ||
             state.sykmeldingMeta.henter ||
             skalHenteArbeidsgiversSykmeldinger ||
-            state.arbeidsgiversSykmeldinger.henter,
+            state.arbeidsgiversSykmeldinger.henter ||
+            !state.sykeforloep.hentet || state.sykeforloep.henter,
         vedlikehold: state.vedlikehold.data.vedlikehold,
         skalHenteArbeidsgivere,
         skalHenteBrukerinfo,

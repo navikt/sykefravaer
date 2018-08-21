@@ -10,6 +10,7 @@ import {
     arbeidssituasjoner,
     feilaktigeOpplysninger as feilaktigeOpplysningerEnums,
     getHtmlLedetekst,
+    toDatePrettyPrint,
 } from 'digisyfo-npm';
 import VelgArbeidssituasjon from './VelgArbeidssituasjon';
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
@@ -41,7 +42,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.values && this.props.values && nextProps.values.opplysningeneErRiktige !== this.props.values.opplysningeneErRiktige) {
+        if (nextProps.brukersSvarverdier && this.props.brukersSvarverdier && nextProps.brukersSvarverdier.opplysningeneErRiktige !== this.props.brukersSvarverdier.opplysningeneErRiktige) {
             this.setState({
                 visAvbrytDialog: false,
             });
@@ -49,10 +50,10 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     getFeilaktigeOpplysninger() {
-        const { values } = this.props;
-        return values.feilaktigeOpplysninger
+        const { brukersSvarverdier } = this.props;
+        return brukersSvarverdier.feilaktigeOpplysninger
             .filter((opplysning) => {
-                return opplysning.avkrysset && !values.opplysningeneErRiktige;
+                return opplysning.avkrysset && !brukersSvarverdier.opplysningeneErRiktige;
             })
             .reduce((acc, currentValue) => {
                 return {
@@ -63,22 +64,22 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     getDekningsgrad() {
-        const { values } = this.props;
-        return (!this.erFrilanser() || !values.harForsikring)
+        const { brukersSvarverdier } = this.props;
+        return (!this.erFrilanser() || !brukersSvarverdier.harForsikring)
             ? null
-            : values.dekningsgrad;
+            : brukersSvarverdier.dekningsgrad;
     }
 
     getEgenmeldingsperioder() {
-        const { values } = this.props;
-        return !this.erFrilanser() || !values.varSykmeldtEllerEgenmeldt
+        const { brukersSvarverdier } = this.props;
+        return !this.erFrilanser() || !brukersSvarverdier.varSykmeldtEllerEgenmeldt
             ? null
-            : values.egenmeldingsperioder.map(tilDatePeriode);
+            : brukersSvarverdier.egenmeldingsperioder.map(tilDatePeriode);
     }
 
     erFrilanser() {
-        const { values } = this.props;
-        return [NAERINGSDRIVENDE, FRILANSER].indexOf(values.valgtArbeidssituasjon) > -1;
+        const { brukersSvarverdier } = this.props;
+        return [NAERINGSDRIVENDE, FRILANSER].indexOf(brukersSvarverdier.valgtArbeidssituasjon) > -1;
     }
 
     avbryt() {
@@ -128,7 +129,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
 
     render() {
         const {
-            values,
+            brukersSvarverdier,
             modus,
             harStrengtFortroligAdresse,
             sykmelding,
@@ -155,7 +156,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                     return (<div className="blokk">
                         <VelgArbeidssituasjon {...this.props} />
                         <Vis
-                            hvis={values.valgtArbeidssituasjon === ARBEIDSTAKER && harStrengtFortroligAdresse}
+                            hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER && harStrengtFortroligAdresse}
                             render={() => {
                                 return <StrengtFortroligInfo sykmeldingId={sykmelding.id} />;
                             }} />
@@ -168,7 +169,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 }}
             />
             <Vis
-                hvis={values.valgtArbeidssituasjon === ARBEIDSTAKER}
+                hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER}
                 render={() => {
                     return <ArbeidsgiversSykmeldingContainer sykmeldingId={sykmelding.id} Overskrift="h4" />;
                 }} />
@@ -239,7 +240,7 @@ DinSykmeldingSkjemaComponent.propTypes = {
     avbryter: PropTypes.bool,
     avbrytFeilet: PropTypes.bool,
     handleSubmit: PropTypes.func,
-    values: PropTypes.shape({
+    brukersSvarverdier: PropTypes.shape({
         opplysningeneErRiktige: PropTypes.bool,
     }),
     untouch: PropTypes.func,
@@ -255,12 +256,50 @@ DinSykmeldingSkjemaComponent.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
+    const sykmelding = ownProps.sykmelding;
+    const dinSykmelding = state.dineSykmeldinger.data.find((s) => {
+        return s.id === sykmelding.id;
+    });
+    const sporsmal = dinSykmelding ? dinSykmelding.sporsmal : null;
     const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
-    const skjemanavn = getSykmeldingSkjemanavn(ownProps.sykmelding.id);
+    const skjemanavn = getSykmeldingSkjemanavn(sykmelding.id);
     const values = getFormValues(skjemanavn)(state) || {};
 
+    const initialValues = {
+        feilaktigeOpplysninger: Object.keys(feilaktigeOpplysningerEnums).map((key) => {
+            return {
+                opplysning: feilaktigeOpplysningerEnums[key],
+            };
+        }),
+        valgtArbeidssituasjon: sporsmal ? sporsmal.arbeidssituasjon : arbeidssituasjoner.DEFAULT,
+    };
+
+    if (sporsmal && sporsmal.forsikringBesvart) {
+        initialValues.harForsikring = [75, 100].indexOf(sporsmal.dekningsgrad) > -1;
+
+        if (initialValues.harForsikring) {
+            initialValues.dekningsgrad = sporsmal.dekningsgrad;
+        }
+    }
+
+    if (sporsmal && sporsmal.fravaerBesvart) {
+        initialValues.varSykmeldtEllerEgenmeldt = sporsmal.fravaersperioder.length > 0;
+
+        if (initialValues.varSykmeldtEllerEgenmeldt) {
+            initialValues.egenmeldingsperioder = sporsmal.fravaersperioder.map((periode) => {
+                const fom = new Date(periode.fom);
+                const tom = new Date(periode.tom);
+                return {
+                    fom: toDatePrettyPrint(fom),
+                    tom: toDatePrettyPrint(tom),
+                };
+            });
+        }
+    }
+
     return {
-        values,
+        initialValues,
+        brukersSvarverdier: values,
         harStrengtFortroligAdresse,
         modus: getSkjemaModus(values, harStrengtFortroligAdresse),
         sender: state.arbeidsgiversSykmeldinger.sender,
@@ -271,22 +310,14 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const ConnectedSkjema = compose(
+    connect(mapStateToProps, sykmeldingActions),
     reduxForm({
         destroyOnUnmount: false,
         validate,
-        initialValues: {
-            feilaktigeOpplysninger: Object.keys(feilaktigeOpplysningerEnums).map((key) => {
-                return {
-                    opplysning: feilaktigeOpplysningerEnums[key],
-                };
-            }),
-            valgtArbeidssituasjon: arbeidssituasjoner.DEFAULT,
-        },
         onSubmitFail: (error, dispatch, submitError, props) => {
             onSubmitFail(error, dispatch, getSykmeldingSkjemanavn(props.sykmelding.id));
         },
     }),
-    connect(mapStateToProps, sykmeldingActions),
 )(DinSykmeldingSkjemaComponent);
 
 const DinSykmeldingSkjema = (props) => {

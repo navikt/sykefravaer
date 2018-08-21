@@ -52,7 +52,7 @@ describe('DinSykmeldingSkjema -', () => {
                 data: [getSykmelding({ id: '123' })],
             },
             dineSykmeldinger: {
-
+                data: [getSykmelding({ id: '123' })],
             },
             arbeidsgivere: {
                 data: [],
@@ -135,6 +135,7 @@ describe('DinSykmeldingSkjema -', () => {
 
     describe('getFeilaktigeOpplysninger', () => {
         let props;
+        let brukersSvarverdier;
 
         beforeEach(() => {
             actions = {
@@ -146,15 +147,15 @@ describe('DinSykmeldingSkjema -', () => {
                 modus: '',
                 sykmelding: getSykmelding(),
             };
-            values = {};
+            brukersSvarverdier = {};
         });
 
         it('Skal returnere tomt objekt hvis opplysningeneErRiktige === true', () => {
-            values = {
+            brukersSvarverdier = {
                 feilaktigeOpplysninger: [...feilaktigeOpplysninger],
                 opplysningeneErRiktige: true,
             };
-            props.values = values;
+            props.brukersSvarverdier = brukersSvarverdier;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
             expect(component.instance().getFeilaktigeOpplysninger()).to.deep.equal({});
         });
@@ -170,7 +171,7 @@ describe('DinSykmeldingSkjema -', () => {
             f[2] = Object.assign({}, feilaktigeOpplysninger[2], {
                 avkrysset: false,
             });
-            props.values = {
+            props.brukersSvarverdier = {
                 feilaktigeOpplysninger: f,
                 opplysningeneErRiktige: false,
             };
@@ -184,6 +185,7 @@ describe('DinSykmeldingSkjema -', () => {
 
     describe('Frilansersvar', () => {
         let props;
+        let brukersSvarverdier;
 
         beforeEach(() => {
             actions = {
@@ -194,47 +196,47 @@ describe('DinSykmeldingSkjema -', () => {
                 modus: '',
                 sykmelding: getSykmelding(),
             };
-            values = {};
+            brukersSvarverdier = {};
         });
 
         it('Skal returnere et tomt objekt hvis valgt arbeidssituasjon er ARBEIDSTAKER', () => {
-            values = {
+            brukersSvarverdier = {
                 valgtArbeidssituasjon: 'ARBEIDSTAKER',
                 opplysningeneErRiktige: true,
                 valgtArbeidsgiver: {
                     orgnummer: '123456789',
                 },
             };
-            props.values = values;
+            props.brukersSvarverdier = brukersSvarverdier;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
             expect(component.instance().getDekningsgrad()).to.equal(null);
             expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
         it('Skal returnere et tomt objekt hvis valgt arbeidssituasjon er ARBEIDSLEDIG', () => {
-            values = {
+            brukersSvarverdier = {
                 valgtArbeidssituasjon: 'ARBEIDSLEDIG',
                 opplysningeneErRiktige: true,
             };
-            props.values = values;
+            props.brukersSvarverdier = brukersSvarverdier;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
             expect(component.instance().getDekningsgrad()).to.equal(null);
             expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
         it('Skal returnere et tomt objekt hvis valgt arbeidssituasjon er FRILANSER og tilleggsspørsmål for frilansere ikke er stilt', () => {
-            values = {
+            brukersSvarverdier = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
             };
-            props.values = values;
+            props.brukersSvarverdier = brukersSvarverdier;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
             expect(component.instance().getDekningsgrad()).to.equal(null);
             expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
         it('Skal returnere perioder hvis valgt arbeidssituasjon er FRILANSER og det er svart JA på egenmeldingsspørsmål', () => {
-            values = {
+            brukersSvarverdier = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
                 varSykmeldtEllerEgenmeldt: true,
@@ -247,7 +249,7 @@ describe('DinSykmeldingSkjema -', () => {
                 }],
                 harForsikring: false,
             };
-            props.values = values;
+            props.brukersSvarverdier = brukersSvarverdier;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
             expect(component.instance().getEgenmeldingsperioder()).to.deep.equal([{
                 fom: new Date('2018-03-01'),
@@ -259,40 +261,40 @@ describe('DinSykmeldingSkjema -', () => {
         });
 
         it('Skal returnere tomme perioder hvis valgt arbeidssituasjon er FRILANSER og det er svart NEI på egenmeldingsspørsmål', () => {
-            values = {
+            brukersSvarverdier = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
                 varSykmeldtEllerEgenmeldt: false,
                 egenmeldingsperioder: [{}, {}],
                 harForsikring: false,
             };
-            props.values = values;
+            props.brukersSvarverdier = brukersSvarverdier;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
             expect(component.instance().getEgenmeldingsperioder()).to.equal(null);
         });
 
         it('Skal returnere tom dekningsgrad hvis arbeidssituasjon er FRILANSER og det er svart NEI på forsikringsspørsmålet', () => {
-            values = {
+            brukersSvarverdier = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
                 varSykmeldtEllerEgenmeldt: false,
                 harForsikring: false,
                 dekningsgrad: '75',
             };
-            props.values = values;
+            props.brukersSvarverdier = brukersSvarverdier;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
             expect(component.instance().getDekningsgrad()).to.equal(null);
         });
 
         it('Skal returnere oppgitt dekningsgrad hvis arbeidssituasjon er FRILANSER og det er svart JA på forsikringsspørsmålet', () => {
-            values = {
+            brukersSvarverdier = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
                 varSykmeldtEllerEgenmeldt: false,
                 harForsikring: true,
                 dekningsgrad: '75',
             };
-            props.values = values;
+            props.brukersSvarverdier = brukersSvarverdier;
             component = shallow(<DinSykmeldingSkjemaComponent {...props} {...actions} />);
             expect(component.instance().getDekningsgrad()).to.equal('75');
         });

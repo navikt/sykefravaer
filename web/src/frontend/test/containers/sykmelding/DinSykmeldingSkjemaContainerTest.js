@@ -216,6 +216,8 @@ describe('DinSykmeldingSkjemaContainer', () => {
             state.arbeidsgiversSykmeldinger.hentet = true;
             state.brukerinfo.bruker.hentet = true;
             state.arbeidsgivere.hentet = true;
+            state.sykeforloep.hentet = true;
+            state.sykeforloep.henter = false;
             state.arbeidsgivere.sykmeldingId = 123;
             state.arbeidsgiversSykmeldinger.data = [{
                 id: 123,

@@ -1,10 +1,12 @@
 import React from 'react';
 import { getLedetekst, Utvidbar, sykmelding as sykmeldingPt, toDatePrettyPrint, getHtmlLedetekst, SykmeldingNokkelOpplysning } from 'digisyfo-npm';
+import { connect } from 'react-redux';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Oppsummeringsvisning from '../soknad-felles-oppsummering/Oppsummeringsvisning';
 import { soknad as soknadPt } from '../../propTypes';
 import Soknadtopp from './Soknadtopp';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
+import { finnSykmelding } from '../../containers/sykepengesoknad-selvstendig/sykepengesoknadSelvstendigSetup';
 
 const SendtSoknadSelvstendigStatuspanel = ({ soknad }) => {
     return (<Statuspanel>
@@ -42,5 +44,11 @@ SendtSoknadSelvstendig.propTypes = {
     soknad: soknadPt,
 };
 
-export default SendtSoknadSelvstendig;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        sykmelding: finnSykmelding(state, ownProps),
+    };
+}
+
+export default connect(mapStateToProps)(SendtSoknadSelvstendig);
 

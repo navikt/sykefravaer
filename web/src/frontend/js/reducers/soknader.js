@@ -106,6 +106,7 @@ export default (state = initiellState, action = {}) => {
                         ? {
                             ...action.soknad,
                             status: SENDT,
+                            innsendtDato: new Date(),
                         }
                         : { ...s };
                 }),

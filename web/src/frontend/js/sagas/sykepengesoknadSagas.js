@@ -149,17 +149,11 @@ function* watchGjenapneSoknad() {
     yield* takeEvery(actiontyper.GJENAPNE_SOKNAD_FORESPURT, gjenapneSoknad);
 }
 
-function* watchSykepengesoknadSendt() {
-    yield* takeEvery(actiontyper.SYKEPENGESOKNAD_SENDT, hentSykepengesoknader);
-}
-
-
 export default function* sykepengesoknadSagas() {
     yield [
         fork(watchHentSykepengesoknader),
         fork(watchSendSykepengesoknad),
         fork(watchSykmeldingSendt),
-        fork(watchSykepengesoknadSendt),
         fork(watchSendSykepengesoknadTilNAV),
         fork(watchSendSykepengesoknadTilArbeidsgiver),
         fork(watchEndreSykepengesoknad),

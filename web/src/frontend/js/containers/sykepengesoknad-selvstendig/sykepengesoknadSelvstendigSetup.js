@@ -13,7 +13,7 @@ export const finnSoknad = (state, ownProps) => {
     return soknader.length === 1 ? soknader[0] : undefined;
 };
 
-const finnSykmelding = (state, ownProps) => {
+export const finnSykmelding = (state, ownProps) => {
     const soknad = finnSoknad(state, ownProps);
     const sykmeldinger = state.dineSykmeldinger.data.filter((s) => {
         return s.id === soknad.sykmeldingId;

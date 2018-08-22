@@ -7,13 +7,12 @@ const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;
 const validerFrilansersporsmal = (values) => {
     const feil = {};
 
-    if (values.varSykmeldtEllerEgenmeldt === undefined) {
-        feil.varSykmeldtEllerEgenmeldt = 'Vennligst svar på om du var sykmeldt eller friskmeldt';
+    if (values.harAnnetFravaer === undefined) {
+        feil.harAnnetFravaer = 'Vennligst svar på om du var sykmeldt eller friskmeldt';
     }
 
-
-    if (values.varSykmeldtEllerEgenmeldt && validerPerioder(values.egenmeldingsperioder)) {
-        feil.egenmeldingsperioder = validerPerioder(values.egenmeldingsperioder);
+    if (values.harAnnetFravaer && validerPerioder(values.fravaersperioder)) {
+        feil.fravaersperioder = validerPerioder(values.fravaersperioder);
     }
 
     if (values.harForsikring === undefined) {

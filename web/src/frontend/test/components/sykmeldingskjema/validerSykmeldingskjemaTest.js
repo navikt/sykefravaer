@@ -228,49 +228,49 @@ describe('validerSykmeldingskjema', () => {
                 props.visFrilansersporsmal = true;
             });
 
-            describe('varSykmeldtEllerEgenmeldt', () => {
+            describe('harAnnetFravaer', () => {
                 it('Skal klage hvis feltet ikke er fylt ut', () => {
                     const res = validerSykmeldingskjema(values, props);
-                    expect(res.varSykmeldtEllerEgenmeldt).to.equal('Vennligst svar på om du var sykmeldt eller friskmeldt');
-                    expect(res.egenmeldingsperioder).to.equal(undefined);
+                    expect(res.harAnnetFravaer).to.equal('Vennligst svar på om du var sykmeldt eller friskmeldt');
+                    expect(res.fravaersperioder).to.equal(undefined);
                 });
 
-                it('Skal ikke klage hvis varSykmeldtEllerEgenmeldt er fylt ut', () => {
-                    values.varSykmeldtEllerEgenmeldt = true;
+                it('Skal ikke klage hvis harAnnetFravaer er fylt ut', () => {
+                    values.harAnnetFravaer = true;
                     const res = validerSykmeldingskjema(values, props);
-                    expect(res.varSykmeldtEllerEgenmeldt).to.equal(undefined);
+                    expect(res.harAnnetFravaer).to.equal(undefined);
                 });
 
-                it('Skal ikke klage hvis varSykmeldtEllerEgenmeldt er fylt ut med NEI', () => {
-                    values.varSykmeldtEllerEgenmeldt = false;
+                it('Skal ikke klage hvis harAnnetFravaer er fylt ut med NEI', () => {
+                    values.harAnnetFravaer = false;
                     const res = validerSykmeldingskjema(values, props);
-                    expect(res.varSykmeldtEllerEgenmeldt).to.equal(undefined);
-                    expect(res.egenmeldingsperioder).to.equal(undefined);
+                    expect(res.harAnnetFravaer).to.equal(undefined);
+                    expect(res.fravaersperioder).to.equal(undefined);
                 });
             });
 
             describe('Egenmeldingsperioder', () => {
                 beforeEach(() => {
-                    values.varSykmeldtEllerEgenmeldt = true;
-                    values.egenmeldingsperioder = [];
+                    values.harAnnetFravaer = true;
+                    values.fravaersperioder = [];
                 });
 
-                it('Skal ikke klage hvis egenmeldingsperioder er fylt ut', () => {
-                    values.egenmeldingsperioder = [{
+                it('Skal ikke klage hvis fravaersperioder er fylt ut', () => {
+                    values.fravaersperioder = [{
                         fom: '12.01.2018',
                         tom: '14.01.2018',
                     }];
                     const res = validerSykmeldingskjema(values, props);
-                    expect(res.egenmeldingsperioder).to.equal(undefined);
+                    expect(res.fravaersperioder).to.equal(undefined);
                 });
 
-                it('Skal klage hvis egenmeldingsperioder er fylt ut med sluttdato før startdato', () => {
-                    values.egenmeldingsperioder = [{
+                it('Skal klage hvis fravaersperioder er fylt ut med sluttdato før startdato', () => {
+                    values.fravaersperioder = [{
                         fom: '14.01.2018',
                         tom: '12.01.2018',
                     }];
                     const res = validerSykmeldingskjema(values, props);
-                    expect(res.egenmeldingsperioder).to.have.length(1);
+                    expect(res.fravaersperioder).to.have.length(1);
                 });
             });
 

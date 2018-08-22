@@ -15,9 +15,10 @@ describe('SykmeldingUtdrag', () => {
     beforeEach(() => {
         setLedetekster({
             'sykepengesoknad.sykmelding-utdrag.egenmelding-papir': 'Egenmelding og/eller sykmelding på papir',
+            'sykepengesoknad.sykmelding-utdrag.egenmelding-papir-nei': 'Har ikke hatt egenmelding og/eller sykmelding på papir',
             'sykepengesoknad.sykmelding-utdrag.forsikring': 'Forsikring',
             'sykepengesoknad.sykmelding-utdrag.forsikring-ja': 'Ja – %GRAD% % sykepenger fra dag 1',
-            'sykepengesoknad.sykmelding-utdrag.forsikring-nei': 'Nei',
+            'sykepengesoknad.sykmelding-utdrag.forsikring-nei': 'Har ikke forsikring som gjelder de første 16 dagene av sykefraværet',
         });
         sykmelding = getSykmelding({
             valgtArbeidssituasjon: arbeidssituasjoner.NAERINGSDRIVENDE,
@@ -28,8 +29,8 @@ describe('SykmeldingUtdrag', () => {
                 }],
                 dekningsgrad: 75,
                 arbeidssituasjon: arbeidssituasjoner.NAERINGSDRIVENDE,
-                fravaerBesvart: true,
-                forsikringBesvart: true,
+                harAnnetFravaer: true,
+                harForsikring: true,
             },
         });
     });
@@ -41,11 +42,19 @@ describe('SykmeldingUtdrag', () => {
     });
 
     it('Skal ikke vise informasjon om fraværsperioder dersom dette spørsmålet ikke er besvart', () => {
-        sykmelding.sporsmal.fravaerBesvart = false;
+        sykmelding.sporsmal.harAnnetFravaer = null;
         sykmelding.sporsmal.fravaersperioder = [];
         const component = mount(<SykmeldingUtdrag sykmelding={sykmelding} erApen />);
         expect(component.text()).not.to.contain('Egenmelding og/eller sykmelding på papir');
         expect(component.text()).not.to.contain('21.03.2018 – 24.03.2018');
+    });
+
+    it('Skal vise informasjon om fraværsperioder dersom dette spørsmålet er besvart med NEI', () => {
+        sykmelding.sporsmal.harAnnetFravaer = false;
+        sykmelding.sporsmal.fravaersperioder = [];
+        const component = mount(<SykmeldingUtdrag sykmelding={sykmelding} erApen />);
+        expect(component.text()).to.contain('Egenmelding og/eller sykmelding på papir');
+        expect(component.text()).to.contain('Har ikke hatt egenmelding og/eller sykmelding på papir');
     });
 
     it('Skal vise informasjon om forsikring dersom dette spørsmålet er stilt', () => {
@@ -56,14 +65,14 @@ describe('SykmeldingUtdrag', () => {
 
     it('Skal vise informasjon om forsikring dersom dette spørsmålet er stilt og besvart med nei', () => {
         sykmelding.sporsmal.dekningsgrad = null;
+        sykmelding.sporsmal.harDekningsgrad = false;
         const component = mount(<SykmeldingUtdrag sykmelding={sykmelding} erApen />);
         expect(component.text()).to.contain('Forsikring');
-        expect(component.text()).to.contain('Nei');
+        expect(component.text()).to.contain('Har ikke forsikring som gjelder de første 16 dagene av sykefraværet');
     });
 
     it('Skal ikke vise informasjon om forsikring dersom dette spørsmålet ikke er stilt', () => {
-        sykmelding.sporsmal.forsikringBesvart = false;
-        sykmelding.sporsmal.forsikringBesvart = null;
+        sykmelding.sporsmal.harForsikring = null;
         const component = mount(<SykmeldingUtdrag sykmelding={sykmelding} erApen />);
         expect(component.text()).not.to.contain('Forsikring');
         expect(component.text()).not.to.contain('Ja – 75 % sykepenger fra dag 1');

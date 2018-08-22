@@ -40,7 +40,7 @@ export const tilSendingHjelpetekst = () => {
     return (<Hjelpetekst>{getLedetekst('sykepengesoknad.til-sending.hjelpetekst.tekst')}</Hjelpetekst>);
 };
 
-const SykepengerInfo = ({ sykepengesoknad }) => {
+export const SykepengerInfo = ({ sykepengesoknad }) => {
     return (<StatusNokkelopplysning tittel={getLedetekst('sykepengesoknad.sykepengeinfo.tittel')}>
         <p dangerouslySetInnerHTML={getHtmlLedetekst(`sykepengesoknad.sykepengeinfo${getSendtTilSuffix(sykepengesoknad)}`)} />
     </StatusNokkelopplysning>);
@@ -52,7 +52,7 @@ SykepengerInfo.propTypes = {
 
 const SendtLikt = ({ sykepengesoknad }) => {
     const tekst = getStatusTekst(sykepengesoknad);
-    return (<div className="statusopplysninger">
+    return (<Statusopplysninger>
         <StatusNokkelopplysning tittel={getLedetekst('sykepengesoknad.status-2.tittel')}>
             {
                 sykepengesoknad.status === TIL_SENDING
@@ -63,7 +63,7 @@ const SendtLikt = ({ sykepengesoknad }) => {
             }
         </StatusNokkelopplysning>
         <SykepengerInfo sykepengesoknad={sykepengesoknad} />
-    </div>);
+    </Statusopplysninger>);
 };
 
 SendtLikt.propTypes = {

@@ -1,19 +1,26 @@
 import deepFreeze from 'deep-freeze';
 import { expect } from 'chai';
+import sinon from 'sinon';
 import soknader from '../../js/reducers/soknader';
 import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader, { getSoknad, soknadrespons } from '../mockSoknader';
-import { TIL_SENDING } from '../../js/enums/soknadstatuser';
+import { SENDT } from '../../js/enums/soknadstatuser';
 
 describe('soknader', () => {
     let getStateMedDataHentet;
+    let clock;
 
     beforeEach(() => {
+        clock = sinon.useFakeTimers(new Date('2018-03-15').getTime());
         getStateMedDataHentet = () => {
             const state = soknader();
             const action = actions.soknaderHentet(soknadrespons);
             return soknader(deepFreeze(state), action);
         };
+    });
+
+    afterEach(() => {
+        clock.restore();
     });
 
     it('Håndterer henter', () => {
@@ -62,7 +69,8 @@ describe('soknader', () => {
         });
         const sendtSoknad = {
             ...data,
-            status: TIL_SENDING,
+            innsendtDato: new Date('2018-03-15'),
+            status: SENDT,
         };
         expect(soknad).to.deep.equal(sendtSoknad);
     });

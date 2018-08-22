@@ -70,17 +70,21 @@ Orgnummer.propTypes = {
 };
 
 export const SykmeldingopplysningFravaersperioder = ({ sykmelding, className }) => {
-    return sykmelding.sporsmal.fravaerBesvart
+    return sykmelding.sporsmal.harAnnetFravaer !== null
         ? (<SykmeldingNokkelOpplysning
             className={className}
             tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.egenmelding-papir')}>
-            <ul className="nokkelopplysning__liste">
-                {
-                    sykmelding.sporsmal.fravaersperioder.map((p) => {
-                        return <li key={toDatePrettyPrint(p.fom)}>{toDatePrettyPrint(p.fom)} – {toDatePrettyPrint(p.tom)}</li>;
-                    })
-                }
-            </ul>
+            {
+                sykmelding.sporsmal.fravaersperioder.length > 0
+                    ? (<ul className="nokkelopplysning__liste">
+                        {
+                            sykmelding.sporsmal.fravaersperioder.map((p) => {
+                                return <li key={toDatePrettyPrint(p.fom)}>{toDatePrettyPrint(p.fom)} – {toDatePrettyPrint(p.tom)}</li>;
+                            })
+                        }
+                    </ul>)
+                    : (<p>{getLedetekst('sykepengesoknad.sykmelding-utdrag.egenmelding-papir-nei')}</p>)
+            }
         </SykmeldingNokkelOpplysning>)
         : null;
 };
@@ -95,15 +99,15 @@ export const SykmeldingopplysningForsikring = ({ sykmelding, className }) => {
     const nokkel = grad === null
         ? 'sykepengesoknad.sykmelding-utdrag.forsikring-nei'
         : 'sykepengesoknad.sykmelding-utdrag.forsikring-ja';
-    return sykmelding.sporsmal.forsikringBesvart
+    return sykmelding.sporsmal.harForsikring !== null
         ? (<SykmeldingNokkelOpplysning
             className={className}
             tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.forsikring')}>
             <p>
                 {
-                    getLedetekst(nokkel, {
-                        '%GRAD%': grad,
-                    })
+                    sykmelding.sporsmal.harForsikring === true
+                        ? getLedetekst(nokkel, { '%GRAD%': grad })
+                        : getLedetekst('sykepengesoknad.sykmelding-utdrag.forsikring-nei')
                 }
             </p>
         </SykmeldingNokkelOpplysning>)

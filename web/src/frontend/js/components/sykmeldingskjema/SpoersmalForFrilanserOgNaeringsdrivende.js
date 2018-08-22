@@ -24,14 +24,14 @@ export const Egenmeldingssporsmal = ({ oppfolgingstilfelleStartdato }) => {
         id="egenmeldingsperioder-hjelpetekst">{getLedetekst('din-sykmelding.egenmeldingsperioder.hjelpetekst', ledetekstparams)}</Hjelpetekst>);
 
     return (<JaEllerNei
-        name="varSykmeldtEllerEgenmeldt"
+        name="harAnnetFravaer"
         spoersmal={getLedetekst('din-sykmelding.egenmeldingsperioder.janei.sporsmal', ledetekstparams)}
         hjelpetekst={hjelpetekst}>
         <Periodevelger
             spoersmal={getLedetekst('din-sykmelding.egenmeldingsperioder.perioder.sporsmal', ledetekstparams)}
             tidligsteFom={fom}
             senesteTom={tom}
-            name="egenmeldingsperioder" />
+            name="fravaersperioder" />
     </JaEllerNei>);
 };
 

@@ -9,7 +9,7 @@ import {
     SOKNADER_HENTET, SYKEPENGESOKNAD_AVBRUTT, SYKEPENGESOKNADUTLAND_OPPRETTET,
 } from '../actions/actiontyper';
 import { TIMER, DATO, PERIODER, PROSENT } from '../enums/svartyper';
-import { TIL_SENDING } from '../enums/soknadstatuser';
+import { SENDT } from '../enums/soknadstatuser';
 
 const initiellState = {
     data: [],
@@ -105,7 +105,8 @@ export default (state = initiellState, action = {}) => {
                     return s.id === action.soknad.id
                         ? {
                             ...action.soknad,
-                            status: TIL_SENDING,
+                            status: SENDT,
+                            innsendtDato: new Date(),
                         }
                         : { ...s };
                 }),

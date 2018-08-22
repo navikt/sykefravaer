@@ -42,7 +42,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.brukersSvarverdier && this.props.brukersSvarverdier && nextProps.brukersSvarverdier.opplysningeneErRiktige !== this.props.brukersSvarverdier.opplysningeneErRiktige) {
+        if (nextProps.brukersSvarverdier
+            && this.props.brukersSvarverdier
+            && nextProps.brukersSvarverdier.opplysningeneErRiktige !== this.props.brukersSvarverdier.opplysningeneErRiktige) {
             this.setState({
                 visAvbrytDialog: false,
             });
@@ -109,7 +111,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                         feilaktigeOpplysninger,
                         egenmeldingsperioder: this.getEgenmeldingsperioder(),
                         harForsikring: values.harForsikring,
-                        harAnnetFravaer: values.varSykmeldtEllerEgenmeldt,
+                        harAnnetFravaer: values.harAnnetFravaer,
                         dekningsgrad: this.getDekningsgrad(),
                     },
                 );
@@ -255,7 +257,7 @@ DinSykmeldingSkjemaComponent.propTypes = {
     dispatch: PropTypes.func,
 };
 
-const mapStateToProps = (state, ownProps) => {
+export const mapStateToProps = (state, ownProps) => {
     const sykmelding = ownProps.sykmelding;
     const dinSykmelding = state.dineSykmeldinger.data.find((s) => {
         return s.id === sykmelding.id;
@@ -271,22 +273,26 @@ const mapStateToProps = (state, ownProps) => {
                 opplysning: feilaktigeOpplysningerEnums[key],
             };
         }),
-        valgtArbeidssituasjon: sporsmal ? sporsmal.arbeidssituasjon : arbeidssituasjoner.DEFAULT,
+        valgtArbeidssituasjon: sporsmal
+            ? sporsmal.arbeidssituasjon
+            : dinSykmelding && dinSykmelding.valgtArbeidssituasjon
+                ? dinSykmelding.valgtArbeidssituasjon
+                : arbeidssituasjoner.DEFAULT,
     };
 
-    if (sporsmal && sporsmal.forsikringBesvart) {
-        initialValues.harForsikring = [75, 100].indexOf(sporsmal.dekningsgrad) > -1;
+    if (sporsmal && sporsmal.harForsikring !== null) {
+        initialValues.harForsikring = sporsmal.harForsikring;
 
-        if (initialValues.harForsikring) {
+        if (sporsmal.dekningsgrad) {
             initialValues.dekningsgrad = sporsmal.dekningsgrad;
         }
     }
 
-    if (sporsmal && sporsmal.fravaerBesvart) {
-        initialValues.varSykmeldtEllerEgenmeldt = sporsmal.fravaersperioder.length > 0;
+    if (sporsmal && sporsmal.harAnnetFravaer !== null) {
+        initialValues.harAnnetFravaer = sporsmal.harAnnetFravaer;
 
-        if (initialValues.varSykmeldtEllerEgenmeldt) {
-            initialValues.egenmeldingsperioder = sporsmal.fravaersperioder.map((periode) => {
+        if (initialValues.harAnnetFravaer) {
+            initialValues.fravaersperioder = sporsmal.fravaersperioder.map((periode) => {
                 const fom = new Date(periode.fom);
                 const tom = new Date(periode.tom);
                 return {

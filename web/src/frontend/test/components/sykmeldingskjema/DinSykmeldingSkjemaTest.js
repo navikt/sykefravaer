@@ -8,7 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
 import { setLedetekster, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
 import deepFreeze from 'deep-freeze';
-import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent } from '../../../js/components/sykmeldingskjema/DinSykmeldingSkjema';
+import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, mapStateToProps } from '../../../js/components/sykmeldingskjema/DinSykmeldingSkjema';
 import StrengtFortroligInfo from '../../../js/components/sykmeldingskjema/StrengtFortroligInfo';
 import VelgArbeidssituasjon from '../../../js/components/sykmeldingskjema/VelgArbeidssituasjon';
 import VelgArbeidsgiver from '../../../js/components/sykmeldingskjema/VelgArbeidsgiver';
@@ -131,6 +131,129 @@ describe('DinSykmeldingSkjema -', () => {
             valgtArbeidssituasjon: 'ARBEIDSTAKER',
         }));
         expect(component.find(StrengtFortroligInfo)).to.have.length(0);
+    });
+
+    describe('mapStateToProps', () => {
+        describe("initialValues", () => {
+            const initialValues = {
+                feilaktigeOpplysninger: [{
+                    opplysning: 'periode',
+                }, {
+                    opplysning: 'sykmeldingsgrad',
+                }, {
+                    opplysning: 'arbeidsgiver',
+                }, {
+                    opplysning: 'diagnose',
+                }, {
+                    opplysning: 'andre',
+                }],
+                valgtArbeidssituasjon: 'DEFAULT',
+            };
+
+            it("Skal returnere initialValues", () => {
+                const props = mapStateToProps(state, ownProps);
+                expect(props.initialValues).to.deep.equal(initialValues);
+            });
+
+            describe("Når det finnes en sykmelding med spørsmal besvart", () => {
+                it("Skal returnere svar på spørsmål når de er besvart med nei", () => {
+                    state.dineSykmeldinger.data = [
+                        getSykmelding({
+                            id: ownProps.sykmelding.id,
+                            sporsmal: {
+                                arbeidssituasjon: 'FRILANSER',
+                                harForsikring: false,
+                                harAnnetFravaer: false,
+                            },
+                        })];
+                    const props = mapStateToProps(state, ownProps);
+                    expect(props.initialValues).to.deep.equal({
+                        ...initialValues,
+                        valgtArbeidssituasjon: 'FRILANSER',
+                        harForsikring: false,
+                        harAnnetFravaer: false,
+                    });
+                });
+
+                it("Skal ikke returnere svar på spørsmål når de ikke er besvart", () => {
+                    state.dineSykmeldinger.data = [
+                        getSykmelding({
+                            id: ownProps.sykmelding.id,
+                            sporsmal: {
+                                arbeidssituasjon: 'FRILANSER',
+                                harForsikring: null,
+                                harAnnetFravaer: null,
+                            },
+                        })];
+                    const props = mapStateToProps(state, ownProps);
+                    expect(props.initialValues).to.deep.equal({
+                        ...initialValues,
+                        valgtArbeidssituasjon: 'FRILANSER',
+                    });
+                });
+
+                it("Skal returnere arbeidssituasjon når det ikke ligger lagret under sporsmal på sykmeldingen", () => {
+                    state.dineSykmeldinger.data = [
+                        getSykmelding({
+                            id: ownProps.sykmelding.id,
+                            valgtArbeidssituasjon: 'FRILANSER',
+                        })];
+                    const props = mapStateToProps(state, ownProps);
+                    expect(props.initialValues).to.deep.equal({
+                        ...initialValues,
+                        valgtArbeidssituasjon: 'FRILANSER',
+                    });
+                });
+
+                it("Skal returnere fravaersperioder", () => {
+                    state.dineSykmeldinger.data = [
+                        getSykmelding({
+                            id: ownProps.sykmelding.id,
+                            sporsmal: {
+                                arbeidssituasjon: 'FRILANSER',
+                                harForsikring: false,
+                                harAnnetFravaer: true,
+                                fravaersperioder: [{
+                                    fom: '2018-08-22',
+                                    tom: '2018-08-24',
+                                }],
+                            },
+                        })];
+                    const props = mapStateToProps(state, ownProps);
+                    expect(props.initialValues).to.deep.equal({
+                        ...initialValues,
+                        valgtArbeidssituasjon: 'FRILANSER',
+                        harForsikring: false,
+                        harAnnetFravaer: true,
+                        fravaersperioder: [{
+                            fom: '22.08.2018',
+                            tom: '24.08.2018',
+                        }],
+                    });
+                });
+
+                it("Skal returnere forsikring", () => {
+                    state.dineSykmeldinger.data = [
+                        getSykmelding({
+                            id: ownProps.sykmelding.id,
+                            sporsmal: {
+                                arbeidssituasjon: 'FRILANSER',
+                                harForsikring: true,
+                                dekningsgrad: 75,
+                                harAnnetFravaer: false,
+                            },
+                        })];
+                    const props = mapStateToProps(state, ownProps);
+                    expect(props.initialValues).to.deep.equal({
+                        ...initialValues,
+                        valgtArbeidssituasjon: 'FRILANSER',
+                        harForsikring: true,
+                        harAnnetFravaer: false,
+                        dekningsgrad: 75,
+                    });
+                });
+            });
+        });
     });
 
     describe('getFeilaktigeOpplysninger', () => {
@@ -342,8 +465,8 @@ describe('DinSykmeldingSkjema -', () => {
             values.feilaktigeOpplysninger = f;
             values.valgtArbeidssituasjon = 'FRILANSER';
             values.harForsikring = false;
-            values.varSykmeldtEllerEgenmeldt = false;
-            values.egenmeldingsperioder = null;
+            values.harAnnetFravaer = false;
+            values.fravaersperioder = null;
 
             const bekreftSykmelding = sinon.stub(dinSykmeldingActions, 'bekreftSykmelding');
 

@@ -31,7 +31,7 @@ describe('SpoersmalForFrilanserOgNaeringsdrivende', () => {
             /* eslint-disable max-len */
             const component = shallow(<Egenmeldingssporsmal oppfolgingstilfelleStartdato={new Date('2017-02-14')} />);
             expect(component.find(JaEllerNei).prop('spoersmal')).to.equal('Vi har registrert at du ble sykmeldt 14.02.2017. Brukte du egenmelding eller noen annen sykmelding før denne datoen?');
-            expect(component.find(JaEllerNei).prop('name')).to.equal('varSykmeldtEllerEgenmeldt');
+            expect(component.find(JaEllerNei).prop('name')).to.equal('harAnnetFravaer');
         });
 
         it('Skal inneholde en Periodevelger med riktige props', () => {
@@ -41,7 +41,7 @@ describe('SpoersmalForFrilanserOgNaeringsdrivende', () => {
             const component = shallow(<Egenmeldingssporsmal oppfolgingstilfelleStartdato={new Date('2017-02-14')} />);
             const periodevelger = component.find(JaEllerNei).find(Periodevelger);
             expect(periodevelger.prop('spoersmal')).to.equal('Hvilke dager var du borte fra jobb før 14.02.2017?');
-            expect(periodevelger.prop('name')).to.equal('egenmeldingsperioder');
+            expect(periodevelger.prop('name')).to.equal('fravaersperioder');
             expect(periodevelger.prop('senesteTom').getTime()).to.equal(new Date('2017-02-13').getTime());
         });
     });

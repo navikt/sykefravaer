@@ -9,8 +9,9 @@ import Feilstripe from '../../../components/Feilstripe';
 import Knapperad from '../../skjema/Knapperad';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import Oppsummeringsvisning from '../../soknad-felles-oppsummering/Oppsummeringsvisning';
-import { BEKREFT_OPPLYSNINGER } from '../../../enums/tagtyper';
+import { BEKREFT_OPPLYSNINGER, VAER_KLAR_OVER_AT } from '../../../enums/tagtyper';
 import Checkboxpanel from '../../soknad-felles/Checkboxpanel';
+import OppsummeringUndertekst from '../../soknad-felles-oppsummering/OppsummeringUndertekst';
 
 const OppsummeringUtvidbar = ({ soknad }) => {
     return (<Utvidbar className="blokk" tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')} erApen={false}>
@@ -32,6 +33,8 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
     const { handleSubmit, soknad, skjemasvar, actions, sender, sendingFeilet } = props;
     const populertSoknad = populerSoknadMedSvar(soknad, skjemasvar);
     const sporsmal = hentSporsmalForOppsummering(soknad)[0];
+    const vaerKlarOverAtSpm = soknad.sporsmal.find((s) => { return s.tag === VAER_KLAR_OVER_AT; });
+
     const onSubmit = () => {
         actions.sendSoknad(populertSoknad);
     };
@@ -39,6 +42,9 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
         { skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} /> }
         <div className="bekreftet-container blokk">
             <Checkboxpanel {...sporsmal} name={sporsmal.tag} />
+        </div>
+        <div className="panel">
+            <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">

@@ -40,11 +40,11 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
     };
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
         { skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} /> }
-        <div className="bekreftet-container blokk">
-            <Checkboxpanel {...sporsmal} name={sporsmal.tag} />
-        </div>
         <div className="panel">
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
+        </div>
+        <div className="bekreftet-container blokk">
+            <Checkboxpanel {...sporsmal} name={sporsmal.tag} />
         </div>
         <Feilstripe vis={sendingFeilet} />
         <Knapperad variant="knapperad--forrigeNeste">

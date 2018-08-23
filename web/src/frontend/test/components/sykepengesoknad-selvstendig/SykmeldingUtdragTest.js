@@ -77,4 +77,19 @@ describe('SykmeldingUtdrag', () => {
         expect(component.text()).not.to.contain('Forsikring');
         expect(component.text()).not.to.contain('Ja – 75 % sykepenger fra dag 1');
     });
+
+    it('Skal vise informasjon om forsikring og fraværsperioder desom begge er besvart med nei', () => {
+        sykmelding.sporsmal = {
+            arbeidssituasjon: 'NAERINGSDRIVENDE',
+            dekningsgrad: null,
+            harForsikring: false,
+            fravaersperioder: [],
+            harAnnetFravaer: false,
+        };
+        const component = mount(<SykmeldingUtdrag sykmelding={sykmelding} erApen />);
+        expect(component.text()).to.contain('Forsikring');
+        expect(component.text()).to.contain('Har ikke forsikring som gjelder de første 16 dagene av sykefraværet');
+        expect(component.text()).to.contain('Egenmelding og/eller sykmelding på papir');
+        expect(component.text()).to.contain('Har ikke hatt egenmelding og/eller sykmelding på papir');
+    });
 });

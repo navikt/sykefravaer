@@ -74,9 +74,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
 
     getEgenmeldingsperioder() {
         const { brukersSvarverdier } = this.props;
-        return !this.erFrilanser() || !brukersSvarverdier.varSykmeldtEllerEgenmeldt
+        return !this.erFrilanser() || !brukersSvarverdier.harAnnetFravaer
             ? null
-            : brukersSvarverdier.egenmeldingsperioder.map(tilDatePeriode);
+            : brukersSvarverdier.fravaersperioder.map(tilDatePeriode);
     }
 
     erFrilanser() {

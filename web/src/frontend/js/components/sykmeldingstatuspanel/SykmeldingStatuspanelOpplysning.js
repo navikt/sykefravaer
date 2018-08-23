@@ -121,7 +121,13 @@ SykmeldingopplysningForsikring.propTypes = {
 
 export const Frilansersporsmal = ({ sykmelding }) => {
     return (<Vis
-        hvis={sykmelding.sporsmal && (sykmelding.sporsmal.fravaerBesvart || sykmelding.sporsmal.dekningsgrad)}
+        hvis={
+            sykmelding.sporsmal
+                && (
+                    sykmelding.sporsmal.harAnnetFravaer !== null
+                    || sykmelding.sporsmal.harForsikring !== null
+                )
+        }
         render={() => {
             return ([
                 <SykmeldingopplysningFravaersperioder

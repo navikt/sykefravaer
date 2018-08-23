@@ -362,8 +362,8 @@ describe('DinSykmeldingSkjema -', () => {
             brukersSvarverdier = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
-                varSykmeldtEllerEgenmeldt: true,
-                egenmeldingsperioder: [{
+                harAnnetFravaer: true,
+                fravaersperioder: [{
                     fom: '01.03.2018',
                     tom: '05.03.2018',
                 }, {
@@ -387,8 +387,8 @@ describe('DinSykmeldingSkjema -', () => {
             brukersSvarverdier = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
-                varSykmeldtEllerEgenmeldt: false,
-                egenmeldingsperioder: [{}, {}],
+                harAnnetFravaer: false,
+                fravaersperioder: [{}, {}],
                 harForsikring: false,
             };
             props.brukersSvarverdier = brukersSvarverdier;
@@ -400,7 +400,7 @@ describe('DinSykmeldingSkjema -', () => {
             brukersSvarverdier = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
-                varSykmeldtEllerEgenmeldt: false,
+                harAnnetFravaer: false,
                 harForsikring: false,
                 dekningsgrad: '75',
             };
@@ -413,7 +413,7 @@ describe('DinSykmeldingSkjema -', () => {
             brukersSvarverdier = {
                 valgtArbeidssituasjon: 'FRILANSER',
                 opplysningeneErRiktige: true,
-                varSykmeldtEllerEgenmeldt: false,
+                harAnnetFravaer: false,
                 harForsikring: true,
                 dekningsgrad: '75',
             };

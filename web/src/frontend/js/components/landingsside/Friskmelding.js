@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Bjorn, getHtmlLedetekst, getLedetekst, log } from 'digisyfo-npm';
-import { Experiment, Variant } from 'react-ab';
 import { Knapp } from 'nav-frontend-knapper';
 import { getContextRoot } from '../../routers/paths';
 import { Vis } from '../../utils';
@@ -70,6 +69,10 @@ class Friskmelding extends Component {
         };
     }
 
+    componentWillMount() {
+        this.startABTest('AUGUST_2018');
+    }
+
     pushToDataLayer(event, variant) {
         const v = variant || this.state.variant;
         track(event, v, this.props.datalayerData, this.props.sykefravaerVarighet);
@@ -88,7 +91,7 @@ class Friskmelding extends Component {
         });
     }
 
-    startABTest(eksperiment, variant) {
+    startABTest(variant) {
         this.setState({ variant });
         this.pushToDataLayer('FRISKMELDINGSKNAPP_VIST', variant);
     }
@@ -96,14 +99,7 @@ class Friskmelding extends Component {
     render() {
         return ([
             <Bjorn key="friskmeldingsbjorn" rootUrl={getContextRoot()} className="landingspanel" hvit>
-                <Experiment name="friskmeldingsknapp_lenke_eller_knapp" onChoice={this.startABTest}>
-                    <Variant name="FRISKMELDING_KNAPP">
-                        <TekstOgKnapp onClick={this.visLightbox} tekstnokkel="friskmelding.bjorn" />
-                    </Variant>
-                    <Variant name="FRISKMELDING_LENKE">
-                        <TekstOgLenke onClick={this.visLightbox} tekstnokkel="friskmelding.bjorn" />
-                    </Variant>
-                </Experiment>
+                <TekstOgKnapp onClick={this.visLightbox} tekstnokkel="friskmelding.bjorn" />
             </Bjorn>,
             <Vis
                 key="friskmeldingslightbox"

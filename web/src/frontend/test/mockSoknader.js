@@ -318,6 +318,18 @@ export const soknadSelvstendig1 = {
             undertekst: null,
         },
         {
+            id: '26',
+            tag: 'VAER_KLAR_OVER_AT',
+            sporsmalstekst: 'Vær klar over at:',
+            undertekst: '<ul><li>rett til sykepenger forutsetter at du er borte fra arbeid på grunn av egen sykdom. Sosiale eller økonomiske problemer gir ikke rett til sykepenger</li><li>du kan miste retten til sykepenger hvis du uten rimelig grunn nekter å opplyse om egen funksjonsevne eller nekter å ta imot tilbud om behandling og/eller tilrettelegging</li><li>sykepenger utbetales i maksimum 52 uker, også for gradert (delvis) sykmelding</li><li>fristen for å søke sykepenger er som hovedregel 3 måneder</li></ul>',
+            svartype: 'IKKE_RELEVANT',
+            min: null,
+            max: null,
+            kriterieForVisningAvUndersporsmal: null,
+            svar: [],
+            undersporsmal: [],
+        },
+        {
             id: '23',
             kriterieForVisningAvUndersporsmal: null,
             max: null,
@@ -655,6 +667,18 @@ const parsetSoknad1 = {
             undertekst: null,
         },
         {
+            id: '26',
+            tag: 'VAER_KLAR_OVER_AT',
+            sporsmalstekst: 'Vær klar over at:',
+            undertekst: '<ul><li>rett til sykepenger forutsetter at du er borte fra arbeid på grunn av egen sykdom. Sosiale eller økonomiske problemer gir ikke rett til sykepenger</li><li>du kan miste retten til sykepenger hvis du uten rimelig grunn nekter å opplyse om egen funksjonsevne eller nekter å ta imot tilbud om behandling og/eller tilrettelegging</li><li>sykepenger utbetales i maksimum 52 uker, også for gradert (delvis) sykmelding</li><li>fristen for å søke sykepenger er som hovedregel 3 måneder</li></ul>',
+            svartype: 'IKKE_RELEVANT',
+            min: null,
+            max: null,
+            kriterieForVisningAvUndersporsmal: null,
+            svar: [],
+            undersporsmal: [],
+        },
+        {
             id: '23',
             kriterieForVisningAvUndersporsmal: null,
             max: null,
@@ -734,7 +758,8 @@ export const soknadUtland1 = {
         svar: [],
         svartype: 'IKKE_RELEVANT',
         tag: 'BEKREFT_OPPLYSNINGER_UTLAND_INFO',
-        undersporsmal: [{ id: '105',
+        undersporsmal: [{
+            id: '105',
             kriterieForVisningAvUndersporsmal: null,
             max: null,
             min: null,
@@ -805,18 +830,18 @@ export const parsetSoknadUtland1 = {
             svar: [],
             undersporsmal: [],
         },
-        {
-            id: '104',
-            tag: 'FERIE',
-            sporsmalstekst: 'Skal du ha ferie i hele perioden?',
-            undertekst: null,
-            svartype: 'JA_NEI',
-            min: null,
-            max: null,
-            kriterieForVisningAvUndersporsmal: null,
-            svar: [],
-            undersporsmal: [],
-        }],
+            {
+                id: '104',
+                tag: 'FERIE',
+                sporsmalstekst: 'Skal du ha ferie i hele perioden?',
+                undertekst: null,
+                svartype: 'JA_NEI',
+                min: null,
+                max: null,
+                kriterieForVisningAvUndersporsmal: null,
+                svar: [],
+                undersporsmal: [],
+            }],
     }, {
         id: '105',
         kriterieForVisningAvUndersporsmal: '',
@@ -826,7 +851,8 @@ export const parsetSoknadUtland1 = {
         svar: [],
         svartype: 'IKKE_RELEVANT',
         tag: 'BEKREFT_OPPLYSNINGER_UTLAND_INFO',
-        undersporsmal: [{ id: '106',
+        undersporsmal: [{
+            id: '106',
             kriterieForVisningAvUndersporsmal: null,
             max: null,
             min: null,
@@ -837,10 +863,10 @@ export const parsetSoknadUtland1 = {
             undersporsmal: [],
             undertekst: null,
         }],
-        undertekst: '<ul>\n' +
-        '    <li>Reisen vil ikke gjøre at jeg blir dårligere</li>\n' +
-        '    <li>Reisen vil ikke gjøre at sykefraværet blir lengre</li>\n' +
-        '    <li>Reisen vil ikke hindre planlagt behandling eller oppfølging</li>\n' +
+        undertekst: '<ul>' +
+        '<li>Reisen vil ikke gjøre at jeg blir dårligere</li>' +
+        '<li>Reisen vil ikke gjøre at sykefraværet blir lengre</li>' +
+        '<li>Reisen vil ikke hindre planlagt behandling eller oppfølging</li>' +
         '</ul>',
     }],
 };

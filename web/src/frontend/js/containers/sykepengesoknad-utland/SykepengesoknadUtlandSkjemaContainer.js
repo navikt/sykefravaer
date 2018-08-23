@@ -49,6 +49,7 @@ UtlandSkjemaContainer.propTypes = {
     avbryter: PropTypes.bool,
     ferie: PropTypes.bool,
     sti: PropTypes.string,
+    avbrytSoknad: PropTypes.func,
 };
 
 export const finnSoknad = (state, ownProps) => {

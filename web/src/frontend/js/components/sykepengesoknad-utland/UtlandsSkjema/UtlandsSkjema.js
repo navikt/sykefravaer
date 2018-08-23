@@ -66,6 +66,7 @@ export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryt
 
 Utlandsskjema.propTypes = {
     soknad: soknadPt,
+    ferie: PropTypes.bool,
     handleSubmit: PropTypes.func,
     sendSoknad: PropTypes.func,
     sender: PropTypes.bool,

@@ -26,12 +26,11 @@ export function* bekreftSykmelding(action) {
         };
 
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`, body);
-        if (verdier.dekningsgrad || verdier.egenmeldingsperioder) {
-            const skalOppretteSoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/skalOppretteSoknad`, {
-                dekningsgrad: verdier.dekningsgrad, egenmeldingsperioder: verdier.egenmeldingsperioder,
-            });
-            yield put(skalOppretteSoknadHentet(sykmeldingId, skalOppretteSoknad));
-        }
+        const skalOppretteSoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/skalOppretteSoknad`, {
+            dekningsgrad: verdier.dekningsgrad,
+            egenmeldingsperioder: verdier.egenmeldingsperioder,
+        });
+        yield put(skalOppretteSoknadHentet(sykmeldingId, skalOppretteSoknad));
         yield put(actions.setArbeidssituasjon(verdier.arbeidssituasjon, sykmeldingId));
         yield put(actions.sykmeldingBekreftet(sykmeldingId));
         yield put(dineSykmeldingerActions.hentDineSykmeldinger());

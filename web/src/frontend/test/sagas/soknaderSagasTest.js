@@ -18,7 +18,7 @@ describe('soknaderSagas', () => {
         });
 
         it('Skal hente søknader', () => {
-            const nextCall = call(get, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/soknader');
+            const nextCall = call(get, 'https://syfoapi-q.nav.no/syfosoknad/api/soknader');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -44,7 +44,7 @@ describe('soknaderSagas', () => {
         });
 
         it('Skal sende søknad', () => {
-            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/sendSoknad', soknadData);
+            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfosoknad/api/sendSoknad', soknadData);
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -69,7 +69,7 @@ describe('soknaderSagas', () => {
         });
 
         it('Skal opprette søknad', () => {
-            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/opprettSoknadUtland');
+            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfosoknad/api/opprettSoknadUtland');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -95,7 +95,7 @@ describe('soknaderSagas', () => {
         });
 
         it('Skal avbryte søknad', () => {
-            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/avbrytSoknad', soknadData);
+            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfosoknad/api/avbrytSoknad', soknadData);
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

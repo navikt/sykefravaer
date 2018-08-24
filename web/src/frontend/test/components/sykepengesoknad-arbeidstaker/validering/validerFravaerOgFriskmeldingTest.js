@@ -236,8 +236,8 @@ describe('validerFravaerOgFriskmelding', () => {
             it('Skal klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato', () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.ferie).to.deep.equal([{
-                    fom: 'Datoen må være innenfor perioden 01.01.2017-08.01.2017',
-                    tom: 'Datoen må være innenfor perioden 01.01.2017-08.01.2017',
+                    fom: 'Datoen må være innenfor perioden 1. – 8. januar 2017',
+                    tom: 'Datoen må være innenfor perioden 1. – 8. januar 2017',
                 }]);
             });
 
@@ -267,7 +267,7 @@ describe('validerFravaerOgFriskmelding', () => {
             it('Skal klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato', () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.ferie).to.deep.equal([{
-                    fom: 'Datoen må være innenfor perioden 12.05.2016-16.01.2017',
+                    fom: 'Datoen må være innenfor perioden 12. mai 2016 – 16. januar 2017',
                 }]);
             });
         });
@@ -291,7 +291,7 @@ describe('validerFravaerOgFriskmelding', () => {
             it('Skal klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato', () => {
                 const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                 expect(res.ferie).to.deep.equal([{
-                    fom: 'Datoen må være innenfor perioden 01.01.2017-16.01.2017',
+                    fom: 'Datoen må være innenfor perioden 1. – 16. januar 2017',
                 }]);
             });
         });
@@ -330,7 +330,7 @@ describe('validerFravaerOgFriskmelding', () => {
                 it('Skal klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato', () => {
                     const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                     expect(res.permisjon).to.deep.equal([{
-                        tom: 'Datoen må være innenfor perioden 01.01.2017-11.07.2020',
+                        tom: 'Datoen må være innenfor perioden 1. januar 2017 – 11. juli 2020',
                     }]);
                 });
 
@@ -445,7 +445,7 @@ describe('validerFravaerOgFriskmelding', () => {
                 it('Skal klage på at fom-dato er etter values.gjenopptattArbeidFulltUtDato', () => {
                     const res = validate(values, { sykepengesoknad, sendTilFoerDuBegynner });
                     expect(res.utenlandsopphold.perioder).to.deep.equal([{
-                        tom: 'Datoen må være innenfor perioden 01.01.2017-11.07.2020',
+                        tom: 'Datoen må være innenfor perioden 1. januar 2017 – 11. juli 2020',
                     }]);
                 });
 

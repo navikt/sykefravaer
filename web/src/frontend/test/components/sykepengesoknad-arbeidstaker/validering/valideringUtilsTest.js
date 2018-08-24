@@ -72,8 +72,8 @@ describe('valideringUtils', () => {
                 fra: new Date('2014-01-13'),
             });
             expect(res).to.deep.equal([{
-                fom: 'Datoen må være etter 13.01.2014',
-                tom: 'Datoen må være etter 13.01.2014',
+                fom: 'Datoen må være etter 13. januar 2014',
+                tom: 'Datoen må være etter 13. januar 2014',
             }]);
         });
 
@@ -85,8 +85,8 @@ describe('valideringUtils', () => {
                 til: new Date('2014-01-11'),
             });
             expect(res).to.deep.equal([{
-                fom: 'Datoen må være før 11.01.2014',
-                tom: 'Datoen må være før 11.01.2014',
+                fom: 'Datoen må være før 11. januar 2014',
+                tom: 'Datoen må være før 11. januar 2014',
             }]);
         });
 
@@ -99,8 +99,8 @@ describe('valideringUtils', () => {
                 til: new Date('2014-01-11'),
             });
             expect(res).to.deep.equal([{
-                fom: 'Datoen må være innenfor perioden 08.01.2014-11.01.2014',
-                tom: 'Datoen må være innenfor perioden 08.01.2014-11.01.2014',
+                fom: 'Datoen må være innenfor perioden 8. – 11. januar 2014',
+                tom: 'Datoen må være innenfor perioden 8. – 11. januar 2014',
             }]);
         });
 
@@ -112,7 +112,7 @@ describe('valideringUtils', () => {
                 til: new Date('2016-07-16'),
             });
             expect(res).to.deep.equal([{
-                tom: 'Datoen må være før 16.07.2016',
+                tom: 'Datoen må være før 16. juli 2016',
             }]);
         });
     });

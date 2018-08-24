@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { toDatePrettyPrint, getLedetekst } from 'digisyfo-npm';
+import { tilLesbarDatoMedArstall, getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import { getTidligsteSendtDato, sorterEtterSendtDato } from '../../utils/sykepengesoknadUtils';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
@@ -18,7 +18,7 @@ const RelaterteSoknader = ({ relaterteSoknader }) => {
                     .sort(sorterEtterSendtDato)
                     .map((s, index) => {
                         return (<li key={index}>
-                            <Link to={`/sykefravaer/soknader/${s.id}`}>{getLedetekst('relaterte-soknader.sendt')} {toDatePrettyPrint(getTidligsteSendtDato(s))}</Link>
+                            <Link to={`/sykefravaer/soknader/${s.id}`}>{getLedetekst('relaterte-soknader.sendt')} {tilLesbarDatoMedArstall(getTidligsteSendtDato(s))}</Link>
                         </li>);
                     })
             }

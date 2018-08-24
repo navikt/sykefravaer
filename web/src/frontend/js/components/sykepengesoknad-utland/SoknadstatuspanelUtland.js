@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    toDatePrettyPrint,
+    tilLesbarDatoMedArstall,
     getLedetekst,
     sykepengesoknadstatuser,
 } from 'digisyfo-npm';
@@ -31,7 +31,7 @@ export const tilSendingHjelpetekst = () => {
 const SendtDato = ({ soknad }) => {
     return (<StatusNokkelopplysning
         tittel={getLedetekst('sykepengesoknad.sykepengeinfo.tittel.dato')}>
-        <p>{toDatePrettyPrint(soknad.innsendtDato)}</p>
+        <p>{tilLesbarDatoMedArstall(soknad.innsendtDato)}</p>
     </StatusNokkelopplysning>);
 };
 

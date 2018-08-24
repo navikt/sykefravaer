@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { getLedetekst, tilLesbarDatoMedArstall } from 'digisyfo-npm';
 import Alertstripe from 'nav-frontend-alertstriper';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { getTidligsteSendtDato } from '../../utils/sykepengesoknadUtils';
@@ -10,7 +10,7 @@ export const KorrigertAv = ({ korrigertAvSoknad }) => {
     return (<Alertstripe className="blokk" type="info">
         <p className="sist">
             {getLedetekst('sykepengesoknad.korrigert.tekst', {
-                '%DATO%': toDatePrettyPrint(getTidligsteSendtDato(korrigertAvSoknad)),
+                '%DATO%': tilLesbarDatoMedArstall(getTidligsteSendtDato(korrigertAvSoknad)),
             })}
         </p>
         <p className="sist">

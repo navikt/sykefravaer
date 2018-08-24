@@ -1,17 +1,22 @@
-import { toDatePrettyPrint, fraInputdatoTilJSDato, erGyldigDatoformat } from 'digisyfo-npm';
+import {
+    fraInputdatoTilJSDato,
+    erGyldigDatoformat,
+    tilLesbarPeriodeMedArstall,
+    tilLesbarDatoMedArstall,
+} from 'digisyfo-npm';
 import { erGyldigDato } from '../../../utils/datoUtils';
 
 export const validerPeriode = (input, alternativer) => {
     const { fra, til } = alternativer;
     const inputDato = fraInputdatoTilJSDato(input);
     if (fra && til && (inputDato < fra || inputDato > til)) {
-        return `Datoen må være innenfor perioden ${toDatePrettyPrint(fra)}-${toDatePrettyPrint(til)}`;
+        return `Datoen må være innenfor perioden ${tilLesbarPeriodeMedArstall(fra, til)}`;
     }
     if (til && inputDato > til) {
-        return `Datoen må være før ${toDatePrettyPrint(til)}`;
+        return `Datoen må være før ${tilLesbarDatoMedArstall(til)}`;
     }
     if (fra && inputDato < fra) {
-        return `Datoen må være etter ${toDatePrettyPrint(fra)}`;
+        return `Datoen må være etter ${tilLesbarDatoMedArstall(fra)}`;
     }
     return undefined;
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Knapp } from 'nav-frontend-knapper';
-import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { getLedetekst, tilLesbarDatoMedArstall, tilLesbarPeriodeMedArstall } from 'digisyfo-npm';
 import { soknad as soknadPt, sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import Lightbox from '../Lightbox';
 
@@ -10,7 +10,7 @@ const SoknadLightbox = ({ soknad, onClose }) => {
         <h3 className="modal__tittel">{getLedetekst('soknader.teaser.fremtidig.dato-tittel')}</h3>
         <p>{
             getLedetekst('soknader.teaser.fremtidig.dato-info', {
-                '%DATO%': toDatePrettyPrint(soknad.tom),
+                '%DATO%': tilLesbarDatoMedArstall(soknad.tom),
             })
         }</p>
         <div className="knapperad">
@@ -51,7 +51,7 @@ class FremtidigSoknadTeaser extends Component {
                     <header className="inngangspanel__header">
                         <h3 className="js-title" id={`soknad-header-${soknad.id}`}>
                             <small className="inngangspanel__meta js-meta">
-                                {getLedetekst('soknad.teaser.dato.fremtidig', { '%DATO%': toDatePrettyPrint(soknad.tom) })}
+                                {getLedetekst('soknad.teaser.dato.fremtidig', { '%DATO%': tilLesbarDatoMedArstall(soknad.tom) })}
                             </small>
                             <span className="inngangspanel__tittel">
                                 {getLedetekst('soknad.teaser.tittel')}
@@ -64,8 +64,9 @@ class FremtidigSoknadTeaser extends Component {
                     <p className="inngangspanel__tekst js-tekst">
                         {
                             getLedetekst('soknad.teaser.tekst', {
-                                '%FRA%': toDatePrettyPrint(soknad.fom),
-                                '%TIL%': toDatePrettyPrint(soknad.tom),
+                                '%FRA%': tilLesbarDatoMedArstall(soknad.fom),
+                                '%TIL%': tilLesbarDatoMedArstall(soknad.tom),
+                                '%PERIODE%': tilLesbarPeriodeMedArstall(soknad.fom, soknad.tom),
                             })
                         }
                     </p>

@@ -28,22 +28,22 @@ describe('Soknadsdatoliste', () => {
 
     it('Skal sortere etter tom', () => {
         comp = shallow(<Soknadsdatoliste sykepengesoknader={[soknad1, soknad2, soknad3]} />);
-        expect(comp.find('li').at(0).text()).to.equal('12.10.2017');
-        expect(comp.find('li').at(1).text()).to.equal('13.10.2017');
-        expect(comp.find('li').at(2).text()).to.equal('14.10.2017');
+        expect(comp.find('li').at(0).text()).to.equal('12. oktober 2017');
+        expect(comp.find('li').at(1).text()).to.equal('13. oktober 2017');
+        expect(comp.find('li').at(2).text()).to.equal('14. oktober 2017');
     });
 
     describe('soknadsdatoremse', () => {
         it('Skal gi én dato hvis det bare finnes én søknad', () => {
-            expect(soknadsdatoremse([soknad1])).to.equal('<strong>14.10.2017</strong>');
+            expect(soknadsdatoremse([soknad1])).to.equal('<strong>14. oktober 2017</strong>');
         });
 
         it("Skal gi to datoer separert av 'og' hvis det finnes to søknader", () => {
-            expect(soknadsdatoremse([soknad1, soknad2])).to.equal('<strong>12.10.2017</strong> og <strong>14.10.2017</strong>');
+            expect(soknadsdatoremse([soknad1, soknad2])).to.equal('<strong>12. oktober 2017</strong> og <strong>14. oktober 2017</strong>');
         });
 
         it("Skal gi tre datoer separert av komma og 'og' hvis det finnes tre søknader", () => {
-            expect(soknadsdatoremse([soknad1, soknad2, soknad3])).to.equal('<strong>12.10.2017</strong>, <strong>13.10.2017</strong> og <strong>14.10.2017</strong>');
+            expect(soknadsdatoremse([soknad1, soknad2, soknad3])).to.equal('<strong>12. oktober 2017</strong>, <strong>13. oktober 2017</strong> og <strong>14. oktober 2017</strong>');
         });
     });
 });

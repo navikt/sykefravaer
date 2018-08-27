@@ -20,7 +20,7 @@ describe('SykmeldingTeaser', () => {
             },
         };
         const teaser = shallow(<SykmeldingTeaser sykmelding={getSykmelding(sykmelding)} />);
-        expect(teaser.find('.js-title').text()).to.contain('fra 02.02.2016 til 16.02.2016');
+        expect(teaser.find('.js-title').text()).to.contain('2. – 16. februar 2016');
         expect(teaser.find('.js-title').text()).to.contain('Sykmelding');
     });
 

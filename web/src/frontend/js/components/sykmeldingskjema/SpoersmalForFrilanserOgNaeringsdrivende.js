@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { getLedetekst, tilLesbarDatoMedArstall } from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { fieldPropTypes } from '../../propTypes';
 import JaEllerNei from '../sykepengesoknad-arbeidstaker/JaEllerNei';
@@ -18,7 +18,7 @@ export const Egenmeldingssporsmal = ({ oppfolgingstilfelleStartdato }) => {
     fom.setMonth(fom.getMonth() - 2);
 
     const ledetekstparams = {
-        '%DATO%': toDatePrettyPrint(oppfolgingstilfelleStartdato),
+        '%DATO%': tilLesbarDatoMedArstall(oppfolgingstilfelleStartdato),
     };
     const hjelpetekst = (<Hjelpetekst
         id="egenmeldingsperioder-hjelpetekst">{getLedetekst('din-sykmelding.egenmeldingsperioder.hjelpetekst', ledetekstparams)}</Hjelpetekst>);

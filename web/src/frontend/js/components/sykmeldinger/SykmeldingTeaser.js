@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { toDatePrettyPrint, getLedetekst, tidligsteFom, senesteTom, sykmeldingstatuser } from 'digisyfo-npm';
+import { getLedetekst, tidligsteFom, senesteTom, sykmeldingstatuser, tilLesbarPeriodeMedArstall } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
 import { sykmelding as sykmeldingPt, sykmeldingperiode } from '../../propTypes';
@@ -60,10 +60,9 @@ class SykmeldingTeaser extends Component {
                 <div className="inngangspanel__innhold">
                     <header className="inngangspanel__header">
                         <h3 className="js-title" id={`sykmelding-header-${this.props.sykmelding.id}`}>
-                            <small className="inngangspanel__meta">{getLedetekst('sykmelding.teaser.dato', {
-                                '%FOM%': toDatePrettyPrint(tidligsteFom(sykmelding.mulighetForArbeid.perioder)),
-                                '%TOM%': toDatePrettyPrint(senesteTom(sykmelding.mulighetForArbeid.perioder)),
-                            })} </small>
+                            <small className="inngangspanel__meta">
+                                {tilLesbarPeriodeMedArstall(tidligsteFom(sykmelding.mulighetForArbeid.perioder), senesteTom(sykmelding.mulighetForArbeid.perioder))}
+                            </small>
                             <span className="inngangspanel__tittel">
                                 {getLedetekst('sykmelding.teaser.tittel')}
                             </span>

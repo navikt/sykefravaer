@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, sykmelding as sykmeldingPt, toDatePrettyPrint } from 'digisyfo-npm';
+import { getLedetekst, sykmelding as sykmeldingPt, tilLesbarDatoMedArstall } from 'digisyfo-npm';
 import AngreBekreftSykmeldingContainer from '../../containers/sykmelding/AngreBekreftSykmeldingContainer';
 import { Frilansersporsmal } from './SykmeldingStatuspanelOpplysning';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
@@ -9,7 +9,7 @@ const BekreftetSykmeldingStatuspanel = ({ sykmelding }) => {
         <Statusopplysninger>
             <StatusNokkelopplysning tittel={getLedetekst('statuspanel.status')}>
                 <p className="js-status">
-                    {getLedetekst(`statuspanel.status.${sykmelding.status}`)} – {toDatePrettyPrint(sykmelding.sendtdato)}
+                    {getLedetekst(`statuspanel.status.${sykmelding.status}`)} – {tilLesbarDatoMedArstall(sykmelding.sendtdato)}
                 </p>
             </StatusNokkelopplysning>
             <StatusNokkelopplysning tittel={getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}>

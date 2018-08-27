@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
     getLedetekst,
     getSykmelding,
-    toDatePrettyPrint,
+    tilLesbarDatoMedArstall,
     senesteTom,
     sykepengesoknadstatuser,
     sykmeldingstatuser,
@@ -196,7 +196,7 @@ export function mapStateToProps(state, ownProps) {
         sykepengesoknader: state.sykepengesoknader.data.filter(soknadErFremtidig),
         soknader: state.soknader.data.filter(soknadErFremtidig),
         kvitteringtype,
-        tom: sykmelding ? toDatePrettyPrint(senesteTom(sykmelding.mulighetForArbeid.perioder)) : null,
+        tom: sykmelding ? tilLesbarDatoMedArstall(senesteTom(sykmelding.mulighetForArbeid.perioder)) : null,
     };
 }
 

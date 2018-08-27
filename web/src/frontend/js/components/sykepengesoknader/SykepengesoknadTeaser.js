@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getLedetekst, toDatePrettyPrint, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { getLedetekst, tilLesbarDatoMedArstall, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
 import { getSendtTilSuffix, erSendtTilBeggeMenIkkeSamtidig } from '../../utils/sykepengesoknadUtils';
@@ -13,14 +13,14 @@ export const SendtUlikt = ({ soknad }) => {
     return (<span>
         {
             getLedetekst('soknad.teaser.status.SENDT.til-arbeidsgiver', {
-                '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato),
+                '%DATO%': tilLesbarDatoMedArstall(soknad.sendtTilArbeidsgiverDato),
                 '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn,
             })
         }
         <br />
         {
             getLedetekst('soknad.teaser.status.SENDT.til-nav', {
-                '%DATO%': toDatePrettyPrint(soknad.sendtTilNAVDato),
+                '%DATO%': tilLesbarDatoMedArstall(soknad.sendtTilNAVDato),
             })
         }
     </span>);
@@ -64,7 +64,7 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                                 (() => {
                                     return getLedetekst('soknad.teaser.dato', {
                                         '%DATO%':
-                                            toDatePrettyPrint(soknad.soknadstype === OPPHOLD_UTLAND || soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
+                                            tilLesbarDatoMedArstall(soknad.soknadstype === OPPHOLD_UTLAND || soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
                                                 ? soknad.opprettetDato : soknad.tom),
                                     });
                                 })()
@@ -86,7 +86,7 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                         <p className="inngangspanel__status js-status">
                             {
                                 getLedetekst(`soknad.teaser.status.${soknad.status}`, {
-                                    '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
+                                    '%DATO%': tilLesbarDatoMedArstall(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
                                 })
                             }
                         </p>
@@ -97,8 +97,8 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                         (() => {
                             if (soknad.soknadstype !== OPPHOLD_UTLAND) {
                                 return getLedetekst('soknad.teaser.tekst', {
-                                    '%FRA%': toDatePrettyPrint(soknad.fom),
-                                    '%TIL%': toDatePrettyPrint(soknad.tom),
+                                    '%FRA%': tilLesbarDatoMedArstall(soknad.fom),
+                                    '%TIL%': tilLesbarDatoMedArstall(soknad.tom),
                                 });
                             }
                             return null;
@@ -110,7 +110,7 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                         (() => {
                             if (soknad.status === AVBRUTT) {
                                 return getLedetekst('soknad.teaser.status.AVBRUTT', {
-                                    '%DATO%': toDatePrettyPrint(soknad.avbruttDato),
+                                    '%DATO%': tilLesbarDatoMedArstall(soknad.avbruttDato),
                                 });
                             }
                             if (soknad.status !== SENDT && soknad.status !== TIL_SENDING && !soknad.soknadstype) {
@@ -122,11 +122,11 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                             if (soknad.status !== NY && soknad.status !== UTKAST_TIL_KORRIGERING) {
                                 if ((soknad.soknadstype === OPPHOLD_UTLAND || soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE) && soknad.status === SENDT) {
                                     return getLedetekst('soknad.teaser.status.SENDT.til-nav', {
-                                        '%DATO%': toDatePrettyPrint(soknad.innsendtDato),
+                                        '%DATO%': tilLesbarDatoMedArstall(soknad.innsendtDato),
                                     });
                                 }
                                 return getLedetekst(`soknad.teaser.status.${soknad.status}${getSendtTilSuffix(soknad)}`, {
-                                    '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
+                                    '%DATO%': tilLesbarDatoMedArstall(soknad.sendtTilArbeidsgiverDato || soknad.sendtTilNAVDato),
                                     '%ARBEIDSGIVER%': soknad.arbeidsgiver ? soknad.arbeidsgiver.navn : null,
                                 });
                             }

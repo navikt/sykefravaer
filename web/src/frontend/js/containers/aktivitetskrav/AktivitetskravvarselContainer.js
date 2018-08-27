@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { toDatePrettyPrint, scrollTo, getLedetekst, keyValue } from 'digisyfo-npm';
+import { tilLesbarDatoMedArstall, scrollTo, getLedetekst, keyValue } from 'digisyfo-npm';
 import Alertstripe from 'nav-frontend-alertstriper';
 import Side from '../../sider/Side';
 import AppSpinner from '../../components/AppSpinner';
@@ -19,7 +19,7 @@ export const AKTIVITETSVARSELKVITTERING = 'AKTIVITETSVARSELKVITTERING';
 const Kvittering = ({ bekreftetdato, ledetekster }) => {
     return (<Alertstripe type="suksess" className="js-aktivitetskrav-kvittering blokk">
         <p className="sist">{getLedetekst('aktivitetskrav-varsel.kvittering', ledetekster, {
-            '%DATO%': toDatePrettyPrint(bekreftetdato),
+            '%DATO%': tilLesbarDatoMedArstall(bekreftetdato),
         })}</p>
     </Alertstripe>);
 };

@@ -1,4 +1,4 @@
-import { EVENT_REGISTRERT, SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
+import { EVENT_REGISTRERT, SOKNAD_SENDT, SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
 
 const initiellState = {
     data: [],
@@ -39,6 +39,18 @@ const metrikker = (state = initiellState, action = {}) => {
                         ressursId: action.sykepengesoknad.id,
                         tid: new Date(),
                         type: SYKEPENGESOKNAD_SENDT,
+                    },
+                ],
+            };
+        }
+        case SOKNAD_SENDT: {
+            return {
+                data: [
+                    ...state.data,
+                    {
+                        ressursId: action.soknad.id,
+                        tid: new Date(),
+                        type: SOKNAD_SENDT,
                     },
                 ],
             };

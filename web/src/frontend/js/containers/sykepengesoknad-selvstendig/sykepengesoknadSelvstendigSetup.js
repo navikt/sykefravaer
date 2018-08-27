@@ -5,6 +5,7 @@ import { onSubmitFail } from '../FeiloppsummeringContainer';
 import { sendSoknad } from '../../actions/soknader_actions';
 import { getSykepengesoknadSelvstendigSkjemanavn } from '../../enums/skjemanavn';
 import { erForsteSoknad } from '../../selectors/soknaderSelectors';
+import { utfyllingStartet } from '../../actions/metrikker_actions';
 
 export const finnSoknad = (state, ownProps) => {
     const soknader = state.soknader.data.filter((s) => {
@@ -49,6 +50,7 @@ const mapStateToPropsMedInitialValues = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     const actions = bindActionCreators({
         sendSoknad,
+        utfyllingStartet,
     }, dispatch);
 
     return {
@@ -58,7 +60,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export default (validate, Component, initialize = false) => {
     const connected = initialize
-        ? connect(mapStateToPropsMedInitialValues)
+        ? connect(mapStateToPropsMedInitialValues, mapDispatchToProps)
         : connect(mapStateToProps, mapDispatchToProps);
 
     return compose(

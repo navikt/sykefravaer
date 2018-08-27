@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import history from '../../../history';
@@ -17,28 +17,37 @@ export const hentSporsmalForDuBegynner = (soknad) => {
     });
 };
 
-export const FoerDuBegynnerSkjema = (props) => {
-    const { handleSubmit, soknad } = props;
-    const onSubmit = () => {
-        history.push(`/sykefravaer/soknader/${soknad.id}/fravaer-og-friskmelding`);
-    };
+export class FoerDuBegynnerSkjema extends Component {
+    componentDidMount() {
+        if (this.props.soknad) {
+            this.props.utfyllingStartet(this.props.soknad.id);
+        }
+    }
 
-    const sporsmal = hentSporsmalForDuBegynner(soknad);
+    render() {
+        const { handleSubmit, soknad } = this.props;
+        const onSubmit = () => {
+            history.push(`/sykefravaer/soknader/${soknad.id}/fravaer-og-friskmelding`);
+        };
 
-    return (<form className="soknadskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
-        <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(soknad.id)} />
-        <div className="panel redaksjonelt-innhold">
-            <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
-            <Checkboxpanel {...sporsmal[0]} name={sporsmal[0].tag} />
-        </div>
-        <div className="knapperad">
-            <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
-        </div>
-    </form>);
+        const sporsmal = hentSporsmalForDuBegynner(soknad);
+
+        return (<form className="soknadskjema" id="foer-du-begynner-skjema" onSubmit={handleSubmit(onSubmit)}>
+            <FeiloppsummeringContainer skjemanavn={getSykepengesoknadArbeidstakerSkjemanavn(soknad.id)} />
+            <div className="panel redaksjonelt-innhold">
+                <p className="blokk">{getLedetekst('sykepengesoknad.bekreft-ansvar.introtekst')}</p>
+                <Checkboxpanel {...sporsmal[0]} name={sporsmal[0].tag} />
+            </div>
+            <div className="knapperad">
+                <button type="submit" className="knapp js-ga-videre">{getLedetekst('sykepengesoknad.ga-videre')}</button>
+            </div>
+        </form>);
+    }
 };
 
 FoerDuBegynnerSkjema.propTypes = {
     handleSubmit: PropTypes.func,
+    utfyllingStartet: PropTypes.func,
     soknad: soknadPt,
 };
 

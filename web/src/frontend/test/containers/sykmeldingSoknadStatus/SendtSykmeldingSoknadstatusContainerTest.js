@@ -5,7 +5,6 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { getSoknad } from '../../mockSykepengesoknader';
 import { Container, mapStateToProps } from '../../../js/containers/sykmeldingSoknadStatus/SendtSykmeldingSoknadstatusContainer';
-import { UtgaattSoknadBekreftelse} from '../../../js/components/sykmeldingSoknadstatus/SykmeldingSoknadstatus';
 import getSykmelding from '../../mockSykmeldinger';
 import {
     FlereSoknader,
@@ -13,7 +12,8 @@ import {
     PapirsoknadMelding,
     SoknadAvbruttBekreftelse,
     SoknadSendtBekreftelse,
-    SokOmSykepengerNaa
+    SokOmSykepengerNaa,
+    UtgaattSoknadBekreftelse,
 } from '../../../js/components/sykmeldingSoknadstatus/SykmeldingSoknadstatus';
 
 chai.use(chaiEnzyme());

@@ -14,7 +14,7 @@ import {
     PapirsoknadMelding,
     SoknadAvbruttBekreftelse,
     SoknadSendtBekreftelse,
-    SokOmSykepengerNaa, UtgaattSoknadBekreftelse
+    SokOmSykepengerNaa, UtgaattSoknadBekreftelse,
 } from '../../../js/components/sykmeldingSoknadstatus/SykmeldingSoknadstatus';
 
 chai.use(chaiEnzyme());
@@ -81,7 +81,7 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
         expect(hentSoknader.called).to.equal(false);
     });
 
-    describe("Når selvstendig-søknader er togglet AV", () => {
+    describe('Når selvstendig-søknader er togglet AV', () => {
         beforeEach(() => {
             state.unleashToggles = {
                 data: {

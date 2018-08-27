@@ -9,6 +9,7 @@ import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import { getTidligsteStartdatoSykeforloep } from '../../../utils/sykmeldingUtils';
 import { getEgenmeldingsdagerSporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 import { Vis } from '../../../utils';
+import { tilLesbarDatoMedArstall } from '../../../utils/datoUtils';
 
 export const PreutfyltBjorn = ({ vis }) => {
     return (<Vis
@@ -23,6 +24,13 @@ export const PreutfyltBjorn = ({ vis }) => {
 
 PreutfyltBjorn.propTypes = {
     vis: PropTypes.bool,
+};
+
+const getEgenmeldingsperioderSporsmal = (sykepengesoknad) => {
+    const startSykeforloep = getTidligsteStartdatoSykeforloep(sykepengesoknad);
+    return getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal-2', {
+        '%DATO%': tilLesbarDatoMedArstall(startSykeforloep),
+    });
 };
 
 const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsperioderPreutfylt }) => {
@@ -46,9 +54,7 @@ const EgenmeldingsDager = ({ sykepengesoknad, erEgenmeldingsperioderPreutfylt })
         informasjon={informasjon}>
         <Periodevelger
             name="egenmeldingsperioder"
-            spoersmal={getLedetekst('sykepengesoknad.egenmeldingsdager.dato.sporsmal-2', {
-                '%DATO%': toDatePrettyPrint(startSykeforloep),
-            })}
+            spoersmal={getEgenmeldingsperioderSporsmal(sykepengesoknad)}
             tidligsteFom={tidligsteFom}
             senesteTom={senesteTom} />
     </JaEllerNei>);

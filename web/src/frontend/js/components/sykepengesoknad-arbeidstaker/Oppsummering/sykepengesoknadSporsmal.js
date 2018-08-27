@@ -1,6 +1,7 @@
 import { getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
 import { finnFomForFeriesporsmal, getTomDato } from '../../../utils/sykepengesoknadUtils';
 import { getTidligsteStartdatoSykeforloep } from '../../../utils/sykmeldingUtils';
+import { tilLesbarDatoMedArstall, tilLesbarPeriodeMedArstall } from '../../../utils/datoUtils';
 
 const getUkedag = (dato) => {
     const dager = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
@@ -13,10 +14,9 @@ export const getEgenmeldingsdagerSporsmal = (sykepengesoknad, callback = getLede
     tom.setDate(tom.getDate() - 1);
     const fom = new Date(dato);
     fom.setDate(fom.getDate() - 16);
-    return callback('sykepengesoknad.egenmeldingsdager.janei.sporsmal-2', {
-        '%DATO%': `${getUkedag(dato)} ${toDatePrettyPrint(dato)}`,
-        '%FOM%': toDatePrettyPrint(fom),
-        '%TOM%': toDatePrettyPrint(tom),
+    return callback('sykepengesoknad.egenmeldingsdager.janei.sporsmal-3', {
+        '%DATO%': `${getUkedag(dato)} ${tilLesbarDatoMedArstall(dato)}`,
+        '%PERIODE%': tilLesbarPeriodeMedArstall(fom, tom),
     });
 };
 
@@ -27,22 +27,20 @@ export const getFeriePermisjonEllerUtenlandsoppholdSporsmal = (sykepengesoknad, 
     };
     const _tidligsteFom = finnFomForFeriesporsmal(sykepengesoknad);
     const senesteTom = getTomDato(_soknad);
-    return callback('sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal', {
-        '%FOM%': toDatePrettyPrint(_tidligsteFom),
-        '%TOM%': toDatePrettyPrint(senesteTom),
+    return callback('sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal-2', {
+        '%PERIODE%': tilLesbarPeriodeMedArstall(_tidligsteFom, senesteTom),
     });
 };
 
 export const getAktivitetssporsmal = (aktivitet, arbeidsgiver, callback = getLedetekst) => {
-    const ledetekstUgradert = 'sykepengesoknad.aktiviteter.ugradert.spoersmal-2';
-    const ledetekstGradert = 'sykepengesoknad.aktiviteter.gradert.spoersmal-2';
+    const ledetekstUgradert = 'sykepengesoknad.aktiviteter.ugradert.spoersmal-3';
+    const ledetekstGradert = 'sykepengesoknad.aktiviteter.gradert.spoersmal-3';
 
     const nokkel = aktivitet.grad === 100 ? ledetekstUgradert : ledetekstGradert;
     const tomDato = aktivitet.periode.tom;
 
     return callback(nokkel, {
-        '%FOM%': toDatePrettyPrint(aktivitet.periode.fom),
-        '%TOM%': toDatePrettyPrint(tomDato),
+        '%PERIODE%': tilLesbarPeriodeMedArstall(aktivitet.periode.fom, tomDato),
         '%ARBEIDSGIVER%': arbeidsgiver,
         '%ARBEIDSGRAD%': 100 - aktivitet.grad,
     });
@@ -65,9 +63,8 @@ export const getUtdanningssporsmal = (sykepengesoknad, gjenopptattArbeidFulltUtD
     };
     const _senesteTom = getTomDato(_soknad);
 
-    return callback('sykepengesoknad.utdanning.ja-nei.sporsmal', {
-        '%STARTDATO%': toDatePrettyPrint(sykepengesoknad.fom),
-        '%SLUTTDATO%': toDatePrettyPrint(_senesteTom),
+    return callback('sykepengesoknad.utdanning.ja-nei.sporsmal-2', {
+        '%PERIODE%': tilLesbarPeriodeMedArstall(sykepengesoknad.fom, _senesteTom),
     });
 };
 
@@ -76,6 +73,6 @@ export const getGjenopptattArbeidFulltUtSporsmal = (sykepengesoknad, callback = 
     dato.setDate(dato.getDate() + 1);
     return callback('sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2', {
         '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
-        '%DATO%': toDatePrettyPrint(dato),
+        '%DATO%': tilLesbarDatoMedArstall(dato),
     });
 };

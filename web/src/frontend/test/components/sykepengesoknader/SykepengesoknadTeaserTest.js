@@ -27,7 +27,7 @@ describe('SykepengesoknadTeaser', () => {
         setLedetekster({
             'soknad.teaser.dato': 'Opprettet %DATO%',
             'soknad.teaser.tittel': 'Tittel',
-            'soknad.teaser.tekst': 'For sykmeldingsperioden %FRA% - %TIL%',
+            'soknad.teaser.tekst': 'For sykmeldingsperioden %PERIODE%',
             'soknad.teaser.undertekst': '%ARBEIDSGIVER%',
             'soknad.teaser.status.UTKAST_TIL_KORRIGERING': 'Utkast til endring',
             'soknad.teaser.status.UTGAATT': 'Ikke brukt på nett',
@@ -68,8 +68,7 @@ describe('SykepengesoknadTeaser', () => {
 
     it('har tekst', () => {
         const component = shallow(<SykepengesoknadTeaser soknad={sykepengesoknad} />);
-        expect(component.find('.js-tekst').text()).to.contain('For sykmeldingsperioden 1. januar 2016 ');
-        expect(component.find('.js-tekst').text()).to.contain('20. januar 2016');
+        expect(component.find('.js-tekst').text()).to.contain('For sykmeldingsperioden 1. – 20. januar 2016');
     });
 
     it('har undertekst', () => {
@@ -156,8 +155,8 @@ describe('SykepengesoknadTeaser', () => {
         expect(component.find(SendtUlikt)).to.have.length(1);
 
         const sendtUlikt = shallow(<SendtUlikt soknad={_soknad} />);
-        expect(sendtUlikt.text()).to.contain('Sendt til BEKK Consulting AS 11. mai 2017');
-        expect(sendtUlikt.text()).to.contain('Sendt til NAV 18. mai 2017');
+        expect(sendtUlikt.text()).to.contain('Sendt til BEKK Consulting AS 11.05.2017');
+        expect(sendtUlikt.text()).to.contain('Sendt til NAV 18.05.2017');
     });
 
     it('Viser statustekst hvis søknaden sendes til NAV', () => {

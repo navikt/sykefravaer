@@ -64,8 +64,6 @@ class FremtidigSoknadTeaser extends Component {
                     <p className="inngangspanel__tekst js-tekst">
                         {
                             getLedetekst('soknad.teaser.tekst', {
-                                '%FRA%': tilLesbarDatoMedArstall(soknad.fom),
-                                '%TIL%': tilLesbarDatoMedArstall(soknad.tom),
                                 '%PERIODE%': tilLesbarPeriodeMedArstall(soknad.fom, soknad.tom),
                             })
                         }

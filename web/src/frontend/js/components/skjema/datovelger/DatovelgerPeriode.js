@@ -18,6 +18,7 @@ class Periodevelger extends Component {
         };
         this.toggle = this.toggle.bind(this);
         this.lukk = this.lukk.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
         this.apne = this.apne.bind(this);
         this.validerDatoField = this.validerDatoField.bind(this);
     }

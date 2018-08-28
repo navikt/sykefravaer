@@ -7,7 +7,7 @@ import {
     SykmeldingNokkelOpplysning,
     SykmeldingPerioder,
     tilLesbarDatoMedArstall,
-    Utvidbar
+    Utvidbar,
 } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import { SykmeldingopplysningForsikring, SykmeldingopplysningFravaersperioder } from '../sykmeldingstatuspanel/SykmeldingStatuspanelOpplysning';

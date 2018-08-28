@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getLedetekst, tilLesbarDatoMedArstall, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { getLedetekst, toDatePrettyPrint, sykepengesoknadstatuser, tilLesbarDatoMedArstall, tilLesbarPeriodeMedArstall } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import { sykepengesoknad as sykepengesoknadPt, soknad as soknadPt } from '../../propTypes';
 import { getSendtTilSuffix, erSendtTilBeggeMenIkkeSamtidig } from '../../utils/sykepengesoknadUtils';
@@ -13,14 +13,14 @@ export const SendtUlikt = ({ soknad }) => {
     return (<span>
         {
             getLedetekst('soknad.teaser.status.SENDT.til-arbeidsgiver', {
-                '%DATO%': tilLesbarDatoMedArstall(soknad.sendtTilArbeidsgiverDato),
+                '%DATO%': toDatePrettyPrint(soknad.sendtTilArbeidsgiverDato),
                 '%ARBEIDSGIVER%': soknad.arbeidsgiver.navn,
             })
         }
         <br />
         {
             getLedetekst('soknad.teaser.status.SENDT.til-nav', {
-                '%DATO%': tilLesbarDatoMedArstall(soknad.sendtTilNAVDato),
+                '%DATO%': toDatePrettyPrint(soknad.sendtTilNAVDato),
             })
         }
     </span>);
@@ -97,8 +97,7 @@ const SykepengesoknadTeaser = ({ soknad }) => {
                         (() => {
                             if (soknad.soknadstype !== OPPHOLD_UTLAND) {
                                 return getLedetekst('soknad.teaser.tekst', {
-                                    '%FRA%': tilLesbarDatoMedArstall(soknad.fom),
-                                    '%TIL%': tilLesbarDatoMedArstall(soknad.tom),
+                                    '%PERIODE%': tilLesbarPeriodeMedArstall(soknad.fom, soknad.tom),
                                 });
                             }
                             return null;

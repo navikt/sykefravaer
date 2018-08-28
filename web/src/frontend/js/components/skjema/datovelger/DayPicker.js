@@ -77,6 +77,13 @@ class DayPickerComponent extends Component {
             ref={(c) => {
                 this.kalender = c;
             }}
+            onKeyDown={(e) => {
+                const OPP = 40;
+                const NED = 38;
+                if ([OPP, NED].indexOf(e.keyCode) > -1) {
+                    e.preventDefault();
+                }
+            }}
             onKeyUp={(e) => {
                 onKeyUp(e);
             }}>

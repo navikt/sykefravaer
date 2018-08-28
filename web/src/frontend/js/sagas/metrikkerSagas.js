@@ -1,13 +1,8 @@
 import { fork, select } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { log } from 'digisyfo-npm';
-import { SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
-import { beregnVarighet } from '../utils/metrikkerUtils';
-import { TID_INNSENDING_SYKEPENGESOKNAD_ARBEIDSTAKER, TID_INNSENDING_SYKMELDING } from '../enums/metrikkerEnums';
-
-const hentMetrikktype = (type) => {
-    return `SYKEFRAVAER_METRIKK__${type}`;
-};
+import { SOKNAD_SENDT, SYKEPENGESOKNAD_SENDT, SYKMELDING_BEKREFTET, SYKMELDING_SENDT } from '../actions/actiontyper';
+import { hentMetrikk } from '../selectors/metrikkerSelectors';
 
 const pushToDataLayer = (metrikk) => {
     /* eslint-disable */
@@ -17,39 +12,6 @@ const pushToDataLayer = (metrikk) => {
         'data': JSON.stringify(metrikk.data),
     });
     /* eslint-enable */
-};
-
-const hentMetrikk = (state, action) => {
-    switch (action.type) {
-        case SYKMELDING_BEKREFTET:
-        case SYKMELDING_SENDT: {
-            const tid = beregnVarighet(state, {
-                ressursId: action.sykmeldingId,
-                type: TID_INNSENDING_SYKMELDING,
-            });
-            return {
-                type: hentMetrikktype(SYKMELDING_SENDT),
-                data: {
-                    tid,
-                },
-            };
-        }
-        case SYKEPENGESOKNAD_SENDT: {
-            const tid = beregnVarighet(state, {
-                ressursId: action.sykepengesoknad.id,
-                type: TID_INNSENDING_SYKEPENGESOKNAD_ARBEIDSTAKER,
-            });
-            return {
-                type: hentMetrikktype(`${SYKEPENGESOKNAD_SENDT}_ARBEIDSTAKER`),
-                data: {
-                    tid,
-                },
-            };
-        }
-        default: {
-            return null;
-        }
-    }
 };
 
 export function* lagreMetrikk(action) {
@@ -67,6 +29,7 @@ function* watch() {
         SYKMELDING_SENDT,
         SYKMELDING_BEKREFTET,
         SYKEPENGESOKNAD_SENDT,
+        SOKNAD_SENDT,
     ], lagreMetrikk);
 }
 

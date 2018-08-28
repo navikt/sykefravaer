@@ -9,8 +9,8 @@ chai.use(chaiEnzyme());
 const expect = chai.expect;
 
 describe('soknadSelvstendigUtils', () => {
-    describe("settErOppdelt", () => {
-        it("Skal sette _erOppdelt = true hvis søknaden er oppdelt", () => {
+    describe('settErOppdelt', () => {
+        it('Skal sette _erOppdelt = true hvis søknaden er oppdelt', () => {
             const sykmelding = getSykmelding({
                 id: '1',
                 mulighetForArbeid: {
@@ -32,7 +32,7 @@ describe('soknadSelvstendigUtils', () => {
             expect(oppdeltSoknad._erOppdelt).to.equal(true);
         });
 
-        it("Skal sette _erOppdelt = false hvis søknaden ikke er oppdelt", () => {
+        it('Skal sette _erOppdelt = false hvis søknaden ikke er oppdelt', () => {
             const sykmelding = getSykmelding({
                 id: '1',
                 mulighetForArbeid: {
@@ -54,7 +54,7 @@ describe('soknadSelvstendigUtils', () => {
             expect(oppdeltSoknad._erOppdelt).to.equal(false);
         });
 
-        it("Skal sette _erOppdelt = false hvis søknaden ikke har noe sykmelding", () => {
+        it('Skal sette _erOppdelt = false hvis søknaden ikke har noe sykmelding', () => {
             const sykmelding = undefined;
             const soknad = getParsetSoknad({
                 sykmeldingId: '1',
@@ -65,4 +65,4 @@ describe('soknadSelvstendigUtils', () => {
             expect(oppdeltSoknad._erOppdelt).to.equal(false);
         });
     });
-})
+});

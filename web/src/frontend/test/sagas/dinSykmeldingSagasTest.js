@@ -68,7 +68,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest dispatche SET_ARBEIDSSITUASJON', () => {
-            const nextPut = put(actions.setArbeidssituasjon('arbeidstaker', '123'))
+            const nextPut = put(actions.setArbeidssituasjon('arbeidstaker', '123'));
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 
@@ -143,7 +143,7 @@ describe('dinSykmeldingSagas', () => {
         });
 
         it('Skal dernest dispatche SETT_ARBEIDSSITUASJON', () => {
-            const nextPut = put(actions.setArbeidssituasjon(arbeidssituasjoner.FRILANSER, '123'))
+            const nextPut = put(actions.setArbeidssituasjon(arbeidssituasjoner.FRILANSER, '123'));
             expect(generator.next().value).to.deep.equal(nextPut);
         });
 

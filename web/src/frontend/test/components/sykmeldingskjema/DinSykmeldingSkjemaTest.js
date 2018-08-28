@@ -134,7 +134,7 @@ describe('DinSykmeldingSkjema -', () => {
     });
 
     describe('mapStateToProps', () => {
-        describe("initialValues", () => {
+        describe('initialValues', () => {
             const initialValues = {
                 feilaktigeOpplysninger: [{
                     opplysning: 'periode',
@@ -150,13 +150,13 @@ describe('DinSykmeldingSkjema -', () => {
                 valgtArbeidssituasjon: 'DEFAULT',
             };
 
-            it("Skal returnere initialValues", () => {
+            it('Skal returnere initialValues', () => {
                 const props = mapStateToProps(state, ownProps);
                 expect(props.initialValues).to.deep.equal(initialValues);
             });
 
-            describe("Når det finnes en sykmelding med spørsmal besvart", () => {
-                it("Skal returnere svar på spørsmål når de er besvart med nei", () => {
+            describe('Når det finnes en sykmelding med spørsmal besvart', () => {
+                it('Skal returnere svar på spørsmål når de er besvart med nei', () => {
                     state.dineSykmeldinger.data = [
                         getSykmelding({
                             id: ownProps.sykmelding.id,
@@ -175,7 +175,7 @@ describe('DinSykmeldingSkjema -', () => {
                     });
                 });
 
-                it("Skal ikke returnere svar på spørsmål når de ikke er besvart", () => {
+                it('Skal ikke returnere svar på spørsmål når de ikke er besvart', () => {
                     state.dineSykmeldinger.data = [
                         getSykmelding({
                             id: ownProps.sykmelding.id,
@@ -192,7 +192,7 @@ describe('DinSykmeldingSkjema -', () => {
                     });
                 });
 
-                it("Skal returnere arbeidssituasjon når det ikke ligger lagret under sporsmal på sykmeldingen", () => {
+                it('Skal returnere arbeidssituasjon når det ikke ligger lagret under sporsmal på sykmeldingen', () => {
                     state.dineSykmeldinger.data = [
                         getSykmelding({
                             id: ownProps.sykmelding.id,
@@ -205,7 +205,7 @@ describe('DinSykmeldingSkjema -', () => {
                     });
                 });
 
-                it("Skal returnere fravaersperioder", () => {
+                it('Skal returnere fravaersperioder', () => {
                     state.dineSykmeldinger.data = [
                         getSykmelding({
                             id: ownProps.sykmelding.id,
@@ -232,7 +232,7 @@ describe('DinSykmeldingSkjema -', () => {
                     });
                 });
 
-                it("Skal returnere forsikring", () => {
+                it('Skal returnere forsikring', () => {
                     state.dineSykmeldinger.data = [
                         getSykmelding({
                             id: ownProps.sykmelding.id,

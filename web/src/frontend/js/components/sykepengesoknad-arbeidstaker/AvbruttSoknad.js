@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLedetekst, toDatePrettyPrint, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { getLedetekst, tilLesbarDatoMedArstall, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import SykepengesoknadHeader from '../sykepengesoknad-felles/SykepengesoknadHeader';
 import SykmeldingUtdragContainer from '../../containers/sykepengesoknad-arbeidstaker/SykmeldingUtdragContainer';
@@ -19,7 +19,7 @@ const AvbruttSoknad = (props) => {
                 </StatusNokkelopplysning>
                 <StatusNokkelopplysning tittel="Dato avbrutt">
                     <p>
-                        {toDatePrettyPrint(sykepengesoknad.avbruttDato)}
+                        {tilLesbarDatoMedArstall(sykepengesoknad.avbruttDato)}
                     </p>
                 </StatusNokkelopplysning>
             </Statusopplysninger>

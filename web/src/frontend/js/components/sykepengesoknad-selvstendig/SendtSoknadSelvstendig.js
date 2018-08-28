@@ -1,5 +1,12 @@
 import React from 'react';
-import { getLedetekst, Utvidbar, sykmelding as sykmeldingPt, toDatePrettyPrint, getHtmlLedetekst, SykmeldingNokkelOpplysning } from 'digisyfo-npm';
+import {
+    getLedetekst,
+    Utvidbar,
+    sykmelding as sykmeldingPt,
+    tilLesbarDatoMedArstall,
+    getHtmlLedetekst,
+    SykmeldingNokkelOpplysning,
+} from 'digisyfo-npm';
 import { connect } from 'react-redux';
 import SykmeldingUtdrag from './SykmeldingUtdrag';
 import Oppsummeringsvisning from '../soknad-felles-oppsummering/Oppsummeringsvisning';
@@ -15,7 +22,7 @@ const SendtSoknadSelvstendigStatuspanel = ({ soknad }) => {
                 <p>{getLedetekst('sykepengesoknad.status.SENDT.til-nav')}</p>
             </StatusNokkelopplysning>
             <StatusNokkelopplysning tittel={getLedetekst('statuspanel.dato.innsendt')}>
-                <p>{toDatePrettyPrint(soknad.innsendtDato)}</p>
+                <p>{tilLesbarDatoMedArstall(soknad.innsendtDato)}</p>
             </StatusNokkelopplysning>
             <SykmeldingNokkelOpplysning className="sist" tittel={getLedetekst('sykepengesoknad.sykepengeinfo.tittel')}>
                 <p dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.sykepengeinfo.til-nav')} />

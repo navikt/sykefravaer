@@ -1,31 +1,16 @@
 import { expect } from 'chai';
 import { put, call, select } from 'redux-saga/effects';
-import { hentSoknader, sendSoknad, opprettSoknadUtland, avbrytSoknad, togglesHentet } from '../../js/sagas/soknaderSagas';
+import { hentSoknader, sendSoknad, opprettSoknadUtland, avbrytSoknad } from '../../js/sagas/soknaderSagas';
 import { get, post } from '../../js/gateway-api';
 import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader from '../mockSoknader';
 import { OPPHOLD_UTLAND } from '../../js/enums/soknadtyper';
-import { toggleSykepengesoknadUtland, toggleSelvstendigSoknad } from '../../js/selectors/unleashTogglesSelectors';
+import { toggleSykepengesoknadUtland } from '../../js/selectors/unleashTogglesSelectors';
 
 describe('soknaderSagas', () => {
     describe('Henting av søknader når det er togglet på', () => {
         const action = actions.hentSoknader();
         const generator = hentSoknader(action);
-
-        it('Skal sjekke om toggles er hentet', () => {
-            const nextSelect = select(togglesHentet);
-            expect(generator.next().value).to.deep.equal(nextSelect);
-        });
-
-        it('Skal sjekke om selvstendig-søknad er skrudd på', () => {
-            const nextSelect = select(toggleSelvstendigSoknad);
-            expect(generator.next(true).value).to.deep.equal(nextSelect);
-        });
-
-        it('Skal sjekke om utenlands-søknad er skrudd på', () => {
-            const nextSelect = select(toggleSykepengesoknadUtland);
-            expect(generator.next(true).value).to.deep.equal(nextSelect);
-        });
 
         it('Skal dispatche HENTER_SOKNADER', () => {
             const nextPut = put(actions.henterSoknader());
@@ -33,7 +18,7 @@ describe('soknaderSagas', () => {
         });
 
         it('Skal hente søknader', () => {
-            const nextCall = call(get, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/soknader');
+            const nextCall = call(get, 'https://syfoapi-q.nav.no/syfosoknad/api/soknader');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -43,40 +28,10 @@ describe('soknaderSagas', () => {
         });
     });
 
-    describe('Henting av søknader når det er togglet av', () => {
-        const action = actions.hentSoknader();
-        const generator = hentSoknader(action);
-
-        it('Skal sjekke om toggles er hentet', () => {
-            const nextSelect = select(togglesHentet);
-            expect(generator.next().value).to.deep.equal(nextSelect);
-        });
-
-        it('Skal sjekke om selvstendig-søknad er skrudd på', () => {
-            const nextSelect = select(toggleSelvstendigSoknad);
-            expect(generator.next(true).value).to.deep.equal(nextSelect);
-        });
-
-        it('Skal sjekke om utenlands-søknad er skrudd på', () => {
-            const nextSelect = select(toggleSykepengesoknadUtland);
-            expect(generator.next(false).value).to.deep.equal(nextSelect);
-        });
-
-        it('Skal oppføre seg som om det ble returnert ingen søknader', () => {
-            const nextPut = put(actions.soknaderHentet([]));
-            expect(generator.next().value).to.deep.equal(nextPut);
-        });
-    });
-
     describe('Innsending av søknad', () => {
         const soknadData = { test: 'data', soknadstype: OPPHOLD_UTLAND };
         const action = actions.sendSoknad(soknadData);
         const generator = sendSoknad(action);
-
-        it('Skal sjekke om selvstendig-søknad er skrudd på', () => {
-            const nextSelect = select(toggleSelvstendigSoknad);
-            expect(generator.next().value).to.deep.equal(nextSelect);
-        });
 
         it('Skal sjekke om utenlands-søknad er skrudd på', () => {
             const nextSelect = select(toggleSykepengesoknadUtland);
@@ -89,7 +44,7 @@ describe('soknaderSagas', () => {
         });
 
         it('Skal sende søknad', () => {
-            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/sendSoknad', soknadData);
+            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfosoknad/api/sendSoknad', soknadData);
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -114,7 +69,7 @@ describe('soknaderSagas', () => {
         });
 
         it('Skal opprette søknad', () => {
-            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/opprettSoknadUtland');
+            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfosoknad/api/opprettSoknadUtland');
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
@@ -129,11 +84,6 @@ describe('soknaderSagas', () => {
         const action = actions.avbrytSoknad(soknadData);
         const generator = avbrytSoknad(action);
 
-        it('Skal sjekke om selvstendig-søknad er skrudd på', () => {
-            const nextSelect = select(toggleSelvstendigSoknad);
-            expect(generator.next().value).to.deep.equal(nextSelect);
-        });
-
         it('Skal sjekke om utenlands-søknad er skrudd på', () => {
             const nextSelect = select(toggleSykepengesoknadUtland);
             expect(generator.next().value).to.deep.equal(nextSelect);
@@ -145,7 +95,7 @@ describe('soknaderSagas', () => {
         });
 
         it('Skal avbryte søknad', () => {
-            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfoapi/rest/soknad/avbrytSoknad', soknadData);
+            const nextCall = call(post, 'https://syfoapi-q.nav.no/syfosoknad/api/avbrytSoknad', soknadData);
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 

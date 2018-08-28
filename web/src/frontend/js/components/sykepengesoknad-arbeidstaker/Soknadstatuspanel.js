@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { toDatePrettyPrint, getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
+import { tilLesbarDatoMedArstall, getLedetekst, getHtmlLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { sykepengesoknad as sykepengesoknadPt } from '../../propTypes';
 import { erSendtTilBeggeMenIkkeSamtidig, getSendtTilSuffix } from '../../utils/sykepengesoknadUtils';
@@ -13,8 +13,8 @@ const getParams = (sykepengesoknad) => {
     return {
         '%ARBEIDSGIVER%': sykepengesoknad.arbeidsgiver.navn,
         '%ORGNR%': formaterOrgnr(sykepengesoknad.arbeidsgiver.orgnummer),
-        '%SENDTTILNAVDATO%': toDatePrettyPrint(sykepengesoknad.sendtTilNAVDato),
-        '%SENDTTILARBEIDSGIVERDATO%': toDatePrettyPrint(sykepengesoknad.sendtTilArbeidsgiverDato),
+        '%SENDTTILNAVDATO%': tilLesbarDatoMedArstall(sykepengesoknad.sendtTilNAVDato),
+        '%SENDTTILARBEIDSGIVERDATO%': tilLesbarDatoMedArstall(sykepengesoknad.sendtTilArbeidsgiverDato),
     };
 };
 

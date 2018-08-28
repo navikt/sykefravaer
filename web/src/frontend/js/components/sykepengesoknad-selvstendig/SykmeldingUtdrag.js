@@ -1,6 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Bjorn, getLedetekst, sykmelding as sykmeldingPt, SykmeldingNokkelOpplysning, SykmeldingPerioder, toDatePrettyPrint, Utvidbar } from 'digisyfo-npm';
+import {
+    Bjorn,
+    getLedetekst,
+    sykmelding as sykmeldingPt,
+    SykmeldingNokkelOpplysning,
+    SykmeldingPerioder,
+    tilLesbarDatoMedArstall,
+    Utvidbar
+} from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import { SykmeldingopplysningForsikring, SykmeldingopplysningFravaersperioder } from '../sykmeldingstatuspanel/SykmeldingStatuspanelOpplysning';
 
@@ -23,7 +31,7 @@ const SykmeldingUtdrag = ({ erApen, sykmelding, erOppdelt }) => {
                 }
                 <SykmeldingNokkelOpplysning
                     tittel={getLedetekst('sykepengesoknad.sykmelding-utdrag.dato-sykmeldingen-ble-skrevet')}>
-                    <p className="js-utstedelsesdato">{toDatePrettyPrint(sykmelding.bekreftelse.utstedelsesdato)}</p>
+                    <p className="js-utstedelsesdato">{tilLesbarDatoMedArstall(sykmelding.bekreftelse.utstedelsesdato)}</p>
                 </SykmeldingNokkelOpplysning>
                 <SykmeldingNokkelOpplysning
                     tittel={getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}>

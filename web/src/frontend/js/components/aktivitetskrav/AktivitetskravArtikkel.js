@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getLedetekst, getHtmlLedetekst, toDatePrettyPrint, Radiofaner, keyValue } from 'digisyfo-npm';
+import { getLedetekst, getHtmlLedetekst, tilLesbarDatoMedArstall, Radiofaner, keyValue } from 'digisyfo-npm';
 
 const MED_ARBEIDSGIVER = 'MED_ARBEIDSGIVER';
 const UTEN_ARBEIDSGIVER = 'UTEN_ARBEIDSGIVER';
@@ -34,7 +34,7 @@ class Artikkel extends Component {
             <header className="artikkel__header">
                 <div className="artikkel__meta">
                     <Link to="/sykefravaer" className="tilbakelenke">Tilbake</Link>
-                    <p className="artikkel__meta__dato">{toDatePrettyPrint(inntruffetdato)}</p>
+                    <p className="artikkel__meta__dato">{tilLesbarDatoMedArstall(inntruffetdato)}</p>
                 </div>
                 <h1 className="artikkel__tittel">{getLedetekst('aktivitetskrav-varsel.tittel', ledetekster)}</h1>
                 <Radiofaner

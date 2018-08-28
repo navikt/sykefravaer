@@ -54,6 +54,19 @@ describe('dinSykmeldingSagas', () => {
             expect(generator.next().value).to.deep.equal(nextCall);
         });
 
+        it('Skal dernest sjekke om det skal opprettes søknad', () => {
+            const nextCall = call(post, 'http://tjenester.nav.no/syforest/sykmeldinger/123/actions/skalOppretteSoknad', {
+                egenmeldingsperioder: null,
+                dekningsgrad: null,
+            });
+            expect(generator.next().value).to.deep.equal(nextCall);
+        });
+
+        it('Skal dernest sette skalOppretteSoknad', () => {
+            const nextPut = put(skalOppretteSoknadHentet('123', true));
+            expect(generator.next(true).value).to.deep.equal(nextPut);
+        });
+
         it('Skal dernest dispatche SET_ARBEIDSSITUASJON', () => {
             const nextPut = put(actions.setArbeidssituasjon('arbeidstaker', '123'))
             expect(generator.next().value).to.deep.equal(nextPut);

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getHtmlLedetekst, getLedetekst, sykepengesoknad as sykepengesoknadPt, toDatePrettyPrint } from 'digisyfo-npm';
+import { getHtmlLedetekst, getLedetekst, sykepengesoknad as sykepengesoknadPt, tilLesbarDatoMedArstall } from 'digisyfo-npm';
 import { Link } from 'react-router';
 import IllustrertInnhold from '../IllustrertInnhold';
 import Soknadsdatoliste from '../sykmeldingkvittering/Soknadsdatoliste';
@@ -67,7 +67,7 @@ export const KommendeSoknad = ({ sykepengesoknad }) => {
         <div>
             <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.sok-senere.tittel')}</h2>
             <p dangerouslySetInnerHTML={getHtmlLedetekst('sykmelding.sykepengesoknadstatus.sok-senere.melding', {
-                '%DATO%': toDatePrettyPrint(sykepengesoknad.tom),
+                '%DATO%': tilLesbarDatoMedArstall(sykepengesoknad.tom),
             })} />
         </div>
     </IllustrertInnhold>);

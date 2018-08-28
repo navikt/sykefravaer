@@ -38,7 +38,7 @@ describe('SykmeldingUtdrag', () => {
     it('Skal vise informasjon om fraværsperioder dersom dette spørsmålet er besvart', () => {
         const component = mount(<SykmeldingUtdrag sykmelding={sykmelding} erApen />);
         expect(component.text()).to.contain('Egenmelding og/eller sykmelding på papir');
-        expect(component.text()).to.contain('21.03.2018 – 24.03.2018');
+        expect(component.text()).to.contain('21. – 24. mars 2018');
     });
 
     it('Skal ikke vise informasjon om fraværsperioder dersom dette spørsmålet ikke er besvart', () => {
@@ -46,7 +46,7 @@ describe('SykmeldingUtdrag', () => {
         sykmelding.sporsmal.fravaersperioder = [];
         const component = mount(<SykmeldingUtdrag sykmelding={sykmelding} erApen />);
         expect(component.text()).not.to.contain('Egenmelding og/eller sykmelding på papir');
-        expect(component.text()).not.to.contain('21.03.2018 – 24.03.2018');
+        expect(component.text()).not.to.contain('21. – 24. mars 2018');
     });
 
     it('Skal vise informasjon om fraværsperioder dersom dette spørsmålet er besvart med NEI', () => {

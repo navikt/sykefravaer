@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sykepengesoknad as sykepengesoknadPt, getLedetekst, toDatePrettyPrint } from 'digisyfo-npm';
+import { sykepengesoknad as sykepengesoknadPt, getLedetekst, tilLesbarDatoMedArstall } from 'digisyfo-npm';
 
 const sorterSoknader = (sykepengesoknader) => {
     return [...sykepengesoknader]
@@ -16,7 +16,7 @@ const Soknadsdatoliste = ({ sykepengesoknader, visStatus = false }) => {
                 .map((s, index) => {
                     const nokkel = `sykepengesoknader.datoliste.status.${s.status}`;
                     return (<li key={index}>
-                        <strong>{toDatePrettyPrint(s.tom)}</strong>
+                        <strong>{tilLesbarDatoMedArstall(s.tom)}</strong>
                         { visStatus ? ` – ${getLedetekst(nokkel)}` : null }
                     </li>);
                 })
@@ -43,7 +43,7 @@ const tilKommaliste = (liste) => {
 export const soknadsdatoremse = (sykepengesoknader) => {
     const datoer = sorterSoknader(sykepengesoknader)
         .map((s) => {
-            return `<strong>${toDatePrettyPrint(s.tom)}</strong>`;
+            return `<strong>${tilLesbarDatoMedArstall(s.tom)}</strong>`;
         });
     return tilKommaliste(datoer);
 };

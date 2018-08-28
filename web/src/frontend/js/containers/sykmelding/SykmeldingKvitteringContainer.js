@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
     getLedetekst,
     getSykmelding,
-    toDatePrettyPrint,
+    tilLesbarDatoMedArstall,
     senesteTom,
     sykepengesoknadstatuser,
     sykmeldingstatuser,
@@ -16,7 +16,6 @@ import Sykmeldingkvittering, { kvitteringtyper } from '../../components/sykmeldi
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { soknad as soknadPt, sykmelding as sykmeldingPt } from '../../propTypes';
-import { toggleSelvstendigSoknad } from '../../selectors/unleashTogglesSelectors';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 
 const { SENDT, TIL_SENDING, BEKREFTET, AVBRUTT } = sykmeldingstatuser;
@@ -101,11 +100,9 @@ const getKvitteringtype = (
     sykmelding,
     sykepengesoknader = [],
     harStrengtFortroligAdresse = false,
-    erUtenforVentetid = false,
     skalOppretteSoknad = false,
     soknader = [],
-    hentSoknaderFeilet = false,
-    selvstendigFrilanserSoknadToggle = false) => {
+    hentSoknaderFeilet = false) => {
     if (!sykmelding) {
         return null;
     }
@@ -141,23 +138,21 @@ const getKvitteringtype = (
                 return kvitteringtyper.BEKREFTET_SYKMELDING_ARBEIDSTAKER_UTEN_OPPGITT_ARBEIDSGIVER;
             }
             if (erFrilanserEllerSelvstendigNaringsdrivende(sykmelding) && !erAvventendeReisetilskuddEllerBehandlingsdager(sykmelding)) {
-                if (selvstendigFrilanserSoknadToggle) {
-                    if (hentSoknaderFeilet) {
-                        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER;
-                    }
-                    if (nyeSoknaderForDenneSykmeldingen.length > 0) {
-                        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER;
-                    }
-                    if (denneSykmeldingensSoknader.length > 0) {
-                        return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_FRILANSER;
-                    }
-                    if (denneSykmeldingensSoknader.length === 0) {
-                        return kvitteringtyper.KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE;
-                    }
+                if (hentSoknaderFeilet) {
+                    return kvitteringtyper.KVITTERING_MED_SYKEPENGER_FEIL_FRILANSER;
                 }
-                return erUtenforVentetid || skalOppretteSoknad
-                    ? kvitteringtyper.KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR
-                    : kvitteringtyper.KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE;
+                if (nyeSoknaderForDenneSykmeldingen.length > 0) {
+                    return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_NA_FRILANSER;
+                }
+                if (denneSykmeldingensSoknader.length > 0) {
+                    return kvitteringtyper.KVITTERING_MED_SYKEPENGER_SOK_SENERE_FRILANSER;
+                }
+                if (denneSykmeldingensSoknader.length === 0 && !skalOppretteSoknad) {
+                    return kvitteringtyper.KVITTERING_UTEN_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE;
+                }
+                if (skalOppretteSoknad) {
+                    return kvitteringtyper.KVITTERING_MED_SYKEPENGER_FRILANSER_NAERINGSDRIVENDE_PAPIR;
+                }
             }
             return kvitteringtyper.BEKREFTET_SYKMELDING_UTEN_ARBEIDSGIVER;
         }
@@ -186,11 +181,9 @@ export function mapStateToProps(state, ownProps) {
         sykmelding,
         state.sykepengesoknader.data,
         harStrengtFortroligAdresse,
-        sykmeldingMeta.erUtenforVentetid,
         sykmeldingMeta.skalOppretteSoknad,
         state.soknader.data,
-        hentSoknaderFeilet,
-        toggleSelvstendigSoknad(state));
+        hentSoknaderFeilet);
     const soknadErFremtidig = (s) => {
         return s.sykmeldingId === sykmeldingId && s.status === FREMTIDIG;
     };
@@ -203,7 +196,7 @@ export function mapStateToProps(state, ownProps) {
         sykepengesoknader: state.sykepengesoknader.data.filter(soknadErFremtidig),
         soknader: state.soknader.data.filter(soknadErFremtidig),
         kvitteringtype,
-        tom: sykmelding ? toDatePrettyPrint(senesteTom(sykmelding.mulighetForArbeid.perioder)) : null,
+        tom: sykmelding ? tilLesbarDatoMedArstall(senesteTom(sykmelding.mulighetForArbeid.perioder)) : null,
     };
 }
 

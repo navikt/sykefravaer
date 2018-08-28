@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getLedetekst, SykmeldingNokkelOpplysning, sykmeldingstatuser, toDatePrettyPrint } from 'digisyfo-npm';
+import {
+    getLedetekst,
+    SykmeldingNokkelOpplysning,
+    sykmeldingstatuser,
+    tilLesbarPeriodeMedArstall,
+    tilLesbarDatoMedArstall
+} from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
 import { Vis } from '../../utils';
@@ -38,7 +44,7 @@ export const SendtDato = ({ sykmelding }) => {
             ? 'statuspanel.dato.avbrutt'
             : 'statuspanel.dato.innsendt';
     return (<StatusNokkelopplysning tittel={getLedetekst(nokkel)}>
-        <p className="js-dato">{toDatePrettyPrint(sykmelding.sendtdato)}</p>
+        <p className="js-dato">{tilLesbarDatoMedArstall(sykmelding.sendtdato)}</p>
     </StatusNokkelopplysning>);
 };
 
@@ -79,7 +85,7 @@ export const SykmeldingopplysningFravaersperioder = ({ sykmelding, className }) 
                     ? (<ul className="nokkelopplysning__liste">
                         {
                             sykmelding.sporsmal.fravaersperioder.map((p) => {
-                                return <li key={toDatePrettyPrint(p.fom)}>{toDatePrettyPrint(p.fom)} – {toDatePrettyPrint(p.tom)}</li>;
+                                return <li key={tilLesbarDatoMedArstall(p.fom)}>{tilLesbarPeriodeMedArstall(p.fom, p.tom)}</li>;
                             })
                         }
                     </ul>)

@@ -133,12 +133,12 @@ describe('Datovelger', () => {
 
             it('Skal klage hvis datoen er etter senesteTom', () => {
                 const feilmelding = validate('06.01.2018');
-                expect(feilmelding).to.equal('Datoen må være innenfor perioden 01.01.2018-05.01.2018');
+                expect(feilmelding).to.equal('Datoen må være innenfor perioden 1. – 5. januar 2018');
             });
 
             it('Skal klage hvis datoen før tidligsteFom', () => {
                 const feilmelding = validate('31.12.2017');
-                expect(feilmelding).to.equal('Datoen må være innenfor perioden 01.01.2018-05.01.2018');
+                expect(feilmelding).to.equal('Datoen må være innenfor perioden 1. – 5. januar 2018');
             });
 
             it('Skal ikke klage hvis alt er OK', () => {
@@ -165,7 +165,7 @@ describe('Datovelger', () => {
                 it('Skal fortsatt funke', () => {
                     const verdi = parse('06.01.2018');
                     const okmelding = validate(verdi);
-                    expect(okmelding).to.equal('Datoen må være innenfor perioden 01.01.2018-05.01.2018');
+                    expect(okmelding).to.equal('Datoen må være innenfor perioden 1. – 5. januar 2018');
                 });
             });
         });

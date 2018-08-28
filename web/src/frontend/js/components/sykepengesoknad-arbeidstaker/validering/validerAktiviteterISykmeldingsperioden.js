@@ -1,4 +1,4 @@
-import { toDatePrettyPrint, fraInputdatoTilJSDato, inntektskildetyper, senesteTom } from 'digisyfo-npm';
+import { tilLesbarDatoMedArstall, fraInputdatoTilJSDato, inntektskildetyper, senesteTom } from 'digisyfo-npm';
 import validerFoerDuBegynner from './validerFoerDuBegynner';
 import validerFravaerOgFriskmelding from './validerFravaerOgFriskmelding';
 import {
@@ -176,7 +176,7 @@ const validate = (values, props) => {
                 utdanningsfeilmelding.erUtdanningFulltidsstudium = 'Vennligst svar på om utdanningen er et fulltidsstudium';
             }
             if (values.utdanning.utdanningStartdato && fraInputdatoTilJSDato(values.utdanning.utdanningStartdato) > _senesteTom) {
-                utdanningsfeilmelding.utdanningStartdato = `Datoen kan ikke være etter sykmeldingsperioden gikk ut den ${toDatePrettyPrint(_senesteTom)}`;
+                utdanningsfeilmelding.utdanningStartdato = `Datoen kan ikke være etter sykmeldingsperioden gikk ut den ${tilLesbarDatoMedArstall(_senesteTom)}`;
             }
         }
 

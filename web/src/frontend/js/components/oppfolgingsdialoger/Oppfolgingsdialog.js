@@ -90,7 +90,8 @@ class Oppfolgingsdialog extends Component {
             oppfolgingsdialoger,
         } = this.props;
         const oppfolgingsdialogAvbruttOgNyOpprettet = this.props.avbrytdialogReducer.sendt
-            && (this.props.avbrytdialogReducer.nyPlanId === oppfolgingsdialog.id);
+            && (this.props.avbrytdialogReducer.nyPlanId === oppfolgingsdialog.id)
+            && !inneholderGodkjenninger(oppfolgingsdialog);
         let panel;
         let disableNavigation = false;
         if (skalViseSamtykke(oppfolgingsdialog)) {

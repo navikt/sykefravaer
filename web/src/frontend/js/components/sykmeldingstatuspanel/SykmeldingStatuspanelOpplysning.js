@@ -5,7 +5,7 @@ import {
     SykmeldingNokkelOpplysning,
     sykmeldingstatuser,
     tilLesbarPeriodeMedArstall,
-    tilLesbarDatoMedArstall
+    tilLesbarDatoMedArstall,
 } from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import { sykmelding as sykmeldingPt } from '../../propTypes';

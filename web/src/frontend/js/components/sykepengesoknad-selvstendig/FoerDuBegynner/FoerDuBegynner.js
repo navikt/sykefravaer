@@ -17,10 +17,15 @@ export const hentSporsmalForDuBegynner = (soknad) => {
     });
 };
 
+const actionsPt = PropTypes.shape({
+    sendSoknad: PropTypes.func,
+    utfyllingStartet: PropTypes.func,
+});
+
 export class FoerDuBegynnerSkjema extends Component {
     componentDidMount() {
         if (this.props.soknad) {
-            this.props.utfyllingStartet(this.props.soknad.id);
+            this.props.actions.utfyllingStartet(this.props.soknad.id);
         }
     }
 
@@ -49,6 +54,7 @@ FoerDuBegynnerSkjema.propTypes = {
     handleSubmit: PropTypes.func,
     utfyllingStartet: PropTypes.func,
     soknad: soknadPt,
+    actions: actionsPt,
 };
 
 const FoerDuBegynner = (props) => {
@@ -62,7 +68,10 @@ const FoerDuBegynner = (props) => {
         sykmelding={props.sykmelding}
         intro={intro}
         soknad={props.soknad}>
-        <FoerDuBegynnerSkjema soknad={props.soknad} handleSubmit={props.handleSubmit} />
+        <FoerDuBegynnerSkjema
+            actions={props.actions}
+            soknad={props.soknad}
+            handleSubmit={props.handleSubmit} />
     </Soknadskjema>);
 };
 
@@ -71,6 +80,7 @@ FoerDuBegynner.propTypes = {
     soknad: soknadPt,
     handleSubmit: PropTypes.func,
     erForsteSoknad: PropTypes.bool,
+    actions: actionsPt,
 };
 
 export default FoerDuBegynner;

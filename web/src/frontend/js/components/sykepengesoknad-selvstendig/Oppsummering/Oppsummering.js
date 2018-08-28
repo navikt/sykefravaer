@@ -90,6 +90,7 @@ Oppsummering.propTypes = {
     skjemasvar: skjemasvarPt,
     actions: PropTypes.shape({
         sendSoknad: PropTypes.func,
+        utfyllingStartet: PropTypes.func,
     }),
     sendingFeilet: PropTypes.bool,
     sender: PropTypes.bool,

@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import { beregnVarighet } from '../../js/utils/metrikkerUtils';
 import { TID_INNSENDING_SYKEPENGESOKNAD_SELVSTENDIG, TID_INNSENDING_SYKMELDING, UTFYLLING_STARTET } from '../../js/enums/metrikkerEnums';
 
-describe.only('metrikkerUtils', () => {
+describe('metrikkerUtils', () => {
     let state;
     let event1;
     let event2;
@@ -92,7 +92,7 @@ describe.only('metrikkerUtils', () => {
                 type: TID_INNSENDING_SYKMELDING,
                 ressursId: 'min-sykmelding-id-2',
             });
-            expect(tid).to.equal(45632 + 500);
+            expect(tid).to.equal(45632 + 500 + 1401 + 800);
         });
 
         it('Skal returnere riktig tid for innsending av søknad for selvstendig næringsdrivende', () => {
@@ -100,7 +100,7 @@ describe.only('metrikkerUtils', () => {
                 type: TID_INNSENDING_SYKEPENGESOKNAD_SELVSTENDIG,
                 ressursId: 'min-selvstendig-soknad-id',
             });
-            expect(tid).to.equal(601);
+            expect(tid).to.equal(tid6.getTime() - tid5.getTime());
         });
     });
 });

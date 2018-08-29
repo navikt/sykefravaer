@@ -15,7 +15,7 @@ const FrilanserSoekDigitaltSenere = ({ soknader }) => {
                     nummer="2"
                     tittel={getLedetekst('sykmelding.kvittering.sok-senere.steg-2.tittel-3')}>
                     <HtmlAvsnitt
-                        nokkel="sykmelding.kvittering.sok-senere.steg-2.tekst-3"
+                        nokkel="sykmelding.kvittering.sok-senere-frilanser.steg-2.tekst-3"
                         replacements={{
                             '%DATOER%': soknadsdatoremse(soknader),
                         }} />

@@ -1,7 +1,7 @@
 import { call, put, fork } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { browserHistory } from 'react-router';
-import { post, log } from 'digisyfo-npm';
+import { post, log, arbeidssituasjoner } from 'digisyfo-npm';
 import * as actions from '../actions/dinSykmelding_actions';
 import { skalOppretteSoknadHentet } from '../actions/sykmeldingMeta_actions';
 import * as dineSykmeldingerActions from '../actions/dineSykmeldinger_actions';
@@ -12,6 +12,11 @@ const gaTilKvittering = (sykmeldingId) => {
     browserHistory.push(`/sykefravaer/sykmeldinger/${sykmeldingId}/kvittering`);
 };
 
+const erFrilanserEllerSelvstendig = (verdier) => {
+    return verdier.arbeidssituasjon === arbeidssituasjoner.FRILANSER
+        || verdier.arbeidssituasjon === arbeidssituasjoner.NAERINGSDRIVENDE;
+};
+
 export function* bekreftSykmelding(action) {
     yield put(actions.bekrefterSykmelding());
     try {
@@ -19,12 +24,15 @@ export function* bekreftSykmelding(action) {
         const body = {
             feilaktigeOpplysninger: verdier.feilaktigeOpplysninger,
             arbeidssituasjon: verdier.arbeidssituasjon,
-            harForsikring: verdier.harForsikring,
-            dekningsgrad: verdier.dekningsgrad,
-            harAnnetFravaer: verdier.harAnnetFravaer,
-            egenmeldingsperioder: verdier.egenmeldingsperioder,
+            harForsikring: erFrilanserEllerSelvstendig(verdier)
+                ? verdier.harForsikring : null,
+            dekningsgrad: erFrilanserEllerSelvstendig(verdier)
+                ? verdier.dekningsgrad : null,
+            harAnnetFravaer: erFrilanserEllerSelvstendig(verdier)
+                ? verdier.harAnnetFravaer : null,
+            egenmeldingsperioder: erFrilanserEllerSelvstendig(verdier)
+                ? verdier.egenmeldingsperioder : null,
         };
-
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/bekreft`, body);
         const skalOppretteSoknad = yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/skalOppretteSoknad`, {
             dekningsgrad: verdier.dekningsgrad,

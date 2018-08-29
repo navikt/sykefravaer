@@ -1,5 +1,6 @@
 import React from 'react';
 import { getLedetekst } from 'digisyfo-npm';
+import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import Radioknapper from '../skjema/Radioknapper';
@@ -32,6 +33,8 @@ JaEllerNeiRadioknapper.propTypes = {
 };
 
 export const RendreJaEllerNei = (props) => {
+    const classNames = props.hovedsporsmal ? 'hovedsporsmal blokk--xs' : null;
+    const classNamesTilleggssporsmal = props.hovedsporsmal ? 'hovedsporsmal__tilleggssporsmal' : null;
     const Sporsmal = <JaEllerNeiRadioknapper {...props} />;
     if (props.undersporsmal.length === 0) {
         return Sporsmal;
@@ -39,17 +42,18 @@ export const RendreJaEllerNei = (props) => {
     return (<SporsmalMedTillegg
         {...props}
         Sporsmal={Sporsmal}
-        className="hovedsporsmal blokk--xs"
+        className={classNames}
         visTillegg={(_props) => {
             return _props.input.value === _props.kriterieForVisningAvUndersporsmal;
         }}>
-        <div className="hovedsporsmal__tilleggssporsmal">{props.children}</div>
+        <div className={classNamesTilleggssporsmal}>{props.children}</div>
     </SporsmalMedTillegg>);
 };
 
 RendreJaEllerNei.propTypes = {
     children: childEllerChildren,
     undersporsmal: PropTypes.arrayOf(sporsmalPt),
+    hovedsporsmal: PropTypes.bool,
 };
 
 const JaEllerNei = (props) => {

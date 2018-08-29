@@ -21,11 +21,11 @@ import Tall from './Tall';
 import Dato from './Dato';
 import CheckboxGruppe from './CheckboxGruppe';
 import Tekstinput from './Tekstinput';
-import Informasjon from './Informasjon';
+import IkkeRelevant from './IkkeRelevant';
 import Checkboxpanel from './Checkboxpanel';
 
 
-const Sporsmal = ({ sporsmal, name }) => {
+const Sporsmal = ({ sporsmal, name, hovedsporsmal }) => {
     const undersporsmal = sporsmal.undersporsmal.map((underspm) => {
         return underspm.svar !== null
             ? <Undersporsmal sporsmal={underspm} key={underspm.tag} />
@@ -59,7 +59,7 @@ const Sporsmal = ({ sporsmal, name }) => {
             </Perioder>);
         }
         case JA_NEI: {
-            return (<JaEllerNei {...sporsmal} name={name}>
+            return (<JaEllerNei {...sporsmal} name={name} hovedsporsmal={hovedsporsmal}>
                 { undersporsmal }
             </JaEllerNei>);
         }
@@ -74,9 +74,9 @@ const Sporsmal = ({ sporsmal, name }) => {
             </Tekstinput>);
         }
         case IKKE_RELEVANT: {
-            return (<Informasjon {...sporsmal} name={name} >
+            return (<IkkeRelevant {...sporsmal} name={name} >
                 { undersporsmal }
-            </Informasjon>);
+            </IkkeRelevant>);
         }
         case CHECKBOX_PANEL: {
             return (<Checkboxpanel {...sporsmal} name={name}>

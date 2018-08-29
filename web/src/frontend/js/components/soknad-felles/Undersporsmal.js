@@ -9,7 +9,7 @@ import {
     PERIODER,
     JA_NEI,
     CHECKBOX_GRUPPE,
-    FRITEKST, CHECKBOX_PANEL,
+    FRITEKST, CHECKBOX_PANEL, IKKE_RELEVANT,
 } from '../../enums/svartyper';
 import Sporsmal from './Sporsmal';
 
@@ -37,6 +37,11 @@ const Undersporsmal = ({ sporsmal }) => {
             return (<Wrap>
                 <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} />
             </Wrap>);
+        }
+        case IKKE_RELEVANT: {
+            return (<div className="ekstrasporsmal">
+                <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} />
+            </div>)
         }
         default: {
             return null;

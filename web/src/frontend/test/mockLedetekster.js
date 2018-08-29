@@ -226,7 +226,7 @@ const ledetekster = {
     'sykepengesoknad.oppsummering.arbeidsgiver.label': 'Arbeidsgiver',
     'sykepengesoknad.oppsummering.organisasjonsnummer.label': 'Organisasjonsnummer',
     'sykepengesoknad.oppsummering.vaer-klar-over-at': '<p>Vær klar over at</p><ul><li>rett til sykepenger forutsetter at du er borte fra arbeid på grunn av egen sykdom. Sosiale eller økonomiske problemer gir ikke rett til sykepenger</li><li>du kan miste retten til sykepenger hvis du uten rimelig grunn nekter å opplyse om egen funksjonsevne eller nekter å ta imot tilbud om behandling og/eller tilrettelegging</li><li>sykepenger utbetales i maksimum 52 uker, også for gradert (delvis) sykmelding</li><li>fristen for å søke sykepenger er som hovedregel 3 måneder</li></ul>',
-    'sykepengesoknad.sykmelding-utdrag.tittel': 'Informasjon fra sykmeldingen søknaden gjelder for',
+    'sykepengesoknad.sykmelding-utdrag.tittel': 'IkkeRelevant fra sykmeldingen søknaden gjelder for',
     'sykepengesoknad.sykmelding-utdrag.lonn-etter-16-dager': 'Arbeidsgiveren utbetaler lønn også etter 16 dagers sykefravær',
     'sykepengesoknad.sykmelding-utdrag.dato-sykmeldingen-ble-skrevet': 'Dato sykmeldingen ble skrevet',
     'sykepengesoknad.sykmelding-utdrag.arbeidsgiver': 'Arbeidsgiver',

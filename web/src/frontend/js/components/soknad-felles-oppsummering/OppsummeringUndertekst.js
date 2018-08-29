@@ -13,7 +13,7 @@ const OppsummeringUndertekst = ({ sporsmalstekst, id, overskriftsnivaa, undertek
 };
 
 OppsummeringUndertekst.propTypes = {
-    undersporsmal: sporsmalPt,
+    undersporsmal: PropTypes.arrayOf(sporsmalPt),
     undertekst: PropTypes.string,
     overskriftsnivaa: PropTypes.number,
     sporsmalstekst: PropTypes.string,

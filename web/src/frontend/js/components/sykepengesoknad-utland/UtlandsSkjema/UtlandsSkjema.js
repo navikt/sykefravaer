@@ -27,6 +27,7 @@ export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryt
         const className = cn({ hovedsporsmal: sporsmal.svartype !== JA_NEI, 'blokk--xs': true });
         return (<div className={className}>
             <Sporsmal
+                hovedsporsmal
                 sporsmal={sporsmal}
                 key={sporsmal.tag}
                 name={sporsmal.tag}

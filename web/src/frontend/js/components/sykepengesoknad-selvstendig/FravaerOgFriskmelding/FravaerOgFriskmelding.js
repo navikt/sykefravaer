@@ -27,6 +27,7 @@ const FravaerOgFriskmeldingSkjema = (props) => {
         {
             sporsmalsliste.map((sporsmal) => {
                 return (<Sporsmal
+                    hovedsporsmal
                     sporsmal={sporsmal}
                     key={sporsmal.tag}
                     name={sporsmal.tag} />);

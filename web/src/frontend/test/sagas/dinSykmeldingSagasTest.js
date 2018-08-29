@@ -46,9 +46,9 @@ describe('dinSykmeldingSagas', () => {
                 feilaktigeOpplysninger: {
                     periode: true,
                 },
-                harForsikring: false,
+                harForsikring: null,
                 dekningsgrad: null,
-                harAnnetFravaer: false,
+                harAnnetFravaer: null,
                 egenmeldingsperioder: null,
             });
             expect(generator.next().value).to.deep.equal(nextCall);

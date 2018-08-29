@@ -1,17 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { getLedetekst, Bjorn } from 'digisyfo-npm';
 import { getContextRoot } from '../../routers/paths';
 import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
+import { FrilanserSelvstendigKvitteringHotjarTrigger } from '../HotjarTrigger';
 
-class FrilanserMedPapirsoknadKvittering extends Component {
-    componentDidMount() {
-        if (typeof window.hj === 'function') {
-            window.hj('trigger', 'SELVSTENDIG_FRILANS_JULI_2018');
-        }
-    }
-
-    render() {
-        return (<div className="js-kvittering js-kvittering--sok-papir">
+const FrilanserMedPapirsoknadKvittering = () => {
+    return (<FrilanserSelvstendigKvitteringHotjarTrigger>
+        <div className="js-kvittering js-kvittering--sok-papir">
             <div className="panel blokk">
                 <div className="stegvisKvittering">
                     <Kvitteringsteg
@@ -32,8 +27,8 @@ class FrilanserMedPapirsoknadKvittering extends Component {
                 stor
                 nokkel="bekreft-sykmelding.skal-opprettes-soknad.bjorn"
                 rootUrl={getContextRoot()} />
-        </div>);
-    }
+        </div>
+    </FrilanserSelvstendigKvitteringHotjarTrigger>);
 }
 
 export default FrilanserMedPapirsoknadKvittering;

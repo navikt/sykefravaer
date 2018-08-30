@@ -20,6 +20,7 @@ export function get(url) {
             if (res.status === 401) {
                 log(res, 'Redirect til login');
                 window.location.href = `${hentLoginUrl()}?redirect=${window.location.href}`;
+                throw new Error('MANGLER_OIDC_TOKEN');
             } else if (res.status > 400) {
                 log(res);
                 throw new Error('Forespørsel feilet');

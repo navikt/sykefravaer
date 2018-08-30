@@ -30,7 +30,9 @@ export function* hentSoknader() {
         yield put(actions.soknaderHentet(data));
     } catch (e) {
         log(e);
-        if (toggleBrukMockDataSelvstendigSoknad()) {
+        if (e.message === 'MANGLER_OIDC_TOKEN') {
+            yield put(actions.henterSoknader());
+        } else if (toggleBrukMockDataSelvstendigSoknad()) {
             yield put(actions.soknaderHentet(soknadrespons));
         } else {
             yield put(actions.hentSoknaderFeilet());

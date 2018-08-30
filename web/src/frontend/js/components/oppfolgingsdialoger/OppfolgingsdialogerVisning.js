@@ -15,7 +15,7 @@ import {
     ledereReducerPt,
 } from '../../propTypes';
 import { finnArbeidsgivereForGyldigeSykmeldinger } from '../../utils/sykmeldingUtils';
-import { getContextRoot } from '../../routers/paths';
+import getContextRoot from '../../utils/getContextRoot';
 import OppfolgingsdialogFilm from './OppfolgingsdialogFilm';
 import OppfolgingsdialogerOpprett from './opprett/OppfolgingsdialogerOpprett';
 import OppfolgingsdialogerIngenplanAT from './opprett/OppfolgingsdialogerIngenplanAT';

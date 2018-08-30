@@ -3,7 +3,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import {
     OppfolgingsdialogInfoboks,
 } from 'oppfolgingsdialog-npm';
-import { getContextRoot } from '../../routers/paths';
+import getContextRoot from '../../utils/getContextRoot';
 
 const IngenledereInfoboks = () => {
     return (<OppfolgingsdialogInfoboks

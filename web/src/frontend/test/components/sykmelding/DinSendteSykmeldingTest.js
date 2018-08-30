@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { DineSykmeldingOpplysninger, setLedetekster } from 'digisyfo-npm';
-import DinSendteSykmelding from '../../../js/components/sykmelding/DinSendteSykmelding';
+import SendtSykmelding from '../../../js/components/sykmelding/SendtSykmelding';
 import SykmeldingStatuspanel from '../../../js/components/sykmeldingstatuspanel/SykmeldingStatuspanel';
 import ArbeidsgiversSykmeldingContainer from '../../../js/containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import ledetekster from '../../mockLedetekster';
@@ -12,7 +12,7 @@ import getSykmelding from '../../mockSykmeldinger';
 chai.use(chaiEnzyme());
 const expect = chai.expect;
 
-describe('DinSendteSykmelding', () => {
+describe('SendtSykmelding', () => {
     let component;
 
     beforeEach(() => {
@@ -22,7 +22,7 @@ describe('DinSendteSykmelding', () => {
     it('Skal vise kvittering ', () => {
         const dinSykmelding = getSykmelding();
         dinSykmelding.status = 'SENDT';
-        component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} />);
+        component = shallow(<SendtSykmelding dinSykmelding={dinSykmelding} />);
         expect(component.find(SykmeldingStatuspanel)).to.have.length(1);
     });
 
@@ -33,7 +33,7 @@ describe('DinSendteSykmelding', () => {
             id: 'arbeidsgivers-sykmelding-id',
             test: 'olsen',
         };
-        component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} />);
+        component = shallow(<SendtSykmelding dinSykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} />);
         expect(component.contains(<DineSykmeldingOpplysninger sykmelding={dinSykmelding} />)).to.equal(true);
     });
 
@@ -44,7 +44,7 @@ describe('DinSendteSykmelding', () => {
             id: 'arbeidsgivers-sykmelding-id',
             test: 'olsen',
         };
-        component = shallow(<DinSendteSykmelding dinSykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} />);
+        component = shallow(<SendtSykmelding dinSykmelding={dinSykmelding} arbeidsgiversSykmelding={arbeidsgiversSykmelding} />);
         expect(component.contains(<ArbeidsgiversSykmeldingContainer sykmeldingId={dinSykmelding.id} />)).to.equal(true);
     });
 });

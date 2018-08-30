@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { sykmelding as sykmeldingPt, getLedetekst, Utvidbar } from 'digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import Soknadskjema from '../Soknadskjema';
+import SoknadskjemaSelvstendig from '../SoknadskjemaSelvstendig';
 import { soknad as soknadPt, skjemasvar as skjemasvarPt } from '../../../propTypes';
 import Feilstripe from '../../../components/Feilstripe';
 import Knapperad from '../../skjema/Knapperad';
@@ -69,7 +69,7 @@ SykepengesoknadSelvstendigOppsummeringSkjema.propTypes = {
 
 const Oppsummering = (props) => {
     const { sykmelding, soknad, handleSubmit, skjemasvar, actions, sendingFeilet, sender } = props;
-    return (<Soknadskjema
+    return (<SoknadskjemaSelvstendig
         aktivtSteg="4"
         sykmelding={sykmelding}
         soknad={soknad}>
@@ -80,7 +80,7 @@ const Oppsummering = (props) => {
             sendingFeilet={sendingFeilet}
             sender={sender}
             actions={actions} />
-    </Soknadskjema>);
+    </SoknadskjemaSelvstendig>);
 };
 
 Oppsummering.propTypes = {

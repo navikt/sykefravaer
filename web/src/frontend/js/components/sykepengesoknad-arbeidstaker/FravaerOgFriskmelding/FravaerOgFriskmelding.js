@@ -11,7 +11,7 @@ import { KnapperadTilbake } from '../../skjema/Knapperad';
 import validerFravaerOgFriskmelding from '../validering/validerFravaerOgFriskmelding';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
-import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
+import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
 
 export class FravaerOgFriskmeldingSkjema extends Component {

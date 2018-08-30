@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form';
 import { getLedetekst, Bjorn } from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import { getContextRoot } from '../../../routers/paths';
+import getContextRoot from '../../../utils/getContextRoot';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/datovelger/Periodevelger';
 import Checkbox from '../../skjema/Checkbox';

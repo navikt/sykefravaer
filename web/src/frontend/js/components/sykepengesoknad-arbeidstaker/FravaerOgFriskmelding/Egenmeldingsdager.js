@@ -2,7 +2,7 @@ import React from 'react';
 import { toDatePrettyPrint, getLedetekst, Bjorn } from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
 import PropTypes from 'prop-types';
-import { getContextRoot } from '../../../routers/paths';
+import getContextRoot from '../../../utils/getContextRoot';
 import JaEllerNei from '../JaEllerNei';
 import Periodevelger from '../../skjema/datovelger/Periodevelger';
 import { sykepengesoknad as sykepengesoknadPt } from '../../../propTypes';

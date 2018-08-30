@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
-import StrippetSide from '../../sider/StrippetSide';
+import SideStrippet from '../../sider/SideStrippet';
 import { FoerDuBegynner } from '../../components/sykepengesoknad-utland/FoerDuBegynner/FoerDuBegynner';
 import AppSpinner from '../../components/AppSpinner';
 import Feilmelding from '../../components/Feilmelding';
 import { opprettSoknadUtland } from '../../actions/soknader_actions';
 
 export const Container = ({ henter, hentingFeilet, opprettSoknad, opprettFeilet, oppretterSoknad }) => {
-    return (<StrippetSide tittel={getLedetekst('sykepengesoknad-utland.sidetittel')} laster={henter}>
+    return (<SideStrippet tittel={getLedetekst('sykepengesoknad-utland.sidetittel')} laster={henter}>
         {(() => {
             if (henter) {
                 return <AppSpinner />;
@@ -23,7 +23,7 @@ export const Container = ({ henter, hentingFeilet, opprettSoknad, opprettFeilet,
                 oppretterSoknad={oppretterSoknad}
             />);
         })()}
-    </StrippetSide>);
+    </SideStrippet>);
 };
 
 Container.propTypes = {

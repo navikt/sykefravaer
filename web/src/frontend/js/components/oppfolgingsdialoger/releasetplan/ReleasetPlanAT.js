@@ -6,7 +6,7 @@ import {
     ReleasetPlan,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
-import { getContextRoot } from '../../../routers/paths';
+import getContextRoot from '../../../utils/getContextRoot';
 import ArbeidsgiverHarTvangsgodkjent from './ArbeidsgiverHarTvangsgodkjent';
 
 const foersteInnloggingSidenGodkjenning = (oppfolgingsdialog) => {

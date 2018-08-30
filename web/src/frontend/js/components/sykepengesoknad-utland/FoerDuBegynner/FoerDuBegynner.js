@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { Bjorn, getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
-import { getContextRoot } from '../../../routers/paths';
+import getContextRoot from '../../../utils/getContextRoot';
 import Feilstripe from '../../Feilstripe';
 
 export const FoerDuBegynner = ({ opprettSoknad, opprettFeilet, oppretterSoknad }) => {

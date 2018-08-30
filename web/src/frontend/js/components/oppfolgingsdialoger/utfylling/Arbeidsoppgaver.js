@@ -14,7 +14,7 @@ import {
     ArbeidsoppgaverInfoboks,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
-import { getContextRoot } from '../../../routers/paths';
+import getContextRoot from '../../../utils/getContextRoot';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 
 export const RenderOpprettArbeidsoppgave = ({ ledetekster, sendLagreArbeidsoppgave, toggleArbeidsoppgaveSkjema, oppdateringFeilet, varselTekst }) => {

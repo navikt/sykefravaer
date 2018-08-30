@@ -13,7 +13,7 @@ import {
     moteBesvartAlleAlternativer,
     moteBesvartMedNyeAlternativerBesvart,
     moteBesvartMedNyeAlternativerIkkeBesvart } from '../../mockMote';
-import { varselHendelse1, varselHendelse2, bekreftetHendelse1, bekreftetHendelse2, bekreftetHendelse3, ukjentHendelse } from '../aktivitetskrav/AktivitetskravVarselContainerTest';
+import { varselHendelse1, varselHendelse2, bekreftetHendelse1, bekreftetHendelse2, bekreftetHendelse3, ukjentHendelse } from '../../sider/AktivitetskravvarselSideTest';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Bjorn, getLedetekst } from 'digisyfo-npm';
 import { formValueSelector } from 'redux-form';
-import { getContextRoot } from '../../routers/paths';
+import getContextRoot from '../../utils/getContextRoot';
 import { SYKMELDINGSGRAD, FERIE } from '../../enums/tagtyper';
 import { formaterEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
 import { NEI, JA } from '../../enums/svarEnums';

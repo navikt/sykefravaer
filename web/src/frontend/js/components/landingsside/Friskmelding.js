@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Bjorn, getHtmlLedetekst, getLedetekst, log } from 'digisyfo-npm';
 import { Knapp } from 'nav-frontend-knapper';
-import { getContextRoot } from '../../routers/paths';
+import getContextRoot from '../../utils/getContextRoot';
 import { Vis } from '../../utils';
 import Lightbox from '../Lightbox';
 

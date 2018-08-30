@@ -32,7 +32,7 @@ describe('SendtSoknad', () => {
         expect(component.contains(<SykepengesoknadHeader sykepengesoknad={sykepengesoknad} />)).to.equal(true);
     });
 
-    it('Skal inneholde et SykmeldingUtdrag', () => {
+    it('Skal inneholde et SykmeldingUtdragForSelvstendige', () => {
         expect(component.contains(<SykmeldingUtdragContainer sykepengesoknad={sykepengesoknad} />)).to.equal(true);
     });
 

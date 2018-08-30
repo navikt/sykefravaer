@@ -41,7 +41,7 @@ const Undersporsmal = ({ sporsmal }) => {
         case IKKE_RELEVANT: {
             return (<div className="ekstrasporsmal">
                 <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} />
-            </div>)
+            </div>);
         }
         default: {
             return null;

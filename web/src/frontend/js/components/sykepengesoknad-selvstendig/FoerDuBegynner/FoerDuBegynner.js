@@ -48,7 +48,7 @@ export class FoerDuBegynnerSkjema extends Component {
             </div>
         </form>);
     }
-};
+}
 
 FoerDuBegynnerSkjema.propTypes = {
     handleSubmit: PropTypes.func,

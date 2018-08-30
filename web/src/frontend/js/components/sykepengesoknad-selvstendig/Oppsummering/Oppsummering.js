@@ -14,8 +14,14 @@ import Checkboxpanel from '../../soknad-felles/Checkboxpanel';
 import OppsummeringUndertekst from '../../soknad-felles-oppsummering/OppsummeringUndertekst';
 
 const OppsummeringUtvidbar = ({ soknad }) => {
+    const _soknad = {
+        ...soknad,
+        sporsmal: soknad.sporsmal.filter((s) => {
+            return s.tag !== VAER_KLAR_OVER_AT;
+        }),
+    };
     return (<Utvidbar className="blokk" tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')} erApen={false}>
-        <Oppsummeringsvisning soknad={soknad} />
+        <Oppsummeringsvisning soknad={_soknad} />
     </Utvidbar>);
 };
 
@@ -40,7 +46,7 @@ export const SykepengesoknadSelvstendigOppsummeringSkjema = (props) => {
     };
     return (<form className="soknadskjema" id="oppsummering-skjema" onSubmit={handleSubmit(onSubmit)}>
         { skjemasvar && <OppsummeringUtvidbar soknad={populertSoknad} /> }
-        <div className="panel">
+        <div className="panel blokk">
             <OppsummeringUndertekst {...vaerKlarOverAtSpm} />
         </div>
         <div className="bekreftet-container blokk">

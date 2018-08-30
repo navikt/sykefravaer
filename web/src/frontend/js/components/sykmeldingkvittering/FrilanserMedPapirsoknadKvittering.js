@@ -29,6 +29,6 @@ const FrilanserMedPapirsoknadKvittering = () => {
                 rootUrl={getContextRoot()} />
         </div>
     </FrilanserSelvstendigKvitteringHotjarTrigger>);
-}
+};
 
 export default FrilanserMedPapirsoknadKvittering;

@@ -14,6 +14,7 @@ import { soknad as soknadPt } from '../../propTypes';
 import Soknadtopp from './Soknadtopp';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
 import { finnSykmelding } from '../../containers/sykepengesoknad-selvstendig/sykepengesoknadSelvstendigSetup';
+import { VAER_KLAR_OVER_AT } from '../../enums/tagtyper';
 
 const SendtSoknadSelvstendigStatuspanel = ({ soknad }) => {
     return (<Statuspanel>
@@ -41,8 +42,24 @@ const SendtSoknadSelvstendig = ({ sykmelding, soknad }) => {
         <SendtSoknadSelvstendigStatuspanel soknad={soknad} />
         { sykmelding && <SykmeldingUtdragForSelvstendige sykmelding={sykmelding} /> }
         <Utvidbar tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')} className="blokk" erApen>
-            <Oppsummeringsvisning soknad={soknad} />
+            <Oppsummeringsvisning
+                soknad={{
+                    ...soknad,
+                    sporsmal: soknad.sporsmal.filter((s) => {
+                        return s.tag !== VAER_KLAR_OVER_AT;
+                    }),
+                }} />
         </Utvidbar>
+        <div className="panel">
+            <Oppsummeringsvisning
+                soknad={{
+                    ...soknad,
+                    sporsmal: soknad.sporsmal.filter((s) => {
+                        return s.tag === VAER_KLAR_OVER_AT;
+                    }),
+                }} />
+        </div>
+
     </div>);
 };
 

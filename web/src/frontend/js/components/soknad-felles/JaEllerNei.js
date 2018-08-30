@@ -1,6 +1,5 @@
 import React from 'react';
 import { getLedetekst } from 'digisyfo-npm';
-import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import Radioknapper from '../skjema/Radioknapper';

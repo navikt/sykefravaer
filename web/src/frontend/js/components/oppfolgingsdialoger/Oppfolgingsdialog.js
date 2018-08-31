@@ -26,7 +26,7 @@ import {
     inneholderGodkjentPlan,
     utenSamtykke,
 } from '../../utils/oppfolgingsdialogUtils';
-import { getContextRoot } from '../../routers/paths';
+import getContextRoot from '../../utils/getContextRoot';
 import Arbeidsoppgaver from './utfylling/Arbeidsoppgaver';
 import ReleasetPlanAT from './releasetplan/ReleasetPlanAT';
 import IngenlederInfoboks from './IngenlederInfoboks';

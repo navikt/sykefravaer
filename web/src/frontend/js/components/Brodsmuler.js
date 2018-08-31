@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { getContextRoot } from '../routers/paths';
+import getContextRoot from '../utils/getContextRoot';
 import { brodsmule as brodsmuleProptype } from '../propTypes';
 
 const Brodsmule = ({ sti, tittel, sisteSmule, erKlikkbar }) => {

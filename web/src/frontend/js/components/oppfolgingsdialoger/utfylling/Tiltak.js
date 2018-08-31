@@ -14,7 +14,7 @@ import {
     STATUS_TILTAK,
 } from 'oppfolgingsdialog-npm';
 import { getLedetekst, keyValue, scrollTo } from 'digisyfo-npm';
-import { getContextRoot } from '../../../routers/paths';
+import getContextRoot from '../../../utils/getContextRoot';
 import { isEmpty } from '../../../utils/oppfolgingsdialogUtils';
 
 class Tiltak extends Component {

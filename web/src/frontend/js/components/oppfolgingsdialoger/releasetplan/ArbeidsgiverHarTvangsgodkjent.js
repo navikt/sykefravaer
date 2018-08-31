@@ -6,7 +6,7 @@ import {
     OppfolgingsdialogInnholdboks,
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
-import { getContextRoot } from '../../../routers/paths';
+import getContextRoot from '../../../utils/getContextRoot';
 
 class ArbeidsgiverHarTvangsgodkjent extends Component {
     componentWillMount() {

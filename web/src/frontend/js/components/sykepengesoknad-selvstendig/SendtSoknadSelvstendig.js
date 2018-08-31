@@ -8,7 +8,7 @@ import {
     SykmeldingNokkelOpplysning,
 } from 'digisyfo-npm';
 import { connect } from 'react-redux';
-import SykmeldingUtdrag from './SykmeldingUtdrag';
+import SykmeldingUtdragForSelvstendige from './SykmeldingUtdragForSelvstendige';
 import Oppsummeringsvisning from '../soknad-felles-oppsummering/Oppsummeringsvisning';
 import { soknad as soknadPt } from '../../propTypes';
 import Soknadtopp from './Soknadtopp';
@@ -39,7 +39,7 @@ const SendtSoknadSelvstendig = ({ sykmelding, soknad }) => {
     return (<div>
         <Soknadtopp soknad={soknad} />
         <SendtSoknadSelvstendigStatuspanel soknad={soknad} />
-        { sykmelding && <SykmeldingUtdrag sykmelding={sykmelding} /> }
+        { sykmelding && <SykmeldingUtdragForSelvstendige sykmelding={sykmelding} /> }
         <Utvidbar tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')} className="blokk" erApen>
             <Oppsummeringsvisning soknad={soknad} />
         </Utvidbar>

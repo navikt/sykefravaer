@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { SykmeldingUtdrag, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import AppSpinner from '../../components/AppSpinner';
 import { hentDineSykmeldinger as hentDineSykmeldingerAction } from '../../actions/dineSykmeldinger_actions';
-import { getContextRoot } from '../../routers/paths';
+import getContextRoot from '../../utils/getContextRoot';
 
 class Container extends Component {
     componentDidMount() {

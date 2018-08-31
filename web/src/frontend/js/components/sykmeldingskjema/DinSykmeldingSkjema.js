@@ -18,7 +18,7 @@ import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
 import AvbrytDialog from './AvbrytDialog';
 import { sykmelding as sykmeldingPt } from '../../propTypes';
-import FeiloppsummeringContainer, { onSubmitFail } from '../../containers/FeiloppsummeringContainer';
+import FeiloppsummeringContainer, { onSubmitFail } from '../../containers/skjema/FeiloppsummeringContainer';
 import validate from './validerSykmeldingskjema';
 import * as sykmeldingActions from '../../actions/dinSykmelding_actions';
 import { sykmeldingskjemamodi as modi } from '../../enums/sykmeldingskjemaenums';

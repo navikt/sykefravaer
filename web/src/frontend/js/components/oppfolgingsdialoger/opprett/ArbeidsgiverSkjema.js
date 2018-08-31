@@ -7,7 +7,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import {
     proptypes as oppfolgingProptypes,
 } from 'oppfolgingsdialog-npm';
-import { getContextRoot } from '../../../routers/paths';
+import getContextRoot from '../../../utils/getContextRoot';
 import {
     erAktivOppfolgingsdialogOpprettetMedArbeidsgiver,
     erOppfolgingsdialogOpprettbarMedArbeidsgiver,

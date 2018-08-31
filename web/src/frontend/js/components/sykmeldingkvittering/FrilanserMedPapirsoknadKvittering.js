@@ -1,6 +1,6 @@
 import React from 'react';
 import { getLedetekst, Bjorn } from 'digisyfo-npm';
-import { getContextRoot } from '../../routers/paths';
+import getContextRoot from '../../utils/getContextRoot';
 import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
 import { FrilanserSelvstendigKvitteringHotjarTrigger } from '../HotjarTrigger';
 

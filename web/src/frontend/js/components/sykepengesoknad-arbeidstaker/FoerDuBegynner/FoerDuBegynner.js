@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getLedetekst, sykepengesoknadstatuser } from 'digisyfo-npm';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
+import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import history from '../../../history';
 import setup from '../setup';
 import BekreftAnsvar from './BekreftAnsvar';

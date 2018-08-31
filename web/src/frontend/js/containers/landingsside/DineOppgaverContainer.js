@@ -14,7 +14,7 @@ import { sykepengesoknad as sykepengesoknadPt, sykmelding as sykmeldingPt, sokna
 import { erMotePassert } from '../../utils/moteUtils';
 import { hentDineSykmeldinger } from '../../actions/dineSykmeldinger_actions';
 import { hentHendelser } from '../../actions/hendelser_actions';
-import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../aktivitetskrav/AktivitetskravvarselContainer';
+import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../sider/AktivitetskravvarselSide';
 import IllustrertInnhold from '../../components/IllustrertInnhold';
 import { NY } from '../../enums/soknadstatuser';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';

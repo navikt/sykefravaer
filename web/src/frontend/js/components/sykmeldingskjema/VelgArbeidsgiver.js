@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { getHtmlLedetekst, getLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import { getContextRoot } from '../../routers/paths';
+import getContextRoot from '../../utils/getContextRoot';
 import ErLederRiktig from './ErLederRiktig';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import Radioknapper from '../skjema/Radioknapper';

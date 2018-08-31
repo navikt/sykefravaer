@@ -14,7 +14,7 @@ import { sykepengesoknad as sykepengesoknadPt, oppsummeringsoknad as oppsummerin
 import ForskuttererArbeidsgiver from './ForskuttererArbeidsgiver';
 import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidstaker/AvbrytSoknadContainer';
 import Feilstripe from '../../Feilstripe';
-import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
+import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
 
 const mottaker = (sendesTil, sykepengesoknad) => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { getLedetekst, tidligsteFom, senesteTom, sykmeldingstatuser, tilLesbarPeriodeMedArstall } from 'digisyfo-npm';
-import { getContextRoot } from '../../routers/paths';
+import getContextRoot from '../../utils/getContextRoot';
 import SykmeldingPeriodeInfo from './SykmeldingPeriodeInfo';
 import { sykmelding as sykmeldingPt, sykmeldingperiode } from '../../propTypes';
 

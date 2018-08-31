@@ -1,9 +1,9 @@
 import React from 'react';
 import { Bjorn, getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import { Link } from 'react-router';
-import Header from '../../../containers/sykepengesoknad-utland/SykepengesoknadUtlandHeader';
+import Header from '../SykepengesoknadUtlandHeader';
 import { IllustrertInnholdGronnHake } from '../../IllustrertInnhold';
-import { getContextRoot } from '../../../routers/paths';
+import getContextRoot from '../../../utils/getContextRoot';
 
 const Kvittering = () => {
     return (<div>

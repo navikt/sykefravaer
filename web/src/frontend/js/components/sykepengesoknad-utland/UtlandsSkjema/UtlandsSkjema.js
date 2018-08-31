@@ -5,15 +5,15 @@ import { reduxForm } from 'redux-form';
 import { getLedetekst } from 'digisyfo-npm';
 import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
 import { browserHistory } from 'react-router';
-import Header from '../../../containers/sykepengesoknad-utland/SykepengesoknadUtlandHeader';
+import Header from '../SykepengesoknadUtlandHeader';
 import Sporsmal from '../../soknad-felles/Sporsmal';
 import { soknad as soknadPt } from '../../../propTypes';
 import { OPPHOLD_UTLAND_SKJEMA } from '../../../enums/skjemanavn';
 import validate from '../validering/validerUtlandsSkjema';
-import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/FeiloppsummeringContainer';
+import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/skjema/FeiloppsummeringContainer';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import { IKKE_RELEVANT, JA_NEI } from '../../../enums/svartyper';
-import { getContextRoot } from '../../../routers/paths';
+import getContextRoot from '../../../utils/getContextRoot';
 
 
 export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryter, avbrytSoknad, ferie }) => {

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { reduxForm, getFormValues } from 'redux-form';
 import { bindActionCreators, compose } from 'redux';
-import { onSubmitFail } from '../FeiloppsummeringContainer';
+import { onSubmitFail } from '../skjema/FeiloppsummeringContainer';
 import { sendSoknad } from '../../actions/soknader_actions';
 import { getSykepengesoknadSelvstendigSkjemanavn } from '../../enums/skjemanavn';
 import { erForsteSoknad } from '../../selectors/soknaderSelectors';

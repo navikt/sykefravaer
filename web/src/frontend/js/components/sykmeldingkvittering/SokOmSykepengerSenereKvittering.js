@@ -1,7 +1,7 @@
 import React from 'react';
 import { sykepengesoknad as sykepengesoknadPt, getLedetekst, Video, filmer, Bjorn } from 'digisyfo-npm';
 import PropTypes from 'prop-types';
-import { getContextRoot } from '../../routers/paths';
+import getContextRoot from '../../utils/getContextRoot';
 import Kvitteringsteg, { HtmlAvsnitt } from './Kvitteringsteg';
 import { soknadsdatoremse } from './Soknadsdatoliste';
 

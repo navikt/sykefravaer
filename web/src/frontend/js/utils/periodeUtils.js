@@ -28,17 +28,6 @@ export const erGyldigePerioder = (perioder) => {
     }, true);
 };
 
-
-export const datePeriodeErHelg = (periode) => {
-    const fom = periode.fom;
-    const tom = periode.tom;
-    if (datoErHelgedag(fom) && datoErHelgedag(tom) && (erPafolgendeDager(fom, tom) || fom.getTime() === tom.getTime())) {
-        return true;
-    }
-    return false;
-};
-
-
 export const periodeErHelg = (periode) => {
     let fom;
     let tom;

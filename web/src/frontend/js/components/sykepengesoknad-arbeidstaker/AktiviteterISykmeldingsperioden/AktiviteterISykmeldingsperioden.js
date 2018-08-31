@@ -17,7 +17,7 @@ import AvbrytSoknadContainer from '../../../containers/sykepengesoknad-arbeidsta
 import { getUtdanningssporsmal } from '../Oppsummering/sykepengesoknadSporsmal';
 import { filtrerAktuelleAktiviteter } from '../../../utils/sykepengesoknadUtils';
 import { PreutfyltBjorn } from '../FravaerOgFriskmelding/Egenmeldingsdager';
-import FeiloppsummeringContainer from '../../../containers/FeiloppsummeringContainer';
+import FeiloppsummeringContainer from '../../../containers/skjema/FeiloppsummeringContainer';
 import { getSykepengesoknadArbeidstakerSkjemanavn } from '../../../enums/skjemanavn';
 
 export const UtdanningStartDato = ({ senesteTom }) => {

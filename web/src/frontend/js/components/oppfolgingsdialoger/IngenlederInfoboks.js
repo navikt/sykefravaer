@@ -4,7 +4,7 @@ import { getLedetekst } from 'digisyfo-npm';
 import {
     OppfolgingsdialogInfoboks,
 } from 'oppfolgingsdialog-npm';
-import { getContextRoot } from '../../routers/paths';
+import getContextRoot from '../../utils/getContextRoot';
 
 class IngenledereInfoboks extends Component {
     componentWillMount() {

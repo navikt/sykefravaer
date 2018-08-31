@@ -92,6 +92,7 @@ const Sporsmal = ({ sporsmal, name, hovedsporsmal }) => {
 Sporsmal.propTypes = {
     sporsmal: sporsmalPt,
     name: PropTypes.string,
+    hovedsporsmal: PropTypes.bool,
 };
 
 export default Sporsmal;

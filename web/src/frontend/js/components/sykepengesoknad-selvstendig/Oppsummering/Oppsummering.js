@@ -20,7 +20,7 @@ const OppsummeringUtvidbar = ({ soknad }) => {
             return s.tag !== VAER_KLAR_OVER_AT;
         }),
     };
-    return (<Utvidbar className="blokk" tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')} erApen={false}>
+    return (<Utvidbar className="blokk js-soknad-oppsummering" tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')} erApen={false}>
         <Oppsummeringsvisning soknad={_soknad} />
     </Utvidbar>);
 };

@@ -9,6 +9,7 @@ export const toggleSelvstendigSoknad = (state) => {
 };
 
 export const toggleSykepengesoknadUtland = (state) => {
+    return true;
     return !state.unleashToggles.hentingFeilet
         && state.unleashToggles.data[UTENLANDSOPPHOLD_SOKNAD_TOGGLE] === true;
 };

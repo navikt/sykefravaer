@@ -9,7 +9,7 @@ import { harOverlappendePerioder } from '../../../utils/periodeUtils';
 import { fieldPropTypes, fields as fieldsPt } from '../../../propTypes';
 
 export const Periode = (props) => {
-    const { name, index, onRemoveHandler, tidligsteFom, senesteTom, skjemanavn } = props;
+    const { name, index, onRemoveHandler, tidligsteFom, senesteTom, skjemanavn, initiellDato } = props;
     const fomName = `${name}.fom`;
     const tomName = `${name}.tom`;
     return (<Fields
@@ -19,6 +19,7 @@ export const Periode = (props) => {
         senesteTom={senesteTom}
         component={DatovelgerPeriode}
         onRemoveHandler={onRemoveHandler}
+        initiellDato={initiellDato}
         periodeIndex={index} />);
 };
 
@@ -27,6 +28,7 @@ Periode.propTypes = {
     onRemoveHandler: PropTypes.func,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
+    initiellDato: PropTypes.instanceOf(Date),
     name: PropTypes.string.isRequired,
     skjemanavn: PropTypes.string,
 };
@@ -39,7 +41,7 @@ export class PeriodevelgerComponent extends Component {
     }
 
     render() {
-        const { fields, namePrefix, spoersmal, meta, Overskrift, tidligsteFom, senesteTom } = this.props;
+        const { fields, namePrefix, spoersmal, meta, Overskrift, tidligsteFom, senesteTom, initiellDato } = this.props;
 
         return (<div className="periodevelger">
             <div className={meta && meta.touched && meta.error ? 'blokk' : ''}>
@@ -56,6 +58,7 @@ export class PeriodevelgerComponent extends Component {
                                     index={index}
                                     tidligsteFom={tidligsteFom}
                                     senesteTom={senesteTom}
+                                    initiellDato={initiellDato}
                                     onRemoveHandler={() => {
                                         fields.remove(index);
                                     }} />);
@@ -83,6 +86,7 @@ PeriodevelgerComponent.propTypes = {
     Overskrift: PropTypes.string,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
+    initiellDato: PropTypes.instanceOf(Date),
 };
 
 PeriodevelgerComponent.defaultProps = {
@@ -91,7 +95,7 @@ PeriodevelgerComponent.defaultProps = {
 
 export const StateConnectedPeriodevelger = connect()(PeriodevelgerComponent);
 
-const PeriodevelgerField = ({ name, spoersmal, tidligsteFom, senesteTom, Overskrift = 'h3' }) => {
+const PeriodevelgerField = ({ name, spoersmal, tidligsteFom, senesteTom, Overskrift = 'h3', initiellDato }) => {
     return (<FieldArray
         validate={(value) => {
             return harOverlappendePerioder(value)
@@ -105,6 +109,7 @@ const PeriodevelgerField = ({ name, spoersmal, tidligsteFom, senesteTom, Overskr
         spoersmal={spoersmal}
         tidligsteFom={tidligsteFom}
         senesteTom={senesteTom}
+        initiellDato={initiellDato}
     />);
 };
 
@@ -113,6 +118,7 @@ PeriodevelgerField.propTypes = {
     spoersmal: PropTypes.string,
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
+    initiellDato: PropTypes.instanceOf(Date),
     Overskrift: PropTypes.string,
 };
 

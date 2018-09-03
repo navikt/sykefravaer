@@ -25,7 +25,7 @@ import IkkeRelevant from './IkkeRelevant';
 import Checkboxpanel from './Checkboxpanel';
 
 
-const Sporsmal = ({ sporsmal, name, hovedsporsmal }) => {
+const Sporsmal = ({ sporsmal, name, hovedsporsmal, ekstraProps }) => {
     const undersporsmal = sporsmal.undersporsmal.map((underspm) => {
         return underspm.svar !== null
             ? <Undersporsmal sporsmal={underspm} key={underspm.tag} />
@@ -54,7 +54,7 @@ const Sporsmal = ({ sporsmal, name, hovedsporsmal }) => {
             </Checkbox>);
         }
         case PERIODER: {
-            return (<Perioder {...sporsmal} name={name}>
+            return (<Perioder {...sporsmal} {...ekstraProps} name={name}>
                 { undersporsmal }
             </Perioder>);
         }

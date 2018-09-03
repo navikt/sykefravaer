@@ -14,6 +14,7 @@ import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/skj
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import { IKKE_RELEVANT, JA_NEI } from '../../../enums/svartyper';
 import getContextRoot from '../../../utils/getContextRoot';
+import { PERIODEUTLAND } from '../../../enums/tagtyper';
 
 
 export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryter, avbrytSoknad, ferie }) => {
@@ -25,11 +26,16 @@ export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryt
 
     const sporsmalsliste = sporsmallisteSkjema().map((sporsmal) => {
         const className = cn({ hovedsporsmal: sporsmal.svartype !== JA_NEI, 'blokk--xs': true });
+        const ekstraProps = sporsmal.tag === PERIODEUTLAND
+            ? { initiellDato: new Date() }
+            : {};
+
         return (<div className={className} key={sporsmal.tag}>
             <Sporsmal
                 hovedsporsmal
                 sporsmal={sporsmal}
                 name={sporsmal.tag}
+                ekstraProps={ekstraProps}
             />
         </div>);
     });

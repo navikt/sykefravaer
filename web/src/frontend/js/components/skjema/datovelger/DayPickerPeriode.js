@@ -79,8 +79,8 @@ class DayPickerPeriode extends Component {
     }
 
     getInitialMonth() {
-        const { valgtFra, valgtTil, tidligsteFom, senesteTom } = this.props;
-        return valgtTil || valgtFra || senesteTom || tidligsteFom;
+        const { valgtFra, valgtTil, tidligsteFom, senesteTom, initiellDato } = this.props;
+        return valgtTil || valgtFra || initiellDato || senesteTom || tidligsteFom;
     }
 
     handleDayClick(dato) {
@@ -172,6 +172,7 @@ DayPickerPeriode.defaultProps = {
 DayPickerPeriode.propTypes = {
     tidligsteFom: PropTypes.instanceOf(Date),
     senesteTom: PropTypes.instanceOf(Date),
+    initiellDato: PropTypes.instanceOf(Date),
     autofill: PropTypes.func,
     touch: PropTypes.func,
     skjemanavn: PropTypes.string,

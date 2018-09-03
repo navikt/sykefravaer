@@ -2,8 +2,8 @@
     .mixin-panel-padding();
     display: flex;
     width: 100%;
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
+    padding-top: 1.25em;
+    padding-bottom: 1.25em;
     margin-bottom: 1px;
     display: flex;
     background: @white;
@@ -23,11 +23,11 @@
 
 .inngangspanel:extend(.panel) {
     margin-bottom: 1px;
-    padding-right: 3rem;
+    padding-right: 3em;
     background-image: data-uri("../img/svg/pil-videre-graa.svg");
     background-repeat: no-repeat;
-    background-position: 97% 2rem;
-    background-size: 1rem 1rem;
+    background-position: 97% 2em;
+    background-size: 1rem 1em;
     transition: background-position ease-in-out .1s;
     transform: translate3d(0, 0, 0);
     display: flex;
@@ -69,7 +69,11 @@
     }
 
     .inngangspanel__tekst {
-        margin-bottom: 1.25rem;
+        margin-bottom: 1.25em;
+    }
+
+    .inngangspanel__tekst:last-child {
+        margin-bottom: 0;
     }
 }
 
@@ -114,7 +118,7 @@
 .inngangspanel--sykmelding .inngangspanel__tekst {
     p {
         margin-top: 0;
-        margin-bottom: .5rem;
+        margin-bottom: .5em;
         .typo-normal-mixin();
     }
 }
@@ -152,9 +156,9 @@
     .inngangspanel__ikon {
         display: block;
         align-self: flex-start;
-        width: 2rem;
+        width: 2em;
         box-sizing: content-box;
-        padding-right: 1rem;
+        padding-right: 1em;
 
         img {
             width: 100%;
@@ -201,5 +205,5 @@
 
 .inngangspanel__punktliste {
     margin: 0;
-    padding-left: 1rem;
+    padding-left: 1em;
 }

@@ -25,11 +25,10 @@ export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryt
 
     const sporsmalsliste = sporsmallisteSkjema().map((sporsmal) => {
         const className = cn({ hovedsporsmal: sporsmal.svartype !== JA_NEI, 'blokk--xs': true });
-        return (<div className={className}>
+        return (<div className={className} key={sporsmal.tag}>
             <Sporsmal
                 hovedsporsmal
                 sporsmal={sporsmal}
-                key={sporsmal.tag}
                 name={sporsmal.tag}
             />
         </div>);

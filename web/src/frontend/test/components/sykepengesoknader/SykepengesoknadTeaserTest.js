@@ -3,7 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
 import { setLedetekster } from 'digisyfo-npm';
-import SykepengesoknadTeaser, { SendtUlikt } from '../../../js/components/sykepengesoknader/SykepengesoknadTeaser';
+import SykepengesoknadTeaser, { SendtUlikt, TeaserPeriode, TeaserStatus, TeaserTittel, TeaserUndertekst } from '../../../js/components/sykepengesoknader/SykepengesoknadTeaser';
 import { getSoknad, getSoknadUtland } from '../../mockSoknader';
 
 chai.use(chaiEnzyme());
@@ -56,146 +56,24 @@ describe('SykepengesoknadTeaser', () => {
         expect(component.find('.js-ikon')).to.be.length(2);
     });
 
-    it('har opprettet tekst', () => {
+    it('Har tittel', () => {
         const component = shallow(<SykepengesoknadTeaser soknad={sykepengesoknad} />);
-        expect(component.find('.js-meta').text()).to.contain('Opprettet 20. januar 2016');
-    });
-
-    it('har tittel', () => {
-        const component = shallow(<SykepengesoknadTeaser soknad={sykepengesoknad} />);
-        expect(component.find('.js-title').text()).to.contain('Tittel');
-    });
-
-    it('har tekst', () => {
-        const component = shallow(<SykepengesoknadTeaser soknad={sykepengesoknad} />);
-        expect(component.find('.js-tekst').text()).to.contain('For sykmeldingsperioden 1. – 20. januar 2016');
+        expect(component.find(TeaserTittel)).to.have.length(1);
     });
 
     it('har undertekst', () => {
         const component = shallow(<SykepengesoknadTeaser soknad={sykepengesoknad} />);
-        expect(component.find('.js-undertekst').text()).to.contain('BEKK Consulting AS');
+        expect(component.contains(<TeaserUndertekst soknad={sykepengesoknad} />)).to.equal(true);
     });
 
-    it('viser ikke status om soknad er ny', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, { status: 'NY' });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-status')).to.be.length(0);
+    it('har periode', () => {
+        const component = shallow(<SykepengesoknadTeaser soknad={sykepengesoknad} />);
+        expect(component.contains(<TeaserPeriode soknad={sykepengesoknad} />)).to.equal(true);
     });
 
-    it('viser navn på arbeidsgiver soknad er ny', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, { status: 'NY' });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-undertekst').text()).to.equal('BEKK Consulting AS');
-    });
-
-    it('viser ikke status om soknad er sendt', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, { status: 'NY' });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-status')).to.be.length(0);
-        expect(component.find('.js-undertekst')).to.be.length(1);
-    });
-
-    it('viser undertekst om soknad er sendt', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, { status: 'SENDT' });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-undertekst')).to.be.length(1);
-    });
-
-    it('Viser status om søknaden er UTGAATT', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, { status: 'UTGAATT' });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-status')).to.be.length(1);
-        expect(component.find('.js-status').text()).to.equal('Ikke brukt på nett');
-    });
-
-    it('Viser status om søknaden er UTKAST_TIL_KORRIGERING', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, { status: 'UTKAST_TIL_KORRIGERING' });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-status')).to.be.length(1);
-        expect(component.find('.js-status').text()).to.equal('Utkast til endring');
-    });
-
-    it('Viser datoen søknaden er sendt hvis den bare er sendt til NAV', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, {
-            status: 'SENDT',
-            sendtTilArbeidsgiverDato: null,
-            sendtTilNAVDato: new Date('2017-05-11'),
-        });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-undertekst').text()).to.equal('Sendt til NAV 11. mai 2017');
-    });
-
-    it('Viser datoen søknaden er sendt hvis den bare er sendt til arbeidsgiver', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, {
-            status: 'SENDT',
-            sendtTilNAVDato: null,
-            sendtTilArbeidsgiverDato: new Date('2017-05-11'),
-        });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-undertekst').text()).to.equal('Sendt til BEKK Consulting AS 11. mai 2017');
-    });
-
-    it('Viser datoen søknaden er sendt hvis den er sendt til begge på samme dag', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, {
-            status: 'SENDT',
-            sendtTilNAVDato: new Date('2017-05-11'),
-            sendtTilArbeidsgiverDato: new Date('2017-05-11'),
-        });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-undertekst').text()).to.equal('Sendt til BEKK Consulting AS og NAV 11. mai 2017');
-    });
-
-    it('Viser SendtUlikt hvis den er sendt til begge på forskjellige dager', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, {
-            status: 'SENDT',
-            sendtTilNAVDato: new Date('2017-05-18'),
-            sendtTilArbeidsgiverDato: new Date('2017-05-11'),
-        });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find(SendtUlikt)).to.have.length(1);
-
-        const sendtUlikt = shallow(<SendtUlikt soknad={_soknad} />);
-        expect(sendtUlikt.text()).to.contain('Sendt til BEKK Consulting AS 11.05.2017');
-        expect(sendtUlikt.text()).to.contain('Sendt til NAV 18.05.2017');
-    });
-
-    it('Viser statustekst hvis søknaden sendes til NAV', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, {
-            status: 'TIL_SENDING',
-            sendtTilNAVDato: new Date('2017-05-18'),
-            sendtTilArbeidsgiverDato: null,
-        });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-undertekst').text()).to.contain('Sender til NAV...');
-    });
-
-    it('Viser statustekst hvis søknaden sendes til arbeidsgiver', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, {
-            status: 'TIL_SENDING',
-            sendtTilNAVDato: null,
-            sendtTilArbeidsgiverDato: new Date('2017-05-18'),
-        });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-undertekst').text()).to.contain('Sender til BEKK Consulting AS...');
-    });
-
-    it('Viser statustekst hvis søknaden sendes til begge', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, {
-            status: 'TIL_SENDING',
-            sendtTilNAVDato: new Date('2017-05-18'),
-            sendtTilArbeidsgiverDato: new Date('2017-05-18'),
-        });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-undertekst').text()).to.contain('Sender til BEKK Consulting AS og NAV...');
-    });
-
-    it('Viser statustekst hvis søknaden er avbrutt', () => {
-        const _soknad = Object.assign({}, sykepengesoknad, {
-            status: 'AVBRUTT',
-            avbruttDato: new Date('2017-05-18'),
-        });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-undertekst').text()).to.contain('Avbrutt av deg 18. mai 2017');
+    it('har status', () => {
+        const component = shallow(<SykepengesoknadTeaser soknad={sykepengesoknad} />);
+        expect(component.contains(<TeaserStatus soknad={sykepengesoknad} />)).to.equal(true);
     });
 
     it('Skal funke med en frilansersøknad', () => {
@@ -206,17 +84,159 @@ describe('SykepengesoknadTeaser', () => {
         shallow(<SykepengesoknadTeaser soknad={utlandsoknad} />);
     });
 
-    it('Viser riktig statustekst for sending til nav', () => {
-        const _soknad = Object.assign({}, utlandsoknad, {
-            status: 'SENDT',
-            innsendtDato: new Date('2018-05-18'),
+    describe('TeaserTittel', () => {
+        it('har opprettet tekst', () => {
+            const component = shallow(<TeaserTittel soknad={sykepengesoknad} />);
+            expect(component.text()).to.contain('Opprettet 20. januar 2016');
         });
-        const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
-        expect(component.find('.js-undertekst').text()).to.contain('Sendt til NAV 18. mai 2018');
+
+        it('har tittel', () => {
+            const component = shallow(<TeaserTittel soknad={sykepengesoknad} />);
+            expect(component.text()).to.contain('Tittel');
+        });
+
+        it('Viser riktig tekst for søknad om utenlandsopphold', () => {
+            const component = shallow(<TeaserTittel soknad={utlandsoknad} />);
+            expect(component.text()).to.contain('Søknad om å beholde sykepenger utenfor Norge');
+        });
     });
 
-    it('Viser riktig test for soknadstype', () => {
-        const component = shallow(<SykepengesoknadTeaser soknad={utlandsoknad} />);
-        expect(component.find('.js-title').text()).to.contain('Søknad om å beholde sykepenger utenfor Norge');
+    describe('TeaserPeriode', () => {
+        const component = shallow(<TeaserPeriode soknad={sykepengesoknad} />);
+        expect(component.text()).to.contain('For sykmeldingsperioden 1. – 20. januar 2016');
+    });
+
+    describe('TeaserStatus', () => {
+        it('viser ikke status om soknad er ny', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, { status: 'NY' });
+            const component = shallow(<TeaserStatus soknad={_soknad} />);
+            expect(component.text()).to.be.length(0);
+        });
+
+        it('Viser status om søknaden er UTGAATT', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, { status: 'UTGAATT' });
+            const component = shallow(<TeaserStatus soknad={_soknad} />);
+            expect(component.text()).to.equal('Ikke brukt på nett');
+        });
+
+        it('Viser status om søknaden er UTKAST_TIL_KORRIGERING', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, { status: 'UTKAST_TIL_KORRIGERING' });
+            const component = shallow(<TeaserStatus soknad={_soknad} />);
+            expect(component.text()).to.equal('Utkast til endring');
+        });
+    });
+
+    describe('TeaserUndertekst', () => {
+        it('viser navn på arbeidsgiver soknad er ny', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, { status: 'NY' });
+            const component = shallow(<TeaserUndertekst soknad={_soknad} />);
+            expect(component.find('.js-undertekst').text()).to.equal('BEKK Consulting AS');
+        });
+
+
+        it('Viser datoen søknaden er sendt hvis den bare er sendt til NAV', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, {
+                status: 'SENDT',
+                sendtTilArbeidsgiverDato: null,
+                sendtTilNAVDato: new Date('2017-05-11'),
+            });
+            const component = shallow(<TeaserUndertekst soknad={_soknad} />);
+            expect(component.text()).to.equal('Sendt til NAV 11. mai 2017');
+        });
+
+        it('Viser datoen søknaden er sendt hvis den bare er sendt til arbeidsgiver', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, {
+                status: 'SENDT',
+                sendtTilNAVDato: null,
+                sendtTilArbeidsgiverDato: new Date('2017-05-11'),
+            });
+            const component = shallow(<TeaserUndertekst soknad={_soknad} />);
+            expect(component.text()).to.equal('Sendt til BEKK Consulting AS 11. mai 2017');
+        });
+
+        it('Viser datoen søknaden er sendt hvis den er sendt til begge på samme dag', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, {
+                status: 'SENDT',
+                sendtTilNAVDato: new Date('2017-05-11'),
+                sendtTilArbeidsgiverDato: new Date('2017-05-11'),
+            });
+            const component = shallow(<TeaserUndertekst soknad={_soknad} />);
+            expect(component.text()).to.equal('Sendt til BEKK Consulting AS og NAV 11. mai 2017');
+        });
+
+        it('Viser statustekst hvis søknaden sendes til NAV', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, {
+                status: 'TIL_SENDING',
+                sendtTilNAVDato: new Date('2017-05-18'),
+                sendtTilArbeidsgiverDato: null,
+            });
+            const component = shallow(<TeaserUndertekst soknad={_soknad} />);
+            expect(component.text()).to.contain('Sender til NAV...');
+        });
+
+        it('Viser statustekst hvis søknaden sendes til arbeidsgiver', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, {
+                status: 'TIL_SENDING',
+                sendtTilNAVDato: null,
+                sendtTilArbeidsgiverDato: new Date('2017-05-18'),
+            });
+            const component = shallow(<TeaserUndertekst soknad={_soknad} />);
+            expect(component.text()).to.contain('Sender til BEKK Consulting AS...');
+        });
+
+        it('Viser statustekst hvis søknaden sendes til begge', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, {
+                status: 'TIL_SENDING',
+                sendtTilNAVDato: new Date('2017-05-18'),
+                sendtTilArbeidsgiverDato: new Date('2017-05-18'),
+            });
+            const component = shallow(<TeaserUndertekst soknad={_soknad} />);
+            expect(component.text()).to.contain('Sender til BEKK Consulting AS og NAV...');
+        });
+
+        it('Viser statustekst hvis søknaden er avbrutt', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, {
+                status: 'AVBRUTT',
+                avbruttDato: new Date('2017-05-18'),
+            });
+            const component = shallow(<TeaserUndertekst soknad={_soknad} />);
+            expect(component.text()).to.contain('Avbrutt av deg 18. mai 2017');
+        });
+
+        it('Viser riktig statustekst for sending til nav', () => {
+            const _soknad = Object.assign({}, utlandsoknad, {
+                status: 'SENDT',
+                innsendtDato: new Date('2018-05-18'),
+            });
+            const component = shallow(<TeaserUndertekst soknad={_soknad} />);
+            expect(component.text()).to.contain('Sendt til NAV 18. mai 2018');
+        });
+
+        it('viser ikke status om soknad er sendt', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, { status: 'NY' });
+            const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
+            expect(component.find('.js-status')).to.be.length(0);
+            expect(component.find(TeaserUndertekst)).to.be.length(1);
+        });
+
+        it('viser undertekst om soknad er sendt', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, { status: 'SENDT' });
+            const component = shallow(<SykepengesoknadTeaser soknad={_soknad} />);
+            expect(component.find(TeaserUndertekst)).to.be.length(1);
+        });
+
+        it('Viser SendtUlikt hvis den er sendt til begge på forskjellige dager', () => {
+            const _soknad = Object.assign({}, sykepengesoknad, {
+                status: 'SENDT',
+                sendtTilNAVDato: new Date('2017-05-18'),
+                sendtTilArbeidsgiverDato: new Date('2017-05-11'),
+            });
+            const component = shallow(<TeaserUndertekst soknad={_soknad} />);
+            expect(component.find(SendtUlikt)).to.have.length(1);
+
+            const sendtUlikt = shallow(<SendtUlikt soknad={_soknad} />);
+            expect(sendtUlikt.text()).to.contain('Sendt til BEKK Consulting AS 11.05.2017');
+            expect(sendtUlikt.text()).to.contain('Sendt til NAV 18.05.2017');
+        });
     });
 });

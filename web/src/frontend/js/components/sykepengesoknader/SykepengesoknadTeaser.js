@@ -55,6 +55,9 @@ const beregnUndertekst = (soknad) => {
     if (sendtTilBeggeMenIkkeSamtidig && soknad.status !== NY) {
         return <SendtUlikt soknad={soknad} />;
     }
+    if (soknad.status === NY && soknad.soknadstype === OPPHOLD_UTLAND) {
+        return null;
+    }
     if (soknad.status !== NY && soknad.status !== UTKAST_TIL_KORRIGERING) {
         if ((soknad.soknadstype === OPPHOLD_UTLAND || soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE) && soknad.status === SENDT) {
             return getLedetekst('soknad.teaser.status.SENDT.til-nav', {

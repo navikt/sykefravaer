@@ -102,8 +102,10 @@ describe('SykepengesoknadTeaser', () => {
     });
 
     describe('TeaserPeriode', () => {
-        const component = shallow(<TeaserPeriode soknad={sykepengesoknad} />);
-        expect(component.text()).to.contain('For sykmeldingsperioden 1. – 20. januar 2016');
+        it('Skal vise periode', () => {
+            const component = shallow(<TeaserPeriode soknad={sykepengesoknad} />);
+            expect(component.text()).to.contain('For sykmeldingsperioden 1. – 20. januar 2016');
+        });
     });
 
     describe('TeaserStatus', () => {

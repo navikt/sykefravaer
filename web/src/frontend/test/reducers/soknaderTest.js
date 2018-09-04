@@ -5,6 +5,7 @@ import soknader from '../../js/reducers/soknader';
 import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader, { getSoknad, soknadrespons } from '../mockSoknader';
 import { SENDT } from '../../js/enums/soknadstatuser';
+import { ANSVARSERKLARING } from '../../js/enums/tagtyper';
 
 describe('soknader', () => {
     let getStateMedDataHentet;
@@ -110,5 +111,21 @@ describe('soknader', () => {
         const state = soknader(deepFreeze(initState), action);
         expect(state.avbryter).to.equal(false);
         expect(state.avbrytSoknadFeilet).to.equal(true);
+    });
+
+    it('Håndterer soknadOppdatert', () => {
+        const initState = getStateMedDataHentet();
+        const soknadSomEndres = initState.data[0];
+        const endretSoknad = {
+            ...soknadSomEndres,
+            sporsmal: [
+                ...soknadSomEndres.sporsmal.filter((s) => {
+                    return s.tag === ANSVARSERKLARING;
+                }),
+            ],
+        };
+        const action = actions.soknadOppdatert(endretSoknad);
+        const state = soknader(deepFreeze(initState), action);
+        expect(state.data).to.deep.equal([endretSoknad]);
     });
 });

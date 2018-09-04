@@ -2,13 +2,14 @@ import chai from 'chai';
 import React from 'react';
 import { shallow } from 'enzyme';
 import chaiEnzyme from 'chai-enzyme';
-import Sporsmal from '../../../js/components/soknad-felles/Sporsmal';
+import { SporsmalComponent as Sporsmal } from '../../../js/components/soknad-felles/Sporsmal';
 import Undersporsmal from '../../../js/components/soknad-felles/Undersporsmal';
 import { getSoknad } from '../../mockSoknader';
 import Checkbox from '../../../js/components/soknad-felles/Checkbox';
 import Tall from '../../../js/components/soknad-felles/Tall';
 import Tekstinput from '../../../js/components/soknad-felles/Tekstinput';
 import Dato from '../../../js/components/soknad-felles/Dato';
+import JaEllerNei from '../../../js/components/soknad-felles/JaEllerNei';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -89,6 +90,24 @@ describe('Sporsmal', () => {
         };
         const component = shallow(<Sporsmal sporsmal={sporsmal} />);
         expect(component.find(Tekstinput)).to.have.length(1);
+    });
+
+    it('Skal rendre en JaEllerNei hvis spørsmålet har svartype JA_NEI', () => {
+        const sporsmal = {
+            id: '26',
+            tag: 'ARBEIDSGIVER',
+            sporsmalstekst: 'Har du arbeidsgiver?',
+            min: 0,
+            max: 0,
+            kriterieForVisningAvUndersporsmal: null,
+            undersporsmal: [],
+            svartype: 'JA_NEI',
+            pavirkerAndreSporsmal: true,
+            svar: [],
+        };
+        const component = shallow(<Sporsmal sporsmal={sporsmal} />);
+        expect(component.find(JaEllerNei)).to.have.length(1);
+        expect(component.find(JaEllerNei).prop('pavirkerAndreSporsmal')).to.equal(true);
     });
 });
 

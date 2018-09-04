@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
 import { getLedetekst } from 'digisyfo-npm';
 import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
@@ -15,7 +17,7 @@ import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedS
 import { IKKE_RELEVANT, JA_NEI } from '../../../enums/svartyper';
 import getContextRoot from '../../../utils/getContextRoot';
 import { PERIODEUTLAND } from '../../../enums/tagtyper';
-
+import fraBackendsoknadTilInitiellSoknad from '../../../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
 
 export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryter, avbrytSoknad, ferie }) => {
     const sporsmallisteSkjema = () => {
@@ -32,6 +34,7 @@ export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryt
 
         return (<div className={className} key={sporsmal.tag}>
             <Sporsmal
+                soknad={soknad}
                 hovedsporsmal
                 sporsmal={sporsmal}
                 name={sporsmal.tag}
@@ -39,6 +42,7 @@ export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryt
             />
         </div>);
     });
+
     const onSubmit = (values) => {
         const populertSoknad = populerSoknadMedSvar(soknad, values);
         sendSoknad(populertSoknad);
@@ -80,10 +84,21 @@ Utlandsskjema.propTypes = {
     avbryter: PropTypes.bool,
 };
 
-export default reduxForm({
-    form: OPPHOLD_UTLAND_SKJEMA,
-    validate,
-    onSubmitFail: (errors, dispatch) => {
-        onSubmitFail(errors, dispatch, OPPHOLD_UTLAND_SKJEMA);
-    },
-})(Utlandsskjema);
+const mapStateToProps = (state, ownProps) => {
+    return {
+        initialValues: fraBackendsoknadTilInitiellSoknad(ownProps.soknad),
+    };
+};
+
+export default compose(
+    connect(mapStateToProps),
+    reduxForm({
+        form: OPPHOLD_UTLAND_SKJEMA,
+        validate,
+        enableReinitialize: true,
+        keepDirtyOnReinitialize: true,
+        onSubmitFail: (errors, dispatch) => {
+            onSubmitFail(errors, dispatch, OPPHOLD_UTLAND_SKJEMA);
+        },
+    }),
+)(Utlandsskjema);

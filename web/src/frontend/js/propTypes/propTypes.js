@@ -111,6 +111,7 @@ const sporsmalShape = {
     svartype: svartypePt,
     tag: PropTypes.string,
     undertekst: PropTypes.string,
+    pavirkerAndreSporsmal: PropTypes.bool,
 };
 
 sporsmalShape.undersporsmal = PropTypes.arrayOf(PropTypes.shape(sporsmalShape));

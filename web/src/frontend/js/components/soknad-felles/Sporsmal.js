@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { getLedetekst } from 'digisyfo-npm';
+import { bindActionCreators } from 'redux';
 import JaEllerNei from './JaEllerNei';
 import Undersporsmal from './Undersporsmal';
-import { sporsmal as sporsmalPt } from '../../propTypes';
+import { sporsmal as sporsmalPt, soknad as soknadPt } from '../../propTypes';
 import {
     CHECKBOX,
     CHECKBOX_GRUPPE,
@@ -23,12 +25,12 @@ import CheckboxGruppe from './CheckboxGruppe';
 import Tekstinput from './Tekstinput';
 import IkkeRelevant from './IkkeRelevant';
 import Checkboxpanel from './Checkboxpanel';
+import { soknadEndret } from '../../actions/soknader_actions';
 
-
-const Sporsmal = ({ sporsmal, name, hovedsporsmal, ekstraProps }) => {
+export const SporsmalComponent = ({ sporsmal, name, hovedsporsmal, ekstraProps, actions, soknad }) => {
     const undersporsmal = sporsmal.undersporsmal.map((underspm) => {
         return underspm.svar !== null
-            ? <Undersporsmal sporsmal={underspm} key={underspm.tag} />
+            ? <Undersporsmal sporsmal={underspm} key={underspm.tag} soknad={soknad} />
             : null;
     });
 
@@ -59,7 +61,12 @@ const Sporsmal = ({ sporsmal, name, hovedsporsmal, ekstraProps }) => {
             </Perioder>);
         }
         case JA_NEI: {
-            return (<JaEllerNei {...sporsmal} name={name} hovedsporsmal={hovedsporsmal}>
+            return (<JaEllerNei
+                {...sporsmal}
+                name={name}
+                hovedsporsmal={hovedsporsmal}
+                soknad={soknad}
+                actions={actions}>
                 { undersporsmal }
             </JaEllerNei>);
         }
@@ -89,10 +96,19 @@ const Sporsmal = ({ sporsmal, name, hovedsporsmal, ekstraProps }) => {
     }
 };
 
-Sporsmal.propTypes = {
+export function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators({ soknadEndret }, dispatch),
+    };
+}
+
+SporsmalComponent.propTypes = {
     sporsmal: sporsmalPt,
     name: PropTypes.string,
     hovedsporsmal: PropTypes.bool,
+    ekstraProps: PropTypes.shape(),
+    actions: PropTypes.shape(),
+    soknad: soknadPt,
 };
 
-export default Sporsmal;
+export default connect(null, mapDispatchToProps)(SporsmalComponent);

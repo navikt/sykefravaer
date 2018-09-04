@@ -1,13 +1,13 @@
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
-import populerSoknadMedSvar from '../../../js/utils/soknad-felles/populerSoknadMedSvar';
-import { getSoknad } from '../../mockSoknader';
+import populerSoknadMedSvar, { populerSoknadMedSvarUtenKonvertertePerioder } from '../../../js/utils/soknad-felles/populerSoknadMedSvar';
+import { getSoknad, getSoknadUtland } from '../../mockSoknader';
 import {
     ANDRE_INNTEKTSKILDER,
     ANSVARSERKLARING,
     HVOR_MANGE_TIMER,
     HVOR_MYE_HAR_DU_JOBBET, INNTEKTSKILDE_ARBEIDSFORHOLD, INNTEKTSKILDE_ARBEIDSFORHOLD_ER_DU_SYKMELDT,
-    JOBBET_DU_GRADERT,
+    JOBBET_DU_GRADERT, PERIODEUTLAND,
     TILBAKE_I_ARBEID,
     TILBAKE_NAR,
     UTLAND,
@@ -234,5 +234,69 @@ describe('populerSoknadMedSvar', () => {
         expect(undersporsmal.max).to.equal('2018-05-28');
         expect(utenlandssporsmal.min).to.equal('2018-05-20');
         expect(utenlandssporsmal.max).to.equal('2018-05-28');
+    });
+
+    it('Skal funke selv om det ikke finnes svar for alle spørsmål', () => {
+        const soknadUtland = getSoknadUtland();
+        const valuesUtland = {
+            [PERIODEUTLAND]: [{}],
+        };
+        populerSoknadMedSvar(soknadUtland, valuesUtland);
+    });
+
+    describe('populerSoknadMedSvarUtenKonvertertePerioder', () => {
+        it('Skal populere perioder', () => {
+            const toppnivaSporsmal = soknad.sporsmal.find((s) => {
+                return s.tag === UTLAND;
+            });
+            const parseToppnivasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
+            const toppnivaaSvar = parseToppnivasporsmal(JA);
+            const undersporsmalSvar = [{
+                fom: '20.03.2018',
+                tom: '21.03.2018',
+            }, {
+                fom: '23.03.2018',
+                tom: '23.03.2018',
+            }];
+            values[UTLAND] = toppnivaaSvar;
+            values[PERIODER] = undersporsmalSvar;
+            const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, values);
+            const periodesporsmal = populertSoknad.sporsmal[5].undersporsmal[0];
+            expect(periodesporsmal.svar).to.deep.equal([{
+                verdi: JSON.stringify({
+                    fom: '20.03.2018',
+                    tom: '21.03.2018',
+                }),
+            }, {
+                verdi: JSON.stringify({
+                    fom: '23.03.2018',
+                    tom: '23.03.2018',
+                }),
+            }]);
+            expect(periodesporsmal.min).to.equal('2018-05-20');
+            expect(periodesporsmal.max).to.equal('2018-05-28');
+        });
+
+        it('Skal populere perioder når det bare er fylt ut fom', () => {
+            const toppnivaSporsmal = soknad.sporsmal.find((s) => {
+                return s.tag === UTLAND;
+            });
+            const parseToppnivasporsmal = genererParseForEnkeltverdi(toppnivaSporsmal.id);
+            const toppnivaaSvar = parseToppnivasporsmal(JA);
+            const undersporsmalSvar = [{
+                fom: '20.03.2018',
+            }];
+            values[UTLAND] = toppnivaaSvar;
+            values[PERIODER] = undersporsmalSvar;
+            const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, values);
+            const periodesporsmal = populertSoknad.sporsmal[5].undersporsmal[0];
+            expect(periodesporsmal.svar).to.deep.equal([{
+                verdi: JSON.stringify({
+                    fom: '20.03.2018',
+                }),
+            }]);
+            expect(periodesporsmal.min).to.equal('2018-05-20');
+            expect(periodesporsmal.max).to.equal('2018-05-28');
+        });
     });
 });

@@ -8,6 +8,7 @@ import { childEllerChildren, fieldPropTypes, sporsmal as sporsmalPt } from '../.
 import { formaterEnkeltverdi, genererParseForEnkeltverdi } from './fieldUtils';
 import { JA, NEI } from '../../enums/svarEnums';
 import SporsmalBjorn from './SporsmalBjorn';
+import { getOnChange } from '../../utils/soknad-felles/getOnChange';
 
 const jaEllerNeiAlternativer = [JA, NEI];
 
@@ -58,6 +59,7 @@ RendreJaEllerNei.propTypes = {
 const JaEllerNei = (props) => {
     return ([
         <Field
+            onChange={getOnChange(props)}
             key={`${props.id}-field`}
             format={formaterEnkeltverdi}
             parse={genererParseForEnkeltverdi(props.id)}

@@ -9,15 +9,21 @@ const fraInputDatoTilBackendDato = (inputdato) => {
     return fraJSDatoTilBackendDato(fraInputdatoTilJSDato(inputdato));
 };
 
-const tilPeriodesvar = (perioder) => {
-    return perioder.map((p) => {
-        return {
-            verdi: JSON.stringify({
-                fom: fraInputDatoTilBackendDato(p.fom),
-                tom: fraInputDatoTilBackendDato(p.tom),
-            }),
-        };
-    });
+const tilPeriodesvar = (perioder, konverterPerioder) => {
+    return perioder
+        .filter((p) => {
+            return konverterPerioder
+                ? p.tom && p.tom
+                : true;
+        })
+        .map((p) => {
+            return {
+                verdi: JSON.stringify({
+                    fom: konverterPerioder ? fraInputDatoTilBackendDato(p.fom) : p.fom,
+                    tom: konverterPerioder ? fraInputDatoTilBackendDato(p.tom) : p.tom,
+                }),
+            };
+        });
 };
 
 const tilDatoSvar = (svar) => {
@@ -37,10 +43,10 @@ const tilBackendMinMax = (minMax) => {
         : minMax;
 };
 
-const populerSporsmalMedSvar = (sporsmal, svarFraSkjema) => {
+const populerSporsmalMedSvar = (sporsmal, svarFraSkjema, options) => {
     const svar = (() => {
         if (sporsmal.svartype === PERIODER) {
-            return tilPeriodesvar(svarFraSkjema);
+            return tilPeriodesvar(svarFraSkjema, options.konverterPerioder);
         }
         if (sporsmal.svartype === DATO) {
             return tilDatoSvar(svarFraSkjema);
@@ -86,26 +92,38 @@ const settMinMax = (sporsmal) => {
     }
 };
 
-const populerSporsmalsliste = (sporsmalsliste, values) => {
+const populerSporsmalsliste = (sporsmalsliste, values, options) => {
     return sporsmalsliste.map((sporsmal) => {
         const svarValue = values[sporsmal.tag];
         const undersporsmalErStilt = erUndersporsmalStilt(sporsmal, values);
-        const populertSporsmal = populerSporsmalMedSvar(sporsmal, svarValue);
+        const populertSporsmal = populerSporsmalMedSvar(sporsmal, svarValue, options);
         if (undersporsmalErStilt) {
             return {
                 ...populertSporsmal,
-                undersporsmal: populerSporsmalsliste(populertSporsmal.undersporsmal, values),
+                undersporsmal: populerSporsmalsliste(populertSporsmal.undersporsmal, values, options),
             };
         }
         return settMinMax(populertSporsmal);
     });
 };
 
-export default (soknad, values) => {
-    const sporsmal = populerSporsmalsliste(soknad.sporsmal, values);
+const populerSoknadMedSvar = (soknad, values, optionsParam = {}) => {
+    const options = {
+        konverterPerioder: true,
+        ...optionsParam,
+    };
+    const sporsmal = populerSporsmalsliste(soknad.sporsmal, values, options);
 
     return {
         ...soknad,
         sporsmal,
     };
 };
+
+export const populerSoknadMedSvarUtenKonvertertePerioder = (soknad, values) => {
+    return populerSoknadMedSvar(soknad, values, {
+        konverterPerioder: false,
+    });
+};
+
+export default populerSoknadMedSvar;

@@ -1,12 +1,17 @@
 import {
-    AVBRYT_SYKEPENGESOKNAD_FEILET, AVBRYTER_SYKEPENGESOKNAD,
+    AVBRYT_SYKEPENGESOKNAD_FEILET,
+    AVBRYTER_SYKEPENGESOKNAD,
     HENT_SOKNADER_FEILET,
-    HENTER_SOKNADER, OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
+    HENTER_SOKNADER, OPPDATER_SOKNAD_FEILET,
+    OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
     OPPRETTER_SYKEPENGESOKNADUTLAND,
     SEND_SOKNAD_FEILET,
     SENDER_SOKNAD,
+    SOKNAD_OPPDATERT,
     SOKNAD_SENDT,
-    SOKNADER_HENTET, SYKEPENGESOKNAD_AVBRUTT, SYKEPENGESOKNADUTLAND_OPPRETTET,
+    SOKNADER_HENTET,
+    SYKEPENGESOKNAD_AVBRUTT,
+    SYKEPENGESOKNADUTLAND_OPPRETTET,
 } from '../actions/actiontyper';
 import { TIMER, DATO, PERIODER, PROSENT } from '../enums/svartyper';
 import { SENDT } from '../enums/soknadstatuser';
@@ -165,6 +170,23 @@ export default (state = initiellState, action = {}) => {
                 ...state,
                 avbryter: false,
                 avbrytSoknadFeilet: true,
+            };
+        }
+        case OPPDATER_SOKNAD_FEILET: {
+            return {
+                ...state,
+                oppdaterFeilet: true,
+            };
+        }
+        case SOKNAD_OPPDATERT: {
+            return {
+                ...state,
+                oppdaterFeilet: false,
+                data: state.data.map((s) => {
+                    return s.id === action.soknad.id
+                        ? parseSoknad(action.soknad)
+                        : s;
+                }),
             };
         }
         default: {

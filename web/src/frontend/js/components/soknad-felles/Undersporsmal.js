@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sporsmal as sporsmalPt } from '../../propTypes';
+import { soknad as soknadPt, sporsmal as sporsmalPt } from '../../propTypes';
 import {
     CHECKBOX,
     DATO,
@@ -21,11 +21,11 @@ Wrap.propTypes = {
     children: PropTypes.element,
 };
 
-const Undersporsmal = ({ sporsmal }) => {
+const Undersporsmal = ({ sporsmal, soknad }) => {
     switch (sporsmal.svartype) {
         case CHECKBOX:
         case CHECKBOX_PANEL: {
-            return <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} />;
+            return <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} soknad={soknad} />;
         }
         case DATO:
         case TIMER:
@@ -35,12 +35,12 @@ const Undersporsmal = ({ sporsmal }) => {
         case CHECKBOX_GRUPPE:
         case FRITEKST: {
             return (<Wrap>
-                <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} />
+                <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} soknad={soknad} />
             </Wrap>);
         }
         case IKKE_RELEVANT: {
             return (<div className="ekstrasporsmal">
-                <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} />
+                <Sporsmal sporsmal={sporsmal} name={sporsmal.tag} soknad={soknad} />
             </div>);
         }
         default: {
@@ -51,6 +51,7 @@ const Undersporsmal = ({ sporsmal }) => {
 
 Undersporsmal.propTypes = {
     sporsmal: sporsmalPt,
+    soknad: soknadPt,
 };
 
 export default Undersporsmal;

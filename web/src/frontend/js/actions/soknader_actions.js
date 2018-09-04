@@ -13,7 +13,7 @@ import {
     SYKEPENGESOKNADUTLAND_OPPRETTET,
     SYKEPENGESOKNAD_AVBRUTT,
     AVBRYTER_SYKEPENGESOKNAD,
-    AVBRYT_SYKEPENGESOKNAD_FORESPURT, AVBRYT_SYKEPENGESOKNAD_FEILET,
+    AVBRYT_SYKEPENGESOKNAD_FORESPURT, AVBRYT_SYKEPENGESOKNAD_FEILET, SOKNAD_ENDRET, SOKNAD_OPPDATERT, OPPDATER_SOKNAD_FEILET,
 } from './actiontyper';
 
 export const soknaderHentet = (soknader) => {
@@ -117,3 +117,26 @@ export function avbrytSoknadFeilet() {
         type: AVBRYT_SYKEPENGESOKNAD_FEILET,
     };
 }
+
+export const soknadEndret = (soknad, feltnavn, nyVerdi) => {
+    return {
+        type: SOKNAD_ENDRET,
+        soknad,
+        feltnavn,
+        nyVerdi,
+    };
+};
+
+export const soknadOppdatert = (soknad) => {
+    return {
+        type: SOKNAD_OPPDATERT,
+        soknad,
+    };
+};
+
+export const oppdaterSoknadFeilet = (soknad) => {
+    return {
+        type: OPPDATER_SOKNAD_FEILET,
+        soknad,
+    };
+};

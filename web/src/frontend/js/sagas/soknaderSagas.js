@@ -2,22 +2,28 @@ import { call, fork, put, select } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import { log } from 'digisyfo-npm';
 import { browserHistory } from 'react-router';
-import { get, post, hentApiUrl } from '../gateway-api';
+import { initialize } from 'redux-form';
+import { get, hentApiUrl, post } from '../gateway-api';
 import * as actions from '../actions/soknader_actions';
 import {
-    OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
+    AVBRYT_SYKEPENGESOKNAD_FORESPURT,
     HENT_SOKNADER_FORESPURT,
+    OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT,
     SEND_SOKNAD_FORESPURT,
-    SYKMELDING_BEKREFTET, AVBRYT_SYKEPENGESOKNAD_FORESPURT,
+    SOKNAD_ENDRET,
+    SYKMELDING_BEKREFTET,
 } from '../actions/actiontyper';
 import { soknadrespons, soknadUtland1 } from '../../test/mockSoknader';
-import {
-    toggleBrukMockDataSelvstendigSoknad,
-    toggleBrukMockdataUtland,
-} from '../toggles';
+import { toggleBrukMockDataSelvstendigSoknad, toggleBrukMockdataUtland } from '../toggles';
 import logger from '../logging';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import { toggleSykepengesoknadUtland } from '../selectors/unleashTogglesSelectors';
+import { hentSoknad } from '../selectors/soknaderSelectors';
+import { populerSoknadMedSvarUtenKonvertertePerioder } from '../utils/soknad-felles/populerSoknadMedSvar';
+import populerSkjemaverdier from '../utils/soknad-felles/populerSkjemaverdier';
+import fraBackendsoknadTilInitiellSoknad from '../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
+import { hentSkjemaVerdier } from '../selectors/reduxFormSelectors';
+import { getSkjemanavnFraSoknad } from '../utils/soknad-felles/getSkjemanavnFraSoknad';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);
@@ -73,6 +79,22 @@ export function* avbrytSoknad(action) {
     }
 }
 
+export function* oppdaterSporsmal(action) {
+    const soknad = yield select(hentSoknad, action.soknad);
+    const skjemanavn = getSkjemanavnFraSoknad(action.soknad);
+    const gamleVerdierISkjema = yield select(hentSkjemaVerdier, skjemanavn);
+    const nyeVerdierISkjema = populerSkjemaverdier(gamleVerdierISkjema, action.feltnavn, action.nyVerdi);
+    const populertSoknad = populerSoknadMedSvarUtenKonvertertePerioder(soknad, nyeVerdierISkjema);
+    try {
+        const oppdatertSoknad = yield call(post, `${hentApiUrl()}/oppdaterSporsmal`, populertSoknad);
+        yield put(actions.soknadOppdatert(oppdatertSoknad));
+        yield put(initialize(skjemanavn, fraBackendsoknadTilInitiellSoknad(oppdatertSoknad)));
+    } catch (e) {
+        log(e);
+        yield put(actions.oppdaterSoknadFeilet());
+    }
+}
+
 const gaTilSkjemaUtland = (soknadUtlandId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadUtlandId}`);
 };
@@ -118,10 +140,15 @@ function* watchOpprettSoknadUtland() {
     yield* takeEvery(OPPRETT_SYKEPENGESOKNADUTLAND_FORESPURT, opprettSoknadUtland);
 }
 
+function* watchEndringSoknad() {
+    yield* takeEvery(SOKNAD_ENDRET, oppdaterSporsmal);
+}
+
 export default function* soknaderSagas() {
     yield fork(watchHentSoknader);
     yield fork(watchSendSoknad);
     yield fork(watchSykmeldingSendt);
     yield fork(watchAvbrytSykepengeoknad);
     yield fork(watchOpprettSoknadUtland);
+    yield fork(watchEndringSoknad);
 }

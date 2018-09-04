@@ -7,6 +7,7 @@ import mockSoknader from '../mockSoknader';
 import { OPPHOLD_UTLAND } from '../../js/enums/soknadtyper';
 import { toggleSykepengesoknadUtland } from '../../js/selectors/unleashTogglesSelectors';
 
+
 describe('soknaderSagas', () => {
     describe('Henting av søknader når det er togglet på', () => {
         const action = actions.hentSoknader();

@@ -41,7 +41,7 @@ const SendtSoknadSelvstendig = ({ sykmelding, soknad }) => {
         <Soknadtopp soknad={soknad} />
         <SendtSoknadSelvstendigStatuspanel soknad={soknad} />
         { sykmelding && <SykmeldingUtdragForSelvstendige sykmelding={sykmelding} /> }
-        <Utvidbar tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')} className="blokk" erApen>
+        <Utvidbar tittel={getLedetekst('sykepengesoknad.oppsummering.tittel')} className="blokk js-soknad-oppsummering" erApen>
             <Oppsummeringsvisning
                 soknad={{
                     ...soknad,

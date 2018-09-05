@@ -22,7 +22,7 @@ describe('Test at riktig knapp og antall sporsmal blir rendret', () => {
         soknad={soknad}
         sendSoknad={sinon.spy()}
         sender={sender}
-        ferie={ferie}
+        harFerie={ferie}
     />);
     ferie = false;
     const componentMedFerieFalse = shallow(<Utlandsskjema
@@ -30,7 +30,7 @@ describe('Test at riktig knapp og antall sporsmal blir rendret', () => {
         soknad={soknad}
         sendSoknad={sinon.spy()}
         sender={sender}
-        ferie={ferie}
+        harFerie={ferie}
     />);
 
 

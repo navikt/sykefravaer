@@ -19,9 +19,6 @@ import fraBackendsoknadTilInitiellSoknad from '../../../utils/soknad-felles/fraB
 import Feilstripe from '../../Feilstripe';
 
 export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryter, avbrytSoknad, harFerie, avbrytSoknadFeilet, sendingFeilet }) => {
-
-    console.log("avbrytSoknadFeilet", avbrytSoknadFeilet);
-
     const sporsmallisteSkjema = () => {
         return harFerie ? soknad.sporsmal.filter((sporsmal) => {
             return IKKE_RELEVANT !== sporsmal.svartype;
@@ -50,7 +47,7 @@ export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryt
         sendSoknad(populertSoknad);
     };
 
-    const Knapp = () => {
+    const visKnapp = () => {
         return harFerie
             ? (<Fareknapp
                 type="button"
@@ -67,11 +64,11 @@ export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryt
         <Header />
         <FeiloppsummeringContainer skjemanavn={OPPHOLD_UTLAND_SKJEMA} />
         <div className={sendingFeilet || avbrytSoknadFeilet ? 'blokk' : null}>
-             {sporsmalsliste}
+            {sporsmalsliste}
         </div>
         <Feilstripe vis={sendingFeilet || avbrytSoknadFeilet} />
         <div className="knapperad blokk">
-            <Knapp />
+            {visKnapp()}
         </div>
     </form>);
 };

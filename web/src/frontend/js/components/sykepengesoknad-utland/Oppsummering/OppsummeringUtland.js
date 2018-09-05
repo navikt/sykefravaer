@@ -10,7 +10,7 @@ import Sidetopp from '../../Sidetopp';
 
 const OppsummeringPanel = ({ soknad }) => {
     return (<div className="panel blokk">
-        <div className="panel__tittel blokk--xs"> {getLedetekst('sykepengesoknad.oppsummering.undertittel')}</div>
+        <h2 className="panel__tittel blokk--xs"> {getLedetekst('sykepengesoknad.oppsummering.undertittel')}</h2>
         <Oppsummeringsvisning soknad={soknad} />
     </div>);
 };

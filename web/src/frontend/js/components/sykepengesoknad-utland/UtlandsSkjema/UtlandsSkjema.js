@@ -6,7 +6,6 @@ import { compose } from 'redux';
 import { reduxForm } from 'redux-form';
 import { getLedetekst } from 'digisyfo-npm';
 import { Fareknapp, Hovedknapp } from 'nav-frontend-knapper';
-import { browserHistory } from 'react-router';
 import Header from '../SykepengesoknadUtlandHeader';
 import Sporsmal from '../../soknad-felles/Sporsmal';
 import { soknad as soknadPt } from '../../../propTypes';
@@ -15,13 +14,13 @@ import validate from '../validering/validerUtlandsSkjema';
 import FeiloppsummeringContainer, { onSubmitFail } from '../../../containers/skjema/FeiloppsummeringContainer';
 import populerSoknadMedSvar from '../../../utils/soknad-felles/populerSoknadMedSvar';
 import { IKKE_RELEVANT, JA_NEI } from '../../../enums/svartyper';
-import getContextRoot from '../../../utils/getContextRoot';
 import { PERIODEUTLAND } from '../../../enums/tagtyper';
 import fraBackendsoknadTilInitiellSoknad from '../../../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
+import Feilstripe from '../../Feilstripe';
 
-export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryter, avbrytSoknad, ferie }) => {
+export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryter, avbrytSoknad, harFerie, avbrytSoknadFeilet, sendingFeilet }) => {
     const sporsmallisteSkjema = () => {
-        return ferie ? soknad.sporsmal.filter((sporsmal) => {
+        return harFerie ? soknad.sporsmal.filter((sporsmal) => {
             return IKKE_RELEVANT !== sporsmal.svartype;
         }) : soknad.sporsmal;
     };
@@ -49,14 +48,13 @@ export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryt
     };
 
     const visKnapp = () => {
-        return ferie
+        return harFerie
             ? (<Fareknapp
                 type="button"
                 disabled={avbryter}
                 spinner={avbryter}
                 onClick={(event) => {
                     avbrytSoknad(soknad);
-                    browserHistory.push(getContextRoot());
                     event.preventDefault();
                 }}>{getLedetekst('sykepengesoknad.avbryt-soknad')}</Fareknapp>)
             : <Hovedknapp type="submit" disabled={sender} spinner={sender}>{getLedetekst('sykepengesoknad.send')}</Hovedknapp>;
@@ -64,19 +62,22 @@ export const Utlandsskjema = ({ soknad, handleSubmit, sender, sendSoknad, avbryt
 
     return (<form className="soknadskjema" id="sykepengesoknad-utland-skjema" onSubmit={handleSubmit(onSubmit)}>
         <Header />
-        <div className="begrensning">
-            <FeiloppsummeringContainer skjemanavn={OPPHOLD_UTLAND_SKJEMA} />
+        <FeiloppsummeringContainer skjemanavn={OPPHOLD_UTLAND_SKJEMA} />
+        <div className={sendingFeilet || avbrytSoknadFeilet ? 'blokk' : null}>
             {sporsmalsliste}
-            <div className="knapperad blokk">
-                {visKnapp(ferie)}
-            </div>
+        </div>
+        <Feilstripe vis={sendingFeilet || avbrytSoknadFeilet} />
+        <div className="knapperad blokk">
+            {visKnapp()}
         </div>
     </form>);
 };
 
 Utlandsskjema.propTypes = {
     soknad: soknadPt,
-    ferie: PropTypes.bool,
+    harFerie: PropTypes.bool,
+    sendingFeilet: PropTypes.bool,
+    avbrytSoknadFeilet: PropTypes.bool,
     handleSubmit: PropTypes.func,
     sendSoknad: PropTypes.func,
     sender: PropTypes.bool,

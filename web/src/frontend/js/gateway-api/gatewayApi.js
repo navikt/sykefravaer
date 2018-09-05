@@ -1,4 +1,28 @@
-import { log } from 'digisyfo-npm';
+import {log} from 'digisyfo-npm';
+import ponyfill from 'fetch-ponyfill';
+
+const ponyfills = ponyfill();
+
+const isEdge = () => {
+    return window.navigator.userAgent.indexOf('Edge') > -1;
+};
+
+const getFetch = () => {
+    // Gjør dette slik fordi enhetstester vil feile dersom fetch overskrives
+    if (isEdge()) {
+        return ponyfills.fetch;
+    }
+    return window.fetch;
+};
+
+
+const getHeaders = () => {
+    // Gjør dette slik fordi enhetstester vil feile dersom Headers overskrives
+    if (isEdge()) {
+        return ponyfills.Headers;
+    }
+    return window.Headers;
+};
 
 export const hentLoginUrl = () => {
     if (window.location.href.indexOf('tjenester.nav') > -1) {
@@ -13,7 +37,8 @@ export const hentLoginUrl = () => {
 };
 
 export function get(url) {
-    return fetch(url, {
+    const customFetch = getFetch();
+    return customFetch(url, {
         credentials: 'include',
     })
         .then((res) => {
@@ -34,11 +59,13 @@ export function get(url) {
 }
 
 export const post = (url, body) => {
-    return fetch(url, {
+    const customFetch = getFetch();
+    const CustomHeaders = getHeaders();
+    return customFetch(url, {
         credentials: 'include',
         method: 'POST',
         body: JSON.stringify(body),
-        headers: new window.Headers({
+        headers: new CustomHeaders({
             'Content-Type': 'application/json',
         }),
     })

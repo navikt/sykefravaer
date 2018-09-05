@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
-import { skjemasvar as skjemasvarPt, soknad as soknadPt } from '../../propTypes';
+import { soknad as soknadPt } from '../../propTypes';
 import { NY, SENDT, TIL_SENDING } from '../../enums/soknadstatuser';
 import UtlandsSkjema from '../../components/sykepengesoknad-utland/UtlandsSkjema/UtlandsSkjema';
 import Feilmelding from '../../components/Feilmelding';
@@ -16,9 +16,18 @@ import { FERIE } from '../../enums/tagtyper';
 
 
 export const UtlandSkjemaContainer = (props) => {
-    const { soknad, sti } = props;
+    const { soknad, sendSoknad, sender, avbryter, avbrytSoknad, sti, harFerie, avbrytSoknadFeilet, sendingFeilet } = props;
     if (soknad && soknad.status === NY) {
-        return (<UtlandsSkjema {...props} />);
+        return (<UtlandsSkjema
+            soknad={soknad}
+            sendSoknad={sendSoknad}
+            sender={sender}
+            sendingFeilet={sendingFeilet}
+            avbrytSoknad={avbrytSoknad}
+            avbryter={avbryter}
+            avbrytSoknadFeilet={avbrytSoknadFeilet}
+            harFerie={harFerie}
+        />);
     }
     if (soknad && [SENDT, TIL_SENDING].indexOf(soknad.status) > -1) {
         if (sti.indexOf('kvittering') > -1) {
@@ -31,7 +40,19 @@ export const UtlandSkjemaContainer = (props) => {
 
 UtlandSkjemaContainer.propTypes = {
     soknad: soknadPt,
+    actions: PropTypes.shape({
+        sendSoknad: PropTypes.func,
+        avbrytSoknad: PropTypes.func,
+    }),
+    sendSoknad: PropTypes.func,
+    sendingFeilet: PropTypes.bool,
+    sender: PropTypes.bool,
+    avbrytSoknad: PropTypes.func,
+    avbryter: PropTypes.bool,
+    avbrytSoknadFeilet: PropTypes.bool,
+    ferie: PropTypes.bool,
     sti: PropTypes.string,
+    harFerie: PropTypes.bool,
 };
 
 export const finnSoknad = (state, ownProps) => {
@@ -57,4 +78,7 @@ export function mapStateToProps(state, ownProps) {
     };
 }
 
-export default connect(mapStateToProps, { sendSoknad: sendSoknadAction, avbrytSoknad: avbrytSoknadAction })(UtlandSkjemaContainer);
+export default connect(mapStateToProps, {
+    sendSoknad: sendSoknadAction,
+    avbrytSoknad: avbrytSoknadAction,
+})(UtlandSkjemaContainer);

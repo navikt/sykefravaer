@@ -24,6 +24,7 @@ import populerSkjemaverdier from '../utils/soknad-felles/populerSkjemaverdier';
 import fraBackendsoknadTilInitiellSoknad from '../utils/soknad-felles/fraBackendsoknadTilInitiellSoknad';
 import { hentSkjemaVerdier } from '../selectors/reduxFormSelectors';
 import { getSkjemanavnFraSoknad } from '../utils/soknad-felles/getSkjemanavnFraSoknad';
+import getContextRoot from '../utils/getContextRoot';
 
 const gaTilKvittering = (soknadId) => {
     browserHistory.push(`/sykefravaer/soknader/${soknadId}/kvittering`);
@@ -72,6 +73,7 @@ export function* avbrytSoknad(action) {
             yield put(actions.avbryterSoknad());
             yield call(post, `${hentApiUrl()}/avbrytSoknad`, action.soknad);
             yield put(actions.soknadAvbrutt(action.soknad));
+            browserHistory.push(getContextRoot());
         } catch (e) {
             log(e);
             yield put(actions.avbrytSoknadFeilet());

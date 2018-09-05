@@ -16,16 +16,9 @@ import { FERIE } from '../../enums/tagtyper';
 
 
 export const UtlandSkjemaContainer = (props) => {
-    const { soknad, sendSoknad, sender, avbryter, avbrytSoknad, sti, ferie } = props;
+    const { soknad, sti } = props;
     if (soknad && soknad.status === NY) {
-        return (<UtlandsSkjema
-            soknad={soknad}
-            sendSoknad={sendSoknad}
-            sender={sender}
-            avbrytSoknad={avbrytSoknad}
-            avbryter={avbryter}
-            ferie={ferie}
-        />);
+        return (<UtlandsSkjema {...props} />);
     }
     if (soknad && [SENDT, TIL_SENDING].indexOf(soknad.status) > -1) {
         if (sti.indexOf('kvittering') > -1) {
@@ -38,18 +31,7 @@ export const UtlandSkjemaContainer = (props) => {
 
 UtlandSkjemaContainer.propTypes = {
     soknad: soknadPt,
-    actions: PropTypes.shape({
-        sendSoknad: PropTypes.func,
-        avbrytSoknad: PropTypes.func,
-    }),
-    sendingFailet: PropTypes.bool,
-    skjemasvar: skjemasvarPt,
-    sendSoknad: PropTypes.func,
-    sender: PropTypes.bool,
-    avbryter: PropTypes.bool,
-    ferie: PropTypes.bool,
     sti: PropTypes.string,
-    avbrytSoknad: PropTypes.func,
 };
 
 export const finnSoknad = (state, ownProps) => {
@@ -62,14 +44,16 @@ export function mapStateToProps(state, ownProps) {
     const soknad = finnSoknad(state, ownProps);
     const selector = formValueSelector(OPPHOLD_UTLAND_SKJEMA);
     const feltVerdi = selector(state, FERIE);
-    const ferie = JA === formaterEnkeltverdi(feltVerdi);
+    const harFerie = JA === formaterEnkeltverdi(feltVerdi);
     return {
         soknad,
         sti: ownProps.location.pathname,
         sendSoknad: state.soknader.senderSoknad,
         sender: state.soknader.sender,
         avbryter: state.soknader.avbryter,
-        ferie,
+        avbrytSoknadFeilet: state.soknader.avbrytSoknadFeilet,
+        sendingFeilet: state.soknader.sendingFeilet,
+        harFerie,
     };
 }
 

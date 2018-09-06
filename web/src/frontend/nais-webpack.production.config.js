@@ -2,12 +2,12 @@ var Webpack = require('webpack');
 var path = require('path');
 var buildPath = path.resolve(__dirname, 'dist/resources');
 var mainPath = path.resolve(__dirname, 'js', 'index.js');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var autoprefixer = require('autoprefixer');
 
 var config = function (opts) {
     var timestamp = opts.timestamp;
-    var extractLess = new ExtractTextPlugin({
+    var extractLess = new MiniCssExtractPlugin({
         filename: 'styles.' + timestamp + '.css',
         disable: false,
     });
@@ -18,8 +18,9 @@ var config = function (opts) {
         entry: ['babel-polyfill', mainPath],
         output: {
             path: buildPath,
-            filename: 'bundle-prod.' + timestamp + '.js',
+            filename: 'bundle-prod.js',
         },
+        mode: 'production',
         resolve: {
             alias: {
                 react: path.join(__dirname, 'node_modules', 'react'),
@@ -29,25 +30,26 @@ var config = function (opts) {
             rules: [
                 {
                     test: /\.less$/,
-                    use: extractLess.extract({
-                        use: [{
-                            loader: 'css-loader',
-                        }, {
-                            loader: 'postcss-loader',
-                            options: {
-                                plugins: function () {
-                                    return [autoprefixer]
-                                },
+                    use: [{
+                        loader: MiniCssExtractPlugin.loader,
+                    }, {
+                        loader: 'css-loader',
+                    }, {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: function() {
+                                return [autoprefixer];
                             },
-                        }, {
-                            loader: 'less-loader',
-                            options: {
-                                paths: [
-                                    path.resolve(__dirname, 'node_modules'),
-                                ],
+                        },
+                    }, {
+                        loader: 'less-loader',
+                        options: {
+                            globalVars: {
+                                nodeModulesPath: '~',
+                                coreModulePath: '~',
                             },
-                        }],
-                    }),
+                        },
+                    }],
                 },
                 {
                     test: /\.js$/,

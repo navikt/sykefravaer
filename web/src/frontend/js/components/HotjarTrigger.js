@@ -49,3 +49,13 @@ export const ArbeidstakerSoknadHotjarTrigger = ({ children }) => {
 ArbeidstakerSoknadHotjarTrigger.propTypes = {
     children: node,
 };
+
+export const SykepengerUtlandSoknadTrigger = ({ children }) => {
+    return (<HotjarTrigger hotjarTrigger="SOKNAD_OPPHOLD_UTENFOR_NORGE">
+        {children}
+    </HotjarTrigger>);
+};
+
+SykepengerUtlandSoknadTrigger.propTypes = {
+    children: node,
+};

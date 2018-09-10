@@ -2,12 +2,12 @@ var Webpack = require('webpack');
 var path = require('path');
 var buildPath = path.resolve(__dirname, '../main/webapp/js');
 var mainPath = path.resolve(__dirname, 'js', 'index.js');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var autoprefixer = require('autoprefixer');
 
 var config = function (opts) {
     var timestamp = opts.timestamp;
-    var extractLess = new ExtractTextPlugin({
+    var extractLess = new MiniCssExtractPlugin({
         filename: 'styles.' + timestamp + '.css',
         disable: false,
     });
@@ -18,37 +18,38 @@ var config = function (opts) {
         entry: ['babel-polyfill', mainPath],
         output: {
             path: buildPath,
-            filename: 'bundle-prod.js'
+            filename: 'bundle-prod.js',
         },
+        mode: 'production',
         resolve: {
             alias: {
-                react: path.join(__dirname, 'node_modules', 'react')
+                react: path.join(__dirname, 'node_modules', 'react'),
             },
         },
         module: {
             rules: [
                 {
                     test: /\.less$/,
-                    use: extractLess.extract({
-                        use: [{
-                            loader: 'css-loader'
-                        }, {
-                            loader: 'postcss-loader',
-                            options: {
-                                plugins: function() {
-                                    return [autoprefixer]
-                                },
+                    use: [{
+                        loader: MiniCssExtractPlugin.loader
+                    }, {
+                        loader: 'css-loader',
+                    }, {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: function() {
+                                return [autoprefixer]
                             },
-                        }, {
-                            loader: 'less-loader',
-                            options: {
-                                globalVars: {
-                                    nodeModulesPath: "~",
-                                    coreModulePath: "~"
-                                }
-                            }
-                        }],
-                    }),
+                        },
+                    }, {
+                        loader: 'less-loader',
+                        options: {
+                            globalVars: {
+                                nodeModulesPath: '~',
+                                coreModulePath: '~',
+                            },
+                        },
+                    }],
                 },
                 {
                     test: /\.js$/,
@@ -56,7 +57,7 @@ var config = function (opts) {
                     use: [{
                         loader: 'babel-loader',
                         options: {
-                            presets: ['react', 'env', 'babel-preset-stage-0']
+                            presets: ['react', 'env', 'babel-preset-stage-0'],
                         },
                     }],
                 },
@@ -71,7 +72,7 @@ var config = function (opts) {
         plugins: [
             extractLess,
             new Webpack.DefinePlugin({
-                'process.env.NODE_ENV': '"production"'
+                'process.env.NODE_ENV': '"production"',
             }),
         ],
     };

@@ -23,7 +23,7 @@ import SendtSoknadSelvstendig from '../components/sykepengesoknad-selvstendig/Se
 import { soknad as soknadPt } from '../propTypes/index';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
 import SykepengesoknadUtlandSkjemaContainer from '../containers/sykepengesoknad-utland/SykepengesoknadUtlandSkjemaContainer';
-import { ArbeidstakerSoknadHotjarTrigger, FrilanserSoknadHotjarTrigger } from '../components/HotjarTrigger';
+import { ArbeidstakerSoknadHotjarTrigger, FrilanserSoknadHotjarTrigger, SykepengerUtlandSoknadTrigger } from '../components/HotjarTrigger';
 
 const FOER_DU_BEGYNNER = 'FOER_DU_BEGYNNER';
 const FRAVAER_OG_FRISKMELDING = 'FRAVAER_OG_FRISKMELDING';
@@ -196,7 +196,9 @@ export class Container extends Component {
                         <SykepengesoknadSelvstendigNaeringsdrivende {...this.props} />
                     </FrilanserSoknadHotjarTrigger>);
                 } else if (erSoknadOmUtenlandsopphold) {
-                    return <SykepengesoknadUtlandSkjemaContainer {...this.props} />;
+                    return (<SykepengerUtlandSoknadTrigger>
+                        <SykepengesoknadUtlandSkjemaContainer {...this.props} />
+                    </SykepengerUtlandSoknadTrigger>);
                 }
                 return <Feilmelding />;
             })()}

@@ -135,10 +135,10 @@ export function hentBerikelseFeilet() {
     };
 }
 
-export function avbrytSoknad(sykepengesoknadsId) {
+export function avbrytSoknad(sykepengesoknad) {
     return {
         type: actiontyper.AVBRYT_SOKNAD_FORESPURT,
-        sykepengesoknadsId,
+        sykepengesoknad,
     };
 }
 

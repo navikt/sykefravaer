@@ -1,4 +1,4 @@
-import {log} from 'digisyfo-npm';
+import { log } from 'digisyfo-npm';
 import ponyfill from 'fetch-ponyfill';
 
 const ponyfills = ponyfill();

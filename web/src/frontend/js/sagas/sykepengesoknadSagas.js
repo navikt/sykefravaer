@@ -91,9 +91,9 @@ export function* hentBerikelse(action) {
 export function* avbrytSoknad(action) {
     yield put(actions.avbryterSoknad());
     try {
-        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknadsId}/actions/avbryt`);
-        yield put(actions.soknadAvbrutt(action.sykepengesoknadsId));
-        gaTilKvittering(action.sykepengesoknadsId);
+        yield call(post, `${window.APP_SETTINGS.REST_ROOT}/soknader/${action.sykepengesoknad.id}/actions/avbryt`);
+        yield put(actions.soknadAvbrutt(action.sykepengesoknad.id));
+        gaTilKvittering(action.sykepengesoknad.id);
     } catch (e) {
         log(e);
         logger.error(`Kunne ikke avbryte søknad. URL: ${window.location.href} - ${e.message}`);

@@ -208,9 +208,9 @@ describe('sykepengesoknader_actions', () => {
         });
 
         it('Skal ha en avbrytSoknad()-funksjon som returnerer riktig action', () => {
-            expect(actions.avbrytSoknad('55')).to.deep.equal({
+            expect(actions.avbrytSoknad({ id: 'id'})).to.deep.equal({
                 type: actiontyper.AVBRYT_SOKNAD_FORESPURT,
-                sykepengesoknadsId: '55',
+                sykepengesoknad: { id: 'id'}
             });
         });
 

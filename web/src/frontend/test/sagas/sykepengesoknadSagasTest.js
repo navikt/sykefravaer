@@ -193,7 +193,7 @@ describe('sykepengersoknadSagas', () => {
 
 
     describe('Avbryt', () => {
-        const generator = avbrytSoknad(actions.avbrytSoknad('123'));
+        const generator = avbrytSoknad(actions.avbrytSoknad({ id: '123' }));
 
         it('Skal dispatche avbyterSoknad()', () => {
             const action = actions.avbryterSoknad();

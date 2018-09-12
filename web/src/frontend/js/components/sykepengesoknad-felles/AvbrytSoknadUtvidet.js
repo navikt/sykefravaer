@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { getLedetekst, getHtmlLedetekst } from 'digisyfo-npm';
 import Feilstripe from '../Feilstripe';
 
-const AvbrytSoknad = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler, sender }) => {
+const AvbrytSoknadUtvidet = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler, sender }) => {
     return (<div className="avbrytDialog__dialog">
         <div className="pekeboble">
             <p className="blokk--s" dangerouslySetInnerHTML={getHtmlLedetekst('sykepengesoknad.avbryt.sporsmal')} />
@@ -33,7 +33,7 @@ const AvbrytSoknad = ({ avbryter, avbrytFeilet, avbrytHandler, bekreftHandler, s
     </div>);
 };
 
-AvbrytSoknad.propTypes = {
+AvbrytSoknadUtvidet.propTypes = {
     avbryter: PropTypes.bool,
     avbrytHandler: PropTypes.func,
     bekreftHandler: PropTypes.func,
@@ -41,4 +41,4 @@ AvbrytSoknad.propTypes = {
     sender: PropTypes.bool,
 };
 
-export default AvbrytSoknad;
+export default AvbrytSoknadUtvidet;

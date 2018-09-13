@@ -1,12 +1,10 @@
 import { expect } from 'chai';
-import { put, call, select } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import { hentSoknader, sendSoknad, opprettSoknadUtland, avbrytSoknad } from '../../js/sagas/soknaderSagas';
 import { get, post } from '../../js/gateway-api';
 import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader from '../mockSoknader';
 import { OPPHOLD_UTLAND } from '../../js/enums/soknadtyper';
-import { toggleSykepengesoknadUtland } from '../../js/selectors/unleashTogglesSelectors';
-
 
 describe('soknaderSagas', () => {
     describe('Henting av søknader når det er togglet på', () => {
@@ -34,11 +32,6 @@ describe('soknaderSagas', () => {
         const action = actions.sendSoknad(soknadData);
         const generator = sendSoknad(action);
 
-        it('Skal sjekke om utenlands-søknad er skrudd på', () => {
-            const nextSelect = select(toggleSykepengesoknadUtland);
-            expect(generator.next().value).to.deep.equal(nextSelect);
-        });
-
         it('Skal dispatche SENDER_SOKNAD', () => {
             const nextPut = put(actions.senderSoknad());
             expect(generator.next(true).value).to.deep.equal(nextPut);
@@ -58,11 +51,6 @@ describe('soknaderSagas', () => {
     describe('Oppretting av søknad utland', () => {
         const generator = opprettSoknadUtland();
         const soknadData = { test: 'data' };
-
-        it('Skal sjekke om utenlands-søknad er skrudd på', () => {
-            const nextSelect = select(toggleSykepengesoknadUtland);
-            expect(generator.next().value).to.deep.equal(nextSelect);
-        });
 
         it('Skal dispatche OPPRETTER_SOKNADUTLAND', () => {
             const nextPut = put(actions.oppretterSoknadUtland());
@@ -84,11 +72,6 @@ describe('soknaderSagas', () => {
         const soknadData = { test: 'data', soknadstype: OPPHOLD_UTLAND };
         const action = actions.avbrytSoknad(soknadData);
         const generator = avbrytSoknad(action);
-
-        it('Skal sjekke om utenlands-søknad er skrudd på', () => {
-            const nextSelect = select(toggleSykepengesoknadUtland);
-            expect(generator.next().value).to.deep.equal(nextSelect);
-        });
 
         it('Skal dispatche AVBRYTER_SOKNAD', () => {
             const nextPut = put(actions.avbryterSoknad());

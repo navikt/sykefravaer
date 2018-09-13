@@ -25,13 +25,18 @@ describe('FeriePermisjonEllerUtenlandsopphold', () => {
     beforeEach(() => {
         /* eslint-disable max-len */
         _ledetekster = Object.assign({}, ledetekster, {
-            'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal': 'Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden %FOM% – %TOM%?',
+            'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal': 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden %FOM% – %TOM%?',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.jeg-har': 'Jeg har...',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.tatt-ut-ferie': 'tatt ut ferie',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.hatt-permisjon': 'hatt permisjon',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.oppholdt-meg-utenfor-norge': 'oppholdt meg utenfor Norge',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal': 'Har du søkt om å beholde sykepenger under dette oppholdet utenfor Norge?',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.presisering-sykepenger-utlandet': 'Som hovedregel kan du bare få sykepenger når du oppholder deg i Norge. Du kan søke om å beholde sykepenger i en kort periode ved opphold utenfor Norge.',
+            'sykepengesoknad.utdanning.ja-nei.sporsmal-2': 'Har du vært under utdanning i løpet av perioden %PERIODE%?',
+            'sykepengesoknad.aktiviteter.gradert.spoersmal-3': 'I perioden %PERIODE% skulle du jobbe %ARBEIDSGRAD% % av ditt normale arbeid hos %ARBEIDSGIVER%. Jobbet du mer enn dette?',
+            'sykepengesoknad.aktiviteter.ugradert.spoersmal-3': 'I perioden %PERIODE% var du 100 % sykmeldt fra %ARBEIDSGIVER%. Jobbet du noe i denne perioden?',
+            'sykepengesoknad.egenmeldingsdager.janei.sporsmal-3': 'Vi har registrert at du ble sykmeldt %DATO%. Brukte du egenmeldinger og/eller var du sykmeldt i perioden %PERIODE%?',
+            'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal-2': 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden %PERIODE%?',
         });
         /* eslint-disable max-len */
         setLedetekster(_ledetekster);
@@ -63,7 +68,7 @@ describe('FeriePermisjonEllerUtenlandsopphold', () => {
                 avvik: null,
             }],
         })} />);
-        expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 30.01.2017?');
+        expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 1. – 30. januar 2017?');
     });
 
     it('Skal vise riktig spørsmål dersom forrigeSykeforloepTom er satt og del er 1', () => {
@@ -87,7 +92,7 @@ describe('FeriePermisjonEllerUtenlandsopphold', () => {
             }],
         });
         compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={soknad} />);
-        expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 22.12.2016 – 30.01.2017?');
+        expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 22. desember 2016 – 30. januar 2017?');
         expect(compo.find(JaEllerNei).prop('informasjon')).not.to.equal(null);
     });
 
@@ -113,7 +118,7 @@ describe('FeriePermisjonEllerUtenlandsopphold', () => {
             }],
         });
         compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={soknad} />);
-        expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 30.01.2017?');
+        expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 1. – 30. januar 2017?');
         expect(compo.find(JaEllerNei).prop('informasjon')).to.equal(null);
     });
 
@@ -139,7 +144,7 @@ describe('FeriePermisjonEllerUtenlandsopphold', () => {
             }],
         });
         compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={soknad} />);
-        expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du hatt ferie, permisjon eller oppholdt deg i utlandet i perioden 01.01.2017 – 30.01.2017?');
+        expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 1. – 30. januar 2017?');
         expect(compo.find(JaEllerNei).prop('informasjon')).to.equal(null);
     });
 

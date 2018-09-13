@@ -65,6 +65,6 @@ describe('Egenmeldingsdager', () => {
             }],
         })} />);
         expect(compo.find(JaEllerNei).prop('spoersmal'))
-            .to.equal('Vi har registrert at du ble sykmeldt fredag 15.07.2016. Brukte du egenmeldinger eller var du sykmeldt i perioden 29.06.2016 til 14.07.2016?');
+            .to.equal('Vi har registrert at du ble sykmeldt fredag 15. juli 2016. Brukte du egenmeldinger og/eller var du sykmeldt i perioden 29. juni – 14. juli 2016?');
     });
 });

@@ -60,7 +60,7 @@ describe('AktiviteterISykmeldingsperioden', () => {
     it('Skal inneholde JaEllerNei med name=utdanning.underUtdanningISykmeldingsperioden', () => {
         const jaEllerNei = component.find(JaEllerNei).last();
         expect(jaEllerNei.prop('name')).to.equal('utdanning.underUtdanningISykmeldingsperioden');
-        expect(jaEllerNei.prop('spoersmal')).to.equal('Har du vært under utdanning i løpet av perioden 01.01.2017 - 25.01.2017?');
+        expect(jaEllerNei.prop('spoersmal')).to.equal('Har du vært under utdanning i løpet av perioden 1. – 25. januar 2017?');
 
         const startdato = jaEllerNei.find(UtdanningStartDato);
         expect(startdato).to.have.length(1);
@@ -81,7 +81,7 @@ describe('AktiviteterISykmeldingsperioden', () => {
             untouch={untouch} />);
         const jaEllerNei = component.find(JaEllerNei).last();
         expect(jaEllerNei.prop('name')).to.equal('utdanning.underUtdanningISykmeldingsperioden');
-        expect(jaEllerNei.prop('spoersmal')).to.equal('Har du vært under utdanning i løpet av perioden 01.01.2017 - 22.01.2017?');
+        expect(jaEllerNei.prop('spoersmal')).to.equal('Har du vært under utdanning i løpet av perioden 1. – 22. januar 2017?');
     });
 
     it('Skal ikke inneholde JaEllerNei for utdanning med riktig dato dersom gjenopptattArbeidFulltUtDato er oppgitt som samme dag som tidligsteFom', () => {

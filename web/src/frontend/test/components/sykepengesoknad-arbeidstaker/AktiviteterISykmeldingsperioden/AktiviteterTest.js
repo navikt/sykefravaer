@@ -43,6 +43,11 @@ describe('Aktiviteter', () => {
             'sykepengesoknad.aktiviteter.gradert.spoersmal-2': 'I perioden %FOM%–%TOM% skulle du ifølge sykmeldingen jobbe %ARBEIDSGRAD% % av din normale arbeidstid hos %ARBEIDSGIVER%. Jobbet du mer enn dette?',
             'sykepengesoknad.aktiviteter.ugradert.spoersmal-2': 'I perioden %FOM%–%TOM% var du 100 % sykmeldt fra %ARBEIDSGIVER%. Jobbet du noe i denne perioden?',
             'sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet': 'Hvor hvor mye jobbet du totalt i denne perioden hos %ARBEIDSGIVER%?',
+            'sykepengesoknad.utdanning.ja-nei.sporsmal-2': 'Har du vært under utdanning i løpet av perioden %PERIODE%?',
+            'sykepengesoknad.aktiviteter.gradert.spoersmal-3': 'I perioden %PERIODE% skulle du jobbe %ARBEIDSGRAD% % av ditt normale arbeid hos %ARBEIDSGIVER%. Jobbet du mer enn dette?',
+            'sykepengesoknad.aktiviteter.ugradert.spoersmal-3': 'I perioden %PERIODE% var du 100 % sykmeldt fra %ARBEIDSGIVER%. Jobbet du noe i denne perioden?',
+            'sykepengesoknad.egenmeldingsdager.janei.sporsmal-3': 'Vi har registrert at du ble sykmeldt %DATO%. Brukte du egenmeldinger og/eller var du sykmeldt i perioden %PERIODE%?',
+            'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal-2': 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden %PERIODE%?',
         };
         /* eslint-disable max-len */
 
@@ -115,7 +120,7 @@ describe('Aktiviteter', () => {
             expect(ja).to.have.length(1);
             expect(ja.prop('name')).to.equal('aktiviteter[1].jobbetMerEnnPlanlagt');
             expect(ja.prop('spoersmal'))
-                .to.equal('I perioden 16.01.2017–25.01.2017 skulle du ifølge sykmeldingen jobbe 65 % av din normale arbeidstid hos MORTENS GRØNNSAKER. Jobbet du mer enn dette?');
+                .to.equal('I perioden 16. – 25. januar 2017 skulle du jobbe 65 % av ditt normale arbeid hos MORTENS GRØNNSAKER. Jobbet du mer enn dette?');
         });
 
         it('Skal inneholde en Hjelpetekst', () => {
@@ -154,7 +159,7 @@ describe('Aktiviteter', () => {
         it('Skal inneholde en JaEllerNei', () => {
             expect(ja).to.have.length(1);
             expect(ja.prop('name')).to.equal('aktiviteter[0].jobbetMerEnnPlanlagt');
-            expect(ja.prop('spoersmal')).to.equal('I perioden 01.01.2017–15.01.2017 var du 100 % sykmeldt fra MORTENS GRØNNSAKER. Jobbet du noe i denne perioden?');
+            expect(ja.prop('spoersmal')).to.equal('I perioden 1. – 15. januar 2017 var du 100 % sykmeldt fra MORTENS GRØNNSAKER. Jobbet du noe i denne perioden?');
         });
 
         it('Skal ikke inneholde en Hjelpetekst', () => {

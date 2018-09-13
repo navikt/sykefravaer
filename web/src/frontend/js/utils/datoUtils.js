@@ -1,5 +1,7 @@
 import { erGyldigDatoformat } from 'digisyfo-npm';
 
+export { tilLesbarDatoMedArstall, tilLesbarPeriodeMedArstall } from 'digisyfo-npm';
+
 export const datoMedKlokkeslett = (dato) => {
     if (dato === undefined || dato === null) {
         return '';

@@ -46,7 +46,7 @@ describe('GjenopptattArbeidFulltUt', () => {
                 navn: 'BYGGMESTER BLOM AS',
             },
         })} />);
-        expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du gjenopptatt arbeidet ditt hos BYGGMESTER BLOM AS før 26.01.2017?');
+        expect(compo.find(JaEllerNei).prop('spoersmal')).to.equal('Har du gjenopptatt arbeidet ditt hos BYGGMESTER BLOM AS før 26. januar 2017?');
     });
 
     it('Skal inneholde en label med tekst <når gjorde du det>', () => {

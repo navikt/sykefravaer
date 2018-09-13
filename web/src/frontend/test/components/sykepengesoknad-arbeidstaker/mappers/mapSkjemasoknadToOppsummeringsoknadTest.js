@@ -39,6 +39,7 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
             'sykepengesoknad.bekreft-ansvar.label': 'Jeg bekrefter ditt og datt',
             'sykepengesoknad.egenmeldingsdager.janei.sporsmal': 'Vi har registrert at dette legemeldte sykefraværet startet %DATO%. Var du borte fra jobb på grunn av sykdom før dette?',
             'sykepengesoknad.egenmeldingsdager.janei.sporsmal-2': 'Vi har registrert at du ble sykmeldt %DATO%. Brukte du egenmeldinger eller var du sykmeldt i perioden %FOM% til %TOM%?',
+            'sykepengesoknad.egenmeldingsdager.janei.sporsmal-3': 'Vi har registrert at du ble sykmeldt %DATO%. Brukte du egenmeldinger eller var du sykmeldt i perioden %PERIODE%?',
             'sykepengesoknad.egenmeldingsdager.dato.sporsmal': 'Når gjorde du dette?',
             'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2': 'Var du tilbake i fullt arbeid hos %ARBEIDSGIVER% før %DATO%?',
             'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.dato.sporsmal': 'Fra hvilken dato ble arbeidet gjenopptatt?',
@@ -46,12 +47,13 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
             'sykepengesoknad.oppsummering.periode.fra-til': 'Fra %FOM% til %TOM%',
             'sykepengesoknad.dato': '%DATO%',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal': 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden %FOM%–%TOM%?',
+            'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal-2': 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden %PERIODE%?',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.tatt-ut-ferie': 'hatt ferie',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.hatt-permisjon': 'hatt permisjon',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.oppholdt-meg-utenfor-norge': 'oppholdt meg utenfor Norge',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.sokt-om-sykepenger.sporsmal': 'Har du søkt om å beholde sykepenger under dette oppholdet utenfor Norge?',
-            'sykepengesoknad.aktiviteter.ugradert.spoersmal-2': 'I perioden %FOM%–%TOM% var du 100 % sykmeldt fra %ARBEIDSGIVER%. Jobbet du noe i denne perioden?',
-            'sykepengesoknad.aktiviteter.gradert.spoersmal-2': 'I perioden %FOM%–%TOM% skulle du ifølge sykmeldingen jobbe %ARBEIDSGRAD% % av din normale arbeidstid hos %ARBEIDSGIVER%. Jobbet du mer enn dette?',
+            'sykepengesoknad.aktiviteter.ugradert.spoersmal-3': 'I perioden %PERIODE% var du 100 % sykmeldt fra %ARBEIDSGIVER%. Jobbet du noe i denne perioden?',
+            'sykepengesoknad.aktiviteter.gradert.spoersmal-3': 'I perioden %PERIODE% skulle du ifølge sykmeldingen jobbe %ARBEIDSGRAD% % av din normale arbeidstid hos %ARBEIDSGIVER%. Jobbet du mer enn dette?',
             'sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal': 'Hvor mange timer jobber du normalt per uke?',
             'sykepengesoknad.angi-tid.normal-arbeidstimer.label-med-verdi': '%ANTALL% timer per uke',
             'sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet-totalt': 'Hvor mye jobbet du totalt i denne perioden hos %ARBEIDSGIVER%?',
@@ -67,7 +69,7 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
             'sykepengesoknad.andre-inntektskilder.SELVSTENDIG_NAERINGSDRIVENDE.label': 'Selvstendig næringsdrivende',
             'sykepengesoknad.andre-inntektskilder.ANDRE_ARBEIDSFORHOLD.label': 'Andre arbeidsforhold',
             'sykepengesoknad.andre-inntektskilder.er-du-sykmeldt-fra-dette.sporsmal': 'Er du sykmeldt fra dette?',
-            'sykepengesoknad.utdanning.ja-nei.sporsmal': 'Har du vært under utdanning i løpet av perioden %STARTDATO% - %SLUTTDATO%?',
+            'sykepengesoknad.utdanning.ja-nei.sporsmal-2': 'Har du vært under utdanning i løpet av perioden %PERIODE%?',
             'sykepengesoknad.utdanning.startdato.sporsmal': 'Når startet du på utdanningen?',
             'sykepengesoknad.utdanning.fulltidsstudium.sporsmal': 'Er utdanningen et fulltidsstudium?',
             'sykepengesoknad.oppsummering.vaer-klar-over-at': '<p>Vær klar over dette!</p>',
@@ -127,13 +129,12 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(verdier.soknad[0]).to.deep.equal({
                     type: egenmeldingsdagerType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.egenmeldingsdager.janei.sporsmal-2',
+                        nokkel: 'sykepengesoknad.egenmeldingsdager.janei.sporsmal-3',
                         verdier: {
-                            '%DATO%': 'søndag 19.02.2017',
-                            '%FOM%': '03.02.2017',
-                            '%TOM%': '18.02.2017',
+                            '%DATO%': 'søndag 19. februar 2017',
+                            '%PERIODE%': '3. – 18. februar 2017',
                         },
-                        tekst: 'Vi har registrert at du ble sykmeldt søndag 19.02.2017. Brukte du egenmeldinger eller var du sykmeldt i perioden 03.02.2017 til 18.02.2017?',
+                        tekst: 'Vi har registrert at du ble sykmeldt søndag 19. februar 2017. Brukte du egenmeldinger eller var du sykmeldt i perioden 3. – 18. februar 2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -161,13 +162,12 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                     expect(verdier.soknad[0]).to.deep.equal({
                         type: egenmeldingsdagerType,
                         ledetekst: {
-                            nokkel: 'sykepengesoknad.egenmeldingsdager.janei.sporsmal-2',
+                            nokkel: 'sykepengesoknad.egenmeldingsdager.janei.sporsmal-3',
                             verdier: {
-                                '%DATO%': 'søndag 19.02.2017',
-                                '%FOM%': '03.02.2017',
-                                '%TOM%': '18.02.2017',
+                                '%DATO%': 'søndag 19. februar 2017',
+                                '%PERIODE%': '3. – 18. februar 2017',
                             },
-                            tekst: 'Vi har registrert at du ble sykmeldt søndag 19.02.2017. Brukte du egenmeldinger eller var du sykmeldt i perioden 03.02.2017 til 18.02.2017?',
+                            tekst: 'Vi har registrert at du ble sykmeldt søndag 19. februar 2017. Brukte du egenmeldinger eller var du sykmeldt i perioden 3. – 18. februar 2017?',
                         },
                         svar: [{
                             ledetekst: {
@@ -206,9 +206,9 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                         nokkel: 'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2',
                         verdier: {
                             '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
-                            '%DATO%': '26.01.2017',
+                            '%DATO%': '26. januar 2017',
                         },
-                        tekst: 'Var du tilbake i fullt arbeid hos Olsens Sykkelservice før 26.01.2017?',
+                        tekst: 'Var du tilbake i fullt arbeid hos Olsens Sykkelservice før 26. januar 2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -231,9 +231,9 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                         nokkel: 'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2',
                         verdier: {
                             '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
-                            '%DATO%': '14.01.2017',
+                            '%DATO%': '14. januar 2017',
                         },
-                        tekst: 'Var du tilbake i fullt arbeid hos Olsens Sykkelservice før 14.01.2017?',
+                        tekst: 'Var du tilbake i fullt arbeid hos Olsens Sykkelservice før 14. januar 2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -256,9 +256,9 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                         nokkel: 'sykepengesoknad.gjenopptatt-arbeid-fullt-ut.janei.sporsmal-2',
                         verdier: {
                             '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
-                            '%DATO%': '26.01.2017',
+                            '%DATO%': '26. januar 2017',
                         },
-                        tekst: 'Var du tilbake i fullt arbeid hos Olsens Sykkelservice før 26.01.2017?',
+                        tekst: 'Var du tilbake i fullt arbeid hos Olsens Sykkelservice før 26. januar 2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -292,12 +292,11 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(verdier.soknad[2]).to.deep.equal({
                     type: feriePermisjonUtenlandsoppholdType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal',
+                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal-2',
                         verdier: {
-                            '%FOM%': '01.01.2017',
-                            '%TOM%': '25.01.2017',
+                            '%PERIODE%': '1. – 25. januar 2017',
                         },
-                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 01.01.2017–25.01.2017?',
+                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 1. – 25. januar 2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -322,12 +321,11 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(verdier.soknad[2]).to.deep.equal({
                     type: feriePermisjonUtenlandsoppholdType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal',
+                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal-2',
                         verdier: {
-                            '%FOM%': '01.01.2017',
-                            '%TOM%': '25.01.2017',
+                            '%PERIODE%': '1. – 25. januar 2017',
                         },
-                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 01.01.2017–25.01.2017?',
+                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 1. – 25. januar 2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -381,12 +379,11 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(verdier.soknad[2]).to.deep.equal({
                     type: feriePermisjonUtenlandsoppholdType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal',
+                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal-2',
                         verdier: {
-                            '%FOM%': '01.01.2017',
-                            '%TOM%': '25.01.2017',
+                            '%PERIODE%': '1. – 25. januar 2017',
                         },
-                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 01.01.2017–25.01.2017?',
+                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 1. – 25. januar 2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -445,12 +442,11 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(verdier.soknad[2]).to.deep.equal({
                     type: feriePermisjonUtenlandsoppholdType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal',
+                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal-2',
                         verdier: {
-                            '%FOM%': '01.01.2017',
-                            '%TOM%': '25.01.2017',
+                            '%PERIODE%': '1. – 25. januar 2017',
                         },
-                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 01.01.2017–25.01.2017?',
+                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 1. – 25. januar 2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -536,12 +532,11 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(verdier.soknad[2]).to.deep.equal({
                     type: feriePermisjonUtenlandsoppholdType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal',
+                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal-2',
                         verdier: {
-                            '%FOM%': '01.01.2017',
-                            '%TOM%': '25.01.2017',
+                            '%PERIODE%': '1. – 25. januar 2017',
                         },
-                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 01.01.2017–25.01.2017?',
+                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 1. – 25. januar 2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -638,12 +633,11 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(verdier.soknad[2]).to.deep.equal({
                     type: feriePermisjonUtenlandsoppholdType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal',
+                        nokkel: 'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal-2',
                         verdier: {
-                            '%FOM%': '01.01.2017',
-                            '%TOM%': '25.01.2017',
+                            '%PERIODE%': '1. – 25. januar 2017',
                         },
-                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 01.01.2017–25.01.2017?',
+                        tekst: 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden 1. – 25. januar 2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -766,11 +760,10 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(verdier.soknad[3]).to.deep.equal({
                     type: aktiviteterType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.aktiviteter.ugradert.spoersmal-2',
-                        tekst: 'I perioden 01.01.2017–15.01.2017 var du 100 % sykmeldt fra Olsens Sykkelservice. Jobbet du noe i denne perioden?',
+                        nokkel: 'sykepengesoknad.aktiviteter.ugradert.spoersmal-3',
+                        tekst: 'I perioden 1. – 15. januar 2017 var du 100 % sykmeldt fra Olsens Sykkelservice. Jobbet du noe i denne perioden?',
                         verdier: {
-                            '%FOM%': '01.01.2017',
-                            '%TOM%': '15.01.2017',
+                            '%PERIODE%': '1. – 15. januar 2017',
                             '%ARBEIDSGRAD%': 0,
                             '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
                         },
@@ -827,11 +820,10 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(verdier.soknad[3]).to.deep.equal({
                     type: aktiviteterType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.aktiviteter.ugradert.spoersmal-2',
-                        tekst: 'I perioden 01.01.2017–15.01.2017 var du 100 % sykmeldt fra Olsens Sykkelservice. Jobbet du noe i denne perioden?',
+                        nokkel: 'sykepengesoknad.aktiviteter.ugradert.spoersmal-3',
+                        tekst: 'I perioden 1. – 15. januar 2017 var du 100 % sykmeldt fra Olsens Sykkelservice. Jobbet du noe i denne perioden?',
                         verdier: {
-                            '%FOM%': '01.01.2017',
-                            '%TOM%': '15.01.2017',
+                            '%PERIODE%': '1. – 15. januar 2017',
                             '%ARBEIDSGRAD%': 0,
                             '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
                         },
@@ -898,11 +890,10 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(verdier.soknad[3]).to.deep.equal({
                     type: aktiviteterType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.aktiviteter.ugradert.spoersmal-2',
-                        tekst: 'I perioden 01.01.2017–15.01.2017 var du 100 % sykmeldt fra Olsens Sykkelservice. Jobbet du noe i denne perioden?',
+                        nokkel: 'sykepengesoknad.aktiviteter.ugradert.spoersmal-3',
+                        tekst: 'I perioden 1. – 15. januar 2017 var du 100 % sykmeldt fra Olsens Sykkelservice. Jobbet du noe i denne perioden?',
                         verdier: {
-                            '%FOM%': '01.01.2017',
-                            '%TOM%': '15.01.2017',
+                            '%PERIODE%': '1. – 15. januar 2017',
                             '%ARBEIDSGRAD%': 0,
                             '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
                         },
@@ -936,11 +927,10 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(aktivitetssporsmaal[0]).to.deep.equal({
                     type: aktiviteterType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.aktiviteter.ugradert.spoersmal-2',
-                        tekst: 'I perioden 01.01.2017–13.01.2017 var du 100 % sykmeldt fra Olsens Sykkelservice. Jobbet du noe i denne perioden?',
+                        nokkel: 'sykepengesoknad.aktiviteter.ugradert.spoersmal-3',
+                        tekst: 'I perioden 1. – 13. januar 2017 var du 100 % sykmeldt fra Olsens Sykkelservice. Jobbet du noe i denne perioden?',
                         verdier: {
-                            '%FOM%': '01.01.2017',
-                            '%TOM%': '13.01.2017',
+                            '%PERIODE%': '1. – 13. januar 2017',
                             '%ARBEIDSGRAD%': 0,
                             '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
                         },
@@ -1114,12 +1104,11 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(soknad.soknad[6]).to.deep.equal({
                     type: utdanningType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.utdanning.ja-nei.sporsmal',
+                        nokkel: 'sykepengesoknad.utdanning.ja-nei.sporsmal-2',
                         verdier: {
-                            '%STARTDATO%': '01.01.2017',
-                            '%SLUTTDATO%': '25.01.2017',
+                            '%PERIODE%': '1. – 25. januar 2017',
                         },
-                        tekst: 'Har du vært under utdanning i løpet av perioden 01.01.2017 - 25.01.2017?',
+                        tekst: 'Har du vært under utdanning i løpet av perioden 1. – 25. januar 2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -1138,12 +1127,11 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(soknad.soknad[6]).to.deep.equal({
                     type: utdanningType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.utdanning.ja-nei.sporsmal',
+                        nokkel: 'sykepengesoknad.utdanning.ja-nei.sporsmal-2',
                         verdier: {
-                            '%STARTDATO%': '01.01.2017',
-                            '%SLUTTDATO%': '12.01.2017',
+                            '%PERIODE%': '1. – 12. januar 2017',
                         },
-                        tekst: 'Har du vært under utdanning i løpet av perioden 01.01.2017 - 12.01.2017?',
+                        tekst: 'Har du vært under utdanning i løpet av perioden 1. – 12. januar 2017?',
                     },
                     svar: [{
                         ledetekst: {
@@ -1171,12 +1159,11 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 expect(soknad.soknad[6]).to.deep.equal({
                     type: utdanningType,
                     ledetekst: {
-                        nokkel: 'sykepengesoknad.utdanning.ja-nei.sporsmal',
+                        nokkel: 'sykepengesoknad.utdanning.ja-nei.sporsmal-2',
                         verdier: {
-                            '%STARTDATO%': '01.01.2017',
-                            '%SLUTTDATO%': '25.01.2017',
+                            '%PERIODE%': '1. – 25. januar 2017',
                         },
-                        tekst: 'Har du vært under utdanning i løpet av perioden 01.01.2017 - 25.01.2017?',
+                        tekst: 'Har du vært under utdanning i løpet av perioden 1. – 25. januar 2017?',
                     },
                     svar: [{
                         ledetekst: {

@@ -14,9 +14,9 @@ export const skalHenteSoknader = (state) => {
     return !state.soknader.hentet && !state.soknader.henter;
 };
 
-export const sykmeldingHarSoknad = (state, sykmeldingId) => {
+export const sykmeldingHarBehandletSoknad = (state, sykmeldingId) => {
     return state.soknader.data.filter((s) => {
-        return s.sykmeldingId === sykmeldingId;
+        return s.sykmeldingId === sykmeldingId && s.status !== NY;
     }).length > 0;
 };
 

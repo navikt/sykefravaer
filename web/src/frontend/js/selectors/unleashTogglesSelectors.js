@@ -8,3 +8,10 @@ export const toggleSelvstendigSoknad = (state) => {
 };
 
 */
+
+import { SYKMELDING_ARBEIDSSITUASJON } from '../enums/unleashToggles';
+
+export const toggleSykmeldingEndreArbeidssituasjon = (state) => {
+    return !state.unleashToggles.hentingFeilet
+        && state.unleashToggles.data[SYKMELDING_ARBEIDSSITUASJON] === true;
+};

@@ -1,6 +1,6 @@
 import {
     AVBRYT_SYKEPENGESOKNAD_FEILET,
-    AVBRYTER_SYKEPENGESOKNAD,
+    AVBRYTER_SYKEPENGESOKNAD, BEKREFT_SYKMELDING_ANGRET,
     HENT_SOKNADER_FEILET,
     HENTER_SOKNADER, OPPDATER_SOKNAD_FEILET,
     OPPRETT_SYKEPENGESOKNADUTLAND_FEILET,
@@ -14,7 +14,7 @@ import {
     SYKEPENGESOKNADUTLAND_OPPRETTET,
 } from '../actions/actiontyper';
 import { TIMER, DATO, PERIODER, PROSENT } from '../enums/svartyper';
-import { SENDT } from '../enums/soknadstatuser';
+import { NY, SENDT } from '../enums/soknadstatuser';
 
 const initiellState = {
     data: [],
@@ -186,6 +186,15 @@ export default (state = initiellState, action = {}) => {
                     return s.id === action.soknad.id
                         ? parseSoknad(action.soknad)
                         : s;
+                }),
+            };
+        }
+        case BEKREFT_SYKMELDING_ANGRET: {
+            return {
+                ...state,
+                data: state.data.filter((s) => {
+                    return s.sykmeldingId === action.sykmeldingId
+                        && s.status !== NY;
                 }),
             };
         }

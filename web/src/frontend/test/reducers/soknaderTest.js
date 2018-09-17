@@ -6,6 +6,7 @@ import * as actions from '../../js/actions/soknader_actions';
 import mockSoknader, { getSoknad, soknadrespons } from '../mockSoknader';
 import { SENDT } from '../../js/enums/soknadstatuser';
 import { ANSVARSERKLARING } from '../../js/enums/tagtyper';
+import { bekreftSykmeldingAngret } from '../../js/actions/dinSykmelding_actions';
 
 describe('soknader', () => {
     let getStateMedDataHentet;
@@ -127,5 +128,21 @@ describe('soknader', () => {
         const action = actions.soknadOppdatert(endretSoknad);
         const state = soknader(deepFreeze(initState), action);
         expect(state.data).to.deep.equal([endretSoknad]);
+    });
+
+    it('Fjerner NYE søknader ved bekreftSykmeldingAngret()', () => {
+        const initState = getStateMedDataHentet();
+        initState.data[0].status = 'NY';
+        const action = bekreftSykmeldingAngret('14e78e84-50a5-45bb-9919-191c54f99691');
+        const state = soknader(deepFreeze(initState), action);
+        expect(state.data).to.deep.equal([]);
+    });
+
+    it('Fjerner ikke SENDTE søknader ved bekreftSykmeldingAngret()', () => {
+        const initState = getStateMedDataHentet();
+        initState.data[0].status = 'SENDT';
+        const action = bekreftSykmeldingAngret('14e78e84-50a5-45bb-9919-191c54f99691');
+        const state = soknader(deepFreeze(initState), action);
+        expect(state.data).to.deep.equal(initState.data);
     });
 });

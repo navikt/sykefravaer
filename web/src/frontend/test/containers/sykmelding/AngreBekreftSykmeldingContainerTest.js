@@ -87,6 +87,18 @@ describe('Container', () => {
         expect(component.html()).not.to.equal(null);
     });
 
+    it('Skal vise html hvis det er mindre enn fire måneder siden sykmelding ble sendt og sykmelding har søknad som er FREMTIDIG og toggle er på', () => {
+        const ownProps = {
+            sykmelding: parseSykmelding(sykmelding2),
+        };
+        state.soknader = soknader(
+            soknader(),
+            soknaderHentet([getSoknad({ sykmeldingId: 'sykmelding-2', status: 'FREMTIDIG'})])
+        );
+        const component = shallow(<Container {...mapStateToProps(state, ownProps)} />);
+        expect(component.html()).not.to.equal(null);
+    });
+
     it('Skal ikke vise html hvis det er mindre enn fire måneder siden sykmelding ble sendt og sykmelding har søknad som er SENDT og toggle er på', () => {
         const ownProps = {
             sykmelding: parseSykmelding(sykmelding2),

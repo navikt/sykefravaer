@@ -1,5 +1,5 @@
 import { SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
-import { FREMTIDIG, NY } from '../enums/soknadstatuser';
+import { FREMTIDIG, NY, SENDT } from '../enums/soknadstatuser';
 
 export const erForsteSoknad = (state) => {
     const selvstendigSoknader = state.soknader.data.filter((s) => {
@@ -15,8 +15,8 @@ export const skalHenteSoknader = (state) => {
 };
 
 export const sykmeldingHarBehandletSoknad = (state, sykmeldingId) => {
-    return state.soknader.data.filter((s) => {
-        return s.sykmeldingId === sykmeldingId && s.status !== NY;
+    return state.soknader.data.filter((soknad) => {
+        return soknad.sykmeldingId === sykmeldingId && soknad.status === SENDT;
     }).length > 0;
 };
 

@@ -1,12 +1,11 @@
-FROM node:carbon
+FROM docker.adeo.no:5000/pus/node
 
 WORKDIR /usr/src/app
-
-RUN npm install
-
-COPY package.json ./
-
 COPY . .
+
+RUN npm config set registry https://repo.adeo.no/repository/npm-public/
+RUN npm install express path mustache-express promise prom-client dotenv jsdom request
+
 EXPOSE 8080
 
-CMD ["npm", "start-express"]
+CMD ["npm", "start"]

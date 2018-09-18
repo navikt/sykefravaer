@@ -18,7 +18,7 @@ var config = function (opts) {
         entry: ['babel-polyfill', mainPath],
         output: {
             path: buildPath,
-            filename: 'bundle-prod.js',
+            filename: 'bundle-prod.' + timestamp + '.js',
         },
         mode: 'production',
         resolve: {

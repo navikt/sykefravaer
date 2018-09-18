@@ -86,6 +86,7 @@ gitCommitHash=${gitCommitHash}
     stage("docker build") {
         dir ('web/src/frontend') {
             sh("npm install")
+            sh("npm run test")
             sh("npm run nais-build")
             sh("mkdir docker")
             sh("cp -r dist ../../../.")

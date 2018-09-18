@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import Knapp from 'nav-frontend-knapper';
 import { getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import { angreBekreftSykmelding as angreBekreftSykmeldingAction } from '../../actions/dinSykmelding_actions';
-import { sykmeldingHarSoknad } from '../../selectors/soknaderSelectors';
+import { sykmeldingHarBehandletSoknad } from '../../selectors/soknaderSelectors';
+import { toggleSykmeldingEndreArbeidssituasjon } from '../../selectors/unleashTogglesSelectors';
 
-function AngreBekreftSykmeldingContainer({ sykmelding, angreBekreftSykmelding, angreBekreftSykmeldingFeilet, vis }) {
+export const Container = ({ sykmelding, angreBekreftSykmelding, angreBekreftSykmeldingFeilet, vis }) => {
     return vis ? (
         <div>
             <div className="verktoylinje">
@@ -26,24 +27,25 @@ function AngreBekreftSykmeldingContainer({ sykmelding, angreBekreftSykmelding, a
             </div>
         </div>
     ) : null;
-}
+};
 
-AngreBekreftSykmeldingContainer.propTypes = {
+Container.propTypes = {
     sykmelding: sykmeldingPt,
     angreBekreftSykmelding: PropTypes.func.isRequired,
     angreBekreftSykmeldingFeilet: PropTypes.bool,
     vis: PropTypes.bool,
 };
 
-const mapStateToProps = (state, ownProps) => {
+export const mapStateToProps = (state, ownProps) => {
     const FIRE_MANEDER_SIDEN = new Date();
     FIRE_MANEDER_SIDEN.setMonth(FIRE_MANEDER_SIDEN.getMonth() - 4);
     const vis = ownProps.sykmelding.sendtdato > FIRE_MANEDER_SIDEN
-        && !sykmeldingHarSoknad(state, ownProps.sykmelding.id);
+        && !sykmeldingHarBehandletSoknad(state, ownProps.sykmelding.id)
+        && toggleSykmeldingEndreArbeidssituasjon(state);
     return {
         vis,
         angreBekreftSykmeldingFeilet: state.dineSykmeldinger.angreBekreftSykmeldingFeilet,
     };
 };
 
-export default connect(mapStateToProps, { angreBekreftSykmelding: angreBekreftSykmeldingAction })(AngreBekreftSykmeldingContainer);
+export default connect(mapStateToProps, { angreBekreftSykmelding: angreBekreftSykmeldingAction })(Container);

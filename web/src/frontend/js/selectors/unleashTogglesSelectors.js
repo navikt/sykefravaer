@@ -1,14 +1,17 @@
-import {
-    SELVSTENDIG_FRILANSER_SOKNAD_TOGGLE,
-    UTENLANDSOPPHOLD_SOKNAD_TOGGLE,
-} from '../enums/unleashToggles';
+/*
+
+Liste av funksjoner her, f.eks:
 
 export const toggleSelvstendigSoknad = (state) => {
     return !state.unleashToggles.hentingFeilet
         && state.unleashToggles.data[SELVSTENDIG_FRILANSER_SOKNAD_TOGGLE] === true;
 };
 
-export const toggleSykepengesoknadUtland = (state) => {
+*/
+
+import { SYKMELDING_ARBEIDSSITUASJON } from '../enums/unleashToggles';
+
+export const toggleSykmeldingEndreArbeidssituasjon = (state) => {
     return !state.unleashToggles.hentingFeilet
-        && state.unleashToggles.data[UTENLANDSOPPHOLD_SOKNAD_TOGGLE] === true;
+        && state.unleashToggles.data[SYKMELDING_ARBEIDSSITUASJON] === true;
 };

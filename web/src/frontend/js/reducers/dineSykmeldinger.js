@@ -22,7 +22,7 @@ const setSykmeldingProps = (_sykmeldinger, sykmeldingId, props) => {
     });
 };
 
-export default function sykmeldinger(state = initiellState, action = {}) {
+const dineSykmeldinger = (state = initiellState, action = {}) => {
     switch (action.type) {
         case actiontyper.SET_DINE_SYKMELDINGER: {
             if (!state.data || state.data.length === 0) {
@@ -233,4 +233,6 @@ export default function sykmeldinger(state = initiellState, action = {}) {
             return state;
         }
     }
-}
+};
+
+export default dineSykmeldinger;

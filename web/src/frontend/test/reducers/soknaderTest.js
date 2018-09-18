@@ -145,4 +145,16 @@ describe('soknader', () => {
         const state = soknader(deepFreeze(initState), action);
         expect(state.data).to.deep.equal(initState.data);
     });
+
+    it("Fjerner bare søknader som tilhører den aktuelle sykmeldingen", () => {
+        const initState = getStateMedDataHentet();
+        initState.data = [
+            getSoknad({ sykmeldingId: '1', status: 'NY' }),
+            getSoknad({ sykmeldingId: '2', status: 'NY' }),
+            getSoknad({ sykmeldingId: '2', status: 'NY' }),
+        ];
+        const action = bekreftSykmeldingAngret('2');
+        const state = soknader(deepFreeze(initState), action);
+        expect(state.data).to.deep.equal([ getSoknad({ sykmeldingId: "1", status: "NY" }) ]);
+    });
 });

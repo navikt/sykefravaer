@@ -194,7 +194,8 @@ export default (state = initiellState, action = {}) => {
                 ...state,
                 data: state.data.filter((s) => {
                     return s.sykmeldingId === action.sykmeldingId
-                        && s.status !== NY;
+                        ? s.status !== NY
+                        : true;
                 }),
             };
         }

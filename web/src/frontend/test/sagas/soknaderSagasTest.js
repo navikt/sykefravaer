@@ -7,6 +7,12 @@ import mockSoknader from '../mockSoknader';
 import { OPPHOLD_UTLAND } from '../../js/enums/soknadtyper';
 
 describe('soknaderSagas', () => {
+    beforeEach(() => {
+        window.APP_SETTINGS = {
+            SYFOSOKNAD_ROOT: 'https://syfoapi-q.nav.no/syfosoknad/api',
+        };
+    });
+
     describe('Henting av søknader når det er togglet på', () => {
         const action = actions.hentSoknader();
         const generator = hentSoknader(action);

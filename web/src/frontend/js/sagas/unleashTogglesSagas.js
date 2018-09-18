@@ -1,4 +1,4 @@
-import { call, put, fork } from 'redux-saga/effects';
+import { call, fork, put } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
 import * as actions from '../actions/unleashToggles_actions';
 import * as actiontyper from '../actions/actiontyper';

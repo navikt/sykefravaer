@@ -1,5 +1,6 @@
 name: syfofront
-image: repo.adeo.no:5443/digisyfo/syfofront
+team: digisyfo
+image: docker.adeo.no:5000/digisyfo/syfofront
 replicas:
   min: 2
   max: 2
@@ -26,9 +27,19 @@ ingress:
   enabled: true
 fasitResources:
   used:
-  - alias: syfoapiApi
-    resourceType: restservice
   - alias: appres.cms
     resourceType: baseurl
   - alias: loginservice
+    resourceType: restservice
+  - alias: syfoapi-syfoteksterapi
+    resourceType: restservice
+  - alias: syfoapi-syfosoknadapi
+    resourceType: restservice
+  - alias: sykefravaerapi
+    resourceType: restservice
+  - alias: moterestapi
+    resourceType: restservice
+  - alias: oppfoelgingsdialogapi
+    resourceType: restservice
+  - alias: syfounleashapi
     resourceType: restservice

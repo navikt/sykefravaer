@@ -17,10 +17,13 @@ const httpRequestDurationMicroseconds = new prometheus.Histogram({
     labelNames: ['route'],
     // buckets for response time from 0.1ms to 500ms
     buckets: [0.10, 5, 15, 50, 100, 200, 300, 400, 500],
-})
+});
 const server = express();
 
 const env = process.argv[2];
+const syfoapiBaseUrl = process.env.FASIT_ENVIRONMENT_NAME === 'p'
+    ? 'https://syfoapi.nav.no'
+    : 'https://syfoapi-q.nav.no';
 const settings = env === 'local' ? { isProd: false } : require('./settings.json');
 
 server.set('views', `${__dirname}/dist`);
@@ -33,8 +36,10 @@ const renderApp = (decoratorFragments) => {
             'index.html',
             Object.assign(
                 {
+                    SYFOSOKNAD_URL: `${syfoapiBaseUrl}/syfosoknad/api`,
+                    SYFOTEKSTER_URL: `${syfoapiBaseUrl}/syfotekster/api`,
+                    LOGINSERVICE_URL: `${process.env.LOGINSERVICE_URL}`,
                     SYFOREST_URL: '/syforest',
-                    SYFOTEKSTER_URL: '/syfotekster/api',
                     MOTEREST_URL: '/moterest/api',
                     OPPFOLGINGSDIALOGREST_URL: '/oppfoelgingsdialogrest/api',
                 },
@@ -50,7 +55,7 @@ const renderApp = (decoratorFragments) => {
             },
         );
     });
-}
+};
 
 const startServer = (html) => {
     server.use(

@@ -1,5 +1,4 @@
 gitUrl="ssh://git@stash.devillo.no:7999/syfo/syfofront.git"
-branch="node-server"
 applikasjonsNavn="syfofront"
 sone="sbs"
 
@@ -81,7 +80,7 @@ gitCommitHash=${gitCommitHash}
         addToDescription("Version: ${versjon}")
     }
 
-    def uversjonertTag = "${digisyfooDockerImagePrefiks}${applikasjonsNavn}"
+    def uversjonertTag = "${digisyfooDockerImagePrefiks}/${applikasjonsNavn}"
     def versjonertTag = "${uversjonertTag}:${versjon}"
 
     stage("docker build") {
@@ -89,14 +88,12 @@ gitCommitHash=${gitCommitHash}
             sh("npm install")
             sh("npm run nais-build")
             sh("mkdir docker")
-            sh("cp -r dist docker/")
-            sh("cp .env docker/")
-            sh("cp server.js docker/")
-            sh("cp settings.json docker/")
-            sh("cp package.json docker/")
-            sh("cp .npmrc docker/")
-
-            sh("cp -r docker/* ../../../.")
+            sh("cp -r dist ../../../.")
+            sh("cp .env ../../../.")
+            sh("cp server.js ../../../.")
+            sh("cp decorator.js ../../../.")
+            sh("cp settings.json ../../../.")
+            sh("cp package.json ../../../.")
         }
 
         sh("docker build" +

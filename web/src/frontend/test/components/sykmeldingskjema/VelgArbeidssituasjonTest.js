@@ -6,6 +6,7 @@ import chaiEnzyme from 'chai-enzyme';
 import VelgArbeidssituasjon, { RendreVelgArbeidssituasjon, Velg } from '../../../js/components/sykmeldingskjema/VelgArbeidssituasjon';
 import VelgArbeidsgiverContainer from '../../../js/containers/sykmelding/VelgArbeidsgiverContainer';
 import SporsmalMedTillegg from '../../../js/components/skjema/SporsmalMedTillegg';
+import Radioknapper from '../../../js/components/skjema/Radioknapper';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -51,25 +52,12 @@ describe('VelgArbeidssituasjon', () => {
     });
 
     describe('RendreVelgArbeidssituasjon', () => {
-        it('Har med default option om arbeidssituasjon ikke er valgt', () => {
+        it('Har viser 5 radioknapper', () => {
             const input = { value: null };
             const meta = {};
-            const comp = shallow(RendreVelgArbeidssituasjon({ input, meta }));
-            expect((comp.find('option').length)).to.be.equal(6);
-        });
-
-        it('Har med default option om default arbeidssituasjon er valgt', () => {
-            const input = { value: 'DEFAULT' };
-            const meta = {};
-            const comp = shallow(RendreVelgArbeidssituasjon({ input, meta }));
-            expect((comp.find('option').length)).to.be.equal(6);
-        });
-
-        it('Har ikke med default option om arbeidssituasjon er valgt', () => {
-            const input = { value: 'FRILANSER' };
-            const meta = {};
-            const comp = shallow(RendreVelgArbeidssituasjon({ input, meta }));
-            expect((comp.find('option').length)).to.be.equal(5);
+            const comp = shallow(<RendreVelgArbeidssituasjon input={input} meta={meta} />);
+            expect(comp.find(Radioknapper)).to.have.length(1);
+            expect(comp.find('i').length).to.be.equal(5);
         });
     });
 });

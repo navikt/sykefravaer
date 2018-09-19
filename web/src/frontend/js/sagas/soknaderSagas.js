@@ -32,7 +32,7 @@ const gaTilKvittering = (soknadId) => {
 export function* hentSoknader() {
     yield put(actions.henterSoknader());
     try {
-        const data = yield call(get, `${window.APP_SETTINGS.SYFOSOKNAD_ROOT}/soknader`);
+        const data = yield call(get, `${hentApiUrl()}/soknader`);
         yield put(actions.soknaderHentet(data));
     } catch (e) {
         log(e);
@@ -51,7 +51,7 @@ export function* sendSoknad(action) {
         if (action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
             || action.soknad.soknadstype === OPPHOLD_UTLAND) {
             yield put(actions.senderSoknad(action.soknadId));
-            yield call(post, `${window.APP_SETTINGS.SYFOSOKNAD_ROOT}/sendSoknad`, action.soknad);
+            yield call(post, `${hentApiUrl()}/sendSoknad`, action.soknad);
             yield put(actions.soknadSendt(action.soknad));
             gaTilKvittering(action.soknad.id);
         } else {
@@ -68,7 +68,7 @@ export function* avbrytSoknad(action) {
         || action.soknad.soknadstype === OPPHOLD_UTLAND) {
         try {
             yield put(actions.avbryterSoknad());
-            yield call(post, `${window.APP_SETTINGS.SYFOSOKNAD_ROOT}/avbrytSoknad`, action.soknad);
+            yield call(post, `${hentApiUrl()}/avbrytSoknad`, action.soknad);
             yield put(actions.soknadAvbrutt(action.soknad));
             browserHistory.push(getContextRoot());
         } catch (e) {
@@ -101,7 +101,7 @@ const gaTilSkjemaUtland = (soknadUtlandId) => {
 export function* opprettSoknadUtland() {
     yield put(actions.oppretterSoknadUtland());
     try {
-        const data = yield call(post, `${window.APP_SETTINGS.SYFOSOKNAD_ROOT}/opprettSoknadUtland`);
+        const data = yield call(post, `${hentApiUrl()}/opprettSoknadUtland`);
         yield put(actions.soknadUtlandOpprettet(data));
         gaTilSkjemaUtland(data.id);
     } catch (e) {

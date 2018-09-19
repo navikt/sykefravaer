@@ -72,9 +72,10 @@ gitCommitHash=${gitCommitHash}
                 text: environment
         ])
 
-        def timestamp = new SimpleDateFormat("yyyyMMdd.Hmm").format(new Date())
-        def gitCommitNumber = sh(returnStdout: true, script: "git rev-list --count HEAD").trim()
-        versjon = "${gitCommitNumber}.${timestamp}"
+        date = new Date()
+        dateFormat = new SimpleDateFormat("dd.MM.HHmm")
+
+        versjon = dateFormat.format(date) + "-${commitHashShort}"
 
         echo "Build version: ${versjon}"
         addToDescription("Version: ${versjon}")

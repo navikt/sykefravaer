@@ -491,22 +491,6 @@ describe('DinSykmeldingSkjema -', () => {
         });
     });
 
-    describe('Velg arbeidssituasjon', () => {
-        beforeEach(() => {
-            component = getComponent();
-        });
-
-        it('Viser en select', () => {
-            expect(component.find('select')).to.have.length(1);
-        });
-
-        it("Setter dropdown til 'Velg' om arbeidssituasjon ikke er satt", () => {
-            const dropdown = component.find('select');
-            expect(dropdown.value).to.equal(undefined);
-        });
-    });
-
-
     describe('Logikk i skjemaet basert på svar i VelgArbeidsgiver', () => {
         beforeEach(() => {
             values = {};

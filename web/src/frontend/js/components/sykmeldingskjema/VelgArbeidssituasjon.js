@@ -3,17 +3,14 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import { getLedetekst, arbeidssituasjoner as arbeidssituasjonerEnums } from 'digisyfo-npm';
 import Hjelpetekst from 'nav-frontend-hjelpetekst';
-import { Select } from 'nav-frontend-skjema';
 import VelgArbeidsgiverContainer from '../../containers/sykmelding/VelgArbeidsgiverContainer';
 import SporsmalMedTillegg from '../skjema/SporsmalMedTillegg';
 import { sykmelding as sykmeldingPt, arbeidsgiver as arbeidsgiverPt, fieldPropTypes } from '../../propTypes';
-import { getFeilFraMeta } from '../skjema/Tekstfelt';
+import Radioknapper from '../skjema/Radioknapper';
 
-const { DEFAULT, ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG, ANNET } = arbeidssituasjonerEnums;
+const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER, ARBEIDSLEDIG, ANNET } = arbeidssituasjonerEnums;
 
 const arbeidssituasjoner = [{
-    verdi: DEFAULT,
-}, {
     verdi: ARBEIDSTAKER,
 }, {
     verdi: NAERINGSDRIVENDE,
@@ -25,38 +22,23 @@ const arbeidssituasjoner = [{
     verdi: ANNET,
 }];
 
-const getArbeidssituasjoner = (arbeidssituasjon) => {
-    if (!arbeidssituasjon || arbeidssituasjon === DEFAULT) {
-        return arbeidssituasjoner;
-    }
-    return arbeidssituasjoner.filter((a) => {
-        return a.verdi !== DEFAULT;
-    });
-};
-
 export const RendreVelgArbeidssituasjon = (props) => {
     const { input, meta } = props;
-    const feil = getFeilFraMeta(meta);
-    const label = (<div className="medHjelpetekst">
-        <span className="skjema__sporsmal">
-            {getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}
-        </span>
-        <Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')}</Hjelpetekst>
-    </div>);
-    return (
-        <div>
-            <Select label={label} bredde="l" id="valgtArbeidssituasjon" {...input} feil={feil}>
-                {
-                    getArbeidssituasjoner(input.value)
-                        .map((arbeidssituasjon, index) => {
-                            return (<option value={arbeidssituasjon.verdi} key={index}>
-                                {getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${arbeidssituasjon.verdi.toLowerCase()}`)}
-                            </option>);
-                        })
-                }
-            </Select>
-        </div>
-    );
+    return (<Radioknapper
+        id="valgtArbeidssituasjon"
+        input={input}
+        meta={meta}
+        spoersmal={getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}
+        hjelpetekst={<Hjelpetekst id="velg-arbeidssituasjon-hjelpetekst">{getLedetekst('din-sykmelding.arbeidssituasjon.hjelpetekst.2.tekst')}</Hjelpetekst>}>
+        {
+            arbeidssituasjoner.map((arbeidssituasjon) => {
+                return (<i
+                    value={arbeidssituasjon.verdi}
+                    key={arbeidssituasjon.verdi}
+                    label={getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${arbeidssituasjon.verdi.toLowerCase()}`)} />);
+            })
+        }
+    </Radioknapper>);
 };
 
 export const Velg = (props) => {

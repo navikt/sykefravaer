@@ -8,7 +8,7 @@ import { SENDT } from '../../js/enums/soknadstatuser';
 import { ANSVARSERKLARING } from '../../js/enums/tagtyper';
 import { bekreftSykmeldingAngret } from '../../js/actions/dinSykmelding_actions';
 
-describe('soknader', () => {
+describe.only('soknader', () => {
     let getStateMedDataHentet;
     let clock;
 
@@ -156,5 +156,24 @@ describe('soknader', () => {
         const action = bekreftSykmeldingAngret('2');
         const state = soknader(deepFreeze(initState), action);
         expect(state.data).to.deep.equal([ getSoknad({ sykmeldingId: "1", status: "NY" }) ]);
+    });
+
+    it("Fjerner bare søknader som som er NY eller FREMTIDIG for aktuelle sykmeldingen", () => {
+        const initState = getStateMedDataHentet();
+        initState.data = [
+            getSoknad({ sykmeldingId: '1', status: 'NY' }),
+            getSoknad({ sykmeldingId: '2', status: 'NY' }),
+            getSoknad({ sykmeldingId: '2', status: 'FREMTIDIG' }),
+            getSoknad({ sykmeldingId: '2', status: 'SENDT' }),
+        ];
+        const action = bekreftSykmeldingAngret('2');
+        const state = soknader(deepFreeze(initState), action);
+
+        const forventetResultat = [
+            getSoknad({ sykmeldingId: "1", status: "NY" }),
+            getSoknad({ sykmeldingId: "2", status: "SENDT" }),
+        ];
+
+        expect(state.data).to.deep.equal(forventetResultat);
     });
 });

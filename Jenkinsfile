@@ -75,7 +75,7 @@ gitCommitHash=${gitCommitHash}
         date = new Date()
         dateFormat = new SimpleDateFormat("dd.MM.HHmm")
 
-        versjon = dateFormat.format(date) + "-${commitHashShort}"
+        versjon = dateFormat.format(date) + "-${gitCommitHashShort}"
 
         echo "Build version: ${versjon}"
         addToDescription("Version: ${versjon}")

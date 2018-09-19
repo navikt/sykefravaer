@@ -21,11 +21,6 @@ const httpRequestDurationMicroseconds = new prometheus.Histogram({
 const server = express();
 
 const env = process.argv[2];
-const syfoapiBaseUrl = env === 'local'
-    ? ''
-    : process.env.FASIT_ENVIRONMENT_NAME === 'p'
-        ? 'https://syfoapi.nav.no'
-        : 'https://syfoapi-q.nav.no';
 const settings = env === 'local' ? { isProd: false } : require('./settings.json');
 
 server.set('views', `${__dirname}/dist`);
@@ -38,7 +33,6 @@ const renderApp = (decoratorFragments) => {
             'index.html',
             Object.assign(
                 {
-                    SYFOSOKNAD_URL: `${syfoapiBaseUrl}/syfosoknad/api`,
                     SYFOTEKSTER_URL: '/syfotekster/api',
                     LOGINSERVICE_URL: `${process.env.LOGINSERVICE_URL}`,
                     SYFOREST_URL: '/syforest',

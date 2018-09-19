@@ -86,7 +86,7 @@ const startServer = (html) => {
         res.sendStatus(200);
     });
 
-    const port = process.env.PORT || 8282;
+    const port = env === 'local' ? 8282 : process.env.PORT || 8080;
     server.listen(port, () => {
         console.log(`App listening on port: ${port}`);
     });

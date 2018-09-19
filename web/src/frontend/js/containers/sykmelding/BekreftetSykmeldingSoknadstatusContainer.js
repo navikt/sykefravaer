@@ -6,19 +6,18 @@ import SykmeldingSoknadstatuspanel from '../../components/sykmelding/SykmeldingS
 import * as sykepengesoknaderActions from '../../actions/sykepengesoknader_actions';
 import * as soknaderActions from '../../actions/soknader_actions';
 import { skalHenteSoknader as skalHenteSoknaderSelector } from '../../selectors/soknaderSelectors';
-import { toggleSelvstendigSoknad } from '../../selectors/unleashTogglesSelectors';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../enums/soknadtyper';
 import { PapirsoknadMelding } from '../../components/sykmelding/SykmeldingSoknadstatus';
 import AppSpinner from '../../components/AppSpinner';
 import { soknad as soknadPt } from '../../propTypes/index';
 
-const Soknadstatus = ({ soknader, selvstendigToggle, erSelvstendigEllerFrilanserSykmelding }) => {
-    if (!selvstendigToggle || !erSelvstendigEllerFrilanserSykmelding) {
+const Soknadstatus = ({ soknader, erSelvstendigEllerFrilanserSykmelding }) => {
+    if (!erSelvstendigEllerFrilanserSykmelding) {
         return (<div className="panel panel--komprimert blokk">
             <PapirsoknadMelding />
         </div>);
     }
-    if (selvstendigToggle && soknader.length === 0) {
+    if (soknader.length === 0) {
         return null;
     }
     return <SykmeldingSoknadstatuspanel sykepengesoknader={soknader} />;
@@ -26,7 +25,6 @@ const Soknadstatus = ({ soknader, selvstendigToggle, erSelvstendigEllerFrilanser
 
 Soknadstatus.propTypes = {
     soknader: PropTypes.arrayOf(soknadPt),
-    selvstendigToggle: PropTypes.bool,
     erSelvstendigEllerFrilanserSykmelding: PropTypes.bool,
 };
 
@@ -77,7 +75,6 @@ export const mapStateToProps = (state, ownProps) => {
             return !soknad.korrigerer
                 && soknad.sykmeldingId === sykmelding.id;
         });
-    const selvstendigToggle = toggleSelvstendigSoknad(state);
     const henter = !state.soknader.hentet || state.soknader.henter;
     const erSelvstendigEllerFrilanserSykmelding = [arbeidssituasjoner.FRILANSER, arbeidssituasjoner.NAERINGSDRIVENDE].indexOf(sykmelding.valgtArbeidssituasjon) > -1;
 
@@ -88,7 +85,6 @@ export const mapStateToProps = (state, ownProps) => {
             && sykmelding.status === sykmeldingstatuser.BEKREFTET
             && erSelvstendigEllerFrilanserSykmelding,
         soknader,
-        selvstendigToggle,
         arbeidssituasjon: ownProps.sykmelding.valgtArbeidssituasjon,
     };
 };

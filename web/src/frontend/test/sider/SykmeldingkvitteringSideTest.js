@@ -17,7 +17,6 @@ import { getParsetSoknad } from '../mockSykepengesoknader';
 import FrilanserSoekDigitaltNaa from '../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltNaa';
 import FrilanserSoekDigitaltSenere from '../../js/components/sykmeldingkvittering/FrilanserSoekDigitaltSenere';
 import { SELVSTENDIGE_OG_FRILANSERE } from '../../js/enums/soknadtyper';
-import { SELVSTENDIG_FRILANSER_SOKNAD_TOGGLE } from '../../js/enums/unleashToggles';
 
 chai.use(chaiEnzyme());
 const expect = chai.expect;
@@ -198,11 +197,6 @@ describe('SykmeldingkvitteringSide', () => {
             },
         };
         state.timeout = {};
-        state.unleashToggles = {
-            data: {
-                [SELVSTENDIG_FRILANSER_SOKNAD_TOGGLE]: false,
-            },
-        };
         ownProps.params = {
             sykmeldingId: '1',
         };

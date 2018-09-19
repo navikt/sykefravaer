@@ -5,7 +5,6 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 import { getSoknad } from '../../mockSoknader';
 import { Container, mapStateToProps } from '../../../js/containers/sykmelding/BekreftetSykmeldingSoknadstatusContainer';
-import { SELVSTENDIG_FRILANSER_SOKNAD_TOGGLE } from '../../../js/enums/unleashToggles';
 import getSykmelding from '../../mockSykmeldinger';
 import { NY } from '../../../js/enums/soknadstatuser';
 import {
@@ -42,12 +41,6 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
             },
         };
 
-        state.unleashToggles = {
-            data: {
-                [SELVSTENDIG_FRILANSER_SOKNAD_TOGGLE]: false,
-            },
-        };
-
         hentSoknader = sinon.spy();
 
         actions = { hentSoknader };
@@ -81,49 +74,8 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
         expect(hentSoknader.called).to.equal(false);
     });
 
-    describe('Når selvstendig-søknader er togglet AV', () => {
+    describe('Når søknader er hentet', () => {
         beforeEach(() => {
-            state.unleashToggles = {
-                data: {
-                    [SELVSTENDIG_FRILANSER_SOKNAD_TOGGLE]: false,
-                },
-            };
-            state.soknader = {
-                data: [],
-                henter: false,
-                hentet: true,
-            };
-            state.sykepengesoknader = {
-                data: [],
-                henter: false,
-                hentet: true,
-            };
-            state.sykmeldinger = {
-                data: [
-                    getSykmelding({
-                        id: '1',
-                        valgtArbeidssituasjon: 'FRILANSER',
-                        status: 'BEKREFTET',
-                    }),
-                ],
-            };
-        });
-
-        it('Skal vise PapirsoknadMelding hvis det ikke finnes søknad til den aktuelle sykmeldingen', () => {
-            state.soknader.data = [];
-            const props = mapStateToProps(state, ownProps);
-            const component = mount(<Container {...props} {...actions} />);
-            expect(component.find(PapirsoknadMelding)).to.have.length(1);
-        });
-    });
-
-    describe('Når selvstendig-søknader er togglet PÅ og søknader er hentet', () => {
-        beforeEach(() => {
-            state.unleashToggles = {
-                data: {
-                    [SELVSTENDIG_FRILANSER_SOKNAD_TOGGLE]: true,
-                },
-            };
             state.soknader = {
                 data: [],
                 henter: false,
@@ -218,13 +170,8 @@ describe('BekreftetSykmeldingSoknadstatusContainer', () => {
         });
     });
 
-    describe('Når selvstendig-søknader er togglet PÅ og sykmeldingen har arbeidssituasjon ANNET', () => {
+    describe('Når sykmeldingen har arbeidssituasjon ANNET', () => {
         beforeEach(() => {
-            state.unleashToggles = {
-                data: {
-                    [SELVSTENDIG_FRILANSER_SOKNAD_TOGGLE]: true,
-                },
-            };
             state.soknader = {
                 data: [],
                 henter: false,

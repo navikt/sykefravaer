@@ -17,7 +17,6 @@ import { soknadrespons, soknadUtland1 } from '../../test/mockSoknader';
 import { toggleBrukMockDataSelvstendigSoknad, toggleBrukMockdataUtland } from '../toggles';
 import logger from '../logging';
 import { OPPHOLD_UTLAND, SELVSTENDIGE_OG_FRILANSERE } from '../enums/soknadtyper';
-import { toggleSykepengesoknadUtland } from '../selectors/unleashTogglesSelectors';
 import { hentSoknad } from '../selectors/soknaderSelectors';
 import { populerSoknadMedSvarUtenKonvertertePerioder } from '../utils/soknad-felles/populerSoknadMedSvar';
 import populerSkjemaverdier from '../utils/soknad-felles/populerSkjemaverdier';
@@ -48,16 +47,15 @@ export function* hentSoknader() {
 }
 
 export function* sendSoknad(action) {
-    const toggleUtland = yield select(toggleSykepengesoknadUtland);
     try {
-        if ((action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE)
-            || (toggleUtland && action.soknad.soknadstype === OPPHOLD_UTLAND)) {
+        if (action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
+            || action.soknad.soknadstype === OPPHOLD_UTLAND) {
             yield put(actions.senderSoknad(action.soknadId));
             yield call(post, `${hentApiUrl()}/sendSoknad`, action.soknad);
             yield put(actions.soknadSendt(action.soknad));
             gaTilKvittering(action.soknad.id);
         } else {
-            log('Innsending av søknad er togglet av.');
+            log('Ukjent søknadstype - kan ikke sende.');
         }
     } catch (e) {
         log(e);
@@ -66,9 +64,8 @@ export function* sendSoknad(action) {
 }
 
 export function* avbrytSoknad(action) {
-    const toggleUtland = yield select(toggleSykepengesoknadUtland);
     if (action.soknad.soknadstype === SELVSTENDIGE_OG_FRILANSERE
-        || (toggleUtland && action.soknad.soknadstype === OPPHOLD_UTLAND)) {
+        || action.soknad.soknadstype === OPPHOLD_UTLAND) {
         try {
             yield put(actions.avbryterSoknad());
             yield call(post, `${hentApiUrl()}/avbrytSoknad`, action.soknad);
@@ -102,22 +99,19 @@ const gaTilSkjemaUtland = (soknadUtlandId) => {
 };
 
 export function* opprettSoknadUtland() {
-    const toggleUtland = yield select(toggleSykepengesoknadUtland);
-    if (toggleUtland) {
-        yield put(actions.oppretterSoknadUtland());
-        try {
-            const data = yield call(post, `${hentApiUrl()}/opprettSoknadUtland`);
-            yield put(actions.soknadUtlandOpprettet(data));
-            gaTilSkjemaUtland(data.id);
-        } catch (e) {
-            log(e);
-            if (toggleBrukMockdataUtland()) {
-                yield put(actions.soknadUtlandOpprettet(soknadUtland1));
-                gaTilSkjemaUtland(soknadUtland1.id);
-            } else {
-                logger.error(`Kunne ikke opprette søknad utland. URL: ${window.location.href} - ${e.message}`);
-                yield put(actions.opprettSoknadUtlandFeilet());
-            }
+    yield put(actions.oppretterSoknadUtland());
+    try {
+        const data = yield call(post, `${hentApiUrl()}/opprettSoknadUtland`);
+        yield put(actions.soknadUtlandOpprettet(data));
+        gaTilSkjemaUtland(data.id);
+    } catch (e) {
+        log(e);
+        if (toggleBrukMockdataUtland()) {
+            yield put(actions.soknadUtlandOpprettet(soknadUtland1));
+            gaTilSkjemaUtland(soknadUtland1.id);
+        } else {
+            logger.error(`Kunne ikke opprette søknad utland. URL: ${window.location.href} - ${e.message}`);
+            yield put(actions.opprettSoknadUtlandFeilet());
         }
     }
 }

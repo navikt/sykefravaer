@@ -1,0 +1,2 @@
+https://${DomainName}/sykefravaer/img/*
+https://${DomainName}/sykefravaer/resources/*

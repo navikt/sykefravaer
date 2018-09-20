@@ -8,7 +8,7 @@ import { SENDT } from '../../js/enums/soknadstatuser';
 import { ANSVARSERKLARING } from '../../js/enums/tagtyper';
 import { bekreftSykmeldingAngret } from '../../js/actions/dinSykmelding_actions';
 
-describe.only('soknader', () => {
+describe('soknader', () => {
     let getStateMedDataHentet;
     let clock;
 

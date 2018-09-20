@@ -814,6 +814,82 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
                 });
             });
 
+            it('Skal mappe arbeidsspørsmål for ugraderte perioder når bruker har jobbet mer enn planlagt, oppgitt dette i timer og hatt permisjon i perioden', () => {
+                skjemasoknad.harHattFeriePermisjonEllerUtenlandsopphold = true;
+                skjemasoknad.harHattPermisjon = true;
+                skjemasoknad.permisjon = [{
+                    fom: '02.01.2017',
+                    tom: '08.01.2017',
+                }];
+                skjemasoknad.aktiviteter = [aktivitet2];
+                const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));
+                expect(verdier.soknad[3]).to.deep.equal({
+                    type: aktiviteterType,
+                    ledetekst: {
+                        nokkel: 'sykepengesoknad.aktiviteter.ugradert.spoersmal-3',
+                        tekst: 'I perioden 1. – 15. januar 2017 var du 100 % sykmeldt fra Olsens Sykkelservice. Jobbet du noe i denne perioden?',
+                        verdier: {
+                            '%PERIODE%': '1. – 15. januar 2017',
+                            '%ARBEIDSGRAD%': 0,
+                            '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
+                        },
+                    },
+                    svar: [{
+                        ledetekst: {
+                            nokkel: 'sykepengesoknad.ja',
+                            tekst: 'Ja',
+                        },
+                        type: 'RADIOKNAPPER',
+                        undersporsmal: [{
+                            ledetekst: {
+                                nokkel: 'sykepengesoknad.angi-tid.normal-arbeidstimer.sporsmal',
+                                tekst: 'Hvor mange timer jobber du normalt per uke?',
+                            },
+                            svar: [{
+                                ledetekst: {
+                                    nokkel: 'sykepengesoknad.angi-tid.normal-arbeidstimer.label-med-verdi',
+                                    tekst: '37,5 timer per uke',
+                                    verdier: {
+                                        '%ANTALL%': '37,5',
+                                    },
+                                },
+                                type: 'TEKSTSVAR',
+                                undersporsmal: [],
+                            }],
+                        }, {
+                            ledetekst: {
+                                nokkel: 'sykepengesoknad.aktiviteter.avvik.hvor-mye-har-du-jobbet-totalt',
+                                tekst: 'Hvor mye jobbet du totalt i denne perioden hos Olsens Sykkelservice?',
+                                verdier: {
+                                    '%ARBEIDSGIVER%': 'Olsens Sykkelservice',
+                                },
+                            },
+                            svar: [{
+                                ledetekst: {
+                                    nokkel: 'sykepengesoknad.angi-tid.velg-enhet.label.timer-med-verdi',
+                                    tekst: '15 timer totalt',
+                                    verdier: {
+                                        '%ANTALL%': '15',
+                                    },
+                                },
+                                type: 'TEKSTSVAR',
+                                tilleggstekst: {
+                                    ledetekst: {
+                                        tekst: 'Vår foreløpige beregning er at du jobbet <strong>40 %</strong> av stillingen din.',
+                                        nokkel: 'sykepengesoknad.angi-tid.dette-tilsvarer',
+                                        verdier: {
+                                            '%STILLINGSPROSENT%': '40',
+                                        },
+                                    },
+                                    type: 'HTML',
+                                },
+                                undersporsmal: [],
+                            }],
+                        }],
+                    }],
+                });
+            });
+
             it('Skal mappe arbeidsspørsmål for ugraderte perioder når bruker har jobbet mer enn planlagt og oppgitt dette i timer', () => {
                 skjemasoknad.aktiviteter = [aktivitet2];
                 const verdier = mapSkjemasoknadToOppsummeringSoknad(deepFreeze(skjemasoknad), deepFreeze(sykepengesoknad));

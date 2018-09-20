@@ -273,8 +273,9 @@ const tilAktiviteterSpm = (skjemasoknad, sykepengesoknad, felt) => {
             const faktiskjobbingSvar = new Svar(getNokkelOgVerdier(svarnokkel, arbeidsgradverdier));
 
             if (valgtEnhet !== prosent) {
-                const ferieOgPermisjonPerioder = skjemasoknad.harHattFeriePermisjonEllerUtenlandsopphold && skjemasoknad.harHattFerie ? skjemasoknad.ferie : [];
-                const feriePerioderSomJSDatePerioder = ferieOgPermisjonPerioder.map(tilDatePeriode);
+                const ferieperioder = skjemasoknad.harHattFeriePermisjonEllerUtenlandsopphold && skjemasoknad.harHattFerie ? skjemasoknad.ferie : [];
+                const permisjonperioder = skjemasoknad.harHattFeriePermisjonEllerUtenlandsopphold && skjemasoknad.harHattPermisjon ? skjemasoknad.permisjon : [];
+                const feriePerioderSomJSDatePerioder = [...ferieperioder, ...permisjonperioder].map(tilDatePeriode);
                 const beregnetArbeidsgrad = getStillingsprosent(aktivitet.avvik.timer, aktivitet.avvik.arbeidstimerNormalUke, aktivitet.periode, feriePerioderSomJSDatePerioder);
 
                 if (beregnetArbeidsgrad && beregnetArbeidsgrad > 0) {

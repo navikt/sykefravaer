@@ -4,8 +4,6 @@ import { browserHistory } from 'react-router';
 import { post, log, arbeidssituasjoner } from 'digisyfo-npm';
 import * as actions from '../actions/dinSykmelding_actions';
 import { skalOppretteSoknadHentet } from '../actions/sykmeldingMeta_actions';
-import * as dineSykmeldingerActions from '../actions/dineSykmeldinger_actions';
-import * as arbeidsgiversSykmeldingerActions from '../actions/arbeidsgiversSykmeldinger_actions';
 import * as actiontyper from '../actions/actiontyper';
 
 const gaTilKvittering = (sykmeldingId) => {
@@ -41,8 +39,6 @@ export function* bekreftSykmelding(action) {
         yield put(skalOppretteSoknadHentet(sykmeldingId, skalOppretteSoknad));
         yield put(actions.setArbeidssituasjon(verdier.arbeidssituasjon, sykmeldingId));
         yield put(actions.sykmeldingBekreftet(sykmeldingId));
-        yield put(dineSykmeldingerActions.hentDineSykmeldinger());
-        yield put(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
         gaTilKvittering(sykmeldingId);
     } catch (e) {
         log(e);
@@ -56,8 +52,6 @@ export function* sendSykmeldingTilArbeidsgiver(action) {
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${sykmeldingId}/actions/send`, body);
         yield put(actions.sykmeldingSendt(sykmeldingId));
-        yield put(dineSykmeldingerActions.hentDineSykmeldinger());
-        yield put(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
         gaTilKvittering(sykmeldingId);
     } catch (e) {
         log(e);
@@ -71,8 +65,6 @@ export function* avbrytSykmelding(action) {
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/avbryt`, body);
         yield put(actions.sykmeldingAvbrutt(action.sykmeldingId));
-        yield put(dineSykmeldingerActions.hentDineSykmeldinger());
-        yield put(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
         gaTilKvittering(action.sykmeldingId);
     } catch (e) {
         log(e);
@@ -85,8 +77,6 @@ export function* gjenaapneSykmelding(action) {
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/gjenaapne`);
         yield put(actions.sykmeldingGjenaapnet(action.sykmeldingId));
-        yield put(dineSykmeldingerActions.hentDineSykmeldinger());
-        yield put(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
     } catch (e) {
         log(e);
         yield put(actions.gjenaapneSykmeldingFeilet());
@@ -98,8 +88,6 @@ export function* angreBekreftSykmelding(action) {
     try {
         yield call(post, `${window.APP_SETTINGS.REST_ROOT}/sykmeldinger/${action.sykmeldingId}/actions/gjenaapne`);
         yield put(actions.bekreftSykmeldingAngret(action.sykmeldingId));
-        yield put(dineSykmeldingerActions.hentDineSykmeldinger());
-        yield put(arbeidsgiversSykmeldingerActions.hentArbeidsgiversSykmeldinger());
     } catch (e) {
         log(e);
         yield put(actions.angreBekreftSykmeldingFeilet());

@@ -16,7 +16,14 @@ export function* hentDineSykmeldinger() {
 }
 
 function* watchHentDineSykmeldinger() {
-    yield* takeEvery(actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT, hentDineSykmeldinger);
+    yield* takeEvery([
+        actiontyper.HENT_DINE_SYKMELDINGER_FORESPURT,
+        actiontyper.SYKMELDING_BEKREFTET,
+        actiontyper.SYKMELDING_SENDT,
+        actiontyper.SYKMELDING_AVBRUTT,
+        actiontyper.SYKMELDING_GJENAAPNET,
+        actiontyper.BEKREFT_SYKMELDING_ANGRET,
+    ], hentDineSykmeldinger);
 }
 
 export default function* dineSykmeldingerSagas() {

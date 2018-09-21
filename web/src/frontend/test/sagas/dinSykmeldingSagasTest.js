@@ -76,16 +76,6 @@ describe('dinSykmeldingSagas', () => {
             const nextPut = put(actions.sykmeldingBekreftet('123'));
             expect(generator.next().value).to.deep.equal(nextPut);
         });
-
-        it('Skal dernest dispatche HENT_DINE_SYKMELDINGER_FORESPURT', () => {
-            const nextPut = put(hentDineSykmeldinger());
-            expect(generator.next().value).to.deep.equal(nextPut);
-        });
-
-        it('Skal dernest dispatche HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT', () => {
-            const nextPut = put(hentArbeidsgiversSykmeldinger());
-            expect(generator.next().value).to.deep.equal(nextPut);
-        });
     });
 
     describe('bekreftSykmelding for frilansere som er innenfor ventetid', () => {
@@ -151,16 +141,6 @@ describe('dinSykmeldingSagas', () => {
             const nextPut = put(actions.sykmeldingBekreftet('123'));
             expect(generator.next().value).to.deep.equal(nextPut);
         });
-
-        it('Skal dernest dispatche HENT_DINE_SYKMELDINGER_FORESPURT', () => {
-            const nextPut = put(hentDineSykmeldinger());
-            expect(generator.next().value).to.deep.equal(nextPut);
-        });
-
-        it('Skal dernest dispatche HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT', () => {
-            const nextPut = put(hentArbeidsgiversSykmeldinger());
-            expect(generator.next().value).to.deep.equal(nextPut);
-        });
     });
 
     describe('sendSykmeldingTilArbeidsgiver', () => {
@@ -189,16 +169,6 @@ describe('dinSykmeldingSagas', () => {
             const nextPut = put(actions.sykmeldingSendt('minSykmeldingId'));
             expect(generator.next().value).to.deep.equal(nextPut);
         });
-
-        it('Skal dernest hente dine sykmeldinger', () => {
-            const nextPut = put(hentDineSykmeldinger());
-            expect(generator.next().value).to.deep.equal(nextPut);
-        });
-
-        it('Skal dernest hente arbeidsgivers sykmeldinger', () => {
-            const nextPut = put(hentArbeidsgiversSykmeldinger());
-            expect(generator.next().value).to.deep.equal(nextPut);
-        });
     });
 
     describe('avbrytSykmelding', () => {
@@ -223,16 +193,6 @@ describe('dinSykmeldingSagas', () => {
             const nextPut = put(actions.sykmeldingAvbrutt('minAndreSykmeldingId'));
             expect(generator.next().value).to.deep.equal(nextPut);
         });
-
-        it('Skal dernest hente dine sykmeldinger', () => {
-            const nextPut = put(hentDineSykmeldinger());
-            expect(generator.next().value).to.deep.equal(nextPut);
-        });
-
-        it('Skal dernest hente arbeidsgivers sykmeldinger', () => {
-            const nextPut = put(hentArbeidsgiversSykmeldinger());
-            expect(generator.next().value).to.deep.equal(nextPut);
-        });
     });
 
 
@@ -254,16 +214,6 @@ describe('dinSykmeldingSagas', () => {
 
         it('Skal dernest dispatche SYKMELDING_GJENAAPNET', () => {
             const nextPut = put(actions.sykmeldingGjenaapnet('minAndreSykmeldingId'));
-            expect(generator.next().value).to.deep.equal(nextPut);
-        });
-
-        it('Skal dernest hente dine sykmeldinger', () => {
-            const nextPut = put(hentDineSykmeldinger());
-            expect(generator.next().value).to.deep.equal(nextPut);
-        });
-
-        it('Skal dernest hente arbeidsgivers sykmeldinger', () => {
-            const nextPut = put(hentArbeidsgiversSykmeldinger());
             expect(generator.next().value).to.deep.equal(nextPut);
         });
     });

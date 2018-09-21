@@ -20,7 +20,7 @@ describe('SykepengesoknadSelvstendigOppsummeringSkjema', () => {
             opprettetDato: '2017-02-01',
             arbeidsgiver: {
                 navn: 'BYGGMESTER BLOM AS',
-                orgnummer: '***REMOVED***',
+                orgnummer: '123456789',
                 naermesteLeder: null,
             },
             identdato: '2017-02-15',
@@ -66,7 +66,7 @@ describe('SykepengesoknadSelvstendigOppsummeringSkjema', () => {
             opprettetDato: '2017-02-01T00:00:00.000Z',
             arbeidsgiver: {
                 navn: 'BYGGMESTER BLOM AS',
-                orgnummer: '***REMOVED***',
+                orgnummer: '123456789',
                 naermesteLeder: null,
             },
             identdato: '2017-02-15T00:00:00.000Z',

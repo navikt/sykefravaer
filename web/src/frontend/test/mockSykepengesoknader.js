@@ -7,7 +7,7 @@ export const soknader = [{
     opprettetDato: '2017-01-19',
     arbeidsgiver: {
         navn: 'BYGGMESTER BLOM AS',
-        orgnummer: '***REMOVED***',
+        orgnummer: '123456789',
         naermesteLeder: null,
     },
     identdato: '2016-07-15',
@@ -40,7 +40,7 @@ export const soknader = [{
     opprettetDato: '2017-01-18',
     arbeidsgiver: {
         navn: 'BYGGMESTER BLOM AS',
-        orgnummer: '***REMOVED***',
+        orgnummer: '123456789',
         naermesteLeder: null,
     },
     identdato: '2016-07-15',
@@ -72,7 +72,7 @@ export const soknader = [{
     opprettetDato: '2017-01-18',
     arbeidsgiver: {
         navn: 'BYGGMESTER BLOM AS',
-        orgnummer: '***REMOVED***',
+        orgnummer: '123456789',
         naermesteLeder: null,
     },
     identdato: '2016-07-15',
@@ -104,7 +104,7 @@ export const soknader = [{
     opprettetDato: '2017-01-18',
     arbeidsgiver: {
         navn: 'BYGGMESTER BLOM AS',
-        orgnummer: '***REMOVED***',
+        orgnummer: '123456789',
         naermesteLeder: null,
     },
     identdato: '2016-07-15',
@@ -141,7 +141,7 @@ export const getSoknad = (soknad = {}) => {
         opprettetDato: '2017-01-18',
         arbeidsgiver: {
             navn: 'BYGGMESTER BLOM AS',
-            orgnummer: '***REMOVED***',
+            orgnummer: '123456789',
             naermesteLeder: null,
         },
         identdato: '2016-07-15',
@@ -190,7 +190,7 @@ export const getParsetSoknad = (soknad = {}) => {
         opprettetDato: new Date('2017-01-18'),
         arbeidsgiver: {
             navn: 'BYGGMESTER BLOM AS',
-            orgnummer: '***REMOVED***',
+            orgnummer: '123456789',
             naermesteLeder: null,
         },
         identdato: new Date('2016-07-15'),

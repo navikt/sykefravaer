@@ -26,19 +26,19 @@ export const leggTilMnderOgDagerPaaDato = (dato, mnder, dager) => {
 
 export const getArbeidsgivere = [
     {
-        virksomhetsnummer: '123456789',
+        virksomhetsnummer: '123456788',
         navn: 'Lommen Barnehave',
         harNaermesteLeder: false,
     },
     {
-        virksomhetsnummer: '***REMOVED***',
+        virksomhetsnummer: '123456789',
         navn: 'Skogen Barnehave',
         harNaermesteLeder: true,
     },
 ];
 
 const arbeidsgiver = {
-    virksomhetsnummer: '***REMOVED***',
+    virksomhetsnummer: '123456789',
     navn: 'Lommen Barnehave',
     harNaermesteLeder: false,
 };
@@ -57,10 +57,10 @@ export const getSykmeldinger = [
         naermesteLederStatus: null,
         innsendtArbeidsgivernavn: null,
         valgtArbeidssituasjon: null,
-        orgnummer: '123456789',
+        orgnummer: '123456781',
         sendtdato: null,
         pasient: {
-            fnr: '***REMOVED***',
+            fnr: '12345678910',
             fornavn: 'Frida',
             etternavn: 'Frost',
         },
@@ -146,7 +146,7 @@ export const getSykmeldinger = [
         bekreftelse: {
             utstedelsesdato: new Date('2017-02-10'),
             sykmelder: 'Frida Frost',
-            sykmelderTlf: '94431152',
+            sykmelderTlf: '99988777',
         },
     },
     {
@@ -158,10 +158,10 @@ export const getSykmeldinger = [
         naermesteLederStatus: null,
         innsendtArbeidsgivernavn: null,
         valgtArbeidssituasjon: null,
-        orgnummer: '***REMOVED***',
+        orgnummer: '123456789',
         sendtdato: null,
         pasient: {
-            fnr: '***REMOVED***',
+            fnr: '12345678910',
             fornavn: 'Frida',
             etternavn: 'Frost',
         },
@@ -247,7 +247,7 @@ export const getSykmeldinger = [
         bekreftelse: {
             utstedelsesdato: new Date('2017-04-10'),
             sykmelder: 'Frida Frost',
-            sykmelderTlf: '94431152',
+            sykmelderTlf: '99988777',
         },
     },
 ];
@@ -255,12 +255,12 @@ export const getSykmeldinger = [
 const sykmelding = {
     id: '3456789',
     pasient: {
-        fnr: '***REMOVED***',
+        fnr: '12345678910',
         fornavn: 'Per',
         etternavn: 'Person',
     },
     arbeidsgiver: 'Selskapet AS',
-    orgnummer: '123456789',
+    orgnummer: '123456781',
     status: 'NY',
     identdato: new Date('2015-12-31'),
     diagnose: {

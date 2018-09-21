@@ -63,17 +63,17 @@ describe('Arbeidsoppgaver', () => {
                 yrke: 'Test',
                 prosent: '80',
             }],
-            fnr: '1234567891234',
+            fnr: '1234567891000',
         };
         arbeidsgiver = {
             naermesteLeder: {
                 navn: 'Arbeidsgiver',
-                fnr: '***REMOVED***',
+                fnr: '12345678910',
             },
         };
         arbeidstaker = {
             navn: 'Arbeidstaker',
-            fnr: '1234567891234',
+            fnr: '1234567891000',
             sistInnlogget: '2017-01-01T00:00:00.000',
             stillinger: arbeidsforhold.stillinger,
         };

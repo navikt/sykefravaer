@@ -98,7 +98,7 @@ describe('validerSykmeldingskjema', () => {
     it("Skal ikke returnere valgtArbeidsgiver dersom valgtArbeidssituasjon === 'ARBEIDSTAKER' og valgtArbeidsgiver === {}", () => {
         fields.valgtArbeidssituasjon = ARBEIDSTAKER;
         fields.valgtArbeidsgiver = {
-            orgnummer: '***REMOVED***',
+            orgnummer: '123456789',
             navn: 'Alna Frisør',
         };
         const res = validerSykmeldingskjema(fields);

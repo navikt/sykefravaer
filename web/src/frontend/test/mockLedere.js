@@ -1,28 +1,28 @@
 export const getLedere = [
     {
-        navn: 'Geir-Espen Fygle',
-        epost: 'morten.tholander@nav.no',
-        mobil: '***REMOVED***',
-        orgnummer: '***REMOVED***',
-        organisasjonsnavn: 'BEKK CONSULTING AS',
+        navn: 'Navn-Navnolini Navnesen',
+        epost: 'epost@epost.no',
+        mobil: '99988777',
+        orgnummer: '123456789',
+        organisasjonsnavn: 'Arbeidsgiver AS',
         aktivTom: null,
     },
     {
-        navn: 'Geir Fygle',
-        epost: 'morten.tholand@nav.no',
-        mobil: '***REMOVED***',
-        orgnummer: '***REMOVED***',
-        organisasjonsnavn: 'BEKK CONSULTING',
+        navn: 'Navn Navnesen',
+        epost: 'epost@epost.no',
+        mobil: '99988777',
+        orgnummer: '123456788',
+        organisasjonsnavn: 'Arbeidsgiver',
         aktivTom: null,
     },
 ];
 
 const naermesteLeder = {
-    navn: 'Geir-Espen Fygle',
-    epost: 'morten.tholander@nav.no',
-    mobil: '***REMOVED***',
-    orgnummer: '***REMOVED***',
-    organisasjonsnavn: 'BEKK CONSULTING AS',
+    navn: 'Navn-Navnolini Navnesen',
+    epost: 'epost@epost.no',
+    mobil: '99988777',
+    orgnummer: '123456789',
+    organisasjonsnavn: 'Arbeidsgiver AS',
     aktivTom: null,
 };
 

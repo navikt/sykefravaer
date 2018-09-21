@@ -98,7 +98,7 @@ describe('Soknader', () => {
     });
 
     it('Viser innsendte søknader om vi har noen', () => {
-        const soknad = { id: '1', status: 'SENDT', fom: '01.01.2017', tom: '01.20.2017', arbeidsgiver: 'BEKK Consulting AS', innsendingsDato: '02.01.2017' };
+        const soknad = { id: '1', status: 'SENDT', fom: '01.01.2017', tom: '01.20.2017', arbeidsgiver: 'Arbeidsgiver AS', innsendingsDato: '02.01.2017' };
 
         component = shallow(<Soknader soknader={[soknad]} />);
         expect(component.find('.js-sendt')).to.have.length(1);

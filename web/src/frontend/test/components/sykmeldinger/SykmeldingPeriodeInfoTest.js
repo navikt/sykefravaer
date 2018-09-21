@@ -29,7 +29,7 @@ describe('SykmeldingPeriodeInfo', () => {
 
     describe('Vanlig sykmelding med arbeidsgiver og grad', () => {
         const grad = 75;
-        const arbeidsgiver = 'BEKK';
+        const arbeidsgiver = 'Arbeidsgiver';
 
         it('Viser grad dersom sykmeldingen er gradert', () => {
             const info = shallow(<SykmeldingPeriodeInfo
@@ -37,7 +37,7 @@ describe('SykmeldingPeriodeInfo', () => {
                     grad,
                 })}
                 arbeidsgiver={arbeidsgiver} />);
-            expect(info.find('.js-periode').text()).to.equal('Du er 75 % sykmeldt fra BEKK i 16 dager');
+            expect(info.find('.js-periode').text()).to.equal('Du er 75 % sykmeldt fra Arbeidsgiver i 16 dager');
         });
 
         it('Viser grad dersom sykmeldingen er gradert og bare varer i én dag', () => {
@@ -47,7 +47,7 @@ describe('SykmeldingPeriodeInfo', () => {
                     tom: '2016-05-01',
                 })}
                 arbeidsgiver={arbeidsgiver} />);
-            expect(info.find('.js-periode').text()).to.equal('Du er 75 % sykmeldt fra BEKK i 1 dag');
+            expect(info.find('.js-periode').text()).to.equal('Du er 75 % sykmeldt fra Arbeidsgiver i 1 dag');
         });
 
         it('Viser grad dersom grad === 100', () => {
@@ -56,7 +56,7 @@ describe('SykmeldingPeriodeInfo', () => {
                     grad: 100,
                 })}
                 arbeidsgiver={arbeidsgiver} />);
-            expect(info.find('.js-periode').text()).to.equal('Du er 100 % sykmeldt fra BEKK i 16 dager');
+            expect(info.find('.js-periode').text()).to.equal('Du er 100 % sykmeldt fra Arbeidsgiver i 16 dager');
         });
 
         it('Viser grad dersom sykmeldingen er gradert og bare varer i én dag', () => {
@@ -66,13 +66,13 @@ describe('SykmeldingPeriodeInfo', () => {
                     tom: '2016-05-01',
                 })}
                 arbeidsgiver={arbeidsgiver} />);
-            expect(info.find('.js-periode').text()).to.equal('Du er 100 % sykmeldt fra BEKK i 1 dag');
+            expect(info.find('.js-periode').text()).to.equal('Du er 100 % sykmeldt fra Arbeidsgiver i 1 dag');
         });
     });
 
     describe('Vanlig sykmelding uten grad', () => {
         const grad = null;
-        const arbeidsgiver = 'BEKK';
+        const arbeidsgiver = 'Arbeidsgiver';
 
         it('Viser ikke grad', () => {
             const info = shallow(<SykmeldingPeriodeInfo
@@ -80,7 +80,7 @@ describe('SykmeldingPeriodeInfo', () => {
                     grad,
                 })}
                 arbeidsgiver={arbeidsgiver} />);
-            expect(info.find('.js-periode').text()).to.equal('Du er sykmeldt fra BEKK i 16 dager');
+            expect(info.find('.js-periode').text()).to.equal('Du er sykmeldt fra Arbeidsgiver i 16 dager');
         });
 
         it('Viser ikke grad dersom sykmeldingen bare varer i én dag', () => {
@@ -90,7 +90,7 @@ describe('SykmeldingPeriodeInfo', () => {
                     tom: '2016-05-01',
                 })}
                 arbeidsgiver={arbeidsgiver} />);
-            expect(info.find('.js-periode').text()).to.equal('Du er sykmeldt fra BEKK i 1 dag');
+            expect(info.find('.js-periode').text()).to.equal('Du er sykmeldt fra Arbeidsgiver i 1 dag');
         });
     });
 
@@ -137,7 +137,7 @@ describe('SykmeldingPeriodeInfo', () => {
     });
 
     describe('Behandlingsdager og arbeidsgiver', () => {
-        const arbeidsgiver = 'BEKK';
+        const arbeidsgiver = 'Arbeidsgiver';
 
         it('Viser behandlingsdager dersom sykmeldingen har behandlingsdager', () => {
             const periode = shallow(<SykmeldingPeriodeInfo
@@ -145,7 +145,7 @@ describe('SykmeldingPeriodeInfo', () => {
                     behandlingsdager: 5,
                 })}
                 arbeidsgiver={arbeidsgiver} />);
-            expect(periode.find('.js-periode').text()).to.equal('Du har 5 behandlingsdager i løpet av 16 dager – BEKK');
+            expect(periode.find('.js-periode').text()).to.equal('Du har 5 behandlingsdager i løpet av 16 dager – Arbeidsgiver');
         });
 
         it('Viser behandlingsdag dersom sykmeldingen har en behandlingsdag', () => {
@@ -154,7 +154,7 @@ describe('SykmeldingPeriodeInfo', () => {
                     behandlingsdager: 1,
                 })}
                 arbeidsgiver={arbeidsgiver} />);
-            expect(periode.find('.js-periode').text()).to.equal('Du har 1 behandlingsdag i løpet av 16 dager – BEKK');
+            expect(periode.find('.js-periode').text()).to.equal('Du har 1 behandlingsdag i løpet av 16 dager – Arbeidsgiver');
         });
 
         it('Viser behandlingsdag dersom sykmeldingen har én behandlingsdag', () => {
@@ -164,7 +164,7 @@ describe('SykmeldingPeriodeInfo', () => {
                     tom: '2016-05-01',
                 })}
                 arbeidsgiver={arbeidsgiver} />);
-            expect(periode.find('.js-periode').text()).to.equal('Du har 1 behandlingsdag i løpet av 1 dag – BEKK');
+            expect(periode.find('.js-periode').text()).to.equal('Du har 1 behandlingsdag i løpet av 1 dag – Arbeidsgiver');
         });
     });
 
@@ -234,7 +234,7 @@ describe('SykmeldingPeriodeInfo', () => {
                 reisetilskudd: true,
                 grad: 88,
             })}
-            arbeidsgiver="BEKK" />);
+            arbeidsgiver="Arbeidsgiver" />);
         expect(periode.find('.js-periode').text()).to.equal('Du er 88 % sykmeldt med reisetilskudd i 16 dager');
     });
 
@@ -246,7 +246,7 @@ describe('SykmeldingPeriodeInfo', () => {
                     grad: undefined,
                     tom: '2016-05-10',
                 })}
-                arbeidsgiver="BEKK" />);
+                arbeidsgiver="Arbeidsgiver" />);
             expect(periode.find('.js-periode').text()).to.equal('Du har reisetilskudd i 10 dager');
         });
 
@@ -284,8 +284,8 @@ describe('SykmeldingPeriodeInfo', () => {
             periode={getPeriode({
                 avventende: 'Gi henne en bedre stol',
             })}
-            arbeidsgiver="BEKK" />);
-        expect(periode.find('.js-periode').text()).to.equal('Du er avventende sykmeldt fra BEKK i 16 dager');
+            arbeidsgiver="Arbeidsgiver" />);
+        expect(periode.find('.js-periode').text()).to.equal('Du er avventende sykmeldt fra Arbeidsgiver i 16 dager');
     });
 
     it('Viser avventende dersom sykmeldingen er avventende', () => {
@@ -294,8 +294,8 @@ describe('SykmeldingPeriodeInfo', () => {
                 avventende: 'Gi henne en bedre stol',
                 tom: '2016-05-01',
             })}
-            arbeidsgiver="BEKK" />);
-        expect(periode.find('.js-periode').text()).to.equal('Du er avventende sykmeldt fra BEKK i 1 dag');
+            arbeidsgiver="Arbeidsgiver" />);
+        expect(periode.find('.js-periode').text()).to.equal('Du er avventende sykmeldt fra Arbeidsgiver i 1 dag');
     });
 
     it('Viser avventende dersom perioden varer i én dag, er uten arbeidsgiver og uten grad', () => {

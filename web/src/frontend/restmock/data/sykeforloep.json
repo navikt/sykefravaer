@@ -15,7 +15,7 @@
         "sendtdato": null,
         "sporsmal": null,
         "pasient": {
-          "fnr": "12121233455",
+          "fnr": "12345678910",
           "fornavn": "Kari",
           "mellomnavn": "Perma",
           "etternavn": "Testperson"
@@ -135,7 +135,7 @@
         "sendtdato": null,
         "sporsmal": null,
         "pasient": {
-          "fnr": "12121233455",
+          "fnr": "12345678910",
           "fornavn": "Kari",
           "mellomnavn": "Perma",
           "etternavn": "Testperson"
@@ -253,7 +253,7 @@
         "mottakendeArbeidsgiver": {
           "navn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
           "virksomhetsnummer": "99988877",
-          "juridiskOrgnummer": "964338531"
+          "juridiskOrgnummer": "123456789"
         },
         "orgnummer": "99988877",
         "sendtdato": "2018-07-26T15:14:16",
@@ -265,7 +265,7 @@
           "fravaerBesvart": null
         },
         "pasient": {
-          "fnr": "12121233455",
+          "fnr": "12345678910",
           "fornavn": "Kari",
           "mellomnavn": "Perma",
           "etternavn": "Testperson"
@@ -391,7 +391,7 @@
         "mottakendeArbeidsgiver": {
           "navn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
           "virksomhetsnummer": "99988877",
-          "juridiskOrgnummer": "964338531"
+          "juridiskOrgnummer": "123456789"
         },
         "orgnummer": "99988877",
         "sendtdato": "2018-07-26T15:14:03",
@@ -403,7 +403,7 @@
           "fravaerBesvart": null
         },
         "pasient": {
-          "fnr": "12121233455",
+          "fnr": "12345678910",
           "fornavn": "Kari",
           "mellomnavn": "Perma",
           "etternavn": "Testperson"
@@ -523,7 +523,7 @@
         "sendtdato": null,
         "sporsmal": null,
         "pasient": {
-          "fnr": "12121233455",
+          "fnr": "12345678910",
           "fornavn": "Kari",
           "mellomnavn": "Perma",
           "etternavn": "Testperson"
@@ -639,10 +639,10 @@
         "tekstkey": "tidslinje.ny-naermeste-leder",
         "data": {
           "naermesteLeder": {
-            "aktoerId": "1242536513046",
+            "aktoerId": "1234567891000",
             "navn": "Fanny Storm",
-            "epost": "morten.tholander@nav.no",
-            "mobil": "***REMOVED***",
+            "epost": "epost@epost.no",
+            "mobil": "99988777",
             "orgnummer": "99988877",
             "organisasjonsnavn": "TEAM SYKEFRAVÆRS RESTMOCK-BEDRIFT",
             "aktivTom": null,

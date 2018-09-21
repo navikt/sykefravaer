@@ -495,7 +495,7 @@ describe('validerFravaerOgFriskmelding', () => {
                 opprettetDato: '2017-02-02T00:00:00.000Z',
                 arbeidsgiver: {
                     navn: 'BYGGMESTER BLOM AS',
-                    orgnummer: '***REMOVED***',
+                    orgnummer: '123456789',
                     naermesteLeder: null,
                 },
                 identdato: '2017-02-15T00:00:00.000Z',
@@ -533,7 +533,7 @@ describe('validerFravaerOgFriskmelding', () => {
                 opprettetDato: '2017-02-02T00:00:00.000Z',
                 arbeidsgiver: {
                     navn: 'BYGGMESTER BLOM AS',
-                    orgnummer: '***REMOVED***',
+                    orgnummer: '123456789',
                     naermesteLeder: null,
                 },
                 identdato: '2017-02-15T00:00:00.000Z',

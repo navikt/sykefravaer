@@ -320,7 +320,7 @@ describe('Oppfolgingsdialog', () => {
             arbeidsgiver: {
                 naermesteLeder: {},
                 forrigeNaermesteLeder: {
-                    fnr: '***REMOVED***',
+                    fnr: '1234567891000',
                     navn: 'Arbeidsgiver navn',
                 },
             },

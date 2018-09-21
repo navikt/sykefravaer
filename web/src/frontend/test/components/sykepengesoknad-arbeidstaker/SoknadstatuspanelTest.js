@@ -69,7 +69,7 @@ describe('Soknadstatuspanel', () => {
         });
 
         it('Skal vise Sender...', () => {
-            expect(component.text()).to.contain('Sender til BYGGMESTER BLOM AS (org. nr. 983 610 218)...');
+            expect(component.text()).to.contain('Sender til BYGGMESTER BLOM AS (org. nr. 123 456 789)...');
         });
 
         it('Skal inneholde Hjelpetekst', () => {
@@ -95,7 +95,7 @@ describe('Soknadstatuspanel', () => {
         });
 
         it('Skal vise Sender...', () => {
-            expect(component.text()).to.contain('Sender til NAV og BYGGMESTER BLOM AS (org. nr. 983 610 218)...');
+            expect(component.text()).to.contain('Sender til NAV og BYGGMESTER BLOM AS (org. nr. 123 456 789)...');
         });
 
         it('Skal inneholde Hjelpetekst', () => {
@@ -120,7 +120,7 @@ describe('Soknadstatuspanel', () => {
         });
 
         it('Skal vise statustekst', () => {
-            expect(component.text()).to.contain('Sendt til BYGGMESTER BLOM AS (org. nr. 983 610 218): 17. mai 2017');
+            expect(component.text()).to.contain('Sendt til BYGGMESTER BLOM AS (org. nr. 123 456 789): 17. mai 2017');
         });
 
         it('Skal ikke inneholde Hjelpetekst', () => {
@@ -146,7 +146,7 @@ describe('Soknadstatuspanel', () => {
         });
 
         it('Skal vise riktig status', () => {
-            expect(component.text()).to.contain('Sendt til NAV og BYGGMESTER BLOM AS (org. nr. 983 610 218): 17. mai 2017');
+            expect(component.text()).to.contain('Sendt til NAV og BYGGMESTER BLOM AS (org. nr. 123 456 789): 17. mai 2017');
         });
 
         it('Skal ikke inneholde Hjelpetekst', () => {
@@ -174,7 +174,7 @@ describe('Soknadstatuspanel', () => {
         it('Skal vise riktig status', () => {
             expect(component.text()).to.contain('Status');
             expect(component.text()).to.contain('Sendt til NAV: 20. mai 2017');
-            expect(component.text()).to.contain('Sendt til BYGGMESTER BLOM AS (org. nr. 983 610 218): 17. mai 2017');
+            expect(component.text()).to.contain('Sendt til BYGGMESTER BLOM AS (org. nr. 123 456 789): 17. mai 2017');
         });
 
         it('Skal ikke inneholde Hjelpetekst', () => {

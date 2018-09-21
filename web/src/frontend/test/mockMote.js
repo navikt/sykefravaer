@@ -7,7 +7,7 @@ export const getMote = (mote) => {
             hendelser: [],
             deltakerUuid: 'uuid1',
             navn: 'Are Arbeidsgiver',
-            orgnummer: '***REMOVED***',
+            orgnummer: '123456789',
             epost: 'are.arbeidsgiver@nav.no',
             type: 'arbeidsgiver',
             svartidspunkt: null,
@@ -72,14 +72,14 @@ export const moteIkkeBesvart = getMote();
 
 export const moteBesvartAlleAlternativer = getMote({
     status: 'OPPRETTET',
-    fnr: '12345678901',
+    fnr: '12345678910',
     opprettetTidspunkt: new Date('2017-02-23T12:57:11.906'),
     bekreftetTidspunkt: null,
     deltakere: [{
         hendelser: [],
         deltakerUuid: 'uuid1',
         navn: 'Are Arbeidsgiver',
-        orgnummer: '***REMOVED***',
+        orgnummer: '123456789',
         epost: 'are.arbeidsgiver@nav.no',
         type: 'arbeidsgiver',
         svartidspunkt: new Date('2017-02-25T12:57:11.906'),
@@ -142,14 +142,14 @@ export const moteBesvartAlleAlternativer = getMote({
 
 export const moteBesvartMedNyeAlternativerIkkeBesvart = getMote({
     status: 'OPPRETTET',
-    fnr: '12345678901',
+    fnr: '12345678910',
     opprettetTidspunkt: new Date('2017-02-23T14:04:59.524'),
     bekreftetTidspunkt: null,
     deltakere: [{
         hendelser: [],
         deltakerUuid: 'uuid1',
         navn: 'Are Arbeidsgiver',
-        orgnummer: '***REMOVED***',
+        orgnummer: '123456789',
         epost: 'are.arbeidsgiver@nav.no',
         type: 'arbeidsgiver',
         svartidspunkt: new Date('2017-03-01T14:04:59.524'),
@@ -242,14 +242,14 @@ export const moteBesvartMedNyeAlternativerIkkeBesvart = getMote({
 
 export const moteBesvartMedNyeAlternativerBesvart = getMote({
     status: 'OPPRETTET',
-    fnr: '12345678901',
+    fnr: '12345678910',
     opprettetTidspunkt: new Date('2017-02-23T13:44:26.41'),
     bekreftetTidspunkt: null,
     deltakere: [{
         hendelser: [],
         deltakerUuid: 'uuid1',
         navn: 'Are Arbeidsgiver',
-        orgnummer: '***REMOVED***',
+        orgnummer: '123456789',
         epost: 'are.arbeidsgiver@nav.no',
         type: 'arbeidsgiver',
         svartidspunkt: new Date('2017-02-25T13:44:26.41'),

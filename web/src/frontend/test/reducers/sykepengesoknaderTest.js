@@ -582,7 +582,7 @@ describe('sykepengesoknader', () => {
                 opprettetDato: '2017-08-04',
                 arbeidsgiver: {
                     navn: 'ARBEIDS- OG VELFERDSDIREKTORATET, AVD SANNERGATA',
-                    orgnummer: '***REMOVED***',
+                    orgnummer: '123456789',
                     naermesteLeder: null,
                 },
                 identdato: '2017-07-26',

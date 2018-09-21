@@ -64,9 +64,9 @@ describe('OppsummeringContainer', () => {
         const arbeidsgiverperiodeStartdato = new Date('2017-01-01');
         const soknad = getParsetSoknad();
         const ledere = [];
-        const lederSvartJa = [{ orgnummer: '***REMOVED***', arbeidsgiverForskuttererLoenn: true }];
-        const lederSvartNei = [{ orgnummer: '***REMOVED***', arbeidsgiverForskuttererLoenn: false }];
-        const lederIkkeSvart = [{ orgnummer: '***REMOVED***', arbeidsgiverForskuttererLoenn: null }];
+        const lederSvartJa = [{ orgnummer: '123456789', arbeidsgiverForskuttererLoenn: true }];
+        const lederSvartNei = [{ orgnummer: '123456789', arbeidsgiverForskuttererLoenn: false }];
+        const lederIkkeSvart = [{ orgnummer: '123456789', arbeidsgiverForskuttererLoenn: null }];
 
         it('Skal vise forskutteringsspørsmål ledere er null', () => {
             expect(utledMottaker(null, soknad, arbeidsgiverperiodeStartdato)).to.equal(NAV);

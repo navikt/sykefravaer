@@ -56,12 +56,12 @@ describe('Tiltak', () => {
         arbeidsgiver = {
             naermesteLeder: {
                 navn: 'Arbeidsgiver',
-                fnr: '***REMOVED***',
+                fnr: '1234567891000',
             },
         };
         arbeidstaker = {
             navn: 'Arbeidstaker',
-            fnr: '1234567891234',
+            fnr: '1234567891000',
             sistInnlogget: '2017-01-01T00:00:00.000',
         };
     });

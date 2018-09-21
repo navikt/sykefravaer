@@ -33,10 +33,10 @@ describe('SykmeldingTeaser', () => {
                     grad: 100,
                 }],
             },
-            innsendtArbeidsgivernavn: 'Bekk Consulting AS',
+            innsendtArbeidsgivernavn: 'Arbeidsgiver AS',
         })} />);
 
-        expect(teaser.find('.js-periode').text()).to.contain('Bekk Consulting AS');
+        expect(teaser.find('.js-periode').text()).to.contain('Arbeidsgiver AS');
     });
 
     it('Viser ikke arbeidsgiver dersom arbeidsgiver ikke finnes', () => {
@@ -61,7 +61,7 @@ describe('SykmeldingTeaser', () => {
 
     it('Skal være et <article />-element', () => {
         const teaser = shallow(<SykmeldingTeaser sykmelding={getSykmelding({
-            innsendtArbeidsgivernavn: 'Bekk Consulting AS',
+            innsendtArbeidsgivernavn: 'Arbeidsgiver AS',
             mulighetForArbeid: {
                 perioder: [{
                     fom: '2016-02-02',

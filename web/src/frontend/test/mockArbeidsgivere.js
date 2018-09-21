@@ -5,14 +5,14 @@ export const getArbeidsgivere = [
         harNaermesteLeder: false,
     },
     {
-        virksomhetsnummer: '***REMOVED***',
+        virksomhetsnummer: '123456788',
         navn: 'Skogen Barnehave',
         harNaermesteLeder: true,
     },
 ];
 
 const arbeidsgiver = {
-    virksomhetsnummer: '***REMOVED***',
+    virksomhetsnummer: '123456788',
     navn: 'Skogen Barnehave',
     harNaermesteLeder: true,
 };

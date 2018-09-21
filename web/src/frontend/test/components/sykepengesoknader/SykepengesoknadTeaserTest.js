@@ -16,7 +16,7 @@ describe('SykepengesoknadTeaser', () => {
         fom: new Date('2016-01-01'),
         tom: new Date('2016-01-20'),
         arbeidsgiver: {
-            navn: 'BEKK Consulting AS',
+            navn: 'Arbeidsgiver AS',
         },
     };
 
@@ -132,7 +132,7 @@ describe('SykepengesoknadTeaser', () => {
         it('viser navn på arbeidsgiver soknad er ny', () => {
             const _soknad = Object.assign({}, sykepengesoknad, { status: 'NY' });
             const component = shallow(<TeaserUndertekst soknad={_soknad} />);
-            expect(component.find('.js-undertekst').text()).to.equal('BEKK Consulting AS');
+            expect(component.find('.js-undertekst').text()).to.equal('Arbeidsgiver AS');
         });
 
 
@@ -153,7 +153,7 @@ describe('SykepengesoknadTeaser', () => {
                 sendtTilArbeidsgiverDato: new Date('2017-05-11'),
             });
             const component = shallow(<TeaserUndertekst soknad={_soknad} />);
-            expect(component.text()).to.equal('Sendt til BEKK Consulting AS 11. mai 2017');
+            expect(component.text()).to.equal('Sendt til Arbeidsgiver AS 11. mai 2017');
         });
 
         it('Viser datoen søknaden er sendt hvis den er sendt til begge på samme dag', () => {
@@ -163,7 +163,7 @@ describe('SykepengesoknadTeaser', () => {
                 sendtTilArbeidsgiverDato: new Date('2017-05-11'),
             });
             const component = shallow(<TeaserUndertekst soknad={_soknad} />);
-            expect(component.text()).to.equal('Sendt til BEKK Consulting AS og NAV 11. mai 2017');
+            expect(component.text()).to.equal('Sendt til Arbeidsgiver AS og NAV 11. mai 2017');
         });
 
         it('Viser statustekst hvis søknaden sendes til NAV', () => {
@@ -183,7 +183,7 @@ describe('SykepengesoknadTeaser', () => {
                 sendtTilArbeidsgiverDato: new Date('2017-05-18'),
             });
             const component = shallow(<TeaserUndertekst soknad={_soknad} />);
-            expect(component.text()).to.contain('Sender til BEKK Consulting AS...');
+            expect(component.text()).to.contain('Sender til Arbeidsgiver AS...');
         });
 
         it('Viser statustekst hvis søknaden sendes til begge', () => {
@@ -193,7 +193,7 @@ describe('SykepengesoknadTeaser', () => {
                 sendtTilArbeidsgiverDato: new Date('2017-05-18'),
             });
             const component = shallow(<TeaserUndertekst soknad={_soknad} />);
-            expect(component.text()).to.contain('Sender til BEKK Consulting AS og NAV...');
+            expect(component.text()).to.contain('Sender til Arbeidsgiver AS og NAV...');
         });
 
         it('Viser statustekst hvis søknaden er avbrutt', () => {
@@ -237,7 +237,7 @@ describe('SykepengesoknadTeaser', () => {
             expect(component.find(SendtUlikt)).to.have.length(1);
 
             const sendtUlikt = shallow(<SendtUlikt soknad={_soknad} />);
-            expect(sendtUlikt.text()).to.contain('Sendt til BEKK Consulting AS 11.05.2017');
+            expect(sendtUlikt.text()).to.contain('Sendt til Arbeidsgiver AS 11.05.2017');
             expect(sendtUlikt.text()).to.contain('Sendt til NAV 18.05.2017');
         });
     });

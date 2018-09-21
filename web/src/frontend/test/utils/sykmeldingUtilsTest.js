@@ -264,12 +264,12 @@ describe('sykmeldingUtils', () => {
         let virksomhetsnummer;
 
         it('skal returnerere false', () => {
-            virksomhetsnummer = '***REMOVED***';
+            virksomhetsnummer = '123456781';
             expect(sykmeldtHarNaermestelederHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.equal(false);
         });
 
         it('skal returnerere true', () => {
-            virksomhetsnummer = '***REMOVED***';
+            virksomhetsnummer = '123456788';
             expect(sykmeldtHarNaermestelederHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.equal(true);
         });
     });
@@ -278,13 +278,13 @@ describe('sykmeldingUtils', () => {
         let virksomhetsnummer;
 
         it('skal ikke returnerere en naermeste leder', () => {
-            virksomhetsnummer = '***REMOVED***';
+            virksomhetsnummer = '123456781';
             expect(finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.equal(undefined);
         });
 
         it('skal returnerere en naermeste leder', () => {
-            virksomhetsnummer = '***REMOVED***';
-            expect(finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.equal('Geir-Espen Fygle');
+            virksomhetsnummer = '123456789';
+            expect(finnSykmeldtSinNaermestelederNavnHosArbeidsgiver(virksomhetsnummer, naermesteLedere)).to.equal('Navn-Navnolini Navnesen');
         });
     });
 

@@ -2,7 +2,7 @@ import { parseSoknad } from '../js/reducers/soknader';
 
 const lagretSoknad = {
     id: '8a8f9811-9b3d-41ad-9f9b-0d07cbc41030',
-    aktorId: 'aktorId-745463060',
+    aktorId: 'aktorId-123456789',
     sykmeldingId: null,
     soknadstype: 'OPPHOLD_UTLAND',
     status: 'NY',

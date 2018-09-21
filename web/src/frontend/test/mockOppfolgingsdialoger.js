@@ -4,7 +4,7 @@ export const getOppfolgingsdialoger = [
     {
         opprettetDato: '2017-06-12',
         sistEndretAv: {
-            fnr: '***REMOVED***',
+            fnr: '1234567891000',
         },
         sistEndretDato: '2017-06-13',
         virksomhet: {
@@ -41,12 +41,12 @@ export const getOppfolgingsdialoger = [
                 },
                 opprettetDato: '2017-06-12',
                 sistEndretAv: {
-                    fnr: '***REMOVED***',
+                    fnr: '1234567891000',
                 },
                 sistEndretDato: '2017-06-13',
                 opprettetAv: {
                     navn: 'Test Testesen',
-                    fnr: '***REMOVED***',
+                    fnr: '1234567891000',
                     samtykke: null,
                     godkjent: null,
                 },
@@ -70,12 +70,12 @@ export const getOppfolgingsdialoger = [
                 },
                 opprettetDato: '2017-06-12',
                 sistEndretAv: {
-                    fnr: '***REMOVED***',
+                    fnr: '1234567891000',
                 },
                 sistEndretDato: '2017-06-12',
                 opprettetAv: {
                     navn: 'Test Testesen',
-                    fnr: '***REMOVED***',
+                    fnr: '1234567891000',
                     samtykke: null,
                     godkjent: null,
                 },
@@ -99,12 +99,12 @@ export const getOppfolgingsdialoger = [
                 },
                 opprettetDato: '2017-06-13',
                 sistEndretAv: {
-                    fnr: '***REMOVED***',
+                    fnr: '1234567891000',
                 },
                 sistEndretDato: '2017-06-13',
                 opprettetAv: {
                     navn: 'Test Testesen',
-                    fnr: '***REMOVED***',
+                    fnr: '1234567891000',
                     samtykke: null,
                     godkjent: null,
                 },
@@ -114,7 +114,7 @@ export const getOppfolgingsdialoger = [
         arbeidsgiver: {
             naermesteLeder: {
                 navn: 'Test Testesen',
-                fnr: '***REMOVED***',
+                fnr: '1234567891000',
                 sistInnlogget: '2017-01-01T00:00:00.000',
                 samtykke: null,
                 godkjent: null,
@@ -125,7 +125,7 @@ export const getOppfolgingsdialoger = [
         },
         arbeidstaker: {
             navn: 'Test Testesen',
-            fnr: '***REMOVED***',
+            fnr: '1234567891000',
             sistInnlogget: '2017-01-01T00:00:00.000',
             samtykke: true,
             godkjent: null,
@@ -133,11 +133,11 @@ export const getOppfolgingsdialoger = [
     },
     {
         opprettetAv: {
-            fnr: '***REMOVED***',
+            fnr: '1234567891000',
         },
         opprettetDato: '2017-06-12',
         sistEndretAv: {
-            fnr: '***REMOVED***',
+            fnr: '1234567891000',
         },
         sistEndretDato: '2017-06-12',
         virksomhet: {
@@ -159,20 +159,20 @@ export const getOppfolgingsdialoger = [
         arbeidsgiver: {
             naermesteLeder: {
                 navn: 'Test Testesen',
-                fnr: '***REMOVED***',
+                fnr: '1234567891000',
                 sistInnlogget: '2017-01-01T00:00:00.000',
                 samtykke: null,
                 godkjent: null,
                 aktivFom: '2017-01-01T00:00:00.000',
             },
             forrigeNaermesteLeder: {
-                fnr: '***REMOVED***',
+                fnr: '1234567891000',
                 navn: 'Arbeidsgiver navn',
             },
         },
         arbeidstaker: {
             navn: 'Test Testesen',
-            fnr: '***REMOVED***',
+            fnr: '1234567891000',
             sistInnlogget: '2017-01-01T00:00:00.000',
             samtykke: null,
             godkjent: null,
@@ -180,16 +180,16 @@ export const getOppfolgingsdialoger = [
     },
     {
         opprettetAv: {
-            fnr: '***REMOVED***',
+            fnr: '1234567891000',
         },
         opprettetDato: '2017-06-12',
         sistEndretAv: {
-            fnr: '***REMOVED***',
+            fnr: '1234567891000',
         },
         sistEndretDato: '2017-06-12',
         virksomhet: {
             navn: 'Fant ikke navn',
-            virksomhetsnummer: '***REMOVED***',
+            virksomhetsnummer: '123456789',
         },
         id: 162,
         godkjentPlan: {
@@ -206,20 +206,20 @@ export const getOppfolgingsdialoger = [
         arbeidsgiver: {
             naermesteLeder: {
                 navn: 'Test Testesen',
-                fnr: '***REMOVED***',
+                fnr: '1234567891000',
                 sistInnlogget: '2017-01-01T00:00:00.000',
                 samtykke: null,
                 godkjent: null,
                 aktivFom: '2017-01-01T00:00:00.000',
             },
             forrigeNaermesteLeder: {
-                fnr: '***REMOVED***',
+                fnr: '1234567891000',
                 navn: 'Arbeidsgiver navn',
             },
         },
         arbeidstaker: {
             navn: 'Test Testesen',
-            fnr: '***REMOVED***',
+            fnr: '1234567891000',
             sistInnlogget: '2017-01-01T00:00:00.000',
             samtykke: null,
             godkjent: null,
@@ -229,16 +229,16 @@ export const getOppfolgingsdialoger = [
 
 const oppfolgingsdialog = {
     opprettetAv: {
-        fnr: '***REMOVED***',
+        fnr: '1234567891000',
     },
     opprettetDato: '2017-06-12',
     sistEndretAv: {
-        fnr: '***REMOVED***',
+        fnr: '1234567891000',
     },
     sistEndretDato: '2017-06-13',
     virksomhet: {
         navn: 'Fant ikke navn',
-        virksomhetsnummer: '123456789',
+        virksomhetsnummer: '123456781',
     },
     id: 163,
     godkjentPlan: {
@@ -270,12 +270,12 @@ const oppfolgingsdialog = {
             },
             opprettetDato: '2017-06-21',
             sistEndretAv: {
-                fnr: '***REMOVED***',
+                fnr: '1234567891000',
             },
             sistEndretDato: '2017-06-21',
             opprettetAv: {
                 navn: 'Test Testesen',
-                fnr: '***REMOVED***',
+                fnr: '1234567891000',
                 samtykke: null,
                 godkjent: null,
             },
@@ -295,12 +295,12 @@ const oppfolgingsdialog = {
             godkjentAvArbeidstaker: false,
             opprettetDato: '2017-06-21',
             sistEndretAv: {
-                fnr: '***REMOVED***',
+                fnr: '1234567891000',
             },
             sistEndretDato: '2017-06-21',
             opprettetAv: {
                 navn: 'Test Testesen',
-                fnr: '***REMOVED***',
+                fnr: '1234567891000',
                 samtykke: null,
                 godkjent: null,
             },
@@ -309,7 +309,7 @@ const oppfolgingsdialog = {
     arbeidsgiver: {
         naermesteLeder: {
             navn: 'Test Testesen',
-            fnr: '***REMOVED***',
+            fnr: '1234567891000',
             samtykke: null,
             sistInnlogget: '2017-01-01T00:00:00.000',
             godkjent: null,
@@ -319,7 +319,7 @@ const oppfolgingsdialog = {
     },
     arbeidstaker: {
         navn: 'Test Testesen',
-        fnr: '***REMOVED***',
+        fnr: '1234567891000',
         sistInnlogget: '2017-01-01T00:00:00.000',
         samtykke: true,
         godkjent: null,
@@ -336,7 +336,7 @@ export const hentOppfolgingsdialogTidligere = (dagensDato) => {
         },
         naermesteLeder: {
             navn: 'Test Testesen',
-            fnr: '***REMOVED***',
+            fnr: '1234567891000',
             samtykke: null,
             sistInnlogget: leggTilDagerPaaDato(dagensDato, -1).toISOString(),
             godkjent: null,

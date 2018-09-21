@@ -34,12 +34,12 @@ describe('dineArbeidsgivereSagas', () => {
             type: actiontyper.SET_AKTUELLE_ARBEIDSGIVERE,
             sykmeldingId: '887766',
             arbeidsgivere: [{
-                orgnummer: '112233445',
+                orgnummer: '123456789',
                 navn: 'Mortens grønnsaker AS',
             }],
         });
         expect(generator.next([{
-            orgnummer: '112233445',
+            orgnummer: '123456789',
             navn: 'Mortens grønnsaker AS',
         }]).value).to.deep.equal(nextPut);
     });

@@ -129,7 +129,7 @@ describe('Oppfolgingsdialoger', () => {
             const oppfolgingsdialogListe = [Object.assign({}, getOppfolgingsdialog(), {
                 arbeidsgiver: {
                     naermesteLeder: {
-                        fnr: '***REMOVED***',
+                        fnr: '1234567891000',
                         aktivFom: '2017-01-01',
                     },
                     forrigeNaermesteLeder: {},

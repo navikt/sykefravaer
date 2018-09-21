@@ -35,7 +35,7 @@ describe('DinSykmeldingSkjemaContainer', () => {
                     orgnummer: '123456789',
                 }, {
                     navn: 'Doles pizza',
-                    orgnummer: '***REMOVED***',
+                    orgnummer: '123456788',
                 }],
             },
             sykeforloep: {

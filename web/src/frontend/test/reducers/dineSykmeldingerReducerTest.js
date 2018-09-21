@@ -98,7 +98,7 @@ export function getSykmelding(soknad = {}) {
         bekreftelse: {
             utstedelsesdato: '2017-07-24',
             sykmelder: 'Frida Frost',
-            sykmelderTlf: '94431152',
+            sykmelderTlf: '99988777',
         },
     }, soknad);
 }
@@ -194,7 +194,7 @@ export function getParsetSykmelding(soknad = {}) {
         bekreftelse: {
             utstedelsesdato: new Date('2017-07-24'),
             sykmelder: 'Frida Frost',
-            sykmelderTlf: '94431152',
+            sykmelderTlf: '99988777',
         },
     }, soknad);
 }

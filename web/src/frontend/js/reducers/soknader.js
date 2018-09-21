@@ -14,7 +14,7 @@ import {
     SYKEPENGESOKNADUTLAND_OPPRETTET,
 } from '../actions/actiontyper';
 import { TIMER, DATO, PERIODER, PROSENT } from '../enums/svartyper';
-import { NY, SENDT } from '../enums/soknadstatuser';
+import { SENDT } from '../enums/soknadstatuser';
 
 const initiellState = {
     data: [],

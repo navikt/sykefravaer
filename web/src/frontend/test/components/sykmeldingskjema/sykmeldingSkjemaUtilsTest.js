@@ -3,6 +3,8 @@ import { arbeidssituasjoner } from 'digisyfo-npm';
 import { getSkjemaModus, skalViseFrilansersporsmal } from '../../../js/components/sykmeldingskjema/sykmeldingSkjemaUtils';
 import { sykmeldingskjemamodi as modi } from '../../../js/enums/sykmeldingskjemaenums';
 import getSykmelding from '../../mockSykmeldinger';
+import { getSykmeldingSkjemanavn } from '../../../js/enums/skjemanavn';
+import { erUtenforVentetid } from '../../../js/selectors/sykmeldingMetaSelectors';
 
 const expect = chai.expect;
 
@@ -66,11 +68,15 @@ describe('skalViseFrilansersporsmal', () => {
     let behandlingsdagerSykmelding;
     let reisetilskuddSykmelding;
     let avventendeSykmelding;
+    let state;
+    let setFormValuesToState;
     let values;
+    let setMeta;
 
     beforeEach(() => {
         vanligSykmelding = getSykmelding();
         behandlingsdagerSykmelding = {
+            id: 'behandlingsdager-sykmelding-id',
             mulighetForArbeid: {
                 perioder: [{
                     behandlingsdager: 5,
@@ -78,6 +84,7 @@ describe('skalViseFrilansersporsmal', () => {
             },
         };
         reisetilskuddSykmelding = {
+            id: 'reisetilskudd-sykmelding-id',
             mulighetForArbeid: {
                 perioder: [{
                     reisetilskudd: true,
@@ -85,93 +92,144 @@ describe('skalViseFrilansersporsmal', () => {
             },
         };
         avventendeSykmelding = {
+            id: 'avventende-sykmelding-id',
             mulighetForArbeid: {
                 perioder: [{
                     avventende: 'Trenger en bedre stol',
                 }],
             },
         };
+        state = {
+            arbeidsgiversSykmeldinger: {
+                data: [vanligSykmelding, behandlingsdagerSykmelding, reisetilskuddSykmelding, avventendeSykmelding],
+            },
+            sykmeldingMeta: {},
+        };
         values = {
             valgtArbeidssituasjon: arbeidssituasjoner.DEFAULT,
+        };
+        setFormValuesToState = (state_, sykmeldingId, values_) => {
+            return {
+                ...state_,
+                form: {
+                    [getSykmeldingSkjemanavn(sykmeldingId)]: {
+                        values: values_,
+                    },
+                },
+            };
+        };
+        setMeta = (_state, sykmelding, _erUtenforVentetid) => {
+            return {
+                ...state,
+                sykmeldingMeta: {
+                    [sykmelding.id]: {
+                        erUtenforVentetid: _erUtenforVentetid,
+                    },
+                },
+            };
         };
     });
 
     it('Skal returnere false hvis sykmelding er med behandlingsdager', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
-        expect(skalViseFrilansersporsmal(behandlingsdagerSykmelding, values, true)).to.equal(false);
+        state = setFormValuesToState(state, values);
+        state = setMeta(state, behandlingsdagerSykmelding, true);
+        expect(skalViseFrilansersporsmal(state, behandlingsdagerSykmelding.id)).to.equal(false);
     });
 
     it('Skal returnere false hvis sykmelding er med behandlingsdager', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
-        expect(skalViseFrilansersporsmal(behandlingsdagerSykmelding, values, false)).to.equal(false);
+        state = setFormValuesToState(state, values);
+        state = setMeta(state, behandlingsdagerSykmelding, false);
+        expect(skalViseFrilansersporsmal(state, behandlingsdagerSykmelding.id)).to.equal(false);
     });
 
     it('Skal returnere false hvis sykmelding er med reisetilskudd', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
-        expect(skalViseFrilansersporsmal(reisetilskuddSykmelding, values, false)).to.equal(false);
+        state = setFormValuesToState(state, values);
+        state = setMeta(state, reisetilskuddSykmelding, false);
+        expect(skalViseFrilansersporsmal(state, reisetilskuddSykmelding.id)).to.equal(false);
     });
 
     it('Skal returnere false hvis sykmelding er med reisetilskudd', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
-        expect(skalViseFrilansersporsmal(reisetilskuddSykmelding, values, true)).to.equal(false);
+        state = setFormValuesToState(state, values);
+        state = setMeta(state, reisetilskuddSykmelding, true);
+        expect(skalViseFrilansersporsmal(state, reisetilskuddSykmelding.id)).to.equal(false);
     });
 
     it('Skal returnere false hvis sykmelding er avventende', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
-        expect(skalViseFrilansersporsmal(avventendeSykmelding, values, false)).to.equal(false);
+        state = setFormValuesToState(state, values);
+        state = setMeta(state, avventendeSykmelding, false);
+        expect(skalViseFrilansersporsmal(state, avventendeSykmelding.id)).to.equal(false);
     });
 
     it('Skal returnere false hvis sykmelding er avventende', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
-        expect(skalViseFrilansersporsmal(avventendeSykmelding, values, true)).to.equal(false);
+        state = setFormValuesToState(state, avventendeSykmelding.id, values);
+        state = setMeta(state, avventendeSykmelding, true);
+        expect(skalViseFrilansersporsmal(state, avventendeSykmelding.id)).to.equal(false);
     });
 
     it('Skal returnere false hvis sykmelding er vanlig og arbeidssituasjon ikke er valgt', () => {
-        expect(skalViseFrilansersporsmal(vanligSykmelding, values)).to.equal(false);
+        expect(skalViseFrilansersporsmal(state, vanligSykmelding.id)).to.equal(false);
     });
 
     it('Skal returnere false hvis sykmelding er vanlig og arbeidssituasjon er ARBEIDSTAKER', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.ARBEIDSTAKER;
-        expect(skalViseFrilansersporsmal(vanligSykmelding, values)).to.equal(false);
+        state = setFormValuesToState(state, vanligSykmelding.id, values);
+        expect(skalViseFrilansersporsmal(state, vanligSykmelding.id)).to.equal(false);
     });
 
     it('Skal returnere false hvis sykmelding er vanlig og arbeidssituasjon er ARBEIDSLEDIG', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.ARBEIDSLEDIG;
-        expect(skalViseFrilansersporsmal(vanligSykmelding, values)).to.equal(false);
+        state = setFormValuesToState(state, vanligSykmelding.id, values);
+        expect(skalViseFrilansersporsmal(state, vanligSykmelding.id)).to.equal(false);
     });
 
     it('Skal returnere true hvis sykmelding er vanlig og arbeidssituasjon er FRILANSER', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
-        expect(skalViseFrilansersporsmal(vanligSykmelding, values)).to.equal(true);
+        state = setFormValuesToState(state, vanligSykmelding.id, values);
+        expect(skalViseFrilansersporsmal(state, vanligSykmelding.id)).to.equal(true);
     });
 
     it('Skal returnere true hvis sykmelding er vanlig og arbeidssituasjon er NAERINGSDRIVENDE', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.NAERINGSDRIVENDE;
-        expect(skalViseFrilansersporsmal(vanligSykmelding, values)).to.equal(true);
+        state = setFormValuesToState(state, vanligSykmelding.id, values);
+        expect(skalViseFrilansersporsmal(state, vanligSykmelding.id)).to.equal(true);
     });
 
     it('Skal returnere false hvis sykmelding ikke er vanlig og arbeidssituasjon er FRILANSER', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
-        expect(skalViseFrilansersporsmal(avventendeSykmelding, values)).to.equal(false);
+        state = setFormValuesToState(state, avventendeSykmelding.id, values);
+        expect(skalViseFrilansersporsmal(state, avventendeSykmelding.id)).to.equal(false);
     });
 
     it('Skal returnere false hvis sykmelding ikke er vanlig og arbeidssituasjon er NAERINGSDRIVENDE', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.NAERINGSDRIVENDE;
-        expect(skalViseFrilansersporsmal(behandlingsdagerSykmelding, values)).to.equal(false);
+        state = setFormValuesToState(state, behandlingsdagerSykmelding.id, values);
+        expect(skalViseFrilansersporsmal(state, behandlingsdagerSykmelding.id)).to.equal(false);
     });
 
     it('Skal returnere true hvis sykmelding er vanlig og arbeidssituasjon er FRILANSER og erUtenforVentetid = false', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.FRILANSER;
-        expect(skalViseFrilansersporsmal(vanligSykmelding, values, false)).to.equal(true);
+        state = setFormValuesToState(state, vanligSykmelding.id, values);
+        state = setMeta(state, vanligSykmelding, false);
+        expect(skalViseFrilansersporsmal(state, vanligSykmelding.id)).to.equal(true);
     });
 
     it('Skal returnere true hvis sykmelding er vanlig og arbeidssituasjon er NAERINGSDRIVENDE og erUtenforVentetid = false', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.NAERINGSDRIVENDE;
-        expect(skalViseFrilansersporsmal(vanligSykmelding, values, false)).to.equal(true);
+        state = setFormValuesToState(state, vanligSykmelding.id, values);
+        state = setMeta(state, vanligSykmelding, false);
+        expect(skalViseFrilansersporsmal(state, vanligSykmelding.id)).to.equal(true);
     });
 
     it('Skal returnere false hvis sykmelding er vanlig og arbeidssituasjon er NAERINGSDRIVENDE og erUtenforVentetid = true', () => {
         values.valgtArbeidssituasjon = arbeidssituasjoner.NAERINGSDRIVENDE;
-        expect(skalViseFrilansersporsmal(vanligSykmelding, values, true)).to.equal(false);
+        state = setFormValuesToState(state, vanligSykmelding.id, values);
+        state = setMeta(state, vanligSykmelding, true);
+        expect(skalViseFrilansersporsmal(state, vanligSykmelding.id)).to.equal(false);
     });
 });

@@ -1,5 +1,8 @@
 import { arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
 import { sykmeldingskjemamodi as modi } from '../../enums/sykmeldingskjemaenums';
+import { getSykmeldingSkjemanavn } from '../../enums/skjemanavn';
+import * as sykmeldingSelectors from '../../selectors/sykmeldingMetaSelectors';
+import { hentSkjemaVerdier } from '../../selectors/reduxFormSelectors';
 
 const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;
 const { ARBEIDSTAKER, DEFAULT, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
@@ -45,13 +48,22 @@ export const getSkjemaModus = (values, harStrengtFortroligAdresse) => {
     return modi.BEKREFT;
 };
 
-export const skalViseFrilansersporsmal = (sykmelding, values, erUtenforVentetid = false) => {
+export const skalViseFrilansersporsmal = (state, sykmeldingId) => {
+    const sykmelding = state.arbeidsgiversSykmeldinger.data.find((s) => {
+        return s.id === sykmeldingId;
+    });
+    const values = hentSkjemaVerdier(state, getSykmeldingSkjemanavn(sykmeldingId));
+    const erUtenforVentetid = sykmeldingSelectors.erUtenforVentetid(state, sykmeldingId);
     if (!sykmelding || !sykmelding.mulighetForArbeid || !values || erUtenforVentetid) {
         return false;
     }
 
     return sykmelding.mulighetForArbeid.perioder
-        .some((periode) => { return periode.avventende || periode.reisetilskudd || periode.behandlingsdager; })
+        .some((periode) => {
+            return periode.avventende
+                || periode.reisetilskudd
+                || periode.behandlingsdager;
+        })
         ? false
         : [NAERINGSDRIVENDE, FRILANSER].indexOf(values.valgtArbeidssituasjon) > -1;
 };

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getFormValues } from 'redux-form';
 import { getSykmelding, getLedetekst, sykmelding as sykmeldingPt } from 'digisyfo-npm';
 import DinSykmeldingSkjema from '../../components/sykmeldingskjema/DinSykmeldingSkjema';
 import { datoMedKlokkeslett } from '../../utils/datoUtils';
@@ -11,9 +10,13 @@ import { hentAktuelleArbeidsgivere } from '../../actions/dineArbeidsgivere_actio
 import { hentBrukerinfo } from '../../actions/brukerinfo_actions';
 import { hentArbeidsgiversSykmeldinger } from '../../actions/arbeidsgiversSykmeldinger_actions';
 import { hentVentetid } from '../../actions/sykmeldingMeta_actions';
-import { getSykmeldingSkjemanavn } from '../../enums/skjemanavn';
 import { skalViseFrilansersporsmal } from '../../components/sykmeldingskjema/sykmeldingSkjemaUtils';
 import { hentSykeforloep } from '../../actions/sykeforloep_actions';
+import * as sykmeldingSelectors from '../../selectors/sykmeldingMetaSelectors';
+import * as brukerinfoSelectors from '../../selectors/brukerinfoSelectors';
+import * as arbeidsgivereSelectors from '../../selectors/arbeidsgivereSelectors';
+import * as arbeidsgiversSykmeldingerSelectors from '../../selectors/arbeidsgiversSykmeldingerSelectors';
+import * as sykeforloepSelectors from '../../selectors/sykeforloepSelectors';
 
 export class Skjemalaster extends Component {
     componentWillMount() {
@@ -84,37 +87,36 @@ Skjemalaster.propTypes = {
     visFrilansersporsmal: PropTypes.bool,
 };
 
+export const henterDataTilSykmeldingskjema = (state, sykmeldingId) => {
+    return brukerinfoSelectors.skalHenteBrukerinfo(state)
+        || state.brukerinfo.bruker.henter
+        || sykmeldingSelectors.skalHenteVentetid(state, sykmeldingId)
+        || state.sykmeldingMeta.henter
+        || arbeidsgiversSykmeldingerSelectors.skalHenteArbeidsgiversSykmeldinger(state)
+        || state.arbeidsgiversSykmeldinger.henter
+        || sykeforloepSelectors.skalHenteSykeforloep(state)
+        || state.sykeforloep.henter;
+};
+
 export const mapStateToProps = (state, ownProps) => {
     const sykmeldingId = ownProps.sykmeldingId;
-    const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
+
     const sykmelding = getSykmelding(state.arbeidsgiversSykmeldinger.data, sykmeldingId) || {};
-
-    const sykmeldingMeta = state.sykmeldingMeta[sykmeldingId] || {};
-
-    const skalHenteVentetid = !sykmeldingMeta.henterVentetid && !sykmeldingMeta.hentVentetidFeilet && !sykmeldingMeta.ventetidHentet;
-    const skalHenteArbeidsgivere = state.arbeidsgivere.sykmeldingId !== sykmeldingId &&
-        !harStrengtFortroligAdresse;
-    const skalHenteBrukerinfo = !state.brukerinfo.bruker.henter &&
-        !state.brukerinfo.bruker.hentet;
-    const skalHenteArbeidsgiversSykmeldinger = !state.arbeidsgiversSykmeldinger.henter &&
-        !state.arbeidsgiversSykmeldinger.hentet;
-
-    const values = getFormValues(getSykmeldingSkjemanavn(sykmeldingId))(state);
-    const visFrilansersporsmal = skalViseFrilansersporsmal(sykmelding, values, sykmeldingMeta.erUtenforVentetid);
-
-    const skalHenteSykeforloep = !state.sykeforloep.hentet && !state.sykeforloep.henter;
+    const skalHenteVentetid = sykmeldingSelectors.skalHenteVentetid(state, sykmeldingId);
+    const skalHenteArbeidsgivere = arbeidsgivereSelectors.skalHenteArbeidsgivere(state, sykmeldingId);
+    const skalHenteBrukerinfo = brukerinfoSelectors.skalHenteBrukerinfo(state);
+    const skalHenteArbeidsgiversSykmeldinger = arbeidsgiversSykmeldingerSelectors.skalHenteArbeidsgiversSykmeldinger(state);
+    const visFrilansersporsmal = skalViseFrilansersporsmal(state, sykmeldingId);
+    const skalHenteSykeforloep = sykeforloepSelectors.skalHenteSykeforloep(state);
 
     return {
         sykmelding,
         sykmeldingId,
-        hentingFeilet: state.arbeidsgivere.hentingFeilet || state.brukerinfo.bruker.hentingFeilet || state.sykeforloep.hentingFeilet || false,
-        henter: skalHenteBrukerinfo ||
-            state.brukerinfo.bruker.henter ||
-            skalHenteVentetid ||
-            state.sykmeldingMeta.henter ||
-            skalHenteArbeidsgiversSykmeldinger ||
-            state.arbeidsgiversSykmeldinger.henter ||
-            !state.sykeforloep.hentet || state.sykeforloep.henter,
+        hentingFeilet: state.arbeidsgivere.hentingFeilet
+            || state.brukerinfo.bruker.hentingFeilet
+            || state.sykeforloep.hentingFeilet
+            || false,
+        henter: henterDataTilSykmeldingskjema(state, sykmeldingId),
         vedlikehold: state.vedlikehold.data.vedlikehold,
         skalHenteArbeidsgivere,
         skalHenteBrukerinfo,

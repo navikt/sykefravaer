@@ -16,7 +16,14 @@ export function* hentArbeidsgiversSykmeldinger() {
 }
 
 function* watchHentArbeidsgiversSykmeldinger() {
-    yield* takeEvery(actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT, hentArbeidsgiversSykmeldinger);
+    yield* takeEvery([
+        actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT,
+        actiontyper.SYKMELDING_BEKREFTET,
+        actiontyper.SYKMELDING_SENDT,
+        actiontyper.SYKMELDING_AVBRUTT,
+        actiontyper.SYKMELDING_GJENAAPNET,
+        actiontyper.BEKREFT_SYKMELDING_ANGRET,
+    ], hentArbeidsgiversSykmeldinger);
 }
 
 export default function* arbeidsgiversSykmeldingerSagas() {

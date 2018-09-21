@@ -16,10 +16,10 @@ export function* hentDineArbeidsgivere(action) {
     }
 }
 
-function* watchHentArbeidsgiversSykmeldinger() {
+function* watchHentDineArbeidsgivere() {
     yield* takeEvery(actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT, hentDineArbeidsgivere);
 }
 
 export default function* dineSykmeldingerSagas() {
-    yield fork(watchHentArbeidsgiversSykmeldinger);
+    yield fork(watchHentDineArbeidsgivere);
 }

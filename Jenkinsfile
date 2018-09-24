@@ -1,4 +1,4 @@
-gitUrl="git@github.com:navikt/syfofront.git"
+gitUrl="https://github.com/navikt/syfofront.git"
 applikasjonsNavn="syfofront"
 sone="sbs"
 
@@ -21,6 +21,11 @@ def addToDescription(message) {
     currentBuild.description = description != null && description.trim().length() > 0 ? "${description}<br>${message}" : message
 }
 
+
+def httpsGithubCom = "https://github.com"
+if (gitUrl.contains(httpsGithubCom)) {
+   gitUrl = gitUrl.replace(httpsGithubCom, "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com")
+}
 
 def cleanup() {
     stage("cleanup") {

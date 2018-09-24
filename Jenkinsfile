@@ -1,5 +1,5 @@
-gitUrl="https://github.com/navikt/syfofront.git"
-applikasjonsNavn="syfofront"
+gitUrl="https://github.com/navikt/sykefravaer.git"
+applikasjonsNavn="sykefravaer"
 sone="sbs"
 
 import java.text.SimpleDateFormat

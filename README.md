@@ -1,4 +1,4 @@
-# SyfoFront
+# Sykefravaer (tidligere kjent som «syfofront»)
 
 Frontend for digitalisering av sykefraværsoppfølging (DigiSYFO) http://tjenester.nav.no/sykefravaer/
 

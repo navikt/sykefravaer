@@ -263,6 +263,7 @@ const ledetekster = {
 
 export const ledeteksterUtland = {
     'soknad.feilmelding.land': 'Vennligst skriv inn land',
+    'soknad.feilmelding.land.max': 'Du kan maksimalt skrive inn %MAX% tegn her',
     'soknad.feilmelding.arbeidsgiver': 'Du har nødt å svare på dette før du går videre',
     'soknad.feilmelding.sykmeldingsgrad': 'Du har nødt å svare på dette før du går videre',
     'soknad.feilmelding.ferie': 'Du har nødt å svare på om du har ferie',

@@ -69,6 +69,13 @@ describe('validerUtlandsSkjema', () => {
         expect(feilmeldinger[LAND]).to.equal('Vennligst skriv inn land');
     });
 
+    it('Skal klage hvis bruker har skrevet inn for mange tegn som reisemål', () => {
+        const verdier = {};
+        verdier[LAND] = enkeltverdi('abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc abc ');
+        const feilmeldinger = validerUtlandsSkjema(verdier, { soknad });
+        expect(feilmeldinger[LAND]).to.equal('Du kan maksimalt skrive inn 100 tegn her');
+    });
+
     it('Skal klage hvis bruker har skrevet inn kun mellomrom som reisemål', () => {
         const verdier = {};
         verdier[LAND] = enkeltverdi('         ');

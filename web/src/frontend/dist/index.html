@@ -11,7 +11,7 @@
     {{{NAV_MEGAMENU_RESOURCES}}}
     {{{NAV_SCRIPTS}}}
     {{#isProd}}
-    <link href="/sykefravaer/resources/styles.{{{timestamp}}}.css" rel="stylesheet"/>
+    <link href="/sykefravaer/resources/styles.{{{timestamp}}}.css" rel="stylesheet" id="sykefravaer-styles" />
     {{/isProd}}
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <style>
@@ -79,7 +79,103 @@
     {{^isProd}}"LOGGING_ENABLED": true{{/isProd}}
     };
 </script>
-{{#isProd}}<script src="/sykefravaer/resources/bundle-prod.{{timestamp}}.js"></script>{{/isProd}}
-{{^isProd}}<script src="http://localhost:9090/assets/bundle.js"></script>{{/isProd}}
+
+<div id="feilmelding" style="display: none;">
+    <div class="scriptFeilmelding">
+        <div class="scriptFeilmelding__panel">
+            {{#isProd}}
+            <h2 class="scriptFeilmelding__tittel">Hoi! Der gikk det galt!</h2>
+            <p>Vi har problemer med å vise Ditt sykefravær akkurat nå.</p>
+            <p>Vi jobber med å løse feilen, og håper å være tilbake om kort tid.</p>
+            <p>Beklager!</p>
+            <p>Her finner du <a href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade">informasjon om sykmelding og sykepenger</a>.</p>
+            {{/isProd}}
+            {{^isProd}}
+            <h2 class="scriptFeilmelding__tittel">Utvikling i syfofront</h2>
+            <p>Du må kjøre <code>npm run dev</code> for å få syfofront til å funke lokalt under utvikling.</p>
+            <p>I tillegg må du kjøre opp applikasjonene <strong>dev-proxy</strong> og <strong>syfoapi</strong>.</p>
+            <p>Syfofront blir da tilgjengelig under <a href="http://localhost:8080/sykefravaer">http://localhost:8080/sykefravaer</a></p>
+            <p>Happy coding.</p>
+            {{/isProd}}
+        </div>
+    </div>
+</div>
+
+<style>
+    .scriptFeilmelding {
+        padding-left: 1em;
+        padding-right: 1em;
+        padding-top: 2em;
+    }
+
+    .scriptFeilmelding__panel {
+        max-width: 40em;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 1.5em;
+        background: #fff;
+        border-radius: .25em;
+    }
+
+    .scriptFeilmelding__tittel {
+        font-size: 1.7em;
+        margin: .5em 0 .5em 0;
+    }
+
+    .scriptFeilmelding__panel p {
+        font-size: 1.15em;
+        margin-top: 0;
+        margin-bottom: 1em;
+        line-height: 1.35;
+    }
+
+    .scriptFeilmelding__panel p:last-child {
+        margin-bottom: 0;
+    }
+
+    .scriptFeilmelding a {
+        color: #0067c5;
+        text-decoration: none;
+        border-bottom: 1px solid #B7B1A9
+    }
+
+    .scriptFeilmelding a:hover {
+        border-bottom-color: #0067c5;
+    }
+
+    .scriptFeilmelding a:focus {
+        background-color: #ffbd66;
+    }
+    {{^isProd}}
+    .scriptFeilmelding code {
+        color: #ba3a26;
+        background-color: #e9e7e7;
+        border: 1px solid #B7B1A9;
+        border-radius: 1px;
+    }
+    {{/isProd}}
+</style>
+
+<script>
+    (function() {
+        var visFeilmelding = function() {
+            var el = document.getElementById("maincontent");
+            var feilmelding = document.getElementById("feilmelding");
+            el.innerHTML = feilmelding.innerHTML;
+        };
+
+        var script = document.createElement("script");
+
+    {{#isProd}}
+        script.src = "/sykefravaer/resources/bundle-prod.{{timestamp}}.js";
+    {{/isProd}}
+    {{^isProd}}
+        script.src = "http://localhost:9090/assets/bundle.js";
+    {{/isProd}}
+        script.onerror = visFeilmelding;
+        document.body.append(script);
+    })();
+</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-gitUrl="ssh://git@stash.devillo.no:7999/syfo/syfofront.git"
+gitUrl="git@github.com:navikt/syfofront.git"
 applikasjonsNavn="syfofront"
 sone="sbs"
 

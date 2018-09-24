@@ -16,13 +16,15 @@ const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
         });
 };
 
-export const beregnFeilmeldingnokkelFraTag = (tag) => {
-    return `soknad.feilmelding.${tag.toLowerCase()}`;
+export const beregnFeilmeldingnokkelFraTag = (tag, max) => {
+    return `soknad.feilmelding.${tag.toLowerCase()}${max ? '.max' : ''}`;
 };
 
-export const beregnFeilmeldingstekstFraTag = (tag) => {
-    const nokkel = beregnFeilmeldingnokkelFraTag(tag);
-    return getLedetekst(nokkel);
+export const beregnFeilmeldingstekstFraTag = (tag, max) => {
+    const nokkel = beregnFeilmeldingnokkelFraTag(tag, max);
+    return getLedetekst(nokkel, {
+        '%MAX%': max,
+    });
 };
 
 const verdiErTom = (verdi) => {
@@ -86,18 +88,31 @@ export default (sporsmal = [], values = {}) => {
             return ((values[s.tag] === undefined
                     || verdi === false
                     || (s.svartype === FRITEKST && verdiErTom(verdi))
+                    || (s.svartype === FRITEKST && s.max && verdi.length > s.max)
                     || (s.svartype === PERIODER))
                         && s.svartype !== IKKE_RELEVANT
             );
         })
         .forEach((s) => {
-            if (s.svartype === PERIODER) {
-                const periodeFeilmeldinger = validerPerioder(values[s.tag]);
-                if (periodeFeilmeldinger) {
-                    feilmeldinger[s.tag] = periodeFeilmeldinger;
+            switch (s.svartype) {
+                case PERIODER: {
+                    const periodeFeilmeldinger = validerPerioder(values[s.tag]);
+                    if (periodeFeilmeldinger) {
+                        feilmeldinger[s.tag] = periodeFeilmeldinger;
+                    }
+                    break;
                 }
-            } else {
-                feilmeldinger[s.tag] = beregnFeilmeldingstekstFraTag(s.tag);
+                case FRITEKST: {
+                    const verdi = formaterEnkeltverdi(values[s.tag]);
+                    feilmeldinger[s.tag] = s.max && verdi.length > s.max
+                        ? beregnFeilmeldingstekstFraTag(s.tag, s.max)
+                        : beregnFeilmeldingstekstFraTag(s.tag);
+                    break;
+                }
+                default: {
+                    feilmeldinger[s.tag] = beregnFeilmeldingstekstFraTag(s.tag);
+                    break;
+                }
             }
         });
     return validerUndersporsmalsliste(sporsmal, values, feilmeldinger);

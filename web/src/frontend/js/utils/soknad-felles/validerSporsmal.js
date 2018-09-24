@@ -88,7 +88,7 @@ export default (sporsmal = [], values = {}) => {
             return ((values[s.tag] === undefined
                     || verdi === false
                     || (s.svartype === FRITEKST && verdiErTom(verdi))
-                    || (s.svartype === FRITEKST && verdi.length > s.max)
+                    || (s.svartype === FRITEKST && s.max && verdi.length > s.max)
                     || (s.svartype === PERIODER))
                         && s.svartype !== IKKE_RELEVANT
             );
@@ -104,7 +104,7 @@ export default (sporsmal = [], values = {}) => {
                 }
                 case FRITEKST: {
                     const verdi = formaterEnkeltverdi(values[s.tag]);
-                    feilmeldinger[s.tag] = verdi.length > s.max
+                    feilmeldinger[s.tag] = s.max && verdi.length > s.max
                         ? beregnFeilmeldingstekstFraTag(s.tag, s.max)
                         : beregnFeilmeldingstekstFraTag(s.tag);
                     break;

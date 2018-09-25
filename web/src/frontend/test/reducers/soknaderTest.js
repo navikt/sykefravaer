@@ -146,7 +146,7 @@ describe('soknader', () => {
         expect(state.data).to.deep.equal(initState.data);
     });
 
-    it("Fjerner bare søknader som tilhører den aktuelle sykmeldingen", () => {
+    it('Fjerner bare søknader som tilhører den aktuelle sykmeldingen', () => {
         const initState = getStateMedDataHentet();
         initState.data = [
             getSoknad({ sykmeldingId: '1', status: 'NY' }),
@@ -155,10 +155,10 @@ describe('soknader', () => {
         ];
         const action = bekreftSykmeldingAngret('2');
         const state = soknader(deepFreeze(initState), action);
-        expect(state.data).to.deep.equal([ getSoknad({ sykmeldingId: "1", status: "NY" }) ]);
+        expect(state.data).to.deep.equal([getSoknad({ sykmeldingId: '1', status: 'NY' })]);
     });
 
-    it("Fjerner bare søknader som som er NY eller FREMTIDIG for aktuelle sykmeldingen", () => {
+    it('Fjerner bare søknader som som er NY eller FREMTIDIG for aktuelle sykmeldingen', () => {
         const initState = getStateMedDataHentet();
         initState.data = [
             getSoknad({ sykmeldingId: '1', status: 'NY' }),
@@ -170,8 +170,8 @@ describe('soknader', () => {
         const state = soknader(deepFreeze(initState), action);
 
         const forventetResultat = [
-            getSoknad({ sykmeldingId: "1", status: "NY" }),
-            getSoknad({ sykmeldingId: "2", status: "SENDT" }),
+            getSoknad({ sykmeldingId: '1', status: 'NY' }),
+            getSoknad({ sykmeldingId: '2', status: 'SENDT' }),
         ];
 
         expect(state.data).to.deep.equal(forventetResultat);

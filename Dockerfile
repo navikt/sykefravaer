@@ -1,4 +1,4 @@
-FROM docker.adeo.no:5000/pus/node
+FROM node
 
 WORKDIR /usr/src/app
 COPY . .

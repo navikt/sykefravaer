@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export const soknadSelvstendig1 = {
     fom: '2018-05-20',
     id: 'e062a444-5171-4147-84a3-19c8b4ba3c39',
@@ -9,9 +10,7 @@ export const soknadSelvstendig1 = {
             kriterieForVisningAvUndersporsmal: null,
             max: null,
             min: null,
-            /* eslint-disable max-len */
             sporsmalstekst: 'Jeg vet at dersom jeg gir uriktige opplysninger, eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar. Jeg er også klar over at jeg må melde fra til NAV dersom jeg sitter i varetekt, soner straff eller er under forvaring.',
-            /* eslint-enable max-len */
             svar: [],
             svartype: 'CHECKBOX',
             tag: 'ANSVARSERKLARING',
@@ -358,9 +357,7 @@ const parsetSoknad1 = {
             kriterieForVisningAvUndersporsmal: null,
             max: null,
             min: null,
-            /* eslint-disable max-len */
             sporsmalstekst: 'Jeg vet at dersom jeg gir uriktige opplysninger, eller holder tilbake opplysninger som har betydning for min rett til sykepenger, kan pengene holdes tilbake eller kreves tilbake, og/eller det kan medføre straffeansvar. Jeg er også klar over at jeg må melde fra til NAV dersom jeg sitter i varetekt, soner straff eller er under forvaring.',
-            /* eslint-enable max-len */
             svar: [],
             svartype: 'CHECKBOX',
             tag: 'ANSVARSERKLARING',

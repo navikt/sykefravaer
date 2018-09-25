@@ -8,9 +8,7 @@ import {
     sendSykmeldingTilArbeidsgiver,
 } from '../../js/sagas/dinSykmeldingSagas';
 import * as actions from '../../js/actions/dinSykmelding_actions';
-import { hentDineSykmeldinger } from '../../js/actions/dineSykmeldinger_actions';
 import { skalOppretteSoknadHentet } from '../../js/actions/sykmeldingMeta_actions';
-import { hentArbeidsgiversSykmeldinger } from '../../js/actions/arbeidsgiversSykmeldinger_actions';
 
 describe('dinSykmeldingSagas', () => {
     beforeEach(() => {

@@ -4,7 +4,6 @@ import { getSkjemaModus, skalViseFrilansersporsmal } from '../../../js/component
 import { sykmeldingskjemamodi as modi } from '../../../js/enums/sykmeldingskjemaenums';
 import getSykmelding from '../../mockSykmeldinger';
 import { getSykmeldingSkjemanavn } from '../../../js/enums/skjemanavn';
-import { erUtenforVentetid } from '../../../js/selectors/sykmeldingMetaSelectors';
 
 const expect = chai.expect;
 

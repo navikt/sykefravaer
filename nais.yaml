@@ -1,6 +1,6 @@
 name: sykefravaer
 team: digisyfo
-image: docker.adeo.no:5000/digisyfo/sykefravaer
+image: repo.adeo.no:5443/digisyfo/sykefravaer
 replicas:
   min: 2
   max: 2

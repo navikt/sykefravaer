@@ -83,7 +83,7 @@ export const SoknadAvbruttBekreftelse = ({ sykepengesoknad }) => {
             <h2 className="panel__tittel">{getLedetekst('sykmelding.sykepengesoknadstatus.avbrutt.tittel')}</h2>
             <p>{getLedetekst('sykmelding.sykepengesoknadstatus.avbrutt.melding')}</p>
             <p className="sist">
-                <Link to={`/sykefravaer/soknader/${sykepengesoknad.id}`}>
+                <Link className="lenke" to={`/sykefravaer/soknader/${sykepengesoknad.id}`}>
                     {getLedetekst('sykmelding.sykepengesoknadstatus.avbrutt.lenke')}
                 </Link>
             </p>

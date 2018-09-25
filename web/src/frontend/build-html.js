@@ -10,7 +10,7 @@ var dev = {
     "restRoot": "http://localhost:8080/syforest",
     "syfoteksterrestRoot": "http://localhost:8080/syfotekster/api",
     "moterestRoot": "http://localhost:8080/moterest/api",
-    "oppfoelgingsdialogrestRoot": "http://localhost:8580/oppfoelgingsdialogrest/api",
+    "oppfoelgingsdialogrestRoot": "http://localhost:8580/restoppfoelgingsdialog/api",
     "bundleFileName": `bundle.js`,
     "enableLogging": true,
     "isProd": false,
@@ -22,7 +22,7 @@ var prod = {
     "restRoot": "/syforest",
     "syfoteksterrestRoot": "/syfotekster/api",
     "moterestRoot": "/moterest/api",
-    "oppfoelgingsdialogrestRoot": "/oppfoelgingsdialogrest/api",
+    "oppfoelgingsdialogrestRoot": "/restoppfoelgingsdialog/api",
     "bundleFileName": "bundle-prod.js",
     "enableLogging": false,
     "isProd": true

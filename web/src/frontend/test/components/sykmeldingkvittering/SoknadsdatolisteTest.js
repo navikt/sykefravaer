@@ -43,7 +43,8 @@ describe('Soknadsdatoliste', () => {
         });
 
         it("Skal gi tre datoer separert av komma og 'og' hvis det finnes tre søknader", () => {
-            expect(soknadsdatoremse([soknad1, soknad2, soknad3])).to.equal('<strong>12. oktober 2017</strong>, <strong>13. oktober 2017</strong> og <strong>14. oktober 2017</strong>');
+            expect(soknadsdatoremse([soknad1, soknad2, soknad3]))
+                .to.equal('<strong>12. oktober 2017</strong>, <strong>13. oktober 2017</strong> og <strong>14. oktober 2017</strong>');
         });
     });
 });

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { parseSoknad } from '../js/reducers/soknader';
 
 const lagretSoknad = {

@@ -81,7 +81,7 @@ describe('Container', () => {
         };
         state.soknader = soknader(
             soknader(),
-            soknaderHentet([getSoknad({ sykmeldingId: 'sykmelding-2', status: 'NY'})])
+            soknaderHentet([getSoknad({ sykmeldingId: 'sykmelding-2', status: 'NY' })]),
         );
         const component = shallow(<Container {...mapStateToProps(state, ownProps)} />);
         expect(component.html()).not.to.equal(null);
@@ -93,7 +93,7 @@ describe('Container', () => {
         };
         state.soknader = soknader(
             soknader(),
-            soknaderHentet([getSoknad({ sykmeldingId: 'sykmelding-2', status: 'FREMTIDIG'})])
+            soknaderHentet([getSoknad({ sykmeldingId: 'sykmelding-2', status: 'FREMTIDIG' })]),
         );
         const component = shallow(<Container {...mapStateToProps(state, ownProps)} />);
         expect(component.html()).not.to.equal(null);
@@ -120,7 +120,7 @@ describe('Container', () => {
         };
         state.soknader = soknader(
             soknader(),
-            soknaderHentet([getSoknad({ sykmeldingId: 'sykmelding-2', status: 'NY'})])
+            soknaderHentet([getSoknad({ sykmeldingId: 'sykmelding-2', status: 'NY' })]),
         );
         const component = shallow(<Container {...mapStateToProps(state, ownProps)} />);
         expect(component.html()).to.equal(null);

@@ -81,14 +81,14 @@ export class Container extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { oppfolgingsdialogerReducer, avbrytdialogReducer, dialogAvbruttOgNyOpprettet } = this.props;
+        const { oppfolgingsdialogerReducer, avbrytdialogReducer, dialogAvbruttOgNyOpprettetConnected } = this.props;
         if (oppfolgingsdialogHarBlittAvbrutt(avbrytdialogReducer, nextProps.avbrytdialogReducer)) {
             this.props.hentOppfolgingsdialoger();
         }
         if (avbrytdialogReducer.sendt && oppfolgingsdialogerReducer.henter && nextProps.oppfolgingsdialogerReducer.hentet) {
             const nyOpprettetDialog = finnNyOppfolgingsplanMedVirkshomhetEtterAvbrutt(nextProps.oppfolgingsdialoger, nextProps.oppfolgingsdialog.virksomhet.virksomhetsnummer);
             if (nyOpprettetDialog) {
-                dialogAvbruttOgNyOpprettet(nyOpprettetDialog.id);
+                dialogAvbruttOgNyOpprettetConnected(nyOpprettetDialog.id);
                 history.push(`${getContextRoot()}/oppfolgingsplaner/${nyOpprettetDialog.id}`);
                 window.location.hash = 'arbeidsoppgaver';
             }
@@ -200,7 +200,7 @@ Container.propTypes = {
     avvisDialog: PropTypes.func,
     settAktivtSteg: PropTypes.func,
     avbrytDialog: PropTypes.func,
-    dialogAvbruttOgNyOpprettet: PropTypes.func,
+    dialogAvbruttOgNyOpprettetConnected: PropTypes.func,
     settDialog: PropTypes.func,
     hentDineSykmeldinger: PropTypes.func,
     hentToggles: PropTypes.func,
@@ -300,7 +300,7 @@ export default connect(mapStateToProps, {
     settDialog,
     hentArbeidsforhold,
     avbrytDialog,
-    dialogAvbruttOgNyOpprettet,
+    dialogAvbruttOgNyOpprettetConnected: dialogAvbruttOgNyOpprettet,
     hentDineSykmeldinger,
     hentToggles,
     hentVirksomhet,

@@ -37,7 +37,7 @@ const renderApp = (decoratorFragments) => {
                     LOGINSERVICE_URL: `${process.env.LOGINSERVICE_URL}`,
                     SYFOREST_URL: '/syforest',
                     MOTEREST_URL: '/moterest/api',
-                    OPPFOLGINGSDIALOGREST_URL: '/oppfoelgingsdialogrest/api',
+                    OPPFOLGINGSDIALOGREST_URL: '/restoppfoelgingsdialog/api',
                 },
                 decoratorFragments,
                 settings,

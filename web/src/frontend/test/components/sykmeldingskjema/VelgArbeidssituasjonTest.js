@@ -164,8 +164,8 @@ describe('VelgArbeidssituasjon', () => {
         });
     });
 
-    describe("visTillegg", () => {
-        it("Skal returnere false når bruker har strengt fortrolig adresse", () => {
+    describe('visTillegg', () => {
+        it('Skal returnere false når bruker har strengt fortrolig adresse', () => {
             const vis = visTillegg({
                 harStrengtFortroligAdresse: true,
                 input: {},
@@ -174,7 +174,7 @@ describe('VelgArbeidssituasjon', () => {
             expect(vis).to.equal(false);
         });
 
-        it("Skal returnere true når bruker har valgt en arbeidsgiver med nærmeste leder", () => {
+        it('Skal returnere true når bruker har valgt en arbeidsgiver med nærmeste leder', () => {
             const vis = visTillegg({
                 harStrengtFortroligAdresse: false,
                 input: {
@@ -185,7 +185,7 @@ describe('VelgArbeidssituasjon', () => {
             expect(vis).to.equal(true);
         });
 
-        it("Skal returnere false når bruker har valgt en arbeidsgiver uten nærmeste leder", () => {
+        it('Skal returnere false når bruker har valgt en arbeidsgiver uten nærmeste leder', () => {
             const vis = visTillegg({
                 harStrengtFortroligAdresse: false,
                 input: {

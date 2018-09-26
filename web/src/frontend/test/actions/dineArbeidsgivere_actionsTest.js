@@ -40,7 +40,7 @@ describe('dineArbeidsgivere_actions', () => {
         });
     });
 
-    it('Skal ha en setAktuelleArbeidsgivere(sykmeldingId, [arbeidsgivere])-funksjon som returnerer riktig action', () => {
+    it('Skal ha en aktuelleArbeidsgivereHentet(sykmeldingId, [arbeidsgivere])-funksjon som returnerer riktig action', () => {
         const sykmeldingId = 'olsen';
         const arbeidsgivere = [{
             orgnr: 12345678,
@@ -52,9 +52,9 @@ describe('dineArbeidsgivere_actions', () => {
             orgnr: 32165478,
             navn: 'Bergen Malingsfabrikk',
         }];
-        const resultat = actions.setAktuelleArbeidsgivere(sykmeldingId, arbeidsgivere);
+        const resultat = actions.aktuelleArbeidsgivereHentet(sykmeldingId, arbeidsgivere);
         expect(resultat).to.deep.equal({
-            type: actiontyper.SET_AKTUELLE_ARBEIDSGIVERE,
+            type: actiontyper.AKTUELLE_ARBEIDSGIVERE_HENTET,
             sykmeldingId: 'olsen',
             arbeidsgivere: [{
                 orgnr: 12345678,

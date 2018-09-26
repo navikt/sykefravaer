@@ -11,8 +11,6 @@ import deepFreeze from 'deep-freeze';
 import DinSykmeldingSkjema, { DinSykmeldingSkjemaComponent, mapStateToProps } from '../../../js/components/sykmeldingskjema/DinSykmeldingSkjema';
 import StrengtFortroligInfo from '../../../js/components/sykmeldingskjema/StrengtFortroligInfo';
 import VelgArbeidssituasjon from '../../../js/components/sykmeldingskjema/VelgArbeidssituasjon';
-import VelgArbeidsgiver from '../../../js/components/sykmeldingskjema/VelgArbeidsgiver';
-import ArbeidsgiversSykmeldingContainer from '../../../js/containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import * as dinSykmeldingActions from '../../../js/actions/dinSykmelding_actions';
 import ledetekster from '../../mockLedetekster';
 import getSykmelding from '../../mockSykmeldinger';
@@ -96,27 +94,6 @@ describe('DinSykmeldingSkjema -', () => {
         expect(component.find(VelgArbeidssituasjon)).to.have.length(1);
     });
 
-    it('Skal ikke vise VelgArbeidsgiver dersom arbeidssituasjon === undefined', () => {
-        component = getComponent(getStore());
-        expect(component.find(VelgArbeidsgiver)).to.have.length(0);
-        expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(0);
-    });
-
-    it("Skal ikke vise VelgArbeidsgiver arbeidssituasjon === 'ARBEIDSLEDIG'", () => {
-        component = getComponent(getStore({
-            valgtArbeidssituasjon: 'ARBEIDSLEDIG',
-        }));
-        expect(component.find(VelgArbeidsgiver)).to.have.length(0);
-        expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(0);
-    });
-
-    it("Skal vise ArbeidsgiversSykmeldingContainer dersom arbeidssituasjon === 'ARBEIDSTAKER'", () => {
-        component = getComponent(getStore({
-            valgtArbeidssituasjon: 'ARBEIDSTAKER',
-        }));
-        expect(component.find(ArbeidsgiversSykmeldingContainer)).to.have.length(1);
-    });
-
     it('Skal vise info om utskrift dersom harStrengtFortroligAdresse = true', () => {
         state.brukerinfo.bruker.data.strengtFortroligAdresse = true;
         component = getComponent(getStore({
@@ -147,7 +124,7 @@ describe('DinSykmeldingSkjema -', () => {
                 }, {
                     opplysning: 'andre',
                 }],
-                valgtArbeidssituasjon: 'DEFAULT',
+                valgtArbeidssituasjon: null,
             };
 
             it('Skal returnere initialValues', () => {

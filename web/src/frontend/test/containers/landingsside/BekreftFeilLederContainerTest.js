@@ -87,12 +87,11 @@ describe('BekreftFeilLederContainer', () => {
                 orgnummer: '123456789',
                 organisasjonsnavn: 'Solstrålen Barnehage',
             };
-            /* eslint-disable max-len */
             setLedetekster({
                 'sykefravaer.endre-naermeste-leder.tittel': 'Nærmeste leder',
+                // eslint-disable-next-line max-len
                 'sykefravaer.endre-naermeste-leder.melding': '<p>Er du sikker på at du vil fjerne <strong>%LEDER%</strong> som din nærmeste leder i <strong>%ARBEIDSGIVER%</strong>?</p><p>Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt det.</p>',
             });
-            /* eslint-disable max-len */
         });
 
         it('Skal vise navn på leder og organisasjonsnavn', () => {

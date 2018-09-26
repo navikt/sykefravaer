@@ -24,13 +24,13 @@ describe('SpoersmalForFrilanserOgNaeringsdrivende', () => {
 
     describe('Egenmeldingssporsmal', () => {
         it('Skal inneholde en JaEllerNei med riktig spørsmål', () => {
-            /* eslint-disable max-len */
             setLedetekster({
+                // eslint-disable-next-line max-len
                 'din-sykmelding.egenmeldingsperioder.janei.sporsmal': 'Vi har registrert at du ble sykmeldt %DATO%. Brukte du egenmelding eller noen annen sykmelding før denne datoen?',
             });
-            /* eslint-disable max-len */
             const component = shallow(<Egenmeldingssporsmal oppfolgingstilfelleStartdato={new Date('2017-02-14')} />);
-            expect(component.find(JaEllerNei).prop('spoersmal')).to.equal('Vi har registrert at du ble sykmeldt 14. februar 2017. Brukte du egenmelding eller noen annen sykmelding før denne datoen?');
+            expect(component.find(JaEllerNei).prop('spoersmal'))
+                .to.equal('Vi har registrert at du ble sykmeldt 14. februar 2017. Brukte du egenmelding eller noen annen sykmelding før denne datoen?');
             expect(component.find(JaEllerNei).prop('name')).to.equal('harAnnetFravaer');
         });
 

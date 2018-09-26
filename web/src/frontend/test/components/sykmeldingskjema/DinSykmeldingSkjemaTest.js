@@ -504,7 +504,7 @@ describe('DinSykmeldingSkjema -', () => {
                 'starte-sykmelding.info.bekreft': 'Å bekrefte sykmeldingen betyr at du er enig i innholdet, og at du ønsker å ta den i bruk',
                 'starte-sykmelding.knapp.SEND': 'Send sykmelding',
             });
-            /* eslint-disable max-len */
+            /* eslint-enable max-len */
         });
 
         it('Skal ikke vise infotekst tekst for innsending som arbeidstaker med NL', () => {

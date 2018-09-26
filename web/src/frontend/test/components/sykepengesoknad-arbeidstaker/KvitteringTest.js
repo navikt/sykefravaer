@@ -24,7 +24,7 @@ describe('Kvittering', () => {
             'sykepengesoknad.kvittering.til-nav.tittel': 'Søknaden er sendt!',
             'sykepengesoknad.kvittering.til-nav.tekst': '<p>Søknaden er sendt til NAV.</p>',
         };
-        /* eslint-disable max-len */
+        /* eslint-enable max-len */
         setLedetekster(ledetekster);
     });
 
@@ -64,8 +64,7 @@ describe('Kvittering', () => {
             sendtTilNAVDato: new Date('2017-02-05'),
         });
         const component = mount(<Kvittering sykepengesoknad={sykepengesoknad} />);
-        /* eslint-disable max-len */
+        // eslint-disable-next-line max-len
         expect(component.text()).to.contain('Søknaden er sendt til BYGGMESTER BLOM AS via Altinn og til NAV.  Det vil kunne ta noe tid før meldingen ligger i din arbeidsgivers innboks.');
-        /* eslint-disable max-len */
     });
 });

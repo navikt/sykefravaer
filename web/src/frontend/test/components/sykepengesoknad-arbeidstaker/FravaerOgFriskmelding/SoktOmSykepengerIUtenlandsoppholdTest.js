@@ -174,7 +174,8 @@ describe('SoktOmSykepenger', () => {
             };
             expect(visSoktOmSykepengerUtenlandsoppholdsporsmal(deepFreeze(values))).to.equal(false);
         });
-        /* eslint-disable max-len */
+
+        // eslint-disable-next-line max-len
         it('Skal returnere false hvis det er ferie i utenlandsopphold-perioden og ferie og utenlandsopphold er sammenhengende, men oppdelt på forskjellige måter og ferie er oppdelt pga helg', () => {
             const values = {
                 harHattFerie: true,
@@ -194,7 +195,6 @@ describe('SoktOmSykepenger', () => {
             };
             expect(visSoktOmSykepengerUtenlandsoppholdsporsmal(deepFreeze(values))).to.equal(false);
         });
-        /* eslint-disable max-len */
 
         it('Skal returnere false hvis utenlandsopphold-periode ikke er fylt ut', () => {
             const values = {

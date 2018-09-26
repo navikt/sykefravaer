@@ -27,7 +27,7 @@ describe('Soknadstatuspanel', () => {
             'sykepengesoknad.status-2.tittel': 'Status',
             'sykepengesoknad.sykepengeinfo.tittel': 'Utbetaling av sykepenger',
         });
-        /* eslint-disable max-len */
+        /* eslint-enable max-len */
     });
 
     describe('Når søknaden sendes til NAV', () => {

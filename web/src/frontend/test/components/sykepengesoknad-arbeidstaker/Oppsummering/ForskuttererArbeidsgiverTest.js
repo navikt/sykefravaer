@@ -24,7 +24,7 @@ describe('ForskuttererArbeidsgiver', () => {
         'sykepengesoknad.forskutterer-arbeidsgiver.infotekst.NEI': 'Søknaden sendes til NAV. Arbeidsgiveren din får ikke kopi.',
         'sykepengesoknad.forskutterer-arbeidsgiver.infotekst.VET_IKKE': 'Siden du ikke vet svaret på dette spørsmålet, sender vi kopi av søknaden du sender til arbeidsgiveren din',
     };
-    /* eslint-disable max-len */
+    /* eslint-enable max-len */
 
     beforeEach(() => {
         setLedetekster(ledetekster);

@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 import { getLedetekst } from 'digisyfo-npm';
 import { gjenaapneSykmelding } from '../../actions/dinSykmelding_actions';
 
-// eslint-disable-next-line no-shadow
-function GjenaapneSykmeldingContainer({ sykmeldingId, gjenaapneSykmelding, gjenaapneFeilet }) {
+function GjenaapneSykmeldingContainer({ sykmeldingId, gjenaapneSykmeldingConnected, gjenaapneFeilet }) {
     return (
         <div className="verktoylinje">
             <button
                 className="knapp knapp--mini js-gjenaapne-sykmelding"
                 onClick={() => {
-                    return gjenaapneSykmelding(sykmeldingId);
+                    return gjenaapneSykmeldingConnected(sykmeldingId);
                 }}>
                 {getLedetekst('din-sykmelding.avbrutt.gjenaapne')}
             </button>
@@ -24,7 +23,7 @@ function GjenaapneSykmeldingContainer({ sykmeldingId, gjenaapneSykmelding, gjena
 
 GjenaapneSykmeldingContainer.propTypes = {
     sykmeldingId: PropTypes.string.isRequired,
-    gjenaapneSykmelding: PropTypes.func.isRequired,
+    gjenaapneSykmeldingConnected: PropTypes.func.isRequired,
     gjenaapneFeilet: PropTypes.bool,
 };
 
@@ -34,4 +33,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { gjenaapneSykmelding })(GjenaapneSykmeldingContainer);
+export default connect(mapStateToProps, { gjenaapneSykmeldingConnected: gjenaapneSykmelding })(GjenaapneSykmeldingContainer);

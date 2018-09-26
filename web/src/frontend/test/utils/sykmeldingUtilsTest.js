@@ -182,7 +182,7 @@ describe('sykmeldingUtils', () => {
             expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.equal(false);
         });
 
-        /* eslint-disable max-len */
+        // eslint-disable-next-line max-len
         it('skal returnere false med 1 sykmelding, som ikke har orgnummer, men som har siste gyldige sykmeldingsdato nyligere eller lik grensedato(4mnd siden), uten oppfolgingsdialoger', () => {
             oppfolgingsdialoger = {
                 data: [],
@@ -192,7 +192,6 @@ describe('sykmeldingUtils', () => {
             })];
             expect(skalViseOppfoelgingsdialogLenke(sykmeldinger, oppfolgingsdialoger)).to.equal(false);
         });
-        /* eslint-disable max-len */
 
         it('skal returnere true med 1 sykmelding, som har siste gyldige sykmeldingsdato nyligere enn grensedato(4mnd siden), uteno oppfolgingsdialoger', () => {
             oppfolgingsdialoger = {

@@ -111,7 +111,7 @@ describe('SendtSoknad', () => {
             expect(component.find('.js-endre')).to.have.length(0);
         });
 
-        /* eslint-disable max-len */
+        // eslint-disable-next-line max-len
         it('3) Skal inneholde en knapp for å endre søknaden hvis det er mer enn tre måneder siden søknaden ble sendt til NAV men mindre enn tre måneder siden søknaden ble sendt til arbeidsgiver', () => {
             component = shallow(<Knapperad sykepengesoknad={getSoknad({
                 id: '88',
@@ -120,7 +120,6 @@ describe('SendtSoknad', () => {
             })} />);
             expect(component.find('.js-endre')).to.have.length(1);
         });
-        /* eslint-disable max-len */
 
         it('4) Skal inneholde en knapp for å endre søknaden hvis det er nøyaktig tre måneder siden søknaden ble sendt', () => {
             component = shallow(<Knapperad sykepengesoknad={getSoknad({

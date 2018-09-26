@@ -234,7 +234,7 @@ describe('SykmeldingkvitteringSide', () => {
             'bekreft-sykmelding.kvittering.sok-senere.steg-2.tittel': 'Om noen dager får du noen spørsmål',
             'bekreft-sykmelding.kvittering.sok-senere.steg-2.tekst': '<p>Svarene bruker vi til å beregne sykepengene dine.</p><p>Du får melding fra oss om dette %DATOER%.</p><p>Fikk du sykmeldingen på papir hos legen?<br />Legg den bort. Det du gjør på nett erstatter papiret.</p><p>Skal du reise ut av Norge? <br /><a target="_blank" href="https://www.nav.no/no/Person/Arbeid/Sykmeldt%2C+arbeidsavklaringspenger+og+yrkesskade/Sykepenger/sykepenger-ved-utenlandsopphold">Se regler om sykepenger og opphold utenfor Norge.</a></p>',
         };
-        /* eslint-disable max-len */
+        /* eslint-enable max-len */
         setLedetekster(ledetekster);
         clock = sinon.useFakeTimers(1484524800000); // 16. januar 2017
     });

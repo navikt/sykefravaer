@@ -3,9 +3,8 @@ import deepFreeze from 'deep-freeze';
 import * as brukerinfoActions from '../../js/actions/brukerinfo_actions';
 import brukerinfo from '../../js/reducers/brukerinfo';
 
-/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 let item;
-/* eslint-disable no-unused-vars */
 
 window.localStorage = {};
 window.localStorage.getItem = (i) => {

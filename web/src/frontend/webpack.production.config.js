@@ -1,6 +1,6 @@
 var Webpack = require('webpack');
 var path = require('path');
-var buildPath = path.resolve(__dirname, '../main/webapp/js');
+var buildPath = path.resolve(__dirname, 'dist/resources');
 var mainPath = path.resolve(__dirname, 'js', 'index.js');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var autoprefixer = require('autoprefixer');
@@ -13,12 +13,12 @@ var config = function (opts) {
     });
 
     return {
-    // We change to normal source mapping
+        // We change to normal source mapping
         devtool: 'source-map',
         entry: ['babel-polyfill', mainPath],
         output: {
             path: buildPath,
-            filename: 'bundle-prod.js',
+            filename: 'bundle-prod.' + timestamp + '.js',
         },
         mode: 'production',
         resolve: {
@@ -31,14 +31,14 @@ var config = function (opts) {
                 {
                     test: /\.less$/,
                     use: [{
-                        loader: MiniCssExtractPlugin.loader
+                        loader: MiniCssExtractPlugin.loader,
                     }, {
                         loader: 'css-loader',
                     }, {
                         loader: 'postcss-loader',
                         options: {
                             plugins: function() {
-                                return [autoprefixer]
+                                return [autoprefixer];
                             },
                         },
                     }, {
@@ -76,6 +76,6 @@ var config = function (opts) {
             }),
         ],
     };
-}
+};
 
 module.exports = config;

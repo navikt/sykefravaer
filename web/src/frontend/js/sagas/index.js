@@ -28,7 +28,7 @@ import {
 } from 'oppfolgingsdialog-npm';
 import arbeidsgiversSykmeldingerSagas from './arbeidsgiversSykmeldingerSagas';
 import brukerinfoSagas from './brukerinfoSagas';
-import dineArbeidsgivereSagas from './dineArbeidsgivereSagas';
+import dineArbeidsgivereSagas from './arbeidsgivereSagas';
 import dineSykmeldingerSagas from './dineSykmeldingerSagas';
 import dinSykmeldingSagas from './dinSykmeldingSagas';
 import sykepengesoknadSagas from './sykepengesoknadSagas';

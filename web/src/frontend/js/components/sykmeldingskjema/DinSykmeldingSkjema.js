@@ -12,7 +12,6 @@ import {
     getHtmlLedetekst,
     toDatePrettyPrint,
 } from 'digisyfo-npm';
-import VelgArbeidssituasjon from './VelgArbeidssituasjon';
 import ArbeidsgiversSykmeldingContainer from '../../containers/sykmelding/ArbeidsgiversSykmeldingContainer';
 import ErOpplysningeneRiktige from './ErOpplysningeneRiktige';
 import StrengtFortroligInfo from './StrengtFortroligInfo';
@@ -28,6 +27,7 @@ import { Vis } from '../../utils';
 import { getSykmeldingSkjemanavn } from '../../enums/skjemanavn';
 import Feilstripe from '../Feilstripe';
 import { utfyllingStartet } from '../../actions/metrikker_actions';
+import VelgArbeidssituasjonContainer from '../../containers/sykmelding/VelgArbeidssituasjonContainer';
 
 const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
 
@@ -156,7 +156,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 hvis={modus !== modi.AVBRYT}
                 render={() => {
                     return (<div className="blokk">
-                        <VelgArbeidssituasjon {...this.props} />
+                        <VelgArbeidssituasjonContainer {...this.props} />
                         <Vis
                             hvis={brukersSvarverdier.valgtArbeidssituasjon === ARBEIDSTAKER && harStrengtFortroligAdresse}
                             render={() => {
@@ -177,7 +177,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                 }} />
             <Feilstripe vis={sendingFeilet || avbrytFeilet} className="blokk" />
             <Vis
-                hvis={modus !== modi.GA_VIDERE && modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}
+                hvis={modus !== modi.SEND && modus !== modi.SEND_MED_NAERMESTE_LEDER}
                 render={() => {
                     return <p className="dinSykmeldingSkjema__sendInfo">{getLedetekst(`starte-sykmelding.info.${modus.toLowerCase()}`)}</p>;
                 }} />
@@ -257,6 +257,14 @@ DinSykmeldingSkjemaComponent.propTypes = {
     dispatch: PropTypes.func,
 };
 
+export const getFeilaktigeOpplysninger = () => {
+    return Object.keys(feilaktigeOpplysningerEnums).map((key) => {
+        return {
+            opplysning: feilaktigeOpplysningerEnums[key],
+        };
+    });
+};
+
 export const mapStateToProps = (state, ownProps) => {
     const sykmelding = ownProps.sykmelding;
     const dinSykmelding = state.dineSykmeldinger.data.find((s) => {
@@ -268,16 +276,12 @@ export const mapStateToProps = (state, ownProps) => {
     const values = getFormValues(skjemanavn)(state) || {};
 
     const initialValues = {
-        feilaktigeOpplysninger: Object.keys(feilaktigeOpplysningerEnums).map((key) => {
-            return {
-                opplysning: feilaktigeOpplysningerEnums[key],
-            };
-        }),
+        feilaktigeOpplysninger: getFeilaktigeOpplysninger(),
         valgtArbeidssituasjon: sporsmal
             ? sporsmal.arbeidssituasjon
             : dinSykmelding && dinSykmelding.valgtArbeidssituasjon
                 ? dinSykmelding.valgtArbeidssituasjon
-                : arbeidssituasjoner.DEFAULT,
+                : null,
     };
 
     if (sporsmal && sporsmal.harForsikring !== null) {
@@ -303,11 +307,13 @@ export const mapStateToProps = (state, ownProps) => {
         }
     }
 
+    const modus = getSkjemaModus(values, harStrengtFortroligAdresse);
+
     return {
         initialValues,
         brukersSvarverdier: values,
         harStrengtFortroligAdresse,
-        modus: getSkjemaModus(values, harStrengtFortroligAdresse),
+        modus,
         sender: state.arbeidsgiversSykmeldinger.sender,
         sendingFeilet: state.dineSykmeldinger.sendingFeilet,
         avbryter: state.dineSykmeldinger.avbryter,
@@ -320,6 +326,9 @@ const ConnectedSkjema = compose(
     reduxForm({
         destroyOnUnmount: false,
         validate,
+        initialValues: {
+            valgtArbeidssituasjon: 'DEFAULT',
+        },
         onSubmitFail: (error, dispatch, submitError, props) => {
             onSubmitFail(error, dispatch, getSykmeldingSkjemanavn(props.sykmelding.id));
         },

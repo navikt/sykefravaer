@@ -9,17 +9,17 @@ export function* hentDineArbeidsgivere(action) {
     yield put(actions.henterAktuelleArbeidsgivere(sykmeldingId));
     try {
         const data = yield call(get, `${window.APP_SETTINGS.REST_ROOT}/informasjon/arbeidsgivere?sykmeldingId=${sykmeldingId}`);
-        yield put(actions.setAktuelleArbeidsgivere(sykmeldingId, data));
+        yield put(actions.aktuelleArbeidsgivereHentet(sykmeldingId, data));
     } catch (e) {
         log(e);
         yield put(actions.hentAktuelleArbeidsgivereFeilet(sykmeldingId));
     }
 }
 
-function* watchHentDineArbeidsgivere() {
+function* watchHentArbeidsgivere() {
     yield* takeEvery(actiontyper.HENT_AKTUELLE_ARBEIDSGIVERE_FORESPURT, hentDineArbeidsgivere);
 }
 
-export default function* dineSykmeldingerSagas() {
-    yield fork(watchHentDineArbeidsgivere);
+export default function* arbeidsgivereSagas() {
+    yield fork(watchHentArbeidsgivere);
 }

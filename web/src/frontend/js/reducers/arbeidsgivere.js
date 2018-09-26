@@ -7,9 +7,9 @@ const initiellState = {
     sykmeldingId: null,
 };
 
-export default function arbeidsgivere(state = initiellState, action) {
+export default function arbeidsgivere(state = initiellState, action = {}) {
     switch (action.type) {
-        case actiontyper.SET_AKTUELLE_ARBEIDSGIVERE: {
+        case actiontyper.AKTUELLE_ARBEIDSGIVERE_HENTET: {
             return {
                 data: action.arbeidsgivere,
                 hentingFeilet: false,

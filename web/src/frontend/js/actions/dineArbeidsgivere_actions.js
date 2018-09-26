@@ -14,9 +14,9 @@ export function henterAktuelleArbeidsgivere(sykmeldingId) {
     };
 }
 
-export function setAktuelleArbeidsgivere(sykmeldingId, arbeidsgivere) {
+export function aktuelleArbeidsgivereHentet(sykmeldingId, arbeidsgivere) {
     return {
-        type: actiontyper.SET_AKTUELLE_ARBEIDSGIVERE,
+        type: actiontyper.AKTUELLE_ARBEIDSGIVERE_HENTET,
         sykmeldingId,
         arbeidsgivere,
     };

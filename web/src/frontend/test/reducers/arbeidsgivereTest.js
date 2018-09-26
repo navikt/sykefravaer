@@ -37,10 +37,10 @@ describe('arbeidsgivere', () => {
         });
     });
 
-    it('håndterer SET_AKTUELLE_ARBEIDSGIVERE', () => {
+    it('håndterer AKTUELLE_ARBEIDSGIVERE_HENTET', () => {
         const initialState = deepFreeze({});
         const action = {
-            type: actiontyper.SET_AKTUELLE_ARBEIDSGIVERE,
+            type: actiontyper.AKTUELLE_ARBEIDSGIVERE_HENTET,
             arbeidsgivere: [{
                 orgnr: 12345678,
                 navn: 'Hansens Frisørsalong',

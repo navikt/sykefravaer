@@ -1,7 +1,6 @@
 import React from 'react';
-/* eslint-disable */
+// eslint-disable-next-line
 import Modal from 'nav-frontend-modal';
-/* eslint-enable */
 import cn from 'classnames';
 import PropTypes from 'prop-types';
 

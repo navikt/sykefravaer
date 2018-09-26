@@ -38,7 +38,7 @@ describe('FeriePermisjonEllerUtenlandsopphold', () => {
             'sykepengesoknad.egenmeldingsdager.janei.sporsmal-3': 'Vi har registrert at du ble sykmeldt %DATO%. Brukte du egenmeldinger og/eller var du sykmeldt i perioden %PERIODE%?',
             'sykepengesoknad.ferie-permisjon-utenlandsopphold.janei.sporsmal-2': 'Har du hatt ferie, permisjon eller oppholdt deg utenfor Norge i perioden %PERIODE%?',
         });
-        /* eslint-disable max-len */
+        /* eslint-enable max-len */
         setLedetekster(_ledetekster);
 
         compo = shallow(<FeriePermisjonEllerUtenlandsoppholdComp sykepengesoknad={getSoknad()} />);

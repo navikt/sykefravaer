@@ -79,7 +79,7 @@ describe('mapSkjemasoknadToOppsummeringSoknad', () => {
             'sykepengesoknad.forskutterer-arbeidsgiver.svar.VET_IKKE': 'Vet ikke',
             'sykepengesoknad.forskutterer-arbeidsgiver.sporsmal': 'Betaler arbeidsgiveren lønnen din når du er syk?',
         };
-        /* eslint-disable max-len */
+        /* eslint-enable max-len */
 
         setLedetekster(tekster);
 

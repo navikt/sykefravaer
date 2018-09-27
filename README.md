@@ -8,6 +8,7 @@ React-app for den sykmeldte. Viser sykmeldinger, sykepengesøknader og informasj
 Konsumerer REST-APIet til [SyfoREST](http://stash.devillo.no/projects/SYFO/repos/syforest).
 
 ### Kjøre lokalt
+Foreløpig kjører denne appen kun internt på nav, da den er avhengig av diverse baksystemer. Det jobbes med å sette opp lokal mock.
 
 Du må ha Node installert.
 

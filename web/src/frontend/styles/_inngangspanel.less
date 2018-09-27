@@ -2,8 +2,8 @@
     .mixin-panel-padding();
     display: flex;
     width: 100%;
-    padding-top: 1.25em;
-    padding-bottom: 1.25em;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
     margin-bottom: 1px;
     display: flex;
     background: @white;
@@ -19,22 +19,23 @@
 
 .inngangspanelerHeader__verktoy {
     .typo-normal-mixin();
+    margin-left: 1rem;
 }
 
 .inngangspanel:extend(.panel) {
     margin-bottom: 1px;
-    padding-right: 3em;
+    padding-right: 3rem;
     background-image: data-uri("../img/svg/pil-videre-graa.svg");
     background-repeat: no-repeat;
-    background-position: 97% 2em;
-    background-size: 1rem 1em;
+    background-position: 97% 2rem;
+    background-size: 1rem 1rem;
     transition: background-position ease-in-out .1s;
     transform: translate3d(0, 0, 0);
     display: flex;
     width: 100%;
     color: @navMorkGra;
     border-bottom-width: 0;
-    font-size: 1em;
+    font-size: 1rem;
     text-align: left;
     border: 0;
 
@@ -69,7 +70,7 @@
     }
 
     .inngangspanel__tekst {
-        margin-bottom: 1.25em;
+        margin-bottom: 1.25rem;
     }
 
     .inngangspanel__tekst:last-child {
@@ -89,8 +90,8 @@
 .inngangspanel--ekstern {
     border: 5px solid #669db4;
     background-position: 97% center;
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 
     &:focus {
         outline: none;
@@ -123,7 +124,7 @@
 .inngangspanel--sykmelding .inngangspanel__tekst {
     p {
         margin-top: 0;
-        margin-bottom: .5em;
+        margin-bottom: .5rem;
         .typo-normal-mixin();
     }
 }
@@ -155,15 +156,15 @@
     .inngangspanelerHeader__verktoyLabel {
         margin-bottom: 0;
         align-self: center;
-        margin-right: .5em;
+        margin-right: .5rem;
     }
 
     .inngangspanel__ikon {
         display: block;
         align-self: flex-start;
-        width: 2em;
+        width: 2rem;
         box-sizing: content-box;
-        padding-right: 1em;
+        padding-right: 1rem;
 
         img {
             width: 100%;
@@ -192,7 +193,7 @@
 
 .inngangspanel__header h3 {
     margin: 0;
-    font-size: 1em;
+    font-size: 1rem;
 }
 
 .inngangspanel__tittel {
@@ -210,5 +211,5 @@
 
 .inngangspanel__punktliste {
     margin: 0;
-    padding-left: 1em;
+    padding-left: 1rem;
 }

@@ -5,13 +5,13 @@
 }
 
 .tidslinjeutdrag__bilde {
-	margin-bottom: 1em;
+	margin-bottom: 1rem;
 	width: 66%;
 }
 
 .tidslinjeutdrag__tittel {
 	.typo-systemtittel-mixin();
-	margin: 0 0 .25em 0;
+	margin: 0 0 .25rem 0;
 }
 
 .tidslinjeutdrag__toggle {
@@ -24,7 +24,7 @@
 	padding: 0;
 	color: @navBla;
 	position: relative;
-	padding: 0 0 1em 0;
+	padding: 0 0 1rem 0;
 
 	&:focus {
 		box-shadow: 0 0 0 3px @orangeFocus;
@@ -38,21 +38,21 @@
 		bottom: 0;
 		left: 50%;
 		transform: translateX(-50%);
-		width: 2em;
-		height: .75em;
+		width: 2rem;
+		height: .75rem;
 		background: url('/sykefravaer/img/svg/arrow-down_hover.svg') no-repeat center center;
-		background-size: 1em 1em;
+		background-size: 1em 1rem;
 		.transition-mixin(.2s, bottom);
 	}
 
 	&:hover:after {
-		bottom: -.25em;
+		bottom: -.25rem;
 		.transition-mixin(.1s, bottom);
 	}
 }
 
 .tidslinjeutdrag__togglelink--erApen {
-	padding: 1.25em 0 0 0;
+	padding: 1.25rem 0 0 0;
 
 	&:after {
 		top: 0;
@@ -62,19 +62,19 @@
 	}
 
 	&:hover:after {
-		top: -.25em;
+		top: -.25rem;
 		.transition-mixin(.1s, top);
 	}
 }
 
-@media (min-width: 30em) {
+@media (min-width: 30rem) {
 	.tidslinjeutdrag {
 		flex-direction: row-reverse;
 		align-items: flex-start;
 	}
 
 	.tidslinjeutdrag__bilde {
-		margin-left: 2em;
+		margin-left: 2rem;
 		width: 35%;
 	}
 
@@ -88,7 +88,7 @@
 	border-bottom: 1px solid @navGra40;
 	text-decoration: none;
 	position: relative;
-	margin-left: 1.5em;
+	margin-left: 1.5rem;
 
 	&:hover {
 		border-bottom-color: @navBla;
@@ -97,12 +97,12 @@
 	&:before {
 		content: '';
 		display: block;
-		width: 1em;
+		width: 1rem;
 		height: 100%;
 		background: url('/sykefravaer/img/svg/punktliste--blaa.svg') no-repeat center center;
-		background-size: 1em 1em;
+		background-size: 1rem 1rem;
 		position: absolute;
-		left: -1.5em;
+		left: -1.5rem;
 		top: 0;
 	}
 }

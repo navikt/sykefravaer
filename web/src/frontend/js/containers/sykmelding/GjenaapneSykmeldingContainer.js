@@ -7,16 +7,18 @@ import { gjenaapneSykmelding } from '../../actions/dinSykmelding_actions';
 // eslint-disable-next-line no-shadow
 function GjenaapneSykmeldingContainer({ sykmeldingId, gjenaapneSykmelding, gjenaapneFeilet }) {
     return (
-        <div className="verktoylinje">
-            <button
-                className="knapp knapp--mini js-gjenaapne-sykmelding"
-                onClick={() => {
-                    return gjenaapneSykmelding(sykmeldingId);
-                }}>
-                {getLedetekst('din-sykmelding.avbrutt.gjenaapne')}
-            </button>
+        <div>
+            <div className="verktoylinje">
+                <button
+                    className="knapp knapp--mini js-gjenaapne-sykmelding"
+                    onClick={() => {
+                        return gjenaapneSykmelding(sykmeldingId);
+                    }}>
+                    {getLedetekst('din-sykmelding.avbrutt.gjenaapne')}
+                </button>
+            </div>
             <div aria-live="polite">
-                { gjenaapneFeilet && <p className="skjema__feilmelding">Beklager, sykmeldingen kunne ikke gjenåpnes</p> }
+                { gjenaapneFeilet && <p className="skjemaelement__feilmelding">Beklager, sykmeldingen kunne ikke gjenåpnes</p> }
             </div>
         </div>
     );

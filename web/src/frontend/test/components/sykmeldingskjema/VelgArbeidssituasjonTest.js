@@ -42,6 +42,7 @@ describe('VelgArbeidssituasjon', () => {
         props = {
             arbeidsgivere: [],
             input: {},
+            initialValues: {},
         };
     });
 

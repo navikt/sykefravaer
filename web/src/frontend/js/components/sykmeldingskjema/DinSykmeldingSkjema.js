@@ -28,6 +28,7 @@ import { getSykmeldingSkjemanavn } from '../../enums/skjemanavn';
 import Feilstripe from '../Feilstripe';
 import { utfyllingStartet } from '../../actions/metrikker_actions';
 import VelgArbeidssituasjonContainer from '../../containers/sykmelding/VelgArbeidssituasjonContainer';
+import * as brukerinfoSelectors from '../../selectors/brukerinfoSelectors';
 
 const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
 
@@ -271,17 +272,17 @@ export const mapStateToProps = (state, ownProps) => {
         return s.id === sykmelding.id;
     });
     const sporsmal = dinSykmelding ? dinSykmelding.sporsmal : null;
-    const harStrengtFortroligAdresse = state.brukerinfo.bruker.data.strengtFortroligAdresse;
-    const skjemanavn = getSykmeldingSkjemanavn(sykmelding.id);
-    const values = getFormValues(skjemanavn)(state) || {};
-
+    const harStrengtFortroligAdresse = brukerinfoSelectors.harStrengtFortroligAdresse(state);
+    const values = getFormValues(getSykmeldingSkjemanavn(sykmelding.id))(state) || {};
+    const valgtArbeidssituasjon = sporsmal
+        ? sporsmal.arbeidssituasjon
+        : dinSykmelding && dinSykmelding.valgtArbeidssituasjon
+            ? dinSykmelding.valgtArbeidssituasjon
+            : null;
     const initialValues = {
         feilaktigeOpplysninger: getFeilaktigeOpplysninger(),
-        valgtArbeidssituasjon: sporsmal
-            ? sporsmal.arbeidssituasjon
-            : dinSykmelding && dinSykmelding.valgtArbeidssituasjon
-                ? dinSykmelding.valgtArbeidssituasjon
-                : null,
+        valgtArbeidssituasjon,
+        valgtArbeidssituasjonShadow: valgtArbeidssituasjon,
     };
 
     if (sporsmal && sporsmal.harForsikring !== null) {
@@ -326,9 +327,6 @@ const ConnectedSkjema = compose(
     reduxForm({
         destroyOnUnmount: false,
         validate,
-        initialValues: {
-            valgtArbeidssituasjon: 'DEFAULT',
-        },
         onSubmitFail: (error, dispatch, submitError, props) => {
             onSubmitFail(error, dispatch, getSykmeldingSkjemanavn(props.sykmelding.id));
         },

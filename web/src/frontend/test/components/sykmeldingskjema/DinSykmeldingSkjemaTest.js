@@ -125,6 +125,7 @@ describe('DinSykmeldingSkjema -', () => {
                     opplysning: 'andre',
                 }],
                 valgtArbeidssituasjon: null,
+                valgtArbeidssituasjonShadow: null,
             };
 
             it('Skal returnere initialValues', () => {
@@ -147,6 +148,7 @@ describe('DinSykmeldingSkjema -', () => {
                     expect(props.initialValues).to.deep.equal({
                         ...initialValues,
                         valgtArbeidssituasjon: 'FRILANSER',
+                        valgtArbeidssituasjonShadow: 'FRILANSER',
                         harForsikring: false,
                         harAnnetFravaer: false,
                     });
@@ -166,6 +168,7 @@ describe('DinSykmeldingSkjema -', () => {
                     expect(props.initialValues).to.deep.equal({
                         ...initialValues,
                         valgtArbeidssituasjon: 'FRILANSER',
+                        valgtArbeidssituasjonShadow: 'FRILANSER',
                     });
                 });
 
@@ -179,6 +182,7 @@ describe('DinSykmeldingSkjema -', () => {
                     expect(props.initialValues).to.deep.equal({
                         ...initialValues,
                         valgtArbeidssituasjon: 'FRILANSER',
+                        valgtArbeidssituasjonShadow: 'FRILANSER',
                     });
                 });
 
@@ -200,6 +204,7 @@ describe('DinSykmeldingSkjema -', () => {
                     expect(props.initialValues).to.deep.equal({
                         ...initialValues,
                         valgtArbeidssituasjon: 'FRILANSER',
+                        valgtArbeidssituasjonShadow: 'FRILANSER',
                         harForsikring: false,
                         harAnnetFravaer: true,
                         fravaersperioder: [{
@@ -224,6 +229,7 @@ describe('DinSykmeldingSkjema -', () => {
                     expect(props.initialValues).to.deep.equal({
                         ...initialValues,
                         valgtArbeidssituasjon: 'FRILANSER',
+                        valgtArbeidssituasjonShadow: 'FRILANSER',
                         harForsikring: true,
                         harAnnetFravaer: false,
                         dekningsgrad: 75,

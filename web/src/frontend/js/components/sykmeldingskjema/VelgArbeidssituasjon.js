@@ -153,7 +153,7 @@ class VelgArbeidssituasjon extends Component {
         super(props);
         this.onChange = this.onChange.bind(this);
         this.state = {
-            visArbeidssituasjoner: false,
+            visArbeidssituasjoner: props.initialValues.valgtArbeidssituasjonShadow !== null,
         };
     }
 
@@ -209,6 +209,9 @@ VelgArbeidssituasjon.propTypes = {
     arbeidsgivere: PropTypes.arrayOf(arbeidsgiverPt),
     sykmelding: sykmeldingPt,
     harStrengtFortroligAdresse: PropTypes.bool,
+    initialValues: PropTypes.shape({
+        valgtArbeidssituasjonShadow: PropTypes.string,
+    }),
 };
 
 export default VelgArbeidssituasjon;

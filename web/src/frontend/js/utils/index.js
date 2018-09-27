@@ -58,3 +58,9 @@ Vis.propTypes = {
 export const formaterOrgnr = (orgnr) => {
     return orgnr.replace(/(...)(...)(...)/g, '$1 $2 $3');
 };
+
+export const tilStorForbokstav = (streng) => {
+    return streng.replace(/^\w/, (c) => {
+        return c.toUpperCase();
+    });
+};

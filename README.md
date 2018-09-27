@@ -22,4 +22,4 @@ $ npm config set @babel:registry "http://a34apvl062.devillo.no:8082/repository/n
 * Lint JS-kode med `npm run lint`
 
 ## Logge på i T-miljø
-Se denne siden for [testdata](http://confluence.adeo.no/display/Digisyfo/Testdata+Barken).
+Se denne siden for [testdata](http://confluence.adeo.no/display/Digisyfo/Testdata+Barken) (intern lenke).

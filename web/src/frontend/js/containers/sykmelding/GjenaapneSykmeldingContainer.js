@@ -1,20 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Knapp from 'nav-frontend-knapper';
 import { getLedetekst } from 'digisyfo-npm';
 import { gjenaapneSykmelding } from '../../actions/dinSykmelding_actions';
 
-function GjenaapneSykmeldingContainer({ sykmeldingId, gjenaapneSykmeldingConnected, gjenaapneFeilet }) {
+function GjenaapneSykmeldingContainer({ sykmeldingId, gjenaapneSykmeldingConnected, gjenaapneFeilet, gjenaapner }) {
     return (
         <div>
             <div className="verktoylinje">
-                <button
-                    className="knapp knapp--mini js-gjenaapne-sykmelding"
+                <Knapp
+                    type="standard"
+                    htmlType="button"
+                    mini
+                    autoDisableVedSpinner
+                    className="js-gjenaapne-sykmelding"
+                    spinner={gjenaapner}
                     onClick={() => {
                         return gjenaapneSykmeldingConnected(sykmeldingId);
                     }}>
                     {getLedetekst('din-sykmelding.avbrutt.gjenaapne')}
-                </button>
+                </Knapp>
             </div>
             <div aria-live="polite">
                 { gjenaapneFeilet && <p className="skjemaelement__feilmelding">Beklager, sykmeldingen kunne ikke gjenåpnes</p> }
@@ -27,11 +33,13 @@ GjenaapneSykmeldingContainer.propTypes = {
     sykmeldingId: PropTypes.string.isRequired,
     gjenaapneSykmeldingConnected: PropTypes.func.isRequired,
     gjenaapneFeilet: PropTypes.bool,
+    gjenaapner: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {
     return {
         gjenaapneFeilet: state.dineSykmeldinger.gjenaapneFeilet,
+        gjenaapner: state.dineSykmeldinger.gjenaapner,
     };
 };
 

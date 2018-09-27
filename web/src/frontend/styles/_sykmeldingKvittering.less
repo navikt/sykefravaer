@@ -12,13 +12,19 @@
 
 .kvitteringsteg__innhold {
     margin-bottom: 1rem;
-    padding-left: 3.5rem;
+    padding-left: 2.5rem;
     min-height: 3.5rem;
 
     ul {
         text-align: left;
         display: inline-block;
         padding-left: 1rem;
+    }
+}
+
+@media (min-width: @skjermMini) {
+    .kvitteringsteg__innhold {
+        padding-left: 3.5rem;
     }
 }
 
@@ -79,7 +85,7 @@
 .kvitteringsteg__tittel:before {
     content: '';
     width: 1px;
-    height: ~'calc(100% - 2.25em)';
+    height: ~'calc(100% - 2.25rem)';
     background-color: @navGra40;
     position: absolute;
     left: 1rem;

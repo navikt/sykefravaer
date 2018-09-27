@@ -200,7 +200,9 @@ export class DinSykmeldingSkjemaComponent extends Component {
                         hvis={modus !== modi.AVBRYT}
                         render={() => {
                             return (<p className="blokk">
-                                <button
+                                <a
+                                    role="button"
+                                    tabIndex="0"
                                     aria-pressed={this.state.visAvbrytDialog}
                                     className="lenke"
                                     ref={(c) => {
@@ -211,7 +213,7 @@ export class DinSykmeldingSkjemaComponent extends Component {
                                         this.setState({
                                             visAvbrytDialog: !this.state.visAvbrytDialog,
                                         });
-                                    }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</button>
+                                    }}>{getLedetekst('starte-sykmelding.trigger-avbryt-dialog')}</a>
                             </p>);
                         }} />
                     <AvbrytDialog

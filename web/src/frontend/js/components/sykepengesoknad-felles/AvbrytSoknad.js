@@ -40,7 +40,9 @@ class AvbrytSoknad extends Component {
         return (<div>
             <div className="avbrytDialog">
                 <p className="avbrytDialog__trigger">
-                    <button
+                    <a
+                        role="button"
+                        tabIndex="0"
                         aria-pressed={this.state.erApen}
                         ref={(c) => {
                             this.knapp = c;
@@ -49,7 +51,7 @@ class AvbrytSoknad extends Component {
                         onClick={(e) => {
                             e.preventDefault();
                             this.toggleAvbrytdialog();
-                        }}>{getLedetekst('sykepengesoknad.avbryt.trigger')}</button>
+                        }}>{getLedetekst('sykepengesoknad.avbryt.trigger')}</a>
                 </p>
                 <div
                     ref={(c) => {

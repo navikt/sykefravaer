@@ -9,7 +9,6 @@ import BekreftetSykmelding from '../components/sykmelding/BekreftetSykmelding';
 import AvbruttSykmelding from '../components/sykmelding/AvbruttSykmelding';
 import UtgaattSykmelding from '../components/sykmelding/UtgaattSykmelding';
 import LenkeTilDineSykmeldinger from '../components/LenkeTilDineSykmeldinger';
-import AppSpinner from '../components/AppSpinner';
 import Feilmelding from '../components/Feilmelding';
 import { hentDineSykmeldinger } from '../actions/dineSykmeldinger_actions';
 import { sykmelding as sykmeldingPt, brodsmule as brodsmulePt } from '../propTypes/index';
@@ -25,49 +24,61 @@ export class Container extends Component {
     }
 
     render() {
-        const { brodsmuler, dinSykmelding, henter, hentingFeilet,
-            visEldreSykmeldingVarsel, eldsteSykmeldingId, hentet } = this.props;
-        return (<Side tittel={getLedetekst('din-sykmelding.sidetittel')} brodsmuler={brodsmuler} laster={henter || !hentet}>
+        const {
+            brodsmuler,
+            dinSykmelding,
+            henter,
+            hentingFeilet,
+            visEldreSykmeldingVarsel,
+            eldsteSykmeldingId,
+        } = this.props;
+        return (<Side tittel={getLedetekst('din-sykmelding.sidetittel')} brodsmuler={brodsmuler} laster={henter}>
             { (() => {
-                if (henter || !hentet) {
-                    return <AppSpinner />;
+                if (henter) {
+                    return <div />;
                 } else if (hentingFeilet) {
                     return (<Feilmelding />);
                 } else if (!dinSykmelding) {
                     return (<Feilmelding
                         tittel={getLedetekst('din-sykmelding.fant-ikke-sykmelding.tittel')}
                         melding={getLedetekst('din-sykmelding.fant-ikke-sykmelding.melding')} />);
-                } else if ((dinSykmelding.status === SENDT || dinSykmelding.status === TIL_SENDING) && dinSykmelding) {
-                    return (<div>
-                        <SendtSykmelding
-                            dinSykmelding={dinSykmelding}
-                        />
-                        <LenkeTilDineSykmeldinger />
-                    </div>);
-                } else if (dinSykmelding.status === BEKREFTET) {
-                    return (<div>
-                        <BekreftetSykmelding
-                            dinSykmelding={dinSykmelding}
-                        />
-                        <LenkeTilDineSykmeldinger />
-                    </div>);
-                } else if (dinSykmelding.status === UTGAATT) {
-                    return (<div>
-                        <UtgaattSykmelding sykmelding={dinSykmelding} />
-                        <LenkeTilDineSykmeldinger />
-                    </div>);
-                } else if (dinSykmelding.status === NY) {
-                    return (<NySykmelding
-                        sykmelding={dinSykmelding}
-                        visEldreSykmeldingVarsel={visEldreSykmeldingVarsel}
-                        eldsteSykmeldingId={eldsteSykmeldingId} />);
-                } else if (dinSykmelding.status === AVBRUTT) {
-                    return (<div>
-                        <AvbruttSykmelding sykmelding={dinSykmelding} />
-                        <LenkeTilDineSykmeldinger />
-                    </div>);
                 }
-                return <Feilmelding tittel="Sykmeldingen har ukjent status" />;
+                switch (dinSykmelding.status) {
+                    case SENDT:
+                    case TIL_SENDING: {
+                        return (<div>
+                            <SendtSykmelding dinSykmelding={dinSykmelding} />
+                            <LenkeTilDineSykmeldinger />
+                        </div>);
+                    }
+                    case BEKREFTET: {
+                        return (<div>
+                            <BekreftetSykmelding dinSykmelding={dinSykmelding} />
+                            <LenkeTilDineSykmeldinger />
+                        </div>);
+                    }
+                    case UTGAATT: {
+                        return (<div>
+                            <UtgaattSykmelding sykmelding={dinSykmelding} />
+                            <LenkeTilDineSykmeldinger />
+                        </div>);
+                    }
+                    case NY: {
+                        return (<NySykmelding
+                            sykmelding={dinSykmelding}
+                            visEldreSykmeldingVarsel={visEldreSykmeldingVarsel}
+                            eldsteSykmeldingId={eldsteSykmeldingId} />);
+                    }
+                    case AVBRUTT: {
+                        return (<div>
+                            <AvbruttSykmelding sykmelding={dinSykmelding} />
+                            <LenkeTilDineSykmeldinger />
+                        </div>);
+                    }
+                    default: {
+                        return <Feilmelding tittel="Sykmeldingen har ukjent status" />;
+                    }
+                }
             })()
             }
         </Side>);
@@ -82,7 +93,6 @@ Container.propTypes = {
     visEldreSykmeldingVarsel: PropTypes.bool,
     eldsteSykmeldingId: PropTypes.string,
     hentDineSykmeldinger: PropTypes.func,
-    hentet: PropTypes.bool,
     skalHenteDineSykmeldinger: PropTypes.bool,
 };
 
@@ -121,13 +131,11 @@ const visEldreSykmeldingVarsel = (sykmeldinger, sykmeldingId) => {
         return s.status === NY;
     });
     const erEldst = erEldsteSykmelding(nyeSykmeldinger, sykmeldingId);
-    if (erEldst) {
-        return false;
-    }
-    if (!erEldst && detFinnesAndreSykmeldingerMedSammePeriode(nyeSykmeldinger, sykmeldingId) && harSammePeriodeSomDenEldsteSykmeldingen(nyeSykmeldinger, sykmeldingId)) {
-        return false;
-    }
-    return true;
+    return erEldst
+        ? false
+        : !(!erEldst
+            && detFinnesAndreSykmeldingerMedSammePeriode(nyeSykmeldinger, sykmeldingId)
+            && harSammePeriodeSomDenEldsteSykmeldingen(nyeSykmeldinger, sykmeldingId));
 };
 
 export function mapStateToProps(state, ownProps) {
@@ -140,9 +148,12 @@ export function mapStateToProps(state, ownProps) {
 
     return {
         sykmeldingId,
-        henter: state.dineSykmeldinger.henter || state.ledetekster.henter,
-        hentet,
-        hentingFeilet: state.dineSykmeldinger.hentingFeilet || state.arbeidsgiversSykmeldinger.hentingFeilet || state.ledetekster.hentingFeilet,
+        henter: state.dineSykmeldinger.henter
+            || state.ledetekster.henter
+            || !hentet,
+        hentingFeilet: state.dineSykmeldinger.hentingFeilet
+            || state.arbeidsgiversSykmeldinger.hentingFeilet
+            || state.ledetekster.hentingFeilet,
         dinSykmelding,
         skalHenteDineSykmeldinger,
         visEldreSykmeldingVarsel: visEldreSykmeldingVarsel(state.dineSykmeldinger.data, sykmeldingId),

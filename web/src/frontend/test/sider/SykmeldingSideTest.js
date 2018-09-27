@@ -6,7 +6,6 @@ import chaiEnzyme from 'chai-enzyme';
 import ledetekster from '../mockLedetekster';
 import getSykmelding from '../mockSykmeldinger';
 import { Container, mapStateToProps } from '../../js/sider/SykmeldingSide';
-import AppSpinner from '../../js/components/AppSpinner';
 import Feilmelding from '../../js/components/Feilmelding';
 import NySykmelding from '../../js/components/sykmelding/NySykmelding';
 import SendtSykmelding from '../../js/components/sykmelding/SendtSykmelding';
@@ -135,22 +134,19 @@ describe('DinSykmeldingContainer', () => {
         it('Skal vise spinner dersom det hentes dine sykmeldinger', () => {
             state.dineSykmeldinger.henter = true;
             const props = mapStateToProps(state, ownProps);
-            const component = shallow(<Container {...props} {...actions} />);
-            expect(component.find(AppSpinner)).to.have.length(1);
+            expect(props.henter).to.equal(true);
         });
 
         it('Skal vise spinner dersom det hentes ledetekster', () => {
             state.ledetekster.henter = true;
             const props = mapStateToProps(state, ownProps);
-            const component = shallow(<Container {...props} {...actions} />);
-            expect(component.find(AppSpinner)).to.have.length(1);
+            expect(props.henter).to.equal(true);
         });
 
         it('Skal vise spinner dersom dine sykmeldinger ikke er hentet', () => {
             state.dineSykmeldinger.hentet = false;
             const props = mapStateToProps(state, ownProps);
-            const component = shallow(<Container {...props} {...actions} />);
-            expect(component.find(AppSpinner)).to.have.length(1);
+            expect(props.henter).to.equal(true);
         });
     });
 

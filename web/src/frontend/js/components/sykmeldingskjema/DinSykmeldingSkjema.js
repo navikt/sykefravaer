@@ -311,6 +311,7 @@ export const mapStateToProps = (state, ownProps) => {
     const modus = getSkjemaModus(values, harStrengtFortroligAdresse);
 
     return {
+        arbeidsgivere: state.arbeidsgivere.data,
         initialValues,
         brukersSvarverdier: values,
         harStrengtFortroligAdresse,

@@ -5,9 +5,10 @@ import validerSykmeldingskjema from '../../../js/components/sykmeldingskjema/val
 const expect = chai.expect;
 
 describe('validerSykmeldingskjema', () => {
-    const { DEFAULT, ARBEIDSTAKER, FRILANSER } = arbeidssituasjoner;
+    const { ARBEIDSTAKER, FRILANSER } = arbeidssituasjoner;
 
     let fields = {};
+    let props;
 
     beforeEach(() => {
         fields = {
@@ -16,34 +17,41 @@ describe('validerSykmeldingskjema', () => {
             valgtArbeidssituasjon: undefined,
             valgtArbeidsgiver: undefined,
         };
+
+        props = {
+            arbeidsgivere: [],
+            sykmelding: {},
+            harStrengtFortroligAdresse: false,
+        };
     });
 
     it('Skal returnere opplysningeneErRiktige og arbeidssituasjon dersom opplysningeneErRiktige === undefined og valgtArbeidssituasjon === undefined', () => {
-        const res = validerSykmeldingskjema(fields);
-        expect(Object.keys(res)).to.deep.equal(['opplysningeneErRiktige', 'valgtArbeidssituasjon']);
+        const res = validerSykmeldingskjema(fields, props);
+        expect(Object.keys(res)).to.deep.equal(['opplysningeneErRiktige', 'valgtArbeidssituasjonShadow']);
     });
 
-    it('Skal returnere valgtArbeidssituasjon hvis valgtArbeidssituasjon === DEFAULT', () => {
-        fields.valgtArbeidssituasjon = DEFAULT;
-        const res = validerSykmeldingskjema(fields);
-        expect(Object.keys(res)).to.deep.equal(['opplysningeneErRiktige', 'valgtArbeidssituasjon']);
+    it('Skal returnere valgtArbeidssituasjon hvis valgtArbeidssituasjon ikke er satt', () => {
+        fields.valgtArbeidssituasjon = null;
+        fields.valgtArbeidssituasjonShadow = null;
+        const res = validerSykmeldingskjema(fields, props);
+        expect(Object.keys(res)).to.deep.equal(['opplysningeneErRiktige', 'valgtArbeidssituasjonShadow']);
     });
 
     it('Skal returnere opplysningeneErRiktige dersom opplysningeneErRiktige === undefined', () => {
-        const res = validerSykmeldingskjema(fields);
+        const res = validerSykmeldingskjema(fields, props);
         expect(typeof res.opplysningeneErRiktige).to.equal('string');
     });
 
     it('Skal ikke returnere opplysningeneErRiktige dersom opplysningeneErRiktige === true', () => {
         fields.opplysningeneErRiktige = true;
-        const res = validerSykmeldingskjema(fields);
+        const res = validerSykmeldingskjema(fields, props);
         expect(res.opplysningeneErRiktige).to.equal(undefined);
     });
 
     it('Skal returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger === default', () => {
         fields.opplysningeneErRiktige = false;
-        const res = validerSykmeldingskjema(fields);
-        expect(res.feilaktigeOpplysninger._error).to.equal('Vennligst oppgi hvilke opplysninger som ikke er riktige');
+        const res = validerSykmeldingskjema(fields, props);
+        expect(res.feilaktigeOpplysninger._error).to.equal('Du må oppgi hvilke opplysninger som ikke er riktige');
     });
 
     it('Skal returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger har en uavkrysset opplysning', () => {
@@ -51,8 +59,8 @@ describe('validerSykmeldingskjema', () => {
         fields.feilaktigeOpplysninger[0] = Object.assign({}, feilaktigeOpplysninger[0], {
             avkrysset: false,
         });
-        const res = validerSykmeldingskjema(fields);
-        expect(res.feilaktigeOpplysninger._error).to.equal('Vennligst oppgi hvilke opplysninger som ikke er riktige');
+        const res = validerSykmeldingskjema(fields, props);
+        expect(res.feilaktigeOpplysninger._error).to.equal('Du må oppgi hvilke opplysninger som ikke er riktige');
     });
 
     it('Skal ikke returnere feilaktigeOpplysninger dersom opplysningeneErRiktige === false og feilaktigeOpplysninger har en avkrysset opplysning', () => {
@@ -60,7 +68,7 @@ describe('validerSykmeldingskjema', () => {
         fields.feilaktigeOpplysninger[0] = Object.assign({}, feilaktigeOpplysninger[0], {
             avkrysset: true,
         });
-        const res = validerSykmeldingskjema(fields);
+        const res = validerSykmeldingskjema(fields, props);
         expect(res.feilaktigeOpplysninger).to.equal(undefined);
     });
 
@@ -72,37 +80,14 @@ describe('validerSykmeldingskjema', () => {
         fields.feilaktigeOpplysninger[1] = Object.assign({}, feilaktigeOpplysninger[1], {
             avkrysset: true,
         });
-        const res = validerSykmeldingskjema(fields);
+        const res = validerSykmeldingskjema(fields, props);
         expect(res.feilaktigeOpplysninger).to.equal(undefined);
-    });
-
-
-    it('Skal returnere valgtArbeidssituasjon dersom valgtArbeidssituasjon ikke er satt', () => {
-        fields.valgtArbeidssituasjon = undefined;
-        const res = validerSykmeldingskjema(fields);
-        expect(res.valgtArbeidssituasjon).not.to.equal(undefined);
     });
 
     it("Skal ikke returnere valgtArbeidssituasjon dersom valgtArbeidssituasjon === 'ARBEIDSTAKER'", () => {
         fields.valgtArbeidssituasjon = ARBEIDSTAKER;
-        const res = validerSykmeldingskjema(fields);
+        const res = validerSykmeldingskjema(fields, props);
         expect(res.valgtArbeidssituasjon).to.equal(undefined);
-    });
-
-    it("Skal returnere valgtArbeidsgiver dersom valgtArbeidssituasjon === 'ARBEIDSTAKER' og valgtArbeidsgiver === undefined", () => {
-        fields.valgtArbeidssituasjon = ARBEIDSTAKER;
-        const res = validerSykmeldingskjema(fields);
-        expect(res.valgtArbeidsgiver).not.to.equal(undefined);
-    });
-
-    it("Skal ikke returnere valgtArbeidsgiver dersom valgtArbeidssituasjon === 'ARBEIDSTAKER' og valgtArbeidsgiver === {}", () => {
-        fields.valgtArbeidssituasjon = ARBEIDSTAKER;
-        fields.valgtArbeidsgiver = {
-            orgnummer: '123456789',
-            navn: 'Alna Frisør',
-        };
-        const res = validerSykmeldingskjema(fields);
-        expect(res.valgtArbeidsgiver).to.equal(undefined);
     });
 
     it('Skal ikke returnere noen ting dersom opplysningeneErRiktige = false og periode er feilaktig', () => {
@@ -112,7 +97,7 @@ describe('validerSykmeldingskjema', () => {
                 opplysning: 'periode',
                 avkrysset: true,
             }] };
-        const res = validerSykmeldingskjema(fields);
+        const res = validerSykmeldingskjema(fields, props);
         expect(res).to.deep.equal({});
     });
 
@@ -123,34 +108,34 @@ describe('validerSykmeldingskjema', () => {
                 opplysning: 'sykmeldingsgrad',
                 avkrysset: true,
             }] };
-        const res = validerSykmeldingskjema(fields);
+        const res = validerSykmeldingskjema(fields, props);
         expect(res).to.deep.equal({});
     });
 
     it('Skal returnere valgtArbeidssituasjon dersom opplysningeneErRiktige === false og alt annet er undefined', () => {
         fields.opplysningeneErRiktige = false;
         fields.beOmNyNaermesteLeder = true;
-        const res = validerSykmeldingskjema(fields);
+        const res = validerSykmeldingskjema(fields, props);
         expect(res).to.deep.equal({
-            valgtArbeidssituasjon: 'Vennligst oppgi din arbeidssituasjon for denne sykmeldingen',
-            feilaktigeOpplysninger: { _error: 'Vennligst oppgi hvilke opplysninger som ikke er riktige' },
+            valgtArbeidssituasjonShadow: 'Du må må svare på hva du er sykmeldt fra',
+            feilaktigeOpplysninger: { _error: 'Du må oppgi hvilke opplysninger som ikke er riktige' },
         });
     });
 
-    it("Skal returnere {} dersom  opplysningeneErRiktige === true og valgtArbeidssituasjon === 'ARBEIDSTAKER' og man har strengt fortrolig adresse", () => {
+    it("Skal returnere {} dersom  opplysningeneErRiktige === true og valgtArbeidssituasjonShadow === 'ARBEIDSTAKER' og man har strengt fortrolig adresse", () => {
         fields.opplysningeneErRiktige = true;
         fields.beOmNyNaermesteLeder = true;
-        fields.valgtArbeidssituasjon = ARBEIDSTAKER;
-        const props = {
+        fields.valgtArbeidssituasjonShadow = ARBEIDSTAKER;
+        const res = validerSykmeldingskjema(fields, {
+            ...props,
             harStrengtFortroligAdresse: true,
-        };
-        const res = validerSykmeldingskjema(fields, props);
+        });
         expect(res).to.deep.equal({});
     });
 
     describe('beOmNyNaermesteLeder', () => {
         it('Skal ikke returnere beOmNyNaermesteLeder dersom det ikke er valgt arbeidsgiver', () => {
-            const res = validerSykmeldingskjema(fields);
+            const res = validerSykmeldingskjema(fields, props);
             expect(res.beOmNyNaermesteLeder).to.equal(undefined);
         });
 
@@ -160,7 +145,8 @@ describe('validerSykmeldingskjema', () => {
                 navn: 'Alna',
                 naermesteLeder: {},
             };
-            const res = validerSykmeldingskjema(fields);
+            fields.valgtArbeidsgiverShasow = '123';
+            const res = validerSykmeldingskjema(fields, props);
             expect(res.beOmNyNaermesteLeder).to.equal(undefined);
         });
 
@@ -171,7 +157,7 @@ describe('validerSykmeldingskjema', () => {
                 naermesteLeder: {},
             };
             fields.valgtArbeidssituasjon = FRILANSER;
-            const res = validerSykmeldingskjema(fields);
+            const res = validerSykmeldingskjema(fields, props);
             expect(res.beOmNyNaermesteLeder).to.equal(undefined);
         });
 
@@ -181,34 +167,32 @@ describe('validerSykmeldingskjema', () => {
                 navn: 'Alna',
             };
             fields.valgtArbeidssituasjon = ARBEIDSTAKER;
-            const res = validerSykmeldingskjema(fields);
+            const res = validerSykmeldingskjema(fields, props);
             expect(res.beOmNyNaermesteLeder).to.equal(undefined);
         });
 
         it('Skal returnere beOmNyNaermesteLeder dersom det er valgt arbeidsgiver og arbeidssituasjon, og arbeidsgiver har nærmeste leder', () => {
-            fields.valgtArbeidsgiver = {
+            const arbeidsgiverMedNaermesteLeder = {
                 orgnummer: '123',
                 navn: 'Alna',
                 naermesteLeder: {
                     navn: 'Ole',
                 },
             };
-            fields.valgtArbeidssituasjon = ARBEIDSTAKER;
-            const res = validerSykmeldingskjema(fields);
+            fields.valgtArbeidsgiver = arbeidsgiverMedNaermesteLeder;
+            props.arbeidsgivere = [arbeidsgiverMedNaermesteLeder];
+            fields.valgtArbeidssituasjonShadow = '123';
+            const res = validerSykmeldingskjema(fields, props);
             expect(typeof res.beOmNyNaermesteLeder).to.equal('string');
         });
     });
 
     describe('Spørsmål for frilansere', () => {
-        let props;
         let values;
 
         beforeEach(() => {
-            props = {
-                sykmelding: {},
-            };
             values = {
-                valgtArbeidssituasjon: ARBEIDSTAKER,
+                valgtArbeidssituasjonShadow: '123',
                 opplysningeneErRiktige: true,
                 valgtArbeidsgiver: {
                     orgnummer: '123',
@@ -231,7 +215,7 @@ describe('validerSykmeldingskjema', () => {
             describe('harAnnetFravaer', () => {
                 it('Skal klage hvis feltet ikke er fylt ut', () => {
                     const res = validerSykmeldingskjema(values, props);
-                    expect(res.harAnnetFravaer).to.equal('Vennligst svar på om du var sykmeldt eller friskmeldt');
+                    expect(res.harAnnetFravaer).to.equal('Du må svare på om du brukte egenmelding eller noen annen sykmelding før denne datoen');
                     expect(res.fravaersperioder).to.equal(undefined);
                 });
 
@@ -277,7 +261,7 @@ describe('validerSykmeldingskjema', () => {
             describe('harForsikring', () => {
                 it('Skal klage hvis harForsikring ikke er fylt ut', () => {
                     const res = validerSykmeldingskjema(values, props);
-                    expect(res.harForsikring).to.equal('Vennligst svar på om du har forsikring som gjelder de første 16 dagene av sykefraværet');
+                    expect(res.harForsikring).to.equal('Du må svare på om du har forsikring som gjelder de første 16 dagene av sykefraværet');
                     expect(res.dekningsgrad).to.equal(undefined);
                 });
 
@@ -296,7 +280,7 @@ describe('validerSykmeldingskjema', () => {
 
                 it('Skal klage hvis forsikringstype ikke er valgt', () => {
                     const res = validerSykmeldingskjema(values, props);
-                    expect(res.dekningsgrad).to.equal('Vennligst oppgi hvilken forsikring du har');
+                    expect(res.dekningsgrad).to.equal('Du må oppgi hvilken forsikring du har');
                 });
 
                 it('Skal ikke klage hvis dekningsgrad er valgt', () => {

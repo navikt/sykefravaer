@@ -21,7 +21,7 @@ const harValgtArbeidsgiver = (svar, arbeidsgivere) => {
     }) !== undefined;
 };
 
-const harValgtArbeidsgiverMedNaermesteLeder = (svar, arbeidsgivere) => {
+export const harValgtArbeidsgiverMedNaermesteLeder = (svar, arbeidsgivere) => {
     const valgtArbeidsgiver = arbeidsgivere.find((s) => {
         return s.orgnummer === svar;
     });

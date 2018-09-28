@@ -1,14 +1,14 @@
-import { arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
+import { feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
 import { validerPerioder } from '../sykepengesoknad-arbeidstaker/validering/valideringUtils';
+import { harValgtArbeidsgiverMedNaermesteLeder } from './VelgArbeidssituasjon';
 
-const { ARBEIDSTAKER, DEFAULT } = arbeidssituasjoner;
 const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;
 
 const validerFrilansersporsmal = (values) => {
     const feil = {};
 
     if (values.harAnnetFravaer === undefined) {
-        feil.harAnnetFravaer = 'Vennligst svar på om du var sykmeldt eller friskmeldt';
+        feil.harAnnetFravaer = 'Du må svare på om du brukte egenmelding eller noen annen sykmelding før denne datoen';
     }
 
     if (values.harAnnetFravaer && validerPerioder(values.fravaersperioder)) {
@@ -16,11 +16,11 @@ const validerFrilansersporsmal = (values) => {
     }
 
     if (values.harForsikring === undefined) {
-        feil.harForsikring = 'Vennligst svar på om du har forsikring som gjelder de første 16 dagene av sykefraværet';
+        feil.harForsikring = 'Du må svare på om du har forsikring som gjelder de første 16 dagene av sykefraværet';
     }
 
     if (values.harForsikring && values.dekningsgrad === undefined) {
-        feil.dekningsgrad = 'Vennligst oppgi hvilken forsikring du har';
+        feil.dekningsgrad = 'Du må oppgi hvilken forsikring du har';
     }
 
     return feil;
@@ -39,25 +39,21 @@ export default (values, props = {}) => {
         return {};
     }
     if (values.opplysningeneErRiktige === undefined) {
-        feilmeldinger.opplysningeneErRiktige = 'Vennligst svar på om opplysningene i sykmeldingen er riktige';
+        feilmeldinger.opplysningeneErRiktige = 'Du må svare på om opplysningene i sykmeldingen er riktige';
     }
-    if (!values.valgtArbeidssituasjon || values.valgtArbeidssituasjon === DEFAULT) {
-        feilmeldinger.valgtArbeidssituasjon = 'Vennligst oppgi din arbeidssituasjon for denne sykmeldingen';
+    if (!values.valgtArbeidssituasjonShadow) {
+        feilmeldinger.valgtArbeidssituasjonShadow = 'Du må må svare på hva du er sykmeldt fra';
     }
 
     if (values.opplysningeneErRiktige === false && avkryssedeFeilaktigeOpplysninger.length === 0) {
         feilmeldinger.feilaktigeOpplysninger = {
-            _error: 'Vennligst oppgi hvilke opplysninger som ikke er riktige',
+            _error: 'Du må oppgi hvilke opplysninger som ikke er riktige',
         };
     }
 
-    if (values.valgtArbeidssituasjon === ARBEIDSTAKER && (!values.valgtArbeidsgiver || !values.valgtArbeidsgiver.orgnummer) && !props.harStrengtFortroligAdresse) {
-        feilmeldinger.valgtArbeidsgiver = 'Vennligst velg arbeidsgiver for denne sykmeldingen';
-    }
-    if (values.valgtArbeidssituasjon === ARBEIDSTAKER && values.valgtArbeidsgiver && values.valgtArbeidsgiver.orgnummer !== '0') {
-        if (values.valgtArbeidsgiver.naermesteLeder && values.beOmNyNaermesteLeder === undefined) {
-            feilmeldinger.beOmNyNaermesteLeder = `Vennligst svar på om ${values.valgtArbeidsgiver.naermesteLeder.navn} er din nærmeste leder med personalansvar`;
-        }
+    if (harValgtArbeidsgiverMedNaermesteLeder(values.valgtArbeidssituasjonShadow, props.arbeidsgivere)
+        && values.beOmNyNaermesteLeder === undefined) {
+        feilmeldinger.beOmNyNaermesteLeder = `Du må svare på om det er ${values.valgtArbeidsgiver.naermesteLeder.navn} som skal følge deg opp på jobben når du er syk`;
     }
 
     if (props.visFrilansersporsmal) {

@@ -133,6 +133,11 @@ describe('DinSykmeldingSkjema -', () => {
                 expect(props.initialValues).to.deep.equal(initialValues);
             });
 
+            it('Skal returnere arbeidsgivere', () => {
+                const props = mapStateToProps(state, ownProps);
+                expect(props.arbeidsgivere).to.deep.equal([]);
+            });
+
             describe('Når det finnes en sykmelding med spørsmal besvart', () => {
                 it('Skal returnere svar på spørsmål når de er besvart med nei', () => {
                     state.dineSykmeldinger.data = [

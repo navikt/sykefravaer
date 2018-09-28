@@ -19,7 +19,15 @@ import * as arbeidsgiversSykmeldingerSelectors from '../../selectors/arbeidsgive
 import * as sykeforloepSelectors from '../../selectors/sykeforloepSelectors';
 
 export class Skjemalaster extends Component {
-    componentWillMount() {
+    componentDidMount() {
+        this.hentData();
+    }
+
+    componentWillReceiveProps() {
+        this.hentData();
+    }
+
+    hentData() {
         const {
             sykmeldingId,
             skalHenteArbeidsgivere,

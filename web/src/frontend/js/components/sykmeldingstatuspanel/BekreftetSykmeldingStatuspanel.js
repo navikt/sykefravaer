@@ -3,6 +3,7 @@ import { getLedetekst, sykmelding as sykmeldingPt, tilLesbarDatoMedArstall } fro
 import AngreBekreftSykmeldingContainer from '../../containers/sykmelding/AngreBekreftSykmeldingContainer';
 import { Frilansersporsmal } from './SykmeldingStatuspanelOpplysning';
 import Statuspanel, { StatusNokkelopplysning, Statusopplysninger } from '../Statuspanel';
+import { tilStorForbokstav } from '../../utils';
 
 const BekreftetSykmeldingStatuspanel = ({ sykmelding }) => {
     return (<Statuspanel>
@@ -12,9 +13,9 @@ const BekreftetSykmeldingStatuspanel = ({ sykmelding }) => {
                     {getLedetekst(`statuspanel.status.${sykmelding.status}`)} – {tilLesbarDatoMedArstall(sykmelding.sendtdato)}
                 </p>
             </StatusNokkelopplysning>
-            <StatusNokkelopplysning tittel={getLedetekst('din-sykmelding.arbeidssituasjon.tittel.2')}>
+            <StatusNokkelopplysning tittel={getLedetekst('din-sykmelding.arbeidssituasjon.tittel.3')}>
                 <p className="js-arbeidssituasjon">
-                    {getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${sykmelding.valgtArbeidssituasjon.toLowerCase()}`)}
+                    {tilStorForbokstav(getLedetekst(`din-sykmelding.arbeidssituasjon.alternativ.${sykmelding.valgtArbeidssituasjon.toLowerCase()}.2`))}
                 </p>
             </StatusNokkelopplysning>
             <Frilansersporsmal sykmelding={sykmelding} />

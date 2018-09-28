@@ -4,13 +4,22 @@ import { getSkjemaModus, skalViseFrilansersporsmal } from '../../../js/component
 import { sykmeldingskjemamodi as modi } from '../../../js/enums/sykmeldingskjemaenums';
 import getSykmelding from '../../mockSykmeldinger';
 import { getSykmeldingSkjemanavn } from '../../../js/enums/skjemanavn';
+import { getFeilaktigeOpplysninger } from '../../../js/components/sykmeldingskjema/DinSykmeldingSkjema';
 
 const expect = chai.expect;
 
 describe('getSkjemaModus', () => {
-    it('Skal være GA_VIDERE by default', () => {
+    it('Skal være SEND by default', () => {
         const modus = getSkjemaModus({}, false);
-        expect(modus).to.equal(modi.GA_VIDERE);
+        expect(modus).to.equal(modi.SEND);
+    });
+
+    it('Skal være GA_VIDERE by default når det er satt initielle verdier', () => {
+        const modus = getSkjemaModus({
+            feilaktigeOpplysninger: getFeilaktigeOpplysninger(),
+            valgtArbeidssituasjon: null,
+        }, false);
+        expect(modus).to.equal(modi.SEND);
     });
 
     it('Skal være AVBRYT dersom periode eller sykmeldingsgrad er feil', () => {
@@ -40,7 +49,6 @@ describe('getSkjemaModus', () => {
         expect(modus).to.equal(modi.SEND);
     });
 
-
     it("Skal være BEKREFT dersom arbeidssituasjon === 'ARBEIDSTAKER' og valgtArbeidsgiver.orgnummer = '0'", () => {
         const values = {
             valgtArbeidssituasjon: arbeidssituasjoner.ARBEIDSTAKER,
@@ -50,6 +58,24 @@ describe('getSkjemaModus', () => {
         };
         const modus = getSkjemaModus(values, false);
         expect(modus).to.equal(modi.BEKREFT);
+    });
+
+    it("Skal være SEND dersom valgtArbeidssituasjon === 'NAERINGSDRIVENDE'", () => {
+        const values = {
+            valgtArbeidssituasjon: arbeidssituasjoner.NAERINGSDRIVENDE,
+        };
+        const modus = getSkjemaModus(values, false);
+        expect(modus).to.equal(modi.BEKREFT);
+    });
+
+    it('Skal være SEND dersom arbeidssituasjon === null og valgtArbeidsgiver = null', () => {
+        const values = {
+            valgtArbeidssituasjon: null,
+            valgtArbeidsgiver: null,
+            valgtArbeidssituasjonShadow: 'ANNEN_ARBEIDSSITUASJON',
+        };
+        const modus = getSkjemaModus(values, false);
+        expect(modus).to.equal(modi.SEND);
     });
 
     it('Skal være BEKREFT dersom bruker har strengt fortrolig adresse', () => {

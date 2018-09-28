@@ -1,8 +1,9 @@
 export const sykmeldingskjemamodi = {
-    GA_VIDERE: 'GA_VIDERE',
     AVBRYT: 'AVBRYT',
     SEND_MED_NAERMESTE_LEDER: 'SEND-MED-NAERMESTE-LEDER',
     SEND: 'SEND',
     BEKREFT: 'BEKREFT',
 };
 
+export const ANNEN_ARBEIDSGIVER_ORGNUMMER = '0';
+export const ANNEN_ARBEIDSSITUASJON = 'ANNEN_ARBEIDSSITUASJON';

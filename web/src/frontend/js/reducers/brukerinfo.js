@@ -78,7 +78,10 @@ function bruker(state = { data: {} }, action) {
             };
         }
         case actiontyper.SET_BRUKERINFO: {
-            const data = { ...state.data, ...action.data };
+            const data = {
+                ...state.data,
+                ...action.data,
+            };
             return {
                 ...state,
                 henter: false,

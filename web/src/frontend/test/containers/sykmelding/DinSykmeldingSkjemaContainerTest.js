@@ -286,6 +286,7 @@ describe('DinSykmeldingSkjemaContainer', () => {
                     },
                     brukerinfo: {
                         bruker: {
+                            hentet: true,
                             data: {
                                 strengtFortroligAdresse: false,
                             },
@@ -295,17 +296,23 @@ describe('DinSykmeldingSkjemaContainer', () => {
                 expect(props.skalHenteArbeidsgivere).to.equal(true);
             });
 
-            it('Skal være true dersom arbeidsgivere ikke er hentet for den aktuelle sykmeldingen og brukeren har strengt fortrolig adresse', () => {
+            it('Skal være false dersom arbeidsgivere ikke er hentet for den aktuelle sykmeldingen og brukeren har strengt fortrolig adresse', () => {
                 const props = mapStateToProps(getState({
-                    arbeidsgivere: {
-                        sykmeldingId: 456,
-                    },
                     brukerinfo: {
                         bruker: {
                             data: {
                                 strengtFortroligAdresse: true,
                             },
                         },
+                    },
+                }), ownProps);
+                expect(props.skalHenteArbeidsgivere).to.equal(false);
+            });
+
+            it('Skal være false dersom info om strengt fortrolig adresse ikke er hentet', () => {
+                const props = mapStateToProps(getState({
+                    brukerinfo: {
+                        bruker: {},
                     },
                 }), ownProps);
                 expect(props.skalHenteArbeidsgivere).to.equal(false);

@@ -111,14 +111,14 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
         case actiontyper.ANGRER_BEKREFT_SYKMELDING: {
             return {
                 ...state,
-                angreBekreftSykmelding: true,
+                angrerBekreftSykmelding: true,
                 angreBekreftSykmeldingFeilet: false,
             };
         }
         case actiontyper.ANGRE_BEKREFT_SYKMELDING_FEILET: {
             return {
                 ...state,
-                angreBekreftSykmelding: false,
+                angrerBekreftSykmelding: false,
                 angreBekreftSykmeldingFeilet: true,
             };
         }
@@ -129,7 +129,7 @@ const dineSykmeldinger = (state = initiellState, action = {}) => {
             return {
                 ...state,
                 data,
-                angreBekreftSykmelding: false,
+                angrerBekreftSykmelding: false,
                 angreBekreftSykmeldingFeilet: false,
             };
         }

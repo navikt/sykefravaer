@@ -7,13 +7,16 @@ import { angreBekreftSykmelding as angreBekreftSykmeldingAction } from '../../ac
 import { sykmeldingHarBehandletSoknad } from '../../selectors/soknaderSelectors';
 import { toggleSykmeldingEndreArbeidssituasjon } from '../../selectors/unleashTogglesSelectors';
 
-export const Container = ({ sykmelding, angreBekreftSykmelding, angreBekreftSykmeldingFeilet, vis }) => {
+export const Container = ({ sykmelding, angreBekreftSykmelding, angreBekreftSykmeldingFeilet, vis, angrerBekreftSykmelding }) => {
     return vis ? (
         <div>
             <div className="verktoylinje">
                 <Knapp
-                    type="standard"
                     mini
+                    autoDisableVedSpinner
+                    spinner={angrerBekreftSykmelding}
+                    htmlType="button"
+                    type="standard"
                     className="js-gjenaapne-sykmelding"
                     onClick={() => { return angreBekreftSykmelding(sykmelding.id); }}>
                     {getLedetekst('din-sykmelding.godkjennt.angre')}
@@ -33,6 +36,7 @@ Container.propTypes = {
     sykmelding: sykmeldingPt,
     angreBekreftSykmelding: PropTypes.func.isRequired,
     angreBekreftSykmeldingFeilet: PropTypes.bool,
+    angrerBekreftSykmelding: PropTypes.bool,
     vis: PropTypes.bool,
 };
 
@@ -45,6 +49,7 @@ export const mapStateToProps = (state, ownProps) => {
     return {
         vis,
         angreBekreftSykmeldingFeilet: state.dineSykmeldinger.angreBekreftSykmeldingFeilet,
+        angrerBekreftSykmelding: state.dineSykmeldinger.angrerBekreftSykmelding,
     };
 };
 

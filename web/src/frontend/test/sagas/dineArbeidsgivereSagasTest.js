@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { put, call } from 'redux-saga/effects';
 import { get } from 'digisyfo-npm';
-import { hentDineArbeidsgivere } from '../../js/sagas/dineArbeidsgivereSagas';
+import { hentDineArbeidsgivere } from '../../js/sagas/arbeidsgivereSagas';
 import * as actiontyper from '../../js/actions/actiontyper';
 
 describe('dineArbeidsgivereSagas', () => {
@@ -31,7 +31,7 @@ describe('dineArbeidsgivereSagas', () => {
 
     it('Skal dernest sette aktuelle arbeidsgivere', () => {
         const nextPut = put({
-            type: actiontyper.SET_AKTUELLE_ARBEIDSGIVERE,
+            type: actiontyper.AKTUELLE_ARBEIDSGIVERE_HENTET,
             sykmeldingId: '887766',
             arbeidsgivere: [{
                 orgnummer: '123456789',

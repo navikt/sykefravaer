@@ -19,7 +19,15 @@ import * as arbeidsgiversSykmeldingerSelectors from '../../selectors/arbeidsgive
 import * as sykeforloepSelectors from '../../selectors/sykeforloepSelectors';
 
 export class Skjemalaster extends Component {
-    componentWillMount() {
+    componentDidMount() {
+        this.hentData();
+    }
+
+    componentWillReceiveProps() {
+        this.hentData();
+    }
+
+    hentData() {
         const {
             sykmeldingId,
             skalHenteArbeidsgivere,
@@ -95,7 +103,9 @@ export const henterDataTilSykmeldingskjema = (state, sykmeldingId) => {
         || arbeidsgiversSykmeldingerSelectors.skalHenteArbeidsgiversSykmeldinger(state)
         || state.arbeidsgiversSykmeldinger.henter
         || sykeforloepSelectors.skalHenteSykeforloep(state)
-        || state.sykeforloep.henter;
+        || state.sykeforloep.henter
+        || state.arbeidsgivere.henter
+        || arbeidsgivereSelectors.skalHenteArbeidsgivere(state, sykmeldingId);
 };
 
 export const mapStateToProps = (state, ownProps) => {

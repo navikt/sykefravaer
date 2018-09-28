@@ -1,18 +1,16 @@
 import { arbeidssituasjoner, feilaktigeOpplysninger as feilaktigeOpplysningerEnums } from 'digisyfo-npm';
-import { sykmeldingskjemamodi as modi } from '../../enums/sykmeldingskjemaenums';
+import { ANNEN_ARBEIDSGIVER_ORGNUMMER, sykmeldingskjemamodi as modi } from '../../enums/sykmeldingskjemaenums';
 import { getSykmeldingSkjemanavn } from '../../enums/skjemanavn';
 import * as sykmeldingSelectors from '../../selectors/sykmeldingMetaSelectors';
 import { hentSkjemaVerdier } from '../../selectors/reduxFormSelectors';
 
 const { PERIODE, SYKMELDINGSGRAD } = feilaktigeOpplysningerEnums;
-const { ARBEIDSTAKER, DEFAULT, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
+const { ARBEIDSTAKER, NAERINGSDRIVENDE, FRILANSER } = arbeidssituasjoner;
 
 export const getSkjemaModus = (values, harStrengtFortroligAdresse) => {
-    if (!values || values === {}) {
-        return modi.GA_VIDERE;
-    }
-    const { opplysningeneErRiktige, feilaktigeOpplysninger, valgtArbeidssituasjon } = values;
-    const harValgtAnnenArbeidsgiver = values.valgtArbeidsgiver && values.valgtArbeidsgiver.orgnummer === '0';
+    const { opplysningeneErRiktige, feilaktigeOpplysninger, valgtArbeidssituasjon, valgtArbeidsgiver } = values;
+    const harValgtAnnenArbeidsgiver = valgtArbeidsgiver
+        && valgtArbeidsgiver.orgnummer === ANNEN_ARBEIDSGIVER_ORGNUMMER;
     const valgteFeilaktigeOpplysninger = feilaktigeOpplysninger
         ? feilaktigeOpplysninger
             .filter((o) => {
@@ -23,28 +21,28 @@ export const getSkjemaModus = (values, harStrengtFortroligAdresse) => {
             })
         : [];
 
-    if (opplysningeneErRiktige === false &&
-        feilaktigeOpplysninger && (
-            valgteFeilaktigeOpplysninger.indexOf(PERIODE) > -1 ||
-            valgteFeilaktigeOpplysninger.indexOf(SYKMELDINGSGRAD) > -1)
-    ) {
+    if (opplysningeneErRiktige === false
+        && feilaktigeOpplysninger
+        && (valgteFeilaktigeOpplysninger.indexOf(PERIODE) > -1
+            || valgteFeilaktigeOpplysninger.indexOf(SYKMELDINGSGRAD) > -1)) {
         return modi.AVBRYT;
     }
-    if (!valgtArbeidssituasjon ||
-        valgtArbeidssituasjon === DEFAULT) {
-        return modi.GA_VIDERE;
-    }
+
     if (valgtArbeidssituasjon === ARBEIDSTAKER &&
         !harStrengtFortroligAdresse &&
         !harValgtAnnenArbeidsgiver &&
         values.beOmNyNaermesteLeder === false) {
         return modi.SEND_MED_NAERMESTE_LEDER;
     }
-    if (valgtArbeidssituasjon === ARBEIDSTAKER &&
-        !harStrengtFortroligAdresse &&
-        !harValgtAnnenArbeidsgiver) {
+
+    if (!values
+        || !valgtArbeidssituasjon
+        || (valgtArbeidssituasjon === ARBEIDSTAKER
+            && !harStrengtFortroligAdresse
+            && !harValgtAnnenArbeidsgiver)) {
         return modi.SEND;
     }
+
     return modi.BEKREFT;
 };
 

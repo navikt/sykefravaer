@@ -1,5 +1,5 @@
 import { getLedetekst } from 'digisyfo-npm';
-import { formaterEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
+import { fjernIndexFraTag, formaterEnkeltverdi } from '../../components/soknad-felles/fieldUtils';
 import { CHECKED } from '../../enums/svarEnums';
 import { CHECKBOX_GRUPPE, PERIODER, FRITEKST, IKKE_RELEVANT } from '../../enums/svartyper';
 import { validerPerioder } from '../../components/sykepengesoknad-arbeidstaker/validering/valideringUtils';
@@ -17,7 +17,8 @@ const hentSporsmalMedStilteUndersporsmal = (sporsmalsliste, values) => {
 };
 
 export const beregnFeilmeldingnokkelFraTag = (tag, max) => {
-    return `soknad.feilmelding.${tag.toLowerCase()}${max ? '.max' : ''}`;
+    const tagUtenIndex = fjernIndexFraTag(tag);
+    return `soknad.feilmelding.${tagUtenIndex.toLowerCase()}${max ? '.max' : ''}`;
 };
 
 export const beregnFeilmeldingstekstFraTag = (tag, max) => {

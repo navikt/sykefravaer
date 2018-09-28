@@ -346,7 +346,10 @@ describe('DinSykmeldingContainer', () => {
             ownProps.params.sykmeldingId = '3';
             const props = mapStateToProps(state, ownProps);
             const component = shallow(<Container {...props} {...actions} />);
-            expect(component.find(NySykmelding).prop('visEldreSykmeldingVarsel')).to.equal(true);
+            expect(component.find(NySykmelding)
+                .prop('visEldreSykmeldingVarsel'))
+                .to
+                .equal(true);
         });
 
         it('Skal returnere visEldreSykmeldingVarsel === false dersom den valgte sykmeldingen er den eldste', () => {
@@ -355,7 +358,10 @@ describe('DinSykmeldingContainer', () => {
             ownProps.params.sykmeldingId = '2';
             const props = mapStateToProps(state, ownProps);
             const component = shallow(<Container {...props} {...actions} />);
-            expect(component.find(NySykmelding).prop('visEldreSykmeldingVarsel')).to.equal(false);
+            expect(component.find(NySykmelding)
+                .prop('visEldreSykmeldingVarsel'))
+                .to
+                .equal(false);
         });
 
         it('Skal returnere eldsteSykmeldingId', () => {
@@ -364,7 +370,10 @@ describe('DinSykmeldingContainer', () => {
             ownProps.params.sykmeldingId = '4';
             const props = mapStateToProps(state, ownProps);
             const component = shallow(<Container {...props} {...actions} />);
-            expect(component.find(NySykmelding).prop('eldsteSykmeldingId')).to.equal('2');
+            expect(component.find(NySykmelding)
+                .prop('eldsteSykmeldingId'))
+                .to
+                .equal('2');
         });
 
         it('Skal returnere false dersom den valgte sykmeldingen har samme periode som den eldste sykmeldingen', () => {
@@ -403,7 +412,10 @@ describe('DinSykmeldingContainer', () => {
             ownProps.params.sykmeldingId = '2';
             const props = mapStateToProps(state, ownProps);
             const component = shallow(<Container {...props} {...actions} />);
-            expect(component.find(NySykmelding).prop('visEldreSykmeldingVarsel')).to.equal(false);
+            expect(component.find(NySykmelding)
+                .prop('visEldreSykmeldingVarsel'))
+                .to
+                .equal(false);
         });
 
         it('Skal returnere true dersom den valgte sykmeldingen er ikke er eldst, men har samme varighet som den eldste sykmeldingen', () => {
@@ -442,7 +454,10 @@ describe('DinSykmeldingContainer', () => {
             ownProps.params.sykmeldingId = '3';
             const props = mapStateToProps(state, ownProps);
             const component = shallow(<Container {...props} {...actions} />);
-            expect(component.find(NySykmelding).prop('visEldreSykmeldingVarsel')).to.equal(true);
+            expect(component.find(NySykmelding)
+                .prop('visEldreSykmeldingVarsel'))
+                .to
+                .equal(true);
         });
 
 
@@ -482,8 +497,12 @@ describe('DinSykmeldingContainer', () => {
             ownProps.params.sykmeldingId = '3';
             const props = mapStateToProps(state, ownProps);
             const component = shallow(<Container {...props} {...actions} />);
-            expect(component.find(NySykmelding).prop('visEldreSykmeldingVarsel')).to.equal(true);
+            expect(component.find(NySykmelding)
+                .prop('visEldreSykmeldingVarsel'))
+                .to
+                .equal(true);
         });
+    });
 
     describe('mapStateToProps', () => {
         beforeEach(() => {

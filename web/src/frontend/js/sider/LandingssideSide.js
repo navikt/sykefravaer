@@ -24,10 +24,10 @@ export class Container extends Component {
             skalHenteMote,
             skalHenteSykepengesoknader,
             skalHenteLedere,
-            skalHenteDineSykmeldinger,
             skalHenteSykeforloep,
             skalHenteOppfolgingsdialoger,
             skalHenteSoknader,
+            skalHenteDineSykmeldinger,
             actions,
         } = this.props;
 

@@ -1,5 +1,4 @@
-import { call, put, fork } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { call, put, fork, takeEvery, all } from 'redux-saga/effects';
 import { get, getAjax, log } from 'digisyfo-npm';
 import * as actions from '../actions/brukerinfo_actions';
 import * as actiontyper from '../actions/actiontyper';
@@ -27,16 +26,16 @@ export function* sjekkInnlogging() {
 }
 
 function* watchHentBrukerinfo() {
-    yield* takeEvery(actiontyper.HENT_BRUKERINFO_FORESPURT, hentBrukerinfo);
+    yield takeEvery(actiontyper.HENT_BRUKERINFO_FORESPURT, hentBrukerinfo);
 }
 
 function* watchSjekkInnlogging() {
-    yield* takeEvery(actiontyper.SJEKK_INNLOGGING_FORESPURT, sjekkInnlogging);
+    yield takeEvery(actiontyper.SJEKK_INNLOGGING_FORESPURT, sjekkInnlogging);
 }
 
 export default function* brukerinfoSagas() {
-    yield [
+    yield all([
         fork(watchHentBrukerinfo),
         fork(watchSjekkInnlogging),
-    ];
+    ]);
 }

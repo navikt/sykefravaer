@@ -1,5 +1,4 @@
-import { call, put, fork } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { call, put, fork, takeEvery, all } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
 import { post, log, arbeidssituasjoner } from 'digisyfo-npm';
 import * as actions from '../actions/dinSykmelding_actions';
@@ -95,31 +94,31 @@ export function* angreBekreftSykmelding(action) {
 }
 
 function* watchAngreBekreftSykmelding() {
-    yield* takeEvery(actiontyper.ANGRE_BEKREFT_SYKMELDING_FORESPURT, angreBekreftSykmelding);
+    yield takeEvery(actiontyper.ANGRE_BEKREFT_SYKMELDING_FORESPURT, angreBekreftSykmelding);
 }
 
 function* watchAvbrytSykmelding() {
-    yield* takeEvery(actiontyper.AVBRYT_SYKMELDING_FORESPURT, avbrytSykmelding);
+    yield takeEvery(actiontyper.AVBRYT_SYKMELDING_FORESPURT, avbrytSykmelding);
 }
 
 function* watchGjenaapneSykmelding() {
-    yield* takeEvery(actiontyper.GJENAAPNE_SYKMELDING_FORESPURT, gjenaapneSykmelding);
+    yield takeEvery(actiontyper.GJENAAPNE_SYKMELDING_FORESPURT, gjenaapneSykmelding);
 }
 
 function* watchSendSykmelding() {
-    yield* takeEvery(actiontyper.SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT, sendSykmeldingTilArbeidsgiver);
+    yield takeEvery(actiontyper.SEND_SYKMELDING_TIL_ARBEIDSGIVER_FORESPURT, sendSykmeldingTilArbeidsgiver);
 }
 
 function* watchBekreftSykmelding() {
-    yield* takeEvery(actiontyper.BEKREFT_SYKMELDING_FORESPURT, bekreftSykmelding);
+    yield takeEvery(actiontyper.BEKREFT_SYKMELDING_FORESPURT, bekreftSykmelding);
 }
 
 export default function* dinSykmeldingSagas() {
-    yield [
+    yield all([
         fork(watchAvbrytSykmelding),
         fork(watchGjenaapneSykmelding),
         fork(watchSendSykmelding),
         fork(watchBekreftSykmelding),
         fork(watchAngreBekreftSykmelding),
-    ];
+    ]);
 }

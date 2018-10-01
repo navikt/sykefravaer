@@ -1,6 +1,5 @@
 import { get, log } from 'digisyfo-npm';
-import { takeEvery } from 'redux-saga';
-import { call, put, fork } from 'redux-saga/effects';
+import { call, put, fork, takeEvery } from 'redux-saga/effects';
 import * as actiontyper from '../actions/actiontyper';
 import * as actions from '../actions/arbeidsgiversSykmeldinger_actions';
 
@@ -16,7 +15,7 @@ export function* hentArbeidsgiversSykmeldinger() {
 }
 
 function* watchHentArbeidsgiversSykmeldinger() {
-    yield* takeEvery([
+    yield takeEvery([
         actiontyper.HENT_ARBEIDSGIVERS_SYKMELDINGER_FORESPURT,
         actiontyper.SYKMELDING_BEKREFTET,
         actiontyper.SYKMELDING_SENDT,

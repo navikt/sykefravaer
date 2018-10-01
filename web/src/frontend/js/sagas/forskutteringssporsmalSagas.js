@@ -1,5 +1,4 @@
-import { call, put, fork } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { call, put, fork, takeEvery } from 'redux-saga/effects';
 import { post, log } from 'digisyfo-npm';
 import * as actions from '../actions/forskutteringssporsmal_actions';
 import { SJEKK_SKAL_VISE_FORSKUTTERINGSSPORSMAL_FORESPURT } from '../actions/actiontyper';
@@ -17,7 +16,7 @@ export function* sjekkSkalViseForskutteringssporsmal(action) {
 }
 
 function* watchSjekkSkalViseForskutteringssporsmal() {
-    yield* takeEvery(SJEKK_SKAL_VISE_FORSKUTTERINGSSPORSMAL_FORESPURT, sjekkSkalViseForskutteringssporsmal);
+    yield takeEvery(SJEKK_SKAL_VISE_FORSKUTTERINGSSPORSMAL_FORESPURT, sjekkSkalViseForskutteringssporsmal);
 }
 
 export default function* forskutteringssporsmalSagas() {

@@ -1,3 +1,4 @@
+import { all } from 'redux-saga/effects';
 import {
     ledeteksterSagas,
     tidslinjerSagas,
@@ -47,7 +48,7 @@ import unleashTogglesSagas from './unleashTogglesSagas';
 import metrikkerSagas from './metrikkerSagas';
 
 export default function* rootSaga() {
-    yield [
+    yield all([
         arbeidsgiversSykmeldingerSagas(),
         arbeidsforholdSagas(),
         brukerinfoSagas(),
@@ -91,5 +92,5 @@ export default function* rootSaga() {
         soknaderSagas(),
         unleashTogglesSagas(),
         metrikkerSagas(),
-    ];
+    ]);
 }

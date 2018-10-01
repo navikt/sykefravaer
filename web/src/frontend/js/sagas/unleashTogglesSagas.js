@@ -1,5 +1,4 @@
-import { call, fork, put } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { call, fork, put, takeEvery } from 'redux-saga/effects';
 import * as actions from '../actions/unleashToggles_actions';
 import * as actiontyper from '../actions/actiontyper';
 import { post } from '../gateway-api';
@@ -16,7 +15,7 @@ export function* hentUnleashToggles() {
 }
 
 function* watchHentUnleashToggles() {
-    yield* takeEvery(actiontyper.HENT_UNLEASH_TOGGLES_FORESPURT, hentUnleashToggles);
+    yield takeEvery(actiontyper.HENT_UNLEASH_TOGGLES_FORESPURT, hentUnleashToggles);
 }
 
 export default function* unleashTogglesSagas() {

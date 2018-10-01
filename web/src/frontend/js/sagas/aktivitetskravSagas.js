@@ -1,5 +1,4 @@
-import { call, put, fork } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { call, put, fork, takeEvery } from 'redux-saga/effects';
 import { post, log } from 'digisyfo-npm';
 import * as actions from '../actions/aktivitetskrav_actions';
 import * as actiontyper from '../actions/actiontyper';
@@ -16,7 +15,7 @@ export function* bekreftAktivitetskrav() {
 }
 
 function* watchBekreftAktivitetskrav() {
-    yield* takeEvery(actiontyper.BEKREFT_AKTIVITETSKRAV_FORESPURT, bekreftAktivitetskrav);
+    yield takeEvery(actiontyper.BEKREFT_AKTIVITETSKRAV_FORESPURT, bekreftAktivitetskrav);
 }
 
 export default function* aktivitetskravSagas() {

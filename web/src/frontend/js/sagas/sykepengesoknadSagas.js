@@ -1,5 +1,4 @@
-import { call, fork, put, select } from 'redux-saga/effects';
-import { takeEvery } from 'redux-saga';
+import { call, fork, put, select, takeEvery, all } from 'redux-saga/effects';
 import { get, log, post } from 'digisyfo-npm';
 import { browserHistory } from 'react-router';
 import * as actions from '../actions/sykepengesoknader_actions';
@@ -114,43 +113,43 @@ export function* gjenapneSoknad(action) {
 }
 
 function* watchHentBerikelse() {
-    yield* takeEvery(actiontyper.SYKEPENGESOKNAD_BERIKELSE_FORESPURT, hentBerikelse);
+    yield takeEvery(actiontyper.SYKEPENGESOKNAD_BERIKELSE_FORESPURT, hentBerikelse);
 }
 
 function* watchHentSykepengesoknader() {
-    yield* takeEvery(actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT, hentSykepengesoknader);
+    yield takeEvery(actiontyper.HENT_SYKEPENGESOKNADER_FORESPURT, hentSykepengesoknader);
 }
 
 function* watchSendSykepengesoknad() {
-    yield* takeEvery(actiontyper.SEND_SYKEPENGESOKNAD_FORESPURT, sendSykepengesoknad);
+    yield takeEvery(actiontyper.SEND_SYKEPENGESOKNAD_FORESPURT, sendSykepengesoknad);
 }
 
 function* watchSendSykepengesoknadTilNAV() {
-    yield* takeEvery(actiontyper.SEND_SYKEPENGESOKNAD_TIL_NAV_FORESPURT, sendSykepengesoknadTilNAV);
+    yield takeEvery(actiontyper.SEND_SYKEPENGESOKNAD_TIL_NAV_FORESPURT, sendSykepengesoknadTilNAV);
 }
 
 function* watchSendSykepengesoknadTilArbeidsgiver() {
-    yield* takeEvery(actiontyper.SEND_SYKEPENGESOKNAD_TIL_ARBEIDSGIVER_FORESPURT, sendSykepengesoknadTilArbeidsgiver);
+    yield takeEvery(actiontyper.SEND_SYKEPENGESOKNAD_TIL_ARBEIDSGIVER_FORESPURT, sendSykepengesoknadTilArbeidsgiver);
 }
 
 function* watchSykmeldingSendt() {
-    yield* takeEvery(actiontyper.SYKMELDING_SENDT, hentSykepengesoknader);
+    yield takeEvery(actiontyper.SYKMELDING_SENDT, hentSykepengesoknader);
 }
 
 function* watchEndreSykepengesoknad() {
-    yield* takeEvery(actiontyper.START_ENDRING_SYKEPENGESOKNAD_FORESPURT, startEndring);
+    yield takeEvery(actiontyper.START_ENDRING_SYKEPENGESOKNAD_FORESPURT, startEndring);
 }
 
 function* watchAvbrytSoknad() {
-    yield* takeEvery(actiontyper.AVBRYT_SYKEPENGESOKNAD_FORESPURT, avbrytSoknad);
+    yield takeEvery(actiontyper.AVBRYT_SYKEPENGESOKNAD_FORESPURT, avbrytSoknad);
 }
 
 function* watchGjenapneSoknad() {
-    yield* takeEvery(actiontyper.GJENAPNE_SYKEPENGESOKNAD_FORESPURT, gjenapneSoknad);
+    yield takeEvery(actiontyper.GJENAPNE_SYKEPENGESOKNAD_FORESPURT, gjenapneSoknad);
 }
 
 export default function* sykepengesoknadSagas() {
-    yield [
+    yield all([
         fork(watchHentSykepengesoknader),
         fork(watchSendSykepengesoknad),
         fork(watchSykmeldingSendt),
@@ -160,5 +159,5 @@ export default function* sykepengesoknadSagas() {
         fork(watchHentBerikelse),
         fork(watchAvbrytSoknad),
         fork(watchGjenapneSoknad),
-    ];
+    ]);
 }
